@@ -8,6 +8,7 @@
 		UDim2 Size = size of the frame
 		int ZIndex = The draw index of the frame.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local UserInputService = game:GetService("UserInputService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -16,6 +17,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Input = require(Plugin.Src.Util.Input)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
@@ -684,9 +686,16 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-ContextServices.mapToProps(EditorController, {
-	Analytics = ContextServices.Analytics
-})
+if FFlagAnimationClipEditorWithContext then
+	EditorController = withContext({
+		Analytics = ContextServices.Analytics
+	})(EditorController)
+else
+	ContextServices.mapToProps(EditorController, {
+		Analytics = ContextServices.Analytics
+	})
+end
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorController)

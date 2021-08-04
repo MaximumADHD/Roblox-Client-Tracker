@@ -1,6 +1,7 @@
 --[[
 	Container component for rendering the lattices for each deformable part.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -9,6 +10,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Lattice = require(Plugin.Src.Components.LatticeTool.Lattice)
 
@@ -161,8 +163,15 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-ContextServices.mapToProps(LatticeTool,{
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	LatticeTool = withContext({
+		EditingItemContext = EditingItemContext,
+	})(LatticeTool)
+else
+	ContextServices.mapToProps(LatticeTool,{
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(LatticeTool)

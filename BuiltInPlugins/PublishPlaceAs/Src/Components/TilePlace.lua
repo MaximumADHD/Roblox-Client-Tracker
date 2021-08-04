@@ -1,10 +1,12 @@
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -205,10 +207,18 @@ function TilePlace:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(TilePlace, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		TilePlace = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(TilePlace)
+	else
+		ContextServices.mapToProps(TilePlace, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 end
 
 return TilePlace

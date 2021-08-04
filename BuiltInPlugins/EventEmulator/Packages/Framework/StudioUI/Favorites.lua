@@ -3,22 +3,24 @@
 	The icon can be clicked to toggle favorite status.
 
 	Required Props:
-		ContextItem Localization: A Localization ContextItem, which is provided via mapToProps.
+		ContextItem Localization: A Localization ContextItem, which is provided via withContext.
 		number Count: the number of favorites this thing has.
 		boolean IsFavorited: does the current user have this thing favorited
 		callback OnClick: Called when clicking the icon.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: LayoutOrder of the component.
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local prioritize = Util.prioritize
@@ -99,10 +101,19 @@ function Favorites:render()
 	})
 end
 
-ContextServices.mapToProps(Favorites, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Favorites = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Favorites)
+else
+	ContextServices.mapToProps(Favorites, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Favorites

@@ -7,6 +7,7 @@
 		table Buttons = The buttons to add to this button bar.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local BUTTON_BAR_PADDING = 25
@@ -22,6 +23,7 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local BUTTON_WIDTH = 125
 local BUTTON_HEIGHT = 35
@@ -93,10 +95,18 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		}, components)
 	end
 
-	ContextServices.mapToProps(ButtonBar, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		ButtonBar = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(ButtonBar)
+	else
+		ContextServices.mapToProps(ButtonBar, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 
 	return ButtonBar
 else

@@ -28,6 +28,7 @@
 			send HTTP request for all languages information
 ]]
 local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local StudioService = game:GetService("StudioService")
 local LocalizationService = game:GetService("LocalizationService")
@@ -38,6 +39,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -310,13 +312,24 @@ function LanguageSection:render()
 	})
 end
 
-ContextServices.mapToProps(LanguageSection, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-	Networking = NetworkingContext,
-	Plugin = ContextServices.Plugin,
-})
+if FFlagPlayerEmulatorWithContext then
+	LanguageSection = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})(LanguageSection)
+else
+	ContextServices.mapToProps(LanguageSection, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

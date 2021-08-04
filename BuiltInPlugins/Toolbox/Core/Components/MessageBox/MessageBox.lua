@@ -1,3 +1,4 @@
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -7,6 +8,7 @@ local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local withTheme = ContextHelper.withTheme
 
@@ -258,8 +260,15 @@ function MessageBox:render()
 	end)
 end
 
-ContextServices.mapToProps(MessageBox, {
-	Plugin = ContextServices.Plugin,
-})
+if FFlagToolboxWithContext then
+	MessageBox = withContext({
+		Plugin = ContextServices.Plugin,
+	})(MessageBox)
+else
+	ContextServices.mapToProps(MessageBox, {
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return MessageBox

@@ -7,6 +7,7 @@
 	Props:
 		Vector2 Size = An optional override size for the widget.
 ]]
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local DEFAULT_DIALOG_SIZE = Vector2.new(400, 217)
 local BORDER_PADDING = 24
@@ -22,6 +23,7 @@ local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local StudioUI = require(Framework.StudioUI)
 local Localization = ContextServices.Localization
 local FrameworkDialog = StudioUI.StyledDialog
@@ -78,9 +80,16 @@ function InstallationDialog:render()
 	}, self.props[Roact.Children])
 end
 
-ContextServices.mapToProps(InstallationDialog, {
-	Localization = ContextServices.Localization,
-})
+if FFlagPluginManagementWithContext then
+	InstallationDialog = withContext({
+		Localization = ContextServices.Localization,
+	})(InstallationDialog)
+else
+	ContextServices.mapToProps(InstallationDialog, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 
 return RoactRodux.connect(function(state, props)

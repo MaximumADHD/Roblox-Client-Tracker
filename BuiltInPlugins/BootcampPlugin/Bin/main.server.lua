@@ -8,7 +8,7 @@ end
 
 -- TODO DEVTOOLS-4481: The DevFramework Flags util has a bug triggers the assert for missing
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
-require(script.Parent.defineFlags)
+require(script.Parent.defineLuaFlags)
 
 local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()

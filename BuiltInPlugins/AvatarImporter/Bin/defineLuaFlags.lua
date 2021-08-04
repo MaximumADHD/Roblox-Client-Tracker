@@ -6,5 +6,6 @@ game:DefineFastFlag("FixImporterCustomConfigurer", false)
 
 game:DefineFastFlag("ImportCustomAvatarsInFrontOfCamera", false)
 
+game:DefineFastFlag("RemoveImportRequirements", false)
 
 return nil

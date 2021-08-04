@@ -1,12 +1,14 @@
 --[[
 	Wrapper component for screen flow of the editor.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
@@ -93,8 +95,15 @@ function LayeredClothingEditor:willUnmount()
 	self.props.EditingItemContext:clear()
 end
 
-ContextServices.mapToProps(LayeredClothingEditor,{
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	LayeredClothingEditor = withContext({
+		EditingItemContext = EditingItemContext,
+	})(LayeredClothingEditor)
+else
+	ContextServices.mapToProps(LayeredClothingEditor,{
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 return LayeredClothingEditor

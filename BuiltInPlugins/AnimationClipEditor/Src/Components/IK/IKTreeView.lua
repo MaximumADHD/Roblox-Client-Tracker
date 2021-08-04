@@ -17,6 +17,7 @@
 		function SetSelectedTracks(string) = sets currently selected joint to given string
 		function OnTreeUpdated = callback for when the nodes of the tree are updated
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
@@ -29,6 +30,7 @@ local TreeView = Framework.UI.TreeView
 local Button = Framework.UI.Button
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local HierarchyLines = require(Plugin.Src.Components.IK.HierarchyLines)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
@@ -285,9 +287,16 @@ function IKTreeView:render()
 		})
 end
 
-ContextServices.mapToProps(IKTreeView, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	IKTreeView = withContext({
+		Theme = ContextServices.Theme,
+	})(IKTreeView)
+else
+	ContextServices.mapToProps(IKTreeView, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return IKTreeView

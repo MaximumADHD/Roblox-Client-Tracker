@@ -9,6 +9,7 @@
 			is used to index into the Localization table to display a message.
 		table Entries = A list of strings to format into the error message.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local PADDING = 10
 local HEADER_HEIGHT = 21
@@ -19,6 +20,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local ErrorDialogContents = Roact.PureComponent:extend("ErrorDialogContents")
 
@@ -85,10 +87,18 @@ function ErrorDialogContents:render()
 	})
 end
 
-ContextServices.mapToProps(ErrorDialogContents, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagAnimationClipEditorWithContext then
+	ErrorDialogContents = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(ErrorDialogContents)
+else
+	ContextServices.mapToProps(ErrorDialogContents, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 
 return ErrorDialogContents

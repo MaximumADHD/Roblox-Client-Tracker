@@ -1,7 +1,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Action = require(Plugin.Packages.Framework.Util.Action)
+local Action = require(Plugin.Packages.Framework).Util.Action
 local Screens = require(Plugin.Src.Util.Screens)
 
 return Action(script.Name, function(screen)

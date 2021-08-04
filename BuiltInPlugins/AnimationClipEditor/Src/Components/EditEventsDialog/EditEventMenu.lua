@@ -7,12 +7,14 @@
 		function OnMenuItemClicked(item) = A callback for when the user selects
 			a menu item. Can be "Edit" or "Delete".
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
@@ -51,8 +53,15 @@ function EditEventMenu:render()
 	}) or nil
 end
 
-ContextServices.mapToProps(EditEventMenu, {
-	Localization = ContextServices.Localization
-})
+if FFlagAnimationClipEditorWithContext then
+	EditEventMenu = withContext({
+		Localization = ContextServices.Localization
+	})(EditEventMenu)
+else
+	ContextServices.mapToProps(EditEventMenu, {
+		Localization = ContextServices.Localization
+	})
+end
+
 
 return EditEventMenu

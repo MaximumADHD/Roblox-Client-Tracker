@@ -16,6 +16,7 @@
 		number SelectedRow: The index of the currently selected row.
 		number SortIndex: The index of the current column that is being sorted.
 		any Footer: A Roact fragment or element to be displayed in the footer.
+		boolean DisableTooltip: Whether to disable tooltips that appear when hovering over cells where the text is truncated.
 		boolean ShowHeader: Whether to display the header. (defalt = true)
 		boolean ShowFooter: Whether to display the footer. (default = true if the Footer prop is non-nil)
 		Enum.SortDirection SortOrder: The order that the column is being sorted in.
@@ -30,13 +31,14 @@
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Dash = require(Framework.packages.Dash)
 local copy = Dash.copy
@@ -53,6 +55,9 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
+
+local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -85,6 +90,7 @@ function TreeTable:init()
 			OnToggle = self.onToggle,
 			Expansion = self.props.Expansion,
 			CellStyle = self.props.Stylizer,
+			DisableTooltip = FFlagToggleTreeTableTooltip and self.props.DisableTooltip or nil,
 		},
 	}
 end
@@ -122,6 +128,7 @@ function TreeTable:calculateItems(prevProps)
 				OnToggle = self.onToggle,
 				Expansion = props.Expansion,
 				CellStyle = props.Stylizer,
+				DisableTooltip = FFlagToggleTreeTableTooltip and props.DisableTooltip or nil,
 			}
 		end
 		local rows = nextState.rows or prevState.rows
@@ -187,8 +194,15 @@ function TreeTable:render()
 	})
 end
 
-ContextServices.mapToProps(TreeTable, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TreeTable = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(TreeTable)
+else
+	ContextServices.mapToProps(TreeTable, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return TreeTable

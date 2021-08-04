@@ -9,6 +9,7 @@
 			displaying in the editor.
 		int MaxHeight = The hosted height of this component, in pixels.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -16,6 +17,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -83,8 +85,15 @@ function TrackColors:render()
 		}, children)
 end
 
-ContextServices.mapToProps(TrackColors, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TrackColors = withContext({
+		Theme = ContextServices.Theme,
+	})(TrackColors)
+else
+	ContextServices.mapToProps(TrackColors, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return TrackColors

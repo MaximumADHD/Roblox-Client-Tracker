@@ -27,7 +27,7 @@ function EditDebugpointDialog:render()
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		Enabled = enabled,
 		Size = Vector2.new(640, 480),
-		MinSize = Vector2.new(250, 200),
+		MinSize = Vector2.new(350, 250),
 		Resizable = true,
 		Modal = true,
 	}, {

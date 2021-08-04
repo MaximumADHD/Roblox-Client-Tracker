@@ -8,6 +8,8 @@
 ]]
 
 local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
+local FFlagDevFrameworkExpandablePane = game:GetFastFlag("DevFrameworkExpandablePane")
 
 local function newDefaults()
 	return {
@@ -24,8 +26,11 @@ function FrameworkStyles.new()
 		Box = newDefaults(),
 		BulletList = newDefaults(),
 		Button = newDefaults(),
+		Checkbox = newDefaults(),
+		CheckboxTreeView = FFlagDevFrameworkCheckboxTreeView and newDefaults() or nil,
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
+		ExpandablePane = FFlagDevFrameworkExpandablePane and newDefaults() or nil,
 		IconButton = newDefaults(),
 		Image = newDefaults(),
 		InfiniteScrollingFrame = newDefaults(),
@@ -58,6 +63,7 @@ function FrameworkStyles.new()
 		Tooltip = newDefaults(),
 		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
+		TreeViewRow = newDefaults(),
 
 		-- StudioUI Styles
 		AssetPreview = newDefaults(),

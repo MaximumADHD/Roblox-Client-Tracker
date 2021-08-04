@@ -12,6 +12,7 @@
 			to save the modified newEvents table to the animation data.
 		function OnClose = A callback for when the dialog closes.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
@@ -39,6 +40,7 @@ local Framework = require(Plugin.Packages.Framework)
 local StyledDialog = Framework.StudioUI.StyledDialog
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local TextBox = require(Plugin.Src.Components.TextBox)
@@ -424,11 +426,20 @@ function EditEventsDialog:render()
 	})
 end
 
-ContextServices.mapToProps(EditEventsDialog, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagAnimationClipEditorWithContext then
+	EditEventsDialog = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(EditEventsDialog)
+else
+	ContextServices.mapToProps(EditEventsDialog, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 
 return EditEventsDialog

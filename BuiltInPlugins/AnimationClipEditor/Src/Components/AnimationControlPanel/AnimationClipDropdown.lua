@@ -24,6 +24,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local PADDING = UDim.new(0, Constants.INDENT_PADDING)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
@@ -42,6 +43,7 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
 local FFlagFix989de35 = game:DefineFastFlag("ACEFix989de35", false)
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
 function AnimationClipDropdown:init()
@@ -349,12 +351,22 @@ function AnimationClipDropdown:render()
 	})
 end
 
-ContextServices.mapToProps(AnimationClipDropdown, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAnimationClipEditorWithContext then
+	AnimationClipDropdown = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Analytics = ContextServices.Analytics,
+	})(AnimationClipDropdown)
+else
+	ContextServices.mapToProps(AnimationClipDropdown, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 
 local function mapStateToProps(state, props)

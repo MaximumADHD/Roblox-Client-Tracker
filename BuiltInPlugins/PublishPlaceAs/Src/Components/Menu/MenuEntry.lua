@@ -9,6 +9,7 @@
 		function onClicked = Callback invoked when this MenuEntry is clicked
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -16,6 +17,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = Plugin.Packages.Framework
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 
@@ -163,9 +165,16 @@ function MenuEntry:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(MenuEntry,{
-		Theme = ContextServices.Theme,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		MenuEntry = withContext({
+			Theme = ContextServices.Theme,
+		})(MenuEntry)
+	else
+		ContextServices.mapToProps(MenuEntry,{
+			Theme = ContextServices.Theme,
+		})
+	end
+
 end
 
 return MenuEntry

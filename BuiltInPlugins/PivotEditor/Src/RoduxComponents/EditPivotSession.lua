@@ -1,10 +1,12 @@
+local FFlagPivotEditorWithContext = game:GetFastFlag("PivotEditorWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local DraggerFramework = Plugin.Packages.DraggerFramework
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
 local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
@@ -125,11 +127,20 @@ if getFFlagSummonPivot() then
 	end
 end
 
-ContextServices.mapToProps(EditPivotSession, {
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-	ToastNotification = ToastNotification,
-})
+if FFlagPivotEditorWithContext then
+	EditPivotSession = withContext({
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		ToastNotification = ToastNotification,
+	})(EditPivotSession)
+else
+	ContextServices.mapToProps(EditPivotSession, {
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		ToastNotification = ToastNotification,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

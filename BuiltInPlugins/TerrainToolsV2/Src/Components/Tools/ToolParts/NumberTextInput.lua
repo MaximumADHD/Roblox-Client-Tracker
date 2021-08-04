@@ -13,6 +13,7 @@
 
 		See LabeledTextInput for more
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -21,6 +22,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
@@ -35,6 +37,8 @@ local function roundNumber(number, places)
 end
 
 local NumberTextInput = Roact.PureComponent:extend("NumberTextInput")
+
+local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
 
 NumberTextInput.defaultProps = {
 	MaxGraphemes = MAX_GRAPHEMES,
@@ -51,6 +55,9 @@ function NumberTextInput:init(props)
 	end
 
 	self.onFocusLost = function(enterPressed, text)
+		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+			text = self.props.Value
+		end
 		local newText = self.handlePrecision(text)
 		if self.props.OnFocusLost then
 			self.props.OnFocusLost(self.props.Key, enterPressed, newText, self.isValid)
@@ -63,6 +70,10 @@ function NumberTextInput:init(props)
 	end
 
 	self.isTextValid = function(text)
+		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+			return true, nil
+		end
+
 		local number = tonumber(text)
 
 		local isValid
@@ -95,7 +106,11 @@ function NumberTextInput:init(props)
 		self.isValid = isValid
 
 		if self.props.OnValueChanged then
-			self.props.OnValueChanged(self.props.Key, text, self.isValid)
+			if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+				self.props.OnValueChanged(self.props.Key, self.props.Value, self.isValid)
+			else
+				self.props.OnValueChanged(self.props.Key, text, self.isValid)
+			end
 		end
 
 		if self.isValid then
@@ -127,8 +142,15 @@ function NumberTextInput:render()
 	return Roact.createElement(LabeledTextInput, newProps)
 end
 
-ContextServices.mapToProps(NumberTextInput, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	NumberTextInput = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(NumberTextInput)
+else
+	ContextServices.mapToProps(NumberTextInput, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return NumberTextInput

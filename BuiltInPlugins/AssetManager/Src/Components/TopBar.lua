@@ -9,11 +9,13 @@
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local Button = UI.Button
@@ -355,11 +357,20 @@ function TopBar:render()
     })
 end
 
-ContextServices.mapToProps(TopBar,{
-    Analytics = ContextServices.Analytics,
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-})
+if FFlagAssetManagerWithContext then
+	TopBar = withContext({
+	    Analytics = ContextServices.Analytics,
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})(TopBar)
+else
+	ContextServices.mapToProps(TopBar,{
+	    Analytics = ContextServices.Analytics,
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local previousScreens = state.Screen.previousScreens

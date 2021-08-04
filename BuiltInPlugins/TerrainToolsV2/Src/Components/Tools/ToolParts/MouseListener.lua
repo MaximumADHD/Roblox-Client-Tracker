@@ -6,6 +6,7 @@
 	    setSourceMaterial :     function to set source material
         setTargetMaterial:      function to set target material
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -13,6 +14,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local UserInputService = game:GetService("UserInputService")
@@ -89,9 +91,17 @@ function MouseListener:render()
     return nil
 end
 
-ContextServices.mapToProps(MouseListener, {
-    Mouse = ContextServices.Mouse,
-    Terrain = ContextItems.Terrain,
-})
+if FFlagTerrainToolsV2WithContext then
+	MouseListener = withContext({
+	    Mouse = ContextServices.Mouse,
+	    Terrain = ContextItems.Terrain,
+	})(MouseListener)
+else
+	ContextServices.mapToProps(MouseListener, {
+	    Mouse = ContextServices.Mouse,
+	    Terrain = ContextItems.Terrain,
+	})
+end
+
 
 return MouseListener

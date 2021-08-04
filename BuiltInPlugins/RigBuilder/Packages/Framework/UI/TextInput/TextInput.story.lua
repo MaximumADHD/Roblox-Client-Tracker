@@ -3,6 +3,9 @@ local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
 local TextInput = UI.TextInput
 
+local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
+local FFlagAllowInputObjOnFocusLost = game:GetFastFlag("AllowInputObjOnFocusLost")
+
 return {
 	stories = {
 		{	name = "RoundedBorder",
@@ -10,14 +13,19 @@ return {
 				Size = UDim2.new(0, 150, 0, 20),
 				Style = "RoundedBorder",
 				PlaceholderText = "Placeholder",
+				TextXAlignment = FFlagAllowTextInputTextXAlignment and Enum.TextXAlignment.Center or nil,
 				OnTextChanged = function(text)
 					print("TextInput - OnTextChanged: ", text)
 				end,
 				OnFocusGained = function()
 					print("TextInput - OnFocusGained")
 				end,
-				OnFocusLost = function(enterPressed)
+				OnFocusLost = function(enterPressed, rbx)
 					print("TextInput - OnFocusLost", enterPressed)
+					if FFlagAllowInputObjOnFocusLost then
+						print("TextInput - OnFocusLost original text", rbx.Text)
+						rbx.Text = "OnFocusLost Changed"
+					end
 				end
 			}),
 		},

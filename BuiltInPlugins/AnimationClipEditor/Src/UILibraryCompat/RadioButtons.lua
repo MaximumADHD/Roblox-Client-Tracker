@@ -1,6 +1,7 @@
 --[[
 	Mostly the same as UILibrary RadioButtons component, but modified to use dev framework context
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 
 local NO_WRAP = Vector2.new(1000000, 50)
@@ -18,6 +19,7 @@ local createFitToContent = require(script.Parent.createFitToContent)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 
 local RadioButtons = Roact.PureComponent:extend("RadioButtons")
@@ -130,8 +132,15 @@ function RadioButtons:render()
 		}, children)
 end
 
-ContextServices.mapToProps(RadioButtons, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	RadioButtons = withContext({
+		Theme = ContextServices.Theme,
+	})(RadioButtons)
+else
+	ContextServices.mapToProps(RadioButtons, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return RadioButtons

@@ -6,15 +6,17 @@
 		string PartName: name of the valid selected part.
 		callback OnConfirmSelection: callback for when the next button is clicked and selection is confirmed.
 	Optional Props:
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 
@@ -83,9 +85,17 @@ function SelectFrame:render()
 	})
 end
 
-ContextServices.mapToProps(SelectFrame,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SelectFrame = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})(SelectFrame)
+else
+	ContextServices.mapToProps(SelectFrame,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return SelectFrame

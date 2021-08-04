@@ -2,6 +2,7 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 
+game:DefineFastFlag("PluginManagementWithContext", false)
 game:DefineFastFlag("EnablePluginManagementStylizer", false)
 
 local main = script.Parent.Parent
@@ -9,5 +10,6 @@ local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnablePluginManagementStylizer")
 
 game:DefineFastFlag("PluginManagementAnalytics", false)
+game:DefineFastFlag("PluginManagementUseCheckbox", false)
 
 return nil

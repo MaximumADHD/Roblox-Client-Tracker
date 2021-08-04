@@ -12,15 +12,17 @@
 		callback SetValue: function to be called when slider value has changed
 		boolean IsDisabled: whether this slider setting is disabled
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number SnapIncrement: optional increment when dragging slider. Default to 1
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Slider = UI.Slider
@@ -156,8 +158,15 @@ function SliderSetting:render()
 	})
 end
 
-ContextServices.mapToProps(SliderSetting,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SliderSetting = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SliderSetting)
+else
+	ContextServices.mapToProps(SliderSetting,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return SliderSetting

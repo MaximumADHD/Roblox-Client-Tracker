@@ -5,18 +5,20 @@
 		table Buttons = A list of buttons to display. Example: { Key = "", Text = "", IsEnabled = "", Image = "" }.
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder = render order of component in layout
 		number ZIndex = the z sorting order of the component
 		callback OnClick = parameters(string key) function to call when a button is clicked
 		string SelectedKey = which button is in the selected state
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Pane = Framework.UI.Pane
 
@@ -79,8 +81,15 @@ function TabsRibbon:render()
 	}, children)
 end
 
-ContextServices.mapToProps(TabsRibbon,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	TabsRibbon = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(TabsRibbon)
+else
+	ContextServices.mapToProps(TabsRibbon,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return TabsRibbon

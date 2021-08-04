@@ -8,8 +8,9 @@
 
 	Optional Props:
 		number LayoutOrder: The layout order of this component in a list.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
-		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Style Style: The style with which to render this component.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
@@ -25,10 +26,13 @@ local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 
 local Util = require(Framework.Util)
-local Cryo = Util.Cryo
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local prioritize = Util.prioritize
+
+local Dash = require(Framework.packages.Dash)
+local join = Dash.join
+local omit = Dash.omit
 
 local MultiLineTextInput = require(Framework.UI.MultiLineTextInput)
 local Pane = require(Framework.UI.Pane)
@@ -72,15 +76,15 @@ function TextInputWithBottomText:render()
 		Layout = Enum.FillDirection.Vertical,
 		Spacing = spacing,
 	}, {
-		TextInput = isMultiLine and Roact.createElement(MultiLineTextInput, Cryo.Dictionary.join(textInputProps, {
+		TextInput = isMultiLine and Roact.createElement(MultiLineTextInput, {
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,
-			TextInputProps = Cryo.Dictionary.join(textInputProps,{
-				Style = Roact.None,
+			TextInputProps = omit(textInputProps,{
+				"Style",
 			}),
-		}))
-		or Roact.createElement(TextInput, Cryo.Dictionary.join(textInputProps, {
+		})
+		or Roact.createElement(TextInput, join(textInputProps, {
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,

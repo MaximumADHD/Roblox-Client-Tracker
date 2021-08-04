@@ -1,10 +1,12 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local FitFrame = require(Plugin.Packages.FitFrame)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local LayoutOrderIterator = require(Plugin.Packages.Framework.Util.LayoutOrderIterator)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
+local LayoutOrderIterator = require(Plugin.Packages.Framework).Util.LayoutOrderIterator
 
 local Constants = require(Plugin.Src.Util.Constants)
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
@@ -164,12 +166,23 @@ local function mapStateToProps(state, props)
 	}
 end
 
-ContextServices.mapToProps(HttpRequestOverview, {
-	Navigation = Navigation,
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	API = PluginAPI2,
-})
+if FFlagPluginManagementWithContext then
+	HttpRequestOverview = withContext({
+		Navigation = Navigation,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+	})(HttpRequestOverview)
+else
+	ContextServices.mapToProps(HttpRequestOverview, {
+		Navigation = Navigation,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, nil)(HttpRequestOverview)

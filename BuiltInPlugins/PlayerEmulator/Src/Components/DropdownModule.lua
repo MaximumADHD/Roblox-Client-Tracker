@@ -13,11 +13,13 @@
 		function OnItemClicked(item)
 			Called when an item is clicked. Returns the item itself.
 ]]
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local DropdownMenu = UILibrary.Component.DropdownMenu
 
@@ -159,10 +161,19 @@ function DropdownModule:render()
 	})
 end
 
-ContextServices.mapToProps(DropdownModule, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-})
+if FFlagPlayerEmulatorWithContext then
+	DropdownModule = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})(DropdownModule)
+else
+	ContextServices.mapToProps(DropdownModule, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return DropdownModule

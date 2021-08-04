@@ -6,8 +6,9 @@
 		callback GoToPrevious: request to go to previous screen in flow.
 		boolean inBounds: determines if the item is within the preset accessory bounding box
 	Optional Props:
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -15,6 +16,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 
@@ -46,9 +48,16 @@ function EditAndPreviewFrame:render()
 	})
 end
 
-ContextServices.mapToProps(EditAndPreviewFrame,{
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditAndPreviewFrame = withContext({
+		Localization = ContextServices.Localization,
+	})(EditAndPreviewFrame)
+else
+	ContextServices.mapToProps(EditAndPreviewFrame,{
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem

@@ -9,12 +9,14 @@
 		string Time = time to be displayed in the tag
 		int ZIndex = display order of this frame
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
@@ -53,9 +55,16 @@ function TimeTag:render()
 		})
 end
 
-ContextServices.mapToProps(TimeTag, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TimeTag = withContext({
+		Theme = ContextServices.Theme,
+	})(TimeTag)
+else
+	ContextServices.mapToProps(TimeTag, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return TimeTag

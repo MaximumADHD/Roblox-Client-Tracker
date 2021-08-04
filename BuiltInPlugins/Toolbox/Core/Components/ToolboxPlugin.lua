@@ -23,6 +23,7 @@ local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 local makeTheme = require(Util.makeTheme)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local UILibraryWrapper = ContextServices.UILibraryWrapper
 local FrameworkUtil = require(Libs.Framework.Util)
 local getTestVariation = FrameworkUtil.getTestVariation
@@ -31,6 +32,7 @@ local Analytics = require(Util.Analytics.Analytics)
 
 -- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
@@ -227,9 +229,16 @@ function ToolboxPlugin:render()
 	})
 end
 
-ContextServices.mapToProps(ToolboxPlugin, {
-	Localization = ContextServices.Localization,
-})
+if FFlagToolboxWithContext then
+	ToolboxPlugin = withContext({
+		Localization = ContextServices.Localization,
+	})(ToolboxPlugin)
+else
+	ContextServices.mapToProps(ToolboxPlugin, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then
 	local function mapDispatchToProps(dispatch)

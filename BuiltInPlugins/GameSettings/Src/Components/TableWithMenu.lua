@@ -23,6 +23,7 @@
 ]]
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -34,6 +35,7 @@ local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local Framework = Plugin.Framework
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)
 local TableWithMenu = Roact.PureComponent:extend("TableWithMenu")
@@ -205,8 +207,15 @@ function TableWithMenu:render()
     })
 end
 
-ContextServices.mapToProps(TableWithMenu, {
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	TableWithMenu = withContext({
+	    Theme = ContextServices.Theme,
+	})(TableWithMenu)
+else
+	ContextServices.mapToProps(TableWithMenu, {
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 return TableWithMenu

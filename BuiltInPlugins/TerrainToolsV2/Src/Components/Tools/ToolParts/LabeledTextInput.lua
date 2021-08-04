@@ -56,6 +56,7 @@
 		end,
 	})
 --]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -63,6 +64,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -81,6 +83,8 @@ local ROUNDED_BACKGROUND_IMAGE = "rbxasset://textures/StudioToolbox/RoundedBorde
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
+
+local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
 
 LabeledTextInput.defaultProps = {
 	Width = UDim.new(0, Constants.SECOND_COLUMN_WIDTH),
@@ -147,7 +151,8 @@ function LabeledTextInput:init()
 			local currText = textBox.Text
 			local updatedText
 			local warningMessage = ""
-			if utf8.len(currText) > 0 then
+
+			if FFlagTerrainToolsTextValidationFix or utf8.len(currText) > 0 then
 				updatedText, warningMessage = self.props.ValidateText(currText)
 
 				local textBoxText = textBox.Text
@@ -207,7 +212,7 @@ function LabeledTextInput:init()
 		end
 
 		local textBox = self.textBoxRef.current
-		if self.props.OnFocusLost and textBox and utf8.len(textBox.Text) > 0 then
+		if self.props.OnFocusLost and textBox and (FFlagTerrainToolsTextValidationFix or utf8.len(textBox.Text) > 0) then
 			local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
 			if textOverride then
 				textBox.Text = textOverride
@@ -340,8 +345,15 @@ function LabeledTextInput:render()
 	})
 end
 
-ContextServices.mapToProps(LabeledTextInput, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	LabeledTextInput = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(LabeledTextInput)
+else
+	ContextServices.mapToProps(LabeledTextInput, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return LabeledTextInput

@@ -7,6 +7,7 @@ Props:
 	setMaterial : (Enum.Material) => void - Callback to select a material
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -14,6 +15,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local TextService = game:GetService("TextService")
@@ -93,9 +95,16 @@ do
 		})
 	end
 
-	ContextServices.mapToProps(MaterialTooltip, {
-		Theme = ContextItems.UILibraryTheme,
-	})
+	if FFlagTerrainToolsV2WithContext then
+		MaterialTooltip = withContext({
+			Theme = ContextItems.UILibraryTheme,
+		})(MaterialTooltip)
+	else
+		ContextServices.mapToProps(MaterialTooltip, {
+			Theme = ContextItems.UILibraryTheme,
+		})
+	end
+
 
 	function MaterialButton:init(props)
 		self.onMouseEnter = function()
@@ -147,10 +156,18 @@ do
 		})
 	end
 
-	ContextServices.mapToProps(MaterialButton, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
+	if FFlagTerrainToolsV2WithContext then
+		MaterialButton = withContext({
+			Theme = ContextItems.UILibraryTheme,
+			Localization = ContextItems.UILibraryLocalization,
+		})(MaterialButton)
+	else
+		ContextServices.mapToProps(MaterialButton, {
+			Theme = ContextItems.UILibraryTheme,
+			Localization = ContextItems.UILibraryLocalization,
+		})
+	end
+
 end
 
 function MaterialSelector:init(props)
@@ -247,9 +264,17 @@ function MaterialSelector:render()
 	})
 end
 
-ContextServices.mapToProps(MaterialSelector, {
-	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	MaterialSelector = withContext({
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})(MaterialSelector)
+else
+	ContextServices.mapToProps(MaterialSelector, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return MaterialSelector

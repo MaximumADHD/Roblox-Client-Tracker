@@ -14,12 +14,14 @@
 ]]
 
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local StyledDialog
 if FFlagToolboxUseDevFrameworkDialogs then
@@ -163,8 +165,15 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 		})
 end
 
-	ContextServices.mapToProps(PurchaseDialog, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		PurchaseDialog = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(PurchaseDialog)
+	else
+		ContextServices.mapToProps(PurchaseDialog, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 
 return PurchaseDialog

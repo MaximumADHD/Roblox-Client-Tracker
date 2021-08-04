@@ -18,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -31,7 +32,12 @@ local RoundFrame = require(Plugin.Core.Components.RoundFrame)
 
 local LiveSearchEntry = require(Plugin.Core.Components.SearchOptions.LiveSearchEntry)
 
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
@@ -95,62 +101,89 @@ function LiveSearchDropdown:defaultLayout(items)
 end
 
 function LiveSearchDropdown:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withModal(function(modalTarget)
-			local position = self.props.Position or UDim2.new()
-			local size = self.props.Size
-			local layoutOrder = self.props.LayoutOrder or 0
-			local items = self.props.Items or {}
-
-			local maxHeight = self.props.MaxHeight or Constants.SEARCH_ENTRY_HEIGHT * 5
-
-			local dropdownTheme = theme.dropdownMenu
-
-			local dropdownFrame = {}
-
-			local entries, height = self:defaultLayout(items)
-
-			local width = size.X.Offset
-			local top = position.Y.Offset
-			local left = position.X.Offset
-
-			dropdownFrame.StyledScrollingFrame = Roact.createElement(StyledScrollingFrame, {
-				Position = UDim2.new(0, left, 0, top),
-				Size = UDim2.new(0, width, 0, math.min(height, maxHeight)),
-				CanvasSize = UDim2.new(0, 0, 0, height),
-				ZIndex = 1,
-			}, entries)
-
-			dropdownFrame.DropDownContainer = Roact.createElement(RoundFrame, {
-				Position = UDim2.new(0, left, 0, top),
-				Size = UDim2.new(0, width, 0, math.min(height, maxHeight)),
-				BackgroundTransparency = 1,
-				ZIndex = 2,
-				BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
-			})
-
-			return Roact.createElement("Frame", {
-				Position = position,
-				Size = size,
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder
-			}, {
-				Portal = modalTarget and Roact.createElement(Roact.Portal, {
-					target = modalTarget,
-				}, {
-					ClickEventDetectFrame = Roact.createElement("ImageButton", {
-						ZIndex = 10,
-						Position = UDim2.new(0, 0, 0, 0),
-						Size = UDim2.new(1, 0, 1, 0),
-						BackgroundTransparency = 1,
-						AutoButtonColor = false,
-
-						[Roact.Event.MouseButton1Click] = self.closeDropdown,
-					}, dropdownFrame),
-				}),
-			})
+			return self:renderContent(modalTarget, nil)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withModal(function(modalTarget)
+				return self:renderContent(modalTarget, theme)
+			end)
+		end)
+	end
+end
+
+function LiveSearchDropdown:renderContent(modalTarget, theme)
+	local position = self.props.Position or UDim2.new()
+	local size = self.props.Size
+	local layoutOrder = self.props.LayoutOrder or 0
+	local items = self.props.Items or {}
+
+	local maxHeight = self.props.MaxHeight or Constants.SEARCH_ENTRY_HEIGHT * 5
+
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
+
+	local dropdownTheme = theme.dropdownMenu
+
+	local dropdownFrame = {}
+
+	local entries, height = self:defaultLayout(items)
+
+	local width = size.X.Offset
+	local top = position.Y.Offset
+	local left = position.X.Offset
+
+	dropdownFrame.StyledScrollingFrame = Roact.createElement(StyledScrollingFrame, {
+		Position = UDim2.new(0, left, 0, top),
+		Size = UDim2.new(0, width, 0, math.min(height, maxHeight)),
+		CanvasSize = UDim2.new(0, 0, 0, height),
+		ZIndex = 1,
+	}, entries)
+
+	dropdownFrame.DropDownContainer = Roact.createElement(RoundFrame, {
+		Position = UDim2.new(0, left, 0, top),
+		Size = UDim2.new(0, width, 0, math.min(height, maxHeight)),
+		BackgroundTransparency = 1,
+		ZIndex = 2,
+		BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
+	})
+
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = size,
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder
+	}, {
+		Portal = modalTarget and Roact.createElement(Roact.Portal, {
+			target = modalTarget,
+		}, {
+			ClickEventDetectFrame = Roact.createElement("ImageButton", {
+				ZIndex = 10,
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				AutoButtonColor = false,
+
+				[Roact.Event.MouseButton1Click] = self.closeDropdown,
+			}, dropdownFrame),
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		LiveSearchDropdown = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(LiveSearchDropdown)
+	else
+		ContextServices.mapToProps(LiveSearchDropdown, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return LiveSearchDropdown

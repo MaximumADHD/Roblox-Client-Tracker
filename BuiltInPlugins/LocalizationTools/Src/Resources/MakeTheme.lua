@@ -6,18 +6,18 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local Theme = ContextServices.Theme
 
-local Util = require(Plugin.Packages.Framework.Util)
+local Util = require(Plugin.Packages.Framework).Util
 local StyleTable = Util.StyleTable
 local Style = Util.Style
 local StyleModifier = Util.StyleModifier
 local StyleValue = Util.StyleValue
 
-local UI = require(Plugin.Packages.Framework.UI)
+local UI = require(Plugin.Packages.Framework).UI
 local Decoration = UI.Decoration
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
 local function makeTheme()

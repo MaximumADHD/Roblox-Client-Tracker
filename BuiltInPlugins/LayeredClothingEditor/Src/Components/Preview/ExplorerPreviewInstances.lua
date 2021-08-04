@@ -8,10 +8,11 @@
 		table AttachmentPoint: CFrame data for item attachment, provided via mapStateToProps.
 		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
 		table AccessoryTypeInfo: Info about accessory asset type and bounds, provided via mapStateToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
-		table PreviewContext: A PreviewContext item, which is provided via mapToProps.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table PreviewContext: A PreviewContext item, which is provided via withContext.
 
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local InsertService = game:GetService("InsertService")
 
@@ -24,6 +25,7 @@ local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
@@ -117,10 +119,7 @@ local function removePreviewAvatars(self)
 end
 
 local function cloneEditingItem(editingItem)
-	-- temporarily make editingItem archivable so that we can clone it
-	editingItem.Archivable = true
 	local clone = editingItem:Clone()
-	editingItem.Archivable = false
 	clone.Archivable = false
 	return clone
 end
@@ -183,13 +182,8 @@ local function updatePreviewAttachments(self)
 			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
 			local part1 = weld.Part1
 			weld:Destroy()
-			local bodyAttachment = ModelUtil:findAvatarAttachmentByName(clone.Parent, self.props.AccessoryTypeInfo.Name)
-			if not bodyAttachment then
-				continue
-			end
-			clone.CFrame = bodyAttachment.WorldCFrame * self.props.AttachmentPoint.ItemCFrame
 			clone.Size = self.props.ItemSize
-			ModelUtil:addAttachment(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint.AttachmentCFrane)
+			ModelUtil:addAttachment(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint)
 			-- add weld back
 			ModelUtil:addWeld(nil, clone, part1, clone)
 		end
@@ -266,9 +260,17 @@ local function mapStateToProps(state, props)
 	}
 end
 
-ContextServices.mapToProps(ExplorerPreviewInstances,{
-	EditingItemContext = EditingItemContext,
-	PreviewContext = PreviewContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ExplorerPreviewInstances = withContext({
+		EditingItemContext = EditingItemContext,
+		PreviewContext = PreviewContext,
+	})(ExplorerPreviewInstances)
+else
+	ContextServices.mapToProps(ExplorerPreviewInstances,{
+		EditingItemContext = EditingItemContext,
+		PreviewContext = PreviewContext,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)

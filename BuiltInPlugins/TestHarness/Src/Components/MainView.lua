@@ -4,12 +4,12 @@
 
 	Props passed through ContextServices
 ]]
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
@@ -45,8 +45,8 @@ function MainView:render()
 	})
 end
 
-ContextServices.mapToProps(MainView, {
+MainView = withContext({
 	Stylizer = Stylizer,
-})
+})(MainView)
 
 return MainView

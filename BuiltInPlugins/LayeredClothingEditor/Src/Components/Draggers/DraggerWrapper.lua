@@ -3,6 +3,7 @@
 	Studio dragger functionality is overriden to support dragging vertices while this component is active.
 	Sets up it's own undo/redo stack since manipulating vertices isn't supported by studio undo/redo.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -10,6 +11,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local SignalsContext = require(Plugin.Src.Context.Signals)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
@@ -62,6 +64,8 @@ end
 
 function DraggerWrapper:didMount()
 	local props = self.props
+
+	self.UndoRedoTriggered = false
 
 	local plugin = props.Plugin:get()
 	plugin:Activate(true)
@@ -130,7 +134,7 @@ function DraggerWrapper:didMount()
 		undoAction.Enabled = true
 		self.undoHandle = undoAction.Triggered:Connect(function()
 			props.Undo()
-			selectionSignal:Fire()
+			self.UndoRedoTriggered = true
 		end)
 	end
 
@@ -139,7 +143,7 @@ function DraggerWrapper:didMount()
 		redoAction.Enabled = true
 		self.redoHandle = redoAction.Triggered:Connect(function()
 			props.Redo()
-			selectionSignal:Fire()
+			self.UndoRedoTriggered = true
 		end)
 	end
 
@@ -153,6 +157,13 @@ function DraggerWrapper:willUpdate(nextProps)
 	mapDraggerContextToProps(self.draggerContext, self.selection, nextProps, self.props.EditingItemContext)
 	if nextProps.ClickedPoints ~= self.props.ClickedPoints or nextProps.SelectedControlPoints ~= self.props.SelectedControlPoints then
 		selectionSignal:Fire()
+	end
+end
+
+function DraggerWrapper:didUpdate(prevProps)
+	if self.UndoRedoTriggered and self.props.PointData ~= prevProps.PointData then
+		self.UndoRedoTriggered = false
+		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 	end
 end
 
@@ -272,12 +283,23 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-ContextServices.mapToProps(DraggerWrapper,{
-	Plugin = ContextServices.Plugin,
-	PluginActions = ContextServices.PluginActions,
-	Signals = SignalsContext,
-	EditingItemContext = EditingItemContext,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagLayeredClothingEditorWithContext then
+	DraggerWrapper = withContext({
+		Plugin = ContextServices.Plugin,
+		PluginActions = ContextServices.PluginActions,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+		Mouse = ContextServices.Mouse,
+	})(DraggerWrapper)
+else
+	ContextServices.mapToProps(DraggerWrapper,{
+		Plugin = ContextServices.Plugin,
+		PluginActions = ContextServices.PluginActions,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(DraggerWrapper)

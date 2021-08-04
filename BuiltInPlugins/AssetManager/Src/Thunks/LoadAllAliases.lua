@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Promise = require(Plugin.Packages.Framework.Util.Promise)
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 

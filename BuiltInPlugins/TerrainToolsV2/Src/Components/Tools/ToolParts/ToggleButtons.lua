@@ -1,3 +1,4 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -5,6 +6,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local BaseToggleButton = Roact.PureComponent:extend("ToggleButton")
@@ -58,9 +60,16 @@ function ToggleButton:render()
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-ContextServices.mapToProps(ToggleButton, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	ToggleButton = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(ToggleButton)
+else
+	ContextServices.mapToProps(ToggleButton, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 local PickerButton = Roact.PureComponent:extend("PickerButton")
 
@@ -76,9 +85,16 @@ function PickerButton:render()
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-ContextServices.mapToProps(PickerButton, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	PickerButton = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(PickerButton)
+else
+	ContextServices.mapToProps(PickerButton, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return {
 	ToggleButton = ToggleButton,

@@ -1,3 +1,4 @@
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -5,6 +6,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 
@@ -292,11 +294,20 @@ function CollaboratorSearchWidget:render()
 	})
 end
 
-ContextServices.mapToProps(CollaboratorSearchWidget, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	CollaboratorSearchWidget = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(CollaboratorSearchWidget)
+else
+	ContextServices.mapToProps(CollaboratorSearchWidget, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 CollaboratorSearchWidget = RoactRodux.connect(
 	function(state, props)

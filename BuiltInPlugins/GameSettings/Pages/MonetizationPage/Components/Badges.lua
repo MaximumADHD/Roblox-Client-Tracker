@@ -1,3 +1,4 @@
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
@@ -11,6 +12,7 @@ local FrameworkUI = require(Framework.UI)
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
@@ -137,9 +139,17 @@ function Badges:render()
     })
 end
 
-ContextServices.mapToProps(Badges, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	Badges = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})(Badges)
+else
+	ContextServices.mapToProps(Badges, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 return Badges

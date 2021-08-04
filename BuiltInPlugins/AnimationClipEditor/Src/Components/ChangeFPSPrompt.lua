@@ -7,12 +7,14 @@
 		function OnClose = callback for when window has been closed
 		function SetFrameRate(frameRate) = adjusts frame rate of animation in the editor
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -89,9 +91,17 @@ function ChangeFPSPrompt:render()
 	})
 end
 
-ContextServices.mapToProps(ChangeFPSPrompt, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	ChangeFPSPrompt = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})(ChangeFPSPrompt)
+else
+	ContextServices.mapToProps(ChangeFPSPrompt, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return ChangeFPSPrompt

@@ -8,6 +8,7 @@
 
 	Optional Props:
 		number LayoutOrder: The layout order of this component in a list.
+		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
@@ -18,15 +19,20 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 
 local Util = require(Framework.Util)
-local Cryo = Util.Cryo
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local prioritize = Util.prioritize
+
+local Dash = require(Framework.packages.Dash)
+local join = Dash.join
+local omit = Dash.omit
 
 local MultiLineTextInput = require(Framework.UI.MultiLineTextInput)
 local Pane = require(Framework.UI.Pane)
@@ -70,15 +76,15 @@ function TextInputWithBottomText:render()
 		Layout = Enum.FillDirection.Vertical,
 		Spacing = spacing,
 	}, {
-		TextInput = isMultiLine and Roact.createElement(MultiLineTextInput, Cryo.Dictionary.join(textInputProps, {
+		TextInput = isMultiLine and Roact.createElement(MultiLineTextInput, {
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,
-			TextInputProps = Cryo.Dictionary.join(textInputProps,{
-				Style = Roact.None,
+			TextInputProps = omit(textInputProps,{
+				"Style",
 			}),
-		}))
-		or Roact.createElement(TextInput, Cryo.Dictionary.join(textInputProps, {
+		})
+		or Roact.createElement(TextInput, join(textInputProps, {
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,
@@ -96,9 +102,17 @@ function TextInputWithBottomText:render()
 	})
 end
 
-ContextServices.mapToProps(TextInputWithBottomText, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TextInputWithBottomText = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TextInputWithBottomText)
+else
+	ContextServices.mapToProps(TextInputWithBottomText, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TextInputWithBottomText

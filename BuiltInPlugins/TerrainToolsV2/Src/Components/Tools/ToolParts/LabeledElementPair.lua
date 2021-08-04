@@ -12,6 +12,7 @@
 ]]
 
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -19,6 +20,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -190,8 +192,15 @@ function LabeledElementPair:render()
 	})
 end
 
-ContextServices.mapToProps(LabeledElementPair, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	LabeledElementPair = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(LabeledElementPair)
+else
+	ContextServices.mapToProps(LabeledElementPair, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return LabeledElementPair

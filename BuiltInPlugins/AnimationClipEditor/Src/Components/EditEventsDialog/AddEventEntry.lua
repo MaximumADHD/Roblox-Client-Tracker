@@ -10,6 +10,7 @@
 		function OnAddEvent() = A callback for when the user wants to
 			add a new event to the event list.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local ICON_SIZE = UDim2.new(0, 9, 0, 8)
 
@@ -18,6 +19,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local AddEventEntry = Roact.PureComponent:extend("AddEventEntry")
@@ -84,11 +86,20 @@ function AddEventEntry:render()
 	})
 end
 
-ContextServices.mapToProps(AddEventEntry, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagAnimationClipEditorWithContext then
+	AddEventEntry = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(AddEventEntry)
+else
+	ContextServices.mapToProps(AddEventEntry, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 
 return AddEventEntry

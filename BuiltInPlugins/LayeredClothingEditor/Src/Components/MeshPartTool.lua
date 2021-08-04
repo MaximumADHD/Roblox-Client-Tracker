@@ -3,8 +3,11 @@
 	Tracks positional changes of accessory for preview and bounds verification. This
 	component does not receive any props from its parent.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local CoreGui = game:GetService("CoreGui")
+local Selection = game:GetService("Selection")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 -- libraries
 local Plugin = script.Parent.Parent.Parent
@@ -16,88 +19,147 @@ local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local SignalsContext = require(Plugin.Src.Context.Signals)
+
+local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local MeshPartTool = Roact.PureComponent:extend("MeshPartTool")
 
+function MeshPartTool:init()
+	self.state = {
+		matchingAttachment = nil,
+	}
+
+	self.selectMeshPart = function()
+		local props = self.props
+
+		local item = props.EditingItemContext:getItem()
+
+		if not item then
+			return
+		end
+
+		Selection:Set({item})
+	end
+
+	self.placeAndScaleItem = function()
+		local props = self.props
+		local state = self.state
+
+		local item = props.EditingItemContext:getItem()
+
+		if not item then
+			return
+		end
+
+		local matchingAttachment = state.matchingAttachment
+		local attachment = item:FindFirstChildWhichIsA("Attachment")
+		if not attachment or not matchingAttachment then
+			return
+		end
+
+		local baseCFrame = matchingAttachment.WorldCFrame
+
+		attachment.CFrame = (baseCFrame:inverse() * item.CFrame):inverse()
+		self.props.SetAttachmentPoint({
+			ItemCFrame = baseCFrame:inverse() * item.CFrame,
+			AttachmentCFrame = attachment.CFrame,
+		})
+
+		self.props.SetItemSize(item.Size)
+		self.props.VerifyBounds(item)
+	end
+
+	self.onEditingItemChanged = function()
+		local item = self.props.EditingItemContext:getItem()
+		if not item then
+			if self.CFrameChanged then
+				self.CFrameChanged:Disconnect()
+				self.CFrameChanged = nil
+			end
+
+			if self.SizeChanged then
+				self.SizeChanged:Disconnect()
+				self.SizeChanged = nil
+			end
+
+			return
+		end
+
+		local attachment = item:FindFirstChildWhichIsA("Attachment")
+		local weld = item:FindFirstChildWhichIsA("WeldConstraint")
+		if not attachment or not weld then
+			return
+		end
+
+		local part1 = weld.Part1
+		if not part1 then
+			return
+		end
+
+		local matchingAttachment = part1:FindFirstChild(attachment.Name)
+		if not matchingAttachment then
+			return
+		end
+
+		self:setState({
+			matchingAttachment = matchingAttachment
+		})
+
+		self.CFrameChanged = item:GetPropertyChangedSignal("CFrame"):Connect(self.placeAndScaleItem)
+		self.SizeChanged = item:GetPropertyChangedSignal("Size"):Connect(self.placeAndScaleItem)
+
+		Selection:Set({item})
+	end
+end
+
 function MeshPartTool:didMount()
 	local props = self.props
-	local editingItem = props.EditingItemContext:getItem()
 
-	if not editingItem then
-		return
-	end
-
-	local attachment = editingItem:FindFirstChildWhichIsA("Attachment")
-	if not attachment then
-		return
-	end
-
-	self.baseCFrame = attachment.WorldCFrame
-
-	self.props.SetAttachmentPoint({
-		ItemCFrame = self.baseCFrame:inverse() * editingItem.CFrame,
-		AttachmentCFrame = attachment.CFrame,
-	})
-
-	self.CFrameChanged = editingItem:GetPropertyChangedSignal("CFrame"):Connect(function()
-		local attachment = editingItem:FindFirstChildWhichIsA("Attachment")
-		if attachment then
-			attachment.CFrame = (self.baseCFrame:inverse() * editingItem.CFrame):inverse()
-			self.props.SetAttachmentPoint({
-				ItemCFrame = self.baseCFrame:inverse() * editingItem.CFrame,
-				AttachmentCFrame = attachment.CFrame,
-			})
-		end
-		self.props.VerifyBounds(editingItem)
+	self.EditingItemChanged = props.EditingItemContext:getEditingItemChangedSignal():Connect(function(item)
+		self.onEditingItemChanged()
 	end)
 
-	self.SizeChanged = editingItem:GetPropertyChangedSignal("Size"):Connect(function()
-		self.props.SetItemSize(editingItem.Size)
-		self.props.VerifyBounds(editingItem)
-	end)
+	self.onEditingItemChanged()
+
+	self.OnRedo = ChangeHistoryService.OnRedo:Connect(self.placeAndScaleItem)
+	self.OnUndo = ChangeHistoryService.OnUndo:Connect(self.placeAndScaleItem)
+
+	self.OnPluginWindowFocusedHandle = props.Signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Connect(self.selectMeshPart)
+end
+
+function MeshPartTool:didUpdate(prevProps, prevState)
+	if self.state.matchingAttachment ~= prevState.matchingAttachment then
+		self.placeAndScaleItem()
+	end
 end
 
 function MeshPartTool:render()
 	local props = self.props
+	local state = self.state
 
-	local editingItem = props.EditingItemContext:getItem()
 	local accessoryTypeInfo = props.AccessoryTypeInfo
-	if not editingItem or not accessoryTypeInfo then
+	local matchingAttachment = state.matchingAttachment
+	if not matchingAttachment or not accessoryTypeInfo then
 		return nil
 	end
-
-	local attachment = editingItem:FindFirstChildWhichIsA("Attachment")
-	local weld = editingItem:FindFirstChildWhichIsA("WeldConstraint")
-	if not attachment or not weld then
-		return nil
-	end
-
-	local part1 = weld.Part1
-	if not part1 then
-		return nil
-	end
-
-	local matchingAttachment = part1:FindFirstChild(attachment.Name)
-	if not matchingAttachment then
-		return nil
-	end
-
-	local theme = props.Stylizer
 
 	local bounds = accessoryTypeInfo.Bounds
 	local offset = accessoryTypeInfo.Offset
 	local position = matchingAttachment.Position
 
+	local theme = props.Stylizer
 	local color = props.InBounds and theme.InBoundsColor or theme.OutBoundsColor
 
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui,
 	}, {
 		BoundingBox = Roact.createElement("BoxHandleAdornment", {
-			Adornee = part1,
+			Adornee = matchingAttachment.Parent,
 			CFrame = CFrame.new(position + offset),
 			Size = bounds,
 			Transparency = theme.Transparency,
@@ -108,6 +170,11 @@ function MeshPartTool:render()
 end
 
 function MeshPartTool:willUnmount()
+	if self.EditingItemChanged then
+		self.EditingItemChanged:Disconnect()
+		self.EditingItemChanged = nil
+	end
+
 	if self.CFrameChanged then
 		self.CFrameChanged:Disconnect()
 		self.CFrameChanged = nil
@@ -117,12 +184,36 @@ function MeshPartTool:willUnmount()
 		self.SizeChanged:Disconnect()
 		self.SizeChanged = nil
 	end
+
+	if self.OnRedo then
+		self.OnRedo:Disconnect()
+		self.OnRedo = nil
+	end
+
+	if self.OnUndo then
+		self.OnUndo:Disconnect()
+		self.OnUndo = nil
+	end
+
+	if self.OnPluginWindowFocusedHandle then
+		self.OnPluginWindowFocusedHandle:Disconnect()
+		self.OnPluginWindowFocusedHandle = nil
+	end
 end
 
-ContextServices.mapToProps(MeshPartTool,{
-	Stylizer = ContextServices.Stylizer,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	MeshPartTool = withContext({
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+		Signals = SignalsContext,
+	})(MeshPartTool)
+else
+	ContextServices.mapToProps(MeshPartTool,{
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+		Signals = SignalsContext,
+	})
+end
 
 local function mapStateToProps(state, props)
     local selectItem = state.selectItem

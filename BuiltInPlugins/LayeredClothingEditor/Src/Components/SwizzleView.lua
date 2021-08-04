@@ -6,17 +6,19 @@
 		string Title: text to display at top of container, next to arrow
 		number LayoutOrder: sort order of frame when in a layout
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean IsSubsection: if this is a subsection of another swizzle view
 		boolean StayOpen: if this swizzle view can be collapsed
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local DoubleClickDetector = require(Plugin.Src.Components.DoubleClickDetector)
 
@@ -121,8 +123,15 @@ function SwizzleView:render()
 	})
 end
 
-ContextServices.mapToProps(SwizzleView,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SwizzleView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SwizzleView)
+else
+	ContextServices.mapToProps(SwizzleView,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return SwizzleView

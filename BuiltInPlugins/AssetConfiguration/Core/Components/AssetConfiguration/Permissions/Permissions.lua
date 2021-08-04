@@ -10,6 +10,7 @@
 
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -21,6 +22,7 @@ local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local LayoutOrderIterator
 local StyledScrollingFrame
@@ -237,9 +239,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-    ContextServices.mapToProps(Permissions, {
-        Stylizer = ContextServices.Stylizer,
-    })
+    if FFlagToolboxWithContext then
+	Permissions = withContext({
+	        Stylizer = ContextServices.Stylizer,
+	    })(Permissions)
+else
+	ContextServices.mapToProps(Permissions, {
+	        Stylizer = ContextServices.Stylizer,
+	    })
+end
+
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Permissions)

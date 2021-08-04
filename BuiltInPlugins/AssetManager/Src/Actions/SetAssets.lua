@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Action = require(Plugin.Packages.Framework.Util.Action)
+local Action = require(Plugin.Packages.Framework).Util.Action
 
 return Action(script.Name, function(assetsTable, index)
 	assert(type(assetsTable) == "table", string.format("SetAssets requires a table, not %s", type(assetsTable)))

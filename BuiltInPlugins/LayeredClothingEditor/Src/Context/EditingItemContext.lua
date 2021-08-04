@@ -20,6 +20,7 @@ function EditingItemContext.new()
 	setmetatable(self, EditingItemContext)
 
 	self.sourceItemChangedSignal = Signal.new()
+	self.editingItemChangedSignal = Signal.new()
 
 	return self
 end
@@ -31,6 +32,7 @@ end
 
 function EditingItemContext:setEditingItem(item)
 	self.editingItem = item
+	self.editingItemChangedSignal:Fire(item)
 end
 
 function EditingItemContext:createProvider(root)
@@ -54,6 +56,10 @@ end
 
 function EditingItemContext:getSourceItemChangedSignal()
 	return self.sourceItemChangedSignal
+end
+
+function EditingItemContext:getEditingItemChangedSignal()
+	return self.editingItemChangedSignal
 end
 
 return EditingItemContext

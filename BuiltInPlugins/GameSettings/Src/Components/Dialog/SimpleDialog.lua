@@ -7,12 +7,14 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local BaseDialog = require(Plugin.Src.Components.Dialog.BaseDialog)
 
@@ -44,8 +46,15 @@ function SimpleDialog:render()
 	})
 end
 
-ContextServices.mapToProps(SimpleDialog, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	SimpleDialog = withContext({
+		Theme = ContextServices.Theme,
+	})(SimpleDialog)
+else
+	ContextServices.mapToProps(SimpleDialog, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return SimpleDialog

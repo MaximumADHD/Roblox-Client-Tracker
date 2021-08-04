@@ -10,6 +10,7 @@
 		function OnCreateAnimation(name) = A callback for when the user chooses
 			to create a new animation with the given name.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -19,6 +20,7 @@ local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 
 local CaptureFocus = Framework.UI.CaptureFocus
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local StartScreen = Roact.PureComponent:extend("StartScreen")
@@ -65,9 +67,17 @@ function StartScreen:render()
 	})
 end
 
-ContextServices.mapToProps(StartScreen, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagAnimationClipEditorWithContext then
+	StartScreen = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(StartScreen)
+else
+	ContextServices.mapToProps(StartScreen, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return StartScreen

@@ -7,6 +7,7 @@
 			This will enable the Save button if true.
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
 
 local FOOTER_GRADIENT_SIZE = 3
@@ -19,6 +20,7 @@ local Promise = require(Plugin.Promise)
 local Framework = require(Plugin.Framework)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -184,11 +186,20 @@ function Footer:render()
 	})
 end
 
-ContextServices.mapToProps(Footer,{
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Dialog = Dialog,
-})
+if FFlagGameSettingsWithContext then
+	Footer = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})(Footer)
+else
+	ContextServices.mapToProps(Footer,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})
+end
+
 
 Footer = RoactRodux.connect(
 	function(state, props)

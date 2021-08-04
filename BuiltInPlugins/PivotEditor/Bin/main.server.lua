@@ -2,11 +2,13 @@ if not game:GetEngineFeature("ModelPivotVisual") then
 	return
 end
 
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 

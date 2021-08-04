@@ -6,12 +6,12 @@
 			Strings will be measured to determine the item size. Elements must specify their own size.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		number LayoutOrder: Order in which the element is placed.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		boolean TextWrapped: Sets text wrapped.
 		Enum.TextTruncate TextTruncate: Sets text truncated.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.
@@ -22,12 +22,14 @@
 		Color3 TextColor: The color of the text.
 		number TextSize: The size of the text.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Cryo = require(Framework.Parent.Cryo)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local t = require(Framework.Util.Typecheck.t)
 local Typecheck = Util.Typecheck
@@ -225,9 +227,17 @@ function BulletList:render()
 	)
 end
 
-ContextServices.mapToProps(BulletList, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	BulletList = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(BulletList)
+else
+	ContextServices.mapToProps(BulletList, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return BulletList

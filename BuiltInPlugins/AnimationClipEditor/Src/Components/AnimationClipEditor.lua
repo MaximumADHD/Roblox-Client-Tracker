@@ -2,12 +2,14 @@
 	The top-level component of the AnimationClip Editor itself.
 	Contained within an AnimationClipEditorPlugin.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local EditorController = require(Plugin.Src.Components.EditorController)
 
@@ -26,12 +28,22 @@ function AnimationClipEditor:render()
 		})
 end
 
-ContextServices.mapToProps(AnimationClipEditor, {
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-	Theme = ContextServices.Theme,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAnimationClipEditorWithContext then
+	AnimationClipEditor = withContext({
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics,
+	})(AnimationClipEditor)
+else
+	ContextServices.mapToProps(AnimationClipEditor, {
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 
 return AnimationClipEditor

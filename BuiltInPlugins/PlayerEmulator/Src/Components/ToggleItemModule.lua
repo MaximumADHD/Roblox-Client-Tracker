@@ -12,11 +12,13 @@
 			Because the ToggleButton in UILibrary only takes isOn as parameter,
 			but we need pass key into callback for any meaning logic business
 ]]
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
 
@@ -69,10 +71,19 @@ function ToggleItemModule:render()
 	})
 end
 
-ContextServices.mapToProps(ToggleItemModule, {
-	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPlayerEmulatorWithContext then
+	ToggleItemModule = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(ToggleItemModule)
+else
+	ContextServices.mapToProps(ToggleItemModule, {
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return ToggleItemModule

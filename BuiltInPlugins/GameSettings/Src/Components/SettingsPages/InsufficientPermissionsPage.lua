@@ -3,12 +3,14 @@
 
 	No public props
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FrameworkUI = require(Plugin.Framework.UI)
 
 local Container = FrameworkUI.Container
@@ -38,9 +40,17 @@ function InsufficientPermissionsPage:render()
 	})
 end
 
-ContextServices.mapToProps(InsufficientPermissionsPage, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	InsufficientPermissionsPage = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(InsufficientPermissionsPage)
+else
+	ContextServices.mapToProps(InsufficientPermissionsPage, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return InsufficientPermissionsPage

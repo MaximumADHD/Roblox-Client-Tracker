@@ -1,6 +1,7 @@
 --[[
 	Mostly the same as UILibrary RoundFrame component, but modified to use dev framework context
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -8,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 local DEFAULT_BORDER_COLOR = Color3.fromRGB(27, 42, 53)
@@ -83,9 +85,16 @@ function RoundFrame:render()
 	})
 end
 
-ContextServices.mapToProps(RoundFrame, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	RoundFrame = withContext({
+		Theme = ContextServices.Theme,
+	})(RoundFrame)
+else
+	ContextServices.mapToProps(RoundFrame, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return RoundFrame

@@ -2,6 +2,7 @@
 	Displays panels associated with the BaseBrush tool
 ]]
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainBrush = require(Plugin.Src.TerrainInterfaces.TerrainBrushInstance)
@@ -315,11 +317,21 @@ function BaseBrush:render()
 	})
 end
 
-ContextServices.mapToProps(BaseBrush, {
-	Mouse = ContextServices.Mouse,
-	Analytics = ContextServices.Analytics,
-	Terrain = ContextItems.Terrain,
-	PluginActivationController = ContextItems.PluginActivationController,
-})
+if FFlagTerrainToolsV2WithContext then
+	BaseBrush = withContext({
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+		Terrain = ContextItems.Terrain,
+		PluginActivationController = ContextItems.PluginActivationController,
+	})(BaseBrush)
+else
+	ContextServices.mapToProps(BaseBrush, {
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+		Terrain = ContextItems.Terrain,
+		PluginActivationController = ContextItems.PluginActivationController,
+	})
+end
+
 
 return BaseBrush

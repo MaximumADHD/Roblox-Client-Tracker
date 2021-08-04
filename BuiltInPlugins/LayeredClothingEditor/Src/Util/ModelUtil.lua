@@ -4,6 +4,8 @@ local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local TestHelper = require(Plugin.Src.Util.TestHelper)
 
+local Workspace = game.Workspace
+
 local ModelUtil = {}
 
 local function getDescendants(descendants, model)
@@ -24,7 +26,7 @@ local function getExents(item)
 	end
 end
 
-function ModelUtil:addAttachment(item, body, attachmentInfo, cframe)
+function ModelUtil:addAttachment(item, body, attachmentInfo, attachmentPoint)
 	local bodyAttachment = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
 	if not bodyAttachment then
 		return
@@ -39,8 +41,9 @@ function ModelUtil:addAttachment(item, body, attachmentInfo, cframe)
 
 	local newAttachment = Instance.new("Attachment", item)
 	newAttachment.Name = attachmentInfo.Name
-	if cframe then
-		newAttachment.CFrame = cframe
+	if attachmentPoint then
+		newAttachment.CFrame = attachmentPoint.AttachmentCFrame
+		item.CFrame = bodyAttachment.WorldCFrame * attachmentPoint.ItemCFrame
 	else
 		newAttachment.CFrame = bodyAttachment.CFrame
 	end
@@ -164,7 +167,7 @@ local function clearUnusedMeshChildren(item)
 	end
 end
 
-function ModelUtil:attachNonClothingItem(root, avatar, item)
+function ModelUtil:attachNonClothingItem(root, avatar, item, weldWithCurrentPos)
 	item.Parent = avatar
 
 	clearUnusedMeshChildren(item)
@@ -181,11 +184,11 @@ function ModelUtil:attachNonClothingItem(root, avatar, item)
 		return
 	end
 
-	self:addWeld(attBody.Parent.CFrame, item, attBody.Parent, item)
+	self:addWeld(not weldWithCurrentPos and attBody.Parent.CFrame or nil, item, attBody.Parent, item)
 	return
 end
 
-function ModelUtil:attachClothingItem(avatar, item)
+function ModelUtil:attachClothingItem(avatar, item, weldWithCurrentPos)
 	local characterRoot = avatar:FindFirstChild("HumanoidRootPart")
 	if not characterRoot then
 		return
@@ -216,7 +219,7 @@ function ModelUtil:attachClothingItem(avatar, item)
 
 	-- Accessory is not an LC item
 	if #clothesMeshes <= 0 then
-		self:attachNonClothingItem(characterRoot, avatar, item)
+		self:attachNonClothingItem(characterRoot, avatar, item, weldWithCurrentPos)
 		return
 	end
 
@@ -266,6 +269,9 @@ local function updateWrapsHelper(deformers, pointData, cageMode)
 
 	for _, deformer in pairs(deformers) do
 		local verts = pointData[cageMode][deformer.Name]
+		if not verts or not deformer:FindFirstAncestor(Workspace.Name) then
+			continue
+		end
 		local newVerts = {}
 		for _, vert in ipairs(verts) do
 			table.insert(newVerts, vert.Position)

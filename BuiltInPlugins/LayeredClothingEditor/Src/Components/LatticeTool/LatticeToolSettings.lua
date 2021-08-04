@@ -5,17 +5,18 @@
 		UDim2 Size: size of the frame
 		callback SetSubdivisions: function to call to set subdivision data for a lattice, provided by mapDispatchToProps
 		callback SetSelectedLattice: function to set the selected lattice, provided by mapDispatchToProps
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
-		table Signals: A Signals ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
+		table Signals: A Signals ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		string SelectedLattice: lattice currently selected in the editor, provided via mapToProps
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		string SelectedLattice: lattice currently selected in the editor, provided via withContext
 		table Subdivisions: subdivision data for each lattice, provided by mapStateToProps
 		EnumItem EditingCage: which cage on the model is currently being edited, provided by mapStateToProps
 		number LayoutOrder: render order of component in layout
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -37,6 +38,7 @@ local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Button = Framework.UI.Button
 local Pane = Framework.UI.Pane
 
@@ -185,13 +187,24 @@ function LatticeToolSettings:render()
 	})
 end
 
-ContextServices.mapToProps(LatticeToolSettings,{
-	Plugin = ContextServices.Plugin,
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	Signals = SignalsContext,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	LatticeToolSettings = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+	})(LatticeToolSettings)
+else
+	ContextServices.mapToProps(LatticeToolSettings,{
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local latticeTool = state.latticeTool

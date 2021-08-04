@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Rodux = require(Plugin.Packages.Rodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper :: any)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local UILibraryWrapper = require(Plugin.Packages.Framework).ContextServices.UILibraryWrapper
 local Http = require(Plugin.Packages.Http)
 
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)

@@ -1,6 +1,7 @@
 --[[
 	Renders the top tab which allows switching tab-view by clicking
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -8,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Tab = Roact.PureComponent:extend(script.Name)
@@ -59,9 +61,17 @@ function Tab:render()
 	})
 end
 
-ContextServices.mapToProps(Tab, {
-	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	Tab = withContext({
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})(Tab)
+else
+	ContextServices.mapToProps(Tab, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return Tab

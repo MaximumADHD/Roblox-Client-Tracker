@@ -18,12 +18,14 @@
 		function ToggleExpanded(element) = callback function for UILibrary TreeView when
 			an element becomes expanded.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local HierarchyLines = Roact.PureComponent:extend("HierarchyLines")
 
@@ -118,9 +120,16 @@ function HierarchyLines:render()
 		})
 end
 
-ContextServices.mapToProps(HierarchyLines, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	HierarchyLines = withContext({
+		Theme = ContextServices.Theme,
+	})(HierarchyLines)
+else
+	ContextServices.mapToProps(HierarchyLines, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return HierarchyLines

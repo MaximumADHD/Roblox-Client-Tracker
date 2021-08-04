@@ -2,7 +2,7 @@
 	Shows the Preview Panel grid
 
 	Required Props:
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 		table API: Roblox API from Devframework for calling end points
 		table PrebuiltAssetsInfo: from the rodux state, info about each prebuilt asset (name/description etc)
 		callback GetPrebuiltAssetsInfo: function provided via dispatch to get name/description etc info for prebuilt assets
@@ -11,18 +11,19 @@
 		string SelectedTab: the preview tab selection (this is an entry from PreviewConstants.TABS_KEYS)
 		table SelectedAssets: which assets are selected in the grid, which is provided via mapStateToProps.
 		callback StartSelectingFromExplorer: function to start selecting from explorer, which mapDispatchToProps provides
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 		string SelectorMode: enum to decide which selector should be on, which is provided via mapStateToProps
 		table UserAddedAssets: the table of assets added by the user
 		callback UpdateUserAddedAssets: function called when user added assets are changed
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number layoutOrder: render order of component in layout
 		number zIndex: the z sorting order of the component
 		Instance EditingItem: layered clothes item that is editing now, which is provided via mapStateToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -30,6 +31,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local ScrollingFrame = UI.ScrollingFrame
 local Util = Framework.Util
@@ -246,13 +248,24 @@ function Grid:didMount()
 	self.props.GetPrebuiltAssetsInfo(API, arrayOfAssetIds)
 end
 
-ContextServices.mapToProps(Grid,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	API = ContextServices.API,
-	Plugin = ContextServices.Plugin,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	Grid = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		API = ContextServices.API,
+		Plugin = ContextServices.Plugin,
+		EditingItemContext = EditingItemContext,
+	})(Grid)
+else
+	ContextServices.mapToProps(Grid,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		API = ContextServices.API,
+		Plugin = ContextServices.Plugin,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local previewAssets = state.previewAssets

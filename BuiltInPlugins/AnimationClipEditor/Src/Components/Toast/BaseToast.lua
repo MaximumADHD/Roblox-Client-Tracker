@@ -11,6 +11,7 @@
 		float Transparency = How transparent the Toast popup appears. Can be
 			used for fade out effects.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local EDGE_DISTANCE = 28
 
@@ -21,6 +22,7 @@ local Framework = require(Plugin.Packages.Framework)
 local ShowOnTop = Framework.UI.ShowOnTop
 local DropShadow = Framework.UI.DropShadow
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
 
@@ -83,8 +85,15 @@ function BaseToast:render()
 		})
 end
 
-ContextServices.mapToProps(BaseToast, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	BaseToast = withContext({
+		Theme = ContextServices.Theme,
+	})(BaseToast)
+else
+	ContextServices.mapToProps(BaseToast, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return BaseToast

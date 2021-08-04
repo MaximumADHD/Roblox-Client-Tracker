@@ -2,7 +2,7 @@
 	Provides a fake implementation of functions and objects exposed through the 'plugin' keyword
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Signal = require(Plugin.Packages.Framework.Util.Signal)
+local Signal = require(Plugin.Packages.Framework).Util.Signal
 
 local MockMouse = require(script.Parent.MockMouse)
 

@@ -6,6 +6,7 @@ local Framework = require(Plugin.Packages.Framework)
  
 -- Import ContextServices
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
  
 -- Import the button from DevFramework
 local Button = Framework.UI.Button
@@ -33,10 +34,10 @@ function RIDE4798:render()
         OnClick = onClick,
     })
 end
- 
-ContextServices.mapToProps(RIDE4798, {
-    Localization = ContextServices.Localization,
-})
+
+RIDE4798 = withContext({
+	Localization = ContextServices.Localization,
+})(RIDE4798)
  
 -- Return your component
 return RIDE4798

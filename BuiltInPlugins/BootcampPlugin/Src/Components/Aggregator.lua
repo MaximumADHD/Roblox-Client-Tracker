@@ -13,6 +13,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
  
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
  
 local TutorialComponents = Plugin.Src.Components.TutorialComponents
@@ -30,9 +31,9 @@ function Aggregator:render()
 		Example3 = FFlagSTM643 and Roact.createElement(STM643) or nil,
 	})
 end
- 
-ContextServices.mapToProps(Aggregator, {
+
+Aggregator = withContext({
     Stylizer = Stylizer,
-})
+})(Aggregator)
  
 return Aggregator

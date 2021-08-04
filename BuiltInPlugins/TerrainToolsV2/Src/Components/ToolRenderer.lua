@@ -2,6 +2,7 @@
 	Controls which Tool is shown in the tool frame
 	Handles all the bindings between the ui and the tool functionality
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -10,6 +11,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Tools = script.Parent.Tools
@@ -167,10 +169,18 @@ function ToolRenderer:render()
 	})
 end
 
-ContextServices.mapToProps(ToolRenderer, {
-	Theme = ContextItems.UILibraryTheme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagTerrainToolsV2WithContext then
+	ToolRenderer = withContext({
+		Theme = ContextItems.UILibraryTheme,
+		Mouse = ContextServices.Mouse,
+	})(ToolRenderer)
+else
+	ContextServices.mapToProps(ToolRenderer, {
+		Theme = ContextItems.UILibraryTheme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

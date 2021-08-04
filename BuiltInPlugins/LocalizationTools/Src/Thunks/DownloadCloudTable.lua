@@ -5,7 +5,7 @@
 local LocalizationService = game:GetService("LocalizationService")
 
 local Plugin = script.Parent.Parent.Parent
-local Http = require(Plugin.Packages.Framework.Http)
+local Http = require(Plugin.Packages.Framework).Http
 
 local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)
@@ -34,13 +34,13 @@ local function updateWebEntries(data, webEntries)
 		entry.Key = item.identifier.key or ""
 		entry.Source = item.identifier.source or ""
 		entry.Context = item.identifier.context or ""
-		
+
 		if FFlagLocalizationToolsFixExampleNotDownloaded then
 			entry.Example = item.metadata and item.metadata.example or ""
 		else
 			entry.Exmple = item.metadata and item.metadata.example or ""
 		end
-		
+
 		if not isEmpty(item.translations) then
 			for _, translation in ipairs(item.translations) do
 				if type(translation.locale) ~= "string" then

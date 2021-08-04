@@ -24,6 +24,7 @@
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -31,6 +32,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 
@@ -140,9 +142,16 @@ function RadioButtonSet:render()
 		}, children)
 end
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(RadioButtonSet, {
-		Theme = ContextServices.Theme,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		RadioButtonSet = withContext({
+			Theme = ContextServices.Theme,
+		})(RadioButtonSet)
+	else
+		ContextServices.mapToProps(RadioButtonSet, {
+			Theme = ContextServices.Theme,
+		})
+	end
+
 end
 
 return RadioButtonSet

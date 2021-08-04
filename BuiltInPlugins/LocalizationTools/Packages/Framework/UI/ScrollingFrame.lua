@@ -21,8 +21,8 @@
 		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 		Style Style: a style table supplied from props and theme:getStyle()
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps
-		Theme Theme: the theme supplied from mapToProps()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext
+		Theme Theme: the theme supplied from withContext()
 
 	Style Values:
 		string BottomImage: The image that appears in the bottom 3rd of the scrollbar
@@ -35,6 +35,7 @@
 		integer ZIndex: The draw index of the frame.
 ]]
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 
 local Framework = script.Parent.Parent
@@ -55,6 +56,7 @@ else
 end
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Container = require(script.Parent.Container)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
@@ -226,9 +228,17 @@ function ScrollingFrame:render()
 	})
 end
 
-ContextServices.mapToProps(ScrollingFrame, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	ScrollingFrame = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(ScrollingFrame)
+else
+	ContextServices.mapToProps(ScrollingFrame, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return ScrollingFrame

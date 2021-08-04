@@ -1,5 +1,6 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
@@ -144,7 +145,7 @@ function ToolboxTheme:_recalculateTheme()
 			backgroundColor = color(c.MainBackground),
 		},
 
-		header = {
+		header = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = color(c.Titlebar),
 			borderColor = color(c.Border),
 		},
@@ -156,7 +157,7 @@ function ToolboxTheme:_recalculateTheme()
 			bar = color(c.CurrentMarker),
 		},
 
-		dropdownMenu = {
+		dropdownMenu = (not FFlagToolboxRemoveWithThemes) and {
 			currentSelection = {
 				backgroundColor = color(c.Dropdown),
 				backgroundSelectedColor = color(c.CurrentMarker),
@@ -210,7 +211,7 @@ function ToolboxTheme:_recalculateTheme()
 		},
 
 		asset = {
-			outline = {
+			outline = (not FFlagToolboxRemoveWithThemes) and {
 				backgroundColor = color(c.MainBackground),
 				borderColor = color(c.Border),
 			},
@@ -220,15 +221,15 @@ function ToolboxTheme:_recalculateTheme()
 				borderColor = color(c.Item, m.Hover),
 			},
 
-			assetName = {
+			assetName = (not FFlagToolboxRemoveWithThemes) and {
 				textColor = FFlagEnableToolboxAssetNameColorChange and color(c.MainText) or color(c.LinkText),
 			},
 
-			status = {
+			status = (not FFlagToolboxRemoveWithThemes) and {
 				textColor = color(c.MainText),
 			},
 
-			creatorName = {
+			creatorName = (not FFlagToolboxRemoveWithThemes) and {
 				textColor = color(c.SubText),
 			},
 
@@ -243,7 +244,7 @@ function ToolboxTheme:_recalculateTheme()
 				voteThumb = Color3.fromRGB(117, 117, 117),
 			},
 
-			assetIcon = {
+			assetIcon = (not FFlagToolboxRemoveWithThemes) and {
 				buttonColor = isDark and Color3.fromRGB(178, 178, 178) or color(c.SubText),
 			},
 
@@ -255,7 +256,7 @@ function ToolboxTheme:_recalculateTheme()
 			textColor = color(c.SubText),
 		},
 
-		loadingIndicator = {
+		loadingIndicator = (not FFlagToolboxRemoveWithThemes) and {
 			baseColor = isDark and Color3.fromRGB(56, 56, 56) or Color3.fromRGB(184, 184, 184),
 			endColor = isDark and Color3.fromRGB(11, 90, 175) or Color3.fromRGB(0, 162, 255),
 		},
@@ -452,7 +453,7 @@ function ToolboxTheme:_recalculateTheme()
 			background = color(c.InputFieldBackground),
 		},
 
-		tabSet = {
+		tabSet = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = color(c.MainBackground),
 			borderColor = color(c.Border),
 			topBorderColor = isDark and Colors.BLUE_PRIMARY or color(c.Border),

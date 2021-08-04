@@ -12,6 +12,7 @@
 		function OpenChanged(isOpen) = Callback when the dropdown menu is opened or closed.
 		function HoverChanged(hovered) = Callback when the mouse enters or leaves the dropdown menu.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local ENTRY_HEIGHT = 38
 local DEFAULT_SIZE = UDim2.new(0, 220, 0, ENTRY_HEIGHT)
@@ -33,6 +34,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -267,9 +269,17 @@ function Dropdown:render()
 	})
 end
 
-ContextServices.mapToProps(Dropdown, {
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	Dropdown = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(Dropdown)
+else
+	ContextServices.mapToProps(Dropdown, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return Dropdown

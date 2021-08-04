@@ -9,14 +9,16 @@
 		number LayoutOrder: sort order of frame in a layout
 		callback OnToggle: function to be called when checkbox is clicked.
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local ToggleButton = UI.ToggleButton
@@ -79,8 +81,15 @@ function CheckboxSetting:render()
 	})
 end
 
-ContextServices.mapToProps(CheckboxSetting,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	CheckboxSetting = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CheckboxSetting)
+else
+	ContextServices.mapToProps(CheckboxSetting,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return CheckboxSetting

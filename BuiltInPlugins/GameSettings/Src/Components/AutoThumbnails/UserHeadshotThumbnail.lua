@@ -17,9 +17,11 @@
 		LayoutOrder
 		ZIndex
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
 
@@ -145,8 +147,15 @@ function UserHeadshotThumbnail:render()
 	})
 end
 
-ContextServices.mapToProps(UserHeadshotThumbnail, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	UserHeadshotThumbnail = withContext({
+		Theme = ContextServices.Theme,
+	})(UserHeadshotThumbnail)
+else
+	ContextServices.mapToProps(UserHeadshotThumbnail, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return UserHeadshotThumbnail

@@ -13,12 +13,14 @@
 		function ListItemsCheckBoxCallback
 			callback to parent when checkbox in this list is clicked
 ]]
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ExpandableList = UILibrary.Component.ExpandableList
 
@@ -104,10 +106,19 @@ function ListItemsModule:render()
 	}) or nil
 end
 
-ContextServices.mapToProps(ListItemsModule, {
-	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPlayerEmulatorWithContext then
+	ListItemsModule = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(ListItemsModule)
+else
+	ContextServices.mapToProps(ListItemsModule, {
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return ListItemsModule

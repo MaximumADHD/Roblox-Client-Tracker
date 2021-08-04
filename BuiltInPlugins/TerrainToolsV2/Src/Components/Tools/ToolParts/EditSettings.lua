@@ -1,6 +1,7 @@
 --[[
 	EditSettings.lua
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -8,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
@@ -33,8 +35,15 @@ function EditSettings:render()
 	})
 end
 
-ContextServices.mapToProps(EditSettings, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	EditSettings = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(EditSettings)
+else
+	ContextServices.mapToProps(EditSettings, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return EditSettings

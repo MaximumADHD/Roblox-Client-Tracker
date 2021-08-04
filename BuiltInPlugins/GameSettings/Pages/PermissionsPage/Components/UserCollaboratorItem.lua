@@ -1,4 +1,5 @@
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -6,6 +7,7 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 
@@ -129,9 +131,16 @@ function UserCollaboratorItem:render()
 	})
 end
 
-ContextServices.mapToProps(UserCollaboratorItem, {
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	UserCollaboratorItem = withContext({
+		Localization = ContextServices.Localization,
+	})(UserCollaboratorItem)
+else
+	ContextServices.mapToProps(UserCollaboratorItem, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 UserCollaboratorItem = RoactRodux.connect(
 	function(state, props)

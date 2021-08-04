@@ -10,6 +10,7 @@
 
 		function OnClose() = A callback for when the toast closes.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local RunService = game:GetService("RunService")
 
@@ -24,6 +25,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local BaseToast = require(Plugin.Src.Components.Toast.BaseToast)
 
@@ -126,9 +128,16 @@ function NoticeToast:render()
 		})
 end
 
-ContextServices.mapToProps(NoticeToast, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	NoticeToast = withContext({
+		Theme = ContextServices.Theme,
+	})(NoticeToast)
+else
+	ContextServices.mapToProps(NoticeToast, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return NoticeToast

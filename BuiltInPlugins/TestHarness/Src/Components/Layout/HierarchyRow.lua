@@ -12,6 +12,7 @@ local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 
 local HierarchyRow = Roact.PureComponent:extend("HierarchyRow")
@@ -44,8 +45,8 @@ function HierarchyRow:render()
 	})
 end
 
-ContextServices.mapToProps(HierarchyRow, {
+HierarchyRow = withContext({
 	Stylizer = Stylizer,
-})
+})(HierarchyRow)
 
 return HierarchyRow

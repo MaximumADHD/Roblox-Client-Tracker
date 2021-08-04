@@ -24,6 +24,7 @@ local Studio = settings().Studio
 local AvatarPrompt = Roact.Component:extend("AvatarPrompt")
 
 function AvatarPrompt:render()
+	local showImportRequirements = not game:GetFastFlag("RemoveImportRequirements")
 	return Roact.createElement("Frame", {
 		Name = "AvatarPrompt",
 		Size = UDim2.new(1, 0, 1, 0),
@@ -126,7 +127,7 @@ function AvatarPrompt:render()
 						Dark = Color3.fromRGB(204, 204, 204),
 					}),
 				}),
-				infoLink = Roact.createElement("TextButton", {
+				infoLink = showImportRequirements and Roact.createElement("TextButton", {
 					BackgroundTransparency = 1,
 					Font = Constants.FONT,
 					LayoutOrder = 1,

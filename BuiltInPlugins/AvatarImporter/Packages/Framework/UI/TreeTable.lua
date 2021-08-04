@@ -9,13 +9,14 @@
 		callback GetChildren: This should return a list of children for a given row - GetChildren(row: Item) => Item[]
 		table Expansion: The keys of rows that should be expanded - Set<Item>
 		callback OnExpansionChange: Called when an item is expanded or collapsed - (changedExpansion: Set<Item>) => void
-
-	Optional Props:
+		
+		Optional Props:
 		boolean Scroll: Whether the table should scroll vertically if there are more rows than can be displayed.
 		UDim2 Size: The size of the table
 		number SelectedRow: The index of the currently selected row.
 		number SortIndex: The index of the current column that is being sorted.
 		any Footer: A Roact fragment or element to be displayed in the footer.
+		boolean DisableTooltip: Whether to disable tooltips that appear when hovering over cells where the text is truncated.
 		boolean ShowHeader: Whether to display the header. (defalt = true)
 		boolean ShowFooter: Whether to display the footer. (default = true if the Footer prop is non-nil)
 		Enum.SortDirection SortOrder: The order that the column is being sorted in.
@@ -23,20 +24,21 @@
 		callback SortChildren: A comparator function to sort two rows in the tree - SortChildren(left: Item, right: Item) => boolean
 		callback OnHoverRow: An optional callback called when a row is hovered over. (dataIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
-		callback OnSelectRow: An optional callback called when a row is selected. (dataIndex: number) -> ()
+		callback OnSelectionChange: Called when an item is selected - (newSelection: Set<Item>) => void
 		callback OnSizeChange: An optional callback called when the component size changes with number of rows that can be displayed.
 		callback OnPageSizeChange: An optional callback called when the size of a page changes.
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Dash = require(Framework.packages.Dash)
 local copy = Dash.copy
@@ -54,11 +56,15 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
+local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
 	self.onToggle = function(row)
+
 		local newExpansion = {
-			[row.item] = not self.props.Expansion[row.item] or nil,
+			[row.item] = not self.props.Expansion[row.item] or false,
 		}
 		self.props.OnExpansionChange(newExpansion)
 	end
@@ -84,6 +90,7 @@ function TreeTable:init()
 			OnToggle = self.onToggle,
 			Expansion = self.props.Expansion,
 			CellStyle = self.props.Stylizer,
+			DisableTooltip = FFlagToggleTreeTableTooltip and self.props.DisableTooltip or nil,
 		},
 	}
 end
@@ -121,6 +128,7 @@ function TreeTable:calculateItems(prevProps)
 				OnToggle = self.onToggle,
 				Expansion = props.Expansion,
 				CellStyle = props.Stylizer,
+				DisableTooltip = FFlagToggleTreeTableTooltip and props.DisableTooltip or nil,
 			}
 		end
 		local rows = nextState.rows or prevState.rows
@@ -186,8 +194,15 @@ function TreeTable:render()
 	})
 end
 
-ContextServices.mapToProps(TreeTable, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TreeTable = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(TreeTable)
+else
+	ContextServices.mapToProps(TreeTable, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return TreeTable

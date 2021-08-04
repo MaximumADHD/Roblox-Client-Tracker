@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Rodux = require(Plugin.Packages.Rodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 

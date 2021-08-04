@@ -9,6 +9,7 @@
 			trigger a NewUploadableIcon component to render rather than this.
 		function OnClick = A callback invoked when this icon is clicked.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local FALLBACK_IMAGE = "rbxasset://textures/GameSettings/ModeratedAsset.jpg"
 
@@ -17,6 +18,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -124,10 +126,19 @@ function UploadableIcon:render()
 	})
 end
 
-ContextServices.mapToProps(UploadableIcon, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	UploadableIcon = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(UploadableIcon)
+else
+	ContextServices.mapToProps(UploadableIcon, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return UploadableIcon

@@ -56,9 +56,16 @@
 			})
 		end
 
-		ContextServices.mapToProps(TextBox, {
-			Stylizer = ContextServices.Stylizer,
-		})
+		if FFlagDeveloperFrameworkWithContext then
+			TextBox = withContext({
+				Stylizer = ContextServices.Stylizer,
+			})(TextBox)
+		else
+			ContextServices.mapToProps(TextBox, {
+				Stylizer = ContextServices.Stylizer,
+			})
+		end
+
 
 		return TextBox
 ]]

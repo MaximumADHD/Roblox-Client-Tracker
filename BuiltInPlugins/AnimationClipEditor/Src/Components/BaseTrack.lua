@@ -12,10 +12,12 @@
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Roact = require(Plugin.Packages.Roact)
 
 local BaseTrack = Roact.PureComponent:extend("BaseTrack")
@@ -56,9 +58,16 @@ function BaseTrack:render()
 		})
 end
 
-ContextServices.mapToProps(BaseTrack, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	BaseTrack = withContext({
+		Theme = ContextServices.Theme,
+	})(BaseTrack)
+else
+	ContextServices.mapToProps(BaseTrack, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return BaseTrack

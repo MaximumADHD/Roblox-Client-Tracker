@@ -1,3 +1,4 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local PermissionsService = game:GetService("PermissionsService")
@@ -5,8 +6,9 @@ local PermissionsService = game:GetService("PermissionsService")
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local FitFrame = require(Plugin.Packages.FitFrame)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UI = require(Plugin.Packages.Framework.UI)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
+local UI = require(Plugin.Packages.Framework).UI
 
 local SetPluginPermission = require(Plugin.Src.Thunks.SetPluginPermission)
 local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
@@ -71,7 +73,7 @@ function ScriptInjectionHolder:renderCheckbox(theme, index, permission)
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, 8),
 		}),
-		
+
 		ToggleButton = Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = 1,
@@ -124,11 +126,20 @@ function ScriptInjectionHolder:render()
 	})
 end
 
-ContextServices.mapToProps(ScriptInjectionHolder, {
-	API = PluginAPI2,
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-})
+if FFlagPluginManagementWithContext then
+	ScriptInjectionHolder = withContext({
+		API = PluginAPI2,
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})(ScriptInjectionHolder)
+else
+	ContextServices.mapToProps(ScriptInjectionHolder, {
+		API = PluginAPI2,
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

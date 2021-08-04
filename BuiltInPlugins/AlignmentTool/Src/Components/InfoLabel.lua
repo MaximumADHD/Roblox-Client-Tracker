@@ -2,6 +2,7 @@
 	A text label that spans the width of its container, and resizes vertically
 	to fit the height of wrapped text.
 ]]
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -10,6 +11,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TextService = game:GetService("TextService")
 
@@ -89,8 +91,15 @@ function InfoLabel:render()
 	})
 end
 
-ContextServices.mapToProps(InfoLabel, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagAlignmentToolWithContext then
+	InfoLabel = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(InfoLabel)
+else
+	ContextServices.mapToProps(InfoLabel, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return InfoLabel

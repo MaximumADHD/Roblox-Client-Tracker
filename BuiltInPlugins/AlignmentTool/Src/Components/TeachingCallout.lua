@@ -1,9 +1,11 @@
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local CalloutController = require(Plugin.Src.Utility.CalloutController)
 
@@ -47,8 +49,15 @@ function TeachingCallout:render()
 	})
 end
 
-ContextServices.mapToProps(TeachingCallout, {
-	CalloutController = CalloutController,
-})
+if FFlagAlignmentToolWithContext then
+	TeachingCallout = withContext({
+		CalloutController = CalloutController,
+	})(TeachingCallout)
+else
+	ContextServices.mapToProps(TeachingCallout, {
+		CalloutController = CalloutController,
+	})
+end
+
 
 return TeachingCallout

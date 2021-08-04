@@ -5,8 +5,14 @@ local SelectControlPoint = require(Plugin.Src.Thunks.SelectControlPoint)
 
 return function(cage)
 	return function(store)
-		store:dispatch(SelectRbfPoint({}))
-		store:dispatch(SelectControlPoint({}))
-		store:dispatch(SetEditingCage(cage))
+		local state = store:getState()
+
+		local currentCage = state.selectItem.editingCage
+
+		if currentCage ~= cage then
+			store:dispatch(SelectRbfPoint({}))
+			store:dispatch(SelectControlPoint({}))
+			store:dispatch(SetEditingCage(cage))
+		end
 	end
 end

@@ -7,8 +7,8 @@
 		UDim2 Position: The position of this component.
 		number Size: The width and height of this component as a square.
 		number ZIndex: The render index of this component.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		table Colors: Ordered list of colors for each "block" in the spinner. First element is the front of the
@@ -17,6 +17,7 @@
 		number BlockWidth: Width of each block segment
 		number InnerRadius: Radius of the inner circle the block segments surround
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -24,6 +25,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Container = UI.Container
@@ -144,9 +146,17 @@ function Spinner:render()
 	})
 end
 
-ContextServices.mapToProps(Spinner, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagTerrainToolsV2WithContext then
+	Spinner = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Spinner)
+else
+	ContextServices.mapToProps(Spinner, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Spinner

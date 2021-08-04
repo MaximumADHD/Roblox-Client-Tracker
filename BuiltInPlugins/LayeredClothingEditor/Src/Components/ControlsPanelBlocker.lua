@@ -6,14 +6,16 @@
 		callback OnFocused: function to call when the user returns focus to the editor
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local CaptureFocus = UI.CaptureFocus
 
@@ -43,8 +45,15 @@ function ControlsPanelBlocker:render()
     })
 end
 
-ContextServices.mapToProps(ControlsPanelBlocker,{
-    Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ControlsPanelBlocker = withContext({
+	    Stylizer = ContextServices.Stylizer,
+	})(ControlsPanelBlocker)
+else
+	ContextServices.mapToProps(ControlsPanelBlocker,{
+	    Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return ControlsPanelBlocker

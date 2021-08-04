@@ -15,6 +15,7 @@
 		onPriceChange, function, price has changed
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -26,6 +27,7 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local SalesComponent = require(AssetConfiguration.SalesComponent)
@@ -224,9 +226,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ContextServices.mapToProps(SalesPage, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		SalesPage = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(SalesPage)
+	else
+		ContextServices.mapToProps(SalesPage, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SalesPage)

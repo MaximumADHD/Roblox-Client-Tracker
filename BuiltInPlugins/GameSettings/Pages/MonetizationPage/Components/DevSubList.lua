@@ -7,6 +7,7 @@
         func OnDeveloperSubscriptionCreated = when a developer subscriptin is made
         int ListItemHeight = the height in pixels of the list items
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -24,6 +25,7 @@ local DevSubListHeaderText = require(script.Parent.DevSubListHeaderText)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
@@ -176,10 +178,18 @@ function DeveloperSubscriptionList:render()
     }, elements)
 end
 
-ContextServices.mapToProps(DeveloperSubscriptionList,{
-    Theme = ContextServices.Theme,
-    Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	DeveloperSubscriptionList = withContext({
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})(DeveloperSubscriptionList)
+else
+	ContextServices.mapToProps(DeveloperSubscriptionList,{
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})
+end
+
 
 return RoactRodux.connect(
     function(state, props)

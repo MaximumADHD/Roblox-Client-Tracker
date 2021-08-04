@@ -11,7 +11,7 @@ local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local globals = require(Plugin.Src.Util.CreatePluginGlobals)
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")

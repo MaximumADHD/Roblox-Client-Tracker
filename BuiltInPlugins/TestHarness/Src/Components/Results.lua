@@ -9,6 +9,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
@@ -34,8 +35,8 @@ function Results:render()
 	})
 end
 
-ContextServices.mapToProps(Results, {
+Results = withContext({
 	Stylizer = Stylizer,
-})
+})(Results)
 
 return Results

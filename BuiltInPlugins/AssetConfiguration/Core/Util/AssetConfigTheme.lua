@@ -1,5 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
@@ -336,7 +337,7 @@ function AssetConfigTheme:_recalculateTheme()
 			link = color(c.LinkText),
 		},
 
-		nav = {
+		nav = (not FFlagToolboxRemoveWithThemes) and {
 			mainButton = {
 				background = color(c.DialogMainButton),
 				hoverBackground = color(c.DialogMainButton, m.Hover),

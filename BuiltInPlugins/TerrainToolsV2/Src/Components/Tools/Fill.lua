@@ -1,6 +1,7 @@
 --[[
 	Displays panels associated with the Fill tool
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
@@ -85,9 +87,16 @@ function Fill:render()
 	})
 end
 
-ContextServices.mapToProps(Fill, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	Fill = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(Fill)
+else
+	ContextServices.mapToProps(Fill, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

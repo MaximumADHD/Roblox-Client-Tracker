@@ -9,6 +9,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
@@ -33,6 +34,7 @@ local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
@@ -242,10 +244,18 @@ function ScreenPublishFail:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(ScreenPublishFail, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		ScreenPublishFail = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(ScreenPublishFail)
+	else
+		ContextServices.mapToProps(ScreenPublishFail, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 end
 
 local function mapStateToProps(state, props)

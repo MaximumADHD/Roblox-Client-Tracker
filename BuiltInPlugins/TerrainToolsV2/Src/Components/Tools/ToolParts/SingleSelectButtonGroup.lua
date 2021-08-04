@@ -1,9 +1,11 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local INSET_FOR_CURVED_CORNERS = 4
@@ -127,9 +129,16 @@ function SingleSelectButton:render()
 	})
 end
 
-ContextServices.mapToProps(SingleSelectButton, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	SingleSelectButton = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(SingleSelectButton)
+else
+	ContextServices.mapToProps(SingleSelectButton, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 local SingleSelectButtonGroup = Roact.PureComponent:extend("SingleSelectButtonGroup")
 
@@ -198,8 +207,15 @@ function SingleSelectButtonGroup:render()
 	}, content)
 end
 
-ContextServices.mapToProps(SingleSelectButtonGroup, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	SingleSelectButtonGroup = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(SingleSelectButtonGroup)
+else
+	ContextServices.mapToProps(SingleSelectButtonGroup, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return SingleSelectButtonGroup

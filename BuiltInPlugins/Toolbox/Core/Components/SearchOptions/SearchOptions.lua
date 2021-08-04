@@ -29,6 +29,7 @@ local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar)
 local RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
@@ -37,6 +38,7 @@ local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOp
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
@@ -282,9 +284,16 @@ function SearchOptions:render()
 	end)
 end
 
-ContextServices.mapToProps(SearchOptions, {
-	Localization = ContextServices.Localization,
-})
+if FFlagToolboxWithContext then
+	SearchOptions = withContext({
+		Localization = ContextServices.Localization,
+	})(SearchOptions)
+else
+	ContextServices.mapToProps(SearchOptions, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

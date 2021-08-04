@@ -15,8 +15,10 @@ local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -83,8 +85,15 @@ function CheckBoxSet:render()
 	}, children)
 end
 
-ContextServices.mapToProps(CheckBoxSet, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	CheckBoxSet = withContext({
+		Theme = ContextServices.Theme,
+	})(CheckBoxSet)
+else
+	ContextServices.mapToProps(CheckBoxSet, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return CheckBoxSet

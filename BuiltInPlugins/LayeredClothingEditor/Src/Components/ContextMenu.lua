@@ -5,13 +5,15 @@
 		table Actions: The set of actions to send to MakePluginMenu.
 		callback OnMenuOpened: A callback for when the context menu has successfully opened.
 		string Name: name for plugin menu
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
 local ContextMenu = Roact.PureComponent:extend("ContextMenu")
 
@@ -39,8 +41,15 @@ function ContextMenu:render()
 	return nil
 end
 
-ContextServices.mapToProps(ContextMenu,{
-	Plugin = ContextServices.Plugin,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ContextMenu = withContext({
+		Plugin = ContextServices.Plugin,
+	})(ContextMenu)
+else
+	ContextServices.mapToProps(ContextMenu,{
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return ContextMenu

@@ -10,12 +10,14 @@
 		int ZIndex = display order of the scrubber component
 		int thickness = pixel width of the scrubber line
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Scrubber = Roact.PureComponent:extend("Scrubber")
 
@@ -61,9 +63,16 @@ function Scrubber:render()
 		}, children)
 end
 
-ContextServices.mapToProps(Scrubber, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	Scrubber = withContext({
+		Theme = ContextServices.Theme,
+	})(Scrubber)
+else
+	ContextServices.mapToProps(Scrubber, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return Scrubber

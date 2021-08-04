@@ -1,6 +1,7 @@
 --[[
 	Displays panels associated with the SeaLevel tool
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Actions = Plugin.Src.Actions
@@ -97,10 +99,18 @@ function SeaLevel:render()
 	})
 end
 
-ContextServices.mapToProps(SeaLevel, {
-	Localization = ContextItems.UILibraryLocalization,
-	SeaLevel = ContextItems.SeaLevel,
-})
+if FFlagTerrainToolsV2WithContext then
+	SeaLevel = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+		SeaLevel = ContextItems.SeaLevel,
+	})(SeaLevel)
+else
+	ContextServices.mapToProps(SeaLevel, {
+		Localization = ContextItems.UILibraryLocalization,
+		SeaLevel = ContextItems.SeaLevel,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

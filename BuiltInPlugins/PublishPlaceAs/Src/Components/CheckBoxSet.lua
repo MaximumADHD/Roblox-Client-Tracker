@@ -9,6 +9,7 @@
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
@@ -23,6 +24,7 @@ local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local CheckBox = UILibrary.Component.CheckBox
 local TitledFrame = UILibrary.Component.TitledFrame
@@ -174,9 +176,16 @@ function CheckBoxSet:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(CheckBoxSet, {
-		Theme = ContextServices.Theme,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		CheckBoxSet = withContext({
+			Theme = ContextServices.Theme,
+		})(CheckBoxSet)
+	else
+		ContextServices.mapToProps(CheckBoxSet, {
+			Theme = ContextServices.Theme,
+		})
+	end
+
 end
 
 

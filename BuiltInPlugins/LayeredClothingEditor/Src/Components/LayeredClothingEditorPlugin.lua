@@ -145,6 +145,7 @@ function LayeredClothingEditorPlugin:render()
 				local pluginInst = self.plugin:get()
 				pluginInst:Activate(true)
 				self.store:dispatch(SetDraggerType(Enum.RibbonTool.Select))
+				self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
 			end)
 		end,
 	}, {

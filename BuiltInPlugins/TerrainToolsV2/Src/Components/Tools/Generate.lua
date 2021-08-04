@@ -1,3 +1,4 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -5,6 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -187,10 +189,18 @@ function Generate:render()
 	})
 end
 
-ContextServices.mapToProps(Generate, {
-	Localization = ContextItems.UILibraryLocalization,
-	TerrainGeneration = ContextItems.TerrainGeneration,
-})
+if FFlagTerrainToolsV2WithContext then
+	Generate = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+		TerrainGeneration = ContextItems.TerrainGeneration,
+	})(Generate)
+else
+	ContextServices.mapToProps(Generate, {
+		Localization = ContextItems.UILibraryLocalization,
+		TerrainGeneration = ContextItems.TerrainGeneration,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

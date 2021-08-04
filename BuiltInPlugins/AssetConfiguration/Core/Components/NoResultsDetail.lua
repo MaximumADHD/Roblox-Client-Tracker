@@ -1,3 +1,4 @@
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -12,6 +13,10 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
 
 local withTheme = ContextHelper.withTheme
+
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local LINK_PLACEHOLDER = '{link}'
 
@@ -37,6 +42,16 @@ function NoResultsDetail:didMount()
 end
 
 function NoResultsDetail:render()
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
+
+function NoResultsDetail:renderContent(theme)
 	local props = self.props
 	assert(t.interface({
 		content = t.interface({
@@ -47,58 +62,66 @@ function NoResultsDetail:render()
 		onLinkClicked = t.callback,
 	})(props))
 
-	return withTheme(function(theme)
-		local fontSize = Constants.FONT_SIZE_MEDIUM
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local content = props.content
+	local fontSize = Constants.FONT_SIZE_MEDIUM
 
-		local position = props.Position or UDim2.new(0, 0, 0, 0)
-		local zindex = props.ZIndex or 0
-		local visible = (props.Visible ~= nil and props.Visible) or (props.Visible == nil)
-		local infoBannerTheme = theme.infoBanner
+	local content = props.content
 
-		local textWithInlineLinkProps = {
-			textProps = {
-				TextColor3 = infoBannerTheme.textColor,
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				TextSize = fontSize,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextWrapped = true,
-				ClipsDescendants = true,
-			},
+	local position = props.Position or UDim2.new(0, 0, 0, 0)
+	local zindex = props.ZIndex or 0
+	local visible = (props.Visible ~= nil and props.Visible) or (props.Visible == nil)
+	local infoBannerTheme = theme.infoBanner
 
-			linkPlaceholder = LINK_PLACEHOLDER,
-			linkText = content.LinkText,
-			onLinkClicked = props.onLinkClicked,
-			maxWidth = self.state.maxChildWidth,
-		}
-
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = UDim2.new(1, 0, 1, 0),
+	local textWithInlineLinkProps = {
+		textProps = {
+			TextColor3 = infoBannerTheme.textColor,
 			BackgroundTransparency = 1,
-			ZIndex = zindex,
-			Visible = visible,
-			[Roact.Ref] = self.frameRef,
-			[Roact.Change.AbsoluteSize] = self.updateSize,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Vertical,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center
-			}),
-			TextLine1 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-				text = content.TextLine1,
-				LayoutOrder = 1,
-			}, textWithInlineLinkProps)),
-			TextLine2 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-				text = content.TextLine2,
-				LayoutOrder = 2,
-			}, textWithInlineLinkProps))
-		})
-	end)
+			Font = Constants.FONT,
+			TextSize = fontSize,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextYAlignment = Enum.TextYAlignment.Center,
+			TextWrapped = true,
+			ClipsDescendants = true,
+		},
+
+		linkPlaceholder = LINK_PLACEHOLDER,
+		linkText = content.LinkText,
+		onLinkClicked = props.onLinkClicked,
+		maxWidth = self.state.maxChildWidth,
+	}
+
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+		ZIndex = zindex,
+		Visible = visible,
+		[Roact.Ref] = self.frameRef,
+		[Roact.Change.AbsoluteSize] = self.updateSize,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center
+		}),
+		TextLine1 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
+			text = content.TextLine1,
+			LayoutOrder = 1,
+		}, textWithInlineLinkProps)),
+		TextLine2 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
+			text = content.TextLine2,
+			LayoutOrder = 2,
+		}, textWithInlineLinkProps))
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	NoResultsDetail = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(NoResultsDetail)
 end
 
 return NoResultsDetail

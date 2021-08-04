@@ -3,13 +3,15 @@
 
 	Consists of the PluginToolbar, DockWidget, and MainView.
 ]]
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
+local withContext = ContextServices.withContext
 local DockWidget = StudioUI.DockWidget
 local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar
@@ -122,10 +124,18 @@ function AlignmentToolPlugin:render()
 	})
 end
 
-ContextServices.mapToProps(AlignmentToolPlugin, {
-	Localization = ContextServices.Localization,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAlignmentToolWithContext then
+	AlignmentToolPlugin = withContext({
+		Localization = ContextServices.Localization,
+		Analytics = ContextServices.Analytics,
+	})(AlignmentToolPlugin)
+else
+	ContextServices.mapToProps(AlignmentToolPlugin, {
+		Localization = ContextServices.Localization,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

@@ -10,6 +10,7 @@
 		func OnEditFinished = function to call when this page wants to return to the
 			list view, when the back button gets clicked
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local StudioService = game:GetService("StudioService")
 
@@ -43,6 +44,7 @@ local RoundTextBox = require(Plugin.RoactStudioWidgets.RoundTextBox)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local FrameworkUI = require(Framework.UI)
 local HoverArea = FrameworkUI.HoverArea
@@ -387,11 +389,20 @@ function DeveloperSubscriptionDetails:render()
 	})
 end
 
-ContextServices.mapToProps(DeveloperSubscriptionDetails,{
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Dialog = Dialog,
-})
+if FFlagGameSettingsWithContext then
+	DeveloperSubscriptionDetails = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})(DeveloperSubscriptionDetails)
+else
+	ContextServices.mapToProps(DeveloperSubscriptionDetails,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 return RoactRodux.connect(

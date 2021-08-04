@@ -17,6 +17,7 @@
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FIntToolboxPriceTextBoxMaxCount = game:DefineFastInt("ToolboxPriceTextBoxMaxCount", 1000)
 local FFlagDevFrameworkConvertTextProperties = game:GetFastFlag("DevFrameworkConvertTextProperties")
@@ -27,6 +28,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local RoundTextBox
 local TextInput
@@ -376,9 +378,16 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ContextServices.mapToProps(PriceComponent, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		PriceComponent = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(PriceComponent)
+	else
+		ContextServices.mapToProps(PriceComponent, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return PriceComponent

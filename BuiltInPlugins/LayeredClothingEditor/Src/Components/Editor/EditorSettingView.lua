@@ -6,14 +6,16 @@
 		number LayoutOrder: render order of component in layout
 		string ToolMode: what tool is being used by the editor (Constants.TOOL_MODE enum)
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local PointToolSettings = require(Plugin.Src.Components.PointTool.PointToolSettings)
 local LatticeToolSettings = require(Plugin.Src.Components.LatticeTool.LatticeToolSettings)
@@ -56,8 +58,15 @@ function EditorSettingView:render()
 	})
 end
 
-ContextServices.mapToProps(EditorSettingView,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditorSettingView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(EditorSettingView)
+else
+	ContextServices.mapToProps(EditorSettingView,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return EditorSettingView

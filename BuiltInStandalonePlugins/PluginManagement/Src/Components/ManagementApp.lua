@@ -10,10 +10,10 @@ local Roact = require(Plugin.Packages.Roact)
 local ManagementMainView = require(Plugin.Src.Components.ManagementMainView)
 local NavigationContainer = require(Plugin.Src.Components.Navigation.NavigationContainer)
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local PluginButton = StudioUI.PluginButton
 local PluginToolbar = StudioUI.PluginToolbar
 local DockWidget = StudioUI.DockWidget

@@ -8,6 +8,7 @@
 		function OnButtonClick() = A callback for when the user clicks the
 			button at the end of the track.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -15,6 +16,7 @@ local Framework = require(Plugin.Packages.Framework)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
@@ -122,11 +124,20 @@ function AnimationEventsTrack:render()
 			})
 end
 
-ContextServices.mapToProps(AnimationEventsTrack, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse
-})
+if FFlagAnimationClipEditorWithContext then
+	AnimationEventsTrack = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse
+	})(AnimationEventsTrack)
+else
+	ContextServices.mapToProps(AnimationEventsTrack, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse
+	})
+end
+
 
 
 return AnimationEventsTrack

@@ -65,9 +65,16 @@
 			})
 		end
 
-		ContextServices.mapToProps(TextBox, {
-			Theme = ContextServices.Theme,
-		})
+		if FFlagDeveloperFrameworkWithContext then
+			TextBox = withContext({
+				Theme = ContextServices.Theme,
+			})(TextBox)
+		else
+			ContextServices.mapToProps(TextBox, {
+				Theme = ContextServices.Theme,
+			})
+		end
+
 
 		return TextBox
 ]]

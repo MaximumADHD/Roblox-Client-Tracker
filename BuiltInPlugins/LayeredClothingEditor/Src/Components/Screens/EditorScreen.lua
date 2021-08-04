@@ -12,9 +12,10 @@
 		callback ClearPreviewAssetsSelected: callback for clearing all selected preview items in grid.
 		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -22,6 +23,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 
@@ -156,9 +158,17 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-ContextServices.mapToProps(EditorScreen,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditorScreen = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})(EditorScreen)
+else
+	ContextServices.mapToProps(EditorScreen,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorScreen)

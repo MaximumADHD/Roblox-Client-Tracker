@@ -13,7 +13,6 @@
 ]]
 
 local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-local FFlagDevFrameworkCheckbox = game:GetFastFlag("DevFrameworkCheckbox")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -23,7 +22,6 @@ local Framework = require(Plugin.Packages.Framework)
 local UI = Framework.UI
 local Pane = UI.Pane
 local Button = UI.Button
-local ToggleButton = UI.ToggleButton
 local TextLabel = UI.Decoration.TextLabel
 local Checkbox = UI.Checkbox
 
@@ -192,33 +190,11 @@ function EditDebugpoint:render()
 					[Roact.Ref] = FFlagTextLabelRefProps and self.titleRef or nil,
 					[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and self.updateTitleText or nil,
 				}),
-				CheckboxEnable = FFlagDevFrameworkCheckbox and Roact.createElement(Checkbox, {
+				CheckboxEnable = Roact.createElement(Checkbox, {
 					Checked = enabled,
 					LayoutOrder = 1,
 					OnClick = onEnableChange,
 					Text = "isEnabled",
-				}),
-				ToggleButtonEnable = (not FFlagDevFrameworkCheckbox)  and Roact.createElement(Pane, {
-					Layout = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Right,
-					Size = UDim2.new(0, enableSize, 0, 0),
-					AutomaticSize = Enum.AutomaticSize.Y,
-					Spacing = 5,
-					LayoutOrder = 2,
-				}, {
-					ToggleButton = Roact.createElement(ToggleButton, {
-						Style = "Checkbox",
-						Size = UDim2.new(0, TOGGLE_BUTTON_SIZE, 0, TOGGLE_BUTTON_SIZE),
-						Selected = enabled,
-						OnClick = onEnableChange,
-						LayoutOrder = 1,
-					}),
-					Label = Roact.createElement(TextLabel, {
-						AutomaticSize = Enum.AutomaticSize.XY,
-						Text = enabledLabelText,
-						TextSize = style.TextSize,
-						LayoutOrder = 2,
-					}),
 				}),
 			}),
 			Inputs = Roact.createElement(Pane, {

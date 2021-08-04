@@ -4,6 +4,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
@@ -20,9 +21,10 @@ local PluginHolder = require(Plugin.Src.Components.PluginHolder)
 local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
 local Constants = require(Plugin.Src.Util.Constants)
 local MovedDialog = require(Plugin.Src.Components.MovedDialog)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UI = require(Plugin.Packages.Framework.UI)
-local Util = require(Plugin.Packages.Framework.Util)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
+local UI = require(Plugin.Packages.Framework).UI
+local Util = require(Plugin.Packages.Framework).Util
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local UpdateAllPlugins = require(Plugin.Src.Thunks.UpdateAllPlugins)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
@@ -275,14 +277,26 @@ function ManagementMainView:render()
 	})
 end
 
-ContextServices.mapToProps(ManagementMainView, {
-	Plugin = ContextServices.Plugin,
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	API = PluginAPI2,
-	Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
-})
+if FFlagPluginManagementWithContext then
+	ManagementMainView = withContext({
+		Plugin = ContextServices.Plugin,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+	})(ManagementMainView)
+else
+	ContextServices.mapToProps(ManagementMainView, {
+		Plugin = ContextServices.Plugin,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

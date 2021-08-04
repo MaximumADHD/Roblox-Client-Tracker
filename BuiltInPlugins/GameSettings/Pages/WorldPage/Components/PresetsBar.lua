@@ -8,10 +8,12 @@
 	Optional Props:
 		LayoutOrder (number)
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 local StudioWidgetButtonBarWithToolTip = require(RoactStudioWidgets.ButtonBarWithToolTip)
@@ -84,9 +86,17 @@ function PresetsBar:render()
 	})
 end
 
-ContextServices.mapToProps(PresetsBar, {
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	PresetsBar = withContext({
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(PresetsBar)
+else
+	ContextServices.mapToProps(PresetsBar, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return PresetsBar

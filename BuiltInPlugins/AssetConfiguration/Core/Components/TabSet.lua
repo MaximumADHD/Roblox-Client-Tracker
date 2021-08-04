@@ -10,6 +10,8 @@
 
 		function onTabSelected = A callback for when a Tab is selected.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -19,6 +21,9 @@ local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
+
+local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Tab = require(Plugin.Core.Components.Tab)
 local TabSet = Roact.PureComponent:extend("TabSet")
@@ -85,63 +90,87 @@ local function canTextBeDisplayed(tabs, maxWidth)
 	return true
 end
 
-function TabSet:render(props)
-	return withTheme(function(theme)
-		local size = self.props.Size or UDim2.new()
-		local position = self.props.Position or UDim2.new()
-		local tabs = self.props.Tabs or {}
-		local currentTab = self.props.CurrentTab
-		local tabTheme = theme.tabSet
-		local currentWidth = self.state.currentWidth
+function TabSet:render()
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		self:resetLayout()
+function TabSet:renderContent(theme)
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
+	local size = self.props.Size or UDim2.new()
+	local position = self.props.Position or UDim2.new()
+	local tabs = self.props.Tabs or {}
+	local currentTab = self.props.CurrentTab
+	local tabTheme = theme.tabSet
+	local currentWidth = self.state.currentWidth
 
-		local children = {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			}),
+	self:resetLayout()
 
-			LeftPadding = Roact.createElement("Frame", {
-				LayoutOrder = self:nextLayout(),
-				Size = UDim2.new(0, 1, 1, 0),
-				BorderSizePixel = 0,
-				BackgroundColor3 = tabTheme.tabBackground,
-			}),
-		}
+	local children = {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+		}),
 
-		local tabWidth = calculateTabWidth(tabs, currentWidth)
-		local displayText = canTextBeDisplayed(tabs, tabWidth)
-		for _, tab in ipairs(tabs) do
-			children[tab.Key] = self:createTab(tab.Key, currentTab, tab.Text, tab.Image, tabWidth, displayText)
-		end
-
-		children.RightPadding = Roact.createElement("Frame", {
+		LeftPadding = Roact.createElement("Frame", {
 			LayoutOrder = self:nextLayout(),
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.new(0, 1, 1, 0),
 			BorderSizePixel = 0,
 			BackgroundColor3 = tabTheme.tabBackground,
-		}, {
-			LowerBorder = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 2),
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				BorderSizePixel = 0,
-				BackgroundColor3 = tabTheme.borderColor,
-			}),
-		})
+		}),
+	}
 
-		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
-			BackgroundColor3 = tabTheme.backgroundColor,
+	local tabWidth = calculateTabWidth(tabs, currentWidth)
+	local displayText = canTextBeDisplayed(tabs, tabWidth)
+	for _, tab in ipairs(tabs) do
+		children[tab.Key] = self:createTab(tab.Key, currentTab, tab.Text, tab.Image, tabWidth, displayText)
+	end
+
+	children.RightPadding = Roact.createElement("Frame", {
+		LayoutOrder = self:nextLayout(),
+		Size = UDim2.new(1, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundColor3 = tabTheme.tabBackground,
+	}, {
+		LowerBorder = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 2),
+			AnchorPoint = Vector2.new(0, 1),
+			Position = UDim2.new(0, 0, 1, 0),
 			BorderSizePixel = 0,
+			BackgroundColor3 = tabTheme.borderColor,
+		}),
+	})
 
-			[Roact.Ref] = self.tabSetRef,
-			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
-		}, children)
-	end)
+	return Roact.createElement("Frame", {
+		Size = size,
+		Position = position,
+		BackgroundColor3 = tabTheme.backgroundColor,
+		BorderSizePixel = 0,
+
+		[Roact.Ref] = self.tabSetRef,
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
+	}, children)
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		TabSet = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(TabSet)
+	else
+		ContextServices.mapToProps(TabSet, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return TabSet

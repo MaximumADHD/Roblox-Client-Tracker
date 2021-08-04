@@ -1,3 +1,4 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -5,6 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -32,10 +34,18 @@ function ToolSelectionListener:render()
 	return nil
 end
 
-ContextServices.mapToProps(ToolSelectionListener, {
-	Analytics = ContextServices.Analytics,
-	PluginActivationController = ContextItems.PluginActivationController,
-})
+if FFlagTerrainToolsV2WithContext then
+	ToolSelectionListener = withContext({
+		Analytics = ContextServices.Analytics,
+		PluginActivationController = ContextItems.PluginActivationController,
+	})(ToolSelectionListener)
+else
+	ContextServices.mapToProps(ToolSelectionListener, {
+		Analytics = ContextServices.Analytics,
+		PluginActivationController = ContextItems.PluginActivationController,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

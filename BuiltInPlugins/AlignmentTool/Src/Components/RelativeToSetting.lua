@@ -11,6 +11,7 @@
 	Optional Props:
 		number LayoutOrder: The layout order of the component.
 ]]
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Container = UI.Container
 local Image = UI.Decoration.Image
@@ -101,9 +103,17 @@ function RelativeToSetting:render()
 	})
 end
 
-ContextServices.mapToProps(RelativeToSetting, {
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagAlignmentToolWithContext then
+	RelativeToSetting = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(RelativeToSetting)
+else
+	ContextServices.mapToProps(RelativeToSetting, {
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RelativeToSetting

@@ -56,6 +56,7 @@ local SetTool = require	(Plugin.Src.Actions.SetTool)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Undo = require(Plugin.Src.Thunks.History.Undo)
 local Redo = require(Plugin.Src.Thunks.History.Redo)
@@ -63,6 +64,7 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local FFlagAddKeyframeAtScrubber = game:DefineFastFlag("AddKeyframeAtScrubber", false)
 local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
@@ -440,12 +442,22 @@ function TimelineActions:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(TimelineActions, {
-	Localization = ContextServices.Localization,
-	PluginActions = ContextServices.PluginActions,
-	Analytics = ContextServices.Analytics,
-	Signals = SignalsContext,
-})
+if FFlagAnimationClipEditorWithContext then
+	TimelineActions = withContext({
+		Localization = ContextServices.Localization,
+		PluginActions = ContextServices.PluginActions,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,
+	})(TimelineActions)
+else
+	ContextServices.mapToProps(TimelineActions, {
+		Localization = ContextServices.Localization,
+		PluginActions = ContextServices.PluginActions,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

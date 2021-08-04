@@ -5,6 +5,7 @@
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -12,6 +13,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -204,9 +206,16 @@ function ConfigCopy:renderContent(theme, localizedContent)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ContextServices.mapToProps(ConfigCopy, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		ConfigCopy = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(ConfigCopy)
+	else
+		ContextServices.mapToProps(ConfigCopy, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return ConfigCopy

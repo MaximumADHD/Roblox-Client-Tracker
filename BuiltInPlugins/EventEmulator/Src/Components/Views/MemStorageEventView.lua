@@ -2,7 +2,7 @@
 	Input Fields:
 
 	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table Parameters: User-inputted/default text for Namespace, Detail, and DetailType
 		function OnChange: A function that passes an identifier and new usr input to the parent
 
@@ -11,6 +11,7 @@
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
+local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -18,6 +19,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Src.Components
 local ButtonArray = require(Components.ButtonArray)
@@ -151,9 +153,16 @@ function MemStorageEventView:render()
 	})
 end
 
-ContextServices.mapToProps(MemStorageEventView, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagEventEmulatorWithContext then
+	MemStorageEventView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(MemStorageEventView)
+else
+	ContextServices.mapToProps(MemStorageEventView, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

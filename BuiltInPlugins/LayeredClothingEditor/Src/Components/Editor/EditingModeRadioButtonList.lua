@@ -4,16 +4,15 @@
 	Props:
 		number LayoutOrder: render order of component in layout
 		UDim2 Size: size of the frame
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 		callback SelectEditingCage: function to call when select a cage, provided via dispatch.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		EnumItem EditingCage: cage that is currently editing, provided via store
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
-		table Signals: A Signals ContextItem, which is provided via mapToProps.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table Signals: A Signals ContextItem, which is provided via withContext.
 		table PointData: Rbf point data for the cages being edited, provided via mapStateToProps.
 ]]
-
-local Selection = game:GetService("Selection")
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -21,6 +20,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local RadioButton = UI.RadioButton
@@ -45,9 +45,6 @@ function EditingModeRadioButtonList:init()
 	}
 
 	self.onClickMeshPartMode = function()
-		local editingItem = self.props.EditingItemContext:getItem()
-
-		Selection:Set({editingItem})
 		self.onClick(Constants.EDIT_MODE.Mesh, false)
 	end
 
@@ -87,7 +84,7 @@ function EditingModeRadioButtonList:render()
 	local theme = props.Stylizer
 
 	local editingItem = props.EditingItemContext:getItem()
-	local isClothing = ItemCharacteristics.isClothes(editingItem)
+	local isCaged = ItemCharacteristics.hasAnyCage(editingItem)
 	local isInnerButtonDisabled = not pointData or not pointData[Enum.CageType.Inner]
 	local isOuterButtonDisabled = not pointData or not pointData[Enum.CageType.Outer]
 
@@ -115,7 +112,7 @@ function EditingModeRadioButtonList:render()
 			Text = localization:getText("EditingMode", "InnerCage"),
 		}),
 		Mesh = Roact.createElement(RadioButton, {
-			Disabled = not editingItem or not isClothing,
+			Disabled = not editingItem or isCaged,
 			Key = Constants.EDIT_MODE_KEY_TO_STRING[Constants.EDIT_MODE.Mesh],
 			LayoutOrder = 3,
 			OnClick = self.onClickMeshPartMode,
@@ -125,12 +122,22 @@ function EditingModeRadioButtonList:render()
 	})
 end
 
-ContextServices.mapToProps(EditingModeRadioButtonList,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	Signals = SignalsContext,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditingModeRadioButtonList = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+	})(EditingModeRadioButtonList)
+else
+	ContextServices.mapToProps(EditingModeRadioButtonList,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem

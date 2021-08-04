@@ -16,6 +16,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = Plugin.Packages.Framework
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local Button = UI.Button
@@ -44,6 +45,7 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
@@ -313,11 +315,20 @@ function MainView:render()
     })
 end
 
-ContextServices.mapToProps(MainView,{
-    API = ContextServices.API,
-    Theme = ContextServices.Theme,
-    Localization = ContextServices.Localization,
-})
+if FFlagAssetManagerWithContext then
+	MainView = withContext({
+	    API = ContextServices.API,
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})(MainView)
+else
+	ContextServices.mapToProps(MainView,{
+	    API = ContextServices.API,
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

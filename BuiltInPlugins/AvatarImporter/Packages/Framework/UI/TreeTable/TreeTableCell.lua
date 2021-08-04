@@ -15,10 +15,22 @@ local TextLabel = require(UI.TextLabel)
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
+local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
+
 function TreeTableCell:init()
 	self.onToggle = function()
 		local cellProps = self.props.CellProps
 		cellProps.OnToggle(self.props.Row)
+	end
+	if FFlagToggleTreeTableTooltip then
+		self.textRef = Roact.createRef()
+		self.onAbsoluteSizeChanged = function(rbx)
+			if (self.textRef:getValue()) then
+				self:setState({
+					textOverflows = not(self.textRef:getValue().TextFits),
+				})
+			end
+		end
 	end
 end
 
@@ -31,16 +43,19 @@ function TreeTableCell:render()
 	local cellProps = props.CellProps
 	local value = row.item[key]
 
-	local text, leftIcon
+	local text, icon
 	if typeof(value) == "table" then
 		text = tostring(value.Value)
-		leftIcon = value.LeftIcon
+		icon = value.LeftIcon
 	else
 		text = tostring(value)
 	end
 
 	local tooltipText = props.Tooltip or text
-	local hasTooltip = tooltipText ~= nil and tooltipText ~= ""
+	local hasTooltip = tooltipText ~= nil and tooltipText ~= "" 
+	if FFlagToggleTreeTableTooltip then
+		hasTooltip = hasTooltip and self.state.textOverflows and not(cellProps.DisableTooltip)
+	end
 	
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
@@ -63,6 +78,7 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil,
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {
 			MaxWidth = style.Tooltip.MaxWidth,
@@ -87,13 +103,14 @@ function TreeTableCell:render()
 				ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
 				[Roact.Event.Activated] = self.onToggle
 			}) or nil,
-			LeftIcon = leftIcon and Roact.createElement(Image, join({
+			LeftIcon = icon and Roact.createElement(Image, join({
 				LayoutOrder = 2,
-			}, leftIcon)) or nil,
+			}, icon)) or nil,
 			Text = text and Roact.createElement(TextLabel, {
 				LayoutOrder = 3,
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
+				[Roact.Ref] = self.textRef,
 			}) or nil,
 		})
 	})

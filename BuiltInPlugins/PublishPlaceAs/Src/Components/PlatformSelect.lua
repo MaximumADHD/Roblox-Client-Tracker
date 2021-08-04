@@ -13,6 +13,7 @@
             of box and selection state to set in store
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,6 +21,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local ListDialog = require(Plugin.Src.Components.ListDialog)
@@ -189,9 +191,16 @@ function PlatformSelect:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-    ContextServices.mapToProps(PlatformSelect, {
-        Localization = ContextServices.Localization,
-    })
+    if FFlagPublishPlaceAsWithContext then
+	PlatformSelect = withContext({
+	        Localization = ContextServices.Localization,
+	    })(PlatformSelect)
+else
+	ContextServices.mapToProps(PlatformSelect, {
+	        Localization = ContextServices.Localization,
+	    })
+end
+
 end
 
 return PlatformSelect

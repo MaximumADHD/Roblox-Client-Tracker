@@ -201,11 +201,13 @@ function CollaboratorSearchBar:init()
 			isContainerHovered = false,
 		})
 
-		-- We also trigger a focus loss of the textbox when we are clicking on a dropdownItem
-		-- If we hide it now, it will hide before our click can be registered with the dropdownItem,
-		-- so don't hide it if we're hovering over one (selecting an item will hide the dropdown itself) 
-		if not self.state.dropdownItem then
-			self.hideDropdown()
+		if (not FFlagToolboxReplaceUILibraryComponentsPt3) then -- NOTE: DevFramework Dropdown OnFocus should cover this now.
+			-- We also trigger a focus loss of the textbox when we are clicking on a dropdownItem
+			-- If we hide it now, it will hide before our click can be registered with the dropdownItem,
+			-- so don't hide it if we're hovering over one (selecting an item will hide the dropdown itself) 
+			if not self.state.dropdownItem then
+				self.hideDropdown()
+			end
 		end
 	end
 

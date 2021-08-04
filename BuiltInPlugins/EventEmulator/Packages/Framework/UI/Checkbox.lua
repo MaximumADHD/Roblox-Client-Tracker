@@ -10,14 +10,17 @@
 		string Key: The key that will be sent back to the OnClick function.
 		number LayoutOrder: The layout order of this component.
 		Style Style: The style with which to render this component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display after the check button.
 ]]
-local FFlagDevFrameworkPaneOnClick = game:GetFastFlag("DevFrameworkPaneOnClick")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkFixCheckboxChildren = game:GetFastFlag("DevFrameworkFixCheckboxChildren")
+local FFlagDevFrameworkFixCheckboxTheme = game:GetFastFlag("DevFrameworkFixCheckboxTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Button = require(Framework.UI.Button)
 local Pane = require(Framework.UI.Pane)
@@ -82,18 +85,58 @@ function Checkbox:render()
 	local buttonProps = {
 		OnClick = self.onClick,
 		Size = style.ImageSize,
-		Style = style.BackgroundStyle,
+		Style = FFlagDevFrameworkFixCheckboxTheme and style or style.BackgroundStyle,
 		StyleModifier = styleModifier,
 	}
 
-	local children = props[Roact.Children] or {}
+	if FFlagDevFrameworkFixCheckboxChildren then
+		if text == "" then
+			return Roact.createElement(Button, join(buttonProps, {
+				LayoutOrder = layoutOrder,
+			}), props[Roact.Children])
+		else
+			local children = {
+				Button = Roact.createElement(Button, join(buttonProps, {
+					LayoutOrder = 1,
+				})),
+				Label = Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = 2,
+					StyleModifier = styleModifier,
+					Text = text,
+				})
+			}
 
-	if text == "" then
-		return Roact.createElement(Button, join(buttonProps, {
-			LayoutOrder = layoutOrder,
-		}), children)
+			local paneProps = {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Layout = Enum.FillDirection.Horizontal,
+				OnClick = self.onClick,
+				Spacing = style.Spacing,
+			}
+
+			if props[Roact.Children] then
+				children = join({
+					Wrapper = Roact.createElement(Pane, paneProps, children),
+				}, props[Roact.Children])
+
+				return Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = layoutOrder,
+				}, children)
+			else
+				return Roact.createElement(Pane, join(paneProps, {
+					LayoutOrder = layoutOrder,
+				}), children)
+			end
+		end
 	else
-		if FFlagDevFrameworkPaneOnClick then
+		local children = props[Roact.Children] or {}
+
+		if text == "" then
+			return Roact.createElement(Button, join(buttonProps, {
+				LayoutOrder = layoutOrder,
+			}), children)
+		else
 			children.Button = Roact.createElement(Button, join(buttonProps, {
 				LayoutOrder = 1,
 			}))
@@ -110,40 +153,21 @@ function Checkbox:render()
 				OnClick = self.onClick,
 				Spacing = style.Spacing,
 			}, children)
-		else
-			children.Container = Roact.createElement(Pane, {
-				Layout = Enum.FillDirection.Horizontal,
-				Spacing = style.Spacing,
-			}, {
-				Button = Roact.createElement(Button, {
-					LayoutOrder = 1,
-					OnClick = self.onClick,
-					Size = style.ImageSize,
-					Style = style.BackgroundStyle,
-					StyleModifier = styleModifier,
-				}),
-				Label = Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					LayoutOrder = 2,
-					StyleModifier = styleModifier,
-					Text = text,
-				})
-			})
-
-			return Roact.createElement("TextButton", {
-				AutomaticSize = Enum.AutomaticSize.XY,
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
-				Text = "",
-				[Roact.Event.Activated] = self.onClick,
-			}, children)
 		end
 	end
 end
 
-ContextServices.mapToProps(Checkbox, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Checkbox = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Checkbox)
+else
+	ContextServices.mapToProps(Checkbox, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Checkbox

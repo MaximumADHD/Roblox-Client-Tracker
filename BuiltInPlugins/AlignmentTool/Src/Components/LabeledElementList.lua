@@ -15,6 +15,7 @@
 		number LayoutOrder: The layout order of the component.
 		number MaximumLabelWidth: The maximum label width showing the two-column layout.
 ]]--
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -28,6 +29,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
 
@@ -206,8 +208,15 @@ function LabeledElementList:render()
 	}, children)
 end
 
-ContextServices.mapToProps(LabeledElementList, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagAlignmentToolWithContext then
+	LabeledElementList = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LabeledElementList)
+else
+	ContextServices.mapToProps(LabeledElementList, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return LabeledElementList

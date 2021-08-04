@@ -4,11 +4,12 @@
 	Required Props:
 		UDim2 Size: size of the frame
 	Optional Props:
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: render order of component in layout
 		callback ResetPoints: Resets RbfPoint data to default, provided via mapDispatchToProps.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -16,6 +17,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -66,10 +68,18 @@ function ResetSettings:render()
 	})
 end
 
-ContextServices.mapToProps(ResetSettings,{
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ResetSettings = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(ResetSettings)
+else
+	ContextServices.mapToProps(ResetSettings,{
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem

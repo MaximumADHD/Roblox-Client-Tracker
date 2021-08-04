@@ -51,16 +51,12 @@ return Rodux.createReducer({
 		assert(#state.debuggerStateTokenHistory >= 1)
 
 		return Cryo.Dictionary.join(state, {
-			currentThreadId = state.currentThreadId, 
-			threadIdToCurrentFrameNumber = state.threadIdToCurrentFrameNumber,
 			debuggerStateTokenHistory = Cryo.List.join(state.debuggerStateTokenHistory, {action.debuggerStateToken})
 		})
 	end,
 
 	[BreakpointHit.name] = function(state : CommonStore, action : BreakpointHit.Props)
 		return Cryo.Dictionary.join(state, {
-			currentThreadId = state.currentThreadId, 
-			threadIdToCurrentFrameNumber = state.threadIdToCurrentFrameNumber,
 			debuggerStateTokenHistory = {[1] = action.debuggerStateToken}
 		})
 	end,

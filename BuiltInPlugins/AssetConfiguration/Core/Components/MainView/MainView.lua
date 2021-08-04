@@ -26,7 +26,9 @@
 ]]
 
 local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local GuiService = game:GetService("GuiService")
 
@@ -36,6 +38,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
+local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -50,12 +53,18 @@ local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
 local NoResultsDetail = require(Plugin.Core.Components.NoResultsDetail)
-local LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
+local LoadingIndicator
+if FFlagToolboxRemoveWithThemes then
+	LoadingIndicator = Framework.UI.LoadingIndicator
+else
+	LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
+end
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local Toast = require(Plugin.Core.Components.Toast)
@@ -351,6 +360,7 @@ function MainView:render()
 			LoadingIndicator = isLoading and Roact.createElement(LoadingIndicator, {
 				AnchorPoint = Vector2.new(0.5, 1),
 				Position = UDim2.new(0.5, 0, 1, -16),
+				Size = FFlagToolboxRemoveWithThemes and UDim2.new(0, 92, 0, 24) or nil,
 				ZIndex = 3,
 			}),
 
@@ -362,9 +372,16 @@ function MainView:render()
 	end)
 end
 
-ContextServices.mapToProps(MainView, {
-	Settings = Settings,
-})
+if FFlagToolboxWithContext then
+	MainView = withContext({
+		Settings = Settings,
+	})(MainView)
+else
+	ContextServices.mapToProps(MainView, {
+		Settings = Settings,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

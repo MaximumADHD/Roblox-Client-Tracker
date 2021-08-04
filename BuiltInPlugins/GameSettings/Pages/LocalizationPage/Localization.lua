@@ -14,6 +14,7 @@
 ]]
 
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
@@ -26,6 +27,7 @@ local Cryo = require(Plugin.Cryo)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local FrameworkUtil = require(Framework.Util)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
@@ -403,11 +405,20 @@ local function dispatchChanges(setValue, dispatch)
 	return dispatchFuncs
 end
 
-ContextServices.mapToProps(LocalizationPage, {
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	LocalizationPage = withContext({
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		Theme = ContextServices.Theme,
+	})(LocalizationPage)
+else
+	ContextServices.mapToProps(LocalizationPage, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 LocalizationPage = RoactRodux.connect(

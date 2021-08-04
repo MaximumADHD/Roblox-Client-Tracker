@@ -21,12 +21,14 @@
 		function AddThumbnail = A callback for BasicInfo when the user wants to add
 			a new thumbnail.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
@@ -107,9 +109,17 @@ function ThumbnailController:render()
 	}))
 end
 
-ContextServices.mapToProps(ThumbnailController, {
-	Localization = ContextServices.Localization,
-	Dialog = Dialog
-})
+if FFlagGameSettingsWithContext then
+	ThumbnailController = withContext({
+		Localization = ContextServices.Localization,
+		Dialog = Dialog
+	})(ThumbnailController)
+else
+	ContextServices.mapToProps(ThumbnailController, {
+		Localization = ContextServices.Localization,
+		Dialog = Dialog
+	})
+end
+
 
 return ThumbnailController

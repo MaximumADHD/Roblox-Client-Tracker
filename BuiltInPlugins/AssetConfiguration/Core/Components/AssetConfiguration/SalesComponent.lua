@@ -13,6 +13,7 @@
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local ToggleButton
 local TitledFrame
@@ -156,9 +158,16 @@ function SalesComponent:renderContent(theme, localization, localizedContent)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ContextServices.mapToProps(SalesComponent, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		SalesComponent = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(SalesComponent)
+	else
+		ContextServices.mapToProps(SalesComponent, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return SalesComponent

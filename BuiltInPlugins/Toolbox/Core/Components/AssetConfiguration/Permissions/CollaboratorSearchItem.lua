@@ -1,3 +1,4 @@
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
@@ -6,6 +7,7 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Button = Framework.UI.Button
 
@@ -85,8 +87,15 @@ function CollaboratorSearchItem:render()
 	})
 end
 
-ContextServices.mapToProps(CollaboratorSearchItem, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagToolboxWithContext then
+	CollaboratorSearchItem = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorSearchItem)
+else
+	ContextServices.mapToProps(CollaboratorSearchItem, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return CollaboratorSearchItem

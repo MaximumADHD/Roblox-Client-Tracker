@@ -11,12 +11,14 @@
 		function OnScaleHandleDragMoved(input) = callback for when user is actively dragging a scale handle
 		function OnScaleHandleDragEnded() = callback for when user has finished dragging a scale handle
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
@@ -56,9 +58,16 @@ function ScaleHandle:render()
 		})
 end
 
-ContextServices.mapToProps(ScaleHandle, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	ScaleHandle = withContext({
+		Theme = ContextServices.Theme,
+	})(ScaleHandle)
+else
+	ContextServices.mapToProps(ScaleHandle, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return ScaleHandle

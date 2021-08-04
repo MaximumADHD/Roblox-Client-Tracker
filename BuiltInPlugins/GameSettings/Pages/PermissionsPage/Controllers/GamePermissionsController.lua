@@ -195,7 +195,7 @@ function GamePermissionsController:searchUsers(searchTerm)
 	end
 end
 
-function GamePermissionsController:searchGroups(searchTerm, searchResult)
+function GamePermissionsController:searchGroups(searchTerm)
 	local webResults = self:searchGroupsV1GET(searchTerm):await()
 	local matches = webResults.responseBody.data
 	local searchResult = {}

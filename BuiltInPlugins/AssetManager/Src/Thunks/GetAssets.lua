@@ -8,7 +8,7 @@ local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
-local sendResultToKibana = require(Plugin.Packages.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
 local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")

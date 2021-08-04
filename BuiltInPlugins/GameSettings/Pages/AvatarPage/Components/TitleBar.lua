@@ -1,9 +1,11 @@
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local ConstantFonts = require(Page.Util.ConstantFonts)
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
@@ -45,8 +47,15 @@ function TitleBar:render()
 	}, children)
 end
 
-ContextServices.mapToProps(TitleBar, {
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	TitleBar = withContext({
+		Localization = ContextServices.Localization,
+	})(TitleBar)
+else
+	ContextServices.mapToProps(TitleBar, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return TitleBar

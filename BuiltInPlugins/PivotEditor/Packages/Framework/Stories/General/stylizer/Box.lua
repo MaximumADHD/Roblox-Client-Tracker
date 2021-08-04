@@ -1,9 +1,11 @@
 --[[
 	Box
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local Stylizer = require(Framework.Style).Stylizer
 
@@ -31,8 +33,15 @@ function Box:render()
 	})
 end
 
-ContextServices.mapToProps(Box, {
-	Stylizer = Stylizer
-})
+if FFlagDeveloperFrameworkWithContext then
+	Box = withContext({
+		Stylizer = Stylizer
+	})(Box)
+else
+	ContextServices.mapToProps(Box, {
+		Stylizer = Stylizer
+	})
+end
+
 
 return Box

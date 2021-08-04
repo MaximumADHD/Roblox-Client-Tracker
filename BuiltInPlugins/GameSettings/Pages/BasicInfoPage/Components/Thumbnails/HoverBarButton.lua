@@ -6,10 +6,12 @@
 		Vector2 AnchorPoint Vector2.new()
 		string Image = The image to display as an icon for this button.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -71,8 +73,15 @@ function HoverBarButton:render()
 	})
 end
 
-ContextServices.mapToProps(HoverBarButton, {
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	HoverBarButton = withContext({
+		Mouse = ContextServices.Mouse,
+	})(HoverBarButton)
+else
+	ContextServices.mapToProps(HoverBarButton, {
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return HoverBarButton

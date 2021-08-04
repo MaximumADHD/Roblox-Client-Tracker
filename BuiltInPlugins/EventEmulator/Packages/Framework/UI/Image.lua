@@ -8,12 +8,12 @@
 		Vector2 AnchorPoint: The anchor point of the image.
 		UDim2 Position: position of the image
 		number Rotation: rotation of the image
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		Enum.SizeConstraint SizeConstraint: the direction(s) that the image can be resized in.
 		number LayoutOrder: LayoutOrder of the component.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		Vector2 AnchorPoint: The anchor point of the image.
@@ -27,10 +27,12 @@
 		Vector2 ImageRectSize: partial pixel size of the image
 		Vector2 ImageRectOffset: pixel offset for rendering part of image
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local Util = require(Framework.Util)
 
@@ -82,9 +84,17 @@ function Image:render()
 	}, props[Roact.Children])
 end
 
-ContextServices.mapToProps(Image, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Image = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Image)
+else
+	ContextServices.mapToProps(Image, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Image

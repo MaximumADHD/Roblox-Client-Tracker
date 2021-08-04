@@ -14,6 +14,8 @@
 		string Text: The text to display after the check button.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkFixCheckboxChildren = game:GetFastFlag("DevFrameworkFixCheckboxChildren")
+local FFlagDevFrameworkFixCheckboxTheme = game:GetFastFlag("DevFrameworkFixCheckboxTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -83,33 +85,75 @@ function Checkbox:render()
 	local buttonProps = {
 		OnClick = self.onClick,
 		Size = style.ImageSize,
-		Style = style.BackgroundStyle,
+		Style = FFlagDevFrameworkFixCheckboxTheme and style or style.BackgroundStyle,
 		StyleModifier = styleModifier,
 	}
 
-	local children = props[Roact.Children] or {}
+	if FFlagDevFrameworkFixCheckboxChildren then
+		if text == "" then
+			return Roact.createElement(Button, join(buttonProps, {
+				LayoutOrder = layoutOrder,
+			}), props[Roact.Children])
+		else
+			local children = {
+				Button = Roact.createElement(Button, join(buttonProps, {
+					LayoutOrder = 1,
+				})),
+				Label = Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = 2,
+					StyleModifier = styleModifier,
+					Text = text,
+				})
+			}
 
-	if text == "" then
-		return Roact.createElement(Button, join(buttonProps, {
-			LayoutOrder = layoutOrder,
-		}), children)
+			local paneProps = {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Layout = Enum.FillDirection.Horizontal,
+				OnClick = self.onClick,
+				Spacing = style.Spacing,
+			}
+
+			if props[Roact.Children] then
+				children = join({
+					Wrapper = Roact.createElement(Pane, paneProps, children),
+				}, props[Roact.Children])
+
+				return Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					LayoutOrder = layoutOrder,
+				}, children)
+			else
+				return Roact.createElement(Pane, join(paneProps, {
+					LayoutOrder = layoutOrder,
+				}), children)
+			end
+		end
 	else
-		children.Button = Roact.createElement(Button, join(buttonProps, {
-			LayoutOrder = 1,
-		}))
-		children.Label = Roact.createElement(TextLabel, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			LayoutOrder = 2,
-			StyleModifier = styleModifier,
-			Text = text,
-		})
-		return Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = layoutOrder,
-			OnClick = self.onClick,
-			Spacing = style.Spacing,
-		}, children)
+		local children = props[Roact.Children] or {}
+
+		if text == "" then
+			return Roact.createElement(Button, join(buttonProps, {
+				LayoutOrder = layoutOrder,
+			}), children)
+		else
+			children.Button = Roact.createElement(Button, join(buttonProps, {
+				LayoutOrder = 1,
+			}))
+			children.Label = Roact.createElement(TextLabel, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				LayoutOrder = 2,
+				StyleModifier = styleModifier,
+				Text = text,
+			})
+			return Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				Layout = Enum.FillDirection.Horizontal,
+				LayoutOrder = layoutOrder,
+				OnClick = self.onClick,
+				Spacing = style.Spacing,
+			}, children)
+		end
 	end
 end
 

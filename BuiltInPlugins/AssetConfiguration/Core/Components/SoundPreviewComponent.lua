@@ -17,10 +17,12 @@ local SetSoundElapsedTime = require(Plugin.Core.Actions.SetSoundElapsedTime)
 local SetSoundTotalTime = require(Plugin.Core.Actions.SetSoundTotalTime)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")
 
 local FFlagStudioStopUsingPluginSoundApis = game:GetFastFlag("StudioStopUsingPluginSoundApis")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 function SoundPreviewComponent:init(props)
 	self.ref = Roact.createRef()
@@ -132,9 +134,16 @@ end
 
 -- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
 if not FFlagStudioStopUsingPluginSoundApis then
-	ContextServices.mapToProps(SoundPreviewComponent, {
-		Plugin = ContextServices.Plugin,
-	})
+	if FFlagToolboxWithContext then
+		SoundPreviewComponent = withContext({
+			Plugin = ContextServices.Plugin,
+		})(SoundPreviewComponent)
+	else
+		ContextServices.mapToProps(SoundPreviewComponent, {
+			Plugin = ContextServices.Plugin,
+		})
+	end
+
 end
 
 local function mapStateToProps(state, props)

@@ -26,9 +26,12 @@
 ]]
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 local FFlagLuobuDevPublishHideRequirementsLink = game:GetFastFlag("LuobuDevPublishHideRequirementsLink")
+local FFlagUpdateChinaOptInStatusTextColor = game:GetFastFlag("UpdateChinaOptInStatusTextColor")
+local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -59,6 +62,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
@@ -125,6 +129,7 @@ local function loadSettings(store, contextItems)
 	local gameInfoController = contextItems.gameInfoController
 	local gameMetadataController = contextItems.gameMetadataController
 	local policyInfoController = contextItems.policyInfoController
+	local placesController = FFlagCheckPublishedPlaceExistsForDevPublish and contextItems.placesController or nil
 
 	return {
 		function(loadedSettings)
@@ -226,6 +231,12 @@ local function loadSettings(store, contextItems)
 		function(loadedSettings)
 			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
 				loadedSettings[playerAcceptanceKey] = policyInfoController:getPlayerAcceptances()
+			end
+		end,
+		function(loadedSettings)
+			if FFlagCheckPublishedPlaceExistsForDevPublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+				local rootPlaceId = gameMetadataController:getRootPlace(gameId)
+				loadedSettings["publishedVersions"] = placesController:getAssetPublishedVersions(rootPlaceId)
 			end
 		end,
 	}
@@ -400,6 +411,8 @@ local function loadValuesToProps(getValue, state)
 
 		PlayerAcceptance = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(playerAcceptanceKey) or nil,
 
+		PublishedVersions = FFlagCheckPublishedPlaceExistsForDevPublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue("publishedVersions") or nil,
+
 		NameError = errors.name,
 		DescriptionError = errors.description,
 		DevicesError = errors.playableDevices,
@@ -500,6 +513,14 @@ local function calculateTextSize(text, textSize, font)
 	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
+local function publishedVersionExists(publishedVersions)
+	assert(FFlagCheckPublishedPlaceExistsForDevPublish)
+	if not publishedVersions.data or next(publishedVersions.data) == nil then
+		return false
+	end
+	return true
+end
+
 function BasicInfo:init()
 	self.state = FFlagLuobuDevPublishLua and {
 		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
@@ -529,7 +550,7 @@ function BasicInfo:init()
 		local localization = self.props.Localization
 
 		local statusText = localization:getText(optInLocationsKey, "Status")
-		local textColor = theme.fontStyle.Subtext.TextColor3
+		local textColor = FFlagUpdateChinaOptInStatusTextColor and theme.fontStyle.Subtitle.TextColor3 or theme.fontStyle.Subtext.TextColor3
 		local show = true
 
 		if status == approvedKey then
@@ -650,9 +671,14 @@ function BasicInfo:render()
 
 		local optInLocations
 		local playerAcceptance
+
+		local publishExists
 		if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
 			optInLocations = props[optInLocationsKey]
 			playerAcceptance = props.PlayerAcceptance and props.PlayerAcceptance or nil
+			if FFlagCheckPublishedPlaceExistsForDevPublish then
+				publishExists = publishedVersionExists(props.PublishedVersions)
+			end
 		end
 
 		local localizedGenreList = {
@@ -948,12 +974,22 @@ function BasicInfo:render()
 	})
 end
 
-ContextServices.mapToProps(BasicInfo, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-	Dialog = Dialog,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	BasicInfo = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Dialog = Dialog,
+		Mouse = ContextServices.Mouse,
+	})(BasicInfo)
+else
+	ContextServices.mapToProps(BasicInfo, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Dialog = Dialog,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 BasicInfo = RoactRodux.connect(

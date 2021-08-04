@@ -2,14 +2,15 @@
 	Frame for editing transparency of mesh and cages of editing item
 
 	Props:
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 		callback ChangeCageTransparency: function to change cage transparency, which is provided via mapDispatchToProps
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		EnumItem EditingCage: type of cage being edited (inner/outer)
 		table CagesTransparency: cages transparency, which is provided via store
 		number LayoutOrder: render order of component in layout
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -25,6 +26,7 @@ local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
@@ -88,11 +90,20 @@ function EditTransparencyView:render()
 	})
 end
 
-ContextServices.mapToProps(EditTransparencyView,{
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditTransparencyView = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+	})(EditTransparencyView)
+else
+	ContextServices.mapToProps(EditTransparencyView,{
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local selectItem = state.selectItem

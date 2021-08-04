@@ -13,6 +13,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
@@ -42,6 +43,7 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
@@ -360,13 +362,24 @@ function AssetGridContainer:render()
     })
 end
 
-ContextServices.mapToProps(AssetGridContainer,{
-    Analytics = ContextServices.Analytics,
-    API = ContextServices.API,
-    Localization = ContextServices.Localization,
-    Plugin = ContextServices.Plugin,
-    Theme = ContextServices.Theme,
-})
+if FFlagAssetManagerWithContext then
+	AssetGridContainer = withContext({
+	    Analytics = ContextServices.Analytics,
+	    API = ContextServices.API,
+	    Localization = ContextServices.Localization,
+	    Plugin = ContextServices.Plugin,
+	    Theme = ContextServices.Theme,
+	})(AssetGridContainer)
+else
+	ContextServices.mapToProps(AssetGridContainer,{
+	    Analytics = ContextServices.Analytics,
+	    API = ContextServices.API,
+	    Localization = ContextServices.Localization,
+	    Plugin = ContextServices.Plugin,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

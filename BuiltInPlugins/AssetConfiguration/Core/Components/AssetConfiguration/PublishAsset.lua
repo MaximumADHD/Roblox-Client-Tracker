@@ -33,6 +33,7 @@
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -42,6 +43,7 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local StyledScrollingFrame
 local TitledFrame
@@ -417,9 +419,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ContextServices.mapToProps(PublishAsset, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		PublishAsset = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(PublishAsset)
+	else
+		ContextServices.mapToProps(PublishAsset, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

@@ -4,7 +4,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local PluginToolbar = StudioUI.PluginToolbar
 local DockWidget = StudioUI.DockWidget
 
@@ -121,4 +121,3 @@ function PlayerEmulatorPlugin:render()
 end
 
 return PlayerEmulatorPlugin
-

@@ -16,6 +16,7 @@
 		function StepAnimation(int frame) = A callback for scrubbing the animation
 			to the given frame.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -26,6 +27,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
@@ -138,9 +140,16 @@ function TimeDisplay:render()
 		})
 end
 
-ContextServices.mapToProps(TimeDisplay, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TimeDisplay = withContext({
+		Theme = ContextServices.Theme,
+	})(TimeDisplay)
+else
+	ContextServices.mapToProps(TimeDisplay, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return TimeDisplay

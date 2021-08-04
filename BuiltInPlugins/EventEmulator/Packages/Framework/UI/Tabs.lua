@@ -8,12 +8,14 @@
 
 	Optional Props:
 		table TabComponent: The tab component to render each tab (default = SimpleTab)
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local TabsTypes = require(script.types)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 
 local Util = require(Framework.Util)
@@ -55,9 +57,17 @@ function Tabs:render()
 	}, tabs)
 end
 
-ContextServices.mapToProps(Tabs, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Tabs = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Tabs)
+else
+	ContextServices.mapToProps(Tabs, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Tabs

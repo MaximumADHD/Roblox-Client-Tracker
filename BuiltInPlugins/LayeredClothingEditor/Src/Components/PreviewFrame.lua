@@ -7,15 +7,17 @@
 		callback UpdateUserAddedAssets: function called when user added assets are changed
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: render order of component in layout
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local Typecheck = Util.Typecheck
@@ -80,8 +82,15 @@ function PreviewFrame:render()
 	})
 end
 
-ContextServices.mapToProps(PreviewFrame,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	PreviewFrame = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PreviewFrame)
+else
+	ContextServices.mapToProps(PreviewFrame,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return PreviewFrame

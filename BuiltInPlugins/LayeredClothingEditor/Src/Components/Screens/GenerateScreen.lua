@@ -7,10 +7,11 @@
 		callback FinishEditing: callback for finalizing edits and publishing cages, provided via mapDispatchToProps
 		callback ReleaseEditor: callback for restoring editor to default state, provided via mapDispatchToProps
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -18,6 +19,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
@@ -72,11 +74,20 @@ function GenerateScreen:render()
 	})
 end
 
-ContextServices.mapToProps(GenerateScreen,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	GenerateScreen = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})(GenerateScreen)
+else
+	ContextServices.mapToProps(GenerateScreen,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

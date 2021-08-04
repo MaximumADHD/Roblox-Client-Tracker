@@ -1,12 +1,14 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 -- Delete file with removal of FFlagPluginManagementDirectlyOpenToolbox
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UI = require(Plugin.Packages.Framework.UI)
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
+local UI = require(Plugin.Packages.Framework).UI
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local Dialog = StudioUI.Dialog
 local FrameworkButton = UI.Button
 
@@ -91,10 +93,19 @@ function MovedDialog:render()
 	})
 end
 
-ContextServices.mapToProps(MovedDialog, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	MovedDialog = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(MovedDialog)
+else
+	ContextServices.mapToProps(MovedDialog, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return MovedDialog

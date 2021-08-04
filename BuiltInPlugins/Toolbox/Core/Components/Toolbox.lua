@@ -60,9 +60,11 @@ local GetRolesDebugRequest = require(Requests.GetRolesDebugRequest)
 local GetRobuxBalance = require(Requests.GetRobuxBalance)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
@@ -312,11 +314,20 @@ function Toolbox:render()
 	})
 end
 
-ContextServices.mapToProps(Toolbox, {
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	Settings = Settings,
-})
+if FFlagToolboxWithContext then
+	Toolbox = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})(Toolbox)
+else
+	ContextServices.mapToProps(Toolbox, {
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

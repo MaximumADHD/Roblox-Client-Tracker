@@ -1,4 +1,11 @@
 return function()
+	local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+
+	if FFlagToolboxRemoveWithThemes then
+		-- TODO FFlagToolboxRemoveWithThemes Remove entire file
+		return
+	end
+
 	local Plugin = script.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs

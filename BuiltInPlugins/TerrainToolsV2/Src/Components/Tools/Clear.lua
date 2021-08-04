@@ -1,6 +1,7 @@
 --[[
 	Displays panels associated with the Clear tool
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local StudioUI = Framework.StudioUI
@@ -207,11 +209,20 @@ function Clear:render()
 	})
 end
 
-ContextServices.mapToProps(Clear, {
-	Theme = ContextItems.UILibraryTheme,
-	Localization = ContextItems.UILibraryLocalization,
-	Terrain = ContextItems.Terrain,
-})
+if FFlagTerrainToolsV2WithContext then
+	Clear = withContext({
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+		Terrain = ContextItems.Terrain,
+	})(Clear)
+else
+	ContextServices.mapToProps(Clear, {
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+		Terrain = ContextItems.Terrain,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

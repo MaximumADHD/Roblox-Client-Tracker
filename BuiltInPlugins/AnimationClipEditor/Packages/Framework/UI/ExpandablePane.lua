@@ -12,6 +12,8 @@
 		Color3 BorderColor: Override the color of the border image.
 		boolean Expanded: The expanded state of the component.
 		Component HeaderComponent: Extra component to render in the header.
+		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
+		Enum.AutomaticSize AutomaticSize: Provide the ExpandablePane with an AutomaticSize.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		string Text: The title text to display in the header.

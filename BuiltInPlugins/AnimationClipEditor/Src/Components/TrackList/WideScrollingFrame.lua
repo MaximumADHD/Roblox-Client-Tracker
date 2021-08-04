@@ -14,6 +14,7 @@
 		function OnInputChanged(rbx, input) A callback for when the user performs any
 			input on the ScrollingFrame container.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -21,6 +22,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
 
 local ArrowButton = require(Plugin.Src.Components.ArrowButton)
@@ -219,8 +221,15 @@ function WideScrollingFrame:render()
 		})
 end
 
-ContextServices.mapToProps(WideScrollingFrame, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	WideScrollingFrame = withContext({
+		Theme = ContextServices.Theme,
+	})(WideScrollingFrame)
+else
+	ContextServices.mapToProps(WideScrollingFrame, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return WideScrollingFrame

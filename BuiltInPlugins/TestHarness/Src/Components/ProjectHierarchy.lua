@@ -5,6 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
@@ -80,9 +81,9 @@ function ProjectHierarchy:render()
 	})
 end
 
-ContextServices.mapToProps(ProjectHierarchy, {
+ProjectHierarchy = withContext({
 	Stylizer = Stylizer,
-})
+})(ProjectHierarchy)
 
 return RoactRodux.connect(
 	function(state, props)

@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
+local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local Promise = require(Plugin.Framework).Util.Promise
 
@@ -76,6 +77,19 @@ end
 
 function PlacesController:setCustomSocialSlotsCount(placeId, customSocialSlotsCount)
     self:placesV2PATCH(placeId, {customSocialSlotsCount = customSocialSlotsCount}):await()
+end
+
+function PlacesController:assetPublishVersionV1GET(placeId)
+    assert(FFlagCheckPublishedPlaceExistsForDevPublish)
+	local networking = self.__networking
+
+	return networking:get("develop", "/v1/assets/"..placeId.."/published-versions")
+end
+
+function PlacesController:getAssetPublishedVersions(placeId)
+    assert(FFlagCheckPublishedPlaceExistsForDevPublish)
+	local response = self:assetPublishVersionV1GET(placeId):await()
+	return response.responseBody
 end
 
 return PlacesController

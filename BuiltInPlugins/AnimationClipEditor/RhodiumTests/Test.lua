@@ -20,8 +20,8 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent
 local Framework = Plugin.Packages.Framework
-local Signal = require(Plugin.Packages.Framework.Util.Signal)
-local MockPlugin = require(Plugin.Packages.Framework.TestHelpers.Instances.MockPlugin)
+local Signal = require(Plugin.Packages.Framework).Util.Signal
+local MockPlugin = require(Plugin.Packages.Framework).TestHelpers.Instances.MockPlugin
 local Signals = require(Plugin.Src.Context.Signals)
 
 local ContextServices = require(Framework.ContextServices)

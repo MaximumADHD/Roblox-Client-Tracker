@@ -1,4 +1,7 @@
 local Main = script.Parent.Parent
+
+require(script.Parent.defineLuaFlags)
+
 local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
 

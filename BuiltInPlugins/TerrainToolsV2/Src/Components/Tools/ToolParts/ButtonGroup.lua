@@ -1,9 +1,11 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local UILibraryCompat = Plugin.Src.UILibraryCompat
@@ -55,8 +57,15 @@ function ButtonGroup:render()
 	}, children)
 end
 
-ContextServices.mapToProps(ButtonGroup, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	ButtonGroup = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(ButtonGroup)
+else
+	ContextServices.mapToProps(ButtonGroup, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return ButtonGroup

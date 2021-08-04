@@ -14,6 +14,7 @@
 ]]
 
 local FFlagToolboxUseInfiniteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -39,6 +40,7 @@ local DEPRECATED_InfiniteScrollingFrame = require(Plugin.Core.Components.Infinit
 local InfiniteScrollingFrame = Framework.UI.InfiniteScrollingFrame
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local withTheme = ContextHelper.withTheme
 
 local OverrideAssetView = Roact.PureComponent:extend("OverrideAssetView")
@@ -283,9 +285,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	ContextServices.mapToProps(OverrideAssetView, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		OverrideAssetView = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(OverrideAssetView)
+	else
+		ContextServices.mapToProps(OverrideAssetView, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(OverrideAssetView)

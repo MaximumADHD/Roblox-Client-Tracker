@@ -17,6 +17,7 @@ local StudioUI = Framework.StudioUI
 local SearchBar = StudioUI.SearchBar
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Stylizer = Framework.Style.Stylizer
 
 local StatusCount = require(Plugin.Src.Components.Elements.StatusCount)
@@ -258,9 +259,9 @@ function Toolbar:render()
 	})
 end
 
-ContextServices.mapToProps(Toolbar, {
+Toolbar = withContext({
 	Stylizer = Stylizer,
-})
+})(Toolbar)
 
 return RoactRodux.connect(
 	function(state, props)

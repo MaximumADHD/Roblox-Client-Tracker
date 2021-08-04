@@ -5,6 +5,7 @@
 		table Actions = The set of actions to send to MakePluginMenu.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 -- HttpService is included for GenerateGUID
 local HttpService = game:GetService("HttpService")
@@ -13,6 +14,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local MakePluginMenu = require(Plugin.Src.Util.MakePluginMenu)
 local MakePluginMenuDeprecated = require(Plugin.Src.Util.MakePluginMenu_deprecated)
@@ -46,8 +48,15 @@ function ContextMenu:render()
 	return nil
 end
 
-ContextServices.mapToProps(ContextMenu, {
-	Plugin = ContextServices.Plugin,
-})
+if FFlagAnimationClipEditorWithContext then
+	ContextMenu = withContext({
+		Plugin = ContextServices.Plugin,
+	})(ContextMenu)
+else
+	ContextServices.mapToProps(ContextMenu, {
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return ContextMenu

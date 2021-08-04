@@ -18,11 +18,13 @@
 		function updateListItem
 			update setting of list item
 ]]
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
@@ -95,10 +97,18 @@ function PolicySection:render()
 	})
 end
 
-ContextServices.mapToProps(PolicySection, {
-	Networking = NetworkingContext,
-	Plugin = ContextServices.Plugin,
-})
+if FFlagPlayerEmulatorWithContext then
+	PolicySection = withContext({
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})(PolicySection)
+else
+	ContextServices.mapToProps(PolicySection, {
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

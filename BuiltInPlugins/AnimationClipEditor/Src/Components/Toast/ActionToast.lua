@@ -14,6 +14,7 @@
 		function OnButtonClicked(key) = A callback for when the user clicked
 			a button in the prompt. Accepts the Key of the button that was clicked.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local DEFAULT_WIDTH = 380
 local TEXT_FIT = Vector2.new(340, 10000)
@@ -28,6 +29,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local BaseToast = require(Plugin.Src.Components.Toast.BaseToast)
 
@@ -106,9 +108,16 @@ function ActionToast:render()
 		})
 end
 
-ContextServices.mapToProps(ActionToast, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	ActionToast = withContext({
+		Theme = ContextServices.Theme,
+	})(ActionToast)
+else
+	ContextServices.mapToProps(ActionToast, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return ActionToast

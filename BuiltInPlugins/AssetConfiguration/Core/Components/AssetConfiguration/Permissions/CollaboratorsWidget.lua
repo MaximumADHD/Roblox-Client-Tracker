@@ -11,6 +11,7 @@
 		LayoutOrder - int, Where this component will be placed in hierarchy
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -28,6 +29,7 @@ local withLocalization = ContextHelper.withLocalization
 
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
@@ -247,7 +249,7 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 				HideLastSeparator = i ~= #users,
 			}),
 			LastSeparator = (not separatorProvidedByNextElement) and Roact.createElement(Separator, {
-				Size = UDim2.new(1, 0, 0, 0),
+				Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
 				Position = UDim2.new(0.5, 0, 1, -1),
 			}),
 		})
@@ -293,9 +295,16 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	ContextServices.mapToProps(CollaboratorsWidget, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		CollaboratorsWidget = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(CollaboratorsWidget)
+	else
+		ContextServices.mapToProps(CollaboratorsWidget, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return CollaboratorsWidget

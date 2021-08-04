@@ -6,8 +6,8 @@
 		callback OnClick: A callback for when the user clicks this link.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display in this link.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -27,12 +27,14 @@
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
 local FFlagDevFrameworkFixLinkTextHoverResize = game:GetFastFlag("DevFrameworkFixLinkTextHoverResize")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local HoverArea = require(Framework.UI.HoverArea)
 
 local Util = require(Framework.Util)
@@ -170,9 +172,17 @@ function LinkText:render()
 	})
 end
 
-ContextServices.mapToProps(LinkText, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	LinkText = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LinkText)
+else
+	ContextServices.mapToProps(LinkText, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LinkText

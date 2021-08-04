@@ -4,15 +4,18 @@
 
 	Optional Props:
 		table AccessoryTypeInfo: Accessory type name, attachment point, and bounds
+		table AttachmentPoint: table of CFrame's for attachment point and its MeshPart parent.
 		Vector3 ItemSize: Size/Scale of the MeshPart for the editingItem.
 		enum EditingCage: Cage type identifier, Inner/Outer, provided via mapStateToProps
 		table PointData: vertex data of item being edited, provided via mapStateToProps
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
 		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local InsertService = game:GetService("InsertService")
 local HttpService = game:GetService("HttpService")
+local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -26,6 +29,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
 
@@ -36,14 +40,9 @@ local SelectedEditingItem = Roact.PureComponent:extend("SelectedEditingItem")
 Typecheck.wrap(SelectedEditingItem, script)
 
 local function terminateConnections(self)
-	if self.DescendantAddedHandle then
-		self.DescendantAddedHandle:Disconnect()
-		self.DescendantAddedHandle = nil
-	end
-
-	if self.DescendantRemovedHandle then
-		self.DescendantRemovedHandle:Disconnect()
-		self.DescendantRemovedHandle = nil
+	if self.MannequinAncestryChangedHandle then
+		self.MannequinAncestryChangedHandle:Disconnect()
+		self.MannequinAncestryChangedHandle = nil
 	end
 
 	if self.AncestryChangedHandle then
@@ -68,43 +67,51 @@ local function destroyEditingItem(self)
 	end
 end
 
-local function setupConnections(self, target)
-	self.DescendantAddedHandle = target.DescendantAdded:Connect(self.onEditingItemExternalChange)
-	self.DescendantRemovedHandle = target.DescendantRemoving:Connect(self.onEditingItemExternalChange)
-	self.AncestryChangedHandle = target.AncestryChanged:Connect(self.onEditingItemExternalChange)
-end
-
-local function setupEditingItem(self, regenerated)
+local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 	self.sourceItem = self.props.EditingItemContext:getSourceItem()
 	if not self.sourceItem then
 		return
 	end
+
 	self.editingItem = self.sourceItem:Clone()
-	self.editingItem.Archivable = false
+	self.editingItem.Archivable = true
 	self.editingItem.Name = HttpService:GenerateGUID()
-	self.props.EditingItemContext:setEditingItem(self.editingItem)
 
 	terminateConnections(self)
-	if ItemCharacteristics.isClothes(self.editingItem) then
+
+	local isClothing = ItemCharacteristics.isClothes(self.editingItem)
+	if isClothing then
+		local useCurrentAttachmentPointInfo = not accessoryTypeChanged and regenerated
+
 		self.mannequin = InsertService:LoadLocalAsset("rbxasset://models/LayeredClothingEditor/mannequin.rbxm")
 		self.mannequin.Parent = game.Workspace
-
-		if self.props.AccessoryTypeInfo then
-			ModelUtil:addAttachment(self.editingItem, self.mannequin, self.props.AccessoryTypeInfo)
-		end
 
 		if regenerated then
 			self.editingItem.Size = self.props.ItemSize
 		end
 
 		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
-		ModelUtil:attachClothingItem(self.mannequin, self.editingItem)
-		setupConnections(self, self.mannequin)
+
+		if self.props.AccessoryTypeInfo and self.props.AttachmentPoint then
+			ModelUtil:addAttachment(
+				self.editingItem,
+				self.mannequin,
+				self.props.AccessoryTypeInfo,
+				useCurrentAttachmentPointInfo and self.props.AttachmentPoint or nil)
+		end
+
+		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, useCurrentAttachmentPointInfo)
+
+		self.MannequinAncestryChangedHandle = self.mannequin.AncestryChanged:Connect(self.onEditingItemExternalChange)
 	else
 		self.editingItem.Parent = game.Workspace
+
 		ModelUtil:positionAvatar(self.editingItem, self.sourceItem, not regenerated)
-		setupConnections(self, self.editingItem)
 	end
+
+	self.AncestryChangedHandle = self.editingItem.AncestryChanged:Connect(self.onEditingItemExternalChange)
+
+	self.props.EditingItemContext:setEditingItem(self.editingItem)
 
 	self.props.VerifyBounds(self.editingItem)
 
@@ -113,7 +120,11 @@ local function setupEditingItem(self, regenerated)
 		spawn(function()
 			ModelUtil:focusCameraOnItem(self.editingItem)
 		end)
+	else
+		ModelUtil:createModelInfo(self.editingItem, not isClothing)
 	end
+
+	ChangeHistoryService:ResetWaypoints()
 end
 
 function SelectedEditingItem:init()
@@ -122,12 +133,12 @@ function SelectedEditingItem:init()
 
 	self.onEditingItemExternalChange = function()
 		destroyEditingItem(self)
-		setupEditingItem(self, true)
+		setupEditingItem(self, true, false)
 	end
 
 	self.onSourceItemChanged = function(sourceItem)
 		destroyEditingItem(self)
-		setupEditingItem(self, self.sourceItem == sourceItem)
+		setupEditingItem(self, self.sourceItem == sourceItem, false)
 	end
 end
 
@@ -163,7 +174,7 @@ end
 function SelectedEditingItem:didUpdate(prevProps)
 	if prevProps.AccessoryTypeInfo ~= self.props.AccessoryTypeInfo then
 		destroyEditingItem(self)
-		setupEditingItem(self, true)
+		setupEditingItem(self, true, true)
 	end
 end
 
@@ -184,6 +195,7 @@ local function mapStateToProps(state, props)
 
 	return {
 		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
+		AttachmentPoint = selectItem.attachmentPoint,
 		ItemSize = selectItem.size,
 		EditingCage = selectItem.editingCage,
 		PointData = cageData.pointData,
@@ -201,8 +213,15 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-ContextServices.mapToProps(SelectedEditingItem,{
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SelectedEditingItem = withContext({
+		EditingItemContext = EditingItemContext,
+	})(SelectedEditingItem)
+else
+	ContextServices.mapToProps(SelectedEditingItem,{
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

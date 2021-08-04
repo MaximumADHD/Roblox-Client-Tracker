@@ -1,8 +1,10 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local FitFrame = require(Plugin.Packages.FitFrame)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local FitFrameHorizontal = FitFrame.FitFrameHorizontal
 local FitTextLabel = FitFrame.FitTextLabel
@@ -71,9 +73,17 @@ function IconWithText:render()
     })
 end
 
-ContextServices.mapToProps(IconWithText, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	IconWithText = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(IconWithText)
+else
+	ContextServices.mapToProps(IconWithText, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return IconWithText

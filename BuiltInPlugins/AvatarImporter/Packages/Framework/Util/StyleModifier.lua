@@ -13,7 +13,6 @@
 			})
 		end)
 ]]
-
 local Framework = script.Parent.Parent
 
 local enumerate = require(Framework.Util.enumerate)
@@ -21,5 +20,6 @@ return enumerate("StyleModifier", {
 	"Hover",
 	"Pressed",
 	"Selected",
-	"Disabled"
+	"Disabled",
+	"Indeterminate"
 })

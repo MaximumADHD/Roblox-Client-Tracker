@@ -16,6 +16,7 @@
 ]]
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -25,6 +26,7 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -368,9 +370,16 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	ContextServices.mapToProps(AssetConfigFooter, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		AssetConfigFooter = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(AssetConfigFooter)
+	else
+		ContextServices.mapToProps(AssetConfigFooter, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfigFooter)

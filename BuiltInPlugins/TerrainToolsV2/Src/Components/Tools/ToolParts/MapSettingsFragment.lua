@@ -12,6 +12,7 @@ Props:
 	OnSizeChanged : (vector : string, axis : string, value : string, isValid : bool) -> void
 	SetMapSettingsValid : (bool) -> void
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -20,12 +21,15 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
 local VectorTextInput = require(ToolParts.VectorTextInput)
 
 local Constants = require(Plugin.Src.Util.Constants)
+
+local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
 
 local function checkVolume(size, maxVolume)
 	if not maxVolume then
@@ -111,8 +115,14 @@ function MapSettingsFragment:init(props)
 	end
 
 	self.onVectorFocusLost = function(vector, axis, enterPressed, text, isValid)
-		if locallyApplyChangeAndVerify(vector, axis, text) then
-			dispatchVectorChanged(vector, axis, text, isValid)
+		if FFlagTerrainToolsTextValidationFix then
+			if utf8.len(text) > 0 and locallyApplyChangeAndVerify(vector, axis, text) then
+				dispatchVectorChanged(vector, axis, text, isValid)
+			end
+		else
+			if locallyApplyChangeAndVerify(vector, axis, text) then
+				dispatchVectorChanged(vector, axis, text, isValid)
+			end
 		end
 	end
 
@@ -164,8 +174,15 @@ function MapSettingsFragment:render()
 	})
 end
 
-ContextServices.mapToProps(MapSettingsFragment, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	MapSettingsFragment = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(MapSettingsFragment)
+else
+	ContextServices.mapToProps(MapSettingsFragment, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return MapSettingsFragment

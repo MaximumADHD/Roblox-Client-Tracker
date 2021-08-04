@@ -6,6 +6,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 -- Import ContextServices
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 -- Import the button from DevFramework
 local Button = Framework.UI.Button
@@ -33,9 +34,9 @@ function STM643:render()
 	})
 end
 
-ContextServices.mapToProps(STM643, {
+STM643 = withContext({
 	Localization = ContextServices.Localization,
-})
+})(STM643)
 
 -- Return your component
 return STM643

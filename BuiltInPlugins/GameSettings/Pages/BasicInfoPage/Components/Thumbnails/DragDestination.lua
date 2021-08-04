@@ -8,6 +8,7 @@
 	Props:
 		int LayoutOrder = The order in which this widget will appear in the set.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
 
@@ -15,6 +16,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DragDestination = Roact.PureComponent:extend("DragDestination")
 
@@ -34,8 +36,15 @@ function DragDestination:render()
 	})
 end
 
-ContextServices.mapToProps(DragDestination, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	DragDestination = withContext({
+		Theme = ContextServices.Theme,
+	})(DragDestination)
+else
+	ContextServices.mapToProps(DragDestination, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return DragDestination

@@ -5,17 +5,19 @@
 		string Text: text message in dialog
 		callback OnConfirm: function to call when click confirm button
 		callback OnClose: function to call when close dialog or click cancel button
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Title: title for dialog, using layered clothing editor is undefined
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
@@ -65,9 +67,17 @@ function ConfirmCancelDialog:render()
     })
 end
 
-ContextServices.mapToProps(ConfirmCancelDialog,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ConfirmCancelDialog = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})(ConfirmCancelDialog)
+else
+	ContextServices.mapToProps(ConfirmCancelDialog,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return ConfirmCancelDialog

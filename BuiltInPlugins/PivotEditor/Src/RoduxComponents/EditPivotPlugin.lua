@@ -1,11 +1,14 @@
+local FFlagPivotEditorWithContext = game:GetFastFlag("PivotEditorWithContext")
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local withContext = ContextServices.withContext
+
 local Analytics = require(Plugin.Packages.DraggerFramework.Utility.Analytics)
 
 local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
@@ -125,8 +128,15 @@ function EditPivotPlugin:render()
 	})
 end
 
-ContextServices.mapToProps(EditPivotPlugin, {
-	Plugin = ContextServices.Plugin,
-})
+if FFlagPivotEditorWithContext then
+	EditPivotPlugin = withContext({
+		Plugin = ContextServices.Plugin,
+	})(EditPivotPlugin)
+else
+	ContextServices.mapToProps(EditPivotPlugin, {
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return EditPivotPlugin

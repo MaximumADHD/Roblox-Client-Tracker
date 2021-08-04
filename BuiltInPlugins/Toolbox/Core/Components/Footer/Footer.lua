@@ -4,6 +4,7 @@
 	Props:
 		Backgrounds backgrounds
 ]]
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FooterButton = require(Plugin.Core.Components.Footer.FooterButton)
@@ -170,9 +172,16 @@ function Footer:render()
 	end)
 end
 
-ContextServices.mapToProps(Footer, {
-	Settings = Settings,
-})
+if FFlagToolboxWithContext then
+	Footer = withContext({
+		Settings = Settings,
+	})(Footer)
+else
+	ContextServices.mapToProps(Footer, {
+		Settings = Settings,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

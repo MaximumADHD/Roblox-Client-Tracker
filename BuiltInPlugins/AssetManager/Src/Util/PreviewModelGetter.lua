@@ -5,7 +5,7 @@
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 
 local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Packages.Framework.Util.Promise)
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local ASSET_ID_STRING = "rbxassetid://%d"
 

@@ -3,15 +3,16 @@
 
 	Required Props:
 		callback SelectPreviewTab: function provided via dispatch to set the preview tab
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 		string SelectedTab: the preview tab selection (this is an entry from PreviewConstants.TABS_KEYS)
 
 	Optional Props:
 		number LayoutOrder: render order of component in layout
 		number ZIndex: the z sorting order of the component
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -19,6 +20,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
@@ -83,11 +85,20 @@ function PreviewTabsRibbon:render()
 	})
 end
 
-ContextServices.mapToProps(PreviewTabsRibbon,{
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	PreviewTabsRibbon = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+	})(PreviewTabsRibbon)
+else
+	ContextServices.mapToProps(PreviewTabsRibbon,{
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local previewStatus = state.previewStatus

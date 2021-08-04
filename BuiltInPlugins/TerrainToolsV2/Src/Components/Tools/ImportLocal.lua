@@ -3,6 +3,7 @@
 ]]
 
 local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -13,6 +14,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local InfoDialog = require(Plugin.Src.Components.InfoDialog)
@@ -538,10 +540,18 @@ function ImportLocal:render()
 	})
 end
 
-ContextServices.mapToProps(ImportLocal, {
-	Localization = ContextItems.UILibraryLocalization,
-	TerrainImporter = ContextItems.TerrainImporter,
-})
+if FFlagTerrainToolsV2WithContext then
+	ImportLocal = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+		TerrainImporter = ContextItems.TerrainImporter,
+	})(ImportLocal)
+else
+	ContextServices.mapToProps(ImportLocal, {
+		Localization = ContextItems.UILibraryLocalization,
+		TerrainImporter = ContextItems.TerrainImporter,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

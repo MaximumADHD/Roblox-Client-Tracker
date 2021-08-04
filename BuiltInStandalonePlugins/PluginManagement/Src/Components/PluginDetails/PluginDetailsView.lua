@@ -1,3 +1,4 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -10,7 +11,8 @@ local HttpRequestHolder = require(Plugin.Src.Components.PluginDetails.HttpReques
 local ScriptInjectionHolder = require(Plugin.Src.Components.PluginDetails.ScriptInjectionHolder)
 local ListItem = require(Plugin.Src.Components.PluginDetails.ListItem)
 
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 
@@ -169,11 +171,20 @@ function PluginDetailsView:render()
 	})
 end
 
-ContextServices.mapToProps(PluginDetailsView, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	PluginDetailsView = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(PluginDetailsView)
+else
+	ContextServices.mapToProps(PluginDetailsView, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local plugins = state.Management.plugins

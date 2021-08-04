@@ -2,11 +2,13 @@
 	The top level container of the Player Emulator window.
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection and PolicySection
 ]]
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local Separator = UILibrary.Component.Separator
 local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
@@ -65,9 +67,17 @@ function MainView:render()
 	})
 end
 
-ContextServices.mapToProps(MainView, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPlayerEmulatorWithContext then
+	MainView = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(MainView)
+else
+	ContextServices.mapToProps(MainView, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return MainView

@@ -10,6 +10,7 @@
 		Spacing: An optional number or UDim to space elements out by.
 		HorizontalAlignment: Property on UIListLayout
 		VerticalAlignment: Property on UIListLayout
+		callback OnClick: Triggered when the user clicks on this component.
 		callback OnPress: Triggered when the user clicks or taps on this component.
 	Styles:
 		Default: The pane has no background
@@ -18,9 +19,11 @@
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
 local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local isInputMainPress = require(Framework.Util.isInputMainPress)
 
@@ -33,10 +36,29 @@ local omit = Dash.omit
 
 local Pane = Roact.PureComponent:extend("Pane")
 
+local function getClassName(props, style)
+	local className
+	if style.Image then
+		if props.OnClick then
+			className = "ImageButton"
+		else
+			className = "ImageLabel"
+		end
+	elseif props.OnClick then
+		className = "TextButton"
+	else
+		className = "Frame"
+	end
+	return className
+end
+
 Pane.defaultProps = {
 	HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	VerticalAlignment = Enum.VerticalAlignment.Center,
 }
+
+-- TODO RIDE-5172: Allow Typecheck to run and support additional props passed to underlying Frame
+-- Typecheck.wrap(Pane, script)
 
 function Pane:init()
 	self.onPress = function(_, input)
@@ -106,7 +128,8 @@ function Pane:render()
 		end
 	end
 
-	local className = "Frame"
+	local className = getClassName(props, style)
+
 	local defaultProps = {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -116,8 +139,15 @@ function Pane:render()
 	if color then
 		defaultProps.BackgroundTransparency = 0
 	end
+
+	if props.OnClick then
+		props[Roact.Event.Activated] = props.OnClick
+		if not style.Image then
+			props.Text = ""
+		end
+	end
+
 	if style.Image then
-		className = "ImageLabel"
 		assign(defaultProps, {
 			Image = style.Image,
 			ImageColor3 = color,
@@ -154,6 +184,7 @@ function Pane:render()
 		"Theme",
 		"HorizontalAlignment",
 		"VerticalAlignment",
+		"OnClick",
 		"OnPress",
 	}
 	or {
@@ -168,6 +199,7 @@ function Pane:render()
 		"Stylizer",
 		"HorizontalAlignment",
 		"VerticalAlignment",
+		"OnClick",
 		"OnPress",
 	})
 
@@ -175,14 +207,29 @@ function Pane:render()
 end
 
 if FFlagDevFrameworkPaneSupportTheme1 then
-	ContextServices.mapToProps(Pane, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		Pane = withContext({
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})(Pane)
+	else
+		ContextServices.mapToProps(Pane, {
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})
+	end
+
 else
-	ContextServices.mapToProps(Pane, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		Pane = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(Pane)
+	else
+		ContextServices.mapToProps(Pane, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return Pane

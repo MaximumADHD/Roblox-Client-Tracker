@@ -9,11 +9,13 @@
 		TextXAlignment Alignment = the horizontal alignment of the text
 			(vertical alignment is never used)
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DeveloperSubscriptionListItemText = Roact.Component:extend("DeveloperSubscriptionListItemText")
 
@@ -36,8 +38,15 @@ function DeveloperSubscriptionListItemText:render()
 	}))
 end
 
-ContextServices.mapToProps(DeveloperSubscriptionListItemText,{
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	DeveloperSubscriptionListItemText = withContext({
+		Theme = ContextServices.Theme,
+	})(DeveloperSubscriptionListItemText)
+else
+	ContextServices.mapToProps(DeveloperSubscriptionListItemText,{
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return DeveloperSubscriptionListItemText

@@ -10,6 +10,7 @@
 		IconSize: Size of icon in button, defaults to 16px. Icon must be square.
 		LeftIcon: String location of icon displayed on left.
 		RightIcon: String location of icon displayed on right.
+		IconColor: Color3 of icon.
 
 		BackgroundColor: Background color override.
 		BackgroundStyle: Background color override; defaults to "BorderBox".
@@ -31,10 +32,13 @@
 
 game:DefineFastFlag("FrameworkFixDisabledIconButton", false)
 local FFlagFrameworkFixDisabledIconButton = game:GetFastFlag("FrameworkFixDisabledIconButton")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local prioritize = Util.prioritize
@@ -98,6 +102,10 @@ function IconButton:render()
 	local enabledTextColor = prioritize(props.TextColor, style.TextColor)
 	local disabledTextColor = prioritize(props.DisabledTextColor, style.Disabled.TextColor)
 	local textColor = (props.Disabled or not props.OnClick) and disabledTextColor or enabledTextColor
+	local iconColor
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		iconColor = prioritize(props.IconColor, style.IconColor)
+	end
 
 	local iconSize = props.IconSize
 	local textBoxPadding = 2 * iconSize
@@ -127,6 +135,7 @@ function IconButton:render()
 				LayoutOrder = 1,
 				Size = UDim2.fromOffset(iconSize, iconSize),
 				Style = {
+					Background = iconColor,
 					Image = props.LeftIcon,
 				}
 			}),
@@ -142,6 +151,7 @@ function IconButton:render()
 				LayoutOrder = 3,
 				Size = UDim2.fromOffset(iconSize, iconSize),
 				Style = {
+					Background = iconColor,
 					Image = props.RightIcon,
 				}
 			}),
@@ -149,9 +159,17 @@ function IconButton:render()
 	})
 end
 
-ContextServices.mapToProps(IconButton, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	IconButton = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(IconButton)
+else
+	ContextServices.mapToProps(IconButton, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return IconButton

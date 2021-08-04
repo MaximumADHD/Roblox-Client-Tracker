@@ -13,6 +13,7 @@
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -179,9 +181,16 @@ function ConfigTextField:renderContent(theme, _, localizedContent)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	ContextServices.mapToProps(ConfigTextField, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		ConfigTextField = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(ConfigTextField)
+	else
+		ContextServices.mapToProps(ConfigTextField, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return ConfigTextField

@@ -31,7 +31,9 @@ return function(analytics)
 		local playhead = state.Status.Playhead
 		local visualizeBones = state.Status.VisualizeBones
 
-		ChangeHistoryService:SetEnabled(false)
+		if ChangeHistoryService:GetCanUndo() then
+			ChangeHistoryService:SetEnabled(false)
+		end
 		StudioService:CopyToClipboard("")
 
 		-- If the old animation target is gone, reset to the start screen.

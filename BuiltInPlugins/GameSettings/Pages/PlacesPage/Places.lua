@@ -28,6 +28,7 @@ local Cryo = require(Plugin.Cryo)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local FrameworkUI = require(Framework.UI)
 local Button = FrameworkUI.Button
@@ -86,6 +87,7 @@ local nameErrors = {
 }
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 
 local function loadSettings(store, contextItems)
@@ -625,10 +627,18 @@ function Places:render()
 	})
 end
 
-ContextServices.mapToProps(Places, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	Places = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})(Places)
+else
+	ContextServices.mapToProps(Places, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Places = RoactRodux.connect(

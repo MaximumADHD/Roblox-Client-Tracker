@@ -12,6 +12,7 @@
 	  OnActivated - function to run on click
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -26,6 +27,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -122,10 +124,18 @@ if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
 		})
 	end
 
-	ContextServices.mapToProps(Footer, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		Footer = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(Footer)
+	else
+		ContextServices.mapToProps(Footer, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 
 	local function useDispatchForProps(dispatch)
 		return {

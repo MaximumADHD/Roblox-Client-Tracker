@@ -7,9 +7,9 @@
 		table Expansion: Which items should be expanded - Set<Item>
 		
 		Optional Props:
-		Theme Theme: The theme supplied from mapToProps()
+		Theme Theme: The theme supplied from withContext()
 		Style Style: a style table supplied from props and theme:getStyle()
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		callback RenderRow: DEPRECATED: This should return the Roact element for a given row - RenderRow(node: Row) => Roact.Element
 		any RowComponent: An optional component to be displayed for each row, passed RowProps
 		table Selection: Which items should be selected - Set<Item>
@@ -41,6 +41,7 @@ interface Row<Item extends any> {
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
@@ -54,6 +55,7 @@ local TreeViewRow = require(UI.TreeViewRow)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -177,7 +179,7 @@ function TreeView:render()
 				Children = itemChildren or {},
 				OnToggle = self.onToggle,
 				OnPress = self.onSelect,
-				Expanded = props.Expansion[row.item]
+				Expanded = props.Expansion[row.item] or false
 			}, self.props.RowProps))
 		else
 			children[key] = props.RenderRow(row)
@@ -220,9 +222,17 @@ function TreeView:render()
 	end
 end
 
-ContextServices.mapToProps(TreeView, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TreeView = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TreeView)
+else
+	ContextServices.mapToProps(TreeView, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TreeView

@@ -8,11 +8,10 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 
-local MockPlugin = require(Plugin.Packages.Framework.TestHelpers.Instances.MockPlugin)
+local MockPlugin = require(Plugin.Packages.Framework).TestHelpers.Instances.MockPlugin
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local PluginTheme = require(Plugin.Src.Util.Theme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper)
 local Localization = ContextServices.Localization
 local Signals = require(Plugin.Src.Context.Signals)
 local Constants = require(Plugin.Src.Util.Constants)

@@ -4,7 +4,7 @@ local HttpService = game:GetService("HttpService")
 
 local Actions = Plugin.Src.Actions
 local SetAssetGroupData = require(Actions.SetAssetGroupData)
-local sendResultToKibana = require(Plugin.Packages.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 

@@ -6,6 +6,7 @@
 		list Order = The order in which the thumbnails are sorted.
 		variant StartId = The thumbnailId of the thumbnail to display first.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BLACK = Color3.new(0, 0, 0)
 local WHITE = Color3.new(1, 1, 1)
@@ -18,6 +19,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FrameworkUI = require(Plugin.Framework.UI)
 local HoverArea = FrameworkUI.HoverArea
 
@@ -187,10 +189,19 @@ function ThumbnailPreviewDialog:render()
 	})
 end
 
-ContextServices.mapToProps(ThumbnailPreviewDialog, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	ThumbnailPreviewDialog = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(ThumbnailPreviewDialog)
+else
+	ContextServices.mapToProps(ThumbnailPreviewDialog, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return ThumbnailPreviewDialog

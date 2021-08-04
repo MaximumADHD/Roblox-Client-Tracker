@@ -9,6 +9,7 @@
 			This table contain 2 elements, universeId and placeId
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,6 +19,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
@@ -437,11 +439,20 @@ function ScreenCreateNewGame:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(ScreenCreateNewGame,{
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		ScreenCreateNewGame = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+		})(ScreenCreateNewGame)
+	else
+		ContextServices.mapToProps(ScreenCreateNewGame,{
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+		})
+	end
+
 end
 
 local function mapStateToProps(state, props)

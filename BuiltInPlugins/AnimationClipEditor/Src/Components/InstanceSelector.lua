@@ -3,6 +3,7 @@
 	when a user has selected an instance in either the Workspace
 	Viewport or the Explorer.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -10,6 +11,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UpdateRootInstance = require(Plugin.Src.Thunks.UpdateRootInstance)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
@@ -271,12 +273,22 @@ function InstanceSelector:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(InstanceSelector, {
-	Plugin = ContextServices.Plugin,
-	Mouse = ContextServices.Mouse,
-	Analytics = ContextServices.Analytics,
-	Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
-})
+if FFlagAnimationClipEditorWithContext then
+	InstanceSelector = withContext({
+		Plugin = ContextServices.Plugin,
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
+	})(InstanceSelector)
+else
+	ContextServices.mapToProps(InstanceSelector, {
+		Plugin = ContextServices.Plugin,
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

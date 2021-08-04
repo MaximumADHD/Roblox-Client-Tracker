@@ -24,6 +24,7 @@
 		function SetShowTree = sets if the IK window is visible
 		function SetSelectedTracks(string) = sets currently selected joint to given string
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -32,10 +33,11 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
 
-local StudioUI = require(Plugin.Packages.Framework.StudioUI)
+local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local Input = require(Plugin.Src.Util.Input)
@@ -217,11 +219,20 @@ function IKWindow:render()
 	})
 end
 
-ContextServices.mapToProps(IKWindow, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-})
+if FFlagAnimationClipEditorWithContext then
+	IKWindow = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+	})(IKWindow)
+else
+	ContextServices.mapToProps(IKWindow, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 
 return IKWindow

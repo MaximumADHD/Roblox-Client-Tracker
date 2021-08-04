@@ -5,17 +5,19 @@
 		UDim2 Size: The size of the component.
 
 	Optional Props:
-		Theme Theme: The Theme ContextItem from mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: The Theme ContextItem from withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 
 	Style Values:
 		Color3 Color: The color of the component.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local ContextServices = require(Framework.ContextServices)
+	local withContext = ContextServices.withContext
 	local wrap = require(Framework.Util.Typecheck.wrap)
 	local StudioTheme = require(Framework.Style.Themes.StudioTheme)
 	local ui = require(Framework.Style.ComponentSymbols)
@@ -41,10 +43,18 @@ return function()
 		})
 	end
 
-	ContextServices.mapToProps(WrapTestComponent, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
+	if FFlagDeveloperFrameworkWithContext then
+		WrapTestComponent = withContext({
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})(WrapTestComponent)
+	else
+		ContextServices.mapToProps(WrapTestComponent, {
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		})
+	end
+
 
 	local function createWrapTestComponent(props, styleTable)
 		local theme

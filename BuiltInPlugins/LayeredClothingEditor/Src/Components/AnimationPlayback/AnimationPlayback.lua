@@ -10,9 +10,10 @@
 		callback SetTrackLength: function to set animation track's length, which is provided via mapDispatchToProps.
 	Optional Props:
 		number AnimationId: animation id that is selecting now, which is provided via store
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
-		table PreviewContext: A Preview ContextItem, which is provided via mapToProps.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table PreviewContext: A Preview ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -23,6 +24,7 @@ local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local AnimationPlayback = Roact.PureComponent:extend("AnimationPlayback")
 
@@ -182,10 +184,18 @@ function AnimationPlayback:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(AnimationPlayback,{
-	EditingItemContext = EditingItemContext,
-	PreviewContext = PreviewContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	AnimationPlayback = withContext({
+		EditingItemContext = EditingItemContext,
+		PreviewContext = PreviewContext,
+	})(AnimationPlayback)
+else
+	ContextServices.mapToProps(AnimationPlayback,{
+		EditingItemContext = EditingItemContext,
+		PreviewContext = PreviewContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local animation = state.animation

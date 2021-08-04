@@ -1,6 +1,7 @@
 --[[
 	Children of this component should not have a UiListLayout Sibling
 --]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -8,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local DEFAULT_PADDING = UDim.new(0, 12)
@@ -132,8 +134,15 @@ function Panel:render()
 	})
 end
 
-ContextServices.mapToProps(Panel, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	Panel = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(Panel)
+else
+	ContextServices.mapToProps(Panel, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return Panel

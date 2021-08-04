@@ -1,4 +1,5 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
 local StudioService = game:getService("StudioService")
@@ -16,8 +17,9 @@ local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THE
 
 local Constants = require(Plugin.Src.Util.Constants)
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
-local UI = require(Plugin.Packages.Framework.UI)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local UI = require(Plugin.Packages.Framework).UI
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 local SetPluginEnabledState = require(Plugin.Src.Thunks.SetPluginEnabledState)
@@ -206,7 +208,7 @@ function PluginEntry:render()
 
 	local hasHttpPermissions = (allowedHttpCount > 0) or (deniedHttpCount > 0)
 	local hasScriptInjectionPermissions = false
- 
+
 	if FlagsListFile:get("FFlagPluginManagementQ3ContentSecurity") then
 		hasScriptInjectionPermissions = (allowedScriptInjection ~= nil)
 	end
@@ -443,14 +445,26 @@ function PluginEntry:render()
 	})
 end
 
-ContextServices.mapToProps(PluginEntry, {
-	Navigation = Navigation,
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	API = PluginAPI2,
-	Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
-})
+if FFlagPluginManagementWithContext then
+	PluginEntry = withContext({
+		Navigation = Navigation,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+	})(PluginEntry)
+else
+	ContextServices.mapToProps(PluginEntry, {
+		Navigation = Navigation,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		API = PluginAPI2,
+		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+	})
+end
+
 
 local mapStateToProps = function(state, props)
 	local pluginPermissions = state.PluginPermissions[props.data.assetId]

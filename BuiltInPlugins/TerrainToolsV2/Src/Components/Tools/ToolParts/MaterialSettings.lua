@@ -1,6 +1,7 @@
 --[[
 	MaterialSettings.lua
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -8,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
@@ -35,8 +37,15 @@ function MaterialSettings:render()
 	})
 end
 
-ContextServices.mapToProps(MaterialSettings, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	MaterialSettings = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(MaterialSettings)
+else
+	ContextServices.mapToProps(MaterialSettings, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return MaterialSettings

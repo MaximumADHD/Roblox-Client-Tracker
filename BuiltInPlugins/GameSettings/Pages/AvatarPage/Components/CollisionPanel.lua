@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local ConstantTemplate = require(Page.Util.ConstantTemplate)
 local StateInterfaceTemplates = require(Page.Util.StateInterfaceTemplates)
@@ -13,6 +14,7 @@ local RadioButtonSetPanel = require(Page.Components.RadioButtonSetPanel)
 local CollisionPanel = Roact.Component:extend("ComponentCollisionPanel")
 
 local FFlagFixCollisionBoxLabels = game:DefineFastFlag("FixCollisionBoxLabels", false)
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function CollisionPanel:render()
 	local collisionTypeSetFunctions = {
@@ -46,9 +48,17 @@ function CollisionPanel:render()
 	})
 end
 
-ContextServices.mapToProps(CollisionPanel, {
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	CollisionPanel = withContext({
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(CollisionPanel)
+else
+	ContextServices.mapToProps(CollisionPanel, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return CollisionPanel

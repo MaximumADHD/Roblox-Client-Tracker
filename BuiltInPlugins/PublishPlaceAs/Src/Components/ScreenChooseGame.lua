@@ -6,6 +6,7 @@
 
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -16,6 +17,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -512,10 +514,18 @@ function ScreenChooseGame:willUnmount()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(ScreenChooseGame, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		ScreenChooseGame = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(ScreenChooseGame)
+	else
+		ContextServices.mapToProps(ScreenChooseGame, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 end
 
 local function mapStateToProps(state, props)

@@ -10,7 +10,7 @@ local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
-local sendResultToKibana = require(Plugin.Packages.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
 local FFlagStopTryingToFormatTimeInLuaForAssetManager = game:DefineFastFlag("StopTryingToFormatTimeInLuaForAssetManager", false)
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")

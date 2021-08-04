@@ -8,11 +8,13 @@
 		function OnClick = A callback invoked when this widget is clicked.
 			This will mean that the user wants to add a new icon.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder_Square.png"
@@ -72,9 +74,17 @@ function NewUploadableIcon:render()
 	})
 end
 
-ContextServices.mapToProps(NewUploadableIcon, {
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	NewUploadableIcon = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(NewUploadableIcon)
+else
+	ContextServices.mapToProps(NewUploadableIcon, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return NewUploadableIcon

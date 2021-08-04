@@ -13,6 +13,7 @@
 		func OnEditButtonActivated = what to call when the edit
 			button gets pressed
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Page = script.Parent.Parent
@@ -24,6 +25,7 @@ local numberWithCommas = require(Page.Util.numberWithCommas)
 local DevSubListItemText = require(script.Parent.DevSubListItemText)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local FrameworkUtil = require(Plugin.Framework.Util)
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
@@ -143,9 +145,17 @@ function DeveloperSubscriptionListItem:render()
 	})
 end
 
-ContextServices.mapToProps(DeveloperSubscriptionListItem,{
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	DeveloperSubscriptionListItem = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(DeveloperSubscriptionListItem)
+else
+	ContextServices.mapToProps(DeveloperSubscriptionListItem,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return DeveloperSubscriptionListItem

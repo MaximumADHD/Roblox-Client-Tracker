@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 -- local Types = require(Plugin.Src.Types) -- Uncomment to access types
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -13,81 +14,37 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local SelectInput = UI.SelectInput
 local TextLabel = UI.Decoration.TextLabel
 local TreeTable = UI.TreeTable
+local SelectInputField = require(script.Parent.SelectInputField)
 
-local Models = Plugin.Src.Models
-local CallstackRow = require(Models.CallstackRow)
+local Actions = Plugin.Src.Actions
+local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
+
 local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
-local SelectInputField = Roact.PureComponent:extend("SelectInputField")
 
 -- Constants
 local HEADER_HEIGHT = 40
-local TEST_ROW_NO_IMAGE = {
-	arrowColumn = "",
-	frameColumn = "aaaaaaaaaaaa",
-	whatColumn = "b",
-	functionNameColumn = "c",
-	lineNumberColumn = "d",
-	sourceColumn = "e",
-}
-local TEST_ROW_IMAGE = {
-	arrowColumn = {
-		Value = "",
-		LeftIcon = {
-			Image = CallstackRow.ICON_PATH,
-			Size = CallstackRow.ICON_SIZE,
-		},
-	},
-	frameColumn = "a",
-	whatColumn = "b",
-	functionNameColumn = "c",
-	lineNumberColumn = "d",
-	sourceColumn = "e",
-}
 
-function SelectInputField:init()
-	self.state = {
-		currentIndex = nil,
-	}
-	self.selectItem = function(_, index)
-		self:setState({
-			currentIndex = index,
-		})
-	end
-end
-
-function SelectInputField:render()
-	return Roact.createElement(SelectInput, {
-		Size = self.props.Size,
-		Items = self.props.Items,
-		PlaceholderText = self.props.PlaceholderText,
-		SelectedIndex = self.state.currentIndex,
-		OnItemActivated = self.selectItem,
-	})
-end
-
+-- Local Functions
 local function calculateTextSize(text, textSize, font)
 	local frameNoWrapping = Vector2.new(0, 0)
 	return TextService:GetTextSize(text, textSize, font, frameNoWrapping)
 end
 
-local function generateSampleTable(numRows)
-	local tab = {}
-	for i = 1,numRows,1 do 
-		if (i % 2 == 0) then 
-			table.insert(tab, CallstackRow.fromData(TEST_ROW_NO_IMAGE)) 
-		else 
-			table.insert(tab, CallstackRow.fromData(TEST_ROW_IMAGE))
-		end
-	end
-	return tab
-end
-
+-- CallstackComponent
 function CallstackComponent:init()
 	self.getTreeChildren = function(item)
 		return item.children or {}
+	end
+	
+	self.onSelectionChange = function(selection)
+		local props = self.props
+		for rowInfo in pairs(selection) do
+			local threadId = props.CurrentThreadId
+			local frameNumber = rowInfo.frameColumn
+			props.setCurrentFrameNumber(threadId, frameNumber)
+		end
 	end
 end
 
@@ -96,18 +53,7 @@ function CallstackComponent:render()
 	local localization = props.Localization
 	local style = self.props.Stylizer
 	
-	local selectInputItems = {
-		"Script 1",
-		"Script 2",
-		"Script 3",
-		"Script 4",
-		"Script 5",
-		"Script 6",
-		"Script 7",
-		"Script 8",
-		"Script 9",
-		"Script 10",
-	}
+	local textSize = calculateTextSize(localization:getText("Callstack", "CurrentScriptTitle"), style.TextSize, style.Font)
 	local tableColumns = {
 		{
 			Name = "",
@@ -130,8 +76,6 @@ function CallstackComponent:render()
 			Key = "sourceColumn",
 		}
 	}
-	local tableRows = generateSampleTable(20)
-	local textSize = calculateTextSize(localization:getText("Callstack", "CurrentScriptTitle"), style.TextSize, style.Font)
 	
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -162,7 +106,6 @@ function CallstackComponent:render()
 				SelectInputView = Roact.createElement(SelectInputField, {
 					Size = UDim2.new(1, 0, 1, 0),
 					PlaceholderText = localization:getText("Callstack", "SelectInputPlaceholderText"),
-					Items = selectInputItems,
 				})
 			}),
 		}),
@@ -175,21 +118,52 @@ function CallstackComponent:render()
 			TableView = Roact.createElement(TreeTable, {
 				Scroll = true,  
 				Size = UDim2.fromScale(1, 1),
-				RootItems = tableRows,
 				Columns = tableColumns,
+				RootItems = props.RootItems,
 				Stylizer = style,
 				Expansion = {},
 				GetChildren = self.getTreeChildren,
 				DisableTooltip = false,
+				OnSelectionChange = self.onSelectionChange,
 			})
 		}),
 	})
 end
 
+-- RoactRodux Connection
 CallstackComponent = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(CallstackComponent)
+
+CallstackComponent = RoactRodux.connect(
+	function(state, props)
+		if state.Common.currentThreadId == -1 then
+			return {
+				RootItems = {},
+				CurrentThreadId = nil,
+			}
+		else
+			assert(#state.Common.debuggerStateTokenHistory >= 1)
+			local currentThreadId = state.Common.currentThreadId
+			local address = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+			local callstackVars = state.Callstack.stateTokenToCallstackVars[address]
+			local frameList = callstackVars and callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[currentThreadId]
+			return {
+				RootItems = frameList or {},
+				CurrentThreadId = currentThreadId,
+			}
+		end
+	end,
+
+	function(dispatch)
+		return {
+			setCurrentFrameNumber = function(threadId, frameNumber)
+				return dispatch(SetCurrentFrameNumber(threadId, frameNumber))
+			end,
+		}
+	end
+)(CallstackComponent)
 
 return CallstackComponent

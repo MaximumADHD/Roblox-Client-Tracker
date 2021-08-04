@@ -11,6 +11,7 @@
 			on toggle plugin enabled
 ]]
 local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -19,6 +20,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
 
@@ -121,12 +123,22 @@ function MainSwitchSection:render()
 	})
 end
 
-ContextServices.mapToProps(MainSwitchSection, {
-	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-})
+if FFlagPlayerEmulatorWithContext then
+	MainSwitchSection = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})(MainSwitchSection)
+else
+	ContextServices.mapToProps(MainSwitchSection, {
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

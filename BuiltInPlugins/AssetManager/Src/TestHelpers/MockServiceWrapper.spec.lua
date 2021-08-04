@@ -1,3 +1,4 @@
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
@@ -6,7 +7,8 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Rodux = require(Plugin.Packages.Rodux)
 
 local withLocalization = require(Plugin.Packages.UILibrary).Localizing.withLocalization
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -41,9 +43,16 @@ return function()
 				})
 			end
 
-			ContextServices.mapToProps(testElement, {
-				Localization = ContextServices.Localization,
-			})
+			if FFlagAssetManagerWithContext then
+				testElement = withContext({
+					Localization = ContextServices.Localization,
+				})(testElement)
+			else
+				ContextServices.mapToProps(testElement, {
+					Localization = ContextServices.Localization,
+				})
+			end
+
 
 			return testElement
 		end
@@ -118,9 +127,16 @@ return function()
 				})
 			end
 
-			ContextServices.mapToProps(testThemedElement, {
-				Theme = ContextServices.Theme,
-			})
+			if FFlagAssetManagerWithContext then
+				testThemedElement = withContext({
+					Theme = ContextServices.Theme,
+				})(testThemedElement)
+			else
+				ContextServices.mapToProps(testThemedElement, {
+					Theme = ContextServices.Theme,
+				})
+			end
+
 
 			return testThemedElement
 		end

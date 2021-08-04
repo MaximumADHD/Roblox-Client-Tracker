@@ -28,6 +28,7 @@
 		callback OnDragStart() = A function for when the user starts interacting
 			with a tool. Used to dispatch History waypoints.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -38,6 +39,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
@@ -234,11 +236,20 @@ function JointSelector:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(JointSelector, {
-	Plugin = ContextServices.Plugin,
-	Mouse = ContextServices.Mouse,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAnimationClipEditorWithContext then
+	JointSelector = withContext({
+		Plugin = ContextServices.Plugin,
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+	})(JointSelector)
+else
+	ContextServices.mapToProps(JointSelector, {
+		Plugin = ContextServices.Plugin,
+		Mouse = ContextServices.Mouse,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 
 local function mapStateToProps(state, props)

@@ -6,12 +6,13 @@
 		number LayoutOrder: render order of component in layout
 		string ToolMode: Determines what tool (Point, Lattice, etc) the plugin is using. Comes from mapStateToProps
 		callback ChangeTool: function to change tool, provided via mapDispatchToProps
-		table Signals: A Signals ContextItem, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		table Signals: A Signals ContextItem, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		EnumItem EditingCage: Is the current cage being edited the Inner/Outer cage, or neither. Comes from mapStateToProps
 		table PointData: Rbf point data for current cages being edited, provided via mapStateToProps.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -19,6 +20,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Pane = Framework.UI.Pane
 
@@ -65,12 +67,12 @@ function EditorFrame:render()
 	local orderIterator = LayoutOrderIterator.new()
 
 	local meshPartMode = editingCage == Constants.EDIT_MODE.Mesh
-	local isEditing = (editingCage and not meshPartMode and props.PointData and next(props.PointData)) ~= nil
+	local isEditing = (editingCage and not meshPartMode) and (props.PointData and next(props.PointData)) ~= nil
 
 	local meshPartModeText = props.Localization:getText("Editor", "MeshPartMode")
 
 	local isTesting = DebugFlags.RunRhodiumTests() or DebugFlags.RunTests()
-	local dragger = not isTesting and isEditing and (toolMode == Constants.TOOL_MODE.Lattice or toolMode == Constants.TOOL_MODE.Point) and Roact.createElement(DraggerWrapper) or nil
+	local dragger = not isTesting and isEditing and Roact.createElement(DraggerWrapper) or nil
 
 	return Roact.createElement(Pane, {
 		BackgroundColor3 = theme.BackgroundColor,
@@ -123,11 +125,20 @@ function EditorFrame:render()
 	})
 end
 
-ContextServices.mapToProps(EditorFrame,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	Signals = SignalsContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditorFrame = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+	})(EditorFrame)
+else
+	ContextServices.mapToProps(EditorFrame,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Signals = SignalsContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.status

@@ -3,18 +3,20 @@
 		Theme Name: New theme to switch towards
 
 	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table ViewData: table of data to display child nodes
 		function focusLost: A function that passes an identifier and new usr input to the parent
 	Optional Props:
 
 	Style Values:
 ]]
+local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Src.Components
 local TextInput = require(Components.TextInput)
@@ -94,8 +96,15 @@ function ThemeView:render()
 	})
 end
 
-ContextServices.mapToProps(ThemeView, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagEventEmulatorWithContext then
+	ThemeView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ThemeView)
+else
+	ContextServices.mapToProps(ThemeView, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return ThemeView

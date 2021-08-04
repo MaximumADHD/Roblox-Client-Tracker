@@ -5,13 +5,14 @@
 		Detail Type: A (soon to be deprecated?) field for events that don't recognize Detail.Type
 
 	Required Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table ViewData: User-inputted/default text for Namespace, Detail, and DetailType
 		function focusLost: A function that passes an identifier and new usr input to the parent
 
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
+local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,6 +21,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Pane = UI.Pane
@@ -134,9 +136,16 @@ function RBXEventView:render()
 	}, self.createChildren())
 end
 
-ContextServices.mapToProps(RBXEventView,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagEventEmulatorWithContext then
+	RBXEventView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(RBXEventView)
+else
+	ContextServices.mapToProps(RBXEventView,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

@@ -4,9 +4,9 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
-local Common = require(StudioFrameworkStyles.Common)
 local StyleKey = require(Framework.Style.StyleKey)
+local Util = require(Framework.Util)
+local Style = Util.Style
 
 if THEME_REFACTOR then
 	return {
@@ -41,9 +41,39 @@ if THEME_REFACTOR then
 	}
 else
 	return function(theme, getColor)
-		local common = Common(theme, getColor)
+		local Default = Style.new({
+			Arrow = {
+				Image = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png",
+				Size = 12,
+				ExpandedOffset = Vector2.new(24, 0),
+				CollapsedOffset = Vector2.new(12, 0),
+				Color = theme:GetColor("MainText"),
+			},
+			Border = Color3.fromRGB(10, 10, 10),
+			Background = theme:GetColor("MainBackground"),
+			Indent = 17,
+			[StyleModifier.Hover] = {
+				Background = theme:GetColor("Button", "Hover"),
+			},
+			[StyleModifier.Selected] = {
+				TextColor = theme:GetColor("DialogMainButtonText"),
+				Background = theme:GetColor("DialogMainButton"),
+			},
+			Tooltip = {
+				MaxWidth = 1000
+			},
+			RowHeight = 24,
+			Spacing = 5,
+			Padding = {
+				Top = 1,
+				Bottom = 1,
+				Left = 5,
+				Right = 5,
+			},
+		})
+
 		return {
-			Default = common.MainText,
+			Default = Default,
 		}
 	end
 end

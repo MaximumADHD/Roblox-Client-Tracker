@@ -1,3 +1,4 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -5,6 +6,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
@@ -366,11 +368,20 @@ function ConvertPart:render()
 	})
 end
 
-ContextServices.mapToProps(ConvertPart, {
-	Plugin = ContextServices.Plugin,
-	Localization = ContextItems.UILibraryLocalization,
-	PartConverter = ContextItems.PartConverter,
-})
+if FFlagTerrainToolsV2WithContext then
+	ConvertPart = withContext({
+		Plugin = ContextServices.Plugin,
+		Localization = ContextItems.UILibraryLocalization,
+		PartConverter = ContextItems.PartConverter,
+	})(ConvertPart)
+else
+	ContextServices.mapToProps(ConvertPart, {
+		Plugin = ContextServices.Plugin,
+		Localization = ContextItems.UILibraryLocalization,
+		PartConverter = ContextItems.PartConverter,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

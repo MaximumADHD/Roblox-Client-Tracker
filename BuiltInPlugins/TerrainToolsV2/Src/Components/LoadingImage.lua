@@ -3,11 +3,12 @@
 
 	Required Props:
 		ContentId Image: Id of the image to load
-		ImageLoader ImageLoader: An ImageLoader context item, which is provided via mapToProps.
+		ImageLoader ImageLoader: An ImageLoader context item, which is provided via withContext.
 
 	Optional Props:
 		All other ImageLabel properties
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -16,6 +17,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Spinner = require(Plugin.Src.Components.Spinner)
@@ -112,8 +114,15 @@ function LoadingImage:render()
 	})
 end
 
-ContextServices.mapToProps(LoadingImage, {
-	ImageLoader = ContextItems.ImageLoader,
-})
+if FFlagTerrainToolsV2WithContext then
+	LoadingImage = withContext({
+		ImageLoader = ContextItems.ImageLoader,
+	})(LoadingImage)
+else
+	ContextServices.mapToProps(LoadingImage, {
+		ImageLoader = ContextItems.ImageLoader,
+	})
+end
+
 
 return LoadingImage

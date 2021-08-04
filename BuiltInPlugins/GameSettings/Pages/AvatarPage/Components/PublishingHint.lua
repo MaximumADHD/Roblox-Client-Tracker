@@ -1,9 +1,11 @@
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
@@ -56,8 +58,15 @@ function PublishingHint:render()
 	})
 end
 
-ContextServices.mapToProps(PublishingHint, {
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	PublishingHint = withContext({
+		Localization = ContextServices.Localization,
+	})(PublishingHint)
+else
+	ContextServices.mapToProps(PublishingHint, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return PublishingHint

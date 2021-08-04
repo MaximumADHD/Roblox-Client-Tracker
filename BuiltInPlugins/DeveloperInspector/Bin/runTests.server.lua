@@ -17,7 +17,7 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
 
 	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
-	require(script.Parent.defineFlags)
+	require(script.Parent.defineLuaFlags)
 	TestBootstrap:run({main.Src}, reporter)
 	print("----------------------------------")
 end

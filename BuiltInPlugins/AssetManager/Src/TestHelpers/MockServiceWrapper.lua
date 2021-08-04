@@ -12,7 +12,7 @@ local MockPlugin = require(Plugin.Src.TestHelpers.MockPlugin)
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local UILibraryWrapper = require(Plugin.Packages.Framework.ContextServices.UILibraryWrapper :: any)
+local UILibraryWrapper = require(Plugin.Packages.Framework).ContextServices.UILibraryWrapper
 local Localization = ContextServices.Localization
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")

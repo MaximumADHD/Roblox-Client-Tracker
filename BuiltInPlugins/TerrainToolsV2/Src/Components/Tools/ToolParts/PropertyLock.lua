@@ -1,9 +1,11 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local PropertyLock = Roact.PureComponent:extend(script.Name)
@@ -92,8 +94,15 @@ function PropertyLock:render()
 	})
 end
 
-ContextServices.mapToProps(PropertyLock, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	PropertyLock = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(PropertyLock)
+else
+	ContextServices.mapToProps(PropertyLock, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return PropertyLock

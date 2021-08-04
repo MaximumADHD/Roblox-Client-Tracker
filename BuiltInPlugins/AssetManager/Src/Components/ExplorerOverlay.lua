@@ -10,12 +10,14 @@
 
     Optional Properties:
 ]]
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ShowOnTop = UILibrary.Focus.ShowOnTop
@@ -123,10 +125,18 @@ function ExplorerOverlay:render()
     })
 end
 
-ContextServices.mapToProps(ExplorerOverlay, {
-    Theme = ContextServices.Theme,
-    Localization = ContextServices.Localization,
-})
+if FFlagAssetManagerWithContext then
+	ExplorerOverlay = withContext({
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})(ExplorerOverlay)
+else
+	ContextServices.mapToProps(ExplorerOverlay, {
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

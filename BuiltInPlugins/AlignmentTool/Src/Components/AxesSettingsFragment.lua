@@ -7,6 +7,7 @@
 		callback OnAlignmentSpaceChanged: Called when the alignment space changes.
 		callback OnEnabledAxesChanged: Called when an axis is enabled or disabled.
 ]]
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -17,6 +18,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Checkbox = UI.Checkbox
 local Container = UI.Container
@@ -113,9 +115,17 @@ function AxesSettingsFragment:render()
 	})
 end
 
-ContextServices.mapToProps(AxesSettingsFragment, {
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagAlignmentToolWithContext then
+	AxesSettingsFragment = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})(AxesSettingsFragment)
+else
+	ContextServices.mapToProps(AxesSettingsFragment, {
+		Localization = ContextServices.Localization,
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return AxesSettingsFragment

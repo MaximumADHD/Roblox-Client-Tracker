@@ -3,7 +3,6 @@ local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagDevFrameworkFixButtonStyles = game:GetFastFlag("DevFrameworkFixButtonStyles")
 
 return {
 	[StyleKey.Border] = Colors.Carbon,
@@ -21,15 +20,22 @@ return {
 	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
+	[StyleKey.CurrentMarker] = Colors.Gray,
 
+	[StyleKey.DialogButton] = Colors.Gray,
 	[StyleKey.DialogButtonBorder] = Colors.Gray,
+	[StyleKey.DialogButtonHover] = Colors.Gray,
+	[StyleKey.DialogButtonPressed] = Color3.fromRGB(53, 53, 53),
+	[StyleKey.DialogButtonText] = Colors.Gray,
 	[StyleKey.DialogMainButton] = Colors.Blue,
-	[StyleKey.DialogMainButtonDisabled] = FFlagDevFrameworkFixButtonStyles and Colors.Gray or Colors.Blue,
-	[StyleKey.DialogMainButtonHover] = FFlagDevFrameworkFixButtonStyles and Colors.Blue_Light or Colors.Blue,
+	[StyleKey.DialogMainButtonDisabled] = Colors.Gray,
+	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
+	[StyleKey.DialogMainButtonPressed] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Color3.fromRGB(102, 102, 102),
 	[StyleKey.DimmedText] = Colors.lighter(Colors.Black, 0.4),
+	[StyleKey.Dropdown] = Colors.Slate,
 
 	[StyleKey.ErrorText] = Color3.fromRGB(255, 68, 68),
 
@@ -38,6 +44,7 @@ return {
 	[StyleKey.InputFieldBorder] = Color3.fromRGB(161, 161, 161),
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(66, 66, 66),
 	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(53, 181, 255),
+	[StyleKey.Item] = Colors.Slate,
 	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
@@ -62,14 +69,11 @@ return {
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
 
+	[StyleKey.Titlebar] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.TitlebarText] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",
 	[StyleKey.ToggleOffImage] = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png",
 	[StyleKey.ToggleDisabledImage] = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png",
-
-	-- Remove with FFlagDevFrameworkCheckbox
-	[StyleKey.CheckboxDefaultImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png",
-	[StyleKey.CheckboxSelectedImage] = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",
 
 	[StyleKey.CheckboxUncheckedImage] = "rbxasset://textures/DeveloperFramework/checkbox_unchecked_dark.png",
 	[StyleKey.CheckboxCheckedImage] = "rbxasset://textures/DeveloperFramework/checkbox_checked_dark.png",

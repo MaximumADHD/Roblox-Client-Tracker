@@ -5,6 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
@@ -26,6 +27,7 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
 local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -410,14 +412,26 @@ function Tile:render()
     })
 end
 
-ContextServices.mapToProps(Tile, {
-    Analytics = ContextServices.Analytics,
-    API = ContextServices.API,
-    Localization = ContextServices.Localization,
-    Mouse = ContextServices.Mouse,
-    Plugin = ContextServices.Plugin,
-    Theme = ContextServices.Theme,
-})
+if FFlagAssetManagerWithContext then
+	Tile = withContext({
+	    Analytics = ContextServices.Analytics,
+	    API = ContextServices.API,
+	    Localization = ContextServices.Localization,
+	    Mouse = ContextServices.Mouse,
+	    Plugin = ContextServices.Plugin,
+	    Theme = ContextServices.Theme,
+	})(Tile)
+else
+	ContextServices.mapToProps(Tile, {
+	    Analytics = ContextServices.Analytics,
+	    API = ContextServices.API,
+	    Localization = ContextServices.Localization,
+	    Mouse = ContextServices.Mouse,
+	    Plugin = ContextServices.Plugin,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

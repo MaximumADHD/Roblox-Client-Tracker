@@ -9,17 +9,11 @@ local ExampleToggleButton = Roact.PureComponent:extend("ExampleToggleButton")
 
 function ExampleToggleButton:init()
 	self.state = {
-		toggleOn1 = true,
-		toggleOn2 = true,
+		toggleOn = true,
 	}
-	self.onToggle1 = function()
+	self.onToggle = function()
 		self:setState({
-			toggleOn1 = (not self.state.toggleOn1),
-		})
-	end
-	self.onToggle2 = function()
-		self:setState({
-			toggleOn2 = (not self.state.toggleOn2),
+			toggleOn = (not self.state.toggleOn),
 		})
 	end
 end
@@ -35,23 +29,15 @@ function ExampleToggleButton:render()
 			Disabled = true,
 			Selected = false,
 			LayoutOrder = 0,
-			OnClick = self.onToggle1,
+			OnClick = self.onToggle,
 			Size = UDim2.fromOffset(40, 24),
 		}),
 		ToggleButton = Roact.createElement(ToggleButton, {
 			Disabled = false,
-			Selected = self.state.toggleOn1,
+			Selected = self.state.toggleOn,
 			LayoutOrder = 1,
-			OnClick = self.onToggle1,
+			OnClick = self.onToggle,
 			Size = UDim2.fromOffset(40, 24),
-		}),
-		CheckboxToggle = Roact.createElement(ToggleButton, {
-			Disabled = false,
-			Selected = self.state.toggleOn2,
-			LayoutOrder = 2,
-			OnClick = self.onToggle2,
-			Size = UDim2.fromOffset(20, 20),
-			Style = "Checkbox",
 		}),
 	})
 end

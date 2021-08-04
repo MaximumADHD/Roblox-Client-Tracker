@@ -17,12 +17,14 @@ local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local ButtonBar = Roact.PureComponent:extend("ButtonBar")
 
@@ -75,8 +77,15 @@ function ButtonBar:render()
 	}, components)
 end
 
-ContextServices.mapToProps(ButtonBar,{
-	Theme = ContextServices.Theme
-})
+if FFlagGameSettingsWithContext then
+	ButtonBar = withContext({
+		Theme = ContextServices.Theme
+	})(ButtonBar)
+else
+	ContextServices.mapToProps(ButtonBar,{
+		Theme = ContextServices.Theme
+	})
+end
+
 
 return ButtonBar

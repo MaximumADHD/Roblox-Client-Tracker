@@ -29,6 +29,7 @@
 		function OnChangeBegan() = A function that is called when the user starts interacting
 			with a track before changing properties. Used to dispatch AddWaypoint for History.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -39,6 +40,7 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -393,11 +395,20 @@ function TrackList:render()
 		}, children)
 end
 
-ContextServices.mapToProps(TrackList, {
-	Theme = ContextServices.Theme,
-	Analytics = ContextServices.Analytics,
-	Signals = SignalsContext,
-})
+if FFlagAnimationClipEditorWithContext then
+	TrackList = withContext({
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,
+	})(TrackList)
+else
+	ContextServices.mapToProps(TrackList, {
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

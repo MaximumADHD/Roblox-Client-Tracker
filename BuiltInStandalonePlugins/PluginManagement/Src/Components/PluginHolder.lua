@@ -1,14 +1,16 @@
 local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local FrameworkUtil = require(Plugin.Packages.Framework.Util)
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local PluginEntry = require(Plugin.Src.Components.PluginEntry)
 local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
@@ -184,10 +186,19 @@ function PluginHolder:render()
 	}, pluginEntries)
 end
 
-ContextServices.mapToProps(PluginHolder, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	PluginHolder = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(PluginHolder)
+else
+	ContextServices.mapToProps(PluginHolder, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return PluginHolder

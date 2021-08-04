@@ -14,6 +14,7 @@ local Cryo = require(Plugin.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FrameworkUI = require(Plugin.Framework.UI)
 
 local Button = FrameworkUI.Button
@@ -35,6 +36,7 @@ local TextService = game:GetService("TextService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI");
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function MainView:init()
 	local selectedPage
@@ -212,10 +214,18 @@ function MainView:render()
 	})
 end
 
-ContextServices.mapToProps(MainView,{
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme
-})
+if FFlagGameSettingsWithContext then
+	MainView = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme
+	})(MainView)
+else
+	ContextServices.mapToProps(MainView,{
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme
+	})
+end
+
 
 MainView = RoactRodux.connect(
 	function(state, props)

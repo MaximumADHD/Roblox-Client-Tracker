@@ -3,7 +3,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local testImmutability = require(script.Parent.testImmutability)
-local Action = require(Plugin.Packages.Framework.Util.Action)
+local Action = require(Plugin.Packages.Framework).Util.Action
 
 return function()
 	it("should error on invalid input", function()

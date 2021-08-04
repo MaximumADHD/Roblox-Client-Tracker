@@ -7,7 +7,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 
-local AssetRenderModel = require(Plugin.Packages.Framework.StudioUI.AssetRenderModel)
+local AssetRenderModel = require(Plugin.Packages.Framework).StudioUI.AssetRenderModel
 
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer

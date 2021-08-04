@@ -41,6 +41,7 @@
 		function OnChangeBegan() = A function that is called when the user starts interacting
 			with an Item field. Used to dispatch AddWaypoint requests for History.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local NUMBERBOX_PADDING = 4
 local DRAG_MULTIPLIER = 0.05
@@ -52,6 +53,7 @@ local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local Constants = require(Plugin.Src.Util.Constants)
@@ -183,9 +185,16 @@ function NumberTrack:render()
 		}, children)
 end
 
-ContextServices.mapToProps(NumberTrack, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	NumberTrack = withContext({
+		Theme = ContextServices.Theme,
+	})(NumberTrack)
+else
+	ContextServices.mapToProps(NumberTrack, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return NumberTrack

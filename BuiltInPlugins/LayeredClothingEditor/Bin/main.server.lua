@@ -8,6 +8,8 @@ if not FFlagEnableLayeredClothingEditor then
 	return
 end
 
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)

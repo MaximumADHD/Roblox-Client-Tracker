@@ -11,6 +11,7 @@
 		UDim2 Position: The position of the component
 		UDim2 Size: The size of the component
 ]]
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -18,6 +19,7 @@ local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
 
@@ -79,8 +81,15 @@ local function mapStateToProps(state, props)
 	}
 end
 
-ContextServices.mapToProps(AudioProgressBar, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagToolboxWithContext then
+	AudioProgressBar = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AudioProgressBar)
+else
+	ContextServices.mapToProps(AudioProgressBar, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return RoactRodux.connect(mapStateToProps, nil)(AudioProgressBar)

@@ -1,3 +1,4 @@
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local MockWrapper = require(script.Parent.MockWrapper)
 
 local Plugin = script.Parent.Parent.Parent
@@ -7,6 +8,7 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
@@ -84,9 +86,16 @@ return function()
 				})
 			end
 
-			ContextServices.mapToProps(testThemedElement, {
-				Theme = ContextServices.Theme,
-			})
+			if FFlagAnimationClipEditorWithContext then
+				testThemedElement = withContext({
+					Theme = ContextServices.Theme,
+				})(testThemedElement)
+			else
+				ContextServices.mapToProps(testThemedElement, {
+					Theme = ContextServices.Theme,
+				})
+			end
+
 
 			return testThemedElement
 		end

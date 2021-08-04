@@ -20,6 +20,7 @@
 		function OnContextButtonClick() = A callback for when the user clicks
 			the button in this component to show a context menu for this track.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -27,6 +28,7 @@ local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TrackListEntry = require(Plugin.Src.Components.TrackList.TrackListEntry)
 local NumberBox = require(Plugin.Src.Components.TrackList.NumberBox)
@@ -177,8 +179,15 @@ function Track:render()
 		}, children)
 end
 
-ContextServices.mapToProps(Track, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	Track = withContext({
+		Theme = ContextServices.Theme,
+	})(Track)
+else
+	ContextServices.mapToProps(Track, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return Track

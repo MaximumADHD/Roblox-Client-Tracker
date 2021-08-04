@@ -8,6 +8,7 @@
 		int Playhead = current frame location of the scubber
 		int EditingLength = current maximum length of the animation editor timeline
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,6 +18,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local AnimationClipDropdown = require(Plugin.Src.Components.AnimationControlPanel.AnimationClipDropdown)
 local MediaControls = require(Plugin.Src.Components.AnimationControlPanel.MediaControls)
@@ -115,10 +117,18 @@ function AnimationControlPanel:render()
 		})
 end
 
-ContextServices.mapToProps(AnimationControlPanel, {
-	Theme = ContextServices.Theme,
-	Analytics = ContextServices.Analytics
-})
+if FFlagAnimationClipEditorWithContext then
+	AnimationControlPanel = withContext({
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics
+	})(AnimationControlPanel)
+else
+	ContextServices.mapToProps(AnimationControlPanel, {
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

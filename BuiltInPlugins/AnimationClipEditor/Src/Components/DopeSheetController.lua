@@ -10,6 +10,7 @@
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		bool ShowEvents = Whether to show the AnimationEvents track.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,6 +21,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Framework = require(Plugin.Packages.Framework)
 local DragTarget = Framework.UI.DragListener
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 
 local Preview = require(Plugin.Src.Util.Preview)
@@ -799,11 +801,20 @@ function DopeSheetController:render()
 		end
 end
 
-ContextServices.mapToProps(DopeSheetController, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-	Analytics = ContextServices.Analytics
-})
+if FFlagAnimationClipEditorWithContext then
+	DopeSheetController = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics
+	})(DopeSheetController)
+else
+	ContextServices.mapToProps(DopeSheetController, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Analytics = ContextServices.Analytics
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

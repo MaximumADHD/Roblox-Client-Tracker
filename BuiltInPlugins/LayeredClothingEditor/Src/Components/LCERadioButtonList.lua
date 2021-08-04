@@ -7,14 +7,16 @@
 		callback OnClick: parameters(string key). Fires when the button is activated and returns back the Key.
 	Optional Props:
 		number LayoutOrder: Render order of this component in a layout
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
@@ -65,8 +67,15 @@ function LCERadioButtonList:render()
 	})
 end
 
-ContextServices.mapToProps(LCERadioButtonList, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	LCERadioButtonList = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LCERadioButtonList)
+else
+	ContextServices.mapToProps(LCERadioButtonList, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return LCERadioButtonList

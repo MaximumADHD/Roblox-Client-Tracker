@@ -5,11 +5,13 @@
 		table Entries: A table of entries to include in this MenuBar
 		function SelectionChanged: Callback when the selected menu entry changes
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local MenuEntry = require(Plugin.Src.Components.MenuEntry)
@@ -105,10 +107,18 @@ function MenuBar:render()
 	}, menuEntries)
 end
 
-ContextServices.mapToProps(MenuBar,{
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	MenuBar = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(MenuBar)
+else
+	ContextServices.mapToProps(MenuBar,{
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return RoactRodux.connect(
 	function(state, props)

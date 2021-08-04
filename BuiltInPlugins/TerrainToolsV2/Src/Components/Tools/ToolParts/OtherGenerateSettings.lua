@@ -1,9 +1,11 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local ToolParts = script.Parent
@@ -13,9 +15,18 @@ local Panel = require(ToolParts.Panel)
 
 local OtherGenerateSettings = Roact.PureComponent:extend(script.Name)
 
+local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
+
 function OtherGenerateSettings:init()
 	self.onSeedFocusLost = function(enterPressed, text)
-		self.props.setSeed(text)
+		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+			self.props.setSeed(self.props.seed)
+			
+			return self.props.seed
+		else
+			self.props.setSeed(text)
+			return
+		end
 	end
 end
 
@@ -41,8 +52,15 @@ function OtherGenerateSettings:render()
 	})
 end
 
-ContextServices.mapToProps(OtherGenerateSettings, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	OtherGenerateSettings = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(OtherGenerateSettings)
+else
+	ContextServices.mapToProps(OtherGenerateSettings, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return OtherGenerateSettings

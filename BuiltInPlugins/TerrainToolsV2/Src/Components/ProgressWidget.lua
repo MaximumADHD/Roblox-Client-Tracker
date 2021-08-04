@@ -15,6 +15,7 @@
 		vector2 AnchorPoint
 		UDim2 Position
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -22,6 +23,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local UI = Framework.UI
@@ -162,8 +164,15 @@ function ProgressWidget:render()
 	})
 end
 
-ContextServices.mapToProps(ProgressWidget, {
-	Localization = ContextItems.UILibraryLocalization,
-})
+if FFlagTerrainToolsV2WithContext then
+	ProgressWidget = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+	})(ProgressWidget)
+else
+	ContextServices.mapToProps(ProgressWidget, {
+		Localization = ContextItems.UILibraryLocalization,
+	})
+end
+
 
 return ProgressWidget

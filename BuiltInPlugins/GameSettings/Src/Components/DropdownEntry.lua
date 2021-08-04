@@ -10,6 +10,7 @@
 		int LayoutOrder = The order in which this entry appears in the Dropdown.
 		function OnClick = Callback when this entry is clicked by the user.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 
@@ -18,6 +19,7 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DropdownEntry = Roact.PureComponent:extend("DropdownEntry")
 
@@ -106,9 +108,17 @@ function DropdownEntry:render()
 	})
 end
 
-ContextServices.mapToProps(DropdownEntry, {
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	DropdownEntry = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(DropdownEntry)
+else
+	ContextServices.mapToProps(DropdownEntry, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return DropdownEntry

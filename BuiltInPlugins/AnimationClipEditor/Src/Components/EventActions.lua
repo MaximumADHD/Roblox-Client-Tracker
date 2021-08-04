@@ -20,6 +20,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
@@ -30,6 +31,7 @@ local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEven
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local EventActions = Roact.PureComponent:extend("EventActions")
 
@@ -150,9 +152,16 @@ function EventActions:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(EventActions,{
-	PluginActions = ContextServices.PluginActions,
-})
+if FFlagAnimationClipEditorWithContext then
+	EventActions = withContext({
+		PluginActions = ContextServices.PluginActions,
+	})(EventActions)
+else
+	ContextServices.mapToProps(EventActions,{
+		PluginActions = ContextServices.PluginActions,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

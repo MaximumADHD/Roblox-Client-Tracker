@@ -2,12 +2,14 @@
 	A settings button which displays on the top right of the editor.
 	Displays a menu when the user clicks on the button.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local SettingsMenu = require(Plugin.Src.Components.SettingsMenu)
 
@@ -76,10 +78,18 @@ function SettingsButton:render()
 		})
 end
 
-ContextServices.mapToProps(SettingsButton, {
-	Mouse = ContextServices.Mouse,
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	SettingsButton = withContext({
+		Mouse = ContextServices.Mouse,
+		Theme = ContextServices.Theme,
+	})(SettingsButton)
+else
+	ContextServices.mapToProps(SettingsButton, {
+		Mouse = ContextServices.Mouse,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return SettingsButton

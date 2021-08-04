@@ -5,6 +5,7 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -12,6 +13,7 @@ local Cryo = require(Plugin.Cryo)
 
 local Pane = require(Plugin.Framework).UI.Pane
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
@@ -70,8 +72,15 @@ function BaseDialog:render()
 	end
 end
 
-ContextServices.mapToProps(BaseDialog, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	BaseDialog = withContext({
+		Theme = ContextServices.Theme,
+	})(BaseDialog)
+else
+	ContextServices.mapToProps(BaseDialog, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return BaseDialog

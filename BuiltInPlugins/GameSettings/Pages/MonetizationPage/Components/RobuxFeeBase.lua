@@ -15,6 +15,7 @@
     Optional props:
         LayoutOrder = number, order in which this component should appear under its parent.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local PLACEHOLDER_TAX_RATE = 0.90
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -28,6 +29,7 @@ local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
@@ -310,9 +312,17 @@ function RobuxFeeBase:render()
     })
 end
 
-ContextServices.mapToProps(RobuxFeeBase, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	RobuxFeeBase = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})(RobuxFeeBase)
+else
+	ContextServices.mapToProps(RobuxFeeBase, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 return RobuxFeeBase

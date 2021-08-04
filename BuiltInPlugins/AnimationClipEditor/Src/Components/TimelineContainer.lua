@@ -12,6 +12,7 @@
 		Vector2 ParentSize = size of the frame this frame is parented to
 		int Playhead = current frame the scrubber is on
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,6 +21,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 local Input = require(Plugin.Src.Util.Input)
 local GetFFlagHotKeysToScrubTimeline = require(Plugin.LuaFlags.GetFFlagHotKeysToScrubTimeline)
@@ -151,9 +153,16 @@ function TimelineContainer:render()
 		})
 end
 
-ContextServices.mapToProps(TimelineContainer, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TimelineContainer = withContext({
+		Theme = ContextServices.Theme,
+	})(TimelineContainer)
+else
+	ContextServices.mapToProps(TimelineContainer, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return TimelineContainer

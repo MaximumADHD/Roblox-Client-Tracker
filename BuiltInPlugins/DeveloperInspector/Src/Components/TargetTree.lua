@@ -24,6 +24,8 @@ local ToggleTarget = require(Actions.ToggleTarget)
 
 local TargetTree = Roact.PureComponent:extend("TargetTree")
 
+local UserInputService = game:GetService("UserInputService")
+
 function TargetTree:init()
 	self.onSelectTarget = function(change)
 		local target = self:getTargetFromChange(change)
@@ -33,9 +35,12 @@ function TargetTree:init()
 
 		local inspector = self.props.Inspector:get()
 		local roactInspectorApi = inspector:attachRoactTree(target.BridgeId, target.Id)
+		
 		-- Load the root of the roact tree
 		roactInspectorApi:getRoot()
 		self.props.selectTarget(target)
+		
+		UserInputService.MouseIconEnabled = true
 	end
 end
 

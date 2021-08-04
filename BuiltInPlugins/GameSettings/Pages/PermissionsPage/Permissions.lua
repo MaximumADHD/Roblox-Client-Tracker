@@ -1,4 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagUXImprovementsNonTCPlacesAllowedPlay = game:GetFastFlag("UXImprovementsNonTCPlacesAllowedPlay")
 
 local RunService = game:GetService("RunService")
@@ -10,6 +11,7 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Separator = require(Plugin.Framework).UI.Separator
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
@@ -361,10 +363,18 @@ function Permissions:render()
 	})
 end
 
-ContextServices.mapToProps(Permissions, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	Permissions = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})(Permissions)
+else
+	ContextServices.mapToProps(Permissions, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Permissions = RoactRodux.connect(

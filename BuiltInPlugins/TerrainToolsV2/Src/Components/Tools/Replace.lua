@@ -1,6 +1,7 @@
 --[[
 	Displays panels associated with The Replace tool
 ]]
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local Actions = Plugin.Src.Actions
@@ -235,12 +237,22 @@ function Replace:render()
 	})
 end
 
-ContextServices.mapToProps(Replace, {
-	Localization = ContextItems.UILibraryLocalization,
-	-- Replace tool reuses SeaLevel object
-	-- TODO: Rename SeaLevel object to TerrainReplacer?
-	Replace = ContextItems.SeaLevel,
-})
+if FFlagTerrainToolsV2WithContext then
+	Replace = withContext({
+		Localization = ContextItems.UILibraryLocalization,
+		-- Replace tool reuses SeaLevel object
+		-- TODO: Rename SeaLevel object to TerrainReplacer?
+		Replace = ContextItems.SeaLevel,
+	})(Replace)
+else
+	ContextServices.mapToProps(Replace, {
+		Localization = ContextItems.UILibraryLocalization,
+		-- Replace tool reuses SeaLevel object
+		-- TODO: Rename SeaLevel object to TerrainReplacer?
+		Replace = ContextItems.SeaLevel,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	return {

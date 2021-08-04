@@ -1,10 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
 
-local StudioService = game:GetService("StudioService")
-
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local Screens = {
     MAIN = {
@@ -35,6 +34,16 @@ if not FFlagStudioCreatePluginPolicyService or (FFlagStudioCreatePluginPolicySer
 	Screens.AUDIO.AssetType = Enum.AssetType.Audio
 	Screens.AUDIO.LayoutOrder = 6
 	Screens.AUDIO.Image = "rbxasset://textures/StudioSharedUI/audio.png"
+end
+
+if FFlagAssetManagerEnableModelAssets then
+	Screens["MODELS"] = {
+		Key = "MODELS",
+	}
+	Screens.MODELS.Parent = Screens.MAIN.Key
+	Screens.MODELS.AssetType = Enum.AssetType.Model
+	Screens.MODELS.LayoutOrder = 7
+	Screens.MODELS.Image = "rbxasset://textures/StudioSharedUI/models.png"
 end
 
 Screens.MESHES.Parent = Screens.MAIN.Key

@@ -7,6 +7,7 @@
 ]]
 
 local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
@@ -86,6 +87,7 @@ local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Framework = require(Libs.Framework)
 local LoadingIndicator = Framework.UI.LoadingIndicator
@@ -954,9 +956,16 @@ function AssetConfig:render()
 	end)
 end
 
-ContextServices.mapToProps(AssetConfig, {
-	Focus = ContextServices.Focus,
-})
+if FFlagToolboxWithContext then
+	AssetConfig = withContext({
+		Focus = ContextServices.Focus,
+	})(AssetConfig)
+else
+	ContextServices.mapToProps(AssetConfig, {
+		Focus = ContextServices.Focus,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

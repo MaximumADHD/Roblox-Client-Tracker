@@ -28,6 +28,7 @@
 		callback OnDragStart() = A function for when the user starts interacting
 			with a tool. Used to dispatch History waypoints.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
@@ -41,6 +42,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Util.Constants)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
@@ -476,8 +478,15 @@ function JointManipulator:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(JointManipulator,{
-	PluginActions = ContextServices.PluginActions,
-})
+if FFlagAnimationClipEditorWithContext then
+	JointManipulator = withContext({
+		PluginActions = ContextServices.PluginActions,
+	})(JointManipulator)
+else
+	ContextServices.mapToProps(JointManipulator,{
+		PluginActions = ContextServices.PluginActions,
+	})
+end
+
 
 return JointManipulator

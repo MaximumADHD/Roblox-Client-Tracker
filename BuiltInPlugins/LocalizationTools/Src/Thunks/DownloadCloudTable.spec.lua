@@ -2,12 +2,12 @@ local DownloadCloudTable = require(script.Parent.DownloadCloudTable)
 local FFlagLocalizationToolsFixExampleNotDownloaded = game:GetFastFlag("LocalizationToolsFixExampleNotDownloaded")
 local Plugin = script.Parent.Parent.Parent
 
-local Http = require(Plugin.Packages.Framework.Http)
+local Http = require(Plugin.Packages.Framework).Http
 
 local FAKE_TABLE_ID = 123
 local GET_CLOUD_TABLE_FAILED_STRING = "GetCloudTableFailed"
 
-local function makeMockApi(responseBodyData, failureResponseBodyData, failNTimes, failureResponseStatusCode) 
+local function makeMockApi(responseBodyData, failureResponseBodyData, failNTimes, failureResponseStatusCode)
 	failureResponseBodyData = failureResponseBodyData or {}
 	failureResponseStatusCode = failureResponseStatusCode or Http.StatusCodes.OK
 	failNTimes = failNTimes or 0
@@ -18,7 +18,7 @@ local function makeMockApi(responseBodyData, failureResponseBodyData, failNTimes
 	function request:makeRequest()
 		local mockCaller = {}
 		local req = self
-		function mockCaller:andThen(fsuccess, ffailure) 
+		function mockCaller:andThen(fsuccess, ffailure)
 			local data = responseBodyData
 			local statusCode = Http.StatusCodes.OK
 			if req.numTimesFailed < failNTimes then
@@ -35,7 +35,7 @@ local function makeMockApi(responseBodyData, failureResponseBodyData, failNTimes
 			}
 			fsuccess(mockResponse)
 			local mockAwaiter = {}
-			function mockAwaiter:await() 
+			function mockAwaiter:await()
 				return
 			end
 			return mockAwaiter
@@ -43,10 +43,10 @@ local function makeMockApi(responseBodyData, failureResponseBodyData, failNTimes
 		return mockCaller
 	end
 	local Tables = {}
-	function Tables.entries(tableid, cursor, gameId) 
+	function Tables.entries(tableid, cursor, gameId)
 		return request
 	end
-	
+
 	return {
 		LocalizationTables = {
 			V1 = {
@@ -72,7 +72,7 @@ local function makeMockLocalization()
 	return localization
 end
 
-local function makeGoodItem(args) 
+local function makeGoodItem(args)
 	args = args or {}
 	return {
 		identifier = {
@@ -87,7 +87,7 @@ local function makeGoodItem(args)
 			{
 				locale = args.locale or "test-locale",
 				translationText = args.translationText or "text"
-			}	
+			}
 		}
 	}
 end
@@ -102,9 +102,9 @@ local badResponses = {
  		}
 	},
 	{  --locale is not a string
-		makeGoodItem({locale = 5}) 
+		makeGoodItem({locale = 5})
 	}
-	
+
 }
 
 return function()
@@ -116,9 +116,9 @@ return function()
 				DownloadCloudTable.Download(makeMockApi(goodResponse, badResponse, 1), mockLocalization, FAKE_TABLE_ID)
 				expect(mockLocalization.numFailures).to.equal(1)
 			end
-		 	
+
 		end)
-		
+
 		it("first time returns a non-ok status code, should have one failure", function()
 			local goodResponse = {}
 			local badResponse = {}
@@ -129,7 +129,7 @@ return function()
 			local entries = lt:GetEntries()
 			expect((next(entries))).to.never.be.ok() --extra parens needed to only take first return of next
 		end)
-		
+
 		 it("should fill table with key source, context, example, and translations", function()
 			local goodItem = makeGoodItem()
 			local testData = {
@@ -138,12 +138,12 @@ return function()
 			local mockLocalization = makeMockLocalization()
 
 			local lt = DownloadCloudTable.Download(makeMockApi(testData), mockLocalization, FAKE_TABLE_ID)
-			
+
 			expect(mockLocalization.numFailures).to.equal(0)
 			local entries = lt:GetEntries()
 			expect(#entries).to.equal(1)
 			local firstEntry = entries[1]
-			
+
 		 	expect(firstEntry.Key).to.equal(goodItem.identifier.key)
 		 	expect(firstEntry.Source).to.equal(goodItem.identifier.source)
 		 	expect(firstEntry.Context).to.equal(goodItem.identifier.context)

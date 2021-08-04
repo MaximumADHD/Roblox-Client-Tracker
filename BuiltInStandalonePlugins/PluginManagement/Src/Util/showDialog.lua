@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local InstallationDialog = require(Plugin.Src.Components.InstallationDialog)
 local MainView = require(Plugin.Src.Components.MainView)

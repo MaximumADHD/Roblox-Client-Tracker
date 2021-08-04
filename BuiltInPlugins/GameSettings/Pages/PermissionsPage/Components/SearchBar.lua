@@ -38,6 +38,7 @@
 		callback OnItemClicked(key) : A callback when the user selects an item in the dropdown.
 			Returns the key as it was defined in the Results array.
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -45,6 +46,7 @@ local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -585,9 +587,17 @@ function SearchBar:render()
 	})
 end
 
-ContextServices.mapToProps(SearchBar, {
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	SearchBar = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(SearchBar)
+else
+	ContextServices.mapToProps(SearchBar, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return SearchBar

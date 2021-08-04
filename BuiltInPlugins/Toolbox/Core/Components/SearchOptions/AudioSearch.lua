@@ -8,6 +8,7 @@
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -22,6 +23,7 @@ local Constants = require(Plugin.Core.Util.Constants)
 local TimeTextBox = require(Plugin.Core.Components.SearchOptions.TimeTextBox)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local RangeSlider = require(Libs.Framework.UI.RangeSlider)
 local Util = require(Libs.Framework.Util)
 local FitFrameVertical = Util.FitFrame.FitFrameVertical
@@ -132,8 +134,15 @@ function AudioSearch:renderContent(theme, localizedContent)
 	})
 end
 
-ContextServices.mapToProps(AudioSearch, {
-	Localization = ContextServices.Localization,
-})
+if FFlagToolboxWithContext then
+	AudioSearch = withContext({
+		Localization = ContextServices.Localization,
+	})(AudioSearch)
+else
+	ContextServices.mapToProps(AudioSearch, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return AudioSearch

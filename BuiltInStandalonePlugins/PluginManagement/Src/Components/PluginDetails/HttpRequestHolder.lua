@@ -1,3 +1,6 @@
+local FFlagPluginManagementUseCheckbox = game:GetFastFlag("PluginManagementUseCheckbox")
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")
 
@@ -6,8 +9,9 @@ local PermissionsService = game:GetService("PermissionsService")
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local FitFrame = require(Plugin.Packages.FitFrame)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
-local UI = require(Plugin.Packages.Framework.UI)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
+local UI = require(Plugin.Packages.Framework).UI
 
 local SetPluginPermission = require(Plugin.Src.Thunks.SetPluginPermission)
 local FluidFitTextLabel = require(Plugin.Src.Components.FluidFitTextLabel)
@@ -16,7 +20,8 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 local Constants = require(Plugin.Src.Util.Constants)
-local ToggleButton = UI.ToggleButton
+local Checkbox = UI.Checkbox
+local ToggleButton = UI.ToggleButton -- Remove with FFlagPluginManagementUseCheckbox
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
@@ -84,44 +89,55 @@ function HttpRequestHolder:renderCheckbox(theme, index, permission)
 	local urlText = self.getTruncatedText(fullUrlText, theme)
 	local isChecked = permission.allowed
 
-	local elem = Roact.createElement("Frame", {
-		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
-		LayoutOrder = index,
-	}, {
-		Layout = Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Horizontal,
-			Padding = UDim.new(0, 8),
-		}),
-
-		Checkbox = Roact.createElement(ToggleButton, {
-			Style = "Checkbox",
-			LayoutOrder = 1,
-			Selected = isChecked,
-			Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
+	if FFlagPluginManagementUseCheckbox then
+		return Roact.createElement(Checkbox, {
+			Checked = isChecked,
+			LayoutOrder = index,
 			OnClick = function()
-				return self.onCheckboxActivated(permission)
+				self.onCheckboxActivated(permission)
 			end,
-		}),
-
-		TitleLabel = Roact.createElement("TextButton", {
 			Text = urlText,
-			Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-			TextColor3 = theme.TextColor,
-			Font = theme.Font,
-			TextSize = 16,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextTransparency = 0,
-
-			[Roact.Event.Activated] = function()
-				return self.onCheckboxActivated(permission)
-			end,
 		})
-	})
-	return elem
+	else
+		local elem = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
+			LayoutOrder = index,
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				Padding = UDim.new(0, 8),
+			}),
+
+			Checkbox = Roact.createElement(ToggleButton, {
+				Style = "Checkbox",
+				LayoutOrder = 1,
+				Selected = isChecked,
+				Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
+				OnClick = function()
+					return self.onCheckboxActivated(permission)
+				end,
+			}),
+
+			TitleLabel = Roact.createElement("TextButton", {
+				Text = urlText,
+				Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				TextColor3 = theme.TextColor,
+				Font = theme.Font,
+				TextSize = 16,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextTransparency = 0,
+
+				[Roact.Event.Activated] = function()
+					return self.onCheckboxActivated(permission)
+				end,
+			})
+		})
+		return elem
+	end
 end
 
 function HttpRequestHolder:render()
@@ -168,12 +184,22 @@ function HttpRequestHolder:render()
 	})
 end
 
-ContextServices.mapToProps(HttpRequestHolder, {
-	API = PluginAPI2,
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	HttpRequestHolder = withContext({
+		API = PluginAPI2,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(HttpRequestHolder)
+else
+	ContextServices.mapToProps(HttpRequestHolder, {
+		API = PluginAPI2,
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

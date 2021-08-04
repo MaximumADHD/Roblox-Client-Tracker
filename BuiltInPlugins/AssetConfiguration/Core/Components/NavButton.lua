@@ -11,17 +11,23 @@
 		Position UDim2, position of the button
 		LayoutOrder number, layout order of the button
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 
 local withTheme = ContextHelper.withTheme
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Core.Components
 local RoundButton = require(Components.RoundButton)
@@ -54,42 +60,68 @@ function NavButton:init(props)
 end
 
 function NavButton:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local colors = props.isPrimary and theme.nav.mainButton or theme.nav.button
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local backgroundColor
-		if self.state.hovered and self.state.pressed then
-			backgroundColor = colors.pressBackground
-		elseif self.state.hovered then
-			backgroundColor = colors.hoverBackground
-		else
-			backgroundColor = colors.background
-		end
+function NavButton:renderContent(theme)
+	local props = self.props
 
-		return Roact.createElement(RoundButton, {
-			Size = props.Size,
-			Position = props.Position,
-			LayoutOrder = props.LayoutOrder,
-			BackgroundColor3 = backgroundColor,
-			BorderColor3 = colors.borderColor,
-			BorderSizePixel = props.isPrimary and 0 or 1,
-			[Roact.Event.MouseEnter] = self.onMouseEnter,
-			[Roact.Event.MouseLeave] = self.onMouseLeave,
-			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
-			[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
-			[Roact.Event.MouseButton1Click] = props.onClick,
-		}, {
-			Title = Roact.createElement("TextLabel", {
-				Text = props.titleText,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_LARGE,
-				BackgroundTransparency = 1,
-				TextColor3 = colors.textColor,
-				Size = UDim2.new(1, 0, 1, 0),
-			})
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local colors = props.isPrimary and theme.nav.mainButton or theme.nav.button
+
+	local backgroundColor
+	if self.state.hovered and self.state.pressed then
+		backgroundColor = colors.pressBackground
+	elseif self.state.hovered then
+		backgroundColor = colors.hoverBackground
+	else
+		backgroundColor = colors.background
+	end
+
+	return Roact.createElement(RoundButton, {
+		Size = props.Size,
+		Position = props.Position,
+		LayoutOrder = props.LayoutOrder,
+		BackgroundColor3 = backgroundColor,
+		BorderColor3 = colors.borderColor,
+		BorderSizePixel = props.isPrimary and 0 or 1,
+		[Roact.Event.MouseEnter] = self.onMouseEnter,
+		[Roact.Event.MouseLeave] = self.onMouseLeave,
+		[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
+		[Roact.Event.MouseButton1Up] = self.onMouseButton1Up,
+		[Roact.Event.MouseButton1Click] = props.onClick,
+	}, {
+		Title = Roact.createElement("TextLabel", {
+			Text = props.titleText,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_LARGE,
+			BackgroundTransparency = 1,
+			TextColor3 = colors.textColor,
+			Size = UDim2.new(1, 0, 1, 0),
 		})
-	end)
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		NavButton = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(NavButton)
+	else
+		ContextServices.mapToProps(NavButton, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return NavButton

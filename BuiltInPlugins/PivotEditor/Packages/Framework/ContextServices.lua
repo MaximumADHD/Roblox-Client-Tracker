@@ -7,6 +7,7 @@ local Src = script
 local strict = require(Src.Parent.Util.strict)
 
 local mapToProps = require(Src.mapToProps)
+local withContext = require(Src.withContext)
 local provide = require(Src.provide)
 
 local Analytics = require(Src.Analytics)
@@ -28,6 +29,7 @@ local UILibraryWrapper = require(Src.UILibraryWrapper)
 local ContextServices = strict({
 	-- Wrap a component to use context
 	mapToProps = mapToProps,
+	withContext = withContext,
 
 	-- Provide ContextItems to your plugin
 	provide = provide,

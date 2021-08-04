@@ -26,6 +26,7 @@
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
@@ -36,6 +37,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
@@ -116,12 +118,22 @@ return function(loadValuesToProps, dispatchForProps)
 			}))
 		end
 
-		ContextServices.mapToProps(Page, {
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-			Mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse or nil,
-			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
-		})
+		if FFlagPublishPlaceAsWithContext then
+			Page = withContext({
+				Theme = ContextServices.Theme,
+				Localization = ContextServices.Localization,
+				Mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse or nil,
+				API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+			})(Page)
+		else
+			ContextServices.mapToProps(Page, {
+				Theme = ContextServices.Theme,
+				Localization = ContextServices.Localization,
+				Mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse or nil,
+				API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+			})
+		end
+
 
 		local function mapStateToProps(state, props)
 			if not loadValuesToProps then

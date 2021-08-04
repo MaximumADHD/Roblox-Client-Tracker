@@ -13,7 +13,7 @@
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
 
-local FFlagGameSettingsDisplayCollaborativeEditingWarning = game:GetFastFlag("GameSettingsDisplayCollaborativeEditingWarning")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
 
@@ -21,6 +21,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Framework = require(Plugin.Framework)
 local TitledFrame = Framework.StudioUI.TitledFrame
@@ -65,7 +66,7 @@ function ToggleButtonWithTitle:render()
 	local selected = props.Selected
 	local title = props.Title
 	local onClick = props.OnClick
-	local showWarning = FFlagGameSettingsDisplayCollaborativeEditingWarning and props.ShowWarning or nil
+	local showWarning = props.ShowWarning
 	local linkProps = FFlagGameSettingsEnableVoiceChat and FFlagDevFrameworkPaneSupportTheme1 and props.LinkProps or nil
 
 	local layoutIndex
@@ -116,8 +117,15 @@ function ToggleButtonWithTitle:render()
 	})
 end
 
-ContextServices.mapToProps(ToggleButtonWithTitle, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	ToggleButtonWithTitle = withContext({
+		Theme = ContextServices.Theme,
+	})(ToggleButtonWithTitle)
+else
+	ContextServices.mapToProps(ToggleButtonWithTitle, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return ToggleButtonWithTitle

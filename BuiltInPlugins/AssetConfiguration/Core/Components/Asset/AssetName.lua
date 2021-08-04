@@ -8,6 +8,7 @@
 		callback onMouseEnter()
 		callback onMouseLeave()
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,6 +18,9 @@ local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
+
+local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -47,45 +51,64 @@ function AssetName:init(props)
 end
 
 function AssetName:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withModal(function(modalTarget, modalStatus)
-			local props = self.props
-
-			local assetId = props.assetId
-			local assetName = props.assetName
-			local layoutOrder = props.LayoutOrder or 0
-
-			local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_NAME)
-
-			local assetNameTheme = theme.asset.assetName
-			local isHovered = self.state.isHovered
-
-			return Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, 0, 0, Constants.ASSET_NAME_HEIGHT),
-				Text = assetName,
-				TextColor3 = assetNameTheme.textColor,
-
-				Font = Constants.FONT,
-				TextSize = Constants.ASSET_NAME_FONT_SIZE,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextWrapped = true,
-				ClipsDescendants = true,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-
-				[Roact.Event.MouseEnter] = self.onMouseEnter,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-			}, {
-				TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
-					Text = assetName,
-					canShowCurrentTooltip = canShowCurrentTooltip,
-					isHovered = isHovered,
-				})
-			})
+			return self:renderContent(nil, modalTarget, modalStatus)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withModal(function(modalTarget, modalStatus)
+				return self:renderContent(theme, modalTarget, modalStatus)
+			end)
+		end)
+	end
+end
+
+function AssetName:renderContent(theme, modalTarget, modalStatus)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local assetId = props.assetId
+	local assetName = props.assetName
+	local layoutOrder = props.LayoutOrder or 0
+
+	local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_NAME)
+
+	local assetNameTheme = theme.asset.assetName
+	local isHovered = self.state.isHovered
+
+	return Roact.createElement("TextLabel", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_NAME_HEIGHT),
+		Text = assetName,
+		TextColor3 = assetNameTheme.textColor,
+
+		Font = Constants.FONT,
+		TextSize = Constants.ASSET_NAME_FONT_SIZE,
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextYAlignment = Enum.TextYAlignment.Top,
+		TextWrapped = true,
+		ClipsDescendants = true,
+		TextTruncate = Enum.TextTruncate.AtEnd,
+
+		[Roact.Event.MouseEnter] = self.onMouseEnter,
+		[Roact.Event.MouseLeave] = self.onMouseLeave,
+	}, {
+		TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
+			Text = assetName,
+			canShowCurrentTooltip = canShowCurrentTooltip,
+			isHovered = isHovered,
+		})
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	AssetName = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetName)
 end
 
 return AssetName

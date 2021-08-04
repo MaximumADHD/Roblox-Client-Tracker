@@ -4,12 +4,14 @@
 	Props:
 		string Title = The text to display for this header
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -35,8 +37,15 @@ function Header:render()
 	}))
 end
 
-ContextServices.mapToProps(Header,{
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	Header = withContext({
+		Theme = ContextServices.Theme,
+	})(Header)
+else
+	ContextServices.mapToProps(Header,{
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return Header

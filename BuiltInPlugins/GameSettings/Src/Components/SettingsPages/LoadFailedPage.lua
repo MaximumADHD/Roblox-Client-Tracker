@@ -4,6 +4,7 @@
 	Props:
 		function OnRetry - callback when the user clicks the retry button
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -12,6 +13,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FrameworkUI = require(Plugin.Framework.UI)
 
 local Button = FrameworkUI.Button
@@ -83,9 +85,17 @@ function LoadFailedPage:render()
 	})
 end
 
-ContextServices.mapToProps(LoadFailedPage, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagGameSettingsWithContext then
+	LoadFailedPage = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(LoadFailedPage)
+else
+	ContextServices.mapToProps(LoadFailedPage, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return LoadFailedPage

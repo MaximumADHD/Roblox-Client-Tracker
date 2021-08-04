@@ -7,7 +7,7 @@
 		number LowerRangeValue: Current value for the lower range knob
 		number UpperRangeValue: Current value for the upper range knob
 		callback OnValuesChanged: The callback is called whenever the min or max value changes - OnValuesChanged(minValue: number, maxValue: number)
-		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
+		Mouse Mouse: A Mouse ContextItem, which is provided via withContext.
 
 	Optional Props:
 		Vector2 AnchorPoint: The anchorPoint of the component
@@ -21,12 +21,14 @@
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number SnapIncrement: Incremental points that the slider's knob will snap to. A "0" snap increment means no snapping.
 		number VerticalDragTolerance: A vertical pixel height for allowing a mouse button press to drag knobs on outside the component's size.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -256,10 +258,19 @@ function RangeSlider:render()
 	})
 end
 
-ContextServices.mapToProps(RangeSlider, {
-	Mouse = ContextServices.Mouse,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	RangeSlider = withContext({
+		Mouse = ContextServices.Mouse,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(RangeSlider)
+else
+	ContextServices.mapToProps(RangeSlider, {
+		Mouse = ContextServices.Mouse,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return RangeSlider

@@ -6,6 +6,7 @@
 		function OnDragMoved(input) = A callback for when the user is dragging
 			this component in order to resize the track list.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local HITBOX_WIDTH = 5
 
@@ -16,6 +17,7 @@ local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
@@ -41,8 +43,15 @@ function TrackListBorder:render()
 		})
 end
 
-ContextServices.mapToProps(TrackListBorder, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TrackListBorder = withContext({
+		Theme = ContextServices.Theme,
+	})(TrackListBorder)
+else
+	ContextServices.mapToProps(TrackListBorder, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return TrackListBorder

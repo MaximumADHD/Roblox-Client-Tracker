@@ -3,6 +3,7 @@
 	Allow the user to select a place to overwrite
 ]]
 local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
+local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 local FFlagUseLocalizedUntitledGameTextForAddNewPlace = game:GetFastFlag("UseLocalizedUntitledGameTextForAddNewPlace")
 
@@ -16,6 +17,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
@@ -562,10 +564,18 @@ function ScreenChoosePlace:render()
 end
 
 if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	ContextServices.mapToProps(ScreenChoosePlace, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
+	if FFlagPublishPlaceAsWithContext then
+		ScreenChoosePlace = withContext({
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})(ScreenChoosePlace)
+	else
+		ContextServices.mapToProps(ScreenChoosePlace, {
+			Theme = ContextServices.Theme,
+			Localization = ContextServices.Localization,
+		})
+	end
+
 end
 
 local function mapStateToProps(state, props)

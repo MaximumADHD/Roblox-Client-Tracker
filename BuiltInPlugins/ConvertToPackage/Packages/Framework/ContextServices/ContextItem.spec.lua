@@ -1,9 +1,11 @@
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 return function()
 	local Framework = script.Parent.Parent
 	local Signal = require(Framework.Util.Signal)
 	local Roact = require(Framework.Parent.Roact)
 	local ContextItem = require(script.Parent.ContextItem)
 	local ContextServices = require(Framework.ContextServices)
+	local withContext = ContextServices.withContext
 
 	it("should be an abstract class", function()
 		expect(ContextItem.new).never.to.be.ok()
@@ -84,7 +86,12 @@ return function()
 				return nil
 			end
 
-			ContextServices.mapToProps(TestComponent, {Foo = Foo})
+			if FFlagDeveloperFrameworkWithContext then
+				TestComponent = withContext({Foo = Foo})(TestComponent)
+			else
+				ContextServices.mapToProps(TestComponent, {Foo = Foo})
+			end
+
 
 			local TestTopLevelComponent = Roact.PureComponent:extend("TestTopLevelComponent")
 

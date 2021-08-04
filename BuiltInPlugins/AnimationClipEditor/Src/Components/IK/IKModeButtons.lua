@@ -6,6 +6,7 @@
 
 		function SetIKMode(string) = sets current IK manipulation mode
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,6 +18,7 @@ local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RadioButtons = require(UILibraryCompat.RadioButtons)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -80,10 +82,18 @@ function IKModeButtons:render()
 	})
 end
 
-ContextServices.mapToProps(IKModeButtons, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagAnimationClipEditorWithContext then
+	IKModeButtons = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(IKModeButtons)
+else
+	ContextServices.mapToProps(IKModeButtons, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 
 return IKModeButtons

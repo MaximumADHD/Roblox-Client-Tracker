@@ -31,6 +31,7 @@ local Cryo = require(Plugin.Cryo)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 
@@ -38,6 +39,7 @@ local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
@@ -184,8 +186,15 @@ function RadioButtonSet:render()
 	})
 end
 
-ContextServices.mapToProps(RadioButtonSet, {
-	Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	RadioButtonSet = withContext({
+		Theme = ContextServices.Theme,
+	})(RadioButtonSet)
+else
+	ContextServices.mapToProps(RadioButtonSet, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 return RadioButtonSet

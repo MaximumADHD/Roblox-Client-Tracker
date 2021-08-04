@@ -4,19 +4,21 @@
 	Required Props:
 		string Text: text message in dialog
 		callback OnClose: function to call when click confirm button
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 
 	Optional Props:
 		string ConfirmText: if exist, confirm text will be replaced by it
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Title: title for dialog, using layered clothing editor is undefined
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local ConfirmDialog = Roact.PureComponent:extend("ConfirmDialog")
 
@@ -56,9 +58,17 @@ function ConfirmDialog:render()
 	})
 end
 
-ContextServices.mapToProps(ConfirmDialog,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	ConfirmDialog = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})(ConfirmDialog)
+else
+	ContextServices.mapToProps(ConfirmDialog,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return ConfirmDialog

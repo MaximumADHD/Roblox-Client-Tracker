@@ -9,6 +9,7 @@
 		callback onClose
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -21,6 +22,7 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Container
 local RoundBox
@@ -98,9 +100,16 @@ function CatalogTag:renderContents(theme)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	ContextServices.mapToProps(CatalogTag, {
-		Stylizer = ContextServices.Stylizer,
-	})
+	if FFlagToolboxWithContext then
+		CatalogTag = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(CatalogTag)
+	else
+		ContextServices.mapToProps(CatalogTag, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return CatalogTag

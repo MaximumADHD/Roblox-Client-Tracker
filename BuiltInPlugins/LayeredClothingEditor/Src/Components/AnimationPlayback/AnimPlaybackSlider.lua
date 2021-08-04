@@ -10,9 +10,10 @@
 		callback SetIsPlaying: function to set is animation is playing, which is provided via mapDispatchToProps.
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number TrackLength: length of the current track, which is provided via store
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,6 +21,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
@@ -100,9 +102,16 @@ function AnimPlaybackSlider:render()
 	})
 end
 
-ContextServices.mapToProps(AnimPlaybackSlider,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	AnimPlaybackSlider = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AnimPlaybackSlider)
+else
+	ContextServices.mapToProps(AnimPlaybackSlider,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local animation = state.animation

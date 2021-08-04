@@ -5,6 +5,7 @@
 		UDim2 Size = The size of the rendered component.
 		int LayoutOrder = The sort order of this component in a UIListLayout.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -12,6 +13,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local TimelineActions = require(Plugin.Src.Components.TimelineActions)
@@ -55,10 +57,18 @@ function BigAnimationScreen:render()
 end
 
 
-ContextServices.mapToProps(BigAnimationScreen, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-})
+if FFlagAnimationClipEditorWithContext then
+	BigAnimationScreen = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(BigAnimationScreen)
+else
+	ContextServices.mapToProps(BigAnimationScreen, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 
 return BigAnimationScreen

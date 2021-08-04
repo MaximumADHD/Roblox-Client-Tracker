@@ -31,6 +31,7 @@ local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -44,6 +45,7 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function PaidAccess:render()
     -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
@@ -155,10 +157,19 @@ function PaidAccess:render()
     })
 end
 
-ContextServices.mapToProps(PaidAccess, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-    Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	PaidAccess = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	    Mouse = ContextServices.Mouse,
+	})(PaidAccess)
+else
+	ContextServices.mapToProps(PaidAccess, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	    Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return PaidAccess

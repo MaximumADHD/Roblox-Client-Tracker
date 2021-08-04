@@ -12,11 +12,13 @@
 			their mouse after clicking and holding on the area.
 		function OnDragEnded() = A callback for when the user stops dragging.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local DragTarget = Framework.UI.DragListener
 
@@ -97,8 +99,15 @@ function DragListenerArea:render()
 	})
 end
 
-ContextServices.mapToProps(DragListenerArea, {
-	Mouse = ContextServices.Mouse,
-})
+if FFlagAnimationClipEditorWithContext then
+	DragListenerArea = withContext({
+		Mouse = ContextServices.Mouse,
+	})(DragListenerArea)
+else
+	ContextServices.mapToProps(DragListenerArea, {
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return DragListenerArea

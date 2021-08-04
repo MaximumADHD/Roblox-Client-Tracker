@@ -12,6 +12,7 @@ local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth"
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 -- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
 local FIntLuobuToolboxMaxAudioLength = game:GetFastInt("LuobuToolboxMaxAudioLength")
@@ -69,7 +70,9 @@ Constants.DROP_SHADOW_SLICE_CENTER = Rect.new(
 	Constants.DROP_SHADOW_IMAGE_SLICE_1,
 	Constants.DROP_SHADOW_IMAGE_SLICE_1)
 Constants.DROP_SHADOW_TRANSPARENCY = 0.8
+if (not FFlagToolboxRemoveWithThemes) then
 Constants.DROP_SHADOW_SIZE = 8
+end
 Constants.DROP_SHADOW_COLOR = Color3.fromRGB(0, 0, 0)
 
 Constants.DEFAULT_PADDING = 8
@@ -146,7 +149,9 @@ Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constant
 Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING
 	+ Constants.ASSET_NAME_HEIGHT
 
-Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY = 0.08
+if (not FFlagToolboxRemoveWithThemes) then
+	Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY = 0.08
+end
 Constants.ASSET_OUTLINE_PADDING = 8
 Constants.ASSET_OUTLINE_EXTRA_HEIGHT = Constants.ASSET_CREATOR_NAME_HEIGHT
 	+ Constants.ASSET_INNER_PADDING + (2 * Constants.ASSET_OUTLINE_PADDING)

@@ -3,7 +3,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Http = require(Plugin.Packages.Framework.Http)
+local Http = require(Plugin.Packages.Framework).Http
 
 local LoadAllLocales = require(Plugin.Src.Actions.DEPRECATED_LoadAllLocales)
 local LoadLanguagesAndLocalesInfo = require(Plugin.Src.Actions.LoadLanguagesAndLocalesInfo)

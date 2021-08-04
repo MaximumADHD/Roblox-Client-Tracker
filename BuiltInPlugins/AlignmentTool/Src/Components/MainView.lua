@@ -4,6 +4,7 @@
 	Contains a UI section for each alignment setting, and button for aligning
 	the selection using the current settings.
 ]]
+local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Button = UI.Button
 local Container = UI.Container
@@ -173,12 +175,22 @@ function MainView:willUnmount()
 	self._boundsChangedTracker:uninstall()
 end
 
-ContextServices.mapToProps(MainView, {
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-	Stylizer = ContextServices.Stylizer,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAlignmentToolWithContext then
+	MainView = withContext({
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Analytics = ContextServices.Analytics,
+	})(MainView)
+else
+	ContextServices.mapToProps(MainView, {
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

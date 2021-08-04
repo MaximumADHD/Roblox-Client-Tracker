@@ -7,8 +7,8 @@
 	Optional Props:
 		Vector2 AnchorPoint: The AnchorPoint of the component.
 		UDim2 Position: The Position of the component.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Size: The size of this component.
 		UDim2 Position: The position of this component.
@@ -40,6 +40,7 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Immutable = Util.Immutable
@@ -50,6 +51,10 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
+
+local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
+local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -78,6 +83,8 @@ function TextLabel:render()
 	local textTruncate = self.props.TextTruncate
 	local textWrapped = self.props.TextWrapped
 	local automaticSize = self.props.AutomaticSize
+	local ref = self.props[Roact.Ref]
+	local onAbsoluteSizeChange = self.props[Roact.Change.AbsoluteSize]
 
 	local textLabelProps = {
 		AnchorPoint = anchorPoint,
@@ -96,8 +103,14 @@ function TextLabel:render()
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
 		ZIndex = zIndex,
+		[Roact.Ref] = (FFlagTextLabelRefProps or FFlagToggleTreeTableTooltip) and ref or nil,
+		[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and onAbsoluteSizeChange or nil,
 	}
 
+	if FFlagToggleTreeTableTooltip then
+		textLabelProps[Roact.Ref] = self.props[Roact.Ref]
+	end
+	
 	if fitWidth then
 		local maximumWidth
 		if self.props.FitMaxWidth ~= nil then
@@ -120,9 +133,17 @@ function TextLabel:render()
 	end
 end
 
-ContextServices.mapToProps(TextLabel, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TextLabel = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(TextLabel)
+else
+	ContextServices.mapToProps(TextLabel, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return TextLabel

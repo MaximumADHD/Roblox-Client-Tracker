@@ -1,22 +1,24 @@
 --[[
 	To select instance from workspace viewport or explorer
 	Required Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Mouse Mouse: A Mouse ContextItem, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 		callback IsSelectedInstanceValid: function to decide if the selected instance is valid
 		callback OnValidSelection: function to do when select a valid instance
 	Optional Props:
 		callback OnInvalidSelection: function to do when select a invalid instance
 		string InvalidSelectionWarningText: if exist, show a popup dialog with this text when select a invalid instance
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
 
@@ -165,11 +167,21 @@ function InstanceSelector:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(InstanceSelector,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-	Plugin = ContextServices.Plugin,
-})
+if FFlagLayeredClothingEditorWithContext then
+	InstanceSelector = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		Plugin = ContextServices.Plugin,
+	})(InstanceSelector)
+else
+	ContextServices.mapToProps(InstanceSelector,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 return InstanceSelector

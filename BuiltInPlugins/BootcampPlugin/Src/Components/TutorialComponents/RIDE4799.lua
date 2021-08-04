@@ -31,11 +31,12 @@ end
 
 -- Return your component
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 -- Rest of your code
 
-ContextServices.mapToProps(RIDE4799, {
+RIDE4799 = withContext({
 	Localization = ContextServices.Localization,
-})
+})(RIDE4799)
 
 return RIDE4799

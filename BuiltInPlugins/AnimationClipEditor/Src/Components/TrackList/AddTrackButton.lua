@@ -11,6 +11,7 @@
 		function OnTrackSelected(instance, track) = A callback for when the user
 			has selected a track to add to the editor.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -21,6 +22,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
@@ -214,10 +216,19 @@ function AddTrackButton:render()
 	})
 end
 
-ContextServices.mapToProps(AddTrackButton, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagAnimationClipEditorWithContext then
+	AddTrackButton = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(AddTrackButton)
+else
+	ContextServices.mapToProps(AddTrackButton, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return AddTrackButton

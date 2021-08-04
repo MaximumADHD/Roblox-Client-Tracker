@@ -4,6 +4,7 @@
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -35,6 +36,10 @@ return function()
 			packagePermissions = {
 				backgroundColor = StyleKey.MainBackground,
 				subTextColor = StyleKey.SubText,
+
+				collaboratorItem = {
+					deleteButton = StyleKey.Toolbox_DeleteIconColor,
+				},
 
 				searchBar = {
 					dropDown = {
@@ -75,10 +80,6 @@ return function()
 			error = StyleKey.ErrorText,
 		},
 
-		tags = {
-			textColor = StyleKey.MainText,
-		},
-
 		[ui.Button] = Cryo.Dictionary.join(button, {
 			["&SelectedDetailedDropdownItem"] = {
 				BackgroundStyle = Cryo.Dictionary.join(roundBox, {
@@ -108,5 +109,26 @@ return function()
 				BorderColor = StyleKey.ErrorText,
 			},
 		}),
+
+		nav = FFlagToolboxRemoveWithThemes and {
+			mainButton = {
+				background = StyleKey.DialogMainButton,
+				hoverBackground = StyleKey.DialogMainButtonHover,
+				pressBackground = StyleKey.DialogMainButtonPressed,
+				borderColor = StyleKey.Border,
+				textColor = StyleKey.DialogMainButtonText,
+			},
+			button = {
+				background = StyleKey.DialogButton,
+				hoverBackground = StyleKey.DialogButtonHover,
+				pressBackground = StyleKey.DialogButtonPressed,
+				borderColor = StyleKey.Border,
+				textColor = StyleKey.DialogButtonText,
+			},
+		},
+
+		tags = {
+			textColor = StyleKey.MainText,
+		},
 	}
 end

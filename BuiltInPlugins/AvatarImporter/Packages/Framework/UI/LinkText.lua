@@ -6,8 +6,8 @@
 		callback OnClick: A callback for when the user clicks this link.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display in this link.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -26,11 +26,15 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
+local FFlagDevFrameworkFixLinkTextHoverResize = game:GetFastFlag("DevFrameworkFixLinkTextHoverResize")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local HoverArea = require(Framework.UI.HoverArea)
 
 local Util = require(Framework.Util)
@@ -122,6 +126,7 @@ function LinkText:render()
 
 	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
 	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
+	local showUnderlineFrame = showUnderline and hovered and (not isMultiline)
 
 	return Roact.createElement(Button, {
 		Style = {
@@ -156,18 +161,28 @@ function LinkText:render()
 			MouseLeave = self.mouseLeave,
 		}),
 
-		Underline = showUnderline and hovered and (not isMultiline) and Roact.createElement("Frame", {
+		Underline = (FFlagDevFrameworkFixLinkTextHoverResize or showUnderlineFrame) and Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, -1, 0),
 			LayoutOrder = 1,
 			Size = UDim2.new(1, 0, 0, 1),
 			BackgroundColor3 = textColor,
 			BorderSizePixel = 0,
+			BackgroundTransparency = (FFlagDevFrameworkFixLinkTextHoverResize and showUnderlineFrame) and 0 or 1,
 		}),
 	})
 end
 
-ContextServices.mapToProps(LinkText, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	LinkText = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LinkText)
+else
+	ContextServices.mapToProps(LinkText, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LinkText

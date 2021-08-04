@@ -1,4 +1,4 @@
-local FFlagDevFrameworkCheckbox = game:GetFastFlag("DevFrameworkCheckbox")
+local FFlagDevFrameworkFixCheckboxTheme = game:GetFastFlag("DevFrameworkFixCheckboxTheme")
 
 local Framework = script.Parent.Parent.Parent
 
@@ -16,18 +16,9 @@ local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
-if not FFlagDevFrameworkCheckbox then
-	if THEME_REFACTOR then
-		return {}
-	else
-		return function() end
-	end
-elseif THEME_REFACTOR then
-	return {
-		ImageSize = UDim2.new(0, 16, 0, 16),
-		Spacing = 6,
-
-		BackgroundStyle = {
+if THEME_REFACTOR then
+	if FFlagDevFrameworkFixCheckboxTheme then
+		return {
 			Background = Decoration.Image,
 			BackgroundStyle = {
 				Image = StyleKey.CheckboxUncheckedImage,
@@ -48,8 +39,38 @@ elseif THEME_REFACTOR then
 					Image = StyleKey.CheckboxDisabledImage,
 				},
 			},
+			ImageSize = UDim2.new(0, 16, 0, 16),
+			Spacing = 6,
 		}
-	}
+	else
+		return {
+			ImageSize = UDim2.new(0, 16, 0, 16),
+			Spacing = 6,
+
+			BackgroundStyle = {
+				Background = Decoration.Image,
+				BackgroundStyle = {
+					Image = StyleKey.CheckboxUncheckedImage,
+				},
+
+				[StyleModifier.Selected] = {
+					BackgroundStyle = {
+						Image = StyleKey.CheckboxCheckedImage,
+					},
+				},
+				[StyleModifier.Indeterminate] = {
+					BackgroundStyle = {
+						Image = StyleKey.CheckboxIndeterminateImage,
+					},
+				},
+				[StyleModifier.Disabled] = {
+					BackgroundStyle = {
+						Image = StyleKey.CheckboxDisabledImage,
+					},
+				},
+			}
+		}
+	end
 else
 	return function(theme, getColor)
 		local common = Common(theme, getColor)

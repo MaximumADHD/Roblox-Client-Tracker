@@ -19,6 +19,7 @@
 			clicks a button that has a string key (not for text submitting)
 		function OnClose = A callback for when the user closed the prompt.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -34,6 +35,7 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedPrompt)
 local TextBox = require(Plugin.Src.Components.TextBox)
@@ -185,9 +187,16 @@ function TextEntryPrompt:render()
 		})
 end
 
-ContextServices.mapToProps(TextEntryPrompt, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	TextEntryPrompt = withContext({
+		Theme = ContextServices.Theme,
+	})(TextEntryPrompt)
+else
+	ContextServices.mapToProps(TextEntryPrompt, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return TextEntryPrompt

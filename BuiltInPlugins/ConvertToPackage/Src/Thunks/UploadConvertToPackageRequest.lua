@@ -12,7 +12,7 @@ local UploadResult = require(Actions.UploadResult)
 
 local Urls = require(Plugin.Src.Util.Urls)
 
-local sendResultToKibana = require(Plugin.Packages.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
 local StudioService = game:GetService("StudioService")
 

@@ -1,9 +1,11 @@
+local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -70,8 +72,15 @@ function BrushShapeSelector:render()
 	})
 end
 
-ContextServices.mapToProps(BrushShapeSelector, {
-	Theme = ContextItems.UILibraryTheme,
-})
+if FFlagTerrainToolsV2WithContext then
+	BrushShapeSelector = withContext({
+		Theme = ContextItems.UILibraryTheme,
+	})(BrushShapeSelector)
+else
+	ContextServices.mapToProps(BrushShapeSelector, {
+		Theme = ContextItems.UILibraryTheme,
+	})
+end
+
 
 return BrushShapeSelector

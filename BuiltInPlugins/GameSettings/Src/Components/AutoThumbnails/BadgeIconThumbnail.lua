@@ -17,9 +17,11 @@
 		LayoutOrder
 		ZIndex
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
 
@@ -75,8 +77,15 @@ function BadgeIconThumbnail:render()
     })
 end
 
-ContextServices.mapToProps(BadgeIconThumbnail, {
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	BadgeIconThumbnail = withContext({
+	    Theme = ContextServices.Theme,
+	})(BadgeIconThumbnail)
+else
+	ContextServices.mapToProps(BadgeIconThumbnail, {
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 return BadgeIconThumbnail

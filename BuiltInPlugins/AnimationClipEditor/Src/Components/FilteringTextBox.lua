@@ -13,6 +13,7 @@
 		function FocusChanged(rbx, focused, submitted) = A function for when the TextBox
 			changes focus (passed through to the TextBox component).
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local SCROLLBAR_PADDING = 2
 local SCROLLBAR_THICKNESS = 10
@@ -23,6 +24,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local DropdownMenu = Framework.UI.DropdownMenu
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
@@ -146,9 +148,16 @@ function FilteringTextBox:render()
 		})
 end
 
-ContextServices.mapToProps(FilteringTextBox, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	FilteringTextBox = withContext({
+		Theme = ContextServices.Theme,
+	})(FilteringTextBox)
+else
+	ContextServices.mapToProps(FilteringTextBox, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return FilteringTextBox

@@ -8,18 +8,20 @@
 		callback OnClick: parameters() function to call when a button is clicked
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: render order of component in layout
 		number ZIndex: the z sorting order of the component
 		boolean IsOn: is the switch button rendered in the switched on state
 		string Image: the path to the icon image to be used
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Button = UI.Button
 local TextLabel = UI.Decoration.TextLabel
@@ -100,8 +102,15 @@ function SwitchButton:render()
 	})
 end
 
-ContextServices.mapToProps(SwitchButton,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SwitchButton = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SwitchButton)
+else
+	ContextServices.mapToProps(SwitchButton,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return SwitchButton

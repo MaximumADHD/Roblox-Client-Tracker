@@ -11,6 +11,8 @@
 
 		function onClick = A callback for when the user clicks this Tab.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -22,6 +24,9 @@ local Tooltip = require(Libs.Framework.UI.Tooltip)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
+
+local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Tab = Roact.PureComponent:extend("Tab")
 
@@ -50,88 +55,113 @@ function Tab:init()
 end
 
 function Tab:render(props)
-	return withTheme(function(theme)
-		local text = self.props.Text or ""
-		local image = self.props.Image
-		local layoutOrder = self.props.LayoutOrder or 0
-		local selected = self.props.Selected or false
-		local hovered = self.state.hovered
-		local tabTheme = theme.tabSet
-		local tabWidth = self.props.TabWidth
-		local displayText = self.props.DisplayText
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
-		local contentColor = (selected or hovered) and tabTheme.selectedColor or tabTheme.contentColor
+function Tab:renderContent(theme)
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
 
-		local tooltip = not displayText and Roact.createElement(Tooltip, {
-			Text = text
-		}) or nil
+	local text = self.props.Text or ""
+	local image = self.props.Image
+	local layoutOrder = self.props.LayoutOrder or 0
+	local selected = self.props.Selected or false
+	local hovered = self.state.hovered
+	local tabTheme = theme.tabSet
+	local tabWidth = self.props.TabWidth
+	local displayText = self.props.DisplayText
 
-		return Roact.createElement("ImageButton", {
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(0, tabWidth, 1, 0),
-			BorderSizePixel = selected and 2 or 0,
-			BorderColor3 = tabTheme.borderColor,
-			ZIndex = selected and 2 or 0,
-			BackgroundColor3 = tabTheme.tabBackground,
-			AutoButtonColor = false,
+	local textWidth = Constants.getTextSize(text, nil, Constants.FONT_BOLD).X
+	local contentColor = (selected or hovered) and tabTheme.selectedColor or tabTheme.contentColor
 
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
-			[Roact.Event.Activated] = self.onClick,
+	local tooltip = not displayText and Roact.createElement(Tooltip, {
+		Text = text
+	}) or nil
+
+	return Roact.createElement("ImageButton", {
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(0, tabWidth, 1, 0),
+		BorderSizePixel = selected and 2 or 0,
+		BorderColor3 = tabTheme.borderColor,
+		ZIndex = selected and 2 or 0,
+		BackgroundColor3 = tabTheme.tabBackground,
+		AutoButtonColor = false,
+
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+		[Roact.Event.Activated] = self.onClick,
+	}, {
+		Tooltip = tooltip,
+
+		UpperBorder = selected and Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 2),
+			BorderSizePixel = 0,
+			BackgroundColor3 = tabTheme.topBorderColor,
+		}),
+
+		LowerBorder = not selected and Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 2),
+			AnchorPoint = Vector2.new(0, 1),
+			Position = UDim2.new(0, 0, 1, 0),
+			BorderSizePixel = 0,
+			BackgroundColor3 = tabTheme.borderColor,
+		}),
+
+		Content = Roact.createElement("Frame", {
+			Size = UDim2.new(1, -(Constants.TAB_OUTER_PADDING*2), 1, 0),
+			Position = UDim2.new(0, Constants.TAB_OUTER_PADDING, 0, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
 		}, {
-			Tooltip = tooltip,
-
-			UpperBorder = selected and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 2),
-				BorderSizePixel = 0,
-				BackgroundColor3 = tabTheme.topBorderColor,
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+				Padding = UDim.new(0, Constants.TAB_INNER_PADDING),
 			}),
 
-			LowerBorder = not selected and Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 2),
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				BorderSizePixel = 0,
-				BackgroundColor3 = tabTheme.borderColor,
-			}),
-
-			Content = Roact.createElement("Frame", {
-				Size = UDim2.new(1, -(Constants.TAB_OUTER_PADDING*2), 1, 0),
-				Position = UDim2.new(0, Constants.TAB_OUTER_PADDING, 0, 0),
-				BackgroundTransparency = 1,
+			Icon = Roact.createElement("ImageLabel", {
 				LayoutOrder = 1,
-			}, {
-				Layout = Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
-					Padding = UDim.new(0, Constants.TAB_INNER_PADDING),
-				}),
-
-				Icon = Roact.createElement("ImageLabel", {
-					LayoutOrder = 1,
-					Size = UDim2.new(0, Constants.TAB_ICON_SIZE, 0, Constants.TAB_ICON_SIZE),
-					BackgroundTransparency = 1,
-					ImageColor3 = contentColor,
-					Image = image,
-				}),
-
-				Text = displayText and Roact.createElement("TextLabel", {
-					LayoutOrder = 2,
-					Text = text,
-					Font = selected and Constants.FONT_BOLD or Constants.FONT,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					BackgroundTransparency = 1,
-					TextColor3 = contentColor,
-					Size = UDim2.new(0, textWidth, 1, 0),
-					TextXAlignment = Enum.TextXAlignment.Left,
-					ClipsDescendants = true,
-				}),
+				Size = UDim2.new(0, Constants.TAB_ICON_SIZE, 0, Constants.TAB_ICON_SIZE),
+				BackgroundTransparency = 1,
+				ImageColor3 = contentColor,
+				Image = image,
 			}),
+
+			Text = displayText and Roact.createElement("TextLabel", {
+				LayoutOrder = 2,
+				Text = text,
+				Font = selected and Constants.FONT_BOLD or Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				BackgroundTransparency = 1,
+				TextColor3 = contentColor,
+				Size = UDim2.new(0, textWidth, 1, 0),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				ClipsDescendants = true,
+			}),
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		Tab = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(Tab)
+	else
+		ContextServices.mapToProps(Tab, {
+			Stylizer = ContextServices.Stylizer,
 		})
-	end)
+	end
+
 end
 
 return Tab

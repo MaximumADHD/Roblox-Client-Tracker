@@ -9,15 +9,17 @@
 		number LayoutOrder: sort order of frame in a layout
 		callback OnVectorValueChanged: function to be called when input box values have changed
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Vector3 VectorValue: vector data to be displayed in text boxes by default
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local TextInput = UI.TextInput
@@ -182,8 +184,15 @@ function Vector3Entry:render()
 	})
 end
 
-ContextServices.mapToProps(Vector3Entry,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	Vector3Entry = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(Vector3Entry)
+else
+	ContextServices.mapToProps(Vector3Entry,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return Vector3Entry

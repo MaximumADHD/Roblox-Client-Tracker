@@ -5,18 +5,26 @@
 		any Item: The item being displayed by this row
 		number Index: The index of the row to display
 		number Depth: The offset of the row
-		boolean Expanded: Whether the row is expanded
 		any Children: The child items of this row
 		callback OnToggle: Called when the toggle icon is pressed (props) -> ()
 	
 	Optional Props:
 		any BeforeToggle: An optional component to render before the toggle. Passed the Row props and the expected LayoutOrder.
 		any BeforeIcon: An optional component to render before the icon. Passed the Row props and the expected LayoutOrder.
+		any WrapperProps: Props inherited from withControl to be passed to the underlying Pane.
+		any Expanded: An optional variable indicating if the row is expanded
+		any Checked: An optional variable indicating whether an associated checkbox is checked
+		callback OnCheck: An optional function which gets called when the component checked state changes
+		callback OnPress: An optional function which gets called when a button is pressed
+		any Stylizer: An optional value which is used to apply themes
+		any StyleModifier: Describes any changes to the style
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -37,7 +45,6 @@ local TreeViewRow = Roact.PureComponent:extend("TreeViewRow")
 Typecheck.wrap(TreeViewRow, script)
 
 function TreeViewRow:init()
-	assert(THEME_REFACTOR, "TreeViewRow not supported in Theme1, please upgrade your plugin to Theme2")
 	self.onToggle = function()
 		self.props.OnToggle(self.props)
 	end
@@ -45,7 +52,7 @@ end
 
 function TreeViewRow:render()
 	local props = self.props
-	local style = props.Stylizer
+	local style = THEME_REFACTOR and props.Stylizer or props.Theme:getStyle("Framework", self)
 	local index = props.Index
 	local item = props.Item
 	local depth = props.Depth
@@ -104,8 +111,17 @@ function TreeViewRow:render()
 	})
 end
 
-ContextServices.mapToProps(TreeViewRow, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TreeViewRow = withContext({
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(TreeViewRow)
+else
+	ContextServices.mapToProps(TreeViewRow, {
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return withControl(TreeViewRow)

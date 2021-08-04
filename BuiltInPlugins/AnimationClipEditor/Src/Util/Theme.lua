@@ -1,13 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
-local Style = require(Plugin.Packages.Framework.Util.Style)
-local StyleModifier = require(Plugin.Packages.Framework.Util.StyleModifier)
-local StyleTable = require(Plugin.Packages.Framework.Util.StyleTable)
-local UI = require(Plugin.Packages.Framework.UI)
+local Style = require(Plugin.Packages.Framework).Util.Style
+local StyleModifier = require(Plugin.Packages.Framework).Util.StyleModifier
+local StyleTable = require(Plugin.Packages.Framework).Util.StyleTable
+local UI = require(Plugin.Packages.Framework).UI
 local Decoration = UI.Decoration
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local StudioStyle = require(Plugin.Src.UILibraryCompat.StudioStyle)
-local ContextServicesTheme = require(Plugin.Packages.Framework.ContextServices.Theme)
+local ContextServicesTheme = require(Plugin.Packages.Framework).ContextServices.Theme
 
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -17,7 +17,7 @@ local Theme = {}
 function Theme.createValues(theme, getColor)
 	local c = Enum.StudioStyleGuideColor
 	local m = Enum.StudioStyleGuideModifier
-	local themeGetColor = function(...) 
+	local themeGetColor = function(...)
 		return theme:GetColor(...)
 	end
 	return Theme.createValuesInternal(theme, themeGetColor, c, m)
@@ -219,7 +219,7 @@ function Theme.createValuesInternal(theme, getColor, c, m)
 		local IKActive = Style.new({
 			Background = Decoration.RoundBox,
 		})
-		
+
 		return {
 			MediaControl = MediaControl,
 			ActiveControl = ActiveControl,
@@ -632,4 +632,3 @@ function Theme.mock()
 end
 
 return Theme
-

@@ -1,7 +1,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Action = require(Plugin.Packages.Framework.Util.Action)
+local Action = require(Plugin.Packages.Framework).Util.Action
 local View = require(Plugin.Src.Util.View)
 
 return Action(script.Name, function(view)

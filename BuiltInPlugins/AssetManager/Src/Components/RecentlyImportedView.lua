@@ -13,6 +13,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local ScrollingFrame = UI.ScrollingFrame
@@ -29,6 +30,7 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -179,12 +181,22 @@ function RecentlyImportedView:render()
     })
 end
 
-ContextServices.mapToProps(RecentlyImportedView,{
-    Analytics = ContextServices.Analytics,
-    Localization = ContextServices.Localization,
-    Mouse = ContextServices.Mouse,
-    Theme = ContextServices.Theme,
-})
+if FFlagAssetManagerWithContext then
+	RecentlyImportedView = withContext({
+	    Analytics = ContextServices.Analytics,
+	    Localization = ContextServices.Localization,
+	    Mouse = ContextServices.Mouse,
+	    Theme = ContextServices.Theme,
+	})(RecentlyImportedView)
+else
+	ContextServices.mapToProps(RecentlyImportedView,{
+	    Analytics = ContextServices.Analytics,
+	    Localization = ContextServices.Localization,
+	    Mouse = ContextServices.Mouse,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

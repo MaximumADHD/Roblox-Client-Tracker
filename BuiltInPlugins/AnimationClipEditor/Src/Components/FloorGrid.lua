@@ -6,6 +6,7 @@
 			the line instances into. Defaults to CoreGui.
 		Instance RootInstance = The root instance of the animation.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 -- Previously, there were magic numbers in the old Animation Editor
 -- Keeping these here to maintain the same grid appearance
@@ -21,6 +22,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local FloorGrid = Roact.PureComponent:extend("FloorGrid")
 
@@ -76,9 +78,16 @@ function FloorGrid:render()
 		end
 end
 
-ContextServices.mapToProps(FloorGrid, {
-	Theme = ContextServices.Theme,
-})
+if FFlagAnimationClipEditorWithContext then
+	FloorGrid = withContext({
+		Theme = ContextServices.Theme,
+	})(FloorGrid)
+else
+	ContextServices.mapToProps(FloorGrid, {
+		Theme = ContextServices.Theme,
+	})
+end
+
 
 
 return FloorGrid

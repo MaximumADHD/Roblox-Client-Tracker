@@ -7,8 +7,8 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Http = require(Plugin.Packages.Framework.Http)
-local Promise = require(Plugin.Packages.Framework.Util).Promise
+local Http = require(Plugin.Packages.Framework).Http
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local SetIsBusy = require(Plugin.Src.Actions.SetIsBusy)
 local SetMessage = require(Plugin.Src.Actions.SetMessage)

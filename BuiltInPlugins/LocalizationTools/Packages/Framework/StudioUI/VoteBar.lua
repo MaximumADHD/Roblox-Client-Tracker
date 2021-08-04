@@ -2,23 +2,25 @@
 	Encapsulates the VoteBar summary, shows a count of VoteBar and allows up or down voting.
 
 	Required Props:
-		ContextItem Localization: A Localization ContextItem, which is provided via mapToProps.
+		ContextItem Localization: A Localization ContextItem, which is provided via withContext.
 		Voting Voting: Table of Voting info.
 		number AssetId: Asset ID being voted on.
 		callback OnVoteUp: called when the upvote button is clicked.
 		callback OnVoteDown: called when the downvote button is clicked.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: LayoutOrder of the component.
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Immutable = Util.Immutable
@@ -158,10 +160,19 @@ function VoteBar:render()
 	})
 end
 
-ContextServices.mapToProps(VoteBar, {
-	Localization = ContextServices.Localization,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	VoteBar = withContext({
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(VoteBar)
+else
+	ContextServices.mapToProps(VoteBar, {
+		Localization = ContextServices.Localization,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return VoteBar

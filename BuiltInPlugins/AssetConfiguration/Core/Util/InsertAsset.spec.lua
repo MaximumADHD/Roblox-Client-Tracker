@@ -9,7 +9,7 @@ return function()
 
 		it("should add videos", function()
 			local options = {
-				assetId = 0,
+				assetId = 5608327482,
 				assetName = "UNIT TEST",
 				assetTypeId = Enum.AssetType.Video.Value,
 				onSuccess = function() end,

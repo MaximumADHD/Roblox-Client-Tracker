@@ -10,12 +10,14 @@
 	Optional Props:
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Selected: Whether the row is currently selected.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -68,8 +70,15 @@ function TableRow:render()
 
 end
 
-ContextServices.mapToProps(TableRow, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	TableRow = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})(TableRow)
+else
+	ContextServices.mapToProps(TableRow, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	})
+end
+
 
 return withControl(TableRow)

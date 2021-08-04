@@ -10,6 +10,7 @@ return function()
 	commonInitCalled = true
 
 	local Main = script.Parent.Parent.Parent
+
 	local Roact = require(Main.Packages.Roact)
 
 	local RefactorFlags = require(Main.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)

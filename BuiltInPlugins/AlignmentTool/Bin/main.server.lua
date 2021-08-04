@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent
 
+require(script.Parent.defineLuaFlags)
+
 local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
 local getFFlagAlignToolRoactInspector = require(Plugin.Src.Flags.getFFlagAlignToolRoactInspector)
 

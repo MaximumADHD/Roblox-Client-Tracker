@@ -11,6 +11,7 @@
 		number gapRatio = 1.5
 		number endRatio = 0.25
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -24,6 +25,11 @@ local withTheme = ContextHelper.withTheme
 local RunService = game:GetService("RunService")
 
 local animationCallbacks = {}
+
+if FFlagToolboxRemoveWithThemes then
+	-- TODO FFlagToolboxRemoveWithThemes Remove entire file
+	return {}
+end
 
 RunService.RenderStepped:connect(function(deltaTime)
 	for callback, _ in pairs(animationCallbacks) do

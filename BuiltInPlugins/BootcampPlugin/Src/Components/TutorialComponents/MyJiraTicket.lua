@@ -4,6 +4,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 -- Import ContextServices
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 -- Import the button from DevFramework
 local Button = Framework.UI.Button
 -- Create your Roact Component
@@ -26,8 +27,10 @@ function MyJiraTicket:render()
 		OnClick = onClick,
 	})
 end
-ContextServices.mapToProps(MyJiraTicket, {
+
+MyJiraTicket = withContext({
 	Localization = ContextServices.Localization,
-})
+})(MyJiraTicket)
+
 -- Return your component
 return MyJiraTicket

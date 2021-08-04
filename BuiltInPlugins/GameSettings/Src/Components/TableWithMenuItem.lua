@@ -15,6 +15,7 @@
 	Optional Props:
 		thumbnail Icon = Icon to display in first column of row entry
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -23,6 +24,7 @@ local UILibrary = require(Plugin.UILibrary)
 local Framework = Plugin.Framework
 
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local HoverArea = UI.HoverArea
@@ -319,9 +321,17 @@ function TableWithMenuItem:render()
 	}, row))
 end
 
-ContextServices.mapToProps(TableWithMenuItem, {
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	TableWithMenuItem = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(TableWithMenuItem)
+else
+	ContextServices.mapToProps(TableWithMenuItem, {
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return TableWithMenuItem

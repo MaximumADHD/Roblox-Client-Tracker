@@ -7,10 +7,11 @@
 		callback GoToPrevious: request to go to previous screen in flow.
 		callback SetAccessoryTypeInfo: action to set table info for accessory type, provided via mapDispatchToProps
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -19,6 +20,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Pane = Framework.UI.Pane
 
@@ -213,11 +215,20 @@ function AssetTypeScreen:render()
 	})
 end
 
-ContextServices.mapToProps(AssetTypeScreen,{
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	AssetTypeScreen = withContext({
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})(AssetTypeScreen)
+else
+	ContextServices.mapToProps(AssetTypeScreen,{
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

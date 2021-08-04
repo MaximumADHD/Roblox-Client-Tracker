@@ -1,3 +1,4 @@
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -12,6 +13,7 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 local Category = require(Plugin.Core.Types.Category)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Cryo = require(Libs.Cryo)
 
 local getNetwork = ContextGetter.getNetwork
@@ -118,10 +120,18 @@ function MainViewHeader:render()
 	end)
 end
 
-ContextServices.mapToProps(MainViewHeader, {
-	Localization = ContextServices.Localization,
-	Settings = Settings,
-})
+if FFlagToolboxWithContext then
+	MainViewHeader = withContext({
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})(MainViewHeader)
+else
+	ContextServices.mapToProps(MainViewHeader, {
+		Localization = ContextServices.Localization,
+		Settings = Settings,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

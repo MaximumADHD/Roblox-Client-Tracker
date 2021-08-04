@@ -10,12 +10,14 @@
 		Color3 Color: color of the point
 		number Weight: used as alpha for interpolation of point color
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Point = Roact.PureComponent:extend("Point")
 
@@ -49,8 +51,15 @@ function Point:render()
 	})
 end
 
-ContextServices.mapToProps(Point,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	Point = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(Point)
+else
+	ContextServices.mapToProps(Point,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return Point

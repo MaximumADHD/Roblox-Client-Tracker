@@ -1,4 +1,4 @@
-local FFlagGameSettingsDisplayCollaborativeEditingWarning = game:GetFastFlag("GameSettingsDisplayCollaborativeEditingWarning")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -14,19 +14,19 @@ local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitl
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
-local LayoutOrderIterator = FFlagGameSettingsDisplayCollaborativeEditingWarning and require(Plugin.Framework.Util).LayoutOrderIterator or nil
+local LayoutOrderIterator = require(Plugin.Framework.Util).LayoutOrderIterator
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
@@ -90,7 +90,7 @@ end
 local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
-		CurrentScriptCollabEnabled = FFlagGameSettingsDisplayCollaborativeEditingWarning and state.Settings.Current.ScriptCollabEnabled or nil,
+		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
 		VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
 	}
 	return loadedProps
@@ -128,13 +128,9 @@ function Options:render()
 
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
-	local shouldDisplayWarning
-	local layoutIndex
-	if FFlagGameSettingsDisplayCollaborativeEditingWarning then
-		-- Display warning to user if they are switching Collab off when it is currently saved as on
-		shouldDisplayWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
-		layoutIndex = LayoutOrderIterator.new()
-	end
+    -- Display warning to user if they are switching Collab off when it is currently saved as on
+    local shouldDisplayWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
+    local layoutIndex = LayoutOrderIterator.new()
 
 	local function createChildren()
 		local props = self.props
@@ -142,44 +138,23 @@ function Options:render()
 		local localization = props.Localization
 
 		return {
-			EnableScriptCollab = FFlagGameSettingsDisplayCollaborativeEditingWarning and 
-				Roact.createElement(ToggleButtonWithTitle, {
-					Title = localization:getText("General", "TitleScriptCollab"),
-					Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning") 
-						or localization:getText("General", "ScriptCollabDesc"),
-					LayoutOrder = layoutIndex:getNextOrder(),
-					Disabled = false,
-					Selected = props.ScriptCollabEnabled,
-					ShowWarning = shouldDisplayWarning,
-					OnClick = function()
-						props.ScriptCollabEnabledChanged(not props.ScriptCollabEnabled)
-					end,
-				})
-				or Roact.createElement(RadioButtonSet, {
-				LayoutOrder = 1,
-				Title = localization:getText("General", "TitleScriptCollab"),
-				Enabled = props.ScriptCollabEnabled ~= nil,
-
-				Selected = props.ScriptCollabEnabled,
-				SelectionChanged = function(button)
-					props.ScriptCollabEnabledChanged(button.Id)
-				end,
-
-				Buttons = {{
-						Id = true,
-						Title = localization:getText("General", "SettingOn"),
-						Description = localization:getText("General", "ScriptCollabDesc"),
-					}, {
-						Id = false,
-						Title = localization:getText("General", "SettingOff"),
-					},
-				},
-			}),
+            EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
+                Title = localization:getText("General", "TitleScriptCollab"),
+                Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning") 
+                    or localization:getText("General", "ScriptCollabDesc"),
+                LayoutOrder = layoutIndex:getNextOrder(),
+                Disabled = false,
+                Selected = props.ScriptCollabEnabled,
+                ShowWarning = shouldDisplayWarning,
+                OnClick = function()
+                    props.ScriptCollabEnabledChanged(not props.ScriptCollabEnabled)
+                end,
+            }),
 
 			ShutdownAllServers = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleShutdownAllServers"),
 				MaxHeight = 60,
-				LayoutOrder = FFlagGameSettingsDisplayCollaborativeEditingWarning and layoutIndex:getNextOrder() or 7,
+				LayoutOrder = layoutIndex:getNextOrder(),
 				TextSize = theme.fontStyle.Normal.TextSize,
 				}, {
 					VerticalLayout = Roact.createElement("UIListLayout", {
@@ -226,7 +201,7 @@ function Options:render()
 			EnableVoiceChat = FFlagGameSettingsEnableVoiceChat and Roact.createElement(ToggleButtonWithTitle, {
 				Title = localization:getText("General", "VoiceChatTitle"),
 				Description = localization:getText("General", "VoiceChatText"),
-				LayoutOrder = FFlagGameSettingsDisplayCollaborativeEditingWarning and layoutIndex:getNextOrder() or 8,
+				LayoutOrder = layoutIndex:getNextOrder(),
 				Disabled = false,
 				Selected = props.VoiceChatEnabled,
 				OnClick = function()
@@ -245,11 +220,20 @@ function Options:render()
 	})
 end
 
-ContextServices.mapToProps(Options, {
-	Theme = ContextServices.Theme,
-	Localization = ContextServices.Localization,
-	Dialog = Dialog,
-})
+if FFlagGameSettingsWithContext then
+	Options = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})(Options)
+else
+	ContextServices.mapToProps(Options, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+		Dialog = Dialog,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Options = RoactRodux.connect(

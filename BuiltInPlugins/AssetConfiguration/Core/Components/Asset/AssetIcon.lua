@@ -14,6 +14,7 @@
 		callback onMouseLeave()
 		callback onPreviewAudioButtonClicked()
 ]]
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -51,6 +52,7 @@ local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local AssetIcon = Roact.PureComponent:extend("AssetIcon")
 
 local PREVIEW_POSITION = UDim2.new(1, -14, 0, 14)
@@ -189,9 +191,16 @@ function AssetIcon:render()
 	end)
 end
 
-ContextServices.mapToProps(AssetIcon, {
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagToolboxWithContext then
+	AssetIcon = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetIcon)
+else
+	ContextServices.mapToProps(AssetIcon, {
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

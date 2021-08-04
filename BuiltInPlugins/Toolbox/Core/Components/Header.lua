@@ -15,8 +15,9 @@
 		callback onGroupSelected()
 		callback onSearchOptionsToggled()
 ]]
-
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -38,6 +39,7 @@ local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
@@ -118,123 +120,137 @@ function Header:init()
 end
 
 function Header:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withLocalization(function(localization, localizedContent)
-			local props = self.props
-
-			local categories = localization:getLocalizedCategories(props.categories)
-			local categoryName = props.categoryName
-			local categoryIndex = Category.getCategoryIndex(categoryName, props.roles)
-			local onCategorySelected = self.onCategorySelected
-
-			local searchTerm = props.searchTerm
-			local onSearchRequested = self.onSearchRequested
-
-			local groups = props.groups
-			local groupIndex = props.groupIndex
-			local onGroupSelected = self.onGroupSelected
-
-
-			local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
-
-			local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
-				or Constants.HEADER_DROPDOWN_MAX_WIDTH
-			local optionsButtonWidth = showSearchOptions
-				and Constants.HEADER_OPTIONSBUTTON_WIDTH + Constants.HEADER_INNER_PADDING or 0
-
-			local onSearchOptionsToggled = self.onSearchOptionsToggled
-
-			local maxWidth = props.maxWidth or 0
-			local searchBarWidth = math.max(100, maxWidth
-					- (2 * Constants.HEADER_OUTER_PADDING)
-					- dropdownWidth
-					- optionsButtonWidth
-					- Constants.HEADER_INNER_PADDING)
-
-			local isGroupCategory = Category.categoryIsGroupAsset(categoryName)
-			local headerTheme = theme.header
-
-			local isCreationsTab = Category.getTabForCategoryName(categoryName) == Category.CREATIONS
-			local isInventoryTab = Category.getTabForCategoryName(categoryName) == Category.INVENTORY
-
-			local fullWidthDropdown = isCreationsTab and not isGroupCategory
-
-			local showSearchBar
-			if FFlagToolboxHideSearchForMyPlugins then
-				local isPlugins = Category.categoryIsPlugin(categoryName)
-				showSearchBar = not isGroupCategory and not isCreationsTab
-					and not (isInventoryTab and isPlugins)
-			else
-				showSearchBar = not isGroupCategory and not isCreationsTab
-			end
-
-			local isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
-			if isRecentsTab then
-				showSearchBar = false
-				fullWidthDropdown = true
-			end
-
-			return Roact.createElement("ImageButton", {
-				Position = props.Position,
-				Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
-				BackgroundColor3 = headerTheme.backgroundColor,
-				BorderSizePixel = 0,
-				ZIndex = 2,
-				AutoButtonColor = false,
-			},{
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-					PaddingLeft = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-					PaddingRight = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-					PaddingTop = UDim.new(0, Constants.HEADER_OUTER_PADDING),
-				}),
-
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, Constants.HEADER_INNER_PADDING),
-				}),
-
-				CategoryMenu = Roact.createElement(DropdownMenu, {
-					Position = UDim2.new(0, 0, 0, 0),
-					Size = fullWidthDropdown and UDim2.new(1, 0, 1, 0) or UDim2.new(0, dropdownWidth, 1, 0),
-					LayoutOrder = 0,
-					visibleDropDownCount = 8,
-					selectedDropDownIndex = categoryIndex,
-
-					items = categories,
-					key = (not isCreationsTab) and "category" or nil,
-					onItemClicked = onCategorySelected,
-				}),
-
-				SearchBar = showSearchBar and Roact.createElement(SearchBar, {
-					width = searchBarWidth,
-					LayoutOrder = 1,
-
-					searchTerm = searchTerm,
-					showSearchButton = true,
-					onSearchRequested = onSearchRequested,
-				}),
-
-				SearchOptionsButton = showSearchOptions and Roact.createElement(SearchOptionsButton, {
-					LayoutOrder = 2,
-					onClick = onSearchOptionsToggled,
-				}),
-
-				GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
-					Position = UDim2.new(0, 0, 0, 0),
-					Size = UDim2.new(0, searchBarWidth, 1, 0),
-					LayoutOrder = 1,
-					visibleDropDownCount = 8,
-					selectedDropDownIndex = groupIndex,
-
-					items = groups,
-					key = "id",
-					onItemClicked = onGroupSelected,
-				}),
-			})
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function Header:renderContent(theme, localization, localizedContent)
+	local props = self.props
+
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local categories = localization:getLocalizedCategories(props.categories)
+	local categoryName = props.categoryName
+	local categoryIndex = Category.getCategoryIndex(categoryName, props.roles)
+	local onCategorySelected = self.onCategorySelected
+
+	local searchTerm = props.searchTerm
+	local onSearchRequested = self.onSearchRequested
+
+	local groups = props.groups
+	local groupIndex = props.groupIndex
+	local onGroupSelected = self.onGroupSelected
+
+
+	local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
+
+	local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
+		or Constants.HEADER_DROPDOWN_MAX_WIDTH
+	local optionsButtonWidth = showSearchOptions
+		and Constants.HEADER_OPTIONSBUTTON_WIDTH + Constants.HEADER_INNER_PADDING or 0
+
+	local onSearchOptionsToggled = self.onSearchOptionsToggled
+
+	local maxWidth = props.maxWidth or 0
+	local searchBarWidth = math.max(100, maxWidth
+			- (2 * Constants.HEADER_OUTER_PADDING)
+			- dropdownWidth
+			- optionsButtonWidth
+			- Constants.HEADER_INNER_PADDING)
+
+	local isGroupCategory = Category.categoryIsGroupAsset(categoryName)
+	local headerTheme = theme.header
+
+	local isCreationsTab = Category.getTabForCategoryName(categoryName) == Category.CREATIONS
+	local isInventoryTab = Category.getTabForCategoryName(categoryName) == Category.INVENTORY
+
+	local fullWidthDropdown = isCreationsTab and not isGroupCategory
+
+	local showSearchBar
+	if FFlagToolboxHideSearchForMyPlugins then
+		local isPlugins = Category.categoryIsPlugin(categoryName)
+		showSearchBar = not isGroupCategory and not isCreationsTab
+			and not (isInventoryTab and isPlugins)
+	else
+		showSearchBar = not isGroupCategory and not isCreationsTab
+	end
+
+	local isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
+	if isRecentsTab then
+		showSearchBar = false
+		fullWidthDropdown = true
+	end
+
+	return Roact.createElement("ImageButton", {
+		Position = props.Position,
+		Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+		BackgroundColor3 = headerTheme.backgroundColor,
+		BorderSizePixel = 0,
+		ZIndex = 2,
+		AutoButtonColor = false,
+	},{
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+			PaddingLeft = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+			PaddingRight = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+			PaddingTop = UDim.new(0, Constants.HEADER_OUTER_PADDING),
+		}),
+
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, Constants.HEADER_INNER_PADDING),
+		}),
+
+		CategoryMenu = Roact.createElement(DropdownMenu, {
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = fullWidthDropdown and UDim2.new(1, 0, 1, 0) or UDim2.new(0, dropdownWidth, 1, 0),
+			LayoutOrder = 0,
+			visibleDropDownCount = 8,
+			selectedDropDownIndex = categoryIndex,
+
+			items = categories,
+			key = (not isCreationsTab) and "category" or nil,
+			onItemClicked = onCategorySelected,
+		}),
+
+		SearchBar = showSearchBar and Roact.createElement(SearchBar, {
+			width = searchBarWidth,
+			LayoutOrder = 1,
+
+			searchTerm = searchTerm,
+			showSearchButton = true,
+			onSearchRequested = onSearchRequested,
+		}),
+
+		SearchOptionsButton = showSearchOptions and Roact.createElement(SearchOptionsButton, {
+			LayoutOrder = 2,
+			onClick = onSearchOptionsToggled,
+		}),
+
+		GroupMenu = isGroupCategory and Roact.createElement(DropdownMenu, {
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(0, searchBarWidth, 1, 0),
+			LayoutOrder = 1,
+			visibleDropDownCount = 8,
+			selectedDropDownIndex = groupIndex,
+
+			items = groups,
+			key = "id",
+			onItemClicked = onGroupSelected,
+		}),
+	})
 end
 
 function Header:checkRecentAssetInsertion()
@@ -304,9 +320,18 @@ function Header:willUnmount()
 	destroyTabRefreshEvent(self.props.pluginGui)
 end
 
-ContextServices.mapToProps(Header, {
-	Settings = Settings,
-})
+if FFlagToolboxWithContext then
+	Header = withContext({
+		Settings = Settings,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	})(Header)
+else
+	ContextServices.mapToProps(Header, {
+		Settings = Settings,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

@@ -41,6 +41,7 @@ local FrameworkUI = require(Framework.UI)
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
@@ -48,6 +49,7 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function DevProducts:render()
     local props = self.props
@@ -170,9 +172,17 @@ function DevProducts:render()
     })
 end
 
-ContextServices.mapToProps(DevProducts, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	DevProducts = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})(DevProducts)
+else
+	ContextServices.mapToProps(DevProducts, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 return DevProducts

@@ -167,11 +167,11 @@ function CollaboratorItem:init()
 		self.toggleDropdown(false)
 	end
 
-	self.onDropdownRenderItem = function(item, index)
+	self.onDropdownRenderItem = function(item, index, onActivated)
 		return Roact.createElement(DetailedDropdownItem, {
 			Key = item.Key,
 			Description = item.Description,
-			OnActivated = function() self.onItemActivated(item) end,
+			OnActivated = onActivated,
 			Selected = item.Key == self.props.SelectedItem,
 			Title = item.Display,
 		})
@@ -271,6 +271,7 @@ function CollaboratorItem:render()
 						Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
 						OnFocusLost = function() self.toggleDropdown(false) end,
 						Items = props.Items,
+						OnItemActivated = self.onItemActivated,
 						OnRenderItem = self.onDropdownRenderItem,
 						Width = DROPDOWN_ITEM_WIDTH,
 					}),
@@ -315,10 +316,11 @@ function CollaboratorItem:render()
 				Delete = (FFlagToolboxReplaceUILibraryComponentsPt3 and removable) and Roact.createElement(IconButton, {
 					AnchorPoint = Vector2.new(1, 0),
 					BackgroundStyle = "RoundBox",
-					Position = UDim2.new(1, 0, 0, 0),
-					Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
+					IconColor = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
 					LeftIcon = Images.CLOSE_ICON,
 					OnClick = self.onDelete,
+					Position = UDim2.new(1, 0, 0, 0),
+					Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 				})
 				or ((not FFlagToolboxReplaceUILibraryComponentsPt3) and removable) and Roact.createElement(DeleteButton, {
 					LayoutOrder = 3,

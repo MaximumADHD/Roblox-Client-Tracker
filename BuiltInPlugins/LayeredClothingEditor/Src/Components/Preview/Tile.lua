@@ -6,19 +6,21 @@
 		callback OnClick: parameters() function to call when the tile is clicked
 
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		UDim2 ImageSize: the size of the image to display
 		number ZIndex: the z sorting order of the component
 		boolean IsOn: is the tile rendered in the switched on state
 		number LayoutOrder: render order of component in layout
 		string Image: the image to display on the tile
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Button = UI.Button
 local TextLabel = UI.Decoration.TextLabel
@@ -91,8 +93,15 @@ function Tile:render()
 	})
 end
 
-ContextServices.mapToProps(Tile,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	Tile = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(Tile)
+else
+	ContextServices.mapToProps(Tile,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return Tile

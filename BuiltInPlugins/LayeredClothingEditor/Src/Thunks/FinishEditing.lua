@@ -15,9 +15,7 @@ return function(editingItem, sourceItem)
 		local state = store:getState()
 		local pointData = state.cageData.pointData
 
-		editingItem.Archivable = true
 		local clone = editingItem:Clone()
-		editingItem.Archivable = false
 
 		-- temporary bug workaround: LC item needs to be a child of a model in order for cage editing to happen
 		local tempModel
@@ -48,13 +46,14 @@ return function(editingItem, sourceItem)
 
 		local newIdsInner = {}
 		local newIdsOuter = {}
+		local deformerToPartMap = ModelUtil:getDeformerToPartMap(clone, not isClothes)
 		if isClothes then
-			for _, deformer in pairs(ModelUtil:getDeformerToPartMap()) do
+			for _, deformer in pairs(deformerToPartMap) do
 				local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Inner)
 				newIdsInner[deformer] = id
 			end
 		end
-		for _, deformer in pairs(ModelUtil:getDeformerToPartMap()) do
+		for _, deformer in pairs(deformerToPartMap) do
 			local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Outer)
 			newIdsOuter[deformer] = id
 		end

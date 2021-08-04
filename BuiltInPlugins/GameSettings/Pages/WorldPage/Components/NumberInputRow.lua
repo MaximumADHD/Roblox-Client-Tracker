@@ -17,11 +17,13 @@
 		MinValue (number) - Minimum value the user can select
 		MaxValue (number) - Maxmimum value the user can select
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
 
@@ -102,9 +104,17 @@ function NumberInputRow:render()
 	})
 end
 
-ContextServices.mapToProps(NumberInputRow, {
-	Mouse = ContextServices.Mouse,
-	WorldRootPhysics = WorldRootPhysics,
-})
+if FFlagGameSettingsWithContext then
+	NumberInputRow = withContext({
+		Mouse = ContextServices.Mouse,
+		WorldRootPhysics = WorldRootPhysics,
+	})(NumberInputRow)
+else
+	ContextServices.mapToProps(NumberInputRow, {
+		Mouse = ContextServices.Mouse,
+		WorldRootPhysics = WorldRootPhysics,
+	})
+end
+
 
 return NumberInputRow

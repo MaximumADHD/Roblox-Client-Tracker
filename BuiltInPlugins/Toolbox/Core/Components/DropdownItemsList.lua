@@ -24,17 +24,23 @@
 		callback onItemClicked(number index) - called when a user clicks on a dropdown item
 		callback closeDropdown - called when the parent component should close dropdown
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local getTextSize = require(Util.getTextSize)
 local ContextHelper = require(Util.ContextHelper)
 local DebugFlags = require(Util.DebugFlags)
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
@@ -157,88 +163,115 @@ function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key
 end
 
 function DropdownItemsList:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withModal(function(modalTarget)
-			local props = self.props
-			local state = self.state
-
-			local key = props.key or nil
-
-			local left = props.left
-			local top = props.top
-			local dropDownWidth = props.dropDownWidth
-
-			local items = props.items or {}
-			local length = #items
-			local visibleDropDownCount = math.min(props.visibleDropDownCount or 5, length)
-			local rowHeight = props.rowHeight or 24
-			local fontSize = props.fontSize or Constants.FONT_SIZE_MEDIUM
-			local setDropdownHeight = props.setDropdownHeight
-
-			local windowPosition = props.windowPosition
-			local windowSize = props.windowSize
-
-			local onItemClicked = props.onItemClicked
-
-			local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
-			local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
-
-			local dropdownTheme = theme.dropdownMenu
-
-			local dropdownHoveredItemIndex = state.dropdownHoveredItemIndex
-
-			local maxWidth = Constants.DROPDOWN_WIDTH
-			local height = visibleDropDownCount * rowHeight
-
-			if setDropdownHeight and self.lastReportedHeight ~= height then
-				self.lastReportedHeight = height
-				setDropdownHeight(height)
-			end
-
-			local scrollButtons = self:getScrollButtons(
-				items,
-				dropdownHoveredItemIndex,
-				key,
-				maxWidth,
-				textInset,
-				rowHeight,
-				fontSize,
-				onItemClicked,
-				selectedBarWidth,
-				theme
-			)
-
-			-- Put the scrolling frame behind the background frame, but set
-			-- the background frame to be transparent. This way we see the
-			-- border on top of the scrolling frame, but not the background.
-			-- If the scrolling frame was a child of the rounded frame's
-			-- border then it gets rendered on top of the border. This works
-			-- ok for the elements in the dropdown as you can set their
-			-- background to transparent, but it doesn't work for background
-			-- of the scrollbar
-
-			return Roact.createElement(ClickEventDetectFrame, {
-				windowPosition = windowPosition,
-				windowSize = windowSize,
-				[Roact.Event.Activated] = self.props.closeDropdown,
-			}, {
-				StyledScrollingFrame = Roact.createElement(StyledScrollingFrame, {
-					Position = UDim2.new(0, left, 0, top),
-					Size = UDim2.new(0, dropDownWidth, 0, height),
-					CanvasSize = UDim2.new(0, 0, 0, length * rowHeight),
-					ZIndex = 1,
-				}, scrollButtons),
-
-				DropDownContainer = Roact.createElement(RoundFrame, {
-					Position = UDim2.new(0, left, 0, top),
-					Size = UDim2.new(0, dropDownWidth, 0, height),
-					BackgroundTransparency = 1,
-					ZIndex = 2,
-					BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
-				}),
-			})
+			return self:renderContent(modalTarget, nil)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withModal(function(modalTarget)
+				return self:renderContent(modalTarget, theme)
+			end)
+		end)
+	end
+end
+
+function DropdownItemsList:renderContent(modalTarget, theme)
+	local props = self.props
+	local state = self.state
+
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local key = props.key or nil
+
+	local left = props.left
+	local top = props.top
+	local dropDownWidth = props.dropDownWidth
+
+	local items = props.items or {}
+	local length = #items
+	local visibleDropDownCount = math.min(props.visibleDropDownCount or 5, length)
+	local rowHeight = props.rowHeight or 24
+	local fontSize = props.fontSize or Constants.FONT_SIZE_MEDIUM
+	local setDropdownHeight = props.setDropdownHeight
+
+	local windowPosition = props.windowPosition
+	local windowSize = props.windowSize
+
+	local onItemClicked = props.onItemClicked
+
+	local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
+	local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
+
+	local dropdownTheme = theme.dropdownMenu
+
+	local dropdownHoveredItemIndex = state.dropdownHoveredItemIndex
+
+	local maxWidth = Constants.DROPDOWN_WIDTH
+	local height = visibleDropDownCount * rowHeight
+
+	if setDropdownHeight and self.lastReportedHeight ~= height then
+		self.lastReportedHeight = height
+		setDropdownHeight(height)
+	end
+
+	local scrollButtons = self:getScrollButtons(
+		items,
+		dropdownHoveredItemIndex,
+		key,
+		maxWidth,
+		textInset,
+		rowHeight,
+		fontSize,
+		onItemClicked,
+		selectedBarWidth,
+		theme
+	)
+
+	-- Put the scrolling frame behind the background frame, but set
+	-- the background frame to be transparent. This way we see the
+	-- border on top of the scrolling frame, but not the background.
+	-- If the scrolling frame was a child of the rounded frame's
+	-- border then it gets rendered on top of the border. This works
+	-- ok for the elements in the dropdown as you can set their
+	-- background to transparent, but it doesn't work for background
+	-- of the scrollbar
+
+	return Roact.createElement(ClickEventDetectFrame, {
+		windowPosition = windowPosition,
+		windowSize = windowSize,
+		[Roact.Event.Activated] = self.props.closeDropdown,
+	}, {
+		StyledScrollingFrame = Roact.createElement(StyledScrollingFrame, {
+			Position = UDim2.new(0, left, 0, top),
+			Size = UDim2.new(0, dropDownWidth, 0, height),
+			CanvasSize = UDim2.new(0, 0, 0, length * rowHeight),
+			ZIndex = 1,
+		}, scrollButtons),
+
+		DropDownContainer = Roact.createElement(RoundFrame, {
+			Position = UDim2.new(0, left, 0, top),
+			Size = UDim2.new(0, dropDownWidth, 0, height),
+			BackgroundTransparency = 1,
+			ZIndex = 2,
+			BorderColor3 = dropdownTheme.dropdownFrame.borderColor,
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		DropdownItemsList = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(DropdownItemsList)
+	else
+		ContextServices.mapToProps(DropdownItemsList, {
+			Stylizer = ContextServices.Stylizer,
+		})
+	end
+
 end
 
 return DropdownItemsList

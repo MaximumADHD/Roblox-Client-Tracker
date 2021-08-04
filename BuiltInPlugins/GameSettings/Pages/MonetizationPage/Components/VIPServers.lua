@@ -41,6 +41,7 @@ local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
@@ -54,6 +55,7 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 local VIPServers = Roact.PureComponent:extend("VIPServers")
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
 
 function VIPServers:init()
@@ -312,10 +314,19 @@ function VIPServers:render()
     })
 end
 
-ContextServices.mapToProps(VIPServers, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-    Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	VIPServers = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	    Mouse = ContextServices.Mouse,
+	})(VIPServers)
+else
+	ContextServices.mapToProps(VIPServers, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	    Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return VIPServers

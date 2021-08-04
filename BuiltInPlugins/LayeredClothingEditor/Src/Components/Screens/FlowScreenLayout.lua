@@ -10,18 +10,20 @@
 		boolean HasBackButton: if the back button should be rendered.
 		callback GoToNext: function fired when next button is clicked.
 	Optional Props:
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		callback RenderContent: function renders optional elements to be displayed in the middle of the layout.
 		number LayoutOrder: render order of component in layout.
 		callback GoToPrevious: function fired when back button is clicked.
 		boolean BackButtonEnabled: if the back button is interactable or not.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -119,8 +121,15 @@ function FlowScreenLayout:render()
 	})
 end
 
-ContextServices.mapToProps(FlowScreenLayout,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagLayeredClothingEditorWithContext then
+	FlowScreenLayout = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(FlowScreenLayout)
+else
+	ContextServices.mapToProps(FlowScreenLayout,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return FlowScreenLayout

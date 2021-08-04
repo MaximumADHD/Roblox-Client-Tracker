@@ -10,6 +10,7 @@
 		string AvatarAnimation - Whether to allow user-equipped animation packs
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
@@ -17,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Thread = require(Plugin.Src.Util.Thread)
 
@@ -384,11 +386,20 @@ function Avatar:render()
 	})
 end
 
-ContextServices.mapToProps(Avatar, {
-	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	Avatar = withContext({
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(Avatar)
+else
+	ContextServices.mapToProps(Avatar, {
+		Localization = ContextServices.Localization,
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Avatar = RoactRodux.connect(

@@ -10,7 +10,6 @@ function Example:init()
 		isOpen = false
 	}
 	self.selectItem = function(value, index)
-		print("Selected option", index, "value", value)
 		self:setState({
 			isOpen = false
 		})

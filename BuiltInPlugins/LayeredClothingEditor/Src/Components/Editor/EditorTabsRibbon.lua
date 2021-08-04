@@ -4,19 +4,21 @@
 	Required Props:
 		string ToolMode: which tool (Point/Lattice/None) is currently in use.
 		callback SetToolMode: callback for when tool tab button is clicked
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 
 	Optional Props:
 		number LayoutOrder: render order of component in layout
 		number ZIndex: the z sorting order of the component
 		boolean HasEditingCage: determines if a cage has been loaded into the editor, some tab buttons are disabled if not.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Util = Framework.Util
 
 local TabsRibbon = require(Plugin.Src.Components.TabsRibbon)
@@ -68,8 +70,15 @@ function EditorTabsRibbon:render()
 	})
 end
 
-ContextServices.mapToProps(EditorTabsRibbon,{
-	Localization = ContextServices.Localization,
-})
+if FFlagLayeredClothingEditorWithContext then
+	EditorTabsRibbon = withContext({
+		Localization = ContextServices.Localization,
+	})(EditorTabsRibbon)
+else
+	ContextServices.mapToProps(EditorTabsRibbon,{
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return EditorTabsRibbon

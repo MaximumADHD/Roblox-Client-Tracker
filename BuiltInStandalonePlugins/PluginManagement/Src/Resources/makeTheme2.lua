@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local FrameworkStyle = require(Plugin.Packages.Framework.Style)
+local FrameworkStyle = require(Plugin.Packages.Framework).Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
 

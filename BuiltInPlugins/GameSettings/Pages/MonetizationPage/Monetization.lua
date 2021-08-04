@@ -6,6 +6,7 @@ local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
 local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
 
 local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
@@ -19,6 +20,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Header = require(Plugin.Src.Components.Header)
 local PaidAccess = require(Page.Components.PaidAccess)
@@ -44,7 +46,6 @@ local RoundFrame = UILibrary.Component.RoundFrame
 local TextEntry = UILibrary.Component.TextEntry
 local GetTextSize = UILibrary.Util.GetTextSize
 local BadgeIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.BadgeIconThumbnail)
-local Separator = require(Plugin.Src.Components.Separator)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local AddErrors = require(Plugin.Src.Actions.AddErrors)
@@ -1067,10 +1068,18 @@ function Monetization:render()
     })
 end
 
-ContextServices.mapToProps(Monetization, {
-    Localization = ContextServices.Localization,
-    Theme = ContextServices.Theme,
-})
+if FFlagGameSettingsWithContext then
+	Monetization = withContext({
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})(Monetization)
+else
+	ContextServices.mapToProps(Monetization, {
+	    Localization = ContextServices.Localization,
+	    Theme = ContextServices.Theme,
+	})
+end
+
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Monetization = RoactRodux.connect(

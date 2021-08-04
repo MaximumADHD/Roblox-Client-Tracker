@@ -5,18 +5,20 @@
 		Instance Instance: The instance to render a thumbnail for.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 		UDim2 IconSize: The size of the icon.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local Container = UI.Container
@@ -87,10 +89,18 @@ function AssetRenderThumbnail:render()
 	})
 end
 
-ContextServices.mapToProps(AssetRenderThumbnail, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	AssetRenderThumbnail = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(AssetRenderThumbnail)
+else
+	ContextServices.mapToProps(AssetRenderThumbnail, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return AssetRenderThumbnail
 

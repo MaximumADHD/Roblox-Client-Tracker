@@ -12,6 +12,7 @@
         CurrentScreen = table, the current screen that is displayed see Screen.lua for the table format.
     Optional Properties:
 ]]
+local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -25,6 +26,7 @@ local GetTextSize = UILibrary.Util.GetTextSize
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local LinkText = require(Framework.UI).LinkText
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -235,10 +237,18 @@ function NavBar:render()
     return NavBarContents
 end
 
-ContextServices.mapToProps(NavBar,{
-    Theme = ContextServices.Theme,
-    Localization = ContextServices.Localization,
-})
+if FFlagAssetManagerWithContext then
+	NavBar = withContext({
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})(NavBar)
+else
+	ContextServices.mapToProps(NavBar,{
+	    Theme = ContextServices.Theme,
+	    Localization = ContextServices.Localization,
+	})
+end
+
 
 local function mapStateToProps(state, props)
     local screen = state.Screen or {}

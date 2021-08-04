@@ -8,12 +8,14 @@
 		string Title = The text to display on this menu entry
 		function OnClicked = Callback invoked when this MenuEntry is clicked
 ]]
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
@@ -95,9 +97,17 @@ function MenuEntry:render()
 	})
 end
 
-ContextServices.mapToProps(MenuEntry,{
-	Theme = ContextServices.Theme,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	MenuEntry = withContext({
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})(MenuEntry)
+else
+	ContextServices.mapToProps(MenuEntry,{
+		Theme = ContextServices.Theme,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 return MenuEntry

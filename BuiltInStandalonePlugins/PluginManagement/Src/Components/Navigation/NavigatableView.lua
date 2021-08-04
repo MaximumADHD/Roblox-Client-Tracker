@@ -4,7 +4,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
 local NavigatableView = Roact.Component:extend("NavigatableView")

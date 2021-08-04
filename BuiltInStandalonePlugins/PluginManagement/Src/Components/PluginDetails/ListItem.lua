@@ -1,9 +1,11 @@
+local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local FitFrame = require(Plugin.Packages.FitFrame)
 local Constants = require(Plugin.Src.Util.Constants)
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 local FitTextLabel = FitFrame.FitTextLabel
@@ -61,9 +63,17 @@ function ListItem:render()
     })
 end
 
-ContextServices.mapToProps(ListItem, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagPluginManagementWithContext then
+	ListItem = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(ListItem)
+else
+	ContextServices.mapToProps(ListItem, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return ListItem

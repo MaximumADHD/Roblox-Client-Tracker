@@ -28,11 +28,14 @@
 		LayoutOrder = LayoutOrder, this wwill be used to override the position of the
 		dropdown menu.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -42,6 +45,9 @@ local Images = require(Util.Images)
 
 local getModal = ContextGetter.getModal
 local withTheme = ContextHelper.withTheme
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Core.Components
 local RoundButton = require(Components.RoundButton)
@@ -134,136 +140,166 @@ function DropdownMenu:didMount()
 end
 
 function DropdownMenu:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local key = props.key or nil
+function DropdownMenu:renderContent(theme)
+	local props = self.props
+	local state = self.state
 
-		local position = props.Position
-		local size = props.Size
-		local layoutOrder = props.LayoutOrder or 0
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local items = props.items or {}
-		local length = #items
-		local visibleDropDownCount = math.min(props.visibleDropDownCount or 5, length)
-		local rowHeight = props.rowHeight or 24
-		local selectedDropDownIndex = props.selectedDropDownIndex or 1
-		local fontSize = props.fontSize or Constants.FONT_SIZE_MEDIUM
-		local setDropdownHeight = props.setDropdownHeight
+	local key = props.key or nil
 
-		if selectedDropDownIndex > #items then
-			selectedDropDownIndex = 0
-		end
+	local position = props.Position
+	local size = props.Size
+	local layoutOrder = props.LayoutOrder or 0
 
-		local isNoneSelectableItem = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items and items[selectedDropDownIndex] and not isItemSelectable(items[selectedDropDownIndex])
-		if isNoneSelectableItem then
-			selectedDropDownIndex = findFirstSelectableItemIndex(items)
-		end
+	local items = props.items or {}
+	local length = #items
+	local visibleDropDownCount = math.min(props.visibleDropDownCount or 5, length)
+	local rowHeight = props.rowHeight or 24
+	local selectedDropDownIndex = props.selectedDropDownIndex or 1
+	local fontSize = props.fontSize or Constants.FONT_SIZE_MEDIUM
+	local setDropdownHeight = props.setDropdownHeight
 
-		local indexInRange = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items
+	if selectedDropDownIndex > #items then
+		selectedDropDownIndex = 0
+	end
 
-		local currentSelectionText = "Choose one"
-		if indexInRange and items[selectedDropDownIndex] and items[selectedDropDownIndex].name then
-			currentSelectionText = items[selectedDropDownIndex].name
-		end
+	local isNoneSelectableItem = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items and items[selectedDropDownIndex] and not isItemSelectable(items[selectedDropDownIndex])
+	if isNoneSelectableItem then
+		selectedDropDownIndex = findFirstSelectableItemIndex(items)
+	end
 
-		local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
-		local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
-		-- scale icon size based on font size relative to FONT_SIZE_MEDIUM
-		local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE * fontSize/Constants.FONT_SIZE_MEDIUM
-		local dropdownIconFromRight = Constants.DROPDOWN_ICON_FROM_RIGHT
+	local indexInRange = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items
 
+	local currentSelectionText = "Choose one"
+	if indexInRange and items[selectedDropDownIndex] and items[selectedDropDownIndex].name then
+		currentSelectionText = items[selectedDropDownIndex].name
+	end
+
+	local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
+	local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
+	-- scale icon size based on font size relative to FONT_SIZE_MEDIUM
+	local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE * fontSize/Constants.FONT_SIZE_MEDIUM
+	local dropdownIconFromRight = Constants.DROPDOWN_ICON_FROM_RIGHT
+
+	local dropdownTheme = theme.dropdownMenu
+	local currentSelectionTheme = dropdownTheme.currentSelection
+
+	local showDropDownButtonHovered = state.showDropDownButtonHovered
+	local isShowingDropdown = state.isShowingDropdown
+	local hoverOrShow = isShowingDropdown or showDropDownButtonHovered
+
+	local currentSelectionBorderColor = hoverOrShow and currentSelectionTheme.borderSelectedColor
+		or currentSelectionTheme.borderColor
+	local currentSelectionBackgroundColor = hoverOrShow and currentSelectionTheme.backgroundSelectedColor
+		or currentSelectionTheme.backgroundColor
+	local currentSelectionTextColor = hoverOrShow and currentSelectionTheme.textSelectedColor
+		or currentSelectionTheme.textColor
+	local dropdownIconColor
+	if FFlagToolboxRemoveWithThemes then
+		dropdownIconColor = currentSelectionTheme.dropdownIconColor
+	else
 		local isDarkerTheme = theme.isDarkerTheme
-		local dropdownTheme = theme.dropdownMenu
-		local currentSelectionTheme = dropdownTheme.currentSelection
+		dropdownIconColor = (isDarkerTheme or hoverOrShow) and currentSelectionTheme.iconSelectedColor
+		or currentSelectionTheme.iconColor
+	end
 
-		local showDropDownButtonHovered = state.showDropDownButtonHovered
-		local isShowingDropdown = state.isShowingDropdown
-		local hoverOrShow = isShowingDropdown or showDropDownButtonHovered
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = size,
+		BackgroundTransparency = 1,
 
-		local currentSelectionBorderColor = hoverOrShow and currentSelectionTheme.borderSelectedColor
-			or currentSelectionTheme.borderColor
-		local currentSelectionBackgroundColor = hoverOrShow and currentSelectionTheme.backgroundSelectedColor
-			or currentSelectionTheme.backgroundColor
-		local currentSelectionTextColor = hoverOrShow and currentSelectionTheme.textSelectedColor
-			or currentSelectionTheme.textColor
-		local dropdownIconColor = (isDarkerTheme or hoverOrShow) and currentSelectionTheme.iconSelectedColor
-			or currentSelectionTheme.iconColor
+		[Roact.Ref] = self.baseFrameRef,
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = size,
-			BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder
+	}, {
+		CurrentSelection = Roact.createElement(RoundButton, {
+			Position = UDim2.new(0, -1, 0, -1),
+			Size = UDim2.new(1, 2, 1, 2),
 
-			[Roact.Ref] = self.baseFrameRef,
+			BackgroundColor3 = currentSelectionBackgroundColor,
+			BorderColor3 = currentSelectionBorderColor,
 
-			LayoutOrder = layoutOrder
+			[Roact.Ref] = self.currentSelectionRef,
+
+			[Roact.Event.Activated] = self.openDropdown,
+			[Roact.Event.MouseEnter] = self.showDropDownButtonEntered,
+			[Roact.Event.MouseLeave] = self.showDropDownButtonLeft,
+			[Roact.Event.InputEnded] = self.focusLost,
+
+			[Roact.Change.AbsolutePosition] = self.refresh,
+			[Roact.Change.AbsoluteSize] = self.refresh,
 		}, {
-			CurrentSelection = Roact.createElement(RoundButton, {
-				Position = UDim2.new(0, -1, 0, -1),
-				Size = UDim2.new(1, 2, 1, 2),
-
-				BackgroundColor3 = currentSelectionBackgroundColor,
-				BorderColor3 = currentSelectionBorderColor,
-
-				[Roact.Ref] = self.currentSelectionRef,
-
-				[Roact.Event.Activated] = self.openDropdown,
-				[Roact.Event.MouseEnter] = self.showDropDownButtonEntered,
-				[Roact.Event.MouseLeave] = self.showDropDownButtonLeft,
-				[Roact.Event.InputEnded] = self.focusLost,
-
-				[Roact.Change.AbsolutePosition] = self.refresh,
-				[Roact.Change.AbsoluteSize] = self.refresh,
-			}, {
-				CurrentSelectionLabel = Roact.createElement("TextLabel", {
-					Position = UDim2.new(0, textInset, 0, 0),
-					Size = UDim2.new(1, -(textInset + dropdownIconSize + dropdownIconFromRight), 1, 0),
-					BackgroundTransparency = 1,
-					TextColor3 = currentSelectionTextColor,
-					Text = currentSelectionText,
-					Font = Constants.FONT,
-					TextSize = fontSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-					ClipsDescendants = true,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-				}),
-
-				DropDownIcon = Roact.createElement("ImageLabel", {
-					AnchorPoint = Vector2.new(1, 0.5),
-					Size = UDim2.new(0, dropdownIconSize, 0, dropdownIconSize),
-					Position = UDim2.new(1, -dropdownIconFromRight, 0.5, 0),
-					Image = Images.ARROW_DOWN_ICON,
-					Rotation = isShowingDropdown and 180 or 0,
-					ImageColor3 = dropdownIconColor,
-					BackgroundTransparency = 1,
-				}),
+			CurrentSelectionLabel = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, textInset, 0, 0),
+				Size = UDim2.new(1, -(textInset + dropdownIconSize + dropdownIconFromRight), 1, 0),
+				BackgroundTransparency = 1,
+				TextColor3 = currentSelectionTextColor,
+				Text = currentSelectionText,
+				Font = Constants.FONT,
+				TextSize = fontSize,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				ClipsDescendants = true,
+				TextTruncate = Enum.TextTruncate.AtEnd,
 			}),
 
-			DropdownItemsList = isShowingDropdown and Roact.createElement(DropdownItemsList, {
-				key = key,
-				items = items,
-				visibleDropDownCount = visibleDropDownCount,
-				rowHeight = rowHeight,
-				fontSize = fontSize,
-				onItemClicked = function(index, item)
-					if props.onItemClicked then
-						props.onItemClicked(index, item)
-					end
-					self.closeDropdown()
-				end,
-
-				closeDropdown = self.closeDropdown,
-				setDropdownHeight = setDropdownHeight,
-
-				dropDownWidth = state.dropDownWidth,
-				top = state.dropDownTop,
-				left = state.dropDownLeft,
+			DropDownIcon = Roact.createElement("ImageLabel", {
+				AnchorPoint = Vector2.new(1, 0.5),
+				Size = UDim2.new(0, dropdownIconSize, 0, dropdownIconSize),
+				Position = UDim2.new(1, -dropdownIconFromRight, 0.5, 0),
+				Image = Images.ARROW_DOWN_ICON,
+				Rotation = isShowingDropdown and 180 or 0,
+				ImageColor3 = dropdownIconColor,
+				BackgroundTransparency = 1,
 			}),
+		}),
+
+		DropdownItemsList = isShowingDropdown and Roact.createElement(DropdownItemsList, {
+			key = key,
+			items = items,
+			visibleDropDownCount = visibleDropDownCount,
+			rowHeight = rowHeight,
+			fontSize = fontSize,
+			onItemClicked = function(index, item)
+				if props.onItemClicked then
+					props.onItemClicked(index, item)
+				end
+				self.closeDropdown()
+			end,
+
+			closeDropdown = self.closeDropdown,
+			setDropdownHeight = setDropdownHeight,
+
+			dropDownWidth = state.dropDownWidth,
+			top = state.dropDownTop,
+			left = state.dropDownLeft,
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxWithContext then
+		DropdownMenu = withContext({
+			Stylizer = ContextServices.Stylizer,
+		})(DropdownMenu)
+	else
+		ContextServices.mapToProps(DropdownMenu, {
+			Stylizer = ContextServices.Stylizer,
 		})
-	end)
+	end
+
 end
 
 return DropdownMenu

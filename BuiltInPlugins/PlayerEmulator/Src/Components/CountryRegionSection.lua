@@ -28,6 +28,7 @@
 			on changing selected country region
 ]]
 local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
+local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -36,6 +37,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 
 local DropdownModule = require(Plugin.Src.Components.DropdownModule)
@@ -163,13 +165,24 @@ function CountryRegionSection:render()
 	})
 end
 
-ContextServices.mapToProps(CountryRegionSection, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-	Networking = NetworkingContext,
-	Plugin = ContextServices.Plugin,
-})
+if FFlagPlayerEmulatorWithContext then
+	CountryRegionSection = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})(CountryRegionSection)
+else
+	ContextServices.mapToProps(CountryRegionSection, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		Networking = NetworkingContext,
+		Plugin = ContextServices.Plugin,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

@@ -1,15 +1,15 @@
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
-local GetFFlagUseDeveloperFrameworkMigratedSrc = require(Plugin.LuaFlags.GetFFlagUseDeveloperFrameworkMigratedSrc)
 local GetFFlagAnimationClipEditorRoactInspector = require(Plugin.LuaFlags.GetFFlagAnimationClipEditorRoactInspector)
 local Roact = require(Plugin.Packages.Roact)
-local RoactDeprecated = require(Plugin.Roact)
 local AnimationClipEditorPlugin = require(Plugin.Src.Components.AnimationClipEditorPlugin)
-local AnimationClipEditorPluginDeprecated =  require(Plugin.SrcDeprecated.Components.AnimationClipEditorPlugin)
 
 -- Set THEME_REFACTOR in the DevFramework to false
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = false
+
 
 if DebugFlags.RunTests() or DebugFlags.RunRhodiumTests() then
 	return
@@ -19,19 +19,11 @@ local inspector = nil
 local handle = nil
 
 local function init()
-	if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
-		local mainPlugin = Roact.createElement(AnimationClipEditorPlugin, {
-			plugin = plugin,
-		})
+	local mainPlugin = Roact.createElement(AnimationClipEditorPlugin, {
+		plugin = plugin,
+	})
 
-		handle = Roact.mount(mainPlugin)
-	else 
-		local mainPlugin = RoactDeprecated.createElement(AnimationClipEditorPluginDeprecated, {
-			plugin = plugin,
-		})
-
-		handle = RoactDeprecated.mount(mainPlugin)
-	end
+	handle = Roact.mount(mainPlugin)
 
 	if GetFFlagAnimationClipEditorRoactInspector() then
 		-- StudioService isn't always available, so ignore if an error is thrown trying to access
@@ -41,19 +33,14 @@ local function init()
 			-- TODO FFlagAnimationClipEditorRoactInspector - move these imports to top of file when flag is retired
 			local Framework = require(Plugin.Packages.Framework)
 			inspector = Framework.DeveloperTools.forPlugin("AnimationClipEditor", plugin)
-			local currentRoact = GetFFlagUseDeveloperFrameworkMigratedSrc() and Roact or RoactDeprecated
-			inspector:addRoactTree("Roact tree", handle, currentRoact)
+			inspector:addRoactTree("Roact tree", handle, Roact)
 		end
 	end
 end
 
 plugin.Unloading:Connect(function()
 	if handle then
-		if GetFFlagUseDeveloperFrameworkMigratedSrc() then 
-			Roact.unmount(handle)
-		else 
-			RoactDeprecated.unmount(handle)
-		end
+		Roact.unmount(handle)
 	end
 
 	if GetFFlagAnimationClipEditorRoactInspector() and inspector then

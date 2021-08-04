@@ -12,6 +12,7 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,6 +21,7 @@ local Roact = require(Libs.Roact)
 
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local formatLocalDateTime = Framework.Util.formatLocalDateTime
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
@@ -156,8 +158,15 @@ function VersionItem:render()
 	end)
 end
 
-ContextServices.mapToProps(VersionItem, {
-	Localization = ContextServices.Localization,
-})
+if FFlagToolboxWithContext then
+	VersionItem = withContext({
+		Localization = ContextServices.Localization,
+	})(VersionItem)
+else
+	ContextServices.mapToProps(VersionItem, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return VersionItem

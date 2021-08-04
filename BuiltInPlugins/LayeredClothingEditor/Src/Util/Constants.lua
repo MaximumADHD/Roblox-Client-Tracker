@@ -55,6 +55,7 @@ local Constants = {
 	SIGNAL_KEYS = {
 		SelectionChanged = "SelectionChanged",
 		ToolChanged = "ToolChanged",
+		PluginWindowFocused = "PluginWindowFocused",
 	},
 
 	ASSET_TYPE_ATTACHMENT = {

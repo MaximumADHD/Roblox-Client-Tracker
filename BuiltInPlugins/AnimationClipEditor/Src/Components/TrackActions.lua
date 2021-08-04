@@ -10,6 +10,7 @@
 		bool ShowMenu = Whether to show the context menu.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
+local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -17,6 +18,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
@@ -137,10 +139,18 @@ function TrackActions:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(TrackActions,{
-	PluginActions = ContextServices.PluginActions,
-	Analytics = ContextServices.Analytics,
-})
+if FFlagAnimationClipEditorWithContext then
+	TrackActions = withContext({
+		PluginActions = ContextServices.PluginActions,
+		Analytics = ContextServices.Analytics,
+	})(TrackActions)
+else
+	ContextServices.mapToProps(TrackActions,{
+		PluginActions = ContextServices.PluginActions,
+		Analytics = ContextServices.Analytics,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

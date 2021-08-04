@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local SetMyGroups = require(Plugin.Src.Actions.SetMyGroups)
 local NetworkError = require(Plugin.Src.Actions.NetworkError)
-local sendResultToKibana = require(Plugin.Packages.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 

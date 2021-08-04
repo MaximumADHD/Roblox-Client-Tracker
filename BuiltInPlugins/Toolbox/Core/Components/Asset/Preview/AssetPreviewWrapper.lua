@@ -39,6 +39,7 @@ local Framework = require(Libs.Framework)
 local AssetPreview = Framework.StudioUI.AssetPreview
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local withModal = ContextHelper.withModal
@@ -68,6 +69,7 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 
 local AssetType
@@ -703,9 +705,17 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-ContextServices.mapToProps(AssetPreviewWrapper, {
-	Settings = Settings,
-	AssetAnalytics = AssetAnalyticsContextItem,
-})
+if FFlagToolboxWithContext then
+	AssetPreviewWrapper = withContext({
+		Settings = Settings,
+		AssetAnalytics = AssetAnalyticsContextItem,
+	})(AssetPreviewWrapper)
+else
+	ContextServices.mapToProps(AssetPreviewWrapper, {
+		Settings = Settings,
+		AssetAnalytics = AssetAnalyticsContextItem,
+	})
+end
+
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

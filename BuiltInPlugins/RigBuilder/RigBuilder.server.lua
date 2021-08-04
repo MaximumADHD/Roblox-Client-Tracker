@@ -1,7 +1,7 @@
 --Startup
 local InsertService = game:GetService("InsertService")
 local Plugin = script.Parent
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 game:DefineFastFlag("RigBuilderLocalized", false)
 
@@ -154,7 +154,7 @@ local function openGui()
 	local guiFrameSize = gui.Frame.Size
 	local optionsFrameSize = gui.Frame.Options.Size
 
-	if RigBuilderLocalized then 
+	if RigBuilderLocalized then
 		gui.Frame.Title.Text = localization:getText("Plugin", "Title")
 	end
 

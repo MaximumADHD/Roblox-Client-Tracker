@@ -1,9 +1,11 @@
+local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local FrameworkTextInput = UI.TextInput
@@ -37,8 +39,15 @@ function TextInput:render()
 	})
 end
 
-ContextServices.mapToProps(TextInput,{
-	Stylizer = ContextServices.Stylizer,
-})
+if FFlagEventEmulatorWithContext then
+	TextInput = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(TextInput)
+else
+	ContextServices.mapToProps(TextInput,{
+		Stylizer = ContextServices.Stylizer,
+	})
+end
+
 
 return TextInput

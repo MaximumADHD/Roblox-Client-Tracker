@@ -13,6 +13,7 @@
 
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -59,6 +60,7 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
@@ -548,12 +550,22 @@ function AssetGridContainer:render()
 	end)
 end
 
-ContextServices.mapToProps(AssetGridContainer, {
-	API = ContextServices.API,
-	Localization = ContextServices.Localization,
-	Plugin = ContextServices.Plugin,
-	AssetAnalytics = AssetAnalyticsContextItem,
-})
+if FFlagToolboxWithContext then
+	AssetGridContainer = withContext({
+		API = ContextServices.API,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		AssetAnalytics = AssetAnalyticsContextItem,
+	})(AssetGridContainer)
+else
+	ContextServices.mapToProps(AssetGridContainer, {
+		API = ContextServices.API,
+		Localization = ContextServices.Localization,
+		Plugin = ContextServices.Plugin,
+		AssetAnalytics = AssetAnalyticsContextItem,
+	})
+end
+
 
 local function mapStateToProps(state, props)
 	state = state or {}

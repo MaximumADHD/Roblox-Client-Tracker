@@ -8,12 +8,13 @@
 		callback ChangeTool: function to change editing tool (point/lattice), provided via mapDispatchToProps
 		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 	Optional Props:
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		table EditingItemContext: An EditingItemContext, which is provided via mapToProps.
-		table Localization: A Localization ContextItem, which is provided via mapToProps.
+		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
+local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -21,6 +22,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local ChangeTool = require(Plugin.Src.Thunks.ChangeTool)
@@ -118,9 +120,10 @@ function SelectItemScreen:init()
 		local isPreviewModel = item:FindFirstAncestor("LayeredClothingEditorPreview") ~= nil
 		local isEditingItem = item == editingItem
 		local isMannequin = editingItem and item == editingItem.Parent
+		local isDescendant = editingItem and item:FindFirstAncestor(editingItem.Name)
 		local isSibling = item and editingItem and item.Parent == editingItem.Parent
 
-		return not (isPreviewModel or isEditingItem or isMannequin or isSibling)
+		return not (isPreviewModel or isEditingItem or isMannequin or isSibling or isDescendant)
 	end
 
 	self.onSelectValidInstance = function(instance)
@@ -177,12 +180,22 @@ function SelectItemScreen:willUnmount()
 	end
 end
 
-ContextServices.mapToProps(SelectItemScreen,{
-	Plugin = ContextServices.Plugin,
-	Stylizer = ContextServices.Stylizer,
-	Localization = ContextServices.Localization,
-	EditingItemContext = EditingItemContext,
-})
+if FFlagLayeredClothingEditorWithContext then
+	SelectItemScreen = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})(SelectItemScreen)
+else
+	ContextServices.mapToProps(SelectItemScreen,{
+		Plugin = ContextServices.Plugin,
+		Stylizer = ContextServices.Stylizer,
+		Localization = ContextServices.Localization,
+		EditingItemContext = EditingItemContext,
+	})
+end
+
 
 local function mapDispatchToProps(dispatch)
 	return {

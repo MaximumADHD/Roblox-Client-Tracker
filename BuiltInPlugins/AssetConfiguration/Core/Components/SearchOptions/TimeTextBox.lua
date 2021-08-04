@@ -15,6 +15,7 @@
 		UDim2 size: the size of the component.
 ]]
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
+local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -22,6 +23,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
 local ContextServices = require(Libs.Framework.ContextServices)
+local withContext = ContextServices.withContext
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 local Constants = require(Plugin.Core.Util.Constants)
@@ -306,8 +308,15 @@ function TimeTextBox:render()
 	end)
 end
 
-ContextServices.mapToProps(TimeTextBox, {
-	Localization = ContextServices.Localization,
-})
+if FFlagToolboxWithContext then
+	TimeTextBox = withContext({
+		Localization = ContextServices.Localization,
+	})(TimeTextBox)
+else
+	ContextServices.mapToProps(TimeTextBox, {
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return TimeTextBox

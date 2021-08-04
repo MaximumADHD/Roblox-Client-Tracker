@@ -1,3 +1,4 @@
+local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local WIDGET_HEIGHT = 25
 
 local TOGGLE_BUTTON_WIDTH = 40
@@ -13,6 +14,7 @@ local Roact = require(Plugin.Roact)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
 local ContextServices = require(Plugin.Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 
@@ -98,10 +100,18 @@ function AssetInput:render()
 	}, children)
 end
 
-ContextServices.mapToProps(AssetInput, {
-	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
-})
+if FFlagGameSettingsWithContext then
+	AssetInput = withContext({
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})(AssetInput)
+else
+	ContextServices.mapToProps(AssetInput, {
+		Localization = ContextServices.Localization,
+		Mouse = ContextServices.Mouse,
+	})
+end
+
 
 calculateTextSize = function(text, textSize, font)
 	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
