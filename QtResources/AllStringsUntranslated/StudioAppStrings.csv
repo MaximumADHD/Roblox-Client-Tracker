@@ -1867,6 +1867,7 @@ Studio.App.Property.ShowCoreGUIInExplorerWhilePlaying,,Show Core GUI in Explorer
 Studio.App.Property.ShowPluginGUIServiceInExplorer,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer
 Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI Service in Explorer,Show Roblox Plugin GUI Service in Explorer
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
+Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
 Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
 Studio.App.SettingsHeader.Network,,Network,Network
@@ -2076,6 +2077,8 @@ Studio.App.BetaFeatures.SkinnedMeshTitle,,Skinned Meshes,Skinned Meshes
 Studio.App.BetaFeatures.SkinnedMeshDescription,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes."
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
+Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
+Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
 Studio.App.BetaFeatures.ProximityPromptDescription,,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.,ProximityPrompt is a new instance type used to prompt the user for input so they can interact with an object in the 3D world.
 Studio.App.BetaFeatures.ClarifiedIKDraggersTitle,,New Physical Draggers,New Physical Draggers

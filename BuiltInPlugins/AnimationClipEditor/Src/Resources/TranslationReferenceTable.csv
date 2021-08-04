@@ -148,3 +148,6 @@ Studio.AnimationClipEditor.Menu.Jaw,Jaw,Jaw,Mandíbula, ,あご,턱,Mandíbula, 
 Studio.AnimationClipEditor.Menu.Brows,Brows,Brows,Cejas, ,眉毛,눈썹,Sobrancelhas, ,眉毛,眉毛,眉毛
 Studio.AnimationClipEditor.Menu.Eyes,Eyes,Eyes,Ojos, ,目,눈,Olhos, ,眼睛,眼睛,眼睛
 Studio.AnimationClipEditor.Menu.AddAllFacs,Add All Facial Animation Controls,Add All Facial Animation Controls,Añadir todos los controles de animación facial, ,すべての顔のアニメーション操作を追加,모든 얼굴 애니메이션 제어 추가,Adicionar todos os controles de animação facial, ,添加所有面部动画控制,添加所有面部动画控制,新增所有臉部動畫控制選項
+Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?, , , , ,O modelo no arquivo FBX difere do modelo selecionado no Editor. Importar a animação baseada no modelo FBX (recomendado)?, , , , 
+Studio.AnimationClipEditor.Toast.AnimationImportUseFBX,FBX,FBX, , ,FBX, ,FBX, , , , 
+Studio.AnimationClipEditor.Toast.AnimationImportUseSelected,Selected,Selected, , ,選択済み, ,Selecionado, , , , 

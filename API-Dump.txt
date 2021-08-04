@@ -800,14 +800,21 @@ Class DataStoreInfo : Instance [NotCreatable] [NotReplicated]
 	Property int64 DataStoreInfo.CreatedTime [ReadOnly]
 	Property string DataStoreInfo.DataStoreName [ReadOnly]
 	Property int64 DataStoreInfo.UpdatedTime [ReadOnly]
+Class DataStoreKey : Instance [NotCreatable] [NotReplicated]
+	Property string DataStoreKey.KeyName [ReadOnly]
 Class DataStoreKeyInfo : Instance [NotCreatable] [NotReplicated]
-	Property string DataStoreKeyInfo.KeyName [ReadOnly]
-Class DataStoreKeyVersionInfo : Instance [NotCreatable] [NotReplicated]
-	Property int64 DataStoreKeyVersionInfo.CreatedTime [ReadOnly]
-	Property int64 DataStoreKeyVersionInfo.UpdatedTime [ReadOnly]
-	Property string DataStoreKeyVersionInfo.Version [ReadOnly]
-	Function Dictionary DataStoreKeyVersionInfo:GetMetadata()
-	Function Array DataStoreKeyVersionInfo:GetUserIds()
+	Property int64 DataStoreKeyInfo.CreatedTime [ReadOnly]
+	Property int64 DataStoreKeyInfo.UpdatedTime [ReadOnly]
+	Property string DataStoreKeyInfo.Version [ReadOnly]
+	Function Dictionary DataStoreKeyInfo:GetMetadata()
+	Function Array DataStoreKeyInfo:GetUserIds()
+Class DataStoreObjectVersionInfo : Instance [NotCreatable] [NotReplicated]
+	Property int64 DataStoreObjectVersionInfo.CreatedTime [ReadOnly]
+	Property bool DataStoreObjectVersionInfo.IsDeleted [ReadOnly]
+	Property string DataStoreObjectVersionInfo.Version [ReadOnly]
+Class DataStoreOptions : Instance [NotReplicated]
+	Property bool DataStoreOptions.AllScopes
+	Function void DataStoreOptions:SetExperimentalFeatures(Dictionary experimentalFeatures)
 Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DataStoreService.AutomaticRetry {LocalUserSecurity} [NotReplicated]
 	Property bool DataStoreService.LegacyNamingScheme {LocalUserSecurity} [Hidden] [Deprecated]
@@ -815,7 +822,7 @@ Class DataStoreService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GlobalDataStore DataStoreService:GetGlobalDataStore()
 	Function OrderedDataStore DataStoreService:GetOrderedDataStore(string name, string scope = "global")
 	Function int DataStoreService:GetRequestBudgetForRequestType(Enum.DataStoreRequestType requestType)
-	Function DataStoreEnumerationPages DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
+	Function DataStoreListingPages DataStoreService:ListDataStoresAsync(string prefix = "", int pageSize = 0) [Yields]
 Class DataStoreSetOptions : Instance [NotReplicated]
 	Function Dictionary DataStoreSetOptions:GetMetadata()
 	Function void DataStoreSetOptions:SetMetadata(Dictionary attributes)
@@ -947,32 +954,39 @@ Class Explosion : Instance
 Class Expression : Instance [NotReplicated]
 	Property string Expression.Expression {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function int Expression:Evaluate(Instance frame, Function status) {RobloxScriptSecurity}
-Class FaceControls : Instance
-	Property float FaceControls.ChinRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.ChinRaiserUpperLip [NotReplicated] [NotScriptable]
+Class FaceControls : Instance [NotBrowsable]
 	Property float FaceControls.Corrugator [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftBrowLowerer [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftInnerBrowRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftNoseWrinkler [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftOuterBrowRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightBrowLowerer [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightInnerBrowRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightNoseWrinkler [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightOuterBrowRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.EyesLookDown [NotReplicated] [NotScriptable]
 	Property float FaceControls.EyesLookLeft [NotReplicated] [NotScriptable]
 	Property float FaceControls.EyesLookRight [NotReplicated] [NotScriptable]
 	Property float FaceControls.EyesLookUp [NotReplicated] [NotScriptable]
-	Property float FaceControls.FlatPucker [NotReplicated] [NotScriptable]
-	Property float FaceControls.Funneler [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftCheekRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftEyeClosed [NotReplicated] [NotScriptable]
+	Property float FaceControls.LeftEyeUpperLidRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightCheekRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightEyeClosed [NotReplicated] [NotScriptable]
+	Property float FaceControls.RightEyeUpperLidRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.JawDrop [NotReplicated] [NotScriptable]
 	Property float FaceControls.JawLeft [NotReplicated] [NotScriptable]
 	Property float FaceControls.JawRight [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftBrowLowerer [NotReplicated] [NotScriptable]
+	Property float FaceControls.ChinRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.ChinRaiserUpperLip [NotReplicated] [NotScriptable]
+	Property float FaceControls.FlatPucker [NotReplicated] [NotScriptable]
+	Property float FaceControls.Funneler [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftCheekPuff [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftCheekRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftDimpler [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftEyeClosed [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftEyeUpperLidRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftInnerBrowRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftLipCornerDown [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftLipCornerPuller [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftLipStretcher [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftLowerLipDepressor [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftNoseWrinkler [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftOuterBrowRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.LeftUpperLipRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.LipPresser [NotReplicated] [NotScriptable]
 	Property float FaceControls.LipsTogether [NotReplicated] [NotScriptable]
@@ -980,24 +994,17 @@ Class FaceControls : Instance
 	Property float FaceControls.MouthLeft [NotReplicated] [NotScriptable]
 	Property float FaceControls.MouthRight [NotReplicated] [NotScriptable]
 	Property float FaceControls.Pucker [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightBrowLowerer [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightCheekPuff [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightCheekRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightDimpler [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightEyeClosed [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightEyeUpperLidRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightInnerBrowRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightLipCornerDown [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightLipCornerPuller [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightLipStretcher [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightLowerLipDepressor [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightNoseWrinkler [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightOuterBrowRaiser [NotReplicated] [NotScriptable]
 	Property float FaceControls.RightUpperLipRaiser [NotReplicated] [NotScriptable]
+	Property float FaceControls.UpperLipSuck [NotReplicated] [NotScriptable]
 	Property float FaceControls.TongueDown [NotReplicated] [NotScriptable]
 	Property float FaceControls.TongueOut [NotReplicated] [NotScriptable]
 	Property float FaceControls.TongueUp [NotReplicated] [NotScriptable]
-	Property float FaceControls.UpperLipSuck [NotReplicated] [NotScriptable]
 Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.NormalId FaceInstance.Face
 Class Decal : FaceInstance
@@ -1063,9 +1070,6 @@ Class GamepadService : Instance [NotCreatable] [Service]
 	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
-Class GetDataStoreOptions : Instance [NotReplicated]
-	Property bool GetDataStoreOptions.AllScopes
-	Function void GetDataStoreOptions:SetExperimentalFeatures(Dictionary experimentalFeatures)
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
 	Function Variant GlobalDataStore:IncrementAsync(string key, int delta = 1, Array userIds = {}, DataStoreIncrementOptions options = nil) [Yields]
@@ -2118,10 +2122,6 @@ Class NotificationService : Instance [NotCreatable] [Service]
 	Event NotificationService.Roblox17sEventReceived(Map eventData)
 	Event NotificationService.RobloxConnectionChanged(string connectionName, Enum.ConnectionState connectionState, string sequenceNumber, string namespaceSequenceNumbers) {RobloxScriptSecurity}
 	Event NotificationService.RobloxEventReceived(Map eventData) {RobloxScriptSecurity}
-Class ObjectVersionInfo : Instance [NotCreatable] [NotReplicated]
-	Property int64 ObjectVersionInfo.CreatedTime [ReadOnly]
-	Property bool ObjectVersionInfo.IsDeleted [ReadOnly]
-	Property string ObjectVersionInfo.Version [ReadOnly]
 Class PVInstance : Instance [NotCreatable] [NotBrowsable]
 	Property Vector3 PVInstance.Pivot Offset Orientation [NotReplicated] [NotScriptable]
 	Property Vector3 PVInstance.Pivot Offset Position [NotReplicated] [NotScriptable]
@@ -2411,8 +2411,8 @@ Class Pages : Instance [NotCreatable] [NotReplicated]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
 	Function Array Pages:GetCurrentPage()
 Class CatalogPages : Pages [NotCreatable] [NotReplicated]
-Class DataStoreEnumerationPages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreKeyPages : Pages [NotCreatable] [NotReplicated]
+Class DataStoreListingPages : Pages [NotCreatable] [NotReplicated]
 Class DataStorePages : Pages [NotCreatable] [NotReplicated]
 Class DataStoreVersionPages : Pages [NotCreatable] [NotReplicated]
 Class FriendPages : Pages [NotCreatable] [NotReplicated]
@@ -2453,6 +2453,8 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Function Array Path:GetPointCoordinates() [Deprecated]
 	Function Array Path:GetWaypoints()
 	Event Path.Blocked(int blockedWaypointIdx)
+Class PathfindingModifier : Instance
+	Property string PathfindingModifier.ModifierId
 Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float PathfindingService.EmptyCutoff [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Function Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [Yields] [Deprecated]
@@ -3302,7 +3304,7 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
 	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool Studio.Disable Accurate Play Solo
+	Property bool Studio.DEPRECATED_DisableAccuratePlaySolo {RobloxScriptSecurity}
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Http Sandboxing
@@ -3427,6 +3429,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Show Hover Over
 	Property Enum.RuntimeUndoBehavior Studio.RuntimeUndoBehavior
 	Property bool Studio.Show Light Guides {RobloxScriptSecurity}
+	Property bool Studio.Show Navigation Areas {RobloxScriptSecurity}
 	Property bool Studio.Show Navigation Mesh
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}

@@ -120,6 +120,8 @@ Studio.App.BetaFeatures.DynamicIndoorEnvMapDescription,,"Enables automatically u
 Studio.App.BetaFeatures.DynamicIndoorEnvMapTitle,,Dynamic Indoor Environment Map,Dynamic Indoor Environment Map
 Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
+Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
+Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
 Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
 Studio.App.BetaFeatures.ForumPostTitleEnding,,%1 is now enabled,%1 is now enabled
@@ -1413,6 +1415,7 @@ Studio.App.Property.ShowFileSyncService,,Show FileSyncService,Show FileSyncServi
 Studio.App.Property.ShowHiddenObjectsInExplorer,,Show Hidden Objects in Explorer,Show Hidden Objects in Explorer
 Studio.App.Property.ShowHoverOver,,Show Hover Over,Show Hover Over
 Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
+Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
 Studio.App.Property.ShowPluginGUIServiceInExplorer,,Show Plugin GUI Service in Explorer,Show Plugin GUI Service in Explorer
 Studio.App.Property.ShowPlusButtonOnHoverInExplorer,,Show plus button on hover in Explorer,Show plus button on hover in Explorer

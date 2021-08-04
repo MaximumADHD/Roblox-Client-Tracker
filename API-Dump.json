@@ -15142,7 +15142,7 @@
                 }
             ],
             "MemoryCategory": "Instances",
-            "Name": "DataStoreKeyInfo",
+            "Name": "DataStoreKey",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
@@ -15243,10 +15243,134 @@
                 }
             ],
             "MemoryCategory": "Instances",
-            "Name": "DataStoreKeyVersionInfo",
+            "Name": "DataStoreKeyInfo",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CreatedTime",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "IsDeleted",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Version",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStoreObjectVersionInfo",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "AllScopes",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetExperimentalFeatures",
+                    "Parameters": [
+                        {
+                            "Name": "experimentalFeatures",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "DataStoreOptions",
+            "Superclass": "Instance",
+            "Tags": [
                 "NotReplicated"
             ]
         },
@@ -15411,7 +15535,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "DataStoreEnumerationPages"
+                        "Name": "DataStoreListingPages"
                     },
                     "Security": "None",
                     "Tags": [
@@ -17939,7 +18063,7 @@
         {
             "Members": [
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "ChinRaiser",
                     "Security": {
@@ -17961,7 +18085,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "ChinRaiserUpperLip",
                     "Security": {
@@ -17983,7 +18107,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "Corrugator",
                     "Security": {
@@ -18005,7 +18129,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "EyesLookDown",
                     "Security": {
@@ -18027,7 +18151,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "EyesLookLeft",
                     "Security": {
@@ -18049,7 +18173,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "EyesLookRight",
                     "Security": {
@@ -18071,7 +18195,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "EyesLookUp",
                     "Security": {
@@ -18093,7 +18217,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "FlatPucker",
                     "Security": {
@@ -18115,7 +18239,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "Funneler",
                     "Security": {
@@ -18137,7 +18261,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Jaw",
                     "MemberType": "Property",
                     "Name": "JawDrop",
                     "Security": {
@@ -18159,7 +18283,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Jaw",
                     "MemberType": "Property",
                     "Name": "JawLeft",
                     "Security": {
@@ -18181,7 +18305,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Jaw",
                     "MemberType": "Property",
                     "Name": "JawRight",
                     "Security": {
@@ -18203,7 +18327,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "LeftBrowLowerer",
                     "Security": {
@@ -18225,7 +18349,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftCheekPuff",
                     "Security": {
@@ -18247,7 +18371,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "LeftCheekRaiser",
                     "Security": {
@@ -18269,7 +18393,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftDimpler",
                     "Security": {
@@ -18291,7 +18415,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "LeftEyeClosed",
                     "Security": {
@@ -18313,7 +18437,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "LeftEyeUpperLidRaiser",
                     "Security": {
@@ -18335,7 +18459,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "LeftInnerBrowRaiser",
                     "Security": {
@@ -18357,7 +18481,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftLipCornerDown",
                     "Security": {
@@ -18379,7 +18503,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftLipCornerPuller",
                     "Security": {
@@ -18401,7 +18525,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftLipStretcher",
                     "Security": {
@@ -18423,7 +18547,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftLowerLipDepressor",
                     "Security": {
@@ -18445,7 +18569,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "LeftNoseWrinkler",
                     "Security": {
@@ -18467,7 +18591,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "LeftOuterBrowRaiser",
                     "Security": {
@@ -18489,7 +18613,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LeftUpperLipRaiser",
                     "Security": {
@@ -18511,7 +18635,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LipPresser",
                     "Security": {
@@ -18533,7 +18657,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LipsTogether",
                     "Security": {
@@ -18555,7 +18679,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "LowerLipSuck",
                     "Security": {
@@ -18577,7 +18701,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "MouthLeft",
                     "Security": {
@@ -18599,7 +18723,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "MouthRight",
                     "Security": {
@@ -18621,7 +18745,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "Pucker",
                     "Security": {
@@ -18643,7 +18767,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "RightBrowLowerer",
                     "Security": {
@@ -18665,7 +18789,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightCheekPuff",
                     "Security": {
@@ -18687,7 +18811,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "RightCheekRaiser",
                     "Security": {
@@ -18709,7 +18833,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightDimpler",
                     "Security": {
@@ -18731,7 +18855,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "RightEyeClosed",
                     "Security": {
@@ -18753,7 +18877,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Eyes",
                     "MemberType": "Property",
                     "Name": "RightEyeUpperLidRaiser",
                     "Security": {
@@ -18775,7 +18899,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "RightInnerBrowRaiser",
                     "Security": {
@@ -18797,7 +18921,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightLipCornerDown",
                     "Security": {
@@ -18819,7 +18943,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightLipCornerPuller",
                     "Security": {
@@ -18841,7 +18965,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightLipStretcher",
                     "Security": {
@@ -18863,7 +18987,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightLowerLipDepressor",
                     "Security": {
@@ -18885,7 +19009,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "RightNoseWrinkler",
                     "Security": {
@@ -18907,7 +19031,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Brows",
                     "MemberType": "Property",
                     "Name": "RightOuterBrowRaiser",
                     "Security": {
@@ -18929,7 +19053,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "RightUpperLipRaiser",
                     "Security": {
@@ -18951,7 +19075,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Tongue",
                     "MemberType": "Property",
                     "Name": "TongueDown",
                     "Security": {
@@ -18973,7 +19097,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Tongue",
                     "MemberType": "Property",
                     "Name": "TongueOut",
                     "Security": {
@@ -18995,7 +19119,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Tongue",
                     "MemberType": "Property",
                     "Name": "TongueUp",
                     "Security": {
@@ -19017,7 +19141,7 @@
                     }
                 },
                 {
-                    "Category": "Control",
+                    "Category": "Mouth",
                     "MemberType": "Property",
                     "Name": "UpperLipSuck",
                     "Security": {
@@ -19041,7 +19165,10 @@
             ],
             "MemoryCategory": "Animation",
             "Name": "FaceControls",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -20102,53 +20229,6 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "AllScopes",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetExperimentalFeatures",
-                    "Parameters": [
-                        {
-                            "Name": "experimentalFeatures",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Dictionary"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "GetDataStoreOptions",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotReplicated"
             ]
         },
         {
@@ -39909,83 +39989,6 @@
         {
             "Members": [
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "CreatedTime",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "IsDeleted",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Version",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": true
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "ObjectVersionInfo",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
                     "Category": "Transform",
                     "MemberType": "Property",
                     "Name": "Origin Orientation",
@@ -46104,7 +46107,7 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "DataStoreEnumerationPages",
+            "Name": "DataStoreKeyPages",
             "Superclass": "Pages",
             "Tags": [
                 "NotCreatable",
@@ -46115,7 +46118,7 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
-            "Name": "DataStoreKeyPages",
+            "Name": "DataStoreListingPages",
             "Superclass": "Pages",
             "Tags": [
                 "NotCreatable",
@@ -46770,6 +46773,31 @@
                 "NotCreatable",
                 "NotReplicated"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ModifierId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PathfindingModifier",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -63291,6 +63319,24 @@
                     }
                 },
                 {
+                    "Category": "Advanced",
+                    "MemberType": "Property",
+                    "Name": "DEPRECATED_DisableAccuratePlaySolo",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Debugger Current Line Color",
@@ -63354,24 +63400,6 @@
                     "Category": "Browsing",
                     "MemberType": "Property",
                     "Name": "DeprecatedObjectsShown",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "Disable Accurate Play Solo",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -64831,6 +64859,24 @@
                     "Category": "Visualization",
                     "MemberType": "Property",
                     "Name": "Show Light Guides",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Visualization",
+                    "MemberType": "Property",
+                    "Name": "Show Navigation Areas",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"

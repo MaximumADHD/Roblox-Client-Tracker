@@ -30,6 +30,8 @@ Studio.AssetManager.ContextMenu.RenameAlias,Rename Alias,Rename Alias
 Studio.AssetManager.Folders.SCRIPTS,Scripts,Scripts
 Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details
 Studio.AssetManager.Folders.AUDIO,Audio,Audio
+Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game
+Studio.AssetManager.Folders.MODELS,Models,Models
 Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found,No {assetType} Found
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages
@@ -49,7 +51,6 @@ Studio.AssetManager.ContextMenu.Insert,Insert,Insert
 Studio.AssetManager.TopBar.ListViewButton,List View,List View
 Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script,Insert As Local Script
 Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script,Insert As Module Script
-Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script
 Studio.AssetManager.MainView.SaveText,Save to start using Asset Manager.,Save to start using Asset Manager.
 Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added
