@@ -27,6 +27,7 @@
 		Enum.TextXAlignment TextXAlignment: The X Alignment of the text.
 		Enum.TextYAlignment TextYAlignment: The Y Alignment of the text.
 		number TextSize: The font size of the text.
+		string PlaceholderText: The PlaceholderText.
 
 	Style Values:
 		Enum.Font Font: The font used to render the text.

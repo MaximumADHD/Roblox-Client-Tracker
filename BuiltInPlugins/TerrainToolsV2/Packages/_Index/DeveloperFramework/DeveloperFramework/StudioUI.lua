@@ -11,6 +11,7 @@ local StudioUI = strict({
 
 	-- PluginWidgets
 	AssetRender = require(script.AssetRender),
+	AssetRenderModel = require(script.AssetRenderModel),
 	AssetPreview = require(script.AssetPreview),
 	AudioPlayer = require(script.AudioPlayer),
 	DockWidget = require(script.DockWidget),

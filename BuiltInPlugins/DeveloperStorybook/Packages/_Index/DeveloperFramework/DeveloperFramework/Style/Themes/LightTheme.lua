@@ -20,15 +20,22 @@ return {
 	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
 
 	[StyleKey.CategoryItem] = Color3.fromRGB(233, 233, 233),
+	[StyleKey.CurrentMarker] = Colors.Blue,
 
+	[StyleKey.DialogButton] = Colors.White,
 	[StyleKey.DialogButtonBorder] = Colors.Gray_Light,
+	[StyleKey.DialogButtonHover] = Colors.Blue_Light,
+	[StyleKey.DialogButtonPressed] = Color3.fromRGB(219, 219, 219),
+	[StyleKey.DialogButtonText] = Colors.White,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Color3.fromRGB(153, 218, 255),
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
+	[StyleKey.DialogMainButtonPressed] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonSelected] = Colors.Blue_Dark,
 	[StyleKey.DialogMainButtonText] = Colors.White,
 	[StyleKey.DialogMainButtonTextDisabled] = Colors.White,
 	[StyleKey.DimmedText] = Color3.fromRGB(136, 136, 136),
+	[StyleKey.Dropdown] = Colors.White,
 
 	[StyleKey.ErrorText] = Colors.Red,
 
@@ -37,6 +44,7 @@ return {
 	[StyleKey.InputFieldBorder] = Color3.fromRGB(200, 200, 200),
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(182, 182, 182),
 	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(102, 145, 220),
+	[StyleKey.Item] = Colors.White,
 	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,
 
@@ -61,6 +69,7 @@ return {
 	[StyleKey.SliderBackground] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
 
+	[StyleKey.Titlebar] = Color3.fromRGB(227, 227, 227),
 	[StyleKey.TitlebarText] = Colors.Black,
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png",
 	[StyleKey.ToggleOffImage] = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png",

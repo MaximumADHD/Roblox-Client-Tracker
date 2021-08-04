@@ -11,8 +11,8 @@
 		callback OnTextChanged: Callback to tell parent that text has changed
 		UDim2 Size: The size of the component.
 		Style Style: The style with which to render this component.
-		Theme Theme: A Theme ContextItem, which is provided via withContext.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
 
 	Style Values:
 		Component Background: The Decoration to use as this component's background.
