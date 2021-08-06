@@ -8,13 +8,14 @@
 
 The **Roblox Client Tracker** is an unofficial change tracker for Roblox Studio which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from Roblox's Amazon S3 deployment endpoints. The data that is analyzed and presented in this repository is generated using publicly known Roblox domains and reverse engineered file formats.
 
-# Comparison Links
-Comparison Links are no longer available at this time, as Roblox has pulled down `sitetest1` and `sitetest2`.
-~~Use these links to compare development builds of Roblox Studio:~~
+# <s>Comparison Links</s>
+> Comparison Links are no longer available at this time, as Roblox has pulled down `sitetest1` and `sitetest2`.<br/>
 
-* ~~Compare roblox->sitetest1~~
-* ~~Compare roblox->sitetest2~~
-* ~~Compare sitetest1->sitetest2~~
+<s>Use these links to compare development builds of Roblox Studio:</s>
+
+* <s>Compare roblox->sitetest1</s>
+* <s>Compare roblox->sitetest2</s>
+* <s>Compare sitetest1->sitetest2</s>
 
 # Source Code
 
@@ -53,13 +54,13 @@ A file that describes (almost) every file that is expected to be extracted from 
 Every two lines of this file corresponds to a local file path, and the MD5 checksum expected of the file extracted to that path.
 
 This file can be fetched at:
-`http://s3.amazonaws.com/setup.{BRANCH_NAME}.com/{version-guid}-rbxManifest.txt`
+`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-rbxManifest.txt`
 
 ## rbxPkgManifest.txt
 A file that describes which zip files should be fetched from Roblox's Amazon S3 bucket.
 
 This file can be fetched at:
-`http://s3.amazonaws.com/setup.{BRANCH_NAME}.com/{version-guid}-rbxPkgManifest.txt`
+`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-rbxPkgManifest.txt`
 
 The file starts with a line describing the version for the package manifest schema.
 After the version, information about each file is listed sequentually as such:
@@ -72,7 +73,7 @@ Decompressed Size
 ```
 
 These files are fetched from Amazon S3 via:
-`http://s3.amazonaws.com/setup.{BRANCH_NAME}.com/{version-guid}-{File.ext}`<br/>
+`http://s3.amazonaws.com/setup.roblox.com/{version-guid}-{File.ext}`<br/>
 
 ## rbxManifest.csv
 A CSV version of `rbxManifest.txt`, made to be easier to read from GitHub.
