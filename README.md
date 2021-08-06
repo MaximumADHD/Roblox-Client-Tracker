@@ -9,7 +9,7 @@
 The **Roblox Client Tracker** is an unofficial change tracker for Roblox Studio which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from Roblox's Amazon S3 deployment endpoints. The data that is analyzed and presented in this repository is generated using publicly known Roblox domains and reverse engineered file formats.
 
 # <s>Comparison Links</s>
-> Comparison Links are no longer available at this time, as Roblox has pulled down `sitetest1` and `sitetest2`.<br/>
+> Comparison Links are not available at this time, as `sitetest1.robloxlabs` and `sitetest2.robloxlabs` are no longer publicly updated.<br/>
 
 <s>Use these links to compare development builds of Roblox Studio:</s>
 
