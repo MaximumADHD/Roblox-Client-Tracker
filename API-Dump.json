@@ -10558,28 +10558,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "Group",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "Icon",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -10749,14 +10727,21 @@
                     "Name": "RegisterCommand",
                     "Parameters": [
                         {
-                            "Name": "name",
+                            "Name": "pluginname",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Plugin"
+                            }
+                        },
+                        {
+                            "Name": "description",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
                             }
                         },
                         {
-                            "Name": "description",
+                            "Name": "",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -11770,6 +11755,175 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "LineForce",
+            "Superclass": "Constraint"
+        },
+        {
+            "Members": [
+                {
+                    "Category": "LineConstraint",
+                    "MemberType": "Property",
+                    "Name": "LineDirection",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "LineConstraint",
+                    "MemberType": "Property",
+                    "Name": "LineVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Limits",
+                    "MemberType": "Property",
+                    "Name": "MaxForce",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "PlaneConstraint",
+                    "MemberType": "Property",
+                    "Name": "PlaneVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "PlaneConstraint",
+                    "MemberType": "Property",
+                    "Name": "PrimaryTangentAxis",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Mode",
+                    "MemberType": "Property",
+                    "Name": "RelativeTo",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ActuatorRelativeTo"
+                    }
+                },
+                {
+                    "Category": "PlaneConstraint",
+                    "MemberType": "Property",
+                    "Name": "SecondaryTangentAxis",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "VectorConstraint",
+                    "MemberType": "Property",
+                    "Name": "VectorVelocity",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Mode",
+                    "MemberType": "Property",
+                    "Name": "VelocityConstraintMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VelocityConstraintMode"
+                    }
+                }
+            ],
+            "MemoryCategory": "PhysicsParts",
+            "Name": "LinearVelocityConstraint",
             "Superclass": "Constraint"
         },
         {
@@ -18067,16 +18221,15 @@
                     "MemberType": "Property",
                     "Name": "ChinRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18089,16 +18242,15 @@
                     "MemberType": "Property",
                     "Name": "ChinRaiserUpperLip",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18111,16 +18263,15 @@
                     "MemberType": "Property",
                     "Name": "Corrugator",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18133,16 +18284,15 @@
                     "MemberType": "Property",
                     "Name": "EyesLookDown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18155,16 +18305,15 @@
                     "MemberType": "Property",
                     "Name": "EyesLookLeft",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18177,16 +18326,15 @@
                     "MemberType": "Property",
                     "Name": "EyesLookRight",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18199,16 +18347,15 @@
                     "MemberType": "Property",
                     "Name": "EyesLookUp",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18221,16 +18368,15 @@
                     "MemberType": "Property",
                     "Name": "FlatPucker",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18243,16 +18389,15 @@
                     "MemberType": "Property",
                     "Name": "Funneler",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18265,16 +18410,15 @@
                     "MemberType": "Property",
                     "Name": "JawDrop",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18287,16 +18431,15 @@
                     "MemberType": "Property",
                     "Name": "JawLeft",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18309,16 +18452,15 @@
                     "MemberType": "Property",
                     "Name": "JawRight",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18331,16 +18473,15 @@
                     "MemberType": "Property",
                     "Name": "LeftBrowLowerer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18353,16 +18494,15 @@
                     "MemberType": "Property",
                     "Name": "LeftCheekPuff",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18375,16 +18515,15 @@
                     "MemberType": "Property",
                     "Name": "LeftCheekRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18397,16 +18536,15 @@
                     "MemberType": "Property",
                     "Name": "LeftDimpler",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18419,16 +18557,15 @@
                     "MemberType": "Property",
                     "Name": "LeftEyeClosed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18441,16 +18578,15 @@
                     "MemberType": "Property",
                     "Name": "LeftEyeUpperLidRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18463,16 +18599,15 @@
                     "MemberType": "Property",
                     "Name": "LeftInnerBrowRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18485,16 +18620,15 @@
                     "MemberType": "Property",
                     "Name": "LeftLipCornerDown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18507,16 +18641,15 @@
                     "MemberType": "Property",
                     "Name": "LeftLipCornerPuller",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18529,16 +18662,15 @@
                     "MemberType": "Property",
                     "Name": "LeftLipStretcher",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18551,16 +18683,15 @@
                     "MemberType": "Property",
                     "Name": "LeftLowerLipDepressor",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18573,16 +18704,15 @@
                     "MemberType": "Property",
                     "Name": "LeftNoseWrinkler",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18595,16 +18725,15 @@
                     "MemberType": "Property",
                     "Name": "LeftOuterBrowRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18617,16 +18746,15 @@
                     "MemberType": "Property",
                     "Name": "LeftUpperLipRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18639,16 +18767,15 @@
                     "MemberType": "Property",
                     "Name": "LipPresser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18661,16 +18788,15 @@
                     "MemberType": "Property",
                     "Name": "LipsTogether",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18683,16 +18809,15 @@
                     "MemberType": "Property",
                     "Name": "LowerLipSuck",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18705,16 +18830,15 @@
                     "MemberType": "Property",
                     "Name": "MouthLeft",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18727,16 +18851,15 @@
                     "MemberType": "Property",
                     "Name": "MouthRight",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18749,16 +18872,15 @@
                     "MemberType": "Property",
                     "Name": "Pucker",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18771,16 +18893,15 @@
                     "MemberType": "Property",
                     "Name": "RightBrowLowerer",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18793,16 +18914,15 @@
                     "MemberType": "Property",
                     "Name": "RightCheekPuff",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18815,16 +18935,15 @@
                     "MemberType": "Property",
                     "Name": "RightCheekRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18837,16 +18956,15 @@
                     "MemberType": "Property",
                     "Name": "RightDimpler",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18859,16 +18977,15 @@
                     "MemberType": "Property",
                     "Name": "RightEyeClosed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18881,16 +18998,15 @@
                     "MemberType": "Property",
                     "Name": "RightEyeUpperLidRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18903,16 +19019,15 @@
                     "MemberType": "Property",
                     "Name": "RightInnerBrowRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18925,16 +19040,15 @@
                     "MemberType": "Property",
                     "Name": "RightLipCornerDown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18947,16 +19061,15 @@
                     "MemberType": "Property",
                     "Name": "RightLipCornerPuller",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18969,16 +19082,15 @@
                     "MemberType": "Property",
                     "Name": "RightLipStretcher",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -18991,16 +19103,15 @@
                     "MemberType": "Property",
                     "Name": "RightLowerLipDepressor",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19013,16 +19124,15 @@
                     "MemberType": "Property",
                     "Name": "RightNoseWrinkler",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19035,16 +19145,15 @@
                     "MemberType": "Property",
                     "Name": "RightOuterBrowRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19057,16 +19166,15 @@
                     "MemberType": "Property",
                     "Name": "RightUpperLipRaiser",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19079,16 +19187,15 @@
                     "MemberType": "Property",
                     "Name": "TongueDown",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19101,16 +19208,15 @@
                     "MemberType": "Property",
                     "Name": "TongueOut",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19123,16 +19229,15 @@
                     "MemberType": "Property",
                     "Name": "TongueUp",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -19145,16 +19250,15 @@
                     "MemberType": "Property",
                     "Name": "UpperLipSuck",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
                         "CanSave": false
                     },
                     "Tags": [
-                        "NotReplicated",
-                        "NotScriptable"
+                        "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -22440,6 +22544,24 @@
                 {
                     "Category": "Image",
                     "MemberType": "Property",
+                    "Name": "ResampleMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ResamplerMode"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
                     "Name": "ScaleType",
                     "Security": {
                         "Read": "None",
@@ -23066,6 +23188,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
+                    "Name": "ResampleMode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ResamplerMode"
                     }
                 },
                 {
@@ -25552,6 +25692,18 @@
                         "Category": "DataType",
                         "Name": "Vector3"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetScreenSpaceBounds",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Variant"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -32500,6 +32652,271 @@
             "Tags": [
                 "NotCreatable",
                 "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Id",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ImportName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ShouldImport",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterBaseSettings",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterGroupSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DoubleSided",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterMeshSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FileDimensions",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "FlattenAll",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PolygonCount",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ScaleUnit",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "MeshScaleUnit"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "WorldForward",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "NormalId"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "WorldUp",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "NormalId"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ZeroOrigin",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterRootSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterTextureSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
                 "NotReplicated"
             ]
         },
@@ -54609,6 +55026,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "AddGlobalPointsTag",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetClientId",
                     "Parameters": [
                     ],
@@ -54653,6 +55096,25 @@
                 {
                     "MemberType": "Function",
                     "Name": "RemoveGlobalPointsField",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveGlobalPointsTag",
                     "Parameters": [
                         {
                             "Name": "key",
@@ -75809,6 +76271,395 @@
         {
             "Members": [
                 {
+                    "Category": "State",
+                    "MemberType": "Property",
+                    "Name": "VoiceChatState",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "VoiceChatState"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAndClearCallFailureMessage",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAudioProcessingSettings",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetGroupId",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMicDevices",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetParticipants",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSpeakerDevices",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetVoiceChatApiVersion",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetVoiceChatAvailable",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsPublishPaused",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsSubscribePaused",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "JoinByGroupId",
+                    "Parameters": [
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "isMicMuted",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "JoinByGroupIdToken",
+                    "Parameters": [
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "isMicMuted",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Leave",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PublishPause",
+                    "Parameters": [
+                        {
+                            "Name": "paused",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetMicDevice",
+                    "Parameters": [
+                        {
+                            "Name": "micDeviceName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "micDeviceGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetSpeakerDevice",
+                    "Parameters": [
+                        {
+                            "Name": "speakerDeviceName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "speakerDeviceGuid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribePause",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "paused",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ParticipantsStateChanged",
+                    "Parameters": [
+                        {
+                            "Name": "participantsLeft",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "participantsJoined",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        },
+                        {
+                            "Name": "updatedStates",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PlayerMicActivitySignalChange",
+                    "Parameters": [
+                        {
+                            "Name": "activityInfo",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "StateChanged",
+                    "Parameters": [
+                        {
+                            "Name": "old",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "VoiceChatState"
+                            }
+                        },
+                        {
+                            "Name": "new",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "VoiceChatState"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "VoiceChatService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "UserId",
@@ -81149,6 +82000,35 @@
         {
             "Items": [
                 {
+                    "Name": "Stud",
+                    "Value": 0
+                },
+                {
+                    "Name": "Meter",
+                    "Value": 1
+                },
+                {
+                    "Name": "CM",
+                    "Value": 2
+                },
+                {
+                    "Name": "MM",
+                    "Value": 3
+                },
+                {
+                    "Name": "Foot",
+                    "Value": 4
+                },
+                {
+                    "Name": "Inch",
+                    "Value": 5
+                }
+            ],
+            "Name": "MeshScaleUnit"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Head",
                     "Value": 0
                 },
@@ -82119,6 +82999,19 @@
                 }
             ],
             "Name": "RenderingTestComparisonMethod"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Pixelated",
+                    "Value": 1
+                }
+            ],
+            "Name": "ResamplerMode"
         },
         {
             "Items": [
@@ -84342,6 +85235,23 @@
         {
             "Items": [
                 {
+                    "Name": "Line",
+                    "Value": 0
+                },
+                {
+                    "Name": "Plane",
+                    "Value": 1
+                },
+                {
+                    "Name": "Vector",
+                    "Value": 2
+                }
+            ],
+            "Name": "VelocityConstraintMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Center",
                     "Value": 0
                 },
@@ -84431,6 +85341,39 @@
                 }
             ],
             "Name": "VirtualInputMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Idle",
+                    "Value": 0
+                },
+                {
+                    "Name": "Joining",
+                    "Value": 1
+                },
+                {
+                    "Name": "JoiningRetry",
+                    "Value": 2
+                },
+                {
+                    "Name": "Joined",
+                    "Value": 3
+                },
+                {
+                    "Name": "Leaving",
+                    "Value": 4
+                },
+                {
+                    "Name": "Ended",
+                    "Value": 5
+                },
+                {
+                    "Name": "Failed",
+                    "Value": 6
+                }
+            ],
+            "Name": "VoiceChatState"
         },
         {
             "Items": [

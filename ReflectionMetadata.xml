@@ -1132,6 +1132,71 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">LinearVelocity</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">101</string>
+        <string name="PreferredParent">BasePart</string>
+      </Properties>
+		<Item class="ReflectionMetadataProperties">
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">Mode</string>
+					<string name="summary">Selects the mode of the velocity constraint.  Options Line, Plane, Vector</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">LineDirection</string>
+					<string name="summary">Direction of the line used to contraint the velocity to a line.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">LineVelocity</string>
+					<string name="summary">The value of the constraint velocity along a line.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">PlanePrimaryTangent</string>
+					<string name="summary">The primary axis in the plane.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">PlaneSecondaryTangent</string>
+					<string name="summary">The secondary axis in the plane.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">PlaneVelocity</string>
+					<string name="summary">Velocity coefficients in the constraint plane.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">Velocity</string>
+					<string name="summary">Constraint velocity for the Vector mode.</string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">MaxForce</string>
+					<string name="summary">Maximum force magnitude that is applied to satisfy the constraint. </string>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">RelativeTo</string>
+					<string name="summary">Selects whether the velocity orientation is relative to attachment0, attachment1 or the world. </string>
+				</Properties>
+			</Item>
+		</Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Mouse</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">

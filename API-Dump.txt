@@ -547,7 +547,6 @@ Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Property bool CommandInstance.Checked {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.DefaultShortcut {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property bool CommandInstance.Enabled {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string CommandInstance.Group [ReadOnly]
 	Property string CommandInstance.Icon {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.Name [ReadOnly]
 	Property Enum.CommandPermission CommandInstance.Permission {RobloxScriptSecurity} [ReadOnly]
@@ -556,7 +555,7 @@ Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Function void CommandInstance:RegisterExecutionCallback(Function callbackFunction) {RobloxScriptSecurity}
 Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CommandService:Execute(string name, Variant params) {RobloxScriptSecurity} [Yields]
-	Function CommandInstance CommandService:RegisterCommand(string name, string description) {RobloxScriptSecurity} [Yields]
+	Function CommandInstance CommandService:RegisterCommand(Plugin pluginname, string description, string ) {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(string name, Variant params) {RobloxScriptSecurity}
 Class Configuration : Instance
 Class Constraint : Instance [NotCreatable]
@@ -616,6 +615,16 @@ Class LineForce : Constraint
 	Property float LineForce.Magnitude
 	Property float LineForce.MaxForce
 	Property bool LineForce.ReactionForceEnabled
+Class LinearVelocityConstraint : Constraint
+	Property float LinearVelocityConstraint.MaxForce
+	Property Vector3 LinearVelocityConstraint.LineDirection
+	Property float LinearVelocityConstraint.LineVelocity
+	Property Enum.ActuatorRelativeTo LinearVelocityConstraint.RelativeTo
+	Property Enum.VelocityConstraintMode LinearVelocityConstraint.VelocityConstraintMode
+	Property Vector2 LinearVelocityConstraint.PlaneVelocity
+	Property Vector3 LinearVelocityConstraint.PrimaryTangentAxis
+	Property Vector3 LinearVelocityConstraint.SecondaryTangentAxis
+	Property Vector3 LinearVelocityConstraint.VectorVelocity
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
@@ -955,56 +964,56 @@ Class Expression : Instance [NotReplicated]
 	Property string Expression.Expression {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function int Expression:Evaluate(Instance frame, Function status) {RobloxScriptSecurity}
 Class FaceControls : Instance [NotBrowsable]
-	Property float FaceControls.Corrugator [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftBrowLowerer [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftInnerBrowRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftNoseWrinkler [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftOuterBrowRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightBrowLowerer [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightInnerBrowRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightNoseWrinkler [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightOuterBrowRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.EyesLookDown [NotReplicated] [NotScriptable]
-	Property float FaceControls.EyesLookLeft [NotReplicated] [NotScriptable]
-	Property float FaceControls.EyesLookRight [NotReplicated] [NotScriptable]
-	Property float FaceControls.EyesLookUp [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftCheekRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftEyeClosed [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftEyeUpperLidRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightCheekRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightEyeClosed [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightEyeUpperLidRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.JawDrop [NotReplicated] [NotScriptable]
-	Property float FaceControls.JawLeft [NotReplicated] [NotScriptable]
-	Property float FaceControls.JawRight [NotReplicated] [NotScriptable]
-	Property float FaceControls.ChinRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.ChinRaiserUpperLip [NotReplicated] [NotScriptable]
-	Property float FaceControls.FlatPucker [NotReplicated] [NotScriptable]
-	Property float FaceControls.Funneler [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftCheekPuff [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftDimpler [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftLipCornerDown [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftLipCornerPuller [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftLipStretcher [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftLowerLipDepressor [NotReplicated] [NotScriptable]
-	Property float FaceControls.LeftUpperLipRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.LipPresser [NotReplicated] [NotScriptable]
-	Property float FaceControls.LipsTogether [NotReplicated] [NotScriptable]
-	Property float FaceControls.LowerLipSuck [NotReplicated] [NotScriptable]
-	Property float FaceControls.MouthLeft [NotReplicated] [NotScriptable]
-	Property float FaceControls.MouthRight [NotReplicated] [NotScriptable]
-	Property float FaceControls.Pucker [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightCheekPuff [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightDimpler [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightLipCornerDown [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightLipCornerPuller [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightLipStretcher [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightLowerLipDepressor [NotReplicated] [NotScriptable]
-	Property float FaceControls.RightUpperLipRaiser [NotReplicated] [NotScriptable]
-	Property float FaceControls.UpperLipSuck [NotReplicated] [NotScriptable]
-	Property float FaceControls.TongueDown [NotReplicated] [NotScriptable]
-	Property float FaceControls.TongueOut [NotReplicated] [NotScriptable]
-	Property float FaceControls.TongueUp [NotReplicated] [NotScriptable]
+	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftInnerBrowRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftNoseWrinkler {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftOuterBrowRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightBrowLowerer {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightInnerBrowRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightNoseWrinkler {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightOuterBrowRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.EyesLookDown {PluginSecurity} [NotReplicated]
+	Property float FaceControls.EyesLookLeft {PluginSecurity} [NotReplicated]
+	Property float FaceControls.EyesLookRight {PluginSecurity} [NotReplicated]
+	Property float FaceControls.EyesLookUp {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftCheekRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftEyeClosed {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftEyeUpperLidRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightCheekRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightEyeClosed {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightEyeUpperLidRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.JawDrop {PluginSecurity} [NotReplicated]
+	Property float FaceControls.JawLeft {PluginSecurity} [NotReplicated]
+	Property float FaceControls.JawRight {PluginSecurity} [NotReplicated]
+	Property float FaceControls.ChinRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.ChinRaiserUpperLip {PluginSecurity} [NotReplicated]
+	Property float FaceControls.FlatPucker {PluginSecurity} [NotReplicated]
+	Property float FaceControls.Funneler {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftCheekPuff {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftDimpler {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftLipCornerDown {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftLipCornerPuller {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftLipStretcher {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftLowerLipDepressor {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LeftUpperLipRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LipPresser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LipsTogether {PluginSecurity} [NotReplicated]
+	Property float FaceControls.LowerLipSuck {PluginSecurity} [NotReplicated]
+	Property float FaceControls.MouthLeft {PluginSecurity} [NotReplicated]
+	Property float FaceControls.MouthRight {PluginSecurity} [NotReplicated]
+	Property float FaceControls.Pucker {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightCheekPuff {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightDimpler {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightLipCornerDown {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightLipCornerPuller {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightLipStretcher {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightLowerLipDepressor {PluginSecurity} [NotReplicated]
+	Property float FaceControls.RightUpperLipRaiser {PluginSecurity} [NotReplicated]
+	Property float FaceControls.UpperLipSuck {PluginSecurity} [NotReplicated]
+	Property float FaceControls.TongueDown {PluginSecurity} [NotReplicated]
+	Property float FaceControls.TongueOut {PluginSecurity} [NotReplicated]
+	Property float FaceControls.TongueUp {PluginSecurity} [NotReplicated]
 Class FaceInstance : Instance [NotCreatable] [NotBrowsable]
 	Property Enum.NormalId FaceInstance.Face
 Class Decal : FaceInstance
@@ -1173,6 +1182,7 @@ Class ImageButton : GuiButton
 	Property float ImageButton.ImageTransparency
 	Property bool ImageButton.IsLoaded [ReadOnly]
 	Property Content ImageButton.PressedImage
+	Property Enum.ResamplerMode ImageButton.ResampleMode
 	Property Enum.ScaleType ImageButton.ScaleType
 	Property Rect ImageButton.SliceCenter
 	Property float ImageButton.SliceScale
@@ -1208,6 +1218,7 @@ Class ImageLabel : GuiLabel
 	Property Vector2 ImageLabel.ImageRectSize
 	Property float ImageLabel.ImageTransparency
 	Property bool ImageLabel.IsLoaded [ReadOnly]
+	Property Enum.ResamplerMode ImageLabel.ResampleMode
 	Property Enum.ScaleType ImageLabel.ScaleType
 	Property Rect ImageLabel.SliceCenter
 	Property float ImageLabel.SliceScale
@@ -1348,6 +1359,7 @@ Class BillboardGui : LayerCollector
 	Property Vector2 BillboardGui.SizeOffset
 	Property Vector3 BillboardGui.StudsOffset
 	Property Vector3 BillboardGui.StudsOffsetWorldSpace
+	Function Variant BillboardGui:GetScreenSpaceBounds() {RobloxScriptSecurity}
 Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
 	Property string PluginGui.Title
 	Function void PluginGui:BindToClose(Function function = nil)
@@ -1735,6 +1747,22 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void IXPService:RegisterUserLayers(Variant userLayers) {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(Enum.IXPLoadingStatus status) {LocalUserSecurity}
 	Event IXPService.OnUserLayerLoadingStatusChanged(Enum.IXPLoadingStatus status) {LocalUserSecurity}
+Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
+	Property string ImporterBaseSettings.Id [ReadOnly]
+	Property string ImporterBaseSettings.ImportName
+	Property bool ImporterBaseSettings.ShouldImport
+Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterMeshSettings.DoubleSided
+Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
+	Property bool ImporterRootSettings.FlattenAll
+	Property float ImporterRootSettings.PolygonCount [ReadOnly]
+	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
+	Property Enum.NormalId ImporterRootSettings.WorldForward
+	Property Enum.NormalId ImporterRootSettings.WorldUp
+	Property bool ImporterRootSettings.ZeroOrigin
+Class ImporterTextureSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
@@ -2850,10 +2878,12 @@ Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum.CageType cageType) {RobloxScriptSecurity} [Yields]
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function void RbxAnalyticsService:AddGlobalPointsField(string key, int value) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:AddGlobalPointsTag(string key, string value) {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetClientId() {RobloxScriptSecurity}
 	Function string RbxAnalyticsService:GetSessionId() {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReleaseRBXEventStream(string target) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:RemoveGlobalPointsField(string key) {RobloxScriptSecurity}
+	Function void RbxAnalyticsService:RemoveGlobalPointsTag(string key) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReportCounter(string counterName, int amount = 1) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReportInfluxSeries(string seriesName, Dictionary points, int throttlingPercentage) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:ReportStats(string category, float value) {RobloxScriptSecurity}
@@ -3981,6 +4011,28 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
+Class VoiceChatService : Instance [NotCreatable] [Service]
+	Property Enum.VoiceChatState VoiceChatService.VoiceChatState [ReadOnly]
+	Function string VoiceChatService:GetAndClearCallFailureMessage()
+	Function Tuple VoiceChatService:GetAudioProcessingSettings()
+	Function string VoiceChatService:GetGroupId() {RobloxScriptSecurity}
+	Function Tuple VoiceChatService:GetMicDevices()
+	Function Array VoiceChatService:GetParticipants()
+	Function Tuple VoiceChatService:GetSpeakerDevices()
+	Function int VoiceChatService:GetVoiceChatApiVersion()
+	Function int VoiceChatService:GetVoiceChatAvailable()
+	Function bool VoiceChatService:IsPublishPaused()
+	Function bool VoiceChatService:IsSubscribePaused(int64 userId)
+	Function bool VoiceChatService:JoinByGroupId(string groupId, bool isMicMuted = false)
+	Function bool VoiceChatService:JoinByGroupIdToken(string groupId, bool isMicMuted = false)
+	Function void VoiceChatService:Leave()
+	Function bool VoiceChatService:PublishPause(bool paused)
+	Function void VoiceChatService:SetMicDevice(string micDeviceName, string micDeviceGuid)
+	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid)
+	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused)
+	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates)
+	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo)
+	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new)
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
@@ -5234,6 +5286,13 @@ Enum MeshPartHeadsAndAccessories
 	EnumItem MeshPartHeadsAndAccessories.Default : 0
 	EnumItem MeshPartHeadsAndAccessories.Disabled : 1
 	EnumItem MeshPartHeadsAndAccessories.Enabled : 2
+Enum MeshScaleUnit
+	EnumItem MeshScaleUnit.Stud : 0
+	EnumItem MeshScaleUnit.Meter : 1
+	EnumItem MeshScaleUnit.CM : 2
+	EnumItem MeshScaleUnit.MM : 3
+	EnumItem MeshScaleUnit.Foot : 4
+	EnumItem MeshScaleUnit.Inch : 5
 Enum MeshType
 	EnumItem MeshType.Head : 0
 	EnumItem MeshType.Torso : 1
@@ -5460,6 +5519,9 @@ Enum RenderPriority
 Enum RenderingTestComparisonMethod
 	EnumItem RenderingTestComparisonMethod.psnr : 0
 	EnumItem RenderingTestComparisonMethod.diff : 1
+Enum ResamplerMode
+	EnumItem ResamplerMode.Default : 0
+	EnumItem ResamplerMode.Pixelated : 1
 Enum ReturnKeyType
 	EnumItem ReturnKeyType.Default : 0
 	EnumItem ReturnKeyType.Done : 1
@@ -5992,6 +6054,10 @@ Enum VRTouchpadMode
 	EnumItem VRTouchpadMode.Touch : 0
 	EnumItem VRTouchpadMode.VirtualThumbstick : 1
 	EnumItem VRTouchpadMode.ABXY : 2
+Enum VelocityConstraintMode
+	EnumItem VelocityConstraintMode.Line : 0
+	EnumItem VelocityConstraintMode.Plane : 1
+	EnumItem VelocityConstraintMode.Vector : 2
 Enum VerticalAlignment
 	EnumItem VerticalAlignment.Center : 0
 	EnumItem VerticalAlignment.Top : 1
@@ -6014,6 +6080,14 @@ Enum VirtualInputMode
 	EnumItem VirtualInputMode.None : 0
 	EnumItem VirtualInputMode.Recording : 1
 	EnumItem VirtualInputMode.Playing : 2
+Enum VoiceChatState
+	EnumItem VoiceChatState.Idle : 0
+	EnumItem VoiceChatState.Joining : 1
+	EnumItem VoiceChatState.JoiningRetry : 2
+	EnumItem VoiceChatState.Joined : 3
+	EnumItem VoiceChatState.Leaving : 4
+	EnumItem VoiceChatState.Ended : 5
+	EnumItem VoiceChatState.Failed : 6
 Enum WaterDirection
 	EnumItem WaterDirection.NegX : 0
 	EnumItem WaterDirection.X : 1

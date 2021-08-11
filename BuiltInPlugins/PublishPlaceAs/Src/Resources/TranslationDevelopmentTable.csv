@@ -82,7 +82,7 @@ Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed, ,Save failed
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings., ,Could not publish configuration settings.
 Studio.PublishPlaceAs.OptInLocations.China,China, ,China
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
-Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements., ,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.
+Studio.PublishPlaceAs.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations.", ,"Your creation will be published to all locations, including all the selected opt-in locations."
 Studio.PublishPlaceAs.General.ReplyOK,OK, ,OK
 Studio.PublishPlaceAs.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.PublishPlaceAs.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"

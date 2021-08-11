@@ -43,7 +43,7 @@ Studio.AssetManager.ContextMenu.Insert,Insert,Insert,Insertar,Insérer,挿入,�
 Studio.AssetManager.TopBar.ListViewButton,List View,List View,Vista de la lista,Vue de la liste,リスト表示,목록 뷰,Visualizar lista,列表视图,列表视图,清單檢視
 Studio.AssetManager.ContextMenu.InsertAsLocalScript,Insert As Local Script,Insert As Local Script,Insertar un script local,Insérer en tant que script local,ローカルスクリプトとして挿入,로컬 스크립트로 삽입,Inserir como script local,插入为本地脚本,插入为本地脚本,以本機指令碼插入
 Studio.AssetManager.ContextMenu.InsertAsModuleScript,Insert As Module Script,Insert As Module Script,Insertar como ModuleScript,Insérer comme module du script,モジュールスクリプトとして挿入,모듈 스크립트로 삽입,Inserir como script de módulo,插入为模块脚本,插入为模块脚本,以模組指令碼插入
-Studio.AssetManager.Folders.MODELS,Models,Models, , , , ,Modelos, , , 
+Studio.AssetManager.Folders.MODELS,Models,Models,Modelos, ,モデル,모델,Modelos,模型,模型,模型
 Studio.AssetManager.ContextMenu.RemoveFromGame,Remove From Game,Remove From Game,Eliminar del juego,Retirer du jeu,ゲームから削除,게임에서 제거,Remover do jogo,从游戏中移除,从游戏中移除,從遊戲中移除
 Studio.AssetManager.Folders.AUDIO,Audio,Audio,Audio,Audio,オーディオ,오디오,Áudio,音频,音频,音訊
 Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,Detalles del paquete,Détails du package,パッケージの詳細,패키지 세부 정보,Detalhes do pacote,包详情,包详情,套件詳細資料

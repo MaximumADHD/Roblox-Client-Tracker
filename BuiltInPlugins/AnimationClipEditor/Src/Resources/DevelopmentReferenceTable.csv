@@ -88,16 +88,27 @@ Studio.AnimationClipEditor.RigErrors.NameCollision, ,This rig contains multiple 
 Studio.AnimationClipEditor.RigErrors.NoAnimationController, ,This rig does not have an animation controller or humanoid. Please create one.
 Studio.AnimationClipEditor.RigErrors.NoMotors, ,A model needs to have its parts joined together by Motor6Ds to properly animate.
 Studio.AnimationClipEditor.RigErrors.PartsAnchored, ,"All of the parts on this model are anchored, making it non-animatable. Please un-anchor the parts on this model."
+Studio.AnimationClipEditor.Settings.025x, ,.25x
+Studio.AnimationClipEditor.Settings.05x, ,.5x
 Studio.AnimationClipEditor.Settings.120FPS, ,120 fps
+Studio.AnimationClipEditor.Settings.1x, ,1x
 Studio.AnimationClipEditor.Settings.24FPS, ,24 fps
+Studio.AnimationClipEditor.Settings.2x, ,2x
 Studio.AnimationClipEditor.Settings.30FPS, ,30 fps
+Studio.AnimationClipEditor.Settings.4x, ,4x
 Studio.AnimationClipEditor.Settings.60FPS, ,60 fps
 Studio.AnimationClipEditor.Settings.CustomFPS, ,Custom
+Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed, ,Custom
 Studio.AnimationClipEditor.Settings.FrameRate, ,Frame Rate
 Studio.AnimationClipEditor.Settings.Frames, ,Frames
+Studio.AnimationClipEditor.Settings.PlaybackSpeed, ,Playback Speed
 Studio.AnimationClipEditor.Settings.QuantizeKeyframes, ,Quantize Keyframes
 Studio.AnimationClipEditor.Settings.Seconds, ,Seconds:Frames
 Studio.AnimationClipEditor.Settings.ShowEvents, ,Show Animation Events
+Studio.AnimationClipEditor.Settings.SnapDisabled, ,Disabled
+Studio.AnimationClipEditor.Settings.SnapFrames, ,Frames
+Studio.AnimationClipEditor.Settings.SnapKeyframes, ,Keyframes
+Studio.AnimationClipEditor.Settings.SnapMode, ,Snap Mode
 Studio.AnimationClipEditor.Settings.SnapToKeys, ,Snap To Keys
 Studio.AnimationClipEditor.Settings.TimelineUnit, ,Timeline Unit
 Studio.AnimationClipEditor.Title.AddEvent, ,Add Event
@@ -109,6 +120,7 @@ Studio.AnimationClipEditor.Title.CreateNew, ,Create New Animation
 Studio.AnimationClipEditor.Title.CreateToStart, ,Create an animation to start
 Studio.AnimationClipEditor.Title.CurrentDuration_Migrated, ,Current duration is {currentDuration} frames
 Studio.AnimationClipEditor.Title.CustomFPS, ,Custom Frame Rate [FPS]
+Studio.AnimationClipEditor.Title.CustomPlaybackSpeed, ,Custom Playback Speed
 Studio.AnimationClipEditor.Title.DefaultAnimationName, ,Untitled Animation Clip
 Studio.AnimationClipEditor.Title.EditEvents, ,Edit Animation Events
 Studio.AnimationClipEditor.Title.Error, ,Error
@@ -116,7 +128,9 @@ Studio.AnimationClipEditor.Title.EventName, ,Event Name
 Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
+Studio.AnimationClipEditor.Title.MaxPBS, ,Maximum playback speed is 10x
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
+Studio.AnimationClipEditor.Title.MinPBS, ,Minimum playback speed is 0.1x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter

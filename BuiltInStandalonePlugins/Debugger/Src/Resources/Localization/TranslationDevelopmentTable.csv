@@ -8,11 +8,14 @@ Studio.Debugger.Plugin.Button,Toggle,Toggle
 Studio.Debugger.EditDebugpoint.TitleLine,line {LineNumber:int},line {LineNumber:int}
 Studio.Debugger.EditDebugpoint.OptionsLabel,Options,Options
 Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
+Studio.Debugger.Watch.WindowName,Watch,Watch
+Studio.Debugger.Watch.DropdownButtonText,{NumScopes:int} Scopes,{NumScopes:int} Scopes
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint
 Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
 Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message
 Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel
+Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.EditDebugpoint.Save,Save,Save
 Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
 Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s)
@@ -27,5 +30,15 @@ Studio.Debugger.Callstack.FunctionNameColumn,Function Name,Function Name
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: 
 Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
+Studio.Debugger.Watch.DataTypeColumn,Data Type,Data Type
 Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
+Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
+Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
+Studio.Debugger.Watch.Global,Global,Global
+Studio.Debugger.Watch.VariablesTab,Variables,Variables
+Studio.Debugger.Watch.WatchesTab,My Watches,My Watches
+Studio.Debugger.Watch.NameColumn,Name,Name
+Studio.Debugger.Watch.ScopeColumn,Scope,Scope
+Studio.Debugger.Watch.ExpressionColumn,Expression,Expression
+Studio.Debugger.Watch.ValueColumn,Value,Value

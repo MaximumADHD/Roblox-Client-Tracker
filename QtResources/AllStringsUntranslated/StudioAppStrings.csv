@@ -231,7 +231,7 @@ Studio.App.MainWindow.DebugOnlyWithBrs,Main Window,<br><hr><br><br>DEBUG ONLY<br
 Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode.","Failed to connect to remote servers, please make sure the device is connected to the Internet. Studio will be running in offline mode."
 Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
 Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
-Studio.App.MainWindow.FailedToFetchConfigurationSettings,Main Window,Studio failed to fetch configuration settings.,Studio failed to fetch configuration settings.
+Studio.App.GUAC.FailedToFetch,,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.
 Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
 Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.MainWindow.FileNotExistNewLine1,Main Window,"%1
@@ -451,14 +451,11 @@ Studio.App.FindAllDialog.RegularExpression,,Regular expression,Regular expressio
 Studio.App.FindAllDialog.MatchWholeWordOnly,,Match whole word only,Match whole word only
 Studio.App.FindAllDialog.FindAll,,Find All,Find All
 Studio.App.FindAllDialog.FindInAllScripts,,Find in all scripts,Find in all scripts
-Studio.App.FindAllDialog.FindReplaceAllScripts,,Find and replace in all scripts,Find and replace in all scripts
 Studio.App.FindAllDialog.AllScripts,,All Scripts,All Scripts
 Studio.App.FindAllDialog.CurrentScript,,Current Script,Current Script
 Studio.App.FindAllDialog.Find,,Find: ,Find: 
-Studio.App.FindAllDialog.FindAndReplace,,Find and Replace: ,Find and Replace: 
 Studio.App.FindAllDialog.FindInAll,,Find and Replace All,Find and Replace All
 Studio.App.FindAllDialog.ReplaceAll,,Replace All,Replace All
-Studio.App.FindAllDialog.Replace,,Replace: ,Replace: 
 Studio.App.FindAllDialog.OpenScriptsUndo,,Undo is not supported by Replace All unless you open all files where a match is found.,Undo is not supported by Replace All unless you open all files where a match is found.
 Studio.App.FindAllDialog.EnableScriptsUndo,,"To enable Undo, select the following option:","To enable Undo, select the following option:"
 Studio.App.FindAllDialog.UndoSelectOption,,Replace All will open all files with changes for editing.,Replace All will open all files with changes for editing.
@@ -624,6 +621,7 @@ Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
 Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
+Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find All/ Replace All Window,Show Find All/ Replace All Window
 Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
 Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
 Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find Current Word,Find Current Word
@@ -1109,6 +1107,8 @@ Studio.App.RobloxRibbonMainWindow.CreateTorque,,Create torque,Create torque
 Studio.App.RobloxRibbonMainWindow.CreateTrailToolTip,,Create trail,Create trail
 Studio.App.RobloxRibbonMainWindow.CreateVectorForce,,Create vector force,Create vector force
 Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint,,Create weld constraint,Create weld constraint
+Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint,,Create linear velocity constraint,Create linear velocity constraint
+Studio.App.RobloxRibbonMainWindow.LinearVelocity,,Linear Velocity,Linear Velocity
 Studio.App.RobloxRibbonMainWindow.CurrentClient,,Current: Client,Current: Client
 Studio.App.RobloxRibbonMainWindow.CurrentServer,,Current: Server,Current: Server
 Studio.App.RobloxRibbonMainWindow.CustomizeQuickAccessBar,,Customize Quick Access Bar,Customize Quick Access Bar
@@ -2041,8 +2041,6 @@ Studio.App.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on 
 Studio.App.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically update a package when a newer package is available,Adds an option to automatically update a package when a newer package is available
 Studio.App.BetaFeatures.LuauNonStrictByDefaultTitle,,Scripts Are Non-Strict By Default,Scripts Are Non-Strict By Default
 Studio.App.BetaFeatures.LuauNonStrictByDefaultDescription,,"Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis.","Script analysis uses non-strict mode for all scripts by default. Use --!strict, --!nonstrict or --!nocheck to override mode on a per script basis."
-Studio.App.BetaFeatures.FindReplaceViewTitle,,Find All / Replace All,Find All / Replace All
-Studio.App.BetaFeatures.FindReplaceViewDescription,,"Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance.","Overhaul of find and replace functionality to make working with large codebases easier. Streamlined interface, addition of search filters and Replace All functionality, and improved performance."
 Studio.App.BetaFeatures.ParallelLuaTitle,,Parallel Lua,Parallel Lua
 Studio.App.BetaFeatures.ParallelLuaDescription,,Allows writing scripts that can execute in parallel to improve throughput.,Allows writing scripts that can execute in parallel to improve throughput.
 Studio.App.BetaFeatures.AvatarLoadingBetaTitle,,New Avatar Loading Signal Ordering,New Avatar Loading Signal Ordering
