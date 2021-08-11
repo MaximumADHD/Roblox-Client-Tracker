@@ -31,11 +31,12 @@ return function(analyticsService)
     end
 
     return {
-        onEditorOpened = function (timelineUnit, keyframeSnap)
+        onEditorOpened = function (timelineUnit, keyframeSnap, snapMode)
             sendEvent("toolOpened", {
                 method = 1,
                 timelineUnit = timelineUnit,
                 keyframeSnap = keyframeSnap,
+                snapMode = snapMode,
             })
             reportCounter(makeStatName("EditorOpened"))
             sendEvent("EditorOpened")

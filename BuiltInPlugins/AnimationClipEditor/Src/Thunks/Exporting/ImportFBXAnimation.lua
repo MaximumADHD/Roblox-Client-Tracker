@@ -8,8 +8,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-
+local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
 local SetR15 = require(Plugin.LuaFlags.GetFFlagSetR15WhenImportingAnimation)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(plugin, analytics)
 	return function(store)
@@ -29,12 +30,19 @@ return function(plugin, analytics)
 		end)
 
 		if success then
-			local frameRate = RigUtils.calculateFrameRate(result)
-			local newData = RigUtils.fromRigAnimation(result, frameRate)
+			local newData, frameRate
+			if GetFFlagUseTicks() then
+				newData, frameRate = RigUtils.fromRigAnimation(result)
+			else
+				frameRate = RigUtils.calculateFrameRate(result)
+				newData = RigUtils.fromRigAnimation_deprecated(result, frameRate)
+			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))
-
+			if GetFFlagUseTicks() then
+				store:dispatch(SetDisplayFrameRate(frameRate))
+			end
 			if result then
 				result:Destroy()
 			end

@@ -143,7 +143,7 @@ function SliderSetting:render()
 					Size = UDim2.new(0, inputWidth, 0, inputHeight),
 					OnTextChanged = self.onTextChanged,
 					OnFocusLost = self.onTextSubmitted,
-					Style = "RoundedBorder",
+					Style = "FilledRoundedBorder",
 					StyleModifier = isDisabled and StyleModifier.Disabled or nil
 				}),
 

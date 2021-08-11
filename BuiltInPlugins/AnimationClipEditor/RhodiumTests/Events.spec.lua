@@ -1,5 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent
+	local Cryo = require(Plugin.Packages.Cryo)
 
 	local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 	local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
@@ -13,15 +14,22 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 	local testAnimationData = Templates.animationData()
+
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+
 	testAnimationData.Events = {
-		Keyframes = {0, 1},
+		Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[1] = {
+			[1] = not GetFFlagUseTicks() and {
 				OtherEvent = "OtherValue",
-			},
+			} or nil,
+			[80] = GetFFlagUseTicks() and {
+				OtherEvent = "OtherValue",
+			} or nil,
+
 		},
 	}
 
@@ -33,7 +41,7 @@ return function()
 			local eventsTrack = TestPaths.getEventsTrack(container)
 			TestHelpers.delay()
 
-			expect(#eventsTrack:GetChildren()).to.equal(2)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(2)
 		end)
 	end)
 
@@ -42,7 +50,7 @@ return function()
 			local store = test:getStore()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
-			store:dispatch(StepAnimation(2))
+			store:dispatch(StepAnimation(GetFFlagUseTicks() and 160 or 2))
 			local eventsTitle = TestPaths.getEventsTitleTrack(container)
 			TestHelpers.clickInstance(eventsTitle:WaitForChild("AddEvent"))
 
@@ -57,7 +65,7 @@ return function()
 			TestHelpers.clickInstance(eventsDialog.FocusProvider.Buttons["2"])
 
 			local eventsTrack = TestPaths.getEventsTrack(container)
-			expect(#eventsTrack:GetChildren()).to.equal(3)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(3)
 		end)
 	end)
 
@@ -76,7 +84,7 @@ return function()
 			TestHelpers.clickInstance(eventsDialog.FocusProvider.Buttons["2"])
 
 			local eventsTrack = TestPaths.getEventsTrack(container)
-			expect(#eventsTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(1)
 		end)
 	end)
 
@@ -92,7 +100,7 @@ return function()
 			store:dispatch(DeleteSelectedEvents())
 			TestHelpers.delay()
 
-			expect(#eventsTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(1)
 		end)
 	end)
 
@@ -106,10 +114,10 @@ return function()
 
 			TestHelpers.clickInstance(eventsTrack["1"])
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(2))
+			store:dispatch(PasteEvents(GetFFlagUseTicks() and 160 or 2))
 			TestHelpers.delay()
 
-			expect(#eventsTrack:GetChildren()).to.equal(3)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(3)
 		end)
 	end)
 
@@ -126,10 +134,10 @@ return function()
 			TestHelpers.clickInstance(eventsTrack["2"])
 			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(2))
+			store:dispatch(PasteEvents(GetFFlagUseTicks() and 160 or 2))
 			TestHelpers.delay()
 
-			expect(#eventsTrack:GetChildren()).to.equal(4)
+			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(4)
 		end)
 	end)
 end

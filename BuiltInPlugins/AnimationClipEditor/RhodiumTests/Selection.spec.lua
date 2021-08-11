@@ -1,5 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent
+	local Cryo = require(Plugin.Packages.Cryo)
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
@@ -9,37 +10,48 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = {1, 2},
+					Keyframes = GetFFlagUseTicks() and {80, 160} or {1, 2},
 					Data = {
-						[1] = {},
-						[2] = {},
+						[1] = not GetFFlagUseTicks() and {} or nil,
+						[2] = not GetFFlagUseTicks() and {} or nil,
+						[80] = GetFFlagUseTicks() and {} or nil,
+						[160] = GetFFlagUseTicks() and {} or nil,
 					},
 				},
 				UpperTorso = {
-					Keyframes = {1, 2, 3},
+					Keyframes = GetFFlagUseTicks() and {80, 160, 240} or {1, 2, 3},
 					Data = {
-						[1] = {},
-						[2] = {},
-						[3] = {},
+						[1] = not GetFFlagUseTicks() and {} or nil,
+						[2] = not GetFFlagUseTicks() and {} or nil,
+						[3] = not GetFFlagUseTicks() and {} or nil,
+						[80] = GetFFlagUseTicks() and {} or nil,
+						[160] = GetFFlagUseTicks() and {} or nil,
+						[240] = GetFFlagUseTicks() and {} or nil,
 					},
 				},
 			},
 		},
 	}
 	testAnimationData.Events = {
-		Keyframes = {0, 1},
+		Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[1] = {
+			[1] = not GetFFlagUseTicks() and {
 				OtherEvent = "OtherValue",
-			},
+			} or nil,
+			[80] = GetFFlagUseTicks() and {
+				OtherEvent = "OtherValue",
+			} or nil,
+
 		},
 	}
 
@@ -55,7 +67,7 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(#selectedKeyframes.Root.Head).to.equal(1)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(1)
 		end)
 	end)
 
@@ -86,9 +98,9 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(#selectedKeyframes.Root.Head).to.equal(1)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(1)
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
-			expect(#selectedKeyframes.Root.UpperTorso).to.equal(1)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso)).to.equal(1)
 		end)
 	end)
 
@@ -107,7 +119,7 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(#selectedKeyframes.Root.Head).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
 		end)
 	end)
 
@@ -126,9 +138,9 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(#selectedKeyframes.Root.Head).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
-			expect(#selectedKeyframes.Root.UpperTorso).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso)).to.equal(2)
 		end)
 	end)
 
@@ -175,9 +187,9 @@ return function()
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(#selectedKeyframes.Root.Head).to.equal(2)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.Head)).to.equal(2)
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
-			expect(#selectedKeyframes.Root.UpperTorso).to.equal(3)
+			expect(#Cryo.Dictionary.keys(selectedKeyframes.Root.UpperTorso)).to.equal(3)
 		end)
 	end)
 
@@ -227,7 +239,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[1]).to.equal(true)
+			expect(selectedEvents[GetFFlagUseTicks() and 80 or 1]).to.equal(true)
 		end)
 	end)
 
@@ -272,7 +284,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[1]).to.equal(true)
+			expect(selectedEvents[GetFFlagUseTicks() and 80 or 1]).to.equal(true)
 		end)
 	end)
 end

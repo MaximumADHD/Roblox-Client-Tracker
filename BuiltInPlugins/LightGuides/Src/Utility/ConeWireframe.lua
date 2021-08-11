@@ -7,6 +7,7 @@ local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStud
 local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
 local getFFlagStudioLightGuideLargeAngles = require(Plugin.Src.Flags.getFFlagStudioLightGuideLargeAngles)
 local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
+local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 	[Enum.NormalId.Back] = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
@@ -72,7 +73,11 @@ function ConeWireframe:render()
 	local length: number = range / math.cos(angleRad / 2)
 	local height: number = range
 
-	if getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
+	if getFFlagStudioLightGuideStrutLengthRange() then
+		length = range
+		radius = length * math.sin(angleRad / 2)
+		height = length * math.cos(angleRad / 2)
+	elseif getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
 		length = range / math.cos(math.rad(MAX_ANGLE / 2))
 		radius = length * math.sin(angleRad / 2)
 		height = length * math.cos(angleRad / 2)

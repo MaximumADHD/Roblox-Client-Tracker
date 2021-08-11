@@ -8,19 +8,22 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
-local SetR15 = require(Plugin.LuaFlags.GetFFlagSetR15WhenImportingAnimation)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(plugin, useFbxModel, analytics)
 	return function(store)
-		local state = store:getState()
-
 		local success, result = pcall(function()
 			return game:GetService("AvatarImportService"):ImportLoadedFBXAnimation(useFbxModel)
 		end)
 
 		if success then
-			local frameRate = RigUtils.calculateFrameRate(result)
-			local newData = RigUtils.fromRigAnimation(result, frameRate)
+			local newData
+			if GetFFlagUseTicks() then
+				newData = RigUtils.fromRigAnimation(result)
+			else
+				local frameRate = RigUtils.calculateFrameRate(result)
+				newData = RigUtils.fromRigAnimation_deprecated(result, frameRate)
+			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))

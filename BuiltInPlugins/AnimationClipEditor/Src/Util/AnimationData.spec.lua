@@ -5,6 +5,7 @@ return function()
 	local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
 	local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -74,17 +75,19 @@ return function()
 			end).to.throw()
 		end)
 
-		it("should expect a frameRate parameter", function()
-			expect(function()
-				AnimationData.new("Test")
-			end).to.throw()
-		end)
+		if not GetFFlagUseTicks() then
+			it("should expect a frameRate parameter", function()
+				expect(function()
+					AnimationData.new_deprecated("Test")
+				end).to.throw()
+			end)
 
-		it("should expect frameRate to be positive", function()
-			expect(function()
-				AnimationData.new("Test", -1)
-			end).to.throw()
-		end)
+			it("should expect frameRate to be positive", function()
+				expect(function()
+					AnimationData.new_deprecated("Test", -1)
+				end).to.throw()
+			end)
+		end
 	end)
 
 	describe("toCFrameArray", function()
@@ -127,14 +130,16 @@ return function()
 
 		it("should create a double length array for double frame rate", function()
 			local metadata = testAnimationData.Metadata
-			local poses = AnimationData.toCFrameArray(bones, testAnimationData, metadata.FrameRate * 2)
+			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
+				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 2)
 
 			expect(#poses[1]).to.equal((metadata.EndFrame - metadata.StartFrame) * 2)
 		end)
 
 		it("should create a half length array for half frame rate", function()
 			local metadata = testAnimationData.Metadata
-			local poses = AnimationData.toCFrameArray(bones, testAnimationData, metadata.FrameRate * 0.5)
+			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
+				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 0.5)
 
 			expect(#poses[1]).to.equal(math.floor((metadata.EndFrame - metadata.StartFrame) * 0.5))
 		end)
@@ -172,7 +177,7 @@ return function()
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData)
 
 			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, metadata.FrameRate)
+				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
 
 			expect(newAnimData).to.be.ok()
 			expect(newAnimData.Metadata).to.be.ok()
@@ -209,7 +214,7 @@ return function()
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData)
 
 			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, metadata.FrameRate)
+				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
 
 			local tracks = newAnimData.Instances.Root.Tracks
 
@@ -232,7 +237,7 @@ return function()
 			local poses = AnimationData.toCFrameArray(moreBones, testAnimationData)
 
 			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, metadata.FrameRate)
+				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
 
 			local tracks = newAnimData.Instances.Root.Tracks
 			expect(tracks["TestTrack"]).to.be.ok()
@@ -256,7 +261,7 @@ return function()
 		local poses = AnimationData.toCFrameArray(bones, testAnimationData)
 
 		local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-			metadata.Name, metadata.FrameRate)
+			metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
 
 		local newPoses = AnimationData.toCFrameArray(bones, newAnimData)
 

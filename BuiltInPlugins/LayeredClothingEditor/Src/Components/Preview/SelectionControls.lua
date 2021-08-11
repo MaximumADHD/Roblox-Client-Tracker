@@ -5,6 +5,7 @@
 		UDim2 Size: size of the frame
 		number LayoutOrder: render order of component in layout
 		string SelectedTab: the preview tab selection (this is an entry from PreviewConstants.TABS_KEYS)
+		number ZIndex: determines the order in which a GUI renders to the screen relative to other GUIs
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
@@ -31,6 +32,7 @@ Typecheck.wrap(SelectionControls, script)
 function SelectionControls:render()
 	local props = self.props
 	local size = props.Size
+	local zIndex = props.ZIndex
 	local layoutOrder = props.LayoutOrder
 	local theme = props.Stylizer
 
@@ -42,6 +44,7 @@ function SelectionControls:render()
 
 		BorderSizePixel = 0,
 		BorderColor3 = theme.BorderColor,
+		ZIndex = zIndex,
 	},{
 		AnimPlaybackSlider = PreviewConstantsInterface.shouldTabShowPlaybackSlider(selectedTab) and Roact.createElement(AnimPlaybackSlider, {
 			Size = UDim2.new(1, 0, 0, theme.SliderHeight),

@@ -7,6 +7,7 @@
 		callback onClose - called when the user presses the "cancel" button
 ]]
 
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -14,6 +15,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -50,6 +52,8 @@ local BUTTON_HEIGHT = 32
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local AssetTypeSelection = Roact.PureComponent:extend("AssetTypeSelection")
 
@@ -112,79 +116,92 @@ function AssetTypeSelection:canSkip()
 end
 
 function AssetTypeSelection:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-			local shouldShowDefaultThumbnailForAnimation = FFlagUseDefaultThumbnailForAnimation and self.props.assetTypeEnum == Enum.AssetType.Animation
-
-			return Roact.createElement("Frame", {
-				BackgroundColor3 = theme.typeSelection.background,
-				BackgroundTransparency = 0,
-				BorderSizePixel = 0,
-				Size = props.Size,
-			}, {
-				AssetThumbnailPreview = not shouldShowDefaultThumbnailForAnimation and Roact.createElement(AssetThumbnailPreview, {
-					Size = UDim2.new(
-						0, PREVIEW_SIZE,
-						0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-					),
-					Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-					titleHeight = PREVIEW_TITLE_HEIGHT,
-					titlePadding = PREVIEW_TITLE_PADDING,
-				}),
-				DefaultThumbnailPreview = shouldShowDefaultThumbnailForAnimation and Roact.createElement(DefaultThumbnailPreview, {
-					Size = UDim2.new(
-						0, PREVIEW_SIZE,
-						0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-					),
-					Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				}),
-				AssetTypeSelector = Roact.createElement(AssetTypeSelector, {
-					Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
-					height = SELECTOR_HEIGHT,
-					width = SELECTOR_WIDTH,
-					assetTypeEnum = self.props.assetTypeEnum,
-					onAssetTypeSelected = self.props.onAssetTypeSelected,
-					items = self:getSelectorItems(localizedContent),
-				}),
-
-				Footer = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-					Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
-					BackgroundColor3 = theme.typeSelection.footer.background,
-					BorderColor3 = theme.typeSelection.footer.border,
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						Padding = UDim.new(0, FOOTER_PADDING),
-						FillDirection = Enum.FillDirection.Horizontal,
-						HorizontalAlignment = Enum.HorizontalAlignment.Right,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-					}),
-
-					UIPadding = Roact.createElement("UIPadding", {
-						PaddingRight = UDim.new(0, FOOTER_PADDING),
-					}),
-
-					CancelButton = Roact.createElement(NavButton, {
-						Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-						LayoutOrder = 0,
-						titleText = "Cancel",
-						onClick = props.onClose,
-					}),
-
-					NextButton = Roact.createElement(NavButton, {
-						Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-						LayoutOrder = 1,
-						titleText = "Next",
-						isPrimary = true,
-						onClick = function()
-							self.props.onNext(self.props.screenFlowType)
-						end,
-					}),
-				}),
-			})
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function AssetTypeSelection:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+	local shouldShowDefaultThumbnailForAnimation = FFlagUseDefaultThumbnailForAnimation and self.props.assetTypeEnum == Enum.AssetType.Animation
+
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.typeSelection.background,
+		BackgroundTransparency = 0,
+		BorderSizePixel = 0,
+		Size = props.Size,
+	}, {
+		AssetThumbnailPreview = not shouldShowDefaultThumbnailForAnimation and Roact.createElement(AssetThumbnailPreview, {
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+			titleHeight = PREVIEW_TITLE_HEIGHT,
+			titlePadding = PREVIEW_TITLE_PADDING,
+		}),
+		DefaultThumbnailPreview = shouldShowDefaultThumbnailForAnimation and Roact.createElement(DefaultThumbnailPreview, {
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+			),
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+		}),
+		AssetTypeSelector = Roact.createElement(AssetTypeSelector, {
+			Position = UDim2.new(0.5, -SELECTOR_WIDTH/2, 0, SELECTOR_Y_POS),
+			height = SELECTOR_HEIGHT,
+			width = SELECTOR_WIDTH,
+			assetTypeEnum = self.props.assetTypeEnum,
+			onAssetTypeSelected = self.props.onAssetTypeSelected,
+			items = self:getSelectorItems(localizedContent),
+		}),
+
+		Footer = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+			Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
+			BackgroundColor3 = FFlagToolboxRemoveWithThemes and theme.typeSelection.configFooter.background or theme.typeSelection.footer.background,
+			BorderColor3 = FFlagToolboxRemoveWithThemes and theme.typeSelection.configFooter.border or  theme.typeSelection.footer.border,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, FOOTER_PADDING),
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Right,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
+			}),
+
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingRight = UDim.new(0, FOOTER_PADDING),
+			}),
+
+			CancelButton = Roact.createElement(NavButton, {
+				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				LayoutOrder = 0,
+				titleText = "Cancel",
+				onClick = props.onClose,
+			}),
+
+			NextButton = Roact.createElement(NavButton, {
+				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				LayoutOrder = 1,
+				titleText = "Next",
+				isPrimary = true,
+				onClick = function()
+					self.props.onNext(self.props.screenFlowType)
+				end,
+			}),
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -213,6 +230,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetUploadAssetType(assetType))
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	AssetTypeSelection = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetTypeSelection)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetTypeSelection)

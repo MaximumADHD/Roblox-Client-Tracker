@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
+-- Deprecated when GetFFlagUseTicks is ON
 return function(frameRate)
 	return function(store)
 		local state = store:getState()

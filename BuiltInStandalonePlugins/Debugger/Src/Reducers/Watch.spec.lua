@@ -20,10 +20,12 @@ local WatchReducer = require(script.Parent.Watch)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
 local VariableRow = require(Models.Watch.VariableRow)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
+local StepStateBundle = require(Models.StepStateBundle)
 
 local separationToken = "_"
 
 local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1, stepNumber = 1})
+local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 
 return function()
 	it("should return its expected default state", function()
@@ -46,7 +48,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
 			}
 
 			local varData2 = {
@@ -55,7 +56,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 
 			local vars = {
@@ -63,19 +63,19 @@ return function()
 				[2] = VariableRow.fromData(varData2),
 			}
 
-			local state = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
+			local state = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 			expect(#state.stateTokenToRoots[defaultDebuggerToken][2][2].Variables).to.equal(2)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Variables[1]).to.equal(tokenizedValue1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Variables[2]).to.equal(tokenizedValue2)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].name).to.equal(varData1.name)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].name).to.equal(varData2.name)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].nameColumn).to.equal(varData1.name)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].nameColumn).to.equal(varData2.name)
 			expect(#state.filterText).to.be.ok()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -89,7 +89,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "AddRootVariables Test2",
@@ -97,14 +96,13 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local immutabilityPreserved = testImmutability(WatchReducer, AddRootVariables(defaultDebuggerToken, 2, 2, vars), prepState)
+			local immutabilityPreserved = testImmutability(WatchReducer, AddRootVariables(stepStateBundle, vars), prepState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -121,7 +119,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
 			}
 
 			local varData2 = {
@@ -130,7 +127,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 
 			local vars1 = {
@@ -141,21 +137,21 @@ return function()
 				[1] = VariableRow.fromData(varData2),
 			}
 
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars1))
-			local state = WatchReducer(prepState2, AddChildVariables(defaultDebuggerToken, 2, 2, tokenizedValue1, vars2))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
+			local state = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
 			expect(#state.stateTokenToRoots[defaultDebuggerToken][2][2].Variables).to.equal(1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Variables[1]).to.equal(tokenizedValue1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].name).to.equal(varData1.name)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].nameColumn).to.equal(varData1.name)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].children[1]).to.equal(tokenizedValue2)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].name).to.equal(varData2.name)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].nameColumn).to.equal(varData2.name)
 			expect(#state.filterText).to.be.ok()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -170,7 +166,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "AddChildVariables Test2",
@@ -178,7 +173,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars1 = {
 				[1] = VariableRow.fromData(varData1),
@@ -188,9 +182,9 @@ return function()
 				[1] = VariableRow.fromData(varData2),
 			}
 
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars1))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, AddChildVariables(defaultDebuggerToken, 2, 2, tokenizedValue1, vars2), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, AddChildVariables(stepStateBundle, tokenizedValue1, vars2), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -205,8 +199,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -227,8 +221,8 @@ return function()
 			expect(state.filterText).to.equal(filterText)
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -249,8 +243,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(2)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -272,7 +266,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableExpanded Test2",
@@ -280,14 +273,13 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 			local state = WatchReducer(prepState2, SetVariableExpanded(tokenizedValue1, true))
 			expect(state).to.be.ok()
 			expect(state.pathToExpansionState[tokenizedValue1]).to.equal(true)
@@ -296,8 +288,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should be able to update child item", function()
@@ -312,7 +304,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableExpanded Test2",
@@ -320,7 +311,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars1 = {
 				[1] = VariableRow.fromData(varData1),
@@ -330,8 +320,8 @@ return function()
 				[1] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars1))
-			local prepState3 = WatchReducer(prepState2, AddChildVariables(defaultDebuggerToken, 2, 2, tokenizedValue1, vars2))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
+			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
 			local state = WatchReducer(prepState3, SetVariableExpanded(tokenizedValue2, true))
 			expect(state).to.be.ok()
@@ -342,8 +332,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -358,7 +348,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableExpanded Test2",
@@ -366,14 +355,13 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
 			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableExpanded({"Local", "Global"}), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
@@ -393,7 +381,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableScopeFilteredOut Test2",
@@ -401,15 +388,14 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
-			local state = WatchReducer(prepState2, SetVariableScopeFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue1, true))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
+			local state = WatchReducer(prepState2, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue1, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(false)
@@ -418,8 +404,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should be able to update child item", function()
@@ -434,7 +420,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableScopeFilteredOut Test2",
@@ -442,7 +427,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars1 = {
 				[1] = VariableRow.fromData(varData1),
@@ -452,10 +436,10 @@ return function()
 				[1] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars1))
-			local prepState3 = WatchReducer(prepState2, AddChildVariables(defaultDebuggerToken, 2, 2, tokenizedValue1, vars2))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
+			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariableScopeFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue2, true))
+			local state = WatchReducer(prepState3, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue2, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(true)
@@ -464,8 +448,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -480,7 +464,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableScopeFilteredOut Test2",
@@ -488,16 +471,15 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableScopeFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue2, true), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue2, true), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -515,7 +497,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableTextFilteredOut Test2",
@@ -523,15 +504,14 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
-			local state = WatchReducer(prepState2, SetVariableTextFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue1, true))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
+			local state = WatchReducer(prepState2, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue1, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(false)
@@ -540,8 +520,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should be able to update child item", function()
@@ -556,7 +536,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableTextFilteredOut Test2",
@@ -564,7 +543,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars1 = {
 				[1] = VariableRow.fromData(varData1),
@@ -574,10 +552,10 @@ return function()
 				[1] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars1))
-			local prepState3 = WatchReducer(prepState2, AddChildVariables(defaultDebuggerToken, 2, 2, tokenizedValue1, vars2))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
+			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariableTextFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue2, true))
+			local state = WatchReducer(prepState3, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue2, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(true)
@@ -586,8 +564,8 @@ return function()
 			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfWatches).to.be.ok()
-			expect(#state.listOfWatches).to.equal(0)
+			expect(#state.listOfExpressions).to.be.ok()
+			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
 		it("should preserve immutability", function()
@@ -602,7 +580,6 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
 			}
 			local varData2 = {
 				name = "SetVariableTextFilteredOut Test2",
@@ -610,16 +587,15 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
 			}
 			local vars = {
 				[1] = VariableRow.fromData(varData1),
 				[2] = VariableRow.fromData(varData2),
 			}
 			
-			local prepState2 = WatchReducer(prepState, AddRootVariables(defaultDebuggerToken, 2, 2, vars))
+			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableTextFilteredOut(defaultDebuggerToken, 2, 2, tokenizedValue2, true), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue2, true), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

@@ -7,6 +7,7 @@ local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStud
 local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
 local getFFlagStudioLightGuideLargeAngles = require(Plugin.Src.Flags.getFFlagStudioLightGuideLargeAngles)
 local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
+local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 	[Enum.NormalId.Back] = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
@@ -78,7 +79,11 @@ function TrapezoidalPrismWireframe:render()
 	local angleRad: number = math.rad(angle)
 	local outerExtension: number = 2 * (range * math.tan(angleRad / 2))
 
-	if getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
+
+	if getFFlagStudioLightGuideStrutLengthRange() then
+		outerExtension = 2 * (range * math.sin(angleRad / 2))
+		height = range * math.cos(angleRad / 2)
+	elseif getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
 		outerExtension = 2 * (range * math.tan(math.rad(MAX_ANGLE) / 2))
 		height = range * math.cos(angleRad / 2)
 	end

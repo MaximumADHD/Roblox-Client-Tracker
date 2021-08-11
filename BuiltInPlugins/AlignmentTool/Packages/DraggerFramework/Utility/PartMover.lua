@@ -11,6 +11,7 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagOnlyGetGeometryOnce = require(DraggerFramework.Flags.getFFlagOnlyGetGeometryOnce)
+local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -52,6 +53,13 @@ function PartMover:getIgnorePart()
 end
 
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection, allModels)
+	if getFFlagTemporaryDisableUpdownAsserts() then
+		-- Should not be needed, temporary code to diagnose issues.
+		if self._moving then
+			self:commit()
+		end
+	end
+
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)

@@ -60,7 +60,7 @@ function SelectFrame:init()
 				Text = partName,
 				Size = UDim2.new(0.5, 0, 1, 0),
 				LayoutOrder = order + 2,
-				Style = "RoundedBorder",
+				Style = "FilledRoundedBorder",
 			}),
 		})
 	end

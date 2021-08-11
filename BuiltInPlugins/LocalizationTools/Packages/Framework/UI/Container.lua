@@ -33,6 +33,7 @@ local Typecheck = Util.Typecheck
 local FlagsList = Util.Flags.new({
 	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
+local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
 
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
@@ -105,7 +106,7 @@ function Container:render()
 
 	return Roact.createElement(elementOverride or "Frame", {
 		Active = active,
-		AutomaticSize = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and automaticSize or nil,
+		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2")) and automaticSize or nil,
 		BackgroundTransparency = 1,
 		Size = size,
 		SizeConstraint = props.SizeConstraint,

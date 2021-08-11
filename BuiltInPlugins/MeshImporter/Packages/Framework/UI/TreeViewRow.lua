@@ -18,8 +18,11 @@
 		callback OnPress: An optional function which gets called when a button is pressed
 		any Stylizer: An optional value which is used to apply themes
 		any StyleModifier: Describes any changes to the style
+		callback GetContents: An optional function describing how to get the contents of a row - (item: Item) => string, string
 ]]
+
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkGenericTreeViewRow = game:GetFastFlag("DevFrameworkGenericTreeViewRow")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -56,13 +59,19 @@ function TreeViewRow:render()
 	local index = props.Index
 	local item = props.Item
 	local depth = props.Depth
-	local text = item.text
-	local icon = item.icon
 	local hasChildren = #props.Children > 0
 	local isExpanded = props.Expanded
 	local arrowSize = style.Arrow.Size
 	local beforeToggle = props.BeforeToggle
 	local beforeIcon = props.BeforeIcon
+	local text, icon
+
+	if FFlagDevFrameworkGenericTreeViewRow and props.GetContents then
+		text, icon = props.GetContents(item)
+	else
+		text = item.text
+		icon = item.icon
+	end
 
 	local indent = depth * style.Indent
 

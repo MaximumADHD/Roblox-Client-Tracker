@@ -3,20 +3,17 @@ local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Action = Util.Action
 
+local StepStateBundle = require(Plugin.Src.Models.StepStateBundle)
+
 export type Props = {
-	debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
-	threadId : number,
-	frameNumber : number,
+	stepStateBundle : StepStateBundle.StepStateBundle,
 	path : string,
 	filteredOut : bool
 }
 
-return Action(script.Name, function(debuggerStateToken : DebuggerStateToken.DebuggerStateToken, 
-	threadId : number, frameNumber : number, path : string, filteredOut : bool) : Props
+return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, path : string, filteredOut : bool) : Props
 	return {
-		debuggerStateToken = debuggerStateToken,
-		threadId = threadId,
-		frameNumber = frameNumber,
+		stepStateBundle = stepStateBundle,
 		path = path,
 		filteredOut = filteredOut
 	}

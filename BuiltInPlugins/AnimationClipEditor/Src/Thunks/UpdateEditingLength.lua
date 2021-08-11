@@ -8,6 +8,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local SetEditingLength = require(Plugin.Src.Actions.SetEditingLength)
 
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+
 return function(length)
 	return function(store)
 		local state = store:getState()
@@ -17,7 +19,7 @@ return function(length)
 		end
 
 		local endFrame = animationData.Metadata.EndFrame
-		length = math.max(length, endFrame, animationData.Metadata.FrameRate)
+		length = math.max(length, endFrame, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
 		store:dispatch(SetEditingLength(length))
 		store:dispatch(SetScrollZoom(0, 0))
 	end

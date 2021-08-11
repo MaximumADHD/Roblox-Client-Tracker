@@ -12,6 +12,7 @@ local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -119,9 +120,10 @@ function DraggerToolModel:transitionToState(draggerStateType, ...)
 end
 
 function DraggerToolModel:render()
-	local selection = self._selectionWrapper:get()
+	if getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
+	end
 
-	
 	return Roact.createElement(Roact.Portal, {
 		target = self._draggerContext:getGuiParent(),
 	}, {
@@ -296,6 +298,9 @@ end
 function DraggerToolModel:_processSelectionChanged()
 	self:_updateSelectionInfo()
 	self._stateObject:processSelectionChanged()
+	if getFFlagDraggerFrameworkFixes() then
+		self:_scheduleRender()
+	end
 end
 
 function DraggerToolModel:_processKeyDown(keyCode)
@@ -352,6 +357,14 @@ function DraggerToolModel:_processViewChanged()
 	self:_scheduleRender()
 end
 
+function DraggerToolModel:_updateHandles()
+	for _, handle in pairs(self._handlesList) do
+		if handle.update then
+			handle:update(self, self._selectionInfo)
+		end
+	end
+end
+
 function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	if newSelectionInfoHint then
 		self._selectionInfo = newSelectionInfoHint
@@ -361,7 +374,11 @@ function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	end
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
-	self:_scheduleRender()
+	if getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
+	else
+		self:_scheduleRender()
+	end
 
 	if getFFlagSummonPivot() then
 		self:_updatePivotIndicatorVisibility()
@@ -417,10 +434,8 @@ function DraggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 end
 
 function DraggerToolModel:_scheduleRender()
-	for _, handle in pairs(self._handlesList) do
-		if handle.update then
-			handle:update(self, self._selectionInfo)
-		end
+	if not getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
 	end
 
 	self._requestRenderCallback()

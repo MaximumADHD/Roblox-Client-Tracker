@@ -9,6 +9,8 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+
 return function(plugin, animationClipDropdown, analytics)
 	return function(store)
 		local state = store:getState()
@@ -20,14 +22,19 @@ return function(plugin, animationClipDropdown, analytics)
 		local function userChooseModelThenImportCB()
 			animationClipDropdown:showImportAnimModelChoicePrompt()
 		end
-		
+
 		local success, result = pcall(function()
 			return game:GetService("AvatarImportService"):ImportFBXAnimationUserMayChooseModel(rootInstance, userChooseModelThenImportCB)
 		end)
 
 		if success then
-			local frameRate = RigUtils.calculateFrameRate(result)
-			local newData = RigUtils.fromRigAnimation(result, frameRate)
+			local newData
+			if GetFFlagUseTicks() then
+				newData = RigUtils.fromRigAnimation(result)
+			else
+				local frameRate = RigUtils.calculateFrameRate(result)
+				newData = RigUtils.fromRigAnimation(result, frameRate)
+			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))

@@ -75,7 +75,7 @@ function ConfigTextField:render()
 	end
 end
 
-function ConfigTextField:renderContent(theme, _, localizedContent)
+function ConfigTextField:renderContent(theme, localization, localizedContent)
 	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		theme = self.props.Stylizer
 	end

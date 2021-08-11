@@ -8,6 +8,7 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
@@ -26,6 +27,7 @@ local UploadCloudTable = require(Plugin.Src.Thunks.UploadCloudTable)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
+local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local CloudTableSection = Roact.PureComponent:extend("CloudTableSection")
 
@@ -182,15 +184,28 @@ function CloudTableSection:render()
 	})
 end
 
-ContextServices.mapToProps(CloudTableSection, {
-	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-	API = ContextServices.API,
-	Mouse = ContextServices.Mouse,
-	Analytics = AnalyticsContext,
-})
+if FFlagLocalizationToolsWithContext then
+	CloudTableSection = withContext({
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		API = ContextServices.API,
+		Mouse = ContextServices.Mouse,
+		Analytics = AnalyticsContext,
+	})(CloudTableSection)
+else
+	ContextServices.mapToProps(CloudTableSection, {
+		Plugin = ContextServices.Plugin,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+		API = ContextServices.API,
+		Mouse = ContextServices.Mouse,
+		Analytics = AnalyticsContext,
+	})
+end
+
 
 local function mapStateToProps(state, _)
 	return {

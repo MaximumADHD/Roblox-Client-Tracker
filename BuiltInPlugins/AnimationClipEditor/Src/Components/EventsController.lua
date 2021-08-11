@@ -23,6 +23,7 @@ local KeyboardListener = Framework.UI.KeyboardListener
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Input = require(Plugin.Src.Util.Input)
 local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
@@ -51,6 +52,7 @@ local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEven
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -89,14 +91,20 @@ function EventsController:init()
 		end
 	end
 
-	self.getFrameFromPosition = function(position)
-		return TrackUtils.getKeyframeFromPosition(
+	self.getFrameFromPosition = function(position, snapToFrame)
+		local tick = TrackUtils.getKeyframeFromPosition(
 			position,
 			self.props.StartFrame,
 			self.props.EndFrame,
 			self.props.AbsolutePosition.X + (self.props.TrackPadding / 2),
 			self.props.AbsoluteSize.X - self.props.TrackPadding
 		)
+
+		if GetFFlagUseTicks() and snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.Disabled then
+			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
+		end
+
+		return tick
 	end
 
 	self.onEventDragStarted = function(frame)
@@ -115,7 +123,7 @@ function EventsController:init()
 	end
 
 	self.onEventDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position)
+		local frame = self.getFrameFromPosition(input.Position, true)
 		if self.state.dragFrame ~= frame then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
@@ -178,8 +186,8 @@ function EventsController:init()
 		local timelineScale = trackWidth / (endFrame - startFrame)
 		local selectionPadding = Vector2.new(timelineScale / 2, 0)
 		-- Find extents of selection
-		local minFrame = self.getFrameFromPosition(minPos + selectionPadding)
-		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding)
+		local minFrame = self.getFrameFromPosition(minPos + selectionPadding, false)
+		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding, false)
 		for _, frame in ipairs(self.props.AnimationData.Events.Keyframes) do
 			if frame >= minFrame and frame <= maxFrame then
 				self.props.SelectEvent(frame, true)
@@ -243,18 +251,18 @@ function EventsController:handleTimelineInputEnded(input, keysHeld)
 			self.isMultiSelecting = false
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-		local frame = self.getFrameFromPosition(input.Position)
+		local frame = self.getFrameFromPosition(input.Position, true)
 		self.props.SetRightClickContextInfo({
 			Frame = frame,
 		})
 		self.props.SelectEvent(frame, false)
 		self.showMenu()
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
-		local frame = self.getFrameFromPosition(input.Position)
+		local frame = self.getFrameFromPosition(input.Position, true)
 		if self.doubleClickDetector:isDoubleClick() then
 			self.props.DeselectAllEvents()
 			self.props.SelectEvent(frame, false)
-			self.props.SetEventEditingFrame(self.getFrameFromPosition(input.Position))
+			self.props.SetEventEditingFrame(self.getFrameFromPosition(input.Position, true))
 		end
 	end
 end
@@ -426,6 +434,8 @@ local function mapStateToProps(state, props)
 		Active = state.Status.Active,
 		SelectedEvents = state.Status.SelectedEvents,
 		EventEditingFrame = state.Status.EventEditingFrame,
+		DisplayFrameRate = state.Status.DisplayFrameRate,
+		SnapMode = state.Status.SnapMode,
 	}
 end
 

@@ -17,8 +17,6 @@ local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
 
-local FFlagToolboxFixSearchForMissingCreator = game:DefineFastFlag("ToolboxFixSearchForMissingCreator", false)
-
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
 		store:dispatch(SetLoading(true))
@@ -30,20 +28,14 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
 
-		if FFlagToolboxFixSearchForMissingCreator then
-			if creator ~= nil then
-				-- Creator filter was requested, but no creator with that name was found
-				if creator.Name ~= nil and creator.Name ~= "" and creatorTargetId == nil then
-					store:dispatch(SetLoading(false))
-					return
-				end
-
-				if creatorTargetId ~= nil and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
-					store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
-				end
+		if creator ~= nil then
+			-- Creator filter was requested, but no creator with that name was found
+			if creator.Name ~= nil and creator.Name ~= "" and creatorTargetId == nil then
+				store:dispatch(SetLoading(false))
+				return
 			end
-		else
-			if creator and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
+
+			if creatorTargetId ~= nil and (not CreatorInfoHelper.isCached(store, creatorTargetId, creator.Type)) then
 				store:dispatch(GetCreatorName(networkInterface, creatorTargetId, creator.Type))
 			end
 		end

@@ -2,6 +2,8 @@ if not plugin then
 	return
 end
 
+require(script.Parent.defineLuaFlags)
+
 local main = script.Parent.Parent
 
 local getFFlagEnableMeshImporter = require(main.Src.Flags.getFFlagEnableMeshImporter)

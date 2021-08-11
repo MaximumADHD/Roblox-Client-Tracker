@@ -13,7 +13,6 @@
 		array Tracks = list of tracks currently present on the DopeSheet
 		bool Dragging = whether or not the user is dragging scale handles
 		bool ShowAsSeconds = whether or not to display time as seconds or frames
-		int FrameRate = frame rate of this animation clip
 		int DopeSheetWidth = width of the dope sheet - padding included
 		int ZIndex = display order of this frame
 		bool ShowSelectionArea = show a blue selection box covering the area of selected keys
@@ -35,11 +34,13 @@ local withContext = ContextServices.withContext
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
 
@@ -122,71 +123,74 @@ function ScaleControls:init()
 end
 
 function ScaleControls:render()
-		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
 
-		local showSelectionArea = props.ShowSelectionArea
-		local showAsSeconds = props.ShowAsSeconds
-		local frameRate = props.FrameRate
-		local dragging = props.Dragging
+	local showSelectionArea = props.ShowSelectionArea
+	local showAsSeconds = props.ShowAsSeconds
+	local frameRate = props.FrameRate
+	local dragging = props.Dragging
+	local displayFrameRate = props.DisplayFrameRate
 
-		local zIndex = props.ZIndex
+	local zIndex = props.ZIndex
 
-		local onScaleHandleDragMoved = props.OnScaleHandleDragMoved
-		local onScaleHandleDragEnd = props.OnScaleHandleDragEnd
+	local onScaleHandleDragMoved = props.OnScaleHandleDragMoved
+	local onScaleHandleDragEnd = props.OnScaleHandleDragEnd
 
-		local selectionData = self.getSelectionData()
-		local extents = self.calculateScaleHandleExtents(selectionData)
-		local earliestKeyframe = selectionData.earliestKeyframe
-		local latestKeyframe = selectionData.latestKeyframe
+	local selectionData = self.getSelectionData()
+	local extents = self.calculateScaleHandleExtents(selectionData)
+	local earliestKeyframe = selectionData.earliestKeyframe
+	local latestKeyframe = selectionData.latestKeyframe
 
-		local height = extents.bottom - extents.top
-		local width = extents.right - extents.left + PADDING
+	local height = extents.bottom - extents.top
+	local width = extents.right - extents.left + PADDING
 
-		local timeTagYOffset = -extents.top - (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
-		timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + timeTagYOffset or timeTagYOffset
+	local timeTagYOffset = -extents.top - (Constants.SUMMARY_TRACK_HEIGHT - TIME_TAG_HEIGHT) / 2
+	timeTagYOffset = Constants.SUMMARY_TRACK_HEIGHT + timeTagYOffset or timeTagYOffset
 
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.selectionBox,
-			BackgroundTransparency = showSelectionArea and 0.8 or 1,
-			Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, extents.top),
-			Size = UDim2.new(0, width, 0, height),
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.selectionBox,
+		BackgroundTransparency = showSelectionArea and 0.8 or 1,
+		Position = UDim2.new(0, (props.TrackPadding / 2) + extents.left - (PADDING / 2), 0, extents.top),
+		Size = UDim2.new(0, width, 0, height),
+		ZIndex = zIndex,
+	}, {
+		LeftHandle = Roact.createElement(ScaleHandle, {
+			Position = UDim2.new(0, (-HANDLE_WIDTH / 2), 0, 0),
+			Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
 			ZIndex = zIndex,
-		}, {
-			LeftHandle = Roact.createElement(ScaleHandle, {
-				Position = UDim2.new(0, (-HANDLE_WIDTH / 2), 0, 0),
-				Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
-				ZIndex = zIndex,
-				OnScaleHandleDragStart = self.leftScaleHandleDragStart,
-				OnScaleHandleDragMoved = onScaleHandleDragMoved,
-				OnScaleHandleDragEnd = onScaleHandleDragEnd,
-			}),
+			OnScaleHandleDragStart = self.leftScaleHandleDragStart,
+			OnScaleHandleDragMoved = onScaleHandleDragMoved,
+			OnScaleHandleDragEnd = onScaleHandleDragEnd,
+		}),
 
-			RightHandle = Roact.createElement(ScaleHandle, {
-				Position = UDim2.new(1, (-HANDLE_WIDTH / 2), 0, 0),
-				Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
-				ZIndex = zIndex,
-				OnScaleHandleDragStart = self.rightScaleHandleDragStart,
-				OnScaleHandleDragMoved = onScaleHandleDragMoved,
-				OnScaleHandleDragEnd = onScaleHandleDragEnd,
-			}),
+		RightHandle = Roact.createElement(ScaleHandle, {
+			Position = UDim2.new(1, (-HANDLE_WIDTH / 2), 0, 0),
+			Size = UDim2.new(0, HANDLE_WIDTH, 0, height),
+			ZIndex = zIndex,
+			OnScaleHandleDragStart = self.rightScaleHandleDragStart,
+			OnScaleHandleDragMoved = onScaleHandleDragMoved,
+			OnScaleHandleDragEnd = onScaleHandleDragEnd,
+		}),
 
-			LeftTimeTag = dragging and Roact.createElement(TimeTag, {
-				Position = UDim2.new(0, 0, 0, timeTagYOffset),
-				Size = TIME_TAG_SIZE,
-				AnchorPoint = Vector2.new(1, 1),
-				Time = showAsSeconds and StringUtils.formatTime(earliestKeyframe, frameRate) or earliestKeyframe,
-				ZIndex = zIndex,
-			}),
+		LeftTimeTag = dragging and Roact.createElement(TimeTag, {
+			Position = UDim2.new(0, 0, 0, timeTagYOffset),
+			Size = TIME_TAG_SIZE,
+			AnchorPoint = Vector2.new(1, 1),
+			Time = GetFFlagUseTicks() and StringUtils.formatTime(earliestKeyframe, displayFrameRate, showAsSeconds)
+				or (showAsSeconds and StringUtils.formatTime(earliestKeyframe, frameRate) or earliestKeyframe),
+			ZIndex = zIndex,
+		}),
 
-			RightTimeTag = dragging and Roact.createElement(TimeTag, {
-				Position = UDim2.new(1, 0, 0, timeTagYOffset),
-				Size = TIME_TAG_SIZE,
-				AnchorPoint = Vector2.new(0, 1),
-				Time = showAsSeconds and StringUtils.formatTime(latestKeyframe, frameRate) or latestKeyframe,
-				ZIndex = zIndex,
-			}),
-		})
+		RightTimeTag = dragging and Roact.createElement(TimeTag, {
+			Position = UDim2.new(1, 0, 0, timeTagYOffset),
+			Size = TIME_TAG_SIZE,
+			AnchorPoint = Vector2.new(0, 1),
+			Time = GetFFlagUseTicks() and StringUtils.formatTime(latestKeyframe, displayFrameRate, showAsSeconds)
+				or (showAsSeconds and StringUtils.formatTime(latestKeyframe, frameRate) or latestKeyframe),
+			ZIndex = zIndex,
+		}),
+	})
 end
 
 if FFlagAnimationClipEditorWithContext then

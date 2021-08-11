@@ -12,6 +12,7 @@ local Framework = require(Main.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local InspectorContext = require(Main.Src.Util.InspectorContext)
+local ModuleLoader = require(Main.Src.Util.ModuleLoader)
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -22,12 +23,19 @@ local SelectionService = game:GetService("Selection")
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:init()
-	self.viewComponentSource = function()
+	self.runTests = function()
 		local props = self.props
-		local plugin = props.Plugin:get()
-		local source = props.SelectedStory.Source
-		plugin:OpenScript(source)
-		SelectionService:Set({source})
+		local story = props.SelectedStory.Script
+		local TestEZ = ModuleLoader:load(Main.Packages.Dev.TestEZ)
+		local TestBootstrap = TestEZ.TestBootstrap
+		local TextReporter = TestEZ.Reporters.TextReporter
+		local children
+		if props.SelectedStory.Storybook and props.SelectedStory.Storybook.mapTests then
+			children = props.SelectedStory.Storybook:mapTests(story)
+		else
+			children = { story.Parent }
+		end
+		TestBootstrap:run(children, TextReporter)
 	end
 	self.viewStorySource = function()
 		local props = self.props
@@ -77,8 +85,8 @@ function Footer:render()
 		-- TODO: RIDE-3410 find a way to trigger the Roact Inspector to open
 		-- Inspect = self:renderButton(1, "Inspect", self.inspect, 80),
 		Explore = self:renderButton(2, "Explore", self.explore, 80),
-		ComponentSource = self:renderButton(3, "View Component Source", self.viewComponentSource, 180),
-		StorySource = self:renderButton(4, "View Story Source", self.viewStorySource, 150),
+		RunTests = self:renderButton(3, "Run Tests", self.runTests, 90),
+		StorySource = self:renderButton(4, "View Source", self.viewStorySource, 100),
 	})
 end
 

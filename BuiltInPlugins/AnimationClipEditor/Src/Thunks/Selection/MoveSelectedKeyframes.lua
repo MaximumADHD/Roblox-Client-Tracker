@@ -19,23 +19,33 @@ local Preview = require(Plugin.Src.Util.Preview)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(pivotFrame, newFrame, dragContext)
 	return function(store)
 		local state = store:getState()
 		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
 		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
+		local displayFrameRate = state.Status.DisplayFrameRate
+		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
+
 		if not (animationData and selectedKeyframes) then
 			return
 		end
 
-		local maxLength = animationData.Metadata and animationData.Metadata.FrameRate
-			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-			or AnimationData.getMaximumLength(30)
-
+		local maxLength
+		if GetFFlagUseTicks() then
+			maxLength = Constants.MAX_ANIMATION_LENGTH
+		else
+			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
+				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+				or AnimationData.getMaximumLength(30)
+		end
 		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
 
 		if GetFFlagReduceDeepcopyCalls() then
@@ -89,6 +99,9 @@ return function(pivotFrame, newFrame, dragContext)
 				for index = startIndex, endIndex, step do
 					local oldFrame = keyframes[index]
 					local insertFrame = newFrame + (oldFrame - pivotFrame)
+					if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+						insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+					end
 					insertFrame = math.clamp(insertFrame, oldFrame - earliestFrame, maxLength - (latestFrame - oldFrame))
 					AnimationData.moveKeyframe(track, oldFrame, insertFrame)
 					AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)

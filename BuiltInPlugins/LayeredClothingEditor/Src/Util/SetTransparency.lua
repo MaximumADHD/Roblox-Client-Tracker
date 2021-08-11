@@ -1,6 +1,7 @@
 -- set transparency on lc clothes, lc avatar, or cages
 local Plugin = script.Parent.Parent.Parent
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
+local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
 local function setTransparency(item, transparency)
 	transparency = tonumber(transparency)
@@ -16,7 +17,12 @@ local function setTransparency(item, transparency)
 	end
 
 	if item:IsA("MeshPart") then
-		item = item.Parent
+		if ItemCharacteristics.isAvatar(item) then
+			item = item.Parent
+		else
+			item.Transparency = transparency
+			return
+		end
 	end
 
 	if item:IsA("Model") then

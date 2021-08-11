@@ -14,17 +14,21 @@
 		Position UDim2, position of the dropdown
 		onAssetTypeSelected callback, returns a Enum.AssetType when a type of asset has been selected
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local Components = Plugin.Core.Components
 local DropdownMenu = require(Components.DropdownMenu)
@@ -65,50 +69,68 @@ function AssetTypeSelector:getFirstSelectableIndex()
 end
 
 function AssetTypeSelector:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		return Roact.createElement("Frame", {
+function AssetTypeSelector:renderContent(theme)
+
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		Size = UDim2.new(0, props.width, 0, props.height),
+		Position = props.Position,
+		Active = true,
+	}, {
+		Title = Roact.createElement("TextLabel", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, props.width, 0, props.height),
-			Position = props.Position,
-			Active = true,
-		}, {
-			Title = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 0, -(4 + 24)),
-				Size = UDim2.new(1, 0, 0, 24),
-				TextColor3 = theme.typeSelection.selector.title,
-				TextSize = 16,
-				Font = Constants.FONT,
-				Text = "Choose asset type",
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
+			Position = UDim2.new(0, 0, 0, -(4 + 24)),
+			Size = UDim2.new(1, 0, 0, 24),
+			TextColor3 = theme.typeSelection.selector.title,
+			TextSize = 16,
+			Font = Constants.FONT,
+			Text = "Choose asset type",
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
 
-			Dropdown = Roact.createElement(DropdownMenu, {
-				Position = UDim2.new(0.5, -props.width/2, 0, 0),
-				Size = UDim2.new(1, 0, 1, 0),
-				selectedDropDownIndex = state.dropDownIndex,
-				visibleDropDOwnCount = 5,
-				items = self.props.items,
-				rowHeight = 24,
-				fontSize = 20,
-				onItemClicked = self.onItemClicked,
-			}),
+		Dropdown = Roact.createElement(DropdownMenu, {
+			Position = UDim2.new(0.5, -props.width/2, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
+			selectedDropDownIndex = state.dropDownIndex,
+			visibleDropDOwnCount = 5,
+			items = self.props.items,
+			rowHeight = 24,
+			fontSize = 20,
+			onItemClicked = self.onItemClicked,
+		}),
 
-			Description = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 1, 0),
-				Size = UDim2.new(1, 0, 0, 18),
-				TextColor3 = theme.typeSelection.selector.description,
-				TextSize = 12,
-				Font = Constants.FONT,
-				Text = "Once published, this model can be shared in Marketplace",
-				TextXAlignment = Enum.TextXAlignment.Left,
-			}),
-		})
-	end)
+		Description = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 0, 1, 0),
+			Size = UDim2.new(1, 0, 0, 18),
+			TextColor3 = theme.typeSelection.selector.description,
+			TextSize = 12,
+			Font = Constants.FONT,
+			Text = "Once published, this model can be shared in Marketplace",
+			TextXAlignment = Enum.TextXAlignment.Left,
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	AssetTypeSelector = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetTypeSelector)
 end
 
 return AssetTypeSelector

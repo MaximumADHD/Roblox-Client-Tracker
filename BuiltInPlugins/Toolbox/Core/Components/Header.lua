@@ -17,6 +17,8 @@
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
+local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
+local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
@@ -43,19 +45,36 @@ local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
-local SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+local DevFrameworkDropdownMenu = require(Libs.Framework).UI.DropdownMenu
+local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
+local SearchBar
+if FFlagToolboxUseDeveloperFrameworkSearchBar then
+	SearchBar = require(Libs.Framework).StudioUI.SearchBar
+else
+	SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
+end
 local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
 
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
 local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRequest)
 
+local DROPDOWN_ITEM_HEIGHT = 32
 
 local Header = Roact.PureComponent:extend("Header")
 
 local globalSettings = settings
 
 function Header:init()
+	if FFlagToolboxShowAutocompleteResults then
+		self.state = {
+			showAutocompleteResults = false,
+			-- TODO Populate autocompleteResults with results from API
+			autocompleteResults = {"Tree", "Green Tree", "Tree branch", "Tree green tree", "trees and more Trees"},
+			searchTerm = "",
+		}
+	end
+
 	local networkInterface = getNetwork(self)
 	local settings
 
@@ -117,6 +136,32 @@ function Header:init()
 			self.props.onSearchOptionsToggled()
 		end
 	end
+
+	self.onSearchTextChanged = function(searchTerm)
+		self:setState({
+			showAutocompleteResults = string.len(searchTerm) > 0,
+			-- TODO Populate autocompleteResults with results from API
+			autocompleteResults = {"Tree", "Green Tree", "Tree branch", "Tree green tree", "trees and more Trees"},
+			searchTerm = searchTerm,
+		})
+	end
+
+	self.onAutocompleteRenderItem = function(item, index, activated)
+		return Roact.createElement(DropdownMenuItem, {
+			focusedText = self.state.searchTerm,
+			HideSeparator = index == #self.state.autocompleteResults,
+			LayoutOrder = index,
+			OnClick = activated,
+			Size = UDim2.new(1, 0, 0, DROPDOWN_ITEM_HEIGHT),
+			Text = item,
+		})
+	end
+
+	self.closeAutocomplete = function()
+		self:setState({
+			showAutocompleteResults = false
+		})
+	end
 end
 
 function Header:render()
@@ -138,6 +183,13 @@ function Header:renderContent(theme, localization, localizedContent)
 
 	if FFlagToolboxRemoveWithThemes then
 		theme = props.Stylizer
+	end
+
+	local onTextChanged
+	if (FFlagToolboxShowAutocompleteResults) then
+		onTextChanged = self.onSearchTextChanged
+	else
+		onTextChanged = nil
 	end
 
 	local categories = localization:getLocalizedCategories(props.categories)
@@ -192,6 +244,26 @@ function Header:renderContent(theme, localization, localizedContent)
 		fullWidthDropdown = true
 	end
 
+	local searchBarProps
+	if FFlagToolboxUseDeveloperFrameworkSearchBar then
+		searchBarProps = {
+			LayoutOrder = 1,
+			OnSearchRequested = onSearchRequested,
+			OnTextChanged = onTextChanged,
+			SearchTerm = searchTerm,
+			Style = "ToolboxSearchBar",
+			Width = searchBarWidth,
+		}
+	else
+		searchBarProps = {
+			width = searchBarWidth,
+			LayoutOrder = 1,
+			searchTerm = searchTerm,
+			showSearchButton = true,
+			onSearchRequested = onSearchRequested,
+		}
+	end
+
 	return Roact.createElement("ImageButton", {
 		Position = props.Position,
 		Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
@@ -225,13 +297,23 @@ function Header:renderContent(theme, localization, localizedContent)
 			onItemClicked = onCategorySelected,
 		}),
 
-		SearchBar = showSearchBar and Roact.createElement(SearchBar, {
-			width = searchBarWidth,
-			LayoutOrder = 1,
+		OldSearchBar = not FFlagToolboxShowAutocompleteResults and showSearchBar and Roact.createElement(SearchBar, searchBarProps),
 
-			searchTerm = searchTerm,
-			showSearchButton = true,
-			onSearchRequested = onSearchRequested,
+		SearchFrame = FFlagToolboxShowAutocompleteResults and showSearchBar and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			Size = UDim2.new(0, searchBarWidth, 1, 0),
+		}, {
+			SearchBar = Roact.createElement(SearchBar, searchBarProps),
+			AutocompleteDropdown = Roact.createElement(DevFrameworkDropdownMenu, {
+				Hide = not self.state.showAutocompleteResults,
+				Items = self.state.autocompleteResults,
+				OnFocusLost = self.closeAutocomplete,
+				OnItemActivated = self.onSearchRequested,
+				OnRenderItem = self.onAutocompleteRenderItem,
+				Style = "ToolboxSearchBarDropdown",
+				Width = searchBarWidth,
+			}),
 		}),
 
 		SearchOptionsButton = showSearchOptions and Roact.createElement(SearchOptionsButton, {

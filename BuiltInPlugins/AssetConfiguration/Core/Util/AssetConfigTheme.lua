@@ -299,13 +299,13 @@ function AssetConfigTheme:_recalculateTheme()
 			BorderColor = color(c.Light),
 		},
 
-		thumbnailPreview = {
+		thumbnailPreview = (not FFlagToolboxRemoveWithThemes) and {
 			background = color(c.Item),
 			border = color(c.Border),
 			text = color(c.MainText),
 		},
 
-		typeSelection = {
+		typeSelection = (not FFlagToolboxRemoveWithThemes) and {
 			background = color(c.TableItem),
 			selector = {
 				title = color(c.MainText),
@@ -323,7 +323,7 @@ function AssetConfigTheme:_recalculateTheme()
 			bar = color(c.CurrentMarker),
 		},
 
-		typeValidation = {
+		typeValidation = (not FFlagToolboxRemoveWithThemes) and {
 			background = color(c.TableItem),
 		},
 

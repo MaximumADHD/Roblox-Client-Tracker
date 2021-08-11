@@ -56,6 +56,7 @@ function SettingsButton:render()
 		local theme = props.Theme:get("PluginTheme")
 
 		local onChangeFPS = props.OnChangeFPS
+		local onChangePlaybackSpeed = props.OnChangePlaybackSpeed
 
 		return Roact.createElement("ImageButton", {
 			BackgroundColor3 = theme.backgroundColor,
@@ -74,6 +75,7 @@ function SettingsButton:render()
 				ShowMenu = state.showMenu,
 				OnMenuOpened = self.hideMenu,
 				OnChangeFPS = onChangeFPS,
+				OnChangePlaybackSpeed = onChangePlaybackSpeed,
 			}),
 		})
 end

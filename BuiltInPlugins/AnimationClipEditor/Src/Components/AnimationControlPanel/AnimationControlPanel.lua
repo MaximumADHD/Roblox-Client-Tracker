@@ -54,67 +54,69 @@ function AnimationControlPanel:init()
 end
 
 function AnimationControlPanel:render()
-		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
 
-		local animationData = props.AnimationData
-		local isPlaying = props.IsPlaying
-		local rootInstance = props.RootInstance
-		local startFrame = props.StartFrame
-		local endFrame = props.EndFrame
-		local playhead = props.Playhead
-		local editingLength = props.EditingLength
-		local showAsSeconds = props.ShowAsSeconds
-		local updateEditingLength = props.UpdateEditingLength
-		local stepAnimation = props.StepAnimation
+	local animationData = props.AnimationData
+	local isPlaying = props.IsPlaying
+	local rootInstance = props.RootInstance
+	local startFrame = props.StartFrame
+	local endFrame = props.EndFrame
+	local playhead = props.Playhead
+	local editingLength = props.EditingLength
+	local showAsSeconds = props.ShowAsSeconds
+	local updateEditingLength = props.UpdateEditingLength
+	local stepAnimation = props.StepAnimation
+	local displayFrameRate = props.DisplayFrameRate
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
-			BorderSizePixel = 1,
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
+		BorderSizePixel = 1,
+		LayoutOrder = 0,
+		BackgroundColor3 = theme.backgroundColor,
+		BorderColor3 = theme.borderColor,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}),
+
+		AnimationClipDropdown = Roact.createElement(AnimationClipDropdown, {
+			AnimationName = animationData and animationData.Metadata.Name or "",
+			RootInstance = rootInstance,
+			LoadAnimationData = self.loadAnimationDataWrapper,
+			InstanceType = rootInstance and animationData and animationData.Instances.Root.Type,
 			LayoutOrder = 0,
-			BackgroundColor3 = theme.backgroundColor,
-			BorderColor3 = theme.borderColor,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-			}),
+		}),
 
-			AnimationClipDropdown = Roact.createElement(AnimationClipDropdown, {
-				AnimationName = animationData and animationData.Metadata.Name or "",
-				RootInstance = rootInstance,
-				LoadAnimationData = self.loadAnimationDataWrapper,
-				InstanceType = rootInstance and animationData and animationData.Instances.Root.Type,
-				LayoutOrder = 0,
-			}),
+		MediaControls = Roact.createElement(MediaControls, {
+			IsPlaying = isPlaying,
+			IsLooping = animationData and animationData.Metadata
+				and animationData.Metadata.Looping or false,
+			StartFrame = startFrame,
+			EndFrame = endFrame,
+			SkipBackward = self.skipBackwardWrapper,
+			SkipForward = self.skipForwardWrapper,
+			TogglePlay = self.togglePlayWrapper,
+			ToggleLooping = self.toggleLoopingWrapper,
+			LayoutOrder = 1,
+		}),
 
-			MediaControls = Roact.createElement(MediaControls, {
-				IsPlaying = isPlaying,
-				IsLooping = animationData and animationData.Metadata
-					and animationData.Metadata.Looping or false,
-				StartFrame = startFrame,
-				EndFrame = endFrame,
-				SkipBackward = self.skipBackwardWrapper,
-				SkipForward = self.skipForwardWrapper,
-				TogglePlay = self.togglePlayWrapper,
-				ToggleLooping = self.toggleLoopingWrapper,
-				LayoutOrder = 1,
-			}),
-
-			TimeDisplay = Roact.createElement(TimeDisplay, {
-				StartFrame = startFrame,
-				EndFrame = endFrame,
-				ShowAsTime = showAsSeconds,
-				AnimationData = animationData,
-				Playhead = playhead,
-				EditingLength = editingLength,
-				StepAnimation = stepAnimation,
-				UpdateEditingLength = updateEditingLength,
-				LayoutOrder = 2,
-			}),
-		})
+		TimeDisplay = Roact.createElement(TimeDisplay, {
+			StartFrame = startFrame,
+			EndFrame = endFrame,
+			DisplayFrameRate = displayFrameRate,
+			ShowAsTime = showAsSeconds,
+			AnimationData = animationData,
+			Playhead = playhead,
+			EditingLength = editingLength,
+			StepAnimation = stepAnimation,
+			UpdateEditingLength = updateEditingLength,
+			LayoutOrder = 2,
+		}),
+	})
 end
 
 if FFlagAnimationClipEditorWithContext then
@@ -133,7 +135,8 @@ end
 local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
-		RootInstance = state.Status.RootInstance
+		RootInstance = state.Status.RootInstance,
+		DisplayFrameRate = state.Status.DisplayFrameRate
 	}
 end
 

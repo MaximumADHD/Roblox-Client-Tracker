@@ -4,6 +4,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
@@ -44,9 +45,9 @@ function TopBar:render()
 	})
 end
 
-ContextServices.mapToProps(TopBar, {
+TopBar = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(TopBar)
 
 return TopBar

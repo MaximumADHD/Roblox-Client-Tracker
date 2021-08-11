@@ -1,3 +1,5 @@
+local FFlagFixOuterBoxDefaultInGameSettings = game:DefineFastFlag("FixOuterBoxDefaultInGameSettings", false)
+
 local Page = script.Parent.Parent
 
 local ConstantAvatar = require(Page.Util.ConstantAvatar)
@@ -49,7 +51,7 @@ function Template.new(boundaries)
 			boundaries.BodyType.max, boundaries.Proportion.max, depthDefault)
 	end
 
-	self.CollisionValue = ConstantTemplate.InnerCollision
+	self.CollisionValue = FFlagFixOuterBoxDefaultInGameSettings and ConstantTemplate.OuterCollision or ConstantTemplate.InnerCollision
 	self.AnimationValue = ConstantTemplate.PlayerChoice
 
 	self.RigTypeValue = ConstantTemplate.PlayerChoice

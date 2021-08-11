@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
 		Padding: An optional number or table adding a UIPadding instance.

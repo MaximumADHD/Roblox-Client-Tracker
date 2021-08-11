@@ -30,8 +30,6 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Container = UI.Container
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local RunService = game:GetService("RunService")
 
 local Spinner = Roact.PureComponent:extend("Spinner")
@@ -46,11 +44,7 @@ function Spinner:init()
 	}
 
 	self.getStyle = function()
-		if THEME_REFACTOR then
-			return self.props.Stylizer.Spinner
-		else
-			return self.props.Theme:getStyle("TerrainTools", self)
-		end
+		return self.props.Stylizer.Spinner
 	end
 
 	self.moveToNext = function()
@@ -148,13 +142,11 @@ end
 
 if FFlagTerrainToolsV2WithContext then
 	Spinner = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})(Spinner)
 else
 	ContextServices.mapToProps(Spinner, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer or nil,
 	})
 end
 

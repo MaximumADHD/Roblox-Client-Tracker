@@ -116,6 +116,15 @@ function LayeredClothingEditorPlugin:init()
 	self.editingItemContext = EditingItemContext.new()
 
 	self.toolbarButton.Click:connect(self.onToggleWidget)
+
+	self.onFocus = function()
+		local Selection = game:GetService("Selection")
+		Selection:Set({})
+		delayToNextFrame(function()
+			self.toolbarButton:SetActive(true)
+			self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
+		end)
+	end
 end
 
 function LayeredClothingEditorPlugin:render()
@@ -137,17 +146,7 @@ function LayeredClothingEditorPlugin:render()
 		Plugin = self.plugin,
 		OnClose = self.onClose,
 		OnWidgetRestored = function() end,
-		OnWidgetFocused = function()
-			local Selection = game:GetService("Selection")
-			Selection:Set({})
-			delayToNextFrame(function()
-				self.toolbarButton:SetActive(true)
-				local pluginInst = self.plugin:get()
-				pluginInst:Activate(true)
-				self.store:dispatch(SetDraggerType(Enum.RibbonTool.Select))
-				self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()
-			end)
-		end,
+		OnWidgetFocused = self.onFocus,
 	}, {
 		ServiceWrapper = Roact.createElement(ServiceWrapper, {
 			plugin = self.plugin,

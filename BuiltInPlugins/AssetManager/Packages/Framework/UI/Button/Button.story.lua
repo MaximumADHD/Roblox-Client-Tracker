@@ -11,9 +11,6 @@ local HoverArea = UI.HoverArea
 local FrameworkStyle = Framework.Style
 local ui = require(FrameworkStyle).ComponentSymbols
 
--- TODO FFlagEnableDeveloperStorybook: when retired, remove unused StudioTheme import
-local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
-local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
 local ThemeSwitcher = require(FrameworkStyle.ThemeSwitcher)
 
 local BaseTheme = require(FrameworkStyle.Themes.BaseTheme)
@@ -23,7 +20,7 @@ local StyleKey = require(Framework.Style.StyleKey)
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
-local theme = FFlagEnableDeveloperStorybook and ThemeSwitcher.new() or StudioTheme.new()
+local theme = ThemeSwitcher.new()
 theme:extend({
 	[ui.Button] = join(BaseTheme[ui.Button], {
 		["&Close"] = {

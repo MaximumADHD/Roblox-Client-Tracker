@@ -5,12 +5,14 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -22,6 +24,8 @@ local Actions = Plugin.Core.Actions
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local LoadingBar = require(AssetConfiguration.LoadingBar)
@@ -50,53 +54,64 @@ function AssetUpload:init(props)
 end
 
 function AssetUpload:render()
-	return withTheme(function(theme)
-		local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
+function AssetUpload:renderContent(theme)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local showViewport = previewType == PreviewTypes.ModelPreview
-		local showThumbnail = previewType == PreviewTypes.Thumbnail
-				or previewType == PreviewTypes.ImagePicker
+	local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.typeValidation.background,
-			BackgroundTransparency = 0,
+	local showViewport = previewType == PreviewTypes.ModelPreview
+	local showThumbnail = previewType == PreviewTypes.Thumbnail
+			or previewType == PreviewTypes.ImagePicker
+
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.typeValidation.background,
+		BackgroundTransparency = 0,
+		BorderSizePixel = 0,
+		Size = props.Size,
+	}, {
+		ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
+			title = props.assetName,
+			titleHeight = PREVIEW_TITLE_HEIGHT,
+			titlePadding = PREVIEW_TITLE_PADDING,
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+			),
+		}),
+
+		ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE
+			),
+			Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
+			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			Size = props.Size,
-		}, {
-			ModelPreview = showViewport and Roact.createElement(AssetThumbnailPreview, {
-				title = props.assetName,
-				titleHeight = PREVIEW_TITLE_HEIGHT,
-				titlePadding = PREVIEW_TITLE_PADDING,
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-				),
-			}),
+		}),
 
-			ThumbnailPreview = showThumbnail and Roact.createElement("ImageLabel", {
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE
-				),
-				Image = AssetConfigUtil.getResultThumbnail(props.assetId, props.iconFile),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-			}),
-
-			LoadingBar = Roact.createElement(LoadingBar, {
-				loadingText = LOADING_TEXT,
-				loadingTime = LOADING_TIME,
-				holdPercent = LOADING_PERCENT,
-				Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
-				Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
-				onFinish = props.uploadSucceeded ~= nil and props.onNext or nil,
-			}),
-		})
-	end)
+		LoadingBar = Roact.createElement(LoadingBar, {
+			loadingText = LOADING_TEXT,
+			loadingTime = LOADING_TIME,
+			holdPercent = LOADING_PERCENT,
+			Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
+			Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
+			onFinish = props.uploadSucceeded ~= nil and props.onNext or nil,
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -122,6 +137,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	AssetUpload = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetUpload)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetUpload)

@@ -17,8 +17,12 @@ local Constants = {
 	DEFAULT_FRAMERATE = 30,
 	MIN_FRAMERATE = 1,
 	MAX_FRAMERATE = 120,
+	MIN_PLAYBACK_SPEED = 0.1,
+	MAX_PLAYBACK_SPEED = 10,
 
 	MAX_TIME = (GetFFlagDebugExtendAnimationLimit() or GetFFlagExtendAnimationLimit())and 1800 or 30,
+	TICK_FREQUENCY = 2400,
+
 	MAX_DISPLAYED_TIME = 30,
 	MIN_TIMELINE_RANGE = 30,
 
@@ -90,6 +94,12 @@ local Constants = {
 	LENGTH_TO_RADIUS_RATIO = 15,
 
 	SNAP_TO_KEYFRAME_THRESHOLD = 30, --in pixels
+
+	SNAP_MODES = {
+		Keyframes = "Keyframes",
+		Frames = "Frames",
+		Disabled = "Disabled",
+	},
 
 	TEMPORARY_CONSTRAINTS = "ROBLOX_R15_IK_CONSTRAINTS",
 
@@ -169,6 +179,15 @@ local Constants = {
 		FPS_30 = 30,
 		FPS_60 = 60,
 		FPS_120 = 120,
+		CUSTOM = -1
+	},
+
+	PLAYBACK_SPEEDS = {
+		PBS_025 = 0.25,
+		PBS_05 = 0.5,
+		PBS_1 = 1,
+		PBS_2 = 2,
+		PBS_4 = 4,
 		CUSTOM = -1
 	},
 
@@ -312,6 +331,8 @@ local Constants = {
 		Other = "Other",
 	},
 }
+
+Constants.MAX_ANIMATION_LENGTH = Constants.MAX_TIME * Constants.TICK_FREQUENCY
 
 Constants.PartToConstraintConfigMap = {
 	[Constants.R15_PARTS.UpperTorso] = Constants.CONSTRAINTS_CONFIG.Waist,

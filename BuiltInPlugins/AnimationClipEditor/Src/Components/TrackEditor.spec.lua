@@ -3,6 +3,7 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
+	local GetFFlagUseTicks =require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local TrackEditor = require(script.Parent.TrackEditor)
 
@@ -16,6 +17,7 @@ return function()
 				EndFrame = 30,
 				LastFrame = 100,
 				Playhead = 0,
+				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,
 			})
 		})
 	end

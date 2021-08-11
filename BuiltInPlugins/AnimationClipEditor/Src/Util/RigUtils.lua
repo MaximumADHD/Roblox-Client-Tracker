@@ -20,6 +20,7 @@ local Workspace = game:GetService("Workspace")
 local Constants = require(Plugin.Src.Util.Constants)
 local GetFFlagPrecalculatePartPaths = require(Plugin.LuaFlags.GetFFlagPrecalculatePartPaths)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local RigUtils = {}
 
@@ -163,9 +164,17 @@ function RigUtils.getBones(rig)
 	local bones = {}
 
 	local descendants = getDescendants({}, rig)
-	for _, child in ipairs(descendants) do
-		if child:IsA(Constants.BONE_CLASS_NAME) then
-			table.insert(bones, child)
+	if GetFFlagFacialAnimationSupport() then
+		for _, child in ipairs(descendants) do
+			if child:IsA(Constants.BONE_CLASS_NAME) and child.IsCFrameDriven then
+				table.insert(bones, child)
+			end
+		end
+	else
+		for _, child in ipairs(descendants) do
+			if child:IsA(Constants.BONE_CLASS_NAME) then
+				table.insert(bones, child)
+			end
 		end
 	end
 	return bones
@@ -819,6 +828,16 @@ function RigUtils.getUnusedRigTracks(rig, tracks)
 	return unusedTracks
 end
 
+-- Finds the FaceControls instance attached to the rig
+function RigUtils.getFaceControls(rig)
+	local descendants = getDescendants({}, rig)
+	for _, child in ipairs(descendants) do
+		if child:IsA("FaceControls") then
+			return child
+		end
+	end
+end
+
 -- Finds every kinematic part in the rig, and returns both a list of these parts,
 -- and a table mapping part names to motors in the rig that control that part.
 function RigUtils.getRigInfo(rig)
@@ -1099,7 +1118,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 	local metadata = animationData.Metadata
 	local events = animationData.Events
 	local namedKeyframes = events.NamedKeyframes
-	local frameRate = metadata.FrameRate
+	local frameRate = not GetFFlagUseTicks() and metadata.FrameRate or nil
 
 	local keyframeSequence = Instance.new("KeyframeSequence")
 	keyframeSequence.Name = metadata.Name
@@ -1110,7 +1129,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 
 	local parts, partsToMotors, constraints, boneMap = RigUtils.getRigInfo(rig)
 
-	local kfsByFrame = {}
+	local kfsByTick = {}
 
 	-- Create poses
 	local root = animationData.Instances.Root
@@ -1123,15 +1142,15 @@ function RigUtils.toRigAnimation(animationData, rig)
 	end
 
 	for trackName, track in pairs(tracks) do
-		for _, keyframe in pairs(track.Keyframes) do
-			local time = keyframe / frameRate
-			local keyframeInstance = kfsByFrame[keyframe]
+		for _, tick in pairs(track.Keyframes) do
+			local time = tick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or frameRate)
+			local keyframeInstance = kfsByTick[tick]
 			if not keyframeInstance then
 				keyframeInstance = createKeyframeInstance(keyframeSequence, time)
-				kfsByFrame[keyframe] = keyframeInstance
+				kfsByTick[tick] = keyframeInstance
 			end
 			local trackType = track.Type
-			local trackData = track.Data[keyframe]
+			local trackData = track.Data[tick]
 
 			if GetFFlagPrecalculatePartPaths() then
 				if GetFFlagFacialAnimationSupport() then
@@ -1144,8 +1163,8 @@ function RigUtils.toRigAnimation(animationData, rig)
 			end
 
 			-- Set keyframe name, if one exists
-			if namedKeyframes[keyframe] then
-				keyframeInstance.Name = namedKeyframes[keyframe]
+			if namedKeyframes[tick] then
+				keyframeInstance.Name = namedKeyframes[tick]
 			end
 
 			numPoses = numPoses + 1
@@ -1153,14 +1172,14 @@ function RigUtils.toRigAnimation(animationData, rig)
 	end
 
 	-- Create events
-	for _, frame in ipairs(events.Keyframes) do
-		local data = events.Data[frame]
+	for _, tick in ipairs(events.Keyframes) do
+		local data = events.Data[tick]
 		for name, value in pairs(data) do
-			local time = frame / frameRate
-			local keyframeInstance = kfsByFrame[frame]
+			local time = tick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or frameRate)
+			local keyframeInstance = kfsByTick[tick]
 				if not keyframeInstance then
 					keyframeInstance = createKeyframeInstance(keyframeSequence, time)
-					kfsByFrame[frame] = keyframeInstance
+					kfsByTick[tick] = keyframeInstance
 				end
 			local marker = Instance.new("KeyframeMarker", keyframeInstance)
 			marker.Name = name
@@ -1216,18 +1235,111 @@ function RigUtils.calculateFrameRate(keyframeSequence)
 end
 
 -- Importing a R15 animation from a KeyframeSequence and its children
-function RigUtils.fromRigAnimation(keyframeSequence, frameRate, snapTolerance)
+function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	assert(keyframeSequence ~= nil
 		and typeof(keyframeSequence) == "Instance"
 		and keyframeSequence.ClassName == "KeyframeSequence",
 		"Expected a KeyframeSequence for the AnimationData."
 	)
+
+	local frameRate = RigUtils.calculateFrameRate(keyframeSequence)
+
+	local keyframes = keyframeSequence:GetKeyframes()
+	local length = 0
+	local lastKeyframe
+	local animationData = GetFFlagUseTicks() and AnimationData.new(keyframeSequence.Name, Constants.INSTANCE_TYPES.Rig)
+		or AnimationData.new_deprecated(keyframeSequence.Name, frameRate, Constants.INSTANCE_TYPES.Rig)
+	local numPoses = 0
+	local numEvents = 0
+
+	local tracks = animationData.Instances.Root.Tracks
+	for _, keyframe in pairs(keyframes) do
+		local time = keyframe.Time
+		local tick = KeyframeUtils.getNearestTick(time * Constants.TICK_FREQUENCY)
+
+		-- Add keyframes at this tick
+		traversePoses(keyframe, function(pose)
+			local poseName = pose.Name
+			-- TODO: At some point we will need to differentiate NumberPoses into
+			-- FACS channels and generic float channels. On name? Parent?
+			local trackType = pose:IsA("Pose") and Constants.TRACK_TYPES.CFrame or Constants.TRACK_TYPES.Facs
+
+			if poseName ~= "HumanoidRootPart" and pose.Weight ~= 0 then
+				if tracks[poseName] == nil then
+					if GetFFlagFacialAnimationSupport() then
+						AnimationData.addTrack(tracks, poseName, trackType)
+					else
+						AnimationData.addTrack(tracks, poseName)
+					end
+				end
+				local track = tracks[poseName]
+				if GetFFlagFacialAnimationSupport() then
+					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
+					AnimationData.addKeyframe(track, tick, value)
+				else
+					AnimationData.addKeyframe(track, tick, pose.CFrame)
+				end
+				AnimationData.setKeyframeData(track, tick, {
+					EasingStyle = pose.EasingStyle,
+					EasingDirection = pose.EasingDirection,
+				})
+
+				numPoses = numPoses + 1
+			end
+		end)
+
+		-- Add events at this frame
+		traverseKeyframeMarkers(keyframe, function(marker)
+			AnimationData.addEvent(animationData.Events, tick, marker.Name, marker.Value)
+			numEvents = numEvents + 1
+		end)
+
+		-- Adjust animation length to fit the last keyframe
+		if time > length then
+			lastKeyframe = keyframe
+			length = math.max(length, keyframe.Time)
+		end
+
+		if keyframe.Name ~= Constants.DEFAULT_KEYFRAME_NAME then
+			AnimationData.setKeyframeName(animationData, tick, keyframe.Name)
+		end
+	end
+
+	-- If the last keyframe was empty and only there to determine length,
+	-- we need to add an explicit keyframe at the end of the animation to
+	-- preserve the correct length.
+	local endFrame = KeyframeUtils.getNearestTick(length * Constants.TICK_FREQUENCY)
+	if lastKeyframe and #lastKeyframe:GetChildren() == 0 then
+		for _, track in pairs(tracks) do
+			local lastFrame = track.Keyframes[#track.Keyframes]
+			local lastValue = track.Data[lastFrame].Value
+			AnimationData.addKeyframe(track, endFrame, lastValue)
+		end
+	end
+
+	animationData.Metadata.EndFrame = endFrame
+	animationData.Metadata.Priority = keyframeSequence.Priority
+	animationData.Metadata.Looping = keyframeSequence.Loop
+	animationData.Metadata.Name = keyframeSequence.Name
+
+	local numKeyframes = #keyframeSequence:GetKeyframes()
+	return animationData, frameRate, numKeyframes, numPoses, numEvents
+end
+
+-- Deprecated when GetFFlagUseTicks() is retired
+function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapTolerance)
+	assert(keyframeSequence ~= nil
+		and typeof(keyframeSequence) == "Instance"
+		and keyframeSequence.ClassName == "KeyframeSequence",
+		"Expected a KeyframeSequence for the AnimationData."
+	)
+
 	assert(frameRate ~= nil, "Expected a frameRate for the AnimationData.")
 
 	local keyframes = keyframeSequence:GetKeyframes()
 	local length = 0
 	local lastKeyframe
-	local animationData = AnimationData.new(keyframeSequence.Name, frameRate, Constants.INSTANCE_TYPES.Rig)
+	local animationData = AnimationData.new_deprecated(keyframeSequence.Name, frameRate, Constants.INSTANCE_TYPES.Rig)
 	local numPoses = 0
 	local numEvents = 0
 
@@ -1289,7 +1401,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, frameRate, snapTolerance)
 	-- If the last keyframe was empty and only there to determine length,
 	-- we need to add an explicit keyframe at the end of the animation to
 	-- preserve the correct length.
-	local endFrame = KeyframeUtils.getNearestFrame(length * frameRate)
+	local endFrame = KeyframeUtils.getNearestFrame_deprecated(length * frameRate)
 	if lastKeyframe and #lastKeyframe:GetChildren() == 0 then
 		for _, track in pairs(tracks) do
 			local lastFrame = track.Keyframes[#track.Keyframes]
@@ -1307,18 +1419,41 @@ function RigUtils.fromRigAnimation(keyframeSequence, frameRate, snapTolerance)
 	return animationData, numKeyframes, numPoses, numEvents
 end
 
-function RigUtils.stepRigAnimation(rig, instance, frame)
+function RigUtils.stepRigAnimation(rig, instance, tick)
 	local animator = getAnimator(rig)
 	local parts, partsToMotors = RigUtils.getRigInfo(rig)
 	local boneMap = RigUtils.getBoneMap(rig)
 
-	for _, part in ipairs(parts) do
-		local joint = partsToMotors[part.Name] or boneMap[part.Name]
-		local track = instance.Tracks[part.Name]
-		if track then
-			joint.Transform = KeyframeUtils:getValue(track, frame)
-		else
-			joint.Transform = CFrame.new()
+	if not GetFFlagFacialAnimationSupport() then
+		for _, part in ipairs(parts) do
+			local joint = partsToMotors[part.Name] or boneMap[part.Name]
+			local track = instance.Tracks[part.Name]
+			if track then
+				joint.Transform = KeyframeUtils:getValue(track, tick)
+			else
+				joint.Transform = CFrame.new()
+			end
+		end
+	else
+		for _, part in ipairs(parts) do
+			local joint = partsToMotors[part.Name] or boneMap[part.Name]
+			if joint then
+				local track = instance.Tracks[part.Name]
+				if track then
+					joint.Transform = KeyframeUtils:getValue(track, tick)
+				else
+					joint.Transform = CFrame.new()
+				end
+			end
+		end
+
+		local faceControls = RigUtils.getFaceControls(rig)
+		if faceControls ~= nil then
+			for trackName, track in pairs(instance.Tracks) do
+				if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
+					faceControls[trackName] = KeyframeUtils:getValue(track, tick)
+				end
+			end
 		end
 	end
 

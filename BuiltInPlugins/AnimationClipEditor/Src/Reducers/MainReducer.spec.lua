@@ -37,6 +37,7 @@ return function()
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
 	local ToggleSnapToKeys = require(Plugin.Src.Thunks.ToggleSnapToKeys)
 	local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
+	local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 	local SetActive = require(Plugin.Src.Actions.SetActive)
 	local RenameKeyframe = require(Plugin.Src.Thunks.RenameKeyframe)
 
@@ -53,10 +54,11 @@ return function()
 	local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local testAnimationData = {
 		Metadata = {
-			FrameRate = 30,
+			FrameRate = not GetFFlagUseTicks() and 30 or nil,
 			StartFrame = 0,
 			EndFrame = 8,
 		},
@@ -124,6 +126,11 @@ return function()
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		store:dispatch(SetAnimationData(deepCopy(testAnimationData)))
 		store:dispatch(SetActive(true))
+		if GetFFlagUseTicks() then
+			-- This test uses old frames as offsets. Disable snap mode so that
+			-- move/scale operations don't regroup them all at offset 0
+			store:dispatch(SetSnapMode(Constants.SNAP_MODES.Disabled))
+		end
 		return store
 	end
 
@@ -467,6 +474,7 @@ return function()
 
 			local animationData = store:getState().AnimationData
 			local testTrack = animationData.Instances.Root.Tracks.TestTrack
+
 			expect(#testTrack.Keyframes).to.equal(3)
 			expect(testTrack.Keyframes[1]).to.equal(3)
 			expect(testTrack.Keyframes[2]).to.equal(4)
@@ -933,14 +941,23 @@ return function()
 	describe("UpdateEditingLength", function()
 		it("should set the editing length", function()
 			local store = createTestStore()
-			store:dispatch(UpdateEditingLength(60))
-			expect(store:getState().Status.EditingLength).to.equal(60)
+			if GetFFlagUseTicks() then
+				store:dispatch(UpdateEditingLength(4800))
+				expect(store:getState().Status.EditingLength).to.equal(4800)
+			else
+				store:dispatch(UpdateEditingLength(60))
+				expect(store:getState().Status.EditingLength).to.equal(60)
+			end
 		end)
 
 		it("should max the length with the min length and animation length", function()
 			local store = createTestStore()
 			store:dispatch(UpdateEditingLength(2))
-			expect(store:getState().Status.EditingLength).to.equal(Constants.DEFAULT_FRAMERATE)
+			if GetFFlagUseTicks() then
+				expect(store:getState().Status.EditingLength).to.equal(Constants.TICK_FREQUENCY)
+			else
+				expect(store:getState().Status.EditingLength).to.equal(Constants.DEFAULT_FRAMERATE)
+			end
 		end)
 	end)
 end

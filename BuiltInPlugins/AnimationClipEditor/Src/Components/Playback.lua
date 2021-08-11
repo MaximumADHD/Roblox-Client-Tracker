@@ -2,9 +2,12 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlaybackStartInfo = require(Plugin.Src.Actions.SetPlaybackStartInfo)
+local Constants = require(Plugin.Src.Util.Constants)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local RunService = game:GetService("RunService")
 local Playback = Roact.PureComponent:extend("Playback")
@@ -14,19 +17,44 @@ function Playback:didMount()
 	self.Stepped = RunService.Heartbeat:Connect(function()
 		local props = self.props
 		local playhead = props.Playhead
+		local playbackSpeed = props.PlaybackSpeed
+		local playbackStartInfo = props.PlaybackStartInfo
+
 		if props.IsPlaying and props.AnimationData ~= nil then
 			local metadata = props.AnimationData.Metadata
 			if metadata.EndFrame > 0 then
 				local now = tick()
-				if not self.StartTime then
-					self.StartTime = now
-					self.PlayheadStart = playhead
-					if self.PlayheadStart >= math.floor(metadata.EndFrame) then
-						self.PlayheadStart = 0
+				if GetFFlagUseTicks() then
+					if not playbackStartInfo.startTime then
+						local startPlayhead = playhead
+						if startPlayhead >= math.floor(metadata.EndFrame) then
+							startPlayhead = 0
+						end
+						playbackStartInfo = {
+							startTime = now,
+							startPlayhead = startPlayhead,
+						}
+						props.SetPlaybackStartInfo(playbackStartInfo)
+					end
+				else
+					if not self.StartTime then
+						self.StartTime = now
+						self.PlayheadStart = playhead
+						if self.PlayheadStart >= math.floor(metadata.EndFrame) then
+							self.PlayheadStart = 0
+						end
 					end
 				end
-				local elapsed = now - self.StartTime
-				local newFrame = self.PlayheadStart + elapsed * metadata.FrameRate
+
+				local newFrame
+				if GetFFlagUseTicks() then
+					local elapsed = (now - playbackStartInfo.startTime) * playbackSpeed
+					newFrame = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
+				else
+					local elapsed = now - self.StartTime
+					newFrame = self.PlayheadStart + elapsed * metadata.FrameRate
+				end
+
 				if metadata.Looping then
 					newFrame = newFrame % metadata.EndFrame
 				else
@@ -39,8 +67,14 @@ function Playback:didMount()
 			else
 				props.SetIsPlaying(false)
 			end
-		elseif self.StartTime ~= nil then
-			self.StartTime = nil
+		else
+			if GetFFlagUseTicks() then
+				props.SetPlaybackStartInfo({})
+			else
+				if self.StartTime ~= nil then
+					self.StartTime = nil
+				end
+			end
 		end
 	end)
 end
@@ -60,6 +94,8 @@ local function mapStateToProps(state, props)
 		AnimationData = state.AnimationData,
 		IsPlaying = state.Status.IsPlaying,
 		Playhead = state.Status.Playhead,
+		PlaybackSpeed = state.Status.PlaybackSpeed,
+		PlaybackStartInfo = state.Status.PlaybackStartInfo,
 	}
 end
 
@@ -71,6 +107,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		SetPlaybackStartInfo = function(playbackStartInfo)
+			dispatch(SetPlaybackStartInfo(playbackStartInfo))
 		end,
 	}
 end

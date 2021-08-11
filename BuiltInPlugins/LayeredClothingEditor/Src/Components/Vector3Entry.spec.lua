@@ -32,25 +32,16 @@ return function()
 				local label = frame.Label
 				local inputBoxes = frame.InputBoxes
 				local inputBoxesLayout = inputBoxes.Layout
-
-				local xInputFrame = inputBoxes.XInputFrame
-				local xInput = xInputFrame.XInput
-
-				local yInputFrame = inputBoxes.YInputFrame
-				local yInput = yInputFrame.YInput
-
-				local zInputFrame = inputBoxes.ZInputFrame
-				local zInput = zInputFrame.ZInput
+				local xInput = inputBoxes.XInput
+				local yInput = inputBoxes.YInput
+				local zInput = inputBoxes.ZInput
 
 				expect(frame).to.be.ok()
 				expect(label).to.be.ok()
 				expect(inputBoxes).to.be.ok()
 				expect(inputBoxesLayout).to.be.ok()
-				expect(xInputFrame).to.be.ok()
 				expect(xInput).to.be.ok()
-				expect(yInputFrame).to.be.ok()
 				expect(yInput).to.be.ok()
-				expect(zInputFrame).to.be.ok()
 				expect(zInput).to.be.ok()
 			end
 		)

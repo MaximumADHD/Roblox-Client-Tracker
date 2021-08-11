@@ -18,11 +18,15 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
+local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 local ToggleSnapToKeys = require(Plugin.Src.Thunks.ToggleSnapToKeys)
 local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
+local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
+local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 
 local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -44,6 +48,43 @@ function SettingsMenu:makeTimelineUnitMenu(localization)
 	}
 end
 
+function SettingsMenu:makePlaybackSpeedMenu(localization)
+	local props = self.props
+	local playbackSpeed = props.PlaybackSpeed
+
+	local isPresetPlaybackSpeed = false
+	for _, presetSpeed in pairs(Constants.PLAYBACK_SPEEDS) do
+		if presetSpeed ~= Constants.PLAYBACK_SPEEDS.CUSTOM and playbackSpeed == presetSpeed then
+			isPresetPlaybackSpeed = true
+			break
+		end
+	end
+
+	return {
+		Name = localization:getText("Settings", "PlaybackSpeed") ..": " ..string.format("%.2f", playbackSpeed):gsub("%.?0+$", "") .."x",
+		Items = {
+			{Name = localization:getText("Settings", "025x"), Value = Constants.PLAYBACK_SPEEDS.PBS_025},
+			{Name = localization:getText("Settings", "05x"), Value = Constants.PLAYBACK_SPEEDS.PBS_05},
+			{Name = localization:getText("Settings", "1x"), Value = Constants.PLAYBACK_SPEEDS.PBS_1},
+			{Name = localization:getText("Settings", "2x"), Value = Constants.PLAYBACK_SPEEDS.PBS_2},
+			{Name = localization:getText("Settings", "4x"), Value = Constants.PLAYBACK_SPEEDS.PBS_4},
+			{Name = localization:getText("Settings", "CustomPlaybackSpeed") .."...", Value = Constants.PLAYBACK_SPEEDS.CUSTOM},
+		},
+
+		CurrentItem = not GetFFlagRefactorMenus() and (isPresetPlaybackSpeed and playbackSpeed or Constants.PLAYBACK_SPEEDS.CUSTOM) or nil,
+		CurrentValue = GetFFlagRefactorMenus() and (isPresetPlaybackSpeed and playbackSpeed or Constants.PLAYBACK_SPEEDS.CUSTOM) or nil,
+		ItemSelected = function(item)
+			if item.Value ~= Constants.PLAYBACK_SPEEDS.CUSTOM then
+				props.SetPlaybackSpeed(item.Value)
+			else
+				if props.OnChangePlaybackSpeed then
+					props.OnChangePlaybackSpeed()
+				end
+			end
+		end,
+	}
+end
+
 function SettingsMenu:makeFrameRateMenu(localization)
 	local props = self.props
 	local animationData = props.AnimationData
@@ -51,7 +92,7 @@ function SettingsMenu:makeFrameRateMenu(localization)
 		return
 	end
 
-	local currentFPS = animationData.Metadata.FrameRate
+	local currentFPS = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
 
 	local isPresetFrameRate = false
 	for _, fps in pairs(Constants.FRAMERATES) do
@@ -75,12 +116,36 @@ function SettingsMenu:makeFrameRateMenu(localization)
 		CurrentValue = GetFFlagRefactorMenus() and (isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM) or nil,
 		ItemSelected = function(item)
 			if item.Value ~= Constants.FRAMERATES.CUSTOM then
-				props.SetFrameRate(item.Value)
+				if GetFFlagUseTicks() then
+					props.SetDisplayFrameRate(item.Value)
+				else
+					props.SetFrameRate(item.Value)
+				end
 			else
 				if props.OnChangeFPS then
 					props.OnChangeFPS()
 				end
 			end
+		end,
+	}
+end
+
+function SettingsMenu:makeSnapMenu(localization)
+	local props = self.props
+	local snapMode = props.SnapMode
+
+	return {
+		Name = localization:getText("Settings", "SnapMode"),
+		Items = {
+			{Name = localization:getText("Settings", "SnapKeyframes"), Value = Constants.SNAP_MODES.Keyframes},
+			{Name = localization:getText("Settings", "SnapFrames"), Value = Constants.SNAP_MODES.Frames},
+			{Name = localization:getText("Settings", "SnapDisabled"), Value = Constants.SNAP_MODES.Disabled},
+		},
+
+		CurrentItem = not GetFFlagRefactorMenus() and snapMode or nil,
+		CurrentValue = GetFFlagRefactorMenus() and snapMode or nil,
+		ItemSelected = function(item)
+			props.SetSnapMode(item.Value)
 		end,
 	}
 end
@@ -93,6 +158,9 @@ function SettingsMenu:makeMenuActions(localization)
 	table.insert(actions, Constants.MENU_SEPARATOR)
 
 	table.insert(actions, self:makeFrameRateMenu(localization))
+	if GetFFlagUseTicks() then
+		table.insert(actions, self:makePlaybackSpeedMenu(localization))
+	end
 	table.insert(actions, Constants.MENU_SEPARATOR)
 
 	table.insert(actions, {
@@ -103,16 +171,19 @@ function SettingsMenu:makeMenuActions(localization)
 			props.SetShowEvents(not props.ShowEvents)
 		end,
 	})
-	table.insert(actions, {
-		Name = localization:getText("Settings", "SnapToKeys"),
-		IsEnabled = not GetFFlagRefactorMenus() and props.SnapToKeys or nil,
-		Checked = GetFFlagRefactorMenus() and props.SnapToKeys or nil,
-		ItemSelected = function()
-			props.ToggleSnapToKeys()
-			props.Analytics:report("onKeyframeSnapChanged", not props.SnapToKeys)
-		end,
-	})
-
+	if GetFFlagUseTicks() then
+		table.insert(actions, self:makeSnapMenu(localization))
+	else
+		table.insert(actions, {
+			Name = localization:getText("Settings", "SnapToKeys"),
+			IsEnabled = not GetFFlagRefactorMenus() and props.SnapToKeys or nil,
+			Checked = GetFFlagRefactorMenus() and props.SnapToKeys or nil,
+			ItemSelected = function()
+				props.ToggleSnapToKeys()
+				props.Analytics:report("onKeyframeSnapChanged", not props.SnapToKeys)
+			end,
+		})
+	end
 	return actions
 end
 
@@ -136,6 +207,9 @@ local function mapStateToProps(state, props)
 		ShowEvents = status.ShowEvents,
 		Analytics = state.Analytics,
 		AnimationData = state.AnimationData,
+		DisplayFrameRate = status.DisplayFrameRate,
+		SnapMode = status.SnapMode,
+		PlaybackSpeed = status.PlaybackSpeed,
 	}
 
 	return stateToProps
@@ -151,8 +225,21 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ToggleSnapToKeys())
 		end,
 
+		SetDisplayFrameRate = function(frameRate)
+			dispatch(SetDisplayFrameRate(frameRate))
+		end,
+
+		SetPlaybackSpeed = function(playbackSpeed)
+			dispatch(SetPlaybackSpeed(playbackSpeed))
+		end,
+
+		-- Deprecated when GetFFlagUseTicks is ON
 		SetFrameRate = function(frameRate)
 			dispatch(SetFrameRate(frameRate))
+		end,
+
+		SetSnapMode = function(snapMode)
+			dispatch(SetSnapMode(snapMode))
 		end,
 
 		SetShowEvents = function(showEvents)

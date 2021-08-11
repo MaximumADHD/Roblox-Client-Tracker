@@ -37,6 +37,7 @@ local StartScreen = require(Plugin.Src.Components.StartScreen)
 local BigAnimationScreen = require(Plugin.Src.Components.BigAnimationScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
+local ChangePlaybackSpeedPrompt = require(Plugin.Src.Components.ChangePlaybackSpeedPrompt)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
@@ -57,6 +58,8 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
+local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
+local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
@@ -68,6 +71,7 @@ local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugE
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -78,6 +82,7 @@ function EditorController:init()
 		TrackListWidth = Constants.TRACK_LIST_START_WIDTH,
 		showContextMenu = false,
 		showChangeFPSPrompt = false,
+		showChangePlaybackSpeedPrompt = false,
 	}
 
 	self.nameToPart = {}
@@ -91,6 +96,18 @@ function EditorController:init()
 	self.hideChangeFPSPrompt = function()
 		self:setState({
 			showChangeFPSPrompt = false,
+		})
+	end
+
+	self.showChangePlaybackSpeedPrompt = function()
+		self:setState({
+			showChangePlaybackSpeedPrompt = true,
+		})
+	end
+
+	self.hideChangePlaybackSpeedPrompt = function()
+		self:setState({
+			showChangePlaybackSpeedPrompt = false,
 		})
 	end
 
@@ -302,6 +319,7 @@ function EditorController:render()
 
 	local absoluteSize = state.AbsoluteSize
 	local showChangeFPSPrompt = state.showChangeFPSPrompt
+	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
 
 	if animationData then
 		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
@@ -314,7 +332,7 @@ function EditorController:render()
 	local useJointSelector = not UseLuaDraggers()
 	local bigAnimation = false
 	if animationData and (GetFFlagDebugExtendAnimationLimit() and not GetFFlagExtendAnimationLimit()) then
-		local length = animationData.Metadata.EndFrame / animationData.Metadata.FrameRate
+		local length = animationData.Metadata.EndFrame / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
 		if length >= Constants.MAX_DISPLAYED_TIME then
 			bigAnimation = true
 		end
@@ -455,7 +473,8 @@ function EditorController:render()
 			EndFrame = endFrame,
 			LastFrame = lastFrame,
 			Playhead = playhead,
-			FrameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate,
+			FrameRate = not GetFFlagUseTicks() and (animationData and animationData.Metadata and animationData.Metadata.FrameRate) or nil,
+			DisplayFrameRate = GetFFlagUseTicks() and props.DisplayFrameRate or nil,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
 			Scroll = scroll,
@@ -470,6 +489,7 @@ function EditorController:render()
 		}, {
 			SettingsButton = Roact.createElement(SettingsButton, {
 				OnChangeFPS = self.showChangeFPSPrompt,
+				OnChangePlaybackSpeed = self.showChangePlaybackSpeedPrompt,
 			}),
 
 			TrackScrollbar = Roact.createElement(TrackScrollbar, {
@@ -548,9 +568,16 @@ function EditorController:render()
 		}),
 
 		ChangeFPSPrompt = showChangeFPSPrompt and Roact.createElement(ChangeFPSPrompt, {
-			FrameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate,
-			SetFrameRate = props.SetFrameRate,
+			FrameRate = not GetFFlagUseTicks() and (animationData and animationData.Metadata and animationData.Metadata.FrameRate) or nil,
+			DisplayFrameRate = GetFFlagUseTicks() and props.DisplayFrameRate or nil,
+			SetFrameRate = GetFFlagUseTicks() and props.SetDisplayFrameRate or props.SetFrameRate,
 			OnClose = self.hideChangeFPSPrompt,
+		}),
+
+		ChangePlaybackSpeedPrompt = showChangePlaybackSpeedPrompt and Roact.createElement(ChangePlaybackSpeedPrompt, {
+			PlaybackSpeed = props.PlaybackSpeed,
+			SetPlaybackSpeed = props.SetPlaybackSpeed,
+			OnClose = self.hideChangePlaybackSpeedPrompt,
 		}),
 	})
 end
@@ -558,9 +585,11 @@ end
 function EditorController:didMount()
 	local props = self.props
 	local snapToKeys = props.SnapToKeys
+	local snapMode = GetFFlagUseTicks() and props.SnapMode or nil
+
 	local timelineUnit = props.ShowAsSeconds and "Seconds" or "Frames"
 	props.AttachEditor(props.Analytics)
-	props.Analytics:report("onEditorOpened", timelineUnit, snapToKeys)
+	props.Analytics:report("onEditorOpened", timelineUnit, snapToKeys, snapMode)
 	self.openedTimestamp = os.time()
 end
 
@@ -579,6 +608,7 @@ local function mapStateToProps(state, props)
 		Playhead = state.Status.Playhead,
 		ShowAsSeconds = state.Status.ShowAsSeconds,
 		SnapToKeys = state.Status.SnapToKeys,
+		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
 		Scroll = status.Scroll,
 		Zoom = status.Zoom,
@@ -593,8 +623,9 @@ local function mapStateToProps(state, props)
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
 		IsPlaying = status.IsPlaying,
-
+		DisplayFrameRate = status.DisplayFrameRate,
 		Analytics = state.Analytics,
+		PlaybackSpeed = status.PlaybackSpeed,
 	}
 end
 
@@ -674,12 +705,21 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsDirty(false))
 		end,
 
+		-- Remove when GetFFlagUseTicks is ON
 		SetFrameRate = function(frameRate)
 			dispatch(SetFrameRate(frameRate))
 		end,
 
+		SetDisplayFrameRate = function(frameRate)
+			dispatch(SetDisplayFrameRate(frameRate))
+		end,
+
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		SetPlaybackSpeed = function(playbackSpeed)
+			dispatch(SetPlaybackSpeed(playbackSpeed))
 		end,
 	}
 

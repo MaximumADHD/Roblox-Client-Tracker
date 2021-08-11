@@ -11,20 +11,32 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(pivot, newFrame, dragContext)
 	return function(store)
+		local state = store:getState()
 		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or store:getState().AnimationData
 		local selectedEvents = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedEvents or store:getState().Status.SelectedEvents
+		local displayFrameRate = state.Status.DisplayFrameRate
+		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
+
 		if not animationData or (GetFFlagRealtimeChanges() and not animationData.Events) then
 			return
 		end
 
-		local maxLength = animationData.Metadata and animationData.Metadata.FrameRate
-			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-			or AnimationData.getMaximumLength(30)
+		local maxLength
+		if GetFFlagUseTicks() then
+			maxLength = Constants.MAX_ANIMATION_LENGTH
+		else
+			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
+				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+				or AnimationData.getMaximumLength(30)
+		end
 
 		-- Avoid a deepCopy of the entire animationData
 		local newData = GetFFlagRealtimeChanges() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
@@ -55,6 +67,9 @@ return function(pivot, newFrame, dragContext)
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
 			for _, frame in ipairs(selectedFrames) do
 				local insertFrame = frame + delta
+				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+					insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+				end
 				if GetFFlagRealtimeChanges() then
 					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
 				end
@@ -68,6 +83,9 @@ return function(pivot, newFrame, dragContext)
 			for index = #selectedFrames, 1, -1 do
 				local frame = selectedFrames[index]
 				local insertFrame = frame + delta
+				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+					insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+				end
 				if GetFFlagRealtimeChanges() then
 					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
 				end

@@ -1,6 +1,8 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
+local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
@@ -37,6 +39,9 @@ local LightTheme = require(Libs.Framework).Style.Themes.LightTheme
 
 local Cryo = require(Plugin.Libs.Cryo)
 
+local ui = FrameworkStyle.ComponentSymbols
+local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
+
 local function getUILibraryTheme(styleRoot, overrides)
 	if FFlagRemoveUILibraryFromToolbox then
 		return
@@ -55,8 +60,9 @@ end
 
 local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 	local styleRoot
-	if FFlagToolboxReplaceUILibraryComponentsPt1 or FFlagRemoveUILibraryFromToolbox or FFlagToolboxRemoveWithThemes then
+	if FFlagToolboxReplaceUILibraryComponentsPt1 or FFlagToolboxReplaceUILibraryComponentsPt2 or FFlagRemoveUILibraryFromToolbox or FFlagToolboxRemoveWithThemes then
 		local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
+			[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 			[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
 			[StyleKey.Toolbox_AssetDropdownSize] = 8,
 			[StyleKey.Toolbox_AssetBorderSize] = 1,
@@ -72,6 +78,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 
 		})
 		local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
+			[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 			[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
 			[StyleKey.Toolbox_AssetDropdownSize] = 0,
 			[StyleKey.Toolbox_AssetBorderSize] = 0,
@@ -163,6 +170,21 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			},
 		} or nil,
 
+		footer = {
+			backgroundColor = StyleKey.Titlebar,
+			borderColor = StyleKey.Border,
+			labelTextColor = StyleKey.MainText,
+
+			button = {
+				backgroundColor = StyleKey.Dropdown,
+				backgroundSelectedColor = StyleKey.CurrentMarker,
+				borderColor = StyleKey.Border,
+				borderSelectedColor = StyleKey.CurrentMarker,
+				textColor = StyleKey.MainText,
+				textSelectedColor = StyleKey.MainTextSelected,
+			},
+		},
+
 		header = FFlagToolboxRemoveWithThemes and {
 			backgroundColor = StyleKey.Titlebar,
 			borderColor = StyleKey.Border,
@@ -190,7 +212,8 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			labelTextColor = StyleKey.DimmedText,
 		} or nil,
 
-		publishAsset = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+		publishAsset = (FFlagToolboxRemoveWithThemes or FFlagToolboxReplaceUILibraryComponentsPt1) and {
+			backgroundColor = StyleKey.Toolbox_PublishAssetBackground,
 			titleTextColor = StyleKey.SubText,
 			textColor = StyleKey.MainText,
 			tipsTextColor = not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
@@ -204,10 +227,31 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			contentColor = StyleKey.TitlebarText,
 			selectedColor = StyleKey.Toolbox_TabSelectedColor,
 		} or nil,
+
+		[ui.SearchBar] = FFlagToolboxUseDeveloperFrameworkSearchBar and Cryo.Dictionary.join(getRawComponentStyle("SearchBar"), {
+			["&ToolboxSearchBar"] = {
+				Padding = {
+					Top = -1,
+					Left = 0,
+					Bottom = 0,
+					Right = 0
+				},
+			}
+		}) or nil,
 	})
 
 	if FFlagToolboxReplaceUILibraryComponentsPt2 and themeExtension then
 		styleRoot:extend(themeExtension)
+	end
+
+	if FFlagToolboxShowAutocompleteResults then
+		styleRoot:extend({
+			[ui.DropdownMenu] = Cryo.Dictionary.join(getRawComponentStyle("DropdownMenu"), {
+				["&ToolboxSearchBarDropdown"] = {
+					Offset = Vector2.new(0, 4),
+				}
+			}),
+		})
 	end
 
 	if (not FFlagRemoveUILibraryFromToolbox) then

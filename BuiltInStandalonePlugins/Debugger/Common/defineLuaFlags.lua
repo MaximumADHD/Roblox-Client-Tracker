@@ -5,8 +5,7 @@
 -- In most circumstances flags should be initialized to false
 
 -- New Plugin Setup: Define initial fast flag
-game:DefineFastFlag("DebuggerPluginEditBreakpoint_alpha", false)
-game:DefineFastFlag("DebuggerPluginBreakpointsWindow", false)
-game:DefineFastFlag("LuaUIDebuggerCallstack", false)
+game:DefineFastFlag("StudioDebuggerPluginEditBreakpoint_alpha", false)
+game:DefineFastFlag("StudioDebuggerPluginBreakpointsWindow", false)
 
 return nil

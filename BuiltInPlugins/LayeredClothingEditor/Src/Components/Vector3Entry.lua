@@ -136,49 +136,34 @@ function Vector3Entry:render()
 			Spacing = theme.ValueTextBoxPadding,
 			Padding = {Right = theme.FramePadding},
 		}, {
-			XInputFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
+			XInput = Roact.createElement(TextInput, {
+				Enabled = enabled,
+				Style = "FilledRoundedBorder",
+				PlaceholderText = "X",
+				Text = xValue,
 				Size = UDim2.new(0, theme.ValueTextBoxWidth, 1, 0),
+				OnTextChanged = self.onXChanged,
 				LayoutOrder = orderIterator:getNextOrder(),
-			}, {
-				XInput = Roact.createElement(TextInput, {
-					Enabled = enabled,
-					Style = "RoundedBorder",
-					PlaceholderText = "X",
-					Text = xValue,
-					Size = UDim2.new(1, 0, 1, 0),
-					OnTextChanged = self.onXChanged,
-				}),
 			}),
 
-			YInputFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
+			YInput = Roact.createElement(TextInput, {
+				Enabled = enabled,
+				Style = "FilledRoundedBorder",
+				PlaceholderText = "Y",
+				Text = yValue,
 				Size = UDim2.new(0, theme.ValueTextBoxWidth, 1, 0),
+				OnTextChanged = self.onYChanged,
 				LayoutOrder = orderIterator:getNextOrder(),
-			}, {
-				YInput = Roact.createElement(TextInput, {
-					Enabled = enabled,
-					Style = "RoundedBorder",
-					PlaceholderText = "Y",
-					Text = yValue,
-					Size = UDim2.new(1, 0, 1, 0),
-					OnTextChanged = self.onYChanged,
-				}),
 			}),
 
-			ZInputFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
+			ZInput = Roact.createElement(TextInput, {
+				Enabled = enabled,
+				Style = "FilledRoundedBorder",
+				PlaceholderText = "Z",
+				Text = zValue,
 				Size = UDim2.new(0, theme.ValueTextBoxWidth, 1, 0),
+				OnTextChanged = self.onZChanged,
 				LayoutOrder = orderIterator:getNextOrder(),
-			}, {
-				ZInput = Roact.createElement(TextInput, {
-					Enabled = enabled,
-					Style = "RoundedBorder",
-					PlaceholderText = "Z",
-					Text = zValue,
-					Size = UDim2.new(1, 0, 1, 0),
-					OnTextChanged = self.onZChanged,
-				}),
 			}),
 		})
 	})

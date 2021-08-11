@@ -1,7 +1,10 @@
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -9,6 +12,8 @@ local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Background = require(Plugin.Core.Types.Background)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local BackgroundIcon = require(Plugin.Core.Components.Footer.BackgroundIcon)
 local RoundButton = require(Plugin.Core.Components.RoundButton)
@@ -30,79 +35,96 @@ function FooterButton:init(props)
 end
 
 function FooterButton:render()
-	return withTheme(function(theme)
-		local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local index = props.index
-		local name = props.name
+function FooterButton:renderContent(theme)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local isSelected = props.isSelected
-		local isHovered = props.isHovered
+	local index = props.index
+	local name = props.name
 
-		local footerTheme = theme.footer
-		local buttonTheme = footerTheme.button
+	local isSelected = props.isSelected
+	local isHovered = props.isHovered
 
-		local textWidth = props.textWidth or 0
+	local footerTheme = theme.footer
+	local buttonTheme = footerTheme.button
 
-		local externalPadding = 6
-		local internalPadding = 4
-		local iconSize = Constants.BACKGROUND_BUTTON_ICON_SIZE
+	local textWidth = props.textWidth or 0
 
-		local width = externalPadding + iconSize + internalPadding + textWidth + externalPadding
+	local externalPadding = 6
+	local internalPadding = 4
+	local iconSize = Constants.BACKGROUND_BUTTON_ICON_SIZE
 
-		local icon = Roact.createElement(BackgroundIcon, {
-			backgroundIndex = index,
-			AnchorPoint = Vector2.new(0, 0.5),
-			Position = UDim2.new(0, 0, 0.5, 0),
-			Size = UDim2.new(0, iconSize, 0, iconSize),
-			LayoutOrder = 1,
-		})
+	local width = externalPadding + iconSize + internalPadding + textWidth + externalPadding
 
-		return Roact.createElement(RoundButton, {
-			AnchorPoint = Vector2.new(0, 0.5),
-			LayoutOrder = index,
-			Size = UDim2.new(0, width, 1, 0),
+	local icon = Roact.createElement(BackgroundIcon, {
+		backgroundIndex = index,
+		AnchorPoint = Vector2.new(0, 0.5),
+		Position = UDim2.new(0, 0, 0.5, 0),
+		Size = UDim2.new(0, iconSize, 0, iconSize),
+		LayoutOrder = 1,
+	})
 
-			BackgroundColor3 = isSelected and buttonTheme.backgroundSelectedColor or buttonTheme.backgroundColor,
-			BorderColor3 = (isSelected or isHovered) and buttonTheme.borderSelectedColor or buttonTheme.borderColor,
+	return Roact.createElement(RoundButton, {
+		AnchorPoint = Vector2.new(0, 0.5),
+		LayoutOrder = index,
+		Size = UDim2.new(0, width, 1, 0),
 
-			[Roact.Event.MouseEnter] = self.onMouseEnter,
-			[Roact.Event.MouseLeave] = self.onMouseLeave,
-			[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
-		}, {
-			UIPadding = Roact.createElement("UIPadding", {
-				PaddingBottom = UDim.new(0, externalPadding),
-				PaddingLeft = UDim.new(0, externalPadding),
-				PaddingRight = UDim.new(0, externalPadding),
-				PaddingTop = UDim.new(0, externalPadding),
-			}),
+		BackgroundColor3 = isSelected and buttonTheme.backgroundSelectedColor or buttonTheme.backgroundColor,
+		BorderColor3 = (isSelected or isHovered) and buttonTheme.borderSelectedColor or buttonTheme.borderColor,
 
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, internalPadding),
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			}),
+		[Roact.Event.MouseEnter] = self.onMouseEnter,
+		[Roact.Event.MouseLeave] = self.onMouseLeave,
+		[Roact.Event.MouseButton1Down] = self.onMouseButton1Down,
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, externalPadding),
+			PaddingLeft = UDim.new(0, externalPadding),
+			PaddingRight = UDim.new(0, externalPadding),
+			PaddingTop = UDim.new(0, externalPadding),
+		}),
 
-			Icon = icon,
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			Padding = UDim.new(0, internalPadding),
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 
-			TextLabel = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				Position = nil,
-				Size = UDim2.new(0, textWidth, 1, -1),
+		Icon = icon,
 
-				TextColor3 = isSelected and buttonTheme.textSelectedColor or buttonTheme.textColor,
+		TextLabel = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			Position = nil,
+			Size = UDim2.new(0, textWidth, 1, -1),
 
-				Font = Constants.FONT,
-				Text = name,
-				TextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE,
-				TextYAlignment = Enum.TextYAlignment.Bottom,
-				LayoutOrder = 2,
-			}),
-		})
-	end)
+			TextColor3 = isSelected and buttonTheme.textSelectedColor or buttonTheme.textColor,
+
+			Font = Constants.FONT,
+			Text = name,
+			TextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE,
+			TextYAlignment = Enum.TextYAlignment.Bottom,
+			LayoutOrder = 2,
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	FooterButton = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(FooterButton)
 end
 
 return FooterButton

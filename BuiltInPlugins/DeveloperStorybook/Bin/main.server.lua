@@ -5,7 +5,6 @@
 local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
-local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
 local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 
 local DebugFlags = require(Main.Src.Util.DebugFlags)
@@ -14,9 +13,6 @@ if DebugFlags.RunningUnderCLI() then
 end
 
 if not game:GetService("StudioService"):HasInternalPermission() then	
-	return
-end
-if not FFlagEnableDeveloperStorybook then
 	return
 end
 

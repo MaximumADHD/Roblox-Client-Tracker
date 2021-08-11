@@ -4,6 +4,10 @@
 ]]
 
 local TweenService = game:GetService("TweenService")
+local Plugin = script.Parent.Parent.Parent
+local Constants = require(Plugin.Src.Util.Constants)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local KeyframeUtils = {}
 
@@ -116,15 +120,33 @@ function KeyframeUtils.interpolate(a, b, alpha)
 	end
 end
 
+function KeyframeUtils.getNearestTick(tick)
+	return math.floor(tick + 0.5)
+end
+
 -- Rounds a float to the nearest frame.
-function KeyframeUtils.getNearestFrame(value)
+-- Deprecated when GetFFlagUseTicks() is ON
+function KeyframeUtils.getNearestFrame_deprecated(value)
 	return math.floor(value + 0.5)
+end
+
+function KeyframeUtils.getNearestFrame(tick, frameRate)
+	-- Find the closest frame
+	local frame = tick * frameRate / Constants.TICK_FREQUENCY
+	local snapFrame = math.floor(frame + 0.5)
+
+	-- Convert the frame back to ticks.
+	-- frameRate might not be a divisor of TICK_FREQUENCY, so we round again.
+	tick = snapFrame * Constants.TICK_FREQUENCY / frameRate
+	local snapTick = math.floor(tick + 0.5)
+
+	return snapTick
 end
 
 -- Snaps a float to the nearest frame within a tolerance value
 function KeyframeUtils.snapToFrame(value, tolerance)
 	assert(tolerance > 0 and tolerance < 1, "Tolerance should be between 0 and 1.")
-	local nearestFrame = KeyframeUtils.getNearestFrame(value)
+	local nearestFrame = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(value) or KeyframeUtils.getNearestFrame_deprecated(value)
 	if math.abs(value - nearestFrame) < tolerance then
 		return nearestFrame
 	else

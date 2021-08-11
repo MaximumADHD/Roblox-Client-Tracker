@@ -26,7 +26,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagDevFrameworkFixLinkTextHoverResize = game:GetFastFlag("DevFrameworkFixLinkTextHoverResize")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
@@ -161,13 +160,13 @@ function LinkText:render()
 			MouseLeave = self.mouseLeave,
 		}),
 
-		Underline = (FFlagDevFrameworkFixLinkTextHoverResize or showUnderlineFrame) and Roact.createElement("Frame", {
+		Underline = Roact.createElement("Frame", {
 			Position = UDim2.new(0, 0, -1, 0),
 			LayoutOrder = 1,
 			Size = UDim2.new(1, 0, 0, 1),
 			BackgroundColor3 = textColor,
 			BorderSizePixel = 0,
-			BackgroundTransparency = (FFlagDevFrameworkFixLinkTextHoverResize and showUnderlineFrame) and 0 or 1,
+			BackgroundTransparency = showUnderlineFrame and 0 or 1,
 		}),
 	})
 end

@@ -6,11 +6,11 @@ export type VariableRow = VarName & WatchWindowTableRow.WatchWindowTableRow
 
 local function fromData(data) : VariableRow
 	return { 
-		name = data.name,
-		path = data.path,
-		scope = data.scope,
-		value = data.value,
-		dataType = data.dataType,
+		nameColumn = data.name,
+		pathColumn = data.path,
+		scopeColumn = data.scope,
+		valueColumn = data.value,
+		dataTypeColumn = data.dataType,
 		children = {},
 		textFilteredOut = false,
 		scopeFilteredOut = false,

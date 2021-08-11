@@ -32,6 +32,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local DopeSheet = require(Plugin.Src.Components.DopeSheet)
 local EventsController = require(Plugin.Src.Components.EventsController)
@@ -64,6 +65,7 @@ local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportF
 local GetFFlagHideLoadToastIfAnimationClipped = require(Plugin.LuaFlags.GetFFlagHideLoadToastIfAnimationClipped)
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -100,14 +102,20 @@ function DopeSheetController:init()
 	self.lastMaxFrame = nil
 	self.lastMaxTrack = nil
 
-	self.getFrameFromPosition = function(position)
-		return TrackUtils.getKeyframeFromPosition(
+	self.getFrameFromPosition = function(position, useSnap)
+		local tick = TrackUtils.getKeyframeFromPosition(
 			position,
 			self.props.StartFrame,
 			self.props.EndFrame,
 			self.state.AbsolutePosition.X + (self.props.TrackPadding / 2),
 			self.state.AbsoluteSize.X - self.props.TrackPadding
 		)
+
+		if GetFFlagUseTicks() and useSnap and self.props.SnapMode ~= Constants.SNAP_MODES.Disabled then
+			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
+		end
+
+		return tick
 	end
 
 	self.getTrackFromPosition = function(position)
@@ -157,7 +165,8 @@ function DopeSheetController:init()
 	end
 
 	self.onScaleHandleDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position)
+		local frame = self.getFrameFromPosition(input.Position, true)
+
 		if self.state.dragFrame ~= frame then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
@@ -180,7 +189,7 @@ function DopeSheetController:init()
 	end
 
 	self.onKeyframeDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position)
+		local frame = self.getFrameFromPosition(input.Position, true)
 		if self.state.dragFrame ~= frame then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
@@ -263,9 +272,9 @@ function DopeSheetController:init()
 		local timelineScale = trackWidth / (endFrame - startFrame)
 		local selectionPadding = Vector2.new(timelineScale / 2, Constants.TRACK_HEIGHT / 2)
 		-- Find extents of selection
-		local minFrame = self.getFrameFromPosition(minPos + selectionPadding)
+		local minFrame = self.getFrameFromPosition(minPos + selectionPadding, false)
 		local minTrack = self.getTrackFromPosition(minPos + selectionPadding)
-		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding)
+		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding, false)
 		local maxTrack = self.getTrackFromPosition(maxPos - selectionPadding)
 
 		local lastMinFrame = self.lastMinFrame or minFrame
@@ -358,7 +367,8 @@ function DopeSheetController:init()
 
 	self.setSelectedKeyframeDuration = function(textInput)
 		self.setChangingDuration()
-		local newLength = StringUtils.parseTime(textInput, self.props.AnimationData.Metadata.FrameRate)
+		local newLength = StringUtils.parseTime(textInput, GetFFlagUseTicks() and self.props.DisplayFrameRate
+			or self.props.AnimationData.Metadata.FrameRate)
 		if newLength ~= nil then
 			local earliest, latest = self:getSelectedKeyframesExtents()
 			local currentLength = latest - earliest
@@ -429,7 +439,7 @@ function DopeSheetController:handleTimelineInputEnded(input)
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
 		local track = self.tracks[self.getTrackFromPosition(input.Position)]
 		self.props.SetRightClickContextInfo({
-			Frame = self.getFrameFromPosition(input.Position),
+			Frame = self.getFrameFromPosition(input.Position, true),
 			TrackName = track and track.Name or nil,
 			TrackType = GetFFlagFacialAnimationSupport() and (track and track.Type) or nil,
 			InstanceName = track and track.Instance or nil,
@@ -556,17 +566,22 @@ function DopeSheetController:render()
 		local topTrackIndex = props.TopTrackIndex
 		local showEvents = props.ShowEvents
 		local localization = self.props.Localization
+		local displayFrameRate = self.props.DisplayFrameRate
+		local showAsSeconds = self.props.ShowAsSeconds
 
 		local namedKeyframes = animationData and animationData.Events
 			and animationData.Events.NamedKeyframes or {}
 
 		local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
-		local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
-		if frameRate and frameRate > Constants.MAX_FRAMERATE then
-			quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
+		if not GetFFlagUseTicks() then
+			local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
+			if frameRate and frameRate > Constants.MAX_FRAMERATE then
+				quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
+			end
 		end
 
-		local showQuantizeWarning = props.QuantizeWarning
+		-- Quantization is deprecated when we use ticks
+		local showQuantizeWarning = not GetFFlagUseTicks() and props.QuantizeWarning
 			and not AnimationData.isQuantized(animationData)
 		local loadedAnimName = props.Loaded
 		local savedAnimName = props.Saved
@@ -582,6 +597,10 @@ function DopeSheetController:render()
 		if changingDuration then
 			local earliest, latest = self:getSelectedKeyframesExtents()
 			currentDuration = latest - earliest
+			if GetFFlagUseTicks() then
+				-- Convert to frames
+				currentDuration = currentDuration * props.DisplayFrameRate / Constants.TICK_FREQUENCY
+			end
 		end
 
 		self.tracks = self:makeTracks()
@@ -709,8 +728,9 @@ function DopeSheetController:render()
 						Tracks = self.tracks,
 						TrackPadding = trackPadding,
 						Dragging = draggingScale or dragging,
-						ShowAsSeconds = true,
-						FrameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate,
+						ShowAsSeconds = not GetFFlagUseTicks() or showAsSeconds,
+						FrameRate = not GetFFlagUseTicks() and animationData and animationData.Metadata and animationData.Metadata.FrameRate or nil,
+						DisplayFrameRate = displayFrameRate,
 						DopeSheetWidth = absoluteSize.X - props.TrackPadding,
 						ZIndex = 2,
 						ShowSelectionArea = true,
@@ -828,6 +848,8 @@ local function mapStateToProps(state, props)
 		Saved = state.Notifications.Saved,
 		Loaded = state.Notifications.Loaded,
 		ClippedWarning = state.Notifications.ClippedWarning,
+		DisplayFrameRate = status.DisplayFrameRate,
+		SnapMode = status.SnapMode,
 	}
 
 	if GetFFlagAddImportFailureToast() then

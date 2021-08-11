@@ -1,8 +1,8 @@
 export type WatchWindowTableRow = {
-	path: string,
-	scope: string,
-	value: string,
-	dataType: string,
+	pathColumn: string,
+	scopeColumn: string,
+	valueColumn: string,
+	dataTypeColumn: string,
 	children : {Path},
 	expanded: bool,
 	textFilteredOut: bool,

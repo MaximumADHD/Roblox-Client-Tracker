@@ -2,11 +2,13 @@
 	A widget containing a text label on the left
 	and a image button with text underneath on the right
 ]]
+local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = require(Plugin.Packages.Framework).UI
 local HoverArea = UI.HoverArea
@@ -118,9 +120,17 @@ function LabeledImageButton:render()
 	})
 end
 
-ContextServices.mapToProps(LabeledImageButton, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagLocalizationToolsWithContext then
+	LabeledImageButton = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LabeledImageButton)
+else
+	ContextServices.mapToProps(LabeledImageButton, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LabeledImageButton

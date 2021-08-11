@@ -39,6 +39,7 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
 
 -- Variables
 local childAddedEvent = nil
@@ -308,6 +309,9 @@ local function onSelectionChanged()
 end
 
 local function onDragEnter(instances)
+	if FFlagCleanupLuaPluginErrors and #instances == 0 then
+		return
+	end
 	if (not instances[1]:IsA("GuiBase2d")) then
 		return;
 	end	
@@ -386,6 +390,15 @@ function On()
 	
 	plugin:Activate(true)
     toolbarButton:SetActive(true)
+
+	if FFlagCleanupLuaPluginErrors then
+		SnappingPointManager:setThreshold(5)
+
+		SizeBox:On()
+		DistanceLinesManager:On()
+		MouseIconManager:On(plugin:GetMouse())
+		Resize:On()
+	end
 	
 	if FFlagFixStarterGuiErrors then
 		childAddedEvent = StarterGuiService.DescendantAdded:connect(onDescendantAddedToStarterGui)
@@ -407,12 +420,14 @@ function On()
 	undoEvent = ChangeHistoryService.OnUndo:connect(onUndo)
 	redoEvent = ChangeHistoryService.OnRedo:connect(onRedo)
 	
-	SnappingPointManager:setThreshold(5)
+	if not FFlagCleanupLuaPluginErrors then
+		SnappingPointManager:setThreshold(5)
 
-	SizeBox:On()
-	DistanceLinesManager:On()
-	MouseIconManager:On(plugin:GetMouse())
-	Resize:On()
+		SizeBox:On()
+		DistanceLinesManager:On()
+		MouseIconManager:On(plugin:GetMouse())
+		Resize:On()
+	end
 	
 	SelectionManager:connectFilteredSelectionChanged(DistanceLinesManager)
 	SelectionManager:connectFilteredSelectionChanged(Resize)
@@ -473,7 +488,11 @@ if toolbarButton then
 		return areAllAncestorsGuiBase2dToStarterGui(instance) and instance:FindFirstAncestorOfClass("ScreenGui") ~= nil
 	end
 
-	local function selectionChangedGlobal()
+	local function testRestrictedInstance(instance)
+		local a = instance.Name
+	end
+
+	local function DEPRECATED_selectionChangedGlobal()
 		local selection = SelectionService:Get()
 		for i = 1, #selection do
 			local instance = selection[i]
@@ -484,8 +503,23 @@ if toolbarButton then
 		end
 		Off()
 	end
+	local function selectionChangedGlobal()
+		local selection = SelectionService:Get()
+		for i = 1, #selection do
+			local instance = selection[i]
+			if pcall(testRestrictedInstance, instance) and passesGuiFilter(instance) then
+				On()
+				return
+			end
+		end
+		Off()
+	end
 	SelectionService.SelectionChanged:connect(function()
-		spawn(selectionChangedGlobal)
+		if FFlagCleanupLuaPluginErrors then
+			spawn(selectionChangedGlobal)
+		else
+			spawn(DEPRECATED_selectionChangedGlobal)
+		end
 	end)
 end
 

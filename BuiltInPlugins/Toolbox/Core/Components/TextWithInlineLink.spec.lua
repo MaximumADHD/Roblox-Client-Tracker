@@ -1,4 +1,10 @@
 return function()
+	local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
+	if FFlagToolboxUseDevFrameworkTextWithInlineLink then
+		-- TODO: Remove file
+		return {}
+	end
+
 	local Plugin = script.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs

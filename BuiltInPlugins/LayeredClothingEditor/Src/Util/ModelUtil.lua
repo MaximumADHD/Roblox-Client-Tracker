@@ -26,18 +26,21 @@ local function getExents(item)
 	end
 end
 
+function ModelUtil:clearOldAttachments(item)
+	for _, child in ipairs(item:GetChildren()) do
+		if child:IsA("Attachment") then
+			child:Destroy()
+		end
+	end
+end
+
 function ModelUtil:addAttachment(item, body, attachmentInfo, attachmentPoint)
 	local bodyAttachment = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
 	if not bodyAttachment then
 		return
 	end
 
-	-- clear out existing attachment children
-	for _, child in ipairs(item:GetChildren()) do
-		if child:IsA("Attachment") then
-			child:Destroy()
-		end
-	end
+	self:clearOldAttachments(item)
 
 	local newAttachment = Instance.new("Attachment", item)
 	newAttachment.Name = attachmentInfo.Name
@@ -132,7 +135,7 @@ function ModelUtil:positionAvatar(avatar, editingItem, avoidCollisions)
 		local extentsEditingItem = getExents(editingItem)
 		local extentsAvatar = avatar:GetExtentsSize()
 		local startPos = self:getRootPart(editingItem).CFrame.Position
-		startPos = startPos - Vector3.new(extentsEditingItem.X, 0, 0) - Vector3.new(extentsAvatar.X / 2, 0, 0)
+		startPos = startPos - Vector3.new(extentsEditingItem.X, 0, 0) - Vector3.new(extentsAvatar.X, 0, 0)
 		if avoidCollisions then
 			spawn(function()
 				avatar:MoveTo(startPos)

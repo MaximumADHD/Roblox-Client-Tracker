@@ -21,7 +21,7 @@ local StyleModifier = require(Libs.Framework.Util.StyleModifier)
 local Cryo = require(Plugin.Libs.Cryo)
 
 return function()
-	if not FFlagToolboxReplaceUILibraryComponentsPt2 or not FFlagToolboxReplaceUILibraryComponentsPt3 then
+	if not FFlagToolboxReplaceUILibraryComponentsPt2 and not FFlagToolboxReplaceUILibraryComponentsPt3 and not FFlagToolboxRemoveWithThemes then
 		return
 	end
 
@@ -69,7 +69,7 @@ return function()
 			},
 		},
 
-		footer = {
+		configFooter = FFlagToolboxRemoveWithThemes and {
 			backgroundColor = StyleKey.MainBackground,
 			borderColor = StyleKey.Border,
 		},
@@ -78,6 +78,53 @@ return function()
 			backgroundColor = StyleKey.InputFieldBackground,
 			toolTip = StyleKey.DimmedText,
 			error = StyleKey.ErrorText,
+		},
+
+		loading = FFlagToolboxRemoveWithThemes and {
+			text = StyleKey.MainText,
+		},
+
+		nav = FFlagToolboxRemoveWithThemes and {
+			mainButton = {
+				background = StyleKey.DialogMainButton,
+				hoverBackground = StyleKey.DialogMainButtonHover,
+				pressBackground = StyleKey.DialogMainButtonPressed,
+				borderColor = StyleKey.Border,
+				textColor = StyleKey.DialogMainButtonText,
+			},
+			button = {
+				background = StyleKey.DialogButton,
+				hoverBackground = StyleKey.DialogButtonHover,
+				pressBackground = StyleKey.DialogButtonPressed,
+				borderColor = StyleKey.Border,
+				textColor = StyleKey.DialogButtonText,
+			},
+		},
+
+		tags = {
+			textColor = StyleKey.MainText,
+		},
+
+		thumbnailPreview = FFlagToolboxRemoveWithThemes and {
+			background = StyleKey.Item,
+			border = StyleKey.Border,
+			text = StyleKey.MainText,
+		},
+
+		typeSelection = FFlagToolboxRemoveWithThemes and {
+			background = StyleKey.TableItem,
+			selector = {
+				title = StyleKey.MainText,
+				description = StyleKey.MainTextDisabled,
+			},
+			footer = {
+				background = StyleKey.MainBackground,
+				border = StyleKey.Border,
+			},
+		},
+
+		typeValidation = FFlagToolboxRemoveWithThemes and {
+			background = StyleKey.TableItem,
 		},
 
 		[ui.Button] = Cryo.Dictionary.join(button, {
@@ -109,26 +156,5 @@ return function()
 				BorderColor = StyleKey.ErrorText,
 			},
 		}),
-
-		nav = FFlagToolboxRemoveWithThemes and {
-			mainButton = {
-				background = StyleKey.DialogMainButton,
-				hoverBackground = StyleKey.DialogMainButtonHover,
-				pressBackground = StyleKey.DialogMainButtonPressed,
-				borderColor = StyleKey.Border,
-				textColor = StyleKey.DialogMainButtonText,
-			},
-			button = {
-				background = StyleKey.DialogButton,
-				hoverBackground = StyleKey.DialogButtonHover,
-				pressBackground = StyleKey.DialogButtonPressed,
-				borderColor = StyleKey.Border,
-				textColor = StyleKey.DialogButtonText,
-			},
-		},
-
-		tags = {
-			textColor = StyleKey.MainText,
-		},
 	}
 end

@@ -4,6 +4,7 @@
 	Props:
 		Backgrounds backgrounds
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -11,6 +12,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -72,113 +74,127 @@ function Footer:willUnmount()
 end
 
 function Footer:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withLocalization(function(localization, localizedContent)
-			local props = self.props
-
-			local backgrounds = props.backgrounds
-			local selectedBackgroundIndex = props.selectedBackgroundIndex
-			local hoveredBackgroundIndex = props.hoveredBackgroundIndex
-
-			local footerTheme = theme.footer
-
-			local footerBgText = localizedContent.Footer.BGText
-			local footerBgTextFont = Constants.FONT
-			local footerBgTextSize = Constants.FONT_SIZE_SMALL
-			local footerBgTextWidth = Constants.getTextSize(footerBgText, footerBgTextSize, footerBgTextFont).x
-
-			local backgroundComponents = {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 5),
-				}),
-
-				BackgroundTextLabel = Roact.createElement("TextLabel", {
-					Size = UDim2.new(0, footerBgTextWidth, 1, 0),
-					Text = footerBgText,
-					Font = footerBgTextFont,
-					TextSize = footerBgTextSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					BackgroundTransparency = 1,
-
-					TextColor3 = footerTheme.labelTextColor,
-				}),
-			}
-
-			local translatedBackgrounds = localization:getLocalizedFooter(backgrounds)
-
-			local backgroundButtonTextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE
-			local backgroundButtonTextFont = Constants.FONT
-
-			-- Get the widest background name
-			local backgroundButtonTextWidth = 32 -- Start with a min width
-			for _, background in ipairs(translatedBackgrounds) do
-				backgroundButtonTextWidth = math.max(backgroundButtonTextWidth,
-					Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x)
-			end
-
-			for index, background in ipairs(translatedBackgrounds) do
-				local name = background.name
-				local color = background.color
-
-				local isSelected = index == selectedBackgroundIndex
-				local isHovered = index == hoveredBackgroundIndex
-
-				backgroundComponents[color] = Roact.createElement(FooterButton, {
-					index = index,
-					name = name,
-
-					isSelected = isSelected,
-					isHovered = isHovered,
-
-					textWidth = backgroundButtonTextWidth,
-
-					onHoverStarted = self.onHoverStarted,
-					onHoverEnded = self.onHoverEnded,
-					onClick = self.onClick,
-				})
-			end
-
-			return Roact.createElement("ImageButton", {
-				AnchorPoint = Vector2.new(0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
-
-				BackgroundColor3 = footerTheme.backgroundColor,
-				BorderColor3 = footerTheme.borderColor,
-
-				ZIndex = 2,
-				AutoButtonColor = false,
-
-				[Roact.Event.InputEnded] = self.inputEnded,
-			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, 0),
-					PaddingLeft = UDim.new(0, 6),
-					PaddingRight = UDim.new(0, 6),
-					PaddingTop = UDim.new(0, 0),
-				}),
-
-				Frame = Roact.createElement("ImageButton", {
-					AnchorPoint = Vector2.new(0, 0.5),
-					Position = UDim2.new(0, 0, 0.5, 0),
-					Size = UDim2.new(1, 0, 0, 24),
-					BackgroundTransparency = 1,
-					AutoButtonColor = false,
-				}, backgroundComponents),
-			})
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function Footer:renderContent(theme, localization, localizedContent)
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
+	local props = self.props
+	local backgrounds = props.backgrounds
+	local selectedBackgroundIndex = props.selectedBackgroundIndex
+	local hoveredBackgroundIndex = props.hoveredBackgroundIndex
+
+	local footerTheme = theme.footer
+
+	local footerBgText = localizedContent.Footer.BGText
+	local footerBgTextFont = Constants.FONT
+	local footerBgTextSize = Constants.FONT_SIZE_SMALL
+	local footerBgTextWidth = Constants.getTextSize(footerBgText, footerBgTextSize, footerBgTextFont).x
+
+	local backgroundComponents = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Horizontal,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 5),
+		}),
+
+		BackgroundTextLabel = Roact.createElement("TextLabel", {
+			Size = UDim2.new(0, footerBgTextWidth, 1, 0),
+			Text = footerBgText,
+			Font = footerBgTextFont,
+			TextSize = footerBgTextSize,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+
+			TextColor3 = footerTheme.labelTextColor,
+		}),
+	}
+
+	local translatedBackgrounds = localization:getLocalizedFooter(backgrounds)
+
+	local backgroundButtonTextSize = Constants.BACKGROUND_BUTTON_FONT_SIZE
+	local backgroundButtonTextFont = Constants.FONT
+
+	-- Get the widest background name
+	local backgroundButtonTextWidth = 32 -- Start with a min width
+	for _, background in ipairs(translatedBackgrounds) do
+		backgroundButtonTextWidth = math.max(backgroundButtonTextWidth,
+			Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x)
+	end
+
+	for index, background in ipairs(translatedBackgrounds) do
+		local name = background.name
+		local color = background.color
+
+		local isSelected = index == selectedBackgroundIndex
+		local isHovered = index == hoveredBackgroundIndex
+
+		backgroundComponents[color] = Roact.createElement(FooterButton, {
+			index = index,
+			name = name,
+
+			isSelected = isSelected,
+			isHovered = isHovered,
+
+			textWidth = backgroundButtonTextWidth,
+
+			onHoverStarted = self.onHoverStarted,
+			onHoverEnded = self.onHoverEnded,
+			onClick = self.onClick,
+		})
+	end
+
+	return Roact.createElement("ImageButton", {
+		AnchorPoint = Vector2.new(0, 1),
+		Position = UDim2.new(0, 0, 1, 0),
+		Size = UDim2.new(1, 0, 0, Constants.FOOTER_HEIGHT),
+
+		BackgroundColor3 = footerTheme.backgroundColor,
+		BorderColor3 = footerTheme.borderColor,
+
+		ZIndex = 2,
+		AutoButtonColor = false,
+
+		[Roact.Event.InputEnded] = self.inputEnded,
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 0),
+			PaddingLeft = UDim.new(0, 6),
+			PaddingRight = UDim.new(0, 6),
+			PaddingTop = UDim.new(0, 0),
+		}),
+
+		Frame = Roact.createElement("ImageButton", {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, 0, 0.5, 0),
+			Size = UDim2.new(1, 0, 0, 24),
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
+		}, backgroundComponents),
+	})
 end
 
 if FFlagToolboxWithContext then
 	Footer = withContext({
 		Settings = Settings,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(Footer)
 else
 	ContextServices.mapToProps(Footer, {
 		Settings = Settings,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

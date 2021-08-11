@@ -1,3 +1,4 @@
+local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 
@@ -9,8 +10,13 @@ local t = require(Libs.Framework.Util.Typecheck.t)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
--- 2021/05/07 The following file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
-local TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
+local TextWithInlineLink
+if FFlagToolboxUseDevFrameworkTextWithInlineLink then
+	TextWithInlineLink = require(Libs.Framework).UI.TextWithInlineLink
+else
+	-- 2021/05/07 The following file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
+	TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
+end
 
 local withTheme = ContextHelper.withTheme
 
@@ -75,23 +81,43 @@ function NoResultsDetail:renderContent(theme)
 	local visible = (props.Visible ~= nil and props.Visible) or (props.Visible == nil)
 	local infoBannerTheme = theme.infoBanner
 
-	local textWithInlineLinkProps = {
-		textProps = {
-			TextColor3 = infoBannerTheme.textColor,
-			BackgroundTransparency = 1,
-			Font = Constants.FONT,
-			TextSize = fontSize,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			TextYAlignment = Enum.TextYAlignment.Center,
-			TextWrapped = true,
-			ClipsDescendants = true,
-		},
+	local textWithInlineLinkProps
+	if FFlagToolboxUseDevFrameworkTextWithInlineLink then
+		textWithInlineLinkProps = {
+			TextProps = {
+				TextColor3 = infoBannerTheme.textColor,
+				BackgroundTransparency = 1,
+				Font = Constants.FONT,
+				TextSize = fontSize,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextWrapped = true,
+				ClipsDescendants = true,
+			},
+			LinkPlaceholder = LINK_PLACEHOLDER,
+			LinkText = content.LinkText,
+			OnLinkClicked = props.onLinkClicked,
+			MaxWidth = self.state.maxChildWidth,
+		}
+	else
+		textWithInlineLinkProps = {
+			textProps = {
+				TextColor3 = infoBannerTheme.textColor,
+				BackgroundTransparency = 1,
+				Font = Constants.FONT,
+				TextSize = fontSize,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
+				TextWrapped = true,
+				ClipsDescendants = true,
+			},
 
-		linkPlaceholder = LINK_PLACEHOLDER,
-		linkText = content.LinkText,
-		onLinkClicked = props.onLinkClicked,
-		maxWidth = self.state.maxChildWidth,
-	}
+			linkPlaceholder = LINK_PLACEHOLDER,
+			linkText = content.LinkText,
+			onLinkClicked = props.onLinkClicked,
+			maxWidth = self.state.maxChildWidth,
+		}
+	end
 
 	return Roact.createElement("Frame", {
 		Position = position,
@@ -108,11 +134,13 @@ function NoResultsDetail:renderContent(theme)
 			HorizontalAlignment = Enum.HorizontalAlignment.Center
 		}),
 		TextLine1 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-			text = content.TextLine1,
+			text = (not FFlagToolboxUseDevFrameworkTextWithInlineLink) and content.TextLine1 or nil,
+			Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine1 or nil,
 			LayoutOrder = 1,
 		}, textWithInlineLinkProps)),
 		TextLine2 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-			text = content.TextLine2,
+			text = (not FFlagToolboxUseDevFrameworkTextWithInlineLink) and content.TextLine2 or nil,
+			Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine2 or nil,
 			LayoutOrder = 2,
 		}, textWithInlineLinkProps))
 	})

@@ -10,6 +10,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtil = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
+local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(frame, trackWidth)
 	return function(store)
@@ -32,6 +35,7 @@ return function(frame, trackWidth)
 
 		local tracks = root.Tracks
 
+		local snapped = false
 		local snapFrame = frame
 		if tracks then
 			local scroll = state.Status.Scroll
@@ -58,10 +62,16 @@ return function(frame, trackWidth)
 				local closestKeyPosition = TrackUtils.getScaledKeyframePosition(closestKey, range.Start, range.End, trackWidth)
 				if math.abs(closestKeyPosition - framePosition) < Constants.SNAP_TO_KEYFRAME_THRESHOLD then
 					snapFrame = closestKey
+					snapped = true
 				end
 			end
 		end
 
-		store:dispatch(StepAnimation(snapFrame))
+		if snapped or not GetFFlagUseTicks() then
+			store:dispatch(StepAnimation(snapFrame))
+		else
+			-- We didn't snap to a keyframe, but we still need to snap to the frames
+			store:dispatch(SnapToNearestFrame(frame))
+		end
 	end
 end

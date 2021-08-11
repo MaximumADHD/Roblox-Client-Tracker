@@ -6,6 +6,7 @@ return function()
 	local deepCopy = require(script.Parent.deepCopy)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -158,7 +159,9 @@ return function()
 	describe("fromRigAnimation", function()
 		it("should create a new AnimationData", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
+
 			expect(animationData).to.be.ok()
 			expect(animationData.Instances).to.be.ok()
 			expect(animationData.Instances.Root).to.be.ok()
@@ -174,14 +177,16 @@ return function()
 
 		it("should ignore tracks with 0 weight", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local tracks = animationData.Instances.Root.Tracks
 			expect(tracks.HumanoidRootPart).never.to.be.ok()
 		end)
 
 		it("should set the correct values", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local tracks = animationData.Instances.Root.Tracks
 			expect(#tracks.Head.Keyframes).to.equal(1)
 			expect(#tracks.UpperTorso.Keyframes).to.equal(1)
@@ -193,7 +198,8 @@ return function()
 
 		it("should set the metadata", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local metadata = animationData.Metadata
 			expect(metadata).to.be.ok()
 			expect(metadata.Name).to.equal("KeyframeSequence")
@@ -203,7 +209,8 @@ return function()
 
 		it("should snap keyframes to the nearest frame within an epsilon tolerance", function()
 			local keyframeSequence = buildTestBadKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30, 0.1)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence, 0.1)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30, 0.1)
 			local tracks = animationData.Instances.Root.Tracks
 			expect(#tracks.UpperTorso.Keyframes).to.equal(1)
 			expect(tracks.UpperTorso.Keyframes[1]).to.equal(0)
@@ -211,7 +218,8 @@ return function()
 
 		it("should create an event for every KeyframeMarker", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			expect(#animationData.Events.Keyframes).to.equal(1)
 			expect(animationData.Events.Data[0]).to.be.ok()
 			expect(animationData.Events.Data[0].TestEvent).to.be.ok()
@@ -220,31 +228,46 @@ return function()
 
 		it("should throw if the expected KeyframeSequence is not correct", function()
 			expect(function()
-				RigUtils.fromRigAnimation(nil, 30)
+				if GetFFlagUseTicks() then
+					RigUtils.fromRigAnimation(nil)
+				else
+					RigUtils.fromRigAnimation_deprecated(nil, 30)
+				end
 			end).to.throw()
 
 			expect(function()
-				RigUtils.fromRigAnimation({}, 30)
+				if GetFFlagUseTicks() then
+					RigUtils.fromRigAnimation({})
+				else
+					RigUtils.fromRigAnimation_deprecated({}, 30)
+				end
 			end).to.throw()
 
 			expect(function()
-				RigUtils.fromRigAnimation(Instance.new("Folder"), 30)
+				if GetFFlagUseTicks() then
+					RigUtils.fromRigAnimation(Instance.new("Folder"))
+				else
+					RigUtils.fromRigAnimation_deprecated(Instance.new("Folder"), 30)
+				end
 			end).to.throw()
 		end)
 
-		it("should throw if the expected frame rate is not correct", function()
-			expect(function()
-				RigUtils.fromRigAnimation(buildTestKeyframeSequence())
-			end).to.throw()
+		if not GetFFlagUseTicks() then
+			it("should throw if the expected frame rate is not correct", function()
+				expect(function()
+					RigUtils.fromRigAnimation_deprecated(buildTestKeyframeSequence())
+				end).to.throw()
 
-			expect(function()
-				RigUtils.fromRigAnimation(buildTestKeyframeSequence(), 0)
-			end).to.throw()
-		end)
+				expect(function()
+					RigUtils.fromRigAnimation_deprecated(buildTestKeyframeSequence(), 0)
+				end).to.throw()
+			end)
+		end
 
 		it("should not set a keyframe's name if it was the default name", function()
 			local keyframeSequence = buildTestKeyframeSequence()
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local namedKeyframes = animationData.Events.NamedKeyframes
 			expect(isEmpty(namedKeyframes)).to.equal(true)
 		end)
@@ -252,7 +275,8 @@ return function()
 		it("should import keyframe names", function()
 			local keyframeSequence = buildTestKeyframeSequence()
 			keyframeSequence.Keyframe.Name = "TestName"
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local namedKeyframes = animationData.Events.NamedKeyframes
 			expect(namedKeyframes[0]).to.equal("TestName")
 		end)
@@ -312,7 +336,8 @@ return function()
 		it("should import keyframe names", function()
 			local keyframeSequence = buildTestKeyframeSequence()
 			keyframeSequence.Keyframe.Name = "TestName"
-			local animationData = RigUtils.fromRigAnimation(keyframeSequence, 30)
+			local animationData = GetFFlagUseTicks() and RigUtils.fromRigAnimation(keyframeSequence)
+				or RigUtils.fromRigAnimation_deprecated(keyframeSequence, 30)
 			local namedKeyframes = animationData.Events.NamedKeyframes
 			expect(namedKeyframes[0]).to.equal("TestName")
 		end)

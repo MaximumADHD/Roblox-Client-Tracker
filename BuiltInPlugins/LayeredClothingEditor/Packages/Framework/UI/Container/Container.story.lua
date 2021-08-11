@@ -14,11 +14,8 @@ local BaseTheme = require(FrameworkStyle.Themes.BaseTheme)
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
--- TODO FFlagEnableDeveloperStorybook: when retired, remove unused StudioTheme import
-local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
-local StudioTheme = require(FrameworkStyle.Themes.StudioTheme)
 local ThemeSwitcher = require(FrameworkStyle.ThemeSwitcher)
-local theme = FFlagEnableDeveloperStorybook and ThemeSwitcher.new() or StudioTheme.new()
+local theme = ThemeSwitcher.new()
 
 theme:extend({
 	[ui.Box] = join(BaseTheme[ui.Box], {

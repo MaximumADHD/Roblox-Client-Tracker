@@ -11,6 +11,7 @@ return function()
 		return Roact.createElement(SelectionControls, {
 			Size = UDim2.new(1, 0, 1, 0),
 			LayoutOrder = 1,
+			ZIndex = 1,
 		})
 	end
 

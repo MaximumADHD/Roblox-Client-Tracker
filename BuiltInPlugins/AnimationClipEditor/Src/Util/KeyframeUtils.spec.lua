@@ -4,6 +4,7 @@ return function()
 	local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local testTrackData = {
 		Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
@@ -173,23 +174,43 @@ return function()
 		end)
 	end)
 
-	describe("getNearestFrame", function()
-		it("should find the closest frame to the given float", function()
-			local frame = KeyframeUtils.getNearestFrame(1.1)
-			expect(frame).to.equal(1)
+	if not GetFFlagUseTicks() then
+		describe("getNearestFrame", function()
+			it("should find the closest frame to the given float", function()
+				local frame = KeyframeUtils.getNearestFrame_deprecated(1.1)
+				expect(frame).to.equal(1)
 
-			frame = KeyframeUtils.getNearestFrame(1.9)
-			expect(frame).to.equal(2)
+				frame = KeyframeUtils.getNearestFrame_deprecated(1.9)
+				expect(frame).to.equal(2)
+			end)
+
+			it("should round up if at .5", function()
+				local frame = KeyframeUtils.getNearestFrame_deprecated(1.5)
+				expect(frame).to.equal(2)
+
+				frame = KeyframeUtils.getNearestFrame_deprecated(2.5)
+				expect(frame).to.equal(3)
+			end)
 		end)
+	else
+		describe("getNearestTick", function()
+			it("should find the closest tick to the given float", function()
+				local frame = KeyframeUtils.getNearestTick(1.1)
+				expect(frame).to.equal(1)
 
-		it("should round up if at .5", function()
-			local frame = KeyframeUtils.getNearestFrame(1.5)
-			expect(frame).to.equal(2)
+				frame = KeyframeUtils.getNearestTick(1.9)
+				expect(frame).to.equal(2)
+			end)
 
-			frame = KeyframeUtils.getNearestFrame(2.5)
-			expect(frame).to.equal(3)
+			it("should round up if at .5", function()
+				local frame = KeyframeUtils.getNearestTick(1.5)
+				expect(frame).to.equal(2)
+
+				frame = KeyframeUtils.getNearestTick(2.5)
+				expect(frame).to.equal(3)
+			end)
 		end)
-	end)
+	end
 
 	describe("snapToFrame", function()
 		it("should snap to the closest frame within the tolerance", function()

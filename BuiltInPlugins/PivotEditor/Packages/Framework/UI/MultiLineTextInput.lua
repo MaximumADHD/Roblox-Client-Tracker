@@ -8,7 +8,6 @@
 		StyleModifier BackgroundStyleModifier: The Modifier to index into the Background style with.
 		integer LayoutOrder: The order this component will display in a UILayout.
 		UDim2 Position: The position of this component.
-		callback OnTextChanged: Callback to tell parent that text has changed
 		UDim2 Size: The size of the component.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
@@ -23,6 +22,7 @@
 		number TextSize: The font size of the text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local TextService = game:GetService("TextService")
 
@@ -110,8 +110,15 @@ function MultiLineTextInput:init()
 
 	self.onTextChanged = function(text)
 		self.updateCanvas()
-		if self.props.OnTextChanged then
-			self.props.OnTextChanged(text)
+		if FFlagToolboxReplaceUILibraryComponentsPt2 then
+			local textInputProps = self.props.TextInputProps
+			if textInputProps and textInputProps.OnTextChanged then
+				textInputProps.OnTextChanged(text)
+			end
+		else
+			if self.props.OnTextChanged then
+				self.props.OnTextChanged(text)
+			end
 		end
 	end
 

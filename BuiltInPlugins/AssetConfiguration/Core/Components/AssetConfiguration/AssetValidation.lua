@@ -12,7 +12,7 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local CorePackages = game:GetService("CorePackages")
@@ -32,6 +32,8 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local UGCValidation = require(CorePackages.UGCValidation)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local Actions = Plugin.Core.Actions
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
@@ -121,83 +123,94 @@ function AssetValidation:init(props)
 end
 
 function AssetValidation:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local reasonText = "Reason:\n" .. table.concat(self.state.reasons or {}, "\n")
+function AssetValidation:renderContent(theme)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = theme.typeValidation.background,
-			BackgroundTransparency = 0,
-			BorderSizePixel = 0,
-			Size = props.Size,
+	local reasonText = "Reason:\n" .. table.concat(self.state.reasons or {}, "\n")
+
+	return Roact.createElement("Frame", {
+		BackgroundColor3 = theme.typeValidation.background,
+		BackgroundTransparency = 0,
+		BorderSizePixel = 0,
+		Size = props.Size,
+	}, {
+		Preview = Roact.createElement(AssetThumbnailPreview, {
+			titleHeight = PREVIEW_TITLE_HEIGHT,
+			titlePadding = PREVIEW_TITLE_PADDING,
+			Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
+			Size = UDim2.new(
+				0, PREVIEW_SIZE,
+				0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
+			),
+		}),
+
+		LoadingBar = self.state.isLoading and Roact.createElement(LoadingBar, {
+			loadingText = LOADING_TEXT,
+			loadingTime = LOADING_TIME,
+			holdPercent = LOADING_PERCENT,
+			Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
+			Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
+			onFinish = state.onFinish,
+		}),
+
+		LoadingResult = not self.state.isLoading and  Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, 0, LOADING_RESULT_Y_POS),
+			Size = UDim2.new(1, 0, 1, -LOADING_RESULT_Y_POS),
+			BackgroundTransparency = 1,
 		}, {
-			Preview = Roact.createElement(AssetThumbnailPreview, {
-				titleHeight = PREVIEW_TITLE_HEIGHT,
-				titlePadding = PREVIEW_TITLE_PADDING,
-				Position = UDim2.new(0.5, -PREVIEW_SIZE/2, 0, PREVIEW_PADDING),
-				Size = UDim2.new(
-					0, PREVIEW_SIZE,
-					0, PREVIEW_SIZE + PREVIEW_TITLE_PADDING + PREVIEW_TITLE_HEIGHT
-				),
-			}),
-
-			LoadingBar = self.state.isLoading and Roact.createElement(LoadingBar, {
-				loadingText = LOADING_TEXT,
-				loadingTime = LOADING_TIME,
-				holdPercent = LOADING_PERCENT,
-				Size = UDim2.new(0, LOADING_BAR_WIDTH, 0, LOADING_BAR_HEIGHT),
-				Position = UDim2.new(0.5, -LOADING_BAR_WIDTH/2, 0, LOADING_BAR_Y_POS),
-				onFinish = state.onFinish,
-			}),
-
-			LoadingResult = not self.state.isLoading and  Roact.createElement("Frame", {
-				Position = UDim2.new(0, 0, 0, LOADING_RESULT_Y_POS),
-				Size = UDim2.new(1, 0, 1, -LOADING_RESULT_Y_POS),
+			Title = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-			}, {
-				Title = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Font = Constants.FONT,
-					Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
-					Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
-					Text = "Validation Failed",
-					TextColor3 = theme.loading.text,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Center,
-				}),
-
-				Reason = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Font = Constants.FONT,
-					Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
-					Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
-					Text = reasonText,
-					TextWrapped = true,
-					TextColor3 = theme.loading.text,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					TextXAlignment = Enum.TextXAlignment.Center,
-					TextYAlignment = Enum.TextYAlignment.Top,
-				}),
+				Font = Constants.FONT,
+				Position = UDim2.new(0.5, -TITLE_WIDTH/2, 0, 0),
+				Size = UDim2.new(0, TITLE_WIDTH, 0, TITLE_HEIGHT),
+				Text = "Validation Failed",
+				TextColor3 = theme.loading.text,
+				TextSize = Constants.FONT_SIZE_TITLE,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Center,
 			}),
 
-			Footer = not self.state.isLoading and Roact.createElement("Frame", {
+			Reason = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
-				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-			}, {
-				CloseButton = Roact.createElement(NavButton, {
-					onClick = props.onClose,
-					titleText = "Close",
-					LayoutOrder = 0,
-					Position = UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2),
-					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				}),
+				Font = Constants.FONT,
+				Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
+				Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
+				Text = reasonText,
+				TextWrapped = true,
+				TextColor3 = theme.loading.text,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Top,
 			}),
-		})
-	end)
+		}),
+
+		Footer = not self.state.isLoading and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
+			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+		}, {
+			CloseButton = Roact.createElement(NavButton, {
+				onClick = props.onClose,
+				titleText = "Close",
+				LayoutOrder = 0,
+				Position = UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2),
+				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			}),
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -215,6 +228,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.CONFIGURE_ASSET))
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	AssetValidation = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetValidation)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetValidation)

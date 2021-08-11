@@ -1,18 +1,29 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
-
 local Actions = Plugin.Src.Actions
-local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
-local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+local Models = Plugin.Src.Models
+
+--Variables
 local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
 local SetVariableTextFilteredOut = require(Actions.Watch.SetVariableTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
-local BreakpointHit = require(Actions.Common.BreakpointHit)
 
-local Models = Plugin.Src.Models
+--Watches
+local AddChildExpression = require(Actions.Watch.AddChildExpression)
+local AddExpression = require(Actions.Watch.AddExpression)
+local ChangeExpression = require(Actions.Watch.ChangeExpression)
+local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
+local RemoveExpression = require(Actions.Watch.RemoveExpression)
+
+--Other
+local BreakpointHit = require(Actions.Common.BreakpointHit)
+local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
+local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+
+--Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local VariableRow = require(Models.Watch.VariableRow)
 local WatchRow = require(Models.Watch.WatchRow)
@@ -67,38 +78,38 @@ local function deepCopy(var)
 	return ret
 end
 
-local function nilCheckFillIn(table, action)
-	assert(table[action.debuggerStateToken] ~= nil)
+local function nilCheckFillIn(table, stepStateBundle)
+	assert(table[stepStateBundle.debuggerStateToken] ~= nil)
 
-	if (table[action.debuggerStateToken][action.threadId]== nil) then
-		table[action.debuggerStateToken][action.threadId] = {}
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId]== nil) then
+		table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId] = {}
 	end
 
-	if (table[action.debuggerStateToken][action.threadId][action.frameNumber] == nil) then
-		table[action.debuggerStateToken][action.threadId][action.frameNumber] = {}
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber] == nil) then
+		table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber] = {}
 	end
 		
-	if (table[action.debuggerStateToken][action.threadId][action.frameNumber].Variables == nil) then
-		table[action.debuggerStateToken][action.threadId][action.frameNumber].Variables = {}
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables == nil) then
+		table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables = {}
 	end
 
-	if (table[action.debuggerStateToken][action.threadId][action.frameNumber].Watches == nil) then
-		table[action.debuggerStateToken][action.threadId][action.frameNumber].Watches = {}
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Watches == nil) then
+		table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Watches = {}
 	end
 end
 
-local function nilCheckBase(table, action)
-	if (table[action.debuggerStateToken] == nil) then
+local function nilCheckBase(table, stepStateBundle)
+	if (table[stepStateBundle.debuggerStateToken] == nil) then
 		assert(false)
 		return false
 	end
 
-	if (table[action.debuggerStateToken][action.threadId] == nil) then
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId] == nil) then
 		assert(false)
 		return false
 	end
 
-	if (table[action.debuggerStateToken][action.threadId][action.frameNumber] == nil) then
+	if (table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber] == nil) then
 		assert(false)
 		return false
 	end
@@ -106,24 +117,28 @@ local function nilCheckBase(table, action)
 end
 
 local function nilCheckVariable(table, action)
-	if (nilCheckBase(table, action) == false) then
+	local stepStateBundle = action.stepStateBundle
+
+	if (nilCheckBase(table, stepStateBundle) == false) then
 		return false
 	end
+
+	local base = table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
 		
-	if (table[action.debuggerStateToken][action.threadId][action.frameNumber].Variables == nil) then
+	if (base.Variables == nil) then
 		assert(false)
 		return false
 	end
 
 	if (action.path ~= nil) then
-		if (table[action.debuggerStateToken][action.threadId][action.frameNumber].Variables[action.path] == nil) then
+		if (base.Variables[action.path] == nil) then
 			assert(false)
 			return false
 		end
 	end
 
 	if (action.parentPath ~= nil) then
-		if (table[action.debuggerStateToken][action.threadId][action.frameNumber].Variables[action.parentPath] == nil) then
+		if (base.Variables[action.parentPath] == nil) then
 			assert(false)
 			return false
 		end
@@ -131,12 +146,49 @@ local function nilCheckVariable(table, action)
 	return true
 end
 
+local function nilCheckWatch(table, stepStateBundle, action)
+	if (nilCheckBase(table, stepStateBundle) == false) then
+		return false
+	end
+
+	local base = table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
+		
+	if (base.Watches == nil) then
+		assert(false)
+		return false
+	end
+
+	if (action.path ~= nil) then
+		if (base.Watches[action.path] == nil) then
+			assert(false)
+			return false
+		end
+	end
+
+	if (action.parentPath ~= nil) then
+		if (base.Watches[action.parentPath] == nil) then
+			assert(false)
+			return false
+		end
+	end
+	return true
+end
+
+local function indexOf(table, value)
+	for key, v in pairs(table) do
+		if(v == value) then
+			return key
+		end
+	end
+	return nil
+end
+
 return Rodux.createReducer({
 	stateTokenToRoots = {},
 	stateTokenToFlattenedTree = {},
 	filterText = "",
 	listOfEnabledScopes = {ScopeEnum.Local, ScopeEnum.Upvalue, ScopeEnum.Global},
-	listOfWatches = {},
+	listOfExpressions = {},
 	pathToExpansionState = {}, -- clear on continue
 	expressionToExpansionState = {}, -- clear on continue
 }, {
@@ -154,17 +206,19 @@ return Rodux.createReducer({
 
 	[AddRootVariables.name] = function(state : WatchStore, action : AddRootVariables.Props)
 		local stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
-		nilCheckFillIn(stateTokenToRootsCopy, action)
+		nilCheckFillIn(stateTokenToRootsCopy, action.stepStateBundle)
 
-		local target = stateTokenToRootsCopy[action.debuggerStateToken][action.threadId][action.frameNumber].Variables
+		local stepStateBundle = action.stepStateBundle
+
+		local target = stateTokenToRootsCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables
 		for _, rootVarName in ipairs(action.tokenizedList) do
 			table.insert(target, rootVarName)
 		end
 
 		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
-		nilCheckFillIn(stateTokenToFlattenedTreeCopy, action)
+		nilCheckFillIn(stateTokenToFlattenedTreeCopy, action.stepStateBundle)
 
-		local target2 = stateTokenToFlattenedTreeCopy[action.debuggerStateToken][action.threadId][action.frameNumber].Variables
+		local target2 = stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables
 		for varPath, variable in pairs(action.newVarsMapping) do
 			target2[varPath] = variable
 		end
@@ -182,7 +236,9 @@ return Rodux.createReducer({
 			return state
 		end
 
-		local target = stateTokenToFlattenedTreeCopy[action.debuggerStateToken][action.threadId][action.frameNumber].Variables
+		local stepStateBundle = action.stepStateBundle
+
+		local target = stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables
 		for varPath, variable in pairs(action.newVarsMapping) do
 			target[varPath] = variable
 		end
@@ -209,7 +265,9 @@ return Rodux.createReducer({
 			return state
 		end
 
-		stateTokenToFlattenedTreeCopy[action.debuggerStateToken][action.threadId][action.frameNumber].Variables[action.path].scopeFilteredOut = action.filteredOut
+		local stepStateBundle = action.stepStateBundle
+
+		stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[action.path].scopeFilteredOut = action.filteredOut
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy
@@ -222,7 +280,9 @@ return Rodux.createReducer({
 			return state
 		end
 
-		stateTokenToFlattenedTreeCopy[action.debuggerStateToken][action.threadId][action.frameNumber].Variables[action.path].textFilteredOut = action.filteredOut
+		local stepStateBundle = action.stepStateBundle
+
+		stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[action.path].textFilteredOut = action.filteredOut
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy
@@ -241,6 +301,106 @@ return Rodux.createReducer({
 			filterText = state.filterText,
 			listOfEnabledScopes = action.listOfEnabledScopes,
 			listOfWatches = state.listOfWatches,
+		})
+	end,
+
+	[AddChildExpression.name] = function(state : WatchStore, action : AddChildExpression.Props)
+		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
+
+		if (nilCheckWatch(stateTokenToFlattenedTreeCopy, action.stepStateBundle, action) == false) then
+			return state
+		end
+
+		local target = stateTokenToFlattenedTreeCopy[action.stepStateBundle.debuggerStateToken][action.stepStateBundle.threadId][action.stepStateBundle.frameNumber].Watches
+		for varPath, variable in pairs(action.newVarsMapping) do
+			target[varPath] = variable
+		end
+
+		local target2 = target[action.parentPath].children
+		for _, childVarPath in ipairs(action.childKeys) do
+			table.insert(target2, childVarPath)
+		end
+
+		return Cryo.Dictionary.join(state, {
+			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy
+		})
+	end,
+
+	[AddExpression.name] = function(state : WatchStore, action : AddExpression.Props)
+		if(indexOf(state.listOfExpressions, action.expression) ~= nil) then
+			return state
+		end
+		return Cryo.Dictionary.join(state, {
+			listOfExpressions = Cryo.List.join(state.listOfExpressions, {action.expression})
+		})
+	end,
+	
+	[ChangeExpression.name] = function(state : WatchStore, action : ChangeExpression.Props)
+		if(indexOf(state.listOfExpressions, action.newExpression) ~= nil) then
+			return state
+		end
+
+		if(indexOf(state.listOfExpressions, action.oldExpression) == nil) then
+			return state
+		end
+
+		local listOfExpressionsCopy = deepCopy(state.listOfExpressions)
+		local index = indexOf(listOfExpressionsCopy, action.oldExpression)
+		listOfExpressionsCopy[index] = action.newExpression
+		
+		local stateTokenToRootsCopy = state.stateTokenToRoots
+		if (state.stateTokenToRoots[action.currentStepStateBundle.debuggerStateToken] ~= nil) then
+			-- expression can be changed outside of debugging
+			stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
+
+			nilCheckWatch(stateTokenToRootsCopy, action.currentStepStateBundle, action)
+
+			local target = stateTokenToRootsCopy[action.currentStepStateBundle.debuggerStateToken][action.currentStepStateBundle.threadId][action.currentStepStateBundle.frameNumber].Watches
+			index = indexOf(target, action.oldExpression)
+			table.remove(target, index)
+		end
+
+		return Cryo.Dictionary.join(state, {
+			listOfExpressions = listOfExpressionsCopy,
+			stateTokenToRoots = stateTokenToRootsCopy
+		})
+	end,
+
+	[ExpressionEvaluated.name] = function(state : WatchStore, action : ExpressionEvaluated.Props)
+		local stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
+		nilCheckFillIn(stateTokenToRootsCopy, action.stepStateBundle)
+
+		local target = stateTokenToRootsCopy[action.stepStateBundle.debuggerStateToken][action.stepStateBundle.threadId][action.stepStateBundle.frameNumber].Watches
+		table.insert(target, action.watchRow.expressionColumn)
+
+		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
+		nilCheckFillIn(stateTokenToFlattenedTreeCopy, action.stepStateBundle)
+
+		local target2 = stateTokenToFlattenedTreeCopy[action.stepStateBundle.debuggerStateToken][action.stepStateBundle.threadId][action.stepStateBundle.frameNumber].Watches
+		target2[action.watchRow.expressionColumn] = action.watchRow
+
+		return Cryo.Dictionary.join(state, {
+			stateTokenToRoots = stateTokenToRootsCopy,
+			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy
+		})
+	end,
+
+	[RemoveExpression.name] = function(state : WatchStore, action : RemoveExpression.Props)
+		local stateTokenToRootsCopy = state.stateTokenToRoots
+		if (state.stateTokenToRoots[action.currentStepStateBundle.debuggerStateToken] ~= nil) then
+			-- expression can be changed outside of debugging
+			stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
+
+			nilCheckWatch(stateTokenToRootsCopy, action.currentStepStateBundle, action)
+
+			local target = stateTokenToRootsCopy[action.currentStepStateBundle.debuggerStateToken][action.currentStepStateBundle.threadId][action.currentStepStateBundle.frameNumber].Watches
+			local index = indexOf(target, action.expression)
+			table.remove(target, index)
+		end
+		
+		return Cryo.Dictionary.join(state, {
+			listOfExpressions = Cryo.List.removeValue(state.listOfExpressions, action.expression),
+			stateTokenToRoots = stateTokenToRootsCopy,
 		})
 	end,
 })

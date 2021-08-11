@@ -5,6 +5,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
@@ -56,10 +57,10 @@ function MeshImportDialog:render()
 	})
 end
 
-ContextServices.mapToProps(MeshImportDialog, {
+MeshImportDialog = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(MeshImportDialog)
 
 local function mapStateToProps(state)
 	return {

@@ -19,11 +19,15 @@ local ViewChangeDetector = require(DraggerFramework.Utility.ViewChangeDetector)
 local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getFFlagTemporaryPatchDraggerEvents = require(DraggerFramework.Flags.getFFlagTemporaryPatchDraggerEvents)
+local getFFlagShowDragEnterWarning = require(DraggerFramework.Flags.getFFlagShowDragEnterWarning)
 
 -- Constants
 local DRAGGER_UPDATE_BIND_NAME = "DraggerToolViewUpdate"
 
 local DraggerToolComponent = Roact.PureComponent:extend("DraggerToolComponent")
+
+local BailAndWarnHackHasBeenShown = false
 
 function DraggerToolComponent:init()
 	self:setup(self.props)
@@ -77,20 +81,49 @@ function DraggerToolComponent:setup(props)
 	-- Select it first before we potentially start feeding input to it
 	self._draggerToolModel:_processSelected()
 
+	-- This should not never return true because we disconnect connections
+	-- before tearing down our state. But somehow it seems to be happening
+	-- on production given our error logging. See if this fixes it and hopefully
+	-- get repro steps from someone so that we can properly fix it.
+	local function bailedAndWarnedHack(reason)
+		if self._isMounted then
+			return false
+		else
+			if getFFlagShowDragEnterWarning() and not BailAndWarnHackHasBeenShown then
+				BailAndWarnHackHasBeenShown = true
+				warn("If you see this warning, please report how you triggered it on the DevForum " ..
+					"with the following context: `" .. reason .. "`")
+			end
+			return true
+		end
+	end
+
 	local mouse = props.Mouse
 	self._mouseDownConnection = mouse.Button1Down:Connect(function()
+		if getFFlagTemporaryPatchDraggerEvents() and bailedAndWarnedHack("Button1Down") then
+			return
+		end
 		self._draggerToolModel:_processMouseDown()
 	end)
 	self._mouseUpConnection = mouse.Button1Up:Connect(function()
+		if getFFlagTemporaryPatchDraggerEvents() and bailedAndWarnedHack("Button1Up") then
+			return
+		end
 		self._draggerToolModel:_processMouseUp()
 	end)
 	self._keyDownConnection = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+		if getFFlagTemporaryPatchDraggerEvents() and bailedAndWarnedHack("KeyDown") then
+			return
+		end
 		if input.UserInputType == Enum.UserInputType.Keyboard then
 			self._draggerToolModel:_processKeyDown(input.KeyCode)
 		end
 	end)
 	if getFFlagSummonPivot() then
 		self._keyUpConnection = UserInputService.InputEnded:Connect(function(input, gameProcessedEvent)
+			if getFFlagTemporaryPatchDraggerEvents() and bailedAndWarnedHack("KeyUp") then
+				return
+			end
 			if input.UserInputType == Enum.UserInputType.Keyboard then
 				self._draggerToolModel:_processKeyUp(input.KeyCode)
 			end
@@ -98,6 +131,9 @@ function DraggerToolComponent:setup(props)
 	end
 
 	self._dragEnterConnection = mouse.DragEnter:Connect(function(instances)
+		if getFFlagTemporaryPatchDraggerEvents() and bailedAndWarnedHack("DragEnter") then
+			return
+		end
 		if #instances > 0 then
 			if #instances == 1 and shouldDragAsFace(instances[1]) then
 				self._draggerToolModel:_processToolboxInitiatedFaceDrag(instances)

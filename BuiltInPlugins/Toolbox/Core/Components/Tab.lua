@@ -54,7 +54,7 @@ function Tab:init()
 	end
 end
 
-function Tab:render(props)
+function Tab:render()
 	if FFlagToolboxRemoveWithThemes then
 		return self:renderContent(nil)
 	else

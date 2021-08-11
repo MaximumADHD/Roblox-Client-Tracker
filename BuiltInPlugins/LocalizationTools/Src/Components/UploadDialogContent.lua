@@ -1,3 +1,4 @@
+local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 --!nolint ImplicitReturn
 --^ DEVTOOLS-4493
 
@@ -9,6 +10,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
@@ -48,6 +50,8 @@ local function UnsupportedLocalesLine(props)
 			Color = props.Color,
 			LayoutOrder = props.LayoutOrder
 		})
+	else
+		return nil
 	end
 end
 
@@ -265,10 +269,19 @@ function UploadDialogContent:render()
 	})
 end
 
-ContextServices.mapToProps(UploadDialogContent, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	Localization = ContextServices.Localization,
-})
+if FFlagLocalizationToolsWithContext then
+	UploadDialogContent = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})(UploadDialogContent)
+else
+	ContextServices.mapToProps(UploadDialogContent, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Localization = ContextServices.Localization,
+	})
+end
+
 
 return UploadDialogContent

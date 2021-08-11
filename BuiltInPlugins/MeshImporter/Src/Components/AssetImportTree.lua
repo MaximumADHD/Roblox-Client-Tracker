@@ -5,31 +5,83 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
-local InstanceTreeView = UI.InstanceTreeView
+local CheckboxTreeView = UI.CheckboxTreeView
 local Pane = UI.Pane
 
 local AssetImportTree = Roact.PureComponent:extend("AssetImportTree")
 
+local function generateTree(instanceTable, instances)
+	local siblings = {}
+
+	for _, instance in pairs(instances) do
+		local children = instance:GetChildren()
+
+		local object = {
+			text = instance.Name,
+			children = #children > 0 and generateTree(instanceTable, children)
+		}
+
+		instanceTable[object] = instance
+
+		table.insert(siblings, object)
+	end
+
+	return siblings
+end
+
+local function initializeChecked(instances)
+	local checked = {}
+	for _, instance in pairs(instances) do
+		checked[instance] = true
+	end
+
+	return checked
+end
+
 function AssetImportTree:init()
+	local instances = self.props.Instances
+
+	self.instanceTable = {}
+	self.instanceTree = generateTree(self.instanceTable, instances)
+
+	local checked = initializeChecked(instances)
+
 	self.state = {
-		expansion = {},
+		checked = checked,
 		selection = {},
 	}
-
-	self.onExpansionChange = function(expansion)
-		self:setState({
-			expansion = Cryo.Dictionary.join(self.state.expansion, expansion)
-		})
-	end
 
 	self.onSelectionChange = function(selection)
 		self:setState({
 			selection = selection
+		})
+	end
+
+	self.onCheck = function(checked)
+		self:setState({
+			checked = Cryo.Dictionary.join(self.state.checked, checked)
+		})
+	end
+end
+
+function AssetImportTree:willUpdate(nextProps, nextState)
+	local instances = self.props.Instances
+
+	if nextProps.Instances ~= instances then
+		self.instanceTable = {}
+		self.instanceTree = generateTree(self.instanceTable, nextProps.Instances)
+
+		local checked = initializeChecked(instances)
+
+		self:setState({
+			checked = checked,
+			selection = {},
 		})
 	end
 end
@@ -48,20 +100,20 @@ function AssetImportTree:render()
 		Toolbar = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 0, style.TreeViewToolbarHeight),
 		}),
-		TreeView = Roact.createElement(InstanceTreeView, {
-			Instances = props.Instances or {},
-			Expansion = state.expansion,
+		TreeView = Roact.createElement(CheckboxTreeView, {
+			RootItems = self.instanceTree,
 			Selection = state.selection,
+			Checked = state.checked,
 			Size = UDim2.new(1, 0, 1, 0),
-			OnExpansionChange = self.onExpansionChange,
 			OnSelectionChange = self.onSelectionChange,
+			OnCheck = self.onCheck
 		})
 	})
 end
 
-ContextServices.mapToProps(AssetImportTree, {
+AssetImportTree = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(AssetImportTree)
 
 return AssetImportTree

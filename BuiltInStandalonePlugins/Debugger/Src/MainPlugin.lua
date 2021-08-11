@@ -42,12 +42,14 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 local Components = main.Src.Components
 local EditDebugpointDialog = require(Components.Breakpoints.EditDebugpointDialog)
 local CallstackWindow = require(Components.Callstack.CallstackWindow)
+local WatchWindow = require(Components.Watch.WatchWindow)
 local BreakpointsWindow = require(Components.Breakpoints.BreakpointsWindow)
 local CallstackComponent = require(Components.Callstack.CallstackComponent)
+local WatchComponent = require(Components.Watch.WatchComponent)
 
-local FFlagDebuggerPluginEditBreakpoint = game:GetFastFlag("DebuggerPluginEditBreakpoint_alpha")
-local FFlagLuaUIDebuggerCallstack = game:GetFastFlag("LuaUIDebuggerCallstack")
-local FFlagDebuggerPluginBreakpointsWindow = game:GetFastFlag("DebuggerPluginBreakpointsWindow")
+local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
+local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
+local FFlagStudioDebuggerPluginBreakpointsWindow = game:GetFastFlag("StudioDebuggerPluginBreakpointsWindow")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -120,11 +122,16 @@ function MainPlugin:init(props)
 end
 
 function MainPlugin:renderButtons(toolbar)
+	local state = self.state
+	local callstackWindowEnabled = state.callstackWindow.Enabled
+	local watchWindowEnabled = state.watchWindow.Enabled
+	local breakpointsWindowEnabled = state.breakpointsWindow.Enabled
+
 	return {
-		ToggleCallstack = FFlagLuaUIDebuggerCallstack and Roact.createElement(PluginButton, {
+		ToggleCallstack = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
 			Name = "callStackDockWidgetActionV2",
 			Toolbar = toolbar,
-			Active = true,
+			Active = callstackWindowEnabled,
 			Title = CALLSTACK_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/callStack.png",
@@ -133,10 +140,10 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleBreakpointsWindow = FFlagDebuggerPluginBreakpointsWindow and Roact.createElement(PluginButton, {
+		ToggleBreakpointsWindow = FFlagStudioDebuggerPluginBreakpointsWindow and Roact.createElement(PluginButton, {
 			Name = "breakpointsDockWidgetActionV2",
 			Toolbar = toolbar,
-			Active = true,
+			Active = breakpointsWindowEnabled,
 			Title = BREAKPOINTS_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Breakpoint.png",
@@ -145,10 +152,10 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleWatchWindow = FFlagLuaUIDebuggerCallstack and Roact.createElement(PluginButton, {
+		ToggleWatchWindow = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
 			Name = "watchDockWidgetActionV2",
 			Toolbar = toolbar,
-			Active = true,
+			Active = watchWindowEnabled,
 			Title = WATCH_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Watch-Window.png",
@@ -162,7 +169,7 @@ end
 
 function MainPlugin:renderButtonsTemporary(toolbar)
 	return {
-		ToggleEditBreakpoint = FFlagDebuggerPluginEditBreakpoint and Roact.createElement(PluginButton, {
+		ToggleEditBreakpoint = FFlagStudioDebuggerPluginEditBreakpoint and Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = true,
 			Title = self.localization:getText("EditBreakpoint", "DialogName"),
@@ -182,6 +189,7 @@ function MainPlugin:render()
 	local plugin = props.Plugin
 	local editBreakpointEnabled = state.editBreakpoint and state.editBreakpoint.Enabled
 	local callstackWindowEnabled = state.callstackWindow and state.callstackWindow.Enabled
+	local watchWindowEnabled = state.watchWindow and state.watchWindow.Enabled
 	local breakpointsWindowEnabled = state.breakpointsWindow and state.breakpointsWindow.Enabled
 	return ContextServices.provide({
 		Plugin.new(plugin),
@@ -203,13 +211,13 @@ function MainPlugin:render()
 				return self:renderButtonsTemporary(toolbar)
 			end,
 		}),
-		EditDebugpointDialog = FFlagDebuggerPluginEditBreakpoint and editBreakpointEnabled and Roact.createElement(EditDebugpointDialog, {
+		EditDebugpointDialog = FFlagStudioDebuggerPluginEditBreakpoint and editBreakpointEnabled and Roact.createElement(EditDebugpointDialog, {
 			Enabled = editBreakpointEnabled,
 			OnClose = function()
 				self.onWidgetClose("editBreakpoint")
 			end,
 		}) or nil,
-		CallstackWindow = (FFlagLuaUIDebuggerCallstack and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
+		CallstackWindow = (FFlagStudioDebuggerPlugin and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
 			Enabled = callstackWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("callstackWindow")
@@ -217,11 +225,19 @@ function MainPlugin:render()
 		}, {
 			Callstack = Roact.createElement(CallstackComponent),
 		}) or nil,
-		BreakpointsWindow = (FFlagDebuggerPluginBreakpointsWindow and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
+		BreakpointsWindow = (FFlagStudioDebuggerPluginBreakpointsWindow and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
 			Enabled = breakpointsWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("breakpointsWindow")
 			end,
+		}) or nil,
+		WatchWindow = (FFlagStudioDebuggerPlugin and watchWindowEnabled) and Roact.createElement(WatchWindow, {
+			Enabled = watchWindowEnabled,
+			OnClose = function()
+				self.onWidgetClose("watchWindow")
+			end,
+		}, {
+			Watch = Roact.createElement(WatchComponent),
 		}) or nil,
 	})
 end

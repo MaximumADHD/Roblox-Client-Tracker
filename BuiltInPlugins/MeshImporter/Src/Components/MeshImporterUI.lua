@@ -6,6 +6,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local AssetRenderModel = require(Plugin.Packages.Framework).StudioUI.AssetRenderModel
 
@@ -80,10 +81,10 @@ function MeshImporterUI:render()
 	})
 end
 
-ContextServices.mapToProps(MeshImporterUI, {
+MeshImporterUI = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(MeshImporterUI)
 
 local function mapDispatchToProps(dispatch)
 	return {

@@ -98,6 +98,8 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 				self.mannequin,
 				self.props.AccessoryTypeInfo,
 				useCurrentAttachmentPointInfo and self.props.AttachmentPoint or nil)
+		else
+			ModelUtil:clearOldAttachments(self.editingItem)
 		end
 
 		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, useCurrentAttachmentPointInfo)

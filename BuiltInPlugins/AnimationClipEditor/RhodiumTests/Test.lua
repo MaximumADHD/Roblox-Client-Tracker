@@ -37,6 +37,9 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local MainProvider = require(Plugin.Src.Context.MainProvider)
+local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local Test = {}
 
@@ -49,6 +52,11 @@ end
 function Test:createTestStore()
 	local middlewares = {Rodux.thunkMiddleware}
 	local store = Rodux.Store.new(MainReducer, nil, middlewares)
+	if GetFFlagUseTicks() then
+		-- This test uses old frames as offsets. Disable snap mode so that
+		-- move/scale operations don't regroup them all at offset 0
+		store:dispatch(SetSnapMode(Constants.SNAP_MODES.Disabled))
+	end
 	return store
 end
 

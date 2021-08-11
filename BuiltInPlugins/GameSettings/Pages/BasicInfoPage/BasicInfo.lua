@@ -596,6 +596,19 @@ function BasicInfo:init()
 
 		local optInLocations = props[optInLocationsKey]
 
+		local publishExists
+		local requirementsLinkStyle
+		if FFlagCheckPublishedPlaceExistsForDevPublish then
+			publishExists = publishedVersionExists(props.PublishedVersions)
+			if publishExists then
+				requirementsLinkStyle = "RequirementsLink"
+			else
+				requirementsLinkStyle = "RequirementsLinkDisabled"
+			end
+		else
+			requirementsLinkStyle = "RequirementsLink"
+		end
+
 		local boxes = {}
 
 		for region,values in pairs(optInLocations) do
@@ -635,11 +648,18 @@ function BasicInfo:init()
 					RequirementsText = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement(PartialHyperlink, {
 						HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
 						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-						Style = "RequirementsLink",
+						Style = requirementsLinkStyle,
 						Mouse = props.Mouse:get(),
 						OnClick = function()
-							local url = getOptInLocationsRequirementsLink(chinaKey)
-							GuiService:OpenBrowserWindow(url)
+							if FFlagCheckPublishedPlaceExistsForDevPublish then
+								if publishExists then
+									local url = getOptInLocationsRequirementsLink(chinaKey)
+									GuiService:OpenBrowserWindow(url)
+								end
+							else
+								local url = getOptInLocationsRequirementsLink(chinaKey)
+								GuiService:OpenBrowserWindow(url)
+							end
 						end,
 					}) or nil,
 				})
@@ -876,7 +896,7 @@ function BasicInfo:render()
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
 				Boxes = self:createOptInLocationBoxes(layoutOrder),
-				Enabled = optInLocations ~= nil,
+				Enabled = optInLocations ~= nil and ((FFlagCheckPublishedPlaceExistsForDevPublish and publishExists) or (not FFlagCheckPublishedPlaceExistsForDevPublish)),
 				--Functionality
 				EntryClicked = function(box)
 					local dialogProps = {

@@ -162,7 +162,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 		}),
 
 		InputRow = Roact.createElement("Frame", {
-			Size = FFlagToolboxReplaceUILibraryComponentsPt1 and UDim2.new(1, 0, componentHeight, -30) or UDim2.new(1, 0, 1, -30),
+			Size = FFlagToolboxReplaceUILibraryComponentsPt1 and UDim2.new(1, 0, 0, componentHeight-30) or UDim2.new(1, 0, 1, -30),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = orderIterator:getNextOrder(),

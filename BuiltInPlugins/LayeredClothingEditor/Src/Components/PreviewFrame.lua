@@ -42,6 +42,13 @@ function PreviewFrame:render()
 
 	local orderIterator = LayoutOrderIterator.new()
 
+	-- Slider in SelectionControls does not drag if it is below a scrolling frame. Workaround
+	-- is to set ZIndex to something higher.
+	local zIndex = 1
+	if self.previewFrameRef.current then
+		zIndex = self.previewFrameRef.current.Grid.ZIndex + 1
+	end
+
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.BackgroundColor,
 		BorderSizePixel = 0,
@@ -78,6 +85,7 @@ function PreviewFrame:render()
 		SelectionControls = Roact.createElement(SelectionControls, {
 			Size = UDim2.new(1, -theme.MainPadding, 0, theme.SliderHeight),
 			LayoutOrder = orderIterator:getNextOrder(),
+			ZIndex = zIndex,
 		}),
 	})
 end

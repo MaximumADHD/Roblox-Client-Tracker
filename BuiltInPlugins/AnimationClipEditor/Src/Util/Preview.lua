@@ -15,9 +15,11 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
+local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local Preview = {}
 Preview.__index = Preview
@@ -46,7 +48,7 @@ function Preview.getFrameBounds(animationData, selectedKeyframes)
 		return AnimationData.getSelectionBounds(animationData, selectedKeyframes)
 	end
 
-	local earliest = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 	local latest = 0
 	for _, instance in pairs(selectedKeyframes) do
 		for trackName, _ in pairs(instance) do
@@ -88,7 +90,7 @@ function Preview:moveKeyframes(animationData, selectedKeyframes, newFrame)
 	local earliestFrame = self.earliestFrame
 	local latestFrame = self.latestFrame
 	local delta = newFrame - pivotFrame
-	local maxLength = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 
 	local previewKeyframes = self.previewKeyframes
 	for instanceName, instance in pairs(selectedKeyframes) do
@@ -107,14 +109,15 @@ function Preview:scaleKeyframes(animationData, selectedKeyframes, newFrame, star
 	local pivotFrame = self.pivotFrame
 	local delta = (pivotFrame == self.latestFrame) and (pivotFrame - newFrame) or (newFrame - pivotFrame)
 	self.scale = delta / (self.latestFrame - self.earliestFrame)
-	local maxLength = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 
 	local previewKeyframes = self.previewKeyframes
 	for instanceName, instance in pairs(selectedKeyframes) do
 		for trackName, _ in pairs(instance) do
 			local keyframes = Cryo.Dictionary.keys(instance[trackName])
 			previewKeyframes[instanceName][trackName] = Cryo.List.map(keyframes, function(frame)
-				local nearestFrame = KeyframeUtils.getNearestFrame(pivotFrame + ((frame - pivotFrame) * self.scale))
+				local nearestFrame = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(pivotFrame + ((frame - pivotFrame) * self.scale))
+					or KeyframeUtils.getNearestFrame_deprecated(pivotFrame + ((frame - pivotFrame) * self.scale))
 				if GetFFlagFixScaleKeyframeClobbering() then
 					return math.clamp(nearestFrame, 0, maxLength)
 				else
@@ -133,7 +136,7 @@ local function buildPreviewEvents(selectedEvents)
 end
 
 function Preview.getEventBounds(animationData, selectedEvents)
-	local earliest = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 	local latest = 0
 	local eventFrames = Cryo.Dictionary.keys(selectedEvents)
 	table.sort(eventFrames)
@@ -168,7 +171,7 @@ function Preview:moveEvents(animationData, selectedEvents, newFrame)
 	local latestFrame = self.latestFrame
 	local delta = newFrame - pivotFrame
 	local earliestFrame = self.earliestFrame
-	local maxLength = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 
 	local newPreviewEvents = buildPreviewEvents(selectedEvents)
 

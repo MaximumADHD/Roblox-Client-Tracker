@@ -6,11 +6,11 @@ export type WatchRow = Expression & WatchWindowTableRow.WatchWindowTableRow
 
 local function fromData(data) : WatchRow
 	return {
-		expression = data.expression,
-		path = data.Path,
-		scope = data.scope,
-		value = data.value,
-		dataType = data.dataType,
+		expressionColumn = data.expression,
+		pathColumn = data.path,
+		scopeColumn = data.scope,
+		valueColumn = data.value,
+		dataTypeColumn = data.dataType,
 		children = {},
 		textFilteredOut = false,
 		scopeFilteredOut = false,

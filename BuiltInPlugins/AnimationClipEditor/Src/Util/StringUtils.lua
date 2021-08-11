@@ -4,6 +4,11 @@ local Plugin = script.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 
 local MathUtils = Framework.Util.Math
+
+local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+
 local StringUtils = {}
 
 local NO_WRAP = Vector2.new(1000000, 50)
@@ -18,6 +23,7 @@ function StringUtils.split(text, sep)
    text:gsub(pattern, function(c) fields[#fields+1] = c end)
    return fields
 end
+
 
 function StringUtils.parseTime(text, frameRate)
 	local fields = StringUtils.split(text, ":")
@@ -36,20 +42,32 @@ function StringUtils.parseTime(text, frameRate)
 			return 0
 		end
 	end
-
 	if #nums == 1 then
-		return nums[1]
+		return GetFFlagUseTicks() and (nums[1] * Constants.TICK_FREQUENCY / frameRate) or nums[1]
 	elseif #nums > 1 then
-		return nums[1] * frameRate + nums[2]
+		return GetFFlagUseTicks() and ((nums[1] + nums[2] / frameRate) * Constants.TICK_FREQUENCY) or (nums[1] * frameRate + nums[2])
 	else
 		return nil
 	end
 end
 
-function StringUtils.formatTime(frame, frameRate)
+function StringUtils.formatTime(tick, frameRate, asSeconds)
+	if GetFFlagUseTicks() and not asSeconds then
+		return math.floor(tostring(tick * frameRate / Constants.TICK_FREQUENCY))
+	end
+
+	-- Convert ticks to frames
+	local frame
+	if GetFFlagUseTicks() then
+		frame = KeyframeUtils.getNearestTick(tick * frameRate / Constants.TICK_FREQUENCY)
+	else
+		frame = tick
+	end
+
 	if frameRate == 0 then
 		return tostring("0:" ..string.format("%02d", 0))
 	end
+
 	local seconds = math.floor(frame / frameRate)
 	local remainingFrames = frame - (seconds * frameRate)
 	return tostring(seconds ..":" ..string.format("%02d", remainingFrames))

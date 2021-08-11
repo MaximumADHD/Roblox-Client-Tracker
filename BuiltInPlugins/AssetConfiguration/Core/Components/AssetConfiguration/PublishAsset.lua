@@ -47,9 +47,11 @@ local withContext = ContextServices.withContext
 
 local StyledScrollingFrame
 local TitledFrame
+local Separator
 if FFlagToolboxReplaceUILibraryComponentsPt1 then
 	local Framework = require(Libs.Framework)
 	TitledFrame = Framework.StudioUI.TitledFrame
+	Separator = Framework.UI.Separator
 	StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 else
 	local UILibrary = require(Libs.UILibrary)
@@ -90,29 +92,32 @@ local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
 local DIVIDER_WIDTH = 672
 
-local function createDivider(props)
-	local size = props.size
-	local order = props.order
-	local theme = props.theme
+local createDivider
+if (not FFlagToolboxReplaceUILibraryComponentsPt1) then
+	createDivider = function (props)
+		local size = props.size
+		local order = props.order
+		local theme = props.theme
 
-	return Roact.createElement("Frame", {
-		Size = size,
+		return Roact.createElement("Frame", {
+			Size = size,
 
-		BackgroundTransparency = 1,
-		BorderSizePixel = 0,
-
-		LayoutOrder = order,
-	}, {
-		Divider = Roact.createElement("Frame", {
-			-- The postion includes current padding.
-			Position = UDim2.new(0, 4, 0, 0),
-			Size = UDim2.new(0, DIVIDER_WIDTH, 0, 2),
-
+			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
-			BackgroundTransparency = 0,
-			BackgroundColor3 = FFlagToolboxReplaceUILibraryComponentsPt1 and theme.horizontalLineColor or theme.divider.horizontalLineColor,
+
+			LayoutOrder = order,
+		}, {
+			Divider = Roact.createElement("Frame", {
+				-- The postion includes current padding.
+				Position = UDim2.new(0, 4, 0, 0),
+				Size = UDim2.new(0, DIVIDER_WIDTH, 0, 2),
+
+				BorderSizePixel = 0,
+				BackgroundTransparency = 0,
+				BackgroundColor3 = FFlagToolboxReplaceUILibraryComponentsPt1 and theme.horizontalLineColor or theme.divider.horizontalLineColor,
+			})
 		})
-	})
+	end
 end
 
 function PublishAsset:init(props)
@@ -378,11 +383,20 @@ function PublishAsset:renderContent(theme, localizedContent)
 			[Roact.Ref] = self.genreRef,
 		}),
 
-		DividerBase = displayGenre and Roact.createElement(createDivider, {
+		DividerBase = FFlagToolboxReplaceUILibraryComponentsPt1 and displayGenre and Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = orderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
+		}, {
+			Separator = Roact.createElement(Separator, {
+				Position = UDim2.new(0.5, 0, 0.5, 0)
+			}),
+		})
+		or ((not FFlagToolboxReplaceUILibraryComponentsPt1) and displayGenre and Roact.createElement(createDivider, {
 			size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
 			order = orderIterator:getNextOrder(),
 			theme = theme,
-		}),
+		})),
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
 			Title = publishAssetLocalized.Copy,

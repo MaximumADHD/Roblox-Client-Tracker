@@ -4,6 +4,7 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
@@ -38,9 +39,9 @@ function ImportConfiguration:render()
 	})
 end
 
-ContextServices.mapToProps(ImportConfiguration, {
+ImportConfiguration = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
-})
+})(ImportConfiguration)
 
 return ImportConfiguration

@@ -55,9 +55,14 @@ game:DefineFastFlag("ToolboxFixCategoryUrlsCircularDependency2", false)
 
 game:DefineFastFlag("ToolboxTrackRunMode", false)
 
+game:DefineFastFlag("ToolboxUseDeveloperFrameworkSearchBar", false)
+game:DefineFastFlag("ToolboxShowAutocompleteResults", false)
+
 game:DefineFastFlag("ToolboxTrackAllAssetTypeInsertions", false)
 
 game:DefineFastFlag("ToolboxRemoveWithThemes", false)
 game:DefineFastFlag("UGCGroupUploads", false)
+
+game:DefineFastFlag("ToolboxUseDevFrameworkTextWithInlineLink", false)
 
 return nil

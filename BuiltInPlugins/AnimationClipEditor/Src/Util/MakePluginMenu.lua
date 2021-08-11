@@ -3,6 +3,7 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local function newId()
 	return HttpService:GenerateGUID()
@@ -41,7 +42,7 @@ local function makePluginMenuInternal(plugin, parent, connections)
 				menu:AddMenu(subMenu)
 			else
 				local action = menu:AddNewAction(newId(), item.Name)
-				action.Checked = currentValue ~= nil and item.Value == currentValue
+				action.Checked = (currentValue ~= nil and item.Value == currentValue) or (GetFFlagUseTicks() and item.Checked)
 				action.Enabled = (item.Enabled ~= false)
 
 				connectAction(connections, action, parent, item)

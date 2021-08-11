@@ -17,9 +17,22 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+
 local AnimationData = {}
 
-function AnimationData.new(name, frameRate, rootType)
+function AnimationData.new(name, rootType)
+	assert(name ~= nil, "Expected a name for the AnimationData.")
+
+	local animationData = Templates.animationData()
+	animationData.Metadata.Name = name
+	animationData.Instances.Root.Type = rootType
+	return animationData
+end
+
+-- Deprecated when GetFFlagUseTicks is ON
+-- We don't want to expose the FrameRate
+function AnimationData.new_deprecated(name, frameRate, rootType)
 	assert(name ~= nil, "Expected a name for the AnimationData.")
 	assert(frameRate ~= nil, "Expected a frameRate for the AnimationData.")
 	assert(frameRate > 0, "Expected frameRate to be positive.")
@@ -32,7 +45,11 @@ function AnimationData.new(name, frameRate, rootType)
 end
 
 function AnimationData.newRigAnimation(name)
-	return AnimationData.new(name, Constants.DEFAULT_FRAMERATE, Constants.INSTANCE_TYPES.Rig)
+	if GetFFlagUseTicks() then
+		return AnimationData.new(name, Constants.INSTANCE_TYPES.Rig)
+	else
+		return AnimationData.new_deprecated(name, Constants.DEFAULT_FRAMERATE, Constants.INSTANCE_TYPES.Rig)
+	end
 end
 
 function AnimationData.toCFrameArray(bones, data, frameRate)
@@ -41,7 +58,7 @@ function AnimationData.toCFrameArray(bones, data, frameRate)
 	assert(typeof(bones) == "table", "Bones should be an array of bone names.")
 	assert(typeof(data) == "table", "Data must be an AnimationData table.")
 
-	local inputFrameRate = data.Metadata.FrameRate
+	local inputFrameRate = GetFFlagUseTicks() and Constants.TICK_FREQUENCY or data.Metadata.FrameRate
 	local outputFrameRate = frameRate or inputFrameRate
 	assert(outputFrameRate ~= nil, "No frame rate was found for exporting.")
 	assert(inputFrameRate > 0, "Input frame rate must be positive.")
@@ -324,7 +341,7 @@ function AnimationData.removeExtraKeyframes(data)
 	local removed = false
 
 	if data and data.Instances and data.Metadata then
-		local maxLength = AnimationData.getMaximumLength(data.Metadata.FrameRate)
+		local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
 
 		-- first pass: remove keyframes
 		local keysToRemove = {}
@@ -381,7 +398,7 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 		return nil, nil
 	end
 
-	local earliest = AnimationData.getMaximumLength(data.Metadata.FrameRate)
+	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
 	local latest = 0
 	for _, instance in pairs(selectedKeyframes) do
 		for trackName, _ in pairs(instance) do
@@ -401,7 +418,7 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 end
 
 function AnimationData.getEventBounds(animationData, selectedEvents)
-	local earliest = AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 	local latest = 0
 	local eventFrames = Cryo.Dictionary.keys(selectedEvents)
 	table.sort(eventFrames)

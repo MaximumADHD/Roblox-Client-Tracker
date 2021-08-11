@@ -38,6 +38,8 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkTextBoxRefProp = game:GetFastFlag("DevFrameworkTextBoxRefProp")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -66,12 +68,15 @@ game:DefineFastFlag("AllowTextInputTextXAlignment", false)
 local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
 
 function TextInput:init()
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+	if FFlagDevFrameworkTextBoxRefProp then
 		self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
-		self.isHover = false
-		self.isFocused = false
 	else
 		self.textBoxRef = Roact.createRef()
+	end
+
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
+		self.isHover = false
+		self.isFocused = false
 	end
 
 	self.setStyleModifier = function()

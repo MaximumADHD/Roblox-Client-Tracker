@@ -13,14 +13,17 @@ return Rodux.createReducer({
 	Clipboard = {},
 	ClipboardType = nil,
 	Playhead = 0,
+	PlaybackSpeed = 1,
+	PlaybackStartInfo = {},
 	RightClickContextInfo = {},
 	IsPlaying = false,
 	Scroll = 0,
 	Zoom = 0,
 	EditingLength = 0,
 
-	SnapToKeys = false,
+	SnapToKeys = false,		-- Deprecated when GetFFlagUseTicks is ON
 	ShowAsSeconds = true,
+	SnapMode = Constants.SNAP_MODES.Frames,
 	ShowEvents = true,
 	IKEnabled = false,
 	IKOpenedTimestamp = nil,
@@ -39,6 +42,7 @@ return Rodux.createReducer({
 
 	EventEditingFrame = nil,
 	VisualizeBones = true,
+	DisplayFrameRate = Constants.DEFAULT_FRAMERATE,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -71,6 +75,18 @@ return Rodux.createReducer({
 		})
 	end,
 
+	SetPlaybackSpeed = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			PlaybackSpeed = action.playbackSpeed,
+		})
+	end,
+
+	SetPlaybackStartInfo = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			PlaybackStartInfo = action.playbackStartInfo
+		})
+	end,
+
 	SetRightClickContextInfo = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			RightClickContextInfo = action.rightClickContextInfo
@@ -86,6 +102,12 @@ return Rodux.createReducer({
 	SetIsPlaying = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			IsPlaying = action.isPlaying,
+		})
+	end,
+
+	SetDisplayFrameRate = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			DisplayFrameRate = action.displayFrameRate,
 		})
 	end,
 
@@ -150,6 +172,12 @@ return Rodux.createReducer({
 	SetShowAsSeconds = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			ShowAsSeconds = action.showAsSeconds,
+		})
+	end,
+
+	SetSnapMode = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			SnapMode = action.snapMode,
 		})
 	end,
 

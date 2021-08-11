@@ -5,11 +5,14 @@ game:DefineFastFlag("TerrainToolsV2WithContext", false)
 
 game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
-game:DefineFastFlag("EnableTerrainToolsStylizer", false)
 game:DefineFastFlag("TerrainToolsColormapCallout", false)
 game:DefineFastFlag("TerrainToolsOutputIssue", false)
 game:DefineFastFlag("TerrainToolsMoreOutputIssue", false)
 game:DefineFastFlag("TerrainToolsTextValidationFix", false)
+
+local Plugin = script.Parent.Parent
+local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = true
 
 local function handleFlagDependencies(flag, requiredFlags)
 	if not game:GetFastFlag(flag) then

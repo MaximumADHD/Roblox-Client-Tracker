@@ -31,6 +31,8 @@ local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
 local shouldGetUILibraryFromParent = not FlagsList:get("FFlagStudioDevFrameworkPackage") or
 	(FlagsList:get("FFlagStudioDevFrameworkPackage") and not isUsedAsPackage())
 
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
 local UILibraryFromParent
 if shouldGetUILibraryFromParent then
 	-- We assume plugins will completely move away from the UILibrary
@@ -44,6 +46,7 @@ end
 
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
+local withContext = require(Framework.ContextServices.withContext)
 local mapToProps = require(Framework.ContextServices.mapToProps)
 local Stylizer = require(Framework.Style.Stylizer)
 local Theme = require(Framework.ContextServices.Theme)
@@ -75,12 +78,21 @@ function UILibraryProvider:render()
 	})
 end
 
-mapToProps(UILibraryProvider, {
-	Stylizer = THEME_REFACTOR and Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and Theme or nil,
-	Plugin = Plugin,
-	Focus = Focus,
-})
+if FFlagDeveloperFrameworkWithContext then
+	UILibraryProvider = withContext({
+		Stylizer = THEME_REFACTOR and Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and Theme or nil,
+		Plugin = Plugin,
+		Focus = Focus,
+	})(UILibraryProvider)
+else
+	mapToProps(UILibraryProvider, {
+		Stylizer = THEME_REFACTOR and Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and Theme or nil,
+		Plugin = Plugin,
+		Focus = Focus,
+	})
+end
 
 local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 

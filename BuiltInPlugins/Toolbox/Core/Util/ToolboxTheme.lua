@@ -261,7 +261,7 @@ function ToolboxTheme:_recalculateTheme()
 			endColor = isDark and Color3.fromRGB(11, 90, 175) or Color3.fromRGB(0, 162, 255),
 		},
 
-		footer = {
+		footer = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = color(c.Titlebar),
 			borderColor = color(c.Border),
 			labelTextColor = color(c.MainText),

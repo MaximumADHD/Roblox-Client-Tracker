@@ -38,7 +38,9 @@ local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsO
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
+local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -128,7 +130,7 @@ function TrackEditor:init()
 			return Constants.TRACK_PADDING_SMALL
 		elseif self.props.LastFrame < 1000 then
 			return Constants.TRACK_PADDING_MEDIUM
-		else 
+		else
 			return Constants.TRACK_PADDING_LARGE
 		end
 	end
@@ -142,7 +144,9 @@ function TrackEditor:render()
 	local endFrame = props.EndFrame
 	local lastFrame = props.LastFrame
 	local snapToKeys = props.SnapToKeys
+	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
+	local displayFrameRate = props.DisplayFrameRate
 	local showAsSeconds = props.ShowAsSeconds
 	local scroll = props.Scroll
 	local zoom = props.Zoom
@@ -155,6 +159,8 @@ function TrackEditor:render()
 	local playhead = props.Playhead
 
 	local snapToNearestKeyframe = props.SnapToNearestKeyframe
+	local snapToNearestFrame = props.SnapToNearestFrame
+
 	local absoluteSize = state.AbsoluteSize or Vector2.new()
 	local absolutePosition = state.AbsolutePosition or Vector2.new()
 
@@ -185,15 +191,18 @@ function TrackEditor:render()
 			StartFrame = startFrame,
 			EndFrame = endFrame,
 			LastFrame = lastFrame,
-			SnapToKeys = snapToKeys,
+			SnapToKeys = not GetFFlagUseTicks() and snapToKeys or nil,
+			SnapMode = GetFFlagUseTicks() and snapMode or nil,
 			TrackPadding = trackPadding,
-			FrameRate = frameRate,
+			FrameRate = not GetFFlagUseTicks() and frameRate,
+			DisplayFrameRate = GetFFlagUseTicks() and displayFrameRate,
 			ShowAsSeconds = showAsSeconds,
 			LayoutOrder = 0,
 			ParentSize = absoluteSize,
 			ParentPosition = absolutePosition,
 			StepAnimation = self.stepAnimation,
 			SnapToNearestKeyframe = snapToNearestKeyframe,
+			SnapToNearestFrame = snapToNearestFrame,
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
 		}),
@@ -206,6 +215,7 @@ function TrackEditor:render()
 			TopTrackIndex = topTrackIndex,
 			Tracks = tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
+			ShowAsSeconds = showAsSeconds,
 		}),
 
 		ZoomBar = Roact.createElement(ZoomBar, {
@@ -258,6 +268,7 @@ local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
 		SnapToKeys = state.Status.SnapToKeys,
+		SnapMode = state.Status.SnapMode,
 		AnimationData = DisplaySecondsOnTimeline() and state.AnimationData,
 	}
 end
@@ -274,6 +285,10 @@ local function mapDispatchToProps(dispatch)
 
 		SnapToNearestKeyframe = function(frame, trackWidth)
 			dispatch(SnapToNearestKeyframe(frame, trackWidth))
+		end,
+
+		SnapToNearestFrame = function(frame)
+			dispatch(SnapToNearestFrame(frame))
 		end,
 	}
 end

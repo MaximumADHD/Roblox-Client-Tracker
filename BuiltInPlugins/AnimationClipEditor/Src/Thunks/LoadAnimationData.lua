@@ -18,7 +18,9 @@ local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 
+local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(animationData, analytics)
 	return function(store)
@@ -45,8 +47,13 @@ return function(animationData, analytics)
 		store:dispatch(SetIsDirty(true))
 		store:dispatch(UpdateEditingLength(animationData.Metadata.EndFrame))
 		store:dispatch(SetShowEvents(not isEmpty(animationData.Events.Keyframes)))
+		if GetFFlagUseTicks() then
+			store:dispatch(SetPlaybackSpeed(1))
+		end
 
-		local isQuantized = AnimationData.isQuantized(animationData)
-		store:dispatch(SetNotification("QuantizeWarning", not isQuantized))
+		if not GetFFlagUseTicks() then
+			local isQuantized = AnimationData.isQuantized(animationData)
+			store:dispatch(SetNotification("QuantizeWarning", not isQuantized))
+		end
 	end
 end

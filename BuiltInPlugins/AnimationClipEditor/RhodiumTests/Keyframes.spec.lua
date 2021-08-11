@@ -1,5 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent
+	local Cryo = require(Plugin.Packages.Cryo)
 	local isEmpty = require(Plugin.Src.Util.isEmpty)
 	local Constants = require(Plugin.Src.Util.Constants)
 
@@ -22,6 +23,7 @@ return function()
 	local Templates = require(Plugin.Src.Util.Templates)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local emptyData = Templates.animationData()
 	local testAnimationData = Templates.animationData()
@@ -31,26 +33,32 @@ return function()
 			Tracks = {
 				Head = {
 					Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = {0, 1},
+					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = {
+						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
-						},
+						} or nil,
+						[80] = GetFFlagUseTicks() and {
+							Value = CFrame.new(),
+						} or nil,
 					},
 				},
 				UpperTorso = {
 					Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = {0, 1},
+					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = {
+						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
-						},
+						} or nil,
+						[80] = GetFFlagUseTicks() and {
+							Value = CFrame.new(),
+						} or nil,
 					},
 				},
 			},
@@ -89,17 +97,17 @@ return function()
 			TestHelpers.loadAnimation(store, emptyData)
 			if GetFFlagFacialAnimationSupport() then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 80 or 1, CFrame.new(), analytics))
 			else
 				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", GetFFlagUseTicks() and 80 or 1, CFrame.new(), analytics))
 			end
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
-			expect(#testTrack:GetChildren()).to.equal(2)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(2)
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
-			expect(#summaryTrack:GetChildren()).to.equal(2)
+			expect(#Cryo.Dictionary.keys(summaryTrack:GetChildren())).to.equal(2)
 		end)
 	end)
 
@@ -120,11 +128,11 @@ return function()
 			TestHelpers.delay()
 
 			local testTrack = TestPaths.getTrack(container, "Track_Head")
-			expect(#testTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(1)
 			local testTrack2 = TestPaths.getTrack(container, "Track_UpperTorso")
-			expect(#testTrack2:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(testTrack2:GetChildren())).to.equal(1)
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
-			expect(#summaryTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(summaryTrack:GetChildren())).to.equal(1)
 		end)
 	end)
 
@@ -141,7 +149,7 @@ return function()
 			store:dispatch(DeleteSelectedKeyframes(analytics))
 			TestHelpers.delay()
 
-			expect(#testTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(1)
 		end)
 	end)
 
@@ -163,9 +171,9 @@ return function()
 			store:dispatch(DeleteSelectedKeyframes(analytics))
 			TestHelpers.delay()
 
-			expect(#testTrack:GetChildren()).to.equal(1)
-			expect(#testTrack2:GetChildren()).to.equal(1)
-			expect(#summaryTrack:GetChildren()).to.equal(1)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(1)
+			expect(#Cryo.Dictionary.keys(testTrack2:GetChildren())).to.equal(1)
+			expect(#Cryo.Dictionary.keys(summaryTrack:GetChildren())).to.equal(1)
 		end)
 	end)
 
@@ -181,11 +189,11 @@ return function()
 
 			TestHelpers.clickInstance(testTrack["1"])
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(3, analytics))
+			store:dispatch(PasteKeyframes(GetFFlagUseTicks() and 240 or 3, analytics))
 			TestHelpers.delay()
 
-			expect(#testTrack:GetChildren()).to.equal(3)
-			expect(#summaryTrack:GetChildren()).to.equal(3)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(3)
+			expect(#Cryo.Dictionary.keys(summaryTrack:GetChildren())).to.equal(3)
 		end)
 	end)
 
@@ -205,12 +213,12 @@ return function()
 			TestHelpers.clickInstance(summaryTrack["2"])
 			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(3, analytics))
+			store:dispatch(PasteKeyframes(GetFFlagUseTicks() and 240 or 3, analytics))
 			TestHelpers.delay()
 
-			expect(#testTrack:GetChildren()).to.equal(4)
-			expect(#testTrack2:GetChildren()).to.equal(4)
-			expect(#summaryTrack:GetChildren()).to.equal(4)
+			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(4)
+			expect(#Cryo.Dictionary.keys(testTrack2:GetChildren())).to.equal(4)
+			expect(#Cryo.Dictionary.keys(summaryTrack:GetChildren())).to.equal(4)
 		end)
 	end)
 
@@ -284,11 +292,11 @@ return function()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
 			expect(selectedKeyframes.Root.Head[endFrame]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[endFrame - 1]).to.be.ok()
+			expect(selectedKeyframes.Root.Head[endFrame - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[endFrame]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endFrame - 1]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[endFrame - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
 		end)
 	end)
 
@@ -356,11 +364,11 @@ return function()
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[1]).never.to.be.ok()
+			expect(selectedKeyframes.Root.Head[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
 			expect(selectedKeyframes.Root.Head[endFrame]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[1]).never.to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[endFrame]).to.be.ok()
 		end)
 	end)

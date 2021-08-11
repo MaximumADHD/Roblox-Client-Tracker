@@ -32,21 +32,18 @@ local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEdito
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
-
 local Framework = require(Plugin.Packages.Framework)
 
 local DragTarget = Framework.UI.DragListener
-
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
-
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
-
 local StringUtils = require(Plugin.Src.Util.StringUtils)
-
 local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local Timeline = Roact.PureComponent:extend("Timeline")
 
@@ -127,7 +124,12 @@ function Timeline:render()
 		local lastFrame = props.LastFrame or endFrame
 		local majorInterval = math.clamp(props.MajorInterval, MIN_INTERVAL, MAX_INTERVAL)
 		local minorInterval = math.clamp(props.MinorInterval, MIN_INTERVAL, MAX_INTERVAL)
-		local sampleRate = props.SampleRate or SAMPLE_RATE
+		local sampleRate
+		if GetFFlagUseTicks() then
+			sampleRate = props.DisplayFrameRate or SAMPLE_RATE
+		else
+			sampleRate = props.SampleRate or SAMPLE_RATE
+		end
 		local position = props.Position
 		local anchorPoint = props.AnchorPoint
 		local height = props.Height
@@ -138,7 +140,12 @@ function Timeline:render()
 		local smallTickHeightScale = props.SmallTickHeightScale
 		local showAsTime = props.ShowAsTime
 		local animationData = props.AnimationData
-		local frameRate = animationData and animationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE
+		local frameRate
+		if GetFFlagUseTicks() then
+			frameRate = props.DisplayFrameRate or Constants.DEFAULT_FRAMERATE
+		else
+			frameRate = animationData and animationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE
+		end
 
 		endFrame = math.max(endFrame, startFrame + majorInterval)
 
@@ -150,12 +157,14 @@ function Timeline:render()
 		if startFrame > 0 and startFrame % minorInterval ~= 0 then
 			offset = minorInterval - (startFrame % minorInterval)
 		end
+
 		for frameNo = startFrame + offset, endFrame, minorInterval do
 			local xScale = (frameNo - startFrame) / (endFrame - startFrame)
 			local onInterval = frameNo % majorInterval == 0
 			local seconds = math.floor(frameNo / sampleRate)
 			local frames = frameNo - (seconds * sampleRate)
 			local time = tostring(seconds ..":" ..string.format("%02d", frames))
+
 			children[frameNo] = Roact.createElement(TimelineTick, {
 				Time = showAsTime and time or frameNo,
 				Highlight = frames == 0,

@@ -69,6 +69,7 @@ return {
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
 
+	[StyleKey.TableItem] = Colors.Slate,
 	[StyleKey.Titlebar] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.TitlebarText] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",

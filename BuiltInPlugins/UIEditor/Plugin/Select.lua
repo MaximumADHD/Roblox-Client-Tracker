@@ -7,7 +7,9 @@ local Analytics		= require(script.Parent.Analytics)
 
 local UserInputService = game:GetService("UserInputService")
 
+-- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
+local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
 
 local paintOrder = {} --array of paintOrder
 local paintOrderMap = {} --map of child to position in order
@@ -173,7 +175,15 @@ end
 local Select = {}
 
 function Select:getGuiObjects()
-	return {unpack(paintOrder)}
+	if FFlagCleanupLuaPluginErrors then
+		local paintOrderCopy = {}
+		for i, v in ipairs(paintOrder) do
+			paintOrderCopy[i] = v
+		end
+		return paintOrderCopy
+	else
+		return {unpack(paintOrder)}
+	end
 end
 
 function Select:getGuiObjectsAtPoint(point)

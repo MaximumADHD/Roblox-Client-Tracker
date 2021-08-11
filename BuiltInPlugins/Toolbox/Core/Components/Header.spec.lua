@@ -1,3 +1,5 @@
+local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
+
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
@@ -31,7 +33,11 @@ return function()
 
 		local header = container.Header
 		expect(header.CategoryMenu).to.be.ok()
-		expect(header.SearchBar).to.be.ok()
+		if FFlagToolboxShowAutocompleteResults then
+			expect(header.SearchFrame).to.be.ok()
+		else
+			expect(header.OldSearchBar).to.be.ok()
+		end
 		expect(header.UIPadding).to.be.ok()
 		expect(header.UIListLayout).to.be.ok()
 

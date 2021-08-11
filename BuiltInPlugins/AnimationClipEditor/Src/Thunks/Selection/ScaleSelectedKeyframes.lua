@@ -31,6 +31,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -43,6 +44,8 @@ return function(pivotFrame, scale, dragContext)
 		local state = store:getState()
 		local scroll = state.Status.Scroll
 		local zoom = state.Status.Zoom
+		local displayFrameRate = state.Status.DisplayFrameRate
+		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
 		local editingLength = state.Status.EditingLength
 		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
 		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
@@ -63,9 +66,14 @@ return function(pivotFrame, scale, dragContext)
 			startFrame = range.Start
 		end
 
-		local maxLength = animationData.Metadata and animationData.Metadata.FrameRate
-			and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-			or AnimationData.getMaximumLength(Constants.DEFAULT_FRAMERATE)
+		local maxLength
+		if GetFFlagUseTicks() then
+			maxLength = Constants.MAX_ANIMATION_LENGTH
+		else
+			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
+				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+				or AnimationData.getMaximumLength(30)
+		end
 
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
@@ -92,6 +100,9 @@ return function(pivotFrame, scale, dragContext)
 					for index = 1, #keyframes, 1 do
 						local oldFrame = keyframes[index]
 						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+						end
 						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
 						if insertFrame >= pivotFrame then
 							break
@@ -108,6 +119,9 @@ return function(pivotFrame, scale, dragContext)
 					for index = #keyframes, 1, -1 do
 						local oldFrame = keyframes[index]
 						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+						end
 						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
 						if insertFrame <= pivotFrame then
 							break
@@ -139,6 +153,9 @@ return function(pivotFrame, scale, dragContext)
 					for index = lowPivot, 1, -1 do
 						local oldFrame = keyframes[index]
 						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+						end
 						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
 						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
 						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
@@ -152,6 +169,9 @@ return function(pivotFrame, scale, dragContext)
 					for index = highPivot, #keyframes, 1 do
 						local oldFrame = keyframes[index]
 						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+						end
 						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
 						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
 						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)

@@ -168,7 +168,7 @@ function AnimationPlayback:willUpdate(incomingProps, incomingState)
 			end
 		end
 		-- if animation's playhead is controlled by slider, override the normal playhead
-		if incomingProps.SliderPlayhead and incomingProps.SliderPlayhead >=0 then
+		if incomingProps.SliderPlayhead ~= props.SliderPlayhead and incomingProps.SliderPlayhead >=0 then
 			incomingProps.SetPlayhead(incomingProps.SliderPlayhead)
 		end
 	else

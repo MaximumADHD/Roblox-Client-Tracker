@@ -75,6 +75,20 @@ function SalesPage:render()
 	end
 end
 
+if FFlagToolboxReplaceUILibraryComponentsPt1 then
+	function SalesPage:didMount()
+		local isPriceValid = self.props.isPriceValid
+		self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
+	end
+
+	function SalesPage:willUpdate(nextProps, nextState)
+		local isPriceValid = self.props.isPriceValid
+		if isPriceValid ~= nextProps.isPriceValid then
+			self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
+		end
+	end
+end
+
 function SalesPage:renderContent(theme, localization, localizedContent)
 	if FFlagToolboxReplaceUILibraryComponentsPt1 then
 		theme = self.props.Stylizer
@@ -95,8 +109,9 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 	local onPriceChange = props.onPriceChange
 	local isPriceValid = props.isPriceValid
 
-	self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
-
+	if (not FFlagToolboxReplaceUILibraryComponentsPt1) then
+		self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
+	end
 	local layoutOrder = props.layoutOrder
 	local canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
 	-- If it's marketplace buyable asset, and if the sales tab are avaialble. You can always toggle it.

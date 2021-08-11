@@ -869,6 +869,11 @@ local function getUILibraryTheme()
 				textColor = theme:GetColor(c.SubText),
 				font = Enum.Font.SourceSans,
 			},
+			RequirementsLinkDisabled = {
+				textSize = 16,
+				textColor = theme:GetColor(c.DimmedText),
+				font = Enum.Font.SourceSans,
+			},
 		},
 	}
 

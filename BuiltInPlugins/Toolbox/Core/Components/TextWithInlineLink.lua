@@ -3,6 +3,7 @@
 ]]
 
 -- 2021/05/07 This file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
+local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local TextService = game:GetService("TextService")
@@ -22,6 +23,11 @@ local LinkText = require(Libs.Framework.UI).LinkText
 local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+if FFlagToolboxUseDevFrameworkTextWithInlineLink then
+	-- TODO: Remove file
+	return {}
+end
 
 local function renderContent(props, theme)
 	assert(t.interface({

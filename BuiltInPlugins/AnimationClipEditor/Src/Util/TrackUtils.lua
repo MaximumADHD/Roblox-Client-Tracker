@@ -9,6 +9,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local TrackUtils = {}
 
@@ -78,7 +79,7 @@ function TrackUtils.getKeyframeFromPosition(position, startFrame, endFrame, trac
 	local timelineScale = trackWidth / (endFrame - startFrame)
 	local xposInTimeline = position.X - trackLeft
 	local frame = startFrame + xposInTimeline / timelineScale
-	return KeyframeUtils.getNearestFrame(frame)
+	return GetFFlagUseTicks() and KeyframeUtils.getNearestTick(frame) or KeyframeUtils.getNearestFrame_deprecated(frame)
 end
 
 function TrackUtils.countVisibleKeyframes(keyframes, startFrame, endFrame)
@@ -308,7 +309,7 @@ function TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 	local range = {}
 	local startFrame = animationData.Metadata.StartFrame
 	local endFrame = math.max(animationData.Metadata.EndFrame, editingLength)
-	local maxLength = animationData.Metadata.FrameRate * Constants.MAX_TIME
+	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or (animationData.Metadata.FrameRate * Constants.MAX_TIME)
 
 	local length = endFrame - startFrame
 	local lengthWithPadding = length * Constants.LENGTH_PADDING
