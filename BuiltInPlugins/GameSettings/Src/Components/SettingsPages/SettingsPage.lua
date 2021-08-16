@@ -13,10 +13,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework.UI)
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUtil = require(Plugin.Framework).Util
 local UILibrary = require(Plugin.UILibrary)
 
 local Container = FrameworkUI.Container

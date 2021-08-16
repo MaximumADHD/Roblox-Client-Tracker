@@ -9,7 +9,7 @@ local FFlagToolboxDontRetryOn4xx = game:DefineFastFlag("ToolboxDontRetryOn4xx", 
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -789,6 +789,12 @@ function NetworkInterface:getAvatarAssetsValidGroups(assetType)
 		printUrl("getAvatarAssetsValidGroups", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
+end
+
+function NetworkInterface:getAutocompleteResults(categoryName, searchTerm, numberOfResults)
+	local targetUrl = Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOfResults)
+	printUrl("getAutocompleteResults", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 return NetworkInterface

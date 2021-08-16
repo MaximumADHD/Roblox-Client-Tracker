@@ -7,15 +7,10 @@ require(script.Parent.defineLuaFlags)
 
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
-local FFlagAssetManagerLuaPlugin = settings():GetFFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
-
-if not FFlagAssetManagerLuaPlugin then
-	return
-end
 
 local BulkImportService = game:GetService("BulkImportService")
 local StudioService = game:GetService("StudioService")

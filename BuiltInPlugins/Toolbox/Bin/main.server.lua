@@ -7,11 +7,9 @@ end
 
 -- Fast flags
 require(script.Parent.defineLuaFlags)
-local FFlagAssetManagerLuaPlugin = game:GetFastFlag("AssetManagerLuaPlugin")
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
 local StudioService = game:GetService("StudioService")
@@ -60,7 +58,7 @@ local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsC
 local FlagsList = require(Util.FlagsList)
 
 if DebugFlags.shouldDebugWarnings() then
-	local Promise = require(Libs.Framework.Util.Promise)
+	local Promise = require(Libs.Framework).Util.Promise
 	Promise.onUnhandledRejection = warn
 end
 
@@ -338,7 +336,7 @@ local function main()
 
 	local toolboxHandle
 	local inspector
-	if FFlagEnableRoactInspector and hasInternalPermission then
+	if hasInternalPermission then
 		inspector = Framework.DeveloperTools.forPlugin("Toolbox", plugin)
 	end
 
@@ -419,27 +417,25 @@ local function main()
 		)
 	end)
 
-	if FFlagAssetManagerLuaPlugin then
-	-- Listen to MemStorageService
-		local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
-		MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG,
-			function(params)
-				local asset = HttpService:JSONDecode(params)
-				if asset.assetType == Enum.AssetType.Image then
-					createAssetConfig(
-						asset.id,
-						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-						nil,
-						Enum.AssetType.Image)
-				else
-					createAssetConfig(
-						asset.id,
-						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-						nil,
-						Enum.AssetType.MeshPart)
-				end
-			end)
-	end
+-- Listen to MemStorageService
+	local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
+	MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG,
+		function(params)
+			local asset = HttpService:JSONDecode(params)
+			if asset.assetType == Enum.AssetType.Image then
+				createAssetConfig(
+					asset.id,
+					AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+					nil,
+					Enum.AssetType.Image)
+			else
+				createAssetConfig(
+					asset.id,
+					AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+					nil,
+					Enum.AssetType.MeshPart)
+			end
+		end)
 end
 
 main()

@@ -34,7 +34,6 @@ end
 local commonInit = require(Common.commonInit)
 commonInit()
 
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
 local main = script.Parent.Parent
@@ -46,7 +45,7 @@ local handle
 
 -- Allows connecton to the Developer Inspector for internal engineers
 local inspector
-if FFlagEnableRoactInspector and hasInternalPermission then
+if hasInternalPermission then
 	inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
 end
 

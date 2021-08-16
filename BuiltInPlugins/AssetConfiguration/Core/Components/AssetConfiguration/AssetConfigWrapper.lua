@@ -15,7 +15,6 @@
 ]]
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -35,9 +34,9 @@ local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
-local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper)
+local UILibraryWrapper = require(Libs.Framework).ContextServices.UILibraryWrapper
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 

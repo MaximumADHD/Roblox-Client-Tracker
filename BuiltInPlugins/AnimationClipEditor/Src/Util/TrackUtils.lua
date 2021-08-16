@@ -22,29 +22,29 @@ local function removeNegativeZero(val)
 end
 
 -- Performs a visiting function on each keyframe between the range
--- startFrame and endFrame, inclusive. For each keyframe within the range,
--- visitFunc provides the frame number and the keyframe at that frame.
-function TrackUtils.traverseFrameRange(keyframes, startFrame, endFrame, func)
-	local first, first2 = KeyframeUtils.findNearestKeyframes(keyframes, startFrame)
-	local last = KeyframeUtils.findNearestKeyframes(keyframes, endFrame)
+-- startTick and endTick, inclusive. For each keyframe within the range,
+-- visitFunc provides the tick and the keyframe at that tick.
+function TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, func)
+	local first, first2 = KeyframeUtils.findNearestKeyframes(keyframes, startTick)
+	local last = KeyframeUtils.findNearestKeyframes(keyframes, endTick)
 	local firstIndex = first2 and first2 or first
 	local lastIndex = last
 
 	for keyIndex = firstIndex, lastIndex do
-		local frame = keyframes[keyIndex]
-		if frame >= startFrame and frame <= endFrame then
-			func(frame, keyframes[keyIndex])
+		local tick = keyframes[keyIndex]
+		if tick >= startTick and tick <= endTick then
+			func(tick, keyframes[keyIndex])
 		end
 	end
 end
 
--- Gets the summary keyframes between startFrame and endFrame for tracks.
+-- Gets the summary keyframes between startTick and endTick for tracks.
 -- selectedKeyframes and previewing are optional parameters.
 -- selectedKeyframes is used to find which summary keyframes are selected, and
 -- previewing is used to determine if the user is currently moving keyframes.
-function TrackUtils.getSummaryKeyframes(tracks, startFrame, endFrame, selectedKeyframes, previewing)
-	local foundFrames = {}
-	local selectedFrames = {}
+function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyframes, previewing)
+	local foundTicks = {}
+	local selectedTicks = {}
 
 	for _, track in pairs(tracks) do
 		local instance = track.Instance
@@ -52,58 +52,58 @@ function TrackUtils.getSummaryKeyframes(tracks, startFrame, endFrame, selectedKe
 		local keyframes = track.Keyframes
 
 		if keyframes then
-			TrackUtils.traverseFrameRange(keyframes, startFrame, endFrame, function(frame)
+			TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
 				local selected = selectedKeyframes and selectedKeyframes[instance]
 					and selectedKeyframes[instance][name]
-					and selectedKeyframes[instance][name][frame]
+					and selectedKeyframes[instance][name][tick]
 
 				if not (selected and previewing) then
-					foundFrames[frame] = true
+					foundTicks[tick] = true
 					if selected then
-						selectedFrames[frame] = true
+						selectedTicks[tick] = true
 					end
 				end
 			end)
 		end
 	end
 
-	local frames = Cryo.Dictionary.keys(foundFrames)
-	return frames, selectedFrames
+	local frames = Cryo.Dictionary.keys(foundTicks)
+	return frames, selectedTicks
 end
 
-function TrackUtils.getScaledKeyframePosition(frame, startFrame, endFrame, width)
-	return math.floor((frame - startFrame) * width / (endFrame - startFrame))
+function TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
+	return math.floor((tick - startTick) * width / (endTick - startTick))
 end
 
-function TrackUtils.getKeyframeFromPosition(position, startFrame, endFrame, trackLeft, trackWidth)
-	local timelineScale = trackWidth / (endFrame - startFrame)
+function TrackUtils.getKeyframeFromPosition(position, startTick, endTick, trackLeft, trackWidth)
+	local timelineScale = trackWidth / (endTick - startTick)
 	local xposInTimeline = position.X - trackLeft
-	local frame = startFrame + xposInTimeline / timelineScale
-	return GetFFlagUseTicks() and KeyframeUtils.getNearestTick(frame) or KeyframeUtils.getNearestFrame_deprecated(frame)
+	local tick = startTick + xposInTimeline / timelineScale
+	return GetFFlagUseTicks() and KeyframeUtils.getNearestTick(tick) or KeyframeUtils.getNearestFrame_deprecated(tick)
 end
 
-function TrackUtils.countVisibleKeyframes(keyframes, startFrame, endFrame)
-	local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startFrame, endFrame)
+function TrackUtils.countVisibleKeyframes(keyframes, startTick, endTick)
+	local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
 	if startIndex == endIndex then
-		local hasKeyframe = KeyframeUtils.findKeyframe(keyframes, startFrame)
-			or KeyframeUtils.findKeyframe(keyframes, endFrame)
+		local hasKeyframe = KeyframeUtils.findKeyframe(keyframes, startTick)
+			or KeyframeUtils.findKeyframe(keyframes, endTick)
 		return hasKeyframe ~= nil and 1 or 0
 	else
 		return endIndex - startIndex + 1
 	end
 end
 
-function TrackUtils.getKeyframesExtents(keyframes, startFrame, endFrame)
-	local first, second = KeyframeUtils.findNearestKeyframes(keyframes, startFrame)
+function TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
+	local first, second = KeyframeUtils.findNearestKeyframes(keyframes, startTick)
 	local startIndex, endIndex
 	if second ~= nil then
 		startIndex = second
 	else
 		startIndex = first
 	end
-	endIndex = KeyframeUtils.findNearestKeyframes(keyframes, endFrame)
+	endIndex = KeyframeUtils.findNearestKeyframes(keyframes, endTick)
 
-	if startIndex and endIndex and keyframes[startIndex] >= startFrame and keyframes[endIndex] >= startFrame then
+	if startIndex and endIndex and keyframes[startIndex] >= startTick and keyframes[endIndex] >= startTick then
 		return startIndex, endIndex
 	end
 end
@@ -216,14 +216,14 @@ function TrackUtils.getTrackYPosition(tracks, topTrackIndex, trackIndex)
 	return yPos
 end
 
-function TrackUtils.getCurrentValue(track, frame, animationData)
+function TrackUtils.getCurrentValue(track, tick, animationData)
 	local name = track.Name
 	local instance = track.Instance
 
 	local currentValue
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
-		currentValue = KeyframeUtils:getValue(currentTrack, frame)
+		currentValue = KeyframeUtils:getValue(currentTrack, tick)
 	else
 		currentValue = TrackUtils.getDefaultValue(track)
 	end
@@ -307,18 +307,18 @@ end
 
 function TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 	local range = {}
-	local startFrame = animationData.Metadata.StartFrame
-	local endFrame = math.max(animationData.Metadata.EndFrame, editingLength)
+	local startTick = animationData.Metadata.StartTick
+	local endTick = math.max(animationData.Metadata.EndTick, editingLength)
 	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or (animationData.Metadata.FrameRate * Constants.MAX_TIME)
 
-	local length = endFrame - startFrame
+	local length = endTick - startTick
 	local lengthWithPadding = length * Constants.LENGTH_PADDING
 	lengthWithPadding = math.min(lengthWithPadding, maxLength)
 
 	local zoomedLength = lengthWithPadding * (1 - zoom)
 	zoomedLength = math.max(zoomedLength, 1)
 
-	range.Start = startFrame + (lengthWithPadding - zoomedLength) * scroll
+	range.Start = startTick + (lengthWithPadding - zoomedLength) * scroll
 	range.End = range.Start + zoomedLength
 
 	return range

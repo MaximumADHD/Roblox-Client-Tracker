@@ -135,33 +135,33 @@ function LayeredClothingEditorPlugin:render()
 		self.store:dispatch(FinishSelectingFromExplorer())
 	end
 
-	return self.plugin:createProvider(Roact.createElement(DockWidget, {
-		Title = self.localization:getText("Main", "Title"),
-		Enabled = self.state.enabled,
-		Size = WINDOW_MIN_SIZE,
-		InitialDockState = Enum.InitialDockState.Left,
-		MinSize = WINDOW_MIN_SIZE,
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-		ShouldRestore = true,
-		Plugin = self.plugin,
-		OnClose = self.onClose,
-		OnWidgetRestored = function() end,
-		OnWidgetFocused = self.onFocus,
+	return Roact.createElement(ServiceWrapper, {
+		plugin = self.plugin,
+		analytics = self.analytics,
+		localization = self.localization,
+		theme = self.theme,
+		store = self.store,
+		pluginActions = self.pluginActions,
+		mouse = self.props.plugin:getMouse(),
+		signals = self.signals,
+		editingItemContext = self.editingItemContext,
 	}, {
-		ServiceWrapper = Roact.createElement(ServiceWrapper, {
-			plugin = self.plugin,
-			analytics = self.analytics,
-			localization = self.localization,
-			theme = self.theme,
-			store = self.store,
-			pluginActions = self.pluginActions,
-			mouse = self.props.plugin:getMouse(),
-			signals = self.signals,
-			editingItemContext = self.editingItemContext,
+		Widget = Roact.createElement(DockWidget, {
+			Title = self.localization:getText("Main", "Title"),
+			Enabled = self.state.enabled,
+			Size = WINDOW_MIN_SIZE,
+			InitialDockState = Enum.InitialDockState.Left,
+			MinSize = WINDOW_MIN_SIZE,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			ShouldRestore = true,
+			Plugin = self.plugin,
+			OnClose = self.onClose,
+			OnWidgetRestored = function() end,
+			OnWidgetFocused = self.onFocus,
 		}, {
 			LayeredClothingEditor = self.state.enabled and Roact.createElement(LayeredClothingEditor),
 		})
-	}))
+	})
 end
 
 return LayeredClothingEditorPlugin

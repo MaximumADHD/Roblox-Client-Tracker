@@ -1,8 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Packages.Rodux)
+local Framework = require(Plugin.Packages.Framework)
+local FrameworkUtil = Framework.Util
+local AnalyticsHolder = require(Plugin.Src.Resources.AnalyticsHolder)
+
+local thunkContextItems = {}
+thunkContextItems.analytics = AnalyticsHolder
+
+local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
 
 local middlewares = {
-	Rodux.thunkMiddleware,
+	thunkWithArgsMiddleware,
 }
 
 return middlewares

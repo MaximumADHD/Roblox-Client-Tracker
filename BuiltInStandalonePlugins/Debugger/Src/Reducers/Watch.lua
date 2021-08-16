@@ -22,12 +22,14 @@ local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+local SetTab = require(Actions.Watch.SetTab)
 
 --Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local VariableRow = require(Models.Watch.VariableRow)
 local WatchRow = require(Models.Watch.WatchRow)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
+local TableTab = require(Models.Watch.TableTab)
 
 type ThreadId = number
 type Expression = string
@@ -59,6 +61,7 @@ type WatchStore = {
 	stateTokenToRoots : {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	stateTokenToFlattenedTree: {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	filterText : string,
+	currentTab : string,
 	listOfEnabledScopes : {string},
 	listOfWatches : {string},
 	pathToExpansionState : {PathPreserveMapping},
@@ -187,6 +190,7 @@ return Rodux.createReducer({
 	stateTokenToRoots = {},
 	stateTokenToFlattenedTree = {},
 	filterText = "",
+	currentTab = TableTab.Variables,
 	listOfEnabledScopes = {ScopeEnum.Local, ScopeEnum.Upvalue, ScopeEnum.Global},
 	listOfExpressions = {},
 	pathToExpansionState = {}, -- clear on continue
@@ -294,13 +298,16 @@ return Rodux.createReducer({
 			filterText = action.filterText,
 		})
 	end,
+	
+	[SetTab.name] = function(state : WatchStore, action : SetTab.Props)
+		return Cryo.Dictionary.join(state, {
+			currentTab = action.currentTab,
+		})
+	end,
 
 	[ScopeFilterChange.name] = function(state : WatchStore, action : ScopeFilterChange.Props)
 		return Cryo.Dictionary.join(state, {
-			stateTokenToCallstackVars = state.stateTokenToRoots,
-			filterText = state.filterText,
 			listOfEnabledScopes = action.listOfEnabledScopes,
-			listOfWatches = state.listOfWatches,
 		})
 	end,
 

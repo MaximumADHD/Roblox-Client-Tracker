@@ -35,8 +35,8 @@ local ScreenSetup = require(Util.ScreenSetup)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local FrameworkUtil = require(Libs.Framework.Util)
-local StyleModifier = require(Libs.Framework.Util.StyleModifier)
+local FrameworkUtil = require(Libs.Framework).Util
+local StyleModifier = require(Libs.Framework).Util.StyleModifier
 
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
@@ -90,6 +90,7 @@ function AssetConfigFooter:init(props)
 	}
 
 	self.onAnimationIDChanged = function(id)
+		id = string.gsub(id, "[\n\r]", " ")
 		if self.props.validateAnimation then
 			self.props.validateAnimation({
 				networkInterface = getNetwork(self),
@@ -244,11 +245,12 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 3,
 		}, {
 			TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
+				ForceOnTextChange = true,
 				OnTextChanged = self.onAnimationIDChanged,
 				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
 				Size = UDim2.new(1, 0, 1, 0),
 				Style = animationTextOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
-				Text = animationText,
+				Text = animationText and tostring(animationText) or nil, -- NOTE: animationText is sometimes a number type, but TextInput expects a string or nil
 			})
 			or Roact.createElement(RoundTextBox, {
 				Active = true,

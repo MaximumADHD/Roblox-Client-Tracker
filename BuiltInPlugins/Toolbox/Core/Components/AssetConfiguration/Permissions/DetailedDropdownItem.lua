@@ -11,6 +11,7 @@ local Button = Framework.UI.Button
 
 local Constants = require(Plugin.Core.Util.Constants)
 local TEXT_PADDING = 10
+local CONTENT_HEIGHT = 60
 
 local DetailedDropdownItem = Roact.PureComponent:extend("DetailedDropdownItem")
 
@@ -33,12 +34,13 @@ function DetailedDropdownItem:render()
 		AutomaticSize = Enum.AutomaticSize.Y,
 		LayoutOrder = layoutOrder,
 		OnClick = onActivated,
-		Size = UDim2.new(1, 0, 0, 0),
+		Size = UDim2.new(1, 0, 0, CONTENT_HEIGHT),
 		Style = selected and "SelectedDetailedDropdownItem" or nil,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
+
 		Padding = Roact.createElement("UIPadding", {
 			PaddingTop = UDim.new(0, textPadding),
 			PaddingBottom = UDim.new(0, textPadding),
@@ -46,13 +48,13 @@ function DetailedDropdownItem:render()
 
 		MainTextLabel = Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 0),
 			Font = Constants.FONT,
 			TextSize = 20,
 			Text = titleText,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = displayTextColor,
-			BackgroundTransparency = 1,
 			TextWrapped = true,
 			LayoutOrder = 0,
 		}, {
@@ -63,13 +65,13 @@ function DetailedDropdownItem:render()
 
 		DescriptionTextLabel = Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.Y,
+			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 0),
 			Font = Constants.FONT,
 			TextSize = 18,
 			Text = descriptionText,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextColor3 = dropdownTheme.descriptionText,
-			BackgroundTransparency = 1,
 			TextWrapped = true,
 			LayoutOrder = 1,
 		}, {

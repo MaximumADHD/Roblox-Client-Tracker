@@ -1,7 +1,5 @@
 --[[
-	Used to set the playhead's location.
-	Accepts an integer for the frame to
-	set the playhead's location to.
+	Used to set the horizontal zoom extents.
 ]]
 
 local Action = require(script.Parent.Action)

@@ -59,7 +59,7 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
@@ -232,7 +232,7 @@ function AssetGridContainer:init(props)
 		local context = assetData.Context
 		local creatorTypeEnumValue
 
-		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux 
+		-- TODO STM-406: Refactor creator types to be stored as Enum.CreatorType in Toolbox Rodux
 		-- The data for Creations is stored as Enum.CreatorType Values, whereas for other tabs
 		-- it is stored as backend enum values with range [1, 2] instead of [0, 1]
 		-- We can address this by storing Enum.CreatorType instead of numeric Values and converting to/from backend [1, 2]
@@ -271,7 +271,7 @@ function AssetGridContainer:init(props)
 		local assetIndex = currentProps.assetIndex
 
 		local currentCategoryName = categoryName
-		
+
 		local plugin = self.props.Plugin:get()
 		InsertAsset.tryInsert({
 				plugin = plugin,
@@ -427,7 +427,7 @@ function AssetGridContainer:render()
 			local isShowingToolMessageBox = state.isShowingToolMessageBox
 
 			local showPrices = Category.shouldShowPrices(props.categoryName)
-			
+
 			local cellSize
 			if showPrices then
 				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
@@ -467,7 +467,7 @@ function AssetGridContainer:render()
 			end
 
 			local isGroupPackageAsset = Category.categoryIsGroupPackages(props.categoryName)
-			
+
 			for index, asset in ipairs(assetIds) do
 				local assetId = asset[1]
 				local assetIndex = asset[2]

@@ -84,8 +84,6 @@ local ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
 local LabeledTextInput = Roact.PureComponent:extend(script.Name)
 
-local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
-
 LabeledTextInput.defaultProps = {
 	Width = UDim.new(0, Constants.SECOND_COLUMN_WIDTH),
 }
@@ -152,19 +150,17 @@ function LabeledTextInput:init()
 			local updatedText
 			local warningMessage = ""
 
-			if FFlagTerrainToolsTextValidationFix or utf8.len(currText) > 0 then
-				updatedText, warningMessage = self.props.ValidateText(currText)
+			updatedText, warningMessage = self.props.ValidateText(currText)
 
-				local textBoxText = textBox.Text
-				if textBoxText ~= updatedText then
-					--used to keep the cursor in place if text was not changed
-					textBox.CursorPosition = textBox.CursorPosition - 1
-					textBox.Text = updatedText
-				end
+			local textBoxText = textBox.Text
+			if textBoxText ~= updatedText then
+				--used to keep the cursor in place if text was not changed
+				textBox.CursorPosition = textBox.CursorPosition - 1
+				textBox.Text = updatedText
+			end
 
-				if warningMessage == nil then
-					warningMessage = ""
-				end
+			if warningMessage == nil then
+				warningMessage = ""
 			end
 
 			if self.state.warningMessage ~= warningMessage then
@@ -212,7 +208,7 @@ function LabeledTextInput:init()
 		end
 
 		local textBox = self.textBoxRef.current
-		if self.props.OnFocusLost and textBox and (FFlagTerrainToolsTextValidationFix or utf8.len(textBox.Text) > 0) then
+		if self.props.OnFocusLost and textBox then
 			local textOverride = self.props.OnFocusLost(enterPressed, textBox.Text)
 			if textOverride then
 				textBox.Text = textOverride

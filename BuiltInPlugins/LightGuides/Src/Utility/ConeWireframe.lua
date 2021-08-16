@@ -5,8 +5,6 @@ local Types = require(Plugin.Src.Types)
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
 local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
-local getFFlagStudioLightGuideLargeAngles = require(Plugin.Src.Flags.getFFlagStudioLightGuideLargeAngles)
-local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
 local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
@@ -55,7 +53,7 @@ end
 function ConeWireframe:render()
 	self:_setListeners()
 
-	if not self:_setAncestry() and getFFlagStudioLightGuideFixReparent() then
+	if not self:_setAncestry() then
 		return
 	end
 
@@ -77,7 +75,7 @@ function ConeWireframe:render()
 		length = range
 		radius = length * math.sin(angleRad / 2)
 		height = length * math.cos(angleRad / 2)
-	elseif getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
+	elseif angle > MAX_ANGLE then
 		length = range / math.cos(math.rad(MAX_ANGLE / 2))
 		radius = length * math.sin(angleRad / 2)
 		height = length * math.cos(angleRad / 2)
@@ -88,6 +86,7 @@ function ConeWireframe:render()
 	local right = self._handles.Right
 	local top = self._handles.Top
 	local bottom = self._handles.Bottom
+	local center = self._handles.Center
 
 	spot.Adornee = self._adornee
 	spot.Radius = radius
@@ -114,15 +113,11 @@ function ConeWireframe:render()
 	bottom.Adornee = self._adornee
 	bottom.Visible = enabled
 	bottom.Color3 = color
-
-	if getFFlagStudioLightGuideLargeAngles() then
-		local center = self._handles.Center
-
-		center.Height = range
-		center.Adornee = self._adornee
-		center.Visible = enabled
-		center.Color3 = color
-	end
+		
+	center.Height = range
+	center.Adornee = self._adornee
+	center.Visible = enabled
+	center.Color3 = color
 
 	self:_setCFrameValues(ROTATION_MATRICES[self._light.Face], radius, range, height, angleRad)
 end
@@ -176,7 +171,7 @@ function ConeWireframe:_setAncestry()
 		offset = self._light.parent.CFrame
 	end
 
-	if getFFlagStudioLightGuideFixReparent() and not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
+	if not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
 		self:_removeHandles()
 
 		return false
@@ -205,10 +200,7 @@ function ConeWireframe:_setCFrameValues(rotationMatrix, radius, range, height, a
 			CFrame.new(0, hradius, hheight) * CFrame.Angles(-hangle, 0 , 0))
 		self._handles.Bottom.CFrame = self._offset * (rotationMatrix *
 			CFrame.new(0, -hradius, hheight) * CFrame.Angles(hangle, 0, 0))
-
-		if getFFlagStudioLightGuideLargeAngles() then
-			self._handles.Center.CFrame = self._offset * (rotationMatrix * CFrame.new(0, 0, hrange))
-		end
+		self._handles.Center.CFrame = self._offset * (rotationMatrix * CFrame.new(0, 0, hrange))
 	end
 end
 
@@ -239,35 +231,29 @@ function ConeWireframe:_setHandles()
 	bottom.Transparency = TRANSPARENCY
 	bottom.Parent = self._handlesFolder
 
+	local center: CylinderHandleAdornment = Instance.new("CylinderHandleAdornment")
+	center.Radius = THICKNESS / 2
+	center.Transparency = TRANSPARENCY
+	center.Parent = self._handlesFolder
+
 	self._handles.Spot = spot
 	self._handles.Left = left
 	self._handles.Right = right
 	self._handles.Top = top
 	self._handles.Bottom = bottom
-
-	if getFFlagStudioLightGuideLargeAngles() then
-		local center: CylinderHandleAdornment = Instance.new("CylinderHandleAdornment")
-		center.Radius = THICKNESS / 2
-		center.Transparency = TRANSPARENCY
-		center.Parent = self._handlesFolder
-
-		self._handles.Center = center
-	end
+	self._handles.Center = center
 
 	self._handlesPresent = true
 end
 
 function ConeWireframe:_removeHandles()
-	if self._handles and (not getFFlagStudioLightGuideFixReparent() or self._handlesPresent) then
+	if self._handles and self._handlesPresent then
 		self._handles.Spot:Destroy()
 		self._handles.Left:Destroy()
 		self._handles.Right:Destroy()
 		self._handles.Top:Destroy()
 		self._handles.Bottom:Destroy()
-
-		if getFFlagStudioLightGuideLargeAngles() then
-			self._handles.Center:Destroy()
-		end
+		self._handles.Center:Destroy()
 
 		self._handlesPresent = false
 	end

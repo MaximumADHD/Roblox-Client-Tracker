@@ -45,7 +45,7 @@ return function(animationData, analytics)
 		store:dispatch(UpdateAnimationData(animationData))
 		store:dispatch(StepAnimation(0))
 		store:dispatch(SetIsDirty(true))
-		store:dispatch(UpdateEditingLength(animationData.Metadata.EndFrame))
+		store:dispatch(UpdateEditingLength(animationData.Metadata.EndTick))
 		store:dispatch(SetShowEvents(not isEmpty(animationData.Events.Keyframes)))
 		if GetFFlagUseTicks() then
 			store:dispatch(SetPlaybackSpeed(1))

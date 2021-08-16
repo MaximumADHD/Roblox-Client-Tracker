@@ -3,14 +3,14 @@
 	Also handles logic to scrub through the timeline.
 
 	Properties:
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
-		int LastFrame = The last frame of the animation
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
+		int LastTick = The last tick of the animation
 		int TrackPadding = amount of total padding
 		int FrameRate = the rate (frames per second) of the animation
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		Vector2 ParentSize = size of the frame this frame is parented to
-		int Playhead = current frame the scrubber is on
+		int Playhead = current tick the scrubber is on
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
@@ -24,10 +24,9 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local KeyboardListener = Framework.UI.KeyboardListener
 local Input = require(Plugin.Src.Util.Input)
-local GetFFlagHotKeysToScrubTimeline = require(Plugin.LuaFlags.GetFFlagHotKeysToScrubTimeline)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
+
+local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
@@ -40,8 +39,8 @@ local function getExponent(value)
 	return tens
 end
 
-local function calculateIntervals(width, startFrame, endFrame)
-	local length = endFrame - startFrame
+local function calculateIntervals(width, startTick, endTick)
+	local length = endTick - startTick
 	local scale = Constants.TICK_SPACING * length / width
 	local powTen = math.pow(10, getExponent(scale))
 	local mult3 = 3 * powTen
@@ -68,21 +67,23 @@ function TimelineContainer:init()
 
 	self.onScrubberMoved = function(input)
 		if self.props.StepAnimation then
-			local frame = TrackUtils.getKeyframeFromPosition(
+			local tick = TrackUtils.getKeyframeFromPosition(
 				input.Position,
-				self.props.StartFrame,
-				self.props.EndFrame,
+				self.props.StartTick,
+				self.props.EndTick,
 				self.props.ParentPosition.X + (self.props.TrackPadding / 2),
 				self.props.ParentSize.X - self.props.TrackPadding)
 
-			frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
+			tick = math.clamp(tick,
+				self.props.StartTick,
+				self.props.EndTick)
 			if GetFFlagUseTicks() then
-				self.moveToTick(frame)
+				self.moveToTick(tick)
 			else
 				if self.props.SnapToKeys then
-					self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
+					self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
 				else
-					self.props.StepAnimation(frame)
+					self.props.StepAnimation(tick)
 				end
 			end
 		end
@@ -95,29 +96,33 @@ function TimelineContainer:init()
 	end
 
 	self.moveScrubberForward = function()
-		local frame = self.props.Playhead + 5
-		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
+		local tick = self.props.Playhead + 5
+		tick = math.clamp(tick,
+			self.props.StartTick,
+			self.props.EndTick)
 		if GetFFlagUseTicks() then
-			self.moveToTick(frame)
+			self.moveToTick(tick)
 		else
 			if self.props.SnapToKeys then
-				self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
+				self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
 			else
-				self.props.StepAnimation(frame)
+				self.props.StepAnimation(tick)
 			end
 		end
 	end
 
 	self.moveScrubberBackward= function()
-		local frame = self.props.Playhead - 5
-		frame = math.clamp(frame, self.props.StartFrame, self.props.EndFrame)
+		local tick = self.props.Playhead - 5
+		tick = math.clamp(tick,
+			self.props.StartTick,
+			self.props.EndTick)
 		if GetFFlagUseTicks() then
-			self.moveToTick(frame)
+			self.moveToTick(tick)
 		else
 			if self.props.SnapToKeys then
-				self.props.SnapToNearestKeyframe(frame, self.props.ParentSize.X - self.props.TrackPadding)
+				self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
 			else
-				self.props.StepAnimation(frame)
+				self.props.StepAnimation(tick)
 			end
 		end
 	end
@@ -126,9 +131,9 @@ end
 function TimelineContainer:render()
 	local props = self.props
 	local theme = props.Theme:get("PluginTheme")
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
-	local lastFrame = props.LastFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
+	local lastTick = props.LastTick
 	local displayFrameRate = props.DisplayFrameRate
 	local showAsSeconds = props.ShowAsSeconds
 	local layoutOrder = props.LayoutOrder
@@ -136,16 +141,16 @@ function TimelineContainer:render()
 	local animationData = props.AnimationData
 
 	if GetFFlagUseTicks() then
-		startFrame = startFrame * displayFrameRate / Constants.TICK_FREQUENCY
-		endFrame = endFrame * displayFrameRate / Constants.TICK_FREQUENCY
-		-- lastFrame is optional
-		lastFrame = lastFrame and (lastFrame * displayFrameRate / Constants.TICK_FREQUENCY) or nil
+		startTick = startTick * displayFrameRate / Constants.TICK_FREQUENCY
+		endTick = endTick * displayFrameRate / Constants.TICK_FREQUENCY
+		-- lastTick is optional
+		lastTick = lastTick and (lastTick * displayFrameRate / Constants.TICK_FREQUENCY) or nil
 	end
 
 	local majorInterval, minorInterval = calculateIntervals(
 		parentSize.X - self.props.TrackPadding,
-		startFrame,
-		endFrame)
+		startTick,
+		endTick)
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -156,9 +161,9 @@ function TimelineContainer:render()
 		ZIndex = 1,
 	}, {
 		Timeline = Roact.createElement(Timeline, {
-			StartFrame = startFrame,
-			EndFrame = endFrame,
-			LastFrame = lastFrame,
+			StartTick = startTick,
+			EndTick = endTick,
+			LastTick = lastTick,
 			MajorInterval = majorInterval,
 			MinorInterval = minorInterval,
 			Position = UDim2.new(0, self.props.TrackPadding / 2, 0, 0),
@@ -173,7 +178,7 @@ function TimelineContainer:render()
 			AnimationData = animationData,
 			DisplayFrameRate = displayFrameRate,
 		}),
-		KeyboardListener = GetFFlagHotKeysToScrubTimeline() and Roact.createElement(KeyboardListener, {
+		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)
 				if Input.isLeftBracket(input.KeyCode) then
 					self.moveScrubberBackward()

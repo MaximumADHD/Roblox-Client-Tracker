@@ -15,9 +15,9 @@ local BUTTON_SIZE = UDim2.new(0, 48, 0, 48)
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework.UI)
+local FrameworkUI = require(Plugin.Framework).UI
 
 local HoverArea = FrameworkUI.HoverArea
 

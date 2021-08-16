@@ -22,7 +22,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme

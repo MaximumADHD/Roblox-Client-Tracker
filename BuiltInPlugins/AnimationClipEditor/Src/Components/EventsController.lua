@@ -4,8 +4,8 @@
 	connects these events to thunks and drag logic.
 
 	Props:
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
 		int TrackPadding = amount of total padding
 		Vector2 AbsolutePosition = The absolute position of the track.
 		Vector2 AbsoluteSize = The absolute size of the track.
@@ -41,7 +41,7 @@ local DeselectEvent = require(Plugin.Src.Thunks.Events.DeselectEvent)
 local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEvents)
 local MoveSelectedEvents = require(Plugin.Src.Thunks.Events.MoveSelectedEvents)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
-local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
@@ -60,10 +60,10 @@ function EventsController:init()
 	self.state = {
 		dragging = false,
 		draggingSelection = nil,
-		dragFrame = nil,
+		dragTick = nil,
 
 		showContextMenu = false,
-		eventEditingFrame = nil,
+		eventEditingTick = nil,
 		hasDragWaypoint = false,	-- True if a waypoint has already been created for
 									-- the current drag operation (move)
 	}
@@ -91,11 +91,11 @@ function EventsController:init()
 		end
 	end
 
-	self.getFrameFromPosition = function(position, snapToFrame)
+	self.getTickFromPosition = function(position, snapToFrame)
 		local tick = TrackUtils.getKeyframeFromPosition(
 			position,
-			self.props.StartFrame,
-			self.props.EndFrame,
+			self.props.StartTick,
+			self.props.EndTick,
 			self.props.AbsolutePosition.X + (self.props.TrackPadding / 2),
 			self.props.AbsoluteSize.X - self.props.TrackPadding
 		)
@@ -107,38 +107,38 @@ function EventsController:init()
 		return tick
 	end
 
-	self.onEventDragStarted = function(frame)
+	self.onEventDragStarted = function(tick)
 		local selectedEvents = self.props.SelectedEvents
 		local animationData = self.props.AnimationData
 		if GetFFlagRealtimeChanges() then
-			self.DragContext = DragContext.newEvents(animationData, selectedEvents, frame)
+			self.DragContext = DragContext.newEvents(animationData, selectedEvents, tick)
 		else
-			self.Preview = Preview.newEvents(animationData, selectedEvents, frame)
+			self.Preview = Preview.newEvents(animationData, selectedEvents, tick)
 		end
 		self:setState({
 			dragging = true,
-			dragFrame = frame,
+			dragTick = tick,
 			hasDragWaypoint = false,
 		})
 	end
 
 	self.onEventDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position, true)
-		if self.state.dragFrame ~= frame then
+		local tick = self.getTickFromPosition(input.Position, true)
+		if self.state.dragTick ~= tick then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
 					self.addDragWaypoint()
-					self.DragContext:moveEvents(frame)
-					self.props.MoveSelectedEvents(self.DragContext.pivotFrame, self.DragContext.newFrame, self.DragContext)
+					self.DragContext:moveEvents(tick)
+					self.props.MoveSelectedEvents(self.DragContext.pivotTick, self.DragContext.newTick, self.DragContext)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick,
 					})
 				end
 			else
 				if self.Preview then
-					self.Preview:moveEvents(self.props.AnimationData, self.props.SelectedEvents, frame)
+					self.Preview:moveEvents(self.props.AnimationData, self.props.SelectedEvents, tick)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick,
 					})
 				end
 			end
@@ -147,13 +147,13 @@ function EventsController:init()
 
 	self.onEventDragEnded = function()
 		if not GetFFlagRealtimeChanges() then
-			local pivotFrame = self.Preview.pivotFrame
-			local newFrame = self.Preview.newFrame
-			self.props.MoveSelectedEvents(pivotFrame, newFrame)
+			local pivotTick = self.Preview.pivotTick
+			local newTick = self.Preview.newTick
+			self.props.MoveSelectedEvents(pivotTick, newTick)
 		end
 		self:setState({
 			dragging = false,
-			dragFrame = Roact.None,
+			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
 		if GetFFlagRealtimeChanges() then
@@ -180,17 +180,19 @@ function EventsController:init()
 		local minPos = Vector2.new(math.min(position.X, dragStart.X), 0)
 		local maxPos = Vector2.new(math.max(position.X, dragStart.X), 0)
 		-- Determine padding for selection
-		local startFrame = self.props.StartFrame
-		local endFrame = self.props.EndFrame
+		local startTick = self.props.StartTick
+		local endTick = self.props.EndTick
+
 		local trackWidth = self.props.AbsoluteSize.X - self.props.TrackPadding
-		local timelineScale = trackWidth / (endFrame - startFrame)
+		local timelineScale = trackWidth / (endTick - startTick)
 		local selectionPadding = Vector2.new(timelineScale / 2, 0)
 		-- Find extents of selection
-		local minFrame = self.getFrameFromPosition(minPos + selectionPadding, false)
-		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding, false)
-		for _, frame in ipairs(self.props.AnimationData.Events.Keyframes) do
-			if frame >= minFrame and frame <= maxFrame then
-				self.props.SelectEvent(frame, true)
+		local minTick = self.getTickFromPosition(minPos + selectionPadding, false)
+		local maxTick = self.getTickFromPosition(maxPos - selectionPadding, false)
+
+		for _, tick in ipairs(self.props.AnimationData.Events.Keyframes) do
+			if tick >= minTick and tick <= maxTick then
+				self.props.SelectEvent(tick, true)
 			end
 		end
 		self.updateSelectDragEnd(Vector2.new(position.X, Constants.TRACK_HEIGHT * 2))
@@ -217,9 +219,9 @@ function EventsController:init()
 		})
 	end
 
-	self.setEventEditingFrame = function(frame)
+	self.setEventEditingTick = function(tick)
 		self:setState({
-			eventEditingFrame = frame or Roact.None,
+			eventEditingTick = tick or Roact.None,
 		})
 	end
 
@@ -251,32 +253,32 @@ function EventsController:handleTimelineInputEnded(input, keysHeld)
 			self.isMultiSelecting = false
 		end
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
-		local frame = self.getFrameFromPosition(input.Position, true)
+		local tick = self.getTickFromPosition(input.Position, true)
 		self.props.SetRightClickContextInfo({
-			Frame = frame,
+			Tick = tick,
 		})
-		self.props.SelectEvent(frame, false)
+		self.props.SelectEvent(tick, false)
 		self.showMenu()
 	elseif input.UserInputType == Enum.UserInputType.MouseButton1 then
-		local frame = self.getFrameFromPosition(input.Position, true)
+		local tick = self.getTickFromPosition(input.Position, true)
 		if self.doubleClickDetector:isDoubleClick() then
 			self.props.DeselectAllEvents()
-			self.props.SelectEvent(frame, false)
-			self.props.SetEventEditingFrame(self.getFrameFromPosition(input.Position, true))
+			self.props.SelectEvent(tick, false)
+			self.props.SetEventEditingTick(tick)
 		end
 	end
 end
 
-function EventsController:handleEventRightClick(frame)
-	self.props.SelectEvent(frame, false)
+function EventsController:handleEventRightClick(tick)
+	self.props.SelectEvent(tick, false)
 	self.props.SetRightClickContextInfo({
 		OnEvent = true,
-		Frame = frame,
+		Tick = tick,
 	})
 	self.showMenu()
 end
 
-function EventsController:handleEventInputBegan(frame, selected, input)
+function EventsController:handleEventInputBegan(tick, selected, input)
 	-- Select event if not selected
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownOnEvent = true
@@ -284,19 +286,19 @@ function EventsController:handleEventInputBegan(frame, selected, input)
 		if selected then
 			-- Deselect event if it is clicked again when multi-selecting
 			if self.isMultiSelecting then
-				self.props.DeselectEvent(frame)
+				self.props.DeselectEvent(tick)
 			end
 		else
-			self.props.SelectEvent(frame, self.isMultiSelecting)
+			self.props.SelectEvent(tick, self.isMultiSelecting)
 		end
 	end
 end
 
-function EventsController:handleEventInputEnded(frame, selected, input)
+function EventsController:handleEventInputEnded(tick, selected, input)
 	-- Start dragging if the mouse drags outside the event
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		if selected and self.mouseDownOnEvent then
-			self.onEventDragStarted(frame)
+			self.onEventDragStarted(tick)
 			self.mouseDownOnEvent = false
 		end
 	end
@@ -306,8 +308,8 @@ function EventsController:handleEventInputEnded(frame, selected, input)
 		-- Double click to edit an event
 		if selected and self.doubleClickDetector:isDoubleClick() then
 			self.props.DeselectAllEvents()
-			self.props.SelectEvent(frame, false)
-			self.props.SetEventEditingFrame(frame)
+			self.props.SelectEvent(tick, false)
+			self.props.SetEventEditingTick(tick)
 		end
 	end
 end
@@ -323,15 +325,15 @@ function EventsController:didUpdate()
 	local nextProps = self.props
 	local prevState = self.state
 
-	if nextProps.EventEditingFrame ~= prevState.eventEditingFrame then
-		if nextProps.EventEditingFrame ~= nil then
+	if nextProps.EventEditingTick ~= prevState.eventEditingTick then
+		if nextProps.EventEditingTick ~= nil then
 			-- Have to wait because we are creating a PluginGui dialog
 			spawn(function()
-				self.setEventEditingFrame(nextProps.EventEditingFrame)
+				self.setEventEditingTick(nextProps.EventEditingTick)
 			end)
 		else
 			-- Don't have to wait if we are deleting the dialog
-			self.setEventEditingFrame(nextProps.EventEditingFrame)
+			self.setEventEditingTick(nextProps.EventEditingTick)
 		end
 	end
 end
@@ -343,12 +345,12 @@ function EventsController:render()
 	local absolutePosition = props.AbsolutePosition
 	local absoluteSize = props.AbsoluteSize
 	local animationData = props.AnimationData
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local dragging = state.dragging
 	local draggingSelection = state.draggingSelection
 	local showContextMenu = state.showContextMenu
-	local editingFrame = state.eventEditingFrame
+	local editingTick = state.eventEditingTick
 
 	return Roact.createElement("Frame", {
 		LayoutOrder = 0,
@@ -371,24 +373,24 @@ function EventsController:render()
 			Events = animationData.Events,
 			SelectedEvents = props.SelectedEvents,
 			PreviewEvents = not GetFFlagRealtimeChanges() and self.Preview and self.Preview.previewEvents or nil,
-			EditingFrame = editingFrame,
+			EditingTick = editingTick,
 			Size = UDim2.new(1, 0, 0, Constants.TRACK_HEIGHT),
 			Width = absoluteSize.X - self.props.TrackPadding,
-			StartFrame = startFrame,
-			EndFrame = endFrame,
+			StartTick = startTick,
+			EndTick = endTick,
 			ShowBackground = true,
 			ZIndex = 1,
 
-			OnEventRightClick = function(frame)
-				self:handleEventRightClick(frame)
+			OnEventRightClick = function(tick)
+				self:handleEventRightClick(tick)
 			end,
 
-			OnEventInputBegan = function(frame, selected, input)
-				self:handleEventInputBegan(frame, selected, input)
+			OnEventInputBegan = function(tick, selected, input)
+				self:handleEventInputBegan(tick, selected, input)
 			end,
 
-			OnEventInputEnded = function(frame, selected, input)
-				self:handleEventInputEnded(frame, selected, input)
+			OnEventInputEnded = function(tick, selected, input)
+				self:handleEventInputEnded(tick, selected, input)
 			end,
 		}),
 
@@ -417,14 +419,14 @@ function EventsController:render()
 		EventActions = active and animationData and Roact.createElement(EventActions, {
 			ShowMenu = showContextMenu,
 			OnMenuOpened = self.hideMenu,
-			OnEditEvents = props.SetEventEditingFrame,
+			OnEditEvents = props.SetEventEditingTick,
 		}),
 
-		EditEventsDialog = animationData and editingFrame and Roact.createElement(EditEventsDialog, {
+		EditEventsDialog = animationData and editingTick and Roact.createElement(EditEventsDialog, {
 			Events = animationData.Events,
-			Frame = editingFrame,
+			Tick = editingTick,
 			OnSaved = self.setEventsHandler,
-			OnClose = props.SetEventEditingFrame,
+			OnClose = props.SetEventEditingTick,
 		}),
 	})
 end
@@ -433,7 +435,7 @@ local function mapStateToProps(state, props)
 	return {
 		Active = state.Status.Active,
 		SelectedEvents = state.Status.SelectedEvents,
-		EventEditingFrame = state.Status.EventEditingFrame,
+		EventEditingTick = state.Status.EventEditingTick,
 		DisplayFrameRate = state.Status.DisplayFrameRate,
 		SnapMode = state.Status.SnapMode,
 	}
@@ -450,13 +452,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEvents(newEvents, analytics))
 		end,
 
-		SelectEvent = function(frame, multiSelect)
+		SelectEvent = function(tick, multiSelect)
 			dispatch(SetSelectedKeyframes({}))
-			dispatch(SelectEvent(frame, multiSelect))
+			dispatch(SelectEvent(tick, multiSelect))
 		end,
 
-		DeselectEvent = function(frame)
-			dispatch(DeselectEvent(frame))
+		DeselectEvent = function(tick)
+			dispatch(DeselectEvent(tick))
 		end,
 
 		DeleteSelectedEvents = function()
@@ -465,11 +467,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		MoveSelectedEvents = function(pivot, newFrame, dragContext)
+		MoveSelectedEvents = function(pivot, newTick, dragContext)
 			if not GetFFlagRealtimeChanges() then
 				dispatch(AddWaypoint())
 			end
-			dispatch(MoveSelectedEvents(pivot, newFrame, dragContext))
+			dispatch(MoveSelectedEvents(pivot, newTick, dragContext))
 		end,
 
 		DeselectAllEvents = function()
@@ -481,9 +483,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		SetEventEditingFrame = function(frame)
-			dispatch(SetEventEditingFrame(frame))
-		end,
+		SetEventEditingTick = function(tick)
+			dispatch(SetEventEditingTick(tick))
+		end or nil,
 
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))

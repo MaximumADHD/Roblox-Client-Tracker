@@ -18,9 +18,9 @@ return function(isForward, analytics)
 			return
 		end
 
-		local startFrame = animationData.Metadata.StartFrame
-		local endFrame = animationData.Metadata.EndFrame
-		if endFrame - startFrame == 0 then
+		local startTick = animationData.Metadata.StartTick
+		local endTick = animationData.Metadata.EndTick
+		if endTick - startTick == 0 then
 			return
 		end
 
@@ -37,19 +37,19 @@ return function(isForward, analytics)
 		local summaryKeyframes
 		if isForward then
 			summaryKeyframes = TrackUtils.getSummaryKeyframes(
-				animTracks, playhead + 1, endFrame)
+				animTracks, playhead + 1, endTick)
 		else
 			summaryKeyframes = TrackUtils.getSummaryKeyframes(
-				animTracks, startFrame, playhead - 1)
+				animTracks, startTick, playhead - 1)
 		end
 
 		table.sort(summaryKeyframes)
 
 		local newFrame
 		if isForward then
-			newFrame = summaryKeyframes[1] or endFrame
+			newFrame = summaryKeyframes[1] or endTick
 		else
-			newFrame = summaryKeyframes[#summaryKeyframes] or startFrame
+			newFrame = summaryKeyframes[#summaryKeyframes] or startTick
 		end
 
 		store:dispatch(StepAnimation(newFrame))

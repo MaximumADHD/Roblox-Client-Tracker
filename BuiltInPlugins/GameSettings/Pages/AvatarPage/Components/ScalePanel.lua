@@ -5,9 +5,9 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local ConstantLayout = require(Page.Util.ConstantLayout)

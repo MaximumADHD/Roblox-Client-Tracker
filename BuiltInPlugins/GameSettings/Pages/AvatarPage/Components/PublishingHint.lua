@@ -4,7 +4,7 @@ local StudioService = game:GetService("StudioService")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local RoactStudioWidgets = Plugin.RoactStudioWidgets

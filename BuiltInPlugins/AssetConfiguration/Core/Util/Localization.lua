@@ -646,6 +646,7 @@ function Localization:_recalculateContent()
 			UploadResult = {
 				Success = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Success"),
 				Failure = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Failure"),
+				Back = self:_safeLocalize("Studio.Toolbox.AssetUploadResult.Back"),
 			},
 
 			VersionsHistory = {

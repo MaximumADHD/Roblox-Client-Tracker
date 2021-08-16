@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Util = require(Plugin.Framework.Util)
+local Util = require(Plugin.Framework).Util
 
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 

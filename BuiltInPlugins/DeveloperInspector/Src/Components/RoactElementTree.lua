@@ -1,4 +1,6 @@
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
+
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -116,14 +118,15 @@ end
 
 function RoactElementTree:render()
 	local props = self.props
-	
+
 	return Roact.createElement(TreeView, {
 		Size = UDim2.new(1, 0, 1, 0),
 		Expansion = props.Expansion,
 		RootItems = getChildren(props.RootInstance),
 		RenderRow = self.renderRow,
 		GetChildren = getChildren,
-		ScrollingDirection = Enum.ScrollingDirection.Y
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 	})
 end
 

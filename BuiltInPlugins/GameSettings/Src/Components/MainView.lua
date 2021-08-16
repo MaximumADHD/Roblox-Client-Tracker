@@ -13,14 +13,14 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework.UI)
+local FrameworkUI = require(Plugin.Framework).UI
 
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local Container = FrameworkUI.Container
@@ -65,7 +65,7 @@ function MainView:init()
 		assert(firstValidPage, "There are no valid pages in PageManifest")
 		selectedPage = firstValidPage
 	end
-	
+
 	self.state = {
 		Selected = selectedPage,
 		PageContentOffset = 0,

@@ -14,7 +14,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")

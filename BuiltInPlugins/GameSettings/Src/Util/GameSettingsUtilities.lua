@@ -5,6 +5,7 @@ local isCJV = require(Plugin.Src.Util.isCJV)
 local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
+local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 
 local StudioService = game:GetService("StudioService")
 
@@ -61,8 +62,7 @@ end
 function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
     assert(FFlagLuobuDevPublishLua)
 
-    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://developer.roblox.com/articles/china-ugc-submission-checklist")
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["OptInLocationsRequirements"][location])
+    return FStringDevPublishChinaRequirementsLink
 end
 
 return GameSettingsUtilities

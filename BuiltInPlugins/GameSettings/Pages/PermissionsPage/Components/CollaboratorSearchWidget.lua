@@ -5,7 +5,7 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
@@ -86,7 +86,7 @@ function CollaboratorSearchWidget:getMatches()
 	local function groupAlreadyCollaborator(groupId)
 		return groupCollaboratorLookup[groupId] ~= nil
 	end
-	
+
 	local matches = { Users = {}, Groups = {} }
 	if cachedSearchResults[searchTerm] and cachedSearchResults[searchTerm] ~= LOADING then
 		local rawUserMatches = cachedSearchResults[searchTerm][PermissionsConstants.UserSubjectKey]

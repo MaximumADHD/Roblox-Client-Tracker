@@ -16,7 +16,7 @@ local SetSoundLoading = require(Plugin.Core.Actions.SetSoundLoading)
 local SetSoundElapsedTime = require(Plugin.Core.Actions.SetSoundElapsedTime)
 local SetSoundTotalTime = require(Plugin.Core.Actions.SetSoundTotalTime)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")

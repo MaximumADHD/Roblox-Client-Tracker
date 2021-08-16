@@ -14,8 +14,8 @@ return function()
 			TimelineContainer = Roact.createElement(TimelineContainer, {
 				LayoutOrder = 0,
 				ParentSize = Vector2.new(1000, 500),
-				StartFrame = 0,
-				EndFrame = 30,
+				StartTick = 0,
+				EndTick = 30,
 				Playhead = 0,
 				TrackPadding = Constants.TRACK_PADDING_SMALL,
 				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,

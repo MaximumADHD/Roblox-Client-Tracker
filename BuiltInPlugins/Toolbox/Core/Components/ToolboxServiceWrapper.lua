@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local Util = Plugin.Core.Util

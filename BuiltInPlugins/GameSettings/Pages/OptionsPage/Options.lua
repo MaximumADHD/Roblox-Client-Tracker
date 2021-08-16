@@ -6,14 +6,14 @@ local Cryo = require(Plugin.Cryo)
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 
-local FrameworkUI = require(Plugin.Framework.UI)
+local FrameworkUI = require(Plugin.Framework).UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
@@ -26,7 +26,7 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
-local LayoutOrderIterator = require(Plugin.Framework.Util).LayoutOrderIterator
+local LayoutOrderIterator = require(Plugin.Framework).Util.LayoutOrderIterator
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
@@ -140,7 +140,7 @@ function Options:render()
 		return {
             EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
                 Title = localization:getText("General", "TitleScriptCollab"),
-                Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning") 
+                Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning")
                     or localization:getText("General", "ScriptCollabDesc"),
                 LayoutOrder = layoutIndex:getNextOrder(),
                 Disabled = false,

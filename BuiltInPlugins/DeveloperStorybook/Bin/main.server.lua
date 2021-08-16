@@ -5,7 +5,6 @@
 local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 
 local DebugFlags = require(Main.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
@@ -34,11 +33,9 @@ local function init()
 
 	handle = Roact.mount(mainPlugin)
 
-	if FFlagEnableRoactInspector then
-		local Framework = require(Main.Packages.Framework)
-		inspector = Framework.DeveloperTools.forPlugin("DeveloperStorybook", plugin)
-		inspector:addRoactTree("Roact tree", handle)
-	end
+	local Framework = require(Main.Packages.Framework)
+	inspector = Framework.DeveloperTools.forPlugin("DeveloperStorybook", plugin)
+	inspector:addRoactTree("Roact tree", handle)
 
 end
 

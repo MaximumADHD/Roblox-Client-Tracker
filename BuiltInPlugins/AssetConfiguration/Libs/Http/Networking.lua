@@ -4,7 +4,7 @@
 	Provides a re-usable implementation for network requests and other utilities
 ]]--
 local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 

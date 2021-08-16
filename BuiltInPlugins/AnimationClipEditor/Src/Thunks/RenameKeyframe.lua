@@ -9,7 +9,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-return function(frame, name, analytics)
+return function(tick, name, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -18,7 +18,7 @@ return function(frame, name, analytics)
 		end
 
 		local newData = deepCopy(animationData)
-		AnimationData.setKeyframeName(newData, frame, name)
+		AnimationData.setKeyframeName(newData, tick, name)
 
 		store:dispatch(UpdateAnimationData(newData))
 

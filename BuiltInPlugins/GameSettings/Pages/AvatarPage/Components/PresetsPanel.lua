@@ -5,7 +5,7 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local ConstantAvatar = require(Page.Util.ConstantAvatar)

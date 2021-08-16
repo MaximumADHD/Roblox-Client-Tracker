@@ -4,11 +4,6 @@ end
 
 local main = script.Parent.Parent
 
-local getFFlagStudioEnableLightGuides = require(main.Src.Flags.getFFlagStudioEnableLightGuides)
-if not getFFlagStudioEnableLightGuides() then
-	return
-end
-
 local MainPlugin = require(main.Src.MainPlugin)
 
 local mainPlugin

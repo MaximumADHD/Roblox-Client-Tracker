@@ -13,27 +13,22 @@ local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
 local MeshImporterUI = require(Plugin.Src.Components.MeshImporterUI)
-local createRandomModel = require(Plugin.Src.Utility.createRandomModel)
 
 local MeshImportDialog = Roact.PureComponent:extend("MeshImportDialog")
 
 function MeshImportDialog:init()
-	self.state = {
-		model = createRandomModel(),
-	}
 
 	self.onButtonPressed = function(key)
 		if key == "Cancel" then
 			self.props.OnClose()
 		elseif key == "Import" then
-			self.props.OnImport(self.props.assetSettings)
+			self.props.OnImport(self.props.AssetSettings)
 		end
 	end
 end
 
 function MeshImportDialog:render()
 	local props = self.props
-	local state = self.state
 
 	local dialogWidth = 600
 	local dialogHeight = 500
@@ -51,9 +46,7 @@ function MeshImportDialog:render()
 		OnClose = props.OnClose,
 		OnButtonPressed = self.onButtonPressed,
 	}, {
-		Content = Roact.createElement(MeshImporterUI, {
-			Model = state.model,
-		}),
+		Content = Roact.createElement(MeshImporterUI),
 	})
 end
 
@@ -64,7 +57,7 @@ MeshImportDialog = withContext({
 
 local function mapStateToProps(state)
 	return {
-		assetSettings = state.assetSettings,
+		AssetSettings = state.assetSettings,
 	}
 end
 

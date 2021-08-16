@@ -55,8 +55,6 @@ local TEXT_COLOR = Color3.fromRGB(151, 151, 151)
 
 local Slider = Roact.PureComponent:extend("Slider")
 
-local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
-
 function Slider:init()
 	self.state = {
 		pressed = false,
@@ -166,9 +164,7 @@ function Slider:init()
 			-- needs to be reset to the previous value
 			return newVal
 		else
-			if FFlagTerrainToolsTextValidationFix then
-				self.props.SetValue(self.props.Value or MIN_VAL)
-			end
+			self.props.SetValue(self.props.Value or MIN_VAL)
 			return self.props.Value or MIN_VAL
 		end
 	end

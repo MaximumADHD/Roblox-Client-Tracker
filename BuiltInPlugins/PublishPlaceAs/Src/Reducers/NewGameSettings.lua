@@ -20,13 +20,10 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
-
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local optInLocations
-if FFlagLuobuDevPublishLua and FFlagUpdatePublishPlacePluginToDevFrameworkContext and FFlagTextInputDialogDevFramework and shouldShowDevPublishLocations() then
+if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
     optInLocations = {}
 end
 

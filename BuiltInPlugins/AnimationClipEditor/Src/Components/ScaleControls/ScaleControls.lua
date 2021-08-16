@@ -6,8 +6,8 @@
 	Properties:
 		table SelectedKeyframes = data about what keyframes are selected
 		table PreviewKeyframes = temporary table of keyframes for when keys are being moved/scaled
-		int StartFrame = starting timeline range in the editor
-		int EndFrame = ending timeline range in the editor
+		int StartTick = starting timeline range in the editor
+		int EndTick = ending timeline range in the editor
 		int TrackPadding = amount of total padding
 		int TopTrackIndex = index of the track displayed at the top of the track list
 		array Tracks = list of tracks currently present on the DopeSheet
@@ -17,7 +17,7 @@
 		int ZIndex = display order of this frame
 		bool ShowSelectionArea = show a blue selection box covering the area of selected keys
 
-		function OnScaleHandleDragStart(frame) = callback for when user begins to drag a scale handle
+		function OnScaleHandleDragStart(tick) = callback for when user begins to drag a scale handle
 		function OnScaleHandleDragMoved(input) = callback for when user is actively dragging a scale handle
 		function OnScaleHandleDragEnded() = callback for when user has finished dragging a scale handle
 ]]
@@ -34,7 +34,6 @@ local withContext = ContextServices.withContext
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
-local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
@@ -52,15 +51,15 @@ local TIME_TAG_SIZE = UDim2.new(0, 30, 0, TIME_TAG_HEIGHT)
 function ScaleControls:init()
 	self.leftScaleHandleDragStart = function()
 		if self.props.OnScaleHandleDragStart then
-			local frame = self.getSelectionData().latestKeyframe
-			self.props.OnScaleHandleDragStart(frame)
+			local tick = self.getSelectionData().latestKeyframe
+			self.props.OnScaleHandleDragStart(tick)
 		end
 	end
 
 	self.rightScaleHandleDragStart = function()
 		if self.props.OnScaleHandleDragStart then
-			local frame = self.getSelectionData().earliestKeyframe
-			self.props.OnScaleHandleDragStart(frame)
+			local tick = self.getSelectionData().earliestKeyframe
+			self.props.OnScaleHandleDragStart(tick)
 		end
 	end
 
@@ -69,8 +68,8 @@ function ScaleControls:init()
 
 		local tracks = props.Tracks
 		local topTrackIndex = props.TopTrackIndex
-		local startFrame = props.StartFrame
-		local endFrame = props.EndFrame
+		local startTick = props.StartTick
+		local endTick = props.EndTick
 		local trackWidth = props.DopeSheetWidth
 
 		table.sort(selectionData.trackIndices)
@@ -80,14 +79,14 @@ function ScaleControls:init()
 		return {
 			top = TrackUtils.getTrackYPosition(tracks, topTrackIndex, topSelectedTrackIndex),
 			bottom =TrackUtils.getTrackYPosition(tracks, topTrackIndex, bottomSelectedTrackIndex) + Constants.TRACK_HEIGHT,
-			left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startFrame, endFrame, trackWidth),
-			right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startFrame, endFrame, trackWidth),
+			left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
+			right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
 		}
 	end
 
 	self.getSelectionData = function()
 		local trackIndices = {}
-		local earliestKeyframe = self.props.EndFrame + 1
+		local earliestKeyframe = self.props.EndTick + 1
 		local latestKeyframe = 0
 		local hasPreview
 		local selectionData

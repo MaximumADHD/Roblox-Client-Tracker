@@ -1,6 +1,6 @@
 --[[
 	Used to set the playhead's location.
-	Accepts an integer for the frame to
+	Accepts an integer for the tick to
 	set the playhead's location to.
 ]]
 

@@ -23,7 +23,6 @@
 		function SelectionChanged(index, title) = A callback for when the selected option changes.
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
@@ -35,8 +34,6 @@ local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-
-local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
@@ -68,7 +65,7 @@ end
 
 function RadioButtonSet:render()
 	local props = self.props
-	local theme = FFlagUpdatePublishPlacePluginToDevFrameworkContext and props.Theme:get("Plugin") or nil
+	local theme = props.Theme:get("Plugin")
 
 	local layoutIndex = LayoutOrderIterator.new()
 
@@ -94,7 +91,7 @@ function RadioButtonSet:render()
 
 	for i, button in ipairs(buttons) do
 		children = Cryo.Dictionary.join(children, {
-			[button.Id] = FFlagUpdatePublishPlacePluginToDevFrameworkContext and Roact.createElement(RadioButton, {
+			[button.Id] = Roact.createElement(RadioButton, {
 				Title = button.Title,
 				Id = button.Id,
 				Description = button.Description,
@@ -109,23 +106,6 @@ function RadioButtonSet:render()
 
 				Children = button.Children,
 			})
-			or Theming.withTheme(function(theme)
-				return Roact.createElement(RadioButton, {
-					Title = button.Title,
-					Id = button.Id,
-					Description = button.Description,
-					Selected = (button.Id == selected) or (i == selected),
-					Index = i,
-					Enabled = props.Enabled,
-					RadioButtonStyle = theme.radioButton,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					OnClicked = function()
-						props.SelectionChanged(button)
-					end,
-
-					Children = button.Children,
-				})
-			end)
 		})
 	end
 
@@ -141,17 +121,15 @@ function RadioButtonSet:render()
 			TextSize = Constants.TEXT_SIZE,
 		}, children)
 end
-if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	if FFlagPublishPlaceAsWithContext then
-		RadioButtonSet = withContext({
-			Theme = ContextServices.Theme,
-		})(RadioButtonSet)
-	else
-		ContextServices.mapToProps(RadioButtonSet, {
-			Theme = ContextServices.Theme,
-		})
-	end
 
+if FFlagPublishPlaceAsWithContext then
+	RadioButtonSet = withContext({
+		Theme = ContextServices.Theme,
+	})(RadioButtonSet)
+else
+	ContextServices.mapToProps(RadioButtonSet, {
+		Theme = ContextServices.Theme,
+	})
 end
 
 return RadioButtonSet

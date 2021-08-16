@@ -12,7 +12,7 @@ local getTimeString = require(Plugin.Core.Util.getTimeString)
 local Settings = require(Plugin.Core.ContextServices.Settings)
 local Category = require(Plugin.Core.Types.Category)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Cryo = require(Libs.Cryo)
 

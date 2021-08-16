@@ -13,12 +13,12 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
-local t = require(Libs.Framework.Util.Typecheck.t)
+local t = require(Libs.Framework).Util.Typecheck.t
 local Framework = require(Libs.Framework)
 
 local LayoutOrderIterator = require(Plugin.Core.Util.LayoutOrderIterator)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local LinkText = require(Libs.Framework.UI).LinkText
+local LinkText = require(Libs.Framework).UI.LinkText
 
 local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices

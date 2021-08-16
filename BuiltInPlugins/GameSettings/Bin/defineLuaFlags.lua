@@ -11,5 +11,6 @@ game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
 game:DefineFastFlag("UXImprovementsNonTCPlacesAllowedPlay", false)
 game:DefineFastFlag("UpdateChinaOptInStatusTextColor", false)
+game:DefineFastFlag("FixGameSettingsChinaNil", false)
 
 return nil

@@ -15,7 +15,7 @@
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local Promise = FrameworkUtil.Promise
 local Cryo = require(Plugin.Cryo)
 

@@ -6,7 +6,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 -- public api
 local NetworkInterfaceMock = {}

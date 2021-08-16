@@ -79,6 +79,16 @@ local function makeTheme()
 			}
 		end)
 
+		local titledFrame = StyleTable.new("TitledFrame", function()
+			local titledFrame = Style.new({
+				TextColor = theme:GetColor("BrightText"),
+				TextSize = 16,
+			})
+			return {
+				Default = titledFrame,
+			}
+		end)
+
 		local progressSpinnerImage = StyleValue.new("ProgressSpinnerImage", {
 			Light = "rbxasset://textures/LightThemeLoadingCircle.png",
 			Dark = "rbxasset://textures/DarkThemeLoadingCircle.png",
@@ -88,6 +98,7 @@ local function makeTheme()
 			Framework = StyleTable.extend(studioFrameworkStyles, {
 				Button = button,
 				LinkText = linkText,
+				TitledFrame= titledFrame,
 			}),
 
 			Plugin = {
@@ -189,7 +200,18 @@ local function makeTheme()
 				BorderColor = theme:GetColor("Border"),
 				MainBackground = theme:GetColor("MainBackground"),
 				MainButton = theme:GetColor("MainButton"),
-			}
+			},
+			ImageLocalizationSection = {
+				LeftIndent = 15,
+				PaddingTop = 20,
+				Spacing = 15,
+				SectionLabelSize = 20,
+				SectionLabelTextSize = 10,
+				TextColor = theme:GetColor("BrightText"),
+				LabelWidth = 260,
+				ButtonWidth = 100,
+				ButtonHeight = 35,
+			},
 		}
 	end)
 

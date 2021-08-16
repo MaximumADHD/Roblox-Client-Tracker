@@ -5,6 +5,7 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -28,9 +29,15 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
-local LoadingBar = require(AssetConfiguration.LoadingBar)
+
+local LoadingBar
+local LoadingBarWrapper
+if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
+	LoadingBarWrapper = require(AssetConfiguration.LoadingBarWrapper)
+else
+	LoadingBar = require(AssetConfiguration.LoadingBar)
+end
 local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
-local ImagePicker = require(AssetConfiguration.ImagePicker)
 
 local PREVIEW_PADDING = 48
 local PREVIEW_SIZE = 150
@@ -103,7 +110,7 @@ function AssetUpload:renderContent(theme)
 			BorderSizePixel = 0,
 		}),
 
-		LoadingBar = Roact.createElement(LoadingBar, {
+		LoadingBar = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and LoadingBarWrapper or LoadingBar, {
 			loadingText = LOADING_TEXT,
 			loadingTime = LOADING_TIME,
 			holdPercent = LOADING_PERCENT,

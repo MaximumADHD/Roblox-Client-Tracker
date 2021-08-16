@@ -176,4 +176,6 @@ AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT = "avatar_meshpart_accesso
 
 AssetConfigConstants.MULTIPART_FORM_BOUNDARY = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
 
+AssetConfigConstants.OVERRIDE_ASSET_ID = "OverrideAssetId"
+
 return AssetConfigConstants

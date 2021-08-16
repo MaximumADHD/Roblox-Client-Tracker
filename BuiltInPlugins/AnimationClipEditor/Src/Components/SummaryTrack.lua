@@ -3,19 +3,19 @@
 	a summary of all keyframes visible in the dope sheet.
 
 	When the user drags or selects a keyframe here, it is intended to
-	modify all the keyframes below it at that frame.
+	modify all the keyframes below it at that tick.
 
 	Properties:
 		UDim2 Size = size of the container frame
 		float Width = width of the keyframe display area frame
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
 		bool ShowCluster = Whether to show a keyframe cluster rather than individual keyframes.
 		table Tracks = a table of all tracks in the dope sheet.
 		bool ShowBackground = if this track should have an opaque background.
 		table SelectedKeyframes = table containing information on what keyframes are selected for each track/instance
 		table PreviewKeyframes = table containing keyframes that are currently being transformed for preview
-		table NamedKeyframes = table mapping frames to summary keyframe names.
+		table NamedKeyframes = table mapping ticks to summary keyframe names.
 		bool ShowLegacyKeyframes = Whether to highlight keyframes off of the framerate with an error color.
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
@@ -28,7 +28,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local Framework = require(Plugin.Packages.Framework)
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 
@@ -45,15 +44,15 @@ local SummaryTrack = Roact.PureComponent:extend("SummaryTrack")
 function SummaryTrack:getSummaryKeyframes()
 	local props = self.props
 	local tracks = props.Tracks
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local previewKeyframes = props.PreviewKeyframes
 	local selectedKeyframes = props.SelectedKeyframes
 
-	return TrackUtils.getSummaryKeyframes(tracks, startFrame, endFrame, selectedKeyframes, previewKeyframes)
+	return TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyframes, previewKeyframes)
 end
 
-function SummaryTrack:renderKeyframe(selected, xOffset, frame, name, override)
+function SummaryTrack:renderKeyframe(selected, xOffset, tick, name, override)
 	local props = self.props
 	return Roact.createElement(Keyframe, {
 		Selected = selected,
@@ -65,15 +64,15 @@ function SummaryTrack:renderKeyframe(selected, xOffset, frame, name, override)
 
 		OnActivated = props.OnKeyActivated,
 		OnRightClick = function(_, input)
-			props.OnKeyRightClick(nil, nil, frame, selected)
+			props.OnKeyRightClick(nil, nil, tick, selected)
 		end,
 
 		OnInputBegan = function(_, input)
-			props.OnKeyInputBegan(nil, nil, frame, selected, input)
+			props.OnKeyInputBegan(nil, nil, tick, selected, input)
 		end,
 
 		OnInputEnded = function(_, input)
-			props.OnKeyInputEnded(frame, selected, input)
+			props.OnKeyInputEnded(tick, selected, input)
 		end,
 	}, {
 		Tooltip = name and Roact.createElement(Tooltip, {
@@ -92,7 +91,7 @@ function SummaryTrack:renderKeyframeCluster(clusterStart, clusterEnd, clusterHei
 	})
 end
 
-function SummaryTrack:renderPreviewKeyframe(xOffset, frame, override)
+function SummaryTrack:renderPreviewKeyframe(xOffset, tick, override)
 	local props = self.props
 	return Roact.createElement(Keyframe, {
 		Selected = true,
@@ -104,35 +103,35 @@ function SummaryTrack:renderPreviewKeyframe(xOffset, frame, override)
 end
 
 function SummaryTrack:renderKeyframes(keys)
-	local frames, selectedFrames = self:getSummaryKeyframes()
-	table.sort(frames)
-	if #frames == 0 then
+	local ticks, selectedTicks = self:getSummaryKeyframes()
+	table.sort(ticks)
+	if #ticks == 0 then
 		return
 	end
 
 	local props = self.props
 	local width = props.Width
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local showCluster = props.ShowCluster
 	local namedKeyframes = props.NamedKeyframes
 	local showLegacyKeyframes = props.ShowLegacyKeyframes
 
-	local startIndex, endIndex = TrackUtils.getKeyframesExtents(frames, startFrame, endFrame)
+	local startIndex, endIndex = TrackUtils.getKeyframesExtents(ticks, startTick, endTick)
 
 	if showCluster then
-		local clusterXPos = TrackUtils.getScaledKeyframePosition(frames[startIndex], startFrame, endFrame, width)
-		local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(frames[endIndex], startFrame, endFrame, width)
+		local clusterXPos = TrackUtils.getScaledKeyframePosition(ticks[startIndex], startTick, endTick, width)
+		local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(ticks[endIndex], startTick, endTick, width)
 		keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
 	elseif startIndex ~= nil and endIndex ~= nil then
 		for index = startIndex, endIndex do
-			local frame = frames[index]
-			local xPos = TrackUtils.getScaledKeyframePosition(frame, startFrame, endFrame, width)
-			local selected = selectedFrames[frame]
+			local tick = ticks[index]
+			local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
+			local selected = selectedTicks[tick]
 
-			local override = (showLegacyKeyframes and frame ~= math.floor(frame))
+			local override = (showLegacyKeyframes and tick ~= math.floor(tick))
 				and Constants.KEYFRAME_STYLE.PrimaryError or nil
-			keys[index] = self:renderKeyframe(selected, xPos, frame, namedKeyframes[frame], override)
+			keys[index] = self:renderKeyframe(selected, xPos, tick, namedKeyframes[tick], override)
 		end
 	end
 end
@@ -141,8 +140,8 @@ function SummaryTrack:renderPreviewKeyframes(keys)
 	local props = self.props
 	local width = props.Width
 	local tracks = props.Tracks
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local showLegacyKeyframes = props.ShowLegacyKeyframes
 	local showCluster = props.ShowCluster
 
@@ -157,19 +156,19 @@ function SummaryTrack:renderPreviewKeyframes(keys)
 			if keyframes then
 				if showCluster then
 					table.sort(keyframes)
-					local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startFrame, endFrame)
-					local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startFrame, endFrame, width)
-					local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startFrame, endFrame, width)
+					local startIndex, endIndex = TrackUtils.getKeyframesExtents(keyframes, startTick, endTick)
+					local clusterXPos = TrackUtils.getScaledKeyframePosition(keyframes[startIndex], startTick, endTick, width)
+					local clusterXPosEnd = TrackUtils.getScaledKeyframePosition(keyframes[endIndex], startTick, endTick, width)
 					keys[endIndex] = self:renderKeyframeCluster(clusterXPos, clusterXPosEnd, Constants.MIN_SPACE_BETWEEN_KEYS)
 				else
-					for _, frame in ipairs(keyframes) do
-						if frame >= startFrame and frame <= endFrame and not addedFrames[frame] then
-							local xPos = TrackUtils.getScaledKeyframePosition(frame, startFrame, endFrame, width)
+					for _, tick in ipairs(keyframes) do
+						if tick >= startTick and tick <= endTick and not addedFrames[tick] then
+							local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
 
-							local override = (showLegacyKeyframes and frame ~= math.floor(frame))
+							local override = (showLegacyKeyframes and tick ~= math.floor(tick))
 								and Constants.KEYFRAME_STYLE.PrimaryError or nil
-							table.insert(keys, self:renderPreviewKeyframe(xPos, frame, override))
-							addedFrames[frame] = true
+							table.insert(keys, self:renderPreviewKeyframe(xPos, tick, override))
+							addedFrames[tick] = true
 						end
 					end
 				end

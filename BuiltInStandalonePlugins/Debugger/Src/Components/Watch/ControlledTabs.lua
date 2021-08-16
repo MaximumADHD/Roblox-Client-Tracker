@@ -5,45 +5,41 @@ local Framework = require(Plugin.Packages.Framework)
 
 local UI = Framework.UI
 local Tabs = UI.Tabs
-local TabsTypes = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.UI.Tabs.types)
+
+local Models = Plugin.Src.Models
+local TableTab = require(Models.Watch.TableTab)
+
+local Actions = Plugin.Src.Actions
+local SetTab = require(Actions.Watch.SetTab)
 
 local ControlledTabs = Roact.PureComponent:extend("Tabs")
 
--- ControlledTabs
-function ControlledTabs:init()
-	local props = self.props
-	local initTab = props.Tabs and props.Tabs[1]
-	
-	self.state = {
-		selectedTab = initTab or {},
-	}
-
-	self.onTabSelected = function(tab: TabsTypes.Tab)
-		self:setState({
-			selectedTab = tab,
-		})
-	end
-end
-
 function ControlledTabs:render()
 	local props = self.props
-	local state = self.state
 	return Roact.createElement(Tabs, {
 		Tabs = props.Tabs,
-		SelectedTab = state.selectedTab,
-		OnTabSelected = self.onTabSelected,
+		SelectedTab = props.selectedTab,
+		OnTabSelected = props.onTabSelected,
 		LayoutOrder = props.LayoutOrder,
 	})
 end
 
--- RoactRodux Connection
 ControlledTabs = RoactRodux.connect(
 	function(state, props)
-		return {}
+		local selectedTabString = state.Watch.currentTab
+		local selectedTab = selectedTabString == TableTab.Variables and props.Tabs[1] or props.Tabs[2]
+		return {
+			selectedTab = selectedTab,
+		}
 	end,
-
+	
 	function(dispatch)
-		return {}
+		return {
+			onTabSelected = function(tab)
+				local tabString = tab.Key
+				return dispatch(SetTab(tabString))
+			end,
+		}
 	end
 )(ControlledTabs)
 

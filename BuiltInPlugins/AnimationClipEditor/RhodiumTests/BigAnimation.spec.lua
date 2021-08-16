@@ -39,8 +39,7 @@ return function()
 		}
 		testAnimationData.Instances.Root.Tracks[trackName] = track
 	end
-	testAnimationData.Metadata.EndFrame = 500
-
+	testAnimationData.Metadata.EndTick = 500
 
 	it("should be able to load a large animation", function()
 		runTest(function(test)

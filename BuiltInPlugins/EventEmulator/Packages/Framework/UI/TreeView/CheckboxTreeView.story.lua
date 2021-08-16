@@ -11,6 +11,7 @@ local TextLabel = UI.Decoration.TextLabel
 local TreeView = UI.TreeView
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local function TreeRowCheckbox(props)
 	return Roact.createElement(Pane, {
@@ -99,6 +100,7 @@ function ExampleTreeView:render()
 		Size = UDim2.new(0, 240, 0, 240),
 		Expansion = self.state.Expansion,
 		RootItems = self.state.Items,
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 		RowProps = {
 			Checked = self.state.Checked,
 			BeforeIcon = TreeRowCheckbox,

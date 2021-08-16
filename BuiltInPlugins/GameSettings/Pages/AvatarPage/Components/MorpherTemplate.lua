@@ -2,7 +2,7 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local ConstantLayout = require(Page.Util.ConstantLayout)

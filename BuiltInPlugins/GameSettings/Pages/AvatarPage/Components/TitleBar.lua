@@ -4,7 +4,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactStudioWidgets = Plugin.RoactStudioWidgets
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local ConstantFonts = require(Page.Util.ConstantFonts)

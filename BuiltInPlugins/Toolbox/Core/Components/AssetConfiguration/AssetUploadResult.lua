@@ -8,6 +8,7 @@
 
 local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAddCopyIDToResultPage = game:DefineFastFlag("AddCopyIDToResultPage", false)
+local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -36,6 +37,15 @@ local AssetThumbnailPreview = require(AssetConfiguration.AssetThumbnailPreview)
 local ReasonFrame = require(AssetConfiguration.ReasonFrame)
 local CopyID = require(AssetConfiguration.CopyID)
 
+local Framework = require(Libs.Framework)
+local LinkText = Framework.UI.LinkText
+
+local Actions = Plugin.Core.Actions
+local ClearChange = require(Actions.ClearChange)
+
+local Thunks = Plugin.Core.Thunks
+local GoToNextScreen = require(Thunks.AssetConfiguration.GoToNextScreen)
+
 local TITLE_WIDTH = 400
 local TITLE_HEIGHT = 36
 
@@ -48,7 +58,8 @@ local PREVIEW_SIZE = 150
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
 
-local FOOTER_HEIGHT = 62
+local BASE_FOOTER_HEIGHT = 62
+local FOOTER_PADDING = 10
 
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32
@@ -66,6 +77,12 @@ function AssetUploadResult:init(props)
 	self.state = {
 		isLoading = true,
 	}
+
+	self.clickBackLink = function()
+		local props = self.props
+		props.clearChange(AssetConfigConstants.OVERRIDE_ASSET_ID)
+		props.goToNextScreen()
+	end
 end
 
 local function getResultUrl(flowType, assetId, assetTypeEnum, assetName)
@@ -130,7 +147,15 @@ function AssetUploadResult:render()
 			showReasons = #reasons > 1
 		end
 
+		local footerHeight
+		if FFlagToolboxAssetConfigAddPublishBackButton then
+			footerHeight = BASE_FOOTER_HEIGHT + FOOTER_PADDING + Constants.FONT_SIZE_MEDIUM
+		else
+			footerHeight = BASE_FOOTER_HEIGHT
+		end
+
 		return Roact.createElement("Frame", {
+			AutomaticSize = FFlagToolboxAssetConfigAddPublishBackButton and Enum.AutomaticSize.Y or nil,
 			BackgroundColor3 = theme.uploadResult.background,
 			BackgroundTransparency = 0,
 			BorderSizePixel = 0,
@@ -275,22 +300,36 @@ function AssetUploadResult:render()
 			}),
 
 			Footer = Roact.createElement("Frame", {
+				AutomaticSize = FFlagToolboxAssetConfigAddPublishBackButton and Enum.AutomaticSize.Y or nil,
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
-				Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+				Position = UDim2.new(0, 0, 1, -footerHeight),
+				Size = UDim2.new(1, 0, 0, footerHeight),
 			}, {
+				UIListLayout = FFlagToolboxAssetConfigAddPublishBackButton and Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					Padding = UDim.new(0, FOOTER_PADDING),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				}),
+
 				CloseButton = Roact.createElement(NavButton, {
 					onClick = props.onClose,
 					titleText = "Close",
 					LayoutOrder = 0,
-					Position = UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2),
+					Position = (not FFlagToolboxAssetConfigAddPublishBackButton) and UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2) or nil,
 					Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+				}),
+
+				LinkText = FFlagToolboxAssetConfigAddPublishBackButton and Roact.createElement(LinkText, {
+					LayoutOrder = 1,
+					OnClick = self.clickBackLink,
+					Text = localizedContent.AssetConfig.UploadResult.Back,
 				}),
 			}),
 		})
 	end
 	return withTheme(function(theme)
-		return FFlagShowAssetConfigReasons2 and withLocalization(function(_, localizedContent)
+		return (FFlagShowAssetConfigReasons2 or FFlagToolboxAssetConfigAddPublishBackButton) and withLocalization(function(_, localizedContent)
 			return render(theme, localizedContent)
 		end) or render(theme)
 	end)
@@ -317,7 +356,14 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	return {}
+	return {
+		clearChange = function(setting)
+			dispatch(ClearChange(setting))
+		end,
+		goToNextScreen = function()
+			dispatch(GoToNextScreen())
+		end,
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetUploadResult)

@@ -11,7 +11,7 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
-local function wrappee(instanceName, trackName, trackType, frame, value, analytics)
+local function wrappee(instanceName, trackName, trackType, tick, value, analytics)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -39,11 +39,11 @@ local function wrappee(instanceName, trackName, trackType, frame, value, analyti
 		local track = tracks[trackName]
 		local trackData = track.Data
 
-		if trackData[frame] == nil then
-			AnimationData.addKeyframe(track, frame, value)
+		if trackData[tick] == nil then
+			AnimationData.addKeyframe(track, tick, value)
 
 			-- if no base pose kf exists at time 0, create one now
-			if frame ~= 0 and trackData[0] == nil then
+			if tick ~= 0 and trackData[0] == nil then
 				if GetFFlagFacialAnimationSupport() then
 					AnimationData.addDefaultKeyframe(track, 0, trackType)
 				else
@@ -54,18 +54,18 @@ local function wrappee(instanceName, trackName, trackType, frame, value, analyti
 			store:dispatch(UpdateAnimationData(newData))
 
 			if analytics then
-				analytics:report("onAddKeyframe", trackName, frame)
+				analytics:report("onAddKeyframe", trackName, tick)
 			end
 		end
 	end
 end
 
 if GetFFlagFacialAnimationSupport() then
-	return function(instanceName, trackName, trackType, frame, value, analytics)
-		return wrappee(instanceName, trackName, trackType, frame, value, analytics)
+	return function(instanceName, trackName, trackType, tick, value, analytics)
+		return wrappee(instanceName, trackName, trackType, tick, value, analytics)
 	end
 else
-	return function(instanceName, trackName, frame, value, analytics)
-		return wrappee(instanceName, trackName, nil, frame, value, analytics)
+	return function(instanceName, trackName, tick, value, analytics)
+		return wrappee(instanceName, trackName, nil, tick, value, analytics)
 	end
 end

@@ -29,8 +29,8 @@ return function()
 				PreviewEvents = previewEvents,
 				LayoutOrder = 0,
 				Width = 1000,
-				StartFrame = 0,
-				EndFrame = 26,
+				StartTick = 0,
+				EndTick = 26,
 				ZIndex = 0,
 			})
 		})

@@ -12,7 +12,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 
-return function(instanceName, trackName, frame, newKeyframeData)
+return function(instanceName, trackName, tick, newKeyframeData)
 	return function(store)
 		local animationData = store:getState().AnimationData
 		if not animationData then
@@ -38,8 +38,8 @@ return function(instanceName, trackName, frame, newKeyframeData)
 
 		local trackData = track.Data
 
-		if trackData and trackData[frame] then
-			AnimationData.setKeyframeData(track, frame, newKeyframeData)
+		if trackData and trackData[tick] then
+			AnimationData.setKeyframeData(track, tick, newKeyframeData)
 			store:dispatch(SetAnimationData(newData))
 		end
 	end

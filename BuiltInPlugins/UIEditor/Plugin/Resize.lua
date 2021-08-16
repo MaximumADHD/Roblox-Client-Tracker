@@ -22,6 +22,7 @@ local SnappingType			= require(script.Parent.Enum.SnappingType)
 
 -- Flags
 local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
+local FFlagFixUIEditorUndoRedo = game:DefineFastFlag("FixUIEditorUndoRedo", false)
 
 -- Services
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -302,6 +303,12 @@ end
 
 -- void updateHandlePositionFromExtents(table(mt Extents2D) extents)
 local function updateHandlePositionFromExtents(extents)
+	if FFlagFixUIEditorUndoRedo then
+		if extents == nil then
+			return
+		end
+	end
+
 	local size = extents.Size
 	local position = extents.TopLeft
 
@@ -309,6 +316,12 @@ local function updateHandlePositionFromExtents(extents)
 		Update the m_handleParent so the resize handles and bounding box
 		frames are transformed.
 	--]] 
+	if FFlagFixUIEditorUndoRedo then
+		if m_handleParent == nil then
+			return
+		end
+	end
+
 	m_handleParent.Position = UDim2.new(0, position.X, 0, position.Y)
 	m_handleParent.Size = UDim2.new(0, size.X, 0, size.Y)
 	if (#m_filteredSelection == 1) then

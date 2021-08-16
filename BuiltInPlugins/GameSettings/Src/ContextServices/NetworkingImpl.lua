@@ -32,12 +32,12 @@ local FFlagFixUploadingImagesInGameSettings = game:DefineFastFlag("FixUploadingI
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
-local Http = require(Plugin.Framework.Http)
-local Util = require(Plugin.Framework.Util)
+local Http = require(Plugin.Framework).Http
+local Util = require(Plugin.Framework).Util
 
 local Promise = Util.Promise
 
-local Url = require(Plugin.Framework.RobloxAPI.Url)
+local Url = require(Plugin.Framework).RobloxAPI.Url
 local tablesDeepEqual = require(Plugin.Src.Util.tablesDeepEqual)
 
 local ContentProvider = game:GetService("ContentProvider")

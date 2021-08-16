@@ -9,8 +9,9 @@ local Rodux = require(main.Packages.Rodux)
 
 local MainReducer = require(main.Src.Reducers.MainReducer)
 
-local ContextServices = require(main.Packages.Framework.ContextServices)
-local StudioUI = require(main.Packages.Framework.StudioUI)
+local Framework = require(main.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton

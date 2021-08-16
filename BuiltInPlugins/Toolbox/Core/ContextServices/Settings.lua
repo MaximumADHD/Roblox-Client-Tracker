@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-local ContextItem = require(Libs.Framework.ContextServices.ContextItem)
-local Provider = require(Libs.Framework.ContextServices.Provider)
+local ContextItem = require(Libs.Framework).ContextServices.ContextItem
+local Provider = require(Libs.Framework).ContextServices.Provider
 
 local Settings = ContextItem:extend("Settings")
 

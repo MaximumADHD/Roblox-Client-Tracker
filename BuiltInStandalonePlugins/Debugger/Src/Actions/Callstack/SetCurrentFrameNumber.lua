@@ -11,6 +11,6 @@ export type Props = {
 return Action(script.Name, function(threadId : number, currentFrame : number) : Props
 	return {
 		currentFrame = currentFrame,
-		threadId = threadId
+		threadId = threadId,
 	}
 end)

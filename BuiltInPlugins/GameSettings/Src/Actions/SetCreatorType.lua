@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Action = require(Plugin.Framework.Util).Action
+local Action = require(Plugin.Framework).Util.Action
 
 return Action(script.Name, function(creatorType)
 	-- TODO: Once EnumItem:IsA arrives, replace this workaround.

@@ -21,6 +21,9 @@ local SelectInputField = require(script.Parent.SelectInputField)
 local Actions = Plugin.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 
+local Models = Plugin.Src.Models
+local CallstackRow = require(Models.CallstackRow)
+
 local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
 -- Constants
@@ -30,6 +33,19 @@ local HEADER_HEIGHT = 40
 local function calculateTextSize(text, textSize, font)
 	local frameNoWrapping = Vector2.new(0, 0)
 	return TextService:GetTextSize(text, textSize, font, frameNoWrapping)
+end
+
+local function deepCopy(var)
+	if typeof(var) ~= "table" then
+		return var
+	end
+
+	local ret = {}
+	for key, value in pairs(var) do
+		ret[key] = deepCopy(value)
+	end
+
+	return ret
 end
 
 -- CallstackComponent
@@ -85,6 +101,7 @@ function CallstackComponent:render()
 	}, {
 		HeaderView = Roact.createElement(Pane, {
 			Padding = 5,
+			Spacing = 10,
 			Size = UDim2.new(1, 0, 0, HEADER_HEIGHT),
 			Style = "Box",
 			Layout = Enum.FillDirection.Horizontal,
@@ -102,6 +119,9 @@ function CallstackComponent:render()
 			SelectInputViewWrapper = Roact.createElement(Pane, {
 				Size = UDim2.new(1, -textSize.X, 1, 0),
 				LayoutOrder = 2,
+				Style = "BorderBox",
+				Padding = 2,
+				BorderColor = style.BorderColor,
 			}, {
 				SelectInputView = Roact.createElement(SelectInputField, {
 					Size = UDim2.new(1, 0, 1, 0),
@@ -130,8 +150,6 @@ function CallstackComponent:render()
 	})
 end
 
-
-
 -- RoactRodux Connection
 CallstackComponent = withContext({
 	Analytics = Analytics,
@@ -149,11 +167,25 @@ CallstackComponent = RoactRodux.connect(
 		else
 			assert(#state.Common.debuggerStateTokenHistory >= 1)
 			local currentThreadId = state.Common.currentThreadId
+			local currentFrameNumber = state.Common.threadIdToCurrentFrameNumber[currentThreadId]
+			
 			local address = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
 			local callstackVars = state.Callstack.stateTokenToCallstackVars[address]
 			local frameList = callstackVars and callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[currentThreadId]
+			
+			local frameListCopy = deepCopy(frameList)
+			for index, frameData in ipairs(frameListCopy) do
+				if (index == 1) then
+					frameListCopy[index].arrowColumn = CallstackRow.ICON_FRAME_TOP
+				elseif (frameData.frameColumn == currentFrameNumber) then
+					frameListCopy[index].arrowColumn = CallstackRow.ICON_CURRENT_FRAME
+				else
+					frameListCopy[index].arrowColumn = ""
+				end
+			end
+			
 			return {
-				RootItems = frameList or {},
+				RootItems = frameListCopy or {},
 				CurrentThreadId = currentThreadId,
 			}
 		end

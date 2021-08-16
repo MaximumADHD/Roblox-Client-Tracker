@@ -20,7 +20,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 
-local Tooltip = require(Libs.Framework.UI.Tooltip)
+local Tooltip = require(Libs.Framework).UI.Tooltip
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme

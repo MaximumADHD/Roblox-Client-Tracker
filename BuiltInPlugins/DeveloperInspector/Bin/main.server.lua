@@ -8,7 +8,7 @@ end
 
 require(script.Parent.defineLuaFlags)
 
-if not settings():GetFFlag("EnableRoactInspector") or not game:GetService("StudioService"):HasInternalPermission() then
+if not game:GetService("StudioService"):HasInternalPermission() then
 	return
 end
 

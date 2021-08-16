@@ -10,7 +10,7 @@ return function()
 	local Libs = Plugin.Libs
 	local Roact = require(Libs.Roact)
 	local Cryo = require(Libs.Cryo)
-	local t = require(Libs.Framework.Util.Typecheck.t)
+	local t = require(Libs.Framework).Util.Typecheck.t
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 	local isCli = require(Plugin.Core.Util.isCli)

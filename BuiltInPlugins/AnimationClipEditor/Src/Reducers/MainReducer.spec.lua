@@ -6,14 +6,11 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Rodux = require(Plugin.Packages.Rodux)
 	local isEmpty = require(Plugin.Src.Util.isEmpty)
-	local deepCopy = require(Plugin.Src.Util.deepCopy)
 	local Constants = require(Plugin.Src.Util.Constants)
 	local deepCopy = require(Plugin.Src.Util.deepCopy)
 
 	local MainReducer = require(script.Parent.MainReducer)
 	local Framework = require(Plugin.Packages.Framework)
-
-	local ContextServices = Plugin.Packages.Framework.ContextServices
 
 	local Analytics = Framework.ContextServices.Analytics
 
@@ -23,7 +20,7 @@ return function()
 
 	local SelectKeyframe = require(Plugin.Src.Thunks.Selection.SelectKeyframe)
 	local DeselectKeyframe = require(Plugin.Src.Thunks.Selection.DeselectKeyframe)
-	local SelectKeyframesAtFrame = require(Plugin.Src.Thunks.Selection.SelectKeyframesAtFrame)
+	local SelectKeyframesAtTick = require(Plugin.Src.Thunks.Selection.SelectKeyframesAtTick)
 	local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframes)
 	local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKeyframes)
 	local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
@@ -59,8 +56,8 @@ return function()
 	local testAnimationData = {
 		Metadata = {
 			FrameRate = not GetFFlagUseTicks() and 30 or nil,
-			StartFrame = 0,
-			EndFrame = 8,
+			StartTick = 0,
+			EndTick = 8,
 		},
 		Events = {
 			NamedKeyframes = {},
@@ -332,10 +329,10 @@ return function()
 		end)
 	end)
 
-	describe("SelectKeyframesAtFrame", function()
+	describe("SelectKeyframesAtTick", function()
 		it("should only select keyframes that match the frame", function()
 			local store = createTestStore()
-			store:dispatch(SelectKeyframesAtFrame(2))
+			store:dispatch(SelectKeyframesAtTick(2))
 
 			local status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
@@ -351,7 +348,7 @@ return function()
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
 			expect(testTrack[3]).to.be.ok()
 
-			store:dispatch(SelectKeyframesAtFrame(1))
+			store:dispatch(SelectKeyframesAtTick(1))
 			status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
 			expect(root.TestTrack[1]).to.be.ok()
@@ -367,7 +364,7 @@ return function()
 			local testTrack = status.SelectedKeyframes.Root.TestTrack
 			expect(testTrack[3]).to.be.ok()
 
-			store:dispatch(SelectKeyframesAtFrame(1, true))
+			store:dispatch(SelectKeyframesAtTick(1, true))
 			status = store:getState().Status
 			local root = status.SelectedKeyframes.Root
 			expect(root.TestTrack[1]).to.be.ok()

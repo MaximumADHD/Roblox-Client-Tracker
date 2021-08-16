@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Action = require(Plugin.Framework.Util).Action
+local Action = require(Plugin.Framework).Util.Action
 
 return Action(script.Name, function(gameId)
 	assert(typeof(gameId) == "number",

@@ -10,6 +10,7 @@ return function()
 
 	local SetToolboxManageableGroups = require(Plugin.Core.Actions.SetToolboxManageableGroups)
 	local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
+	local UpdateSearchTerm = require(Plugin.Core.Actions.UpdateSearchTerm)
 
 	local PageInfo = require(Plugin.Core.Reducers.PageInfo)
 
@@ -146,6 +147,34 @@ return function()
 				expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
 			end)
 		end
+	end)
+
+	describe("UpdateSearchTerm action", function()
+		it("should update the searchTerm", function()
+			local state = PageInfo({
+				searchTerm = "foo"
+			}, {})
+			expect(state.searchTerm).to.equal("foo")
+	
+			-- shallow copy state
+			local originalState = {}
+			for key, value in pairs(state) do
+				originalState[key] = value
+			end
+
+			-- dispatch action
+			state = PageInfo(state, UpdateSearchTerm("bar"))
+
+			-- verify new searchTerm is set
+			expect(state.searchTerm).to.equal("bar")
+
+			-- verify nothing else was touched
+			for key, value in pairs(state) do
+				if key ~= "searchTerm" then
+					expect(value).to.equal(originalState[key])
+				end
+			end
+		end)
 	end)
 
 	describe("UpdatePageInfo action", function()

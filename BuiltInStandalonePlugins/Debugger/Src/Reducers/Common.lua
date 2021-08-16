@@ -25,7 +25,7 @@ return Rodux.createReducer({
 	threadIdToCurrentFrameNumber = {},
 	debuggerStateTokenHistory = {},
 }, {
-	[SetCurrentThreadAction.name] = function(state : CommonStore, action : SetCurrentFrameNumberAction.Props)
+	[SetCurrentThreadAction.name] = function(state : CommonStore, action : SetCurrentThreadAction.Props)
 		return Cryo.Dictionary.join(state, {
 			currentThreadId = action.currentThreadId,
 		})

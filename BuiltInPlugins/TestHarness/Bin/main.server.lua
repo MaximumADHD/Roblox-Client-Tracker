@@ -11,8 +11,6 @@ if not game:GetFastFlag("EnableTestHarness") or not hasInternalPermission then
 	return
 end
 
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
-
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
@@ -25,7 +23,7 @@ local DebugFlags = require(main.Src.Util.DebugFlags)
 local MainPlugin = require(main.Src.MainPlugin)
 local handle
 
-if FFlagEnableRoactInspector or DebugFlags.EnableRoactDebug() then
+if DebugFlags.EnableRoactDebug() then
 	Roact.setGlobalConfig({
 		typeChecks = true,
 		propValidation = true,
@@ -35,7 +33,7 @@ end
 
 -- Allows connecton to the Developer Inspector for internal engineers
 local inspector
-if FFlagEnableRoactInspector and hasInternalPermission then
+if hasInternalPermission then
 	inspector = Framework.DeveloperTools.forPlugin("TestHarness", plugin)
 end
 

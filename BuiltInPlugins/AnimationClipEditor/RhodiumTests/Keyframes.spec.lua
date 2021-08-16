@@ -13,7 +13,6 @@ return function()
 
 	local Analytics = Framework.ContextServices.Analytics
 
-
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local TestPaths = require(Plugin.RhodiumTests.TestPaths)
 	local VirtualInput = require(Plugin.Rhodium.VirtualInput)
@@ -253,11 +252,11 @@ return function()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			local animationData = store:getState().AnimationData
-			local endFrame = animationData.Metadata.EndFrame
+			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[1]).never.to.be.ok()
-			expect(selectedKeyframes.Root.Head[endFrame]).to.be.ok()
+			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
 		end)
 	end)
 
@@ -287,16 +286,16 @@ return function()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			local animationData = store:getState().AnimationData
-			local endFrame = animationData.Metadata.EndFrame
+			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
-			expect(selectedKeyframes.Root.Head[endFrame]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[endFrame - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
+			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
+			expect(selectedKeyframes.Root.Head[endTick - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endFrame]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endFrame - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[endTick - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
 		end)
 	end)
 
@@ -360,16 +359,16 @@ return function()
 
 			local selectedKeyframes = store:getState().Status.SelectedKeyframes
 			local animationData = store:getState().AnimationData
-			local endFrame = animationData.Metadata.EndFrame
+			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).to.be.ok()
 			expect(selectedKeyframes.Root.Head[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
-			expect(selectedKeyframes.Root.Head[endFrame]).to.be.ok()
+			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endFrame]).to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
 		end)
 	end)
 end

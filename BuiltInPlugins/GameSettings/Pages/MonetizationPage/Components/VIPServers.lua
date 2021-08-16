@@ -1,6 +1,6 @@
 --[[
     VIPServers is a wrapper around RadioButtonSet to display a Price config (field for price,
-    label for fee, label for actual amount earned), and Subscriptions Count and Total VIP Servers Count 
+    label for fee, label for actual amount earned), and Subscriptions Count and Total VIP Servers Count
     between the "On" and "Off" buttons.
 
     Necessary props:
@@ -40,7 +40,7 @@ local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)

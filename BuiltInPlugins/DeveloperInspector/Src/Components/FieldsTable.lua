@@ -1,4 +1,6 @@
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
+
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -113,7 +115,8 @@ function FieldsTable:render()
 		RootItems = fields,
 		RenderRow = self.renderRow,
 		GetChildren = getChildren,
-		ScrollingDirection = Enum.ScrollingDirection.Y
+		ScrollingDirection = Enum.ScrollingDirection.Y,
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 	})
 end
 

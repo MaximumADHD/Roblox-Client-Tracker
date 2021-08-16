@@ -9,6 +9,7 @@
 
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
+local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,6 +39,9 @@ local Actions = Plugin.Core.Actions
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local SetUploadAssetType = require(Actions.SetUploadAssetType)
 
+local Thunks = Plugin.Core.Thunks
+local GoToNextScreen = require(Thunks.AssetConfiguration.GoToNextScreen)
+
 local PREVIEW_PADDING = 48
 local PREVIEW_SIZE = 150
 local PREVIEW_TITLE_PADDING = 12
@@ -59,7 +63,11 @@ local AssetTypeSelection = Roact.PureComponent:extend("AssetTypeSelection")
 
 function AssetTypeSelection:didMount()
 	if self:canSkip() then
-		self.props.onNext(self.props.screenFlowType)
+		if FFlagToolboxAssetConfigAddPublishBackButton then
+			self.props.goToNextScreen()
+		else
+			self.props.onNext(self.props.screenFlowType)
+		end
 	end
 end
 
@@ -197,7 +205,11 @@ function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 				titleText = "Next",
 				isPrimary = true,
 				onClick = function()
-					self.props.onNext(self.props.screenFlowType)
+					if FFlagToolboxAssetConfigAddPublishBackButton then
+						self.props.goToNextScreen()
+					else
+						self.props.onNext(self.props.screenFlowType)
+					end
 				end,
 			}),
 		}),
@@ -220,11 +232,18 @@ local function mapDispatchToProps(dispatch)
 	return {
 		-- TODO: Move this function into the thunk
 		onNext = function(flowType)
+			if FFlagToolboxAssetConfigAddPublishBackButton then
+				-- TODO: remove function when flag is enabled
+				return
+			end
 			if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
 				dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.ASSET_VALIDATION))
 			else
 				dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.CONFIGURE_ASSET))
 			end
+		end,
+		goToNextScreen = function()
+			dispatch(GoToNextScreen())
 		end,
 		onAssetTypeSelected = function(assetType)
 			dispatch(SetUploadAssetType(assetType))

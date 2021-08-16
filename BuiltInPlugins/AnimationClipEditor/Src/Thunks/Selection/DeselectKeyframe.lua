@@ -12,7 +12,7 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
-return function(instanceName, trackName, frame)
+return function(instanceName, trackName, tick)
 	return function(store)
 		local state = store:getState()
 		local status = state.Status
@@ -28,9 +28,9 @@ return function(instanceName, trackName, frame)
 		local newInstance = selectedKeyframes[instanceName] ~= nil and selectedKeyframes[instanceName] or {}
 		local newTrack = newInstance[trackName] ~= nil and newInstance[trackName] or {}
 
-		if newTrack[frame] then
+		if newTrack[tick] then
 			local newKeyframes = Cryo.Dictionary.join(newTrack, {
-				[frame] = Cryo.None,
+				[tick] = Cryo.None,
 			})
 
 			if isEmpty(newKeyframes) then

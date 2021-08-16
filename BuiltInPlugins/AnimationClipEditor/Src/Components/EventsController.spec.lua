@@ -3,15 +3,14 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 	local Constants = require(Plugin.Src.Util.Constants)
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
-
 	local EventsController = require(script.Parent.EventsController)
 
 	local function createTestController()
 		return Roact.createElement(MockWrapper, {}, {
 			Controller = Roact.createElement(EventsController, {
 				Active = true,
-				StartFrame = 0,
-				EndFrame = 30,
+				StartTick = 0,
+				EndTick = 30,
 				TrackPadding = Constants.TRACK_PADDING_SMALL,
 				AbsolutePosition = Vector2.new(),
 				AbsoluteSize = Vector2.new(500, 22),

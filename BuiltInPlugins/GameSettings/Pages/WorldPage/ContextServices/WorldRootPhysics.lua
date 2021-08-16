@@ -6,10 +6,10 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 
 local ContextItem = ContextServices.ContextItem
-local Provider = require(Plugin.Framework.ContextServices.Provider)
+local Provider = require(Plugin.Framework).ContextServices.Provider
 local Impl = require(Page.Controllers.WorldRootPhysicsController)
 
 local Item = ContextItem:extend(script.Name)

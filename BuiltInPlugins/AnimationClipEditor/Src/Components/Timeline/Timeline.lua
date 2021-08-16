@@ -6,12 +6,12 @@
 	time at the very end in order to guarantee accurracy.
 
 	Props:
-		int StartFrame = Start of the frame range for the timeline.
-		int EndFrame = End of the frame range for the timeline
-		int LastFrame = The last frame of the animation. Used to color the timeline.
-		int MajorInterval = Amount of frames between each tick that displays their time.
+		int StartTick = Start of the tick range for the timeline.
+		int EndTick = End of the tick range for the timeline
+		int LastTick = The last tick of the animation. Used to color the timeline.
+		int MajorInterval = Amount of ticks between each mark that displays their time.
 			Recommended to be a multiple of MinorInterval
-		int MinorInterval = Amount of frames between each tick.
+		int MinorInterval = Amount of ticks between each mark.
 			Making this the same as MajorInterval will mean there are no small ticks
 		UDim2 Position = position of the timeline frame
 		Vector2 AnchorPoint = anchor point of the timeline frame
@@ -89,25 +89,25 @@ function Timeline:renderSeparator(timelineTheme, xPos)
 	})
 end
 
-function Timeline:renderFirstFrame(timelineTheme)
+function Timeline:renderFirstTick(timelineTheme)
 	local props = self.props
-	local startFrame = math.max(props.StartFrame, 0)
+	local startTick = math.max(props.StartTick, 0)
 
-	if startFrame == 0 then
+	if startTick == 0 then
 		return self:renderSeparator(timelineTheme, 0)
 	end
 end
 
-function Timeline:renderLastFrame(timelineTheme)
+function Timeline:renderLastTick(timelineTheme)
 	local props = self.props
-	local startFrame = math.max(props.StartFrame, 0)
-	local endFrame = math.max(props.EndFrame, 0)
-	local lastFrame = props.LastFrame or endFrame
+	local startTick = math.max(props.StartTick, 0)
+	local endTick = math.max(props.EndTick, 0)
+	local lastTick = props.LastTick or endTick
 	local width = props.Width
 
-	local xScale = (lastFrame - startFrame) / (endFrame - startFrame)
+	local xScale = (lastTick - startTick) / (endTick - startTick)
 
-	if lastFrame >= startFrame and lastFrame <= endFrame then
+	if lastTick >= startTick and lastTick <= endTick then
 		return self:renderSeparator(timelineTheme, math.floor(xScale * width))
 	end
 end
@@ -119,9 +119,9 @@ function Timeline:render()
 
 		local state = self.state
 
-		local startFrame = math.max(props.StartFrame, 0)
-		local endFrame = math.max(props.EndFrame, 0)
-		local lastFrame = props.LastFrame or endFrame
+		local startTick = math.max(props.StartTick, 0)
+		local endTick = math.max(props.EndTick, 0)
+		local lastTick = props.LastTick or endTick
 		local majorInterval = math.clamp(props.MajorInterval, MIN_INTERVAL, MAX_INTERVAL)
 		local minorInterval = math.clamp(props.MinorInterval, MIN_INTERVAL, MAX_INTERVAL)
 		local sampleRate
@@ -147,19 +147,19 @@ function Timeline:render()
 			frameRate = animationData and animationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE
 		end
 
-		endFrame = math.max(endFrame, startFrame + majorInterval)
+		endTick = math.max(endTick, startTick + majorInterval)
 
 		local children = props[Roact.Children]
 		if not children then
 			children = {}
 		end
 		local offset = 0
-		if startFrame > 0 and startFrame % minorInterval ~= 0 then
-			offset = minorInterval - (startFrame % minorInterval)
+		if startTick > 0 and startTick % minorInterval ~= 0 then
+			offset = minorInterval - (startTick % minorInterval)
 		end
 
-		for frameNo = startFrame + offset, endFrame, minorInterval do
-			local xScale = (frameNo - startFrame) / (endFrame - startFrame)
+		for frameNo = startTick + offset, endTick, minorInterval do
+			local xScale = (frameNo - startTick) / (endTick - startTick)
 			local onInterval = frameNo % majorInterval == 0
 			local seconds = math.floor(frameNo / sampleRate)
 			local frames = frameNo - (seconds * sampleRate)
@@ -175,7 +175,7 @@ function Timeline:render()
 				LabelPosition = tickLabelPosition,
 				TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
 				ShowTime = onInterval,
-				PastEnd = frameNo > lastFrame,
+				PastEnd = frameNo > lastTick,
 				TimeInSeconds = DisplaySecondsOnTimeline() and StringUtils.formatTimeInSeconds(frames, frameRate)
 			})
 		end
@@ -186,8 +186,8 @@ function Timeline:render()
 		})
 
 		local innerWidth
-		if lastFrame then
-			innerWidth = math.max(0, width * (lastFrame - startFrame) / (endFrame - startFrame))
+		if lastTick then
+			innerWidth = math.max(0, width * (lastTick - startTick) / (endTick - startTick))
 		else
 			innerWidth = width
 		end
@@ -206,8 +206,8 @@ function Timeline:render()
 				BorderSizePixel = 0,
 			}, children),
 
-			FirstFrame = self:renderFirstFrame(timelineTheme),
-			LastFrame = self:renderLastFrame(timelineTheme),
+			FirstTick = self:renderFirstTick(timelineTheme),
+			LastTick = self:renderLastTick(timelineTheme),
 		})
 end
 

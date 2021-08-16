@@ -38,7 +38,7 @@ local TagsUtil = require(Util.TagsUtil)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local StyleModifier = require(Libs.Framework.Util.StyleModifier)
+local StyleModifier = require(Libs.Framework).Util.StyleModifier
 
 local Container
 local RoundBox

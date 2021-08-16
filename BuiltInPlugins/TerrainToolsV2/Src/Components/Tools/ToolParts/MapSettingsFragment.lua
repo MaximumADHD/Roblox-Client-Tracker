@@ -29,8 +29,6 @@ local VectorTextInput = require(ToolParts.VectorTextInput)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
-
 local function checkVolume(size, maxVolume)
 	if not maxVolume then
 		return true
@@ -115,14 +113,8 @@ function MapSettingsFragment:init(props)
 	end
 
 	self.onVectorFocusLost = function(vector, axis, enterPressed, text, isValid)
-		if FFlagTerrainToolsTextValidationFix then
-			if utf8.len(text) > 0 and locallyApplyChangeAndVerify(vector, axis, text) then
-				dispatchVectorChanged(vector, axis, text, isValid)
-			end
-		else
-			if locallyApplyChangeAndVerify(vector, axis, text) then
-				dispatchVectorChanged(vector, axis, text, isValid)
-			end
+		if utf8.len(text) > 0 and locallyApplyChangeAndVerify(vector, axis, text) then
+			dispatchVectorChanged(vector, axis, text, isValid)
 		end
 	end
 

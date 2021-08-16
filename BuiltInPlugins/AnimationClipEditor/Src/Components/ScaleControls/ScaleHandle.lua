@@ -7,7 +7,7 @@
 		UDim2 Size = size of the handle
 		int ZIndex = display order of this frame
 
-		function OnScaleHandleDragStart(frame) = callback for when user begins to drag a scale handle
+		function OnScaleHandleDragStart(tick) = callback for when user begins to drag a scale handle
 		function OnScaleHandleDragMoved(input) = callback for when user is actively dragging a scale handle
 		function OnScaleHandleDragEnded() = callback for when user has finished dragging a scale handle
 ]]

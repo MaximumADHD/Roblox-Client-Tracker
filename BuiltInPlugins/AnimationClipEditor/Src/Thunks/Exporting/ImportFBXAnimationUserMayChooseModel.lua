@@ -33,7 +33,7 @@ return function(plugin, animationClipDropdown, analytics)
 				newData = RigUtils.fromRigAnimation(result)
 			else
 				local frameRate = RigUtils.calculateFrameRate(result)
-				newData = RigUtils.fromRigAnimation(result, frameRate)
+				newData = RigUtils.fromRigAnimation_deprecated(result, frameRate)
 			end
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))

@@ -5,8 +5,6 @@ local Types = require(Plugin.Src.Types)
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
 local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
-local getFFlagStudioLightGuideLargeAngles = require(Plugin.Src.Flags.getFFlagStudioLightGuideLargeAngles)
-local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
 local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
@@ -57,7 +55,7 @@ end
 function TrapezoidalPrismWireframe:render()
 	self:_setListeners()
 
-	if not self:_setAncestry() and getFFlagStudioLightGuideFixReparent() then
+	if not self:_setAncestry() then
 		return
 	end
 
@@ -83,7 +81,7 @@ function TrapezoidalPrismWireframe:render()
 	if getFFlagStudioLightGuideStrutLengthRange() then
 		outerExtension = 2 * (range * math.sin(angleRad / 2))
 		height = range * math.cos(angleRad / 2)
-	elseif getFFlagStudioLightGuideLargeAngles() and angle > MAX_ANGLE then
+	elseif angle > MAX_ANGLE then
 		outerExtension = 2 * (range * math.tan(math.rad(MAX_ANGLE) / 2))
 		height = range * math.cos(angleRad / 2)
 	end
@@ -130,6 +128,7 @@ function TrapezoidalPrismWireframe:render()
 	local topRightOutline = self._handles.topRightOutline
 	local bottomLeftOutline = self._handles.bottomLeftOutline
 	local bottomRightOutline = self._handles.bottomRightOutline
+	local centerOutline = self._handles.centerOutline
 
 	innerTopOutline.Height = innerWidth
 	innerTopOutline.Adornee = self._adornee
@@ -190,15 +189,11 @@ function TrapezoidalPrismWireframe:render()
 	bottomRightOutline.Adornee = self._adornee
 	bottomRightOutline.Visible = enabled
 	bottomRightOutline.Color3 = color
-
-	if getFFlagStudioLightGuideLargeAngles() then
-		local centerOutline = self._handles.centerOutline
 		
-		centerOutline.Height = range
-		centerOutline.Adornee = self._adornee
-		centerOutline.Visible = enabled
-		centerOutline.Color3 = color
-	end
+	centerOutline.Height = range
+	centerOutline.Adornee = self._adornee
+	centerOutline.Visible = enabled
+	centerOutline.Color3 = color
 
 	self:_setCFrameValues(
 		ROTATION_MATRICES[self._light.Face],
@@ -261,7 +256,7 @@ function TrapezoidalPrismWireframe:_setAncestry()
 		offset = self._light.parent.CFrame
 	end
 
-	if getFFlagStudioLightGuideFixReparent() and not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
+	if not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
 		self:_removeHandles()
 
 		return false
@@ -366,12 +361,10 @@ function TrapezoidalPrismWireframe:_setCFrameValues(
 		CFrame.Angles(corner, 0, 0)
 	)
 
-	if getFFlagStudioLightGuideLargeAngles() then
-		self._handles.centerOutline.CFrame = self._offset * (
-			rotationMatrix *
-			CFrame.new(0, 0, halfOuterRange)
-		)
-	end
+	self._handles.centerOutline.CFrame = self._offset * (
+		rotationMatrix *
+		CFrame.new(0, 0, halfOuterRange)
+	)
 end
 
 function TrapezoidalPrismWireframe:_setHandles()	
@@ -435,6 +428,11 @@ function TrapezoidalPrismWireframe:_setHandles()
 	bottomRightOutline.Transparency = TRANSPARENCY
 	bottomRightOutline.Parent = self._handlesFolder
 
+	local centerOutline: CylinderHandleAdornment = Instance.new("CylinderHandleAdornment")
+	centerOutline.Radius = THICKNESS * 0.5
+	centerOutline.Transparency = TRANSPARENCY
+	centerOutline.Parent = self._handlesFolder
+
 	self._handles.innerTopOutline = innerTopOutline
 	self._handles.innerBottomOutline = innerBottomOutline
 	self._handles.innerLeftOutline = innerLeftOutline
@@ -447,21 +445,13 @@ function TrapezoidalPrismWireframe:_setHandles()
 	self._handles.topRightOutline = topRightOutline
 	self._handles.bottomLeftOutline = bottomLeftOutline
 	self._handles.bottomRightOutline = bottomRightOutline
-
-	if getFFlagStudioLightGuideLargeAngles() then
-		local centerOutline: CylinderHandleAdornment = Instance.new("CylinderHandleAdornment")
-		centerOutline.Radius = THICKNESS * 0.5
-		centerOutline.Transparency = TRANSPARENCY
-		centerOutline.Parent = self._handlesFolder
-
-		self._handles.centerOutline = centerOutline
-	end
+	self._handles.centerOutline = centerOutline
 
 	self._handlesPresent = true
 end
 
 function TrapezoidalPrismWireframe:_removeHandles()
-	if self._handles and (not getFFlagStudioLightGuideFixReparent() or self._handlesPresent) then
+	if self._handles and self._handlesPresent then
 		self._handles.innerTopOutline:Destroy()
 		self._handles.innerBottomOutline:Destroy()
 		self._handles.innerLeftOutline:Destroy()
@@ -474,10 +464,7 @@ function TrapezoidalPrismWireframe:_removeHandles()
 		self._handles.topRightOutline:Destroy()
 		self._handles.bottomLeftOutline:Destroy()
 		self._handles.bottomRightOutline:Destroy()
-
-		if getFFlagStudioLightGuideLargeAngles() then
-			self._handles.centerOutline:Destroy()
-		end
+		self._handles.centerOutline:Destroy()
 
 		self._handlesPresent = false
 	end

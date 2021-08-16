@@ -1308,16 +1308,16 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	-- If the last keyframe was empty and only there to determine length,
 	-- we need to add an explicit keyframe at the end of the animation to
 	-- preserve the correct length.
-	local endFrame = KeyframeUtils.getNearestTick(length * Constants.TICK_FREQUENCY)
+	local endTick = KeyframeUtils.getNearestTick(length * Constants.TICK_FREQUENCY)
 	if lastKeyframe and #lastKeyframe:GetChildren() == 0 then
 		for _, track in pairs(tracks) do
 			local lastFrame = track.Keyframes[#track.Keyframes]
 			local lastValue = track.Data[lastFrame].Value
-			AnimationData.addKeyframe(track, endFrame, lastValue)
+			AnimationData.addKeyframe(track, endTick, lastValue)
 		end
 	end
 
-	animationData.Metadata.EndFrame = endFrame
+	animationData.Metadata.EndTick = endTick
 	animationData.Metadata.Priority = keyframeSequence.Priority
 	animationData.Metadata.Looping = keyframeSequence.Loop
 	animationData.Metadata.Name = keyframeSequence.Name
@@ -1346,7 +1346,7 @@ function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapT
 	local tracks = animationData.Instances.Root.Tracks
 	for _, keyframe in pairs(keyframes) do
 		local time = keyframe.Time
-		local frame = KeyframeUtils.snapToFrame(time * frameRate, snapTolerance or DEFAULT_TOLERANCE)
+		local tick = KeyframeUtils.snapToFrame(time * frameRate, snapTolerance or DEFAULT_TOLERANCE)
 
 		-- Add keyframes at this frame
 		traversePoses(keyframe, function(pose)
@@ -1366,11 +1366,11 @@ function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapT
 				local track = tracks[poseName]
 				if GetFFlagFacialAnimationSupport() then
 					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
-					AnimationData.addKeyframe(track, frame, value)
+					AnimationData.addKeyframe(track, tick, value)
 				else
-					AnimationData.addKeyframe(track, frame, pose.CFrame)
+					AnimationData.addKeyframe(track, tick, pose.CFrame)
 				end
-				AnimationData.setKeyframeData(track, frame, {
+				AnimationData.setKeyframeData(track, tick, {
 					EasingStyle = pose.EasingStyle,
 					EasingDirection = pose.EasingDirection,
 				})
@@ -1381,7 +1381,7 @@ function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapT
 
 		-- Add events at this frame
 		traverseKeyframeMarkers(keyframe, function(marker)
-			AnimationData.addEvent(animationData.Events, frame,
+			AnimationData.addEvent(animationData.Events, tick,
 				marker.Name, marker.Value)
 
 			numEvents = numEvents + 1
@@ -1394,23 +1394,23 @@ function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapT
 		end
 
 		if keyframe.Name ~= Constants.DEFAULT_KEYFRAME_NAME then
-			AnimationData.setKeyframeName(animationData, frame, keyframe.Name)
+			AnimationData.setKeyframeName(animationData, tick, keyframe.Name)
 		end
 	end
 
 	-- If the last keyframe was empty and only there to determine length,
 	-- we need to add an explicit keyframe at the end of the animation to
 	-- preserve the correct length.
-	local endFrame = KeyframeUtils.getNearestFrame_deprecated(length * frameRate)
+	local endTick = KeyframeUtils.getNearestFrame_deprecated(length * frameRate)
 	if lastKeyframe and #lastKeyframe:GetChildren() == 0 then
 		for _, track in pairs(tracks) do
 			local lastFrame = track.Keyframes[#track.Keyframes]
 			local lastValue = track.Data[lastFrame].Value
-			AnimationData.addKeyframe(track, endFrame, lastValue)
+			AnimationData.addKeyframe(track, endTick, lastValue)
 		end
 	end
 
-	animationData.Metadata.EndFrame = endFrame
+	animationData.Metadata.EndTick = endTick
 	animationData.Metadata.Priority = keyframeSequence.Priority
 	animationData.Metadata.Looping = keyframeSequence.Loop
 	animationData.Metadata.Name = keyframeSequence.Name

@@ -7,6 +7,8 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -19,6 +21,7 @@ local ProgressSpinner = require(Plugin.Src.Components.ProgressSpinner)
 local MessageFrame = require(Plugin.Src.Components.MessageFrame)
 local CloudTableSection = require(Plugin.Src.Components.CloudTableSection)
 local EmbeddedTableSection = require(Plugin.Src.Components.EmbeddedTableSection)
+local ImageLocalizationSection = require(Plugin.Src.Components.ImageLocalizationSection)
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
@@ -32,6 +35,8 @@ function MainView:render()
 	else
 		theme = props.Theme:get("MainView")
 	end
+
+	local layoutOrder = LayoutOrderIterator.new()
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -64,15 +69,18 @@ function MainView:render()
 					PaddingRight = UDim.new(0, theme.PaddingRight),
 				}),
 				CloudTableSection = Roact.createElement(CloudTableSection, {
-					LayoutOrder = 1,
+					LayoutOrder = layoutOrder:getNextOrder(),
 				}),
 				EmbeddedTableSection = Roact.createElement(EmbeddedTableSection, {
-					LayoutOrder = 2,
+					LayoutOrder = layoutOrder:getNextOrder(),
+				}),
+				ImageLocalizationSection = Roact.createElement(ImageLocalizationSection, {
+					LayoutOrder = layoutOrder:getNextOrder(),
 				}),
 				ExtendedBackground = Roact.createElement("Frame", {
 					BackgroundColor3 = theme.MainBackground,
 					BorderSizePixel = 0,
-					LayoutOrder = 3,
+					LayoutOrder = layoutOrder:getNextOrder(),
 					Size = UDim2.new(1, 0, 0, theme.EmptyFrameHeight),
 				})
 			}),

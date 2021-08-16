@@ -5,7 +5,6 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 	local testTrackData = {
 		Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
 		Keyframes = {2, 4, 5},
@@ -195,19 +194,19 @@ return function()
 	else
 		describe("getNearestTick", function()
 			it("should find the closest tick to the given float", function()
-				local frame = KeyframeUtils.getNearestTick(1.1)
-				expect(frame).to.equal(1)
+				local tick = KeyframeUtils.getNearestTick(1.1)
+				expect(tick).to.equal(1)
 
-				frame = KeyframeUtils.getNearestTick(1.9)
-				expect(frame).to.equal(2)
+				tick = KeyframeUtils.getNearestTick(1.9)
+				expect(tick).to.equal(2)
 			end)
 
 			it("should round up if at .5", function()
-				local frame = KeyframeUtils.getNearestTick(1.5)
-				expect(frame).to.equal(2)
+				local tick = KeyframeUtils.getNearestTick(1.5)
+				expect(tick).to.equal(2)
 
-				frame = KeyframeUtils.getNearestTick(2.5)
-				expect(frame).to.equal(3)
+				tick = KeyframeUtils.getNearestTick(2.5)
+				expect(tick).to.equal(3)
 			end)
 		end)
 	end

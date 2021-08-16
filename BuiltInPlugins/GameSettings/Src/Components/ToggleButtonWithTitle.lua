@@ -15,12 +15,11 @@
 
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
-local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Framework = require(Plugin.Framework)
@@ -28,10 +27,10 @@ local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
-local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and require(Plugin.Framework.Util).LayoutOrderIterator or nil
+local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and require(Plugin.Framework).Util.LayoutOrderIterator or nil
 
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 
@@ -67,7 +66,7 @@ function ToggleButtonWithTitle:render()
 	local title = props.Title
 	local onClick = props.OnClick
 	local showWarning = props.ShowWarning
-	local linkProps = FFlagGameSettingsEnableVoiceChat and FFlagDevFrameworkPaneSupportTheme1 and props.LinkProps or nil
+	local linkProps = FFlagGameSettingsEnableVoiceChat and props.LinkProps or nil
 
 	local layoutIndex
 	if FFlagGameSettingsEnableVoiceChat then

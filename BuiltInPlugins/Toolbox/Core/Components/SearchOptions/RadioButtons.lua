@@ -25,6 +25,11 @@ local Images = require(Plugin.Core.Util.Images)
 
 local RadioButtons = Roact.PureComponent:extend("RadioButtons")
 
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
+	return {}
+end
+
 local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	FillDirection = Enum.FillDirection.Vertical,
 	Padding = UDim.new(0, 5),

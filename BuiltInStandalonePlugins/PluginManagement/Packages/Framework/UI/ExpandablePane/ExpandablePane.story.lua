@@ -1,5 +1,3 @@
-local FFlagDevFrameworkExpandablePane = game:GetFastFlag("DevFrameworkExpandablePane")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -114,104 +112,91 @@ function CustomHeader(props)
 	}))
 end
 
-if FFlagDevFrameworkExpandablePane then
-	return {
-		stories = {
-			{
-				name = "Default",
-				story = Roact.createElement(SimpleExpandablePane, {
-					Text = "Title",
+return {
+	stories = {
+		{
+			name = "Default",
+			story = Roact.createElement(SimpleExpandablePane, {
+				Text = "Title",
+			}, {
+				Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Text = "This has the Default style",
+				})
+			}),
+		},
+		{
+			name = "OnExpandedChanged",
+			story = ExpandedChangedStory,
+		},
+		{
+			name = "Pane Styles",
+			story = Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				BackgroundColor = Colors.Gray_Mid,
+				Layout = Enum.FillDirection.Vertical,
+				Padding = 10,
+				Spacing = 10,
+			}, {
+				Box = Roact.createElement(SimpleExpandablePane, {
+					LayoutOrder = 1,
+					Style = "Box",
+					Text = "Box",
 				}, {
 					Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.Y,
-						Text = "This has the Default style",
+						Text = "This has a Box style",
 					})
 				}),
-			},
-			{
-				name = "OnExpandedChanged",
-				story = ExpandedChangedStory,
-			},
-			{
-				name = "Pane Styles",
-				story = Roact.createElement(Pane, {
-					AutomaticSize = Enum.AutomaticSize.Y,
-					BackgroundColor = Colors.Gray_Mid,
-					Layout = Enum.FillDirection.Vertical,
-					Padding = 10,
-					Spacing = 10,
+
+				RoundBox = Roact.createElement(SimpleExpandablePane, {
+					LayoutOrder = 2,
+					Style = "RoundBox",
+					Text = "RoundBox",
 				}, {
-					Box = Roact.createElement(SimpleExpandablePane, {
-						LayoutOrder = 1,
-						Style = "Box",
-						Text = "Box",
-					}, {
-						Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							Text = "This has a Box style",
-						})
-					}),
+					Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Text = "This has a RoundBox style",
+					})
+				}),
 
-					RoundBox = Roact.createElement(SimpleExpandablePane, {
-						LayoutOrder = 2,
-						Style = "RoundBox",
-						Text = "RoundBox",
-					}, {
-						Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							Text = "This has a RoundBox style",
-						})
-					}),
-
-					BorderBox = Roact.createElement(SimpleExpandablePane, {
-						LayoutOrder = 3,
-						Style = "BorderBox",
-						Text = "BorderBox",
-					}, {
-						Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							Text = "This has a BorderBox style",
-						})
-					}),
-				})
-			},
-			{
-				name = "Custom Header",
-				story = Roact.createElement(CustomHeader, {
+				BorderBox = Roact.createElement(SimpleExpandablePane, {
+					LayoutOrder = 3,
 					Style = "BorderBox",
+					Text = "BorderBox",
+				}, {
+					Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Text = "This has a BorderBox style",
+					})
+				}),
+			})
+		},
+		{
+			name = "Custom Header",
+			story = Roact.createElement(CustomHeader, {
+				Style = "BorderBox",
+				Text = "Title",
+			}, {
+				Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Text = "This has custom header contents added with HeaderComponent",
+				})
+			})
+		},
+		{
+			name = "Custom Style",
+			story = ContextServices.provide({theme}, {
+				Roact.createElement(SimpleExpandablePane, {
+					Style = "CustomStyle",
 					Text = "Title",
 				}, {
 					Roact.createElement(TextLabel, {
 						AutomaticSize = Enum.AutomaticSize.Y,
-						Text = "This has custom header contents added with HeaderComponent",
+						Text = "This has a custom style",
 					})
 				})
-			},
-			{
-				name = "Custom Style",
-				story = ContextServices.provide({theme}, {
-					Roact.createElement(SimpleExpandablePane, {
-						Style = "CustomStyle",
-						Text = "Title",
-					}, {
-						Roact.createElement(TextLabel, {
-							AutomaticSize = Enum.AutomaticSize.Y,
-							Text = "This has a custom style",
-						})
-					})
-				})
-			}
+			})
 		}
 	}
-else
-	return Roact.createElement(Pane, {
-		VerticalAlignment = Enum.VerticalAlignment.Center,
-	}, {
-		Label = Roact.createElement(TextLabel, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Size = UDim2.fromScale(1, 0),
-			Text = "Not quite ready. Will be released soon!",
-			TextWrapped = true,
-		}),
-	})
-end
+}

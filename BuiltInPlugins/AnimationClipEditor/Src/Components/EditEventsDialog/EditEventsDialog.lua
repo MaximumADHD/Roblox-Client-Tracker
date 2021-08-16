@@ -6,7 +6,7 @@
 
 	Props:
 		table Events = The Events table from the current animation data.
-		int Frame = The current frame where events are being edited.
+		int Tick = The current tick where events are being edited.
 
 		function OnSaved(table newEvents) = A callback for when the user wants
 			to save the modified newEvents table to the animation data.
@@ -41,7 +41,6 @@ local StyledDialog = Framework.StudioUI.StyledDialog
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 local EventNameEntry = require(Plugin.Src.Components.EditEventsDialog.EventNameEntry)
@@ -68,10 +67,10 @@ function EditEventsDialog:init(initialProps)
 
 	self.onAddEvent = function()
 		local events = self.state.CurrentEvents
-		local frame = self.props.Frame
+		local tick = self.props.Tick
 		-- Add new events as empty strings so that the text box
 		-- automatically focuses for us
-		AnimationData.addEvent(events, frame, "", "")
+		AnimationData.addEvent(events, tick, "", "")
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -79,11 +78,11 @@ function EditEventsDialog:init(initialProps)
 
 	self.onRenameEvent = function(name, newName)
 		local events = self.state.CurrentEvents
-		local frame = self.props.Frame
-		if events.Data[frame] and events.Data[frame][name] then
-			local value = events.Data[frame][name]
-			AnimationData.removeEvent(events, frame, name)
-			AnimationData.addEvent(events, frame, newName, value)
+		local tick = self.props.Tick
+		if events.Data[tick] and events.Data[tick][name] then
+			local value = events.Data[tick][name]
+			AnimationData.removeEvent(events, tick, name)
+			AnimationData.addEvent(events, tick, newName, value)
 		end
 		self:setState({
 			CurrentEvents = events,
@@ -92,8 +91,8 @@ function EditEventsDialog:init(initialProps)
 
 	self.onSetEventValue = function(name, newValue)
 		local events = self.state.CurrentEvents
-		local frame = self.props.Frame
-		AnimationData.setEventValue(events, frame, name, newValue)
+		local tick = self.props.Tick
+		AnimationData.setEventValue(events, tick, name, newValue)
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -101,8 +100,8 @@ function EditEventsDialog:init(initialProps)
 
 	self.onDeleteEvent = function(name)
 		local events = self.state.CurrentEvents
-		local frame = self.props.Frame
-		AnimationData.removeEvent(events, frame, name)
+		local tick = self.props.Tick
+		AnimationData.removeEvent(events, tick, name)
 		self:setState({
 			CurrentEvents = events,
 		})
@@ -110,9 +109,9 @@ function EditEventsDialog:init(initialProps)
 
 	self.onDeleteAllEvents = function(name)
 		local events = self.state.CurrentEvents
-		for frame, event in pairs(events.Data) do
+		for tick, event in pairs(events.Data) do
 			if event[name] then
-				AnimationData.removeEvent(events, frame, name)
+				AnimationData.removeEvent(events, tick, name)
 			end
 		end
 		self:setState({
@@ -122,11 +121,11 @@ function EditEventsDialog:init(initialProps)
 
 	self.onRenameAllEvents = function(name, newName)
 		local events = self.state.CurrentEvents
-		for frame, event in pairs(events.Data) do
+		for tick, event in pairs(events.Data) do
 			if event[name] then
 				local value = event[name]
-				AnimationData.removeEvent(events, frame, name)
-				AnimationData.addEvent(events, frame, newName, value)
+				AnimationData.removeEvent(events, tick, name)
+				AnimationData.addEvent(events, tick, newName, value)
 			end
 		end
 		self:setState({
@@ -161,7 +160,7 @@ function EditEventsDialog:init(initialProps)
 		})
 	end
 
-	self.getUnusedEvents = function(frame)
+	self.getUnusedEvents = function(tick)
 		local unusedEvents = {}
 		local currentEvents = self.state.CurrentEvents
 		for _, event in pairs(currentEvents.Data) do
@@ -169,8 +168,8 @@ function EditEventsDialog:init(initialProps)
 				unusedEvents[name] = true
 			end
 		end
-		if currentEvents.Data[frame] then
-			for name, _ in pairs(currentEvents.Data[frame]) do
+		if currentEvents.Data[tick] then
+			for name, _ in pairs(currentEvents.Data[tick]) do
 				unusedEvents[name] = nil
 			end
 		end
@@ -295,13 +294,13 @@ end
 function EditEventsDialog:renderEvents(theme, contents)
 	local props = self.props
 	local state = self.state
-	local frame = props.Frame
+	local tick = props.Tick
 	local events = state.CurrentEvents
 	local innerHeight = MIN_INNER_HEIGHT
 
-	if events and events.Data and events.Data[frame] then
-		local unusedEvents = self.getUnusedEvents(frame)
-		local keys = Cryo.Dictionary.keys(events.Data[frame])
+	if events and events.Data and events.Data[tick] then
+		local unusedEvents = self.getUnusedEvents(tick)
+		local keys = Cryo.Dictionary.keys(events.Data[tick])
 		-- Sort alphabetically but leave empty strings at the end,
 		-- so that new events always show up at the bottom.
 		table.sort(keys, function(key1, key2)
@@ -314,7 +313,7 @@ function EditEventsDialog:renderEvents(theme, contents)
 			end
 		end)
 		for _, key in ipairs(keys) do
-			local value = events.Data[frame][key]
+			local value = events.Data[tick][key]
 			contents["Event_" .. key] = self:addEventRow(theme, key, value, unusedEvents)
 			innerHeight = innerHeight + ROW_HEIGHT
 		end
@@ -439,7 +438,5 @@ else
 		Mouse = ContextServices.Mouse,
 	})
 end
-
-
 
 return EditEventsDialog

@@ -12,7 +12,7 @@ local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 
@@ -69,5 +69,3 @@ return function(networkInterface, assetId)
 		)
 	end
 end
-
-

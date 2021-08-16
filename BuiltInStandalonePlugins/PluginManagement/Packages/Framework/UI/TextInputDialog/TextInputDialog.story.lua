@@ -1,8 +1,6 @@
-local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
-local TextInputDialog = FFlagTextInputDialogDevFramework and require(Framework.UI.TextInputDialog) or nil
+local TextInputDialog = require(Framework.UI.TextInputDialog)
 local Button = require(Framework.UI.Button)
 
 local ExampleTextInputDialog = Roact.PureComponent:extend("ExampleTextInputDialog")
@@ -17,14 +15,14 @@ function ExampleTextInputDialog:render()
 	return Roact.createElement(Button, {
 		Size = UDim2.new(1, 0, 0, 30),
 		LayoutOrder = 1,
-		Text = FFlagTextInputDialogDevFramework and "Open TextInputDialog" or "Not quite ready. Will be released soon!",
+		Text = "Open TextInputDialog",
 		OnClick = function()
 			self:setState({
 				enabled = true
 			})
 		end,
 	}, {
-		Dialog = FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
+		Dialog = Roact.createElement(TextInputDialog,
 		{
 			Enabled = self.state.enabled,
 			Title = "Title",
@@ -48,7 +46,7 @@ function ExampleTextInputDialog:render()
 					enabled = false
 				})
 			end,
-		}) or nil,
+		}),
 	})
 end
 

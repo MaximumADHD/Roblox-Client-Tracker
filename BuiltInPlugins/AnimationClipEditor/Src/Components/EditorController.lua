@@ -53,7 +53,7 @@ local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AttachEditor = require(Plugin.Src.Thunks.AttachEditor)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
-local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
@@ -297,9 +297,10 @@ function EditorController:render()
 	local props = self.props
 	local state = self.state
 
-	local startFrame = 0
-	local endFrame = 0
-	local lastFrame = 0
+	local startTick = 0
+	local endTick = 0
+	local lastTick = 0
+
 	local active = props.Active
 	local playhead = props.Playhead
 	local isPlaying = props.IsPlaying
@@ -320,23 +321,24 @@ function EditorController:render()
 	local absoluteSize = state.AbsoluteSize
 	local showChangeFPSPrompt = state.showChangeFPSPrompt
 	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
-
-	if animationData then
-		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
-		startFrame = range.Start
-		endFrame = range.End
-		lastFrame = animationData.Metadata.EndFrame
-	end
-
 	local showEditor = animationData ~= nil
 	local useJointSelector = not UseLuaDraggers()
 	local bigAnimation = false
-	if animationData and (GetFFlagDebugExtendAnimationLimit() and not GetFFlagExtendAnimationLimit()) then
-		local length = animationData.Metadata.EndFrame / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
-		if length >= Constants.MAX_DISPLAYED_TIME then
-			bigAnimation = true
+
+	if animationData then
+		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
+		startTick = range.Start
+		endTick = range.End
+		lastTick = animationData.Metadata.EndTick
+
+		if (GetFFlagDebugExtendAnimationLimit() and not GetFFlagExtendAnimationLimit()) then
+			local length = endTick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
+			if length >= Constants.MAX_DISPLAYED_TIME then
+				bigAnimation = true
+			end
 		end
 	end
+
 	showEvents = showEvents and showEditor
 
 	local rootName
@@ -373,8 +375,8 @@ function EditorController:render()
 			LayoutOrder = 0,
 		}, {
 			AnimationControlPanel = Roact.createElement(AnimationControlPanel, {
-				StartFrame = startFrame,
-				EndFrame = endFrame,
+				StartTick = startTick,
+				EndTick = endTick,
 				Playhead = playhead,
 				EditingLength = editingLength,
 				AnimationData = props.AnimationData,
@@ -403,7 +405,7 @@ function EditorController:render()
 					LayoutOrder = 0,
 					Indent = 1,
 					OnButtonClick = function()
-						props.SetEventEditingFrame(playhead)
+						props.SetEventEditingTick(playhead)
 					end,
 				}),
 
@@ -469,9 +471,9 @@ function EditorController:render()
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -trackListWidth - Constants.SCROLL_BAR_SIZE
 				- Constants.SCROLL_BAR_PADDING, 1, 0),
-			StartFrame = startFrame,
-			EndFrame = endFrame,
-			LastFrame = lastFrame,
+			StartTick = startTick,
+			EndTick = endTick,
+			LastTick = lastTick,
 			Playhead = playhead,
 			FrameRate = not GetFFlagUseTicks() and (animationData and animationData.Metadata and animationData.Metadata.FrameRate) or nil,
 			DisplayFrameRate = GetFFlagUseTicks() and props.DisplayFrameRate or nil,
@@ -670,13 +672,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		ValueChanged = function(instanceName, trackName, trackType, frame, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, frame, value, analytics))
+		ValueChanged = function(instanceName, trackName, trackType, tick, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		ValueChanged_deprecated = function(instanceName, trackName, frame, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, frame, value, analytics))
+		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
 		end,
 
 		AddWaypoint = function()
@@ -691,8 +693,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(ReleaseEditor(analytics))
 		end,
 
-		SetEventEditingFrame = function(frame)
-			dispatch(SetEventEditingFrame(frame))
+		SetEventEditingTick = function(tick)
+			dispatch(SetEventEditingTick(tick))
 		end,
 
 		SetMotorData = function(motorData)

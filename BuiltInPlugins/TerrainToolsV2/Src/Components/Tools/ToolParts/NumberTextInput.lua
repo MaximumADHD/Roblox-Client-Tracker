@@ -38,8 +38,6 @@ end
 
 local NumberTextInput = Roact.PureComponent:extend("NumberTextInput")
 
-local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
-
 NumberTextInput.defaultProps = {
 	MaxGraphemes = MAX_GRAPHEMES,
 }
@@ -55,7 +53,7 @@ function NumberTextInput:init(props)
 	end
 
 	self.onFocusLost = function(enterPressed, text)
-		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+		if utf8.len(text) == 0 then
 			text = self.props.Value
 		end
 		local newText = self.handlePrecision(text)
@@ -70,7 +68,7 @@ function NumberTextInput:init(props)
 	end
 
 	self.isTextValid = function(text)
-		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+		if utf8.len(text) == 0 then
 			return true, nil
 		end
 
@@ -106,7 +104,7 @@ function NumberTextInput:init(props)
 		self.isValid = isValid
 
 		if self.props.OnValueChanged then
-			if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+			if utf8.len(text) == 0 then
 				self.props.OnValueChanged(self.props.Key, self.props.Value, self.isValid)
 			else
 				self.props.OnValueChanged(self.props.Key, text, self.isValid)

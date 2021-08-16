@@ -11,7 +11,7 @@ return function(analytics)
 		local state = store:getState()
 		local animationData = state.AnimationData
 
-		if animationData and animationData.Metadata and animationData.Metadata.EndFrame > 0 then
+		if animationData and animationData.Metadata and animationData.Metadata.EndTick > 0 then
 			local playing = store:getState().Status.IsPlaying
 			store:dispatch(SetIsPlaying(not playing))
 		end

@@ -17,9 +17,6 @@ local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Theming = require(Plugin.Src.ContextServices.Theming)
-
-local Localizing = UILibrary.Localizing
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
@@ -35,7 +32,6 @@ local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -86,176 +82,93 @@ function ScreenPublishFail:willUnmount()
 end
 
 function ScreenPublishFail:render()
-	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-		local props = self.props
-		local theme = props.Theme:get("Plugin")
-		local localization = props.Localization
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+	local localization = props.Localization
 
-		local id = props.Id
-		local name = props.Name
-		local parentGameId = props.ParentGameId
-		local settings = props.Settings
-		local isPublishing = props.IsPublishing
+	local id = props.Id
+	local name = props.Name
+	local parentGameId = props.ParentGameId
+	local settings = props.Settings
+	local isPublishing = props.IsPublishing
 
-		local dispatchSetIsPublishing = props.dispatchSetIsPublishing
+	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
-		local failureMessage = localization:getText("PublishFail", "Fail")
-		if FFlagStudioNewGamesInCloudUI and isPublishing == false then
-			-- Use a different error message for save failures
-			failureMessage = localization:getText("PublishFail", "SaveFail")
-		end
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
-			BorderSizePixel = 0,
-		}, {
-			Icon = Roact.createElement("ImageLabel", {
-				Position = UDim2.new(0.5, 0, 0.2, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-				Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
-				BorderSizePixel = 0,
-			}),
-
-			Name = Roact.createElement("TextLabel", {
-				Text = name,
-				Position = UDim2.new(0.5, 0, 0.35, 0),
-				TextSize = 20,
-				BackgroundTransparency = 1,
-				TextColor3 = theme.header.text,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				Font = theme.header.font,
-			}),
-
-			Fail = Roact.createElement("TextLabel", {
-				Text = failureMessage,
-				Position = UDim2.new(0.5, 0, 0.5, 0),
-				TextSize = 24,
-				BackgroundTransparency = 1,
-				TextXAlignment = Enum.TextXAlignment.Center,
-				TextColor3 = theme.failText.text,
-				Font = theme.failText.font,
-			}),
-
-
-			Retry = Roact.createElement(RoundTextButton, {
-				Position = UDim2.new(0.5, 0, 0.8, 0),
-				AnchorPoint = Vector2.new(0.5, 0.5),
-				Style = theme.defaultButton,
-				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-				Active = not isPublishing,
-				Name = localization:getText("Button", "Retry"),
-				TextSize = Constants.TEXT_SIZE,
-				OnClicked = function()
-					if not isPublishing then
-						if parentGameId == 0 then
-							SettingsImpl.saveAll(settings, localization)
-						else
-							-- groupId is unused in existing game/place publish, only new game publish 
-							-- which is in the if block
-							StudioService:publishAs(parentGameId, id, 0)
-
-						end
-					end
-					dispatchSetIsPublishing(true)
-				end,
-			})
-		})
-	else
-		return Theming.withTheme(function(theme)
-			return Localizing.withLocalization(function(localization)
-				local props = self.props
-
-				local id = props.Id
-				local name = props.Name
-				local parentGameId = props.ParentGameId
-				local settings = props.Settings
-				local isPublishing = props.IsPublishing
-
-				local dispatchSetIsPublishing = props.dispatchSetIsPublishing
-
-				local failureMessage = localization:getText("PublishFail", "Fail")
-				if FFlagStudioNewGamesInCloudUI and isPublishing == false then
-					-- Use a different error message for save failures
-					failureMessage = localization:getText("PublishFail", "SaveFail")
-				end
-
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = theme.backgroundColor,
-					BorderSizePixel = 0,
-				}, {
-					Icon = Roact.createElement("ImageLabel", {
-						Position = UDim2.new(0.5, 0, 0.2, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-						Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
-						BorderSizePixel = 0,
-					}),
-
-					Name = Roact.createElement("TextLabel", {
-						Text = name,
-						Position = UDim2.new(0.5, 0, 0.35, 0),
-						TextSize = 20,
-						BackgroundTransparency = 1,
-						TextColor3 = theme.header.text,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						Font = theme.header.font,
-					}),
-
-					Fail = Roact.createElement("TextLabel", {
-						Text = failureMessage,
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						TextSize = 24,
-						BackgroundTransparency = 1,
-						TextXAlignment = Enum.TextXAlignment.Center,
-						TextColor3 = theme.failText.text,
-						Font = theme.failText.font,
-					}),
-
-
-					Retry = Roact.createElement(RoundTextButton, {
-						Position = UDim2.new(0.5, 0, 0.8, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Style = theme.defaultButton,
-						Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-						Active = not isPublishing,
-						Name = localization:getText("Button", "Retry"),
-						TextSize = Constants.TEXT_SIZE,
-						OnClicked = function()
-							if not isPublishing then
-								if parentGameId == 0 then
-									SettingsImpl.saveAll(settings, localization)
-								else
-									-- groupId is unused in existing game/place publish, only new game publish 
-									-- which is in the if block
-									StudioService:publishAs(parentGameId, id, 0)
-
-								end
-							end
-							dispatchSetIsPublishing(true)
-						end,
-					})
-				})
-			end)
-		end)
+	local failureMessage = localization:getText("PublishFail", "Fail")
+	if FFlagStudioNewGamesInCloudUI and isPublishing == false then
+		-- Use a different error message for save failures
+		failureMessage = localization:getText("PublishFail", "SaveFail")
 	end
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundColor3 = theme.backgroundColor,
+		BorderSizePixel = 0,
+	}, {
+		Icon = Roact.createElement("ImageLabel", {
+			Position = UDim2.new(0.5, 0, 0.2, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+			Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl or theme.icons.thumbnailPlaceHolder,
+			BorderSizePixel = 0,
+		}),
+
+		Name = Roact.createElement("TextLabel", {
+			Text = name,
+			Position = UDim2.new(0.5, 0, 0.35, 0),
+			TextSize = 20,
+			BackgroundTransparency = 1,
+			TextColor3 = theme.header.text,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			Font = theme.header.font,
+		}),
+
+		Fail = Roact.createElement("TextLabel", {
+			Text = failureMessage,
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			TextSize = 24,
+			BackgroundTransparency = 1,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextColor3 = theme.failText.text,
+			Font = theme.failText.font,
+		}),
+
+
+		Retry = Roact.createElement(RoundTextButton, {
+			Position = UDim2.new(0.5, 0, 0.8, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Style = theme.defaultButton,
+			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
+			Active = not isPublishing,
+			Name = localization:getText("Button", "Retry"),
+			TextSize = Constants.TEXT_SIZE,
+			OnClicked = function()
+				if not isPublishing then
+					if parentGameId == 0 then
+						SettingsImpl.saveAll(settings, localization)
+					else
+						-- groupId is unused in existing game/place publish, only new game publish
+						-- which is in the if block
+						StudioService:publishAs(parentGameId, id, 0)
+
+					end
+				end
+				dispatchSetIsPublishing(true)
+			end,
+		})
+	})
 end
 
-if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	if FFlagPublishPlaceAsWithContext then
-		ScreenPublishFail = withContext({
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-		})(ScreenPublishFail)
-	else
-		ContextServices.mapToProps(ScreenPublishFail, {
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-		})
-	end
-
+if FFlagPublishPlaceAsWithContext then
+	ScreenPublishFail = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(ScreenPublishFail)
+else
+	ContextServices.mapToProps(ScreenPublishFail, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
 end
 
 local function mapStateToProps(state, props)

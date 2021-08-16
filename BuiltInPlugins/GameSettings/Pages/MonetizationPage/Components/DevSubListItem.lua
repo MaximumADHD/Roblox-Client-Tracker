@@ -24,13 +24,13 @@ local numberWithCommas = require(Page.Util.numberWithCommas)
 
 local DevSubListItemText = require(script.Parent.DevSubListItemText)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local UI = require(Plugin.Framework.UI)
+local UI = require(Plugin.Framework).UI
 local HoverArea = UI.HoverArea
 
 local DeveloperSubscriptionListItem = Roact.Component:extend("DeveloperSubscriptionListItem")

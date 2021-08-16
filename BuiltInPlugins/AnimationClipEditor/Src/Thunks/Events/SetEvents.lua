@@ -20,9 +20,9 @@ return function(newEvents, analytics)
 		store:dispatch(UpdateAnimationData(newData))
 
 		local oldEvents = animationData.Events.Data
-		for frame, events in pairs(newEvents.Data) do
+		for tick, events in pairs(newEvents.Data) do
 			for name, parameter in pairs(events) do
-				if oldEvents[frame] == nil or oldEvents[frame][name] == nil then
+				if oldEvents[tick] == nil or oldEvents[tick][name] == nil then
 					analytics:report("onAddEvent", name, parameter)
 				end
 			end

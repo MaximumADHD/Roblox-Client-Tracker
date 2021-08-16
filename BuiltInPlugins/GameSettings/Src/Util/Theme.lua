@@ -23,6 +23,7 @@ local StudioStyle = UILibrary.Studio.Style
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
+local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local Theme = {}
 
@@ -118,8 +119,14 @@ function Theme.createValues(theme, getColor)
 				Color = theme:getColor(StyleColor.MainText, StyleModifier.Hover),
 			},
 		})
+
+		local WarningStyle = FFlagCheckPublishedPlaceExistsForDevPublish and Style.new({
+			Image = "rbxasset://textures/GameSettings/Warning.png",
+		}) or nil
+
 		return {
 			TooltipStyle = TooltipStyle,
+			WarningStyle = WarningStyle,
 		}
 	end) or nil
 
@@ -500,6 +507,18 @@ function Theme.createValues(theme, getColor)
 				}
 			} or nil,
 
+			optInWarning = FFlagCheckPublishedPlaceExistsForDevPublish and {
+				padding = 5,
+				size = 20,
+				transparency = 0.5,
+			} or nil,
+
+			extraOptInInfo = FFlagCheckPublishedPlaceExistsForDevPublish and {
+				padding = 30,
+				length = 250,
+				height = 150,
+			} or nil,
+
 		}),
 
 		Framework = Style.extend(studioStyles, {
@@ -871,8 +890,9 @@ local function getUILibraryTheme()
 			},
 			RequirementsLinkDisabled = {
 				textSize = 16,
-				textColor = theme:GetColor(c.DimmedText),
+				textColor = FFlagCheckPublishedPlaceExistsForDevPublish and theme:GetColor(c.BrightText) or theme:GetColor(c.DimmedText),
 				font = Enum.Font.SourceSans,
+				transparency = FFlagCheckPublishedPlaceExistsForDevPublish and 0.5 or 0,
 			},
 		},
 	}

@@ -28,6 +28,7 @@ end
 
 
 function ServiceWrapper:render()
+	local plugin = self.props.plugin
 	local analytics = self.props.analytics
 	local children = self.props[Roact.Children]
 	local localization = self.props.localization
@@ -41,6 +42,7 @@ function ServiceWrapper:render()
 	-- the order of these providers should be read as bottom up,
 	-- things most likely to change or trigger updates should be near the top of the list
 	return ContextServices.provide({
+		plugin,
 		analytics,
 		localization,
 		theme,

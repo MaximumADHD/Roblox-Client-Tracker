@@ -4,8 +4,8 @@
 	connects these events to thunks and drag logic.
 
 	Props:
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
 		int TrackPadding = amount of total padding
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		bool ShowEvents = Whether to show the AnimationEvents track.
@@ -46,8 +46,8 @@ local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local SelectKeyframe = require(Plugin.Src.Thunks.Selection.SelectKeyframe)
 local DeselectKeyframe = require(Plugin.Src.Thunks.Selection.DeselectKeyframe)
-local SelectKeyframesAtFrame = require(Plugin.Src.Thunks.Selection.SelectKeyframesAtFrame)
-local DeselectKeyframesAtFrame = require(Plugin.Src.Thunks.Selection.DeselectKeyframesAtFrame)
+local SelectKeyframesAtTick = require(Plugin.Src.Thunks.Selection.SelectKeyframesAtTick)
+local DeselectKeyframesAtTick = require(Plugin.Src.Thunks.Selection.DeselectKeyframesAtTick)
 local MoveSelectedKeyframes = require(Plugin.Src.Thunks.Selection.MoveSelectedKeyframes)
 local ScaleSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ScaleSelectedKeyframes)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
@@ -76,7 +76,7 @@ function DopeSheetController:init()
 		dragging = false,
 		draggingScale = false,
 		draggingSelection = false,
-		dragFrame = nil,
+		dragTick = nil,
 		showContextMenu = false,
 		renamingKeyframe = nil,
 		changingDuration = nil,
@@ -97,16 +97,16 @@ function DopeSheetController:init()
 
 	self.selectDragStart, self.updateSelectDragStart = Roact.createBinding(nil)
 	self.selectDragEnd, self.updateSelectDragEnd = Roact.createBinding(nil)
-	self.lastMinFrame = nil
+	self.lastMinTick = nil
 	self.lastMinTrack = nil
-	self.lastMaxFrame = nil
+	self.lastMaxTick = nil
 	self.lastMaxTrack = nil
 
-	self.getFrameFromPosition = function(position, useSnap)
+	self.getTickFromPosition = function(position, useSnap)
 		local tick = TrackUtils.getKeyframeFromPosition(
 			position,
-			self.props.StartFrame,
-			self.props.EndFrame,
+			self.props.StartTick,
+			self.props.EndTick,
 			self.state.AbsolutePosition.X + (self.props.TrackPadding / 2),
 			self.state.AbsoluteSize.X - self.props.TrackPadding
 		)
@@ -134,54 +134,54 @@ function DopeSheetController:init()
 		end
 	end
 
-	self.onScaleHandleDragStarted = function(frame)
+	self.onScaleHandleDragStarted = function(tick)
 		local selectedKeyframes = self.props.SelectedKeyframes
 		local animationData = self.props.AnimationData
 		if GetFFlagRealtimeChanges() then
-			self.DragContext = DragContext.new(animationData, selectedKeyframes, frame)
+			self.DragContext = DragContext.new(animationData, selectedKeyframes, tick)
 		else
-			self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+			self.Preview = Preview.new(animationData, selectedKeyframes, tick)
 		end
 		self:setState({
 			draggingScale = true,
-			dragFrame = frame,
+			dragTick = tick,
 			hasDragWaypoint = false
 		})
 	end
 
-	self.onKeyframeDragStarted = function(frame)
+	self.onKeyframeDragStarted = function(tick)
 		local selectedKeyframes = self.props.SelectedKeyframes
 		local animationData = self.props.AnimationData
 		if GetFFlagRealtimeChanges() then
-			self.DragContext = DragContext.new(animationData, selectedKeyframes, frame)
+			self.DragContext = DragContext.new(animationData, selectedKeyframes, tick)
 		else
-			self.Preview = Preview.new(animationData, selectedKeyframes, frame)
+			self.Preview = Preview.new(animationData, selectedKeyframes, tick)
 		end
 		self:setState({
 			dragging = true,
-			dragFrame = frame,
+			dragTick = tick,
 			hasDragWaypoint = false,
 		})
 	end
 
 	self.onScaleHandleDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position, true)
+		local tick = self.getTickFromPosition(input.Position, true)
 
-		if self.state.dragFrame ~= frame then
+		if self.state.dragTick ~= tick then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
 					self.addDragWaypoint()
-					self.DragContext:scaleKeyframes(frame, self.props.StartFrame)
-					self.props.ScaleSelectedKeyframes(self.DragContext.pivotFrame, self.DragContext.scale, self.DragContext)
+					self.DragContext:scaleKeyframes(tick, self.props.StartTick)
+					self.props.ScaleSelectedKeyframes(self.DragContext.pivotTick, self.DragContext.scale, self.DragContext)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick
 					})
 				end
 			else
 				if self.Preview then
-					self.Preview:scaleKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame, self.props.StartFrame)
+					self.Preview:scaleKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, tick, self.props.StartTick)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick
 					})
 				end
 			end
@@ -189,22 +189,22 @@ function DopeSheetController:init()
 	end
 
 	self.onKeyframeDragMoved = function(input)
-		local frame = self.getFrameFromPosition(input.Position, true)
-		if self.state.dragFrame ~= frame then
+		local tick = self.getTickFromPosition(input.Position, true)
+		if self.state.dragTick ~= tick then
 			if GetFFlagRealtimeChanges() then
 				if self.DragContext then
 					self.addDragWaypoint()
-					self.DragContext:moveKeyframes(frame)
-					self.props.MoveSelectedKeyframes(self.DragContext.pivotFrame, self.DragContext.newFrame, self.DragContext)
+					self.DragContext:moveKeyframes(tick)
+					self.props.MoveSelectedKeyframes(self.DragContext.pivotTick, self.DragContext.newTick, self.DragContext)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick
 					})
 				end
 			else
 				if self.Preview then
-					self.Preview:moveKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, frame)
+					self.Preview:moveKeyframes(self.props.AnimationData, self.props.SelectedKeyframes, tick)
 					self:setState({
-						dragFrame = frame
+						dragTick = tick
 					})
 				end
 			end
@@ -213,13 +213,13 @@ function DopeSheetController:init()
 
 	self.onKeyframeDragEnded = function()
 		if not GetFFlagRealtimeChanges() then
-			local pivotFrame = self.Preview.pivotFrame
-			local newFrame = self.Preview.newFrame
-			self.props.MoveSelectedKeyframes(pivotFrame, newFrame)
+			local pivotTick = self.Preview.pivotTick
+			local newTick = self.Preview.newTick
+			self.props.MoveSelectedKeyframes(pivotTick, newTick)
 		end
 		self:setState({
 			dragging = false,
-			dragFrame = Roact.None,
+			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
 		if GetFFlagRealtimeChanges() then
@@ -231,13 +231,13 @@ function DopeSheetController:init()
 
 	self.onScaleHandleDragEnded = function()
 		if not GetFFlagRealtimeChanges() then
-			local pivotFrame = self.Preview.pivotFrame
+			local pivotTick = self.Preview.pivotTick
 			local scale = self.Preview.scale
-			self.props.ScaleSelectedKeyframes(pivotFrame, scale)
+			self.props.ScaleSelectedKeyframes(pivotTick, scale)
 		end
 		self:setState({
 			draggingScale = false,
-			dragFrame = Roact.None,
+			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
 		if GetFFlagRealtimeChanges() then
@@ -266,33 +266,35 @@ function DopeSheetController:init()
 		local minPos = Vector2.new(math.min(position.X, dragStart.X), math.min(position.Y, dragStart.Y))
 		local maxPos = Vector2.new(math.max(position.X, dragStart.X), math.max(position.Y, dragStart.Y))
 		-- Determine padding for selection
-		local startFrame = props.StartFrame
-		local endFrame = props.EndFrame
+		local startTick = props.StartTick
+		local endTick = props.EndTick
+
 		local trackWidth = self.state.AbsoluteSize.X - props.TrackPadding
-		local timelineScale = trackWidth / (endFrame - startFrame)
+		local timelineScale = trackWidth / (endTick - startTick)
 		local selectionPadding = Vector2.new(timelineScale / 2, Constants.TRACK_HEIGHT / 2)
+
 		-- Find extents of selection
-		local minFrame = self.getFrameFromPosition(minPos + selectionPadding, false)
+		local minTick = self.getTickFromPosition(minPos + selectionPadding, false)
 		local minTrack = self.getTrackFromPosition(minPos + selectionPadding)
-		local maxFrame = self.getFrameFromPosition(maxPos - selectionPadding, false)
+		local maxTick = self.getTickFromPosition(maxPos - selectionPadding, false)
 		local maxTrack = self.getTrackFromPosition(maxPos - selectionPadding)
 
-		local lastMinFrame = self.lastMinFrame or minFrame
+		local lastMinTick = self.lastMinTick or minTick
 		local lastMinTrack = self.lastMinTrack or minTrack
-		local lastMaxFrame = self.lastMaxFrame or maxFrame
+		local lastMaxTick = self.lastMaxTick or maxTick
 		local lastMaxTrack = self.lastMaxTrack or maxTrack
 
 		if not isEmpty(selectedKeyframes)
-			and (minFrame > lastMinFrame or minTrack > lastMinTrack
-			or maxFrame < lastMaxFrame or maxTrack < lastMaxTrack) then
+			and (minTick > lastMinTick or minTrack > lastMinTrack
+			or maxTick < lastMaxTick or maxTrack < lastMaxTrack) then
 			props.DeselectAllKeyframes()
 		end
 
 		for trackIndex, track in ipairs(self.tracks) do
 			if trackIndex >= minTrack and trackIndex <= maxTrack then
 				if track.Keyframes then
-					TrackUtils.traverseFrameRange(track.Keyframes, minFrame, maxFrame, function(frame)
-						props.SelectKeyframe(track.Instance, track.Name, frame, true)
+					TrackUtils.traverseKeyframeRange(track.Keyframes, minTick, maxTick, function(tick)
+						props.SelectKeyframe(track.Instance, track.Name, tick, true)
 					end)
 				end
 			end
@@ -300,17 +302,17 @@ function DopeSheetController:init()
 
 		-- If top-level summary keyframes are part of the selection, select all keyframes beneath.
 		if minTrack == 0 then
-			local summaryKeyframes = TrackUtils.getSummaryKeyframes(self.tracks, minFrame, maxFrame)
+			local summaryKeyframes = TrackUtils.getSummaryKeyframes(self.tracks, minTick, maxTick)
 			if #summaryKeyframes > 0 then
-				TrackUtils.traverseFrameRange(summaryKeyframes, minFrame, maxFrame, function(frame)
-					props.SelectKeyframesAtFrame(frame, true)
+				TrackUtils.traverseKeyframeRange(summaryKeyframes, minTick, maxTick, function(tick)
+					props.SelectKeyframesAtTick(tick, true)
 				end)
 			end
 		end
 
-		self.lastMinFrame = minFrame
+		self.lastMinTick = minTick
 		self.lastMinTrack = minTrack
-		self.lastMaxFrame = maxFrame
+		self.lastMaxTick = maxTick
 		self.lastMaxTrack = maxTrack
 	end
 
@@ -320,9 +322,9 @@ function DopeSheetController:init()
 		})
 		self.updateSelectDragStart(nil)
 		self.updateSelectDragEnd(nil)
-		self.lastMinFrame = nil
+		self.lastMinTick = nil
 		self.lastMinTrack = nil
-		self.lastMaxFrame = nil
+		self.lastMaxTick = nil
 		self.lastMaxTrack = nil
 	end
 
@@ -353,9 +355,9 @@ function DopeSheetController:init()
 		})
 	end
 
-	self.setRenamingKeyframe = function(frame)
+	self.setRenamingKeyframe = function(tick)
 		self:setState({
-			renamingKeyframe = frame or Roact.None,
+			renamingKeyframe = tick or Roact.None,
 		})
 	end
 
@@ -439,7 +441,7 @@ function DopeSheetController:handleTimelineInputEnded(input)
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
 		local track = self.tracks[self.getTrackFromPosition(input.Position)]
 		self.props.SetRightClickContextInfo({
-			Frame = self.getFrameFromPosition(input.Position, true),
+			Tick = self.getTickFromPosition(input.Position, true),
 			TrackName = track and track.Name or nil,
 			TrackType = GetFFlagFacialAnimationSupport() and (track and track.Type) or nil,
 			InstanceName = track and track.Instance or nil,
@@ -448,27 +450,27 @@ function DopeSheetController:handleTimelineInputEnded(input)
 	end
 end
 
-function DopeSheetController:handleKeyframeRightClick(instance, track, frame, selected)
+function DopeSheetController:handleKeyframeRightClick(instance, track, tick, selected)
 	local rightClickInfo = {
-		Frame = frame,
+		Tick = tick,
 		OnKeyframe = true,
 	}
 	if isEmpty(self.props.SelectedKeyframes) then
 		if instance == nil then
 			-- User selected a summary keyframe
-			self.props.SelectKeyframesAtFrame(frame)
+			self.props.SelectKeyframesAtTick(tick)
 		else
-			self.props.SelectKeyframe(instance, track, frame, false)
+			self.props.SelectKeyframe(instance, track, tick, false)
 		end
 	end
 	if instance == nil then
-		rightClickInfo.SummaryKeyframe = frame
+		rightClickInfo.SummaryKeyframe = tick
 	end
 	self.props.SetRightClickContextInfo(rightClickInfo)
 	self.showMenu()
 end
 
-function DopeSheetController:handleKeyframeInputBegan(instance, track, frame, selected, input)
+function DopeSheetController:handleKeyframeInputBegan(instance, track, tick, selected, input)
 	-- Select keyframe if not selected
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		self.mouseDownOnKeyframe = true
@@ -477,26 +479,26 @@ function DopeSheetController:handleKeyframeInputBegan(instance, track, frame, se
 			-- Deselect keyframe if it is clicked again when multi-selecting
 			if self.isMultiSelecting then
 				if instance then
-					self.props.DeselectKeyframe(instance, track, frame)
+					self.props.DeselectKeyframe(instance, track, tick)
 				else
-					self.props.DeselectKeyframesAtFrame(frame, self.isMultiSelecting)
+					self.props.DeselectKeyframesAtTick(tick, self.isMultiSelecting)
 				end
 			end
 		else
 			if instance then
-				self.props.SelectKeyframe(instance, track, frame, self.isMultiSelecting)
+				self.props.SelectKeyframe(instance, track, tick, self.isMultiSelecting)
 			else
-				self.props.SelectKeyframesAtFrame(frame, self.isMultiSelecting)
+				self.props.SelectKeyframesAtTick(tick, self.isMultiSelecting)
 			end
 		end
 	end
 end
 
-function DopeSheetController:handleKeyframeInputEnded(frame, selected, input)
+function DopeSheetController:handleKeyframeInputEnded(tick, selected, input)
 	-- Start dragging if the mouse drags outside the keyframe
 	if input.UserInputType == Enum.UserInputType.MouseMovement then
 		if selected and self.mouseDownOnKeyframe then
-			self.onKeyframeDragStarted(frame)
+			self.onKeyframeDragStarted(tick)
 			self.onKeyframeDragMoved(input)
 			self.mouseDownOnKeyframe = false
 		end
@@ -545,63 +547,62 @@ function DopeSheetController:shouldUpdate(nextProps, nextState)
 end
 
 function DopeSheetController:render()
-		local props = self.props
-		local state = self.state
-		local dragFrame = state.dragFrame
-		local dragging = state.dragging
-		local draggingScale = state.draggingScale
-		local draggingSelection = state.draggingSelection
-		local absoluteSize = state.AbsoluteSize
-		local absolutePosition = state.AbsolutePosition
-		local showContextMenu = state.showContextMenu
-		local renamingKeyframe = state.renamingKeyframe
-		local changingDuration = state.changingDuration
+	local props = self.props
+	local state = self.state
+	local dragging = state.dragging
+	local draggingScale = state.draggingScale
+	local draggingSelection = state.draggingSelection
+	local absoluteSize = state.AbsoluteSize
+	local absolutePosition = state.AbsolutePosition
+	local showContextMenu = state.showContextMenu
+	local renamingKeyframe = state.renamingKeyframe
+	local changingDuration = state.changingDuration
 
-		local active = props.Active
-		local animationData = props.AnimationData
-		local selectedKeyframes = props.SelectedKeyframes
-		local startFrame = props.StartFrame
-		local endFrame = props.EndFrame
-		local trackPadding = props.TrackPadding
-		local topTrackIndex = props.TopTrackIndex
-		local showEvents = props.ShowEvents
-		local localization = self.props.Localization
-		local displayFrameRate = self.props.DisplayFrameRate
-		local showAsSeconds = self.props.ShowAsSeconds
+	local active = props.Active
+	local animationData = props.AnimationData
+	local selectedKeyframes = props.SelectedKeyframes
+	local startTick = props.StartTick
+	local endTick = props.EndTick
+	local trackPadding = props.TrackPadding
+	local topTrackIndex = props.TopTrackIndex
+	local showEvents = props.ShowEvents
+	local localization = self.props.Localization
+	local displayFrameRate = self.props.DisplayFrameRate
+	local showAsSeconds = self.props.ShowAsSeconds
 
-		local namedKeyframes = animationData and animationData.Events
-			and animationData.Events.NamedKeyframes or {}
+	local namedKeyframes = animationData and animationData.Events
+		and animationData.Events.NamedKeyframes or {}
 
-		local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
-		if not GetFFlagUseTicks() then
-			local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
-			if frameRate and frameRate > Constants.MAX_FRAMERATE then
-				quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
-			end
+	local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
+	if not GetFFlagUseTicks() then
+		local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
+		if frameRate and frameRate > Constants.MAX_FRAMERATE then
+			quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
 		end
+	end
 
-		-- Quantization is deprecated when we use ticks
-		local showQuantizeWarning = not GetFFlagUseTicks() and props.QuantizeWarning
-			and not AnimationData.isQuantized(animationData)
-		local loadedAnimName = props.Loaded
-		local savedAnimName = props.Saved
-		local showClippedWarning = props.ClippedWarning
-		local showInvalidIdWarning = GetFFlagAddImportFailureToast() and props.InvalidIdWarning
-		local showLoadToast = not GetFFlagHideLoadToastIfAnimationClipped() or (GetFFlagHideLoadToastIfAnimationClipped() and not showClippedWarning)
+	-- Quantization is deprecated when we use ticks
+	local showQuantizeWarning = not GetFFlagUseTicks() and props.QuantizeWarning
+		and not AnimationData.isQuantized(animationData)
+	local loadedAnimName = props.Loaded
+	local savedAnimName = props.Saved
+	local showClippedWarning = props.ClippedWarning
+	local showInvalidIdWarning = GetFFlagAddImportFailureToast() and props.InvalidIdWarning
+	local showLoadToast = not GetFFlagHideLoadToastIfAnimationClipped() or (GetFFlagHideLoadToastIfAnimationClipped() and not showClippedWarning)
 
-		local size = props.Size
-		local position = props.Position
+	local size = props.Size
+	local position = props.Position
 
-		local multipleSelected = self:hasSelectedKeyframes() and self:multipleFramesSelected()
-		local currentDuration
-		if changingDuration then
-			local earliest, latest = self:getSelectedKeyframesExtents()
-			currentDuration = latest - earliest
-			if GetFFlagUseTicks() then
-				-- Convert to frames
-				currentDuration = currentDuration * props.DisplayFrameRate / Constants.TICK_FREQUENCY
-			end
+	local multipleSelected = self:hasSelectedKeyframes() and self:multipleFramesSelected()
+	local currentDuration
+	if changingDuration then
+		local earliest, latest = self:getSelectedKeyframesExtents()
+		currentDuration = latest - earliest
+		if GetFFlagUseTicks() then
+			-- Convert to frames
+			currentDuration = currentDuration * props.DisplayFrameRate / Constants.TICK_FREQUENCY
 		end
+	end
 
 		self.tracks = self:makeTracks()
 
@@ -620,8 +621,8 @@ function DopeSheetController:render()
 					AbsolutePosition = absolutePosition - Vector2.new(0, Constants.TRACK_HEIGHT),
 					AbsoluteSize = Vector2.new(absoluteSize.X, Constants.TRACK_HEIGHT),
 					AnimationData = animationData,
-					StartFrame = startFrame,
-					EndFrame = endFrame,
+					StartTick = startTick,
+					EndTick = endTick,
 					TrackPadding = trackPadding,
 				}),
 
@@ -655,8 +656,8 @@ function DopeSheetController:render()
 						Size = UDim2.new(1, 0, 1, 0),
 						ParentSize = absoluteSize,
 						Padding = props.TrackPadding,
-						StartFrame = startFrame,
-						EndFrame = endFrame,
+						StartTick = startTick,
+						EndTick = endTick,
 						TopTrackIndex = topTrackIndex,
 						SelectedKeyframes = props.SelectedKeyframes,
 						SelectedEvents = props.SelectedEvents,
@@ -670,21 +671,20 @@ function DopeSheetController:render()
 						PreviewData = not GetFFlagRealtimeChanges() and self.Preview and self.Preview.previewData or nil,
 						NamedKeyframes = namedKeyframes,
 						ShowLegacyKeyframes = showQuantizeWarning,
-						DragFrame = dragFrame,
 						TrackHeight = Constants.TRACK_HEIGHT,
 						SummaryTrackHeight = Constants.SUMMARY_TRACK_HEIGHT,
 						ZIndex = 1,
 
-						OnKeyRightClick = function(instance, track, frame, selected)
-							self:handleKeyframeRightClick(instance, track, frame, selected)
+						OnKeyRightClick = function(instance, track, tick, selected)
+							self:handleKeyframeRightClick(instance, track, tick, selected)
 						end,
 
-						OnKeyInputBegan = function(instance, track, frame, selected, input)
-							self:handleKeyframeInputBegan(instance, track, frame, selected, input)
+						OnKeyInputBegan = function(instance, track, tick, selected, input)
+							self:handleKeyframeInputBegan(instance, track, tick, selected, input)
 						end,
 
-						OnKeyInputEnded = function(frame, selected, input)
-							self:handleKeyframeInputEnded(frame, selected, input)
+						OnKeyInputEnded = function(tick, selected, input)
+							self:handleKeyframeInputEnded(tick, selected, input)
 						end,
 					}),
 
@@ -706,10 +706,10 @@ function DopeSheetController:render()
 						MultipleSelected = multipleSelected,
 						OnMenuOpened = self.hideMenu,
 						OnItemSelected = self.onEasingItemSelected,
-						OnRenameKeyframe = function(frame)
+						OnRenameKeyframe = function(tick)
 							-- The prompt was sometimes not displaying when not using spawn
 							spawn(function()
-								self.setRenamingKeyframe(frame)
+								self.setRenamingKeyframe(tick)
 							end)
 						end,
 						OnChangeDuration = function()
@@ -722,8 +722,8 @@ function DopeSheetController:render()
 					ScaleControls = multipleSelected and not draggingSelection and Roact.createElement(ScaleControls, {
 						SelectedKeyframes = selectedKeyframes,
 						PreviewKeyframes = not GetFFlagRealtimeChanges() and (self.Preview and self.Preview.previewKeyframes) or nil,
-						StartFrame = startFrame,
-						EndFrame = endFrame,
+						StartTick = startTick,
+						EndTick = endTick,
 						TopTrackIndex = topTrackIndex,
 						Tracks = self.tracks,
 						TrackPadding = trackPadding,
@@ -865,36 +865,36 @@ local function mapDispatchToProps(dispatch)
 			dispatch(AddWaypoint())
 		end,
 
-		MoveSelectedKeyframes = function(pivotFrame, newFrame, dragContext)
+		MoveSelectedKeyframes = function(pivotTick, newTick, dragContext)
 			if not GetFFlagRealtimeChanges() then
 				dispatch(AddWaypoint())
 			end
-			dispatch(MoveSelectedKeyframes(pivotFrame, newFrame, dragContext))
+			dispatch(MoveSelectedKeyframes(pivotTick, newTick, dragContext))
 		end,
 
-		ScaleSelectedKeyframes = function(pivotFrame, scale, dragContext)
+		ScaleSelectedKeyframes = function(pivotTick, scale, dragContext)
 			if not GetFFlagRealtimeChanges() then
 				dispatch(AddWaypoint())
 			end
-			dispatch(ScaleSelectedKeyframes(pivotFrame, scale, dragContext))
+			dispatch(ScaleSelectedKeyframes(pivotTick, scale, dragContext))
 		end,
 
-		DeselectKeyframe = function(instanceName, trackName, frame)
-			dispatch(DeselectKeyframe(instanceName, trackName, frame))
+		DeselectKeyframe = function(instanceName, trackName, tick)
+			dispatch(DeselectKeyframe(instanceName, trackName, tick))
 		end,
 
-		SelectKeyframe = function(instanceName, trackName, frame, multiSelect)
+		SelectKeyframe = function(instanceName, trackName, tick, multiSelect)
 			dispatch(SetSelectedEvents({}))
-			dispatch(SelectKeyframe(instanceName, trackName, frame, multiSelect))
+			dispatch(SelectKeyframe(instanceName, trackName, tick, multiSelect))
 		end,
 
-		SelectKeyframesAtFrame = function(frame, multiSelect)
+		SelectKeyframesAtTick = function(tick, multiSelect)
 			dispatch(SetSelectedEvents({}))
-			dispatch(SelectKeyframesAtFrame(frame, multiSelect))
+			dispatch(SelectKeyframesAtTick(tick, multiSelect))
 		end,
 
-		DeselectKeyframesAtFrame = function(frame, multiSelect)
-			dispatch(DeselectKeyframesAtFrame(frame, multiSelect))
+		DeselectKeyframesAtTick = function(tick, multiSelect)
+			dispatch(DeselectKeyframesAtTick(tick, multiSelect))
 		end,
 
 		DeselectAllKeyframes = function()
@@ -917,9 +917,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedKeyframeData(newData))
 		end,
 
-		RenameKeyframe = function(frame, name, analytics)
+		RenameKeyframe = function(tick, name, analytics)
 			dispatch(AddWaypoint())
-			dispatch(RenameKeyframe(frame, name, analytics))
+			dispatch(RenameKeyframe(tick, name, analytics))
 		end,
 
 		QuantizeKeyframes = function()

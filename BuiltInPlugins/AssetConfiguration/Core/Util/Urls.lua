@@ -98,6 +98,8 @@ local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-as
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
 local AVATAR_ASSETS_VALID_GROUPS = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/valid-groups"
 
+local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
+
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
 
@@ -539,6 +541,15 @@ end
 
 function Urls.constructAvatarAssetsValidGroupsUrl(assetType)
 	return AVATAR_ASSETS_VALID_GROUPS:format(assetType.Name)
+end
+
+function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOfResults)
+	local url = AUTOCOMPLETE .. Url.makeQueryString({
+		cat = categoryName,
+		limit = numberOfResults,
+		prefix = searchTerm,
+	})
+	return url
 end
 
 return wrapStrictTable(Urls)

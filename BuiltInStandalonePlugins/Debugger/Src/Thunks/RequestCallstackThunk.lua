@@ -4,7 +4,7 @@ local CallstackRow = require(Models.CallstackRow)
 local AddCallstack = require(Plugin.Src.Actions.Callstack.AddCallstack)
 
 return function(threadState, dataModel, debuggerStateToken)
-	return function(store)
+	return function(store, contextItems)
 		threadState:requestCallstack()
 		:andThen(function (callstack : { StackFrame })
 			local callstackRows = {}
@@ -40,7 +40,8 @@ return function(threadState, dataModel, debuggerStateToken)
 			store:dispatch(AddCallstack(threadState:getThreadId(), callstackRows, debuggerStateToken))
 		end)
 		:catch(function (callstack : { StackFrame })
-			warn("Encountered an error during asynchronous execution.")
+			warn("Encountered an error during asynchronous execution: Request Callstack")
+			contextItems.analytics:report("ThunkFailed", "RequestCallstackThunk")
 		end)
     end
 end

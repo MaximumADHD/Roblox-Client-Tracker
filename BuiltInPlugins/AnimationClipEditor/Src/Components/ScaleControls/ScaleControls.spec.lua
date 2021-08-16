@@ -41,8 +41,8 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			ScaleControls = Roact.createElement(ScaleControls, {
 				SelectedKeyframes = selectedKeyframes,
-				StartFrame = 0,
-				EndFrame = 30,
+				StartTick = 0,
+				EndTick = 30,
 				TopTrackIndex = 1,
 				Tracks = tracks,
 				Dragging = true,

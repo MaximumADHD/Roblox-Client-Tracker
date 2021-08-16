@@ -22,7 +22,7 @@ return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateB
 		table.insert(tokenizedLists, variableRow.pathColumn)
 		newVarsMapping[variableRow.pathColumn] = variableRow
 	end
-
+	
 	return {
 		stepStateBundle = stepStateBundle,
 		tokenizedList = tokenizedLists,

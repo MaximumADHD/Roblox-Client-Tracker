@@ -20,7 +20,7 @@
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AutoThumbnail = require(Plugin.Src.Components.AutoThumbnails.AutoThumbnail)
@@ -66,7 +66,7 @@ function BadgeIconThumbnail:render()
             UseAssetThumbnailUrl = true,
             RenderContents = function(contentId, status)
                 local thumbnail = self:getThumbnail(contentId, status)
-                
+
                 return Roact.createElement("ImageLabel", {
                     Size = UDim2.fromScale(1, 1),
                     BackgroundTransparency = 1,

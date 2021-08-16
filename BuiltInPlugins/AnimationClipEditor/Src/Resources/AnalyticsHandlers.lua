@@ -179,19 +179,19 @@ return function(analyticsService)
             sendEvent("EventAdded")
         end,
 
-        onAddKeyframe = function(trackName, frame)
+        onAddKeyframe = function(trackName, tick)
             sendEvent("addKeyframe", {
                 trackName = trackName,
-                frame = frame,
+                frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
             })
             reportCounter(makeStatName("KeyframeAdded"))
             sendEvent("KeyframeAdded")
         end,
 
-        onDeleteKeyframe = function(trackName, frame)
+        onDeleteKeyframe = function(trackName, tick)
             sendEvent("deleteKeyframe", {
                 trackName = trackName,
-                frame = frame,
+                frame = tick,  -- TODO: Check with analytics when to rename this parameter to Tick
             })
         end,
     }

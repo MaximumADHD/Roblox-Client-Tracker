@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local StudioUI = require(Plugin.Packages.Framework).StudioUI
-local ContextServices = require(Plugin.Packages.Framework.ContextServices)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Analytics = require(Plugin.Packages.DraggerFramework.Utility.Analytics)

@@ -10,7 +10,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Separator = require(Plugin.Framework).UI.Separator
@@ -99,7 +99,7 @@ local function loadSettings(store, contextItems)
 		end,
 
 		function(loadedSettings)
-			if state.Settings.Current[GetIsForSaleKeyName()] == nil then 
+			if state.Settings.Current[GetIsForSaleKeyName()] == nil then
 				local isForSale = monetizationController:getPaidAccessEnabled(gameId)
 				loadedSettings[GetIsForSaleKeyName()] = isForSale
 			end
@@ -158,7 +158,7 @@ local function loadValuesToProps(getValue, state)
 		IsMonetized = getValue(GetIsForSaleKeyName()) or getValue(GetVipServersIsEnabledKeyName()),
 
 		-- To allow players with games already saved in this error state (notPublic and isMonetized) have the ability to change the setting. Once allowed states are saved the error state will not be selectable.
-		IsInitiallyEnabled = (not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()]) 
+		IsInitiallyEnabled = (not state.Settings.Current[GetIsActiveKeyName()] or state.Settings.Current[GetIsFriendsOnlyKeyName()])
 							and (state.Settings.Current[GetIsForSaleKeyName()] or state.Settings.Current[GetVipServersIsEnabledKeyName()]),
 
 		-- Metadata
@@ -233,12 +233,12 @@ function Permissions:render()
 
 		local isMonetized = props.IsMonetized
 		local isInitiallyEnabled = props.IsInitiallyEnabled
-		
+
 		local localization = props.Localization
 		local theme = props.Theme:get("Plugin")
 
 		local canUserEditPermissions = self:isLoggedInUserGameOwner()
-		
+
 		-- here "Edit" refers to adding new collaborators, or changing the permission of collaborators
 		local canUserEditCollaborators = false
 		if FFlagUXImprovementsNonTCPlacesAllowedPlay then
@@ -328,7 +328,7 @@ function Permissions:render()
 			}),
 
 			TeamCreateWarning = teamCreateWarningVisible and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				Text = localization:getText(LOCALIZATION_ID, "TeamCreateWarning"), 
+				Text = localization:getText(LOCALIZATION_ID, "TeamCreateWarning"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextColor3 = theme.warningColor,
 				BackgroundTransparency = 1,

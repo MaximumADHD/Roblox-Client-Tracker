@@ -27,9 +27,6 @@ return function()
 		it("should Add the Callstack", function()
 
 			local testInfo = {
-				arrowColumn = {
-					value = "",
-				},
 				frameColumn = "a",
 				whatColumn = "b",
 				functionNameColumn = "c",
@@ -51,9 +48,6 @@ return function()
 		it("should preserve immutability", function()
 			
 			local testInfo2 = {
-				arrowColumn = {
-					value = "",
-				},
 				frameColumn = "aa",
 				whatColumn = "b",
 				functionNameColumn = "c",

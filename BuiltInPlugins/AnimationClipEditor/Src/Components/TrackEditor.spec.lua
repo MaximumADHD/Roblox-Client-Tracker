@@ -13,9 +13,9 @@ return function()
 				ZIndex = 1,
 				LayoutOrder = 1,
 				Size = UDim2.new(0, 1000, 0, 500),
-				StartFrame = 0,
-				EndFrame = 30,
-				LastFrame = 100,
+				StartTick = 0,
+				EndTick = 30,
+				LastTick = 100,
 				Playhead = 0,
 				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,
 			})

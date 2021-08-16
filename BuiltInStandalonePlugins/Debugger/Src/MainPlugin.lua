@@ -17,6 +17,7 @@
 ]]
 
 local main = script.Parent.Parent
+local Src = main.Src
 -- local _Types = require(main.Src.Types) -- uncomment to enable
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
@@ -33,19 +34,23 @@ local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 
-local MainReducer = require(main.Src.Reducers.MainReducer)
-local MakeTheme = require(main.Src.Resources.MakeTheme)
+local MainReducer = require(Src.Reducers.MainReducer)
+local MakeTheme = require(Src.Resources.MakeTheme)
 
-local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
-local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local AnalyticsHolder = require(Src.Resources.AnalyticsHolder)
 
-local Components = main.Src.Components
+local TranslationDevelopmentTable = Src.Resources.Localization.TranslationDevelopmentTable
+local TranslationReferenceTable = Src.Resources.Localization.TranslationReferenceTable
+
+local Components = Src.Components
 local EditDebugpointDialog = require(Components.Breakpoints.EditDebugpointDialog)
 local CallstackWindow = require(Components.Callstack.CallstackWindow)
 local WatchWindow = require(Components.Watch.WatchWindow)
 local BreakpointsWindow = require(Components.Breakpoints.BreakpointsWindow)
 local CallstackComponent = require(Components.Callstack.CallstackComponent)
 local WatchComponent = require(Components.Watch.WatchComponent)
+
+local Middleware = require(Src.Middleware.MainMiddleware)
 
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
@@ -100,9 +105,7 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware,
-	})
+	self.store = Rodux.Store.new(MainReducer, nil, Middleware)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
@@ -110,15 +113,10 @@ function MainPlugin:init(props)
 		pluginName = "Debugger",
 	})
 	--[[
-		New Plugin Setup: Each plugin is expected to provide a createEventHandlers function to the constructor
-			which should return a table mapping event -> eventHandler.
-
 			To enable localization, add the plugin to
 			Client/RobloxStudio/Translation/builtin_plugin_config.py
 	--]]
-	self.analytics = ContextServices.Analytics.new(function()
-		return {}
-	end, {})
+	self.analytics = AnalyticsHolder
 end
 
 function MainPlugin:renderButtons(toolbar)

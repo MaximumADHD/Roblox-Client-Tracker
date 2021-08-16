@@ -14,8 +14,6 @@ end
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
-
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
 local Framework = require(main.Packages.Framework)
@@ -28,10 +26,7 @@ local MainPlugin = require(main.Src.MainPlugin)
 local handle
 
 -- Allows connecton to the Developer Inspector for internal engineers
-local inspector
-if FFlagEnableRoactInspector then
-	inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
-end
+local inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
 
 local function init()
 	plugin.Name = main.Name

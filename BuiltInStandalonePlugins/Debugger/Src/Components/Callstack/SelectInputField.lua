@@ -23,15 +23,8 @@ local SelectInputField = Roact.PureComponent:extend("SelectInputField")
 function SelectInputField:init()
 	local props = self.props
 
-	self.state = {
-		currentIndex = nil,
-	}
-
 	self.selectItem = function(item, index)
 		local threadId = props.IndexMap[index]
-		self:setState({
-			currentIndex = index,
-		})
 		props.onActivate(threadId)
 	end
 end
@@ -43,7 +36,7 @@ function SelectInputField:render()
 		Size = props.Size,
 		Items = props.Items,
 		PlaceholderText = props.PlaceholderText,
-		SelectedIndex = self.state.currentIndex,
+		SelectedIndex = props.CurrentThreadIndex,
 		OnItemActivated = self.selectItem,
 	})
 end
@@ -61,6 +54,7 @@ SelectInputField = RoactRodux.connect(
 			return {
 				Items = {},
 				IndexMap = {},
+				CurrentThreadIndex = nil,
 			}
 		else
 			assert(#state.Common.debuggerStateTokenHistory >= 1)
@@ -72,10 +66,20 @@ SelectInputField = RoactRodux.connect(
 			for _, thread in ipairs(threadList) do 
 				table.insert(selectTextIndexToThreadId, thread.threadId)
 				table.insert(threadDisplayStrings, thread.displayString)
-			end	
+			end
+			
+			local currentThreadId = state.Common.currentThreadId
+			local currentThreadIndex = nil
+			for threadIndex, threadId in ipairs(selectTextIndexToThreadId) do
+				if threadId == currentThreadId then
+					currentThreadIndex = threadIndex
+				end
+			end
+			
 			return {
 				Items = threadDisplayStrings,
 				IndexMap = selectTextIndexToThreadId,
+				CurrentThreadIndex = currentThreadIndex,
 			}
 		end
 	end,

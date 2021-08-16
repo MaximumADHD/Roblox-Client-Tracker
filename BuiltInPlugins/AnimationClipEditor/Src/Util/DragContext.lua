@@ -13,7 +13,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local DragContext = {}
 DragContext.__index = DragContext
 
-function DragContext.new(animationData, selectedKeyframes, pivotFrame)
+function DragContext.new(animationData, selectedKeyframes, pivotTick)
 	-- Only deepcopy the selected tracks, the other tracks will be left untouched
 	-- during the move/scale operation
 	animationData = Cryo.Dictionary.join({}, animationData)
@@ -30,16 +30,16 @@ function DragContext.new(animationData, selectedKeyframes, pivotFrame)
 
 	selectedKeyframes = deepCopy(selectedKeyframes)
 
-	local earliestFrame, latestFrame = AnimationData.getSelectionBounds(animationData, selectedKeyframes)
+	local earliestTick, latestTick = AnimationData.getSelectionBounds(animationData, selectedKeyframes)
 
 	local self = {
 		animationData = animationData,
 		selectedKeyframes = selectedKeyframes,
-		pivotFrame = pivotFrame,
-		newFrame = pivotFrame,
+		pivotTick = pivotTick,
+		newTick = pivotTick,
 		scale = 1,
-		earliestFrame = earliestFrame,
-		latestFrame = latestFrame,
+		earliestTick = earliestTick,
+		latestTick = latestTick,
 	}
 
 	setmetatable(self, DragContext)
@@ -48,28 +48,28 @@ function DragContext.new(animationData, selectedKeyframes, pivotFrame)
 end
 
 -- Update metadata for when the user drags the selected keyframes
-function DragContext:moveKeyframes(newFrame)
-	self.newFrame = newFrame
+function DragContext:moveKeyframes(newTick)
+	self.newTick = newTick
 end
 
 -- Update metadata for when the user scales the selected keyframes
-function DragContext:scaleKeyframes(newFrame)
-	self.newFrame = newFrame
-	local pivotFrame = self.pivotFrame
-	local delta = (pivotFrame == self.latestFrame) and (pivotFrame - newFrame) or (newFrame - pivotFrame)
-	self.scale = delta / (self.latestFrame - self.earliestFrame)
+function DragContext:scaleKeyframes(newTick)
+	self.newTick = newTick
+	local pivotTick = self.pivotTick
+	local delta = (pivotTick == self.latestTick) and (pivotTick - newTick) or (newTick - pivotTick)
+	self.scale = delta / (self.latestTick - self.earliestTick)
 end
 
 -- Events
-function DragContext.newEvents(animationData, selectedEvents, pivotFrame)
+function DragContext.newEvents(animationData, selectedEvents, pivotTick)
 	-- Only deepCopy the events, other data will be left untouched
 	animationData = Cryo.Dictionary.join({}, animationData)
 	animationData.Events = deepCopy(animationData.Events)
 	selectedEvents = deepCopy(selectedEvents)
 
 	local self = {
-		pivotFrame = pivotFrame,
-		newFrame = pivotFrame,
+		pivotTick = pivotTick,
+		newTick = pivotTick,
 		animationData = animationData,
 		selectedEvents = selectedEvents,
 	}
@@ -80,8 +80,8 @@ function DragContext.newEvents(animationData, selectedEvents, pivotFrame)
 end
 
 -- Update metadata for when the user drags the selected events
-function DragContext:moveEvents(newFrame)
-	self.newFrame = newFrame
+function DragContext:moveEvents(newTick)
+	self.newTick = newTick
 end
 
 return DragContext

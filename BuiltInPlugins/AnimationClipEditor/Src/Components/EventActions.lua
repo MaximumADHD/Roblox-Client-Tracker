@@ -9,8 +9,8 @@
 	Props:
 		bool ShowMenu = Whether to show the context menu.
 		function OnMenuOpened() = A callback for when the context menu is opened.
-		function OnEditEvents(frame) = A callback for when the user wants to edit the events
-			at the given frame.
+		function OnEditEvents(tick) = A callback for when the user wants to edit the events
+			at the given tick.
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -37,7 +37,7 @@ local EventActions = Roact.PureComponent:extend("EventActions")
 
 function EventActions:makeMenuActions()
 	local pluginActions = self.props.PluginActions
-	if pluginActions then 
+	if pluginActions then
 		local props = self.props
 
 		local actions = {
@@ -73,14 +73,14 @@ function EventActions:didMount()
 
 	self:addAction(actions:get("EditEvents"), function()
 		local props = self.props
-		local frame = props.Frame
-		props.OnEditEvents(frame)
+		local tick = props.Tick
+		props.OnEditEvents(tick)
 	end)
 
 	self:addAction(actions:get("PasteEvents"), function()
 		local props = self.props
-		local frame = props.Frame or props.Playhead
-		props.PasteEvents(frame)
+		local tick = props.Tick or props.Playhead
+		props.PasteEvents(tick)
 	end)
 
 	self:addAction(actions:get("CutEvents"), function()
@@ -172,7 +172,7 @@ local function mapStateToProps(state, props)
 		SelectedEvents = status.SelectedEvents,
 		Playhead = status.Playhead,
 		OnEvent = status.RightClickContextInfo.OnEvent,
-		Frame = status.RightClickContextInfo.Frame,
+		Tick = status.RightClickContextInfo.Tick,
 	}
 end
 
@@ -189,9 +189,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		PasteEvents = function(frame)
+		PasteEvents = function(tick)
 			dispatch(AddWaypoint())
-			dispatch(PasteEvents(frame))
+			dispatch(PasteEvents(tick))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 	}

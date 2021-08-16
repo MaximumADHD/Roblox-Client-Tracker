@@ -111,11 +111,11 @@ return function()
 		end)
 	end)
 
-	describe("traverseFrameRange", function()
+	describe("traverseKeyframeRange", function()
 		it("should visit the keyframes within the provided range", function()
 			local keyframes = {1, 2, 3, 3.5, 4, 5, 6}
 			local visited = {}
-			TrackUtils.traverseFrameRange(keyframes, 3, 5, function(frame)
+			TrackUtils.traverseKeyframeRange(keyframes, 3, 5, function(frame)
 				table.insert(visited, frame)
 			end)
 			table.sort(visited)

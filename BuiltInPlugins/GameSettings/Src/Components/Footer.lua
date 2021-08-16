@@ -8,7 +8,7 @@
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
+local FFlagFixGameSettingsChinaNil = game:GetFastFlag("FixGameSettingsChinaNil")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -19,7 +19,7 @@ local RoactRodux = require(Plugin.RoactRodux)
 local Promise = require(Plugin.Promise)
 local Framework = require(Plugin.Framework)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
@@ -62,6 +62,12 @@ function Footer:init()
 		-- 5/25/21 - CurrentOptInLocations and ChangedOptInLocations are only set in Luobu Studio
 		local currentOptInLocations = props.CurrentOptInLocations
 		local changedOptInLocations = props.ChangedOptInLocations
+
+		if FFlagFixGameSettingsChinaNil and not currentOptInLocations then
+			-- GameSettings basic info page has not been opened yet, so opt in locations do not exist
+			assert(not changedOptInLocations)
+			return false
+		end
 
 		if not currentOptInLocations[chinaKey][selectedKey] and changedOptInLocations then
 			assert(changedOptInLocations[chinaKey][selectedKey], "China should be selected in Changed")
@@ -115,7 +121,7 @@ function Footer:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
 				-- Make changes here before save happens to show dialog
-				if FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework then
+				if FFlagLuobuDevPublishLua then
 					if userPressedSave and shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
 						self:setState({
 							showEmailDialog = true,
@@ -129,7 +135,7 @@ function Footer:render()
 				end
 			end,
 		}, {
-			EmailDialog = FFlagLuobuDevPublishLua and FFlagTextInputDialogDevFramework and Roact.createElement(TextInputDialog,
+			EmailDialog = FFlagLuobuDevPublishLua and Roact.createElement(TextInputDialog,
 			{
 				Enabled = self.state.showEmailDialog,
 				Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),

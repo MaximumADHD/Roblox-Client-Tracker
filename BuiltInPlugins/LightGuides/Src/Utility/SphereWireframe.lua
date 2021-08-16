@@ -4,7 +4,6 @@ local Types = require(Plugin.Src.Types)
 
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
-local getFFlagStudioLightGuideFixReparent = require(Plugin.Src.Flags.getFFlagStudioLightGuideFixReparent)
 
 local THICKNESS: number = getFIntStudioLightGuideThickness()
 local TRANSPARENCY: number = getFIntStudioLightGuideTransparency()
@@ -43,7 +42,7 @@ end
 function SphereWireframe:render()
 	self:_setListeners()
 
-	if not self:_setAncestry() and getFFlagStudioLightGuideFixReparent() then
+	if not self:_setAncestry() then
 		return
 	end
 
@@ -130,7 +129,7 @@ function SphereWireframe:_setAncestry()
 		offset = self._light.parent.CFrame
 	end
 
-	if getFFlagStudioLightGuideFixReparent() and not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
+	if not self._light.Parent:IsA("Attachment") and not self._light.Parent:IsA("BasePart") then
 		self:_removeHandles()
 
 		return false
@@ -167,7 +166,7 @@ function SphereWireframe:_setHandles()
 end
 
 function SphereWireframe:_removeHandles()
-	if self._handles and (not getFFlagStudioLightGuideFixReparent() or self._handlesPresent) then
+	if self._handles and self._handlesPresent then
 		self._handles.AxisAdornmentX:Destroy()
 		self._handles.AxisAdornmentY:Destroy()
 		self._handles.AxisAdornmentZ:Destroy()

@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsLogs = require(Plugin.Core.Util.Analytics.Logs)
-local sendResultToKibana = require(Plugin.Libs.Framework.Util.sendResultToKibana)
+local sendResultToKibana = require(Plugin.Libs.Framework).Util.sendResultToKibana
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 

@@ -27,7 +27,7 @@ return function()
 	}
 
 	local testAnimationData = Templates.animationData()
-	testAnimationData.Metadata.EndFrame = 10
+	testAnimationData.Metadata.EndTick = 10
 	testAnimationData.Instances.Root.Tracks = {
 		Hips = {
 			Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,

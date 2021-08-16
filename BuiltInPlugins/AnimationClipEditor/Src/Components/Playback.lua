@@ -22,12 +22,13 @@ function Playback:didMount()
 
 		if props.IsPlaying and props.AnimationData ~= nil then
 			local metadata = props.AnimationData.Metadata
-			if metadata.EndFrame > 0 then
+			if metadata.EndTick > 0 then
 				local now = tick()
+				local endTick = metadata.EndTick
 				if GetFFlagUseTicks() then
 					if not playbackStartInfo.startTime then
 						local startPlayhead = playhead
-						if startPlayhead >= math.floor(metadata.EndFrame) then
+						if startPlayhead >= math.floor(endTick) then
 							startPlayhead = 0
 						end
 						playbackStartInfo = {
@@ -40,30 +41,31 @@ function Playback:didMount()
 					if not self.StartTime then
 						self.StartTime = now
 						self.PlayheadStart = playhead
-						if self.PlayheadStart >= math.floor(metadata.EndFrame) then
+						if self.PlayheadStart >= math.floor(endTick) then
 							self.PlayheadStart = 0
 						end
 					end
 				end
 
-				local newFrame
+				local newTick
+
 				if GetFFlagUseTicks() then
 					local elapsed = (now - playbackStartInfo.startTime) * playbackSpeed
-					newFrame = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
+					newTick = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
 				else
 					local elapsed = now - self.StartTime
-					newFrame = self.PlayheadStart + elapsed * metadata.FrameRate
+					newTick = self.PlayheadStart + elapsed * metadata.FrameRate
 				end
 
 				if metadata.Looping then
-					newFrame = newFrame % metadata.EndFrame
+					newTick = newTick % endTick
 				else
-					newFrame = math.clamp(newFrame, 0, metadata.EndFrame)
-					if newFrame == metadata.EndFrame then
+					newTick = math.clamp(newTick, 0, endTick)
+					if newTick == endTick then
 						props.SetIsPlaying(false)
 					end
 				end
-				props.StepAnimation(newFrame)
+				props.StepAnimation(newTick)
 			else
 				props.SetIsPlaying(false)
 			end
@@ -101,8 +103,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		StepAnimation = function(frame)
-			dispatch(StepAnimation(frame))
+		StepAnimation = function(tick)
+			dispatch(StepAnimation(tick))
 		end,
 
 		SetIsPlaying = function(isPlaying)

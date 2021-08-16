@@ -1,3 +1,5 @@
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
+
 -- TODO: RIDE-3499 ProjectHierarchy should display discovered tests
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -77,7 +79,8 @@ function ProjectHierarchy:render()
 		Expansion = expansion,
 		RootItems = getRootItems(displayed),
 		RenderRow = self.renderRow,
-		GetChildren = getChildren
+		GetChildren = getChildren,
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 	})
 end
 

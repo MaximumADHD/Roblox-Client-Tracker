@@ -9,8 +9,8 @@ return function()
 		return Roact.createElement(MockWrapper, {}, {
 			AnimationControlPanel = Roact.createElement(AnimationControlPanel, {
 				IsPlaying = false,
-				StartFrame = 0,
-				EndFrame = 10,
+				StartTick = 0,
+				EndTick = 10,
 				Playhead = 0,
 				EditingLength = 10,
 			})

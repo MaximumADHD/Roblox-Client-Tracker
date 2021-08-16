@@ -18,8 +18,8 @@ return function(length)
 			return
 		end
 
-		local endFrame = animationData.Metadata.EndFrame
-		length = math.max(length, endFrame, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
+		local endTick = animationData.Metadata.EndTick
+		length = math.max(length, endTick, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
 		store:dispatch(SetEditingLength(length))
 		store:dispatch(SetScrollZoom(0, 0))
 	end

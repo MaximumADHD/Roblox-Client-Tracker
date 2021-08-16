@@ -49,7 +49,7 @@ local deepJoin
 local FitToContentWidget
 local FitToContentList
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	local FrameworkUtil = require(Libs.Framework.Util)
+	local FrameworkUtil = require(Libs.Framework).Util
 	deepJoin = FrameworkUtil.deepJoin
 else
 	deepJoin = UILibrary.Util.deepJoin
@@ -200,7 +200,7 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 	else
 		userCollaborators = {}
 	end
-	local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)			
+	local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)
 	for i,user in pairs(users) do
 		local separatorProvidedByNextElement = i ~= #users
 		local lockedPermission = permissionLocked(user.Action, userAssignablePermissions)
@@ -223,7 +223,7 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 
 				CollaboratorName = user.Name,
 				CollaboratorId = user.Id,
-				CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user.Id, 
+				CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], user.Id,
 					AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
 				UseMask = true,
 

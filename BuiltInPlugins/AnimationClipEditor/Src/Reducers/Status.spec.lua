@@ -20,7 +20,7 @@ return function()
 	local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
 	local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 	local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
-	local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
+	local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 	local SetIKEnabled = require(Plugin.Src.Actions.SetIKEnabled)
 	local SetStartingPose = require(Plugin.Src.Actions.SetStartingPose)
 	local SetIKMode = require(Plugin.Src.Actions.SetIKMode)
@@ -37,7 +37,7 @@ return function()
 	local testRightClickInfo = {
 		InstanceName = "Root",
 		TrackName = "Track1",
-		Frame = 15,
+		Tick = 15,
 		Track = {
 			Keyframes = {1, 15},
 			Data = {
@@ -137,7 +137,7 @@ return function()
 			local state = store:getState()
 			expect(state.RightClickContextInfo.InstanceName).to.equal("Root")
 			expect(state.RightClickContextInfo.TrackName).to.equal("Track1")
-			expect(state.RightClickContextInfo.Frame).to.equal(15)
+			expect(state.RightClickContextInfo.Tick).to.equal(15)
 			expect(#state.RightClickContextInfo.Track.Keyframes).to.equal(2)
 		end)
 	end)
@@ -242,20 +242,20 @@ return function()
 		end)
 	end)
 
-	describe("SetEventEditingFrame", function()
-		it("should set the frame where events are being edited", function()
+	describe("SetEventEditingTick", function()
+		it("should set the tick where events are being edited", function()
 			local store = createTestStore()
-			store:dispatch(SetEventEditingFrame(3))
+			store:dispatch(SetEventEditingTick(3))
 			local state = store:getState()
-			expect(state.EventEditingFrame).to.equal(3)
+			expect(state.EventEditingTick).to.equal(3)
 		end)
 
 		it("should remove the frame if nil is passed", function()
 			local store = createTestStore()
-			store:dispatch(SetEventEditingFrame(3))
-			store:dispatch(SetEventEditingFrame())
+			store:dispatch(SetEventEditingTick(3))
+			store:dispatch(SetEventEditingTick())
 			local state = store:getState()
-			expect(state.EventEditingFrame).never.to.be.ok()
+			expect(state.EventEditingTick).never.to.be.ok()
 		end)
 	end)
 

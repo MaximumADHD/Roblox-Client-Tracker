@@ -13,7 +13,7 @@
 		UDim2 Position: Position of component
 		boolean HideSeparator: Hides separator component in item
 		UDim2 Size: Element size
-		string focusedText: Text, if any, to be focused on and unbolded [for autocomplete]
+		string FocusedText: Text, if any, to be focused on and unbolded [for autocomplete]
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -59,8 +59,8 @@ function DropdownMenuItem:render()
 	local fontSize = theme.TextSize
 
 	local buttonText
-	if (props.focusedText ~= nil) then
-		buttonText = getBoldedText(props.Text, props.focusedText)
+	if (props.FocusedText ~= nil) then
+		buttonText = getBoldedText(props.Text, props.FocusedText)
 	else
 		buttonText = props.Text
 	end

@@ -29,6 +29,7 @@ local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClic
 
 local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -166,6 +167,8 @@ function ListItem:init()
         if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
             if assetData.assetType == Enum.AssetType.Place then
                 AssetManagerService:RenamePlace(assetData.id, newName)
+            elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
+                AssetManagerService:RenameModel(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Lua

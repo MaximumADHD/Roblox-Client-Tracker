@@ -5,14 +5,12 @@
 	Allow the user to pick a universe to overwrite a place in
 
 ]]
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
@@ -20,8 +18,6 @@ local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
-
-local Theming = require(Plugin.Src.ContextServices.Theming)
 
 local LoadExistingGames = require(Plugin.Src.Thunks.LoadExistingGames)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
@@ -32,17 +28,13 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local Footer = require(Plugin.Src.Components.Footer)
 local TileGame = require(Plugin.Src.Components.TileGame)
 
-local Localizing = UILibrary.Localizing
 local StyledDropDown = UILibrary.Component.StyledDropdown
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 local SearchBar = UILibrary.Component.SearchBar
 local Separator = UILibrary.Component.Separator
-local RoundFrame = UILibrary.Component.RoundFrame
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
-
-local groupsLoaded = false
 
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 
@@ -61,471 +53,243 @@ function ScreenChooseGame:init()
 end
 
 function ScreenChooseGame:render()
-	if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-		local props = self.props
-		local theme = props.Theme:get("Plugin")
-		local localization = props.Localization
+	local props = self.props
+	local theme = props.Theme:get("Plugin")
+	local localization = props.Localization
 
-		local onClose = props.OnClose
+	local onClose = props.OnClose
 
-		local games = props.Games
-		local nextPageCursor = props.NextPageCursor
-		local groups = props.Groups
+	local games = props.Games
+	local nextPageCursor = props.NextPageCursor
+	local groups = props.Groups
 
-		local dispatchLoadExistingGames = props.DispatchLoadExistingGames
-		local openChoosePlacePage = props.OpenChoosePlacePage
+	local dispatchLoadExistingGames = props.DispatchLoadExistingGames
+	local openChoosePlacePage = props.OpenChoosePlacePage
 
-		local myGamesText = localization:getText("GroupDropdown", "MyGames")
+	local myGamesText = localization:getText("GroupDropdown", "MyGames")
 
-		local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
+	local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
 
-		if groups and next(groups) ~= nil then
-			for _, group in pairs(groups) do
-				table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
-			end
+	if groups and next(groups) ~= nil then
+		for _, group in pairs(groups) do
+			table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
 		end
+	end
 
-		local dropdownDisplayText = SelectedItemText or dropdownItems[1].Text
+	local dropdownDisplayText = SelectedItemText or dropdownItems[1].Text
 
-		local components = {
-			Roact.createElement("UIGridLayout", {
-				CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
-					theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE),
-				CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				[Roact.Ref] = self.layoutRef,
-			})
-		}
+	local components = {
+		Roact.createElement("UIGridLayout", {
+			CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
+				theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE),
+			CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y),
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			[Roact.Ref] = self.layoutRef,
+		})
+	}
 
-		if (not FFlagFixPublishAsWhenQueryFails) or props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
-			for _, game in pairs(games) do
-				-- TODO: (smallick) 2020/08/26
-				-- We should query using the endpoint and not manually
-				-- However, as the endpoint does not currently support searching keywords we can filter using string.find
-				if string.find(game.name:lower(), self.state.searchTerm:lower()) then
-					components[#components + 1] = Roact.createElement(TileGame, {
-						Name = game.name,
-						Id = game.rootPlaceId,
-						State = game.privacyType,
-						LayoutOrder = #components + 1,
-						OnActivated = function()
-							openChoosePlacePage(game)
-						end,
-					})
-				end
-			end
-		end
-
-		local TILE_HEIGHT = (theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE + theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y)
-
-		-- TODO: (smallick) 2020/07/27
-		-- Replace this with layoutRef
-		-- Manually calculating CanvasHeight for now
-		local canvasSize = math.ceil((#components - 1)/5) * TILE_HEIGHT
-		-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
-		-- nextPageFunc
-		if canvasSize < 3 * TILE_HEIGHT then
-			if nextPageCursor and SelectedItemType and SelectedItemKey then
-				dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-			end
-		end
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BackgroundColor3 = theme.backgroundColor,
-		}, {
-			ChooseGameText = Roact.createElement("TextLabel", {
-				Text = localization:getText("ScreenHeader", "ChooseGame"),
-				Position = UDim2.new(0, 30, 0, 25),
-				BackgroundTransparency = 1,
-				TextColor3 = theme.header.text,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				Font = theme.header.font,
-				TextSize = 18,
-			}),
-
-			Sep1 = Roact.createElement(Separator, {
-				Weight = 2,
-				Padding = 20,
-				Position = UDim2.new(0.5, 0, 0, 50),
-			}),
-
-			SearchBar = Roact.createElement("Frame", {
-				Position = UDim2.new(0.6, 4, 0, 70),
-				Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
-				BackgroundTransparency = 1,
-			}, {
-				Roact.createElement(SearchBar, {
-					Position = UDim2.new(1, 0, 1, 0),
-					Size = UDim2.new(1, 0, 1, 0),
-					Enabled = true,
-					Rounded = true,
-					BackgroundTransparency = 1,
-					FocusDisabled = true,
-					OnSearchRequested = function(submittedSearch)
-						if string.byte(submittedSearch:sub(-1, -1)) == 13 then
-							self:setState({
-								searchTerm = submittedSearch:sub(1, -2)
-							})
-						else
-							self:setState({
-								searchTerm = submittedSearch
-							})
-						end
+	if (not FFlagFixPublishAsWhenQueryFails) or props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
+		for _, game in pairs(games) do
+			-- TODO: (smallick) 2020/08/26
+			-- We should query using the endpoint and not manually
+			-- However, as the endpoint does not currently support searching keywords we can filter using string.find
+			if string.find(game.name:lower(), self.state.searchTerm:lower()) then
+				components[#components + 1] = Roact.createElement(TileGame, {
+					Name = game.name,
+					Id = game.rootPlaceId,
+					State = game.privacyType,
+					LayoutOrder = #components + 1,
+					OnActivated = function()
+						openChoosePlacePage(game)
 					end,
-				}),
-			}),
+				})
+			end
+		end
+	end
 
-			GroupDropdown = Roact.createElement(StyledDropDown, {
-				Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
-				Position = UDim2.new(0, 30, 0, 70),
-				ItemHeight = 38,
-				ButtonText = dropdownDisplayText,
-				Items = dropdownItems,
-				MaxItems = 4,
-				TextSize = 18,
-				SelectedItem = SelectedItemKey,
-				ShowRibbon = not theme.isDarkerTheme,
-				OnItemClicked = function(item)
-					if item.Key ~= SelectedItemKey then
-						SelectedItemKey = item.Key
-						SelectedItemType = item.Type
-						SelectedItemText = item.Text
-						dispatchLoadExistingGames(item.Type, item.Key)
+	local TILE_HEIGHT = (theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE + theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y)
+
+	-- TODO: (smallick) 2020/07/27
+	-- Replace this with layoutRef
+	-- Manually calculating CanvasHeight for now
+	local canvasSize = math.ceil((#components - 1)/5) * TILE_HEIGHT
+	-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
+	-- nextPageFunc
+	if canvasSize < 3 * TILE_HEIGHT then
+		if nextPageCursor and SelectedItemType and SelectedItemKey then
+			dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
+		end
+	end
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundColor3 = theme.backgroundColor,
+	}, {
+		ChooseGameText = Roact.createElement("TextLabel", {
+			Text = localization:getText("ScreenHeader", "ChooseGame"),
+			Position = UDim2.new(0, 30, 0, 25),
+			BackgroundTransparency = 1,
+			TextColor3 = theme.header.text,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Font = theme.header.font,
+			TextSize = 18,
+		}),
+
+		Sep1 = Roact.createElement(Separator, {
+			Weight = 2,
+			Padding = 20,
+			Position = UDim2.new(0.5, 0, 0, 50),
+		}),
+
+		SearchBar = Roact.createElement("Frame", {
+			Position = UDim2.new(0.6, 4, 0, 70),
+			Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
+			BackgroundTransparency = 1,
+		}, {
+			Roact.createElement(SearchBar, {
+				Position = UDim2.new(1, 0, 1, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				Enabled = true,
+				Rounded = true,
+				BackgroundTransparency = 1,
+				FocusDisabled = true,
+				OnSearchRequested = function(submittedSearch)
+					if string.byte(submittedSearch:sub(-1, -1)) == 13 then
+						self:setState({
+							searchTerm = submittedSearch:sub(1, -2)
+						})
+					else
+						self:setState({
+							searchTerm = submittedSearch
+						})
 					end
 				end,
-				ListWidth = 330,
 			}),
+		}),
 
-			MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
-				and Roact.createElement(InfiniteScrollingFrame, {
-					Position = UDim2.new(0, 30, 0, 115),
-					Size = UDim2.new(0.95, 0, 0.7, 0),
-					BackgroundTransparency = 1,
-					-- TODO: replace manual calculation with self.layoutRef
-					-- LayoutRef = self.layoutRef,
-					CanvasHeight = canvasSize,
-					NextPageRequestDistance = 100,
-					NextPageFunc = function()
-						if nextPageCursor and SelectedItemType and SelectedItemKey then
-							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-						end
-					end,
-				}, components),
-
-			MainContentsQuerying = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
-				and Roact.createElement("Frame", {
-					Position = UDim2.new(0, 30, 0, 115),
-					Size = UDim2.new(0.95, 0, 0.7, 0),
-					BackgroundColor3 = theme.backgroundColor,
-				}, {
-					Roact.createElement(LoadingIndicator, {
-						Position = UDim2.new(0.5, -100, 0, 115),
-						Size = UDim2.new(0, 200, 0, 50),
-					})
-				}),
-
-			MainContentsFailed = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
-				and Roact.createElement("Frame", {
-					Position = UDim2.new(0, 30, 0, 115),
-					Size = UDim2.new(0.95, 0, 0.7, 0),
-					BackgroundColor3 = theme.backgroundColor,
-				},
-					{
-						Roact.createElement("TextLabel", {
-							Text = localization:getText("General", "FetchFailed"),
-							Position = UDim2.new(0.5, 0, 0, 50),
-							TextSize = 24,
-							BackgroundTransparency = 1,
-							TextXAlignment = Enum.TextXAlignment.Center,
-							TextColor3 = theme.failText.text,
-							Font = theme.failText.font,
-						}),
-						Roact.createElement(RoundTextButton, {
-							Position = UDim2.new(0.5, 0, 0, 100),
-							AnchorPoint = Vector2.new(0.5, 0.5),
-							Style = theme.defaultButton,
-							Size = UDim2.new(0, 150, 0, 75),
-							Active = true,
-							Name = localization:getText("Button", "Retry"),
-							TextSize = Constants.TEXT_SIZE,
-							OnClicked = function()
-								dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
-							end}
-					)}
-				),
-
-			-- DEPRECATED delete with FFlagFixPublishAsWhenQueryFails
-			ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
-				and Roact.createElement(InfiniteScrollingFrame, {
-					Position = UDim2.new(0, 30, 0, 115),
-					Size = UDim2.new(0.95, 0, 0.7, 0),
-					BackgroundTransparency = 1,
-					-- TODO: replace manual calculation with self.layoutRef
-					-- LayoutRef = self.layoutRef,
-					CanvasHeight = canvasSize,
-					NextPageRequestDistance = 100,
-					NextPageFunc = function()
-						if nextPageCursor and SelectedItemType and SelectedItemKey then
-							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-						end
-					end,
-				}, components),
-
-
-			Footer = Roact.createElement(Footer, {
-				MainButton = {
-					Name = "Create",
-					Active = false,
-				},
-				OnClose = onClose,
-				NextScreen = Constants.SCREENS.CREATE_NEW_GAME,
-				NextScreenText  = "CreateNewGame",
-			}),
-		})
-	else
-		return Theming.withTheme(function(theme)
-			return Localizing.withLocalization(function(localization)
-				local props = self.props
-				local onClose = props.OnClose
-
-				local games = props.Games
-				local nextPageCursor = props.NextPageCursor
-				local groups = props.Groups
-
-				local dispatchLoadExistingGames = props.DispatchLoadExistingGames
-				local openChoosePlacePage = props.OpenChoosePlacePage
-
-				local myGamesText = localization:getText("GroupDropdown", "MyGames")
-
-				local dropdownItems = { { Type = Constants.SUBJECT_TYPE.USER, Key = 0, Text = myGamesText, }, }
-
-				if groups and next(groups) ~= nil then
-					for _, group in pairs(groups) do
-						table.insert(dropdownItems, { Type = Constants.SUBJECT_TYPE.GROUP, Key = group.groupId, Text = group.name, })
-					end
+		GroupDropdown = Roact.createElement(StyledDropDown, {
+			Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
+			Position = UDim2.new(0, 30, 0, 70),
+			ItemHeight = 38,
+			ButtonText = dropdownDisplayText,
+			Items = dropdownItems,
+			MaxItems = 4,
+			TextSize = 18,
+			SelectedItem = SelectedItemKey,
+			ShowRibbon = not theme.isDarkerTheme,
+			OnItemClicked = function(item)
+				if item.Key ~= SelectedItemKey then
+					SelectedItemKey = item.Key
+					SelectedItemType = item.Type
+					SelectedItemText = item.Text
+					dispatchLoadExistingGames(item.Type, item.Key)
 				end
+			end,
+			ListWidth = 330,
+		}),
 
-				local dropdownDisplayText = SelectedItemText or dropdownItems[1].Text
-
-				local components = {
-					Roact.createElement("UIGridLayout", {
-						CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
-							theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE),
-						CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						[Roact.Ref] = self.layoutRef,
-					})
-				}
-
-				if (not FFlagFixPublishAsWhenQueryFails) or props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
-					for _, game in pairs(games) do
-						-- TODO: (smallick) 2020/08/26
-						-- We should query using the endpoint and not manually
-						-- However, as the endpoint does not currently support searching keywords we can filter using string.find
-						if string.find(game.name:lower(), self.state.searchTerm:lower()) then
-							components[#components + 1] = Roact.createElement(TileGame, {
-								Name = game.name,
-								Id = game.rootPlaceId,
-								State = game.privacyType,
-								LayoutOrder = #components + 1,
-								OnActivated = function()
-									openChoosePlacePage(game)
-								end,
-							})
-						end
-					end
-				end
-
-				local TILE_HEIGHT = (theme.SCREEN_CHOOSE_GAME.ICON_SIZE + theme.SCREEN_CHOOSE_GAME.TILE_FOOTER_SIZE + theme.SCREEN_CHOOSE_GAME.CELL_PADDING_Y)
-
-				-- TODO: (smallick) 2020/07/27
-				-- Replace this with layoutRef
-				-- Manually calculating CanvasHeight for now
-				local canvasSize = math.ceil((#components - 1)/5) * TILE_HEIGHT
-				-- Force atleast 3 rows to show up to force scroll to appear. Further search results can be taken care of by InfiniteScrollingFrame
-				-- nextPageFunc
-				if canvasSize < 3 * TILE_HEIGHT then
+		MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
+			and Roact.createElement(InfiniteScrollingFrame, {
+				Position = UDim2.new(0, 30, 0, 115),
+				Size = UDim2.new(0.95, 0, 0.7, 0),
+				BackgroundTransparency = 1,
+				-- TODO: replace manual calculation with self.layoutRef
+				-- LayoutRef = self.layoutRef,
+				CanvasHeight = canvasSize,
+				NextPageRequestDistance = 100,
+				NextPageFunc = function()
 					if nextPageCursor and SelectedItemType and SelectedItemKey then
 						dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
 					end
-				end
+				end,
+			}, components),
 
-				return Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = theme.backgroundColor,
-				}, {
-					ChooseGameText = Roact.createElement("TextLabel", {
-						Text = localization:getText("ScreenHeader", "ChooseGame"),
-						Position = UDim2.new(0, 30, 0, 25),
-						BackgroundTransparency = 1,
-						TextColor3 = theme.header.text,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						Font = theme.header.font,
-						TextSize = 18,
-					}),
-
-					Sep1 = Roact.createElement(Separator, {
-						Weight = 2,
-						Padding = 20,
-						Position = UDim2.new(0.5, 0, 0, 50),
-					}),
-
-					SearchBar = Roact.createElement("Frame", {
-						Position = UDim2.new(0.6, 4, 0, 70),
-						Size = UDim2.new(0, theme.DROPDOWN_WIDTH - 10, 0, theme.DROPDOWN_HEIGHT),
-						BackgroundTransparency = 1,
-					}, {
-						Roact.createElement(SearchBar, {
-							Position = UDim2.new(1, 0, 1, 0),
-							Size = UDim2.new(1, 0, 1, 0),
-							Enabled = true,
-							Rounded = true,
-							BackgroundTransparency = 1,
-							FocusDisabled = true,
-							OnSearchRequested = function(submittedSearch)
-								if string.byte(submittedSearch:sub(-1, -1)) == 13 then
-									self:setState({
-										searchTerm = submittedSearch:sub(1, -2)
-									})
-								else
-									self:setState({
-										searchTerm = submittedSearch
-									})
-								end
-							end,
-						}),
-					}),
-
-					GroupDropdown = Roact.createElement(StyledDropDown, {
-						Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
-						Position = UDim2.new(0, 30, 0, 70),
-						ItemHeight = 38,
-						ButtonText = dropdownDisplayText,
-						Items = dropdownItems,
-						MaxItems = 4,
-						TextSize = 18,
-						SelectedItem = SelectedItemKey,
-						ShowRibbon = not theme.isDarkerTheme,
-						OnItemClicked = function(item)
-							if item.Key ~= SelectedItemKey then
-								SelectedItemKey = item.Key
-								SelectedItemType = item.Type
-								SelectedItemText = item.Text
-								dispatchLoadExistingGames(item.Type, item.Key)
-							end
-						end,
-						ListWidth = 330,
-					}),
-
-					MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
-						and Roact.createElement(InfiniteScrollingFrame, {
-							Position = UDim2.new(0, 30, 0, 115),
-							Size = UDim2.new(0.95, 0, 0.7, 0),
-							BackgroundTransparency = 1,
-							-- TODO: replace manual calculation with self.layoutRef
-							-- LayoutRef = self.layoutRef,
-							CanvasHeight = canvasSize,
-							NextPageRequestDistance = 100,
-							NextPageFunc = function()
-								if nextPageCursor and SelectedItemType and SelectedItemKey then
-									dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-								end
-							end,
-						}, components),
-
-					MainContentsQuerying = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
-						and Roact.createElement("Frame", {
-							Position = UDim2.new(0, 30, 0, 115),
-							Size = UDim2.new(0.95, 0, 0.7, 0),
-							BackgroundColor3 = theme.backgroundColor,
-						}, {
-							Roact.createElement(LoadingIndicator, {
-								Position = UDim2.new(0.5, -100, 0, 115),
-								Size = UDim2.new(0, 200, 0, 50),
-							})
-						}),
-
-					MainContentsFailed = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
-						and Roact.createElement("Frame", {
-							Position = UDim2.new(0, 30, 0, 115),
-							Size = UDim2.new(0.95, 0, 0.7, 0),
-							BackgroundColor3 = theme.backgroundColor,
-						},
-							{
-								Roact.createElement("TextLabel", {
-									Text = localization:getText("General", "FetchFailed"),
-									Position = UDim2.new(0.5, 0, 0, 50),
-									TextSize = 24,
-									BackgroundTransparency = 1,
-									TextXAlignment = Enum.TextXAlignment.Center,
-									TextColor3 = theme.failText.text,
-									Font = theme.failText.font,
-								}),
-								Roact.createElement(RoundTextButton, {
-									Position = UDim2.new(0.5, 0, 0, 100),
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									Style = theme.defaultButton,
-									Size = UDim2.new(0, 150, 0, 75),
-									Active = true,
-									Name = localization:getText("Button", "Retry"),
-									TextSize = Constants.TEXT_SIZE,
-									OnClicked = function()
-										dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
-									end}
-							)}
-						),
-
-					-- DEPRECATED delete with FFlagFixPublishAsWhenQueryFails
-					ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
-						and Roact.createElement(InfiniteScrollingFrame, {
-							Position = UDim2.new(0, 30, 0, 115),
-							Size = UDim2.new(0.95, 0, 0.7, 0),
-							BackgroundTransparency = 1,
-							-- TODO: replace manual calculation with self.layoutRef
-							-- LayoutRef = self.layoutRef,
-							CanvasHeight = canvasSize,
-							NextPageRequestDistance = 100,
-							NextPageFunc = function()
-								if nextPageCursor and SelectedItemType and SelectedItemKey then
-									dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
-								end
-							end,
-						}, components),
-
-
-					Footer = Roact.createElement(Footer, {
-						MainButton = {
-							Name = "Create",
-							Active = false,
-						},
-						OnClose = onClose,
-						NextScreen = Constants.SCREENS.CREATE_NEW_GAME,
-						NextScreenText  = "CreateNewGame",
-					}),
+		MainContentsQuerying = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
+			and Roact.createElement("Frame", {
+				Position = UDim2.new(0, 30, 0, 115),
+				Size = UDim2.new(0.95, 0, 0.7, 0),
+				BackgroundColor3 = theme.backgroundColor,
+			}, {
+				Roact.createElement(LoadingIndicator, {
+					Position = UDim2.new(0.5, -100, 0, 115),
+					Size = UDim2.new(0, 200, 0, 50),
 				})
-			end)
-		end)
-	end
+			}),
+
+		MainContentsFailed = (FFlagFixPublishAsWhenQueryFails and props.GamesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
+			and Roact.createElement("Frame", {
+				Position = UDim2.new(0, 30, 0, 115),
+				Size = UDim2.new(0.95, 0, 0.7, 0),
+				BackgroundColor3 = theme.backgroundColor,
+			},
+				{
+					Roact.createElement("TextLabel", {
+						Text = localization:getText("General", "FetchFailed"),
+						Position = UDim2.new(0.5, 0, 0, 50),
+						TextSize = 24,
+						BackgroundTransparency = 1,
+						TextXAlignment = Enum.TextXAlignment.Center,
+						TextColor3 = theme.failText.text,
+						Font = theme.failText.font,
+					}),
+					Roact.createElement(RoundTextButton, {
+						Position = UDim2.new(0.5, 0, 0, 100),
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Style = theme.defaultButton,
+						Size = UDim2.new(0, 150, 0, 75),
+						Active = true,
+						Name = localization:getText("Button", "Retry"),
+						TextSize = Constants.TEXT_SIZE,
+						OnClicked = function()
+							dispatchLoadExistingGames(SelectedItemType, SelectedItemKey)
+						end}
+				)}
+			),
+
+		-- DEPRECATED delete with FFlagFixPublishAsWhenQueryFails
+		ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
+			and Roact.createElement(InfiniteScrollingFrame, {
+				Position = UDim2.new(0, 30, 0, 115),
+				Size = UDim2.new(0.95, 0, 0.7, 0),
+				BackgroundTransparency = 1,
+				-- TODO: replace manual calculation with self.layoutRef
+				-- LayoutRef = self.layoutRef,
+				CanvasHeight = canvasSize,
+				NextPageRequestDistance = 100,
+				NextPageFunc = function()
+					if nextPageCursor and SelectedItemType and SelectedItemKey then
+						dispatchLoadExistingGames(SelectedItemType, SelectedItemKey, nextPageCursor)
+					end
+				end,
+			}, components),
+
+
+		Footer = Roact.createElement(Footer, {
+			MainButton = {
+				Name = "Create",
+				Active = false,
+			},
+			OnClose = onClose,
+			NextScreen = Constants.SCREENS.CREATE_NEW_GAME,
+			NextScreenText  = "CreateNewGame",
+		}),
+	})
 end
 
 function ScreenChooseGame:willUnmount()
 	for key, _ in pairs(self.props.Games) do self.props.Games[key] = nil end
 end
 
-if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-	if FFlagPublishPlaceAsWithContext then
-		ScreenChooseGame = withContext({
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-		})(ScreenChooseGame)
-	else
-		ContextServices.mapToProps(ScreenChooseGame, {
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-		})
-	end
-
+if FFlagPublishPlaceAsWithContext then
+	ScreenChooseGame = withContext({
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})(ScreenChooseGame)
+else
+	ContextServices.mapToProps(ScreenChooseGame, {
+		Theme = ContextServices.Theme,
+		Localization = ContextServices.Localization,
+	})
 end
 
 local function mapStateToProps(state, props)

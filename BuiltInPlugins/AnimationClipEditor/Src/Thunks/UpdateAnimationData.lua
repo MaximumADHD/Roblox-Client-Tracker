@@ -27,7 +27,7 @@ return function(animationData)
 		local playhead = state.Status.Playhead
 		local editingLength = state.Status.EditingLength
 
-		local startFrame = animationData.Metadata.StartFrame
+		local startTick = animationData.Metadata.StartTick
 		local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 
 		local removed = AnimationData.removeExtraKeyframes(animationData)
@@ -35,13 +35,13 @@ return function(animationData)
 			store:dispatch(SetNotification("ClippedWarning", true))
 		end
 
-		AnimationData.setEndFrame(animationData)
-		local newEndFrame = animationData.Metadata.EndFrame
+		AnimationData.setEndTick(animationData)
+		local newEndTick = animationData.Metadata.EndTick
 
-		for _, frame in ipairs(animationData.Events.Keyframes) do
-			if frame > newEndFrame then
-				animationData.Metadata.EndFrame = frame
-				newEndFrame = animationData.Metadata.EndFrame
+		for _, tick in ipairs(animationData.Events.Keyframes) do
+			if tick > newEndTick then
+				animationData.Metadata.EndTick = tick
+				newEndTick = tick
 			end
 		end
 
@@ -51,12 +51,12 @@ return function(animationData)
 
 		store:dispatch(SetAnimationData(animationData))
 
-		if startFrame ~= newEndFrame then
-			playhead = math.clamp(playhead, startFrame, newEndFrame)
+		if startTick ~= newEndTick then
+			playhead = math.clamp(playhead, startTick, newEndTick)
 		end
 		store:dispatch(StepAnimation(playhead))
 
-		local length = newEndFrame - startFrame
+		local length = newEndTick - startTick
 
 		-- Adjust the timeline length if the animation extends past the visible area.
 		-- Adjust the zoom level so that the timeline does not zoom out when it is adjusted.
@@ -67,7 +67,7 @@ return function(animationData)
 
 			scroll = 0
 			if lengthWithPadding ~= rangeLength then
-				scroll = math.clamp((range.Start - startFrame) / (lengthWithPadding - rangeLength), 0, 1)
+				scroll = math.clamp((range.Start - startTick) / (lengthWithPadding - rangeLength), 0, 1)
 			end
 			zoom = 1 - math.clamp(rangeLength / lengthWithPadding, 0, 1)
 

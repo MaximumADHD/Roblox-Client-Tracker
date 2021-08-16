@@ -1,5 +1,3 @@
-local FFlagDevFrameworkExpandablePane = game:GetFastFlag("DevFrameworkExpandablePane")
-
 local Framework = script.Parent.Parent.Parent
 
 local FrameworkStyle = Framework.Style
@@ -19,13 +17,7 @@ local Pane = require(UIFolderData.Pane.style)
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
-if not FFlagDevFrameworkExpandablePane then
-	if THEME_REFACTOR then
-		return {}
-	else
-		return function() end
-	end
-elseif THEME_REFACTOR then
+if THEME_REFACTOR then
 	local common = deepCopy(Common)
 	local pane = deepCopy(Pane)
 

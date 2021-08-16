@@ -22,10 +22,10 @@ local withLocalization = ContextHelper.withLocalization
 local Constants = require(Plugin.Core.Util.Constants)
 local TimeTextBox = require(Plugin.Core.Components.SearchOptions.TimeTextBox)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
-local RangeSlider = require(Libs.Framework.UI.RangeSlider)
-local Util = require(Libs.Framework.Util)
+local RangeSlider = require(Libs.Framework).UI.RangeSlider
+local Util = require(Libs.Framework).Util
 local FitFrameVertical = Util.FitFrame.FitFrameVertical
 
 local MAX_DURATION = Constants.MAX_AUDIO_SEARCH_DURATION

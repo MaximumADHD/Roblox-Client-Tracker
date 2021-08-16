@@ -88,6 +88,11 @@ styleRoot:extend({
       TextSize = 16,
    }),
 
+   [ui.TitledFrame] = Cryo.Dictionary.join(getRawComponentStyle("TitledFrame"), {
+      TextColor = StyleKey.BrightText,
+      TextSize = 16,
+   }),
+
    -- LocalizationTools specific components
    [ui.MainView] = {
       EmptyFrameHeight = 1000,
@@ -184,6 +189,17 @@ styleRoot:extend({
       BorderColor = StyleKey.Border,
       MainBackground = StyleKey.MainBackground,
       MainButton = StyleKey.MainButton,
+   },
+   [ui.ImageLocalizationSection] = {
+      LeftIndent = 15,
+      PaddingTop = 20,
+      Spacing = 15,
+      SectionLabelSize = 20,
+      SectionLabelTextSize = 10,
+      TextColor = StyleKey.BrightText,
+      LabelWidth = 260,
+      ButtonWidth = 100,
+		ButtonHeight = 35,
    }
 })
 

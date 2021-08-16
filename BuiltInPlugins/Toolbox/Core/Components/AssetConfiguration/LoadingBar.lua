@@ -13,6 +13,7 @@
 		number loadingTime - total time it takes to load without waiting for onFinish
 		callback onFinish - provide this callback to signal that loading has finished
 ]]
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -32,6 +33,11 @@ local LOADING_TITLE_HEIGHT = 20
 local LOADING_TITLE_PADDING = 10
 
 local withTheme = ContextHelper.withTheme
+
+if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
+	-- TODO: Remove file
+	return {}
+end
 
 local LoadingBar = Roact.Component:extend("LoadingBar")
 

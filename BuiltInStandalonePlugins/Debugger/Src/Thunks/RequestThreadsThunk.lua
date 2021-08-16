@@ -3,7 +3,7 @@ local AddThreadId = require(Plugin.Src.Actions.Callstack.AddThreadId)
 local RequestCallstackThunk = require(Plugin.Src.Thunks.RequestCallstackThunk)
 
 return function(pausedState, dataModel, debuggerStateToken)
-	return function(store)
+	return function(store, contextItems)
 		pausedState:requestThreads()
 		:andThen(function (threads : { [number] : ThreadState })
 			for threadId, threadState in ipairs(threads) do
@@ -12,7 +12,8 @@ return function(pausedState, dataModel, debuggerStateToken)
 			end
 		end)
 		:catch(function (threads : { [number] : ThreadState })
-			warn("Encountered an error during asynchronous execution.")
+			warn("Encountered an error during asynchronous execution: Request Threads")
+			contextItems.analytics:report("ThunkFailed", "RequestThreadsThunk")
 		end)
     end
 end

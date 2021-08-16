@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Action = require(Plugin.Libs.Framework.Util.Action)
+local Action = require(Plugin.Libs.Framework).Util.Action
 
 return Action(script.Name, function(isUploadFeeEnabled, uploadFee, canAffordUploadFee)
 	assert(type(isUploadFeeEnabled) == "boolean", "isUploadFeeEnabled must be a boolean")

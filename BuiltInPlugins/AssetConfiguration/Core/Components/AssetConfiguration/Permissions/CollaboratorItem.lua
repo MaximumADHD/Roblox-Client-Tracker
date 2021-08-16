@@ -164,7 +164,7 @@ function CollaboratorItem:init()
 		if props.Enabled and props.PermissionChanged then
 			props.PermissionChanged(item.Key)
 		end
-		self.toggleDropdown(false)
+		self.closeDropdown()
 	end
 
 	self.onDropdownRenderItem = function(item, index, onActivated)
@@ -177,9 +177,14 @@ function CollaboratorItem:init()
 		})
 	end
 
-	self.toggleDropdown = function(isShow)
+	self.openDropdown = function()
 		self:setState({
-			showDropdown = isShow,
+			showDropdown = true,
+		})
+	end
+	self.closeDropdown = function()
+		self:setState({
+			showDropdown = false,
 		})
 	end
 
@@ -269,7 +274,7 @@ function CollaboratorItem:render()
 				}, {
 					Dropdown = Roact.createElement(DropdownMenu, {
 						Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
-						OnFocusLost = function() self.toggleDropdown(false) end,
+						OnFocusLost = self.closeDropdown,
 						Items = props.Items,
 						OnItemActivated = self.onItemActivated,
 						OnRenderItem = self.onDropdownRenderItem,
@@ -280,10 +285,10 @@ function CollaboratorItem:render()
 					Disabled = not (props.Enabled and #props.Items > 0),
 					RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 					Text = props.Action,
-					OnClick = function() self.toggleDropdown(true) end,
+					OnClick = self.openDropdown,
 					AnchorPoint = Vector2.new(1, 0),
 					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, ITEM_HEIGHT),
 				}, {
 					TextPadding = Roact.createElement("UIPadding", {
 						PaddingLeft = UDim.new(0, 4),

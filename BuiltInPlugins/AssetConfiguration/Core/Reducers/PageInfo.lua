@@ -17,6 +17,7 @@ local Actions = Plugin.Core.Actions
 local ChangeBackground = require(Actions.ChangeBackground)
 local SetToolboxManageableGroups = require(Actions.SetToolboxManageableGroups)
 local UpdatePageInfo = require(Actions.UpdatePageInfo)
+local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
@@ -109,6 +110,12 @@ return Rodux.createReducer({
 
 	requestReason = RequestReason.InitLoad,
 }, {
+	[UpdateSearchTerm.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			searchTerm = action.searchTerm,
+		})
+	end,
+	
 	[UpdatePageInfo.name] = function(state, action)
 		if not action.changes then
 			if DebugFlags.shouldDebugWarnings() then

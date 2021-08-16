@@ -16,7 +16,7 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
-return function(frame, analytics)
+return function(tick, analytics)
 	return function(store)
 		local state = store:getState()
 		local clipboard = state.Status.Clipboard
@@ -57,7 +57,7 @@ return function(frame, analytics)
 				end
 
 				for keyframe, data in pairs(GetFFlagFacialAnimationSupport() and track.Data or track) do
-					local insertFrame = frame + (keyframe - lowestFrame)
+					local insertFrame = tick + (keyframe - lowestFrame)
 					-- AddKeyframe will only add a keyframe if it needs to
 					AnimationData.addKeyframe(dataTrack, insertFrame, data.Value)
 					AnimationData.setKeyframeData(dataTrack, insertFrame, data)

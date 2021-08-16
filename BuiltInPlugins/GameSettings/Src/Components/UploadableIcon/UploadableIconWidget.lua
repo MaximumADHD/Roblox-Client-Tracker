@@ -25,7 +25,7 @@ local UILibrary = require(Plugin.UILibrary)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local TUTORIAL_URL = HttpRbxApiService:GetDocumentationUrl("articles/Game-Icons-Tips")

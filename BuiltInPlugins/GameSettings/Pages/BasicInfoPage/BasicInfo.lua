@@ -28,7 +28,6 @@
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
-local FFlagUseLayoutIteratorGameSettingsPublishPlace = game:GetFastFlag("UseLayoutIteratorGameSettingsPublishPlace")
 local FFlagLuobuDevPublishHideRequirementsLink = game:GetFastFlag("LuobuDevPublishHideRequirementsLink")
 local FFlagUpdateChinaOptInStatusTextColor = game:GetFastFlag("UpdateChinaOptInStatusTextColor")
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
@@ -61,7 +60,7 @@ local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
@@ -588,6 +587,19 @@ function BasicInfo:init()
 		end
 	end or nil
 
+	self.getOptInLocationsRequirementsLink = function()
+		local publishExists
+		if FFlagCheckPublishedPlaceExistsForDevPublish then
+			publishExists = publishedVersionExists(self.props.PublishedVersions)
+			if publishExists then
+				local url = getOptInLocationsRequirementsLink(chinaKey)
+				GuiService:OpenBrowserWindow(url)
+			end
+		else
+			local url = getOptInLocationsRequirementsLink(chinaKey)
+			GuiService:OpenBrowserWindow(url)
+		end
+	end
 
 	self.createOptInLocationBoxes = FFlagLuobuDevPublishLua and function(self, layoutOrder)
 		local props = self.props
@@ -611,59 +623,132 @@ function BasicInfo:init()
 
 		local boxes = {}
 
+		local showWarning
+		if FFlagCheckPublishedPlaceExistsForDevPublish then
+			showWarning = not publishExists
+		end
+
 		for region,values in pairs(optInLocations) do
 			local status = values.status
 			local selected = values.selected
 
 			local moderationStatus = self:getModerationStatus(region, status)
+			local layoutOrder3 = (FFlagLuobuDevPublishLua and FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
 
 			table.insert(boxes, {
 				Id = region,
 				Title = localization:getText("General", "Location" .. region),
 				Selected = selected,
-				LinkTextFrame = Roact.createElement("Frame", {
+				LinkTextFrame = FFlagCheckPublishedPlaceExistsForDevPublish and Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 150,
-					Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+					LayoutOrder = layoutOrder:getNextOrder(),
 					Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+					Size = UDim2.new(1, theme.extraOptInInfo.length, 0, theme.extraOptInInfo.height),
 				}, {
 					UILayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						Padding = UDim.new(0, theme.extraOptInInfo.padding),
 						SortOrder = Enum.SortOrder.LayoutOrder,
-						FillDirection = Enum.FillDirection.Horizontal,
 						VerticalAlignment = Enum.VerticalAlignment.Top,
+					}),
+					StatusRequirements = Roact.createElement("Frame", {
+						BorderSizePixel = 0,
+						LayoutOrder = layoutOrder:getNextOrder(),
+					}, {
+						UILayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							Padding = UDim.new(0, theme.requirementsLink.paddingX),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+						}),
+						ModerationStatus = moderationStatus.show and Roact.createElement("TextLabel", {
+							BackgroundTransparency = 1,
+							Font = theme.fontStyle.Subtext.Font,
+							LayoutOrder = -1,
+							Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+							Text = moderationStatus.statusText,
+							TextColor3 = moderationStatus.textColor,
+							TextSize = theme.fontStyle.Subtext.TextSize,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						}) or nil,
+						RequirementsFrame = Roact.createElement("Frame", {
+							BackgroundTransparency = 1,
+							BorderSizePixel = 0,
+							LayoutOrder = layoutOrder:getNextOrder(),
+							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+						}, {
+							RequirementsText = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement(PartialHyperlink, {
+								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+								Mouse = props.Mouse:get(),
+								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+								OnClick = self.getOptInLocationsRequirementsLink,
+								Style = requirementsLinkStyle,
+							}) or nil,
+						}),
+					}),
+					Warning = showWarning and Roact.createElement("Frame", {
+						BorderSizePixel = 0,
+						LayoutOrder = layoutOrder:getNextOrder(),
+					}, {
+						UILayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							Padding = UDim.new(0, theme.optInWarning.padding),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+						}),
+						Image = Roact.createElement(Image, {
+							LayoutOrder = layoutOrder3:getNextOrder(),
+							Size = UDim2.fromOffset(theme.optInWarning.size, theme.optInWarning.size),
+							Style = "WarningStyle",
+						}),
+						Text = Roact.createElement("TextLabel", {
+							BackgroundTransparency = 1,
+							Font = theme.fontStyle.Smaller.Font,
+							LayoutOrder = layoutOrder3:getNextOrder(),
+							Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "SavedGameWarning"), theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font).X, 0, theme.fontStyle.Smaller.TextSize),
+							Text = localization:getText(optInLocationsKey, "SavedGameWarning"),
+							TextColor3 = theme.fontStyle.Header.TextColor3,
+							TextTransparency = theme.optInWarning.transparency,
+							TextSize = theme.fontStyle.Smaller.TextSize,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						}),
+					}) or nil,
+				}) or Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					LayoutOrder = layoutOrder:getNextOrder(),
+					Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
+					Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
+				}, {
+					UILayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
 						Padding = UDim.new(0, theme.requirementsLink.paddingX),
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						VerticalAlignment = Enum.VerticalAlignment.Top,
 					}),
 
 					ModerationStatus = moderationStatus.show and Roact.createElement("TextLabel", {
-						Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
 						BackgroundTransparency = 1,
-						Text = moderationStatus.statusText,
-						TextColor3 = moderationStatus.textColor,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextSize = theme.fontStyle.Subtext.TextSize,
 						Font = theme.fontStyle.Subtext.Font,
 						LayoutOrder = -1,
+						Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
+						Text = moderationStatus.statusText,
+						TextColor3 = moderationStatus.textColor,
+						TextSize = theme.fontStyle.Subtext.TextSize,
+						TextXAlignment = Enum.TextXAlignment.Left,
 					}) or nil,
 
 					RequirementsText = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement(PartialHyperlink, {
 						HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-						Style = requirementsLinkStyle,
 						Mouse = props.Mouse:get(),
-						OnClick = function()
-							if FFlagCheckPublishedPlaceExistsForDevPublish then
-								if publishExists then
-									local url = getOptInLocationsRequirementsLink(chinaKey)
-									GuiService:OpenBrowserWindow(url)
-								end
-							else
-								local url = getOptInLocationsRequirementsLink(chinaKey)
-								GuiService:OpenBrowserWindow(url)
-							end
-						end,
+						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
+						OnClick = self.getOptInLocationsRequirementsLink,
+						Style = requirementsLinkStyle,
 					}) or nil,
 				})
 			})
+			if FFlagCheckPublishedPlaceExistsForDevPublish then
+				showWarning = false
+			end
 		end
 
 		return boxes
@@ -674,8 +759,8 @@ function BasicInfo:render()
 	local localization = self.props.Localization
 	local theme = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and self.props.Theme:get("Plugin") or nil
 
-	local layoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and LayoutOrderIterator.new() or nil
-	local layoutOrder2 = (FFlagUseLayoutIteratorGameSettingsPublishPlace and FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
+	local layoutOrder = LayoutOrderIterator.new()
+	local layoutOrder2 = (FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
 
 	local function createChildren()
 		if not self:hasPermissionToEdit() then
@@ -748,7 +833,7 @@ function BasicInfo:render()
 			Name = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleName"),
 				MaxHeight = 60,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 10,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
 				TextBox = Roact.createElement(RoundTextBox, {
@@ -765,7 +850,7 @@ function BasicInfo:render()
 			Description = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleDescription"),
 				MaxHeight = 150,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 20,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 			}, {
 				TextBox = Roact.createElement(RoundTextBox, {
@@ -783,12 +868,12 @@ function BasicInfo:render()
 			}),
 
 			Separator = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 30,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
 			Icon = Roact.createElement(UploadableIconWidget, {
 				Title = localization:getText("General", "TitleGameIcon"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 60,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				Enabled = props.GameIcon ~= nil,
 				Icon = props.GameIcon,
 				TutorialEnabled = true,
@@ -797,11 +882,11 @@ function BasicInfo:render()
 			}),
 
 			Separator3 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 70,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
 			Thumbnails = Roact.createElement(ThumbnailController, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 80,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				Enabled = props.Thumbnails ~= nil,
 				Thumbnails = props.Thumbnails,
 				Order = props.ThumbnailOrder,
@@ -812,13 +897,13 @@ function BasicInfo:render()
 			}),
 
 			Separator4 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 90,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
 			Genre = Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleGenre"),
 				MaxHeight = 38,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 100,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = DEPRECATED_Constants.TEXT_SIZE,
 				ZIndex = 3,
 			}, {
@@ -831,12 +916,12 @@ function BasicInfo:render()
 			}),
 
 			Separator5 = Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 110,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}),
 
 			Devices = Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleDevices"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 120,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				Boxes = {{
 						Id = "Computer",
 						Title = localization:getText("General", "DeviceComputer"),
@@ -889,13 +974,14 @@ function BasicInfo:render()
 			}),
 
 			Separator6 = not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 130,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}) or nil,
 
 			OptInLocations = not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleOptInLocations"),
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				Boxes = self:createOptInLocationBoxes(layoutOrder),
+				ShowWarning = not ((FFlagCheckPublishedPlaceExistsForDevPublish and publishExists) or (not FFlagCheckPublishedPlaceExistsForDevPublish)),
 				Enabled = optInLocations ~= nil and ((FFlagCheckPublishedPlaceExistsForDevPublish and publishExists) or (not FFlagCheckPublishedPlaceExistsForDevPublish)),
 				--Functionality
 				EntryClicked = function(box)
@@ -949,13 +1035,13 @@ function BasicInfo:render()
 			}) or nil,
 
 			Separator7 = FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 130,
+				LayoutOrder = layoutOrder:getNextOrder(),
 			}) or nil,
 
 			TempOptInLocations = FFlagLuobuDevPublishLuaTempOptIn and shouldShowDevPublishLocations() and Roact.createElement(TitledFrame, {
 				Title = localization:getText("General", "TitleOptInLocations"),
 				MaxHeight = 60,
-				LayoutOrder = FFlagUseLayoutIteratorGameSettingsPublishPlace and layoutOrder:getNextOrder() or 140,
+				LayoutOrder = layoutOrder:getNextOrder(),
 				TextSize = theme.fontStyle.Header.TextSize,
 			}, {
 				UILayout = Roact.createElement("UIListLayout", {

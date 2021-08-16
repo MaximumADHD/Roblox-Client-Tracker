@@ -13,7 +13,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)
@@ -93,7 +93,7 @@ function CollaboratorItem:getCurrentPermissionLabel()
 	local localization = props.Localization
 
 	if currentPermission == PermissionsConstants.MultipleKey then
-		return localization:getText("Permissions", "MultipleLabel") 
+		return localization:getText("Permissions", "MultipleLabel")
 	end
 
 	for _,permission in ipairs(availablePermissions) do

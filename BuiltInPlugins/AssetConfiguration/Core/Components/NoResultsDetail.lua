@@ -5,7 +5,7 @@ local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
-local t = require(Libs.Framework.Util.Typecheck.t)
+local t = require(Libs.Framework).Util.Typecheck.t
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)

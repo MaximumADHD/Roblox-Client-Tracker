@@ -78,7 +78,7 @@ function TrackActions:didMount()
 				newValue = KeyframeUtils:getValue(track, playhead)
 			else
 				if GetFFlagFacialAnimationSupport() then
-					newValue = TrackUtils.getDefaultValueFromType(trackType)
+					newValue = TrackUtils.getDefaultValueByType(trackType)
 				else
 					newValue = TrackUtils.getDefaultValue(track)
 				end
@@ -172,16 +172,16 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, trackName, trackType, frame, value, analytics)
+		AddKeyframe = function(instance, trackName, trackType, tick, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, frame, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, trackType, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		AddKeyframe_deprecated = function(instance, trackName, frame, value, analytics)
+		AddKeyframe_deprecated = function(instance, trackName, tick, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, frame, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 	}

@@ -23,8 +23,6 @@ if not FFlagDebugEnableBootcampPlugin then
 	return
 end
 
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
-
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
@@ -48,7 +46,7 @@ end
 
 -- Allows connecton to the Developer Inspector for internal engineers
 local inspector
-if FFlagEnableRoactInspector and hasInternalPermission then
+if hasInternalPermission then
 	inspector = Framework.DeveloperTools.forPlugin("BootcampPlugin", plugin)
 end
 

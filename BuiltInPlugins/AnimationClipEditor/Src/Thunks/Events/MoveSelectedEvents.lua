@@ -1,6 +1,6 @@
 --[[
 	Moves all events that are selected such that the pivot
-	moves to newFrame, and all other frames maintain their position
+	moves to newTick, and all other frames maintain their position
 	relative to the pivot.
 ]]
 
@@ -17,7 +17,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
-return function(pivot, newFrame, dragContext)
+return function(pivot, newTick, dragContext)
 	return function(store)
 		local state = store:getState()
 		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or store:getState().AnimationData
@@ -52,47 +52,47 @@ return function(pivot, newFrame, dragContext)
 			end
 		end
 
-		local selectedFrames = Cryo.Dictionary.keys(selectedEvents)
-		table.sort(selectedFrames)
-		local delta = newFrame - pivot
+		local selectedTicks = Cryo.Dictionary.keys(selectedEvents)
+		table.sort(selectedTicks)
+		local delta = newTick - pivot
 
 		local newSelectedEvents = deepCopy(selectedEvents)
 
-		local earliestFrame, latestFrame
+		local earliestTick, latestTick
 		if GetFFlagRealtimeChanges() then
-			earliestFrame, latestFrame = AnimationData.getEventBounds(newData, selectedEvents)
+			earliestTick, latestTick = AnimationData.getEventBounds(newData, selectedEvents)
 		end
 
 		if delta < 0 then
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
-			for _, frame in ipairs(selectedFrames) do
-				local insertFrame = frame + delta
+			for _, tick in ipairs(selectedTicks) do
+				local insertTick = tick + delta
 				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-					insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
 				if GetFFlagRealtimeChanges() then
-					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
+					insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
 				end
-				AnimationData.moveEvents(events, frame, insertFrame)
+				AnimationData.moveEvents(events, tick, insertTick)
 
-				newSelectedEvents[frame] = nil
-				newSelectedEvents[insertFrame] = true
+				newSelectedEvents[tick] = nil
+				newSelectedEvents[insertTick] = true
 			end
 		else
 			-- Moving forwards, iterate through selection right to left to avoid overwriting
-			for index = #selectedFrames, 1, -1 do
-				local frame = selectedFrames[index]
-				local insertFrame = frame + delta
+			for index = #selectedTicks, 1, -1 do
+				local tick = selectedTicks[index]
+				local insertTick = tick + delta
 				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-					insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
 				if GetFFlagRealtimeChanges() then
-					insertFrame = math.clamp(insertFrame, frame - earliestFrame, maxLength - (latestFrame - frame))
+					insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
 				end
-				AnimationData.moveEvents(events, frame, insertFrame)
+				AnimationData.moveEvents(events, tick, insertTick)
 
-				newSelectedEvents[frame] = nil
-				newSelectedEvents[insertFrame] = true
+				newSelectedEvents[tick] = nil
+				newSelectedEvents[insertTick] = true
 			end
 		end
 

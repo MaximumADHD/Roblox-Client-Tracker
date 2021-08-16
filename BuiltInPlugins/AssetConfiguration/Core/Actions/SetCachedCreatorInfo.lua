@@ -1,12 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
-local FrameworkUtil = require(Libs.Framework.Util)
+local FrameworkUtil = require(Libs.Framework).Util
 local Action = FrameworkUtil.Action
 local Util = Plugin.Core.Util
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
-local t = require(Libs.Framework.Util.Typecheck.t)
+local t = require(Libs.Framework).Util.Typecheck.t
 
 return Action(script.Name, function(creatorInfo)
 	assert(t.union(

@@ -8,6 +8,9 @@
 	Optional Props:
 		boolean Enabled: Whether the input is editable. Defaults to true.
 		number LayoutOrder: The layout order of this component in a list.
+		boolean ForceOnTextChange: Whether or not to always run the textChange function regardless of difference in text shown
+		callback OnInputBegan: callback for when user input (keystroke) begins.
+		callback OnInputEnded: callback for when user input (keystroke) ends.
 		callback OnTextChanged: callback for when the text was changed - OnTextChanged(text: string)
 		callback OnFocusGained: callback to tell parent that this component's focus was gained - OnFocusGained()
 		callback OnFocusLost: callback to tell parent that this component's focus was lost - OnFocusLost(enterPressed: boolean)
@@ -38,6 +41,7 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddSearchBarInputEvents = game:GetFastFlag("DevFrameworkAddSearchBarInputEvents")
 local FFlagDevFrameworkTextBoxRefProp = game:GetFastFlag("DevFrameworkTextBoxRefProp")
 
 local Framework = script.Parent.Parent
@@ -115,10 +119,15 @@ function TextInput:init()
 					rbx.TextXAlignment = Enum.TextXAlignment.Right
 				end
 			end
-			if rbx.Text ~= self.props.Text then
+			if (FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and self.props.ForceOnTextChange) then
 				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-				if self.props.OnTextChanged then
-					self.props.OnTextChanged(processed)
+				self.props.OnTextChanged(processed)
+			else
+				if rbx.Text ~= self.props.Text then
+					local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+					if self.props.OnTextChanged then
+						self.props.OnTextChanged(processed)
+					end
 				end
 			end
 		else
@@ -210,6 +219,9 @@ function TextInput:render()
 	local text = props.Text or ""
 	local textWrapped = props.TextWrapped
 
+	local onInputBegan = FFlagDevFrameworkAddSearchBarInputEvents and self.props.OnInputBegan or nil
+	local onInputEnded = FFlagDevFrameworkAddSearchBarInputEvents and self.props.OnInputEnded or nil
+
 	local theme = props.Theme
 	local style
 	local font
@@ -268,6 +280,9 @@ function TextInput:render()
 		[Roact.Change.Text] = self.onTextChanged,
 		[Roact.Event.MouseEnter] = self.mouseEnter,
 		[Roact.Event.MouseLeave] = self.mouseLeave,
+
+		[Roact.Event.InputBegan] = onInputBegan,
+		[Roact.Event.InputEnded] = onInputEnded,
 	})
 
 	local backgroundStyle = style.BackgroundStyle

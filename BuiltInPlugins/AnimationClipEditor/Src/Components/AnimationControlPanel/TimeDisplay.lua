@@ -4,17 +4,17 @@
 
 	Properties:
 		table AnimationData = The current animation data.
-		int StartFrame = beginning frame displayed on the timeline/dope sheet range
-		int EndFrame = last frame displayed on the timeline/dope sheet range
-		int Playhead = current frame location of the scubber
+		int StartTick = beginning tick displayed on the timeline/dope sheet range
+		int EndTick = last tick displayed on the timeline/dope sheet range
+		int Playhead = current tick location of the scubber
 		int EditingLength = current maximum length of the animation editor timeline
 		bool ShowAsTime = if text boxes should display time in seconds:frames or just frames
 		int LayoutOrder = The display order of this component.
 
 		function UpdateEditingLength(int length) = A callback for setting the timeline
 			length in the editor.
-		function StepAnimation(int frame) = A callback for scrubbing the animation
-			to the given frame.
+		function StepAnimation(int tick) = A callback for scrubbing the animation
+			to the given tick.
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
@@ -43,18 +43,18 @@ function TimeDisplay:init()
 		local animationData = props.AnimationData
 		if not focused and animationData then
 			local showAsTime = props.ShowAsTime
-			local startFrame = props.StartFrame
-			local endFrame = props.EndFrame
+			local startTick = props.StartTick
+			local endTick = props.EndTick
 			local updateEditingLength = props.UpdateEditingLength
 			local stepAnimation = props.StepAnimation
-			local animationData = props.AnimationData
+
 			local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
 
 			local time = StringUtils.parseTime(rbx.Text, frameRate) or 0
 
-			time = math.clamp(time, startFrame, AnimationData.getMaximumLength(frameRate))
+			time = math.clamp(time, startTick, AnimationData.getMaximumLength(frameRate))
 
-			if time > endFrame then
+			if time > endTick then
 				updateEditingLength(time)
 			end
 			rbx.Text = GetFFlagUseTicks() and StringUtils.formatTime(time, frameRate, showAsTime)
@@ -71,12 +71,13 @@ function TimeDisplay:init()
 			local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
 			local updateEditingLength = props.UpdateEditingLength
 			local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-			local endFrame = animationData.Metadata.EndFrame
+			local endTick = animationData.Metadata.EndTick
 
 			local newLength = StringUtils.parseTime(rbx.Text, frameRate) or 0
 
 			newLength = math.min(newLength, maxLength)
-			newLength = math.max(newLength, endFrame, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
+			newLength = math.max(newLength, endTick,
+				GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
 			rbx.Text = GetFFlagUseTicks() and StringUtils.formatTime(newLength, frameRate, showAsTime)
 				or (showAsTime and StringUtils.formatTime(newLength, frameRate) or tostring(newLength))
 			updateEditingLength(newLength)
@@ -160,7 +161,5 @@ else
 		Theme = ContextServices.Theme,
 	})
 end
-
-
 
 return TimeDisplay

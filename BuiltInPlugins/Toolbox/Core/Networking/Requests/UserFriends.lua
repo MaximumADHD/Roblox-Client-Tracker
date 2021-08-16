@@ -5,7 +5,7 @@
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 

@@ -16,8 +16,9 @@ local UILibrary = require(Plugin.UILibrary)
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
@@ -75,6 +76,12 @@ function CheckBoxSet:render()
 
 	local maxHeight = numBoxes * DEPRECATED_Constants.CHECKBOX_SIZE
 		+ numBoxes * DEPRECATED_Constants.CHECKBOX_PADDING
+
+	if FFlagCheckPublishedPlaceExistsForDevPublish then
+		if props.ShowWarning then
+			maxHeight = maxHeight * 3
+		end
+	end
 
 	return Roact.createElement(TitledFrame, {
 		Title = props.Title,

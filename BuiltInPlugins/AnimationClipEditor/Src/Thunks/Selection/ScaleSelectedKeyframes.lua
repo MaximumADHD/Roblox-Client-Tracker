@@ -4,11 +4,12 @@
 	If keyframes are at the pivot, they won't move, but the pivot
 	doesn't have to be a keyframe.
 
-	Keyframes are rounded to the nearest frame after scaling so that
-	they cannot be placed in between frames.
+	If any snap mode is enabled (Frame or Keyframe), then the keyframes
+	will snap to the nearest frame. If not, the keyframes will snap to
+	ticks.
 
 	Currently, if keyframes are scaled such that multiple keyframes
-	will end up on the same frame, one of the overlapping keyframes
+	will end up on the same tick, one of the overlapping keyframes
 	will be deleted and replaced by the other overlapping keyframe.
 	The outer keyframes have precedence over the inner keyframes
 	when this situation has to occur.
@@ -35,11 +36,12 @@ local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
+-- TODO: Use KeyframeUtils.getNearestTick() instead
 local function roundToInt(num)
 	return math.floor(num + 0.5)
 end
 
-return function(pivotFrame, scale, dragContext)
+return function(pivotTick, scale, dragContext)
 	return function(store)
 		local state = store:getState()
 		local scroll = state.Status.Scroll
@@ -60,10 +62,10 @@ return function(pivotFrame, scale, dragContext)
 			newData.Events = deepCopy(newData.Events)
 		end
 
-		local startFrame = 0
+		local startTick = 0
 		if not GetFFlagFixScaleKeyframeClobbering() then
 			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
-			startFrame = range.Start
+			startTick = range.Start
 		end
 
 		local maxLength
@@ -98,39 +100,39 @@ return function(pivotFrame, scale, dragContext)
 					-- Everything below the pivot is moving left, so perform
 					-- the move from left to right to avoid clobbering
 					for index = 1, #keyframes, 1 do
-						local oldFrame = keyframes[index]
-						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						local oldTick = keyframes[index]
+						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
 						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
-						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
-						if insertFrame >= pivotFrame then
+						insertTick = math.clamp(insertTick, startTick, maxLength)
+						if insertTick >= pivotTick then
 							break
 						end
-						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
-						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
+						AnimationData.moveKeyframe(track, oldTick, insertTick)
+						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-						newSelectedKeyframes[instanceName][trackName][oldFrame] = nil
-						newSelectedKeyframes[instanceName][trackName][insertFrame] = true
+						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+						newSelectedKeyframes[instanceName][trackName][insertTick] = true
 					end
 
 					-- Everything above the pivot is moving right, so perform
 					-- the move from right to left to avoid clobbering
 					for index = #keyframes, 1, -1 do
-						local oldFrame = keyframes[index]
-						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						local oldTick = keyframes[index]
+						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
 						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
-						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
-						if insertFrame <= pivotFrame then
+						insertTick = math.clamp(insertTick, startTick, maxLength)
+						if insertTick <= pivotTick then
 							break
 						end
-						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
-						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
+						AnimationData.moveKeyframe(track, oldTick, insertTick)
+						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-						newSelectedKeyframes[instanceName][trackName][oldFrame] = nil
-						newSelectedKeyframes[instanceName][trackName][insertFrame] = true
+						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+						newSelectedKeyframes[instanceName][trackName][insertTick] = true
 					end
 				end
 			else
@@ -143,7 +145,7 @@ return function(pivotFrame, scale, dragContext)
 					table.sort(keyframes)
 					local track = dataInstance.Tracks[trackName]
 
-					local lowPivot, highPivot = KeyframeUtils.findNearestKeyframes(keyframes, pivotFrame)
+					local lowPivot, highPivot = KeyframeUtils.findNearestKeyframes(keyframes, pivotTick)
 					if highPivot == nil then
 						highPivot = lowPivot + 1
 					end
@@ -151,33 +153,33 @@ return function(pivotFrame, scale, dragContext)
 					-- Everything below the pivot is moving right, so perform
 					-- the move from right to left to avoid clobbering
 					for index = lowPivot, 1, -1 do
-						local oldFrame = keyframes[index]
-						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						local oldTick = keyframes[index]
+						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
 						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
-						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
-						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
-						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
+						insertTick = math.clamp(insertTick, startTick, insertTick)
+						AnimationData.moveKeyframe(track, oldTick, insertTick)
+						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-						newSelectedKeyframes[instanceName][trackName][oldFrame] = nil
-						newSelectedKeyframes[instanceName][trackName][insertFrame] = true
+						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+						newSelectedKeyframes[instanceName][trackName][insertTick] = true
 					end
 
 					-- Everything above the pivot is moving left, so perform
 					-- the move from left to right to avoid clobbering
 					for index = highPivot, #keyframes, 1 do
-						local oldFrame = keyframes[index]
-						local insertFrame = roundToInt(pivotFrame + ((oldFrame - pivotFrame) * scale))
+						local oldTick = keyframes[index]
+						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
 						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-							insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
-						insertFrame = math.clamp(insertFrame, startFrame, maxLength)
-						AnimationData.moveKeyframe(track, oldFrame, insertFrame)
-						AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
+						insertTick = math.clamp(insertTick, startTick, maxLength)
+						AnimationData.moveKeyframe(track, oldTick, insertTick)
+						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-						newSelectedKeyframes[instanceName][trackName][oldFrame] = nil
-						newSelectedKeyframes[instanceName][trackName][insertFrame] = true
+						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+						newSelectedKeyframes[instanceName][trackName][insertTick] = true
 					end
 				end
 			end

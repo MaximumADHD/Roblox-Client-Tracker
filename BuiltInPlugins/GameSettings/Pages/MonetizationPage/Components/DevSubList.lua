@@ -24,7 +24,7 @@ local DevSubListHeaderText = require(script.Parent.DevSubListHeaderText)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

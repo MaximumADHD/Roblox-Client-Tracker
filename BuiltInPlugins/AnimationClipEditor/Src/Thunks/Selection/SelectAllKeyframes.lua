@@ -19,8 +19,8 @@ return function()
 			selectedKeyframes[instanceName] = {}
 			for trackName, track in pairs(instance.Tracks) do
 				selectedKeyframes[instanceName][trackName] = {}
-				for _, frame in ipairs(track.Keyframes) do
-					selectedKeyframes[instanceName][trackName][frame] = true
+				for _, tick in ipairs(track.Keyframes) do
+					selectedKeyframes[instanceName][trackName][tick] = true
 				end
 			end
 		end

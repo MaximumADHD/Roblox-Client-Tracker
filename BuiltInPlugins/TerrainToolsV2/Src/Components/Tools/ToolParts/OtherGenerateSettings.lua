@@ -15,11 +15,9 @@ local Panel = require(ToolParts.Panel)
 
 local OtherGenerateSettings = Roact.PureComponent:extend(script.Name)
 
-local FFlagTerrainToolsTextValidationFix = game:GetFastFlag("TerrainToolsTextValidationFix")
-
 function OtherGenerateSettings:init()
 	self.onSeedFocusLost = function(enterPressed, text)
-		if FFlagTerrainToolsTextValidationFix and utf8.len(text) == 0 then
+		if utf8.len(text) == 0 then
 			self.props.setSeed(self.props.seed)
 			
 			return self.props.seed

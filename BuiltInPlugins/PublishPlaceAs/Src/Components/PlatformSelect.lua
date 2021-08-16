@@ -5,19 +5,17 @@
 	of entries to display along with a header text.
 
 	Props:
-        int LayoutOrder = The layout order PlatformSelect will be placed in layout
-        bool DevicesError = Controls whether or not to display error message
-        table Devices = Table to set selection state of devices in set
-		
-        function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id 
-            of box and selection state to set in store
+		int LayoutOrder = The layout order PlatformSelect will be placed in layout
+		bool DevicesError = Controls whether or not to display error message
+		table Devices = Table to set selection state of devices in set
+
+		function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id
+			of box and selection state to set in store
 ]]
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -26,181 +24,106 @@ local withContext = ContextServices.withContext
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local ListDialog = require(Plugin.Src.Components.ListDialog)
 
--- TODO mwang remove with FFlagUpdatePublishPlacePluginToDevFrameworkContext
-local Localizing = UILibrary.Localizing
-
 local PlatformSelect = Roact.PureComponent:extend("PlatformSelect")
 
 function PlatformSelect:init()
-    self.state = {
-        dialogEnabled = false,
-    }
+	self.state = {
+		dialogEnabled = false,
+	}
 
-    self.showDialog = function()
-        self:setState({
-            dialogEnabled = true,
-        })
-    end
+	self.showDialog = function()
+		self:setState({
+			dialogEnabled = true,
+		})
+	end
 
-    self.closeDialog = function(accepted)
-        if accepted then
-            self.props.DeviceSelected("Console", accepted)
-        end
+	self.closeDialog = function(accepted)
+		if accepted then
+			self.props.DeviceSelected("Console", accepted)
+		end
 
-        self:setState({
-            dialogEnabled = false,
-        })
-    end
+		self:setState({
+			dialogEnabled = false,
+		})
+	end
 end
 
 function PlatformSelect:render()
-    if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-        local props = self.props
-        local localization = props.Localization
+	local props = self.props
+	local localization = props.Localization
 
-        local layoutOrder = props.LayoutOrder or 0
-        local devicesError = props.DevicesError
-        local deviceSelected = props.DeviceSelected
-        local devices = props.Devices
+	local layoutOrder = props.LayoutOrder or 0
+	local devicesError = props.DevicesError
+	local deviceSelected = props.DeviceSelected
+	local devices = props.Devices
 
-        return Roact.createElement(CheckBoxSet, {
-                Title = localization:getText("PageTitle", "Devices"),
-                LayoutOrder = layoutOrder,
-                Boxes = {
-                    {
-                        Id = "Computer",
-                        Title = localization:getText("Devices", "Computer"),
-                        Selected = devices.Computer,
-                    }, {
-                        Id = "Phone",
-                        Title = localization:getText("Devices", "Phone"),
-                        Selected = devices.Phone,
-                    }, {
-                        Id = "Tablet",
-                        Title = localization:getText("Devices", "Tablet"),
-                        Selected = devices.Tablet,
-                    }, {
-                        Id = "Console",
-                        Title = localization:getText("Devices", "Console"),
-                        Selected = devices.Console,
-                    },
-                },
-                ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
-                EntryClicked = function(box)
-                    if box.Id == "Console" and not box.Selected then
-                        self.showDialog()
-                    else 
-                        deviceSelected(box.Id, not box.Selected)
-                    end
-                end,
-            }, {
-                ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
-                    Title = localization:getText("General", "ContentDialogTitle"),
-                    Header = localization:getText("General", "ContentDialogHeader"),
-                    Entries = {
-                        localization:getText("General", "ContentDialogItem1"),
-                        localization:getText("General", "ContentDialogItem2"),
-                        localization:getText("General", "ContentDialogItem3"),
-                        localization:getText("General", "ContentDialogItem4"),
-                        localization:getText("General", "ContentDialogItem5"),
-                    },
-                    Buttons = {
-                        { Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
-                        { Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
-                    },
-                    OnButtonClicked = function(key)
-                        if key == "Agree" then
-                            self.closeDialog(true)
-                        else
-                            self.closeDialog(false)
-                        end
-                    end,
-                    OnClose = function()
-                        self.closeDialog(false)
-                    end,
-            }),
-        })
-    else
-        return Localizing.withLocalization(function(localization)
-            local props = self.props
-
-            local layoutOrder = props.LayoutOrder or 0
-            local devicesError = props.DevicesError
-            local deviceSelected = props.DeviceSelected
-            local devices = props.Devices
-
-            return Roact.createElement(CheckBoxSet, {
-                    Title = localization:getText("PageTitle", "Devices"),
-                    LayoutOrder = layoutOrder,
-                    Boxes = {
-                        {
-                            Id = "Computer",
-                            Title = localization:getText("Devices", "Computer"),
-                            Selected = devices.Computer,
-                        }, {
-                            Id = "Phone",
-                            Title = localization:getText("Devices", "Phone"),
-                            Selected = devices.Phone,
-                        }, {
-                            Id = "Tablet",
-                            Title = localization:getText("Devices", "Tablet"),
-                            Selected = devices.Tablet,
-                        }, {
-                            Id = "Console",
-                            Title = localization:getText("Devices", "Console"),
-                            Selected = devices.Console,
-                        },
-                    },
-                    ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
-                    EntryClicked = function(box)
-                        if box.Id == "Console" and not box.Selected then
-                            self.showDialog()
-                        else 
-                            deviceSelected(box.Id, not box.Selected)
-                        end
-                    end,
-                }, {
-                    ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
-                        Title = localization:getText("General", "ContentDialogTitle"),
-                        Header = localization:getText("General", "ContentDialogHeader"),
-                        Entries = {
-                            localization:getText("General", "ContentDialogItem1"),
-                            localization:getText("General", "ContentDialogItem2"),
-                            localization:getText("General", "ContentDialogItem3"),
-                            localization:getText("General", "ContentDialogItem4"),
-                            localization:getText("General", "ContentDialogItem5"),
-                        },
-                        Buttons = {
-                            { Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
-                            { Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
-                        },
-                        OnButtonClicked = function(key)
-                            if key == "Agree" then
-                                self.closeDialog(true)
-                            else
-                                self.closeDialog(false)
-                            end
-                        end,
-                        OnClose = function()
-                            self.closeDialog(false)
-                        end,
-                }),
-            })
-        end)
-    end
+	return Roact.createElement(CheckBoxSet, {
+			Title = localization:getText("PageTitle", "Devices"),
+			LayoutOrder = layoutOrder,
+			Boxes = {
+				{
+					Id = "Computer",
+					Title = localization:getText("Devices", "Computer"),
+					Selected = devices.Computer,
+				}, {
+					Id = "Phone",
+					Title = localization:getText("Devices", "Phone"),
+					Selected = devices.Phone,
+				}, {
+					Id = "Tablet",
+					Title = localization:getText("Devices", "Tablet"),
+					Selected = devices.Tablet,
+				}, {
+					Id = "Console",
+					Title = localization:getText("Devices", "Console"),
+					Selected = devices.Console,
+				},
+			},
+			ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
+			EntryClicked = function(box)
+				if box.Id == "Console" and not box.Selected then
+					self.showDialog()
+				else 
+					deviceSelected(box.Id, not box.Selected)
+				end
+			end,
+		}, {
+			ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
+				Title = localization:getText("General", "ContentDialogTitle"),
+				Header = localization:getText("General", "ContentDialogHeader"),
+				Entries = {
+					localization:getText("General", "ContentDialogItem1"),
+					localization:getText("General", "ContentDialogItem2"),
+					localization:getText("General", "ContentDialogItem3"),
+					localization:getText("General", "ContentDialogItem4"),
+					localization:getText("General", "ContentDialogItem5"),
+				},
+				Buttons = {
+					{ Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
+					{ Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
+				},
+				OnButtonClicked = function(key)
+					if key == "Agree" then
+						self.closeDialog(true)
+					else
+						self.closeDialog(false)
+					end
+				end,
+				OnClose = function()
+					self.closeDialog(false)
+				end,
+		}),
+	})
 end
 
-if FFlagUpdatePublishPlacePluginToDevFrameworkContext then
-    if FFlagPublishPlaceAsWithContext then
+if FFlagPublishPlaceAsWithContext then
 	PlatformSelect = withContext({
-	        Localization = ContextServices.Localization,
-	    })(PlatformSelect)
+		Localization = ContextServices.Localization,
+	})(PlatformSelect)
 else
 	ContextServices.mapToProps(PlatformSelect, {
-	        Localization = ContextServices.Localization,
-	    })
-end
-
+		Localization = ContextServices.Localization,
+	})
 end
 
 return PlatformSelect

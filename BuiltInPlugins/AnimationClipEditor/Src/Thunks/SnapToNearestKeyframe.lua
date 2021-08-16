@@ -1,5 +1,5 @@
 --[[
-	Given a frame, attempts to find the nearest keyframe within a determined amount of
+	Given a tick, attempts to find the nearest keyframe within a determined amount of
 	pixels on the Dope Sheet. If there are multiple keyframes that satisfy this, then
 	the closet keyframe out of them is chosen. If there are no keyframes that satisfy
 	this, then scrubbing behaves as normal.
@@ -14,7 +14,7 @@ local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
-return function(frame, trackWidth)
+return function(tick, trackWidth)
 	return function(store)
 		local state = store:getState()
 
@@ -36,23 +36,23 @@ return function(frame, trackWidth)
 		local tracks = root.Tracks
 
 		local snapped = false
-		local snapFrame = frame
+		local snapTick = tick
 		if tracks then
 			local scroll = state.Status.Scroll
 			local zoom = state.Status.Zoom
 			local editingLength = state.Status.EditingLength
 			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 
-			local framePosition = TrackUtils.getScaledKeyframePosition(frame, range.Start, range.End, trackWidth)
+			local framePosition = TrackUtils.getScaledKeyframePosition(tick, range.Start, range.End, trackWidth)
 
 			local closestKey = range.End + 1
 			for _, track in pairs(tracks) do
 				if #track.Keyframes > 0 then
-					local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, frame)
-					if math.abs(track.Keyframes[first] - frame) < math.abs(frame - closestKey) then
+					local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tick)
+					if math.abs(track.Keyframes[first] - tick) < math.abs(tick - closestKey) then
 						closestKey = track.Keyframes[first]
 					end
-					if second and math.abs(track.Keyframes[second] - frame) < math.abs(frame - closestKey) then
+					if second and math.abs(track.Keyframes[second] - tick) < math.abs(tick - closestKey) then
 						closestKey = track.Keyframes[second]
 					end
 				end
@@ -61,17 +61,17 @@ return function(frame, trackWidth)
 			if closestKey >= range.Start and closestKey <= range.End then
 				local closestKeyPosition = TrackUtils.getScaledKeyframePosition(closestKey, range.Start, range.End, trackWidth)
 				if math.abs(closestKeyPosition - framePosition) < Constants.SNAP_TO_KEYFRAME_THRESHOLD then
-					snapFrame = closestKey
+					snapTick = closestKey
 					snapped = true
 				end
 			end
 		end
 
 		if snapped or not GetFFlagUseTicks() then
-			store:dispatch(StepAnimation(snapFrame))
+			store:dispatch(StepAnimation(snapTick))
 		else
 			-- We didn't snap to a keyframe, but we still need to snap to the frames
-			store:dispatch(SnapToNearestFrame(frame))
+			store:dispatch(SnapToNearestFrame(tick))
 		end
 	end
 end

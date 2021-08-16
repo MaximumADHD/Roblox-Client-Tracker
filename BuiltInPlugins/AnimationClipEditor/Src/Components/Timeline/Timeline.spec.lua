@@ -6,12 +6,12 @@ return function()
 
 	local Timeline = require(script.Parent.Timeline)
 
-	local function createTestTimeline(startFrame, endFrame, majorInterval, minorInterval, showAsTime)
+	local function createTestTimeline(startTick, endTick, majorInterval, minorInterval, showAsTime)
 		return Roact.createElement(MockWrapper, {}, {
 			timeline = Roact.createElement(Timeline, {
-				StartFrame = startFrame,
-				EndFrame = endFrame,
-				LastFrame = endFrame,
+				StartTick = startTick,
+				EndTick = endTick,
+				LastTick = endTick,
 				MajorInterval = majorInterval,
 				MinorInterval = minorInterval,
 				Height = 24,
@@ -98,7 +98,7 @@ return function()
 		local instance = Roact.mount(createTestTimeline(0, 30, 0, 0, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
-		expect(frame:FindFirstChild("FirstFrame")).to.be.ok()
+		expect(frame:FindFirstChild("FirstTick")).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -108,7 +108,7 @@ return function()
 		local instance = Roact.mount(createTestTimeline(15, 30, 0, 0, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
-		expect(frame:FindFirstChild("FirstFrame")).never.to.be.ok()
+		expect(frame:FindFirstChild("FirstTick")).never.to.be.ok()
 
 		Roact.unmount(instance)
 	end)
@@ -118,7 +118,7 @@ return function()
 		local instance = Roact.mount(createTestTimeline(0, 30, 0, 0, true), container)
 		local frame = container:FindFirstChildOfClass("Frame")
 
-		expect(frame:FindFirstChild("LastFrame")).to.be.ok()
+		expect(frame:FindFirstChild("LastTick")).to.be.ok()
 
 		Roact.unmount(instance)
 	end)

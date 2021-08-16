@@ -3,9 +3,9 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local ConstantAvatar = require(Page.Util.ConstantAvatar)

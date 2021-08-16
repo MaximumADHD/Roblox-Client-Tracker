@@ -142,13 +142,13 @@ local function mapDispatchToProps(dispatch)
 			end
 		end,
 
-		ValueChanged = function(instanceName, trackName, trackType, frame, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, trackType, frame, value, analytics))
+		ValueChanged = function(instanceName, trackName, trackType, tick, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		ValueChanged_deprecated = function(instanceName, trackName, frame, value, analytics)
-			dispatch(ValueChanged(instanceName, trackName, frame, value, analytics))
+		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
+			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
 		end,
 
 		AddWaypoint = function()

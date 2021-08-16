@@ -5,7 +5,6 @@ end
 -- Fast flags
 require(script.Parent.Parent.TestRunner.defineLuaFlags)
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagUpdatePublishPlacePluginToDevFrameworkContext = game:GetFastFlag("UpdatePublishPlacePluginToDevFrameworkContext")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
@@ -18,7 +17,6 @@ local LOG_STORE_STATE_AND_EVENTS = false
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
-local UILibrary = require(Plugin.Packages.UILibrary)
 local Framework = require(Plugin.Packages.Framework)
 
 -- context services
@@ -44,22 +42,15 @@ local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-local Localization = UILibrary.Studio.Localization
 
 -- Plugin Specific Globals
 local StudioService = game:GetService("StudioService")
 local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 local theme = PluginTheme.new()
-local localization = FFlagUpdatePublishPlacePluginToDevFrameworkContext and
-	ContextServices.Localization.new({
-		pluginName = "PublishPlaceAs",
-		stringResourceTable = TranslationDevelopmentTable,
-		translationResourceTable = TranslationReferenceTable,
-	})
-or Localization.new({
+local localization = ContextServices.Localization.new({
+	pluginName = "PublishPlaceAs",
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
-	pluginName = "PublishPlaceAs",
 })
 
 -- Widget Gui Elements
@@ -101,13 +92,13 @@ end
 --Initializes and populates the plugin popup window
 local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPublishContext)
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
-		plugin = plugin,
-		localization = localization,
-		theme = theme,
-		uiLibraryWrapper = FFlagUpdatePublishPlacePluginToDevFrameworkContext and UILibraryWrapper.new() or nil,
 		focusGui = pluginGui,
-		store = dataStore,
+		localization = localization,
 		mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and plugin:getMouse() or nil,
+		plugin = plugin,
+		store = dataStore,
+		theme = theme,
+		uiLibraryWrapper = UILibraryWrapper.new(),
 	}, {
 		Roact.createElement(ScreenSelect, {
 			OnClose = closePlugin,

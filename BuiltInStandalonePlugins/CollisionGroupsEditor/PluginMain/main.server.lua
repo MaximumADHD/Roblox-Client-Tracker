@@ -12,8 +12,6 @@ local Opened = false
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-local FFlagEnableRoactInspector = settings():GetFFlag("EnableRoactInspector")
-
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
 local function reportOpening()
@@ -86,7 +84,7 @@ local function handleDMSessionDebounced(dmSession)
 		Window:GetPropertyChangedSignal("Enabled"):connect(function(property)
 			updateButtonActive(Button, Window)
 		end)
-		if FFlagEnableRoactInspector and hasInternalPermission then
+		if hasInternalPermission then
 			local DeveloperTools = require(Root.Packages.Dev.DeveloperTools)
 			inspector = DeveloperTools.forStandalonePlugin("CollisionGroupsEditor", plugin, {
 				rootInstance = Window,
@@ -174,9 +172,7 @@ local function destroyWindow()
 	end
 end
 
-if FFlagEnableRoactInspector then
-	plugin.Unloading:connect(destroyWindow)
-end
+plugin.Unloading:connect(destroyWindow)
 
 -- If place session ends and we have a gui, destroy it.
 plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(destroyWindow)

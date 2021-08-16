@@ -52,7 +52,7 @@ local getSettings = ContextGetter.getSettings
 local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
@@ -216,7 +216,7 @@ function MainView:render()
 		local suggestions = localization:getLocalizedSuggestions(props.suggestions) or {}
 
 		local isCategoryAudio = Category.categoryIsAudio(categoryName)
-		
+
 		local isLoading = props.isLoading or false
 
 		local maxWidth = props.maxWidth or 0
@@ -236,7 +236,7 @@ function MainView:render()
 		local containerWidth = maxWidth - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 
 		local showPrices = Category.shouldShowPrices(props.categoryName)
-		
+
 		-- Add a bit extra to the container so we can see the details of the assets on the last row
 		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT

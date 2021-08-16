@@ -55,9 +55,6 @@ local columns = {
 }
 
 function RoactProfilerComponentsTable:init()
-	self.state = {
-		disabled = false
-	}
 	self.onPageChange = function(pageIndex: number)
 		local inspector = self.props.Inspector:get()
 		local api = inspector:getTargetApi()
@@ -131,29 +128,10 @@ function RoactProfilerComponentsTable:init()
 	end
 end
 
-function RoactProfilerComponentsTable:didMount()
-	local inspector = self.props.Inspector:get()
-	local api = inspector:getTargetApi()
-	if not api.sortProfileData then
-		self:setState({
-			disabled = true
-		})
-	end
-end
-
 function RoactProfilerComponentsTable:render()
 	local props = self.props
 	local profileData = props.ProfileData
 	local tableData = props.TableData
-
-	if self.state.disabled then
-		return Roact.createElement(TextLabel, {
-			Size = UDim2.fromScale(1, 1),
-			Text = "Please enable FFlagDeveloperTools_v0_1_7 to use the Roact Profiler.",
-			TextWrapped = true,
-			Style = "Bold",
-		})
-	end
 
 	return Roact.createElement(PaginatedTable, {
 		Columns = columns,

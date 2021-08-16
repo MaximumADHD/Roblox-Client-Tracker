@@ -14,6 +14,7 @@
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 
 local CorePackages = game:GetService("CorePackages")
 
@@ -39,7 +40,14 @@ local Actions = Plugin.Core.Actions
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 
 local Components = Plugin.Core.Components
-local LoadingBar = require(Components.AssetConfiguration.LoadingBar)
+
+local LoadingBar
+local LoadingBarWrapper
+if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
+	LoadingBarWrapper = require(Components.AssetConfiguration.LoadingBarWrapper)
+else
+	LoadingBar = require(Components.AssetConfiguration.LoadingBar)
+end
 local AssetThumbnailPreview = require(Components.AssetConfiguration.AssetThumbnailPreview)
 local NavButton = require(Components.NavButton)
 
@@ -157,7 +165,7 @@ function AssetValidation:renderContent(theme)
 			),
 		}),
 
-		LoadingBar = self.state.isLoading and Roact.createElement(LoadingBar, {
+		LoadingBar = self.state.isLoading and Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and LoadingBarWrapper or LoadingBar, {
 			loadingText = LOADING_TEXT,
 			loadingTime = LOADING_TIME,
 			holdPercent = LOADING_PERCENT,

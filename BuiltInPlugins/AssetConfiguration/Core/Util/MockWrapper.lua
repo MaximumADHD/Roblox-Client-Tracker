@@ -4,7 +4,7 @@ local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveU
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Rodux = require(Libs.Rodux)
-local TestHelpers = require(Libs.Framework.TestHelpers)
+local TestHelpers = require(Libs.Framework).TestHelpers
 local provideMockContext = TestHelpers.provideMockContext
 
 local Localization = require(Plugin.Core.Util.Localization)
@@ -17,7 +17,7 @@ local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
-local UILibraryWrapper = require(Libs.Framework.ContextServices.UILibraryWrapper :: any)
+local UILibraryWrapper = require(Libs.Framework).ContextServices.UILibraryWrapper :: any
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
 local Framework = require(Libs.Framework)

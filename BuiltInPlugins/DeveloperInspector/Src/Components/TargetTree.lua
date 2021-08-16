@@ -2,6 +2,8 @@
 	Display a list of available targets
 ]]
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
+
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local RoactRodux = require(main.Packages.RoactRodux)
@@ -61,7 +63,8 @@ function TargetTree:render()
 		Selection = {},
 		OnExpansionChange = props.toggleTarget,
 		OnSelectionChange = self.onSelectTarget,
-		Size = UDim2.new(1, 0, 1, 0)
+		Size = UDim2.new(1, 0, 1, 0),
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 	})
 end
 

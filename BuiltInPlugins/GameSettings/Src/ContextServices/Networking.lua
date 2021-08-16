@@ -5,10 +5,10 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 
 local ContextItem = ContextServices.ContextItem
-local Provider = require(Plugin.Framework.ContextServices.Provider)
+local Provider = require(Plugin.Framework).ContextServices.Provider
 local Impl = require(Plugin.Src.ContextServices.NetworkingImpl)
 
 local Item = ContextItem:extend(script.Name)

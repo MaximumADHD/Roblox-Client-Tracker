@@ -40,6 +40,7 @@ local RunService			= game:GetService("RunService")
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
 local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
+local FFlagFixUIEditorUndoRedo = game:DefineFastFlag("FixUIEditorUndoRedo", false)
 
 -- Variables
 local childAddedEvent = nil
@@ -328,12 +329,37 @@ local function onPluginOffInputBegan(inputObject)
 	end
 end
 
+local function isUIEditorWaypoint(waypoint)
+	if
+		waypoint == "Translate Objects (better tt needed)"
+		or waypoint == "Resize"
+		or waypoint == "Text Changed"
+		or waypoint == "Rotate object"
+	then
+		return true
+	else
+		return false
+	end
+end
+
 local function onUndo(waypoint)
-	Resize:updatePosition()
+	if FFlagFixUIEditorUndoRedo then
+		if isUIEditorWaypoint(waypoint) then
+			Resize:updatePosition()
+		end
+	else
+		Resize:updatePosition()
+	end
 end
 
 local function onRedo(waypoint)
-	Resize:updatePosition()
+	if FFlagFixUIEditorUndoRedo then
+		if isUIEditorWaypoint(waypoint) then
+			Resize:updatePosition()
+		end
+	else
+		Resize:updatePosition()
+	end
 end
 
 -----------------------------------

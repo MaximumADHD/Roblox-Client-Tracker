@@ -6,6 +6,7 @@ game:DefineFastFlag("EnableLocalizationToolsStylizer", false)
 game:DefineFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled", false)
 game:DefineFastFlag("LocalizationToolsAllowUploadZhCjv", false)
 game:DefineFastFlag("LocalizationToolsFixExampleNotDownloaded", false)
+game:DefineFastFlag("ImageLocalizationFeatureEnabled", false)
 
 -- Overrides THEME_REFACTOR before require
 local main = script.Parent.Parent

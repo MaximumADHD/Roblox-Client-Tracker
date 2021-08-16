@@ -2,7 +2,6 @@ local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 require(script.Parent.defineLuaFlags)
-local FFlagEnableRoactInspector = game:GetFastFlag("EnableRoactInspector")
 local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
 local Plugin = script.Parent.Parent
@@ -46,7 +45,7 @@ local function main()
 		for _, token in ipairs(tokens) do
 			token:Disconnect()
 		end
-		if FFlagEnableRoactInspector and mgmtHandle then
+		if mgmtHandle then
 			Roact.unmount(mgmtHandle)
 		end
 	end)

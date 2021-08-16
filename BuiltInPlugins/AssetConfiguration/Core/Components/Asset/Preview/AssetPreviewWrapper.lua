@@ -38,7 +38,7 @@ local getNetwork = ContextGetter.getNetwork
 local Framework = require(Libs.Framework)
 local AssetPreview = Framework.StudioUI.AssetPreview
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
@@ -91,17 +91,17 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local assetId = Asset.Id
 	local price = assetData.Product and assetData.Product.Price or 0
 	local owned = props.Owned
-	
+
 	local typeId = assetData.Asset.TypeId or Enum.AssetType.Model.Value
-	
+
 	local assetVersionId
 	local previewPluginData = self.props.previewPluginData
 	if previewPluginData then
 		assetVersionId = previewPluginData.versionId
 	end
-	
+
 	local isPluginAsset, isPluginPaid, isPluginInstalled, isPluginLoading, isPluginUpToDate
-	
+
 	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
 		isPluginAsset = typeId == Enum.AssetType.Plugin.Value
 	else
@@ -363,7 +363,7 @@ function AssetPreviewWrapper:init(props)
 		end
 
 		local currentCategoryName = categoryName
-		
+
 		local success = InsertAsset.tryInsert({
 			assetId = assetId,
 			assetVersionId = assetVersionId,
@@ -458,7 +458,7 @@ function AssetPreviewWrapper:didMount()
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
 		self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
 	else
-		self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)	
+		self.props.getPreviewInstance(self.props.assetData.Asset.Id, self.props.assetData.Asset.TypeId)
 	end
 
 	local assetData = self.props.assetData

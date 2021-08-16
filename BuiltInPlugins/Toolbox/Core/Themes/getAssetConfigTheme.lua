@@ -16,7 +16,7 @@ local FrameworkStyle = Framework.Style
 local StyleKey = FrameworkStyle.StyleKey
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
-local StyleModifier = require(Libs.Framework.Util.StyleModifier)
+local StyleModifier = require(Libs.Framework).Util.StyleModifier
 
 local Cryo = require(Plugin.Libs.Cryo)
 

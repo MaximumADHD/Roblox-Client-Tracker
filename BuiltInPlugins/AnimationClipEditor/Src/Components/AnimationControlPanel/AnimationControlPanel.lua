@@ -3,9 +3,9 @@
 	animation clips.
 
 	Properties:
-		int StartFrame = beginning frame displayed on the timeline/dope sheet range
-		int EndFrame = last frame displayed on the timeline/dope sheet range
-		int Playhead = current frame location of the scubber
+		int StartTick = beginning tick displayed on the timeline/dope sheet range
+		int EndTick = last tick displayed on the timeline/dope sheet range
+		int Playhead = current tick location of the scubber
 		int EditingLength = current maximum length of the animation editor timeline
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
@@ -60,8 +60,8 @@ function AnimationControlPanel:render()
 	local animationData = props.AnimationData
 	local isPlaying = props.IsPlaying
 	local rootInstance = props.RootInstance
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local playhead = props.Playhead
 	local editingLength = props.EditingLength
 	local showAsSeconds = props.ShowAsSeconds
@@ -95,8 +95,6 @@ function AnimationControlPanel:render()
 			IsPlaying = isPlaying,
 			IsLooping = animationData and animationData.Metadata
 				and animationData.Metadata.Looping or false,
-			StartFrame = startFrame,
-			EndFrame = endFrame,
 			SkipBackward = self.skipBackwardWrapper,
 			SkipForward = self.skipForwardWrapper,
 			TogglePlay = self.togglePlayWrapper,
@@ -105,8 +103,8 @@ function AnimationControlPanel:render()
 		}),
 
 		TimeDisplay = Roact.createElement(TimeDisplay, {
-			StartFrame = startFrame,
-			EndFrame = endFrame,
+			StartTick = startTick,
+			EndTick = endTick,
 			DisplayFrameRate = displayFrameRate,
 			ShowAsTime = showAsSeconds,
 			AnimationData = animationData,
@@ -150,8 +148,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(TogglePlay(analytics))
 		end,
 
-		StepAnimation = function(frame)
-			dispatch(StepAnimation(frame))
+		StepAnimation = function(tick)
+			dispatch(StepAnimation(tick))
 		end,
 
 		LoadAnimationData = function(data, analytics)

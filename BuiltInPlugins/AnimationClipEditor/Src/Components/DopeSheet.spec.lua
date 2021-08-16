@@ -60,8 +60,8 @@ return function()
 	local function createTestSheet(topTrackIndex, tracks)
 		return Roact.createElement(MockWrapper, {}, {
 			Track = Roact.createElement(DopeSheet, {
-				StartFrame = 1,
-				EndFrame = 24,
+				StartTick = 1,
+				EndTick = 24,
 				SelectedKeyframes = {},
 				NamedKeyframes = {},
 				TopTrackIndex = topTrackIndex,

@@ -11,8 +11,8 @@ return function()
 	local testRigAnimationData = {
 		Metadata = {
 			Name = "Test Rig Animation",
-			StartFrame = 0,
-			EndFrame = 0,
+			StartTick = 0,
+			EndTick = 0,
 			FrameRate = 30,
 			Looping = true,
 			Priority = Enum.AnimationPriority.Idle,

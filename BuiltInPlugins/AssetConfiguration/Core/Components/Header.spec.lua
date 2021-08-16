@@ -33,11 +33,6 @@ return function()
 
 		local header = container.Header
 		expect(header.CategoryMenu).to.be.ok()
-		if FFlagToolboxShowAutocompleteResults then
-			expect(header.SearchFrame).to.be.ok()
-		else
-			expect(header.OldSearchBar).to.be.ok()
-		end
 		expect(header.UIPadding).to.be.ok()
 		expect(header.UIListLayout).to.be.ok()
 

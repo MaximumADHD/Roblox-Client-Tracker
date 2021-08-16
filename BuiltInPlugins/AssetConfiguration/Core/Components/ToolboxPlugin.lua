@@ -22,10 +22,10 @@ local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local makeTheme = require(Util.makeTheme)
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local UILibraryWrapper = ContextServices.UILibraryWrapper
-local FrameworkUtil = require(Libs.Framework.Util)
+local FrameworkUtil = require(Libs.Framework).Util
 local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)
@@ -178,7 +178,7 @@ function ToolboxPlugin:render()
 			-- Even though 0 is supposed to be the Control group and preserve existing behaviors,
 			-- Toolbox should be enabled by default. The fact that it isn't is a bug.
 			initialEnabled = true
-		elseif variation == 1 then 
+		elseif variation == 1 then
 			initialEnabled = false
 		end
 	end

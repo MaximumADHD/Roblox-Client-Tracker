@@ -14,7 +14,7 @@ return function(playbackSpeed)
 		store:dispatch(SetPlaybackSpeed(playbackSpeed))
 
 		-- If there's an animation playing, update the playback start info
-		if animationData and animationData.Metadata and animationData.Metadata.EndFrame > 0 then
+		if animationData and animationData.Metadata and animationData.Metadata.EndTick > 0 then
 			local playing = store:getState().Status.IsPlaying
 			if playing then
 				local playbackStartInfo = {
@@ -24,6 +24,5 @@ return function(playbackSpeed)
 				store:dispatch(SetPlaybackStartInfo(playbackStartInfo))
 			end
 		end
-
 	end
 end

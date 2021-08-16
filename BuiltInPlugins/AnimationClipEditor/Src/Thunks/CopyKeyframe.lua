@@ -13,7 +13,7 @@ local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
-return function(instanceName, trackName, frame, multiAdd)
+return function(instanceName, trackName, tick, multiAdd)
 	return function(store)
 		local state = store:getState()
 		local clipboard = state.Status.Clipboard
@@ -43,8 +43,8 @@ return function(instanceName, trackName, frame, multiAdd)
 
 		local trackData = track.Data
 
-		if trackData and trackData[frame] then
-			local data = track.Data[frame]
+		if trackData and trackData[tick] then
+			local data = track.Data[tick]
 			local copiedData = Cryo.Dictionary.join(data)
 			local trackType = track.Type
 
@@ -54,10 +54,10 @@ return function(instanceName, trackName, frame, multiAdd)
 						[trackName] = GetFFlagFacialAnimationSupport() and {
 							Type = trackType,
 							Data = {
-								[frame] = copiedData,
+								[tick] = copiedData,
 							},
 						} or {
-							[frame] = copiedData,
+							[tick] = copiedData,
 						},
 					},
 				}))
@@ -76,10 +76,10 @@ return function(instanceName, trackName, frame, multiAdd)
 						[trackName] = GetFFlagFacialAnimationSupport() and
 							Cryo.Dictionary.join(newTrack, {
 								Data = Cryo.Dictionary.join(newData, {
-									[frame] = copiedData,
+									[tick] = copiedData,
 								}),
 							}) or Cryo.Dictionary.join(newTrack, {
-								[frame] = copiedData,
+								[tick] = copiedData,
 							}),
 					}),
 				})))

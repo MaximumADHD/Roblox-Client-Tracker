@@ -1,7 +1,7 @@
 --[[
-	Moves all keyframes in the selection to newFrame.
+	Moves all keyframes in the selection to newTick.
 
-	pivotFrame is the frame where the user has started dragging, so
+	pivotTick is the tick where the user has started dragging, so
 	that they can move the group of keyframes relative to that.
 
 	Other keyframes will be moved based on their
@@ -26,7 +26,7 @@ local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
-return function(pivotFrame, newFrame, dragContext)
+return function(pivotTick, newTick, dragContext)
 	return function(store)
 		local state = store:getState()
 		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
@@ -56,13 +56,13 @@ return function(pivotFrame, newFrame, dragContext)
 		-- To prevent clobbering keyframes that should be moved,
 		-- we have to move the keyframes from last to first if
 		-- moving the keyframes forward in the timeline.
-		local moveLastToFirst = newFrame > pivotFrame
+		local moveLastToFirst = newTick > pivotTick
 
-		local earliestFrame, latestFrame
+		local earliestTick, latestTick
 		if GetFFlagRealtimeChanges() then
-			earliestFrame, latestFrame = AnimationData.getSelectionBounds(newData, selectedKeyframes)
+			earliestTick, latestTick = AnimationData.getSelectionBounds(newData, selectedKeyframes)
 		else
-			earliestFrame, latestFrame = Preview.getFrameBounds(newData, selectedKeyframes)
+			earliestTick, latestTick = Preview.getFrameBounds(newData, selectedKeyframes)
 		end
 
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
@@ -97,17 +97,17 @@ return function(pivotFrame, newFrame, dragContext)
 				local track = dataInstance.Tracks[trackName]
 
 				for index = startIndex, endIndex, step do
-					local oldFrame = keyframes[index]
-					local insertFrame = newFrame + (oldFrame - pivotFrame)
+					local oldTick = keyframes[index]
+					local insertTick = newTick + (oldTick - pivotTick)
 					if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
-						insertFrame = KeyframeUtils.getNearestFrame(insertFrame, displayFrameRate)
+						insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 					end
-					insertFrame = math.clamp(insertFrame, oldFrame - earliestFrame, maxLength - (latestFrame - oldFrame))
-					AnimationData.moveKeyframe(track, oldFrame, insertFrame)
-					AnimationData.moveNamedKeyframe(newData, oldFrame, insertFrame)
+					insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
+					AnimationData.moveKeyframe(track, oldTick, insertTick)
+					AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-					newSelectedKeyframes[instanceName][trackName][oldFrame] = nil
-					newSelectedKeyframes[instanceName][trackName][insertFrame] = true
+					newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+					newSelectedKeyframes[instanceName][trackName][insertTick] = true
 				end
 			end
 		end

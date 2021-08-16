@@ -30,7 +30,7 @@ local Roact = require(Plugin.Roact)
 local Framework = Plugin.Framework
 local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.UILibrary)

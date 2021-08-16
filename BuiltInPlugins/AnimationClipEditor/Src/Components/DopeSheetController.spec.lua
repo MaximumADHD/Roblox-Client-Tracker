@@ -3,15 +3,14 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
-
 	local DopeSheetController = require(script.Parent.DopeSheetController)
 
 	local function createTestController()
 		return Roact.createElement(MockWrapper, {}, {
 			Controller = Roact.createElement(DopeSheetController, {
 				Active = true,
-				StartFrame = 0,
-				EndFrame = 30,
+				StartTick = 0,
+				EndTick = 30,
 				TopTrackIndex = 1,
 				Tracks = {},
 				AnimationData = {

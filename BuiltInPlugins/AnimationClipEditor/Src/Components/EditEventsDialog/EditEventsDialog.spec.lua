@@ -3,7 +3,6 @@ return function()
 	local Roact = require(Plugin.Packages.Roact)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
-
 	local EditEventsDialog = require(script.Parent.EditEventsDialog)
 
 	local function createTestEditEventsDialog(container, events)
@@ -12,7 +11,7 @@ return function()
 		}, {
 			EditEventsDialog = Roact.createElement(EditEventsDialog, {
 				Events = events or {},
-				Frame = 0,
+				Tick = 0,
 				OnClose = function() end,
 			}),
 		})

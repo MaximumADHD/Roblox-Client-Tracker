@@ -3,6 +3,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local SetLoading = require(Actions.SetLoading)
+local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 
 local GetItemDetails = require(Plugin.Core.Networking.Requests.GetItemDetails)
 local GetCreatorName = require(Plugin.Core.Networking.Requests.GetCreatorName)
@@ -16,6 +17,8 @@ local PagedRequestCursor = require(Util.PagedRequestCursor)
 local Constants = require(Util.Constants)
 local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PageInfoHelper = require(Util.PageInfoHelper)
+
+local FFlagToolboxEnablePostSearchFiltering = game:GetFastFlag("ToolboxEnablePostSearchFiltering")
 
 return function(networkInterface, category, audioSearchInfo, pageInfo, settings, nextPageCursor)
 	return function(store)
@@ -114,6 +117,12 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 							cursor,
 							pageInfo
 						))
+					end
+
+					if FFlagToolboxEnablePostSearchFiltering then
+						if data and data.filteredKeyword and #data.filteredKeyword > 0 then
+							store:dispatch(UpdateSearchTerm(data.filteredKeyword))
+						end
 					end
 				end,
 				function(err)

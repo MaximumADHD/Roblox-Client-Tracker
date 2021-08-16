@@ -56,6 +56,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -190,7 +191,7 @@ function TreeView:render()
 			Padding = style.Padding,
 			Size = props.Size,
 			LayoutOrder = props.LayoutOrder,
-			Style = "BorderBox",
+			Style = FFlagDevFrameworkFixTreeViewTheme and style or "BorderBox",
 		}, {
 			ScrollingFrame = Roact.createElement(ScrollingFrame, {
 				Size = UDim2.fromScale(1, 1),

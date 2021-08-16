@@ -3,11 +3,11 @@
 	range displayed on the timeline is.
 
 	Properties:
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
-		int LastFrame = The last frame of the animation
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
+		int LastTick = The last tick of the animation
 		int FrameRate = the rate (frames per second) of the animation
-		int Playhead = current frame the scrubber is on
+		int Playhead = current tick the scrubber is on
 		UDim2 Size = size of the frame
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
@@ -98,15 +98,15 @@ function TrackEditor:init()
 		local playhead = props.Playhead
 		return (self.getTrackPadding() * 0.5) + TrackUtils.getScaledKeyframePosition(
 			playhead,
-			props.StartFrame,
-			props.EndFrame,
+			props.StartTick,
+			props.EndTick,
 			absoluteSize.X - self.getTrackPadding())
 	end
 
-	self.stepAnimation = function(frame)
+	self.stepAnimation = function(tick)
 		local props = self.props
 		if not props.IsPlaying then
-			props.StepAnimation(frame)
+			props.StepAnimation(tick)
 		end
 	end
 
@@ -126,9 +126,10 @@ function TrackEditor:init()
 	end
 
 	self.getTrackPadding = function()
-		if self.props.LastFrame < 100 then
+		local lastTick = self.props.LastTick
+		if lastTick < 100 then
 			return Constants.TRACK_PADDING_SMALL
-		elseif self.props.LastFrame < 1000 then
+		elseif lastTick < 1000 then
 			return Constants.TRACK_PADDING_MEDIUM
 		else
 			return Constants.TRACK_PADDING_LARGE
@@ -140,9 +141,9 @@ function TrackEditor:render()
 	local props = self.props
 	local state = self.state
 
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
-	local lastFrame = props.LastFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
+	local lastTick = props.LastTick
 	local snapToKeys = props.SnapToKeys
 	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
@@ -166,7 +167,7 @@ function TrackEditor:render()
 
 	local trackPadding = GetFFlagExtendAnimationLimit() and self.getTrackPadding() or Constants.TRACK_PADDING_SMALL
 
-	local showPlayhead = playhead >= startFrame and playhead <= endFrame
+	local showPlayhead = playhead >= startTick and playhead <= endTick
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -188,9 +189,9 @@ function TrackEditor:render()
 		}),
 
 		TimelineContainer = Roact.createElement(TimelineContainer, {
-			StartFrame = startFrame,
-			EndFrame = endFrame,
-			LastFrame = lastFrame,
+			StartTick = startTick,
+			EndTick = endTick,
+			LastTick = lastTick,
 			SnapToKeys = not GetFFlagUseTicks() and snapToKeys or nil,
 			SnapMode = GetFFlagUseTicks() and snapMode or nil,
 			TrackPadding = trackPadding,
@@ -209,8 +210,8 @@ function TrackEditor:render()
 
 		DopeSheetController = Roact.createElement(DopeSheetController, {
 			ShowEvents = showEvents,
-			StartFrame = startFrame,
-			EndFrame = endFrame,
+			StartTick = startTick,
+			EndTick = endTick,
 			TrackPadding = trackPadding,
 			TopTrackIndex = topTrackIndex,
 			Tracks = tracks,
@@ -279,16 +280,16 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetScrollZoom(scroll, zoom))
 		end,
 
-		StepAnimation = function(frame)
-			dispatch(StepAnimation(frame))
+		StepAnimation = function(tick)
+			dispatch(StepAnimation(tick))
 		end,
 
-		SnapToNearestKeyframe = function(frame, trackWidth)
-			dispatch(SnapToNearestKeyframe(frame, trackWidth))
+		SnapToNearestKeyframe = function(tick, trackWidth)
+			dispatch(SnapToNearestKeyframe(tick, trackWidth))
 		end,
 
-		SnapToNearestFrame = function(frame)
-			dispatch(SnapToNearestFrame(frame))
+		SnapToNearestFrame = function(tick)
+			dispatch(SnapToNearestFrame(tick))
 		end,
 	}
 end

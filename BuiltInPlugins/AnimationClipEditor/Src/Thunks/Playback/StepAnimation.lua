@@ -11,7 +11,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
-return function(frame)
+return function(tick)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
@@ -28,15 +28,15 @@ return function(frame)
 		if instances then
 			for _, instance in pairs(instances) do
 				if instance.Type == Constants.INSTANCE_TYPES.Rig then
-					RigUtils.stepRigAnimation(targetInstance, instance, frame)
+					RigUtils.stepRigAnimation(targetInstance, instance, tick)
 				end
 			end
 		end
 
 		if not isPlaying then
-			frame = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(frame) or KeyframeUtils.getNearestFrame_deprecated(frame)
+			tick = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(tick) or KeyframeUtils.getNearestFrame_deprecated(tick)
 		end
-		store:dispatch(SetPlayhead(frame))
+		store:dispatch(SetPlayhead(tick))
 
 		RigUtils.updateMicrobones(targetInstance, visualizeBones)
 	end

@@ -29,7 +29,7 @@ local withContext = ContextServices.withContext
 local UI = require(Framework.UI)
 local HoverArea = UI.HoverArea
 
-local FrameworkUtil = require(Plugin.Framework.Util)
+local FrameworkUtil = require(Plugin.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local DropdownMenu = UILibrary.Component.DropdownMenu
@@ -295,7 +295,7 @@ function TableWithMenuItem:render()
 
 		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 	})
-	
+
 	local iconOffset = 10
 	local height = (icon and theme.table.icon.height + iconOffset) or theme.table.item.height
 

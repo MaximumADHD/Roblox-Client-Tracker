@@ -13,8 +13,8 @@ return function()
 	local testAnimationData = {
 		Metadata = {
 			Name = "Test Animation",
-			StartFrame = 0,
-			EndFrame = 3,
+			StartTick = 0,
+			EndTick = 3,
 			FrameRate = 30,
 		},
 		Instances = {
@@ -94,7 +94,7 @@ return function()
 		it("should create a valid CFrame[][]", function()
 			local metadata = testAnimationData.Metadata
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData)
-			local animationLength = metadata.EndFrame - metadata.StartFrame
+			local animationLength = metadata.EndTick - metadata.StartTick
 
 			expect(poses).to.be.ok()
 
@@ -132,16 +132,16 @@ return function()
 			local metadata = testAnimationData.Metadata
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
 				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 2)
-
-			expect(#poses[1]).to.equal((metadata.EndFrame - metadata.StartFrame) * 2)
+			local length = metadata.EndTick - metadata.StartTick
+			expect(#poses[1]).to.equal(length * 2)
 		end)
 
 		it("should create a half length array for half frame rate", function()
 			local metadata = testAnimationData.Metadata
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
 				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 0.5)
-
-			expect(#poses[1]).to.equal(math.floor((metadata.EndFrame - metadata.StartFrame) * 0.5))
+			local length = metadata.EndTick - metadata.StartTick
+			expect(#poses[1]).to.equal(math.floor(length * 0.5))
 		end)
 
 		it("should throw if the expected bones array is not correct", function()
@@ -653,8 +653,8 @@ return function()
 		it("should keep the name at oldFrame if a keyframe still exists there", function()
 			local data = {
 				Metadata = {
-					StartFrame = 0,
-					EndFrame = 1,
+					StartTick = 0,
+					EndTick = 1,
 				},
 				Events = {
 					NamedKeyframes = {
@@ -679,8 +679,8 @@ return function()
 		it("should move the name if no other keyframes exist at oldFrame", function()
 			local data = {
 				Metadata = {
-					StartFrame = 0,
-					EndFrame = 1,
+					StartTick = 0,
+					EndTick = 1,
 				},
 				Events = {
 					NamedKeyframes = {
@@ -707,8 +707,8 @@ return function()
 		it("should keep all valid keyframe names", function()
 			local data = {
 				Metadata = {
-					StartFrame = 0,
-					EndFrame = 3,
+					StartTick = 0,
+					EndTick = 3,
 				},
 				Events = {
 					NamedKeyframes = {
@@ -736,8 +736,8 @@ return function()
 		it("should delete all invalid keyframe names", function()
 			local data = {
 				Metadata = {
-					StartFrame = 0,
-					EndFrame = 3,
+					StartTick = 0,
+					EndTick = 3,
 				},
 				Events = {
 					NamedKeyframes = {
@@ -765,8 +765,8 @@ return function()
 				local excessAnimationData = {
 					Metadata = {
 						Name = "Test Animation",
-						StartFrame = 0,
-						EndFrame = 901,
+						StartTick = 0,
+						EndTick = 901,
 						FrameRate = 30,
 					},
 					Instances = {
@@ -801,8 +801,8 @@ return function()
 				local validData = {
 					Metadata = {
 						Name = "Test Animation",
-						StartFrame = 0,
-						EndFrame = 900,
+						StartTick = 0,
+						EndTick = 900,
 						FrameRate = 30,
 					},
 					Instances = {

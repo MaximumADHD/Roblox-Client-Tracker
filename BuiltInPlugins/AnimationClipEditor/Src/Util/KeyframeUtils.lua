@@ -11,34 +11,34 @@ local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local KeyframeUtils = {}
 
--- Gets the value of the given track at the given frame.
--- Can also receive values between frames, for exporting at higher framerates.
-function KeyframeUtils:getValue(track, frame)
+-- Gets the value of the given track at the given tick.
+-- Can also receive values between ticks, for exporting at higher framerates.
+function KeyframeUtils:getValue(track, tick)
 	local keyframes = track.Keyframes
-	local lowIndex, highIndex = self.findNearestKeyframes(keyframes, frame)
+	local lowIndex, highIndex = self.findNearestKeyframes(keyframes, tick)
 	local lowKeyframe = keyframes[lowIndex]
 	local highKeyframe = highIndex and keyframes[highIndex]
 	if highIndex == nil then
 		return track.Data[lowKeyframe].Value
 	else
-		return self:blendKeyframes(track.Data, frame, lowKeyframe, highKeyframe)
+		return self:blendKeyframes(track.Data, tick, lowKeyframe, highKeyframe)
 	end
 end
 
 -- Binary search to find the nearest keyframes
--- If the frame is exactly found, the index of the frame is returned.
--- If the frame is not found, the indices of the two nearest frames are returned.
--- If the frame is too low, the index of the first keyframe is returned.
--- If the frame is too high, the index of the last keyframe is returned.
-function KeyframeUtils.findNearestKeyframes(keyframes, frame)
+-- If the tick is exactly found, the index of the tick is returned.
+-- If the tick is not found, the indices of the two nearest ticks are returned.
+-- If the tick is too low, the index of the first keyframe is returned.
+-- If the tick is too high, the index of the last keyframe is returned.
+function KeyframeUtils.findNearestKeyframes(keyframes, tick)
 	assert(#keyframes > 0, "Keyframes array cannot be empty.")
 
 	local minIndex = 1
 	local maxIndex = #keyframes
 
-	if (frame < keyframes[minIndex]) then
+	if (tick < keyframes[minIndex]) then
 		return minIndex, nil
-	elseif (frame > keyframes[maxIndex]) then
+	elseif (tick > keyframes[maxIndex]) then
 		return maxIndex, nil
 	end
 
@@ -47,16 +47,16 @@ function KeyframeUtils.findNearestKeyframes(keyframes, frame)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if frame == currentValue then
+		if tick == currentValue then
 			return currentIndex, nil
-		elseif frame > currentValue then
+		elseif tick > currentValue then
 			minIndex = currentIndex + 1
-		elseif frame < currentValue then
+		elseif tick < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
 
-	if keyframes[currentIndex] > frame then
+	if keyframes[currentIndex] > tick then
 		return currentIndex - 1, currentIndex
 	else
 		return currentIndex, currentIndex + 1
@@ -65,7 +65,7 @@ end
 
 -- Finds the index of the given keyframe, or returns nil if
 -- the keyframe does not exist in the table.
-function KeyframeUtils.findKeyframe(keyframes, frame)
+function KeyframeUtils.findKeyframe(keyframes, tick)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
@@ -74,11 +74,11 @@ function KeyframeUtils.findKeyframe(keyframes, frame)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if frame == currentValue then
+		if tick == currentValue then
 			return currentIndex
-		elseif frame > currentValue then
+		elseif tick > currentValue then
 			minIndex = currentIndex + 1
-		elseif frame < currentValue then
+		elseif tick < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
@@ -88,7 +88,7 @@ end
 
 -- Finds the index to insert the new frame so that the
 -- Keyframes array stays sorted.
-function KeyframeUtils.findInsertIndex(keyframes, frame)
+function KeyframeUtils.findInsertIndex(keyframes, tick)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
@@ -97,11 +97,11 @@ function KeyframeUtils.findInsertIndex(keyframes, frame)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if frame == currentValue then
+		if tick == currentValue then
 			return nil
-		elseif frame > currentValue then
+		elseif tick > currentValue then
 			minIndex = currentIndex + 1
-		elseif frame < currentValue then
+		elseif tick < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
@@ -143,7 +143,7 @@ function KeyframeUtils.getNearestFrame(tick, frameRate)
 	return snapTick
 end
 
--- Snaps a float to the nearest frame within a tolerance value
+-- Snaps a float to the nearest tick within a tolerance value
 function KeyframeUtils.snapToFrame(value, tolerance)
 	assert(tolerance > 0 and tolerance < 1, "Tolerance should be between 0 and 1.")
 	local nearestFrame = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(value) or KeyframeUtils.getNearestFrame_deprecated(value)
@@ -163,12 +163,12 @@ local function convertEasingStyle(poseEasingStyle)
 	end
 end
 
--- Blends the values of two keyframes based on the current frame position
-function KeyframeUtils:blendKeyframes(dataTable, frame, low, high)
+-- Blends the values of two keyframes based on the current tick position
+function KeyframeUtils:blendKeyframes(dataTable, tick, low, high)
 	assert(low < high, "Low keyframe must be less than high keyframe.")
 	local lowEntry = dataTable[low]
 	local highEntry = dataTable[high]
-	local distance = (frame - low) / (high - low)
+	local distance = (tick - low) / (high - low)
 
 	local alpha
 	if lowEntry.EasingStyle == Enum.PoseEasingStyle.Constant then

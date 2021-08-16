@@ -14,8 +14,8 @@ function Templates.animationData()
 		-- and what their true defaults should be
 		Metadata = {
 			Name = "",
-			StartFrame = 0,
-			EndFrame = 0,
+			StartTick = 0,
+			EndTick = 0,
 			Looping = false,
 			Priority = Enum.AnimationPriority.Core,
 			FrameRate = 30,

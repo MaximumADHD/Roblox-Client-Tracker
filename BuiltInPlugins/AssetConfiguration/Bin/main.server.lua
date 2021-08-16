@@ -50,8 +50,8 @@ local NetworkInterface = require(PluginRoot.Core.Networking.NetworkInterface)
 local AssetConfigWrapper = require(PluginRoot.Core.Components.AssetConfiguration.AssetConfigWrapper)
 local ToolboxServiceWrapper =  require(PluginRoot.Core.Components.ToolboxServiceWrapper)
 
-local ContextServices = require(Libs.Framework.ContextServices)
-local CrossPluginCommunication = require(Libs.Framework.Util.CrossPluginCommunication)
+local ContextServices = require(Libs.Framework).ContextServices
+local CrossPluginCommunication = require(Libs.Framework).Util.CrossPluginCommunication
 
 local TranslationDevelopmentTable = PluginRoot.LocalizationSource.TranslationDevelopmentTable
 local TranslationReferenceTable = PluginRoot.LocalizationSource.TranslationReferenceTable
@@ -100,7 +100,7 @@ local function createLocalization()
 		end,
 		getFallbackTranslator = function(localeId)
             return translationDevelopmentTable:GetTranslator(localeId)
-        end,		
+        end,
         localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
     })
 end

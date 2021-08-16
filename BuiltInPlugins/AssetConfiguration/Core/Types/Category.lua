@@ -9,6 +9,7 @@ local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupIn
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
+local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -298,6 +299,15 @@ Category.API_NAMES = {
 	[Category.FREE_DECALS.name] = "Decals",
 	[Category.MARKETPLACE_VIDEOS.name] = "Videos",
 	[Category.FREE_MODELS.name] = "Models",
+}
+
+Category.AUTOCOMPLETE_API_NAMES = {
+	[Category.FREE_AUDIO.name] = "audio",
+	[Category.WHITELISTED_PLUGINS.name] = "plugin",
+	[Category.FREE_MESHES.name] = "mesh",
+	[Category.FREE_DECALS.name] = "image",
+	[Category.MARKETPLACE_VIDEOS.name] = "video",
+	[Category.FREE_MODELS.name] = "model",
 }
 
 local function getCreationCategories()

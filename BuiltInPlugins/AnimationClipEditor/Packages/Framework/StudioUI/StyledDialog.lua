@@ -27,7 +27,6 @@
 	Style Values:
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
-local FFlagAddButtonHorizontalAlignmentAsPropToStyledDialog = game:GetFastFlag("AddButtonHorizontalAlignmentAsPropToStyledDialog")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
@@ -78,9 +77,7 @@ function StyledDialog:init()
 		local buttons = self.props.Buttons
 		local defaultButtons = styleTable.Buttons or {}
 
-		local buttonHorizontalAlignment = FFlagAddButtonHorizontalAlignmentAsPropToStyledDialog and
-			prioritize(self.props.ButtonHorizontalAlignment, styleTable.ButtonHorizontalAlignment) or
-			Enum.HorizontalAlignment.Right
+		local buttonHorizontalAlignment = prioritize(self.props.ButtonHorizontalAlignment, styleTable.ButtonHorizontalAlignment)
 
 		local buttonsElements = {}
 		if buttons then

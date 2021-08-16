@@ -30,7 +30,7 @@ local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 

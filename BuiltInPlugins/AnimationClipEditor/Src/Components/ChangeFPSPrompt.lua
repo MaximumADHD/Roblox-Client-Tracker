@@ -8,6 +8,7 @@
 		function SetFrameRate(frameRate) = adjusts frame rate of animation in the editor
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
+local FFlagFpsDialogFix = game:DefineFastFlag("ACEFpsDialogFix", false)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -15,7 +16,6 @@ local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
@@ -47,7 +47,7 @@ function ChangeFPSPrompt:init()
 				return tonumber(text)
 			end)
 
-			if status then
+			if status and (not FFlagFpsDialogFix or result ~= nil) then
 				result = math.ceil(result)
 				if result < Constants.MIN_FRAMERATE then
 					self.setNotice(localization:getText("Title", "MinFPS"))

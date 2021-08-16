@@ -13,7 +13,7 @@
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 		function OnItemSelected(key, item) = A callback for when the user selects an
 			item in one of the submenus to edit a key's Easing info.
-		function OnRenameKeyframe(frame) = A callback for when the user wants to start renaming
+		function OnRenameKeyframe(tick) = A callback for when the user wants to start renaming
 			a keyframe in the timeline.
 ]]
 
@@ -51,7 +51,7 @@ local SelectAllKeyframes = require(Plugin.Src.Thunks.Selection.SelectAllKeyframe
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
-local SetEventEditingFrame = require(Plugin.Src.Actions.SetEventEditingFrame)
+local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local SetTool = require	(Plugin.Src.Actions.SetTool)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -169,7 +169,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("AddKeyframeHere"), function()
 		local props = self.props
-		local frame = props.Frame
+		local tick = props.Tick
 		local trackName = props.TrackName
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
@@ -181,7 +181,7 @@ function TimelineActions:didMount()
 			local newValue
 
 			if track and track.Keyframes then
-				newValue = KeyframeUtils:getValue(track, frame)
+				newValue = KeyframeUtils:getValue(track, tick)
 			else
 				if GetFFlagFacialAnimationSupport() then
 					-- If the type could not be determined by an existing track or by
@@ -193,9 +193,9 @@ function TimelineActions:didMount()
 				end
 			end
 			if GetFFlagFacialAnimationSupport() then
-				props.AddKeyframe(instanceName, trackName, trackType, frame, newValue, props.Analytics)
+				props.AddKeyframe(instanceName, trackName, trackType, tick, newValue, props.Analytics)
 			else
-				props.AddKeyframe_deprecated(instanceName, trackName, frame, newValue, props.Analytics)
+				props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
 			end
 		end
 
@@ -253,7 +253,7 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("AddResetKeyframe"), function()
 		local props = self.props
-		local frame = props.Frame
+		local tick = props.Tick
 		local trackName = props.TrackName
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
@@ -266,10 +266,10 @@ function TimelineActions:didMount()
 
 			if GetFFlagFacialAnimationSupport() then
 				newValue = TrackUtils.getDefaultValueByType(trackType)
-				props.AddKeyframe(instanceName, trackName, trackType, frame, newValue, props.Analytics)
+				props.AddKeyframe(instanceName, trackName, trackType, tick, newValue, props.Analytics)
 			else
 				newValue = TrackUtils.getDefaultValue(track)
-				props.AddKeyframe_deprecated(instanceName, trackName, frame, newValue, props.Analytics)
+				props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
 			end
 		else
 			-- If the user clicked the summary track, add a reset keyframe for
@@ -284,10 +284,10 @@ function TimelineActions:didMount()
 					if GetFFlagFacialAnimationSupport() then
 						trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
 						newValue = TrackUtils.getDefaultValueByType(trackType)
-						props.AddKeyframe(instanceName, trackName, trackType, frame, newValue, props.Analytics)
+						props.AddKeyframe(instanceName, trackName, trackType, tick, newValue, props.Analytics)
 					else
 						newValue = TrackUtils.getDefaultValue(track)
-						props.AddKeyframe_deprecated(instanceName, trackName, frame, newValue, props.Analytics)
+						props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
 					end
 				end
 			end
@@ -296,13 +296,13 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("RenameKeyframe"), function()
 		local props = self.props
-		props.OnRenameKeyframe(props.Frame)
+		props.OnRenameKeyframe(props.Tick)
 	end)
 
 	self:addAction(actions:get("PasteKeyframes"), function()
 		local props = self.props
-		local frame = props.Frame or props.Playhead
-		props.PasteKeyframes(frame, props.Analytics)
+		local tick = props.Tick or props.Playhead
+		props.PasteKeyframes(tick, props.Analytics)
 	end)
 
 	self:addAction(actions:get("CutSelected"), function()
@@ -313,8 +313,8 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("AddEvent"), function()
 		local props = self.props
-		local frame = props.Frame
-		props.OnEditEvents(frame)
+		local tick = props.Tick
+		props.OnEditEvents(tick)
 	end)
 
 	self:addAction(actions:get("ToggleTool"), function()
@@ -472,7 +472,7 @@ local function mapStateToProps(state, props)
 		TrackName = status.RightClickContextInfo.TrackName,
 		TrackType = status.RightClickContextInfo.TrackType,
 		InstanceName = status.RightClickContextInfo.InstanceName,
-		Frame = status.RightClickContextInfo.Frame,
+		Tick = status.RightClickContextInfo.Tick,
 		SummaryKeyframe = status.RightClickContextInfo.SummaryKeyframe,
 		OnKeyframe = status.RightClickContextInfo.OnKeyframe,
 		Tool = status.Tool,
@@ -514,28 +514,28 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		PasteKeyframes = function(frame, analytics)
+		PasteKeyframes = function(tick, analytics)
 			dispatch(AddWaypoint())
-			dispatch(PasteKeyframes(frame, analytics))
+			dispatch(PasteKeyframes(tick, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, trackName, trackType, frame, value, analytics)
+		AddKeyframe = function(instance, trackName, trackType, tick, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, trackType, frame, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, trackType, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
 		-- Remove when GetFFlagFacialAnimationSupport() is retired
-		AddKeyframe_deprecated = function(instance, trackName, frame, value, analytics)
+		AddKeyframe_deprecated = function(instance, trackName, tick, value, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, trackName, frame, value, analytics))
+			dispatch(AddKeyframe(instance, trackName, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		OnEditEvents = function(frame)
+		OnEditEvents = function(tick)
 			dispatch(SetShowEvents(true))
-			dispatch(SetEventEditingFrame(frame))
+			dispatch(SetEventEditingTick(tick))
 		end,
 
 		Undo = function(signals)

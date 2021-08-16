@@ -20,6 +20,7 @@ local SearchBarField = require(script.Parent.SearchBarField)
 local Models = Plugin.Src.Models
 local VariableRow = require(Models.Watch.VariableRow)
 local WatchRow = require(Models.Watch.WatchRow)
+local TableTab = require(Models.Watch.TableTab)
 
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
@@ -32,11 +33,11 @@ local HEADER_HEIGHT = 32
 -- Local Functions
 local function generateSampleVariablesTable(numRows)
 	local data = {
-		expression = "v",
-		scope = "w",
-		value = "x",
-		dataType = "y",
-		path = "z",
+		name = "a",
+		scope = "b",
+		value = "c",
+		dataType = "d",
+		path = "e",
 	}
 	local row = VariableRow.fromData(data)
 	local tab = {}
@@ -48,11 +49,11 @@ end
 
 local function generateSampleWatchTable(numRows)
 	local data = {
-		expression = "a",
-		scope = "b",
-		value = "c",
-		dataType = "d",
-		path = "e",
+		expression = "v",
+		scope = "w",
+		value = "x",
+		dataType = "y",
+		path = "z",
 	}
 	local row = WatchRow.fromData(data)
 	local tab = {}
@@ -81,9 +82,11 @@ function WatchComponent:render()
 	local tableTabs = {
 		{
 			Label = WatchTab.Variables,
+			Key = "Variables",
 		},
 		{
 			Label = WatchTab.Watches,
+			Key = "Watches",
 		},
 	}
 	local variableTableColumns = {
@@ -161,7 +164,7 @@ function WatchComponent:render()
 			TableView = Roact.createElement(TreeTable, {
 				Scroll = true,  
 				Size = UDim2.fromScale(1, 1),
-				Columns = props.SelectedTab == 1 and variableTableColumns or watchTableColumns,
+				Columns = props.SelectedTab == TableTab.Variables and variableTableColumns or watchTableColumns,
 				RootItems = props.RootItems,
 				Stylizer = style,
 				Expansion = {},
@@ -181,13 +184,17 @@ WatchComponent = withContext({
 
 WatchComponent = RoactRodux.connect(
 	function(state, props)
+		local selectedTab = state.Watch.currentTab
 		local variableTableRows = generateSampleVariablesTable(20) -- mock data which will be replaced in RIDE-5140
 		local watchTableRows = generateSampleWatchTable(20) -- mock data which will be replaced in RIDE-5140
-		local SelectedTab = 2
-		local RootItems = SelectedTab == 1 and variableTableRows or watchTableRows
+		local tableRowsForTab = {
+			[TableTab.Variables] = variableTableRows,
+			[TableTab.Watches] = watchTableRows,
+		}
+		local rootItems = tableRowsForTab[selectedTab] or {}
 		return {
-			SelectedTab = SelectedTab,
-			RootItems = RootItems,
+			SelectedTab = selectedTab,
+			RootItems = rootItems,
 		}
 	end, nil
 )(WatchComponent)

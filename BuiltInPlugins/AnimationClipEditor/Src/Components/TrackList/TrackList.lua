@@ -21,9 +21,9 @@
 		function OnTrackAdded(instanceName, trackName) = A callback for when the user
 			selects a track to add.
 		function OnTrackSelected(trackName) = A callback for when the user selects a track.
-		function OnValueChanged(instanceName, trackName, trackType, frame, value) = A callback for
+		function OnValueChanged(instanceName, trackName, trackType, tick, value) = A callback for
 			when the user changes a value by expanding a track and modifying properties.
-		function OnValueChangedDeprecated(instanceName, trackName, frame, value) = A callback for
+		function OnValueChangedDeprecated(instanceName, trackName, tick, value) = A callback for
 			when the user changes a value by expanding a track and modifying properties.
 			(Until GetFFlagFacialAnimationSupport() is retired)
 		function OnChangeBegan() = A function that is called when the user starts interacting
@@ -53,6 +53,7 @@ local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrolling
 
 local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -113,25 +114,25 @@ function TrackList:init()
 		end
 	end
 
-	self.onValueChanged = function(instanceName, trackName, frame, value, analytics)
+	self.onValueChanged = function(instanceName, trackName, tick, value, analytics)
 		if GetFFlagFacialAnimationSupport() then
 			if self.props.OnValueChanged then
-				self.props.OnValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, frame, value, analytics)
+				self.props.OnValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, tick, value, analytics)
 				local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 				selectionSignal:Fire()
 			end
 		else
 			if self.props.OnValueChangedDeprecated then
-				self.props.OnValueChangedDeprecated(instanceName, trackName, frame, value, analytics)
+				self.props.OnValueChangedDeprecated(instanceName, trackName, tick, value, analytics)
 				local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 				selectionSignal:Fire()
 			end
 		end
 	end
 
-	self.onFacsChanged = function(instanceName, facsName, frame, value, analytics)
+	self.onFacsChanged = function(instanceName, facsName, tick, value, analytics)
 		if self.props.OnValueChanged then
-			self.props.OnValueChanged(instanceName, facsName, Constants.TRACK_TYPES.Facs, frame, value, analytics)
+			self.props.OnValueChanged(instanceName, facsName, Constants.TRACK_TYPES.Facs, tick, value, analytics)
 		end
 	end
 
@@ -312,6 +313,9 @@ function TrackList:renderTrack(track, children, theme)
 		local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
 		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
+		if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
+			currentValue = math.floor(0.5 + (currentValue * 100))
+		end
 		local items = TrackUtils.getItemsForProperty(track, currentValue)
 
 		self.maxTrackWidth = math.max(self.maxTrackWidth, trackWidth)
@@ -324,7 +328,11 @@ function TrackList:renderTrack(track, children, theme)
 			Height = Constants.TRACK_HEIGHT,
 			Indent = 0,
 			ReadOnly = readOnly,
+			DragMultiplier = 1,
 			OnItemChanged = function(key, value)
+				if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
+					value = math.clamp(value / 100, 0, 1)
+				end
 				self.onFacsChanged(instance, name, playhead, value, props.Analytics)
 			end,
 			OnChangeBegan = props.OnChangeBegan,

@@ -7,6 +7,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local Reducers = Plugin.Core.Reducers
 local Assets = require(Reducers.Assets)
+local AutocompleteResults = require(Reducers.Autocomplete)
 local NetworkErrors = require(Reducers.NetworkErrors)
 local PageInfo = require(Reducers.PageInfo)
 local ReducerLogger = require(Reducers.ReducerLogger)
@@ -23,6 +24,7 @@ local Packages = require(Reducers.Packages)
 
 local ToolboxReducer = Rodux.combineReducers({
 		assets = Assets,
+		autocompleteResults = AutocompleteResults,
 		networkErrors = NetworkErrors,
 		pageInfo = PageInfo,
 		sound = Sound,

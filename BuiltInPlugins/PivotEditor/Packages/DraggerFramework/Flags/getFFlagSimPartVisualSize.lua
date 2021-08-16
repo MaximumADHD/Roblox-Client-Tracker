@@ -1,4 +1,4 @@
 return function()
-    return game:GetFastFlag("SimPartVisualSize")
+    return game:GetFastFlag("SimPartVisualSize2")
 end
 

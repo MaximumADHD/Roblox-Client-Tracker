@@ -1,6 +1,7 @@
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
+local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
@@ -21,6 +22,7 @@ function PartialHyperlink:render()
 			local style = self.props.Style
 			local linkTheme = style and theme.partialHyperlink[style] or theme.partialHyperlink
 			local textSize = linkTheme.textSize
+			local textTransparency = FFlagCheckPublishedPlaceExistsForDevPublish and linkTheme.transparency or 0
 
 			local hyperLinkTextSize = calculateTextSize(self.props.HyperLinkText, textSize, linkTheme.font)
 			return Roact.createElement("Frame", {
@@ -40,6 +42,7 @@ function PartialHyperlink:render()
 					Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
 					TextColor3 = linkTheme.textColor,
 					Font = linkTheme.font,
+					TextTransparency = textTransparency,
 					TextSize = textSize,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Text = self.props.NonHyperLinkText,

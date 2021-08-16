@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 
-local deepEqual = require(Plugin.Libs.Framework.Util.deepEqual)
+local deepEqual = require(Plugin.Libs.Framework).Util.deepEqual
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)

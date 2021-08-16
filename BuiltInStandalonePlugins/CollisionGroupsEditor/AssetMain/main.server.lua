@@ -19,8 +19,6 @@ local getPartsInGroup = require(script.Parent.Parent.Plugin.getPartsInGroup)
 local getGroups = require(script.Parent.Parent.Plugin.getGroups)
 local getSelectedGroupIds = require(script.Parent.Parent.Plugin.getSelectedGroupIds)
 
-local FFlagEnableRoactInspector = settings():GetFFlag("EnableRoactInspector")
-
 local hasInternalPermission = game:GetService("StudioService"):HasInternalPermission()
 
 local getGroupsChanged do
@@ -186,7 +184,7 @@ local function bindToCurrentDM()
 	pollForCollisionGroupChanges()
 	bindToAssetDMEvents()
 	bindToPluginEvents()
-	if FFlagEnableRoactInspector and hasInternalPermission then
+	if hasInternalPermission then
 		local DeveloperTools = require(script.Parent.Parent.Packages.Dev.DeveloperTools)
 		inspector = DeveloperTools.forPlugin("CollisionGroupsEditor", plugin)
 		inspector:addPluginRouter(plugin)

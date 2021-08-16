@@ -9,6 +9,7 @@ local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+local SetTab = require(Actions.Watch.SetTab)
 local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
 local SetVariableTextFilteredOut = require(Actions.Watch.SetVariableTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
@@ -18,6 +19,7 @@ local BreakpointHit = require(Actions.Common.BreakpointHit)
 
 local WatchReducer = require(script.Parent.Watch)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
+local TableTab = require(Models.Watch.TableTab)
 local VariableRow = require(Models.Watch.VariableRow)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local StepStateBundle = require(Models.StepStateBundle)
@@ -228,6 +230,23 @@ return function()
 		it("should preserve immutability", function()
 			local filterText = "test filter string"
 			local immutabilityPreserved = testImmutability(WatchReducer, FilterTextChanged(filterText))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+	
+	describe(SetTab.name, function() 
+		it("should update the current tab", function()
+			local currentTab = TableTab.Watches
+			local state = WatchReducer(nil, SetTab(currentTab))
+
+			expect(state).to.be.ok()
+			expect(#state.currentTab).to.be.ok()
+			expect(state.currentTab).to.equal(currentTab)
+		end)
+
+		it("should preserve immutability", function()
+			local currentTab = TableTab.Watches
+			local immutabilityPreserved = testImmutability(WatchReducer, SetTab(currentTab))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

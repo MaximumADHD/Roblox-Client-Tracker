@@ -15,6 +15,7 @@ local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local StudioService = game:GetService("StudioService")
 
@@ -86,7 +87,7 @@ local withTheme = ContextHelper.withTheme
 local withModal = ContextHelper.withModal
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework.ContextServices)
+local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Framework = require(Libs.Framework)
@@ -1041,7 +1042,11 @@ local function mapDispatchToProps(dispatch)
 		setTab = function(tabItem)
 			dispatch(SetAssetConfigTab(tabItem))
 			if FFlagAssetConfigOverrideFromAnyScreen then
-				dispatch(ClearChange("OverrideAssetId"))
+				if FFlagToolboxAssetConfigAddPublishBackButton then
+					dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
+				else
+					dispatch(ClearChange("OverrideAssetId"))
+				end
 			end
 		end,
 

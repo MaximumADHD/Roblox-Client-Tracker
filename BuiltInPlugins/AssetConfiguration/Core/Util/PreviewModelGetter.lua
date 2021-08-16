@@ -7,7 +7,7 @@ local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewBu
 
 local Plugin = script.Parent.Parent.Parent
 
-local Promise = require(Plugin.Libs.Framework.Util.Promise)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local Urls = require(Plugin.Core.Util.Urls)
 

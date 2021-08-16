@@ -13,7 +13,7 @@ local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
-local ContextServices = require(Plugin.Framework.ContextServices)
+local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 

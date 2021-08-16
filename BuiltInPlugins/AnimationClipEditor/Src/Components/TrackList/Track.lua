@@ -36,13 +36,17 @@ local ContextButton = require(Plugin.Src.Components.ContextButton)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
+local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
+
 local Track = Roact.PureComponent:extend("Track")
 
 function Track:init()
-	self.state = {
-		values = nil,
-		renderFromNumberEntry = false,
-	}
+	if not GetFFlagFacsUiChanges() then
+		self.state = {
+			values = nil,
+			renderFromNumberEntry = false,
+		}
+	end
 
 	local doubleClickDetector = DoubleClickDetector.new()
 
@@ -67,24 +71,26 @@ function Track:init()
 		end
 	end
 
-	self.onSetNumber = function(index, number)
-		local props = self.props
-		local state = self.state
-		local items = props.Items
-		local values = state.Values
-		local newValues = {}
-		for i, newItem in ipairs(items) do
-			if values and values[i] then
-				newValues[i] = values[i]
-			else
-				newValues[i] = newItem.Value
+	if not GetFFlagFacsUiChanges() then
+		self.onSetNumber = function(index, number)
+			local props = self.props
+			local state = self.state
+			local items = props.Items
+			local values = state.Values
+			local newValues = {}
+			for i, newItem in ipairs(items) do
+				if values and values[i] then
+					newValues[i] = values[i]
+				else
+					newValues[i] = newItem.Value
+				end
 			end
+			newValues[index] = number
+			self:setState({
+				renderFromNumberEntry = 2,
+				values = newValues,
+			})
 		end
-		newValues[index] = number
-		self:setState({
-			renderFromNumberEntry = 2,
-			values = newValues,
-		})
 	end
 
 	self.onItemChanged = function(key, value)
@@ -95,88 +101,91 @@ function Track:init()
 end
 
 function Track:render()
-		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
-		local layoutOrder = props.LayoutOrder
-		local indent = props.Indent or 0
-		local name = props.Name
-		local items = props.Items or {}
+	local props = self.props
+	local theme = props.Theme:get("PluginTheme")
+	local layoutOrder = props.LayoutOrder
+	local indent = props.Indent or 0
+	local name = props.Name
+	local items = props.Items or {}
+	local dragMultiplier = props.DragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER
 
-		local trackTheme = theme.trackTheme
-		local arrowTheme = trackTheme.arrow
-		local expanded = props.Expanded or false
-		local selected = props.Selected or false
+	local trackTheme = theme.trackTheme
+	local arrowTheme = trackTheme.arrow
+	local expanded = props.Expanded or false
+	local selected = props.Selected or false
 
-		local showArrow = self.props.OnExpandToggled ~= nil
-		local showContextMenu = self.props.OnContextButtonClick ~= nil
+	local showArrow = self.props.OnExpandToggled ~= nil
+	local showContextMenu = self.props.OnContextButtonClick ~= nil
 
-		local nameLabelLength = 50
+	local nameLabelLength = 50
 
-		local children = {
-			Arrow = showArrow and Roact.createElement("ImageButton", {
-				Size = UDim2.new(0, Constants.ARROW_SIZE, 0, Constants.ARROW_SIZE),
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, Constants.ARROW_SIZE / 2, 0.5, 0),
-				BackgroundTransparency = 1,
+	local children = {
+		Arrow = showArrow and Roact.createElement("ImageButton", {
+			Size = UDim2.new(0, Constants.ARROW_SIZE, 0, Constants.ARROW_SIZE),
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, Constants.ARROW_SIZE / 2, 0.5, 0),
+			BackgroundTransparency = 1,
 
-				Image = expanded and arrowTheme.expanded or arrowTheme.collapsed,
-				ImageColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
-				ScaleType = Enum.ScaleType.Fit,
+			Image = expanded and arrowTheme.expanded or arrowTheme.collapsed,
+			ImageColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
+			ScaleType = Enum.ScaleType.Fit,
 
-				[Roact.Event.Activated] = self.onExpandToggled,
-			}) or nil,
+			[Roact.Event.Activated] = self.onExpandToggled,
+		}) or nil,
 
-			NameLabel = Roact.createElement("TextButton", {
-				Size = UDim2.new(0, nameLabelLength, 1, 0),
-				Position = UDim2.new(0, Constants.ARROW_SIZE * 2, 0, 0),
-				BackgroundTransparency = 1,
-				AutoButtonColor = false,
+		NameLabel = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, nameLabelLength, 1, 0),
+			Position = UDim2.new(0, Constants.ARROW_SIZE * 2, 0, 0),
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
 
-				Text = name,
-				Font = theme.font,
-				TextSize = trackTheme.textSize,
-				TextColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
+			Text = name,
+			Font = theme.font,
+			TextSize = trackTheme.textSize,
+			TextColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
 
-				[Roact.Event.Activated] = self.onTrackSelected,
-			}),
+			[Roact.Event.Activated] = self.onTrackSelected,
+		}),
 
-			ContextButton = showContextMenu and Roact.createElement(ContextButton, {
-				AnchorPoint = Vector2.new(1, 0.5),
-				Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
-				TrackSelected = selected,
-				OnActivated = self.onContextButtonClick,
-			}) or nil,
-		}
+		ContextButton = showContextMenu and Roact.createElement(ContextButton, {
+			AnchorPoint = Vector2.new(1, 0.5),
+			Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
+			TrackSelected = selected,
+			OnActivated = self.onContextButtonClick,
+		}) or nil,
+	}
 
-		for index, item in ipairs(items) do
-			children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
-				Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -Constants.NUMBERBOX_PADDING),
-				Position = UDim2.new(1,
-					(index - #items - 1) * (Constants.NUMBERBOX_WIDTH + Constants.NUMBERBOX_PADDING) - Constants.TRACKLIST_BUTTON_SIZE - Constants.TRACKLIST_RIGHT_PADDING,
-					.5, 0),
-				AnchorPoint = Vector2.new(0, .5),
+	for index, item in ipairs(items) do
+		children[item.Key .. "_Entry"] = Roact.createElement(NumberBox, {
+			Size = UDim2.new(0, Constants.NUMBERBOX_WIDTH, 1, -Constants.NUMBERBOX_PADDING),
+			Position = UDim2.new(1,
+				(index - #items - 1) * (Constants.NUMBERBOX_WIDTH + Constants.NUMBERBOX_PADDING) - Constants.TRACKLIST_BUTTON_SIZE - Constants.TRACKLIST_RIGHT_PADDING,
+				.5, 0),
+			AnchorPoint = Vector2.new(0, .5),
 
-				Number = item.Value,
-				Name = item.Name,
-				SetNumber = function(number)
-					props.OnChangeBegan()
+			Number = item.Value,
+			Name = item.Name,
+			SetNumber = function(number)
+				props.OnChangeBegan()
+				if not GetFFlagFacsUiChanges() then
 					self.onSetNumber(index, number)
-					self.onItemChanged(item.Key, number)
-				end,
-				OnDragMoved = function(input)
-					self.onItemChanged(item.Key, item.Value + input.Delta.X * Constants.NUMBERBOX_DRAG_MULTIPLIER)
-				end,
-				OnDragBegan = props.OnChangeBegan,
-			})
-		end
+				end
+				self.onItemChanged(item.Key, number)
+			end,
+			OnDragMoved = function(input)
+				self.onItemChanged(item.Key, item.Value + input.Delta.X * (GetFFlagFacsUiChanges() and dragMultiplier or Constants.NUMBERBOX_DRAG_MULTIPLIER))
+			end,
+			OnDragBegan = props.OnChangeBegan,
+		})
+	end
 
-		return Roact.createElement(TrackListEntry, {
-			Selected = selected,
-			Height = Constants.TRACK_HEIGHT,
-			Indent = indent,
-			LayoutOrder = layoutOrder,
-		}, children)
+	return Roact.createElement(TrackListEntry, {
+		Selected = selected,
+		Height = Constants.TRACK_HEIGHT,
+		Indent = indent,
+		LayoutOrder = layoutOrder,
+	}, children)
 end
 
 if FFlagAnimationClipEditorWithContext then

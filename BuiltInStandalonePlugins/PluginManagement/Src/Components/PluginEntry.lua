@@ -1,6 +1,7 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
+local FFlagPluginManagementFixOverlappingDescriptions = game:GetFastFlag("PluginManagementFixOverlappingDescriptions")
 
 local StudioService = game:getService("StudioService")
 local ContentProvider = game:getService("ContentProvider")
@@ -272,6 +273,7 @@ function PluginEntry:render()
 			}),
 
 			Description = Roact.createElement("TextLabel", {
+				ClipsDescendants = FFlagPluginManagementFixOverlappingDescriptions and true or nil,
 				LayoutOrder = 2,
 				TextWrapped = true,
 				Size = UDim2.new(1, 0, 0, ONE_LINE_TEXT_HEIGHT * 2),

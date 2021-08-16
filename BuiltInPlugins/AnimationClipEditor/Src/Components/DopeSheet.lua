@@ -6,8 +6,8 @@
 		UDim2 Size = size of the frame
 		Vector2 ParentSize = absolute size of the frame that is the parent of this component
 		float Padding = amount of padding from edges that each track should have
-		int StartFrame = beginning frame of timeline range
-		int EndFrame = end frame of timeline range
+		int StartTick = beginning tick of timeline range
+		int EndTick = end tick of timeline range
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		array Tracks = is expected to be an array where each element is formatted as:
 		{
@@ -18,7 +18,7 @@
 		table SelectedKeyframes = table containing information on what keyframes are selected for each track/instance
 		table PreviewKeyframes = table containing information on keyframes that are currently being manipulated
 		table PreviewData = table containing data for preview keyframes by index
-		table NamedKeyframes = table mapping frames to summary keyframe names.
+		table NamedKeyframes = table mapping ticks to summary keyframe names.
 		bool ShowLegacyKeyframes = Whether to highlight keyframes off of the framerate with an error color.
 		int TrackHeight = pixel height of each track
 		int SummaryTrackHeight = pixel height of the summary track
@@ -46,8 +46,8 @@ local DopeSheet = Roact.PureComponent:extend("DopeSheet")
 
 function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClusters)
 	local props = self.props
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local tracks = props.Tracks
 	local selectedKeyframes = props.SelectedKeyframes
 	local previewKeyframes = props.PreviewKeyframes
@@ -73,8 +73,8 @@ function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClus
 		LayoutOrder = 0,
 		Size = UDim2.new(1, 0, 0, summaryTrackHeight),
 		Width = width,
-		StartFrame = startFrame,
-		EndFrame = endFrame,
+		StartTick = startTick,
+		EndTick = endTick,
 		ShowCluster = showClusters,
 		ZIndex = zIndex,
 		OnKeyActivated = onKeyActivated,
@@ -86,8 +86,8 @@ end
 
 function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 	local props = self.props
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local tracks = props.Tracks
 	local selectedKeyframes = props.SelectedKeyframes
 	local previewKeyframes = props.PreviewKeyframes
@@ -121,8 +121,8 @@ function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 				LayoutOrder = trackCount,
 				Size = UDim2.new(1, 0, 0, trackHeight),
 				Width = width,
-				StartFrame = startFrame,
-				EndFrame = endFrame,
+				StartTick = startTick,
+				EndTick = endTick,
 				ShowCluster = showClusters,
 				ZIndex = zIndex,
 				OnKeyActivated = onKeyActivated,
@@ -154,8 +154,8 @@ end
 
 function DopeSheet:countKeyframes(endIndex)
 	local props = self.props
-	local startFrame = props.StartFrame
-	local endFrame = props.EndFrame
+	local startTick = props.StartTick
+	local endTick = props.EndTick
 	local tracks = props.Tracks
 	local topTrackIndex = props.TopTrackIndex
 
@@ -166,7 +166,7 @@ function DopeSheet:countKeyframes(endIndex)
 		if keyframes then
 			if index >= topTrackIndex and index <= endIndex then
 				if index >= current then
-					local count = TrackUtils.countVisibleKeyframes(keyframes, startFrame, endFrame)
+					local count = TrackUtils.countVisibleKeyframes(keyframes, startTick, endTick)
 					keyframeCount = keyframeCount + count
 					if tracks[index].Expanded then
 						current = current + TrackUtils.getExpandedSize(track)

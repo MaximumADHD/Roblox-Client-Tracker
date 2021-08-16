@@ -121,6 +121,9 @@ function InfoPanel:updateStory(storyItem: Types.StoryItem)
 	-- Try loading the story with the module loader
 	local ok, err = xpcall(function()
 		local storybook = storyItem.Storybook
+		if storybook.before then
+			storybook:before(storyItem.Script :: ModuleScript)
+		end
 		local construct = ModuleLoader:load(storyItem.Script :: ModuleScript)
 		-- Construct the story definition
 		local storyDefinition = self:getStoryDefinition(storyItem, construct, storybook)

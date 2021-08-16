@@ -40,7 +40,7 @@ return Rodux.createReducer({
 	IsDirty = false,
 	PinnedParts = {},
 
-	EventEditingFrame = nil,
+	EventEditingTick = nil,
 	VisualizeBones = true,
 	DisplayFrameRate = Constants.DEFAULT_FRAMERATE,
 }, {
@@ -187,11 +187,11 @@ return Rodux.createReducer({
 		})
 	end,
 
-	SetEventEditingFrame = function(state, action)
+	SetEventEditingTick = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			EventEditingFrame = action.eventEditingFrame or Cryo.None,
+			EventEditingTick = action.eventEditingTick or Cryo.None,
 		})
-	end,
+	end or nil,
 
 	SetIKEnabled = function(state, action)
 		return Cryo.Dictionary.join(state, {
