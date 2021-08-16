@@ -13,6 +13,7 @@
 		UDim2 Size: The size of this component.
 		Enum.SizeConstraint SizeConstraint: the direction(s) that the container can be resized in.
 		UDim2 Position: The position of this component.
+		Enum.AutomaticSize AutomaticSize: The automatic size of this component
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
@@ -31,6 +32,7 @@
 		Color3 TextColor: The color of the text in this button.
 ]]
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
+local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
@@ -103,7 +105,7 @@ function Button:render()
 	end
 
 	return Roact.createElement(Container, {
-		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize or nil,
+		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
 		Background = background,
 		BackgroundStyle = backgroundStyle,
 		BackgroundStyleModifier = styleModifier,
@@ -123,7 +125,7 @@ function Button:render()
 		}),
 
 		TextButton = Roact.createElement("TextButton", {
-			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize or nil,
+			AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing and FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
 			Size = buttonSize,
 			BackgroundTransparency = 1,
 			Font = style.Font,

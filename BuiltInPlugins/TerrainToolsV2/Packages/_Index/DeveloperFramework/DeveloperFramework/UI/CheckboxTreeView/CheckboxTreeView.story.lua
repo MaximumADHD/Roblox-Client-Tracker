@@ -10,6 +10,7 @@ local TextLabel = UI.Decoration.TextLabel
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local ExampleCheckboxTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleCheckboxTreeView")
 
@@ -87,6 +88,7 @@ function ExampleCheckboxTreeView:render()
 				checked = join(self.state.checked, checked)
 			})
 		end,
+		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 	})
 end
 

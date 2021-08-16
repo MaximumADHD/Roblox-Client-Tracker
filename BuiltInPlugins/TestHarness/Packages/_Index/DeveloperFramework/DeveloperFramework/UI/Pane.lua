@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
 		Padding: An optional number or table adding a UIPadding instance.
@@ -18,7 +19,6 @@
 		RoundBox: The pane has the current theme's main background with the standard rounded border.
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
-local FFlagDevFrameworkPaneSupportTheme1 = game:GetFastFlag("DevFrameworkPaneSupportTheme1")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
@@ -70,18 +70,16 @@ end
 
 function Pane:render()
 	local props = self.props
-
 	local style
-	if FFlagDevFrameworkPaneSupportTheme1 then
-		local theme = props.Theme
-		if THEME_REFACTOR then
-			style = props.Stylizer
-		else
-			style = theme:getStyle("Framework", self)
-		end
-	else
+
+	local theme = props.Theme
+
+	if THEME_REFACTOR then
 		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
 	end
+
 	local children = props[Roact.Children] or {}
 
 	local padding = props.Padding
@@ -171,7 +169,7 @@ function Pane:render()
 			}, children)
 		}
 	end
-	local componentProps = omit(join(defaultProps, props), FFlagDevFrameworkPaneSupportTheme1 and {
+	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",
 		"BackgroundColor",
@@ -186,50 +184,21 @@ function Pane:render()
 		"VerticalAlignment",
 		"OnClick",
 		"OnPress",
-	}
-	or {
-		Roact.Children,
-		"StyleModifier",
-		"BackgroundColor",
-		"BorderColor",
-		"Padding",
-		"Layout",
-		"Spacing",
-		"Style",
-		"Stylizer",
-		"HorizontalAlignment",
-		"VerticalAlignment",
-		"OnClick",
-		"OnPress",
 	})
 
 	return Roact.createElement(className, componentProps, children)
 end
 
-if FFlagDevFrameworkPaneSupportTheme1 then
-	if FFlagDeveloperFrameworkWithContext then
-		Pane = withContext({
-			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		})(Pane)
-	else
-		ContextServices.mapToProps(Pane, {
-			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		})
-	end
-
+if FFlagDeveloperFrameworkWithContext then
+	Pane = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Pane)
 else
-	if FFlagDeveloperFrameworkWithContext then
-		Pane = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(Pane)
-	else
-		ContextServices.mapToProps(Pane, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+	ContextServices.mapToProps(Pane, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
 end
 
 return Pane

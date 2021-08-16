@@ -28,6 +28,8 @@ local MOTOR_OPTIONS = {
 	dampingRatio = 1,
 }
 
+local REPORT_TRIMMING_ERROR_THRESHOLD = 3
+
 local isVertical = {
 	[Scroller.Orientation.Up] = true,
 	[Scroller.Orientation.Down] = true,
@@ -80,8 +82,11 @@ Scroller.validateProps = t.interface({
 	-- The amount of space above and below the view to render items in.
 	mountingBuffer = t.optional(t.numberPositive),
 
-	-- The amount of empty space to keep at the top and bottom on the scroll.
-	dragBuffer = t.optional(t.numberMin(0)),
+	-- The amount of empty space past the leading element of the list. The Scale is relative to the size of the scrolling frame.
+	leadBuffer = t.optional(t.UDim),
+
+	-- The amount of empty space past the trailing element of the list. The Scale is relative to the size of the scrolling frame.
+	trailBuffer = t.optional(t.UDim),
 
 	-- An initial guess at the average size of an item.
 	estimatedItemSize = t.optional(t.numberPositive),
@@ -131,10 +136,11 @@ Scroller.defaultProps = {
 	orientation = Scroller.Orientation.Down,
 	loadNext = function() end,
 	loadPrevious = function() end,
-	padding = UDim.new(0, 0),
+	padding = UDim.new(),
 	loadingBuffer = 10,
 	mountingBuffer = 200,
-	dragBuffer = 0,
+	leadBuffer = UDim.new(),
+	trailBuffer = UDim.new(),
 	estimatedItemSize = 50,
 	maximumSearchDistance = 100,
 	focusIndex = 1,
@@ -224,6 +230,11 @@ function Scroller:shouldUpdate(nextProps, nextState)
 
 	self.log:trace("shouldUpdate")
 
+	if self.props["Size"] ~= nextProps["Size"] then
+		self.log:trace("  Size Prop Changed")
+		self._sizePropChanged = true
+	end
+
 	-- Check for state and props changes in the same way PureComponent would,
 	-- but go one more level down for extraProps.
 	if nextState ~= self.state then
@@ -281,6 +292,12 @@ function Scroller:willUpdate(nextProps, nextState)
 		self.timeLog:info("Middle of update")
 	else
 		self.timeLog:info("Start of update")
+
+		-- Reset error counters
+		self.numberOfTopTrims = 0
+		self.numberOfBottomTrims = 0
+		self.lastTrimTop = 0
+		self.lastTrimBottom = 0
 	end
 	self.updating = true
 
@@ -399,6 +416,15 @@ function Scroller:didUpdate(previousProps, previousState)
 			})
 		end
 	end
+
+	self._sizePropChanged = false
+
+	self.prevCycle = {
+		frameSize = self:measure(self:getCurrent().AbsoluteSize),
+		canvasSize = self.state.size,
+		canvasPosition = Round.nearest(self:measure(self:getCurrent().CanvasPosition)),
+		relativeAnchorLocation = self.relativeAnchorLocation,
+	}
 end
 
 function Scroller.getDerivedStateFromProps(nextProps, lastState)
@@ -540,7 +566,7 @@ function Scroller:init()
 
 	self.onScroll = function(rbx)
 		self.log:trace("onScroll")
-		if not self.alive then
+		if not self.alive or self.resized then
 			return
 		end
 
@@ -569,6 +595,8 @@ function Scroller:init()
 		if self.props[Roact.Change.CanvasPosition] then
 			self.props[Roact.Change.CanvasPosition](rbx)
 		end
+
+		self.prevCycle.canvasPosition = Round.nearest(self:measure(rbx.CanvasPosition))
 	end
 
 	self.onResize = function(rbx)
@@ -579,6 +607,12 @@ function Scroller:init()
 
 		local size = self:measure(rbx.AbsoluteSize)
 		local pos = self:measure(rbx.AbsolutePosition)
+
+		self.leadBufferPx = Round.nearest(
+			self.props.leadBuffer.Scale * size + self.props.leadBuffer.Offset)
+
+		self.trailBufferPx = Round.nearest(
+			self.props.trailBuffer.Scale * size + self.props.trailBuffer.Offset)
 
 		self.itemPadding = self.props.padding.Scale * size + self.props.padding.Offset
 		if isReverse[self.props.orientation] then
@@ -592,6 +626,7 @@ function Scroller:init()
 		self.mountAboveAnchor = self.relativeAnchorLocation + self.props.mountingBuffer
 		self.mountBelowAnchor = size - self.relativeAnchorLocation + self.props.mountingBuffer
 		self.resized = true
+		self.increasedSize = self.state.size < size
 
 		-- Handle any passed in resize callback.
 		if self.props[Roact.Change.AbsoluteSize] then
@@ -620,7 +655,7 @@ function Scroller:init()
 				end
 			end)()
 		else
-			self:setState({})  -- Force a rerender.
+			self:handleResize(size)
 		end
 	end
 
@@ -720,6 +755,7 @@ function Scroller:resetAnchorPosition(newState)
 	local diff = Round.nearest(newPos - offset)
 	if diff ~= 0 then
 		self.log:trace("  Changing padding from {} to {}", padding, padding + diff)
+		self.log:trace("  Changing anchorCanvasPosition from {} to {}", self.anchorCanvasPosition, Round.nearest(self.anchorCanvasPosition - self.anchorOffset))
 		self.anchorCanvasPosition = Round.nearest(self.anchorCanvasPosition - self.anchorOffset)
 		self.anchorOffset = 0
 		return {padding = padding + diff}
@@ -788,6 +824,16 @@ function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 	self.log:trace("    Searching from index {}", currentIndex)
 	self.log:trace("    Position is {} from {}", currentDist, targetPos)
 	if currentDist == 0 then
+		-- resolving border disputes
+		local nextIndex = currentIndex + Round.awayFromZero(self.props.anchorLocation.Scale - 0.5)
+		if nextIndex > self.state.listSize or nextIndex < 1 then
+			return currentIndex
+		end
+
+		local nextDist = self:distanceToPosition(nextIndex, targetPos)
+		if nextDist == 0 then
+			return nextIndex
+		end
 		return currentIndex
 	end
 
@@ -854,165 +900,232 @@ function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 	return currentIndex
 end
 
-function Scroller:trimTop(newState)
+function Scroller:findIndexWithRemainder(targetPos, hintIndex, extrapolate)
 	local reverse = isReverse[self.props.orientation]
-	local padding = newState.padding or self.state.padding
-	local topIndex = reverse and self.state.lead.index or self.state.trail.index
+	local topBufferPx = reverse and self.leadBufferPx or self.trailBufferPx
 
-	if padding == self.props.dragBuffer then
+	if targetPos < topBufferPx then
+		local topIndex = reverse and self.state.listSize or 1
+		return topIndex, 0
+	elseif targetPos > Round.nearest(self:measure(self:getCurrent().CanvasSize).Offset) then
+		local bottomIndex = reverse and 1 or self.state.listSize
+		return bottomIndex, 0
+	end
+
+	local currentIndex = self:findIndexAt(targetPos, hintIndex, extrapolate)
+	local actualIndexPosition = self:getAnchorCanvasFromIndex(currentIndex)
+	local nextIndex = currentIndex + Round.awayFromZero(self.props.anchorLocation.Scale - 0.5)
+
+	if nextIndex > self.state.listSize or nextIndex < 1 then
+		return currentIndex, 0
+	end
+
+	local nextDist = self:distanceToPosition(nextIndex, targetPos)
+	if nextDist == 0 then
+		return nextIndex, 0
+	end
+
+	return currentIndex, actualIndexPosition - targetPos
+end
+
+-- Check if trimTop is trimming the same amount multiple times.
+-- If it is, there is an issue with one of the buffers which will be reported to the user.
+function Scroller:checkTrimTopError(topDiff)
+	if self.lastTrimTop == topDiff then
+		if self.numberOfTopTrims >= REPORT_TRIMMING_ERROR_THRESHOLD then
+			error("There was an error laying out the items.  Check to see if you provided enough leadBuffer and/or trailBuffer")
+		else
+			self.numberOfTopTrims = self.numberOfTopTrims + 1
+		end
+	else
+		self.lastTrimTop = topDiff
+		self.numberOfTopTrims = 0
+	end
+end
+
+function Scroller:trimTopHelper(reverse, size, padding, anchor, topIndex, topDiff)
+	local topBufferPx = reverse and self.leadBufferPx or self.trailBufferPx
+	-- Ensure this trim does not set the padding to less than the topBufferPx
+	if padding + topDiff < topBufferPx then
+		topDiff = padding - topBufferPx
+	end
+
+	-- Make sure the topDiff will not expand canvas and that
+	-- it will not trim to a negative value
+	if topDiff >= 0 or size + topDiff < 0 then
 		return {}
 	end
 
-	local keepGoing = false
+	self:checkTrimTopError(topDiff)
 
-	-- trimTop only happens under very specific circumstances.
-	-- in a top down list
-	if not reverse then
-		-- if the top most element is at the top
-		if topIndex == 1 then
-			-- and if the padding is greater than the distance between the top of the frame and the top element's starting position
-			if padding > self.relativeAnchorLocation + self.props.dragBuffer then
-				keepGoing = true
-			end
+	local trimmedCanvasSize = Round.nearest(size + topDiff)
+	local trimmedPadding = Round.nearest(padding + topDiff)
+	local newAnchorCanvasPosition = Round.nearest(self.anchorCanvasPosition + topDiff)
+	self.log:trace("  Changing anchor canvas position from {} to {}", self.anchorCanvasPosition, newAnchorCanvasPosition)
+	self.anchorCanvasPosition = newAnchorCanvasPosition
+
+	-- Change the anchor when there is empty space at the top of the list and the anchor position has
+	-- been shifted past the anchor element
+	local topFramePos = self:getChildFramePosition(topIndex)
+	local nextAnchorIndex = anchor.index - 1
+	if nextAnchorIndex > 0 and topFramePos > 0 then
+		local nextAnchorCanvasPosition = self:getChildCanvasPosition(nextAnchorIndex)
+		if nextAnchorCanvasPosition > self.anchorCanvasPosition then
+			local nextAnchor = {index = nextAnchorIndex, id=self:getID(nextAnchorIndex)}
+
+			return {
+				size = trimmedCanvasSize,
+				padding = trimmedPadding,
+				anchor = nextAnchor,
+			}
 		end
-	else -- OR in a bottom up list
-		-- if the top most element is at the top
-		if topIndex == self.state.listSize then
-			-- and if the nonzero padding is equivalent to position of the top element + the size of the dragBuffer REEXAMINE THIS CONDITIONAL
-			if padding > self.props.dragBuffer then
-				keepGoing = true
-			end
-		end
 	end
 
-	if not keepGoing then
-		return {}
-	end
-
-	local size = newState.size or self.state.size
-
-	local newPadding = self.props.dragBuffer
-	if not reverse then
-		newPadding = self.relativeAnchorLocation + newPadding
-	end
-	local paddingDiff = padding - newPadding
-	local newSize = Round.nearest(size - paddingDiff)
-	local newAnchorPos = Round.nearest(self.anchorCanvasPosition - paddingDiff)
-	self.log:trace("  Anchor moved from {} to {}", self.anchorCanvasPosition, newAnchorPos)
-	self.anchorCanvasPosition = newAnchorPos
-
-	if reverse then
-		local newAnchorFramePosition = Round.nearest(self.anchorFramePosition - paddingDiff)
-		self.log:trace("  Anchor frame position moved from {} to {}", self.anchorFramePosition, newAnchorFramePosition)
-		self.anchorFramePosition = newAnchorFramePosition
-	end
-
-	self.log:trace("  Trimming padding from {} to {}", padding, newPadding)
-	self.log:trace("  Reducing canvas size from {} to {}", size, newSize)
 	return {
-		size = newSize,
-		padding = newPadding,
+		size = trimmedCanvasSize,
+		padding = trimmedPadding,
 	}
 end
 
-function Scroller:trimBottom(newState)
-	local reverse = isReverse[self.props.orientation]
-	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
-	local padding = newState.padding or self.state.padding
-	local size = newState.size or self.state.size
+-- Shrink the canvas and padding so that the top of the list plus the buffer
+-- is at the top of the canvas
+function Scroller:trimTop(reverse, size, padding, anchor, topIndex, topCanvasPos)
+	local atTop = (reverse and topIndex == self.state.listSize) or (not reverse and topIndex == 1)
+	local bufferSize = reverse and self.leadBufferPx or self.trailBufferPx
+	local topDiff = atTop and bufferSize - topCanvasPos or 0
 
-	local absSize = self:measure(self:getCurrent().AbsoluteSize)
-	local minSize = absSize
-	local childSize = self:getChildSize(bottomIndex)
-	local bottomPos = self:getChildCanvasPosition(bottomIndex) + childSize
-	local newSize = bottomPos + self.props.dragBuffer
-
-	if not reverse then
-		minSize = minSize - math.max(0, padding)
-		newSize = Round.nearest(newSize + self.relativeAnchorLocation)
-	else -- reverse
-		local oldPadding = self:getCurrentPadding()
-		bottomPos = self:getChildCanvasPosition(bottomIndex) + childSize - (oldPadding - padding)
-		newSize = Round.nearest(bottomPos + self.props.dragBuffer + (absSize - self.relativeAnchorLocation))
-	end
-
-	local returnState = {}
-	if newSize > minSize and newSize < Round.nearest(size) then
-		returnState.size = newSize
-		self.log:trace("  Changing canvas size from {} to {}", size, returnState.newSize)
-
-		if reverse then
-			-- Changing the canvas size without changing the padding requires the anchorFramePosition to be
-			-- reset to prevent moveToAnchor from adjusting the position of the canvas
-			self.anchorFramePosition = 0
-			if padding > 0 then
-
-				-- When the scroller is reversed, the start of the list can have excess padding from when the canvas has been
-				-- expanded while loading more items. When that is the case, trim the padding along with the canvas size.
-				local sizeDiff = Round.nearest(size - newSize)
-				local newAnchorPos = Round.nearest(self.anchorCanvasPosition - sizeDiff)
-				local newPadding = math.max(0, padding - sizeDiff)
-
-				self.log:trace("  Moving anchor from {} to {}", self.anchorCanvasPosition, newAnchorPos)
-				self.anchorCanvasPosition = newAnchorPos
-
-				returnState.padding = newPadding
-				self.log:trace("  Changing padding from {} to {}", padding, returnState.padding)
-			end
-		end
-	elseif bottomPos + self.props.dragBuffer < size then
-		if not reverse then
-			-- Shift the list so that the bottom element is touching the bottom of the frame
-			-- while keeping the canvas size the same. This is to ensure that when scrolling to the top of the
-			-- list there is still the anchor space between the top element and the top of the frame
-			local diff = Round.nearest(size - bottomPos + self.props.dragBuffer)
-			if diff ~= 0 then
-				local newPadding = Round.nearest(padding + diff)
-				local newAnchorPos = Round.nearest(self.anchorCanvasPosition + diff)
-
-				self.log:trace("  Moving anchor from {} to {}", self.anchorCanvasPosition, newAnchorPos)
-				self.anchorCanvasPosition = newAnchorPos
-
-				-- Since the anchor position does not update before moveToAnchor is called, update the
-				-- anchorFramePosition here
-				self.anchorFramePosition = self.anchorFramePosition + diff
-
-				returnState.padding = newPadding
-				self.log:trace("  Changing padding from {} to {}", padding, returnState.padding)
-			end
-		end
-	end
-
-	return returnState
+	return self:trimTopHelper(reverse, size, padding, anchor, topIndex, topDiff)
 end
 
+-- Shrink the canvas and padding so that the top of the canvas is at the top of the frame
+function Scroller:shortTrimTop(reverse, size, frameSize, padding, anchor, topIndex)
+	local topFramePos = self:getChildFramePosition(topIndex)
+	local bottomBufferPx = reverse and self.trailBufferPx or self.leadBufferPx
 
--- When the ends of the list are loaded, adjust the padding and canvas size so that the ends of
--- the canvas do not extend past the items in the list
--- This adjustment preserves the space between the start of the list and the anchor
--- Eg when the anchorLocation is (0.5, 0) on a 100px tall frame, there is 50px of empty space
--- between the leading edge of the frame and the first element.
-function Scroller:adjustEdges(newState)
-	self.log:trace("adjustEdges")
-	local reverse = isReverse[self.props.orientation]
-	local topIndex = reverse and self.state.lead.index or self.state.trail.index
-	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
+	-- Only trim to the top of the frame
+	local topDiff
+	if topFramePos >= 0 and topFramePos <= frameSize then
+		topDiff = -Round.towardsZero(size - bottomBufferPx - frameSize)
+	else
+		topDiff = topFramePos
+	end
+	return self:trimTopHelper(reverse, size, padding, anchor, topIndex, topDiff)
+end
 
-	if not reverse then
-		if topIndex == 1 then
-			return self:trimTop(newState)
-		elseif bottomIndex == self.state.listSize then
-			return self:trimBottom(newState)
+-- Check if trimBottom is trimming the same amount multiple times.
+-- If it is, there is an issue with one of the buffers which will be reported to the user.
+function Scroller:checkTrimBottomError(bottomDiff)
+	if self.lastTrimBottom == bottomDiff then
+		if self.numberOfBottomTrims >= REPORT_TRIMMING_ERROR_THRESHOLD then
+			error("There was an error laying out the items.  Check to see if you provided enough leadBuffer and/or trailBuffer")
+		else
+			self.numberOfBottomTrims = self.numberOfBottomTrims + 1
 		end
-	else -- reverse
-		if bottomIndex == 1 then
-			return self:trimBottom(newState)
-		elseif topIndex == self.state.listSize then
-			return self:trimTop(newState)
-		end
+	else
+		self.lastTrimBottom = bottomDiff
+		self.numberOfBottomTrims = 0
+	end
+end
+
+function Scroller:trimBottomHelper(size, bottomDiff)
+	-- Make sure the bottomDiff will not expand canvas
+	if bottomDiff <= 0 then
+		return {}
 	end
 
-	return {}
+	self:checkTrimBottomError(bottomDiff)
+
+	local trimmedCanvasSize = Round.nearest(size - bottomDiff)
+
+	return {
+		size = trimmedCanvasSize,
+	}
+end
+
+-- Shrink the canvas so that the bottom of the list plus the buffer
+-- is at the bottom of the canvas
+function Scroller:trimBottom(reverse, bottomIndex, bottomCanvasPos, size)
+	local atBottom = (reverse and bottomIndex == 1) or (not reverse and bottomIndex == self.state.listSize)
+	local bufferSize = reverse and self.trailBufferPx or self.leadBufferPx
+	local bottomDiff = atBottom and (size - bufferSize) - bottomCanvasPos or 0
+
+	-- When resizing to a larger frame size extra padding needs to be added before trimming can happen
+	if self.resized and self.increasedSize then
+		return {}
+	end
+	return self:trimBottomHelper(size, bottomDiff)
+end
+
+-- Shrink the canvas so that the bottom of the canvas is at the bottom of the frame
+function Scroller:shortTrimBottom(reverse, bottomIndex, bottomCanvasPos, size, frameSize)
+	local bottomFramePos = self:getChildFramePosition(bottomIndex)
+	local bottomSize = self:getChildSize(bottomIndex)
+	bottomFramePos = bottomFramePos + bottomSize
+
+	if bottomFramePos >= 0 and bottomFramePos <= frameSize then
+		return {}
+	end
+
+	local bufferSize = reverse and self.trailBufferPx or self.leadBufferPx
+	-- Only trim to the bottom of the frame + the buffer at the end of the list
+	local bottomDiff = (size - bufferSize) - bottomCanvasPos
+
+	return self:trimBottomHelper(size, bottomDiff)
+end
+
+-- When the ends of the list are rendered, adjust the padding and canvas size so that the ends of
+-- the canvas do not extend past the items in the list + the top and bottom buffers.
+function Scroller:adjustEdges(newState)
+	self.log:trace("adjustEdges")
+
+	local size = newState.size or self.state.size
+	size = Round.nearest(size)
+	local padding = newState.padding or self.state.padding
+	local anchor = newState.anchor or self.state.anchor
+	local reverse = isReverse[self.props.orientation]
+
+	local frameSize = self:measure(self:getCurrent().AbsoluteSize)
+	local topIndex = reverse and self.state.lead.index or self.state.trail.index
+	local topCanvasPos = Round.nearest(self:getChildCanvasPosition(topIndex)) - self.itemPadding
+	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
+	local childSize = self:getChildSize(bottomIndex)
+	local bottomCanvasPos = Round.nearest(self:getChildCanvasPosition(bottomIndex) + childSize)
+
+	local totalSize = self.leadBufferPx + self.trailBufferPx + (bottomCanvasPos - topCanvasPos)
+
+	local combinedState
+	if bottomCanvasPos - topCanvasPos <= frameSize or totalSize <= frameSize then
+		-- For lists that are less than the size of the scrolling frame, trim the trailing edge followed by the leading edge.
+		if reverse then
+			local trimBottomReturnState = self:trimBottom(reverse, bottomIndex, bottomCanvasPos, size)
+			local newCanvasSize = trimBottomReturnState.size or size
+			local trimTopReturnState = self:shortTrimTop(reverse, newCanvasSize, frameSize, padding, anchor, topIndex)
+			combinedState = Cryo.Dictionary.join(trimBottomReturnState, trimTopReturnState)
+		else
+			local trimTopReturnState = self:trimTop(reverse, size, padding, anchor, topIndex, topCanvasPos)
+			local newCanvasSize = trimTopReturnState.size or size
+			local trimBottomReturnState = self:shortTrimBottom(reverse, bottomIndex, bottomCanvasPos, newCanvasSize, frameSize)
+			combinedState = Cryo.Dictionary.join(trimTopReturnState, trimBottomReturnState)
+		end
+	else
+		-- For lists larger than the scrolling frame the order of trimming does not matter.
+		local trimTopReturnState = self:trimTop(reverse, size, padding, anchor, topIndex, topCanvasPos)
+		local newCanvasSize = trimTopReturnState.size or size
+		local trimBottomReturnState = self:trimBottom(reverse, bottomIndex, bottomCanvasPos, newCanvasSize)
+		combinedState = Cryo.Dictionary.join(trimTopReturnState, trimBottomReturnState)
+	end
+
+	if combinedState.size then
+		self.log:trace("  Changing canvas size from {} to {}", size, combinedState.size)
+	end
+	if combinedState.padding then
+		self.log:trace("  Changing canvas padding from {} to {}", padding, combinedState.padding)
+	end
+	if combinedState.anchor then
+		self.log:trace("  Changing anchor index from {} to {}", anchor.index, combinedState.anchor.index)
+	end
+
+	return combinedState
 end
 
 -- Expand the size of the scrolling frame's canvas to make sure everything still fits.
@@ -1020,8 +1133,11 @@ function Scroller:expandCanvas(newState)
 	self.log:trace("expandCanvas")
 	local reverse = isReverse[self.props.orientation]
 	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
+	local topBufferPx = reverse and self.leadBufferPx or self.trailBufferPx
+	local bottomBufferPx = reverse and self.trailBufferPx or self.leadBufferPx
 
 	local size = newState.size or self.state.size
+	size = Round.nearest(size)
 	local originalSize = size
 	local newPadding = newState.padding or self.state.padding
 	local originalPadding = newPadding
@@ -1030,7 +1146,20 @@ function Scroller:expandCanvas(newState)
 	local bottomPos = self:getChildCanvasPosition(bottomIndex)
 		+ self:getChildSize(bottomIndex) - (oldPadding - newPadding)
 
-	local bottomTarget = bottomPos + self.props.dragBuffer
+	local bottomTarget = Round.nearest(bottomPos + bottomBufferPx)
+
+	self.log:trace("  Padding is {}", newPadding)
+	self.log:trace("  Padding should be at least {}", topBufferPx)
+	if newPadding < topBufferPx then
+		-- Minus header
+		local diff = newPadding - topBufferPx
+		size = Round.nearest(size - diff)
+		self.anchorCanvasPosition = Round.nearest(self.anchorCanvasPosition - diff)
+		newPadding = topBufferPx
+		self.log:trace("  Expanding canvas top to size {}", size)
+		self.log:trace("  Shifting anchor to {}", self.anchorCanvasPosition)
+		self.log:trace("  Padding is now {}", newPadding)
+	end
 
 	self.log:trace("  Bottom of bottom child is {}", bottomPos)
 	self.log:trace("  Canvas size is {}", originalSize)
@@ -1046,19 +1175,6 @@ function Scroller:expandCanvas(newState)
 		-- Plus footer
 		size = math.max(bottomTarget, size)
 		self.log:trace("  Expanding canvas bottom to size {}", size)
-	end
-
-	self.log:trace("  Padding is {}", newPadding)
-	self.log:trace("  Padding should be at least {}", self.props.dragBuffer)
-	if newPadding < self.props.dragBuffer then
-		-- Minus header
-		local diff = newPadding - self.props.dragBuffer
-		size = Round.nearest(size - diff)
-		self.anchorCanvasPosition = Round.nearest(self.anchorCanvasPosition - diff)
-		newPadding = self.props.dragBuffer
-		self.log:trace("  Expanding canvas top to size {}", size)
-		self.log:trace("  Shifting anchor to {}", self.anchorCanvasPosition)
-		self.log:trace("  Padding is now {}", newPadding)
 	end
 
 	if size ~= originalSize or newPadding ~= originalPadding then
@@ -1078,6 +1194,12 @@ end
 function Scroller:adjustCanvas(trimTrailing, trimLeading)
 	self.log:trace("adjustCanvas")
 
+	-- if our Size prop changes, do NOT adjust, onResize() will handle this
+	if self._sizePropChanged then
+		self.log:trace("  Skipping because Size prop changed")
+		return true
+	end
+
 	local newState = Cryo.Dictionary.join(
 		self:resetAnchorPosition(),
 		self:recalculateBounds(trimTrailing, trimLeading)
@@ -1085,6 +1207,9 @@ function Scroller:adjustCanvas(trimTrailing, trimLeading)
 
 	if not newState.trail and not newState.lead then
 		newState = Cryo.Dictionary.join(newState, self:expandCanvas(newState))
+	end
+
+	if not newState.size and not newState.padding then
 		newState = Cryo.Dictionary.join(newState, self:adjustEdges(newState))
 	end
 
@@ -1095,6 +1220,115 @@ function Scroller:adjustCanvas(trimTrailing, trimLeading)
 
 	self:setState(newState)
 	return true
+end
+
+function Scroller:handleResize(size)
+	local reverse = isReverse[self.props.orientation]
+	local canvasSize = Round.nearest(self:measure(self:getCurrent().CanvasSize).Offset)
+	local frameSize = self:measure(self:getCurrent().AbsoluteSize)
+
+	local topBufferPx = reverse and self.leadBufferPx or self.trailBufferPx
+	local bottomBufferPx = reverse and self.trailBufferPx or self.leadBufferPx
+
+	local bottomIndex = reverse and self.state.trail.index or self.state.lead.index
+	local topIndex = reverse and self.state.lead.index or self.state.trail.index
+
+	local childSize = self:getChildSize(bottomIndex)
+	local topPos = Round.nearest(self:getChildCanvasPosition(topIndex)) - self.itemPadding
+	local bottomPos = Round.nearest(self:getChildCanvasPosition(bottomIndex)) + childSize
+	local itemSize = bottomPos + bottomBufferPx - topPos
+
+	local frameDiff = 0
+	if self.prevCycle.frameSize and size then
+		frameDiff = size - self.prevCycle.frameSize
+	end
+
+	local bottomFrameCanvasPosition = self.prevCycle.canvasPosition + self.prevCycle.frameSize
+	local openCanvasAtBottom = math.max(self.prevCycle.canvasSize - bottomBufferPx - bottomFrameCanvasPosition, 0)
+	local openCanvasAtTop = self.prevCycle.canvasPosition
+
+	local trimmablePadding = 0
+	if frameSize < canvasSize then
+		trimmablePadding = topPos - topBufferPx
+	end
+
+	local botAdjustment
+	local topAdjustment
+
+	if frameDiff < 0 then -- contracting
+		if self.relativeAnchorLocation > frameSize * 0.5 then -- if we're at the bottom
+			topAdjustment = math.min(trimmablePadding, frameDiff)
+			botAdjustment = frameDiff - topAdjustment
+		else -- at the top
+			botAdjustment = frameDiff
+			topAdjustment = 0
+		end
+	else -- expanding
+		-- first fill opposite end, then spillover to same end.
+		-- Any remaining space goes back to opposite end
+		if self.relativeAnchorLocation > frameSize * 0.5 then
+			topAdjustment = math.min(openCanvasAtTop, frameDiff)
+			local frameDiffRemainder = frameDiff - topAdjustment
+			botAdjustment = math.min(openCanvasAtBottom, frameDiffRemainder)
+			frameDiffRemainder = frameDiffRemainder - botAdjustment
+			topAdjustment = topAdjustment + frameDiffRemainder
+		else
+			botAdjustment = math.min(openCanvasAtBottom, frameDiff)
+			local frameDiffRemainder = frameDiff - botAdjustment
+			topAdjustment = math.min(openCanvasAtTop, frameDiffRemainder)
+			frameDiffRemainder = frameDiffRemainder - topAdjustment
+			botAdjustment = botAdjustment + frameDiffRemainder
+		end
+	end
+
+	-- if bottomUp scroller
+	if self.relativeAnchorLocation >= frameSize * 0.5 then
+
+		local currentAnchorCanvasPosition =
+			self:getAnchorCanvasFromIndex(self.state.anchor.index) - self.anchorFramePosition
+
+		local newAnchor, remainder =
+			self:findIndexWithRemainder(currentAnchorCanvasPosition + frameDiff - topAdjustment,
+										self.state.anchor.index,
+										false)
+
+		self.anchorFramePosition = math.max(remainder, 0)
+		self.anchorCanvasPosition = math.min(currentAnchorCanvasPosition + frameDiff, canvasSize - bottomBufferPx)
+
+		if frameDiff > 0 then
+			-- self.anchorOffset affects padding
+			self.anchorOffset = openCanvasAtTop + self.anchorFramePosition - topAdjustment
+		end
+
+		self:setState({
+			anchor = {index = newAnchor, id = self:getID(newAnchor)},
+		})
+	else--topDown scroller
+		local newCanvasSize = canvasSize
+		if canvasSize > itemSize then
+			newCanvasSize = math.min(itemSize, canvasSize + botAdjustment)
+		end
+
+		local newAnchor, remainder =
+			self:findIndexWithRemainder(self.anchorCanvasPosition - topAdjustment,
+										self.state.anchor.index,
+										false)
+
+		-- if we expand past the amount of canvas available, move the anchor to the bottom of the first element
+		if math.abs(botAdjustment) < math.abs(frameDiff) then
+			self.anchorFramePosition = 0
+		elseif newAnchor == self.state.anchor.index then
+			self.anchorFramePosition = self.anchorFramePosition + topAdjustment
+		else
+			self.anchorFramePosition = self.anchorFramePosition + remainder
+		end
+
+		self.anchorCanvasPosition = self.anchorCanvasPosition - topAdjustment
+		self:setState({
+			size = newCanvasSize,
+			anchor = { index = newAnchor, id = self:getID(newAnchor) },
+		})
+	end
 end
 
 -- Move the canvas position so that the anchor element is in the same place on the screen.
@@ -1246,7 +1480,7 @@ function Scroller:distanceToPosition(index, pos)
 	local childTop = self:absoluteToCanvasPosition(self:measure(child.AbsolutePosition)) - self.itemPadding
 	local childSize = self:measure(child.AbsoluteSize) + 2 * self.itemPadding
 
-	return Distance.fromPointToRangeSigned(pos, childTop, childSize) * direction[self.props.orientation]
+	return Round.nearest(Distance.fromPointToRangeSigned(pos, childTop, childSize) * direction[self.props.orientation])
 end
 
 -- Get the canvas-relative position of the current anchor element.

@@ -47,6 +47,7 @@ local function mapToProps(component, contextMap, ignoreUsage)
 	assert(contextMap, "mapToProps expects a contextMap table.")
 
 	if isWarnEnabled and not ignoreUsage then
+		print(debug.traceback())
 		warn([[*** WARNING: ACTION REQUIRED BEFORE YOU MERGE YOUR BRANCH ***
 
 -> Please run `python Client/RobloxStudio/LuaProjects/PythonScripts/migrateWithContext.py` in the game-engine repo

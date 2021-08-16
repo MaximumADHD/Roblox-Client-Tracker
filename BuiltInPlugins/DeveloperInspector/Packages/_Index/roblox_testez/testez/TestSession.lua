@@ -10,6 +10,7 @@
 local TestEnum = require(script.Parent.TestEnum)
 local TestResults = require(script.Parent.TestResults)
 local Context = require(script.Parent.Context)
+local ExpectationContext = require(script.Parent.ExpectationContext)
 
 local TestSession = {}
 
@@ -25,6 +26,7 @@ function TestSession.new(plan)
 		results = TestResults.new(plan),
 		nodeStack = {},
 		contextStack = {},
+		expectationContextStack = {},
 		hasFocusNodes = false
 	}
 
@@ -98,12 +100,16 @@ end
 function TestSession:pushNode(planNode)
 	local node = TestResults.createNode(planNode)
 	local lastNode = self.nodeStack[#self.nodeStack] or self.results
-	local lastContext = self.contextStack[#self.contextStack]
-	local context = Context.new(lastContext)
-
 	table.insert(lastNode.children, node)
 	table.insert(self.nodeStack, node)
+
+	local lastContext = self.contextStack[#self.contextStack]
+	local context = Context.new(lastContext)
 	table.insert(self.contextStack, context)
+
+	local lastExpectationContext = self.expectationContextStack[#self.expectationContextStack]
+	local expectationContext = ExpectationContext.new(lastExpectationContext)
+	table.insert(self.expectationContextStack, expectationContext)
 end
 
 --[[
@@ -113,6 +119,7 @@ function TestSession:popNode()
 	assert(#self.nodeStack > 0, "Tried to pop from an empty node stack!")
 	table.remove(self.nodeStack, #self.nodeStack)
 	table.remove(self.contextStack, #self.contextStack)
+	table.remove(self.expectationContextStack, #self.expectationContextStack)
 end
 
 --[[
@@ -121,6 +128,12 @@ end
 function TestSession:getContext()
 	assert(#self.contextStack > 0, "Tried to get context from an empty stack!")
 	return self.contextStack[#self.contextStack]
+end
+
+
+function TestSession:getExpectationContext()
+	assert(#self.expectationContextStack > 0, "Tried to get expectationContext from an empty stack!")
+	return self.expectationContextStack[#self.expectationContextStack]
 end
 
 --[[

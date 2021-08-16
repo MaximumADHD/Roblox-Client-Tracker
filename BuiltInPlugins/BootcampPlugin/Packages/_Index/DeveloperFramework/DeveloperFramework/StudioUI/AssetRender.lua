@@ -26,6 +26,7 @@
 		callback OnPauseVideo: Called when a Video plays.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -235,6 +236,7 @@ function AssetRender:render()
 			Selection = state.treeViewSelection,
 			OnExpansionChange = self.onTreeViewExpansionChange,
 			OnSelectionChange = self.onTreeViewSelectionChange,
+			Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 		}),
 	})
 end

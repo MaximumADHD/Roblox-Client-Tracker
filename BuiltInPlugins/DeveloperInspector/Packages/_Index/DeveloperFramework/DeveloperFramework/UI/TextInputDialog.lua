@@ -29,7 +29,6 @@
 		number Padding: Padding between components in dialog
 		number Spacing: Spacing between borders of dialog
 ]]
-local FFlagTextInputDialogDevFramework = game:GetFastFlag("TextInputDialogDevFramework")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
@@ -64,7 +63,6 @@ function TextInputDialog:init()
 end
 
 function TextInputDialog:render()
-	assert(FFlagTextInputDialogDevFramework)
 	local props = self.props
 
 	local theme = props.Theme
