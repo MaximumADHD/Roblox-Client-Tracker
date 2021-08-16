@@ -374,6 +374,7 @@ Studio.App.GameExplorer.CopyIdToClipboard,,Copy ID to Clipboard,Copy ID to Clipb
 Studio.App.GameExplorer.CopyTextureIdToClipboard,,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard
 Studio.App.GameExplorer.CreateBadge,,Create Badge,Create Badge
 Studio.App.GameExplorer.ErrorRetrievingMeshContent1,,Error while retrieving mesh content: %1,Error while retrieving mesh content: %1
+Studio.App.GameExplorer.ErrorRetrievingModelContent1,,Error while retrieving model content: %1,Error while retrieving model content: %1
 Studio.App.GameExplorer.GameSettings,,Game Settings...,Game Settings...
 Studio.App.GameExplorer.InsertAsScript,,InsertAsScript,InsertAsScript
 Studio.App.GameExplorer.InsertAsLocalScript,,Insert as LocalScript,Insert as LocalScript
@@ -1535,6 +1536,7 @@ Studio.App.PackagesBlockingPublishDialog.MessageModifiedWriteAccess,,Unable to p
 Studio.App.PackagesBlockingPublishDialog.MessageModifiedReadAccess,,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.
 Studio.App.PackagesBlockingPublishDialog.MessageModifiedNoAccess,,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.
 Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissions,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.
+Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissionsRemovePackageLink,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.
 Studio.App.PackagesBlockingPublishDialog.MessageStillChecking,,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.
 Studio.App.PackagesBlockingPublishDialog.MessageNoAccessOnPlaceOpen,,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.
 Studio.App.PackagesBlockingPublishDialog.PackageAssetName,,Package Asset Name,Package Asset Name
@@ -3006,6 +3008,7 @@ Studio.App.AssetManagerService.NoModificationsForPublish,,No modifications avail
 Studio.App.AssetManagerService.PackageIdInvalid,,PackageId is invalid,PackageId is invalid
 Studio.App.AssetManagerService.PackageInsertErrorArg1,,Error while inserting package: %1,Error while inserting package: %1
 Studio.App.AssetManagerService.PlaceIdInvalid,,PlaceId is invalid,PlaceId is invalid
+Studio.App.AssetManagerService.ModelIdInvalid,,ModelId is invalid,ModelId is invalid
 Studio.App.AssetManagerService.ReturnedIdMalformed,,Id returned for mesh part is malformed,Id returned for mesh part is malformed
 Studio.App.AssetManagerService.ResponseInvalid,,Http response is invalid,Http response is invalid
 Studio.App.AvatarImportService.OpenRigFBXFile,,Open Rig FBX File,Open Rig FBX File

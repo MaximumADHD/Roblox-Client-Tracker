@@ -29,12 +29,9 @@ Blur3FS,Fragment
 Blur5FS,Fragment
 Blur7FS,Fragment
 Clouds2dFS,Fragment
-Clouds2dOldFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
-CloudsCompOldFS,Fragment
 CloudsFS,Fragment
-CloudsOldFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex

@@ -64,3 +64,6 @@ Studio.LocalizationTools.UploadTable.GetSupportedLanguagesFailedMessage,Localiza
 Studio.LocalizationTools.MessageFrame.DownloadingTableMessage,Downloading table...,Downloading table...
 Studio.LocalizationTools.PluginMetadata.GetOrCreateCloudTableFailedMessage,Localization Tools failed to get cloud table info.,Localization Tools failed to get cloud table info.
 Studio.LocalizationTools.PluginMetadata.GetAllLocalesFailed,Localization Tools failed to get all languages info.,Localization Tools failed to get all languages info.
+Studio.LocalizationTools.ImageLocalizationSection.SectionLabel,Image Localization,Image Localization
+Studio.LocalizationTools.ImageLocalizationSection.UploadButton,Upload Image IDs,Upload Image IDs
+Studio.LocalizationTools.ImageLocalizationSection.UploadButtonLabel,Upload Image Asset IDs,Upload Image Asset IDs

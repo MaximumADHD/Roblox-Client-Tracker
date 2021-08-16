@@ -107,16 +107,10 @@ Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
-Class AssetImportItemSettings : Instance [NotCreatable] [NotReplicated]
-	Property bool AssetImportItemSettings.ShouldImport
-Class AssetImportMeshSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
-Class AssetImportTextureSettings : AssetImportItemSettings [NotCreatable] [NotReplicated]
 Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function Dictionary AssetImportService:GetInstanceMap(string fileName) {RobloxScriptSecurity}
-	Function AssetImportSettings AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
-	Function AssetImportSettings AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
-Class AssetImportSettings : Instance [NotCreatable] [NotReplicated]
-	Property AssetImportItemSettings AssetImportSettings.Hierarchy [ReadOnly]
+	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
+	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
+	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -130,6 +124,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:InsertLinkedSourceAsScript(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertMesh(string aliasName, bool insertWithLocation) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertMeshesWithLocation(Array aliasNames) {RobloxScriptSecurity}
+	Function void AssetManagerService:InsertModel(int64 modelId) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertPackage(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:OpenPlace(int64 placeId) {RobloxScriptSecurity}
@@ -137,6 +132,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:RefreshLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:RemovePlace(int64 placeId) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:RenameAlias(int assetType, int64 assetId, string oldAliasName, string newAliasName) {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:RenameModel(int64 modelId, string newName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:RenamePlace(int64 placeId, string newName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:RevertLinkedSourceToLastPublishedVersion(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:ShowPackageDetails(int64 packageId) {RobloxScriptSecurity}
@@ -391,16 +387,14 @@ Class RocketPropulsion : BodyMover
 	Function void RocketPropulsion:Abort()
 	Function void RocketPropulsion:Fire()
 	Event RocketPropulsion.ReachedTarget()
-Class Breakpoint : Instance [NotCreatable] [NotReplicated]
-	Property Expression Breakpoint.Condition {RobloxScriptSecurity} [Hidden] [ReadOnly]
+Class Breakpoint : Instance [NotReplicated]
+	Property string Breakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int Breakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int Breakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string Breakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property ScriptRef Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property bool Breakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function int Breakpoint:Remove(Function status) {RobloxScriptSecurity}
-	Function int Breakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
-	Function int Breakpoint:SetEnabled(bool enabled, Function status) {RobloxScriptSecurity}
-	Function int Breakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
+	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
@@ -858,9 +852,10 @@ Class DebuggerBreakpoint : Instance [NotCreatable]
 Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function int DebuggerConnection:AddBreakpoint(Instance script, int line, Instance conditon, Function status) {RobloxScriptSecurity}
+	Function void DebuggerConnection:AddBreakpoint(Instance script, int line, Instance breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetSource(Instance scriptRef, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Pause(Function status) {RobloxScriptSecurity}
+	Function void DebuggerConnection:RemoveBreakpoint(Instance breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointAdded(Instance breakpoint) {RobloxScriptSecurity}
@@ -960,9 +955,6 @@ Class Explosion : Instance
 	Property Vector3 Explosion.Position
 	Property bool Explosion.Visible
 	Event Explosion.Hit(Instance part, float distance)
-Class Expression : Instance [NotReplicated]
-	Property string Expression.Expression {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Function int Expression:Evaluate(Instance frame, Function status) {RobloxScriptSecurity}
 Class FaceControls : Instance [NotBrowsable]
 	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
@@ -1752,6 +1744,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property string ImporterBaseSettings.ImportName
 	Property bool ImporterBaseSettings.ShouldImport
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.DoubleSided
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
@@ -2067,6 +2060,14 @@ Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 Class Message : Instance [Deprecated]
 	Property string Message.Text [Deprecated]
 Class Hint : Message [Deprecated]
+Class MessageBusConnection : Instance [NotCreatable] [NotReplicated]
+	Function void MessageBusConnection:Disconnect() {RobloxScriptSecurity}
+Class MessageBusService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Variant MessageBusService:Call(string key, Variant input) {RobloxScriptSecurity}
+	Function Variant MessageBusService:GetLast(string mid) {RobloxScriptSecurity}
+	Function string MessageBusService:GetMessageId(string domainName, string messageName) {RobloxScriptSecurity}
+	Function void MessageBusService:Publish(string mid, Variant params) {RobloxScriptSecurity}
+	Function Instance MessageBusService:Subscribe(string mid, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
 Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
 	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
@@ -2400,14 +2401,15 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
 	Property Enum.SignalBehavior Workspace.SignalBehavior [NotScriptable]
-	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
-	Property int Workspace.StreamingMinRadius [NotScriptable]
-	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [NotScriptable]
-	Property int Workspace.StreamingTargetRadius [NotScriptable]
 	Property Terrain Workspace.Terrain [ReadOnly]
 	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
 	Property Camera Workspace.CurrentCamera [NotReplicated]
 	Property double Workspace.DistributedGameTime [NotReplicated]
+	Property Enum.StreamOutBehavior Workspace.StreamOutBehavior [NotScriptable]
+	Property bool Workspace.StreamingEnabled {✏️PluginSecurity}
+	Property int Workspace.StreamingMinRadius [NotScriptable]
+	Property Enum.StreamingPauseMode Workspace.StreamingPauseMode [NotScriptable]
+	Property int Workspace.StreamingTargetRadius [NotScriptable]
 	Function void Workspace:BreakJoints(Objects objects) {PluginSecurity}
 	Function float Workspace:CalculateJumpDistance(float gravity, float jumpPower, float walkSpeed) {RobloxScriptSecurity}
 	Function float Workspace:CalculateJumpHeight(float gravity, float jumpPower) {RobloxScriptSecurity}
@@ -2481,6 +2483,7 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Function Array Path:GetPointCoordinates() [Deprecated]
 	Function Array Path:GetWaypoints()
 	Event Path.Blocked(int blockedWaypointIdx)
+	Event Path.Unblocked(int unblockedWaypointIdx)
 Class PathfindingModifier : Instance
 	Property string PathfindingModifier.ModifierId
 Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2809,6 +2812,7 @@ Class PolicyService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum.TriStateBoolean PolicyService.IsLuobuServer {RobloxScriptSecurity} [Hidden]
 	Property Enum.TriStateBoolean PolicyService.LuobuWhitelisted {RobloxScriptSecurity} [Hidden]
 	Function Dictionary PolicyService:GetPolicyInfoForPlayerAsync(Instance player) [Yields]
+	Function Dictionary PolicyService:GetPolicyInfoForServerRobloxOnlyAsync() {RobloxScriptSecurity} [Yields]
 Class PoseBase : Instance [NotCreatable]
 	Property Enum.PoseEasingDirection PoseBase.EasingDirection
 	Property Enum.PoseEasingStyle PoseBase.EasingStyle
@@ -3157,6 +3161,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
+	Property int Sound.ChannelCount {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property float Sound.EmitterSize [Deprecated]
 	Property bool Sound.IsLoaded [ReadOnly]
 	Property bool Sound.IsPaused [ReadOnly]
@@ -3254,6 +3259,7 @@ Class Sparkles : Instance
 	Property Color3 Sparkles.SparkleColor
 Class SpawnerService : Instance [NotCreatable] [Service]
 Class Speaker : Instance [Deprecated]
+	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
 	Property double Speaker.PlaybackLoudness [ReadOnly] [Deprecated]
 	Property float Speaker.RollOffMaxDistance [NotReplicated] [Deprecated]
 	Property float Speaker.RollOffMinDistance [NotReplicated] [Deprecated]
@@ -3986,7 +3992,6 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:SendTextInputCharacterEvent(string str, Instance layerCollector) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SendTouchEvent(int64 touchId, int state, float x, float y) {RobloxScriptSecurity}
 	Function void VirtualInputManager:SetInputTypesToIgnore(Variant inputTypesToIgnore) {RobloxScriptSecurity}
-	Function void VirtualInputManager:SetViewportSize(Vector2 sizePx) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartPlaying(string fileName) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartPlayingJSON(string string) {RobloxScriptSecurity}
 	Function void VirtualInputManager:StartRecording() {RobloxScriptSecurity}
@@ -5663,6 +5668,10 @@ Enum StartCorner
 Enum Status [Deprecated]
 	EnumItem Status.Poison : 0 [Deprecated]
 	EnumItem Status.Confusion : 1 [Deprecated]
+Enum StreamOutBehavior
+	EnumItem StreamOutBehavior.Default : 0
+	EnumItem StreamOutBehavior.LowMemory : 1
+	EnumItem StreamOutBehavior.Opportunistic : 2
 Enum StreamingPauseMode
 	EnumItem StreamingPauseMode.Default : 0
 	EnumItem StreamingPauseMode.Disabled : 1

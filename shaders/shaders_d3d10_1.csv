@@ -33,15 +33,12 @@ BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
 CheckerboardDepthFS,Fragment
 Clouds2dFS,Fragment
-Clouds2dOldFS,Fragment
 CloudsBsmFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
-CloudsCompOldFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsFS,Fragment
-CloudsOldFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex

@@ -2341,6 +2341,12 @@
             <string name="Name">PlayOnRemove</string>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChannelCount</string>
+            <bool name="FFlag">EnableAudioChannelCountProperty</bool>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     
@@ -2351,6 +2357,15 @@
         <string name="ExplorerOrder">10</string>
         <string name="ExplorerImageIndex">11</string>
       </Properties>
+
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ChannelCount</string>
+            <bool name="FFlag">EnableAudioChannelCountProperty</bool>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     
     <Item class="ReflectionMetadataClass">
@@ -7067,7 +7082,7 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">FaceControls</string>
-        <string name="FFlag">FacialAnimation</string>
+        <string name="FFlag">FacialAnimation1</string>
         <string name="ClassCategory">Animations</string>
         <bool name="Browsable">true</bool>
         <bool name="Insertable">true</bool>

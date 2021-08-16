@@ -12,6 +12,8 @@ Studio.Debugger.EditDebugpoint.TitleLine,line {LineNumber:int},line {LineNumber:
 Studio.Debugger.Plugin.Button,Toggle,Toggle,Alternar,切り換え,토글,Alternar,切换,切换,切換
 Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script,Seleccionar script,スクリプトを選択,스크립트 선택,Selecionar script,选择脚本,选择脚本,選擇指令碼
 Studio.Debugger.Callstack.FunctionNameColumn,Function Name,Function Name,Nombre de la función,関数名,함수 이름,Nome da função,函数名称,函数名称,函式名稱
+Studio.Debugger.Watch.WindowName,Watch,Watch, , , , , , , 
+Studio.Debugger.Watch.DropdownButtonText,{NumScopes:int} Scopes,{NumScopes:int} Scopes, , , , , , , 
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
 Studio.Debugger.Callstack.WhatColumn,What,What,Qué,名前,대상,Que,类型,类型,名稱
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.,Número de línea,行番号,줄 번호,Nº da linha,行号,行号,行號
@@ -22,10 +24,21 @@ Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script,Script,スクリプ
 Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
 Studio.Debugger.EditDebugpoint.Cancel,Cancel,Cancel,Cancelar,キャンセル,취소,Cancelar,取消,取消,取消
+Studio.Debugger.Watch.Local,Local,Local, , , , , , , 
 Studio.Debugger.EditDebugpoint.Save,Save,Save,Guardar,保存,저장,Salvar,保存,保存,儲存
 Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled,isEnabled,isEnabled,isEnabled,isEnabled,isEnabled,isEnabled,isEnabled
 Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s),Insertar mensajes de registro,ログメッセージを入力,로그 메시지 입력,Insira mensagens de registro,输入日志信息,输入日志信息,輸入記錄訊息
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.,El mensaje de registro se mostrará en el widget de salida cuando se alcance un punto de registro.,ログメッセージは、Logpoint に達したときに出力ウィジェットで表示されます。,Logpoint에 도달하면 출력 위젯에 로그 메시지가 표시됩니다.,Mensagens de registro serão mostrada no widget de saída quando chegar a um Logpoint.,当触发日志记录点时，日志信息将显示在输出控件中。,当触发日志记录点时，日志信息将显示在输出控件中。,擊中紀錄點時，輸出小工具將會顯示紀錄訊息。
 Studio.Debugger.BreakpointsWindow.WindowName,Breakpoints Window,Breakpoints Window,Ventana de puntos de interrupción,ブレークポイントウィンドウ,중단점 창,Janela de pontos de interrupção,断点窗口,断点窗口,斷點視窗
+Studio.Debugger.Watch.DataTypeColumn,Data Type,Data Type, , , , , , , 
 Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line,Línea,行,줄,Linha,行,行,行
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line,Línea fuente,ソース行,소스 줄,Linha fonte,源行,源行,原始行
+Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes, , , , , , , 
+Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue, , , , , , , 
+Studio.Debugger.Watch.Global,Global,Global, , , , , , , 
+Studio.Debugger.Watch.VariablesTab,Variables,Variables, , , , , , , 
+Studio.Debugger.Watch.WatchesTab,My Watches,My Watches, , , , , , , 
+Studio.Debugger.Watch.NameColumn,Name,Name, , , , , , , 
+Studio.Debugger.Watch.ScopeColumn,Scope,Scope, , , , , , , 
+Studio.Debugger.Watch.ExpressionColumn,Expression,Expression, , , , , , , 
+Studio.Debugger.Watch.ValueColumn,Value,Value, , , , , , , 

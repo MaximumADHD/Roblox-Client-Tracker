@@ -4,7 +4,7 @@ Studio.PublishPlaceAs.General.PublishPlace,Publish Place,Publish Place,Publicar 
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game,Untitled Game,Juego sin nombre,Jeu sans titre,タイトルがないゲーム,제목 없는 게임,Jogo sem nome, ,未命名游戏,未命名游戏,未命名遊戲
 Studio.PublishPlaceAs.Genre.Sports,Sports,Sports,Deportes,Sports,スポーツ,스포츠,Esportes,Спорт,体育,体育,體育
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New,Add New,Añadir nuevo,Ajouter nouveau,新規を追加,신규 추가,Adicionar novo,Добавить новое,新增,新增,新增
-Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Cualquier persona en Roblox,Tout le monde sur Roblox,Roblox上の誰でも,Roblox의 누구든 가능,Qualquer pessoa na Roblox, ,罗布乐思上的所有玩家,罗布乐思上的所有玩家,Roblox 上的所有人
+Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox,Anyone on Roblox,Cualquier persona en Roblox,Tout le monde sur Roblox,Roblox上の誰でも,Roblox의 누구든 가능,Qualquer pessoa na Roblox, ,Roblox 上的所有玩家,Roblox 上的所有玩家,Roblox 上的所有人
 Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence,Intense Violence,Violencia intensa,Violence intense,強烈な暴力,심각한 폭력,Violência intensa,Насилие,激烈暴力,激烈暴力,極度暴力
 Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement,Content Agreement,Acuerdo de contenido,Accord relatif au contenu,コンテンツ契約,콘텐츠 동의,Acordo de conteúdo,Соглашение на использование контента,内容协议,内容协议,內容協議
 Studio.PublishPlaceAs.Devices.Tablet,Tablet,Tablet,Tablet,Tablette,タブレット,태블릿,Tablet,Планшет,平板电脑,平板电脑,平板電腦
@@ -48,7 +48,7 @@ Studio.PublishPlaceAs.Genre.All,All,All,Todos,Tout,すべて,모두,Todos,Все
 Studio.PublishPlaceAs.Genre.WildWest,Western,Western,Western,Western,ウエスタン,서부극,Faroeste,Вестерн,西部,西部,西方
 Studio.PublishPlaceAs.Genre.Tutorial,Building,Building,Construcción,Construction,建築,건설,Construção,Постройки,建筑,建筑,建造
 Studio.PublishPlaceAs.Genre.Ninja,Fighting,Fighting,Lucha,Combat,格闘,대전,Luta,Файтинг,格斗,格斗,格鬥
-Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,Amigos en Roblox,Amis sur Roblox,Roblox上の友達,내 Roblox 친구만 가능,Amigos na Roblox, ,罗布乐思上的好友,罗布乐思上的好友,Roblox 上的好友
+Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox,Friends on Roblox,Amigos en Roblox,Amis sur Roblox,Roblox上の友達,내 Roblox 친구만 가능,Amigos na Roblox, ,Roblox 上的好友,Roblox 上的好友,Roblox 上的好友
 Studio.PublishPlaceAs.PageTitle.Creator,Creator,Creator,Creador,Créateur,クリエーター,크리에이터,Criador, ,创建者,创建者,創作者
 Studio.PublishPlaceAs.Genre.FPS,FPS,FPS,FPS,Tir subjectif,FPS,FPS,FPS,Шутер от первого лица,FPS,FPS,FPS
 Studio.PublishPlaceAs.Genre.War,Military,Military,Militar,Militaire,ミリタリー,군사,Militar,Войнушка,军事,军事,軍事
@@ -81,7 +81,7 @@ Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, to 
 Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,Error al guardar,La sauvegarde a échoué,保存ができませんでした,저장 실패,Falha no salvamento, ,保存失败,保存失败, 儲存失敗
 Studio.PublishPlaceAs.OptInLocations.China,China,China,China,Chine,中国,중국,China, ,中国,中国,中國
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations,Opt-In Locations,Lugares de participación,Emplacements opt-in,オプトイン場所,옵트인 위치,Optar por localidades, ,选择加入的位置,选择加入的位置,同意位置
-Studio.PublishPlaceAs.OptInLocations.Tooltip,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Your creation will be published globally in addition to all the selected opt-in locations. See each location for specific requirements.,Tu creación se publicará en todo el mundo además de todos los lugares de participación. Visita cada lugar para obtener los requisitos específicos.,Ta création sera publiée à l'échelle mondiale en plus de tous les emplacements sélectionnés pour l'opt-in. Consulte chaque site pour connaître les exigences spécifiques.,あなたの作品は、すべての選択済みのオプトイン場所に加えて世界的に公開されます。各地域ごとの特定の要件をごらんください。,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요.,"Sua criação será publicada globalmente, além dos locais selecionados. Veja os requerimentos específicos para cada local.", ,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。,您的創作將會發布到全球和選擇的位置，請查看個別位置了解其需求。
+Studio.PublishPlaceAs.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations.","Your creation will be published to all locations, including all the selected opt-in locations.",Tu creación se publicará en todo el mundo además de todos los lugares de participación. Visita cada lugar para obtener los requisitos específicos.,Ta création sera publiée à l'échelle mondiale en plus de tous les emplacements sélectionnés pour l'opt-in. Consulte chaque site pour connaître les exigences spécifiques.,あなたの作品は、すべての選択済みのオプトイン場所に加えて世界的に公開されます。各地域ごとの特定の要件をごらんください。,선택한 모든 옵트인 위치를 포함해 전 세계에 본인의 작품이 게시됩니다. 각 위치별로 특정 요구 사항 여부를 확인하세요.,"Sua criação será publicada globalmente, além dos locais selecionados. Veja os requerimentos específicos para cada local.", ,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。,你的作品将会发布到全球及所有选择加入的位置，请查看每个位置了解其需求。,您的創作將會發布到全球和選擇的位置，請查看個別位置了解其需求。
 Studio.PublishPlaceAs.OptInLocations.RequirementsLinkText,Requirements,Requirements,Requisitos,Exigences,要件,요구 사항,Requerimentos, ,要求,要求,需求
 Studio.PublishPlaceAs.Button.Submit,Submit,Submit,Enviar, ,送信,제출,Enviar, ,提交,提交,送出
 Studio.PublishPlaceAs.General.ReplyOK,OK,OK,Aceptar, ,OK,확인,OK, ,确认,确认,確定

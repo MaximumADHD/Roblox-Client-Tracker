@@ -124,7 +124,8 @@ Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY},Accept
 Max: {maxDimensionsX} x {maxDimensionsY},Studio.Toolbox.General.RightClickMenuConfigureAsset,Configure asset
 Configure asset,Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset
 Edit Asset,Studio.Toolbox.General.RightClickMenuReport,Report
-Report,Studio.Toolbox.General.StatusReviewPending,In Review
+Report,Studio.Toolbox.AssetUploadResult.Back,Back
+Back,Studio.Toolbox.General.StatusReviewPending,In Review
 In Review,Studio.Toolbox.ThumbnailStatus.InReview,In Review
 In Review,Studio.Toolbox.General.StatusModerated,Rejected
 Rejected,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale
