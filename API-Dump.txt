@@ -1587,7 +1587,7 @@ Class HttpService : Instance [NotCreatable] [Service]
 	Function string HttpService:UrlEncode(string input)
 Class Humanoid : Instance
 	Property bool Humanoid.BreakJointsOnDeath
-	Property Enum.HumanoidCollisionType Humanoid.CollisionType {✏️PluginSecurity}
+	Property Enum.HumanoidCollisionType Humanoid.CollisionType {✏️PluginSecurity} [Deprecated]
 	Property bool Humanoid.RequiresNeck
 	Property bool Humanoid.AutoRotate
 	Property Enum.Material Humanoid.FloorMaterial [ReadOnly]
