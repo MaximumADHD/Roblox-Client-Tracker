@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -12,15 +11,10 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local TreeTable = UI.TreeTable
+local DisplayTable = require(script.Parent.DisplayTable)
 local ControlledTabs = require(script.Parent.ControlledTabs)
 local DropdownField = require(script.Parent.DropdownField)
 local SearchBarField = require(script.Parent.SearchBarField)
-
-local Models = Plugin.Src.Models
-local VariableRow = require(Models.Watch.VariableRow)
-local WatchRow = require(Models.Watch.WatchRow)
-local TableTab = require(Models.Watch.TableTab)
 
 local WatchComponent = Roact.PureComponent:extend("WatchComponent")
 
@@ -29,39 +23,6 @@ export type WatchTab = { string : string }
 
 -- Constants
 local HEADER_HEIGHT = 32
-
--- Local Functions
-local function generateSampleVariablesTable(numRows)
-	local data = {
-		name = "a",
-		scope = "b",
-		value = "c",
-		dataType = "d",
-		path = "e",
-	}
-	local row = VariableRow.fromData(data)
-	local tab = {}
-	for i = 1,numRows,1 do 
-		table.insert(tab, row)
-	end
-	return tab
-end
-
-local function generateSampleWatchTable(numRows)
-	local data = {
-		expression = "v",
-		scope = "w",
-		value = "x",
-		dataType = "y",
-		path = "z",
-	}
-	local row = WatchRow.fromData(data)
-	local tab = {}
-	for i = 1,numRows,1 do 
-		table.insert(tab, row)
-	end
-	return tab
-end
 
 -- WatchComponent
 function WatchComponent:init()
@@ -88,36 +49,6 @@ function WatchComponent:render()
 			Label = WatchTab.Watches,
 			Key = "Watches",
 		},
-	}
-	local variableTableColumns = {
-		{
-			Name = localization:getText("Watch", "NameColumn"),
-			Key = "nameColumn",
-		}, {
-			Name = localization:getText("Watch", "ScopeColumn"),
-			Key = "scopeColumn",
-		}, {
-			Name = localization:getText("Watch", "ValueColumn"),
-			Key = "valueColumn",
-		}, {
-			Name = localization:getText("Watch", "DataTypeColumn"),
-			Key = "dataTypeColumn",
-		}, 
-	}
-	local watchTableColumns = {
-		{
-			Name = localization:getText("Watch", "ExpressionColumn"),
-			Key = "expressionColumn",
-		}, {
-			Name = localization:getText("Watch", "ScopeColumn"),
-			Key = "scopeColumn",
-		}, {
-			Name = localization:getText("Watch", "ValueColumn"),
-			Key = "valueColumn",
-		}, {
-			Name = localization:getText("Watch", "DataTypeColumn"),
-			Key = "dataTypeColumn",
-		}, 
 	}
 	
 	return Roact.createElement(Pane, {
@@ -161,15 +92,8 @@ function WatchComponent:render()
 			Padding = 0,
 			Style = "Box",
 		}, {
-			TableView = Roact.createElement(TreeTable, {
-				Scroll = true,  
-				Size = UDim2.fromScale(1, 1),
-				Columns = props.SelectedTab == TableTab.Variables and variableTableColumns or watchTableColumns,
-				RootItems = props.RootItems,
+			DisplayTableView = Roact.createElement(DisplayTable, {
 				Stylizer = style,
-				Expansion = {},
-				GetChildren = self.getTreeChildren,
-				DisableTooltip = true,
 			})
 		}),
 	})
@@ -181,22 +105,5 @@ WatchComponent = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
 })(WatchComponent)
-
-WatchComponent = RoactRodux.connect(
-	function(state, props)
-		local selectedTab = state.Watch.currentTab
-		local variableTableRows = generateSampleVariablesTable(20) -- mock data which will be replaced in RIDE-5140
-		local watchTableRows = generateSampleWatchTable(20) -- mock data which will be replaced in RIDE-5140
-		local tableRowsForTab = {
-			[TableTab.Variables] = variableTableRows,
-			[TableTab.Watches] = watchTableRows,
-		}
-		local rootItems = tableRowsForTab[selectedTab] or {}
-		return {
-			SelectedTab = selectedTab,
-			RootItems = rootItems,
-		}
-	end, nil
-)(WatchComponent)
 
 return WatchComponent

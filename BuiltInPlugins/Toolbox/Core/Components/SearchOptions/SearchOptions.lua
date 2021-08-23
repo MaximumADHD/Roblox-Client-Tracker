@@ -18,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
 
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -29,7 +30,7 @@ local withModal = ContextHelper.withModal
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar)
@@ -47,6 +48,9 @@ local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchO
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+
+local Separator = Framework.UI.Separator
 
 local SearchOptions = Roact.PureComponent:extend("SearchOptions")
 
@@ -176,12 +180,18 @@ function SearchOptions:init(initialProps)
 end
 
 function SearchOptions:createSeparator(color)
-	return Roact.createElement("Frame", {
-		BackgroundColor3 = color,
-		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 0, 1),
-		LayoutOrder = self:nextLayout(),
-	})
+	if FFlagToolboxRemoveWithThemes then
+		return Roact.createElement(Separator, {
+			LayoutOrder = self:nextLayout(),
+		})
+	else
+		return Roact.createElement("Frame", {
+			BackgroundColor3 = color,
+			BorderSizePixel = 0,
+			Size = UDim2.new(1, 0, 0, 1),
+			LayoutOrder = self:nextLayout(),
+		})
+	end
 end
 
 function SearchOptions:resetLayout()
@@ -194,145 +204,162 @@ function SearchOptions:nextLayout()
 end
 
 function SearchOptions:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withLocalization(function(_, localizedContent)
 			return withModal(function(modalTarget)
-				local state = self.state
-
-				local optionsTheme = theme.searchOptions
-				local liveSearchData = self.props.LiveSearchData
-				local minDuration = state.minDuration
-				local maxDuration = state.maxDuration
-
-				local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
-
-				local showAudioSearch = self.props.showAudioSearch
-				local showCreatorSearch = self.props.showCreatorSearch
-
-				local sorts
-				if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-					self.sortsList = {
-						{Key = "Relevance", Text = localizedContent.Sort.Relevance},
-						{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
-						{Key = "Favorites", Text = localizedContent.Sort.Favorites},
-						{Key = "Updated", Text = localizedContent.Sort.Updated},
-						{Key = "Ratings", Text = localizedContent.Sort.Ratings},
-					}
-				else
-					sorts = {
-						{Key = "Relevance", Text = localizedContent.Sort.Relevance},
-						{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
-						{Key = "Favorites", Text = localizedContent.Sort.Favorites},
-						{Key = "Updated", Text = localizedContent.Sort.Updated},
-						{Key = "Ratings", Text = localizedContent.Sort.Ratings},
-					}
-				end
-				local sortIndex = self.state.SortIndex or self.props.SortIndex
-				local selectedSort = FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and self.sortsList[sortIndex].Key or sorts[sortIndex].Key
-
-				local tabHeight = Constants.TAB_WIDGET_HEIGHT
-
-				self:resetLayout()
-
-				local searchOptions = {
-					Main = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						AnchorPoint = Vector2.new(1, 0),
-						Position = UDim2.new(1, 0, 0, tabHeight + Constants.HEADER_HEIGHT),
-						Size = UDim2.new(0, Constants.TOOLBOX_MIN_WIDTH, 1, 0),
-					}, {
-						Container = Roact.createElement(FitToContent, {
-							BackgroundColor3 = optionsTheme.background,
-							BorderColor3 = optionsTheme.border,
-							AutoButtonColor = false,
-
-							[Roact.Event.MouseEnter] = self.mouseEnter,
-							[Roact.Event.MouseLeave] = self.mouseLeave,
-						}, {
-							Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
-								LayoutOrder = self:nextLayout(),
-								Header = localizedContent.SearchOptions.Creator,
-								ZIndex = 2,
-							}, {
-								SearchBar = Roact.createElement(LiveSearchBar, {
-									defaultTextKey = "SearchBarCreatorText",
-									searchTerm = liveSearchData.searchTerm,
-									results = liveSearchData.results,
-									updateSearch = self.updateSearch,
-									width = Constants.SEARCH_BAR_WIDTH,
-								}),
-							}),
-
-							Separator1 = showCreatorSearch and self:createSeparator(optionsTheme.separator),
-
-							AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
-								LayoutOrder = self:nextLayout(),
-								Header = audioSearchTitle,
-							}, {
-								AudioSearch = Roact.createElement(AudioSearch, {
-									minDuration = minDuration,
-									maxDuration = maxDuration,
-									onDurationChange = self.onDurationChange,
-								}),
-							}),
-
-							Separator2 = showAudioSearch and self:createSeparator(optionsTheme.separator),
-
-							SortBy = Roact.createElement(SearchOptionsEntry, {
-								LayoutOrder = self:nextLayout(),
-								Header = localizedContent.SearchOptions.Sort,
-							}, {
-								RadioButtons = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
-								FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and {
-									Buttons = self.sortsList,
-									SelectedKey = selectedSort,
-									OnClick = self.selectSort,
-								} or {
-									Buttons = sorts,
-									Selected = selectedSort,
-									onButtonClicked = self.selectSort,
-								}),
-							}),
-
-							Separator3 = self:createSeparator(optionsTheme.separator),
-
-							Footer = Roact.createElement(SearchOptionsFooter, {
-								LayoutOrder = self:nextLayout(),
-								onButtonClicked = self.footerButtonClicked,
-							}),
-						})
-					})
-				}
-
-				return Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-				}, {
-					Portal = modalTarget and Roact.createElement(Roact.Portal, {
-						target = modalTarget,
-					}, {
-						ClickEventDetectFrame = Roact.createElement("ImageButton", {
-							ZIndex = 10,
-							Position = UDim2.new(0, 0, 0, 0),
-							Size = UDim2.new(1, 0, 1, 0),
-							BackgroundTransparency = 1,
-							AutoButtonColor = false,
-
-							[Roact.Event.Activated] = self.cancel,
-						}, searchOptions),
-					}),
-				})
+				return self:renderContent(nil, localizedContent, modalTarget)
 			end)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(_, localizedContent)
+				return withModal(function(modalTarget)
+					return self:renderContent(theme, localizedContent, modalTarget)
+				end)
+			end)
+		end)
+	end
+end
+
+function SearchOptions:renderContent(theme, localizedContent, modalTarget)
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
+
+	local optionsTheme = theme.searchOptions
+	local liveSearchData = self.props.LiveSearchData
+	local minDuration = state.minDuration
+	local maxDuration = state.maxDuration
+
+	local audioSearchTitle = self.props.Localization:getText("General", "SearchOptionAudioLength")
+
+	local showAudioSearch = self.props.showAudioSearch
+	local showCreatorSearch = self.props.showCreatorSearch
+
+	local sorts
+	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
+		self.sortsList = {
+			{Key = "Relevance", Text = localizedContent.Sort.Relevance},
+			{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
+			{Key = "Favorites", Text = localizedContent.Sort.Favorites},
+			{Key = "Updated", Text = localizedContent.Sort.Updated},
+			{Key = "Ratings", Text = localizedContent.Sort.Ratings},
+		}
+	else
+		sorts = {
+			{Key = "Relevance", Text = localizedContent.Sort.Relevance},
+			{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
+			{Key = "Favorites", Text = localizedContent.Sort.Favorites},
+			{Key = "Updated", Text = localizedContent.Sort.Updated},
+			{Key = "Ratings", Text = localizedContent.Sort.Ratings},
+		}
+	end
+	local sortIndex = self.state.SortIndex or self.props.SortIndex
+	local selectedSort = FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and self.sortsList[sortIndex].Key or sorts[sortIndex].Key
+
+	local tabHeight = Constants.TAB_WIDGET_HEIGHT
+
+	self:resetLayout()
+
+	local searchOptions = {
+		Main = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			AnchorPoint = Vector2.new(1, 0),
+			Position = UDim2.new(1, 0, 0, tabHeight + Constants.HEADER_HEIGHT),
+			Size = UDim2.new(0, Constants.TOOLBOX_MIN_WIDTH, 1, 0),
+		}, {
+			Container = Roact.createElement(FitToContent, {
+				BackgroundColor3 = optionsTheme.background,
+				BorderColor3 = optionsTheme.border,
+				AutoButtonColor = false,
+
+				[Roact.Event.MouseEnter] = self.mouseEnter,
+				[Roact.Event.MouseLeave] = self.mouseLeave,
+			}, {
+				Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
+					LayoutOrder = self:nextLayout(),
+					Header = localizedContent.SearchOptions.Creator,
+					ZIndex = 2,
+				}, {
+					SearchBar = Roact.createElement(LiveSearchBar, {
+						defaultTextKey = "SearchBarCreatorText",
+						searchTerm = liveSearchData.searchTerm,
+						results = liveSearchData.results,
+						updateSearch = self.updateSearch,
+						width = Constants.SEARCH_BAR_WIDTH,
+					}),
+				}),
+
+				Separator1 = showCreatorSearch and self:createSeparator(optionsTheme.separator),
+
+				AudioSearchHeader = showAudioSearch and Roact.createElement(SearchOptionsEntry, {
+					LayoutOrder = self:nextLayout(),
+					Header = audioSearchTitle,
+				}, {
+					AudioSearch = Roact.createElement(AudioSearch, {
+						minDuration = minDuration,
+						maxDuration = maxDuration,
+						onDurationChange = self.onDurationChange,
+					}),
+				}),
+
+				Separator2 = showAudioSearch and self:createSeparator(optionsTheme.separator),
+
+				SortBy = Roact.createElement(SearchOptionsEntry, {
+					LayoutOrder = self:nextLayout(),
+					Header = localizedContent.SearchOptions.Sort,
+				}, {
+					RadioButtons = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
+					FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and {
+						Buttons = self.sortsList,
+						SelectedKey = selectedSort,
+						OnClick = self.selectSort,
+					} or {
+						Buttons = sorts,
+						Selected = selectedSort,
+						onButtonClicked = self.selectSort,
+					}),
+				}),
+
+				Separator3 = self:createSeparator(optionsTheme.separator),
+
+				Footer = Roact.createElement(SearchOptionsFooter, {
+					LayoutOrder = self:nextLayout(),
+					onButtonClicked = self.footerButtonClicked,
+				}),
+			})
+		})
+	}
+
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+	}, {
+		Portal = modalTarget and Roact.createElement(Roact.Portal, {
+			target = modalTarget,
+		}, {
+			ClickEventDetectFrame = Roact.createElement("ImageButton", {
+				ZIndex = 10,
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				AutoButtonColor = false,
+
+				[Roact.Event.Activated] = self.cancel,
+			}, searchOptions),
+		}),
+	})
 end
 
 if FFlagToolboxWithContext then
 	SearchOptions = withContext({
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(SearchOptions)
 else
 	ContextServices.mapToProps(SearchOptions, {
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

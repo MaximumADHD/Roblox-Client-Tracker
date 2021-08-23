@@ -20,15 +20,31 @@ local StudioTheme = Style.Themes.StudioTheme
 
 local PluginTheme = {
 	TopBar = {
-		ButtonSize = UDim2.fromOffset(80, 30),
+		-- TODO: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
+		ButtonSize = UDim2.new(0, 80, 1, 0),
+		Padding = {
+			Left = 10,
+			Top = 6,
+			Right = 10,
+			Bottom = 5,
+		},
+		Spacing = 6,
+	},
+
+	TreeViewToolbar = {
+		Padding = {
+			Left = 6,
+			Top = 4,
+			Right = 6,
+			Bottom = 3,
+		},
 		Spacing = 6,
 	},
 
 	Sizes = {
-		GutterSize = 4,
 		PreviewHeight = 200,
 		TopBarHeight = 40,
-		TreeViewToolbarHeight = 30,
+		ToolbarHeight = 30,
 	},
 }
 

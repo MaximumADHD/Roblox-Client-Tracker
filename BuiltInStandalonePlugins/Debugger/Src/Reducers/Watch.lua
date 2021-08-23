@@ -186,7 +186,7 @@ local function indexOf(table, value)
 	return nil
 end
 
-return Rodux.createReducer({
+local productionStartStore = {
 	stateTokenToRoots = {},
 	stateTokenToFlattenedTree = {},
 	filterText = "",
@@ -195,7 +195,9 @@ return Rodux.createReducer({
 	listOfExpressions = {},
 	pathToExpansionState = {}, -- clear on continue
 	expressionToExpansionState = {}, -- clear on continue
-}, {
+}
+
+return Rodux.createReducer(productionStartStore, {
 	[BreakpointHit.name] = function(state : CallstackStore, action : BreakpointHit.Props)
 		assert(state.stateTokenToRoots[action.debuggerStateToken] == nil)
 		return Cryo.Dictionary.join(state, {

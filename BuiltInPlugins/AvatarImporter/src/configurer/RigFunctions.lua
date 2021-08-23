@@ -8,12 +8,6 @@ local Constants = require(script.Parent.Constants)
 local FixedRigPositions = require(script.Parent.FixedRigPositions)
 local R6 = require(script.Parent.R6)
 
-local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function()
-    return settings():GetFFlag("UseBaseUrlInPlugins")
-end)
-
-local useBaseUrl = useBaseUrlFlagExists and useBaseUrlFlagValue
-
 local R15_PART_MAPPING = {
 	["Head"]      = { "Head"                                        },
 	["Torso"]     = { "UpperTorso"   , "LowerTorso"                 },
@@ -23,27 +17,14 @@ local R15_PART_MAPPING = {
 	["Left Leg"]  = { "LeftUpperLeg" , "LeftLowerLeg" , "LeftFoot"  },
 }
 
-local ASSET_URLS
-if useBaseUrl then
-    ASSET_URLS = {
-        ContentProvider.BaseUrl .."asset/?id=",
-        "rbxassetid://"
-    }
-else
-    ASSET_URLS = {
-        "http://www.roblox.com/asset/?id=",
-        "http://roblox.com/asset/?id=",
-        "rbxassetid://"
-    }
-end
+local ASSET_URLS = {
+    ContentProvider.BaseUrl .."asset/?id=",
+    "rbxassetid://"
+}
 
 local function idToContentUrl(id)
     if tonumber(id) then
-        if useBaseUrl then
-            return ContentProvider.BaseUrl .."asset/?id=" ..id
-        else
-            return "http://roblox.com/asset/?id=" ..id
-        end
+        return ContentProvider.BaseUrl .."asset/?id=" ..id
     end
 
     return id

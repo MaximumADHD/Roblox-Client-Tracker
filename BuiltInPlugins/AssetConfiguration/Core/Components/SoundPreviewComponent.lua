@@ -6,29 +6,17 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local Urls = require(Plugin.Core.Util.Urls)
-
-local getPlugin = ContextGetter.getPlugin
 
 local StopPreviewSound = require(Plugin.Core.Actions.StopPreviewSound)
 local SetSoundLoading = require(Plugin.Core.Actions.SetSoundLoading)
 local SetSoundElapsedTime = require(Plugin.Core.Actions.SetSoundElapsedTime)
 local SetSoundTotalTime = require(Plugin.Core.Actions.SetSoundTotalTime)
 
-local ContextServices = require(Libs.Framework).ContextServices
-local withContext = ContextServices.withContext
-
 local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")
-
-local FFlagStudioStopUsingPluginSoundApis = game:GetFastFlag("StudioStopUsingPluginSoundApis")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 function SoundPreviewComponent:init(props)
 	self.ref = Roact.createRef()
-
-	-- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
-		local plugin = (not FFlagStudioStopUsingPluginSoundApis) and getPlugin(self) or nil
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.ref.current
@@ -44,11 +32,7 @@ function SoundPreviewComponent:init(props)
 	end
 
 	self.updateSound = function()
-		-- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
-		plugin = (not FFlagStudioStopUsingPluginSoundApis) and self.props.Plugin:get() or nil
-
 		local soundObj = self.ref.current
-		local props = self.props
 		local currentSoundId = props.currentSoundId
 		local isPlaying = props.isPlaying
 
@@ -59,29 +43,14 @@ function SoundPreviewComponent:init(props)
 		if currentSoundId == 0 or not isPlaying then
 			if soundObj.isPlaying then
 				soundObj.Playing = false
-
-				if not FFlagStudioStopUsingPluginSoundApis then
-					-- I don't know why even pausing the sound will casue c++ the request the soundId
-					plugin:PauseSound(soundObj)
-				end
 			end
 		else
 			if currentSoundId == lastSoundId then
-				local wasAlreadyplaying = soundObj.Playing
 				soundObj.Playing = true
-				if not FFlagStudioStopUsingPluginSoundApis and not wasAlreadyplaying then
-					plugin:ResumeSound(soundObj)
-				end
 			else
-				if FFlagStudioStopUsingPluginSoundApis then
-					soundObj.TimePosition = 0
-				end
+				soundObj.TimePosition = 0
 				soundObj.Playing = true
 				soundObj.SoundId = Urls.constructAssetIdString(currentSoundId)
-
-				if not FFlagStudioStopUsingPluginSoundApis then
-					plugin:PlaySound(soundObj)
-				end
 
 				self.lastSoundId = currentSoundId
 			end
@@ -130,20 +99,6 @@ end
 
 function SoundPreviewComponent:didUpdate()
 	self.updateSound()
-end
-
--- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
-if not FFlagStudioStopUsingPluginSoundApis then
-	if FFlagToolboxWithContext then
-		SoundPreviewComponent = withContext({
-			Plugin = ContextServices.Plugin,
-		})(SoundPreviewComponent)
-	else
-		ContextServices.mapToProps(SoundPreviewComponent, {
-			Plugin = ContextServices.Plugin,
-		})
-	end
-
 end
 
 local function mapStateToProps(state, props)

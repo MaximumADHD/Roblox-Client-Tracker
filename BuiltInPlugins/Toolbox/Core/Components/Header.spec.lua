@@ -1,5 +1,3 @@
-local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
-
 return function()
 	local Plugin = script.Parent.Parent.Parent
 

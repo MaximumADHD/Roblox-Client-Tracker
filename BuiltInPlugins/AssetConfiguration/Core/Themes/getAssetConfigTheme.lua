@@ -17,6 +17,7 @@ local StyleKey = FrameworkStyle.StyleKey
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 local StyleModifier = require(Libs.Framework).Util.StyleModifier
+local StyleColors = FrameworkStyle.Colors
 
 local Cryo = require(Plugin.Libs.Cryo)
 
@@ -30,6 +31,8 @@ return function()
 
 	return {
 		assetConfig = {
+			backgroundColor = FFlagToolboxRemoveWithThemes and StyleKey.MainBackground or nil,
+			errorColor = FFlagToolboxRemoveWithThemes and StyleKey.ErrorText or nil,
 			labelTextColor = StyleKey.DimmedText,
 			textColor = StyleKey.MainText,
 
@@ -42,19 +45,38 @@ return function()
 				},
 
 				searchBar = {
+					border = FFlagToolboxRemoveWithThemes and StyleKey.InputFieldBorder or nil,
+					borderHover = FFlagToolboxRemoveWithThemes and StyleColors.Blue or nil,
+					borderSelected = FFlagToolboxRemoveWithThemes and StyleColors.Blue or nil,
+					placeholderText = FFlagToolboxRemoveWithThemes and StyleKey.DimmedText or nil,
+					backgroundColor = FFlagToolboxRemoveWithThemes and StyleKey.InputFieldBackground or nil,
+					searchIcon = FFlagToolboxRemoveWithThemes and StyleKey.SubText or nil,
+
+					clearButton = FFlagToolboxRemoveWithThemes and {
+						image = StyleKey.SubText,
+					} or nil,
+
 					dropDown = {
 						backgroundColor = StyleKey.InputFieldBackground,
+						itemText = FFlagToolboxRemoveWithThemes and StyleKey.MainText or nil,
 						headerText = StyleKey.SubText,
 
 						hovered = {
 							backgroundColor = StyleKey.ItemHovered,
+							itemText = FFlagToolboxRemoveWithThemes and StyleKey.ButtonText or nil,
 						},
 
 						selected = {
 							backgroundColor = StyleKey.ButtonSelected,
 						},
 					},
-				}
+
+				},
+
+				subjectThumbnail = FFlagToolboxRemoveWithThemes and {
+					backgroundColor = StyleKey.TableItem,
+					defaultImageColor = StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor,
+				} or nil,
 			}
 		},
 
@@ -68,21 +90,29 @@ return function()
 				displayText = StyleKey.MainTextHover,
 			},
 		},
-
 		configFooter = FFlagToolboxRemoveWithThemes and {
 			backgroundColor = StyleKey.MainBackground,
 			borderColor = StyleKey.Border,
-		},
+		} or nil,
+
+		divider = FFlagToolboxRemoveWithThemes and {
+			horizontalLineColor = StyleKey.Toolbox_HorizontalLineColor,
+			verticalLineColor =  StyleKey.AssetConfig_DividerHorizontalLineColor,
+		} or nil,
 
 		inputFields = {
 			backgroundColor = StyleKey.InputFieldBackground,
 			toolTip = StyleKey.DimmedText,
 			error = StyleKey.ErrorText,
-		},
+		} or nil,
+
+		linkButton = FFlagToolboxRemoveWithThemes and {
+			textColor = StyleColors.Blue,
+		} or nil,
 
 		loading = FFlagToolboxRemoveWithThemes and {
 			text = StyleKey.MainText,
-		},
+		} or nil,
 
 		nav = FFlagToolboxRemoveWithThemes and {
 			mainButton = {
@@ -99,7 +129,24 @@ return function()
 				borderColor = StyleKey.Border,
 				textColor = StyleKey.DialogButtonText,
 			},
-		},
+		} or nil,
+
+		previewArea = FFlagToolboxRemoveWithThemes and {
+			backgroundColor = StyleKey.MainBackground,
+			textColor = StyleKey.MainText,
+			selectedColor = StyleKey.AssetConfig_PreviewSelectedColor,
+		} or nil,
+
+		sideTab = FFlagToolboxRemoveWithThemes and {
+			contentColor = StyleKey.TitlebarText,
+			backgroundColor = StyleKey.MainBackground,
+			selecteBarColor = StyleKey.AssetConfig_SidetabSelectedBarColor,
+			selecteBarTrans = StyleKey.AssetConfig_SidetabSelectedBarTransparency,
+			selecteBarZindex = StyleKey.AssetConfig_SidetabSelectedBarZIndex,
+			selecteIndicatorColor = StyleColors.BLUE_PRIMARY,
+			selecteIndicatorTrans = StyleKey.AssetConfig_SidetabSelectedIndicatorZindex,
+			textColor = StyleKey.MainText,
+		} or nil,
 
 		tags = {
 			textColor = StyleKey.MainText,
@@ -109,7 +156,7 @@ return function()
 			background = StyleKey.Item,
 			border = StyleKey.Border,
 			text = StyleKey.MainText,
-		},
+		} or nil,
 
 		typeSelection = FFlagToolboxRemoveWithThemes and {
 			background = StyleKey.TableItem,
@@ -121,11 +168,28 @@ return function()
 				background = StyleKey.MainBackground,
 				border = StyleKey.Border,
 			},
-		},
+		} or nil,
 
 		typeValidation = FFlagToolboxRemoveWithThemes and {
 			background = StyleKey.TableItem,
+		} or nil,
+
+		uploadResult = {
+			greenText = Color3.fromRGB(2, 183, 87),
+			redText = Color3.fromRGB(255, 68, 68),
+			text = StyleKey.MainText,
+			buttonColor = StyleKey.AssetConfig_UploadResultButtonColor,
+			idText = StyleKey.DimmedText,
+			background = StyleKey.TableItem,
+			link = StyleKey.LinkText,
 		},
+
+		versions = FFlagToolboxRemoveWithThemes and {
+			thumbnailBorderColor = Color3.fromRGB(117, 117, 117),
+			buttonSelectedColor = Color3.fromRGB(0, 162, 255),
+			buttonDefaultColor = Color3.fromRGB(117, 117, 117),
+			textColor = StyleKey.MainText,
+		} or nil,
 
 		[ui.Button] = Cryo.Dictionary.join(button, {
 			["&SelectedDetailedDropdownItem"] = {

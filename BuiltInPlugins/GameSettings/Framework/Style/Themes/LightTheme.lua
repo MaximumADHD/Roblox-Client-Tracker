@@ -3,6 +3,7 @@ local StyleKey = require(Framework.Style.StyleKey)
 local Colors = require(Framework.Style.Colors)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 return {
 	[StyleKey.Border] = Color3.fromRGB(182, 182, 182),
@@ -26,7 +27,7 @@ return {
 	[StyleKey.DialogButtonBorder] = Colors.Gray_Light,
 	[StyleKey.DialogButtonHover] = Colors.Blue_Light,
 	[StyleKey.DialogButtonPressed] = Color3.fromRGB(219, 219, 219),
-	[StyleKey.DialogButtonText] = Colors.White,
+	[StyleKey.DialogButtonText] = FFlagToolboxRemoveWithThemes and Colors.Black or Colors.White,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Color3.fromRGB(153, 218, 255),
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,

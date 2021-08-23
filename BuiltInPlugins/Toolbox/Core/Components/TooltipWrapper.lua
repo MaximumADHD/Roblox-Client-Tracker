@@ -9,7 +9,6 @@
 
 local FFlagFixMarketplaceTooltips = game:DefineFastFlag("FixMarketplaceTooltips", false)
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagDevFrameworkConvertTextProperties = game:GetFastFlag("DevFrameworkConvertTextProperties")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -34,11 +33,7 @@ function TooltipWrapper:render()
 
 	local props = self.props
 
-	local text = props.Text
-
-	if FFlagDevFrameworkConvertTextProperties then
-		text = tostring(props.Text or "")
-	end
+	local text = tostring(props.Text or "")
 
 	local sizeConstraint = props.SizeConstraint or Enum.SizeConstraint.RelativeXY
 	local canShowCurrentTooltip = props.canShowCurrentTooltip

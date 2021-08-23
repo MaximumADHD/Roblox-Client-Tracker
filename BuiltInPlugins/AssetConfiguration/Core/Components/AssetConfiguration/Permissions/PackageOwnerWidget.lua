@@ -16,11 +16,13 @@
 	
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -30,6 +32,8 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 
 local withLocalization = ContextHelper.withLocalization
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
@@ -66,86 +70,126 @@ end
 
 local PackageOwnerWidget = Roact.PureComponent:extend("PackageOwnerWidget")
 
-function PackageOwnerWidget:render()
-	local props = self.props
+if FFlagToolboxRemoveWithThemes then
+	function PackageOwnerWidget:init()
+		self.rolePermissionChanged = function(roleId, newPermission)
+			local props = self.props
 
-	return withLocalization(function(_, localized)
-		return withTheme(function(theme)
-			local function rolePermissionChanged(roleId, newPermission)
-				local newPermissions = deepJoin(props.Permissions, {
-					[PermissionsConstants.RoleSubjectKey] = {
-						[roleId] = {
-							[PermissionsConstants.ActionKey] = newPermission,
-						}
+			local newPermissions = deepJoin(props.Permissions, {
+				[PermissionsConstants.RoleSubjectKey] = {
+					[roleId] = {
+						[PermissionsConstants.ActionKey] = newPermission,
 					}
-				})
-
-				props.PermissionsChanged(newPermissions)
-			end
-
-			local collaboratorItem
-			if props.OwnerType == Enum.CreatorType.User then 
-				collaboratorItem = Roact.createElement(CollaboratorItem, {
-					LayoutOrder = 1,
-					Removable = false,
-
-					SubjectType = Enum.CreatorType.User,
-
-					CollaboratorName = props.OwnerName,
-					CollaboratorId = props.OwnerId,
-					CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], props.OwnerId,
-						AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
-					UseMask = true,
-
-					Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
-					Enabled = props.Enabled,
-
-					Items = getUserOwnerPermissions(),
-					RolePermissionChanged = nil, -- Owner permissions can't be changed
-				})
-			else
-				collaboratorItem = Roact.createElement(GroupCollaboratorItem, {
-					LayoutOrder = 1,
-					Removable = false,
-
-					GroupData = props.GroupMetadata,
-					Enabled = props.Enabled,
-
-					Items = getGroupOwnerPermissions(props, localized),
-
-					RolePermissionChanged = rolePermissionChanged,
-					GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
-
-					Permissions = props.Permissions,
-				})
-			end
-
-			return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
-				BackgroundTransparency = 1,
-				LayoutOrder = props.LayoutOrder or 0,
-				Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
-			}, {
-				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				}),
-
-				Title = Roact.createElement("TextLabel", {
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
-					LayoutOrder = 0,
-					Text = localized.PackagePermissions.Title.PackageCreator,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					BackgroundTransparency = 1,
-					-- Accounting for the CollaboratorItem under it.
-					Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 50, 0, 50) or UDim2.new(1, 0, 0, 50),
-				}),
-
-				Owner = collaboratorItem,
+				}
 			})
+
+			props.PermissionsChanged(newPermissions)
+		end
+	end
+end
+
+function PackageOwnerWidget:render()
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(_, localized)
+			return self:renderContent(nil, localized)
 		end)
-	end)
+	else
+		return withLocalization(function(_, localized)
+			return withTheme(function(theme)
+				return self:renderContent(theme, localized)
+			end)
+		end)
+	end
+end
+
+function PackageOwnerWidget:renderContent(theme, localized)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local rolePermissionChanged
+	if (not FFlagToolboxRemoveWithThemes) then
+		rolePermissionChanged = function(roleId, newPermission)
+			local newPermissions = deepJoin(props.Permissions, {
+				[PermissionsConstants.RoleSubjectKey] = {
+					[roleId] = {
+						[PermissionsConstants.ActionKey] = newPermission,
+					}
+				}
+			})
+
+			props.PermissionsChanged(newPermissions)
+		end
+	end
+
+	local collaboratorItem
+	if props.OwnerType == Enum.CreatorType.User then
+		collaboratorItem = Roact.createElement(CollaboratorItem, {
+			LayoutOrder = 1,
+			Removable = false,
+
+			SubjectType = Enum.CreatorType.User,
+
+			CollaboratorName = props.OwnerName,
+			CollaboratorId = props.OwnerId,
+			CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["AvatarHeadShot"], props.OwnerId,
+				AssetConfigConstants.rbxThumbSizes.AvatarHeadshotImageSize),
+			UseMask = true,
+
+			Action =  localized.PackagePermissions.ActionDropdown.OwnerLabel,
+			Enabled = props.Enabled,
+
+			Items = getUserOwnerPermissions(),
+			RolePermissionChanged = nil, -- Owner permissions can't be changed
+		})
+	else
+		collaboratorItem = Roact.createElement(GroupCollaboratorItem, {
+			LayoutOrder = 1,
+			Removable = false,
+
+			GroupData = props.GroupMetadata,
+			Enabled = props.Enabled,
+
+			Items = getGroupOwnerPermissions(props, localized),
+
+			RolePermissionChanged = FFlagToolboxRemoveWithThemes and self.rolePermissionChanged or rolePermissionChanged,
+			GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
+
+			Permissions = props.Permissions,
+		})
+	end
+
+	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
+		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+		BackgroundTransparency = 1,
+		LayoutOrder = props.LayoutOrder or 0,
+		Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
+	}, {
+		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		Title = Roact.createElement("TextLabel", {
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+			LayoutOrder = 0,
+			Text = localized.PackagePermissions.Title.PackageCreator,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundTransparency = 1,
+			-- Accounting for the CollaboratorItem under it.
+			Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 50, 0, 50) or UDim2.new(1, 0, 0, 50),
+		}),
+
+		Owner = collaboratorItem,
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	PackageOwnerWidget = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PackageOwnerWidget)
 end
 
 return PackageOwnerWidget

@@ -9,8 +9,6 @@ local main = script.Parent.Parent
 local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = game:GetFastFlag("EnablePluginManagementStylizer")
 
-game:DefineFastFlag("PluginManagementAnalytics", false)
-game:DefineFastFlag("PluginManagementUseCheckbox", false)
 game:DefineFastFlag("PluginManagementFixOverlappingDescriptions", false)
 
 return nil

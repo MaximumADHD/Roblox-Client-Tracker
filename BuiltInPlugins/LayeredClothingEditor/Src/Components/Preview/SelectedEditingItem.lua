@@ -68,12 +68,11 @@ local function destroyEditingItem(self)
 end
 
 local function setupEditingItem(self, regenerated, accessoryTypeChanged)
-	self.sourceItem = self.props.EditingItemContext:getSourceItem()
-	if not self.sourceItem then
+	if not self.sourceItemWithUniqueDeformerNames then
 		return
 	end
 
-	self.editingItem = self.sourceItem:Clone()
+	self.editingItem = self.sourceItemWithUniqueDeformerNames:Clone()
 	self.editingItem.Archivable = true
 	self.editingItem.Name = HttpService:GenerateGUID()
 
@@ -108,7 +107,7 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 	else
 		self.editingItem.Parent = game.Workspace
 
-		ModelUtil:positionAvatar(self.editingItem, self.sourceItem, not regenerated)
+		ModelUtil:positionAvatar(self.editingItem, self.sourceItemWithUniqueDeformerNames, not regenerated)
 	end
 
 	self.AncestryChangedHandle = self.editingItem.AncestryChanged:Connect(self.onEditingItemExternalChange)
@@ -132,6 +131,7 @@ end
 function SelectedEditingItem:init()
 	self.mannequin = nil
 	self.editingItem = nil
+	self.sourceItemWithUniqueDeformerNames = nil
 
 	self.onEditingItemExternalChange = function()
 		destroyEditingItem(self)
@@ -140,6 +140,14 @@ function SelectedEditingItem:init()
 
 	self.onSourceItemChanged = function(sourceItem)
 		destroyEditingItem(self)
+		if self.sourceItemWithUniqueDeformerNames then
+			self.sourceItemWithUniqueDeformerNames:Destroy()
+			self.sourceItemWithUniqueDeformerNames = nil
+		end
+		if sourceItem then
+			self.sourceItemWithUniqueDeformerNames = sourceItem:Clone()
+			ModelUtil:makeDeformerNamesUnique(self.sourceItemWithUniqueDeformerNames)
+		end
 		setupEditingItem(self, self.sourceItem == sourceItem, false)
 	end
 end
@@ -189,6 +197,10 @@ function SelectedEditingItem:willUnmount()
 	end
 
 	self.sourceItem = nil
+	if self.sourceItemWithUniqueDeformerNames then
+		self.sourceItemWithUniqueDeformerNames:Destroy()
+		self.sourceItemWithUniqueDeformerNames = nil
+	end
 end
 
 local function mapStateToProps(state, props)

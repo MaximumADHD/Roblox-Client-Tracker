@@ -1,4 +1,5 @@
 local FFlagFixToolboxPluginScaling = game:GetFastFlag("FixToolboxPluginScaling")
+local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -7,11 +8,12 @@ local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
 
-local Sort = require(Plugin.Core.Types.Sort)
-local Suggestion = require(Plugin.Core.Types.Suggestion)
-
-local SuggestionsButton = require(Plugin.Core.Components.Suggestions.SuggestionsButton)
-local SuggestionsLabel = require(Plugin.Core.Components.Suggestions.SuggestionsLabel)
+local SuggestionsButton
+local SuggestionsLabel
+if not FFlagToolboxRemoveUnusedSuggestionsFeature then
+	SuggestionsButton = require(Plugin.Core.Components.Suggestions.SuggestionsButton)
+	SuggestionsLabel = require(Plugin.Core.Components.Suggestions.SuggestionsLabel)
+end
 
 local Layouter = {}
 
@@ -129,111 +131,113 @@ function Layouter.calculateMainViewHeaderHeight(showTags, suggestionIntro, sugge
 end
 
 
-function Layouter.calculateSuggestionsHeight(initialText, suggestions, maxWidth)
-	local rowCount = 0
-	local rowWidth = 0
+if not FFlagToolboxRemoveUnusedSuggestionsFeature then
+	function Layouter.calculateSuggestionsHeight(initialText, suggestions, maxWidth)
+		local rowCount = 0
+		local rowWidth = 0
 
-	-- Starts at 0, not 1
-	for index = 0, #suggestions, 1 do
-		local text = (index == 0) and initialText or suggestions[index].name
-		local textWidth = Constants.getTextSize(text).x
-		if (rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
-			rowCount = rowCount + 1
-			rowWidth = textWidth
-		else
-			rowWidth = rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth
+		-- Starts at 0, not 1
+		for index = 0, #suggestions, 1 do
+			local text = (index == 0) and initialText or suggestions[index].name
+			local textWidth = Constants.getTextSize(text).x
+			if (rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
+				rowCount = rowCount + 1
+				rowWidth = textWidth
+			else
+				rowWidth = rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth
+			end
 		end
+
+		if (rowWidth > 0) then
+			rowCount = rowCount + 1
+		end
+
+		return (rowCount * Constants.SUGGESTIONS_ROW_HEIGHT)
+			+ (2 * Constants.SUGGESTIONS_OUTER_PADDING)
 	end
 
-	if (rowWidth > 0) then
-		rowCount = rowCount + 1
+	local function insertRow(state)
+		-- Can't check #row as its a dictionary so #state.row == 0
+		if (state.rowWidth > 0) then
+			state.row.UIListLayout = Roact.createElement("UIListLayout", {
+				Padding = UDim.new(0, Constants.SUGGESTIONS_INNER_PADDING),
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			})
+			state.rows[("Row%d"):format(state.rowCount)] = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 0, Constants.SUGGESTIONS_ROW_HEIGHT),
+				LayoutOrder = state.rowCount,
+			}, state.row)
+
+			state.rowCount = state.rowCount + 1
+		end
+
+		-- Reset variables for next row
+		state.row = {}
+		state.rowWidth = 0
 	end
 
-	return (rowCount * Constants.SUGGESTIONS_ROW_HEIGHT)
-		+ (2 * Constants.SUGGESTIONS_OUTER_PADDING)
-end
+	local function addInitial(state, initialText)
+		state.row[initialText] = Roact.createElement(SuggestionsLabel, {
+			Text = initialText,
+		})
 
-local function insertRow(state)
-	-- Can't check #row as its a dictionary so #state.row == 0
-	if (state.rowWidth > 0) then
-		state.row.UIListLayout = Roact.createElement("UIListLayout", {
-			Padding = UDim.new(0, Constants.SUGGESTIONS_INNER_PADDING),
-			FillDirection = Enum.FillDirection.Horizontal,
+		state.rowWidth = Constants.getTextSize(initialText).x
+	end
+
+	local function addButton(state, index, text, search, maxWidth, onSuggestionSelected)
+		local textWidth = Constants.getTextSize(text).x
+
+		-- If adding this text won't fit then add the row we have so far and start a new row
+		if (state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
+			insertRow(state)
+		end
+
+		state.row[search] = Roact.createElement(SuggestionsButton, {
+			Text = text,
+			LayoutOrder = index,
+			onClicked = onSuggestionSelected,
+		})
+
+		state.rowWidth = state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth
+	end
+
+	function Layouter.layoutSuggestions(initialText, suggestions, maxWidth, onSuggestionSelected)
+		-- Keep track of the current layout that gets updated by helper functions
+		local state = {
+			rowCount = 0,
+			rows = {},
+			rowWidth = 0,
+			row = {},
+		}
+
+		state.rows.UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, Constants.SUGGESTIONS_OUTER_PADDING),
+			PaddingLeft = UDim.new(0, 0),
+			PaddingRight = UDim.new(0, 0),
+			PaddingTop = UDim.new(0, Constants.SUGGESTIONS_OUTER_PADDING),
+		})
+
+		state.rows.UIListLayout = Roact.createElement("UIListLayout", {
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		})
-		state.rows[("Row%d"):format(state.rowCount)] = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, Constants.SUGGESTIONS_ROW_HEIGHT),
-			LayoutOrder = state.rowCount,
-		}, state.row)
 
-		state.rowCount = state.rowCount + 1
-	end
+		addInitial(state, initialText)
 
-	-- Reset variables for next row
-	state.row = {}
-	state.rowWidth = 0
-end
+		for index, suggestion in ipairs(suggestions) do
+			local text = suggestion.name
+			local search = suggestion.search
+			addButton(state, index, text, search, maxWidth, onSuggestionSelected)
+		end
 
-local function addInitial(state, initialText)
-	state.row[initialText] = Roact.createElement(SuggestionsLabel, {
-		Text = initialText,
-	})
-
-	state.rowWidth = Constants.getTextSize(initialText).x
-end
-
-local function addButton(state, index, text, search, maxWidth, onSuggestionSelected)
-	local textWidth = Constants.getTextSize(text).x
-
-	-- If adding this text won't fit then add the row we have so far and start a new row
-	if (state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
 		insertRow(state)
+
+		return state.rows
 	end
-
-	state.row[search] = Roact.createElement(SuggestionsButton, {
-		Text = text,
-		LayoutOrder = index,
-		onClicked = onSuggestionSelected,
-	})
-
-	state.rowWidth = state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth
-end
-
-function Layouter.layoutSuggestions(initialText, suggestions, maxWidth, onSuggestionSelected)
-	-- Keep track of the current layout that gets updated by helper functions
-	local state = {
-		rowCount = 0,
-		rows = {},
-		rowWidth = 0,
-		row = {},
-	}
-
-	state.rows.UIPadding = Roact.createElement("UIPadding", {
-		PaddingBottom = UDim.new(0, Constants.SUGGESTIONS_OUTER_PADDING),
-		PaddingLeft = UDim.new(0, 0),
-		PaddingRight = UDim.new(0, 0),
-		PaddingTop = UDim.new(0, Constants.SUGGESTIONS_OUTER_PADDING),
-	})
-
-	state.rows.UIListLayout = Roact.createElement("UIListLayout", {
-		HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		VerticalAlignment = Enum.VerticalAlignment.Top,
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-
-	addInitial(state, initialText)
-
-	for index, suggestion in ipairs(suggestions) do
-		local text = suggestion.name
-		local search = suggestion.search
-		addButton(state, index, text, search, maxWidth, onSuggestionSelected)
-	end
-
-	insertRow(state)
-
-	return state.rows
 end
 
 return Layouter

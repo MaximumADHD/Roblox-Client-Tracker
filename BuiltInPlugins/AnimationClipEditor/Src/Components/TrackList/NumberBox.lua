@@ -43,8 +43,6 @@ local RoundFrame = require(UILibraryCompat.RoundFrame)
 
 local TextBox = require(Plugin.Src.Components.TextBox)
 
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
-
 local NumberBox = Roact.PureComponent:extend("NumberBox")
 
 function NumberBox:init()
@@ -163,7 +161,7 @@ function NumberBox:render()
 					BorderSizePixel = 0,
 				}),
 
-				DragArea = (not GetFFlagNoValueChangeDuringPlayback() or not readOnly) and Roact.createElement(DragListenerArea, {
+				DragArea = not readOnly and Roact.createElement(DragListenerArea, {
 					Size = UDim2.new(1, 0, 1, 0),
 					Cursor = "SizeEW",
 					OnDragMoved = self.onDragMoved,

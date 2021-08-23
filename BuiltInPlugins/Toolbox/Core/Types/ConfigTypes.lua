@@ -5,27 +5,17 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ScreenSetup = require(Util.ScreenSetup)
 local Images = require(Util.Images)
 
-local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-
 local ConfigTypes = {}
 
-if FFlagShowAssetConfigReasons2 then
-	ConfigTypes.NetworkErrors = {
-		GET_ASSET_DETAIL_FAILURE = "GET_ASSET_DETAIL_FAILURE",
-		SET_ASSET_PRICE_FAILURE = "SET_ASSET_PRICE_FAILURE",
-		SET_ASSET_THUMBNAIL_FAILURE = "SET_ASSET_THUMBNAIL_FAILURE"
-	}
-else
-	local GET_ASSET_DETAIL_FAILURE = { name = "GET_ASSET_DETAIL_FAILURE", trigger = "FailToGetAssetDetail", action = "CloseAssetConfig" }
-	local SET_ASSET_PRICE_FAILURE = { name = "SET_ASSET_PRICE_FAILURE", trigger = "FailToSetPrice", action = "ShowPriceFailReason" }
-	local SET_ASSET_THUMBNAIL_FAILURE = { name = "SET_ASSET_THUMBNAIL_FAILURE", trigger = "FaileToSetIcon", action = "ShowThumbnailFailReason" }
-	ConfigTypes.NetworkErrors = {
-		[GET_ASSET_DETAIL_FAILURE.name] = GET_ASSET_DETAIL_FAILURE,
-		[SET_ASSET_PRICE_FAILURE.name] = SET_ASSET_PRICE_FAILURE,
-		[SET_ASSET_THUMBNAIL_FAILURE.name] = SET_ASSET_THUMBNAIL_FAILURE,
-	}
-	ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
-end
+local GET_ASSET_DETAIL_FAILURE = { name = "GET_ASSET_DETAIL_FAILURE", trigger = "FailToGetAssetDetail", action = "CloseAssetConfig" }
+local SET_ASSET_PRICE_FAILURE = { name = "SET_ASSET_PRICE_FAILURE", trigger = "FailToSetPrice", action = "ShowPriceFailReason" }
+local SET_ASSET_THUMBNAIL_FAILURE = { name = "SET_ASSET_THUMBNAIL_FAILURE", trigger = "FaileToSetIcon", action = "ShowThumbnailFailReason" }
+ConfigTypes.NetworkErrors = {
+	[GET_ASSET_DETAIL_FAILURE.name] = GET_ASSET_DETAIL_FAILURE,
+	[SET_ASSET_PRICE_FAILURE.name] = SET_ASSET_PRICE_FAILURE,
+	[SET_ASSET_THUMBNAIL_FAILURE.name] = SET_ASSET_THUMBNAIL_FAILURE,
+}
+ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION = "CloseAssetConfig"
 
 local GENERAL = {
 	name = AssetConfigConstants.SIDE_TABS.General,

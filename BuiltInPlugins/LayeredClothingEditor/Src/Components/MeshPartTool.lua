@@ -14,6 +14,8 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
+local ControlPointLink = require(Plugin.Src.Components.ToolShared.ControlPointLink)
+
 local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
 local VerifyBounds = require(Plugin.Src.Thunks.VerifyBounds)
@@ -138,6 +140,42 @@ function MeshPartTool:didUpdate(prevProps, prevState)
 	end
 end
 
+function MeshPartTool:renderLinks(bounds, offset, position, adornee)
+	local links = {}
+
+	for _, edge in ipairs(Constants.CUBE_EDGES) do
+		local startPos = (edge[1] * bounds) + position + offset
+		local endPos = (edge[2] * bounds) + position + offset
+		table.insert(links, Roact.createElement(ControlPointLink, {
+			StartPoint = startPos,
+			EndPoint = endPos,
+			Adornee = adornee,
+			Transparency = 0,
+			Color = Color3.new(0, 0, 0),
+			Thickness = 5,
+		}))
+	end
+
+	return links
+end
+
+function MeshPartTool:renderBorderedBox(bounds, offset, position, adornee)
+	local props = self.props
+	local theme = props.Stylizer
+	local color = props.InBounds and theme.InBoundsColor or theme.OutBoundsColor
+
+	local links = self:renderLinks(bounds, offset, position, adornee)
+
+	return Roact.createElement("BoxHandleAdornment", {
+		Adornee = adornee,
+		CFrame = CFrame.new(position + offset),
+		Size = bounds,
+		Transparency = theme.Transparency,
+		Color3 = color,
+		Archivable = false,
+	}, links)
+end
+
 function MeshPartTool:render()
 	local props = self.props
 	local state = self.state
@@ -152,20 +190,10 @@ function MeshPartTool:render()
 	local offset = accessoryTypeInfo.Offset
 	local position = matchingAttachment.Position
 
-	local theme = props.Stylizer
-	local color = props.InBounds and theme.InBoundsColor or theme.OutBoundsColor
-
 	return Roact.createElement(Roact.Portal, {
 		target = CoreGui,
 	}, {
-		BoundingBox = Roact.createElement("BoxHandleAdornment", {
-			Adornee = matchingAttachment.Parent,
-			CFrame = CFrame.new(position + offset),
-			Size = bounds,
-			Transparency = theme.Transparency,
-			Color3 = color,
-			Archivable = false,
-		})
+		BoundingBox = self:renderBorderedBox(bounds, offset, position, matchingAttachment.Parent),
 	})
 end
 

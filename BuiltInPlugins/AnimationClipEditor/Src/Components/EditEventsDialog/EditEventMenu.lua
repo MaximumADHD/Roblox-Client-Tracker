@@ -16,7 +16,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local EditEventMenu = Roact.PureComponent:extend("EditEventMenu")
 
@@ -26,17 +25,13 @@ function EditEventMenu:makeMenuActions(localization)
 
 	table.insert(actions, {
 		Name = localization:getText("ContextMenu", "EditEventName"),
-		Value = GetFFlagRefactorMenus() and Constants.ACTION_KEYS.Edit or nil,
-		ItemSelected = GetFFlagRefactorMenus() and props.OnMenuItemClicked or function()
-			props.OnMenuItemClicked(Constants.ACTION_KEYS.Edit)
-		end,
+		Value = Constants.ACTION_KEYS.Edit,
+		ItemSelected = props.OnMenuItemClicked,
 	})
 	table.insert(actions, {
 		Name = localization:getText("ContextMenu", "DeleteAllSameEvents"),
-		Value = GetFFlagRefactorMenus() and Constants.ACTION_KEYS.Delete or nil,
-		ItemSelected = GetFFlagRefactorMenus() and props.OnMenuItemClicked or function()
-			props.OnMenuItemClicked(Constants.ACTION_KEYS.Delete)
-		end,
+		Value = Constants.ACTION_KEYS.Delete,
+		ItemSelected = props.OnMenuItemClicked,
 	})
 
 	return actions

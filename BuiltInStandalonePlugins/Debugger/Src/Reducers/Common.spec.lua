@@ -7,9 +7,11 @@ local testImmutability = TestHelpers.testImmutability
 
 local Actions = Plugin.Src.Actions
 local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
+local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local ResumedAction = require(Actions.Common.Resumed)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local Step = require(Actions.Common.Step)
+
 local CommonReducer = require(script.Parent.Common)
 local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNumber)
 
@@ -112,6 +114,25 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
 			local immutabilityPreserved = testImmutability(CommonReducer, Step(defaultDebuggerToken2), prepState)
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(AddThreadIdAction.name, function()
+		it("should set the CurrentFrameNumber", function()
+			local prepState = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
+			local state = CommonReducer(prepState, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken))
+
+			expect(state).to.be.ok()
+			expect(state.debuggerStateTokenHistory).to.be.ok()
+			expect(state.debuggerStateTokenHistory[1]).to.equal(defaultDebuggerToken)
+			expect(state.currentThreadId).to.equal(123)
+			expect(state.threadIdToCurrentFrameNumber[123]).to.equal(1)
+		end)
+
+		it("should preserve immutability", function()
+			local prepState = CommonReducer(nil, BreakpointHit(defaultDebuggerToken))
+			local immutabilityPreserved = testImmutability(CommonReducer, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken), prepState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

@@ -11,7 +11,7 @@ local function fromData(data) : VariableRow
 		scopeColumn = data.scope,
 		valueColumn = data.value,
 		dataTypeColumn = data.dataType,
-		children = {},
+		children = data.children or {},
 		textFilteredOut = false,
 		scopeFilteredOut = false,
 	}

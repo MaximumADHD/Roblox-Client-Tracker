@@ -24,9 +24,6 @@
 		callback _Play: Called when clicking the play button.
 		callBack _SetCurrentTime: Called if the currentTime has been changed, such as when moving a progressbar slider.
 ]]
-local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-local FFlagStudioStopUsingPluginSoundApis = game:GetFastFlag("StudioStopUsingPluginSoundApis")
-
 local wrapMedia = require(script.Parent.wrapMedia)
 
 local Library = script.Parent.Parent.Parent
@@ -35,16 +32,9 @@ local Roact = require(Library.Parent.Parent.Roact)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
-local PluginContext = require(Library.Plugin)
-local getPlugin = PluginContext.getPlugin
-
 local PROGRESS_BAR_HEIGHT = 6
 local AUDIO_CONTROL_HEIGHT = 35
-local AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 70
-
-if FFlagHideOneChildTreeviewButton then
-	AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
-end
+local AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
 
 local MediaControl = require(Library.Components.Preview.MediaControl)
 
@@ -55,8 +45,6 @@ AudioPreview.defaultProps = {
 }
 
 function AudioPreview:init(props)
-	-- TODO: Remove with FFlagStudioStopUsingPluginSoundApis
-	local plugin = (not FFlagStudioStopUsingPluginSoundApis) and getPlugin(self) or nil
 	self.soundRef = Roact.createRef()
 
 	self.state = {
@@ -71,20 +59,12 @@ function AudioPreview:init(props)
 		end
 		if updateType == "PLAY" then
 			soundObj.SoundId = self.props.SoundId
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = true
-			else
-				plugin:ResumeSound(soundObj)
-			end
+			soundObj.Playing = true
 			if self.props.reportPlay then
 				self.props.ReportPlay()
 			end
 		elseif updateType == "PAUSE" then
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = false
-			else
-				plugin:PauseSound(soundObj)
-			end
+			soundObj.Playing = false
 			if self.props.ReportPause then
 				self.props.ReportPause()
 			end

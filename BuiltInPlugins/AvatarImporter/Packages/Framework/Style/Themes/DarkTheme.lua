@@ -3,6 +3,7 @@ local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 return {
 	[StyleKey.Border] = Colors.Carbon,
@@ -26,7 +27,7 @@ return {
 	[StyleKey.DialogButtonBorder] = Colors.Gray,
 	[StyleKey.DialogButtonHover] = Colors.Gray,
 	[StyleKey.DialogButtonPressed] = Color3.fromRGB(53, 53, 53),
-	[StyleKey.DialogButtonText] = Colors.Gray,
+	[StyleKey.DialogButtonText] = FFlagToolboxRemoveWithThemes and Colors.Gray_Light or Colors.Gray,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Colors.Gray,
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
@@ -69,6 +70,7 @@ return {
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),
 	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
 
+	[StyleKey.TableItem] = Colors.Slate,
 	[StyleKey.Titlebar] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.TitlebarText] = Color3.fromRGB(204, 204, 204),
 	[StyleKey.ToggleOnImage] = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png",

@@ -20,7 +20,6 @@ return function(editingItem, sourceItem)
 		-- temporary bug workaround: LC item needs to be a child of a model in order for cage editing to happen
 		local tempModel
 		local isClothes = ItemCharacteristics.isClothes(editingItem)
-		local previousPosition
 		if isClothes then
 			tempModel = Instance.new("Model", Workspace)
 			tempModel.Name = sourceItem.Name
@@ -33,13 +32,7 @@ return function(editingItem, sourceItem)
 			ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)
 		end
 
-		local wrap = clone:FindFirstChildWhichIsA("WrapLayer")
 		if isClothes then
-			if wrap then
-				previousPosition = clone.CFrame.Position
-				editingItem.CFrame = (wrap.ImportOrigin * wrap.CageOrigin):inverse()
-			end
-
 			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
 			weld:Destroy()
 		end
@@ -67,12 +60,10 @@ return function(editingItem, sourceItem)
 			end
 		end
 
+		ModelUtil:cleanupDeformerNames(tempModel, sourceItem)
+
 		-- parent completed item to accessory instance
 		if isClothes then
-			if previousPosition then
-				clone.CFrame = CFrame.new(previousPosition)
-			end
-
 			local accessory = Instance.new("Accessory", Workspace)
 			clone.Parent = accessory
 			accessory.Name = tempModel.Name

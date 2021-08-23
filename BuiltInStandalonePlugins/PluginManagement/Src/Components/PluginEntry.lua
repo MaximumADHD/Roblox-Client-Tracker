@@ -1,6 +1,5 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 local FFlagPluginManagementFixOverlappingDescriptions = game:GetFastFlag("PluginManagementFixOverlappingDescriptions")
 
 local StudioService = game:getService("StudioService")
@@ -113,12 +112,8 @@ function PluginEntry:init()
 
 	self.updatePlugin = function()
 		local props = self.props
-		if FFlagPluginManagementAnalytics then
-			props.Analytics:report("TryUpdatePlugin", props.data.assetId)
-			props.UpdatePlugin(props.data, props.Analytics)
-		else
-			props.UpdatePlugin(props.data)
-		end
+		props.Analytics:report("TryUpdatePlugin", props.data.assetId)
+		props.UpdatePlugin(props.data, props.Analytics)
 	end
 
 	self.openCreatorProfile = function()
@@ -454,7 +449,7 @@ if FFlagPluginManagementWithContext then
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
-		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+		Analytics = ContextServices.Analytics,
 	})(PluginEntry)
 else
 	ContextServices.mapToProps(PluginEntry, {
@@ -463,7 +458,7 @@ else
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
-		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+		Analytics = ContextServices.Analytics,
 	})
 end
 

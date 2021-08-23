@@ -9,11 +9,14 @@ local Framework = Plugin.Packages.Framework
 local Util = require(Framework.Util)
 local deepJoin = Util.deepJoin
 
+local FFlagStudioAssetManagerAssetModeration = game:GetFastFlag("StudioAssetManagerAssetModeration")
+
 return Rodux.createReducer({
 	-- Contains table of assets, associated preview data, and next page/cursor
 	assetsTable = {
 		assets = {},
 		assetPreviewData = {},
+		assetModerationData = {},
 		index = 0,
 	},
 	bulkImporterRunning = false,
@@ -188,4 +191,12 @@ return Rodux.createReducer({
 		})
 		return newState
 	end,
+
+	SetAssetModerationData = FFlagStudioAssetManagerAssetModeration and function(state, action)
+		return Cryo.Dictionary.join(state, {
+			assetsTable = Cryo.Dictionary.join(state.assetsTable, {
+				assetModerationData = Cryo.Dictionary.join(state.assetsTable.assetModerationData, action.assetModerationData)
+			})
+		})
+	end or nil,
 })

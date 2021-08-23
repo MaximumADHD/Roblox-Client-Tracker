@@ -125,7 +125,12 @@ local function cloneEditingItem(editingItem)
 end
 
 local function addPreviewAvatar(self, previewAvatar)
-	ModelUtil:positionAvatar(previewAvatar, self.props.EditingItemContext:getItem())
+	local editingItem = self.props.EditingItemContext:getItem()
+	if ItemCharacteristics.isAvatar(editingItem) then
+		ModelUtil:positionAvatar(previewAvatar, editingItem)
+	else
+		ModelUtil:positionAvatar(previewAvatar, editingItem.Parent)
+	end
 	previewAvatar.Parent = self.folderRef.current
 	previewAvatar.Name = PreviewConstants.PreviewAvatarName
 	self.props.PreviewContext:addAvatar(previewAvatar)

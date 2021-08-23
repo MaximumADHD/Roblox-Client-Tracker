@@ -7,18 +7,22 @@
 	UseMask = bool, default to false. The thumbnail will be clipped to a circle and be given a slightly dark background color	
 	ImageLabel.props.* = ..., Any property for ImageLabel is supported
 --]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local CollaboratorThumbnail = Roact.PureComponent:extend("CollaboratorThumbnail")
 
@@ -72,33 +76,51 @@ function CollaboratorThumbnail:willUnmount()
 end
 
 function CollaboratorThumbnail:render()
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
+
+function CollaboratorThumbnail:renderContent(theme)
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
 	local useMask = self.props.UseMask or false
 	local isLoadedThumbnail = self.props.IsLoadedThumbnail or false
 
 	local imageProps = Cryo.Dictionary.join(self.props, {
 		UseMask = Cryo.None,
-		IsLoadedThumbnail = Cryo.None
+		IsLoadedThumbnail = Cryo.None,
+		Stylizer = FFlagToolboxRemoveWithThemes and Cryo.None or nil,
 	})
 
-	return withTheme(function(theme)
-		return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
-			[Roact.Ref] = self.ref,
+	return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
+		[Roact.Ref] = self.ref,
 
-			ImageColor3 = isLoadedThumbnail and Color3.new(1,1,1) or theme.assetConfig.packagePermissions.subjectThumbnail.defaultImageColor,
-			ImageTransparency = 0,
-			BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
-			BackgroundTransparency = useMask and 0 or 1,
-			BorderSizePixel = 0,
-		}), {
-			Mask = useMask and Roact.createElement("ImageLabel", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 1, 0),
+		ImageColor3 = isLoadedThumbnail and Color3.new(1,1,1) or theme.assetConfig.packagePermissions.subjectThumbnail.defaultImageColor,
+		ImageTransparency = 0,
+		BackgroundColor3 = theme.assetConfig.packagePermissions.subjectThumbnail.backgroundColor,
+		BackgroundTransparency = useMask and 0 or 1,
+		BorderSizePixel = 0,
+	}), {
+		Mask = useMask and Roact.createElement("ImageLabel", {
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, 0, 1, 0),
 
-				Image = Images.AVATAR_MASK,
-				ImageColor3 = self.state.backgroundColor,
-			}),
-		})
-	end)
+			Image = Images.AVATAR_MASK,
+			ImageColor3 = self.state.backgroundColor,
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	CollaboratorThumbnail = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorThumbnail)
 end
 
 return CollaboratorThumbnail

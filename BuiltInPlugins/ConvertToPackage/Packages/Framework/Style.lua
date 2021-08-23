@@ -6,6 +6,7 @@ return strict({
 	createDefaultTheme =  require(script.createDefaultTheme),
 	makeTheme = require(script.makeTheme),
 	getRawComponentStyle = require(script.getRawComponentStyle),
+	Padding = require(script.Padding),
 	StyleKey = require(script.StyleKey),
 	Stylizer = require(script.Stylizer),
 	ThemeSwitcher = require(script.ThemeSwitcher),

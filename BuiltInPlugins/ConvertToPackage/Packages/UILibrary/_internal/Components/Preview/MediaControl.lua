@@ -16,8 +16,6 @@
 		UDim2 LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 ]]
-local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-
 local Library = script.Parent.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
 
@@ -33,11 +31,7 @@ local TIME_LABEL_HEIGHT = 15
 local BUTTON_SIZE = 28
 local AUDIO_CONTROL_HEIGHT = 35
 local AUDIO_CONTROL_WIDTH_OFFSET_WITH_TREE = 50
-local AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 70
-
-if FFlagHideOneChildTreeviewButton then
-	AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
-end
+local AUDIO_CONTROL_WIDTH_OFFSET_NO_TREE = 10
 
 local MediaControl = Roact.PureComponent:extend("MediaControl")
 

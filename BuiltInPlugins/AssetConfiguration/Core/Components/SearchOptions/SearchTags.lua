@@ -10,15 +10,21 @@
 			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
+
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Constants = require(Plugin.Core.Util.Constants)
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local SearchTag = require(Plugin.Core.Components.SearchOptions.SearchTag)
 
@@ -117,41 +123,60 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 end
 
 function SearchTags:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withLocalization(function(localization, localizedContent)
-			local tags = self.props.Tags
-			local searchTerm = self.props.searchTerm
-			local onClearTags = self.props.onClearTags
-			local clearAll = localizedContent.SearchResults.ClearAll
-			local clearAllWidth = Constants.getTextSize(clearAll).x
-			local promptName = searchTerm or "Prompt"
-
-			local hasTags = tags and #tags > 0
-
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
-				BackgroundTransparency = 1,
-			}, {
-				[promptName] = self:createPrompt(searchTerm, theme, localizedContent),
-
-				ClearAll = hasTags and Roact.createElement("TextButton", {
-					Font = Constants.FONT,
-					Text = clearAll,
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					TextColor3 = theme.searchTag.clearAllText,
-					Size = UDim2.new(0, clearAllWidth, 0, ITEM_HEIGHT),
-					Position = UDim2.new(1, 0, 0, 0),
-					AnchorPoint = Vector2.new(1, 0),
-					BackgroundTransparency = 1,
-					LayoutOrder = #tags + 1,
-
-					[Roact.Event.Activated] = onClearTags,
-				}),
-
-				Tags = hasTags and self:createTags(tags),
-			})
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function SearchTags:renderContent(theme, localization, localizedContent)
+	if FFlagToolboxRemoveWithThemes then
+		theme = self.props.Stylizer
+	end
+	local tags = self.props.Tags
+	local searchTerm = self.props.searchTerm
+	local onClearTags = self.props.onClearTags
+	local clearAll = localizedContent.SearchResults.ClearAll
+	local clearAllWidth = Constants.getTextSize(clearAll).x
+	local promptName = searchTerm or "Prompt"
+
+	local hasTags = tags and #tags > 0
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+	}, {
+		[promptName] = self:createPrompt(searchTerm, theme, localizedContent),
+
+		ClearAll = hasTags and Roact.createElement("TextButton", {
+			Font = Constants.FONT,
+			Text = clearAll,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextColor3 = theme.searchTag.clearAllText,
+			Size = UDim2.new(0, clearAllWidth, 0, ITEM_HEIGHT),
+			Position = UDim2.new(1, 0, 0, 0),
+			AnchorPoint = Vector2.new(1, 0),
+			BackgroundTransparency = 1,
+			LayoutOrder = #tags + 1,
+
+			[Roact.Event.Activated] = onClearTags,
+		}),
+
+		Tags = hasTags and self:createTags(tags),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	SearchTags = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SearchTags)
 end
 
 return SearchTags

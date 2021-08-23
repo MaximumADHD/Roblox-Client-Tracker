@@ -19,8 +19,6 @@
 
 	LayoutOrder = number,
 ]]
-local FFlagHideOneChildTreeviewButton = game:GetFastFlag("HideOneChildTreeviewButton")
-
 local Library = script.Parent.Parent.Parent
 
 local Roact = require(Library.Parent.Parent.Roact)
@@ -215,11 +213,9 @@ function PreviewController:render()
 	end
 
 	local showTreeViewButton = (not AssetType:isPlugin(assetPreviewType))
-	if FFlagHideOneChildTreeviewButton then
-		local dataTree = previewModel
-		local hasMultiplechildren = dataTree and (#dataTree:GetChildren() > 0) or false
-		showTreeViewButton = showTreeViewButton and hasMultiplechildren
-	end
+	local dataTree = previewModel
+	local hasMultiplechildren = dataTree and (#dataTree:GetChildren() > 0) or false
+	showTreeViewButton = showTreeViewButton and hasMultiplechildren
 
 	local onModelPreviewFrameEntered = self.onModelPreviewFrameEntered
 	local onModelPreviewFrameLeft = self.onModelPreviewFrameLeft

@@ -19,6 +19,7 @@
 	Optional Pros:
 	LayoutOrder = number, will override the Position.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local ICON_SCALE = 0.4
 local ERROR_ICON_SIZE = 20
@@ -28,6 +29,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -36,6 +38,8 @@ local Images = require(Util.Images)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local SideTabs = Roact.PureComponent:extend("SideTabs")
 
@@ -164,33 +168,46 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 end
 
 function SideTabs:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-
-			local LayoutOrder = props.LayoutOrder
-			local Size = props.Size
-			local Position = props.Position
-			local Items = props.Items
-			local ItemHeight = props.ItemHeight
-			local currentTab = props.CurrentTab
-			local selectParentRef = props.SelectParentRef
-
-			local sideTabTheme = theme.sideTab
-
-			local children = self:createSideButtons(Items, currentTab, ItemHeight, theme, localizedContent, selectParentRef, sideTabTheme)
-
-			return Roact.createElement("Frame", {
-				Position = Position,
-				Size = Size,
-
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-
-				LayoutOrder = LayoutOrder
-			}, children)
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function SideTabs:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local LayoutOrder = props.LayoutOrder
+	local Size = props.Size
+	local Position = props.Position
+	local Items = props.Items
+	local ItemHeight = props.ItemHeight
+	local currentTab = props.CurrentTab
+	local selectParentRef = props.SelectParentRef
+
+	local sideTabTheme = theme.sideTab
+
+	local children = self:createSideButtons(Items, currentTab, ItemHeight, theme, localizedContent, selectParentRef, sideTabTheme)
+
+	return Roact.createElement("Frame", {
+		Position = Position,
+		Size = Size,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = LayoutOrder
+	}, children)
 end
 
 local function mapStateToProps(state, props)
@@ -210,6 +227,12 @@ local function mapStateToProps(state, props)
 			return false
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	SideTabs = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SideTabs)
 end
 
 return RoactRodux.connect(mapStateToProps)(SideTabs)

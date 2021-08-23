@@ -12,6 +12,8 @@
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxCollaboratorSearchUseFind = game:GetFastFlag("ToolboxCollaboratorSearchUseFind")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -35,6 +37,10 @@ local CollaboratorSearchBar = require(PermissionsDirectory.CollaboratorSearchBar
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
+local Framework = require(Libs.Framework)
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
+
 local DEFAULT_ADD_ACTION = PermissionsConstants.UseViewKey
 local ELEMENT_PADDING = 24
 
@@ -56,8 +62,15 @@ local function getMatchesFromTable(text, t)
 	local matches = {}
 
 	for _,v in pairs(t) do
-		if v[PermissionsConstants.SubjectNameKey]:lower():match(text:lower()) then
-			table.insert(matches, v)
+		if FFlagToolboxCollaboratorSearchUseFind then
+			-- The variable "text" is user-input, so match it literally rather than as a pattern
+			if v[PermissionsConstants.SubjectNameKey]:lower():find(text:lower(), 1, true) then
+				table.insert(matches, v)
+			end
+		else
+			if v[PermissionsConstants.SubjectNameKey]:lower():match(text:lower()) then
+				table.insert(matches, v)
+			end
 		end
 	end
 	return matches
@@ -140,8 +153,25 @@ end
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
 function CollaboratorSearchWidget:render()
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localized)
+			return self:renderContent(nil, localization, localized)
+		end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localized)
+				return self:renderContent(theme, localization, localized)
+			end)
+		end)
+	end
+end
+
+function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 	local props = self.props
 	local searchData = props.SearchData
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
 	local searchTerm = searchData.SearchText
 
@@ -192,65 +222,61 @@ function CollaboratorSearchWidget:render()
 		end
 	end
 
-	return withTheme(function(theme)
-		return withLocalization(function(localization, localized)
-			local results = getResults(searchTerm, matches, localized)
-			local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
+	local results = getResults(searchTerm, matches, localized)
+	local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
 
-			return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
-				BackgroundTransparency = 1,
-				LayoutOrder = props.LayoutOrder,
-			}, {
-				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, ELEMENT_PADDING),
-				}),
+	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
+		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+		BackgroundTransparency = 1,
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, ELEMENT_PADDING),
+		}),
 
-				Title = Roact.createElement("TextLabel", {
-					AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
-					LayoutOrder = 0,
+		Title = Roact.createElement("TextLabel", {
+			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+			LayoutOrder = 0,
 
-					Text = localized.PackagePermissions.Title.ShareWith,
-					TextXAlignment = Enum.TextXAlignment.Left,
+			Text = localized.PackagePermissions.Title.ShareWith,
+			TextXAlignment = Enum.TextXAlignment.Left,
 
-					BackgroundTransparency = 1,
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
-				}),
+			BackgroundTransparency = 1,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+		}),
 
-				CollaboratorSearchBar = Roact.createElement(CollaboratorSearchBar, {
-					LayoutOrder = 1,
-					Enabled = props.Enabled and not tooManyCollaborators,
+		CollaboratorSearchBar = Roact.createElement(CollaboratorSearchBar, {
+			LayoutOrder = 1,
+			Enabled = props.Enabled and not tooManyCollaborators,
 
-					HeaderHeight = 25,
-					ItemHeight = (not FFlagToolboxReplaceUILibraryComponentsPt3) and 50 or nil,
+			HeaderHeight = 25,
+			ItemHeight = (not FFlagToolboxReplaceUILibraryComponentsPt3) and 50 or nil,
 
-					ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
-					DefaultText = localized.PackagePermissions.Searchbar.Default,
-					NoResultsText = localized.PackagePermissions.Searchbar.NoResults,
-					LoadingMore = isLoading,
+			ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
+			DefaultText = localized.PackagePermissions.Searchbar.Default,
+			NoResultsText = localized.PackagePermissions.Searchbar.NoResults,
+			LoadingMore = isLoading,
 
-					onSearchRequested = function(text)
-						props.SearchRequested(getNetwork(self), text, true)
-					end,
-					onTextChanged = function(text)
-						props.SearchRequested(getNetwork(self), text, false)
-					end,
-					OnItemClicked = function(key)
-						if key == MY_FRIENDS_KEY then
-							print("TODO: enable friends option")
-						else
-							collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
-						end
-					end,
+			onSearchRequested = function(text)
+				props.SearchRequested(getNetwork(self), text, true)
+			end,
+			onTextChanged = function(text)
+				props.SearchRequested(getNetwork(self), text, false)
+			end,
+			OnItemClicked = function(key)
+				if key == MY_FRIENDS_KEY then
+					print("TODO: enable friends option")
+				else
+					collaboratorAdded(key.Type, key.Id, key.Name, DEFAULT_ADD_ACTION)
+				end
+			end,
 
-					Results = results,
-				}),
-			})
-		end)
-	end)
+			Results = results,
+		}),
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -261,6 +287,12 @@ local function mapStateToProps(state, props)
             localUserFriends = state.localUserFriends,
         },
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	CollaboratorSearchWidget = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorSearchWidget)
 end
 
 return RoactRodux.connect(mapStateToProps)(CollaboratorSearchWidget)

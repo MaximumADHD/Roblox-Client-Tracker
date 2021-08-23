@@ -30,9 +30,9 @@ return function(threadState, dataModel, debuggerStateToken)
 				local data = {
 					arrowColumn = arrowColumnValue,
 					frameColumn = stackFrameId,
-					whatColumn = stackFrame:getFrameType(),
-					functionNameColumn = stackFrame:getFrameName(),
-					lineNumberColumn = stackFrame:getLine(),
+					layerColumn = stackFrame:getFrameType(),
+					functionColumn = stackFrame:getFrameName(),
+					lineColumn = stackFrame:getLine(),
 					sourceColumn = sourceName,
 				}
 				table.insert(callstackRows, CallstackRow.fromData(data))

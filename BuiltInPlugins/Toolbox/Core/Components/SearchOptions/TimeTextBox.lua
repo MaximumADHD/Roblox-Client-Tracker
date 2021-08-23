@@ -16,6 +16,7 @@
 ]]
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -200,121 +201,135 @@ function TimeTextBox:willUpdate(nextProps, nextState)
 end
 
 function TimeTextBox:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local showSecLabel = state.showSecLabel
-		showSecLabel = showSecLabel or (self.sec > 0)
-		local isTextboxFocused = state.isTextboxFocused
+function TimeTextBox:renderContent(theme)
+	local props = self.props
+	local state = self.state
 
-		local defaultSec = getSeconds(props.defaultValue)
-		local secPlaceholderText = isTextboxFocused and "0" or defaultSec
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local defaultMinutes = getMinutes(props.defaultValue)
-		local minuteDynamicPlaceholderText = state.hasSeconds and "0" or defaultMinutes
-		local minutePlaceholderText = isTextboxFocused and minuteDynamicPlaceholderText or defaultMinutes
+	local showSecLabel = state.showSecLabel
+	showSecLabel = showSecLabel or (self.sec > 0)
+	local isTextboxFocused = state.isTextboxFocused
 
-		local timeTheme = theme.searchOptions.timeTextBox
-		local size = props.size
-		local position = props.position
-		local layoutOrder = props.layoutOrder
+	local defaultSec = getSeconds(props.defaultValue)
+	local secPlaceholderText = isTextboxFocused and "0" or defaultSec
 
-		local secondLabel = props.Localization:getText("General", "AbbreviatedSeconds")
-		local minuteLabel = props.Localization:getText("General", "AbbreviatedMinutes")
+	local defaultMinutes = getMinutes(props.defaultValue)
+	local minuteDynamicPlaceholderText = state.hasSeconds and "0" or defaultMinutes
+	local minutePlaceholderText = isTextboxFocused and minuteDynamicPlaceholderText or defaultMinutes
 
-		return Roact.createElement(RoundFrame, {
-			BackgroundTransparency = 0,
-			BackgroundColor3 = timeTheme.backgroundColor,
-			BorderColor3 = isTextboxFocused and timeTheme.selectedBorderColor or timeTheme.borderColor,
-			BorderSizePixel = 1,
-			LayoutOrder = layoutOrder,
-			Position = position,
-			Size = size,
-		}, {
-			Padding = Roact.createElement("UIPadding", {
-				PaddingTop = UDim.new(0, 0),
-				PaddingBottom = UDim.new(0, 0),
-				PaddingLeft = UDim.new(0, 5),
-				PaddingRight = UDim.new(0, 5),
-			}),
+	local timeTheme = theme.searchOptions.timeTextBox
+	local size = props.size
+	local position = props.position
+	local layoutOrder = props.layoutOrder
 
-			MinuteTextField = Roact.createElement("TextBox", {
-				BackgroundTransparency = 1,
-				ClearTextOnFocus = false,
-				Font = Constants.FONT,
-				LayoutOrder = 1,
-				Size = UDim2.new(0.5, 0, 1, 0),
-				PlaceholderText = minutePlaceholderText,
-				PlaceholderColor3 = isTextboxFocused and timeTheme.placeholderTextColor or timeTheme.textColor,
-				Text = "",
-				TextColor3 = timeTheme.textColor,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ZIndex = 2,
+	local secondLabel = props.Localization:getText("General", "AbbreviatedSeconds")
+	local minuteLabel = props.Localization:getText("General", "AbbreviatedMinutes")
 
-				[Roact.Event.Changed] = self.onMinuteChanged,
-				[Roact.Event.Focused] = self.onFocused,
-				[Roact.Event.FocusLost] = self.onFocusLost,
-				[Roact.Ref] = self.minuteRef,
-			}),
+	return Roact.createElement(RoundFrame, {
+		BackgroundTransparency = 0,
+		BackgroundColor3 = timeTheme.backgroundColor,
+		BorderColor3 = isTextboxFocused and timeTheme.selectedBorderColor or timeTheme.borderColor,
+		BorderSizePixel = 1,
+		LayoutOrder = layoutOrder,
+		Position = position,
+		Size = size,
+	}, {
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, 0),
+			PaddingBottom = UDim.new(0, 0),
+			PaddingLeft = UDim.new(0, 5),
+			PaddingRight = UDim.new(0, 5),
+		}),
 
-			MinuteLabel = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				LayoutOrder = 2,
-				Position = UDim2.new(0, TEXT_BOX_WIDTH, 0, 0),
-				Size = UDim2.new(0, TEXT_BOX_WIDTH, 1, 0),
-				Text = minuteLabel,
-				TextColor3 = timeTheme.textColor,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Center,
-			}),
+		MinuteTextField = Roact.createElement("TextBox", {
+			BackgroundTransparency = 1,
+			ClearTextOnFocus = false,
+			Font = Constants.FONT,
+			LayoutOrder = 1,
+			Size = UDim2.new(0.5, 0, 1, 0),
+			PlaceholderText = minutePlaceholderText,
+			PlaceholderColor3 = isTextboxFocused and timeTheme.placeholderTextColor or timeTheme.textColor,
+			Text = "",
+			TextColor3 = timeTheme.textColor,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			ZIndex = 2,
 
-			SecondTextField = Roact.createElement("TextBox", {
-				BackgroundTransparency = 1,
-				ClearTextOnFocus = false,
-				Font = Constants.FONT,
-				LayoutOrder = 3,
-				PlaceholderText = showSecLabel and secPlaceholderText or "",
-				PlaceholderColor3 = timeTheme.placeholderTextColor,
-				Position = UDim2.new(0.5, 0, 0, 0),
-				Size = UDim2.new(0.5, 0, 1, 0),
-				Text = "",
-				TextColor3 = timeTheme.textColor,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				ZIndex = 2,
+			[Roact.Event.Changed] = self.onMinuteChanged,
+			[Roact.Event.Focused] = self.onFocused,
+			[Roact.Event.FocusLost] = self.onFocusLost,
+			[Roact.Ref] = self.minuteRef,
+		}),
 
-				[Roact.Event.Changed] = self.onSecondChange,
-				[Roact.Event.Focused] = self.onFocused,
-				[Roact.Event.FocusLost] = self.onFocusLost,
-				[Roact.Ref] = self.secondRef,
-			}),
+		MinuteLabel = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Font = Constants.FONT,
+			LayoutOrder = 2,
+			Position = UDim2.new(0, TEXT_BOX_WIDTH, 0, 0),
+			Size = UDim2.new(0, TEXT_BOX_WIDTH, 1, 0),
+			Text = minuteLabel,
+			TextColor3 = timeTheme.textColor,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Center,
+		}),
 
-			SecondLabel = Roact.createElement("TextLabel", {
-				BackgroundTransparency = 1,
-				Font = Constants.FONT,
-				LayoutOrder = 4,
-				Position = UDim2.new(0.5, TEXT_BOX_WIDTH, 0, 0),
-				Size = UDim2.new(0, TEXT_BOX_WIDTH, 1, 0),
-				Text = secondLabel,
-				TextColor3 = timeTheme.textColor,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextTransparency = showSecLabel and 0 or 1,
-				TextXAlignment = Enum.TextXAlignment.Center,
-			})
+		SecondTextField = Roact.createElement("TextBox", {
+			BackgroundTransparency = 1,
+			ClearTextOnFocus = false,
+			Font = Constants.FONT,
+			LayoutOrder = 3,
+			PlaceholderText = showSecLabel and secPlaceholderText or "",
+			PlaceholderColor3 = timeTheme.placeholderTextColor,
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.new(0.5, 0, 1, 0),
+			Text = "",
+			TextColor3 = timeTheme.textColor,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			ZIndex = 2,
+
+			[Roact.Event.Changed] = self.onSecondChange,
+			[Roact.Event.Focused] = self.onFocused,
+			[Roact.Event.FocusLost] = self.onFocusLost,
+			[Roact.Ref] = self.secondRef,
+		}),
+
+		SecondLabel = Roact.createElement("TextLabel", {
+			BackgroundTransparency = 1,
+			Font = Constants.FONT,
+			LayoutOrder = 4,
+			Position = UDim2.new(0.5, TEXT_BOX_WIDTH, 0, 0),
+			Size = UDim2.new(0, TEXT_BOX_WIDTH, 1, 0),
+			Text = secondLabel,
+			TextColor3 = timeTheme.textColor,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextTransparency = showSecLabel and 0 or 1,
+			TextXAlignment = Enum.TextXAlignment.Center,
 		})
-	end)
+	})
 end
 
 if FFlagToolboxWithContext then
 	TimeTextBox = withContext({
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(TimeTextBox)
 else
 	ContextServices.mapToProps(TimeTextBox, {
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

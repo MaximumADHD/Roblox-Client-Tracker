@@ -9,52 +9,42 @@ local Workspace = game:GetService("Workspace")
 local SelectionInfo = {}
 SelectionInfo.__index = SelectionInfo
 
-local function computeBoundBoxPointMode(selection)
-	local pointTable = {}
-	local pointInstances = Workspace:FindFirstChild("RbfPoints")
-	if pointInstances then
-		for _, deformerFolder in ipairs(pointInstances:GetChildren()) do
-			pointTable[deformerFolder.Name] = {}
-			for _, vert in ipairs(deformerFolder:GetChildren()) do
-				pointTable[deformerFolder.Name][tonumber(vert.Name)] = vert.CFrame.p
-			end
-		end
+local function getPoints(selection, isPointMode)
+	local pointInstances
+	if isPointMode then
+		pointInstances = Workspace:FindFirstChild("RbfPoints")
+	else
+		pointInstances = Workspace:FindFirstChild("Lattices")
 	end
 
+	local pointTable = {}
 	local points = {}
-	for _, entry in pairs(selection) do
-		table.insert(points, pointTable[entry.Deformer][entry.Index])
-	end
-	return ModelUtil:getBounds(points)
-end
-
-local function computeBoundBoxLatticeMode(selection)
-	local pointTable = {}
-	local pointInstances = Workspace:FindFirstChild("Lattices")
 	if pointInstances then
 		for _, deformerFolder in ipairs(pointInstances:GetChildren()) do
 			pointTable[deformerFolder.Name] = {}
 			for _, point in ipairs(deformerFolder:GetChildren()) do
-				pointTable[deformerFolder.Name][point.Name] = point.CFrame.p
+				if isPointMode then
+					pointTable[deformerFolder.Name][tonumber(point.Name)] = point.CFrame.p
+				else
+					pointTable[deformerFolder.Name][point.Name] = point.CFrame.p
+				end
+			end
+		end
+
+		for _, entry in pairs(selection) do
+			if isPointMode then
+				table.insert(points, pointTable[entry.Deformer][entry.Index])
+			else
+				table.insert(points, pointTable[entry.Deformer][entry.ID])
 			end
 		end
 	end
-
-	local points = {}
-	for _, entry in pairs(selection) do
-		table.insert(points, pointTable[entry.Deformer][entry.ID])
-	end
-	return ModelUtil:getBounds(points)
+	return points
 end
 
 local function computeBoundingBox(context, selection)
-	if ToolUtil:isDraggerPointMode(context) then
-		return computeBoundBoxPointMode(selection)
-	elseif ToolUtil:isDraggerLatticeMode(context) then
-		return computeBoundBoxLatticeMode(selection)
-	else
-		return ModelUtil:getBounds({})
-	end
+	local points = getPoints(selection, ToolUtil:isDraggerPointMode(context))
+	return ModelUtil:getBounds(points)
 end
 
 local function buildPointSelection(selection)

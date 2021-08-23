@@ -4,8 +4,6 @@ local Types = require(Plugin.Src.Types)
 
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
-local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
-local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 	[Enum.NormalId.Back] = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
@@ -17,7 +15,6 @@ local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 }
 local THICKNESS: number = getFIntStudioLightGuideThickness()
 local TRANSPARENCY: number = getFIntStudioLightGuideTransparency()
-local MAX_ANGLE: number = getFIntStudioLightGuideMaxAngle()
 
 type coneWireframe = {
 	_adornee: PVInstance,
@@ -66,20 +63,9 @@ function ConeWireframe:render()
 	local angle: number = self._light.Angle
 	local angleRad: number = math.rad(angle)
 	local color: Vector3 = self._light.Color
-
-	local radius: number = range * math.tan(angleRad / 2)
-	local length: number = range / math.cos(angleRad / 2)
-	local height: number = range
-
-	if getFFlagStudioLightGuideStrutLengthRange() then
-		length = range
-		radius = length * math.sin(angleRad / 2)
-		height = length * math.cos(angleRad / 2)
-	elseif angle > MAX_ANGLE then
-		length = range / math.cos(math.rad(MAX_ANGLE / 2))
-		radius = length * math.sin(angleRad / 2)
-		height = length * math.cos(angleRad / 2)
-	end
+	local length: number = range
+	local radius: number = length * math.sin(angleRad / 2)
+	local height: number = length * math.cos(angleRad / 2)
 
 	local spot = self._handles.Spot
 	local left = self._handles.Left

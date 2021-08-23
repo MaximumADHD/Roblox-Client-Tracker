@@ -3,6 +3,7 @@ return {
 		Section = "Object General",
 		Properties = {
 			{Name = "ImportName", Editable = true},
+			{Name = "PolygonCount", Editable = false},
 		},
 	},
 	{

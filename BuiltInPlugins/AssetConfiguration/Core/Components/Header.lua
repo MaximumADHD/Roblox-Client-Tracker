@@ -35,6 +35,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 
 local Category = require(Plugin.Core.Types.Category)
+local Rollouts = require(Plugin.Core.Rollouts)
 
 local getNetwork = ContextGetter.getNetwork
 local withTheme = ContextHelper.withTheme
@@ -58,20 +59,17 @@ local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSear
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
 local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRequest)
 
-local DROPDOWN_ITEM_HEIGHT = 32
-
 local Header = Roact.PureComponent:extend("Header")
 
 local globalSettings = settings
 
 function Header:init()
-	if FFlagToolboxShowAutocompleteResults then
+	if FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete() then
 		self.state = {
-			showAutocompleteResults = false,
-			-- TODO Populate autocompleteResults with results from API
-			autocompleteResults = {"Tree", "Green Tree", "Tree branch", "Tree green tree", "trees and more Trees"},
 			searchTerm = "",
 		}
+		self.keyCount = 0
+		self.deleteCount = 0
 	end
 
 	local networkInterface = getNetwork(self)
@@ -114,6 +112,21 @@ function Header:init()
 			creatorId
 		)
 
+		if FFlagToolboxShowAutocompleteResults and (not Rollouts:getMarketplaceAutocomplete() or not self.IXPShowAutocomplete) then
+			Analytics.marketplaceSearch(
+				searchTerm,
+				Category.AUTOCOMPLETE_API_NAMES[category],
+				nil,
+				self.keyCount,
+				self.deleteCount,
+				false,
+				self.props.searchId
+			)
+
+			self.keyCount = 0
+			self.deleteCount = 0
+		end
+
 		-- Set up a delayed callback to check if an asset was inserted
 		self.mostRecentSearchRequestTime = tick()
 		local mySearchRequestTime = self.mostRecentSearchRequestTime
@@ -134,6 +147,31 @@ function Header:init()
 		if self.props.onSearchOptionsToggled then
 			self.props.onSearchOptionsToggled()
 		end
+	end
+
+	self.onSearchTextChanged = function(searchTerm)
+		if FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete() then
+			if string.len(searchTerm) > string.len(self.state.searchTerm) then
+				self.keyCount += 1
+			elseif string.len(searchTerm) < string.len(self.state.searchTerm) then
+				self.deleteCount += 1
+			end
+			self:setState({searchTerm = searchTerm})
+		end
+	end
+
+	self.IXPShowAutocomplete = false
+	if FFlagToolboxShowAutocompleteResults then
+		local IXPService = game:GetService("IXPService")
+		if IXPService:GetUserLayerLoadingStatus() == Enum.IXPLoadingStatus.Initialized then
+			local ixpVariables = IXPService:GetUserLayerVariables("StudioMarketplace")
+			if ixpVariables["MarketplaceAutocompleteFlag"] then
+				self.IXPShowAutocomplete = ixpVariables["MarketplaceAutocompleteFlag"]["AutocompleteEnabled"]
+			end
+		end
+	end
+	if Rollouts:getMarketplaceAutocomplete() then
+		self.IXPShowAutocomplete = true
 	end
 end
 
@@ -215,6 +253,9 @@ function Header:renderContent(theme, localization, localizedContent)
 		searchBarProps = {
 			LayoutOrder = 1,
 			OnSearchRequested = onSearchRequested,
+			OnTextChanged = self.onSearchTextChanged,
+			SearchTerm = searchTerm,
+			Style = "ToolboxSearchBar",
 			Width = searchBarWidth,
 		}
 	else
@@ -228,7 +269,7 @@ function Header:renderContent(theme, localization, localizedContent)
 	end
 
 	local displayedSearchBar
-	if FFlagToolboxShowAutocompleteResults then
+	if self.IXPShowAutocomplete then
 		displayedSearchBar = Roact.createElement(SearchBarWithAutocomplete, searchBarProps)
 	else
 		displayedSearchBar = Roact.createElement(SearchBar, searchBarProps)
@@ -375,6 +416,7 @@ local function mapStateToProps(state, props)
 	return {
 		categories = pageInfo.categories or {},
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
+		searchId = (FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete()) and pageInfo.searchId or "",
 		searchTerm = pageInfo.searchTerm or "",
 		roles = state.roles,
 		groups = pageInfo.groups or {},

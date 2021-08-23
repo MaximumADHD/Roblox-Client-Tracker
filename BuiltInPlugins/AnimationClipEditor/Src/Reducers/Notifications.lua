@@ -6,18 +6,14 @@
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
-local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 
 local initialState = {
 	QuantizeWarning = false,
 	Saved = false,
 	Loaded = false,
 	ClippedWarning = false,
+	InvalidAnimation = false,
 }
-
-if GetFFlagAddImportFailureToast() then
-	initialState["InvalidAnimation"] = false
-end
 
 return Rodux.createReducer(initialState, {
 	SetNotification = function(state, action)

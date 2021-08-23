@@ -13,11 +13,13 @@
 		LayoutOrder number, will be used by the parent layouter to change this componnet's position.
 		onActivated function, the function that will be called when this button is clicked
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -25,6 +27,8 @@ local getTextSize = require(Util.getTextSize)
 local Constants = require(Util.Constants)
 
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
 
@@ -53,51 +57,68 @@ function LinkButton:init(props)
 end
 
 function LinkButton:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local linkButtonTheme = theme.linkButton
+function LinkButton:renderContent(theme)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local textSize = getTextSize(props.Text, nil, nil, Vector2.new(9999, 9999))
+	local linkButtonTheme = theme.linkButton
 
-		return Roact.createElement("Frame", {
-			Size = props.Size,
+	local textSize = getTextSize(props.Text, nil, nil, Vector2.new(9999, 9999))
+
+	return Roact.createElement("Frame", {
+		Size = props.Size,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Link = Roact.createElement("TextButton", {
+			Size = UDim2.new(0, textSize.X, 0, textSize.Y),
 
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 
-			LayoutOrder = props.LayoutOrder,
+			Text = props.Text,
+			TextSize = props.TextSize,
+			Font = Constants.FONT,
+			TextScaled = true,
+			TextColor3 = linkButtonTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+
+			[Roact.Event.MouseEnter] = self.onMouseEnter,
+			[Roact.Event.MouseLeave] = self.onMouseLeave,
+			[Roact.Event.Activated] = self.onActivated,
 		}, {
-			Link = Roact.createElement("TextButton", {
-				Size = UDim2.new(0, textSize.X, 0, textSize.Y),
-
-				BackgroundTransparency = 1,
+			UnderLine = state.hovered and Roact.createElement("Frame",
+			{
+				AnchorPoint = Vector2.new(0, 1),
+				Position = UDim2.new(0, 0, 1, 0),
+				Size = UDim2.new(0, textSize.X, 0, 1),
+				BackgroundColor3 = linkButtonTheme.textColor,
 				BorderSizePixel = 0,
-
-				Text = props.Text,
-				TextSize = props.TextSize,
-				Font = Constants.FONT,
-				TextScaled = true,
-				TextColor3 = linkButtonTheme.textColor,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-
-				[Roact.Event.MouseEnter] = self.onMouseEnter,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-				[Roact.Event.Activated] = self.onActivated,
-			}, {
-				UnderLine = state.hovered and Roact.createElement("Frame",
-				{
-					AnchorPoint = Vector2.new(0, 1),
-					Position = UDim2.new(0, 0, 1, 0),
-					Size = UDim2.new(0, textSize.X, 0, 1),
-					BackgroundColor3 = linkButtonTheme.textColor,
-					BorderSizePixel = 0,
-				})
 			})
 		})
-	end)
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	LinkButton = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LinkButton)
 end
 
 return LinkButton

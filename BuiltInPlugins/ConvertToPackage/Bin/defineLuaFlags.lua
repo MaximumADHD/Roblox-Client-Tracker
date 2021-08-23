@@ -3,5 +3,6 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastFlag("FixPackageOwnerDefault", false)
+game:DefineFastFlag("ConvertToPackageDeduplicatePackages", false)
 
 return nil

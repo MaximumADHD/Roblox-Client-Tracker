@@ -9,6 +9,7 @@ local View = require(Plugin.Src.Util.View)
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetAssetFavoriteCount = require(Plugin.Src.Actions.SetAssetFavoriteCount)
 local SetAssetFavorited = require(Plugin.Src.Actions.SetAssetFavorited)
+local SetAssetModerationData = require(Plugin.Src.Actions.SetAssetModerationData)
 local SetAssetOwnerName = require(Plugin.Src.Actions.SetAssetOwnerName)
 local SetAssetPreviewData = require(Plugin.Src.Actions.SetAssetPreviewData)
 local SetBulkImporterRunning = require(Plugin.Src.Actions.SetBulkImporterRunning)
@@ -767,6 +768,47 @@ return function()
 
 			state = AssetManagerReducer(state, SetAssetFavoriteCount(assetId, "123"))
 			expect(state.assetsTable.assetPreviewData[assetId].favoriteCount).to.equal("123")
+		end)
+	end)
+
+	describe("SetAssetModeration action", function()
+		it("should validate its inputs", function()
+			expect(function()
+				SetAssetModerationData(nil)
+			end).to.throw()
+
+			expect(function()
+				SetAssetModerationData("fruit")
+			end).to.throw()
+
+			expect(function()
+				SetAssetModerationData(100)
+			end).to.throw()
+
+			expect(function()
+				SetAssetModerationData({ key = "value"})
+			end).to.be.ok()
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(AssetManagerReducer, SetAssetModerationData({
+				key = "value",
+			}))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+
+		it("should set asset preview data", function()
+			local r = Rodux.Store.new(AssetManagerReducer)
+			local state = r:getState()
+			expect(#state.assetsTable.assetModerationData).to.equal(0)
+
+			local assetId = 1234567890
+
+			state = AssetManagerReducer(state, SetAssetModerationData({
+				[assetId] = "Moderated"
+			}))
+
+			expect(state.assetsTable.assetModerationData[assetId]).to.equal("Moderated")
 		end)
 	end)
 end

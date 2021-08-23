@@ -6,8 +6,6 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
-
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MemStorageService = game:GetService("MemStorageService")
@@ -72,9 +70,7 @@ function ManagementMainView:init()
 			updating = true,
 		})
 		local props = self.props
-		if FFlagPluginManagementAnalytics then
-			props.Analytics:report("TryUpdateAllPlugins")
-		end
+		props.Analytics:report("TryUpdateAllPlugins")
 		props.UpdateAllPlugins(props.Analytics)
 		wait()
 		self.refreshPlugins()
@@ -284,7 +280,7 @@ if FFlagPluginManagementWithContext then
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
-		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+		Analytics = ContextServices.Analytics,
 	})(ManagementMainView)
 else
 	ContextServices.mapToProps(ManagementMainView, {
@@ -293,7 +289,7 @@ else
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 		API = PluginAPI2,
-		Analytics = FFlagPluginManagementAnalytics and ContextServices.Analytics or nil,
+		Analytics = ContextServices.Analytics,
 	})
 end
 

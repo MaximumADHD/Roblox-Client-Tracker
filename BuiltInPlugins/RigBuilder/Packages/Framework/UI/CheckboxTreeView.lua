@@ -8,8 +8,19 @@
 		callback OnCheck: Gets called on changes to which items are checked
 		
 	Optional Props:
+		Style Style: a style table supplied from props and theme:getStyle()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table Expansion: Which items should be expanded - Set<Item>
+		table Selection: Which items should be selected - Set<Item>
+		callback OnExpansionChange: Called when an item is expanded or collapsed - (changedExpansion: Set<Item>) => void
+		callback OnHoverRow: An optional callback called when a row is hovered over. (dataIndex: number) -> ()
+		callback OnSelectRow: An optional callback called when a row is selected. (dataIndex: number) -> ()
+		callback SortChildren: A comparator function to sort two items in the tree - SortChildren(left: Item, right: Item) => boolean
 		Enum.ScrollingDirection ScrollingDirection: The direction to allow scroll in default = XY
 		number LayoutOrder: LayoutOrder of the component.
+		callback GetContents: An optional callback that describes how a row decides its contents - (item: Item) => string, string
+		callback GetChildren: An optional callback that describes how to get children (node: Item) => Set<Item>
+		boolean ExpandableRoot: Whether, or not the root node can be expanded or not
 ]]
 
 local Framework = script.Parent.Parent
@@ -25,14 +36,28 @@ local TextLabel = require(UI.TextLabel)
 local TreeView = require(UI.TreeView)
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
-local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
+local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
+
+local function buildRootExpansion(expandableRoot, rootItems)
+	local expansion = {}
+
+	if not expandableRoot then
+		for _, instance in pairs(rootItems) do
+			expansion[instance] = true
+		end
+	end
+
+	return expansion
+end
 
 local function TreeRowCheckbox(props)
 	local paneProps = {
 		LayoutOrder = props.LayoutOrder,
+		Padding = 4,
+		Size = UDim2.fromOffset(24, 24),
 	}
 
-	if props.Item.children then
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or #props.Children > 0 then
 		paneProps.Padding = 4
 		paneProps.Size = UDim2.fromOffset(24, 24)
 	else
@@ -57,34 +82,34 @@ end
 
 local CheckboxTreeView = Roact.PureComponent:extend("CheckboxTreeView")
 
-local function buildAncestryPropogateDown(ancestry, parent)
-	if parent.children then
-		for _, item in pairs(parent.children) do
-			ancestry[item] = parent
-	
-			buildAncestryPropogateDown(ancestry, item)
-		end
-	end
-end
-
-local function buildAncestry(rootItems)
+local function buildAncestry(rootItems, getChildren)
 	local ancestry = {}
 
+	local function buildAncestryPropogateDown(parent)
+		local children = getChildren(parent)
+		if children then
+			for _, item in pairs(children) do
+				ancestry[item] = parent
+		
+				buildAncestryPropogateDown(item)
+			end
+		end
+	end
+
 	for _, item in pairs(rootItems) do
-		buildAncestryPropogateDown(ancestry, item)
+		buildAncestryPropogateDown(item)
 	end
 
 	return ancestry
 end
 
-local function buildChange(item, state, checkedStates, ancestry)
+local function buildChange(item, state, checkedStates, ancestry, getChildren)
 	local updateChecked = {}
 
 	if state == nil then
 		return updateChecked
 	end
 
-	-- The following function makes sure that the states for all ancestral checkboxes are correct.
 	local function propagateUp(item)
 		local parent = ancestry[item]
 		if not parent or state == nil then
@@ -94,7 +119,7 @@ local function buildChange(item, state, checkedStates, ancestry)
 		local allChildrenChecked = true
 		local anyChildChecked = false
 
-		for _, child in ipairs(parent.children) do
+		for _, child in ipairs(getChildren(parent)) do
 			local checked = updateChecked[child] 
 			
 			if checked == nil then
@@ -127,8 +152,8 @@ local function buildChange(item, state, checkedStates, ancestry)
 
 	-- The following function makes sure that the states for all descendant checkboxes are correct.
 	local function propagateDown(item)
-		if item.children then
-			for _, child in ipairs(item.children) do
+		if getChildren(item) then
+			for _, child in ipairs(getChildren(item)) do
 				if checkedStates[child] ~= state then
 					updateChecked[child] = state
 
@@ -148,18 +173,25 @@ local function buildChange(item, state, checkedStates, ancestry)
 	return updateChecked
 end
 
-function CheckboxTreeView:didUpdate(previousProps, previousState)
-	if self.props.RootItems ~= previousProps.RootItems then
-		self.ancestry = buildAncestry(self.props.RootItems)
-	end	
-end
+CheckboxTreeView.defaultProps = {
+	GetChildren = function(node) return node.children end,
+	ExpandableRoot = true,
+}
 
 function CheckboxTreeView:init()
-	self.state = {
-		expansion = {},
-	}
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
+		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
 
-	self.ancestry = buildAncestry(self.props.RootItems)
+		self.state = {
+			expansion = expansion,
+		}
+	else
+		self.state = {
+			expansion = {}
+		}
+	end
+
+	self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
 	
 	self.onExpansionChange = function(newExpansion)
 		self:setState({
@@ -168,31 +200,62 @@ function CheckboxTreeView:init()
 	end
 
 	self.rowProps = {
-		Checked = self.props.Checked,
-		BeforeIcon = TreeRowCheckbox,
+		BeforeIcon = not FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
+		BeforeIndentItem = FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
+		ExpandableRoot = FFlagDevFrameworkLeftAlignedCheckboxTreeView and self.props.ExpandableRoot or nil,
 		OnCheck = function(item)
-			self.props.OnCheck(buildChange(item, not self.props.Checked[item], self.props.Checked, self.ancestry))
-		end
+			self.props.OnCheck(buildChange(item, not self.props.Checked[item], self.props.Checked, self.ancestry, self.props.GetChildren))
+		end,
 	}
 end
 
-function CheckboxTreeView:render()
-	local rowProps = join(self.rowProps, { Checked = self.props.Checked })
+function CheckboxTreeView:didUpdate(previousProps, previousState)
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or self.props.RootItems ~= previousProps.RootItems then
+		self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
+	end
 
-	if not FFlagDevFrameworkTreeViewRow or not FFlagDevFrameworkCheckboxTreeView then
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView and (not self.props.ExpandableRoot and previousProps.ExpandableRoot ~= self.props.ExpandableRoot) then
+		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
+
+		self:setState({
+			expansion = join(self.state.expansion, {
+				expansion
+			})
+		})
+	end
+end
+
+function CheckboxTreeView:render()
+	assert(
+		(self.props.Expansion and self.props.OnExpansionChange) or
+		(not self.props.Expansion and not self.props.OnExpansionChange),
+		"Expansion is either entirely handled externally, or entirely handled by CheckboxTreeView."
+	)
+	local rowProps = join(self.rowProps, {
+		Checked = self.props.Checked,
+		GetContents = self.props.GetContents,
+	})
+
+	if not FFlagDevFrameworkTreeViewRow then
 		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow and FFlagDevFrameworkCheckboxTreeView to view this story",
+			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
 			AutomaticSize = Enum.AutomaticSize.XY,
 		})
 	end
 	return Roact.createElement(TreeView, {
 		Size = self.props.Size,
-		Expansion = self.state.expansion,
+		Expansion = self.props.Expansion or self.state.expansion,
+		Selection = self.props.Selection,
 		RootItems = self.props.RootItems,
 		RowProps = rowProps,
-		OnExpansionChange = self.onExpansionChange,
-		LayoutOrder = self.props.LayoutOrder,
+		Style = self.props.Style,
+		OnExpansionChange = self.props.OnExpansionChange or self.onExpansionChange,
+		OnHoverRow = self.props.OnHoverRow,
+		OnSelectionChange = self.props.OnSelectionChange,	
+		SortChildren = self.props.SortChildren,
 		ScrollingDirection = self.props.ScrollingDirection,
+		LayoutOrder = self.props.LayoutOrder,
+		GetChildren = self.props.GetChildren,
 	})
 end
 

@@ -1,4 +1,3 @@
-local FFlagPluginManagementUseCheckbox = game:GetFastFlag("PluginManagementUseCheckbox")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -21,7 +20,6 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local FitFrameVertical = FitFrame.FitFrameVertical
 local Constants = require(Plugin.Src.Util.Constants)
 local Checkbox = UI.Checkbox
-local ToggleButton = UI.ToggleButton -- Remove with FFlagPluginManagementUseCheckbox
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
@@ -89,55 +87,14 @@ function HttpRequestHolder:renderCheckbox(theme, index, permission)
 	local urlText = self.getTruncatedText(fullUrlText, theme)
 	local isChecked = permission.allowed
 
-	if FFlagPluginManagementUseCheckbox then
-		return Roact.createElement(Checkbox, {
-			Checked = isChecked,
-			LayoutOrder = index,
-			OnClick = function()
-				self.onCheckboxActivated(permission)
-			end,
-			Text = urlText,
-		})
-	else
-		local elem = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 0, CHECKBOX_WIDTH),
-			LayoutOrder = index,
-		}, {
-			Layout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Horizontal,
-				Padding = UDim.new(0, 8),
-			}),
-
-			Checkbox = Roact.createElement(ToggleButton, {
-				Style = "Checkbox",
-				LayoutOrder = 1,
-				Selected = isChecked,
-				Size = UDim2.new(0, CHECKBOX_WIDTH, 0, CHECKBOX_WIDTH),
-				OnClick = function()
-					return self.onCheckboxActivated(permission)
-				end,
-			}),
-
-			TitleLabel = Roact.createElement("TextButton", {
-				Text = urlText,
-				Size = UDim2.new(1, -CHECKBOX_WIDTH, 1, 0),
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				TextColor3 = theme.TextColor,
-				Font = theme.Font,
-				TextSize = 16,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
-				TextTransparency = 0,
-
-				[Roact.Event.Activated] = function()
-					return self.onCheckboxActivated(permission)
-				end,
-			})
-		})
-		return elem
-	end
+	return Roact.createElement(Checkbox, {
+		Checked = isChecked,
+		LayoutOrder = index,
+		OnClick = function()
+			self.onCheckboxActivated(permission)
+		end,
+		Text = urlText,
+	})
 end
 
 function HttpRequestHolder:render()

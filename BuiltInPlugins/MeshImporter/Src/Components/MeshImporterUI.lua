@@ -15,6 +15,7 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
+local Separator = UI.Separator
 
 local AssetImportTree = require(Plugin.Src.Components.AssetImportTree)
 local ImportConfiguration = require(Plugin.Src.Components.ImportConfiguration)
@@ -24,6 +25,10 @@ local SetAssetSettings = require(Plugin.Src.Actions.SetAssetSettings)
 local SetFilename = require(Plugin.Src.Actions.SetFilename)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
+
+local SEPARATOR_WEIGHT = 1
+
+local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFFlagDevFrameworkStyledDialogFullBleed)
 
 local MeshImporterUI = Roact.PureComponent:extend("MeshImporterUI")
 
@@ -51,45 +56,60 @@ function MeshImporterUI:render()
 	}, {
 		TopBar = Roact.createElement(TopBar, {
 			LayoutOrder = 1,
+			Padding = style.TopBarPadding,
 			Size = UDim2.new(1, 0, 0, sizes.TopBarHeight),
 			FileName = props.Filename or "",
 			OnBrowse = props.PromptAndSetAssetSettings,
 		}),
+
+		TopSeparator = Roact.createElement(Separator, {
+			DominantAxis = Enum.DominantAxis.Width,
+			LayoutOrder = 2,
+		}),
+
 	 	BottomPanel = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = 2,
+			LayoutOrder = 3,
 			Position = UDim2.new(1, 0, 0, sizes.TopBarHeight),
-			Size = UDim2.new(1, 0, 1, -sizes.TopBarHeight),
-			Spacing = sizes.GutterSize,
+			Size = UDim2.new(1, 0, 1, -(sizes.TopBarHeight + 2 * SEPARATOR_WEIGHT)),
 		}, {
 			LeftPanel = Roact.createElement(Pane, {
 				LayoutOrder = 1,
 				Layout = Enum.FillDirection.Vertical,
 				Size = UDim2.new(0.5, 0, 1, 0),
-				Spacing = sizes.GutterSize,
 			}, {
 				PreviewContainer = Roact.createElement(Pane, {
 					LayoutOrder = 1,
-					Size = UDim2.new(1, 0, 1, -sizes.PreviewHeight),
-					Style = "BorderBox",
+					Size = UDim2.new(1, 0, 0, sizes.PreviewHeight),
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
 					})
 				}),
-				TreeContainer = Roact.createElement(Pane, {
+
+				Separator = Roact.createElement(Separator, {
+					DominantAxis = Enum.DominantAxis.Width,
 					LayoutOrder = 2,
-					Size = UDim2.new(1, 0, 0, sizes.PreviewHeight - sizes.GutterSize),
+				}),
+
+				TreeContainer = Roact.createElement(Pane, {
+					LayoutOrder = 3,
+					Size = UDim2.new(1, 0, 1, -(sizes.PreviewHeight + SEPARATOR_WEIGHT)),
 				}, {
 					TreeView = Roact.createElement(AssetImportTree, {
 						Instances = { props.AssetSettings },
 					})
 				})
 			}),
-			RightPanel =  Roact.createElement(Pane, {
+
+			Separator = Roact.createElement(Separator, {
+				DominantAxis = Enum.DominantAxis.Height,
 				LayoutOrder = 2,
-				Size = UDim2.new(0.5, -sizes.GutterSize, 1, 0),
-				Style = "BorderBox",
+			}),
+
+			RightPanel =  Roact.createElement(Pane, {
+				LayoutOrder = 3,
+				Size = UDim2.new(0.5, -SEPARATOR_WEIGHT, 1, 0),
 			}, {
 				ImportConfiguration = Roact.createElement(ImportConfiguration, {
 					SettingsItem = props.SelectedSettingsItem,

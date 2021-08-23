@@ -1,4 +1,8 @@
 return function()
+	local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
+	if FFlagToolboxRemoveUnusedSuggestionsFeature then
+		return
+	end
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs

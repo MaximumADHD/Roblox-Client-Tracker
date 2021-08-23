@@ -69,7 +69,6 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
 local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -528,15 +527,15 @@ function EditorController:render()
 			SetMotorData = props.SetMotorData,
 			SelectedTracks = selectedTracks,
 			OnSelectPart = self.onPartSelected,
-			OnDragStart = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and props.AddWaypoint or nil,
-			OnManipulateJoint = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and function(instanceName, trackName, value)
+			OnDragStart = not isPlaying and props.AddWaypoint or nil,
+			OnManipulateJoint = not isPlaying and function(instanceName, trackName, value)
 				if GetFFlagFacialAnimationSupport() then
 					props.ValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
 				else
 					props.ValueChanged_deprecated(instanceName, trackName, playhead, value, props.Analytics)
 				end
 			end or nil,
-			OnManipulateJoints = not (GetFFlagNoValueChangeDuringPlayback() and isPlaying) and function(instanceName, values)
+			OnManipulateJoints = not isPlaying and function(instanceName, values)
 				for trackName, value in pairs(values) do
 					if GetFFlagFacialAnimationSupport() then
 						props.ValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)

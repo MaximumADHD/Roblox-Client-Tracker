@@ -12,6 +12,7 @@
 	}[]
 	LayoutOrder: number (optional)
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -21,13 +22,14 @@ local Roact = require(Libs.Roact)
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
+local Framework = require(Libs.Framework)
 
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
-
-local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local ReasonFrame = Roact.PureComponent:extend("ReasonFrame")
 
@@ -100,10 +102,10 @@ function ReasonFrame:init(props)
 		for index, reason in pairs(reasons) do
 			local sizeVector2 = sizeArray[index]
 
-			reasonsContent[FFlagShowAssetConfigReasons2 and reason.networkErrorAction or reason.name] = Roact.createElement("TextLabel", {
+			reasonsContent[reason.name] = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, sizeVector2.Y),
 				Text = reason.response.responseBody,
-				TextColor3 = FFlagShowAssetConfigReasons2 and assetConfigTheme.errorColor or assetConfigTheme.textColor,
+				TextColor3 = assetConfigTheme.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_LARGE,
 				BackgroundTransparency = 1,
@@ -116,30 +118,49 @@ function ReasonFrame:init(props)
 end
 
 function ReasonFrame:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-
-			local size = props.Size
-			local position = props.Position
-			local reasons = props.Reasons
-			local layoutOrder = props.LayoutOrder
-			local assetConfigTheme = theme.assetConfig
-
-			local reasonsContent = self.getReasons(reasons, self.calibrateCanvas(), assetConfigTheme, localizedContent)
-
-			return Roact.createElement(StyledScrollingFrame, {
-				Position = position,
-				Size = size,
-				-- Will be overidden in calibrateCanvas.
-				CanvasSize = UDim2.new(0, 0, 0, DEFAULT_CANVAS_HEIGHT),
-				ZIndex = 1,
-				[Roact.Ref] = self.scrollingFrameRef,
-				onScroll = self.onScroll,
-				LayoutOrder = layoutOrder,
-			}, reasonsContent)
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
+
+function ReasonFrame:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local size = props.Size
+	local position = props.Position
+	local reasons = props.Reasons
+	local layoutOrder = props.LayoutOrder
+	local assetConfigTheme = theme.assetConfig
+
+	local reasonsContent = self.getReasons(reasons, self.calibrateCanvas(), assetConfigTheme, localizedContent)
+
+	return Roact.createElement(StyledScrollingFrame, {
+		Position = position,
+		Size = size,
+		-- Will be overidden in calibrateCanvas.
+		CanvasSize = UDim2.new(0, 0, 0, DEFAULT_CANVAS_HEIGHT),
+		ZIndex = 1,
+		[Roact.Ref] = self.scrollingFrameRef,
+		onScroll = self.onScroll,
+		LayoutOrder = layoutOrder,
+	}, reasonsContent)
+end
+
+if FFlagToolboxRemoveWithThemes then
+	ReasonFrame = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ReasonFrame)
 end
 
 return ReasonFrame

@@ -8,6 +8,8 @@
 		instance Adornee: part that this line is attached to
 		number Transparency: transparency of the line
 		Color3 Color: color of the line
+	Optional:
+		number Thickness: thickness of the line
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -23,6 +25,7 @@ function ControlPointLink:render()
 	local adornee = props.Adornee
 	local transparency = props.Transparency
 	local color = props.Color
+	local thickness = props.Thickness or 2
 
 	local length = (startPoint - endPoint).Magnitude
 	local cframe = CFrame.new(Vector3.new(0, 0, 0), (endPoint - startPoint).Unit)
@@ -31,7 +34,7 @@ function ControlPointLink:render()
 	return Roact.createElement("LineHandleAdornment", {
 		Length = length,
 		CFrame = cframe,
-		Thickness = 2,
+		Thickness = thickness,
 		Transparency = transparency,
 		Color3 = color,
 		Adornee = adornee,

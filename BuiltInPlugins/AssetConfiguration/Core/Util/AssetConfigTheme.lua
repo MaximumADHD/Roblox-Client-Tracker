@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Libs = Plugin.Libs
 local Cryo = require(Libs.Cryo)
@@ -143,7 +144,7 @@ function AssetConfigTheme:_recalculateTheme()
 				backgroundColor = color(c.MainBackground),
 				subTextColor = color(c.SubText),
 
-				subjectThumbnail = {
+				subjectThumbnail = (not FFlagToolboxRemoveWithThemes) and {
 					backgroundColor = color(c.TableItem),
 					defaultImageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151)
 				},
@@ -183,14 +184,14 @@ function AssetConfigTheme:_recalculateTheme()
 			}
 		},
 
-		versions = {
+		versions = (not FFlagToolboxRemoveWithThemes) and {
 			thumbnailBorderColor = Color3.fromRGB(117, 117, 117),
 			buttonSelectedColor = Color3.fromRGB(0, 162, 255),
 			buttonDefaultColor = Color3.fromRGB(117, 117, 117),
 			textColor = color(c.MainText),
 		},
 
-		previewArea = {
+		previewArea = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = isDark and Color3.fromRGB(42, 42, 42) or color(c.MainBackground),
 			textColor = color(c.MainText),
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
@@ -205,7 +206,7 @@ function AssetConfigTheme:_recalculateTheme()
 
 		divider = {
 			horizontalLineColor =  isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
-			verticalLineColor = isDark and color(c.Border) or color(c.Titlebar)
+			verticalLineColor = (not FFlagToolboxRemoveWithThemes) and (isDark and color(c.Border) or color(c.Titlebar)) or nil
 		},
 
 		dropdownMenu = {
@@ -268,7 +269,7 @@ function AssetConfigTheme:_recalculateTheme()
 			}
 		},
 
-		sideTab = {
+		sideTab = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = color(c.MainBackground),
 			leftBorderColor = isDark and Colors.BLUE_PRIMARY or color(c.Border),
 			tabBackground = color(c.Titlebar),
@@ -354,7 +355,7 @@ function AssetConfigTheme:_recalculateTheme()
 			},
 		},
 
-		linkButton = {
+		linkButton = (not FFlagToolboxRemoveWithThemes) and {
 			-- Check what to do with the dark theme
 			textColor = Color3.fromRGB(0, 162, 255),
 		},

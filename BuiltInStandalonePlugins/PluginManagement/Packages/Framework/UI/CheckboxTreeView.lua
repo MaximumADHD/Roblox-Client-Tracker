@@ -9,6 +9,7 @@
 		
 	Optional Props:
 		Style Style: a style table supplied from props and theme:getStyle()
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table Expansion: Which items should be expanded - Set<Item>
 		table Selection: Which items should be selected - Set<Item>
 		callback OnExpansionChange: Called when an item is expanded or collapsed - (changedExpansion: Set<Item>) => void
@@ -19,6 +20,7 @@
 		number LayoutOrder: LayoutOrder of the component.
 		callback GetContents: An optional callback that describes how a row decides its contents - (item: Item) => string, string
 		callback GetChildren: An optional callback that describes how to get children (node: Item) => Set<Item>
+		boolean ExpandableRoot: Whether, or not the root node can be expanded or not
 ]]
 
 local Framework = script.Parent.Parent
@@ -34,15 +36,28 @@ local TextLabel = require(UI.TextLabel)
 local TreeView = require(UI.TreeView)
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
-local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
-local FFlagDevFrameworkGenericTreeViewRow = game:GetFastFlag("DevFrameworkGenericTreeViewRow")
+local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
+
+local function buildRootExpansion(expandableRoot, rootItems)
+	local expansion = {}
+
+	if not expandableRoot then
+		for _, instance in pairs(rootItems) do
+			expansion[instance] = true
+		end
+	end
+
+	return expansion
+end
 
 local function TreeRowCheckbox(props)
 	local paneProps = {
 		LayoutOrder = props.LayoutOrder,
+		Padding = 4,
+		Size = UDim2.fromOffset(24, 24),
 	}
 
-	if #props.Children > 0 then
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or #props.Children > 0 then
 		paneProps.Padding = 4
 		paneProps.Size = UDim2.fromOffset(24, 24)
 	else
@@ -70,16 +85,6 @@ local CheckboxTreeView = Roact.PureComponent:extend("CheckboxTreeView")
 local function buildAncestry(rootItems, getChildren)
 	local ancestry = {}
 
-	local function DEPRECATED_buildAncestryPropogateDown(parent)
-		if parent.children then
-			for _, item in pairs(parent.children) do
-				ancestry[item] = parent
-		
-				DEPRECATED_buildAncestryPropogateDown(item)
-			end
-		end
-	end
-
 	local function buildAncestryPropogateDown(parent)
 		local children = getChildren(parent)
 		if children then
@@ -92,11 +97,7 @@ local function buildAncestry(rootItems, getChildren)
 	end
 
 	for _, item in pairs(rootItems) do
-		if FFlagDevFrameworkGenericTreeViewRow then
-			buildAncestryPropogateDown(item)
-		else
-			DEPRECATED_buildAncestryPropogateDown(item)
-		end
+		buildAncestryPropogateDown(item)
 	end
 
 	return ancestry
@@ -107,47 +108,6 @@ local function buildChange(item, state, checkedStates, ancestry, getChildren)
 
 	if state == nil then
 		return updateChecked
-	end
-
-	-- The following function makes sure that the states for all ancestral checkboxes are correct.
-	local function DEPRECATED_propagateUp(item)
-		local parent = ancestry[item]
-		if not parent or state == nil then
-			return
-		end
-
-		local allChildrenChecked = true
-		local anyChildChecked = false
-
-		for _, child in ipairs(parent.children) do
-			local checked = updateChecked[child] 
-			
-			if checked == nil then
-				checked = checkedStates[child] or false
-			end
-
-			allChildrenChecked = allChildrenChecked and (checked ~= Checkbox.Indeterminate and checked)
-			anyChildChecked = anyChildChecked or (checked == Checkbox.Indeterminate or checked)
-		end
-
-		if allChildrenChecked then
-			if checkedStates[parent] == true then
-				return
-			end
-			updateChecked[parent] = true
-		elseif not anyChildChecked then
-			if checkedStates[parent] == false then
-				return
-			end
-			updateChecked[parent] = false
-		else
-			if checkedStates[parent] == Checkbox.Indeterminate then
-				return
-			end
-			updateChecked[parent] = Checkbox.Indeterminate
-		end
-
-		DEPRECATED_propagateUp(parent)
 	end
 
 	local function propagateUp(item)
@@ -190,20 +150,6 @@ local function buildChange(item, state, checkedStates, ancestry, getChildren)
 		propagateUp(parent)
 	end
 
-	local function DEPRECATED_propagateDown(item)
-		if item.children then
-			for _, child in ipairs(item.children) do
-				if checkedStates[child] ~= state then
-					updateChecked[child] = state
-
-					DEPRECATED_propagateDown(child)
-				end
-			end
-		end
-
-		return
-	end
-
 	-- The following function makes sure that the states for all descendant checkboxes are correct.
 	local function propagateDown(item)
 		if getChildren(item) then
@@ -221,27 +167,29 @@ local function buildChange(item, state, checkedStates, ancestry, getChildren)
 
 	updateChecked[item] = state
 
-	if FFlagDevFrameworkGenericTreeViewRow then
-		propagateUp(item)
-		propagateDown(item)
-	else
-		DEPRECATED_propagateUp(item)
-		DEPRECATED_propagateDown(item)
-	end
+	propagateUp(item)
+	propagateDown(item)
 
 	return updateChecked
 end
 
-function CheckboxTreeView:didUpdate(previousProps, previousState)
-	if self.props.RootItems ~= previousProps.RootItems then
-		self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
-	end
-end
+CheckboxTreeView.defaultProps = {
+	GetChildren = function(node) return node.children end,
+	ExpandableRoot = true,
+}
 
 function CheckboxTreeView:init()
-	self.state = {
-		expansion = {},
-	}
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
+		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
+
+		self.state = {
+			expansion = expansion,
+		}
+	else
+		self.state = {
+			expansion = {}
+		}
+	end
 
 	self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
 	
@@ -252,12 +200,29 @@ function CheckboxTreeView:init()
 	end
 
 	self.rowProps = {
-		BeforeIcon = TreeRowCheckbox,
-		Checked = not FFlagDevFrameworkGenericTreeViewRow and self.props.Checked,
+		BeforeIcon = not FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
+		BeforeIndentItem = FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
+		ExpandableRoot = FFlagDevFrameworkLeftAlignedCheckboxTreeView and self.props.ExpandableRoot or nil,
 		OnCheck = function(item)
 			self.props.OnCheck(buildChange(item, not self.props.Checked[item], self.props.Checked, self.ancestry, self.props.GetChildren))
 		end,
 	}
+end
+
+function CheckboxTreeView:didUpdate(previousProps, previousState)
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or self.props.RootItems ~= previousProps.RootItems then
+		self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
+	end
+
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView and (not self.props.ExpandableRoot and previousProps.ExpandableRoot ~= self.props.ExpandableRoot) then
+		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
+
+		self:setState({
+			expansion = join(self.state.expansion, {
+				expansion
+			})
+		})
+	end
 end
 
 function CheckboxTreeView:render()
@@ -268,12 +233,12 @@ function CheckboxTreeView:render()
 	)
 	local rowProps = join(self.rowProps, {
 		Checked = self.props.Checked,
-		GetContents = FFlagDevFrameworkGenericTreeViewRow and self.props.GetContents or nil,
+		GetContents = self.props.GetContents,
 	})
 
-	if not FFlagDevFrameworkTreeViewRow or not FFlagDevFrameworkCheckboxTreeView then
+	if not FFlagDevFrameworkTreeViewRow then
 		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow and FFlagDevFrameworkCheckboxTreeView to view this story",
+			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
 			AutomaticSize = Enum.AutomaticSize.XY,
 		})
 	end
@@ -290,12 +255,8 @@ function CheckboxTreeView:render()
 		SortChildren = self.props.SortChildren,
 		ScrollingDirection = self.props.ScrollingDirection,
 		LayoutOrder = self.props.LayoutOrder,
-		GetChildren = FFlagDevFrameworkGenericTreeViewRow and self.props.GetChildren,
+		GetChildren = self.props.GetChildren,
 	})
 end
-
-CheckboxTreeView.defaultProps = {
-	GetChildren = function (node) return node.children end,
-}
 
 return CheckboxTreeView

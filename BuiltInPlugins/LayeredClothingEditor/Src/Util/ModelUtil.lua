@@ -5,6 +5,7 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local TestHelper = require(Plugin.Src.Util.TestHelper)
 
 local Workspace = game.Workspace
+local HttpService = game:GetService("HttpService")
 
 local ModelUtil = {}
 
@@ -34,6 +35,38 @@ function ModelUtil:clearOldAttachments(item)
 	end
 end
 
+function ModelUtil:makeDeformerNamesUnique(item)
+	if not item then
+		return
+	end
+	
+	local descendants = getDescendants({}, item)
+	for _, desc in ipairs(descendants) do
+		if desc:IsA("BaseWrap") then
+			desc.Name = HttpService:GenerateGUID()
+		end
+	end
+end
+
+function ModelUtil:cleanupDeformerNames(editingItem, sourceItem)
+	if not editingItem or not sourceItem then
+		return
+	end
+
+	editingItem.Name = sourceItem.Name
+
+	local descendants = getDescendants({}, editingItem)
+	for _, desc in ipairs(descendants) do
+		if desc:IsA("BaseWrap") then
+			local newName = desc.Parent.Name
+			if newName == "Part" or newName =="MeshPart" then
+				newName = desc.ClassName
+			end
+			desc.Name = newName
+		end
+	end
+end
+
 function ModelUtil:addAttachment(item, body, attachmentInfo, attachmentPoint)
 	local bodyAttachment = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
 	if not bodyAttachment then
@@ -57,25 +90,15 @@ end
 function ModelUtil:checkAccessoryBounds(containerCenter, containerSize, accessoryCFrame, accessorySize)
 	local accessoryCenter = accessoryCFrame.p
 	local accessoryCFrameRotOnly = accessoryCFrame - accessoryCenter
-	local corners = {
-		leftBottomFront = Vector3.new(-0.5, -0.5, -0.5),
-		leftBottomBack = Vector3.new(-0.5, -0.5, 0.5),
-		rightBottomFront = Vector3.new(0.5, -0.5, -0.5),
-		leftTopFront = Vector3.new(-0.5, 0.5, -0.5),
-		rightTopFront = Vector3.new(0.5, 0.5, -0.5),
-		leftTopBack = Vector3.new(-0.5, 0.5, 0.5),
-		rightBottomBack = Vector3.new(0.5, -0.5, 0.5),
-		rightTopBack = Vector3.new(0.5, 0.5, 0.5),
-	}
 
 	local accessoryCorners = {}
-	for _, corner in pairs(corners) do
+	for _, corner in pairs(Constants.CUBE_CORNERS) do
 		local rotatedCorner = accessoryCenter + (accessorySize * (accessoryCFrameRotOnly * corner))
 		table.insert(accessoryCorners, rotatedCorner)
 	end
 
-	local containerMin = containerCenter + (containerSize * corners.leftBottomFront)
-	local containerMax = containerCenter + (containerSize * corners.rightTopBack)
+	local containerMin = containerCenter + (containerSize * Constants.CUBE_CORNERS.LeftBottomFront)
+	local containerMax = containerCenter + (containerSize * Constants.CUBE_CORNERS.RightTopBack)
 
 	for _, corner in ipairs(accessoryCorners) do
 		if (corner.x < containerMin.X or corner.x > containerMax.X) or
@@ -134,8 +157,11 @@ function ModelUtil:positionAvatar(avatar, editingItem, avoidCollisions)
 	if editingItem and avatar then
 		local extentsEditingItem = getExents(editingItem)
 		local extentsAvatar = avatar:GetExtentsSize()
-		local startPos = self:getRootPart(editingItem).CFrame.Position
+		local rootCFrame = self:getRootPart(editingItem).CFrame
+		local startPos = rootCFrame.Position
+		local rotationOnly = rootCFrame - rootCFrame.Position
 		startPos = startPos - Vector3.new(extentsEditingItem.X, 0, 0) - Vector3.new(extentsAvatar.X, 0, 0)
+		startPos = rotationOnly * startPos
 		if avoidCollisions then
 			spawn(function()
 				avatar:MoveTo(startPos)

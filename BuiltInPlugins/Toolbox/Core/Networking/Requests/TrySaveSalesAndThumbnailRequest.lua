@@ -15,7 +15,6 @@ local NetworkError = require(Actions.NetworkError)
 local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 
-local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
 
 -- assetId, number, defualt to 0 for new asset.
@@ -46,11 +45,6 @@ return function(patchInfo)
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
 			end
-
-			-- Tell the user the thumbnail failed to upload in the AssetUploadResult page.
-			if FFlagShowAssetConfigReasons2 then
-				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_THUMBNAIL_FAILURE))
-			end
 		end
 
 		local function onPriceSetSuccess(result)
@@ -67,11 +61,6 @@ return function(patchInfo)
 			if checkSales and checkThumbnail then
 				store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 				store:dispatch(UploadResult(true))
-			end
-
-			-- Tell the user the price set failed in the AssetUploadResult page.
-			if FFlagShowAssetConfigReasons2 then
-				store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.SET_ASSET_PRICE_FAILURE))
 			end
 		end
 

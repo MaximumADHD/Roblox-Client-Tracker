@@ -51,7 +51,6 @@ local NumberTrack = require(Plugin.Src.Components.TrackList.NumberTrack)
 local Track = require(Plugin.Src.Components.TrackList.Track)
 local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrollingFrame)
 
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 
@@ -167,7 +166,6 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
 	local isPlaying = self.props.IsPlaying
-	local readOnly = GetFFlagNoValueChangeDuringPlayback() and isPlaying
 
 	local nameWidth = math.max(self.getTextWidth(properties.Position, theme),
 		self.getTextWidth(properties.Rotation, theme))
@@ -189,7 +187,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				Items = items[targetProperty],
 				Height = Constants.TRACK_HEIGHT,
 				Indent = indent,
-				ReadOnly = readOnly,
+				ReadOnly = isPlaying,
 				OnItemChanged = function(key, value)
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
@@ -209,7 +207,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 				Items = items[targetProperty],
 				Height = Constants.TRACK_HEIGHT,
 				Indent = indent,
-				ReadOnly = readOnly,
+				ReadOnly = isPlaying,
 				OnItemChanged = function(key, value)
 					for _, item in ipairs(items[targetProperty]) do
 						if item.Key == key then
@@ -309,7 +307,6 @@ function TrackList:renderTrack(track, children, theme)
 		local isPlaying = self.props.IsPlaying
 
 		local nameWidth = self.getTextWidth(name, theme)
-		local readOnly = GetFFlagNoValueChangeDuringPlayback() and isPlaying
 		local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
 
 		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
@@ -327,7 +324,7 @@ function TrackList:renderTrack(track, children, theme)
 			Items = items,
 			Height = Constants.TRACK_HEIGHT,
 			Indent = 0,
-			ReadOnly = readOnly,
+			ReadOnly = isPlaying,
 			DragMultiplier = 1,
 			OnItemChanged = function(key, value)
 				if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then

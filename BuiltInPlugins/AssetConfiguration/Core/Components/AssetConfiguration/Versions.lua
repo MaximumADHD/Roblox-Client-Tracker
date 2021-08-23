@@ -12,6 +12,7 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -19,6 +20,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
+local Framework = require(Libs.Framework)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local VersionItem = require(AssetConfiguration.VersionItem)
@@ -30,6 +32,8 @@ local Constants= require(Util.Constants)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -161,107 +165,120 @@ local function createItemList(props)
 end
 
 function Versions:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-			local state = self.state
-			local versionsTheme = theme.versions
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
+		end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
 
-			local LayoutOrder = props.LayoutOrder
-			local Size = props.Size
+function Versions:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+	local versionsTheme = theme.versions
 
-			local versionHistory = props.versionHistory
+	local LayoutOrder = props.LayoutOrder
+	local Size = props.Size
 
-			local currentItem = state.currentItem
-			local selectVersion = state.selectVersion
+	local versionHistory = props.versionHistory
 
-			return Roact.createElement("ScrollingFrame", {
-				Size = Size,
+	local currentItem = state.currentItem
+	local selectVersion = state.selectVersion
+
+	return Roact.createElement("ScrollingFrame", {
+		Size = Size,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = LayoutOrder
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 20),
+		}),
+
+		Title = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+
+			LayoutOrder = 1,
+		},{
+			VersionsLabel = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, 10, 0, 0),
+				Size = UDim2.new(0, 50, 0, TITLE_HEIGHT),
 
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 
-				LayoutOrder = LayoutOrder
-			}, {
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 20),
-				}),
+				Text = localizedContent.AssetConfig.VersionsHistory.Current,
+				TextColor3 = versionsTheme.textColor,
+				Font = Constants.FONT_BOLD,
+				TextSize = Constants.FONT_SIZE_TITLE,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+		}),
 
-				Title = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+		CurrentItem = next(currentItem) and Roact.createElement(createCurrentItem, {
+			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
 
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
+			ItemInfo = currentItem,
 
-					LayoutOrder = 1,
-				},{
-					VersionsLabel = Roact.createElement("TextLabel", {
-						Position = UDim2.new(0, 10, 0, 0),
-						Size = UDim2.new(0, 50, 0, TITLE_HEIGHT),
+			LayoutOrder = 2,
+		}),
 
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
+		PreviousVersion = Roact.createElement("Frame",{
+			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
 
-						Text = localizedContent.AssetConfig.VersionsHistory.Current,
-						TextColor3 = versionsTheme.textColor,
-						Font = Constants.FONT_BOLD,
-						TextSize = Constants.FONT_SIZE_TITLE,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-				}),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
 
-				CurrentItem = next(currentItem) and Roact.createElement(createCurrentItem, {
-					Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+			LayoutOrder = 3,
+		}, {
+			VersionsLabel = Roact.createElement("TextLabel", {
+				Position = UDim2.new(0, 10, 0, 0),
+				Size = UDim2.new(0, 50, 0, TITLE_HEIGHT),
 
-					ItemInfo = currentItem,
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
 
-					LayoutOrder = 2,
-				}),
+				Text = localizedContent.AssetConfig.VersionsHistory.Restore,
+				TextColor3 = versionsTheme.textColor,
+				Font = Constants.FONT_BOLD,
+				TextSize = Constants.FONT_SIZE_TITLE,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+		}),
 
-				PreviousVersion = Roact.createElement("Frame",{
-					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+		ItemList = versionHistory and Roact.createElement(createItemList, {
+			Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT * 2 - ITEM_HEIGHT),
 
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
+			SelectVersion = selectVersion,
 
-					LayoutOrder = 3,
-				}, {
-					VersionsLabel = Roact.createElement("TextLabel", {
-						Position = UDim2.new(0, 10, 0, 0),
-						Size = UDim2.new(0, 50, 0, TITLE_HEIGHT),
+			-- The itemInfor need to be ordered
+			-- I am expecting assetVersionNumber here, by checking assetVersionNumber I should be able to
+			-- tell if this item is current version or not.
+			ItemSize = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+			ItemListInfo = versionHistory,
+			ItemClickCallBack = self.OnItemClicked,
 
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-
-						Text = localizedContent.AssetConfig.VersionsHistory.Restore,
-						TextColor3 = versionsTheme.textColor,
-						Font = Constants.FONT_BOLD,
-						TextSize = Constants.FONT_SIZE_TITLE,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}),
-				}),
-
-				ItemList = versionHistory and Roact.createElement(createItemList, {
-					Size = UDim2.new(1, 0, 1, -TITLE_HEIGHT * 2 - ITEM_HEIGHT),
-
-					SelectVersion = selectVersion,
-
-					-- The itemInfor need to be ordered
-					-- I am expecting assetVersionNumber here, by checking assetVersionNumber I should be able to
-					-- tell if this item is current version or not.
-					ItemSize = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-					ItemListInfo = versionHistory,
-					ItemClickCallBack = self.OnItemClicked,
-
-					LayoutOrder = 4,
-				})
-			})
-		end)
-	end)
+			LayoutOrder = 4,
+		})
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -287,6 +304,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(MakeChangeRequest(setting, currentValue, newValue))
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	Versions = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(Versions)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Versions)

@@ -25,6 +25,7 @@ function TopBar:render()
 	return Roact.createElement(Pane, {
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		Layout = Enum.FillDirection.Horizontal,
+		Padding = style.Padding,
 		Size = props.Size,
 		Spacing = style.Spacing,
 	}, {
@@ -38,7 +39,7 @@ function TopBar:render()
 		TextInput = Roact.createElement(TextInput, {
 			Enabled = false,
 			LayoutOrder = 2,
-			Size = UDim2.new(1, -offset, 0, 30),
+			Size = UDim2.new(1, -offset, 1, 0),
 			Style = "RoundedBorder",
 			Text = props.FileName,
 		}),

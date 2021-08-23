@@ -13,8 +13,6 @@ local toolbar = nil
 local fbxFlagExists, fbxFlagValue = pcall(function() return settings():GetFFlag("DebugStudioRigImporter") end)
 local newR15IntermediateStateExists, newR15IntermediateStateValue = pcall(function() return settings():GetFFlag("AnthroArtistIntentFBXImporterIntermediateState") end)
 local anthroProportionsFlagExists, anthroProportionsFlagValue = pcall(function() return settings():GetFFlag("ImporterUseAnthroProportions") end)
-local useBaseUrlFlagExists, useBaseUrlFlagValue = pcall(function() return settings():GetFFlag("UseBaseUrlInPlugins") end)
-local useBaseUrl = useBaseUrlFlagExists and useBaseUrlFlagValue
 
 local ANTHRO_PROPORTIONS_CLASSIC = "Classic"
 local ANTHRO_PROPORTIONS_SLENDER = "ProportionsSlender"
@@ -94,7 +92,7 @@ local function createConfigureGui(R15Folder, R6Folder, R15FixedFolder, R15Legacy
 	setupTextClearOnFocus(R6TextureTextboxes.OverlayTextureId)
 
 	local assetUrls = {
-		useBaseUrl and AssetUrl or "http://roblox.com/asset/?id=",
+		AssetUrl,
 		"rbxassetid://"
 	}
 
@@ -168,7 +166,7 @@ local function createConfigureGui(R15Folder, R6Folder, R15FixedFolder, R15Legacy
 			for _, obj in pairs(R15TextureIds:GetChildren()) do
 				local id = obj.TextureID.Text
 				if id ~= "" and string.find(id, "<") == nil then
-					local assetString = useBaseUrl and AssetUrl or "http://roblox.com/asset/?id="
+					local assetString = AssetUrl
 					if string.find(id, assetString, 1, true) == nil then
 						id = assetString.. "" ..id
 					end

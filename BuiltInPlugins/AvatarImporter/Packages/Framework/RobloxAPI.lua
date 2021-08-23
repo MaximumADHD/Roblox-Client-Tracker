@@ -68,7 +68,9 @@ local function initDirectoryWithArgs(dir, networkingImpl, baseUrl)
 	return strict(childrenMap)
 end
 
-local RobloxAPI = {}
+local RobloxAPI = {
+	Url = Url
+}
 RobloxAPI.__index = RobloxAPI
 
 -- props : (table, optional)

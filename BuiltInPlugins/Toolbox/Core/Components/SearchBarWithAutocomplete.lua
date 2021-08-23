@@ -26,6 +26,8 @@ local getNetwork = ContextGetter.getNetwork
 
 local GetAutocompleteResultsRequest = require(Plugin.Core.Networking.Requests.GetAutocompleteResultsRequest)
 
+local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+
 local DropdownMenu = require(Libs.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
 local SearchBar
@@ -50,6 +52,8 @@ function SearchBarWithAutocomplete:init()
     }
     self.isUserInputting = false
     self.autocompleteTimer = 0
+    self.keyCount = 0
+    self.deleteCount = 0
 
     self.onInputBegan = function()
         self.isUserInputting = true
@@ -60,6 +64,11 @@ function SearchBarWithAutocomplete:init()
     end
 
     self.onSearchTextChanged = function(searchTerm)
+        if string.len(searchTerm) > string.len(self.state.displayedSearchTerm) then
+            self.keyCount += 1
+        elseif string.len(searchTerm) < string.len(self.state.displayedSearchTerm) then
+            self.deleteCount += 1
+        end
         self:setState({
             showAutocompleteResults = string.len(searchTerm) > 0,
             displayedSearchTerm = searchTerm,
@@ -79,11 +88,38 @@ function SearchBarWithAutocomplete:init()
 
     self.onItemActivated = function(item, index)
         self.props.OnSearchRequested(item)
+        Analytics.marketplaceSearch(
+            item,
+            Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+            self.state.displayedSearchTerm,
+            self.keyCount,
+            self.deleteCount,
+            true,
+            self.props.searchId
+        )
+
+        self.keyCount = 0
+        self.deleteCount = 0
+
         self:setState({displayedSearchTerm = item})
     end
 
     self.onSearchRequested = function(searchTerm)
         self.props.OnSearchRequested(searchTerm)
+
+        Analytics.marketplaceSearch(
+            searchTerm,
+            Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
+            nil,
+            self.keyCount,
+            self.deleteCount,
+            true,
+            self.props.searchId
+        )
+
+        self.keyCount = 0
+        self.deleteCount = 0
+
         self:setState({showAutocompleteResults = false})
     end
 
@@ -133,7 +169,10 @@ end
 function SearchBarWithAutocomplete:didUpdate(prevProps, prevState)
     -- for search filtering functionality
     if prevProps.searchTerm ~= self.props.searchTerm then
-        self:setState({displayedSearchTerm = self.props.searchTerm})
+        self:setState({
+            displayedSearchTerm = self.props.searchTerm,
+            lastSearchTerm = self.props.searchTerm,
+        })
     end
 end
 
@@ -190,6 +229,7 @@ local function mapStateToProps(state, props)
 		autocompleteResults = state.autocompleteResults and state.autocompleteResults["autocompleteResults"] or {},
         categoryName = pageInfo.categoryName or Category.DEFAULT.name,
         searchTerm = pageInfo.searchTerm or "",
+        searchId = pageInfo.searchId or "",
 	}
 end
 

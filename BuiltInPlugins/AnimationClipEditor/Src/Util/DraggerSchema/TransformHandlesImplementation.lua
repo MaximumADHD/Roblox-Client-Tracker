@@ -39,11 +39,12 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 	self._draggerContext.AddWaypoint()
 
 	self._partsToMove = partsToMove
-	self._jointsToOrigTransform = {}
+	self._jointsToOrigPart1CFrame = {}
+
 	for _, part in ipairs(self._partsToMove) do
 		self._joints = part:GetJoints()
 		for _, joint in ipairs(part:GetJoints()) do
-			self._jointsToOrigTransform[joint] = RigUtils.getJointTransform(joint)
+			self._jointsToOrigPart1CFrame[joint] = joint.Part1.CFrame
 		end
 	end
 	if self:_shouldSolveConstraints() then 
@@ -64,9 +65,14 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 	self._centerPoint = basisCFrame * CFrame.new(offset)
 end
 
-local function applyLocalTransform(cframe, transform)
-	return cframe * transform
+
+function TransformHandlesImplementation:applyWorldTransform(transform, joint)
+	local pivot = joint.Part0.CFrame * joint.C0
+	local partFrame = self._jointsToOrigPart1CFrame[joint] * joint.C1
+	partFrame = transform * partFrame
+	return pivot:toObjectSpace(partFrame)
 end
+
 
 --[[
 	Try to move the selection passed to beginDrag by a global transform relative
@@ -76,14 +82,13 @@ end
 ]]
 function TransformHandlesImplementation:updateDrag(globalTransform)
 	self._globalTransform = globalTransform
-	local localTransform = self:_toLocalTransform(globalTransform)
 
 	if not self:_shouldSolveConstraints() then 
 		local appliedTransform
 		local values = {}
 		for _, part in ipairs(self._partsToMove) do
 			for _, joint in ipairs(part:GetJoints()) do
-				appliedTransform = applyLocalTransform(self._jointsToOrigTransform[joint], localTransform)
+				appliedTransform = self:applyWorldTransform(globalTransform, joint)
 				if(joint.Part1.Name == part.name) then 
 					values[joint.Part1.Name] = appliedTransform
 				end

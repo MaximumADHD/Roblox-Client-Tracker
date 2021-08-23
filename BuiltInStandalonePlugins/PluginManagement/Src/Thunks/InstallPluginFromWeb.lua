@@ -1,7 +1,5 @@
 local FFlagPluginManagementFixYieldingAndRetries = settings():GetFFlag("PluginManagementFixYieldingAndRetries")
 
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 local PIS = require(Plugin.Src.Constants.PluginInstalledStatus)
 local SetPluginInstallStatus = require(Plugin.Src.Actions.SetPluginInstallStatus)
@@ -14,28 +12,19 @@ local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 -- analytics: Analytics implementation
 -- pluginId : (string)
 return function(studioServiceImpl, apiImpl, analytics, pluginId)
-	if not FFlagPluginManagementAnalytics then
-		pluginId = analytics
-		analytics = nil
-	end
-
 	return function(store)
 		-- clear out any previous data for this plugin
 		store:dispatch(ClearPluginData(pluginId));
 		store:dispatch(SetPluginId(pluginId))
 		store:flush();
 
-		if FFlagPluginManagementAnalytics then
-			analytics:report("TryInstallPluginFromWeb", pluginId)
-		end
+		analytics:report("TryInstallPluginFromWeb", pluginId)
 
 		local function setStatus(code, message)
-			if FFlagPluginManagementAnalytics then
-				if code == PIS.PLUGIN_INSTALLED_SUCCESSFULLY then
-					analytics:report("InstallPluginFromWebSuccess", pluginId)
-				else
-					analytics:report("InstallPluginFromWebFailure", pluginId, code)
-				end
+			if code == PIS.PLUGIN_INSTALLED_SUCCESSFULLY then
+				analytics:report("InstallPluginFromWebSuccess", pluginId)
+			else
+				analytics:report("InstallPluginFromWebFailure", pluginId, code)
 			end
 			store:dispatch(SetPluginInstallStatus(pluginId, code, message))
 		end

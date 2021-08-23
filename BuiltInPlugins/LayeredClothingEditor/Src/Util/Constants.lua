@@ -20,6 +20,17 @@ local Constants = {
 		DragSelecting = "DragSelecting",
 	},
 
+	CUBE_CORNERS = {
+		LeftBottomFront = Vector3.new(-0.5, -0.5, -0.5),
+		LeftBottomBack = Vector3.new(-0.5, -0.5, 0.5),
+		RightBottomFront = Vector3.new(0.5, -0.5, -0.5),
+		LeftTopFront = Vector3.new(-0.5, 0.5, -0.5),
+		RightTopFront = Vector3.new(0.5, 0.5, -0.5),
+		LeftTopBack = Vector3.new(-0.5, 0.5, 0.5),
+		RightBottomBack = Vector3.new(0.5, -0.5, 0.5),
+		RightTopBack = Vector3.new(0.5, 0.5, 0.5),
+	},
+
 	TOOL_MODE = {
 		None = "None",
 		Point = "PointTool",
@@ -280,6 +291,23 @@ Constants.EDIT_MODE_KEY_TO_STRING = {
 	[Constants.EDIT_MODE.Inner] = "Inner",
 	[Constants.EDIT_MODE.Outer] = "Outer",
 	[Constants.EDIT_MODE.Mesh] = "Mesh",
+}
+
+Constants.CUBE_EDGES = {
+	{Constants.CUBE_CORNERS.LeftBottomFront, Constants.CUBE_CORNERS.LeftBottomBack},
+	{Constants.CUBE_CORNERS.LeftBottomBack, Constants.CUBE_CORNERS.RightBottomBack},
+	{Constants.CUBE_CORNERS.RightBottomBack, Constants.CUBE_CORNERS.RightBottomFront},
+	{Constants.CUBE_CORNERS.RightBottomFront, Constants.CUBE_CORNERS.LeftBottomFront},
+
+	{Constants.CUBE_CORNERS.LeftTopFront, Constants.CUBE_CORNERS.LeftTopBack},
+	{Constants.CUBE_CORNERS.LeftTopBack, Constants.CUBE_CORNERS.RightTopBack},
+	{Constants.CUBE_CORNERS.RightTopBack, Constants.CUBE_CORNERS.RightTopFront},
+	{Constants.CUBE_CORNERS.RightTopFront, Constants.CUBE_CORNERS.LeftTopFront},
+
+	{Constants.CUBE_CORNERS.LeftBottomFront, Constants.CUBE_CORNERS.LeftTopFront},
+	{Constants.CUBE_CORNERS.LeftBottomBack, Constants.CUBE_CORNERS.LeftTopBack},
+	{Constants.CUBE_CORNERS.RightBottomFront, Constants.CUBE_CORNERS.RightTopFront},
+	{Constants.CUBE_CORNERS.RightBottomBack, Constants.CUBE_CORNERS.RightTopBack},
 }
 
 return Constants

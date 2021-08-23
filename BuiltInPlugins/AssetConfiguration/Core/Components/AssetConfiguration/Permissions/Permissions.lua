@@ -239,16 +239,15 @@ local function mapDispatchToProps(dispatch)
 end
 
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-    if FFlagToolboxWithContext then
-	Permissions = withContext({
-	        Stylizer = ContextServices.Stylizer,
-	    })(Permissions)
-else
-	ContextServices.mapToProps(Permissions, {
-	        Stylizer = ContextServices.Stylizer,
-	    })
-end
-
+	if FFlagToolboxWithContext then
+		Permissions = withContext({
+				Stylizer = ContextServices.Stylizer,
+			})(Permissions)
+	else
+		ContextServices.mapToProps(Permissions, {
+				Stylizer = ContextServices.Stylizer,
+			})
+	end
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Permissions)

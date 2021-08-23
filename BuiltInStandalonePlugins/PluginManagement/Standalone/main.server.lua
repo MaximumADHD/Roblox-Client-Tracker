@@ -2,7 +2,6 @@ local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 require(script.Parent.defineLuaFlags)
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
 
 local Plugin = script.Parent.Parent
 
@@ -21,11 +20,7 @@ local tokens = {}
 local function installPlugin(pluginId)
 	-- kick off the network requests
 
-	if FFlagPluginManagementAnalytics then
-		globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, globals.analytics, pluginId))
-	else
-		globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, pluginId))
-	end
+	globals.store:dispatch(InstallPluginFromWeb(StudioService, globals.api, globals.analytics, pluginId))
 
 	-- open a dialog that shows installation progress
 	showDialog(pluginId)

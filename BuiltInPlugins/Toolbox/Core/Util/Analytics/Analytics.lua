@@ -11,8 +11,6 @@ local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local FFlagToolboxTrackAllAssetTypeInsertions = game:GetFastFlag("ToolboxTrackAllAssetTypeInsertions")
 
-local FFlagToolboxTrackRunMode = game:GetFastFlag("ToolboxTrackRunMode")
-
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 
@@ -52,18 +50,11 @@ end
 
 local Analytics = {}
 
-local getIsEditMode
-if FFlagToolboxTrackRunMode then
-	local isEditMode = game:GetService("RunService"):IsEdit()
-	getIsEditMode = function()
-		return isEditMode
-	end
-	Analytics.getIsEditMode = getIsEditMode
-else
-	getIsEditMode = function()
-		return nil
-	end
+local isEditMode = game:GetService("RunService"):IsEdit()
+local getIsEditMode = function()
+	return isEditMode
 end
+Analytics.getIsEditMode = getIsEditMode
 
 Analytics.getPlaceId = getPlaceId
 Analytics.getPlatformId = getPlatformId
@@ -310,6 +301,23 @@ if FFlagPluginManagementDirectlyOpenToolbox then
 			isEditMode = getIsEditMode(),
 		})
 	end
+end
+
+function Analytics.marketplaceSearch(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, searchId)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
+		studioSid = getStudioSessionId(),
+		clientID = getClientId(),
+		isEditMode = getIsEditMode(),
+		userID = getUserId(),
+		ptid = getPlatformId(),
+		searchKeyword = keyword,
+		assetType = assetType,
+		autocompletePrefix = prefix,
+		autocompleteKeyCount = keyCount,
+		autocompleteDeleteCount = delCount,
+		autocompleteShown = autocompleteShown,
+		searchID = searchId,
+	})
 end
 
 return Analytics

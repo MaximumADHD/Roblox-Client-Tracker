@@ -36,7 +36,7 @@ local Store = ContextServices.Store
 
 local MainReducer = require(Src.Reducers.MainReducer)
 local MakeTheme = require(Src.Resources.MakeTheme)
-
+local MakePluginActions = require(Src.Util.MakePluginActions)
 local AnalyticsHolder = require(Src.Resources.AnalyticsHolder)
 
 local TranslationDevelopmentTable = Src.Resources.Localization.TranslationDevelopmentTable
@@ -47,14 +47,16 @@ local EditDebugpointDialog = require(Components.Breakpoints.EditDebugpointDialog
 local CallstackWindow = require(Components.Callstack.CallstackWindow)
 local WatchWindow = require(Components.Watch.WatchWindow)
 local BreakpointsWindow = require(Components.Breakpoints.BreakpointsWindow)
-local CallstackComponent = require(Components.Callstack.CallstackComponent)
 local WatchComponent = require(Components.Watch.WatchComponent)
 
 local Middleware = require(Src.Middleware.MainMiddleware)
 
+local TestStore = require(Src.Util.TestStore)
+
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
 local FFlagStudioDebuggerPluginBreakpointsWindow = game:GetFastFlag("StudioDebuggerPluginBreakpointsWindow")
+local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -107,6 +109,10 @@ function MainPlugin:init(props)
 
 	self.store = Rodux.Store.new(MainReducer, nil, Middleware)
 
+	if (FFlagDebugPopulateDebuggerPlugin) then
+		self.store = TestStore(self.store)
+	end
+
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
@@ -117,6 +123,8 @@ function MainPlugin:init(props)
 			Client/RobloxStudio/Translation/builtin_plugin_config.py
 	--]]
 	self.analytics = AnalyticsHolder
+
+	self.pluginActions = ContextServices.PluginActions.new(props.Plugin, MakePluginActions(props.Plugin, self.localization))
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -196,6 +204,7 @@ function MainPlugin:render()
 		MakeTheme(),
 		self.localization,
 		self.analytics,
+		self.pluginActions
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = TOOLBAR_NAME,
@@ -220,8 +229,6 @@ function MainPlugin:render()
 			OnClose = function()
 				self.onWidgetClose("callstackWindow")
 			end,
-		}, {
-			Callstack = Roact.createElement(CallstackComponent),
 		}) or nil,
 		BreakpointsWindow = (FFlagStudioDebuggerPluginBreakpointsWindow and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
 			Enabled = breakpointsWindowEnabled,

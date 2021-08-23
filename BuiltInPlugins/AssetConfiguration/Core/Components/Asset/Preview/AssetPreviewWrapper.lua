@@ -71,6 +71,7 @@ local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local AssetType
 if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
@@ -79,6 +80,8 @@ end
 
 local PADDING = 32
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
+local DETECTOR_BACKGROUND_COLOR = Color3.fromRGB(0, 0, 0)
+local DETECTOR_BACKGROUND_TRANSPARENCY = 0.25
 
 function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 	local props = self.props
@@ -471,135 +474,151 @@ function AssetPreviewWrapper:didMount()
 end
 
 function AssetPreviewWrapper:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withModal(function(modalTarget)
 			return withLocalization(function(_, localizedContent)
-				local purchaseFlow = self:createPurchaseFlow(localizedContent)
-
-				local props = self.props
-				local state = self.state
-
-				local assetData = props.assetData
-
-				local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
-				local maxPreviewHeight = state.maxPreviewHeight
-
-				local previewModel = props.previewModel
-
-				local popUpTheme = theme.assetPreview.popUpWrapperButton
-
-				local assetPreview
-
-				if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-					local actionEnabled = not purchaseFlow.InstallDisabled
-
-					if FFlagDevFrameworkAssetPreviewFixes then
-						actionEnabled = actionEnabled and not self.state.showInstallationBar
-					end
-
-					assetPreview = Roact.createElement(AssetPreview, {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
-						ZIndex = 2,
-
-						AssetData = assetData,
-						AssetInstance = previewModel,
-
-						-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
-						ActionEnabled = actionEnabled,
-						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-						ActionText = tostring(purchaseFlow.ActionBarText),
-						OnClickAction = purchaseFlow.TryInsert,
-						PurchaseFlow = purchaseFlow.PurchaseFlow,
-						SuccessDialog = purchaseFlow.SuccessDialog,
-
-						OnClickContext = self.tryCreateContextMenu,
-
-						Favorites = {
-							OnClick = self.onFavoritedActivated,
-							Count = tonumber(self.props.favoriteCounts),
-							IsFavorited = self.props.favorited
-						},
-
-						Voting = purchaseFlow.HasRating and self.props.voting or nil,
-						OnVoteUp = self.onVoteUpButtonActivated,
-						OnVoteDown = self.onVoteDownButtonActivated,
-
-						OnClickCreator = self.searchByCreator,
-					})
-				else
-					local currentPreview = state.currentPreview or previewModel
-
-					local assetPreviewProps = {
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						MaxPreviewWidth = maxPreviewWidth,
-						MaxPreviewHeight = maxPreviewHeight,
-
-						AssetData = assetData,
-						PreviewModel = previewModel,
-						CurrentPreview = currentPreview,
-
-						ActionBarText = purchaseFlow.ActionBarText,
-						TryInsert = purchaseFlow.TryInsert,
-
-						OnFavoritedActivated = self.onFavoritedActivated,
-						FavoriteCounts = self.props.favoriteCounts,
-						Favorited = self.props.favorited,
-
-						TryCreateContextMenu = self.tryCreateContextMenu,
-						OnTreeItemClicked = self.onTreeItemClicked,
-
-						InstallDisabled = purchaseFlow.InstallDisabled,
-						PurchaseFlow = purchaseFlow.PurchaseFlow,
-						SuccessDialog = purchaseFlow.SuccessDialog,
-						ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-						ShowInstallationBar = purchaseFlow.ShowInstallationBar,
-						LoadingBarText = localizedContent.AssetConfig.Installing,
-
-						HasRating = purchaseFlow.HasRating,
-						Voting = self.props.voting,
-						OnVoteUp = self.onVoteUpButtonActivated,
-						OnVoteDown = self.onVoteDownButtonActivated,
-
-						SearchByCreator = self.searchByCreator,
-
-						reportPlay = self.reportPlay,
-						reportPause = self.reportPause,
-
-						ZIndex = 2,
-					}
-
-					assetPreviewProps.PreviewModel = previewModel
-
-					assetPreview = Roact.createElement(DEPRECATED_AssetPreview, assetPreviewProps)
-				end
-
-				return modalTarget and Roact.createElement(Roact.Portal, {
-					target = modalTarget
-				}, {
-					-- This frame should be as big as the screen
-					-- So, we will know it's time to close the pop up if there is a click
-					-- within the screen
-					ScreenClickDetector = Roact.createElement("TextButton", {
-						Size = UDim2.new(1, 0, 1, 0),
-
-						BackgroundTransparency = popUpTheme.detectorBGTrans,
-						BackgroundColor3 = popUpTheme.detectorBackground,
-						ZIndex = 1,
-						AutoButtonColor = false,
-
-						[Roact.Event.Activated] = self.onCloseButtonClicked,
-						[Roact.Ref] = self.ClickDetectorRef,
-						[Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
-					}),
-
-					AssetPreview = assetPreview,
-				})
+				return self:renderContent(nil, modalTarget, localizedContent)
 			end)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withModal(function(modalTarget)
+				return withLocalization(function(_, localizedContent)
+					return self:renderContent(theme, modalTarget, localizedContent)
+				end)
+			end)
+		end)
+	end
+end
+
+function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
+	local purchaseFlow = self:createPurchaseFlow(localizedContent)
+
+	local props = self.props
+	local state = self.state
+
+	local assetData = props.assetData
+
+	local maxPreviewWidth = math.min(state.maxPreviewWidth, Constants.ASSET_PREVIEW_MAX_WIDTH)
+	local maxPreviewHeight = state.maxPreviewHeight
+
+	local previewModel = props.previewModel
+
+	local popUpTheme
+	if not FFlagToolboxRemoveWithThemes then
+		-- TODO: Remove popUpTheme when enabling FFlagToolboxRemoveWithThemes
+		popUpTheme = theme.assetPreview.popUpWrapperButton
+	end
+
+	local assetPreview
+
+	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+		local actionEnabled = not purchaseFlow.InstallDisabled
+
+		if FFlagDevFrameworkAssetPreviewFixes then
+			actionEnabled = actionEnabled and not self.state.showInstallationBar
+		end
+
+		assetPreview = Roact.createElement(AssetPreview, {
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
+			ZIndex = 2,
+
+			AssetData = assetData,
+			AssetInstance = previewModel,
+
+			-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
+			ActionEnabled = actionEnabled,
+			ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
+			ActionText = tostring(purchaseFlow.ActionBarText),
+			OnClickAction = purchaseFlow.TryInsert,
+			PurchaseFlow = purchaseFlow.PurchaseFlow,
+			SuccessDialog = purchaseFlow.SuccessDialog,
+
+			OnClickContext = self.tryCreateContextMenu,
+
+			Favorites = {
+				OnClick = self.onFavoritedActivated,
+				Count = tonumber(self.props.favoriteCounts),
+				IsFavorited = self.props.favorited
+			},
+
+			Voting = purchaseFlow.HasRating and self.props.voting or nil,
+			OnVoteUp = self.onVoteUpButtonActivated,
+			OnVoteDown = self.onVoteDownButtonActivated,
+
+			OnClickCreator = self.searchByCreator,
+		})
+	else
+		local currentPreview = state.currentPreview or previewModel
+
+		local assetPreviewProps = {
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			MaxPreviewWidth = maxPreviewWidth,
+			MaxPreviewHeight = maxPreviewHeight,
+
+			AssetData = assetData,
+			PreviewModel = previewModel,
+			CurrentPreview = currentPreview,
+
+			ActionBarText = purchaseFlow.ActionBarText,
+			TryInsert = purchaseFlow.TryInsert,
+
+			OnFavoritedActivated = self.onFavoritedActivated,
+			FavoriteCounts = self.props.favoriteCounts,
+			Favorited = self.props.favorited,
+
+			TryCreateContextMenu = self.tryCreateContextMenu,
+			OnTreeItemClicked = self.onTreeItemClicked,
+
+			InstallDisabled = purchaseFlow.InstallDisabled,
+			PurchaseFlow = purchaseFlow.PurchaseFlow,
+			SuccessDialog = purchaseFlow.SuccessDialog,
+			ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
+			ShowInstallationBar = purchaseFlow.ShowInstallationBar,
+			LoadingBarText = localizedContent.AssetConfig.Installing,
+
+			HasRating = purchaseFlow.HasRating,
+			Voting = self.props.voting,
+			OnVoteUp = self.onVoteUpButtonActivated,
+			OnVoteDown = self.onVoteDownButtonActivated,
+
+			SearchByCreator = self.searchByCreator,
+
+			reportPlay = self.reportPlay,
+			reportPause = self.reportPause,
+
+			ZIndex = 2,
+		}
+
+		assetPreviewProps.PreviewModel = previewModel
+
+		assetPreview = Roact.createElement(DEPRECATED_AssetPreview, assetPreviewProps)
+	end
+
+	return modalTarget and Roact.createElement(Roact.Portal, {
+		target = modalTarget
+	}, {
+		-- This frame should be as big as the screen
+		-- So, we will know it's time to close the pop up if there is a click
+		-- within the screen
+		ScreenClickDetector = Roact.createElement("TextButton", {
+			Size = UDim2.new(1, 0, 1, 0),
+
+			BackgroundTransparency = FFlagToolboxRemoveWithThemes and DETECTOR_BACKGROUND_TRANSPARENCY or popUpTheme.detectorBGTrans,
+			BackgroundColor3 = FFlagToolboxRemoveWithThemes and DETECTOR_BACKGROUND_COLOR or popUpTheme.detectorBackground,
+			ZIndex = 1,
+			AutoButtonColor = false,
+
+			[Roact.Event.Activated] = self.onCloseButtonClicked,
+			[Roact.Ref] = self.ClickDetectorRef,
+			[Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
+		}),
+
+		AssetPreview = assetPreview,
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -709,11 +728,13 @@ if FFlagToolboxWithContext then
 	AssetPreviewWrapper = withContext({
 		Settings = Settings,
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(AssetPreviewWrapper)
 else
 	ContextServices.mapToProps(AssetPreviewWrapper, {
 		Settings = Settings,
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

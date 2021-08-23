@@ -9,6 +9,7 @@
 ]]
 local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -17,7 +18,6 @@ local Roact = require(Libs.Roact)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
-local withLocalization = ContextHelper.withLocalization
 
 local Constants = require(Plugin.Core.Util.Constants)
 local TimeTextBox = require(Plugin.Core.Components.SearchOptions.TimeTextBox)
@@ -57,13 +57,20 @@ function AudioSearch:init(props)
 end
 
 function AudioSearch:render()
-	return withTheme(function(theme)
-		return self:renderContent(theme, nil)
-	end)
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
 end
 
-function AudioSearch:renderContent(theme, localizedContent)
+function AudioSearch:renderContent(theme)
 	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
 	local minDuration = props.minDuration
 	local maxDuration = props.maxDuration
@@ -137,10 +144,12 @@ end
 if FFlagToolboxWithContext then
 	AudioSearch = withContext({
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(AudioSearch)
 else
 	ContextServices.mapToProps(AudioSearch, {
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

@@ -4,8 +4,6 @@ local Types = require(Plugin.Src.Types)
 
 local getFIntStudioLightGuideThickness = require(Plugin.Src.Flags.getFIntStudioLightGuideThickness)
 local getFIntStudioLightGuideTransparency = require(Plugin.Src.Flags.getFIntStudioLightGuideTransparency)
-local getFIntStudioLightGuideMaxAngle = require(Plugin.Src.Flags.getFIntStudioLightGuideMaxAngle)
-local getFFlagStudioLightGuideStrutLengthRange = require(Plugin.Src.Flags.getFFlagStudioLightGuideStrutLengthRange)
 
 local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 	[Enum.NormalId.Back] = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0), Vector3.new(0, 0, 1)),
@@ -17,7 +15,6 @@ local ROTATION_MATRICES: Types.Map<Enum.NormalId, CFrame> = {
 }
 local THICKNESS: number = getFIntStudioLightGuideThickness()
 local TRANSPARENCY: number = getFIntStudioLightGuideTransparency()
-local MAX_ANGLE: number = getFIntStudioLightGuideMaxAngle()
 
 type trapezoidalPrismWireframe = {
 	_adornee: PVInstance,
@@ -72,19 +69,10 @@ function TrapezoidalPrismWireframe:render()
 	local enabled: boolean = self._light.Enabled
 	local color: Vector3 = self._light.Color
 	local range: number = self._light.Range
-	local height: number = range
 	local angle: number = self._light.Angle
 	local angleRad: number = math.rad(angle)
-	local outerExtension: number = 2 * (range * math.tan(angleRad / 2))
-
-
-	if getFFlagStudioLightGuideStrutLengthRange() then
-		outerExtension = 2 * (range * math.sin(angleRad / 2))
-		height = range * math.cos(angleRad / 2)
-	elseif angle > MAX_ANGLE then
-		outerExtension = 2 * (range * math.tan(math.rad(MAX_ANGLE) / 2))
-		height = range * math.cos(angleRad / 2)
-	end
+	local height: number = range * math.cos(angleRad / 2)
+	local outerExtension: number = 2 * (range * math.sin(angleRad / 2))
 
 	local normalVector: Vector3 = Vector3.fromNormalId(self._light.Face)
 	local innerWidth: number = (

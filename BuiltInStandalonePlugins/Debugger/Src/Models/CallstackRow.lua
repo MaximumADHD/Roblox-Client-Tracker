@@ -1,8 +1,8 @@
 export type CallstackRow = {
 	frameColumn: string,
-	whatColumn: string,
-	functionNameColumn: string,
-	lineNumberColumn: string,
+	layerColumn: string,
+	functionColumn: string,
+	lineColumn: string,
 	sourceColumn: string,
 }
 
@@ -27,9 +27,9 @@ local ICON_CURRENT_FRAME = {
 local function new() : CallstackRow
 	return {
 		frameColumn = "",
-		whatColumn = "",
-		functionNameColumn = "",
-		lineNumberColumn = "",
+		layerColumn = "",
+		functionColumn = "",
+		lineColumn = "",
 		sourceColumn = "",
 	}
 end
@@ -37,9 +37,9 @@ end
 local function fromData(data) : CallstackRow
 	return {
 		frameColumn = data.frameColumn,
-		whatColumn = data.whatColumn,
-		functionNameColumn = data.functionNameColumn,
-		lineNumberColumn = data.lineNumberColumn,
+		layerColumn = data.layerColumn,
+		functionColumn = data.functionColumn,
+		lineColumn = data.lineColumn,
 		sourceColumn = data.sourceColumn,
 	}
 end

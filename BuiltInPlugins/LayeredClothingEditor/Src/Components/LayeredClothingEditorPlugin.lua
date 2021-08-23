@@ -120,6 +120,9 @@ function LayeredClothingEditorPlugin:init()
 	self.onFocus = function()
 		local Selection = game:GetService("Selection")
 		Selection:Set({})
+		if not plugin:IsActivatedWithExclusiveMouse() then
+			plugin:Activate(true)
+		end
 		delayToNextFrame(function()
 			self.toolbarButton:SetActive(true)
 			self.signals:get(Constants.SIGNAL_KEYS.PluginWindowFocused):Fire()

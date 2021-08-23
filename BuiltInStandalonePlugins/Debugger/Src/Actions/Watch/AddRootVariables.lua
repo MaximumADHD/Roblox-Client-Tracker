@@ -18,6 +18,7 @@ export type Props = {
 return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, newVars : {VariableRow.VariableRow}) : Props
 	local tokenizedLists = {}
 	local newVarsMapping = {}
+
 	for index, variableRow in ipairs(newVars) do
 		table.insert(tokenizedLists, variableRow.pathColumn)
 		newVarsMapping[variableRow.pathColumn] = variableRow

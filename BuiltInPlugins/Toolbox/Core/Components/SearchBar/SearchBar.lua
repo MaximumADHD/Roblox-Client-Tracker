@@ -15,17 +15,21 @@
 			or clicks the search button
 		callback onTextChanged(string text) : callback for when the text was changed
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local RoundButton = require(Plugin.Core.Components.RoundButton)
 local SearchBarButtons = require(Plugin.Core.Components.SearchBar.SearchBarButtons)
@@ -143,128 +147,147 @@ function SearchBar:onFocusLost(enterPressed)
 end
 
 function SearchBar:render()
-	return withTheme(function(theme)
-		return withLocalization(function(localization, localizedContent)
-			local props = self.props
-			local state = self.state
+    if FFlagToolboxRemoveWithThemes then
+        return withLocalization(function(localization, localizedContent)
+            return self:renderContent(nil, localization, localizedContent)
+        end)
+    else
+        return withTheme(function(theme)
+            return withLocalization(function(localization, localizedContent)
+                return self:renderContent(theme, localization, localizedContent)
+            end)
+        end)
+    end
+end
 
-			local containerWidth = props.width
-			local layoutOrder = props.LayoutOrder or 0
+function SearchBar:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-			local text = state.text
+	local containerWidth = props.width
+	local layoutOrder = props.LayoutOrder or 0
 
-			local isFocused = state.isFocused
-			local isContainerHovered = state.isContainerHovered
+	local text = state.text
 
-			local showClearButton = #text > 0
-			local showSearchButton = self.props.showSearchButton
+	local isFocused = state.isFocused
+	local isContainerHovered = state.isContainerHovered
 
-			local isLive = props.IsLive
+	local showClearButton = #text > 0
+	local showSearchButton = self.props.showSearchButton
 
-			--[[
-			By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
-			(unless you set properties like ClipDescendants, TextWrapped)
-			Elsewhere, text boxes shift their contents to the left as you're typing past the bounds
-			So what you're typing is on the screen
+	local isLive = props.IsLive
 
-			This is implemented here by:
-			- Set ClipsDescendants = true on the container
-			- Get the width of the container, subtracting any padding and the width of the button on the right
-			- Get the width of the text being rendered (this is calculated in the Roact.Change.Text event)
-			- If the text is shorter than the parent, then:
-				- Anchor the text label to the left side of the parent
-				- Set its width = container width
-			- Else
-				- Anchor the text label to the right side of the parent
-				- Sets its width = text width (with AnchorPoint = (1, 0), this grows to the left)
-			]]
+	--[[
+	By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
+	(unless you set properties like ClipDescendants, TextWrapped)
+	Elsewhere, text boxes shift their contents to the left as you're typing past the bounds
+	So what you're typing is on the screen
 
-			local innerPadding = 10
+	This is implemented here by:
+	- Set ClipsDescendants = true on the container
+	- Get the width of the container, subtracting any padding and the width of the button on the right
+	- Get the width of the text being rendered (this is calculated in the Roact.Change.Text event)
+	- If the text is shorter than the parent, then:
+		- Anchor the text label to the left side of the parent
+		- Set its width = container width
+	- Else
+		- Anchor the text label to the right side of the parent
+		- Sets its width = text width (with AnchorPoint = (1, 0), this grows to the left)
+	]]
 
-			local buttonsWidth = showSearchButton and (2 * Constants.SEARCH_BAR_BUTTON_WIDTH) + 1
-				or Constants.SEARCH_BAR_BUTTON_WIDTH
-			-- Let the text box get closer to the buttons
-			local adjustedButtonsWidth = buttonsWidth - 6
+	local innerPadding = 10
 
-			local parentWidth = containerWidth - adjustedButtonsWidth - (2 * innerPadding)
+	local buttonsWidth = showSearchButton and (2 * Constants.SEARCH_BAR_BUTTON_WIDTH) + 1
+		or Constants.SEARCH_BAR_BUTTON_WIDTH
+	-- Let the text box get closer to the buttons
+	local adjustedButtonsWidth = buttonsWidth - 6
 
-			local textWidth = Constants.getTextSize(text).x
-			local isShorterThanParent = textWidth < parentWidth
+	local parentWidth = containerWidth - adjustedButtonsWidth - (2 * innerPadding)
 
-			local searchBarTheme = theme.searchBar
-			local borderColor
-			if isFocused then
-				borderColor = searchBarTheme.borderSelectedColor
-			elseif isContainerHovered then
-				borderColor = searchBarTheme.borderHoveredColor
-			else
-				borderColor = searchBarTheme.borderColor
-			end
+	local textWidth = Constants.getTextSize(text).x
+	local isShorterThanParent = textWidth < parentWidth
 
-			local defaultTextKey = self.props.defaultTextKey or "SearchBarDefaultText"
+	local searchBarTheme = theme.searchBar
+	local borderColor
+	if isFocused then
+		borderColor = searchBarTheme.borderSelectedColor
+	elseif isContainerHovered then
+		borderColor = searchBarTheme.borderHoveredColor
+	else
+		borderColor = searchBarTheme.borderColor
+	end
 
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(0, containerWidth, 1, 0),
+	local defaultTextKey = self.props.defaultTextKey or "SearchBarDefaultText"
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(0, containerWidth, 1, 0),
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+	}, {
+		Background = Roact.createElement(RoundButton, {
+			Position = UDim2.new(0, -1, 0, -1),
+			Size = UDim2.new(1, 2, 1, 2),
+
+			BorderColor3 = borderColor,
+			ClipsDescendants = true,
+
+			BackgroundColor3 = isLive and searchBarTheme.liveBackgroundColor or searchBarTheme.backgroundColor,
+
+			[Roact.Event.MouseEnter] = self.onContainerHovered,
+			[Roact.Event.MouseMoved] = self.onContainerHovered,
+			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
+			[Roact.Event.MouseButton1Down] = self.onBackgroundClicked,
+			[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
+		}, {
+			-- Parent the text box to another frame to make the logic for calculating position with the padding easier
+			TextContainer = Roact.createElement("Frame", {
+				Position = UDim2.new(0, innerPadding, 0, 0),
+				Size = UDim2.new(1, -(adjustedButtonsWidth + (innerPadding * 2)), 1, 0),
 				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
+				ZIndex = 2,
 			}, {
-				Background = Roact.createElement(RoundButton, {
-					Position = UDim2.new(0, -1, 0, -1),
-					Size = UDim2.new(1, 2, 1, 2),
-
-					BorderColor3 = borderColor,
+				TextBox = Roact.createElement("TextBox", {
+					LayoutOrder = 1,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 1,
 					ClipsDescendants = true,
 
-					BackgroundColor3 = isLive and searchBarTheme.liveBackgroundColor or searchBarTheme.backgroundColor,
+					ClearTextOnFocus = false,
+					Font = Constants.FONT,
+					TextSize = Constants.FONT_SIZE_MEDIUM,
+					TextXAlignment = isShorterThanParent and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right,
+					TextColor3 = searchBarTheme.textColor,
+					Text = text,
 
-					[Roact.Event.MouseEnter] = self.onContainerHovered,
-					[Roact.Event.MouseMoved] = self.onContainerHovered,
-					[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
-					[Roact.Event.MouseButton1Down] = self.onBackgroundClicked,
-					[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
-				}, {
-					-- Parent the text box to another frame to make the logic for calculating position with the padding easier
-					TextContainer = Roact.createElement("Frame", {
-						Position = UDim2.new(0, innerPadding, 0, 0),
-						Size = UDim2.new(1, -(adjustedButtonsWidth + (innerPadding * 2)), 1, 0),
-						BackgroundTransparency = 1,
-						ZIndex = 2,
-					}, {
-						TextBox = Roact.createElement("TextBox", {
-							LayoutOrder = 1,
-							Size = UDim2.new(1, 0, 1, 0),
-							BackgroundTransparency = 1,
-							ClipsDescendants = true,
+					PlaceholderText = localizedContent[defaultTextKey],
+					PlaceholderColor3 = searchBarTheme.placeholderTextColor,
 
-							ClearTextOnFocus = false,
-							Font = Constants.FONT,
-							TextSize = Constants.FONT_SIZE_MEDIUM,
-							TextXAlignment = isShorterThanParent and Enum.TextXAlignment.Left or Enum.TextXAlignment.Right,
-							TextColor3 = searchBarTheme.textColor,
-							Text = text,
+					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+					[Roact.Ref] = self.textBoxRef,
 
-							PlaceholderText = localizedContent[defaultTextKey],
-							PlaceholderColor3 = searchBarTheme.placeholderTextColor,
-
-							-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
-							[Roact.Ref] = self.textBoxRef,
-
-							[Roact.Change.Text] = self.onTextChanged,
-							[Roact.Event.Focused] = self.onTextBoxFocused,
-							[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-						}),
-					}),
-
-					Buttons = Roact.createElement(SearchBarButtons, {
-						showClearButton = showClearButton,
-						showSearchButton = showSearchButton,
-						onClearButtonClicked = self.onClearButtonClicked,
-						onSearchButtonClicked = self.requestSearch,
-					})
+					[Roact.Change.Text] = self.onTextChanged,
+					[Roact.Event.Focused] = self.onTextBoxFocused,
+					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
 				}),
+			}),
+
+			Buttons = Roact.createElement(SearchBarButtons, {
+				showClearButton = showClearButton,
+				showSearchButton = showSearchButton,
+				onClearButtonClicked = self.onClearButtonClicked,
+				onSearchButtonClicked = self.requestSearch,
 			})
-		end)
-	end)
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	SearchBar = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SearchBar)
 end
 
 return SearchBar

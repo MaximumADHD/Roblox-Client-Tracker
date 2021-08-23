@@ -7,8 +7,6 @@
 	NOTE - because this object creates an object with global state, it is inherently untestable.
 ]]
 
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -21,12 +19,14 @@ local dataStore = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 -- theme
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 local makeTheme
+local theme
 if THEME_REFACTOR then
 	makeTheme = require(Plugin.Src.Resources.makeTheme2)
+	theme = makeTheme
 else
 	makeTheme = require(Plugin.Src.Resources.makeTheme)
+	theme = makeTheme()
 end
-local theme = makeTheme()
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
@@ -49,11 +49,8 @@ local api = Http.API.new({
 	}),
 })
 
-local analytics
-if FFlagPluginManagementAnalytics then
-	local getAnalyticsContextItem = require(Plugin.Src.Util.getAnalyticsContextItem)
-	analytics = getAnalyticsContextItem()
-end
+local getAnalyticsContextItem = require(Plugin.Src.Util.getAnalyticsContextItem)
+local analytics = getAnalyticsContextItem()
 
 local globals
 

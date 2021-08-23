@@ -9,6 +9,7 @@ local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
+local IconButton = UI.IconButton
 local Button = UI.Button
 local Pane = UI.Pane
 local Table = UI.Table
@@ -61,12 +62,10 @@ function BreakpointsTable:render()
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		},{
-			ButtonPlaceholderA = Roact.createElement(Button, {
-				Text = "A",
-				TextSize = style.TextSize,
+			GoToScriptButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				Style = "Round",
 				LayoutOrder = 1,
+				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/go_to_script@2x.png",
 				OnClick = function() end,
 			}),
 			ButtonPlaceholderB = Roact.createElement(Button, {

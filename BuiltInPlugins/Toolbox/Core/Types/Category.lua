@@ -9,7 +9,6 @@ local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupIn
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
-local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)

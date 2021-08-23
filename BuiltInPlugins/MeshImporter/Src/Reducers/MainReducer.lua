@@ -37,6 +37,9 @@ local MainReducer = Rodux.createReducer(initialState, {
 	[SetAssetSettings.name] = function(state: Store, action: SetAssetSettings.Props)
 		return Cryo.Dictionary.join(state, {
 			assetSettings = action.assetSettings,
+			settingsExpansion = Cryo.Dictionary.join(state.settingsExpansion, {
+				[action.assetSettings] = true,
+			})
 		})
 	end,
 	[SetFilename.name] = function(state: Store, action: SetFilename.Props)

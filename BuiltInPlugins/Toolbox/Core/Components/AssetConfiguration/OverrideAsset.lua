@@ -14,6 +14,7 @@
 	LayoutOrder, number, will used by the layouter to override the position.
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -21,6 +22,7 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local UILibrary = require(Libs.UILibrary)
+local Framework = require(Libs.Framework)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local OverrideAssetView = require(AssetConfiguration.OverrideAssetView)
@@ -46,6 +48,8 @@ end
 
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -119,157 +123,168 @@ function OverrideAsset:didMount()
 	self.props.getManageableGroups(getNetwork(self))
 end
 
-
 function OverrideAsset:render()
-	return withTheme(function(theme)
-		return withLocalization(function(_, localizedContent)
-			local props = self.props
-			local state = self.state
-			local assetConfigTheme = theme.assetConfig
+	if FFlagToolboxRemoveWithThemes then
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent)
+		end)
+	else
+		return withTheme(function(theme)
+			return withLocalization(function(localization, localizedContent)
+				return self:renderContent(theme, localization, localizedContent)
+			end)
+		end)
+	end
+end
 
-			local LayoutOrder = props.LayoutOrder
-			local Size = props.Size
+function OverrideAsset:renderContent(theme, localization, localizedContent)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+	local assetConfigTheme = theme.assetConfig
 
-			local assetTypeEnum = props.assetTypeEnum
-			local instances = props.instances
-			local onOverrideAssetSelected = props.onOverrideAssetSelected
+	local LayoutOrder = props.LayoutOrder
+	local Size = props.Size
 
-			local resultsArray = props.resultsArray
+	local assetTypeEnum = props.assetTypeEnum
+	local instances = props.instances
+	local onOverrideAssetSelected = props.onOverrideAssetSelected
+	local resultsArray = props.resultsArray
 
-			local selectIndex = state.selectIndex
+	local selectIndex = state.selectIndex
 
-			self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
+	self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(props.manageableGroups, localizedContent)
 
-			local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
-			local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
+	local useNewAnimFlow = assetTypeEnum == Enum.AssetType.Animation
+	local isDownloadFlow = useNewAnimFlow and AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW == props.screenFlowType
 
-			local textboxText = state.filterID
-			local textOverMaxCount = false
-			if FFlagToolboxReplaceUILibraryComponentsPt2 and textboxText then
-				local textLength = utf8.len(textboxText)
-				textOverMaxCount = textLength > MAX_COUNT
-			end
+	local textboxText = state.filterID
+	local textOverMaxCount = false
+	if FFlagToolboxReplaceUILibraryComponentsPt2 and textboxText then
+		local textLength = utf8.len(textboxText)
+		textOverMaxCount = textLength > MAX_COUNT
+	end
 
-			return Roact.createElement("Frame", {
-				Size = Size,
+	return Roact.createElement("Frame", {
+		Size = Size,
 
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = LayoutOrder
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, 46),
+			PaddingLeft = UDim.new(0, 24),
+			PaddingRight = UDim.new(0, 24),
+			PaddingTop = UDim.new(0, 46),
+		}),
+
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Top,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 20),
+		}),
+
+		Title = Roact.createElement("TextLabel", {
+			Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
+
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+
+			Text = isDownloadFlow and localizedContent.AssetConfig.Import.Title or localizedContent.AssetConfig.Override.Title,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_LARGE,
+			TextColor3 = assetConfigTheme.textColor,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
+
+			LayoutOrder = 1,
+		}),
+
+		DropdownAndAnimationIdContainer = useNewAnimFlow and Roact.createElement("Frame", {
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+			Size = UDim2.new(1, -PADDING, 0, DROPDOWN_HEIGHT),
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, PADDING),
+			}),
+
+			DropdownMenu = Roact.createElement(DropdownMenu, {
+				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, DROPDOWN_HEIGHT),
+
+				selectedDropDownIndex = selectIndex,
+				rowHeight = DROPDOWN_HEIGHT,
+
+				items = self.dropdownContent,
+				onItemClicked = self.onDropDownSelect,
+
+				LayoutOrder = 1,
+			}),
+
+			AnimationIdFilter = (not isDownloadFlow) and Roact.createElement("Frame", {
+				Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-
-				LayoutOrder = LayoutOrder
+				LayoutOrder = 2,
 			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, 46),
-					PaddingLeft = UDim.new(0, 24),
-					PaddingRight = UDim.new(0, 24),
-					PaddingTop = UDim.new(0, 46),
-				}),
-
-				UIListLayout = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Vertical,
-					HorizontalAlignment = Enum.HorizontalAlignment.Left,
-					VerticalAlignment = Enum.VerticalAlignment.Top,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					Padding = UDim.new(0, 20),
-				}),
-
-				Title = Roact.createElement("TextLabel", {
-					Size = UDim2.new(1, 0, 0, TITLE_HEIGHT),
-
-					BackgroundTransparency = 1,
-					BorderSizePixel = 0,
-
-					Text = isDownloadFlow and localizedContent.AssetConfig.Import.Title or localizedContent.AssetConfig.Override.Title,
+				TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
+					OnTextChanged = self.onFilterIDChanged,
+					PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
+					Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
+					Style = textOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
+					Text = textboxText,
+				})
+				or Roact.createElement(RoundTextBox, {
+					Active = true,
+					ErrorMessage = nil,
+					MaxLength = MAX_COUNT,
+					Text = state.filterID,
+					PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
 					Font = Constants.FONT,
 					TextSize = Constants.FONT_SIZE_LARGE,
-					TextColor3 = assetConfigTheme.textColor,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					TextYAlignment = Enum.TextYAlignment.Center,
-
-					LayoutOrder = 1,
-				}),
-
-				DropdownAndAnimationIdContainer = useNewAnimFlow and Roact.createElement("Frame", {
-					LayoutOrder = 2,
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, -PADDING, 0, DROPDOWN_HEIGHT),
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, PADDING),
-					}),
-
-					DropdownMenu = Roact.createElement(DropdownMenu, {
-						Size = UDim2.new(0, DROPDOWN_WIDTH, 0, DROPDOWN_HEIGHT),
-
-						selectedDropDownIndex = selectIndex,
-						rowHeight = DROPDOWN_HEIGHT,
-
-						items = self.dropdownContent,
-						onItemClicked = self.onDropDownSelect,
-
-						LayoutOrder = 1,
-					}),
-
-					AnimationIdFilter = (not isDownloadFlow) and Roact.createElement("Frame", {
-						Size = UDim2.new(1, -DROPDOWN_WIDTH, 0, FILTER_HEIGHT),
-						BackgroundTransparency = 1,
-						BorderSizePixel = 0,
-						LayoutOrder = 2,
-					}, {
-						TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
-							OnTextChanged = self.onFilterIDChanged,
-							PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
-							Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
-							Style = textOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
-							Text = textboxText,
-						})
-						or Roact.createElement(RoundTextBox, {
-							Active = true,
-							ErrorMessage = nil,
-							MaxLength = MAX_COUNT,
-							Text = state.filterID,
-							PlaceholderText = localizedContent.AssetConfig.Override.FilterID,
-							Font = Constants.FONT,
-							TextSize = Constants.FONT_SIZE_LARGE,
-							Height = FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
-							WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
-							SetText = self.onFilterIDChanged,
-							ShowToolTip = false,
-						})
-					}),
-				}),
-
-				DropdownMenu = not useNewAnimFlow and Roact.createElement(DropdownMenu, {
-					Size = UDim2.new(0, 336, 0, 40),
-
-					selectedDropDownIndex = selectIndex,
-					rowHeight = 40,
-
-					items = self.dropdownContent,
-					onItemClicked = self.onDropDownSelect,
-
-					LayoutOrder = 2,
-				}),
-
-				ScrollingItems = Roact.createElement(OverrideAssetView, {
-					Size = UDim2.new(1, 0, 1, - TITLE_HEIGHT - 40),
-
-					assetTypeEnum = assetTypeEnum,
-					instances = instances,
-					resultsArray = resultsArray,
-					onOverrideAssetSelected = onOverrideAssetSelected,
-					getOverrideAssets = self.getOverrideAssetsFunc,
-					filterID = state.filterID,
-
-					LayoutOrder = 3,
+					Height = FILTER_HEIGHT - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
+					WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
+					SetText = self.onFilterIDChanged,
+					ShowToolTip = false,
 				})
-			})
-		end)
-	end)
+			}),
+		}),
+
+		DropdownMenu = not useNewAnimFlow and Roact.createElement(DropdownMenu, {
+			Size = UDim2.new(0, 336, 0, 40),
+
+			selectedDropDownIndex = selectIndex,
+			rowHeight = 40,
+
+			items = self.dropdownContent,
+			onItemClicked = self.onDropDownSelect,
+
+			LayoutOrder = 2,
+		}),
+
+		ScrollingItems = Roact.createElement(OverrideAssetView, {
+			Size = UDim2.new(1, 0, 1, - TITLE_HEIGHT - 40),
+
+			assetTypeEnum = assetTypeEnum,
+			instances = instances,
+			resultsArray = resultsArray,
+			onOverrideAssetSelected = onOverrideAssetSelected,
+			getOverrideAssets = self.getOverrideAssetsFunc,
+			filterID = state.filterID,
+
+			LayoutOrder = 3,
+		})
+	})
 end
 
 local function mapStateToProps(state, props)
@@ -301,6 +316,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(UpdateAssetConfigStore(storeData))
 		end,
 	}
+end
+
+if FFlagToolboxRemoveWithThemes then
+	OverrideAsset = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(OverrideAsset)
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(OverrideAsset)

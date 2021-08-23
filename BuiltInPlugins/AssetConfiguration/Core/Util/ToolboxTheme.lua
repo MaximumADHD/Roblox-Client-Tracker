@@ -233,7 +233,7 @@ function ToolboxTheme:_recalculateTheme()
 				textColor = color(c.SubText),
 			},
 
-			voting = {
+			voting = (not FFlagToolboxRemoveWithThemes) and {
 				textColor = color(c.SubText),
 
 				upVotes = Color3.fromRGB(82, 168, 70),
@@ -282,7 +282,7 @@ function ToolboxTheme:_recalculateTheme()
 			textColor = color(c.MainText),
 		},
 
-		scrollingFrame = {
+		scrollingFrame = (not FFlagToolboxRemoveWithThemes) and {
 			-- TODO CLIDEVSRVS-1690: Scrollbar colour.
 			-- Using semantic names means background too dark in light theme and bar invisible to see in dark theme.
 			scrollbarBackgroundColor = isDark and Color3.fromRGB(41, 41, 41) or Color3.fromRGB(245, 245, 245),
@@ -293,7 +293,7 @@ function ToolboxTheme:_recalculateTheme()
 			labelTextColor = color(c.MainText),
 		},
 
-		suggestionsComponent = {
+		suggestionsComponent = (not FFlagToolboxRemoveWithThemes) and {
 			labelTextColor = color(c.MainText),
 			textColor = color(c.SubText),
 			textHoveredColor = color(c.LinkText),
@@ -302,7 +302,7 @@ function ToolboxTheme:_recalculateTheme()
 
 		-- TODO: Look at adding this to flag off case
 		-- In case improvements flag is on but themes get turned off
-		messageBox = {
+		messageBox = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = color(c.MainBackground),
 			textColor = color(c.MainText),
 			informativeTextColor = color(c.SubText),
@@ -317,7 +317,7 @@ function ToolboxTheme:_recalculateTheme()
 			}
 		},
 
-		searchTag = {
+		searchTag = (not FFlagToolboxRemoveWithThemes) and {
 			backgroundColor = isDark and color(c.ScrollBar) or color(c.GameSettingsTableItem),
 			borderColor = color(c.Border),
 			textColor = color(c.MainText),
@@ -415,7 +415,7 @@ function ToolboxTheme:_recalculateTheme()
 			}
 		},
 
-		searchOptions = {
+		searchOptions = (not FFlagToolboxRemoveWithThemes) and {
 			background = color(c.MainBackground),
 			headerTextColor = color(c.MainText),
 			imageColor = Colors.GRAY_2,
@@ -631,7 +631,7 @@ function ToolboxTheme:_recalculateTheme()
 				textSize = Constants.FONT_SIZE_SMALL,
 			},
 
-			searchBar = {
+			searchBar = (not FFlagToolboxRemoveWithThemes) and {
 				backgroundColor = color(c.Dropdown),
 				border = {
 					selected = {

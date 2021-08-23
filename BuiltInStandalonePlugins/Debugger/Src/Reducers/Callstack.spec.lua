@@ -28,9 +28,9 @@ return function()
 
 			local testInfo = {
 				frameColumn = "a",
-				whatColumn = "b",
-				functionNameColumn = "c",
-				lineNumberColumn = "d",
+				layerColumn = "b",
+				functionColumn = "c",
+				lineColumn = "d",
 				sourceColumn = "e",
 			}
 			local prepState = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken))
@@ -39,9 +39,9 @@ return function()
 			expect(state.stateTokenToCallstackVars).to.be.ok()
 			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadList).to.be.ok()
 			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].frameColumn).to.equal("a")
-			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].whatColumn).to.equal("b")
-			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].functionNameColumn).to.equal("c")
-			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].lineNumberColumn).to.equal("d")
+			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].layerColumn).to.equal("b")
+			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].functionColumn).to.equal("c")
+			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].lineColumn).to.equal("d")
 			expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[123].sourceColumn).to.equal("e")
 		end)
 
@@ -49,9 +49,9 @@ return function()
 			
 			local testInfo2 = {
 				frameColumn = "aa",
-				whatColumn = "b",
-				functionNameColumn = "c",
-				lineNumberColumn = "d",
+				layerColumn = "b",
+				functionColumn = "c",
+				lineColumn = "d",
 				sourceColumn = "e",
 			}
 			local previousState = {stateTokenToCallstackVars = {

@@ -9,7 +9,6 @@ local CheckboxTreeView = UI.CheckboxTreeView
 local TextLabel = UI.Decoration.TextLabel
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
-local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
 local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local ExampleCheckboxTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleCheckboxTreeView")
@@ -73,9 +72,9 @@ function ExampleCheckboxTreeView:init()
 end
 
 function ExampleCheckboxTreeView:render()
-	if not FFlagDevFrameworkTreeViewRow or not FFlagDevFrameworkCheckboxTreeView then
+	if not FFlagDevFrameworkTreeViewRow then
 		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow and FFlagDevFrameworkCheckboxTreeView to view this story",
+			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
 			AutomaticSize = Enum.AutomaticSize.XY,
 		})
 	end

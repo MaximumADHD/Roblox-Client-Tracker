@@ -8,6 +8,11 @@ local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNum
 local ResumedAction = require(Actions.Common.Resumed)
 local Step = require(Actions.Common.Step)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
+local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
+
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
 
 local DebuggerStateToken = require(Plugin.Src.Models.DebuggerStateToken)
 
@@ -20,11 +25,13 @@ type CommonStore = {
 	threadIdToCurrentFrameNumber : {[ThreadId] : FrameNumber}
 }
 
-return Rodux.createReducer({
+local productionStartStore = {
 	currentThreadId = -1,
 	threadIdToCurrentFrameNumber = {},
 	debuggerStateTokenHistory = {},
-}, {
+}
+
+return Rodux.createReducer(productionStartStore, {
 	[SetCurrentThreadAction.name] = function(state : CommonStore, action : SetCurrentThreadAction.Props)
 		return Cryo.Dictionary.join(state, {
 			currentThreadId = action.currentThreadId,
@@ -59,5 +66,18 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			debuggerStateTokenHistory = {[1] = action.debuggerStateToken}
 		})
+	end,
+
+	[AddThreadIdAction.name] = function(state : CallstackStore, action : AddThreadIdAction.Props)
+		local newState = {}
+		if (state.currentThreadId == -1) then
+			newState.currentThreadId = action.threadId
+		else
+			newState.currentThreadId = state.currentThreadId
+		end
+		newState.threadIdToCurrentFrameNumber = deepCopy(state.threadIdToCurrentFrameNumber)
+		newState.threadIdToCurrentFrameNumber[action.threadId] = 1
+
+		return Cryo.Dictionary.join(state, newState)
 	end,
 })

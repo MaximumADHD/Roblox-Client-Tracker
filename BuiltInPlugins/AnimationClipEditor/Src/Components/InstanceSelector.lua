@@ -30,6 +30,7 @@ local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
 
 local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
+local GetFFlagUseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
@@ -105,8 +106,10 @@ function InstanceSelector:init()
 
 	self.deselect = function()
 		Selection:Set({})
-		if not GetFFlagRevertExplorerSelection() then
-			SetSelectedTrackInstances({})
+		if (not GetFFlagRevertExplorerSelection()) or GetFFlagUseLuaDraggers() then
+			self.props.SetSelectedTrackInstances({})
+
+			self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 		end
 	end
 
@@ -153,21 +156,21 @@ function InstanceSelector:init()
 						-- if a part of the rig is deleted, delete the track and disable the draggers
 						if descendant:IsA("BasePart") then
 							self.props.DeleteTrack(descendant.Name, self.props.Analytics)
-							SetSelectedTrackInstances({})
+							self.props.SetSelectedTrackInstances({})
 							selectionSignal:Fire()
 						end
 						-- if a motor6d is deleted, delete the track and disable the draggers on the respective part
 						if descendant:IsA("Motor6D") then
 							local part = descendant.Parent
 							self.props.DeleteTrack(part.Name, self.props.Analytics)
-							SetSelectedTrackInstances({})
+							self.props.SetSelectedTrackInstances({})
 							selectionSignal:Fire()
 						end
 					end)
 
 					-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
 					self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
-						SetSelectedTrackInstances({})
+						self.props.SetSelectedTrackInstances({})
 						selectionSignal:Fire()
 						for _, track in ipairs(self.props.Tracks) do
 							self.props.DeleteTrack(track.Name, self.props.Analytics)
@@ -185,10 +188,10 @@ function InstanceSelector:init()
 		-- if the user clicks on a part in the hierarchy, it gets selected and the draggers switch to it. otherwise we deselect the previously selected part
 		elseif not GetFFlagRevertExplorerSelection() and Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
 			if selectedInstance:IsA("BasePart") then
-				SetSelectedTrackInstances(selectedInstance)
+				self.props.SetSelectedTrackInstances(selectedInstance)
 				selectionSignal:Fire()
 			else
-				SetSelectedTrackInstances({})
+				self.props.SetSelectedTrackInstances({})
 				selectionSignal:Fire()
 			end
 		end
@@ -206,7 +209,7 @@ function InstanceSelector:didMount()
 		plugin:get():Activate(true)
 
 		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
-			if GetFFlagRevertExplorerSelection() then
+			if GetFFlagRevertExplorerSelection() and not GetFFlagUseLuaDraggers() then
 				self:selectValidInstance(self.selectInstance, self.deselect)
 			else
 				self:selectValidInstance(self.selectInstance)

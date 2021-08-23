@@ -16,9 +16,9 @@ return {
 				Size = UDim2.new(0, 200, 0, 100),
 				Style = "FilledRoundedBorder",
 				TextInputProps = {
+					OnTextChanged = function() print("OnTextChanged") end,
 					Text = longText,
 				},
-				OnTextChanged = function() print("OnTextChanged") end,
 			})
 		},
 		{
@@ -28,9 +28,9 @@ return {
 				Size = UDim2.new(0, 200, 0, 100),
 				Style = "FilledRoundedRedBorder",
 				TextInputProps = {
+					OnTextChanged = function() print("OnTextChanged") end,
 					Text = longText,
 				},
-				OnTextChanged = function() print("OnTextChanged") end,
 			})
 		},
 	}

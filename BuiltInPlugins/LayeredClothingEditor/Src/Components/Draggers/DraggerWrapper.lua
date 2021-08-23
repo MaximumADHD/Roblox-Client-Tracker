@@ -23,6 +23,8 @@ local TransformLatticePoints = require(Plugin.Src.Thunks.TransformLatticePoints)
 local AddWaypoint = require(Plugin.Src.Thunks.AddWaypoint)
 local SetHovered = require(Plugin.Src.Actions.SetHovered)
 local SetDraggerType = require(Plugin.Src.Actions.SetDraggerType)
+local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
+local SetControlsPanelBlockerMessage = require(Plugin.Src.Actions.SetControlsPanelBlockerMessage)
 local SelectRbfPoint = require(Plugin.Src.Thunks.SelectRbfPoint)
 local SetSelectedControlPoints = require(Plugin.Src.Actions.SetSelectedControlPoints)
 local CycleHandles = require(Plugin.Src.Thunks.CycleHandles)
@@ -122,9 +124,17 @@ function DraggerWrapper:didMount()
 
 	self.deactivationListener = plugin.Deactivation:Connect(function()
 		local tool = plugin:GetSelectedRibbonTool()
-		if tool ~= Enum.RibbonTool.None and next(game:GetService("Selection"):Get()) == nil then
-			if self.onToolSelected(tool) then
-				return
+		if tool ~= Enum.RibbonTool.None then
+			if next(game:GetService("Selection"):Get()) == nil then
+				if self.onToolSelected(tool) then
+					return
+				end
+			else
+				self.props.SelectRbfPoint({})
+				self.props.SetSelectedControlPoints({})
+				selectionSignal:Fire()
+				self.props.SetControlsPanelBlockerMessage(self.props.Localization:getText("Editor", "ResumeEditing"))
+				self.props.SetControlsPanelBlockerActivity(true)
 			end
 		end
 	end)
@@ -280,6 +290,14 @@ local function mapDispatchToProps(dispatch)
 		Redo = function()
 			dispatch(Redo())
 		end,
+
+		SetControlsPanelBlockerActivity = function(isActive)
+			dispatch(SetControlsPanelBlockerActivity(isActive))
+		end,
+
+		SetControlsPanelBlockerMessage = function(message)
+			dispatch(SetControlsPanelBlockerMessage(message))
+		end,
 	}
 end
 
@@ -287,6 +305,7 @@ if FFlagLayeredClothingEditorWithContext then
 	DraggerWrapper = withContext({
 		Plugin = ContextServices.Plugin,
 		PluginActions = ContextServices.PluginActions,
+		Localization = ContextServices.Localization,
 		Signals = SignalsContext,
 		EditingItemContext = EditingItemContext,
 		Mouse = ContextServices.Mouse,
@@ -295,6 +314,7 @@ else
 	ContextServices.mapToProps(DraggerWrapper,{
 		Plugin = ContextServices.Plugin,
 		PluginActions = ContextServices.PluginActions,
+		Localization = ContextServices.Localization,
 		Signals = SignalsContext,
 		EditingItemContext = EditingItemContext,
 		Mouse = ContextServices.Mouse,

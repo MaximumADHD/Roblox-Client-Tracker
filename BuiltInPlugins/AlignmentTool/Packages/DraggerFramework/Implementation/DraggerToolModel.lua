@@ -13,6 +13,7 @@ local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
+local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -116,6 +117,9 @@ function DraggerToolModel:transitionToState(draggerStateType, ...)
 	self._mainState = draggerStateType
 	self._stateObject = DraggerState[draggerStateType].new(self, ...)
 	self._stateObject:enter()
+	if getFFlagBoxSelectNoPivot() then
+		self:_updatePivotIndicatorVisibility()
+	end
 	self:_scheduleRender()
 end
 
@@ -387,7 +391,7 @@ end
 
 function DraggerToolModel:_updatePivotIndicatorVisibility()
 	if self._modelProps.ShowPivotIndicator then
-		if #self._selectionWrapper:get() > 1 then
+		if (getFFlagBoxSelectNoPivot() and self._mainState == DraggerStateType.DragSelecting) or #self._selectionWrapper:get() > 1 then
 			self._draggerContext:setPivotIndicator(self._oldShowPivot)
 		else
 			self._draggerContext:setPivotIndicator(true)

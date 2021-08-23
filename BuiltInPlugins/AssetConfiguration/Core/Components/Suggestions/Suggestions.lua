@@ -10,40 +10,58 @@
 
 		callback onSuggestionSelected(number index)
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
+if FFlagToolboxRemoveUnusedSuggestionsFeature then
+	return {}
+end
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Layouter = require(Plugin.Core.Util.Layouter)
 
 local withTheme = ContextHelper.withTheme
 
-local function Suggestions(props)
-	return withTheme(function(theme)
-		local position = props.Position or UDim2.new(0, 0, 0, 0)
-		local size = props.Size or UDim2.new(1, 0, 1, 0)
-		local zindex = props.ZIndex or 1
+local function renderContent(props, theme)
+	local position = props.Position or UDim2.new(0, 0, 0, 0)
+	local size = props.Size or UDim2.new(1, 0, 1, 0)
+	local zindex = props.ZIndex or 1
 
-		local initialText = props.initialText
-		local suggestions = props.suggestions
-		local maxWidth = props.maxWidth
-		local onSuggestionSelected = props.onSuggestionSelected
+	local initialText = props.initialText
+	local suggestions = props.suggestions
+	local maxWidth = props.maxWidth
+	local onSuggestionSelected = props.onSuggestionSelected
 
-		local rows = Layouter.layoutSuggestions(initialText,
-			suggestions,
-			maxWidth,
-			onSuggestionSelected)
+	local rows = Layouter.layoutSuggestions(initialText,
+		suggestions,
+		maxWidth,
+		onSuggestionSelected)
 
-		return Roact.createElement("Frame", {
-			Position = position,
-			Size = size,
-			ZIndex = zindex,
-			BackgroundTransparency = 1,
-		}, rows)
-	end)
+	return Roact.createElement("Frame", {
+		Position = position,
+		Size = size,
+		ZIndex = zindex,
+		BackgroundTransparency = 1,
+	}, rows)
 end
 
-return Suggestions
+if FFlagToolboxRemoveWithThemes then
+	local Suggestions = Roact.PureComponent:extend("Suggestions")
+
+	function Suggestions:render()
+		return renderContent(self.props, nil)
+	end
+
+	return Suggestions
+else
+	local function Suggestions(props)
+		return withTheme(function(theme)
+			return renderContent(props, theme)
+		end)
+	end
+
+	return Suggestions
+end

@@ -12,6 +12,7 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -51,120 +52,134 @@ function VersionItem:init(props)
 end
 
 function VersionItem:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local versionsTheme = theme.versions
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local ItemInfo = props.ItemInfo or {}
-		--[[ItemInfo = {
-			"assetId": 3200355923,
-			"assetVersionNumber": 1,
-			"creatorType": "User",
-			"creatorTargetId": 441049238,
-			"creatingUniverseId": null,
-			"created": "2019-05-20T17:38:14.2238915Z"
-		}]]
+function VersionItem:renderContent(theme)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		-- TODO: Change button style if it's current.
+	local versionsTheme = theme.versions
 
-		local IsCurrent = props.IsCurrent
-		local SelectVersion = props.SelectVersion
+	local ItemInfo = props.ItemInfo or {}
+	--[[ItemInfo = {
+		"assetId": 3200355923,
+		"assetVersionNumber": 1,
+		"creatorType": "User",
+		"creatorTargetId": 441049238,
+		"creatingUniverseId": null,
+		"created": "2019-05-20T17:38:14.2238915Z"
+	}]]
 
-		local buttonState
-		if IsCurrent then
-			buttonState = VERSION_ITEM_STATE.CURRENT
+	-- TODO: Change button style if it's current.
+
+	local IsCurrent = props.IsCurrent
+	local SelectVersion = props.SelectVersion
+
+	local buttonState
+	if IsCurrent then
+		buttonState = VERSION_ITEM_STATE.CURRENT
+	else
+		if SelectVersion == ItemInfo.assetVersionNumber then
+			buttonState = VERSION_ITEM_STATE.SELECTED
 		else
-			if SelectVersion == ItemInfo.assetVersionNumber then
-				buttonState = VERSION_ITEM_STATE.SELECTED
-			else
-				buttonState = VERSION_ITEM_STATE.DEFAULT
-			end
+			buttonState = VERSION_ITEM_STATE.DEFAULT
 		end
+	end
 
-		local thumbnailUrl = Urls.constructAssetThumbnailUrl(ItemInfo.assetId,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
+	local thumbnailUrl = Urls.constructAssetThumbnailUrl(ItemInfo.assetId,
+		Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
+		Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
 
-		local versionsTheme = theme.versions
-		-- The only difference between the current item and itemList in the
-		-- position and size of the divider.
-		return Roact.createElement("Frame", {
-			Size = props.Size,
+	local versionsTheme = theme.versions
+	-- The only difference between the current item and itemList in the
+	-- position and size of the divider.
+	return Roact.createElement("Frame", {
+		Size = props.Size,
+
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+
+		LayoutOrder = props.LayoutOrder,
+	}, {
+		Version = Roact.createElement("TextLabel", {
+			AnchorPoint = Vector2.new(0, 0.5),
+			Position = UDim2.new(0, 120, 0, 25),
+			Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
+
+			Text = "V" .. tostring(ItemInfo.assetVersionNumber),
+			TextColor3 = versionsTheme.textColor,
+			Font = Constants.FONT_BOLD,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
 
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
+		}),
 
-			LayoutOrder = props.LayoutOrder,
-		}, {
-			Version = Roact.createElement("TextLabel", {
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = UDim2.new(0, 120, 0, 25),
-				Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
+		LastChange = Roact.createElement("TextLabel", {
+			AnchorPoint = Vector2.new(0, 0),
+			Position = UDim2.new(0, 120, 0, 15 + IITEM_CONTENT_HEIGHT),
+			Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
 
-				Text = "V" .. tostring(ItemInfo.assetVersionNumber),
-				TextColor3 = versionsTheme.textColor,
-				Font = Constants.FONT_BOLD,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
+			Text = formatLocalDateTime(ItemInfo.created, "L LTS", self.props.Localization:getLocale()),
+			TextColor3 = versionsTheme.textColor,
+			Font = Constants.FONT,
+			TextSize = Constants.FONT_SIZE_MEDIUM,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Center,
 
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-			}),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+		}),
 
-			LastChange = Roact.createElement("TextLabel", {
-				AnchorPoint = Vector2.new(0, 0),
-				Position = UDim2.new(0, 120, 0, 15 + IITEM_CONTENT_HEIGHT),
-				Size = UDim2.new(1, -67, 0, IITEM_CONTENT_HEIGHT),
+		SelectButton = (buttonState ~= VERSION_ITEM_STATE.CURRENT) and Roact.createElement("ImageButton", {
+			AnchorPoint = Vector2.new(1, 0.5),
+			-- Better number in the future
+			Position = UDim2.new(1, -160, 0.5, 0),
+			Size = UDim2.new(0, 28, 0, 28),
 
-				Text = formatLocalDateTime(ItemInfo.created, "L LTS", self.props.Localization:getLocale()),
-				TextColor3 = versionsTheme.textColor,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_MEDIUM,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Center,
+			Image = Images.MAKE_CURRENT_VERSION,
+			BackgroundTransparency = 1,
+			ImageColor3 = buttonState == VERSION_ITEM_STATE.DEFAULT
+				and versionsTheme.buttonDefaultColor
+				or versionsTheme.buttonSelectedColor,
 
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-			}),
+			[Roact.Event.Activated] = function(rbx)
+				props.ItemClickCallBack(ItemInfo)
+			end,
 
-			SelectButton = (buttonState ~= VERSION_ITEM_STATE.CURRENT) and Roact.createElement("ImageButton", {
-				AnchorPoint = Vector2.new(1, 0.5),
-				-- Better number in the future
-				Position = UDim2.new(1, -160, 0.5, 0),
-				Size = UDim2.new(0, 28, 0, 28),
+			BorderSizePixel = 0,
+		}),
 
-				Image = Images.MAKE_CURRENT_VERSION,
-				BackgroundTransparency = 1,
-				ImageColor3 = buttonState == VERSION_ITEM_STATE.DEFAULT
-					and versionsTheme.buttonDefaultColor
-					or versionsTheme.buttonSelectedColor,
+		Divider = Roact.createElement(VersionDivider, {
+			AnchorPoint = props.DividerAnchorPoint,
+			Position = props.DividerPosition,
+			Size = props.DividerSize,
 
-				[Roact.Event.Activated] = function(rbx)
-					props.ItemClickCallBack(ItemInfo)
-				end,
-
-				BorderSizePixel = 0,
-			}),
-
-			Divider = Roact.createElement(VersionDivider, {
-				AnchorPoint = props.DividerAnchorPoint,
-				Position = props.DividerPosition,
-				Size = props.DividerSize,
-
-				BorderSizePixel = 0,
-			})
+			BorderSizePixel = 0,
 		})
-	end)
+	})
 end
 
 if FFlagToolboxWithContext then
 	VersionItem = withContext({
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(VersionItem)
 else
 	ContextServices.mapToProps(VersionItem, {
 		Localization = ContextServices.Localization,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

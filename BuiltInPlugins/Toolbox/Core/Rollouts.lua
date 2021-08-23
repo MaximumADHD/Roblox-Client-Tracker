@@ -10,4 +10,9 @@ function Rollouts:getToolboxEndpointMigration()
     return isUserIdInGradualRollout(getUserId(), rolloutPercentage)
 end
 
+function Rollouts:getMarketplaceAutocomplete()
+    local rolloutPercentage = tonumber(settings():GetFVariable("ToolboxMarketplaceAutocompleteRolloutPercentage"))
+    return isUserIdInGradualRollout(getUserId(), rolloutPercentage)
+end
+
 return Rollouts

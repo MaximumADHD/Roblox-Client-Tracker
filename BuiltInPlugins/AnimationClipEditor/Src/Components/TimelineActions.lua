@@ -66,7 +66,6 @@ local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local FFlagAddKeyframeAtScrubber = game:DefineFastFlag("AddKeyframeAtScrubber", false)
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
@@ -106,8 +105,7 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 	return {
 		Name = displayText,
 		Items = enumKey == "PoseEasingStyle" and EASING_STYLE_ORDER or Enum[enumKey]:GetEnumItems(),
-		CurrentItem = not GetFFlagRefactorMenus() and self:getSharedEasingValue(dataKey) or nil,
-		CurrentValue = GetFFlagRefactorMenus() and self:getSharedEasingValue(dataKey) or nil,
+		CurrentValue = self:getSharedEasingValue(dataKey),
 		ItemSelected = function(item)
 			props.OnItemSelected(dataKey, item)
 		end,

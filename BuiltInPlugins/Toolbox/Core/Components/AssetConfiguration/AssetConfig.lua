@@ -9,12 +9,12 @@
 local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
-local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
 local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local StudioService = game:GetService("StudioService")
@@ -708,262 +708,275 @@ local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, 
 end
 
 function AssetConfig:render()
-	return withTheme(function(theme)
+	if FFlagToolboxRemoveWithThemes then
 		return withModal(function(modalTarget)
 			return withLocalization(function(_, localizedContent)
-				local props = self.props
-				local state = self.state
-
-				local Size = props.Size
-
-				local currentTab = props.currentTab
-				local assetId = state.assetId or props.assetId
-				local name = state.name or ""
-				local description = state.description or ""
-				local tags = state.tags or {}
-				local owner = state.owner
-				local genres = state.genres
-				local allowCopy = state.allowCopy
-				local copyOn = state.copyOn
-				local allowComment = state.allowComment
-				local commentOn = state.commentOn
-				local newAssetStatus = state.status
-
-				local showGetAssetFailed
-				if FFlagShowAssetConfigReasons2 then
-					showGetAssetFailed = props.networkErrorAction[ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE]
-				else
-					showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
-				end
-				local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
-				local iconFile = state.iconFile
-
-				local assetTypeEnum = props.assetTypeEnum
-				local screenFlowType = props.screenFlowType
-				local changeTable = props.changeTable or {}
-				local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
-
-				local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
-
-				local minPrice, maxPrice, feeRate = AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum)
-
-				local price = state.price
-				local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
-				local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
-				local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
-				if props.isPackageAsset then
-					showCopy = false
-				end
-				local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
-				local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
-				-- And then we show price according to the sales status and if user is whitelisted.
-				local previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
-
-				local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
-
-				local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
-				local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
-				local tabItems = ConfigTypes:getAssetconfigContent(
-					screenFlowType,
-					assetTypeEnum,
-					isMarketBuyAndNonWhiteList,
-					self.props.isPackageAsset,
-					owner
-				)
-
-				local isLoading = self:isLoading()
-
-				local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
-					newAssetStatus, currentTab, screenFlowType, assetTypeEnum) and not isLoading
-
-				local packagePermissionsWidth
-				if FFlagToolboxReplaceUILibraryComponentsPt2 then
-					packagePermissionsWidth = -PREVIEW_WIDTH - Constants.SCROLLBAR_PADDING
-				else
-					packagePermissionsWidth = -PREVIEW_WIDTH
-				end
-				return Roact.createElement("Frame", {
-					Size = Size,
-
-					BackgroundTransparency = 0,
-					BackgroundColor3 = theme.assetConfig.backgroundColor,
-					BorderSizePixel = 0,
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Vertical,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						VerticalAlignment = Enum.VerticalAlignment.Bottom,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, 0),
-					}),
-
-					AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
-						getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)),
-
-					MainPage = Roact.createElement("Frame", {
-						Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
-
-						BackgroundTransparency = 1,
-
-						LayoutOrder = 1,
-					}, {
-						UIListLayout = Roact.createElement("UIListLayout", {
-							FillDirection = Enum.FillDirection.Horizontal,
-							HorizontalAlignment = Enum.HorizontalAlignment.Left,
-							VerticalAlignment = Enum.VerticalAlignment.Top,
-							SortOrder = Enum.SortOrder.LayoutOrder,
-							Padding = UDim.new(0, 0),
-						}),
-
-						Preview = Roact.createElement(PreviewArea, {
-							TotalWidth = PREVIEW_WIDTH,
-
-							TabItems = tabItems,
-
-							CurrentTab = currentTab,
-
-							PreviewType = previewType,
-							ScreenFlowType = screenFlowType,
-							AssetStatus = newAssetStatus,
-							AssetId = assetId,
-							IconFile = iconFile,
-							AssetTypeEnum = assetTypeEnum,
-
-							OnTabSelect = self.onTabSelect,
-							ChooseThumbnail = self.chooseThumbnail,
-
-							LayoutOrder = 1,
-						}),
-
-						VerticalLine = Roact.createElement("Frame", {
-							Size = UDim2.new(0 , 2, 1, 0),
-
-							BackgroundTransparency = 0,
-							BackgroundColor3 = theme.divider.verticalLineColor,
-							BorderSizePixel = 0,
-
-							LayoutOrder = 2,
-						}),
-
-						LoadingIndicatorWrapper = isLoading and Roact.createElement(Container, {
-							LayoutOrder = 3,
-							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-						}, {
-							LoadingIndicator = Roact.createElement(LoadingIndicator, {
-								Size = UDim2.new(0, 100, 0, 100),
-								AnchorPoint = Vector2.new(0.5, 0.5),
-								Position = UDim2.fromScale(0.5, 0.5),
-							})
-						}),
-
-						PublishAsset = not isLoading and
-							(ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
-								Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-								assetId = assetId,
-								name = name,
-								description = description,
-								tags = tags,
-								owner = owner,
-								genres = genres,
-								allowCopy = allowCopy,
-								copyOn = copyOn,
-								allowComment = allowComment,
-								commentOn = commentOn,
-
-								assetTypeEnum = assetTypeEnum,
-								onNameChange = self.onNameChange,
-								onDescChange = self.onDescChange,
-								onTagsChange = self.onTagsChange,
-								onOwnerSelected = self.onAccessChange,
-								onGenreSelected = self.onGenreChange,
-								toggleCopy = self.toggleCopy,
-								toggleComment = self.toggleComment,
-
-								displayOwnership = showOwnership,
-								displayGenre = showGenre,
-								displayCopy = showCopy,
-								displayComment = showComment,
-								displayAssetType = showAssetType,
-								displayTags = showTags,
-
-								maximumItemTagsPerItem = props.maximumItemTagsPerItem,
-
-								LayoutOrder = 3,
-							})),
-
-						Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
-							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-							assetId = assetId,
-
-							LayoutOrder = 3,
-						}),
-
-						Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(SalesPage, {
-							size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-							assetTypeEnum = props.assetTypeEnum,
-
-							allowedAssetTypesForRelease = allowedAssetTypesForRelease,
-							newAssetStatus = newAssetStatus,
-							currentAssetStatus = currentAssetStatus,
-							price = price,
-							minPrice = minPrice,
-							maxPrice = maxPrice,
-							feeRate = feeRate,
-							isPriceValid = isPriceValid,
-
-							onStatusChange = self.onStatusChange,
-							onPriceChange = self.onPriceChange,
-
-							layoutOrder = 3,
-						}),
-
-						OverrideAsset = ConfigTypes:isOverride(currentTab) and Roact.createElement(OverrideAsset, {
-							Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
-
-							assetTypeEnum = assetTypeEnum,
-							instances = props.instances,
-							onOverrideAssetSelected = self.onOverrideAssetSelected,
-
-							LayoutOrder = 3,
-						}),
-
-						PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
-							Size = UDim2.new(1, packagePermissionsWidth, 1, 0),
-
-							Owner = owner,
-							AssetId = assetId,
-
-							LayoutOrder = 3,
-						}),
-					}),
-
-					Footer = Roact.createElement(AssetConfigFooter, {
-						Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
-						CanSave = canSave,
-
-						AssetId = state.overrideAssetId,
-
-						TryCancel = self.tryCancelWithYield,
-						TryPublish = self.tryPublish,
-
-						LayoutOrder = 2
-					})
-				})
+				return self:renderContent(nil, modalTarget, localizedContent)
 			end)
 		end)
-	end)
+	else
+		return withTheme(function(theme)
+			return withModal(function(modalTarget)
+				return withLocalization(function(_, localizedContent)
+					return self:renderContent(theme, modalTarget, localizedContent)
+				end)
+			end)
+		end)
+	end
+end
+
+function AssetConfig:renderContent(theme, modalTarget, localizedContent)
+	local props = self.props
+	local state = self.state
+
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
+
+	local Size = props.Size
+
+	local currentTab = props.currentTab
+	local assetId = state.assetId or props.assetId
+	local name = state.name or ""
+	local description = state.description or ""
+	local tags = state.tags or {}
+	local owner = state.owner
+	local genres = state.genres
+	local allowCopy = state.allowCopy
+	local copyOn = state.copyOn
+	local allowComment = state.allowComment
+	local commentOn = state.commentOn
+	local newAssetStatus = state.status
+
+	local showGetAssetFailed = props.networkErrorAction == ConfigTypes.GET_ASSET_DETAIL_FAILURE_ACTION
+	local isShowChangeDiscardMessageBox = state.isShowChangeDiscardMessageBox or showGetAssetFailed
+	local iconFile = state.iconFile
+
+	local assetTypeEnum = props.assetTypeEnum
+	local screenFlowType = props.screenFlowType
+	local changeTable = props.changeTable or {}
+	local allowedAssetTypesForRelease = props.allowedAssetTypesForRelease
+
+	local currentAssetStatus = newAssetStatus or AssetConfigConstants.ASSET_STATUS.Unknown
+
+	local minPrice, maxPrice, feeRate = AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum)
+
+	local price = state.price
+	local showOwnership = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_OWNERSHIP)
+	local showGenre = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_GENRE)
+	local showCopy = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COPY)
+	if props.isPackageAsset then
+		showCopy = false
+	end
+	local showComment = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_COMMENT)
+	local showAssetType = ScreenSetup.queryParam(screenFlowType, assetTypeEnum, ScreenSetup.keys.SHOW_ASSET_TYPE)
+	-- And then we show price according to the sales status and if user is whitelisted.
+	local previewType = AssetConfigUtil.getPreviewType(assetTypeEnum, props.instances)
+
+	local showTags = TagsUtil.areTagsEnabled(props.isItemTagsFeatureEnabled, props.enabledAssetTypesForItemTags, assetTypeEnum)
+
+	local isPriceValid = validatePrice(price, minPrice, maxPrice, newAssetStatus)
+	local isMarketBuyAndNonWhiteList = AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) and (not allowedAssetTypesForRelease[assetTypeEnum.Name])
+	local tabItems = ConfigTypes:getAssetconfigContent(
+		screenFlowType,
+		assetTypeEnum,
+		isMarketBuyAndNonWhiteList,
+		self.props.isPackageAsset,
+		owner
+	)
+
+	local isLoading = self:isLoading()
+
+	local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
+		newAssetStatus, currentTab, screenFlowType, assetTypeEnum) and not isLoading
+
+	local packagePermissionsWidth
+	if FFlagToolboxReplaceUILibraryComponentsPt2 then
+		packagePermissionsWidth = -PREVIEW_WIDTH - Constants.SCROLLBAR_PADDING
+	else
+		packagePermissionsWidth = -PREVIEW_WIDTH
+	end
+	return Roact.createElement("Frame", {
+		Size = Size,
+
+		BackgroundTransparency = 0,
+		BackgroundColor3 = theme.assetConfig.backgroundColor,
+		BorderSizePixel = 0,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			VerticalAlignment = Enum.VerticalAlignment.Bottom,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			Padding = UDim.new(0, 0),
+		}),
+
+		AssetConfigMessageBox = isShowChangeDiscardMessageBox and Roact.createElement(MessageBox,
+			getMessageBoxProps(showGetAssetFailed, localizedContent, self.onMessageBoxClosed, self.tryCloseAssetConfig)),
+
+		MainPage = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, -FOOTER_HEIGHT),
+
+			BackgroundTransparency = 1,
+
+			LayoutOrder = 1,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				Padding = UDim.new(0, 0),
+			}),
+
+			Preview = Roact.createElement(PreviewArea, {
+				TotalWidth = PREVIEW_WIDTH,
+
+				TabItems = tabItems,
+
+				CurrentTab = currentTab,
+
+				PreviewType = previewType,
+				ScreenFlowType = screenFlowType,
+				AssetStatus = newAssetStatus,
+				AssetId = assetId,
+				IconFile = iconFile,
+				AssetTypeEnum = assetTypeEnum,
+
+				OnTabSelect = self.onTabSelect,
+				ChooseThumbnail = self.chooseThumbnail,
+
+				LayoutOrder = 1,
+			}),
+
+			VerticalLine = Roact.createElement("Frame", {
+				Size = UDim2.new(0 , 2, 1, 0),
+
+				BackgroundTransparency = 0,
+				BackgroundColor3 = theme.divider.verticalLineColor,
+				BorderSizePixel = 0,
+
+				LayoutOrder = 2,
+			}),
+
+			LoadingIndicatorWrapper = isLoading and Roact.createElement(Container, {
+				LayoutOrder = 3,
+				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+			}, {
+				LoadingIndicator = Roact.createElement(LoadingIndicator, {
+					Size = UDim2.new(0, 100, 0, 100),
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.fromScale(0.5, 0.5),
+				})
+			}),
+
+			PublishAsset = not isLoading and
+				(ConfigTypes:isGeneral(currentTab) and Roact.createElement(PublishAsset, {
+					Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+					assetId = assetId,
+					name = name,
+					description = description,
+					tags = tags,
+					owner = owner,
+					genres = genres,
+					allowCopy = allowCopy,
+					copyOn = copyOn,
+					allowComment = allowComment,
+					commentOn = commentOn,
+
+					assetTypeEnum = assetTypeEnum,
+					onNameChange = self.onNameChange,
+					onDescChange = self.onDescChange,
+					onTagsChange = self.onTagsChange,
+					onOwnerSelected = self.onAccessChange,
+					onGenreSelected = self.onGenreChange,
+					toggleCopy = self.toggleCopy,
+					toggleComment = self.toggleComment,
+
+					displayOwnership = showOwnership,
+					displayGenre = showGenre,
+					displayCopy = showCopy,
+					displayComment = showComment,
+					displayAssetType = showAssetType,
+					displayTags = showTags,
+
+					maximumItemTagsPerItem = props.maximumItemTagsPerItem,
+
+					LayoutOrder = 3,
+				})),
+
+			Versions = ConfigTypes:isVersions(currentTab) and Roact.createElement(Versions, {
+				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+				assetId = assetId,
+
+				LayoutOrder = 3,
+			}),
+
+			Sales = ConfigTypes:isSales(currentTab) and Roact.createElement(SalesPage, {
+				size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+				assetTypeEnum = props.assetTypeEnum,
+
+				allowedAssetTypesForRelease = allowedAssetTypesForRelease,
+				newAssetStatus = newAssetStatus,
+				currentAssetStatus = currentAssetStatus,
+				price = price,
+				minPrice = minPrice,
+				maxPrice = maxPrice,
+				feeRate = feeRate,
+				isPriceValid = isPriceValid,
+
+				onStatusChange = self.onStatusChange,
+				onPriceChange = self.onPriceChange,
+
+				layoutOrder = 3,
+			}),
+
+			OverrideAsset = ConfigTypes:isOverride(currentTab) and Roact.createElement(OverrideAsset, {
+				Size = UDim2.new(1, -PREVIEW_WIDTH, 1, 0),
+
+				assetTypeEnum = assetTypeEnum,
+				instances = props.instances,
+				onOverrideAssetSelected = self.onOverrideAssetSelected,
+
+				LayoutOrder = 3,
+			}),
+
+			PackagePermissions = ConfigTypes:isPermissions(currentTab) and Roact.createElement(Permissions, {
+				Size = UDim2.new(1, packagePermissionsWidth, 1, 0),
+
+				Owner = owner,
+				AssetId = assetId,
+
+				LayoutOrder = 3,
+			}),
+		}),
+
+		Footer = Roact.createElement(AssetConfigFooter, {
+			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
+			CanSave = canSave,
+
+			AssetId = state.overrideAssetId,
+
+			TryCancel = self.tryCancelWithYield,
+			TryPublish = self.tryPublish,
+
+			LayoutOrder = 2
+		})
+	})
 end
 
 if FFlagToolboxWithContext then
 	AssetConfig = withContext({
 		Focus = ContextServices.Focus,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(AssetConfig)
 else
 	ContextServices.mapToProps(AssetConfig, {
 		Focus = ContextServices.Focus,
+		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
 

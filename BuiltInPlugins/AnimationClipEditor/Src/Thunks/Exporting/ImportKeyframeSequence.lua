@@ -13,7 +13,6 @@ local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
-local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(plugin, analytics)
@@ -27,20 +26,16 @@ return function(plugin, analytics)
 		local id = plugin:get():PromptForExistingAssetId("Animation")
 		if id and tonumber(id) > 0 then
 			local anim
-			if GetFFlagAddImportFailureToast() then
-				local status = pcall(function()
-					anim = KeyframeSequenceProvider:GetKeyframeSequenceById(id, false)
-				end)
-
-				if not status then
-					store:dispatch(SetNotification("InvalidAnimation", true))
-				end
-
-				if not anim then
-					return
-				end
-			else
+			local status = pcall(function()
 				anim = KeyframeSequenceProvider:GetKeyframeSequenceById(id, false)
+			end)
+
+			if not status then
+				store:dispatch(SetNotification("InvalidAnimation", true))
+			end
+
+			if not anim then
+				return
 			end
 
 			local newData, frameRate

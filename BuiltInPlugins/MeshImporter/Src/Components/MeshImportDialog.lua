@@ -9,10 +9,16 @@ local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
+local UI = Framework.UI
+local Pane = UI.Pane
+local Separator = UI.Separator
+
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
 local MeshImporterUI = require(Plugin.Src.Components.MeshImporterUI)
+
+local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFFlagDevFrameworkStyledDialogFullBleed)
 
 local MeshImportDialog = Roact.PureComponent:extend("MeshImportDialog")
 
@@ -45,8 +51,19 @@ function MeshImportDialog:render()
 		},
 		OnClose = props.OnClose,
 		OnButtonPressed = self.onButtonPressed,
+		Style = getFFlagDevFrameworkStyledDialogFullBleed() and "FullBleed" or nil,
 	}, {
-		Content = Roact.createElement(MeshImporterUI),
+		Content = Roact.createElement(Pane, {
+			Layout = Enum.FillDirection.Vertical,
+		}, {
+			MeshImporterUI = Roact.createElement(MeshImporterUI, {
+				LayoutOrder = 1,
+			}),
+			Separator = Roact.createElement(Separator, {
+				DominantAxis = Enum.DominantAxis.Width,
+				LayoutOrder = 2,
+			}),
+		})
 	})
 end
 

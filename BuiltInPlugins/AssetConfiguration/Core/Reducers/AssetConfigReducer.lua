@@ -57,8 +57,6 @@ local SetAssetConfigAvatarAssetsValidGroups = require(Actions.SetAssetConfigAvat
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local FFlagShowAssetConfigReasons2 = game:GetFastFlag("ShowAssetConfigReasons2")
-
 return Rodux.createReducer({
 	-- Empty table means publish new asset
 	-- Otherwise we are editing existing asset.
@@ -96,7 +94,6 @@ return Rodux.createReducer({
 
 	isVerifiedCreator = true,
 
-	-- Remove me with FFlagShowAssetConfigReasons2
 	networkError = nil,
 	networkErrorAction = nil,
 
@@ -214,20 +211,10 @@ return Rodux.createReducer({
 	end,
 
 	[NetworkError.name] = function(state, action)
-		if FFlagShowAssetConfigReasons2 then
-			local networkTable = {}
-			if action.networkErrorAction then
-				networkTable[action.networkErrorAction] = action
-			end
-			return deepJoin(state, {
-				networkTable = networkTable
-			})
-		else
-			return Cryo.Dictionary.join(state, {
-				networkError = action.response,
-				networkErrorAction = action.networkErrorAction
-			})
-		end
+		return Cryo.Dictionary.join(state, {
+			networkError = action.response,
+			networkErrorAction = action.networkErrorAction
+		})
 	end,
 
 	[UploadResult.name] = function(state, action)

@@ -42,7 +42,6 @@ local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSeq
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
-local GetFFlagRefactorMenus = require(Plugin.LuaFlags.GetFFlagRefactorMenus)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
@@ -57,27 +56,17 @@ function AnimationClipMenu:makeLoadMenu(localization, current)
 		for _, save in ipairs(saves) do
 			table.insert(items, {
 				Name = save.Name,
-				Value = not GetFFlagRefactorMenus() and save.Name or nil,
-				Key = not GetFFlagRefactorMenus() and save.Name or nil,
-				ItemSelected = GetFFlagRefactorMenus() and onLoadRequested or function()
-					onLoadRequested(save.Name)
-				end,
+				ItemSelected = onLoadRequested,
 			})
 		end
 		return {
 			Name = localization:getText("Menu", "Load"),
-			Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Load") or nil,
-			CurrentKey = not GetFFlagRefactorMenus() and current or nil,
 			Items = items,
-			IsAvailable = not GetFFlagRefactorMenus() and true or nil,
 		}
 	end
 
 	return {
 		Name = localization:getText("Menu", "Load"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Load") or nil,
-		CurrentKey = not GetFFlagRefactorMenus() and current or nil,
-		IsAvailable = false,  -- Remove when retiring GetFFlagRefactorMenus
 		Enabled = false
 	}
 end
@@ -90,7 +79,6 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	local items = {
 		{
 			Name = localization:getText("Menu", "New"),
-			Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "New") or nil,
 			ItemSelected = onSaveAsRequested,
 		},
 	}
@@ -102,19 +90,13 @@ function AnimationClipMenu:makeSaveAsMenu(localization, current)
 	for _, save in ipairs(saves) do
 		table.insert(items, {
 			Name = save.Name,
-			Value = not GetFFlagRefactorMenus() and save.Name or nil,
-			Key = not GetFFlagRefactorMenus() and save.Name or nil,
-			ItemSelected = GetFFlagRefactorMenus() and onOverwriteRequested or function()
-				onOverwriteRequested(save.Name)
-			end,
+			ItemSelected = onOverwriteRequested,
 		})
 	end
 
 	return {
 		Name = localization:getText("Menu", "SaveAs"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "SaveAs") or nil,
-		CurrentKey = not GetFFlagRefactorMenus() and current or nil,
-		CurrentValue = GetFFlagRefactorMenus() and current or nil,
+		CurrentValue = current,
 		Items = items,
 	}
 end
@@ -127,14 +109,12 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 
 	return {
 		Name = localization:getText("Menu", "SetPriority"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "SetPriority") or nil,
-		CurrentItem = not GetFFlagRefactorMenus() and current or nil,
-		CurrentValue = GetFFlagRefactorMenus() and current or nil,
+		CurrentValue = current,
 		Items = {
-			{Name = localization:getText("Menu", priority.Core.Name), Key = not GetFFlagRefactorMenus() and priority.Core or nil, Value = priority.Core, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Idle.Name), Key = not GetFFlagRefactorMenus() and priority.Idle or nil, Value = priority.Idle, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Movement.Name), Key = not GetFFlagRefactorMenus() and priority.Movement or nil, Value = priority.Movement, ItemSelected = setPriority},
-			{Name = localization:getText("Menu", priority.Action.Name), Key = not GetFFlagRefactorMenus() and priority.Action or nil, Value = priority.Action, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Core.Name), Value = priority.Core, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Idle.Name), Value = priority.Idle, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Movement.Name), Value = priority.Movement, ItemSelected = setPriority},
+			{Name = localization:getText("Menu", priority.Action.Name), Value = priority.Action, ItemSelected = setPriority},
 		}
 	}
 end
@@ -153,7 +133,6 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, self:makeLoadMenu(localization, current))
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Save"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Save") or nil,
 		ItemSelected = function()
 			props.SaveKeyframeSequence(current, props.Analytics)
 		end,
@@ -162,23 +141,19 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Import"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Import") or nil,
 		Items = {
 			{
 				Name = localization:getText("Menu", "FromRoblox"),
-				Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "FromRoblox") or nil,
 				ItemSelected = props.OnImportRequested,
 			},
 			{
 				Name = localization:getText("Menu", "FromFBX"),
-				Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "FromFBX") or nil,
 				ItemSelected = props.OnImportFbxRequested,
 			},
 		}
 	})
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Export"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "Export") or nil,
 		ItemSelected = function()
 			props.ExportKeyframeSequence(plugin, props.Analytics)
 		end,
@@ -186,10 +161,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, {
 		Name = localization:getText("Menu", "CreateNew"),
-		Value = not GetFFlagRefactorMenus() and localization:getText("Menu", "CreateNew") or nil,
-		ItemSelected = GetFFlagRefactorMenus() and onCreateNewRequested or function()
-			onCreateNewRequested()
-		end,
+		ItemSelected = onCreateNewRequested,
 	})
 	table.insert(actions, Separator)
 	table.insert(actions, self:makePrioritySubMenu(localization, currentPriority))

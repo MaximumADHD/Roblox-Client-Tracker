@@ -21,7 +21,6 @@ local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackIns
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
@@ -56,7 +55,7 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
 	draggerContext.OnManipulateJoints = function(instanceName, values)
-		if (GetFFlagNoValueChangeDuringPlayback() and props.IsPlaying) then
+		if props.IsPlaying then
 			return
 		end
 

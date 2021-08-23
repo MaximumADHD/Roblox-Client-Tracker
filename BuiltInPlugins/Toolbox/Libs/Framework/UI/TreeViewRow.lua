@@ -11,6 +11,7 @@
 	Optional Props:
 		any BeforeToggle: An optional component to render before the toggle. Passed the Row props and the expected LayoutOrder.
 		any BeforeIcon: An optional component to render before the icon. Passed the Row props and the expected LayoutOrder.
+		any BeforeIndentItem: An optional component that renders before the row adds any indentation. Passed the Row props and the expected LayoutOrder.
 		any WrapperProps: Props inherited from withControl to be passed to the underlying Pane.
 		any Expanded: An optional variable indicating if the row is expanded
 		any Checked: An optional variable indicating whether an associated checkbox is checked
@@ -19,10 +20,11 @@
 		any Stylizer: An optional value which is used to apply themes
 		any StyleModifier: Describes any changes to the style
 		callback GetContents: An optional function describing how to get the contents of a row - (item: Item) => string, string
+		boolean ExpandableRoot: Defines whether or not the root can be expanded, this determines indent depth for each row
 ]]
 
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkGenericTreeViewRow = game:GetFastFlag("DevFrameworkGenericTreeViewRow")
+local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -65,60 +67,136 @@ function TreeViewRow:render()
 	local beforeToggle = props.BeforeToggle
 	local beforeIcon = props.BeforeIcon
 	local text, icon
+	local beforeIndentItem
+	local expandableRoot
 
-	if FFlagDevFrameworkGenericTreeViewRow and props.GetContents then
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
+		beforeIndentItem = props.BeforeIndentItem
+		expandableRoot = props.ExpandableRoot
+	end
+
+	if props.GetContents then
 		text, icon = props.GetContents(item)
 	else
 		text = item.text
 		icon = item.icon
 	end
 
-	local indent = depth * style.Indent
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
+		local isNotRootOrExpandable = depth ~= 0 or expandableRoot
+		local trueDepth = depth - (not expandableRoot and 1 or 0)
+		local indent = trueDepth * style.Indent
 
-	local padding = {
-		Top = style.Padding.Top,
-		Left = style.Padding.Left + indent,
-		Right = style.Padding.Right,
-		Bottom = style.Padding.Bottom,
-	}
-	return Roact.createElement(Pane, assign({
-		LayoutOrder = index,
-		Size = UDim2.new(1, 0, 0, style.RowHeight),
-		AutomaticSize = Enum.AutomaticSize.X,
-		Style = "Box",
-		Layout = Enum.FillDirection.Horizontal,
-		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		BackgroundColor3 = style.Background,
-		Padding = padding,
-		Spacing = style.Spacing
-	}, props.WrapperProps), {
-		BeforeToggle = beforeToggle and Roact.createElement(beforeToggle, join(props, {
-			LayoutOrder = 1,
-		})) or nil,
-		Toggle = hasChildren and Roact.createElement("ImageButton", {
-			LayoutOrder = 2,
-			Size = UDim2.new(0, arrowSize, 0, arrowSize),
-			BackgroundTransparency = 1,
-			Image = style.Arrow.Image,
-			ImageColor3 = style.Arrow.Color,
-			ImageRectSize = Vector2.new(arrowSize, arrowSize),
-			ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
-			[Roact.Event.Activated] = self.onToggle
-		}) or nil,
-		BeforeIcon = beforeIcon and Roact.createElement(beforeIcon, join(props, {
-			LayoutOrder = 3,
-		})) or nil,
-		LeftIcon = icon and Roact.createElement(Image, join({
-			LayoutOrder = 4,
-		}, icon)) or nil,
-		Text = text and Roact.createElement(TextLabel, {
-			TextColor = style.TextColor,
-			LayoutOrder = 5,
-			Text = text,
-			AutomaticSize = Enum.AutomaticSize.XY,
-		}) or nil,
-	})
+		local padding = {
+			Top = style.Padding.Top,
+			Left = style.Padding.Left,
+			Right = style.Padding.Right,
+			Bottom = style.Padding.Bottom,
+		}
+
+		return Roact.createElement(Pane, assign({
+			LayoutOrder = beforeIndentItem and 2 or index,
+			Size = UDim2.new(1, 0, 0, style.RowHeight),
+			AutomaticSize = Enum.AutomaticSize.X,
+			Style = "Box",
+			Layout = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			BackgroundColor3 = style.Background,
+			Padding = padding,
+			Spacing = style.Spacing
+		}, props.WrapperProps), {
+			BeforeIndentItem = beforeIndentItem and Roact.createElement(beforeIndentItem, join(props, {
+				LayoutOrder = 1,
+			})) or nil,
+			Spacer = isNotRootOrExpandable and Roact.createElement(Pane, {
+				LayoutOrder = 2,
+				Size = UDim2.new(0, indent, 0, 0)
+			}) or nil,
+			BeforeToggle = beforeToggle and Roact.createElement(beforeToggle, join(props, {
+				LayoutOrder = 3,
+			})) or nil,
+			Toggle = isNotRootOrExpandable
+				and (hasChildren
+					and Roact.createElement("ImageButton", {
+						LayoutOrder = 4,
+						Size = UDim2.new(0, arrowSize, 0, arrowSize),
+						BackgroundTransparency = 1,
+						Image = style.Arrow.Image,
+						ImageColor3 = style.Arrow.Color,
+						ImageRectSize = Vector2.new(arrowSize, arrowSize),
+						ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
+						[Roact.Event.Activated] = self.onToggle
+					})
+					or Roact.createElement(Pane, {
+						LayoutOrder = 4,
+						Size = UDim2.new(0, arrowSize, 0, arrowSize),
+					})
+				) or nil,
+			BeforeIcon = beforeIcon and Roact.createElement(beforeIcon, join(props, {
+				LayoutOrder = 5,
+			})) or nil,
+			LeftIcon = icon and Roact.createElement(Image, join({
+				LayoutOrder = 6,
+			}, icon)) or nil,
+			Text = text and Roact.createElement(TextLabel, {
+				TextColor = style.TextColor,
+				LayoutOrder = 7,
+				Text = text,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}) or nil,
+		})
+	else
+		local indent = depth * style.Indent
+
+		local padding = {
+			Top = style.Padding.Top,
+			Left = style.Padding.Left + indent,
+			Right = style.Padding.Right,
+			Bottom = style.Padding.Bottom,
+		}
+		return Roact.createElement(Pane, assign({
+			LayoutOrder = index,
+			Size = UDim2.new(1, 0, 0, style.RowHeight),
+			AutomaticSize = Enum.AutomaticSize.X,
+			Style = "Box",
+			Layout = Enum.FillDirection.Horizontal,
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			BackgroundColor3 = style.Background,
+			Padding = padding,
+			Spacing = style.Spacing
+		}, props.WrapperProps), {
+			BeforeToggle = beforeToggle and Roact.createElement(beforeToggle, join(props, {
+				LayoutOrder = 1,
+			})) or nil,
+			Toggle = hasChildren and Roact.createElement("ImageButton", {
+				LayoutOrder = 2,
+				Size = UDim2.new(0, arrowSize, 0, arrowSize),
+				BackgroundTransparency = 1,
+				Image = style.Arrow.Image,
+				ImageColor3 = style.Arrow.Color,
+				ImageRectSize = Vector2.new(arrowSize, arrowSize),
+				ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
+				[Roact.Event.Activated] = self.onToggle
+			}) or nil,
+			BeforeIcon = beforeIcon and Roact.createElement(beforeIcon, join(props, {
+				LayoutOrder = 3,
+			})) or nil,
+			LeftIcon = icon and Roact.createElement(Image, join({
+				LayoutOrder = 4,
+			}, icon)) or nil,
+			Text = text and Roact.createElement(TextLabel, {
+				TextColor = style.TextColor,
+				LayoutOrder = 5,
+				Text = text,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}) or nil,
+		})
+	end
 end
+
+TreeViewRow.defaultProps = {
+	ExpandableRoot = FFlagDevFrameworkLeftAlignedCheckboxTreeView and true or nil,
+}
 
 if FFlagDeveloperFrameworkWithContext then
 	TreeViewRow = withContext({

@@ -20,7 +20,6 @@ local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxRepla
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FIntToolboxPriceTextBoxMaxCount = game:DefineFastInt("ToolboxPriceTextBoxMaxCount", 1000)
-local FFlagDevFrameworkConvertTextProperties = game:GetFastFlag("DevFrameworkConvertTextProperties")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -119,13 +118,8 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	fee = math.floor(math.min(fee or 0, feePercent * maxPrice))
 	finalPrice = math.floor(math.min(finalPrice, earnPercent * maxPrice))
 
-	local feeString = fee
-	local finalPriceString = finalPrice
-
-	if FFlagDevFrameworkConvertTextProperties then
-		feeString = tostring(fee)
-		finalPriceString = tostring(finalPrice)
-	end
+	local feeString = tostring(fee)
+	local finalPriceString = tostring(finalPrice)
 
 	local UntypedVector2 = Vector2
 	local inputBoxSize = FFlagPriceComponentTextSize and Vector2.new(INPUT_BOX_WIDTH, ROW_HEIGHT) or UntypedVector2.new(0, INPUT_BOX_WIDTH, 0, ROW_HEIGHT)
@@ -133,11 +127,7 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	local earnVector = Constants.getTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
 	local textOverMaxCount = false
-	local textboxText = price or ""
-
-	if FFlagDevFrameworkConvertTextProperties then
-		textboxText = tostring(price or "")
-	end
+	local textboxText = tostring(price or "")
 
 	if FFlagToolboxReplaceUILibraryComponentsPt2 then
 		local textLength = utf8.len(textboxText)

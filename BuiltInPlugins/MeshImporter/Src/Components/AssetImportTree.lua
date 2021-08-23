@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -8,16 +7,23 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
-
-local Stylizer = Framework.Style.Stylizer
+local Stylizer = ContextServices.Stylizer
 
 local UI = Framework.UI
 local CheckboxTreeView = UI.CheckboxTreeView
 local Pane = UI.Pane
+local Separator = UI.Separator
+
+local Util = Framework.Util
+local LayoutOrderIterator = Util.LayoutOrderIterator
+
+local TreeViewToolbar = require(Plugin.Src.Components.TreeViewToolbar)
 
 local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
+
+local SEPARATOR_WEIGHT = 1
 
 local AssetImportTree = Roact.PureComponent:extend("AssetImportTree")
 
@@ -56,27 +62,40 @@ function AssetImportTree:render()
 
 	local style = props.Stylizer
 
+	local toolbarHeight = style.Sizes.ToolbarHeight + SEPARATOR_WEIGHT
+
 	local checked = props.Checked or generateChecked(props.Instances)
-		
+
+	local layoutOrderIterator = LayoutOrderIterator.new()
+
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
-		Padding = style.Padding,
-		Spacing = style.Padding,
 	}, {
-		Toolbar = Roact.createElement(Pane, {
-			Size = UDim2.new(1, 0, 0, style.TreeViewToolbarHeight),
+		Toolbar = Roact.createElement(TreeViewToolbar, {
+			Expansion = props.Expansion,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			OnExpansionChange = props.SetExpansion,
+			Size = UDim2.new(1, 0, 0, toolbarHeight),
 		}),
+
+		Separator = Roact.createElement(Separator, {
+			DominantAxis = Enum.DominantAxis.Width,
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+		}),
+
 		TreeView = Roact.createElement(CheckboxTreeView, {
 			RootItems = props.Instances or {},
 			Selection = props.Selection,
 			Expansion = props.Expansion,
 			Checked = checked,
-			Size = UDim2.new(1, 0, 1, 0),
+			LayoutOrder = layoutOrderIterator:getNextOrder(),
+			Size = UDim2.new(1, 0, 1, -toolbarHeight),
 			OnSelectionChange = props.SelectItem,
 			OnExpansionChange = props.SetExpansion,
 			OnCheck = props.SetChecked,
 			GetChildren = self.getChildren,
 			GetContents = self.getContents,
+			ExpandableRoot = false,
 		})
 	})
 end

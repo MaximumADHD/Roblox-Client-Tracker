@@ -18,7 +18,6 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local Preview = {}
@@ -44,27 +43,7 @@ local function buildPreview(animationData, selectedKeyframes)
 end
 
 function Preview.getFrameBounds(animationData, selectedKeyframes)
-	if GetFFlagNoValueChangeDuringPlayback() then
-		return AnimationData.getSelectionBounds(animationData, selectedKeyframes)
-	end
-
-	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-	local latest = 0
-	for _, instance in pairs(selectedKeyframes) do
-		for trackName, _ in pairs(instance) do
-			local keyframes = Cryo.Dictionary.keys(instance[trackName])
-			table.sort(keyframes)
-			if keyframes then
-				if keyframes[1] <= earliest then
-					earliest = keyframes[1]
-				end
-				if keyframes[#keyframes] >= latest then
-					latest = keyframes[#keyframes]
-				end
-			end
-		end
-	end
-	return earliest, latest
+	return AnimationData.getSelectionBounds(animationData, selectedKeyframes)
 end
 
 function Preview.new(animationData, selectedKeyframes, pivotTick)

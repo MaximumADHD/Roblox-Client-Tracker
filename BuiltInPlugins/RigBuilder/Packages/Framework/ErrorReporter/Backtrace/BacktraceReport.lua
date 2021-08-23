@@ -11,6 +11,7 @@
 ]]
 
 local FFlagDevFrameworkBacktraceReportUser = game:GetFastFlag("DevFrameworkBacktraceReportUser")
+local FFlagDevFrameworkFixBacktraceReportUser = game:DefineFastFlag("DevFrameworkFixBacktraceReportUser", false)
 
 local HttpService = game:GetService("HttpService")
 
@@ -53,7 +54,7 @@ function BacktraceReport.new()
 		threads = {},
 		mainThread = DEFAULT_THREAD_NAME,
 		-- Use PlayerId for consistency with C++ CrashReporter
-		PlayerId = FFlagDevFrameworkBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
+		PlayerId = FFlagDevFrameworkBacktraceReportUser and not FFlagDevFrameworkFixBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
 	}
 	setmetatable(self, BacktraceReport)
 
@@ -67,6 +68,7 @@ function BacktraceReport.fromMessageAndStack(errorMessage, errorStack)
 
 	report:addAttributes({
 		["error.message"] = errorMessage,
+		PlayerId = FFlagDevFrameworkFixBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
 	})
 
 	local stack, sourceCode = processErrorStack(errorStack)

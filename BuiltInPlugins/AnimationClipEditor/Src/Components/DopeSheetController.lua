@@ -61,7 +61,6 @@ local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
-local GetFFlagAddImportFailureToast = require(Plugin.LuaFlags.GetFFlagAddImportFailureToast)
 local GetFFlagHideLoadToastIfAnimationClipped = require(Plugin.LuaFlags.GetFFlagHideLoadToastIfAnimationClipped)
 local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
@@ -587,7 +586,7 @@ function DopeSheetController:render()
 	local loadedAnimName = props.Loaded
 	local savedAnimName = props.Saved
 	local showClippedWarning = props.ClippedWarning
-	local showInvalidIdWarning = GetFFlagAddImportFailureToast() and props.InvalidIdWarning
+	local showInvalidIdWarning = props.InvalidIdWarning
 	local showLoadToast = not GetFFlagHideLoadToastIfAnimationClipped() or (GetFFlagHideLoadToastIfAnimationClipped() and not showClippedWarning)
 
 	local size = props.Size
@@ -850,11 +849,8 @@ local function mapStateToProps(state, props)
 		ClippedWarning = state.Notifications.ClippedWarning,
 		DisplayFrameRate = status.DisplayFrameRate,
 		SnapMode = status.SnapMode,
+		InvalidIdWarning = state.Notifications.InvalidAnimation
 	}
-
-	if GetFFlagAddImportFailureToast() then
-		stateToProps["InvalidIdWarning"] = state.Notifications.InvalidAnimation
-	end
 
 	return stateToProps
 end
@@ -946,13 +942,11 @@ local function mapDispatchToProps(dispatch)
 		CloseClippedToast = function()
 			dispatch(SetNotification("ClippedWarning", false))
 		end,
-	}
 
-	if GetFFlagAddImportFailureToast() then
-		dispatchToProps["CloseInvalidAnimationToast"] = function()
+		CloseInvalidAnimationToast = function()
 			dispatch(SetNotification("InvalidAnimation", false))
-		end
-	end
+		end,
+	}
 
 	return dispatchToProps
 end

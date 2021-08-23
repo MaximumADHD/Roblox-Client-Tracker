@@ -16,6 +16,7 @@
 	RolePermissionChanged = function, callback function for when a user who has had this package shared with them, has their
 		permissions changed.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local ITEM_HEIGHT = 60
@@ -32,6 +33,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local UILibrary = require(Libs.UILibrary)
 
@@ -42,7 +44,6 @@ local DetailedDropdown
 local DetailedDropdownItem
 local LoadingIndicator
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	local Framework = require(Libs.Framework)
 	DropdownMenu = Framework.UI.DropdownMenu
 	DetailedDropdownItem = require(Plugin.Core.Components.AssetConfiguration.Permissions.DetailedDropdownItem)
 	IconButton = Framework.UI.IconButton
@@ -62,6 +63,8 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
 local ContentProvider = game:GetService("ContentProvider")
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
 
@@ -127,6 +130,10 @@ local function CollaboratorIcon(props)
 end
 
 local function CollaboratorLabels(props)
+	if FFlagToolboxRemoveWithThemes then
+		-- TODO: Remove this function when FFlagToolboxRemoveWithThemes is enabled
+		return
+	end
 	return withTheme(function(theme)
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
@@ -216,126 +223,163 @@ function CollaboratorItem:willUnmount()
 end
 
 function CollaboratorItem:render()
-	return withTheme(function(theme)
-		local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		props.Items = props.Items or {}
+function CollaboratorItem:renderContent(theme)
+	local props = self.props
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local removable = props.Removable and #props.Items > 0 and not props.IsLoading
+	props.Items = props.Items or {}
 
-		local isLoadedThumbnail = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success
+	local removable = props.Removable and #props.Items > 0 and not props.IsLoading
 
-		local defaultIcon = nil
-		-- only user thumbnail uses mask
-		if props.SubjectType == Enum.CreatorType.User then
-			defaultIcon = Images.DEFAULT_USER_THUMBNAIL
-		else
-			defaultIcon = Images.DEFAULT_GROUP_THUMBNAIL
-		end
+	local isLoadedThumbnail = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success
 
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
-			LayoutOrder = props.LayoutOrder or 0,
+	local defaultIcon = nil
+	-- only user thumbnail uses mask
+	if props.SubjectType == Enum.CreatorType.User then
+		defaultIcon = Images.DEFAULT_USER_THUMBNAIL
+	else
+		defaultIcon = Images.DEFAULT_GROUP_THUMBNAIL
+	end
+
+	return Roact.createElement("Frame", {
+		Size = UDim2.new(1, 0, 0, ITEM_HEIGHT),
+		LayoutOrder = props.LayoutOrder or 0,
+		BackgroundTransparency = 1,
+		BorderSizePixel = 0,
+	}, {
+		Contents = Roact.createElement("Frame", {
+			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
+			BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
 		}, {
-			Contents = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, 0),
+			Padding = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, PADDING_X),
+				PaddingRight = UDim.new(0, PADDING_X),
+				PaddingTop = UDim.new(0, PADDING_Y),
+				PaddingBottom = UDim.new(0, PADDING_Y),
+			}),
+			Icon = props.CollaboratorIcon ~= nil and Roact.createElement(CollaboratorIcon, {
+				LayoutOrder = 0,
+				Enabled = props.Enabled,
+
+				UseMask = props.UseMask,
+				CollaboratorIcon = props.CollaboratorIcon,
+				DefaultIcon = defaultIcon,
+				IsLoadedThumbnail = isLoadedThumbnail,
+			}),
+			Labels = FFlagToolboxRemoveWithThemes and Roact.createElement("Frame", {
+				Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
+				Position = UDim2.new(0, CONTENT_HEIGHT + LIST_PADDING, 0, 0),
+				LayoutOrder = props.LayoutOrder or 0,
 				BackgroundTransparency = 1,
-				BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
 			}, {
-				Padding = Roact.createElement("UIPadding", {
-					PaddingLeft = UDim.new(0, PADDING_X),
-					PaddingRight = UDim.new(0, PADDING_X),
-					PaddingTop = UDim.new(0, PADDING_Y),
-					PaddingBottom = UDim.new(0, PADDING_Y),
-				}),
-				Icon = props.CollaboratorIcon ~= nil and Roact.createElement(CollaboratorIcon, {
-					LayoutOrder = 0,
-					Enabled = props.Enabled,
+				PrimaryLabel = Roact.createElement("TextLabel", {
+					Size = UDim2.new(1, 0, props.SecondaryText and 0.5 or 1, 0),
+					Text = props.CollaboratorName or "",
+					TextXAlignment = Enum.TextXAlignment.Left,
 
-					UseMask = props.UseMask,
-					CollaboratorIcon = props.CollaboratorIcon,
-					DefaultIcon = defaultIcon,
-					IsLoadedThumbnail = isLoadedThumbnail,
-				}),
-				Labels = Roact.createElement(CollaboratorLabels, {
-					LayoutOrder = 1,
-					Enabled = props.Enabled,
+					Font = Constants.FONT,
+					TextSize = Constants.FONT_SIZE_TITLE,
+					TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
+					TextTruncate = Enum.TextTruncate.AtEnd,
 
-					CollaboratorName = props.CollaboratorName,
-					SecondaryText = props.SecondaryText,
-				}),
-				DropdownFrame = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("Frame",{
-					AnchorPoint = Vector2.new(1, 0),
 					BackgroundTransparency = 1,
-					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
-				}, {
-					Dropdown = Roact.createElement(DropdownMenu, {
-						Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
-						OnFocusLost = self.closeDropdown,
-						Items = props.Items,
-						OnItemActivated = self.onItemActivated,
-						OnRenderItem = self.onDropdownRenderItem,
-						Width = DROPDOWN_ITEM_WIDTH,
-					}),
 				}),
-				Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(IconButton, {
-					Disabled = not (props.Enabled and #props.Items > 0),
-					RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
-					Text = props.Action,
-					OnClick = self.openDropdown,
-					AnchorPoint = Vector2.new(1, 0),
-					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, ITEM_HEIGHT),
-				}, {
-					TextPadding = Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 4),
-					}),
-				}) or Roact.createElement(DetailedDropdown, {
-					LayoutOrder = 2,
-					Enabled = props.Enabled and #props.Items > 0,
+			})
+			or Roact.createElement(CollaboratorLabels, {
+				LayoutOrder = 1,
+				Enabled = props.Enabled,
 
-					ButtonText = props.Action,
+				CollaboratorName = props.CollaboratorName,
+				SecondaryText = props.SecondaryText,
+			}),
+
+			DropdownFrame = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("Frame",{
+				AnchorPoint = Vector2.new(1, 0),
+				BackgroundTransparency = 1,
+				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+			}, {
+				Dropdown = Roact.createElement(DropdownMenu, {
+					Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
+					OnFocusLost = function() self.toggleDropdown(false) end,
 					Items = props.Items,
-					SelectedItem = props.SelectedItem,
-
-					BackgroundTransparency = 1,
-
-					ItemHeight = ITEM_HEIGHT,
-					DescriptionTextSize = Constants.FONT_SIZE_MEDIUM,
-					DisplayTextSize = Constants.FONT_SIZE_TITLE,
-					IconSize = DROPDOWN_ICON_SIZE,
-
-					Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
-					Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-					AnchorPoint = Vector2.new(1, 0),
-
-					OnItemClicked = function(item)
-						if props.Enabled and props.PermissionChanged then
-							props.PermissionChanged(item)
-						end
-					end,
-				}),
-				Delete = (FFlagToolboxReplaceUILibraryComponentsPt3 and removable) and Roact.createElement(IconButton, {
-					AnchorPoint = Vector2.new(1, 0),
-					BackgroundStyle = "RoundBox",
-					IconColor = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
-					LeftIcon = Images.CLOSE_ICON,
-					OnClick = self.onDelete,
-					Position = UDim2.new(1, 0, 0, 0),
-					Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-				})
-				or ((not FFlagToolboxReplaceUILibraryComponentsPt3) and removable) and Roact.createElement(DeleteButton, {
-					LayoutOrder = 3,
-					Enabled = props.Enabled,
-
-					OnClicked = props.Removed,
+					OnItemActivated = self.onItemActivated,
+					OnRenderItem = self.onDropdownRenderItem,
+					Width = DROPDOWN_ITEM_WIDTH,
 				}),
 			}),
-		})
-	end)
+			Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(IconButton, {
+				Disabled = not (props.Enabled and #props.Items > 0),
+				RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
+				Text = props.Action,
+				OnClick = function() self.toggleDropdown(true) end,
+				AnchorPoint = Vector2.new(1, 0),
+				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+			}, {
+				TextPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, 4),
+				}),
+			}) or Roact.createElement(DetailedDropdown, {
+				LayoutOrder = 2,
+				Enabled = props.Enabled and #props.Items > 0,
+
+				ButtonText = props.Action,
+				Items = props.Items,
+				SelectedItem = props.SelectedItem,
+
+				BackgroundTransparency = 1,
+
+				ItemHeight = ITEM_HEIGHT,
+				DescriptionTextSize = Constants.FONT_SIZE_MEDIUM,
+				DisplayTextSize = Constants.FONT_SIZE_TITLE,
+				IconSize = DROPDOWN_ICON_SIZE,
+
+				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
+				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
+				AnchorPoint = Vector2.new(1, 0),
+
+				OnItemClicked = function(item)
+					if props.Enabled and props.PermissionChanged then
+						props.PermissionChanged(item)
+					end
+				end,
+			}),
+			Delete = (FFlagToolboxReplaceUILibraryComponentsPt3 and removable) and Roact.createElement(IconButton, {
+				AnchorPoint = Vector2.new(1, 0),
+				BackgroundStyle = "RoundBox",
+				IconColor = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
+				LeftIcon = Images.CLOSE_ICON,
+				OnClick = self.onDelete,
+				Position = UDim2.new(1, 0, 0, 0),
+				Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
+			})
+			or ((not FFlagToolboxReplaceUILibraryComponentsPt3) and removable) and Roact.createElement(DeleteButton, {
+				LayoutOrder = 3,
+				Enabled = props.Enabled,
+
+				OnClicked = props.Removed,
+			}),
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	CollaboratorItem = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorItem)
 end
 
 return CollaboratorItem

@@ -41,11 +41,13 @@
 		LayoutOrder = num, default to 0, optional layout order for UI layouts
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Framework = require(Libs.Framework)
 
 local UILibrary = require(Libs.UILibrary)
 
@@ -54,6 +56,8 @@ local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextHelper = require(Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
+local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 
 local TextService = game:GetService("TextService")
 
@@ -384,333 +388,350 @@ function CollaboratorSearchBar:onRenderItem(item, index, activated, theme, searc
 end
 
 function CollaboratorSearchBar:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local orderIterator = LayoutOrderIterator.new()
+function CollaboratorSearchBar:renderContent(theme)
+	local props = self.props
+	local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		theme = props.Stylizer
+	end
 
-		local layoutOrder = props.LayoutOrder or 0
+	local orderIterator = LayoutOrderIterator.new()
 
-		local text = state.text
+	local layoutOrder = props.LayoutOrder or 0
 
-		local isFocused = state.isFocused and props.Enabled
-		local isContainerHovered = state.isContainerHovered and props.Enabled
-		local isClearButtonHovered = state.isClearButtonHovered
+	local text = state.text
 
-		--[[
-		By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
-		(unless you set properties like ClipDescendants, TextWrapped)
-		Elsewhere, text boxes shift their contents to the left as you're typing past the bounds
-		So what you're typing is on the screen
+	local isFocused = state.isFocused and props.Enabled
+	local isContainerHovered = state.isContainerHovered and props.Enabled
+	local isClearButtonHovered = state.isClearButtonHovered
 
-		This is implemented here by:
-		- Set ClipsDescendants = true on the container
-		- Get the width of the container, subtracting any padding and the width of the button on the right
-		- Get the width of the text being rendered (this is calculated in the Roact.Change.Text event)
-		- If the text is shorter than the text box size, then:
-			- Anchor the text label to the left side of the parent
-		- Else
-			- Anchor the text label to the right side of the parent
-		]]
+	--[[
+	By default, TextBoxes let you keep typing infinitely and it will just go out of the bounds
+	(unless you set properties like ClipDescendants, TextWrapped)
+	Elsewhere, text boxes shift their contents to the left as you're typing past the bounds
+	So what you're typing is on the screen
 
-		local searchBarTheme = theme.assetConfig.packagePermissions.searchBar
-		local borderColor
-		if isFocused then
-			borderColor = searchBarTheme.borderSelected
-		elseif isContainerHovered then
-			borderColor = searchBarTheme.borderHover
-		else
-			borderColor = searchBarTheme.border
-		end
+	This is implemented here by:
+	- Set ClipsDescendants = true on the container
+	- Get the width of the container, subtracting any padding and the width of the button on the right
+	- Get the width of the text being rendered (this is calculated in the Roact.Change.Text event)
+	- If the text is shorter than the text box size, then:
+		- Anchor the text label to the left side of the parent
+	- Else
+		- Anchor the text label to the right side of the parent
+	]]
 
-		local defaultText = props.DefaultText
-		local errorText = props.ErrorText
-		local noResultsText = props.NoResultsText
+	local searchBarTheme = theme.assetConfig.packagePermissions.searchBar
+	local borderColor
+	if isFocused then
+		borderColor = searchBarTheme.borderSelected
+	elseif isContainerHovered then
+		borderColor = searchBarTheme.borderHover
+	else
+		borderColor = searchBarTheme.border
+	end
 
-		local textBoxOffset = -SEARCH_BAR_HEIGHT * 2
+	local defaultText = props.DefaultText
+	local errorText = props.ErrorText
+	local noResultsText = props.NoResultsText
 
-		local showDropdown = state.showDropdown
-		local searchBarRef = self.textBoxRef and self.textBoxRef.current
-		if searchBarRef then
-			searchBarRef = searchBarRef.Parent
-		end
-		local searchBarExtents
-		if searchBarRef then
-			local searchBarMin = searchBarRef.AbsolutePosition
-			local searchBarSize = searchBarRef.AbsoluteSize
-			local searchBarMax = searchBarMin + searchBarSize
-			searchBarExtents = Rect.new(searchBarMin.X, searchBarMin.Y, searchBarMax.X, searchBarMax.Y)
-		end
+	local textBoxOffset = -SEARCH_BAR_HEIGHT * 2
 
-		local results = props.Results or {}
-        local headerHeight = props.HeaderHeight
-		local itemHeight = props.ItemHeight
-		local maxItems = props.MaxItems
-		local showRibbon = props.ShowRibbon
+	local showDropdown = state.showDropdown
+	local searchBarRef = self.textBoxRef and self.textBoxRef.current
+	if searchBarRef then
+		searchBarRef = searchBarRef.Parent
+	end
+	local searchBarExtents
+	if searchBarRef then
+		local searchBarMin = searchBarRef.AbsolutePosition
+		local searchBarSize = searchBarRef.AbsoluteSize
+		local searchBarMax = searchBarMin + searchBarSize
+		searchBarExtents = Rect.new(searchBarMin.X, searchBarMin.Y, searchBarMax.X, searchBarMax.Y)
+	end
 
-		local textPadding = props.TextPadding or TEXT_PADDING
-		local scrollBarPadding = props.ScrollBarPadding
-		local scrollBarThickness = props.ScrollBarThickness
-		local maxHeight = maxItems and (maxItems * itemHeight) or nil
+	local results = props.Results or {}
+	local headerHeight = props.HeaderHeight
+	local itemHeight = props.ItemHeight
+	local maxItems = props.MaxItems
+	local showRibbon = props.ShowRibbon
 
-		local dropdownItem = state.dropdownItem
+	local textPadding = props.TextPadding or TEXT_PADDING
+	local scrollBarPadding = props.ScrollBarPadding
+	local scrollBarThickness = props.ScrollBarThickness
+	local maxHeight = maxItems and (maxItems * itemHeight) or nil
 
-		if state.lastResults ~= results then
-			state.mergedItems = self:mergeResultsTable(results)
-			state.lastResults = results
-		end
+	local dropdownItem = state.dropdownItem
 
-		return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or ContentFit, {
+	if state.lastResults ~= results then
+		state.mergedItems = self:mergeResultsTable(results)
+		state.lastResults = results
+	end
+
+	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or ContentFit, {
+		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+		LayoutOrder = layoutOrder,
+		BackgroundColor3 = theme.inputFields.backgroundColor,
+		BorderSizePixel = 0,
+	}, {
+		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		Background = Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "ImageLabel" or SearchBarContentFit, {
 			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
-			LayoutOrder = layoutOrder,
-			BackgroundColor3 = theme.inputFields.backgroundColor,
-			BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			Image = Images.ROUNDED_BORDER_IMAGE,
+			ImageColor3 = borderColor,
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+
+			[Roact.Event.MouseEnter] = self.onContainerHovered,
+			[Roact.Event.MouseMoved] = self.onContainerHovered,
+			[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
 		}, {
 			UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Horizontal,
 			}),
 
-			Background = Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "ImageLabel" or SearchBarContentFit, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+			TextBox = Roact.createElement("TextBox", {
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_TITLE,
+				TextColor3 = theme.assetConfig.textColor,
+
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
 				BackgroundTransparency = 1,
-				Image = Images.ROUNDED_BORDER_IMAGE,
-				ImageColor3 = borderColor,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
+				ClipsDescendants = (not FFlagToolboxReplaceUILibraryComponentsPt3) and true or nil,
 
-				[Roact.Event.MouseEnter] = self.onContainerHovered,
-				[Roact.Event.MouseMoved] = self.onContainerHovered,
-				[Roact.Event.MouseLeave] = self.onContainerHoverEnded,
-			}, {
-				UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					FillDirection = Enum.FillDirection.Horizontal,
+				ClearTextOnFocus = false,
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Text = props.Enabled and text or "",
+				TextEditable = props.Enabled,
+
+				PlaceholderText = errorText or defaultText,
+				PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
+
+				-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
+				[Roact.Ref] = self.textBoxRef,
+
+				[Roact.Change.Text] = self.onTextChanged,
+				[Roact.Event.Focused] = self.onTextBoxFocused,
+				[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
+			} , {
+				TextPadding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, textPadding),
 				}),
 
-				TextBox = Roact.createElement("TextBox", {
-					Font = Constants.FONT,
-					TextSize = Constants.FONT_SIZE_TITLE,
-					TextColor3 = theme.assetConfig.textColor,
-
-					LayoutOrder = orderIterator:getNextOrder(),
-					Size = UDim2.new(1, textBoxOffset, 0, SEARCH_BAR_HEIGHT),
-					BackgroundTransparency = 1,
-					ClipsDescendants = (not FFlagToolboxReplaceUILibraryComponentsPt3) and true or nil,
-
-					ClearTextOnFocus = false,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = props.Enabled and text or "",
-					TextEditable = props.Enabled,
-
-					PlaceholderText = errorText or defaultText,
-					PlaceholderColor3 = errorText and theme.warningColor or searchBarTheme.placeholderText,
-
-					-- Get a reference to the text box so that clicking on the container can call :CaptureFocus()
-					[Roact.Ref] = self.textBoxRef,
-
-					[Roact.Change.Text] = self.onTextChanged,
-					[Roact.Event.Focused] = self.onTextBoxFocused,
-					[Roact.Event.FocusLost] = self.onTextBoxFocusLost,
-				} , {
-					TextPadding = Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, textPadding),
-					}),
-
-					Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(DropdownMenu, {
-						Hide = not (showDropdown and searchBarRef),
-						Items = self.state.mergedItems,
-						OnFocusLost = self.hideDropdown,
-						OnItemActivated = self.onItemClicked,
-						OnRenderItem = function(item, index, activated)
-							return self:onRenderItem(item, index, activated, theme, searchBarExtents)
-						end,
-						Width = searchBarExtents and searchBarExtents.Width or nil,
-					}),
-				}),
-
-				ClearButtonFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = orderIterator:getNextOrder(),
-					Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-						0, SEARCH_BAR_HEIGHT),
-				} , {
-					ClearButton = Roact.createElement("ImageButton", {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Size = UDim2.new(0, CLEAR_BUTTON_ICON_SIZE, 0, CLEAR_BUTTON_ICON_SIZE),
-						BackgroundTransparency = 1,
-						Visible = text ~= "",
-						Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
-						ImageColor3 = searchBarTheme.clearButton.image,
-
-						[Roact.Event.MouseEnter] = self.onClearButtonHovered,
-						[Roact.Event.MouseMoved] = self.onClearButtonHovered,
-						[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
-						[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
-					}),
-				}),
-
-				ImageFrame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = orderIterator:getNextOrder(),
-					Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
-						0, SEARCH_BAR_HEIGHT),
-				} , {
-					Image = Roact.createElement("ImageLabel", {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
-							0, SEARCH_BAR_BUTTON_ICON_SIZE),
-						BackgroundTransparency = 1,
-						Image = Images.SEARCH_ICON,
-						ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,
-					}),
-				}),
-
-				Dropdown = ((not FFlagToolboxReplaceUILibraryComponentsPt3) and showDropdown and searchBarRef) and Roact.createElement(DropdownMenu, {
-					OnFocusLost = self.hideDropdown,
-					OnItemClicked = self.onItemClicked,
-					SourceExtents = searchBarExtents,
-					Offset = Vector2.new(0, VERTICAL_OFFSET),
-					MaxHeight = maxHeight,
-					ShowBorder = true,
-					ScrollBarPadding = scrollBarPadding,
-					ScrollBarThickness = scrollBarThickness,
-
+				Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(DropdownMenu, {
+					Hide = not (showDropdown and searchBarRef),
 					Items = self.state.mergedItems,
-					RenderItem = function(item, index, activated)
-						if typeof(item) == "string" and (item ~= "LoadingIndicator"  and item ~= "NoResults") then
-							return Roact.createElement("TextLabel", {
-									Size = UDim2.new(0, searchBarExtents.Width, 0, headerHeight),
-									Text = item,
-									TextXAlignment = Enum.TextXAlignment.Left,
-									BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
-									BorderSizePixel = 0,
-									TextWrapped = true,
-									LayoutOrder = index,
-									Font = Constants.FONT,
-									TextSize = 16,
-									TextColor3 = searchBarTheme.placeholderText,
-								}, {
-									Padding = Roact.createElement("UIPadding", {
-										PaddingLeft = UDim.new(0, textPadding),
-									}),
-								})
-						elseif item == "NoResults" then
-							return Roact.createElement("TextLabel", {
-								Font = Constants.FONT,
-								TextSize = Constants.FONT_SIZE_TITLE,
-								TextColor3 = theme.assetConfig.textColor,
+					OnFocusLost = self.hideDropdown,
+					OnItemActivated = self.onItemClicked,
+					OnRenderItem = function(item, index, activated)
+						return self:onRenderItem(item, index, activated, theme, searchBarExtents)
+					end,
+					Width = searchBarExtents and searchBarExtents.Width or nil,
+				}),
+			}),
 
-								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
-								Text = noResultsText,
+			ClearButtonFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+					0, SEARCH_BAR_HEIGHT),
+			} , {
+				ClearButton = Roact.createElement("ImageButton", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(0, CLEAR_BUTTON_ICON_SIZE, 0, CLEAR_BUTTON_ICON_SIZE),
+					BackgroundTransparency = 1,
+					Visible = text ~= "",
+					Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
+					ImageColor3 = searchBarTheme.clearButton.image,
+
+					[Roact.Event.MouseEnter] = self.onClearButtonHovered,
+					[Roact.Event.MouseMoved] = self.onClearButtonHovered,
+					[Roact.Event.MouseLeave] = self.onClearButtonHoverEnded,
+					[Roact.Event.MouseButton1Down] = self.onClearButtonClicked,
+				}),
+			}),
+
+			ImageFrame = Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
+				LayoutOrder = orderIterator:getNextOrder(),
+				Size = UDim2.new(0, SEARCH_BAR_HEIGHT,
+					0, SEARCH_BAR_HEIGHT),
+			} , {
+				Image = Roact.createElement("ImageLabel", {
+					AnchorPoint = Vector2.new(0.5, 0.5),
+					Position = UDim2.new(0.5, 0, 0.5, 0),
+					Size = UDim2.new(0, SEARCH_BAR_BUTTON_ICON_SIZE,
+						0, SEARCH_BAR_BUTTON_ICON_SIZE),
+					BackgroundTransparency = 1,
+					Image = Images.SEARCH_ICON,
+					ImageColor3 = theme.assetConfig.packagePermissions.searchBar.searchIcon,
+				}),
+			}),
+
+			Dropdown = ((not FFlagToolboxReplaceUILibraryComponentsPt3) and showDropdown and searchBarRef) and Roact.createElement(DropdownMenu, {
+				OnFocusLost = self.hideDropdown,
+				OnItemClicked = self.onItemClicked,
+				SourceExtents = searchBarExtents,
+				Offset = Vector2.new(0, VERTICAL_OFFSET),
+				MaxHeight = maxHeight,
+				ShowBorder = true,
+				ScrollBarPadding = scrollBarPadding,
+				ScrollBarThickness = scrollBarThickness,
+
+				Items = self.state.mergedItems,
+				RenderItem = function(item, index, activated)
+					if typeof(item) == "string" and (item ~= "LoadingIndicator"  and item ~= "NoResults") then
+						return Roact.createElement("TextLabel", {
+								Size = UDim2.new(0, searchBarExtents.Width, 0, headerHeight),
+								Text = item,
 								TextXAlignment = Enum.TextXAlignment.Left,
 								BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
 								BorderSizePixel = 0,
 								TextWrapped = true,
 								LayoutOrder = index,
+								Font = Constants.FONT,
+								TextSize = 16,
+								TextColor3 = searchBarTheme.placeholderText,
 							}, {
 								Padding = Roact.createElement("UIPadding", {
 									PaddingLeft = UDim.new(0, textPadding),
 								}),
 							})
-						elseif item == "LoadingIndicator" then
-							return Roact.createElement("Frame", {
+					elseif item == "NoResults" then
+						return Roact.createElement("TextLabel", {
+							Font = Constants.FONT,
+							TextSize = Constants.FONT_SIZE_TITLE,
+							TextColor3 = theme.assetConfig.textColor,
+
+							Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+							Text = noResultsText,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+							BorderSizePixel = 0,
+							TextWrapped = true,
+							LayoutOrder = index,
+						}, {
+							Padding = Roact.createElement("UIPadding", {
+								PaddingLeft = UDim.new(0, textPadding),
+							}),
+						})
+					elseif item == "LoadingIndicator" then
+						return Roact.createElement("Frame", {
+							Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
+							BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+							BorderSizePixel = 0,
+							LayoutOrder = index,
+						}, {
+							LoadingIndicator = Roact.createElement(LoadingIndicator, {
+								AnchorPoint = Vector2.new(0.5, 0.5),
+								Position = UDim2.new(0.5, 0, 0.5, 0),
+								ZIndex = 3,
+							}),
+						})
+					-- user/group items
+					else
+						local key = item.Key
+						local isHovered = dropdownItem == key
+						-- setting offset for textbox to be icon frame or icon frame and enter icon frame if hovered and if showRibbon is true
+						local ribbonSize = isHovered and showRibbon and RIBBON_WIDTH or 0
+						local iconOffset = isHovered and itemHeight * 2 or itemHeight
+						local textLabelOffset = -(ribbonSize + iconOffset)
+
+						local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor or searchBarTheme.dropDown.backgroundColor
+						return Roact.createElement("ImageButton", {
 								Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
-								BackgroundColor3 = searchBarTheme.dropDown.backgroundColor,
+								BackgroundColor3 = backgroundColor,
 								BorderSizePixel = 0,
 								LayoutOrder = index,
+								AutoButtonColor = false,
+								[Roact.Event.Activated] = activated,
+								[Roact.Event.MouseEnter] = function()
+									self.onKeyMouseEnter(key)
+								end,
+								[Roact.Event.MouseLeave] = function()
+									self.onKeyMouseLeave(key)
+								end,
 							}, {
-								LoadingIndicator = Roact.createElement(LoadingIndicator, {
-									AnchorPoint = Vector2.new(0.5, 0.5),
-									Position = UDim2.new(0.5, 0, 0.5, 0),
-									ZIndex = 3,
-								}),
-							})
-						-- user/group items
-						else
-							local key = item.Key
-							local isHovered = dropdownItem == key
-							-- setting offset for textbox to be icon frame or icon frame and enter icon frame if hovered and if showRibbon is true
-							local ribbonSize = isHovered and showRibbon and RIBBON_WIDTH or 0
-							local iconOffset = isHovered and itemHeight * 2 or itemHeight
-							local textLabelOffset = -(ribbonSize + iconOffset)
-
-							local backgroundColor = isHovered and searchBarTheme.dropDown.hovered.backgroundColor or searchBarTheme.dropDown.backgroundColor
-							return Roact.createElement("ImageButton", {
-									Size = UDim2.new(0, searchBarExtents.Width, 0, itemHeight),
-									BackgroundColor3 = backgroundColor,
-									BorderSizePixel = 0,
+								Roact.createElement(HorizontalContentFit, {
 									LayoutOrder = index,
-									AutoButtonColor = false,
-									[Roact.Event.Activated] = activated,
-									[Roact.Event.MouseEnter] = function()
-										self.onKeyMouseEnter(key)
-									end,
-									[Roact.Event.MouseLeave] = function()
-										self.onKeyMouseLeave(key)
-									end,
-								}, {
-									Roact.createElement(HorizontalContentFit, {
-										LayoutOrder = index,
+									BackgroundTransparency = 1,
+								} , {
+									UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+										SortOrder = Enum.SortOrder.LayoutOrder,
+										FillDirection = Enum.FillDirection.Horizontal,
+									}),
+
+									Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
+										Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
+										BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
+										BorderSizePixel = 0,
+										LayoutOrder = 0,
+									}),
+
+									IconFrame = Roact.createElement("Frame", {
 										BackgroundTransparency = 1,
+										LayoutOrder = 1,
+										Size = UDim2.new(0, itemHeight,
+											0, itemHeight),
 									} , {
-										UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
-											SortOrder = Enum.SortOrder.LayoutOrder,
-											FillDirection = Enum.FillDirection.Horizontal,
-										}),
+										SmallIcon = Roact.createElement("Frame", {
+											AnchorPoint = Vector2.new(0.5, 0.5),
+											Position = UDim2.new(0.5, 0, 0.5, 0),
+											Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
 
-										Ribbon = isHovered and showRibbon and Roact.createElement("Frame", {
-											Size = UDim2.new(0, RIBBON_WIDTH, 1, 0),
-											BackgroundColor3 = searchBarTheme.dropDown.selected.backgroundColor,
+											BackgroundColor3 = backgroundColor,
 											BorderSizePixel = 0,
-											LayoutOrder = 0,
-										}),
-
-										IconFrame = Roact.createElement("Frame", {
-											BackgroundTransparency = 1,
-											LayoutOrder = 1,
-											Size = UDim2.new(0, itemHeight,
-												0, itemHeight),
-										} , {
-											SmallIcon = Roact.createElement("Frame", {
-												AnchorPoint = Vector2.new(0.5, 0.5),
-												Position = UDim2.new(0.5, 0, 0.5, 0),
-												Size = UDim2.new(0, THUMBNAIL_SIZE, 0, THUMBNAIL_SIZE),
-
-												BackgroundColor3 = backgroundColor,
-												BorderSizePixel = 0,
-											}, {
-												Icon = item.Icon,
-											}),
-										}),
-
-										TextLabel = Roact.createElement("TextLabel", {
-											Font = Constants.FONT,
-											TextSize = Constants.FONT_SIZE_TITLE,
-											TextColor3 = theme.assetConfig.textColor,
-
-											Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
-											Text = item.Name,
-											TextXAlignment = Enum.TextXAlignment.Left,
-											BackgroundTransparency = 1,
-											TextWrapped = true,
-											ClipsDescendants = true,
-											LayoutOrder = 2,
 										}, {
-											Padding = Roact.createElement("UIPadding", {
-												PaddingLeft = UDim.new(0, textPadding),
-											}),
+											Icon = item.Icon,
 										}),
-									})
+									}),
+
+									TextLabel = Roact.createElement("TextLabel", {
+										Font = Constants.FONT,
+										TextSize = Constants.FONT_SIZE_TITLE,
+										TextColor3 = theme.assetConfig.textColor,
+
+										Size = UDim2.new(1, textLabelOffset, 0, itemHeight),
+										Text = item.Name,
+										TextXAlignment = Enum.TextXAlignment.Left,
+										BackgroundTransparency = 1,
+										TextWrapped = true,
+										ClipsDescendants = true,
+										LayoutOrder = 2,
+									}, {
+										Padding = Roact.createElement("UIPadding", {
+											PaddingLeft = UDim.new(0, textPadding),
+										}),
+									}),
 								})
-							end
-						end,
-					})
-			}),
-		})
-	end)
+							})
+						end
+					end,
+				})
+		}),
+	})
+end
+
+if FFlagToolboxRemoveWithThemes then
+	CollaboratorSearchBar = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorSearchBar)
 end
 
 return CollaboratorSearchBar

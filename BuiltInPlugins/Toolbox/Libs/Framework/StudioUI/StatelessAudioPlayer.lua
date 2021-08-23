@@ -23,7 +23,6 @@
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
-		Plugin Plugin: A Plugin ContextItem, which is provided via withContext. TODO: Remove with FFlagStudioStopUsingPluginSoundApis
 ]]
 
 local Framework = script.Parent.Parent
@@ -41,7 +40,6 @@ local Image = UI.Decoration.Image
 local MediaPlayerControls = require(Framework.StudioUI.MediaPlayerControls)
 local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPlayerSignal)
 
-local FFlagStudioStopUsingPluginSoundApis = game:GetFastFlag("StudioStopUsingPluginSoundApis")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -74,24 +72,12 @@ function StatelessAudioPlayer:init()
 
 		if updateType == MediaPlayerSignal.PLAY then
 			soundObj.SoundId = self.props.SoundId
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = true
-			else
-				self.props.Plugin:get():PlaySound(soundObj, self.props.CurrentTime / self.props.TimeLength)
-			end
+			soundObj.Playing = true
 		elseif updateType == MediaPlayerSignal.PAUSE then
-			if FFlagStudioStopUsingPluginSoundApis then
-				soundObj.Playing = false
-			else
-				self.props.Plugin:get():PauseSound(soundObj)
-			end
+			soundObj.Playing = false
 		elseif updateType == MediaPlayerSignal.SET_TIME then
 			if self.props.IsPlaying then
-				if FFlagStudioStopUsingPluginSoundApis then
-					soundObj.TimePosition = self.props.CurrentTime
-				else
-					self.props.Plugin:get():PlaySound(soundObj, self.props.CurrentTime / self.props.TimeLength)
-				end
+				soundObj.TimePosition = self.props.CurrentTime
 			end
 		end
 	end
@@ -173,13 +159,11 @@ end
 
 if FFlagDeveloperFrameworkWithContext then
 	StatelessAudioPlayer = withContext({
-		Plugin = (not FFlagStudioStopUsingPluginSoundApis) and ContextServices.Plugin or nil,
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	})(StatelessAudioPlayer)
 else
 	ContextServices.mapToProps(StatelessAudioPlayer, {
-		Plugin = (not FFlagStudioStopUsingPluginSoundApis) and ContextServices.Plugin or nil,
 		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	})

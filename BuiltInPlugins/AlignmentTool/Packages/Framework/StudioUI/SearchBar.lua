@@ -5,6 +5,8 @@
 		number Width: how wide the search bar is in pixels.
 		number ButtonWidth: how wide the search button is in pixels.
 		number LayoutOrder: The layout order of this component in a list.
+		callback OnInputBegan: callback for when user input (keystroke) begins
+		callback OnInputEnded: callback for when user input (keystroke) ends
 		callback OnSearchRequested: callback for when the user presses the enter key
 			or clicks the search button. This will also be called with an empty string
 			when the user clicks "Clear". - OnSearchRequested(searchTerm: string)
@@ -26,6 +28,7 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddSearchBarInputEvents = game:GetFastFlag("DevFrameworkAddSearchBarInputEvents")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -213,6 +216,12 @@ function SearchBar:render()
 	placeholderText = props.PlaceholderText
 	showSearchButton = props.ShowSearchButton
 	showSearchIcon = props.ShowSearchIcon
+	local onInputBegan
+	local onInputEnded
+	if FFlagDevFrameworkAddSearchBarInputEvents then
+		onInputBegan = props.OnInputBegan
+		onInputEnded = props.OnInputEnded
+	end
 
 	local shouldFocus = state.shouldFocus
 	local text = state.text
@@ -264,6 +273,8 @@ function SearchBar:render()
 				LayoutOrder = 2,
 				PlaceholderText = placeholderText,
 				Text = text,
+				OnInputBegan = onInputBegan,
+				OnInputEnded = onInputEnded,
 				OnTextChanged = self.onTextChanged,
 				OnFocusGained = self.onTextBoxFocusGained,
 				OnFocusLost = self.onTextBoxFocusLost,

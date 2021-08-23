@@ -23,9 +23,11 @@ type CallstackStore = {
 	stateTokenToCallstackVars : {[DebuggerStateToken.DebuggerStateToken] : CallstackVars}
 }
 
-return Rodux.createReducer({
+local productionStartStore = {
 	stateTokenToCallstackVars = {}
-}, {
+}
+
+return Rodux.createReducer(productionStartStore, {
 	[AddThreadIdAction.name] = function(state : CallstackStore, action : AddThreadIdAction.Props)
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {

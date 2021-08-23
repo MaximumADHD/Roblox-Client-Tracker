@@ -6,6 +6,7 @@
 	bool ShowIcon = Show the preview button to toggle the asset preview.
 	function onClick = A callback when the user clicks this button.
 ]]
+local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -42,29 +43,37 @@ function PopUpWrapperButton:init(props)
 end
 
 function PopUpWrapperButton:render()
-	return withTheme(function(theme)
-		local props = self.props
-		local state = self.state
+	if FFlagToolboxRemoveWithThemes then
+		return self:renderContent(nil)
+	else
+		return withTheme(function(theme)
+			return self:renderContent(theme)
+		end)
+	end
+end
 
-		local position = props.position
-		local showIcon = props.ShowIcon
+function PopUpWrapperButton:renderContent(theme)
+	local props = self.props
+	local state = self.state
 
-		local hovering = state.hovering
+	local position = props.position
+	local showIcon = props.ShowIcon
 
-		return Roact.createElement("ImageButton", {
-			Position = position,
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = hovering and HOVER_SIZE or DEFAULT_SIZE,
+	local hovering = state.hovering
 
-			Image = Images.MAGNIFIER_PH,
-			ImageTransparency = showIcon and 0 or 1,
-			BackgroundTransparency = 1,
+	return Roact.createElement("ImageButton", {
+		Position = position,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = hovering and HOVER_SIZE or DEFAULT_SIZE,
 
-			[Roact.Event.Activated] = props.onClick,
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
-		})
-	end)
+		Image = Images.MAGNIFIER_PH,
+		ImageTransparency = showIcon and 0 or 1,
+		BackgroundTransparency = 1,
+
+		[Roact.Event.Activated] = props.onClick,
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+	})
 end
 
 return PopUpWrapperButton

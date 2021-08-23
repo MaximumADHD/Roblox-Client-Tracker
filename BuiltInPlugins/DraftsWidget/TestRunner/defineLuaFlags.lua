@@ -3,5 +3,6 @@
 -- And then error when trying to use flags that aren't yet defined
 
 game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)
+game:DefineFastFlag("DraftsWidgetDeduplicatePackages", false)
 
 return nil

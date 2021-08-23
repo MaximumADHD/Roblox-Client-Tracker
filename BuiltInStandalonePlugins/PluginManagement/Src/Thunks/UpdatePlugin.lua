@@ -1,5 +1,3 @@
-local FFlagPluginManagementAnalytics = game:GetFastFlag("PluginManagementAnalytics")
-
 local Plugin = script.Parent.Parent.Parent
 local StudioService = game:GetService("StudioService")
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
@@ -14,14 +12,10 @@ return function(plugin, analytics)
 			StudioService:TryInstallPlugin(assetId, latestVersion)
 		end)
 		if success then
-			if FFlagPluginManagementAnalytics then
-				analytics:report("UpdatePluginSuccess", assetId)
-			end
+			analytics:report("UpdatePluginSuccess", assetId)
 			store:dispatch(SetPluginUpdateStatus(assetId, UpdateStatus.Success))
 		else
-			if FFlagPluginManagementAnalytics then
-				analytics:report("UpdatePluginFailure", assetId)
-			end
+			analytics:report("UpdatePluginFailure", assetId)
 			store:dispatch(SetPluginUpdateStatus(assetId, UpdateStatus.Error))
 		end
 	end

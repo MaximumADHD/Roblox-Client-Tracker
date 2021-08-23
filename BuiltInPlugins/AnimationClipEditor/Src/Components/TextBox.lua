@@ -27,8 +27,6 @@ local withContext = ContextServices.withContext
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 local RoundFrame = require(UILibraryCompat.RoundFrame)
 
-local GetFFlagNoValueChangeDuringPlayback = require(Plugin.LuaFlags.GetFFlagNoValueChangeDuringPlayback)
-
 local TextBox = Roact.PureComponent:extend("TextBox")
 
 function TextBox:init(initialProps)
@@ -77,18 +75,13 @@ function TextBox:render()
 		local text = props.Text
 		local textXAlignment = props.TextXAlignment
 		local layoutOrder = props.LayoutOrder
-		local readOnly = props.ReadOnly
 
 		local focused = state.Focused
 		local textBoxTheme = theme.textBox
 
 		local textChanged = props.TextChanged
 		local focusChanged = props.FocusChanged
-		local textEditable
-
-		if GetFFlagNoValueChangeDuringPlayback() then
-			textEditable = not readOnly
-		end
+		local textEditable = not props.ReadOnly
 
 		local borderColor
 		if focused then
@@ -131,20 +124,20 @@ function TextBox:render()
 
 				[Roact.Ref] = self.textBoxRef,
 
-				[Roact.Change.Text] = not (GetFFlagNoValueChangeDuringPlayback() and readOnly) and function(rbx)
+				[Roact.Change.Text] = textEditable and function(rbx)
 					if textChanged then
 						textChanged(rbx.Text)
 					end
 				end or nil,
 
-				[Roact.Event.Focused] = not (GetFFlagNoValueChangeDuringPlayback() and readOnly) and function(rbx)
+				[Roact.Event.Focused] = textEditable and function(rbx)
 					self:setState({
 						Focused = true,
 					})
 					focusChanged(rbx, true)
 				end or nil,
 
-				[Roact.Event.FocusLost] = not (GetFFlagNoValueChangeDuringPlayback() and readOnly) and function(rbx, submitted)
+				[Roact.Event.FocusLost] = textEditable and function(rbx, submitted)
 					if not self.unmounting then
 						self:setState({
 							Focused = false,
@@ -153,8 +146,8 @@ function TextBox:render()
 					end
 				end or nil,
 
-				[Roact.Event.MouseEnter] = not (GetFFlagNoValueChangeDuringPlayback() and readOnly) and self.mouseEnter or nil,
-				[Roact.Event.MouseLeave] = not (GetFFlagNoValueChangeDuringPlayback() and readOnly) and self.mouseLeave or nil,
+				[Roact.Event.MouseEnter] = textEditable and self.mouseEnter or nil,
+				[Roact.Event.MouseLeave] = textEditable and self.mouseLeave or nil,
 			}, props[Roact.Children]),
 		})
 end
