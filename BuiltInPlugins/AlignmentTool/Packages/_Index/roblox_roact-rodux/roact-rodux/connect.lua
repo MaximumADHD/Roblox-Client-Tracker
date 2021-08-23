@@ -3,8 +3,6 @@ local getStore = require(script.Parent.getStore)
 local shallowEqual = require(script.Parent.shallowEqual)
 local join = require(script.Parent.join)
 
-local TempConfig = require(script.Parent.TempConfig)
-
 --[[
 	Formats a multi-line message with printf-style placeholders.
 ]]
@@ -87,23 +85,6 @@ local function connect(mapStateToPropsOrThunk, mapDispatchToProps)
 			end
 		end
 
-		function Connection:createStoreConnection()
-			self.storeChangedConnection = self.store.changed:connect(function(storeState)
-				self:setState(function(prevState, props)
-					local mappedStoreState = prevState.mapStateToProps(storeState, props)
-
-					-- We run this check here so that we only check shallow
-					-- equality with the result of mapStateToProps, and not the
-					-- other props that could be passed through the connector.
-					if shallowEqual(mappedStoreState, prevState.mappedStoreState) then
-						return nil
-					end
-
-					return prevState.stateUpdater(props, prevState, mappedStoreState)
-				end)
-			end)
-		end
-
 		function Connection:init()
 			self.store = getStore(self)
 
@@ -174,16 +155,23 @@ local function connect(mapStateToPropsOrThunk, mapDispatchToProps)
 			for key, value in pairs(extraState) do
 				self.state[key] = value
 			end
-
-			if TempConfig.newConnectionOrder then
-				self:createStoreConnection()
-			end
 		end
 
 		function Connection:didMount()
-			if not TempConfig.newConnectionOrder then
-				self:createStoreConnection()
-			end
+			self.storeChangedConnection = self.store.changed:connect(function(storeState)
+				self:setState(function(prevState, props)
+					local mappedStoreState = prevState.mapStateToProps(storeState, props)
+
+					-- We run this check here so that we only check shallow
+					-- equality with the result of mapStateToProps, and not the
+					-- other props that could be passed through the connector.
+					if shallowEqual(mappedStoreState, prevState.mappedStoreState) then
+						return nil
+					end
+
+					return prevState.stateUpdater(props, prevState, mappedStoreState)
+				end)
+			end)
 		end
 
 		function Connection:willUnmount()

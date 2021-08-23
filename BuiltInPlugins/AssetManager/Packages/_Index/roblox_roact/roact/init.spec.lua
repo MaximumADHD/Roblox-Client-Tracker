@@ -6,6 +6,7 @@ return function()
 			createElement = "function",
 			createFragment = "function",
 			createRef = "function",
+			forwardRef = "function",
 			createBinding = "function",
 			joinBindings = "function",
 			mount = "function",
@@ -13,6 +14,7 @@ return function()
 			update = "function",
 			oneChild = "function",
 			setGlobalConfig = "function",
+			createContext = "function",
 
 			-- These functions are deprecated and throw warnings!
 			reify = "function",
