@@ -2499,6 +2499,18 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">ChannelSelectorSoundEffect</string>
+        <string name="ClassCategory">Sounds</string>
+        <string name="ExplorerOrder">20</string>
+        <string name="ExplorerImageIndex">84</string>
+        <string name="PreferredParent">Sound</string>
+        <string name="FFlag">EnableAudioChannelSelector</string>
+      </Properties>
+    </Item>
+
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">ChorusSoundEffect</string>
         <string name="ClassCategory">Sounds</string>
         <string name="ExplorerOrder">20</string>

@@ -2150,6 +2150,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DisableDUARAndOpenSurvey",
+                    "Parameters": [
+                        {
+                            "Name": "surveyUrl",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PerformManagedUpdate",
                     "Parameters": [
                     ],
@@ -3688,6 +3707,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "NoPromptDeleteOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "NoPromptSaveAvatar",
                     "Parameters": [
                         {
@@ -3797,6 +3835,18 @@
                                 "Name": "string"
                             }
                         }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PerformDeleteOutfit",
+                    "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -3928,6 +3978,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptDeleteOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptSaveAvatar",
                     "Parameters": [
                         {
@@ -4019,6 +4088,30 @@
                 {
                     "MemberType": "Function",
                     "Name": "SignalCreateOutfitPermissionDenied",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalDeleteOutfitFailed",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalDeleteOutfitPermissionDenied",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -4373,6 +4466,21 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "OpenPromptDeleteOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "OpenPromptSaveAvatar",
                     "Parameters": [
                         {
@@ -4453,6 +4561,21 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptDeleteOutfitCompleted",
+                    "Parameters": [
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarPromptResult"
                             }
                         }
                     ],
@@ -10629,21 +10752,21 @@
                     "Name": "RegisterCommand",
                     "Parameters": [
                         {
-                            "Name": "pluginname",
+                            "Name": "plugin",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "Plugin"
                             }
                         },
                         {
-                            "Name": "description",
+                            "Name": "name",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
                             }
                         },
                         {
-                            "Name": "",
+                            "Name": "description",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -19490,54 +19613,6 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "FileName",
-                    "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "FileSize",
-                    "Security": {
-                        "Read": "PluginSecurity",
-                        "Write": "PluginSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
                     "Name": "Size",
                     "Security": {
                         "Read": "PluginSecurity",
@@ -19568,21 +19643,6 @@
                         "Name": "string"
                     },
                     "Security": "PluginSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetFileContentsBinary",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "PluginSecurity",
-                    "Tags": [
-                        "Deprecated"
-                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -45321,7 +45381,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         },
                         {
@@ -47773,7 +47833,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         }
                     ],
@@ -48057,7 +48117,7 @@
                             "Name": "part",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "BasePart"
                             }
                         },
                         {
@@ -52544,7 +52604,7 @@
                             "Name": "script",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "LuaSourceContainer"
                             }
                         },
                         {
@@ -60907,6 +60967,34 @@
                 {
                     "Category": "State",
                     "MemberType": "Property",
+                    "Name": "Channel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ChannelSelectorSoundEffect",
+            "Superclass": "SoundEffect",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
                     "Name": "Depth",
                     "Security": {
                         "Read": "None",
@@ -63920,24 +64008,6 @@
                     }
                 },
                 {
-                    "Category": "Advanced",
-                    "MemberType": "Property",
-                    "Name": "DEPRECATED_DisableAccuratePlaySolo",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
                     "Category": "Script Editor Colors",
                     "MemberType": "Property",
                     "Name": "Debugger Current Line Color",
@@ -66922,68 +66992,6 @@
                     "Security": "PluginSecurity",
                     "Tags": [
                         "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "PromptImportLocalAsset",
-                    "Parameters": [
-                        {
-                            "Name": "prompt",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Default": "{}",
-                            "Name": "fileTypeFilter",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "PluginSecurity",
-                    "Tags": [
-                        "Yields",
-                        "Deprecated"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "PromptImportLocalAssets",
-                    "Parameters": [
-                        {
-                            "Name": "prompt",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Default": "{}",
-                            "Name": "fileTypeFilter",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Objects"
-                    },
-                    "Security": "PluginSecurity",
-                    "Tags": [
-                        "Yields",
-                        "Deprecated"
                     ],
                     "ThreadSafety": "Unsafe"
                 },
@@ -83792,23 +83800,23 @@
                 },
                 {
                     "Name": "PlayClient",
-                    "Value": 2
+                    "Value": 1
                 },
                 {
                     "Name": "PlayServer",
-                    "Value": 3
+                    "Value": 2
                 },
                 {
                     "Name": "RobloxPlugin",
-                    "Value": 4
+                    "Value": 3
                 },
                 {
                     "Name": "UserPlugin",
-                    "Value": 5
+                    "Value": 4
                 },
                 {
                     "Name": "None",
-                    "Value": 6
+                    "Value": 5
                 }
             ],
             "Name": "StudioDataModelType"

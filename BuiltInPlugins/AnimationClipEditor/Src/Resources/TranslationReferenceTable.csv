@@ -5,7 +5,7 @@ Studio.AnimationClipEditor.Plugin.Toolbar,Animations,Animations,Animaciones,Anim
 Studio.AnimationClipEditor.Plugin.Button,Animation Editor,Animation Editor,Editor de animación,Editeur d'animation,アニメーションエディタ,애니메이션 편집기,Editor de animação,Редактор анимации,动画编辑器,动画编辑器,動畫編輯器
 Studio.AnimationClipEditor.Plugin.Name,Animation Editor,Animation Editor,Editor de animación,Éditeur d'animation,アニメーションエディタ,애니메이션 편집기,Editor de animação,Редактор анимации,动画编辑器,动画编辑器,動畫編輯器
 Studio.AnimationClipEditor.Settings.CustomFPS,Custom,Custom,Personalizar,Personnaliser,カスタム,사용자 정의,Personalizar,Пользовательская,自定义,自定义,自訂
-Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed,Custom,Custom, , , , , , , , , 
+Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed,Custom,Custom, ,Personnalisé,カスタム,사용자 정의,Personalizar, , , ,自訂
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,Add Keyframe Here,Add Keyframe Here,Añadir fotograma clave aquí,Ajouter des images-clés ici,ここにキーフレームを追加,여기에 키프레임 추가,Adicionar quadro chave aqui,Добавить сюда ключевой кадр,在此处添加关键帧,在此处添加关键帧,在此增加關鍵格
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here,Add Reset Keyframe Here,Añadir fotograma reiniciado aquí,Ajouter l'image-clé réinitialiser ici,ここにキーフレーム再設定を追加,여기에 재설정 키프레임 추가,Adicionar quadro chave reiniciado aqui,Добавить сюда сброс ключевого кадра,在此处添加重置关键帧,在此处添加重置关键帧,在此增加重置關鍵格
 Studio.AnimationClipEditor.ContextMenu.CutEvents,Cut Selected,Cut Selected,Cortar seleccionado,Couper Sélectionné,選択済みを切り抜き,선택 항목 잘라내기,Cortar seleção,Вырезать выбранное,剪切选定项,剪切选定项,剪下選取項目
@@ -24,7 +24,7 @@ Studio.AnimationClipEditor.Dialog.SaveLocation,Animation will be saved to Rig > 
 Studio.AnimationClipEditor.ContextMenu.DeleteEvents,Delete Selected,Delete Selected,Eliminar seleccionado,Supprimer Sélectionné,選択範囲を削除,선택 항목 삭제,Apagar seleção,Удалить выбранное,删除选定项,删除选定项,刪除選取項目
 Studio.AnimationClipEditor.ContextMenu.DeleteSelected,Delete Selected,Delete Selected,Eliminar seleccionado,Supprimer Sélectionné,選択範囲を削除,선택 항목 삭제,Apagar seleção,Удалить выбранное,删除选定项,删除选定项,刪除選取項目
 Studio.AnimationClipEditor.ContextMenu.ResetSelected,Reset Selected,Reset Selected,Reiniciar seleccionado,Réinitialiser Sélectionné,選択範囲を再設定,선택 항목 재설정,Reiniciar seleção,Сбросить выбранное,重置选定项,重置选定项,重置選取項目
-Studio.AnimationClipEditor.Settings.SnapMode,Snap Mode,Snap Mode, , , , , , , , , 
+Studio.AnimationClipEditor.Settings.SnapMode,Snap Mode,Snap Mode, ,Mod snap,装着モード,맞춤 모드,Modo instantâneo, , , ,貼齊模式
 Studio.AnimationClipEditor.Menu.RenamePrompt,New Animation Name:,New Animation Name:,Nombre de la animación nueva:,Nom de la nouvelle animation :,新しいアニメーション名:,새 애니메이션 이름:,Novo nome da animação:,Название новой анимации:,新动画名称：,新动画名称：,新動畫名稱：
 Studio.AnimationClipEditor.Settings.FrameRate,Frame Rate,Frame Rate,Velocidad del fotograma,Taux d'images,フレームレート,프레임 속도,Velocidade dos quadros,Частота кадров,帧速率,帧速率,影格率
 Studio.AnimationClipEditor.Title.MaxFPS,Maximum frame rate is 120 fps,Maximum frame rate is 120 fps,La velocidad máxima del fotograma es de 120 fps,Le taux maximum d'images est de 120 images par seconde,最大フレームレートは 120 fps,최대 프레임 속도는 120fps입니다,O máximo de quadros por segundo é de 120 fps,Максимальная частота - 120 fps,最大帧速率为120 fps,最大帧速率为120 fps,最大影格率為 120 fps
@@ -40,8 +40,8 @@ Studio.AnimationClipEditor.ContextMenu.DeleteTrack,Delete Track,Delete Track,Eli
 Studio.AnimationClipEditor.ContextMenu.Undo,Undo,Undo,Deshacer,Défaire,元に戻す,실행 취소,Desfazer,Отменить,撤消,撤消,復原
 Studio.AnimationClipEditor.Dialog.Confirm,Confirm,Confirm,Confirmar,Confirmer,確定,확인,Confirmar,Подтвердить,确认,确认,確認
 Studio.AnimationClipEditor.Settings.Frames,Frames,Frames,Fotogramas,Images,フレーム,프레임,Quadros,Кадры,帧,帧,影格
-Studio.AnimationClipEditor.Settings.SnapFrames,Frames,Frames, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.PlaybackSpeed,Playback Speed,Playback Speed, , , , , , , , , 
+Studio.AnimationClipEditor.Settings.SnapFrames,Frames,Frames, ,Cadres,フレーム,프레임,Quadros, , , ,影格
+Studio.AnimationClipEditor.Settings.PlaybackSpeed,Playback Speed,Playback Speed, ,Vitesse de lecture,プレイバック速度,재생 속도,Velocidade de execução, , , ,播放速度
 Studio.AnimationClipEditor.Title.SelectARig,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,Select a rig to animate or create a new rig by selecting Build Rig under the Plugins tab,Selecciona un rig para animar o crea un rig nuevo eligiendo Construir rig en la pestaña Plugins,Sélectionner un rig à animer ou créer une nouvelle plate-forme en sélectionnant Construire Rig sous l'onglet Plugins,アニメ化するにはリグを選択するか、プラグインタブの下にある Build Rig を選択して新しいリグを作成,애니메이션화할 리그를 선택하거나 플러그인 탭에서 리그 빌드를 선택해 새 리그를 만듭니다.,Selecionar um rig para animar ou criar novo rig selecionando Construir rig na aba Plugins,Выберите скелетную анимацию,选择一个要制作动画的骨架，或选择插件标签页下的“建造骨架”来新建骨架。,选择一个要制作动画的骨架，或选择插件标签页下的“建造骨架”来新建骨架。,選擇要製作動畫的骨架，或使用外掛程式標籤底下的「建造骨架」選項建立新的骨架
 Studio.AnimationClipEditor.ContextMenu.SelectAll,Select All,Select All,Seleccionar todo,Tout sélectionner,すべて選択,모두 선택,Selecionar tudo,Выбрать все,全选,全选,全選
 Studio.AnimationClipEditor.ContextMenu.ToggleBoneVis,Toggle Microbone Visibility,Toggle Microbone Visibility,Activar visibilidad de Microbone,Activer la visibilité des microstructures,Microbone の可視性を切り替え,Microbone 표시 여부 토글,Ativar visibilidade de Microbone, ,切换 Microbone 可视性,切换 Microbone 可视性,切換 Microbone 可見度
@@ -60,7 +60,7 @@ Studio.AnimationClipEditor.IKMenu.EnableIK,Enable IK,Enable IK,Activar cinemáti
 Studio.AnimationClipEditor.IKMenu.IKMode,IK Mode,IK Mode,Modo cinemática inversa (IK),Mode IK (cinématique inverse),IKモード,IK 모드,Modo cinemática inversa (IK),Режим обратной кинематики,IK 模式,IK 模式,IK 模式
 Studio.AnimationClipEditor.IKMenu.BodyPart,Body Part,Body Part,Parte del cuerpo,Partie du corps,体のパーツ,신체 부위,Parte do corpo,Часть тела,身体部件,身体部件,身體部位
 Studio.AnimationClipEditor.Title.IK,IK,IK,Cinemática inversa (IK),IK,IK,IK,Cinemática inversa (IK),Обратная кинематика,IK,IK,IK
-Studio.AnimationClipEditor.Menu.Tongue,Tongue,Tongue,Lengua, ,舌,혀,Língua, ,舌头,舌头,舌頭
+Studio.AnimationClipEditor.Menu.Tongue,Tongue,Tongue,Lengua,Langue,舌,혀,Língua, ,舌头,舌头,舌頭
 Studio.AnimationClipEditor.Title.CreateNew,Create New Animation,Create New Animation,Crear animación nueva,Créer une nouvelle animation,新しいアニメーションを作成,새 애니메이션 만들기,Criar nova animação,Создать новую анимацию,创建新动画,创建新动画,創作新動畫
 Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,Mostrar Vista de árbol,Afficher l'arborescence,ツリービューを表示,트리뷰 표시,Mostra vista de árvore,Показать Дерево выбора,显示树状图,显示树状图,顯示樹狀檢視
 Studio.AnimationClipEditor.IKMenu.Prompt,Enable IK to start animating with IK constraints,Enable IK to start animating with IK constraints,Activar cinemática inversa (IK) para animar con restricciones de cinemática inversa (IK),Permettre à IK (cinématique inverse) de commencer à animer avec des contraintes IK (cinématique inverse),IK構文でアニメ化を開始するにはIKを有効化,IK를 활성화하여 IK 제약으로 애니메이션화 시작,Ativar cinemática inversa (IK) para animar com restrições de cinemática inversa (IK),"Включить обратную кинематику, чтобы начать анимацию с ограничениями ОК",启用 IK 以开始创建使用 IK 约束的动画,启用 IK 以开始创建使用 IK 约束的动画,若要使用 IK 限制創作動畫，請啟用 IK 模式
@@ -70,7 +70,7 @@ Studio.AnimationClipEditor.Title.AnimationEvents,Animation Events,Animation Even
 Studio.AnimationClipEditor.Menu.Movement,Movement,Movement,Movimiento,Mouvement,移動,이동,Movimento, ,移动,移动,移動
 Studio.AnimationClipEditor.Title.EditEvents,Edit Animation Events,Edit Animation Events,Editar eventos de animación,Modifier des événements animation,アニメーションイベントを編集,애니메이션 이벤트 편집,Editar eventos de animação,Изменить события анимации,编辑动画事件,编辑动画事件,編輯動畫事件
 Studio.AnimationClipEditor.Title.ManageIK,Manage IK,Manage IK,Gestionar cinemática inversa (IK),Gérer IK,IKを管理,IK 관리,Gerenciar cinemática inversa (IK),Управление ОК,管理 IK,管理 IK,管理 IK
-Studio.AnimationClipEditor.Settings.SnapKeyframes,Keyframes,Keyframes, , , , , , , , , 
+Studio.AnimationClipEditor.Settings.SnapKeyframes,Keyframes,Keyframes, ,Images-clés,キーフレーム,키 프레임,Quadros chaves, , , ,關鍵格
 Studio.AnimationClipEditor.Title.EventName,Event Name,Event Name,Nombre del evento,Nom de l'événement,イベント名,이벤트 이름,Nome do evento,Название события,事件名称,事件名称,事件名稱
 Studio.AnimationClipEditor.Menu.Import,Import,Import,Importar,Importer,インポート,가져오기,Importar,Импорт,导入,导入,匯入
 Studio.AnimationClipEditor.Title.MinFPS,Minimum frame rate is 1 fps,Minimum frame rate is 1 fps,La velocidad mínima del fotograma es de 1 fps,Le taux minimum d'images est 1 image par seconde,最小フレームレートは 1 fps,최소 프레임 속도는 1fps입니다,O mínimo de quadros por segundo é 1 fps,Минимальная частота - 1 fps,最小帧速率为1 fps,最小帧速率为1 fps,最小影格率為 1 fps
@@ -147,21 +147,21 @@ Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated,Do you want to change
 Studio.AnimationClipEditor.Toast.Saved_Migrated,Saved animation {savedAnimName},Saved animation {savedAnimName},Animación {savedAnimName} guardada,Animation sauvegardée {savedAnimName},保存済みアニメーション {savedAnimName},저장된 애니메이션 {savedAnimName},Animação salva {savedAnimName}, ,已保存动画 {savedAnimName},已保存动画 {savedAnimName},已儲存動畫 {savedAnimName}
 Studio.AnimationClipEditor.Toast.Loaded_Migrated,Loaded animation {loadedAnimName},Loaded animation {loadedAnimName},Animación {loadedAnimName} cargada,Animation chargée {loadedAnimName},読み込み済みアニメーション {loadedAnimName},불러온 애니메이션 {loadedAnimName},Animação carregada {loadedAnimName}, ,已加载动画 {loadedAnimName},已加载动画 {loadedAnimName},已載入動畫 {loadedAnimName}
 Studio.AnimationClipEditor.RigErrors.MissingPart0_Migrated,The following Motor6Ds do not have a Part0 set: {entries},The following Motor6Ds do not have a Part0 set: {entries},El siguiente Motor6Ds no tiene Part0 establecida: {entries},Le Motor6Ds suivant n'a pas un set Part0 : {entries},以下の Motor6Ds は設定済みの Part0 がありません: {entries},다음 Motor6D에 Part0 세트가 없습니다: {entries},O seguinte Motor6Ds não possui uma Part0 definida: {entries}, ,以下 Motor6D 没有设置 Part0 ：{entries},以下 Motor6D 没有设置 Part0 ：{entries},以下 Motor6D 沒有設定 Part0：{entries}
-Studio.AnimationClipEditor.Title.MinPBS,Minimum playback speed is 0.1x,Minimum playback speed is 0.1x, , , , , , , , , 
+Studio.AnimationClipEditor.Title.MinPBS,Minimum playback speed is 0.1x,Minimum playback speed is 0.1x, ,"La vitesse de lecture minimale est de 0,1x",最大プレイバック速度は 0.1x,최소 재생 속도는 0.1배속입니다,A velocidade mínima de execução é 0.1x, , , ,最慢播放速度為 0.1x
 Studio.AnimationClipEditor.RigErrors.MissingPart1_Migrated,The following Motor6Ds do not have a Part1 set: {entries},The following Motor6Ds do not have a Part1 set: {entries},El siguiente Motor6Ds no tiene Part1 establecida: {entries},Le Motor6Ds n'a pas un set Part1 : {entries},以下の Motor6Ds は設定済みの Part1 がありません: {entries},다음 Motor6D에 Part1 세트가 없습니다: {entries},O seguinte Motor6Ds não possui uma Part1 definida: {entries}, ,以下 Motor6D 没有设置 Part1 ：{entries},以下 Motor6D 没有设置 Part1 ：{entries},以下 Motor6D 沒有設定 Part1：{entries}
-Studio.AnimationClipEditor.Menu.Mouth,Mouth,Mouth,Boca, ,口,입,Boca, ,嘴,嘴,嘴巴
-Studio.AnimationClipEditor.Menu.Jaw,Jaw,Jaw,Mandíbula, ,あご,턱,Mandíbula, ,下巴,下巴,顎部
-Studio.AnimationClipEditor.Title.CustomPlaybackSpeed,Custom Playback Speed,Custom Playback Speed, , , , , , , , , 
-Studio.AnimationClipEditor.Menu.Brows,Brows,Brows,Cejas, ,眉毛,눈썹,Sobrancelhas, ,眉毛,眉毛,眉毛
-Studio.AnimationClipEditor.Menu.Eyes,Eyes,Eyes,Ojos, ,目,눈,Olhos, ,眼睛,眼睛,眼睛
-Studio.AnimationClipEditor.Menu.AddAllFacs,Add All Facial Animation Controls,Add All Facial Animation Controls,Añadir todos los controles de animación facial, ,すべての表情アニメーション操作を追加,모든 얼굴 애니메이션 제어 추가,Adicionar todos os controles de animação facial, ,添加所有面部动画控制,添加所有面部动画控制,新增所有臉部動畫控制選項
-Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?,El modelo en el archivo FBX difiere del modelo seleccionado en el Editor. ¿Importar la animación basada en el modelo FBX (recomendado)?, ,FBX ファイル内のモデルはエディタで選択済みのモデルとは異なります。FBX モデルに基づいてアニメーションをインポート（推奨）しますか？,FBX 파일의 모델이 편집기에서 선택한 모델과 다릅니다. FBX 모델을 기반으로 애니메이션을 가져올까요(권장 사항임)?,O modelo no arquivo FBX difere do modelo selecionado no Editor. Importar a animação baseada no modelo FBX (recomendado)?, ,FBX 文件中的模型与编辑器中选择的模型不同。是否根据 FBX 模型导入动画（推荐）？,FBX 文件中的模型与编辑器中选择的模型不同。是否根据 FBX 模型导入动画（推荐）？,FBX 檔案的模型和編輯器裡選擇的模型不同。根據 FBX 模型匯入動畫？（推薦動作）
-Studio.AnimationClipEditor.Toast.AnimationImportUseFBX,FBX,FBX,FBX, ,FBX,FBX,FBX, ,FBX,FBX,FBX
-Studio.AnimationClipEditor.Toast.AnimationImportUseSelected,Selected,Selected,Seleccionado, ,選択済み,선택됨,Selecionado, ,已选择,已选择,已選擇
-Studio.AnimationClipEditor.Title.MaxPBS,Maximum playback speed is 10x,Maximum playback speed is 10x, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.SnapDisabled,Disabled,Disabled, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.025x,.25x,.25x, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.05x,.5x,.5x, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.1x,1x,1x, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.2x,2x,2x, , , , , , , , , 
-Studio.AnimationClipEditor.Settings.4x,4x,4x, , , , , , , , , 
+Studio.AnimationClipEditor.Menu.Mouth,Mouth,Mouth,Boca,Bouche,口,입,Boca, ,嘴,嘴,嘴巴
+Studio.AnimationClipEditor.Menu.Jaw,Jaw,Jaw,Mandíbula,Mâchoire,あご,턱,Mandíbula, ,下巴,下巴,顎部
+Studio.AnimationClipEditor.Title.CustomPlaybackSpeed,Custom Playback Speed,Custom Playback Speed, ,Vitesse de lecture personnalisée,カスタムプレイバック速度,사용자 정의 재생 속도,Velocidade de execução personalizada, , , ,自訂播放速度
+Studio.AnimationClipEditor.Menu.Brows,Brows,Brows,Cejas,Sourcils,眉毛,눈썹,Sobrancelhas, ,眉毛,眉毛,眉毛
+Studio.AnimationClipEditor.Menu.Eyes,Eyes,Eyes,Ojos,Yeux,目,눈,Olhos, ,眼睛,眼睛,眼睛
+Studio.AnimationClipEditor.Menu.AddAllFacs,Add All Facial Animation Controls,Add All Facial Animation Controls,Añadir todos los controles de animación facial,Ajouter tous les contrôles d'animation faciale,すべての表情アニメーション操作を追加,모든 얼굴 애니메이션 제어 추가,Adicionar todos os controles de animação facial, ,添加所有面部动画控制,添加所有面部动画控制,新增所有臉部動畫控制選項
+Studio.AnimationClipEditor.Toast.AnimationImportModelsDiffer,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?,Model in FBX file differs from model selected in Editor. Import animation based on FBX model (recommended)?,El modelo en el archivo FBX difiere del modelo seleccionado en el Editor. ¿Importar la animación basada en el modelo FBX (recomendado)?,Le modèle du fichier FBX diffère du modèle sélectionné dans l'éditeur. Importer une animation basée sur le modèle FBX (recommandé) ?,FBX ファイル内のモデルはエディタで選択済みのモデルとは異なります。FBX モデルに基づいてアニメーションをインポート（推奨）しますか？,FBX 파일의 모델이 편집기에서 선택한 모델과 다릅니다. FBX 모델을 기반으로 애니메이션을 가져올까요(권장 사항임)?,O modelo no arquivo FBX difere do modelo selecionado no Editor. Importar a animação baseada no modelo FBX (recomendado)?, ,FBX 文件中的模型与编辑器中选择的模型不同。是否根据 FBX 模型导入动画（推荐）？,FBX 文件中的模型与编辑器中选择的模型不同。是否根据 FBX 模型导入动画（推荐）？,FBX 檔案的模型和編輯器裡選擇的模型不同。根據 FBX 模型匯入動畫？（推薦動作）
+Studio.AnimationClipEditor.Toast.AnimationImportUseFBX,FBX,FBX,FBX,FBX,FBX,FBX,FBX, ,FBX,FBX,FBX
+Studio.AnimationClipEditor.Toast.AnimationImportUseSelected,Selected,Selected,Seleccionado,Sélectionné,選択済み,선택됨,Selecionado, ,已选择,已选择,已選擇
+Studio.AnimationClipEditor.Title.MaxPBS,Maximum playback speed is 10x,Maximum playback speed is 10x, ,"La vitesse de lecture maximale est de 0,1x",最大プレイバック速度は 10x,최대 재생 속도는 10배속입니다,A velocidade máxima de execução é 10x, , , ,最快播放速讀為 10x
+Studio.AnimationClipEditor.Settings.SnapDisabled,Disabled,Disabled, ,Désactivé,無効化済み,비활성화됨,Desativado, , , ,已停用
+Studio.AnimationClipEditor.Settings.025x,.25x,.25x, ,.25x,.25x,.25x,.25x, , , ,.25x
+Studio.AnimationClipEditor.Settings.05x,.5x,.5x, ,.5x,.5x,.5x,.5x, , , ,.5x
+Studio.AnimationClipEditor.Settings.1x,1x,1x, ,1x,1x,1x,1x, , , ,1x
+Studio.AnimationClipEditor.Settings.2x,2x,2x, ,2x,2x,2x,2x, , , ,2x
+Studio.AnimationClipEditor.Settings.4x,4x,4x, ,4x,4x,4x,4x, , , ,4x

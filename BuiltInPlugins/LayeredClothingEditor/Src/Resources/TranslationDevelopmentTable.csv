@@ -52,6 +52,7 @@ Studio.LayeredClothingEditor.Editor.MeshPartMode,"Move, rotate, and scale MeshPa
 Studio.LayeredClothingEditor.Editor.PointTool,Point Tool
 Studio.LayeredClothingEditor.Editor.Preview,Preview
 Studio.LayeredClothingEditor.Editor.Reset,Reset
+Studio.LayeredClothingEditor.Editor.ResumeEditing,Click here to resume editing cages.
 Studio.LayeredClothingEditor.Editor.RingTool,Ring Tool
 Studio.LayeredClothingEditor.Editor.Select,Select
 Studio.LayeredClothingEditor.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!

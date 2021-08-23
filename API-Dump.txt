@@ -104,6 +104,7 @@ Class Animator : Instance
 Class AppUpdateService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AppUpdateService:CheckForUpdate(Function handler = nil) {RobloxScriptSecurity}
 	Function void AppUpdateService:DisableDUAR() {RobloxScriptSecurity}
+	Function void AppUpdateService:DisableDUARAndOpenSurvey(string surveyUrl) {RobloxScriptSecurity}
 	Function bool AppUpdateService:PerformManagedUpdate() {RobloxScriptSecurity}
 Class AssetCounterService : Instance [NotCreatable] [Service] [NotReplicated]
 Class AssetDeliveryProxy : Instance [NotCreatable] [Service] [NotReplicated]
@@ -191,32 +192,39 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array AvatarEditorService:GetRecommendedAssets(Enum.AvatarAssetType assetType, int64 contextAssetId = 0) [Yields]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformDeleteOutfit() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
 	Function void AvatarEditorService:PromptCreateOutfit(HumanoidDescription outfit, Enum.HumanoidRigType rigType)
+	Function void AvatarEditorService:PromptDeleteOutfit(int64 outfitId)
 	Function void AvatarEditorService:PromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite)
 	Function CatalogPages AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
 	Function void AvatarEditorService:SetAllowInventoryReadAccess(bool inventoryReadAccessGranted) {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitPermissionDenied() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalDeleteOutfitFailed() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalDeleteOutfitPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoriteFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoritePermissionDenied() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptCreateOufit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum.AvatarPromptResult result, Variant failureType)
+	Event AvatarEditorService.PromptDeleteOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -549,7 +557,7 @@ Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Function void CommandInstance:RegisterExecutionCallback(Function callbackFunction) {RobloxScriptSecurity}
 Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CommandService:Execute(string name, Variant params) {RobloxScriptSecurity} [Yields]
-	Function CommandInstance CommandService:RegisterCommand(Plugin pluginname, string description, string ) {RobloxScriptSecurity} [Yields]
+	Function CommandInstance CommandService:RegisterCommand(Plugin plugin, string name, string description) {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(string name, Variant params) {RobloxScriptSecurity}
 Class Configuration : Instance
 Class Constraint : Instance [NotCreatable]
@@ -1029,11 +1037,8 @@ Class Feature : Instance [NotCreatable]
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class File : Instance [NotCreatable] [NotReplicated]
-	Property string File.FileName {PluginSecurity} [Hidden] [ReadOnly] [Deprecated]
-	Property int64 File.FileSize {PluginSecurity} [Hidden] [ReadOnly] [Deprecated]
 	Property int64 File.Size {PluginSecurity} [Hidden] [ReadOnly]
 	Function string File:GetBinaryContents() {PluginSecurity}
-	Function string File:GetFileContentsBinary() {PluginSecurity} [Deprecated]
 	Function Content File:GetTemporaryId() {PluginSecurity}
 Class Fire : Instance
 	Property Color3 Fire.Color
@@ -2382,7 +2387,7 @@ Class WorldRoot : Model [NotCreatable]
 	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
 	Function Objects WorldRoot:GetPartBoundsInBox(CFrame cframe, Vector3 size, OverlapParams overlapParams = OverlapParams.new())
 	Function Objects WorldRoot:GetPartBoundsInRadius(Vector3 position, float radius, OverlapParams overlapParams = OverlapParams.new())
-	Function Objects WorldRoot:GetPartsInPart(Instance part, OverlapParams overlapParams = OverlapParams.new())
+	Function Objects WorldRoot:GetPartsInPart(BasePart part, OverlapParams overlapParams = OverlapParams.new())
 	Function void WorldRoot:IKMoveTo(BasePart part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum.IKCollisionsMode collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
 	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
 	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
@@ -2510,7 +2515,7 @@ Class PermissionsService : Instance [NotCreatable] [Service]
 	Function Array PermissionsService:GetPermissions(string assetId) {RobloxScriptSecurity}
 	Function void PermissionsService:SetPermissions(string assetId, Array permissions) {RobloxScriptSecurity}
 Class PhysicsService : Instance [NotCreatable] [Service]
-	Function bool PhysicsService:CollisionGroupContainsPart(string name, Instance part)
+	Function bool PhysicsService:CollisionGroupContainsPart(string name, BasePart part)
 	Function void PhysicsService:CollisionGroupSetCollidable(string name1, string name2, bool collidable)
 	Function bool PhysicsService:CollisionGroupsAreCollidable(string name1, string name2)
 	Function int PhysicsService:CreateCollisionGroup(string name)
@@ -2522,7 +2527,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function void PhysicsService:LocalIkSolve(BasePart part, CFrame target, float translateStiffness, float rotateStiffness) {LocalUserSecurity}
 	Function void PhysicsService:RemoveCollisionGroup(string name)
 	Function void PhysicsService:RenameCollisionGroup(string from, string to)
-	Function void PhysicsService:SetPartCollisionGroup(Instance part, string name)
+	Function void PhysicsService:SetPartCollisionGroup(BasePart part, string name)
 Class PhysicsSettings : Instance [NotCreatable] [Settings]
 	Property bool PhysicsSettings.AreAnchorsShown
 	Property bool PhysicsSettings.AreAssembliesShown
@@ -2741,7 +2746,7 @@ Class Plugin : Instance [NotCreatable]
 	Function Objects Plugin:Negate(Objects objects) {PluginSecurity}
 	Function Instance Plugin:OnInvoke(string key, Function callback) {RobloxScriptSecurity}
 	Function Instance Plugin:OnSetItem(string key, Function callback) {RobloxScriptSecurity}
-	Function void Plugin:OpenScript(Instance script, int lineNumber = 1) {PluginSecurity}
+	Function void Plugin:OpenScript(LuaSourceContainer script, int lineNumber = 1) {PluginSecurity}
 	Function void Plugin:OpenWikiPage(string url) {PluginSecurity}
 	Function void Plugin:PauseSound(Instance sound) {RobloxScriptSecurity}
 	Function void Plugin:PlaySound(Instance sound, double normalizedTimePosition = 0) {RobloxScriptSecurity}
@@ -3195,6 +3200,8 @@ Class Sound : Instance
 Class SoundEffect : Instance [NotCreatable]
 	Property bool SoundEffect.Enabled
 	Property int SoundEffect.Priority
+Class ChannelSelectorSoundEffect : SoundEffect [NotBrowsable]
+	Property int ChannelSelectorSoundEffect.Channel
 Class ChorusSoundEffect : SoundEffect
 	Property float ChorusSoundEffect.Depth
 	Property float ChorusSoundEffect.Mix
@@ -3340,7 +3347,6 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StopWatchReporter:SendReport(string reportName) {RobloxScriptSecurity}
 	Function int StopWatchReporter:StartTask(string reportName, string taskName) {RobloxScriptSecurity}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool Studio.DEPRECATED_DisableAccuratePlaySolo {RobloxScriptSecurity}
 	Property bool Studio.Drag Multiple Parts As Single Part
 	Property bool Studio.Enable CoreScript Debugger
 	Property bool Studio.Enable Http Sandboxing
@@ -3517,8 +3523,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:PromptForLocalSave() {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
-	Function Instance StudioService:PromptImportLocalAsset(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
-	Function Objects StudioService:PromptImportLocalAssets(string prompt, Array fileTypeFilter = {}) {PluginSecurity} [Yields] [Deprecated]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
@@ -5682,11 +5686,11 @@ Enum StudioCloseMode
 	EnumItem StudioCloseMode.CloseDoc : 2
 Enum StudioDataModelType
 	EnumItem StudioDataModelType.Edit : 0
-	EnumItem StudioDataModelType.PlayClient : 2
-	EnumItem StudioDataModelType.PlayServer : 3
-	EnumItem StudioDataModelType.RobloxPlugin : 4
-	EnumItem StudioDataModelType.UserPlugin : 5
-	EnumItem StudioDataModelType.None : 6
+	EnumItem StudioDataModelType.PlayClient : 1
+	EnumItem StudioDataModelType.PlayServer : 2
+	EnumItem StudioDataModelType.RobloxPlugin : 3
+	EnumItem StudioDataModelType.UserPlugin : 4
+	EnumItem StudioDataModelType.None : 5
 Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.Default : 0
 	EnumItem StudioScriptEditorColorCategories.Operator : 1

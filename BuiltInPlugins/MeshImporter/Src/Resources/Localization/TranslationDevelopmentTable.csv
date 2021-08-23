@@ -5,3 +5,5 @@ Studio.MeshImporter.Plugin.Description,Import an FBX file using the Mesh Importe
 Studio.MeshImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.MeshImporter.Plugin.Name,MeshImporter
 Studio.MeshImporter.Plugin.Toolbar,Mesh Importer
+Studio.MeshImporter.TreeViewToolbar.Collapse,Collapse
+Studio.MeshImporter.TreeViewToolbar.Expand,Expand

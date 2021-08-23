@@ -576,66 +576,77 @@ Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need hel
 Studio.App.StudioCmdService.PermissionError3,,"The current identity (%1) cannot execute command (%2), lacking permission (%3)
 ","The current identity (%1) cannot execute command (%2), lacking permission (%3)
 "
-Studio.App.GeneralCmd.REPEAT,,Repeat command...,Repeat command...
-Studio.App.GeneralCmd.HELP,,List all commands with optional filtering,List all commands with optional filtering
-Studio.App.ScriptingCmd.REPLACE,,Replace text in an open script,Replace text in an open script
-Studio.App.ScriptingCmd.CONFIG,,Config script editor...,Config script editor...
-Studio.App.ScriptingCmd.INSERT,,Insert text...,Insert text...
-Studio.App.ScriptingCmd.SELECT,,Select text...,Select text...
-Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle Code Fold,Toggle Code Fold
+Studio.App.GeneralCmd.REPEAT,,Repeat command,Repeat command
+Studio.App.GeneralCmd.REPEATTooltip,,Repeat a command in the command history some number of times,Repeat a command in the command history some number of times
+Studio.App.GeneralCmd.HELP,,Command help,Command help
+Studio.App.GeneralCmd.HELPTooltip,,List all commands with optional filtering,List all commands with optional filtering
+Studio.App.ScriptingCmd.REPLACE,,Replace text,Replace text
+Studio.App.ScriptingCmd.REPLACETooltip,,Replace text in an open script,Replace text in an open script
+Studio.App.ScriptingCmd.CONFIG,,Config Script Editor,Config Script Editor
+Studio.App.ScriptingCmd.CONFIGTooltip,,Configure the Script Editor,Configure the Script Editor
+Studio.App.ScriptingCmd.INSERT,,Insert text,Insert text
+Studio.App.ScriptingCmd.INSERTTooltip,,Insert text at the given position,Insert text at the given position
+Studio.App.ScriptingCmd.SELECT,,Select text,Select text
+Studio.App.ScriptingCmd.SELECTTooltip,,Select text at the given position,Select text at the given position
+Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle code fold,Toggle code fold
 Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
-Studio.App.ScriptingCmd.GOTOPOS,,Go to line...,Go to line...
-Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line...,Go to line...
-Studio.App.ScriptingCmd.GOTODECL,,Go To Declaration,Go To Declaration
+Studio.App.ScriptingCmd.GOTOPOS,,Go to line,Go to line
+Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line,Go to line
+Studio.App.ScriptingCmd.GOTODECL,,Go to declaration,Go to declaration
 Studio.App.ScriptingCmd.GOTODECLTooltip,,Go to variable declaration,Go to variable declaration
-Studio.App.ScriptingCmd.GOTOERR,,Go to Script Error,Go to Script Error
+Studio.App.ScriptingCmd.GOTOERR,,Go to script error,Go to script error
 Studio.App.ScriptingCmd.GOTOERRTooltip,,Focus view on script error,Focus view on script error
 Studio.App.ScriptingCmd.INVOKESYMBOLS,,Open Script Function Filter,Open Script Function Filter
 Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,Open the Script Function Filter,Open the Script Function Filter
 Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate selection,Duplicate selection
 Studio.App.ScriptingCmd.DUPLICATESELECTIONTooltip,,Duplicate current line or selection,Duplicate current line or selection
-Studio.App.ScriptingCmd.DELETELINES,,Delete Lines,Delete Lines
+Studio.App.ScriptingCmd.DELETELINES,,Delete lines,Delete lines
 Studio.App.ScriptingCmd.DELETELINESTooltip,,Delete selected line(s),Delete selected line(s)
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
-Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
-Studio.App.ScriptingCmd.FORMATALLTooltip,,Format whole document,Format whole document
-Studio.App.ScriptingCmd.FOLDALL,,Collapse All Folds,Collapse All Folds
+Studio.App.ScriptingCmd.FORMATALL,,Format document,Format document
+Studio.App.ScriptingCmd.FORMATALLTooltip,,Format the whole document,Format the whole document
+Studio.App.ScriptingCmd.FOLDALL,,Collapse all folds,Collapse all folds
 Studio.App.ScriptingCmd.FOLDALLTooltip,,Collapse all foldable sections of scripts,Collapse all foldable sections of scripts
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
 Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
-Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke Hover,Invoke Hover
-Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
+Studio.App.ScriptingCmd.INVOKECOMPLETIONSTooltip,,Invoke the Autocomplete tooltip,Invoke the Autocomplete tooltip
+Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke hover,Invoke hover
+Studio.App.ScriptingCmd.INVOKEHOVERTooltip,,Invoke the type hover tooltip,Invoke the type hover tooltip
+Studio.App.ScriptingCmd.MOVELINESDOWN,,Move lines down,Move lines down
 Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
-Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
+Studio.App.ScriptingCmd.MOVELINESUP,,Move lines up,Move lines up
 Studio.App.ScriptingCmd.MOVELINESUPTooltip,,Move selected line(s) upwards,Move selected line(s) upwards
-Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
+Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert newline above,Insert newline above
 Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
-Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
+Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert newline below,Insert newline below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
-Studio.App.ScriptingCmd.FORMATSEL,,Format Selection,Format Selection
+Studio.App.ScriptingCmd.FORMATSEL,,Format selection,Format selection
 Studio.App.ScriptingCmd.FORMATSELTooltip,,Format selected range of document,Format selected range of document
-Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
+Studio.App.ScriptingCmd.UNFOLDALL,,Expand all folds,Expand all folds
 Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
 Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
 Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
-Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
-Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
-Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find All/ Replace All Window,Show Find All/ Replace All Window
-Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
+Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle comment,Toggle comment
+Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Show the Find / Replace All window,Show the Find / Replace All window
+Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find / Replace All window,Show Find / Replace All window
+Studio.App.ScriptingCmd.SELECTWORD,,Select word,Select word
 Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
-Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find Current Word,Find Current Word
-Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,Find Current Word,Find Current Word
-Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find Current Word Backwards,Find Current Word Backwards
-Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,Find Current Word Backwards,Find Current Word Backwards
-Studio.App.ScriptingCmd.RESETCURSOR,,Clear text selection and dismiss floating widgets,Clear text selection and dismiss floating widgets
+Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find current word,Find current word
+Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,Find the current word,Find the current word
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find current word backwards,Find current word backwards
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,"Find the current word, searching backwards through the doc","Find the current word, searching backwards through the doc"
+Studio.App.ScriptingCmd.RESETCURSOR,,Reset cursor,Reset cursor
+Studio.App.ScriptingCmd.RESETCURSORTooltip,,Clear text selection and dismiss floating widgets,Clear text selection and dismiss floating widgets
 Studio.App.ScriptingCmd.INVOKESIGNATUREHELP,,Invoke Signature Help,Invoke Signature Help
+Studio.App.ScriptingCmd.INVOKESIGNATUREHELPTooltip,,Invoke the Signature Help widget,Invoke the Signature Help widget
 Studio.App.ScriptingCmd.INVOKECOLOR3PICKER,,Invoke Color3 Picker,Invoke Color3 Picker
+Studio.App.ScriptingCmd.INVOKECOLOR3PICKERTooltip,,Invoke the Color3 Picker widget,Invoke the Color3 Picker widget
 Studio.App.ScriptingCmd.FOLDBLOCK,,Fold code block,Fold code block
-Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Folds a block of code in the script,Folds a block of code in the script
+Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
 Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold code block,Unfold code block
-Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfolds a block of code in the script,Unfolds a block of code in the script
+Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
 Studio.App.RBXMainWindow.AddWatch,,Add Watch,Add Watch
@@ -2073,8 +2084,6 @@ Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,Te
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
 Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
 Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
-Studio.App.BetaFeatures.SkinnedMeshTitle,,Skinned Meshes,Skinned Meshes
-Studio.App.BetaFeatures.SkinnedMeshDescription,,"Enables import, display and animation of skinned meshes.","Enables import, display and animation of skinned meshes."
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
@@ -2099,8 +2108,6 @@ Studio.App.BetaFeatures.UIStrokeTitle,,UIStroke Component,UIStroke Component
 Studio.App.BetaFeatures.UIStrokeDescription,,"Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects.","Enables the UIStroke instance, which adds highly customizable borders around the edges of text and UI objects."
 Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,Heightmaps 2,Heightmaps 2
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs
-Studio.App.BetaFeatures.CloudsPhase1Title,,Dynamic Skies: Clouds Initial Phase 1,Dynamic Skies: Clouds Initial Phase 1
-Studio.App.BetaFeatures.CloudsPhase1Description,,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.,Volumetric clouds integrated with sky box with initial minimal density and cover controls for phase 1a-b of dynamic skies.
 Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
 Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games
@@ -3071,6 +3078,8 @@ Studio.App.ExternalLoginDialog.FatalErrorMessage,,Failed to login. Please restar
 Studio.App.ExternalLoginDialog.NoNetworkMessage,,Please check that you are connected to the internet and try again. Please contact support if the problem persists.,Please check that you are connected to the internet and try again. Please contact support if the problem persists.
 Studio.App.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
 Studio.App.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
+Studio.App.ExternalLoginDialog.ExternalBrowserLogin,,External Browser Login,External Browser Login
+Studio.App.ExternalLoginDialog.StudioWillClose,,"Roblox Studio will now close, continue on the browser.","Roblox Studio will now close, continue on the browser."
 Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
 Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
 Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
