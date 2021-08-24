@@ -681,6 +681,7 @@ AHPEAX1PEAPEAX
 AHVWeakObjectRef
 AHW4DataStoreRequestType
 AHW4UserInputType
+AifAsRaC1RenZh3juGwDN9zMeqC0FXhdHWaTc8z6HblJf156Jnnfm3pZ3fo4LHPp
 AimdRateControl
 Aktivieren
 AKTIVIEREN
@@ -1435,7 +1436,6 @@ ATAUAVAWE3
 ATAUAVAWIc
 ATAUAVAWLcT
 AtEndChanged
-ATIejCMRUfSaEka0v4cJRduD737HRl6iJDTthJGZXonoFbD07kCAdnDMfDF9Tl
 Atildesmall
 AtlAxWin140
 AtlAxWinLic140
@@ -1444,7 +1444,6 @@ AtlThunk_DataToCode
 AtlThunk_FreeData
 AtlThunk_InitData
 Atmosphere
-ATnW9iyVn7cOjmNft
 AtObjectAction
 AtomicRequestingTeleport
 AtomicRequestingTeleportRollout
@@ -5622,6 +5621,7 @@ AW4WrapTargetDebugMode
 AW4XAlignment
 AW4YAlignment
 AW4ZIndexBehavior
+AW5tffrZMBVRnUWteg0O3NW
 AwardBadge
 AwardPoints
 AwareCompare
@@ -9250,6 +9250,7 @@ CubeFramebuffer
 CubeMipGen
 Cuentagotas
 CullDistance
+Cumo5lg14TskW2EU24CX
 Cumulative
 CURL_SSL_BACKEND
 CURL_SSLVERSION
@@ -10735,6 +10736,13 @@ DiffView.png
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crl0P
+DigiCertAssuredIDRootCA.crt0
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -11153,6 +11161,7 @@ DSPBufferSize
 Dst.Thread
 Dst.YBegin
 DSVideoCaptureEngine
+Dt1LJqyqMrSXHgY2phHjWdxg2FaHxQygx
 DTLS_FAILURE
 DTLS_RECORD_LAYER_new
 DTLS_TRANSPORT_CLOSED.
@@ -11961,7 +11970,6 @@ EquippedEmotesAddId
 EquippedEmotesAddIdClientData
 EquippedEmotesChanged
 EquippedEmotesDataInternal
-EroPEv8HlofuP
 ERR_LIB_SSL
 ErrDontRetry
 Error_AlreadyConnected
@@ -12034,6 +12042,7 @@ EulerAnglesYXZ
 EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -12420,6 +12429,7 @@ FB64AAAED11E38B9D871882A8E559
 FB6CE584711E29A3DBD856014A660
 FB6CF584711E29A3DBD856014A660
 FB8E4A9E79B
+FBOt7i5A2HhPkcn4UnSHjO0reuuyYt02MlGR
 FbPnXNTBBz2CM47ldc6zPnp04Gg1Ch1zQNrS9Q0fLcTp94XeqG0DjA42Iq0M3ZDg
 FBX_Animation_Import_Failure
 FBX_Animation_Import_Success
@@ -12496,7 +12506,6 @@ FDA6E1EA211E49FA6F7D125AE5309
 FDA6F1EA211E49FA6F7D125AE5309
 FDE5E01E7934
 Fdossl_static.pdb
-FE3tewyfJmQ7RJ4HQaf5XEE5hNylKrs
 Feature_AppBridgeRewrite
 Feature_DeepLinkingV2
 Feature_PlaceLauncherUseNewEndpoints
@@ -13094,6 +13103,7 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
+FqisE7Sqw4g
 Fractional
 FRAGMENT_SCRIPT
 FragmentScript
@@ -14449,6 +14459,7 @@ GlobalUsers.GameSorts.GameGridV2
 GlobalUsers.LuaApp.HideGameStats
 GlobalUsers.LuaApp.SpotlightTile
 GLSL.std.450
+GlTQPaCyXTEi6ntMysIwP6lOHC8Am
 GlyphProvider
 GlyphRenderer
 GoDaddy.com
@@ -14949,7 +14960,6 @@ HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\DellBackupandRecovery
 HKEY_PERFORMANCE_DATA
 HKEY_PERFORMANCE_NLSTEXT
 HKEY_PERFORMANCE_TEXT
-HkqfeMgbt7grKpv7VDJH7O
 HlsAdaptionLogic
 HlsEnableAdaptiveStreaming
 HlsIgnoreDeprecatedRbxTags
@@ -15418,6 +15428,7 @@ HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdna
 HWYGOTH.ttf
 HybridEvent
 HyIyPyVy]y^yey
+HZ1XFuxIZQvkir6CyKKqbfam5CF8g5molxavOiV4CLCzkrTEbFSGobAfCmkaOt4i
 Iacutesmall
 IAEBVInstanceIdentifier
 IAudioCaptureClient
@@ -16469,7 +16480,6 @@ JavaScript
 JavaScriptCallback
 Jba5qWkYU5nARYZm1gQVP
 Jcircumflex
-JCK9SX6zfrk
 JDJNJXJbJlJvJ
 JHJRJ\JfJpJxJ
 JHW4MembershipType
@@ -16669,7 +16679,6 @@ Klebeoberfl
 Kleinschreibung
 KnownPrefixIndex
 KnownPublishRequest
-Ko4pYmf2J2LQLCBAQDGcPq
 KodchiangUPC
 Kollisionen
 Kollisionsgruppen
@@ -16805,7 +16814,6 @@ LDLProgramOpsReportingMinOpCount
 LDLProgramOpsReportingRate
 LDLStasisCacheMaxAge
 LDLStasisCachePurgeRate
-LdzLaPGkXlSy
 LeafBodies
 LeafyGrass
 LearningCalloutsDisconnectFix
@@ -18380,7 +18388,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAz4sXbes1R9XzXwGf0DQotSuxZtxoKeewMVKkuHMRcZbFbZVVNbHc
+MIICCgKCAgEA9XvMMp6ydy5zCAorybbCefrfNsrHfP6MoH
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -18906,7 +18914,6 @@ Navigationsmesh
 NavigationWaypointSpacing
 NavMeshTiles
 Nb5Z3kLJHN6
-NcnINJ4C9aKX3gei6gwO
 NCONF_dump_bio
 NCONF_dump_fp
 NCONF_get_number_e
@@ -18947,7 +18954,6 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
-Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -19044,7 +19050,6 @@ NetworkType
 Netzwerkfehler
 Netzwerksimulator
 Netzwerkstatistik
-NEVAjzSfWr8pYM
 NeverUseJoinBlobRobloxLocaleEvenAsDefault
 New.NullTemplatePageController
 New_Locimp
@@ -19350,6 +19355,7 @@ NumTimesReparented
 NumTimesReparentedOrListenedTo
 NV12ToABGR
 Nvb5JjRCUQ
+Nvjp7ox8CAwEAAQ
 NVKeyframeSequence
 NVLuaWebService
 NvOptimusEnablement
@@ -19365,8 +19371,6 @@ NW4FileSystemDir
 NW4PenStyle
 NW4RenderType
 NW4UserInputType
-NXaBwVU67myL969ZB9qjdnXDSS4THZeQ1TvcXmwBfqCPkqYYMFKvAkvF2JxPq
-NZb0EzVm5Ru
 Oacutesmall
 OAEPEncryptionSET
 OAUTHBEARER
@@ -19769,6 +19773,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -19791,6 +19796,7 @@ OS.Authentication.LuaLoginAndSignup4
 Oscillator
 Oslashsmall
 OsPlatform
+OsqjYPQJlmZrI
 OSSL_STORE_expect
 OSSL_STORE_find
 OSSL_STORE_INFO_get1_CERT
@@ -21164,7 +21170,6 @@ Physikablehnung
 Physikdetails
 Physikfehlern
 Physikstatistik
-PICBeyvEHH8zoTek8CAwEAAQ
 PickerArgValidityWarning
 PickerFrame
 PickerPopup
@@ -21800,7 +21805,6 @@ PostSimulation
 PostThreadMessageA
 PotentialShadowCasters
 POWRPROF.dll
-PPEqZJkS5b
 PpjCapacity
 PpjClientBreak
 PpjEtrFill
@@ -22782,6 +22786,7 @@ QPropertyAnimation
 QProxyStyle
 QPushButton
 QPushButton[default
+Qqem0CdorbMxCIuot
 QQmlContext
 QQmlEngine
 QQmlImageProviderBase
@@ -22985,7 +22990,6 @@ QValidator
 QVariantAnimation
 QVBoxLayout
 QVersionNumber
-QvIt0D9QMidHn1cxeYgo1OGzYEgsY3
 QWheelEvent
 QWidgetAction
 QWidgetPluginGui
@@ -24451,6 +24455,7 @@ RevocationList
 RevocationRefs
 RevocationUrl
 RevokeFriendship
+RF4hXcNVF3oqb8Gom9J49J4a8WRZvR2LnYeyuTR0csvIT8NdWJuaXglK4sPlVsf
 RibbonBarGalleryDropdown
 RibbonButton
 RibbonButtonControl
@@ -31510,7 +31515,6 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
-SymantecPKI
 SymbolicLinkAlreadyExist
 Symbolleistenposition
 SymbolProvider
@@ -31587,7 +31591,6 @@ TakeDamage
 TakenSignal
 TakeScreenshot
 Taktanzahl
-TaMLbSddRHp0zDHhCyLkEnv
 TapAvatarTab
 TapChatTab
 TapConversationEntry
@@ -32109,6 +32112,7 @@ ThemePropertyItem
 ThirdPartyPurchaseFinished
 ThirdPartyUserService
 ThisDevice
+ThNWQFuZtiBSLGWoZS2euk8RULzVkBGM2iucIGkDptdrgNic
 Thornsmall
 Thrd_detach
 Thrd_hardware_concurrency
@@ -33386,6 +33390,7 @@ UITransformedVS
 UIViewportFrameCollectFrames
 ULinkedScriptLoadData
 ULoadedImage
+UlTcI1T7bzP0y
 ULuaCallbacks
 UMasteringMetadata
 Umbenennen
@@ -34091,6 +34096,7 @@ Utag_original_exception_type
 UTagNotifyOnParseComplete
 UTagUseAsStart
 UTaskFunctor
+UtceTJvOz0MOz2g
 UTeleportJoinGameState
 UTeleportState
 UTeleportThreadReportInfo
@@ -35477,7 +35483,6 @@ VProximityPromptService
 VPublishService
 VPVAdornment
 VPVInstance
-VpwL5q5pOwvmmyOST
 VpxSoftwareCodec
 VQByteArray
 VQComboBox
@@ -35487,6 +35492,7 @@ VQGenericReturnArgument
 VQItemSelectionRange
 VQJsonValue
 VQKeySequence
+VQkmN9UVxdcntjl8JpVNK5cjL62U0qH7q0NtdGCD
 VQLatin1String
 VQModelIndex
 VQNetworkAddressEntry
@@ -36415,13 +36421,11 @@ WithSHA256
 WithSHA384
 WithSHA512
 WithUserCredentials
-WkFp0701y9bPxTUxA4mKeHmSwBjdB2blO5ZjfnqeFBqFODDmpqemG1huNtNI3a6b
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
 Wmvcore.dll
-WOBXsf8JFWd7XMdBmvpvVAihuD
 WoodNormalDetailStandardMips
 WoodPlanks
 WorkersNeeded
@@ -36500,6 +36504,7 @@ WSACloseEvent
 WSACreateEvent
 WSAEnumNetworkEvents
 WSAEventSelect
+WsapaAWWq5OtQusVrqmH
 WSAResetEvent
 WSASetEvent
 WSASocketW
@@ -36671,6 +36676,7 @@ XUUserPluginReference
 XvAAuY44YuAAvX4
 XVAddImageDialog
 XVAssetService
+XVc7PqQuni4JByuIbk
 XVCacheableContentProvider
 XVChangeHistoryService
 XVChatService
@@ -36811,11 +36817,9 @@ ZeroZombies
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
 ZIndexBehavior
-ZjVWdOXSLRcUov
 ZLcJhLcGhM
 ZNjlXiODrHUcaGRYt
 ZntaLkerGlryCnmrArbeHbarAcrySaahTaveDgneBuruGrjuGayrOlmaTuleTadnKmylMhniSiahTooaLtbiTrmyMroeGgnaHihtErehCsnaCmagOrnuRrmhKgnoMariHanaKopoBinaHiiiYlatIhtoGtrsDhniZglgTonaHdhuBbgaTbmiLelaTbniLragUwahSamsOtrpCiarBiguBtpoCulaTgalGgnfTolySoepXrahKilaBxusXxnhPgahPoo
-ZONBBOzetF2rH
 ZoomActive
 ZoomOutDistance
 ZoomToExtents
