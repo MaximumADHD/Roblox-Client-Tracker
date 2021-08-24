@@ -15,7 +15,7 @@ local SetSoundTotalTime = require(Plugin.Core.Actions.SetSoundTotalTime)
 
 local SoundPreviewComponent = Roact.Component:extend("SoundPreviewComponent")
 
-function SoundPreviewComponent:init(props)
+function SoundPreviewComponent:init()
 	self.ref = Roact.createRef()
 
 	self.onSoundChange = function(rbx, property)
@@ -33,8 +33,8 @@ function SoundPreviewComponent:init(props)
 
 	self.updateSound = function()
 		local soundObj = self.ref.current
-		local currentSoundId = props.currentSoundId
-		local isPlaying = props.isPlaying
+		local currentSoundId = self.props.currentSoundId
+		local isPlaying = self.props.isPlaying
 
 		if not soundObj then return end
 
