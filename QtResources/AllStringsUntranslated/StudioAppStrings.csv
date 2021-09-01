@@ -76,6 +76,8 @@ Studio.App.CoreScriptBuilder.ParseFailOutOfRange,Internal feature. Text in outpu
 Studio.App.Deployment.PatchBuilderFailure1,Internal feature. Text in output window.,Failed to initialize patch builder with: %1,Failed to initialize patch builder with: %1
 Studio.App.QDebuggerClient.BreakpointLocationFmt2,,"Location: %1, line %2","Location: %1, line %2"
 Studio.App.QDebuggerClient.ConditionText,,Condition,Condition
+Studio.App.QDebuggerClient.LogExpressionText,,Log Expression,Log Expression
+Studio.App.QDebuggerClient.ContinueExecutionText,,Continuing Execution,Continuing Execution
 Studio.App.QDebuggerClient.InvalidText,,Invalid,Invalid
 Studio.App.QDebuggerClient.InvalidBreakpointMessage,,The breakpoint will not currently be hit.,The breakpoint will not currently be hit.
 Studio.App.FileType.RobloxAllFiles,,All Supported Files,All Supported Files
@@ -1025,13 +1027,6 @@ Studio.App.RBXMainWindow.InsertBasicObjects,,Insert Basic Objects,Insert Basic O
 Studio.App.RBXMainWindow.BasicObjects,,Basic Objects,Basic Objects
 Studio.App.RBXMainWindow.Sandbox,,Drafts,Drafts
 Studio.App.RBXMainWindow.ViewSandbox,,View Drafts,View Drafts
-Studio.App.RBXMainWindow.SetAsInstanceDefault,,Set as Instance Default,Set as Instance Default
-Studio.App.RBXMainWindow.SetAsInstanceDefaultStatusTip,,Set the selection as the default for future created instances,Set the selection as the default for future created instances
-Studio.App.RBXMainWindow.ResetDefaultInstanceProperties,,Reset Instance Defaults,Reset Instance Defaults
-Studio.App.RBXMainWindow.InstanceDefaultsEditor,,Instance Defaults Editor,Instance Defaults Editor
-Studio.App.RBXMainWindow.ResetAllInstanceDefaultsTooltip,,Rest all instance defaults,Rest all instance defaults
-Studio.App.RBXMainWindow.ResetAllInstanceDefaults,,Rest all instance defaults,Rest all instance defaults
-Studio.App.RBXMainWindow.CloseInstanceDefaultEditorTooltip,,Close the window.,Close the window.
 Studio.App.RBXMainWindow.GameSettings,,Game Settings...,Game Settings...
 Studio.App.RBXMainWindow.ViewTeamChat,,Team Chat,Team Chat
 Studio.App.RBXMainWindow.ViewTeamChatTooltip,,View Team Chat Window,View Team Chat Window
@@ -1784,6 +1779,7 @@ Studio.App.Property.AutoCleanEmptyLine,,Auto Clean Empty Line,Auto Clean Empty L
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
+Studio.App.Property.EnableOnTypeAutocomplete,,Enable On-Type Autocomplete,Enable On-Type Autocomplete
 Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
 Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
@@ -1883,6 +1879,7 @@ Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
 Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
 Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
+Studio.App.Property.ImportPivot,,Set Pivot of Imported Parts,Set Pivot of Imported Parts
 Studio.App.SettingsHeader.Network,,Network,Network
 Studio.App.SettingsCategory.NetworkProxy,,Proxy,Proxy
 Studio.App.Property.ProxyEnabled,,Proxy Enabled,Proxy Enabled
@@ -2064,8 +2061,6 @@ Studio.App.BetaFeatures.PackagePermissionsTitle,,Packages Permissions,Packages P
 Studio.App.BetaFeatures.PackagePermissionsDescription,,"Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer","Add any group, user, or role as a user or editor for your packages through the Package Management action in Game Explorer"
 Studio.App.BetaFeatures.WhatsNewWindowTitle,,New Updates Window,New Updates Window
 Studio.App.BetaFeatures.WhatsNewWindowDescription,,Open up a scrolling window that shows all of the recent updates to Roblox Studio,Open up a scrolling window that shows all of the recent updates to Roblox Studio
-Studio.App.BetaFeatures.SetInstanceDefaultsWindowTitle,,Set Instance as Default,Set Instance as Default
-Studio.App.BetaFeatures.SetInstanceDefaultsWindowDescription,,Set a Part or Script to be the default for future inserted instances of a Part or Script.,Set a Part or Script to be the default for future inserted instances of a Part or Script.
 Studio.App.BetaFeatures.SurfaceJoinChangesTitle,,Surface Join Behavior Change,Surface Join Behavior Change
 Studio.App.BetaFeatures.SurfaceJoinChangesDescription,,"Remove the 'Surface' Join Mode, all surfaces create ManualWelds.","Remove the 'Surface' Join Mode, all surfaces create ManualWelds."
 Studio.App.BetaFeatures.PhysicsSleepImprovementsTitle,,Physics Sleep Behavior Improvements.,Physics Sleep Behavior Improvements.
@@ -2112,8 +2107,6 @@ Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptiv
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
 Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games
 Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.
-Studio.App.BetaFeatures.VirtualCursorTitle,,Gamepad Virtual Cursor,Gamepad Virtual Cursor
-Studio.App.BetaFeatures.VirtualCursorDescription,,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.,Enables a mouse-emulation cursor for gamepad input for interaction with UIs not designed for gamepad. Press the view button on gamepad while playing a game to try it out.
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
 Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
 Studio.App.BetaFeatures.LuauDataModelAwarenessTitle,,Luau DataModel awareness,Luau DataModel awareness

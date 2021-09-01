@@ -7,6 +7,7 @@ Studio.Debugger.Plugin.Name,Debugger,Debugger,Depurador,デバッガー,디버�
 Studio.Debugger.Plugin.Toolbar,Debugger,Debugger,Depurador,デバッガー,디버거,Depurador,调试器,调试器,偵錯工具
 Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack,Pila de llamadas,コールスタック,호출 스택,Pilha de chamadas,调用堆栈,调用堆栈,呼叫堆疊
 Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.,Alterna la ventana del plugin Debugger.,デバッガーのプラグインウィンドウを切り換え。,디버거 플러그인 창을 토글합니다.,Alterna a janela do plugin Depurador.,切换调试器插件窗口。,切换调试器插件窗口。,切換偵錯工具外掛程式視窗。
+Studio.Debugger.Common.CopySelected,Copy Selected,Copy Selected, , , , , , , 
 Studio.Debugger.EditDebugpoint.OptionsLabel,Options,Options,Opciones,オプション,옵션,Opções,选项,选项,選項
 Studio.Debugger.EditDebugpoint.TitleLine,line {LineNumber:int},line {LineNumber:int},línea {LineNumber:int},{LineNumber:int} 行目,{LineNumber:int}줄,linha {LineNumber:int},行 {LineNumber:int},行 {LineNumber:int},第 {LineNumber:int} 行
 Studio.Debugger.Plugin.Button,Toggle,Toggle,Alternar,切り換え,토글,Alternar,切换,切换,切換
@@ -30,8 +31,10 @@ Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled,isEnabled,isEnab
 Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s),Insertar mensajes de registro,ログメッセージを入力,로그 메시지 입력,Insira mensagens de registro,输入日志信息,输入日志信息,輸入記錄訊息
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.,El mensaje de registro se mostrará en el widget de salida cuando se alcance un punto de registro.,ログメッセージは、Logpoint に達したときに出力ウィジェットで表示されます。,Logpoint에 도달하면 출력 위젯에 로그 메시지가 표시됩니다.,Mensagens de registro serão mostrada no widget de saída quando chegar a um Logpoint.,当触发日志记录点时，日志信息将显示在输出控件中。,当触发日志记录点时，日志信息将显示在输出控件中。,擊中紀錄點時，輸出小工具將會顯示紀錄訊息。
 Studio.Debugger.BreakpointsWindow.WindowName,Breakpoints Window,Breakpoints Window,Ventana de puntos de interrupción,ブレークポイントウィンドウ,중단점 창,Janela de pontos de interrupção,断点窗口,断点窗口,斷點視窗
+Studio.Debugger.Common.DeleteSelected,Delete Selected,Delete Selected, , , , , , , 
 Studio.Debugger.Watch.DataTypeColumn,Data Type,Data Type, ,データタイプ,데이터 형식,Tipo de dado, , ,資料類型
 Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line,Línea,行,줄,Linha,行,行,行
+Studio.Debugger.Callstack.LineColumn,Line,Line, , , , , , , 
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line,Línea fuente,ソース行,소스 줄,Linha fonte,源行,源行,原始行
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes, ,すべての範囲,모든 범위,Todos os escopos, , ,所有範圍
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue, ,Upvalue,Upvalue,Upvalue, , ,外部區域變數
@@ -42,3 +45,6 @@ Studio.Debugger.Watch.NameColumn,Name,Name, ,名前,이름,Nome, , ,名稱
 Studio.Debugger.Watch.ScopeColumn,Scope,Scope, ,範囲,범위,Escopo, , ,範圍
 Studio.Debugger.Watch.ExpressionColumn,Expression,Expression, ,式,식,Expressão, , ,運算式
 Studio.Debugger.Watch.ValueColumn,Value,Value, ,値,값,Valor, , ,值
+Studio.Debugger.Callstack.LayerColumn,Layer,Layer, , , , , , , 
+Studio.Debugger.Callstack.FunctionColumn,Function,Function, , , , , , , 
+Studio.Debugger.Common.SelectAll,Select All,Select All, , , , , , , 

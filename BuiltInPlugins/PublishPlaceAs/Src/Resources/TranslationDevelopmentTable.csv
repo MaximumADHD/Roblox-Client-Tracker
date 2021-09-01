@@ -40,7 +40,6 @@ Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this gam
 Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,Create new game...
-Studio.PublishPlaceAs.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
 Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,Agree
 Studio.PublishPlaceAs.Button.Close,Close, ,Close
 Studio.PublishPlaceAs.Button.Submit,Submit, ,Submit
@@ -71,6 +70,11 @@ Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi, ,Sci-Fi
 Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty., ,Name cannot be empty.
 Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},Substituted with current description length and max description length,{1}/{2}
 Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},Substituted with current name length and max name length,{1}/{2}
+Studio.PublishPlaceAs.Error.GetConfiguration,Error getting universe configuration info., ,Error getting universe configuration info.
+Studio.PublishPlaceAs.Error.SetConfiguration,Error setting universe configuration info., ,Error setting universe configuration info.
+Studio.PublishPlaceAs.Error.SetRootPlaceInfo,Error setting root place info., ,Error setting root place info.
+Studio.PublishPlaceAs.Error.ActivatingUniverse,Error activating the universe., ,Error activating the universe.
+Studio.PublishPlaceAs.Error.DeactivatingUniverse,Error deactivating the universe., ,Error deactivating the universe.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,Choose an existing game to add this place
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
 Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,Successfully published!
@@ -82,7 +86,7 @@ Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed, ,Save failed
 Studio.PublishPlaceAs.PublishFail.FailConfiguration,Could not publish configuration settings., ,Could not publish configuration settings.
 Studio.PublishPlaceAs.OptInLocations.China,China, ,China
 Studio.PublishPlaceAs.OptInLocations.TitleOptInLocations,Opt-In Locations, ,Opt-In Locations
-Studio.PublishPlaceAs.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations.", ,"Your creation will be published to all locations, including all the selected opt-in locations."
+Studio.PublishPlaceAs.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements.", ,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements."
 Studio.PublishPlaceAs.General.ReplyOK,OK, ,OK
 Studio.PublishPlaceAs.General.TermsDialogHeader,Terms of Use and Privacy Policy, ,Terms of Use and Privacy Policy
 Studio.PublishPlaceAs.General.TermsDialogBody,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]", ,"In order to publish on the LuoBuLeSi app published and operated by Tencent, you need to register an account with Tencent, and accept Tencent’s Terms of Use and Privacy Policy. [link]"

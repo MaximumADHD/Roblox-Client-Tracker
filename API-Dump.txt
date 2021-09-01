@@ -112,6 +112,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function void AssetImportService:UploadCurrentMesh() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -1487,6 +1488,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GuiService.MenuIsOpen [ReadOnly]
 	Property GuiObject GuiService.SelectedCoreObject {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property GuiObject GuiService.SelectedObject
+	Property bool GuiService.TouchControlsEnabled
 	Function void GuiService:AddCenterDialog(Instance dialog, Enum.CenterDialogType centerDialogType, Function showFunction, Function hideFunction) {RobloxScriptSecurity}
 	Function void GuiService:AddKey(string key) {RobloxScriptSecurity}
 	Function void GuiService:AddSelectionParent(string selectionName, Instance selectionParent)
@@ -2491,6 +2493,7 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Event Path.Unblocked(int unblockedWaypointIdx)
 Class PathfindingModifier : Instance
 	Property string PathfindingModifier.ModifierId
+	Property bool PathfindingModifier.PassThrough
 Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float PathfindingService.EmptyCutoff [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Function Instance PathfindingService:ComputeRawPathAsync(Vector3 start, Vector3 finish, float maxDistance) [Yields] [Deprecated]
@@ -2650,6 +2653,7 @@ Class Player : Instance
 	Event Player.OnTeleport(Enum.TeleportState teleportState, int64 placeId, string spawnName)
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
 Class PlayerEmulatorService : Instance [NotCreatable] [Service]
+	Property bool PlayerEmulatorService.CustomPoliciesEnabled {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.DEPRECATED_SerializedEmulatedPolicyInfo {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden]
@@ -2757,12 +2761,14 @@ Class Plugin : Instance [NotCreatable]
 	Function void Plugin:SelectRibbonTool(Enum.RibbonTool tool, UDim2 position) {PluginSecurity}
 	Function Objects Plugin:Separate(Objects objects) {PluginSecurity}
 	Function void Plugin:SetItem(string key, Variant value) {RobloxScriptSecurity}
+	Function void Plugin:SetReady() {RobloxScriptSecurity}
 	Function void Plugin:SetSetting(string key, Variant value) {PluginSecurity}
 	Function void Plugin:StartDecalDrag(Instance decal) {RobloxScriptSecurity}
 	Function void Plugin:StartDrag(Dictionary dragData) {PluginSecurity}
 	Function void Plugin:StopAllSounds() {RobloxScriptSecurity}
 	Function Instance Plugin:Union(Objects objects) {PluginSecurity}
 	Event Plugin.Deactivation() {PluginSecurity}
+	Event Plugin.Ready() {RobloxScriptSecurity}
 	Event Plugin.Unloading() {PluginSecurity}
 Class PluginAction : Instance [NotReplicated]
 	Property string PluginAction.ActionId [ReadOnly]
@@ -3053,9 +3059,11 @@ Class Selection : Instance [NotCreatable] [Service]
 	Property float Selection.SelectionThickness [ReadOnly]
 	Property Instance Selection.ActiveInstance {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void Selection:Add(Objects instancesToAdd) {PluginSecurity}
+	Function void Selection:ClearTerrainSelectionHack() {RobloxScriptSecurity}
 	Function Objects Selection:Get() {PluginSecurity}
 	Function void Selection:Remove(Objects instancesToRemove) {PluginSecurity}
 	Function void Selection:Set(Objects selection) {PluginSecurity}
+	Function void Selection:SetTerrainSelectionHack(Vector3 center, Vector3 size) {RobloxScriptSecurity}
 	Event Selection.SelectionChanged()
 Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
@@ -3354,6 +3362,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Internal Features
 	Property bool Studio.Respect Studio shortcuts when game has focus
 	Property bool Studio.Search Content For Core Scripts
+	Property bool Studio.Set Pivot of Imported Parts
 	Property bool Studio.Show Deployment Warnings
 	Property bool Studio.Show Diagnostics Bar
 	Property bool Studio.Show QT warnings in output
@@ -3406,6 +3415,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Enable Temporary Tabs
 	Property bool Studio.Enable Temporary Tabs In Explorer
 	Property bool Studio.Enable Type Hover {RobloxScriptSecurity}
+	Property bool Studio.EnableOnTypeAutocomplete {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property QFont Studio.Font
 	Property bool Studio.Format On Paste
 	Property bool Studio.Format On Type
@@ -3503,7 +3513,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Instance StudioService.ActiveScript [ReadOnly]
 	Property string StudioService.StudioLocaleId [ReadOnly]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
-	Function bool StudioService:BaseURLHasChineseHost() {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
@@ -3842,7 +3851,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Event UserGameSettings.StudioModeChanged(bool isStudioMode)
 Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool UserInputService.LegacyInputEventsEnabled {RobloxScriptSecurity} [Hidden]
-	Property bool UserInputService.ModalEnabled
+	Property bool UserInputService.ModalEnabled [Deprecated]
 	Property bool UserInputService.AccelerometerEnabled [ReadOnly]
 	Property Vector2 UserInputService.BottomBarSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool UserInputService.GamepadEnabled [ReadOnly]

@@ -5,3 +5,5 @@ Studio.MeshImporter.Plugin.Name,MeshImporter,MeshImporter,MeshImporter,MeshImpor
 Studio.MeshImporter.Plugin.Button,Import,Import,Importar,インポート,가져오기,Importar,导入,导入,匯入
 Studio.MeshImporter.Plugin.Description,Import an FBX file using the Mesh Importer.,Import an FBX file using the Mesh Importer.,Importa un archivo FBX usando el Importador de malla.,メッシュインポーターを使って FBX ファイル をインポート。,메시 임포터를 사용해 FBX 파일을 가져옵니다.,Importa um arquivo FBX usando o Importador de malha.,用网格导入器导入一个 FBX 文件。,用网格导入器导入一个 FBX 文件。,使用網格匯入氣匯入 FBX 檔案。
 Studio.MeshImporter.Plugin.Browse,Browse...,Browse...,Buscar...,閲覧する...,둘러보기...,Procurar...,浏览...,浏览...,瀏覽……
+Studio.MeshImporter.TreeViewToolbar.Expand,Expand,Expand, , , , , , , 
+Studio.MeshImporter.TreeViewToolbar.Collapse,Collapse,Collapse, , , , , , , 

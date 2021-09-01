@@ -25,7 +25,6 @@ Studio.GameSettings.General.ContentDialogHeader,Content Agreement, ,Content Agre
 Studio.GameSettings.General.SettingOff,Off, ,Off
 Studio.GameSettings.General.GameIconPrompt,Add Game Icon, ,Add Game Icon
 Studio.GameSettings.General.ReplyOK,OK, ,OK
-Studio.GameSettings.OptInLocations.TempLinkDescription,"China: to submit your game to the LuoBu app, visit ", ,"China: to submit your game to the LuoBu app, visit "
 Studio.GameSettings.General.PartHead,Head, ,Head
 Studio.GameSettings.General.ScaleHead,Head, ,Head
 Studio.GameSettings.General.ReplyAgree,Agree, ,Agree
@@ -364,7 +363,7 @@ Studio.GameSettings.Monetization.VIPServerSubscriptions,There are currently {num
 Studio.GameSettings.Security.EnableThirdPartyPurchasesDescription,"By enabling, players can purchase items provided by third parties.", ,"By enabling, players can purchase items provided by third parties."
 Studio.GameSettings.Monetization.Badges,Badges, ,Badges
 Studio.GameSettings.Monetization.BadgeDescription,Badge Description, ,Badge Description
-Studio.GameSettings.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations.", ,"Your creation will be published to all locations, including all the selected opt-in locations."
+Studio.GameSettings.OptInLocations.Tooltip,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements.", ,"Your creation will be published to all locations, including all the selected opt-in locations. See each location for specific requirements."
 Studio.GameSettings.OptInLocations.EmailDialogHeader,Email for Review Feedback, ,Email for Review Feedback
 Studio.GameSettings.OptInLocations.EmailDialogDescription,Please enter the email where you would like to receive review feedback:, ,Please enter the email where you would like to receive review feedback:
 Studio.GameSettings.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
