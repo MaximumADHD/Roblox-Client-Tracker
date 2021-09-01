@@ -9,7 +9,6 @@
 		HideLastSeparator = bool, Hide the last separator if there is a subsequent collaborator with its own separator
 		Removable = bool, Whether this collaborator can be removed
 
-		GroupPermissionChanged = function, Callback when the group's permission changes
 		function RolePermissionChanged = function, Callback when a role's permission changes
 		Items = table, Which permissions can be assigned in this collaborator
 		Permissions = table, Permissions prop
@@ -18,6 +17,7 @@
 
 ]]
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -38,12 +38,17 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
-local ExpandableList
+local ExpandablePane
 local ExpandableWidget
+local ExpandableList
 local FitToContent
 local Spritesheet
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
+	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+		ExpandablePane = require(Libs.Framework).UI.ExpandablePane
+	else
+		ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
+	end
 	Spritesheet = require(Libs.Framework).Util.Spritesheet
 else
 	ExpandableList = UILibrary.Component.ExpandableList
@@ -235,7 +240,42 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
 
 	local expandableList
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
+	if FFlagToolboxReplaceUILibraryComponentsPt3 and FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+		return Roact.createElement(ExpandablePane, {
+			Expanded = props.Enabled and self.state.expanded,
+			LayoutOrder = layoutOrder,
+			OnExpandedChanged = function() end,
+			HeaderComponent = Roact.createElement("TextButton", {
+				AutomaticSize = Enum.AutomaticSize.XY,
+				BackgroundTransparency = 1,
+				Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
+				Size = UDim2.new(1, -collaboratorItemOffset, 0, 60),
+				Text = "",
+				[Roact.Event.Activated] = self.onClick,
+			}, {
+				GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
+					Enabled = false,
+
+					SubjectType = Enum.CreatorType.Group,
+
+					CollaboratorName = props.GroupData.Name,
+					CollaboratorId = props.GroupData.Id,
+					CollaboratorIcon = Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id,
+						AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
+					UseMask = false,
+
+					Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
+					Items = anyLocked and {} or props.Items,
+
+					SecondaryText = props.SecondaryText,
+					Removable = props.Removable or false,
+					Removed = props.Removed,
+
+					IsLoading = #rolesets == 0,
+				})
+			})
+		}, rolesetCollaboratorItems)
+	elseif FFlagToolboxReplaceUILibraryComponentsPt3 then
 		return Roact.createElement(ExpandableWidget, {
 			ExpandableContent = {
 				RoleCollaborators = Roact.createElement("Frame", {
@@ -282,10 +322,6 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 						Removed = props.Removed,
 
 						IsLoading = #rolesets == 0,
-						-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
-						-- PermissionChanged = function(newPermission)
-						-- 	props.GroupPermissionChanged(props.GroupId, newPermission)
-						-- end,
 					})
 				}),
 			},
@@ -338,11 +374,6 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 							Removed = props.Removed,
 
 							IsLoading = #rolesets == 0,
-
-							-- mwang, 10/28/2019, commented out for the time being because it can be used later when adding group collaborators to a package.
-							-- PermissionChanged = function(newPermission)
-							-- 	props.GroupPermissionChanged(props.GroupId, newPermission)
-							-- end,
 						})
 					}),
 				}),

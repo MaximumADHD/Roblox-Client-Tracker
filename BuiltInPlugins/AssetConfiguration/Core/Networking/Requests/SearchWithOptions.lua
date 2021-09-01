@@ -18,7 +18,6 @@ local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
-local FFlagFixCreatorTypeParameterForAssetRequest = game:DefineFastFlag("FixCreatorTypeParameterForAssetRequest", false)
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 
 local function searchUsers(networkInterface, searchTerm, store)
@@ -46,7 +45,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 				return {
 					Name = info.Name,
 					Id = info.UserId,
-					Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
+					Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
 				}
 			end
 		end
@@ -54,7 +53,7 @@ local function searchUsers(networkInterface, searchTerm, store)
 		return {
 			Name = searchTerm,
 			Id = -1,
-			Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
+			Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
 		}
 	end)
 end
@@ -100,7 +99,7 @@ return function(networkInterface, settings, options)
 					local details = {
 						Name = options.Creator.Name,
 						Id = options.Creator.Id,
-						Type = FFlagFixCreatorTypeParameterForAssetRequest and CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value) or Enum.CreatorType.User.Value,
+						Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
 					}
 					updateSearchResultsHandler(details)
 				end

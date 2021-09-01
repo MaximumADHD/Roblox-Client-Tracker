@@ -32,6 +32,7 @@ local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
+local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -85,6 +86,7 @@ function ScreenPublishFail:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
+	local apiImpl = props.API:get()
 
 	local id = props.Id
 	local name = props.Name
@@ -145,7 +147,11 @@ function ScreenPublishFail:render()
 			OnClicked = function()
 				if not isPublishing then
 					if parentGameId == 0 then
-						SettingsImpl.saveAll(settings, localization)
+						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+							SettingsImpl.saveAll(settings, localization, nil, nil, apiImpl)
+						else
+							SettingsImpl.saveAll(settings, localization)
+						end
 					else
 						-- groupId is unused in existing game/place publish, only new game publish
 						-- which is in the if block
@@ -163,11 +169,13 @@ if FFlagPublishPlaceAsWithContext then
 	ScreenPublishFail = withContext({
 		Theme = ContextServices.Theme,
 		Localization = ContextServices.Localization,
+		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI and ContextServices.API or nil,
 	})(ScreenPublishFail)
 else
 	ContextServices.mapToProps(ScreenPublishFail, {
 		Theme = ContextServices.Theme,
 		Localization = ContextServices.Localization,
+		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI and ContextServices.API or nil,
 	})
 end
 

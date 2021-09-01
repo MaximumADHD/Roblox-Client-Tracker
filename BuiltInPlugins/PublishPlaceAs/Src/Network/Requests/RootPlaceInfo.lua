@@ -5,6 +5,8 @@
 	Copied from GameSettings. Ideally we could reuse that code
 ]]
 
+-- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -21,13 +23,13 @@ local ACCEPTED_KEYS = {
 	description = true,
 }
 
-local RootPlaceInfo = {}
+local DEPRECATED_RootPlaceInfo = {}
 
-function RootPlaceInfo.AcceptsValue(key)
+function DEPRECATED_RootPlaceInfo.AcceptsValue(key)
 	return ACCEPTED_KEYS[key] ~= nil
 end
 
-function RootPlaceInfo.Set(universeId, body)
+function DEPRECATED_RootPlaceInfo.Set(universeId, body)
 	local errmsg = "RootPlaceInfo.Set body must be table, received %s"
 	assert(type(body) == "table", string.format(errmsg, type(body)))
 	assert(not Cryo.isEmpty(body),  "RootPlaceInfo.Set body must have changes to set")
@@ -50,4 +52,4 @@ function RootPlaceInfo.Set(universeId, body)
 	end)
 end
 
-return RootPlaceInfo
+return DEPRECATED_RootPlaceInfo

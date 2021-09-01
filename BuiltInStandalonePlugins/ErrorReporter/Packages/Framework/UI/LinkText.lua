@@ -6,8 +6,8 @@
 		callback OnClick: A callback for when the user clicks this link.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display in this link.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -26,13 +26,14 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local HoverArea = require(Framework.UI.HoverArea)
 
 local Util = require(Framework.Util)
@@ -47,9 +48,7 @@ Typecheck.wrap(LinkText, script)
 
 function LinkText:init(props)
 
-	if FFlagWrappedDevFrameworkLinkText then
-		assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
-	end
+	assert(props.Size or (not props.TextWrapped), "Size prop is required to use the TextWrapped prop")
 
 	if props.TextTruncate then
 		assert(props.Size ~= nil and typeof(props.Size) == "UDim2", "LinkText expects a UDim2 'Size' if the 'TextTruncate' prop passed in.")
@@ -57,7 +56,7 @@ function LinkText:init(props)
 
 	self.state = {
 		StyleModifier = nil,
-		AbsoluteWidth = FFlagWrappedDevFrameworkLinkText and 0 or nil,
+		AbsoluteWidth = 0,
 	}
 
 	self.mouseEnter = function()
@@ -92,9 +91,9 @@ function LinkText:render()
 	local textColor = style.TextColor
 	local text = props.Text or ""
 	local textTruncate = props.TextTruncate
-	local textWrapped = FFlagWrappedDevFrameworkLinkText and props.TextWrapped or nil
-	local textXAlignment = FFlagWrappedDevFrameworkLinkText and props.TextXAlignment or nil
-	local textYAlignment = FFlagWrappedDevFrameworkLinkText and props.TextYAlignment or nil
+	local textWrapped = props.TextWrapped
+	local textXAlignment = props.TextXAlignment
+	local textYAlignment = props.TextYAlignment
 
 	local isMultiline = false
 	local textDimensions
@@ -102,7 +101,7 @@ function LinkText:render()
 		textDimensions = size
 	else
 		if font then
-			if FFlagWrappedDevFrameworkLinkText and textWrapped then
+			if textWrapped then
 				local textDimensionsExtents = TextService:GetTextSize(text, textSize, font,
 					Vector2.new(state.AbsoluteWidth, math.huge))
 				textDimensions = UDim2.new(size.X, UDim.new(0, textDimensionsExtents.Y))
@@ -126,6 +125,7 @@ function LinkText:render()
 
 	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
 	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
+	local showUnderlineFrame = showUnderline and hovered and (not isMultiline)
 
 	return Roact.createElement(Button, {
 		Style = {
@@ -145,7 +145,7 @@ function LinkText:render()
 		Text = text,
 		OnClick = onClick,
 	}, {
-		Layout = FFlagWrappedDevFrameworkLinkText and Roact.createElement("UIListLayout", {
+		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			[Roact.Change.AbsoluteContentSize] = function(rbx)
 				self:setState({
@@ -160,20 +160,28 @@ function LinkText:render()
 			MouseLeave = self.mouseLeave,
 		}),
 
-		Underline = showUnderline and hovered and (not isMultiline) and Roact.createElement("Frame", {
-			LayoutOrder = FFlagWrappedDevFrameworkLinkText and 1 or nil,
+		Underline = Roact.createElement("Frame", {
+			Position = UDim2.new(0, 0, -1, 0),
+			LayoutOrder = 1,
 			Size = UDim2.new(1, 0, 0, 1),
-			Position = (not FFlagWrappedDevFrameworkLinkText) and UDim2.new(0, 0, 1, 0) or nil,
-			AnchorPoint = (not FFlagWrappedDevFrameworkLinkText) and Vector2.new(0, 1) or nil,
 			BackgroundColor3 = textColor,
 			BorderSizePixel = 0,
+			BackgroundTransparency = showUnderlineFrame and 0 or 1,
 		}),
 	})
 end
 
-ContextServices.mapToProps(LinkText, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	LinkText = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(LinkText)
+else
+	ContextServices.mapToProps(LinkText, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return LinkText

@@ -6,17 +6,19 @@
 		callback OnClick: A callback for when the user clicks this button.
 
 	Optional Props:
+		Enum.AutomaticSize AutomaticSize: The AutomaticSize of the component.
 		string Text: The text to display in this button.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		UDim2 Size: The size of this component.
 		Enum.SizeConstraint SizeConstraint: the direction(s) that the container can be resized in.
 		UDim2 Position: The position of this component.
+		Enum.AutomaticSize AutomaticSize: The automatic size of this component
 		Vector2 AnchorPoint: The pivot point of this component's Position prop.
 		number ZIndex: The render index of this component.
 		number LayoutOrder: The layout order of this component in a list.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 
 	Style Values:
 		UDim2 Size: The size of this component.
@@ -30,11 +32,14 @@
 		Color3 TextColor: The color of the text in this button.
 ]]
 local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
-local FFlagWrappedDevFrameworkLinkText = game:GetFastFlag("WrappedDevFrameworkLinkText")
+local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Container = require(Framework.UI.Container)
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
@@ -82,6 +87,7 @@ function Button:render()
 	local foregroundStyle = style.ForegroundStyle
 	local padding = style.Padding
 
+	local automaticSize = props.AutomaticSize
 	local text = props.Text or ""
 	local onClick = props.OnClick
 	local size = prioritize(style.Size, props.Size)
@@ -93,7 +99,13 @@ function Button:render()
 
 	assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
 
+	local buttonSize = UDim2.new(1, 0, 1, 0)
+	if FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize then
+		buttonSize = size
+	end
+
 	return Roact.createElement(Container, {
+		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
 		Background = background,
 		BackgroundStyle = backgroundStyle,
 		BackgroundStyleModifier = styleModifier,
@@ -113,13 +125,14 @@ function Button:render()
 		}),
 
 		TextButton = Roact.createElement("TextButton", {
-			Size = UDim2.new(1, 0, 1, 0),
+			AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing and FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
+			Size = buttonSize,
 			BackgroundTransparency = 1,
 			Font = style.Font,
 			TextSize = style.TextSize,
 			TextColor3 = style.TextColor,
 			TextTruncate = style.TextTruncate,
-			TextWrapped = FFlagWrappedDevFrameworkLinkText and style.TextWrapped or nil,
+			TextWrapped = style.TextWrapped,
 			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
 			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
 			Text = text,
@@ -132,9 +145,17 @@ function Button:render()
 	})
 end
 
-ContextServices.mapToProps(Button, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	Button = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Button)
+else
+	ContextServices.mapToProps(Button, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return Button

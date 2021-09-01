@@ -255,10 +255,14 @@ function MoveHandles:_setupMoveAtCurrentBoundingBox(mouseRay)
 	self._axis = axis
 
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
-	-- In order to hitTest true in the first place it has to not be parallel
-	-- and thus have a distance here.
-	assert(hasDistance)
-	self._startDistance = distance
+	if getFFlagFixDraggerMovingInWrongDirection() then
+		self._startDistance = hasDistance and distance or 0.0
+	else
+		-- In order to hitTest true in the first place it has to not be parallel
+		-- and thus have a distance here.
+		assert(hasDistance)
+		self._startDistance = distance
+	end
 	self._lastGlobalTransformForRender = CFrame.new()
 end
 

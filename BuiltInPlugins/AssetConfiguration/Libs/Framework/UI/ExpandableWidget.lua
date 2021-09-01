@@ -13,6 +13,7 @@
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Position: The position of this component.
 ]]
+local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -23,6 +24,10 @@ local Pane = require(UI.Pane)
 
 local ExpandableWidget = Roact.PureComponent:extend("ExpandableWidget")
 Typecheck.wrap(ExpandableWidget, script)
+
+function ExpandableWidget:init()
+	assert(not FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane, "ExpandableWidget is deprecated. Please use ExpandablePane instead.")
+end
 
 function ExpandableWidget:render()
 	local props = self.props

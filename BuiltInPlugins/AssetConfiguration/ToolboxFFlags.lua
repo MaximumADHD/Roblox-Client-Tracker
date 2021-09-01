@@ -21,10 +21,6 @@ game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
 game:DefineFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu", false)
 
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-game:DefineFastInt("LuobuToolboxMaxAudioLength", 5)
-game:DefineFastString("LuobuMarketplaceDisabledCategories", "PaidPlugins;Plugins")
-
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
 

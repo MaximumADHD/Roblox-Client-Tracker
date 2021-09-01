@@ -1,3 +1,4 @@
+local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local TestPaths = {}
 
 local WAIT_TIMEOUT = 2
@@ -76,9 +77,15 @@ end
 
 function TestPaths.getTreeViewJoint(ikWindow, nodeName)
 	local base = TestPaths.getIKTreeView(ikWindow)
-	return TestPaths.waitForDescendant(base, {
-		"Contents", "ScrollingFrame", "Contents", "Scroller", nodeName,
-	})
+	if FFlagDevFrameworkScrollingFrameUsePane then
+		return TestPaths.waitForDescendant(base, {
+			"Contents", "ScrollingFrame", "Scroller", nodeName,
+		})
+	else
+		return TestPaths.waitForDescendant(base, {
+			"Contents", "ScrollingFrame", "Contents", "Scroller", nodeName,
+		})
+	end
 end
 
 function TestPaths.getTreeViewJointPin(ikWindow, nodeName)

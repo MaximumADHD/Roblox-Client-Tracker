@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
 		Padding: An optional number or table adding a UIPadding instance.
@@ -10,6 +11,7 @@
 		Spacing: An optional number or UDim to space elements out by.
 		HorizontalAlignment: Property on UIListLayout
 		VerticalAlignment: Property on UIListLayout
+		callback OnClick: Triggered when the user clicks on this component.
 		callback OnPress: Triggered when the user clicks or taps on this component.
 	Styles:
 		Default: The pane has no background
@@ -17,10 +19,15 @@
 		RoundBox: The pane has the current theme's main background with the standard rounded border.
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
 local isInputMainPress = require(Framework.Util.isInputMainPress)
+
+local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
 local Dash = require(Framework.packages.Dash)
 local assign = Dash.assign
@@ -29,10 +36,29 @@ local omit = Dash.omit
 
 local Pane = Roact.PureComponent:extend("Pane")
 
+local function getClassName(props, style)
+	local className
+	if style.Image then
+		if props.OnClick then
+			className = "ImageButton"
+		else
+			className = "ImageLabel"
+		end
+	elseif props.OnClick then
+		className = "TextButton"
+	else
+		className = "Frame"
+	end
+	return className
+end
+
 Pane.defaultProps = {
 	HorizontalAlignment = Enum.HorizontalAlignment.Center,
 	VerticalAlignment = Enum.VerticalAlignment.Center,
 }
+
+-- TODO RIDE-5172: Allow Typecheck to run and support additional props passed to underlying Frame
+-- Typecheck.wrap(Pane, script)
 
 function Pane:init()
 	self.onPress = function(_, input)
@@ -44,7 +70,16 @@ end
 
 function Pane:render()
 	local props = self.props
-	local style = props.Stylizer
+	local style
+
+	local theme = props.Theme
+
+	if THEME_REFACTOR then
+		style = props.Stylizer
+	else
+		style = theme:getStyle("Framework", self)
+	end
+
 	local children = props[Roact.Children] or {}
 
 	local padding = props.Padding
@@ -91,7 +126,8 @@ function Pane:render()
 		end
 	end
 
-	local className = "Frame"
+	local className = getClassName(props, style)
+
 	local defaultProps = {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
@@ -101,8 +137,15 @@ function Pane:render()
 	if color then
 		defaultProps.BackgroundTransparency = 0
 	end
+
+	if props.OnClick then
+		props[Roact.Event.Activated] = props.OnClick
+		if not style.Image then
+			props.Text = ""
+		end
+	end
+
 	if style.Image then
-		className = "ImageLabel"
 		assign(defaultProps, {
 			Image = style.Image,
 			ImageColor3 = color,
@@ -128,6 +171,7 @@ function Pane:render()
 	end
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
+		"StyleModifier",
 		"BackgroundColor",
 		"BorderColor",
 		"Padding",
@@ -135,16 +179,26 @@ function Pane:render()
 		"Spacing",
 		"Style",
 		"Stylizer",
+		"Theme",
 		"HorizontalAlignment",
 		"VerticalAlignment",
+		"OnClick",
 		"OnPress",
 	})
 
 	return Roact.createElement(className, componentProps, children)
 end
 
-ContextServices.mapToProps(Pane, {
-	Stylizer = ContextServices.Stylizer
-})
+if FFlagDeveloperFrameworkWithContext then
+	Pane = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(Pane)
+else
+	ContextServices.mapToProps(Pane, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
 
 return Pane

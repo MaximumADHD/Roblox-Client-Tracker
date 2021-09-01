@@ -1,68 +1,73 @@
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-local Plugin = script.Parent.Parent.Parent
-local isCJV = require(Plugin.Src.Util.isCJV)
-
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
+local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
+local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 
-local StudioService = game:GetService("StudioService")
+local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
-local GameSettingsPolicy = FFlagStudioCreatePluginPolicyService and game:GetService("PluginPolicyService"):getPluginPolicy("GameSettings") or nil
+local GameSettingsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("GameSettings")
+
+local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Cryo)
+local KeyProvider = require(Plugin.Src.Util.KeyProvider)
+
+local contextKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getContextKeyName() or "context"
+local pluginKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getPluginKeyName() or "plugin"
+local gameSettingsKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getGameSettingsKeyName() or "GameSettings"
 
 local GameSettingsUtilities =  {}
 
-local function checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-    return not FFlagStudioCreatePluginPolicyService and StudioService:BaseURLHasChineseHost()
-end
-
-local function checkIfPolicyDoesNotExistAndBaseUrlNotChineseHost()
-    return not FFlagStudioCreatePluginPolicyService and not StudioService:BaseURLHasChineseHost()
-end
-
 function GameSettingsUtilities.getAutoTranslationAllowed()
-    return (not FFlagStudioCreatePluginPolicyService and isCJV())
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["AutoTranslationAllowed"])
+    return GameSettingsPolicy["AutoTranslationAllowed"]
 end
 
 function GameSettingsUtilities.getAutoTranslatedLanguages()
-    return GameSettingsPolicy["AutoTranslationTargetLanguages"]
+	return GameSettingsPolicy["AutoTranslationTargetLanguages"]
 end
 
 function GameSettingsUtilities.getSocialMediaReferencesAllowed()
-    return checkIfPolicyDoesNotExistAndBaseUrlNotChineseHost()
-	    or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["SocialMediaReferencesAllowed"])
+    return GameSettingsPolicy["SocialMediaReferencesAllowed"]
 end
 
 function GameSettingsUtilities.shouldDisablePrivateServersAndPaidAccess()
-    return checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["DisablePrivateServersAndPaidAccess"])
+    return GameSettingsPolicy["DisablePrivateServersAndPaidAccess"]
 end
 
 function GameSettingsUtilities.shouldAllowBadges()
-    return (not FFlagStudioCreatePluginPolicyService and not StudioService:BaseURLHasChineseHost())
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["ShowBadges"])
+    return GameSettingsPolicy["ShowBadges"]
 end
 
 function GameSettingsUtilities.shouldShowDevPublishLocations()
-    assert(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn)
+    assert(FFlagLuobuDevPublishLua)
 
-    return checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["ShowOptInLocations"])
+    return GameSettingsPolicy["ShowOptInLocations"]
 end
 
 function GameSettingsUtilities.getPlayerAppDownloadLink(location)
-    assert(FFlagLuobuDevPublishLua)
+	assert(FFlagLuobuDevPublishLua)
 
-    return (checkIfPolicyDoesNotExistAndBaseUrlChineseHost() and "https://www.roblox.qq.com")
-        or (FFlagStudioCreatePluginPolicyService and GameSettingsPolicy["PlayerAppDownloadLink"][location])
+    return GameSettingsPolicy["PlayerAppDownloadLink"][location]
 end
 
 function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
-    assert(FFlagLuobuDevPublishLua)
+	assert(FFlagLuobuDevPublishLua)
 
-    return FStringDevPublishChinaRequirementsLink
+	return FStringDevPublishChinaRequirementsLink
+end
+
+local function getDevPublishKibanaPoints(plugin, context)
+	assert(FFlagLuobuDevPublishAnalytics)
+	return {
+		[pluginKey] = plugin,
+		[contextKey] = context,
+	}
+end
+
+function GameSettingsUtilities.sendAnalyticsToKibana(seriesName, throttlingPercentage, context, values)
+	assert(FFlagLuobuDevPublishAnalytics)
+	local points = getDevPublishKibanaPoints(gameSettingsKey, context)
+	points = Cryo.Dictionary.join(points, values)
+	RbxAnalyticsService:reportInfluxSeries(seriesName, points, throttlingPercentage)
 end
 
 return GameSettingsUtilities

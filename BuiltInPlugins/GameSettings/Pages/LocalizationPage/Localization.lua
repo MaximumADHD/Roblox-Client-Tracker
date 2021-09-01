@@ -13,7 +13,6 @@
 		list Languags enabled for automatic trnaslation
 ]]
 
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
@@ -51,9 +50,6 @@ local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTrans
 
 local getAutoTranslationAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslationAllowed
 local getAutoTranslatedLanguages = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslatedLanguages
-
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-local isCJV = require(Plugin.Src.Util.isCJV)
 local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocalizationSettings
 
 
@@ -91,19 +87,11 @@ local function loadSettings(store, contextItems)
 			local sourceLanguage = localizationPageController:getSourceLanguage(gameId)
 			loadedSettings["SourceLanguage"] = sourceLanguage
 
-			local autoTranslationTargetLanguages
-			if FFlagStudioCreatePluginPolicyService then
-				autoTranslationTargetLanguages = getAutoTranslatedLanguages()[sourceLanguage]
-				if not autoTranslationTargetLanguages then
-					autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
-				end
-			else
-				if isCJV() and sourceLanguage == "en" then
-					autoTranslationTargetLanguages = {["zh-hans"] = true}
-				else
-					autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
-				end
+			local autoTranslationTargetLanguages = getAutoTranslatedLanguages()[sourceLanguage]
+			if not autoTranslationTargetLanguages then
+				autoTranslationTargetLanguages = localizationPageController:getAutoTranslationTargetLanguages(sourceLanguage)
 			end
+
 			loadedSettings["AutoTranslationTargetLanguages"] = autoTranslationTargetLanguages
 		end,
 		function(loadedSettings)

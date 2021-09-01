@@ -313,7 +313,7 @@ function CollaboratorItem:renderContent(theme)
 			}, {
 				Dropdown = Roact.createElement(DropdownMenu, {
 					Hide = (not (props.Enabled and #props.Items > 0)) or (not self.state.showDropdown),
-					OnFocusLost = function() self.toggleDropdown(false) end,
+					OnFocusLost = function() self.closeDropdown() end,
 					Items = props.Items,
 					OnItemActivated = self.onItemActivated,
 					OnRenderItem = self.onDropdownRenderItem,
@@ -324,7 +324,7 @@ function CollaboratorItem:renderContent(theme)
 				Disabled = not (props.Enabled and #props.Items > 0),
 				RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 				Text = props.Action,
-				OnClick = function() self.toggleDropdown(true) end,
+				OnClick = function() self.openDropdown() end,
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
 				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),

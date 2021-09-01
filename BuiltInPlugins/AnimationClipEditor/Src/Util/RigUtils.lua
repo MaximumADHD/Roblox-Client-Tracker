@@ -18,7 +18,6 @@ local Adorn = require(Plugin.Src.Util.Adorn)
 local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
-local GetFFlagPrecalculatePartPaths = require(Plugin.LuaFlags.GetFFlagPrecalculatePartPaths)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -932,47 +931,6 @@ end
 -- constructs the chain, making use of existing poses along the way
 -- if they exist.
 
--- Unused when GetFFlagPrecalculatePartPaths is ON
--- FFlagPrecalculatePartPaths is a pre-requisite of FFlagFacialAnimationSupport, so there's no need
--- to support FACS tracks here
-local function makePoseChain_deprecated(keyframe, trackName, rig, trackData, partsToMotors, boneMap)
-	local poseInstance = keyframe:FindFirstChild(trackName, true)
-	if poseInstance == nil then
-		poseInstance = Instance.new("Pose")
-		poseInstance.Name = trackName
-	else
-		poseInstance.Weight = 1
-	end
-	poseInstance.CFrame = trackData.Value
-	poseInstance.EasingStyle = trackData.EasingStyle.Name
-	poseInstance.EasingDirection = trackData.EasingDirection.Name
-	local poseChain = poseInstance
-
-	local current = trackName
-	while current ~= nil do
-		local motor = partsToMotors[current]
-		local bone = boneMap[current]
-		if motor then
-			current = motor.Part0.Name
-		elseif bone then
-			current = bone.Parent.Name
-		else
-			break
-		end
-
-		local parentPose = keyframe:FindFirstChild(current, true)
-		if not parentPose then
-			parentPose = Instance.new("Pose")
-			parentPose.Name = current
-			parentPose.Weight = 0
-		end
-		poseChain.Parent = parentPose
-		poseChain = parentPose
-	end
-
-	poseChain.Parent = keyframe
-end
-
 -- Unused when GetFFlagFacialAnimationSupport is ON
 local function makePoseChain_deprecated_too(keyframe, trackName, trackData, pathMap)
 	local path = pathMap[trackName]
@@ -1136,10 +1094,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 	assert(root.Type == Constants.INSTANCE_TYPES.Rig, "Can only export Rig animations to KeyframeSequence.")
 	local tracks = root.Tracks
 
-	local pathMap
-	if GetFFlagPrecalculatePartPaths() then
-		pathMap = createPathMap(tracks, partsToMotors, boneMap)
-	end
+	local pathMap = createPathMap(tracks, partsToMotors, boneMap)
 
 	for trackName, track in pairs(tracks) do
 		for _, tick in pairs(track.Keyframes) do
@@ -1152,14 +1107,10 @@ function RigUtils.toRigAnimation(animationData, rig)
 			local trackType = track.Type
 			local trackData = track.Data[tick]
 
-			if GetFFlagPrecalculatePartPaths() then
-				if GetFFlagFacialAnimationSupport() then
-					makePoseChain(keyframeInstance, trackName, trackType, trackData, pathMap)
-				else
-					makePoseChain_deprecated_too(keyframeInstance, trackName, trackData, pathMap)
-				end
+			if GetFFlagFacialAnimationSupport() then
+				makePoseChain(keyframeInstance, trackName, trackType, trackData, pathMap)
 			else
-				makePoseChain_deprecated(keyframeInstance, trackName, rig, trackData, partsToMotors, boneMap)
+				makePoseChain_deprecated_too(keyframeInstance, trackName, trackData, pathMap)
 			end
 
 			-- Set keyframe name, if one exists

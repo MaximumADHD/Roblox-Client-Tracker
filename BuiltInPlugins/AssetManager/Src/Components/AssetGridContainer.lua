@@ -42,7 +42,6 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
@@ -50,12 +49,8 @@ local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).s
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
-    if FFlagStudioCreatePluginPolicyService then
-        return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
-            or (shouldEnableAudioImport() and screen.Key == Screens.AUDIO.Key)
-    else
-        return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key or screen.Key == Screens.AUDIO.Key
-    end
+    return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
+        or (shouldEnableAudioImport() and screen.Key == Screens.AUDIO.Key)
 end
 
 function AssetGridContainer:init()

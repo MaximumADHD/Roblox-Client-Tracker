@@ -1,3 +1,5 @@
+local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
+
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
@@ -58,5 +60,25 @@ return function()
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
+
+
+		if FFlagDevFrameworkStyledDialogFullBleed then
+			it("should render properly for FullBleed", function()
+				local element = TestHelpers.provideMockContext(nil, {
+					StyledDialog = Roact.createElement(StyledDialog, {
+						Title = "Test4",
+						MinContentSize = Vector2.new(400, 400),
+						Buttons = {
+							{ Key = "ok", String = "OK" },
+						},
+						Style = "FullBleed",
+						OnButtonPressed = function() end,
+						OnClose = function() end,
+					})
+				})
+				local instance = Roact.mount(element)
+				Roact.unmount(instance)
+			end)
+		end
 	end)
 end

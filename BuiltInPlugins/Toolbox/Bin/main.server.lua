@@ -8,9 +8,7 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-local FFlagToolboxDisableForLuobu = game:GetFastFlag("ToolboxDisableForLuobu")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 
 local StudioService = game:GetService("StudioService")
 local hasInternalPermission = StudioService:HasInternalPermission()
@@ -91,11 +89,7 @@ local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
-if FFlagStudioCreatePluginPolicyService then
-	if not getToolboxEnabled() then
-		return
-	end
-elseif FFlagToolboxDisableForLuobu and StudioService:BaseURLHasChineseHost() then
+if not getToolboxEnabled() then
 	return
 end
 

@@ -15,22 +15,19 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
-local Preview = require(Plugin.Src.Util.Preview)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
-local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(pivotTick, newTick, dragContext)
 	return function(store)
 		local state = store:getState()
-		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
-		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
+		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
+		local animationData = dragContext and dragContext.animationData or state.AnimationData
 		local displayFrameRate = state.Status.DisplayFrameRate
 		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
 
@@ -46,39 +43,25 @@ return function(pivotTick, newTick, dragContext)
 				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 				or AnimationData.getMaximumLength(30)
 		end
-		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
-
-		if GetFFlagReduceDeepcopyCalls() then
-			newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
-			newData.Events = deepCopy(newData.Events)
-		end
+		local newData = Cryo.Dictionary.join({}, animationData)
+		newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
+		newData.Events = deepCopy(newData.Events)
 
 		-- To prevent clobbering keyframes that should be moved,
 		-- we have to move the keyframes from last to first if
 		-- moving the keyframes forward in the timeline.
 		local moveLastToFirst = newTick > pivotTick
-
-		local earliestTick, latestTick
-		if GetFFlagRealtimeChanges() then
-			earliestTick, latestTick = AnimationData.getSelectionBounds(newData, selectedKeyframes)
-		else
-			earliestTick, latestTick = Preview.getFrameBounds(newData, selectedKeyframes)
-		end
-
+		local earliestTick, latestTick = AnimationData.getSelectionBounds(newData, selectedKeyframes)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		for instanceName, instance in pairs(selectedKeyframes) do
-			if GetFFlagReduceDeepcopyCalls() then
-				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
-				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
-			end
+			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
 			local dataInstance = newData.Instances[instanceName]
 
 			for trackName, _ in pairs(instance) do
-				if GetFFlagReduceDeepcopyCalls() then
-					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-				end
+				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
 				local keyframes = Cryo.Dictionary.keys(instance[trackName])
 				table.sort(keyframes)

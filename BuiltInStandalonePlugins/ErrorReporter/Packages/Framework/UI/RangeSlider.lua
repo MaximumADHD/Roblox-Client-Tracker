@@ -7,7 +7,7 @@
 		number LowerRangeValue: Current value for the lower range knob
 		number UpperRangeValue: Current value for the upper range knob
 		callback OnValuesChanged: The callback is called whenever the min or max value changes - OnValuesChanged(minValue: number, maxValue: number)
-		Mouse Mouse: A Mouse ContextItem, which is provided via mapToProps.
+		Mouse Mouse: A Mouse ContextItem, which is provided via withContext.
 
 	Optional Props:
 		Vector2 AnchorPoint: The anchorPoint of the component
@@ -21,13 +21,17 @@
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		number SnapIncrement: Incremental points that the slider's knob will snap to. A "0" snap increment means no snapping.
 		number VerticalDragTolerance: A vertical pixel height for allowing a mouse button press to drag knobs on outside the component's size.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues = game:GetFastFlag("DeveloperFrameworkFixRangeSliderKnobSwitchingValues")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
+local enumerate = require(Framework.Util.enumerate)
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local prioritize = Util.prioritize
@@ -47,26 +51,35 @@ RangeSlider.defaultProps = {
 	VerticalDragTolerance = 300,
 }
 
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
-local isInputMainPress = Util.isInputMainPress
-
--- TODO FFlagDevFrameworkBasicMobileSupport: Remove this helper on retire
-local function DEPRECATED_isUserInputTypeClick(inputType)
-	return (inputType == Enum.UserInputType.Touch) or (inputType == Enum.UserInputType.MouseButton1)
+if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+	RangeSlider.KnobType = enumerate("KnobType", {
+		"Lower",
+		"Upper",
+	})
 end
 
+local isInputMainPress = Util.isInputMainPress
+
 function RangeSlider:init()
+	if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+		self.currentlySelectedKnob = nil
+	end
+
 	self.sliderFrameRef = Roact.createRef()
 
 	self.state = {
-		pressed = false
+		pressed = false,
 	}
+
+	if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+		self.isSwitchingKnob = function(newKnobType)
+			return self.currentlySelectedKnob ~= nil and self.currentlySelectedKnob ~= newKnobType
+		end
+	end
 
 	self.getTotalRange = function()
 		local range = self.props.Max - self.props.Min
-
 		assert(range >= 0, "Range must be >= 0")
-
 		return range
 	end
 
@@ -117,8 +130,14 @@ function RangeSlider:init()
 		local mouseClickValue = self.getMouseClickValue(input)
 
 		if mouseClickValue < self.props.LowerRangeValue then
+			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+				self.currentlySelectedKnob = self.KnobType.Lower
+			end
 			return self.props.UpperRangeValue
 		elseif mouseClickValue > self.props.UpperRangeValue then
+			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+				self.currentlySelectedKnob = self.KnobType.Upper
+			end
 			return self.props.LowerRangeValue
 		end
 
@@ -126,20 +145,24 @@ function RangeSlider:init()
 		local diffToUpper = math.abs(mouseClickValue - self.props.UpperRangeValue)
 
 		if diffToLower < diffToUpper then
+			if self.isSwitchingKnob(self.KnobType.Lower) then
+				return self.props.UpperRangeValue - self.props.SnapIncrement
+			end
+			self.currentlySelectedKnob = self.KnobType.Lower
 			return self.props.UpperRangeValue
 		end
 
+		if self.isSwitchingKnob(self.KnobType.Upper) then
+			return self.props.LowerRangeValue + self.props.SnapIncrement
+		end
+		self.currentlySelectedKnob = self.KnobType.Upper
 		return self.props.LowerRangeValue
 	end
 
 	self.onInputBegan = function(rbx, input)
-		local isMainPress = DEPRECATED_isUserInputTypeClick(input.UserInputType)
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		end
+		local isMainPress = isInputMainPress(input)
 		if self.props.Disabled then
 			return
-
 		elseif isMainPress then
 			self:setState({
 				pressed = true,
@@ -158,11 +181,11 @@ function RangeSlider:init()
 	end
 
 	self.onInputEnded = function(rbx, input)
-		local isMainPress = DEPRECATED_isUserInputTypeClick(input.UserInputType)
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		end
+		local isMainPress = isInputMainPress(input)
 		if not self.props.Disabled and isMainPress then
+			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
+				self.currentlySelectedKnob = nil
+			end
 			self:setState({
 				pressed = false,
 			})
@@ -269,10 +292,19 @@ function RangeSlider:render()
 	})
 end
 
-ContextServices.mapToProps(RangeSlider, {
-	Mouse = ContextServices.Mouse,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	RangeSlider = withContext({
+		Mouse = ContextServices.Mouse,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(RangeSlider)
+else
+	ContextServices.mapToProps(RangeSlider, {
+		Mouse = ContextServices.Mouse,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return RangeSlider

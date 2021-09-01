@@ -4,5 +4,6 @@
 
 game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)
 game:DefineFastFlag("DraftsWidgetDeduplicatePackages", false)
+game:DefineFastFlag("DraftsWidgetUseCreateContext", false)
 
 return nil

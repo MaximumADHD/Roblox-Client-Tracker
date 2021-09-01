@@ -1,5 +1,3 @@
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
-
 local isCli = require(script.Parent.isCli)
 
 local StudioService = game:GetService("StudioService")
@@ -14,23 +12,17 @@ if isCli() then
         Enabled = true
     }
 else
-    ToolboxPolicy = FFlagStudioCreatePluginPolicyService and game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox") or nil
+    ToolboxPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("Toolbox")
 end
 
 local ToolboxUtilities =  {}
 
-local function checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-    return not FFlagStudioCreatePluginPolicyService and StudioService:BaseURLHasChineseHost()
-end
-
 function ToolboxUtilities.showRobloxCreatedAssets()
-    return checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-        or (FFlagStudioCreatePluginPolicyService and ToolboxPolicy["ShowRobloxCreatedAssets"])
+    return ToolboxPolicy["ShowRobloxCreatedAssets"]
 end
 
 function ToolboxUtilities.disableMarketplaceAndRecents()
-    return checkIfPolicyDoesNotExistAndBaseUrlChineseHost()
-        or (FFlagStudioCreatePluginPolicyService and ToolboxPolicy["DisableMarketplaceAndRecents"])
+    return ToolboxPolicy["DisableMarketplaceAndRecents"]
 end
 
 function ToolboxUtilities.getMaxAudioLength()

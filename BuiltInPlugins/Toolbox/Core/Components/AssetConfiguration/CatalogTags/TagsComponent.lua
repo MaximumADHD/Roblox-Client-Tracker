@@ -40,12 +40,12 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local StyleModifier = require(Libs.Framework).Util.StyleModifier
 
-local Container
+local Pane
 local RoundBox
 local RoundFrame
 if FFlagToolboxReplaceUILibraryComponentsPt2 then
 	RoundBox = Framework.UI.Decoration.RoundBox
-	Container = Framework.UI.Container
+	Pane = Framework.UI.Pane
 else
 	RoundFrame = UILibrary.Component.RoundFrame
 end
@@ -369,21 +369,23 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 		}),
 
 		Content = Roact.createElement("Frame", {
-			LayoutOrder = 2,
 			BackgroundTransparency = 1,
+			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, contentHeight),
 		}, {
-			Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(Container, {
-				Background = RoundBox,
-				BackgroundStyle = noTagFound and "TagsComponentError" or "TagsComponent",
-				BackgroundStyleModifier = (not self:canAddTags() and StyleModifier.Disabled) or (state.active and StyleModifier.Selected) or nil,
-				LayoutOrder = 1,
+			Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement("Frame", {
+				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
 
 				[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
 				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
 				[Roact.Ref] = self.textFieldRef,
-			}, tagElements)
+			},{
+				Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(RoundBox, {
+					Style = noTagFound and "TagsComponentError" or "TagsComponent",
+					StyleModifier = (not self:canAddTags() and StyleModifier.Disabled) or (state.active and StyleModifier.Selected) or nil,
+				}, tagElements)
+			})
 			or Roact.createElement(RoundFrame, {
 				BackgroundColor3 = not self:canAddTags() and theme.inputFields.backgroundColorDisabled or theme.inputFields.backgroundColor,
 				BorderColor3 = textFieldBorderColor3,

@@ -1,5 +1,7 @@
 local FFlagDisplayErrorDetailsSecurityLevel = game:GetFastFlag("DisplayErrorDetailsSecurityLevel")
 
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local ErrorReporter = Framework.ErrorReporter.StudioPluginErrorReporter

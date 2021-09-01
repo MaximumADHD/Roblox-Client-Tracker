@@ -25,10 +25,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 local EventMarker = require(Plugin.Src.Components.EventMarker)
-
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 
 local EventTrack = Roact.PureComponent:extend("EventTrack")
 
@@ -135,9 +132,6 @@ function EventTrack:render()
 	local events = props.Events
 	if events and events.Keyframes and #events.Keyframes > 0 then
 		self:renderEvents(keys)
-		if not GetFFlagRealtimeChanges() then
-			self:renderPreviewEvents(keys)
-		end
 	end
 
 	if props.EditingFrame then

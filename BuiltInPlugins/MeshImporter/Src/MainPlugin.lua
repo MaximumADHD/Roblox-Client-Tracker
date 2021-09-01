@@ -24,61 +24,67 @@ local Framework = require(main.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 
+local AssetImportService = game:GetService("AssetImportService")
+
 local StudioUI = Framework.StudioUI
 local PluginToolbar = StudioUI.PluginToolbar
 local PluginButton = StudioUI.PluginButton
 
 local Components = main.Src.Components
+local ImportPrompt = require(Components.ImportPrompt)
 local MeshImportDialog = require(Components.MeshImportDialog)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	self.state = {
-		enabled = false,
+		hasImportSettings = false,
+		promptRequested = false,
 	}
 
+	self.promptClosed = function(succeeded)
+		assert(self.state.promptRequested)
+
+		self:setState({
+			hasImportSettings = succeeded,
+			promptRequested = false,
+		})
+	end
+
 	self.toggleEnabled = function()
-		self:setState(function(state)
-			return {
-				enabled = not state.enabled,
-			}
-		end)
+		assert(not self.state.promptRequested, "Import prompt already requested")
+
+		if self.state.hasImportSettings then
+			self.onClose()
+		else
+			self:setState({
+				promptRequested = true,
+			})
+		end
 	end
 
 	self.onClose = function()
 		self:setState({
-			enabled = false,
+			hasImportSettings = false,
+			promptRequested = false,
 		})
 	end
 
 	self.onImport = function(assetSettings)
 		self.onClose()
-		local result = assetSettings:Import()
-		result.Name = assetSettings.Name
-		result.Parent = workspace
-	end
-
-	self.onRestore = function(enabled)
-		self:setState({
-			enabled = enabled
-		})
-	end
-
-	self.onWidgetEnabledChanged = function(widget)
-		self:setState({
-			enabled = widget.Enabled
-		})
+		AssetImportService:UploadCurrentMesh()
 	end
 end
 
 function MainPlugin:renderButtons(toolbar)
-	local enabled = self.state.enabled
+	local active = self.state.hasImportSettings
+	local enabled = not self.state.promptRequested
 
 	return {
 		Toggle = Roact.createElement(PluginButton, {
+			Active = active,
+			Enabled = enabled,
 			Toolbar = toolbar,
-			Active = enabled,
 			Title = self.props.Localization:getText("Plugin", "Button"),
 			Tooltip = self.props.Localization:getText("Plugin", "Description"),
 			Icon = "rbxasset://textures/AssetImport/Import.png",
@@ -91,7 +97,9 @@ end
 function MainPlugin:render()
 	local props = self.props
 	local state = self.state
-	local enabled = state.enabled
+
+	local hasImportSettings = state.hasImportSettings
+	local shouldShowPrompt = not state.hasImportSettings and state.promptRequested
 
 	return ContextServices.provide({
 		props.Plugin,
@@ -108,12 +116,16 @@ function MainPlugin:render()
 			end,
 		}),
 
-		Dialog = enabled and Roact.createElement(MeshImportDialog, {
+		Dialog = hasImportSettings and Roact.createElement(MeshImportDialog, {
 			Resizable = true,
 			Title = "Import Mesh",
 			OnClose = self.onClose,
 			OnImport = self.onImport,
-		})
+		}),
+
+		Prompt = shouldShowPrompt and Roact.createElement(ImportPrompt, {
+			OnPromptClosed = self.promptClosed,
+		}),
 	})
 end
 

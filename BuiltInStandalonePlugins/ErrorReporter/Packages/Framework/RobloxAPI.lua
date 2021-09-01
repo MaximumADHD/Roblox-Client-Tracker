@@ -31,10 +31,6 @@
 local DevFrameworkRoot = script.Parent
 local Url = require(script.Url)
 local Networking = require(DevFrameworkRoot.Http).Networking
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-local StudioService = game:GetService("StudioService")
-
-local FFlagFixToolboxInCli = game:GetFastFlag("FixToolboxInCli")
 
 local strict = require(DevFrameworkRoot.Util.strict)
 
@@ -70,7 +66,9 @@ local function initDirectoryWithArgs(dir, networkingImpl, baseUrl)
 	return strict(childrenMap)
 end
 
-local RobloxAPI = {}
+local RobloxAPI = {
+	Url = Url
+}
 RobloxAPI.__index = RobloxAPI
 
 -- props : (table, optional)
@@ -96,7 +94,7 @@ function RobloxAPI.new(props)
 	-- construct the full API table
 	local robloxApi = {
 		_baseUrls = baseUrl,
-
+		APIS = initDirectoryWithArgs(script.APIS, networkingImpl, baseUrl),
 		API = initDirectoryWithArgs(script.API, networkingImpl, baseUrl),
 		AssetGame = initDirectoryWithArgs(script.AssetGame, networkingImpl, baseUrl),
 		Catalog = initDirectoryWithArgs(script.Catalog, networkingImpl, baseUrl),
@@ -113,26 +111,6 @@ function RobloxAPI.new(props)
 	setmetatable(robloxApi, RobloxAPI)
 
 	return robloxApi
-end
-
-if FFlagFixToolboxInCli then
-	local isCli, _ = pcall(function()
-		game:GetService("ProcessService")
-	end)
-
-	-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-	function RobloxAPI:baseURLHasChineseHost()
-		if isCli then
-			return false
-		else
-			return StudioService:BaseURLHasChineseHost()
-		end
-	end
-else
-	-- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-	function RobloxAPI:baseURLHasChineseHost()
-		return StudioService:BaseURLHasChineseHost()
-	end
 end
 
 return RobloxAPI

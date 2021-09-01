@@ -1,4 +1,3 @@
---!nolint UnknownType
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util

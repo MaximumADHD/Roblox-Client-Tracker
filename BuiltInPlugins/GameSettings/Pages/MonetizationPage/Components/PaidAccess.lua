@@ -44,7 +44,6 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
-local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function PaidAccess:render()
@@ -77,12 +76,7 @@ function PaidAccess:render()
         subText = priceError
     end
 
-    local offSubtext
-    if FFlagVIPServersRebrandToPrivateServers then
-        offSubtext = localization:getText("Monetization", "PaidAccessHint")
-    else
-        offSubtext = localization:getText("Monetization", "DEPRECATED_PaidAccessHint")
-    end
+    local offSubtext = localization:getText("Monetization", "PaidAccessHint")
 
     local offSubTextSize = GetTextSize(offSubtext, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
         Vector2.new(theme.robuxFeeBase.subText.width, math.huge))

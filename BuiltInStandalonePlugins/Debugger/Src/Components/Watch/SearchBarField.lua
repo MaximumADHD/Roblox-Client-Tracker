@@ -6,8 +6,7 @@ local Framework = require(Plugin.Packages.Framework)
 local StudioUI = Framework.StudioUI
 local SearchBar = StudioUI.SearchBar
 
-local Actions = Plugin.Src.Actions
-local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+local FilterWatchDataThunk = require(Plugin.Src.Thunks.FilterWatchDataThunk)
 
 local SearchBarField = Roact.PureComponent:extend("SearchBarField")
 
@@ -25,10 +24,11 @@ end
 
 -- RoactRodux Connection
 SearchBarField = RoactRodux.connect(
-	nil, function(dispatch)
+	nil, 
+	function(dispatch)
 		return {
-			onFilterTextChanged = function(searchTerm)
-				return dispatch(FilterTextChanged(searchTerm))
+			onFilterTextChanged = function(filterString)
+				return dispatch(FilterWatchDataThunk(filterString))
 			end,
 		}
 	end

@@ -1,3 +1,6 @@
+local Selection = game:GetService("Selection")
+local FFlagFixZoomExtentsCrash = game:GetFastFlag("FixZoomExtentsCrash")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -126,6 +129,10 @@ function LargeVoxelRegionPreview:destroy()
 		border:Destroy()
 	end
 	self._borders = nil
+
+	if FFlagFixZoomExtentsCrash then
+		Selection:ClearTerrainSelectionHack()
+	end
 end
 
 function LargeVoxelRegionPreview:updateVisibility(isVisible)
@@ -261,6 +268,10 @@ function LargeVoxelRegionPreview:setSizeAndPosition(size, position)
 	self:updateBlockMesh()
 	self:updateAdorns()
 	self:updateBorders()
+	
+	if FFlagFixZoomExtentsCrash then
+		Selection:SetTerrainSelectionHack(position, size)
+	end
 end
 
 return LargeVoxelRegionPreview

@@ -27,8 +27,6 @@
 	PATCH request, then you can use coroutine.wrap to run multiple PATCHES that yield afterwards in the same frame
 ]]
 
-local FFlagFixUploadingImagesInGameSettings = game:DefineFastFlag("FixUploadingImagesInGameSettings", false)
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
@@ -152,21 +150,17 @@ function NetworkingImpl:__requestWithoutCoalesce(options)
 
 	if options.Body ~= nil then
 		local body
-		if FFlagFixUploadingImagesInGameSettings then
-			local shouldJsonEncode = true
-			local headers = options.Headers
+		local shouldJsonEncode = true
+		local headers = options.Headers
 
-			if typeof(headers) == "table" then
-				local contentType = headers["Content-Type"]
-				if contentType and string.find(contentType, "multipart/form") then
-					shouldJsonEncode = false
-				end
+		if typeof(headers) == "table" then
+			local contentType = headers["Content-Type"]
+			if contentType and string.find(contentType, "multipart/form") then
+				shouldJsonEncode = false
 			end
-
-			body = shouldJsonEncode and HttpService:JSONEncode(options.Body) or options.Body
-		else
-			body = HttpService:JSONEncode(options.Body)
 		end
+
+		body = shouldJsonEncode and HttpService:JSONEncode(options.Body) or options.Body
 
 		options = Cryo.Dictionary.join(options, {
 			Body = body,

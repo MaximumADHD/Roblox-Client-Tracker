@@ -1,7 +1,7 @@
 -- Centralized Place for Keys used throughout the widget
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
+local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 
 local KeyProvider = {}
 
@@ -38,7 +38,7 @@ function KeyProvider.getVersionHistoryKeyName()
 end
 
 function KeyProvider.getOptInLocationsKeyName()
-    assert(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn)
+    assert(FFlagLuobuDevPublishLua)
 
     return "OptInLocations"
 end
@@ -83,6 +83,54 @@ function KeyProvider.getPlayerAcceptanceKeyName()
     assert(FFlagLuobuDevPublishLua)
 
     return "PlayerAcceptance"
+end
+
+function KeyProvider.getGameSettingsKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "GameSettings"
+end
+
+function KeyProvider.getPluginKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "plugin"
+end
+
+function KeyProvider.getContextKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "context"
+end
+
+function KeyProvider.getLuobuStudioDevPublishKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "LuobuStudioDevPublish"
+end
+
+function KeyProvider.getTermsOfUseDialogKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "TermsOfUseDialog"
+end
+
+function KeyProvider.getCheckboxToggleKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "CheckboxToggle"
+end
+
+function KeyProvider.getButtonClickedKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "buttonClicked"
+end
+
+function KeyProvider.getFooterKeyName()
+    assert(FFlagLuobuDevPublishAnalyticsKeys)
+
+    return "Footer"
 end
 
 return KeyProvider

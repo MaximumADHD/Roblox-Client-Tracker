@@ -37,8 +37,6 @@ local Keyframe = require(Plugin.Src.Components.Timeline.Keyframe)
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
-
 local SummaryTrack = Roact.PureComponent:extend("SummaryTrack")
 
 function SummaryTrack:getSummaryKeyframes()
@@ -183,9 +181,6 @@ function SummaryTrack:render()
 
 	local keys = {}
 	self:renderKeyframes(keys)
-	if not GetFFlagRealtimeChanges() then
-		self:renderPreviewKeyframes(keys)
-	end
 
 	return Roact.createElement(BaseTrack, props, keys)
 end

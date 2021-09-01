@@ -54,9 +54,7 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 
 local VIPServers = Roact.PureComponent:extend("VIPServers")
 
-local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagVIPServersRebrandToPrivateServers = game:GetFastFlag("VIPServersRebrandToPrivateServers")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -75,12 +73,7 @@ function VIPServers:render()
 
     local layoutIndex = LayoutOrderIterator.new()
 
-    local title
-    if FFlagVIPServersRebrandToPrivateServers then
-        title = localization:getText("Monetization", "PrivateServersTitle")
-    else
-        title  = localization:getText("Monetization", "TitleVIPServers")
-    end
+    local title = localization:getText("Monetization", "PrivateServersTitle")
     local priceTitle = localization:getText("Monetization", "PriceTitle")
 
     local layoutOrder = props.LayoutOrder
@@ -97,7 +90,7 @@ function VIPServers:render()
     local subsCount = vipServersData.activeSubscriptionsCount and vipServersData.activeSubscriptionsCount or 0
     local hasPriceChanged = vipServersData.changed
     local willShutdown = vipServersData.willShutdown
-    local isFree = FFlagSupportFreePrivateServers and price == 0 or false
+    local isFree = price == 0
 
     if not isFree then
         self.lastNonFreePrice = price
@@ -109,21 +102,12 @@ function VIPServers:render()
     local subscriptionsText
     local totalVIPServersText
     -- We're checking if subscription count is less than 0 here because the BE returns a negative value to indicate that the text about "over X" should be used.
-    if FFlagVIPServersRebrandToPrivateServers then
-        if subsCount < 0 then
-            subscriptionsText = localization:getText("Monetization", "OverPrivateServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
-        else
-            subscriptionsText = localization:getText("Monetization", "PrivateServerSubscriptions", { numOfSubscriptions = subsCount })
-        end
-        totalVIPServersText = localization:getText("Monetization", "PrivateServersActive", { totalVipServers = serversCount })
+    if subsCount < 0 then
+        subscriptionsText = localization:getText("Monetization", "OverPrivateServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
     else
-        if subsCount < 0 then
-            subscriptionsText = localization:getText("Monetization", "OverVIPServerSubscriptions", { numOfSubscriptions = subsCount * -1 })
-        else
-            subscriptionsText = localization:getText("Monetization", "VIPServerSubscriptions", { numOfSubscriptions = subsCount })
-        end
-        totalVIPServersText = localization:getText("Monetization", "VIPServersActive", { totalVipServers = serversCount })
+        subscriptionsText = localization:getText("Monetization", "PrivateServerSubscriptions", { numOfSubscriptions = subsCount })
     end
+    totalVIPServersText = localization:getText("Monetization", "PrivateServersActive", { totalVipServers = serversCount })
 
     local transparency = enabled and theme.robuxFeeBase.transparency.enabled or theme.robuxFeeBase.transparency.disabled
 
@@ -132,30 +116,16 @@ function VIPServers:render()
     local priceError = props.PriceError
     local showPriceChangeWarning
 
-    if FFlagVIPServersRebrandToPrivateServers then
-        if enabled and priceError then
-            subText = priceError
-        elseif hasPriceChanged then
-            subText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
-            showPriceChangeWarning = true
-        end
+    if enabled and priceError then
+        subText = priceError
+    elseif hasPriceChanged then
+        subText = localization:getText("Monetization", "PrivateServersPriceChangeWarning")
+        showPriceChangeWarning = true
+    end
 
-        toggleSubText = localization:getText("Monetization", "PrivateServersHint")
-        if willShutdown then
-            toggleSubText = localization:getText("Monetization", "PrivateServersShutdownWarning")
-        end
-    else
-        if enabled and priceError then
-            subText = priceError
-        elseif hasPriceChanged then
-            subText = localization:getText("Monetization", "VIPServersPriceChangeWarning")
-            showPriceChangeWarning = true
-        end
-
-        toggleSubText = localization:getText("Monetization", "DEPRECATED_VIPServersHint")
-        if willShutdown then
-            toggleSubText = localization:getText("Monetization", "VIPServersShutdownWarning")
-        end
+    toggleSubText = localization:getText("Monetization", "PrivateServersHint")
+    if willShutdown then
+        toggleSubText = localization:getText("Monetization", "PrivateServersShutdownWarning")
     end
 
     local toggleSubTextSize = GetTextSize(toggleSubText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font,
@@ -274,7 +244,7 @@ function VIPServers:render()
                 LayoutOrder = 3,
             }),
         }),
-        PriceConfig = FFlagSupportFreePrivateServers and selected and Roact.createElement(RadioButtonSet, {
+        PriceConfig = selected and Roact.createElement(RadioButtonSet, {
             Title = priceTitle,
 
             Buttons = buttons,
@@ -291,26 +261,6 @@ function VIPServers:render()
 
             LayoutOrder = 2,
         }),
-        PriceConfigPaidOnly = not FFlagSupportFreePrivateServers and selected and Roact.createElement(TitledFrame, {
-            Title = priceTitle,
-
-            MaxHeight = maxPriceConfigHeight,
-
-            TextSize = theme.fontStyle.Normal.TextSize,
-            LayoutOrder = 2,
-        },{
-            RobuxFeeBase = Roact.createElement(RobuxFeeBase, {
-                Price = price,
-                TaxRate = taxRate,
-                MinimumFee = minimumFee,
-                SubText = subText,
-
-                Enabled = not isFree,
-
-                OnPriceChanged = onVipServersPriceChanged,
-                HasPriceChanged = hasPriceChanged,
-            }),
-        })
     })
 end
 

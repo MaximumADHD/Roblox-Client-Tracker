@@ -11,48 +11,64 @@ local Localization = ContextServices.Localization
 local UI = Framework.UI
 local TreeTable = UI.TreeTable
 local Stylizer = Framework.Style.Stylizer
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
 
 local Models = Plugin.Src.Models
 local TableTab = require(Models.Watch.TableTab)
 
-local Util = Framework.Util
-local deepCopy = Util.deepCopy
-
-local Dash = Framework.Dash
-local join = Dash.join
+local Actions = Plugin.Src.Actions
+local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
 -- Local Functions
-local function populateTable(roots, tree)
+local function populateRootItems(roots, flattenedTreeCopy)
 	if (#roots == 0) then
 		return {}
 	end
 	
-	local tab = {}
-	for k, v in ipairs(roots) do
-		local rootData = deepCopy(tree[v])
-		local childrenData = populateTable(rootData.children, tree)
+	local toReturn = {}
+	for index, path in ipairs(roots) do
+		local rootData = deepCopy(flattenedTreeCopy[path])
+		local childrenData = populateRootItems(rootData.children, flattenedTreeCopy)
 		rootData.children = childrenData
-		table.insert(tab, rootData)
+
+		table.insert(toReturn, rootData)
 	end
-	return tab
+	return toReturn
 end
 
+local function populateExpansionTable(rowItems, expansionTable, storeExpansionTable)
+	if (#rowItems == 0) then
+		return
+	end
+	
+	for index, rowItem in ipairs(rowItems) do
+		expansionTable[rowItem] = storeExpansionTable[rowItem.pathColumn]
+		populateExpansionTable(rowItem.children, expansionTable, storeExpansionTable)
+	end
+end
+
+local function applyFilters(rootItems, flattenedTreeCopy)
+	local toReturn = {}
+	for index, rowItem in ipairs(rootItems) do
+		if (not flattenedTreeCopy[rowItem.pathColumn].textFilteredOut and not flattenedTreeCopy[rowItem.pathColumn].scopeFilteredOut) then
+			table.insert(toReturn, rowItem)
+		end
+	end
+	return toReturn
+end
 -- DisplayTable
 function DisplayTable:init()
-	self.state = {
-		Expansion = {},
-	}
-	
 	self.getTreeChildren = function(item)
 		return item.children or {}
 	end
 	
 	self.onExpansionChange = function(newExpansion)
-		self:setState({
-			Expansion = join(self.state.Expansion, newExpansion)
-		})
+		for row, expandedBool in pairs(newExpansion) do
+			self.props.onExpansionDispatch(row.pathColumn, expandedBool)
+		end
 	end
 end
 
@@ -100,7 +116,7 @@ function DisplayTable:render()
 		Stylizer = style,
 		OnExpansionChange = self.onExpansionChange,
 		GetChildren = self.getTreeChildren,
-		Expansion = self.state.Expansion,
+		Expansion = props.ExpansionTable,
 		DisableTooltip = true,
 	})
 end
@@ -126,22 +142,37 @@ DisplayTable = RoactRodux.connect(
 			local token = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]	
 
 			local tabState = state.Watch.currentTab
+			local isVariablesTab = (tabState == TableTab.Variables)
 			local watchVars = state.Watch.stateTokenToRoots[token]
 
 			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
-			local rootsList = tabState == TableTab.Variables and deepCopy(roots.Variables) or deepCopy(roots.Watches)
-			
+			local rootsList = isVariablesTab and deepCopy(roots.Variables) or deepCopy(roots.Watches)
+
 			local watchTree = state.Watch.stateTokenToFlattenedTree[token]
 			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
-			local treeList = tabState == TableTab.Variables and deepCopy(tree.Variables) or deepCopy(tree.Watches)
-			local rootItems = populateTable(rootsList, treeList)
-			
+			local flattenedTreeCopy = isVariablesTab and deepCopy(tree.Variables) or deepCopy(tree.Watches)
+			local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
+			rootItems = applyFilters(rootItems, flattenedTreeCopy)
+
+			local expansionTable = {}
+			local storeExpansionTable = isVariablesTab and state.Watch.pathToExpansionState or state.Watch.expressionToExpansionState
+			populateExpansionTable(rootItems, expansionTable, storeExpansionTable)
+
 			return {
 				SelectedTab = tabState,
 				RootItems = rootItems or {},
+				ExpansionTable = expansionTable
 			}
 		end
-	end, nil
+	end,
+	
+	function(dispatch)
+		return {
+			onExpansionDispatch = function(path, expanded)
+				return dispatch(SetVariableExpanded(path, expanded))
+			end,
+		}
+	end
 )(DisplayTable)
 
 return DisplayTable

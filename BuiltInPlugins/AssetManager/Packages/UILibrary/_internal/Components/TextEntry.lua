@@ -17,7 +17,6 @@ local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
 
 local TextEntry = Roact.PureComponent:extend("TextEntry")
-local FFlagFixTextChangedFromEmptyForTextEntry = game:DefineFastFlag("FixTextChangedFromEmptyForTextEntry", false)
 
 function TextEntry:init()
 	self.textBoxRef = Roact.createRef()
@@ -27,15 +26,8 @@ function TextEntry:init()
 		else
 			rbx.TextXAlignment = Enum.TextXAlignment.Right
 		end
-		if FFlagFixTextChangedFromEmptyForTextEntry then
-			local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-			self.props.SetText(processed)
-		else
-			if rbx.Text ~= self.props.Text then
-				local processed = string.gsub(rbx.Text, "[\n\r]", " ")
-				self.props.SetText(processed)
-			end
-		end
+		local processed = string.gsub(rbx.Text, "[\n\r]", " ")
+		self.props.SetText(processed)
 	end
 
 	self.mouseEnter = function()

@@ -1,4 +1,5 @@
 local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
+local FFlagFixZoomExtentsCrash = game:GetFastFlag("FixZoomExtentsCrash")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -9,6 +10,7 @@ local TerrainRegionEditor = {}
 
 local coreGui = game:GetService('CoreGui')
 local changeHistory = game:GetService('ChangeHistoryService')
+local selection = game:GetService("Selection")
 
 local getTerrain = require(Plugin.Src.Util.getTerrain)
 
@@ -67,6 +69,16 @@ local ceil = math.ceil
 local screenGui
 
 local selectionEffect, copyRegion, toolSelect, mode, tool, updateRotateOperation, updateDragOperation, setButton, dragAngle, mouseDown
+
+local function updateTerrainSelectionHack()
+	if on and selectionStart then
+		local basePosition = (selectionStart + selectionEnd - Vector3.new(1, 1, 1)) * 0.5 * resolution
+		local baseSize = ((selectionEnd - selectionStart + Vector3.new(1, 1, 1)) * resolution + Vector3.new(.21, .21, .21))
+		selection:SetTerrainSelectionHack(basePosition, baseSize)
+	else
+		selection:ClearTerrainSelectionHack()
+	end
+end
 
 local function getOrCreateScreenGui()
 	if not screenGui or not screenGui.Parent then
@@ -546,6 +558,9 @@ function FirstTimeSetup()
 					math.max(math.min(voxelCurrent.z,clickStart.z+regionLengthLimit),clickStart.z-regionLengthLimit))
 				selectionStart = Vector3.new(math.min(clickStart.x, voxelCurrent.x), math.min(clickStart.y, voxelCurrent.y), math.min(clickStart.z, voxelCurrent.z))
 				selectionEnd = Vector3.new(math.max(clickStart.x, voxelCurrent.x), math.max(clickStart.y, voxelCurrent.y), math.max(clickStart.z, voxelCurrent.z))
+				if FFlagFixZoomExtentsCrash then
+					updateTerrainSelectionHack()
+				end
 				renderSelection()
 				game:GetService('RunService').RenderStepped:wait()
 			end
@@ -591,6 +606,9 @@ function FirstTimeSetup()
 				selectionStart = selectionStart + dragVector
 				selectionEnd = selectionEnd + dragVector
 			end
+			if FFlagFixZoomExtentsCrash then
+				updateTerrainSelectionHack()
+			end
 
 			changeHistory:SetWaypoint('Terrain '..kCurrentTool)
 		end
@@ -611,6 +629,9 @@ function FirstTimeSetup()
 
 			selectionEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
 			selectionStart = selectionStart + centerOffset
+			if FFlagFixZoomExtentsCrash then
+				updateTerrainSelectionHack()
+			end
 			lockInMap()
 			changeHistory:SetWaypoint('Terrain '..kCurrentTool)
 		end
@@ -624,6 +645,9 @@ function FirstTimeSetup()
 	local function historyChanged()
 		selectionStart = nil
 		selectionEnd = nil
+		if FFlagFixZoomExtentsCrash then
+			updateTerrainSelectionHack()
+		end
 		lockedMaterials = nil
 		lockedOccupancies = nil
 		setButton(ToolId.Select)
@@ -816,6 +840,9 @@ function TerrainRegionEditor.Init (toolName, theMouse)
 	if terrain or kCurrentTool == ToolId.Select then
 		toolSelect[kCurrentTool]()
 	end
+	if FFlagFixZoomExtentsCrash then
+		updateTerrainSelectionHack()
+	end
 end
 
 function TerrainRegionEditor.ChangeProperties(vals)
@@ -888,6 +915,9 @@ function TerrainRegionEditor.Close()
 	mouse = nil
 	tool = nil
 	mode = "Select"
+	if FFlagFixZoomExtentsCrash then
+		updateTerrainSelectionHack()
+	end
 end
 
 return TerrainRegionEditor

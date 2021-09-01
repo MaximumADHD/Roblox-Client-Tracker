@@ -1,3 +1,5 @@
+local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
+
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -11,6 +13,12 @@ if THEME_REFACTOR then
 		Background = StyleKey.MainBackground,
 		Modal = false,
 		Resizable = false,
+		ButtonHorizontalAlignment = Enum.HorizontalAlignment.Right,
+		ButtonPadding = FFlagDevFrameworkStyledDialogFullBleed and {
+			Top = 24,
+		} or nil,
+		ButtonSpacing = FFlagDevFrameworkStyledDialogFullBleed and 24 or nil,
+		ContentPadding = FFlagDevFrameworkStyledDialogFullBleed and 24 or nil,
 
 		["&Alert"] = {
 			Buttons = {
@@ -25,6 +33,11 @@ if THEME_REFACTOR then
 				{ Style = "Round" }, -- Cancel
 			},
 		},
+
+		["&FullBleed"] = FFlagDevFrameworkStyledDialogFullBleed and {
+			ButtonPadding = 24,
+			ContentPadding = 0,
+		} or nil,
 	}
 else
 	return function(theme, getColor)
@@ -33,6 +46,17 @@ else
 			Background = theme:GetColor("MainBackground"),
 			Modal = false,
 			Resizable = false,
+			ButtonHorizontalAlignment = Enum.HorizontalAlignment.Right,
+			ButtonPadding = FFlagDevFrameworkStyledDialogFullBleed and {
+				Top = 24,
+			} or nil,
+			ButtonSpacing = FFlagDevFrameworkStyledDialogFullBleed and 24 or nil,
+			ContentPadding = FFlagDevFrameworkStyledDialogFullBleed and {
+				Left = 24,
+				Top = 24,
+				Right = 24,
+				Bottom = 24,
+			} or nil,
 		})
 
 		local Alert = Style.extend(Default, {
@@ -49,10 +73,20 @@ else
 			},
 		})
 
+		local FullBleed = FFlagDevFrameworkStyledDialogFullBleed and Style.extend(Default, {
+			ContentPadding = {
+				Left = 0,
+				Top = 0,
+				Right = 0,
+				Bottom = 24,
+			},
+		}) or nil
+
 		return {
 			Default = Default,
 			Alert = Alert,
 			AcceptCancel = AcceptCancel,
+			FullBleed = FullBleed,
 		}
 	end
 end

@@ -87,10 +87,18 @@ local function validate(component, propsInterface, styleInterface)
 end
 
 local function wrap(component, script)
-	local docParser = DocParser.new(component, script)
-	local docs = docParser:parse()
-	local propsInterface, styleInterface = DocParser.toInterface(docs)
-	validate(component, propsInterface, styleInterface)
+	-- script.Source is a Plugin-security API, and needs to be gated
+	-- by pcall as DeveloperFramework also runs embedded in a place
+	local isSourceAvailable = false
+	pcall(function()
+		isSourceAvailable = script.Source ~= ""
+	end)
+	if isSourceAvailable then
+		local docParser = DocParser.new(component, script)
+		local docs = docParser:parse()
+		local propsInterface, styleInterface = DocParser.toInterface(docs)
+		validate(component, propsInterface, styleInterface)
+	end
 end
 
 return wrap

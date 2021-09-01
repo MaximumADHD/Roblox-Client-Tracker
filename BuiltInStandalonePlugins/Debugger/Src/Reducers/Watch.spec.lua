@@ -8,13 +8,13 @@ local testImmutability = TestHelpers.testImmutability
 local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
-local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
 local SetTab = require(Actions.Watch.SetTab)
 local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
-local SetVariableTextFilteredOut = require(Actions.Watch.SetVariableTextFilteredOut)
+local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
+local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 
 local WatchReducer = require(script.Parent.Watch)
@@ -34,7 +34,6 @@ return function()
 		local watchReducer = Rodux.Store.new(WatchReducer)
 		expect(watchReducer:getState()).to.be.ok()
 		expect(watchReducer:getState().stateTokenToRoots).to.be.ok()
-		expect(watchReducer:getState().filterText).to.equal("")
 		expect(#watchReducer:getState().listOfEnabledScopes).to.equal(3)
 	end)
 
@@ -72,8 +71,6 @@ return function()
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].nameColumn).to.equal(varData1.name)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].nameColumn).to.equal(varData2.name)
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -148,8 +145,6 @@ return function()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].nameColumn).to.equal(varData1.name)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].children[1]).to.equal(tokenizedValue2)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].nameColumn).to.equal(varData2.name)
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -197,8 +192,6 @@ return function()
 			expect(state).to.be.ok()
 			expect(state.stateTokenToRoots).to.be.ok()
 			expect(state.stateTokenToRoots[defaultDebuggerToken]).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -207,29 +200,6 @@ return function()
 
 		it("should preserve immutability", function()
 			local immutabilityPreserved = testImmutability(WatchReducer, BreakpointHit)
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
-
-	describe(FilterTextChanged.name, function() 
-		it("should update the filter string", function()
-			local filterText = "test filter string"
-			local state = WatchReducer(nil, FilterTextChanged(filterText))
-			
-			expect(state).to.be.ok()
-			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.stateTokenToRoots).to.equal(0)
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal(filterText)
-			expect(#state.listOfEnabledScopes).to.be.ok()
-			expect(#state.listOfEnabledScopes).to.equal(3)
-			expect(#state.listOfExpressions).to.be.ok()
-			expect(#state.listOfExpressions).to.equal(0)
-		end)
-
-		it("should preserve immutability", function()
-			local filterText = "test filter string"
-			local immutabilityPreserved = testImmutability(WatchReducer, FilterTextChanged(filterText))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -258,8 +228,6 @@ return function()
 			expect(state).to.be.ok()
 			expect(state.stateTokenToRoots).to.be.ok()
 			expect(#state.stateTokenToRoots).to.equal(0)
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(2)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -303,8 +271,6 @@ return function()
 			expect(state).to.be.ok()
 			expect(state.pathToExpansionState[tokenizedValue1]).to.equal(true)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -347,8 +313,6 @@ return function()
 			expect(state.pathToExpansionState[tokenizedValue1]).to.equal(nil)
 			expect(state.pathToExpansionState[tokenizedValue2]).to.equal(true)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -419,8 +383,6 @@ return function()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(false)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -463,8 +425,6 @@ return function()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(true)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -503,22 +463,22 @@ return function()
 		end)
 	end)
 
-	describe(SetVariableTextFilteredOut .name, function() 
+	describe(SetVariablesTextFilteredOut .name, function()
 		it("should be able to update root item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableTextFilteredOut Test"
-			local tokenizedValue2 = "SetVariableTextFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
+			local tokenizedValue2 = "SetVariablesTextFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableTextFilteredOut Test",
+				name = "SetVariablesTextFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableTextFilteredOut Test2",
+				name = "SetVariablesTextFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -530,13 +490,11 @@ return function()
 			}
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
-			local state = WatchReducer(prepState2, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue1, true))
+			local state = WatchReducer(prepState2, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue1] = true}))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(false)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -546,18 +504,18 @@ return function()
 		it("should be able to update child item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableTextFilteredOut Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariableTextFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
+			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariablesTextFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableTextFilteredOut Test",
+				name = "SetVariablesTextFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableTextFilteredOut Test2",
+				name = "SetVariablesTextFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -574,13 +532,11 @@ return function()
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
 			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue2, true))
+			local state = WatchReducer(prepState3, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(true)
 			expect(state.stateTokenToRoots).to.be.ok()
-			expect(#state.filterText).to.be.ok()
-			expect(state.filterText).to.equal("")
 			expect(#state.listOfEnabledScopes).to.be.ok()
 			expect(#state.listOfEnabledScopes).to.equal(3)
 			expect(#state.listOfExpressions).to.be.ok()
@@ -590,18 +546,18 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			
-			local tokenizedValue1 = "SetVariableTextFilteredOut Test"
-			local tokenizedValue2 = "SetVariableTextFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
+			local tokenizedValue2 = "SetVariablesTextFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableTextFilteredOut Test",
+				name = "SetVariablesTextFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableTextFilteredOut Test2",
+				name = "SetVariablesTextFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -614,7 +570,38 @@ return function()
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableTextFilteredOut(stepStateBundle, tokenizedValue2, true), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}), prepState2)
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(SetExpansionTree.name, function() 
+		it("should set the correct expanded tree", function()
+			local expandedTree = {
+				["Alex"] = true,
+				["Austin"] = true,
+				["Heesoo"] = true,
+			}
+
+			local isVariablesTab = true
+			local state = WatchReducer(nil, SetExpansionTree(isVariablesTab, expandedTree))
+
+			expect(state.expressionToExpansionState).to.be.ok()
+			expect(state.expressionToExpansionState["Alex"]).to.equal(nil)
+			expect(state.pathToExpansionState).to.be.ok()
+			expect(state.pathToExpansionState["Alex"]).to.equal(true)
+		end)
+
+		it("should preserve immutability", function()
+			local expandedTree = {
+				["Alex"] = true,
+				["Austin"] = true,
+				["Heesoo"] = true,
+			}
+
+			local isVariablesTab = true
+
+			local immutabilityPreserved = testImmutability(WatchReducer, SetExpansionTree(isVariablesTab, expandedTree))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

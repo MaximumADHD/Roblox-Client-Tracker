@@ -19,12 +19,22 @@ local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local contextItemsList = {
 	ContextServices.Analytics.mock(),
 	ContextServices.Localization.mock(),
-	ContextServices.Store.new(Rodux.Store.new(MainReducer)),
 	MakeTheme(true),
 }
 
-return function (story)
-	assert(type(story) == "table", "Expected story to be a table")
+return function (initialStore, children)
+	assert(type(initialStore) == "table", "Expected initialStore to be a table")
+	assert(type(children) == "table", "Expected children to be a table")
 
-	return TestHelpers.provideMockContext(contextItemsList, story)
+	local mainStore = Rodux.Store.new(MainReducer, initialStore)
+	table.insert(contextItemsList, ContextServices.Store.new(mainStore))
+
+	return {
+		getStore = function()
+			return mainStore
+		end,
+		getChildrenWithMockContext = function()
+			return TestHelpers.provideMockContext(contextItemsList, children)
+		end,
+	}
 end

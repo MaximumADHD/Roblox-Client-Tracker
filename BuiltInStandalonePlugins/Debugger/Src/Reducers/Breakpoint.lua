@@ -17,7 +17,7 @@ type BreakpointStore = {
 }
 
 return Rodux.createReducer({}, {
-	[AddBreakpointAction.name] = function(state : BreakpointStore, action : AddBreakpoint.Props)
+	[AddBreakpointAction.name] = function(state : BreakpointStore, action : AddBreakpointAction.Props)
 		return Cryo.Dictionary.join(state, {
 			[action.debuggerConnectionId] = Cryo.Dictionary.join(
 				state[action.debuggerConnectionId] or {}, {

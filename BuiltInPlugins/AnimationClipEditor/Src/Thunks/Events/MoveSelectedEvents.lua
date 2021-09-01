@@ -14,18 +14,17 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(pivot, newTick, dragContext)
 	return function(store)
 		local state = store:getState()
-		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or store:getState().AnimationData
-		local selectedEvents = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedEvents or store:getState().Status.SelectedEvents
+		local animationData = dragContext and dragContext.animationData or store:getState().AnimationData
+		local selectedEvents = dragContext and dragContext.selectedEvents or store:getState().Status.SelectedEvents
 		local displayFrameRate = state.Status.DisplayFrameRate
 		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
 
-		if not animationData or (GetFFlagRealtimeChanges() and not animationData.Events) then
+		if not (animationData and animationData.Events) then
 			return
 		end
 
@@ -39,18 +38,10 @@ return function(pivot, newTick, dragContext)
 		end
 
 		-- Avoid a deepCopy of the entire animationData
-		local newData = GetFFlagRealtimeChanges() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
-
-		if GetFFlagRealtimeChanges() then
-			newData.Events = deepCopy(newData.Events)
-		end
+		local newData = Cryo.Dictionary.join({}, animationData)
+		newData.Events = deepCopy(newData.Events)
 
 		local events = newData.Events
-		if not GetFFlagRealtimeChanges() then  -- If flag is on, we bailed out before the copy
-			if events == nil then
-				return
-			end
-		end
 
 		local selectedTicks = Cryo.Dictionary.keys(selectedEvents)
 		table.sort(selectedTicks)
@@ -58,10 +49,7 @@ return function(pivot, newTick, dragContext)
 
 		local newSelectedEvents = deepCopy(selectedEvents)
 
-		local earliestTick, latestTick
-		if GetFFlagRealtimeChanges() then
-			earliestTick, latestTick = AnimationData.getEventBounds(newData, selectedEvents)
-		end
+		local earliestTick, latestTick = AnimationData.getEventBounds(newData, selectedEvents)
 
 		if delta < 0 then
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
@@ -70,9 +58,7 @@ return function(pivot, newTick, dragContext)
 				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
-				if GetFFlagRealtimeChanges() then
-					insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
-				end
+				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
 				AnimationData.moveEvents(events, tick, insertTick)
 
 				newSelectedEvents[tick] = nil
@@ -86,9 +72,7 @@ return function(pivot, newTick, dragContext)
 				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
-				if GetFFlagRealtimeChanges() then
-					insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
-				end
+				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
 				AnimationData.moveEvents(events, tick, insertTick)
 
 				newSelectedEvents[tick] = nil

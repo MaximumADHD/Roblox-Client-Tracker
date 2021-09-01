@@ -15,7 +15,6 @@ local Stylizer = Framework.Style.Stylizer
 local UI = Framework.UI
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
-local ExpandableWidget = UI.ExpandableWidget
 local ExpandablePane = UI.ExpandablePane
 local Button = UI.Button
 

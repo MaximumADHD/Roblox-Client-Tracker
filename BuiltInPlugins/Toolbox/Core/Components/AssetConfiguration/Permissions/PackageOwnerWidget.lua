@@ -154,7 +154,6 @@ function PackageOwnerWidget:renderContent(theme, localized)
 			Items = getGroupOwnerPermissions(props, localized),
 
 			RolePermissionChanged = FFlagToolboxRemoveWithThemes and self.rolePermissionChanged or rolePermissionChanged,
-			GroupPermissionChanged = nil, -- Cannot be bulk-changed because Owner is locked
 
 			Permissions = props.Permissions,
 		})

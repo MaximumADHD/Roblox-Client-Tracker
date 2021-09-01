@@ -1,5 +1,5 @@
-game:DefineFastFlag("FixDraggerMovingInWrongDirection2", false)
+game:DefineFastFlag("FixDraggerMovingInWrongDirection3", false)
 
 return function()
-    return game:GetFastFlag("FixDraggerMovingInWrongDirection2")
+    return game:GetFastFlag("FixDraggerMovingInWrongDirection3")
 end

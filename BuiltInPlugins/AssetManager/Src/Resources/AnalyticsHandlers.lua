@@ -1,8 +1,6 @@
 local GA_CATEGORY_ACTION = "Action"
 local ASSET_MANAGER_CATEGORY = "Asset Manager"
 
-local FFlagNewPackageAnalyticsWithRefactor = game:GetFastFlag("NewPackageAnalyticsWithRefactor")
-
 return function(rbxAnalyticsService)
     return {
         openFolder = function(folderName)
@@ -16,7 +14,6 @@ return function(rbxAnalyticsService)
         end,
 
         massUpdateFromAssetManager = function()
-            assert(FFlagNewPackageAnalyticsWithRefactor)
             rbxAnalyticsService:ReportCounter("MassUpdateFromAssetManager", 1)
         end,
 

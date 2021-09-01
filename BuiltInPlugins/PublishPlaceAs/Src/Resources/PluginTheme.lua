@@ -1,7 +1,6 @@
 local Plugin = script.parent.parent.parent
 
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
@@ -40,18 +39,6 @@ local function createStyles(theme, getColor)
 		})
 		return {
 			TooltipStyle = TooltipStyle,
-		}
-	end) or nil
-
-	local tempLinkText = FFlagLuobuDevPublishLuaTempOptIn and StyleTable.new("LinkText", function()
-		local LinkTextStyle = Style.new({
-			Font = Enum.Font.SourceSans,
-			TextSize = 22,
-			EnableHover = true,
-			TextColor = theme:getColor(c.LinkText),
-		})
-		return {
-			LinkTextStyle = LinkTextStyle,
 		}
 	end) or nil
 
@@ -184,11 +171,6 @@ local function createStyles(theme, getColor)
 			optInLocations = FFlagLuobuDevPublishLua and {
 				height = 52,
 			} or nil,
-			tempOptInLink = FFlagLuobuDevPublishLuaTempOptIn and {
-				TextColor3 = theme:getColor(c.MainText),
-				TextSize = 22,
-				Font =  Enum.Font.SourceSans,
-			} or nil,
 			requirementsLink = FFlagLuobuDevPublishLua and {
 				height = 22,
 				length = 250,
@@ -223,7 +205,6 @@ local function createStyles(theme, getColor)
 
 		Framework = Style.extend(studioStyles, {
 			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil,
-			LinkText = FFlagLuobuDevPublishLuaTempOptIn and Style.extend(studioStyles.LinkText, tempLinkText) or nil
 		}),
 	}
 end

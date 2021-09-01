@@ -3,6 +3,7 @@
 	Does not have a Style and does not rely on Theme.
 
 	Optional Props:
+		Enum.AutomaticSize AutomaticSize: The AutomaticSize of the component.
 		boolean ClipsDescendants: Whether the container ClipsDescendants
 		Component Background: The Decoration to use as this component's background.
 		Style BackgroundStyle: The Style to style the Background decoration with.
@@ -29,7 +30,10 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
-local FFlagDevFrameworkTextInputClipsDescendants = game:GetFastFlag("DevFrameworkTextInputClipsDescendants")
+local FlagsList = Util.Flags.new({
+	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
+})
+local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
 
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
@@ -42,6 +46,7 @@ function Container:render()
 	local backgroundStyleModifier = props.BackgroundStyleModifier
 
 	local active = props.Active
+	local automaticSize = props.AutomaticSize
 	local padding = props.Padding
 	local margin = props.Margin
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
@@ -52,10 +57,7 @@ function Container:render()
 	local visible = props.Visible
 	local elementOverride = props.ElementOverride
 	local ref = props[Roact.Ref]
-	local clipsDescendants = nil
-	if FFlagDevFrameworkTextInputClipsDescendants then
-		clipsDescendants = props.ClipsDescendants or false
-	end
+	local clipsDescendants = props.ClipsDescendants or false
 
 	local children = props[Roact.Children] or {}
 	if type(padding) == "number" then
@@ -97,8 +99,14 @@ function Container:render()
 		end
 	end
 
+	local contentSize = UDim2.new(1, 0, 1, 0)
+	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and automaticSize then
+		contentSize = size
+	end
+
 	return Roact.createElement(elementOverride or "Frame", {
 		Active = active,
+		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2")) and automaticSize or nil,
 		BackgroundTransparency = 1,
 		Size = size,
 		SizeConstraint = props.SizeConstraint,
@@ -109,6 +117,7 @@ function Container:render()
 		Visible = visible,
 		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
+		[Roact.Change.AbsolutePosition] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and props[Roact.Change.AbsolutePosition] or nil,
 	}, {
 		Margin = marginComponent,
 
@@ -120,7 +129,7 @@ function Container:render()
 		Contents = Roact.createElement("Frame", {
 			ClipsDescendants = clipsDescendants,
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = contentSize,
 			ZIndex = 2,
 		}, children),
 	})

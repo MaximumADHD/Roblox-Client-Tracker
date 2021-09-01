@@ -1,5 +1,3 @@
---!nolint UnknownType
-
 -- This is a help object for modelPreview.
 -- This script is responsible for fetching the assetInstance using an assetID.
 -- this script will return a model for preview with all scripts disabled.

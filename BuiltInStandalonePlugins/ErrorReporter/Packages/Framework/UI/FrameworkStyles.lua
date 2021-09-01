@@ -6,7 +6,6 @@
 	StudioFrameworkStyles extends this style table to implement
 	default values for Studio plugins.
 ]]
-
 local function newDefaults()
 	return {
 		Default = {},
@@ -22,8 +21,11 @@ function FrameworkStyles.new()
 		Box = newDefaults(),
 		BulletList = newDefaults(),
 		Button = newDefaults(),
+		Checkbox = newDefaults(),
+		CheckboxTreeView = newDefaults(),
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
+		ExpandablePane = newDefaults(),
 		IconButton = newDefaults(),
 		Image = newDefaults(),
 		InfiniteScrollingFrame = newDefaults(),
@@ -31,7 +33,10 @@ function FrameworkStyles.new()
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
 		LoadingIndicator = newDefaults(),
+		MultiLineTextInput = newDefaults(),
 		Pane = newDefaults(),
+		PageNavigation = newDefaults(),
+		PaginatedTable = newDefaults(),
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),
@@ -40,13 +45,20 @@ function FrameworkStyles.new()
 		SelectInput = newDefaults(),
 		Separator = newDefaults(),
 		SimpleTab = newDefaults(),
+		TableRow = newDefaults(),
 		Slider = newDefaults(),
+		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
+		TextInputDialog = newDefaults(),
+		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),
+		TextWithInlineLink = newDefaults(),
 		ToggleButton = newDefaults(),
 		Tooltip = newDefaults(),
+		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
+		TreeViewRow = newDefaults(),
 
 		-- StudioUI Styles
 		AssetPreview = newDefaults(),

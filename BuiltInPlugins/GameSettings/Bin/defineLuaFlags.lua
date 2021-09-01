@@ -4,12 +4,6 @@
 game:DefineFastFlag("GameSettingsWithContext", false)
 
 game:DefineFastFlag("FixRadioButtonSeAndTableHeadertForTesting", false)
-game:DefineFastFlag("SupportFreePrivateServers", false)
-game:DefineFastFlag("VIPServersRebrandToPrivateServers", false)
-game:DefineFastFlag("EnableDevProductsInGameSettings", false)
-game:DefineFastFlag("StudioFixGameManagementIndexNil", false)
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
-game:DefineFastFlag("UpdateChinaOptInStatusTextColor", false)
-game:DefineFastFlag("FixGameSettingsChinaNil", false)
 
 return nil

@@ -55,6 +55,7 @@ else
 end
 local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
 
+local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
 local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRequest)
@@ -113,14 +114,13 @@ function Header:init()
 		)
 
 		if FFlagToolboxShowAutocompleteResults and (not Rollouts:getMarketplaceAutocomplete() or not self.IXPShowAutocomplete) then
-			Analytics.marketplaceSearch(
+			self.props.logSearchAnalytics(
 				searchTerm,
 				Category.AUTOCOMPLETE_API_NAMES[category],
 				nil,
 				self.keyCount,
 				self.deleteCount,
-				false,
-				self.props.searchId
+				false
 			)
 
 			self.keyCount = 0
@@ -416,7 +416,6 @@ local function mapStateToProps(state, props)
 	return {
 		categories = pageInfo.categories or {},
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
-		searchId = (FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete()) and pageInfo.searchId or "",
 		searchTerm = pageInfo.searchTerm or "",
 		roles = state.roles,
 		groups = pageInfo.groups or {},
@@ -427,6 +426,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		logSearchAnalytics = function(keyword, prefix, keyCount, delCount, autocompleteShown)
+			dispatch(LogMarketplaceSearchAnalytics(keyword, prefix, keyCount, delCount, autocompleteShown))
+		end,
+
 		selectCategory = function(networkInterface, settings, categoryName)
 			dispatch(SelectCategoryRequest(networkInterface, settings, categoryName))
 		end,

@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsSenders = require(Plugin.Core.Util.Analytics.Senders)
 
+local AnalyticsTypes = require(Plugin.Core.Types.AnalyticsTypes)
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
@@ -303,20 +304,26 @@ if FFlagPluginManagementDirectlyOpenToolbox then
 	end
 end
 
-function Analytics.marketplaceSearch(keyword, assetType, prefix, keyCount, delCount, autocompleteShown, searchId)
+function Analytics.marketplaceSearch(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo: AnalyticsTypes.SearchInfo)
 	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
 		studioSid = getStudioSessionId(),
 		clientID = getClientId(),
 		isEditMode = getIsEditMode(),
 		userID = getUserId(),
 		ptid = getPlatformId(),
+		placeID = getPlaceId(),
+
 		searchKeyword = keyword,
-		assetType = assetType,
 		autocompletePrefix = prefix,
 		autocompleteKeyCount = keyCount,
 		autocompleteDeleteCount = delCount,
 		autocompleteShown = autocompleteShown,
-		searchID = searchId,
+
+		assetType = searchInfo.assetType,
+		searchByCreatorID = searchInfo.creatorID,
+		searchID = searchInfo.searchId,
+		sort = searchInfo.sort,
+		toolboxTab = searchInfo.toolboxTab,
 	})
 end
 

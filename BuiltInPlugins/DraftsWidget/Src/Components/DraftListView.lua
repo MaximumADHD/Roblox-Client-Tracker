@@ -6,6 +6,11 @@ local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagDraftsWidgetUseCreateContext = game:GetFastFlag("DraftsWidgetUseCreateContext")
+
+local DraftService = require(Plugin.Src.ContextServices.DraftsService)
+
+-- TODO: Remove when FFlagDraftsWidgetUseCreateContext is retired
 local getDraftsService = require(Plugin.Src.ContextServices.DraftsService).getDraftService
 
 local Roact = require(Plugin.Packages.Roact)
@@ -33,7 +38,12 @@ local PADDING = 4
 local DraftListView = Roact.Component:extend("DraftListView")
 
 function DraftListView:init()
-    local draftsService = getDraftsService(self)
+    local draftsService
+	if FFlagDraftsWidgetUseCreateContext then
+		draftsService = self.props.draftsService
+	else
+		draftsService = getDraftsService(self)
+	end
     self:setState({
         draftsPendingDiscard = nil,
         draftsHasActiveSelection = false,
@@ -344,6 +354,18 @@ local function dispatchChanges(dispatch)
             end
         end,
     }
+end
+
+if FFlagDraftsWidgetUseCreateContext then
+	local Component = DraftListView
+	DraftListView = function(props)
+		return Roact.createElement(DraftService.Consumer, {
+			render = function(draftsService)
+				props.draftsService = draftsService
+				return Roact.createElement(Component, props)
+			end
+		})
+	end
 end
 
 return RoactRodux.connect(mapStateToProps, dispatchChanges)(DraftListView)

@@ -3,8 +3,6 @@
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
-local FFlagFixAudioAssetsForLuoBu = game:DefineFastFlag("FixAudioAssetsForLuoBu", false)
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
@@ -29,8 +27,6 @@ local Rollouts = require(Plugin.Core.Rollouts)
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local getMarketplaceDisabledCategories = require(Plugin.Core.Util.ToolboxUtilities).getMarketplaceDisabledCategories
-
-local FStringLuobuMarketplaceDisabledCategories = game:GetFastString("LuobuMarketplaceDisabledCategories")
 
 local Category = {}
 
@@ -273,22 +269,16 @@ else
 	Category.DEFAULT = Category.FREE_MODELS
 end
 
-if FFlagFixAudioAssetsForLuoBu then
-	Category.CREATOR_ROBLOX = {
-		Id = 1,
-		Type = Enum.CreatorType.User.Value,
-	}
+Category.CREATOR_ROBLOX = {
+	Id = 1,
+	Type = Enum.CreatorType.User.Value,
+}
 
-	Category.CREATOR_ROBLOX_DEVELOP_API = {
-		Id = 1,
-		-- Develop API creatorType is not aligned with the CreatorType Enum
-		Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
-	}
-else
-	Category.CREATOR_ROBLOX = {
-		Id = 1,
-	}
-end
+Category.CREATOR_ROBLOX_DEVELOP_API = {
+	Id = 1,
+	-- Develop API creatorType is not aligned with the CreatorType Enum
+	Type = CreatorInfoHelper.clientToBackend(Enum.CreatorType.User.Value),
+}
 
 -- Categories which are supported by GetToolboxItems
 Category.API_NAMES = {
@@ -349,15 +339,7 @@ if not FFlagToolboxRemoveGroupInventory2 then
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
 end
 
-local disabledCategories = {}
-
-if FFlagStudioCreatePluginPolicyService then
-	disabledCategories = string.split(getMarketplaceDisabledCategories(), ";")
-else
-	if (StudioService:BaseURLHasChineseHost()) then
-		disabledCategories = string.split(FStringLuobuMarketplaceDisabledCategories, ";")
-	end
-end
+local disabledCategories = string.split(getMarketplaceDisabledCategories(), ";")
 
 for _, categoryName in pairs(disabledCategories) do
 	local categoryIndex = nil

@@ -11,11 +11,7 @@ local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxRepla
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
--- TODO: jbousellam - 3/16/21 - remove with FFlagStudioCreatePluginPolicyService
-local FIntLuobuToolboxMaxAudioLength = game:GetFastInt("LuobuToolboxMaxAudioLength")
 
 local Constants = {}
 
@@ -267,11 +263,7 @@ Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
 
 if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
-	if FFlagStudioCreatePluginPolicyService then
-		Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()
-	else
-		Constants.MAX_AUDIO_SEARCH_DURATION = FIntLuobuToolboxMaxAudioLength
-	end
+	Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()
 end
 
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30

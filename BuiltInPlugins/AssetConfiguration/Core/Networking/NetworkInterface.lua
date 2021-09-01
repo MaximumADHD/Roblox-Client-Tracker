@@ -5,7 +5,6 @@
 ]]--
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagToolboxDontRetryOn4xx = game:DefineFastFlag("ToolboxDontRetryOn4xx", false)
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -51,20 +50,13 @@ local function sendRequestAndRetry(requestFunc, retryData)
 	}
 	retryData.attempts = retryData.attempts + 1
 	return requestFunc():catch(function(result)
-		if FFlagToolboxDontRetryOn4xx then
-			local responseCode = result["responseCode"]
-			local is4xx = responseCode >= 400 and responseCode <= 499
-			-- Don't retry on bad request (4xx)
+		local responseCode = result["responseCode"]
+		local is4xx = responseCode >= 400 and responseCode <= 499
+		-- Don't retry on bad request (4xx)
 
-			if retryData.attempts >= retryData.maxRetries or is4xx then
-				-- Eventually give up
-				return Promise.reject(result)
-			end
-		else
-			if retryData.attempts >= retryData.maxRetries then
-				-- Eventually give up
-				return Promise.reject(result)
-			end
+		if retryData.attempts >= retryData.maxRetries or is4xx then
+			-- Eventually give up
+			return Promise.reject(result)
 		end
 
 		local timeToWait = 2^(retryData.attempts - 1)

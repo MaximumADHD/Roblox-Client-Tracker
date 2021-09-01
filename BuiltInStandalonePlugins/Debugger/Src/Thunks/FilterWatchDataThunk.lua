@@ -1,59 +1,99 @@
 local Plugin = script.Parent.Parent.Parent
-local Framework = require(Plugin.Packages.Framework)
-
-local Dash = Framework.Dash
-local includes = Dash.includes
 
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 local TableTab = require(Models.Watch.TableTab)
 
 local Actions = Plugin.Src.Actions
-local SetVariableTextFilteredOut = require(Actions.Watch.SetVariableTextFilteredOut)
-local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
+local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
+local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 
--- Local Functions
-local function textMatch(filterText, root, tree)
-	for k, v in pairs(root) do
-		if (type(v) ~= "table") then
-			if string.find(tostring(v), filterText) ~= nil then
-				return true
-			end
-		end
-	end
-	
-	local children = root.children
-	for k, v in pairs(children) do
-		local result = textMatch(filterText, v, tree[v])
-		if (result == true) then
+local function textMatchRow(filterText, rowData)
+
+	if (rowData.nameColumn ~= nil) then
+		if (string.find(rowData.nameColumn, filterText) ~= nil) then
 			return true
 		end
 	end
+	
+	if (rowData.expressionColumn ~= nil) then
+		if (string.find(rowData.expressionColumn, filterText) ~= nil) then
+			return true
+		end
+	end
+
+	if (string.find(rowData.scopeColumn, filterText) ~= nil) then
+		return true
+	end
+
+	if (string.find(rowData.valueColumn, filterText) ~= nil) then
+		return true
+	end
+
+	if (string.find(rowData.dataTypeColumn, filterText) ~= nil) then
+		return true
+	end
+
 	return false
 end
 
--- Thunk
-return function(threadId, frameNumber)
-	return function(store, contextItems)
-		local state = store:getState()
-		
-		local token = state.Common.debuggerStateTokenHistory[1]	
-		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)
-		local filterText = state.Watch.filterText
-		local filterScopes = state.Watch.listOfEnabledScopes
-		local tabState = state.Watch.currentTab
+local function depthFirstTextFilter(filterText, pathName, flattenedTree, expansionTree)
+	local node = flattenedTree[pathName]
+	assert(node ~= nil, ("FilterWatchDataThunk depthFirstTextFilter got a nil node for path %s"):format(tostring(pathName)))
 
-		local roots = state.Watch.stateTokenToRoots[token][threadId][frameNumber]
-		local tree = state.Watch.stateTokenToFlattenedTree[token][threadId][frameNumber]
-		local rootsList = tabState == TableTab.Variables and roots.Variables or roots.Watches
-		local treeList = tabState == TableTab.Variables and tree.Variables or tree.Watches
-				
+	local childMatch = false
+	for index, childPath in ipairs(node.children) do
+		childMatch = childMatch or depthFirstTextFilter(filterText, childPath, flattenedTree, expansionTree)
+	end
+
+	local didMatch = childMatch or textMatchRow(filterText, node)
+	expansionTree[pathName] = didMatch
+	return didMatch
+end
+
+-- Thunk
+return function(filterString)
+	return function(store, contextItems)
+		if (#filterString == 0) then
+			return
+		end
+
+		local state = store:getState()
+		local common = state.Common
+		local watch = state.Watch
+
+		local token = common.debuggerStateTokenHistory[1]	
+		local threadId = common.currentThreadId
+		local frameNumber = common.threadIdToCurrentFrameNumber[threadId]
+
+		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)
+		local isVariablesTab = watch.currentTab == TableTab.Variables
+
+		local stateRoot = watch.stateTokenToRoots
+		local stateFlat = watch.stateTokenToFlattenedTree
+		
+		local roots = stateRoot[token] and stateRoot[token][threadId] and stateRoot[token][threadId][frameNumber]
+		if (roots == nil) then
+			warn('unexpected nil in filter thunk')
+			return
+		end
+
+		local tree = stateFlat[token] and stateFlat[token][threadId] and stateFlat[token][threadId][frameNumber]
+		if (tree == nil) then
+			warn('unexpected nil in filter thunk')
+			return
+		end
+
+		local rootsList = isVariablesTab and roots.Variables or roots.Watches
+		local flattenedTree = isVariablesTab and tree.Variables or tree.Watches
+		local expansionTree = {}
+		local textFilterMap = {}
+
 		for index, name in pairs(rootsList) do
-			local rootData = treeList[name]	
-			local scopeFilteredOut = not includes(filterScopes, rootData.scopeColumn)
-			local textFilteredOut = not textMatch(filterText, rootData, treeList)
-			store:dispatch(SetVariableScopeFilteredOut(stepStateBundle, rootData.pathColumn, scopeFilteredOut))
-			store:dispatch(SetVariableTextFilteredOut(stepStateBundle, rootData.pathColumn, textFilteredOut))
-        end
-    end
+			local textFilteredOut = not depthFirstTextFilter(filterString, name, flattenedTree, expansionTree)
+			textFilterMap[name] = textFilteredOut
+		end
+		store:dispatch(SetVariablesTextFilteredOut(stepStateBundle, textFilterMap))
+		store:dispatch(SetExpansionTree(isVariablesTab, expansionTree))
+	end
 end

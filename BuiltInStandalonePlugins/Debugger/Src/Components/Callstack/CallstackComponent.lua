@@ -13,6 +13,9 @@ local TextService = game:GetService("TextService")
 
 local Stylizer = Framework.Style.Stylizer
 
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
@@ -33,19 +36,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local function calculateTextSize(text, textSize, font)
 	local frameNoWrapping = Vector2.new(0, 0)
 	return TextService:GetTextSize(text, textSize, font, frameNoWrapping)
-end
-
-local function deepCopy(var)
-	if typeof(var) ~= "table" then
-		return var
-	end
-
-	local ret = {}
-	for key, value in pairs(var) do
-		ret[key] = deepCopy(value)
-	end
-
-	return ret
 end
 
 function CallstackComponent:addAction(action, func)

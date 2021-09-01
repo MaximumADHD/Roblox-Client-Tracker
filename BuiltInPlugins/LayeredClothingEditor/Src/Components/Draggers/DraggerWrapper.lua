@@ -56,6 +56,7 @@ local function mapDraggerContextToProps(context, selection, props, editingItemCo
 	context.selectRbfPoint = props.SelectRbfPoint
 	context.setSelectedControlPoints = props.SetSelectedControlPoints
 	context.setHovered = props.SetHovered
+	context.selectedPoints = props.SelectedPoints
 
 	selection.toolMode = props.ToolMode
 	selection.clickedPoints = props.ClickedPoints
@@ -245,6 +246,7 @@ local function mapStateToProps(state, props)
 		EditingCage = selectItem.editingCage,
 		EditingItem = selectItem.editingItem,
 		ClickedPoints = pointTool.clickedPoints,
+		SelectedPoints = pointTool.selectedPoints,
 		SelectedControlPoints = status.selectedControlPoints
 	}
 end

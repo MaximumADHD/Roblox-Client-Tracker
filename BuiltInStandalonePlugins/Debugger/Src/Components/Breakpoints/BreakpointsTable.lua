@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
--- local Types = require(Plugin.Src.Types) -- Uncomment to access types
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -12,12 +13,17 @@ local UI = Framework.UI
 local IconButton = UI.IconButton
 local Button = UI.Button
 local Pane = UI.Pane
-local Table = UI.Table
+local TreeTable = UI.TreeTable
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 
 local BUTTON_SIZE = 40
 local BUTTON_PADDING = 5
+
+-- Compares breakpoints based on line number
+local breakpointLineNumberComp = function(a, b)
+	return a.lineNumber < b.lineNumber
+end
 
 function BreakpointsTable:render()
 	local props = self.props
@@ -27,22 +33,22 @@ function BreakpointsTable:render()
 	local tableColumns = {
 		{
 			Name = localization:getText("BreakpointsWindow", "EnabledColumn"),
-			Key = "enabledColumn",
+			Key = "isEnabled",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "LineColumn"),
-			Key = "lineColumn",
+			Key = "lineNumber",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "ScriptColumn"),
-			Key = "scriptColumn",
+			Key = "scriptName",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "SourceLineColumn"),
-			Key = "sourceLineColumn",
+			Key = "scriptLine",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "ConditionColumn"),
-			Key = "conditionColumn",
+			Key = "condition",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "LogMessageColumn"),
-			Key = "logMessageColumn",
+			Key = "logMessage",
 		}
 	}
 	return Roact.createElement(Pane, {
@@ -82,10 +88,11 @@ function BreakpointsTable:render()
 			Style = "Box",
 			LayoutOrder = 2,
 		},{
-			Table = Roact.createElement(Table, {
+			BreakpointsTable = Roact.createElement(TreeTable, {
 				Size = UDim2.new(1, 0, 1, 0),
 				Columns = tableColumns,
-				Rows = {},
+				RootItems = props.Breakpoints or {},
+				Expansion = {},
 				LayoutOrder = 2,
 			}),
 		})
@@ -96,5 +103,21 @@ ContextServices.mapToProps(BreakpointsTable, {
 	Localization = Localization,
 	Stylizer = Stylizer,
 })
+
+BreakpointsTable = RoactRodux.connect(
+	function(state, props)
+		local breakpointsArray = {}
+		for connectionId, breakpoints in pairs(state.Breakpoint) do
+			for _, breakpoint in pairs(breakpoints) do
+				breakpointsArray = Cryo.List.join({breakpoint}, breakpointsArray)
+			end
+		end
+		table.sort(breakpointsArray, breakpointLineNumberComp)
+		
+		return {
+			Breakpoints = breakpointsArray
+		}
+	end
+)(BreakpointsTable)
 
 return BreakpointsTable

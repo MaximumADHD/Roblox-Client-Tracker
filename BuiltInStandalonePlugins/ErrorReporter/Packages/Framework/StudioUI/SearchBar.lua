@@ -5,6 +5,8 @@
 		number Width: how wide the search bar is in pixels.
 		number ButtonWidth: how wide the search button is in pixels.
 		number LayoutOrder: The layout order of this component in a list.
+		callback OnInputBegan: callback for when user input (keystroke) begins
+		callback OnInputEnded: callback for when user input (keystroke) ends
 		callback OnSearchRequested: callback for when the user presses the enter key
 			or clicks the search button. This will also be called with an empty string
 			when the user clicks "Clear". - OnSearchRequested(searchTerm: string)
@@ -15,8 +17,8 @@
 		boolean ShowSearchIcon: Whether to show an in-line search icon at the left of the Search text (default false).
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
 
 	Style Values:
 		Style BackgroundStyle: The style with which to render the background.
@@ -25,16 +27,13 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the search term text.
 ]]
-game:DefineFastFlag("DevFrameworkShowSearchIcon", false)
-
-local FFlagDevFrameworkShowSearchIcon = game:GetFastFlag("DevFrameworkShowSearchIcon")
-
-local FFlagDevFrameworkFixSearchBarLayoutOrder = game:GetFastFlag("DevFrameworkFixSearchBarLayoutOrder")
-local FFlagDevFrameworkBasicMobileSupport = game:GetFastFlag("DevFrameworkBasicMobileSupport")
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddSearchBarInputEvents = game:GetFastFlag("DevFrameworkAddSearchBarInputEvents")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local isInputMainPress = Util.isInputMainPress
@@ -43,8 +42,6 @@ local StyleModifier = Util.StyleModifier
 
 local UI = require(Framework.UI)
 local Button = UI.Button
-local Container = UI.Container
-local Decoration = UI.Decoration
 local Separator = UI.Separator
 local TextInput = UI.TextInput
 local Pane = UI.Pane
@@ -54,7 +51,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
 
-SearchBar.defaultProps = FFlagDevFrameworkFixSearchBarLayoutOrder and {
+SearchBar.defaultProps = {
 	Width = 200,
 	ButtonWidth = 24,
 	LayoutOrder = 0,
@@ -92,12 +89,7 @@ function SearchBar:init()
 
 	-- Handle clicking in the small gaps between the TextBox and the buttons or the left edge of the SearchBar
 	self.onBackgroundInputBegan = function(rbx, input)
-		local isMainPress
-		if FFlagDevFrameworkBasicMobileSupport then
-			isMainPress = isInputMainPress(input)
-		else
-			isMainPress = input.UserInputType == Enum.UserInputType.MouseButton1
-		end
+		local isMainPress = isInputMainPress(input)
 		if isMainPress then
 			self:setState({
 				shouldFocus = true
@@ -218,25 +210,17 @@ function SearchBar:render()
 	local state = self.state
 
 	local containerWidth,buttonWidth, layoutOrder, placeholderText, showSearchButton, showSearchIcon
-	if FFlagDevFrameworkFixSearchBarLayoutOrder then
-		containerWidth = props.Width
-		buttonWidth = props.ButtonWidth
-		layoutOrder = props.LayoutOrder
-		placeholderText = props.PlaceholderText
-		showSearchButton = props.ShowSearchButton
-		showSearchIcon = FFlagDevFrameworkShowSearchIcon and props.ShowSearchIcon
-	else
-		containerWidth = props.Width or 200
-		buttonWidth = props.ButtonWidth or 24
-		layoutOrder = props.LayoutOrder or 0
-		placeholderText = props.PlaceholderText or "Search"
-
-		showSearchButton = self.props.ShowSearchButton == nil
-		if showSearchButton == nil then
-			showSearchButton = true
-		end
-
-		showSearchIcon = FFlagDevFrameworkShowSearchIcon and props.ShowSearchIcon
+	containerWidth = props.Width
+	buttonWidth = props.ButtonWidth
+	layoutOrder = props.LayoutOrder
+	placeholderText = props.PlaceholderText
+	showSearchButton = props.ShowSearchButton
+	showSearchIcon = props.ShowSearchIcon
+	local onInputBegan
+	local onInputEnded
+	if FFlagDevFrameworkAddSearchBarInputEvents then
+		onInputBegan = props.OnInputBegan
+		onInputEnded = props.OnInputEnded
 	end
 
 	local shouldFocus = state.shouldFocus
@@ -254,7 +238,6 @@ function SearchBar:render()
 	end
 
 	local padding = style.Padding
-	local backgroundStyle = style.BackgroundStyle
 	local borderColor = (isFocused or isHovered) and style.Hover.BorderColor or nil
 	local iconWidth = style.IconWidth
 	local iconColor = style.IconColor
@@ -290,6 +273,8 @@ function SearchBar:render()
 				LayoutOrder = 2,
 				PlaceholderText = placeholderText,
 				Text = text,
+				OnInputBegan = onInputBegan,
+				OnInputEnded = onInputEnded,
 				OnTextChanged = self.onTextChanged,
 				OnFocusGained = self.onTextBoxFocusGained,
 				OnFocusLost = self.onTextBoxFocusLost,
@@ -326,42 +311,31 @@ function SearchBar:render()
 		})
 	}
 
-	if FFlagDevFrameworkFixSearchBarLayoutOrder then
-		return Roact.createElement(Pane, {
-			Size = UDim2.new(0, containerWidth, 1, 0),
-			ClipsDescendants = true,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-			BorderColor = borderColor,
-			Style = "BorderBox",
-			[Roact.Event.MouseEnter] = self.mouseEnter,
-			[Roact.Event.MouseLeave] = self.mouseLeave,
-			[Roact.Event.InputBegan] = self.onBackgroundInputBegan,
-			[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
-		}, children)
-	else
-		return Roact.createElement(Container, {
-			Size = UDim2.new(0, containerWidth, 1, 0),
-			Background = Decoration.RoundBox,
-			BackgroundStyle = backgroundStyle,
-		}, {
-			SearchContainer = Roact.createElement("Frame", {
-				ClipsDescendants = true,
-				BackgroundTransparency = 1,
-				LayoutOrder = layoutOrder,
-				Size = UDim2.new(1, 0, 1, 0),
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
-				[Roact.Event.InputBegan] = self.onBackgroundInputBegan,
-				[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
-			}, children)
-		})
-	end
+	return Roact.createElement(Pane, {
+		Size = UDim2.new(0, containerWidth, 1, 0),
+		ClipsDescendants = true,
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		BorderColor = borderColor,
+		Style = "BorderBox",
+		[Roact.Event.MouseEnter] = self.mouseEnter,
+		[Roact.Event.MouseLeave] = self.mouseLeave,
+		[Roact.Event.InputBegan] = self.onBackgroundInputBegan,
+		[Roact.Event.InputEnded] = self.onBackgroundFocusLost,
+	}, children)
 end
 
-ContextServices.mapToProps(SearchBar, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	SearchBar = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(SearchBar)
+else
+	ContextServices.mapToProps(SearchBar, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return SearchBar

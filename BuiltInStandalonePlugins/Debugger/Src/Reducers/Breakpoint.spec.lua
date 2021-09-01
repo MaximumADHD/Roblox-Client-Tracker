@@ -76,7 +76,7 @@ return function()
 			expectBreakpoint(state, "321", breakpoint3)
 		end)
 
-		it("should ovverride when given breakpoints with the same ID", function()
+		it("should override when given breakpoints with the same ID", function()
 			local uniqueId = 0
 
 			-- Create two breakpoints with the same id

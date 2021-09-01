@@ -1,5 +1,3 @@
-local AssetImportService = game:GetService("AssetImportService")
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -21,10 +19,7 @@ local AssetImportTree = require(Plugin.Src.Components.AssetImportTree)
 local ImportConfiguration = require(Plugin.Src.Components.ImportConfiguration)
 local TopBar = require(Plugin.Src.Components.TopBar)
 
-local SetAssetSettings = require(Plugin.Src.Actions.SetAssetSettings)
-local SetFilename = require(Plugin.Src.Actions.SetFilename)
-local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
-local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
+local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 
 local SEPARATOR_WEIGHT = 1
 
@@ -59,7 +54,7 @@ function MeshImporterUI:render()
 			Padding = style.TopBarPadding,
 			Size = UDim2.new(1, 0, 0, sizes.TopBarHeight),
 			FileName = props.Filename or "",
-			OnBrowse = props.PromptAndSetAssetSettings,
+			OnBrowse = props.showImportPrompt,
 		}),
 
 		TopSeparator = Roact.createElement(Separator, {
@@ -126,16 +121,8 @@ MeshImporterUI = withContext({
 
 local function mapDispatchToProps(dispatch)
 	return {
-		PromptAndSetAssetSettings = function()
-			dispatch(function()
-				local settings, filename = AssetImportService:ImportMeshWithPrompt()
-				local instanceMap = AssetImportService:GetCurrentImportMap()
-				
-				dispatch(SetInstanceMap(instanceMap))
-				dispatch(SetAssetSettings(settings))
-				dispatch(SetFilename(filename))
-				dispatch(SetSelectedSettingsItem(settings))
-			end)
+		showImportPrompt = function()
+			dispatch(ShowImportPrompt())
 		end,
 	}
 end

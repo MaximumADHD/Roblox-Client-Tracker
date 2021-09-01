@@ -42,7 +42,25 @@ local function getPoints(selection, isPointMode)
 	return points
 end
 
+local function useSoftSelectedPoints(context)
+	local selectedPoints = context.selectedPoints
+	local selection = {}
+	for deformer, pointsPerDeformer in pairs(selectedPoints) do
+		for index in pairs(pointsPerDeformer) do
+			table.insert(selection, {
+				Deformer = deformer,
+				Index = index,
+			})
+		end
+	end
+	return selection
+end
+
 local function computeBoundingBox(context, selection)
+	if ToolUtil:isDraggerPointMode(context) then
+		selection = useSoftSelectedPoints(context, selection)
+	end
+
 	local points = getPoints(selection, ToolUtil:isDraggerPointMode(context))
 	return ModelUtil:getBounds(points)
 end
@@ -77,15 +95,17 @@ local function buildSelectionTable(context, selection)
 end
 
 function SelectionInfo.new(draggerContext, selection)
-	return setmetatable({
-		_draggerContext = draggerContext,
-		_selection = buildSelectionTable(draggerContext, selection),
-		_bounds = computeBoundingBox(draggerContext, selection),
-	}, SelectionInfo)
+	local self = setmetatable({}, SelectionInfo)
+
+	self._draggerContext = draggerContext
+	self._selectionTable = buildSelectionTable(draggerContext, selection)
+	self._bounds = computeBoundingBox(draggerContext, selection)
+
+	return self
 end
 
 function SelectionInfo:isEmpty()
-	return self._selection == nil or next(self._selection) == nil
+	return self._selectionTable == nil or next(self._selectionTable) == nil
 end
 
 function SelectionInfo:getBoundingBox(empty)
@@ -121,14 +141,10 @@ function SelectionInfo:doesContainItem(item)
 		return false
 	end
 	if ToolUtil:isDraggerPointMode(self._draggerContext) then
-		return self._selection[item.Deformer] ~= nil and self._selection[item.Deformer][item.Index] ~= nil
+		return self._selectionTable[item.Deformer] ~= nil and self._selectionTable[item.Deformer][item.Index] ~= nil
 	elseif ToolUtil:isDraggerLatticeMode(self._draggerContext) then
-		return self._selection[item.Deformer] ~= nil and self._selection[item.Deformer][item.ID] ~= nil
+		return self._selectionTable[item.Deformer] ~= nil and self._selectionTable[item.Deformer][item.ID] ~= nil
 	end
-end
-
-function SelectionInfo:getSelected()
-	return self._selection
 end
 
 function SelectionInfo:isDynamic()

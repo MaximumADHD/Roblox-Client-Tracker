@@ -43,8 +43,6 @@ return function()
 
 	local DopeSheetTrack = require(script.Parent.DopeSheetTrack)
 
-	local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
-
 	local function createTestTrack(selectedKeyframes, previewKeyframes, showCluster)
 		return Roact.createElement(MockWrapper, {}, {
 			Track = Roact.createElement(DopeSheetTrack, {
@@ -113,17 +111,4 @@ return function()
 
 		Roact.unmount(instance)
 	end)
-
-	if not GetFFlagRealtimeChanges() then
-		-- Realtime changes have removed the PreviewKeyframes
-		it("should render Preview keyframes from this track", function()
-			local container = Instance.new("Folder")
-			local instance = Roact.mount(createTestTrack(testSelectedKeyframes, testPreviewKeyframes), container)
-			local frame = container:FindFirstChildOfClass("Frame")
-
-			expect(#frame.KeyframeDisplayArea:GetChildren()).to.equal(11)
-
-			Roact.unmount(instance)
-		end)
-	end
 end

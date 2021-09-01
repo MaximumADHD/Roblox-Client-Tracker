@@ -10,8 +10,6 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
-local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
-
 return function(newKeyframeData)
 	return function(store)
 		local state = store:getState()
@@ -21,23 +19,16 @@ return function(newKeyframeData)
 			return
 		end
 
-		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
-
-		if GetFFlagReduceDeepcopyCalls() then
-			newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
-		end
+		local newData = Cryo.Dictionary.join({}, animationData)
+		newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
 
 		for instanceName, instance in pairs(selectedKeyframes) do
-			if GetFFlagReduceDeepcopyCalls() then
-				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
-				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
-			end
+			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 			local dataInstance = newData.Instances[instanceName]
 
 			for trackName, _ in pairs(instance) do
-				if GetFFlagReduceDeepcopyCalls() then
-					dataInstance[trackName] = deepCopy(dataInstance[trackName])
-				end
+				dataInstance[trackName] = deepCopy(dataInstance[trackName])
 
 				local keyframes = Cryo.Dictionary.keys(instance[trackName])
 				local track = dataInstance.Tracks[trackName]

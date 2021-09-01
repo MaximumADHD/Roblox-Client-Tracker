@@ -8,7 +8,9 @@
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagFixGameSettingsChinaNil = game:GetFastFlag("FixGameSettingsChinaNil")
+local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
+local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
+local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -34,6 +36,7 @@ local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
 local TextInputDialog = FFlagLuobuDevPublishLua and Framework.UI.TextInputDialog or nil
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
+local sendAnalyticsToKibana = require(Plugin.Src.Util.GameSettingsUtilities).sendAnalyticsToKibana
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetOptInLocationsKeyName = KeyProvider.getOptInLocationsKeyName
@@ -42,6 +45,8 @@ local GetChinaKeyName = KeyProvider.getChinaKeyName
 local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
 local GetSelectedKeyName = KeyProvider.getSelectedKeyName
 local selectedKey = FFlagLuobuDevPublishLua and GetSelectedKeyName and GetSelectedKeyName() or "selected"
+local footerKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getFooterKeyName() or "Footer"
+local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
 
 local Footer = Roact.PureComponent:extend("Footer")
 
@@ -63,7 +68,7 @@ function Footer:init()
 		local currentOptInLocations = props.CurrentOptInLocations
 		local changedOptInLocations = props.ChangedOptInLocations
 
-		if FFlagFixGameSettingsChinaNil and not currentOptInLocations then
+		if not currentOptInLocations then
 			-- GameSettings basic info page has not been opened yet, so opt in locations do not exist
 			assert(not changedOptInLocations)
 			return false
@@ -128,6 +133,20 @@ function Footer:render()
 							userPressedSave = userPressedSave,
 						})
 					else
+						if FFlagLuobuDevPublishAnalytics and userPressedSave and shouldShowDevPublishLocations() and self.props.CurrentOptInLocations then
+							if self.props.CurrentOptInLocations[chinaKey][selectedKey] then
+								local points = {
+									[optInLocationsKey] = chinaKey,
+								}
+								if not self.props.ChangedOptInLocations then
+									points.selected = true
+								else
+									assert(not self.props.ChangedOptInLocations[chinaKey][selectedKey])
+									points.selected = false
+								end
+								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
+							end
+						end
 						self:saveAllSettings(userPressedSave)
 					end
 				else
@@ -162,6 +181,13 @@ function Footer:render()
 					local submitButtonPressed = buttonKey == "Submit"
 					if submitButtonPressed then
 						if email1 == email2 then
+							if FFlagLuobuDevPublishAnalytics then
+								local points = {
+									[optInLocationsKey] = chinaKey,
+									[selectedKey] = true,
+								}
+								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
+							end
 							local responseCode = postContactEmail(email1)
 							if not responseCode then
 								self:saveAllSettings(self.state.userPressedSave)

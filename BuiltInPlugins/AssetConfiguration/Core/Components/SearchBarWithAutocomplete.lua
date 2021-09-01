@@ -25,8 +25,7 @@ local Category = require(Plugin.Core.Types.Category)
 local getNetwork = ContextGetter.getNetwork
 
 local GetAutocompleteResultsRequest = require(Plugin.Core.Networking.Requests.GetAutocompleteResultsRequest)
-
-local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
 
 local DropdownMenu = require(Libs.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
@@ -88,14 +87,13 @@ function SearchBarWithAutocomplete:init()
 
     self.onItemActivated = function(item, index)
         self.props.OnSearchRequested(item)
-        Analytics.marketplaceSearch(
+        self.props.logSearchAnalytics(
             item,
             Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
             self.state.displayedSearchTerm,
             self.keyCount,
             self.deleteCount,
-            true,
-            self.props.searchId
+            true
         )
 
         self.keyCount = 0
@@ -107,14 +105,13 @@ function SearchBarWithAutocomplete:init()
     self.onSearchRequested = function(searchTerm)
         self.props.OnSearchRequested(searchTerm)
 
-        Analytics.marketplaceSearch(
+        self.props.logSearchAnalytics(
             searchTerm,
             Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName],
             nil,
             self.keyCount,
             self.deleteCount,
-            true,
-            self.props.searchId
+            true
         )
 
         self.keyCount = 0
@@ -235,6 +232,10 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+        logSearchAnalytics = function(keyword, assetType, prefix, keyCount, delCount, autocompleteShown)
+            dispatch(LogMarketplaceSearchAnalytics(keyword, assetType, prefix, keyCount, delCount, autocompleteShown))
+        end,
+
 		getAutocompleteResults = function(networkInterface, categoryName, searchTerm, numberOfResults)
 			dispatch(GetAutocompleteResultsRequest(networkInterface, categoryName, searchTerm, numberOfResults))
 		end,

@@ -40,8 +40,6 @@ local Keyframe = require(Plugin.Src.Components.Timeline.Keyframe)
 local KeyframeCluster = require(Plugin.Src.Components.KeyframeCluster)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
-
 local DopeSheetTrack = Roact.PureComponent:extend("DopeSheetTrack")
 
 function DopeSheetTrack:renderKeyframe(selected, xOffset, track, tick, override, data)
@@ -190,9 +188,6 @@ function DopeSheetTrack:render()
 	local track = props.Track
 	if track.Keyframes then
 		self:renderKeyframes(keys)
-		if not GetFFlagRealtimeChanges() then
-			self:renderPreviewKeyframes(keys)
-		end
 	end
 
 	return Roact.createElement(BaseTrack, props, keys)

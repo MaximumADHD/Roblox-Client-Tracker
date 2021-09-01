@@ -2,7 +2,6 @@
 	Uncontrolled (stateless) audio player component.
 
 	Required Props:
-		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
 		string SoundId: The ID of the sound to play. (should be prefixed with rbxassetid://)
 		number TimeLength: The length of the media (seconds).
 		number CurrentTime: Current position within the media (seconds).
@@ -18,8 +17,8 @@
 		Signal MediaPlayerSignal: Used to listen for imperatives from the parent (e.g. "Play" based on an external action).
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Vector2 AnchorPoint: The AnchorPoint of the component
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
@@ -29,6 +28,7 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -39,6 +39,8 @@ local Image = UI.Decoration.Image
 
 local MediaPlayerControls = require(Framework.StudioUI.MediaPlayerControls)
 local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPlayerSignal)
+
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -70,12 +72,12 @@ function StatelessAudioPlayer:init()
 
 		if updateType == MediaPlayerSignal.PLAY then
 			soundObj.SoundId = self.props.SoundId
-			self.props.Plugin:get():PlaySound(soundObj, self.props.CurrentTime / self.props.TimeLength)
+			soundObj.Playing = true
 		elseif updateType == MediaPlayerSignal.PAUSE then
-			self.props.Plugin:get():PauseSound(soundObj)
+			soundObj.Playing = false
 		elseif updateType == MediaPlayerSignal.SET_TIME then
 			if self.props.IsPlaying then
-				self.props.Plugin:get():PlaySound(soundObj, self.props.CurrentTime / self.props.TimeLength)
+				soundObj.TimePosition = self.props.CurrentTime
 			end
 		end
 	end
@@ -155,10 +157,17 @@ function StatelessAudioPlayer:render()
 	})
 end
 
-ContextServices.mapToProps(StatelessAudioPlayer, {
-	Plugin = ContextServices.Plugin,
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	StatelessAudioPlayer = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(StatelessAudioPlayer)
+else
+	ContextServices.mapToProps(StatelessAudioPlayer, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return StatelessAudioPlayer

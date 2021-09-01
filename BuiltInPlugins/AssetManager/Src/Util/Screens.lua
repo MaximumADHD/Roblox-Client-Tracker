@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
-local FFlagStudioCreatePluginPolicyService = game:GetFastFlag("StudioCreatePluginPolicyService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local Screens = {
@@ -26,7 +25,7 @@ local Screens = {
 	},
 }
 
-if not FFlagStudioCreatePluginPolicyService or (FFlagStudioCreatePluginPolicyService and shouldEnableAudioImport()) then
+if shouldEnableAudioImport() then
 	Screens["AUDIO"] = {
 		Key = "AUDIO",
 	}

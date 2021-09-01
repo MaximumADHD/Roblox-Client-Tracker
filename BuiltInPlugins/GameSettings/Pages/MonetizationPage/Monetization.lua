@@ -5,12 +5,8 @@ local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 
 local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
 local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
 
-local FFlagSupportFreePrivateServers = game:GetFastFlag("SupportFreePrivateServers")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagEnableDevProductsInGameSettings = game:GetFastFlag("EnableDevProductsInGameSettings")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
-local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
-local FFlagStudioFixMissingMonetizationHeader = game:DefineFastFlag("StudioFixMissingMonetizationHeader", false)
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
 local Page = script.Parent
@@ -398,18 +394,10 @@ local function dispatchChanges(setValue, dispatch)
             dispatch(AddChange("vipServersPrice", numberValue))
             dispatch(DiscardError("monetizationPrice"))
 
-            if FFlagSupportFreePrivateServers then
-                if not numberValue then
-                    dispatch(AddErrors({monetizationPrice = INVALID}))
-                elseif numberValue ~= 0 and numberValue < FIntPrivateServersMinPrice then
-                    dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
-                end
-            else
-                if not numberValue then
-                    dispatch(AddErrors({monetizationPrice = INVALID}))
-                elseif numberValue < FIntPrivateServersMinPrice then
-                    dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
-                end
+            if not numberValue then
+                dispatch(AddErrors({monetizationPrice = INVALID}))
+            elseif numberValue ~= 0 and numberValue < FIntPrivateServersMinPrice then
+                dispatch(AddErrors({monetizationPrice = BELOW_MIN}))
             end
         end,
 
@@ -759,7 +747,7 @@ local function displayMonetizationPage(props)
             OnDeveloperSubscriptionCreated = developerSubscriptionCreated,
         }),
 
-        DevProducts = FFlagEnableDevProductsInGameSettings and Roact.createElement(DevProducts, {
+        DevProducts = Roact.createElement(DevProducts, {
             ProductList = devProductsForTable,
             ShowTable = numberOfDevProducts ~= 0,
 
@@ -803,12 +791,7 @@ local function displayEditDevProductsPage(props)
     devProducts = Cryo.Dictionary.join(devProducts, editedDevProducts)
 
     local allDevProducts = Cryo.Dictionary.join(unsavedDevProducts, devProducts)
-    local currentDevProduct
-    if FFlagStudioFixGameManagementIndexNil then
-        currentDevProduct = allDevProducts[productId] or {}
-    else
-        currentDevProduct = allDevProducts[productId]
-    end
+    local currentDevProduct = allDevProducts[productId] or {}
 
     if not initialName then initialName = currentDevProduct.name end
 
@@ -1043,16 +1026,12 @@ function Monetization:render()
             return displayEditDevSubPage(props)
         end
     elseif editDevProductId == nil then
-        if FFlagStudioFixMissingMonetizationHeader then
-            showHeader = true
-        end
+        showHeader = true
         createChildren = function()
             return displayMonetizationPage(props)
         end
     elseif type(editDevProductId) == "number" then
-        if FFlagStudioFixMissingMonetizationHeader then
-            showHeader = false
-        end
+        showHeader = false
         createChildren = function()
             return displayEditDevProductsPage(props)
         end

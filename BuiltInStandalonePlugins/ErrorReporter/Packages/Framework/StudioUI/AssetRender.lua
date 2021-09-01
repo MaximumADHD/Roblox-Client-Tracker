@@ -9,8 +9,8 @@
 			determine whether the tree view should display horizontally or vertically.
 
 	Optional Props:
-		Theme Theme: A Theme ContextItem, which is provided via mapToProps.
-		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
+		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Instance AssetInstance: The Instance of the asset to preview.
 		callback OnMouseEnter: called on MouseEnter - useful to delegate mouse scroll input to this component.
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
@@ -25,10 +25,13 @@
 		callback OnPlayVideo: Called when a Video plays.
 		callback OnPauseVideo: Called when a Video plays.
 ]]
+local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
+local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
@@ -233,13 +236,22 @@ function AssetRender:render()
 			Selection = state.treeViewSelection,
 			OnExpansionChange = self.onTreeViewExpansionChange,
 			OnSelectionChange = self.onTreeViewSelectionChange,
+			Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
 		}),
 	})
 end
 
-ContextServices.mapToProps(AssetRender, {
-	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-})
+if FFlagDeveloperFrameworkWithContext then
+	AssetRender = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(AssetRender)
+else
+	ContextServices.mapToProps(AssetRender, {
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})
+end
+
 
 return AssetRender

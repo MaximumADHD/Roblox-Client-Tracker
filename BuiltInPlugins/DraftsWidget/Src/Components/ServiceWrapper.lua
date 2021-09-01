@@ -13,6 +13,7 @@ local StudioPlugin = require(Plugin.Src.ContextServices.StudioPlugin)
 local Theming = require(Plugin.Src.ContextServices.Theming)
 local UILibraryProvider = require(Plugin.Src.ContextServices.UILibraryProvider)
 
+local FFlagDraftsWidgetUseCreateContext = game:GetFastFlag("DraftsWidgetUseCreateContext")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -50,7 +51,12 @@ function ServiceWrapper:render()
 	root = addProvider(Theming.Provider, { theme = theme, }, root)
 	root = addProvider(Localizing.Provider, { localization = localization }, root)
 	root = addProvider(StudioPlugin.Provider, { plugin = plugin }, root)
-	root = addProvider(DraftsService.Provider, { draftsService = draftsService}, root)
+
+	if FFlagDraftsWidgetUseCreateContext then	
+		root = addProvider(DraftsService.Provider, { value = draftsService}, root)
+	else
+		root = addProvider(DraftsService.Provider, { draftsService = draftsService}, root)
+	end
 
 	return root
 end

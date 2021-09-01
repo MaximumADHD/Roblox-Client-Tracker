@@ -4,9 +4,13 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
 
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
+
 --Variables
 local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
-local SetVariableTextFilteredOut = require(Actions.Watch.SetVariableTextFilteredOut)
+local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
@@ -17,11 +21,11 @@ local AddExpression = require(Actions.Watch.AddExpression)
 local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
+local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 
 --Other
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
-local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
 local SetTab = require(Actions.Watch.SetTab)
 
 --Models
@@ -60,26 +64,12 @@ type ThreadIdToFrameMapping = {
 type WatchStore = {
 	stateTokenToRoots : {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	stateTokenToFlattenedTree: {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
-	filterText : string,
 	currentTab : string,
 	listOfEnabledScopes : {string},
 	listOfWatches : {string},
 	pathToExpansionState : {PathPreserveMapping},
 	expressionToExpansionState : {WatchPreserveMapping},
 }
-
-local function deepCopy(var)
-	if typeof(var) ~= "table" then
-		return var
-	end
-
-	local ret = {}
-	for key, value in pairs(var) do
-		ret[key] = deepCopy(value)
-	end
-
-	return ret
-end
 
 local function nilCheckFillIn(table, stepStateBundle)
 	assert(table[stepStateBundle.debuggerStateToken] ~= nil)
@@ -127,7 +117,7 @@ local function nilCheckVariable(table, action)
 	end
 
 	local base = table[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
-		
+
 	if (base.Variables == nil) then
 		assert(false)
 		return false
@@ -189,7 +179,6 @@ end
 local productionStartStore = {
 	stateTokenToRoots = {},
 	stateTokenToFlattenedTree = {},
-	filterText = "",
 	currentTab = TableTab.Variables,
 	listOfEnabledScopes = {ScopeEnum.Local, ScopeEnum.Upvalue, ScopeEnum.Global},
 	listOfExpressions = {},
@@ -280,7 +269,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[SetVariableTextFilteredOut.name] = function(state : WatchStore, action : SetVariableTextFilteredOut.Props)
+	[SetVariablesTextFilteredOut.name] = function(state : WatchStore, action : SetVariableTextFilteredOut.Props)
 		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
 		if (nilCheckVariable(stateTokenToFlattenedTreeCopy, action) == false) then
 			return state
@@ -288,16 +277,12 @@ return Rodux.createReducer(productionStartStore, {
 
 		local stepStateBundle = action.stepStateBundle
 
-		stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[action.path].textFilteredOut = action.filteredOut
+		for path, filteredOut in pairs(action.textFilterMap) do
+			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[path].textFilteredOut = filteredOut
+		end
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy
-		})
-	end,
-
-	[FilterTextChanged.name] = function(state : WatchStore, action : FilterTextChanged.Props)
-		return Cryo.Dictionary.join(state, {
-			filterText = action.filterText,
 		})
 	end,
 	
@@ -412,4 +397,16 @@ return Rodux.createReducer(productionStartStore, {
 			stateTokenToRoots = stateTokenToRootsCopy,
 		})
 	end,
+
+	[SetExpansionTree.name] = function(state : WatchStore, action : SetExpansionTree.Props)
+		if (action.isVariablesTab) then
+			return Cryo.Dictionary.join(state, {
+				pathToExpansionState = Cryo.Dictionary.join(state.pathToExpansionState, action.expansionMapping),
+			})
+		else
+			return Cryo.Dictionary.join(state, {
+				expressionToExpansionState = Cryo.Dictionary.join(state.expressionToExpansionState, action.expansionMapping),
+			})
+		end
+	end
 })

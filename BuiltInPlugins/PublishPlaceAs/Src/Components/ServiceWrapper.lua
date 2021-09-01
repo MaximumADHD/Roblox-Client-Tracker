@@ -2,7 +2,6 @@
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -24,7 +23,7 @@ function ServiceWrapper:init()
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 	assert(self.props.focusGui ~= nil, "Expected a FocusGui object")
 	assert(self.props.uiLibraryWrapper ~= nil, "Expected a UiLibraryWrapper object")
-	if FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn then
+	if FFlagLuobuDevPublishLua then
 		assert(self.props.mouse ~= nil, "Expected a Mouse object")
 	end
 end
@@ -49,7 +48,7 @@ function ServiceWrapper:render()
 		uiLibraryWrapper,
 		ContextServices.Store.new(store),
 		ContextServices.API.new(),
-		(FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and ContextServices.Mouse.new(mouse) or nil,
+		FFlagLuobuDevPublishLua and ContextServices.Mouse.new(mouse) or nil,
 	}, children)
 end
 

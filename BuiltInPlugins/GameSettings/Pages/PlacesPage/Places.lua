@@ -88,7 +88,6 @@ local nameErrors = {
 
 local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagStudioFixGameManagementIndexNil = game:getFastFlag("StudioFixGameManagementIndexNil")
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -114,60 +113,35 @@ local function saveSettings(store, contextItems)
 
 	return {
 		function()
-			local changed
-			if FFlagStudioFixGameManagementIndexNil then
-				changed = places[placeId]
-			else
-				changed = state.Settings.Changed.places[placeId]
-			end
+			local changed = places[placeId]
 
 			if changed ~= nil and changed.name then
 				placesController:setName(placeId, changed.name)
 			end
 		end,
 		function()
-			local changed
-			if FFlagStudioFixGameManagementIndexNil then
-				changed = places[placeId]
-			else
-				changed = state.Settings.Changed.places[placeId]
-			end
+			local changed = places[placeId]
 
 			if changed ~= nil and changed.maxPlayerCount then
 				placesController:setMaxPlayerCount(placeId, changed.maxPlayerCount)
 			end
 		end,
 		function()
-			local changed
-			if FFlagStudioFixGameManagementIndexNil then
-				changed = places[placeId]
-			else
-				changed = state.Settings.Changed.places[placeId]
-			end
+			local changed = places[placeId]
 
 			if changed ~= nil and changed.allowCopying then
 				placesController:setAllowCopying(placeId, changed.allowCopying)
 			end
 		end,
 		function()
-			local changed
-			if FFlagStudioFixGameManagementIndexNil then
-				changed = places[placeId]
-			else
-				changed = state.Settings.Changed.places[placeId]
-			end
+			local changed = places[placeId]
 
 			if changed ~= nil and changed.socialSlotType then
 				placesController:setSocialSlotType(placeId, changed.socialSlotType)
 			end
 		end,
 		function()
-			local changed
-			if FFlagStudioFixGameManagementIndexNil then
-				changed = places[placeId]
-			else
-				changed = state.Settings.Changed.places[placeId]
-			end
+			local changed = places[placeId]
 
 			if changed ~= nil and changed.customSocialSlotsCount then
 				placesController:setCustomSocialSlotsCount(placeId, changed.customSocialSlotsCount)
@@ -353,7 +327,7 @@ local function displayPlaceListPage(props, localization)
 				-- method already handles printing error message
 				local success, _ = pcall(function() AssetManagerService:AddNewPlace() end)
 				if success then
-					dispatchReloadPlaces(FFlagStudioFixGameManagementIndexNil and true or nil)
+					dispatchReloadPlaces(true)
 				end
 			end,
 		}, {
@@ -398,16 +372,9 @@ local function displayEditPlacePage(props, localization)
 
 	local viewButtonSize = UDim2.new(0, viewButtonButtonWidth, 0, viewButtonTextExtents.Y + viewButtonPaddingY)
 
-	local places
+	local places = props.Places or {}
 	local editPlaceId = props.EditPlaceId
-	local placeToEdit
-	if FFlagStudioFixGameManagementIndexNil then
-		places = props.Places or {}
-		placeToEdit = places[editPlaceId] or {}
-	else
-		places = props.Places
-		placeToEdit = places[editPlaceId]
-	end
+	local placeToEdit = places[editPlaceId] or {}
 	local placeName = placeToEdit.name
 	local placeNameError
 	if props.PlaceNameError and nameErrors[props.PlaceNameError] then

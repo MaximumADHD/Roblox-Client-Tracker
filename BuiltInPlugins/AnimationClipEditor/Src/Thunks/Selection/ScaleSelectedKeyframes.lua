@@ -30,8 +30,6 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
-local GetFFlagReduceDeepcopyCalls = require(Plugin.LuaFlags.GetFFlagReduceDeepcopyCalls)
-local GetFFlagRealtimeChanges = require(Plugin.LuaFlags.GetFFlagRealtimeChanges)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 -- Helper function which allows us to snap keyframes
@@ -49,18 +47,15 @@ return function(pivotTick, scale, dragContext)
 		local displayFrameRate = state.Status.DisplayFrameRate
 		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
 		local editingLength = state.Status.EditingLength
-		local selectedKeyframes = (GetFFlagRealtimeChanges() and dragContext) and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
-		local animationData = (GetFFlagRealtimeChanges() and dragContext) and dragContext.animationData or state.AnimationData
+		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
+		local animationData = dragContext and dragContext.animationData or state.AnimationData
 		if not (animationData and selectedKeyframes) then
 			return
 		end
 
-		local newData = GetFFlagReduceDeepcopyCalls() and Cryo.Dictionary.join({}, animationData) or deepCopy(animationData)
-
-		if GetFFlagReduceDeepcopyCalls() then
-			newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
-			newData.Events = deepCopy(newData.Events)
-		end
+		local newData = Cryo.Dictionary.join({}, animationData)
+		newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
+		newData.Events = deepCopy(newData.Events)
 
 		local startTick = 0
 		if not GetFFlagFixScaleKeyframeClobbering() then
@@ -80,18 +75,14 @@ return function(pivotTick, scale, dragContext)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		for instanceName, instance in pairs(selectedKeyframes) do
-			if GetFFlagReduceDeepcopyCalls() then
-				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
-				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
-			end
+			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
 			local dataInstance = newData.Instances[instanceName]
 
 			if scale > 1 then
 				for trackName, _ in pairs(instance) do
-					if GetFFlagReduceDeepcopyCalls() then
-						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-					end
+					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
 					local keyframes = Cryo.Dictionary.keys(instance[trackName])
 					table.sort(keyframes)
@@ -137,9 +128,7 @@ return function(pivotTick, scale, dragContext)
 				end
 			else
 				for trackName, _ in pairs(instance) do
-					if GetFFlagReduceDeepcopyCalls() then
-						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-					end
+					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
 					local keyframes = Cryo.Dictionary.keys(instance[trackName])
 					table.sort(keyframes)

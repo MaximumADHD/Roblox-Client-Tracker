@@ -8,7 +8,6 @@ local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRem
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -94,7 +93,7 @@ local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPubli
 	local servicesProvider = Roact.createElement(ServiceWrapper, {
 		focusGui = pluginGui,
 		localization = localization,
-		mouse = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and plugin:getMouse() or nil,
+		mouse = FFlagLuobuDevPublishLua and plugin:getMouse() or nil,
 		plugin = plugin,
 		store = dataStore,
 		theme = theme,

@@ -23,7 +23,8 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
-local Configuration = require(Plugin.Src.Network.Requests.Configuration)
+-- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+local DEPRECATED_Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -42,6 +43,7 @@ local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
+local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
@@ -50,14 +52,20 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
+local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
+local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
+local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
+local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
 local TextInputDialog = FFlagLuobuDevPublishLua and require(Framework.UI.TextInputDialog) or nil
-local KeyProvider = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getOptInLocationsKeyName() or nil
-local chinaKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getChinaKeyName() or nil
+local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
+local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
+local chinaKey = FFlagLuobuDevPublishLua and KeyProvider.getChinaKeyName() or nil
+local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
+local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
+local createNewGameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCreateNewGameKeyName() or "CreateNewGame"
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -83,9 +91,23 @@ function ScreenCreateNewGame:init()
 	self.scrollingFrameRef = Roact.createRef()
 
 	if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
-		local success, existingConfig = Configuration.Get(self.props.FirstPublishContext.universeId):await()
-		if success then
-			self.props.dispatchSetExistingUniverseConfiguration(existingConfig)
+		if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+			local apiImpl = self.props.API:get()
+			apiImpl.Develop.V2.Universes.configuration(self.props.FirstPublishContext.universeId):makeRequest()
+			:andThen(function(response)
+				self.props.dispatchSetExistingUniverseConfiguration(response.responseBody)
+			end, function(response)
+				local message = self.props.localization:getText("Error","GetConfiguration") .. " HTTP " .. response.responseCode
+				warn(message)
+				for _, value in pairs(response.responseBody.errors) do
+					warn(value.userFacingMessage)
+				end
+			end)
+		else
+			local success, existingConfig = DEPRECATED_Configuration.Get(self.props.FirstPublishContext.universeId):await()
+			if success then
+				self.props.dispatchSetExistingUniverseConfiguration(existingConfig)
+			end
 		end
 	else
 		self.props.DispatchLoadGroups()
@@ -154,7 +176,7 @@ function ScreenCreateNewGame:render()
 	-- There isn't a way to automatically calculate this based on contents
 	local publishCanvasHeight = 780
 
-	local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and shouldShowDevPublishLocations()
+	local canScroll = not FFlagStudioAllowRemoteSaveBeforePublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations()
 
 	local actionButtonLabel = "Create"
 	if FFlagStudioNewGamesInCloudUI and (isPublish == false) then
@@ -213,10 +235,26 @@ function ScreenCreateNewGame:render()
 									showEmailDialog = true,
 								})
 							else
-								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+								if FFlagLuobuDevPublishAnalytics and shouldShowDevPublishLocations() then
+									local points = {
+										[optInLocationsKey] = chinaKey,
+										[selectedKey] = false,
+									}
+									sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+								end
+
+								if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl)
+								else
+									SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+								end
 							end
 						else
-							SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl)
+							else
+								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
+							end
 						end
 					else
 						-- Make changes here before save happens to show dialog
@@ -226,10 +264,26 @@ function ScreenCreateNewGame:render()
 									showEmailDialog = true,
 								})
 							else
-								SettingsImpl.saveAll(changed, localization)
+								if FFlagLuobuDevPublishAnalytics and shouldShowDevPublishLocations() then
+									local points = {
+										[optInLocationsKey] = chinaKey,
+										[selectedKey] = false,
+									}
+									sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+								end
+
+								if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+									SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl)
+								else
+									SettingsImpl.saveAll(changed, localization)
+								end
 							end
 						else
-							SettingsImpl.saveAll(changed, localization)
+							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+								SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl)
+							else
+								SettingsImpl.saveAll(changed, localization)
+							end
 						end
 					end
 					if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
@@ -271,6 +325,13 @@ function ScreenCreateNewGame:render()
 				OnButtonPressed = function(buttonKey, email1, email2)
 					local submitButtonPressed = buttonKey == "Submit"
 					if submitButtonPressed then
+						if FFlagLuobuDevPublishAnalytics then
+							local points = {
+								[optInLocationsKey] = chinaKey,
+								[selectedKey] = true,
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+						end
 						if email1 == email2 then
 							if firstPublishContext then
 								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl, email1)
@@ -302,8 +363,8 @@ function ScreenCreateNewGame:render()
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, theme.MENU_BAR_WIDTH, 0, 0),
 			Size = UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, -theme.FOOTER_HEIGHT),
-			CanvasSize = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0) or UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
-			AutomaticCanvasSize = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and Enum.AutomaticSize.Y or nil,
+			CanvasSize = FFlagLuobuDevPublishLua and UDim2.new(1, -theme.MENU_BAR_WIDTH, 1, 0) or UDim2.new(1, -theme.MENU_BAR_WIDTH, 0, publishCanvasHeight),
+			AutomaticCanvasSize = FFlagLuobuDevPublishLua and Enum.AutomaticSize.Y or nil,
 			[Roact.Ref] = self.scrollingFrameRef,
 		}, {
 			Roact.createElement(BasicInfo, {

@@ -57,15 +57,22 @@ local GuiService = game:GetService("GuiService")
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-local FFlagLuobuDevPublishLuaTempOptIn = game:GetFastFlag("LuobuDevPublishLuaTempOptIn")
-local FFlagLuobuDevPublishHideRequirementsLink = game:GetFastFlag("LuobuDevPublishHideRequirementsLink")
+local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
+local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
+local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
+local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
-local KeyProvider = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getOptInLocationsKeyName() or nil
-local chinaKey = (FFlagLuobuDevPublishLua or FFlagLuobuDevPublishLuaTempOptIn) and KeyProvider.getChinaKeyName() or nil
+local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
+local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
+local chinaKey = FFlagLuobuDevPublishLua and KeyProvider.getChinaKeyName() or nil
+local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
+local checkboxToggleKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCheckboxToggleKeyName() or "CheckboxToggle"
+local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
+local termsOfUseDialogKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getTermsOfUseDialogKeyName() or "TermsOfUseDialog"
+local buttonClickedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getButtonClickedKeyName() or "buttonClicked"
 
 local Framework = require(Plugin.Packages.Framework)
 local Image = Framework.UI.Decoration.Image
@@ -73,14 +80,7 @@ local HoverArea = Framework.UI.HoverArea
 local StyledDialog = Framework.StudioUI.StyledDialog
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 local Tooltip = Framework.UI.Tooltip
-local LinkText = Framework.UI.LinkText
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
-
--- TODO: jbousellam - remove with FFlagLuobuDevPublishLuaTempOptIn
-local function calculateTextSize(text, textSize, font)
-	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
-	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
-end
 
 local groupsLoaded = false
 --Uses props to display current settings values
@@ -301,7 +301,7 @@ local function displayContents(parent)
 				end,
 				Title = localization:getText("General", "TitlePlayability"),
 			})
-			if not FFlagLuobuDevPublishLuaTempOptIn and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
 				displayResult.Separator5 = Roact.createElement(Separator, {
 					LayoutOrder = layoutOrder:getNextOrder(),
 				})
@@ -314,7 +314,7 @@ local function displayContents(parent)
 						Id = chinaKey,
 						Title = localization:getText(optInLocationsKey, chinaKey),
 						Selected = optInLocations and optInLocations.China or false,
-						LinkTextFrame = not FFlagLuobuDevPublishHideRequirementsLink and Roact.createElement("Frame", {
+						LinkTextFrame = Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
@@ -331,7 +331,7 @@ local function displayContents(parent)
 									GuiService:OpenBrowserWindow(url)
 								end,
 							})
-						}) or nil,
+						}),
 					}},
 					Enabled = optInLocations ~= nil,
 					EntryClicked = function(box)
@@ -343,6 +343,13 @@ local function displayContents(parent)
 							local newLocations = Cryo.Dictionary.join(optInLocations, {
 								[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
 							})
+							if FFlagLuobuDevPublishAnalytics then
+								local points = {
+									[optInLocationsKey] = box.Id,
+									[selectedKey] = not box.Selected,
+								}
+								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
+							end
 							optInLocationsChanged(newLocations)
 						end
 					end,
@@ -375,11 +382,23 @@ local function displayContents(parent)
 						parent:setState({
 							showDialog = false,
 						})
+						if FFlagLuobuDevPublishAnalytics then
+							local points = {
+								[buttonClickedKey] = "OK",
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+						end
 					end,
 					OnClose = function()
 						parent:setState({
 							showDialog = false
 						})
+						if FFlagLuobuDevPublishAnalytics then
+							local points = {
+								[buttonClickedKey] = "Close",
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
+						end
 					end,
 					ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
 				}, {
@@ -412,43 +431,6 @@ local function displayContents(parent)
 							BackgroundTransparency = 1,
 						}),
 					})
-				})
-			elseif FFlagLuobuDevPublishLuaTempOptIn and not FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
-				local layoutOrder2 = LayoutOrderIterator.new()
-
-				displayResult.Separator7 = Roact.createElement(Separator, {
-					LayoutOrder = layoutOrder:getNextOrder(),
-				})
-
-				displayResult.TempOptInLocations = Roact.createElement(TitledFrame, {
-					Title = localization:getText(optInLocationsKey, "TitleOptInLocations"),
-					MaxHeight = 60,
-					LayoutOrder = layoutOrder:getNextOrder(),
-					TextSize = theme.tempOptInLink.TextSize,
-				}, {
-					UILayout = Roact.createElement("UIListLayout", {
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						FillDirection = Enum.FillDirection.Horizontal,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-					}),
-					Text = Roact.createElement("TextLabel", {
-						Size = UDim2.new(0, calculateTextSize(localization:getText(optInLocationsKey, "TempLinkDescription"), theme.tempOptInLink.TextSize, theme.tempOptInLink.Font).X, 0, theme.tempOptInLink.TextSize),
-						BackgroundTransparency = 1,
-						TextColor3 = theme.tempOptInLink.TextColor3,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						TextSize = theme.tempOptInLink.TextSize,
-						Font = theme.tempOptInLink.Font,
-						Text = localization:getText(optInLocationsKey, "TempLinkDescription"),
-						LayoutOrder = layoutOrder2:getNextOrder(),
-					}),
-					LinkText = Roact.createElement(LinkText, {
-						Text = "roblox.cn",
-						Style = "LinkTextStyle",
-						OnClick = function()
-							GuiService:OpenBrowserWindow("https://roblox.cn/")
-						end,
-						LayoutOrder = layoutOrder2:getNextOrder(),
-					}),
 				})
 			end
 		else

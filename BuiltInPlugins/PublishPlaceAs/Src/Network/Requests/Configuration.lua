@@ -4,6 +4,8 @@
 	Copied from GameSettings. Ideally we could reuse that code
 ]]
 
+-- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -31,13 +33,13 @@ if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
 	ACCEPTED_KEYS.OptInLocations = true
 end
 
-local Configuration = {}
+local DEPRECATED_Configuration = {}
 
-function Configuration.AcceptsValue(key)
+function DEPRECATED_Configuration.AcceptsValue(key)
 	return ACCEPTED_KEYS[key] ~= nil
 end
 
-function Configuration.Set(universeId, body, includeOptInLocations)
+function DEPRECATED_Configuration.Set(universeId, body, includeOptInLocations)
 	local errmsg = "Configuration.Set body must be table, received %s"
 	assert(type(body) == "table", string.format(errmsg, type(body)))
 	assert(not Cryo.isEmpty(body),  "Configuration.Set body must have changes to set")
@@ -77,7 +79,7 @@ function Configuration.Set(universeId, body, includeOptInLocations)
 	return Http.Request(requestInfo)
 end
 
-function Configuration.Get(universeId)
+function DEPRECATED_Configuration.Get(universeId)
 	local requestInfo = {
 		Url = Http.BuildRobloxUrl(REQUEST_TYPE, REQUEST_URL, universeId),
 		Method = "GET",
@@ -87,4 +89,4 @@ function Configuration.Get(universeId)
 	end)
 end
 
-return Configuration
+return DEPRECATED_Configuration

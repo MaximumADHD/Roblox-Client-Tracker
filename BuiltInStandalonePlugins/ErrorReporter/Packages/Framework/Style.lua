@@ -1,5 +1,4 @@
 local strict = require(script.Parent.Util.strict)
-local FFlagEnableDeveloperStorybook = game:GetFastFlag("EnableDeveloperStorybook")
 
 return strict({
 	Colors = require(script.Colors),
@@ -7,9 +6,10 @@ return strict({
 	createDefaultTheme =  require(script.createDefaultTheme),
 	makeTheme = require(script.makeTheme),
 	getRawComponentStyle = require(script.getRawComponentStyle),
+	Padding = require(script.Padding),
 	StyleKey = require(script.StyleKey),
 	Stylizer = require(script.Stylizer),
-	ThemeSwitcher = FFlagEnableDeveloperStorybook and require(script.ThemeSwitcher),
+	ThemeSwitcher = require(script.ThemeSwitcher),
 
 	Themes = strict({
 		BaseTheme = require(script.Themes.BaseTheme),

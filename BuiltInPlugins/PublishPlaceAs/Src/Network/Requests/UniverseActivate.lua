@@ -2,6 +2,8 @@
 	Requests used to activate (make public) or deactivate (make private) a remote place.
 ]]
 
+-- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -17,13 +19,13 @@ local ACCEPTED_KEYS = {
 	isActive = true,
 }
 
-local UniverseActivate = {}
+local DEPRECATED_UniverseActivate = {}
 
-function UniverseActivate.AcceptsValue(key)
+function DEPRECATED_UniverseActivate.AcceptsValue(key)
 	return ACCEPTED_KEYS[key] ~= nil
 end
 
-function UniverseActivate.Set(universeId, body)
+function DEPRECATED_UniverseActivate.Set(universeId, body)
     assert(FFlagStudioAllowRemoteSaveBeforePublish)
 	local errmsg = "Configuration.Set body must be table, received %s"
 	assert(type(body) == "table", string.format(errmsg, type(body)))
@@ -44,4 +46,4 @@ function UniverseActivate.Set(universeId, body)
 	return Http.Request(requestInfo)
 end
 
-return UniverseActivate
+return DEPRECATED_UniverseActivate
