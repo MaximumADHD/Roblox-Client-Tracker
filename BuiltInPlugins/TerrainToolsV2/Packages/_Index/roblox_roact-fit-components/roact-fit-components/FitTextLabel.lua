@@ -4,14 +4,29 @@ local Packages = root.Parent
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
 
+local EngineFeatureTextBoundsRoundUp do
+	local success, value = pcall(function()
+		return game:GetEngineFeature("TextBoundsRoundUp")
+	end)
+	EngineFeatureTextBoundsRoundUp = success and value
+end
+
 -- We need to add 2 to these values as a workaround to a documented engine bug
 local TextService = game:GetService("TextService")
 local function getTextHeight(text, fontSize, font, widthCap)
-	return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y + 2
+	if EngineFeatureTextBoundsRoundUp then
+		return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y
+	else
+		return TextService:GetTextSize(text, fontSize, font, Vector2.new(widthCap, 10000)).Y + 2
+	end
 end
 
 local function getTextWidth(text, fontSize, font)
-	return TextService:GetTextSize(text, fontSize, font, Vector2.new(10000, 10000)).X + 2
+	if EngineFeatureTextBoundsRoundUp then
+		return TextService:GetTextSize(text, fontSize, font, Vector2.new(10000, 10000)).X
+	else
+		return TextService:GetTextSize(text, fontSize, font, Vector2.new(10000, 10000)).X + 2
+	end
 end
 
 local FitTextLabel = Roact.PureComponent:extend("FitTextLabel")
@@ -28,7 +43,7 @@ FitTextLabel.defaultProps = {
 }
 
 function FitTextLabel:init()
-	self.frameRef = Roact.createRef()
+	self.frameRef = self.props[Roact.Ref] or Roact.createRef()
 
 	self.onResize = function()
 		if not self.frameRef.current then
@@ -40,7 +55,8 @@ function FitTextLabel:init()
 end
 
 function FitTextLabel:render()
-	return Roact.createElement("TextLabel", self:__getFilteredProps())
+	local instanceType = self.props.onActivated and "TextButton" or "TextLabel"
+	return Roact.createElement(instanceType, self:__getFilteredProps())
 end
 
 function FitTextLabel:didMount()
@@ -59,6 +75,7 @@ function FitTextLabel:__getFilteredProps()
 	local filteredProps = {
 		width = Cryo.None,
 		maximumWidth = Cryo.None,
+		onActivated = Cryo.None,
 		Size = UDim2.new(self.props.width, UDim.new(0, 0)),
 		[Roact.Ref] = self.frameRef,
 
@@ -66,7 +83,16 @@ function FitTextLabel:__getFilteredProps()
 			sizeConstraint = self.props.maximumWidth < math.huge and Roact.createElement("UISizeConstraint", {
 				MaxSize = Vector2.new(self.props.maximumWidth, math.huge),
 			})
-		})
+		}),
+
+		[Roact.Event.Activated] = self.props.onActivated,
+
+		[Roact.Change.AbsoluteSize] = function(rbx)
+			if self.props[Roact.Change.AbsoluteSize] then
+				self.props[Roact.Change.AbsoluteSize](rbx)
+			end
+			self.onResize()
+		end,
 	}
 
 	return Cryo.Dictionary.join(self.props, filteredProps)

@@ -37,6 +37,7 @@ local function createReconciler(renderer)
 		local hostParent = virtualNode.hostParent
 		local hostKey = virtualNode.hostKey
 		local depth = virtualNode.depth
+		local parent = virtualNode.parent
 
 		-- If the node that is being replaced has modified context, we need to
 		-- use the original *unmodified* context for the new node
@@ -44,12 +45,22 @@ local function createReconciler(renderer)
 		local context = virtualNode.originalContext or virtualNode.context
 		local parentLegacyContext = virtualNode.parentLegacyContext
 
-		unmountVirtualNode(virtualNode)
+		if config.tempFixUpdateChildrenReEntrancy then
+			-- If updating this node has caused a component higher up the tree to re-render
+			-- and updateChildren to be re-entered then this node could already have been
+			-- unmounted in the previous updateChildren pass.
+			if not virtualNode.wasUnmounted then
+				unmountVirtualNode(virtualNode)
+			end
+		else
+			unmountVirtualNode(virtualNode)
+		end
 		local newNode = mountVirtualNode(newElement, hostParent, hostKey, context, parentLegacyContext)
 
 		-- mountVirtualNode can return nil if the element is a boolean
 		if newNode ~= nil then
 			newNode.depth = depth
+			newNode.parent = parent
 		end
 
 		return newNode
@@ -64,12 +75,28 @@ local function createReconciler(renderer)
 			internalAssert(Type.of(virtualNode) == Type.VirtualNode, "Expected arg #1 to be of type VirtualNode")
 		end
 
+		virtualNode.updateChildrenCount = virtualNode.updateChildrenCount + 1
+
+		local currentUpdateChildrenCount = virtualNode.updateChildrenCount
+
 		local removeKeys = {}
 
 		-- Changed or removed children
 		for childKey, childNode in pairs(virtualNode.children) do
 			local newElement = ElementUtils.getElementByKey(newChildElements, childKey)
 			local newNode = updateVirtualNode(childNode, newElement)
+
+			-- If updating this node has caused a component higher up the tree to re-render
+			-- and updateChildren to be re-entered for this virtualNode then
+			-- this result is invalid and needs to be disgarded.
+			if config.tempFixUpdateChildrenReEntrancy then
+				if virtualNode.updateChildrenCount ~= currentUpdateChildrenCount then
+					if newNode and newNode ~= virtualNode.children[childKey] then
+						unmountVirtualNode(newNode)
+					end
+					return
+				end
+			end
 
 			if newNode ~= nil then
 				virtualNode.children[childKey] = newNode
@@ -98,9 +125,22 @@ local function createReconciler(renderer)
 					virtualNode.legacyContext
 				)
 
+				-- If updating this node has caused a component higher up the tree to re-render
+				-- and updateChildren to be re-entered for this virtualNode then
+				-- this result is invalid and needs to be discarded.
+				if config.tempFixUpdateChildrenReEntrancy then
+					if virtualNode.updateChildrenCount ~= currentUpdateChildrenCount then
+						if childNode then
+							unmountVirtualNode(childNode)
+						end
+						return
+					end
+				end
+
 				-- mountVirtualNode can return nil if the element is a boolean
 				if childNode ~= nil then
 					childNode.depth = virtualNode.depth + 1
+					childNode.parent = virtualNode
 					virtualNode.children[childKey] = childNode
 				end
 			end
@@ -133,6 +173,8 @@ local function createReconciler(renderer)
 			internalAssert(Type.of(virtualNode) == Type.VirtualNode, "Expected arg #1 to be of type VirtualNode")
 		end
 
+		virtualNode.wasUnmounted = true
+
 		local kind = ElementKind.of(virtualNode.currentElement)
 
 		if kind == ElementKind.Host then
@@ -152,7 +194,7 @@ local function createReconciler(renderer)
 				unmountVirtualNode(childNode)
 			end
 		else
-			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
+			error(("Unknown ElementKind %q"):format(tostring(kind)), 2)
 		end
 	end
 
@@ -241,7 +283,7 @@ local function createReconciler(renderer)
 		elseif kind == ElementKind.Fragment then
 			virtualNode = updateFragmentVirtualNode(virtualNode, newElement)
 		else
-			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
+			error(("Unknown ElementKind %q"):format(tostring(kind)), 2)
 		end
 
 		-- Stateful components can abort updates via shouldUpdate. If that
@@ -279,9 +321,12 @@ local function createReconciler(renderer)
 			[Type] = Type.VirtualNode,
 			currentElement = element,
 			depth = 1,
+			parent = nil,
 			children = {},
 			hostParent = hostParent,
 			hostKey = hostKey,
+			updateChildrenCount = 0,
+			wasUnmounted = false,
 
 			-- Legacy Context API
 			-- A table of context values inherited from the parent node
@@ -366,7 +411,7 @@ local function createReconciler(renderer)
 		elseif kind == ElementKind.Fragment then
 			mountFragmentVirtualNode(virtualNode)
 		else
-			error(("Unknown ElementKind %q"):format(tostring(kind), 2))
+			error(("Unknown ElementKind %q"):format(tostring(kind)), 2)
 		end
 
 		return virtualNode
