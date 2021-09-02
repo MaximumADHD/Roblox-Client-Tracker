@@ -682,7 +682,6 @@ AHVWeakObjectRef
 AHW4DataStoreRequestType
 AHW4UserInputType
 AimdRateControl
-AJwmcXUlalkxw7IxdiPGkQeQXBlsZ
 Aktivieren
 AKTIVIEREN
 Aktivierung
@@ -5859,6 +5858,7 @@ BatchThumbnailRetrySlowWaitMs
 BatchVertexDeformation
 BatchViewUpdate
 Baugruppen
+BaWqxRi3dk
 BB0BF11E395B6E5DB6211F344
 BB11E2B957D88B167DEF15
 BB285C520681180838E23F0DC6224
@@ -6318,7 +6318,6 @@ BrowserWindowClosed
 BrowserWindowWillNavigate
 BrushStyle
 BruteForceAllSlow
-Btazgjk1dg2olL4QV8cqLnE2WcvBxqg3NPc
 BtnBackground.png
 BtPoolAllocatorInitFailure
 BtYovqVKoHMDMoDd0u9Mc5CIyRqyu0IGS99A0jeEXRj7aofQ
@@ -9414,7 +9413,7 @@ CWindowImpl
 CWindowImplBaseT
 CWindowImplRoot
 CWinTraits
-CwRNdb9AY5XLI
+Cxm6naBPFty88dzRUVd2Jv1J8ZKXnOiMsE
 CxxFrameHandler3
 CxxThrowException
 Cybertrust
@@ -9682,7 +9681,6 @@ DateTimeUtc
 DateTypeArg
 DateTypeResult
 DAttributes
-DAW5bhegKrfaKYgOK8xcWt1
 DB0BF11E395B6E5DB6211F344
 DB2068118C14FDE5E01E7934
 DB33CEAAF011E38B9D871882A8E559
@@ -10738,6 +10736,13 @@ DiffView.png
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crl0P
+DigiCertAssuredIDRootCA.crt0
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -11144,6 +11149,7 @@ DSATTRIB_UDCRTag
 DsEVxozVjY
 DSHA256_ASM
 DSHA512_ASM
+DSmzdviDl1u0xABi6ldylIw0XpsuZOAu9uqauEVc7QSdh9CATA
 DSO_bind_func
 DSO_convert_filename
 DSO_get_filename
@@ -12037,6 +12043,7 @@ EulerAnglesYXZ
 EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -12943,7 +12950,6 @@ FloatingYSize
 FloatingYSize.
 FloatVector
 FloodedMessage
-FLoohwPs1p60dTNKHvjT
 FloorMaterial
 FloorMaterialChanged
 FloorMaterialComputeLocally
@@ -13100,6 +13106,7 @@ ForwardScroll
 FoundItems
 FoundThread
 FpFramebuffer
+FpQW12R25X9Tx5
 FpsVariance
 Fractional
 FRAGMENT_SCRIPT
@@ -13289,6 +13296,7 @@ FrontSurfaceInput
 FrustumEnvMap
 FrustumOrdered
 FrustumRenderQueue
+Ft3uXQravFOSeUPcQm
 FullBandHpfKillSwitch
 FullRenderObjects
 Fullscreen
@@ -14458,6 +14466,7 @@ GlobalUsers.LuaApp.SpotlightTile
 GLSL.std.450
 GlyphProvider
 GlyphRenderer
+GNuL0zNbpuvpL99wD7iNtn1PvCHHsFHPuMb
 GoDaddy.com
 GoodbyeChoiceActive
 GoodbyeChoiceActiveProperty
@@ -14487,7 +14496,6 @@ GoToSourceCodeTB
 GotoTargetsRequest
 GoToVersionFailed
 GpuVariance
-GqTr0Z0EJxQ0EMSPOjkXv2Dx
 GrabCursor.png
 GrabRotateCursor
 GrabRotateCursor.png
@@ -14545,6 +14553,7 @@ GraphicsVulkanMinDriverVersionPVR
 GraphicsVulkanPipelineCacheVersion
 GraphicsVulkanPixelbookDisable
 GraphicsVulkanProperMaxTextureSize
+GraphicsVulkanQueueUploads
 GraphicsVulkanTextureReduction
 GraphicsVulkanVideoMemory2
 GraphicTShirt
@@ -15327,6 +15336,7 @@ HttpTrace]
 HttpTraceLight
 HttpTraceLight]
 HttpUseMinGzip
+Hu3NMpocLhcAHU1k2ZCEJ2sOT1
 HuaTianKaiTi
 HuaTianSongTi
 HubConnection
@@ -15402,6 +15412,7 @@ Hungarumlautsmall
 HungScript
 HungScriptPermyriad
 HVChangeHistoryService
+HVeZIjNVB7RNVK9FOk
 HVQByteArray
 HVQRegularExpression
 HVQVariant
@@ -15464,7 +15475,6 @@ Id_Terrain
 Id_Transparent
 Id_TransparentCasters
 ID3D11Texture2D
-Id8EC4ISzXkN0k
 IDATHKcTUU
 IDATHKETYSZ[
 IDebuggerCloneTracker
@@ -15506,7 +15516,6 @@ IEBAXPEAVQStyleOptionComboBox
 IEBAXPEAVQStyleOptionSlider
 IEBAXPEAVQStyleOptionTab
 Ierusalimschy
-IEZMD0BvjHoikFDz6BFJvXDI
 IFindListener
 IfLastDocInLastAppInstance
 IfLineOfSightClear
@@ -16571,7 +16580,6 @@ JsonFormat
 JSONObject
 JSONOverflowAbort
 JSONOverflowDepth
-JtXuSIY6LgbVjXXApybRQhfA
 JUAssetData
 Jugabilidad
 JUGroupRolesRequestRecord
@@ -16584,6 +16592,7 @@ JumpScares
 JumpScaresP2
 JumpToIndex
 JustEndedBusy
+JVJIX6AdLuvvr4BPNDhU9BCAVViVGL26d
 JW4AppInstallType
 JW4AvatarItemType
 JW4FriendService_FriendStatus
@@ -16666,7 +16675,6 @@ KKKKKKKKKKKK
 KKKKKKKKKKKKKKKKKKKKKK
 Klebeoberfl
 Kleinschreibung
-KnG6jC7m2wAn4MciN
 KnownPrefixIndex
 KnownPublishRequest
 KodchiangUPC
@@ -17576,7 +17584,6 @@ LuobuWhitelistedField
 LuobuWindowsStudioReportInternetZone
 LVvuOx39]O
 M_NVWeakObjectRef
-Ma7AOLPQxIQBEtznH9aAFzZsZAwLCflV8wRJcrofXfDgGfOSO3wZbt8P5RRaG0
 MacGamepadUseGCController
 MachineAddress
 MachineConfig
@@ -18376,7 +18383,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAkBOd2jUSapcE4gL2m
+MIICCgKCAgEAm
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -18939,7 +18946,6 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
-Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -19758,6 +19764,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -20260,6 +20267,7 @@ PauseSurfaceControllerOnLuaAppDestroy
 PaysageCapteur
 PaysageDroite
 PaysageGauche
+PBbq2W0JYtsn4sqvIf5YYzVWDEtsMH2GR0j15paGeb3t6PimeTxnhutB0OCzLO7
 PBKDF2PARAM
 PCDeviceWithResolution
 PCertReqData
@@ -22703,6 +22711,7 @@ QGuiApplication
 QHBoxLayout
 QHeaderView
 QHelpEvent
+QhMWXBFYIvIORmaLoI4Pk0FU1aVhcmBM18yRxq7kS4fIvLbQyzRHQLjWCDZQdxuX
 QHoverEvent
 QImageReader
 QInputDialog
@@ -22821,6 +22830,7 @@ QStyleOptionTab
 QStyleOptionToolButton
 QStyleOptionViewItem
 QSurfaceFormat
+QsVdEG59o5HVk
 QSystemSemaphore
 QT_ANGLE_PLATFORM
 Qt5Core.dll
@@ -23779,6 +23789,7 @@ RenderAdvSkyGroup
 RenderAdvSkyGroup]
 RenderAlphaKey
 RenderAlphaKeyDist
+RenderAsyncTextureUpload
 RenderAverage
 RenderBiasGlassTint
 RenderBreakdown
@@ -24542,8 +24553,8 @@ RigidBodyCountMinValuePerBatch
 RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
-Riz2OWkOoiR1tMQOJMVmrAHcpupgUPDL8KcCAwEAAQ
 Rj0isQcnqX
+RMHsp7f5erdRYdnbILgCk43KqfszxWuuHXenqn70uMCAwEAAQ
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -24872,7 +24883,6 @@ RuppTokenLog
 RuppTokenLog]
 RuppTokenStemma
 RuppTokEnTest
-RUY3jMOVFkIep1xKh6zWVHT5AX446M4yNI85i
 RVERROR_EOF
 RVFixVpxFlushCodec
 RVideoAddExtradataForFormatChange
@@ -24882,6 +24892,7 @@ RVideoMemLogging]
 RVideoTrace
 RVideoTrace]
 RVUseNanoSeconds
+RwbUYPBtLQ5IcHN9dZ
 RxIgnoredBytes
 RxIgnoredPackets
 RxRlReport
@@ -26762,6 +26773,7 @@ Src.YBegin
 SrcPlaceId
 SrcUniverseId
 SRGBToLinearFS
+SRO10qTvL9m9v9CxQ6Ip8kksTUYa9Mwsu
 SRTP_AEAD_AES_128_GCM
 SRTP_AEAD_AES_256_GCM
 SRTP_AES128_CM_SHA1_32
@@ -31473,7 +31485,6 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
-SymantecPKI
 SymbolicLinkAlreadyExist
 Symbolleistenposition
 SymbolProvider
@@ -35463,6 +35474,7 @@ VR_InitInternal
 VR_IsSteamVRRunning
 VR_LOG_PATH
 VR_OVERRIDE
+VR7jnHIvVR0PGZ
 VRakPeerCrypto
 VRakPeerInterface
 VRandomAdaptionLogic
@@ -35753,7 +35765,6 @@ VTraversalInterface
 VTreeWidgetDelegate
 VTremoloSoundEffect
 VTriangleMeshPart
-VtVqveyeX5kwEd7qdWmZ3FxQJJypvkC1Zb1w
 VTweenBase
 VTweenInfo
 VTweenService
@@ -35874,10 +35885,8 @@ VWSUATAUAVAW
 VWXYZ[\]^_`a
 VXmlElement
 VxRakNetConnectTrace
-VYEg8Osk4CVaycJ59HNO7kwLNFI
 VYieldFunctions
 VYieldFunctionState
-Vzsag8Xin602rCR7DgSAhuvGnpVobAF0NreyxRQh2hgoHHmXUDxJCsZ1IsW6EDNm
 W_Key_dn.png
 WaistAccessory
 WaistBack_Att
@@ -35961,7 +35970,6 @@ WaypointIdx
 WaypointSpacing
 WCharArray
 Wcircumflex
-WdfT5HmY2X
 WDU_Mbstatet
 WeakFunctionRef
 WeakObjectRef
@@ -36567,6 +36575,7 @@ XboxUseNewValidUsernameCheck2
 XFbxAMatrix
 XFREE86_GLYPH_RANGES
 XGetLastError
+XGYDBPc7wCXcoZ4xQQ7Go8USyRjep4alue17eCOt8AkZaxWYojoqM76mvzSNEb2h
 XHW4DebuggerStatus
 XHW4Status_e
 XInputGetBatteryInformation
@@ -36747,6 +36756,7 @@ YAXVexception_ptr
 YAXW4error_type
 YAXW4RegistrationType
 Ycircumflex
+YDGdjwj9tmg9S0ZVkrJ0L8gp61SuOl4p
 Ydieresissmall
 YDYHYQYTYbYsY
 YffYZefYDNNDCOO
@@ -36755,7 +36765,6 @@ YieldFuncDesc
 YieldFunction
 YQByteArray
 YResolution
-YtaRI0O25wQeIUjHQ7D
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
@@ -36776,7 +36785,6 @@ ZoomActive
 ZoomOutDistance
 ZoomToExtents
 ZoomToHighlight
-ZOtxzO0wNLdxlRjuH888IKFwA61JHnscXylYzYCghi
 ZP6APEAX1PEBX
 ZP6AX1PEAX
 ZRZZZbZt[.[
