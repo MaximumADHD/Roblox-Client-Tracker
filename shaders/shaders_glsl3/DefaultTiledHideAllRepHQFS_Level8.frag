@@ -119,7 +119,7 @@ void main()
     f84.w = VARYING2.w;
     float f85 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f86 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f85) * 5.0).xyz;
-    bvec3 f87 = bvec3(CB0[13].w != 0.0);
+    bvec3 f87 = bvec3(!(CB0[13].w == 0.0));
     vec3 f88 = sqrt(clamp(mix(vec3(f87.x ? CB0[14].xyz.x : f86.x, f87.y ? CB0[14].xyz.y : f86.y, f87.z ? CB0[14].xyz.z : f86.z), f84.xyz, vec3(f85)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))));
     vec4 f89 = vec4(f88.x, f88.y, f88.z, f84.w);
     f89.w = VARYING2.w;

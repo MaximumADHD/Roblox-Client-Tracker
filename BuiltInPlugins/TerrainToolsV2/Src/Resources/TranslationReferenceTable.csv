@@ -11,7 +11,6 @@ Studio.TerrainToolsV2.Replace.Replace,Replace,Replace,Reemplazar,Remplacer,置�
 Studio.TerrainToolsV2.ToolName.Replace,Replace,Replace,Reemplazar,Remplacer,置き換え,바꾸기,Substituir, ,替换,替换,取代
 Studio.TerrainToolsV2.Action.Ignore,Ignore,Ignore,Ignorar,Ignorer,無視,무시,Ignorar,Пропустить,忽略,忽略,忽略
 Studio.TerrainToolsV2.Action.Close,Close,Close,Cerrar,Fermer,閉じる,닫기,Fechar,Закрыть,关闭,关闭,關閉
-Studio.TerrainToolsV2.Generate.BiomeHills,Hills,Hills,Colinas,Collines,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
 Studio.TerrainToolsV2.BrushSettings.Advanced,Advanced,Advanced,Avanzado,Avancé,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
 Studio.TerrainToolsV2.Action.Apply,Apply,Apply,Aplicar,Appliquer,適用,적용,Aplicar,Применить,应用,应用,套用
 Studio.TerrainToolsV2.Main.Title,Terrain Editor,Terrain Editor,Editor de terreno,Éditeur terrain,地形エディタ,지형 편집기,Editor de terreno,Редактор рельефа,地形编辑器,地形编辑器,地形編輯器
@@ -95,6 +94,7 @@ Studio.TerrainToolsV2.EditSettings.MergeEmpty,Merge Empty,Merge Empty,Combinar v
 Studio.TerrainToolsV2.EditSettings.EditSettings,Edit Settings,Edit Settings,Editar configuración,Modifier les paramètres,設定を編集,편집 설정,Editar configurações,Изменить параметры,编辑设置,编辑设置,編輯設定
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again","An unexpected thing happened, try again",Ha pasado algo inesperado. Inténtalo de nuevo.,"Une chose inattendue s'est produite, essaie à nouveau",予期しないことが起きました。もう一度お試しください,예기치 못한 문제가 발생했습니다. 다시 시도하세요.,"Ocorreu algo inesperado, tente novamente","Возникла непредвиденная ошибка, попробуйте снова.",发生意外，请重试,发生意外，请重试,發生意外錯誤，請重新嘗試
 Studio.TerrainToolsV2.Generate.BiomeCanyons,Canyons,Canyons,Cañones,Canyons,谷,협곡,Cânions,Каньоны,峡谷,峡谷,峽谷
+Studio.TerrainToolsV2.Generate.BiomeHills,Hills,Hills,Colinas,Collines,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
 Studio.TerrainToolsV2.Generate.BiomeLavascape,Lavascape,Lavascape,Paisaje de lava,Lave,溶岩の景観,용암 지대,Paisagem de lava,Потеки лавы,熔岩景观,熔岩景观,熔岩景觀
 Studio.TerrainToolsV2.Generate.BiomeMarsh,Marsh,Marsh,Pantano,Marécage,沼,습지,Pântano,Болото,沼泽,沼泽,沼澤
 Studio.TerrainToolsV2.Generate.BiomeMountains,Mountains,Mountains,Montañas,Montagnes,山,산,Montanhas,Горы,山脉,山脉,山脈

@@ -32,7 +32,7 @@ void main()
     f11.w = VARYING2.w;
     float f12 = clamp(exp2((CB0[13].z * length(VARYING4.xyz)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f13 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f12) * 5.0).xyz;
-    bvec3 f14 = bvec3(CB0[13].w != 0.0);
+    bvec3 f14 = bvec3(!(CB0[13].w == 0.0));
     vec3 f15 = max(vec3(0.0), mix(vec3(f14.x ? CB0[14].xyz.x : f13.x, f14.y ? CB0[14].xyz.y : f13.y, f14.z ? CB0[14].xyz.z : f13.z), f11.xyz, vec3(f12)).xyz);
     _entryPointOutput = vec4(f15.x, f15.y, f15.z, f11.w);
 }

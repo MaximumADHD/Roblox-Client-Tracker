@@ -1654,6 +1654,32 @@
         {
             "Members": [
                 {
+                    "MemberType": "Function",
+                    "Name": "LoadFromHumanoid",
+                    "Parameters": [
+                        {
+                            "Name": "humanoid",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "AnimationRigData",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Animation",
@@ -2242,6 +2268,25 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "UpdateSettings",
+                    "Parameters": [
+                        {
+                            "Name": "settings",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -10977,6 +11022,24 @@
                     }
                 },
                 {
+                    "Category": "TargetCoordinateFrame",
+                    "MemberType": "Property",
+                    "Name": "CoordindateFrame",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    }
+                },
+                {
                     "Category": "Compliance",
                     "MemberType": "Property",
                     "Name": "MaxAngularVelocity",
@@ -11010,6 +11073,42 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "AlignmentMode",
+                    "MemberType": "Property",
+                    "Name": "Mode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "OrientationAlignmentMode"
+                    }
+                },
+                {
+                    "Category": "TargetOrientation",
+                    "MemberType": "Property",
+                    "Name": "PrimaryAxis",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 },
                 {
@@ -11083,6 +11182,24 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "Category": "TargetOrientation",
+                    "MemberType": "Property",
+                    "Name": "SecondaryAxis",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
                 }
             ],
             "MemoryCategory": "PhysicsParts",
@@ -11143,6 +11260,42 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Category": "AlignmentMode",
+                    "MemberType": "Property",
+                    "Name": "Mode",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PositionAlignmentMode"
+                    }
+                },
+                {
+                    "Category": "AlignPosition",
+                    "MemberType": "Property",
+                    "Name": "Position",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 },
                 {
@@ -11797,7 +11950,7 @@
         {
             "Members": [
                 {
-                    "Category": "LineConstraint",
+                    "Category": "Line",
                     "MemberType": "Property",
                     "Name": "LineDirection",
                     "Security": {
@@ -11815,7 +11968,7 @@
                     }
                 },
                 {
-                    "Category": "LineConstraint",
+                    "Category": "Line",
                     "MemberType": "Property",
                     "Name": "LineVelocity",
                     "Security": {
@@ -11851,7 +12004,7 @@
                     }
                 },
                 {
-                    "Category": "PlaneConstraint",
+                    "Category": "Plane",
                     "MemberType": "Property",
                     "Name": "PlaneVelocity",
                     "Security": {
@@ -11869,7 +12022,7 @@
                     }
                 },
                 {
-                    "Category": "PlaneConstraint",
+                    "Category": "Plane",
                     "MemberType": "Property",
                     "Name": "PrimaryTangentAxis",
                     "Security": {
@@ -11905,7 +12058,7 @@
                     }
                 },
                 {
-                    "Category": "PlaneConstraint",
+                    "Category": "Plane",
                     "MemberType": "Property",
                     "Name": "SecondaryTangentAxis",
                     "Security": {
@@ -11923,7 +12076,7 @@
                     }
                 },
                 {
-                    "Category": "VectorConstraint",
+                    "Category": "Vector",
                     "MemberType": "Property",
                     "Name": "VectorVelocity",
                     "Security": {
@@ -11960,7 +12113,7 @@
                 }
             ],
             "MemoryCategory": "PhysicsParts",
-            "Name": "LinearVelocityConstraint",
+            "Name": "LinearVelocity",
             "Superclass": "Constraint"
         },
         {
@@ -16303,6 +16456,13 @@
                     "Name": "Pause",
                     "Parameters": [
                         {
+                            "Name": "thread",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "ThreadState"
+                            }
+                        },
+                        {
                             "Name": "status",
                             "Type": {
                                 "Category": "DataType",
@@ -16340,6 +16500,13 @@
                     "MemberType": "Function",
                     "Name": "Resume",
                     "Parameters": [
+                        {
+                            "Name": "thread",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "ThreadState"
+                            }
+                        },
                         {
                             "Name": "status",
                             "Type": {
@@ -22084,6 +22251,49 @@
                 "NotCreatable",
                 "NotBrowsable"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "GroupColor",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Transparency",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Gui",
+            "Name": "CanvasGroup",
+            "Superclass": "GuiObject"
         },
         {
             "Members": [
@@ -30622,6 +30832,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetAccessoryHandleScale",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "partType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "BodyPartR15"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetAppliedDescription",
                     "Parameters": [
                     ],
@@ -32752,6 +32988,24 @@
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "FlattenAll",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InvertNegativeFaces",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -38241,6 +38495,478 @@
         {
             "Members": [
                 {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Brick",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Cobblestone",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Concrete",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "CorrodedMetal",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "DiamondPlate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Fabric",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Foil",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Granite",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Grass",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Ice",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Marble",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Metal",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Pebble",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Plastic",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Sand",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Slate",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "SmoothPlastic",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "Wood",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "WoodPlanks",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MaterialService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "BaseMaterial",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "Material"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "ColorMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MetalnessMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "NormalMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "RoughnessMap",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "StudsPerTile",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MaterialVariant",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "Disconnect",
                     "Parameters": [
@@ -41461,6 +42187,24 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "Material"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MaterialVariant",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
                     }
                 },
                 {
@@ -45955,6 +46699,24 @@
                 {
                     "Category": "Behavior",
                     "MemberType": "Property",
+                    "Name": "Retargeting",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "AnimatorRetargetingMode"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
                     "Name": "SignalBehavior",
                     "Security": {
                         "Read": "None",
@@ -47562,9 +48324,9 @@
         {
             "Members": [
                 {
-                    "Category": "Data",
+                    "Category": "State",
                     "MemberType": "Property",
-                    "Name": "IsValid",
+                    "Name": "AllThreadsPaused",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -47610,7 +48372,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "ThreadCount",
+                    "Name": "ThreadId",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -47629,25 +48391,6 @@
                         "Category": "Primitive",
                         "Name": "int"
                     }
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetThread",
-                    "Parameters": [
-                        {
-                            "Name": "index",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -47682,29 +48425,6 @@
                         "Category": "Class",
                         "Name": "Breakpoint"
                     }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "BreakpointThread",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "ThreadState"
-                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -47738,29 +48458,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "ExceptionThread",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Class",
-                        "Name": "ThreadState"
                     }
                 }
             ],
@@ -50959,6 +51656,25 @@
                     "ReturnType": {
                         "Category": "Group",
                         "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RegionCodeWillHaveAutomaticNonCustomPolicies",
+                    "Parameters": [
+                        {
+                            "Name": "regionCode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -58347,7 +59063,7 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Safe"
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -58366,7 +59082,7 @@
                         "Name": "Instance"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Safe"
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -61292,6 +62008,16 @@
             "MemoryCategory": "Instances",
             "Name": "CompressorSoundEffect",
             "Superclass": "SoundEffect"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CustomDspSoundEffect",
+            "Superclass": "SoundEffect",
+            "Tags": [
+                "NotCreatable"
+            ]
         },
         {
             "Members": [
@@ -76676,6 +77402,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "IsContextVoiceEnabled",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "IsPublishPaused",
                     "Parameters": [
                     ],
@@ -76853,6 +77591,25 @@
                                 "Name": "int64"
                             }
                         },
+                        {
+                            "Name": "paused",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribePauseAll",
+                    "Parameters": [
                         {
                             "Name": "paused",
                             "Type": {
@@ -77365,6 +78122,23 @@
                 }
             ],
             "Name": "AnimationPriority"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Disabled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Enabled",
+                    "Value": 2
+                }
+            ],
+            "Name": "AnimatorRetargetingMode"
         },
         {
             "Items": [
@@ -82564,6 +83338,19 @@
         {
             "Items": [
                 {
+                    "Name": "OneAttachment",
+                    "Value": 0
+                },
+                {
+                    "Name": "TwoAttachment",
+                    "Value": 1
+                }
+            ],
+            "Name": "OrientationAlignmentMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "All",
                     "Value": 1
                 },
@@ -83006,6 +83793,19 @@
                 }
             ],
             "Name": "PoseEasingStyle"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "OneAttachment",
+                    "Value": 0
+                },
+                {
+                    "Name": "TwoAttachment",
+                    "Value": 1
+                }
+            ],
+            "Name": "PositionAlignmentMode"
         },
         {
             "Items": [

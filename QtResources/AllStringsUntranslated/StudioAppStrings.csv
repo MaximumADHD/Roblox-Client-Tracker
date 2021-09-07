@@ -578,82 +578,90 @@ Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need hel
 Studio.App.StudioCmdService.PermissionError3,,"The current identity (%1) cannot execute command (%2), lacking permission (%3)
 ","The current identity (%1) cannot execute command (%2), lacking permission (%3)
 "
-Studio.App.GeneralCmd.REPEAT,,Repeat command,Repeat command
+Studio.App.GeneralCmd.REPEAT,,Repeat Command,Repeat Command
 Studio.App.GeneralCmd.REPEATTooltip,,Repeat a command in the command history some number of times,Repeat a command in the command history some number of times
-Studio.App.GeneralCmd.HELP,,Command help,Command help
+Studio.App.GeneralCmd.HELP,,Command Help,Command Help
 Studio.App.GeneralCmd.HELPTooltip,,List all commands with optional filtering,List all commands with optional filtering
-Studio.App.ScriptingCmd.REPLACE,,Replace text,Replace text
+Studio.App.ScriptingCmd.REPLACE,,Replace Text,Replace Text
 Studio.App.ScriptingCmd.REPLACETooltip,,Replace text in an open script,Replace text in an open script
+Studio.App.ScriptingCmd.RELOADSCRIPT,,Reload Script,Reload Script
+Studio.App.ScriptingCmd.RELOADSCRIPTTooltip,,"Reload a script after modifying it, while playing","Reload a script after modifying it, while playing"
 Studio.App.ScriptingCmd.CONFIG,,Config Script Editor,Config Script Editor
 Studio.App.ScriptingCmd.CONFIGTooltip,,Configure the Script Editor,Configure the Script Editor
-Studio.App.ScriptingCmd.INSERT,,Insert text,Insert text
+Studio.App.ScriptingCmd.INSERT,,Insert Text,Insert Text
 Studio.App.ScriptingCmd.INSERTTooltip,,Insert text at the given position,Insert text at the given position
-Studio.App.ScriptingCmd.SELECT,,Select text,Select text
+Studio.App.ScriptingCmd.SELECT,,Select Text,Select Text
 Studio.App.ScriptingCmd.SELECTTooltip,,Select text at the given position,Select text at the given position
-Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle code fold,Toggle code fold
+Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle Code Fold,Toggle Code Fold
 Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
-Studio.App.ScriptingCmd.GOTOPOS,,Go to line,Go to line
-Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to line,Go to line
-Studio.App.ScriptingCmd.GOTODECL,,Go to declaration,Go to declaration
+Studio.App.ScriptingCmd.GOTOPOS,,Go to Position,Go to Position
+Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to a position in the script,Go to a position in the script
+Studio.App.ScriptingCmd.GOTODECL,,Go to Declaration,Go to Declaration
 Studio.App.ScriptingCmd.GOTODECLTooltip,,Go to variable declaration,Go to variable declaration
-Studio.App.ScriptingCmd.GOTOERR,,Go to script error,Go to script error
+Studio.App.ScriptingCmd.GOTOERR,,Go to Script Error,Go to Script Error
 Studio.App.ScriptingCmd.GOTOERRTooltip,,Focus view on script error,Focus view on script error
 Studio.App.ScriptingCmd.INVOKESYMBOLS,,Open Script Function Filter,Open Script Function Filter
 Studio.App.ScriptingCmd.INVOKESYMBOLSTooltip,,Open the Script Function Filter,Open the Script Function Filter
-Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate selection,Duplicate selection
+Studio.App.ScriptingCmd.DUPLICATESELECTION,,Duplicate Selection,Duplicate Selection
 Studio.App.ScriptingCmd.DUPLICATESELECTIONTooltip,,Duplicate current line or selection,Duplicate current line or selection
-Studio.App.ScriptingCmd.DELETELINES,,Delete lines,Delete lines
+Studio.App.ScriptingCmd.DELETELINES,,Delete Lines,Delete Lines
 Studio.App.ScriptingCmd.DELETELINESTooltip,,Delete selected line(s),Delete selected line(s)
-Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to start of line,Delete to start of line
+Studio.App.ScriptingCmd.DELETETOSTARTOFLINE,,Delete to Start of Line,Delete to Start of Line
 Studio.App.ScriptingCmd.DELETETOSTARTOFLINETooltip,,Delete to the start of the current line,Delete to the start of the current line
-Studio.App.ScriptingCmd.FORMATALL,,Format document,Format document
-Studio.App.ScriptingCmd.FORMATALLTooltip,,Format the whole document,Format the whole document
-Studio.App.ScriptingCmd.FOLDALL,,Collapse all folds,Collapse all folds
+Studio.App.ScriptingCmd.FORMATALL,,Format Document,Format Document
+Studio.App.ScriptingCmd.FORMATALLTooltip,,Format the entire document,Format the entire document
+Studio.App.ScriptingCmd.FOLDALL,,Collapse All Folds,Collapse All Folds
 Studio.App.ScriptingCmd.FOLDALLTooltip,,Collapse all foldable sections of scripts,Collapse all foldable sections of scripts
 Studio.App.ScriptingCmd.INDENT,,Indent,Indent
 Studio.App.ScriptingCmd.INDENTTooltip,,Indent selected line(s),Indent selected line(s)
 Studio.App.ScriptingCmd.INVOKECOMPLETIONS,,Invoke Autocomplete,Invoke Autocomplete
 Studio.App.ScriptingCmd.INVOKECOMPLETIONSTooltip,,Invoke the Autocomplete tooltip,Invoke the Autocomplete tooltip
-Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke hover,Invoke hover
+Studio.App.ScriptingCmd.INVOKEHOVER,,Invoke Hover,Invoke Hover
 Studio.App.ScriptingCmd.INVOKEHOVERTooltip,,Invoke the type hover tooltip,Invoke the type hover tooltip
-Studio.App.ScriptingCmd.MOVELINESDOWN,,Move lines down,Move lines down
+Studio.App.ScriptingCmd.MOVELINESDOWN,,Move Lines Down,Move Lines Down
 Studio.App.ScriptingCmd.MOVELINESDOWNTooltip,,Move selected line(s) downwards,Move selected line(s) downwards
-Studio.App.ScriptingCmd.MOVELINESUP,,Move lines up,Move lines up
+Studio.App.ScriptingCmd.MOVELINESUP,,Move Lines Up,Move Lines Up
 Studio.App.ScriptingCmd.MOVELINESUPTooltip,,Move selected line(s) upwards,Move selected line(s) upwards
-Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert newline above,Insert newline above
+Studio.App.ScriptingCmd.NEWLINEABOVE,,Insert Newline Above,Insert Newline Above
 Studio.App.ScriptingCmd.NEWLINEABOVETooltip,,Insert a newline above the current line,Insert a newline above the current line
-Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert newline below,Insert newline below
+Studio.App.ScriptingCmd.NEWLINEBELOW,,Insert Newline Below,Insert Newline Below
 Studio.App.ScriptingCmd.NEWLINEBELOWTooltip,,Insert a newline below the current line,Insert a newline below the current line
-Studio.App.ScriptingCmd.FORMATSEL,,Format selection,Format selection
+Studio.App.ScriptingCmd.FORMATSEL,,Format Selection,Format Selection
 Studio.App.ScriptingCmd.FORMATSELTooltip,,Format selected range of document,Format selected range of document
-Studio.App.ScriptingCmd.UNFOLDALL,,Expand all folds,Expand all folds
+Studio.App.ScriptingCmd.UNFOLDALL,,Expand All Folds,Expand All Folds
 Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the script,Expand all collapsed folds in the script
 Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
 Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
-Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle comment,Toggle comment
+Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
 Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Show the Find / Replace All window,Show the Find / Replace All window
 Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find / Replace All window,Show Find / Replace All window
-Studio.App.ScriptingCmd.SELECTWORD,,Select word,Select word
+Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
 Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
-Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find current word,Find current word
+Studio.App.ScriptingCmd.FINDCURRENTWORD,,Find Current Word,Find Current Word
 Studio.App.ScriptingCmd.FINDCURRENTWORDTooltip,,Find the current word,Find the current word
-Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find current word backwards,Find current word backwards
+Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDS,,Find Current Word Backwards,Find Current Word Backwards
 Studio.App.ScriptingCmd.FINDCURRENTWORDBACKWARDSTooltip,,"Find the current word, searching backwards through the doc","Find the current word, searching backwards through the doc"
-Studio.App.ScriptingCmd.RESETCURSOR,,Reset cursor,Reset cursor
+Studio.App.ScriptingCmd.RESETCURSOR,,Reset Cursor,Reset Cursor
 Studio.App.ScriptingCmd.RESETCURSORTooltip,,Clear text selection and dismiss floating widgets,Clear text selection and dismiss floating widgets
 Studio.App.ScriptingCmd.INVOKESIGNATUREHELP,,Invoke Signature Help,Invoke Signature Help
 Studio.App.ScriptingCmd.INVOKESIGNATUREHELPTooltip,,Invoke the Signature Help widget,Invoke the Signature Help widget
 Studio.App.ScriptingCmd.INVOKECOLOR3PICKER,,Invoke Color3 Picker,Invoke Color3 Picker
 Studio.App.ScriptingCmd.INVOKECOLOR3PICKERTooltip,,Invoke the Color3 Picker widget,Invoke the Color3 Picker widget
-Studio.App.ScriptingCmd.FOLDBLOCK,,Fold code block,Fold code block
+Studio.App.ScriptingCmd.FOLDBLOCK,,Fold Code Block,Fold Code Block
 Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
-Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold code block,Unfold code block
+Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold Code Block,Unfold Code Block
 Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
 Studio.App.RBXMainWindow.AddWatch,,Add Watch,Add Watch
 Studio.App.RBXMainWindow.ConditionElps,,Condition...,Condition...
 Studio.App.RBXMainWindow.EditBreakpointCondition,,Edit Breakpoint Condition,Edit Breakpoint Condition
+Studio.App.RBXMainWindow.EditBreakpointElps,,Edit Breakpoint...,Edit Breakpoint...
+Studio.App.RBXMainWindow.EditBreakpoint,,Edit Breakpoint,Edit Breakpoint
+Studio.App.RBXMainWindow.InsertConditionalBreakpointElps,,Insert Conditional Breakpoint...,Insert Conditional Breakpoint...
+Studio.App.RBXMainWindow.InsertConditionalBreakpoint,,Insert Conditional Breakpoint,Insert Conditional Breakpoint
+Studio.App.RBXMainWindow.InsertLogpointElps,,Insert Logpoint...,Insert Logpoint...
+Studio.App.RBXMainWindow.InsertLogpoint,,Insert Logpoint,Insert Logpoint
 Studio.App.RBXMainWindow.RenamesSelectedObject,,Renames selected object,Renames selected object
 Studio.App.RBXMainWindow.ResetScriptZoom,,Reset Script Zoom,Reset Script Zoom
 Studio.App.RBXMainWindow.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
@@ -2133,6 +2141,10 @@ Studio.App.BetaFeatures.CanQueryTitle,,Part property: CanQuery,Part property: Ca
 Studio.App.BetaFeatures.CanQueryDescription,,Enables property for excluding BaseParts from spatial queries such as raycasts. Only accesible when CanCollide is disabled.,Enables property for excluding BaseParts from spatial queries such as raycasts. Only accesible when CanCollide is disabled.
 Studio.App.BetaFeatures.MinPartSizeTitle,,Lower minimum part size,Lower minimum part size
 Studio.App.BetaFeatures.MinPartSizeDescription,,"Reduces the minimum limit on part sizes from 0.05 to 0.001. Parts can be visually smaller, but will still limit to 0.05 for collision geometry for now.","Reduces the minimum limit on part sizes from 0.05 to 0.001. Parts can be visually smaller, but will still limit to 0.05 for collision geometry for now."
+Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbon Bar Gallery Menu
+Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
+Studio.App.BetaFeatures.PathfindingModifiersTitle,,Pathfinding Modifiers,Pathfinding Modifiers
+Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.

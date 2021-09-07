@@ -14,11 +14,6 @@ Studio.LayeredClothingEditor.Transparency.Title,Transparency,Transparency,Transp
 Studio.LayeredClothingEditor.Select.Prompt,Click the part you want to become the accessory.,Click the part you want to become the accessory.,Haz clic en la pieza que quieres que se transforme en accesorio.,アクセサリにしたいパーツをクリック。,장신구가 될 파트를 클릭하세요.,Clique na parte que você quer que se torne um acessório.,点击你想作为配件的部件。,点击你想作为配件的部件。,點選想要成為飾品的零件。
 Studio.LayeredClothingEditor.Editor.Preview,Preview,Preview,Vista previa,プレビュー,미리 보기,Prévia,预览,预览,預覽
 Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Avatars and Clothing,Edit and Preview Cage Mesh for Avatars and Clothing,Edita y previsualiza la malla de jaula para avatares y ropa,アバターと服装用のケージメッシュの編集とプレビュー,아바타 및 복장용 케이지 메시 편집 및 미리보기,Edite e veja a prévia da malha de gaiola para avatares e roupas,编辑并预览虚拟形象和服装的笼形网格,编辑并预览虚拟形象和服装的笼形网格,編輯並預覽虛擬人偶和服飾的圍籠網格
-Studio.LayeredClothingEditor.AssetType.Hair,Hair,Hair,Pelo,髪,헤어,Cabelo,发型,发型,髮型
-Studio.LayeredClothingEditor.AssetType.Accessory,Accessory,Accessory,Accesorio,アクセサリ,장신구,Acessório,配件,配件,飾品
-Studio.LayeredClothingEditor.AddEditingItemFromExplorer.ControlsPanelBlockerText,Add and avatar or clothing instance from Explorer or workspace.,Add and avatar or clothing instance from Explorer or workspace.,Añadir un avatar o una instancia de ropa del Explorador o del espacio de trabajo,エクスプローラかワークスペースからアバターか服装インスタンスを追加,탐색기 또는 작업 공간에서 아바타 또는 복장 인스턴스를 추가합니다.,Adicionar uma instância de avatar ou roupas do Explorador ou da área de trabalho.,从项目管理器或工作区添加虚拟形象或服装实例。,从项目管理器或工作区添加虚拟形象或服装实例。,從總管或工作區新增虛擬人偶或服飾個體。
-Studio.LayeredClothingEditor.Preview.PanelBlockerAddAnimation,Add a KeyframeSequence Instance from the Explorer,Add a KeyframeSequence Instance from the Explorer,Añadir una instancia KeyframeSequence del Explorador,エクスプローラから KeyframeSequence インスタンスを追加,탐색기에서 KeyframeSequence 인스턴스 추가,Adicionar uma instância KeyframeSequence do Explorador,从项目管理器添加一个 KeyframeSequence 实例,从项目管理器添加一个 KeyframeSequence 实例,從總管新增 KeyframeSequence 個體
-Studio.LayeredClothingEditor.Editor.LatticeTool,Lattice Tool,Lattice Tool,Herramienta de enrejado,格子ツール,격자 도구,Ferramenta treliça,栅格工具,栅格工具,格紋工具
 Studio.LayeredClothingEditor.Editor.Edit,Edit,Edit,Editar,編集,편집,Editar,编辑,编辑,編輯
 Studio.LayeredClothingEditor.Editor.Select,Select,Select,Seleccionar,選択,선택,Selecionar,选择,选择,選擇
 Studio.LayeredClothingEditor.Editor.CageGenerate,Cage Generate,Cage Generate,Generar jaula,ケージ生成,케이지 생성,Gerar gaiola,笼形生成,笼形生成,圍籠生成
@@ -26,6 +21,11 @@ Studio.LayeredClothingEditor.Editor.EditAndPreview,Edit And Preview,Edit And Pre
 Studio.LayeredClothingEditor.ToolSettings.FalloffDistance,Falloff Distance,Falloff Distance,Distancia de desvanecimiento,減衰距離,감쇠 거리,Distância de queda,衰减距离,衰减距离,淡出距離
 Studio.LayeredClothingEditor.AssetType.Sweater,Sweater,Sweater,Suéter,セーター,스웨터,Moletom,毛衣,毛衣,外套
 Studio.LayeredClothingEditor.AssetType.LeftShoulder,Left Shoulder,Left Shoulder,Hombro izquierdo,左肩,왼쪽 어깨,Ombro esquerdo,左肩,左肩,左肩
+Studio.LayeredClothingEditor.AssetType.Hair,Hair,Hair,Pelo,髪,헤어,Cabelo,发型,发型,髮型
+Studio.LayeredClothingEditor.AssetType.Accessory,Accessory,Accessory,Accesorio,アクセサリ,장신구,Acessório,配件,配件,飾品
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.ControlsPanelBlockerText,Add and avatar or clothing instance from Explorer or workspace.,Add and avatar or clothing instance from Explorer or workspace.,Añadir un avatar o una instancia de ropa del Explorador o del espacio de trabajo,エクスプローラかワークスペースからアバターか服装インスタンスを追加,탐색기 또는 작업 공간에서 아바타 또는 복장 인스턴스를 추가합니다.,Adicionar uma instância de avatar ou roupas do Explorador ou da área de trabalho.,从项目管理器或工作区添加虚拟形象或服装实例。,从项目管理器或工作区添加虚拟形象或服装实例。,從總管或工作區新增虛擬人偶或服飾個體。
+Studio.LayeredClothingEditor.Preview.PanelBlockerAddAnimation,Add a KeyframeSequence Instance from the Explorer,Add a KeyframeSequence Instance from the Explorer,Añadir una instancia KeyframeSequence del Explorador,エクスプローラから KeyframeSequence インスタンスを追加,탐색기에서 KeyframeSequence 인스턴스 추가,Adicionar uma instância KeyframeSequence do Explorador,从项目管理器添加一个 KeyframeSequence 实例,从项目管理器添加一个 KeyframeSequence 实例,從總管新增 KeyframeSequence 個體
+Studio.LayeredClothingEditor.Editor.LatticeTool,Lattice Tool,Lattice Tool,Herramienta de enrejado,格子ツール,격자 도구,Ferramenta treliça,栅格工具,栅格工具,格紋工具
 Studio.LayeredClothingEditor.AssetType.LeftShoe,LeftShoe,LeftShoe,Zapato izquierdo,LeftShoe,LeftShoe,LeftShoe,左脚鞋,左脚鞋,左鞋
 Studio.LayeredClothingEditor.Editor.RingTool,Ring Tool,Ring Tool,Herramienta de anillo,リングツール,링 도구,Ferramenta anel,环形工具,环形工具,圓環工具
 Studio.LayeredClothingEditor.ToolSettings.LocalAlignment,Local Alignment,Local Alignment,Alineación local,ローカル整列,로컬 정렬,Alinhamento local,本地对齐,本地对齐,局部對齊
@@ -77,8 +77,8 @@ Studio.LayeredClothingEditor.Generate.Prompt,The asset is ready.,The asset is re
 Studio.LayeredClothingEditor.Dialog.Confirm,Confirm,Confirm,Confirmar,確定,확인,Confirmar,确认,确认,確認
 Studio.LayeredClothingEditor.Actions.Undo,Undo,Undo,Deshacer,元に戻す,실행 취소,Desfazer,撤消,撤消,復原
 Studio.LayeredClothingEditor.Actions.ToggleTransform,Toggle Transform,Toggle Transform,Alternar transformar,変形を切り替え,변형 토글,Alternar transformar,切换变形,切换变形,新增轉換
-Studio.LayeredClothingEditor.ToolSettings.Subdivisions,Subdivisions,Subdivisions,Subdivisiones,部分,세분화,Subdivisões,分部,分部,細分
 Studio.LayeredClothingEditor.Actions.SelectLattice,Select Lattice,Select Lattice,Seleccionar enrejado,格子を選択,격자 선택,Selecionar treliça,选择栅格,选择栅格,選擇格紋
+Studio.LayeredClothingEditor.ToolSettings.Subdivisions,Subdivisions,Subdivisions,Subdivisiones,部分,세분화,Subdivisões,分部,分部,細分
 Studio.LayeredClothingEditor.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?,El enrejado anterior en este deformador será reemplazado. Cualquier transformación en el enrejado se sobrescribirá. ¿Proceder?,この変形器の前の格子は置き換えられます。格子上のすべての変形がオーバーライトされます。続行しますか？,이 디포머의 이전 격자가 교체됩니다. 격자의 모든 변형을 덮어씁니다. 진행할까요?,A treliça anterior neste deformador será substituída. Quaisquer transformações na treliça serão substituídas. Continuar?,此变形器的先前栅格将被替换。此栅格的任何变形都将被覆盖。继续吗？,此变形器的先前栅格将被替换。此栅格的任何变形都将被覆盖。继续吗？,此變形器的前一個紋格將被取代。紋格上所有變形將被覆寫。繼續？
 Studio.LayeredClothingEditor.SelectItem.Delete,Delete,Delete,Eliminar,削除,삭제,Excluir,删除,删除,刪除
 Studio.LayeredClothingEditor.EditingMode.Text,Editing,Editing,Editar,編集,편집 중,Editando,正在编辑,正在编辑,編輯
@@ -93,4 +93,4 @@ Studio.LayeredClothingEditor.Transparency.OuterCage,OuterCage,OuterCage,Jaula ex
 Studio.LayeredClothingEditor.Transparency.InnerCage,InnerCage,InnerCage,Jaula interna,InnerCage,InnerCage,InnerCage,InnerCage,InnerCage,內圍籠
 Studio.LayeredClothingEditor.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!,Layered Clothing Editor cannot be used while game is running!,El Editor de ropa en capas no se puede usar mientras se esté ejecutando el juego.,ゲームの実行中は重ね着服装エディタを使用できません！,게임 실행 중에는 레이어드 복장 편집기를 사용할 수 없습니다!,O Editor de roupa em camadas não pode ser usado quando um jogo estiver rodando!,游戏运行时无法使用层叠服装编辑器！,游戏运行时无法使用层叠服装编辑器！,遊戲運行時無法多層服飾編輯器！
 Studio.LayeredClothingEditor.Reset.InnerCage,Reset Inner Cage,Reset Inner Cage,Restablecer jaula interna,ケージの内側を再設定,내부 케이지 재설정,Redefinir gaiola interna,重置内层笼形,重置内层笼形,重置內圍籠
-Studio.LayeredClothingEditor.Editor.ResumeEditing,Click here to resume editing cages.,Click here to resume editing cages., , , , , , , 
+Studio.LayeredClothingEditor.Editor.ResumeEditing,Click here to resume editing cages.,Click here to resume editing cages.,Haz clic aquí para reanudar la edición de las jaulas.,ケージ編集を再開するにはこちらをクリック。,케이지 편집을 재개하려면 여기를 클릭하세요.,Clique aqui para voltar a editar gaiolas., , ,點擊此處繼續編輯圍籠。

@@ -1135,7 +1135,7 @@
         <string name="Name">LinearVelocity</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
-        <string name="ExplorerImageIndex">101</string>
+        <string name="ExplorerImageIndex">132</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
 		<Item class="ReflectionMetadataProperties">
@@ -3870,6 +3870,35 @@
           </Properties>
         </Item>
       </Item>
+    </Item>
+    
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">MaterialVariant</string>
+        <string name="ClassCategory">3D Interfaces</string>
+        <string name="ExplorerOrder">41</string>
+        <string name="ExplorerImageIndex">130</string>
+        <string name="FFlag">ShowMaterialVariantInStudio</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">StudsPerTile</string>
+            <double name="UIMinimum">0.1</double>
+            <double name="UIMaximum">20</double>
+            <double name="UINumTicks">200</double>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">MaterialService</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">131</string>
+        <string name="FFlag">ShowMaterialServiceInStudio</string>
+      </Properties>
     </Item>
 
     <Item class="ReflectionMetadataClass">

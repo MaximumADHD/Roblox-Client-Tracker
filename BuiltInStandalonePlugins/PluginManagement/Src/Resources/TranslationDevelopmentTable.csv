@@ -1,10 +1,10 @@
 Key,Source,en-us
 Studio.PluginInstallation.Details.HttpRequests,HTTP Requests,HTTP Requests
 Studio.PluginInstallation.PluginEntry.HttpRequest,HTTP Requests,HTTP Requests
-Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin.","By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
-Studio.PluginInstallation.DialogTitle.InstallPlugin,Installing plugin,Installing plugin
 Studio.PluginInstallation.PluginEntry.ScriptInjectionAllowed,Script Injection Allowed,Script Injection Allowed
 Studio.PluginInstallation.Details.ScriptInjectionInfo,"By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin.","By allowing Script Injection, this plugin may insert or modify scripts that perform malicious actions anywhere in your game (scripts can pretty much do anything). Disabling Script Injection might result in a non-working plugin."
+Studio.PluginInstallation.DialogTitle.InstallPlugin,Installing plugin,Installing plugin
+Studio.PluginInstallation.Details.HttpRequestInfo,"By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin.","By allowing HTTP requests, 3rd party developers are able to gather information on your machine. These might be harmless (such as crash logs) or malicious (such as gathering information on your game's scripts). Disabling HTTP requests might result in a non-working plugin."
 Studio.PluginInstallation.Dialog.Ok,OK,OK
 Studio.PluginInstallation.Progress.Completed,Installation Complete!,Installation Complete!
 Studio.PluginInstallation.Details.ScriptInjection,Script Injection,Script Injection

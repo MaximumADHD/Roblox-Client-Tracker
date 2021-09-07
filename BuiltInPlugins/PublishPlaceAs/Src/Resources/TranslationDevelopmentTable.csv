@@ -7,14 +7,14 @@ Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence, ,Intense Viol
 Studio.PublishPlaceAs.General.PublishGame,Publish Game, ,Publish Game
 Studio.PublishPlaceAs.General.SaveGame,Save Game, ,Save Game
 Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement, ,Content Agreement
-Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,Tablet
-Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing)
 Studio.PublishPlaceAs.Button.Retry,Retry, ,Retry
 Studio.PublishPlaceAs.Button.ReplyDisagree,Disagree, ,Disagree
 Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?
 Studio.PublishPlaceAs.Genre.TownAndCity,Town and City, ,Town and City
 Studio.PublishPlaceAs.GroupDropdown.Me,Me, ,Me
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
+Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,Tablet
+Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing)
 Studio.PublishPlaceAs.Devices.Header,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Devices,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,Genre
@@ -44,7 +44,6 @@ Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,Agree
 Studio.PublishPlaceAs.Button.Close,Close, ,Close
 Studio.PublishPlaceAs.Button.Submit,Submit, ,Submit
 Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file..., ,Save to file...
-Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device., ,You must select at least one playable device.
 Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,Update existing game...
 Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.
 Studio.PublishPlaceAs.FooterButton.Create,Create, ,Create
@@ -70,6 +69,7 @@ Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi, ,Sci-Fi
 Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty., ,Name cannot be empty.
 Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},Substituted with current description length and max description length,{1}/{2}
 Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},Substituted with current name length and max name length,{1}/{2}
+Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device., ,You must select at least one playable device.
 Studio.PublishPlaceAs.Error.GetConfiguration,Error getting universe configuration info., ,Error getting universe configuration info.
 Studio.PublishPlaceAs.Error.SetConfiguration,Error setting universe configuration info., ,Error setting universe configuration info.
 Studio.PublishPlaceAs.Error.SetRootPlaceInfo,Error setting root place info., ,Error setting root place info.

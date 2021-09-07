@@ -104,8 +104,8 @@ Studio.GameSettings.General.UseTranslatedContentTitle,Use Translated Content, ,U
 Studio.GameSettings.General.PublishIsRequiredSentence1, is required for {requiredForWhat}, , is required for {requiredForWhat}
 Studio.GameSettings.AccessPermissions.PlayDescription,Can play this game, ,Can play this game
 Studio.GameSettings.Permissions.PlayDescription,Can play this game, ,Can play this game
-Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox
 Studio.GameSettings.General.GenreFighting,Fighting, ,Fighting
+Studio.GameSettings.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends on Roblox
 Studio.GameSettings.General.ErrorDevSubFiltered,Filtered to {filteredText}, ,Filtered to {filteredText}
 Studio.GameSettings.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game
 Studio.GameSettings.Monetization.OverPrivateServerSubscriptions,There are currently over {numOfSubscriptions:int} Private Server Subscriptions active for this place., ,There are currently over {numOfSubscriptions:int} Private Server Subscriptions active for this place.

@@ -1,0 +1,9 @@
+Key,en-us
+Studio.AssetImporter.Plugin.Browse,Browse...
+Studio.AssetImporter.Plugin.Button,Import
+Studio.AssetImporter.Plugin.Description,Import an FBX file using the Mesh Importer.
+Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
+Studio.AssetImporter.Plugin.Name,AssetImporter
+Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
+Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
+Studio.AssetImporter.TreeViewToolbar.Expand,Expand

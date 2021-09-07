@@ -80,7 +80,7 @@ void main()
     f55.w = 1.0;
     float f56 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f57 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f56) * 5.0).xyz;
-    bvec3 f58 = bvec3(CB0[13].w != 0.0);
+    bvec3 f58 = bvec3(!(CB0[13].w == 0.0));
     vec3 f59 = sqrt(clamp(mix(vec3(f58.x ? CB0[14].xyz.x : f57.x, f58.y ? CB0[14].xyz.y : f57.y, f58.z ? CB0[14].xyz.z : f57.z), f55.xyz, vec3(f56)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))));
     vec4 f60 = vec4(f59.x, f59.y, f59.z, f55.w);
     f60.w = 1.0;

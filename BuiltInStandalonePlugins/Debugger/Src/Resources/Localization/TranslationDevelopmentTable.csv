@@ -11,7 +11,9 @@ Studio.Debugger.EditDebugpoint.OptionsLabel,Options,Options
 Studio.Debugger.Plugin.Description,Toggles the Debugger plugin window.,Toggles the Debugger plugin window.
 Studio.Debugger.Watch.WindowName,Watch,Watch
 Studio.Debugger.Watch.DropdownButtonText,{NumScopes:int} Scopes,{NumScopes:int} Scopes
+Studio.Debugger.BreakpointsWindow.EditBreakpoint,Edit Breakpoint,Edit Breakpoint
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint
+Studio.Debugger.BreakpointsWindow.DeleteLogpoint,Delete Logpoint,Delete Logpoint
 Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script
 Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message
@@ -25,6 +27,7 @@ Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter con
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
 Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
 Studio.Debugger.Callstack.FrameColumn,Frame,Frame
+Studio.Debugger.BreakpointsWindow.EnableLogpoint,Enable Logpoint,Enable Logpoint
 Studio.Debugger.Callstack.LayerColumn,Layer,Layer
 Studio.Debugger.Callstack.FunctionColumn,Function,Function
 Studio.Debugger.Watch.DataTypeColumn,Data Type,Data Type
@@ -33,9 +36,14 @@ Studio.Debugger.BreakpointsWindow.LineColumn,Line,Line
 Studio.Debugger.Callstack.LineColumn,Line,Line
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: 
 Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
+Studio.Debugger.BreakpointsWindow.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint
 Studio.Debugger.Common.SelectAll,Select All,Select All
 Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
+Studio.Debugger.BreakpointsWindow.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint
+Studio.Debugger.BreakpointsWindow.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint
+Studio.Debugger.BreakpointsWindow.EditLogpoint,Edit Logpoint,Edit Logpoint
+Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
 Studio.Debugger.Watch.Global,Global,Global

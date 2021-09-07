@@ -85,7 +85,7 @@ void main()
     f57.w = 1.0;
     float f58 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f59 = textureLod(PrefilteredEnvTexture, vec4(-VARYING8, 0.0).xyz, max(CB0[13].y, f58) * 5.0).xyz;
-    bvec3 f60 = bvec3(CB0[13].w != 0.0);
+    bvec3 f60 = bvec3(!(CB0[13].w == 0.0));
     vec3 f61 = sqrt(clamp(mix(vec3(f60.x ? CB0[14].xyz.x : f59.x, f60.y ? CB0[14].xyz.y : f59.y, f60.z ? CB0[14].xyz.z : f59.z), f57.xyz, vec3(f58)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     _entryPointOutput = vec4(f61.x, f61.y, f61.z, f57.w);
 }

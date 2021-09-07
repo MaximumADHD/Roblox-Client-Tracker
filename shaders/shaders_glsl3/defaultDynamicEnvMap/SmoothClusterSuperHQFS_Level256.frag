@@ -177,7 +177,7 @@ void main()
     f114.w = 1.0;
     float f115 = clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f116 = textureLod(PrefilteredEnvTexture, vec4(-VARYING9, 0.0).xyz, max(CB0[13].y, f115) * 5.0).xyz;
-    bvec3 f117 = bvec3(CB0[13].w != 0.0);
+    bvec3 f117 = bvec3(!(CB0[13].w == 0.0));
     vec3 f118 = sqrt(clamp(mix(vec3(f117.x ? CB0[14].xyz.x : f116.x, f117.y ? CB0[14].xyz.y : f116.y, f117.z ? CB0[14].xyz.z : f116.z), f114.xyz, vec3(f115)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     _entryPointOutput = vec4(f118.x, f118.y, f118.z, f114.w);
 }

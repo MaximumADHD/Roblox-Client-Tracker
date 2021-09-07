@@ -13,39 +13,41 @@ void main()
 {
     vec4 f0 = textureLod(depthBufferTexture, vec4(VARYING0, 0.0, 0.0).xy, 0.0);
     float f1 = f0.x;
-    vec4 f2 = (texture(randMapTexture, fract((VARYING0 * CB1[0].xy) * vec2(0.25))) * 2.0) - vec4(1.0);
-    float f3 = f2.y;
-    vec2 f4 = clamp(CB1[1].xy * (0.0040000001899898052215576171875 / f1), CB1[0].zw * 10.0, CB1[0].zw * 100.0);
-    float f5 = log2(0.100000001490116119384765625 * length(f4 * CB1[0].xy)) - 2.0;
-    float f6;
-    float f7;
-    vec2 f8;
-    f8 = vec2(0.0);
-    f7 = 2.0;
-    f6 = 1.0;
-    for (int f9 = 0; f9 < 8; )
+    vec4 f2 = texture(randMapTexture, fract((VARYING0 * CB1[0].xy) * vec2(0.25)));
+    vec4 f3 = (f2 * 2.0) - vec4(1.0);
+    float f4 = f3.y;
+    mat2 f5 = mat2(vec2(f4, f3.x), vec2(-f3.x, f4));
+    vec2 f6 = clamp(CB1[1].xy * (0.0040000001899898052215576171875 / f1), CB1[0].zw * 10.0, CB1[0].zw * 100.0);
+    float f7 = log2(0.100000001490116119384765625 * length(f6 * CB1[0].xy)) - 2.0;
+    float f8;
+    float f9;
+    vec2 f10;
+    f10 = vec2(0.0);
+    f9 = 2.0;
+    f8 = 1.0;
+    for (int f11 = 0; f11 < 8; )
     {
-        float f10 = float(f9);
-        float f11 = f10 + 1.0;
-        float f12 = f11 * 0.100000001490116119384765625;
-        float f13 = f10 * 0.78539812564849853515625;
-        float f14 = f11 * 0.010000000707805156707763671875;
-        vec2 f15 = ((vec2(cos(f13), sin(f13)) * f12) * mat2(vec2(f3, f2.x), vec2(-f2.x, f3))) * f4;
-        vec2 f16 = f8;
-        f16.x = textureLod(depthBufferTexture, vec4(VARYING0 + f15, 0.0, f5).xy, f5).x;
-        vec2 f17 = f16;
-        f17.y = textureLod(depthBufferTexture, vec4(VARYING0 - f15, 0.0, f5).xy, f5).x;
-        vec2 f18 = ((f17 - vec2(f1)) * (124.99999237060546875 / sqrt(1.0 - (f12 * f12)))) + vec2(0.5);
-        float f19 = f18.x;
-        float f20 = f18.y;
-        float f21 = clamp(min(f19, f20) + 0.75, 0.0, 1.0);
-        f8 = f17;
-        f7 += (2.0 * f21);
-        f6 += ((clamp(f19 + f14, 0.0, 1.0) + clamp(f20 + f14, 0.0, 1.0)) * f21);
-        f9++;
+        float f12 = float(f11);
+        float f13 = f12 + 1.0;
+        float f14 = f13 * 0.100000001490116119384765625;
+        float f15 = f12 * 0.78539812564849853515625;
+        float f16 = f13 * 0.010000000707805156707763671875;
+        vec2 f17 = ((vec2(cos(f15), sin(f15)) * f14) * f5) * f6;
+        vec2 f18 = f10;
+        f18.x = textureLod(depthBufferTexture, vec4(VARYING0 + f17, 0.0, f7).xy, f7).x;
+        vec2 f19 = f18;
+        f19.y = textureLod(depthBufferTexture, vec4(VARYING0 - f17, 0.0, f7).xy, f7).x;
+        vec2 f20 = ((f19 - vec2(f1)) * (124.99999237060546875 / sqrt(1.0 - (f14 * f14)))) + vec2(0.5);
+        float f21 = f20.x;
+        float f22 = f20.y;
+        float f23 = clamp(min(f21, f22) + 0.75, 0.0, 1.0);
+        f10 = f19;
+        f9 += (2.0 * f23);
+        f8 += ((clamp(f21 + f16, 0.0, 1.0) + clamp(f22 + f16, 0.0, 1.0)) * f23);
+        f11++;
         continue;
     }
-    _entryPointOutput = vec4((f1 > 0.9900000095367431640625) ? 1.0 : pow(clamp((f6 / f7) * 2.0, 0.0, 1.0), 1.0), f1, 0.0, 1.0);
+    _entryPointOutput = vec4((f1 > 0.9900000095367431640625) ? 1.0 : pow(clamp((f8 / f9) * 2.0, 0.0, 1.0), 1.0), f1, 0.0, 1.0);
 }
 
 //$$depthBufferTexture=s0

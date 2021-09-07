@@ -41,7 +41,7 @@ void main()
     }
     vec4 f6 = vec4(mix(VARYING2.xyz, f3.xyz, vec3(f4)), VARYING2.w);
     vec4 f7 = vec4(f3.xyz, VARYING2.w * f4);
-    bvec4 f8 = bvec4(CB3[0].x != 0.0);
+    bvec4 f8 = bvec4(!(CB3[0].x == 0.0));
     vec4 f9 = vec4(f8.x ? f6.x : f7.x, f8.y ? f6.y : f7.y, f8.z ? f6.z : f7.z, f8.w ? f6.w : f7.w);
     vec4 f10 = texture(NormalMapTexture, VARYING0);
     vec2 f11 = f10.wy * 2.0;
@@ -138,7 +138,7 @@ void main()
     f91.w = f90;
     float f92 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f93 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f92) * 5.0).xyz;
-    bvec3 f94 = bvec3(CB0[13].w != 0.0);
+    bvec3 f94 = bvec3(!(CB0[13].w == 0.0));
     vec3 f95 = sqrt(clamp(mix(vec3(f94.x ? CB0[14].xyz.x : f93.x, f94.y ? CB0[14].xyz.y : f93.y, f94.z ? CB0[14].xyz.z : f93.z), f91.xyz, vec3(f92)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * f5));
     vec4 f96 = vec4(f95.x, f95.y, f95.z, f91.w);
     f96.w = f90;

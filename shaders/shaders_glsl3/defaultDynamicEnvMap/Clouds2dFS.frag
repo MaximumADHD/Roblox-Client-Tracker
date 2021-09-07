@@ -82,7 +82,7 @@ void main()
     }
     float f44 = pow(max(exp2((CB0[13].z * 3.5714285373687744140625) * (f10 * f10)), 9.9999997473787516355514526367188e-05), 0.125);
     vec3 f45 = textureLod(PrefilteredEnvTexture, vec4(f4, 0.0).xyz, max(CB0[13].y, f44) * 5.0).xyz;
-    bvec3 f46 = bvec3(CB0[13].w != 0.0);
+    bvec3 f46 = bvec3(!(CB0[13].w == 0.0));
     vec3 f47 = mix(vec3(f46.x ? CB0[14].xyz.x : f45.x, f46.y ? CB0[14].xyz.y : f45.y, f46.z ? CB0[14].xyz.z : f45.z), f24.xyz, vec3(f44));
     float f48 = 1.0 - f23;
     vec4 f49 = vec4(f47.x, f47.y, f47.z, f24.w);

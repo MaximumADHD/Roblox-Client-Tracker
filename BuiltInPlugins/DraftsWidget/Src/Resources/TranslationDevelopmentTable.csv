@@ -7,10 +7,10 @@ Studio.Drafts.Tooltip.DraftCommitted,Draft successfully committed,Draft successf
 Studio.Drafts.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again","An unexpected thing happened, try again"
 Studio.Drafts.ContextMenu.ShowDiff,Compare with server,Compare with server
 Studio.Drafts.Main.NoDrafts,(Empty),(Empty)
-Studio.Drafts.ContextMenu.Update,Merge from server,Merge from server
 Studio.Drafts.DiscardDialog.ConfirmQuestion,Are you sure you want to discard your uncommited edits to the following scripts?,Are you sure you want to discard your uncommited edits to the following scripts?
 Studio.Drafts.ContextMenu.Commit,Commit,Commit
 Studio.Drafts.Toolbar.CommitButton,Commit,Commit
+Studio.Drafts.ContextMenu.Update,Merge from server,Merge from server
 Studio.Drafts.StatusText.Saved,Saved,Saved
 Studio.Drafts.ContextMenu.Restore,Restore Script,Restore Script
 Studio.Drafts.ContextMenu.Revert,Discard Draft,Discard Draft

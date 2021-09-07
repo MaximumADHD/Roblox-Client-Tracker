@@ -32,7 +32,7 @@ void main()
     }
     vec4 f4 = vec4(mix(VARYING2.xyz, f2.xyz, vec3(f3)), VARYING2.w);
     vec4 f5 = vec4(f2.xyz, VARYING2.w * f3);
-    bvec4 f6 = bvec4(CB3[0].x != 0.0);
+    bvec4 f6 = bvec4(!(CB3[0].x == 0.0));
     vec4 f7 = vec4(f6.x ? f4.x : f5.x, f6.y ? f4.y : f5.y, f6.z ? f4.z : f5.z, f6.w ? f4.w : f5.w);
     vec2 f8 = texture2D(NormalMapTexture, VARYING0).wy * 2.0;
     vec2 f9 = f8 - vec2(1.0);

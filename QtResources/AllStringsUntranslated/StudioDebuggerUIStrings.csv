@@ -1,0 +1,23 @@
+Key,Context,Source,en-us
+Studio.App.BreakpointEditDialog.BreakpointEditor,,Edit Breakpoint,Edit Breakpoint
+Studio.App.BreakpointEditDialog.ScriptLocation2,,%1: line %2,%1: line %2
+Studio.App.BreakpointEditDialog.BreakpointEnabled,,Enabled,Enabled
+Studio.App.BreakpointEditDialog.Condition,,Condition,Condition
+Studio.App.BreakpointEditDialog.ConditionTooltip,,"If the conditional expression is evaluated to true (or missing), breakpoint execution will pause or the specified actions will occur.","If the conditional expression is evaluated to true (or missing), breakpoint execution will pause or the specified actions will occur."
+Studio.App.BreakpointEditDialog.ConditionPlaceholder,,Example: n == 42,Example: n == 42
+Studio.App.BreakpointEditDialog.LogExpression,,Log Message,Log Message
+Studio.App.BreakpointEditDialog.LogExpressionTooltip,,The log message will be displayed in the Output widget when a Logpoint is hit.,The log message will be displayed in the Output widget when a Logpoint is hit.
+Studio.App.BreakpointEditDialog.LogExpressionPlaceholder,,"Example: ""The value of n:"", n","Example: ""The value of n:"", n"
+Studio.App.BreakpointEditDialog.Options,,Options,Options
+Studio.App.BreakpointEditDialog.ContinueExecution,,Continue Execution,Continue Execution
+Studio.App.BreakpointEditDialog.TriggerAt,,Trigger At,Trigger At
+Studio.App.BreakpointEditDialog.AllContext,,All Context,All Context
+Studio.App.BreakpointEditDialog.CurrentContext,,Current Context,Current Context
+Studio.App.BreakpointEditDialog.CustomContext,,Custom Context,Custom Context
+Studio.App.BreakpointEditDialog.ClientCustomContext,,Client,Client
+Studio.App.BreakpointEditDialog.ServerCustomContext,,Server,Server
+Studio.App.BreakpointEditDialog.EditCustomContext,,Edit,Edit
+Studio.App.BreakpointEditDialog.InvalidConditionErrorMessage1,,Operation '%1' is not allowed for conditional breakpoints,Operation '%1' is not allowed for conditional breakpoints
+Studio.App.BreakpointEditDialog.ConditionRevertedMessage1,,Invalid breakpoint condition '%1' entered previously has been reverted. Please edit again if required.,Invalid breakpoint condition '%1' entered previously has been reverted. Please edit again if required.
+Studio.App.BreakpointEditDialog.InvalidLogExpressionErrorMessage1,,Operation '%1' is not allowed for log expression,Operation '%1' is not allowed for log expression
+Studio.App.BreakpointEditDialog.LogExpressionRevertedMessage1,,Invalid log expression '%1' entered previously has been reverted. Please edit again if required.,Invalid log expression '%1' entered previously has been reverted. Please edit again if required.

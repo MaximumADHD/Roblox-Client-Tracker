@@ -111,7 +111,7 @@ Máx.: {maxDimensionsX} x {maxDimensionsY},Допустимые файлы: {for
 Configurar recurso,Configurer élément,アセットの環境設定,애셋 구성,Configurar recurso,Настроить ресурс,配置素材,配置素材,設定素材,Studio.Toolbox.General.RightClickMenuEditAsset,Edit Asset, ,Edit Asset
 Editar recurso,Modifier élément,アセットを編集,애셋 편집,Editar recurso,Изменить ресурс,编辑素材,编辑素材,編輯素材,Studio.Toolbox.General.RightClickMenuReport,Report, ,Report
 Reportar,Reporter,報告,신고,Informar,Отчет,举报,举报,舉報,Studio.Toolbox.AssetUploadResult.Back,Back, ,Back
- , , , , , , , , ,Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review
+Volver, ,戻る,뒤로,Voltar, ,返回,返回,返回,Studio.Toolbox.General.StatusReviewPending,In Review, ,In Review
 En revisión,En révision,レビュー中,검토 중,Sob revisão,На рассмотрении,审核中,审核中,審查中,Studio.Toolbox.ThumbnailStatus.InReview,In Review, ,In Review
 En revisión,En révision,レビュー中,검토 중,Sob revisão,На рассмотрении,审核中,审核中,審查中,Studio.Toolbox.General.StatusModerated,Rejected, ,Rejected
 Rechazado,Rejeté,却下済み,거부됨,Rejeitado,Отклонено,已拒绝,已拒绝,遭拒,Studio.Toolbox.General.StatusDelayedRelease,Ready For Sale, ,Ready For Sale

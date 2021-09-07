@@ -55,7 +55,7 @@ void main()
     float f23 = CB0[26].w * f3;
     float f24 = max(CB2[0].y, 0.04500000178813934326171875);
     vec3 f25 = reflect(-f1, f11);
-    float f26 = (VARYING7.w != 0.0) ? 0.0 : (f24 * 5.0);
+    float f26 = (!(VARYING7.w == 0.0)) ? 0.0 : (f24 * 5.0);
     vec3 f27 = vec4(f25, f26).xyz;
     vec3 f28 = textureLod(PrefilteredEnvTexture, f27, f26).xyz * mix(CB0[26].xyz, CB0[25].xyz, vec3(clamp(f25.y * 1.58823525905609130859375, 0.0, 1.0)));
     vec4 f29 = texture(PrecomputedBRDFTexture, vec2(f24, max(9.9999997473787516355514526367188e-05, dot(f11, f1))));
@@ -93,7 +93,7 @@ void main()
     f60.w = VARYING2.w;
     float f61 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f62 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f61) * 5.0).xyz;
-    bvec3 f63 = bvec3(CB0[13].w != 0.0);
+    bvec3 f63 = bvec3(!(CB0[13].w == 0.0));
     vec3 f64 = sqrt(clamp(mix(vec3(f63.x ? CB0[14].xyz.x : f62.x, f63.y ? CB0[14].xyz.y : f62.y, f63.z ? CB0[14].xyz.z : f62.z), f60.xyz, vec3(f61)).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) + vec3((-0.00048828125) + (0.0009765625 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))))));
     vec4 f65 = vec4(f64.x, f64.y, f64.z, f60.w);
     f65.w = VARYING2.w;

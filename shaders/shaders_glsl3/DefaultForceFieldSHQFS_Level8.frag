@@ -28,7 +28,7 @@ void main()
     vec4 f9 = vec4(VARYING2.xyz * VARYING2.xyz, f8);
     float f10 = clamp(exp2((CB0[13].z * f3) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f11 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f10) * 5.0).xyz;
-    bvec3 f12 = bvec3(CB0[13].w != 0.0);
+    bvec3 f12 = bvec3(!(CB0[13].w == 0.0));
     vec3 f13 = mix(vec3(f12.x ? CB0[14].xyz.x : f11.x, f12.y ? CB0[14].xyz.y : f11.y, f12.z ? CB0[14].xyz.z : f11.z), f9.xyz, vec3(f10));
     float f14 = f10 * f8;
     vec4 f15 = vec4(f13.x, f13.y, f13.z, f9.w);

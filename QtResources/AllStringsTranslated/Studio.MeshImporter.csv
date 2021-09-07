@@ -1,0 +1,9 @@
+Key,Context,Example,Source,en-us,de-de,es-es,fr-fr,id-id,it-it,ja-jp,ko-kr,pt-br,ru-ru,th-th,tr-tr,vi-vn,zh-cjv,zh-cn,zh-tw
+Studio.MeshImporter.Plugin.Name,,,MeshImporter,MeshImporter,,MeshImporter,,,,MeshImporter,MeshImporter,MeshImporter,,,,,MeshImporter,MeshImporter,MeshImporter
+Studio.MeshImporter.Plugin.Toolbar,,,Mesh Importer,Mesh Importer,,Importador de malla,,,,メッシュインポーター,메시 임포터,Importador de malha,,,,,网格导入器,网格导入器,網格匯入器
+Studio.MeshImporter.Plugin.Button,,,Import,Import,,Importar,,,,インポート,가져오기,Importar,,,,,导入,导入,匯入
+Studio.MeshImporter.Plugin.Description,,,Import an FBX file using the Mesh Importer.,Import an FBX file using the Mesh Importer.,,Importa un archivo FBX usando el Importador de malla.,,,,メッシュインポーターを使って FBX ファイル をインポート。,메시 임포터를 사용해 FBX 파일을 가져옵니다.,Importa um arquivo FBX usando o Importador de malha.,,,,,用网格导入器导入一个 FBX 文件。,用网格导入器导入一个 FBX 文件。,使用網格匯入氣匯入 FBX 檔案。
+Studio.MeshImporter.Plugin.Browse,,,Browse...,Browse...,,Buscar...,,,,閲覧する...,둘러보기...,Procurar...,,,,,浏览...,浏览...,瀏覽……
+Studio.MeshImporter.Plugin.ImportConfiguration,,,Settings for the current import,Settings for the current import,,Configuración para la importación actual,,,,現在のインポートの設定,현재 가져오기 설정,Configurações para a importação atual,,,,,当前导入的设置,当前导入的设置,目前匯入設定
+Studio.MeshImporter.TreeViewToolbar.Expand,,,Expand,Expand,,Ampliar,,,,展開,확장,Expandir,,,,,扩展,扩展,展開
+Studio.MeshImporter.TreeViewToolbar.Collapse,,,Collapse,Collapse,,Contraer,,,,折り畳み表示,축소,Recolher,,,,,收起,收起,收合

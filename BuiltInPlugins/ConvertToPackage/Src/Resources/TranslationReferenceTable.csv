@@ -1,8 +1,8 @@
 Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br,ru-ru,zh-cjv,zh-cn,zh-tw
-Studio.ConvertToPackage.Meta.PluginName,Convert To Package,Convert To Package,Convertir en paquete,Convertir en package,パッケージに変換,패키지로 전환,Converter para pacote,Преобразовать в пакет,转换为包,转换为包,轉換成套件
-Studio.ConvertToPackage.General.Error,Error,Error,Error,Erreur,エラー,오류,Erro,Ошибка,错误,错误,錯誤
 Studio.ConvertToPackage.General.Description,Description,Description,Descripción,Description,説明,설명,Descrição,Описание,描述,描述,說明
 Studio.ConvertToPackage.General.Title,Title,Title,Título,Titre,題名,제목,Título,Название,标题,标题,名稱
+Studio.ConvertToPackage.General.Error,Error,Error,Error,Erreur,エラー,오류,Erro,Ошибка,错误,错误,錯誤
+Studio.ConvertToPackage.Meta.PluginName,Convert To Package,Convert To Package,Convertir en paquete,Convertir en package,パッケージに変換,패키지로 전환,Converter para pacote,Преобразовать в пакет,转换为包,转换为包,轉換成套件
 Studio.ConvertToPackage.Action.Submit,Submit,Submit,Enviar,Soumettre,送信,제출,Enviar,Завершить,提交,提交,提交
 Studio.ConvertToPackage.General.Submit,Submit,Submit,Enviar,Soumettre,送信,제출,Enviar,Завершить,提交,提交,提交
 Studio.ConvertToPackage.General.Comments,Allow Comments,Allow Comments,Permitir comentarios,Permettre des commentaires,コメントを許可する,코멘트 허용,Permitir comentários,Разрешить комментарии,允许评论,允许评论,允許留言

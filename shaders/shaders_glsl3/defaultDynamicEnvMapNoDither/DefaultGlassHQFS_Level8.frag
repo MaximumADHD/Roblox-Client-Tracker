@@ -134,7 +134,7 @@ void main()
     vec4 f91 = mix(vec4(mix(((((((vec3(1.0) - (f72 * f55)) * CB0[10].xyz) * f65) + (f31 * f16)) + (((vec3(1.0) - (f79 * f55)) * (((((((CB0[35].xyz * f84) + (CB0[37].xyz * f85)) + (CB0[39].xyz * f86)) + (CB0[36].xyz * f87)) + (CB0[38].xyz * f88)) + (CB0[40].xyz * f89)) + (((((((CB0[29].xyz * f84) + (CB0[31].xyz * f85)) + (CB0[33].xyz * f86)) + (CB0[30].xyz * f87)) + (CB0[32].xyz * f88)) + (CB0[34].xyz * f89)) * f32))) * f16)) + (CB0[27].xyz + (CB0[28].xyz * f32))) * (f52 * f16), f76, vec3(VARYING7.w)) * f16, f16), vec4(f76, 1.0), vec4(((f90 * f90) * 0.800000011920928955078125) * clamp(f15, 0.0, 1.0))) + vec4(((f72 * (((f73 + (f73 * f73)) / (((f74 * f74) * ((f68 * 3.0) + 0.5)) * ((f67 * 0.75) + 0.25))) * f65)) * CB0[10].xyz) + (((mix(f62, f60, f75) * f79) * f55) * f16), 0.0);
     float f92 = clamp(exp2((CB0[13].z * f53) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f93 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f92) * 5.0).xyz;
-    bvec3 f94 = bvec3(CB0[13].w != 0.0);
+    bvec3 f94 = bvec3(!(CB0[13].w == 0.0));
     vec3 f95 = mix(vec3(f94.x ? CB0[14].xyz.x : f93.x, f94.y ? CB0[14].xyz.y : f93.y, f94.z ? CB0[14].xyz.z : f93.z), f91.xyz, vec3(f92));
     vec4 f96 = vec4(f95.x, f95.y, f95.z, f91.w);
     f96.w = 1.0 - ((1.0 - f91.w) * f92);

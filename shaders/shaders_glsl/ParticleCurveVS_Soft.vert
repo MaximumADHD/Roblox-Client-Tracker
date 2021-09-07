@@ -19,7 +19,7 @@ varying vec4 VARYING3;
 void main()
 {
     vec2 v0 = (TEXCOORD2 * 2.0) - vec2(1.0);
-    vec2 v1 = TEXCOORD1 * vec2(0.00019175345369148999452590942382813, 3.0518509447574615478515625e-05);
+    vec2 v1 = TEXCOORD1 * vec2(0.00019175345369148999452590942382812, 3.0518509447574615478515625e-05);
     float v2 = v1.x;
     float v3 = cos(v2);
     float v4 = sin(v2);

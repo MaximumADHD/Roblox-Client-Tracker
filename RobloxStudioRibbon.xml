@@ -339,7 +339,7 @@
           <addaction name="createLineForceAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LineForce" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLineForce" icon=":/RibbonBar/images/RibbonIcons/Physics/line-force-32x32.png" width="32" height="32" />
           <addaction name="createTorqueAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Torque" tooltip="Studio.App.RobloxRibbonMainWindow.CreateTorque" icon=":/RibbonBar/images/RibbonIcons/Physics/torque-32x32.png" width="32" height="32" />
           <addaction name="createAngularVelocityAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AngularVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip" icon=":/RibbonBar/images/RibbonIcons/Physics/angular-velocity-32x32.png" width="32" height="32" />
-          <addaction fflag="SimSolverLinearVelocityConstraintEnabled" name="createLinearVelocityConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LinearVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/linear-velocity-32x32.png" width="32" height="32" />
+          <addaction fflag="SimSolverLinearVelocityConstraintEnabled2" name="createLinearVelocityConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LinearVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/linear-velocity-32x32.png" width="32" height="32" />
           <addseparator visible="true"/>
           <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Attachment" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
         </MenuPopupButton>
@@ -363,7 +363,7 @@
             <addaction name="createLineForceAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LineForce" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLineForce" icon=":/RibbonBar/images/RibbonIcons/Physics/line-force-32x32.png" width="32" height="32" />
             <addaction name="createTorqueAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Torque" tooltip="Studio.App.RobloxRibbonMainWindow.CreateTorque" icon=":/RibbonBar/images/RibbonIcons/Physics/torque-32x32.png" width="32" height="32" />
             <addaction name="createAngularVelocityAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.AngularVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip" icon=":/RibbonBar/images/RibbonIcons/Physics/angular-velocity-32x32.png" width="32" height="32" />
-            <addaction fflag="SimSolverLinearVelocityConstraintEnabled" name="createLinearVelocityConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LinearVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/linear-velocity-32x32.png" width="32" height="32" />
+            <addaction fflag="SimSolverLinearVelocityConstraintEnabled2" name="createLinearVelocityConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.LinearVelocity" tooltip="Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/linear-velocity-32x32.png" width="32" height="32" />
             <addseparator visible="true"/>
             <addaction name="createAttachmentAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Attachment" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/attachment-32x32.png" width="32" height="32" />
           </Gallery>
@@ -638,7 +638,8 @@
       <Group name="Script Actions" text="Studio.App.RobloxRibbonMainWindow.Actions">
         <addaction fflag="!LSPAutocomplete_preAlpha" name="DEPRECATED_goToScriptErrorAction" tooltip="Studio.App.RobloxRibbonMainWindow.FocusViewOnScriptError" style="textbesideicon"/>
         <addaction fflag="LSPAutocomplete_preAlpha" name="GOTOERR_ScriptingCmd" style="textbesideicon"/>
-        <addaction name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
+        <addaction fflag = "!ReloadScriptDocAsCommand" name="reloadScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod" style="textbesideicon"/>
+        <addaction fflag = "ReloadScriptDocAsCommand" name="RELOADSCRIPT_ScriptingCmd" style="textbesideicon"/>
         <addAction name="applyScriptEditsAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addAction name="commitScriptAction" tooltip="Studio.App.RobloxRibbonMainWindow.PushScriptTCServer" style="textbesideicon"/>
         <addseparator />

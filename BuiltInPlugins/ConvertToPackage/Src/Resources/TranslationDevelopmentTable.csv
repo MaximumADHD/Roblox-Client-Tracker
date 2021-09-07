@@ -1,8 +1,8 @@
 Key,Source,en-us
-Studio.ConvertToPackage.Meta.PluginName,Convert To Package,Convert To Package
-Studio.ConvertToPackage.General.Error,Error,Error
 Studio.ConvertToPackage.General.Description,Description,Description
 Studio.ConvertToPackage.General.Title,Title,Title
+Studio.ConvertToPackage.General.Error,Error,Error
+Studio.ConvertToPackage.Meta.PluginName,Convert To Package,Convert To Package
 Studio.ConvertToPackage.Action.Submit,Submit,Submit
 Studio.ConvertToPackage.General.Submit,Submit,Submit
 Studio.ConvertToPackage.General.Comments,Allow Comments,Allow Comments

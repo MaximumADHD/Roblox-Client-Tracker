@@ -13,32 +13,34 @@ void main()
 {
     vec4 f0 = CB1[0].zwzw * vec4(-1.0, -1.0, 1.0, 1.0);
     vec2 f1 = VARYING0 + f0.xy;
-    vec2 f2 = VARYING0 + f0.zy;
+    vec4 f2 = texture(iChannel0Texture, VARYING0 + f0.zy);
     vec2 f3 = VARYING0 + f0.xw;
     vec2 f4 = VARYING0 + f0.zw;
-    vec4 f5[4] = vec4[](texture(iChannel0Texture, f1), texture(iChannel0Texture, f2), texture(iChannel0Texture, f3), texture(iChannel0Texture, f4));
+    vec4 f5[4] = vec4[](texture(iChannel0Texture, f1), f2, texture(iChannel0Texture, f3), texture(iChannel0Texture, f4));
     vec4 f6 = texture(iChannel0Texture, VARYING0);
-    float f7[4] = float[](texture(iChannel1Texture, f1).x, texture(iChannel0Texture, f2).x, texture(iChannel1Texture, f3).x, texture(iChannel1Texture, f4).x);
-    vec3 f8;
-    float f9;
-    f9 = 1.0;
-    f8 = f6.xyz;
+    float f7[4] = float[](texture(iChannel1Texture, f1).x, f2.x, texture(iChannel1Texture, f3).x, texture(iChannel1Texture, f4).x);
+    vec4 f8 = texture(iChannel1Texture, VARYING0);
+    float f9 = f8.x;
     vec3 f10;
     float f11;
-    for (int f12 = 0; f12 < 4; f9 = f11, f8 = f10, f12++)
+    f11 = 1.0;
+    f10 = f6.xyz;
+    vec3 f12;
+    float f13;
+    for (int f14 = 0; f14 < 4; f11 = f13, f10 = f12, f14++)
     {
-        if (f7[f12] <= (texture(iChannel1Texture, VARYING0).x * 1.0499999523162841796875))
+        if (f7[f14] <= (f9 * 1.0499999523162841796875))
         {
-            f11 = f9 + 1.0;
-            f10 = f8 + f5[f12].xyz;
+            f13 = f11 + 1.0;
+            f12 = f10 + f5[f14].xyz;
         }
         else
         {
-            f11 = f9;
-            f10 = f8;
+            f13 = f11;
+            f12 = f10;
         }
     }
-    _entryPointOutput = vec4(f8 / vec3(f9), f6.w);
+    _entryPointOutput = vec4(f10 / vec3(f11), f6.w);
 }
 
 //$$iChannel0Texture=s0

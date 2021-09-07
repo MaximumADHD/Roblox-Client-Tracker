@@ -76,6 +76,8 @@ Class AnimationController : Instance [Deprecated]
 	Function Array AnimationController:GetPlayingAnimationTracks() [Deprecated]
 	Function AnimationTrack AnimationController:LoadAnimation(Animation animation) [Deprecated]
 	Event AnimationController.AnimationPlayed(AnimationTrack animationTrack) [Deprecated]
+Class AnimationRigData : Instance
+	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
 	Property Animation AnimationTrack.Animation [ReadOnly]
 	Property bool AnimationTrack.IsPlaying [ReadOnly]
@@ -112,6 +114,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function void AssetImportService:UpdateSettings(Instance settings) {RobloxScriptSecurity}
 	Function void AssetImportService:UploadCurrentMesh() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
@@ -569,6 +572,7 @@ Class Constraint : Instance [NotCreatable]
 	Property bool Constraint.Active [ReadOnly]
 	Property bool Constraint.Enabled
 Class AlignOrientation : Constraint
+	Property Enum.OrientationAlignmentMode AlignOrientation.Mode
 	Property Enum.AlignType AlignOrientation.AlignType
 	Property bool AlignOrientation.PrimaryAxisOnly
 	Property bool AlignOrientation.ReactionTorqueEnabled
@@ -576,8 +580,13 @@ Class AlignOrientation : Constraint
 	Property float AlignOrientation.MaxAngularVelocity
 	Property float AlignOrientation.MaxTorque
 	Property float AlignOrientation.Responsiveness
+	Property CFrame AlignOrientation.CoordindateFrame
+	Property Vector3 AlignOrientation.PrimaryAxis
+	Property Vector3 AlignOrientation.SecondaryAxis
 Class AlignPosition : Constraint
+	Property Enum.PositionAlignmentMode AlignPosition.Mode
 	Property bool AlignPosition.ApplyAtCenterOfMass
+	Property Vector3 AlignPosition.Position
 	Property bool AlignPosition.ReactionForceEnabled
 	Property bool AlignPosition.RigidityEnabled
 	Property float AlignPosition.MaxForce
@@ -618,16 +627,16 @@ Class LineForce : Constraint
 	Property float LineForce.Magnitude
 	Property float LineForce.MaxForce
 	Property bool LineForce.ReactionForceEnabled
-Class LinearVelocityConstraint : Constraint
-	Property float LinearVelocityConstraint.MaxForce
-	Property Vector3 LinearVelocityConstraint.LineDirection
-	Property float LinearVelocityConstraint.LineVelocity
-	Property Enum.ActuatorRelativeTo LinearVelocityConstraint.RelativeTo
-	Property Enum.VelocityConstraintMode LinearVelocityConstraint.VelocityConstraintMode
-	Property Vector2 LinearVelocityConstraint.PlaneVelocity
-	Property Vector3 LinearVelocityConstraint.PrimaryTangentAxis
-	Property Vector3 LinearVelocityConstraint.SecondaryTangentAxis
-	Property Vector3 LinearVelocityConstraint.VectorVelocity
+Class LinearVelocity : Constraint
+	Property float LinearVelocity.MaxForce
+	Property Vector3 LinearVelocity.LineDirection
+	Property float LinearVelocity.LineVelocity
+	Property Enum.ActuatorRelativeTo LinearVelocity.RelativeTo
+	Property Enum.VelocityConstraintMode LinearVelocity.VelocityConstraintMode
+	Property Vector2 LinearVelocity.PlaneVelocity
+	Property Vector3 LinearVelocity.PrimaryTangentAxis
+	Property Vector3 LinearVelocity.SecondaryTangentAxis
+	Property Vector3 LinearVelocity.VectorVelocity
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
@@ -863,9 +872,9 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void DebuggerConnection:AddBreakpoint(Instance script, int line, Instance breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetSource(Instance scriptRef, Function status) {RobloxScriptSecurity}
-	Function int DebuggerConnection:Pause(Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Pause(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function void DebuggerConnection:RemoveBreakpoint(Instance breakpoint) {RobloxScriptSecurity}
-	Function int DebuggerConnection:Resume(Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointAdded(Instance breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointChanged(Instance breakpoint) {RobloxScriptSecurity}
@@ -1157,6 +1166,9 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Event GuiObject.TouchRotate(Array touchPositions, float rotation, float velocity, Enum.UserInputState state)
 	Event GuiObject.TouchSwipe(Enum.SwipeDirection swipeDirection, int numberOfTouches)
 	Event GuiObject.TouchTap(Array touchPositions)
+Class CanvasGroup : GuiObject
+	Property Color3 CanvasGroup.GroupColor
+	Property float CanvasGroup.Transparency
 Class Frame : GuiObject
 	Property Enum.FrameStyle Frame.Style
 Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
@@ -1639,6 +1651,7 @@ Class Humanoid : Instance
 	Function void Humanoid:ChangeState(Enum.HumanoidStateType state = "None")
 	Function void Humanoid:EquipTool(Instance tool)
 	Function Array Humanoid:GetAccessories()
+	Function Vector3 Humanoid:GetAccessoryHandleScale(Instance instance, Enum.BodyPartR15 partType) {RobloxScriptSecurity}
 	Function HumanoidDescription Humanoid:GetAppliedDescription()
 	Function Enum.BodyPartR15 Humanoid:GetBodyPartR15(Instance part)
 	Function Enum.Limb Humanoid:GetLimb(Instance part)
@@ -1757,6 +1770,7 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.FlattenAll
+	Property bool ImporterRootSettings.InvertNegativeFaces
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property Enum.NormalId ImporterRootSettings.WorldForward
@@ -2040,6 +2054,33 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ServerPurchaseVerification(Dictionary serverResponseTable) {RobloxScriptSecurity}
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum.ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
+Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
+	Property MaterialVariant MaterialService.Brick
+	Property MaterialVariant MaterialService.Cobblestone
+	Property MaterialVariant MaterialService.Concrete
+	Property MaterialVariant MaterialService.CorrodedMetal
+	Property MaterialVariant MaterialService.DiamondPlate
+	Property MaterialVariant MaterialService.Fabric
+	Property MaterialVariant MaterialService.Foil
+	Property MaterialVariant MaterialService.Granite
+	Property MaterialVariant MaterialService.Grass
+	Property MaterialVariant MaterialService.Ice
+	Property MaterialVariant MaterialService.Marble
+	Property MaterialVariant MaterialService.Metal
+	Property MaterialVariant MaterialService.Pebble
+	Property MaterialVariant MaterialService.Plastic
+	Property MaterialVariant MaterialService.Sand
+	Property MaterialVariant MaterialService.Slate
+	Property MaterialVariant MaterialService.SmoothPlastic
+	Property MaterialVariant MaterialService.Wood
+	Property MaterialVariant MaterialService.WoodPlanks
+Class MaterialVariant : Instance [NotBrowsable]
+	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
+	Property Content MaterialVariant.ColorMap {PluginSecurity}
+	Property Content MaterialVariant.MetalnessMap {PluginSecurity}
+	Property Content MaterialVariant.NormalMap {PluginSecurity}
+	Property Content MaterialVariant.RoughnessMap {PluginSecurity}
+	Property float MaterialVariant.StudsPerTile
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -2170,6 +2211,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CastShadow
 	Property Color3 BasePart.Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum.Material BasePart.Material
+	Property MaterialVariant BasePart.MaterialVariant
 	Property float BasePart.Reflectance
 	Property float BasePart.Transparency
 	Property Vector3 BasePart.AssemblyAngularVelocity [<📁> LoadOnly] [NotReplicated]
@@ -2407,6 +2449,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
+	Property Enum.AnimatorRetargetingMode Workspace.Retargeting
 	Property Enum.SignalBehavior Workspace.SignalBehavior [NotScriptable]
 	Property Terrain Workspace.Terrain [ReadOnly]
 	Property bool Workspace.TouchesUseCollisionGroups [NotScriptable]
@@ -2501,16 +2544,13 @@ Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance PathfindingService:CreatePath(Dictionary agentParameters = nil)
 	Function Instance PathfindingService:FindPathAsync(Vector3 start, Vector3 finish) [Yields]
 Class PausedState : Instance [NotCreatable] [NotReplicated]
-	Property bool PausedState.IsValid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Enum.DebuggerPauseReason PausedState.Reason {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property int PausedState.ThreadCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function Instance PausedState:GetThread(int index) {RobloxScriptSecurity}
+	Property int PausedState.ThreadId {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool PausedState.AllThreadsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class PausedStateBreakpoint : PausedState [NotCreatable] [NotReplicated]
 	Property Breakpoint PausedStateBreakpoint.Breakpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property ThreadState PausedStateBreakpoint.BreakpointThread {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class PausedStateException : PausedState [NotCreatable] [NotReplicated]
 	Property string PausedStateException.ExceptionText {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property ThreadState PausedStateException.ExceptionThread {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class PermissionsService : Instance [NotCreatable] [Service]
 	Function bool PermissionsService:GetIsThirdPartyAssetAllowed() {RobloxScriptSecurity}
 	Function bool PermissionsService:GetIsThirdPartyPurchaseAllowed() {RobloxScriptSecurity}
@@ -2662,6 +2702,7 @@ Class PlayerEmulatorService : Instance [NotCreatable] [Service]
 	Property BinaryString PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxSecurity} [Hidden]
 	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
+	Function bool PlayerEmulatorService:RegionCodeWillHaveAutomaticNonCustomPolicies(string regionCode) {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}
 Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Function void PlayerScripts:ClearComputerCameraMovementModes()
@@ -3069,8 +3110,8 @@ Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
-	Function Instance ServiceProvider:FindService(string className) {🧬Safe}
-	Function Instance ServiceProvider:GetService(string className) {🧬Safe}
+	Function Instance ServiceProvider:FindService(string className)
+	Function Instance ServiceProvider:GetService(string className)
 	Function Instance ServiceProvider:service(string className) [Deprecated]
 	Event ServiceProvider.Close()
 	Event ServiceProvider.CloseLate() {LocalUserSecurity}
@@ -3221,6 +3262,7 @@ Class CompressorSoundEffect : SoundEffect
 	Property float CompressorSoundEffect.Release
 	Property Instance CompressorSoundEffect.SideChain
 	Property float CompressorSoundEffect.Threshold
+Class CustomDspSoundEffect : SoundEffect [NotCreatable]
 Class DistortionSoundEffect : SoundEffect
 	Property float DistortionSoundEffect.Level
 Class EchoSoundEffect : SoundEffect
@@ -4039,6 +4081,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function Tuple VoiceChatService:GetSpeakerDevices()
 	Function int VoiceChatService:GetVoiceChatApiVersion()
 	Function int VoiceChatService:GetVoiceChatAvailable()
+	Function bool VoiceChatService:IsContextVoiceEnabled() {RobloxScriptSecurity}
 	Function bool VoiceChatService:IsPublishPaused()
 	Function bool VoiceChatService:IsSubscribePaused(int64 userId)
 	Function bool VoiceChatService:JoinByGroupId(string groupId, bool isMicMuted = false)
@@ -4048,6 +4091,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function void VoiceChatService:SetMicDevice(string micDeviceName, string micDeviceGuid)
 	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid)
 	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused)
+	Function bool VoiceChatService:SubscribePauseAll(bool paused)
 	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates)
 	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo)
 	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new)
@@ -4129,6 +4173,10 @@ Enum AnimationPriority
 	EnumItem AnimationPriority.Movement : 1
 	EnumItem AnimationPriority.Action : 2
 	EnumItem AnimationPriority.Core : 1000
+Enum AnimatorRetargetingMode
+	EnumItem AnimatorRetargetingMode.Default : 0
+	EnumItem AnimatorRetargetingMode.Disabled : 1
+	EnumItem AnimatorRetargetingMode.Enabled : 2
 Enum AppShellActionType
 	EnumItem AppShellActionType.None : 0
 	EnumItem AppShellActionType.OpenApp : 1
@@ -5367,6 +5415,9 @@ Enum NormalId
 	EnumItem NormalId.Left : 3
 	EnumItem NormalId.Bottom : 4
 	EnumItem NormalId.Front : 5
+Enum OrientationAlignmentMode
+	EnumItem OrientationAlignmentMode.OneAttachment : 0
+	EnumItem OrientationAlignmentMode.TwoAttachment : 1
 Enum OutfitSource
 	EnumItem OutfitSource.All : 1
 	EnumItem OutfitSource.Created : 2
@@ -5471,6 +5522,9 @@ Enum PoseEasingStyle
 	EnumItem PoseEasingStyle.Elastic : 2
 	EnumItem PoseEasingStyle.Cubic : 3
 	EnumItem PoseEasingStyle.Bounce : 4
+Enum PositionAlignmentMode
+	EnumItem PositionAlignmentMode.OneAttachment : 0
+	EnumItem PositionAlignmentMode.TwoAttachment : 1
 Enum PrivilegeType [Deprecated]
 	EnumItem PrivilegeType.Banned : 0 [Deprecated]
 	EnumItem PrivilegeType.Visitor : 10 [Deprecated]

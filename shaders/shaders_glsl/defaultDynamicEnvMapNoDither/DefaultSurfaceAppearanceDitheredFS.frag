@@ -27,7 +27,7 @@ void main()
     }
     vec4 f2 = vec4(mix(VARYING2.xyz, f0.xyz, vec3(f1)), VARYING2.w);
     vec4 f3 = vec4(f0.xyz, VARYING2.w * f1);
-    bvec4 f4 = bvec4(CB3[0].x != 0.0);
+    bvec4 f4 = bvec4(!(CB3[0].x == 0.0));
     vec4 f5 = vec4(f4.x ? f2.x : f3.x, f4.y ? f2.y : f3.y, f4.z ? f2.z : f3.z, f4.w ? f2.w : f3.w);
     vec3 f6 = f5.xyz;
     vec3 f7 = VARYING6.xyz - (CB0[11].xyz * VARYING3.w);

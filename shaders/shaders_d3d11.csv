@@ -361,6 +361,8 @@ LowQMaterialFS_Level0,Fragment
 LowQMaterialFS_Level2048,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
+ModelLodDepthFS,Fragment
+ModelLodDepthVS,Vertex
 OccupancyDebugFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment

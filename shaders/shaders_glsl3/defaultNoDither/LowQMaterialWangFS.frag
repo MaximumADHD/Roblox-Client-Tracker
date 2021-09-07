@@ -44,7 +44,7 @@ void main()
     f17.w = VARYING2.w;
     float f18 = clamp(exp2((CB0[13].z * length(VARYING4.xyz)) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f19 = textureLod(PrefilteredEnvTexture, vec4(-VARYING4.xyz, 0.0).xyz, max(CB0[13].y, f18) * 5.0).xyz;
-    bvec3 f20 = bvec3(CB0[13].w != 0.0);
+    bvec3 f20 = bvec3(!(CB0[13].w == 0.0));
     vec3 f21 = sqrt(clamp(mix(vec3(f20.x ? CB0[14].xyz.x : f19.x, f20.y ? CB0[14].xyz.y : f19.y, f20.z ? CB0[14].xyz.z : f19.z), f17.xyz, vec3(f18)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
     vec4 f22 = vec4(f21.x, f21.y, f21.z, f17.w);
     f22.w = VARYING2.w;

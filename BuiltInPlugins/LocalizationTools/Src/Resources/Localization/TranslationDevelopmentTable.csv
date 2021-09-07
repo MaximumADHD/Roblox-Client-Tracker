@@ -1,7 +1,6 @@
 Key,Source,en-us
 Studio.LocalizationTools.Plugin.RibbonBarButton,Tools,Tools
 Studio.LocalizationTools.EmbeddedTableSection.SectionLabel,Embedded Localization Table,Embedded Localization Table
-Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export,Export
 Studio.LocalizationTools.UploadDialogContent.ConfirmUploadDialogTitle,Comfirm Upload,Comfirm Upload
 Studio.LocalizationTools.CloudTableSection.ReplaceButton,Replace,Replace
 Studio.LocalizationTools.UploadDialogContent.PatchInvalidLanguagesLabel,Invalid columns:,Invalid columns:
@@ -14,6 +13,7 @@ Studio.LocalizationTools.Plugin.ToolbarLabel,Localization,Localization
 Studio.LocalizationTools.UploadTable.GetGameSourceLanguageFailed,Localization Tools failed to request game source langauge.,Localization Tools failed to request game source langauge.
 Studio.LocalizationTools.Plugin.ToolTipMessage,Hide/show the Localization Tools View,Hide/show the Localization Tools View
 Studio.LocalizationTools.EmbeddedTableSection.TextCaptureStartText,Start untranslated text capture,Start untranslated text capture
+Studio.LocalizationTools.EmbeddedTableSection.ExportButton,Export,Export
 Studio.LocalizationTools.EmbeddedTableSection.ImportButton,Import,Import
 Studio.LocalizationTools.UploadDialogContent.ConfirmButton,Confirm,Confirm
 Studio.LocalizationTools.CloudTableSection.ReplaceTableLabel,Replace entire cloud table with CSV,Replace entire cloud table with CSV

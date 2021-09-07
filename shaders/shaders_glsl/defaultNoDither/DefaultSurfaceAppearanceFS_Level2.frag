@@ -25,7 +25,7 @@ void main()
     float f1 = f0.w;
     vec4 f2 = vec4(mix(vec4(texture2D(DiffuseMapTexture, VARYING0).xyz * VARYING2.xyz, f1).xyz, f0.xyz, vec3(f1)), f1);
     vec4 f3 = vec4(f0.xyz, f1 * f1);
-    bvec4 f4 = bvec4(CB3[0].x != 0.0);
+    bvec4 f4 = bvec4(!(CB3[0].x == 0.0));
     vec4 f5 = vec4(f4.x ? f2.x : f3.x, f4.y ? f2.y : f3.y, f4.z ? f2.z : f3.z, f4.w ? f2.w : f3.w);
     vec3 f6 = f5.xyz;
     vec3 f7 = VARYING6.xyz - (CB0[11].xyz * VARYING3.w);

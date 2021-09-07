@@ -383,7 +383,7 @@
             }
         }, {
             "SubText": {
-                "Default": "#AAAAAA",
+                "Default": "#6B6B6B",
                 "Disabled": "#787878",
                 "Selected": "#CCCCCC"
             }
