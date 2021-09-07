@@ -35,7 +35,6 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Footer = Roact.PureComponent:extend("Footer")
 
@@ -53,7 +52,7 @@ function Footer:render()
 	local isLocalSaveButton = props.IsLocalSaveButton
 	local isPublish = props.IsPublish
 
-	local children = FFlagLuobuDevPublishLua and props[Roact.Children] or nil
+	local children = props[Roact.Children]
 
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = theme.backgroundColor,

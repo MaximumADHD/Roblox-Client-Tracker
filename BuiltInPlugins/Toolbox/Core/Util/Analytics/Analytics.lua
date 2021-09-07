@@ -10,8 +10,6 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FlagsList = require(Plugin.Core.Util.FlagsList)
 
-local FFlagToolboxTrackAllAssetTypeInsertions = game:GetFastFlag("ToolboxTrackAllAssetTypeInsertions")
-
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 
@@ -181,10 +179,8 @@ function Analytics.incrementToolboxInsertCounter(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.ToolboxInsert.%s"):format(tostring(assetTypeId)))
 end
 
-if FFlagToolboxTrackAllAssetTypeInsertions then
-	function Analytics.incrementToolboxCategoryInsertCounter(categoryName)
-		AnalyticsSenders.reportCounter(("Studio.ToolboxCategoryInsert.%s"):format(tostring(categoryName)))
-	end
+function Analytics.incrementToolboxCategoryInsertCounter(categoryName)
+	AnalyticsSenders.reportCounter(("Studio.ToolboxCategoryInsert.%s"):format(tostring(categoryName)))
 end
 
 function Analytics.incrementWorkspaceInsertCounter()

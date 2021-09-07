@@ -15,7 +15,7 @@ function MockItems.getSimpleAsset(fakeId)
 		},
 		Thumbnail = {
 			Final = true,
-			Url = "https://t7.rbxcdn.com/25cf9d71d60973993f9c08eb605ffe99",
+			Url = "rbxasset://textures/StudioToolbox/Animation.png",
 			RetryUrl = nil,
 			UserId = 0,
 			EndpointType = "Avatar",
@@ -51,7 +51,7 @@ function MockItems.getPreviewAsset(fakeId)
 		},
 		Thumbnail = {
 			Final = true,
-			Url = "https://t7.rbxcdn.com/25cf9d71d60973993f9c08eb605ffe99",
+			Url = "rbxasset://textures/StudioToolbox/Animation.png",
 			RetryUrl = nil,
 			UserId = 0,
 			EndpointType = "Avatar",

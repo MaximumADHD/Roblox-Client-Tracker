@@ -26,7 +26,6 @@
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -47,32 +46,30 @@ return function(loadValuesToProps, dispatchForProps)
 	local Page = Roact.PureComponent:extend("Page")
 
 	function Page:init()
-		if FFlagLuobuDevPublishLua then
-			self.state = {
-				StyleModifier = nil,
-				showDialog = false,
-			}
+		self.state = {
+			StyleModifier = nil,
+			showDialog = false,
+		}
 
-			self.onMouseEnter = function()
-				if self.state.StyleModifier == nil then
-					self:setState({
-						StyleModifier = StyleModifier.Hover,
-					})
-				end
+		self.onMouseEnter = function()
+			if self.state.StyleModifier == nil then
+				self:setState({
+					StyleModifier = StyleModifier.Hover,
+				})
 			end
+		end
 
-			self.onMouseLeave = function()
-				if self.state.StyleModifier == StyleModifier.Hover then
-					self:setState({
-						StyleModifier = Roact.None,
-					})
-				end
+		self.onMouseLeave = function()
+			if self.state.StyleModifier == StyleModifier.Hover then
+				self:setState({
+					StyleModifier = Roact.None,
+				})
 			end
 		end
 	end
 
 	function Page:didMount()
-		if FFlagLuobuDevPublishLua and self.props.GetPlayerAcceptances then
+		if self.props.GetPlayerAcceptances then
 			local apiImpl = self.props.API:get()
 			self.props.GetPlayerAcceptances(apiImpl)
 		end
@@ -81,12 +78,7 @@ return function(loadValuesToProps, dispatchForProps)
 	function Page:render()
 		local props = self.props
 
-		local children
-		if FFlagLuobuDevPublishLua then
-			children = props.Content and props.Content(self) or {}
-		else
-			children = props.Content and props.Content(props) or {}
-		end
+		local children = props.Content and props.Content(self) or {}
 
 		local layoutOrder = props.LayoutOrder
 		local addLayout = props.AddLayout
@@ -117,15 +109,15 @@ return function(loadValuesToProps, dispatchForProps)
 		Page = withContext({
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
-			Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
-			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+			Mouse = ContextServices.Mouse,
+			API = ContextServices.API,
 		})(Page)
 	else
 		ContextServices.mapToProps(Page, {
 			Theme = ContextServices.Theme,
 			Localization = ContextServices.Localization,
-			Mouse = FFlagLuobuDevPublishLua and ContextServices.Mouse or nil,
-			API = FFlagLuobuDevPublishLua and ContextServices.API or nil,
+			Mouse = ContextServices.Mouse,
+			API = ContextServices.API,
 		})
 	end
 

@@ -1,74 +1,69 @@
 -- Centralized Place for Keys used throughout the widget
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 
 local KeyProvider = {}
 
 function KeyProvider.getOptInLocationsKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "OptInLocations"
+	return "OptInLocations"
 end
 
 function KeyProvider.getChinaKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "China"
+	return "China"
 end
 
 function KeyProvider.getPublishPlaceAsKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "PublishPlaceAs"
+	return "PublishPlaceAs"
 end
 
 function KeyProvider.getPluginKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "plugin"
+	return "plugin"
 end
 
 function KeyProvider.getContextKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "context"
+	return "context"
 end
 
 function KeyProvider.getLuobuStudioDevPublishKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "LuobuStudioDevPublish"
+	return "LuobuStudioDevPublish"
 end
 
 function KeyProvider.getTermsOfUseDialogKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "TermsOfUseDialog"
+	return "TermsOfUseDialog"
 end
 
 function KeyProvider.getSelectedKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "selected"
+	return "selected"
 end
 
 function KeyProvider.getCheckboxToggleKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "CheckboxToggle"
+	return "CheckboxToggle"
 end
 
 function KeyProvider.getButtonClickedKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "buttonClicked"
+	return "buttonClicked"
 end
 
 function KeyProvider.getCreateNewGameKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "CreateNewGame"
+	return "CreateNewGame"
 end
 
 return KeyProvider

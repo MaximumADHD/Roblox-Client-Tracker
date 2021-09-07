@@ -1,6 +1,5 @@
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local Theming = require(Library.Theming)
@@ -17,40 +16,13 @@ end
 
 
 function PartialHyperlink:render()
-	if FFlagLuobuDevPublishLua then
-		return withTheme(function(theme)
-			local style = self.props.Style
-			local linkTheme = style and theme.partialHyperlink[style] or theme.partialHyperlink
-			local textSize = linkTheme.textSize
-			local textTransparency = FFlagCheckPublishedPlaceExistsForDevPublish and linkTheme.transparency or 0
+	return withTheme(function(theme)
+		local style = self.props.Style
+		local linkTheme = style and theme.partialHyperlink[style] or theme.partialHyperlink
+		local textSize = linkTheme.textSize
+		local textTransparency = FFlagCheckPublishedPlaceExistsForDevPublish and linkTheme.transparency or 0
 
-			local hyperLinkTextSize = calculateTextSize(self.props.HyperLinkText, textSize, linkTheme.font)
-			return Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
-				BackgroundTransparency = 1,
-			}, {
-				HyperLink = Roact.createElement(StudioWidgetHyperlink, {
-					Text = self.props.HyperLinkText,
-					Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
-					Mouse = self.props.Mouse,
-					OnClick = self.props.OnClick,
-					TextSize = textSize,
-				}),
-				TextLabel = Roact.createElement("TextLabel", {
-					BackgroundTransparency = 1,
-					Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
-					Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
-					TextColor3 = linkTheme.textColor,
-					Font = linkTheme.font,
-					TextTransparency = textTransparency,
-					TextSize = textSize,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					Text = self.props.NonHyperLinkText,
-				}),
-			})
-		end)
-	else
-		local hyperLinkTextSize = calculateTextSize(self.props.HyperLinkText, self.props.Theme.fontStyle.Normal.TextSize, self.props.Theme.fontStyle.Normal.Font)
+		local hyperLinkTextSize = calculateTextSize(self.props.HyperLinkText, textSize, linkTheme.font)
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, hyperLinkTextSize.Y),
 			BackgroundTransparency = 1,
@@ -60,19 +32,21 @@ function PartialHyperlink:render()
 				Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
 				Mouse = self.props.Mouse,
 				OnClick = self.props.OnClick,
+				TextSize = textSize,
 			}),
 			TextLabel = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
 				Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
 				Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
-				TextColor3 = self.props.Theme.fontStyle.Normal.TextColor3,
-				Font = Enum.Font.SourceSans,
-				TextSize = 22,
+				TextColor3 = linkTheme.textColor,
+				Font = linkTheme.font,
+				TextTransparency = textTransparency,
+				TextSize = textSize,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Text = self.props.NonHyperLinkText,
 			}),
 		})
-	end
+	end)
 end
 
 return PartialHyperlink

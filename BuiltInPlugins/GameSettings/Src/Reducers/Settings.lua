@@ -12,8 +12,6 @@
 	When saving changes, only settings in the Changed table are saved.
 	When discarding changes, the Changed table is deleted.
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local Rodux = require(Plugin.Rodux)
@@ -28,11 +26,8 @@ local equalityCheckFunctions = {
 	universeAvatarAssetOverrides = AssetOverrides.isEqual,
 	universeAvatarMinScales = Scales.isEqual,
 	universeAvatarMaxScales = Scales.isEqual,
+	OptInLocations = deepEqual,
 }
-
-if FFlagLuobuDevPublishLua then
-	equalityCheckFunctions.OptInLocations = deepEqual
-end
 
 local function isEqualCheck(current, changed)
 	if current == nil or changed == nil then

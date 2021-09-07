@@ -88,9 +88,11 @@ function TransformHandlesImplementation:updateDrag(globalTransform)
 		local values = {}
 		for _, part in ipairs(self._partsToMove) do
 			for _, joint in ipairs(part:GetJoints()) do
-				appliedTransform = self:applyWorldTransform(globalTransform, joint)
-				if(joint.Part1.Name == part.name) then 
-					values[joint.Part1.Name] = appliedTransform
+				if not joint:IsA("WeldConstraint") then
+					appliedTransform = self:applyWorldTransform(globalTransform, joint)
+					if(joint.Part1.Name == part.name) then 
+						values[joint.Part1.Name] = appliedTransform
+					end
 				end
 			end
 		end

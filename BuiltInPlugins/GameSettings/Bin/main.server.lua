@@ -9,7 +9,6 @@ require(script.Parent.defineLuaFlags)
 -- Fast flags
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FFlagGameSettingsRoactInspector = game:DefineFastFlag("GameSettingsRoactInspector", false)
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
@@ -81,7 +80,7 @@ local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
 local placesController = PlacesController.new(networking:get())
 local localizationPageController = LocalizationPageController.new(networking:get())
-local policyInfoController = FFlagLuobuDevPublishLua and PolicyInfoController.new(networking:get()) or nil
+local policyInfoController = PolicyInfoController.new(networking:get())
 
 thunkContextItems.networking = networking:get()
 thunkContextItems.worldRootPhysicsController = worldRootPhysics:get()

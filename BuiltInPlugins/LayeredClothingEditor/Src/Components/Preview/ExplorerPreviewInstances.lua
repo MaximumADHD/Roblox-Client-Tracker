@@ -156,14 +156,14 @@ local function applyAllSelectedClothing(self, avatar)
 		local previewClothes = getModel(self, uniqueId, PreviewConstants.TABS_KEYS.Clothing)
 		if previewClothes then
 			previewClothes.Name = uniqueId
-			ModelUtil:attachClothingItem(avatar, previewClothes)
+			ModelUtil:attachClothingItem(avatar, previewClothes, self.props.AccessoryTypeInfo.Name)
 			self.props.PreviewContext:addItem(previewClothes)
 		end
 	end
 end
 
 local function fetchPreviewClothes(self)
-	local editingItem = self.props.EditingItemContext:getItem()
+	local editingItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
 	if ItemCharacteristics.isAvatar(editingItem) then
 		if isPreviewClothingSelected(self) then
 			local avatarClone = cloneEditingItem(editingItem)
@@ -173,7 +173,7 @@ local function fetchPreviewClothes(self)
 	elseif ItemCharacteristics.isClothes(editingItem) then
 		for _, avatar in ipairs(self.props.PreviewContext:getAvatars()) do
 			local clothingClone = cloneEditingItem(editingItem)
-			ModelUtil:attachClothingItem(avatar, clothingClone)
+			ModelUtil:attachClothingItem(avatar, clothingClone, self.props.AccessoryTypeInfo.Name)
 			applyAllSelectedClothing(self, avatar)
 			table.insert(self.editingItemClones, clothingClone)
 		end
@@ -185,12 +185,12 @@ local function updatePreviewAttachments(self)
 		if self.props.AccessoryTypeInfo then
 			-- need to detach weld first
 			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
-			local part1 = weld.Part1
-			weld:Destroy()
+			if weld then
+				weld:Destroy()
+			end
 			clone.Size = self.props.ItemSize
 			ModelUtil:addAttachment(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint)
-			-- add weld back
-			ModelUtil:addWeld(nil, clone, part1, clone)
+			ModelUtil:attachClothingItem(clone.Parent, clone, self.props.AccessoryTypeInfo.Name, false, true)
 		end
 	end
 end

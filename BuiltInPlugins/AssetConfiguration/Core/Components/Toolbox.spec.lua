@@ -23,6 +23,10 @@ return function()
 		return Roact.mount(element, container or nil, name or "")
 	end
 
+	afterEach(function()
+		game.CoreGui.CategoryVerification:Destroy()
+	end)
+
 	it("should create and destroy without errors", function()
 		local instance = createTestToolbox()
 		Roact.unmount(instance)

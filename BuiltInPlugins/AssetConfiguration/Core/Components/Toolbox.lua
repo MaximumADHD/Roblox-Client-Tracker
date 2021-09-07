@@ -68,9 +68,7 @@ local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
-local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 
 local Background = require(Plugin.Core.Types.Background)
@@ -99,9 +97,7 @@ function Toolbox:handleInitialSettings()
 		categoryName = initialSettings.categoryName,
 		creator = initialSettings.creator,
 		searchTerm = initialSearchTerm,
-		sorts = not FFlagToolboxFixCommonWarnings2 and Sort.SORT_OPTIONS or nil,
 		sortIndex = initialSelectedSortIndex,
-		groupIndex = not FFlagToolboxFixCommonWarnings2 and 1 or nil,
 		targetPage = 1,
 		selectedBackgroundIndex = initialSelectedBackgroundIndex,
 		requestReason = RequestReason.InitLoad,
@@ -175,7 +171,7 @@ function Toolbox:init(props)
 	end
 
 	local function getCreatorOverrideIfNeeded(tabName)
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+		if showRobloxCreatedAssets() then
 			if tabName == Category.MARKETPLACE_KEY then
 				return Category.CREATOR_ROBLOX
 			end

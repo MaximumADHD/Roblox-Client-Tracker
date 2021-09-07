@@ -75,6 +75,10 @@ return function()
 		local marker = Instance.new("KeyframeMarker", keyframe)
 		marker.Name = "TestEvent"
 		marker.Value = "TestValue"
+		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence") then
+			local animationRig = Instance.new("AnimationRigData", keyframeSequence)
+			animationRig.Name = "KFSAnimationRig"
+		end
 		return keyframeSequence
 	end
 
@@ -226,6 +230,14 @@ return function()
 			expect(animationData.Events.Data[0].TestEvent).to.equal("TestValue")
 		end)
 
+		it("should create the animationRig", function()
+			local keyframeSequence = buildTestKeyframeSequence()
+			if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence") then
+				local animationRig = keyframeSequence:FindFirstChildOfClass("AnimationRigData")
+				expect(animationRig).to.be.ok()
+			end
+		end)
+		
 		it("should throw if the expected KeyframeSequence is not correct", function()
 			expect(function()
 				if GetFFlagUseTicks() then
@@ -289,7 +301,15 @@ return function()
 			expect(keyframeSequence).to.be.ok()
 			expect(typeof(keyframeSequence)).to.equal("Instance")
 			expect(keyframeSequence.ClassName).to.equal("KeyframeSequence")
+			expect(#keyframeSequence:GetChildren()).to.equal(1)
 			expect(#keyframeSequence:GetKeyframes()).to.equal(1)
+			local animationRig = Instance.new("AnimationRigData", keyframeSequence)
+			expect(#keyframeSequence:GetChildren()).to.equal(2)
+			if game:GetFastFlag("UseFilteredGetKeyframes") then
+				expect(#keyframeSequence:GetKeyframes()).to.equal(1)
+			else
+				expect(#keyframeSequence:GetKeyframes()).to.equal(2)
+			end
 		end)
 
 		it("should set the correct values", function()

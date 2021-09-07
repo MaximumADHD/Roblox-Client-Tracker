@@ -1,11 +1,13 @@
-local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Cryo = require(Plugin.Packages.Cryo)
-local Framework = require(Plugin.Packages.Framework)
+local PluginFolder = script.Parent.Parent.Parent.Parent
+local Roact = require(PluginFolder.Packages.Roact)
+local RoactRodux = require(PluginFolder.Packages.RoactRodux)
+local Cryo = require(PluginFolder.Packages.Cryo)
+local Framework = require(PluginFolder.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
+local BreakpointModel = require(PluginFolder.Src.Models.Breakpoint)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -16,9 +18,70 @@ local Pane = UI.Pane
 local TreeTable = UI.TreeTable
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
 local BUTTON_SIZE = 40
 local BUTTON_PADDING = 5
+
+function BreakpointsTable:init()		
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClick = function(row)
+			local props = self.props
+			local localization = props.Localization
+			local plugin = props.Plugin:get()
+			
+			if self.debugpointMenu then
+				return
+			end
+			
+			self.debugpointMenu = plugin:CreatePluginMenu("DebugpointsContextMenu")
+
+			if row.item.debugpointType == BreakpointModel.debugpointType.Breakpoint then
+				self.debugpointMenu:AddNewAction("EditBreakpoint", 
+					localization:getText("BreakpointsWindow", "EditBreakpoint")).Triggered:connect(function() end)
+				
+				if row.item.isEnabled then
+					self.debugpointMenu:AddNewAction("DisableBreakpoint", 
+						localization:getText("BreakpointsWindow", "DisableBreakpoint")).Triggered:connect(function() end)
+				else
+					self.debugpointMenu:AddNewAction("EnableBreakpoint", 
+						localization:getText("BreakpointsWindow", "EnableBreakpoint")).Triggered:connect(function() end)
+				end
+				
+				self.debugpointMenu:AddNewAction("DeleteBreakpoint", 
+					localization:getText("BreakpointsWindow", "DeleteBreakpoint")).Triggered:connect(function() end)
+			elseif row.item.debugpointType == BreakpointModel.debugpointType.Logpoint then
+				self.debugpointMenu:AddNewAction("EditLogpoint", 
+					localization:getText("BreakpointsWindow", "EditLogpoint")).Triggered:connect(function() end)
+				
+				if row.item.isEnabled then
+					self.debugpointMenu:AddNewAction("DisableLogpoint", 
+						localization:getText("BreakpointsWindow", "DisableLogpoint")).Triggered:connect(function() end)
+				else
+					self.debugpointMenu:AddNewAction("EnableLogpoint", 
+						localization:getText("BreakpointsWindow", "EnableLogpoint")).Triggered:connect(function() end)
+				end
+
+				self.debugpointMenu:AddNewAction("DeleteLogpoint", 
+					localization:getText("BreakpointsWindow", "DeleteLogpoint")).Triggered:connect(function() end)
+			end
+
+			self.debugpointMenu:ShowAsync()
+			
+			if self.debugpointMenu then
+				self.debugpointMenu:Destroy()
+				self.debugpointMenu = nil
+			end
+		end
+	end
+end
+
+function BreakpointsTable:willUnmount()
+	if self.debugpointMenu then
+		self.debugpointMenu:Destroy()
+		self.debugpointMenu = nil
+	end
+end
 
 -- Compares breakpoints based on line number
 local breakpointLineNumberComp = function(a, b)
@@ -28,7 +91,7 @@ end
 function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
-	local style = self.props.Stylizer
+	local style = props.Stylizer
 
 	local tableColumns = {
 		{
@@ -92,6 +155,7 @@ function BreakpointsTable:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				Columns = tableColumns,
 				RootItems = props.Breakpoints or {},
+				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
 				Expansion = {},
 				LayoutOrder = 2,
 			}),
@@ -102,6 +166,7 @@ end
 ContextServices.mapToProps(BreakpointsTable, {
 	Localization = Localization,
 	Stylizer = Stylizer,
+	Plugin = Plugin
 })
 
 BreakpointsTable = RoactRodux.connect(

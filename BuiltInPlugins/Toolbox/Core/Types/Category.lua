@@ -2,11 +2,11 @@
 -- TODO Remove nocheck with FFlagToolboxFixCategoryUrlsCircularDependency2
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
+local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -56,8 +56,20 @@ Category.AssetType = {
 	FRONT_ACCESSORY = 15,
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
-	VIDEO = 18
+	VIDEO = 18,
 }
+
+if FFlagUGCLCAssetTypes then
+	Category.AssetType.TSHIRT_ACCESSORY = 19
+	Category.AssetType.SHIRT_ACCESSORY = 20
+	Category.AssetType.PANTS_ACCESSORY = 21
+	Category.AssetType.JACKET_ACCESSORY = 22
+	Category.AssetType.SWEATER_ACCESSORY = 23
+	Category.AssetType.SHORTS_ACCESSORY = 24
+	Category.AssetType.LEFT_SHOE_ACCESSORY = 25
+	Category.AssetType.RIGHT_SHOE_ACCESSORY = 26
+	Category.AssetType.DRESS_SKIRT_ACCESSORY = 27
+end
 
 Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.MODEL] = Enum.AssetType.Model,
@@ -80,6 +92,18 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.WAIST_ACCESSORY] = Enum.AssetType.WaistAccessory,
 	[Category.AssetType.VIDEO] = Enum.AssetType.Video,
 }
+
+if FFlagUGCLCAssetTypes then
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.TSHIRT_ACCESSORY] = Enum.AssetType.TShirtAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.SHIRT_ACCESSORY] = Enum.AssetType.ShirtAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.PANTS_ACCESSORY] = Enum.AssetType.PantsAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.JACKET_ACCESSORY] = Enum.AssetType.JacketAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.SWEATER_ACCESSORY] = Enum.AssetType.SweaterAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.SHORTS_ACCESSORY] = Enum.AssetType.ShortsAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.LEFT_SHOE_ACCESSORY] = Enum.AssetType.LeftShoeAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.RIGHT_SHOE_ACCESSORY] = Enum.AssetType.RightShoeAccessory
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.DRESS_SKIRT_ACCESSORY] = Enum.AssetType.DressSkirtAccessory
+end
 
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MODEL}
@@ -199,6 +223,27 @@ Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", catego
 	ownershipType = Category.OwnershipType.MY,}
 Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", category = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
 	ownershipType = Category.OwnershipType.MY,}
+if FFlagUGCLCAssetTypes then
+	Category.CREATIONS_TSHIRT_ACCESSORIES = {name = "CreationsTShirtAccessories", category = "CreationsTShirtAccessories", assetType = Category.AssetType.TSHIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_SHIRT_ACCESSORIES = {name = "CreationsShirtAccessories", category = "CreationsShirtAccessories", assetType = Category.AssetType.SHIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_PANTS_ACCESSORIES = {name = "CreationsPantsAccessories", category = "CreationsPantsAccessories", assetType = Category.AssetType.PANTS_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_JACKET_ACCESSORIES = {name = "CreationsJacketAccessories", category = "CreationsJacketAccessories", assetType = Category.AssetType.JACKET_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_SWEATER_ACCESSORIES = {name = "CreationsSweaterAccessories", category = "CreationsSweaterAccessories", assetType = Category.AssetType.SWEATER_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_SHORTS_ACCESSORIES = {name = "CreationsShortsAccessories", category = "CreationsShortsAccessories", assetType = Category.AssetType.SHORTS_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_LEFT_SHOE_ACCESSORIES = {name = "CreationsLeftShoeAccessories", category = "CreationsLeftShoeAccessories", assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_RIGHT_SHOE_ACCESSORIES = {name = "CreationsRightShoeAccessories", category = "CreationsRightShoeAccessories", assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_DRESS_SKIRT_ACCESSORIES = {name = "CreationsDressSkirtAccessories", category = "CreationsDressSkirtAccessories", assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,}
+end
+
 if FFlagUGCGroupUploads then
 	Category.CREATIONS_GROUP_HATS = {name = "CreationsGroupHats", category = "CreationsGroupHats", assetType = Category.AssetType.HAT,
 		ownershipType = Category.OwnershipType.GROUP,}
@@ -216,6 +261,26 @@ if FFlagUGCGroupUploads then
 		ownershipType = Category.OwnershipType.GROUP,}
 	Category.CREATIONS_GROUP_WAIST_ACCESSORIES = {name = "CreationsGroupWaistAccessories", category = "CreationsGroupWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
 		ownershipType = Category.OwnershipType.GROUP,}
+	if FFlagUGCLCAssetTypes then
+		Category.CREATIONS_GROUP_TSHIRT_ACCESSORIES = {name = "CreationsTShirtAccessories", category = "CreationsTShirtAccessories", assetType = Category.AssetType.TSHIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_SHIRT_ACCESSORIES = {name = "CreationsShirtAccessories", category = "CreationsShirtAccessories", assetType = Category.AssetType.SHIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_PANTS_ACCESSORIES = {name = "CreationsPantsAccessories", category = "CreationsPantsAccessories", assetType = Category.AssetType.PANTS_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_JACKET_ACCESSORIES = {name = "CreationsJacketAccessories", category = "CreationsJacketAccessories", assetType = Category.AssetType.JACKET_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_SWEATER_ACCESSORIES = {name = "CreationsSweaterAccessories", category = "CreationsSweaterAccessories", assetType = Category.AssetType.SWEATER_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_SHORTS_ACCESSORIES = {name = "CreationsShortsAccessories", category = "CreationsShortsAccessories", assetType = Category.AssetType.SHORTS_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES = {name = "CreationsLeftShoeAccessories", category = "CreationsLeftShoeAccessories", assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES = {name = "CreationsRightShoeAccessories", category = "CreationsRightShoeAccessories", assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES = {name = "CreationsDressSkirtAccessories", category = "CreationsDressSkirtAccessories", assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,}
+	end
 end
 
 -- Category sets used for splitting inventory/shop
@@ -406,7 +471,7 @@ if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRec
 		Category.INVENTORY_KEY,
 		Category.CREATIONS_KEY,
 	}
-elseif FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+elseif showRobloxCreatedAssets() then
 	tabs = {
 		Category.MARKETPLACE,
 		FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
@@ -526,6 +591,15 @@ local ASSET_ENUM_CATEGORY_MAP = {
 	[Enum.AssetType.FrontAccessory] = Category.CREATIONS_FRONT_ACCESSORIES,
 	[Enum.AssetType.BackAccessory] = Category.CREATIONS_BACK_ACCESSORIES,
 	[Enum.AssetType.WaistAccessory] = Category.CREATIONS_WAIST_ACCESSORIES,
+	[Enum.AssetType.TShirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_TSHIRT_ACCESSORIES or nil,
+	[Enum.AssetType.ShirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_SHIRT_ACCESSORIES or nil,
+	[Enum.AssetType.PantsAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_PANTS_ACCESSORIES or nil,
+	[Enum.AssetType.JacketAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_JACKET_ACCESSORIES or nil,
+	[Enum.AssetType.SweaterAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_SWEATER_ACCESSORIES or nil,
+	[Enum.AssetType.ShortsAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_SHORTS_ACCESSORIES or nil,
+	[Enum.AssetType.LeftShoeAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_LEFT_SHOE_ACCESSORIES or nil,
+	[Enum.AssetType.RightShoeAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_RIGHT_SHOE_ACCESSORIES or nil,
+	[Enum.AssetType.DressSkirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_DRESS_SKIRT_ACCESSORIES or nil,
 }
 
 local ASSET_ENUM_GROUP_CATEGORY_MAP = {
@@ -537,6 +611,15 @@ local ASSET_ENUM_GROUP_CATEGORY_MAP = {
 	[Enum.AssetType.FrontAccessory] = Category.CREATIONS_GROUP_FRONT_ACCESSORIES,
 	[Enum.AssetType.BackAccessory] = Category.CREATIONS_GROUP_BACK_ACCESSORIES,
 	[Enum.AssetType.WaistAccessory] = Category.CREATIONS_GROUP_WAIST_ACCESSORIES,
+	[Enum.AssetType.TShirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_TSHIRT_ACCESSORIES or nil,
+	[Enum.AssetType.ShirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_SHIRT_ACCESSORIES or nil,
+	[Enum.AssetType.PantsAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_PANTS_ACCESSORIES or nil,
+	[Enum.AssetType.JacketAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_JACKET_ACCESSORIES or nil,
+	[Enum.AssetType.SweaterAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_SWEATER_ACCESSORIES or nil,
+	[Enum.AssetType.ShortsAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_SHORTS_ACCESSORIES or nil,
+	[Enum.AssetType.LeftShoeAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES or nil,
+	[Enum.AssetType.RightShoeAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES or nil,
+	[Enum.AssetType.DressSkirtAccessory] = FFlagUGCLCAssetTypes and Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES or nil,
 }
 
 function Category.getCategories(tabName, roles)

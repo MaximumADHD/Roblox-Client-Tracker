@@ -9,6 +9,8 @@
 			if emulation is enabled
 		boolean customPolicySwitchEnabled
 			if custom policy switch is enabled
+		bool customPolicySwitchActive
+			if custom policy switch is active
 		function onCustomPolicyEnabledChanged
 			on toggle custom policy enabled
 ]]
@@ -24,6 +26,7 @@ local ToggleItemModule = require(Plugin.Src.Components.ToggleItemModule)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local OnCustomPolicyEnabledChanged = require(Plugin.Src.Actions.OnCustomPolicyEnabledChanged)
+local OnCustomPolicySwitchEnabledChanged = require(Plugin.Src.Actions.OnCustomPolicySwitchEnabledChanged)
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
@@ -37,20 +40,16 @@ end
 
 local CustomPolicySwitchSection = Roact.PureComponent:extend("CustomPolicySwitchSection")
 
-function CustomPolicySwitchSection:initEnabledStatus()
-	local plugin = self.props.Plugin:get()
-	local cachedSetting = plugin:GetSetting(Constants.CUSTOM_POLICIES_KEY)
-	if cachedSetting == true then
-		SetPlayerEmulatorServiceCustomPoliciesEnabledProperty(true)
-	end
+function CustomPolicySwitchSection:updateCustomPoliciesEnabled()
+	local onCustomPolicyEnabledChanged = self.props.onCustomPolicyEnabledChanged
+	onCustomPolicyEnabledChanged(GetPlayerEmulatorServiceCustomPoliciesEnabledProperty())
 end
 
-function CustomPolicySwitchSection:updateCustomPoliciesEnabled(enabled)
+function CustomPolicySwitchSection:updateCustomPoliciesSwitchEnabled(enabled)
 	local plugin = self.props.Plugin:get()
-	plugin:SetSetting(Constants.CUSTOM_POLICIES_KEY, enabled)
-
-	local onCustomPolicyEnabledChanged = self.props.onCustomPolicyEnabledChanged
-	onCustomPolicyEnabledChanged(enabled)
+	plugin:SetSetting(Constants.CUSTOM_POLICIES_SWITCH_KEY, enabled)
+	local onCustomPolicySwitchEnabledChanged = self.props.onCustomPolicySwitchEnabledChanged
+	onCustomPolicySwitchEnabledChanged(enabled)
 end
 
 function CustomPolicySwitchSection:init()
@@ -59,11 +58,17 @@ end
 
 function CustomPolicySwitchSection:didMount()
 	local enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal("CustomPoliciesEnabled"):Connect(function()
-		self:updateCustomPoliciesEnabled(GetPlayerEmulatorServiceCustomPoliciesEnabledProperty())
+		self:updateCustomPoliciesEnabled()
 	end)
 	table.insert(self.signalTokens, enabledChangedSignal)
 
-	self:initEnabledStatus()
+	local plugin = self.props.Plugin:get()
+	local cachedSetting = plugin:GetSetting(Constants.CUSTOM_POLICIES_SWITCH_KEY)
+	if cachedSetting == true then
+		self:updateCustomPoliciesSwitchEnabled(cachedSetting)
+	end
+	
+	self:updateCustomPoliciesEnabled()
 end
 
 function CustomPolicySwitchSection:willUnmount()
@@ -85,6 +90,14 @@ function CustomPolicySwitchSection:render()
 	local layoutOrder = props.LayoutOrder
 	local isOn = props.customPolicySwitchEnabled
 	local mainSwitchEnabled = props.mainSwitchEnabled
+	local customPolicySwitchActive = props.customPolicySwitchActive
+	
+	if not customPolicySwitchActive then
+		SetPlayerEmulatorServiceCustomPoliciesEnabledProperty(true)
+		return nil
+	end
+	
+	SetPlayerEmulatorServiceCustomPoliciesEnabledProperty(isOn)
 	
 	return Roact.createElement("Frame", {
 		Size = theme.TOGGLE_ITEM_FRAME_SIZE,
@@ -95,7 +108,7 @@ function CustomPolicySwitchSection:render()
 			Key = localization:getText("CustomPolicySwitchSection", "LabelText"),
 			IsOn = isOn,
 			Enabled = mainSwitchEnabled,
-			ToggleCallback = function(key, value, plugin) SetPlayerEmulatorServiceCustomPoliciesEnabledProperty(value) end,
+			ToggleCallback = function(key, value, plugin) self:updateCustomPoliciesSwitchEnabled(value) end,
 		}),
 	})
 end
@@ -110,7 +123,8 @@ CustomPolicySwitchSection = withContext({
 local function mapStateToProps(state, _)
 	return {
 		mainSwitchEnabled = state.MainSwitch.mainSwitchEnabled,
-		customPolicySwitchEnabled = state.CustomPolicySwitch.customPolicySwitchEnabled
+		customPolicySwitchEnabled = state.CustomPolicySwitch.customPolicySwitchEnabled,
+		customPolicySwitchActive = state.CustomPolicySwitch.customPolicySwitchActive
 	}
 end
 
@@ -118,6 +132,9 @@ local function mapDispatchToProps(dispatch)
 	return {
 		onCustomPolicyEnabledChanged = function(enabled)
 			dispatch(OnCustomPolicyEnabledChanged(enabled))
+		end,
+		onCustomPolicySwitchEnabledChanged = function(enabled)
+			dispatch(OnCustomPolicySwitchEnabledChanged(enabled))
 		end
 	}
 end

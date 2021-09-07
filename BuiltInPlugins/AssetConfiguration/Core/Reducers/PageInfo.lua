@@ -21,7 +21,6 @@ local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -35,10 +34,6 @@ else
 end
 
 local function warnIfUpdatePageInfoChangesInvalid(state, changes)
-	if not FFlagToolboxFixCommonWarnings2 and changes.categories then
-		warn("Lua Toolbox: Cannot change categories array through UpdatePageInfo")
-	end
-
 	if changes.sorts then
 		warn("Lua Toolbox: Cannot change sorts array through UpdatePageInfo")
 	end
@@ -51,30 +46,16 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: sortIndex out of range in UpdatePageInfo")
 	end
 
-	if FFlagToolboxFixCommonWarnings2 then
-		if changes.groupIndex ~= nil and changes.groupIndex > 0 and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
-			or changes.groupIndex > #state.groups) then
-			warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
-		end
-	else
-		-- For groupIndex, allow it to be 0 if #state.groups == 0
-		-- Else it has to be >= 1 like the other indices
-		if changes.groupIndex and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
-			or changes.groupIndex > #state.groups) then
-			warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
-		end
+	if changes.groupIndex ~= nil and changes.groupIndex > 0 and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
+		or changes.groupIndex > #state.groups) then
+		warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
 	end
 
 	if changes.sortIndex and not state.sorts[changes.sortIndex] then
 		warn("Lua Toolbox: Changing sortIndex but sortType is not valid in UpdatePageInfo")
 	end
 
-	local hasValidGroupIndex
-	if FFlagToolboxFixCommonWarnings2 then
-		hasValidGroupIndex = changes.groupIndex and changes.groupIndex > 0
-	else
-		hasValidGroupIndex = changes.groupIndex
-	end
+	local hasValidGroupIndex = changes.groupIndex and changes.groupIndex > 0
 
 	if hasValidGroupIndex then
 		if #state.groups == 0 then

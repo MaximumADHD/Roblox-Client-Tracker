@@ -12,10 +12,13 @@ local Image = require(UI.Image)
 local Pane = require(UI.Pane)
 local Tooltip = require(UI.Tooltip)
 local TextLabel = require(UI.TextLabel)
+local TextInput = require(UI.TextInput)
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 
 function TreeTableCell:init()
 	self.onToggle = function()
@@ -32,6 +35,41 @@ function TreeTableCell:init()
 			end
 		end
 	end
+	if FFlagStudioAddTextInputCols then
+		self.onTextInputFocusLost = function(enterPressed, rbx)
+			local props = self.props
+			local onFocusLost = props.CellProps.OnFocusLost
+			if onFocusLost then
+				onFocusLost(enterPressed, rbx, props.Row, props.ColumnIndex)
+			end
+		end
+	end
+
+	self.getTextElement = function(props, text)
+		local cellProps = props.CellProps
+		local textInputCols = cellProps.TextInputCols
+		local row = props.Row
+
+		-- We've only set only depth=0 as editable because that's the only known use case
+		local colIsInput = FFlagStudioAddTextInputCols and textInputCols and textInputCols[props.ColumnIndex] and row.depth == 0
+		if (colIsInput) then 
+			return Roact.createElement(TextInput, {
+				LayoutOrder = 3,
+				Text = text,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				OnFocusLost = self.onTextInputFocusLost,
+				[Roact.Ref] = self.textRef,
+			})
+		else
+			return text and Roact.createElement(TextLabel, {
+				LayoutOrder = 3,
+				Text = text,
+				AutomaticSize = Enum.AutomaticSize.XY,
+				[Roact.Ref] = self.textRef,
+			}) or nil
+		end
+	end
+
 end
 
 function TreeTableCell:render()
@@ -63,14 +101,14 @@ function TreeTableCell:render()
 	local arrowSize = style.Arrow.Size
 	local indent = row.depth * style.Indent
 
-	local isFirstRow = props.ColumnIndex == 1
-	local padding = isFirstRow and {
+	local isFirstColumn = props.ColumnIndex == 1
+	local padding = isFirstColumn and {
 		Top = style.CellPadding.Top,
 		Left = style.CellPadding.Left + indent,
 		Right = style.CellPadding.Right,
 		Bottom = style.CellPadding.Bottom,
 	} or style.CellPadding
-	local hasChildren = isFirstRow and row.item.children and #row.item.children > 0
+	local hasChildren = isFirstColumn and row.item.children and #row.item.children > 0
 
 	return Roact.createElement(Pane, {
 		Style = "Box",
@@ -78,7 +116,8 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil,
+		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil,
+		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {
 			MaxWidth = style.Tooltip.MaxWidth,
@@ -106,12 +145,7 @@ function TreeTableCell:render()
 			LeftIcon = icon and Roact.createElement(Image, join({
 				LayoutOrder = 2,
 			}, icon)) or nil,
-			Text = text and Roact.createElement(TextLabel, {
-				LayoutOrder = 3,
-				Text = text,
-				AutomaticSize = Enum.AutomaticSize.XY,
-				[Roact.Ref] = self.textRef,
-			}) or nil,
+			Text = self.getTextElement(props, text)
 		})
 	})
 end

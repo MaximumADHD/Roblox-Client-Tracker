@@ -21,19 +21,13 @@
 			})
 		end
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local LayoutOrderIterator = {}
 LayoutOrderIterator.__index = LayoutOrderIterator
 
 function LayoutOrderIterator.new(start)
 	local self = setmetatable({}, LayoutOrderIterator)
 
-	if FFlagLuobuDevPublishLua then
-		self.order = start or 0
-	else
-		self.order = 0
-	end
+	self.order = start or 0
 
 	return self
 end

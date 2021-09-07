@@ -341,22 +341,9 @@ return Rodux.createReducer(productionStartStore, {
 		local listOfExpressionsCopy = deepCopy(state.listOfExpressions)
 		local index = indexOf(listOfExpressionsCopy, action.oldExpression)
 		listOfExpressionsCopy[index] = action.newExpression
-		
-		local stateTokenToRootsCopy = state.stateTokenToRoots
-		if (state.stateTokenToRoots[action.currentStepStateBundle.debuggerStateToken] ~= nil) then
-			-- expression can be changed outside of debugging
-			stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
-
-			nilCheckWatch(stateTokenToRootsCopy, action.currentStepStateBundle, action)
-
-			local target = stateTokenToRootsCopy[action.currentStepStateBundle.debuggerStateToken][action.currentStepStateBundle.threadId][action.currentStepStateBundle.frameNumber].Watches
-			index = indexOf(target, action.oldExpression)
-			table.remove(target, index)
-		end
 
 		return Cryo.Dictionary.join(state, {
 			listOfExpressions = listOfExpressionsCopy,
-			stateTokenToRoots = stateTokenToRootsCopy
 		})
 	end,
 
@@ -380,21 +367,8 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[RemoveExpression.name] = function(state : WatchStore, action : RemoveExpression.Props)
-		local stateTokenToRootsCopy = state.stateTokenToRoots
-		if (state.stateTokenToRoots[action.currentStepStateBundle.debuggerStateToken] ~= nil) then
-			-- expression can be changed outside of debugging
-			stateTokenToRootsCopy = deepCopy(state.stateTokenToRoots)
-
-			nilCheckWatch(stateTokenToRootsCopy, action.currentStepStateBundle, action)
-
-			local target = stateTokenToRootsCopy[action.currentStepStateBundle.debuggerStateToken][action.currentStepStateBundle.threadId][action.currentStepStateBundle.frameNumber].Watches
-			local index = indexOf(target, action.expression)
-			table.remove(target, index)
-		end
-		
 		return Cryo.Dictionary.join(state, {
 			listOfExpressions = Cryo.List.removeValue(state.listOfExpressions, action.expression),
-			stateTokenToRoots = stateTokenToRootsCopy,
 		})
 	end,
 

@@ -7,7 +7,6 @@
 		table Buttons = The buttons to add to this button bar.
 ]]
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
@@ -41,7 +40,7 @@ function ButtonBar:render()
 	local AnchorPoint = props.AnchorPoint or Vector2.new(0, 0.5)
 	local Position = props.Position or UDim2.new(0, 0, 0.5, 0)
 
-	local children = FFlagLuobuDevPublishLua and props[Roact.Children] or nil
+	local children = props[Roact.Children]
 
 	assert(type(buttons) == "table", "ButtonBar.Buttons must be a table")
 

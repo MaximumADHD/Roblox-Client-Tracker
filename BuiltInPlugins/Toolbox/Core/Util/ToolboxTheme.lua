@@ -32,7 +32,7 @@ function ToolboxTheme.createDummyThemeManager()
 	return ToolboxTheme.new({
 		getTheme = {
 			GetColor = function()
-				return Color3.fromRGB(0, 0, 0)
+				return Color3.new(math.random(), math.random(), math.random())
 			end,
 		},
 		studioStyleGuideColor = TestHelpers.createMockStudioStyleGuideColor(),

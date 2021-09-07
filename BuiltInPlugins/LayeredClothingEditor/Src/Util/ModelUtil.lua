@@ -7,6 +7,8 @@ local TestHelper = require(Plugin.Src.Util.TestHelper)
 local Workspace = game.Workspace
 local HttpService = game:GetService("HttpService")
 
+local FFlagHumanoidGetAccessoryScale = game:GetFastFlag("HumanoidGetAccessoryScale")
+
 local ModelUtil = {}
 
 local function getDescendants(descendants, model)
@@ -27,9 +29,24 @@ local function getExents(item)
 	end
 end
 
+local function isAccessoryOrClothingAttachment(att)
+	local assetTypes = Constants.ASSET_TYPE_ATTACHMENT
+	for category, types in pairs(assetTypes) do
+		for assetType, info in pairs(types) do
+			for attTypeName, attInfo in pairs(info.Attachments) do
+				if attInfo.Name == att.Name then
+					return true
+				end
+			end 
+		end
+	end
+
+	return false
+end
+
 function ModelUtil:clearOldAttachments(item)
 	for _, child in ipairs(item:GetChildren()) do
-		if child:IsA("Attachment") then
+		if child:IsA("Attachment") and isAccessoryOrClothingAttachment(child) then
 			child:Destroy()
 		end
 	end
@@ -68,6 +85,10 @@ function ModelUtil:cleanupDeformerNames(editingItem, sourceItem)
 end
 
 function ModelUtil:addAttachment(item, body, attachmentInfo, attachmentPoint)
+	if not attachmentInfo then
+		return
+	end
+
 	local bodyAttachment = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
 	if not bodyAttachment then
 		return
@@ -127,6 +148,10 @@ function ModelUtil:focusCameraOnItem(item)
 end
 
 function ModelUtil:findAvatarAttachmentByName(model, name)
+	if name == "" or name == nil then
+		return nil
+	end
+
 	local children = model:GetChildren()
 	for _, child in ipairs(children) do
 		-- for all parts
@@ -184,24 +209,50 @@ function ModelUtil:addWeld(cframe, p0, p1, parent)
 	return
 end
 
-local function clearUnusedMeshChildren(item)
+function ModelUtil:clearWelds(item)
 	for _, instance in pairs(item:GetDescendants()) do
 		if
-			not instance:IsA("WrapLayer") and
-			not instance:IsA("SurfaceAppearance") and
-			not instance:IsA("Attachment")
+			instance:IsA("WeldConstraint") or
+			instance:IsA("Weld")
 		then
 			instance:Destroy()
 		end
 	end
 end
 
-function ModelUtil:attachNonClothingItem(root, avatar, item, weldWithCurrentPos)
+function ModelUtil:getAutomaticScaling(avatar, item, attachmentName)
+	if not FFlagHumanoidGetAccessoryScale then
+		return Vector3.new(1,1,1)
+	end
+
+	local humanoid = avatar:FindFirstChildWhichIsA("Humanoid")
+	if not humanoid then
+		return Vector3.new(1,1,1)
+	end
+
+	local matchingAttachment = self:findAvatarAttachmentByName(avatar, attachmentName)
+	if not matchingAttachment then
+		return Vector3.new(1,1,1)
+	end
+
+	local r15PartType = humanoid:GetBodyPartR15(matchingAttachment.Parent)
+	if r15PartType == Enum.BodyPartR15.Unknown then
+		return Vector3.new(1,1,1)
+	end
+
+	return humanoid:GetAccessoryHandleScale(item, r15PartType)
+end
+
+function ModelUtil:attachNonClothingItem(root, avatar, item, attachmentName, weldWithCurrentPos, applyAutoScale)
 	item.Parent = avatar
 
-	clearUnusedMeshChildren(item)
+	self:clearWelds(item)
 
-	local attItem = item:FindFirstChildWhichIsA("Attachment")
+	if applyAutoScale then
+		item.Size = item.Size * self:getAutomaticScaling(avatar, item, attachmentName)
+	end
+
+	local attItem = item:FindFirstChild(attachmentName)
 	if not attItem then
 		self:addWeld(root.CFrame, item, root, item)
 		return
@@ -217,7 +268,7 @@ function ModelUtil:attachNonClothingItem(root, avatar, item, weldWithCurrentPos)
 	return
 end
 
-function ModelUtil:attachClothingItem(avatar, item, weldWithCurrentPos)
+function ModelUtil:attachClothingItem(avatar, item, attachmentName, weldWithCurrentPos, applyAutoScale)
 	local characterRoot = avatar:FindFirstChild("HumanoidRootPart")
 	if not characterRoot then
 		return
@@ -248,12 +299,12 @@ function ModelUtil:attachClothingItem(avatar, item, weldWithCurrentPos)
 
 	-- Accessory is not an LC item
 	if #clothesMeshes <= 0 then
-		self:attachNonClothingItem(characterRoot, avatar, item, weldWithCurrentPos)
+		self:attachNonClothingItem(characterRoot, avatar, item, attachmentName, weldWithCurrentPos, applyAutoScale)
 		return
 	end
 
 	for _, cm in ipairs(clothesMeshes) do
-		clearUnusedMeshChildren(cm.mesh)
+		self:clearWelds(cm.mesh)
 	end
 
 	-- align using wrap origin and re-parent/weld
@@ -274,16 +325,9 @@ function ModelUtil:attachClothingItem(avatar, item, weldWithCurrentPos)
 		local part0 = cm.mesh
 		local part1 = characterRoot
 
-		local meshChildren = cm.mesh:GetChildren()
-		for _, child in ipairs(meshChildren) do
-			-- for all parts
-			if child:IsA("Attachment") then
-				local att = ModelUtil:findAvatarAttachmentByName(avatar, child.Name)
-				if att then
-					part1 = att.Parent
-					break
-				end
-			end
+		local att = ModelUtil:findAvatarAttachmentByName(avatar, attachmentName)
+		if att then
+			part1 = att.Parent
 		end
 
 		self:addWeld(nil, part0, part1, cm.mesh)

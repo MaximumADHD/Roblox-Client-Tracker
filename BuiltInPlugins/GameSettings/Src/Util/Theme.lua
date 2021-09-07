@@ -21,7 +21,6 @@ local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local Theme = {}
@@ -110,7 +109,7 @@ function Theme.createValues(theme, getColor)
 		}
 	end)
 
-	local tooltipOptIn = FFlagLuobuDevPublishLua and StyleTable.new("Image", function()
+	local tooltipOptIn = StyleTable.new("Image", function()
 		local TooltipStyle = Style.new({
 			Image = "rbxasset://textures/GameSettings/MoreDetails.png",
 			Color = theme:getColor(StyleColor.SubText),
@@ -127,7 +126,7 @@ function Theme.createValues(theme, getColor)
 			TooltipStyle = TooltipStyle,
 			WarningStyle = WarningStyle,
 		}
-	end) or nil
+	end)
 
 	return {
 		Plugin = Style.extend({
@@ -473,25 +472,25 @@ function Theme.createValues(theme, getColor)
 				}
 			},
 
-			requirementsLink = FFlagLuobuDevPublishLua and {
+			requirementsLink = {
 				height = 22,
 				length = 250,
 				paddingY = 25,
 				paddingX = 5,
-			} or nil,
+			},
 
-			tooltipIcon = FFlagLuobuDevPublishLua and {
+			tooltipIcon = {
 				paddingX = 5,
 				paddingY = 30,
 				size = 14,
-			} or nil,
+			},
 
-			emailDialog = FFlagLuobuDevPublishLua and {
+			emailDialog = {
 				Size = {
 					X = 500,
 					Y = 350,
 				}
-			} or nil,
+			},
 
 			optInWarning = FFlagCheckPublishedPlaceExistsForDevPublish and {
 				padding = 5,
@@ -509,7 +508,7 @@ function Theme.createValues(theme, getColor)
 
 		Framework = Style.extend(studioStyles, {
 			Button = Style.extend(studioStyles.Button, gameSettingsButtons),
-			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil,
+			Image = Style.extend(studioStyles.Image, tooltipOptIn),
 		}),
 	}
 end

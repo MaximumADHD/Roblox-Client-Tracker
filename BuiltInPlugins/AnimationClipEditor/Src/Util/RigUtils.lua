@@ -18,6 +18,9 @@ local Adorn = require(Plugin.Src.Util.Adorn)
 local Workspace = game:GetService("Workspace")
 
 local Constants = require(Plugin.Src.Util.Constants)
+
+local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
+local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -931,6 +934,33 @@ end
 -- constructs the chain, making use of existing poses along the way
 -- if they exist.
 
+local function IsR15Humanoid(humanoid)
+	if not humanoid or not humanoid:IsA("Humanoid") or humanoid.RigType ~= Enum.HumanoidRigType.R15 then
+		return false
+	end
+	local model = humanoid.Parent
+	if not model or not model:IsA("Model") then
+		return false
+	end
+	return true
+end
+
+local function AddAnimationRigToKeyframeSequence(animationData, model, keyframeSequence)
+	-- Create AnimationRig
+	local humanoid = model:FindFirstChildOfClass("Humanoid")
+	if IsR15Humanoid(humanoid) then
+		-- it would be nice to just have an AnimationRig constructor that takes a humanoid,
+		-- but the lua reflection c++ code does not seem to support that
+		local animationRig = Instance.new("AnimationRigData", keyframeSequence)
+		local builtOk = animationRig:LoadFromHumanoid(humanoid)
+		if (not builtOk) then
+			animationRig:Destroy()
+		else
+			animationRig.Name = model.Name .. "AnimationRigData"
+		end
+	end
+end
+
 -- Unused when GetFFlagFacialAnimationSupport is ON
 local function makePoseChain_deprecated_too(keyframe, trackName, trackData, pathMap)
 	local path = pathMap[trackName]
@@ -1138,6 +1168,11 @@ function RigUtils.toRigAnimation(animationData, rig)
 
 			numEvents = numEvents + 1
 		end
+	end
+
+	-- Create AnimationRig
+	if FFSaveAnimationRigWithKeyframeSequence then
+		AddAnimationRigToKeyframeSequence(animationData, rig, keyframeSequence)
 	end
 
 	local numKeyframes = #keyframeSequence:GetKeyframes()

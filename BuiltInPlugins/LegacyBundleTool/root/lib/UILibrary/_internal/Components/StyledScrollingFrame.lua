@@ -18,8 +18,6 @@
 	Optional Props:
 		Color3 BackgroundColor: If provided, we set BackgroundTransparency to 0 and show the provided color as background and border
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local DEFAULT_SCROLLBAR_THICKNESS = 8
 local DEFAULT_SCROLLBAR_PADDING = 2
 
@@ -47,7 +45,7 @@ function StyledScrollingFrame:render()
 		local position = props.Position
 		local size = props.Size
 		local canvasSize = props.CanvasSize
-		local autoCanvasSize = FFlagLuobuDevPublishLua and props.AutomaticCanvasSize or nil
+		local autoCanvasSize = props.AutomaticCanvasSize
 		local layoutOrder = props.LayoutOrder
 		local zindex = props.ZIndex
 		local scrollingEnabled = props.ScrollingEnabled

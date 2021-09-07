@@ -1,3 +1,5 @@
+local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Util = Plugin.Core.Util
@@ -123,6 +125,18 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	marketplaceAssetInfo(Enum.AssetType.Animation),
 	marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
 }
+
+if FFlagUGCLCAssetTypes then
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.TShirtAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.ShirtAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.PantsAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.JacketAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.SweaterAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.ShortsAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.LeftShoeAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.RightShoeAccessory, true))
+	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.DressSkirtAccessory, true))
+end
 
 -- allow lookup by Enum.AssetType
 for _, info in ipairs(AssetConfigConstants.ASSET_TYPE_INFO) do

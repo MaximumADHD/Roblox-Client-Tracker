@@ -30,6 +30,9 @@
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
+		callback RightClick: An optional callback called when a row is right-clicked. (item: Item)->()
+		callback OnFocusLost: An optional callback called when a cell that has input enabled loses focus. Enable text change by column with TextInputCols prop
+		array[any] TextInputCols: An optional set used to determine if a given column with just display text or allow text input as well
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
@@ -58,11 +61,12 @@ Typecheck.wrap(TreeTable, script)
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
 	self.onToggle = function(row)
-
 		local newExpansion = {
 			[row.item] = not self.props.Expansion[row.item] or false,
 		}
@@ -77,12 +81,23 @@ function TreeTable:init()
 		}
 		self.props.OnSelectionChange(newSelection)
 	end	
+	
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClickRow = function(row)
+			if not self.props.RightClick then
+				return
+			end
+			self.props.RightClick(row)
+		end
+	end
+	
 	self.getRowKey = function(row)
 		if not self.props.GetItemKey then
 			return nil
 		end
 		return self.props.GetItemKey(row.item)
-	end
+	end 
+	
 	self.state = {
 		selectedRow = nil,
 		rows = {},
@@ -91,6 +106,8 @@ function TreeTable:init()
 			Expansion = self.props.Expansion,
 			CellStyle = self.props.Stylizer,
 			DisableTooltip = FFlagToggleTreeTableTooltip and self.props.DisableTooltip or nil,
+			TextInputCols = FFlagStudioAddTextInputCols and self.props.TextInputCols or nil,
+			OnFocusLost = FFlagStudioAddTextInputCols and self.props.OnFocusLost or nil,
 		},
 	}
 end
@@ -129,6 +146,8 @@ function TreeTable:calculateItems(prevProps)
 				Expansion = props.Expansion,
 				CellStyle = props.Stylizer,
 				DisableTooltip = FFlagToggleTreeTableTooltip and props.DisableTooltip or nil,
+				TextInputCols = FFlagStudioAddTextInputCols and props.TextInputCols or nil,
+				OnFocusLost = FFlagStudioAddTextInputCols and props.OnFocusLost or nil,
 			}
 		end
 		local rows = nextState.rows or prevState.rows
@@ -168,7 +187,6 @@ end
 function TreeTable:render()
 	local props = self.props
 	local state = self.state
-
 	local cellComponent = props.CellComponent or TreeTableCell
 
 	return Roact.createElement(Table, {
@@ -187,6 +205,7 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
+		OnRightClickRow = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,
 		RowComponent = props.RowComponent,

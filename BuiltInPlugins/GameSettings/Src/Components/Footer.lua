@@ -6,7 +6,6 @@
 		bool SaveActive = Whether or not saving is currently allowed.
 			This will enable the Save button if true.
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
@@ -34,17 +33,14 @@ local ConfirmAndSaveChanges = require(Plugin.Src.Thunks.ConfirmAndSaveChanges)
 local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 
-local TextInputDialog = FFlagLuobuDevPublishLua and Framework.UI.TextInputDialog or nil
+local TextInputDialog = Framework.UI.TextInputDialog
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.GameSettingsUtilities).shouldShowDevPublishLocations
 local sendAnalyticsToKibana = require(Plugin.Src.Util.GameSettingsUtilities).sendAnalyticsToKibana
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
-local GetOptInLocationsKeyName = KeyProvider.getOptInLocationsKeyName
-local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
-local GetChinaKeyName = KeyProvider.getChinaKeyName
-local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName and GetChinaKeyName() or "China"
-local GetSelectedKeyName = KeyProvider.getSelectedKeyName
-local selectedKey = FFlagLuobuDevPublishLua and GetSelectedKeyName and GetSelectedKeyName() or "selected"
+local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
+local chinaKey = KeyProvider.getChinaKeyName()
+local selectedKey = KeyProvider.getSelectedKeyName()
 local footerKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getFooterKeyName() or "Footer"
 local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
 
@@ -62,7 +58,7 @@ function Footer:saveAllSettings(userPressedSave)
 end
 
 function Footer:init()
-	self.shouldShowEmailDialog = FFlagLuobuDevPublishLua and function()
+	self.shouldShowEmailDialog = function()
 		local props = self.props
 		-- 5/25/21 - CurrentOptInLocations and ChangedOptInLocations are only set in Luobu Studio
 		local currentOptInLocations = props.CurrentOptInLocations
@@ -80,13 +76,13 @@ function Footer:init()
 		end
 		return false
 
-	end or nil
+	end
 
-	self.state = FFlagLuobuDevPublishLua and {
+	self.state = {
 		showEmailDialog = false,
 		userPressedSave = false,
 		bottomText = "",
-	} or nil
+	}
 end
 
 function Footer:render()
@@ -126,35 +122,31 @@ function Footer:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Right,
 			ButtonClicked = function(userPressedSave)
 				-- Make changes here before save happens to show dialog
-				if FFlagLuobuDevPublishLua then
-					if userPressedSave and shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
-						self:setState({
-							showEmailDialog = true,
-							userPressedSave = userPressedSave,
-						})
-					else
-						if FFlagLuobuDevPublishAnalytics and userPressedSave and shouldShowDevPublishLocations() and self.props.CurrentOptInLocations then
-							if self.props.CurrentOptInLocations[chinaKey][selectedKey] then
-								local points = {
-									[optInLocationsKey] = chinaKey,
-								}
-								if not self.props.ChangedOptInLocations then
-									points.selected = true
-								else
-									assert(not self.props.ChangedOptInLocations[chinaKey][selectedKey])
-									points.selected = false
-								end
-								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
-							end
-						end
-						self:saveAllSettings(userPressedSave)
-					end
+				if userPressedSave and shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
+					self:setState({
+						showEmailDialog = true,
+						userPressedSave = userPressedSave,
+					})
 				else
+					if FFlagLuobuDevPublishAnalytics and userPressedSave and shouldShowDevPublishLocations() and self.props.CurrentOptInLocations then
+						if self.props.CurrentOptInLocations[chinaKey][selectedKey] then
+							local points = {
+								[optInLocationsKey] = chinaKey,
+							}
+							if not self.props.ChangedOptInLocations then
+								points.selected = true
+							else
+								assert(not self.props.ChangedOptInLocations[chinaKey][selectedKey])
+								points.selected = false
+							end
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
+						end
+					end
 					self:saveAllSettings(userPressedSave)
 				end
 			end,
 		}, {
-			EmailDialog = FFlagLuobuDevPublishLua and Roact.createElement(TextInputDialog,
+			EmailDialog = Roact.createElement(TextInputDialog,
 			{
 				Enabled = self.state.showEmailDialog,
 				Size = Vector2.new(theme.emailDialog.Size.X, theme.emailDialog.Size.Y),
@@ -213,7 +205,7 @@ function Footer:render()
 						})
 					end
 				end,
-			}) or nil
+			}),
 		}),
 	})
 end
@@ -241,8 +233,8 @@ Footer = RoactRodux.connect(
 				and state.Status == CurrentStatus.Open
 				and isEmpty(state.Settings.Errors),
 			CancelActive = state.Status == CurrentStatus.Open,
-			CurrentOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Current[optInLocationsKey] or nil,
-			ChangedOptInLocations = FFlagLuobuDevPublishLua and state.Settings.Changed[optInLocationsKey] or nil,
+			CurrentOptInLocations = state.Settings.Current[optInLocationsKey],
+			ChangedOptInLocations = state.Settings.Changed[optInLocationsKey],
 		}
 	end,
 	function(dispatch)

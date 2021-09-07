@@ -12,7 +12,6 @@ local Category = require(Plugin.Core.Types.Category)
 
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 
 return function(networkInterface, tabName, newCategories,  settings, options)
@@ -20,7 +19,7 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 		local categories = Category.getCategories(tabName, store:getState().roles)
 
 		local creator = Cryo.None
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+		if showRobloxCreatedAssets() then
 			creator = options.creator or Cryo.None
 		end
 

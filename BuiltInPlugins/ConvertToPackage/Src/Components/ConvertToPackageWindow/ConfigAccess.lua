@@ -4,6 +4,9 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
+
+local FFlagWidenDropDown = game:DefineFastFlag("WidenDropDown", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -141,6 +144,7 @@ function ConfigAccess:render()
 				Items = self.dropdownContent,
 				OnItemClicked = onDropDownSelect,
 				LayoutOrder = 2,
+				ListWidth = (FFlagWidenDropDown and DROP_DOWN_WIDTH) or 0,
 			}),
 		})
 	end)

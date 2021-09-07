@@ -139,11 +139,12 @@ return function(store)
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 
-	for _, uniqueId in ipairs({80,60,70}) do
-		store:dispatch(AddBreakpoint("123", BreakpointModel.mockBreakpoint({}, uniqueId)))
+	local i = 0
+	for _, uniqueId in ipairs({80,91,60,71}) do
+		store:dispatch(AddBreakpoint("123", BreakpointModel.mockBreakpoint({isEnabled = (i>=2)}, uniqueId)))
+		i = i+ 1
 	end
 
-	store:dispatch(AddChildVariables(stepStateBundle1, "Alex", {variableRow1Child1}))
 	store:dispatch(AddChildVariables(stepStateBundle1, "Alex", {variableRow1Child1, variableRow1Child2}))
 	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Heesoo", {variableRow1Child11}))
 	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Austin", {variableRow1Child21}))

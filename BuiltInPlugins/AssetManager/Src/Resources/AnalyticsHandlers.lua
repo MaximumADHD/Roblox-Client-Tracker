@@ -1,6 +1,8 @@
 local GA_CATEGORY_ACTION = "Action"
 local ASSET_MANAGER_CATEGORY = "Asset Manager"
 
+local FFlagFixAssetManagerAssetPreviewMedia = game:DefineFastFlag("FixAssetManagerAssetPreviewMedia", false)
+
 return function(rbxAnalyticsService)
     return {
         openFolder = function(folderName)
@@ -36,5 +38,22 @@ return function(rbxAnalyticsService)
             rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Double Click Insert")
             rbxAnalyticsService:ReportCounter("AssetManagerDoubleClickInsert", 1)
         end,
+
+        AssetPreviewPlaySound = FFlagFixAssetManagerAssetPreviewMedia and function()
+            rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Asset Preview Play Sound")
+            rbxAnalyticsService:ReportCounter("AssetManagerAssetPreviewPlaySound", 1)
+        end or nil,
+        AssetPreviewPauseSound = FFlagFixAssetManagerAssetPreviewMedia and function()
+            rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Asset Preview Pause Sound")
+            rbxAnalyticsService:ReportCounter("AssetManagerAssetPreviewPauseSound", 1)
+        end or nil,
+        AssetPreviewPlayVideo = FFlagFixAssetManagerAssetPreviewMedia and function()
+            rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Asset Preview Play Video")
+            rbxAnalyticsService:ReportCounter("AssetManagerAssetPreviewPlayVideo", 1)
+        end or nil,
+        AssetPreviewPauseVideo = FFlagFixAssetManagerAssetPreviewMedia and function()
+            rbxAnalyticsService:TrackEvent(GA_CATEGORY_ACTION, ASSET_MANAGER_CATEGORY, "Asset Preview Pause Video")
+            rbxAnalyticsService:ReportCounter("AssetManagerAssetPreviewPauseVideo", 1)
+        end or nil,
     }
 end

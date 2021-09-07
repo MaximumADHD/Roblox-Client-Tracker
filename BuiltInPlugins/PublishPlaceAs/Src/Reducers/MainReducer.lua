@@ -1,5 +1,3 @@
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local Plugin = script.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 
@@ -16,7 +14,7 @@ local MainReducer = Rodux.combineReducers({
 	NewGameSettings = NewGameSettings,
 	PublishedPlace = PublishedPlace,
 	GroupsHavePermission = GroupsHavePermission,
-	Policy = FFlagLuobuDevPublishLua and Policy or nil,
+	Policy = Policy,
 })
 
 return MainReducer

@@ -14,7 +14,6 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
@@ -45,7 +44,6 @@ function CheckBoxSet:render()
 	}
 
 	-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
-	-- Look at the changes in FFlagLuobuDevPublishLua that use this.
 	for i, box in ipairs(boxes) do
 		table.insert(children, Roact.createElement(CheckBox, {
 			Title = box.Title,
@@ -59,7 +57,7 @@ function CheckBoxSet:render()
 			OnActivated = function()
 				props.EntryClicked(box)
 			end,
-			Link = FFlagLuobuDevPublishLua and box.LinkTextFrame or nil,
+			Link = box.LinkTextFrame,
 		}))
 	end
 
@@ -88,7 +86,7 @@ function CheckBoxSet:render()
 		MaxHeight = maxHeight,
 		LayoutOrder = props.LayoutOrder or 1,
 		TextSize = theme.fontStyle.Title.TextSize,
-		Tooltip = FFlagLuobuDevPublishLua and props.Tooltip or nil,
+		Tooltip = props.Tooltip,
 	}, children)
 end
 

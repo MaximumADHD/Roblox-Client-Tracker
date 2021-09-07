@@ -19,7 +19,6 @@ game:DefineFastFlag("ToolboxFixOneSecondAudioMaxDuration", false)
 game:DefineFastFlag("DebugToolboxEnableRoactChecks", false)
 
 game:DefineFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu", false)
-game:DefineFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu", false)
 
 game:DefineFastFlag("AssetConfigFixAssetIdTypo", false)
 game:DefineFastFlag("AssetConfigFixBadIdVerifyState", false)
@@ -39,8 +38,6 @@ game:DefineFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch", false
 game:DefineFastFlag("AssetConfigNonCatalogOptionalDescription", false)
 game:DefineFastFlag("ToolboxFixCreatorSearchResults", false)
 
-game:DefineFastFlag("ToolboxFixCommonWarnings2", false)
-
 game:DefineFastFlag("ToolboxLegacyFetchGroupModelsAndPackages", false)
 game:DefineFastFlag("ToolboxRemoveGroupInventory2", false)
 game:DefineFastFlag("ToolboxReplaceUILibraryComponentsPt3", false)
@@ -52,8 +49,6 @@ game:DefineFastFlag("ToolboxUseDeveloperFrameworkSearchBar", false)
 game:DefineFastFlag("ToolboxShowAutocompleteResults", false)
 game:DefineFastInt("ToolboxAutocompleteDropdownSize", 6)
 
-game:DefineFastFlag("ToolboxTrackAllAssetTypeInsertions", false)
-
 game:DefineFastFlag("UGCGroupUploads", false)
 
 game:DefineFastFlag("ToolboxAssetConfigAddPublishBackButton", false)
@@ -64,5 +59,8 @@ game:DefineFastFlag("ToolboxUseDevFrameworkTextWithInlineLink", false)
 game:DefineFastFlag("ToolboxRemoveUnusedSuggestionsFeature", false)
 
 game:DefineFastFlag("ToolboxCollaboratorSearchUseFind", false)
+
+game:DefineFastFlag("DebugDisableLocalUGCValidation", false)
+game:DefineFastFlag("UGCLCAssetTypes", false)
 
 return nil

@@ -12,7 +12,7 @@ return function()
 	local function getStubAsset()
 		return {
 			Asset = {
-				Id = 12345,
+				Id = 123456,
 				IsEndorsed = false,
 				Name = "Hello, world!",
 				TypeId = Enum.AssetType.Model.Value,
@@ -21,6 +21,13 @@ return function()
 				Name = "Foo",
 				Type = Enum.CreatorType.User.Value,
 				Id = 123,
+			},
+			Thumbnail = {
+				final = true,
+				Url = "rbxasset://textures/StudioToolbox/Animation.png",
+				retryUrl = nil,
+				userId = 0,
+				endpointType = "Avatar",
 			},
 			Voting = {
 				UpVotes = 150,

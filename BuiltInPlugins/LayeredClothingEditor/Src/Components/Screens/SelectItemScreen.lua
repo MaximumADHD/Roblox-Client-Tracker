@@ -39,6 +39,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local SelectItemScreen = Roact.PureComponent:extend("SelectItemScreen")
 
+local GetFFlagDebugLCEditAvatarCage = require(Plugin.Src.Flags.GetFFlagDebugLCEditAvatarCage)
+
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
 Typecheck.wrap(SelectItemScreen, script)
@@ -117,6 +119,15 @@ function SelectItemScreen:init()
 			return false
 		end
 
+		-- avatar cage editing is for internal use only
+		if not GetFFlagDebugLCEditAvatarCage() then
+			local isAvatar = ItemCharacteristics.isAvatar(item)
+			local isAvatarPart = item:IsA("MeshPart") and item:FindFirstChildWhichIsA("WrapTarget")
+			if isAvatar or isAvatarPart then
+				return false
+			end
+		end
+
 		local isPreviewModel = item:FindFirstAncestor("LayeredClothingEditorPreview") ~= nil
 		local isEditingItem = item == editingItem
 		local isMannequin = editingItem and item == editingItem.Parent
@@ -154,6 +165,11 @@ function SelectItemScreen:render()
 	local theme = props.Stylizer
 	local localization = props.Localization
 
+	local invalidAddText = localization:getText("AddEditingItemFromExplorer", "InvalidAddTextAccOnly")
+	if GetFFlagDebugLCEditAvatarCage() then
+		invalidAddText = localization:getText("AddEditingItemFromExplorer", "InvalidAddText")
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = theme.BackgroundColor,
@@ -168,7 +184,7 @@ function SelectItemScreen:render()
 		InstanceSelector = Roact.createElement(InstanceSelector, {
 			IsSelectedInstanceValid = self.isSelectedInstanceValid,
 			OnValidSelection = self.onSelectValidInstance,
-			InvalidSelectionWarningText = localization:getText("AddEditingItemFromExplorer", "InvalidAddText"),
+			InvalidSelectionWarningText = invalidAddText,
 		})
 	})
 end

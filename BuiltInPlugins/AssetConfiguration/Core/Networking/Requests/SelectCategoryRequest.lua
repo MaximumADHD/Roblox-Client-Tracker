@@ -11,8 +11,6 @@ local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
-
 return function(networkInterface, settings, categoryName)
 	return function(store)
 		store:dispatch(StopAllSounds())
@@ -20,7 +18,7 @@ return function(networkInterface, settings, categoryName)
 		local sortIndex = Sort.getDefaultSortForCategory(categoryName)
 		
 		local creator = nil
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+		if showRobloxCreatedAssets() then
 			local currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
 			if currentTab == Category.MARKETPLACE_KEY and Category.categoryIsVideo(categoryName) then
 				creator = Category.CREATOR_ROBLOX_DEVELOP_API

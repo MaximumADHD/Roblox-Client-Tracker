@@ -8,12 +8,13 @@
 		callback OnExpandedChanged: The function that will be called when the pane is exanded or collapsed.
 
 	Optional Props:
+		Enum.AutomaticSize AutomaticSize: Provide the ExpandablePane with an AutomaticSize.
 		Color3 BackgroundColor: Override the color of the background.
 		Color3 BorderColor: Override the color of the border image.
 		boolean Expanded: The expanded state of the component.
-		Component HeaderComponent: Extra component to render in the header.
+		any HeaderComponent: Extra component to render in the header.
 		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
-		Enum.AutomaticSize AutomaticSize: Provide the ExpandablePane with an AutomaticSize.
+		number LayoutOrder: The layout order of this component in a list.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via mapToProps.
 		string Text: The title text to display in the header.

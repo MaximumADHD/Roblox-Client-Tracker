@@ -1,4 +1,3 @@
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
@@ -18,7 +17,7 @@ local gameSettingsKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getGam
 local GameSettingsUtilities =  {}
 
 function GameSettingsUtilities.getAutoTranslationAllowed()
-    return GameSettingsPolicy["AutoTranslationAllowed"]
+	return GameSettingsPolicy["AutoTranslationAllowed"]
 end
 
 function GameSettingsUtilities.getAutoTranslatedLanguages()
@@ -26,32 +25,26 @@ function GameSettingsUtilities.getAutoTranslatedLanguages()
 end
 
 function GameSettingsUtilities.getSocialMediaReferencesAllowed()
-    return GameSettingsPolicy["SocialMediaReferencesAllowed"]
+	return GameSettingsPolicy["SocialMediaReferencesAllowed"]
 end
 
 function GameSettingsUtilities.shouldDisablePrivateServersAndPaidAccess()
-    return GameSettingsPolicy["DisablePrivateServersAndPaidAccess"]
+	return GameSettingsPolicy["DisablePrivateServersAndPaidAccess"]
 end
 
 function GameSettingsUtilities.shouldAllowBadges()
-    return GameSettingsPolicy["ShowBadges"]
+	return GameSettingsPolicy["ShowBadges"]
 end
 
 function GameSettingsUtilities.shouldShowDevPublishLocations()
-    assert(FFlagLuobuDevPublishLua)
-
-    return GameSettingsPolicy["ShowOptInLocations"]
+	return GameSettingsPolicy["ShowOptInLocations"]
 end
 
 function GameSettingsUtilities.getPlayerAppDownloadLink(location)
-	assert(FFlagLuobuDevPublishLua)
-
-    return GameSettingsPolicy["PlayerAppDownloadLink"][location]
+	return GameSettingsPolicy["PlayerAppDownloadLink"][location]
 end
 
 function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
-	assert(FFlagLuobuDevPublishLua)
-
 	return FStringDevPublishChinaRequirementsLink
 end
 

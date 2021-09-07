@@ -56,7 +56,6 @@ local GuiService = game:GetService("GuiService")
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
@@ -65,9 +64,9 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
-local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
-local chinaKey = FFlagLuobuDevPublishLua and KeyProvider.getChinaKeyName() or nil
+local KeyProvider = require(Plugin.Src.Util.KeyProvider)
+local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
+local chinaKey = KeyProvider.getChinaKeyName()
 local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
 local checkboxToggleKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCheckboxToggleKeyName() or "CheckboxToggle"
 local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
@@ -85,7 +84,7 @@ local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local groupsLoaded = false
 --Uses props to display current settings values
 local function displayContents(parent)
-	local props = FFlagLuobuDevPublishLua and parent.props or parent
+	local props = parent.props
 
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
@@ -105,9 +104,9 @@ local function displayContents(parent)
 	local creatorChanged = props.CreatorChanged
 	local isFriendsOnlyChanged = props.IsFriendsOnlyChanged
 	local isActiveChanged = props.IsActiveChanged
-	local optInLocations = FFlagLuobuDevPublishLua and props.OptInLocations or nil
-	local optInLocationsChanged = FFlagLuobuDevPublishLua and props.OptInLocationsChanged or nil
-	local playerAcceptance = FFlagLuobuDevPublishLua and props.PlayerAcceptance or nil
+	local optInLocations = props.OptInLocations
+	local optInLocationsChanged = props.OptInLocationsChanged
+	local playerAcceptance = props.PlayerAcceptance
 
 	local genres = Cryo.List.map(Constants.GENRE_IDS, function(name)
 		return {Key = name, Text = localization:getText("Genre", name)}
@@ -301,7 +300,7 @@ local function displayContents(parent)
 				end,
 				Title = localization:getText("General", "TitlePlayability"),
 			})
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				displayResult.Separator5 = Roact.createElement(Separator, {
 					LayoutOrder = layoutOrder:getNextOrder(),
 				})
@@ -320,7 +319,6 @@ local function displayContents(parent)
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
 						}, {
 							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
-							-- Look at the changes in FFlagLubouDevPublishLua that use this.
 							LinkText = Roact.createElement(PartialHyperlink, {
 								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
 								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
@@ -475,8 +473,8 @@ local function loadValuesToProps(getValue, state)
 		IsActive = getValue("isActive"),
 		IsFriendsOnly = getValue("isFriendsOnly"),
 		CreatorId = getValue("creatorId"),
-		OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
-		PlayerAcceptance = FFlagLuobuDevPublishLua and state.Policy.PlayerAcceptance or nil,
+		OptInLocations = shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
+		PlayerAcceptance = state.Policy.PlayerAcceptance,
 	}
 end
 
@@ -517,7 +515,7 @@ local function dispatchForProps(setValue, dispatch)
 		end,
 
 		OptInLocationsChanged = function(locations)
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				dispatch(AddChange(optInLocationsKey, locations))
 			end
 		end,
@@ -526,10 +524,6 @@ local function dispatchForProps(setValue, dispatch)
 		IsActiveChanged = setValue("isActive"),
 
 		GetPlayerAcceptances = function(apiImpl)
-			if not FFlagLuobuDevPublishLua then
-				return
-			end
-
 			if not shouldShowDevPublishLocations() then
 				return
 			end

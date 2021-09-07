@@ -4,6 +4,7 @@ local Colors = require(Framework.Style.Colors)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxFixSubTextColor = game:GetFastFlag("ToolboxFixSubTextColor")
 
 return {
 	[StyleKey.Border] = Color3.fromRGB(182, 182, 182),
@@ -68,7 +69,7 @@ return {
 	[StyleKey.SliderKnobColor] = Colors.White,
 	[StyleKey.SliderKnobImage] = "rbxasset://textures/DeveloperFramework/slider_knob_light.png",
 	[StyleKey.SliderBackground] = Color3.fromRGB(204, 204, 204),
-	[StyleKey.SubText] = Color3.fromRGB(170, 170, 170),
+	[StyleKey.SubText] = FFlagToolboxFixSubTextColor and Colors.Gray_Mid or Color3.fromRGB(170, 170, 170),
 
 	[StyleKey.TableItem] = Colors.Gray_Lightest,
 	[StyleKey.Titlebar] = Color3.fromRGB(227, 227, 227),

@@ -7,8 +7,8 @@ local withFlag = require(Plugin.Src.TestHelpers.withFlag)
 
 return function()
 	local function runTest(expectedKeys, customPolicyFastFlagEnabled)
-		withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges", customPolicyFastFlagEnabled, function()
-			it("should combine all of its reducers when custom policy fast flag is " .. customPolicyFastFlagEnabled, function()
+		withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
+			it("should combine all of its reducers when custom policy fast flag is " .. tostring(customPolicyFastFlagEnabled), function()
 				local r = Rodux.Store.new(MainReducer)
 				expect(r).to.be.ok()
 

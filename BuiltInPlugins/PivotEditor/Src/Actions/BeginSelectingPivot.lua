@@ -3,7 +3,7 @@ local Plugin = script.Parent.Parent.Parent
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
 
 local Framework = Plugin.Packages.Framework
-local Action = require(Framework.Util.Action)
+local Action = require(Framework).Util.Action
 
 -- Types of editing mode that we can begin selecting pivot with
 local VALID_TYPES = {

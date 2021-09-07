@@ -20,6 +20,7 @@ local StudioUIFolderData = require(Framework.StudioUI.StudioUIFolderData)
 local Votes = require(StudioUIFolderData.Votes.style)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+local FFlagToolboxFixSubTextColor = game:GetFastFlag("ToolboxFixSubTextColor")
 
 local red = Color3.fromRGB(0, 100, 0)
 local green = Color3.fromRGB(100, 0, 0)
@@ -81,7 +82,7 @@ if THEME_REFACTOR then
 			VoteDown = buttonStyle("rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png", green),
 		},
 
-		VoteCount = Cryo.Dictionary.join(common.MainText, {
+		VoteCount = Cryo.Dictionary.join(FFlagToolboxFixSubTextColor and common.SubText or common.MainText, {
 			TextSize = 14
 		}),
 
@@ -93,6 +94,7 @@ if THEME_REFACTOR then
 	}
 else
 	return function(theme, getColor)
+		-- Remove next line when removing FFlagToolboxFixSubTextColor
 		local textColor = Color3.fromRGB(170, 170, 170)
 
 		local common = Common(theme, getColor)
@@ -152,14 +154,14 @@ else
 				VoteDown = buttonStyle("rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png", green),
 			},
 
-			VoteCount = Style.extend(common.MainText, {
-				TextColor = textColor,
+			VoteCount = Style.extend(FFlagToolboxFixSubTextColor and common.SubText or common.MainText, {
+				TextColor = FFlagToolboxFixSubTextColor and nil or textColor,
 				TextSize = 14
 			}),
 
 			Votes = Style.extend(votes.Default, {
 				Text = Style.extend(votes.Default.Text, {
-					TextColor = textColor,
+					TextColor = FFlagToolboxFixSubTextColor and nil or textColor,
 					TextSize = common.MainText.TextSize,
 				})
 			}),

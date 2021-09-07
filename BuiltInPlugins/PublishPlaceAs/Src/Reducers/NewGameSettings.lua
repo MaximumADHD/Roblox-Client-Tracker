@@ -19,11 +19,10 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local optInLocations
-if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+if shouldShowDevPublishLocations() then
     optInLocations = {}
 end
 

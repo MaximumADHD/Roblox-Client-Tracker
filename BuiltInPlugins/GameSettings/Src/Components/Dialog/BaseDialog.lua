@@ -4,7 +4,6 @@
 	Props:
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagFixWarningDialogIcon = game:DefineFastFlag("FixWarningDialogIcon", false)
 
@@ -40,37 +39,21 @@ function BaseDialog:render()
 
 	local buttons = props.Buttons
 
-	if FFlagLuobuDevPublishLua then
-		return Roact.createElement(Pane, {
-			Size = UDim2.new(1, 0, 1, 0),
-			Layout = not FFlagFixWarningDialogIcon and Enum.FillDirection.Vertical or nil,
-			AutomaticSize = Enum.AutomaticSize.Y,
-			BackgroundColor3 = theme.dialog.background,
-			Spacing = theme.dialog.spacing,
-		}, Cryo.Dictionary.join(props[Roact.Children], {
-			Buttons = Roact.createElement(ButtonBar, {
-				Position = UDim2.new(0, 0, 1, theme.buttonBar.offset),
-				AnchorPoint = Vector2.new(0, 1),
-				Buttons = makeButtons(buttons),
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				ButtonClicked = props.OnResult
-			})
-		}))
-	else
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundColor3 = theme.dialog.background,
-		}, Cryo.Dictionary.join(props[Roact.Children], {
-			Buttons = Roact.createElement(ButtonBar, {
-				Position = UDim2.new(0, 0, 1, -29),
-				AnchorPoint = Vector2.new(0, 1),
-				Buttons = makeButtons(buttons),
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				ButtonClicked = props.OnResult
-			})
-		}))
-	end
+	return Roact.createElement(Pane, {
+		Size = UDim2.new(1, 0, 1, 0),
+		Layout = not FFlagFixWarningDialogIcon and Enum.FillDirection.Vertical or nil,
+		AutomaticSize = Enum.AutomaticSize.Y,
+		BackgroundColor3 = theme.dialog.background,
+		Spacing = theme.dialog.spacing,
+	}, Cryo.Dictionary.join(props[Roact.Children], {
+		Buttons = Roact.createElement(ButtonBar, {
+			Position = UDim2.new(0, 0, 1, theme.buttonBar.offset),
+			AnchorPoint = Vector2.new(0, 1),
+			Buttons = makeButtons(buttons),
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			ButtonClicked = props.OnResult
+		})
+	}))
 end
 
 if FFlagGameSettingsWithContext then

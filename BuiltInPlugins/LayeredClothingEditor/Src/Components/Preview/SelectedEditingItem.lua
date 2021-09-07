@@ -91,17 +91,18 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 
 		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
 
+		ModelUtil:clearOldAttachments(self.editingItem)
+		local newAttachmentName = ""
 		if self.props.AccessoryTypeInfo and self.props.AttachmentPoint then
+			newAttachmentName = self.props.AccessoryTypeInfo.Name
 			ModelUtil:addAttachment(
 				self.editingItem,
 				self.mannequin,
 				self.props.AccessoryTypeInfo,
 				useCurrentAttachmentPointInfo and self.props.AttachmentPoint or nil)
-		else
-			ModelUtil:clearOldAttachments(self.editingItem)
 		end
 
-		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, useCurrentAttachmentPointInfo)
+		ModelUtil:attachClothingItem(self.mannequin, self.editingItem, newAttachmentName, useCurrentAttachmentPointInfo)
 
 		self.MannequinAncestryChangedHandle = self.mannequin.AncestryChanged:Connect(self.onEditingItemExternalChange)
 	else
@@ -143,10 +144,12 @@ function SelectedEditingItem:init()
 		if self.sourceItemWithUniqueDeformerNames then
 			self.sourceItemWithUniqueDeformerNames:Destroy()
 			self.sourceItemWithUniqueDeformerNames = nil
+			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(nil)
 		end
 		if sourceItem then
 			self.sourceItemWithUniqueDeformerNames = sourceItem:Clone()
 			ModelUtil:makeDeformerNamesUnique(self.sourceItemWithUniqueDeformerNames)
+			self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(self.sourceItemWithUniqueDeformerNames)
 		end
 		setupEditingItem(self, self.sourceItem == sourceItem, false)
 	end
@@ -200,6 +203,7 @@ function SelectedEditingItem:willUnmount()
 	if self.sourceItemWithUniqueDeformerNames then
 		self.sourceItemWithUniqueDeformerNames:Destroy()
 		self.sourceItemWithUniqueDeformerNames = nil
+		self.props.EditingItemContext:setSourceItemWithUniqueDeformerNames(nil)
 	end
 end
 

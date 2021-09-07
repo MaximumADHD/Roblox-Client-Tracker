@@ -17,8 +17,6 @@ Localization.__index = Localization
 
 local FFlagToolboxHideSpuriousTranslationWarnings = game:DefineFastFlag("ToolboxHideSpuriousTranslationWarnings", false)
 
-local FFlagToolboxFixCommonWarnings2 = game:GetFastFlag("ToolboxFixCommonWarnings2")
-
 --[[
 	options:
 		getLocaleId : function void -> LocaleId
@@ -341,7 +339,7 @@ function Localization:_safeLocalize(key, args)
 				if FFlagToolboxHideSpuriousTranslationWarnings then
 					if not string.find(translated, MISSING_TRANSLATION_ERROR_MESSAGE) then
 						warn(("\tToolbox error in localizing key \"%s\" to default locale \"%s\": %s"):format(
-							key, defaultTranslator.LocaleId, translated))		
+							key, defaultTranslator.LocaleId, translated))
 					end
 				else
 					warn(("\tToolbox error in localizing key \"%s\" to default locale \"%s\": %s"):format(
@@ -433,6 +431,15 @@ function Localization:_recalculateContent()
 			CreationsFrontAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsFrontAccessory"),
 			CreationsBackAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsBackAccessory"),
 			CreationsWaistAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsWaistAccessory"),
+			CreationsTShirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsTShirtAccessory"),
+			CreationsShirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShirtAccessory"),
+			CreationsPantsAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsPantsAccessory"),
+			CreationsJacketAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsJacketAccessory"),
+			CreationsSweaterAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsSweaterAccessory"),
+			CreationsShortsAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsShortsAccessory"),
+			CreationsLeftShoeAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory"),
+			CreationsRightShoeAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsRightShoeAccessory"),
+			CreationsDressSkirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory"),
 			CreationsGroupHats = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupHats"),
 			CreationsGroupHair = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupHair"),
 			CreationsGroupFaceAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory"),
@@ -441,6 +448,15 @@ function Localization:_recalculateContent()
 			CreationsGroupFrontAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupFrontAccessory"),
 			CreationsGroupBackAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupBackAccessory"),
 			CreationsGroupWaistAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupWaistAccessory"),
+			CreationsGroupTShirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupTShirtAccessory"),
+			CreationsGroupShirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupShirtAccessory"),
+			CreationsGroupPantsAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupPantsAccessory"),
+			CreationsGroupJacketAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupJacketAccessory"),
+			CreationsGroupSweaterAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupSweaterAccessory"),
+			CreationsGroupShortsAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupShortsAccessory"),
+			CreationsGroupLeftShoeAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupLeftShoeAccessory"),
+			CreationsGroupRightShoeAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupRightShoeAccessory"),
+			CreationsGroupDressSkirtAccessories = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory"),
 		},
 
 		Suggestions = {
@@ -538,7 +554,6 @@ function Localization:_recalculateContent()
 			ItemCannotBeSold = self:_safeLocalize("Studio.Toolbox.General.SalesItemCannotBeSold"),
 			Price = self:_safeLocalize("Studio.Toolbox.General.SalesPrice"),
 			ServiceFee = self:_safeLocalize("Studio.Toolbox.General.SalesServiceFee"),
-			Fee = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.General.Fee") or nil,
 			Earn = self:_safeLocalize("Studio.Toolbox.General.Earn"),
 			PremiumBenefits = self:_safeLocalize("Studio.Toolbox.General.PremiumBenefits"),
 		},
@@ -613,13 +628,21 @@ function Localization:_recalculateContent()
 					[Enum.AssetType.FrontAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeFrontAccessory"),
 					[Enum.AssetType.BackAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeBackAccessory"),
 					[Enum.AssetType.WaistAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeWaistAccessory"),
+					[Enum.AssetType.TShirtAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeTShirtAccessory"),
+					[Enum.AssetType.ShirtAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShirtAccessory"),
+					[Enum.AssetType.PantsAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypePantsAccessory"),
+					[Enum.AssetType.JacketAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeJacketAccessory"),
+					[Enum.AssetType.SweaterAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeSweaterAccessory"),
+					[Enum.AssetType.ShortsAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeShortsAccessory"),
+					[Enum.AssetType.LeftShoeAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeLeftShoeAccessory"),
+					[Enum.AssetType.RightShoeAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeRightShoeAccessory"),
+					[Enum.AssetType.DressSkirtAccessory] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeDressSkirtAccessory"),
 				},
 			},
 
 			PreviewArea ={
 				PreviewLabel = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Preview"),
 				Change = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Change"),
-				Format = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Format") or nil,
 				Process = self:_safeLocalize("Studio.Toolbox.AssetConfigPreview.Process"),
 			},
 
@@ -694,11 +717,9 @@ function Localization:_recalculateContent()
 			Retry = self:_safeLocalize("Studio.Toolbox.Purchase.Retry"),
 			Buy = self:_safeLocalize("Studio.Toolbox.Purchase.Buy"),
 			BuyRobux = self:_safeLocalize("Studio.Toolbox.Purchase.BuyRobux"),
-			BuyPrompt = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.Purchase.BuyPrompt") or nil,
 			FreeTitle = self:_safeLocalize("Studio.Toolbox.Purchase.FreeTitle"),
 			BuyTitle = self:_safeLocalize("Studio.Toolbox.Purchase.BuyTitle"),
 			InsufficientFundsTitle = self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientTitle"),
-			InsufficientPrompt = not FFlagToolboxFixCommonWarnings2 and self:_safeLocalize("Studio.Toolbox.Purchase.InsufficientPrompt") or nil,
 			CurrentBalance = self:_safeLocalize("Studio.Toolbox.Purchase.RobuxBalance"),
 			FailedHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FailedHeader"),
 			FreeSuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.FreeSuccessHeader"),

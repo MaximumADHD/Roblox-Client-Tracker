@@ -53,13 +53,14 @@ function MeshPartTool:init()
 		local state = self.state
 
 		local item = props.EditingItemContext:getItem()
+		local accessoryTypeInfo = props.AccessoryTypeInfo
 
-		if not item then
+		if not item or not accessoryTypeInfo then
 			return
 		end
 
 		local matchingAttachment = state.matchingAttachment
-		local attachment = item:FindFirstChildWhichIsA("Attachment")
+		local attachment = item:FindFirstChild(accessoryTypeInfo.Name)
 		if not attachment or not matchingAttachment then
 			return
 		end
@@ -78,6 +79,8 @@ function MeshPartTool:init()
 
 	self.onEditingItemChanged = function()
 		local item = self.props.EditingItemContext:getItem()
+		local accessoryTypeInfo = self.props.AccessoryTypeInfo
+
 		if not item then
 			if self.CFrameChanged then
 				self.CFrameChanged:Disconnect()
@@ -92,7 +95,7 @@ function MeshPartTool:init()
 			return
 		end
 
-		local attachment = item:FindFirstChildWhichIsA("Attachment")
+		local attachment = item:FindFirstChild(accessoryTypeInfo.Name)
 		local weld = item:FindFirstChildWhichIsA("WeldConstraint")
 		if not attachment or not weld then
 			return

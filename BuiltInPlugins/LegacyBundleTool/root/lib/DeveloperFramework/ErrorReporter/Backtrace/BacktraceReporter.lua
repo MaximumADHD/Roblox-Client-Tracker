@@ -31,6 +31,8 @@
 
 ]]
 
+local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
+
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
@@ -197,17 +199,24 @@ function BacktraceReporter:reportErrorImmediately(errorMessage, errorStack, deta
 end
 
 -- Deferred reports using an error queue
-function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details)
+function BacktraceReporter:reportErrorDeferred(errorMessage, errorStack, details, flagAsUnique)
 	if not self._isEnabled then
 		return
 	end
 
-	local errorKey = string.format("%s | %s", errorMessage, errorStack)
+	local errorKey
+	if FFlagDevFrameworkBacktraceReportFirstInSession then
+		-- In order to avoid aggregation, attach a unique key
+		errorKey = string.format("%s | %s | %s", errorMessage, errorStack, flagAsUnique and HttpService:GenerateGUID(false) or "")
+	else
+		errorKey = string.format("%s | %s", errorMessage, errorStack)
+	end
 	local errorData = {}
 
 	-- If this error is a new one, we want a full report on it.
 	-- Similar errors following this one will be squashed in the queue and share report with this one
 	-- before they're flushed out and reported.
+
 	if not self._errorQueue:hasError(errorKey) then
 		local newReport = self:_generateErrorReport(errorMessage, errorStack, details)
 

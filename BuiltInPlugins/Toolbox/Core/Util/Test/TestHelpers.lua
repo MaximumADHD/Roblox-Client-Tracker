@@ -4,7 +4,7 @@ function TestHelpers.createMockStudioStyleGuideColor()
 	local mock = {}
 	setmetatable(mock, {
 		__index = function()
-			return Color3.new()
+			return Color3.new(math.random(), math.random(), math.random())
 		end
 	})
     return mock

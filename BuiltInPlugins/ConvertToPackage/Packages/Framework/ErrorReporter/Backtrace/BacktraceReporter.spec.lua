@@ -1,4 +1,5 @@
 return function()
+	local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
 	local HttpService = game:GetService("HttpService")
 
 	local BacktraceReporter = require(script.Parent.BacktraceReporter)
@@ -243,6 +244,46 @@ return function()
 			expect(requestsSent).to.equal(1)
 			expect(requestBody.annotations.stackDetails).to.equal("SomeDetails")
 		end)
+
+		if FFlagDevFrameworkBacktraceReportFirstInSession then
+			it("should aggregate similar errors unless specified", function()
+				reporter = BacktraceReporter.new({
+					networking = createMockNetworking(function(requestObj)
+						local success, result = pcall(HttpService.JSONDecode, HttpService, requestObj.Body)
+						if success then
+							requestBody = result
+						end
+						requestsSent = requestsSent + 1
+						return requestBodySuccess
+					end),
+					accessToken = "12345",
+					queueOptions = {
+						-- The queue should flush when there are 2 or more than 2 errors.
+						queueErrorLimit = 10,
+						queueKeyLimit = 10,
+					},
+				})
+
+				-- when reporting the same error, all of them should be aggregated together
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil)
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil)
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil)
+				reporter:reportAllErrors()
+				expect(requestsSent).to.equal(1)
+
+				-- reset
+				requestsSent = 0
+
+				-- when reporting the same error, but flagged as unique, they should not be aggregated together
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil)
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil)
+				reporter:reportErrorDeferred(mockErrorMessage, mockErrorStack, nil, true)
+				reporter:reportAllErrors()
+				expect(requestsSent).to.equal(2)
+
+				reporter:stop()
+			end)
+		end
 	end)
 
 	describe("arguments.processErrorReportMethod()", function()

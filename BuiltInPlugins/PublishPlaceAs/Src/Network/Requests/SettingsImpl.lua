@@ -10,7 +10,6 @@
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
 
 local StudioService = game:GetService("StudioService")
@@ -26,8 +25,8 @@ local DEPRECATED_RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceIn
 local DEPRECATED_UniverseActivate = require(Plugin.Src.Network.Requests.UniverseActivate)
 local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 
-local KeyProvider = FFlagLuobuDevPublishLua and require(Plugin.Src.Util.KeyProvider) or nil
-local optInLocationsKey = FFlagLuobuDevPublishLua and KeyProvider.getOptInLocationsKeyName() or nil
+local KeyProvider = require(Plugin.Src.Util.KeyProvider)
+local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local ROOTPLACEINFO_ACCEPTED_KEYS = {
@@ -48,7 +47,7 @@ if FFlagStudioAllowRemoteSaveBeforePublish then
 	CONFIGURATION_ACCEPTED_KEYS.isFriendsOnly = true
 end
 
-if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+if shouldShowDevPublishLocations() then
 	CONFIGURATION_ACCEPTED_KEYS.OptInLocations = true
 end
 
@@ -124,7 +123,7 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId,
 				return
 			end
 
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and email ~= nil then
+			if shouldShowDevPublishLocations() and email ~= nil then
 				local responseCode = PostContactEmail(apiImpl, email, gameId)
 				if responseCode == 200 then
 					assert(configuration.OptInLocations)
@@ -183,7 +182,7 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId,
 			local success, gameId = StudioService.GamePublishFinished:wait()
 			if success then
 				local setRequests
-				if FFlagLuobuDevPublishLua and email ~= nil then
+				if email ~= nil then
 					local includeOptInLocations
 					local responseCode = PostContactEmail(apiImpl, email, gameId)
 					if responseCode == 200 then

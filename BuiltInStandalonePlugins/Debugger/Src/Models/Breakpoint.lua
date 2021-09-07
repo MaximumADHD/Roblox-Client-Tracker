@@ -1,3 +1,9 @@
+export type DebugpointType = string
+local DebugpointType : {[string]: DebugpointType} = {
+	Breakpoint = "Breakpoint",
+	Logpoint = "Logpoint",
+}
+
 export type Breakpoint = {
 	id: string,
 	isEnabled: bool,
@@ -7,6 +13,7 @@ export type Breakpoint = {
 	scriptLine: string,
 	condition: string,
 	logMessage: string,
+	debugpointType : DebugpointType
 }
 
 local function fromBreakpoint(breakpoint) : Breakpoint
@@ -18,7 +25,8 @@ local function fromBreakpoint(breakpoint) : Breakpoint
 		scriptName = "",
 		scriptLine = "",
 		condition = breakpoint:GetCondition(),
-		logMessage = breakpoint:GetLogExpression()
+		logMessage = breakpoint:GetLogExpression(),
+		debugpointType = breakpoint:GetDebugpointType()
 	}
 end
 
@@ -32,6 +40,7 @@ local function fromData(breakpoint) : Breakpoint
 		scriptLine = breakpoint.scriptLine,
 		condition = breakpoint.condition,
 		logMessage = breakpoint.logMessage,
+		debugpointType = breakpoint.debugpointType
 	}
 end
 
@@ -46,6 +55,7 @@ local function mockBreakpoint(breakpoint, uniqueId) : Breakpoint
 		scriptLine = breakpoint.scriptLine or ("local varNum"..tostring(uniqueId).." = 0"),
 		condition = breakpoint.condition or ("varNum"..tostring(uniqueId).." == 0"),
 		logMessage = breakpoint.logMessage or ("varNum"..tostring(uniqueId)),
+		debugpointType = breakpoint.debugpointType or math.fmod(uniqueId,2)==0 and DebugpointType.Breakpoint or DebugpointType.Logpoint
 	}
 end
 
@@ -53,4 +63,5 @@ return {
 	fromBreakpoint = fromBreakpoint,
 	fromData = fromData,
 	mockBreakpoint = mockBreakpoint,
+	debugpointType = DebugpointType
 }

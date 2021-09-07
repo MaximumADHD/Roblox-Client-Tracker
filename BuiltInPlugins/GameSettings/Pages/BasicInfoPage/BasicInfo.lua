@@ -25,7 +25,6 @@
 		devices: "NoDevices"
 ]]
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
@@ -92,24 +91,12 @@ local sendAnalyticsToKibana = require(Plugin.Src.Util.GameSettingsUtilities).sen
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
-local GetOptInLocationsKeyName = KeyProvider.getOptInLocationsKeyName
-local optInLocationsKey = FFlagLuobuDevPublishLua and GetOptInLocationsKeyName and GetOptInLocationsKeyName() or "OptInLocations"
-
-local GetChinaKeyName = KeyProvider.getChinaKeyName
-local chinaKey = FFlagLuobuDevPublishLua and GetChinaKeyName() or nil
-
-local GetPlayerAcceptanceKeyName = KeyProvider.getPlayerAcceptanceKeyName
-local playerAcceptanceKey = FFlagLuobuDevPublishLua and GetPlayerAcceptanceKeyName() or nil
-
-local GetApprovedKeyName = KeyProvider.getApprovedKeyName or nil
-local approvedKey = FFlagLuobuDevPublishLua and GetApprovedKeyName() or nil
-
-local GetInReviewKeyName = KeyProvider.getInReviewKeyName or nil
-local inReviewKey = FFlagLuobuDevPublishLua and GetInReviewKeyName() or nil
-
-local GetRejectedKeyName = KeyProvider.getRejectedKeyName or nil
-local rejectedKey = FFlagLuobuDevPublishLua and GetRejectedKeyName() or nil
-
+local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
+local chinaKey = KeyProvider.getChinaKeyName()
+local playerAcceptanceKey = KeyProvider.getPlayerAcceptanceKeyName()
+local approvedKey = KeyProvider.getApprovedKeyName()
+local inReviewKey = KeyProvider.getInReviewKeyName()
+local rejectedKey = KeyProvider.getRejectedKeyName()
 local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
 local checkboxToggleKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCheckboxToggleKeyName() or "CheckboxToggle"
 local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
@@ -121,7 +108,6 @@ local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image
 local HoverArea = Framework.UI.HoverArea
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
-local LinkText = Framework.UI.LinkText
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -194,7 +180,7 @@ local function loadSettings(store, contextItems)
 			store:dispatch(SetCreatorType(ownerType))
 		end,
 		function(loadedSettings)
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				--[[
 					Endpoint returns optInLocations in the following format:
 						[
@@ -235,12 +221,12 @@ local function loadSettings(store, contextItems)
 			end
 		end,
 		function(loadedSettings)
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				loadedSettings[playerAcceptanceKey] = policyInfoController:getPlayerAcceptances()
 			end
 		end,
 		function(loadedSettings)
-			if FFlagCheckPublishedPlaceExistsForDevPublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations() then
 				local rootPlaceId = gameMetadataController:getRootPlace(gameId)
 				loadedSettings["publishedVersions"] = placesController:getAssetPublishedVersions(rootPlaceId)
 			end
@@ -381,7 +367,7 @@ local function saveSettings(store, contextItems)
 			end
 		end,
 		function()
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				local changed = state.Settings.Changed[optInLocationsKey]
 
 				if changed ~= nil then
@@ -413,11 +399,11 @@ local function loadValuesToProps(getValue, state)
 		Thumbnails = getValue("thumbnails"),
 		ThumbnailOrder = getValue("thumbnailOrder"),
 		GameIcon = getValue("gameIcon"),
-		OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(optInLocationsKey) or nil,
+		OptInLocations = shouldShowDevPublishLocations() and getValue(optInLocationsKey) or nil,
 
-		PlayerAcceptance = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue(playerAcceptanceKey) or nil,
+		PlayerAcceptance = shouldShowDevPublishLocations() and getValue(playerAcceptanceKey) or nil,
 
-		PublishedVersions = FFlagCheckPublishedPlaceExistsForDevPublish and FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and getValue("publishedVersions") or nil,
+		PublishedVersions = FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations() and getValue("publishedVersions") or nil,
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -467,7 +453,7 @@ local function dispatchChanges(setValue, dispatch)
 			dispatch(AddErrors({playableDevices = "NoDevices"}))
 		end,
 		OptInLocationsChanged = function(locations)
-			if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				dispatch(AddChange(optInLocationsKey, locations))
 			end
 		end,
@@ -528,10 +514,10 @@ local function publishedVersionExists(publishedVersions)
 end
 
 function BasicInfo:init()
-	self.state = FFlagLuobuDevPublishLua and {
+	self.state = {
 		-- StyleModifier must be upper case first character because of how Theme in ContextServices uses it.
 		StyleModifier = nil,
-	} or nil
+	}
 
 	self.addIcons = function()
 		local props = self.props
@@ -551,7 +537,7 @@ function BasicInfo:init()
 		end
 	end
 
-	self.getModerationStatus = FFlagLuobuDevPublishLua and function(self, location, status)
+	self.getModerationStatus = function(self, location, status)
 		local theme = self.props.Theme:get("Plugin")
 		local localization = self.props.Localization
 
@@ -576,23 +562,23 @@ function BasicInfo:init()
 			textColor = textColor,
 			show = show,
 		}
-	end or nil
+	end
 
-	self.onMouseEnter = FFlagLuobuDevPublishLua and function()
+	self.onMouseEnter = function()
 		if self.state.StyleModifier == nil then
 			self:setState({
 				StyleModifier = StyleModifier.Hover,
 			})
 		end
-	end or nil
+	end
 
-	self.onMouseLeave = FFlagLuobuDevPublishLua and function()
+	self.onMouseLeave = function()
 		if self.state.StyleModifier == StyleModifier.Hover then
 			self:setState({
 				StyleModifier = Roact.None,
 			})
 		end
-	end or nil
+	end
 
 	self.getOptInLocationsRequirementsLink = function()
 		local publishExists
@@ -608,10 +594,10 @@ function BasicInfo:init()
 		end
 	end
 
-	self.createOptInLocationBoxes = FFlagLuobuDevPublishLua and function(self, layoutOrder)
+	self.createOptInLocationBoxes = function(self, layoutOrder)
 		local props = self.props
 		local localization = self.props.Localization
-		local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
+		local theme = self.props.Theme:get("Plugin")
 
 		local optInLocations = props[optInLocationsKey]
 
@@ -640,7 +626,7 @@ function BasicInfo:init()
 			local selected = values.selected
 
 			local moderationStatus = self:getModerationStatus(region, status)
-			local layoutOrder3 = (FFlagLuobuDevPublishLua and FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
+			local layoutOrder3 = (FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
 
 			table.insert(boxes, {
 				Id = region,
@@ -764,7 +750,7 @@ end
 
 function BasicInfo:render()
 	local localization = self.props.Localization
-	local theme = FFlagLuobuDevPublishLua and self.props.Theme:get("Plugin") or nil
+	local theme = self.props.Theme:get("Plugin")
 
 	local layoutOrder = LayoutOrderIterator.new()
 
@@ -784,7 +770,7 @@ function BasicInfo:render()
 		local playerAcceptance
 
 		local publishExists
-		if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+		if shouldShowDevPublishLocations() then
 			optInLocations = props[optInLocationsKey]
 			playerAcceptance = props.PlayerAcceptance and props.PlayerAcceptance or nil
 			if FFlagCheckPublishedPlaceExistsForDevPublish then
@@ -979,11 +965,11 @@ function BasicInfo:render()
 				end,
 			}),
 
-			Separator6 = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(Separator, {
+			Separator6 = shouldShowDevPublishLocations() and Roact.createElement(Separator, {
 				LayoutOrder = layoutOrder:getNextOrder(),
 			}) or nil,
 
-			OptInLocations = FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
+			OptInLocations = shouldShowDevPublishLocations() and Roact.createElement(CheckBoxSet, {
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = layoutOrder:getNextOrder(),
 				Boxes = self:createOptInLocationBoxes(layoutOrder),

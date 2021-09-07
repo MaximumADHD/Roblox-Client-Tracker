@@ -10,7 +10,7 @@ local provideMockContext = TestHelpers.provideMockContext
 local Localization = require(Plugin.Core.Util.Localization)
 local Settings = require(Plugin.Core.Util.Settings)
 local ToolboxTheme = require(Plugin.Core.Util.ToolboxTheme)
-local ToolboxReducerMock = require(Plugin.Core.Reducers.ToolboxReducerMock)
+local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
 local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
@@ -28,7 +28,7 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local function MockWrapper(props)
-	local store = props.store or Rodux.Store.new(ToolboxReducerMock, nil, {
+	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, {
 		Rodux.thunkMiddleware
 	})
 	local plugin = props.plugin or nil

@@ -1,8 +1,6 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -23,9 +21,7 @@ function ServiceWrapper:init()
 	assert(self.props.theme ~= nil, "Expected a PluginTheme object")
 	assert(self.props.focusGui ~= nil, "Expected a FocusGui object")
 	assert(self.props.uiLibraryWrapper ~= nil, "Expected a UiLibraryWrapper object")
-	if FFlagLuobuDevPublishLua then
-		assert(self.props.mouse ~= nil, "Expected a Mouse object")
-	end
+	assert(self.props.mouse ~= nil, "Expected a Mouse object")
 end
 
 function ServiceWrapper:render()
@@ -48,7 +44,7 @@ function ServiceWrapper:render()
 		uiLibraryWrapper,
 		ContextServices.Store.new(store),
 		ContextServices.API.new(),
-		FFlagLuobuDevPublishLua and ContextServices.Mouse.new(mouse) or nil,
+		ContextServices.Mouse.new(mouse),
 	}, children)
 end
 

@@ -5,5 +5,5 @@ game:DefineFastFlag("PlayerEmulatorWithContext", false)
 
 game:DefineFastFlag("EnablePlayerEmulatorStylizer", false)
 
-game:DefineFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges", false)
+game:DefineFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", false)
 return nil

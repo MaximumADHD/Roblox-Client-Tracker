@@ -6,68 +6,127 @@ local Plugin = script.Parent.Parent.Parent
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
+local function fromModelToAccessory(model)
+	local accessory = Instance.new("Accessory", Workspace)
+	model:GetChildren()[1].Parent = accessory
+	accessory.Name = model.Name
+	model:Destroy()
+end
+
+local function parentToAccessory(item)
+	local accessory = Instance.new("Accessory", Workspace)
+	item.Parent = accessory
+	accessory.Name = item.Name
+	item.Name = "Handle"
+	return accessory
+end
+
+local function parentToTempModel(item)
+	local tempModel = Instance.new("Model", Workspace)
+	tempModel.Name = item.Name
+	item.Parent = tempModel
+	item.Name = "Handle"
+	return tempModel
+end
+
+local function fixCFrame(item, cframe)
+	local root = ModelUtil:getRootPart(item)
+	root.CFrame = cframe
+end
+
+local function publishCageEdits(item, isClothes)
+	local newIdsInner = {}
+	local newIdsOuter = {}
+	local deformerToPartMap = ModelUtil:getDeformerToPartMap(item, not isClothes)
+	if isClothes then
+		for _, deformer in pairs(deformerToPartMap) do
+			local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Inner)
+			newIdsInner[deformer] = id
+		end
+	end
+	for _, deformer in pairs(deformerToPartMap) do
+		local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Outer)
+		newIdsOuter[deformer] = id
+	end
+
+	for _, desc in ipairs(item:GetDescendants()) do
+		if newIdsInner[desc] then
+			desc.ReferenceMeshId = newIdsInner[desc]
+		end
+		if newIdsOuter[desc] then
+			desc.CageMeshId = newIdsOuter[desc]
+		end
+	end
+end
+
+local function generateRigidAccessory(store, editingItem, sourceItem)
+	local state = store:getState()
+	local accessoryTypeInfo = state.selectItem.accessoryTypeInfo
+	local attachmentPoint = state.selectItem.attachmentPoint
+	local itemSize = state.selectItem.size
+
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+
+	ModelUtil:addAttachment(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+	clone.Size = itemSize
+
+	parentToAccessory(clone)
+end
+
+local function generateCagedAccessory(store, editingItem, sourceItem)
+	local state = store:getState()
+	local pointData = state.cageData.pointData
+	local accessoryTypeInfo = state.selectItem.accessoryTypeInfo
+	local attachmentPoint = state.selectItem.attachmentPoint
+
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+
+	ModelUtil:clearWelds(clone)
+	ModelUtil:addAttachment(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+
+	-- temporary bug workaround: LC item needs to be a child of a model in order for deformation API to work
+	local tempModel = parentToTempModel(clone)
+	ModelUtil:deformClothing(clone, pointData, Enum.CageType.Inner)
+	ModelUtil:deformClothing(clone, pointData, Enum.CageType.Outer)
+
+	publishCageEdits(clone, true)
+
+	ModelUtil:cleanupDeformerNames(tempModel, sourceItem)
+
+	fromModelToAccessory(tempModel)
+end
+
+local function generateCagedAvatar(store, editingItem, sourceItem)
+	local state = store:getState()
+	local pointData = state.cageData.pointData
+
+	local clone = sourceItem:clone()
+	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
+
+	clone.Parent = Workspace
+	ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)
+
+	publishCageEdits(clone, false)
+
+	ModelUtil:cleanupDeformerNames(clone, sourceItem)
+end
+
 return function(editingItem, sourceItem)
 	return function(store)
-		if not editingItem then
+		if not editingItem or not sourceItem then
 			return
 		end
 
-		local state = store:getState()
-		local pointData = state.cageData.pointData
-
-		local clone = editingItem:Clone()
-
-		-- temporary bug workaround: LC item needs to be a child of a model in order for cage editing to happen
-		local tempModel
-		local isClothes = ItemCharacteristics.isClothes(editingItem)
-		if isClothes then
-			tempModel = Instance.new("Model", Workspace)
-			tempModel.Name = sourceItem.Name
-			clone.Parent = tempModel
-			clone.Name = "Handle"
-			ModelUtil:deformClothing(clone, pointData, Enum.CageType.Inner)
-			ModelUtil:deformClothing(clone, pointData, Enum.CageType.Outer)
-		else
-			clone.Parent = Workspace
-			ModelUtil:deformAvatar(clone, pointData, Enum.CageType.Outer)
-		end
-
-		if isClothes then
-			local weld = clone:FindFirstChildWhichIsA("WeldConstraint")
-			weld:Destroy()
-		end
-
-		local newIdsInner = {}
-		local newIdsOuter = {}
-		local deformerToPartMap = ModelUtil:getDeformerToPartMap(clone, not isClothes)
-		if isClothes then
-			for _, deformer in pairs(deformerToPartMap) do
-				local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Inner)
-				newIdsInner[deformer] = id
+		if ItemCharacteristics.isClothes(editingItem) then
+			if ItemCharacteristics.hasAnyCage(editingItem) then
+				generateCagedAccessory(store, editingItem, sourceItem)
+			else
+				generateRigidAccessory(store, editingItem, sourceItem)
 			end
-		end
-		for _, deformer in pairs(deformerToPartMap) do
-			local id = PublishService:PublishCageMeshAsync(deformer, Enum.CageType.Outer)
-			newIdsOuter[deformer] = id
-		end
-
-		for _, desc in ipairs(clone:GetDescendants()) do
-			if newIdsInner[desc] then
-				desc.ReferenceMeshId = newIdsInner[desc]
-			end
-			if newIdsOuter[desc] then
-				desc.CageMeshId = newIdsOuter[desc]
-			end
-		end
-
-		ModelUtil:cleanupDeformerNames(tempModel, sourceItem)
-
-		-- parent completed item to accessory instance
-		if isClothes then
-			local accessory = Instance.new("Accessory", Workspace)
-			clone.Parent = accessory
-			accessory.Name = tempModel.Name
-			tempModel:Destroy()
+		elseif ItemCharacteristics.isAvatar(editingItem) then
+			generateCagedAvatar(store, editingItem, sourceItem)
 		end
 	end
 end

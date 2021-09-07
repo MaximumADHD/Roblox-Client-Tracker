@@ -13,7 +13,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Http = require(Plugin.Src.Network.Http)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local REQUEST_URL = "v2/universes/%d/configuration"
@@ -29,7 +28,7 @@ if FFlagStudioAllowRemoteSaveBeforePublish then
 	ACCEPTED_KEYS.isFriendsOnly = true
 end
 
-if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+if shouldShowDevPublishLocations() then
 	ACCEPTED_KEYS.OptInLocations = true
 end
 
@@ -54,7 +53,7 @@ function DEPRECATED_Configuration.Set(universeId, body, includeOptInLocations)
 		body.playableDevices = toTable
 	end
 
-	if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() and includeOptInLocations then
+	if shouldShowDevPublishLocations() and includeOptInLocations then
 		if body.OptInLocations then
 			local optInTable = {}
 			local optOutTable = {}

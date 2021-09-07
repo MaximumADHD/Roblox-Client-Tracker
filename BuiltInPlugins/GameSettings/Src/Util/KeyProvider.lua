@@ -1,136 +1,121 @@
 -- Centralized Place for Keys used throughout the widget
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 
 local KeyProvider = {}
 
 function KeyProvider.getCopyIdKeyName()
-    return "CopyIDToClipboard"
+	return "CopyIDToClipboard"
 end
 
 function KeyProvider.getConfigureKeyName()
-    return "Configure"
+	return "Configure"
 end
 
 function KeyProvider.getIsFriendOnlyKeyName()
-    return "isFriendsOnly"
+	return "isFriendsOnly"
 end
 
 function KeyProvider.getIsActiveKeyName()
-    return "isActive"
+	return "isActive"
 end
 
 function KeyProvider.getIsForSaleKeyName()
-    return "isForSale"
+	return "isForSale"
 end
 
 function KeyProvider.getVipServersIsEnabledKeyName()
-    return "vipServersIsEnabled"
+	return "vipServersIsEnabled"
 end
 
 function KeyProvider.getEditKeyName()
-    return "Edit"
+	return "Edit"
 end
 
 function KeyProvider.getVersionHistoryKeyName()
-    return "VersionHistory"
+	return "VersionHistory"
 end
 
 function KeyProvider.getOptInLocationsKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "OptInLocations"
+	return "OptInLocations"
 end
 
 function KeyProvider.getChinaKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "China"
+	return "China"
 end
 
 function KeyProvider.getSelectedKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "selected"
+	return "selected"
 end
 
 function KeyProvider.getVoiceChatEnabledKeyName()
-    assert(FFlagGameSettingsEnableVoiceChat)
+	assert(FFlagGameSettingsEnableVoiceChat)
 
-    return "VoiceChatEnabled"
+	return "VoiceChatEnabled"
 end
 
 function KeyProvider.getApprovedKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "Approved"
+	return "Approved"
 end
 
 function KeyProvider.getInReviewKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "InReview"
+	return "InReview"
 end
 
 function KeyProvider.getRejectedKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "Rejected"
+	return "Rejected"
 end
 
 function KeyProvider.getPlayerAcceptanceKeyName()
-    assert(FFlagLuobuDevPublishLua)
-
-    return "PlayerAcceptance"
+	return "PlayerAcceptance"
 end
 
 function KeyProvider.getGameSettingsKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "GameSettings"
+	return "GameSettings"
 end
 
 function KeyProvider.getPluginKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "plugin"
+	return "plugin"
 end
 
 function KeyProvider.getContextKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "context"
+	return "context"
 end
 
 function KeyProvider.getLuobuStudioDevPublishKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "LuobuStudioDevPublish"
+	return "LuobuStudioDevPublish"
 end
 
 function KeyProvider.getTermsOfUseDialogKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "TermsOfUseDialog"
+	return "TermsOfUseDialog"
 end
 
 function KeyProvider.getCheckboxToggleKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "CheckboxToggle"
+	return "CheckboxToggle"
 end
 
 function KeyProvider.getButtonClickedKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "buttonClicked"
+	return "buttonClicked"
 end
 
 function KeyProvider.getFooterKeyName()
-    assert(FFlagLuobuDevPublishAnalyticsKeys)
+	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
-    return "Footer"
+	return "Footer"
 end
 
 return KeyProvider

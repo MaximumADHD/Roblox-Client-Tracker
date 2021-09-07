@@ -3,7 +3,7 @@ local Plugin = Src.Parent
 local Packages = Plugin.Packages
 local Framework = Packages.Framework
 
-local strict = require(Framework.Util.strict)
+local strict = require(Framework).Util.strict
 
 local StatusMessage = strict({
 	None = "",

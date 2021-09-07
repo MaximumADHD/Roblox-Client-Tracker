@@ -17,7 +17,6 @@ local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
 
 local function searchUsers(networkInterface, searchTerm, store)
@@ -113,7 +112,7 @@ return function(networkInterface, settings, options)
 			end
 		else
 			local creator = Cryo.None
-			if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+			if showRobloxCreatedAssets() then
 				local currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)
 				if currentTab == Category.MARKETPLACE_KEY then
 					creator = Category.CREATOR_ROBLOX

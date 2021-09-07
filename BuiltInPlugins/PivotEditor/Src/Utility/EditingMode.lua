@@ -1,9 +1,8 @@
 local Src = script.Parent.Parent
 local Plugin = Src.Parent
 local Packages = Plugin.Packages
-local Framework = Packages.Framework
 
-local enumerate = require(Framework.Util.enumerate)
+local enumerate = require(Packages.enumerate)
 
 return enumerate("EditingMode", {
 	"None",

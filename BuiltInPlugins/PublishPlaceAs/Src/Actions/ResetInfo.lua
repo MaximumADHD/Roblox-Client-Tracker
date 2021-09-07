@@ -5,11 +5,10 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local Action = require(script.Parent.Action)
 
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 local optInLocations
-if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+if shouldShowDevPublishLocations() then
     optInLocations = {}
 end
 

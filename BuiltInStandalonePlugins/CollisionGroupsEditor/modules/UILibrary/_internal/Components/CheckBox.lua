@@ -15,7 +15,6 @@
 ]]
 
 local TextService = game:GetService("TextService")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
@@ -43,7 +42,7 @@ function CheckBox:render()
 		local selected = props.Selected
 		local textSize = props.TextSize
 		local titlePadding = props.TitlePadding or 5
-		local link = FFlagLuobuDevPublishLua and props.Link or nil
+		local link = props.Link
 
 		local titleSize = TextService:GetTextSize(
 			title,

@@ -18,6 +18,8 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagDebugLCEditAvatarCage = require(Plugin.Src.Flags.GetFFlagDebugLCEditAvatarCage)
+
 local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 
 local UI = Framework.UI
@@ -39,6 +41,11 @@ function SelectFrame:init()
 		local theme = props.Stylizer
 		local localization = props.Localization
 
+		local text = localization:getText("Select", "Part")
+		if GetFFlagDebugLCEditAvatarCage() then
+			text = localization:getText("Select", "Selection")
+		end
+
 		return Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 0, theme.TextBoxHeight),
 			LayoutOrder = order,
@@ -50,7 +57,7 @@ function SelectFrame:init()
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				Size = UDim2.new(0, theme.LabelWidth, 1, 0),
-				Text = localization:getText("Select", "Part"),
+				Text = text,
 				LayoutOrder = order + 1,
 			}),
 
@@ -73,9 +80,14 @@ function SelectFrame:render()
 	local onConfirmSelection = props.OnConfirmSelection
 	local localization = props.Localization
 
+	local promptText = localization:getText("Select", "Prompt")
+	if GetFFlagDebugLCEditAvatarCage() then
+		promptText = localization:getText("Select", "PromptGeneric")
+	end
+
 	return Roact.createElement(FlowScreenLayout, {
 		Title = localization:getText("Editor", "Select"),
-		PromptText = localization:getText("Select", "Prompt"),
+		PromptText = promptText,
 		NextButtonText = localization:getText("Flow", "Next"),
 		BackButtonText = "",
 		NextButtonEnabled = buttonEnabled,

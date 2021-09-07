@@ -15,8 +15,6 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
-local FFlagToolboxTrackAllAssetTypeInsertions = game:GetFastFlag("ToolboxTrackAllAssetTypeInsertions")
-
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
 local INSERT_CAMERA_DIST_MULT = 1.2
@@ -235,10 +233,10 @@ local function assetTypeIdToString(assetTypeId)
 		return "Mesh"
 	elseif assetTypeId == Enum.AssetType.Plugin.Value then
 		return "Plugin"
-	elseif FFlagToolboxTrackAllAssetTypeInsertions and assetTypeId == Enum.AssetType.Video.Value then
+	elseif assetTypeId == Enum.AssetType.Video.Value then
 		return "Video"
 	else
-		if FFlagToolboxTrackAllAssetTypeInsertions and DebugFlags.shouldDebugWarnings() then
+		if DebugFlags.shouldDebugWarnings() then
 			warn(("Missing name for assetTypeId %s"):format(tostring(assetTypeId)))
 		end
 		return "Unknown"
@@ -268,9 +266,8 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
 	local categoryName = options.categoryName
-	if FFlagToolboxTrackAllAssetTypeInsertions then
-		Analytics.incrementToolboxCategoryInsertCounter(categoryName)
-	end
+	Analytics.incrementToolboxCategoryInsertCounter(categoryName)
+
 	if not assetWasDragged then
 		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex, categoryName)
 	else

@@ -4,7 +4,6 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 
 return Action(script.Name, function(publishInfoArg)
@@ -23,7 +22,7 @@ return Action(script.Name, function(publishInfoArg)
 	AssertType.assertType(name, "string", "SetPublishInfo.name")
 	AssertType.assertType(parentGameName, "string", "SetPublishInfo.parentGameName")
 	AssertType.assertNullableType(parentGameId, "number", "SetPublishInfo.parentGameId")
-	if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+	if shouldShowDevPublishLocations() then
 		AssertType.assertNullableType(settings, "table", "SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table, OptInLocations : table }")
 	else
 		AssertType.assertNullableType(settings, "table", "SetPublishInfo.settings { name : String, description : String, genre : String, playableDevices : table }")
@@ -34,7 +33,7 @@ return Action(script.Name, function(publishInfoArg)
 		AssertType.assertType(settings.description, "string", "settings.description")
 		AssertType.assertType(settings.genre, "string", "settings.genre")
 		AssertType.assertType(settings.playableDevices, "table", "settings.playableDevices")
-		if FFlagLuobuDevPublishLua and shouldShowDevPublishLocations() then
+		if shouldShowDevPublishLocations() then
 			AssertType.assertType(settings.OptInLocations, "table", "settings.OptInLocations")
 		end
 

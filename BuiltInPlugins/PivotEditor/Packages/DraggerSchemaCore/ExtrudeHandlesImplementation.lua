@@ -111,10 +111,6 @@ function ExtrudeHandlesImplementation:axesToScale(selectionInfo, normalId)
 	elseif  part:IsA("UnionOperation") or part:IsA("NegateOperation") then
 		-- special case: CSG operations are treated the same way as multiple parts
 		return ALL_AXES
-	elseif part:IsA("Part") and part.Shape == Enum.PartType.Cylinder then
-		-- assuming the axis of the cylinder is the X axis, allow increasing the height only
-		-- but the base must scale proportionately in both directions
-		return normalId == 1 and {X = true} or {Y = true, Z = true}
 	end
 	-- everything else is considered a regular single part, and can be scaled along one axis
 	-- without keeping aspect ratio

@@ -3,7 +3,7 @@
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection, CustomPolicySwitchSection, and PolicySection
 ]]
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
-local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges")
+local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -35,7 +35,7 @@ function MainView:render()
 	    theme = props.Theme:get("Plugin")
 	end
 	
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges then
+	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 then
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1,0,1,0),
 			BackgroundColor3 = theme.BackgroundColor,

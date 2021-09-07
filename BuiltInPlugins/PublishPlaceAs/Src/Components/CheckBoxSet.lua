@@ -9,7 +9,6 @@
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -24,8 +23,6 @@ local withContext = ContextServices.withContext
 
 local CheckBox = UILibrary.Component.CheckBox
 local TitledFrame = UILibrary.Component.TitledFrame
-
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local CHECKBOX_SIZE = 20
 local CHECKBOX_PADDING = 8
@@ -54,11 +51,10 @@ function CheckBoxSet:render()
 	}
 
 	-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
-	-- Look at the changes in FFlagLubouDevPublishLua that use this.
 	for i, box in ipairs(boxes) do
 		table.insert(children, Roact.createElement(CheckBox, {
 			Title = box.Title,
-			Id = FFlagLuobuDevPublishLua and box.Id or nil,
+			Id = box.Id,
 			Height = CHECKBOX_SIZE,
 			TextSize = Constants.TEXT_SIZE,
 			Selected = box.Selected ~= nil and box.Selected,
@@ -67,15 +63,11 @@ function CheckBoxSet:render()
 			OnActivated = function()
 				entryClicked(box)
 			end,
-			Link = FFlagLuobuDevPublishLua and box.LinkTextFrame or nil,
+			Link = box.LinkTextFrame,
 		}))
 	end
 
-	if FFlagLuobuDevPublishLua then
-		if props[Roact.Children] then
-			children = Cryo.Dictionary.join(props[Roact.Children], children)
-		end
-	else
+	if props[Roact.Children] then
 		children = Cryo.Dictionary.join(props[Roact.Children], children)
 	end
 
@@ -94,10 +86,8 @@ function CheckBoxSet:render()
 	end
 
 	local maxHeight = #boxes * (CHECKBOX_SIZE + CHECKBOX_PADDING)
-	if FFlagLuobuDevPublishLua then
-		if props.MaxHeight then
-			maxHeight += props.MaxHeight
-		end
+	if props.MaxHeight then
+		maxHeight += props.MaxHeight
 	end
 
 	return Roact.createElement(TitledFrame, {
@@ -105,7 +95,7 @@ function CheckBoxSet:render()
 		MaxHeight = maxHeight,
 		LayoutOrder = layoutOrder,
 		TextSize = Constants.TEXT_SIZE,
-		Tooltip = FFlagLuobuDevPublishLua and props.Tooltip or nil,
+		Tooltip = props.Tooltip,
 	}, children)
 end
 

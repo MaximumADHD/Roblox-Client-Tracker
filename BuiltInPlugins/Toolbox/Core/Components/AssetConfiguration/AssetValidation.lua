@@ -15,8 +15,10 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+local FFlagDebugDisableLocalUGCValidation = game:GetFastFlag("DebugDisableLocalUGCValidation")
 
 local CorePackages = game:GetService("CorePackages")
+local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -87,7 +89,8 @@ function AssetValidation:init(props)
 	}
 
 	if FFlagCMSUploadFees then
-		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
+		local canSkip = FFlagDebugDisableLocalUGCValidation and StudioService:HasInternalPermission()
+		if not canSkip and AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
 			UGCValidation.validateAsync(self.props.instances, self.props.assetTypeEnum, function(success, reasons)
 				if success then
 					self:setState({ onFinish = self.props.nextScreen })

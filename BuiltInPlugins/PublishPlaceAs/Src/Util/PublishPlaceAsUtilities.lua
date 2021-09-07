@@ -1,4 +1,3 @@
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
@@ -19,20 +18,14 @@ local publishPlaceAsKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getP
 local PublishPlaceAsUtilities =  {}
 
 function PublishPlaceAsUtilities.shouldShowDevPublishLocations()
-    assert(FFlagLuobuDevPublishLua)
-
-    return PublishPlaceAsPolicy["ShowOptInLocations"]
+	return PublishPlaceAsPolicy["ShowOptInLocations"]
 end
 
 function PublishPlaceAsUtilities.getOptInLocationsRequirementsLink(location)
-	assert(FFlagLuobuDevPublishLua)
-
 	return FStringDevPublishChinaRequirementsLink
 end
 
 function PublishPlaceAsUtilities.getPlayerAppDownloadLink(location)
-	assert(FFlagLuobuDevPublishLua)
-
 	return PublishPlaceAsPolicy["PlayerAppDownloadLink"][location]
 end
 

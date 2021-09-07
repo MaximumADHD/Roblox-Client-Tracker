@@ -1,7 +1,5 @@
 local Plugin = script.parent.parent.parent
 
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
-
 local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local FrameworkTheme = ContextServices.Theme
@@ -29,7 +27,7 @@ local function createStyles(theme, getColor)
 
 	local isDark = settings().Studio.Theme.Name == "Dark"
 
-	local tooltipOptIn = FFlagLuobuDevPublishLua and StyleTable.new("Image", function()
+	local tooltipOptIn = StyleTable.new("Image", function()
 		local TooltipStyle = Style.new({
 			Image = "rbxasset://textures/PublishPlaceAs/MoreDetails.png",
 			Color = theme:getColor(c.SubText),
@@ -40,7 +38,7 @@ local function createStyles(theme, getColor)
 		return {
 			TooltipStyle = TooltipStyle,
 		}
-	end) or nil
+	end)
 
 	-- define all the colors used in the plugin
 	return {
@@ -164,24 +162,24 @@ local function createStyles(theme, getColor)
 				textColor = theme:getColor(c.MainText),
 				dimTextColor = theme:getColor(c.DimmedText),
 			},
-			tooltipIcon = FFlagLuobuDevPublishLua and {
+			tooltipIcon = {
 				paddingY = 30,
 				size = 14,
-			} or nil,
-			optInLocations = FFlagLuobuDevPublishLua and {
+			},
+			optInLocations = {
 				height = 52,
-			} or nil,
-			requirementsLink = FFlagLuobuDevPublishLua and {
+			},
+			requirementsLink = {
 				height = 22,
 				length = 250,
 				paddingY = 25,
-			} or nil,
-			emailDialog = FFlagLuobuDevPublishLua and {
+			},
+			emailDialog = {
 				Size = {
 					X = 500,
 					Y = 350,
 				}
-			} or nil,
+			},
 
 			--Constants used for UI
 			DROPDOWN_WIDTH = 330,
@@ -204,7 +202,7 @@ local function createStyles(theme, getColor)
 		},
 
 		Framework = Style.extend(studioStyles, {
-			Image = FFlagLuobuDevPublishLua and Style.extend(studioStyles.Image, tooltipOptIn) or nil,
+			Image = Style.extend(studioStyles.Image, tooltipOptIn),
 		}),
 	}
 end
@@ -226,7 +224,7 @@ local function getUILibraryTheme()
 		disabledColor = theme:GetColor(c.Tab),
 		borderColor = theme:GetColor(c.Border),
 		hoverColor = isDark and theme:GetColor(c.MainButton) or theme:GetColor(c.CurrentMarker),
-		hyperlinkTextColor = FFlagLuobuDevPublishLua and theme:GetColor(c.LinkText) or nil,
+		hyperlinkTextColor = theme:GetColor(c.LinkText),
 		errorColor = theme:GetColor(c.ErrorText),
 
 		font = Enum.Font.SourceSans,
@@ -288,13 +286,13 @@ local function getUILibraryTheme()
 			selectedImage = isDark and "rbxasset://textures/GameSettings/CheckedBoxDark.png"
 				or "rbxasset://textures/GameSettings/CheckedBoxLight.png"
 		},
-		partialHyperlink = FFlagLuobuDevPublishLua and {
+		partialHyperlink = {
 			RequirementsLink = {
 				textSize = 16,
 				textColor = theme:GetColor(c.SubText),
 				font = Enum.Font.SourceSans,
 			},
-		} or nil,
+		},
 	}
 
 	return createTheme(UILibraryStylePalette, UILibraryOverrides)

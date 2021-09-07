@@ -30,6 +30,10 @@ function EditingItemContext:setSourceItem(item)
 	self.sourceItemChangedSignal:Fire(item)
 end
 
+function EditingItemContext:setSourceItemWithUniqueDeformerNames(item)
+	self.sourceItemWithUniqueDeformerNames = item
+end
+
 function EditingItemContext:setEditingItem(item)
 	self.editingItem = item
 	self.editingItemChangedSignal:Fire(item)
@@ -52,6 +56,10 @@ end
 
 function EditingItemContext:getSourceItem()
 	return self.item
+end
+
+function EditingItemContext:getSourceItemWithUniqueDeformerNames()
+	return self.sourceItemWithUniqueDeformerNames
 end
 
 function EditingItemContext:getSourceItemChangedSignal()

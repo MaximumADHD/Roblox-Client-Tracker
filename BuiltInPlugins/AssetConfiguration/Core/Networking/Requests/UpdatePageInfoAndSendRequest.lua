@@ -13,8 +13,6 @@ local Constants = require(Plugin.Core.Util.Constants)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
-
 return function(networkInterface, settings, newPageInfo)
 	return function(store)
 		if not RequestReason.IsUpdate(newPageInfo.requestReason) then
@@ -29,7 +27,7 @@ return function(networkInterface, settings, newPageInfo)
 		local audioSearchInfo = pageInfo.audioSearchInfo -- or store:getState().assets.audioSearchInfo
 		local categoryName = pageInfo.categoryName
 		
-		if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+		if showRobloxCreatedAssets() then
 			-- For Luobu we limit the length of Audio assets available in the marketplace for moderation reasons
 			if audioSearchInfo == nil then
 				audioSearchInfo = {

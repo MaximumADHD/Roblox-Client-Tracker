@@ -37,7 +37,7 @@ Typecheck.wrap(GenerateScreen, script)
 function GenerateScreen:init()
 	self.onGenerateClicked = function()
 		local editingItem = self.props.EditingItemContext:getItem()
-		local sourceItem = self.props.EditingItemContext:getSourceItem()
+		local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
 		self.props.FinishEditing(editingItem, sourceItem)
 
 		-- return to start screen

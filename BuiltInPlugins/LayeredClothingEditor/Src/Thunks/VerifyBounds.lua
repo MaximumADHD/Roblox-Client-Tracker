@@ -28,7 +28,7 @@ return function(editingItem)
 			return
 		end
 
-		local attachment = editingItem:FindFirstChildWhichIsA("Attachment")
+		local attachment = editingItem:FindFirstChild(accessoryTypeInfo.Name)
 		local weld = editingItem:FindFirstChildWhichIsA("WeldConstraint")
 		if not attachment or not weld then
 			return nil

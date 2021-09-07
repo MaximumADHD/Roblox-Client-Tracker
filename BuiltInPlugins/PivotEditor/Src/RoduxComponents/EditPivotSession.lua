@@ -72,7 +72,7 @@ function EditPivotSession:render()
 	local editingMode = self.props.editingMode
 	local elements = {}
 
-	local pluginInstance = self.props.Plugin.plugin
+	local pluginInstance = self.props.Plugin:get()
 	if not self._draggerContext then
 		self._mouse = pluginInstance:GetMouse()
 		self._draggerContext = DraggerContext_Pivot.new(

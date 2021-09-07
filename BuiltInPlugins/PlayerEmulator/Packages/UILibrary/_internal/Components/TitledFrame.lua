@@ -15,7 +15,6 @@ local Library = script.Parent.Parent
 local Roact = require(Library.Parent.Parent.Roact)
 local Theming = require(Library.Theming)
 local withTheme = Theming.withTheme
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local CENTER_GUTTER = 180
 
@@ -23,7 +22,7 @@ local function TitledFrame(props)
 	return withTheme(function(theme)
 		local textSize = props.TextSize
 		local centerGutter = props.CenterGutter or CENTER_GUTTER
-		local tooltip = FFlagLuobuDevPublishLua and props.Tooltip or nil
+		local tooltip = props.Tooltip
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -45,7 +44,7 @@ local function TitledFrame(props)
 				Text = props.Title,
 				TextWrapped = true,
 			}, {
-				Tooltip = FFlagLuobuDevPublishLua and tooltip or nil,
+				Tooltip = tooltip,
 			}),
 
 			Content = Roact.createElement("Frame", {

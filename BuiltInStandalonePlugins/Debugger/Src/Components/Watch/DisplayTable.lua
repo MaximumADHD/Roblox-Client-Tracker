@@ -16,9 +16,15 @@ local deepCopy = Util.deepCopy
 
 local Models = Plugin.Src.Models
 local TableTab = require(Models.Watch.TableTab)
+local WatchRow = require(Models.Watch.WatchRow)
 
 local Actions = Plugin.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
+local ChangeExpression = require(Actions.Watch.ChangeExpression)
+local AddExpression = require(Actions.Watch.AddExpression)
+local RemoveExpression = require(Actions.Watch.RemoveExpression)
+
+local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -30,10 +36,15 @@ local function populateRootItems(roots, flattenedTreeCopy)
 	
 	local toReturn = {}
 	for index, path in ipairs(roots) do
-		local rootData = deepCopy(flattenedTreeCopy[path])
-		local childrenData = populateRootItems(rootData.children, flattenedTreeCopy)
-		rootData.children = childrenData
-
+		local rootData = {}
+		if (flattenedTreeCopy[path]) then
+			rootData = deepCopy(flattenedTreeCopy[path])
+			local childrenData = populateRootItems(rootData.children, flattenedTreeCopy)
+			rootData.children = childrenData
+		else
+			-- this can happen after an expression is added but before it is evaluated
+			rootData = WatchRow.fromExpression(path)
+		end
 		table.insert(toReturn, rootData)
 	end
 	return toReturn
@@ -53,12 +64,13 @@ end
 local function applyFilters(rootItems, flattenedTreeCopy)
 	local toReturn = {}
 	for index, rowItem in ipairs(rootItems) do
-		if (not flattenedTreeCopy[rowItem.pathColumn].textFilteredOut and not flattenedTreeCopy[rowItem.pathColumn].scopeFilteredOut) then
+		if not flattenedTreeCopy[rowItem.pathColumn] or (not flattenedTreeCopy[rowItem.pathColumn].textFilteredOut and not flattenedTreeCopy[rowItem.pathColumn].scopeFilteredOut) then
 			table.insert(toReturn, rowItem)
 		end
 	end
 	return toReturn
 end
+
 -- DisplayTable
 function DisplayTable:init()
 	self.getTreeChildren = function(item)
@@ -70,6 +82,22 @@ function DisplayTable:init()
 			self.props.onExpansionDispatch(row.pathColumn, expandedBool)
 		end
 	end
+
+	self.OnFocusLost = function(enterPress, inputObj, row, col)
+		local oldExpression = row.item.expressionColumn
+		local newExpression = inputObj.Text
+		
+		if col == 1 then
+			if oldExpression == "" and newExpression ~= "" then
+				self.props.OnAddExpression(newExpression)
+			elseif newExpression == "" then
+				self.props.onRemoveExpression(oldExpression)
+			elseif oldExpression ~= newExpression then
+				self.props.OnChangeExpression(oldExpression, newExpression)
+			end
+		end
+	end
+	
 end
 
 function DisplayTable:render()
@@ -108,15 +136,19 @@ function DisplayTable:render()
 		}, 
 	}
 
+	local isVariablesTab = props.SelectedTab == TableTab.Variables
+	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
 		Scroll = true,  
 		Size = UDim2.fromScale(1, 1),
-		Columns = props.SelectedTab == TableTab.Variables and variableTableColumns or watchTableColumns,
+		Columns = isVariablesTab and variableTableColumns or watchTableColumns,
 		RootItems = props.RootItems,
 		Stylizer = style,
 		OnExpansionChange = self.onExpansionChange,
 		GetChildren = self.getTreeChildren,
 		Expansion = props.ExpansionTable,
+		OnFocusLost = FFlagStudioAddTextInputCols and self.OnFocusLost,
+		TextInputCols = FFlagStudioAddTextInputCols and textInputCols,
 		DisableTooltip = true,
 	})
 end
@@ -146,7 +178,7 @@ DisplayTable = RoactRodux.connect(
 			local watchVars = state.Watch.stateTokenToRoots[token]
 
 			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
-			local rootsList = isVariablesTab and deepCopy(roots.Variables) or deepCopy(roots.Watches)
+			local rootsList = isVariablesTab and deepCopy(roots.Variables) or state.Watch.listOfExpressions
 
 			local watchTree = state.Watch.stateTokenToFlattenedTree[token]
 			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
@@ -157,6 +189,10 @@ DisplayTable = RoactRodux.connect(
 			local expansionTable = {}
 			local storeExpansionTable = isVariablesTab and state.Watch.pathToExpansionState or state.Watch.expressionToExpansionState
 			populateExpansionTable(rootItems, expansionTable, storeExpansionTable)
+
+			if not isVariablesTab then
+				table.insert(rootItems, WatchRow.fromExpression(""))
+			end
 
 			return {
 				SelectedTab = tabState,
@@ -170,6 +206,15 @@ DisplayTable = RoactRodux.connect(
 		return {
 			onExpansionDispatch = function(path, expanded)
 				return dispatch(SetVariableExpanded(path, expanded))
+			end,
+			OnChangeExpression = function(oldName, newName)
+				return dispatch(ChangeExpression(oldName, newName))
+			end,
+			OnAddExpression = function(newExpression)
+				return dispatch(AddExpression(newExpression))
+			end,
+			onRemoveExpression = function(oldExpression)
+				return dispatch(RemoveExpression(oldExpression))
 			end,
 		}
 	end

@@ -13,7 +13,6 @@ local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
@@ -112,7 +111,7 @@ function Settings:loadInitialSettings()
 		initSettings.categoryName = self:getSelectedCategoryName()
 	end
 
-	if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+	if showRobloxCreatedAssets() then
 		-- Override default settings to only show Roblox created assets for Luobu
 		initSettings.tab = Category.MARKETPLACE_KEY
 		initSettings.categoryName = Category.DEFAULT.name

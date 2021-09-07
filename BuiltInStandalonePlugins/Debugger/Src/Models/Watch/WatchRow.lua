@@ -4,6 +4,19 @@ type Expression = {expression : string}
 
 export type WatchRow = Expression & WatchWindowTableRow.WatchWindowTableRow
 
+local function fromExpression(expression) : WatchRow
+	return {
+		expressionColumn = expression,
+		pathColumn = expression,
+		scopeColumn = "",
+		valueColumn = "",
+		dataTypeColumn = "",
+		children = {},
+		textFilteredOut = false,
+		scopeFilteredOut = false,
+	}
+end
+
 local function fromData(data) : WatchRow
 	return {
 		expressionColumn = data.expression,
@@ -19,4 +32,5 @@ end
 
 return {
 	fromData = fromData,
+	fromExpression = fromExpression,
 }

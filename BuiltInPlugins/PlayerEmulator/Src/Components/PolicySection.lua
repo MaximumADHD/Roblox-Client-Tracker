@@ -7,7 +7,7 @@
 
 		boolean mainSwitchEnabled
 			if emulation is enabled
-		boolean customPolicySwitchEnabled
+		boolean customPoliciesEnabled
 			if custom policies are enabled
 		table allPolicies
 			all policies items need be rendered
@@ -21,7 +21,7 @@
 			update setting of list item
 ]]
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
-local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges")
+local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -61,7 +61,7 @@ function PolicySection:render()
 	local updateToggleItem = props.updateToggleItem
 	local updateListItem = props.updateListItem
 	
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges and not props.customPolicySwitchEnabled then
+	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 and not props.customPoliciesEnabled then
 		return nil
 	end
 	
@@ -118,10 +118,10 @@ end
 
 
 local function mapStateToProps(state, _)
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges then
+	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 then
 		return {
 			mainSwitchEnabled = state.MainSwitch.mainSwitchEnabled,
-			customPolicySwitchEnabled = state.CustomPolicySwitch.customPolicySwitchEnabled,
+			customPoliciesEnabled = state.CustomPolicySwitch.customPoliciesEnabled,
 			allPolicies = state.Policies.allPolicies,
 			allPolicySortedKeys = state.Policies.allPolicySortedKeys,
 			policySettingStatus = state.Policies.policySettingStatus,

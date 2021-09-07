@@ -14,7 +14,6 @@
 ]]
 
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagLuobuDevPublishLua = game:GetFastFlag("LuobuDevPublishLua")
 
 local StudioService = game:GetService("StudioService")
 
@@ -321,20 +320,18 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 		Separator4 = showAutoTranslationTitle and Roact.createElement(Separator, {
 			LayoutOrder = layoutIndex:getNextOrder(),
 		}),
-		HyperLink = showHyperLink and
-			Roact.createElement("Frame", {
-				LayoutOrder = layoutIndex:getNextOrder(),
-				Size = UDim2.new(1, 0, 0, 20),
-				BackgroundTransparency = 1,
-			}, {
-				LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
-					HyperLinkText = localization:getText("General", "LocalizationSettingsLinkText"),
-					NonHyperLinkText = localization:getText("General", "LocalizationSettingsNonLinkText"),
-					Theme = not FFlagLuobuDevPublishLua and theme or nil,
-					Mouse = props.Mouse:get(),
-					OnClick = OpenLocalizationSettings(gameId),
-				})
-			})
+		HyperLink = showHyperLink and Roact.createElement("Frame", {
+			LayoutOrder = layoutIndex:getNextOrder(),
+			Size = UDim2.new(1, 0, 0, 20),
+			BackgroundTransparency = 1,
+		}, {
+			LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
+				HyperLinkText = localization:getText("General", "LocalizationSettingsLinkText"),
+				NonHyperLinkText = localization:getText("General", "LocalizationSettingsNonLinkText"),
+				Mouse = props.Mouse:get(),
+				OnClick = OpenLocalizationSettings(gameId),
+			}),
+		})
 	}
 end
 

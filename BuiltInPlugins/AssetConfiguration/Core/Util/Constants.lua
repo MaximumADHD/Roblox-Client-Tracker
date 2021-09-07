@@ -9,7 +9,6 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
-local FFlagToolboxShowRobloxCreatedAssetsForLuobu = game:GetFastFlag("ToolboxShowRobloxCreatedAssetsForLuobu")
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
@@ -262,7 +261,7 @@ Constants.Dialog = {
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
 Constants.MAX_AUDIO_SEARCH_DURATION = 420
 
-if FFlagToolboxShowRobloxCreatedAssetsForLuobu and showRobloxCreatedAssets() then
+if showRobloxCreatedAssets() then
 	Constants.MAX_AUDIO_SEARCH_DURATION = getMaxAudioLength()
 end
 
