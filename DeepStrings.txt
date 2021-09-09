@@ -639,6 +639,7 @@ AESMoreOutfitMethods
 AESSaveRobloxSecurity
 AesSettingsCipherMode
 AF1224888D11E18561866242201959
+Af9rllOMMPos6ChKb9xbOMVtOKzQQfgG
 AfCfEfGfIftg
 Affiliation
 AffirmTrust
@@ -687,7 +688,6 @@ AHVWeakObjectRef
 AHW4DataStoreRequestType
 AHW4UserInputType
 AimdRateControl
-AiMpJpUIDBJAYJQNKwfvmIRt
 Aktivieren
 AKTIVIEREN
 Aktivierung
@@ -6262,12 +6262,10 @@ BoxClicked
 BoxHandleAdornment
 BoxMappedMeshLODFix_v2
 BoxSelectCommand
-Bp42NYvGTyJ3xpSH3SJ3hEyVf98oTqRJuwaxpN
 BPEAUIUnknown
 BPQVYB6_F3P
 BPuVfD9B`uOfD9BpuH
 BQByteArray
-BQG1UaeuJjbym0LkCLdU
 BQJsonValueRef
 BQPersistentModelIndex
 BQTextFormat
@@ -10830,6 +10828,13 @@ DiffView.png
 DigestAlgorithm_find_ctx
 DigestAlgorithm_init_bio
 DigestedData_do_final
+DigiCertAssuredIDRootCA.crl0
+DigiCertAssuredIDRootCA.crl0P
+DigiCertAssuredIDRootCA.crt0
+DigiCertEVCodeSigningCA
+DigiCertHighAssuranceEVRootCA.crl0
+DigiCertHighAssuranceEVRootCA.crt0
+DigiCertSHA2AssuredIDTimestampingCA.crt0
 DigitalSignature
 DilateTemporalFS
 DilleniaUPC
@@ -11298,6 +11303,7 @@ DVCSResponseData
 DVPAES_ASM
 DwmSetWindowAttribute
 DX25519_ASM
+DX7DEAGoDf4hNJf
 DXCloseDeviceNV
 DXLockObjectsNV
 DXObjectAccessNV
@@ -11664,6 +11670,7 @@ ElevatedPhysicsFPSReportThresholdTenths
 ElevatedStudioPlugin
 Eliminando
 Elimination
+ElsqtSUCAwEAAQ
 EmbeddedBrowser
 EmbeddedFindPosition
 EmbeddedFindReplace_CloseDialogButton
@@ -11697,7 +11704,6 @@ EmitPlacePublishedSignal
 EmitResultCollapsed
 EmitResultExpanded
 EmitterSize
-EMJzVaXDsdv7Q8MBz596tCKiQ4
 EmoteAnimation
 EmotesAnimationsPerPlayerCacheSize
 EmotesChanged
@@ -12130,6 +12136,7 @@ EulerAnglesYXZ
 EvaluatedKey
 EvaluateForHovers
 EvaluateGlobalTransform
+EVCodeSigningSHA2
 Event.button
 Event.clientX
 Event.clientY
@@ -12521,6 +12528,7 @@ FB64AAAED11E38B9D871882A8E559
 FB6CE584711E29A3DBD856014A660
 FB6CF584711E29A3DBD856014A660
 FB8E4A9E79B
+FbcIOnPPrLzaVCZO
 FbPnXNTBBz2CM47ldc6zPnp04Gg1Ch1zQNrS9Q0fLcTp94XeqG0DjA42Iq0M3ZDg
 FBX_Animation_Import_Failure
 FBX_Animation_Import_Success
@@ -13195,7 +13203,6 @@ FoundItems
 FoundThread
 FpFramebuffer
 FpsVariance
-FpTtXhvCC6lyL2GzlFMIXvZVNMq3guHpCasy8TFuvvHuJjX5CTqt0PWrDyMiFEt
 Fractional
 FRAGMENT_SCRIPT
 FragmentScript
@@ -14870,7 +14877,6 @@ HARDWARE_SUPPORT_VOLUME
 HardwareMouse
 HardwareMouse]
 HardwareTelemetryHundredthsPercent
-Harh5PNs7SMIkRILkhYdsMtj7BNwb7DhZECAwEAAQ
 HasAppearanceLoaded
 HasAssociatedDrafts
 HasAwardedAPoint
@@ -16677,6 +16683,7 @@ JumpScares
 JumpScaresP2
 JumpToIndex
 JustEndedBusy
+JuW0g05RY9td2R7kTiX
 JW4AppInstallType
 JW4AvatarItemType
 JW4FriendService_FriendStatus
@@ -16784,7 +16791,6 @@ Kopplungen
 Kopplungsbeschr
 Kopplungsoberfl
 Korrodiertes
-KOUWzBmQBdlU5viNrDrQo1BBaFArAnvyWhkFH4KLH5HSA9yt3H8k
 KPEAVICHull
 KPEIBX_K_KPEIAU_iobuf
 Kugelverbindung
@@ -17669,6 +17675,7 @@ LuobuWhitelistedAllow
 LuobuWhitelistedField
 LuobuWindowsStudioReportInternetZone
 LVvuOx39]O
+LzxXCRjoTaH8oSZ49gIESkMiSTFDJHvTdAoTsGdJs4oD0hsnphHU7ZSPqyNhr
 M_NVWeakObjectRef
 MacGamepadUseGCController
 MachineAddress
@@ -17909,7 +17916,6 @@ MayBeLinkedSourceModified
 MaybeStartGathering
 MaybeStartPinging
 MaybeSwitchSelectedConnection
-MazjDySo8B7NcmYtufUC4eMg6mMY
 MdiControls
 MDIManagerHost
 MEAA_JPEA_W_J
@@ -18431,7 +18437,6 @@ MethodImpl
 MethodQuery
 MetricsSets
 MetricType
-MH9ChViAvd9ccYxOMalzjSEo7JiQx7x
 MHapV7R8MxA953
 MICROPHONE_ACCESS
 MicrophoneIsInitialized
@@ -18464,7 +18469,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAw3dt7xXo5LYtOcun0LFDRQJFVYA7UPKFu63PP7RAp8hylu
+MIICCgKCAgEAsCElyUi9xjrGyMDaLmDYfgCpsLqVXZzAgxx
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -19029,7 +19034,6 @@ NETSCAPE_SPKI_b64_encode
 NETSCAPE2.0
 NETWORK_ERROR
 Network1.0
-Network100.
 NetworkAudit
 NetworkAudit]
 NetworkBandwdithManager
@@ -19235,6 +19239,7 @@ NextTabPage
 NfAddActVs
 NfAddReport
 NfXf`fhfzf
+NGOBhbIkP3UC0aI53x8JV2q4
 NHVVariant
 NinjaMask.mesh
 NLSF_mu_Q20
@@ -19450,6 +19455,7 @@ NW4PenStyle
 NW4UserInputType
 Oacutesmall
 OAEPEncryptionSET
+OaU41fkd26F2C5ZZ5an4bViu51R
 OAUTHBEARER
 Obj.GroupColors
 Obj.GroupsActive
@@ -19832,6 +19838,7 @@ OptionClicked
 OptionsDialogButtonClick
 OptionsMenu
 OptionState
+OPUlzYRnAUGWH9FEythJ2sv9LS3mZePArf64TK6KE2vfTJEZxtNql3hREu5LwO
 OPUS_ARCHMASK
 OPUS_BANDWIDTH_WIDEBAND
 OpusCustomMode
@@ -19851,6 +19858,7 @@ OrFetchPlugin
 OrFirstTier
 Organizaci
 Organization
+Organization1
 OrganizationDomain
 OrganizationName
 Organizations
@@ -22802,7 +22810,6 @@ QFutureWatcher
 QFutureWatcherBase
 QGenericArgument
 QGenericReturnArgument
-QgnAAdHN3hZYbWjFaVnWrZB4DVCbANdg0mRS8aZQM91Z9gq9EtQKiuNzfInm9VJG
 QGraphicsDropShadowEffect
 QGraphicsEffect
 QGraphicsItem
@@ -22843,7 +22850,6 @@ QListWidgetItem
 QListWidgetWithKeyFilter
 QLocalServer
 QLocalSocket
-QLrjTf4Rx0mhGVTx9X0DqmlIU9HozfzE1e
 QMainWindow
 QMapDataBase
 QMapNodeBase
@@ -23113,6 +23119,7 @@ RaknetBandwidthPingSendEveryXSeconds
 RakNetBandwidthReport
 RaknetBwStatsInfluxReportDurationInSeconds
 RakNetCalculateApplicationFeedback2
+RakNetCleanUpLegacyReport
 RakNetClockDriftAdjustmentPerPingMillisecond
 RakNetComputeTxBw
 RakNetConnectionStartWindow_HundredthsPercentage
@@ -24963,6 +24970,7 @@ RTT2000msPlus
 RTT500msTo1000ms
 RTT50msTo100ms
 RTTLessThan10ms
+RudnHVjaiiPR
 RuiCheckBoxHeader
 RuiDialogButtonBox
 RuiDialogButtonWatcher
@@ -26660,7 +26668,6 @@ SlowHttpRequest]
 SM2_Ciphertext
 SMALL_CAP_SIZE
 SmallFirstProbePacket
-SMaMVBEmoe7jc1Q9IRr8yKtvrcxPXpoeimCMvo0FZpd5JIYfgkZ0
 Smartcardlogin
 SmartcardLogin
 SMIME_read_ASN1
@@ -26747,7 +26754,6 @@ SolverLog_Client
 SolverRigidBody
 SolverRigidBodyAnchored_Optimization
 SolverStatMetrics
-SOoqpXKUlCg
 Soothsayer
 Soothsayer.
 SortBillboardGuisForInput
@@ -31682,7 +31688,6 @@ SXNET_add_id_INTEGER
 SXNET_add_id_ulong
 SXNET_get_id_asc
 SXNET_get_id_ulong
-SymantecPKI
 SymbolicLinkAlreadyExist
 Symbolleistenposition
 SymbolProvider
@@ -33819,6 +33824,7 @@ UnvalidatedAssetService
 Unverified
 Unwalkable]
 Unwritable
+UOfYZSmiOn
 UOperatorX2_cJDxTO
 Up_key.png
 Up_key_dn.png
@@ -34728,6 +34734,7 @@ VDockWidgetPluginGui
 VDockWidgetPluginGuiInfo
 Vdomain_error
 VDownloadBuffer
+VDqhAxJUPbPZmnw5CdMv54UJTtd8t8jSKMpMpTjMvomQszepzkS2QYPpxAtlk
 VDraftsService
 VDraftsServiceHost
 VDraggerService
@@ -36599,6 +36606,7 @@ WithSHA256
 WithSHA384
 WithSHA512
 WithUserCredentials
+WKUHuBKXgLtetgHgcJ0UktZv1oRosOlz7JE06BXYE5VPSg
 WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
@@ -36981,8 +36989,10 @@ YieldEvent
 YieldFuncDesc
 YieldFunction
 YQByteArray
+YqF5CRphCwL8TjOebQLlOlkXpyjDFgs0lzZtgtwe4
 YResolution
-YRKcrIanoXiailX6YB6qtoLEQfsL6a2GYhJN9jvUDrnQq2Okota1lPr4HnIltZA
+YvD4vgWIVfJRIxDzMuO4
+YvWNK3wsUm5A7i8KSZbsCKSZeFRuD2ZSu1WXn8h6uIAs1Fn
 YwBBvY55YvBBwY5
 YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
