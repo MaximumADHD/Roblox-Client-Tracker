@@ -1,5 +1,11 @@
 Key,en-us
-Studio.9SliceEditor.Plugin.Button,Toggle
-Studio.9SliceEditor.Plugin.Description,Toggles the Template plugin window.
-Studio.9SliceEditor.Plugin.Name,9SliceEditor
-Studio.9SliceEditor.Plugin.Toolbar,9SliceEditor
+Studio.9SliceEditor.ImageEditor.ImageSize,Image Size
+Studio.9SliceEditor.ImageEditor.ImageSizeError,Image Size Error: isLoaded is false
+Studio.9SliceEditor.Plugin.Name,9-Slice Editor
+Studio.9SliceEditor.SliceEditor.CloseButton,Close
+Studio.9SliceEditor.SliceEditor.RevertButton,Revert
+Studio.9SliceEditor.TextEditor.Bottom,Bottom
+Studio.9SliceEditor.TextEditor.Left,Left
+Studio.9SliceEditor.TextEditor.Offsets,Offsets
+Studio.9SliceEditor.TextEditor.Right,Right
+Studio.9SliceEditor.TextEditor.Top,Top

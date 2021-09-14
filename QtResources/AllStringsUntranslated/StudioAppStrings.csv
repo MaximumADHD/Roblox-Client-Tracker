@@ -329,6 +329,8 @@ Studio.App.BetaFeatures.LearnMoreTooltip,,Learn More,Learn More
 Studio.App.BetaFeatures.AutoEnrollmentToggle,,Enroll in Beta Channel,Enroll in Beta Channel
 Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Automatically Be Activated,New Beta Features Will Automatically Be Activated
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
+Studio.App.BetaFeatures.MaterialServiceTitle,,Material Service,Material Service
+Studio.App.BetaFeatures.MaterialServiceDescription,,"Enables MaterialService and MaterialVariant, which allows Part Material appearance customization.","Enables MaterialService and MaterialVariant, which allows Part Material appearance customization."
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
@@ -506,6 +508,7 @@ Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
 Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
 Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
+Studio.App.TeamCreate.UnableToFetchPlaceAndUniverseInfo,Failed to fetch place or universe info when opening a place,Unable to fetch place/universe info,Unable to fetch place/universe info
 Studio.App.TeamCreate.ConnectionResult1,,Connection Result: %1,Connection Result: %1
 Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
@@ -2145,6 +2148,8 @@ Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbo
 Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
 Studio.App.BetaFeatures.PathfindingModifiersTitle,,Pathfinding Modifiers,Pathfinding Modifiers
 Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
+Studio.App.BetaFeatures.AssetImporterTitle,,Asset Importer,Asset Importer
+Studio.App.BetaFeatures.AssetImporterDescription,,Enable the new Asset Importer.,Enable the new Asset Importer.
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -3064,6 +3069,12 @@ Do you want to disable Internal Features? This will make your Studio experience 
 You can go to Settings > Studio > Advanced to re-enable Internal Features."
 Studio.App.RobloxMainWindow.InternalFeaturesRestart,,Restart Roblox Studio,Restart Roblox Studio
 Studio.App.RobloxMainWindow.InternalFeaturesRestartDetails,,Roblox Studio need to restart to disable Internal Features,Roblox Studio need to restart to disable Internal Features
+Studio.App.FileSyncService.CanOnlyParentToFolder,,Can only parent to Folder.,Can only parent to Folder.
+Studio.App.FileSyncService.InstanceAlreadyExists,,Instance already exists.,Instance already exists.
+Studio.App.FileSyncService.FileNameIsInvalid,,File name is invalid.,File name is invalid.
+Studio.App.FileSyncService.CanOnlyAddFolderOrScript,,Can only add Folder or Script.,Can only add Folder or Script.
+Studio.App.FileSyncService.UnknownError,,Unknown Error.,Unknown Error.
+Studio.App.FileSyncService.Info,,Info,Info
 Studio.App.RobloxMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
 Studio.App.RobloxMainWindow.DocHistoryBackwards,,Step backwards through tab history,Step backwards through tab history
 Studio.App.BrowserServiceController.Hidden,,(Hidden),(Hidden)

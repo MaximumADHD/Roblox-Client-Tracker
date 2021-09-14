@@ -332,8 +332,12 @@ SmoothClusterDepthFS,Fragment
 SmoothClusterDepthVS,Vertex
 SmoothClusterFS_Level0,Fragment
 SmoothClusterFS_Level256,Fragment
+SmoothClusterFS_Level1024,Fragment
+SmoothClusterFS_Level1280,Fragment
 SmoothClusterFS_Level2048,Fragment
 SmoothClusterFS_Level2304,Fragment
+SmoothClusterFS_Level3072,Fragment
+SmoothClusterFS_Level3328,Fragment
 SmoothClusterHQFS_Level0,Fragment
 SmoothClusterHQFS_Level8,Fragment
 SmoothClusterHQFS_Level256,Fragment
@@ -356,6 +360,8 @@ SmoothClusterSuperHQVS_Level256,Vertex
 SmoothClusterSuperHQVS_Level264,Vertex
 SmoothClusterVS_Level0,Vertex
 SmoothClusterVS_Level256,Vertex
+SmoothClusterVS_Level1024,Vertex
+SmoothClusterVS_Level1280,Vertex
 SmoothWaterFS,Fragment
 SmoothWaterFS_Level0,Fragment
 SmoothWaterFS_Level2048,Fragment

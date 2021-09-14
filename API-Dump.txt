@@ -115,7 +115,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function void AssetImportService:UpdateSettings(Instance settings) {RobloxScriptSecurity}
-	Function void AssetImportService:UploadCurrentMesh() {RobloxScriptSecurity}
+	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
@@ -580,7 +580,7 @@ Class AlignOrientation : Constraint
 	Property float AlignOrientation.MaxAngularVelocity
 	Property float AlignOrientation.MaxTorque
 	Property float AlignOrientation.Responsiveness
-	Property CFrame AlignOrientation.CoordindateFrame
+	Property CFrame AlignOrientation.CFrame
 	Property Vector3 AlignOrientation.PrimaryAxis
 	Property Vector3 AlignOrientation.SecondaryAxis
 Class AlignPosition : Constraint
@@ -871,10 +871,16 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void DebuggerConnection:AddBreakpoint(Instance script, int line, Instance breakpoint) {RobloxScriptSecurity}
+	Function StackFrame DebuggerConnection:GetFrameById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetSource(Instance scriptRef, Function status) {RobloxScriptSecurity}
+	Function ThreadState DebuggerConnection:GetThreadById(int id) {RobloxScriptSecurity}
+	Function int DebuggerConnection:GetThreads(Function callback) {RobloxScriptSecurity}
+	Function DebuggerVariable DebuggerConnection:GetVariableById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Pause(ThreadState thread, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Populate(Instance instance, Function callback) {RobloxScriptSecurity}
 	Function void DebuggerConnection:RemoveBreakpoint(Instance breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:SetVariable(DebuggerVariable variable, string value, Function callback) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointAdded(Instance breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointChanged(Instance breakpoint) {RobloxScriptSecurity}
@@ -886,6 +892,7 @@ Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicat
 	Function int DebuggerConnectionManager:ConnectLocal(Instance dataModel) {RobloxScriptSecurity}
 	Function int DebuggerConnectionManager:ConnectRemote(string host, int port) {RobloxScriptSecurity}
 	Function void DebuggerConnectionManager:FocusConnection(Instance connection) {RobloxScriptSecurity}
+	Function DebuggerConnection DebuggerConnectionManager:GetConnectionById(int id) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.ConnectionEnded(Instance connection, Enum.DebuggerEndReason reason) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.ConnectionStarted(Instance connection) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.FocusChanged(Instance connection) {RobloxScriptSecurity}
@@ -900,6 +907,15 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerManager:StepOver()
 	Event DebuggerManager.DebuggerAdded(Instance debugger)
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
+Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
+	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string DebuggerVariable.Value {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int DebuggerVariable.VariableId {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int DebuggerVariable.VariablesCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool DebuggerVariable.Populated {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Instance DebuggerVariable:GetVariableByIndex(int index) {RobloxScriptSecurity}
+	Function Instance DebuggerVariable:GetVariableByName(string name) {RobloxScriptSecurity}
 Class DebuggerWatch : Instance
 	Property string DebuggerWatch.Expression
 Class Dialog : Instance
@@ -1763,6 +1779,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property string ImporterBaseSettings.Id [ReadOnly]
 	Property string ImporterBaseSettings.ImportName
 	Property bool ImporterBaseSettings.ShouldImport
+	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
@@ -3249,8 +3266,6 @@ Class Sound : Instance
 Class SoundEffect : Instance [NotCreatable]
 	Property bool SoundEffect.Enabled
 	Property int SoundEffect.Priority
-Class ChannelSelectorSoundEffect : SoundEffect [NotBrowsable]
-	Property int ChannelSelectorSoundEffect.Channel
 Class ChorusSoundEffect : SoundEffect
 	Property float ChorusSoundEffect.Depth
 	Property float ChorusSoundEffect.Mix
@@ -3263,6 +3278,8 @@ Class CompressorSoundEffect : SoundEffect
 	Property Instance CompressorSoundEffect.SideChain
 	Property float CompressorSoundEffect.Threshold
 Class CustomDspSoundEffect : SoundEffect [NotCreatable]
+Class ChannelSelectorSoundEffect : CustomDspSoundEffect [NotBrowsable]
+	Property int ChannelSelectorSoundEffect.Channel
 Class DistortionSoundEffect : SoundEffect
 	Property float DistortionSoundEffect.Level
 Class EchoSoundEffect : SoundEffect
@@ -3324,6 +3341,16 @@ Class Speaker : Instance [Deprecated]
 	Property SoundGroup Speaker.SoundGroup [Deprecated]
 	Property Instance Speaker.Source [Deprecated]
 	Property float Speaker.Volume [Deprecated]
+Class StackFrame : Instance [NotCreatable] [NotReplicated]
+	Property int StackFrame.FrameId {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string StackFrame.FrameName {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Enum.DebuggerFrameType StackFrame.FrameType {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property DebuggerVariable StackFrame.Globals {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int StackFrame.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property DebuggerVariable StackFrame.Locals {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property ScriptRef StackFrame.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property DebuggerVariable StackFrame.Upvalues {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool StackFrame.Populated {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class StandalonePluginScripts : Instance
 Class StarterGear : Instance
 Class StarterPack : Instance [NotCreatable] [Service]
@@ -3704,9 +3731,11 @@ Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ThirdPartyUserService.ActiveGamepadRemoved() {RobloxScriptSecurity}
 	Event ThirdPartyUserService.ActiveUserSignedOut(int signOutStatus) {RobloxScriptSecurity}
 Class ThreadState : Instance [NotCreatable] [NotReplicated]
+	Property int ThreadState.FrameCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int ThreadState.ThreadId {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function Objects ThreadState:GetCallstack() {RobloxScriptSecurity}
-	Function int ThreadState:RequestCallstack(Function status) {RobloxScriptSecurity}
+	Property string ThreadState.ThreadName {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool ThreadState.Populated {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Instance ThreadState:GetFrame(int index) {RobloxScriptSecurity}
 Class TimerService : Instance [NotCreatable] [Service]
 Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ToastNotificationService:HideNotification(string notificationId) {RobloxScriptSecurity}

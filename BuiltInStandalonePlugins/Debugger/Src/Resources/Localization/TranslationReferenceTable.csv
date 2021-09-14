@@ -15,12 +15,14 @@ Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
 Studio.Debugger.Callstack.FunctionNameColumn,Function Name,Function Name,Nombre de la función,関数名,함수 이름,Nome da função,函数名称,函数名称,函式名稱
 Studio.Debugger.Watch.WindowName,Watch,Watch,Inspeccionar,観察,조사식,Observar,监视,监视,監看
 Studio.Debugger.Watch.DropdownButtonText,{NumScopes:int} Scopes,{NumScopes:int} Scopes,{NumScopes:int} ámbitos,{NumScopes:int} 範囲,{NumScopes:int} 범위,{NumScopes:int} Escopos,{NumScopes:int} 域,{NumScopes:int} 域,{NumScopes:int} 範圍
+Studio.Debugger.BreakpointsWindow.EditBreakpoint,Edit Breakpoint,Edit Breakpoint, , , , , , , 
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
 Studio.Debugger.Callstack.WhatColumn,What,What,Qué,名前,대상,Que,类型,类型,名稱
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.,Número de línea,行番号,줄 번호,Nº da linha,行号,行号,行號
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s),Insertar condiciones,条件を入力,조건 입력,Insira condições,输入条件,输入条件,輸入條件
 Studio.Debugger.Callstack.SourceColumn,Source,Source,Fuente,ソース,소스,Fonte,来源,来源,來源
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: ,Script actual: ,現在のスクリプト: ,현재 스크립트: ,Script atual: ,当前脚本： ,当前脚本： ,目前指令碼： 
+Studio.Debugger.BreakpointsWindow.DeleteLogpoint,Delete Logpoint,Delete Logpoint, , , , , , , 
 Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script,Script,スクリプト,스크립트,Script,脚本,脚本,指令碼
 Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
@@ -45,6 +47,12 @@ Studio.Debugger.Watch.NameColumn,Name,Name,Nombre,名前,이름,Nome,名称,名�
 Studio.Debugger.Watch.ScopeColumn,Scope,Scope,Ámbito,範囲,범위,Escopo,域,域,範圍
 Studio.Debugger.Watch.ExpressionColumn,Expression,Expression,Expresión,式,식,Expressão,表达式,表达式,運算式
 Studio.Debugger.Watch.ValueColumn,Value,Value,Valor,値,값,Valor,值,值,值
+Studio.Debugger.BreakpointsWindow.EnableLogpoint,Enable Logpoint,Enable Logpoint, , , , , , , 
 Studio.Debugger.Callstack.LayerColumn,Layer,Layer,Capa,層,레이어,Camada,层,层,層
 Studio.Debugger.Callstack.FunctionColumn,Function,Function,Función,関数,함수,Função,函数,函数,函式
+Studio.Debugger.BreakpointsWindow.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint, , , , , , , 
 Studio.Debugger.Common.SelectAll,Select All,Select All,Seleccionar todo,すべて選択,모두 선택,Selecionar tudo, , ,全選
+Studio.Debugger.BreakpointsWindow.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint, , , , , , , 
+Studio.Debugger.BreakpointsWindow.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint, , , , , , , 
+Studio.Debugger.BreakpointsWindow.EditLogpoint,Edit Logpoint,Edit Logpoint, , , , , , , 
+Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint, , , , , , , 

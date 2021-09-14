@@ -374,6 +374,6 @@ Studio.GameSettings.OptInLocations.RequirementsLinkText,Requirements, ,Requireme
 Studio.GameSettings.OptInLocations.Status,Status: , ,Status: 
 Studio.GameSettings.OptInLocations.EmailSubmitFailure,Failed to submit email for review feedback. Error code: , ,Failed to submit email for review feedback. Error code: 
 Studio.GameSettings.OptInLocations.SavedGameWarning,You must publish your game before publishing to opt-in locations., ,You must publish your game before publishing to opt-in locations.
-Studio.GameSettings.General.VoiceChatTitle,In-Game Voice Chat, ,In-Game Voice Chat
-Studio.GameSettings.General.VoiceChatText,Enables in-game voice chat. Voice chat will only work if players meet age eligibility criteria., ,Enables in-game voice chat. Voice chat will only work if players meet age eligibility criteria.
+Studio.GameSettings.General.VoiceChatTitle,Spatial Voice, ,Spatial Voice
+Studio.GameSettings.General.VoiceChatText,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience., ,Enabling Spatial Voice allows voice-eligible users to use voice chat within your experience.
 Studio.GameSettings.General.VoiceChatLinkText,here, ,here
