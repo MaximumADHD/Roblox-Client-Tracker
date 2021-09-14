@@ -42,7 +42,7 @@ local function depthFirstTextFilter(filterText, pathName, flattenedTree, expansi
 	assert(node ~= nil, ("FilterWatchDataThunk depthFirstTextFilter got a nil node for path %s"):format(tostring(pathName)))
 
 	local childMatch = false
-	for index, childPath in ipairs(node.children) do
+	for index, childPath in ipairs(node.childPaths) do
 		childMatch = childMatch or depthFirstTextFilter(filterText, childPath, flattenedTree, expansionTree)
 	end
 

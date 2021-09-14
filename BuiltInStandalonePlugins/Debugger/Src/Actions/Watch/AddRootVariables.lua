@@ -11,22 +11,22 @@ export type Path = string
 
 export type Props = {
 	stepStateBundle : StepStateBundle.StepStateBundle,
-	tokenizedLists : {Path},
+	tokenizedList : {Path},
 	newVarsMapping : {[Path] : VariableRow.VariableRow},
 }
 
 return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, newVars : {VariableRow.VariableRow}) : Props
-	local tokenizedLists = {}
+	local tokenizedList = {}
 	local newVarsMapping = {}
 
 	for index, variableRow in ipairs(newVars) do
-		table.insert(tokenizedLists, variableRow.pathColumn)
+		table.insert(tokenizedList, variableRow.pathColumn)
 		newVarsMapping[variableRow.pathColumn] = variableRow
 	end
 	
 	return {
 		stepStateBundle = stepStateBundle,
-		tokenizedList = tokenizedLists,
+		tokenizedList = tokenizedList,
 		newVarsMapping = newVarsMapping
 	}
 end)

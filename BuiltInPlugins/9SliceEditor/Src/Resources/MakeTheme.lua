@@ -20,6 +20,15 @@ local StudioTheme = Style.Themes.StudioTheme
 -- local _StyleKey = Style.StyleKey -- uncomment to use
 
 local PluginTheme = {
+	Button = {
+		Size = UDim2.fromOffset(75, 28),
+		Style = "Round",
+	},
+
+	TextInput = {
+		Size = UDim2.fromOffset(60, 20),
+		Style = "RoundedBorder",
+	},
 }
 
 if THEME_REFACTOR then

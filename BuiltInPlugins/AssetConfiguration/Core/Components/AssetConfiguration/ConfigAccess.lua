@@ -5,7 +5,7 @@
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
+local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -26,7 +26,7 @@ local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 
 local Requests = Plugin.Core.Networking.Requests
 local GetAssetConfigManageableGroupsRequest = require(Requests.GetAssetConfigManageableGroupsRequest)
-local GetAvatarAssetsValidGroupsRequest = require(Requests.GetAvatarAssetsValidGroupsRequest)
+local GetAssetTypeAgentsRequest = require(Requests.GetAssetTypeAgentsRequest)
 local GetGroupMetadata = require(Plugin.Core.Thunks.GetGroupMetadata)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
@@ -49,9 +49,9 @@ end
 
 function ConfigAccess:didMount()
 	-- Initial request
-	if FFlagUGCGroupUploads then
+	if FFlagUGCGroupUploads2 then
 		if AssetConfigUtil.isCatalogAsset(self.props.assetTypeEnum) then
-			self.props.getAvatarAssetsValidGroups(getNetwork(self), self.props.assetTypeEnum)
+			self.props.getAssetTypeAgents(getNetwork(self), self.props.assetTypeEnum)
 		else
 			self.props.getManageableGroups(getNetwork(self))
 		end
@@ -90,9 +90,9 @@ function ConfigAccess:renderContent(theme, localization, localizedContent)
 	-- User is 0, howerver in source code, User is 1.
 	-- TODO: Notice UX to change the website.
 	local ownerIndex = (owner.typeId or 1)
-	if FFlagUGCGroupUploads then
+	if FFlagUGCGroupUploads2 then
 		local groups = AssetConfigUtil.isCatalogAsset(props.assetTypeEnum)
-			and props.avatarAssetsValidGroups
+			and props.assetTypeAgents
 			or props.manageableGroups
 		self.dropdownContent = AssetConfigUtil.getOwnerDropDownContent(groups, localizedContent)
 	else
@@ -193,7 +193,7 @@ local function mapStateToProps(state, props)
 		assetTypeEnum = state.assetTypeEnum,
 		screenFlowType = state.screenFlowType,
 		manageableGroups = state.manageableGroups or {},
-		avatarAssetsValidGroups = state.avatarAssetsValidGroups or {},
+		assetTypeAgents = state.assetTypeAgents or {},
 		assetGroupData = assetGroupData,
 		owner = owner,
 	}
@@ -204,8 +204,8 @@ local function mapDispatchToProps(dispatch)
 		getManageableGroups = function(networkInterface)
 			dispatch(GetAssetConfigManageableGroupsRequest(networkInterface))
 		end,
-		getAvatarAssetsValidGroups = function(networkInterface, assetType)
-			dispatch(GetAvatarAssetsValidGroupsRequest(networkInterface, assetType))
+		getAssetTypeAgents = function(networkInterface, assetType)
+			dispatch(GetAssetTypeAgentsRequest(networkInterface, assetType))
 		end,
 	}
 end

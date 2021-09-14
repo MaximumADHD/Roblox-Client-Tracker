@@ -5,6 +5,8 @@ local Cryo = Util.Cryo
 local deepCopy = Util.deepCopy
 local Style = Util.Style
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+local FFlagToolboxFixSubTextColor = game:GetFastFlag("ToolboxFixSubTextColor")
+
 local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 
 local height = 16
@@ -32,7 +34,7 @@ else
 		local Default = Style.extend({
 			Size = UDim2.new(1, 0, 0, height),
 
-			Text = Style.extend(common.MainText, {
+			Text = Style.extend(FFlagToolboxFixSubTextColor and common.SubText or common.MainText, {
 				TextSize = textSize,
 			}),
 

@@ -39,7 +39,6 @@ local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
-local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
@@ -165,7 +164,7 @@ function TrackEditor:render()
 	local absoluteSize = state.AbsoluteSize or Vector2.new()
 	local absolutePosition = state.AbsolutePosition or Vector2.new()
 
-	local trackPadding = GetFFlagExtendAnimationLimit() and self.getTrackPadding() or Constants.TRACK_PADDING_SMALL
+	local trackPadding = self.getTrackPadding()
 
 	local showPlayhead = playhead >= startTick and playhead <= endTick
 

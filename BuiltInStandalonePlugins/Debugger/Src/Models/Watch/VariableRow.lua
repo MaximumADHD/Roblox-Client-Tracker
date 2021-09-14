@@ -1,6 +1,6 @@
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
 
-type VarName = {name : string}
+type VarName = {nameColumn : string}
 
 export type VariableRow = VarName & WatchWindowTableRow.WatchWindowTableRow
 
@@ -11,7 +11,8 @@ local function fromData(data) : VariableRow
 		scopeColumn = data.scope,
 		valueColumn = data.value,
 		dataTypeColumn = data.dataType,
-		children = data.children or {},
+		childPaths = data.childPaths or {},
+		expanded = false,
 		textFilteredOut = false,
 		scopeFilteredOut = false,
 	}

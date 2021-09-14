@@ -67,8 +67,6 @@ local JointSelector = require(Plugin.Src.Components.JointManipulator.JointSelect
 local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPanel.AnimationControlPanel)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
-local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
-local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -329,13 +327,6 @@ function EditorController:render()
 		startTick = range.Start
 		endTick = range.End
 		lastTick = animationData.Metadata.EndTick
-
-		if (GetFFlagDebugExtendAnimationLimit() and not GetFFlagExtendAnimationLimit()) then
-			local length = endTick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
-			if length >= Constants.MAX_DISPLAYED_TIME then
-				bigAnimation = true
-			end
-		end
 	end
 
 	showEvents = showEvents and showEditor

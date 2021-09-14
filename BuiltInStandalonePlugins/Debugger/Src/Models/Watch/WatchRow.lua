@@ -1,6 +1,6 @@
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
 
-type Expression = {expression : string}
+type Expression = {expressionColumn : string}
 
 export type WatchRow = Expression & WatchWindowTableRow.WatchWindowTableRow
 
@@ -11,7 +11,8 @@ local function fromExpression(expression) : WatchRow
 		scopeColumn = "",
 		valueColumn = "",
 		dataTypeColumn = "",
-		children = {},
+		childPaths = {},
+		expanded = false,
 		textFilteredOut = false,
 		scopeFilteredOut = false,
 	}
@@ -24,7 +25,8 @@ local function fromData(data) : WatchRow
 		scopeColumn = data.scope,
 		valueColumn = data.value,
 		dataTypeColumn = data.dataType,
-		children = data.children or {},
+		childPaths = data.childPaths or {},
+		expanded = false,
 		textFilteredOut = false,
 		scopeFilteredOut = false,
 	}

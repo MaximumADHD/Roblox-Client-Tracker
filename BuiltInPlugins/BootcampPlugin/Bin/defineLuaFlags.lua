@@ -8,6 +8,5 @@ game:DefineFastFlag("BootcampPluginMyJiraTicket", false)
 game:DefineFastFlag("RIDE4799", false)
 
 game:DefineFastFlag("RIDE4798", false)
-game:DefineFastFlag("STM643", false)
 
 return nil

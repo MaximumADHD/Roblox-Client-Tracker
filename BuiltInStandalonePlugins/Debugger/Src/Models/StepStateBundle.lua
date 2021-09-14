@@ -1,12 +1,12 @@
 local DebuggerStateToken = require(script.Parent.DebuggerStateToken)
 
-export type DebuggerStateToken = {
-    debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
+export type StepStateBundle = {
+	debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
 	threadId : number,
 	frameNumber : number,
 }
 
-local function ctor(debuggerStateToken : DebuggerStateToken.DebuggerStateToken, threadId : number, frameNumber : number) : DebuggerStateToken
+local function ctor(debuggerStateToken : DebuggerStateToken.DebuggerStateToken, threadId : number, frameNumber : number) : StepStateBundle
 	return {
 		debuggerStateToken = debuggerStateToken,
 		threadId = threadId,

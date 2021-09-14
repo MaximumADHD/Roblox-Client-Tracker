@@ -123,13 +123,15 @@ function Analytics.onSearchOptionsOpened()
 	})
 end
 
-function Analytics.onCategorySelected(oldCategory, newCategory)
+-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param searchTerm
+function Analytics.onCategorySelected(oldCategory, newCategory, searchTerm)
 	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxCategorySelection", {
 		oldCategory = oldCategory,
 		newCategory = newCategory,
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		isEditMode = getIsEditMode(),
+		searchTerm = searchTerm
 	})
 end
 
@@ -227,7 +229,7 @@ function Analytics.onAssetPreviewSelected(assetId)
 		clientId = getClientId(),
 		userId = getUserId(),
 		platformId = getPlatformId(),
-		isEditMode = getIsEditMode(),		
+		isEditMode = getIsEditMode(),
 	})
 end
 
@@ -239,7 +241,7 @@ function Analytics.onAssetPreviewEnded(assetId, time)
 		clientId = getClientId(),
 		userId = getUserId(),
 		platformId = getPlatformId(),
-		isEditMode = getIsEditMode(),		
+		isEditMode = getIsEditMode(),
 	})
 end
 

@@ -6,8 +6,8 @@ local DebugpointType : {[string]: DebugpointType} = {
 
 export type Breakpoint = {
 	id: string,
-	isEnabled: bool,
-	isValid: bool,
+	isEnabled: boolean,
+	isValid: boolean,
 	lineNumber: number,
 	scriptName: string,
 	scriptLine: string,

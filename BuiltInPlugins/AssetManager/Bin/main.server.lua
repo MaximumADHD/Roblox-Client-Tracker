@@ -11,6 +11,7 @@ local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioA
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local BulkImportService = game:GetService("BulkImportService")
 local StudioService = game:GetService("StudioService")
@@ -173,6 +174,8 @@ local function connectBulkImporterSignals()
 				strippedName = string.gsub(name, "Scripts/", "")
 			elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(name, "Audio/") then
 				strippedName = string.gsub(name, "Audio/", "")
+			elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(name, "Models/") then
+				strippedName = string.gsub(name, "Models/", "")
 			end
 			local recentAssets
 			if FFlagStudioAssetManagerFixRecentAssetDuplication then

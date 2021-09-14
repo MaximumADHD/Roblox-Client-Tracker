@@ -8,7 +8,7 @@ local Types = require(Plugin.Src.Types)
 
 export type Props = {
 	threadId : number,
-	frameList : Array<CallstackRow.CallstackRow>,
+	frameList : Types.Array<CallstackRow.CallstackRow>,
 	debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
 }
 

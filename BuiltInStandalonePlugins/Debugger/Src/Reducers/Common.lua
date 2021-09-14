@@ -68,7 +68,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[AddThreadIdAction.name] = function(state : CallstackStore, action : AddThreadIdAction.Props)
+	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)
 		local newState = {}
 		if (state.currentThreadId == -1) then
 			newState.currentThreadId = action.threadId

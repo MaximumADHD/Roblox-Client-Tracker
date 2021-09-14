@@ -473,14 +473,7 @@ local function createModelContextMenu(analytics, apiImpl, assetData, contextMenu
         end)
     end
     addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.Model.Value)
-    contextMenu:AddNewAction("Rename", localization:getText("ContextMenu", "Rename")).Triggered:connect(function()
-        onAssetPreviewClose()
-        local assetToEdit = {
-            [assetData.id] = true,
-        }
-        store:dispatch(SetEditingAssets(assetToEdit))
-        analytics:report("clickContextMenuItem")
-    end)
+    addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         analytics:report("clickContextMenuItem")
         AssetManagerService:InsertModel(assetData.id)

@@ -4,7 +4,7 @@ local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScalin
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
-local FFlagUGCGroupUploads = game:GetFastFlag("UGCGroupUploads")
+local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
 local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
 
@@ -244,7 +244,7 @@ if FFlagUGCLCAssetTypes then
 		ownershipType = Category.OwnershipType.MY,}
 end
 
-if FFlagUGCGroupUploads then
+if FFlagUGCGroupUploads2 then
 	Category.CREATIONS_GROUP_HATS = {name = "CreationsGroupHats", category = "CreationsGroupHats", assetType = Category.AssetType.HAT,
 		ownershipType = Category.OwnershipType.GROUP,}
 	Category.CREATIONS_GROUP_HAIR = {name = "CreationsGroupHair", category = "CreationsGroupHair", assetType = Category.AssetType.HAIR_ACCESSORY,
@@ -637,7 +637,7 @@ function Category.getCategories(tabName, roles)
 				for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do
 					table.insert(categories, ASSET_ENUM_CATEGORY_MAP[assetTypeEnum])
 				end
-				if FFlagUGCGroupUploads then
+				if FFlagUGCGroupUploads2 then
 					for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do
 						table.insert(categories, ASSET_ENUM_GROUP_CATEGORY_MAP[assetTypeEnum])
 					end

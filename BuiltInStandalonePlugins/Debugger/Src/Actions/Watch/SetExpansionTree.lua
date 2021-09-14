@@ -6,11 +6,11 @@ local Action = Util.Action
 export type Path = string
 
 export type Props = {
-	isVariablesTab : bool,
-	expansionMapping : {[Path] : bool},
+	isVariablesTab : boolean,
+	expansionMapping : {[Path] : boolean},
 }
 
-return Action(script.Name, function(isVariablesTab : bool, expansionMapping : {[Path] : bool}) : Props
+return Action(script.Name, function(isVariablesTab : boolean, expansionMapping : {[Path] : boolean}) : Props
 	return {
 		isVariablesTab = isVariablesTab,
 		expansionMapping = expansionMapping,

@@ -41,11 +41,11 @@ type FrameNumber = number
 type Path = string --ParentPath_Name
 
 type PathVarMapping = {
-	[Path] : {VariableRow.VariableRow}
+	[Path] : VariableRow.VariableRow
 }
 
 type WatchMapping = {
-	[Expression] : {WatchRow.WatchRow}
+	[Expression] : WatchRow.WatchRow
 }
 
 type FrameInfo = {
@@ -61,14 +61,16 @@ type ThreadIdToFrameMapping = {
 	[ThreadId] : {FrameMapping},
 }
 
+type PathToExpansionMap = {[Path] : boolean}
+
 type WatchStore = {
 	stateTokenToRoots : {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	stateTokenToFlattenedTree: {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	currentTab : string,
 	listOfEnabledScopes : {string},
-	listOfWatches : {string},
-	pathToExpansionState : {PathPreserveMapping},
-	expressionToExpansionState : {WatchPreserveMapping},
+	listOfExpressions : {string},
+	pathToExpansionState : PathToExpansionMap,
+	expressionToExpansionState : PathToExpansionMap,
 }
 
 local function nilCheckFillIn(table, stepStateBundle)
@@ -187,7 +189,7 @@ local productionStartStore = {
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[BreakpointHit.name] = function(state : CallstackStore, action : BreakpointHit.Props)
+	[BreakpointHit.name] = function(state : WatchStore, action : BreakpointHit.Props)
 		assert(state.stateTokenToRoots[action.debuggerStateToken] == nil)
 		return Cryo.Dictionary.join(state, {
 			stateTokenToRoots = Cryo.Dictionary.join(state.stateTokenToRoots, {
@@ -238,7 +240,7 @@ return Rodux.createReducer(productionStartStore, {
 			target[varPath] = variable
 		end
 
-		local target2 = target[action.parentPath].children
+		local target2 = target[action.parentPath].childPaths
 		for _, childVarPath in ipairs(action.childKeys) do
 			table.insert(target2, childVarPath)
 		end
@@ -269,7 +271,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[SetVariablesTextFilteredOut.name] = function(state : WatchStore, action : SetVariableTextFilteredOut.Props)
+	[SetVariablesTextFilteredOut.name] = function(state : WatchStore, action : SetVariablesTextFilteredOut.Props)
 		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
 		if (nilCheckVariable(stateTokenToFlattenedTreeCopy, action) == false) then
 			return state
@@ -310,7 +312,7 @@ return Rodux.createReducer(productionStartStore, {
 			target[varPath] = variable
 		end
 
-		local target2 = target[action.parentPath].children
+		local target2 = target[action.parentPath].childPaths
 		for _, childVarPath in ipairs(action.childKeys) do
 			table.insert(target2, childVarPath)
 		end

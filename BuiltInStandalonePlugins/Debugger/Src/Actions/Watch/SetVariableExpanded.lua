@@ -5,10 +5,10 @@ local Action = Util.Action
 
 export type Props = {
 	path : string,
-	expanded : bool
+	expanded : boolean
 }
 
-return Action(script.Name, function(path : string, expanded : bool) : Props
+return Action(script.Name, function(path : string, expanded : boolean) : Props
 	return {
 		path = path,
 		expanded = expanded

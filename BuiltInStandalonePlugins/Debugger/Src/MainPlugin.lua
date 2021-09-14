@@ -52,6 +52,7 @@ local WatchComponent = require(Components.Watch.WatchComponent)
 local Middleware = require(Src.Middleware.MainMiddleware)
 
 local TestStore = require(Src.Util.TestStore)
+local DebugConnectionListener = require(Src.Util.DebugConnectionListener)
 
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
@@ -113,6 +114,8 @@ function MainPlugin:init(props)
 		self.store = TestStore(self.store)
 	end
 
+	self.debugConnectionListener = FFlagStudioDebuggerPlugin and DebugConnectionListener.new(self.store)
+
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
@@ -124,7 +127,7 @@ function MainPlugin:init(props)
 	--]]
 	self.analytics = AnalyticsHolder
 
-	self.pluginActions = ContextServices.PluginActions.new(props.Plugin, MakePluginActions(props.Plugin, self.localization))
+	self.pluginActions = ContextServices.PluginActions.new(props.Plugin, MakePluginActions.getCallstackActions(self.localization))
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -245,6 +248,13 @@ function MainPlugin:render()
 			Watch = Roact.createElement(WatchComponent),
 		}) or nil,
 	})
+end
+
+function MainPlugin:willUnmount()
+	if FFlagDebugPopulateDebuggerPlugin and self.debugConnectionListener then
+		self.debugConnectionListener:destroy()
+		self.debugConnectionListener = nil
+	end
 end
 
 return MainPlugin

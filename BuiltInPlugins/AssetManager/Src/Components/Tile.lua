@@ -152,8 +152,6 @@ function Tile:init()
         if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
             if assetData.assetType == Enum.AssetType.Place then
                 AssetManagerService:RenamePlace(assetData.id, newName)
-            elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
-                AssetManagerService:RenameModel(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Lua
@@ -169,6 +167,8 @@ function Tile:init()
                     prefix = "Scripts/"
                 elseif (enableAudioImport() and assetData.assetType == Enum.AssetType.Audio) then
                     prefix = "Audio/"
+                elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
+                    prefix = "Models/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
             end

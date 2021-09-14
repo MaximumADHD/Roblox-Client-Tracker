@@ -1,6 +1,6 @@
-local isCli = require(script.Parent.isCli)
+local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 
-local StudioService = game:GetService("StudioService")
+local isCli = require(script.Parent.isCli)
 
 local ToolboxPolicy
 if isCli() then
@@ -9,6 +9,7 @@ if isCli() then
         ShowRobloxCreatedAssets = false,
         DisableMarketplaceAndRecents = false,
         MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
+        MarketplaceShouldUsePluginCreatorWhitelist = true,
         Enabled = true
     }
 else
@@ -35,6 +36,19 @@ end
 
 function ToolboxUtilities.getMarketplaceDisabledCategories()
     return ToolboxPolicy["MarketplaceDisabledCategories"]
+end
+
+if FFlagToolboxPolicyForPluginCreatorWhitelist then
+    function ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
+        local policy = ToolboxPolicy["MarketplaceShouldUsePluginCreatorWhitelist"]
+
+        -- Default to true (existing behaviour) if the policy is not defined
+        if policy == nil then
+            return true
+        end
+
+        return policy
+    end
 end
 
 return ToolboxUtilities

@@ -20,6 +20,7 @@ local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearc
 local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
 local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+game:DefineFastFlag("ToolboxSaveSearchWhenSwitchingCategories", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -79,14 +80,17 @@ function Header:init()
 	self.onCategorySelected = function(index)
 		local categoryName = self.props.categories[index].name
 		if self.props.categoryName ~= categoryName then
-			settings = self.props.Settings:get("Plugin")
-
 			Analytics.onCategorySelected(
 				self.props.categoryName,
 				categoryName
 			)
 
-			self.props.selectCategory(networkInterface, settings, categoryName)
+			if game:GetFastFlag("ToolboxSaveSearchWhenSwitchingCategories") and self.props.searchTerm then
+				self.onSearchRequested(self.props.searchTerm, categoryName)
+			else
+				settings = self.props.Settings:get("Plugin")
+				self.props.selectCategory(networkInterface, settings, categoryName)
+			end
 		end
 	end
 
@@ -96,7 +100,8 @@ function Header:init()
 		end
 	end
 
-	self.onSearchRequested = function(searchTerm)
+	-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
+	self.onSearchRequested = function(searchTerm, categoryName)
 		local settings = self.props.Settings:get("Plugin")
 		if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
 			warn(("Toolbox onSearchRequested searchTerm = %s is not a string"):format(tostring(searchTerm)))
@@ -105,7 +110,7 @@ function Header:init()
 		local creator = self.props.creatorFilter
 		local creatorId = creator and creator.Id or nil
 
-		local category = PageInfoHelper.getCategory(self.props.categoryName)
+		local category = PageInfoHelper.getCategory(categoryName or self.props.categoryName)
 
 		Analytics.onTermSearched(
 			category,
@@ -140,7 +145,8 @@ function Header:init()
 			end
 		end)
 
-		self.props.requestSearch(networkInterface, settings, searchTerm)
+		-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
+		self.props.requestSearch(networkInterface, settings, searchTerm, categoryName)
 	end
 
 	self.onSearchOptionsToggled = function()
@@ -438,8 +444,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SelectGroupRequest(networkInterface, groupIndex))
 		end,
 
-		requestSearch = function(networkInterface, settings, searchTerm)
-			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm))
+		-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
+		requestSearch = function(networkInterface, settings, searchTerm, categoryName)
+			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
 		end,
 	}
 end

@@ -1,99 +1,69 @@
 --[[
 	The main plugin component.
-	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
+	Consists of the PluginWidget, SliceEditor
+	(container for all 9SliceEditor components), and Roact tree.
+
+	Props:
+		pixelDimensions (Vector2) -- dimensions of the image in pixels
+		resetPlugHandle -- callback to set mainPlugin handle to nil when closed
+		selectedObject -- selected object either an image label or an image button
 ]]
 
 local main = script.Parent.Parent
--- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
-local Rodux = require(main.Packages.Rodux)
-
 local Framework = require(main.Packages.Framework)
-
-local StudioUI = Framework.StudioUI
-local DockWidget = StudioUI.DockWidget
-local PluginToolbar = StudioUI.PluginToolbar
-local PluginButton = StudioUI.PluginButton
+local Constants = require(main.Src.Util.Constants)
 
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
-local Store = ContextServices.Store
 
-local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
-local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local SliceEditor = require(main.Src.Components.SliceEditorMain)
+local StudioUI = Framework.StudioUI
+local Dialog = StudioUI.Dialog
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
-	self.state = {
-		enabled = false,
-	}
+	-- initializes states for MainPlugin
+	local selectedObject = props.selectedObject
 
-	self.toggleEnabled = function()
-		self:setState(function(state)
-			return {
-				enabled = not state.enabled,
-			}
-		end)
-	end
+	self:setState({
+		enabled = true,
+	})
 
 	self.onClose = function()
 		self:setState({
 			enabled = false,
 		})
+		props.resetPluginHandle()
 	end
 
-	self.onRestore = function(enabled)
-		self:setState({
-			enabled = enabled
-		})
-	end
-
-	self.onWidgetEnabledChanged = function(widget)
-		self:setState({
-			enabled = widget.Enabled
-		})
-	end
-
-	self.store = Rodux.Store.new(MainReducer, nil, {
-		Rodux.thunkMiddleware,
-	})
+	selectedObject.AncestryChanged:Connect(function()
+		-- if the image object has been deleted, close the plugin window
+		if not selectedObject:FindFirstAncestorOfClass("DataModel") then
+			self.onClose()
+		end
+	end)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 		pluginName = "9SliceEditor",
 	})
+
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
 end
 
-function MainPlugin:renderButtons(toolbar)
-	local enabled = self.state.enabled
-
-	return {
-		Toggle = Roact.createElement(PluginButton, {
-			Toolbar = toolbar,
-			Active = enabled,
-			Title = self.localization:getText("Plugin", "Button"),
-			Tooltip = self.localization:getText("Plugin", "Description"),
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
-			OnClick = self.toggleEnabled,
-			ClickableWhenViewportHidden = true,
-		}),
-	}
-end
-
 function MainPlugin:render()
+	-- Renders the MainPlugin as a Dialog with SliceEditor container
 	local props = self.props
 	local state = self.state
 	local plugin = props.Plugin
@@ -101,32 +71,24 @@ function MainPlugin:render()
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
-		Store.new(self.store),
 		Mouse.new(plugin:getMouse()),
 		MakeTheme(),
 		self.localization,
 		self.analytics,
 	}, {
-		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "Toolbar"),
-			RenderButtons = function(toolbar)
-				return self:renderButtons(toolbar)
-			end,
-		}),
-
-		MainWidget = Roact.createElement(DockWidget, {
+		MainWidget = enabled and Roact.createElement(Dialog, {
 			Enabled = enabled,
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
+			Size = Constants.DIALOG_SIZE,
+			Resizable = false,
 			OnClose = self.onClose,
-			ShouldRestore = true,
-			OnWidgetRestored = self.onRestore,
 		}, {
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
+			SliceEditor = enabled and Roact.createElement(SliceEditor, {
+				onClose = self.onClose,
+				pixelDimensions = props.pixelDimensions,
+				selectedObject = props.selectedObject,
+			}),
 		}),
 	})
 end

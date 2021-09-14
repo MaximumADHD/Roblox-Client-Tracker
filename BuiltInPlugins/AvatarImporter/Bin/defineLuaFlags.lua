@@ -8,4 +8,6 @@ game:DefineFastFlag("ImportCustomAvatarsInFrontOfCamera", false)
 
 game:DefineFastFlag("RemoveImportRequirements", false)
 
+game:DefineFastFlag("DisplayCorrectTypeInDetectionPrompt", false)
+
 return nil

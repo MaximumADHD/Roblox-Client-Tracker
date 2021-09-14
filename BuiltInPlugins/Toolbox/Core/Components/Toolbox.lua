@@ -195,7 +195,7 @@ function Toolbox:init(props)
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
 
 		local currentCategory = PageInfoHelper.getCategory(self.props.categoryName)
-		
+
 		local newCategory = PageInfoHelper.getCategory(options.categoryName)
 
 		Analytics.onCategorySelected(
@@ -225,7 +225,7 @@ function Toolbox:didMount()
 	if FFlagPluginManagementDirectlyOpenToolbox then
 		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
 			local categoryName = Category.WHITELISTED_PLUGINS.name
-			
+
 			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
 				categoryName = categoryName,
 			})
@@ -251,7 +251,7 @@ function Toolbox:render()
 	local backgrounds = props.backgrounds
 	local suggestions = props.suggestions or {}
 	local currentTabKey = Category.getTabKeyForCategoryName(props.categoryName)
-	
+
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 	local pluginGui = props.pluginGui
 

@@ -27,6 +27,21 @@ function RedirectRigPrompt:render()
 		self.props.doImportWithoutSceneLoad(Constants.AVATAR_TYPE.CUSTOM)
 	end
 
+	local avatarTypeText = self.props.avatarType == Constants.AVATAR_TYPE.RTHRO_SLENDER and "Rthro Narrow" or self.props.avatarType
+	local headerText = ""
+	if game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") then
+		headerText = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a Custom rig as " .. avatarTypeText .. ":"
+	else
+		headerText = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a Custom rig as R15:"
+	end
+
+	local r15ButtonText = "Continue as R15"
+	if game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") then
+		if self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM then
+			r15ButtonText = "Continue as " .. avatarTypeText
+		end
+	end
+
 	return Roact.createElement("Frame", {
 		Name = "RedirectRigPrompt",
 		Size = UDim2.new(1, 0, 1, 0),
@@ -40,7 +55,7 @@ function RedirectRigPrompt:render()
 			Font = Constants.FONT_BOLD,
 			Position = UDim2.new(0, 0, 0, 123),
 			Size = UDim2.new(1, 0, 0, 18),
-			Text = (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM or self.props.avatarType == nil) and "You are trying to import a R15 rig as Custom:" or "You are trying to import a custom rig as R15:",
+			Text = headerText,
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -62,7 +77,7 @@ function RedirectRigPrompt:render()
 			}),
 			cancelButton = Roact.createElement(CustomTextButton, {
 				Name = "R15Button",
-				labelText = "Continue as R15",
+				labelText = r15ButtonText,
 				layoutOrder = 0,
 				isLarge = true,
 				[Roact.Event.MouseButton1Click] = importAsR15,

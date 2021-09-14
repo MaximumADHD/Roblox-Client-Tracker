@@ -1,6 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
-local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -20,7 +18,7 @@ local Constants = {
 	MIN_PLAYBACK_SPEED = 0.1,
 	MAX_PLAYBACK_SPEED = 10,
 
-	MAX_TIME = (GetFFlagDebugExtendAnimationLimit() or GetFFlagExtendAnimationLimit())and 1800 or 30,
+	MAX_TIME = 1800,
 	TICK_FREQUENCY = 2400,
 
 	MAX_DISPLAYED_TIME = 30,

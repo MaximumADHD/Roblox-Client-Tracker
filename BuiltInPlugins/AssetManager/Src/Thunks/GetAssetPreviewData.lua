@@ -13,6 +13,7 @@ local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableA
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 return function(apiImpl, assetIds)
     return function(store)
@@ -48,6 +49,8 @@ return function(apiImpl, assetIds)
                     assetName = string.gsub(assetData.name, "Scripts/", "")
                 elseif enableAudioImport() and assetTypeId == Enum.AssetType.Audio.Value and string.find(assetData.name, "Audio/") then
                     assetName = string.gsub(assetData.name, "Audio/", "")
+                elseif (FFlagAssetManagerEnableModelAssets and assetTypeId == Enum.AssetType.Model.Value and string.find(assetData.Name, "Models/")) then
+                    assetName = string.gsub(assetData.Name, "Models/", "")
                 end
 
                 local created = assetData.created

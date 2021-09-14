@@ -66,6 +66,8 @@ local function getClassIcon(assetData)
         return StudioService:GetClassIcon("Sound")
     elseif assetType == Enum.AssetType.Lua then
         return StudioService:GetClassIcon("Script")
+    elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
+        return StudioService:GetClassIcon("Model")
     end
 end
 
@@ -167,8 +169,6 @@ function ListItem:init()
         if utf8.len(newName) ~= 0 and utf8.len(stripText(newName)) ~= 0 then
             if assetData.assetType == Enum.AssetType.Place then
                 AssetManagerService:RenamePlace(assetData.id, newName)
-            elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
-                AssetManagerService:RenameModel(assetData.id, newName)
             elseif assetData.assetType == Enum.AssetType.Image
             or assetData.assetType == Enum.AssetType.MeshPart
             or assetData.assetType == Enum.AssetType.Lua
@@ -184,6 +184,8 @@ function ListItem:init()
                     prefix = "Scripts/"
                 elseif enableAudioImport() and assetData.assetType == Enum.AssetType.Audio then
                     prefix = "Audio/"
+                elseif FFlagAssetManagerEnableModelAssets and assetData.assetType == Enum.AssetType.Model then
+                    prefix = "Models/"
                 end
                 AssetManagerService:RenameAlias(assetData.assetType.Value, assetData.id, prefix .. assetData.name, prefix .. newName)
             end

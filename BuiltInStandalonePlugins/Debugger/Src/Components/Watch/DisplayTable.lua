@@ -1,12 +1,16 @@
-local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = require(Plugin.Packages.Framework)
+local PluginRoot = script.Parent.Parent.Parent.Parent
+local Roact = require(PluginRoot.Packages.Roact)
+local RoactRodux = require(PluginRoot.Packages.RoactRodux)
+local Framework = require(PluginRoot.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
+local Plugin = ContextServices.Plugin
+
+local StudioUI = Framework.StudioUI
+local showContextMenu = StudioUI.showContextMenu
 
 local UI = Framework.UI
 local TreeTable = UI.TreeTable
@@ -14,32 +18,41 @@ local Stylizer = Framework.Style.Stylizer
 local Util = Framework.Util
 local deepCopy = Util.deepCopy
 
-local Models = Plugin.Src.Models
+local Models = PluginRoot.Src.Models
 local TableTab = require(Models.Watch.TableTab)
 local WatchRow = require(Models.Watch.WatchRow)
 
-local Actions = Plugin.Src.Actions
+local Actions = PluginRoot.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 
+local UtilFolder = PluginRoot.Src.Util
+local MakePluginActions = require(UtilFolder.MakePluginActions)
+local Constants = require(UtilFolder.Constants)
+
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
+type PathMapping = {
+	[string] : WatchRow.WatchRow
+}
+
 -- Local Functions
-local function populateRootItems(roots, flattenedTreeCopy)
+local function populateRootItems(roots : {string}, flattenedTreeCopy : PathMapping)
 	if (#roots == 0) then
 		return {}
 	end
 	
 	local toReturn = {}
 	for index, path in ipairs(roots) do
-		local rootData = {}
+		local rootData = nil
 		if (flattenedTreeCopy[path]) then
 			rootData = deepCopy(flattenedTreeCopy[path])
-			local childrenData = populateRootItems(rootData.children, flattenedTreeCopy)
+			local childrenData = populateRootItems(rootData.childPaths, flattenedTreeCopy)
 			rootData.children = childrenData
 		else
 			-- this can happen after an expression is added but before it is evaluated
@@ -97,7 +110,27 @@ function DisplayTable:init()
 			end
 		end
 	end
-	
+
+	self.onMenuActionSelected = function(actionId, extraParameters)
+		local _row = extraParameters.row
+		if actionId == Constants.WatchActionIds.AddExpression then
+			print('todo RIDE-5141')
+		elseif actionId == Constants.WatchActionIds.EditExpression then
+			print('todo RIDE-5141')
+		end
+	end
+
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClick = function(row)
+			if self.props.SelectedTab == TableTab.Watches then
+				local props = self.props
+				local localization = props.Localization
+				local plugin = props.Plugin:get()
+				local actions = MakePluginActions.getWatchActions(localization)
+				showContextMenu(plugin, "Watch", actions, self.onMenuActionSelected, {row = row})
+			end
+		end
+	end
 end
 
 function DisplayTable:render()
@@ -149,6 +182,7 @@ function DisplayTable:render()
 		Expansion = props.ExpansionTable,
 		OnFocusLost = FFlagStudioAddTextInputCols and self.OnFocusLost,
 		TextInputCols = FFlagStudioAddTextInputCols and textInputCols,
+		RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
 		DisableTooltip = true,
 	})
 end
@@ -158,6 +192,7 @@ DisplayTable = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
+	Plugin = Plugin,
 })(DisplayTable)
 
 DisplayTable = RoactRodux.connect(
@@ -185,7 +220,6 @@ DisplayTable = RoactRodux.connect(
 			local flattenedTreeCopy = isVariablesTab and deepCopy(tree.Variables) or deepCopy(tree.Watches)
 			local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
 			rootItems = applyFilters(rootItems, flattenedTreeCopy)
-
 			local expansionTable = {}
 			local storeExpansionTable = isVariablesTab and state.Watch.pathToExpansionState or state.Watch.expressionToExpansionState
 			populateExpansionTable(rootItems, expansionTable, storeExpansionTable)

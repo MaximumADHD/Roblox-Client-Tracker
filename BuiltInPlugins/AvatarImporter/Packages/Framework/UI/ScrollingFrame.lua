@@ -37,6 +37,7 @@
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
+local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -58,6 +59,7 @@ end
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Container = require(script.Parent.Container)
+local Pane = require(script.Parent.Pane)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 
@@ -210,7 +212,7 @@ function ScrollingFrame:render()
 		}
 	end
 
-	return Roact.createElement(Container, {
+	return Roact.createElement(FFlagDevFrameworkScrollingFrameUsePane and Pane or Container, {
 		Position = position,
 		Size = size,
 		LayoutOrder = layoutOrder,

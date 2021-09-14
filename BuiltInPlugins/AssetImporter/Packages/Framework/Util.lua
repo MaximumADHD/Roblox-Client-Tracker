@@ -4,8 +4,7 @@
 
 local strict = require(script.strict)
 
-game:DefineFastFlag("AddEnumerateToUtil", false)
-local FFlagAddEnumerateToUtil = game:GetFastFlag("AddEnumerateToUtil")
+local FFlagDevFrameworkAddEnumerateToUtil = game:GetFastFlag("DevFrameworkAddEnumerateToUtil")
 
 return strict({
 	-- Plugin Utilities
@@ -26,7 +25,7 @@ return strict({
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
 	
-	enumerate = FFlagAddEnumerateToUtil and require(script.enumerate) or nil,
+	enumerate = FFlagDevFrameworkAddEnumerateToUtil and require(script.enumerate) or nil,
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),
 	Flags = require(script.Flags),

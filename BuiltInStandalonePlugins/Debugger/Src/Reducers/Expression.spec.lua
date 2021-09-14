@@ -40,7 +40,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -51,7 +51,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
+				childPaths = {},
 			}
 
 			local vars2 = {
@@ -65,7 +65,7 @@ return function()
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal(tokenizedValue1)
 			expect(state.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].expressionColumn).to.equal(varData1.expression)
-			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].children[1]).to.equal(tokenizedValue2)
+			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue1].childPaths[1]).to.equal(tokenizedValue2)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Watches[tokenizedValue2].nameColumn).to.equal(varData2.name)
 		end)
 
@@ -81,7 +81,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
+				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -92,7 +92,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
+				childPaths = {},
 			}
 
 			local vars2 = {
@@ -178,7 +178,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -208,7 +208,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 			local expressionData1 = WatchRow.fromData(varData1)
 			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))
@@ -230,7 +230,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 
 			local varData2 = {
@@ -239,7 +239,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
 				dataType = "string",
-				children = {},
+				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -265,7 +265,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
-				children = {},
+				childPaths = {},
 			}
 			
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -301,7 +301,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 
 			local expressionData1 = WatchRow.fromData(varData1)
@@ -328,7 +328,7 @@ return function()
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
- 				children = {},
+ 				childPaths = {},
 			}
 			local expressionData1 = WatchRow.fromData(varData1)
 			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))

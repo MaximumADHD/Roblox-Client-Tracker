@@ -8,7 +8,7 @@ local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local Breakpoint = require(Models.Breakpoint)
 
 type BreakpointId = number
-type DebuggerConnectionId = number
+type DebuggerConnectionId = string
 
 type BreakpointStore = {
 	[DebuggerConnectionId] : {

@@ -1,14 +1,38 @@
 export type ActionId = string
-local ActionIds : {[string]: ActionId} = {
+local CallstackActionIds : {[string]: ActionId} = {
 	CopySelected = "CopySelected",
 	DeleteSelected = "DeleteSelected",
 	SelectAll = "SelectAll",
 }
 
+local WatchActionIds : {[string]: ActionId} = {
+	AddExpression = "AddExpression",
+	EditExpression = "EditExpression",
+}
+
+local LogpointActions : {[string]: ActionId} = {
+	EditLogpoint = "EditLogpoint",
+	EnableLogpoint = "EnableLogpoint",
+	DisableLogpoint = "DisableLogpoint",
+	DeleteLogpoint = "DeleteLogpoint",
+}
+
+local BreakpointActions : {[string]: ActionId} = {
+	EditBreakpoint = "EditBreakpoint",
+	EnableBreakpoint = "EnableBreakpoint",
+	DisableBreakpoint = "DisableBreakpoint",
+	DeleteBreakpoint = "DeleteBreakpoint",
+}
+
 local HEADER_HEIGHT = 40
 
+local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
 
 return {
-	ActionIds = ActionIds,
+	CallstackActionIds = CallstackActionIds,
+	WatchActionIds = WatchActionIds,
+	LogpointActions = LogpointActions,
+	BreakpointActions = BreakpointActions,
 	HEADER_HEIGHT = HEADER_HEIGHT,
+	BreakpointIconDirectoryFilePath = BreakpointIconDirectoryFilePath,
 }

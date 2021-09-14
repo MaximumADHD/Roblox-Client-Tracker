@@ -13,6 +13,7 @@ local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManag
 
 local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local numberOfAssetsToFetch = FIntStudioAssetManagerAssetFetchNumber
 
@@ -66,6 +67,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
         or (enableAudioImport() and assetType == Enum.AssetType.Audio)
+        or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model)
         then
             local page
             if not pageNumber then
@@ -92,6 +94,7 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
                     or (enableAudioImport() and (assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")))
+                    or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
                     then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
@@ -111,6 +114,8 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                                 hasLinkedScripts = true
                             end
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
+                        elseif (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")) then
+                            assetAlias.name = string.gsub(alias.Name, "Models/", "")
                         end
                         assetAlias.layoutOrder = index
                         newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {

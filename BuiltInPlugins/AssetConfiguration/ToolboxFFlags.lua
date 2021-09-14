@@ -45,11 +45,9 @@ game:DefineFastFlag("RemoveUILibraryFromToolbox", false)
 
 game:DefineFastFlag("ToolboxFixCategoryUrlsCircularDependency2", false)
 
-game:DefineFastFlag("ToolboxUseDeveloperFrameworkSearchBar", false)
-game:DefineFastFlag("ToolboxShowAutocompleteResults", false)
 game:DefineFastInt("ToolboxAutocompleteDropdownSize", 6)
 
-game:DefineFastFlag("UGCGroupUploads", false)
+game:DefineFastFlag("UGCGroupUploads2", false)
 
 game:DefineFastFlag("ToolboxAssetConfigAddPublishBackButton", false)
 
@@ -62,5 +60,7 @@ game:DefineFastFlag("ToolboxCollaboratorSearchUseFind", false)
 
 game:DefineFastFlag("DebugDisableLocalUGCValidation", false)
 game:DefineFastFlag("UGCLCAssetTypes", false)
+
+game:DefineFastFlag("ToolboxPolicyForPluginCreatorWhitelist", false)
 
 return nil

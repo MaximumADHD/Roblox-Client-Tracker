@@ -100,7 +100,7 @@ function CustomTextButton:render()
 		BackgroundTransparency = 1,
 		Image = Assets.BUTTON_AVATAR_TYPE,
 		ScaleType = Enum.ScaleType.Slice,
-		Size = self.props.isLarge and UDim2.new(0, 162, 0, 34) or UDim2.new(0, 102, 0, 34),
+		Size = self.props.isLarge and UDim2.new(0, game:GetFastFlag("DisplayCorrectTypeInDetectionPrompt") and 192 or 162, 0, 34) or UDim2.new(0, 102, 0, 34),
 		SliceCenter = Rect.new(4, 4, 5, 5),
 		ImageColor3 = self:getButtonThemeConfig(),
 		LayoutOrder = self.props.layoutOrder,

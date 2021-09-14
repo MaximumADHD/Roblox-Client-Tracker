@@ -10,6 +10,8 @@ local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+
 local function GetAliases(apiImpl, assetType, state)
     local newAssets = {}
     newAssets.assets = {}
@@ -33,6 +35,7 @@ local function GetAliases(apiImpl, assetType, state)
                     or (assetType == Enum.AssetType.MeshPart and string.find(alias.Name, "Meshes/"))
                     or (assetType == Enum.AssetType.Lua and string.find(alias.Name, "Scripts/"))
                     or (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/"))
+                    or (FFlagAssetManagerEnableModelAssets and (assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")))
                     then
                         -- creating new table so keys across all assets are consistent
                         local assetAlias = {}
@@ -49,6 +52,8 @@ local function GetAliases(apiImpl, assetType, state)
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         elseif enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/") then
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
+                        elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/") then
+                            assetAlias.name = string.gsub(alias.Name, "Models/", "")
                         end
                         assetAlias.layoutOrder = index
                         newAssets.assets = Cryo.Dictionary.join(newAssets.assets, {

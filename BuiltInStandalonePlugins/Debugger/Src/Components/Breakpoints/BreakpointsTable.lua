@@ -16,70 +16,39 @@ local IconButton = UI.IconButton
 local Button = UI.Button
 local Pane = UI.Pane
 local TreeTable = UI.TreeTable
+local StudioUI = Framework.StudioUI
+local showContextMenu = StudioUI.showContextMenu
+
+local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
+local UtilFolder = PluginFolder.Src.Util
+local MakePluginActions = require(UtilFolder.MakePluginActions)
+
 local BUTTON_SIZE = 40
 local BUTTON_PADDING = 5
 
-function BreakpointsTable:init()		
+function BreakpointsTable:init()
+	self.onMenuActionSelected = function(actionId, extraParameters)
+
+	end
+
 	if FFlagDevFrameworkAddRightClickEventToPane then
 		self.onRightClick = function(row)
 			local props = self.props
 			local localization = props.Localization
 			local plugin = props.Plugin:get()
-			
-			if self.debugpointMenu then
-				return
-			end
-			
-			self.debugpointMenu = plugin:CreatePluginMenu("DebugpointsContextMenu")
 
 			if row.item.debugpointType == BreakpointModel.debugpointType.Breakpoint then
-				self.debugpointMenu:AddNewAction("EditBreakpoint", 
-					localization:getText("BreakpointsWindow", "EditBreakpoint")).Triggered:connect(function() end)
-				
-				if row.item.isEnabled then
-					self.debugpointMenu:AddNewAction("DisableBreakpoint", 
-						localization:getText("BreakpointsWindow", "DisableBreakpoint")).Triggered:connect(function() end)
-				else
-					self.debugpointMenu:AddNewAction("EnableBreakpoint", 
-						localization:getText("BreakpointsWindow", "EnableBreakpoint")).Triggered:connect(function() end)
-				end
-				
-				self.debugpointMenu:AddNewAction("DeleteBreakpoint", 
-					localization:getText("BreakpointsWindow", "DeleteBreakpoint")).Triggered:connect(function() end)
+				local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled)
+				showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
 			elseif row.item.debugpointType == BreakpointModel.debugpointType.Logpoint then
-				self.debugpointMenu:AddNewAction("EditLogpoint", 
-					localization:getText("BreakpointsWindow", "EditLogpoint")).Triggered:connect(function() end)
-				
-				if row.item.isEnabled then
-					self.debugpointMenu:AddNewAction("DisableLogpoint", 
-						localization:getText("BreakpointsWindow", "DisableLogpoint")).Triggered:connect(function() end)
-				else
-					self.debugpointMenu:AddNewAction("EnableLogpoint", 
-						localization:getText("BreakpointsWindow", "EnableLogpoint")).Triggered:connect(function() end)
-				end
-
-				self.debugpointMenu:AddNewAction("DeleteLogpoint", 
-					localization:getText("BreakpointsWindow", "DeleteLogpoint")).Triggered:connect(function() end)
-			end
-
-			self.debugpointMenu:ShowAsync()
-			
-			if self.debugpointMenu then
-				self.debugpointMenu:Destroy()
-				self.debugpointMenu = nil
+				local actions = MakePluginActions.getLogpointActions(localization, row.item.isEnabled)
+				showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
 			end
 		end
-	end
-end
-
-function BreakpointsTable:willUnmount()
-	if self.debugpointMenu then
-		self.debugpointMenu:Destroy()
-		self.debugpointMenu = nil
 	end
 end
 
@@ -157,6 +126,7 @@ function BreakpointsTable:render()
 				RootItems = props.Breakpoints or {},
 				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
 				Expansion = {},
+				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,
 			}),
 		})

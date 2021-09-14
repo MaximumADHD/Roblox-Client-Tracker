@@ -17,11 +17,11 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
 local Constants = require(Plugin.Src.Util.Constants)
-local ToggleButton = UI.ToggleButton
-
-local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
 
 local ScriptInjectionHolder = Roact.Component:extend("ScriptInjectionHolder")
+local ToggleButton = UI.ToggleButton
+
+local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local CHECKBOX_PADDING = 8
 local CHECKBOX_WIDTH = 16
@@ -74,7 +74,16 @@ function ScriptInjectionHolder:renderCheckbox(theme, index, permission)
 			Padding = UDim.new(0, 8),
 		}),
 
-		ToggleButton = Roact.createElement("ImageButton", {
+		ToggleButton = THEME_REFACTOR and Roact.createElement(ToggleButton, {
+			Disabled = false,
+			LayoutOrder = 1,
+			OnClick = function()
+				self.onCheckboxActivated(permission)
+			end,
+			Selected = isChecked,
+			Size = UDim2.new(0, Constants.TOGGLE_BUTTON_WIDTH, 0, Constants.TOGGLE_BUTTON_HEIGHT),
+		})
+		or Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(0, 0.5),
 			LayoutOrder = 1,
 			Size = UDim2.new(0, Constants.TOGGLE_BUTTON_WIDTH, 0, Constants.TOGGLE_BUTTON_HEIGHT),
@@ -92,7 +101,12 @@ function ScriptInjectionHolder:render()
 	local scriptInjectionPermissions = self.props.scriptInjectionPermissions
 	local layoutOrder = self.props.LayoutOrder
 
-	local theme = self.props.Theme:get("Plugin")
+	local theme
+	if THEME_REFACTOR then
+		theme = self.props.Stylizer
+	else
+		theme = self.props.Theme:get("Plugin")
+	end
 
 	local checkboxItems = {}
 	for index, permission in pairs(scriptInjectionPermissions) do
@@ -130,16 +144,17 @@ if FFlagPluginManagementWithContext then
 	ScriptInjectionHolder = withContext({
 		API = PluginAPI2,
 		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	})(ScriptInjectionHolder)
 else
 	ContextServices.mapToProps(ScriptInjectionHolder, {
 		API = PluginAPI2,
 		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	})
 end
-
 
 local function mapDispatchToProps(dispatch)
 	return {

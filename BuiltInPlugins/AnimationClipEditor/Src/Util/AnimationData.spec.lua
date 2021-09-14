@@ -2,8 +2,6 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local GetFFlagDebugExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagDebugExtendAnimationLimit)
-	local GetFFlagExtendAnimationLimit = require(Plugin.LuaFlags.GetFFlagExtendAnimationLimit)
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -758,81 +756,4 @@ return function()
 			expect(data.Events.NamedKeyframes[3]).never.to.be.ok()
 		end)
 	end)
-
-	if not GetFFlagDebugExtendAnimationLimit() or not GetFFlagExtendAnimationLimit() then
-		describe("removeExtraKeyframes", function()
-			it("should remove keyframes from animations that exceed 30 seconds in length", function()
-				local excessAnimationData = {
-					Metadata = {
-						Name = "Test Animation",
-						StartTick = 0,
-						EndTick = 901,
-						FrameRate = 30,
-					},
-					Instances = {
-						Root = {
-							Type = "Skeleton",
-							Tracks = {
-								["TestTrack"] = {
-									Keyframes = {1, 901},
-									Data = {
-										[1] = {
-											Value = CFrame.new(0, 1, 0),
-											EasingStyle = Enum.PoseEasingStyle.Linear,
-											EasingDirection = Enum.PoseEasingDirection.In,
-										},
-										[901] = {
-											Value = CFrame.new(1, 0, 0),
-											EasingStyle = Enum.PoseEasingStyle.Linear,
-											EasingDirection = Enum.PoseEasingDirection.In,
-										},
-									},
-								},
-							},
-						},
-					},
-				}
-
-				local removed = AnimationData.removeExtraKeyframes(excessAnimationData)
-				expect(removed).to.equal(true)
-				expect(#excessAnimationData.Instances.Root.Tracks.TestTrack.Keyframes).to.equal(1)
-				expect(excessAnimationData.Instances.Root.Tracks.TestTrack.Keyframes[1]).to.equal(1)
-
-				local validData = {
-					Metadata = {
-						Name = "Test Animation",
-						StartTick = 0,
-						EndTick = 900,
-						FrameRate = 30,
-					},
-					Instances = {
-						Root = {
-							Type = "Skeleton",
-							Tracks = {
-								["TestTrack"] = {
-									Keyframes = {1, 900},
-									Data = {
-										[1] = {
-											Value = CFrame.new(0, 1, 0),
-											EasingStyle = Enum.PoseEasingStyle.Linear,
-											EasingDirection = Enum.PoseEasingDirection.In,
-										},
-										[900] = {
-											Value = CFrame.new(1, 0, 0),
-											EasingStyle = Enum.PoseEasingStyle.Linear,
-											EasingDirection = Enum.PoseEasingDirection.In,
-										},
-									},
-								},
-							},
-						},
-					},
-				}
-
-				removed = AnimationData.removeExtraKeyframes(validData)
-				expect(removed).to.equal(false)
-				expect(#validData.Instances.Root.Tracks.TestTrack.Keyframes).to.equal(2)
-			end)
-		end)
-	end
 end

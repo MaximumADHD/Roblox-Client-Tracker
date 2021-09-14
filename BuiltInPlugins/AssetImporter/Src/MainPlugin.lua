@@ -72,7 +72,7 @@ function MainPlugin:init(props)
 
 	self.onImport = function(assetSettings)
 		self.onClose()
-		AssetImportService:UploadCurrentMesh()
+		AssetImportService:Upload()
 	end
 end
 

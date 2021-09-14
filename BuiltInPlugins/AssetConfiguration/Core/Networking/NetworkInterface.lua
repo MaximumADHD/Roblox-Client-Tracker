@@ -4,6 +4,7 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
+local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 
 local Plugin = script.Parent.Parent.Parent
@@ -18,6 +19,12 @@ local Constants = require(Plugin.Core.Util.Constants)
 local Rollouts = require(Plugin.Core.Rollouts)
 
 local Category = require(Plugin.Core.Types.Category)
+
+local ToolboxUtilities
+
+if FFlagToolboxPolicyForPluginCreatorWhitelist then
+	ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
+end
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -93,9 +100,16 @@ if Rollouts:getToolboxEndpointMigration() then
 	function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit)
 		local useCreatorWhitelist = nil
 
-		if category == Category.WHITELISTED_PLUGINS.name then
-			useCreatorWhitelist = true
+		if FFlagToolboxPolicyForPluginCreatorWhitelist then
+			if category == Category.WHITELISTED_PLUGINS.name then
+				useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
+			end
+		else
+			if category == Category.WHITELISTED_PLUGINS.name then
+				useCreatorWhitelist = true
+			end
 		end
+
 		local targetUrl = Urls.constructGetToolboxItemsUrl(
 			category,
 			sortType,
@@ -117,9 +131,17 @@ if Rollouts:getToolboxEndpointMigration() then
 else
 	function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)
 		local useCreatorWhitelist = nil
-		if category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
-			useCreatorWhitelist = true
+
+		if FFlagToolboxPolicyForPluginCreatorWhitelist then
+			if category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
+				useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
+			end
+		else
+			if category == Category.API_NAMES[Category.WHITELISTED_PLUGINS.name] then
+				useCreatorWhitelist = true
+			end
 		end
+
 		local targetUrl = Urls.constructGetToolboxItemsUrl(
 			category,
 			sortType,
@@ -774,11 +796,11 @@ function NetworkInterface:avatarAssetsUpload(assetType, formBodyData, boundary)
 		:catch(function(err) return Promise.reject(err) end)
 end
 
-function NetworkInterface:getAvatarAssetsValidGroups(assetType)
-	local targetUrl = Urls.constructAvatarAssetsValidGroupsUrl(assetType)
+function NetworkInterface:getAssetTypeAgents(assetType)
+	local targetUrl = Urls.constructAssetTypeAgentsUrl(assetType)
 
 	return sendRequestAndRetry(function()
-		printUrl("getAvatarAssetsValidGroups", "GET", targetUrl)
+		printUrl("getAssetTypeAgents", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
 end

@@ -1,12 +1,14 @@
+type Path = string
+
 export type WatchWindowTableRow = {
 	pathColumn: string,
 	scopeColumn: string,
 	valueColumn: string,
 	dataTypeColumn: string,
-	children : {Path},
-	expanded: bool,
-	textFilteredOut: bool,
-	scopeFilteredOut : bool,
+	childPaths : {Path},
+	expanded: boolean,
+	textFilteredOut: boolean,
+	scopeFilteredOut : boolean,
 }
 
 return {}

@@ -50,9 +50,9 @@ function CallstackComponent:didMount()
 	local pluginActions = self.props.PluginActions
 	self.connections  = {}
 	self.shortcuts = {}
-	self:addAction(pluginActions:get(Constants.ActionIds.CopySelected), self.copySelectedRow)
-	self:addAction(pluginActions:get(Constants.ActionIds.DeleteSelected), self.deleteSelectedRow)
-	self:addAction(pluginActions:get(Constants.ActionIds.SelectAll), self.selectAll)
+	self:addAction(pluginActions:get(Constants.CallstackActionIds.CopySelected), self.copySelectedRow)
+	self:addAction(pluginActions:get(Constants.CallstackActionIds.DeleteSelected), self.deleteSelectedRow)
+	self:addAction(pluginActions:get(Constants.CallstackActionIds.SelectAll), self.selectAll)
 end
 
 function CallstackComponent:willUnmount()

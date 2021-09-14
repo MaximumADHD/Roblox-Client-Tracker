@@ -16,7 +16,7 @@ return function(networkInterface, settings, categoryName)
 		store:dispatch(StopAllSounds())
 
 		local sortIndex = Sort.getDefaultSortForCategory(categoryName)
-		
+
 		local creator = nil
 		if showRobloxCreatedAssets() then
 			local currentTab = PageInfoHelper.getCurrentTab(store:getState().pageInfo)

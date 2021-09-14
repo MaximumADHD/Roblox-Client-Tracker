@@ -96,7 +96,7 @@ local GET_ITEM_DETAILS = Url.APIS_URL .. "toolbox-service/v1/items/details?"
 
 local AVATAR_ASSETS_GET_UPLOAD_FEE = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/get-upload-fee"
 local AVATAR_ASSETS_UPLOAD = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/upload"
-local AVATAR_ASSETS_VALID_GROUPS = Url.ITEM_CONFIGURATION_URL .. "v1/avatar-assets/%s/valid-groups"
+local ASSET_TYPE_AGENTS = Url.ITEM_CONFIGURATION_URL .. "v1/asset-types/%s/agents?"
 
 local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
 
@@ -539,8 +539,11 @@ function Urls.constructAvatarAssetsUploadUrl(assetType)
 	return AVATAR_ASSETS_UPLOAD:format(assetType.Name)
 end
 
-function Urls.constructAvatarAssetsValidGroupsUrl(assetType)
-	return AVATAR_ASSETS_VALID_GROUPS:format(assetType.Name)
+function Urls.constructAssetTypeAgentsUrl(assetType)
+	return ASSET_TYPE_AGENTS:format(assetType.Name) .. Url.makeQueryString({
+		["requestModel.actionType"] = "Upload",
+		["requestModel.agentType"] = "Group",
+	})
 end
 
 function Urls.constructToolboxAutocompleteUrl(categoryName, searchTerm, numberOfResults)

@@ -6,6 +6,8 @@ local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableA
 
 local AssetManagerService = game:GetService("AssetManagerService")
 
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+
 return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
         local isFolder = assetData.ClassName == "Folder"
@@ -30,6 +32,8 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
                 end
             elseif enableAudioImport() and assetType == Enum.AssetType.Audio then
                 AssetManagerService:InsertAudio(assetData.id, assetData.name)
+            elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model then
+                AssetManagerService:InsertModel(assetData.id)
             end
             analytics:report("doubleClickInsert")
             local state = store:getState()

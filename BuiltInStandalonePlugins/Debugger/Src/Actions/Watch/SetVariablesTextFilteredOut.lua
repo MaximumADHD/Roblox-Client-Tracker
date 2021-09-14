@@ -9,10 +9,10 @@ export type Path = string
 
 export type Props = {
 	stepStateBundle : StepStateBundle.StepStateBundle,
-	textFilterMap : {[Path] : bool}
+	textFilterMap : {[Path] : boolean}
 }
 
-return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, textFilterMap : {[Path] : bool}) : Props
+return Action(script.Name, function(stepStateBundle : StepStateBundle.StepStateBundle, textFilterMap : {[Path] : boolean}) : Props
 	return {
 		stepStateBundle = stepStateBundle,
 		textFilterMap = textFilterMap

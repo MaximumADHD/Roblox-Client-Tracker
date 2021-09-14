@@ -31,7 +31,7 @@ local expressionData1 = {
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
-	 children = {},
+	childPaths = {},
 }
 
 local expressionRow1 = WatchRow.fromData(expressionData1)

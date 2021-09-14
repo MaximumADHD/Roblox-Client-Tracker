@@ -53,6 +53,7 @@ local WideScrollingFrame = require(Plugin.Src.Components.TrackList.WideScrolling
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
+local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -311,7 +312,11 @@ function TrackList:renderTrack(track, children, theme)
 
 		local currentValue = TrackUtils.getCurrentValue(track, playhead, animationData)
 		if GetFFlagFacsUiChanges() and track.Type == Constants.TRACK_TYPES.Facs then
-			currentValue = math.floor(0.5 + (currentValue * 100))
+			if GetFFlagFixClampValuesForFacs() then
+				currentValue = math.floor(0.5 + math.clamp(currentValue, 0, 1) * 100)
+			else
+				currentValue = math.floor(0.5 + (currentValue * 100))
+			end
 		end
 		local items = TrackUtils.getItemsForProperty(track, currentValue)
 
