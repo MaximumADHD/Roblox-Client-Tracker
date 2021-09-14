@@ -12,8 +12,11 @@
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Selected: Whether the row is currently selected.
+		callback OnRightClick: An optional callback when a row is right-clicked. (rowIndex: number) -> ()
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -37,6 +40,13 @@ local TableRow = Roact.PureComponent:extend("TableRow")
 
 function TableRow:init()
 	assert(THEME_REFACTOR, "TableRow not supported in Theme1, please upgrade your plugin to Theme2")
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClickRow = function()
+			if self.props.OnRightClick then
+				self.props.OnRightClick(self.props.Row)
+			end
+		end
+	end
 end
 
 function TableRow:render()
@@ -46,6 +56,7 @@ function TableRow:render()
 	local rowIndex = props.RowIndex
 	local CellComponent = props.CellComponent or TableCell
 	local columns = props.Columns
+
 	local cells = map(columns, function(column, index: number)
 		local key = column.Key or column.Name
 		local value: any = row[key] or ""
@@ -60,6 +71,7 @@ function TableRow:render()
 			Row = row,
 			ColumnIndex = index,
 			RowIndex = rowIndex,
+			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil
 		})
 	end)
 	return Roact.createElement(Pane, assign({

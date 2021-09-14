@@ -9,6 +9,8 @@ local Pane = require(UI.Pane)
 local Tooltip = require(UI.Tooltip)
 local TextLabel = require(UI.TextLabel)
 
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+
 local function TableCell(props)
 	local value: any = props.Value
 	local style = props.Style
@@ -36,6 +38,7 @@ local function TableCell(props)
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil,
 	}, {
 		Text = Roact.createElement(TextLabel, {
 			Text = stringValue,
