@@ -20,7 +20,7 @@ The **Roblox Client Tracker** is an unofficial change tracker for Roblox Studio 
 # Source Code
 
 The backend console application which drives this repository is available to be found here:<br/>
-https://github.com/CloneTrooper1019/RCT-Source
+https://github.com/MaximumADHD/RCT-Source
 
 # Specifications
 
@@ -29,7 +29,7 @@ This is a JSON version of Roblox's API Dump. It contains more data than the orig
 This file is extracted using `RobloxStudioBeta.exe -API API-Dump.json`
 
 ## API-Dump.txt
-A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/CloneTrooper1019/Roblox-API-Dump-Tool).
+A readable version of Roblox's JSON API Dump. This file is generated from the [Roblox API Dump Tool](https://github.com/MaximumADHD/Roblox-API-Dump-Tool).
 
 ## AutocompleteMetadata.xml
 A file used by Roblox Studio to provide auto completion for the types built into Roblox's Lua implementation.
@@ -83,7 +83,7 @@ A CSV version of `rbxPkgManifest.txt`, made to be easier to read from GitHub.
 
 ## version.txt
 Describes the current version of Roblox Studio.<br/>
-Formatted as: **(MajorRevision).(Version).(Patch).(P4-Changelist)**
+Formatted as: **(MajorRevision).(Version).(Patch).(Changelist)**
 
 ## version-guid.txt
 Describes the current GUID version of Roblox Studio.
