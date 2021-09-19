@@ -8,14 +8,12 @@
 
 The **Roblox Client Tracker** is an unofficial change tracker for Roblox Studio which aims to provide detailed difflogs for changes to Roblox's engine. It generates information by datamining builds of Roblox Studio retrieved from Roblox's Amazon S3 deployment endpoints. The data that is analyzed and presented in this repository is generated using publicly known Roblox domains and reverse engineered file formats.
 
-# <s>Comparison Links</s>
-> Comparison Links are not available at this time, as `sitetest1.robloxlabs` and `sitetest2.robloxlabs` are no longer publicly updated.<br/>
+# Comparison Links
+Use these links to compare development builds of Roblox Studio:
 
-<s>Use these links to compare development builds of Roblox Studio:</s>
-
-* <s>Compare roblox->sitetest1</s>
-* <s>Compare roblox->sitetest2</s>
-* <s>Compare sitetest1->sitetest2</s>
+* Compare [roblox->sitetest1](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest1.robloxlabs#files_bucket)
+* Compare [roblox->sitetest2](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest2.robloxlabs#files_bucket)
+* Compare [sitetest1->sitetest2](https://github.com/MaximumADHD/Roblox-Client-Tracker/compare/sitetest1.robloxlabs...sitetest2.robloxlabs)
 
 # Source Code
 
