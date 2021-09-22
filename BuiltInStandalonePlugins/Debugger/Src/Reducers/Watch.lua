@@ -9,7 +9,7 @@ local Util = Framework.Util
 local deepCopy = Util.deepCopy
 
 --Variables
-local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
+local SetVariablesScopeFilteredOut = require(Actions.Watch.SetVariablesScopeFilteredOut)
 local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
@@ -256,7 +256,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[SetVariableScopeFilteredOut.name] = function(state : WatchStore, action : SetVariableScopeFilteredOut.Props)
+	[SetVariablesScopeFilteredOut.name] = function(state : WatchStore, action : SetVariablesScopeFilteredOut.Props)
 		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
 		if (nilCheckVariable(stateTokenToFlattenedTreeCopy, action) == false) then
 			return state
@@ -264,7 +264,9 @@ return Rodux.createReducer(productionStartStore, {
 
 		local stepStateBundle = action.stepStateBundle
 
-		stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[action.path].scopeFilteredOut = action.filteredOut
+		for path, filteredOut in pairs(action.textFilterMap) do
+			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[path].scopeFilteredOut = filteredOut
+		end
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToFlattenedTree = stateTokenToFlattenedTreeCopy

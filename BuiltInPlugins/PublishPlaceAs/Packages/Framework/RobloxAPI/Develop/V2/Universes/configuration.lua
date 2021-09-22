@@ -63,7 +63,7 @@
 	}
 ]]
 
-local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
+local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
 local HttpService = game:GetService("HttpService")
 
 -- networkingImpl : (Http.Networking) supplied by RobloxAPI.init.lua, a Networking object that makes the network requests
@@ -87,13 +87,15 @@ return function(networkingImpl, baseUrl)
 			end,
 
 			makeRequest = function()
-				if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+				if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
 					if body == nil then
 						local httpPromise = networkingImpl:get(url)
 						local retryPromise = networkingImpl:handleRetry(httpPromise)
 						return networkingImpl:parseJson(retryPromise)
 					else
-						local httpPromise = networkingImpl:patch(url, HttpService:JSONEncode(body))
+						local httpPromise = networkingImpl:patch(url, HttpService:JSONEncode(body), {
+							["Content-Type"] = "application/json",
+						})
 						return networkingImpl:parseJson(httpPromise)
 					end
 				else

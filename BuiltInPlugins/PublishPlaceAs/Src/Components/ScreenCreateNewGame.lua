@@ -23,7 +23,7 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
 
--- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+-- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
 local DEPRECATED_Configuration = require(Plugin.Src.Network.Requests.Configuration)
 local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 
@@ -51,7 +51,7 @@ local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePla
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
-local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
+local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
@@ -89,40 +89,28 @@ function ScreenCreateNewGame:init()
 
 	self.scrollingFrameRef = Roact.createRef()
 
-	if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
-		if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
-			local apiImpl = self.props.API:get()
-			apiImpl.Develop.V2.Universes.configuration(self.props.FirstPublishContext.universeId):makeRequest()
-			:andThen(function(response)
-				self.props.dispatchSetExistingUniverseConfiguration(response.responseBody)
-			end, function(response)
-				local message = self.props.localization:getText("Error","GetConfiguration") .. " HTTP " .. response.responseCode
-				warn(message)
-				for _, value in pairs(response.responseBody.errors) do
-					warn(value.userFacingMessage)
-				end
-			end)
-		else
+	if not FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+		if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
 			local success, existingConfig = DEPRECATED_Configuration.Get(self.props.FirstPublishContext.universeId):await()
 			if success then
 				self.props.dispatchSetExistingUniverseConfiguration(existingConfig)
 			end
+		else
+			self.props.DispatchLoadGroups()
 		end
-	else
-		self.props.DispatchLoadGroups()
-	end
 
-	if FFlagStudioClosePromptOnLocalSave then
-		StudioService.SaveLocallyAsComplete:connect(function(success)
-			if success then
-				if FFlagStudioEnableNewGamesInTheCloudMetrics then
-					Analytics.reportLocalSaveSuccess()
+		if FFlagStudioClosePromptOnLocalSave then
+			StudioService.SaveLocallyAsComplete:connect(function(success)
+				if success then
+					if FFlagStudioEnableNewGamesInTheCloudMetrics then
+						Analytics.reportLocalSaveSuccess()
+					end
+					-- Close out the publish window after a local save
+					self.props.OnClose()
+					StudioService:requestClose(self.props.CloseMode)
 				end
-				-- Close out the publish window after a local save
-				self.props.OnClose()
-				StudioService:requestClose(self.props.CloseMode)
-			end
-		end)
+			end)
+		end
 	end
 
 	self.shouldShowEmailDialog = function()
@@ -146,6 +134,38 @@ function ScreenCreateNewGame:didMount()
 			self.props.OpenPublishFailPage(self.props.Changed)
 		end
 	end)
+
+	if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+		if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
+			local apiImpl = self.props.API:get()
+			apiImpl.Develop.V2.Universes.configuration(self.props.FirstPublishContext.universeId):makeRequest()
+			:andThen(function(response)
+				self.props.dispatchSetExistingUniverseConfiguration(response.responseBody)
+			end, function(response)
+				local message = self.props.Localization:getText("Error","GetConfiguration") .. " HTTP " .. response.responseCode
+				warn(message)
+				for _, value in pairs(response.responseBody.errors) do
+					warn(value.userFacingMessage)
+				end
+			end):await()
+		else
+			self.props.DispatchLoadGroups()
+		end
+
+		if FFlagStudioClosePromptOnLocalSave then
+			StudioService.SaveLocallyAsComplete:connect(function(success)
+				if success then
+					if FFlagStudioEnableNewGamesInTheCloudMetrics then
+						Analytics.reportLocalSaveSuccess()
+					end
+					-- Close out the publish window after a local save
+					self.props.OnClose()
+					StudioService:requestClose(self.props.CloseMode)
+				end
+			end)
+		end
+	end
+
 end
 
 function ScreenCreateNewGame:willUnmount()
@@ -237,7 +257,8 @@ function ScreenCreateNewGame:render()
 								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
 							end
 
-							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+								dispatchSetIsPublishing(true)
 								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl)
 							else
 								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
@@ -258,7 +279,8 @@ function ScreenCreateNewGame:render()
 								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
 							end
 
-							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+								dispatchSetIsPublishing(true)
 								SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl)
 							else
 								SettingsImpl.saveAll(changed, localization)
@@ -268,8 +290,10 @@ function ScreenCreateNewGame:render()
 					if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
 						Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
 					end
-					if not (shouldShowDevPublishLocations() and self.shouldShowEmailDialog()) then
-						dispatchSetIsPublishing(true)
+					if not FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+						if not (shouldShowDevPublishLocations() and self.shouldShowEmailDialog()) then
+							dispatchSetIsPublishing(true)
+						end
 					end
 				end,
 			},
@@ -312,16 +336,25 @@ function ScreenCreateNewGame:render()
 							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
 						end
 						if email1 == email2 then
+							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+								self:setState({
+									showEmailDialog = false,
+									bottomText = "",
+								})
+								dispatchSetIsPublishing(true)
+							end
 							if firstPublishContext then
 								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl, email1)
 							else
 								SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl, email1)
 							end
-							dispatchSetIsPublishing(true)
-							self:setState({
-								showEmailDialog = false,
-								bottomText = "",
-							})
+							if not FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+								dispatchSetIsPublishing(true)
+								self:setState({
+									showEmailDialog = false,
+									bottomText = "",
+								})
+							end
 						else
 							self:setState({
 								bottomText = localization:getText(optInLocationsKey, "ErrorEmailNotEqual")

@@ -22,7 +22,6 @@
         bool showTableBackground = If true, we show the table background
 ]]
 
-local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
@@ -60,7 +59,7 @@ function TableWithMenu:createHeaderLabels(theme, headers, headerButton)
             Size = UDim2.new( 1 / numberColumns, 0, 1, 0),
             LayoutOrder = i,
 
-            Text = FFlagFixRadioButtonSeAndTableHeadertForTesting and headers[i].Text or headers[i],
+            Text = headers[i],
 
             BackgroundTransparency = 1,
             BorderSizePixel = 0,
@@ -68,13 +67,9 @@ function TableWithMenu:createHeaderLabels(theme, headers, headerButton)
             TextXAlignment = Enum.TextXAlignment.Left,
             TextTruncate = Enum.TextTruncate.AtEnd,
         }))
-        if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-            headerLabels[headers[i].Id] = header
-        else
-            headerLabels[i] = header
-        end
+        headerLabels[i] = header
     end
-    
+
     if headerButton then
         local frame = Roact.createElement("Frame", {
             BackgroundTransparency = 1,

@@ -9,7 +9,7 @@ local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
-local SetVariableScopeFilteredOut = require(Actions.Watch.SetVariableScopeFilteredOut)
+local SetVariablesScopeFilteredOut = require(Actions.Watch.SetVariablesScopeFilteredOut)
 local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
@@ -351,22 +351,22 @@ return function()
 		end)
 	end)
 
-	describe(SetVariableScopeFilteredOut .name, function() 
+	describe(SetVariablesScopeFilteredOut .name, function() 
 		it("should be able to update root item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableScopeFilteredOut Test"
-			local tokenizedValue2 = "SetVariableScopeFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
+			local tokenizedValue2 = "SetVariablesScopeFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableScopeFilteredOut Test",
+				name = "SetVariablesScopeFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableScopeFilteredOut Test2",
+				name = "SetVariablesScopeFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -378,7 +378,7 @@ return function()
 			}
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
-			local state = WatchReducer(prepState2, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue1, true))
+			local state = WatchReducer(prepState2, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue1] = true}))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(false)
@@ -392,18 +392,18 @@ return function()
 		it("should be able to update child item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableScopeFilteredOut Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariableScopeFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
+			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariablesScopeFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableScopeFilteredOut Test",
+				name = "SetVariablesScopeFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableScopeFilteredOut Test2",
+				name = "SetVariablesScopeFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -420,7 +420,7 @@ return function()
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
 			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue2, true))
+			local state = WatchReducer(prepState3, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(true)
@@ -434,18 +434,18 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			
-			local tokenizedValue1 = "SetVariableScopeFilteredOut Test"
-			local tokenizedValue2 = "SetVariableScopeFilteredOut Test2"
+			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
+			local tokenizedValue2 = "SetVariablesScopeFilteredOut Test2"
 
 			local varData1 = {
-				name = "SetVariableScopeFilteredOut Test",
+				name = "SetVariablesScopeFilteredOut Test",
 				path = tokenizedValue1,
 				scope = ScopeEnum.Local,
 				value = "somePreview",
 				dataType = "string",
 			}
 			local varData2 = {
-				name = "SetVariableScopeFilteredOut Test2",
+				name = "SetVariablesScopeFilteredOut Test2",
 				path = tokenizedValue2,
 				scope = ScopeEnum.Local,
 				value = "somePreview2",
@@ -458,7 +458,7 @@ return function()
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariableScopeFilteredOut(stepStateBundle, tokenizedValue2, true), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

@@ -22,6 +22,7 @@ local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
+local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 
 local Theme = {}
 
@@ -504,6 +505,15 @@ function Theme.createValues(theme, getColor)
 				height = 150,
 			} or nil,
 
+			warningDialog = FFlagFixWarningDialogIcon and {
+				headerOffset = -60,
+				description = {
+					length = 387,
+				},
+				icon = {
+					size = 16,
+				},
+			} or nil,
 		}),
 
 		Framework = Style.extend(studioStyles, {

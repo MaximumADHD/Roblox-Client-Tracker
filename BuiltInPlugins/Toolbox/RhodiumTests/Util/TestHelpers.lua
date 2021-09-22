@@ -17,6 +17,20 @@ local TestHelpers = {}
 
 local TEST_DELAY_SECONDS = 0.2
 
+local TOOLBOX_COMPONENT_NAME = "ToolboxComponent"
+
+function TestHelpers.getPathInTestToolbox(path)
+	return string.format("game.CoreGui.ScreenGui.%s.%s", TOOLBOX_COMPONENT_NAME, path)
+end
+
+function TestHelpers.cleanupCategoryVerification()
+	for i, child in ipairs(game.CoreGui:GetChildren()) do
+		if child.Name == "CategoryVerification" then
+			child:Destroy()
+		end
+	end
+end
+
 function TestHelpers.createTestAsset(container, name, asset, mockProps)
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
@@ -45,7 +59,7 @@ function TestHelpers.createTestTab(container, name, asset, mockProps)
 	return Roact.mount(element, container or nil, name or "")
 end
 
-function TestHelpers.createTestToolbox(container, name, component, asset, mockProps)
+function TestHelpers.createTestToolbox(container, component, asset, mockProps)
 	container.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	local element = Roact.createElement("Frame", {
 		Size = UDim2.new(0.8, 0, 0.8, 0),Position = UDim2.new(0, 0, 0, 0),},{
@@ -55,7 +69,18 @@ function TestHelpers.createTestToolbox(container, name, component, asset, mockPr
 				})
 		})
 
-	return Roact.mount(element, container or nil, name or "")
+	return Roact.mount(element, container or nil, TOOLBOX_COMPONENT_NAME)
+end
+
+function TestHelpers.cleanupTestToolbox()
+	for i, container in ipairs(game.CoreGui:GetChildren()) do
+		for j, child in ipairs(container:GetChildren()) do
+			if child.Name == TOOLBOX_COMPONENT_NAME then
+				container:Destroy()
+				break
+			end
+		end
+	end
 end
 
 function TestHelpers.createPreviewAsset(container, name, asset, mockProps)

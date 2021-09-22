@@ -29,6 +29,7 @@ local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 local SEPARATOR_WEIGHT = 1
 
 local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFFlagDevFrameworkStyledDialogFullBleed)
+local getFFlagDevFrameworkAssetImportFixes = require(Plugin.Src.Flags.getFFlagDevFrameworkAssetImportFixes)
 
 local AssetImporterUI = Roact.PureComponent:extend("AssetImporterUI")
 
@@ -50,6 +51,11 @@ function AssetImporterUI:render()
 
 	local style = props.Stylizer
 	local sizes = style.Sizes
+
+	local recenterCameraOnUpdate
+	if getFFlagDevFrameworkAssetImportFixes() then
+		recenterCameraOnUpdate = false
+	end
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -84,6 +90,7 @@ function AssetImporterUI:render()
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
+						RecenterCameraOnUpdate = recenterCameraOnUpdate,
 					})
 				}),
 
@@ -98,6 +105,7 @@ function AssetImporterUI:render()
 				}, {
 					TreeView = Roact.createElement(AssetImportTree, {
 						Instances = { props.AssetSettings },
+						FileName = props.Filename or "",
 					})
 				})
 			}),

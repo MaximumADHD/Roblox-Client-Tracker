@@ -11,10 +11,12 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
-local getFFlagDraggerPerf = require(DraggerFramework.Flags.getFFlagDraggerPerf)
-local getFFlagPivotAnalytics = require(DraggerFramework.Flags.getFFlagPivotAnalytics)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
+local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
+
+local getFFlagMoreLuaDraggerFixes = require(DraggerFramework.Flags.getFFlagMoreLuaDraggerFixes)
+local getFFlagIgnoreSpuriousViewChange = require(DraggerFramework.Flags.getFFlagIgnoreSpuriousViewChange)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -118,29 +120,22 @@ function DraggerToolModel:transitionToState(draggerStateType, ...)
 	self._mainState = draggerStateType
 	self._stateObject = DraggerState[draggerStateType].new(self, ...)
 	self._stateObject:enter()
+	if getFFlagBoxSelectNoPivot() then
+		self:_updatePivotIndicatorVisibility()
+	end
 	self:_scheduleRender()
 end
 
 function DraggerToolModel:render()
-	local selection = self._selectionWrapper:get()
-
-	
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement(Roact.Portal, {
-			target = self._draggerContext:getGuiParent(),
-		}, {
-			DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
-		})
-	else
-		local coreGuiContent = {}
-
-		-- State specific rendering code
-		coreGuiContent.StateSpecificUI = self._stateObject:render()
-		
-		return Roact.createElement(Roact.Portal, {
-			target = self._draggerContext:getGuiParent(),
-		}, coreGuiContent)
+	if getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
 	end
+
+	return Roact.createElement(Roact.Portal, {
+		target = self._draggerContext:getGuiParent(),
+	}, {
+		DraggerUI = Roact.createElement("Folder", {}, self._stateObject:render()),
+	})
 end
 
 -- Called every frame on render step
@@ -222,11 +217,6 @@ function DraggerToolModel:selectNextSelectables(dragInfo, isDoubleClick)
 			SelectionHelper.updateSelectionWithMultipleSelectables(
 				nextSelectables, oldSelection, shouldXorSelection, shouldExtendSelection)
 		self._selectionWrapper:set(newSelection)
-		if getFFlagDraggerPerf() then
-			self:_updateSelectionInfo()
-		end
-	end
-	if not getFFlagDraggerPerf() then
 		self:_updateSelectionInfo()
 	end
 end
@@ -251,6 +241,10 @@ function DraggerToolModel:classifySelectionPivot()
 end
 
 function DraggerToolModel:_processSelected()
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessSelected = true
+	end
+
 	self._mainState = DraggerStateType.Ready
 	self._stateObject = DraggerState[DraggerStateType.Ready].new(self)
 
@@ -286,9 +280,17 @@ function DraggerToolModel:_processSelected()
 	self._stateObject:enter()
 
 	self:_analyticsSessionBegin()
+
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessSelected = false
+	end
 end
 
 function DraggerToolModel:_processDeselected()
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessDeselected = true
+	end
+
 	if self._isMouseDown then
 		self:_processMouseUp()
 	end
@@ -310,11 +312,18 @@ function DraggerToolModel:_processDeselected()
 	self._selectionChangedConnection = nil
 
 	self:_analyticsSendSession()
+
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessDeselected = false
+	end
 end
 
 function DraggerToolModel:_processSelectionChanged()
 	self:_updateSelectionInfo()
 	self._stateObject:processSelectionChanged()
+	if getFFlagDraggerFrameworkFixes() then
+		self:_scheduleRender()
+	end
 end
 
 function DraggerToolModel:_processKeyDown(keyCode)
@@ -363,7 +372,36 @@ end
 	Called when the camera or mouse position changes, i.e., the world position
 	currently under the mouse cursor has changed.
 ]]
+
+-- Use these to differentiate stack traces in Backtrace analytics
+local function debugErrorInBothSelectAndDeselect()
+	error("Missing stateObject (Selecting and Deselecting)")
+end
+local function debugErrorInSelect()
+	error("Missing stateObject (Selecting)")
+end
+local function debugErrorInDeselect()
+	error("Missing stateObject (Deselecting)")
+end
+local function debugErrorInNeither()
+	error("Missing stateObject (Neither)")
+end
+
 function DraggerToolModel:_processViewChanged()
+	if getFFlagIgnoreSpuriousViewChange() and not self._stateObject then
+		return
+	end
+	if getFFlagMoreLuaDraggerFixes() and not self._stateObject then
+		if self._debugInProcessSelected and self._debugInProcessDeselected then
+			debugErrorInBothSelectAndDeselect()
+		elseif self._debugInProcessSelected then
+			debugErrorInSelect()
+		elseif self._debugInProcessDeselected then
+			debugErrorInDeselect()
+		else
+			debugErrorInNeither()
+		end
+	end
 	self._stateObject:processViewChanged()
 
 	-- Derived world state may have changed as a result of the view update, so
@@ -371,8 +409,16 @@ function DraggerToolModel:_processViewChanged()
 	self:_scheduleRender()
 end
 
+function DraggerToolModel:_updateHandles()
+	for _, handle in pairs(self._handlesList) do
+		if handle.update then
+			handle:update(self, self._selectionInfo)
+		end
+	end
+end
+
 function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
-	if getFFlagDraggerPerf() and newSelectionInfoHint then
+	if newSelectionInfoHint then
 		self._selectionInfo = newSelectionInfoHint
 	else
 		self._selectionInfo = self._draggerSchema.SelectionInfo.new(
@@ -380,7 +426,11 @@ function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	end
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
-	self:_scheduleRender()
+	if getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
+	else
+		self:_scheduleRender()
+	end
 
 	if getFFlagSummonPivot() then
 		self:_updatePivotIndicatorVisibility()
@@ -389,7 +439,7 @@ end
 
 function DraggerToolModel:_updatePivotIndicatorVisibility()
 	if self._modelProps.ShowPivotIndicator then
-		if #self._selectionWrapper:get() > 1 then
+		if (getFFlagBoxSelectNoPivot() and self._mainState == DraggerStateType.DragSelecting) or #self._selectionWrapper:get() > 1 then
 			self._draggerContext:setPivotIndicator(self._oldShowPivot)
 		else
 			self._draggerContext:setPivotIndicator(true)
@@ -436,10 +486,8 @@ function DraggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 end
 
 function DraggerToolModel:_scheduleRender()
-	for _, handle in pairs(self._handlesList) do
-		if handle.update then
-			handle:update(self, self._selectionInfo)
-		end
+	if not getFFlagDraggerFrameworkFixes() then
+		self:_updateHandles()
 	end
 
 	self._requestRenderCallback()
@@ -509,8 +557,8 @@ function DraggerToolModel:_analyticsSendHandleDragged(handleId)
 		joinSurfaces = self._draggerContext:shouldJoinSurfaces(),
 		useConstraints = self._draggerContext:areConstraintsEnabled(),
 		haveCollisions = self._draggerContext:areCollisionsEnabled(),
-		pivotType = getFFlagPivotAnalytics() and self:classifySelectionPivot() or nil,
-		handleId = getFFlagPivotAnalytics() and handleId or nil,
+		pivotType = self:classifySelectionPivot(),
+		handleId = handleId,
 	})
 end
 

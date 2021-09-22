@@ -5,6 +5,7 @@ local DraggerFramework = script.Parent.Parent
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
 
 -- Minimum distance (pixels) required for a drag to select parts.
 local DRAG_SELECTION_THRESHOLD = 3
@@ -77,7 +78,12 @@ end
 -- startLocation can override the location the drag is treated as having
 -- started at.
 function DragSelector:beginDrag(draggerContext, startLocation)
-	assert(not self._isDragging, "Cannot begin drag when already dragging.")
+	if getFFlagTemporaryDisableUpdownAsserts() then
+		-- Should not be needed, temporary code to try to diagnose issues.
+		self:commitDrag(draggerContext)
+	else
+		assert(not self._isDragging, "Cannot begin drag when already dragging.")
+	end
 	self._isDragging = true
 
 	self._dragCandidates = self._beginBoxSelect(draggerContext)
@@ -91,7 +97,14 @@ end
 	the selection, based on the held modified keys.
 ]]
 function DragSelector:updateDrag(draggerContext)
-	assert(self._isDragging, "Cannot update drag when no drag in progress.")
+	if getFFlagTemporaryDisableUpdownAsserts() then
+		-- Should not be needed, temporary code to diagnose issues.
+		if not self._isDragging then
+			return
+		end
+	else
+		assert(self._isDragging, "Cannot update drag when no drag in progress.")
+	end
 
 	local shouldXorSelection = draggerContext:shouldExtendSelection()
 	local shouldDrillSelection = draggerContext:isAltKeyDown()

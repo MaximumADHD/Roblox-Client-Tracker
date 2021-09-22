@@ -62,7 +62,7 @@ return function(filterString)
 		local common = state.Common
 		local watch = state.Watch
 
-		local token = common.debuggerStateTokenHistory[1]	
+		local token = common.debuggerStateTokenHistory[#common.debuggerStateTokenHistory]	
 		local threadId = common.currentThreadId
 		local frameNumber = common.threadIdToCurrentFrameNumber[threadId]
 

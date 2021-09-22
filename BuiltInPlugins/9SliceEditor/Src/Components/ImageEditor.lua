@@ -124,11 +124,24 @@ function ImageEditor:init(props)
 		end
 	end
 
+	self.fitImageSize = nil
+	self.getFitImageSize = function()
+		if not self.fitImageSize then
+			self.fitImageSize = pixelDimensions / math.max(pixelDimensions.X, pixelDimensions.Y) * Constants.IMAGE_SIZE
+		end
+		return self.fitImageSize
+	end
+
+	self.updateFitImageSize = function()
+		self.fitImageSize = nil
+		self.getFitImageSize()
+	end
+
 	self.updateDraggedPosition = function(inputPosition)
 		-- calculates new dragged location
 		local slice = self.props.sliceRect
 		local deltaPosition = Vector2.new(inputPosition.X, inputPosition.Y) - self.mousePosition
-		local imageDimension = Vector2.new(Constants.IMAGE_SIZE, Constants.IMAGE_SIZE)
+		local imageDimension = self.getFitImageSize()
 		self.newPosition = self.draggerPosition + deltaPosition / imageDimension
 
 		-- set corresponding position and clamp values to dragger bounds and whole pixel locations
@@ -185,6 +198,9 @@ function ImageEditor:render()
 		imageSizeText = imageSizeText .. (": %dx%d"):format(pixelDimensions.X, pixelDimensions.Y)
 	end
 
+	self.updateFitImageSize()
+	local fitImageSize = self.getFitImageSize()
+	
 	return Roact.createElement("ImageButton", {
 		-- also the coding logic background for draggers
 		BackgroundTransparency = 1,
@@ -202,7 +218,8 @@ function ImageEditor:render()
 			ImageColor3 = selectedObject.ImageColor3,
 			Position = UDim2.fromScale(0.5, 0.5),
 			ScaleType = Enum.ScaleType.Fit,
-			Size = UDim2.fromOffset(Constants.IMAGE_SIZE, Constants.IMAGE_SIZE),
+			ResampleMode = selectedObject.ResampleMode,
+			Size = UDim2.fromOffset(fitImageSize.X, fitImageSize.Y),
 		}, {
 			LeftDragSlider = self:createDragger(LEFT),
 			RightDragSlider = self:createDragger(RIGHT),

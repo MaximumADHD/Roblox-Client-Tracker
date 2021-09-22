@@ -4,7 +4,7 @@ local Colors = require(Framework.Style.Colors)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxFixSubTextColor = game:GetFastFlag("ToolboxFixSubTextColor")
+local FFlagDevFrameworkFixInputFieldColors = game:GetFastFlag("DevFrameworkFixInputFieldColors")
 
 return {
 	[StyleKey.Border] = Color3.fromRGB(182, 182, 182),
@@ -45,7 +45,8 @@ return {
 	[StyleKey.InputFieldBackgroundDisabled] = Color3.fromRGB(231, 231, 231),
 	[StyleKey.InputFieldBorder] = Color3.fromRGB(200, 200, 200),
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(182, 182, 182),
-	[StyleKey.InputFieldBorderSelected] = Color3.fromRGB(102, 145, 220),
+	[StyleKey.InputFieldBorderHover] = Colors.Blue,
+	[StyleKey.InputFieldBorderSelected] = FFlagDevFrameworkFixInputFieldColors and Colors.Blue or Color3.fromRGB(102, 145, 220),
 	[StyleKey.Item] = Colors.White,
 	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,
@@ -69,7 +70,7 @@ return {
 	[StyleKey.SliderKnobColor] = Colors.White,
 	[StyleKey.SliderKnobImage] = "rbxasset://textures/DeveloperFramework/slider_knob_light.png",
 	[StyleKey.SliderBackground] = Color3.fromRGB(204, 204, 204),
-	[StyleKey.SubText] = FFlagToolboxFixSubTextColor and Colors.Gray_Mid or Color3.fromRGB(170, 170, 170),
+	[StyleKey.SubText] = Colors.Gray_Mid,
 
 	[StyleKey.TableItem] = Colors.Gray_Lightest,
 	[StyleKey.Titlebar] = Color3.fromRGB(227, 227, 227),

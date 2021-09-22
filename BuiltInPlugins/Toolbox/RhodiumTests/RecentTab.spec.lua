@@ -14,18 +14,18 @@ return function()
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
-	local ModelsCategoryName = "Models"
+	local ModelsCategoryName = Category.FREE_MODELS.name
 	local CurrentSelectionModelsText = CurrentSelectionBasicText..Category.RECENT_MODELS.name
 	local CurrentSelectionAudioText = CurrentSelectionBasicText..Category.RECENT_AUDIO.name
 	local CurrentSelectionImagesText = CurrentSelectionBasicText..Category.RECENT_DECALS.name
 	local CurrentSelectionMeshesText = CurrentSelectionBasicText..Category.RECENT_MESHES.name
 	local CurrentSelectionVideosText = CurrentSelectionBasicText.."RecentVideos"
 
-	local DropdownIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	local RecentTabPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Tabs.Recent"
-	local RecentTabIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Tabs.Recent.Content.Icon"
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local RecentTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent")
+	local RecentTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent.Content.Icon")
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
 	--local expect = JestRoblox.Globals.expect
@@ -39,17 +39,22 @@ return function()
 			end
 		end)
 
+		beforeEach(function()
+			-- Cleanup any test Toolbox left behind by a previously failed test
+			TestHelpers.cleanupTestToolbox()
+		end)
+
 		afterAll(function()
 			Urls.constructAssetThumbnailUrl = originalConstructAssetThumbnailUrl
 		end)
 
 		afterEach(function()
-			game.CoreGui.CategoryVerification:Destroy()
+			TestHelpers.cleanupCategoryVerification()
 		end)
 
 		it("recent tab should open with models option by click on the tab", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 
 			TestHelpers.clickInstanceWithXPath(RecentTabPath)
 			local _tabIcon = Element.new(XPath.new(RecentTabIconPath))
@@ -64,7 +69,7 @@ return function()
 
 		it("dropdown menu should show up after click dropdown icon", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 
 			TestHelpers.clickInstanceWithXPath(RecentTabPath)
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
@@ -78,7 +83,7 @@ return function()
 
 		it("dropdown menu models option should work", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
 			TestHelpers.clickInstanceWithXPath(RecentTabPath)
@@ -106,7 +111,7 @@ return function()
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				local container = Instance.new("ScreenGui", game.CoreGui)
-				local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+				local instance = TestHelpers.createTestToolbox(container)
 
 				TestHelpers.clickInstanceWithXPath(RecentTabPath)
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)

@@ -21,6 +21,11 @@ if THEME_REFACTOR then
 			TextSize = 18,
 			TextColor = StyleKey.MainText,
 		},
+		SubText = {
+			Font = Enum.Font.SourceSans,
+			TextSize = 14,
+			TextColor = StyleKey.SubText,
+		},
 	}
 else
 	return function(theme, getColor)
@@ -28,6 +33,12 @@ else
 			Font = Enum.Font.SourceSans,
 			TextSize = 18,
 			TextColor = theme:GetColor("MainText"),
+		})
+
+		local SubText = Style.new({
+			Font = Enum.Font.SourceSans,
+			TextSize = 14,
+			TextColor = theme:GetColor("SubText"),
 		})
 
 		local Background = Style.new({
@@ -65,6 +76,7 @@ else
 		return {
 			Default = Background,
 			MainText = MainText,
+			SubText = SubText,
 			Background = Background,
 			Border = Border,
 			BorderHover = BorderHover,

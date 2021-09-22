@@ -7,10 +7,6 @@ return function()
 
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local Orientation = require(Plugin.Src.Util.Orientation)
-
-	beforeAll(function()
-		TestHelper.waitForHeartbeat()
-	end)
 	
 	it("should create and destroy without errors", function()
 		TestHelper.withTestComponent(ImageEditor, {
@@ -69,6 +65,8 @@ return function()
 			expect(element:getRbxInstance()).to.be.ok()
 			expect(element:waitForRbxInstance(5)).to.be.ok()
 
+			TestHelper.waitForHeartbeat()
+
 			local startPos = element:getCenter()
 			local dragAmountPx = 25
 			element:mouseDrag(dragAmountPx, 0, 1)
@@ -107,6 +105,8 @@ return function()
 			expect(element:getRbxInstance()).to.be.ok()
 			expect(element:waitForRbxInstance(5)).to.be.ok()
 
+			TestHelper.waitForHeartbeat()
+
 			local startPos = element:getCenter()
 			local dragAmountPx = 40
 			element:mouseDrag(0, -dragAmountPx, 1) -- Drag up
@@ -141,6 +141,8 @@ return function()
 			expect(sliderParent).to.be.ok()
 			local element = Rhodium.Element.new(sliderParent)
 			expect(element:getRbxInstance()).to.be.ok()
+
+			TestHelper.waitForHeartbeat()
 
 			local centerPos = element:getCenter()
 			local dragAmountPx = 20

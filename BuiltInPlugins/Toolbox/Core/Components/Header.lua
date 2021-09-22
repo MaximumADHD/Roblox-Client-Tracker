@@ -112,11 +112,13 @@ function Header:init()
 
 		local category = PageInfoHelper.getCategory(categoryName or self.props.categoryName)
 
-		Analytics.onTermSearched(
-			category,
-			searchTerm,
-			creatorId
-		)
+		if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+			Analytics.onTermSearched(
+				category,
+				searchTerm,
+				creatorId
+			)
+		end
 
 		if FFlagToolboxShowAutocompleteResults and (not Rollouts:getMarketplaceAutocomplete() or not self.IXPShowAutocomplete) then
 			self.props.logSearchAnalytics(

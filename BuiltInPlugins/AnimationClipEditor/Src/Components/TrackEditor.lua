@@ -33,7 +33,6 @@ local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
-local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
@@ -269,7 +268,7 @@ local function mapStateToProps(state, props)
 		IsPlaying = state.Status.IsPlaying,
 		SnapToKeys = state.Status.SnapToKeys,
 		SnapMode = state.Status.SnapMode,
-		AnimationData = DisplaySecondsOnTimeline() and state.AnimationData,
+		AnimationData = state.AnimationData,
 	}
 end
 

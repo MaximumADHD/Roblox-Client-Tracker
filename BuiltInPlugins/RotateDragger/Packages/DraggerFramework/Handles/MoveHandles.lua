@@ -14,8 +14,8 @@ local SummonHandlesHider = require(DraggerFramework.Components.SummonHandlesHide
 local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
+local computeDraggedDistance = require(DraggerFramework.Utility.computeDraggedDistance)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local getFFlagFixDraggerMovingInWrongDirection = require(DraggerFramework.Flags.getFFlagFixDraggerMovingInWrongDirection)
@@ -192,7 +192,7 @@ function MoveHandles:render(hoveredHandleId)
 		})
 	end
 
-	if getFFlagSummonPivot() and self._props.Summonable then
+	if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() and self._props.Summonable then
 		if self._summonBasisOffset then
 			children.SummonedPivot = Roact.createElement(DraggedPivot, {
 				DraggerContext = self._draggerContext,
@@ -221,11 +221,7 @@ function MoveHandles:render(hoveredHandleId)
 		end
 	end
 
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement("Folder", {}, children)
-	else
-		return Roact.createFragment(children)
-	end
+	return Roact.createElement("Folder", {}, children)
 end
 
 function MoveHandles:mouseDown(mouseRay, handleId)
@@ -259,10 +255,14 @@ function MoveHandles:_setupMoveAtCurrentBoundingBox(mouseRay)
 	self._axis = axis
 
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
-	-- In order to hitTest true in the first place it has to not be parallel
-	-- and thus have a distance here.
-	assert(hasDistance)
-	self._startDistance = distance
+	if getFFlagFixDraggerMovingInWrongDirection() then
+		self._startDistance = hasDistance and distance or 0.0
+	else
+		-- In order to hitTest true in the first place it has to not be parallel
+		-- and thus have a distance here.
+		assert(hasDistance)
+		self._startDistance = distance
+	end
 	self._lastGlobalTransformForRender = CFrame.new()
 end
 
@@ -272,41 +272,17 @@ end
 
 --[[
 	Returns the distance the mouse cursor was dragged along handle axis
-
-	This is non-trivial when the cursor gets away from the axis on the screen.
-	Let p be the start of the handle, u be the direction of the handle, and eye
-	be the origin of the mouse ray (eye of the camera).
-
-	Let v be the unit vector from p pointing to the eye, and let w = v x u.
-
-	Then v is normal to plane defined by points eye, p and the vector u.
-	|v| = 0 if and only if the handle projects to a dot on the screen.
-
-	Let cur be where the mouse ray intersects the plane at p spanned by u, v.
-	Find the normal projection of cur onto the handle ray, and use that to
-	compute the dragged distance.
 ]]
 function MoveHandles:_getDistanceAlongAxis(mouseRay)
 	-- this flag fixes issue MOD-602
 	if getFFlagFixDraggerMovingInWrongDirection() then
-		local eye = mouseRay.Origin
-		local ray = mouseRay.Direction.Unit
 		local draggedFrame = self._draggingOriginalBoundingBoxCFrame
 		if getEngineFeatureModelPivotVisual() then
 			draggedFrame = draggedFrame * self:_getBasisOffset()
 		end
 		local dragStartPosition = draggedFrame.Position
 		local dragDirection = self._axis.Unit
-		local handleToEyeDirection = (eye - dragStartPosition).Unit
-		local eyePlaneNormal = handleToEyeDirection:Cross(dragDirection)
-		-- the handle axis projects to a point, can't compute drag distance
-		if eyePlaneNormal:Dot(eyePlaneNormal) < 0.0001 then
-			return false
-		end
-		local dragPlaneNormal = (dragDirection:Cross(eyePlaneNormal)).Unit
-		local cursorPosition = Math.intersectRayPlanePoint(eye, ray, dragStartPosition, dragPlaneNormal)
-		local draggedDistance = (cursorPosition - dragStartPosition):Dot(dragDirection)
-		return true, draggedDistance
+		return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
 	else
 		if getEngineFeatureModelPivotVisual() then
 			return Math.intersectRayRay(

@@ -13,7 +13,7 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 return function()
 	local function createBreakpointsTable(...)
 		local arg = {...}
-		local initialStore = arg[1] or {}
+		local initialStore = arg[1] or {Breakpoint = {BreakpointIdsInDebuggerConnection = {}, BreakpointInfo = {}}}
 		return mockContext(initialStore, {
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(200, 200),
@@ -39,7 +39,7 @@ return function()
 		
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
 		for i, uniqueId in ipairs({8, 10, 9}) do
-			store:dispatch(AddBreakpoint("123", BreakpointModel.mockBreakpoint({}, uniqueId)))
+			store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({}, uniqueId)))
 		end
 		store:flush()
 
@@ -74,9 +74,15 @@ return function()
 		
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
 		for i, uniqueId in ipairs({8, 10, 9}) do
-			initialBreakpointData = Cryo.Dictionary.join({[uniqueId] = BreakpointModel.mockBreakpoint({}, uniqueId)}, initialBreakpointData)
+			initialBreakpointData = Cryo.Dictionary.join(initialBreakpointData, {[uniqueId] = BreakpointModel.mockBreakpoint({}, uniqueId)})
 		end
-		local breakpointsTableElement = createBreakpointsTable({Breakpoint = {["123"] = initialBreakpointData}})
+		local breakpointsTableElement = createBreakpointsTable(
+			{Breakpoint = 
+				{
+					BreakpointIdsInDebuggerConnection = {[123] = {[8]=8, [10]=10, [9]=9}}, 
+					BreakpointInfo = initialBreakpointData
+				}
+			})
 		
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)

@@ -20,7 +20,6 @@
 	end
 ]]
 
-local FFlagDevFrameworkBacktraceReportUser = game:DefineFastFlag("DevFrameworkBacktraceReportUser", false)
 local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
 
 local AnalyticsService = game:GetService("RbxAnalyticsService")
@@ -62,15 +61,8 @@ local IStudioPluginErrorReporterArgs = t.strictInterface({
 	}))
 })
 
-local createCollectorName
-if FFlagDevFrameworkBacktraceReportUser then
-	createCollectorName = function(namespace, pluginName)
-		return string.format("%s.%s", namespace, pluginName)
-	end
-else
-	createCollectorName = function(pluginName)
-		return string.format("%s.%s", STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName)
-	end
+local function createCollectorName(namespace, pluginName)
+	return string.format("%s.%s", namespace, pluginName)
 end
 
 local StudioPluginErrorReporter = {}
@@ -96,7 +88,7 @@ function StudioPluginErrorReporter.new(args)
 	local baseUrl = contentProvider.BaseUrl
 
 	local self = setmetatable({
-		_hasReported = FFlagDevFrameworkBacktraceReportUser and {} or nil,
+		_hasReported = {},
 	}, StudioPluginErrorReporter)
 	
 	self.errorSignal = errorSignal
@@ -141,7 +133,7 @@ function StudioPluginErrorReporter.new(args)
 			end
 
 			-- report detailed information about the error
-			if FFlagDevFrameworkBacktraceReportFirstInSession and FFlagDevFrameworkBacktraceReportUser then
+			if FFlagDevFrameworkBacktraceReportFirstInSession then
 				self:_reportError(pluginName, errorMessage, errorStack, details)
 			else
 				-- report detailed information about the error
@@ -150,13 +142,7 @@ function StudioPluginErrorReporter.new(args)
 				})
 				self.reporter:reportErrorDeferred(errorMessage, errorStack, details)
 			
-
-				if FFlagDevFrameworkBacktraceReportUser then
-					self:_reportCounts(pluginName)
-				else
-					-- keep track of the total errors
-					self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
-				end
+				self:_reportCounts(pluginName)
 			end
 		end)
 	end
@@ -164,50 +150,44 @@ function StudioPluginErrorReporter.new(args)
 	return self
 end
 
-if FFlagDevFrameworkBacktraceReportUser then
-	--remove with FFlagDevFrameworkBacktraceReportFirstInSession
-	function StudioPluginErrorReporter:_reportCounts(pluginName)
-		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
-		
-		if not self._hasReported[pluginName] then
-			self._hasReported[pluginName] = true
-			-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
-			self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
-		end
+--remove with FFlagDevFrameworkBacktraceReportFirstInSession
+function StudioPluginErrorReporter:_reportCounts(pluginName)
+	self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
+	
+	if not self._hasReported[pluginName] then
+		self._hasReported[pluginName] = true
+		-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
+		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
 	end
+end
 
-	function StudioPluginErrorReporter:_reportError(pluginName, errorMessage, errorStack, details)
-		local isFirstError = not self._hasReported[pluginName]
-		self.reporter:updateSharedAttributes({
-			PluginName = pluginName,
-			FirstErrorInSession = isFirstError and "true" or "false",
-		})
-		self.reporter:reportErrorDeferred(errorMessage, errorStack, details, isFirstError)
-		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
-		
-		if not self._hasReported[pluginName] then
-			self._hasReported[pluginName] = true
-			-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
-			self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
-		end
+function StudioPluginErrorReporter:_reportError(pluginName, errorMessage, errorStack, details)
+	local isFirstError = not self._hasReported[pluginName]
+	self.reporter:updateSharedAttributes({
+		PluginName = pluginName,
+		FirstErrorInSession = isFirstError and "true" or "false",
+	})
+	self.reporter:reportErrorDeferred(errorMessage, errorStack, details, isFirstError)
+	self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_DIAG_COLLECTOR, pluginName), 1)
+	
+	if not self._hasReported[pluginName] then
+		self._hasReported[pluginName] = true
+		-- This counter is only reported once per (plugin, session) to allow us to determine how many sessions are being impacted
+		self.analyticsService:ReportCounter(createCollectorName(STUDIO_PLUGIN_ERRORS_BY_SESSION_DIAG_COLLECTOR, pluginName), 1)
 	end
 end
 
 function StudioPluginErrorReporter:report(pluginName, errorMessage)
 	assert(type(pluginName) == "string", "Expected pluginName to be a string")
 	assert(type(errorMessage) == "string", "Expected errorMessage to be a string")
-	if FFlagDevFrameworkBacktraceReportFirstInSession and FFlagDevFrameworkBacktraceReportUser then
+	if FFlagDevFrameworkBacktraceReportFirstInSession then
 		self:_reportError(pluginName, errorMessage, debug.traceback(), nil)
 	else
 		self.reporter:updateSharedAttributes({
 			PluginName = pluginName,
 		})
 		self.reporter:reportErrorDeferred(errorMessage, debug.traceback())
-		if FFlagDevFrameworkBacktraceReportUser then
-			self:_reportCounts(pluginName)
-		else
-			self.analyticsService:ReportCounter(createCollectorName(pluginName), 1)
-		end
+		self:_reportCounts(pluginName)
 	end
 end
 

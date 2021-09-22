@@ -14,23 +14,23 @@ return function()
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
-	local ModelsCategoryName = "Models"
-	local CurrentSelectionModelsText = CurrentSelectionBasicText..ModelsCategoryName
-	local AudioCategoryName = "Audio"
-	local CurrentSelectionAudioText = CurrentSelectionBasicText..AudioCategoryName
-	local ImagesCategoryName = "Decals"
-	local CurrentSelectionImagesText = CurrentSelectionBasicText..ImagesCategoryName
-	local MeshesCategoryName = "Meshes"
-	local CurrentSelectionMeshesText = CurrentSelectionBasicText..MeshesCategoryName
-	local _VideosCategoryName = "Videos"
+	local ModelsCategoryName = Category.FREE_MODELS.name
+	local CurrentSelectionModelsText = CurrentSelectionBasicText.."Models"
+	local AudioCategoryName = Category.FREE_AUDIO.name
+	local CurrentSelectionAudioText = CurrentSelectionBasicText.."Audio"
+	local ImagesCategoryName = Category.FREE_DECALS.name
+	local CurrentSelectionImagesText = CurrentSelectionBasicText.."Decals"
+	local MeshesCategoryName = Category.FREE_MESHES.name
+	local CurrentSelectionMeshesText = CurrentSelectionBasicText.."Meshes"
+	local _VideosCategoryName = Category.MARKETPLACE_VIDEOS.name
 	local _CurrentSelectionVideosText = CurrentSelectionBasicText.._VideosCategoryName
-	local _PluginsCategoryName = "Plugins"
+	local _PluginsCategoryName = Category.WHITELISTED_PLUGINS.name
 	local _CurrentSelectionPluginsText = CurrentSelectionBasicText.._PluginsCategoryName
 
-	local DropdownIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	local MarketplaceTabIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Tabs.Marketplace.Content.Icon"
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local MarketplaceTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Marketplace.Content.Icon")
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
 	--local expect = JestRoblox.Globals.expect
@@ -44,17 +44,23 @@ return function()
 			end
 		end)
 
+		beforeEach(function()
+			-- Cleanup any test Toolbox left behind by a previously failed test
+			TestHelpers.cleanupTestToolbox()
+		end)
+
+
 		afterAll(function()
 			Urls.constructAssetThumbnailUrl = originalConstructAssetThumbnailUrl
 		end)
 
 		afterEach(function()
-			game.CoreGui.CategoryVerification:Destroy()
+			TestHelpers.cleanupCategoryVerification()
 		end)
 
-		it("marketplace tab should open on default with models option", function()
+		it("marketplace tab should open by default with models option", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 			local _tabIcon = Element.new(XPath.new(MarketplaceTabIconPath))
 
@@ -68,7 +74,7 @@ return function()
 
 		it("dropdown menu should show up after click dropdown icon", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 
 			local dropdownInstance = Element.new("game.CoreGui.ScreenGui.ClickEventDetectFrame")
@@ -80,14 +86,14 @@ return function()
 
 		it("dropdown menu models option should work", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
-			game.CoreGui.CategoryVerification:Destroy()
+			TestHelpers.cleanupCategoryVerification()
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local dropdownPluginsPath = DropdownScrollingFramePath .. Category.FREE_AUDIO.category
 			TestHelpers.clickInstanceWithXPath(dropdownPluginsPath)
-			game.CoreGui.CategoryVerification:Destroy()
+			TestHelpers.cleanupCategoryVerification()
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local dropdownModelsPath = DropdownScrollingFramePath .. Category.FREE_MODELS.category
@@ -108,9 +114,9 @@ return function()
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				local container = Instance.new("ScreenGui", game.CoreGui)
-				local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+				local instance = TestHelpers.createTestToolbox(container)
 				local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
-				game.CoreGui.CategoryVerification:Destroy()
+				TestHelpers.cleanupCategoryVerification()
 
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 				local dropdownAudioPath = DropdownScrollingFramePath .. testCases[i]

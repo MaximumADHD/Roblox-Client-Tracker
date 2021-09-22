@@ -5,7 +5,7 @@
 	Copied from GameSettings. Ideally we could reuse that code
 ]]
 
--- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+-- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
 
 local HttpService = game:GetService("HttpService")
 

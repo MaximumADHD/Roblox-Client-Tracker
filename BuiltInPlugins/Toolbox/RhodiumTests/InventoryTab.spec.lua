@@ -14,7 +14,7 @@ return function()
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
-	local ModelsCategoryName = "Models"
+	local ModelsCategoryName = Category.FREE_MODELS.name
 	local CurrentSelectionModelsText = CurrentSelectionBasicText..Category.MY_MODELS.name
 	local CurrentSelectionAudioText = CurrentSelectionBasicText..Category.MY_AUDIO.name
 	local CurrentSelectionImagesText = CurrentSelectionBasicText..Category.MY_DECALS.name
@@ -23,11 +23,11 @@ return function()
 	local CurrentSelectionPackagesText = CurrentSelectionBasicText..Category.MY_PACKAGES.name
 	local CurrentSelectionPluginsText = CurrentSelectionBasicText..Category.MY_PLUGINS.name
 
-	local DropdownIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
 	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
-	local InventoryTabPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Tabs.Inventory"
-	local InventoryTabIconPath = "game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.Tabs.Inventory.Content.Icon"
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local InventoryTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory")
+	local InventoryTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory.Content.Icon")
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
 	--local expect = JestRoblox.Globals.expect
@@ -41,17 +41,22 @@ return function()
 			end
 		end)
 
+		beforeEach(function()
+			-- Cleanup any test Toolbox left behind by a previously failed test
+			TestHelpers.cleanupTestToolbox()
+		end)
+
 		afterAll(function()
 			Urls.constructAssetThumbnailUrl = originalConstructAssetThumbnailUrl
 		end)
 
 		afterEach(function()
-			game.CoreGui.CategoryVerification:Destroy()
+			TestHelpers.cleanupCategoryVerification()
 		end)
 
 		it("Inventory tab should open with models option by click on the tab", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 
 			TestHelpers.clickInstanceWithXPath(InventoryTabPath)
 			local _tabIcon = Element.new(XPath.new(InventoryTabIconPath))
@@ -66,7 +71,7 @@ return function()
 
 		it("dropdown menu should show up after click dropdown icon", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 
 			TestHelpers.clickInstanceWithXPath(InventoryTabPath)
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
@@ -80,7 +85,7 @@ return function()
 
 		it("dropdown menu models option should work", function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
 			TestHelpers.clickInstanceWithXPath(InventoryTabPath)
@@ -109,7 +114,7 @@ return function()
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				local container = Instance.new("ScreenGui", game.CoreGui)
-				local instance = TestHelpers.createTestToolbox(container, "ToolboxComponent")
+				local instance = TestHelpers.createTestToolbox(container)
 
 				TestHelpers.clickInstanceWithXPath(InventoryTabPath)
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)

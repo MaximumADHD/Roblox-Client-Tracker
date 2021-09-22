@@ -4,7 +4,6 @@ local RequestReason = require(Plugin.Core.Types.RequestReason)
 local GetAssetsRequest = require(Plugin.Core.Networking.Requests.GetAssetsRequest)
 local GetToolboxItems = require(Plugin.Core.Networking.Requests.GetToolboxItems)
 local Category = require(Plugin.Core.Types.Category)
-local Rollouts = require(Plugin.Core.Rollouts)
 
 local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 local UpdatePageInfo = require(Plugin.Core.Actions.UpdatePageInfo)
@@ -38,13 +37,8 @@ return function(networkInterface, settings, newPageInfo)
 		end
 
 		if Category.API_NAMES[categoryName] then
-			if Rollouts:getToolboxEndpointMigration() then
-				store:dispatch(GetToolboxItems(networkInterface, categoryName,
-					audioSearchInfo, pageInfo, settings))
-			else
-				store:dispatch(GetToolboxItems(networkInterface, Category.API_NAMES[categoryName],
-					audioSearchInfo, pageInfo, settings))
-			end
+			store:dispatch(GetToolboxItems(networkInterface, categoryName,
+				audioSearchInfo, pageInfo, settings))
 		else
 			store:dispatch(GetAssetsRequest(networkInterface, pageInfo))
 		end

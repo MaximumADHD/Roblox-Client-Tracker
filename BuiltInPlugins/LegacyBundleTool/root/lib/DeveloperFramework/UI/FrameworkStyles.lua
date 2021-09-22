@@ -6,6 +6,8 @@
 	StudioFrameworkStyles extends this style table to implement
 	default values for Studio plugins.
 ]]
+local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+
 local function newDefaults()
 	return {
 		Default = {},
@@ -50,6 +52,7 @@ function FrameworkStyles.new()
 		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
+		TextInput2 = FFlagDevFrameworkTextInput2 and newDefaults() or nil,
 		TextInputDialog = newDefaults(),
 		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),

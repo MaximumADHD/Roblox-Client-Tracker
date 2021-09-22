@@ -86,7 +86,6 @@ local nameErrors = {
 	Empty = "ErrorNameEmpty",
 }
 
-local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local function loadSettings(store, contextItems)
@@ -288,29 +287,11 @@ local function displayPlaceListPage(props, localization)
 
 	local dispatchReloadPlaces = props.dispatchReloadPlaces
 
-	local placeTableHeaders
-	if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-		placeTableHeaders = {
-			{
-				Text = localization:getText("Places", "PlaceVersion"),
-				Id = "PlaceVersion",
-			},
-			{
-				Text = localization:getText("Places", "PlaceName"),
-				Id = "PlaceName",
-			},
-			{
-				Text = localization:getText("Places", "MaxPlayers"),
-				Id = "MaxPlayers",
-			}
-		}
-	else
-		placeTableHeaders = {
-			localization:getText("Places", "PlaceVersion"),
-			localization:getText("Places", "PlaceName"),
-			localization:getText("Places", "MaxPlayers"),
-		}
-	end
+	local placeTableHeaders = {
+		localization:getText("Places", "PlaceVersion"),
+		localization:getText("Places", "PlaceName"),
+		localization:getText("Places", "MaxPlayers"),
+	}
 
 	local places = props.Places and props.Places or {}
 	local placesData = createPlaceTableData(places)

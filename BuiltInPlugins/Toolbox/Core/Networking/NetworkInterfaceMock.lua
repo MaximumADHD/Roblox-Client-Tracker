@@ -92,6 +92,11 @@ function NetworkInterfaceMock:getAssets(pageInfo)
 	return Promise.resolve(fakeItemListContent)
 end
 
+function NetworkInterfaceMock:getPackageHighestPermission(assetIds)
+	return Promise.resolve({})
+end
+
+
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)
 	createStringValueforVerification(category)

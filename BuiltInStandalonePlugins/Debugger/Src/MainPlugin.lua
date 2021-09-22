@@ -58,6 +58,7 @@ local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebugger
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
 local FFlagStudioDebuggerPluginBreakpointsWindow = game:GetFastFlag("StudioDebuggerPluginBreakpointsWindow")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
+local FFlagStudioDebuggerOverhaul = game:GetFastFlag("StudioDebuggerOverhaul")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -114,7 +115,7 @@ function MainPlugin:init(props)
 		self.store = TestStore(self.store)
 	end
 
-	self.debugConnectionListener = FFlagStudioDebuggerPlugin and DebugConnectionListener.new(self.store)
+	self.debugConnectionListener = FFlagStudioDebuggerOverhaul and DebugConnectionListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
@@ -251,7 +252,7 @@ function MainPlugin:render()
 end
 
 function MainPlugin:willUnmount()
-	if FFlagDebugPopulateDebuggerPlugin and self.debugConnectionListener then
+	if FFlagStudioDebuggerOverhaul and self.debugConnectionListener then
 		self.debugConnectionListener:destroy()
 		self.debugConnectionListener = nil
 	end

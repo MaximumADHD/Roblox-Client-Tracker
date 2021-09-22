@@ -11,6 +11,10 @@ local Framework = Plugin.Packages.Framework
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 
+-- TODO: jbousellam - 9/10/21 - STUDIOPLAT-25892 - Figure out why we need to do this instead of using ContextServices.API
+local RobloxAPI = require(Framework.RobloxAPI)
+local API = RobloxAPI.new()
+
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
@@ -32,7 +36,7 @@ local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
-local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI")
+local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -86,7 +90,7 @@ function ScreenPublishFail:render()
 	local props = self.props
 	local theme = props.Theme:get("Plugin")
 	local localization = props.Localization
-	local apiImpl = props.API:get()
+	local apiImpl = API
 
 	local id = props.Id
 	local name = props.Name
@@ -147,7 +151,7 @@ function ScreenPublishFail:render()
 			OnClicked = function()
 				if not isPublishing then
 					if parentGameId == 0 then
-						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI then
+						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
 							SettingsImpl.saveAll(settings, localization, nil, nil, apiImpl)
 						else
 							SettingsImpl.saveAll(settings, localization)
@@ -169,13 +173,13 @@ if FFlagPublishPlaceAsWithContext then
 	ScreenPublishFail = withContext({
 		Theme = ContextServices.Theme,
 		Localization = ContextServices.Localization,
-		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI and ContextServices.API or nil,
+		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
 	})(ScreenPublishFail)
 else
 	ContextServices.mapToProps(ScreenPublishFail, {
 		Theme = ContextServices.Theme,
 		Localization = ContextServices.Localization,
-		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI and ContextServices.API or nil,
+		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
 	})
 end
 

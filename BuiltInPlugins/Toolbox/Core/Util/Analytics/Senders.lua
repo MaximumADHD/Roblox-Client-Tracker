@@ -12,6 +12,7 @@ local function makeSettingName(counter)
 	return "ToolboxAnalytics_" .. counter
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 local counters = {}
 
 local Senders = {}
@@ -26,11 +27,13 @@ function Senders.sendEventDeferred(target, context, name, args)
 	RbxAnalyticsService:SendEventDeferred(target, context, name, args)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Senders.trackEvent(category, action, label, value)
 	AnalyticsLogs.logEvent("trackEvent", category, action, label, value)
 	RbxAnalyticsService:TrackEvent(category, action, label, value)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Senders.trackEventWithArgs(category, action, label, argTable, value)
 	AnalyticsLogs.logEvent("trackEventWithArgs", category, action, label, value)
 	RbxAnalyticsService:TrackEventWithArgs(category, action, label, argTable, value)
@@ -42,6 +45,7 @@ function Senders.reportCounter(counter, amount)
 	RbxAnalyticsService:ReportCounter(counter, amount)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Senders.incrementCounter(counter, amount)
 	amount = amount or 1
 	AnalyticsLogs.logCounterEvent("incrementCounter", counter, amount)
@@ -57,6 +61,7 @@ function Senders.sendResultToKibana(result)
 	sendResultToKibana(result)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Senders.sendReports(plugin)
 	local userId = plugin:GetStudioUserId()
 	AnalyticsLogs.logSendReports(userId)

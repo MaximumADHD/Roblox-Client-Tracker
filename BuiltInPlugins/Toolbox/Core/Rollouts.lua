@@ -5,11 +5,6 @@ local isUserIdInGradualRollout = require(Plugin.Core.Util.isUserIdInGradualRollo
 
 local Rollouts = {}
 
-function Rollouts:getToolboxEndpointMigration()
-    local rolloutPercentage = tonumber(settings():GetFVariable("ToolboxEndpointMigrationRolloutPercentage"))
-    return isUserIdInGradualRollout(getUserId(), rolloutPercentage)
-end
-
 function Rollouts:getMarketplaceAutocomplete()
     local rolloutPercentage = tonumber(settings():GetFVariable("ToolboxMarketplaceAutocompleteRolloutPercentage"))
     return isUserIdInGradualRollout(getUserId(), rolloutPercentage)

@@ -1,7 +1,6 @@
 --[[
 	Mounts and unmounts the Roact tree.
-	Listens to GuiService signal Open9SliceEditor that is sent when
-	SliceCenter"..." button is pressed to open the 9SliceEditor window.
+	Runs on DataModel load.
 ]]
 
 if not plugin then
@@ -27,12 +26,15 @@ if not (FFlagEnable9SliceEditor and FFlagDevFrameworkAddEnumerateToUtil) then
 	return
 end
 
+local main = script.Parent.Parent
+local DebugFlags = require(main.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
-local GuiService = game:GetService("GuiService")
-
-local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 
@@ -41,49 +43,27 @@ local MainPlugin = require(main.Src.MainPlugin)
 
 -- Allows connecton to the Developer Inspector for internal engineers
 local inspector
-local handle, mainPlugin
+local handle
 
 if hasInternalPermission then
 	inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
 end
 
 local function init()
-	plugin.Name = "9-Slice Editor"
-	MouseCursorUtil.setPluginObject(plugin)
-end
+	plugin.Name = main.Name
 
-local function resetPluginHandle()
-	-- set mainPlugin handle back to nil to signal no window open
-	mainPlugin = nil
-end
-
-local function openPluginWindow(selectedInstance, pixelSize)
-	--[[
-		Initializes and populates the plugin popup window
-		with the selectedInstance and image size
-	]]--
-	if mainPlugin then
-		-- if there's already a window open, do nothing
-		return
-	end
-
-	mainPlugin = Roact.createElement(MainPlugin, {
+	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,
-		selectedObject = selectedInstance,
-		pixelDimensions = pixelSize,
-		resetPluginHandle = resetPluginHandle,
 	})
+
 	handle = Roact.mount(mainPlugin)
 
-	if inspector and hasInternalPermission then
+	if inspector then
 		inspector:addRoactTree("Roact tree", handle)
 	end
 
-	MouseCursorUtil.resetMouseCursor() -- set mouse cursor to default arrow
+	MouseCursorUtil.setPluginObject(plugin)
 end
-
--- listen for when SliceCenter "..." button is pressed
-GuiService.Open9SliceEditor:Connect(openPluginWindow)
 
 plugin.Unloading:Connect(function()
 	if inspector then

@@ -60,7 +60,6 @@ local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
-local GetFFlagHideLoadToastIfAnimationClipped = require(Plugin.LuaFlags.GetFFlagHideLoadToastIfAnimationClipped)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -513,7 +512,7 @@ function DopeSheetController:render()
 	local savedAnimName = props.Saved
 	local showClippedWarning = props.ClippedWarning
 	local showInvalidIdWarning = props.InvalidIdWarning
-	local showLoadToast = not GetFFlagHideLoadToastIfAnimationClipped() or (GetFFlagHideLoadToastIfAnimationClipped() and not showClippedWarning)
+	local showLoadToast = not showClippedWarning
 
 	local size = props.Size
 	local position = props.Position

@@ -13,6 +13,7 @@ local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("Studi
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
+local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
 local StudioService = game:GetService("StudioService")
 
@@ -261,6 +262,12 @@ local function main()
 	StudioService.GameNameUpdated:connect(function(name)
 		store:dispatch(SetUniverseName(name))
 	end)
+
+	if FFlagAssetManagerEnableModelAssets then
+		AssetManagerService.AssetImportedSignal:connect(function(assetType, assetId, assetName)
+			AssetManagerService:CreateAlias(assetType, assetId, assetName)
+		end)
+	end
 end
 
 main()

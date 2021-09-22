@@ -2,7 +2,7 @@
 	Requests used to activate (make public) or deactivate (make private) a remote place.
 ]]
 
--- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI
+-- TODO: jbousellam - 8/20/21 - Remove this file with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
 
 local HttpService = game:GetService("HttpService")
 

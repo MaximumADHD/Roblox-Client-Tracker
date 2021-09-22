@@ -1,14 +1,15 @@
-local Plugin = script.Parent.Parent.Parent.Parent
+local PluginFolder = script.Parent.Parent.Parent.Parent
 -- local Types = require(Plugin.Src.Types) -- Uncomment to access types
-local Roact = require(Plugin.Packages.Roact)
-local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = require(Plugin.Packages.Framework)
+local Roact = require(PluginFolder.Packages.Roact)
+local RoactRodux = require(PluginFolder.Packages.RoactRodux)
+local Framework = require(PluginFolder.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local PluginActions = ContextServices.PluginActions
+local Plugin = ContextServices.Plugin
 local TextService = game:GetService("TextService")
 
 local Stylizer = Framework.Style.Stylizer
@@ -22,15 +23,23 @@ local TextLabel = UI.Decoration.TextLabel
 local TreeTable = UI.TreeTable
 local SelectInputField = require(script.Parent.SelectInputField)
 
-local Actions = Plugin.Src.Actions
+local StudioUI = Framework.StudioUI
+local showContextMenu = StudioUI.showContextMenu
+
+local UtilFolder = PluginFolder.Src.Util
+local MakePluginActions = require(UtilFolder.MakePluginActions)
+
+local Actions = PluginFolder.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 
-local Models = Plugin.Src.Models
+local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.CallstackRow)
 
 local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
-local Constants = require(Plugin.Src.Util.Constants)
+local Constants = require(PluginFolder.Src.Util.Constants)
+
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
 -- Local Functions
 local function calculateTextSize(text, textSize, font)
@@ -95,6 +104,26 @@ function CallstackComponent:init()
 	
 	self.selectAll = function ()
 		print('Todo RIDE-5595')
+	end
+	
+	self.onMenuActionSelected = function(actionId, extraParameters)
+		if actionId == Constants.CallstackActionIds.CopySelected then
+			self.copySelectedRow()
+		elseif actionId == Constants.CallstackActionIds.DeleteSelected then
+			self.deleteSelectedRow()
+		elseif actionId == Constants.CallstackActionIds.SelectAll then
+			self.selectAll()
+		end
+	end
+	
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClick = function(row)
+			local props = self.props
+			local localization = props.Localization
+			local plugin = props.Plugin:get()
+			local actions = MakePluginActions.getCallstackActions(localization)
+			showContextMenu(plugin, "Call Stack", actions, self.onMenuActionSelected, {row = row})
+		end
 	end
 end
 
@@ -179,6 +208,7 @@ function CallstackComponent:render()
 				GetChildren = self.getTreeChildren,
 				DisableTooltip = false,
 				OnSelectionChange = self.onSelectionChange,
+				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
 			})
 		}),
 	})
@@ -190,6 +220,7 @@ CallstackComponent = withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
 	PluginActions = PluginActions,
+	Plugin = Plugin,
 })(CallstackComponent)
 
 CallstackComponent = RoactRodux.connect(

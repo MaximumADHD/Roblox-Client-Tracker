@@ -141,7 +141,7 @@ return function(store)
 
 	local i = 0
 	for _, uniqueId in ipairs({80,91,60,71}) do
-		store:dispatch(AddBreakpoint("123", BreakpointModel.mockBreakpoint({isEnabled = (i>=2)}, uniqueId)))
+		store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({isEnabled = (i>=2)}, uniqueId)))
 		i = i+ 1
 	end
 

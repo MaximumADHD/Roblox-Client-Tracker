@@ -15,8 +15,6 @@ local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
 
-local FFlagToolboxHideSpuriousTranslationWarnings = game:DefineFastFlag("ToolboxHideSpuriousTranslationWarnings", false)
-
 --[[
 	options:
 		getLocaleId : function void -> LocaleId
@@ -314,12 +312,7 @@ function Localization:_safeLocalize(key, args)
 
 	if not success then
 		if DebugFlags.shouldDebugWarnings() then
-			if FFlagToolboxHideSpuriousTranslationWarnings then
-				if not string.find(translated, MISSING_TRANSLATION_ERROR_MESSAGE) then
-					warn(("Toolbox error in localizing key \"%s\" to locale \"%s\": %s"):format(
-						key, translator.LocaleId, translated))
-				end
-			else
+			if not string.find(translated, MISSING_TRANSLATION_ERROR_MESSAGE) then
 				warn(("Toolbox error in localizing key \"%s\" to locale \"%s\": %s"):format(
 					key, translator.LocaleId, translated))
 			end
@@ -336,12 +329,7 @@ function Localization:_safeLocalize(key, args)
 
 		if not success then
 			if DebugFlags.shouldDebugWarnings() then
-				if FFlagToolboxHideSpuriousTranslationWarnings then
-					if not string.find(translated, MISSING_TRANSLATION_ERROR_MESSAGE) then
-						warn(("\tToolbox error in localizing key \"%s\" to default locale \"%s\": %s"):format(
-							key, defaultTranslator.LocaleId, translated))
-					end
-				else
+				if not string.find(translated, MISSING_TRANSLATION_ERROR_MESSAGE) then
 					warn(("\tToolbox error in localizing key \"%s\" to default locale \"%s\": %s"):format(
 						key, defaultTranslator.LocaleId, translated))
 				end
@@ -396,11 +384,13 @@ function Localization:_recalculateContent()
 			MyPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPlugins"),
 			MyPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryMyPackages"),
 			MyVideo = self:_safeLocalize("Studio.Toolbox.General.CategoryMyVideos"),
+			MyAnimations = self:_safeLocalize("Studio.Toolbox.General.CategoryMyAnimations"),
 			RecentModels = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentModels"),
 			RecentDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentDecals"),
 			RecentMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentMeshes"),
 			RecentAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentAudio"),
 			RecentVideo = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentVideos"),
+			RecentAnimations = self:_safeLocalize("Studio.Toolbox.General.CategoryRecentAnimations"),
 			GroupModels = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupModels"),
 			GroupDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupDecals"),
 			GroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),
@@ -413,6 +403,7 @@ function Localization:_recalculateContent()
 			CreationsAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsAudio"),
 			CreationsMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsMeshes"),
 			CreationsPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsPlugins"),
+			CreationsAnimations = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsAnimations"),
 			CreationsGroupModels = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupModels"),
 			CreationsGroupDecals = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupDecals"),
 			CreationsGroupMeshes = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupMeshes"),

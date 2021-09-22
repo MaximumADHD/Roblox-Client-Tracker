@@ -8,22 +8,39 @@ local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local Breakpoint = require(Models.Breakpoint)
 
 type BreakpointId = number
-type DebuggerConnectionId = string
+type DebuggerConnectionId = number
 
+-- Storing BreakpointIds in DebuggerConnection in a Map instead of List to quickly identify
+-- if a breakpointId is already stored in a DebuggerConnectionId
 type BreakpointStore = {
-	[DebuggerConnectionId] : {
+	BreakpointIdsInDebuggerConnection : {
+		[DebuggerConnectionId] : {
+			[BreakpointId] : BreakpointId,
+		}
+	},
+	BreakpointInfo : {
 		[BreakpointId] : Breakpoint.Breakpoint,
 	}
 }
 
 return Rodux.createReducer({}, {
 	[AddBreakpointAction.name] = function(state : BreakpointStore, action : AddBreakpointAction.Props)
-		return Cryo.Dictionary.join(state, {
+		-- throw warning if adding breakpointId to a debuggerConnectionId that already contains it.
+		if state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId] and 
+			state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId][action.breakpoint.id] then
+			assert(false)
+		end
+		local updatedBreakpointIdsForConnection = Cryo.Dictionary.join(state.BreakpointIdsInDebuggerConnection or {}, {
 			[action.debuggerConnectionId] = Cryo.Dictionary.join(
-				state[action.debuggerConnectionId] or {}, {
-					[action.breakpoint.id] = action.breakpoint
-				}
+				(state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId]) or {}, 
+				{[action.breakpoint.id] = action.breakpoint.id}
 			)
 		})
+		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo or {}, {
+			[action.breakpoint.id] = action.breakpoint
+		})
+		return Cryo.Dictionary.join(
+			state, {BreakpointIdsInDebuggerConnection = updatedBreakpointIdsForConnection}, {BreakpointInfo = updatedBreakpointInfo}
+		)
 	end,
 })

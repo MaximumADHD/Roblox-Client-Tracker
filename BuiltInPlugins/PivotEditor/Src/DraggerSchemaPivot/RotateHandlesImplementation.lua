@@ -14,6 +14,8 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
+local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
+
 local MoveHandlesForDisplay = {
 	MinusZ = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0)),
@@ -100,6 +102,12 @@ function RotateHandlesImplementation:beginDrag(selection, initialSelectionInfo)
 end
 
 function RotateHandlesImplementation:updateDrag(globalTransform)
+	-- Note: _primaryObject may be nil in the case where we delete an object in
+	-- the middle of dragging a handle.
+	if not self._primaryObject then
+		return globalTransform
+	end
+
 	local newPivot = (globalTransform * self._initialPivot):Orthonormalize()
 	setWorldPivot(self._primaryObject, newPivot)
 
@@ -123,13 +131,15 @@ function RotateHandlesImplementation:updateDrag(globalTransform)
 end
 
 function RotateHandlesImplementation:endDrag()
-	self._draggerContext:getAnalytics():sendEvent("setPivot", {
-		gridSize = self._draggerContext:getGridSize(),
-		rotateIncrement = self._draggerContext:getRotateIncrement(),
-		toolName = self._analyticsName,
-		handleId = "Rotate",
-		pivotType = classifyInstancePivot(self._primaryObject),
-	})
+	if not getFFlagPivotEditorErrors() or self._primaryObject then
+		self._draggerContext:getAnalytics():sendEvent("setPivot", {
+			gridSize = self._draggerContext:getGridSize(),
+			rotateIncrement = self._draggerContext:getRotateIncrement(),
+			toolName = self._analyticsName,
+			handleId = "Rotate",
+			pivotType = classifyInstancePivot(self._primaryObject),
+		})
+	end
 end
 
 function RotateHandlesImplementation:getSnapPoints()

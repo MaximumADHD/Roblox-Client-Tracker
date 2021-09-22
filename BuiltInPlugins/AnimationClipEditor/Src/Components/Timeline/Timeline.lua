@@ -41,7 +41,6 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local TimelineTick = require(Plugin.Src.Components.Timeline.TimelineTick)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
-local DisplaySecondsOnTimeline = require(Plugin.LuaFlags.GetFFlagDisplaySecondsOnTimeline)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
@@ -176,7 +175,7 @@ function Timeline:render()
 				TickHeightScale = onInterval and tickHeightScale or smallTickHeightScale,
 				ShowTime = onInterval,
 				PastEnd = frameNo > lastTick,
-				TimeInSeconds = DisplaySecondsOnTimeline() and StringUtils.formatTimeInSeconds(frames, frameRate)
+				TimeInSeconds = StringUtils.formatTimeInSeconds(frames, frameRate)
 			})
 		end
 

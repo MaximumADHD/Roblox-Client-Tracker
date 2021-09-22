@@ -41,13 +41,7 @@ local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 
 local MainPlugin = require(main.Src.MainPlugin)
-local handle
-
--- Allows connecton to the Developer Inspector for internal engineers
-local inspector
-if hasInternalPermission then
-	inspector = Framework.DeveloperTools.forPlugin(main.Name, plugin)
-end
+local handle, inspector
 
 local function init()
 	plugin.Name = main.Name
@@ -58,20 +52,36 @@ local function init()
 
 	handle = Roact.mount(mainPlugin)
 
+	-- Allows connecton to the Developer Inspector for internal engineers
+	if hasInternalPermission then
+		if inspector then
+			inspector:destroy()
+			inspector = nil
+		end
+
+		inspector = Framework.DeveloperTools.forStandalonePlugin(main.Name, plugin, {})
+	end
+
 	if inspector then
 		inspector:addRoactTree("Roact tree", handle)
 	end
 end
 
-plugin.Unloading:Connect(function()
+local function destroyWindow()
 	if inspector then
 		inspector:destroy()
+		inspector = nil
 	end
 
 	if handle then
 		Roact.unmount(handle)
 		handle = nil
 	end
-end)
+end
+
+plugin.Unloading:Connect(destroyWindow)
+
+-- If place session ends and we have a gui, destroy it.
+plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(destroyWindow)
 
 init()

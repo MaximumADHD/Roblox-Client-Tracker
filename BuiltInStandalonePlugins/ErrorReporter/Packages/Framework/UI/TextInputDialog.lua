@@ -30,6 +30,7 @@
 		number Spacing: Spacing between borders of dialog
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagFixInitialTextForTextInputDialog = game:DefineFastFlag("FixInitialTextForTextInputDialog", false)
 
 local Framework = script.Parent.Parent
 
@@ -56,10 +57,33 @@ TextInputDialog.defaultProps = {
 }
 
 function TextInputDialog:init()
-	self.state = {
-		text = self.props.TextInput[1].Text,
-		additionalText = self.props.TextInput[2] and self.props.TextInput[2].Text or "",
-	}
+	if FFlagFixInitialTextForTextInputDialog then
+		local text
+		local additionalText
+		local textInput = self.props.TextInput[1]
+		local additionalTextInput = self.props.TextInput[2]
+
+		if textInput and textInput.Text then
+			text = textInput.Text
+		else
+			text = ""
+		end
+		if additionalTextInput and additionalTextInput.Text then
+			additionalText = additionalTextInput.Text
+		else
+			additionalText = ""
+		end
+
+		self.state = {
+			text = text,
+			additionalText = additionalText,
+		}
+	else
+		self.state = {
+			text = self.props.TextInput[1].Text,
+			additionalText = self.props.TextInput[2] and self.props.TextInput[2].Text or "",
+		}
+	end
 end
 
 function TextInputDialog:render()

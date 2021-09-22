@@ -13,7 +13,6 @@ local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local IconButton = UI.IconButton
-local Button = UI.Button
 local Pane = UI.Pane
 local TreeTable = UI.TreeTable
 local StudioUI = Framework.StudioUI
@@ -106,12 +105,22 @@ function BreakpointsTable:render()
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/go_to_script@2x.png",
 				OnClick = function() end,
 			}),
-			ButtonPlaceholderB = Roact.createElement(Button, {
-				Text = "B",
-				TextSize = style.TextSize,
+			DisableAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
-				Style = "Round",
 				LayoutOrder = 2,
+				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
+				OnClick = function() end,
+			}),
+			DeleteBreakpointButton = Roact.createElement(IconButton, {
+				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+				LayoutOrder = 3,
+				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete@2x.png",
+				OnClick = function() end,
+			}),
+			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
+				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
+				LayoutOrder = 4,
+				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
 				OnClick = function() end,
 			}),
 		}),
@@ -142,10 +151,8 @@ ContextServices.mapToProps(BreakpointsTable, {
 BreakpointsTable = RoactRodux.connect(
 	function(state, props)
 		local breakpointsArray = {}
-		for connectionId, breakpoints in pairs(state.Breakpoint) do
-			for _, breakpoint in pairs(breakpoints) do
-				breakpointsArray = Cryo.List.join({breakpoint}, breakpointsArray)
-			end
+		for breakpointId, breakpoint in pairs(state.Breakpoint.BreakpointInfo) do
+			breakpointsArray = Cryo.List.join(breakpointsArray, {breakpoint})
 		end
 		table.sort(breakpointsArray, breakpointLineNumberComp)
 		

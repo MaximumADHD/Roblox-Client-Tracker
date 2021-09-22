@@ -103,7 +103,9 @@ function ToggleButtonWithTitle:render()
 			LayoutOrder = layoutIndex:getNextOrder(),
 			TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
 				BackgroundTransparency = 1,
+				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		})),
 
 		DescriptionWidth = Roact.createElement("Frame", {

@@ -446,13 +446,15 @@ function AssetPreviewWrapper:init(props)
 
 	self.props.clearPurchaseFlow(props.assetData.Asset.Id)
 
-	if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		self.reportPlay = function()
-			Analytics.onSoundPlayed()
-		end
+	if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+		if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
+			self.reportPlay = function()
+				Analytics.onSoundPlayed()
+			end
 
-		self.reportPause = function()
-			Analytics.onSoundPaused()
+			self.reportPause = function()
+				Analytics.onSoundPaused()
+			end
 		end
 	end
 end

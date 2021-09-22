@@ -8,7 +8,6 @@ local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local GetItemDetails = require(Plugin.Core.Networking.Requests.GetItemDetails)
 local GetCreatorName = require(Plugin.Core.Networking.Requests.GetCreatorName)
 
-local Rollouts = require(Plugin.Core.Rollouts)
 local Category = require(Plugin.Core.Types.Category)
 
 local Util = Plugin.Core.Util
@@ -54,48 +53,32 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				sortName = sort
 			end
 
-			local getRequest
+			local ownerId = nil
 
-			if Rollouts:getToolboxEndpointMigration() then
-				local ownerId = nil
+			local categoryData = Category.getCategoryByName(category)
 
-				local categoryData = Category.getCategoryByName(category)
-
-				if not categoryData then
-					error(string.format("Could not find categoryData for %s", category))
-				end
-
-				if categoryData.ownershipType == Category.OwnershipType.MY or categoryData.ownershipType == Category.OwnershipType.RECENT then
-					ownerId = getUserId()
-				elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
-					ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-				end
-
-				getRequest = networkInterface:getToolboxItems(
-					category,
-					sortName,
-					pageInfo.creatorType,
-					audioSearchInfo and audioSearchInfo.minDuration or nil,
-					audioSearchInfo and audioSearchInfo.maxDuration or nil,
-					creatorTargetId,
-					ownerId,
-					pageInfo.searchTerm or "",
-					nextPageCursor,
-					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
-				)
-			else
-				getRequest = networkInterface:getToolboxItems(
-					category,
-					sortName,
-					pageInfo.creatorType,
-					audioSearchInfo and audioSearchInfo.minDuration or nil,
-					audioSearchInfo and audioSearchInfo.maxDuration or nil,
-					creatorTargetId,
-					pageInfo.searchTerm or "",
-					nextPageCursor,
-					Constants.TOOLBOX_ITEM_SEARCH_LIMIT
-				)
+			if not categoryData then
+				error(string.format("Could not find categoryData for %s", category))
 			end
+
+			if categoryData.ownershipType == Category.OwnershipType.MY or categoryData.ownershipType == Category.OwnershipType.RECENT then
+				ownerId = getUserId()
+			elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
+				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+			end
+
+			local getRequest = networkInterface:getToolboxItems(
+				category,
+				sortName,
+				pageInfo.creatorType,
+				audioSearchInfo and audioSearchInfo.minDuration or nil,
+				audioSearchInfo and audioSearchInfo.maxDuration or nil,
+				creatorTargetId,
+				ownerId,
+				pageInfo.searchTerm or "",
+				nextPageCursor,
+				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
+			)
 
 			return getRequest:andThen(
 				function(result)

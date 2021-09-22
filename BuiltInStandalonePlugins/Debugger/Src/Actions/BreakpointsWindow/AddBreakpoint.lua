@@ -5,12 +5,12 @@ local Action = Util.Action
 local Breakpoint = require(Plugin.Src.Models.Breakpoint)
 
 export type Props = {
-	debuggerConnectionId : string,
+	debuggerConnectionId : number,
 	breakpoint : Breakpoint.Breakpoint,
 }
 
 -- Takes in the Breakpoint model and the debugger connection id
-return Action(script.Name, function(debuggerConnectionId : string, breakpoint : Breakpoint.Breakpoint) : Props
+return Action(script.Name, function(debuggerConnectionId : number, breakpoint : Breakpoint.Breakpoint) : Props
 	return {
 		debuggerConnectionId = debuggerConnectionId,
 		breakpoint = breakpoint,

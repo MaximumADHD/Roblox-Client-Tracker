@@ -22,6 +22,7 @@ local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 local TextWithInlineLink = Roact.PureComponent:extend("TextWithInlineLink")
 
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 
 function TextWithInlineLink:init()
 	local props = self.props
@@ -55,6 +56,7 @@ function TextWithInlineLink:render()
 	local maxWidth = props.MaxWidth
 	local textSize = textProps.TextSize
 	local layoutOrder = props.LayoutOrder
+	local horizontalAlignment = FFlagGameSettingsEnableVoiceChat and props.HorizontalAlignment or nil
 
 	local lines = {}
 	local lineOrder
@@ -163,6 +165,7 @@ function TextWithInlineLink:render()
 		lineElements["line_" .. i] = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Horizontal,
 			AutomaticSize = Enum.AutomaticSize.Y,
+			HorizontalAlignment = horizontalAlignment,
 		}, line.items)
 	end
 
@@ -170,6 +173,7 @@ function TextWithInlineLink:render()
 		Layout = Enum.FillDirection.Vertical,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		LayoutOrder = layoutOrder,
+		HorizontalAlignment = horizontalAlignment,
 	}, lineElements)
 end
 

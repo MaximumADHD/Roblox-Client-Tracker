@@ -16,6 +16,8 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getFFlagBetterPivotCollisions = require(Plugin.Src.Flags.getFFlagBetterPivotCollisions)
 
+local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
+
 local SMALL_REGION_RADIUS = Vector3.new(0.1, 0.1, 0.1)
 
 local MoveHandlesImplementation = {}
@@ -36,7 +38,7 @@ function MoveHandlesImplementation:_selectedIsActive()
 	end
 end
 
-function MoveHandlesImplementation:_setCurrentSnap(object)
+function MoveHandlesImplementation:_setCurrentSnap(object: Instance?)
 	self._snapPoints = computeSnapPointsForInstance(object)
 	self._snapPointsAreFor = object
 end
@@ -44,6 +46,9 @@ end
 function MoveHandlesImplementation:beginDrag(selection, initialSelectionInfo)
 	self._selection = selection
 	self._initialPivot = initialSelectionInfo:getBoundingBox()
+
+	-- Note: _primaryObject may be nil in the case where we delete an object in
+	-- the middle of dragging a handle.
 	self._primaryObject = initialSelectionInfo:getPrimaryObject()
 	self:_setCurrentSnap(self._primaryObject)
 end
@@ -131,20 +136,24 @@ function MoveHandlesImplementation:_findNewSnapTargetViaCollision(pivot)
 end
 
 function MoveHandlesImplementation:updateDrag(globalTransform)
-	local newPivot = globalTransform * self._initialPivot
-	setWorldPivot(self._primaryObject, newPivot)
-	self:_findNewSnapTargetViaCollision(newPivot)
+	if not getFFlagPivotEditorErrors() or self._primaryObject then
+		local newPivot = globalTransform * self._initialPivot
+		setWorldPivot(self._primaryObject, newPivot)
+		self:_findNewSnapTargetViaCollision(newPivot)
+	end
 	return globalTransform
 end
 
 function MoveHandlesImplementation:endDrag()
-	self._draggerContext:getAnalytics():sendEvent("setPivot", {
-		gridSize = self._draggerContext:getGridSize(),
-		rotateIncrement = self._draggerContext:getRotateIncrement(),
-		toolName = self._analyticsName,
-		handleId = "Move",
-		pivotType = classifyInstancePivot(self._primaryObject),
-	})
+	if not getFFlagPivotEditorErrors() or self._primaryObject then
+		self._draggerContext:getAnalytics():sendEvent("setPivot", {
+			gridSize = self._draggerContext:getGridSize(),
+			rotateIncrement = self._draggerContext:getRotateIncrement(),
+			toolName = self._analyticsName,
+			handleId = "Move",
+			pivotType = classifyInstancePivot(self._primaryObject),
+		})
+	end
 end
 
 function MoveHandlesImplementation:getSnapPoints()
@@ -167,6 +176,7 @@ function MoveHandlesImplementation:render(globalTransform)
 			IsActive = self:_selectedIsActive(),
 		}),
 	}
+	-- not _snapPoints will be the case when we drag into a Tool or Constraint.
 	if self._draggerContext:shouldSnapPivotToGeometry() then
 		if getFFlagSummonPivot() then
 			contents.SnapPoints = Roact.createElement(SnapPoints, {

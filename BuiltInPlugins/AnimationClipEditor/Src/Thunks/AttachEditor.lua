@@ -17,7 +17,6 @@ local AddTrack = require(Plugin.Src.Thunks.AddTrack)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
-local DisableRigAutofocus = require(Plugin.LuaFlags.GetFFlagDisableRigAutofocus)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
@@ -45,10 +44,6 @@ return function(analytics)
 			store:dispatch(SetSelectedKeyframes({}))
 			store:dispatch(SetAnimationData(nil))
 			return
-		end
-
-		if not DisableRigAutofocus() then
-			RigUtils.focusCamera(rootInstance)
 		end
 
 		-- Make sure the tracks are synchronized in case the user renamed a part.

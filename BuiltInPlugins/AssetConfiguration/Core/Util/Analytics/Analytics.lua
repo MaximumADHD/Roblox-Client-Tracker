@@ -60,10 +60,12 @@ Analytics.getPlatformId = getPlatformId
 Analytics.getClientId = getClientId
 Analytics.getStudioSessionId = getStudioSessionId
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.sendReports(plugin)
 	AnalyticsSenders.sendReports(plugin)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
 	if creatorId and creatorId > 0 then
 		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm, creatorId)
@@ -169,10 +171,12 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 	})
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.trackEventAssetInsert(assetId)
 	AnalyticsSenders.trackEvent("Action", "Insert", assetId)
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.incrementAssetInsertCollector()
 	AnalyticsSenders.incrementCounter("Inserts")
 end
@@ -197,14 +201,17 @@ function Analytics.incrementUploadeAssetFailure(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.onSoundInserted()
 	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Inserted sound")
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.onSoundPlayed()
 	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Played sound")
 end
 
+-- TODO: Remove with FFlagToolboxRemoveTrackEvent
 function Analytics.onSoundPaused()
 	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Paused sound")
 end

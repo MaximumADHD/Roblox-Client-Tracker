@@ -3,22 +3,40 @@
 	Used to response to the world position under the mouse changing.
 ]]
 
+local DraggerFramework = script.Parent.Parent
+
+local getFFlagMoreLuaDraggerFixes = require(DraggerFramework.Flags.getFFlagMoreLuaDraggerFixes)
+
 local Workspace = game:GetService("Workspace")
 
 local ViewChangeDetector = {}
 ViewChangeDetector.__index = ViewChangeDetector
 
 function ViewChangeDetector.new(mouse)
-	return setmetatable({
-		_mouse = mouse,
-		_lastCameraCFrame = Workspace.CurrentCamera.CFrame,
-		_lastMouseX = mouse.X,
-		_lastMouseY = mouse.Y,
-	}, ViewChangeDetector)
+	if getFFlagMoreLuaDraggerFixes() then
+		local currentCamera = Workspace.CurrentCamera
+		return setmetatable({
+			_mouse = mouse,
+			_lastCameraCFrame = currentCamera and currentCamera.CFrame or CFrame.new(),
+			_lastMouseX = mouse.X,
+			_lastMouseY = mouse.Y,
+		}, ViewChangeDetector)
+	else
+		return setmetatable({
+			_mouse = mouse,
+			_lastCameraCFrame = Workspace.CurrentCamera.CFrame,
+			_lastMouseX = mouse.X,
+			_lastMouseY = mouse.Y,
+		}, ViewChangeDetector)
+	end
 end
 
 function ViewChangeDetector:poll()
 	local camera = Workspace.CurrentCamera
+	if getFFlagMoreLuaDraggerFixes() and not camera then
+		return false
+	end
+	
 	local mouse = self._mouse
 
 	if (self._lastCameraCFrame ~= camera.CFrame) or (self._lastMouseX ~= mouse.X) or (self._lastMouseY ~= mouse.Y) then

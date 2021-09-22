@@ -18,6 +18,7 @@ local StudioUI = strict({
 	Dialog = require(script.Dialog),
 	Favorites = require(script.Favorites),
 	SearchBar = require(script.SearchBar),
+	showContextMenu = require(script.showContextMenu),
 	StyledDialog = require(script.StyledDialog),
 	VideoPlayer = require(script.VideoPlayer),
 	VoteBar = require(script.VoteBar),

@@ -9,8 +9,6 @@ local Roact = require(Plugin.Packages.Roact)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
-local getFFlagFoldersOverFragments = require(DraggerFramework.Flags.getFFlagFoldersOverFragments)
-
 local CULLING_MODE = Enum.AdornCullingMode.Never
 
 local MoveHandleView = Roact.PureComponent:extend("MoveHandleView")
@@ -121,11 +119,7 @@ function MoveHandleView:render()
 			})
 		})
 	end
-	if getFFlagFoldersOverFragments() then
-		return Roact.createElement("Folder", {}, children)
-	else
-		return Roact.createFragment(children)
-	end
+	return Roact.createElement("Folder", {}, children)
 end
 
 function MoveHandleView.hitTest(props, mouseRay)

@@ -1,28 +1,17 @@
---!nocheck
--- TODO Remove nocheck with FFlagToolboxFixCategoryUrlsCircularDependency2
 local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
-local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
 local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
+local FFlagToolboxAnimation = game:GetFastFlag("ToolboxAnimationTypes")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-local AssetConfigUtil
-local getAllowedAssetTypeEnums
-if FFlagToolboxFixCategoryUrlsCircularDependency2 then
-	getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
-else
-	AssetConfigUtil = require(Plugin.Core.Util.AssetConfigUtil)
-end
+local getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
 
 local Cryo = require(Plugin.Libs.Cryo)
-local StudioService = game:GetService("StudioService")
-
-local Rollouts = require(Plugin.Core.Rollouts)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -71,6 +60,10 @@ if FFlagUGCLCAssetTypes then
 	Category.AssetType.DRESS_SKIRT_ACCESSORY = 27
 end
 
+if FFlagToolboxAnimation then
+	Category.AssetType.ANIMATION = FFlagUGCLCAssetTypes and 28 or 19
+end
+
 Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.MODEL] = Enum.AssetType.Model,
 	[Category.AssetType.DECAL] = Enum.AssetType.Decal,
@@ -105,6 +98,10 @@ if FFlagUGCLCAssetTypes then
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.DRESS_SKIRT_ACCESSORY] = Enum.AssetType.DressSkirtAccessory
 end
 
+if FFlagToolboxAnimation then
+	Category.ToolboxAssetTypeToEngine[Category.AssetType.ANIMATION] = Enum.AssetType.Animation
+end
+
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MODEL}
 Category.FREE_DECALS = {name = "FreeDecals", category = "FreeDecals",
@@ -125,14 +122,14 @@ Category.MY_MESHES = {name = "MyMeshes", category = "MyMeshes",
 Category.MY_AUDIO = {name = "MyAudio", category = "MyAudio",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.AUDIO}
 Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
-	ownershipType = Category.AssetType.PLUGIN, assetType = Category.AssetType.PLUGIN}
+	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PLUGIN}
 
 Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
 Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
-	ownershipType = Category.AssetType.MY, assetType = Category.AssetType.VIDEO}
+	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.VIDEO}
 Category.RECENT_VIDEO = {name = "RecentVideo", category = "RecentVideo",
-	ownershipType = Category.OwnershipType.VIDEO, assetType = Category.AssetType.VIDEO}
+	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.VIDEO}
 
 Category.RECENT_MODELS = {name = "RecentModels", category = "RecentModels",
 	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MODEL}
@@ -353,6 +350,20 @@ Category.API_NAMES = {
 	[Category.FREE_DECALS.name] = "Decals",
 	[Category.MARKETPLACE_VIDEOS.name] = "Videos",
 	[Category.FREE_MODELS.name] = "Models",
+
+	[Category.MY_AUDIO.name] = "audio",
+	[Category.MY_PLUGINS.name] = "plugin",
+	[Category.MY_MODELS.name] = "model",
+	[Category.MY_MESHES.name] = "meshpart",
+	[Category.MY_DECALS.name] = "decal",
+	[Category.MY_VIDEOS.name] = "video",
+	[Category.MY_PACKAGES.name] = "package",
+
+	[Category.RECENT_AUDIO.name] = "audio",
+	[Category.RECENT_MODELS.name] = "model",
+	[Category.RECENT_MESHES.name] = "meshpart",
+	[Category.RECENT_DECALS.name] = "decal",
+	[Category.RECENT_VIDEO.name] = "video",	
 }
 
 Category.AUTOCOMPLETE_API_NAMES = {
@@ -363,6 +374,29 @@ Category.AUTOCOMPLETE_API_NAMES = {
 	[Category.MARKETPLACE_VIDEOS.name] = "video",
 	[Category.FREE_MODELS.name] = "model",
 }
+
+
+if FFlagToolboxAnimation then
+	Category.MY_ANIMATIONS = {name = "MyAnimations", category = "MyAnimations",
+		ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.ANIMATION}
+	Category.RECENT_ANIMATIONS = {name = "RecentAnimations", category = "RecentAnimations",
+		ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.ANIMATION}
+	Category.CREATIONS_ANIMATIONS = {name = "CreationsAnimations", category = "CreationsAnimations", assetType = Category.AssetType.ANIMATION,
+		ownershipType = Category.OwnershipType.MY,}
+
+
+	table.insert(Category.INVENTORY, Category.MY_ANIMATIONS);
+	table.insert(Category.RECENT, Category.RECENT_ANIMATIONS);
+
+	Category.API_NAMES[Category.MY_ANIMATIONS.name] = "animation"
+	Category.API_NAMES[Category.RECENT_ANIMATIONS.name] = "animation"
+	Category.AUTOCOMPLETE_API_NAMES[Category.MY_ANIMATIONS.name] = "animation"
+
+	if not FFlagToolboxRemoveGroupInventory2 then
+		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
+		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_ANIMATIONS);
+	end
+end
 
 local function getCreationCategories()
 	local categories = {
@@ -383,6 +417,11 @@ local function getCreationCategories()
 		table.insert(categories, Category.CREATIONS_GROUP_PACKAGES)
 	end
 
+	if FFlagToolboxAnimation then
+		local insertIndex = Cryo.List.find(categories, Category.CREATIONS_PLUGIN) + 1
+		table.insert(categories, insertIndex, Category.CREATIONS_ANIMATIONS)
+	end
+
 	return categories
 end
 
@@ -392,13 +431,8 @@ Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
 
 if not FFlagToolboxRemoveGroupInventory2 then
-	if Rollouts:getToolboxEndpointMigration() then
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	else
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_PACKAGES) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-	end
+	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
+	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
 
 	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
 	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
@@ -427,35 +461,6 @@ for _, category in pairs(Category) do
 	if category.name then
 		categoryByName[category.name] = category
 	end
-end
-
--- This is to facilitate testability - in the unit test we cannot set the rollout as true until after Category has been required
-function Category.updateForToolboxEndpointMigrationRollout()
-	Category.API_NAMES = Cryo.Dictionary.join(Category.API_NAMES, {
-		[Category.MY_AUDIO.name] = "audio",
-		[Category.MY_PLUGINS.name] = "plugin",
-		[Category.MY_MODELS.name] = "model",
-		[Category.MY_MESHES.name] = "meshpart",
-		[Category.MY_DECALS.name] = "decal",
-		[Category.MY_VIDEOS.name] = "video",
-		[Category.MY_PACKAGES.name] = "package",
-
-		[Category.RECENT_AUDIO.name] = "audio",
-		[Category.RECENT_MODELS.name] = "model",
-		[Category.RECENT_MESHES.name] = "meshpart",
-		[Category.RECENT_DECALS.name] = "decal",
-		[Category.RECENT_VIDEO.name] = "video",
-	})
-
-	-- Fix broken Category ownership definitions
-	-- TODO: When the rollout (ToolboxEndpointMigrationRolloutPercentage) is complete, merge these into the category definitions
-	Category.MY_PLUGINS.ownershipType = Category.OwnershipType.MY
-	Category.MY_VIDEOS.ownershipType = Category.OwnershipType.MY
-	Category.RECENT_VIDEO.ownershipType = Category.OwnershipType.RECENT
-end
-
-if Rollouts:getToolboxEndpointMigration() then
-	Category.updateForToolboxEndpointMigrationRollout()
 end
 
 Category.CREATIONS = getCreationCategories()
@@ -626,12 +631,7 @@ function Category.getCategories(tabName, roles)
 	if Category.CREATIONS_KEY == tabName then
 		local categories = getCreationCategories()
 		if roles then
-			local allowedAssetTypeEnums
-			if FFlagToolboxFixCategoryUrlsCircularDependency2 then
-				allowedAssetTypeEnums = getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
-			else
-				allowedAssetTypeEnums = AssetConfigUtil.getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
-			end
+			local allowedAssetTypeEnums = getAllowedAssetTypeEnums(roles.allowedAssetTypesForRelease)
 			if #allowedAssetTypeEnums > 0 then
 				table.insert(categories, Category.CREATIONS_CATALOG_SECTION_DIVIDER)
 				for _, assetTypeEnum in pairs(allowedAssetTypeEnums) do

@@ -19,7 +19,7 @@ return {
 			{Name = "ScaleUnit", Editable = true},
 			{Name = "FileDimensions", Editable = false},
 			{Name = "PolygonCount", Editable = false},
-			{Name = "FlattenAll", Editable = true},
+			{Name = "MergeMeshes", Editable = true},
 			{Name = "InvertNegativeFaces", Editable = true},
 		},
 	},

@@ -40,12 +40,10 @@ function DebugConnectionListener:onFocusChanged(instance)
 end
 
 function setUpConnections(debugConnectionListener)
-	--[[
 	local DebuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection) end)
 	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason) end)
 	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:connect(function(instance) debugConnectionListener:onFocusChanged(instance) end)
-	]]
 end
 
 function DebugConnectionListener.new(store)

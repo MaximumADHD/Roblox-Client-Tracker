@@ -32,6 +32,10 @@ local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 
+local FStringSpatialVoiceChatLink = game:DefineFastString("SpatialVoiceChatLink", "https://developer.roblox.com/articles/spatial-voice")
+
+local GuiService = game:GetService("GuiService")
+
 local GetVoiceChatEnabledKeyName = KeyProvider.getVoiceChatEnabledKeyName
 local voiceChatEnabledKey = FFlagGameSettingsEnableVoiceChat and GetVoiceChatEnabledKeyName() or nil
 
@@ -200,7 +204,13 @@ function Options:render()
 
 			EnableVoiceChat = FFlagGameSettingsEnableVoiceChat and Roact.createElement(ToggleButtonWithTitle, {
 				Title = localization:getText("General", "VoiceChatTitle"),
-				Description = localization:getText("General", "VoiceChatText"),
+				LinkProps = {
+					Text = localization:getText("General", "VoiceChatBody"),
+					LinkText = localization:getText("General", "VoiceChatLink"),
+					OnLinkClicked = function()
+						GuiService:OpenBrowserWindow(FStringSpatialVoiceChatLink)
+					end,
+				},
 				LayoutOrder = layoutIndex:getNextOrder(),
 				Disabled = false,
 				Selected = props.VoiceChatEnabled,

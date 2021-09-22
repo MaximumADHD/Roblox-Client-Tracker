@@ -125,7 +125,7 @@ function TopBar:render()
 		ThemeLabel = Roact.createElement(TextLabel, {
 			Text = "Theme:",
 			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = Vector2.new(1, 0),
+			AnchorPoint = Vector2.new(0, 0),
 			LayoutOrder = 7,
 		}),
 		SelectTheme = Roact.createElement(Pane, {

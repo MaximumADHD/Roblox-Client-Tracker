@@ -13,13 +13,26 @@
 			})
 		end)
 ]]
+local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+
 local Framework = script.Parent.Parent
 
 local enumerate = require(Framework.Util.enumerate)
-return enumerate("StyleModifier", {
-	"Hover",
-	"Pressed",
-	"Selected",
-	"Disabled",
-	"Indeterminate"
-})
+if FFlagDevFrameworkTextInput2 then
+	return enumerate("StyleModifier", {
+		"Hover",
+		"Pressed",
+		"Selected",
+		"Disabled",
+		"Indeterminate",
+		"Error",
+	})
+else
+	return enumerate("StyleModifier", {
+		"Hover",
+		"Pressed",
+		"Selected",
+		"Disabled",
+		"Indeterminate",
+	})
+end

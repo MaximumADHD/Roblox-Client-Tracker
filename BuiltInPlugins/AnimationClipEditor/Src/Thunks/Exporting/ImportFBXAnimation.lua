@@ -9,7 +9,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
-local SetR15 = require(Plugin.LuaFlags.GetFFlagSetR15WhenImportingAnimation)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(plugin, analytics)
@@ -21,12 +20,8 @@ return function(plugin, analytics)
 		end
 
 		local success, result = pcall(function()
-			if SetR15() then
-				local _, isR15 = RigUtils.canUseIK(rootInstance)
-				return plugin:get():ImportFbxAnimation(rootInstance, isR15)
-			else
-				return plugin:get():ImportFbxAnimation(rootInstance)
-			end
+			local _, isR15 = RigUtils.canUseIK(rootInstance)
+			return plugin:get():ImportFbxAnimation(rootInstance, isR15)
 		end)
 
 		if success then

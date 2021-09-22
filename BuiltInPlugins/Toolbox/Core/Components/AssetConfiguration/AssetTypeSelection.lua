@@ -8,7 +8,6 @@
 ]]
 
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -22,10 +21,7 @@ local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
-local getAllowedAssetTypeEnums
-if FFlagToolboxFixCategoryUrlsCircularDependency2 then
-	getAllowedAssetTypeEnums = require(Util.getAllowedAssetTypeEnums)
-end
+local getAllowedAssetTypeEnums = require(Util.getAllowedAssetTypeEnums)
 
 local Components = Plugin.Core.Components
 local NavButton = require(Components.NavButton)
@@ -81,12 +77,8 @@ function AssetTypeSelection:getSelectorItems(localizedContent)
 
 	-- only catalog item creators can upload hats
 
-	local allowedAssetTypes
-	if FFlagToolboxFixCategoryUrlsCircularDependency2 then
-		allowedAssetTypes = getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
-	else
-		allowedAssetTypes = AssetConfigUtil.getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
-	end
+	local allowedAssetTypes = getAllowedAssetTypeEnums(self.props.allowedAssetTypesForRelease)
+
 	if #allowedAssetTypes > 0 then
 		local dividerName = ""
 		if localizedContent then

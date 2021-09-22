@@ -4,9 +4,7 @@
 	(container for all 9SliceEditor components), and Roact tree.
 
 	Props:
-		pixelDimensions (Vector2) -- dimensions of the image in pixels
-		resetPlugHandle -- callback to set mainPlugin handle to nil when closed
-		selectedObject -- selected object either an image label or an image button
+		Plugin: plugin -- The plugin DataModel
 ]]
 
 local main = script.Parent.Parent
@@ -17,39 +15,54 @@ local Constants = require(main.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
-
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local SliceEditor = require(main.Src.Components.SliceEditorMain)
+local AlertDialog = require(main.Src.Components.AlertDialog)
+
 local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
+
+local GuiService = game:GetService("GuiService")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	-- initializes states for MainPlugin
-	local selectedObject = props.selectedObject
 
-	self:setState({
-		enabled = true,
-	})
+	self.state = {
+		-- Main 9-Slice Editor window visible
+		enabled = false,
+
+		-- String if we should show an alert, otherwise nil
+		showingAlertTitleKey = nil,
+		showingAlertMessageKey = nil,
+	}
+
+	self.showAlertDialog = function(title, message, messageReplacements)
+		self:setState({
+			showingAlertTitleKey = title,
+			showingAlertMessageKey = message,
+			showingAlertMessageReplacements = messageReplacements,
+		})
+	end
+
+	self.closeAlertDialog = function()
+		self:setState({
+			showingAlertTitleKey = Roact.None,
+			showingAlertMessageKey = Roact.None,
+			showingAlertMessageReplacements = Roact.None,
+		})
+	end
 
 	self.onClose = function()
 		self:setState({
 			enabled = false,
 		})
-		props.resetPluginHandle()
 	end
-
-	selectedObject.AncestryChanged:Connect(function()
-		-- if the image object has been deleted, close the plugin window
-		if not selectedObject:FindFirstAncestorOfClass("DataModel") then
-			self.onClose()
-		end
-	end)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
@@ -60,6 +73,46 @@ function MainPlugin:init(props)
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
+
+	self.onSliceCenterEditButtonClicked = function(selectedInstance)
+		if not (selectedInstance:IsA("ImageLabel") or selectedInstance:IsA("ImageButton")) then
+			self.showAlertDialog("ErrorMessageTitle", "InvalidInstanceErrorMessage")
+			return
+		end
+	
+		if not selectedInstance.IsLoaded then
+			self.showAlertDialog("ErrorMessageTitle", "ImageLoadedErrorMessage", {
+				contentId = selectedInstance.Image,
+			})
+			return
+		end
+
+		local pixelSize = selectedInstance.ContentImageSize
+		if not pixelSize or pixelSize == Vector2.new(0, 0) then
+			self.showAlertDialog("ErrorMessageTitle", "ImageContentDimensionsErrorMessage")
+			return
+		end
+
+		if self.state.enabled then
+			-- If the editor window is already open, do nothing.
+			return
+		end
+
+		self:setState({
+			selectedInstance = selectedInstance,
+			pixelDimensions = pixelSize,
+			enabled = true,
+		})
+	end
+
+	self.onOpen9SliceEditorConnection = GuiService.Open9SliceEditor:Connect(self.onSliceCenterEditButtonClicked)
+end
+
+function MainPlugin:willUnmount()
+	if self.onOpen9SliceEditorConnection then
+		self.onOpen9SliceEditorConnection:Disconnect()
+		self.onOpen9SliceEditorConnection = nil
+	end
 end
 
 function MainPlugin:render()
@@ -86,9 +139,17 @@ function MainPlugin:render()
 		}, {
 			SliceEditor = enabled and Roact.createElement(SliceEditor, {
 				onClose = self.onClose,
-				pixelDimensions = props.pixelDimensions,
-				selectedObject = props.selectedObject,
+				pixelDimensions = state.pixelDimensions,
+				selectedObject = state.selectedInstance,
 			}),
+		}),
+
+		AlertDialog = state.showingAlertTitleKey and Roact.createElement(AlertDialog, {
+			Enabled = true,
+			TitleKey = state.showingAlertTitleKey,
+			MessageKey = state.showingAlertMessageKey,
+			MessageKeyFormatTable = state.showingAlertMessageReplacements,
+			OnClose = self.closeAlertDialog, 
 		}),
 	})
 end

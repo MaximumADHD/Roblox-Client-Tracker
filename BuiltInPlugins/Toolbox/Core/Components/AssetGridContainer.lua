@@ -160,19 +160,25 @@ function AssetGridContainer:init(props)
 			if self.props.isPlaying then
 				self.props.pauseASound()
 
-				Analytics.onSoundPaused()
+				if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+					Analytics.onSoundPaused()
+				end
 				Analytics.onSoundPausedCounter()
 
 			else
 				self.props.resumeASound()
 
-				Analytics.onSoundPlayed()
+				if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+					Analytics.onSoundPlayed()
+				end
 				Analytics.onSoundPlayedCounter()
 			end
 		else
 			self.props.playASound(assetId)
 
-			Analytics.onSoundPlayed()
+			if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+				Analytics.onSoundPlayed()
+			end
 			Analytics.onSoundPlayedCounter()
 		end
 	end

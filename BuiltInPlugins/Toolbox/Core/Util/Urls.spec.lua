@@ -1,36 +1,17 @@
 return function()
     local Plugin = script.Parent.Parent.Parent
     local Category = require(Plugin.Core.Types.Category)
-    local Rollouts = require(Plugin.Core.Rollouts)
     local Urls = require(script.Parent.Urls)
 
     describe("Toolbox Endpoint Migration Rollout generates correct URLs", function()
-        local originalRolloutFunction
-        local originalApiNames
-
-        beforeAll(function()
-            originalRolloutFunction = Rollouts.getToolboxEndpointMigration
-
-            Rollouts.getToolboxEndpointMigration = function()
-                return true
-            end
-
-            originalApiNames = Category.API_NAMES
-            Category.updateForToolboxEndpointMigrationRollout()
-        end)
-
-        afterAll(function()
-            Rollouts.getToolboxEndpointMigration = originalRolloutFunction
-            Category.API_NAMES = originalApiNames
-        end)
-
         local OWNER_ID = 3
         local EXPECTED_BASE_URL = "https://apis.roblox.com/toolbox-service/v1"
 
         local function urlForCategory(category)
-            return Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
+            return Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
         end
 
+        -- Uncommit animation after ToolboxAnimationTypes is removed
         local EXPECTED = {
             { Category.FREE_AUDIO,          "/Audio" },
             { Category.WHITELISTED_PLUGINS, "/Plugins" },
@@ -46,12 +27,14 @@ return function()
             { Category.MY_DECALS,           ("/inventory/user/%d/decal"):format(OWNER_ID) },
             { Category.MY_VIDEOS,           ("/inventory/user/%d/video"):format(OWNER_ID) },
             { Category.MY_PACKAGES,         ("/inventory/user/%d/package"):format(OWNER_ID) },
+            -- { Category.MY_ANIMATIONS,       ("/inventory/user/%d/animation"):format(OWNER_ID) },
 
             { Category.RECENT_AUDIO,        ("/recent/user/%d/audio"):format(OWNER_ID) },
             { Category.RECENT_MODELS,       ("/recent/user/%d/model"):format(OWNER_ID) },
             { Category.RECENT_MESHES,       ("/recent/user/%d/meshpart"):format(OWNER_ID) },
             { Category.RECENT_DECALS,       ("/recent/user/%d/decal"):format(OWNER_ID) },
             { Category.RECENT_VIDEO,        ("/recent/user/%d/video"):format(OWNER_ID) },
+            -- { Category.RECENT_ANIMATIONS, ("/recent/user/%d/animation"):format(OWNER_ID)},
         }
 
         for _, item in ipairs(EXPECTED) do

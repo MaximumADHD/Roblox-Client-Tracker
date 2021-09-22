@@ -15,6 +15,9 @@ local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
 local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
 
+local getFFlagMoreLuaDraggerFixes = require(DraggerFramework.Flags.getFFlagMoreLuaDraggerFixes)
+local getFFlagIgnoreSpuriousViewChange = require(DraggerFramework.Flags.getFFlagIgnoreSpuriousViewChange)
+
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
 
@@ -238,6 +241,10 @@ function DraggerToolModel:classifySelectionPivot()
 end
 
 function DraggerToolModel:_processSelected()
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessSelected = true
+	end
+
 	self._mainState = DraggerStateType.Ready
 	self._stateObject = DraggerState[DraggerStateType.Ready].new(self)
 
@@ -273,9 +280,17 @@ function DraggerToolModel:_processSelected()
 	self._stateObject:enter()
 
 	self:_analyticsSessionBegin()
+
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessSelected = false
+	end
 end
 
 function DraggerToolModel:_processDeselected()
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessDeselected = true
+	end
+
 	if self._isMouseDown then
 		self:_processMouseUp()
 	end
@@ -297,6 +312,10 @@ function DraggerToolModel:_processDeselected()
 	self._selectionChangedConnection = nil
 
 	self:_analyticsSendSession()
+
+	if getFFlagMoreLuaDraggerFixes() then
+		self._debugInProcessDeselected = false
+	end
 end
 
 function DraggerToolModel:_processSelectionChanged()
@@ -353,7 +372,36 @@ end
 	Called when the camera or mouse position changes, i.e., the world position
 	currently under the mouse cursor has changed.
 ]]
+
+-- Use these to differentiate stack traces in Backtrace analytics
+local function debugErrorInBothSelectAndDeselect()
+	error("Missing stateObject (Selecting and Deselecting)")
+end
+local function debugErrorInSelect()
+	error("Missing stateObject (Selecting)")
+end
+local function debugErrorInDeselect()
+	error("Missing stateObject (Deselecting)")
+end
+local function debugErrorInNeither()
+	error("Missing stateObject (Neither)")
+end
+
 function DraggerToolModel:_processViewChanged()
+	if getFFlagIgnoreSpuriousViewChange() and not self._stateObject then
+		return
+	end
+	if getFFlagMoreLuaDraggerFixes() and not self._stateObject then
+		if self._debugInProcessSelected and self._debugInProcessDeselected then
+			debugErrorInBothSelectAndDeselect()
+		elseif self._debugInProcessSelected then
+			debugErrorInSelect()
+		elseif self._debugInProcessDeselected then
+			debugErrorInDeselect()
+		else
+			debugErrorInNeither()
+		end
+	end
 	self._stateObject:processViewChanged()
 
 	-- Derived world state may have changed as a result of the view update, so

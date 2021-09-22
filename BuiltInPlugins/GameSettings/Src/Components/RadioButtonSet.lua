@@ -38,7 +38,6 @@ local UILibrary = require(Plugin.UILibrary)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:GetFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
@@ -105,55 +104,30 @@ function RadioButtonSet:render()
 
 	for i, button in ipairs(buttons) do
 		if props.RenderItem then
-			if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-				children = Cryo.Dictionary.join(children, {
-					[button.Id] = props.RenderItem(i, button)
-				})
-			else
-				table.insert(children, props.RenderItem(i, button))
-			end
+			table.insert(children, props.RenderItem(i, button))
 		else
-			if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-				children = Cryo.Dictionary.join(children, {
-					[button.Id] = Roact.createElement(RadioButton, {
-						Title = button.Title,
-						Id = button.Id,
-						Description = button.Description,
-						Selected = (button.Id == selected) or (i == selected),
-						Index = i,
-						Enabled = props.Enabled,
-						LayoutOrder = layoutIndex:getNextOrder(),
-						OnClicked = function()
-							props.SelectionChanged(button)
-						end,
+			table.insert(children, Roact.createElement(RadioButton, {
+				Title = button.Title,
+				Id = button.Id,
+				Description = button.Description,
+				Selected = (button.Id == selected) or (i == selected),
+				Index = i,
+				Enabled = props.Enabled,
+				LayoutOrder = layoutIndex:getNextOrder(),
+				OnClicked = function()
+					props.SelectionChanged(button)
+				end,
 
-						Children = button.Children,
-					})
-				})
-			else
-				table.insert(children, Roact.createElement(RadioButton, {
-					Title = button.Title,
-					Id = button.Id,
-					Description = button.Description,
-					Selected = (button.Id == selected) or (i == selected),
-					Index = i,
-					Enabled = props.Enabled,
-					LayoutOrder = layoutIndex:getNextOrder(),
-					OnClicked = function()
-						props.SelectionChanged(button)
-					end,
-
-					Children = button.Children,
-				}))
-			end
+				Children = button.Children,
+			}))
 		end
 	end
- 
+
 	-- Still need to define a maxHeight instead of using AutomaticSize for the TitledFrame until it is refactored.
 	local maxHeight = numButtons * radioButtonTheme.size * 2
 			+ numButtons * radioButtonTheme.padding
 			+ (props.Description and radioButtonSetTheme.description.height or 0)
-	
+
 	maxHeight = math.max(self.state.maxHeight, maxHeight)
 
 	local topFrameLayoutIndex = LayoutOrderIterator.new()

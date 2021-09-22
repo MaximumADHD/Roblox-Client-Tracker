@@ -1,19 +1,11 @@
---!nocheck
--- TODO Remove nocheck with FFlagToolboxFixCategoryUrlsCircularDependency2
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxFixCategoryUrlsCircularDependency2 = game:GetFastFlag("ToolboxFixCategoryUrlsCircularDependency2")
-
-local Category
-if FFlagToolboxFixCategoryUrlsCircularDependency2 then
-	Category = require(Plugin.Core.Types.Category)
-end
+local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local Rollouts = require(Plugin.Core.Rollouts)
 
 local Urls = {}
 
@@ -125,7 +117,7 @@ function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortTy
 	})
 end
 
-function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit, useCreatorWhitelist)
+function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit, useCreatorWhitelist)
 	local query = {
 		creatorType = creatorType,
 		minDuration = minDuration,
@@ -138,29 +130,6 @@ function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDu
 		useCreatorWhitelist = useCreatorWhitelist,
 	}
 
-	local targetUrl = string.format(GET_TOOLBOX_ITEMS, category)
-
-	return targetUrl .. Url.makeQueryString(query)
-end
-
-function Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit, useCreatorWhitelist)
-	local query = {
-		creatorType = creatorType,
-		minDuration = minDuration,
-		maxDuration = maxDuration,
-		creatorTargetId = creatorTargetId,
-		keyword = keyword,
-		sortType = sortType,
-		cursor = cursor,
-		limit = limit,
-		useCreatorWhitelist = useCreatorWhitelist,
-	}
-
-	if not FFlagToolboxFixCategoryUrlsCircularDependency2 then
-		-- Category is required here as there is a circular dependency between Category and Urls
-		-- TODO STM-615: Move to file scope when circular dependency issues are fixed
-		Category = require(Plugin.Core.Types.Category)
-	end
 	local categoryData = Category.getCategoryByName(category)
 
 	if not categoryData then
@@ -185,13 +154,6 @@ function Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl(category, sor
 	end
 
 	return targetUrl .. Url.makeQueryString(query)
-end
-
-if Rollouts:getToolboxEndpointMigration() then
-	-- We do not hide the definition of the function because this makes it untestable in unit tests
-	-- (because rollout ID cannot be stubbed before requiring Urls.lua)
-	-- When the rollout is complete, replace Urls.constructGetToolboxItemsUrl
-	Urls.constructGetToolboxItemsUrl = Urls.ToolboxEndpointMigration_constructGetToolboxItemsUrl
 end
 
 -- category, string, neccesary parameter.
@@ -280,13 +242,7 @@ function Urls.constructPostVoteUrl()
 end
 
 function Urls.constructInsertAssetUrl(assetId)
-	if Rollouts:getToolboxEndpointMigration() then
-		return string.format("%s/insert/asset/%d", TOOLBOX_SERVICE_URL, assetId)
-	else
-		return INSERT_ASSET .. Url.makeQueryString({
-			assetId = assetId
-		})
-	end
+	return string.format("%s/insert/asset/%d", TOOLBOX_SERVICE_URL, assetId)
 end
 
 function Urls.constructGetPluginInfoUrl(assetId)

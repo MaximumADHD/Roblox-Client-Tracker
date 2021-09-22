@@ -21,6 +21,8 @@ local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableW
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
+local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
+
 local ZERO_VECTOR = Vector3.new()
 
 local MoveHandleDefinitions = {
@@ -84,6 +86,11 @@ function FreeformDragger:_selectedIsActive()
 end
 
 function FreeformDragger:render()
+	-- When no drag target, there's nothing to render
+	if getFFlagPivotEditorErrors() and self._lastDragTarget == nil then
+		return
+	end
+
 	local adornments = {}
 
 	for id, handleDefinition in pairs(MoveHandleDefinitions) do
@@ -104,7 +111,7 @@ function FreeformDragger:render()
 		IsActive = self:_selectedIsActive(),
 	})
 
-	if self._draggerContext:shouldSnapPivotToGeometry() then
+	if self._draggerContext:shouldSnapPivotToGeometry() and (not getFFlagPivotEditorErrors() or self._snapPoints) then
 		if getFFlagSummonPivot() then
 			adornments.SnapPoints = Roact.createElement(SnapPoints, {
 				Focus = self._lastDragTarget.mainCFrame.Position,
@@ -183,6 +190,11 @@ function FreeformDragger:_recomputeSnapPoints()
 end
 
 function FreeformDragger:_snapToSnapPoints()
+	-- not _snapPoints will be the case when we drag onto a Tool or Constraint.
+	if getFFlagPivotEditorErrors() and not self._snapPoints then
+		return
+	end
+
 	local mouseLocation = self._draggerContext:getMouseLocation()
 
 	local closestSnap = nil

@@ -336,7 +336,9 @@ local function main()
 
 	local function onPluginWillDestroy()
 		if toolboxHandle then
-			Analytics.sendReports(plugin)
+			if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
+				Analytics.sendReports(plugin)
+			end
 			Roact.unmount(toolboxHandle)
 		end
 		if inspector then

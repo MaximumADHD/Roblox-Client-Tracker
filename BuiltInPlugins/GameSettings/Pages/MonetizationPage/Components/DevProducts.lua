@@ -48,7 +48,6 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
-local FFlagFixRadioButtonSeAndTableHeadertForTesting = game:getFastFlag("FixRadioButtonSeAndTableHeadertForTesting")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function DevProducts:render()
@@ -68,29 +67,11 @@ function DevProducts:render()
     local buttonText = localization:getText("General", "ButtonCreate")
     local buttonTextExtents = GetTextSize(buttonText, theme.fontStyle.Normal.TextSize, theme.fontStyle.Normal.Font)
 
-    local headers
-    if FFlagFixRadioButtonSeAndTableHeadertForTesting then
-        headers = {
-            {
-                Text = localization:getText("Monetization", "ProductID"),
-                Id = "ProductID",
-            },
-            {
-                Text = localization:getText("Monetization", "ProductName"),
-                Id = "ProductName",
-            },
-            {
-                Text = localization:getText("Monetization", "PriceTitle"),
-                Id = "PriceTitle",
-            }
-        }
-    else
-        headers = {
-            localization:getText("Monetization", "ProductID"),
-            localization:getText("Monetization", "ProductName"),
-            localization:getText("Monetization", "PriceTitle"),
-        }
-    end
+    local headers = {
+        localization:getText("Monetization", "ProductID"),
+        localization:getText("Monetization", "ProductName"),
+        localization:getText("Monetization", "PriceTitle"),
+    }
 
     local onItemClicked = function(key, id)
         if key == (GetEditKeyName()) then

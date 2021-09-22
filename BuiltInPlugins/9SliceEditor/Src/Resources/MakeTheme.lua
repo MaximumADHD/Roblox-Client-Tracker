@@ -17,7 +17,10 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
+local ui = Style.ComponentSymbols
 -- local _StyleKey = Style.StyleKey -- uncomment to use
+
+ui:add("AlertDialog")
 
 local PluginTheme = {
 	Button = {
@@ -29,6 +32,11 @@ local PluginTheme = {
 		Size = UDim2.fromOffset(60, 20),
 		Style = "RoundedBorder",
 	},
+
+	[ui.AlertDialog] = {
+		PopupMessageSize = Vector2.new(400, 60),
+		TextSize = 18,
+	}
 }
 
 if THEME_REFACTOR then
@@ -44,6 +52,6 @@ if THEME_REFACTOR then
 	end
 else
 	-- TODO: DEVTOOLS-4731: Once THEME_REFACTOR is on, remove this
-	warn("Stylizer is required for this template")
+	warn("Stylizer is required for this plugin")
 	return
 end

@@ -17,8 +17,8 @@ local DropdownMenu = UI.DropdownMenu
 local Checkbox = UI.Checkbox
 local Separator = UI.Separator
 
-local Actions = Plugin.Src.Actions
-local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
+local Thunks = Plugin.Src.Thunks
+local FilterScopeWatchThunk = require(Thunks.FilterScopeWatchThunk)
 
 local DropdownField = Roact.PureComponent:extend("DropdownField")
 
@@ -139,12 +139,6 @@ function DropdownField:init()
 		})
 	end
 	
-	self.selectItem = function(value, index)
-		self:setState({
-			isOpen = false,
-		})
-	end
-	
 	self.openMenu = function()
 		self:setState({
 			isOpen = true,
@@ -190,7 +184,6 @@ function DropdownField:render()
 			Width = DROPDOWN_WIDTH,
 			Hide = not self.state.isOpen,
 			Items = self.keyTexts,
-			OnItemActivated = self.selectItem,
 			OnFocusLost = self.closeMenu,
 			OnRenderItem = self.onRenderItem,
 		}),
@@ -219,7 +212,7 @@ DropdownField = RoactRodux.connect(
 	function(dispatch)
 		return {
 			onScopeFilterChange = function(enabledScopes)
-				return dispatch(ScopeFilterChange(enabledScopes))
+				return dispatch(FilterScopeWatchThunk(enabledScopes))
 			end,
 		}
 	end

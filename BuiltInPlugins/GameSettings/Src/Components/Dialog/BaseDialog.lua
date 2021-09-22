@@ -5,7 +5,6 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagFixWarningDialogIcon = game:DefineFastFlag("FixWarningDialogIcon", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -41,7 +40,7 @@ function BaseDialog:render()
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),
-		Layout = not FFlagFixWarningDialogIcon and Enum.FillDirection.Vertical or nil,
+		Layout = Enum.FillDirection.Vertical,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = theme.dialog.background,
 		Spacing = theme.dialog.spacing,

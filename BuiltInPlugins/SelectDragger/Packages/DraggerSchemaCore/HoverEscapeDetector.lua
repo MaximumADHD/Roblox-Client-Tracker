@@ -11,25 +11,42 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
+local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
+local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
+
 local HoverEscapeDetector = {}
 HoverEscapeDetector.__index = HoverEscapeDetector
 
 function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
+	local SignalsAreDeferred
+	if getFFlagDraggerFrameworkFixes() then
+		local firedFlag = false
+		local temporaryEvent = Instance.new("BindableEvent")
+		temporaryEvent.Event:Connect(function()
+			firedFlag = true
+		end)
+		temporaryEvent:Fire()
+		SignalsAreDeferred = not firedFlag
+		temporaryEvent:Destroy()
+	end
+
 	local self = setmetatable({
 		_destroyed = false,
 	}, HoverEscapeDetector)
 	self._hoverInstanceEscapedConnection =
 		hoveredItem.AncestryChanged:Connect(function(child, newParent)
-			-- Waiting on the parent changing here is done to give
-			-- the engine a chance to update the physics state.
-			-- Engine physics state updates happen on hierarchy
-			-- changed events too, so they may not have happened
-			-- yet when this event is fired, which would cause raycasts
-			-- to return wrong results and other oddities like that.
-			-- If we wait for the associated parent property changed
-			-- signal to fire, then we can be sure the physics state
-			-- updates have already ocurred.
-			child:GetPropertyChangedSignal("Parent"):Wait()
+			if not getFFlagDraggerFrameworkFixes() or not SignalsAreDeferred then
+				-- Waiting on the parent changing here is done to give
+				-- the engine a chance to update the physics state.
+				-- Engine physics state updates happen on hierarchy
+				-- changed events too, so they may not have happened
+				-- yet when this event is fired, which would cause raycasts
+				-- to return wrong results and other oddities like that.
+				-- If we wait for the associated parent property changed
+				-- signal to fire, then we can be sure the physics state
+				-- updates have already ocurred.
+				child:GetPropertyChangedSignal("Parent"):Wait()
+			end
 			if not self._destroyed then
 				onEscaped()
 			end
@@ -52,10 +69,22 @@ function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 end
 
 function HoverEscapeDetector:destroy()
-	assert(not self._destroyed)
+	if getFFlagTemporaryDisableUpdownAsserts() then
+		-- Should not be needed, temporary code to diagnose issues.
+		if self._destroyed then
+			return
+		end
+	else
+		assert(not self._destroyed)
+	end
+	if getFFlagDraggerFrameworkFixes() then
+		self._destroyed = true
+	end
 	self._hoverInstanceEscapedConnection:Disconnect()
 	self._hoverInstanceContentsChangedConnection:Disconnect()
-	self._destroyed = true
+	if not getFFlagDraggerFrameworkFixes() then
+		self._destroyed = true
+	end
 end
 
 return HoverEscapeDetector
