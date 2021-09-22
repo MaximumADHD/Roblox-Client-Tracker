@@ -1,5 +1,14 @@
 Key,Source,en-us
-Studio.9SliceEditor.Plugin.Name,9SliceEditor,9SliceEditor
+Studio.9SliceEditor.TextEditor.Top,Top,Top
+Studio.9SliceEditor.Plugin.Name,9-Slice Editor,9-Slice Editor
+Studio.9SliceEditor.ImageEditor.ImageSize,Image Size,Image Size
 Studio.9SliceEditor.Plugin.Toolbar,9SliceEditor,9SliceEditor
+Studio.9SliceEditor.TextEditor.Right,Right,Right
 Studio.9SliceEditor.Plugin.Button,Toggle,Toggle
+Studio.9SliceEditor.TextEditor.Bottom,Bottom,Bottom
 Studio.9SliceEditor.Plugin.Description,Toggles the Template plugin window.,Toggles the Template plugin window.
+Studio.9SliceEditor.TextEditor.Offsets,Offsets,Offsets
+Studio.9SliceEditor.SliceEditor.CloseButton,Close,Close
+Studio.9SliceEditor.SliceEditor.RevertButton,Revert,Revert
+Studio.9SliceEditor.TextEditor.Left,Left,Left
+Studio.9SliceEditor.ImageEditor.ImageSizeError,Image Size Error: isLoaded is false,Image Size Error: isLoaded is false

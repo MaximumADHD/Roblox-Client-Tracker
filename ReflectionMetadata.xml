@@ -6552,6 +6552,11 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">AbsoluteCanvasSize</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">ScrollBarThickness</string>
           </Properties>
         </Item>
@@ -7119,6 +7124,14 @@
         <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">60</string>
       </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+	    <Properties>
+		    <string name="Name">Animator</string>
+		    <string name="ClassCategory">Animations</string>
+		    <string name="ExplorerOrder">220</string>
+		    <string name="ExplorerImageIndex">60</string>
+	    </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>

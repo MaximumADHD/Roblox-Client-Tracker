@@ -2722,6 +2722,42 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "CreateAlias",
+                    "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "aliasName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "DeleteAlias",
                     "Parameters": [
                         {
@@ -2892,6 +2928,35 @@
                     "Tags": [
                         "Yields"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "AssetImportedSignal",
+                    "Parameters": [
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "assetName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -3783,6 +3848,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "NoPromptRenameOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "NoPromptSaveAvatar",
                     "Parameters": [
                         {
@@ -3904,6 +3995,25 @@
                     "MemberType": "Function",
                     "Name": "PerformDeleteOutfit",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PerformRenameOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "name",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -4054,6 +4164,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptRenameOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptSaveAvatar",
                     "Parameters": [
                         {
@@ -4169,6 +4298,30 @@
                 {
                     "MemberType": "Function",
                     "Name": "SignalDeleteOutfitPermissionDenied",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalRenameOutfitFailed",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalRenameOutfitPermissionDenied",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -4538,6 +4691,21 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "OpenPromptRenameOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "OpenPromptSaveAvatar",
                     "Parameters": [
                         {
@@ -4627,6 +4795,21 @@
                 {
                     "MemberType": "Event",
                     "Name": "PromptDeleteOutfitCompleted",
+                    "Parameters": [
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarPromptResult"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptRenameOutfitCompleted",
                     "Parameters": [
                         {
                             "Name": "result",
@@ -10604,6 +10787,28 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DisplayName",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
                         "CanLoad": true,
                         "CanSave": false
                     },
@@ -10724,26 +10929,37 @@
                     }
                 },
                 {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "Text",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "ReadOnly",
-                        "NotReplicated"
+                    "MemberType": "Function",
+                    "Name": "EnableGuiAccess",
+                    "Parameters": [
+                        {
+                            "Name": "displayName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "statusTip",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "defaultShortcut",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
                     ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
+                    "ReturnType": {
                         "Category": "Primitive",
-                        "Name": "string"
-                    }
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -10823,10 +11039,18 @@
                             }
                         },
                         {
-                            "Name": "description",
+                            "Name": "context",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "LocalUser",
+                            "Name": "permission",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "CommandPermission"
                             }
                         }
                     ],
@@ -16400,7 +16624,7 @@
                             "Name": "script",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ScriptRef"
                             }
                         },
                         {
@@ -16414,7 +16638,7 @@
                             "Name": "breakpoint",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Breakpoint"
                             }
                         }
                     ],
@@ -16452,7 +16676,7 @@
                             "Name": "scriptRef",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "ScriptRef"
                             }
                         },
                         {
@@ -16587,7 +16811,7 @@
                             "Name": "breakpoint",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Breakpoint"
                             }
                         }
                     ],
@@ -16684,7 +16908,7 @@
                             "Name": "breakpoint",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Breakpoint"
                             }
                         }
                     ],
@@ -16699,7 +16923,7 @@
                             "Name": "breakpoint",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Breakpoint"
                             }
                         }
                     ],
@@ -16714,7 +16938,7 @@
                             "Name": "breakpoint",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Breakpoint"
                             }
                         },
                         {
@@ -16736,7 +16960,7 @@
                             "Name": "pausedState",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "PausedState"
                             }
                         },
                         {
@@ -16758,7 +16982,7 @@
                             "Name": "pausedState",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "PausedState"
                             }
                         }
                     ],
@@ -16806,7 +17030,7 @@
                             "Name": "dataModel",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "DataModel"
                             }
                         }
                     ],
@@ -16851,7 +17075,7 @@
                             "Name": "connection",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "DebuggerConnection"
                             }
                         }
                     ],
@@ -16889,7 +17113,7 @@
                             "Name": "connection",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "DebuggerConnection"
                             }
                         },
                         {
@@ -16911,7 +17135,7 @@
                             "Name": "connection",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "DebuggerConnection"
                             }
                         }
                     ],
@@ -16926,7 +17150,7 @@
                             "Name": "connection",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "DebuggerConnection"
                             }
                         }
                     ],
@@ -17252,7 +17476,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "DebuggerVariable"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -17271,7 +17495,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "DebuggerVariable"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -18404,6 +18628,105 @@
                 "Service",
                 "NotReplicated"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RotationOrder",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "RotationOrder"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAnglesAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetRotationAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "CFrame"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "X",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Y",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Z",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "EulerRotationCurve",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -20321,6 +20644,169 @@
                 "NotCreatable",
                 "Service"
             ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Length",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetKeyAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "FloatCurveKey"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetKeyIndicesAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetKeys",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetValueAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "float?"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InsertKey",
+                    "Parameters": [
+                        {
+                            "Name": "key",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "FloatCurveKey"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveKeyAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "startingIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "1",
+                            "Name": "count",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetKeys",
+                    "Parameters": [
+                        {
+                            "Name": "keys",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "FloatCurve",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -22875,6 +23361,29 @@
                 {
                     "Category": "Image",
                     "MemberType": "Property",
+                    "Name": "ContentImageSize",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
                     "Name": "HoverImage",
                     "Security": {
                         "Read": "None",
@@ -23109,6 +23618,25 @@
                         "Category": "DataType",
                         "Name": "UDim2"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetEnableContentImageSizeChangedEvents",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Gui",
@@ -23560,6 +24088,29 @@
                 {
                     "Category": "Image",
                     "MemberType": "Property",
+                    "Name": "ContentImageSize",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Image",
+                    "MemberType": "Property",
                     "Name": "Image",
                     "Security": {
                         "Read": "None",
@@ -23758,6 +24309,25 @@
                         "Category": "DataType",
                         "Name": "UDim2"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetEnableContentImageSizeChangedEvents",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Gui",
@@ -24197,23 +24767,22 @@
         {
             "Members": [
                 {
-                    "Category": "Debugging",
+                    "Category": "Scrolling",
                     "MemberType": "Property",
                     "Name": "AbsoluteCanvasSize",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
+                        "Read": "None",
+                        "Write": "None"
                     },
                     "Serialization": {
                         "CanLoad": false,
-                        "CanSave": false
+                        "CanSave": true
                     },
                     "Tags": [
-                        "Hidden",
                         "ReadOnly",
                         "NotReplicated"
                     ],
-                    "ThreadSafety": "ReadSafe",
+                    "ThreadSafety": "Unsafe",
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector2"
@@ -33340,7 +33909,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "FlattenAll",
+                    "Name": "InvertNegativeFaces",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -33358,7 +33927,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "InvertNegativeFaces",
+                    "Name": "MergeMeshes",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -70548,6 +71117,25 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TextChannel",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TextChatService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "MemberType": "Function",
                     "Name": "GetChatForUserAsync",
@@ -70723,6 +71311,13 @@
                 "Service",
                 "NotReplicated"
             ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TextSource",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -76914,6 +77509,68 @@
             "MemoryCategory": "Instances",
             "Name": "Vector3Value",
             "Superclass": "ValueBase"
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetValueAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "X",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Y",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Z",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "FloatCurve"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "Vector3Curve",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -83266,6 +83923,23 @@
         {
             "Items": [
                 {
+                    "Name": "Constant",
+                    "Value": 0
+                },
+                {
+                    "Name": "Linear",
+                    "Value": 1
+                },
+                {
+                    "Name": "Cubic",
+                    "Value": 2
+                }
+            ],
+            "Name": "KeyInterpolationMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Include",
                     "Value": 0
                 },
@@ -84922,6 +85596,35 @@
                 }
             ],
             "Name": "RollOffMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "XYZ",
+                    "Value": 0
+                },
+                {
+                    "Name": "XZY",
+                    "Value": 1
+                },
+                {
+                    "Name": "YZX",
+                    "Value": 2
+                },
+                {
+                    "Name": "YXZ",
+                    "Value": 3
+                },
+                {
+                    "Name": "ZXY",
+                    "Value": 4
+                },
+                {
+                    "Name": "ZYX",
+                    "Value": 5
+                }
+            ],
+            "Name": "RotationOrder"
         },
         {
             "Items": [

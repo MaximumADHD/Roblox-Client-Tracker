@@ -32,7 +32,7 @@ Studio.TerrainToolsV2.Action.Edit,Edit,Edit,Editar,Modifier,編集,편집,Editar
 Studio.TerrainToolsV2.Tab.Edit,Edit,Edit,Editar,Modifier,編集,편집,Editar,Изменить,编辑,编辑,編輯
 Studio.TerrainToolsV2.Action.Exit,Exit,Exit,Salir,Sortir,退出,나가기,Sair,Выход,退出,退出,退出
 Studio.TerrainToolsV2.ToolName.Grow,Grow,Grow,Aumentar,Pousser,大きく,높이기,Aumentar,Нарастить,增长,增长,生長
-Studio.TerrainToolsV2.BrushSettings.PivotPosition,Pivot Position,Pivot Position,Posición del pivote,Position pivot,ピボット位置,피벗 위치,Posição dinâmica,Положение точки поворота,锚点位置,锚点位置,軸點位置
+Studio.TerrainToolsV2.BrushSettings.PivotPosition,Pivot Position,Pivot Position,Posición del pivote,Position pivot,ピボット位置,피벗 위치,Posição dinâmica,Положение точки поворота,枢轴位置,枢轴位置,軸點位置
 Studio.TerrainToolsV2.Action.Find,Find,Find,Buscar,Trouver,探す,찾기,Localizar,Найти,查找,查找,尋找
 Studio.TerrainToolsV2.BrushSettings.Shape,Shape,Shape,Forma,Forme,形状,모양,Forma,Форма,形状,形状,形狀
 Studio.TerrainToolsV2.Action.Goto,Goto,Goto,Ir a,Aller,別ページに移動,이동,Ir para,Перейти,前往,前往,前往

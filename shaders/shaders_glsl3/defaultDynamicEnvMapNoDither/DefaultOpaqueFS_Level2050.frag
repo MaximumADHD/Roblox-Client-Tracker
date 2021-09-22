@@ -22,7 +22,7 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec4 f0 = texture(Tc2DiffuseMapTexture, VARYING1);
-    vec3 f1 = (mix(texture(DiffuseMapTexture, VARYING0), f0, vec4(f0.w)) * VARYING2).xyz;
+    vec3 f1 = vec4((mix(texture(DiffuseMapTexture, VARYING0), f0, vec4(f0.w)) * VARYING2).xyz, 0.0).xyz;
     vec3 f2 = VARYING6.xyz - (CB0[11].xyz * VARYING3.w);
     float f3 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f4 = VARYING3.yzx - (VARYING3.yzx * f3);

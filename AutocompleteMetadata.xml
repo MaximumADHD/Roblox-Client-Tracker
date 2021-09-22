@@ -2450,6 +2450,28 @@
       </Enum.PathWaypointAction>
     </Properties>
   </ItemStruct>
+  <ItemStruct name="FloatCurveKey">
+    <Function name="new" static="true">
+      <returns>
+        <FloatCurveKey></FloatCurveKey>
+      </returns>
+      <parameters>
+        <number name="Time">  The Time at this key</number>
+        <number name="Value"> The Value at this key</number>
+        <Enum.KeyInterpolationMode name="interpolation" optional="true" default="Cubic">
+            This Key interpolation mode (set to cubic if not specified)
+        </Enum.KeyInterpolationMode>
+      </parameters>
+      <description>Creates a new FloatCurveKey object.</description>
+    </Function>
+    <Properties>
+      <number name="Time">  The Time at this key</number>
+      <number name="Value"> The Value at this key</number>
+      <number name="LeftTangent"> The LeftTangent at this key</number>
+      <number name="RightTangent"> The RightTangent at this key</number>
+      <Enum.KeyInterpolationMode name="interpolation">This Key interpolation mode</Enum.KeyInterpolationMode>
+    </Properties>
+  </ItemStruct>
   <ItemStruct name="RaycastParams">
     <Function name="new" static="true">
       <returns>

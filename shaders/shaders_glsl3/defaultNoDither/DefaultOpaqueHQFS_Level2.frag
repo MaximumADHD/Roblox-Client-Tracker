@@ -27,7 +27,7 @@ void main()
     vec3 f1 = VARYING4.xyz / vec3(f0);
     vec4 f2 = texture(Tc2DiffuseMapTexture, VARYING1);
     vec3 f3 = normalize(VARYING5.xyz) * (gl_FrontFacing ? 1.0 : (-1.0));
-    vec3 f4 = (mix(texture(DiffuseMapTexture, VARYING0), f2, vec4(f2.w)) * VARYING2).xyz;
+    vec3 f4 = vec4((mix(texture(DiffuseMapTexture, VARYING0), f2, vec4(f2.w)) * VARYING2).xyz, 0.0).xyz;
     vec3 f5 = VARYING6.xyz - (CB0[11].xyz * VARYING3.w);
     float f6 = clamp(dot(step(CB0[19].xyz, abs(VARYING3.xyz - CB0[18].xyz)), vec3(1.0)), 0.0, 1.0);
     vec3 f7 = VARYING3.yzx - (VARYING3.yzx * f6);

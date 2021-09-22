@@ -118,6 +118,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
+	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
 	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
@@ -143,6 +144,7 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:ShowPackageDetails(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:UpdateAllPackages(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:ViewPackageOnWebsite(int64 packageId) {RobloxScriptSecurity}
+	Event AssetManagerService.AssetImportedSignal(int assetType, int64 assetId, string assetName) {RobloxScriptSecurity}
 	Event AssetManagerService.MayBeLinkedSourceModified(string aliasName) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -197,11 +199,13 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Array AvatarEditorService:GetRecommendedBundles(int64 bundleId) [Yields]
 	Function bool AvatarEditorService:NoPromptCreateOutfit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptRenameOutfit(int64 outfitId, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformDeleteOutfit() {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformRenameOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
@@ -209,6 +213,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
 	Function void AvatarEditorService:PromptCreateOutfit(HumanoidDescription outfit, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptDeleteOutfit(int64 outfitId)
+	Function void AvatarEditorService:PromptRenameOutfit(int64 outfitId)
 	Function void AvatarEditorService:PromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite)
 	Function CatalogPages AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
@@ -217,6 +222,8 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:SignalCreateOutfitPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalDeleteOutfitFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalDeleteOutfitPermissionDenied() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalRenameOutfitFailed() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalRenameOutfitPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSaveAvatarPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoriteFailed() {RobloxScriptSecurity}
@@ -224,11 +231,13 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptCreateOufit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptRenameOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum.AvatarPromptResult result, Variant failureType)
 	Event AvatarEditorService.PromptDeleteOutfitCompleted(Enum.AvatarPromptResult result)
+	Event AvatarEditorService.PromptRenameOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -551,17 +560,18 @@ Class CollectionService : Instance [NotCreatable] [Service]
 Class CommandInstance : Instance [NotCreatable] [NotReplicated]
 	Property bool CommandInstance.AllowGUIAccessPoints [ReadOnly]
 	Property bool CommandInstance.Checked {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string CommandInstance.DefaultShortcut {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
+	Property string CommandInstance.DefaultShortcut {RobloxScriptSecurity} [ReadOnly]
+	Property string CommandInstance.DisplayName [<📁> LoadOnly] [NotReplicated]
 	Property bool CommandInstance.Enabled {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.Icon {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
 	Property string CommandInstance.Name [ReadOnly]
 	Property Enum.CommandPermission CommandInstance.Permission {RobloxScriptSecurity} [ReadOnly]
 	Property string CommandInstance.StatusTip {RobloxScriptSecurity} [<📁> LoadOnly] [NotReplicated]
-	Property string CommandInstance.Text [ReadOnly]
+	Function void CommandInstance:EnableGuiAccess(string displayName, string statusTip, string defaultShortcut) {RobloxScriptSecurity}
 	Function void CommandInstance:RegisterExecutionCallback(Function callbackFunction) {RobloxScriptSecurity}
 Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CommandService:Execute(string name, Variant params) {RobloxScriptSecurity} [Yields]
-	Function CommandInstance CommandService:RegisterCommand(Plugin plugin, string name, string description) {RobloxScriptSecurity} [Yields]
+	Function CommandInstance CommandService:RegisterCommand(Plugin plugin, string name, string context, Enum.CommandPermission permission = "LocalUser") {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(string name, Variant params) {RobloxScriptSecurity}
 Class Configuration : Instance
 Class Constraint : Instance [NotCreatable]
@@ -870,32 +880,32 @@ Class DebuggerBreakpoint : Instance [NotCreatable]
 Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function void DebuggerConnection:AddBreakpoint(Instance script, int line, Instance breakpoint) {RobloxScriptSecurity}
+	Function void DebuggerConnection:AddBreakpoint(ScriptRef script, int line, Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function StackFrame DebuggerConnection:GetFrameById(int id) {RobloxScriptSecurity}
-	Function int DebuggerConnection:GetSource(Instance scriptRef, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:GetSource(ScriptRef scriptRef, Function status) {RobloxScriptSecurity}
 	Function ThreadState DebuggerConnection:GetThreadById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetThreads(Function callback) {RobloxScriptSecurity}
 	Function DebuggerVariable DebuggerConnection:GetVariableById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Pause(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Populate(Instance instance, Function callback) {RobloxScriptSecurity}
-	Function void DebuggerConnection:RemoveBreakpoint(Instance breakpoint) {RobloxScriptSecurity}
+	Function void DebuggerConnection:RemoveBreakpoint(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:SetVariable(DebuggerVariable variable, string value, Function callback) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
-	Event DebuggerConnection.BreakpointAdded(Instance breakpoint) {RobloxScriptSecurity}
-	Event DebuggerConnection.BreakpointChanged(Instance breakpoint) {RobloxScriptSecurity}
-	Event DebuggerConnection.BreakpointRemoved(Instance breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
-	Event DebuggerConnection.Paused(Instance pausedState, Enum.DebuggerPauseReason reason) {RobloxScriptSecurity}
-	Event DebuggerConnection.Resumed(Instance pausedState) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointAdded(Breakpoint breakpoint) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointChanged(Breakpoint breakpoint) {RobloxScriptSecurity}
+	Event DebuggerConnection.BreakpointRemoved(Breakpoint breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnection.Paused(PausedState pausedState, Enum.DebuggerPauseReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnection.Resumed(PausedState pausedState) {RobloxScriptSecurity}
 Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property double DebuggerConnectionManager.Timeout {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Function int DebuggerConnectionManager:ConnectLocal(Instance dataModel) {RobloxScriptSecurity}
+	Function int DebuggerConnectionManager:ConnectLocal(DataModel dataModel) {RobloxScriptSecurity}
 	Function int DebuggerConnectionManager:ConnectRemote(string host, int port) {RobloxScriptSecurity}
-	Function void DebuggerConnectionManager:FocusConnection(Instance connection) {RobloxScriptSecurity}
+	Function void DebuggerConnectionManager:FocusConnection(DebuggerConnection connection) {RobloxScriptSecurity}
 	Function DebuggerConnection DebuggerConnectionManager:GetConnectionById(int id) {RobloxScriptSecurity}
-	Event DebuggerConnectionManager.ConnectionEnded(Instance connection, Enum.DebuggerEndReason reason) {RobloxScriptSecurity}
-	Event DebuggerConnectionManager.ConnectionStarted(Instance connection) {RobloxScriptSecurity}
-	Event DebuggerConnectionManager.FocusChanged(Instance connection) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.ConnectionEnded(DebuggerConnection connection, Enum.DebuggerEndReason reason) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.ConnectionStarted(DebuggerConnection connection) {RobloxScriptSecurity}
+	Event DebuggerConnectionManager.FocusChanged(DebuggerConnection connection) {RobloxScriptSecurity}
 Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DebuggerManager.DebuggingEnabled [ReadOnly]
 	Function Instance DebuggerManager:AddDebugger(Instance script)
@@ -914,8 +924,8 @@ Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property int DebuggerVariable.VariableId {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int DebuggerVariable.VariablesCount {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerVariable.Populated {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function Instance DebuggerVariable:GetVariableByIndex(int index) {RobloxScriptSecurity}
-	Function Instance DebuggerVariable:GetVariableByName(string name) {RobloxScriptSecurity}
+	Function DebuggerVariable DebuggerVariable:GetVariableByIndex(int index) {RobloxScriptSecurity}
+	Function DebuggerVariable DebuggerVariable:GetVariableByName(string name) {RobloxScriptSecurity}
 Class DebuggerWatch : Instance
 	Property string DebuggerWatch.Expression
 Class Dialog : Instance
@@ -976,6 +986,13 @@ Class DraggerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DraggerService.PivotSnapToGeometry {RobloxScriptSecurity} [ReadOnly]
 	Property bool DraggerService.ShowHover [ReadOnly]
 	Property bool DraggerService.ShowPivotIndicator [NotReplicated]
+Class EulerRotationCurve : Instance
+	Property Enum.RotationOrder EulerRotationCurve.RotationOrder
+	Function Array EulerRotationCurve:GetAnglesAtTime(float time)
+	Function CFrame EulerRotationCurve:GetRotationAtTime(float time)
+	Function FloatCurve EulerRotationCurve:X()
+	Function FloatCurve EulerRotationCurve:Y()
+	Function FloatCurve EulerRotationCurve:Z()
 Class EventIngestService : Instance [NotCreatable] [Service]
 	Function void EventIngestService:SendEventDeferred(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
 	Function void EventIngestService:SendEventImmediately(string target, string eventContext, string eventName, Dictionary additionalArgs) {RobloxScriptSecurity}
@@ -1073,6 +1090,15 @@ Class Fire : Instance
 	Property Color3 Fire.SecondaryColor
 	Property float Fire.Size [<📁> LoadOnly] [NotReplicated]
 Class FlagStandService : Instance [NotCreatable] [Service]
+Class FloatCurve : Instance
+	Property int FloatCurve.Length [ReadOnly]
+	Function FloatCurveKey FloatCurve:GetKeyAtIndex(int index)
+	Function Array FloatCurve:GetKeyIndicesAtTime(float time)
+	Function Array FloatCurve:GetKeys()
+	Function float? FloatCurve:GetValueAtTime(float time)
+	Function Array FloatCurve:InsertKey(FloatCurveKey key)
+	Function int FloatCurve:RemoveKeyAtIndex(int startingIndex, int count = 1)
+	Function int FloatCurve:SetKeys(Array keys)
 Class FlyweightService : Instance [Service]
 Class CSGDictionaryService : FlyweightService [Service]
 Class NonReplicatedCSGDictionaryService : FlyweightService [Service]
@@ -1200,6 +1226,7 @@ Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
 	Event GuiButton.MouseButton2Down(int x, int y)
 	Event GuiButton.MouseButton2Up(int x, int y)
 Class ImageButton : GuiButton
+	Property Vector2 ImageButton.ContentImageSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Content ImageButton.HoverImage
 	Property Content ImageButton.Image
 	Property Color3 ImageButton.ImageColor3
@@ -1213,6 +1240,7 @@ Class ImageButton : GuiButton
 	Property Rect ImageButton.SliceCenter
 	Property float ImageButton.SliceScale
 	Property UDim2 ImageButton.TileSize
+	Function void ImageButton:SetEnableContentImageSizeChangedEvents(bool enabled) {RobloxScriptSecurity}
 Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
 	Property Enum.Font TextButton.Font
@@ -1238,6 +1266,7 @@ Class TextButton : GuiButton
 	Function void TextButton:SetTextFromInput(string text) {RobloxScriptSecurity}
 Class GuiLabel : GuiObject [NotCreatable]
 Class ImageLabel : GuiLabel
+	Property Vector2 ImageLabel.ContentImageSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Content ImageLabel.Image
 	Property Color3 ImageLabel.ImageColor3
 	Property Vector2 ImageLabel.ImageRectOffset
@@ -1249,6 +1278,7 @@ Class ImageLabel : GuiLabel
 	Property Rect ImageLabel.SliceCenter
 	Property float ImageLabel.SliceScale
 	Property UDim2 ImageLabel.TileSize
+	Function void ImageLabel:SetEnableContentImageSizeChangedEvents(bool enabled) {RobloxScriptSecurity}
 Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
 	Property Enum.Font TextLabel.Font
@@ -1273,10 +1303,10 @@ Class TextLabel : GuiLabel
 	Property Enum.TextYAlignment TextLabel.TextYAlignment
 	Function void TextLabel:SetTextFromInput(string text) {RobloxScriptSecurity}
 Class ScrollingFrame : GuiObject
-	Property Vector2 ScrollingFrame.AbsoluteCanvasSize {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Rect ScrollingFrame.HorizontalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Vector2 ScrollingFrame.MaxCanvasPosition {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property Rect ScrollingFrame.VerticalBarRect {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Vector2 ScrollingFrame.AbsoluteCanvasSize [ReadOnly] {🧬Unsafe}
 	Property Vector2 ScrollingFrame.AbsoluteWindowSize [ReadOnly] {🧬Unsafe}
 	Property Enum.AutomaticSize ScrollingFrame.AutomaticCanvasSize
 	Property Content ScrollingFrame.BottomImage
@@ -1786,8 +1816,8 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.DoubleSided
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
-	Property bool ImporterRootSettings.FlattenAll
 	Property bool ImporterRootSettings.InvertNegativeFaces
+	Property bool ImporterRootSettings.MergeMeshes
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property Enum.NormalId ImporterRootSettings.WorldForward
@@ -3712,6 +3742,8 @@ Class TestService : Instance [Service]
 	Function bool TestService:isFeatureEnabled(string name)
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
+Class TextChannel : Instance
+Class TextChatService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
 	Function string TextFilterResult:GetNonChatStringForBroadcastAsync() [Yields]
@@ -3720,6 +3752,7 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
+Class TextSource : Instance
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
@@ -4058,6 +4091,11 @@ Class StringValue : ValueBase
 Class Vector3Value : ValueBase
 	Property Vector3 Vector3Value.Value
 	Event Vector3Value.Changed(Vector3 value)
+Class Vector3Curve : Instance
+	Function Array Vector3Curve:GetValueAtTime(float time)
+	Function FloatCurve Vector3Curve:X()
+	Function FloatCurve Vector3Curve:Y()
+	Function FloatCurve Vector3Curve:Z()
 Class VersionControlService : Instance [NotCreatable] [Service]
 Class VirtualInputManager : Instance [Service]
 	Property string VirtualInputManager.AdditionalLuaState {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -5290,6 +5328,10 @@ Enum KeyCode
 	EnumItem KeyCode.DPadDown : 1015
 	EnumItem KeyCode.Thumbstick1 : 1016
 	EnumItem KeyCode.Thumbstick2 : 1017
+Enum KeyInterpolationMode
+	EnumItem KeyInterpolationMode.Constant : 0
+	EnumItem KeyInterpolationMode.Linear : 1
+	EnumItem KeyInterpolationMode.Cubic : 2
 Enum KeywordFilterType
 	EnumItem KeywordFilterType.Include : 0
 	EnumItem KeywordFilterType.Exclude : 1
@@ -5671,6 +5713,13 @@ Enum RollOffMode
 	EnumItem RollOffMode.Linear : 1
 	EnumItem RollOffMode.LinearSquare : 2
 	EnumItem RollOffMode.InverseTapered : 3
+Enum RotationOrder
+	EnumItem RotationOrder.XYZ : 0
+	EnumItem RotationOrder.XZY : 1
+	EnumItem RotationOrder.YZX : 2
+	EnumItem RotationOrder.YXZ : 3
+	EnumItem RotationOrder.ZXY : 4
+	EnumItem RotationOrder.ZYX : 5
 Enum RotationType
 	EnumItem RotationType.MovementRelative : 0
 	EnumItem RotationType.CameraRelative : 1

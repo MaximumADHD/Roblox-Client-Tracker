@@ -2434,6 +2434,9 @@
                 "AbsoluteWindowSize": {
                     "summary": "The size in pixels of the frame, without the scrollbars."
                 },
+                "AbsoluteCanvasSize": {
+                    "summary": "The size in pixels of the scrollable canvas area."
+                },
                 "ScrollBarThickness": {
                     "summary": "How thick the scroll bar appears. This applies to both the horizontal and vertical scroll bars. Can be set to 0 for no bars render."
                 },

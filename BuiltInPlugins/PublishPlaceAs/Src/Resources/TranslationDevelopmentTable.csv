@@ -72,7 +72,6 @@ Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},Substituted with current name le
 Studio.PublishPlaceAs.Error.NoDevices,You must select at least one playable device., ,You must select at least one playable device.
 Studio.PublishPlaceAs.Error.GetConfiguration,Error getting universe configuration info., ,Error getting universe configuration info.
 Studio.PublishPlaceAs.Error.SetConfiguration,Error setting universe configuration info., ,Error setting universe configuration info.
-Studio.PublishPlaceAs.Error.SetRootPlaceInfo,Error setting root place info., ,Error setting root place info.
 Studio.PublishPlaceAs.Error.ActivatingUniverse,Error activating the universe., ,Error activating the universe.
 Studio.PublishPlaceAs.Error.DeactivatingUniverse,Error deactivating the universe., ,Error deactivating the universe.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,Choose an existing game to add this place

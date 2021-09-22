@@ -1,4 +1,9 @@
 Key,en-us
+Studio.9SliceEditor.AlertDialog.ErrorMessageTitle,Error
+Studio.9SliceEditor.AlertDialog.ImageContentDimensionsErrorMessage,Can't open the 9 Slice Editor because couldn't get image content size. Please make sure the image is visible on screen.
+Studio.9SliceEditor.AlertDialog.ImageLoadedErrorMessage,Can't open the 9 Slice Editor because the image asset "{contentId}" hasn't loaded.
+Studio.9SliceEditor.AlertDialog.InvalidInstanceErrorMessage,Can't open the 9 Slice Editor because the selected instance must be an ImageLabel or ImageButton.
+Studio.9SliceEditor.AlertDialog.OkButtonText,Ok
 Studio.9SliceEditor.ImageEditor.ImageSize,Image Size
 Studio.9SliceEditor.ImageEditor.ImageSizeError,Image Size Error: isLoaded is false
 Studio.9SliceEditor.Plugin.Name,9-Slice Editor

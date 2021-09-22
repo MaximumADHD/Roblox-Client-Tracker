@@ -654,6 +654,10 @@ Studio.App.ScriptingCmd.FOLDBLOCK,,Fold Code Block,Fold Code Block
 Studio.App.ScriptingCmd.FOLDBLOCKTooltip,,Fold a block of code in the script,Fold a block of code in the script
 Studio.App.ScriptingCmd.UNFOLDBLOCK,,Unfold Code Block,Unfold Code Block
 Studio.App.ScriptingCmd.UNFOLDBLOCKTooltip,,Unfold a block of code in the script,Unfold a block of code in the script
+Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPT,,Display only current script,Display only current script
+Studio.App.NamedViewCmd.TOGGLEDISPLAYONLYCURRENTSCRIPTTooltip,,Display only the current script in the Script Analysis widget,Display only the current script in the Script Analysis widget
+Studio.App.NamedViewCmd.TOGGLEDISPLAYERRORSTooltip,,Display errors in the Script Analysis widget,Display errors in the Script Analysis widget
+Studio.App.NamedViewCmd.TOGGLEDISPLAYWARNINGSTooltip,,Display warnings in the Script Analysis widget,Display warnings in the Script Analysis widget
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
 Studio.App.RBXMainWindow.AddWatch,,Add Watch,Add Watch
@@ -3096,6 +3100,8 @@ Studio.App.ExternalLoginDialog.ReloadLoginPage,,Refresh,Refresh
 Studio.App.ExternalLoginDialog.RobloxLogin,,Roblox login,Roblox login
 Studio.App.ExternalLoginDialog.ExternalBrowserLogin,,External Browser Login,External Browser Login
 Studio.App.ExternalLoginDialog.StudioWillClose,,"Roblox Studio will now close, continue on the browser.","Roblox Studio will now close, continue on the browser."
+Studio.App.ExternalLoginDialog.CertificateCheckTimeout,,"Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login.","Timeout on certification check, might due to unstable internet. If you can't see the login page, try refreshing or using external brower to login."
+Studio.App.ExternalLoginDialog.CertificateCheckError,,"We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login.","We failed the certificate check on your machine. If you can't see the login page, try refreshing or using external brower to login."
 Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Color3 constructor,Invalid arguments to Color3 constructor
 Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
 Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us

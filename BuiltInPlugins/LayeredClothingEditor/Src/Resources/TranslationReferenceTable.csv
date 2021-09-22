@@ -63,7 +63,7 @@ Studio.LayeredClothingEditor.AssetType.Prompt,Select the asset type:,Select the 
 Studio.LayeredClothingEditor.AssetType.Face,Face,Face,Cara,顔,얼굴,Rosto,脸部,脸部,臉部
 Studio.LayeredClothingEditor.AssetType.Shoulder,Shoulder,Shoulder,Hombro,肩,어깨,Ombro,肩部,肩部,肩膀
 Studio.LayeredClothingEditor.AssetType.Front,Front,Front,Frontal,正面,가슴,Frente,前部,前部,正面
-Studio.LayeredClothingEditor.AssetType.Skirt,Skirt,Skirt,Camisa,スカート,치마,Saia,裙子,裙子,短裙
+Studio.LayeredClothingEditor.AssetType.Skirt,Skirt,Skirt,Camisa,スカート,스커트,Saia,裙子,裙子,短裙
 Studio.LayeredClothingEditor.AssetType.Shirt,Shirt,Shirt,Camisa,シャツ,셔츠,Camisa,上衣,上衣,襯衫
 Studio.LayeredClothingEditor.AssetType.Waist,Waist,Waist,Cintura,腰,허리,Cintura,腰部,腰部,腰部
 Studio.LayeredClothingEditor.AssetType.RightCollar,Right Collar,Right Collar,Cuello derecho,右襟,오른쪽 칼라,Colarinho direito,右衣领,右衣领,右領
@@ -93,7 +93,7 @@ Studio.LayeredClothingEditor.Transparency.OuterCage,OuterCage,OuterCage,Jaula ex
 Studio.LayeredClothingEditor.Transparency.InnerCage,InnerCage,InnerCage,Jaula interna,InnerCage,InnerCage,InnerCage,InnerCage,InnerCage,內圍籠
 Studio.LayeredClothingEditor.EditorErrors.OpenedWhileRunning,Layered Clothing Editor cannot be used while game is running!,Layered Clothing Editor cannot be used while game is running!,El Editor de ropa en capas no se puede usar mientras se esté ejecutando el juego.,ゲームの実行中は重ね着服装エディタを使用できません！,게임 실행 중에는 레이어드 복장 편집기를 사용할 수 없습니다!,O Editor de roupa em camadas não pode ser usado quando um jogo estiver rodando!,游戏运行时无法使用层叠服装编辑器！,游戏运行时无法使用层叠服装编辑器！,遊戲運行時無法多層服飾編輯器！
 Studio.LayeredClothingEditor.Reset.InnerCage,Reset Inner Cage,Reset Inner Cage,Restablecer jaula interna,ケージの内側を再設定,내부 케이지 재설정,Redefinir gaiola interna,重置内层笼形,重置内层笼形,重置內圍籠
-Studio.LayeredClothingEditor.Editor.ResumeEditing,Click here to resume editing cages.,Click here to resume editing cages.,Haz clic aquí para reanudar la edición de las jaulas.,ケージ編集を再開するにはこちらをクリック。,케이지 편집을 재개하려면 여기를 클릭하세요.,Clique aqui para voltar a editar gaiolas., , ,點擊此處繼續編輯圍籠。
-Studio.LayeredClothingEditor.Select.PromptGeneric,Click the part or model that you would like to edit.,Click the part or model that you would like to edit., , , , , , , 
-Studio.LayeredClothingEditor.Select.Selection,Selection:,Selection:, , , , , , , 
-Studio.LayeredClothingEditor.AddEditingItemFromExplorer.InvalidAddTextAccOnly,Item is not valid for creating clothing or accessory.,Item is not valid for creating clothing or accessory., , , , , , , 
+Studio.LayeredClothingEditor.Editor.ResumeEditing,Click here to resume editing cages.,Click here to resume editing cages.,Haz clic aquí para reanudar la edición de las jaulas.,ケージ編集を再開するにはこちらをクリック。,케이지 편집을 재개하려면 여기를 클릭하세요.,Clique aqui para voltar a editar gaiolas.,点击此处恢复编辑笼形。,点击此处恢复编辑笼形。,點擊此處繼續編輯圍籠。
+Studio.LayeredClothingEditor.Select.PromptGeneric,Click the part or model that you would like to edit.,Click the part or model that you would like to edit., , ,편집하려는 파트 또는 모델을 클릭하세요.,Clique na parte ou modelo que você gostaria de editar.,点击你要编辑的部件或模型。,点击你要编辑的部件或模型。,點擊想要編輯的零件或模型。
+Studio.LayeredClothingEditor.Select.Selection,Selection:,Selection:, , ,선택 항목:,Seleção:,选择：,选择：,選取項目：
+Studio.LayeredClothingEditor.AddEditingItemFromExplorer.InvalidAddTextAccOnly,Item is not valid for creating clothing or accessory.,Item is not valid for creating clothing or accessory., ,このアイテムで服装またはアクセサリの作成はできません。,아이템이 복장이나 장신구를 만드는 데 유효하지 않습니다.,Item inválido para criar roupa ou acessório.,物品无法用于创建服装或配件。,物品无法用于创建服装或配件。,此道具在創作服飾或飾品方面無效。

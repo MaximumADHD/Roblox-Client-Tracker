@@ -586,8 +586,7 @@
           <addaction name="findAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="findNextAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_next.png" />
           <addaction name="findPreviousAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find_previous.png" />
-          <addaction fflag="!StudioUseScriptingHostAppServicesForFindReplaceRaise" name="findInScriptsAction" icon =":/16x16/images/Studio 2.0 icons/16x16/find.png" />
-          <addaction fflag="StudioUseScriptingHostAppServicesForFindReplaceRaise" name="SHOWFINDREPLACEWINDOW_GeneralCmd" />
+          <addaction name="SHOWFINDREPLACEWINDOW_GeneralCmd" />
           <addaction name="GOTOPOS_ScriptingCmd" icon=":/16x16/images/Studio 2.0 icons/16x16/goToLine.png" />
           <addaction name="quickOpenAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />
           <addaction name="quickOpenActionsAction" icon=":/16x16/images/Studio 2.0 icons/16x16/find.png" />

@@ -1,4 +1,8 @@
 Key,en-us
+Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s
+Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %s
+Studio.AssetImporter.AssetImportTree.Errors,error(s)
+Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
 Studio.AssetImporter.Plugin.Browse,Browse...
 Studio.AssetImporter.Plugin.Button,Import
 Studio.AssetImporter.Plugin.Description,Import an FBX file using the Mesh Importer.
