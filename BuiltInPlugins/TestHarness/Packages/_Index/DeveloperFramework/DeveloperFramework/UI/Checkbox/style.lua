@@ -1,5 +1,3 @@
-local FFlagDevFrameworkFixCheckboxTheme = game:GetFastFlag("DevFrameworkFixCheckboxTheme")
-
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -17,60 +15,30 @@ local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
 if THEME_REFACTOR then
-	if FFlagDevFrameworkFixCheckboxTheme then
-		return {
-			Background = Decoration.Image,
+	return {
+		Background = Decoration.Image,
+		BackgroundStyle = {
+			Image = StyleKey.CheckboxUncheckedImage,
+		},
+
+		[StyleModifier.Selected] = {
 			BackgroundStyle = {
-				Image = StyleKey.CheckboxUncheckedImage,
+				Image = StyleKey.CheckboxCheckedImage,
 			},
-
-			[StyleModifier.Selected] = {
-				BackgroundStyle = {
-					Image = StyleKey.CheckboxCheckedImage,
-				},
-			},
-			[StyleModifier.Indeterminate] = {
-				BackgroundStyle = {
-					Image = StyleKey.CheckboxIndeterminateImage,
-				},
-			},
-			[StyleModifier.Disabled] = {
-				BackgroundStyle = {
-					Image = StyleKey.CheckboxDisabledImage,
-				},
-			},
-			ImageSize = UDim2.new(0, 16, 0, 16),
-			Spacing = 6,
-		}
-	else
-		return {
-			ImageSize = UDim2.new(0, 16, 0, 16),
-			Spacing = 6,
-
+		},
+		[StyleModifier.Indeterminate] = {
 			BackgroundStyle = {
-				Background = Decoration.Image,
-				BackgroundStyle = {
-					Image = StyleKey.CheckboxUncheckedImage,
-				},
-
-				[StyleModifier.Selected] = {
-					BackgroundStyle = {
-						Image = StyleKey.CheckboxCheckedImage,
-					},
-				},
-				[StyleModifier.Indeterminate] = {
-					BackgroundStyle = {
-						Image = StyleKey.CheckboxIndeterminateImage,
-					},
-				},
-				[StyleModifier.Disabled] = {
-					BackgroundStyle = {
-						Image = StyleKey.CheckboxDisabledImage,
-					},
-				},
-			}
-		}
-	end
+				Image = StyleKey.CheckboxIndeterminateImage,
+			},
+		},
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = {
+				Image = StyleKey.CheckboxDisabledImage,
+			},
+		},
+		ImageSize = UDim2.new(0, 16, 0, 16),
+		Spacing = 6,
+	}
 else
 	return function(theme, getColor)
 		local common = Common(theme, getColor)

@@ -1,5 +1,3 @@
-local FFlagDevFrameworkFixCheckboxChildren = game:GetFastFlag("DevFrameworkFixCheckboxChildren")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -61,7 +59,7 @@ function Checkboxes:render()
 			LayoutOrder = 4,
 			OnClick = self.onClick,
 		}),
-		WithTooltip = FFlagDevFrameworkFixCheckboxChildren and Roact.createElement(Checkbox, {
+		WithTooltip = Roact.createElement(Checkbox, {
 			Checked = self.state["KEY5"],
 			Key = "KEY5",
 			LayoutOrder = 5,
@@ -71,8 +69,8 @@ function Checkboxes:render()
 			Tooltip = Roact.createElement(Tooltip, {
 				Text = "This checkbox has a tooltip"
 			})
-		}) or nil,
-		WithHelpIcon = FFlagDevFrameworkFixCheckboxChildren and Roact.createElement(Checkbox, {
+		}),
+		WithHelpIcon = Roact.createElement(Checkbox, {
 			Checked = self.state["KEY6"],
 			Key = "KEY6",
 			LayoutOrder = 6,
@@ -86,7 +84,7 @@ function Checkboxes:render()
 				Position = UDim2.new(1, 4, 0.5, 0),
 				Size = UDim2.fromOffset(14, 14),
 			})
-		}) or nil,
+		}),
 	})
 end
 

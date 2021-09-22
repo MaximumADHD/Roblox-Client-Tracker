@@ -81,7 +81,7 @@ if THEME_REFACTOR then
 			VoteDown = buttonStyle("rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png", green),
 		},
 
-		VoteCount = Cryo.Dictionary.join(common.MainText, {
+		VoteCount = Cryo.Dictionary.join(common.SubText, {
 			TextSize = 14
 		}),
 
@@ -93,8 +93,6 @@ if THEME_REFACTOR then
 	}
 else
 	return function(theme, getColor)
-		local textColor = Color3.fromRGB(170, 170, 170)
-
 		local common = Common(theme, getColor)
 		local roundBox = RoundBox(theme, getColor)
 		local votes = Votes(theme, getColor)
@@ -152,14 +150,12 @@ else
 				VoteDown = buttonStyle("rbxasset://textures/StudioToolbox/AssetPreview/vote_down.png", green),
 			},
 
-			VoteCount = Style.extend(common.MainText, {
-				TextColor = textColor,
+			VoteCount = Style.extend(common.SubText, {
 				TextSize = 14
 			}),
 
 			Votes = Style.extend(votes.Default, {
 				Text = Style.extend(votes.Default.Text, {
-					TextColor = textColor,
 					TextSize = common.MainText.TextSize,
 				})
 			}),

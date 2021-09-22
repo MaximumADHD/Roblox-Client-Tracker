@@ -1,9 +1,19 @@
+local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
+
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
 local ExpandableWidget = UI.ExpandableWidget
+local TextLabel = UI.Decoration.TextLabel
 
 local Example = Roact.PureComponent:extend(script.Parent.Name .. "Example")
+
+if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+	return Roact.createElement(TextLabel, {
+		AutomaticSize = Enum.AutomaticSize.XY,
+		Text = "This component is deprecated. Please use ExpandablePane instead.",
+	})
+end
 
 function Example:init()
 	self.state = {

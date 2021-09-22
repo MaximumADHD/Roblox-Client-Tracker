@@ -13,6 +13,7 @@
 		UDim2 Size: The size of this component.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkHandleNilVotes = game:GetFastFlag("DevFrameworkHandleNilVotes")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -37,10 +38,18 @@ function Votes:render()
 	local props = self.props
 	local Voting = props.Voting
 
+	local upVotes = Voting.UpVotes
+	local downVotes = Voting.DownVotes
+
+	if FFlagDevFrameworkHandleNilVotes then
+		upVotes = upVotes or 0
+		downVotes = downVotes or 0
+	end
+
 	local votePercentage = 0
-	local total = Voting.UpVotes + Voting.DownVotes
+	local total = upVotes + downVotes
 	if total > 0 then
-		votePercentage = math.floor((Voting.UpVotes / total) * 100)
+		votePercentage = math.floor((upVotes / total) * 100)
 	end
 
 	local theme = props.Theme

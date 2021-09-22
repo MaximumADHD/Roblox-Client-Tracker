@@ -25,7 +25,9 @@ return function(networkingImpl, baseUrl)
 			end,
 
 			makeRequest = function()
-				local httpPromise = networkingImpl:patch(url, HttpService:JSONEncode(body))
+				local httpPromise = networkingImpl:patch(url, HttpService:JSONEncode(body), {
+					["Content-Type"] = "application/json",
+				})
 				return networkingImpl:parseJson(httpPromise)
 			end,
 		}

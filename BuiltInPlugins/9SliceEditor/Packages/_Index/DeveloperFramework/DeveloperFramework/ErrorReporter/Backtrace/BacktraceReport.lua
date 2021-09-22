@@ -10,9 +10,6 @@
 		This constructor allows for an easy way to create reports based on the lua error object.
 ]]
 
-local FFlagDevFrameworkBacktraceReportUser = game:GetFastFlag("DevFrameworkBacktraceReportUser")
-local FFlagDevFrameworkFixBacktraceReportUser = game:DefineFastFlag("DevFrameworkFixBacktraceReportUser", false)
-
 local HttpService = game:GetService("HttpService")
 
 local Framework = script.Parent.Parent.Parent
@@ -30,12 +27,9 @@ local BacktraceReport = {
 }
 BacktraceReport.__index = BacktraceReport
 
-local isCli
-if FFlagDevFrameworkBacktraceReportUser then
-	isCli, _ = pcall(function()
-		return game:GetService("ProcessService")
-	end)
-end
+local isCli, _ = pcall(function()
+	return game:GetService("ProcessService")
+end)
 
 function BacktraceReport.new()
 	-- Return a basic report that has all the required fields
@@ -53,8 +47,6 @@ function BacktraceReport.new()
 		agentVersion = "0.1.0",
 		threads = {},
 		mainThread = DEFAULT_THREAD_NAME,
-		-- Use PlayerId for consistency with C++ CrashReporter
-		PlayerId = FFlagDevFrameworkBacktraceReportUser and not FFlagDevFrameworkFixBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
 	}
 	setmetatable(self, BacktraceReport)
 
@@ -68,7 +60,8 @@ function BacktraceReport.fromMessageAndStack(errorMessage, errorStack)
 
 	report:addAttributes({
 		["error.message"] = errorMessage,
-		PlayerId = FFlagDevFrameworkFixBacktraceReportUser and not isCli and game:GetService("StudioService"):GetUserId() or nil,
+		-- Use PlayerId for consistency with C++ CrashReporter
+		PlayerId = not isCli and game:GetService("StudioService"):GetUserId() or nil,
 	})
 
 	local stack, sourceCode = processErrorStack(errorStack)

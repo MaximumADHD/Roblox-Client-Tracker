@@ -30,8 +30,6 @@
 		Default: The pane has no background
 ]]
 
-game:DefineFastFlag("FrameworkFixDisabledIconButton", false)
-local FFlagFrameworkFixDisabledIconButton = game:GetFastFlag("FrameworkFixDisabledIconButton")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
@@ -141,7 +139,7 @@ function IconButton:render()
 			}),
 			Text = props.Text and Roact.createElement(TextLabel, {
 				Text = props.Text,
-				TextColor = FFlagFrameworkFixDisabledIconButton and textColor or nil,
+				TextColor = textColor,
 				Size = textSize,
 				LayoutOrder = 2,
 				TextXAlignment = props.TextXAlignment,

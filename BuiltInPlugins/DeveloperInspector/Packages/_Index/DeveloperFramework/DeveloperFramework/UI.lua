@@ -1,6 +1,7 @@
 --[[
 	Public interface for UI
 ]]
+local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 
 local Src = script
 
@@ -41,8 +42,10 @@ local Tabs = require(Src.Tabs)
 local TextLabel = require(Src.TextLabel)
 local TextWithInlineLink = require(Src.TextWithInlineLink)
 local TextInput = require(Src.TextInput)
+local TextInput2 = require(Src.TextInput2)
 local TextInputDialog = require(Src.TextInputDialog)
 local TreeTable = require(Src.TreeTable)
+local TreeTableCell = require(Src.TreeTable.TreeTableCell)
 local TreeView = require(Src.TreeView)
 local TreeViewRow = require(Src.TreeViewRow)
 local CheckboxTreeView = require(Src.CheckboxTreeView)
@@ -74,7 +77,7 @@ local UI = strict({
 	DropdownMenu = DropdownMenu,
 	DropShadow = DropShadow,
 	ExpandablePane = ExpandablePane,
-	ExpandableWidget = ExpandableWidget,
+	ExpandableWidget = ExpandableWidget, -- To be deprecated
 	FakeLoadingBar = FakeLoadingBar,
 	HoverArea = HoverArea,
 	IconButton = IconButton,
@@ -102,11 +105,13 @@ local UI = strict({
 	TableRow = TableRow,
 	Tabs = Tabs,
 	TextInput = TextInput,
+	TextInput2 = FFlagDevFrameworkTextInput2 and TextInput2 or nil,
 	TextInputDialog = TextInputDialog,
 	TextWithInlineLink = TextWithInlineLink,
 	ToggleButton = ToggleButton,
 	Tooltip = Tooltip,
 	TreeTable = TreeTable,
+	TreeTableCell = TreeTableCell,
 	TreeView = TreeView,
 	TreeViewRow = TreeViewRow,
 

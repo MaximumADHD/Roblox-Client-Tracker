@@ -12,6 +12,7 @@
 		any BeforeToggle: An optional component to render before the toggle. Passed the Row props and the expected LayoutOrder.
 		any BeforeIcon: An optional component to render before the icon. Passed the Row props and the expected LayoutOrder.
 		any BeforeIndentItem: An optional component that renders before the row adds any indentation. Passed the Row props and the expected LayoutOrder.
+		any AfterItem: An optional component that renders at the end of the row. Passed the Row props and the expected LayoutOrder.
 		any WrapperProps: Props inherited from withControl to be passed to the underlying Pane.
 		any Expanded: An optional variable indicating if the row is expanded
 		any Checked: An optional variable indicating whether an associated checkbox is checked
@@ -25,6 +26,7 @@
 
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
+local FFlagDevFrameworkTreeViewRowAfterItem = game:GetFastFlag("DevFrameworkTreeViewRowAfterItem")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -66,6 +68,7 @@ function TreeViewRow:render()
 	local arrowSize = style.Arrow.Size
 	local beforeToggle = props.BeforeToggle
 	local beforeIcon = props.BeforeIcon
+	local afterItem = props.AfterItem
 	local text, icon
 	local beforeIndentItem
 	local expandableRoot
@@ -144,6 +147,9 @@ function TreeViewRow:render()
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
 			}) or nil,
+			AfterItem = FFlagDevFrameworkTreeViewRowAfterItem and afterItem and Roact.createElement(afterItem, join(props, {
+				LayoutOrder = 8,
+			})) or nil,
 		})
 	else
 		local indent = depth * style.Indent

@@ -6,7 +6,7 @@
 	StudioFrameworkStyles extends this style table to implement
 	default values for Studio plugins.
 ]]
-local FFlagDevFrameworkCheckboxTreeView = game:GetFastFlag("DevFrameworkCheckboxTreeView")
+local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 
 local function newDefaults()
 	return {
@@ -24,7 +24,7 @@ function FrameworkStyles.new()
 		BulletList = newDefaults(),
 		Button = newDefaults(),
 		Checkbox = newDefaults(),
-		CheckboxTreeView = FFlagDevFrameworkCheckboxTreeView and newDefaults() or nil,
+		CheckboxTreeView = newDefaults(),
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
 		ExpandablePane = newDefaults(),
@@ -52,6 +52,7 @@ function FrameworkStyles.new()
 		Table = newDefaults(),
 		Tabs = newDefaults(),
 		TextInput = newDefaults(),
+		TextInput2 = FFlagDevFrameworkTextInput2 and newDefaults() or nil,
 		TextInputDialog = newDefaults(),
 		TextInputWithBottomText = newDefaults(),
 		TextLabel = newDefaults(),

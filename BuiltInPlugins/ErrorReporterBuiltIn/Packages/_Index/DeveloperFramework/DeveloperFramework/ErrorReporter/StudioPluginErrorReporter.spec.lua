@@ -7,7 +7,7 @@ return function()
 	local Signal = require(Framework.Util.Signal)
 	local StudioPluginErrorReporter = require(script.Parent.StudioPluginErrorReporter)
 
-	local FFlagDevFrameworkBacktraceReportUser = game:GetFastFlag("DevFrameworkBacktraceReportUser")
+	local FFlagDevFrameworkBacktraceReportFirstInSession = game:GetFastFlag("DevFrameworkBacktraceReportFirstInSession")
 
 	local DUMMY_STUDIO_VERSION = "1.2.3.4"
 
@@ -43,6 +43,9 @@ return function()
 			expect(attributes.StudioVersion).to.equal(DUMMY_STUDIO_VERSION)
 			expect(attributes.PluginName).to.equal(testPlugin.Name)
 			expect(attributes.ErrorCount).to.equal(1)
+			if FFlagDevFrameworkBacktraceReportFirstInSession then
+				expect(attributes.FirstErrorInSession).to.equal("true")
+			end
 			expect(attributes.UserAgent).to.equal("RobloxStudio/WinInet")
 			expect(attributes.BaseUrl).to.equal("https://www.roblox.com")
 			expect(attributes["error.message"]).to.equal(testError.msg)
@@ -96,90 +99,90 @@ return function()
 
 		-- verify that the error looks right
 		reporter:stop()
-		if FFlagDevFrameworkBacktraceReportUser then
-			-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
-			expect(analyticsCalls).to.equal(2)
-		else
-			expect(analyticsCalls).to.equal(1)
-		end
+		-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
+		expect(analyticsCalls).to.equal(2)
 	end)
 
-	if FFlagDevFrameworkBacktraceReportUser then
-		it("should report counters correctly", function()
-			local testingSecurityLevel = 6
-			local testPlugin = MockPlugin.new()
-			testPlugin.Name = "builtin_Test.rbxm"
+	it("should report counters correctly", function()
+		local testingSecurityLevel = 6
+		local testPlugin = MockPlugin.new()
+		testPlugin.Name = "builtin_Test.rbxm"
 
-			local testError = {
-				msg = "This is a test",
-				stack = testPlugin.Name .. ".Test.Foo:1: function testError\n" .. testPlugin.Name .. ".Test.Bar:3",
-				src = "",
-				details = nil,
-			}
-			local errSignal = Signal.new()
-			local numCalls = 0
-			local analyticsCallParams = {}
+		local testError = {
+			msg = "This is a test",
+			stack = testPlugin.Name .. ".Test.Foo:1: function testError\n" .. testPlugin.Name .. ".Test.Bar:3",
+			src = "",
+			details = nil,
+		}
+		local errSignal = Signal.new()
+		local numCalls = 0
+		local analyticsCallParams = {}
 
-			local reporter = StudioPluginErrorReporter.new({
-				expectedPrefix = "builtin",
-				expectedSecurityLevel = testingSecurityLevel,
+		local reporter = StudioPluginErrorReporter.new({
+			expectedPrefix = "builtin",
+			expectedSecurityLevel = testingSecurityLevel,
 
-				networking = Networking.mock({
-					onRequest = function()
-						numCalls = numCalls + 1
-						return {
-							Body = "{}",
-							Success = true,
-							StatusMessage = "OK",
-							StatusCode = 200,
-						}
+			networking = Networking.mock({
+				onRequest = function()
+					numCalls = numCalls + 1
+					return {
+						Body = "{}",
+						Success = true,
+						StatusMessage = "OK",
+						StatusCode = 200,
+					}
+				end,
+			}),
+			errorSignal = errSignal,
+			services = {
+				RunService = {
+					GetRobloxVersion = function()
+						return DUMMY_STUDIO_VERSION
 					end,
-				}),
-				errorSignal = errSignal,
-				services = {
-					RunService = {
-						GetRobloxVersion = function()
-							return DUMMY_STUDIO_VERSION
-						end,
-					},
-					HttpService = {
-						GetUserAgent = function()
-							return "RobloxStudio/WinInet"
-						end,
-					},
-					ContentProvider = {
-						BaseUrl = "https://www.roblox.com",
-					},
-					AnalyticsService = {
-						ReportCounter = function(_, counterName)
-							table.insert(analyticsCallParams, counterName)
-						end,
-					},
 				},
-			})
+				HttpService = {
+					GetUserAgent = function()
+						return "RobloxStudio/WinInet"
+					end,
+				},
+				ContentProvider = {
+					BaseUrl = "https://www.roblox.com",
+				},
+				AnalyticsService = {
+					ReportCounter = function(_, counterName)
+						table.insert(analyticsCallParams, counterName)
+					end,
+				},
+			},
+		})
 
-			-- fire a test error
-			errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details, testingSecurityLevel)
+		-- fire a test error
+		errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details, testingSecurityLevel)
 
-			-- fire another test error, there should not be a further track to StudioPluginErrorsBySession
-			errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details, testingSecurityLevel)
+		-- fire another test error, there should not be a further track to StudioPluginErrorsBySession
+		errSignal:Fire(testError.msg, testError.stack, testError.src, testError.details, testingSecurityLevel)
 
-			-- fire another test error with a different plugin, there should be a further track to StudioPluginErrorsBySession
-			errSignal:Fire(testError.msg, "builtin_DifferentTest.rbxm.Test.Foo:1: function testError\nbuiltin_DifferentTest.rbxm.Test.Bar:3", testError.src, testError.details, testingSecurityLevel)
+		-- fire another test error with a different plugin, there should be a further track to StudioPluginErrorsBySession
+		errSignal:Fire(testError.msg, "builtin_DifferentTest.rbxm.Test.Foo:1: function testError\nbuiltin_DifferentTest.rbxm.Test.Bar:3", testError.src, testError.details, testingSecurityLevel)
 
-			reporter:stop()
+		reporter:stop()
 
-			expect(analyticsCallParams[1]).to.equal("StudioPluginErrors.builtin_Test.rbxm")
-			expect(analyticsCallParams[2]).to.equal("StudioPluginErrorsBySession.builtin_Test.rbxm")
-			expect(analyticsCallParams[3]).to.equal("StudioPluginErrors.builtin_Test.rbxm")
-			expect(analyticsCallParams[4]).to.equal("StudioPluginErrors.builtin_DifferentTest.rbxm")
-			expect(analyticsCallParams[5]).to.equal("StudioPluginErrorsBySession.builtin_DifferentTest.rbxm")
-			expect(#analyticsCallParams).to.equal(5)
+		expect(analyticsCallParams[1]).to.equal("StudioPluginErrors.builtin_Test.rbxm")
+		expect(analyticsCallParams[2]).to.equal("StudioPluginErrorsBySession.builtin_Test.rbxm")
+		expect(analyticsCallParams[3]).to.equal("StudioPluginErrors.builtin_Test.rbxm")
+		expect(analyticsCallParams[4]).to.equal("StudioPluginErrors.builtin_DifferentTest.rbxm")
+		expect(analyticsCallParams[5]).to.equal("StudioPluginErrorsBySession.builtin_DifferentTest.rbxm")
+		expect(#analyticsCallParams).to.equal(5)
 
+		
+		if FFlagDevFrameworkBacktraceReportFirstInSession then
+			-- Normally, similar errors are combined, but when reporting the first error in the session, it should send a distinct report for the first error
+			expect(numCalls).to.equal(3)
+		else
 			-- The first two errors should have been combined
 			expect(numCalls).to.equal(2)
+		end
 	end)
-	end
 
 	it("should allow you to manually report a one-off error", function()
 		local numCalls = 0
@@ -220,12 +223,8 @@ return function()
 		reporter:stop()
 
 		expect(numCalls).to.equal(1)
-		if FFlagDevFrameworkBacktraceReportUser then
-			-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
-			expect(analyticsCalls).to.equal(2)
-		else
-			expect(analyticsCalls).to.equal(1)
-		end
+		-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
+		expect(analyticsCalls).to.equal(2)
 	end)
 
 	it("should disregard errors thrown in other plugin contexts", function()
@@ -283,11 +282,8 @@ return function()
 		reporterA:stop()
 		reporterB:stop()
 		expect(numCalls).to.equal(1)
-		if FFlagDevFrameworkBacktraceReportUser then
-			-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
-			expect(analyticsCalls).to.equal(2)
-		else
-			expect(analyticsCalls).to.equal(1)
-		end
+
+		-- One call for StudioPluginErrors and one for StudioPluginErrorsBySession
+		expect(analyticsCalls).to.equal(2)
 	end)
 end

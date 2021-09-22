@@ -37,6 +37,7 @@ local TreeView = require(UI.TreeView)
 
 local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
+local FFlagDevFrameworkTreeViewRowAfterItem = game:GetFastFlag("DevFrameworkTreeViewRowAfterItem")
 
 local function buildRootExpansion(expandableRoot, rootItems)
 	local expansion = {}
@@ -199,10 +200,16 @@ function CheckboxTreeView:init()
 		})
 	end
 
+	local expandableRoot
+	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
+		expandableRoot = self.props.ExpandableRoot
+	end
+
 	self.rowProps = {
 		BeforeIcon = not FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
 		BeforeIndentItem = FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
-		ExpandableRoot = FFlagDevFrameworkLeftAlignedCheckboxTreeView and self.props.ExpandableRoot or nil,
+		ExpandableRoot = expandableRoot,
+		AfterItem = FFlagDevFrameworkTreeViewRowAfterItem and self.props.AfterItem or nil,
 		OnCheck = function(item)
 			self.props.OnCheck(buildChange(item, not self.props.Checked[item], self.props.Checked, self.ancestry, self.props.GetChildren))
 		end,

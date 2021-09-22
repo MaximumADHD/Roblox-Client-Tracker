@@ -16,6 +16,7 @@
 		UDim2 Size: The size of this component.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkHandleNilVotes = game:GetFastFlag("DevFrameworkHandleNilVotes")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -104,6 +105,14 @@ function VoteBar:render()
 	local leftWidthScale = 0.6
 	local votesWidth = 65
 
+	local upVotes = props.Voting.UpVotes
+	local downVotes = props.Voting.DownVotes
+
+	if FFlagDevFrameworkHandleNilVotes then
+		upVotes = upVotes or 0
+		downVotes = downVotes or 0
+	end
+
 	return Roact.createElement(Container, {
 		Background = style.Background,
 		BackgroundStyle = style.BackgroundStyle,
@@ -133,7 +142,7 @@ function VoteBar:render()
 				Size = UDim2.new(1, -votesWidth, 1, 0),
 				Style = style.VoteCount,
 				Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "VoteCount", {
-					count = props.Voting.UpVotes + props.Voting.DownVotes
+					count = upVotes + downVotes
 				}),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				TextTruncate = Enum.TextTruncate.AtEnd

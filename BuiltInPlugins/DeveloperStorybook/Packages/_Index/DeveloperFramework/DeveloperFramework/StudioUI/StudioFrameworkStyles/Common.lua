@@ -2,7 +2,6 @@
 	Basic styles shared among multiple StudioFrameworkStyles tables.
 ]]
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagToolboxFixSubTextColor = game:GetFastFlag("ToolboxFixSubTextColor")
 
 local Framework = script.Parent.Parent.Parent
 
@@ -22,11 +21,11 @@ if THEME_REFACTOR then
 			TextSize = 18,
 			TextColor = StyleKey.MainText,
 		},
-		SubText = FFlagToolboxFixSubTextColor and {
+		SubText = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 14,
 			TextColor = StyleKey.SubText,
-		} or nil,
+		},
 	}
 else
 	return function(theme, getColor)
@@ -77,7 +76,7 @@ else
 		return {
 			Default = Background,
 			MainText = MainText,
-			SubText = FFlagToolboxFixSubTextColor and SubText or nil,
+			SubText = SubText,
 			Background = Background,
 			Border = Border,
 			BorderHover = BorderHover,

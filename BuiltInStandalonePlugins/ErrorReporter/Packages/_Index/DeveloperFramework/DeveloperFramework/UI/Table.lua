@@ -18,6 +18,7 @@
 		Enum.SortDirection SortOrder: The order that the column is being sorted in.
 		callback OnHoverRow: An optional callback called when a row is hovered over. (rowIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
+		callback OnRightClickRow: An optional callback when a row is right-clicked. (rowIndex: number) -> ()
 		callback OnSelectRow: An optional callback called when a row is selected. (rowIndex: number) -> ()
 		callback OnSizeChange: An optional callback called when the component size changes.
 		callback OnSortChange: An optional callback called when the user sorts a column.
@@ -28,6 +29,7 @@
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
@@ -74,8 +76,17 @@ function Table:init()
 			self.props.OnSelectRow(rowProps.Row, rowProps.RowIndex)
 		end
 	end
+	
+	if FFlagDevFrameworkAddRightClickEventToPane then
+		self.onRightClickRow = function(rowProps)
+			if self.props.OnRightClickRow then
+				self.props.OnRightClickRow(rowProps)
+			end
+		end
+	end
+	
 	self.onRenderRow = function(row)
-		-- Infintite scroller doesn't track row indices, so store this in Table
+		-- Infinite scroller doesn't track row indices, so store this in Table
 		local rowIndex = self.rowToIndex[row]
 		local props = self.props
 		local RowComponent = self.props.RowComponent or TableRow
@@ -90,6 +101,7 @@ function Table:init()
 			OnHover = self.props.OnHoverRow and self.onHoverRow,
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
+			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil
 		})
 	end
 	self.getDefaultRowKey = function(row)

@@ -1,4 +1,5 @@
 return function()
+	local FFlagDevFrameworkFixRoundedDuration = game:GetFastFlag("DevFrameworkFixRoundedDuration")
 	local formatDuration = require(script.Parent.formatDuration)
 
 	it("should return a string", function()
@@ -14,16 +15,30 @@ return function()
 	end)
 
 	it("should ignore fractional components", function()
-		local result = formatDuration(1.5)
+		local result = formatDuration(1.3)
 
 		expect(result).to.equal("0:01")
 	end)
 
 	it("should ignore negative fractional components", function()
-		local result = formatDuration(-1.5)
+		local result = formatDuration(-1.3)
 
 		expect(result).to.equal("-0:01")
 	end)
+
+	if FFlagDevFrameworkFixRoundedDuration then
+		it("should round fractional components down", function()
+			local result = formatDuration(1.3)
+
+			expect(result).to.equal("0:01")
+		end)
+
+		it("should round fractional components up", function()
+			local result = formatDuration(1.6)
+
+			expect(result).to.equal("0:02")
+		end)
+	end
 
 	it("should handle 60 seconds correctly", function()
 		local result = formatDuration(60)

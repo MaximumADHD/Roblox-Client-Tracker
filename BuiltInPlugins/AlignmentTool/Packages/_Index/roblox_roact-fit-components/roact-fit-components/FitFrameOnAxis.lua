@@ -3,7 +3,6 @@ local Packages = root.Parent
 
 local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
-local GetFFlagEnableAutomaticSizing = require(root.GetFFlagEnableAutomaticSizing)
 
 local Rect = require(root.Rect)
 
@@ -24,8 +23,6 @@ FitFrameOnAxis.defaultProps = {
 	ImageSet = {},
 	VerticalAlignment = Enum.VerticalAlignment.Top,
 	contentPadding = UDim.new(0, 0),
-	textProps = nil,
-	useAutoSizing = GetFFlagEnableAutomaticSizing() or false,
 }
 
 function FitFrameOnAxis:init()
@@ -33,15 +30,13 @@ function FitFrameOnAxis:init()
 	self.frameRef = self.props[Roact.Ref] or Roact.createRef()
 
 	self.onResize = function()
-		if not self.props.useAutoSizing then
-			local currentLayout = self.layoutRef.current
-			local currentFrame = self.frameRef.current
-			if not currentFrame or not currentLayout then
-				return
-			end
-
-			currentFrame.Size = self:__getSize(currentLayout)
+		local currentLayout = self.layoutRef.current
+		local currentFrame = self.frameRef.current
+		if not currentFrame or not currentLayout then
+			return
 		end
+
+		currentFrame.Size = self:__getSize(currentLayout)
 	end
 end
 
@@ -50,42 +45,26 @@ function FitFrameOnAxis:render()
 	local children = self.props[Roact.Children] or {}
 	local filteredProps = self:__getFilteredProps()
 
-	local instanceType = self.props.onActivated and "ImageButton" or "ImageLabel"
+	return Roact.createElement("ImageLabel", filteredProps,
+		Cryo.Dictionary.join(children, {
+			["$layout"] = Roact.createElement("UIListLayout", {
+				FillDirection = self.props.FillDirection,
+				HorizontalAlignment = self.props.HorizontalAlignment,
+				Padding = self.props.contentPadding,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = self.props.VerticalAlignment,
 
-	children = Cryo.Dictionary.join(children, {
-		["$layout"] = Roact.createElement("UIListLayout", {
-			FillDirection = self.props.FillDirection,
-			HorizontalAlignment = self.props.HorizontalAlignment,
-			Padding = self.props.contentPadding,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = self.props.VerticalAlignment,
-
-			[Roact.Change.AbsoluteContentSize] = self.onResize,
-			[Roact.Ref] = self.layoutRef,
-		}),
-		["$margin"] = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0, self.props.margin.left),
-			PaddingRight = UDim.new(0, self.props.margin.right),
-			PaddingTop = UDim.new(0, self.props.margin.top),
-			PaddingBottom = UDim.new(0, self.props.margin.bottom),
-		}),
-	})
-
-	if self.props.textProps then
-		return Roact.createElement(instanceType, filteredProps, {
-			TextLabel = Roact.createElement("TextLabel", Cryo.Dictionary.join(self.props.textProps, {
-				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(1, 1),
-			})),
-
-			ChildFrame = Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.fromScale(1, 1),
-			}, children),
+				[Roact.Change.AbsoluteContentSize] = self.onResize,
+				[Roact.Ref] = self.layoutRef,
+			}),
+			["$margin"] = Roact.createElement("UIPadding", {
+				PaddingLeft = UDim.new(0, self.props.margin.left),
+				PaddingRight = UDim.new(0, self.props.margin.right),
+				PaddingTop = UDim.new(0, self.props.margin.top),
+				PaddingBottom = UDim.new(0, self.props.margin.bottom),
+			}),
 		})
-	else
-		return Roact.createElement(instanceType, filteredProps, children)
-	end
+	)
 end
 
 function FitFrameOnAxis:didMount()
@@ -103,33 +82,13 @@ function FitFrameOnAxis:__getFilteredProps()
 	-- properties that may be present.
 	local filteredProps = Cryo.Dictionary.join(self.props.ImageSet, {
 		[Roact.Ref] = self.frameRef,
-		[Roact.Event.Activated] = self.props.onActivated,
 	})
-
-
-	if self.props.useAutoSizing then
-		local autoSize = Enum.AutomaticSize.Y
-		if self.props.axis == FitFrameOnAxis.Axis.Horizontal then
-			autoSize = Enum.AutomaticSize.X
-		elseif self.props.axis == FitFrameOnAxis.Axis.Both then
-			autoSize = Enum.AutomaticSize.XY
-		end
-
-		filteredProps = Cryo.Dictionary.join(filteredProps, {
-			AutomaticSize = autoSize,
-			Size = self.props.minimumSize,
-		})
-	end
-
 
 	for property, _ in pairs(FitFrameOnAxis.defaultProps) do
 		filteredProps[property] = Cryo.None
 	end
 
-	filteredProps.textProps = Cryo.None
-
 	return Cryo.Dictionary.join(self.props, filteredProps, {
-		onActivated = Cryo.None,
 		[Roact.Children] = Cryo.None,
 	})
 end
