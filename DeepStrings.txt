@@ -5697,6 +5697,7 @@ AW4ZIndexBehavior
 AwardBadge
 AwardPoints
 AwareCompare
+AWup0AkeZc
 AX_J0VVector3
 AX_J0W4FriendService_FriendEventType
 AX_J0W4FriendService_FriendStatus
@@ -5950,7 +5951,6 @@ BBCA91111E2B410EF351327957B
 BbEcJYG[I[NYVP\B]
 BBFA91111E2B410EF351327957B
 BBxZ55ZxBBx[5D
-BbZMuILJguKI
 BC0A91111E2B410EF351327957B
 BC0DAEAAF011E38B9D871882A8E559
 BC0DB1AAF011E38B9D871882A8E559
@@ -6235,6 +6235,7 @@ BodyVelocity
 BodyWidthScale
 BokehFarCoCFS
 BokehNearCoCFS
+BoKr3tgcNEWC8ytbupDVYS
 BoldItalic
 BoldSource
 BoldVersion
@@ -6511,7 +6512,6 @@ BuyDeveloperProduct_AutoAccepted
 BvBvBvBvBvBvBvBv
 BVCoordinateFrame
 BvhParallelMidPhase
-BvKc1TSPDH
 BVQItemSelection
 BVQJsonValue
 BVRegion3int16
@@ -6860,6 +6860,7 @@ CB27CB58AAF011E38B9D871882A8E559
 CB27CB59AAF011E38B9D871882A8E559
 CB27CB5CAAF011E38B9D871882A8E559
 CB583B11E29A3DBD856014A660
+CbfrlnBC8nlm
 CBUGroupRolesResult
 CBUHttpTarget
 CBUPathData
@@ -8200,6 +8201,7 @@ Cnd_signal
 Cnd_timedwait
 Cnd_unregister_at_thread_exit
 CngMaxOutsizeOrder
+CNt6tvXYCzDHB4m
 CoAddRefServerProcess
 Coalescing
 Cobblestone
@@ -9831,7 +9833,6 @@ DB33D6AAF011E38B9D871882A8E559
 DB33D7AAF011E38B9D871882A8E559
 DBD856014A660
 DBSAES_ASM
-DcJWPU8P9GNRVV2
 DD11E2898E9FB8E4A9E79B
 DD4669DB402E11E3A29DA4266180AE0C
 DD4669DC402E11E3A29DA4266180AE0C
@@ -11357,6 +11358,7 @@ Durchsuchen
 DVCSRequestData
 DVCSResponseData
 DVPAES_ASM
+DwFj3eaduPee4E0yVVQbq2sKvbUI5MEr
 DwmSetWindowAttribute
 DX25519_ASM
 DXCloseDeviceNV
@@ -11687,6 +11689,7 @@ EEBAHAEBVQModelIndex
 EEBAPEAVQPlatformSurface
 EEEEEEEEEEEEEEEEEEEEEEEEEE
 EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+EEq4pZGYdDdT
 EF351327957B
 EF65B11E38470F846885BB6FB
 EFAAAF011E38B9D871882A8E559
@@ -11733,7 +11736,6 @@ ElevatedPhysicsFPSReportThresholdTenths
 ElevatedStudioPlugin
 Eliminando
 Elimination
-ElkFYPmdoNyD4OEnWnujm4BMYGz5klRinahPHWxI7bCecalvwOdyKsCAwEAAQ
 EmbeddedBrowser
 EmbeddedFindPosition
 EmbeddedFindReplace_CloseDialogButton
@@ -12343,6 +12345,7 @@ ExclusiveMax
 ExclusiveStartKey
 Exclusivity
 ExcuseThrottledRequests
+EXDrAn3sX1YTpdMbu01HQ
 Executable
 ExecutableLine
 Execute_once
@@ -12421,7 +12424,6 @@ ExpressionEvaluatorEdit
 Expressions
 Expressive
 ExprResult
-ExRyJ0Cg99UdaAYBXNr90uU9YnNBiMVgk02DfXj2FXUTsCjI3XJIptsgW6YgcS
 EXT_add_alias
 ExtAdmission
 EXtComment
@@ -15052,9 +15054,9 @@ Herramientas
 Herunterfahren
 HeuristicMask
 HHAEBVQModelIndex
-HHe5mgAG2xVfl
 HHHHHAEBVQString
 HHPEAVQObject
+HHQHPfD8yvjg8I6TU
 HHTT\AKKKKTYWAH
 HHUQPrivateSignal
 HHVQRegularExpression
@@ -15137,6 +15139,7 @@ HlsParseMasterPlaylist
 HlsResetFieldsOnSeek
 HlsSupportMasterPlaylist
 HMACGostR3411
+HMGiIuBRV8MDKrEqSCQ
 HoldDuration
 Holzbretter
 HomeDataModel
@@ -15201,6 +15204,7 @@ HSRDataLessRestrictInnerVisibility
 HSRDataSupportCluster
 HSRFixBoxMapping
 HSRFixDuplicationVerticesInFace
+HtBGTVsOvS2eRJjBEUDNUGJ5G1C
 HtmlEscaped
 Http_Failed
 Http424FailureRttTimeThreshold1
@@ -15599,8 +15603,6 @@ HwngSmldAskhBcraMegsOgnaTaweNmnoGuhsNoyoSbnaZrgoDgnoGghoRakaMfdeMogoSdgoSmylEdna
 HWYGOTH.ttf
 HybridEvent
 HyIyPyVy]y^yey
-HZ6p0iesLvTb6h920
-IA9nqxQUKGcu4TkdgOp1jIyfWuSbrrSF1VRTR52culoa7QdJWsdSMFSgpTxten
 Iacutesmall
 IAEBVInstanceIdentifier
 IAudioCaptureClient
@@ -16662,7 +16664,6 @@ JitterBufferDelayProxyWithInternal
 JJJBBB\\\xx
 JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ
 JKLMNOPQRSTU
-JMbEiVAoIOupY3CViW
 Jogabilidade
 JoinBlobInvalidateCountThresholdPercent
 JoinBlobInvalidateThresholdPercent
@@ -16739,7 +16740,6 @@ JointToolHelpDialogVerb
 JointWakeAssemblies
 JosefinSans
 JPEBUSG_INDEX_TRIANGLE
-JPlMKv8aOztYURFW4yjShQcQyCKkBnhimyOxKoZGgisvNmE
 JsepTransport
 JsepTransportController
 JSON.parse
@@ -17775,6 +17775,7 @@ LuobuWhitelisted
 LuobuWhitelistedAllow
 LuobuWhitelistedField
 LuobuWindowsStudioReportInternetZone
+LuTbKlIaY91KRvwfRh45p
 LVvuOx39]O
 M_NVWeakObjectRef
 MacGamepadUseGCController
@@ -18577,7 +18578,7 @@ MigrateTriangleMeshData3
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsI9zRp2OSccqdFx2
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAupANB3EbN9hFHHUj0eA
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzjPRQo9jc
-MIICCgKCAgEAxszfOf94Ai0LUI9VDOrTN
+MIICCgKCAgEA1CkV0Z5NE54aQnq8rkNOkFuX4i
 Millisecond
 MillisecondsBeforeHandlingReconnect
 MimeDataFromSelection
@@ -19105,6 +19106,7 @@ Navigationsmesh
 NavigationWaypointSpacing
 NavMeshTiles
 Nb5Z3kLJHN6
+NC15nqn8wwYI22vzsnfh3BkqvhFCoda
 NCONF_dump_bio
 NCONF_dump_fp
 NCONF_get_number_e
@@ -19572,7 +19574,6 @@ NW4PenStyle
 NW4UserInputType
 Oacutesmall
 OAEPEncryptionSET
-OasSpBR23whKHIgtdDFEnBboqEZ1fil3Be8vxsUbFEu6GkEYNr4
 OAUTHBEARER
 Obj.GroupColors
 Obj.GroupsActive
@@ -19963,6 +19964,7 @@ OPUS_BANDWIDTH_WIDEBAND
 OpusCustomMode
 OpusPlcUsePrevDecodedSamples
 OpusSoftwareCodec
+OQLhMXyKhRwyvP68NttXLf0LJDlPPbjKShoFrp0xBjZlx88l3mRsCAwEAAQ
 OrCharacter
 OrCreateFileSyncItemClient
 Ordenamento
@@ -20028,6 +20030,7 @@ OtherPlayer
 OtherTextChanged
 OtherTopLabelOverride
 Otildesmall
+OtWwXU3nRzks6C7tRKA
 OUseAsyncTaskForMicroVis
 Out_old.png
 OutboundTotal
@@ -22408,8 +22411,6 @@ PROXY_POLICY
 ProxyAction
 ProxyOverrideWidget
 Prozentsatz
-Ps4VaqAbPIWdnNfSOyQc
-PSDe2pCGEmbIiQmOtL4xCdDGQEL
 PSPECIFIED
 PtdL9w`t^L9whtXH
 PTransportChannel
@@ -24846,6 +24847,7 @@ RigidBodyLazyUpdating
 RigidityEnabled
 RiseVelocity
 Rj0isQcnqX
+RlfrZP8Avw
 ROBLOSECURITY
 Roblox.Hybrid
 Roblox.Hybrid.Bridge.emitEvent
@@ -27189,6 +27191,7 @@ SSL_use_RSAPrivateKey_file
 SSL_verify_client_post_handshake
 SSL_write_early_data
 SSL_write_ex
+SSl8GbROFX9PSxGmXDW8z4tCAUhhEJUt
 SslConnectFail
 SSLFailure
 SSLKEYLOGFILE
@@ -33435,6 +33438,7 @@ TurnRefreshRequest
 Tutoriales
 TutorialId
 TVijpW8m8aLsreZebWfEl5y9RFS7x6WZ555Z6MtZy
+TvPVMvn7xf6xFpop8msdTg
 TweenEasingDirection
 TweenEasingStyle
 TweenInfo.new
@@ -33785,7 +33789,6 @@ UITransformedLitFogVSShadowedFSM
 UITransformedVS
 UIViewportFrameCollectFrames
 ULinkedScriptLoadData
-UljRMGmlZnAq627esxckJTwZKEGMGzDPu0XbtbXkmUo65nYPNYK
 ULoadedImage
 ULuaCallbacks
 UMasteringMetadata
@@ -34979,6 +34982,7 @@ VDtmfSenderInterface
 VdtNavMeshQuery
 VDummyArbiter
 VDuplicateRowData
+VDwY2VDE7g
 VDynamicRotate
 VEchoSoundEffect
 Vector2.new
@@ -35291,6 +35295,7 @@ VHighlightFormats
 VHingeConstraint
 VHInitialize
 VHistoryDropdown
+VHmJ0mYJoTQ1eXvC9kpv9DXzG
 VHopperBin
 Vhttp_network_handler
 Vhttp_pipeline
@@ -35676,7 +35681,6 @@ VNetworkPhysicsParallelReceiveJob
 VNetworkSenderScheduleJob
 VNetworkSettings
 VNetworkStream
-VNNVvR0kY75hjxt4cFoJavl7nimA5eg9
 VNoCollisionConstraint
 VNonReplicatedCSGDictionaryService
 VNonTeamCreateScriptTracker
@@ -36859,6 +36863,7 @@ WM_ATLGETCONTROL
 WM_ATLGETHOST
 WMCreateProfileManager
 WMCreateSyncReader
+WmIWgkTlNYKRcgTgAGhUspgoaI
 Wmvcore.dll
 WoodNormalDetailStandardMips
 WoodPlanks
@@ -36949,7 +36954,6 @@ WSAStartup
 WSAStringToAddressW
 WSAWaitForMultipleEvents
 WsClientAbortRemaining
-WSwCtZ6aeD41GZ0t5tswwauqoMwenfvGjA2ZYjSKz7RlHBHvxzPuMT2irR9
 WTHelperGetProvSignerFromChain
 WTHelperProvDataFromStateData
 WWWWWWWWWW
@@ -37240,7 +37244,6 @@ YffYZefYDNNDCOO
 YieldEvent
 YieldFuncDesc
 YieldFunction
-YkqBFpiAcGg1F
 YQByteArray
 YResolution
 YwBBvY55YvBBwY5
@@ -37248,12 +37251,14 @@ YYYYYYYYYYYYYYYYYYYYYYYYY
 Z_KPEIBX_K_KPEIAU1
 ZAEAPEAV34
 Zahlenfarbe
+ZAzepsU4JZy8EjlrfyNDBBcEmLPze1sYWVCFGHnDapw
 Zcaronsmall
 Zdotaccent
 Zeichenfolgefarbe
 Zeilennummer
 ZeroOrigin
 ZeroTargetSpeedStartTimeCountToTotalCount
+ZgKhBYgpZKZctlvWnr
 ZgnhKhWhci
 ZhniZzzzZbarAnmrAgneBlryCaveDroeGkerGrjuGuruGgnaHinaHrbeHariHadnKanaKooaLntaLmylMayrOlmaTuleTiahTtbiTopoBiarBsnaCrehCihtErmhKgnoMrmyMmagOrnuRhniScrySaahTiiiYtrsDhtoGlatIdhuBonaHglgTbgaTtrpCbmiLbniLamsOwahSelaTragUiguBtpoCgalGrahKulaToepXolySgnfTilaBxusXookNga
 ZIndexBehavior
