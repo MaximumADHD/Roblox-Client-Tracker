@@ -1755,7 +1755,7 @@ f61537c42622f0575c8180a9dab5447c
 RobloxStudio_license.html
 3f5d24c5bfb73622d1bc4da07819108c
 RobloxStudioBeta.exe
-de7c15f41d97d8c75a4386292bd118cc
+4506db63675001060ffb40d5169cca30
 RobloxStudioRibbon.xml
 e5b67258591a15454cbd58fb06562fef
 d3dcompiler_47.dll
