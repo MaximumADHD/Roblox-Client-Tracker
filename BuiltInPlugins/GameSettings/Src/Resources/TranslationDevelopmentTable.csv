@@ -137,6 +137,7 @@ Studio.GameSettings.General.GenreTownAndCity,Town and City, ,Town and City
 Studio.GameSettings.General.GenreWestern,Western, ,Western
 Studio.GameSettings.Errors.ErrorPriceBelowMin,Price must be greater than {1}., ,Price must be greater than {1}.
 Studio.GameSettings.General.DeviceComputer,Computer, ,Computer
+Studio.GameSettings.General.TitleTeamCreateStreaming,Streaming for Team Create, ,Streaming for Team Create
 Studio.GameSettings.General.DevicePhone,Phone, ,Phone
 Studio.GameSettings.General.DeviceTablet,Tablet, ,Tablet
 Studio.GameSettings.General.DeviceConsole,Console, ,Console
@@ -271,6 +272,9 @@ Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
+Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, , 
+Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
+Studio.GameSettings.General.TeamCreateStreamingWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing
 Studio.GameSettings.General.TitleJump,Jump, ,Jump
 Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators
@@ -345,7 +349,6 @@ Studio.GameSettings.Monetization.EarnLabel,You Earn:, ,You Earn:
 Studio.GameSettings.Monetization.DEPRECATED_PaidAccessHint,VIP Servers must not be enabled and the game must be public to enable Paid Access., ,VIP Servers must not be enabled and the game must be public to enable Paid Access.
 Studio.GameSettings.Monetization.ProductID,Product ID, ,Product ID
 Studio.GameSettings.Monetization.ProductIcon,Product Icon, ,Product Icon
-Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.Monetization.UnsavedDevProductName1,Developer Product {1}, ,Developer Product {1}
 Studio.GameSettings.Errors.ErrorPriceAboveMax,Price must be less than {1}., ,Price must be less than {1}.
 Studio.GameSettings.Errors.ErrorPriceInvalid,Enter a valid price (e.g. 1000), ,Enter a valid price (e.g. 1000)

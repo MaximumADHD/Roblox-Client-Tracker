@@ -4,6 +4,10 @@ Studio.AssetImporter.Plugin.Name,AssetImporter,AssetImporter
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import,Settings for the current import
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer,Mesh Importer
 Studio.AssetImporter.Plugin.Button,Import,Import
+Studio.AssetImporter.AssetImportTree.Errors,error(s),error(s)
 Studio.AssetImporter.Plugin.Browse,Browse...,Browse...
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand,Expand
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse,Collapse
+Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s,Contains %d %s
+Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %s,Descendants contain %s
+Studio.AssetImporter.AssetImportTree.Warnings,warning(s),warning(s)

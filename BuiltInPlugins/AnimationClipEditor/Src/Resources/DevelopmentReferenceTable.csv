@@ -105,10 +105,10 @@ Studio.AnimationClipEditor.Settings.PlaybackSpeed, ,Playback Speed
 Studio.AnimationClipEditor.Settings.QuantizeKeyframes, ,Quantize Keyframes
 Studio.AnimationClipEditor.Settings.Seconds, ,Seconds:Frames
 Studio.AnimationClipEditor.Settings.ShowEvents, ,Show Animation Events
-Studio.AnimationClipEditor.Settings.SnapDisabled, ,Disabled
 Studio.AnimationClipEditor.Settings.SnapFrames, ,Frames
 Studio.AnimationClipEditor.Settings.SnapKeyframes, ,Keyframes
 Studio.AnimationClipEditor.Settings.SnapMode, ,Snap Mode
+Studio.AnimationClipEditor.Settings.SnapNone, ,None
 Studio.AnimationClipEditor.Settings.SnapToKeys, ,Snap To Keys
 Studio.AnimationClipEditor.Settings.TimelineUnit, ,Timeline Unit
 Studio.AnimationClipEditor.Title.AddEvent, ,Add Event

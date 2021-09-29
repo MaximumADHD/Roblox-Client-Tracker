@@ -72,6 +72,14 @@ Class AnalyticsService : Instance [Service]
 	Function void AnalyticsService:FirePlayerProgressionEvent(Instance player, string category, Enum.AnalyticsProgressionStatus progressionStatus, Variant location, Variant statistics, Variant customData)
 Class Animation : Instance
 	Property Content Animation.AnimationId
+Class AnimationClip : Instance [NotCreatable]
+	Property bool AnimationClip.Loop
+	Property Enum.AnimationPriority AnimationClip.Priority
+Class KeyframeSequence : AnimationClip
+	Property float KeyframeSequence.AuthoredHipHeight {PluginSecurity} [Hidden]
+	Function void KeyframeSequence:AddKeyframe(Instance keyframe)
+	Function Objects KeyframeSequence:GetKeyframes()
+	Function void KeyframeSequence:RemoveKeyframe(Instance keyframe)
 Class AnimationController : Instance [Deprecated]
 	Function Array AnimationController:GetPlayingAnimationTracks() [Deprecated]
 	Function AnimationTrack AnimationController:LoadAnimation(Animation animation) [Deprecated]
@@ -413,7 +421,7 @@ Class Breakpoint : Instance [NotReplicated]
 	Property int Breakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int Breakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string Breakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
-	Property ScriptRef Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -436,6 +444,7 @@ Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BulkImportService.AssetImported(Enum.AssetType assetType, string name, int64 id) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
+Class CSGCacheService : Instance [NotCreatable] [Service]
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary MeshContentProvider:GetContentMemoryData() {RobloxScriptSecurity}
@@ -878,11 +887,13 @@ Class DebuggerBreakpoint : Instance [NotCreatable]
 	Property string DebuggerBreakpoint.LogExpression
 	Property bool DebuggerBreakpoint.isContextDependentBreakpoint
 Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
+	Property string DebuggerConnection.ErrorMessage {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int DebuggerConnection.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool DebuggerConnection.HasError {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function void DebuggerConnection:AddBreakpoint(ScriptRef script, int line, Breakpoint breakpoint) {RobloxScriptSecurity}
+	Function void DebuggerConnection:AddBreakpoint(string script, int line, Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function StackFrame DebuggerConnection:GetFrameById(int id) {RobloxScriptSecurity}
-	Function int DebuggerConnection:GetSource(ScriptRef scriptRef, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:GetSource(string scriptRef, Function status) {RobloxScriptSecurity}
 	Function ThreadState DebuggerConnection:GetThreadById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetThreads(Function callback) {RobloxScriptSecurity}
 	Function DebuggerVariable DebuggerConnection:GetVariableById(int id) {RobloxScriptSecurity}
@@ -906,6 +917,13 @@ Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicat
 	Event DebuggerConnectionManager.ConnectionEnded(DebuggerConnection connection, Enum.DebuggerEndReason reason) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.ConnectionStarted(DebuggerConnection connection) {RobloxScriptSecurity}
 	Event DebuggerConnectionManager.FocusChanged(DebuggerConnection connection) {RobloxScriptSecurity}
+Class DebuggerLuaResponse : Instance [NotCreatable] [NotReplicated]
+	Property string DebuggerLuaResponse.Message {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int DebuggerLuaResponse.RequestId {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool DebuggerLuaResponse.IsError {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool DebuggerLuaResponse.IsSuccess {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property Enum.DebuggerStatus DebuggerLuaResponse.Status {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Variant DebuggerLuaResponse:GetArg() {RobloxScriptSecurity}
 Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool DebuggerManager.DebuggingEnabled [ReadOnly]
 	Function Instance DebuggerManager:AddDebugger(Instance script)
@@ -1814,6 +1832,7 @@ Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.DoubleSided
+	Property bool ImporterMeshSettings.IgnoreVertexColors
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.InvertNegativeFaces
@@ -1906,13 +1925,6 @@ Class Keyframe : Instance
 	Function void Keyframe:RemovePose(Instance pose)
 Class KeyframeMarker : Instance
 	Property string KeyframeMarker.Value
-Class KeyframeSequence : Instance
-	Property float KeyframeSequence.AuthoredHipHeight {PluginSecurity} [Hidden]
-	Property bool KeyframeSequence.Loop
-	Property Enum.AnimationPriority KeyframeSequence.Priority
-	Function void KeyframeSequence:AddKeyframe(Instance keyframe)
-	Function Objects KeyframeSequence:GetKeyframes()
-	Function void KeyframeSequence:RemoveKeyframe(Instance keyframe)
 Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance KeyframeSequenceProvider:GetAnimations(int64 userId) [Yields]
 	Function Instance KeyframeSequenceProvider:GetKeyframeSequence(Content assetId) {PluginSecurity} [Deprecated]
@@ -2581,6 +2593,10 @@ Class Path : Instance [NotCreatable] [NotReplicated]
 	Function Array Path:GetWaypoints()
 	Event Path.Blocked(int blockedWaypointIdx)
 	Event Path.Unblocked(int unblockedWaypointIdx)
+Class PathfindingLink : Instance
+	Property Attachment PathfindingLink.Attachment0
+	Property Attachment PathfindingLink.Attachment1
+	Property bool PathfindingLink.IsBidirectional
 Class PathfindingModifier : Instance
 	Property string PathfindingModifier.ModifierId
 	Property bool PathfindingModifier.PassThrough
@@ -2741,13 +2757,10 @@ Class Player : Instance
 	Event Player.SimulationRadiusChanged(float radius) {LocalUserSecurity}
 Class PlayerEmulatorService : Instance [NotCreatable] [Service]
 	Property bool PlayerEmulatorService.CustomPoliciesEnabled {RobloxScriptSecurity} [Hidden]
-	Property string PlayerEmulatorService.DEPRECATED_SerializedEmulatedPolicyInfo {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedCountryCode {RobloxScriptSecurity} [Hidden]
 	Property string PlayerEmulatorService.EmulatedGameLocale {RobloxScriptSecurity} [Hidden]
 	Property bool PlayerEmulatorService.PlayerEmulationEnabled {RobloxScriptSecurity} [Hidden]
-	Property bool PlayerEmulatorService.PlayerEmulationEnabled_deprecated {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property BinaryString PlayerEmulatorService.SerializedEmulatedPolicyInfo {RobloxSecurity} [Hidden]
-	Property string PlayerEmulatorService.StudioEmulatedCountryRegionCode {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Dictionary PlayerEmulatorService:GetEmulatedPolicyInfo() {RobloxScriptSecurity}
 	Function bool PlayerEmulatorService:RegionCodeWillHaveAutomaticNonCustomPolicies(string regionCode) {RobloxScriptSecurity}
 	Function void PlayerEmulatorService:SetEmulatedPolicyInfo(Dictionary emulatedPolicyInfo) {RobloxScriptSecurity}
@@ -3082,6 +3095,15 @@ Class ReplicatedScriptService : Instance [NotCreatable] [Service]
 Class ReplicatedStorage : Instance [NotCreatable] [Service]
 Class RobloxPluginGuiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class RobloxReplicatedStorage : Instance [NotCreatable] [Service] [NotBrowsable]
+Class RotationCurve : Instance
+	Property int RotationCurve.Length [ReadOnly]
+	Function RotationCurveKey RotationCurve:GetKeyAtIndex(int index)
+	Function Array RotationCurve:GetKeyIndicesAtTime(float time)
+	Function Array RotationCurve:GetKeys()
+	Function CoordinateFrame? RotationCurve:GetValueAtTime(float time)
+	Function Array RotationCurve:InsertKey(RotationCurveKey key)
+	Function int RotationCurve:RemoveKeyAtIndex(int startingIndex, int count = 1)
+	Function int RotationCurve:SetKeys(Array keys)
 Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property string RunService.ClientGitHash {RobloxScriptSecurity} [ReadOnly]
 	Function void RunService:BindToRenderStep(string name, int priority, Function function)
@@ -3139,9 +3161,6 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
-Class ScriptRef : Instance [NotCreatable] [NotReplicated]
-Class ScriptRefId : ScriptRef [NotCreatable] [NotReplicated]
-Class ScriptRefPath : ScriptRef [NotCreatable] [NotReplicated]
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
 	Property float Selection.SelectionThickness [ReadOnly]
@@ -3157,7 +3176,7 @@ Class ServerScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ServerScriptService.LoadStringEnabled [NotReplicated] [NotScriptable]
 Class ServerStorage : Instance [NotCreatable] [Service] [NotReplicated]
 Class ServiceProvider : Instance [NotCreatable] [NotBrowsable]
-	Function Instance ServiceProvider:FindService(string className)
+	Function Instance ServiceProvider:FindService(string className) {🧬Safe}
 	Function Instance ServiceProvider:GetService(string className)
 	Function Instance ServiceProvider:service(string className) [Deprecated]
 	Event ServiceProvider.Close()
@@ -3378,7 +3397,7 @@ Class StackFrame : Instance [NotCreatable] [NotReplicated]
 	Property DebuggerVariable StackFrame.Globals {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int StackFrame.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property DebuggerVariable StackFrame.Locals {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property ScriptRef StackFrame.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string StackFrame.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property DebuggerVariable StackFrame.Upvalues {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StackFrame.Populated {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class StandalonePluginScripts : Instance
@@ -3586,6 +3605,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
+	Property bool StudioData.EnableTeamCreateStreamingOnLoad {RobloxScriptSecurity} [Hidden]
 	Property int64 StudioData.SrcPlaceId {RobloxSecurity} [Hidden] [NotReplicated]
 	Property int64 StudioData.SrcUniverseId {RobloxSecurity} [Hidden] [NotReplicated]
 Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4139,29 +4159,30 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
-	Property Enum.VoiceChatState VoiceChatService.VoiceChatState [ReadOnly]
-	Function string VoiceChatService:GetAndClearCallFailureMessage()
-	Function Tuple VoiceChatService:GetAudioProcessingSettings()
+	Property Enum.VoiceChatState VoiceChatService.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
+	Function string VoiceChatService:GetAndClearCallFailureMessage() [Deprecated]
+	Function Tuple VoiceChatService:GetAudioProcessingSettings() [Deprecated]
 	Function string VoiceChatService:GetGroupId() {RobloxScriptSecurity}
-	Function Tuple VoiceChatService:GetMicDevices()
-	Function Array VoiceChatService:GetParticipants()
-	Function Tuple VoiceChatService:GetSpeakerDevices()
-	Function int VoiceChatService:GetVoiceChatApiVersion()
-	Function int VoiceChatService:GetVoiceChatAvailable()
+	Function Tuple VoiceChatService:GetMicDevices() [Deprecated]
+	Function Array VoiceChatService:GetParticipants() [Deprecated]
+	Function Tuple VoiceChatService:GetSpeakerDevices() [Deprecated]
+	Function int VoiceChatService:GetVoiceChatApiVersion() [Deprecated]
+	Function int VoiceChatService:GetVoiceChatAvailable() [Deprecated]
 	Function bool VoiceChatService:IsContextVoiceEnabled() {RobloxScriptSecurity}
-	Function bool VoiceChatService:IsPublishPaused()
-	Function bool VoiceChatService:IsSubscribePaused(int64 userId)
-	Function bool VoiceChatService:JoinByGroupId(string groupId, bool isMicMuted = false)
-	Function bool VoiceChatService:JoinByGroupIdToken(string groupId, bool isMicMuted = false)
-	Function void VoiceChatService:Leave()
-	Function bool VoiceChatService:PublishPause(bool paused)
-	Function void VoiceChatService:SetMicDevice(string micDeviceName, string micDeviceGuid)
-	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid)
-	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused)
-	Function bool VoiceChatService:SubscribePauseAll(bool paused)
-	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates)
-	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo)
-	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new)
+	Function bool VoiceChatService:IsPublishPaused() [Deprecated]
+	Function bool VoiceChatService:IsSubscribePaused(int64 userId) [Deprecated]
+	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
+	Function bool VoiceChatService:JoinByGroupId(string groupId, bool isMicMuted = false) [Deprecated]
+	Function bool VoiceChatService:JoinByGroupIdToken(string groupId, bool isMicMuted = false) [Deprecated]
+	Function void VoiceChatService:Leave() [Deprecated]
+	Function bool VoiceChatService:PublishPause(bool paused) [Deprecated]
+	Function void VoiceChatService:SetMicDevice(string micDeviceName, string micDeviceGuid) [Deprecated]
+	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid) [Deprecated]
+	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused) [Deprecated]
+	Function bool VoiceChatService:SubscribePauseAll(bool paused) [Deprecated]
+	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) [Deprecated]
+	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo) [Deprecated]
+	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance

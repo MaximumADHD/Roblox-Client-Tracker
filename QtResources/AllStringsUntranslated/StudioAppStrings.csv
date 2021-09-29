@@ -331,6 +331,8 @@ Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Auto
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.MaterialServiceTitle,,Material Service,Material Service
 Studio.App.BetaFeatures.MaterialServiceDescription,,"Enables MaterialService and MaterialVariant, which allows Part Material appearance customization.","Enables MaterialService and MaterialVariant, which allows Part Material appearance customization."
+Studio.App.BetaFeatures.BetterBreakpointsTitle,,Better Breakpoints,Better Breakpoints
+Studio.App.BetaFeatures.BetterBreakpointsDescription,,Enables Logpoints and the new Edit Breakpiont dialog in the Debugger.,Enables Logpoints and the new Edit Breakpiont dialog in the Debugger.
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
@@ -597,6 +599,8 @@ Studio.App.ScriptingCmd.SELECT,,Select Text,Select Text
 Studio.App.ScriptingCmd.SELECTTooltip,,Select text at the given position,Select text at the given position
 Studio.App.ScriptingCmd.FOLDTOGGLE,,Toggle Code Fold,Toggle Code Fold
 Studio.App.ScriptingCmd.FOLDTOGGLETooltip,,Toggle a folded code block,Toggle a folded code block
+Studio.App.ScriptingCmd.GOTOLINE,,Go to Line,Go to Line
+Studio.App.ScriptingCmd.GOTOLINETooltip,,Go to a line in the script,Go to a line in the script
 Studio.App.ScriptingCmd.GOTOPOS,,Go to Position,Go to Position
 Studio.App.ScriptingCmd.GOTOPOSTooltip,,Go to a position in the script,Go to a position in the script
 Studio.App.ScriptingCmd.GOTODECL,,Go to Declaration,Go to Declaration
@@ -2096,6 +2100,8 @@ Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,A
 Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
+Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Tool,Accessory Tool
+Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
 Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta
@@ -3043,7 +3049,7 @@ Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
 Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor
 Studio.App.CalloutController.PivotEditorCalloutDescription,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.
-Studio.App.CalloutService.NotAvailable,,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false,CalloutService is not available when either FFlagStudioEnableTeachingCallouts or FFlagStudioCalloutsInLua are false
+Studio.App.CalloutService.NotAvailable,,CalloutService is not available when FFlagStudioCalloutsInLua is false,CalloutService is not available when FFlagStudioCalloutsInLua is false
 Studio.App.CalloutService.TargetNotGuiBase2d,,Target is not a GuiBase2d,Target is not a GuiBase2d
 Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for target,Could not find a LayerCollector for target
 Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector

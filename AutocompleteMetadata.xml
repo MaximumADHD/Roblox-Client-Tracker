@@ -2472,7 +2472,29 @@
       <Enum.KeyInterpolationMode name="interpolation">This Key interpolation mode</Enum.KeyInterpolationMode>
     </Properties>
   </ItemStruct>
-  <ItemStruct name="RaycastParams">
+  <ItemStruct name="RotationCurveKey">
+	<Function name="new" static="true">
+	 <returns>
+	  <RotationCurveKey></RotationCurveKey>
+	 </returns>
+	 <parameters>
+	  <number name="Time">  The Time at this key</number>
+      <CFrame name="Value"> The Value at this key</CFrame>
+      <Enum.KeyInterpolationMode name="interpolation" optional="true" default="Cubic">
+	    This Key interpolation mode (set to cubic if not specified)
+      </Enum.KeyInterpolationMode>
+	 </parameters>
+	 <description>Creates a new RotationCurveKey object.</description>
+	</Function>
+	<Properties>
+	 <number name="Time">  The Time at this key</number>
+	 <CFrame name="Value"> The Value at this key</CFrame>
+	 <number name="LeftTangent"> The LeftTangent at this key</number>
+	 <number name="RightTangent"> The RightTangent at this key</number>
+	 <Enum.KeyInterpolationMode name="interpolation">This Key interpolation mode</Enum.KeyInterpolationMode>
+	</Properties>
+   </ItemStruct>
+   <ItemStruct name="RaycastParams">
     <Function name="new" static="true">
       <returns>
         <RaycastParams></RaycastParams>

@@ -62,9 +62,9 @@ Studio.LayeredClothingEditor.Flow.Generate,Generate
 Studio.LayeredClothingEditor.Flow.Next,Next
 Studio.LayeredClothingEditor.Generate.Prompt,The asset is ready.
 Studio.LayeredClothingEditor.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
-Studio.LayeredClothingEditor.Main.Title,Layered Clothing Editor
-Studio.LayeredClothingEditor.Main.ToolbarButton,Layered Clothing Editor
-Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Avatars and Clothing
+Studio.LayeredClothingEditor.Main.Title,Accessory Tool BETA
+Studio.LayeredClothingEditor.Main.ToolbarButton,Accessory Tool BETA
+Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Clothing and Accessories
 Studio.LayeredClothingEditor.Meta.PluginName,Layered Clothing Editor
 Studio.LayeredClothingEditor.Meta.ToolbarName,Layered Clothing Editor
 Studio.LayeredClothingEditor.Preview.AddNew,Add new...
