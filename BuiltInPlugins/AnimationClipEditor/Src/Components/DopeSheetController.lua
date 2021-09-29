@@ -102,7 +102,7 @@ function DopeSheetController:init()
 			self.state.AbsoluteSize.X - self.props.TrackPadding
 		)
 
-		if GetFFlagUseTicks() and useSnap and self.props.SnapMode ~= Constants.SNAP_MODES.Disabled then
+		if GetFFlagUseTicks() and useSnap and self.props.SnapMode ~= Constants.SNAP_MODES.None then
 			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
 		end
 

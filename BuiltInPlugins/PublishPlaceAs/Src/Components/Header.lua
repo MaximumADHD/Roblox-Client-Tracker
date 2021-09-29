@@ -9,9 +9,8 @@ local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithConte
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local Framework = Plugin.Packages.Framework
-
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local HEADER_HEIGHT = 45

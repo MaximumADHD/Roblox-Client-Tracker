@@ -17,8 +17,8 @@ local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithConte
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
@@ -83,7 +83,7 @@ function PlatformSelect:render()
 			EntryClicked = function(box)
 				if box.Id == "Console" and not box.Selected then
 					self.showDialog()
-				else 
+				else
 					deviceSelected(box.Id, not box.Selected)
 				end
 			end,

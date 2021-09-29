@@ -24,7 +24,7 @@ return strict({
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
-	
+	ellipsizeMiddle = require(script.ellipsizeMiddle),
 	enumerate = FFlagDevFrameworkAddEnumerateToUtil and require(script.enumerate) or nil,
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),

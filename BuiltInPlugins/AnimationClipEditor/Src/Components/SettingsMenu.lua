@@ -135,7 +135,7 @@ function SettingsMenu:makeSnapMenu(localization)
 		Items = {
 			{Name = localization:getText("Settings", "SnapKeyframes"), Value = Constants.SNAP_MODES.Keyframes},
 			{Name = localization:getText("Settings", "SnapFrames"), Value = Constants.SNAP_MODES.Frames},
-			{Name = localization:getText("Settings", "SnapDisabled"), Value = Constants.SNAP_MODES.Disabled},
+			{Name = localization:getText("Settings", "SnapNone"), Value = Constants.SNAP_MODES.None},
 		},
 
 		CurrentValue = snapMode,

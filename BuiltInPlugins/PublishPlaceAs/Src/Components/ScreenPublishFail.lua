@@ -7,12 +7,12 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 -- TODO: jbousellam - 9/10/21 - STUDIOPLAT-25892 - Figure out why we need to do this instead of using ContextServices.API
-local RobloxAPI = require(Framework.RobloxAPI)
+local RobloxAPI = Framework.RobloxAPI
 local API = RobloxAPI.new()
 
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)

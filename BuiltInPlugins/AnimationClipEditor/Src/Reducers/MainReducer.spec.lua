@@ -126,7 +126,7 @@ return function()
 		if GetFFlagUseTicks() then
 			-- This test uses old frames as offsets. Disable snap mode so that
 			-- move/scale operations don't regroup them all at offset 0
-			store:dispatch(SetSnapMode(Constants.SNAP_MODES.Disabled))
+			store:dispatch(SetSnapMode(Constants.SNAP_MODES.None))
 		end
 		return store
 	end

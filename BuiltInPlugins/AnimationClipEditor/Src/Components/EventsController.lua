@@ -94,7 +94,7 @@ function EventsController:init()
 			self.props.AbsoluteSize.X - self.props.TrackPadding
 		)
 
-		if GetFFlagUseTicks() and snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.Disabled then
+		if GetFFlagUseTicks() and snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.None then
 			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
 		end
 

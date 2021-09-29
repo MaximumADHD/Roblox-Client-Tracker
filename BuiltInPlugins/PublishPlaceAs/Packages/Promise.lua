@@ -1,3 +1,4 @@
+assert(not game:GetFastFlag("PublishPlaceAsUseFrameworkPromise"), "Use Developer Framework Util.Promise")
 --[[
 	An implementation of Promises similar to Promise/A+.
 ]]

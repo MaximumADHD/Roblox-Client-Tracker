@@ -104,8 +104,7 @@ function AssetThumbnailPreview:didMount()
 
 		stopSoundsPlaying(model)
 
-		local instance = game:GetFastFlag("CMSFixAssetPreviewForThumbnailConfig")
-			and #self.props.instances == 1
+		local instance = #self.props.instances == 1
 			and self.props.instances[1]
 			or model
 		local thumbnailConfiguration = instance:FindFirstChild("ThumbnailConfiguration")

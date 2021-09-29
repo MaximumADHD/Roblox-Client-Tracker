@@ -13,7 +13,10 @@
 
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
+local HttpService = game:GetService("HttpService")
+
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -516,7 +519,7 @@ function AssetGridContainer:render()
 			end
 
 			assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
-				Name = "ToolboxToolMessageBox",
+				Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolMessageBox",
 
 				Title = "Insert Tool",
 				Text = "Put this tool into the starter pack?",

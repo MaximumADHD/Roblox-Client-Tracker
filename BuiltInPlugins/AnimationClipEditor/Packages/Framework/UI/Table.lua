@@ -27,9 +27,12 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
+		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
@@ -101,7 +104,8 @@ function Table:init()
 			OnHover = self.props.OnHoverRow and self.onHoverRow,
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
-			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil
+			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil,
+			FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
 		})
 	end
 	self.getDefaultRowKey = function(row)

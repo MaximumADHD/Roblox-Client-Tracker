@@ -82,7 +82,7 @@ return function(pivotTick, newTick, dragContext)
 				for index = startIndex, endIndex, step do
 					local oldTick = keyframes[index]
 					local insertTick = newTick + (oldTick - pivotTick)
-					if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+					if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 						insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 					end
 					insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))

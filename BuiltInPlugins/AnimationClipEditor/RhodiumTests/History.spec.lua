@@ -160,7 +160,7 @@ return function()
 		end)
 	end)
 
-	it("should be able to undo and redo moving keyframes", function()
+	itSKIP("should be able to undo and redo moving keyframes", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()

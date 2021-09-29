@@ -16,11 +16,9 @@
 		callback onSearchOptionsToggled()
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxHideSearchForMyPlugins = game:DefineFastFlag("ToolboxHideSearchForMyPlugins", false)
 local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
 local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-game:DefineFastFlag("ToolboxSaveSearchWhenSwitchingCategories", false)
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -241,14 +239,7 @@ function Header:renderContent(theme, localization, localizedContent)
 
 	local fullWidthDropdown = isCreationsTab and not isGroupCategory
 
-	local showSearchBar
-	if FFlagToolboxHideSearchForMyPlugins then
-		local isPlugins = Category.categoryIsPlugin(categoryName)
-		showSearchBar = not isGroupCategory and not isCreationsTab
-			and not (isInventoryTab and isPlugins)
-	else
-		showSearchBar = not isGroupCategory and not isCreationsTab
-	end
+	local showSearchBar = not isGroupCategory and not isCreationsTab
 
 	local isRecentsTab = Category.getTabForCategoryName(categoryName) == Category.RECENT
 	if isRecentsTab then

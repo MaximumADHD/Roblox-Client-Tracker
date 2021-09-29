@@ -6,10 +6,8 @@
 	assetId, number, will be used to request assetData on didMount.
 ]]
 
-local FFlagAssetConfigOverrideFromAnyScreen = game:GetFastFlag("AssetConfigOverrideFromAnyScreen")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagCanPublishDefaultAsset = game:DefineFastFlag("CanPublishDefaultAsset", false)
-local FFlagAssetConfigEnforceNonEmptyDescription = game:DefineFastFlag("AssetConfigEnforceNonEmptyDescription", false)
+local FFlagAssetConfigEnforceNonEmptyDescription = game:GetFastFlag("AssetConfigEnforceNonEmptyDescription")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
@@ -299,9 +297,7 @@ function AssetConfig:init(props)
 
 		-- Always try to publish the asset if we could save
 		-- This allows the default asset to be published (default name, no changes)
-		if FFlagCanPublishDefaultAsset or changed then
-			tryPublishGeneral()
-		end
+		tryPublishGeneral()
 
 		-- If the asset was modified, publish versions and permissions
 		if changed then
@@ -521,12 +517,7 @@ function AssetConfig:didUpdate(previousProps, previousState)
 				-- assetId is named differently in the data returned by different end-points
 				assetId = AssetConfigUtil.isMarketplaceAsset(self.props.assetTypeEnum)
 					and assetConfigData.Id
-					or (
-						game:GetFastFlag("AssetConfigFixAssetIdTypo")
-							and assetConfigData.AssetId
-							or assetConfigData.assetId
-					),
-
+					or assetConfigData.AssetId,
 				name = assetConfigData.Name,
 				description = assetConfigData.Description,
 				owner = assetConfigData.Creator,
@@ -643,10 +634,6 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 			end
 		end
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
-
-		if not FFlagCanPublishDefaultAsset then
-			return changed and nameDataIsOk and descriptionDataIsOk and priceDataIsOk
-		end
 
 		local isValid = nameDataIsOk and descriptionDataIsOk and priceDataIsOk
 		if screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
@@ -1054,12 +1041,10 @@ local function mapDispatchToProps(dispatch)
 
 		setTab = function(tabItem)
 			dispatch(SetAssetConfigTab(tabItem))
-			if FFlagAssetConfigOverrideFromAnyScreen then
-				if FFlagToolboxAssetConfigAddPublishBackButton then
-					dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
-				else
-					dispatch(ClearChange("OverrideAssetId"))
-				end
+			if FFlagToolboxAssetConfigAddPublishBackButton then
+				dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
+			else
+				dispatch(ClearChange("OverrideAssetId"))
 			end
 		end,
 

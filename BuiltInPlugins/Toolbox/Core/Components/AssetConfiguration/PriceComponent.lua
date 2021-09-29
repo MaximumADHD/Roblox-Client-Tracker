@@ -19,7 +19,7 @@
 local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FIntToolboxPriceTextBoxMaxCount = game:DefineFastInt("ToolboxPriceTextBoxMaxCount", 1000)
+local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -62,7 +62,7 @@ local INPUT_BOX_WIDTH = 200
 
 local PriceComponent = Roact.PureComponent:extend("PriceComponent")
 
-local FFlagPriceComponentTextSize = game:DefineFastFlag("PriceComponentTextSize", false)
+local FFlagPriceComponentTextSize = game:GetFastFlag("PriceComponentTextSize")
 
 function PriceComponent:init(props)
 	self.onPriceChange = function(text)

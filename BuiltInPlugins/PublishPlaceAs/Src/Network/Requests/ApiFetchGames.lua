@@ -1,7 +1,6 @@
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = require(Plugin.Packages.Promise)
 
 local GameToPublish = require(Plugin.Src.Network.Models.GameToPublish)
 local Http = require(Plugin.Src.Network.Http)
@@ -20,7 +19,7 @@ return function(searchArguments)
 	local cursor = searchArguments.cursor
 
 	local query = ""
-	if type == Constants.SUBJECT_TYPE.GROUP then 
+	if type == Constants.SUBJECT_TYPE.GROUP then
 		query = string.format("creator:Group archived:False groups:%i", id)
 	elseif type == Constants.SUBJECT_TYPE.USER then
 		query = "creator:User archived:False"

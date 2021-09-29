@@ -10,6 +10,14 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
+
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+
+local planeLock = false
+if FFlagTerrainToolsEditPlaneLock then
+	planeLock = PlaneLockType.Off
+end
 
 local ReplaceTool = Rodux.createReducer({
 	position = {
@@ -30,7 +38,7 @@ local ReplaceTool = Rodux.createReducer({
 	height = Constants.INITIAL_BRUSH_SIZE,
 	baseSizeHeightLocked = true,
 	pivot = PivotType.Center,
-	planeLock = false,
+	planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Off or false,
 	snapToGrid = false,
 	ignoreWater = true,
 	ignoreParts = true,

@@ -1,4 +1,3 @@
-local FFlagFixToolboxPluginScaling = game:DefineFastFlag("FixToolboxPluginScaling", false)
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
@@ -577,14 +576,10 @@ function Category.categoryIsPlugin(categoryName)
 end
 
 function Category.shouldShowPrices(categoryName)
-	if FFlagFixToolboxPluginScaling then
-		local isPlugins = Category.categoryIsPlugin(categoryName)
-		local tab = Category.getTabForCategoryName(categoryName)
-		local showPrices = isPlugins and tab == Category.MARKETPLACE
-		return showPrices
-	else
-		return Category.categoryIsPlugin(categoryName)
-	end
+	local isPlugins = Category.categoryIsPlugin(categoryName)
+	local tab = Category.getTabForCategoryName(categoryName)
+	local showPrices = isPlugins and tab == Category.MARKETPLACE
+	return showPrices
 end
 
 local ASSET_ENUM_CATEGORY_MAP = {

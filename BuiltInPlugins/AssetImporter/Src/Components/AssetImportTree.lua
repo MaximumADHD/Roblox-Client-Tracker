@@ -141,6 +141,11 @@ local function getStatusImage(status, statusType, layoutOrderIterator, localizat
 	})
 end
 
+local function trimFileName(fileName)
+	local splitFilePath = fileName:split("/")
+	return splitFilePath[#splitFilePath]
+end
+
 function AssetImportTree:init()
 	self.getChildren = function(item)
 		return item:GetChildren()
@@ -148,7 +153,7 @@ function AssetImportTree:init()
 
 	self.getContents = function(item)
 		if item.ClassName == "ImporterRootSettings" then
-			return self.props.FileName, nil
+			return trimFileName(self.props.FileName), nil
 		else
 			return item.ImportName, nil
 		end

@@ -14,7 +14,6 @@
 		Position, UDim2, you should have a Position or LayoutOrder.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagFixImagePickerStatus = game:DefineFastFlag("FixImagePickerStatus", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -68,18 +67,13 @@ function ImagePicker:getStatus(localization, localizedContent)
 	local thumbnailStatus = props.ThumbnailStatus
 	local hovered = state.hovered
 
-	local status, showStatus
-	if FFlagFixImagePickerStatus then
-		local completed = thumbnailStatus == "Completed" or thumbnailStatus == nil
-		showStatus = not (hovered or (completed and iconFile == nil))
-		if iconFile then
-			status = localizedContent.AssetConfig.PreviewArea.PreviewLabel
-		else
-			status = thumbnailStatus and localization:getThumbnailStatus(thumbnailStatus) or ""
-		end
+	local status
+	local completed = thumbnailStatus == "Completed" or thumbnailStatus == nil
+	local showStatus = not (hovered or (completed and iconFile == nil))
+	if iconFile then
+		status = localizedContent.AssetConfig.PreviewArea.PreviewLabel
 	else
-		status = thumbnailStatus or localizedContent.AssetConfig.PreviewArea.PreviewLabel
-		showStatus = not hovered
+		status = thumbnailStatus and localization:getThumbnailStatus(thumbnailStatus) or ""
 	end
 
 	return status, showStatus

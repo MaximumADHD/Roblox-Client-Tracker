@@ -15,7 +15,7 @@ local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPl
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = require(Plugin.Packages.Promise)
+local Promise = game:GetFastFlag("PublishPlaceAsUseFrameworkPromise") and require(Plugin.Packages.Framework).Util.Promise or require(Plugin.Packages.Promise)
 
 -- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
 local DEPRECATED_Configuration = require(Plugin.Src.Network.Requests.Configuration)

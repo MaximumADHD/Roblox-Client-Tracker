@@ -12,6 +12,7 @@ local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -216,6 +217,10 @@ local function main()
 	)
 
 	toolbarButton.Click:connect(toggleWidget)
+
+	if FFlagStudioAssetManagerFixToolbarButtonScript then
+		toolbarButton.ClickableWhenViewportHidden = true
+	end
 
 	local function showIfEnabled()
 		if pluginGui.Enabled then

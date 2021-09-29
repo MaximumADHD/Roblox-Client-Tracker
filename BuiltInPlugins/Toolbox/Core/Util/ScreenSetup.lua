@@ -6,7 +6,7 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 
 local ScreenSetup = {}
 
-local FFlagSupportUploadGroupAnimations = game:DefineFastFlag("StudioSupportUploadGroupAnimations", false)
+local FFlagSupportUploadGroupAnimations = game:GetFastFlag("StudioSupportUploadGroupAnimations")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 
 ScreenSetup.keys = convertArrayToTable({

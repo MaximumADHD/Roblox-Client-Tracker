@@ -12,8 +12,6 @@
 		string logDetails: If editing an existing logpoint, display existing message with this prop.
 ]]
 
-local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -22,8 +20,8 @@ local Framework = require(Plugin.Packages.Framework)
 local UI = Framework.UI
 local Pane = UI.Pane
 local Button = UI.Button
-local TextLabel = UI.Decoration.TextLabel
 local Checkbox = UI.Checkbox
+local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -31,10 +29,6 @@ local TextService = game:GetService("TextService")
 local Localization = ContextServices.Localization
 
 local Stylizer = Framework.Style.Stylizer
-
--- Function originally from PluginGuiProjects/TerrainToolsV2/src/Util/ellipsizeMiddle.lua
--- Plan is to convert this function into a DF component (RIDE-5116) after which this function will be removed
-local ellipsizeMiddle = require(Plugin.Src.Components.Breakpoints.ellipsizeMiddle)
 
 local TextInputWithLabel = require(Plugin.Src.Components.Breakpoints.TextInputWithLabel)
 
@@ -48,7 +42,6 @@ local LABEL_VERTICAL_OFFSET = 25
 local MIN_BUTTON_WIDTH = 100
 local MIN_BUTTON_HEIGHT = 16
 local BUTTON_PADDING = 20
-local TOP_ROW_SPACING = 20
 
 local EditDebugpoint = Roact.PureComponent:extend("EditDebugpoint")
 
@@ -61,52 +54,6 @@ EditDebugpoint.defaultProps = {
 	Enabled = true,
 }
 
-function EditDebugpoint:init(props)
-	self.titleRef = Roact.createRef()
-
-	self.getTitleWidth = function(text)
-		local titleInstance = self.titleRef.current
-		if not titleInstance then
-			return 0
-		end
-
-		return calculateTextSize(text, titleInstance.TextSize, titleInstance.Font).X
-	end
-
-	self:setState({
-		lastTitleWidth = 0,
-	})
-	self.updateTitleText = function()
-		local props = self.props
-		local scriptName = props.ScriptName
-		local lineNumber = props.LineNumber
-		local localization = props.Localization
-		
-		local titleInstance = self.titleRef.current
-		if not titleInstance then
-			return
-		end
-
-		local maxWidth = titleInstance.AbsoluteSize.x
-		local postfix = localization:getText("EditDebugpoint", "TitleLine", {LineNumber = lineNumber})
-		local title = scriptName .. ": " .. postfix
-
-		if maxWidth ~= self.state.lastTitleWidth then
-			titleInstance.Text = ellipsizeMiddle(title, maxWidth - TOP_ROW_SPACING,
-				self.getTitleWidth, string.len(postfix))
-			self:setState({lastTitleWidth = maxWidth})
-		end
-	end
-end
-
-function EditDebugpoint:didMount()
-	self.updateTitleText()
-end
-
-function EditDebugpoint:didUpdate()
-	self.updateTitleText()
-end
-
 function EditDebugpoint:render()
 	local props = self.props
 	local style = self.props.Stylizer
@@ -115,6 +62,9 @@ function EditDebugpoint:render()
 	local enabled = props.Enabled
 	local onEnableChange = props.OnEnableChange
 	local inputItems = props.InputItems
+	local scriptName = props.ScriptName
+	local lineNumber = props.LineNumber
+	local postfix = ": " .. localization:getText("EditDebugpoint", "TitleLine", {LineNumber = lineNumber})
 
 	local enabledLabelText = localization:getText("EditDebugpoint", "EnabledLabel")
 	local cancelText = localization:getText("EditDebugpoint", "Cancel")
@@ -182,13 +132,13 @@ function EditDebugpoint:render()
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				VerticalAlignment = Enum.VerticalAlignment.Top,
 			}, {
-				Text =  Roact.createElement(TextLabel, {
+				TruncatedTextLabel = Roact.createElement(TruncatedTextLabel, {
 					Style = "Title",
 					TextXAlignment = Enum.TextXAlignment.Left,
 					Size = UDim2.new(1, -enableSize, 0, 0),
 					AutomaticSize = Enum.AutomaticSize.Y,
-					[Roact.Ref] = FFlagTextLabelRefProps and self.titleRef or nil,
-					[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and self.updateTitleText or nil,
+					Text = scriptName .. postfix,
+					SuffixLength = string.len(postfix),
 				}),
 				CheckboxEnable = Roact.createElement(Checkbox, {
 					Checked = enabled,

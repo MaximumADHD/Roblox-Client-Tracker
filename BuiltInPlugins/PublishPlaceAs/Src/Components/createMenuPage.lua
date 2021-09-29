@@ -32,10 +32,10 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Util = require(Framework.Util)
+local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

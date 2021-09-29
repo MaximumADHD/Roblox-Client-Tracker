@@ -53,6 +53,21 @@ local function getFakeAsset(fakeId)
 	}
 end
 
+local function getCreationsFakeAsset(fakeId)
+	return {
+		assetId = fakeId,
+		assetType = "Models",
+		created = "2019-08-09T21:41:51.97Z",
+		creatorType = "User",
+		name = "Dummy" .. fakeId,
+		creatorTargetId = 1010101,
+		status = "Free",
+		description = "mocked asset item",
+		updated = "2021-05-06T19:56:54.437Z",
+		priceConfiguration = {},
+	}
+end
+
 local function getFakeToolboxItems(fakeId)
 	return {
 		id = fakeId,
@@ -68,6 +83,12 @@ local function getFakeCreationsItems(fakeId)
 end
 
 local function createStringValueforVerification(categoryName)
+	for i, child in ipairs(game.CoreGui:GetChildren()) do
+		if child.Name == "CategoryVerification" then
+			child:Destroy()
+		end
+	end
+
 	local vString = Instance.new("StringValue",game.CoreGui)
 	vString.Value = categoryName
 	vString.Name = "CategoryVerification"
@@ -151,7 +172,7 @@ function NetworkInterfaceMock:getAssetCreations(items)
 		responseBody = {}
 	}
 	local data = {}
-	for i = 1, 1, 1 do
+	for i = 1, 10, 1 do
 		data[i] = getFakeCreationsItems(i)
 	end
 	fakeItemListContent.responseBody.data = data
@@ -159,16 +180,39 @@ function NetworkInterfaceMock:getAssetCreations(items)
 	return Promise.resolve(fakeItemListContent)
 end
 
+function NetworkInterfaceMock:getGroupAnimations(cursor, groupId)
+	return Promise.resolve({})
+end
+
 function NetworkInterfaceMock:getAssetCreationDetails(assetIds)
 	local responseData = {}
-	local res = getFakeAsset(tostring(assetIds))
-	table.insert(responseData, res)
+	for i = 1, #assetIds do
+		responseData[i] = getCreationsFakeAsset(i)
+	end
 
 	return Promise.resolve({
-		responseBody = {
-			data = responseData,
-		},
+		responseBody = responseData,
 	})
+end
+
+function NetworkInterfaceMock:getCreatorInfo(creatorId, creatorType)
+	local fakeItemListContent = {
+		responseBody = {
+			AvatarFinal = false,
+			Id = "1010101",
+			IsOnline = false,
+			Username = "testAccount"
+		}
+	}
+	return Promise.resolve(fakeItemListContent)
+end
+
+function NetworkInterfaceMock:configureSales(assetId, saleStatus, price)
+	return Promise.resolve({})
+end
+
+function NetworkInterfaceMock:updateSales(assetId, price)
+	return Promise.resolve({})
 end
 
 -- Pass this a list of assets and it returns a promise with the same data structure as returned from the web
@@ -212,13 +256,29 @@ function NetworkInterfaceMock:postUnvote(assetId)
 	})
 end
 
+function NetworkInterfaceMock:postFavorite(userId, assetId)
+	return Promise.resolve({})
+end
+
+function NetworkInterfaceMock:deleteFavorite(userId, assetId)
+	return Promise.resolve({})
+end
+
 function NetworkInterfaceMock:postInsertAsset(assetId)
 	return true
 end
 
 function NetworkInterfaceMock:getManageableGroups()
-	local fakeGroups = {}
+	local fakeGroups = {
+			responseBody = {
+				data = {}
+			}
+		}
 	return Promise.resolve(fakeGroups)
+end
+
+function NetworkInterfaceMock:getUsers(searchTerm, numResults)
+	return Promise.resolve({})
 end
 
 function NetworkInterfaceMock:getCanManageAsset(assetId, myUserId)
@@ -261,6 +321,14 @@ function NetworkInterfaceMock:getMetaData()
 end
 
 function NetworkInterfaceMock:getTagsMetadata()
+	return Promise.resolve({})
+end
+
+function NetworkInterfaceMock:uploadCatalogItem(formBodyData, boundary)
+	return Promise.resolve({})
+end
+
+function NetworkInterfaceMock:uploadCatalogItemFormat(assetId, type, name, description, isPublic, format, instanceData)
 	return Promise.resolve({})
 end
 

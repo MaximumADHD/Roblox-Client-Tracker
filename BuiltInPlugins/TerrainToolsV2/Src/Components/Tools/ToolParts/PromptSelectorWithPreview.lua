@@ -43,11 +43,11 @@ local StudioUI = Framework.StudioUI
 local Dialog = StudioUI.Dialog
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local ellipsizeMiddle = Framework.Util.ellipsizeMiddle
 
 local StatusIcon = require(Plugin.Src.Components.StatusIcon)
 
 local Constants = require(Plugin.Src.Util.Constants)
-local ellipsizeMiddle = require(Plugin.Src.Util.ellipsizeMiddle)
 
 local PREVIEW_SIZE = 88
 local VERT_PADDING = 4

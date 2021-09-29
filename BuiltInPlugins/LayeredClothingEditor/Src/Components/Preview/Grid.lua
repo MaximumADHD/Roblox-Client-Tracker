@@ -24,6 +24,7 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
 local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
+local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -170,8 +171,13 @@ function Grid:render()
 				if not self.gridRef.current then
 					return
 				end
-				self.gridRef.current.ScrollingFrame.Contents.Scroller.CanvasSize =
-					UDim2.new(0, rbx.AbsoluteContentSize.X, 0, rbx.AbsoluteContentSize.Y)
+				if FFlagDevFrameworkScrollingFrameUsePane then
+					self.gridRef.current.ScrollingFrame.Scroller.CanvasSize =
+						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
+				else
+					self.gridRef.current.ScrollingFrame.Contents.Scroller.CanvasSize =
+						UDim2.fromOffset(rbx.AbsoluteContentSize.X, rbx.AbsoluteContentSize.Y)
+				end
 			end,
 		}),
 	}

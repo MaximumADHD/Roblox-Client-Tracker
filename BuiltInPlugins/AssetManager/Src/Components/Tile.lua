@@ -29,6 +29,7 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagStudioAssetManagerFixAssetPreviewHover = game:GetFastFlag("StudioAssetManagerFixAssetPreviewHover")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -130,6 +131,11 @@ function Tile:init()
     end
 
     self.openAssetPreview = function()
+        if FFlagStudioAssetManagerFixAssetPreviewHover then
+            self:setState({
+                assetPreviewButtonHovered = false,
+            })
+        end
         local assetData = self.props.AssetData
         -- when opening asset preview, set selected assets to that asset only
         self.props.dispatchSetSelectedAssets({ [assetData.key] = true })

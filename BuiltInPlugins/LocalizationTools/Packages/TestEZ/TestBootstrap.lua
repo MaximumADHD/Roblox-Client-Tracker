@@ -11,6 +11,9 @@ local TestBootstrap = {}
 local function stripSpecSuffix(name)
 	return (name:gsub("%.spec$", ""))
 end
+local function isSpecScript(aScript)
+	return aScript:IsA("ModuleScript") and aScript.Name:match("%.spec$")
+end
 
 local function getPath(module, root)
 	root = root or game
@@ -18,38 +21,62 @@ local function getPath(module, root)
 	local path = {}
 	local last = module
 
+	if last.Name == "init.spec" then
+		-- Use the directory's node for init.spec files.
+		last = last.Parent
+	end
+
 	while last ~= nil and last ~= root do
 		table.insert(path, stripSpecSuffix(last.Name))
 		last = last.Parent
 	end
+	table.insert(path, stripSpecSuffix(root.Name))
 
 	return path
+end
+
+local function toStringPath(tablePath)
+	local stringPath = ""
+	local first = true
+	for _, element in ipairs(tablePath) do
+		if first then
+			stringPath = element
+			first = false
+		else
+			stringPath = element .. " " .. stringPath
+		end
+	end
+	return stringPath
+end
+
+function TestBootstrap:getModulesImpl(root, modules, current)
+	modules = modules or {}
+	current = current or root
+
+	if isSpecScript(current) then
+		local method = require(current)
+		local path = getPath(current, root)
+		local pathString = toStringPath(path)
+
+		table.insert(modules, {
+			method = method,
+			path = path,
+			pathStringForSorting = pathString:lower()
+		})
+	end
 end
 
 --[[
 	Find all the ModuleScripts in this tree that are tests.
 ]]
-function TestBootstrap:getPackages(root, modules, current)
-	modules = modules or {}
-	current = current or root
+function TestBootstrap:getModules(root)
+	local modules = {}
 
-	for _, child in ipairs(current:GetChildren()) do
-		if child:IsA("ModuleScript") and child.Name:match("%.spec$") then
-			local method = require(child)
-			local path = getPath(child, root)
+	self:getModulesImpl(root, modules)
 
-			table.insert(modules, {
-				method = method,
-				path = path
-			})
-		else
-			self:getPackages(root, modules, child)
-		end
+	for _, child in ipairs(root:GetDescendants()) do
+		self:getModulesImpl(root, modules, child)
 	end
-
-	table.sort(modules, function(a, b)
-		return a.path[#a.path]:lower() < b.path[#b.path]:lower()
-	end)
 
 	return modules
 end
@@ -69,26 +96,32 @@ end
 	the test plan before we execute it, allowing them to toggle specific tests
 	before they're run, but after they've been identified!
 ]]
-function TestBootstrap:run(root, reporter, showTimingInfo, noXpcallByDefault)
-	noXpcallByDefault = noXpcallByDefault or false
-	if not root then
-		error("You must provide a root object to search for tests in!", 2)
-	end
-
+function TestBootstrap:run(roots, reporter, otherOptions)
 	reporter = reporter or TextReporter
+
+	otherOptions = otherOptions or {}
+	local showTimingInfo = otherOptions["showTimingInfo"] or false
+	local testNamePattern = otherOptions["testNamePattern"]
+	local extraEnvironment = otherOptions["extraEnvironment"] or {}
+
+	if type(roots) ~= "table" then
+		error(("Bad argument #1 to TestBootstrap:run. Expected table, got %s"):format(typeof(roots)), 2)
+	end
 
 	local startTime = tick()
 
-	local modules
-	if type(root) == "function" then
-		modules = {{method = root, path = {}}}
-	else
-		modules = self:getPackages(root)
+	local modules = {}
+	for _, subRoot in ipairs(roots) do
+		local newModules = self:getModules(subRoot)
+
+		for _, newModule in ipairs(newModules) do
+			table.insert(modules, newModule)
+		end
 	end
 
-	local afterPackages = tick()
+	local afterModules = tick()
 
-	local plan = TestPlanner.createPlan(modules, noXpcallByDefault)
+	local plan = TestPlanner.createPlan(modules, testNamePattern, extraEnvironment)
 	local afterPlan = tick()
 
 	local results = TestRunner.runPlan(plan)
@@ -99,8 +132,8 @@ function TestBootstrap:run(root, reporter, showTimingInfo, noXpcallByDefault)
 
 	if showTimingInfo then
 		local timing = {
-			("Took %f seconds to locate test modules"):format(afterPackages - startTime),
-			("Took %f seconds to create test plan"):format(afterPlan - afterPackages),
+			("Took %f seconds to locate test modules"):format(afterModules - startTime),
+			("Took %f seconds to create test plan"):format(afterPlan - afterModules),
 			("Took %f seconds to run tests"):format(afterRun - afterPlan),
 			("Took %f seconds to report tests"):format(afterReport - afterRun),
 		}

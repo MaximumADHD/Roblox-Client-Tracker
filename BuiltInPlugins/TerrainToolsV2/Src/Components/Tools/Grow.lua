@@ -16,17 +16,30 @@ local ChangeStrength = require(Actions.ChangeStrength)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetMaterial = require(Actions.SetMaterial)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
+local PlaneLockType = TerrainEnums.PlaneLockType
+
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local REDUCER_KEY = "GrowTool"
 
 local function mapStateToProps(state, props)
+	local planeLock
+
+	-- (skuhne) TODO: remove and update with other adjustable plane lock tickets
+	if FFlagTerrainToolsEditPlaneLock then
+		planeLock = state[REDUCER_KEY].planeLock ~= PlaneLockType.Off
+	else
+		planeLock = state[REDUCER_KEY].planeLock
+	end
 	return {
 		toolName = TerrainEnums.ToolId.Grow,
 
@@ -39,9 +52,11 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = state[REDUCER_KEY].planeLock,
+		planeLock = planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 		strength = state[REDUCER_KEY].strength,
+		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[REDUCER_KEY].planeCFrame,
 	}
 end
 
@@ -83,6 +98,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetPlaneLock = function (planeLock)
 			dispatchToGrow(SetPlaneLock(planeLock))
+		end,
+		dispatchSetEditPlaneMode = function(editPlaneMode)
+			dispatchToGrow(SetEditPlaneMode(editPlaneMode))
+		end,
+		dispatchSetPlaneCFrame = function(planeCFrame)
+			dispatchToGrow(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToGrow(SetSnapToGrid(snapToGrid))

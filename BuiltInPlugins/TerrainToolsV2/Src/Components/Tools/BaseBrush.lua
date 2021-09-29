@@ -3,11 +3,13 @@
 ]]
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -23,6 +25,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
 
 local BaseBrush = Roact.PureComponent:extend(script.Name)
 
@@ -91,6 +94,8 @@ function BaseBrush:init()
 		local ignoreParts = true
 		local snapToGrid = false
 		local fixedPlane = false
+		local editPlaneMode
+		local planeCFrame
 		local heightPicker = false
 		-- For tools where these properties aren't settable, we need to set them to a default value
 		-- Otherwise we'd try to pass autoMaterial=nil in the table below
@@ -110,7 +115,18 @@ function BaseBrush:init()
 		if self.props.dispatchSetSnapToGrid then
 			snapToGrid = self.props.snapToGrid
 		end
+		if FFlagTerrainToolsEditPlaneLock then
+			editPlaneMode = false
+			planeCFrame = Cryo.None
 
+			if self.props.dispatchSetEditPlaneMode then
+				editPlaneMode = self.props.editPlaneMode
+			end
+			if self.props.dispatchSetPlaneCFrame then
+				planeCFrame = self.props.planeCFrame
+			end
+		end
+		
 		if self.props.dispatchSetFixedPlane then
 			fixedPlane = self.props.fixedPlane
 		end
@@ -133,6 +149,8 @@ function BaseBrush:init()
 			target = self.props.target,
 			pivot = self.props.pivot or PivotType.Center,
 			planeLock = planeLockState,
+			editPlaneMode = editPlaneMode,
+			planeCFrame = planeCFrame,
 			planePositionY = self.props.planePositionY,
 			snapToGrid = snapToGrid,
 			strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
@@ -247,6 +265,10 @@ function BaseBrush:render()
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
 	local brushShape = self.props.brushShape
+	local editPlaneMode
+	if FFlagTerrainToolsEditPlaneLock then
+		editPlaneMode = self.props.editPlaneMode
+	end
 	local fixedPlane = self.props.fixedPlane
 	local flattenMode = self.props.flattenMode
 	local height = self.props.height
@@ -258,6 +280,10 @@ function BaseBrush:render()
 	end
 	local material = self.props.material
 	local pivot = self.props.pivot
+	local planeCFrame
+	if FFlagTerrainToolsEditPlaneLock then
+		planeCFrame = self.props.planeCFrame
+	end
 	local planeLock = self.props.planeLock
 	local disablePlaneLock = self.props.disablePlaneLock
 	local disableIgnoreWater = self.props.disableIgnoreWater
@@ -287,10 +313,13 @@ function BaseBrush:render()
 			disableIgnoreWater = disableIgnoreWater,
 			planePositionY = planePositionY,
 			snapToGrid = snapToGrid,
+			editPlaneMode = editPlaneMode,
+			planeCFrame = planeCFrame,
 			strength = strength,
 
 			setBaseSize = self.setBaseSize,
 			setBrushShape = self.setBrushShape,
+			setEditPlaneMode = self.props.dispatchSetEditPlaneMode,
 			setFixedPlane = self.setFixedPlane,
 			setFlattenMode = self.props.dispatchChooseFlattenMode,
 			setHeight = self.setHeight,
@@ -298,6 +327,7 @@ function BaseBrush:render()
 			setIgnoreWater = self.props.dispatchSetIgnoreWater,
 			setIgnoreParts = FFlagTerrainToolsPartInteractToggle and self.props.dispatchSetIgnoreParts or nil,
 			setPivot = self.props.dispatchChangePivot,
+			setPlaneCFrame = self.props.dispatchSetPlaneCFrame,
 			setPlaneLock = self.props.dispatchSetPlaneLock,
 			setPlanePositionY = self.props.dispatchChangePlanePositionY,
 			setSnapToGrid = self.props.dispatchSetSnapToGrid,

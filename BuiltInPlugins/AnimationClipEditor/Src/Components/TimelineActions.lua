@@ -65,7 +65,6 @@ local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
-local FFlagAddKeyframeAtScrubber = game:DefineFastFlag("AddKeyframeAtScrubber", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
@@ -214,40 +213,38 @@ function TimelineActions:didMount()
 		end
 	end)
 
-	if FFlagAddKeyframeAtScrubber then
-		self:addAction(actions:get("AddKeyframeAtScrubber"), function()
-			local props = self.props
-			local tracks = props.Tracks
-			local playhead = props.Playhead
-			local selectedTracks = props.SelectedTracks
+	self:addAction(actions:get("AddKeyframeAtScrubber"), function()
+		local props = self.props
+		local tracks = props.Tracks
+		local playhead = props.Playhead
+		local selectedTracks = props.SelectedTracks
 
-			if selectedTracks then
-				for instanceName, instance in pairs(props.AnimationData.Instances) do
-					for _, selectedTrack in pairs(selectedTracks) do
-						local track = instance.Tracks[selectedTrack]
-						local newValue
-						local trackType = track and track.Type
+		if selectedTracks then
+			for instanceName, instance in pairs(props.AnimationData.Instances) do
+				for _, selectedTrack in pairs(selectedTracks) do
+					local track = instance.Tracks[selectedTrack]
+					local newValue
+					local trackType = track and track.Type
 
-						if track and track.Keyframes then
-							newValue = KeyframeUtils:getValue(track, playhead)
-						else
-							if GetFFlagFacialAnimationSupport() then
-								trackType = trackType or TrackUtils.getTrackTypeFromName(selectedTrack, tracks)
-								newValue = TrackUtils.getDefaultValueByType(trackType)
-							else
-								newValue = TrackUtils.getDefaultValue(track)
-							end
-						end
+					if track and track.Keyframes then
+						newValue = KeyframeUtils:getValue(track, playhead)
+					else
 						if GetFFlagFacialAnimationSupport() then
-							props.AddKeyframe(instanceName, selectedTrack, trackType, playhead, newValue, props.Analytics)
+							trackType = trackType or TrackUtils.getTrackTypeFromName(selectedTrack, tracks)
+							newValue = TrackUtils.getDefaultValueByType(trackType)
 						else
-							props.AddKeyframe_deprecated(instanceName, selectedTrack, playhead, newValue, props.Analytics)
+							newValue = TrackUtils.getDefaultValue(track)
 						end
+					end
+					if GetFFlagFacialAnimationSupport() then
+						props.AddKeyframe(instanceName, selectedTrack, trackType, playhead, newValue, props.Analytics)
+					else
+						props.AddKeyframe_deprecated(instanceName, selectedTrack, playhead, newValue, props.Analytics)
 					end
 				end
 			end
-		end)
-	end
+		end
+	end)
 
 	self:addAction(actions:get("AddResetKeyframe"), function()
 		local props = self.props
@@ -396,9 +393,7 @@ function TimelineActions:render()
 			pluginActions:get("AddResetKeyframe").Enabled = true
 		end
 
-		if FFlagAddKeyframeAtScrubber then
-			pluginActions:get("AddKeyframeAtScrubber").Enabled = true
-		end
+		pluginActions:get("AddKeyframeAtScrubber").Enabled = true
 
 		if multipleSelected then
 			pluginActions:get("ChangeDuration").Enabled = true
@@ -460,7 +455,7 @@ end
 local function mapStateToProps(state, props)
 	local status = state.Status
 
-	local stateToProps = {
+	return {
 		Clipboard = status.Clipboard,
 		ClipboardType = status.ClipboardType,
 		SelectedKeyframes = status.SelectedKeyframes,
@@ -474,13 +469,8 @@ local function mapStateToProps(state, props)
 		SummaryKeyframe = status.RightClickContextInfo.SummaryKeyframe,
 		OnKeyframe = status.RightClickContextInfo.OnKeyframe,
 		Tool = status.Tool,
+		SelectedTracks = status.SelectedTracks,
 	}
-
-	if FFlagAddKeyframeAtScrubber then
-		stateToProps["SelectedTracks"] = status.SelectedTracks
-	end
-
-	return stateToProps
 end
 
 local function mapDispatchToProps(dispatch)

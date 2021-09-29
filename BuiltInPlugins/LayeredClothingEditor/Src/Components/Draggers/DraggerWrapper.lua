@@ -57,6 +57,7 @@ local function mapDraggerContextToProps(context, selection, props, editingItemCo
 	context.setSelectedControlPoints = props.SetSelectedControlPoints
 	context.setHovered = props.SetHovered
 	context.selectedPoints = props.SelectedPoints
+	context.draggerType = props.DraggerType
 
 	selection.toolMode = props.ToolMode
 	selection.clickedPoints = props.ClickedPoints

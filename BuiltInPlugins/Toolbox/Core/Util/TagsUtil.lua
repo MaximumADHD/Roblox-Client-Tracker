@@ -1,5 +1,3 @@
-local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Libs.Cryo)
@@ -38,10 +36,6 @@ function TagsUtil.areSetsDifferent(listA, listB)
 end
 
 function TagsUtil.areTagsEnabled(isItemTagsFeatureEnabled, enabledAssetTypesForItemTags, assetTypeEnum)
-	if FFlagStudioAssetConfigurationPlugin then
-		assert(assetTypeEnum ~= nil, "assetTypeEnum must not be nil")
-		assert(assetTypeEnum.Name ~= nil, "assetTypeEnum.Name must not be nil")
-	end
 	return isItemTagsFeatureEnabled and Cryo.List.find(enabledAssetTypesForItemTags, assetTypeEnum.Name) ~= nil
 end
 

@@ -1,5 +1,3 @@
-local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
-
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -39,9 +37,6 @@ return function(allPoliciesResponse, playerPolicyResponse, plugin)
 
 		store:dispatch(LoadAllPolicyValues(allPolicies, sortedKeys))
 		PlayerEmulatorService:SetEmulatedPolicyInfo(policySettingStatus)
-		if not FFlagPlayerEmulatorSerializeIntoDM2 then
-			plugin:SetSetting(Constants.POLICY_SETTING_KEY, policySettingStatus)
-		end
 		store:dispatch(UpdatePolicySettingStatus(policySettingStatus))
 	end
 end

@@ -106,7 +106,7 @@ end
 
 if FFlagToolboxWithContext then
 	DropdownMenuItem = withContext({
-		lizer = ContextServices.Stylizer,
+		Stylizer = ContextServices.Stylizer,
 	})(DropdownMenuItem)
 else
 	ContextServices.mapToProps(DropdownMenuItem, {

@@ -1,4 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
 local FFlagTerrainToolsMoreOutputIssue = game:GetFastFlag("TerrainToolsMoreOutputIssue")
 
 local Plugin = script.Parent.Parent.Parent
@@ -170,12 +169,10 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	local maxSliceX = maxExtent.x * Constants.VOXEL_RESOLUTION
 	local minSliceX = minExtent.x * Constants.VOXEL_RESOLUTION
 
-	if FFlagTerrainTrackAcquisitionMethod then
-		if toolId == ToolId.SeaLevel then
-			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditSeaLevelTool
-		elseif toolId == ToolId.Replace then
-			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
-		end
+	if toolId == ToolId.SeaLevel then
+		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditSeaLevelTool
+	elseif toolId == ToolId.Replace then
+		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
 	end
 
 	while minSliceExtent.x <= (maxSliceX) and self._replacing do

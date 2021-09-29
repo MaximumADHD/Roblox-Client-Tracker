@@ -17,8 +17,8 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local CheckBox = UILibrary.Component.CheckBox

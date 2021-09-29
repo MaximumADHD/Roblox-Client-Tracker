@@ -15,26 +15,18 @@
 
 local BACKGROUND_IMAGE = "rbxasset://textures/GameSettings/RadioButton.png"
 local SELECTED_IMAGE = "rbxasset://textures/ui/LuaApp/icons/ic-blue-dot.png"
-local TITLE_TEXT_SIZE = 22
-local DESCRIPTION_TEXT_SIZE = 16
 
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
-local Framework = Plugin.Packages.Framework
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")
-
-function RadioButton:init(initialProps)
-	local title = initialProps.Title
-	local description = initialProps.Description or ""
-end
 
 local FONT_SUBTEXT_TEXT_SIZE = 16
 
@@ -42,7 +34,6 @@ local RADIO_BUTTON_DESCRIPTION_WIDTH = 500
 
 function RadioButton:render()
 	local props = self.props
-	local styleColor = Enum.StudioStyleGuideColor
 
 	local style = props.RadioButtonStyle
 

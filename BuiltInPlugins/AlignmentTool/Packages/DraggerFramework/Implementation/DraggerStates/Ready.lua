@@ -13,6 +13,8 @@ local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
+local getFFlagFlippedScopeSelect = require(DraggerFramework.Flags.getFFlagFlippedScopeSelect)
+
 local Ready = {}
 Ready.__index = Ready
 
@@ -143,7 +145,20 @@ function Ready:processMouseUp()
 	-- Nothing to do. This case can ocurr when the user clicks on a constraint.
 end
 
+function Ready:_scopeSelectChanged()
+	if self._hoverTracker:getHoverItem() ~= nil then
+		self:_updateHoverTracker()
+		self._draggerToolModel:_scheduleRender()
+	end
+end
+
 function Ready:processKeyDown(keyCode)
+	if getFFlagFlippedScopeSelect() then
+		if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
+			self:_scopeSelectChanged()
+		end
+	end
+
 	if getFFlagSummonPivot() then
 		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
 			if handles.keyDown then
@@ -157,6 +172,12 @@ function Ready:processKeyDown(keyCode)
 end
 
 function Ready:processKeyUp(keyCode)
+	if getFFlagFlippedScopeSelect() then
+		if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
+			self:_scopeSelectChanged()
+		end
+	end
+
 	if getFFlagSummonPivot() then
 		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
 			if handles.keyUp then

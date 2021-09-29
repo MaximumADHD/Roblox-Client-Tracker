@@ -2,6 +2,7 @@ game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -16,6 +17,7 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local FlattenMode = TerrainEnums.FlattenMode
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
 local ToolId = TerrainEnums.ToolId
 
 local quickWait = require(Plugin.Src.Util.quickWait)
@@ -85,7 +87,7 @@ local function applyOverrideToSettings(settings)
 	local autoMaterial
 
 	if tool == ToolId.Flatten then
-		planeLock = false
+		planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Off or false
 		autoMaterial = true
 	end
 
@@ -100,6 +102,12 @@ TerrainBrush.__index = TerrainBrush
 
 function TerrainBrush.new(options)
 	assert(options and type(options) == "table", "TerrainBrush requires an options table")
+
+	local planeLock = false
+
+	if FFlagTerrainToolsEditPlaneLock then
+		planeLock = PlaneLockType.Off
+	end
 
 	local self = setmetatable({
 		_terrain = options.terrain,
@@ -119,14 +127,16 @@ function TerrainBrush.new(options)
 
 			flattenMode = FlattenMode.Both,
 			pivot = PivotType.Center,
+			planeLock = planeLock,
 
 			ignoreWater = true,
 			ignoreParts = true,
-			planeLock = false,
 			fixedPlane = false,
+			editPlaneMode = false,
 			snapToGrid = false,
 			heightPicker = false,
 
+			planeCFrame = nil,
 			planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
 
 			-- Where to perform the operation
@@ -252,12 +262,27 @@ function TerrainBrush:_updateCursor()
 		self._cursor:hide()
 	end
 
+	local planePoint
+	local planeNormal
+	if FFlagTerrainToolsEditPlaneLock then
+		if self._operationSettings.planeCFrame ~= nil and self._operationSettings.editPlaneMode then
+			planePoint = self._operationSettings.planeCFrame.Position
+			planeNormal = self._operationSettings.planeCFrame.LookVector
+		else
+			planePoint = self._operationSettings.planePoint
+			planeNormal = self._operationSettings.planeNormal
+		end
+	else
+		planePoint = self._operationSettings.planePoint
+		planeNormal = self._operationSettings.planeNormal
+	end
+
 	if TerrainBrushCursorGrid.isVisibleForOperation(self._operationSettings) then
 		self._cursorGrid:maybeCreate()
 		self._cursorGrid:update({
 			cursorSize = self._operationSettings.cursorSize,
-			planePoint = self._operationSettings.planePoint,
-			planeNormal = self._operationSettings.planeNormal,
+			planePoint = planePoint,
+			planeNormal = planeNormal,
 			mouseDown = self._mouseDown,
 		})
 	else
@@ -405,10 +430,17 @@ function TerrainBrush:_run()
 		local currentTool = self._operationSettings.currentTool
 		local heightPicker = self._operationSettings.heightPicker
 		local planeLock = self._operationSettings.planeLock
+		local planeLockManual = self._operationSettings.planeLock == PlaneLockType.Manual
 		local fixedPlane = self._operationSettings.fixedPlane
 		local snapToGrid = self._operationSettings.snapToGrid
 		local ignoreWater = self._operationSettings.ignoreWater
+		local editPlaneMode = self._operationSettings.editPlaneMode
+		local planeCFrame = self._operationSettings.planeCFrame
 		local ignoreParts = FFlagTerrainToolsPartInteractToggle and self._operationSettings.ignoreParts or nil
+
+		if FFlagTerrainToolsEditPlaneLock then
+			planeLock = self._operationSettings.planeLock ~= PlaneLockType.Off
+		end
 
 		local currentTick = tick()
 		local radius = self._operationSettings.cursorSize * 0.5 * Constants.VOXEL_RESOLUTION
@@ -496,14 +528,23 @@ function TerrainBrush:_run()
 		end
 
 		if updatePlane then
-			lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
-				or mainPoint
-			if currentTool ~= ToolId.Flatten and not planeLock then
-				lastNormal = hitNormal
+			if FFlagTerrainToolsEditPlaneLock and planeLockManual and editPlaneMode then
+				lastPlanePoint = self._operationSettings.planeCFrame.Position
+				lastNormal = Vector3.new(0, 1, 0)
+			elseif FFlagTerrainToolsEditPlaneLock and planeLockManual and not editPlaneMode and planeCFrame then
+				lastPlanePoint = self._operationSettings.planeCFrame.Position
+				lastNormal = planeCFrame.LookVector
 			else
-				lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
-					or getCameraLookSnappedForPlane()
+				lastPlanePoint = usePlanePositionY and self:putPlanePositionYIntoVector(mainPoint)
+					or mainPoint
+				if currentTool ~= ToolId.Flatten and not planeLock then
+					lastNormal = hitNormal
+				else
+					lastNormal = currentTool == ToolId.Flatten and Vector3.new(0, 1, 0)
+						or getCameraLookSnappedForPlane()
+				end
 			end
+
 			reportClick = true
 		end
 
@@ -537,8 +578,13 @@ function TerrainBrush:_run()
 				firstOperation = currentTick
 				lastMainPoint = mainPoint
 			end
+			
+			local performOperation = self._mouseClick or currentTick > firstOperation + CLICK_THRESHOLD
+			if FFlagTerrainToolsEditPlaneLock then
+				performOperation = performOperation and not editPlaneMode
+			end
 
-			if self._mouseClick or currentTick > firstOperation + CLICK_THRESHOLD then
+			if performOperation then
 				self._mouseClick = false
 
 				if reportClick then

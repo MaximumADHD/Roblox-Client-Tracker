@@ -36,7 +36,6 @@
 ]]
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 
 local Framework = script.Parent.Parent
@@ -202,7 +201,7 @@ function ScrollingFrame:render()
 			})),
 			Children = Roact.createFragment(children),
 		}
-	elseif FFlagDevFrameworkTreeViewRow and props.Layout then
+	elseif props.Layout then
 		children = {
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

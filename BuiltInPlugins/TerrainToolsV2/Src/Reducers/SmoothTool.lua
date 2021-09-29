@@ -9,6 +9,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
+
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local SmoothTool = Rodux.createReducer({
 	brushShape = BrushShape.Sphere,
@@ -17,7 +20,8 @@ local SmoothTool = Rodux.createReducer({
 	baseSizeHeightLocked = true,
 	strength = Constants.INITIAL_BRUSH_STRENGTH,
 	pivot = PivotType.Center,
-	planeLock = false,
+	planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Off or false,
+	editPlaneMode = false,
 	snapToGrid = false,
 	ignoreWater = false,
 	ignoreParts = true,
@@ -62,6 +66,20 @@ local SmoothTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			planeLock = planeLock,
+		})
+	end,
+	SetEditPlaneMode = function(state, action)
+		local editPlaneMode = action.editPlaneMode
+		
+		return Cryo.Dictionary.join(state, {
+			editPlaneMode = editPlaneMode,
+		})
+	end,
+	SetPlaneCFrame = function(state, action)
+		local planeCFrame = action.planeCFrame
+
+		return Cryo.Dictionary.join(state, {
+			planeCFrame = planeCFrame,
 		})
 	end,
 	SetSnapToGrid = function(state, action)

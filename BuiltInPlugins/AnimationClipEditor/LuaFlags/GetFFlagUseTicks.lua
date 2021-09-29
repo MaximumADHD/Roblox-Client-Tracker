@@ -1,5 +1,5 @@
-game:DefineFastFlag("ACEUseTicks", false)
+game:DefineFastFlag("ACEUseTicks3", false)
 
 return function()
-	return game:GetFastFlag("ACEUseTicks")
+	return game:GetFastFlag("ACEUseTicks3")
 end

@@ -1,6 +1,3 @@
--- Fast flags
-require(script.Parent.defineLuaFlags)
-
 local Plugin = script.Parent.Parent
 
 --[[

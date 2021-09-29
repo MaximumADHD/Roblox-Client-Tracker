@@ -27,7 +27,6 @@
 		function loadLanguages
 			send HTTP request for all languages information
 ]]
-local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local StudioService = game:GetService("StudioService")
@@ -49,19 +48,11 @@ local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local function GetLocaleId()
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		return PlayerEmulatorService.EmulatedGameLocale
-	else
-		return LocalizationService.RobloxForcePlayModeRobloxLocaleId
-	end
+	return PlayerEmulatorService.EmulatedGameLocale
 end
 
 local function SetLocaleId(localeId)
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		PlayerEmulatorService.EmulatedGameLocale = localeId
-	else
-		LocalizationService.RobloxForcePlayModeRobloxLocaleId = localeId
-	end
+	PlayerEmulatorService.EmulatedGameLocale = localeId
 end
 
 local function GetMainSwitchEnabled()
@@ -69,11 +60,7 @@ local function GetMainSwitchEnabled()
 end
 
 -- set default Play Solo language using studio locale instead of en-us
-if FFlagPlayerEmulatorSerializeIntoDM2 then
-	LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
-else
-	SetLocaleId(StudioService.StudioLocaleId)
-end
+LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
 
 local LanguageSection = Roact.PureComponent:extend("LanguageSection")
 
@@ -106,18 +93,7 @@ function LanguageSection:initLocaleId()
 	local cachedLocaleId = plugin:GetSetting(Constants.LOCALEID_SETTING_KEY)
 
 	if cachedLocaleId then
-		if FFlagPlayerEmulatorSerializeIntoDM2 then
-			SetLocaleId(cachedLocaleId)
-		else
-			-- set forcePlayModeLocale only if emulation switch enabled; otherwise, only update state
-			if GetMainSwitchEnabled() then
-				SetLocaleId(cachedLocaleId)
-			else
-				self:setState({
-					localeId = cachedLocaleId,
-				})
-			end
-		end
+		SetLocaleId(cachedLocaleId)
 	end
 end
 
@@ -131,14 +107,12 @@ function LanguageSection:onPlayerEmulationEnabledChanged()
 end
 
 function LanguageSection:onRobloxForcePlayModeRobloxLocaleIdChanged()
-	if FFlagPlayerEmulatorSerializeIntoDM2 or GetMainSwitchEnabled() then
-		local localeId = GetLocaleId()
-		self:setState({
-			localeId = localeId,
-		})
-		local plugin = self.props.Plugin:get()
-		plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
-	end
+	local localeId = GetLocaleId()
+	self:setState({
+		localeId = localeId,
+	})
+	local plugin = self.props.Plugin:get()
+	plugin:SetSetting(Constants.LOCALEID_SETTING_KEY, localeId)
 end
 
 function LanguageSection:init()
@@ -163,33 +137,14 @@ function LanguageSection:didMount()
 	local networkingImpl = self.props.Networking:get()
 	self.props.loadLanguages(networkingImpl)
 
-	if not FFlagPlayerEmulatorSerializeIntoDM2 then
-		self:initLocaleId()
-	end
+	local localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+		"EmulatedGameLocale"):Connect(function()
+			self:onRobloxForcePlayModeRobloxLocaleIdChanged()
+		end)
 
-	local localeIdChangedSignal
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		localeIdChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"EmulatedGameLocale"):Connect(function()
-				self:onRobloxForcePlayModeRobloxLocaleIdChanged()
-			end)
-	else
-		local mainSwitchEnabledSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"PlayerEmulationEnabled_deprecated"):Connect(function()
-				self:onPlayerEmulationEnabledChanged()
-			end)
-		table.insert(self.signalTokens, mainSwitchEnabledSignal)
-		localeIdChangedSignal = LocalizationService:GetPropertyChangedSignal(
-			"RobloxForcePlayModeRobloxLocaleId"):Connect(function()
-				self:onRobloxForcePlayModeRobloxLocaleIdChanged()
-			end)
-
-	end
 	table.insert(self.signalTokens, localeIdChangedSignal)
 
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		self:initLocaleId()
-	end
+	self:initLocaleId()
 end
 
 function LanguageSection:willUnmount()

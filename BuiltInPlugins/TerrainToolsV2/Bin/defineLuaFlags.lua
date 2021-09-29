@@ -8,6 +8,7 @@ game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsColormapCallout", false)
 game:DefineFastFlag("TerrainToolsOutputIssue", false)
 game:DefineFastFlag("TerrainToolsMoreOutputIssue", false)
+game:DefineFastFlag("TerrainToolsEditPlaneLock", false)
 
 local Plugin = script.Parent.Parent
 local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)

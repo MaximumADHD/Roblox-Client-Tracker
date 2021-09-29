@@ -55,7 +55,7 @@ return function(pivot, newTick, dragContext)
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
 			for _, tick in ipairs(selectedTicks) do
 				local insertTick = tick + delta
-				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
 				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
@@ -69,7 +69,7 @@ return function(pivot, newTick, dragContext)
 			for index = #selectedTicks, 1, -1 do
 				local tick = selectedTicks[index]
 				local insertTick = tick + delta
-				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 				end
 				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))

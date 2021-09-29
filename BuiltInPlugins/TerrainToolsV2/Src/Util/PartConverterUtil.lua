@@ -1,5 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
-
 local ShapeFiller = require(script.Parent.ShapeFiller)
 
 local Constants = require(script.Parent.Constants)
@@ -176,9 +174,7 @@ local function fillShapeWithTerrain(terrain, material, shape, cframe, size)
 		return 0, ConvertPartError.InvalidSize
 	end
 
-	if FFlagTerrainTrackAcquisitionMethod then
-		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.Convert
-	end
+	terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.Convert
 
 	local fills, errorCode = (function()
 		if shape == Shape.Block then

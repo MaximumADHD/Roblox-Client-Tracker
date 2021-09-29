@@ -19,7 +19,7 @@ function CalloutController.new(overrideCalloutService)
 		-- C++ parts of callouts are only created if both these flags are on
 		-- Trying to use CalloutService when either is false will error
 		-- So protect all accesses with this calloutsEnabled flag
-		self._calloutsEnabled = game:GetFastFlag("StudioEnableTeachingCallouts") and game:GetFastFlag("StudioCalloutsInLua")
+		self._calloutsEnabled = game:GetFastFlag("StudioCalloutsInLua")
 		self._calloutService = self._calloutsEnabled and game:GetService("CalloutService") or nil
 	end
 

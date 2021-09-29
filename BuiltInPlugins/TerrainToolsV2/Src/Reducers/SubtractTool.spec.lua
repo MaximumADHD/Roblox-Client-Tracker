@@ -1,3 +1,5 @@
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -11,6 +13,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
 
 local Actions = Plugin.Src.Actions
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
@@ -19,6 +22,9 @@ local ChangeHeight = require(Actions.ChangeHeight)
 local ChangePivot = require(Actions.ChangePivot)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
+local SetPlaneLock = require(Actions.SetPlaneLock)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
@@ -33,6 +39,11 @@ return function()
 		expect(r:getState().ignoreWater).to.equal(true)
 		expect(r:getState().ignoreParts).to.equal(true)
 		expect(r:getState().pivot).to.equal(PivotType.Center)
+		if FFlagTerrainToolsEditPlaneLock then
+			expect(r:getState().planeLock).to.equal(PlaneLockType.Auto)
+			expect(r:getState().editPlaneMode).to.equal(false)
+			expect(r:getState().planeCFrame).to.equal(nil)
+		end
 		expect(r:getState().snapToGrid).to.equal(false)
 	end)
 
@@ -126,6 +137,53 @@ return function()
 		end)
 	end)
 
+	if FFlagTerrainToolsEditPlaneLock then
+		describe("SetPlaneLock", function()
+			it("should set the current planeLock", function()
+				local state = SubtractTool(nil, SetPlaneLock(PlaneLockType.Auto))
+
+				expect(state).to.be.ok()
+				expect(state.planeLock).to.be.ok()
+				expect(state.planeLock).to.equal(PlaneLockType.Auto)
+			end)
+	
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(SubtractTool, SetPlaneLock(PlaneLockType.Auto))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+
+		describe("SetEditPlaneMode", function()
+			it("should set the current editPlaneMode", function()
+				local state = SubtractTool(nil, SetEditPlaneMode(true))
+
+				expect(state).to.be.ok()
+				expect(state.editPlaneMode).to.be.ok()
+				expect(state.editPlaneMode).to.equal(true)
+			end)
+	
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(SubtractTool, SetEditPlaneMode(true))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+	
+		describe("SetPlaneCFrame", function()
+			it("should set the current planeCFrame", function()
+				local frame = CFrame.new()
+				local state = SubtractTool(nil, SetPlaneCFrame(frame))
+
+				expect(state).to.be.ok()
+				expect(state.planeCFrame).to.be.ok()
+				expect(state.planeCFrame).to.equal(frame)
+			end)
+	
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(SubtractTool, SetPlaneCFrame(CFrame.new()))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+	end
 
 	describe("SetSnapToGrid", function()
 		it("should set the current snapToGrid", function()

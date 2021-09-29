@@ -93,7 +93,7 @@ return function(pivotTick, scale, dragContext)
 					for index = 1, #keyframes, 1 do
 						local oldTick = keyframes[index]
 						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
 						insertTick = math.clamp(insertTick, startTick, maxLength)
@@ -112,7 +112,7 @@ return function(pivotTick, scale, dragContext)
 					for index = #keyframes, 1, -1 do
 						local oldTick = keyframes[index]
 						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
 						insertTick = math.clamp(insertTick, startTick, maxLength)
@@ -144,7 +144,7 @@ return function(pivotTick, scale, dragContext)
 					for index = lowPivot, 1, -1 do
 						local oldTick = keyframes[index]
 						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
 						insertTick = math.clamp(insertTick, startTick, insertTick)
@@ -160,7 +160,7 @@ return function(pivotTick, scale, dragContext)
 					for index = highPivot, #keyframes, 1 do
 						local oldTick = keyframes[index]
 						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.Disabled then
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
 							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
 						end
 						insertTick = math.clamp(insertTick, startTick, maxLength)

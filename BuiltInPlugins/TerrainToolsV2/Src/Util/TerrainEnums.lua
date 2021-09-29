@@ -59,6 +59,12 @@ TerrainEnums.PivotType = {
 	Bottom = "Bot",
 }
 
+TerrainEnums.PlaneLockType = {
+	Off = "Off",
+	Auto = "Auto",
+	Manual = "Manual",
+}
+
 TerrainEnums.FlattenMode = {
 	Erode = "Erode",
 	Both = "Both",

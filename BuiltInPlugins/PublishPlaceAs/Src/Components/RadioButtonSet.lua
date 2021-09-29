@@ -29,8 +29,8 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -40,7 +40,7 @@ local TitledFrame = UILibrary.Component.TitledFrame
 
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
 

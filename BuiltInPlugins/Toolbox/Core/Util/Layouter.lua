@@ -1,4 +1,3 @@
-local FFlagFixToolboxPluginScaling = game:GetFastFlag("FixToolboxPluginScaling")
 local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
 
 local Plugin = script.Parent.Parent.Parent
@@ -23,10 +22,6 @@ function Layouter.getAssetsPerRow(width)
 end
 
 function Layouter.getAssetCellHeightWithPadding(showPrices)
-	if not FFlagFixToolboxPluginScaling then
-		showPrices = false
-	end
-
 	local height = Constants.ASSET_HEIGHT
 	if showPrices then
 		height = height + Constants.PRICE_HEIGHT
@@ -35,10 +30,6 @@ function Layouter.getAssetCellHeightWithPadding(showPrices)
 end
 
 function Layouter.calculateAssetsHeight(assetCount, maxWidth, showPrices)
-	if not FFlagFixToolboxPluginScaling then
-		showPrices = false
-	end
-
 	-- TODO CLIDEVSRVS-1587: All of this is terrible, make it better
 	-- This calculates how tall to make the grid container based on how its
 	-- going to layout the assets. First get how wide the container is, from
@@ -59,11 +50,7 @@ function Layouter.calculateAssetsHeight(assetCount, maxWidth, showPrices)
 	local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
 
 	local rowsNeeded = math.ceil(assetCount / assetsPerRow)
-	local totalHeight = (assetHeight * rowsNeeded) - Constants.BETWEEN_ASSETS_VERTICAL_PADDING
-
-	if FFlagFixToolboxPluginScaling then
-		totalHeight = totalHeight + Constants.ASSET_VOTING_HEIGHT
-	end
+	local totalHeight = (assetHeight * rowsNeeded) - Constants.BETWEEN_ASSETS_VERTICAL_PADDING + Constants.ASSET_VOTING_HEIGHT
 
 	return totalHeight
 end
@@ -84,10 +71,6 @@ function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
 end
 
 function Layouter.calculateRenderBoundsForScrollingFrame(scrollingFrame, containerWidth, headerHeight, showPrices)
-	if not FFlagFixToolboxPluginScaling then
-		showPrices = false
-	end
-
 	if not scrollingFrame then
 		return 0, 0
 	end

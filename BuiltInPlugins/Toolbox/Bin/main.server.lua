@@ -5,9 +5,6 @@ if not plugin then
 	return
 end
 
--- Fast flags
-require(script.Parent.defineLuaFlags)
-local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 
 local StudioService = game:GetService("StudioService")
@@ -80,7 +77,6 @@ local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local ContextServices = Framework.ContextServices
-local CrossPluginCommunication = Framework.Util.CrossPluginCommunication
 
 local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
@@ -161,7 +157,18 @@ end
 local toolboxStore = nil
 
 local assetConfigHandle = nil
-local function DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instances, assetTypeEnum)
+
+
+-- assetId number, will be used by Marketplace to request detail assetData.
+--				default to nil, then will not request anything.
+-- flowType AssetConfigConstants.FLOW_TYPE, will be used to determine what screens are
+--				going to be shown on AssetConfig start up and what's next screen.
+-- instances instances, Will be used in publishing new assets. Instances are userdata,
+--				we can't check the assetType using that, using AssetType instead.
+-- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
+--				set the assetType of the Asset, and skip the assetTypeSelection.
+--				default to nil
+local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 	if assetConfigHandle then
 		return
 	end
@@ -256,55 +263,6 @@ local function DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instanc
 		assetConfigComponent
 	})
 	assetConfigHandle = Roact.mount(assetConfigWithServices)
-end
-
-local function invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
-	local crossPlugin = CrossPluginCommunication.new('AssetConfiguration')
-
-	local toolboxStoreData = {
-		allowedAssetTypesForRelease = {},
-		allowedAssetTypesForUpload = {},
-		packagePermissions = {},
-		isItemTagsFeatureEnabled = false,
-		enabledAssetTypesForItemTags = {},
-		maximumItemTagsPerItem = 0
-	}
-
-	if toolboxStore then
-		toolboxStoreData.allowedAssetTypesForRelease = toolboxStore:getState().roles.allowedAssetTypesForRelease
-		toolboxStoreData.allowedAssetTypesForUpload = toolboxStore:getState().roles.allowedAssetTypesForUpload
-		toolboxStoreData.packagePermissions = toolboxStore:getState().packages.permissionsTable
-		toolboxStoreData.isItemTagsFeatureEnabled = toolboxStore:getState().itemTags.isItemTagsFeatureEnabled
-		toolboxStoreData.enabledAssetTypesForItemTags = toolboxStore:getState().itemTags.enabledAssetTypesForItemTags
-		toolboxStoreData.maximumItemTagsPerItem = toolboxStore:getState().itemTags.maximumItemTagsPerItem
-	end
-
-	crossPlugin:Invoke('Open', {
-		assetId = assetId,
-		flowType = flowType,
-		instances = instances,
-		assetTypeEnum = assetTypeEnum,
-		toolboxStoreData = toolboxStoreData
-	})
-end
-
-
--- assetId number, will be used by Marketplace to request detail assetData.
---				default to nil, then will not request anything.
--- flowType AssetConfigConstants.FLOW_TYPE, will be used to determine what screens are
---				going to be shown on AssetConfig start up and what's next screen.
--- instances instances, Will be used in publishing new assets. Instances are userdata,
---				we can't check the assetType using that, using AssetType instead.
--- assetTypeEnum Enum.AssetType, some asset like places, need to use the parameter to
---				set the assetType of the Asset, and skip the assetTypeSelection.
---				default to nil
-local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
-	if FFlagStudioAssetConfigurationPlugin then
-		invokeAssetConfigPlugin(assetId, flowType, instances, assetTypeEnum)
-		return
-	end
-
-	DEPRECATED_createMonolithicAssetConfig(assetId, flowType, instances, assetTypeEnum)
 end
 
 local function main()
@@ -413,7 +371,7 @@ local function main()
 		)
 	end)
 
--- Listen to MemStorageService
+	-- Listen to MemStorageService
 	local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 	MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG,
 		function(params)

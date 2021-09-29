@@ -88,12 +88,10 @@ return function()
 			local container = Instance.new("ScreenGui", game.CoreGui)
 			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
-			TestHelpers.cleanupCategoryVerification()
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local dropdownPluginsPath = DropdownScrollingFramePath .. Category.FREE_AUDIO.category
 			TestHelpers.clickInstanceWithXPath(dropdownPluginsPath)
-			TestHelpers.cleanupCategoryVerification()
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 			local dropdownModelsPath = DropdownScrollingFramePath .. Category.FREE_MODELS.category
@@ -116,7 +114,6 @@ return function()
 				local container = Instance.new("ScreenGui", game.CoreGui)
 				local instance = TestHelpers.createTestToolbox(container)
 				local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
-				TestHelpers.cleanupCategoryVerification()
 
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 				local dropdownAudioPath = DropdownScrollingFramePath .. testCases[i]

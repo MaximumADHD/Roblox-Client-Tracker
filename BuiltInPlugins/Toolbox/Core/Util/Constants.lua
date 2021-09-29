@@ -8,7 +8,6 @@ local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagSmallerToolboxMinWidth = game:DefineFastFlag("SmallerToolboxMinWidth", false)
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
@@ -156,13 +155,11 @@ Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING = Constants.ASSET_OUTLINE_EXTRA
 Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING = 8
 Constants.BETWEEN_ASSETS_VERTICAL_PADDING = 16
 
-Constants.MIN_ASSETS_PER_ROW = FFlagSmallerToolboxMinWidth and 3 or 4
-local MIN_WIDTH_EXTRA_PADDING = FFlagSmallerToolboxMinWidth and 0 or 8
+Constants.MIN_ASSETS_PER_ROW = 3
 
 local staticPadding = (Constants.MAIN_VIEW_PADDING * 2)
 	- Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING
-	+ MIN_WIDTH_EXTRA_PADDING
 local perAssetPadding = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 Constants.TOOLBOX_MIN_WIDTH = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
 Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_PADDING * 2

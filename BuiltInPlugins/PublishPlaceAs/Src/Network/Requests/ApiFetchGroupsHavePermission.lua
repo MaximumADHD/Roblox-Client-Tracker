@@ -1,7 +1,6 @@
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = require(Plugin.Packages.Promise)
 
 local Http = require(Plugin.Src.Network.Http)
 local Group = require(Plugin.Src.Network.Models.Group)

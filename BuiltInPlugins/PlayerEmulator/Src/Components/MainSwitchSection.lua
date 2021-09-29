@@ -10,7 +10,6 @@
 		function onPlayerEmulationEnabledChanged
 			on toggle plugin enabled
 ]]
-local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
@@ -60,18 +59,10 @@ function MainSwitchSection:init()
 end
 
 function MainSwitchSection:didMount()
-	local enabledChangedSignal
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"PlayerEmulationEnabled"):Connect(function()
-				self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
-			end)
-	else
-		enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"PlayerEmulationEnabled_deprecated"):Connect(function()
-				self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
-			end)
-	end
+	local enabledChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+		"PlayerEmulationEnabled"):Connect(function()
+			self:updatePlayerEmulationEnabled(GetMainSwitchEnabled())
+		end)
 	table.insert(self.signalTokens, enabledChangedSignal)
 
 	self:initEnabledStatus()

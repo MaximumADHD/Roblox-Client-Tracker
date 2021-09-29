@@ -9,6 +9,7 @@ return {
 		Section = "Object Geometry",
 		Properties = {
 			{Name = "DoubleSided", Editable = true},
+			{Name = "IgnoreVertexColors", Editable = true},
 		},
 	},
 }

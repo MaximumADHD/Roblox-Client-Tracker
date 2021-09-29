@@ -25,7 +25,6 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
-local FFlagFixToolboxEmptyRender = game:DefineFastFlag("FixToolboxEmptyRender", false)
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
@@ -196,10 +195,8 @@ function MainView:didUpdate(prevProps, prevState)
 		self.requestNextPage()
 	end
 
-	if FFlagFixToolboxEmptyRender then
-		if prevProps.idsToRender ~= self.props.idsToRender then
-			self:calculateRenderBounds()
-		end
+	if prevProps.idsToRender ~= self.props.idsToRender then
+		self:calculateRenderBounds()
 	end
 end
 
@@ -257,12 +254,7 @@ function MainView:render()
 		local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
 		local canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
 
-		local hasResults
-		if FFlagFixToolboxEmptyRender then
-			hasResults = allAssetCount > 0
-		else
-			hasResults = assetCount > 0
-		end
+		local hasResults = allAssetCount > 0
 
 		local showInfoBanner = not hasResults and not isLoading
 

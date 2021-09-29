@@ -2,17 +2,16 @@
 	Layered Clothing Editor main script.
 	Mounts and unmounts the Roact tree.
 ]]
-
-local FFlagEnableLayeredClothingEditor = game:DefineFastFlag("EnableLayeredClothingEditor", false)
-if not FFlagEnableLayeredClothingEditor then
-	return
-end
-
 require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
+local GetAccessoryToolEngineFeature = require(Plugin.Src.Flags.GetAccessoryToolEngineFeature)
+if not GetAccessoryToolEngineFeature() then
+	return
+end
 
 local themeRefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
 themeRefactorFlags.THEME_REFACTOR = true

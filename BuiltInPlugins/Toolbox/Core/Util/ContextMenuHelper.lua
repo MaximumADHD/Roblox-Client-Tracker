@@ -4,16 +4,18 @@ local Util = Plugin.Core.Util
 local Url = require(Plugin.Libs.Http.Url)
 local Urls = require(Util.Urls)
 local DebugFlags = require(Util.DebugFlags)
+local Analytics = require(Util.Analytics.Analytics)
 
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
-
-local FFlagShowReportOptionInToolbox = game:DefineFastFlag("ShowReportOptionInToolbox", false)
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
+
+local FFlagToolboxAssetMenuGuid = game:GetFastFlag("ToolboxAssetMenuGuid")
+local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
 
 local ContextMenuHelper = {}
 
@@ -37,12 +39,22 @@ end
 
 -- typeof(assetTypeId) == number
 function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, trackingAttributes)
-	local menu = plugin:CreatePluginMenu("ToolboxAssetMenu")
+	local menuName
+	local instanceGuid
+
+	if FFlagToolboxAssetMenuGuid then
+		instanceGuid = HttpService:GenerateGUID()
+		menuName = string.format("ToolboxAssetMenu-%s", instanceGuid)
+	else
+		menuName = "ToolboxAssetMenu"
+	end
+
+	local menu = plugin:CreatePluginMenu(menuName)
 
 	local localize = localizedContent
 
--- add an action to view an asset in browser
-	menu:AddNewAction("OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
+	-- add an action to view an asset in browser
+	menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("OpenInBrowser-%s", instanceGuid) or "OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
 		local baseUrl = ContentProvider.BaseUrl
 		local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
 		if trackingAttributes then
@@ -51,9 +63,13 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
 
-	if FFlagShowReportOptionInToolbox and not showEditOption then
+	if not showEditOption then
 		-- User should only be able to report assets they can't edit
-		menu:AddNewAction("Report", localize.RightClickMenu.Report).Triggered:connect(function()
+		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("Report-%s", instanceGuid) or "Report", localize.RightClickMenu.Report).Triggered:connect(function()
+			if FFlagToolboxTrackReportAction then
+				Analytics.reportAssetClicked(assetId, assetTypeId)
+			end
+
 			local baseUrl = ContentProvider.BaseUrl
 			local targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
 			GuiService:OpenBrowserWindow(targetUrl)
@@ -67,22 +83,22 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		menu:AddNewAction("CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyIdToClipboard-%s", instanceGuid) or "CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
 			StudioService:CopyToClipboard(trueAssetId)
 		end)
 
-		menu:AddNewAction("CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
+		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyURIToClipboard-%s", instanceGuid) or "CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
 			StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
 		end)
 	end
 
 	if showEditOption and editAssetFunc then
 		if isPackageAsset then
-			menu:AddNewAction("PackageDetails", localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
+			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("PackageDetails-%s", instanceGuid) or "PackageDetails", localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
 				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 			end)
 		else
-			menu:AddNewAction("EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
+			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("EditAsset-%s", instanceGuid) or "EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
 				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 			end)
 		end

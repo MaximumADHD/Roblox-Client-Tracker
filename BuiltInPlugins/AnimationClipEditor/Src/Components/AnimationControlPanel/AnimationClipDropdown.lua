@@ -25,7 +25,6 @@ local PADDING = UDim.new(0, Constants.INDENT_PADDING)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local Localization = ContextServices.Localization
 
 local AnimationClipMenu = require(Plugin.Src.Components.AnimationClipMenu)
 local ContextButton = require(Plugin.Src.Components.ContextButton)
@@ -42,7 +41,6 @@ local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
-local FFlagFix989de35 = game:DefineFastFlag("ACEFix989de35", false)
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -129,14 +127,6 @@ function AnimationClipDropdown:init()
 		})
 	end
 
-	self.createNew = function()
-		if self.props.IsDirty then
-			self.showLoadNewPrompt(NEW_KEY)
-		else
-			self.showCreateNewPrompt()
-		end
-	end
-
 	self.importRequested = function()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(IMPORT_KEY)
@@ -151,7 +141,7 @@ function AnimationClipDropdown:init()
 			self.showLoadNewPrompt(IMPORT_FBX_KEY)
 		else
 			local plugin = self.props.Plugin
-			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport") then
+			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport2") then
 				self.props.ImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
 			else
 				self.props.ImportFBXAnimation(plugin, self.props.Analytics)
@@ -186,10 +176,10 @@ function AnimationClipDropdown:init()
 			self.showCreateNewPrompt()
 		elseif loadingName == IMPORT_KEY then
 			self.hideLoadNewPrompt()
-			props.ImportKeyframeSequence(plugin, FFlagFix989de35 and props.Analytics or nil)
+			props.ImportKeyframeSequence(plugin, props.Analytics)
 		elseif loadingName == IMPORT_FBX_KEY then
 			self.hideLoadNewPrompt()
-			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport") then
+			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport2") then
 				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
 			else
 				props.ImportFBXAnimation(plugin, props.Analytics)

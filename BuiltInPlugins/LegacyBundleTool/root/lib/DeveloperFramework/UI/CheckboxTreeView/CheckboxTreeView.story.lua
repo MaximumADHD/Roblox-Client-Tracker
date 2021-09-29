@@ -6,9 +6,7 @@ local join = Dash.join
 
 local UI = require(Framework.UI)
 local CheckboxTreeView = UI.CheckboxTreeView
-local TextLabel = UI.Decoration.TextLabel
 
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local ExampleCheckboxTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleCheckboxTreeView")
@@ -72,12 +70,6 @@ function ExampleCheckboxTreeView:init()
 end
 
 function ExampleCheckboxTreeView:render()
-	if not FFlagDevFrameworkTreeViewRow then
-		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
-			AutomaticSize = Enum.AutomaticSize.XY,
-		})
-	end
 	return Roact.createElement(CheckboxTreeView, {
 		Size = UDim2.new(0, 240, 0, 240),
 		RootItems = self.state.items,

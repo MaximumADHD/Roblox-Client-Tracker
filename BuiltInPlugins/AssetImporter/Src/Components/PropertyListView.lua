@@ -24,6 +24,10 @@ local PropertyListView = Roact.PureComponent:extend("PropertyListView")
 
 local getPropertiesForInstance = require(Plugin.Src.Utility.getPropertiesForInstance)
 
+local function getExpanded(expanded, section)
+	return expanded[section] or expanded[section] == nil
+end
+
 function PropertyListView:init()
 	self:setState({
 		expanded = {},
@@ -50,7 +54,7 @@ function PropertyListView:render()
 		end
 
 		sections[sectionIndex] = Roact.createElement(ExpandablePane, {
-			Expanded = self.state.expanded[sectionMetadata.Section],
+			Expanded = getExpanded(self.state.expanded, sectionMetadata.Section),
 			OnExpandedChanged = function()
 				self:setState({
 					expanded = Cryo.Dictionary.join(self.state.expanded, {

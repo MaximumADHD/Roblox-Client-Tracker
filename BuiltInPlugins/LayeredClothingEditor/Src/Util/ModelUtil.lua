@@ -213,7 +213,8 @@ function ModelUtil:clearWelds(item)
 	for _, instance in pairs(item:GetDescendants()) do
 		if
 			instance:IsA("WeldConstraint") or
-			instance:IsA("Weld")
+			instance:IsA("Weld") or
+			instance:IsA("Motor6D")
 		then
 			instance:Destroy()
 		end

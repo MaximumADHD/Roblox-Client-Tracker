@@ -9,8 +9,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Resources.Constants)
@@ -100,7 +100,7 @@ function ScreenPublishSuccessful:render()
 			Position = UDim2.new(0.5, 0, 0.2, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
-			Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl 
+			Image = self.state.assetFetchStatus == Enum.AssetFetchStatus.Success and self.thumbnailUrl
 				or theme.icons.thumbnailPlaceHolder,
 			BorderSizePixel = 0,
 		}),

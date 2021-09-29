@@ -1,4 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
 local FFlagFixZoomExtentsCrash = game:GetFastFlag("FixZoomExtentsCrash")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -792,9 +791,7 @@ toolSelect = {
 			behindThis.region = region
 			behindThis.materials, behindThis.occupancies = terrain:ReadVoxels(region, resolution)
 
-			if FFlagTerrainTrackAcquisitionMethod then
-				terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.RegionPasteTool
-			end
+			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.RegionPasteTool
 
 			terrain:PasteRegion(copyRegion,Vector3int16.new(selectionStart.x-1,selectionStart.y-1,selectionStart.z-1),true)
 			setButton(ToolId.Move)
@@ -890,9 +887,7 @@ function TerrainRegionEditor.OnButtonClick ()
 				newOccupancyMap[x] = xto
 			end
 
-			if FFlagTerrainTrackAcquisitionMethod then
-				terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.RegionFillTool
-			end
+			terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.RegionFillTool
 			
 			terrain:WriteVoxels(region, resolution, newMaterialMap, newOccupancyMap)
 

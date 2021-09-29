@@ -12,6 +12,7 @@ local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -305,6 +306,18 @@ if FFlagPluginManagementDirectlyOpenToolbox then
 			studioSid = getStudioSessionId(),
 			clientId = getClientId(),
 			isEditMode = getIsEditMode(),
+		})
+	end
+end
+
+if FFlagToolboxTrackReportAction then
+	function Analytics.reportAssetClicked(assetId, assetTypeId)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ReportAssetClicked", {
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+			isEditMode = getIsEditMode(),
+			assetId = assetId,
+			assetTypeId = assetTypeId,
 		})
 	end
 end

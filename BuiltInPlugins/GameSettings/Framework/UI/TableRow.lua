@@ -13,9 +13,11 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		boolean Selected: Whether the row is currently selected.
 		callback OnRightClick: An optional callback when a row is right-clicked. (rowIndex: number) -> ()
+		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -56,28 +58,48 @@ function TableRow:render()
 	local rowIndex = props.RowIndex
 	local CellComponent = props.CellComponent or TableCell
 	local columns = props.Columns
-
-	local cells = map(columns, function(column, index: number)
-		local key = column.Key or column.Name
+	local cells
+	local isFullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan and row.depth and row.depth == 0
+	if isFullSpan then
+		local firstColumnIndex = 1
+		local key = columns[firstColumnIndex].Key
 		local value: any = row[key] or ""
-		local tooltip: string = row[column.TooltipKey]
-		return Roact.createElement(CellComponent, {
-			CellProps = props.CellProps,
-			Value = value,
-			Tooltip = tooltip,
-			Width = column.Width,
-			Style = style,
-			Columns = columns,
-			Row = row,
-			ColumnIndex = index,
-			RowIndex = rowIndex,
-			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil
-		})
-	end)
+		cells = {
+			Roact.createElement(CellComponent, {
+				CellProps = props.CellProps,
+				Value = value,
+				Tooltip = row[columns[firstColumnIndex].TooltipKey],
+				Width = UDim.new(1, 0),
+				Style = style,
+				Columns = columns,
+				Row = row,
+				ColumnIndex = firstColumnIndex,
+				RowIndex = rowIndex,
+			})
+	}
+	else
+		cells = map(columns, function(column, index: number)
+			local key = column.Key or column.Name
+			local value: any = row[key] or ""
+			local tooltip: string = row[column.TooltipKey] or ""
+			return Roact.createElement(CellComponent, {
+				CellProps = props.CellProps,
+				Value = value,
+				Tooltip = tooltip,
+				Width = column.Width,
+				Style = style,
+				Columns = columns,
+				Row = row,
+				ColumnIndex = index,
+				RowIndex = rowIndex,
+			})
+		end)
+	end
 	return Roact.createElement(Pane, assign({
 		Size = UDim2.new(1, 0, 0, style.RowHeight),
 		Style = "Box",
 		Layout = Enum.FillDirection.Horizontal,
+		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil
 	}, props.WrapperProps), cells)
 
 end

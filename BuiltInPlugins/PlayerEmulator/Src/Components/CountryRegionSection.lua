@@ -27,7 +27,6 @@
 		function onEmulatedCountryRegionChanged
 			on changing selected country region
 ]]
-local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
@@ -50,19 +49,11 @@ local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 local CountryRegionSection = Roact.PureComponent:extend("CountryRegionSection")
 
 local function GetEmulatedCountryRegionCode()
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		return PlayerEmulatorService.EmulatedCountryCode
-	else
-		return PlayerEmulatorService.StudioEmulatedCountryRegionCode
-	end
+	return PlayerEmulatorService.EmulatedCountryCode
 end
 
 local function SetEmulatedCountryRegionCode(code)
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		PlayerEmulatorService.EmulatedCountryCode = code
-	else
-		PlayerEmulatorService.StudioEmulatedCountryRegionCode = code
-	end
+	PlayerEmulatorService.EmulatedCountryCode = code
 end
 
 function CountryRegionSection:getCurrentCountryRegionText(userCountryRegionCode)
@@ -93,18 +84,10 @@ function CountryRegionSection:didMount()
 	local plugin = self.props.Plugin:get()
 	local networkingImpl = self.props.Networking:get()
 
-	local countryRegionChangedSignal
-	if FFlagPlayerEmulatorSerializeIntoDM2 then
-		countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"EmulatedCountryCode"):Connect(function()
-				self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
-			end)
-	else
-		countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
-			"StudioEmulatedCountryRegionCode"):Connect(function()
-				self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
-			end)
-	end
+	local countryRegionChangedSignal = PlayerEmulatorService:GetPropertyChangedSignal(
+		"EmulatedCountryCode"):Connect(function()
+			self:updateCountryRegionSetting(GetEmulatedCountryRegionCode())
+		end)
 	table.insert(self.signalTokens, countryRegionChangedSignal)
 
 	self.props.loadCountryRegion(networkingImpl, plugin)

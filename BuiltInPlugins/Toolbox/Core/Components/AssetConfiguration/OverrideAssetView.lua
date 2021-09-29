@@ -13,7 +13,7 @@
 		LayoutOrder, number, will be used by the layout to change the component's position.
 ]]
 
-local FFlagToolboxUseInfiniteScroller = game:DefineFastFlag("ToolboxUseInfiniteScroller", false)
+local FFlagToolboxUseInfiniteScroller = game:GetFastFlag("ToolboxUseInfiniteScroller")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")

@@ -1,5 +1,5 @@
-game:DefineFastFlag("UserMayChooseModelForFBXAnimImport", false)
+game:DefineFastFlag("UserMayChooseModelForFBXAnimImport2", false)
 
 return function()
-	return game:GetFastFlag("UserMayChooseModelForFBXAnimImport")
+	return game:GetFastFlag("UserMayChooseModelForFBXAnimImport2")
 end

@@ -15,9 +15,11 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetMaterial = require(Actions.SetMaterial)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
@@ -26,8 +28,6 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local REDUCER_KEY = "AddTool"
 
 local function mapStateToProps(state, props)
-	local planeLock = nil
-	planeLock = state[REDUCER_KEY].planeLock
 	return {
 		toolName = TerrainEnums.ToolId.Add,
 
@@ -40,8 +40,10 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = planeLock,
+		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
+		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[REDUCER_KEY].planeCFrame,
 	}
 end
 
@@ -79,6 +81,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetPlaneLock = function(planeLock)
 			dispatchToAdd(SetPlaneLock(planeLock))
+		end,
+		dispatchSetEditPlaneMode = function(editPlaneMode)
+			dispatchToAdd(SetEditPlaneMode(editPlaneMode))
+		end,
+		dispatchSetPlaneCFrame = function(planeCFrame)
+			dispatchToAdd(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToAdd(SetSnapToGrid(snapToGrid))

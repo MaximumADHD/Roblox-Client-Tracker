@@ -7,7 +7,7 @@
 		bool isHovered
 ]]
 
-local FFlagFixMarketplaceTooltips = game:DefineFastFlag("FixMarketplaceTooltips", false)
+local FFlagFixMarketplaceTooltips = game:GetFastFlag("FixMarketplaceTooltips")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent

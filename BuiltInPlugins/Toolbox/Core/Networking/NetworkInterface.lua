@@ -127,8 +127,14 @@ function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDu
 end
 
 function NetworkInterface:getItemDetails(data)
+	-- data = [ {"id":<long>, "itemType":"Asset"}, ... ]
 	if FFlagToolboxUseGetItemDetails then
-		local targetUrl = Urls.constructGetItemDetails(data)
+		local assetIds = {}
+		for _, assetInfo in ipairs(data) do
+			table.insert(assetIds, assetInfo.id)
+		end
+
+		local targetUrl = Urls.constructGetItemDetails(assetIds)
 
 		return sendRequestAndRetry(function()
 			printUrl("getItemDetails", "GET", targetUrl)

@@ -15,8 +15,10 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChangeStrength = require(Actions.ChangeStrength)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
@@ -38,6 +40,8 @@ local function mapStateToProps(state, props)
 		planeLock = state[REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 		strength = state[REDUCER_KEY].strength,
+		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[REDUCER_KEY].planeCFrame,
 	}
 end
 
@@ -73,6 +77,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchSetPlaneLock = function (planeLock)
 			dispatchToSmooth(SetPlaneLock(planeLock))
+		end,
+		dispatchSetEditPlaneMode = function(editPlaneMode)
+			dispatchToSmooth(SetEditPlaneMode(editPlaneMode))
+		end,
+		dispatchSetPlaneCFrame = function(planeCFrame)
+			dispatchToSmooth(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToSmooth(SetSnapToGrid(snapToGrid))

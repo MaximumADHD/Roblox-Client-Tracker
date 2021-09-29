@@ -96,7 +96,7 @@ local Constants = {
 	SNAP_MODES = {
 		Keyframes = "Keyframes",
 		Frames = "Frames",
-		Disabled = "Disabled",
+		None = "None",
 	},
 
 	TEMPORARY_CONSTRAINTS = "ROBLOX_R15_IK_CONSTRAINTS",

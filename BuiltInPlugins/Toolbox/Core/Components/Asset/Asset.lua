@@ -20,7 +20,6 @@
 		callback onPreviewAudioButtonClicked
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagRemoveAudioEndorsedIcon = game:GetFastFlag("RemoveAudioEndorsedIcon")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -173,9 +172,6 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local isEndorsed = asset.IsEndorsed
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
-		if FFlagRemoveAudioEndorsedIcon then
-			isEndorsed = false
-		end
 		showAudioLength = true
 	end
 

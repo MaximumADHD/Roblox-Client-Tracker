@@ -121,7 +121,7 @@ local testCallstack2 = {
 	testStackFrameOne,
 }
 
-local testThreadOne = mockThreadState.new(1, "TestThread1", true, testCallstack1)
+local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true, testCallstack1)
 local testThreadTwo = mockThreadState.new(2, "TestThread2", true, testCallstack2)
 local threadMap = {
 	[1] = testThreadOne,

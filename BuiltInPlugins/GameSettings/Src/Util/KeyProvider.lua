@@ -1,6 +1,7 @@
 -- Centralized Place for Keys used throughout the widget
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
+local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 
 local KeyProvider = {}
 
@@ -116,6 +117,18 @@ function KeyProvider.getFooterKeyName()
 	assert(FFlagLuobuDevPublishAnalyticsKeys)
 
 	return "Footer"
+end
+
+function KeyProvider.getTeamCreateStreamingEnabledKeyName()
+    assert(FFlagStudioTeamCreateStreamingEnabled)
+    
+    return "TeamCreateStreamingEnabled"
+end
+
+function KeyProvider.getTeamCreateEnabledKeyName()
+    assert(FFlagStudioTeamCreateStreamingEnabled)
+    
+    return "TeamCreateEnabled"
 end
 
 return KeyProvider

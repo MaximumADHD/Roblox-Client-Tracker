@@ -31,7 +31,6 @@
 		number TextSize: The size of the text in this button.
 		Color3 TextColor: The color of the text in this button.
 ]]
-local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
 local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
@@ -133,8 +132,8 @@ function Button:render()
 			TextColor3 = style.TextColor,
 			TextTruncate = style.TextTruncate,
 			TextWrapped = style.TextWrapped,
-			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
-			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
+			TextXAlignment = style.TextXAlignment,
+			TextYAlignment = style.TextYAlignment,
 			Text = text,
 			ZIndex = 2,
 

@@ -17,7 +17,6 @@ local TextInput = require(UI.TextInput)
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 
 function TreeTableCell:init()
@@ -116,7 +115,6 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil,
 		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {

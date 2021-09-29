@@ -70,8 +70,7 @@ return function()
 		expect(frame).to.be.ok()
 		expect(frame.TreeView).to.be.ok()
 
-		local GetFFlagDevFrameworkTreeViewRow = game:DefineFastFlag("DevFrameworkTreeViewRow", false)
-		expect(#frame.TreeView:GetChildren()).to.equal(GetFFlagDevFrameworkTreeViewRow and 1 or 2)
+		expect(#frame.TreeView:GetChildren()).to.equal(1)
 
 		Roact.unmount(instance)
 	end)

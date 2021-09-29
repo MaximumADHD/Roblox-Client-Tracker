@@ -1,3 +1,5 @@
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -11,6 +13,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local BrushShape = TerrainEnums.BrushShape
 local PivotType = TerrainEnums.PivotType
+local PlaneLockType = TerrainEnums.PlaneLockType
 
 local Actions = Plugin.Src.Actions
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
@@ -22,6 +25,8 @@ local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local SetPlaneLock = require(Actions.SetPlaneLock)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 
 return function()
@@ -35,7 +40,13 @@ return function()
 		expect(r:getState().ignoreWater).to.equal(true)
 		expect(r:getState().ignoreParts).to.equal(true)
 		expect(r:getState().pivot).to.equal(PivotType.Center)
-		expect(r:getState().planeLock).to.equal(false)
+		if FFlagTerrainToolsEditPlaneLock then
+			expect(r:getState().planeLock).to.equal(PlaneLockType.Off)
+			expect(r:getState().editPlaneMode).to.equal(false)
+			expect(r:getState().planeCFrame).to.equal(nil)
+		else
+			expect(r:getState().planeLock).to.equal(false)
+		end
 		expect(r:getState().snapToGrid).to.equal(false)
 		expect(r:getState().strength).to.equal(Constants.INITIAL_BRUSH_STRENGTH)
 	end)
@@ -133,18 +144,64 @@ return function()
 
 	describe("SetPlaneLock", function()
 		it("should set the current planeLock", function()
-			local state = ErodeTool(nil, SetPlaneLock(true))
+			if FFlagTerrainToolsEditPlaneLock then
+				local state = ErodeTool(nil, SetPlaneLock(PlaneLockType.Auto))
 
-			expect(state).to.be.ok()
-			expect(state.planeLock).to.be.ok()
-			expect(state.planeLock).to.equal(true)
+				expect(state).to.be.ok()
+				expect(state.planeLock).to.be.ok()
+				expect(state.planeLock).to.equal(PlaneLockType.Auto)
+			else
+				local state = ErodeTool(nil, SetPlaneLock(true))
+
+				expect(state).to.be.ok()
+				expect(state.planeLock).to.be.ok()
+				expect(state.planeLock).to.equal(true)
+			end
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(ErodeTool, SetPlaneLock(true))
-			expect(immutabilityPreserved).to.equal(true)
+			if FFlagTerrainToolsEditPlaneLock then
+				local immutabilityPreserved = testImmutability(ErodeTool, SetPlaneLock(PlaneLockType.Auto))
+				expect(immutabilityPreserved).to.equal(true)
+			else
+				local immutabilityPreserved = testImmutability(ErodeTool, SetPlaneLock(true))
+				expect(immutabilityPreserved).to.equal(true)
+			end
 		end)
 	end)
+
+	if FFlagTerrainToolsEditPlaneLock then
+		describe("SetEditPlaneMode", function()
+			it("should set the current editPlaneMode", function()
+				local state = ErodeTool(nil, SetEditPlaneMode(true))
+
+				expect(state).to.be.ok()
+				expect(state.editPlaneMode).to.be.ok()
+				expect(state.editPlaneMode).to.equal(true)
+			end)
+	
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(ErodeTool, SetEditPlaneMode(true))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+	
+		describe("SetPlaneCFrame", function()
+			it("should set the current planeCFrame", function()
+				local frame = CFrame.new()
+				local state = ErodeTool(nil, SetPlaneCFrame(frame))
+
+				expect(state).to.be.ok()
+				expect(state.planeCFrame).to.be.ok()
+				expect(state.planeCFrame).to.equal(frame)
+			end)
+	
+			it("should preserve immutability", function()
+				local immutabilityPreserved = testImmutability(ErodeTool, SetPlaneCFrame(CFrame.new()))
+				expect(immutabilityPreserved).to.equal(true)
+			end)
+		end)
+	end
 
 	describe("SetSnapToGrid", function()
 		it("should set the current snapToGrid", function()

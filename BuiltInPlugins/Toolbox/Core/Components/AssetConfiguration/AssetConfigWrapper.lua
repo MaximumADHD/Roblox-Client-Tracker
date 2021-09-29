@@ -13,7 +13,6 @@
 	localization = A localization object to be used by a LocalizationProvider.
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
-local FFlagStudioAssetConfigurationPlugin = game:GetFastFlag("StudioAssetConfigurationPlugin")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -57,21 +56,10 @@ function AssetConfigWrapper:init(props)
 	end
 
 
-	local destroyed = false
 	self.onClose = function(rbx)
-		if FFlagStudioAssetConfigurationPlugin then
-			if destroyed then
-				return
-			end
-			destroyed = true
-		end
 		if self.props.onAssetConfigDestroy then
 			self.props.onAssetConfigDestroy()
 		end
-	end
-
-	if FFlagStudioAssetConfigurationPlugin then
-		self.onAncestryChanged = self.onClose
 	end
 end
 

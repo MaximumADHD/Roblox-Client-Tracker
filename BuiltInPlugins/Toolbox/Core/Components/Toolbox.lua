@@ -63,7 +63,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local FFlagStudioToolboxPersistBackgroundColor = game:DefineFastFlag("StudioToolboxPersistsBackgroundColor", false)
+local FFlagStudioToolboxPersistBackgroundColor = game:GetFastFlag("StudioToolboxPersistsBackgroundColor")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")

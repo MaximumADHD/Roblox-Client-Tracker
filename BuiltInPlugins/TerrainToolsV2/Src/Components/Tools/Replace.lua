@@ -1,7 +1,9 @@
 --[[
 	Displays panels associated with The Replace tool
 ]]
+
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -25,8 +27,10 @@ local ChangeHeight = require(Actions.ChangeHeight)
 local ChangePivot = require(Actions.ChangePivot)
 local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
+local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
+local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
@@ -43,6 +47,7 @@ local BaseBrush = require(Plugin.Src.Components.Tools.BaseBrush)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
+local PlaneLockType = TerrainEnums.PlaneLockType
 
 local REDUCER_KEY = "ReplaceTool"
 
@@ -55,6 +60,8 @@ function Replace:init()
 
 		self.props.Replace:replaceMaterial(position, size, self.props.Source, self.props.Target, self.props.toolName)
 	end
+
+	-- (skuhne) TODO: Update planeLock segments to match required settings
 
 	self.setSourceMaterial = function(material)
 		if material == Enum.Material.Water and self.props.ignoreWater == true then
@@ -161,9 +168,11 @@ function Replace:render()
 				dispatchSetBaseSizeHeightLocked = self.props.dispatchSetBaseSizeHeightLocked,
 				dispatchChooseBrushShape = self.props.dispatchChooseBrushShape,
 				dispatchChangeHeight = self.props.dispatchChangeHeight,
+				dispatchSetEditPlaneMode = self.props.dispatchSetEditPlaneMode,
 				dispatchSetIgnoreWater = self.setIgnoreWater,
 				dispatchSetIgnoreParts = self.props.dispatchSetIgnoreParts,
 				dispatchChangePivot = self.props.dispatchChangePivot,
+				dispatchSetPlaneCFrame = self.props.dispatchSetPlaneCFrame,
 				dispatchSetPlaneLock = self.setPlaneLock,
 				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
 				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
@@ -308,6 +317,9 @@ local function mapDispatchToProps(dispatch)
 		dispatchChangeHeight = function(height)
 			dispatchToReplace(ChangeHeight(height))
 		end,
+		dispatchSetEditPlaneMode = function(editPlaneMode)
+			dispatchToReplace(SetEditPlaneMode(editPlaneMode))
+		end,
 		dispatchSetIgnoreWater = function(ignoreWater)
 			dispatchToReplace(SetIgnoreWater(ignoreWater))
 		end,
@@ -316,6 +328,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 		dispatchChangePivot = function(pivot)
 			dispatchToReplace(ChangePivot(pivot))
+		end,
+		dispatchSetPlaneCFrame = function(planeCFrame)
+			dispatchToReplace(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetPlaneLock = function(planeLock)
 			dispatchToReplace(SetPlaneLock(planeLock))

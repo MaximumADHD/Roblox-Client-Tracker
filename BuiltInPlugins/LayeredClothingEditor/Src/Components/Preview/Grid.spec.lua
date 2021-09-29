@@ -20,17 +20,29 @@ return function()
 				UserAddedAssets = {}
 			}),
 			function(container)
-				local frame = container:FindFirstChildOfClass("Frame")
-				local scrollingFrame = frame.ScrollingFrame
-				local contents = frame.ScrollingFrame.Contents
-				local scroller = frame.ScrollingFrame.Contents.Scroller
-				local uiGridLayout = frame.ScrollingFrame.Contents.Scroller.UIGridLayout
+				if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
+					local frame = container:FindFirstChildOfClass("Frame")
+					local scrollingFrame = frame.ScrollingFrame
+					local scroller = frame.ScrollingFrame.Scroller
+					local uiGridLayout = frame.ScrollingFrame.Scroller.UIGridLayout
 
-				expect(frame).to.be.ok()
-				expect(scrollingFrame).to.be.ok()
-				expect(contents).to.be.ok()
-				expect(scroller).to.be.ok()
-				expect(uiGridLayout).to.be.ok()
+					expect(frame).to.be.ok()
+					expect(scrollingFrame).to.be.ok()
+					expect(scroller).to.be.ok()
+					expect(uiGridLayout).to.be.ok()
+				else
+					local frame = container:FindFirstChildOfClass("Frame")
+					local scrollingFrame = frame.ScrollingFrame
+					local contents = frame.ScrollingFrame.Contents
+					local scroller = frame.ScrollingFrame.Contents.Scroller
+					local uiGridLayout = frame.ScrollingFrame.Contents.Scroller.UIGridLayout
+
+					expect(frame).to.be.ok()
+					expect(scrollingFrame).to.be.ok()
+					expect(contents).to.be.ok()
+					expect(scroller).to.be.ok()
+					expect(uiGridLayout).to.be.ok()
+				end
 			end
 		)
 	end)

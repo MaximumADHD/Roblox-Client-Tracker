@@ -31,6 +31,7 @@ local LayoutOrderIterator = require(Plugin.Framework).Util.LayoutOrderIterator
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
+local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 
 local FStringSpatialVoiceChatLink = game:DefineFastString("SpatialVoiceChatLink", "https://developer.roblox.com/articles/spatial-voice")
 
@@ -38,6 +39,12 @@ local GuiService = game:GetService("GuiService")
 
 local GetVoiceChatEnabledKeyName = KeyProvider.getVoiceChatEnabledKeyName
 local voiceChatEnabledKey = FFlagGameSettingsEnableVoiceChat and GetVoiceChatEnabledKeyName() or nil
+
+local GetTeamCreateStreamingEnabledKeyName = KeyProvider.getTeamCreateStreamingEnabledKeyName
+local teamCreateStreamingEnabledKey = FFlagStudioTeamCreateStreamingEnabled and GetTeamCreateStreamingEnabledKeyName() or nil
+
+local GetTeamCreateEnabledKeyName = KeyProvider.getTeamCreateEnabledKeyName
+local teamCreateEnabledKey = FFlagStudioTeamCreateStreamingEnabled and GetTeamCreateEnabledKeyName() or nil
 
 local LOCALIZATION_ID = script.Name
 
@@ -60,7 +67,23 @@ local function loadSettings(store, contextItems)
 
 				loadedSettings[voiceChatEnabledKey] = optIn
 			end
-		end,
+        end,
+        
+        function(loadedSettings)
+            if FFlagStudioTeamCreateStreamingEnabled then
+                local enabled = gameOptionsController:getTeamCreateStreamingEnabled(game)
+                
+                loadedSettings[teamCreateStreamingEnabledKey] = enabled
+            end
+        end,
+        
+        function(loadedSettings)
+            if FFlagStudioTeamCreateStreamingEnabled then
+                local enabled = gameOptionsController:getTeamCreateEnabled(gameId)
+
+                loadedSettings[teamCreateEnabledKey] = enabled
+            end
+        end,
 	}
 end
 
@@ -86,7 +109,16 @@ local function saveSettings(store, contextItems)
 					gameOptionsController:setVoiceChatEnabled(gameId, changed)
 				end
 			end
-		end,
+        end,
+        function()
+            if FFlagStudioTeamCreateStreamingEnabled then
+                local changed = state.Settings.Changed.TeamCreateStreamingEnabled
+                
+                if changed ~= nil then
+                    gameOptionsController:setTeamCreateStreamingEnabled(game, changed)
+                end
+            end
+        end,
 	}
 end
 
@@ -95,7 +127,10 @@ local function loadValuesToProps(getValue, state)
 	local loadedProps = {
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
 		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
-		VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
+        VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
+        TeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and getValue("TeamCreateStreamingEnabled") or nil,
+        CurrentTeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateStreamingEnabled or nil,
+        TeamCreateEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateEnabled or nil,
 	}
 	return loadedProps
 end
@@ -107,7 +142,8 @@ local function dispatchChanges(setValue, dispatch)
 		dispatchShutdownAllServers = function()
 			dispatch(ShutdownAllServers())
 		end,
-		VoiceChatEnabledChanged = setValue(voiceChatEnabledKey),
+        VoiceChatEnabledChanged = setValue(voiceChatEnabledKey),
+        TeamCreateStreamingEnabledChanged = FFlagStudioTeamCreateStreamingEnabled and setValue(teamCreateStreamingEnabledKey) or nil
 	}
 
 	return dispatchFuncs
@@ -133,7 +169,14 @@ function Options:render()
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
     -- Display warning to user if they are switching Collab off when it is currently saved as on
-    local shouldDisplayWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
+    local shouldDisplayScriptCollabWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
+    
+    -- Display warning to user that streaming setting change will only take affect if
+    local displayTeamCreateStreamingWarning = nil
+    if FFlagStudioTeamCreateStreamingEnabled then
+        displayTeamCreateStreamingWarning = (props.CurrentTeamCreateStreamingEnabled ~= props.TeamCreateStreamingEnabled)
+    end
+    
     local layoutIndex = LayoutOrderIterator.new()
 
 	local function createChildren()
@@ -141,15 +184,28 @@ function Options:render()
 
 		local localization = props.Localization
 
-		return {
+        return {
+            EnableTeamCreateStreamingToggle = FFlagStudioTeamCreateStreamingEnabled and props.TeamCreateEnabled and Roact.createElement(ToggleButtonWithTitle, {
+                Title = localization:getText("General", "TitleTeamCreateStreaming"),
+                Description = displayTeamCreateStreamingWarning and localization:getText("General", "TeamCreateStreamingWarning")
+                    or localization:getText("General", "TeamCreateStreamingDesc"),
+                LayoutOrder = layoutIndex:getNextOrder(),
+                Disabled = false,
+                Selected = props.TeamCreateStreamingEnabled,
+                ShowWarning = displayTeamCreateStreamingWarning,
+                OnClick = function()
+                    props.TeamCreateStreamingEnabledChanged(not props.TeamCreateStreamingEnabled)
+                end, 
+            }) or nil,            
+            
             EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
                 Title = localization:getText("General", "TitleScriptCollab"),
-                Description = shouldDisplayWarning and localization:getText("General", "ScriptCollabWarning")
+                Description = shouldDisplayScriptCollabWarning and localization:getText("General", "ScriptCollabWarning")
                     or localization:getText("General", "ScriptCollabDesc"),
                 LayoutOrder = layoutIndex:getNextOrder(),
                 Disabled = false,
                 Selected = props.ScriptCollabEnabled,
-                ShowWarning = shouldDisplayWarning,
+                ShowWarning = shouldDisplayScriptCollabWarning,
                 OnClick = function()
                     props.ScriptCollabEnabledChanged(not props.ScriptCollabEnabled)
                 end,

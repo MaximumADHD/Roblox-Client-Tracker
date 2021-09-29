@@ -1,13 +1,13 @@
 local Plugin = script.parent.parent.parent
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local FrameworkTheme = ContextServices.Theme
 
-local StudioUI = require(Framework.StudioUI)
+local StudioUI = Framework.StudioUI
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
 local Style = Util.Style
 local StyleTable = Util.StyleTable
 local FrameworkStyleModifier = Util.StyleModifier

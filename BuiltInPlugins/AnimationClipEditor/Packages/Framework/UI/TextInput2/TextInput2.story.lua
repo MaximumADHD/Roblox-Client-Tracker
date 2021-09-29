@@ -7,7 +7,7 @@ local UI = require(Framework.UI)
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel -- Remove with FFlagDevFrameworkTextInput2
-local TextInput2 = UI.TextInput2
+local TextInput2
 
 local DEFAULT_WIDTH = 300
 
@@ -24,6 +24,7 @@ local function createStory(component, layoutOrder)
 end
 
 if FFlagDevFrameworkTextInput2 then
+	TextInput2 = UI.TextInput2
 	return {
 		controls = {
 			isDisabled = false,

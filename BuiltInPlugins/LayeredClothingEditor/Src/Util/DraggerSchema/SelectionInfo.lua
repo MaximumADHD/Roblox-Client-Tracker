@@ -57,12 +57,17 @@ local function useSoftSelectedPoints(context)
 end
 
 local function computeBoundingBox(context, selection)
-	if ToolUtil:isDraggerPointMode(context) then
-		selection = useSoftSelectedPoints(context, selection)
-	end
-
 	local points = getPoints(selection, ToolUtil:isDraggerPointMode(context))
 	return ModelUtil:getBounds(points)
+end
+
+local function computeBoundingBoxSoftSelect(context)
+	local selection = {}
+	if ToolUtil:isDraggerPointMode(context) then
+		selection = useSoftSelectedPoints(context)
+	end
+
+	return computeBoundingBox(context, selection)
 end
 
 local function buildPointSelection(selection)
@@ -99,7 +104,8 @@ function SelectionInfo.new(draggerContext, selection)
 
 	self._draggerContext = draggerContext
 	self._selectionTable = buildSelectionTable(draggerContext, selection)
-	self._bounds = computeBoundingBox(draggerContext, selection)
+	self._bounds = computeBoundingBoxSoftSelect(draggerContext)
+	self._boundsMainSelection = computeBoundingBox(draggerContext, selection)
 
 	return self
 end
@@ -115,16 +121,26 @@ function SelectionInfo:getBoundingBox(empty)
 	local selectedLattice = self._draggerContext.selectedLattice
 
 	local rootCFrame = ModelUtil:getRootCFrame(editingItem)
-	local selectionSize = Vector3.new(self._bounds.Width, self._bounds.Height, self._bounds.Depth)
+	local boundsCenter = self._bounds.Center
+	local boundsCenterMainSelection = self._boundsMainSelection.Center
+	local selectionSizeSoftSelection = Vector3.new(self._bounds.Width, self._bounds.Height, self._bounds.Depth)
+	local selectionSizeMainSelection = Vector3.new(self._boundsMainSelection.Width,self._boundsMainSelection.Height, self._boundsMainSelection.Depth)
 	if self._draggerContext:shouldUseLocalSpace() then
 		local rootRotOnly = rootCFrame - rootCFrame.p
 		if ToolUtil:isDraggerPointMode(self._draggerContext) then
-			return rootRotOnly + self._bounds.Center , Vector3.new(), selectionSize
+			-- size of bounding box should match bounds of entire selection including soft select points
+			-- center point of draggers should follow points that were selected directly, not with soft select
+			-- offset to account dragger location to account for this
+			if self._draggerContext.draggerType == Enum.RibbonTool.Scale then
+				return rootRotOnly + boundsCenter, Vector3.new(), selectionSizeSoftSelection
+			else
+				return rootRotOnly + boundsCenterMainSelection, Vector3.new(), selectionSizeMainSelection
+			end
 		elseif ToolUtil:isDraggerLatticeMode(self._draggerContext) then
 			local latticeBounds = latticeBoundsData[editingCage][selectedLattice]
 			if latticeBounds then
 				local boundsRotOnly = latticeBounds.CFrame - latticeBounds.CFrame.p
-				return (rootRotOnly * boundsRotOnly) + self._bounds.Center, Vector3.new(), selectionSize
+				return (rootRotOnly * boundsRotOnly) + boundsCenterMainSelection, Vector3.new(), selectionSizeMainSelection
 			else
 				return CFrame.new(), Vector3.new(), Vector3.new()
 			end
@@ -132,7 +148,18 @@ function SelectionInfo:getBoundingBox(empty)
 			return CFrame.new(), Vector3.new(), Vector3.new()
 		end
 	else
-		return CFrame.new() + self._bounds.Center, Vector3.new(), selectionSize
+		if ToolUtil:isDraggerPointMode(self._draggerContext) then
+			-- size of bounding box should match bounds of entire selection including soft select points
+			-- center point of draggers should follow points that were selected directly, not with soft select
+			-- offset to account dragger location to account for this
+			if self._draggerContext.draggerType == Enum.RibbonTool.Scale then
+				return CFrame.new() + boundsCenter, Vector3.new(), selectionSizeSoftSelection
+			else
+				return CFrame.new() + boundsCenterMainSelection, Vector3.new(), selectionSizeMainSelection
+			end
+		else
+			return CFrame.new() + boundsCenterMainSelection, Vector3.new(), selectionSizeMainSelection
+		end
 	end
 end
 

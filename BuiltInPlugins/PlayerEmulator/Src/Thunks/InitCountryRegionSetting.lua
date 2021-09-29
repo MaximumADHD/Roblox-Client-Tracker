@@ -1,5 +1,3 @@
-local FFlagPlayerEmulatorSerializeIntoDM2 = game:GetFastFlag("PlayerEmulatorSerializeIntoDM2")
-
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -13,11 +11,7 @@ return function(networkingImpl, plugin)
 		local cachedCountryRegionCode = plugin:GetSetting(Constants.COUNTRY_REGION_SETTING_KEY)
 
 		if cachedCountryRegionCode and countryRegionTable[cachedCountryRegionCode] then
-			if FFlagPlayerEmulatorSerializeIntoDM2 then
-				PlayerEmulatorService.EmulatedCountryCode = cachedCountryRegionCode
-			else
-				PlayerEmulatorService.StudioEmulatedCountryRegionCode = cachedCountryRegionCode
-			end
+			PlayerEmulatorService.EmulatedCountryCode = cachedCountryRegionCode
 		else
 			store:dispatch(GetUserCountryRegionCode(networkingImpl))
 		end

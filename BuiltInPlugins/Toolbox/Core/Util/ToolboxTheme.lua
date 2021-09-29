@@ -1,5 +1,4 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
-local FFlagEnableToolboxAssetNameColorChange = game:GetFastFlag("EnableToolboxAssetNameColorChange")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
@@ -222,7 +221,7 @@ function ToolboxTheme:_recalculateTheme()
 			},
 
 			assetName = (not FFlagToolboxRemoveWithThemes) and {
-				textColor = FFlagEnableToolboxAssetNameColorChange and color(c.MainText) or color(c.LinkText),
+				textColor = color(c.MainText),
 			},
 
 			status = (not FFlagToolboxRemoveWithThemes) and {

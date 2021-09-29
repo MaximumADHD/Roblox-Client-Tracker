@@ -1,4 +1,3 @@
-local FFlagTerrainTrackAcquisitionMethod = game:GetFastFlag("TerrainTrackAcquisitionMethod")
 local FFlagTerrainFlattenColumnMethod = game:GetFastFlag("TerrainFlattenColumnMethod")
 
 local Plugin = script.Parent.Parent.Parent
@@ -79,9 +78,9 @@ local function performOperation(terrain, opSet)
 		OperationHelper.clampUpToVoxel(centerPoint.y + (height * 0.5)),
 		OperationHelper.clampUpToVoxel(centerPoint.z + radius))
 
-	if (FFlagTerrainTrackAcquisitionMethod and tool == ToolId.Add) then
+	if (tool == ToolId.Add) then
 		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditAddTool
-	elseif (FFlagTerrainTrackAcquisitionMethod and tool == ToolId.Replace) then
+	elseif (tool == ToolId.Replace) then
 		terrain.LastUsedModificationMethod = Enum.TerrainAcquisitionMethod.EditReplaceTool
 	end
 

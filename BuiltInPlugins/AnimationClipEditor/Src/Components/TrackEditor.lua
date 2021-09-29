@@ -124,10 +124,20 @@ function TrackEditor:init()
 	end
 
 	self.getTrackPadding = function()
-		local lastTick = self.props.LastTick
-		if lastTick < 100 then
+		local lastFrame
+
+		if GetFFlagUseTicks() then
+			local frameRate = self.props.DisplayFrameRate
+
+			local lastTick = math.max(self.props.LastTick, self.props.EndTick)
+			lastFrame = lastTick * frameRate / Constants.TICK_FREQUENCY
+		else
+			lastFrame = self.props.LastTick
+		end
+
+		if lastFrame < 100 then
 			return Constants.TRACK_PADDING_SMALL
-		elseif lastTick < 1000 then
+		elseif lastFrame < 1000 then
 			return Constants.TRACK_PADDING_MEDIUM
 		else
 			return Constants.TRACK_PADDING_LARGE

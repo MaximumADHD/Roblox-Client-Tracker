@@ -96,8 +96,11 @@ local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
 
 if FFlagToolboxUseGetItemDetails then
-	function Urls.constructGetItemDetails(data)
-		return GET_ITEM_DETAILS .. Url.makeQueryString(data)
+	function Urls.constructGetItemDetails(assetIds)
+		-- assetIds : array<number>
+		return GET_ITEM_DETAILS .. Url.makeQueryString({
+			assetIds = table.concat(assetIds, ",")
+		})
 	end
 else
 	function Urls.constructPostGetItemDetails()

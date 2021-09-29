@@ -11,4 +11,6 @@ game:DefineFastFlag("StudioAssetManagerDisableHoverOnOverlay", false)
 game:DefineFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit", false)
 game:DefineFastFlag("StudioAssetManagerFixRecentAssetDuplication", false)
 game:DefineFastFlag("StudioAssetManagerAssetModeration", false)
+game:DefineFastFlag("StudioAssetManagerFixToolbarButtonScript", false)
+game:DefineFastFlag("StudioAssetManagerFixAssetPreviewHover", false)
 return nil

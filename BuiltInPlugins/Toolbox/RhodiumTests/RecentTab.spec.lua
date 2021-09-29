@@ -14,7 +14,7 @@ return function()
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
-	local ModelsCategoryName = Category.FREE_MODELS.name
+	local ModelsCategoryName = Category.RECENT_MODELS.name
 	local CurrentSelectionModelsText = CurrentSelectionBasicText..Category.RECENT_MODELS.name
 	local CurrentSelectionAudioText = CurrentSelectionBasicText..Category.RECENT_AUDIO.name
 	local CurrentSelectionImagesText = CurrentSelectionBasicText..Category.RECENT_DECALS.name

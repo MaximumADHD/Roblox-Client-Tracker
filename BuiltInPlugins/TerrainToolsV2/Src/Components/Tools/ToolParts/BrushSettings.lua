@@ -3,6 +3,7 @@
 ]]
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -27,6 +28,7 @@ local BaseSizeSlider = require(BrushProperties.BaseSizeSlider)
 local BrushShapeSelector = require(BrushProperties.BrushShapeSelector)
 local FlattenModeSelector = require(BrushProperties.FlattenModeSelector)
 local HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
+local PlaneLockSelector = require(BrushProperties.PlaneLockSelector)
 local PivotSelector = require(BrushProperties.PivotSelector)
 
 local BrushSettings = Roact.PureComponent:extend(script.Name)
@@ -104,12 +106,18 @@ function BrushSettings:render()
 			setPivot = self.props.setPivot,
 		}),
 
-		PlaneLockToggle = showPlaneLockToggle and Roact.createElement(LabeledToggle, {
+		PlaneLockToggle = not FFlagTerrainToolsEditPlaneLock and showPlaneLockToggle and Roact.createElement(LabeledToggle, {
 			LayoutOrder = 7,
 			Text = localization:getText("BrushSettings", "PlaneLock"),
 			IsOn = self.props.planeLock,
 			SetIsOn = self.props.setPlaneLock,
 			Disabled = disablePlaneLockToggle,
+		}),
+
+		PlaneLock = FFlagTerrainToolsEditPlaneLock and showPlaneLockToggle and Roact.createElement(PlaneLockSelector, {
+			LayoutOrder = 7,
+			planeLock = self.props.planeLock,
+			setPlaneLock = self.props.setPlaneLock,
 		}),
 
 		FixedPlaneToggle = showFixedPlaneToggle and Roact.createElement(LabeledToggle, {

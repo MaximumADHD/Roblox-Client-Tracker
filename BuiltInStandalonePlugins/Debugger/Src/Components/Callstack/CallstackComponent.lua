@@ -10,7 +10,6 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 local PluginActions = ContextServices.PluginActions
 local Plugin = ContextServices.Plugin
-local TextService = game:GetService("TextService")
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -19,9 +18,7 @@ local deepCopy = Util.deepCopy
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local TextLabel = UI.Decoration.TextLabel
 local TreeTable = UI.TreeTable
-local SelectInputField = require(script.Parent.SelectInputField)
 
 local StudioUI = Framework.StudioUI
 local showContextMenu = StudioUI.showContextMenu
@@ -31,6 +28,7 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 
 local Actions = PluginFolder.Src.Actions
 local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
+local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 
 local Models = PluginFolder.Src.Models
 local CallstackRow = require(Models.CallstackRow)
@@ -40,11 +38,34 @@ local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 local Constants = require(PluginFolder.Src.Util.Constants)
 
 local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+
+local StudioService = game:GetService("StudioService")
 
 -- Local Functions
-local function calculateTextSize(text, textSize, font)
-	local frameNoWrapping = Vector2.new(0, 0)
-	return TextService:GetTextSize(text, textSize, font, frameNoWrapping)
+local function makeCallstackRootItem(threadInfo, common, callstackVars)
+	local displayString = threadInfo.displayString
+	local threadId = threadInfo.threadId
+	local currentFrameNumber = common.threadIdToCurrentFrameNumber[threadId]
+			
+	local frameList = callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[threadId]
+	
+	local frameListCopy = deepCopy(frameList)
+	for index, frameData in ipairs(frameListCopy) do
+		if (index == 1) then
+			frameListCopy[index].arrowColumn = CallstackRow.ICON_FRAME_TOP
+		elseif (frameData.frameColumn == currentFrameNumber) then
+			frameListCopy[index].arrowColumn = CallstackRow.ICON_CURRENT_FRAME
+		else
+			frameListCopy[index].arrowColumn = ""
+		end
+	end
+
+	return {
+		arrowColumn = displayString,
+		threadId = threadId,
+		children = frameListCopy,
+	}
 end
 
 function CallstackComponent:addAction(action, func)
@@ -81,6 +102,8 @@ end
 
 -- CallstackComponent
 function CallstackComponent:init()
+	self.selectedRow = nil
+	
 	self.getTreeChildren = function(item)
 		return item.children or {}
 	end
@@ -88,14 +111,28 @@ function CallstackComponent:init()
 	self.onSelectionChange = function(selection)
 		local props = self.props
 		for rowInfo in pairs(selection) do
+			self.selectedRow = {["item"] = rowInfo}
 			local threadId = props.CurrentThreadId
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
 		end
 	end
 
-	self.copySelectedRow = function()
-		print('Todo RIDE-5594')
+	self.copySelectedRow = function(row)
+		-- If row is nil, then Ctrl+C shortcut was activated for selected row
+		if row == nil then
+			if self.selectedRow == nil then
+				return
+			end
+			row = self.selectedRow
+		end
+		local frame = row.item.frameColumn .. '\t'
+		local layer = row.item.layerColumn .. '\t'
+		local source = row.item.sourceColumn .. '\t'
+		local functionCol = row.item.functionColumn .. '\t'
+		local line = row.item.lineColumn
+		local rowString = frame .. layer .. source .. functionCol .. line
+		StudioService:CopyToClipboard(rowString)
 	end
 
 	self.deleteSelectedRow = function ()
@@ -107,8 +144,9 @@ function CallstackComponent:init()
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
+		local row = extraParameters.row
 		if actionId == Constants.CallstackActionIds.CopySelected then
-			self.copySelectedRow()
+			self.copySelectedRow(row)
 		elseif actionId == Constants.CallstackActionIds.DeleteSelected then
 			self.deleteSelectedRow()
 		elseif actionId == Constants.CallstackActionIds.SelectAll then
@@ -125,6 +163,16 @@ function CallstackComponent:init()
 			showContextMenu(plugin, "Call Stack", actions, self.onMenuActionSelected, {row = row})
 		end
 	end
+
+	self.onExpansionChange = function(newExpansion)
+		for row, expandedBool in pairs(newExpansion) do
+			self.props.onExpansionClicked(row.threadId)
+		end
+	end
+	
+	self.getTreeChildren = function(item)
+		return item.children or {}
+	end
 end
 
 function CallstackComponent:render()
@@ -132,7 +180,6 @@ function CallstackComponent:render()
 	local localization = props.Localization
 	local style = self.props.Stylizer
 	
-	local textSize = calculateTextSize(localization:getText("Callstack", "CurrentScriptTitle"), style.TextSize, style.Font)
 	local tableColumns = {
 		{
 			Name = "",
@@ -155,7 +202,7 @@ function CallstackComponent:render()
 			Key = "lineColumn",
 		}
 	}
-	
+
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
 		Style = "Box",
@@ -170,27 +217,6 @@ function CallstackComponent:render()
 			Layout = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}, {
-			TextViewWrapper = Roact.createElement(Pane, {
-				Size = UDim2.new(0, textSize.X, 1, 0),
-				LayoutOrder = 1,
-			}, {
-				TextView = Roact.createElement(TextLabel, {
-					Size = UDim2.new(1, 0, 1, 0),
-					Text = localization:getText("Callstack", "CurrentScriptTitle"),
-				})
-			}),
-			SelectInputViewWrapper = Roact.createElement(Pane, {
-				Size = UDim2.new(1, -textSize.X, 1, 0),
-				LayoutOrder = 2,
-				Style = "BorderBox",
-				Padding = 2,
-				BorderColor = style.BorderColor,
-			}, {
-				SelectInputView = Roact.createElement(SelectInputField, {
-					Size = UDim2.new(1, 0, 1, 0),
-					PlaceholderText = localization:getText("Callstack", "SelectInputPlaceholderText"),
-				})
-			}),
 		}),
 
 		BodyView = Roact.createElement(Pane, {
@@ -204,11 +230,13 @@ function CallstackComponent:render()
 				Columns = tableColumns,
 				RootItems = props.RootItems,
 				Stylizer = style,
-				Expansion = {},
+				Expansion = props.ExpansionTable,
 				GetChildren = self.getTreeChildren,
 				DisableTooltip = false,
 				OnSelectionChange = self.onSelectionChange,
 				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
+				OnExpansionChange = self.onExpansionChange,
+				FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and true,
 			})
 		}),
 	})
@@ -231,28 +259,30 @@ CallstackComponent = RoactRodux.connect(
 				CurrentThreadId = nil,
 			}
 		else
+			
 			assert(#state.Common.debuggerStateTokenHistory >= 1)
-			local currentThreadId = state.Common.currentThreadId
-			local currentFrameNumber = state.Common.threadIdToCurrentFrameNumber[currentThreadId]
-			
-			local address = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
-			local callstackVars = state.Callstack.stateTokenToCallstackVars[address]
-			local frameList = callstackVars and callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[currentThreadId]
-			
-			local frameListCopy = deepCopy(frameList)
-			for index, frameData in ipairs(frameListCopy) do
-				if (index == 1) then
-					frameListCopy[index].arrowColumn = CallstackRow.ICON_FRAME_TOP
-				elseif (frameData.frameColumn == currentFrameNumber) then
-					frameListCopy[index].arrowColumn = CallstackRow.ICON_CURRENT_FRAME
-				else
-					frameListCopy[index].arrowColumn = ""
+			local common = state.Common
+			local callstack = state.Callstack
+			local currentThreadId = common.currentThreadId
+			local address = common.debuggerStateTokenHistory[#common.debuggerStateTokenHistory]
+			local callstackVars = callstack.stateTokenToCallstackVars[address]
+			assert(callstackVars)
+			local threadList = callstackVars.threadList
+
+			local rootList = {}
+			local expansionTable = nil
+			for _, threadInfo in ipairs(threadList) do
+				local rootItem = makeCallstackRootItem(threadInfo, common, callstackVars)
+				table.insert(rootList, rootItem)
+				if (threadInfo.threadId == currentThreadId) then
+					expansionTable = {[rootItem] = true}
 				end
 			end
-			
+
 			return {
-				RootItems = frameListCopy or {},
+				RootItems = rootList,
 				CurrentThreadId = currentThreadId,
+				ExpansionTable = expansionTable,
 			}
 		end
 	end,
@@ -261,6 +291,9 @@ CallstackComponent = RoactRodux.connect(
 		return {
 			setCurrentFrameNumber = function(threadId, frameNumber)
 				return dispatch(SetCurrentFrameNumber(threadId, frameNumber))
+			end,
+			onExpansionClicked = function(threadId)
+				return dispatch(SetCurrentThread(threadId))
 			end,
 		}
 	end
