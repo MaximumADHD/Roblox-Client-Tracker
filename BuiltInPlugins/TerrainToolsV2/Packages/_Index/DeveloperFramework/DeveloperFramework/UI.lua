@@ -58,6 +58,7 @@ local SimpleTab = require(Src.SimpleTab)
 local Slider = require(Src.Slider)
 local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 local MultiLineTextInput = require(Src.MultiLineTextInput)
+local TruncatedTextLabel = require(Src.TruncatedTextLabel)
 local Checkbox = require(Src.Checkbox)
 local ExpandablePane = require(Src.ExpandablePane)
 
@@ -114,6 +115,7 @@ local UI = strict({
 	TreeTableCell = TreeTableCell,
 	TreeView = TreeView,
 	TreeViewRow = TreeViewRow,
+	TruncatedTextLabel = TruncatedTextLabel,
 
 	Decoration = {
 		Box = Box,

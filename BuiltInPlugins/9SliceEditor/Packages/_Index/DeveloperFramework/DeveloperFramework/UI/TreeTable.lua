@@ -32,6 +32,7 @@
 		callback RowComponent: An optional component to render each row.
 		callback RightClick: An optional callback called when a row is right-clicked. (item: Item)->()
 		callback OnFocusLost: An optional callback called when a cell that has input enabled loses focus. Enable text change by column with TextInputCols prop
+		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		array[any] TextInputCols: An optional set used to determine if a given column with just display text or allow text input as well
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -63,6 +64,7 @@ local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
+local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -210,6 +212,7 @@ function TreeTable:render()
 		OnSortChange = props.OnSortChange,
 		RowComponent = props.RowComponent,
 		CellComponent = cellComponent,
+		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
 	})
 end
 
