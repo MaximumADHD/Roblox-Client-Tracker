@@ -1,8 +1,9 @@
 local PluginFolder = script.Parent.Parent.Parent.Parent
--- local Types = require(Plugin.Src.Types) -- Uncomment to access types
 local Roact = require(PluginFolder.Packages.Roact)
 local RoactRodux = require(PluginFolder.Packages.RoactRodux)
 local Framework = require(PluginFolder.Packages.Framework)
+
+local CallstackDropdownField = require(script.Parent.CallstackDropdownField)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -31,7 +32,7 @@ local SetCurrentFrameNumber = require(Actions.Callstack.SetCurrentFrameNumber)
 local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 
 local Models = PluginFolder.Src.Models
-local CallstackRow = require(Models.CallstackRow)
+local CallstackRow = require(Models.Callstack.CallstackRow)
 
 local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
@@ -41,6 +42,14 @@ local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFramework
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 
 local StudioService = game:GetService("StudioService")
+
+local columnNameToKey = {
+	FrameColumn = "frameColumn",
+	LayerColumn = "layerColumn",
+	SourceColumn = "sourceColumn",
+	FunctionColumn = "functionColumn",
+	LineColumn = "lineColumn",
+}
 
 -- Local Functions
 local function makeCallstackRootItem(threadInfo, common, callstackVars)
@@ -81,7 +90,6 @@ function CallstackComponent:didMount()
 	self.connections  = {}
 	self.shortcuts = {}
 	self:addAction(pluginActions:get(Constants.CallstackActionIds.CopySelected), self.copySelectedRow)
-	self:addAction(pluginActions:get(Constants.CallstackActionIds.DeleteSelected), self.deleteSelectedRow)
 	self:addAction(pluginActions:get(Constants.CallstackActionIds.SelectAll), self.selectAll)
 end
 
@@ -126,17 +134,11 @@ function CallstackComponent:init()
 			end
 			row = self.selectedRow
 		end
-		local frame = row.item.frameColumn .. '\t'
-		local layer = row.item.layerColumn .. '\t'
-		local source = row.item.sourceColumn .. '\t'
-		local functionCol = row.item.functionColumn .. '\t'
-		local line = row.item.lineColumn
-		local rowString = frame .. layer .. source .. functionCol .. line
+		local rowString = ""
+		for _, v in pairs(self.props.ColumnFilter) do
+			rowString = rowString .. row.item[columnNameToKey[v]] .. '\t'
+		end
 		StudioService:CopyToClipboard(rowString)
-	end
-
-	self.deleteSelectedRow = function ()
-		print('Todo RIDE-5596')
 	end
 	
 	self.selectAll = function ()
@@ -147,8 +149,6 @@ function CallstackComponent:init()
 		local row = extraParameters.row
 		if actionId == Constants.CallstackActionIds.CopySelected then
 			self.copySelectedRow(row)
-		elseif actionId == Constants.CallstackActionIds.DeleteSelected then
-			self.deleteSelectedRow()
 		elseif actionId == Constants.CallstackActionIds.SelectAll then
 			self.selectAll()
 		end
@@ -179,29 +179,22 @@ function CallstackComponent:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = self.props.Stylizer
+	local visibleColumns = props.ColumnFilter or {}
 	
 	local tableColumns = {
 		{
 			Name = "",
 			Key = "arrowColumn",
 		},
-		{
-			Name = localization:getText("Callstack", "FrameColumn"),
-			Key = "frameColumn",
-		}, {
-			Name = localization:getText("Callstack", "LayerColumn"),
-			Key = "layerColumn",
-		}, {
-			Name = localization:getText("Callstack", "SourceColumn"),
-			Key = "sourceColumn",
-		}, {
-			Name = localization:getText("Callstack", "FunctionColumn"),
-			Key = "functionColumn",
-		}, {
-			Name = localization:getText("Callstack", "LineColumn"),
-			Key = "lineColumn",
-		}
 	}
+	
+	for _, v in pairs(visibleColumns) do
+		local currCol = {
+			Name = localization:getText("Callstack", v),
+			Key = columnNameToKey[v],
+		}
+		table.insert(tableColumns, currCol)
+	end
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
@@ -210,22 +203,28 @@ function CallstackComponent:render()
 		Padding = 5,
 	}, {
 		HeaderView = Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
 			Padding = 5,
 			Spacing = 10,
-			Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
+			LayoutOrder = 1,
 			Style = "Box",
 			Layout = Enum.FillDirection.Horizontal,
 			VerticalAlignment = Enum.VerticalAlignment.Center,
-		}, {
+			HorizontalAlignment = Enum.HorizontalAlignment.Right,
+		}, {			
+			ColumnDropdown = Roact.createElement(CallstackDropdownField, {
+				LayoutOrder = 1,
+				AutomaticSize = Enum.AutomaticSize.X,
+			})
 		}),
-
 		BodyView = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 1, -1 * Constants.HEADER_HEIGHT),
 			Padding = 5,
+			LayoutOrder = 2,
 			Style = "Box",
 		}, {
 			TableView = Roact.createElement(TreeTable, {
-				Scroll = true,  
+				Scroll = false,  
 				Size = UDim2.fromScale(1, 1),
 				Columns = tableColumns,
 				RootItems = props.RootItems,
@@ -283,6 +282,7 @@ CallstackComponent = RoactRodux.connect(
 				RootItems = rootList,
 				CurrentThreadId = currentThreadId,
 				ExpansionTable = expansionTable,
+				ColumnFilter = callstack.listOfEnabledColumns,
 			}
 		end
 	end,

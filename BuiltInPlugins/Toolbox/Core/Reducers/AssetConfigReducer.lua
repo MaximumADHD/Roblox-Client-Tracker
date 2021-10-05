@@ -9,6 +9,7 @@ local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 
 local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
 
 local deepJoin
 if FFlagToolboxReplaceUILibraryComponentsPt3 then
@@ -365,9 +366,22 @@ return Rodux.createReducer({
 	end,
 
 	[SetCollaborators.name] = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			collaborators = action.collaborators,
-		})
+		if FFlagUseNewAssetPermissionEndpoint then
+			if state.originalCollaborators then
+				return Cryo.Dictionary.join(state, {
+					collaborators = action.collaborators,
+				})
+			else
+				return Cryo.Dictionary.join(state, {
+					originalCollaborators = action.collaborators,
+					collaborators = action.collaborators,
+				})
+			end
+		else
+			return Cryo.Dictionary.join(state, {
+				collaborators = action.collaborators,
+			})
+		end
 	end,
 
 	[SetIsPackage.name] = function(state, action)

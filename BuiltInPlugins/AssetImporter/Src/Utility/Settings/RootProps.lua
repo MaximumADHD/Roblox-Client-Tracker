@@ -3,6 +3,7 @@ return {
 		Section = "File General",
 		Properties = {
 			{Name = "ImportName", Editable = true},
+			{Name = "ImportAsModelAsset", Editable = true},
 		},
 	},
 	{

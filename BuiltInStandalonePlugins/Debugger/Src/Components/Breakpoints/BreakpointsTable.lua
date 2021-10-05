@@ -142,11 +142,11 @@ function BreakpointsTable:render()
 	})
 end
 
-ContextServices.mapToProps(BreakpointsTable, {
+BreakpointsTable = ContextServices.withContext({
 	Localization = Localization,
 	Stylizer = Stylizer,
 	Plugin = Plugin
-})
+})(BreakpointsTable)
 
 BreakpointsTable = RoactRodux.connect(
 	function(state, props)

@@ -27,6 +27,7 @@ local webKeys = {
 	EditAction = "Edit",
 	OwnAction = "Own",
 	RevokedAction = "Revoked",
+	UseAction = "Use",
 
 	-- Outbound POST/DELETE requests
 	SubjectType = "subjectType",
@@ -35,6 +36,8 @@ local webKeys = {
 	UserSubject = "User",
 	GroupSubject = "Group",
 	RoleSubject = "Roleset",
+	GroupRolesetSubject = "GroupRoleset",
+	Requests = "requests"
 }
 
 return {

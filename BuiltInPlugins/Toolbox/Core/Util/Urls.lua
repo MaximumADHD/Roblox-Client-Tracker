@@ -6,6 +6,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
 
 local Urls = {}
 
@@ -75,6 +76,9 @@ local GET_PACKAGE_COLLABORATORS = Url.DEVELOP_URL .. "v1/packages/assets/%s/perm
 local POST_PACKAGE_METADATA = Url.DEVELOP_URL .. "v1/packages/assets/versions/metadata/get"
 local PUT_PACKAGE_PERMISSIONS = Url.DEVELOP_URL .. "v1/packages/assets/%s/permissions-batch"
 local GET_PACKAGE_HIGHEST_PERMISSION_LIST = Url.DEVELOP_URL .. "v1/packages/assets/highest-permissions?assetIds=%s"
+
+-- Asset Permissions URLs
+local ASSET_PERMISSIONS = Url.APIS_URL .. "asset-permissions-api/v1/assets/%s/permissions"
 
 local GET_TAGS_PREFIX_SEARCH = Url.ITEM_CONFIGURATION_URL .. "v1/tags/prefix-search?"
 local GET_ITEM_TAGS_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/metadata"
@@ -410,15 +414,21 @@ function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
 end
 
--- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-function Urls.constructGetPackageCollaboratorsUrl(assetId)
-	return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
-		actionsTextToFilter = "UseView,Edit"
-	})
+if not FFlagUseNewAssetPermissionEndpoint then
+	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+	function Urls.constructGetPackageCollaboratorsUrl(assetId)
+		return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
+			actionsTextToFilter = "UseView,Edit"
+		})
+	end
 end
 
 function Urls.constructPutPackagePermissionsUrl(assetId)
 	return PUT_PACKAGE_PERMISSIONS:format(assetId)
+end
+
+function Urls.constructAssetPermissionsUrl(assetId)
+	return ASSET_PERMISSIONS:format(assetId)
 end
 
 function Urls.getRobuxPurchaseUrl()

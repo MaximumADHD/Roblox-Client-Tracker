@@ -19,7 +19,6 @@ local MemStorageService = game:GetService("MemStorageService")
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagCleanupRightClickContextMenuFunctions2 = game:GetFastFlag("CleanupRightClickContextMenuFunctions2")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
@@ -207,8 +206,6 @@ end
 
 local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     local state = store:getState()
-    local assets = state.AssetManagerReducer.assetsTable.assets
-    local selectedAssets = state.AssetManagerReducer.selectedAssets
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
@@ -217,26 +214,8 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
             onOpenAssetPreview(assetData)
         end)
     end
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.Image.Value)
-        addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
-    else
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.Image.Value, }))
-                analytics:report("clickContextMenuItem")
-            end)
-        end
-        contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-            onAssetPreviewClose()
-            local assetToEdit = {
-                [assetData.id] = true,
-            }
-            store:dispatch(SetEditingAssets(assetToEdit))
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.Image.Value)
+    addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
         AssetManagerService:InsertImage(assetData.id)
         analytics:report("clickContextMenuItem")
@@ -249,15 +228,7 @@ local function createImageContextMenu(analytics, apiImpl, assetData, contextMenu
         StudioService:CopyToClipboard("rbxassetid://" .. assetData.id)
         analytics:report("clickContextMenuItem")
     end)
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
-    else
-        contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
-            removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-            onAssetPreviewClose()
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -307,26 +278,8 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
             onOpenAssetPreview(assetData)
         end)
     end
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.MeshPart.Value)
-        addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
-    else
-        if RunService:IsEdit() then
-            contextMenu:AddNewAction("EditAsset", localization:getText("ContextMenu", "EditAsset")).Triggered:connect(function()
-                MemStorageService:Fire(EVENT_ID_OPENASSETCONFIG,
-                    HttpService:JSONEncode({ id = assetData.id, assetType = Enum.AssetType.MeshPart.Value, }))
-                analytics:report("clickContextMenuItem")
-            end)
-        end
-        contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-            onAssetPreviewClose()
-            local assetToEdit = {
-                [assetData.id] = true,
-            }
-            store:dispatch(SetEditingAssets(assetToEdit))
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addEditAssetContextItem(contextMenu, analytics, assetData, localization, Enum.AssetType.MeshPart.Value)
+    addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     if count == 1 then
         contextMenu:AddNewAction("Insert", localization:getText("ContextMenu", "Insert")).Triggered:connect(function()
             AssetManagerService:InsertMesh("Meshes/".. assetData.name, false)
@@ -366,15 +319,7 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
             analytics:report("clickContextMenuItem")
         end)
     end
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
-    else
-        contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
-            removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-            onAssetPreviewClose()
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -382,8 +327,6 @@ end
 
 local function createLinkedScriptContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     local state = store:getState()
-    local assets = state.AssetManagerReducer.assetsTable.assets
-    local selectedAssets = state.AssetManagerReducer.selectedAssets
     local hasUnpublishedChanges = AssetManagerService:HasUnpublishedChangesForLinkedSource("Scripts/".. assetData.name)
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
@@ -393,18 +336,7 @@ local function createLinkedScriptContextMenu(analytics, apiImpl, assetData, cont
             onOpenAssetPreview(assetData)
         end)
     end
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
-    else
-        contextMenu:AddNewAction("RenameAlias", localization:getText("ContextMenu", "RenameAlias")).Triggered:connect(function()
-            onAssetPreviewClose()
-            local assetToEdit = {
-                [assetData.id] = true,
-            }
-            store:dispatch(SetEditingAssets(assetToEdit))
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
     contextMenu:AddNewAction("InsertAsScript", localization:getText("ContextMenu", "InsertAsScript")).Triggered:connect(function()
         AssetManagerService:InsertLinkedSourceAsScript("Scripts/".. assetData.name)
         analytics:report("clickContextMenuItem")
@@ -445,15 +377,7 @@ local function createLinkedScriptContextMenu(analytics, apiImpl, assetData, cont
         AssetManagerService:RefreshLinkedSource("Scripts/".. assetData.name)
         analytics:report("clickContextMenuItem")
     end)
-    if FFlagCleanupRightClickContextMenuFunctions2 then
-        addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
-    else
-        contextMenu:AddNewAction("RemoveFromGame", localization:getText("ContextMenu", "RemoveFromGame")).Triggered:connect(function()
-            removeAssets(apiImpl, assetData, assets, selectedAssets, store)
-            onAssetPreviewClose()
-            analytics:report("clickContextMenuItem")
-        end)
-    end
+    addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
 
     contextMenu:ShowAsync()
     contextMenu:Destroy()
@@ -462,8 +386,6 @@ end
 local function createModelContextMenu(analytics, apiImpl, assetData, contextMenu, isAssetPreviewMenu, localization, onOpenAssetPreview, onAssetPreviewClose, store)
     assert(FFlagAssetManagerEnableModelAssets)
     local state = store:getState()
-    local assets = state.AssetManagerReducer.assetsTable.assets
-    local selectedAssets = state.AssetManagerReducer.selectedAssets
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()

@@ -10,6 +10,8 @@ local UserInputService = game:GetService("UserInputService")
 local InsertService = game:GetService("InsertService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagViewSelectorInTestServer = game:DefineFastFlag("ViewSelectorInTestServer", false)
+
 local DRAG_DELTA = 5
 local HALF_CUBE = 0.48
 local ANIMATION_TIME = 0.2
@@ -443,9 +445,22 @@ local function bindArrowButtonEvents(button, direction)
 	end)
 end
 
-if not RunService:IsEdit() then
-	toolbarbutton.Enabled = false
-	return
+if FFlagViewSelectorInTestServer then
+	-- The ViewSelector will be shown in:
+	--  * The editing 3d view
+	--  * The "Run" 3d view
+	--  * The server side of the "Play" 3d view
+	-- It will NOT be shown in:
+	--  * The client side of the "Play" 3d view
+	if not (RunService:IsEdit() or RunService:IsServer()) then
+		toolbarbutton.Enabled = false
+		return
+	end
+else
+	if not RunService:IsEdit() then
+		toolbarbutton.Enabled = false
+		return
+	end
 end
 
 init()

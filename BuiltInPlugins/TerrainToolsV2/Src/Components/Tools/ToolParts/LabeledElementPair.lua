@@ -11,7 +11,6 @@
 		FillDirection - UIListLayout fill direction
 ]]
 
-local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -63,11 +62,9 @@ function LabeledElementPair:init()
 	end
 end
 
-if FFlagTerrainToolsColormapCallout then
-	function LabeledElementPair:didMount()
-		if self.props.SizeToContent then
-			self.resizeToContent()
-		end
+function LabeledElementPair:didMount()
+	if self.props.SizeToContent then
+		self.resizeToContent()
 	end
 end
 

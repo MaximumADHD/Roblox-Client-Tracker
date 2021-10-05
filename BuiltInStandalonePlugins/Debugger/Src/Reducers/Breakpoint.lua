@@ -23,7 +23,12 @@ type BreakpointStore = {
 	}
 }
 
-return Rodux.createReducer({}, {
+local initialState : BreakpointStore = {
+	BreakpointIdsInDebuggerConnection = {},
+	BreakpointInfo = {},
+}
+
+return Rodux.createReducer(initialState, {
 	[AddBreakpointAction.name] = function(state : BreakpointStore, action : AddBreakpointAction.Props)
 		-- throw warning if adding breakpointId to a debuggerConnectionId that already contains it.
 		if state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId] and 

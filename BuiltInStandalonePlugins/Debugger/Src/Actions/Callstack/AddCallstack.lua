@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Action = Util.Action
-local CallstackRow = require(Plugin.Src.Models.CallstackRow)
+local CallstackRow = require(Plugin.Src.Models.Callstack.CallstackRow)
 local DebuggerStateToken = require(Plugin.Src.Models.DebuggerStateToken)
 local Types = require(Plugin.Src.Types)
 

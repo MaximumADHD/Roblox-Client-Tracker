@@ -15,6 +15,8 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 
+local FFlagToolboxAnimation = game:GetFastFlag("ToolboxAnimationTypes2")
+
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
 local INSERT_CAMERA_DIST_MULT = 1.2
@@ -235,6 +237,8 @@ local function assetTypeIdToString(assetTypeId)
 		return "Plugin"
 	elseif assetTypeId == Enum.AssetType.Video.Value then
 		return "Video"
+	elseif FFlagToolboxAnimation and assetTypeId == Enum.AssetType.Animation.Value then
+		return "Animation"
 	else
 		if DebugFlags.shouldDebugWarnings() then
 			warn(("Missing name for assetTypeId %s"):format(tostring(assetTypeId)))

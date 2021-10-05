@@ -2,13 +2,19 @@
 	Mounts and unmounts the Roact tree.
 ]]
 
--- Fast flags
-local main = script.Parent.Parent
-local Roact = require(main.Packages.Roact)
+local Plugin = script.Parent.Parent
 
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
+local Roact = require(Plugin.Packages.Roact)
+
+-- Fast flags
 require(script.Parent.defineLuaFlags)
 
-local MainPlugin = require(main.Src.MainPlugin)
+local MainPlugin = require(Plugin.Src.MainPlugin)
 local handle
 
 local function init()

@@ -19,8 +19,6 @@ local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagImageLocalizationFeatureEnabled = game:GetFastFlag("ImageLocalizationFeatureEnabled")
-
 local ImageLocalizationSection = Roact.PureComponent:extend("ImageLocalizationSection")
 
 local HttpService = game:GetService("HttpService")
@@ -48,21 +46,21 @@ local function sendPostRequest(requestBody)
 				result.StatusCode .. " " .. result.StatusMessage .. " " .. result.Body)
 			return
 		end
-	end)	
+	end)
 end
 
 local function sendImageAssetIds(assetList)
 	local requestBody = HttpService:JSONEncode(
 		{
 			assetIds = assetList,
-			universeId = game.GameId, 
+			universeId = game.GameId,
 		}
 	)
 
 	sendPostRequest(requestBody)
 end
 
-local function onUploadButtonClicked()	
+local function onUploadButtonClicked()
 	local assetList = {}
 
 	for i,v in pairs(workspace:GetDescendants()) do
@@ -83,7 +81,7 @@ function ImageLocalizationSection:init()
 end
 
 function ImageLocalizationSection:render()
-	if not FFlagImageLocalizationFeatureEnabled then
+	if not game:GetFastFlag("ImageLocalizationFeatureEnabled") then
 		return
 	end
 

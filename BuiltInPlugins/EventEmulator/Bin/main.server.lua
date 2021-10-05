@@ -12,7 +12,7 @@ require(script.Parent.defineLuaFlags)
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 
-local RefactorFlags = require(main.Packages.Framework.Util.RefactorFlags)
+local RefactorFlags = require(main.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = true
 
 local MainPlugin = require(main.Src.MainPlugin)

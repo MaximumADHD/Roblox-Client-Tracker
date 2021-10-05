@@ -23,6 +23,8 @@ end
 -- Thunk
 return function(enabledScopes)
 	return function(store, contextItems)
+		store:dispatch(ScopeFilterChange(enabledScopes))
+
 		local state = store:getState()
 		local common = state.Common
 		local watch = state.Watch
@@ -39,7 +41,7 @@ return function(enabledScopes)
 		
 		local roots = stateRoot[token] and stateRoot[token][threadId] and stateRoot[token][threadId][frameNumber]
 		if (roots == nil) then
-			warn('unexpected nil in filter thunk')
+			-- This can happen when we change scopes when we aren't actively debugging
 			return
 		end
 
@@ -57,7 +59,6 @@ return function(enabledScopes)
 			local textFilteredOut = isScopeFiltered(enabledScopes, root, flattenedTree)
 			textFilterMap[root] = textFilteredOut
 		end
-		store:dispatch(ScopeFilterChange(enabledScopes))
 		store:dispatch(SetVariablesScopeFilteredOut(stepStateBundle, textFilterMap))
 	end
 end

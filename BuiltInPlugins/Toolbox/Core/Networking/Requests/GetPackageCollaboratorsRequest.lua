@@ -12,15 +12,18 @@ local SetCollaborators = require(Actions.SetCollaborators)
 local NetworkError = require(Actions.NetworkError)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local KeyConverter = require(Plugin.Core.Util.Permissions.KeyConverter)
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
+local ProximityPromptService = game:GetService("ProximityPromptService")
 local PlayersService = game:GetService("Players")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
 
-local function deserializeResult(collaboratorsGETResults)
+local function DEPRECATED_deserializeResult(collaboratorsGETResults)
 	local collaborators = {
         [PermissionsConstants.UserSubjectKey] = {},
         [PermissionsConstants.RoleSubjectKey] = {},
@@ -43,24 +46,67 @@ local function deserializeResult(collaboratorsGETResults)
 	return collaborators
 end
 
+local function deserializeResponse(responseBody)
+	local collaborators = {
+        [PermissionsConstants.UserSubjectKey] = {},
+        [PermissionsConstants.RoleSubjectKey] = {}
+    }
+
+    for _, webItem in pairs(responseBody.results) do
+        if webItem[webKeys.SubjectType] == webKeys.UserSubject then
+            collaborators[PermissionsConstants.UserSubjectKey][webItem[webKeys.SubjectId]] = {
+                [PermissionsConstants.SubjectNameKey] = PlayersService:GetNameFromUserIdAsync(webItem[webKeys.SubjectId]),
+                [PermissionsConstants.SubjectIdKey] = webItem[webKeys.SubjectId],
+                [PermissionsConstants.ActionKey] = KeyConverter.getInternalAction(webItem[webKeys.Action]),
+            }
+        else
+            collaborators[PermissionsConstants.RoleSubjectKey][tonumber(webItem[webKeys.SubjectId])] = {
+                [PermissionsConstants.ActionKey] = KeyConverter.getInternalAction(webItem[webKeys.Action]),
+            }
+        end
+    end
+
+	return collaborators
+end
+
+
 return function(networkInterface, assetId)
 	return function(store)
-        return networkInterface:getPackageCollaborators(assetId):andThen(
-            function(result)
-                if FFlagNewPackageAnalyticsWithRefactor2 then
-                    Analytics.sendResultToKibana(result)
-                end
-                local resultData = HttpService:JSONDecode(result.responseBody).data
-                local deserializeResultData = deserializeResult(resultData)
+        if FFlagUseNewAssetPermissionEndpoint then
+            return networkInterface:getAssetPermissions(assetId):andThen(
+                function(result) 
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        Analytics.sendResultToKibana(result)
+                    end
+                    local deserializeResultData = deserializeResponse(result.responseBody)
 
-                store:dispatch(SetCollaborators(deserializeResultData))
-            end,
-            function(err)
-                if FFlagNewPackageAnalyticsWithRefactor2 then
-                    Analytics.sendResultToKibana(err)
+                    store:dispatch(SetCollaborators(deserializeResultData))
+                end,
+                function(err)
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        Analytics.sendResultToKibana(err)
+                    end
+                    store:dispatch(NetworkError(err))
                 end
-                store:dispatch(NetworkError(err))
-            end
-        )
+            )
+        else
+            return networkInterface:getPackageCollaborators(assetId):andThen(
+                function(result)
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        Analytics.sendResultToKibana(result)
+                    end
+                    local resultData = HttpService:JSONDecode(result.responseBody).data
+                    local deserializeResultData = DEPRECATED_deserializeResult(resultData)
+
+                    store:dispatch(SetCollaborators(deserializeResultData))
+                end,
+                function(err)
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        Analytics.sendResultToKibana(err)
+                    end
+                    store:dispatch(NetworkError(err))
+                end
+            )
+        end
 	end
 end

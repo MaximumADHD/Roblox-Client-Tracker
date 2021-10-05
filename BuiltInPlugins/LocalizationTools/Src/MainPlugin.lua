@@ -54,7 +54,7 @@ function MainPlugin:init()
 
 	self.theme = nil
 	if THEME_REFACTOR then
-		self.theme = PluginTheme
+		self.theme = PluginTheme()
 	else
 		self.theme = MakeTheme()
 	end

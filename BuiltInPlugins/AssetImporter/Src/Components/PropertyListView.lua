@@ -10,13 +10,11 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
-local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
-local TextLabel = UI.Decoration.TextLabel
+local ScrollingFrame = UI.ScrollingFrame
 local ExpandablePane = UI.ExpandablePane
-local Button = UI.Button
 
 local PropertyView = require(script.Parent.PropertyView)
 
@@ -70,12 +68,25 @@ function PropertyListView:render()
 
 
 	return Roact.createElement(Pane, {
-		LayoutOrder = props.LayoutOrder,
-		AutomaticSize = Enum.AutomaticSize.Y,
-		Size = UDim2.fromScale(1, 0),
+		Size = UDim2.fromScale(1, 1),
 		Layout = Enum.FillDirection.Vertical,
-		Spacing = 4,
-	}, sections)
+	}, {
+		ScrollingFrame = Roact.createElement(ScrollingFrame, {
+			Size = UDim2.fromScale(1, 1),
+			Position = UDim2.fromScale(0, 0),
+			CanvasSize = UDim2.fromScale(0, 0),
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			AutomaticCanvasSize = Enum.AutomaticSize.XY,
+			Layout = Enum.FillDirection.Vertical,
+		}, {
+			Pane = Roact.createElement(Pane, {
+				Size = UDim2.new(1, -10, 1, 0),
+				Layout = Enum.FillDirection.Vertical,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+				LayoutOrder = props.LayoutOrder,
+			}, sections)
+		})
+	})
 end
 
 return PropertyListView

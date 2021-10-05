@@ -27,7 +27,6 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
-local FFlagStudioAssetManagerDisableHoverOnOverlay = game:GetFastFlag("StudioAssetManagerDisableHoverOnOverlay")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
@@ -84,11 +83,9 @@ function ListItem:init()
     self.textBoxRef = Roact.createRef()
 
     self.onMouseEnter = function()
-        if FFlagStudioAssetManagerDisableHoverOnOverlay then
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
+        local props = self.props
+        if not props.Enabled then
+            return
         end
         if self.state.StyleModifier == nil then
             self:setState({
@@ -104,11 +101,9 @@ function ListItem:init()
     end
 
     self.onMouseLeave = function()
-        if FFlagStudioAssetManagerDisableHoverOnOverlay then
-            local props = self.props
-            if not props.Enabled then
-                return
-            end
+        local props = self.props
+        if not props.Enabled then
+            return
         end
         if self.state.StyleModifier == StyleModifier.Hover then
             self:setState({

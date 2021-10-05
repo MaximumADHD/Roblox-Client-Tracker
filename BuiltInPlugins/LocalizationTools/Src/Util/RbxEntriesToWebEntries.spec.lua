@@ -167,7 +167,7 @@ return function()
 	end)
 
 	it("Converts a table with a new language to be added", function()
-		local info = RbxEntriesToWebEntries(FruitTableRbxEntriesNewLanguages, allSupportedLanguageSet, gameSupportedLanguageSet)
+		local info = RbxEntriesToWebEntries(FruitTableRbxEntriesNewLanguages, allSupportedLanguageSet, {}, gameSupportedLanguageSet)
 		assert(info.newLanguages == "ru")
 		assert(info.newLanguagesSet["ru"])
 	end)

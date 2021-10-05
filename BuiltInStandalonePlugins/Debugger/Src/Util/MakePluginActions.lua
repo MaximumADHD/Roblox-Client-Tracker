@@ -15,7 +15,6 @@ local function getCallstackActions(localization)
 	end
 
 	actions[Constants.CallstackActionIds.CopySelected].defaultShortcut = "Ctrl+C"
-	actions[Constants.CallstackActionIds.DeleteSelected].defaultShortcut = "Delete"
 	actions[Constants.CallstackActionIds.SelectAll].defaultShortcut = "Ctrl+A"
 
 	return actions

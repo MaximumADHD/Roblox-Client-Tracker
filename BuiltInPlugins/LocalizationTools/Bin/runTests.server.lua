@@ -1,18 +1,34 @@
-require(script.Parent.defineLuaFlags)
+local Plugin = script.Parent.Parent
 
--- Note: Make sure this boolean is false for production code.
--- Code reviewer: if you see this variable as true, say something!
-local SHOULD_RUN_TESTS = false
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-if SHOULD_RUN_TESTS then
-	local Plugin = script.Parent.Parent
-	local TestsFolderPlugin = Plugin.Src
-
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local TestEZ = require(Plugin.Packages.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
-	local TextReporter = TestEZ.Reporters.TextReporter
 
-	print("----- LocalizationTools Tests ------")
-	TestBootstrap:run(TestsFolderPlugin, TextReporter)
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+	local reporter = TestEZ.Reporters.TextReporter
+	if DebugFlags.LogTestsQuiet() then
+		reporter = TestEZ.Reporters.TextReporterQuiet
+	end
+
+	reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
+
+	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
+	require(script.Parent.defineLuaFlags)
+	TestBootstrap:run({Plugin.Src}, reporter)
 	print("----------------------------------")
+
+	if DebugFlags.RunDeveloperFrameworkTests() then
+		print("")
+		print("----- All Developer Framework Tests ------")
+		TestBootstrap:run({Plugin.Packages._Index.DeveloperFramework.DeveloperFramework}, reporter)
+		print("----------------------------------")
+	end
+end
+
+if DebugFlags.RunningUnderCLI() then
+	pcall(function()
+		game:GetService("ProcessService"):ExitAsync(0)
+	end)
 end

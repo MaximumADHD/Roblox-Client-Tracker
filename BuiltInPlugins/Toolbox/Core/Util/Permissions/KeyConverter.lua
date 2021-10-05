@@ -4,6 +4,8 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+
 local KeyConverter = {}
 
 function KeyConverter.getInternalSubjectType(webKey)
@@ -22,6 +24,8 @@ end
 function KeyConverter.getInternalAction(webKey)
     if webKey == webKeys.OwnAction then
         return PermissionsConstants.OwnKey
+    elseif webKey == webKeys.UseAction and FFlagUseNewAssetPermissionEndpoint then
+        return PermissionsConstants.UseViewKey
     elseif webKey == webKeys.EditAction then
         return PermissionsConstants.EditKey
     elseif webKey == webKeys.UseViewAction then
@@ -63,5 +67,24 @@ function KeyConverter.getWebAction(internalAction)
 		error("Invalid Action: "..tostring(internalAction))
 	end
 end
+
+function KeyConverter.getAssetPermissionAction(webAction)
+	if webAction == webKeys.UseViewAction then
+		return webKeys.UseAction
+	elseif webAction == webKeys.OwnAction then
+		return webKeys.EditAction
+	else
+		return webAction
+    end
+end
+
+function KeyConverter.getAssetPermissionSubjectType(internalSubjectType)
+	if internalSubjectType == webKeys.RoleSubject then
+		return webKeys.GroupRolesetSubject
+    else
+        return internalSubjectType
+    end
+end
+
 
 return KeyConverter

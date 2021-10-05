@@ -73,9 +73,11 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 
 		local styledDialogProps
 		if FFlagToolboxUseDevFrameworkDialogs then
+			local width = Dialog.IMAGE_SIZE.X.Offset + Dialog.PROMPT_SIZE.X.Offset
+			local height = Dialog.PROMPT_SIZE.Y.Offset + Dialog.BALANCE_SIZE.Y.Offset
 			styledDialogProps = {
 				Title = title,
-				MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.PROMPT_SIZE.Y.Offset + Dialog.BALANCE_PADDING.Offset * 3),
+				MinContentSize = Vector2.new(width, height),
 				Buttons = buttons,
 				OnButtonPressed = onButtonClicked,
 				OnClose = onClose,

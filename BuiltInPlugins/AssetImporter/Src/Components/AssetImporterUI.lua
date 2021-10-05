@@ -19,17 +19,9 @@ local AssetImportTree = require(Plugin.Src.Components.AssetImportTree)
 local ImportConfiguration = require(Plugin.Src.Components.ImportConfiguration)
 local TopBar = require(Plugin.Src.Components.TopBar)
 
-local SetAssetSettings = require(Plugin.Src.Actions.SetAssetSettings)
-local SetFilename = require(Plugin.Src.Actions.SetFilename)
-local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
-local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
-local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
 local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 
 local SEPARATOR_WEIGHT = 1
-
-local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFFlagDevFrameworkStyledDialogFullBleed)
-local getFFlagDevFrameworkAssetImportFixes = require(Plugin.Src.Flags.getFFlagDevFrameworkAssetImportFixes)
 
 local AssetImporterUI = Roact.PureComponent:extend("AssetImporterUI")
 
@@ -51,11 +43,6 @@ function AssetImporterUI:render()
 
 	local style = props.Stylizer
 	local sizes = style.Sizes
-
-	local recenterCameraOnUpdate
-	if getFFlagDevFrameworkAssetImportFixes() then
-		recenterCameraOnUpdate = false
-	end
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -90,7 +77,6 @@ function AssetImporterUI:render()
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
-						RecenterCameraOnUpdate = recenterCameraOnUpdate,
 					})
 				}),
 

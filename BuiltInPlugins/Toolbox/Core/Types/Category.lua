@@ -3,7 +3,7 @@ local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupIn
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
 local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
-local FFlagToolboxAnimation = game:GetFastFlag("ToolboxAnimationTypes")
+local FFlagToolboxAnimationTypes = game:GetFastFlag("ToolboxAnimationTypes2")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
@@ -59,7 +59,7 @@ if FFlagUGCLCAssetTypes then
 	Category.AssetType.DRESS_SKIRT_ACCESSORY = 27
 end
 
-if FFlagToolboxAnimation then
+if FFlagToolboxAnimationTypes then
 	Category.AssetType.ANIMATION = FFlagUGCLCAssetTypes and 28 or 19
 end
 
@@ -97,7 +97,7 @@ if FFlagUGCLCAssetTypes then
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.DRESS_SKIRT_ACCESSORY] = Enum.AssetType.DressSkirtAccessory
 end
 
-if FFlagToolboxAnimation then
+if FFlagToolboxAnimationTypes then
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.ANIMATION] = Enum.AssetType.Animation
 end
 
@@ -375,14 +375,15 @@ Category.AUTOCOMPLETE_API_NAMES = {
 }
 
 
-if FFlagToolboxAnimation then
+if FFlagToolboxAnimationTypes then
 	Category.MY_ANIMATIONS = {name = "MyAnimations", category = "MyAnimations",
 		ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.ANIMATION}
 	Category.RECENT_ANIMATIONS = {name = "RecentAnimations", category = "RecentAnimations",
 		ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.ANIMATION}
 	Category.CREATIONS_ANIMATIONS = {name = "CreationsAnimations", category = "CreationsAnimations", assetType = Category.AssetType.ANIMATION,
 		ownershipType = Category.OwnershipType.MY,}
-
+	Category.CREATIONS_GROUP_ANIMATIONS = {name = "CreationsGroupAnimations", category = "CreationsGroupAnimations",
+		ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.ANIMATION}
 
 	table.insert(Category.INVENTORY, Category.MY_ANIMATIONS);
 	table.insert(Category.RECENT, Category.RECENT_ANIMATIONS);
@@ -416,9 +417,10 @@ local function getCreationCategories()
 		table.insert(categories, Category.CREATIONS_GROUP_PACKAGES)
 	end
 
-	if FFlagToolboxAnimation then
+	if FFlagToolboxAnimationTypes then
 		local insertIndex = Cryo.List.find(categories, Category.CREATIONS_PLUGIN) + 1
 		table.insert(categories, insertIndex, Category.CREATIONS_ANIMATIONS)
+		table.insert(categories, Category.CREATIONS_GROUP_ANIMATIONS)
 	end
 
 	return categories

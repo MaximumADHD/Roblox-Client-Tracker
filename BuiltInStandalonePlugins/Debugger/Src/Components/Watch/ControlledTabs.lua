@@ -21,6 +21,8 @@ function ControlledTabs:render()
 		SelectedTab = props.selectedTab,
 		OnTabSelected = props.onTabSelected,
 		LayoutOrder = props.LayoutOrder,
+		Size = props.Size,
+		AutomaticSize = Enum.AutomaticSize.X,
 	})
 end
 

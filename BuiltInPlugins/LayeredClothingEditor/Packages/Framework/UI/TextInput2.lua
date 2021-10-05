@@ -10,8 +10,10 @@
 		Vector2 AnchorPoint: The anchor point of the component.
 		Color3 BackgroundColor: Background color for the component.
 		Color3 BorderColor: Border color for the component.
+		string BottomText: Secondary text to display below the input field.
 		boolean ClearTextOnFocus: Whether clicking on the component will clear its text.
 		boolean Disabled: Whether the input is editable.
+		string ErrorText: Error text to display below the input field.
 		number LayoutOrder: The layout order of the component.
 		any LeadingComponent: A component to render before the text box.
 		table LeadingComponentProps: A table of props which are passed from the table's props to the LeadingComponent.
@@ -242,8 +244,6 @@ function TextInput2:_renderTextInput(hasBottomText)
 	local function renderExtraComponent(component, props)
 		if component then
 			return Roact.createElement(component, join(props, {
-				BackgroundColor = Color3.new(0, 0, 1),
-				BackgroundTransparency = 0,
 				LayoutOrder = layoutOrderIterator:getNextOrder(),
 			}))
 		end

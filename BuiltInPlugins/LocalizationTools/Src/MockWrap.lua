@@ -13,10 +13,13 @@ local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local PluginTheme = require(Plugin.Src.Resources.PluginTheme)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local AnalyticsContext = require(Plugin.Src.ContextServices.AnalyticsContext)
 local Analytics = require(Plugin.Src.Util.Analytics)
+local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local MockPlugin = Roact.PureComponent:extend("MockPlugin")
 
@@ -56,12 +59,19 @@ function MockPlugin:init(props)
 end
 
 function MockPlugin:render()
+	local theme
+	if THEME_REFACTOR then
+		theme = PluginTheme(true)
+	else
+		theme = MakeTheme(true)
+	end
+
 	return ContextServices.provide({
 		ContextServices.API.new(),
 		ContextServices.Localization.mock(),
 		ContextServices.Plugin.new(self.plugin),
 		ContextServices.Mouse.new({}),
-		MakeTheme(),
+		theme,
 		ContextServices.Focus.new(self.target),
 		ContextServices.Store.new(self.store),
 		AnalyticsContext.new(self.analyticsImpl),

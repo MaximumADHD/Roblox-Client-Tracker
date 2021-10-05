@@ -2,7 +2,6 @@
 	Displays panels associated with the improved import tool
 ]]
 
-local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -478,7 +477,7 @@ function ImportLocal:render()
 					PreviewTitle = localization:getText("Import", "ColormapPreview"),
 				}),
 
-				CalloutContainer = FFlagTerrainToolsColormapCallout and Roact.createElement("Frame", {
+				CalloutContainer = Roact.createElement("Frame", {
 					-- Same width as the image preview above so we center the callout
 					Size = UDim2.new(0, 88, 0, 0),
 					BackgroundTransparency = 1,

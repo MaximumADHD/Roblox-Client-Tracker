@@ -52,7 +52,7 @@ local WatchComponent = require(Components.Watch.WatchComponent)
 local Middleware = require(Src.Middleware.MainMiddleware)
 
 local TestStore = require(Src.Util.TestStore)
-local DebugConnectionListener = require(Src.Util.DebugConnectionListener)
+local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")

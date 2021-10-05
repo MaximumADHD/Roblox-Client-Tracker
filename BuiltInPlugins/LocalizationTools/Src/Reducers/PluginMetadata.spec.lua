@@ -66,7 +66,7 @@ return function()
 				es = true,
 			}
 
-			local localesToLangauges = {
+			local localesToLanguages = {
 				["en-us"] = "en",
 				["es-es"] = "es"
 			}
@@ -77,9 +77,9 @@ return function()
 			expect(type(state.LocalesToLanguages)).to.equal("table")
 			expect(isEmpty(state.LocalesToLanguages)).to.equal(true)
 
-			state = PluginMetadata(state, LoadLanguagesAndLocalesInfo(languages, localesToLangauges))
+			state = PluginMetadata(state, LoadLanguagesAndLocalesInfo(languages, localesToLanguages))
 			expect(RecursiveEquals(state.AllLanguages, languages)).to.equal(true)
-			expect(RecursiveEquals(state.LocalesToLangauges, localesToLangauges)).to.equal(true)
+			expect(RecursiveEquals(state.LocalesToLanguages, localesToLanguages)).to.equal(true)
 		end)
 	end)
 

@@ -16,7 +16,7 @@ local function SetToSortedList(tableAsSet)
 end
 
 --[[
-	Converts a list of entries (as returned by LocalizationTalbe:GetEntries())
+	Converts a list of entries (as returned by LocalizationTable:GetEntries())
 	into a list of entries (the kind that the web understands)
 
 	Returns an info object including the list of entries (called entries) and also
@@ -46,7 +46,8 @@ return function(rbxEntries, allLanguages, localesToLanguages, gameSupportedLangu
 	]]
 
 	local function IsLanguageSupported(code)
-		return allLanguages[code] or localesToLanguages[code] ~= nil or false
+		return allLanguages[code] or
+			(localesToLanguages ~= nil and localesToLanguages[code] ~= nil)
 	end
 
 	local function RbxEntriesToTranslationEntries(translationMap)
@@ -64,9 +65,9 @@ return function(rbxEntries, allLanguages, localesToLanguages, gameSupportedLangu
 				totalTranslations = totalTranslations + 1
 
 				if gameSupportedLanguages ~= nil then
-					local langauge = localesToLanguages[code] or code
-					if not gameSupportedLanguages[langauge] then
-						newSet[langauge] = true
+					local language = localesToLanguages[code] or code
+					if not gameSupportedLanguages[language] then
+						newSet[language] = true
 					end
 				end
 			else

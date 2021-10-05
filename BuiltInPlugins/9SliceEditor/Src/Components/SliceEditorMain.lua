@@ -84,38 +84,35 @@ function SliceEditor:init(props)
 		sliceRect = initSlice, -- {X0, X1, Y0, Y1} current Slice in the editors in Rect coords
 	})
 
-	self.setSliceRect = function(newValue, shouldClamp)
+	self.clampAndRoundSliceRect = function(newValue)
 		local minX, maxX, minY, maxY
-		if shouldClamp then
-			minX = math.clamp(math.round(newValue[LEFT]), 0, pixelDimensions.X)
-			maxX = math.clamp(math.round(newValue[RIGHT]), 0, pixelDimensions.X)
-			minY = math.clamp(math.round(newValue[TOP]), 0, pixelDimensions.Y)
-			maxY = math.clamp(math.round(newValue[BOTTOM]), 0, pixelDimensions.Y)
-		else
-			minX, maxX, minY, maxY = table.unpack(newValue)
-		end
+		minX = math.clamp(math.round(newValue[LEFT]), 0, pixelDimensions.X)
+		maxX = math.clamp(math.round(newValue[RIGHT]), 0, pixelDimensions.X)
+		minY = math.clamp(math.round(newValue[TOP]), 0, pixelDimensions.Y)
+		maxY = math.clamp(math.round(newValue[BOTTOM]), 0, pixelDimensions.Y)
+		return { minX, maxX, minY, maxY }
+	end
 
-		local roundedSlice = { minX, maxX, minY, maxY }
-		local sliceRect = self.state.sliceRect
-		if checkEqualSlices(roundedSlice, sliceRect) then
-			-- if no change then return
-			return
-		end
-
-		local noRevert = false
-		if checkEqualSlices(roundedSlice, initSlice) then
-			-- if sliceRect is equivalent to revert value then no revert
-			noRevert = true
-		end
+	self.internalSetSliceRectState = function(newValue)
+		local sliceUnchanged = checkEqualSlices(newValue, initSlice)
 
 		self:setState({
-			revertDisabled = noRevert,
-			sliceRect = {minX, maxX, minY, maxY},
+			sliceRect = newValue,
+			revertDisabled = sliceUnchanged,
 		})
+	end
 
-		ChangeHistoryService:SetWaypoint("Changing SliceCenter")
-		props.selectedObject.SliceCenter = Rect.new(minX, minY, maxX, maxY)
-		ChangeHistoryService:SetWaypoint("Changed SliceCenter")
+	-- Called when SliceRect changed due to interaction with this editor.
+	self.setSliceRect = function(newValueRaw, shouldClamp)
+		local newValue = newValueRaw
+		if shouldClamp then
+			newValue = self.clampAndRoundSliceRect(newValueRaw)
+		end
+
+		self.internalSetSliceRectState(newValue)
+
+		props.selectedObject.SliceCenter = Rect.new(newValue[LEFT], newValue[TOP], newValue[RIGHT], newValue[BOTTOM])
+		ChangeHistoryService:SetWaypoint("9SliceEditor changed SliceCenter")
 	end
 
 	self.onRevert = function()
@@ -128,28 +125,27 @@ function SliceEditor:init(props)
 
 		local slice = { minX, maxX, minY, maxY }
 		self.setSliceRect(slice, false) -- can revert to invalid inputs
-		self:setState({
-			revertDisabled = true,
-		})
 	end
 
-	self.onUndoRedo = function(waypoint)
-		-- when undo/redo is clicked in Studio
-		if waypoint == "SliceCenter" then
-			local sliceCenter = selectedObject.SliceCenter
-			local slice = { sliceCenter.Min.X, sliceCenter.Max.X, sliceCenter.Min.Y, sliceCenter.Max.Y }
-			self.setSliceRect(slice, true)
-		end
-	end
-	ChangeHistoryService.OnUndo:Connect(self.onUndoRedo)
-	ChangeHistoryService.OnRedo:Connect(self.onUndoRedo)
-
-	selectedObject:GetPropertyChangedSignal("SliceCenter"):Connect(function()
-		-- check if user is editing SliceCenter outside of the window and update
+	self.onSliceCenterChanged = function()
 		local sliceCenter = selectedObject.SliceCenter
 		local slice = { sliceCenter.Min.X, sliceCenter.Max.X, sliceCenter.Min.Y, sliceCenter.Max.Y }
-		self.setSliceRect(slice, false)
-	end)
+		
+		-- If the user is editing SliceCenter outside of the window, update the displayed SliceRect.
+		self.internalSetSliceRectState(slice)
+	end	
+end
+
+function SliceEditor:didMount()
+	self.sliceCenterChangedSignal = self.props.selectedObject:GetPropertyChangedSignal("SliceCenter"):Connect(
+		self.onSliceCenterChanged)
+end
+
+function SliceEditor:willUnmount()
+	if self.sliceCenterChangedSignal then
+		self.sliceCenterChangedSignal:Disconnect()
+		self.sliceCenterChangedSignal = nil
+	end
 end
 
 function SliceEditor:render()

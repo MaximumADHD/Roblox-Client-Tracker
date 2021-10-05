@@ -1,7 +1,6 @@
 export type ActionId = string
 local CallstackActionIds : {[string]: ActionId} = {
 	CopySelected = "CopySelected",
-	DeleteSelected = "DeleteSelected",
 	SelectAll = "SelectAll",
 }
 

@@ -136,6 +136,7 @@ function MainPlugin:render()
 			Size = Constants.DIALOG_SIZE,
 			Resizable = false,
 			OnClose = self.onClose,
+			AllowUndoRedoKeyboardShortcuts = true,
 		}, {
 			SliceEditor = enabled and Roact.createElement(SliceEditor, {
 				onClose = self.onClose,

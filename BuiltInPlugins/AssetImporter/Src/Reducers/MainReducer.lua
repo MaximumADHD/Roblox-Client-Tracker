@@ -9,6 +9,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Actions = Plugin.Src.Actions
 local SetAssetSettings = require(Actions.SetAssetSettings)
+local SetCheckedCount = require(Actions.SetCheckedCount)
 local SetFilename = require(Actions.SetFilename)
 local SetInstanceMap = require(Actions.SetInstanceMap)
 local SetSelectedSettingsItem = require(Actions.SetSelectedSettingsItem)
@@ -22,6 +23,7 @@ export type Store = {
 	selectedSettingsItem: Instance,
 	settingsExpansion: SetTreeExpansion.ExpansionMap,
 	settingsChecked: SetTreeChecked.CheckedMap,
+	settingsCheckedCount: number,
 }
 
 local initialState = {
@@ -31,6 +33,7 @@ local initialState = {
 	selectedSettingsItem = nil,
 	settingsExpansion = {},
 	settingsChecked = {},
+	settingsCheckedCount = -1,
 }
 
 local MainReducer = Rodux.createReducer(initialState, {
@@ -64,6 +67,11 @@ local MainReducer = Rodux.createReducer(initialState, {
 
 		return Cryo.Dictionary.join(state, {
 			settingsChecked = Cryo.Dictionary.join(state.settingsChecked, action.checked)
+		})
+	end,
+	[SetCheckedCount.name] = function(state: Store, action: SetCheckedCount.Props)
+		return Cryo.Dictionary.join(state, {
+			settingsCheckedCount = action.count,
 		})
 	end,
 	[SetTreeExpansion.name] = function(state: Store, action: SetTreeExpansion.Props)

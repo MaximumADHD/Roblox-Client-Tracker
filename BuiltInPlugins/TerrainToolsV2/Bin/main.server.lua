@@ -16,7 +16,6 @@ game:DefineFastFlag("TerrainToolsRoactInspector", false)
 
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
-local FFlagTerrainToolsColormapCallout = game:GetFastFlag("TerrainToolsColormapCallout")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -124,10 +123,8 @@ local function createTerrainContextItems()
 
 	local imageLoader = ImageLoader.new()
 
-	local calloutController
-	if FFlagTerrainToolsColormapCallout then
-		calloutController = ContextItems.CalloutController.new()
-
+	local calloutController = ContextItems.CalloutController.new()
+	do
 		local definitionId = "TerrainToolsColormapCallout"
 
 		local title = localization:getText("ColormapCallout", "Title")

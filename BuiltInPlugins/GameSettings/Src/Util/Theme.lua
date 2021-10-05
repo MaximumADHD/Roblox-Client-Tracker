@@ -23,6 +23,7 @@ local StudioStyle = UILibrary.Studio.Style
 
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
+local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 
 local Theme = {}
 
@@ -513,6 +514,14 @@ function Theme.createValues(theme, getColor)
 				icon = {
 					size = 16,
 				},
+			} or nil,
+
+			selectInput = FFlagRemoveUILibraryDetailedDropdown and {
+				button = {
+					height = 50,
+				},
+				padding = 10,
+				width = 140,
 			} or nil,
 		}),
 

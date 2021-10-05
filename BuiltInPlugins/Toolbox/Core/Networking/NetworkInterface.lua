@@ -6,6 +6,7 @@
 
 local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -612,12 +613,14 @@ function NetworkInterface:getLocalUserFriends(userId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
--- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-function NetworkInterface:getPackageCollaborators(assetId)
-	local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
+if not FFlagUseNewAssetPermissionEndpoint then
+	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+	function NetworkInterface:getPackageCollaborators(assetId)
+		local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
 
-	printUrl("getPackageCollaborators", "GET", assetId)
-	return self._networkImp:httpGet(targetUrl)
+		printUrl("getPackageCollaborators", "GET", assetId)
+		return self._networkImp:httpGet(targetUrl)
+	end
 end
 
 function NetworkInterface:postForPackageMetadata(assetid)
@@ -657,13 +660,38 @@ function NetworkInterface:getGroupRoleInfo(groupId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
-function NetworkInterface:putPackagePermissions(assetId, permissions)
+function NetworkInterface:DEPRECATED_putPackagePermissions(assetId, permissions)
 	local targetUrl = Urls.constructPutPackagePermissionsUrl(assetId)
 
 	local putPayload = self._networkImp:jsonEncode(permissions)
 
 	printUrl("putPackagePermissions", "PUT", targetUrl, putPayload)
 	return self._networkImp:httpPut(targetUrl, putPayload)
+end
+
+function NetworkInterface:grantAssetPermissions(assetId, permissions)
+	local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
+	local putPayload = self._networkImp:jsonEncode(permissions)
+
+	printUrl("grantAssetPermissions", "PATCH", targetUrl, putPayload)
+	return self._networkImp:httpPatch(targetUrl, putPayload)
+end
+
+function NetworkInterface:revokeAssetPermissions(assetId, permissions)
+	local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
+	local putPayload = self._networkImp:jsonEncode(permissions)
+
+	printUrl("revokeAssetPermissions", "DELETE", targetUrl, putPayload)
+	return self._networkImp:httpDeleteWithPayload(targetUrl, putPayload)
+end
+
+if FFlagUseNewAssetPermissionEndpoint then
+	function NetworkInterface:getAssetPermissions(assetId)
+		local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
+
+		printUrl("getAssetPermissions", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end
 end
 
 function NetworkInterface:getPackageHighestPermission(assetIds)

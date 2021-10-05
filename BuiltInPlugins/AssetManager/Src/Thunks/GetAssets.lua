@@ -11,7 +11,6 @@ local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableA
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 local FIntStudioAssetManagerAssetFetchNumber = game:GetFastInt("StudioAssetManagerAssetFetchNumber")
 
-local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
@@ -110,9 +109,6 @@ return function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator
                             hasLinkedScripts = true
                             assetAlias.name = string.gsub(alias.Name, "Scripts/", "")
                         elseif (enableAudioImport() and assetType == Enum.AssetType.Audio and string.find(alias.Name, "Audio/")) then
-                            if not FFlagStudioAssetManagerLoadLinkedScriptsOnInit then
-                                hasLinkedScripts = true
-                            end
                             assetAlias.name = string.gsub(alias.Name, "Audio/", "")
                         elseif (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(alias.Name, "Models/")) then
                             assetAlias.name = string.gsub(alias.Name, "Models/", "")

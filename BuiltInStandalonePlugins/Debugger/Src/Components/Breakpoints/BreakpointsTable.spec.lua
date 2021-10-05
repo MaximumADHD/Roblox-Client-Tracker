@@ -46,8 +46,8 @@ return function()
 		local folder = Instance.new("Folder")
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable",true)
-
-		local list = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable").Contents.List
+		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
+		local list = treeTable.Contents.List
 
 		expect(list:FindFirstChild("1", false)).to.be.ok()
 		expect(list["1"].Row[2].Left.Text.Text).to.equal("8")
@@ -88,7 +88,8 @@ return function()
 		local folderInstance = Roact.mount(breakpointsTableElement.getChildrenWithMockContext(), folder)
 		local breakpointsTable = folder:FindFirstChild("BreakpointsTable",true)
 
-		local list = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable").Contents.List
+		local treeTable = breakpointsTable:FindFirstChild("TablePane"):FindFirstChild("BreakpointsTable")
+		local list = treeTable.Contents.List
 
 		expect(list:FindFirstChild("1", false)).to.be.ok()
 		expect(list["1"].Row[2].Left.Text.Text).to.equal("8")

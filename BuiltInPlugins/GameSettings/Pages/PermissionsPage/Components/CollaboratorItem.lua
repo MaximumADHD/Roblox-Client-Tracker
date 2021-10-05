@@ -1,5 +1,6 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -15,12 +16,16 @@ local Cryo = require(Plugin.Cryo)
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
+local UI = require(Plugin.Framework.UI)
+local SelectInput = UI.SelectInput
+local Button = UI.Button
+local TextLabel = UI.Decoration.TextLabel
 
 local UILibrary = require(Plugin.UILibrary)
 
-local DetailedDropdown = UILibrary.Component.DetailedDropdown
+local DEPRECATED_DetailedDropdown = UILibrary.Component.DetailedDropdown
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
-local Button = UILibrary.Component.Button
+local UILibraryButton = UILibrary.Component.Button
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 
@@ -34,7 +39,7 @@ function DeleteButton:render()
 
 	local theme = props.Theme:get("Plugin")
 
-	return Roact.createElement(Button, {
+	return Roact.createElement(UILibraryButton, {
 		Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
 		Position = UDim2.new(1, 0, 0, 0),
 		AnchorPoint = Vector2.new(1, 0),
@@ -105,6 +110,56 @@ function CollaboratorItem:getCurrentPermissionLabel()
 	assert(false)
 end
 
+function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOrder)
+	assert(FFlagRemoveUILibraryDetailedDropdown)
+	return Roact.createElement(TextLabel, {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, height),
+		Style = style,
+		Text = text,
+		TextWrapped = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	},	{
+		-- This padding ensures the text is not lined up right along the edge of the TextLabel
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, padding),
+			PaddingLeft = UDim.new(0, padding),
+		}),
+	})
+end
+
+function CollaboratorItem:init()
+	self.onItemActivated = FFlagRemoveUILibraryDetailedDropdown and function(permission)
+		if self.props.Writable and permission.Key ~= self.props.CurrentPermission then
+			self.props.OnPermissionChanged(permission.Key)
+		end
+	end or nil
+
+	self.onRenderItem = FFlagRemoveUILibraryDetailedDropdown and function(item, index, activated)
+		local theme = self.props.Theme:get("Plugin")
+		local mainText = item.Display
+		local description = item.Description
+
+		return Roact.createElement(Button, {
+			Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+			LayoutOrder = index,
+			OnClick = activated,
+		}, {
+			UILayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = UDim.new(0, 0),
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Top,
+			}),
+
+			MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0),
+
+			DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1),
+		})
+	end or nil
+end
+
 function CollaboratorItem:render()
 	local props = self.props
 
@@ -168,7 +223,16 @@ function CollaboratorItem:render()
 				Size = UDim2.fromScale(1, 1),
 			}),
 
-			PermissionsDropdown = (not loading) and Roact.createElement(DetailedDropdown, {
+			PermissionsDropdown = FFlagRemoveUILibraryDetailedDropdown and (not loading) and Roact.createElement(SelectInput, {
+				Enabled = writable and #availablePermissions > 1,
+				Items = availablePermissions,
+				OnItemActivated = self.onItemActivated,
+				OnRenderItem = self.onRenderItem,
+				PlaceholderText = self:getCurrentPermissionLabel(),
+				Width = theme.selectInput.width,
+			}) or nil,
+
+			DEPRECATED_PermissionsDropdown = not FFlagRemoveUILibraryDetailedDropdown and (not loading) and Roact.createElement(DEPRECATED_DetailedDropdown, {
 				Enabled = writable and #availablePermissions > 1,
 				Size = UDim2.fromScale(1, 1),
 				ItemHeight = ITEM_HEIGHT,
@@ -183,7 +247,7 @@ function CollaboratorItem:render()
 						onPermissionChanged(permission)
 					end
 				end,
-			})
+			}) or nil,
 		}),
 
 		Delete = FFlagUXImprovementsShowUserPermsWhenCollaborator2 and writable and removable and Roact.createElement(DeleteButton, {

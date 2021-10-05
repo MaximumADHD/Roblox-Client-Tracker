@@ -25,8 +25,8 @@ local TreeViewToolbar = require(Plugin.Src.Components.TreeViewToolbar)
 
 local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
-local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
+local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 
 local getFFlagDevFrameworkTreeViewRowAfterItem = require(Plugin.Src.Flags.getFFlagDevFrameworkTreeViewRowAfterItem)
 
@@ -272,7 +272,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTreeExpansion(expansion))
 		end,
 		SetChecked = function(checked)
-			dispatch(SetTreeChecked(checked))			
+			dispatch(UpdateChecked(checked))			
 		end,
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))

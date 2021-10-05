@@ -198,6 +198,22 @@ function Networking:httpDelete(url)
 	return createHttpPromise(httpDelete, self._httpImpl, options)
 end
 
+-- url : (string)
+-- payload : (string)
+function Networking:httpDeleteWithPayload(url, payload)
+	local options = {
+		Url = url,
+		Method = "DELETE",
+		Body = payload,
+		Headers = {
+			["Content-Type"] = "application/json",
+		}
+	}
+
+	return createHttpPromise(httpDelete, self._httpImpl, options)
+end
+
+
 function Networking:httpPatch(url, payload)
 	local options = {
 		Url = url,

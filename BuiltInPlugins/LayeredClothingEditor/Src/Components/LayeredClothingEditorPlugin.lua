@@ -76,7 +76,7 @@ function LayeredClothingEditorPlugin:init()
 	self.toolbarButton = toolbar:CreateButton(
 		TOOLBAR_BUTTON_NAME,
 		self.localization:getText("Main", "Tooltip"),
-		"rbxasset://textures/AssetManager/explorer.png",
+		"rbxasset://textures/LayeredClothingEditor/LayeredClothingEditorIcon.png",
 		self.localization:getText("Main", "ToolbarButton")
 	)
 

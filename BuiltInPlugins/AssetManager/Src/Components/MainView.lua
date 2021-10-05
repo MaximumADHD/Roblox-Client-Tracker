@@ -35,7 +35,6 @@ local TopBar = require(Plugin.Src.Components.TopBar)
 
 local Screens = require(Plugin.Src.Util.Screens)
 
-local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
 local GetUniverseConfiguration = require(Plugin.Src.Thunks.GetUniverseConfiguration)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
@@ -46,10 +45,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
-local FFlagStudioAssetManagerLoadLinkedScriptsOnInit = game:GetFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
-
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
 
@@ -121,13 +117,8 @@ function MainView:init()
     self.getScripts = function()
         local props = self.props
         local apiImpl = props.API:get()
-        if FFlagStudioAssetManagerLoadLinkedScriptsOnInit then
-            local dispatchLoadAllAliases = props.dispatchLoadAllAliases
-            dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
-        else
-            local dispatchGetAssets = props.dispatchGetAssets
-            dispatchGetAssets(apiImpl, Screens.SCRIPTS.AssetType, nil, nil, false)
-        end
+        local dispatchLoadAllAliases = props.dispatchLoadAllAliases
+        dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
     end
 end
 
@@ -206,8 +197,7 @@ function MainView:render()
 
     local recentViewToggled = props.RecentViewToggled
     local recentAssets = props.RecentAssets
-    local hasRecentAssets = FFlagStudioAssetManagerFixRecentAssetDuplication and next(recentAssets) ~= nil or
-        #recentAssets > 0
+    local hasRecentAssets = next(recentAssets) ~= nil
 
     local assetGridViewOffset = theme.TopBar.Height + theme.NavBar.Height + (hasRecentAssets and theme.RecentView.Bar.Height or 0)
     local recentViewOffset = theme.TopBar.Height + theme.NavBar.Height
@@ -345,10 +335,7 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        dispatchGetAssets = not FFlagStudioAssetManagerLoadLinkedScriptsOnInit and function(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator)
-            dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber, showLoadingIndicator))
-        end,
-        dispatchLoadAllAliases = FFlagStudioAssetManagerLoadLinkedScriptsOnInit and function(apiImpl, assetType)
+        dispatchLoadAllAliases = function(apiImpl, assetType)
             dispatch(LoadAllAliases(apiImpl, assetType))
         end,
         dispatchGetUniverseConfiguration = function(apiImpl)

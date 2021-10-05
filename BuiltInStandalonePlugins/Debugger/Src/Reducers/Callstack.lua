@@ -8,9 +8,11 @@ local AddCallstackAction = require(Actions.Callstack.AddCallstack)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local ResumedAction = require(Actions.Common.Resumed)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
+local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 local ThreadInfo = require(Models.ThreadInfo)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
-local CallstackRow = require(Models.CallstackRow)
+local CallstackRow = require(Models.Callstack.CallstackRow)
+local Columns = require(Models.Callstack.ColumnEnum)
 
 type ThreadId = number
 
@@ -20,11 +22,13 @@ type CallstackVars = {
 }
 
 type CallstackStore = {
-	stateTokenToCallstackVars : {[DebuggerStateToken.DebuggerStateToken] : CallstackVars}
+	stateTokenToCallstackVars : {[DebuggerStateToken.DebuggerStateToken] : CallstackVars},
+	listOfEnabledColumns : {string},
 }
 
 local productionStartStore = {
-	stateTokenToCallstackVars = {}
+	stateTokenToCallstackVars = {},
+	listOfEnabledColumns = {Columns.Frame, Columns.Layer, Columns.Source, Columns.Function, Columns.Line},
 }
 
 return Rodux.createReducer(productionStartStore, {
@@ -67,6 +71,12 @@ return Rodux.createReducer(productionStartStore, {
 	[ResumedAction.name] = function(state : CallstackStore, action)
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = {},
+		})
+	end,
+	
+	[ColumnFilterChange.name] = function(state : CallstackStore, action : ColumnFilterChange.Props)
+		return Cryo.Dictionary.join(state, {
+			listOfEnabledColumns = action.listOfEnabledColumns,
 		})
 	end,
 })

@@ -19,6 +19,7 @@ function SearchBarField:render()
 		ShowSearchButton = false,
 		OnTextChanged = props.onFilterTextChanged,
 		LayoutOrder = props.LayoutOrder,
+		Size = props.Size,
 	})
 end
 

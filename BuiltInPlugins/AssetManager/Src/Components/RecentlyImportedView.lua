@@ -29,7 +29,6 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
-local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
@@ -37,29 +36,15 @@ local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 function RecentlyImportedView:createListItems(theme, recentAssets, selectedAssets, enabled)
     local assetsToDisplay = {}
 
-    if FFlagStudioAssetManagerFixRecentAssetDuplication then
-        for _, asset in pairs(recentAssets) do
-            local assetItem = Roact.createElement(ListItem, {
-                AssetData = asset,
-                LayoutOrder = asset.key,
-                StyleModifier = selectedAssets[asset.key] and StyleModifier.Selected or nil,
-                Enabled = enabled,
-                RecentListItem = true,
-            })
-            assetsToDisplay[asset.id] = assetItem
-        end
-    else
-        for index, asset in pairs(recentAssets) do
-            asset.key = index
-            local assetItem = Roact.createElement(ListItem, {
-                AssetData = asset,
-                LayoutOrder = index,
-                StyleModifier = selectedAssets[index] and StyleModifier.Selected or nil,
-                Enabled = enabled,
-                RecentListItem = true,
-            })
-            assetsToDisplay[index] = assetItem
-        end
+    for _, asset in pairs(recentAssets) do
+        local assetItem = Roact.createElement(ListItem, {
+            AssetData = asset,
+            LayoutOrder = asset.key,
+            StyleModifier = selectedAssets[asset.key] and StyleModifier.Selected or nil,
+            Enabled = enabled,
+            RecentListItem = true,
+        })
+        assetsToDisplay[asset.id] = assetItem
     end
 
     return assetsToDisplay

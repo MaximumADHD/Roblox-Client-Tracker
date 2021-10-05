@@ -3,13 +3,8 @@
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("AssetManagerWithContext", false)
 game:DefineFastFlag("AssetManagerDeduplicatePackages", false)
-
-game:DefineFastFlag("CleanupRightClickContextMenuFunctions2", false)
 game:DefineFastFlag("EnableAssetManagerStylizer", false)
 game:DefineFastInt("StudioAssetManagerAssetFetchNumber", 50)
-game:DefineFastFlag("StudioAssetManagerDisableHoverOnOverlay", false)
-game:DefineFastFlag("StudioAssetManagerLoadLinkedScriptsOnInit", false)
-game:DefineFastFlag("StudioAssetManagerFixRecentAssetDuplication", false)
 game:DefineFastFlag("StudioAssetManagerAssetModeration", false)
 game:DefineFastFlag("StudioAssetManagerFixToolbarButtonScript", false)
 game:DefineFastFlag("StudioAssetManagerFixAssetPreviewHover", false)

@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local Models = Plugin.Src.Models
-local CallstackRow = require(Models.CallstackRow)
+local CallstackRow = require(Models.Callstack.CallstackRow)
 local AddCallstack = require(Plugin.Src.Actions.Callstack.AddCallstack)
 local StackFrame = require(Plugin.Src.Mocks.StackFrame)
 

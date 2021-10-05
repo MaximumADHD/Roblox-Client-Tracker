@@ -1,7 +1,7 @@
 local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToolsAllowUploadZhCjv")
 
 local function canonicalizeLocaleCode(code, localesToLanguages)
-	if localesToLanguages[code] ~= nil then
+	if localesToLanguages ~= nil and localesToLanguages[code] ~= nil then
 		return string.gsub(code, '-', '_')
 	end
 	return code
@@ -123,7 +123,7 @@ local function MakePatchEntryToChangeRow(
 	local pendingLocaleTranslations = {}
 	for _, translation in ipairs(newEntry.translations) do
 		local originalTranslation = originalTranslationMap[translation.locale]
-		if originalTranslation == nil and localesToLanguages[translation.locale] ~= nil and
+		if originalTranslation == nil and localesToLanguages ~= nil and localesToLanguages[translation.locale] ~= nil and
 			localesToLanguages[translation.locale] ~= gameSourceLanguage then
 			table.insert(pendingLocaleTranslations, translation)
 		elseif originalTranslation ~= translation.translationText then
@@ -183,7 +183,7 @@ local function MakePatchEntryToAddRow(entry, patchInfo, gameSourceLanguage, loca
 	local translatedLanguages = {}
 	for _, translation in ipairs(entry.translations) do
 		if FFlagLocalizationToolsAllowUploadZhCjv then
-			if localesToLanguages[translation.locale] ~= nil and
+			if localesToLanguages ~= nil and localesToLanguages[translation.locale] ~= nil and
 				localesToLanguages[translation.locale] ~= gameSourceLanguage then
 				-- add locale translation to a temp list in first pass
 				-- because we need verify the entry has its parent translation first

@@ -34,8 +34,8 @@ function BreakpointWindow:render()
 	})
 end
 
-ContextServices.mapToProps(BreakpointWindow, {
+BreakpointWindow = ContextServices.withContext({
 	Localization = Localization,
-})
+})(BreakpointWindow)
 
 return BreakpointWindow

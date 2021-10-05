@@ -128,7 +128,7 @@ local function loadValuesToProps(getValue, state)
 		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
 		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
         VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
-        TeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and getValue("TeamCreateStreamingEnabled") or nil,
+        TeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and getValue(teamCreateStreamingEnabledKey) or nil,
         CurrentTeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateStreamingEnabled or nil,
         TeamCreateEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateEnabled or nil,
 	}
@@ -171,7 +171,7 @@ function Options:render()
     -- Display warning to user if they are switching Collab off when it is currently saved as on
     local shouldDisplayScriptCollabWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
     
-    -- Display warning to user that streaming setting change will only take affect if
+    -- Display warning to user that streaming setting change will only take affect if the server restarts
     local displayTeamCreateStreamingWarning = nil
     if FFlagStudioTeamCreateStreamingEnabled then
         displayTeamCreateStreamingWarning = (props.CurrentTeamCreateStreamingEnabled ~= props.TeamCreateStreamingEnabled)

@@ -284,6 +284,16 @@ function Theme.createValues(getColor, c, m)
 		font = Enum.Font.SourceSans,
 	})
 
+	local iconButton = defineTheme({
+		resetIcon = "rbxasset://textures/StudioToolbox/AssetConfig/restore.png",
+
+		buttonIconColor = Color3.fromRGB(128, 128, 128),
+	}, {
+		Dark = {
+			buttonIconColor = Color3.fromRGB(204, 204, 204),
+		},
+	})
+
 	local button = {
 		Default = {
 			font = UILibraryStylePalette.font,
@@ -341,6 +351,7 @@ function Theme.createValues(getColor, c, m)
 		checkBox = checkBox,
 		roundFrame = roundFrame,
 		textButton = textButton,
+		iconButton = iconButton,
 		button = button,
 	}, {
 		Dark = {

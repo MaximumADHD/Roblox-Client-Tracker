@@ -160,7 +160,6 @@ function TerrainTools:render()
 		-- partConverter will be nil if FFlagTerrainToolsConvertPartTool is false
 		partConverter,
 		imageLoader,
-		-- calloutController will be nil if FFlagTerrainToolsColormapCallout is false
 		calloutController,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {

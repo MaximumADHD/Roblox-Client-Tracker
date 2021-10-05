@@ -9,7 +9,6 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-local FFlagStudioAssetManagerFixRecentAssetDuplication = game:GetFastFlag("StudioAssetManagerFixRecentAssetDuplication")
 local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
@@ -145,22 +144,14 @@ local function connectBulkImporterSignals()
 		if FFlagStudioAssetManagerAddRecentlyImportedView then
 			store:dispatch(SetRecentAssets({}))
 		end
-		if FFlagStudioAssetManagerFixRecentAssetDuplication then
-			assetIndex = 1
-		end
+		assetIndex = 1
 	end)
 	BulkImportService.BulkImportFinished:connect(function(state)
 		store:dispatch(SetBulkImporterRunning(false))
 		if FFlagStudioAssetManagerAddRecentlyImportedView then
 			local state = store:getState()
-			if FFlagStudioAssetManagerFixRecentAssetDuplication then
-				if next(state.AssetManagerReducer.recentAssets) ~= nil then
-					store:dispatch(SetRecentViewToggled(true))
-				end
-			else
-				if #state.AssetManagerReducer.recentAssets > 0 then
-					store:dispatch(SetRecentViewToggled(true))
-				end
+			if next(state.AssetManagerReducer.recentAssets) ~= nil then
+				store:dispatch(SetRecentViewToggled(true))
 			end
 		end
 	end)
@@ -179,27 +170,16 @@ local function connectBulkImporterSignals()
 			elseif FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model and string.find(name, "Models/") then
 				strippedName = string.gsub(name, "Models/", "")
 			end
-			local recentAssets
-			if FFlagStudioAssetManagerFixRecentAssetDuplication then
-				local sAssetId = tostring(id)
-				recentAssets = Cryo.Dictionary.join(state.AssetManagerReducer.recentAssets, {
-					[sAssetId] = {
-						key = assetIndex,
-						assetType = assetType,
-						name = strippedName,
-						id = id,
-					},
-				})
-				assetIndex = assetIndex + 1
-			else
-				recentAssets = Cryo.List.join(state.AssetManagerReducer.recentAssets, {
-					{
-						assetType = assetType,
-						name = strippedName,
-						id = id,
-					},
-				})
-			end
+			local sAssetId = tostring(id)
+			local recentAssets = Cryo.Dictionary.join(state.AssetManagerReducer.recentAssets, {
+				[sAssetId] = {
+					key = assetIndex,
+					assetType = assetType,
+					name = strippedName,
+					id = id,
+				},
+			})
+			assetIndex = assetIndex + 1
 			store:dispatch(SetRecentAssets(recentAssets))
 		end)
 	end

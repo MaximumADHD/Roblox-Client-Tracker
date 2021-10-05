@@ -18,12 +18,16 @@
 		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
 			That method is run in its own thread, but that means creation of the widget is delayed.
 			Set this to false to create the widget immediately instead. Mostly useful for unit tests.
+		boolean AllowUndoRedoKeyboardShortcuts: Whether the Studio undo/redo keyboard shortcuts will
+			work if this subwindow is active (focused).
 ]]
 local HttpService = game:GetService("HttpService")
 
 local Framework = script.Parent.Parent
 local Typecheck = require(Framework.Util).Typecheck
 local createPluginWidget = require(Framework.StudioUI.createPluginWidget)
+
+local FFlagPluginQWidgetAllowEnableUndoRedoKeyboardShortcuts = game:GetFastFlag("PluginQWidgetAllowEnableUndoRedoKeyboardShortcuts")
 
 local Dialog = createPluginWidget("Dialog", function(props)
 	local plugin = props.Plugin:get()
@@ -35,6 +39,11 @@ local Dialog = createPluginWidget("Dialog", function(props)
 		Resizable = props.Resizable,
 		Modal = props.Modal,
 	}
+	
+	if FFlagPluginQWidgetAllowEnableUndoRedoKeyboardShortcuts then
+		options.AllowUndoRedoKeyboardShortcuts = props.AllowUndoRedoKeyboardShortcuts
+	end
+	
 	local id = props.Title .. HttpService:GenerateGUID()
 	local widget = plugin:CreateQWidgetPluginGui(id, options)
 	widget.Name = props.Title

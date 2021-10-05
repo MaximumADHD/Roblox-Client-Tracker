@@ -8,8 +8,6 @@ local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
-
 local DraggerSchemaCore = Plugin.Packages.DraggerSchemaCore
 local BoundsChangedTracker = require(DraggerSchemaCore.BoundsChangedTracker)
 local Selection = require(DraggerSchemaCore.Selection)
@@ -138,7 +136,7 @@ function MainView:render()
 						end
 					end,
 				}, {
-					TeachingCallout = getFFlagAlignToolTeachingCallout() and Roact.createElement(TeachingCallout, {
+					TeachingCallout = Roact.createElement(TeachingCallout, {
 						Offset = Vector2.new(0, 6),
 						DefinitionId = "AlignToolCallout",
 						LocationId = "AlignButton",

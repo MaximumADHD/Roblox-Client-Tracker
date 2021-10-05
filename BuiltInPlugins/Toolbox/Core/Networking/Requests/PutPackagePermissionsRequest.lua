@@ -15,14 +15,18 @@ local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+
+local RevokeSubjectAction = KeyConverter.getWebAction(PermissionsConstants.NoAccessKey)
 
 local function serializeForRequest(changedPermissions, groupMetadata, assetVersionNumber)
     local changes = {}
 
 	changes[PermissionsConstants.GroupSubjectKey] = {}
-    
+
     if changedPermissions and next(changedPermissions) ~= nil then
         for subjectType,_ in pairs(changedPermissions) do
             changes[subjectType] = {}
@@ -57,14 +61,69 @@ local function serializeForRequest(changedPermissions, groupMetadata, assetVersi
     return permissions
 end
 
+local function serializeForGrantAssetPermissionRequest(changedPermissions, groupMetadata)
+    local permissions = serializeForRequest(changedPermissions, groupMetadata)
+    local filteredPermissions = {[webKeys.Requests] = {}};
+    local requests = filteredPermissions[webKeys.Requests]
+
+    for _, permission in pairs(permissions) do
+        local subjectAction = permission[webKeys.Action]
+
+        if subjectAction ~= RevokeSubjectAction then
+            table.insert(requests, {
+                [webKeys.SubjectType] = KeyConverter.getAssetPermissionSubjectType(permission[webKeys.SubjectType]),
+                [webKeys.SubjectId] = permission[webKeys.SubjectId],
+                [webKeys.Action] = KeyConverter.getAssetPermissionAction(permission[webKeys.Action])
+            })
+        end
+    end
+
+    return filteredPermissions;
+end
+
+local function serializeForRevokeAssetPermissionRequest(changedPermissions, groupMetadata, originalCollaborators)
+    local permissions = serializeForRequest(changedPermissions, groupMetadata)
+    local originalPermissions = serializeForRequest(originalCollaborators, groupMetadata)
+    local originalSubjectIdActionMap = {}
+    local filteredPermissions = {[webKeys.Requests] = {}};
+    local requests = filteredPermissions[webKeys.Requests]
+
+    for _, originalPermission in pairs(originalPermissions) do
+        originalSubjectIdActionMap[originalPermission[webKeys.SubjectId]] = KeyConverter.getAssetPermissionAction(originalPermission[webKeys.Action])
+    end
+
+    for _, permission in pairs(permissions) do
+        local subjectAction = permission[webKeys.Action]
+
+        if subjectAction == RevokeSubjectAction then
+            local originalAction = originalSubjectIdActionMap[permission[webKeys.SubjectId]]
+            table.insert(requests, {
+                [webKeys.SubjectType] = KeyConverter.getAssetPermissionSubjectType(permission[webKeys.SubjectType]),
+                [webKeys.SubjectId] = permission[webKeys.SubjectId],
+                [webKeys.Action] = originalAction
+            })
+        end
+    end
+
+    return filteredPermissions;
+end
+
 return function(networkInterface, assetId, assetVersionNumber)
     return function(store)
         local changeTable = store:getState().changed
+
         -- should be verified already in AssetConfig but just in case
         if changeTable and next(changeTable) ~= nil then
-            local permissions = serializeForRequest(changeTable.permissions, changeTable.groupMetadata, assetVersionNumber)
-            if next(permissions) ~= nil then
-                return networkInterface:putPackagePermissions(assetId, permissions):andThen(
+            if FFlagUseNewAssetPermissionEndpoint then
+                local originalCollaborators = store:getState().originalCollaborators
+        
+                local grantRequest = serializeForGrantAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata)
+                local revokeRequest = serializeForRevokeAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata, originalCollaborators)
+
+                local grantPromise = next(grantRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:grantAssetPermissions(assetId, grantRequest);
+                local revokePromise = next(revokeRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:revokeAssetPermissions(assetId, revokeRequest);
+
+                return Promise.all({grantPromise, revokePromise}):andThen(
                     function(result)
                         if FFlagNewPackageAnalyticsWithRefactor2 then
                             Analytics.sendResultToKibana(result)
@@ -79,7 +138,27 @@ return function(networkInterface, assetId, assetVersionNumber)
                         store:dispatch(NetworkError(err))
                     end
                 )
+            else
+                local permissions = serializeForRequest(changeTable.permissions, changeTable.groupMetadata, assetVersionNumber)
+                if next(permissions) ~= nil then
+                    return networkInterface:DEPRECATED_putPackagePermissions(assetId, permissions):andThen(
+                        function(result)
+                            if FFlagNewPackageAnalyticsWithRefactor2 then
+                                Analytics.sendResultToKibana(result)
+                            end
+                            store:dispatch(ClearChange("permissions"))
+                            store:dispatch(ClearChange("groupMetadata"))
+                        end,
+                        function(err)
+                            if FFlagNewPackageAnalyticsWithRefactor2 then
+                                Analytics.sendResultToKibana(err)
+                            end
+                            store:dispatch(NetworkError(err))
+                        end
+                    )
+                end
             end
         end
 	end
 end
+

@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
 
-local getFFlagAlignToolTeachingCallout = require(Plugin.Src.Flags.getFFlagAlignToolTeachingCallout)
 local getFFlagAlignToolRoactInspector = require(Plugin.Src.Flags.getFFlagAlignToolRoactInspector)
 
 local Roact = require(Plugin.Packages.Roact)
@@ -36,11 +35,9 @@ local localization = Localization.new({
 
 local store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
-local calloutController
-if getFFlagAlignToolTeachingCallout() then
-	local CalloutController = require(Plugin.Src.Utility.CalloutController)
-	calloutController = CalloutController.new()
-
+local CalloutController = require(Plugin.Src.Utility.CalloutController)
+local calloutController = CalloutController.new()
+do
 	local definitionId = "AlignToolCallout"
 
 	local title = localization:getText("Callout", "Title")

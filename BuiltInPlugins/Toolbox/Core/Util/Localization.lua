@@ -410,6 +410,7 @@ function Localization:_recalculateContent()
 			CreationsGroupAudio = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAudio"),
 			CreationsGroupPackages = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPackages"),
 			CreationsGroupPlugins = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupPlugins"),
+			CreationsGroupAnimations = self:_safeLocalize("Studio.Toolbox.General.CategoryGroupAnimations"),
 			CreationsCatalogSectionDivider = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider"),
 			CreationsHats = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsHats"),
 			CreationsTeeShirts = self:_safeLocalize("Studio.Toolbox.General.CategoryCreationsTeeShirts"),

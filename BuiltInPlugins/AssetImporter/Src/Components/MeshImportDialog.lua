@@ -9,6 +9,9 @@ local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
+local Util = Framework.Util
+local StyleModifier = Util.StyleModifier
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local Separator = UI.Separator
@@ -23,12 +26,14 @@ local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFF
 local MeshImportDialog = Roact.PureComponent:extend("MeshImportDialog")
 
 function MeshImportDialog:init()
-
 	self.onButtonPressed = function(key)
 		if key == "Cancel" then
 			self.props.OnClose()
 		elseif key == "Import" then
-			self.props.OnImport(self.props.AssetSettings)
+			local importEnabled = self.props.SettingsCheckedCount ~= 0
+			if importEnabled then
+				self.props.OnImport(self.props.AssetSettings)
+			end
 		end
 	end
 end
@@ -39,6 +44,8 @@ function MeshImportDialog:render()
 	local dialogWidth = 600
 	local dialogHeight = 500
 
+	local importEnabled = props.SettingsCheckedCount ~= 0
+
 	return Roact.createElement(StyledDialog, {
 		Enabled = true,
 		MinContentSize = Vector2.new(dialogWidth, dialogHeight),
@@ -47,7 +54,8 @@ function MeshImportDialog:render()
 		Title = props.Title,
 		Buttons = {
 			{ Key = "Cancel", Text = "Cancel" },
-			{ Key = "Import", Text = "Import", Style = "RoundPrimary" },
+			{ Key = "Import", Text = "Import", Style = "RoundPrimary",
+				StyleModifier = not importEnabled and StyleModifier.Disabled or nil},
 		},
 		OnClose = props.OnClose,
 		OnButtonPressed = self.onButtonPressed,
@@ -75,6 +83,7 @@ MeshImportDialog = withContext({
 local function mapStateToProps(state)
 	return {
 		AssetSettings = state.assetSettings,
+		SettingsCheckedCount = state.settingsCheckedCount
 	}
 end
 
