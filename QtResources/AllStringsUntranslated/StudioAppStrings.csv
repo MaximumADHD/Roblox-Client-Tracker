@@ -496,6 +496,7 @@ Studio.App.LoginManager.LoggedOut,,Logged Out,Logged Out
 Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying captcha
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
 Studio.App.LoginManager.CaptchaInvalid,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
+Studio.App.LoginManager.TwoSVClosed,,Login requires Two Step Verification. Please try again.,Login requires Two Step Verification. Please try again.
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
@@ -1223,7 +1224,6 @@ Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
 Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
 Studio.App.RobloxRibbonMainWindow.RecentFiles,,Recent Files,Recent Files
 Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
-Studio.App.RobloxRibbonMainWindow.ReloadScriptAfterMod,,"Reload the script after modifying it, while playing","Reload the script after modifying it, while playing"
 Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
 Studio.App.RobloxRibbonMainWindow.ResizeAnObject,,Resize an Object,Resize an Object
 Studio.App.RobloxRibbonMainWindow.ResizeGridToFourStuds,,Resize grid to four studs,Resize grid to four studs
@@ -2096,8 +2096,6 @@ Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlinin
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
-Studio.App.BetaFeatures.TexturePacksTitle,,Advanced SurfaceAppearance Textures,Advanced SurfaceAppearance Textures
-Studio.App.BetaFeatures.TexturePacksDescription,,Unlocks PBR texture properties on SurfaceAppearance Instances.,Unlocks PBR texture properties on SurfaceAppearance Instances.
 Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
 Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
 Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Tool,Accessory Tool
@@ -2126,8 +2124,6 @@ Studio.App.BetaFeatures.TerrainHeightmapImporterTitle,,Heightmaps 2,Heightmaps 2
 Studio.App.BetaFeatures.TerrainHeightmapImporterDescription,,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs,Instantly generate heightmaps from high-res (up to 4k) and high-bit-depth (16-bit) PNGs
 Studio.App.BetaFeatures.AdaptiveTimesteppingTitle,,Adaptive timestepping,Adaptive timestepping
 Studio.App.BetaFeatures.AdaptiveTimesteppingDescription,,Adaptively take larger timesteps for individual solver islands when possible.,Adaptively take larger timesteps for individual solver islands when possible.
-Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryTitle,,Script Version History for Non TeamCreate games,Script Version History for Non TeamCreate games
-Studio.App.BetaFeatures.NonTeamCreateScriptVersionHistoryDescription,,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.,Can right click on a script to view its history.  Will show past published versions of the script and their corresponding place version numbers.
 Studio.App.BetaFeatures.EnableCSGV3Title,,CSG Version 3,CSG Version 3
 Studio.App.BetaFeatures.EnableCSGV3Description,,Use the new and faster CSG Engine. ,Use the new and faster CSG Engine. 
 Studio.App.BetaFeatures.LuauDataModelAwarenessTitle,,Luau DataModel awareness,Luau DataModel awareness
@@ -3049,7 +3045,6 @@ Studio.App.CalloutController.DraggerModeCalloutTitle,,Drag Mode,Drag Mode
 Studio.App.CalloutController.DraggerModeCalloutDescription,,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.,Leverages the physics engine and constraints solver to simulate real-world behavior when moving objects. It adjusts some settings to work properly.
 Studio.App.CalloutController.PivotEditorCalloutTitle,,Pivot Editor,Pivot Editor
 Studio.App.CalloutController.PivotEditorCalloutDescription,,Change the pivot point around which an object rotates and translates.,Change the pivot point around which an object rotates and translates.
-Studio.App.CalloutService.NotAvailable,,CalloutService is not available when FFlagStudioCalloutsInLua is false,CalloutService is not available when FFlagStudioCalloutsInLua is false
 Studio.App.CalloutService.TargetNotGuiBase2d,,Target is not a GuiBase2d,Target is not a GuiBase2d
 Studio.App.CalloutService.NoLayerCollector,,Could not find a LayerCollector for target,Could not find a LayerCollector for target
 Studio.App.CalloutService.InvalidLayerCollector,,Not a valid type of LayerCollector,Not a valid type of LayerCollector

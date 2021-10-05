@@ -6,9 +6,9 @@ uniform vec4 CB1[216];
 uniform vec4 CB0[53];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
-in vec4 COLOR0;
 in vec4 TEXCOORD1;
 in vec4 TEXCOORD2;
+in vec4 COLOR0;
 out vec3 VARYING0;
 out vec2 VARYING1;
 

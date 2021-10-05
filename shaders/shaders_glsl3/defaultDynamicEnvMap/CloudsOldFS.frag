@@ -8,8 +8,11 @@ uniform vec4 CB0[53];
 uniform vec4 CB4[1];
 uniform vec4 CB5[5];
 uniform samplerCube PrefilteredEnvTexture;
-uniform sampler3D NoiseTexTexture;
 uniform sampler3D CloudsDistanceFieldTexture;
+uniform sampler2D AdvectionTexTexture;
+uniform sampler3D DetailTex3DTexture;
+uniform sampler2D BeerShadowMapTexture;
+uniform sampler2D BlueNoiseTexTexture;
 
 out vec4 _entryPointOutput_color;
 
@@ -24,144 +27,102 @@ void main()
     }
     vec3 f3 = CB0[7].xyz * 0.00028000000747852027416229248046875;
     vec3 f4 = f3;
-    f4.y = f3.y + 6371.0;
+    f4.y = f3.y + 971.0;
     float f5 = dot(f1, f4);
     float f6 = 2.0 * f5;
-    vec2 f7 = (vec2(f5 * (-2.0)) + sqrt(vec2(f6 * f6) - ((vec2(dot(f4, f4)) - vec2(40615128.0, 40647000.0)) * 4.0))) * 0.5;
+    vec2 f7 = (vec2(f5 * (-2.0)) + sqrt(vec2(f6 * f6) - ((vec2(dot(f4, f4)) - vec2(946729.0, 951600.25)) * 4.0))) * 0.5;
     float f8 = f7.x;
     float f9 = f7.y - f8;
-    float f10 = dot(CB0[11].xyz, -f1);
+    float f10 = max(0.0, dot(CB0[11].xyz, -f1));
     float f11 = f10 + 0.819406807422637939453125;
-    vec3 f12 = f1;
-    f12.y = 0.0375653542578220367431640625 + (0.96243464946746826171875 * f2);
-    vec3 f13 = f3 + (f12 * f8);
+    float f12 = dot(exp2(vec4(((-93.775177001953125) * f10) + (-79.34822845458984375), ((-83.703338623046875) * f11) * f11, 7.810082912445068359375 * f10, (-4.5521251698654729977988608879969e-12) * f10)), vec4(9.8052332759834825992584228515625e-06, 0.13881979882717132568359375, 0.00205474696122109889984130859375, 0.0260056294500827789306640625));
+    vec3 f13 = f3 + (f1 * f8);
     f13.y = 0.0;
     int f14 = int(CB5[2].z);
     float f15 = float(f14);
-    float f16 = 1.0 / f15;
-    float f17 = 0.0625 + (CB5[2].x * 0.5);
-    float f18 = (f17 * f16) * f9;
-    float f19 = f16 * fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125))));
-    float f20 = f17 * f9;
-    vec3 f21;
-    float f22;
-    vec3 f23;
-    vec4 f24;
-    f24 = vec4(0.0);
-    f23 = (f13 + ((f12 * f20) * f19)) + ((CB5[0].xyz * CB5[0].w) * 50.0);
-    f22 = f8 + (f20 * f19);
-    f21 = f13;
-    float f25;
-    vec3 f26;
-    vec3 f27;
-    bool f28;
-    bool f29;
-    float f30;
-    float f31;
-    vec4 f32;
-    vec4 f33;
-    int f34 = 0;
-    float f35 = 1.0;
-    bool f36 = false;
-    for (;;)
+    float f16 = (1.0 / f15) * f9;
+    float f17 = (1.0 / max(f2, 9.9999997473787516355514526367188e-05)) / f15;
+    vec3 f18 = f13 + ((f1 * f9) * (0.1500000059604644775390625 + (0.949999988079071044921875 * textureLod(BlueNoiseTexTexture, vec4(gl_FragCoord.xy, 0.0, 0.0).xy, 0.0).x)));
+    f18.y = 0.0;
+    bool f19;
+    float f20;
+    vec4 f21;
+    vec3 f22;
+    f22 = f18 + ((CB5[0].xyz * CB5[0].w) * 50.0);
+    f21 = vec4(0.0);
+    f20 = 1.0;
+    f19 = false;
+    float f23;
+    vec3 f24;
+    bool f25;
+    float f26;
+    vec4 f27;
+    int f28 = 0;
+    float f29 = f8;
+    for (; f28 < f14; f22 = f24, f21 = f27, f29 = f23, f20 = f26, f19 = f25, f28++)
     {
-        if (f34 < f14)
+        float f30 = float(int(CB5[2].z <= 9.0)) + (pow(f29, 3.0) * 2.6315789000364020466804504394531e-05);
+        vec2 f31 = (textureLod(AdvectionTexTexture, vec4((f22.xz * 0.125) + vec2(0.0, CB5[0].w * (-17.5)), 0.0, f30).xy, f30).xy * 2.0) - vec2(1.0);
+        vec3 f32 = vec3(f31.x, 0.0, f31.y);
+        vec3 f33 = f22;
+        f33.x = f22.x + (CB5[0].w * 39.0625);
+        float f34 = clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[7].y)), 0.0, 1.0);
+        float f35 = CB5[2].y * f34;
+        vec2 f36 = mix(vec2(0.1500000059604644775390625, 0.070000000298023223876953125), vec2(0.07500000298023223876953125, 0.0500000007450580596923828125), vec2(f35));
+        vec2 f37 = vec2(CB5[4].x, 0.3499999940395355224609375 * CB5[4].x) * ((vec2(textureLod(DetailTex3DTexture, vec4((f33 * (0.5 * CB5[4].y)) + (f32 * f36.x), f30).xyz, f30).x, textureLod(DetailTex3DTexture, vec4((f33 * (2.0 * CB5[4].y)) + (f32 * f36.y), f30).xyz, f30).x) * 2.0) - vec2(1.0));
+        float f38 = textureLod(CloudsDistanceFieldTexture, vec4(((f22 + (f32 * 0.75)) * vec3(0.03125, 1.0, 0.03125)).xzy, f30).xyz, f30).x + (f37.x + f37.y);
+        float f39 = (f35 * 50.0) * (CB5[2].x - f38);
+        bool f40 = f38 < CB5[2].x;
+        if (f40)
         {
-            float f37 = CB5[0].w * 1.5625;
-            vec3 f38 = f21;
-            f38.x = f21.x + f37;
-            vec3 f39 = f38 * vec3(0.5, 2.0, 0.5);
-            float f40 = 0.03125 + (CB5[2].x * 0.125);
-            float f41 = textureLod(CloudsDistanceFieldTexture, vec4((f23 * vec3(0.03125, 1.0, 0.03125)).xzy, 0.0).xyz, 0.0).x - (f40 * (textureLod(NoiseTexTexture, vec4(fract(f39), 0.0).xyz, 0.0).x + (0.25 * textureLod(NoiseTexTexture, vec4(fract((f39 * mat3(vec3(0.0, 0.800000011920928955078125, 0.60000002384185791015625), vec3(-0.800000011920928955078125, 0.36000001430511474609375, -0.4799999892711639404296875), vec3(-0.60000002384185791015625, -0.4799999892711639404296875, 0.63999998569488525390625))) * 2.019999980926513671875), 0.0).xyz, 0.0).x)));
-            bool f42 = f41 < CB5[2].x;
-            if (f42)
-            {
-                float f43 = ((CB5[2].y * clamp(1.0 + (0.001000000047497451305389404296875 * (6000.0 - CB0[7].y)), 0.0, 1.0)) * 128.0) * (CB5[2].x - f41);
-                vec3 f44 = -CB0[11].xyz;
-                int f45 = int(CB5[2].w);
-                float f46 = 4.0 / float(f45);
-                float f47;
-                f47 = 0.0;
-                float f48;
-                for (int f49 = 0; f49 < f45; f47 = f48, f49++)
-                {
-                    vec3 f50 = (f44 * float(f49)) * f46;
-                    vec3 f51 = (f23 + ((f44 * f46) * fract(52.98291778564453125 * fract(dot(vec2(0.300000011920928955078125) + gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125)))))) + f50;
-                    vec3 f52 = f23 + f50;
-                    if (f51.y > 1.0)
-                    {
-                        break;
-                    }
-                    vec3 f53 = f52;
-                    f53.x = f52.x + f37;
-                    vec3 f54 = f53 * vec3(0.5, 2.0, 0.5);
-                    float f55 = textureLod(CloudsDistanceFieldTexture, vec4((f51 * vec3(0.03125, 1.0, 0.03125)).xzy, 0.0).xyz, 0.0).x - (f40 * (textureLod(NoiseTexTexture, vec4(fract(f54), 0.0).xyz, 0.0).x + (0.25 * textureLod(NoiseTexTexture, vec4(fract((f54 * mat3(vec3(0.0, 0.800000011920928955078125, 0.60000002384185791015625), vec3(-0.800000011920928955078125, 0.36000001430511474609375, -0.4799999892711639404296875), vec3(-0.60000002384185791015625, -0.4799999892711639404296875, 0.63999998569488525390625))) * 2.019999980926513671875), 0.0).xyz, 0.0).x)));
-                    if (f55 < 0.5)
-                    {
-                        f48 = f47 + (0.5 * (1.0 - (2.0 * f55)));
-                    }
-                    else
-                    {
-                        f48 = f47;
-                    }
-                }
-                float f56 = f47 * f46;
-                float f57 = mix(0.07999999821186065673828125, 1.0, smoothstep(0.959999978542327880859375, 0.0, f10));
-                vec3 f58 = mix(vec3(0.1500000059604644775390625 + (0.300000011920928955078125 * f23.y)), mix(CB0[26].xyz, CB0[25].xyz, vec3(f23.y)), vec3(clamp(exp2(CB0[11].y), 0.0, 1.0))) + ((CB0[10].xyz * ((((exp2(-f56) + ((0.5 * f57) * exp2((-0.100000001490116119384765625) * f56))) + ((f57 * 2.0) * exp2((-0.0199999995529651641845703125) * f56))) * dot(exp2(vec4(((-93.775177001953125) * f10) + (-79.34822845458984375), ((-83.703338623046875) * f11) * f11, 7.810082912445068359375 * f10, (-4.5521251698654729977988608879969e-12) * f10)), vec4(9.8052332759834825992584228515625e-06, 0.13881979882717132568359375, 0.00205474696122109889984130859375, 0.0260056294500827789306640625))) * mix(0.0500000007450580596923828125 + (2.0 * pow(clamp(f43, 9.9999997473787516355514526367188e-06, 1.0), 0.300000011920928955078125 + (5.5 * f23.y))), 1.0, f56))) * 2.099999904632568359375);
-                float f59 = exp2(((-1.44269502162933349609375) / f15) * f43);
-                vec3 f60 = f24.xyz + (((f58 - (f58 * f59)) * f35) / vec3(f43));
-                vec4 f61 = vec4(f60.x, f60.y, f60.z, f24.w);
-                float f62 = f35 * f59;
-                if (f62 < 0.001000000047497451305389404296875)
-                {
-                    f32 = f61;
-                    f30 = f62;
-                    f29 = true;
-                    break;
-                }
-                f33 = f61;
-                f31 = f62;
-            }
-            else
-            {
-                f33 = f24;
-                f31 = f35;
-            }
-            f28 = f42 ? true : f36;
-            f25 = f22 + f18;
-            vec3 f63 = f12 * vec3(f18, f16, f18);
-            f26 = f23 + f63;
-            f27 = f21 + f63;
-            f24 = f33;
-            f23 = f26;
-            f22 = f25;
-            f35 = f31;
-            f21 = f27;
-            f34++;
-            f36 = f28;
-            continue;
+            vec3 f41 = -CB0[11].xyz;
+            vec4 f42 = textureLod(BeerShadowMapTexture, vec4((f22 - (f41 * (f22.y * (1.0 / max(f41.y, 9.9999997473787516355514526367188e-05))))).xz * vec2(0.03125), 0.0, 0.0).xy, 0.0);
+            float f43 = f42.x;
+            float f44 = mix(0.07999999821186065673828125, 1.0, smoothstep(0.959999978542327880859375, 0.0, f10));
+            vec3 f45 = f1 * f1;
+            bvec3 f46 = lessThan(f1, vec3(0.0));
+            vec3 f47 = vec3(f46.x ? f45.x : vec3(0.0).x, f46.y ? f45.y : vec3(0.0).y, f46.z ? f45.z : vec3(0.0).z);
+            vec3 f48 = f45 - f47;
+            float f49 = f48.x;
+            float f50 = f48.y;
+            float f51 = f48.z;
+            float f52 = f47.x;
+            float f53 = f47.y;
+            float f54 = f47.z;
+            vec3 f55 = (max(mix(vec3(0.1500000059604644775390625 + (0.300000011920928955078125 * f22.y)), mix(CB0[26].xyz, CB0[25].xyz, vec3(f22.y)), vec3(clamp(exp2(CB0[11].y), 0.0, 1.0))) * (((((((CB0[35].xyz * f49) + (CB0[37].xyz * f50)) + (CB0[39].xyz * f51)) + (CB0[36].xyz * f52)) + (CB0[38].xyz * f53)) + (CB0[40].xyz * f54)) + (((((((CB0[29].xyz * f49) + (CB0[31].xyz * f50)) + (CB0[33].xyz * f51)) + (CB0[30].xyz * f52)) + (CB0[32].xyz * f53)) + (CB0[34].xyz * f54)) * 1.0)), CB0[28].xyz + CB0[27].xyz) + ((CB0[10].xyz * clamp((((exp2(-f43) + ((0.1500000059604644775390625 * f44) * exp2((-0.100000001490116119384765625) * f43))) + ((f44 * 2.0) * exp2((-0.0199999995529651641845703125) * f43))) * f12) * mix(0.100000001490116119384765625 + pow(clamp(f39, 9.9999997473787516355514526367188e-06, 1.0), 0.300000011920928955078125 + (5.5 * f22.y)), 1.0, f43), 0.0, 1.0)) * 2.099999904632568359375)) * CB5[3].xyz;
+            float f56 = exp2(((-1.44269502162933349609375) / f15) * f39);
+            vec3 f57 = f21.xyz + (((f55 - (f55 * f56)) * f20) * ((f56 + ((f39 * 0.07999999821186065673828125) / f15)) * (1.75 - ((f35 * CB5[2].y) * f34))));
+            f27 = vec4(f57.x, f57.y, f57.z, f21.w);
+            f26 = f20 * f56;
         }
         else
         {
-            f32 = f24;
-            f30 = f35;
-            f29 = f36;
-            break;
+            f27 = f21;
+            f26 = f20;
         }
+        f25 = f40 ? true : f19;
+        f23 = f29 + f16;
+        f24 = f22 + (f1 * f17);
     }
-    if (!f29)
+    if (!f19)
     {
         discard;
     }
-    float f64 = exp2((CB0[13].z * 3.5714285373687744140625) * (f22 * f22));
-    vec3 f65 = textureLod(PrefilteredEnvTexture, vec4(f1.x, f2, f1.z, 0.0).xyz, max(CB0[13].y, f64) * 5.0).xyz;
-    bvec3 f66 = bvec3(CB0[13].w != 0.0);
-    vec3 f67 = mix(vec3(f66.x ? CB0[14].xyz.x : f65.x, f66.y ? CB0[14].xyz.y : f65.y, f66.z ? CB0[14].xyz.z : f65.z), f32.xyz, vec3(f64));
-    vec4 f68 = vec4(f67.x, f67.y, f67.z, f32.w);
-    f68.w = 1.0 - f30;
-    _entryPointOutput_color = f68;
+    float f58 = pow(max(exp2((CB0[13].z * 3.5714285373687744140625) * (f8 * f8)), 9.9999997473787516355514526367188e-05), 0.125);
+    vec3 f59 = textureLod(PrefilteredEnvTexture, vec4(f1.x, f2, f1.z, 0.0).xyz, max(CB0[13].y, f58) * 5.0).xyz;
+    bvec3 f60 = bvec3(!(CB0[13].w == 0.0));
+    vec3 f61 = mix(vec3(f60.x ? CB0[14].xyz.x : f59.x, f60.y ? CB0[14].xyz.y : f59.y, f60.z ? CB0[14].xyz.z : f59.z), (f21.xyz * (1.6480000019073486328125 - ((0.00200000009499490261077880859375 * f15) * f15))).xyz, vec3(f58));
+    float f62 = 1.0 - f20;
+    vec4 f63 = vec4(f61.x, f61.y, f61.z, f21.w);
+    f63.w = f62;
+    vec4 f64 = f63;
+    f64.w = f62 * max(f58, CB0[13].y);
+    _entryPointOutput_color = f64;
 }
 
 //$$PrefilteredEnvTexture=s15
-//$$NoiseTexTexture=s1
 //$$CloudsDistanceFieldTexture=s0
+//$$AdvectionTexTexture=s6
+//$$DetailTex3DTexture=s5
+//$$BeerShadowMapTexture=s3
+//$$BlueNoiseTexTexture=s7

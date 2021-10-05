@@ -272,7 +272,7 @@ Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
-Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, , 
+Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, ,Enable Streaming to begin editing your experience sooner
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.General.TeamCreateStreamingWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing

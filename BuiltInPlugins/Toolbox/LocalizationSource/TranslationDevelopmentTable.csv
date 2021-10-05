@@ -232,7 +232,8 @@ Edit,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple)
 "Can use, view and edit this package",Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends
 Friends,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked
 Blocked,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator
-Package Creator,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users
+Package Creator,Studio.Toolbox.General.CategoryGroupAnimations,Group Animations
+Group Animations,Studio.Toolbox.AssetConfigPackagePermissions.UsersCollaboratorType,Users
 Users,Studio.Toolbox.AssetConfigPackagePermissions.GroupsCollaboratorType,Groups
 Groups,Studio.Toolbox.AssetConfigPackagePermissions.MyFriendsCollaborator,My Friends
 My Friends,Studio.Toolbox.AssetConfigPreview.Process,Image will be reviewed by moderators before being made visible to other users

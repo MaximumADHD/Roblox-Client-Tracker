@@ -1637,6 +1637,13 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CurveAnimation",
+            "Superclass": "AnimationClip"
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -6793,6 +6800,24 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "Attachment"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Brightness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
                     }
                 },
                 {
@@ -16832,6 +16857,18 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "Close",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetFrameById",
                     "Parameters": [
                         {
@@ -17049,25 +17086,6 @@
                         },
                         {
                             "Name": "callback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "Terminate",
-                    "Parameters": [
-                        {
-                            "Name": "status",
                             "Type": {
                                 "Category": "DataType",
                                 "Name": "Function"
@@ -34152,6 +34170,24 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ImportAsModelAsset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "ImporterGroupSettings",
@@ -34174,6 +34210,28 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Dimensions",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
+                    }
+                },
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -34209,6 +34267,28 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "PolygonCount",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -34241,6 +34321,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector3"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ImportAsModelAsset",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -40813,6 +40911,58 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetProtocolMethodRequestMessageId",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetProtocolMethodResponseMessageId",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Publish",
                     "Parameters": [
                         {
@@ -40839,10 +40989,191 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PublishProtocolMethodRequest",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "customTelemetryData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PublishProtocolMethodResponse",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "responseCode",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "customTelemetryData",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "Subscribe",
                     "Parameters": [
                         {
                             "Name": "mid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        },
+                        {
+                            "Name": "once",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "sticky",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribeToProtocolMethodRequest",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        },
+                        {
+                            "Name": "once",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "sticky",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribeToProtocolMethodResponse",
+                    "Parameters": [
+                        {
+                            "Name": "protocolName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "methodName",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -42007,6 +42338,16 @@
                 "NotCreatable",
                 "Service",
                 "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "NewVoiceChatService",
+            "Superclass": "Instance",
+            "Tags": [
+                "Service"
             ]
         },
         {
@@ -45291,7 +45632,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "TerrainRegion"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -45579,7 +45920,7 @@
                             "Name": "region",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "TerrainRegion"
                             }
                         },
                         {
@@ -48709,6 +49050,24 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "Brightness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "Color",
                     "Security": {
                         "Read": "None",
@@ -48923,6 +49282,78 @@
                     }
                 },
                 {
+                    "Category": "EmitterShape",
+                    "MemberType": "Property",
+                    "Name": "Shape",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ParticleEmitterShape"
+                    }
+                },
+                {
+                    "Category": "EmitterShape",
+                    "MemberType": "Property",
+                    "Name": "ShapeInOut",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ParticleEmitterShapeInOut"
+                    }
+                },
+                {
+                    "Category": "EmitterShape",
+                    "MemberType": "Property",
+                    "Name": "ShapePartial",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "EmitterShape",
+                    "MemberType": "Property",
+                    "Name": "ShapeStyle",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ParticleEmitterShapeStyle"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "Size",
@@ -48974,6 +49405,24 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "Squash",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "NumberSequence"
                     }
                 },
                 {
@@ -53353,7 +53802,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Player"
                     },
                     "Security": "LocalUserSecurity",
                     "ThreadSafety": "Unsafe"
@@ -53416,7 +53865,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -53613,7 +54062,7 @@
                             "Name": "description",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "HumanoidDescription"
                             }
                         },
                         {
@@ -53634,7 +54083,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Model"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53656,7 +54105,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Model"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53678,7 +54127,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Model"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53723,7 +54172,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "FriendPages"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53745,7 +54194,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "HumanoidDescription"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53767,7 +54216,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "HumanoidDescription"
                     },
                     "Security": "None",
                     "Tags": [
@@ -53929,7 +54378,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         },
                         {
@@ -53943,7 +54392,7 @@
                             "Name": "targetPlayer",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -53958,7 +54407,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -53973,7 +54422,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -53988,7 +54437,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -54003,7 +54452,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -56515,6 +56964,17 @@
             "MemoryCategory": "Instances",
             "Name": "SunRaysEffect",
             "Superclass": "PostEffect"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ProcessInstancePhysicsService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
         },
         {
             "Members": [
@@ -70067,7 +70527,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -70082,7 +70542,7 @@
                             "Name": "player",
                             "Type": {
                                 "Category": "Class",
-                                "Name": "Instance"
+                                "Name": "Player"
                             }
                         }
                     ],
@@ -72124,6 +72584,24 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
+                    "Name": "Brightness",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
                     "Name": "Color",
                     "Security": {
                         "Read": "None",
@@ -72648,7 +73126,7 @@
                     ],
                     "ReturnType": {
                         "Category": "Class",
-                        "Name": "Instance"
+                        "Name": "Tween"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -78942,8 +79420,8 @@
                     "MemberType": "Property",
                     "Name": "VoiceChatState",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": false,
@@ -78970,7 +79448,7 @@
                         "Category": "Primitive",
                         "Name": "string"
                     },
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Deprecated"
                     ],
@@ -79381,7 +79859,7 @@
                             }
                         }
                     ],
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Deprecated"
                     ],
@@ -79399,7 +79877,7 @@
                             }
                         }
                     ],
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Deprecated"
                     ],
@@ -79424,7 +79902,7 @@
                             }
                         }
                     ],
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
                     "Tags": [
                         "Deprecated"
                     ],
@@ -82810,10 +83288,6 @@
                     "Value": 1
                 },
                 {
-                    "Name": "Direct3D9",
-                    "Value": 3
-                },
-                {
                     "Name": "Direct3D11",
                     "Value": 2
                 },
@@ -85217,6 +85691,57 @@
                 }
             ],
             "Name": "PartType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Box",
+                    "Value": 0
+                },
+                {
+                    "Name": "Sphere",
+                    "Value": 1
+                },
+                {
+                    "Name": "Cylinder",
+                    "Value": 2
+                },
+                {
+                    "Name": "Disc",
+                    "Value": 3
+                }
+            ],
+            "Name": "ParticleEmitterShape"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Outward",
+                    "Value": 0
+                },
+                {
+                    "Name": "Inward",
+                    "Value": 1
+                },
+                {
+                    "Name": "InAndOut",
+                    "Value": 2
+                }
+            ],
+            "Name": "ParticleEmitterShapeInOut"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Volume",
+                    "Value": 0
+                },
+                {
+                    "Name": "Surface",
+                    "Value": 1
+                }
+            ],
+            "Name": "ParticleEmitterShapeStyle"
         },
         {
             "Items": [

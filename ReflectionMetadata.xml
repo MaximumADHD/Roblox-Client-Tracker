@@ -1633,6 +1633,15 @@
 
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">ZOffset</string>
             <double name="UIMinimum">-1</double>
             <double name="UIMaximum">1</double>
@@ -1732,6 +1741,15 @@
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -1798,6 +1816,29 @@
             <double name="UIMaximum">1</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Size</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>0
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Transparency</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Brightness</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">10</double>
+            <double name="UINumTicks">2000</double>
+          </Properties>
+        </Item>
 
         <Item class="ReflectionMetadataMember">
           <Properties>
@@ -1828,7 +1869,13 @@
             <double name="UINumTicks">100</double>
           </Properties>
         </Item>
-
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Squash</string>
+            <double name="UIMinimum">-3</double>
+            <double name="UIMaximum">3</double>
+          </Properties>
+        </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Rotation</string>

@@ -33,12 +33,15 @@ BokehNearCoCFS,Fragment
 CheapBokehFS,Fragment
 CheckerboardDepthFS,Fragment
 Clouds2dFS,Fragment
+Clouds2dOldFS,Fragment
 CloudsBsmFS,Fragment
+CloudsBsmOldFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsFS,Fragment
+CloudsOldFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
@@ -48,6 +51,7 @@ DefaultDepthVS_Level0,Vertex
 DefaultDepthVS_Level1,Vertex
 DefaultDepthVS_Level2,Vertex
 DefaultDepthVS_Level6,Vertex
+DefaultDepthVS_Level4098,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_Level0,Fragment
 DefaultForceFieldHQFS_Level8,Fragment
@@ -59,6 +63,8 @@ DefaultForceFieldHQVS_Level8,Vertex
 DefaultForceFieldHQVS_Level9,Vertex
 DefaultForceFieldHQVS_Level10,Vertex
 DefaultForceFieldHQVS_Level14,Vertex
+DefaultForceFieldHQVS_Level4098,Vertex
+DefaultForceFieldHQVS_Level4106,Vertex
 DefaultForceFieldSHQFS_Level0,Fragment
 DefaultForceFieldSHQFS_Level8,Fragment
 DefaultForceFieldVS_Level0,Vertex
@@ -69,6 +75,8 @@ DefaultForceFieldVS_Level1024,Vertex
 DefaultForceFieldVS_Level1025,Vertex
 DefaultForceFieldVS_Level1026,Vertex
 DefaultForceFieldVS_Level1030,Vertex
+DefaultForceFieldVS_Level4098,Vertex
+DefaultForceFieldVS_Level5122,Vertex
 DefaultGlassHQFS_Level0,Fragment
 DefaultGlassHQFS_Level8,Fragment
 DefaultGlassSuperHQFS_Level0,Fragment
@@ -81,6 +89,8 @@ DefaultHQVS_Level8,Vertex
 DefaultHQVS_Level9,Vertex
 DefaultHQVS_Level10,Vertex
 DefaultHQVS_Level14,Vertex
+DefaultHQVS_Level4098,Vertex
+DefaultHQVS_Level4106,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
 DefaultNeonFS,Fragment
@@ -102,6 +112,8 @@ DefaultNewShadowVS_Level64,Vertex
 DefaultNewShadowVS_Level65,Vertex
 DefaultNewShadowVS_Level66,Vertex
 DefaultNewShadowVS_Level70,Vertex
+DefaultNewShadowVS_Level4098,Vertex
+DefaultNewShadowVS_Level4162,Vertex
 DefaultOpaqueFS,Fragment
 DefaultOpaqueFS_Level0,Fragment
 DefaultOpaqueFS_Level2,Fragment
@@ -127,11 +139,14 @@ DefaultReflectionVS_Level1024,Vertex
 DefaultReflectionVS_Level1025,Vertex
 DefaultReflectionVS_Level1026,Vertex
 DefaultReflectionVS_Level1030,Vertex
+DefaultReflectionVS_Level4098,Vertex
+DefaultReflectionVS_Level5122,Vertex
 DefaultShadowFS,Fragment
 DefaultShadowGeomVS_Level0,Vertex
 DefaultShadowGeomVS_Level1,Vertex
 DefaultShadowGeomVS_Level2,Vertex
 DefaultShadowGeomVS_Level6,Vertex
+DefaultShadowGeomVS_Level4098,Vertex
 DefaultSurfaceAppearanceDitheredDepthFS,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredDepthFS_Level2,Fragment
@@ -139,6 +154,7 @@ DefaultSurfaceAppearanceDitheredDepthVS_Level0,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level1,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level2,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level6,Vertex
+DefaultSurfaceAppearanceDitheredDepthVS_Level4098,Vertex
 DefaultSurfaceAppearanceDitheredFS,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level2,Fragment
@@ -161,6 +177,10 @@ DefaultSurfaceHQVS_Level8,Vertex
 DefaultSurfaceHQVS_Level9,Vertex
 DefaultSurfaceHQVS_Level10,Vertex
 DefaultSurfaceHQVS_Level14,Vertex
+DefaultSurfaceHQVS_Level4098,Vertex
+DefaultSurfaceHQVS_Level4106,Vertex
+DefaultTiledEmissiveHideDiffuseRepHQFS_Level0,Fragment
+DefaultTiledEmissiveHideDiffuseRepHQFS_Level8,Fragment
 DefaultTiledHideAllRepHQFS_Level0,Fragment
 DefaultTiledHideAllRepHQFS_Level8,Fragment
 DefaultTiledHideDiffuseRepHQFS_Level0,Fragment
@@ -184,6 +204,8 @@ DefaultVS_Level1024,Vertex
 DefaultVS_Level1025,Vertex
 DefaultVS_Level1026,Vertex
 DefaultVS_Level1030,Vertex
+DefaultVS_Level4098,Vertex
+DefaultVS_Level5122,Vertex
 DefaultWangHQFS_Level0,Fragment
 DefaultWangHQFS_Level8,Fragment
 DepthResolveMax2FS,Fragment
@@ -228,6 +250,8 @@ GlassVS_Level1024,Vertex
 GlassVS_Level1025,Vertex
 GlassVS_Level1026,Vertex
 GlassVS_Level1030,Vertex
+GlassVS_Level4098,Vertex
+GlassVS_Level5122,Vertex
 GrassFS,Fragment
 GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
@@ -244,6 +268,8 @@ GridVS_Level8,Vertex
 GridVS_Level9,Vertex
 GridVS_Level10,Vertex
 GridVS_Level14,Vertex
+GridVS_Level4098,Vertex
+GridVS_Level4106,Vertex
 IBLDebugFS,Fragment
 IBLDebugVS,Vertex
 ImageProcessAlphaFS,Fragment

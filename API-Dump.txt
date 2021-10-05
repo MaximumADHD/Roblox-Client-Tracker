@@ -75,6 +75,7 @@ Class Animation : Instance
 Class AnimationClip : Instance [NotCreatable]
 	Property bool AnimationClip.Loop
 	Property Enum.AnimationPriority AnimationClip.Priority
+Class CurveAnimation : AnimationClip
 Class KeyframeSequence : AnimationClip
 	Property float KeyframeSequence.AuthoredHipHeight {PluginSecurity} [Hidden]
 	Function void KeyframeSequence:AddKeyframe(Instance keyframe)
@@ -345,6 +346,7 @@ Class WrapTarget : BaseWrap
 	Property Color3 WrapTarget.Color [NotReplicated] [NotScriptable]
 	Property Enum.WrapTargetDebugMode WrapTarget.DebugMode [NotReplicated] [NotScriptable]
 Class Beam : Instance
+	Property float Beam.Brightness
 	Property ColorSequence Beam.Color
 	Property bool Beam.Enabled
 	Property float Beam.LightEmission
@@ -892,6 +894,7 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property bool DebuggerConnection.HasError {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void DebuggerConnection:AddBreakpoint(string script, int line, Breakpoint breakpoint) {RobloxScriptSecurity}
+	Function void DebuggerConnection:Close() {RobloxScriptSecurity}
 	Function StackFrame DebuggerConnection:GetFrameById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetSource(string scriptRef, Function status) {RobloxScriptSecurity}
 	Function ThreadState DebuggerConnection:GetThreadById(int id) {RobloxScriptSecurity}
@@ -902,7 +905,6 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Function void DebuggerConnection:RemoveBreakpoint(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:SetVariable(DebuggerVariable variable, string value, Function callback) {RobloxScriptSecurity}
-	Function int DebuggerConnection:Terminate(Function status) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointAdded(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointChanged(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointRemoved(Breakpoint breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
@@ -1829,12 +1831,16 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property bool ImporterBaseSettings.ShouldImport
 	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterGroupSettings.ImportAsModelAsset
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
+	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
+	Property bool ImporterRootSettings.ImportAsModelAsset
 	Property bool ImporterRootSettings.InvertNegativeFaces
 	Property bool ImporterRootSettings.MergeMeshes
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
@@ -2173,8 +2179,14 @@ Class MessageBusService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant MessageBusService:Call(string key, Variant input) {RobloxScriptSecurity}
 	Function Variant MessageBusService:GetLast(string mid) {RobloxScriptSecurity}
 	Function string MessageBusService:GetMessageId(string domainName, string messageName) {RobloxScriptSecurity}
+	Function string MessageBusService:GetProtocolMethodRequestMessageId(string protocolName, string methodName) {RobloxScriptSecurity}
+	Function string MessageBusService:GetProtocolMethodResponseMessageId(string protocolName, string methodName) {RobloxScriptSecurity}
 	Function void MessageBusService:Publish(string mid, Variant params) {RobloxScriptSecurity}
+	Function void MessageBusService:PublishProtocolMethodRequest(string protocolName, string methodName, Variant message, Variant customTelemetryData) {RobloxScriptSecurity}
+	Function void MessageBusService:PublishProtocolMethodResponse(string protocolName, string methodName, Variant message, int responseCode, Variant customTelemetryData) {RobloxScriptSecurity}
 	Function Instance MessageBusService:Subscribe(string mid, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
+	Function Instance MessageBusService:SubscribeToProtocolMethodRequest(string protocolName, string methodName, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
+	Function Instance MessageBusService:SubscribeToProtocolMethodResponse(string protocolName, string methodName, Function callback, bool once, bool sticky) {RobloxScriptSecurity}
 Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
 	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
@@ -2239,6 +2251,7 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
 	Property string NetworkSettings.HttpProxyURL {✏️RobloxScriptSecurity}
+Class NewVoiceChatService : Instance [Service]
 Class NoCollisionConstraint : Instance
 	Property bool NoCollisionConstraint.Enabled
 	Property BasePart NoCollisionConstraint.Part0
@@ -2402,7 +2415,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Vector3 Terrain:CellCornerToWorld(int x, int y, int z)
 	Function void Terrain:Clear()
 	Function void Terrain:ConvertToSmooth() {PluginSecurity} [Deprecated]
-	Function Instance Terrain:CopyRegion(Region3int16 region)
+	Function TerrainRegion Terrain:CopyRegion(Region3int16 region)
 	Function int Terrain:CountCells()
 	Function void Terrain:FillBall(Vector3 center, float radius, Enum.Material material)
 	Function void Terrain:FillBlock(CFrame cframe, Vector3 size, Enum.Material material)
@@ -2412,7 +2425,7 @@ Class Terrain : BasePart [NotCreatable]
 	Function Tuple Terrain:GetCell(int x, int y, int z) [Deprecated]
 	Function Color3 Terrain:GetMaterialColor(Enum.Material material)
 	Function Tuple Terrain:GetWaterCell(int x, int y, int z) [Deprecated]
-	Function void Terrain:PasteRegion(Instance region, Vector3int16 corner, bool pasteEmptyCells)
+	Function void Terrain:PasteRegion(TerrainRegion region, Vector3int16 corner, bool pasteEmptyCells)
 	Function Tuple Terrain:ReadVoxels(Region3 region, float resolution) [CustomLuaState] {🧬Safe}
 	Function void Terrain:ReplaceMaterial(Region3 region, float resolution, Enum.Material sourceMaterial, Enum.Material targetMaterial)
 	Function void Terrain:SetCell(int x, int y, int z, Enum.CellMaterial material, Enum.CellBlock block, Enum.CellOrientation orientation) [Deprecated]
@@ -2561,11 +2574,13 @@ Class OutfitPages : Pages [NotCreatable] [NotReplicated]
 Class StandardPages : Pages [NotCreatable] [NotReplicated]
 Class PartOperationAsset : Instance
 Class ParticleEmitter : Instance
+	Property float ParticleEmitter.Brightness
 	Property ColorSequence ParticleEmitter.Color
 	Property float ParticleEmitter.LightEmission
 	Property float ParticleEmitter.LightInfluence
 	Property Enum.ParticleOrientation ParticleEmitter.Orientation
 	Property NumberSequence ParticleEmitter.Size
+	Property NumberSequence ParticleEmitter.Squash
 	Property Content ParticleEmitter.Texture
 	Property NumberSequence ParticleEmitter.Transparency
 	Property float ParticleEmitter.ZOffset
@@ -2578,6 +2593,10 @@ Class ParticleEmitter : Instance
 	Property NumberRange ParticleEmitter.Speed
 	Property Vector2 ParticleEmitter.SpreadAngle
 	Property float ParticleEmitter.VelocitySpread [<📁> LoadOnly] [NotReplicated] [Deprecated]
+	Property Enum.ParticleEmitterShape ParticleEmitter.Shape
+	Property Enum.ParticleEmitterShapeInOut ParticleEmitter.ShapeInOut
+	Property float ParticleEmitter.ShapePartial
+	Property Enum.ParticleEmitterShapeStyle ParticleEmitter.ShapeStyle
 	Property Vector3 ParticleEmitter.Acceleration
 	Property float ParticleEmitter.Drag
 	Property bool ParticleEmitter.LockedToPart
@@ -2793,21 +2812,21 @@ Class Players : Instance [NotCreatable] [Service]
 	Property int Players.PreferredPlayersInternal {LocalUserSecurity} [Hidden]
 	Property float Players.RespawnTime
 	Function void Players:Chat(string message) {PluginSecurity}
-	Function Instance Players:CreateHumanoidModelFromDescription(Instance description, Enum.HumanoidRigType rigType, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
-	Function Instance Players:CreateHumanoidModelFromUserId(int64 userId) [Yields]
-	Function Instance Players:CreateLocalPlayer() {LocalUserSecurity}
-	Function Instance Players:GetCharacterAppearanceAsync(int64 userId) [Yields] [Deprecated]
+	Function Model Players:CreateHumanoidModelFromDescription(HumanoidDescription description, Enum.HumanoidRigType rigType, Enum.AssetTypeVerification assetTypeVerification = "Default") [Yields]
+	Function Model Players:CreateHumanoidModelFromUserId(int64 userId) [Yields]
+	Function Player Players:CreateLocalPlayer() {LocalUserSecurity}
+	Function Model Players:GetCharacterAppearanceAsync(int64 userId) [Yields] [Deprecated]
 	Function Dictionary Players:GetCharacterAppearanceInfoAsync(int64 userId) [Yields]
-	Function Instance Players:GetFriendsAsync(int64 userId) [Yields]
-	Function Instance Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
-	Function Instance Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
+	Function FriendPages Players:GetFriendsAsync(int64 userId) [Yields]
+	Function HumanoidDescription Players:GetHumanoidDescriptionFromOutfitId(int64 outfitId) [Yields]
+	Function HumanoidDescription Players:GetHumanoidDescriptionFromUserId(int64 userId) [Yields]
 	Function string Players:GetNameFromUserIdAsync(int64 userId) [Yields]
 	Function Player Players:GetPlayerByUserId(int64 userId)
 	Function Player Players:GetPlayerFromCharacter(Model character)
 	Function Objects Players:GetPlayers()
 	Function int64 Players:GetUserIdFromNameAsync(string userName) [Yields]
 	Function Tuple Players:GetUserThumbnailAsync(int64 userId, Enum.ThumbnailType thumbnailType, Enum.ThumbnailSize thumbnailSize) [Yields]
-	Function void Players:ReportAbuse(Instance player, string reason, string optionalMessage) {LocalUserSecurity}
+	Function void Players:ReportAbuse(Player player, string reason, string optionalMessage) {LocalUserSecurity}
 	Function void Players:SetChatStyle(Enum.ChatStyle style = "Classic") {PluginSecurity}
 	Function void Players:SetLocalPlayerInfo(int64 userId, string userName, string displayName, Enum.MembershipType membershipType, bool isUnder13) {RobloxScriptSecurity}
 	Function void Players:TeamChat(string message) {PluginSecurity}
@@ -2817,11 +2836,11 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.FriendRequestEvent(Player player, Player player, Enum.FriendRequestEvent friendRequestEvent) {RobloxScriptSecurity}
 	Event Players.GameAnnounce(string message) {RobloxScriptSecurity}
 	Event Players.PlayerAdded(Player player)
-	Event Players.PlayerChatted(Enum.PlayerChatType chatType, Instance player, string message, Instance targetPlayer) {LocalUserSecurity}
-	Event Players.PlayerConnecting(Instance player) {LocalUserSecurity}
-	Event Players.PlayerDisconnecting(Instance player) {LocalUserSecurity}
-	Event Players.PlayerMembershipChanged(Instance player)
-	Event Players.PlayerRejoining(Instance player) {LocalUserSecurity}
+	Event Players.PlayerChatted(Enum.PlayerChatType chatType, Player player, string message, Player targetPlayer) {LocalUserSecurity}
+	Event Players.PlayerConnecting(Player player) {LocalUserSecurity}
+	Event Players.PlayerDisconnecting(Player player) {LocalUserSecurity}
+	Event Players.PlayerMembershipChanged(Player player)
+	Event Players.PlayerRejoining(Player player) {LocalUserSecurity}
 	Event Players.PlayerRemoving(Player player)
 Class Plugin : Instance [NotCreatable]
 	Property bool Plugin.UsesAssetInsertionDrag {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -2958,6 +2977,7 @@ Class DepthOfFieldEffect : PostEffect
 Class SunRaysEffect : PostEffect
 	Property float SunRaysEffect.Intensity
 	Property float SunRaysEffect.Spread
+Class ProcessInstancePhysicsService : Instance [NotCreatable] [Service]
 Class ProximityPrompt : Instance
 	Property string ProximityPrompt.ActionText
 	Property bool ProximityPrompt.ClickablePrompt
@@ -3700,8 +3720,8 @@ Class Team : Instance
 	Property int Team.Score [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property BrickColor Team.TeamColor
 	Function Objects Team:GetPlayers()
-	Event Team.PlayerAdded(Instance player)
-	Event Team.PlayerRemoved(Instance player)
+	Event Team.PlayerAdded(Player player)
+	Event Team.PlayerRemoved(Player player)
 Class Teams : Instance [NotCreatable] [Service]
 	Function Objects Teams:GetTeams()
 	Function void Teams:RebalanceTeams() [Deprecated]
@@ -3799,6 +3819,7 @@ Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void TracerService:FinishSpan(string spanId) {RobloxScriptSecurity}
 	Function string TracerService:StartSpan(string name, string parentId) {RobloxScriptSecurity}
 Class Trail : Instance
+	Property float Trail.Brightness
 	Property ColorSequence Trail.Color
 	Property bool Trail.FaceCamera
 	Property float Trail.LightEmission
@@ -3830,7 +3851,7 @@ Class Tween : TweenBase
 	Property Instance Tween.Instance [ReadOnly]
 	Property TweenInfo Tween.TweenInfo [ReadOnly]
 Class TweenService : Instance [NotCreatable] [Service]
-	Function Instance TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
+	Function Tween TweenService:Create(Instance instance, TweenInfo tweenInfo, Dictionary propertyTable)
 	Function float TweenService:GetValue(float alpha, Enum.EasingStyle easingStyle, Enum.EasingDirection easingDirection)
 Class UGCValidationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Objects UGCValidationService:FetchAssetWithFormat(Content url, string assetFormat) {RobloxScriptSecurity} [Yields]
@@ -4159,8 +4180,8 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChatService : Instance [NotCreatable] [Service]
-	Property Enum.VoiceChatState VoiceChatService.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
-	Function string VoiceChatService:GetAndClearCallFailureMessage() [Deprecated]
+	Property Enum.VoiceChatState VoiceChatService.VoiceChatState {RobloxScriptSecurity} [Hidden] [ReadOnly] [Deprecated]
+	Function string VoiceChatService:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Tuple VoiceChatService:GetAudioProcessingSettings() [Deprecated]
 	Function string VoiceChatService:GetGroupId() {RobloxScriptSecurity}
 	Function Tuple VoiceChatService:GetMicDevices() [Deprecated]
@@ -4180,9 +4201,9 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid) [Deprecated]
 	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused) [Deprecated]
 	Function bool VoiceChatService:SubscribePauseAll(bool paused) [Deprecated]
-	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) [Deprecated]
-	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo) [Deprecated]
-	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) [Deprecated]
+	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
+	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
+	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
@@ -4965,7 +4986,6 @@ Enum Genre [Deprecated]
 Enum GraphicsMode
 	EnumItem GraphicsMode.Automatic : 1
 	EnumItem GraphicsMode.Direct3D11 : 2
-	EnumItem GraphicsMode.Direct3D9 : 3
 	EnumItem GraphicsMode.OpenGL : 4
 	EnumItem GraphicsMode.Metal : 5
 	EnumItem GraphicsMode.Vulkan : 6
@@ -5537,6 +5557,18 @@ Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1
 	EnumItem PartType.Cylinder : 2
+Enum ParticleEmitterShape
+	EnumItem ParticleEmitterShape.Box : 0
+	EnumItem ParticleEmitterShape.Sphere : 1
+	EnumItem ParticleEmitterShape.Cylinder : 2
+	EnumItem ParticleEmitterShape.Disc : 3
+Enum ParticleEmitterShapeInOut
+	EnumItem ParticleEmitterShapeInOut.Outward : 0
+	EnumItem ParticleEmitterShapeInOut.Inward : 1
+	EnumItem ParticleEmitterShapeInOut.InAndOut : 2
+Enum ParticleEmitterShapeStyle
+	EnumItem ParticleEmitterShapeStyle.Volume : 0
+	EnumItem ParticleEmitterShapeStyle.Surface : 1
 Enum ParticleOrientation
 	EnumItem ParticleOrientation.FacingCamera : 0
 	EnumItem ParticleOrientation.FacingCameraWorldUp : 1

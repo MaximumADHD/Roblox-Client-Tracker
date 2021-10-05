@@ -15,16 +15,16 @@ Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
 Studio.Debugger.Callstack.FunctionNameColumn,Function Name,Function Name,Nombre de la función,関数名,함수 이름,Nome da função,函数名称,函数名称,函式名稱
 Studio.Debugger.Watch.WindowName,Watch,Watch,Inspeccionar,観察,조사식,Observar,监视,监视,監看
 Studio.Debugger.Watch.DropdownButtonText,{NumScopes:int} Scopes,{NumScopes:int} Scopes,{NumScopes:int} ámbitos,{NumScopes:int} 範囲,{NumScopes:int} 범위,{NumScopes:int} Escopos,{NumScopes:int} 域,{NumScopes:int} 域,{NumScopes:int} 範圍
-Studio.Debugger.BreakpointsWindow.EditBreakpoint,Edit Breakpoint,Edit Breakpoint, ,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
-Studio.Debugger.Common.EditBreakpoint,Edit Breakpoint,Edit Breakpoint, ,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
+Studio.Debugger.BreakpointsWindow.EditBreakpoint,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
+Studio.Debugger.Common.EditBreakpoint,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
 Studio.Debugger.Callstack.WhatColumn,What,What,Qué,名前,대상,Que,类型,类型,名稱
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.,Número de línea,行番号,줄 번호,Nº da linha,行号,行号,行號
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s),Insertar condiciones,条件を入力,조건 입력,Insira condições,输入条件,输入条件,輸入條件
 Studio.Debugger.Callstack.SourceColumn,Source,Source,Fuente,ソース,소스,Fonte,来源,来源,來源
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: ,Script actual: ,現在のスクリプト: ,현재 스크립트: ,Script atual: ,当前脚本： ,当前脚本： ,目前指令碼： 
-Studio.Debugger.BreakpointsWindow.DeleteLogpoint,Delete Logpoint,Delete Logpoint, ,ログポイントを削除,로그 지점 삭제,Excluir ponto de registro,删除日志点,删除日志点,刪除紀錄點
-Studio.Debugger.Common.DeleteLogpoint,Delete Logpoint,Delete Logpoint, ,ログポイントを削除,로그 지점 삭제,Excluir ponto de registro,删除日志点,删除日志点,刪除紀錄點
+Studio.Debugger.BreakpointsWindow.DeleteLogpoint,Delete Logpoint,Delete Logpoint,Eliminar punto de registro,ログポイントを削除,로그 지점 삭제,Excluir ponto de registro,删除日志点,删除日志点,刪除紀錄點
+Studio.Debugger.Common.DeleteLogpoint,Delete Logpoint,Delete Logpoint,Eliminar punto de registro,ログポイントを削除,로그 지점 삭제,Excluir ponto de registro,删除日志点,删除日志点,刪除紀錄點
 Studio.Debugger.BreakpointsWindow.ScriptColumn,Script,Script,Script,スクリプト,스크립트,Script,脚本,脚本,指令碼
 Studio.Debugger.BreakpointsWindow.LogMessageColumn,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
 Studio.Debugger.EditDebugpoint.LogLabel,Log Message,Log Message,Mensaje de registro,ログメッセージ,로그 메시지,Mensagens de registro,日志信息,日志信息,紀錄訊息
@@ -42,7 +42,7 @@ Studio.Debugger.Callstack.LineColumn,Line,Line,Línea,行,줄,Linha,行,行,行
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line,Línea fuente,ソース行,소스 줄,Linha fonte,源行,源行,原始行
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes,Todos los ámbitos,すべての範囲,모든 범위,Todos os escopos,所有域,所有域,所有範圍
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue,Upvalue,Upvalue,Upvalue,Upvalue,上值,上值,外部區域變數
-Studio.Debugger.Common.AddExpression,Add Expression,Add Expression, ,式を追加,식 추가,Adicionar expressão,添加表达式,添加表达式,新增運算式
+Studio.Debugger.Common.AddExpression,Add Expression,Add Expression,Añadir expresión,式を追加,식 추가,Adicionar expressão,添加表达式,添加表达式,新增運算式
 Studio.Debugger.Watch.Global,Global,Global,Global,グローバル,전역,Global,全局,全局,通用
 Studio.Debugger.Watch.VariablesTab,Variables,Variables,Variables,変数,변수,Variáveis,变量,变量,變數
 Studio.Debugger.Watch.WatchesTab,My Watches,My Watches,Mis inspecciones,観察中,내 조사식,Minhas observações,我的监视,我的监视,我的監看
@@ -50,19 +50,21 @@ Studio.Debugger.Watch.NameColumn,Name,Name,Nombre,名前,이름,Nome,名称,名�
 Studio.Debugger.Watch.ScopeColumn,Scope,Scope,Ámbito,範囲,범위,Escopo,域,域,範圍
 Studio.Debugger.Watch.ExpressionColumn,Expression,Expression,Expresión,式,식,Expressão,表达式,表达式,運算式
 Studio.Debugger.Watch.ValueColumn,Value,Value,Valor,値,값,Valor,值,值,值
-Studio.Debugger.BreakpointsWindow.EnableLogpoint,Enable Logpoint,Enable Logpoint, ,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
-Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint, ,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
+Studio.Debugger.BreakpointsWindow.EnableLogpoint,Enable Logpoint,Enable Logpoint,Activar punto de registro,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
+Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint,Activar punto de registro,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
 Studio.Debugger.Callstack.LayerColumn,Layer,Layer,Capa,層,레이어,Camada,层,层,層
 Studio.Debugger.Callstack.FunctionColumn,Function,Function,Función,関数,함수,Função,函数,函数,函式
-Studio.Debugger.BreakpointsWindow.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint, ,ブレークポイントを無効化,중단점 비활성화,Desativar ponto de interrupção,停用断点,停用断点,停用中斷點
-Studio.Debugger.Common.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint, ,ブレークポイントを無効化,중단점 비활성화,Desativar ponto de interrupção,停用断点,停用断点,停用中斷點
+Studio.Debugger.BreakpointsWindow.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint,Desactivar punto de interrupción,ブレークポイントを無効化,중단점 비활성화,Desativar ponto de interrupção,停用断点,停用断点,停用中斷點
+Studio.Debugger.Common.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint,Desactivar punto de interrupción,ブレークポイントを無効化,중단점 비활성화,Desativar ponto de interrupção,停用断点,停用断点,停用中斷點
 Studio.Debugger.Common.SelectAll,Select All,Select All,Seleccionar todo,すべて選択,모두 선택,Selecionar tudo,全选,全选,全選
-Studio.Debugger.BreakpointsWindow.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint, ,ブレークポイントを有効化,중단점 활성화,Ativar ponto de interrupção,启用断点,启用断点,啟用中斷點
-Studio.Debugger.Common.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint, ,ブレークポイントを有効化,중단점 활성화,Ativar ponto de interrupção,启用断点,启用断点,啟用中斷點
-Studio.Debugger.BreakpointsWindow.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint, ,ブレークポイントを削除,중단점 삭제,Excluir ponto de interrupção,删除断点,删除断点,刪除中斷點
-Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint, ,ブレークポイントを削除,중단점 삭제,Excluir ponto de interrupção,删除断点,删除断点,刪除中斷點
-Studio.Debugger.BreakpointsWindow.EditLogpoint,Edit Logpoint,Edit Logpoint, ,ログポイントを編集,로그 지점 편집,Editar ponto de registro,编辑日志点,编辑日志点,編輯紀錄點
-Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint, ,ログポイントを編集,로그 지점 편집,Editar ponto de registro,编辑日志点,编辑日志点,編輯紀錄點
-Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint, ,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
-Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint, ,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
-Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression, ,式を編集,식 편집,Editar expressão,编辑表达式,编辑表达式,編輯運算式
+Studio.Debugger.BreakpointsWindow.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint,Activar punto de interrupción,ブレークポイントを有効化,중단점 활성화,Ativar ponto de interrupção,启用断点,启用断点,啟用中斷點
+Studio.Debugger.Common.EnableBreakpoint,Enable Breakpoint,Enable Breakpoint,Activar punto de interrupción,ブレークポイントを有効化,중단점 활성화,Ativar ponto de interrupção,启用断点,启用断点,啟用中斷點
+Studio.Debugger.BreakpointsWindow.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint,Eliminar punto de interrupción,ブレークポイントを削除,중단점 삭제,Excluir ponto de interrupção,删除断点,删除断点,刪除中斷點
+Studio.Debugger.Common.DeleteBreakpoint,Delete Breakpoint,Delete Breakpoint,Eliminar punto de interrupción,ブレークポイントを削除,중단점 삭제,Excluir ponto de interrupção,删除断点,删除断点,刪除中斷點
+Studio.Debugger.BreakpointsWindow.EditLogpoint,Edit Logpoint,Edit Logpoint,Editar punto de registro,ログポイントを編集,로그 지점 편집,Editar ponto de registro,编辑日志点,编辑日志点,編輯紀錄點
+Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint,Editar punto de registro,ログポイントを編集,로그 지점 편집,Editar ponto de registro,编辑日志点,编辑日志点,編輯紀錄點
+Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
+Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
+Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression,Añadir expresión,式を編集,식 편집,Editar expressão,编辑表达式,编辑表达式,編輯運算式
+Studio.Debugger.Callstack.AllColumns,All Columns,All Columns, , , , , , , 
+Studio.Debugger.Callstack.DropdownButtonText,{NumFields:int} Columns,{NumFields:int} Columns, , , , , , , 

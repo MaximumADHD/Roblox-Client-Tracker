@@ -711,6 +711,17 @@
                 }
             }
         },
+        "PathfindingModifier": {
+            "summary": "Pathfinding Modifiers can be used to represent space that has a higher or lower cost to be traversed.",
+            "members": {
+                "ModifierId": {
+                    "summary": "The name of the navigation area inside or on top of the Part's volume."
+                },
+                "PassThrough": {
+                    "summary": "Determines if the Part(s) enclosed by this Pathfinding Modifier are traversable, even if they are collidable (e.g. a door)."
+                }
+            }
+        },
         "Sparkles": {
             "summary": "Makes the parent part or model object fantastic"
         },

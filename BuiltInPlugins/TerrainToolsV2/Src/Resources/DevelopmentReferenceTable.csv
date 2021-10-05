@@ -34,7 +34,6 @@ Studio.TerrainToolsV2.Action.Reload, ,Reload
 Studio.TerrainToolsV2.Action.Remove, ,Remove
 Studio.TerrainToolsV2.Action.Rename, ,Rename
 Studio.TerrainToolsV2.Action.Replace, ,Replace
-Studio.TerrainToolsV2.Action.Reset, ,Reset
 Studio.TerrainToolsV2.Action.Resume, ,Resume
 Studio.TerrainToolsV2.Action.Retry, ,Retry
 Studio.TerrainToolsV2.Action.Save, ,Save
@@ -45,11 +44,14 @@ Studio.TerrainToolsV2.Action.Update, ,Update
 Studio.TerrainToolsV2.Action.Yes, ,Yes
 Studio.TerrainToolsV2.AssetIdSelector.PlaceHolderText, ,Select game asset image
 Studio.TerrainToolsV2.BrushSettings.Advanced, ,Advanced
+Studio.TerrainToolsV2.BrushSettings.Apply, ,Apply
 Studio.TerrainToolsV2.BrushSettings.Auto, ,Auto
 Studio.TerrainToolsV2.BrushSettings.BaseSize, ,Base Size
 Studio.TerrainToolsV2.BrushSettings.BottomPivot, ,Bot
 Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
+Studio.TerrainToolsV2.BrushSettings.Edit, ,Edit
+Studio.TerrainToolsV2.BrushSettings.EditPlane, ,Edit Plane
 Studio.TerrainToolsV2.BrushSettings.FixedPlane, ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, ,Flatten Mode
 Studio.TerrainToolsV2.BrushSettings.Height, ,Height
@@ -61,6 +63,9 @@ Studio.TerrainToolsV2.BrushSettings.Off, ,Off
 Studio.TerrainToolsV2.BrushSettings.PivotPosition, ,Pivot Position
 Studio.TerrainToolsV2.BrushSettings.PlaneLock, ,Plane Lock
 Studio.TerrainToolsV2.BrushSettings.PlanePosition, ,Plane Position
+Studio.TerrainToolsV2.BrushSettings.Position, ,Position
+Studio.TerrainToolsV2.BrushSettings.Reset, ,Reset
+Studio.TerrainToolsV2.BrushSettings.Rotation, ,Rotation
 Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToGrid, ,Snap to Grid
