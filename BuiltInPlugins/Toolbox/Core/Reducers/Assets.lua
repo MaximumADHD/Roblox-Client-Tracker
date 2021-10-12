@@ -1,3 +1,5 @@
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -17,6 +19,7 @@ local SetPreviewModel = require(Actions.SetPreviewModel)
 local ClearPreview = require(Actions.ClearPreview)
 local SetCanManageAsset = require(Actions.SetCanManageAsset)
 local SetPluginData = require(Actions.SetPluginData)
+local SetMostRecentAssetInsertTime = require(Actions.SetMostRecentAssetInsertTime)
 
 local function handleAssetsAddedToState(state, assets, totalAssets, newCursor)
 	if not assets then
@@ -84,8 +87,10 @@ return Rodux.createReducer({
 	currentCursor = PagedRequestCursor.createDefaultCursor(),
 
 	previewModel = nil,
+	previewAssetId = nil,
 	isPreviewing = false,
 
+	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and 0 or nil,
 	manageableAssets = {},
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,
@@ -119,7 +124,8 @@ return Rodux.createReducer({
 
 	[SetAssetPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			isPreviewing = action.isPreviewing
+			isPreviewing = action.isPreviewing,
+			previewAssetId = FFlagToolboxAssetGridRefactor and action.previewAssetId or nil,
 		})
 	end,
 
@@ -151,6 +157,12 @@ return Rodux.createReducer({
 	[SetPluginData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			previewPluginData = action.pluginData,
+		})
+	end,
+
+	[SetMostRecentAssetInsertTime.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			mostRecentAssetInsertTime = action.mostRecentAssetInsertTime,
 		})
 	end,
 })

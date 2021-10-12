@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	A component used for a link text with an animated search icon,
 	that appears when the user hovers over the link text.

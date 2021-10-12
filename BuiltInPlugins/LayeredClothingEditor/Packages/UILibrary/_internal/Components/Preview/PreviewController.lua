@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	This component is used to render both mainPreview and TreeView.
 	MainView can be modelPreview, soundPreview, scriptPreview, imagePreview, otherPreview and audioPlay.

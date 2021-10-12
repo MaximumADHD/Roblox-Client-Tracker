@@ -7,20 +7,21 @@
 	Props:
 		Asset asset
 		number LayoutOrder
-		boolean isHovered
+		boolean isHovered	// remove with FFlagToolboxAssetGridRefactor
 
-		callback onAssetHovered(number assetId)
-		callback onAssetHoverEnded(number assetId)
+		callback onAssetHovered(number assetId)		// remove with FFlagToolboxAssetGridRefactor
+		callback onAssetHoverEnded(number assetId)	// remove with FFlagToolboxAssetGridRefactor
 
 		callback insertAsset(NetworkInterface networkInterface, number assetId)
 		callback onAssetInserted()
 
 		number currentSoundId
-		boolean isPlaying
-		callback onPreviewAudioButtonClicked
+		boolean isPlaying 	// remove with FFlagToolboxAssetGridRefactor
+		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -40,6 +41,7 @@ local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextIt
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local getNetwork = ContextGetter.getNetwork
+local getModal = ContextGetter.getModal
 
 local Components = Plugin.Core.Components
 local AssetFolder = Components.Asset
@@ -50,10 +52,16 @@ local AssetIcon = require(AssetFolder.AssetIcon)
 local AssetName = require(AssetFolder.AssetName)
 local Voting = require(AssetFolder.Voting.Voting)
 
+local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
+local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
+
 local GetOwnsAssetRequest = require(Plugin.Core.Networking.Requests.GetOwnsAssetRequest)
 local GetCanManageAssetRequest = require(Plugin.Core.Networking.Requests.GetCanManageAssetRequest)
 
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
+
 local Framework = require(Libs.Framework)
+local ShowOnTop = Framework.UI.ShowOnTop
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -61,49 +69,81 @@ local Category = require(Plugin.Core.Types.Category)
 
 local Asset = Roact.PureComponent:extend("Asset")
 
+if FFlagToolboxAssetGridRefactor then
+	Asset.defaultProps = {
+		parentSize = Vector2.new(),
+		parentAbsolutePosition = Vector2.new(),
+	}
+end
+
 function Asset:init(props)
-	if not props.asset then
-		if DebugFlags.shouldDebugWarnings() then
-			warn(("Toolbox asset id %s: asset not found"):format(tostring(props.assetId)))
-		end
-		return
+	if FFlagToolboxAssetGridRefactor then
+		self.wasAssetBoundsWithinScrollingBounds = false
+		self.hasInitiated = false
+		self.ref = Roact.createRef()
+
+		self.state = {
+			isHovered = false,
+			hoverPosition = nil,
+		}
 	end
 
-	local assetData = props.asset
-	local asset = assetData.Asset
-	local assetId = asset.Id
+	local assetData = (not FFlagToolboxAssetGridRefactor) and props.asset or nil
+	local asset = (not FFlagToolboxAssetGridRefactor) and assetData.Asset or nil
+	local assetId = (not FFlagToolboxAssetGridRefactor) and asset.Id or nil
 
-	local onAssetHovered = props.onAssetHovered
-	local onAssetHoverEnded = props.onAssetHoverEnded
 	local canInsertAsset = props.canInsertAsset
 
+	local onAssetHovered = (not FFlagToolboxAssetGridRefactor) and props.onAssetHovered or nil
+	local onAssetHoverEnded = (not FFlagToolboxAssetGridRefactor) and props.onAssetHoverEnded or nil
+
 	self.onMouseEntered = function(rbx, x, y)
-		onAssetHovered(assetId)
+		if FFlagToolboxAssetGridRefactor then
+			self.onAssetHovered()
+		else
+			onAssetHovered(assetId)
+		end
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
-		onAssetHoverEnded(assetId)
-	end
-
-	self.onInputEnded = function(rbx, input)
-		if input.UserInputType == Enum.UserInputType.Focus then
+		if FFlagToolboxAssetGridRefactor then
+			self.onAssetHoverEnded()
+		else
 			onAssetHoverEnded(assetId)
 		end
 	end
 
-	self.onMouseMoved = function(rbx, x, y)
-		onAssetHovered(assetId)
+	self.onInputEnded = function(rbx, input)
+		if input.UserInputType == Enum.UserInputType.Focus then
+			if FFlagToolboxAssetGridRefactor then
+				self.onAssetHoverEnded()
+			else
+				onAssetHoverEnded(assetId)
+			end
+		end
 	end
 
-	self.onMouseButton2Click = function(rbx, x, y)
-		local showEditOption = self.props.canManage
+	self.onMouseMoved = function(rbx, x, y)
+		if FFlagToolboxAssetGridRefactor then
+			self.onAssetHovered()
+		else
+			onAssetHovered(assetId)
+		end
+	end
 
-		self.props.tryCreateContextMenu(assetData, showEditOption)
+	if (not FFlagToolboxAssetGridRefactor) then
+		self.onMouseButton2Click = function(rbx, x, y)
+			local showEditOption = self.props.canManage
+			self.props.tryCreateContextMenu(assetData, showEditOption)
+		end
 	end
 
 	self.onDragStart = function(rbx, x, y)
 		if not canInsertAsset() then
 			return
+		end
+		if FFlagToolboxAssetGridRefactor then
+			assetData = self.props.assetData
 		end
 
 		self.props.tryInsert(assetData, true)
@@ -114,29 +154,150 @@ function Asset:init(props)
 			return
 		end
 
+		if FFlagToolboxAssetGridRefactor then
+			assetData = self.props.assetData
+			asset = assetData.Asset
+		else
+			asset = asset
+		end
+
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			self.props.onAssetPreviewButtonClicked(assetData)
+			if FFlagToolboxAssetGridRefactor then
+				self.props.onPreviewToggled(true, self.props.assetId)
+			else
+				self.props.onAssetPreviewButtonClicked(assetData)
+			end
 			return
 		end
 
 		self.props.tryInsert(assetData, false)
 	end
 
-	self.onAssetPreviewButtonClicked = function()
-		self.props.onAssetPreviewButtonClicked(assetData)
+	if (not FFlagToolboxAssetGridRefactor) then
+		self.onAssetPreviewButtonClicked = function()
+			self.props.onAssetPreviewButtonClicked(assetData)
+		end
+	end
+
+	if FFlagToolboxAssetGridRefactor then
+		self.onAssetHovered = function()
+			self:setState(function(prevState)
+				local ref = self.ref.current
+				local isPreviewing = self.props.isPreviewing
+				local modal = getModal(self)
+
+				if (not isPreviewing) and modal.canHoverAsset() then
+					local newPosition
+					if ref then
+						local pos = ref.AbsolutePosition
+						newPosition = UDim2.new(0, pos.X, 0, pos.Y)
+					end
+					if (self.state.isHovered == false) or (self.state.hoverPosition ~= newPosition) then
+						return {
+							isHovered = true,
+							hoverPosition = newPosition,
+						}
+					end
+				end
+				return nil
+			end)
+		end
+
+		self.onAssetHoverEnded = function()
+			if self.state.isHovered == true then
+				self:setState(function(prevState)
+					return {
+						isHovered = false,
+					}
+				end)
+			end
+		end
+
+		self.updateHoverPosition = function()
+			local ref = self.ref.current
+			if ref then
+				local pos = ref.AbsolutePosition
+				local newPosition = UDim2.new(0, pos.X, 0, pos.Y)
+				if self.state.hoverPosition ~= newPosition then
+					self:setState(function(prevState)
+						return {
+							hoverPosition = newPosition,
+						}
+					end)
+				end
+			end
+		end
+
+		self.tryCreateContextMenu = function(localization)
+			local props = self.props
+			local assetData = props.assetData
+			local plugin = props.Plugin:get()
+			local tryOpenAssetConfig = props.tryOpenAssetConfig
+			self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig)
+		end
+
+		self.getAssetSize = function()
+			local result
+			local showPrices = Category.shouldShowPrices(self.props.categoryName)
+			if showPrices then
+				result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
+					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
+			else
+				result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
+			end
+			return result
+		end
+
+		self.isWithinParentBounds = function(position)
+			-- NOTE: This assumes the parent's AnchorPoint is at 0,0
+			local parentSize = self.props.parentSize
+			local parentAbsolutePosition = self.props.parentAbsolutePosition
+
+			return (position.X >= parentAbsolutePosition.X)
+				and (position.X <= parentSize.X + parentAbsolutePosition.X)
+				and (position.Y >= parentAbsolutePosition.Y)
+				and (position.Y <= parentSize.Y + parentAbsolutePosition.Y)
+		end
+
+		self.onAbsolutePositionChange = function(rbx)
+			local assetData = self.props.assetData
+			local absolutePos = rbx.AbsolutePosition
+			local size = self.getAssetSize()
+
+			assert(rbx.AnchorPoint.X == 0 and rbx.AnchorPoint.Y == 0,"self.onAbsolutePositionChange needs the asset AnchorPoint to be 0,0 to calculate the scrollingBounds.")
+			local assetTopLeftBoundary = rbx.AbsolutePosition
+			local assetBottomRightBoundary = Vector2.new(absolutePos.X + size.X.Offset, absolutePos.Y + size.Y.Offset)
+
+			local wasAssetBoundsWithinScrollingBounds = self.isWithinParentBounds(assetTopLeftBoundary)
+				or self.isWithinParentBounds(assetBottomRightBoundary)
+
+			if assetData and wasAssetBoundsWithinScrollingBounds and (not self.wasAssetBoundsWithinScrollingBounds) then
+				self.props.AssetAnalytics:get():logImpression(assetData)
+			end
+			self.wasAssetBoundsWithinScrollingBounds = wasAssetBoundsWithinScrollingBounds
+		end
 	end
 end
 
 function Asset:didMount()
-	local assetData = self.props.asset
-	local asset = assetData.Asset
-	local assetId = asset.Id
+	local assetData
+	local assetId
+	if FFlagToolboxAssetGridRefactor then
+		assetData = self.props.assetData
+		assetId = self.props.assetId
+	else
+		assetData = self.props.asset
+		local asset = assetData.Asset
+		assetId = asset.Id
+	end
 
 	self.props.getOwnsAsset(getNetwork(self), assetId)
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 
-	self.props.AssetAnalytics:get():logImpression(assetData)
+	if (not FFlagToolboxAssetGridRefactor) or (FFlagToolboxAssetGridRefactor and assetData) then
+		self.props.AssetAnalytics:get():logImpression(assetData)
+	end
 end
 
 function Asset:render()
@@ -159,15 +320,42 @@ function Asset:renderContent(theme, localization, localizedContent)
 		theme = props.Stylizer
 	end
 
-	if not props.asset then
-		return
+	local isPreviewing
+	local assetData
+	local assetId
+	if FFlagToolboxAssetGridRefactor then
+		assetId = props.assetId
+		assetData = props.assetData
+		isPreviewing = props.isPreviewing
+		local categoryName = props.categoryName
+		local currentUserPackagePermissions = props.currentUserPackagePermissions
+
+		local isGroupPackageAsset = Category.categoryIsGroupPackages(categoryName)
+		local canEditPackage = (currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+		or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+
+		local showAsset
+		if isGroupPackageAsset then
+			showAsset = canEditPackage
+		else
+			showAsset = true
+		end
+
+		if (not assetData) or (not showAsset) then
+			-- TODO: Render Loading instead?
+			return
+		end
+	else
+		assetData = props.asset
+		if not assetData then
+			return
+		end
 	end
 
-	local assetData = props.asset
+	local layoutOrder = props.LayoutOrder
 	local ownsAsset = props.ownsAsset
-
 	local asset = assetData.Asset
-	local assetId = asset.Id
+	assetId = FFlagToolboxAssetGridRefactor and props.assetId or asset.Id
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
 	local showAudioLength = false
@@ -183,7 +371,6 @@ function Asset:renderContent(theme, localization, localizedContent)
 		price = assetData.Product and assetData.Product.Price or 0
 		isFree = price == 0
 	end
-
 	local creator = assetData.Creator
 	local creatorName = creator.Name
 
@@ -203,8 +390,12 @@ function Asset:renderContent(theme, localization, localizedContent)
 		showStatus = false
 	end
 
-	local layoutOrder = props.LayoutOrder
-	local isHovered = props.isHovered
+	local isHovered
+	if FFlagToolboxAssetGridRefactor then
+		isHovered = self.state.isHovered
+	else
+		isHovered = props.isHovered
+	end
 
 	local showPrices = Category.shouldShowPrices(props.categoryName)
 
@@ -245,14 +436,22 @@ function Asset:renderContent(theme, localization, localizedContent)
 		outlineTransparency = (isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY)
 	end
 
-	return Roact.createElement("Frame", {
+	local tryCreateLocalizedContextMenu
+	if FFlagToolboxAssetGridRefactor then
+		tryCreateLocalizedContextMenu = function()
+			self.tryCreateContextMenu(localizedContent)
+		end
+	end
+
+	local result = Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = UDim2.new(1, 0, 1, 0),
+		Size = FFlagToolboxAssetGridRefactor and self.getAssetSize() or UDim2.new(1, 0, 1, 0),
 		LayoutOrder = layoutOrder,
 		BackgroundTransparency = 1,
 
 		-- Need to raise the container up over the other assets to show the outline correctly
 		ZIndex = isHovered and 2 or 1,
+		[Roact.Change.AbsolutePosition] = FFlagToolboxAssetGridRefactor and self.onAbsolutePositionChange or nil,
 	}, {
 		DropShadow = isHovered and isDarkerTheme and Roact.createElement(DropShadow, {
 			-- Copy the size and position of the outline but add a few pixels extra
@@ -285,7 +484,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 			Size = UDim2.new(1, 0, 1, innerFrameHeight),
 
 			[Roact.Event.MouseEnter] = self.onMouseEntered,
-			[Roact.Event.MouseButton2Click] = self.onMouseButton2Click,
+			[Roact.Event.MouseButton2Click] = FFlagToolboxAssetGridRefactor and tryCreateLocalizedContextMenu or self.onMouseButton2Click,
 			onMouseMoved = self.onMouseMoved,
 
 			onDragStart = self.onDragStart,
@@ -307,7 +506,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				isEndorsed = isEndorsed,
 				typeId = assetTypeId,
 				currentSoundId = props.currentSoundId,
-				isPlaying = props.isPlaying,
+				isPlaying = (not FFlagToolboxAssetGridRefactor) and props.isPlaying or nil,
 				isLoading = props.isLoading,
 
 				voting = votingProps,
@@ -315,8 +514,8 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 				status = showStatus and status or nil,
 
-				onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked,
-				onAssetPreviewButtonClicked = self.onAssetPreviewButtonClicked,
+				onPreviewAudioButtonClicked = (not FFlagToolboxAssetGridRefactor) and props.onPreviewAudioButtonClicked or nil,
+				onAssetPreviewButtonClicked = (not FFlagToolboxAssetGridRefactor) and self.onAssetPreviewButtonClicked or nil,
 			}),
 
 			AssetName = Roact.createElement(AssetName, {
@@ -412,16 +611,44 @@ function Asset:renderContent(theme, localization, localizedContent)
 			}),
 		}),
 	})
+
+	if FFlagToolboxAssetGridRefactor and isHovered and (not isPreviewing) then
+		return Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = layoutOrder,
+			Size = FFlagToolboxAssetGridRefactor and self.getAssetSize() or UDim2.new(1, 0, 1, 0),
+			[Roact.Ref] = self.ref,
+			[Roact.Event.MouseLeave] = self.onMouseLeave,
+			[Roact.Event.MouseEnter] = self.onMouseEntered,
+			[Roact.Event.MouseWheelForward] = self.onMouseLeave,
+			[Roact.Event.MouseWheelBackward] = self.onMouseLeave,
+			[Roact.Change.AbsolutePosition] = self.updateHoverPosition,
+		}, {
+			HoverWrapper = Roact.createElement(ShowOnTop, {
+				Priority = 1,
+			}, {
+				HoverPositioning = Roact.createElement("Frame", {
+					Position = self.state.hoverPosition,
+				},
+					result
+				)
+			})
+		})
+	else
+		return result
+	end
 end
 
 if FFlagToolboxWithContext then
 	Asset = withContext({
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(Asset)
 else
 	ContextServices.mapToProps(Asset, {
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end
@@ -445,17 +672,26 @@ local function mapStateToProps(state, props)
 	local cachedOwnedAssets = state.purchase.cachedOwnedAssets
 	local ownsAsset = cachedOwnedAssets[tostring(assetId)]
 
-	local manageableAssets = assets.manageableAssets
+	local manageableAssets
+	if  FFlagToolboxAssetGridRefactor then
+		manageableAssets = assets.manageableAssets or {}
+	else
+		manageableAssets = assets.manageableAssets
+	end
 	local canManage = manageableAssets[tostring(assetId)]
 
 	return {
-		asset = idToAssetMap[assetId],
-		voting = voting[assetId] or {},
+		asset = (not FFlagToolboxAssetGridRefactor) and idToAssetMap[assetId] or nil,
+		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil,
 		categoryName = categoryName,
+		currentSoundId = FFlagToolboxAssetGridRefactor and (sound.currentSoundId or 0) or props.currentSoundId,
+		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor and (state.packages.permissionsTable or {}) or nil,
 		searchTerm = searchTerm,
 		ownsAsset = ownsAsset,
-		canManage = canManage,
+		canManage = (not FFlagToolboxAssetGridRefactor) and canManage or nil,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,
+		isPreviewing = FFlagToolboxAssetGridRefactor and (assets.isPreviewing or false) or nil,
+		voting = voting[assetId] or {},
 	}
 end
 
@@ -468,6 +704,14 @@ local function mapDispatchToProps(dispatch)
 		getCanManageAsset = function(networkInterface, assetId)
 			dispatch(GetCanManageAssetRequest(networkInterface, assetId))
 		end,
+
+		onPreviewToggled = function(isPreviewing, previewAssetId)
+			dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+		end,
+
+		tryCreateContextMenu = FFlagToolboxAssetGridRefactor and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
+			dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
+		end or nil,
 	}
 end
 

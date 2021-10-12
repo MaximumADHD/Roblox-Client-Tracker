@@ -19,8 +19,8 @@ local Models = Plugin.Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 
 local defaultNewNum = 1
-local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1})
-local defaultDebuggerToken2 = DebuggerStateToken.fromData({session = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1})
+local defaultDebuggerToken2 = DebuggerStateToken.fromData({debuggerConnectionId = 1})
 
 return function()
 	it("should return its expected default state", function()

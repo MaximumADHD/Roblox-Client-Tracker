@@ -1,24 +1,24 @@
 return {
 	{
-		Section = "File General",
+		Section = "FileGeneral",
 		Properties = {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},
 		},
 	},
 	{
-		Section = "File Transform",
+		Section = "FileTransform",
 		Properties = {
-			{Name = "WorldForward", Editable = true},
-			{Name = "WorldUp", Editable = true},
+			{Name = "WorldForward", Editable = true, Dependencies = {"WorldUp"}},
+			{Name = "WorldUp", Editable = true, Dependencies = {"WorldForward"}},
 			{Name = "ZeroOrigin", Editable = true},
 		},
 	},
 	{
-		Section = "File Geometry",
+		Section = "FileGeometry",
 		Properties = {
 			{Name = "ScaleUnit", Editable = true},
-			{Name = "FileDimensions", Editable = false},
+			{Name = "FileDimensions", Editable = false, Dependencies = {"ScaleUnit"}},
 			{Name = "PolygonCount", Editable = false},
 			{Name = "MergeMeshes", Editable = true},
 			{Name = "InvertNegativeFaces", Editable = true},

@@ -22,6 +22,8 @@ local Input = require(Plugin.Src.Util.Input)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
+local SignalsContext = require(Plugin.Src.Context.Signals)
+
 local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 
 local KeyboardListener = Framework.UI.KeyboardListener
@@ -286,6 +288,10 @@ if UseLuaDraggers() then
 		-- if the selected tracks has changed, update the selected track instances
 		if nextProps.SelectedTracks ~= self.props.SelectedTracks then
 			self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
+		end
+
+		if nextProps.Playhead ~= self.props.Playhead then
+			self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
 		end
 	end
 end
@@ -720,11 +726,13 @@ end
 
 if FFlagAnimationClipEditorWithContext then
 	EditorController = withContext({
-		Analytics = ContextServices.Analytics
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext,
 	})(EditorController)
 else
 	ContextServices.mapToProps(EditorController, {
-		Analytics = ContextServices.Analytics
+		Analytics = ContextServices.Analytics,
+		Signals = SignalsContext, 
 	})
 end
 

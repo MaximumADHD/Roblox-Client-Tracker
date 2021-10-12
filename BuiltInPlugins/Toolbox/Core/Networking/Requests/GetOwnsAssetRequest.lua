@@ -5,6 +5,7 @@
 		networkInterface = The NetworkInterface impl.
 		assetId = The asset's id.
 ]]
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -38,6 +39,9 @@ return function(networkInterface, assetId)
 		-- Use the DeveloperFramework API to get retry support, and so we can gradually remove Toolbox NetworkInterface
 		API.API.Ownership.hasAsset(assetId, myUserId):makeRequest():andThen(function(ownershipResults)
 			local ownsAsset = tostring(ownershipResults.responseBody) == "true"
+			if FFlagToolboxAssetGridRefactor then
+				assetId = tonumber(assetId)
+			end
 			store:dispatch(SetOwnsAsset(ownsAsset, assetId))
 		end, function(result)
 			if DebugFlags.shouldDebugWarnings() then

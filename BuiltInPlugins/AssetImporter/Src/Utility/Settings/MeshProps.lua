@@ -1,12 +1,12 @@
 return {
 	{
-		Section = "Object General",
+		Section = "ObjectGeneral",
 		Properties = {
 			{Name = "ImportName", Editable = true},
 		},
 	},
 	{
-		Section = "Object Geometry",
+		Section = "ObjectGeometry",
 		Properties = {
 			{Name = "Dimensions", Editable = true},
 			{Name = "PolygonCount", Editable = true},

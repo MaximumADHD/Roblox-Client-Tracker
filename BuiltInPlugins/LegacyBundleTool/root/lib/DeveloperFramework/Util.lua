@@ -33,6 +33,7 @@ return strict({
 	Immutable = require(script.Immutable),
 	isInputMainPress = require(script.isInputMainPress),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
+	NoYield = require(script.NoYield),
 	Math = require(script.Math),
 	Promise = require(script.Promise),
 	Signal = require(script.Signal),

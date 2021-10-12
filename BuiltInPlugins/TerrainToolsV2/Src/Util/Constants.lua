@@ -83,12 +83,22 @@ Constants.BiomeToLocalizationKey = {
 	[Biome.Arctic] = "BiomeArctic",
 }
 
+Constants.ToolUsesPlaneLock = {
+	[ToolId.Add] = true,
+	[ToolId.Subtract] = true,
+	[ToolId.Grow] = true,
+	[ToolId.Erode] = true,
+	[ToolId.Smooth] = true,
+	[ToolId.Paint] = true,
+	[ToolId.Replace] = true,
+}
+
 Constants.FIRST_COLUMN_WIDTH = 90
 Constants.MIDDLE_PADDING = 8
 Constants.SIDE_PADDING = 20
 Constants.SECOND_COLUMN_START = Constants.SIDE_PADDING + Constants.FIRST_COLUMN_WIDTH + Constants.MIDDLE_PADDING
 Constants.SECOND_COLUMN_WIDTH = 136
-Constants.GRID_LINE_WIDTH = 1
+Constants.GRID_LINE_WIDTH = 20
 
 -- The smallest size of the dock widget
 Constants.MIN_WIDGET_SIZE = Vector2.new(

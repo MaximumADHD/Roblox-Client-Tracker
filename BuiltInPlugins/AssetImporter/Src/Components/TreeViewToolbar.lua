@@ -13,15 +13,11 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = Framework.ContextServices
-local Localization = ContextServices.Localization
-local Stylizer = ContextServices.Stylizer
 local withContext = ContextServices.withContext
 
 local UI = Framework.UI
 local Button = UI.Button
 local Pane = UI.Pane
-
-local Util = Framework.Util
 
 local Dash = Framework.Dash
 local map = Dash.map
@@ -32,7 +28,6 @@ local TreeViewToolbar = Roact.PureComponent:extend("TreeViewToolbar")
 function TreeViewToolbar:render()
 	local props = self.props
 	local style = props.Stylizer.TreeViewToolbar
-	local sizes = props.Stylizer.Sizes
 
 	local localization = props.Localization
 

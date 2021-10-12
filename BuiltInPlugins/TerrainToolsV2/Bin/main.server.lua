@@ -16,6 +16,7 @@ game:DefineFastFlag("TerrainToolsRoactInspector", false)
 
 local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
+local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 
 -- Libraries
 local Framework = require(Plugin.Packages.Framework)
@@ -48,6 +49,7 @@ local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 local Localization = require(UILibraryCompat.Localization)
 
 -- Terrain Context Items
+local PluginActionsController = require(Plugin.Src.Util.PluginActionsController)
 local PluginActivationController = require(Plugin.Src.Util.PluginActivationController)
 local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
@@ -76,6 +78,21 @@ local function createTerrainContextItems()
 		translationResourceTable = TranslationReferenceTable,
 	})
 	local localizationItem = ContextItems.UILibraryLocalization.new(localization)
+
+	local pluginActions = FFlagTerrainToolsEditPlaneLock and {
+		EditPlane = {
+			allowBinding = false,
+			defaultShortcut = "ctrl+shift+space",
+			id = "EditPlane",
+			statusTip = localization:getText("EditPlaneAction", "StatusTip"),
+			text = localization:getText("EditPlaneAction", "Text"),
+		}
+	}
+
+	local pluginActionsController
+	if FFlagTerrainToolsEditPlaneLock then
+		pluginActionsController = PluginActionsController.new(plugin, pluginActions)
+	end
 
 	local networking
 	local imageUploader
@@ -147,6 +164,7 @@ local function createTerrainContextItems()
 		imageLoader = imageLoader,
 		terrain = terrainItem,
 		pluginActivationController = pluginActivationController,
+		pluginActionsController = pluginActionsController,
 		terrainImporter = terrainImporter,
 		terrainGeneration = terrainGeneration,
 		seaLevel = seaLevel,

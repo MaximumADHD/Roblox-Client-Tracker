@@ -81,7 +81,4 @@ end
 
 plugin.Unloading:Connect(destroyWindow)
 
--- If place session ends and we have a gui, destroy it.
-plugin.MultipleDocumentInterfaceInstance.DataModelSessionEnded:connect(destroyWindow)
-
 init()

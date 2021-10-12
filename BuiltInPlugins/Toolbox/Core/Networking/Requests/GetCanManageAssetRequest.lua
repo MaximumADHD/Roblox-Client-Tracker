@@ -17,7 +17,8 @@ local SetCanManageAsset = require(Plugin.Core.Actions.SetCanManageAsset)
 return function(networkInterface, assetId)
 	return function(store)
 		local state = store:getState()
-		local cachedCanManage = state.assets.manageableAssets[tostring(assetId)]
+		local manageableAssets = state.assets.manageableAssets or {}
+		local cachedCanManage = manageableAssets[tostring(assetId)]
 		if cachedCanManage ~= nil then
 			return
 		end

@@ -4,8 +4,9 @@ local Libs = Plugin.Libs
 local Util = require(Libs.Framework).Util
 local Action = Util.Action
 
-return Action(script.Name, function(isPreviewing)
+return Action(script.Name, function(isPreviewing, previewAssetId)
 	return {
 		isPreviewing = isPreviewing,
+		previewAssetId = previewAssetId,
 	}
 end)

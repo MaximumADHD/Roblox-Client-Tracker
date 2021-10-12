@@ -40,6 +40,7 @@ end
 
 function MeshImportDialog:render()
 	local props = self.props
+	local localization = props.Localization
 
 	local dialogWidth = 600
 	local dialogHeight = 500
@@ -53,8 +54,8 @@ function MeshImportDialog:render()
 		Resizable = true,
 		Title = props.Title,
 		Buttons = {
-			{ Key = "Cancel", Text = "Cancel" },
-			{ Key = "Import", Text = "Import", Style = "RoundPrimary",
+			{ Key = "Cancel", Text = localization:getText("Plugin", "Cancel") },
+			{ Key = "Import", Text = localization:getText("Plugin", "Import"), Style = "RoundPrimary",
 				StyleModifier = not importEnabled and StyleModifier.Disabled or nil},
 		},
 		OnClose = props.OnClose,

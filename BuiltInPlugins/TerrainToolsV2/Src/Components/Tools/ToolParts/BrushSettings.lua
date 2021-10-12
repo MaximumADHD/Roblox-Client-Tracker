@@ -4,11 +4,19 @@
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+local FFlagTerrainToolsRenameSnapToGrid = game:GetFastFlag("TerrainToolsRenameSnapToGrid")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
+
+local DraggerFramework = Plugin.Packages.DraggerFramework
+local DraggerToolComponent = require(DraggerFramework.DraggerTools.DraggerToolComponent)
+local DraggerSchema = require(Plugin.Src.PlaneDraggerSchema.DraggerSchema)
+local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
+local MoveHandles = require(DraggerFramework.Handles.MoveHandles)
+local RotateHandles = require(DraggerFramework.Handles.RotateHandles)
 
 local Util = Framework.Util
 local LayoutOrderIterator = Util.LayoutOrderIterator
@@ -50,29 +58,54 @@ local function roundVector(vec)
 end
 
 if FFlagTerrainToolsEditPlaneLock then
-	function BrushSettings:init()
-		self.resetPlaneLock = function()
+	function BrushSettings:init(initialProps)
+		self._cursorGridObject = {planeCFrame = initialProps.planeCFrame}
+		self._Selection = DraggerSchema.Selection.new(self._cursorGridObject)
+		self._draggerContext = DraggerContext_PluginImpl.new(Plugin.Parent, game, settings(), self._Selection)
+		self._draggerContext.updatePlaneFn = function(newCFrame) self.props.setPlaneCFrame(newCFrame) end
+		self._draggerContext.planeCFrame = self.props.planeCFrame
+
+		self._draggerProps = {
+			Mouse = Plugin.Parent:GetMouse(),
+			DraggerContext = self._draggerContext,
+			DraggerSchema = DraggerSchema,
+			DraggerSettings = {
+				AnalyticsName = "AdjustablePlaneLock",
+				AllowDragSelect = true,
+				AllowFreeformDrag = true,
+				ShowLocalSpaceIndicator = true,
+				ShowPivotIndicator = true,
+				HandlesList = {
+					MoveHandles.new(self._draggerContext, {
+						ShowBoundingBox = false,
+						Summonable = false,
+						Outset = 1,
+					}, DraggerSchema.TransformHandlesImplementation.new(
+						self._draggerContext)),
+					RotateHandles.new(self._draggerContext, {
+						ShowBoundingBox = false,
+						Summonable = false,
+						Outset = 1,
+					}, DraggerSchema.TransformHandlesImplementation.new(
+						self._draggerContext))
+				},
+			},
+		}
+
+		self.resetPlaneCFrame = function()
 			local root = game:GetService("Workspace").CurrentCamera
 			local offset = Vector3.new(0, 0, -PLANE_OFFSET)
 			local gridCFrame = root.CFrame * CFrame.new(offset)
-			local cframe = CFrame.fromMatrix(
-				Vector3.new(),
-				root.CFrame.XVector,
-				root.CFrame.YVector,
-				root.CFrame.ZVector
-			)
-
-			local x, y, _ = cframe:ToEulerAnglesXYZ()
-			x = math.rad(math.round(math.deg(x)))
-			y = math.rad(math.round(math.deg(y)))
-			cframe = CFrame.Angles(x, 0, 0) * CFrame.Angles(0, y, 0) * CFrame.new()
-			cframe = cframe + roundVector(gridCFrame.Position)
+			local cframe = CFrame.fromEulerAnglesXYZ(math.pi / 2, 0, 0) + roundVector(gridCFrame.Position)
 
 			self.props.setPlaneCFrame(cframe)
+			self._cursorGridObject.planeCFrame = cframe
+
+			self._Selection.SelectionChanged:Fire()
 		end
 		
 		self.toggleEditPlaneMode = function()
-			self.props.setEditPlaneMode(not self.editPlaneMode)
+			self.props.setEditPlaneMode(not self.props.editPlaneMode)
 		end
 
 		self.updatePosition = function(axis, text)
@@ -81,13 +114,17 @@ if FFlagTerrainToolsEditPlaneLock then
 			if num then
 				local cframe = self.props.planeCFrame
 				if axis == "X" then
-					self.props.setPlaneCFrame(cframe + Vector3.new(num - cframe.Position.X, 0, 0))
+					cframe = cframe + Vector3.new(num - cframe.Position.X, 0, 0)
 				elseif axis == "Y" then
-					self.props.setPlaneCFrame(cframe + Vector3.new(0, num - cframe.Position.Y, 0))
+					cframe = cframe + Vector3.new(0, num - cframe.Position.Y, 0)
 				elseif axis == "Z" then
-					self.props.setPlaneCFrame(cframe + Vector3.new(0, 0, num - cframe.Position.Z))
+					cframe = cframe + Vector3.new(0, 0, num - cframe.Position.Z)
 				end
+				self.props.setPlaneCFrame(cframe)
+				self._cursorGridObject.planeCFrame = cframe
 			end
+
+			self._Selection.SelectionChanged:Fire()
 		end
 
 		self.onPositionVectorFocusLost = function(_, axis, _, text)
@@ -102,30 +139,47 @@ if FFlagTerrainToolsEditPlaneLock then
 			num = math.rad(num)
 
 			if num then
-				local x, y = self.props.planeCFrame:ToEulerAnglesXYZ()
+				local x, y, z = self.props.planeCFrame:ToEulerAnglesXYZ()
 				local cframe = CFrame.new(Vector3.new())
 
 				if axis == "X" then
-					cframe = CFrame.Angles(num, 0, 0) * CFrame.Angles(0, y, 0) * cframe
+					cframe = CFrame.fromEulerAnglesXYZ(num, y, z)
 				elseif axis == "Y" then
-					cframe = CFrame.Angles(x, 0, 0) * CFrame.Angles(0, num, 0) * cframe
+					cframe = CFrame.fromEulerAnglesXYZ(x, num, z)
+				elseif axis == "Z" then
+					cframe = CFrame.fromEulerAnglesXYZ(x, y, num)
 				end
 
 				self.props.setPlaneCFrame(cframe + self.props.planeCFrame.Position)
+				self._cursorGridObject.planeCFrame = cframe
 			end
+
+			self._Selection.SelectionChanged:Fire()
 		end
 
 		self.onRotationVectorFocusLost = function(_, axis, _, text)
 			self.updateRotation(axis, text)
 		end
 
-		if not self.props.planeCFrame then
-			self.resetPlaneLock()
+		self.setPlaneLock = function(planeLock)
+			if planeLock ~= PlaneLockType.Manual then
+				self.props.setEditPlaneMode(false)
+			end
+
+			self.props.setPlaneLock(planeLock)
 		end
+	end
+
+	function BrushSettings:willUpdate(nextProps)
+		self._cursorGridObject.planeCFrame = nextProps.planeCFrame
 	end
 end
 
 function BrushSettings:render()
+	if not self.props.planeCFrame and self.props.planeLock == PlaneLockType.Manual and self.props.setPlaneCFrame then
+		self.resetPlaneCFrame()
+	end
+
 	local localization = self.props.Localization:get()
 
 	local layoutOrder = self.props.LayoutOrder
@@ -142,13 +196,19 @@ function BrushSettings:render()
 	local disableIgnoreWaterToggle = self.props.disableIgnoreWater
 	local showFixedPlaneToggle = self.props.fixedPlane ~= nil
 
-	local editPlaneMode = self.props.editPlaneMode
-	local planeCFrame = self.props.planeCFrame
-	local showEditPlaneMode = self.props.planeLock == PlaneLockType.Manual
+	local editPlaneMode
+	local planeCFrame
+	local showEditPlaneMode
 
 	local showFlattenModes = self.props.flattenMode ~= nil
 	local showHeightSelectionToggle = self.props.fixedPlane and self.props.planePositionY ~= nil
 	local setFixedPlane = self.props.setFixedPlane
+
+	if FFlagTerrainToolsEditPlaneLock then
+		editPlaneMode = self.props.editPlaneMode
+		planeCFrame = self.props.planeCFrame
+		showEditPlaneMode = self.props.planeLock == PlaneLockType.Manual and Constants.ToolUsesPlaneLock[self.props.currentTool]
+	end
 
 	return Roact.createElement(Panel, {
 		Title = localization:getText("BrushSettings", "BrushSettings"),
@@ -214,15 +274,18 @@ function BrushSettings:render()
 		PlaneLock = FFlagTerrainToolsEditPlaneLock and showPlaneLockToggle and Roact.createElement(PlaneLockSelector, {
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
 			planeLock = self.props.planeLock,
-			setPlaneLock = self.props.setPlaneLock,
+			setPlaneLock = self.setPlaneLock,
 		}),
 
 		PlaneController = FFlagTerrainToolsEditPlaneLock and showEditPlaneMode and Roact.createElement(PlaneController, {
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
 			EditPlaneMode = editPlaneMode,
-			Reset = self.resetPlaneLock,
+			Reset = self.resetPlaneCFrame,
 			SetEditPlaneMode = self.props.setEditPlaneMode,
 		}),
+
+		Dragger = FFlagTerrainToolsEditPlaneLock and editPlaneMode and showEditPlaneMode and Roact.createElement(DraggerToolComponent,
+			self._draggerProps),
 		
 		PositionInput = FFlagTerrainToolsEditPlaneLock and editPlaneMode and showEditPlaneMode and Roact.createElement(VectorTextInput, {
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
@@ -237,9 +300,8 @@ function BrushSettings:render()
 			LayoutOrder = LayoutOrderIterator:getNextOrder(),
 			Text = localization:getText("BrushSettings", "Rotation"),
 			Key = "Rotation",
-			Vector = Vector3.new(convertToDegrees(planeCFrame:toEulerAnglesXYZ())),
+			Vector = Vector3.new(convertToDegrees(self.props.planeCFrame:toEulerAnglesXYZ())),
 			Precisions = {X = 2, Y = 2, Z = 2},
-			Axes = {"X", "Y"},
 			OnFocusLost = self.onRotationVectorFocusLost,
 		}),
 
@@ -261,7 +323,7 @@ function BrushSettings:render()
 
 		SnapToGridToggle = showSnapToGrid and Roact.createElement(LabeledToggle, {
 			LayoutOrder = FFlagTerrainToolsEditPlaneLock and LayoutOrderIterator:getNextOrder() or 10,
-			Text = localization:getText("BrushSettings", "SnapToGrid"),
+			Text = localization:getText("BrushSettings", FFlagTerrainToolsRenameSnapToGrid and "SnapToVoxels" or "SnapToGrid"),
 			IsOn = self.props.snapToGrid,
 			SetIsOn = self.props.setSnapToGrid,
 		}),

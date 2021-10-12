@@ -1,20 +1,17 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local UILibrary = require(Plugin.Packages.UILibrary)
-
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local StudioUI = Framework.StudioUI
-local AssetPreview = FFlagStudioAssetManagerRefactorAssetPreview and StudioUI.AssetPreview or UILibrary.Component.AssetPreview
+local AssetPreview = StudioUI.AssetPreview
 
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
@@ -147,7 +144,7 @@ function AssetPreviewWrapper:render()
                 [Roact.Change.AbsoluteSize] = self.onDetectorABSSizeChange,
             }),
 
-            Contents = FFlagStudioAssetManagerRefactorAssetPreview and Roact.createElement(AssetPreview, {
+            Contents = Roact.createElement(AssetPreview, {
                 Position = UDim2.new(0.5, 0, 0.5, 0),
                 AnchorPoint = Vector2.new(0.5, 0.5),
                 Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
@@ -170,43 +167,11 @@ function AssetPreviewWrapper:render()
 
                 ZIndex = 2,
             }),
-
-            DEPRECATED_Contents = not FFlagStudioAssetManagerRefactorAssetPreview and Roact.createElement(AssetPreview, {
-                Position = UDim2.new(0.5, 0, 0.5, 0),
-                AnchorPoint = Vector2.new(0.5, 0.5),
-                MaxPreviewWidth = maxPreviewWidth,
-                MaxPreviewHeight = maxPreviewHeight,
-
-                AssetData = assetData,
-                PreviewModel = rootTreeViewInstance,
-                CurrentPreview = selectedInstance,
-
-                ActionBarText = localization:getText("AssetPreview", "Insert"),
-                TryInsert = self.tryInsert,
-
-                OnFavoritedActivated = self.onFavoritedActivated,
-                FavoriteCounts = props.FavoriteCount,
-                Favorited = props.Favorited,
-
-                TryCreateContextMenu = self.tryCreateContextMenu,
-                OnTreeItemClicked = self.onTreeItemClicked,
-
-                SearchByCreator = self.searchByCreator,
-                ZIndex = 2,
-            })
         })
     })
 end
 
 local function mapStateToProps(state, props)
-    if not FFlagStudioAssetManagerRefactorAssetPreview then
-        local assetPreviewData = props.AssetPreviewData
-
-        return {
-            Favorited = assetPreviewData.favorited,
-            FavoriteCount = assetPreviewData.favoriteCount
-        }
-    end
 end
 
 if FFlagAssetManagerWithContext then

@@ -1,5 +1,7 @@
 local Plugin = script.parent.parent.parent
 
+local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
+
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local FrameworkTheme = ContextServices.Theme
@@ -180,6 +182,21 @@ local function createStyles(theme, getColor)
 					Y = 350,
 				}
 			},
+			selectInput = FFlagRemoveUILibraryStyledDropdownPt1 and {
+				button = {
+					height = 38,
+				},
+				fontStyle = {
+					Normal = {
+						TextSize = 22,
+					},
+				},
+				padding = 10,
+				width = {
+					creator = 330,
+					genre = 210,
+				},
+			} or nil,
 
 			--Constants used for UI
 			DROPDOWN_WIDTH = 330,

@@ -3,7 +3,6 @@
 
 local plugin, settings = plugin, settings
 
-local EngineFeatureModelPivotApi = game:GetEngineFeature("ModelPivotApi")
 -----------------------------------
 -------------FAST FLAGS------------
 -----------------------------------
@@ -1045,9 +1044,7 @@ function updatePivotAndChildAttachments(part, initialSize, finalSize)
 		end
 	end
 	
-	if EngineFeatureModelPivotApi then
-		part:UpdatePivot(initialSize, finalSize)
-	end
+	part:UpdatePivot(initialSize, finalSize)
 end
 
 function updatePart()
@@ -3124,17 +3121,6 @@ function selectionChanged()
 
 	recreateAdornment()
 	--updateInvisiblePart()
-
-	if not EngineFeatureModelPivotApi then
-		for i,v in ipairs(currentSelection) do
-			if v:IsA("BasePart") then
-				if shouldBreakJoints then
-				end
-			elseif v:IsA("Model") and not v:IsA("Workspace") then
-				Metapart.forcePrimaryPart(v)
-			end
-		end
-	end
 end
 
 function onDragEnter(instances)

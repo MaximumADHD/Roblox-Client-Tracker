@@ -23,11 +23,11 @@ local AddExpression = require(Actions.Watch.AddExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
-local dst = DebuggerStateToken.fromData({session = 1})
+local dst = DebuggerStateToken.fromData({debuggerConnectionId = 1})
 
 local expressionData1 = {
 	expression = "Expression 1",
-	path = "Expression 1",
+	path = "1",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
@@ -38,7 +38,7 @@ local expressionRow1 = WatchRow.fromData(expressionData1)
 
 local varData1 = {
 	name = "Alex",
-	path = "Alex",
+	path = "1",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "map",
@@ -46,7 +46,7 @@ local varData1 = {
 
 local varData1Child1 = {
 	name = "Heesoo",
-	path = "Alex_Heesoo",
+	path = "1_1",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "map",
@@ -54,7 +54,7 @@ local varData1Child1 = {
 
 local varData1Child2 = {
 	name = "Austin",
-	path = "Alex_Austin",
+	path = "1_2",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
@@ -62,7 +62,7 @@ local varData1Child2 = {
 
 local varData1Child11 = {
 	name = "Raul",
-	path = "Alex_Heesoo_Raul",
+	path = "1_1_1",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
@@ -70,7 +70,7 @@ local varData1Child11 = {
 
 local varData1Child21 = {
 	name = "Karan",
-	path = "Alex_Austin_Karan",
+	path = "1_2_1",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
@@ -78,7 +78,7 @@ local varData1Child21 = {
 
 local varData2 = {
 	name = "UnitedStates",
-	path = "UnitedStates",
+	path = "2",
 	scope = ScopeEnum.Local,
 	value = "somePreview2",
 	dataType = "map",
@@ -86,7 +86,7 @@ local varData2 = {
 
 local varData2Child1 = {
 	name = "Wisconsin",
-	path = "UnitedStates_Wisconsin",
+	path = "2_1",
 	scope = ScopeEnum.Local,
 	value = "somePreview2",
 	dataType = "map",
@@ -94,7 +94,7 @@ local varData2Child1 = {
 
 local varData2Child11 = {
 	name = "GreenBay",
-	path = "UnitedStates_Wisonsin_GreenBay",
+	path = "2_1_1",
 	scope = ScopeEnum.Local,
 	value = "somePreview2",
 	dataType = "string",
@@ -145,10 +145,10 @@ return function(store)
 		i = i+ 1
 	end
 
-	store:dispatch(AddChildVariables(stepStateBundle1, "Alex", {variableRow1Child1, variableRow1Child2}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Heesoo", {variableRow1Child11}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "Alex_Austin", {variableRow1Child21}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates", {variableRow2Child1}))
-	store:dispatch(AddChildVariables(stepStateBundle1, "UnitedStates_Wisconsin", {variableRow2Child11}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1", {variableRow1Child1, variableRow1Child2}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1_1", {variableRow1Child11}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "1_2", {variableRow1Child21}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "2", {variableRow2Child1}))
+	store:dispatch(AddChildVariables(stepStateBundle1, "2_1", {variableRow2Child11}))
 	return store
 end

@@ -6,11 +6,11 @@ local TestsFolderPlugin = Plugin.Src
 
 local SHOULD_RUN_TESTS = false -- Do not check in as true!
 if SHOULD_RUN_TESTS then
-	local TestEZ = require(Plugin.Packages.TestEZ)
+	local TestEZ = game:GetFastFlag("PublishPlaceAsDeduplicatePackages") and require(Plugin.Packages.Dev.TestEZ) or require(Plugin.OldPackages.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quite to see output
 
-	print("----- All Template Tests ------")
+	print("----- All PublishPlaceAs Tests ------")
 	-- You can also run the unit tests for the packages by adding TestsFolderPackages
 	-- to the table. Some of them might be broken though.
 	TestBootstrap:run({ TestsFolderPlugin }, TextReporter)

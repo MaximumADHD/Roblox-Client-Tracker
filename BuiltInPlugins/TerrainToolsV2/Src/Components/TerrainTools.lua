@@ -135,6 +135,7 @@ function TerrainTools:render()
 	local terrain = self.props.terrain
 
 	local pluginActivationController = self.props.pluginActivationController
+	local pluginActionsController = self.props.pluginActionsController
 	local terrainImporter = self.props.terrainImporter
 	local terrainGeneration = self.props.terrainGeneration
 	local seaLevel = self.props.seaLevel
@@ -154,6 +155,7 @@ function TerrainTools:render()
 		analytics,
 		terrain,
 		pluginActivationController,
+		pluginActionsController,
 		terrainImporter,
 		terrainGeneration,
 		seaLevel,

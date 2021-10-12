@@ -326,7 +326,6 @@ function Theme.createValues(getColor, c, m)
 		},
 	}
 
-
 	local pluginTheme = deepJoin(UILibraryStylePalette, {
 		textSize = 16,
 		padding = 4,

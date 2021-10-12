@@ -42,7 +42,7 @@ local PluginTheme = {
 	},
 
 	Sizes = {
-		PreviewHeight = 200,
+		PreviewRatio = 0.5,
 		TopBarHeight = 40,
 		ToolbarHeight = 30,
 	},

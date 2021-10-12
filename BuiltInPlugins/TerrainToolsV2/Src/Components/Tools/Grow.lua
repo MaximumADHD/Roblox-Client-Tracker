@@ -1,6 +1,9 @@
 --[[
 	Displays panels associated with the Grow tool
 ]]
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -25,21 +28,11 @@ local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
-local PlaneLockType = TerrainEnums.PlaneLockType
 
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-
-local REDUCER_KEY = "GrowTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "GrowTool"
+local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
 
 local function mapStateToProps(state, props)
-	local planeLock
-
-	-- (skuhne) TODO: remove and update with other adjustable plane lock tickets
-	if FFlagTerrainToolsEditPlaneLock then
-		planeLock = state[REDUCER_KEY].planeLock ~= PlaneLockType.Off
-	else
-		planeLock = state[REDUCER_KEY].planeLock
-	end
 	return {
 		toolName = TerrainEnums.ToolId.Grow,
 
@@ -52,11 +45,11 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = planeLock,
+		planeLock = state[PLANE_REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
 		strength = state[REDUCER_KEY].strength,
-		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
-		planeCFrame = state[REDUCER_KEY].planeCFrame,
+		editPlaneMode = state[PLANE_REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[PLANE_REDUCER_KEY].planeCFrame,
 	}
 end
 
@@ -65,6 +58,14 @@ local function mapDispatchToProps(dispatch)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
 
+	local dispatchToBase
+	if FFlagTerrainToolsGlobalPlaneLockState then
+		function dispatchToBase(action)
+			dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
+		end
+	else
+		dispatchToBase = dispatchToGrow
+	end
 	return {
 		dispatchChangeBaseSize = function (size)
 			dispatchToGrow(ChangeBaseSize(size))
@@ -97,13 +98,13 @@ local function mapDispatchToProps(dispatch)
 			dispatchToGrow(SetMaterial(material))
 		end,
 		dispatchSetPlaneLock = function (planeLock)
-			dispatchToGrow(SetPlaneLock(planeLock))
+			dispatchToBase(SetPlaneLock(planeLock))
 		end,
 		dispatchSetEditPlaneMode = function(editPlaneMode)
-			dispatchToGrow(SetEditPlaneMode(editPlaneMode))
+			dispatchToBase(SetEditPlaneMode(editPlaneMode))
 		end,
 		dispatchSetPlaneCFrame = function(planeCFrame)
-			dispatchToGrow(SetPlaneCFrame(planeCFrame))
+			dispatchToBase(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToGrow(SetSnapToGrid(snapToGrid))

@@ -89,8 +89,8 @@ function CallstackComponent:didMount()
 	local pluginActions = self.props.PluginActions
 	self.connections  = {}
 	self.shortcuts = {}
-	self:addAction(pluginActions:get(Constants.CallstackActionIds.CopySelected), self.copySelectedRow)
-	self:addAction(pluginActions:get(Constants.CallstackActionIds.SelectAll), self.selectAll)
+	self:addAction(pluginActions:get(Constants.CallstackActionIds.CopySelected), self.copySelectedRows)
+	self:addAction(pluginActions:get(Constants.CallstackActionIds.SelectAll), self.selectAllRows)
 end
 
 function CallstackComponent:willUnmount()
@@ -110,7 +110,10 @@ end
 
 -- CallstackComponent
 function CallstackComponent:init()
-	self.selectedRow = nil
+	self.state = {
+		selectedRows = {},
+		selectAll = false,
+	}
 	
 	self.getTreeChildren = function(item)
 		return item.children or {}
@@ -119,48 +122,93 @@ function CallstackComponent:init()
 	self.onSelectionChange = function(selection)
 		local props = self.props
 		for rowInfo in pairs(selection) do
-			self.selectedRow = {["item"] = rowInfo}
+			self:setState({
+				selectedRows = rowInfo,
+				selectAll = false
+			})
 			local threadId = props.CurrentThreadId
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
 		end
 	end
-
-	self.copySelectedRow = function(row)
-		-- If row is nil, then Ctrl+C shortcut was activated for selected row
-		if row == nil then
-			if self.selectedRow == nil then
-				return
-			end
-			row = self.selectedRow
-		end
+	
+	self.rowToString = function(row)
 		local rowString = ""
 		for _, v in pairs(self.props.ColumnFilter) do
-			rowString = rowString .. row.item[columnNameToKey[v]] .. '\t'
+			rowString = rowString .. row[columnNameToKey[v]] .. '\t'
 		end
-		StudioService:CopyToClipboard(rowString)
+		return rowString
+	end
+
+	self.copySelectedRows = function()
+		local selectedRows = self.state.selectedRows
+		if next(selectedRows) == nil then
+			return
+		end
+		
+		local selectedRowsString = ""
+		
+		-- If Select All was used to select all the rows for a thread
+		if self.state.selectAll then
+			for _, row in ipairs(selectedRows) do
+				selectedRowsString = selectedRowsString .. self.rowToString(row) .. '\n'
+			end
+			
+		else
+			-- If a single row is selected
+			if next(self.getTreeChildren(selectedRows)) == nil then
+				selectedRowsString = self.rowToString(self.state.selectedRows)
+			-- If a header row for a thread was selected
+			else
+				selectedRowsString = selectedRows.arrowColumn .. '\n'
+				for _, row in ipairs(selectedRows.children) do
+					selectedRowsString = selectedRowsString .. self.rowToString(row) .. '\n'
+				end
+			end
+		end
+		
+		StudioService:CopyToClipboard(selectedRowsString)
 	end
 	
-	self.selectAll = function ()
-		print('Todo RIDE-5595')
+	self.selectAllRows = function()
+		local props = self.props
+		local selectedRowList = {}
+		for _, thread in ipairs(props.RootItems) do
+			if props.CurrentThreadId == thread.threadId then
+				for _, row in ipairs(self.getTreeChildren(thread)) do
+					table.insert(selectedRowList, row)
+				end
+			end
+		end
+		self:setState({
+			selectedRows = selectedRowList,
+			selectAll = true
+		})
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
-		local row = extraParameters.row
 		if actionId == Constants.CallstackActionIds.CopySelected then
-			self.copySelectedRow(row)
+			self.copySelectedRows()
 		elseif actionId == Constants.CallstackActionIds.SelectAll then
-			self.selectAll()
+			self.selectAllRows()
 		end
 	end
 	
 	if FFlagDevFrameworkAddRightClickEventToPane then
 		self.onRightClick = function(row)
+			-- Update selectedRows to the right clicked row unless "Select All" was called
+			-- and right clicked row is one of the selected rows
+			if not self.state.selectAll or (row.item.threadId and row.item.threadId ~= self.props.CurrentThreadId) then
+				self:setState({
+					selectedRows = row.item,
+					selectAll = false
+				})
+			end
 			local props = self.props
 			local localization = props.Localization
 			local plugin = props.Plugin:get()
 			local actions = MakePluginActions.getCallstackActions(localization)
-			showContextMenu(plugin, "Call Stack", actions, self.onMenuActionSelected, {row = row})
+			showContextMenu(plugin, "Callstack", actions, self.onMenuActionSelected, {row = row})
 		end
 	end
 

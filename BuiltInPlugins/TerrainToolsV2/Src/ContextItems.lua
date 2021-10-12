@@ -33,6 +33,7 @@ return {
 	Terrain = ContextItem:createSimple("Terrain"),
 
 	PluginActivationController = require(script.Parent.Util.PluginActivationController),
+	PluginActionsController = require(script.Parent.Util.PluginActionsController),
 
 	TerrainGeneration = require(TerrainInterfaces.TerrainGenerationInstance),
 	TerrainImporter = require(TerrainInterfaces.TerrainImporterInstance),

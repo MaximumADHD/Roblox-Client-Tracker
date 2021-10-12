@@ -47,24 +47,25 @@ function ConfirmCancelDialog:render()
 	local theme = props.Stylizer
 	local onClose = props.OnClose
 	return Roact.createElement(StyledDialog, {
-        Title = title,
-        OnClose = onClose,
-        OnButtonPressed = self.onMessageBoxButtonClicked,
-        Buttons = {
-                { Text = props.Localization:getText("Dialog","Confirm"), Key = MessageBoxConfirm, Style = "Round"},
-				{ Text = props.Localization:getText("Dialog","Cancel"), Key = MessageBoxCancel, Style = "Round"},
-			},
-        MinContentSize = theme.PopupMessageSize,
-        Modal = true,
-    },{
-        Message = Roact.createElement("TextLabel", {
-            Size = UDim2.new(1, 0, 1, 0),
-            Text = props.Text,
-            TextColor3 = theme.TextColor,
-            BackgroundTransparency = 1.0,
-            TextWrapped = true
-        })
-    })
+		Style = "FullBleed",
+		Title = title,
+		OnClose = onClose,
+		OnButtonPressed = self.onMessageBoxButtonClicked,
+		Buttons = {
+	        { Text = props.Localization:getText("Dialog","Confirm"), Key = MessageBoxConfirm, Style = "Round"},
+			{ Text = props.Localization:getText("Dialog","Cancel"), Key = MessageBoxCancel, Style = "Round"},
+		},
+		MinContentSize = theme.PopupMessageSize,
+		Modal = true,
+	},{
+		Message = Roact.createElement("TextLabel", {
+		    Size = UDim2.new(1, 0, 1, 0),
+		    Text = props.Text,
+		    TextColor3 = theme.TextColor,
+		    BackgroundTransparency = 1.0,
+		    TextWrapped = true
+		})
+	})
 end
 
 if FFlagLayeredClothingEditorWithContext then

@@ -19,6 +19,7 @@ local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
 local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -83,7 +84,7 @@ function Header:init()
 				categoryName
 			)
 
-			if game:GetFastFlag("ToolboxSaveSearchWhenSwitchingCategories") and self.props.searchTerm then
+			if self.props.searchTerm then
 				self.onSearchRequested(self.props.searchTerm, categoryName)
 			else
 				settings = self.props.Settings:get("Plugin")
@@ -98,7 +99,6 @@ function Header:init()
 		end
 	end
 
-	-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
 	self.onSearchRequested = function(searchTerm, categoryName)
 		local settings = self.props.Settings:get("Plugin")
 		if type(searchTerm) ~= "string" and DebugFlags.shouldDebugWarnings() then
@@ -109,14 +109,6 @@ function Header:init()
 		local creatorId = creator and creator.Id or nil
 
 		local category = PageInfoHelper.getCategory(categoryName or self.props.categoryName)
-
-		if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
-			Analytics.onTermSearched(
-				category,
-				searchTerm,
-				creatorId
-			)
-		end
 
 		if FFlagToolboxShowAutocompleteResults and (not Rollouts:getMarketplaceAutocomplete() or not self.IXPShowAutocomplete) then
 			self.props.logSearchAnalytics(
@@ -145,7 +137,6 @@ function Header:init()
 			end
 		end)
 
-		-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
 		self.props.requestSearch(networkInterface, settings, searchTerm, categoryName)
 	end
 
@@ -410,6 +401,7 @@ end
 local function mapStateToProps(state, props)
 	state = state or {}
 
+	local assets = state.assets or {}
 	local pageInfo = state.pageInfo or {}
 
 	return {
@@ -420,6 +412,7 @@ local function mapStateToProps(state, props)
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
+		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and assets.mostRecentAssetInsertTime or nil,
 	}
 end
 
@@ -437,7 +430,6 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SelectGroupRequest(networkInterface, groupIndex))
 		end,
 
-		-- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
 		requestSearch = function(networkInterface, settings, searchTerm, categoryName)
 			dispatch(RequestSearchRequest(networkInterface, settings, searchTerm, categoryName))
 		end,

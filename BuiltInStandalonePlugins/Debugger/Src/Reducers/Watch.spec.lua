@@ -7,6 +7,8 @@ local testImmutability = TestHelpers.testImmutability
 
 local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
+local Util = Plugin.Src.Util
+local Constants = require(Util.Constants)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
 local SetVariablesScopeFilteredOut = require(Actions.Watch.SetVariablesScopeFilteredOut)
@@ -24,9 +26,7 @@ local VariableRow = require(Models.Watch.VariableRow)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local StepStateBundle = require(Models.StepStateBundle)
 
-local separationToken = "_"
-
-local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1, stepNumber = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1, stepNumber = 1})
 local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 
 return function()
@@ -41,8 +41,8 @@ return function()
 		it("should add the variables", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddRootVariables Test"
-			local tokenizedValue2 = "AddRootVariables Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 			local varData1 = {
 				name = "AddRootVariables Test",
 				path = tokenizedValue1,
@@ -80,8 +80,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddRootVariables Test"
-			local tokenizedValue2 = "AddRootVariables Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 			local varData1 = {
 				name = "AddRootVariables Test",
 				path = tokenizedValue1,
@@ -110,8 +110,8 @@ return function()
 		it("should add the variables", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddChildVariables Test"
-			local tokenizedValue2 = "AddChildVariables Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 			local varData1 = {
 				name = "AddChildVariables Test",
 				path = tokenizedValue1,
@@ -154,8 +154,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddChildVariables Test"
-			local tokenizedValue2 = "AddChildVariables Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "AddChildVariables Test",
@@ -244,8 +244,8 @@ return function()
 		it("should be able to update root item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableExpanded Test"
-			local tokenizedValue2 = "SetVariableExpanded Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariableExpanded Test",
@@ -280,8 +280,8 @@ return function()
 		it("should be able to update child item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariableExpanded Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariableExpanded Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
 
 			local varData1 = {
 				name = "SetVariableExpanded Test",
@@ -322,8 +322,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			
-			local tokenizedValue1 = "SetVariableExpanded Test"
-			local tokenizedValue2 = "SetVariableExpanded Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariableExpanded Test",
@@ -355,8 +355,8 @@ return function()
 		it("should be able to update root item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
-			local tokenizedValue2 = "SetVariablesScopeFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariablesScopeFilteredOut Test",
@@ -392,8 +392,8 @@ return function()
 		it("should be able to update child item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariablesScopeFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
 
 			local varData1 = {
 				name = "SetVariablesScopeFilteredOut Test",
@@ -434,8 +434,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			
-			local tokenizedValue1 = "SetVariablesScopeFilteredOut Test"
-			local tokenizedValue2 = "SetVariablesScopeFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariablesScopeFilteredOut Test",
@@ -467,8 +467,8 @@ return function()
 		it("should be able to update root item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
-			local tokenizedValue2 = "SetVariablesTextFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariablesTextFilteredOut Test",
@@ -504,8 +504,8 @@ return function()
 		it("should be able to update child item", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "SetVariablesTextFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
 
 			local varData1 = {
 				name = "SetVariablesTextFilteredOut Test",
@@ -546,8 +546,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			
-			local tokenizedValue1 = "SetVariablesTextFilteredOut Test"
-			local tokenizedValue2 = "SetVariablesTextFilteredOut Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 
 			local varData1 = {
 				name = "SetVariablesTextFilteredOut Test",

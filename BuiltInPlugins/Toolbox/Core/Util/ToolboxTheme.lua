@@ -1,5 +1,6 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
@@ -323,8 +324,7 @@ function ToolboxTheme:_recalculateTheme()
 			clearAllText = color(c.LinkText),
 		},
 
-		-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
-		assetPreview = {
+		assetPreview = not FFlagToolboxDeleteUILibraryAssetPreviewTheme and {
 			background = isDark and Color3.fromRGB(46, 46, 46) or Color3.fromRGB(255, 255, 255),
 
 			popUpWrapperButton = {
@@ -412,7 +412,7 @@ function ToolboxTheme:_recalculateTheme()
 				backgroundColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(158, 158, 158),
 				backgroundDisabledColor = isDark and Color3.fromRGB(50, 50, 50) or Color3.fromRGB(100, 100, 100),
 			}
-		},
+		} or nil,
 
 		searchOptions = (not FFlagToolboxRemoveWithThemes) and {
 			background = color(c.MainBackground),
@@ -494,7 +494,7 @@ function ToolboxTheme:_recalculateTheme()
 		})
 
 		local overrides = {
-			-- Remove with FFlagToolboxUseDevFrameworkAssetPreview
+			-- Remove with STM-810
 			assetPreview = {
 				fontBold = Enum.Font.GothamBold,
 				textSizeMedium = 16,

@@ -9,6 +9,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
 
 local UI = Framework.UI
@@ -34,6 +35,7 @@ end
 
 function PropertyListView:render()
 	local props = self.props
+	local localization = props.Localization
 	if not props.Instance then
 		return nil
 	end
@@ -48,6 +50,8 @@ function PropertyListView:render()
 				Editable = propertyMetadata.Editable,
 				SetProperty = props.SetProperty,
 				LayoutOrder = propertyIndex,
+				Localization = localization,
+				Dependencies = propertyMetadata.Dependencies,
 			})
 		end
 
@@ -62,7 +66,7 @@ function PropertyListView:render()
 			end,
 			Layout = Enum.FillDirection.Vertical,
 			LayoutOrder = sectionIndex,
-			Text = sectionMetadata.Section,
+			Text = localization:getText("Sections", sectionMetadata.Section),
 		}, sectionProperties)
 	end
 
@@ -88,5 +92,9 @@ function PropertyListView:render()
 		})
 	})
 end
+
+PropertyListView = withContext({
+	Localization = Localization,
+})(PropertyListView)
 
 return PropertyListView

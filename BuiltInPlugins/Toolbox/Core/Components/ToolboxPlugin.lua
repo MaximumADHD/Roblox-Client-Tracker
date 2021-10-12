@@ -36,6 +36,7 @@ local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
+local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
@@ -130,6 +131,9 @@ function ToolboxPlugin:didMount()
 	if FFlagPluginManagementDirectlyOpenToolbox then
 		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
 			self.dockWidget.Enabled = true
+			if FFlagPluginDockWidgetRaiseFromLua then
+				self.dockWidget:RequestRaise()
+			end
 		end)
 	end
 end

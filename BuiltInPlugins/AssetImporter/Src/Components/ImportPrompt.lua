@@ -2,7 +2,6 @@ local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local Framework = require(Plugin.Packages.Framework)
 
 local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 

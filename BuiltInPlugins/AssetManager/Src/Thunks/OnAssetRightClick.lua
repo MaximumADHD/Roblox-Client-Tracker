@@ -21,6 +21,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -269,7 +270,11 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
     for _,_ in pairs(selectedAssets) do
         count = count + 1
     end
-    local textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
+    -- Remove textureId declaration here with ToolboxShowMeshAndTextureId
+    local textureId
+    if not FFlagToolboxShowMeshAndTextureId then
+        textureId = AssetManagerService:GetTextureId("Meshes/".. assetData.name)
+    end
     local view = state.AssetManagerReducer.view
     if view.Key == View.LIST.Key and not isAssetPreviewMenu then
         contextMenu:AddNewAction("AssetPreview", localization:getText("ContextMenu", "AssetPreview")).Triggered:connect(function()
@@ -309,15 +314,39 @@ local function createMeshPartContextMenu(analytics, apiImpl, assetData, contextM
             analytics:report("insertAfterSearch")
         end
     end)
-    contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
-        StudioService:CopyToClipboard("rbxassetid://" .. AssetManagerService:GetMeshId("Meshes/".. assetData.name))
-        analytics:report("clickContextMenuItem")
-    end)
-    if textureId ~= -1 then
-        contextMenu:AddNewAction("CopyTextureIdToClipboard", localization:getText("ContextMenu", "CopyTextureIdToClipboard")).Triggered:connect(function()
-            StudioService:CopyToClipboard("rbxassetid://" .. textureId)
+    if FFlagToolboxShowMeshAndTextureId then
+        local meshIdSuccess, meshId = pcall(AssetManagerService.GetMeshIdFromAliasName, AssetManagerService, "Meshes/" .. assetData.name)
+        local textureIdSuccess
+        textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAliasName, AssetManagerService, "Meshes/" .. assetData.name)
+
+        if meshIdSuccess then
+            contextMenu:AddNewAction("CopyMeshIdToClipboard", localization:getText("ContextMenu", "CopyMeshIdToClipboard")).Triggered:connect(function()
+                StudioService:CopyToClipboard(meshId)
+                analytics:report("clickContextMenuItem")
+            end)
+        else
+            warn("Failed to get mesh id for asset id " .. assetData.id)
+        end
+
+        if textureIdSuccess then
+            contextMenu:AddNewAction("CopyTextureIdToClipboard", localization:getText("ContextMenu", "CopyTextureIdToClipboard")).Triggered:connect(function()
+                StudioService:CopyToClipboard(textureId)
+                analytics:report("clickContextMenuItem")
+            end)
+        else
+            warn("Failed to get texture id for asset id " .. assetData.id)
+        end
+    else
+        contextMenu:AddNewAction("CopyIdToClipboard", localization:getText("ContextMenu", "CopyIdToClipboard")).Triggered:connect(function()
+            StudioService:CopyToClipboard("rbxassetid://" .. AssetManagerService:GetMeshId("Meshes/".. assetData.name))
             analytics:report("clickContextMenuItem")
         end)
+        if textureId ~= -1 then
+            contextMenu:AddNewAction("CopyTextureIdToClipboard", localization:getText("ContextMenu", "CopyTextureIdToClipboard")).Triggered:connect(function()
+                StudioService:CopyToClipboard("rbxassetid://" .. textureId)
+                analytics:report("clickContextMenuItem")
+            end)
+        end
     end
     addRemoveFromGameContextItem(contextMenu, apiImpl, analytics, assetData, localization, onAssetPreviewClose, store, state)
 

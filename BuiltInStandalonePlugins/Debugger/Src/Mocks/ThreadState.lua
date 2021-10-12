@@ -56,6 +56,10 @@ function ThreadState.new(threadId : number, threadName : string, isValid : boole
 	local getCallstack = function () : { StackFrame.StackFrame }
 		return self.callstack
 	end
+	
+	local GetFrame = function(index : number) : StackFrame.StackFrame
+		return self.callstack[index]
+	end
 
 	return {
 		requestCallstack = requestCallstack,
@@ -64,6 +68,7 @@ function ThreadState.new(threadId : number, threadName : string, isValid : boole
 		getThreadName = getThreadName,
 		getIsValid = getIsValid,
 		getCallstack = getCallstack,
+		GetFrame = GetFrame
 	}
 end
 

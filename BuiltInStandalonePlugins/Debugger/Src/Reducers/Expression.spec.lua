@@ -4,6 +4,7 @@ local TestHelpers = Framework.TestHelpers
 local testImmutability = TestHelpers.testImmutability
 local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
+local Util = Plugin.Src.Util
 
 local WatchReducer = require(script.Parent.Watch)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
@@ -21,10 +22,9 @@ local RemoveExpression = require(Actions.Watch.RemoveExpression)
 
 --common
 local BreakpointHit = require(Actions.Common.BreakpointHit)
+local Constants = require(Util.Constants)
 
-local separationToken = "_"
-
-local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1, stepNumber = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1, stepNumber = 1})
 local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 
 return function()
@@ -32,8 +32,8 @@ return function()
 		it("should add the Child Expressions", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddChildExpression Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "AddChildExpression Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
 			local varData1 = {
 				expression = "AddChildExpression Test",
 				path = tokenizedValue1,
@@ -72,8 +72,8 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "AddChildExpression Test"
-			local tokenizedValue2 = tokenizedValue1 .. separationToken .. "AddChildExpression Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
 
 			local varData1 = {
 				expression = "AddChildExpression Test",
@@ -171,7 +171,7 @@ return function()
 			local prepState1 = WatchReducer(prepState, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
 
-			local tokenizedValue1 = "ChangeExpression Test1"
+			local tokenizedValue1 = "1"
 			local varData1 = {
 				expression = "ChangeExpression Test1",
 				path = tokenizedValue1,
@@ -186,7 +186,7 @@ return function()
 			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))
 			expect(prepState3).to.be.ok()
 			expect(#prepState3.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.equal(1)
-			expect(prepState3.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal("ChangeExpression Test1")
+			expect(prepState3.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal(tokenizedValue1)
 
 			local state = WatchReducer(prepState3, ChangeExpression("ChangeExpression Test1", "ChangeExpression Test3"))
 			expect(state).to.be.ok()
@@ -201,7 +201,7 @@ return function()
 			local prepState1 = WatchReducer(prepState, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
 
-			local tokenizedValue1 = "ChangeExpression Test1"
+			local tokenizedValue1 = "1"
 			local varData1 = {
 				expression = "ChangeExpression Test1",
 				path = tokenizedValue1,
@@ -222,8 +222,8 @@ return function()
 		it("should add the Watches", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "ExpressionEvaluated Test"
-			local tokenizedValue2 = "ExpressionEvaluated Test2"
+			local tokenizedValue1 = "1"
+			local tokenizedValue2 = "2"
 			local varData1 = {
 				expression = "ExpressionEvaluated Test",
 				path = tokenizedValue1,
@@ -258,7 +258,7 @@ return function()
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 
-			local tokenizedValue1 = "ExpressionEvaluated Test"
+			local tokenizedValue1 = "1"
 			local varData1 = {
 				expression = "ExpressionEvaluated Test",
 				path = tokenizedValue1,
@@ -290,38 +290,11 @@ return function()
 			expect(#state.listOfExpressions).to.equal(0)
 		end)
 
-		it("should remove the expression from the roots", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
-			local prepState2 = WatchReducer(prepState, AddExpression("RemoveExpression Test"))
-
-			local tokenizedValue1 = "RemoveExpression Test"
-			local varData1 = {
-				expression = "RemoveExpression Test",
-				path = tokenizedValue1,
-				scope = ScopeEnum.Local,
-				value = "somePreview",
-				dataType = "string",
- 				childPaths = {},
-			}
-
-			local expressionData1 = WatchRow.fromData(varData1)
-
-			local prepState3 = WatchReducer(prepState2, ExpressionEvaluated(stepStateBundle, expressionData1))
-			expect(prepState3).to.be.ok()
-			expect(#prepState3.stateTokenToRoots[defaultDebuggerToken][2][2].Watches).to.equal(1)
-			expect(prepState3.stateTokenToRoots[defaultDebuggerToken][2][2].Watches[1]).to.equal("RemoveExpression Test")
-
-			local state = WatchReducer(prepState3, RemoveExpression("RemoveExpression Test"))
-			expect(state).to.be.ok()
-			expect(state.listOfExpressions).to.be.ok()
-			expect(#state.listOfExpressions).to.equal(0)
-		end)
-
 		it("should preserve immutability", function()
 			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken))
 			local prepState2 = WatchReducer(prepState, AddExpression("RemoveExpression Test"))
 
-			local tokenizedValue1 = "RemoveExpression Test"
+			local tokenizedValue1 = "1"
 			local varData1 = {
 				expression = "RemoveExpression Test",
 				path = tokenizedValue1,

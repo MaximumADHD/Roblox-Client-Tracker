@@ -265,10 +265,6 @@ local function dispatchInsertAsset(options, insertToolPromise)
 end
 
 local function sendInsertionAnalytics(options, assetWasDragged)
-	if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
-		Analytics.trackEventAssetInsert(options.assetId)
-		Analytics.incrementAssetInsertCollector()
-	end
 	Analytics.incrementToolboxInsertCounter(assetTypeIdToString(options.assetTypeId))
 
 	local categoryName = options.categoryName
@@ -278,12 +274,6 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 		Analytics.onAssetInserted(options.assetId, options.searchTerm, options.assetIndex, categoryName)
 	else
 		Analytics.onAssetDragInserted(options.assetId, options.searchTerm, options.assetIndex, categoryName)
-	end
-
-	if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
-		if options.assetTypeId == Enum.AssetType.Audio.Value then
-			Analytics.onSoundInserted()
-		end
 	end
 
 	Analytics.incrementWorkspaceInsertCounter()

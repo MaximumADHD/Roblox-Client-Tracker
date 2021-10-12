@@ -9,6 +9,7 @@
 
 local FFlagFixMarketplaceTooltips = game:GetFastFlag("FixMarketplaceTooltips")
 local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -48,6 +49,7 @@ function TooltipWrapper:render()
 			Enabled = canShowCurrentTooltip and isHovered,
 			Text = text,
 			ShowDelay = (not FFlagToolboxReplaceUILibraryComponentsPt2) and Constants.TOOLTIP_SHOW_UP_DELAY or nil,
+			Priority = (FFlagToolboxReplaceUILibraryComponentsPt2 and FFlagToolboxAssetGridRefactor) and 2 or nil,
 		})
 	})
 end

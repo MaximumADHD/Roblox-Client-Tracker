@@ -14,7 +14,6 @@ local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyticsContextItem)
 local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
-local FlagsList = require(Plugin.Core.Util.FlagsList)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
 local UILibraryWrapper = require(Libs.Framework).ContextServices.UILibraryWrapper :: any
@@ -54,11 +53,7 @@ local function MockWrapper(props)
 	local api = ContextServices.API.new({
 		networking = Networking.mock(),
 	})
-	local analytics
-
-	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		analytics = ContextServices.Analytics.mock()
-	end
+	local analytics = ContextServices.Analytics.mock()
 
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 

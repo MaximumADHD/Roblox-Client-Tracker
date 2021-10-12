@@ -27,7 +27,6 @@ local function getLastJoint(joints)
 	end
 end
 
-
 --[[
 	Start dragging the items in initialSelectionInfo.
 ]]
@@ -40,15 +39,20 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 
 	self._partsToMove = partsToMove
 	self._jointsToOrigPart1CFrame = {}
+	self._jointsToOrigBoneTransformedWorldCFrame = {}
+	self._jointsToOrigBoneCFrame = {}
 
-	for _, part in ipairs(self._partsToMove) do
-		self._joints = part:GetJoints()
-		for _, joint in ipairs(part:GetJoints()) do
+	self._joints = RigUtils.getJoints(self._partsToMove, self._draggerContext.RootInstance)
+	for _, joint in ipairs(self._joints) do
+		if joint.Type == Constants.BONE_CLASS_NAME then
+			self._jointsToOrigBoneTransformedWorldCFrame[joint] = joint.Bone.TransformedWorldCFrame
+			self._jointsToOrigBoneCFrame[joint] = joint.Bone.CFrame
+		else 
 			self._jointsToOrigPart1CFrame[joint] = joint.Part1.CFrame
 		end
 	end
 	if self:_shouldSolveConstraints() then 
-		self._effectorCFrame = getLastJoint(partsToMove[1]:GetJoints()).Part1.CFrame
+		self._effectorCFrame = getLastJoint(self._joints).Part1.CFrame
 
 		self._motorData = RigUtils.ikDragStart(
 			self._draggerContext.RootInstance,
@@ -57,7 +61,6 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 			self._draggerContext.StartingPose,
 			self._draggerContext.PinnedParts)
 	end
-
 	self._lastGoodGeometricTransform = CFrame.new()
 	local basisCFrame, offset
 	basisCFrame, offset, self._boundingBoxSize =
@@ -65,10 +68,33 @@ function TransformHandlesImplementation:beginDrag(selection, initialSelectionInf
 	self._centerPoint = basisCFrame * CFrame.new(offset)
 end
 
+local function getTransformedParent(self)
+    local parent = self.Parent
+    if parent then
+        if parent:IsA("Bone") then
+            return parent.TransformedWorldCFrame
+        elseif parent:IsA("BasePart") then
+            return parent.CFrame
+        end
+    end
+    return CFrame.new()
+end
 
-function TransformHandlesImplementation:applyWorldTransform(transform, joint)
+local function getWorldPivot(joint, origCFrame)
+	return getTransformedParent(joint.Bone) * origCFrame
+end
+
+
+function TransformHandlesImplementation:applyWorldTransformToPart(transform, joint)
 	local pivot = joint.Part0.CFrame * joint.C0
 	local partFrame = self._jointsToOrigPart1CFrame[joint] * joint.C1
+	partFrame = transform * partFrame
+	return pivot:toObjectSpace(partFrame)
+end
+
+function TransformHandlesImplementation:applyWorldTransformToBone(transform, joint)
+	local pivot =  getWorldPivot(joint, self._jointsToOrigBoneCFrame[joint])
+	local partFrame = self._jointsToOrigBoneTransformedWorldCFrame[joint]
 	partFrame = transform * partFrame
 	return pivot:toObjectSpace(partFrame)
 end
@@ -81,19 +107,21 @@ end
 	Then return that global transform that was actually applied.
 ]]
 function TransformHandlesImplementation:updateDrag(globalTransform)
+	if self._draggerContext.IsPlaying then 
+		return CFrame.new()
+	end
 	self._globalTransform = globalTransform
 
 	if not self:_shouldSolveConstraints() then 
 		local appliedTransform
 		local values = {}
-		for _, part in ipairs(self._partsToMove) do
-			for _, joint in ipairs(part:GetJoints()) do
-				if not joint:IsA("WeldConstraint") then
-					appliedTransform = self:applyWorldTransform(globalTransform, joint)
-					if(joint.Part1.Name == part.name) then 
-						values[joint.Part1.Name] = appliedTransform
-					end
-				end
+		for _, joint in ipairs(self._joints) do
+			if joint.Type == Constants.BONE_CLASS_NAME then
+				appliedTransform = self:applyWorldTransformToBone(globalTransform, joint)
+				values[joint.Bone.Name] = appliedTransform
+			else 
+				appliedTransform = self:applyWorldTransformToPart(globalTransform, joint)
+				values[joint.Part1.Name] = appliedTransform
 			end
 		end
 

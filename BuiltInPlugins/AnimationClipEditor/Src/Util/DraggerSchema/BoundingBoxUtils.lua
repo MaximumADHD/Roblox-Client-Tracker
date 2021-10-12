@@ -258,7 +258,7 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 		local specialIgnore =
 			draggerContext.ScaleToolSpecialCaseIgnorePivotWithSinglePartSelected and
 			selectedObjects[1]:IsA("BasePart")
-		if not specialIgnore then
+		if (not specialIgnore) and (selectedObjects[1]:IsA("BasePart") or selectedObjects[1]:IsA("Model"))then
 			local pivot = selectedObjects[1]:GetPivot()
 			if pivot then
 				basisCFrame = pivot
@@ -351,9 +351,11 @@ function BoundingBoxUtils.computeInfo(draggerContext, selectedObjects)
 		-- All the attachments, including ones under parts in the list of parts
 		-- to move. We still need these for some edge case behavior.
 		allAttachments = allAttachments,
+		bones = allBones,
 
 		-- Instances with configurable faces
 		instancesWithConfigurableFace = allInstancesWithConfigurableFace,
+		draggerContext = draggerContext,
 	}
 end
 

@@ -106,6 +106,10 @@ function InstanceSelector:init()
 
 	self.deselect = function()
 		Selection:Set({})
+	end
+
+	self.deselectAndRemoveSelectedTrackInstances = function()
+		self.deselect()
 		if (not GetFFlagRevertExplorerSelection()) or GetFFlagUseLuaDraggers() then
 			self.props.SetSelectedTrackInstances({})
 
@@ -170,20 +174,25 @@ function InstanceSelector:init()
 
 					-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
 					self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
-						self.props.SetSelectedTrackInstances({})
-						selectionSignal:Fire()
+						self.deselectAndRemoveSelectedTrackInstances()
 						for _, track in ipairs(self.props.Tracks) do
 							self.props.DeleteTrack(track.Name, self.props.Analytics)
 						end
 						plugin:get():Deactivate()
 					end)
 				end
-				self.deselect()
+				self.deselectAndRemoveSelectedTrackInstances()
 			else
+				if GetFFlagUseLuaDraggers() then 
+					self.deselectAndRemoveSelectedTrackInstances()
+				end
 				plugin:get():Deactivate()
 				self:showErrorDialogs(plugin:get(), errorList)
 			end
 		elseif GetFFlagRevertExplorerSelection() and selectedInstance and plugin then
+			if GetFFlagUseLuaDraggers() then 
+				self.deselectAndRemoveSelectedTrackInstances()
+			end
 			plugin:get():Deactivate()
 		-- if the user clicks on a part in the hierarchy, it gets selected and the draggers switch to it. otherwise we deselect the previously selected part
 		elseif not GetFFlagRevertExplorerSelection() and Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
@@ -249,6 +258,10 @@ function InstanceSelector:render()
 end
 
 function InstanceSelector:willUnmount()
+	if GetFFlagUseLuaDraggers() then 
+		self.deselectAndRemoveSelectedTrackInstances()
+	end
+
 	if self.Heartbeat then
 		self.Heartbeat:Disconnect()
 	end

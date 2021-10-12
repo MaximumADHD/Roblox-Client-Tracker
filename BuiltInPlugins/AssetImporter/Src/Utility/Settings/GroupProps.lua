@@ -1,6 +1,6 @@
 return {
 	{
-		Section = "Object General",
+		Section = "ObjectGeneral",
 		Properties = {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},

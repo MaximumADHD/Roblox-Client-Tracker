@@ -1,6 +1,8 @@
 --[[
 	Displays panels associated with the Flatten tool
 ]]
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -26,7 +28,7 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
 
-local REDUCER_KEY = "FlattenTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "FlattenTool"
 
 local function mapStateToProps(state, props)
 	return {

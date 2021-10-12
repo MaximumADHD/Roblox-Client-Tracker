@@ -1,4 +1,5 @@
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
+local DebuggerVariable = require(script.Parent.Parent.Parent.Mocks.DebuggerVariable)
 
 type VarName = {nameColumn : string}
 
@@ -18,6 +19,21 @@ local function fromData(data) : VariableRow
 	}
 end
 
+local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow) : VariableRow
+	return {
+		nameColumn = instance.Name,
+		pathColumn = parent.pathColumn .. tostring(instance.VariableId),
+		scopeColumn = parent.scopeColumn,
+		valueColumn = instance.Value,
+		dataTypeColumn = instance.Type,
+		childPaths = {},
+		expanded = false,
+		textFilteredOut = false,
+		scopeFilteredOut = false,
+	}
+end
+
 return {
 	fromData = fromData,
+	fromInstance = fromInstance,
 }

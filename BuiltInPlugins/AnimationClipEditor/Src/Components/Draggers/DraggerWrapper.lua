@@ -54,6 +54,8 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.PinnedParts = props.PinnedParts
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
+	draggerContext.IsPlaying = props.IsPlaying
+	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
 		if props.IsPlaying then
 			return

@@ -150,10 +150,20 @@ function TerrainBrushCursorGrid:update(options)
 	local mouseDown = options.mouseDown
 	local planePoint = options.planePoint
 	local planeNormal = options.planeNormal
-	self:_updateInternal(planePoint, planeNormal, cursorSize, mouseDown and 0.8 or 0.3)
+
+	if FFlagTerrainToolsEditPlaneLock then
+		local planeCFrame = options.planeCFrame
+		local planeLock = options.planeLock
+		local editPlaneMode = options.editPlaneMode
+		
+		self:_updateInternal(planePoint, planeNormal, cursorSize, mouseDown and 0.8 or 0.3, nil, planeLock, planeCFrame, editPlaneMode)
+	else
+		self:_updateInternal(planePoint, planeNormal, cursorSize, mouseDown and 0.8 or 0.3)
+	end
+	
 end
 
-function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, transparency, color)
+function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, transparency, color, planeLock, planeCFrame, editPlaneMode)
 	transparency = transparency or 0.95
 	color = BrickColor.new(color or "Institutional white")
 
@@ -161,7 +171,13 @@ function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, trans
 	local gridSize = 10
 
 	local baseCFrame = CFrame.new(point, point + normal)
-	local normalSpace = CFrame.new(Vector3.new(0, 0, 0), normal):PointToObjectSpace(point)
+	local normalSpaceCFrame = CFrame.new(Vector3.new(0, 0, 0), normal)
+	local normalSpace
+	if FFlagTerrainToolsEditPlaneLock and planeLock == PlaneLockType.Manual and planeCFrame then
+		normalSpace = planeCFrame:PointToObjectSpace(point)
+	else
+		normalSpace = normalSpaceCFrame:PointToObjectSpace(point)
+	end
 
 	local roundedNormalOffset = (Vector3.new((normalSpace.x / gridCellSize) % 1, (normalSpace.y / gridCellSize) % 1, 0)
 		- Vector3.new(0.5, 0.5, 0)) * -gridCellSize
@@ -179,15 +195,26 @@ function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, trans
 			self._cursorGridPart = createCursorGridPart()
 		end
 		self._cursorGridPart.Parent = self._cursorGui
-		self._cursorGridPart.CFrame = baseCFrame
+
+		if planeLock == PlaneLockType.Manual and planeCFrame then
+			self._cursorGridPart.CFrame = planeCFrame - planeCFrame.Position + point
+		else
+			self._cursorGridPart.CFrame = baseCFrame
+		end
 	end
 
 	for u = 1, gridSize, 1 do
-		local percent = (u - 1) / (gridSize - 1)
-		local sizeValue = gridCellSize * gridSize * math.sin(math.acos((percent * 1.8) - 0.9))
-		local posValue = (percent - 0.5) * (gridSize - 1) * gridCellSize
-
 		if FFlagTerrainToolsEditPlaneLock then
+			local xModifier = (normalSpace.Y / gridCellSize) % 1
+			local xPercent = ((u - (xModifier or 0) - 1.5) / (gridSize - 1)) % 1
+			local xSizeValue = gridCellSize * (gridSize - 1) * math.sin(math.acos(((xPercent * 1.99) - 0.995)))
+			local xPosValue = (xPercent - 0.5) * (gridSize - 1) * gridCellSize
+
+			local yModifier = (normalSpace.X / gridCellSize) % 1
+			local yPercent = ((u -  (yModifier or 0)  - 1.5) / (gridSize - 1)) % 1
+			local ySizeValue = gridCellSize * (gridSize - 1) * math.sin(math.acos(((yPercent * 1.99) - 0.995)))
+			local yPosValue = (yPercent - 0.5) * (gridSize - 1) * gridCellSize
+
 			local line = self._cursorGridParts[u]
 			local lineOnTop = self._cursorGridPartsOnTop[u]
 			local linePerpendicular = self._cursorGridParts[gridSize + u]
@@ -210,20 +237,28 @@ function TerrainBrushCursorGrid:_updateInternal(point, normal, cursorSize, trans
 				self._cursorGridPartsOnTop[gridSize + u] = lineOnTopPerpendicular
 			end
 
-			local size = Vector3.new(sizeValue, Constants.GRID_LINE_WIDTH, Constants.GRID_LINE_WIDTH)
-			local cFrame = CFrame.new(0, posValue, 0) * CFrame.new(roundedNormalOffset)
-			local sizePerpendicular = Vector3.new(Constants.GRID_LINE_WIDTH, sizeValue, Constants.GRID_LINE_WIDTH)
-			local cFramePerpendicular = CFrame.new(posValue, 0, 0) * CFrame.new(roundedNormalOffset)
+			local root = game:GetService("Workspace").CurrentCamera
+			local gridLineWidth = math.pow((root.CFrame.Position - point).Magnitude, 0.5) / Constants.GRID_LINE_WIDTH
+			local size = Vector3.new(xSizeValue, gridLineWidth, gridLineWidth)
+			local cFrame = CFrame.new(0, xPosValue, 0)
+			local sizePerpendicular = Vector3.new(gridLineWidth, ySizeValue, gridLineWidth)
+			local cFramePerpendicular = CFrame.new(yPosValue, 0, 0)
 
 			line.Size = size
 			line.CFrame = cFrame
 			lineOnTop.Size = size
 			lineOnTop.CFrame = cFrame
+			lineOnTop.Visible = editPlaneMode
 			linePerpendicular.Size = sizePerpendicular
 			linePerpendicular.CFrame = cFramePerpendicular
 			lineOnTopPerpendicular.Size = sizePerpendicular
 			lineOnTopPerpendicular.CFrame = cFramePerpendicular
+			lineOnTopPerpendicular.Visible = editPlaneMode
 		else
+			local percent = (u - 1) / (gridSize - 1)
+			local sizeValue = gridCellSize * gridSize * math.sin(math.acos((percent * 1.8) - 0.9))
+			local posValue = (percent - 0.5) * (gridSize - 1) * gridCellSize
+
 			-- First create line in 1 direction
 			local linePart = self._cursorGridParts[u]
 

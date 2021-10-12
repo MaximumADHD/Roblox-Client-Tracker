@@ -1,6 +1,9 @@
 --[[
 	Displays panels associated with the Subtract tool
 ]]
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -23,7 +26,8 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local REDUCER_KEY = "SubtractTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "SubtractTool"
+local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
 
 local function mapStateToProps(state, props)
 	return {
@@ -36,10 +40,10 @@ local function mapStateToProps(state, props)
 		ignoreWater = state[REDUCER_KEY].ignoreWater,
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = state[REDUCER_KEY].planeLock,
+		planeLock = state[PLANE_REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
-		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
-		planeCFrame = state[REDUCER_KEY].planeCFrame,
+		editPlaneMode = state[PLANE_REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[PLANE_REDUCER_KEY].planeCFrame,
 	}
 end
 
@@ -48,6 +52,14 @@ local function mapDispatchToProps (dispatch)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
 
+	local dispatchToBase
+	if FFlagTerrainToolsGlobalPlaneLockState then
+		function dispatchToBase(action)
+			dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
+		end
+	else
+		dispatchToBase = dispatchToSubtract
+	end
 	return {
 		dispatchChangeBaseSize = function (size)
 			dispatchToSubtract(ChangeBaseSize(size))
@@ -71,13 +83,13 @@ local function mapDispatchToProps (dispatch)
 			dispatchToSubtract(SetIgnoreParts(ignoreParts))
 		end,
 		dispatchSetPlaneLock = function(planeLock)
-			dispatchToSubtract(SetPlaneLock(planeLock))
+			dispatchToBase(SetPlaneLock(planeLock))
 		end,
 		dispatchSetEditPlaneMode = function(editPlaneMode)
-			dispatchToSubtract(SetEditPlaneMode(editPlaneMode))
+			dispatchToBase(SetEditPlaneMode(editPlaneMode))
 		end,
 		dispatchSetPlaneCFrame = function(planeCFrame)
-			dispatchToSubtract(SetPlaneCFrame(planeCFrame))
+			dispatchToBase(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToSubtract(SetSnapToGrid(snapToGrid))

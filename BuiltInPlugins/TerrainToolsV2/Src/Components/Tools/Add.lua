@@ -1,6 +1,9 @@
 --[[
 	Displays panels associated with the Add tool
 ]]
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -25,7 +28,8 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local REDUCER_KEY = "AddTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "AddTool"
+local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
 
 local function mapStateToProps(state, props)
 	return {
@@ -40,16 +44,25 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		material = state[REDUCER_KEY].material,
 		pivot = state[REDUCER_KEY].pivot,
-		planeLock = state[REDUCER_KEY].planeLock,
+		planeLock = state[PLANE_REDUCER_KEY].planeLock,
 		snapToGrid = state[REDUCER_KEY].snapToGrid,
-		editPlaneMode = state[REDUCER_KEY].editPlaneMode,
-		planeCFrame = state[REDUCER_KEY].planeCFrame,
+		editPlaneMode = state[PLANE_REDUCER_KEY].editPlaneMode,
+		planeCFrame = state[PLANE_REDUCER_KEY].planeCFrame,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	local dispatchToAdd = function(action)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
+	end
+
+	local dispatchToBase
+	if FFlagTerrainToolsGlobalPlaneLockState then
+		function dispatchToBase(action)
+			dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
+		end
+	else
+		dispatchToBase = dispatchToAdd
 	end
 	return {
 		dispatchSetAutoMaterial = function (autoMaterial)
@@ -80,13 +93,13 @@ local function mapDispatchToProps(dispatch)
 			dispatchToAdd(ChangePivot(pivot))
 		end,
 		dispatchSetPlaneLock = function(planeLock)
-			dispatchToAdd(SetPlaneLock(planeLock))
+			dispatchToBase(SetPlaneLock(planeLock))
 		end,
 		dispatchSetEditPlaneMode = function(editPlaneMode)
-			dispatchToAdd(SetEditPlaneMode(editPlaneMode))
+			dispatchToBase(SetEditPlaneMode(editPlaneMode))
 		end,
 		dispatchSetPlaneCFrame = function(planeCFrame)
-			dispatchToAdd(SetPlaneCFrame(planeCFrame))
+			dispatchToBase(SetPlaneCFrame(planeCFrame))
 		end,
 		dispatchSetSnapToGrid = function (snapToGrid)
 			dispatchToAdd(SetSnapToGrid(snapToGrid))

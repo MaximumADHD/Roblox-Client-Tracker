@@ -3,6 +3,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
+local Dash = Framework.Dash
+local filter = Dash.filter
+
 local ContextServices = Framework.ContextServices
 local Localization = ContextServices.Localization
 
@@ -12,22 +15,33 @@ local UI = Framework.UI
 local Pane = UI.Pane
 local SelectInput = UI.SelectInput
 
+local DependencyHandler = require(Plugin.Src.Utility.DependencyHandler)
+
 local function getItemsForEnum(enumValue)
 	local items = enumValue.EnumType:GetEnumItems()
-	local selectedIndex
-
 	for i, v in ipairs(items) do
 		items[i] = v.Name
-		if v == enumValue then
-			selectedIndex = i
+	end
+	return items
+end
+
+local function getSelectedIndex(value, items)
+	for i, v in ipairs(items) do
+		if v == value.Name then
+			return i
 		end
 	end
-
-	return items, selectedIndex
 end
 
 local function EnumProperty(props)
-	local items, selectedIndex = getItemsForEnum(props.Value)
+	local items = getItemsForEnum(props.Value)
+	local exclude = DependencyHandler(props.Name, props.DependentValues)
+	items = filter(items, function(value)
+		if exclude and exclude[value] then
+			return false
+		end
+		return true
+	end)
 
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
@@ -37,7 +51,7 @@ local function EnumProperty(props)
 		WrapperContents = Roact.createElement(SelectInput, {
 			OnItemActivated = props.OnSelectItem,
 			Items = items,
-			SelectedIndex = selectedIndex,
+			SelectedIndex = getSelectedIndex(props.Value, items),
 			Focus = props.Value.Name,
 			Size = UDim2.fromScale(1, 1),
 		}),

@@ -57,6 +57,7 @@ local function populateRootItems(roots : {string}, flattenedTreeCopy : PathMappi
 		else
 			-- this can happen after an expression is added but before it is evaluated
 			rootData = WatchRow.fromExpression(path)
+			rootData.children = {}
 		end
 		table.insert(toReturn, rootData)
 	end
@@ -83,6 +84,27 @@ local function applyFilters(rootItems, flattenedTreeCopy)
 	end
 	return toReturn
 end
+
+local function useListOfExpressionsAsSOT(listOfExpressions : {string}, rootsList : {string}, flattenedTreeCopy : PathMapping)
+	-- if an expression has been evaluated, use it's debuggerVariableId
+	-- if it has not been evaluated, use its name
+	-- if it was evaluated but no longer in the list of variables, don't use it
+	local toReturn = deepCopy(listOfExpressions)
+	for index, expression in ipairs(listOfExpressions) do
+		for _, debugVarId in ipairs(rootsList) do 
+			if flattenedTreeCopy[debugVarId] == nil then
+				warn('debug variable id not found in store when constructing DisplayTable')
+				return
+			end
+			if expression == flattenedTreeCopy[debugVarId].expressionColumn then
+				toReturn[index] = debugVarId
+				break
+			end
+		end
+	end
+	return toReturn
+end
+
 
 -- DisplayTable
 function DisplayTable:init()
@@ -213,11 +235,16 @@ DisplayTable = RoactRodux.connect(
 			local watchVars = state.Watch.stateTokenToRoots[token]
 
 			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
-			local rootsList = isVariablesTab and deepCopy(roots.Variables) or state.Watch.listOfExpressions
+			local rootsList = isVariablesTab and deepCopy(roots.Variables) or deepCopy(roots.Watches)
 
 			local watchTree = state.Watch.stateTokenToFlattenedTree[token]
 			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
 			local flattenedTreeCopy = isVariablesTab and deepCopy(tree.Variables) or deepCopy(tree.Watches)
+
+			if not isVariablesTab then
+				rootsList = useListOfExpressionsAsSOT(state.Watch.listOfExpressions, rootsList, flattenedTreeCopy)
+			end
+
 			local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
 			rootItems = applyFilters(rootItems, flattenedTreeCopy)
 			local expansionTable = {}

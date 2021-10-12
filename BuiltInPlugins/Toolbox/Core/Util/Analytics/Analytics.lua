@@ -8,11 +8,10 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 
-local FlagsList = require(Plugin.Core.Util.FlagsList)
-
 local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
+local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -60,20 +59,6 @@ Analytics.getPlaceId = getPlaceId
 Analytics.getPlatformId = getPlatformId
 Analytics.getClientId = getClientId
 Analytics.getStudioSessionId = getStudioSessionId
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.sendReports(plugin)
-	AnalyticsSenders.sendReports(plugin)
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.onTermSearched(categoryName, searchTerm, creatorId)
-	if creatorId and creatorId > 0 then
-		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm, creatorId)
-	else
-		AnalyticsSenders.trackEvent("Studio", categoryName, searchTerm)
-	end
-end
 
 function Analytics.onTermSearchedWithoutInsertion(categoryName, searchTerm)
 	AnalyticsSenders.sendEventImmediately("studio", "toolbox", "termSearchedWithoutInsertion", {
@@ -126,15 +111,13 @@ function Analytics.onSearchOptionsOpened()
 	})
 end
 
--- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param searchTerm
-function Analytics.onCategorySelected(oldCategory, newCategory, searchTerm)
+function Analytics.onCategorySelected(oldCategory, newCategory)
 	AnalyticsSenders.sendEventImmediately("studio", "click", "toolboxCategorySelection", {
 		oldCategory = oldCategory,
 		newCategory = newCategory,
 		studioSid = getStudioSessionId(),
 		clientId = getClientId(),
 		isEditMode = getIsEditMode(),
-		searchTerm = searchTerm
 	})
 end
 
@@ -172,16 +155,6 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 	})
 end
 
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.trackEventAssetInsert(assetId)
-	AnalyticsSenders.trackEvent("Action", "Insert", assetId)
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.incrementAssetInsertCollector()
-	AnalyticsSenders.incrementCounter("Inserts")
-end
-
 function Analytics.incrementToolboxInsertCounter(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.ToolboxInsert.%s"):format(tostring(assetTypeId)))
 end
@@ -200,21 +173,6 @@ end
 
 function Analytics.incrementUploadeAssetFailure(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.onSoundInserted()
-	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Inserted sound")
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.onSoundPlayed()
-	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Played sound")
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Analytics.onSoundPaused()
-	AnalyticsSenders.trackEvent("Studio", "Toolbox", "Paused sound")
 end
 
 function Analytics.onSoundPlayedCounter()
@@ -263,19 +221,6 @@ function Analytics.onAssetInsertedFromAssetPreview(assetId)
 	})
 end
 
-if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-	-- This appears to never be used.
-	function Analytics.onTreeviewActivated(assetId)
-		AnalyticsSenders.sendEventDeferred("studio", "toolbox", "treeviewUsage", {
-			assetId = assetId,
-			clientId = getClientId(),
-			userId = getUserId(),
-			platformId = getPlatformId(),
-			isEditMode = getIsEditMode(),
-		})
-	end
-end
-
 function Analytics.onPluginButtonClickOpen()
 	AnalyticsSenders.sendEventDeferred("studio", "toolbox", "MarketplaceOpen", {
 		userId = getUserId(),
@@ -298,6 +243,21 @@ function Analytics.onToolboxDisplayed()
 		placeId = getPlaceId(),
 		isEditMode = getIsEditMode(),
 	})
+end
+
+if FFlagToolboxShowMeshAndTextureId then
+	function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", eventName, {
+			assetId = assetId,
+			assetTypeId = assetTypeId,
+			clientId = getClientId(),
+			userId = getUserId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			isEditMode = getIsEditMode(),
+			currentCategory = currentCategory,
+		})
+	end
 end
 
 if FFlagPluginManagementDirectlyOpenToolbox then

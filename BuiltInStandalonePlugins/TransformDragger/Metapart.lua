@@ -3,8 +3,6 @@ local List = require(script.Parent.List)
 local Extent = require(script.Parent.Extent)
 local FFlag = require(script.Parent.FFlag)
 
-local EngineFeatureModelPivotApi = game:GetEngineFeature("ModelPivotApi")
-
 local collisionSizeLimit = 10
 local originalCFrames = {}
 
@@ -176,9 +174,7 @@ function createMetaPart(object, subscribe)
 		finalObject.info.lastPlaneCFrame = nil
 		finalObject.children = getAllChildrenFromTable(finalObject.objects)
 		finalObject.roots = getAllRootsFromTable(finalObject.objects)
-		if EngineFeatureModelPivotApi then
-			finalObject.models = getAllModelsFromTable(finalObject.objects)
-		end
+		finalObject.models = getAllModelsFromTable(finalObject.objects)
 		finalObject.IsWrapped = true
 		
 		finalObject.info.expectingChanged = false
@@ -279,10 +275,8 @@ function createMetaPart(object, subscribe)
 					
 					local difference = to.p - from.p--finalObject.info.oCFrame
 					--sanitize?
-					if EngineFeatureModelPivotApi then
-						for _, model in ipairs(finalObject.models) do
-							model.WorldPivot = model:GetPivot() + difference
-						end
+					for _, model in ipairs(finalObject.models) do
+						model.WorldPivot = model:GetPivot() + difference
 					end
 					for i = 1, #finalObject.roots do
 						finalObject.roots[i].CFrame = finalObject.roots[i].CFrame + difference				
@@ -373,10 +367,6 @@ function createMetaPart(object, subscribe)
 			return object
 		end
 		
-		if not EngineFeatureModelPivotApi then
-			forcePrimaryPart(object)
-		end
-		
 		local finalObject = {}
 		
 		-----------------------------------------
@@ -390,9 +380,7 @@ function createMetaPart(object, subscribe)
 		finalObject.info.lastPlaneCFrame = nil
 		finalObject.children = getAllChildrenFromTable({finalObject.object})
 		finalObject.roots = getAllRootsFromTable({finalObject.object})
-		if EngineFeatureModelPivotApi then
-			finalObject.models = getAllModelsFromTable({finalObject.object})
-		end
+		finalObject.models = getAllModelsFromTable({finalObject.object})
 		finalObject.IsWrapped = true		
 		finalObject.info.expectingChanged = false
 		finalObject.info.updateRequired = false
@@ -506,10 +494,8 @@ function createMetaPart(object, subscribe)
 					local difference = to.p - from.p--finalObject.info.oCFrame
 					--sanitize?
 					
-					if EngineFeatureModelPivotApi then
-						for _, model in ipairs(finalObject.models) do
-							model.WorldPivot = model:GetPivot() + difference
-						end
+					for _, model in ipairs(finalObject.models) do
+						model.WorldPivot = model:GetPivot() + difference
 					end
 					for i = 1, #finalObject.roots do
 						finalObject.roots[i].CFrame = finalObject.roots[i].CFrame + difference				
@@ -615,11 +601,9 @@ function createMetaPart(object, subscribe)
 				reRoot()
 				value = sanitizeCFrame(value, true)
 				
-				if EngineFeatureModelPivotApi then
-					local globalTransform = value * finalObject.info.oCFrame:Inverse()
-					for _, model in ipairs(finalObject.models) do
-						model.WorldPivot = globalTransform * model:GetPivot()
-					end
+				local globalTransform = value * finalObject.info.oCFrame:Inverse()
+				for _, model in ipairs(finalObject.models) do
+					model.WorldPivot = globalTransform * model:GetPivot()
 				end
 				for i = 1, #finalObject.roots do
 					finalObject.roots[i].CFrame = value * finalObject.info.oCFrame:toObjectSpace(finalObject.roots[i].CFrame)
@@ -648,9 +632,7 @@ function createMetaPart(object, subscribe)
 				finalObject.info.expectingChanged = true
 				local oldCFrame = getCurrentCFrame()
 				local newCFrame = oldCFrame - oldCFrame.p + value
-				if EngineFeatureModelPivotApi then
-					moveAllModels(finalObject.models, oldCFrame, newCFrame)
-				end
+				moveAllModels(finalObject.models, oldCFrame, newCFrame)
 				moveAllChildren(finalObject.object, oldCFrame, newCFrame)
 				finalObject.info.expectingChanged = false
 				return
@@ -682,9 +664,7 @@ function createMetaPart(object, subscribe)
 		finalObject.info.lastPlaneCFrame = nil
 		finalObject.children = {object}
 		finalObject.roots = getAllRootsFromTable({finalObject.object})
-		if EngineFeatureModelPivotApi then
-			finalObject.models = getAllModelsFromTable({finalObject.object})
-		end
+		finalObject.models = getAllModelsFromTable({finalObject.object})
 		finalObject.IsWrapped = true
 		finalObject.info.expectingChanged = false
 		finalObject.info.updateRequired = false
@@ -727,7 +707,7 @@ function createMetaPart(object, subscribe)
 				return function(t, value) return finalObject.object:IsA(value) or value == "Wrapped" end
 			end
 
-			if EngineFeatureModelPivotApi and key == "UpdatePivot" then
+			if key == "UpdatePivot" then
 				return function(t, initialSize, finalSize)
 					local scaleFactor = finalSize / initialSize
 					local pivotOffset = finalObject.object.PivotOffset
@@ -744,10 +724,8 @@ function createMetaPart(object, subscribe)
 					local difference = to.p - from.p
 					--sanitize?
 					
-					if EngineFeatureModelPivotApi then
-						for _, model in ipairs(finalObject.models) do
-							model.WorldPivot = model:GetPivot() + difference
-						end
+					for _, model in ipairs(finalObject.models) do
+						model.WorldPivot = model:GetPivot() + difference
 					end
 					for i = 1, #finalObject.roots do
 						finalObject.roots[i].CFrame = finalObject.roots[i].CFrame + difference				

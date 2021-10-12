@@ -1,8 +1,14 @@
 return function()
+	local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs
 	local Roact = require(Libs.Roact)
+	local Rodux = require(Libs.Rodux)
+	local Cryo = require(Libs.Cryo)
+
+	local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
@@ -38,12 +44,26 @@ return function()
 	end
 
 	local function createTestAsset(container, name, asset, mockProps)
-		local element = Roact.createElement(MockWrapper, mockProps or {}, {
-			Asset = Roact.createElement(Asset, {
-				asset = asset or getStubAsset(),
+		local myAsset = asset or getStubAsset()
+		local assetId = myAsset.Asset.Id
 
+		mockProps = mockProps or {}
+		if FFlagToolboxAssetGridRefactor then
+			mockProps = Cryo.Dictionary.join(mockProps, {
+				store = Rodux.Store.new(ToolboxReducer, {
+					assets = {
+						idToAssetMap = { [assetId] = myAsset, },
+					},
+				}, {Rodux.thunkMiddleware})
+			})
+		end
+
+		local element = Roact.createElement(MockWrapper, mockProps, {
+			Asset = Roact.createElement(Asset, {
+				asset = (not FFlagToolboxAssetGridRefactor) and myAsset or nil,
+				assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
 				LayoutOrder = 1,
-				isHovered = false,
+				isHovered = (not FFlagToolboxAssetGridRefactor) and false or nil,
 			}),
 		})
 
@@ -61,14 +81,13 @@ return function()
 		local asset = container.Asset
 
 		expect(asset.InnerFrame).to.be.ok()
-
 		expect(asset.InnerFrame.UIListLayout).to.be.ok()
 		expect(asset.InnerFrame.AssetIcon).to.be.ok()
 		expect(asset.InnerFrame.AssetName).to.be.ok()
 
 		Roact.unmount(instance)
 	end)
-	
+
 	it("should log AssetAnalytics impression on mount", function()
 		local assetAnalytics = AssetAnalytics.mock()
 		local calls = {}

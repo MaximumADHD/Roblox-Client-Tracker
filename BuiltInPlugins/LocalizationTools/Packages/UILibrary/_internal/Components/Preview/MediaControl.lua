@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	The control panel for Sounds and VideoFrames that provides a
 	play/pause button, progress bar, and a time label to show time left.

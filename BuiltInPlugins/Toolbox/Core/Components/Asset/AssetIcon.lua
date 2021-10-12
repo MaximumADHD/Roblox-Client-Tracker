@@ -7,21 +7,21 @@
 		boolean isEndorsed
 		number LayoutOrder = 0
 		number curentSoundId
-		boolean isPlaying
+		boolean isPlaying // remove with FFlagToolboxAssetGridRefactor
 		AssetConfigConstants.ASSET_STATUS status
 
 		callback onMouseEnter()
 		callback onMouseLeave()
-		callback onPreviewAudioButtonClicked()
+		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local UILibrary = require(Libs.UILibrary)
 local Framework = require(Libs.Framework)
 
 local Util = Plugin.Core.Util
@@ -30,15 +30,9 @@ local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
 local Urls = require(Util.Urls)
-local FlagsList = require(Util.FlagsList)
 
 local Types = Plugin.Core.Types
 local Category = require(Types.Category)
-
-local AssetType
-if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-	AssetType = UILibrary.Util.AssetType
-end
 
 local getModal = ContextGetter.getModal
 local withModal = ContextHelper.withModal
@@ -50,6 +44,8 @@ local AudioProgressBar = require(Plugin.Core.Components.Asset.AudioProgressBar)
 local ImageWithDefault = require(Plugin.Core.Components.ImageWithDefault)
 local TooltipWrapper = require(Plugin.Core.Components.TooltipWrapper)
 local PopUpWrapperButton = require(Plugin.Core.Components.Asset.Preview.PopUpWrapperButton)
+
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -77,6 +73,12 @@ function AssetIcon:init(props)
 			isHovered = false
 		})
 	end
+
+	if FFlagToolboxAssetGridRefactor then
+		self.onAssetPreviewButtonClicked = function()
+			self.props.onPreviewToggled(true, self.props.assetId)
+		end
+	end
 end
 
 function AssetIcon:render()
@@ -91,12 +93,12 @@ function AssetIcon:render()
 		local isEndorsed = props.isEndorsed
 		local typeId = props.typeId
 		local currentSoundId = props.currentSoundId
-		local isPlaying = props.isPlaying
+		local isPlaying = (not FFlagToolboxAssetGridRefactor) and props.isPlaying or nil
 		local isLoading = props.isLoading
 
 		local onMouseEnter = self.onMouseEnter
 		local onMouseLeave = self.onMouseLeave
-		local onPreviewAudioButtonClicked = props.onPreviewAudioButtonClicked
+		local onPreviewAudioButtonClicked = (not FFlagToolboxAssetGridRefactor) and props.onPreviewAudioButtonClicked or nil
 
 		local isHovered = self.state.isHovered
 		local isAssetHovered = props.isHovered
@@ -112,16 +114,8 @@ function AssetIcon:render()
 
 		local assetStatusImage = status and Images.AssetStatus[status]
 
-		local showAssetPreview
-		if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-			showAssetPreview = true
-		else
-			showAssetPreview = AssetType:isPreviewAvailable(typeId)
-		end
-
 		-- Asset Data is missing for AssetPreview in the creation tab.
 		local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-		showAssetPreview = showAssetPreview and not isCurrentlyCreationsTab
 		
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
@@ -142,9 +136,9 @@ function AssetIcon:render()
 
 				assetId = assetId,
 				currentSoundId = currentSoundId,
-				isPlaying = isPlaying,
+				isPlaying = (not FFlagToolboxAssetGridRefactor) and isPlaying or nil,
 				isLoading = isLoading,
-				onClick = onPreviewAudioButtonClicked,
+				onClick = (not FFlagToolboxAssetGridRefactor) and onPreviewAudioButtonClicked or nil,
 			}),
 
 			AudioProgressBar = isAudioAsset and Roact.createElement(AudioProgressBar, {
@@ -156,10 +150,10 @@ function AssetIcon:render()
 				Size = UDim2.new(1, 0, 0, 2),
 			}),
 
-			AssetPreviewTriggerButton = showAssetPreview and Roact.createElement(PopUpWrapperButton, {
+			AssetPreviewTriggerButton = not isCurrentlyCreationsTab and Roact.createElement(PopUpWrapperButton, {
 				position = PREVIEW_POSITION,
 				ShowIcon = isAssetHovered,
-				onClick = props.onAssetPreviewButtonClicked,
+				onClick = FFlagToolboxAssetGridRefactor and self.onAssetPreviewButtonClicked or props.onAssetPreviewButtonClicked,
 			}),
 
 			AssetStatus = isAssetHovered and assetStatusImage and Roact.createElement("ImageLabel", {
@@ -219,4 +213,14 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(AssetIcon)
+local mapDispatchToProps
+if FFlagToolboxAssetGridRefactor then
+	mapDispatchToProps = function (dispatch)
+		return {
+			onPreviewToggled = function(isPreviewing, previewAssetId)
+				dispatch(SetAssetPreview(isPreviewing, previewAssetId))
+			end,
+		}
+	end
+end
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetIcon)

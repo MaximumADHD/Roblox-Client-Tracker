@@ -73,7 +73,7 @@ function AssetImporterUI:render()
 			}, {
 				PreviewContainer = Roact.createElement(Pane, {
 					LayoutOrder = 1,
-					Size = UDim2.new(1, 0, 0, sizes.PreviewHeight),
+					Size = UDim2.new(1, 0, sizes.PreviewRatio, 0),
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
@@ -87,7 +87,7 @@ function AssetImporterUI:render()
 
 				TreeContainer = Roact.createElement(Pane, {
 					LayoutOrder = 3,
-					Size = UDim2.new(1, 0, 1, -(sizes.PreviewHeight + SEPARATOR_WEIGHT)),
+					Size = UDim2.new(1, 0, sizes.PreviewRatio, -SEPARATOR_WEIGHT),
 				}, {
 					TreeView = Roact.createElement(AssetImportTree, {
 						Instances = { props.AssetSettings },

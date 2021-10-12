@@ -59,6 +59,7 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
+local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
@@ -74,12 +75,35 @@ local termsOfUseDialogKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.ge
 local buttonClickedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getButtonClickedKeyName() or "buttonClicked"
 
 local Framework = require(Plugin.Packages.Framework)
-local Image = Framework.UI.Decoration.Image
+local Button = Framework.UI.Button
 local HoverArea = Framework.UI.HoverArea
+local Image = Framework.UI.Decoration.Image
+local SelectInput = Framework.UI.SelectInput
 local StyledDialog = Framework.StudioUI.StyledDialog
+local TextLabel = Framework.UI.Decoration.TextLabel
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 local Tooltip = Framework.UI.Tooltip
+
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+
+local function PaddedTextLabel(props)
+	assert(FFlagRemoveUILibraryStyledDropdownPt1)
+	return Roact.createElement(TextLabel, {
+		BackgroundTransparency = 1,
+		LayoutOrder = props.LayoutOrder,
+		Size = UDim2.new(1, 0, 0, props.Height),
+		Style = props.Style,
+		Text = props.Text,
+		TextWrapped = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	},	{
+		-- This padding ensures the text is not lined up right along the edge of the TextLabel
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, props.Padding),
+			PaddingLeft = UDim.new(0, props.Padding),
+		}),
+	})
+end
 
 local groupsLoaded = false
 --Uses props to display current settings values
@@ -192,7 +216,7 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			Selector = Roact.createElement(StyledDropDown, {
+			DEPRECATED_Selector = not FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(StyledDropDown, {
 				ButtonText = creatorItem.Text,
 				ItemHeight = 38,
 				Items = dropdownItems,
@@ -204,6 +228,40 @@ local function displayContents(parent)
 				ShowRibbon = not theme.isDarkerTheme,
 				Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
 				TextSize = Constants.TEXT_SIZE,
+			}),
+
+			Selector = FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(SelectInput, {
+				Items = dropdownItems,
+				OnItemActivated = function(item)
+					creatorChanged(item.Key)
+				end,
+				OnRenderItem = function(item, index, activated)
+					local mainText = item.Text
+					local theme = props.Theme:get("Plugin")
+
+					return Roact.createElement(Button, {
+						OnClick = activated,
+						LayoutOrder = index,
+						Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+					}, {
+						UILayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							Padding = UDim.new(0, 0),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+						}),
+
+						MainTextLabel = Roact.createElement(PaddedTextLabel, {
+							Height = theme.selectInput.fontStyle.Normal.TextSize,
+							LayoutOrder = 0,
+							Padding = theme.selectInput.padding,
+							Style = "Normal",
+							Text = mainText,
+						}),
+					})
+				end,
+				PlaceholderText = creatorItem.Text,
+				Width = theme.selectInput.width.creator,
 			}),
 		}),
 
@@ -218,7 +276,7 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			Selector = Roact.createElement(StyledDropDown, {
+			DEPRECATED_Selector = not FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(StyledDropDown, {
 				ButtonText = localization:getText("Genre", genre),
 				ItemHeight = 38,
 				Items = genres,
@@ -230,6 +288,40 @@ local function displayContents(parent)
 				ShowRibbon = not theme.isDarkerTheme,
 				Size = UDim2.new(0, 220, 0, 38),
 				TextSize = Constants.TEXT_SIZE,
+			}),
+
+			Selector = FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(SelectInput, {
+				Items = genres,
+				OnItemActivated = function(item)
+					genreChanged(item.Key)
+				end,
+				OnRenderItem = function(item, index, activated)
+					local mainText = item.Text
+					local theme = props.Theme:get("Plugin")
+
+					return Roact.createElement(Button, {
+						OnClick = activated,
+						LayoutOrder = index,
+						Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+					}, {
+						UILayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Vertical,
+							Padding = UDim.new(0, 0),
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							VerticalAlignment = Enum.VerticalAlignment.Top,
+						}),
+
+						MainTextLabel = Roact.createElement(PaddedTextLabel, {
+							Height = theme.selectInput.fontStyle.Normal.TextSize,
+							LayoutOrder = 0,
+							Padding = theme.selectInput.padding,
+							Style = "Normal",
+							Text = mainText,
+						}),
+					})
+				end,
+				PlaceholderText = localization:getText("Genre", genre),
+				Width = theme.selectInput.width.genre,
 			}),
 		}),
 

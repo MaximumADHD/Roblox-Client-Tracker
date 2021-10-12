@@ -221,6 +221,7 @@ local Constants = {
 
 	SIGNAL_KEYS = {
 		SelectionChanged = "SelectionChanged",
+		ScrubberChanged = "ScrubberChanged"
 	},
 
 	R15_PARTS = {

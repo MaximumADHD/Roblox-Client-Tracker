@@ -6,7 +6,6 @@ local RequestReason = require(Plugin.Core.Types.RequestReason)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
--- FFlagToolboxSaveSearchWhenSwitchingCategories adds optional param categoryName
 return function(networkInterface, settings, searchTerm, categoryName)
 	return function(store)
 		store:dispatch(StopAllSounds())

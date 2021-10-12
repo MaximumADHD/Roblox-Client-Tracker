@@ -9,10 +9,27 @@ local Analytics = require(Util.Analytics.Analytics)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
+local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
+
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
 local ContentProvider = game:GetService("ContentProvider")
 local HttpService = game:GetService("HttpService")
+
+local isCli = require(script.Parent.isCli)
+
+local AssetManagerService
+if FFlagToolboxShowMeshAndTextureId then
+	-- AssetManagerService is not available in roblox-cli. So we create a mock of the asset manager service functionality here.
+	if isCli() then
+		AssetManagerService = {}
+		function AssetManagerService:GetMeshIdFromAssetId() return 1 end
+		function AssetManagerService:GetTextureIdFromAssetId() return 1 end
+	else
+		AssetManagerService = game:GetService("AssetManagerService")
+	end
+end
 
 local FFlagToolboxAssetMenuGuid = game:GetFastFlag("ToolboxAssetMenuGuid")
 local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
@@ -38,7 +55,7 @@ local function getImageIdFromDecalId(decalId)
 end
 
 -- typeof(assetTypeId) == number
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, trackingAttributes)
+function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, currentCategory, trackingAttributes)
 	local menuName
 	local instanceGuid
 
@@ -83,13 +100,52 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyIdToClipboard-%s", instanceGuid) or "CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
-			StudioService:CopyToClipboard(trueAssetId)
-		end)
+		if FFlagToolboxShowMeshAndTextureId then
+			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyAssetIdToClipboard-%s", instanceGuid) or "CopyAssetIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
+				StudioService:CopyToClipboard(trueAssetId)
+			end)
 
-		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyURIToClipboard-%s", instanceGuid) or "CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
-			StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
-		end)
+			if not FFlagToolboxRemoveAssetUris then
+				menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyAssetUriToClipboard-%s", instanceGuid) or "CopyAssetUriToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
+					Analytics.onContextMenuClicked("CopyAssetUri", assetId, assetTypeId, currentCategory)
+					StudioService:CopyToClipboard("rbxassetid://" .. trueAssetId)
+				end)
+			end
+
+			if assetTypeId == Enum.AssetType.MeshPart.Value then
+				local meshIdSuccess, meshId = pcall(AssetManagerService.GetMeshIdFromAssetId, AssetManagerService, trueAssetId)
+				local textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
+
+				if meshIdSuccess then
+					menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyMeshIdToClipboard-%s", instanceGuid) or "CopyMeshIdToClipboard", localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
+						Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
+						StudioService:CopyToClipboard(meshId)
+					end)
+				else
+					warn("Failed to get mesh id for asset id " .. trueAssetId)
+				end
+
+				if textureIdSuccess then
+					menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyTextureIdToClipboard-%s", instanceGuid) or "CopyTextureIdToClipboard", localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
+						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
+						StudioService:CopyToClipboard(textureId)
+					end)
+				else
+					warn("Failed to get texture id for asset id " .. trueAssetId)
+				end
+			end
+		else
+			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyIdToClipboard-%s", instanceGuid) or "CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+				StudioService:CopyToClipboard(trueAssetId)
+			end)
+
+			if not FFlagToolboxRemoveAssetUris then
+				menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyURIToClipboard-%s", instanceGuid) or "CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
+					StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
+				end)
+			end
+		end
 	end
 
 	if showEditOption and editAssetFunc then

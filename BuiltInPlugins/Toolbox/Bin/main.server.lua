@@ -50,7 +50,6 @@ local AssetConfigTheme = require(Util.AssetConfigTheme)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
-local FlagsList = require(Util.FlagsList)
 
 if DebugFlags.shouldDebugWarnings() then
 	local Promise = require(Libs.Framework).Util.Promise
@@ -272,11 +271,7 @@ local function main()
 
 	local assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
 
-	local analyticsContextItem
-
-	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		analyticsContextItem = makeToolboxAnalyticsContext()
-	end
+	local analyticsContextItem = makeToolboxAnalyticsContext()
 
 	local settings = Settings.new(plugin)
 	local theme = createTheme()
@@ -294,9 +289,6 @@ local function main()
 
 	local function onPluginWillDestroy()
 		if toolboxHandle then
-			if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
-				Analytics.sendReports(plugin)
-			end
 			Roact.unmount(toolboxHandle)
 		end
 		if inspector then

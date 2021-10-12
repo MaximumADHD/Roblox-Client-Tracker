@@ -36,6 +36,7 @@ local function NoSelectedItem(props)
 end
 
 local function ItemSelected(props)
+	local localization = props.Localization
 	return Roact.createFragment({
 		PropertyList = Roact.createElement(Pane, {
 			Size = UDim2.fromScale(1, 1),
@@ -45,6 +46,7 @@ local function ItemSelected(props)
 		}, {
 			PropertyList = Roact.createElement(PropertyListView, {
 				Instance = props.SettingsItem,
+				Localization = localization,
 			}),
 		})
 	})

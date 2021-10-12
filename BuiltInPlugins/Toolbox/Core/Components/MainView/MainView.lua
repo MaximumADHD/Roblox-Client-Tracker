@@ -27,6 +27,7 @@
 
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local GuiService = game:GetService("GuiService")
 
@@ -54,7 +55,9 @@ local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
+local AssetGridContainer_DEPRECATED = require(Plugin.Core.Components.AssetGridContainer_DEPRECATED)
 local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
+
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
 local NoResultsDetail = require(Plugin.Core.Components.NoResultsDetail)
 local LoadingIndicator
@@ -80,35 +83,42 @@ function MainView:init(props)
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
 
-	self.state = {
-		lowerIndexToRender = 0,
-		upperIndexToRender = 0,
-		assetIds = {},
-	}
+	if (not FFlagToolboxAssetGridRefactor) then
+		self.state = {
+			lowerIndexToRender = 0,
+			upperIndexToRender = 0,
+			assetIds = {},
+		}
+	end
 
 	self.headerHeight = 0
 	self.containerWidth = 0
 	self.scrollingFrameRef = Roact.createRef()
 
 	local function tryRerender(self)
-		local scrollingFrame = self.scrollingFrameRef.current
-		if not scrollingFrame then return end
-		local canvasY = scrollingFrame.CanvasPosition.Y
-		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
-		local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
+		if (not FFlagToolboxAssetGridRefactor) then
+			local scrollingFrame = self.scrollingFrameRef.current
+			if not scrollingFrame then return end
+			local canvasY = scrollingFrame.CanvasPosition.Y
+			local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
+			local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
 
-		-- Where the bottom of the scrolling frame is relative to canvas size
-		local bottom = canvasY + windowHeight
-		local dist = canvasHeight - bottom
+			-- Where the bottom of the scrolling frame is relative to canvas size
+			local bottom = canvasY + windowHeight
+			local dist = canvasHeight - bottom
 
-		if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE then
-			self.requestNextPage()
+			if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE then
+				self.requestNextPage()
+			end
+
+			self:calculateRenderBounds()
 		end
-
-		self:calculateRenderBounds()
 	end
 
 	self.onScroll = function()
+		if FFlagToolboxAssetGridRefactor then
+			return
+		end
 		-- We we are previewing the asset, we shouldn't be able
 		-- to scroll tbe main view of the Toolbox
 		if not self.props.isPreviewing then
@@ -117,6 +127,9 @@ function MainView:init(props)
 	end
 
 	self.onAssetGridContainerChanged = function()
+		if FFlagToolboxAssetGridRefactor then
+			return
+		end
 		tryRerender(self)
 	end
 
@@ -143,26 +156,33 @@ function MainView:init(props)
 end
 
 function MainView.getDerivedStateFromProps(nextProps, lastState)
-	local lowerBound = lastState.lowerIndexToRender or 0
-	local upperBound = lastState.upperIndexToRender or 0
+	if (not FFlagToolboxAssetGridRefactor) then
+		local lowerBound = lastState.lowerIndexToRender or 0
+		local upperBound = lastState.upperIndexToRender or 0
 
-	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.idsToRender or { }, lowerBound, upperBound)
+		local assetIds = Layouter.sliceAssetsFromBounds(nextProps.idsToRender or { }, lowerBound, upperBound)
 
-	return {
-		assetIds = assetIds,
-		lowerIndexToRender = lowerBound,
-		upperIndexToRender = upperBound,
-	}
+		return {
+			assetIds = assetIds,
+			lowerIndexToRender = lowerBound,
+			upperIndexToRender = upperBound,
+		}
+	end
 end
 
 function MainView:didMount()
-	self.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
+	if (not FFlagToolboxAssetGridRefactor) then
+		self.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
+			self:calculateRenderBounds()
+		end)
 		self:calculateRenderBounds()
-	end)
-	self:calculateRenderBounds()
+	end
 end
 
 function MainView:calculateRenderBounds()
+	if FFlagToolboxAssetGridRefactor then
+		return
+	end
 	local props = self.props
 	local showPrices = Category.shouldShowPrices(props.categoryName)
 	local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
@@ -181,6 +201,9 @@ function MainView:calculateRenderBounds()
 end
 
 function MainView:didUpdate(prevProps, prevState)
+	if FFlagToolboxAssetGridRefactor then
+		return
+	end
 	-- Check if the toolbox has empty space
 	-- If there is then request the next page
 	local spaceToDisplay = self.state.upperIndexToRender - self.state.lowerIndexToRender
@@ -220,12 +243,20 @@ function MainView:render()
 		local networkErrors = props.networkErrors or {}
 		local networkError = networkErrors[#networkErrors]
 
-		-- Need to calculate height for both rendered assets and all assets
-		local idsToRender = props.idsToRender or {}
-		local assetIds = state.assetIds or {}
-
-		local assetCount = #assetIds
-		local allAssetCount = #idsToRender
+		local idsToRender
+		local assetIds
+		local assetCount
+		local allAssetCount
+		if FFlagToolboxAssetGridRefactor then
+			allAssetCount = props.allAssetCount
+			assetCount = props.allAssetCount
+		else
+			-- Need to calculate height for both rendered assets and all assets
+			idsToRender = props.idsToRender or {}
+			assetIds = state.assetIds or {}
+			assetCount = #assetIds
+			allAssetCount = #idsToRender
+		end
 
 		local lowerIndexToRender = state.lowerIndexToRender or 0
 
@@ -233,9 +264,12 @@ function MainView:render()
 
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 
-		-- Add a bit extra to the container so we can see the details of the assets on the last row
-		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
-			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+		local allAssetsHeight
+		if (not FFlagToolboxAssetGridRefactor) then
+			-- Add a bit extra to the container so we can see the details of the assets on the last row
+			allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
+				+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+		end
 
 		local suggestionIntro = localizedContent.Sort.ByText
 
@@ -251,8 +285,11 @@ function MainView:render()
 		local headerHeight, headerToBodyPadding = Layouter.calculateMainViewHeaderHeight(showTags,
 			suggestionIntro, suggestions, containerWidth)
 
-		local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
-		local canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
+		local canvasHeight
+		if (not FFlagToolboxAssetGridRefactor) then
+			local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
+			canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
+		end
 
 		local hasResults = allAssetCount > 0
 
@@ -270,12 +307,18 @@ function MainView:render()
 			}
 		end
 
-		-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
-		local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
-		local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
-		local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
+		local assetsPerRow
+		local assetHeight
+		local gridContainerOffset
+		local scrollingEnabled
+		if (not FFlagToolboxAssetGridRefactor) then
+			-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
+			assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
+			assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
+			gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
+			scrollingEnabled = not props.isPreviewing
+		end
 
-		local scrollingEnabled = not props.isPreviewing
 		local showSearchOptions = props.showSearchOptions
 		getModal(self).onSearchOptionsToggled(showSearchOptions)
 
@@ -290,7 +333,10 @@ function MainView:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
-			ScrollingFrame = Roact.createElement(StyledScrollingFrame, {
+			ScrollingFrame = Roact.createElement(FFlagToolboxAssetGridRefactor and "Frame" or StyledScrollingFrame, FFlagToolboxAssetGridRefactor and {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+			} or {
 				Position = UDim2.new(0, 0, 0, 0),
 				Size = UDim2.new(1, 0, 1, 0),
 				CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
@@ -319,7 +365,7 @@ function MainView:render()
 					ZIndex = 2
 				}, noResultsDetailProps)),
 
-				AssetGridContainer = Roact.createElement(AssetGridContainer, {
+				AssetGridContainer = (not FFlagToolboxAssetGridRefactor) and Roact.createElement(AssetGridContainer_DEPRECATED, {
 					Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
 
 					assetIds = assetIds,
@@ -332,6 +378,11 @@ function MainView:render()
 					tryOpenAssetConfig = tryOpenAssetConfig,
 					onAssetInsertionSuccesful = self.props.onAssetInsertionSuccesful,
 				}),
+			}),
+
+			AssetGridContainerNew = FFlagToolboxAssetGridRefactor and Roact.createElement(AssetGridContainer, {
+				Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding),
+				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
 			SearchOptions = showSearchOptions and Roact.createElement(SearchOptions, {
@@ -389,11 +440,17 @@ local function mapStateToProps(state, props)
 		}
 	end
 
+	local isPreviewing
+	if (not FFlagToolboxAssetGridRefactor) then
+		isPreviewing = assets.isPreviewing or false
+	end
 	return {
-		idsToRender = assets.idsToRender or {},
+		idsToRender = (not FFlagToolboxAssetGridRefactor) and assets.idsToRender or {} or nil,
+
+		allAssetCount = FFlagToolboxAssetGridRefactor and #assets.idsToRender or nil,
 		isLoading = assets.isLoading or false,
 
-		isPreviewing = assets.isPreviewing or false,
+		isPreviewing = isPreviewing,
 
 		networkErrors = state.networkErrors or {},
 

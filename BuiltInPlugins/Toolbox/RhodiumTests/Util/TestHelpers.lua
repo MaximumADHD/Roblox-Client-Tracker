@@ -1,6 +1,12 @@
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+
 local Plugin = script.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
+local Rodux = require(Libs.Rodux)
+local Cryo = require(Plugin.Libs.Cryo)
+
+local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 
 local Asset = require(Plugin.Core.Components.Asset.Asset)
 local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
@@ -32,12 +38,26 @@ function TestHelpers.cleanupCategoryVerification()
 end
 
 function TestHelpers.createTestAsset(container, name, asset, mockProps)
+	local myAsset = asset or MockItems.getSimpleAsset("12345")
+	local assetId = myAsset.Asset.Id
+
+	mockProps = mockProps or {}
+	if FFlagToolboxAssetGridRefactor then
+		mockProps = Cryo.Dictionary.join(mockProps, {
+			store = Rodux.Store.new(ToolboxReducer, {
+				assets = {
+					idToAssetMap = { [assetId] = myAsset, },
+				},
+			}, {Rodux.thunkMiddleware})
+		})
+	end
+
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			asset = asset or MockItems.getSimpleAsset("12345"),
-
+			asset = (not FFlagToolboxAssetGridRefactor) and myAsset or nil,
+			assetId = FFlagToolboxAssetGridRefactor and assetId or nil,
 			LayoutOrder = 1,
-			isHovered = false,
+			isHovered = (not FFlagToolboxAssetGridRefactor) and false or nil,
 			Selected = false,
 		}),
 	})

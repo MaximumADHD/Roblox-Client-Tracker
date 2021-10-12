@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	A one-knob slider
 	TODO: DEVTOOLS-4330 - Replace this entire component with DevFramework's one-knob slider once assetPreview is out of UILibrary

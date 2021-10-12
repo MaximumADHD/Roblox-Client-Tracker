@@ -7,16 +7,12 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
+local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
-local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
-local ToggleButton = UI.ToggleButton
-local Separator = UI.Separator
-local TextInput = UI.TextInput
-local SelectInput = UI.SelectInput
 
 local Properties = script.Parent.Properties
 local BooleanProperty = require(Properties.BooleanProperty)
@@ -62,6 +58,10 @@ function PropertyView:_disconnect()
 end
 
 function PropertyView:init()
+	self:setState({
+		connections = {},
+	})
+
 	self.updateInstanceMap = function()
 		local instanceMap = AssetImportService:GetCurrentImportMap()
 		self.props.SetInstanceMap(instanceMap)
@@ -88,9 +88,23 @@ end
 
 function PropertyView:didMount()
 	self:_connect()
+	if self.props.Dependencies then
+		for _, dep in ipairs(self.props.Dependencies) do
+			local signal = self.props.Instance:GetPropertyChangedSignal(dep)
+			local connection = signal:connect(function()
+				self:setState(self.state)
+			end)
+
+			table.insert(self.state.connections, connection)
+		end
+	end
 end
 
 function PropertyView:willUnmount()
+	for _, connection in ipairs(self.state.connections) do
+		connection:Disconnect()
+	end
+	self.state.connections = nil
 	self:_disconnect()
 end
 
@@ -101,11 +115,25 @@ function PropertyView:didUpdate(prevProps, nextState)
 	end
 end
 
+local function getDependentValues(dependencies, settingsInstance)
+	local dependentValues = {}
+	for _, dep in ipairs(dependencies) do
+		dependentValues[dep] = settingsInstance[dep]
+	end
+	return dependentValues
+end
+
 function PropertyView:render()
 	local props = self.props
+	local localization = props.Localization
 
 	local editable = props.Editable
 	local value = props.Instance[props.PropertyName]
+
+	local dependentValues
+	if self.props.Dependencies then
+		dependentValues = getDependentValues(self.props.Dependencies, props.Instance)
+	end
 
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
@@ -116,7 +144,7 @@ function PropertyView:render()
 	}, {
 		Label = Roact.createElement(TextLabel, {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Text = props.PropertyName,
+			Text = localization:getText("Properties", props.PropertyName),
 			TextWrapped = false,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			LayoutOrder = 1,
@@ -129,9 +157,15 @@ function PropertyView:render()
 			OnSetItem = self.onSetItem,
 			OnSelectItem = self.onSelectItem,
 			Size = UDim2.new(0.5, 0, 0, 24),
+			DependentValues = dependentValues,
+			Name = props.PropertyName
 		}),
 	})
 end
+
+PropertyView = withContext({
+	Localization = Localization,
+})(PropertyView)
 
 local function mapStateToProps(state)
 	return {}

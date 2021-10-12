@@ -97,6 +97,7 @@ end
 function MainPlugin:render()
 	local props = self.props
 	local state = self.state
+	local localization = props.Localization
 
 	local hasImportSettings = state.hasImportSettings
 	local shouldShowPrompt = not state.hasImportSettings and state.promptRequested
@@ -106,11 +107,11 @@ function MainPlugin:render()
 		props.Mouse,
 		props.Store,
 		props.Theme,
-		props.Localization,
+		localization,
 		props.Analytics,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = props.Localization:getText("Plugin", "Toolbar"),
+			Title = localization:getText("Plugin", "Toolbar"),
 			RenderButtons = function(toolbar)
 				return self:renderButtons(toolbar)
 			end,
@@ -118,9 +119,10 @@ function MainPlugin:render()
 
 		Dialog = hasImportSettings and Roact.createElement(MeshImportDialog, {
 			Resizable = true,
-			Title = "Import Mesh",
+			Title = localization:getText("Plugin", "WindowTitle"),
 			OnClose = self.onClose,
 			OnImport = self.onImport,
+			Localization = localization,
 		}),
 
 		Prompt = shouldShowPrompt and Roact.createElement(ImportPrompt, {

@@ -2,10 +2,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Rodux = require(Plugin.Packages.Rodux)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local MainFolder = Plugin.Src.Util.DebugConnectionListener
-local DebugConnectionListener = require(MainFolder.DebugConnectionListener)
-local MockDebuggerConnection =require(MainFolder.Mock.MockDebuggerConnection)
-local MockDebuggerConnectionManager = require(MainFolder.Mock.MockDebuggerConnectionManager)
+local DebugConnectionListener = require(Plugin.Src.Util.DebugConnectionListener.DebugConnectionListener)
+local Mocks = Plugin.Src.Mocks
+local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
+local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 
 return function()
 	it("should create and destroy DebugConnectionListener without errors", function()

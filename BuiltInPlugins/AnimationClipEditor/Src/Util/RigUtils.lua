@@ -136,6 +136,10 @@ local function createBoneNode(bone, folder, visualizeBones)
 	createBoneLink(bone, folder, visualizeBones)
 end
 
+function RigUtils.getBoneFromBoneNode(boneNode)
+	return boneNode:gsub("Node", "")
+end
+
 function RigUtils.updateMicrobones(rig, visualizeBones)
 	if not rig or type(rig) == "table" then
 		return
@@ -529,6 +533,30 @@ function RigUtils.findMatchingAttachments(part0, part1)
 			end
 		end
 	end
+end
+
+function RigUtils.getJoints(parts, rootInstance)
+	local joints = {}
+	local selectedTracks = parts
+	local _, partNameToMotorMap, _, boneMap = RigUtils.getRigInfo(rootInstance)
+	for _, track in ipairs(selectedTracks) do
+		local trackName = track.Name
+		if partNameToMotorMap[trackName] then
+			table.insert(joints, {
+				Type = Constants.MOTOR_CLASS_NAME,
+				Part0 = partNameToMotorMap[trackName].Part0,
+				Part1 = partNameToMotorMap[trackName].Part1,
+				C0 = partNameToMotorMap[trackName].C0,
+				C1 = partNameToMotorMap[trackName].C1
+			})
+		elseif boneMap[trackName] then
+			table.insert(joints, {
+				Type = Constants.BONE_CLASS_NAME,
+				Bone = boneMap[trackName],
+			})
+		end
+	end
+	return joints
 end
 
 -- Given a rig, builds a hierarchy table that the Editor can use.

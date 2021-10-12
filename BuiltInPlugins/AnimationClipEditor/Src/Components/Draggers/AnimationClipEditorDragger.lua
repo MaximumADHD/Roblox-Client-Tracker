@@ -42,6 +42,7 @@ function AnimationClipEditorDragger:render()
 		AnalyticsName = "AnimationClipEditor" .. tool.Name,
 		AllowDragSelect = false,
 		AllowFreeformDrag = false,
+		ShowLocalSpaceIndicator = true,
 		HandlesList = handles,
 	}
 

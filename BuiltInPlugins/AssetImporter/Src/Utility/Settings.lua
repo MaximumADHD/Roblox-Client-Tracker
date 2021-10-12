@@ -1,7 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Types = require(Plugin.Src.Types)
-
 local strict = require(Plugin.Packages.Framework.Util.strict)
 
 local GroupProps = require(script.GroupProps)

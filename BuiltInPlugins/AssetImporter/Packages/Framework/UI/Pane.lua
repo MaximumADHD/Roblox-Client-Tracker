@@ -14,6 +14,7 @@
 		callback OnClick: Triggered when the user clicks on this component.
 		callback OnRightClick: Triggered when the user right-clicks on this component.
 		callback OnPress: Triggered when the user clicks or taps on this component.
+		number ZIndex: The ZIndex of the component.
 	Styles:
 		Default: The pane has no background
 		Box: The pane has the current theme's main background.

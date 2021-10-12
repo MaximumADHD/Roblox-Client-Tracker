@@ -39,6 +39,7 @@ local ReplaceTool = Rodux.createReducer({
 	baseSizeHeightLocked = true,
 	pivot = PivotType.Center,
 	planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Off or false,
+	editPlaneMode = false,
 	snapToGrid = false,
 	ignoreWater = true,
 	ignoreParts = true,
@@ -120,6 +121,22 @@ local ReplaceTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			planeLock = planeLock,
+		})
+	end,
+
+	SetPlaneCFrame = function(state, action)
+		local planeCFrame = action.planeCFrame
+
+		return Cryo.Dictionary.join(state, {
+			planeCFrame = planeCFrame,
+		})
+	end,
+
+	SetEditPlaneMode = function(state, action)
+		local editPlaneMode = action.editPlaneMode
+
+		return Cryo.Dictionary.join(state, {
+			editPlaneMode = editPlaneMode,
 		})
 	end,
 

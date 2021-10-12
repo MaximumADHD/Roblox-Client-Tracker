@@ -5,6 +5,7 @@ local Reducers = Plugin.Src.Reducers
 local Tools = require(Reducers.Tools)
 
 local AddTool = require(Reducers.AddTool)
+local BaseTool = require(Reducers.BaseTool)
 local ConvertPartTool = require(Reducers.ConvertPartTool)
 local ErodeTool = require(Reducers.ErodeTool)
 local FillTool = require(Reducers.FillTool)
@@ -20,6 +21,8 @@ local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
 
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
+local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
@@ -36,6 +39,7 @@ local toolReducerTable = {
 	SeaLevelTool = SeaLevelTool,
 	ReplaceTool = ReplaceTool,
 	PaintTool = PaintTool,
+	BaseTool = (FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool,
 }
 
 local Actions = Plugin.Src.Actions
@@ -66,6 +70,8 @@ local MainReducer = function(state, action)
 		-- special cased reducer, is used by a tab since
 		-- there's no other paint tools under the paint category
 		PaintTool = PaintTool(state, action),
+		
+		BaseTool = (FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool(state, action),
 	}
 
 	-- ApplyToolAction is used to direct the same action across multiple reducers

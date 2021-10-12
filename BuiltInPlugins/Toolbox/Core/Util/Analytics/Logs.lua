@@ -60,23 +60,4 @@ function Logs.logCounterEvent(method, counter, amount)
 		tostring(method), tostring(counter), tostring(amount)))
 end
 
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Logs.logSendReports(userId)
-	if not DebugFlags.shouldLogAnalytics() then
-		return
-	end
-
-	sendLog(("sendReports(userId=%s)"):format(tostring(userId)))
-end
-
--- TODO: Remove with FFlagToolboxRemoveTrackEvent
-function Logs.logReport(counter, amount, reportValue)
-	if not DebugFlags.shouldLogAnalytics() then
-		return
-	end
-
-	sendLog(("sendReports() counter \"%s\" = %s, reporting total %s"):format(
-		tostring(counter), tostring(amount), tostring(reportValue)))
-end
-
 return Logs

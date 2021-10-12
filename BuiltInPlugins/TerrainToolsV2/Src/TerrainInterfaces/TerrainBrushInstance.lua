@@ -3,6 +3,7 @@ game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+local FFlagTerrainToolsFixSnapPlaneLock = game:GetFastFlag("TerrainToolsFixSnapPlaneLock")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -284,6 +285,9 @@ function TerrainBrush:_updateCursor()
 			planePoint = planePoint,
 			planeNormal = planeNormal,
 			mouseDown = self._mouseDown,
+			planeCFrame = FFlagTerrainToolsEditPlaneLock and self._operationSettings.planeCFrame or nil,
+			planeLock = FFlagTerrainToolsEditPlaneLock and self._operationSettings.planeLock or nil,
+			editPlaneMode = FFlagTerrainToolsEditPlaneLock and self._operationSettings.editPlaneMode or nil,
 		})
 	else
 		self._cursorGrid:hide()
@@ -554,23 +558,47 @@ function TerrainBrush:_run()
 			mainPointOnPlane = cameraPos
 		end
 
+		-- This fixes an issue where the grid from plane lock would jitter when used together with
+		-- snap to grid. This fixes the issue by making sure that the point at which the plane is
+		-- rendered remains the same regardless of the snap to grid functionality. The cursor and/or
+		-- point at which terrain is drawn will be snapped to the correct voxel.
+		local modifiedMainPointOnPlane
+
 		if snapToGrid then
 			mainPoint = snapToVoxelGrid(mainPoint, radius)
-			mainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
+			if FFlagTerrainToolsFixSnapPlaneLock then
+				modifiedMainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
+			else
+				mainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
+			end
 		end
 
 		if usePlanePositionY then
 			-- It's possible that the previous blocks could change the Y value of mainPointOnPlane
 			-- So if we're using planePositionY, then ensure that we keep using Y = planePositionY
-			mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
+			if FFlagTerrainToolsFixSnapPlaneLock then
+				modifiedMainPointOnPlane = self:putPlanePositionYIntoVector(modifiedMainPointOnPlane or mainPointOnPlane)
+			else
+				mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
+			end
+			
 		end
 
 		if planeLock then
-			mainPoint = mainPointOnPlane
+			if FFlagTerrainToolsFixSnapPlaneLock then
+				mainPoint = modifiedMainPointOnPlane or mainPointOnPlane
+				modifiedMainPointOnPlane = mainPointOnPlane
+			else
+				mainPoint = mainPointOnPlane
+			end
 		end
 
 		self._operationSettings.targetPoint = mainPoint
-		self._operationSettings.planePoint = mainPointOnPlane
+		if FFlagTerrainToolsFixSnapPlaneLock then
+			self._operationSettings.planePoint = modifiedMainPointOnPlane or mainPointOnPlane
+		else
+			self._operationSettings.planePoint = mainPointOnPlane
+		end
 		self._operationSettings.planeNormal = lastNormal
 
 		if self._mouseDown then

@@ -2,6 +2,9 @@
 	Mounts and unmounts the Roact tree.
 ]]
 
+-- Fast flags
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
@@ -10,9 +13,6 @@ if DebugFlags.RunningUnderCLI() then
 end
 
 local Roact = require(Plugin.Packages.Roact)
-
--- Fast flags
-require(script.Parent.defineLuaFlags)
 
 local MainPlugin = require(Plugin.Src.MainPlugin)
 local handle

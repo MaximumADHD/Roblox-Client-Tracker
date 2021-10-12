@@ -2,6 +2,7 @@
 	Displays panels associated with the SeaLevel tool
 ]]
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
+local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -25,7 +26,7 @@ local ProgressDialog = require(Plugin.Src.Components.ProgressDialog)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local REDUCER_KEY = "SeaLevelTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "SeaLevelTool"
 
 local SeaLevel = Roact.PureComponent:extend(script.Name)
 

@@ -10,6 +10,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
+local getFFlagPreserveMotor6D = require(DraggerFramework.Flags.getFFlagPreserveMotor6D)
 local getFFlagOnlyGetGeometryOnce = require(DraggerFramework.Flags.getFFlagOnlyGetGeometryOnce)
 local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
 
@@ -267,7 +268,9 @@ end
 ]]
 function PartMover:_prepareJoints(parts, breakJoints)
 	self._reenableWeldConstraints = {}
+	self._adjustAndReenableMotor6Ds = {}
 	self._alreadyConnectedToSets = {}
+	local FFlagPreserveMotor6D = getFFlagPreserveMotor6D()
 	for _, part in ipairs(parts) do
 		self._alreadyConnectedToSets[part] = {}
 		for _, joint in ipairs(part:GetJoints()) do
@@ -275,9 +278,18 @@ function PartMover:_prepareJoints(parts, breakJoints)
 				local other = JointUtil.getJointInstanceCounterpart(joint, part)
 				if breakJoints then
 					if not self._partSet[other] then
-						-- We can't destroy these, otherwise Undo behavior
-						-- won't be able to put them back in the workspace.
-						joint.Parent = nil
+						if FFlagPreserveMotor6D and joint:IsA("Motor6D") then
+							-- Disable Motor6Ds temporarily and adjust them
+							-- after the move. Motor6Ds need to feel more
+							-- "permanent" than other joints.
+							joint.Enabled = false
+							self._adjustAndReenableMotor6Ds[joint] = true
+							self._alreadyConnectedToSets[part][other] = true
+						else
+							-- We can't destroy these, otherwise Undo behavior
+							-- won't be able to put them back in the workspace.
+							joint.Parent = nil
+						end
 					end
 				else
 					self._alreadyConnectedToSets[part][other] = true
@@ -490,6 +502,20 @@ function PartMover:commit()
 			weldConstraint.Enabled = true
 		end
 		self._reenableWeldConstraints = nil
+	end
+	if getFFlagPreserveMotor6D() and self._adjustAndReenableMotor6Ds then
+		for motor6d, _ in pairs(self._adjustAndReenableMotor6Ds) do
+			if self._partSet[motor6d.Part0] then
+				-- Modify C0
+				local part0 = motor6d.Part0
+				motor6d.C0 = part0.CFrame:Inverse() * self._originalCFrameMap[part0] * motor6d.C0
+			else
+				-- Modify C1
+				local part1 = motor6d.Part1
+				motor6d.C1 = part1.CFrame:Inverse() * self._originalCFrameMap[part1] * motor6d.C1
+			end
+			motor6d.Enabled = true
+		end
 	end
 	self._facesToHighlightSet = {}
 	if self._temporaryJoints then

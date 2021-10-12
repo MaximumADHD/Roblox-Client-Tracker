@@ -27,6 +27,8 @@ local HEADER_HEIGHT = 40
 
 local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
 
+local SeparationToken = "_"
+
 return {
 	CallstackActionIds = CallstackActionIds,
 	WatchActionIds = WatchActionIds,
@@ -34,4 +36,5 @@ return {
 	BreakpointActions = BreakpointActions,
 	HEADER_HEIGHT = HEADER_HEIGHT,
 	BreakpointIconDirectoryFilePath = BreakpointIconDirectoryFilePath,
+	SeparationToken = SeparationToken,
 }

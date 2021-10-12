@@ -7,14 +7,13 @@ local withContext = ContextServices.withContext
 local ContextItems = require(Plugin.Src.ContextItems)
 
 local UI = Framework.UI
+local Button  = UI.Button
 local IconButton = UI.IconButton
 local Pane = UI.Pane
+local Tooltip = UI.Tooltip
 
 local ToolParts = Plugin.Src.Components.Tools.ToolParts
 local LabeledElementPair = require(ToolParts.LabeledElementPair)
-
-local UILibraryCompat = Plugin.Src.UILibraryCompat
-local RoundTextButton = require(UILibraryCompat.RoundTextButton)
 
 local FULL_WIDTH = 140
 local BUTTON_HEIGHT = 22
@@ -31,6 +30,7 @@ function PlaneController:render()
 	local editPlaneMode = props.EditPlaneMode
 	local layoutOrder = props.LayoutOrder
 	local text = localization:getText("BrushSettings", "EditPlane")
+	local tooltip = localization:getText("BrushSettings", "EditPlaneTooltip")
 
 	local name
 	if editPlaneMode then
@@ -50,16 +50,17 @@ function PlaneController:render()
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
 			Spacing = SPACER_WIDTH,
 		}, {
-			Action = Roact.createElement(RoundTextButton, {
+			Action = Roact.createElement(Button, {
 				LayoutOrder = 1,
 				Size = UDim2.new(0, FULL_WIDTH - SPACER_WIDTH - BUTTON_HEIGHT, 0, BUTTON_HEIGHT),
-				Style = theme.roundTextButtonTheme.styleSheet,
+				Style = "Round",
 
-				TextSize = theme.roundTextButtonTheme.textSize,
-
-				Name = name,
-				Active = true,
-				OnClicked = function() self.props.SetEditPlaneMode(not self.props.EditPlaneMode) end,
+				Text = name,
+				OnClick = function() self.props.SetEditPlaneMode(not self.props.EditPlaneMode) end,
+			}, {
+				Tooltip = Roact.createElement(Tooltip, {
+					Text = tooltip,
+				})
 			}),
 			Reset = Roact.createElement(IconButton, {
 				LayoutOrder = 2,

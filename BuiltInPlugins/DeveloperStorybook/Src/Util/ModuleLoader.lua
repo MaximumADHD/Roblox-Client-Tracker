@@ -4,6 +4,7 @@
 ]]
 local Main = script.Parent.Parent.Parent
 local Framework = require(Main.Packages.Framework)
+local noYield = Framework.Util.NoYield
 local Dash = Framework.Dash
 local forEach = Dash.forEach
 local getOrSet = Dash.getOrSet
@@ -38,9 +39,16 @@ function ModuleLoader:disconnect(listener: (ModuleScript) -> ())
 end
 
 function ModuleLoader:load(moduleScript: ModuleScript)
+	return noYield(function()
+		return self:attemptLoad(moduleScript)
+	end)
+end
+
+function ModuleLoader:attemptLoad(moduleScript: ModuleScript)
 	if not self:usingLoadModule() then
 		return require(moduleScript)
 	end
+
 	local moduleFn, err = loadModule(moduleScript)
 	assert(moduleFn, err)
 	getfenv(moduleFn).require = function(childScript: ModuleScript)
@@ -50,10 +58,11 @@ function ModuleLoader:load(moduleScript: ModuleScript)
 		requirers[moduleScript] = true
 		return self:_require(childScript)
 	end
+
 	-- We can't access Source in a running place
 	pcall(function()
 		getOrSet(self.connections, moduleScript, function()
-			return moduleScript:GetPropertyChangedSignal("Source"):Connect(function()	
+			return moduleScript:GetPropertyChangedSignal("Source"):Connect(function()
 				self:clear(moduleScript)
 				forEach(self.listeners, function(_true, listener)
 					listener(moduleScript)
@@ -61,6 +70,7 @@ function ModuleLoader:load(moduleScript: ModuleScript)
 			end)
 		end)
 	end)
+
 	return moduleFn()
 end
 

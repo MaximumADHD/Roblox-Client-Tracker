@@ -356,13 +356,13 @@ return Rodux.createReducer(productionStartStore, {
 		nilCheckFillIn(stateTokenToRootsCopy, action.stepStateBundle)
 
 		local target = stateTokenToRootsCopy[action.stepStateBundle.debuggerStateToken][action.stepStateBundle.threadId][action.stepStateBundle.frameNumber].Watches
-		table.insert(target, action.watchRow.expressionColumn)
+		table.insert(target, action.watchRow.pathColumn)
 
 		local stateTokenToFlattenedTreeCopy = deepCopy(state.stateTokenToFlattenedTree)
 		nilCheckFillIn(stateTokenToFlattenedTreeCopy, action.stepStateBundle)
 
 		local target2 = stateTokenToFlattenedTreeCopy[action.stepStateBundle.debuggerStateToken][action.stepStateBundle.threadId][action.stepStateBundle.frameNumber].Watches
-		target2[action.watchRow.expressionColumn] = action.watchRow
+		target2[action.watchRow.pathColumn] = action.watchRow
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToRoots = stateTokenToRootsCopy,

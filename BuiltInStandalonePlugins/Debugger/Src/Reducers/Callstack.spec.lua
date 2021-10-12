@@ -15,7 +15,7 @@ local ResumedAction = require(Actions.Common.Resumed)
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 
-local defaultDebuggerToken = DebuggerStateToken.fromData({session = 1})
+local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1})
 
 return function()
 	it("should return its expected default state", function()

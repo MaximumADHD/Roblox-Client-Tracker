@@ -94,7 +94,7 @@ function BaseBrush:init()
 		local ignoreParts = true
 		local snapToGrid = false
 		local fixedPlane = false
-		local editPlaneMode
+		local editPlaneMode = false
 		local planeCFrame
 		local heightPicker = false
 		-- For tools where these properties aren't settable, we need to set them to a default value
@@ -125,6 +125,9 @@ function BaseBrush:init()
 			if self.props.dispatchSetPlaneCFrame then
 				planeCFrame = self.props.planeCFrame
 			end
+
+			local shortcutEnabled = self.props.planeLock == PlaneLockType.Manual and Constants.ToolUsesPlaneLock[self.props.toolName]
+			self.props.PluginActionsController:SetEnabled("EditPlane", shortcutEnabled)
 		end
 		
 		if self.props.dispatchSetFixedPlane then
@@ -166,6 +169,7 @@ end
 
 function BaseBrush:_connectEvents()
 	local pluginActivationController = self.props.PluginActivationController
+	local pluginActionsController = self.props.PluginActionsController
 
 	table.insert(self.connections, pluginActivationController:subscribeToToolDeactivated(function(toolId)
 		-- Stop the terrain brush if the tool that was deselected is my tool
@@ -222,6 +226,14 @@ function BaseBrush:_connectEvents()
 			end
 		end
 	end))
+
+	if FFlagTerrainToolsEditPlaneLock then
+		table.insert(self.connections, pluginActionsController:Connect("EditPlane", function()
+			if self.props.dispatchSetEditPlaneMode then
+				self.props.dispatchSetEditPlaneMode(not self.props.editPlaneMode)
+			end
+		end))
+	end
 end
 
 function BaseBrush:didUpdate(previousProps, previousState)
@@ -266,30 +278,30 @@ function BaseBrush:render()
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
 	local brushShape = self.props.brushShape
 	local editPlaneMode
-	if FFlagTerrainToolsEditPlaneLock then
-		editPlaneMode = self.props.editPlaneMode
-	end
 	local fixedPlane = self.props.fixedPlane
 	local flattenMode = self.props.flattenMode
 	local height = self.props.height
 	local heightPicker = self.props.heightPicker
 	local ignoreWater = self.props.ignoreWater
 	local ignoreParts = nil
-	if FFlagTerrainToolsPartInteractToggle then
-		ignoreParts = self.props.ignoreParts
-	end
 	local material = self.props.material
 	local pivot = self.props.pivot
 	local planeCFrame
-	if FFlagTerrainToolsEditPlaneLock then
-		planeCFrame = self.props.planeCFrame
-	end
 	local planeLock = self.props.planeLock
 	local disablePlaneLock = self.props.disablePlaneLock
 	local disableIgnoreWater = self.props.disableIgnoreWater
 	local planePositionY = self.props.planePositionY
 	local snapToGrid = self.props.snapToGrid
 	local strength = self.props.strength
+
+	if FFlagTerrainToolsEditPlaneLock then
+		editPlaneMode = self.props.editPlaneMode
+		planeCFrame = self.props.planeCFrame
+	end
+
+	if FFlagTerrainToolsPartInteractToggle then
+		ignoreParts = self.props.ignoreParts
+	end
 
 	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
@@ -353,6 +365,7 @@ if FFlagTerrainToolsV2WithContext then
 		Analytics = ContextServices.Analytics,
 		Terrain = ContextItems.Terrain,
 		PluginActivationController = ContextItems.PluginActivationController,
+		PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
 	})(BaseBrush)
 else
 	ContextServices.mapToProps(BaseBrush, {
@@ -360,8 +373,8 @@ else
 		Analytics = ContextServices.Analytics,
 		Terrain = ContextItems.Terrain,
 		PluginActivationController = ContextItems.PluginActivationController,
+		PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
 	})
 end
-
 
 return BaseBrush

@@ -8,7 +8,7 @@
 			the AssetPreview component, provided from Rodux
 
 		function onClose = A callback for when the user clicks outside of the
-			preview to close it.
+			preview to close it. // remove with FFlagToolboxAssetGridRefactor
 ]]
 
 local StudioService = game:GetService("StudioService")
@@ -19,9 +19,6 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local UILibrary = require(Libs.UILibrary)
-local DEPRECATED_AssetPreview = UILibrary.Component.AssetPreview
-
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
@@ -30,7 +27,6 @@ local InsertAsset = require(Util.InsertAsset)
 local Analytics = require(Util.Analytics.Analytics)
 local PageInfoHelper = require(Util.PageInfoHelper)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
-local FlagsList = require(Util.FlagsList)
 
 local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
@@ -45,8 +41,11 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 local withModal = ContextHelper.withModal
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
+local getModal = ContextGetter.getModal
 
 local ClearPreview = require(Plugin.Core.Actions.ClearPreview)
+local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
+local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
 local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseSuccessDialog)
@@ -62,21 +61,18 @@ local ClearPurchaseFlow = require(Plugin.Core.Actions.ClearPurchaseFlow)
 local GetFavoriteCountsRequest = require(Requests.GetFavoriteCountsRequest)
 local GetFavoritedRequest = require(Requests.GetFavoritedRequest)
 local ToggleFavoriteStatusRequest = require(Requests.ToggleFavoriteStatusRequest)
+local TryCreateContextMenu = require(Plugin.Core.Thunks.TryCreateContextMenu)
 
 local Category = require(Plugin.Core.Types.Category)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
-local AssetType
-if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-	AssetType = UILibrary.Util.AssetType
-end
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
 
 local PADDING = 32
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
@@ -105,18 +101,7 @@ function AssetPreviewWrapper:createPurchaseFlow(localizedContent)
 
 	local isPluginAsset, isPluginPaid, isPluginInstalled, isPluginLoading, isPluginUpToDate
 
-	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		isPluginAsset = typeId == Enum.AssetType.Plugin.Value
-	else
-		local assetPreviewType
-		local currentPreview = props.currentPreview
-		if typeId == Enum.AssetType.Plugin.Value then
-			assetPreviewType = AssetType:markAsPlugin()
-		else
-			assetPreviewType = AssetType:getAssetType(currentPreview)
-		end
-		isPluginAsset = AssetType:isPlugin(assetPreviewType)
-	end
+	isPluginAsset = typeId == Enum.AssetType.Plugin.Value
 	isPluginInstalled = isPluginAsset and StudioService:IsPluginInstalled(assetId)
 
 	isPluginPaid = isPluginAsset and price > 0
@@ -203,34 +188,60 @@ function AssetPreviewWrapper:init(props)
 	self.state = {
 		maxPreviewWidth = 0,
 		maxPreviewHeight = 0,
-		currentPreview = nil, -- Remove with FFlagToolboxUseDevFrameworkAssetPreview
 
 		showPurchaseFlow = false,
 		showSuccessDialog = false,
 		showInstallationBar = false,
+
+		openAssetPreviewStartTime = nil,
 	}
 
 	self.ClickDetectorRef = Roact.createRef()
 
-	self.onCloseButtonClicked = function()
-		if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-			local state = self.state
-
-			if state.previewModel then
-				state.previewModel:Destroy()
-			end
-
-			if state.currentPreview then
-				state.currentPreview:Destroy()
-			end
-
+	if FFlagToolboxAssetGridRefactor then
+		self.openAssetPreview = function()
+			local assetData = self.props.assetData
+			local modal = getModal(self)
+			modal.onAssetPreviewToggled(true)
 			self:setState({
-				currentPreview = nil
+				previewAssetData = assetData,
+				openAssetPreviewStartTime = tick(),
 			})
+
+			if self.props.isPlaying then
+				self.props.pauseASound()
+			end
+
+			-- TODO STM-146: Remove this once we are happy with the new MarketplaceAssetPreview event
+			Analytics.onAssetPreviewSelected(assetData.Asset.Id)
+
+			self.props.AssetAnalytics:get():logPreview(assetData)
 		end
 
+		self.closeAssetPreview = function(assetData)
+			local modal = getModal(self)
+			modal.onAssetPreviewToggled(false)
+			self.props.onPreviewToggled(false)
+
+			local endTime = tick()
+			local startTime = self.state.openAssetPreviewStartTime or 0
+			local deltaMs = (endTime - startTime) * 1000
+			Analytics.onAssetPreviewEnded(assetData.Asset.Id, deltaMs)
+
+			self:setState({
+				previewAssetData = Roact.None,
+				openAssetPreviewStartTime = Roact.None,
+			})
+		end
+	end
+
+	self.onCloseButtonClicked = function()
 		local assetData = self.props.assetData
-		self.props.onClose(assetData)
+		if FFlagToolboxAssetGridRefactor then
+			self.closeAssetPreview(assetData)
+		else
+			self.props.onClose(assetData)
+		end
 		self.props.clearPreview()
 	end
 
@@ -250,20 +261,20 @@ function AssetPreviewWrapper:init(props)
 		})
 	end
 
-	if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		self.onTreeItemClicked = function(instance)
-			self:setState({
-				currentPreview = instance
-			})
+	if FFlagToolboxAssetGridRefactor then
+		self.tryCreateContextMenu = function(localization)
+			local props = self.props
+			local assetData = props.assetData
+			local plugin = props.Plugin:get()
+			local tryOpenAssetConfig = props.tryOpenAssetConfig
+			self.props.tryCreateContextMenu(assetData, localization, plugin, tryOpenAssetConfig)
 		end
-	end
-
-	self.tryCreateContextMenu = function()
-		local assetData = self.props.assetData
-
-		local showEditOption = self.props.canManage
-
-		self.props.tryCreateContextMenu(assetData, showEditOption)
+	else
+		self.tryCreateContextMenu = function()
+			local assetData = self.props.assetData
+			local showEditOption = self.props.canManage
+			self.props.tryCreateContextMenu(assetData, showEditOption)
+		end
 	end
 
 	self.tryInsert = function()
@@ -282,7 +293,11 @@ function AssetPreviewWrapper:init(props)
 			Creator = creatorName,
 		})
 		local assetData = self.props.assetData
-		self.props.onClose(assetData)
+		if FFlagToolboxAssetGridRefactor then
+			self.closeAssetPreview(assetData)
+		else
+			self.props.onClose(assetData)
+		end
 	end
 
 	-- For Voting in Asset Preview
@@ -331,11 +346,9 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.tryInstall = function()
-		if FFlagDevFrameworkAssetPreviewFixes then
-			self:setState({
-				showInstallationBar = true
-			})
-		end
+		self:setState({
+			showInstallationBar = true
+		})
 		local assetData = self.props.assetData
 		local previewPluginData = self.props.previewPluginData
 		local assetVersionId = previewPluginData.versionId
@@ -350,10 +363,7 @@ function AssetPreviewWrapper:init(props)
 		local owned = self.props.Owned
 		if not owned then
 			-- Prompt user to purchase plugin
-			local showInstallationBar = nil
-			if FFlagDevFrameworkAssetPreviewFixes then
-				showInstallationBar = false
-			end
+			local showInstallationBar = false
 			self:setState({
 				showPurchaseFlow = true,
 				showInstallationBar = showInstallationBar,
@@ -386,11 +396,9 @@ function AssetPreviewWrapper:init(props)
 			StudioService:UpdatePluginManagement()
 		end
 
-		if FFlagDevFrameworkAssetPreviewFixes then
-			self:setState({
-				showInstallationBar = false
-			})
-		end
+		self:setState({
+			showInstallationBar = false
+		})
 
 		return success
 	end
@@ -445,21 +453,13 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.props.clearPurchaseFlow(props.assetData.Asset.Id)
-
-	if not game:GetFastFlag("ToolboxRemoveTrackEvent") then
-		if not FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-			self.reportPlay = function()
-				Analytics.onSoundPlayed()
-			end
-
-			self.reportPause = function()
-				Analytics.onSoundPaused()
-			end
-		end
-	end
 end
 
 function AssetPreviewWrapper:didMount()
+	if FFlagToolboxAssetGridRefactor then
+		self.openAssetPreview(self.props.assetData)
+	end
+
 	if self.props.assetData.Asset.TypeId == Enum.AssetType.Plugin.Value then
 		self.props.getPluginInfo(getNetwork(self), self.props.assetData.Asset.Id)
 	else
@@ -507,98 +507,49 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 	local previewModel = props.previewModel
 
 	local popUpTheme
-	if not FFlagToolboxRemoveWithThemes then
-		-- TODO: Remove popUpTheme when enabling FFlagToolboxRemoveWithThemes
+	if not FFlagToolboxRemoveWithThemes and not FFlagToolboxDeleteUILibraryAssetPreviewTheme then
+		-- TODO: Remove popUpTheme when enabling FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme
 		popUpTheme = theme.assetPreview.popUpWrapperButton
 	end
 
-	local assetPreview
+	local actionEnabled = not purchaseFlow.InstallDisabled and not self.state.showInstallationBar
 
-	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		local actionEnabled = not purchaseFlow.InstallDisabled
-
-		if FFlagDevFrameworkAssetPreviewFixes then
-			actionEnabled = actionEnabled and not self.state.showInstallationBar
+	local tryCreateLocalizedContextMenu
+	if FFlagToolboxAssetGridRefactor then
+		tryCreateLocalizedContextMenu = function()
+			self.tryCreateContextMenu(localizedContent)
 		end
-
-		assetPreview = Roact.createElement(AssetPreview, {
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
-			ZIndex = 2,
-
-			AssetData = assetData,
-			AssetInstance = previewModel,
-
-			-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
-			ActionEnabled = actionEnabled,
-			ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-			ActionText = tostring(purchaseFlow.ActionBarText),
-			OnClickAction = purchaseFlow.TryInsert,
-			PurchaseFlow = purchaseFlow.PurchaseFlow,
-			SuccessDialog = purchaseFlow.SuccessDialog,
-
-			OnClickContext = self.tryCreateContextMenu,
-
-			Favorites = {
-				OnClick = self.onFavoritedActivated,
-				Count = tonumber(self.props.favoriteCounts),
-				IsFavorited = self.props.favorited
-			},
-
-			Voting = purchaseFlow.HasRating and self.props.voting or nil,
-			OnVoteUp = self.onVoteUpButtonActivated,
-			OnVoteDown = self.onVoteDownButtonActivated,
-
-			OnClickCreator = self.searchByCreator,
-		})
-	else
-		local currentPreview = state.currentPreview or previewModel
-
-		local assetPreviewProps = {
-			Position = UDim2.new(0.5, 0, 0.5, 0),
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			MaxPreviewWidth = maxPreviewWidth,
-			MaxPreviewHeight = maxPreviewHeight,
-
-			AssetData = assetData,
-			PreviewModel = previewModel,
-			CurrentPreview = currentPreview,
-
-			ActionBarText = purchaseFlow.ActionBarText,
-			TryInsert = purchaseFlow.TryInsert,
-
-			OnFavoritedActivated = self.onFavoritedActivated,
-			FavoriteCounts = self.props.favoriteCounts,
-			Favorited = self.props.favorited,
-
-			TryCreateContextMenu = self.tryCreateContextMenu,
-			OnTreeItemClicked = self.onTreeItemClicked,
-
-			InstallDisabled = purchaseFlow.InstallDisabled,
-			PurchaseFlow = purchaseFlow.PurchaseFlow,
-			SuccessDialog = purchaseFlow.SuccessDialog,
-			ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
-			ShowInstallationBar = purchaseFlow.ShowInstallationBar,
-			LoadingBarText = localizedContent.AssetConfig.Installing,
-
-			HasRating = purchaseFlow.HasRating,
-			Voting = self.props.voting,
-			OnVoteUp = self.onVoteUpButtonActivated,
-			OnVoteDown = self.onVoteDownButtonActivated,
-
-			SearchByCreator = self.searchByCreator,
-
-			reportPlay = self.reportPlay,
-			reportPause = self.reportPause,
-
-			ZIndex = 2,
-		}
-
-		assetPreviewProps.PreviewModel = previewModel
-
-		assetPreview = Roact.createElement(DEPRECATED_AssetPreview, assetPreviewProps)
 	end
+
+	local assetPreview = Roact.createElement(AssetPreview, {
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = UDim2.fromOffset(maxPreviewWidth, maxPreviewHeight),
+		ZIndex = 2,
+
+		AssetData = assetData,
+		AssetInstance = previewModel,
+		OnClickContext = FFlagToolboxAssetGridRefactor and tryCreateLocalizedContextMenu or self.tryCreateContextMenu,
+
+		-- TODO DEVTOOLS-4896: refactor the action bar out of AssetPreview and clean up the logic in this component, bring back loading bar for installs in a sensible place
+		ActionEnabled = actionEnabled,
+		ShowRobuxIcon = purchaseFlow.ShowRobuxIcon,
+		ActionText = tostring(purchaseFlow.ActionBarText),
+		OnClickAction = purchaseFlow.TryInsert,
+		PurchaseFlow = purchaseFlow.PurchaseFlow,
+		SuccessDialog = purchaseFlow.SuccessDialog,
+
+		Favorites = {
+			OnClick = self.onFavoritedActivated,
+			Count = tonumber(self.props.favoriteCounts),
+			IsFavorited = self.props.favorited
+		},
+
+		Voting = purchaseFlow.HasRating and self.props.voting or nil,
+		OnVoteUp = self.onVoteUpButtonActivated,
+		OnVoteDown = self.onVoteDownButtonActivated,
+		OnClickCreator = self.searchByCreator,
+	})
 
 	return modalTarget and Roact.createElement(Roact.Portal, {
 		target = modalTarget
@@ -609,8 +560,8 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		ScreenClickDetector = Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 
-			BackgroundTransparency = FFlagToolboxRemoveWithThemes and DETECTOR_BACKGROUND_TRANSPARENCY or popUpTheme.detectorBGTrans,
-			BackgroundColor3 = FFlagToolboxRemoveWithThemes and DETECTOR_BACKGROUND_COLOR or popUpTheme.detectorBackground,
+			BackgroundTransparency = (FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme) and DETECTOR_BACKGROUND_TRANSPARENCY or popUpTheme.detectorBGTrans,
+			BackgroundColor3 = (FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme) and DETECTOR_BACKGROUND_COLOR or popUpTheme.detectorBackground,
 			ZIndex = 1,
 			AutoButtonColor = false,
 
@@ -627,13 +578,18 @@ local function mapStateToProps(state, props)
 	state = state or {}
 
 	local assets = state.assets or {}
-
 	local previewModel = assets.previewModel
-
 	local pageInfo = state.pageInfo or {}
+	local idToAssetMap = assets.idToAssetMap or {}
 
-	local assetId = props.assetData.Asset.Id
-	local manageableAssets = assets.manageableAssets
+	local assetId
+	if FFlagToolboxAssetGridRefactor then
+		assetId = assets.previewAssetId
+	else
+		assetId = props.assetData.Asset.Id
+	end
+
+	local manageableAssets = assets.manageableAssets or {}
 	local canManage = manageableAssets[tostring(assetId)]
 
 	local purchase = state.purchase or {}
@@ -650,24 +606,17 @@ local function mapStateToProps(state, props)
 
 	local categories = nil
 
-	local votingProp
-
-	if FlagsList:get("FFlagToolboxUseDevFrameworkAssetPreview") then
-		votingProp = voting[assetId]
-	else
-		votingProp = voting[assetId] or {}
-	end
-
 	local stateToProps = {
+		assetData = FFlagToolboxAssetGridRefactor and idToAssetMap[assetId] or nil,
 		categories = categories,
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		previewModel = previewModel or nil,
-		canManage = canManage,
+		canManage = (not FFlagToolboxAssetGridRefactor) and canManage or nil,
 		previewPluginData = assets.previewPluginData,
 		assetId = assetId,
 		favoriteCounts = assetIdToCountsMap[assetId] or 0,
 		favorited = assetIdToFavoritedMap[assetId] or false,
-		voting = votingProp,
+		voting = voting[assetId],
 		Owned = owned,
 		PurchaseStatus = purchaseStatus,
 		Balance = balance,
@@ -702,6 +651,18 @@ local function mapDispatchToProps(dispatch)
 			dispatch(PostUnvoteRequest(networkInterface, assetId))
 		end,
 
+		onPreviewToggled = function(isPreviewing)
+			dispatch(SetAssetPreview(isPreviewing))
+		end,
+
+		pauseASound = function()
+			dispatch(PausePreviewSound())
+		end,
+
+		tryCreateContextMenu = FFlagToolboxAssetGridRefactor and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
+			dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
+		end or nil,
+
 		-- For Purchase Flow
 		getOwnsAsset = function(network, assetId)
 			dispatch(GetOwnsAssetRequest(network, assetId))
@@ -730,12 +691,14 @@ if FFlagToolboxWithContext then
 	AssetPreviewWrapper = withContext({
 		Settings = Settings,
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})(AssetPreviewWrapper)
 else
 	ContextServices.mapToProps(AssetPreviewWrapper, {
 		Settings = Settings,
 		AssetAnalytics = AssetAnalyticsContextItem,
+		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
 		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
 	})
 end

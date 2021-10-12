@@ -15,6 +15,8 @@ local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local getFFlagFlippedScopeSelect = require(DraggerFramework.Flags.getFFlagFlippedScopeSelect)
 
+local getFFlagUseGetBoundingBox = require(DraggerFramework.Flags.getFFlagUseGetBoundingBox)
+
 local Ready = {}
 Ready.__index = Ready
 
@@ -85,7 +87,12 @@ function Ready:render()
 	if self._draggerToolModel:shouldShowLocalSpaceIndicator() then
 		local selectionInfo = self._draggerToolModel._selectionInfo
 		if not selectionInfo:isEmpty() and draggerContext:shouldUseLocalSpace() then
-			local cframe, offset, size = selectionInfo:getLocalBoundingBox()
+			local cframe, offset, size
+			if getFFlagUseGetBoundingBox() then 
+				cframe, offset, size = selectionInfo:getBoundingBox()
+			else 
+				cframe, offset, size = selectionInfo:getLocalBoundingBox()
+			end
 
 			elements.LocalSpaceIndicator = Roact.createElement(LocalSpaceIndicator, {
 				CFrame = cframe * CFrame.new(offset),

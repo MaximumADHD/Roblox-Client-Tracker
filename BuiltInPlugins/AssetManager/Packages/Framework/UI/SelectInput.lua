@@ -26,6 +26,7 @@
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
+local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -148,7 +149,7 @@ function SelectInput:render()
 			Items = items,
 			OnFocusLost = self.focusLost,
 			OnItemActivated = props.OnItemActivated,
-			OnRenderItem = FFlagRemoveUILibraryDetailedDropdown and props.OnRenderItem or nil,
+			OnRenderItem = (FFlagRemoveUILibraryStyledDropdownPt1 or FFlagRemoveUILibraryDetailedDropdown) and props.OnRenderItem or nil,
 			Style = style.DropdownMenu,
 		})
 	})

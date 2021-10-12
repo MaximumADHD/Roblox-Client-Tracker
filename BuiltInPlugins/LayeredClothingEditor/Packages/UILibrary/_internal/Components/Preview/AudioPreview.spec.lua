@@ -1,4 +1,7 @@
 return function()
+    if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+        return
+    end
 	local Library = script.Parent.Parent.Parent
 	local Roact = require(Library.Parent.Parent.Roact)
 

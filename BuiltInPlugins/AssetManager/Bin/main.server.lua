@@ -9,7 +9,6 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
 
@@ -71,12 +70,12 @@ local localization = ContextServices.Localization.new({
 	pluginName = PLUGIN_NAME,
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
-	libraries = FFlagStudioAssetManagerRefactorAssetPreview and {
+	libraries = {
 		[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 			stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
 			translationResourceTable = Framework.Resources.TranslationReferenceTable,
 		},
-	} or nil,
+	},
 })
 
 local calloutController
