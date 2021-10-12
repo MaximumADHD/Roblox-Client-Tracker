@@ -87,7 +87,8 @@ Apply,Apply,Studio.Toolbox.General.FooterButtonNoneName
 None,None,Studio.Toolbox.General.SearchResultsKeyword
 Search Results for,Search Results for,Studio.Toolbox.General.SearchResultsClearAll
 Clear,Clear,Studio.Toolbox.General.SearchTagCreator
-by:,by:,Studio.Toolbox.General.TabMarketplace
+by:,by:,Studio.Toolbox.General.RightClickMenuCopyTextureID
+Copy Texture ID,Copy Texture ID,Studio.Toolbox.General.TabMarketplace
 Marketplace,Marketplace,Studio.Toolbox.General.TabInventory
 Inventory,Inventory,Studio.Toolbox.General.TabRecent
 Recent,Recent,Studio.Toolbox.General.CategoryCreationsPlugins
@@ -145,7 +146,8 @@ Shoulder Accessory,Shoulder Accessory,Studio.Toolbox.General.CategoryCreationsGr
 Group Right Shoe Accessories,Group Right Shoe Accessories,Studio.Toolbox.General.CategoryCreationsGroupDressSkirtAccessory
 Group Dress Skirt Accessories,Group Dress Skirt Accessories,Studio.Toolbox.General.TabCreations
 Creations,Creations,Studio.Toolbox.General.RightClickMenuCopyAssetID
-Copy Asset ID,Copy Asset ID,Studio.Toolbox.General.RightClickMenuViewInBrowser
+Copy Asset ID,Copy Asset ID,Studio.Toolbox.General.RightClickMenuCopyMeshID
+Copy Mesh ID,Copy Mesh ID,Studio.Toolbox.General.RightClickMenuViewInBrowser
 View In Browser,View In Browser,Studio.Toolbox.Purchase.FreeSuccessHeader
 Installation Complete!,Installation Complete!,Studio.Toolbox.AssetConfigPreview.Format
 Acceptable files: {formatString},Max: {maxDimensionsX} x {maxDimensionsY},Acceptable files: {formatString}

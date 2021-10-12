@@ -5,9 +5,30 @@ Studio.AssetImporter.AssetImportTree.Errors,error(s)
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
 Studio.AssetImporter.Plugin.Browse,Browse...
 Studio.AssetImporter.Plugin.Button,Import
+Studio.AssetImporter.Plugin.Cancel,Cancel
 Studio.AssetImporter.Plugin.Description,Import an FBX file using the Mesh Importer.
+Studio.AssetImporter.Plugin.Import,Import
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
+Studio.AssetImporter.Plugin.WindowTitle,Import Mesh
+Studio.AssetImporter.Properties.Dimensions,Dimensions
+Studio.AssetImporter.Properties.DoubleSided,Double Sided
+Studio.AssetImporter.Properties.FileDimensions,File Dimensions
+Studio.AssetImporter.Properties.IgnoreVertexColors,Ignore Vertex Colors
+Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Model Asset
+Studio.AssetImporter.Properties.ImportName,Import Name
+Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
+Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
+Studio.AssetImporter.Properties.PolygonCount,Polygon Count
+Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
+Studio.AssetImporter.Properties.WorldForward,World Forward
+Studio.AssetImporter.Properties.WorldUp,World Up
+Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin
+Studio.AssetImporter.Sections.FileGeneral,File General
+Studio.AssetImporter.Sections.FileGeometry,File Geometry
+Studio.AssetImporter.Sections.FileTransform,File Transform
+Studio.AssetImporter.Sections.ObjectGeneral,Object General
+Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand

@@ -52,6 +52,7 @@ Studio.TerrainToolsV2.BrushSettings.BrushSettings, ,Brush Settings
 Studio.TerrainToolsV2.BrushSettings.CenterPivot, ,Cen
 Studio.TerrainToolsV2.BrushSettings.Edit, ,Edit
 Studio.TerrainToolsV2.BrushSettings.EditPlane, ,Edit Plane
+Studio.TerrainToolsV2.BrushSettings.EditPlaneTooltip, ,Ctrl+Shift+Space
 Studio.TerrainToolsV2.BrushSettings.FixedPlane, ,Fixed Plane
 Studio.TerrainToolsV2.BrushSettings.FlattenMode, ,Flatten Mode
 Studio.TerrainToolsV2.BrushSettings.Height, ,Height
@@ -69,6 +70,7 @@ Studio.TerrainToolsV2.BrushSettings.Rotation, ,Rotation
 Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, ,Size
 Studio.TerrainToolsV2.BrushSettings.SnapToGrid, ,Snap to Grid
+Studio.TerrainToolsV2.BrushSettings.SnapToVoxels, ,Snap to Voxels
 Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
 Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
 Studio.TerrainToolsV2.ClearTool.ConfirmationMessage, ,Do you want to clear all terrain?
@@ -92,6 +94,8 @@ Studio.TerrainToolsV2.ConvertPart.HasProtected, ,Only Parts or Models containing
 Studio.TerrainToolsV2.ConvertPart.HasTooSmall, ,Parts with size dimensions below 4 studs may produce incorrect results
 Studio.TerrainToolsV2.ConvertPart.SelectionHelp, ,Select Parts or Models containing Parts to convert to terrain
 Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals, ,Hiding parts
+Studio.TerrainToolsV2.EditPlaneAction.StatusTip, ,Edit/apply plane when using plane lock in manual mode
+Studio.TerrainToolsV2.EditPlaneAction.Text, ,Edit Plane
 Studio.TerrainToolsV2.EditSettings.EditSettings, ,Edit Settings
 Studio.TerrainToolsV2.EditSettings.MergeEmpty, ,Merge Empty
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing, ,"An unexpected thing happened, try again"

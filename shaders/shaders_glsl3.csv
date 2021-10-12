@@ -81,6 +81,11 @@ DefaultGlassHQFS_Level0,Fragment
 DefaultGlassHQFS_Level8,Fragment
 DefaultGlassSuperHQFS_Level0,Fragment
 DefaultGlassSuperHQFS_Level8,Fragment
+DefaultHighlightVS_Level0,Vertex
+DefaultHighlightVS_Level1,Vertex
+DefaultHighlightVS_Level2,Vertex
+DefaultHighlightVS_Level6,Vertex
+DefaultHighlightVS_Level4098,Vertex
 DefaultHQVS_Level0,Vertex
 DefaultHQVS_Level1,Vertex
 DefaultHQVS_Level2,Vertex
@@ -270,6 +275,8 @@ GridVS_Level10,Vertex
 GridVS_Level14,Vertex
 GridVS_Level4098,Vertex
 GridVS_Level4106,Vertex
+HighlightInPlaceFS_Level0,Fragment
+HighlightPostprocessFS_Level0,Fragment
 IBLDebugFS,Fragment
 IBLDebugVS,Vertex
 ImageProcessAlphaFS,Fragment
@@ -305,6 +312,7 @@ LowQMaterialWangFS,Fragment
 ModelLodDepthFS,Fragment
 ModelLodDepthVS,Vertex
 OccupancyDebugFS,Fragment
+OutlineEffectFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
 ParticleCurveCrazyFS,Fragment

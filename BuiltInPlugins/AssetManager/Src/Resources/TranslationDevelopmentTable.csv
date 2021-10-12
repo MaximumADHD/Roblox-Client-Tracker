@@ -36,6 +36,7 @@ Studio.AssetManager.AssetGrid.NoResults,No {assetType} Found,No {assetType} Foun
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages
 Studio.AssetManager.Callout.BadgesDevProductsDescription,Badges and Developer Products have moved to Monetization Page in Game Settings,Badges and Developer Products have moved to Monetization Page in Game Settings
+Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open
 Studio.AssetManager.ContextMenu.AddImages,Add Images,Add Images
 Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes,Add Meshes

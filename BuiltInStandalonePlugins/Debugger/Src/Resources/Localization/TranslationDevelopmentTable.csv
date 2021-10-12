@@ -21,7 +21,7 @@ Studio.Debugger.Watch.Local,Local,Local
 Studio.Debugger.EditDebugpoint.Save,Save,Save
 Studio.Debugger.EditDebugpoint.EnabledLabel,isEnabled,isEnabled
 Studio.Debugger.EditDebugpoint.LogPlaceholder,Enter log message(s),Enter log message(s)
-Studio.Debugger.Watch.DropdownButtonText,{NumFields:int} Scopes,{NumFields:int} Scopes
+Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes
 Studio.Debugger.Callstack.SourceColumn,Source,Source
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s)
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.

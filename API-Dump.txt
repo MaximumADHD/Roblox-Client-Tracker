@@ -130,7 +130,11 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
 	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
+	Function int64 AssetManagerService:GetMeshIdFromAliasName(string aliasName) {RobloxScriptSecurity}
+	Function int64 AssetManagerService:GetMeshIdFromAssetId(int64 assetId) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
+	Function int64 AssetManagerService:GetTextureIdFromAliasName(string aliasName) {RobloxScriptSecurity}
+	Function int64 AssetManagerService:GetTextureIdFromAssetId(int64 assetId) {RobloxScriptSecurity}
 	Function bool AssetManagerService:HasUnpublishedChangesForLinkedSource(string aliasName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertAudio(int64 assetId, string assetName) {RobloxScriptSecurity}
 	Function void AssetManagerService:InsertImage(int64 assetId) {RobloxScriptSecurity}
@@ -329,6 +333,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Property CFrame BaseWrap.ImportOriginWorld [ReadOnly]
 	Function Array BaseWrap:GetFaces(Enum.CageType cageType) {RobloxScriptSecurity}
 	Function Array BaseWrap:GetVertices(Enum.CageType cageType) {RobloxScriptSecurity}
+	Function bool BaseWrap:IsHSRReady() {RobloxScriptSecurity}
 	Function void BaseWrap:ModifyVertices(Enum.CageType cageType, Array vertices) {RobloxScriptSecurity}
 Class WrapLayer : BaseWrap
 	Property int WrapLayer.Order {✏️PluginSecurity}
@@ -895,6 +900,7 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Property bool DebuggerConnection.IsPaused {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function void DebuggerConnection:AddBreakpoint(string script, int line, Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function void DebuggerConnection:Close() {RobloxScriptSecurity}
+	Function int DebuggerConnection:EvaluateWatch(string expression, StackFrame frame, Function callback) {RobloxScriptSecurity}
 	Function StackFrame DebuggerConnection:GetFrameById(int id) {RobloxScriptSecurity}
 	Function int DebuggerConnection:GetSource(string scriptRef, Function status) {RobloxScriptSecurity}
 	Function ThreadState DebuggerConnection:GetThreadById(int id) {RobloxScriptSecurity}
@@ -1147,6 +1153,7 @@ Class GamepadService : Instance [NotCreatable] [Service]
 	Property bool GamepadService.GamepadCursorEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
+	Event GamepadService.GamepadThumbstick1Changed(Vector2 event) {RobloxScriptSecurity}
 Class Geometry : Instance [NotCreatable] [Service]
 Class GlobalDataStore : Instance [NotCreatable] [NotReplicated]
 	Function Tuple GlobalDataStore:GetAsync(string key) [Yields]
@@ -1448,6 +1455,7 @@ Class PluginGui : LayerCollector [NotCreatable] [NotReplicated]
 	Event PluginGui.WindowFocused() {PluginSecurity}
 Class DockWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 	Property bool DockWidgetPluginGui.HostWidgetWasRestored [ReadOnly]
+	Function void DockWidgetPluginGui:RequestRaise() {RobloxScriptSecurity}
 Class QWidgetPluginGui : PluginGui [NotCreatable] [NotReplicated]
 Class ScreenGui : LayerCollector
 	Property bool ScreenGui.OnTopOfCoreBlur {RobloxScriptSecurity} [Hidden]
@@ -1645,6 +1653,13 @@ Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function void HeightmapImporterService:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
 	Event HeightmapImporterService.ColormapHasUnknownPixels() {RobloxScriptSecurity}
 	Event HeightmapImporterService.ProgressUpdate(float progressRatio, string operation) {RobloxScriptSecurity}
+Class Highlight : Instance
+	Property Enum.HighlightDepthMode Highlight.DepthMode
+	Property bool Highlight.Enabled
+	Property Color3 Highlight.FillColor
+	Property float Highlight.FillTransparency
+	Property Color3 Highlight.OutlineColor
+	Property float Highlight.OutlineTransparency
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function string HttpRbxApiService:GetAsync(string apiUrlPath, Enum.ThrottlingPriority priority = "Default", Enum.HttpRequestType httpRequestType = "Default") {RobloxScriptSecurity} [Yields]
@@ -2251,7 +2266,6 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
 	Property string NetworkSettings.HttpProxyURL {✏️RobloxScriptSecurity}
-Class NewVoiceChatService : Instance [Service]
 Class NoCollisionConstraint : Instance
 	Property bool NoCollisionConstraint.Enabled
 	Property BasePart NoCollisionConstraint.Part0
@@ -2283,7 +2297,6 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CastShadow
 	Property Color3 BasePart.Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum.Material BasePart.Material
-	Property MaterialVariant BasePart.MaterialVariant
 	Property float BasePart.Reflectance
 	Property float BasePart.Transparency
 	Property Vector3 BasePart.AssemblyAngularVelocity [<📁> LoadOnly] [NotReplicated]
@@ -2345,7 +2358,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Function void BasePart:ApplyImpulse(Vector3 impulse)
 	Function void BasePart:ApplyImpulseAtPosition(Vector3 impulse, Vector3 position)
 	Function void BasePart:BreakJoints()
-	Function bool BasePart:CanCollideWith(Instance part)
+	Function bool BasePart:CanCollideWith(BasePart part)
 	Function Tuple BasePart:CanSetNetworkOwnership()
 	Function Objects BasePart:GetConnectedParts(bool recursive = false) {🧬Safe}
 	Function Objects BasePart:GetJoints() {🧬Safe}
@@ -3451,7 +3464,7 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeProportion {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property NumberRange StarterPlayer.GameSettingsScaleRangeWidth {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool StarterPlayer.LoadCharacterAppearance
-	Property Enum.LoadCharacterLayeredClothing StarterPlayer.LoadCharacterLayeredClothing [NotScriptable]
+	Property Enum.LoadCharacterLayeredClothing StarterPlayer.LoadCharacterLayeredClothing [NotReplicated] [NotScriptable]
 	Property bool StarterPlayer.UserEmotesEnabled
 	Property float StarterPlayer.CharacterJumpHeight
 	Property float StarterPlayer.CharacterJumpPower
@@ -3549,6 +3562,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
 	Property bool Studio.Enable Script Analysis {RobloxScriptSecurity}
+	Property bool Studio.Enable Scrollbar Markers {RobloxScriptSecurity}
 	Property bool Studio.Enable Signature Help {RobloxScriptSecurity}
 	Property bool Studio.Enable Temporary Tabs
 	Property bool Studio.Enable Temporary Tabs In Explorer
@@ -3752,6 +3766,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage)
+Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TerrainRegion : Instance
 	Property bool TerrainRegion.IsSmooth [ReadOnly] [Deprecated]
 	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
@@ -4160,6 +4175,7 @@ Class VirtualInputManager : Instance [Service]
 	Function void VirtualInputManager:StartRecording() {RobloxScriptSecurity}
 	Function void VirtualInputManager:StopPlaying() {RobloxScriptSecurity}
 	Function void VirtualInputManager:StopRecording() {RobloxScriptSecurity}
+	Function void VirtualInputManager:WaitForInputEventsProcessed() {RobloxScriptSecurity} [Yields]
 	Function void VirtualInputManager:sendRobloxEvent(string namespace, string detail, string detailType) {RobloxScriptSecurity}
 	Function void VirtualInputManager:sendThemeChangeEvent(string themeName) {RobloxScriptSecurity}
 	Event VirtualInputManager.PlaybackCompleted(string additionalLuaState) {RobloxScriptSecurity}
@@ -4179,31 +4195,33 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
-Class VoiceChatService : Instance [NotCreatable] [Service]
-	Property Enum.VoiceChatState VoiceChatService.VoiceChatState {RobloxScriptSecurity} [Hidden] [ReadOnly] [Deprecated]
-	Function string VoiceChatService:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
-	Function Tuple VoiceChatService:GetAudioProcessingSettings() [Deprecated]
-	Function string VoiceChatService:GetGroupId() {RobloxScriptSecurity}
-	Function Tuple VoiceChatService:GetMicDevices() [Deprecated]
-	Function Array VoiceChatService:GetParticipants() [Deprecated]
-	Function Tuple VoiceChatService:GetSpeakerDevices() [Deprecated]
-	Function int VoiceChatService:GetVoiceChatApiVersion() [Deprecated]
-	Function int VoiceChatService:GetVoiceChatAvailable() [Deprecated]
-	Function bool VoiceChatService:IsContextVoiceEnabled() {RobloxScriptSecurity}
-	Function bool VoiceChatService:IsPublishPaused() [Deprecated]
-	Function bool VoiceChatService:IsSubscribePaused(int64 userId) [Deprecated]
+Class VoiceChatInternal : Instance [NotCreatable] [Service]
+	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
+	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
+	Function Tuple VoiceChatInternal:GetAudioProcessingSettings() [Deprecated]
+	Function string VoiceChatInternal:GetGroupId() {RobloxScriptSecurity}
+	Function Tuple VoiceChatInternal:GetMicDevices() [Deprecated]
+	Function Array VoiceChatInternal:GetParticipants() [Deprecated]
+	Function Tuple VoiceChatInternal:GetSpeakerDevices() [Deprecated]
+	Function int VoiceChatInternal:GetVoiceChatApiVersion() [Deprecated]
+	Function int VoiceChatInternal:GetVoiceChatAvailable() [Deprecated]
+	Function bool VoiceChatInternal:IsContextVoiceEnabled() {RobloxScriptSecurity}
+	Function bool VoiceChatInternal:IsPublishPaused() [Deprecated]
+	Function bool VoiceChatInternal:IsSubscribePaused(int64 userId) [Deprecated]
+	Function bool VoiceChatInternal:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
+	Function bool VoiceChatInternal:JoinByGroupId(string groupId, bool isMicMuted = false) [Deprecated]
+	Function bool VoiceChatInternal:JoinByGroupIdToken(string groupId, bool isMicMuted = false) [Deprecated]
+	Function void VoiceChatInternal:Leave() [Deprecated]
+	Function bool VoiceChatInternal:PublishPause(bool paused) [Deprecated]
+	Function void VoiceChatInternal:SetMicDevice(string micDeviceName, string micDeviceGuid) [Deprecated]
+	Function void VoiceChatInternal:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid) [Deprecated]
+	Function bool VoiceChatInternal:SubscribePause(int64 userId, bool paused) [Deprecated]
+	Function bool VoiceChatInternal:SubscribePauseAll(bool paused) [Deprecated]
+	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
+	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
+	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
+Class VoiceChatService : Instance [Service]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
-	Function bool VoiceChatService:JoinByGroupId(string groupId, bool isMicMuted = false) [Deprecated]
-	Function bool VoiceChatService:JoinByGroupIdToken(string groupId, bool isMicMuted = false) [Deprecated]
-	Function void VoiceChatService:Leave() [Deprecated]
-	Function bool VoiceChatService:PublishPause(bool paused) [Deprecated]
-	Function void VoiceChatService:SetMicDevice(string micDeviceName, string micDeviceGuid) [Deprecated]
-	Function void VoiceChatService:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid) [Deprecated]
-	Function bool VoiceChatService:SubscribePause(int64 userId, bool paused) [Deprecated]
-	Function bool VoiceChatService:SubscribePauseAll(bool paused) [Deprecated]
-	Event VoiceChatService.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
-	Event VoiceChatService.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
-	Event VoiceChatService.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
@@ -4993,6 +5011,9 @@ Enum GraphicsMode
 Enum HandlesStyle
 	EnumItem HandlesStyle.Resize : 0
 	EnumItem HandlesStyle.Movement : 1
+Enum HighlightDepthMode
+	EnumItem HighlightDepthMode.AlwaysOnTop : 0
+	EnumItem HighlightDepthMode.Default : 1
 Enum HorizontalAlignment
 	EnumItem HorizontalAlignment.Center : 0
 	EnumItem HorizontalAlignment.Left : 1

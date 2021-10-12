@@ -4042,6 +4042,32 @@
     </Item>
 
     <Item class="ReflectionMetadataClass">
+	    <Properties>
+		    <string name="Name">Highlight</string>
+		    <string name="ClassCategory">Effects</string>
+		    <string name="ExplorerOrder">20</string>
+		    <string name="ExplorerImageIndex">133</string>
+	    </Properties>
+	    <Item class="ReflectionMetadataProperties">
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">FillTransparency</string>
+					<double name="UIMinimum">0</double>
+					<double name="UIMaximum">1</double>
+				</Properties>
+			</Item>
+			<Item class="ReflectionMetadataMember">
+				<Properties>
+					<string name="Name">OutlineTransparency</string>
+					<double name="UIMinimum">0</double>
+					<double name="UIMaximum">1</double>
+				</Properties>
+			</Item>
+			
+	    </Item>
+    </Item> 
+
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">DepthOfFieldEffect</string>
         <string name="ClassCategory">Post Processing Effects</string>

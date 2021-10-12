@@ -59,6 +59,10 @@ DefaultForceFieldVS_Level4098,Vertex
 DefaultForceFieldVS_Level5122,Vertex
 DefaultGlassHQFS_Level0,Fragment
 DefaultGlassSuperHQFS_Level0,Fragment
+DefaultHighlightVS_Level0,Vertex
+DefaultHighlightVS_Level2,Vertex
+DefaultHighlightVS_Level6,Vertex
+DefaultHighlightVS_Level4098,Vertex
 DefaultHQVS_Level0,Vertex
 DefaultHQVS_Level2,Vertex
 DefaultHQVS_Level6,Vertex
@@ -157,6 +161,8 @@ GridVS_Level0,Vertex
 GridVS_Level2,Vertex
 GridVS_Level6,Vertex
 GridVS_Level4098,Vertex
+HighlightInPlaceFS_Level0,Fragment
+HighlightPostprocessFS_Level0,Fragment
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment
@@ -184,6 +190,7 @@ LowQMaterialFS,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
+OutlineEffectFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
 ParticleCurveCrazyFS,Fragment

@@ -401,6 +401,7 @@ Studio.App.GameWidget.LocalFile,,Local File,Local File
 Studio.App.GameWidget.Draft,,Draft,Draft
 Studio.App.GameWidget.TemplateHasInstruction,,This template contains instructions about how to get started in Studio,This template contains instructions about how to get started in Studio
 Studio.App.GameGridViewWithHeader.Sort,,Sort:,Sort:
+Studio.App.GameGridViewWithHeader.Refresh,,Refresh,Refresh
 Studio.App.GameGridViewWithHeader.Owner,,Owner:,Owner:
 Studio.App.EmulatorMainWidget.FitToWindow,,Fit to Window,Fit to Window
 Studio.App.EmulatorMainWidget.PhysicalSize,,Physical Size,Physical Size
@@ -583,6 +584,15 @@ Studio.App.TwoStepVerificationPage.RobloxSupport,,Roblox Support,Roblox Support
 Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need help? Contact 
 Studio.App.StudioCmdService.PermissionError3,,"The current identity (%1) cannot execute command (%2), lacking permission (%3)
 ","The current identity (%1) cannot execute command (%2), lacking permission (%3)
+"
+Studio.App.CmdService.NoCommandError1,,"Cannot execute unregistered command (%1)
+","Cannot execute unregistered command (%1)
+"
+Studio.App.CmdService.ReentrancyError1,,"Cannot execute command (%1) while another instance of it is still running
+","Cannot execute command (%1) while another instance of it is still running
+"
+Studio.App.CmdService.UnexpectedArgsError1,,"Cannot execute command (%1) due to unexpected arguments
+","Cannot execute command (%1) due to unexpected arguments
 "
 Studio.App.GeneralCmd.REPEAT,,Repeat Command,Repeat Command
 Studio.App.GeneralCmd.REPEATTooltip,,Repeat a command in the command history some number of times,Repeat a command in the command history some number of times
@@ -1807,6 +1817,7 @@ Studio.App.Property.HighlightOccurances,Should we highlight other occurances of 
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
 Studio.App.Property.EnableTemporaryTabs,Enable script tab previews in Roblox Studio,Enable Temporary Script Tabs,Enable Temporary Script Tabs
 Studio.App.Property.EnableTemporaryTabsInExplorer,Enable script tab previews in Roblox Studio's explorer widget.,Enable Temporary Script Tabs In Explorer,Enable Temporary Script Tabs In Explorer
+Studio.App.Property.EnableScrollbarMarkers,Enable scrollbar markers for Script Editor inside Roblox Studio.,Enable Scrollbar Markers,Enable Scrollbar Markers
 Studio.App.Property.ScriptEditorShouldShowPluginMethods,Autocomplete should show Plugin security level methods in Script Editor,Autocomplete Plugin-security methods,Autocomplete Plugin-security methods
 Studio.App.SettingsCategory.StudioAutoRecovery,,Auto-Recovery,Auto-Recovery
 Studio.App.Property.AutoRecoveryPath,,Auto-Recovery Path,Auto-Recovery Path
@@ -1995,6 +2006,7 @@ Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show u
 Studio.App.PropertyTooltip.EnableScriptAnalysis,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
 Studio.App.PropertyTooltip.EnableTypeHover,,Enable showing object type on cursor hover.,Enable showing object type on cursor hover.
 Studio.App.PropertyTooltip.EnableSignatureHelp,,Enable showing the types/names of function arguments when relevant,Enable showing the types/names of function arguments when relevant
+Studio.App.PropertyTooltip.EnableScrollbarMarkers,,Show markers over the vertical scrollbar in Script Editor.,Show markers over the vertical scrollbar in Script Editor.
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.Category.AutoSave,,Auto-Save,Auto-Save
 Studio.App.Category.Advanced,,Advanced,Advanced
@@ -2096,8 +2108,8 @@ Studio.App.BetaFeatures.InsertObjectStreamliningTitle,,Insert Object Streamlinin
 Studio.App.BetaFeatures.InsertObjectStreamliningDescription,,Enables a new unified workflow for inserting objects.,Enables a new unified workflow for inserting objects.
 Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,TerrainTools: ConvertTool Beta
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
-Studio.App.BetaFeatures.LayeredClothingBetaTitle,,Cage Mesh Deformer,Cage Mesh Deformer
-Studio.App.BetaFeatures.LayeredClothingBetaDescription,,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).,The WrapTarget and WrapLayer instances can be used to deform meshes without changing their topology using another Mesh (aka CageMesh).
+Studio.App.BetaFeatures.LayeredClothingBetaTitle2,,3D Layered Clothing,3D Layered Clothing
+Studio.App.BetaFeatures.LayeredClothingBetaDescription2,,Enable 3D Layered Clothing in your experiences.,Enable 3D Layered Clothing in your experiences.
 Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Tool,Accessory Tool
 Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
@@ -3024,6 +3036,8 @@ Studio.App.AssetManagerService.AssetIdInvalid,,AssetId is invalid,AssetId is inv
 Studio.App.AssetManagerService.AliasNameInvalid,,Alias name is invalid,Alias name is invalid
 Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel is invalid
 Studio.App.AssetManagerService.DataModelNotInEditMode,,Datamodel is not in edit mode,Datamodel is not in edit mode
+Studio.App.AssetManagerService.IdFromMeshPartAssetTypeInvalid,,Id from mesh part is invalid for asset type,Id from mesh part is invalid for asset type
+Studio.App.AssetManagerService.IdFromMeshPartNotFound,,Id from mesh part not found for content id: %1,Id from mesh part not found for content id: %1
 Studio.App.AssetManagerService.InsertInstanceExceptionArg1,,Exception while inserting instance into datamodel: %1,Exception while inserting instance into datamodel: %1
 Studio.App.AssetManagerService.InvalidArgumentExceptionArg1,,Exception while converting string to id: %1,Exception while converting string to id: %1
 Studio.App.AssetManagerService.MessageFieldNotFound,,"'success' is false, 'message' field not found","'success' is false, 'message' field not found"
