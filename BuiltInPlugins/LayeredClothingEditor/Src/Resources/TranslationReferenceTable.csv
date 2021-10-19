@@ -1,9 +1,9 @@
 Key,Source,en-us,es-es,fr-fr,ja-jp,ko-kr,pt-br,zh-cjv,zh-cn,zh-tw
 Studio.LayeredClothingEditor.Editor.Select,Select,Select,Seleccionar, ,選択,선택,Selecionar,选择,选择,選擇
 Studio.LayeredClothingEditor.Preview.Avatars,Avatars,Avatars,Avatares, ,アバター,아바타,Avatares,虚拟形象,虚拟形象,虛擬人偶
-Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Clothing and Accessories,Edit and Preview Cage Mesh for Clothing and Accessories,Edita y previsualiza la malla de jaula para avatares y ropa,Modifier et prévisualiser les mailles filet pour les vêtements et les accessoires,服装とアクセサリのケージメッシュの編集とプレビュー,복장 및 장신구의 케이지 메시 편집 및 미리 보기,Editar e pré visualizar a malha da gaiola para roupas e acessórios,编辑并预览服装和附件的笼形网格,编辑并预览服装和附件的笼形网格,編輯和預覽服裝和飾品的圍籠網格
-Studio.LayeredClothingEditor.Main.Title,Accessory Tool BETA,Accessory Tool BETA,Editor de ropa en capas,Outil d'accessoires BETA,アクセサリツールのベータ版,장신구 도구 (베타),Ferramenta acessório beta,附件工具测试版,附件工具测试版,飾品工具 Beta
-Studio.LayeredClothingEditor.Main.ToolbarButton,Accessory Tool BETA,Accessory Tool BETA,Editor de ropa en capas,Outil d'accessoires BETA,アクセサリツールのベータ版,장신구 도구 (베타),Ferramenta acessório beta,附件工具测试版,附件工具测试版,飾品工具 Beta
+Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Clothing and Accessories,Edit and Preview Cage Mesh for Clothing and Accessories,Edita y previsualiza la malla de la jaula para la ropa y los accesorios,Modifier et prévisualiser les mailles filet pour les vêtements et les accessoires,服装とアクセサリのケージメッシュの編集とプレビュー,복장 및 장신구의 케이지 메시 편집 및 미리 보기,Editar e pré visualizar a malha da gaiola para roupas e acessórios,编辑并预览服装和附件的笼形网格,编辑并预览服装和附件的笼形网格,編輯和預覽服裝和飾品的圍籠網格
+Studio.LayeredClothingEditor.Main.Title,Accessory Tool BETA,Accessory Tool BETA,Herramienta de accesorio BETA,Outil d'accessoires BETA,アクセサリツールのベータ版,장신구 도구 (베타),Ferramenta acessório beta,附件工具测试版,附件工具测试版,飾品工具 Beta
+Studio.LayeredClothingEditor.Main.ToolbarButton,Accessory Tool BETA,Accessory Tool BETA,Herramienta de accesorio BETA,Outil d'accessoires BETA,アクセサリツールのベータ版,장신구 도구 (베타),Ferramenta acessório beta,附件工具测试版,附件工具测试版,飾品工具 Beta
 Studio.LayeredClothingEditor.AssetType.RightShoe,RightShoe,RightShoe,Zapato derecho, ,RightShoe,RightShoe,RightShoe,右脚鞋,右脚鞋,右鞋
 Studio.LayeredClothingEditor.AssetType.Neck,Neck,Neck,Cuello, ,首,목,Pescoço,颈部,颈部,頸部
 Studio.LayeredClothingEditor.Editor.Generate,Generate,Generate,Generar, ,生成する,생성,Gerar,生成,生成,生成

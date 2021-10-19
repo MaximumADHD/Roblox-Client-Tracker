@@ -12,6 +12,7 @@ Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Mesh
+Studio.AssetImporter.Properties.Anchored,Anchored
 Studio.AssetImporter.Properties.Dimensions,Dimensions
 Studio.AssetImporter.Properties.DoubleSided,Double Sided
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions
@@ -21,10 +22,12 @@ Studio.AssetImporter.Properties.ImportName,Import Name
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count
+Studio.AssetImporter.Properties.RigType,Rig Type
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
 Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin
+Studio.AssetImporter.Sections.AvatarGeneral,Avatar General
 Studio.AssetImporter.Sections.FileGeneral,File General
 Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform

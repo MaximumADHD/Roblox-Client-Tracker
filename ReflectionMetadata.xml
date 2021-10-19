@@ -1131,6 +1131,15 @@
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
+        <Properties>
+            <string name="Name">Plane</string>
+            <string name="ClassCategory">Constraints</string>
+            <string name="ExplorerOrder">30</string>
+            <string name="ExplorerImageIndex">134</string>
+            <string name="PreferredParent">BasePart</string>
+        </Properties>
+    </Item>
+    <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">LinearVelocity</string>
         <string name="ClassCategory">Constraints</string>
@@ -1820,7 +1829,7 @@
           <Properties>
             <string name="Name">Size</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">1</double>0
+            <double name="UIMaximum">10</double>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

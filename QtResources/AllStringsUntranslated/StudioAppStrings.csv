@@ -1143,6 +1143,7 @@ Studio.App.RobloxRibbonMainWindow.CreateTorsionSpringConstraint,,Create torsion 
 Studio.App.RobloxRibbonMainWindow.CreateTorque,,Create torque,Create torque
 Studio.App.RobloxRibbonMainWindow.CreateTrailToolTip,,Create trail,Create trail
 Studio.App.RobloxRibbonMainWindow.CreateVectorForce,,Create vector force,Create vector force
+Studio.App.RobloxRibbonMainWindow.CreatePlaneConstraint,,Create plane constraint,Create plane constraint
 Studio.App.RobloxRibbonMainWindow.CreateWeldConstraint,,Create weld constraint,Create weld constraint
 Studio.App.RobloxRibbonMainWindow.CreateLinearVelocityConstraint,,Create linear velocity constraint,Create linear velocity constraint
 Studio.App.RobloxRibbonMainWindow.LinearVelocity,,Linear Velocity,Linear Velocity
@@ -1311,6 +1312,7 @@ Studio.App.RobloxRibbonMainWindow.UngroupModel,,Ungroup the model into the origi
 Studio.App.RobloxRibbonMainWindow.Universal,,Universal,Universal
 Studio.App.RobloxRibbonMainWindow.UpdateSettingsCurrentGame,,Update settings related to current game,Update settings related to current game
 Studio.App.RobloxRibbonMainWindow.VectorForce,,Vector Force,Vector Force
+Studio.App.RobloxRibbonMainWindow.Plane,,Plane,Plane
 Studio.App.RobloxRibbonMainWindow.View,,View,View
 Studio.App.RobloxRibbonMainWindow.ViewAssetManager,,View Asset Manager,View Asset Manager
 Studio.App.RobloxRibbonMainWindow.ViewBulkImport,,View Bulk Import,View Bulk Import
@@ -1931,7 +1933,7 @@ Studio.App.Property.RandomizeJoinInstanceOrder,,Randomize Test Join Order,Random
 Studio.App.SettingsHeader.Rendering,,Rendering,Rendering
 Studio.App.SettingsCategory.RenderingPerformance,,Performance,Performance
 Studio.App.Property.QualityLevel,,Quality Level,Quality Level
-Studio.App.Property.EditQualityLevel,,Edit Quality Level,Edit Quality Level
+Studio.App.Property.EditQualityLevel,,Editor Quality Level,Editor Quality Level
 Studio.App.Property.EagerBulkExecution,,Eager Bulk Execution,Eager Bulk Execution
 Studio.App.SettingsCategory.RenderingDebug,,Debug,Debug
 Studio.App.Property.MeshPartDetailLevel,,Mesh Detail Level,Mesh Detail Level

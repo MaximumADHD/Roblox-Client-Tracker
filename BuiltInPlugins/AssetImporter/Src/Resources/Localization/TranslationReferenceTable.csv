@@ -1,9 +1,15 @@
 Key,Source,en-us
+Studio.AssetImporter.Properties.IgnoreVertexColors,Ignore Vertex Colors,Ignore Vertex Colors
+Studio.AssetImporter.Sections.FileGeometry,File Geometry,File Geometry
 Studio.AssetImporter.Plugin.Description,Import an FBX file using the Mesh Importer.,Import an FBX file using the Mesh Importer.
+Studio.AssetImporter.Properties.DoubleSided,Double Sided,Double Sided
 Studio.AssetImporter.Plugin.Name,AssetImporter,AssetImporter
+Studio.AssetImporter.Properties.PolygonCount,Polygon Count,Polygon Count
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import,Settings for the current import
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer,Mesh Importer
+Studio.AssetImporter.Properties.FileDimensions,File Dimensions,File Dimensions
 Studio.AssetImporter.Plugin.Button,Import,Import
+Studio.AssetImporter.Plugin.Import,Import,Import
 Studio.AssetImporter.AssetImportTree.Errors,error(s),error(s)
 Studio.AssetImporter.Plugin.Browse,Browse...,Browse...
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand,Expand
@@ -11,3 +17,18 @@ Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse,Collapse
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %s,Descendants contain %s
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s),warning(s)
+Studio.AssetImporter.Plugin.Cancel,Cancel,Cancel
+Studio.AssetImporter.Plugin.WindowTitle,Import Mesh,Import Mesh
+Studio.AssetImporter.Sections.FileTransform,File Transform,File Transform
+Studio.AssetImporter.Sections.FileGeneral,File General,File General
+Studio.AssetImporter.Sections.ObjectGeneral,Object General,Object General
+Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry,Object Geometry
+Studio.AssetImporter.Properties.Dimensions,Dimensions,Dimensions
+Studio.AssetImporter.Properties.ImportName,Import Name,Import Name
+Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces,Invert Negative Faces
+Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes,Merge Meshes
+Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
+Studio.AssetImporter.Properties.WorldForward,World Forward,World Forward
+Studio.AssetImporter.Properties.WorldUp,World Up,World Up
+Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin,Zero Origin
+Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Model Asset,Import As Model Asset

@@ -70,6 +70,7 @@ Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
+Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
 Studio.AnimationClipEditor.Menu.Save, ,Save

@@ -33,9 +33,9 @@ Studio.AssetManager.ContextMenu.AddImages,Add Images,Add Images,Añadir imágene
 Studio.AssetManager.ContextMenu.AddMeshes,Add Meshes,Add Meshes,Añadir mallas,Ajouter meshes,メッシュを追加,메시 추가,Adicionar malhas,添加网格,添加网格,加入網格
 Studio.AssetManager.ContextMenu.AddNewPlace,Add New Place,Add New Place,Añadir un nuevo lugar,Ajouter nouvel emplacement,新しいプレースを追加,새 플레이스 추가,Adicionar novo local,添加新场景,添加新场景,新增地點
 Studio.AssetManager.ContextMenu.NewPlaceAdded,New Place Added,New Place Added,Nuevo lugar añadido,Nouvel emplacement ajouté,新しいプレースを追加済み,새 플레이스가 추가됨,Novo local adicionado,新场景已添加,新场景已添加,已加入新地點
-Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard,Copiar ID de la textura al portapapeles,Copier l'ID texture dans le clipboard,テクスチャのIDをクリップボードにコピー,텍스처 ID를 클립보드에 복사,Copiar ID da textura para a área de transferência,将纹理 ID 复制到剪贴板,将纹理 ID 复制到剪贴板,將紋理 ID 複製到剪貼簿
+Studio.AssetManager.ContextMenu.CopyTextureIdToClipboard,Copy Texture ID to Clipboard,Copy Texture ID to Clipboard,Copiar ID de la textura al portapapeles,Copier l'ID texture dans le clipboard,テクスチャのIDをクリップボードにコピー,텍스처 ID를 클립보드로 복사,Copiar ID da textura para a área de transferência,将纹理 ID 复制到剪贴板,将纹理 ID 复制到剪贴板,將紋理 ID 複製到剪貼簿
 Studio.AssetManager.ContextMenu.Rename,Rename,Rename,Renombrar,Renommer,名前を変更,이름 변경,Renomear,重命名,重命名,重新命名
-Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,Copy ID to Clipboard,Copiar ID al portapapeles,Copier ID dans le clipboard,IDをクリップボードにコピー,ID를 클립보드에 복사,Copiar ID para a área de transferência,将 ID 复制到剪贴板,将 ID 复制到剪贴板,將 ID 複製到剪貼簿
+Studio.AssetManager.ContextMenu.CopyIdToClipboard,Copy ID to Clipboard,Copy ID to Clipboard,Copiar ID al portapapeles,Copier ID dans le clipboard,IDをクリップボードにコピー,ID를 클립보드로 복사,Copiar ID para a área de transferência,将 ID 复制到剪贴板,将 ID 复制到剪贴板,將 ID 複製到剪貼簿
 Studio.AssetManager.MainView.SaveButtonText,Save,Save,Guardar,Sauvegarder,保存,저장,Salvar,保存,保存,儲存
 Studio.AssetManager.MainView.ButtonText,Publish,Publish,Publicar,Publier,公開,게시,Publicar,发布,发布,發佈
 Studio.AssetManager.AssetPreview.Insert,Insert,Insert,Insertar,Insérer,挿入,삽입,Inserir,插入,插入,插入
@@ -50,6 +50,7 @@ Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,D
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script,Actualizar script,Rafraîchir script,スクリプトをリフレッシュ,스크립트 새로고침,Atualizar script,刷新脚本,刷新脚本,重新整理指令碼
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio,Añadir audio,Ajouter audio,オーディオを追加,오디오 추가,Adicionar áudio,添加音频,添加音频,新增音訊
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages,Cargar todas las páginas,Charger toutes les pages,すべてのページを読み込む,모든 페이지 불러오기,Carregar todas as páginas,加载所有页面,加载所有页面,載入所有頁面
+Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard,Copiar ID de la malla al portapapeles, , ,메시 ID를 클립보드로 복사,Copiar ID da malha para a área de transferência,将网格 ID 复制到剪贴板,将网格 ID 复制到剪贴板,將網格 ID 複製到剪貼簿
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open,Abrir,Ouvert,開く,열기,Abrir,打开,打开,開啟
 Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added,Añadido recientemente,Ajouté récemment,最近、追加されたもの,최근 추가된 항목,Adicionado recentemente,最近添加,最近添加,最近新增
 Studio.AssetManager.TopBar.BackButton,Back,Back,Volver,Retour,戻る,뒤로,Voltar,返回,返回,返回

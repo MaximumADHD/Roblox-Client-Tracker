@@ -20,7 +20,7 @@ void main()
     vec4 f0 = texture(texTexture, VARYING0.xy);
     vec4 f1 = VARYING1 * CB1[0];
     vec3 f2 = f0.xyz * f1.xyz;
-    float f3 = (f0.w * f1.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, VARYING3.xy).x * 500.0) - VARYING3.z), 0.0, 1.0) * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
+    float f3 = (f0.w * f1.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, gl_FragCoord.xy * CB0[45].xy).x * 500.0) - gl_FragCoord.w), 0.0, 1.0) * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
     vec4 f4 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
     f4.w = f3;
     vec4 f5 = f4;

@@ -13,7 +13,7 @@ Studio.TerrainToolsV2.Action.Ignore,Ignore,Ignore,Ignorar,Ignorer,無視,무시,
 Studio.TerrainToolsV2.Action.Close,Close,Close,Cerrar,Fermer,閉じる,닫기,Fechar,Закрыть,关闭,关闭,關閉
 Studio.TerrainToolsV2.BrushSettings.Advanced,Advanced,Advanced,Avanzado,Avancé,詳細設定,고급,Avançado,Расширенные настройки,高级,高级,進階
 Studio.TerrainToolsV2.Action.Apply,Apply,Apply,Aplicar,Appliquer,適用,적용,Aplicar,Применить,应用,应用,套用
-Studio.TerrainToolsV2.BrushSettings.Apply,Apply,Apply, , , , , , , , , 
+Studio.TerrainToolsV2.BrushSettings.Apply,Apply,Apply,Aplicar, , ,적용,Aplicar, ,应用,应用,套用
 Studio.TerrainToolsV2.Main.Title,Terrain Editor,Terrain Editor,Editor de terreno,Éditeur terrain,地形エディタ,지형 편집기,Editor de terreno,Редактор рельефа,地形编辑器,地形编辑器,地形編輯器
 Studio.TerrainToolsV2.Action.Cancel,Cancel,Cancel,Cancelar,Annuler,キャンセル,취소,Cancelar,Отмена,取消,取消,取消
 Studio.TerrainToolsV2.Generate.MapSize,Map Size,Map Size,Tamaño del mapa,Taille de la carte,マップサイズ,맵 크기,Tamanho do mapa,Размер карты,地图大小,地图大小,地圖大小
@@ -30,7 +30,7 @@ Studio.TerrainToolsV2.Tab.Create,Create,Create,Crear,Créer,作成,만들기,Cri
 Studio.TerrainToolsV2.MaterialSettings.ChooseMaterial,Choose a material to apply,Choose a material to apply,Escoge un material para usarlo,Choisir un matériel à appliquer,適用する素材を選ぶ,적용할 재질을 선택하세요,Escolha um material para aplicar,Выберите материал,选择要应用的材质,选择要应用的材质,選擇要套用的材質
 Studio.TerrainToolsV2.Action.New,New,New,Nuevo,Nouveau,新着,새로 만들기,Novo,Создать,新增,新增,新增
 Studio.TerrainToolsV2.Action.Edit,Edit,Edit,Editar,Modifier,編集,편집,Editar,Изменить,编辑,编辑,編輯
-Studio.TerrainToolsV2.BrushSettings.Edit,Edit,Edit, , , , , , , , , 
+Studio.TerrainToolsV2.BrushSettings.Edit,Edit,Edit,Editar, , ,편집,Editar, ,编辑,编辑,編輯
 Studio.TerrainToolsV2.Tab.Edit,Edit,Edit,Editar,Modifier,編集,편집,Editar,Изменить,编辑,编辑,編輯
 Studio.TerrainToolsV2.Action.Exit,Exit,Exit,Salir,Sortir,退出,나가기,Sair,Выход,退出,退出,退出
 Studio.TerrainToolsV2.ToolName.Grow,Grow,Grow,Aumentar,Pousser,大きく,높이기,Aumentar,Нарастить,增长,增长,生長
@@ -67,7 +67,7 @@ Studio.TerrainToolsV2.BrushSettings.Material,Material,Material,Material,Matérie
 Studio.TerrainToolsV2.ConvertMode.Material,Material,Material,Material,Matériel,素材,재질,Material, ,材质,材质,材質
 Studio.TerrainToolsV2.ImportMaterialMode.DefaultMaterial,Material,Material,Material,Matériau,素材,재질,Material, ,材质,材质,材質
 Studio.TerrainToolsV2.Action.Reset,Reset,Reset,Reiniciar,Réinitialiser,再設定,재설정,Reiniciar,Сброс,重置,重置,重置
-Studio.TerrainToolsV2.BrushSettings.Reset,Reset,Reset, , , , , , , , , 
+Studio.TerrainToolsV2.BrushSettings.Reset,Reset,Reset,Restablecer, , ,재설정,Reiniciar, ,重置,重置,重置
 Studio.TerrainToolsV2.Action.Retry,Retry,Retry,Reintentar,Réessayer,再試行,다시 시도,Tentar novamente,Повтор,重试,重试,重試
 Studio.TerrainToolsV2.Action.Share,Share,Share,Compartir,Partager,シェア,공유,Compartilhar,Поделиться,分享,分享,分享
 Studio.TerrainToolsV2.Action.Stop,Stop,Stop,Detener,Arrêter,停止,중지,Parar,Стоп,停止,停止,停止
@@ -97,7 +97,7 @@ Studio.TerrainToolsV2.EditSettings.MergeEmpty,Merge Empty,Merge Empty,Combinar v
 Studio.TerrainToolsV2.EditSettings.EditSettings,Edit Settings,Edit Settings,Editar configuración,Modifier les paramètres,設定を編集,편집 설정,Editar configurações,Изменить параметры,编辑设置,编辑设置,編輯設定
 Studio.TerrainToolsV2.Example.ErrorAnUnexpectedThing,"An unexpected thing happened, try again","An unexpected thing happened, try again",Ha pasado algo inesperado. Inténtalo de nuevo.,"Une chose inattendue s'est produite, essaie à nouveau",予期しないことが起きました。もう一度お試しください,예기치 못한 문제가 발생했습니다. 다시 시도하세요.,"Ocorreu algo inesperado, tente novamente","Возникла непредвиденная ошибка, попробуйте снова.",发生意外，请重试,发生意外，请重试,發生意外錯誤，請重新嘗試
 Studio.TerrainToolsV2.Generate.BiomeCanyons,Canyons,Canyons,Cañones,Canyons,谷,협곡,Cânions,Каньоны,峡谷,峡谷,峽谷
-Studio.TerrainToolsV2.BrushSettings.EditPlane,Edit Plane,Edit Plane, , , , , , , , , 
+Studio.TerrainToolsV2.BrushSettings.EditPlane,Edit Plane,Edit Plane,Editar plano, , ,평면 편집,Editar plano, ,编辑平面,编辑平面,編輯平面
 Studio.TerrainToolsV2.Generate.BiomeHills,Hills,Hills,Colinas,Collines,丘,언덕,Colinas,Холмы,丘陵,丘陵,山丘
 Studio.TerrainToolsV2.Generate.BiomeLavascape,Lavascape,Lavascape,Paisaje de lava,Lave,溶岩の景観,용암 지대,Paisagem de lava,Потеки лавы,熔岩景观,熔岩景观,熔岩景觀
 Studio.TerrainToolsV2.Generate.BiomeMarsh,Marsh,Marsh,Pantano,Marécage,沼,습지,Pântano,Болото,沼泽,沼泽,沼澤
@@ -140,7 +140,7 @@ Studio.TerrainToolsV2.ConvertPart.UpdateInstanceVisuals,Hiding parts,Hiding part
 Studio.TerrainToolsV2.MapSettings.HeightMap,Height Map,Height Map,Altura del mapa,Hauteur de carte,標高マップ,높이 맵,Mapa de altura,Поле высот,高度图,高度图,高度圖
 Studio.TerrainToolsV2.MapSettings.MapSettings,Map Settings,Map Settings,Configuración del mapa,Paramètre de la carte,マップ設定,맵 설정,Configurações do mapa,Параметры карты,地图设置,地图设置,地圖設定
 Studio.TerrainToolsV2.ConvertPart.ConvertProgressTitle,Convert Parts,Convert Parts,Convertir piezas,Convertir des pièces,パーツを変換,파트 변환,Converter partes, ,转换部件,转换部件,轉換零件
-Studio.TerrainToolsV2.BrushSettings.Position,Position,Position, , , , , , , , , 
+Studio.TerrainToolsV2.BrushSettings.Position,Position,Position,Posición, , ,위치,Posição, ,位置,位置,位置
 Studio.TerrainToolsV2.MapSettings.Position,Position,Position,Posición,Position,位置,위치,Posição,Положение,位置,位置,位置
 Studio.TerrainToolsV2.Materials.Asphalt,Asphalt,Asphalt,Asfalto,Asphalte,アスファルト,아스팔트,Asfalto,Асфальт,沥青,沥青,瀝青
 Studio.TerrainToolsV2.ToolName.Copy,Copy,Copy,Copiar,Copier,コピー,복사,Copiar,Копировать,复制,复制,複製
@@ -227,7 +227,8 @@ Studio.TerrainToolsV2.SeaLevel.SeaLevelProgressTitle,Sea Level,Sea Level,Niv. de
 Colormap 预览,Colormap 預覽,Studio.TerrainToolsV2.Warning.UnknownAssetStatusError,Unable to verify asset.,Unable to verify asset.,No se puede verificar recurso.,Impossible de vérifier l'élément.,アセットを認証できません。,애셋을 확인할 수 없습니다.,Não foi possível verificar o recurso., ,无法验证素材。
 无法验证素材。,無法驗證素材。,Studio.TerrainToolsV2.Warning.UnknownShape,Instance shape is unknown,Instance shape is unknown,Forma de la instancia desconocida,La forme de l'instance est inconnue,インスタンスの形状が不明です,인스턴스 형태를 알 수 없습니다,A forma da instância é desconhecida, ,实例形状未知
 实例形状未知,個體形狀未知,Studio.TerrainToolsV2.Warning.RequireEditModeForImport,Terrain importer only works in edit mode.,Terrain importer only works in edit mode.,El importador de Terreno funciona solamente en modo de edición.,L'importateur de terrain ne fonctionne qu'en mode édition.,地形インポーターは、編集モードでのみ機能します。,지형 가져오기는 편집 모드에서만 실행할 수 있습니다.,O importador de terreno só funciona em modo de edição., ,地形导入器只能在编辑模式中运行。
-地形导入器只能在编辑模式中运行。,地形匯入器只能在編輯模式中使用。,Studio.TerrainToolsV2.ReplaceMode.Box,Box,Box,Caja,Boîte,ボックス,상자,Caixa, ,盒状模式
+地形导入器只能在编辑模式中运行。,地形匯入器只能在編輯模式中使用。,Studio.TerrainToolsV2.BrushSettings.EditPlaneTooltip,Ctrl+Shift+Space,Ctrl+Shift+Space,Ctrl+Shift+Space, , ,Ctrl+Shift+Space,Ctrl+Shift+Space, ,Ctrl+Shift+Space
+Ctrl+Shift+Space,Ctrl + Shift + 空白鍵,Studio.TerrainToolsV2.ReplaceMode.Box,Box,Box,Caja,Boîte,ボックス,상자,Caixa, ,盒状模式
 盒状模式,方塊,Studio.TerrainToolsV2.ReplaceMode.Brush,Brush,Brush,Pincel,Brosse,ブラシ,브러시,Pincel, ,笔刷模式
 笔刷模式,筆刷,Studio.TerrainToolsV2.Replace.SourceMaterial,Source material,Source material,Material de origen,Matériel source,原材料,소스 재질,Material de origem, ,源材质
 源材质,來源材質,Studio.TerrainToolsV2.Import.Colormap,Colormap,Colormap,Colormap,Colormap,Colormap,Colormap,Colormap, ,Colormap
@@ -273,7 +274,8 @@ Colormaps 用 Roblox Studio 的色彩键将图像颜色转换为地形材质。,
 正在采样……,正在抽樣……,Studio.TerrainToolsV2.ImportWarning.MainTextColormapRGBOutOfRange,Colormap RGB values are out of range.,Colormap RGB values are out of range.,Los valores RGB de Colormap están fuera de rango.,Les valeurs RGB de Colormap sont hors de portée.,Colormap RGB 値が範囲外です。,Colormap RGB 값이 범위를 벗어났습니다.,Os valores RGB do colormap estão fora da faixa., ,Colormap RGB 值超出范围。
 Colormap RGB 值超出范围。,Colormap RGB 值在範圍外。,Studio.TerrainToolsV2.ImportWarning.SubTextColormapRGBOutOfRange,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,The imported colormap contains RGB values that do not match the Colormap Index. The generated materials might not be correct. Please ensure you’re using the sRGB colorspace for best results.,El Colormap importado contiene valores RGB que no coinciden con el índice de Colormap. Los materiales generados podrían no ser correctos. Asegúrate de que estás utilizando el espacio de color sRGB para obtener los mejores resultados.,La carte de couleurs importée contient des valeurs RVB qui ne correspondent pas à l'index Colormap. Les matériaux générés peuvent ne pas être corrects. Assure-toi que tu utilises l'espace de couleurs sRGB pour obtenir les meilleurs résultats.,RGB 値を含むインポート済み Colormap が Colormap インデックスと合致しません。生成済みの素材が不正かもしれません。最善の結果を出すには、 sRGB カラースペースを使っているか確認してください。　,가져온 Colormap에 Colormap 인덱스와 일치하지 않는 RGB 값이 포함되어 있습니다. 생성된 재질이 올바르지 않을 수 있습니다. 최상의 결과를 얻으려면 sRGB 색 공간을 사용하고 있는지 확인하세요.,O colormap importado contém valores RGB que não correspondem ao índice do colormap. Os materiais gerados podem não estar corretos. Verifique se está usando um espaço de cor sRGB para melhores resultados., ,导入的 colormap 包含不符合 Colormap 索引的 RGB 值。生成的材质可能不正确。请确保你使用的是 sRGB 色域以获得最佳效果。
 导入的 colormap 包含不符合 Colormap 索引的 RGB 值。生成的材质可能不正确。请确保你使用的是 sRGB 色域以获得最佳效果。,匯入的 Colormap 包含不符合 Colormap 索引的 RGB 值。生成的材質可能不正確。為確保最佳效果，請確認您正在使用 sRGB 色彩空間。 ,Studio.TerrainToolsV2.BrushSettings.IgnoreParts,Ignore Parts,Ignore Parts,Ignorar partes,Ignorer les parties,パーツを無視,파트 무시,Ignorar partes, ,忽略部件
-忽略部件,忽略零件,Studio.TerrainToolsV2.BrushSettings.Manual,Manual,Manual, ,Manuel,マニュアル,수동,Manual, ,手动
-手动,手動,Studio.TerrainToolsV2.BrushSettings.Off,Off,Off, ,Désactivé,オフ,끄기,Off, ,关闭
-关闭,關閉,Studio.TerrainToolsV2.BrushSettings.Rotation,Rotation,Rotation, , , , , , , 
- , 
+忽略部件,忽略零件,Studio.TerrainToolsV2.BrushSettings.Manual,Manual,Manual,Manual,Manuel,マニュアル,수동,Manual, ,手动
+手动,手動,Studio.TerrainToolsV2.BrushSettings.Off,Off,Off,Desactivado,Désactivé,オフ,끄기,Off, ,关闭
+关闭,關閉,Studio.TerrainToolsV2.BrushSettings.Rotation,Rotation,Rotation,Rotación, , ,회전,Rotação, ,旋转
+旋转,旋轉,Studio.TerrainToolsV2.BrushSettings.SnapToVoxels,Snap to Voxels,Snap to Voxels,Ajustar a los vóxeles, , ,복셀에 맞추기,Ajustar aos voxels, ,对齐至体素
+对齐至体素,貼齊到體素

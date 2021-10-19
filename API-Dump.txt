@@ -39,6 +39,7 @@ Class Instance : <<<ROOT>>> [NotCreatable] [NotBrowsable]
 	Event Instance.ChildRemoved(Instance child)
 	Event Instance.DescendantAdded(Instance descendant)
 	Event Instance.DescendantRemoving(Instance descendant)
+	Event Instance.Destroying()
 Class ABTestService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ABTestService:ClearUserVariations() {LocalUserSecurity}
 	Function Enum.ABTestLoadingStatus ABTestService:GetBrowserTrackerABTestLoadingStatus() {LocalUserSecurity}
@@ -123,6 +124,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary AssetImportService:GetCurrentImportMap() {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
+	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
 	Function void AssetImportService:UpdateSettings(Instance settings) {RobloxScriptSecurity}
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -431,6 +433,13 @@ Class Breakpoint : Instance [NotReplicated]
 	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
+Class BreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance BreakpointManager:AddBreakpoint(Instance script, int line, Instance condition) {RobloxScriptSecurity}
+	Function MetaBreakpoint BreakpointManager:GetBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
+	Function void BreakpointManager:RemoveBreakpointById(int metaBreakpointId) {RobloxScriptSecurity}
+	Event BreakpointManager.MetaBreakpointAdded(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event BreakpointManager.MetaBreakpointChanged(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
+	Event BreakpointManager.MetaBreakpointRemoved(MetaBreakpoint breakpoint) {RobloxScriptSecurity}
 Class BrowserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void BrowserService:CloseBrowserWindow() {RobloxScriptSecurity}
 	Function void BrowserService:CopyAuthCookieFromBrowserToEngine() {RobloxScriptSecurity}
@@ -663,6 +672,7 @@ Class LinearVelocity : Constraint
 	Property Vector3 LinearVelocity.PrimaryTangentAxis
 	Property Vector3 LinearVelocity.SecondaryTangentAxis
 	Property Vector3 LinearVelocity.VectorVelocity
+Class Plane : Constraint
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
@@ -943,6 +953,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerManager:StepOver()
 	Event DebuggerManager.DebuggerAdded(Instance debugger)
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
+Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1031,7 +1042,7 @@ Class Explosion : Instance
 	Property Enum.ExplosionType Explosion.ExplosionType
 	Property Vector3 Explosion.Position
 	Property bool Explosion.Visible
-	Event Explosion.Hit(Instance part, float distance)
+	Event Explosion.Hit(BasePart part, float distance)
 Class FaceControls : Instance [NotBrowsable]
 	Property float FaceControls.Corrugator {PluginSecurity} [NotReplicated]
 	Property float FaceControls.LeftBrowLowerer {PluginSecurity} [NotReplicated]
@@ -1849,6 +1860,7 @@ Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated
 	Property bool ImporterGroupSettings.ImportAsModelAsset
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterMeshSettings.Anchored
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
 	Property bool ImporterMeshSettings.DoubleSided
 	Property bool ImporterMeshSettings.IgnoreVertexColors
@@ -1859,6 +1871,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterRootSettings.InvertNegativeFaces
 	Property bool ImporterRootSettings.MergeMeshes
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
+	Property Enum.RigType ImporterRootSettings.RigType
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
@@ -2205,6 +2218,18 @@ Class MessageBusService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
 	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
+Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
+	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
+	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
+	Function int MetaBreakpoint:SetEnabled(bool enabled, Function status) {RobloxScriptSecurity}
+	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
+Class MetaBreakpointContext : Instance [NotCreatable] [NotReplicated]
 Class Mouse : Instance [NotCreatable]
 	Property CFrame Mouse.Hit [ReadOnly]
 	Property Content Mouse.Icon
@@ -3164,6 +3189,7 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.RenderStepped(double deltaTime)
 	Event RunService.Stepped(double time, double deltaTime)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
+Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -3637,6 +3663,8 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Show Navigation Mesh
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
+Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string StudioAssetService:SerializeInstances(Objects instances) {RobloxScriptSecurity} [Yields]
 Class StudioData : Instance [NotCreatable] [Service]
 	Property bool StudioData.EnableScriptCollabByDefaultOnLoad {RobloxScriptSecurity} [Hidden]
 	Property bool StudioData.EnableTeamCreateStreamingOnLoad {RobloxScriptSecurity} [Hidden]
@@ -3651,6 +3679,7 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum.ScreenOrientation orientation) {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
+Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool StudioService.DraggerSolveConstraints [ReadOnly]
@@ -3807,7 +3836,9 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
-Class TextSource : Instance
+Class TextSource : Instance [NotCreatable]
+	Property bool TextSource.CanSend
+	Property int64 TextSource.UserId [ReadOnly]
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string ThirdPartyUserService:GetUserPlatformId() {RobloxScriptSecurity}
 	Function string ThirdPartyUserService:GetUserPlatformName() {RobloxScriptSecurity}
@@ -3828,6 +3859,8 @@ Class TimerService : Instance [NotCreatable] [Service]
 Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void ToastNotificationService:HideNotification(string notificationId) {RobloxScriptSecurity}
 	Function void ToastNotificationService:ShowNotification(string message, string notificationId) {RobloxScriptSecurity}
+Class ToolboxService : Instance [NotCreatable] [Service] [NotReplicated]
+	Callback Objects ToolboxService.ProcessAssetInsertionDrag(string assetId, int assetTypeId, Objects instances) {RobloxScriptSecurity} [NoYield]
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -5782,6 +5815,14 @@ Enum RibbonTool
 	EnumItem RibbonTool.Group : 7
 	EnumItem RibbonTool.Ungroup : 8
 	EnumItem RibbonTool.None : 9
+Enum RigType
+	EnumItem RigType.R6 : 0
+	EnumItem RigType.R15 : 1
+	EnumItem RigType.Rthro : 2
+	EnumItem RigType.RthroNarrow : 3
+	EnumItem RigType.S15 : 4
+	EnumItem RigType.Custom : 5
+	EnumItem RigType.None : 6
 Enum RollOffMode
 	EnumItem RollOffMode.Inverse : 0
 	EnumItem RollOffMode.Linear : 1
@@ -6149,6 +6190,12 @@ Enum TerrainAcquisitionMethod
 	EnumItem TerrainAcquisitionMethod.RegionFillTool : 9
 	EnumItem TerrainAcquisitionMethod.RegionPasteTool : 10
 	EnumItem TerrainAcquisitionMethod.Other : 11
+Enum TextChatMessageStatus
+	EnumItem TextChatMessageStatus.Success : 1
+	EnumItem TextChatMessageStatus.TextFilterFailed : 2
+	EnumItem TextChatMessageStatus.Floodchecked : 3
+	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 4
+	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 5
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2
