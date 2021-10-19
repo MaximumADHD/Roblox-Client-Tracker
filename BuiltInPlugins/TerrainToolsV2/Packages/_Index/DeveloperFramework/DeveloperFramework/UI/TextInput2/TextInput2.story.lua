@@ -77,7 +77,6 @@ if FFlagDevFrameworkTextInput2 then
 				name = "Error Text",
 				summary = "Render component with error border color and error text",
 				story = createStory(Roact.createElement(TextInput2, {
-					Error = true,
 					ErrorText = "Invalid input",
 					Width = DEFAULT_WIDTH,
 				}))
