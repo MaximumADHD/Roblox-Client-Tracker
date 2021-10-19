@@ -12,8 +12,6 @@
 	Optional Props:
 		string TooltipText = Tooltip text that shows up while hovering on the Label
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
@@ -62,11 +60,10 @@ function TextInputWithLabel:render()
 			TextInputProps = {
 				Text = detailsText,
 				PlaceholderText = placeholderText,
-				OnTextChanged = FFlagToolboxReplaceUILibraryComponentsPt2 and onDetailsChange or nil,
+				OnTextChanged = onDetailsChange,
 			},
 			TextSize = 16,
 			LayoutOrder = 2,
-			OnTextChanged = (not FFlagToolboxReplaceUILibraryComponentsPt2) and onDetailsChange or nil,
 		}),
 	})
 end

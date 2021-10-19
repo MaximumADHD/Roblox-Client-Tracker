@@ -21,7 +21,6 @@ local showContextMenu = StudioUI.showContextMenu
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -34,19 +33,17 @@ function BreakpointsTable:init()
 
 	end
 
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClick = function(row)
-			local props = self.props
-			local localization = props.Localization
-			local plugin = props.Plugin:get()
+	self.onRightClick = function(row)
+		local props = self.props
+		local localization = props.Localization
+		local plugin = props.Plugin:get()
 
-			if row.item.debugpointType == BreakpointModel.debugpointType.Breakpoint then
-				local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled)
-				showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
-			elseif row.item.debugpointType == BreakpointModel.debugpointType.Logpoint then
-				local actions = MakePluginActions.getLogpointActions(localization, row.item.isEnabled)
-				showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
-			end
+		if row.item.debugpointType == BreakpointModel.debugpointType.Breakpoint then
+			local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled)
+			showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
+		elseif row.item.debugpointType == BreakpointModel.debugpointType.Logpoint then
+			local actions = MakePluginActions.getLogpointActions(localization, row.item.isEnabled)
+			showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
 		end
 	end
 end
@@ -133,7 +130,7 @@ function BreakpointsTable:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				Columns = tableColumns,
 				RootItems = props.Breakpoints or {},
-				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
+				RightClick = self.onRightClick,
 				Expansion = {},
 				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,

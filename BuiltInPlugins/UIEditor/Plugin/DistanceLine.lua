@@ -39,9 +39,6 @@ local Log = require(script.Parent.Log)
 local RectUtility = require(script.Parent.RectUtility)
 local ValueBox = require(script.Parent.ValueBox)
 
--- Flags
-local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
-
 -- Constants
 local LINE_COLOR = Color3.fromRGB(255, 205, 0)
 local LINE_WIDTH = 2
@@ -326,13 +323,8 @@ end
 --
 -- void DistanceLine:update(GuiBase2d selectedObject)
 function DistanceLine:update(selectedObject)
-	local guiAncestor
-	if FFlagCleanupLuaPluginErrors then
-		guiAncestor = selectedObject:FindFirstAncestorWhichIsA("GuiBase2d")
-	else
-		guiAncestor = selectedObject.Parent
-	end
-	
+	local guiAncestor = selectedObject:FindFirstAncestorWhichIsA("GuiBase2d")
+
 	if self.m_axis == Axis.X then
 		updateX(self, selectedObject, guiAncestor)
 	elseif self.m_axis == Axis.Y then

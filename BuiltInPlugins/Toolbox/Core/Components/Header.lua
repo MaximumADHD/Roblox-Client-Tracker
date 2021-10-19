@@ -16,8 +16,6 @@
 		callback onSearchOptionsToggled()
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
-local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
@@ -47,15 +45,8 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 local SearchBarWithAutocomplete = require(Plugin.Core.Components.SearchBarWithAutocomplete)
-local SearchBar
-if FFlagToolboxUseDeveloperFrameworkSearchBar then
-	SearchBar = require(Libs.Framework).StudioUI.SearchBar
-else
-	SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
-end
 local SearchOptionsButton = require(Plugin.Core.Components.SearchOptions.SearchOptionsButton)
 
-local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
 local RequestSearchRequest = require(Plugin.Core.Networking.Requests.RequestSearchRequest)
 local SelectCategoryRequest = require(Plugin.Core.Networking.Requests.SelectCategoryRequest)
 local SelectGroupRequest = require(Plugin.Core.Networking.Requests.SelectGroupRequest)
@@ -65,13 +56,11 @@ local Header = Roact.PureComponent:extend("Header")
 local globalSettings = settings
 
 function Header:init()
-	if FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete() then
-		self.state = {
-			searchTerm = "",
-		}
-		self.keyCount = 0
-		self.deleteCount = 0
-	end
+	self.state = {
+		searchTerm = "",
+	}
+	self.keyCount = 0
+	self.deleteCount = 0
 
 	local networkInterface = getNetwork(self)
 	local settings
@@ -110,19 +99,8 @@ function Header:init()
 
 		local category = PageInfoHelper.getCategory(categoryName or self.props.categoryName)
 
-		if FFlagToolboxShowAutocompleteResults and (not Rollouts:getMarketplaceAutocomplete() or not self.IXPShowAutocomplete) then
-			self.props.logSearchAnalytics(
-				searchTerm,
-				Category.AUTOCOMPLETE_API_NAMES[category],
-				nil,
-				self.keyCount,
-				self.deleteCount,
-				false
-			)
-
-			self.keyCount = 0
-			self.deleteCount = 0
-		end
+		self.keyCount = 0
+		self.deleteCount = 0
 
 		-- Set up a delayed callback to check if an asset was inserted
 		self.mostRecentSearchRequestTime = tick()
@@ -147,28 +125,12 @@ function Header:init()
 	end
 
 	self.onSearchTextChanged = function(searchTerm)
-		if FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete() then
-			if string.len(searchTerm) > string.len(self.state.searchTerm) then
-				self.keyCount += 1
-			elseif string.len(searchTerm) < string.len(self.state.searchTerm) then
-				self.deleteCount += 1
-			end
-			self:setState({searchTerm = searchTerm})
+		if string.len(searchTerm) > string.len(self.state.searchTerm) then
+			self.keyCount += 1
+		elseif string.len(searchTerm) < string.len(self.state.searchTerm) then
+			self.deleteCount += 1
 		end
-	end
-
-	self.IXPShowAutocomplete = false
-	if FFlagToolboxShowAutocompleteResults then
-		local IXPService = game:GetService("IXPService")
-		if IXPService:GetUserLayerLoadingStatus() == Enum.IXPLoadingStatus.Initialized then
-			local ixpVariables = IXPService:GetUserLayerVariables("StudioMarketplace")
-			if ixpVariables["MarketplaceAutocompleteFlag"] then
-				self.IXPShowAutocomplete = ixpVariables["MarketplaceAutocompleteFlag"]["AutocompleteEnabled"]
-			end
-		end
-	end
-	if Rollouts:getMarketplaceAutocomplete() then
-		self.IXPShowAutocomplete = true
+		self:setState({searchTerm = searchTerm})
 	end
 end
 
@@ -238,32 +200,16 @@ function Header:renderContent(theme, localization, localizedContent)
 		fullWidthDropdown = true
 	end
 
-	local searchBarProps
-	if FFlagToolboxUseDeveloperFrameworkSearchBar then
-		searchBarProps = {
-			LayoutOrder = 1,
-			OnSearchRequested = onSearchRequested,
-			OnTextChanged = self.onSearchTextChanged,
-			SearchTerm = searchTerm,
-			Style = "ToolboxSearchBar",
-			Width = searchBarWidth,
-		}
-	else
-		searchBarProps = {
-			width = searchBarWidth,
-			LayoutOrder = 1,
-			searchTerm = searchTerm,
-			showSearchButton = true,
-			onSearchRequested = onSearchRequested,
-		}
-	end
+	local searchBarProps = {
+		LayoutOrder = 1,
+		OnSearchRequested = onSearchRequested,
+		OnTextChanged = self.onSearchTextChanged,
+		SearchTerm = searchTerm,
+		Style = "ToolboxSearchBar",
+		Width = searchBarWidth,
+	}
 
-	local displayedSearchBar
-	if self.IXPShowAutocomplete then
-		displayedSearchBar = Roact.createElement(SearchBarWithAutocomplete, searchBarProps)
-	else
-		displayedSearchBar = Roact.createElement(SearchBar, searchBarProps)
-	end
+	local displayedSearchBar = Roact.createElement(SearchBarWithAutocomplete, searchBarProps)
 	return Roact.createElement("ImageButton", {
 		Position = props.Position,
 		Size = UDim2.new(1, 0, 0, Constants.HEADER_HEIGHT),
@@ -418,10 +364,6 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		logSearchAnalytics = function(keyword, prefix, keyCount, delCount, autocompleteShown)
-			dispatch(LogMarketplaceSearchAnalytics(keyword, prefix, keyCount, delCount, autocompleteShown))
-		end,
-
 		selectCategory = function(networkInterface, settings, categoryName)
 			dispatch(SelectCategoryRequest(networkInterface, settings, categoryName))
 		end,

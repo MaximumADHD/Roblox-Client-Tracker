@@ -20,7 +20,7 @@ local StudioTheme = Style.Themes.StudioTheme
 
 local PluginTheme = {
 	TopBar = {
-		-- TODO: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
+		-- TODO CIN-43: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
 		ButtonSize = UDim2.new(0, 80, 1, 0),
 		Padding = {
 			Left = 10,
@@ -42,9 +42,11 @@ local PluginTheme = {
 	},
 
 	Sizes = {
+		IndicatorOffset = 20,
+		IndicatorSize = 100,
 		PreviewRatio = 0.5,
-		TopBarHeight = 40,
 		ToolbarHeight = 30,
+		TopBarHeight = 40,
 	},
 }
 

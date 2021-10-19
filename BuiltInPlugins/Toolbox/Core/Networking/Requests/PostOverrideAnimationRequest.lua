@@ -10,12 +10,15 @@ local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
 
 local Util = Plugin.Core.Util
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 -- assetId, number, defualt to 0 for new asset.
 -- instance, instance, used in post body
 return function(networkInterface, assetid, instance)
-	return function(store)
+	return function(store, services)
 		local function onSuccess(result)
 			-- id in result is asset version id, which is not useful for us, return the original asset id if successful
 			if not result or tostring(result) == '0' or result:find("Error") then
@@ -28,6 +31,16 @@ return function(networkInterface, assetid, instance)
 			end
 		end
 
+		local function onSerializeFail(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
+			store:dispatch(NetworkError(tostring(result)))
+			store:dispatch(UploadResult(false))
+		end
+
 		local function onFail(result)
 			if DebugFlags.shouldDebugWarnings() then
 				warn("Got false response from PostInsertAsset")
@@ -38,8 +51,14 @@ return function(networkInterface, assetid, instance)
 			store:dispatch(UploadResult(false))
 		end
 
-		local fileDataString = SerializeInstances(instance)
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(instance, services.StudioAssetService):andThen(function(fileDataString)
+				return networkInterface:postOverrideAnimation(assetid, fileDataString):andThen(onSuccess, onFail)
+			end, onSerializeFail)
+		else
+			local fileDataString = SerializeInstances_Deprecated(instance)
 
-		return networkInterface:postOverrideAnimation(assetid, fileDataString):andThen(onSuccess, onFail)
+			return networkInterface:postOverrideAnimation(assetid, fileDataString):andThen(onSuccess, onFail)
+		end
 	end
 end

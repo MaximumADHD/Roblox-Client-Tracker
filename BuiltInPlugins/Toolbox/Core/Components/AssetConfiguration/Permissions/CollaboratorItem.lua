@@ -17,7 +17,6 @@
 		permissions changed.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 10
@@ -35,23 +34,9 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Framework = require(Libs.Framework)
 
-local UILibrary = require(Libs.UILibrary)
-
-local Button
-local DropdownMenu
-local IconButton
-local DetailedDropdown
-local DetailedDropdownItem
-local LoadingIndicator
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	DropdownMenu = Framework.UI.DropdownMenu
-	DetailedDropdownItem = require(Plugin.Core.Components.AssetConfiguration.Permissions.DetailedDropdownItem)
-	IconButton = Framework.UI.IconButton
-else
-	DetailedDropdown = UILibrary.Component.DetailedDropdown
-	LoadingIndicator = UILibrary.Component.LoadingIndicator
-	Button = UILibrary.Component.Button
-end
+local DropdownMenu = Framework.UI.DropdownMenu
+local DetailedDropdownItem = require(Plugin.Core.Components.AssetConfiguration.Permissions.DetailedDropdownItem)
+local IconButton = Framework.UI.IconButton
 
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
@@ -67,57 +52,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
-
-local function DeleteButton(props)
-	if not FFlagToolboxReplaceUILibraryComponentsPt3 then
-		return withTheme(function(theme)
-			return Roact.createElement(Button, {
-				Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-				Position = UDim2.new(1, 0, 0, 0),
-				AnchorPoint = Vector2.new(1, 0),
-
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-
-				RenderContents = function(buttonTheme, hovered)
-					return {
-						Icon = Roact.createElement("ImageLabel", {
-							Size = UDim2.new(0, CLOSE_ICON_SIZE, 0, CLOSE_ICON_SIZE),
-							Position = UDim2.new(0.5, 0, 0.5, 0),
-							AnchorPoint = Vector2.new(0.5, 0.5),
-
-							Image = Images.CLOSE_ICON,
-							ImageColor3 = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
-							ImageTransparency = hovered and 0 or 0.4,
-
-							BackgroundTransparency = 1,
-							BorderSizePixel = 0,
-						})
-					}
-				end,
-
-				OnClick = function()
-					if props.Enabled and props.OnClicked then
-						props.OnClicked()
-					end
-				end,
-			})
-		end)
-	end
-end
-
-if (not FFlagToolboxReplaceUILibraryComponentsPt3) then
-	local function LoadingDropdown(props)
-		return withTheme(function(theme)
-			return Roact.createElement(LoadingIndicator, {
-				LayoutOrder = props.LayoutOrder or 0,
-				Size = props.Size,
-				Position = props.Position,
-				AnchorPoint = props.AnchorPoint,
-			})
-		end)
-	end
-end
 
 local function CollaboratorIcon(props)
 	return Roact.createElement(CollaboratorThumbnail, {
@@ -305,7 +239,7 @@ function CollaboratorItem:renderContent(theme)
 				SecondaryText = props.SecondaryText,
 			}),
 
-			DropdownFrame = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("Frame",{
+			DropdownFrame = Roact.createElement("Frame",{
 				AnchorPoint = Vector2.new(1, 0),
 				BackgroundTransparency = 1,
 				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
@@ -320,7 +254,7 @@ function CollaboratorItem:renderContent(theme)
 					Width = DROPDOWN_ITEM_WIDTH,
 				}),
 			}),
-			Dropdown = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement(IconButton, {
+			Dropdown = Roact.createElement(IconButton, {
 				Disabled = not (props.Enabled and #props.Items > 0),
 				RightIcon = "rbxasset://textures/StudioToolbox/ArrowDownIconWhite.png",
 				Text = props.Action,
@@ -332,32 +266,8 @@ function CollaboratorItem:renderContent(theme)
 				TextPadding = Roact.createElement("UIPadding", {
 					PaddingLeft = UDim.new(0, 4),
 				}),
-			}) or Roact.createElement(DetailedDropdown, {
-				LayoutOrder = 2,
-				Enabled = props.Enabled and #props.Items > 0,
-
-				ButtonText = props.Action,
-				Items = props.Items,
-				SelectedItem = props.SelectedItem,
-
-				BackgroundTransparency = 1,
-
-				ItemHeight = ITEM_HEIGHT,
-				DescriptionTextSize = Constants.FONT_SIZE_MEDIUM,
-				DisplayTextSize = Constants.FONT_SIZE_TITLE,
-				IconSize = DROPDOWN_ICON_SIZE,
-
-				Size = UDim2.new(0, DROPDOWN_WIDTH, 0, CONTENT_HEIGHT),
-				Position = UDim2.new(1, -(CONTENT_HEIGHT+LIST_PADDING), 0, 0),
-				AnchorPoint = Vector2.new(1, 0),
-
-				OnItemClicked = function(item)
-					if props.Enabled and props.PermissionChanged then
-						props.PermissionChanged(item)
-					end
-				end,
 			}),
-			Delete = (FFlagToolboxReplaceUILibraryComponentsPt3 and removable) and Roact.createElement(IconButton, {
+			Delete = removable and Roact.createElement(IconButton, {
 				AnchorPoint = Vector2.new(1, 0),
 				BackgroundStyle = "RoundBox",
 				IconColor = theme.assetConfig.packagePermissions.collaboratorItem.deleteButton,
@@ -365,12 +275,6 @@ function CollaboratorItem:renderContent(theme)
 				OnClick = self.onDelete,
 				Position = UDim2.new(1, 0, 0, 0),
 				Size = UDim2.new(0, CONTENT_HEIGHT, 0, CONTENT_HEIGHT),
-			})
-			or ((not FFlagToolboxReplaceUILibraryComponentsPt3) and removable) and Roact.createElement(DeleteButton, {
-				LayoutOrder = 3,
-				Enabled = props.Enabled,
-
-				OnClicked = props.Removed,
 			}),
 		}),
 	})

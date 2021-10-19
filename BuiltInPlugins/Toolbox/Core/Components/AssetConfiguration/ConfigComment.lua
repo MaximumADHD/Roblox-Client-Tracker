@@ -4,7 +4,6 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -16,19 +15,10 @@ local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local ToggleButton
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ToggleButton = require(Libs.Framework).UI.ToggleButton
-else
-	local UILibrary = require(Libs.UILibrary)
-	ToggleButton = UILibrary.Component.ToggleButton
-end
-
-local withTheme = ContextHelper.withTheme
+local ToggleButton = require(Libs.Framework).UI.ToggleButton
 
 local ConfigComment = Roact.PureComponent:extend("ConfigComment")
 
@@ -36,10 +26,6 @@ local TOGGLE_BUTTON_WIDTH = 40
 local TOGGLE_BUTTON_HEIGHT = 24
 
 function ConfigComment:init(props)
-	if not FFlagToolboxReplaceUILibraryComponentsPt1 then
-		self.state = {}
-	end
-
 	self.toggleCallback = function()
 		local props = self.props
 		props.ToggleCallback(not props.CommentOn)
@@ -47,16 +33,10 @@ function ConfigComment:init(props)
 end
 
 function ConfigComment:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return self:renderContent()
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
+	return self:renderContent()
 end
 
-function ConfigComment:renderContent(theme)
+function ConfigComment:renderContent()
 	local props = self.props
 
 	local Title = props.Title
@@ -67,10 +47,7 @@ function ConfigComment:renderContent(theme)
 
 	local ToggleCallback = props.ToggleCallback
 
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
-
+	local theme = self.props.Stylizer
 	local publishAssetTheme = theme.publishAsset
 
 	return Roact.createElement("Frame", {
@@ -105,37 +82,24 @@ function ConfigComment:renderContent(theme)
 			LayoutOrder = 1,
 		}),
 
-		ToggleButton = Roact.createElement(ToggleButton,
-			FFlagToolboxReplaceUILibraryComponentsPt1 and {
-				Disabled = not CommentEnabled,
-				LayoutOrder = 2,
-				OnClick = self.toggleCallback,
-				Selected = CommentOn,
-				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-			} or {
-				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-				Enabled = CommentEnabled,
-				IsOn = CommentOn,
-
-				onToggle = ToggleCallback,
-
-				LayoutOrder = 2,
-			}
-		),
+		ToggleButton = Roact.createElement(ToggleButton, {
+			Disabled = not CommentEnabled,
+			LayoutOrder = 2,
+			OnClick = self.toggleCallback,
+			Selected = CommentOn,
+			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+		}),
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		ConfigComment = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(ConfigComment)
-	else
-		ContextServices.mapToProps(ConfigComment, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	ConfigComment = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigComment)
+else
+	ContextServices.mapToProps(ConfigComment, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return ConfigComment

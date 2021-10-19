@@ -2,12 +2,12 @@ local Plugin = script.Parent.Parent.Parent
 local Models = Plugin.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
 local AddCallstack = require(Plugin.Src.Actions.Callstack.AddCallstack)
-local StackFrame = require(Plugin.Src.Mocks.StackFrame)
 
-return function(threadState, dataModel, debuggerStateToken)
+return function(threadState, debuggerConnection, debuggerStateToken)
 	return function(store, contextItems)
-		threadState:requestCallstack()
-		:andThen(function (callstack : { StackFrame.StackFrame })
+		debuggerConnection:Populate(threadState, function ()
+			local callstack = threadState.GetChildren()
+
 			local callstackRows = {}
 			for stackFrameId, stackFrame in ipairs(callstack) do
 				local arrowColumnValue = {}
@@ -18,28 +18,17 @@ return function(threadState, dataModel, debuggerStateToken)
 					}
 				end
 
-				local scriptInstance = stackFrame:getScriptRef():find(dataModel)
-				if (scriptInstance == nil) then
-					warn("The script instance was returned as nil.")
-				end
-				
-				local sourceName = scriptInstance.name
-
 				local data = {
 					arrowColumn = arrowColumnValue,
 					frameColumn = stackFrameId,
-					layerColumn = stackFrame:getFrameType(),
-					functionColumn = stackFrame:getFrameName(),
-					lineColumn = stackFrame:getLine(),
-					sourceColumn = sourceName,
+					layerColumn = stackFrame.FrameType,
+					functionColumn = stackFrame.FrameName,
+					lineColumn = stackFrame.Line,
+					sourceColumn = stackFrame.Script,
 				}
 				table.insert(callstackRows, CallstackRow.fromData(data))
 			end
-			store:dispatch(AddCallstack(threadState:getThreadId(), callstackRows, debuggerStateToken))
-		end)
-		:catch(function (callstack : { StackFrame.StackFrame })
-			warn("Encountered an error during asynchronous execution: Request Callstack")
-			contextItems.analytics:report("ThunkFailed", "RequestCallstackThunk")
+			store:dispatch(AddCallstack(threadState.ThreadId, callstackRows, debuggerStateToken))
 		end)
     end
 end

@@ -28,8 +28,6 @@ local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 
-local getFFlagDevFrameworkTreeViewRowAfterItem = require(Plugin.Src.Flags.getFFlagDevFrameworkTreeViewRowAfterItem)
-
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
 local STATUS_TYPE = {
@@ -211,9 +209,7 @@ function AssetImportTree:render()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
-	if getFFlagDevFrameworkTreeViewRowAfterItem() then
-		self.statuses = generateStatuses(props.Instances)
-	end
+	self.statuses = generateStatuses(props.Instances)
 
 	return Roact.createElement(Pane, {
 		Layout = Enum.FillDirection.Vertical,
@@ -243,7 +239,7 @@ function AssetImportTree:render()
 			GetChildren = self.getChildren,
 			GetContents = self.getContents,
 			ExpandableRoot = false,
-			AfterItem = getFFlagDevFrameworkTreeViewRowAfterItem() and self.afterItem,
+			AfterItem = self.afterItem,
 		})
 	})
 end

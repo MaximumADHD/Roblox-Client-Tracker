@@ -8,33 +8,21 @@
 		number textSize
 		callback onClose
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local Container
-local RoundBox
-local RoundFrame
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	RoundBox = require(Libs.Framework).UI.Decoration.RoundBox
-	Container = require(Libs.Framework).UI.Container
-else
-	RoundFrame = UILibrary.Component.RoundFrame
-end
-
-local withTheme = ContextHelper.withTheme
+local RoundBox = require(Libs.Framework).UI.Decoration.RoundBox
+local Container = require(Libs.Framework).UI.Container
 
 local TAG_PADDING = 3
 local CLOSE_BUTTON_SIZE = 16
@@ -42,20 +30,12 @@ local CLOSE_BUTTON_SIZE = 16
 local CatalogTag = Roact.PureComponent:extend("CatalogTag")
 
 function CatalogTag:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		return self:renderContents()
-	else
-		return withTheme(function(theme)
-			return self:renderContents(theme)
-		end)
-	end
+	return self:renderContents()
 end
 
 function CatalogTag:renderContents(theme)
 	local props = self.props
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local position = props.Position
 	local size = props.Size
@@ -82,34 +62,22 @@ function CatalogTag:renderContents(theme)
 		}),
 	}
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		return Roact.createElement(Container, {
-			Background = RoundBox,
-			BackgroundStyle = "CatalogTag",
-			Position = position,
-			Size = size,
-		}, contents)
-	else
-		return Roact.createElement(RoundFrame, {
-			BackgroundColor3 = theme.tags.backgroundColor,
-			BorderColor3 = theme.tags.borderColor,
-			Position = position,
-			Size = size,
-		}, contents)
-	end
+	return Roact.createElement(Container, {
+		Background = RoundBox,
+		BackgroundStyle = "CatalogTag",
+		Position = position,
+		Size = size,
+	}, contents)
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	if FFlagToolboxWithContext then
-		CatalogTag = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(CatalogTag)
-	else
-		ContextServices.mapToProps(CatalogTag, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	CatalogTag = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CatalogTag)
+else
+	ContextServices.mapToProps(CatalogTag, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return CatalogTag

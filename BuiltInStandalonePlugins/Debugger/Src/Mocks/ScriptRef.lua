@@ -6,16 +6,7 @@ ScriptRef:
 local ScriptRef = {}
 
 function ScriptRef.new()		
-	local scriptInstance = {
-		name = "TestScript"
-	}
-	local find = function (dataModel : string)
-		return scriptInstance
-	end
-
-	return {
-		find = find,
-	}
+	return "TestScript"
 end
 
 export type ScriptRef = typeof(ScriptRef.new())

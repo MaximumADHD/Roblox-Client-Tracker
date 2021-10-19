@@ -6,6 +6,7 @@
 ]]
 
 local FFlagWidenDropDown = game:DefineFastFlag("WidenDropDown", false)
+local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -20,7 +21,12 @@ local Constants = require(Util.Constants)
 local StyledDropdownMenu = UILibrary.Component.StyledDropdown
 
 local Thunks = Plugin.Src.Thunks
-local GetAssetConfigGroupDataRequest = require(Thunks.GetAssetConfigGroupDataRequest)
+local GetAssetConfigGroupDataRequest
+
+if not FFlagRemoveGetAssetConfigGroupDataRequest then
+	GetAssetConfigGroupDataRequest = require(Thunks.GetAssetConfigGroupDataRequest)
+end
+
 local GetMyGroupsRequest = require(Thunks.GetMyGroupsRequest)
 local withContext = require(Plugin.Src.ContextServices.withContext)
 
@@ -159,15 +165,23 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	return {
-		getGroupsData = function(networkInterface, groupId)
-			dispatch(GetAssetConfigGroupDataRequest(networkInterface, groupId))
-		end,
-
-		getMyGroups = function(networkInterface)
-			dispatch(GetMyGroupsRequest(networkInterface))
-		end,
-	}
+	if FFlagRemoveGetAssetConfigGroupDataRequest then
+		return {
+			getMyGroups = function(networkInterface)
+				dispatch(GetMyGroupsRequest(networkInterface))
+			end
+		}
+	else
+		return {
+			getGroupsData = function(networkInterface, groupId)
+				dispatch(GetAssetConfigGroupDataRequest(networkInterface, groupId))
+			end,
+	
+			getMyGroups = function(networkInterface)
+				dispatch(GetMyGroupsRequest(networkInterface))
+			end,
+		}
+	end
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ConfigAccess)

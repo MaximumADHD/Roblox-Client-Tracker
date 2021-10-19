@@ -8,10 +8,10 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
 local getUserId = require(Plugin.Core.Util.getUserId)
 
-local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
 local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -171,7 +171,7 @@ function Analytics.incrementUploadAssetSuccess(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Success"):format(tostring(assetTypeId)))
 end
 
-function Analytics.incrementUploadeAssetFailure(assetTypeId)
+function Analytics.incrementUploadAssetFailure(assetTypeId)
 	AnalyticsSenders.reportCounter(("Studio.Upload.%s.Failure"):format(tostring(assetTypeId)))
 end
 
@@ -260,14 +260,12 @@ if FFlagToolboxShowMeshAndTextureId then
 	end
 end
 
-if FFlagPluginManagementDirectlyOpenToolbox then
-	function Analytics.openedFromPluginManagement()
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "OpenedFromPluginManagement", {
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			isEditMode = getIsEditMode(),
-		})
-	end
+function Analytics.openedFromPluginManagement()
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "OpenedFromPluginManagement", {
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		isEditMode = getIsEditMode(),
+	})
 end
 
 if FFlagToolboxTrackReportAction then
@@ -278,6 +276,18 @@ if FFlagToolboxTrackReportAction then
 			isEditMode = getIsEditMode(),
 			assetId = assetId,
 			assetTypeId = assetTypeId,
+		})
+	end
+end
+
+if FFlagToolboxMeshPartFiltering then
+	function Analytics.reportMeshPartFiltered(assetId)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MeshPartFiltered", {
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+			isEditMode = getIsEditMode(),
+			placeId = getPlaceId(),
+			assetId = assetId,
 		})
 	end
 end

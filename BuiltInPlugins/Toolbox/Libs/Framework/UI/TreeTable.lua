@@ -37,6 +37,7 @@
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		array[any] HighlightedRows: An optional list of rows to highlight.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -62,9 +63,9 @@ Typecheck.wrap(TreeTable, script)
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -84,13 +85,11 @@ function TreeTable:init()
 		self.props.OnSelectionChange(newSelection)
 	end	
 	
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClickRow = function(row)
-			if not self.props.RightClick then
-				return
-			end
-			self.props.RightClick(row)
+	self.onRightClickRow = function(row)
+		if not self.props.RightClick then
+			return
 		end
+		self.props.RightClick(row)
 	end
 	
 	self.getRowKey = function(row)
@@ -207,12 +206,13 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
-		OnRightClickRow = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil,
+		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,
 		RowComponent = props.RowComponent,
 		CellComponent = cellComponent,
 		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+		HighlightedRows = (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows) or nil,
 	})
 end
 

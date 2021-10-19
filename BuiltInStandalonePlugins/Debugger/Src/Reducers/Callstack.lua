@@ -61,16 +61,32 @@ return Rodux.createReducer(productionStartStore, {
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
-					threadList = {},
-					threadIdToFrameList = {},
+					threadList = state.stateTokenToCallstackVars[action.debuggerStateToken] and 
+						state.stateTokenToCallstackVars[action.debuggerStateToken].threadList or {},
+					threadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken] and
+						state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList or {},
 				}
 			})
 		})
 	end,
 
 	[ResumedAction.name] = function(state : CallstackStore, action)
+		local newThreadList = {}
+		for k,v in ipairs(state.stateTokenToCallstackVars[action.debuggerStateToken].threadList) do
+			if v.threadId ~= action.threadId then
+				table.insert(newThreadList, v)
+			end
+		end
+		
 		return Cryo.Dictionary.join(state, {
-			stateTokenToCallstackVars = {},
+			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
+				[action.debuggerStateToken] = {
+					threadIdToFrameList = Cryo.Dictionary.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList, {
+						[action.threadId] = {}
+					}),
+					threadList = newThreadList,
+				}
+			})
 		})
 	end,
 	

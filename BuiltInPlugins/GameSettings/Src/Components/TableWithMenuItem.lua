@@ -16,6 +16,7 @@
 		thumbnail Icon = Icon to display in first column of row entry
 ]]
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
@@ -28,11 +29,12 @@ local withContext = ContextServices.withContext
 
 local UI = require(Framework.UI)
 local HoverArea = UI.HoverArea
+local DropdownMenu = UI.DropdownMenu
 
 local FrameworkUtil = require(Plugin.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
-local DropdownMenu = UILibrary.Component.DropdownMenu
+local DEPRECATED_DropdownMenu = UILibrary.Component.DropdownMenu
 local Tooltip = UILibrary.Component.Tooltip
 
 local TextService = game:GetService("TextService")
@@ -281,7 +283,7 @@ function TableWithMenuItem:render()
 			width = theme.table.menu.buttonSize,
 		})),
 
-		Menu = showMenu and buttonRef and Roact.createElement(DropdownMenu, {
+		DEPRECATED_Menu = not FFlagRemoveUILibraryDropdownMenuPt1 and showMenu and buttonRef and Roact.createElement(DEPRECATED_DropdownMenu, {
 			OnItemClicked = self.onItemClicked,
 			OnFocusLost = self.hideMenu,
 			SourceExtents = buttonExtents,
@@ -291,6 +293,17 @@ function TableWithMenuItem:render()
 			RenderItem = function(item, index, activated)
 				return self:renderMenuItem(item, index, activated, theme, maxWidth)
 			end,
+		}),
+
+		Menu = FFlagRemoveUILibraryDropdownMenuPt1 and Roact.createElement(DropdownMenu, {
+			Hide = not showMenu,
+			Items = menuItems,
+			OnFocusLost = self.hideMenu,
+			OnItemActivated = self.onItemClicked,
+			OnRenderItem = function(item, index, activated)
+				return self:renderMenuItem(item, index, activated, theme, maxWidth)
+			end,
+			Width = maxWidth,
 		}),
 
 		Roact.createElement(HoverArea, {Cursor = "PointingHand"}),

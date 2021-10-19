@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	This component is designed to show the favorites counts for the assetPreview.
 	It will send request to fetch the data when loaded. And update accordingly.

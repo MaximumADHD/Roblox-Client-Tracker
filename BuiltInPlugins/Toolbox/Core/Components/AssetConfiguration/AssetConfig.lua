@@ -11,7 +11,6 @@ local FFlagAssetConfigEnforceNonEmptyDescription = game:GetFastFlag("AssetConfig
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
@@ -47,7 +46,6 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local TagsUtil = require(Util.TagsUtil)
 
 local getNetwork = ContextGetter.getNetwork
-local getPlugin = ContextGetter.getPlugin
 
 local MakeChangeRequest = require(Plugin.Core.Networking.Requests.MakeChangeRequest)
 
@@ -777,12 +775,8 @@ function AssetConfig:renderContent(theme, modalTarget, localizedContent)
 	local canSave = checkCanSave(changeTable, name, description, price, minPrice, maxPrice,
 		newAssetStatus, currentTab, screenFlowType, assetTypeEnum) and not isLoading
 
-	local packagePermissionsWidth
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		packagePermissionsWidth = -PREVIEW_WIDTH - Constants.SCROLLBAR_PADDING
-	else
-		packagePermissionsWidth = -PREVIEW_WIDTH
-	end
+	local packagePermissionsWidth = -PREVIEW_WIDTH - Constants.SCROLLBAR_PADDING
+
 	return Roact.createElement("Frame", {
 		Size = Size,
 

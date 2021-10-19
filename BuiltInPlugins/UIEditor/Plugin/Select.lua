@@ -9,7 +9,6 @@ local UserInputService = game:GetService("UserInputService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
-local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
 
 local paintOrder = {} --array of paintOrder
 local paintOrderMap = {} --map of child to position in order
@@ -175,15 +174,11 @@ end
 local Select = {}
 
 function Select:getGuiObjects()
-	if FFlagCleanupLuaPluginErrors then
-		local paintOrderCopy = {}
-		for i, v in ipairs(paintOrder) do
-			paintOrderCopy[i] = v
-		end
-		return paintOrderCopy
-	else
-		return {unpack(paintOrder)}
+	local paintOrderCopy = {}
+	for i, v in ipairs(paintOrder) do
+		paintOrderCopy[i] = v
 	end
+	return paintOrderCopy
 end
 
 function Select:getGuiObjectsAtPoint(point)

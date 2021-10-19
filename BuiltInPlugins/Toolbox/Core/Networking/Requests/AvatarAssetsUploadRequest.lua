@@ -14,6 +14,7 @@ local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local getUserId = require(Util.getUserId)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -21,6 +22,8 @@ local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
 	if FFlagUGCGroupUploads2 then
@@ -39,7 +42,7 @@ local function createConfigDataTable(nameWithoutExtension, assetTypeId, descript
 end
 
 return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances, tags, groupId)
-	return function(store)
+	return function(store, services)
 		nameWithoutExtension = string.sub(nameWithoutExtension or "", 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
 		description = string.sub(description or "", 1, AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT)
 
@@ -77,6 +80,17 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			store:dispatch(UploadResult(false))
 		end
 
+		local function onSerializeFail(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(NetworkError(tostring(result)))
+			store:dispatch(UploadResult(false))
+
+			Analytics.incrementUploadAssetFailure(assetTypeId)
+		end
+
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
 				warn(("Lua toolbox: Could not upload catalog item"))
@@ -84,34 +98,64 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			store:dispatch(NetworkError(response.Body))
 			store:dispatch(UploadResult(false))
 
-			Analytics.incrementUploadeAssetFailure(assetTypeId)
+			Analytics.incrementUploadAssetFailure(assetTypeId)
 		end
 
-		local fileDataString = SerializeInstances(instances)
-		local configDataTable = createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
-		local configDataBlob = networkInterface:jsonEncode(configDataTable)
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
+				local configDataTable = createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
+				local configDataBlob = networkInterface:jsonEncode(configDataTable)
 
-		local formBodyData = createMultipartFormDataBody({
-			{
-				type = "application/json",
-				disposition = {
-					name = "config",
-					filename = "config.json",
-				},
-				value = configDataBlob,
-			},
-			{
-				type = "application/octet-stream",
-				disposition = {
-					name = nameWithoutExtension,
-					filename = nameWithoutExtension .. "." .. extension,
-				},
-				value = fileDataString,
-			}
-		})
+				local formBodyData = createMultipartFormDataBody({
+					{
+						type = "application/json",
+						disposition = {
+							name = "config",
+							filename = "config.json",
+						},
+						value = configDataBlob,
+					},
+					{
+						type = "application/octet-stream",
+						disposition = {
+							name = nameWithoutExtension,
+							filename = nameWithoutExtension .. "." .. extension,
+						},
+						value = fileDataString,
+					}
+				})
 
-		networkInterface
-			:avatarAssetsUpload(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
-			:andThen(handlerFunc, errorFunc)
+				return networkInterface
+					:avatarAssetsUpload(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+					:andThen(handlerFunc, errorFunc)
+			end, onSerializeFail)
+		else
+			local fileDataString = SerializeInstances_Deprecated(instances)
+			local configDataTable = createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
+			local configDataBlob = networkInterface:jsonEncode(configDataTable)
+
+			local formBodyData = createMultipartFormDataBody({
+				{
+					type = "application/json",
+					disposition = {
+						name = "config",
+						filename = "config.json",
+					},
+					value = configDataBlob,
+				},
+				{
+					type = "application/octet-stream",
+					disposition = {
+						name = nameWithoutExtension,
+						filename = nameWithoutExtension .. "." .. extension,
+					},
+					value = fileDataString,
+				}
+			})
+
+			networkInterface
+				:avatarAssetsUpload(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+				:andThen(handlerFunc, errorFunc)
+		end
 	end
 end

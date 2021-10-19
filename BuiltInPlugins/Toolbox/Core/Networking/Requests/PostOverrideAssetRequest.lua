@@ -10,13 +10,16 @@ local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
 
 local Util = Plugin.Core.Util
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 -- assetId, number, defualt to 0 for new asset.
 -- type, string, the asset type of the asset.
 -- instance, instance, used in post body
 return function(networkInterface, assetid, type, instances)
-	return function(store)
+	return function(store, services)
 		local function onSuccess(result)
 			local newAssetId = result.responseBody
 
@@ -24,6 +27,16 @@ return function(networkInterface, assetid, type, instances)
 			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 			store:dispatch(SetAssetId(newAssetId))
 			store:dispatch(UploadResult(true))
+		end
+
+		local function onSerializeFail(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOAD_ASSET_RESULT))
+			store:dispatch(NetworkError(tostring(result)))
+			store:dispatch(UploadResult(false))
 		end
 
 		local function onFail(result)
@@ -36,8 +49,13 @@ return function(networkInterface, assetid, type, instances)
 			store:dispatch(UploadResult(false))
 		end
 
-		local fileDataString = SerializeInstances(instances)
-
-		return networkInterface:postOverrideAsset(assetid, type, fileDataString):andThen(onSuccess, onFail)
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
+				return networkInterface:postOverrideAsset(assetid, type, fileDataString):andThen(onSuccess, onFail)
+			end, onSerializeFail)
+		else
+			local fileDataString = SerializeInstances_Deprecated(instances)
+			return networkInterface:postOverrideAsset(assetid, type, fileDataString):andThen(onSuccess, onFail)
+		end
 	end
 end

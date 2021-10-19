@@ -29,9 +29,9 @@ return function(enabledScopes)
 		local common = state.Common
 		local watch = state.Watch
 
-		local token = common.debuggerStateTokenHistory[#common.debuggerStateTokenHistory]	
-		local threadId = common.currentThreadId
-		local frameNumber = common.threadIdToCurrentFrameNumber[threadId]
+		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+		local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 
 		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)
 		local isVariablesTab = watch.currentTab == TableTab.Variables
@@ -59,6 +59,6 @@ return function(enabledScopes)
 			local textFilteredOut = isScopeFiltered(enabledScopes, root, flattenedTree)
 			textFilterMap[root] = textFilteredOut
 		end
-		store:dispatch(SetVariablesScopeFilteredOut(stepStateBundle, textFilterMap))
+		store:dispatch(SetVariablesScopeFilteredOut(stepStateBundle, textFilterMap, isVariablesTab))
 	end
 end

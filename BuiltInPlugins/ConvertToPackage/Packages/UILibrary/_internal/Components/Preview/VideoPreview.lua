@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	Provides logic for a VideoFrame and it's play/pause button, progress bar, and a time label.
 

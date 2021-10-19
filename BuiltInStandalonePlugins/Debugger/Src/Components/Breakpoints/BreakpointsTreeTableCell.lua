@@ -17,8 +17,6 @@ local TreeTableCell = UI.TreeTableCell
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
 
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
-
 local debugpointIconTable = {
 	breakpointDisabled = Constants.BreakpointIconDirectoryFilePath .. "breakpoint_disabled@2x.png",
 	breakpointEnabled = Constants.BreakpointIconDirectoryFilePath .. "breakpoint_enabled@2x.png",
@@ -96,7 +94,7 @@ function BreakpointsTreeTableCell:render()
 			BorderSizePixel = 1,
 			BorderColor3 = style.Border,
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil,
+			OnRightClick = props.OnRightClick,
 		}, {
 			Left = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Horizontal,
@@ -138,7 +136,7 @@ function BreakpointsTreeTableCell:render()
 		Row = props.Row,
 		Style = props.Style,
 		RowIndex = props.RowIndex,
-		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil
+		OnRightClick = props.OnRightClick
 	})
 end
 

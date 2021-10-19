@@ -23,6 +23,7 @@ local SubtractTool = require(Reducers.SubtractTool)
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
+local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
@@ -71,7 +72,7 @@ local MainReducer = function(state, action)
 		-- there's no other paint tools under the paint category
 		PaintTool = PaintTool(state, action),
 		
-		BaseTool = (FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool(state, action),
+		BaseTool = (FFlagTerrainToolsPlaneLockDraggerHandles or FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool(state, action),
 	}
 
 	-- ApplyToolAction is used to direct the same action across multiple reducers

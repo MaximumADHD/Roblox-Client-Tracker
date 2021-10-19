@@ -8,6 +8,7 @@ StackFrame:
 ]]--
 
 local ScriptRef = require(script.Parent.ScriptRef)
+local DebuggerVariable = require(script.Parent.DebuggerVariable)
 
 local StackFrame = {}
 
@@ -19,27 +20,16 @@ function StackFrame.new(line : number, scriptRef : ScriptRef.ScriptRef, frameNam
 		frameType = frameType,
 	}
 
-	local getLine = function () : number
-		return self.line
-	end
-
-	local getScriptRef = function () : ScriptRef.ScriptRef
-		return self.scriptRef
-	end
-
-	local getFrameName = function () : string
-		return self.frameName
-	end
-	
-	local getFrameType = function ()
-		return self.frameType
-	end
-
 	return {
-		getLine = getLine,
-		getScriptRef = getScriptRef,
-		getFrameName = getFrameName,
-		getFrameType = getFrameType,
+		Line = self.line,
+		Script = self.scriptRef,
+		FrameName = self.frameName,
+		FrameType = self.frameType,
+		Populated = true,
+		Locals = DebuggerVariable.new(1, '', '', ''),
+		Globals = DebuggerVariable.new(1, '', '', ''),
+		Upvalues = DebuggerVariable.new(1, '', '', ''),
+		FrameId = 0
 	}
 end
 

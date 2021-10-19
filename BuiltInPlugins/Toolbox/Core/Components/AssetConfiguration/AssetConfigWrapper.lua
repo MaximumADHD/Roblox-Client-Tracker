@@ -13,8 +13,6 @@
 	localization = A localization object to be used by a LocalizationProvider.
 	plugin = A plugin object to be used by a PluginProvider.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -103,7 +101,7 @@ function AssetConfigWrapper:render()
 	}, {
 		ContextServices = state.popUpGui and ContextServices.provide({
 			ContextServices.Focus.new(state.popUpGui),
-			FFlagToolboxReplaceUILibraryComponentsPt2 and makeTheme(uiLibraryTheme, getAssetConfigTheme()) or nil,
+			makeTheme(uiLibraryTheme, getAssetConfigTheme()),
 			(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 		}, {
 			ThemeProvider = Roact.createElement(ThemeProvider, {

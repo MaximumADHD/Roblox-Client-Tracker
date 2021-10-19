@@ -1,5 +1,3 @@
-local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
-
 local Permissions = require(script.Parent.PermissionsPage.Permissions)
 local Avatar = require(script.Parent.AvatarPage.Avatar)
 local BasicInfo = require(script.Parent.BasicInfoPage.BasicInfo)
@@ -14,15 +12,12 @@ local pages = {
 	BasicInfo,
 	Permissions,
 	Monetization,
+	Security,
 	Places,
 	Localization,
 	Avatar,
 	World,
 	Options,
 }
-
-if FFlagQ220PermissionsSettings then
-	table.insert(pages, 4, Security)
-end
 
 return pages

@@ -1,4 +1,5 @@
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -92,7 +93,11 @@ function TerrainBrushCursorGrid.isVisibleForOperation(operationSettings)
 
 	local planeLock
 	if FFlagTerrainToolsEditPlaneLock then
-		planeLock = operationSettings.planeLock ~= PlaneLockType.Off
+		if FFlagTerrainToolsPlaneLockDraggerHandles then
+			planeLock = operationSettings.planeLockActive and operationSettings.planeLock ~= PlaneLockType.Off
+		else
+			planeLock = operationSettings.planeLock ~= PlaneLockType.Off
+		end
 	else
 		planeLock = operationSettings.planeLock
 	end

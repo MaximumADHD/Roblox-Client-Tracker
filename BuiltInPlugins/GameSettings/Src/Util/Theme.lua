@@ -24,6 +24,7 @@ local StudioStyle = UILibrary.Studio.Style
 local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
+local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
 
 local Theme = {}
 
@@ -212,12 +213,13 @@ function Theme.createValues(theme, getColor)
 					backgroundColor = theme:getColor(StyleColor.InputFieldBackground),
 					itemText = theme:getColor(StyleColor.MainText),
 					headerText = theme:getColor(StyleColor.SubText),
-
 					hovered = {
 						backgroundColor = theme:getColor(StyleColor.Button, StyleModifier.Hover),
 						itemText = theme:getColor(StyleColor.ButtonText, StyleModifier.Hover),
 					},
-
+					item = FFlagRemoveUILibraryDropdownMenuPt1 and {
+						offset = 2,
+					} or nil,
 					selected = {
 						backgroundColor = theme:getColor(StyleColor.Button, StyleModifier.Selected),
 					},

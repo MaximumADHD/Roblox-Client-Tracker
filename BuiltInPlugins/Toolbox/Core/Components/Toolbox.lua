@@ -68,7 +68,6 @@ local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
@@ -197,7 +196,7 @@ function Toolbox:init(props)
 			sortIndex = 1,
 			groupIndex = 0,
 			selectedBackgroundIndex = (not FFlagStudioToolboxPersistBackgroundColor) and 0 or nil,
-		}, FFlagPluginManagementDirectlyOpenToolbox and optionsOverrides or {})
+		}, optionsOverrides or {})
 		local mySettings = self.props.Settings:get("Plugin")
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
 
@@ -231,23 +230,19 @@ function Toolbox:didMount()
 
 	self.props.getRobuxBalance(getNetwork(self))
 
-	if FFlagPluginManagementDirectlyOpenToolbox then
-		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-			local categoryName = Category.WHITELISTED_PLUGINS.name
+	self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+		local categoryName = Category.WHITELISTED_PLUGINS.name
 
-			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-				categoryName = categoryName,
-			})
+		self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+			categoryName = categoryName,
+		})
 
-			Analytics.openedFromPluginManagement()
-		end)
-	end
+		Analytics.openedFromPluginManagement()
+	end)
 end
 
 function Toolbox:willUnmount()
-	if FFlagPluginManagementDirectlyOpenToolbox then
-		self._showPluginsConnection:Disconnect()
-	end
+	self._showPluginsConnection:Disconnect()
 end
 
 function Toolbox:render()

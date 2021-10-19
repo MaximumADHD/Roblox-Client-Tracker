@@ -34,7 +34,6 @@ local Analytics = require(Util.Analytics.Analytics)
 local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
@@ -128,14 +127,12 @@ function ToolboxPlugin:didMount()
 		pluginGui = self.dockWidget,
 	})
 
-	if FFlagPluginManagementDirectlyOpenToolbox then
-		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-			self.dockWidget.Enabled = true
-			if FFlagPluginDockWidgetRaiseFromLua then
-				self.dockWidget:RequestRaise()
-			end
-		end)
-	end
+	self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+		self.dockWidget.Enabled = true
+		if FFlagPluginDockWidgetRaiseFromLua then
+			self.dockWidget:RequestRaise()
+		end
+	end)
 end
 
 function ToolboxPlugin:willUnmount()
@@ -143,9 +140,7 @@ function ToolboxPlugin:willUnmount()
 		self.disconnectLocalizationListener()
 	end
 
-	if FFlagPluginManagementDirectlyOpenToolbox then
-		self._showPluginsConnection:Disconnect()
-	end
+	self._showPluginsConnection:Disconnect()
 end
 
 function ToolboxPlugin:render()

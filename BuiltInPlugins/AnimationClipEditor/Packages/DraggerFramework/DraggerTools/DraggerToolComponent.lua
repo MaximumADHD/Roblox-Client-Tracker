@@ -20,14 +20,11 @@ local shouldDragAsFace = require(DraggerFramework.Utility.shouldDragAsFace)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getFFlagTemporaryPatchDraggerEvents = require(DraggerFramework.Flags.getFFlagTemporaryPatchDraggerEvents)
-local getFFlagShowDragEnterWarning = require(DraggerFramework.Flags.getFFlagShowDragEnterWarning)
 
 -- Constants
 local DRAGGER_UPDATE_BIND_NAME = "DraggerToolViewUpdate"
 
 local DraggerToolComponent = Roact.PureComponent:extend("DraggerToolComponent")
-
-local BailAndWarnHackHasBeenShown = false
 
 function DraggerToolComponent:init()
 	self:setup(self.props)
@@ -81,19 +78,12 @@ function DraggerToolComponent:setup(props)
 	-- Select it first before we potentially start feeding input to it
 	self._draggerToolModel:_processSelected()
 
-	-- This should not never return true because we disconnect connections
-	-- before tearing down our state. But somehow it seems to be happening
-	-- on production given our error logging. See if this fixes it and hopefully
-	-- get repro steps from someone so that we can properly fix it.
-	local function bailedAndWarnedHack(reason)
+	-- This should never return true because we disconnect connections before
+	-- tearing down our state.
+	local function bailedAndWarnedHack(_reason)
 		if self._isMounted then
 			return false
 		else
-			if getFFlagShowDragEnterWarning() and not BailAndWarnHackHasBeenShown then
-				BailAndWarnHackHasBeenShown = true
-				warn("If you see this warning, please report how you triggered it on the DevForum " ..
-					"with the following context: `" .. reason .. "`")
-			end
 			return true
 		end
 	end

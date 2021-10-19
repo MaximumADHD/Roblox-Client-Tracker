@@ -11,7 +11,7 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 			return
 		end
 		
-		local currentThread = debuggerConnection.GetThreadById(stepStateBundle.threadId)
+		local currentThread = debuggerConnection:GetThreadById(stepStateBundle.threadId)
 		if currentThread == nil then
 			assert(false)
 			return
@@ -23,8 +23,8 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 			return
 		end
 		
-		debuggerConnection.EvaluateWatch(expressionString, currentFrame, function(data)
-			local debuggerVariable = debuggerConnection.GetVariable(data.debuggerVarId)
+		debuggerConnection:EvaluateWatch(expressionString, currentFrame, function(data)
+			local debuggerVariable = debuggerConnection:GetVariableById(data.debuggerVarId)
 			local watchRow = WatchRow.fromInstance(debuggerVariable, nil)
 			store:dispatch(ExpressionEvaluated(stepStateBundle, watchRow))
 		end)

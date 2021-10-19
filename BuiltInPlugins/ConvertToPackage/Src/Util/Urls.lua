@@ -1,3 +1,5 @@
+local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Url = require(Plugin.Packages.Http.Url)
@@ -14,10 +16,11 @@ local GET_MY_GROUPS = Url.DEVELOP_URL .. "v1/user/groups/canmanage"
 
 local DEFAULT_ASSET_SIZE = 100
 
-function Urls.constructAssetConfigGroupDataUrl(groupId)
-	return (GET_ASSET_GROUP):format(groupId)
+if not FFlagRemoveGetAssetConfigGroupDataRequest then
+	function Urls.constructAssetConfigGroupDataUrl(groupId)
+		return (GET_ASSET_GROUP):format(groupId)
+	end
 end
-
 
 function Urls.constructUserThumbnailUrl(userId, width)
 	-- The URL only accepts certain sizes for thumbnails. This includes 50, 75, 100, 150, 250, 420 etc.

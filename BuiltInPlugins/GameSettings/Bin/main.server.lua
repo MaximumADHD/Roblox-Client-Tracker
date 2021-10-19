@@ -1,5 +1,3 @@
-local FFlagQ220PermissionsSettings = settings():GetFFlag("Q220PermissionsSettings")
-
 if not plugin then
 	return
 end
@@ -75,7 +73,7 @@ local gamePermissionsController = GamePermissionsController.new(networking:get()
 local monetizationController = MonetizationController.new(networking:get())
 local devSubsController = FFlagDeveloperSubscriptionsEnabled and DevSubsController.new(networking:get()) or nil
 local gameOptionsController = GameOptionsController.new(networking:get())
-local universePermissionsController = FFlagQ220PermissionsSettings and SecurityController.new(networking:get()) or nil
+local universePermissionsController = SecurityController.new(networking:get())
 local socialController = SocialController.new(networking:get())
 local universeAvatarController = UniverseAvatarController.new(networking:get())
 local placesController = PlacesController.new(networking:get())

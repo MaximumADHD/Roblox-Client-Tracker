@@ -4,6 +4,8 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
+local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Networking = require(Plugin.Packages.Http).Networking
@@ -38,11 +40,13 @@ function NetworkInterface:jsonEncode(data)
 	return self._networkImp:jsonEncode(data)
 end
 
-function NetworkInterface:getAssetGroupData(groupId)
-	local targetUrl = Urls.constructAssetConfigGroupDataUrl(groupId)
+if not FFlagRemoveGetAssetConfigGroupDataRequest then
+	function NetworkInterface:getAssetGroupData(groupId)
+		local targetUrl = Urls.constructAssetConfigGroupDataUrl(groupId)
 
-	printUrl("getAssetConfigGroupData", "GET", targetUrl)
-	return self._networkImp:httpGet(targetUrl)
+		printUrl("getAssetConfigGroupData", "GET", targetUrl)
+		return self._networkImp:httpGet(targetUrl)
+	end
 end
 
 -- assetId, number, defualt to 0 for new asset.

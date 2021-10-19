@@ -16,7 +16,6 @@
 	Optional Properties:
 
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFlag("DevFrameworkReplaceExpandaleWidgetWithExpandablePane")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -24,14 +23,12 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local Cryo = require(Libs.Cryo)
-local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
 local Images = require(Util.Images)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local ContextHelper = require(Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
@@ -40,25 +37,12 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 
 local ExpandablePane
 local ExpandableWidget
-local ExpandableList
-local FitToContent
-local Spritesheet
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
-		ExpandablePane = require(Libs.Framework).UI.ExpandablePane
-	else
-		ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
-	end
-	Spritesheet = require(Libs.Framework).Util.Spritesheet
+if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+	ExpandablePane = require(Libs.Framework).UI.ExpandablePane
 else
-	ExpandableList = UILibrary.Component.ExpandableList
-	Spritesheet = UILibrary.Util.Spritesheet
-	local createFitToContent = UILibrary.Component.createFitToContent
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-	})
+	ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
 end
+local Spritesheet = require(Libs.Framework).Util.Spritesheet
 
 local ARROW_SIZE = 12
 local ARROW_PADDING = 4 -- padding between arrow and GroupCollaboratorItem icon
@@ -130,53 +114,29 @@ function GroupCollaboratorItem:init()
 		hovered = false,
 	}
 
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		self.onClick = function()
-			if not self.props.Enabled then return end
-			self:setState({
-				expanded = not self.state.expanded,
-			})
-		end
-	else
-		self.onTopLevelHovered = function()
-			self:setState({
-				hovered = true,
-			})
-		end
-
-		self.onTopLevelHoverEnded = function()
-			self:setState({
-				hovered = false,
-			})
-		end
+	self.onClick = function()
+		if not self.props.Enabled then return end
+		self:setState({
+			expanded = not self.state.expanded,
+		})
 	end
 end
 
 function GroupCollaboratorItem:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		return withLocalization(function(localiztion, localized)
-			return self:renderContent(nil, localiztion, localized)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localiztion, localized)
-				return self:renderContent(theme, localiztion, localized)
-			end)
-		end)
-	end
+	return withLocalization(function(localiztion, localized)
+		return self:renderContent(nil, localiztion, localized)
+	end)
 end
 
 function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	local props = self.props
 
-	local rolesetCollaboratorItems = {}
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		rolesetCollaboratorItems = {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			})
-		}
-	end
+	local rolesetCollaboratorItems = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+	}
+
 	local anyLocked = false
 	local sameAction = false
 
@@ -240,7 +200,7 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 	local arrowImageProps = self.state.expanded and downArrowProps or rightArrowProps
 
 	local expandableList
-	if FFlagToolboxReplaceUILibraryComponentsPt3 and FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
+	if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
 		return Roact.createElement(ExpandablePane, {
 			Expanded = props.Enabled and self.state.expanded,
 			LayoutOrder = layoutOrder,
@@ -275,7 +235,7 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 				})
 			})
 		}, rolesetCollaboratorItems)
-	elseif FFlagToolboxReplaceUILibraryComponentsPt3 then
+	else
 		return Roact.createElement(ExpandableWidget, {
 			ExpandableContent = {
 				RoleCollaborators = Roact.createElement("Frame", {
@@ -326,75 +286,6 @@ function GroupCollaboratorItem:renderContent(theme, localiztion, localized)
 				}),
 			},
 		})
-	else
-		expandableList = Roact.createElement(ExpandableList, {
-			TopLevelItem = {
-				Frame = Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = 0,
-					-- TODO (awarwick) 5/29/2019. We're using hardcoded sizes now because this design is a WIP
-					-- and we don't want to spend the engineering resources on somethat that could drastically change
-					Size = UDim2.new(1, 0, 0, 60),
-
-					-- TODO: Consider moving this to expandable list when mouse handling is added into ui library
-					[Roact.Event.MouseEnter] = self.onTopLevelHovered,
-					[Roact.Event.MouseMoved] = self.onTopLevelHovered,
-					[Roact.Event.MouseLeave] = self.onTopLevelHoverEnded,
-				}, {
-
-					CollapseArrow = props.Enabled and Roact.createElement("ImageLabel", Cryo.Dictionary.join(arrowImageProps, {
-						Size = UDim2.new(0, ARROW_SIZE, 0, ARROW_SIZE),
-						AnchorPoint = Vector2.new(0, 0.5),
-						Position = UDim2.new(0, 0, 0.5, 0),
-						BackgroundTransparency = 1,
-						ImageColor3 = true and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
-					})),
-
-					Frame = Roact.createElement("Frame", {
-						BackgroundTransparency = 1,
-						Size = UDim2.new(1, -collaboratorItemOffset, 1, 0),
-						Position = UDim2.new(0, collaboratorItemOffset, 0, 0),
-					}, {
-						GroupCollaborator = props.GroupData and Roact.createElement(CollaboratorItem, {
-							Enabled = false,
-
-							SubjectType = Enum.CreatorType.Group,
-
-							CollaboratorName = props.GroupData.Name,
-							CollaboratorId = props.GroupData.Id,
-							CollaboratorIcon =  Urls.constructRBXThumbUrl(AssetConfigConstants.rbxThumbTypes["GroupIcon"], props.GroupData.Id, 
-								AssetConfigConstants.rbxThumbSizes.GroupIconImageSize),
-							UseMask = false,
-
-							Action = sameAction and getLabelForAction(localized, sameAction) or localized.PackagePermissions.ActionDropdown.MultipleLabel,
-							Items = anyLocked and {} or props.Items,
-
-							SecondaryText = props.SecondaryText,
-							Removable = props.Removable or false,
-							Removed = props.Removed,
-
-							IsLoading = #rolesets == 0,
-						})
-					}),
-				}),
-			},
-
-			Content = {
-				RoleCollaborators = Roact.createElement(FitToContent, {
-					LayoutOrder = 1,
-					BackgroundTransparency = 1,
-				}, rolesetCollaboratorItems)
-			},
-
-			IsExpanded = props.Enabled and self.state.expanded,
-			OnExpandedStateChanged = function()
-				if not props.Enabled then return end
-				self:setState({
-					expanded = not self.state.expanded,
-				})
-			end,
-		})
-		return expandableList
 	end
 end
 

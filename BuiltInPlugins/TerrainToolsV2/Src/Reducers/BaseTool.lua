@@ -15,6 +15,7 @@ local PlaneLockType = TerrainEnums.PlaneLockType
 local ReplaceMode = TerrainEnums.ReplaceMode
 
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
 local BaseTool = Rodux.createReducer({
 	autoMaterial = false,
@@ -33,6 +34,7 @@ local BaseTool = Rodux.createReducer({
 	planeCFrame = nil,
 	planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Auto or true,
 	planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
+	planeLockActive = FFlagTerrainToolsPlaneLockDraggerHandles and true or nil,
 	position = {
 		X = 0,
 		Y = 0,
@@ -170,6 +172,13 @@ local BaseTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			planeLock = planeLock,
+		})
+	end,
+	SetPlaneLockActive = function(state, action)
+		local planeLockActive = action.planeLockActive
+
+		return Cryo.Dictionary.join(state, {
+			planeLockActive = planeLockActive,
 		})
 	end,
 	SetReplaceMode = function(state, action)

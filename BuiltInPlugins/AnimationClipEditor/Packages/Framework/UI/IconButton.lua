@@ -31,7 +31,6 @@
 ]]
 
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -100,10 +99,7 @@ function IconButton:render()
 	local enabledTextColor = prioritize(props.TextColor, style.TextColor)
 	local disabledTextColor = prioritize(props.DisabledTextColor, style.Disabled.TextColor)
 	local textColor = (props.Disabled or not props.OnClick) and disabledTextColor or enabledTextColor
-	local iconColor
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		iconColor = prioritize(props.IconColor, style.IconColor)
-	end
+	local iconColor = prioritize(props.IconColor, style.IconColor)
 
 	local iconSize = props.IconSize
 	local textBoxPadding = 2 * iconSize

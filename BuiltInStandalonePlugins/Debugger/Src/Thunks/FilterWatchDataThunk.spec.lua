@@ -19,7 +19,7 @@ return function()
 		store:dispatch(FilterWatchDataThunk(filterText))
 		local state = store:getState()
 
-		local dst = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+		local dst = state.Common.debuggerConnectionIdToDST[1]
 
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
@@ -36,7 +36,7 @@ return function()
 		store:dispatch(FilterWatchDataThunk(filterText))
 
 		local state = store:getState()
-		local dst = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+		local dst = state.Common.debuggerConnectionIdToDST[1]
 
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
 		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()

@@ -17,14 +17,12 @@
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -41,22 +39,12 @@ local StyleModifier = require(Libs.Framework).Util.StyleModifier
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
-local Button
-local RoundTextButton
-local RoundTextBox
-local TextInput
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	local Framework = require(Libs.Framework)
-	Button = Framework.UI.Button
-	TextInput = Framework.UI.TextInput
-else
-	RoundTextButton = UILibrary.Component.RoundTextButton
-	RoundTextBox = UILibrary.Component.RoundTextBox
-end
+local Framework = require(Libs.Framework)
+local Button = Framework.UI.Button
+local TextInput = Framework.UI.TextInput
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local Requests = Plugin.Core.Networking.Requests
@@ -131,26 +119,16 @@ function AssetConfigFooter:shouldUpdate(nextProps, nextState)
 end
 
 function AssetConfigFooter:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
@@ -194,7 +172,7 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			publishActive = false
 		end
 
-		if FFlagToolboxReplaceUILibraryComponentsPt2 and animationText then
+		if animationText then
 			local textLength = utf8.len(animationText)
 			animationTextOverMaxCount = textLength > MAX_COUNT
 		end
@@ -244,26 +222,13 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			BorderSizePixel = 0,
 			LayoutOrder = 3,
 		}, {
-			TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
+			TextField = Roact.createElement(TextInput, {
 				ForceOnTextChange = true,
 				OnTextChanged = self.onAnimationIDChanged,
 				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
 				Size = UDim2.new(1, 0, 1, 0),
 				Style = animationTextOverMaxCount and "FilledRoundedRedBorder" or "FilledRoundedBorder",
 				Text = animationText and tostring(animationText) or nil, -- NOTE: animationText is sometimes a number type, but TextInput expects a string or nil
-			})
-			or Roact.createElement(RoundTextBox, {
-				Active = true,
-				ErrorMessage = nil,
-				MaxLength = MAX_COUNT,
-				Text = props.AssetId or state.animationId,
-				PlaceholderText = localizedContent.AssetConfig.Override.AnimationID,
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_LARGE,
-				Height = BUTTON_HEIGHT,
-				WidthOffset = 0,
-				SetText = self.onAnimationIDChanged,
-				ShowToolTip = false,
 			}),
 		}),
 
@@ -271,7 +236,7 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			BackgroundTransparency = 1,
 			Font = Constants.FONT,
 			Text =  localizedContent.AssetConfig.Override.InvalidAnimationID,
-			TextColor3 = FFlagToolboxReplaceUILibraryComponentsPt2 and theme.redText or theme.uploadResult.redText,
+			TextColor3 = theme.redText,
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			Size = UDim2.new(0, INVALID_ID_SIZE, 1, 0),
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -279,29 +244,15 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 2
 		}),
 
-		CancelButton = FFlagToolboxReplaceUILibraryComponentsPt2 and
-		Roact.createElement(Button, {
+		CancelButton = Roact.createElement(Button, {
 			LayoutOrder = 4,
 			OnClick = tryCancel,
 			Style = "Round",
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			Text = localizedContent.AssetConfig.Cancel,
-		})
-		or Roact.createElement(RoundTextButton, {
-			Style = theme.cancelButton,
-			BorderMatchesBackground = false,
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Active = true,
-			Name = localizedContent.AssetConfig.Cancel,
-			TextSize = Constants.FONT_SIZE_MEDIUM,
-
-			OnClicked = tryCancel,
-
-			LayoutOrder = 4,
 		}),
 
-		PublishButton = FFlagToolboxReplaceUILibraryComponentsPt2 and
-		Roact.createElement(Button, {
+		PublishButton = Roact.createElement(Button, {
 			LayoutOrder = 5,
 			OnClick = function()
 				if publishActive then
@@ -312,18 +263,6 @@ function AssetConfigFooter:renderContent(theme, localization, localizedContent)
 			StyleModifier = (not publishActive) and StyleModifier.Disabled or nil,
 			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			Text = publishText,
-		})
-		or Roact.createElement(RoundTextButton, {
-			Style = theme.defaultButton,
-			BorderMatchesBackground = true,
-			Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
-			Active = publishActive,
-			Name = publishText,
-			TextSize = Constants.FONT_SIZE_MEDIUM,
-
-			OnClicked = function() tryPublish(self.state.animationId) end,
-
-			LayoutOrder = 5,
 		}),
 
 		ToggleOverrideButton = showOverride and Roact.createElement(LinkButton, {
@@ -371,17 +310,14 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	if FFlagToolboxWithContext then
-		AssetConfigFooter = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(AssetConfigFooter)
-	else
-		ContextServices.mapToProps(AssetConfigFooter, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	AssetConfigFooter = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(AssetConfigFooter)
+else
+	ContextServices.mapToProps(AssetConfigFooter, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfigFooter)

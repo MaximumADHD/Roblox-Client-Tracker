@@ -10,9 +10,7 @@
 		Enabled - bool, Whether the component is enabled or not
 		LayoutOrder - int, Where this component will be placed in hierarchy
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -24,7 +22,6 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Urls = require(Util.Urls)
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local Framework = require(Libs.Framework)
@@ -35,36 +32,10 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 
-local UILibrary = require(Libs.UILibrary)
+local Separator = require(Libs.Framework).UI.Separator
 
-local Separator
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	Separator = require(Libs.Framework).UI.Separator
-else
-	local UILibrary = require(Libs.UILibrary)
-	Separator = UILibrary.Component.Separator
-end
-
-local deepJoin
-local FitToContentWidget
-local FitToContentList
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	local FrameworkUtil = require(Libs.Framework).Util
-	deepJoin = FrameworkUtil.deepJoin
-else
-	deepJoin = UILibrary.Util.deepJoin
-	local createFitToContent = UILibrary.Component.createFitToContent
-
-	FitToContentWidget = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 32),
-	})
-
-	FitToContentList = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, 0),
-	})
-end
+local FrameworkUtil = require(Libs.Framework).Util
+local deepJoin = FrameworkUtil.deepJoin
 
 local function getUserCollaboratorPermissions(props, localized)
 	if not props.CanManage then return {} end
@@ -132,48 +103,14 @@ end
 
 function CollaboratorsWidget:render()
 	return withLocalization(function(localization, localized)
-		if FFlagToolboxReplaceUILibraryComponentsPt3 then
-			return self:renderContent(nil, localization, localized)
-		else
-			return withTheme(function(theme)
-				return self:renderContent(theme, localization, localized)
-			end)
-		end
+		return self:renderContent(nil, localization, localized)
 	end)
 end
 
 function CollaboratorsWidget:renderContent(theme, localization, localized)
 	local props = self.props
 
-	local userPermissionChanged
-	local userRemoved
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		theme = self.props.Stylizer
-	else
-		userPermissionChanged = function(userId, newPermission)
-			local newPermissions = deepJoin(props.Permissions, {
-				[PermissionsConstants.UserSubjectKey] = {
-					[userId] = {
-						[PermissionsConstants.ActionKey] = newPermission
-					}
-				}
-			})
-
-			props.PermissionsChanged(newPermissions)
-		end
-
-		userRemoved = function(userId)
-			local newPermissions = deepJoin(props.Permissions, {
-				[PermissionsConstants.UserSubjectKey] = {
-					[userId] = {
-						[PermissionsConstants.ActionKey] = PermissionsConstants.NoAccessKey
-					}
-				}
-			})
-
-			props.PermissionsChanged(newPermissions)
-		end
-	end
+	theme = self.props.Stylizer
 
 	-- Sort users by alphabetical order for collaborator list
 	local users = {}
@@ -190,16 +127,12 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 	end
 
 	-- Roact elements built from users tables
-	local userCollaborators
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		userCollaborators = {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-			})
-		}
-	else
-		userCollaborators = {}
-	end
+	local userCollaborators = {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		})
+	}
+
 	local userAssignablePermissions = getUserCollaboratorPermissions(props, localized)
 	for i,user in pairs(users) do
 		local separatorProvidedByNextElement = i ~= #users
@@ -213,7 +146,6 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 			LayoutOrder = i,
 		}, {
 			FirstSeparator = Roact.createElement(Separator, {
-				Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 1) or nil,
 				Position = UDim2.new(0.5, 0, 0, 0),
 			}),
 			CollaboratorItem = Roact.createElement(CollaboratorItem, {
@@ -233,35 +165,26 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 
 				Removable = true,
 				Removed = function()
-					if FFlagToolboxReplaceUILibraryComponentsPt3 then
-						self.userRemoved(user.Id)
-					else
-						userRemoved(user.Id)
-					end
+					self.userRemoved(user.Id)
 				end,
 				PermissionChanged = function(newPermission)
-					if FFlagToolboxReplaceUILibraryComponentsPt3 then
-						self.userPermissionChanged(user.Id, newPermission)
-					else
-						userPermissionChanged(user.Id, newPermission)
-					end
+					self.userPermissionChanged(user.Id, newPermission)
 				end,
 				HideLastSeparator = i ~= #users,
 			}),
 			LastSeparator = (not separatorProvidedByNextElement) and Roact.createElement(Separator, {
-				Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
 				Position = UDim2.new(0.5, 0, 1, -1),
 			}),
 		})
 	end
 
-	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContentWidget, {
-		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.Y or nil,
+	return Roact.createElement("Frame", {
+		AutomaticSize = Enum.AutomaticSize.Y,
 		LayoutOrder = props.LayoutOrder or 0,
 		BackgroundTransparency = 1,
-		Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
+		Size = UDim2.new(1, 0, 0, 0),
 	}, {
-		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, 32),
 		}),
@@ -271,7 +194,7 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 		}),
 
 		UsersTitle = Roact.createElement("TextLabel", {
-			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 0,
 
 			Font = Constants.FONT,
@@ -285,26 +208,23 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 			BackgroundTransparency = 1,
 		}),
 
-		Users = Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContentList, {
-			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+		Users = Roact.createElement("Frame", {
+			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 1,
 			BackgroundTransparency = 1,
-			Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
+			Size = UDim2.new(1, 0, 0, 0),
 		}, userCollaborators),
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	if FFlagToolboxWithContext then
-		CollaboratorsWidget = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(CollaboratorsWidget)
-	else
-		ContextServices.mapToProps(CollaboratorsWidget, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	CollaboratorsWidget = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(CollaboratorsWidget)
+else
+	ContextServices.mapToProps(CollaboratorsWidget, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return CollaboratorsWidget

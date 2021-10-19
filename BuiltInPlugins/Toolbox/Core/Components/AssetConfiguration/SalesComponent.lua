@@ -12,7 +12,6 @@
 	Optional props:
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -23,16 +22,8 @@ local Roact = require(Libs.Roact)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local ToggleButton
-local TitledFrame
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ToggleButton = require(Libs.Framework).UI.ToggleButton
-	TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
-else
-	local UILibrary = require(Libs.UILibrary)
-	ToggleButton = UILibrary.Component.ToggleButton
-	TitledFrame = UILibrary.Component.TitledFrame
-end
+local ToggleButton = require(Libs.Framework).UI.ToggleButton
+local TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -41,7 +32,6 @@ local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ROW_HEIGHT = 24
@@ -67,23 +57,13 @@ function SalesComponent:init(props)
 end
 
 function SalesComponent:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function SalesComponent:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 
@@ -104,40 +84,17 @@ function SalesComponent:renderContent(theme, localization, localizedContent)
 	local layoutOrder = props.LayoutOrder
 	local orderIterator = LayoutOrderIterator.new()
 
-	return Roact.createElement(TitledFrame, FFlagToolboxReplaceUILibraryComponentsPt1 and {
+	return Roact.createElement(TitledFrame, {
 		Title = title,
 		LayoutOrder = layoutOrder,
-	} or {
-		Title = title,
-		MaxHeight = ROW_HEIGHT*2,
-		TextSize = Constants.FONT_SIZE_TITLE,
-		LayoutOrder = layoutOrder
 	}, {
-		UIListLayout = (not FFlagToolboxReplaceUILibraryComponentsPt1) and Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, 0),
+		ToggleButton = Roact.createElement(ToggleButton, {
+			Disabled = not canChangeSalesStatus,
+			LayoutOrder = orderIterator:getNextOrder(),
+			OnClick = self.onToggle,
+			Selected = AssetConfigUtil.isOnSale(newAssetStatus),
+			Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, ROW_HEIGHT),
 		}),
-
-		ToggleButton = Roact.createElement(ToggleButton,
-			FFlagToolboxReplaceUILibraryComponentsPt1 and {
-				Disabled = not canChangeSalesStatus,
-				LayoutOrder = orderIterator:getNextOrder(),
-				OnClick = self.onToggle,
-				Selected = AssetConfigUtil.isOnSale(newAssetStatus),
-				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, ROW_HEIGHT),
-			} or {
-				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, ROW_HEIGHT),
-				Enabled = canChangeSalesStatus,
-				IsOn = AssetConfigUtil.isOnSale(newAssetStatus),
-
-				onToggle = self.onToggle,
-
-				LayoutOrder = orderIterator:getNextOrder(),
-			}
-		),
 
 		Label = Roact.createElement("TextLabel", {
 			Size = UDim2.new(1, 0, 0, ROW_HEIGHT),
@@ -157,17 +114,14 @@ function SalesComponent:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		SalesComponent = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(SalesComponent)
-	else
-		ContextServices.mapToProps(SalesComponent, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	SalesComponent = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SalesComponent)
+else
+	ContextServices.mapToProps(SalesComponent, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return SalesComponent

@@ -12,7 +12,6 @@ local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagPreserveMotor6D = require(DraggerFramework.Flags.getFFlagPreserveMotor6D)
 local getFFlagOnlyGetGeometryOnce = require(DraggerFramework.Flags.getFFlagOnlyGetGeometryOnce)
-local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -54,13 +53,6 @@ function PartMover:getIgnorePart()
 end
 
 function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCenter, selection, allModels)
-	if getFFlagTemporaryDisableUpdownAsserts() then
-		-- Should not be needed, temporary code to diagnose issues.
-		if self._moving then
-			self:commit()
-		end
-	end
-
 	-- Separate out the Workspace parts which will be passed to
 	-- Workspace::ArePartsTouchingOthers for collision testing
 	local workspaceParts = table.create(16)
@@ -72,10 +64,6 @@ function PartMover:setDragged(parts, originalCFrameMap, breakJoints, customCente
 			-- circumstances they do not.
 			if part:GetRootPart() then
 				table.insert(workspaceParts, part)
-			else
-				warn("Part `"..part:GetFullName().."` is missing a root! " ..
-					"Please make a bug report explaining how you triggered this warning " ..
-					"on the Developer Forum or https://www.roblox.com/support.")
 			end
 		end
 	end

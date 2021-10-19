@@ -3,7 +3,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagPluginManagementDirectlyOpenToolbox = game:GetFastFlag("PluginManagementDirectlyOpenToolbox")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
@@ -18,7 +17,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local PluginHolder = require(Plugin.Src.Components.PluginHolder)
 local GetAllPluginPermissions = require(Plugin.Src.Thunks.GetAllPluginPermissions)
 local Constants = require(Plugin.Src.Util.Constants)
-local MovedDialog = require(Plugin.Src.Components.MovedDialog)
+local MovedDialog = require(Plugin.Src.Components.MovedDialog) -- TODO STM-823: Delete
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local UI = require(Plugin.Packages.Framework).UI
@@ -38,7 +37,7 @@ function ManagementMainView:init()
 	self.tokens = {}
 	self.state = {
 		updating = false,
-		showingMovedDialog = false,
+		showingMovedDialog = false, -- TODO STM-823: Delete
 	}
 
 	self.anyUpdateNeeded = function()
@@ -80,20 +79,14 @@ function ManagementMainView:init()
 	end
 
 	self.findPlugins = function()
-		if FFlagPluginManagementDirectlyOpenToolbox then
-			if self:isPlaceOpen() then
-				MemStorageService:Fire(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT)
-			else
-				warn("findPlugins not supported when no place is open")
-			end
+		if self:isPlaceOpen() then
+			MemStorageService:Fire(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT)
 		else
-			-- Show this has moved to toolbox dialog
-			self:setState({
-				showingMovedDialog = true,
-			})
+			warn("findPlugins not supported when no place is open")
 		end
 	end
 
+	-- TODO STM-823: Delete
 	self.onCloseMoveDialog = function()
 		self:setState({
 			showingMovedDialog = false,
@@ -129,7 +122,6 @@ function ManagementMainView:render()
 
 	local pluginList = props.pluginList
 	local updating = state.updating
-	local showingMovedDialog = state.showingMovedDialog
 
 	local localization = props.Localization
 	local theme
@@ -146,17 +138,11 @@ function ManagementMainView:render()
 	local showList = not loading and next(pluginList) ~= nil
 	local showNoPlugins = not showList and not loading
 
-	local showFindPluginsButton
 	local findPluginsMessageText
-	if FFlagPluginManagementDirectlyOpenToolbox then
-		showFindPluginsButton = self:isPlaceOpen()
-		if showFindPluginsButton then
-			findPluginsMessageText = localization:getText("Main", "FindPluginsWithButtonMessage")
-		else
-			findPluginsMessageText = localization:getText("Main", "FindPluginsMessage")
-		end
+	local showFindPluginsButton = self:isPlaceOpen()
+	if showFindPluginsButton then
+		findPluginsMessageText = localization:getText("Main", "FindPluginsWithButtonMessage")
 	else
-		showFindPluginsButton = true
 		findPluginsMessageText = localization:getText("Main", "FindPluginsMessage")
 	end
 
@@ -210,10 +196,6 @@ function ManagementMainView:render()
 				TextSize = 24,
 				BackgroundTransparency = 1,
 			}),
-		}) or nil,
-
-		MovedToToolboxDialog = not FFlagPluginManagementDirectlyOpenToolbox and showingMovedDialog and Roact.createElement(MovedDialog, {
-			OnClose = self.onCloseMoveDialog
 		}) or nil,
 
 		NoPluginsMessage = showNoPlugins and Roact.createElement("TextLabel", {

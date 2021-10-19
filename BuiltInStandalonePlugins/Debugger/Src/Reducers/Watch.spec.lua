@@ -378,7 +378,7 @@ return function()
 			}
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
-			local state = WatchReducer(prepState2, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue1] = true}))
+			local state = WatchReducer(prepState2, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue1] = true}, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(false)
@@ -420,7 +420,7 @@ return function()
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
 			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}))
+			local state = WatchReducer(prepState3, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].scopeFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].scopeFilteredOut).to.equal(true)
@@ -458,7 +458,7 @@ return function()
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesScopeFilteredOut(stepStateBundle, {[tokenizedValue2] = true}, true), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -490,7 +490,7 @@ return function()
 			}
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
-			local state = WatchReducer(prepState2, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue1] = true}))
+			local state = WatchReducer(prepState2, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue1] = true}, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(true)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(false)
@@ -532,7 +532,7 @@ return function()
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars1))
 			local prepState3 = WatchReducer(prepState2, AddChildVariables(stepStateBundle, tokenizedValue1, vars2))
 
-			local state = WatchReducer(prepState3, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}))
+			local state = WatchReducer(prepState3, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}, true))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue1].textFilteredOut).to.equal(false)
 			expect(state.stateTokenToFlattenedTree[defaultDebuggerToken][2][2].Variables[tokenizedValue2].textFilteredOut).to.equal(true)
@@ -570,7 +570,7 @@ return function()
 			
 			local prepState2 = WatchReducer(prepState, AddRootVariables(stepStateBundle, vars))
 
-			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}), prepState2)
+			local immutabilityPreserved = testImmutability(WatchReducer, SetVariablesTextFilteredOut(stepStateBundle, {[tokenizedValue2] = true}, true), prepState2)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

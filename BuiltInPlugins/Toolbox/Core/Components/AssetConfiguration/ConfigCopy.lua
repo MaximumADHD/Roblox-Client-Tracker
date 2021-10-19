@@ -4,7 +4,6 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -23,14 +22,8 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local LinkButton = require(AssetConfiguration.LinkButton)
 
-local ToggleButton
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	ToggleButton = require(Libs.Framework).UI.ToggleButton
-else
-	local UILibrary = require(Libs.UILibrary)
-	ToggleButton = UILibrary.Component.ToggleButton
-end
-local withTheme = ContextHelper.withTheme
+local ToggleButton = require(Libs.Framework).UI.ToggleButton
+
 local withLocalization = ContextHelper.withLocalization
 
 local GuiService = game:GetService("GuiService")
@@ -49,10 +42,6 @@ local DISCLOSURE_HEIGHT = 80
 local UNVERIFIED_HEIGHT = 50
 
 function ConfigCopy:init(props)
-	if not FFlagToolboxReplaceUILibraryComponentsPt1 then
-		self.state = {}
-	end
-
 	self.onLearnMoreActivated = function(rbx, inputObject)
 		if self.props.CopyEnabled then
 			GuiService:OpenBrowserWindow(AssetConfigConstants.TERM_OF_USE_URL)
@@ -68,23 +57,13 @@ function ConfigCopy:init(props)
 end
 
 function ConfigCopy:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end)
 end
 
 function ConfigCopy:renderContent(theme, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 
@@ -158,23 +137,13 @@ function ConfigCopy:renderContent(theme, localizedContent)
 				Padding = UDim.new(0, 0)
 			}),
 
-			ToggleButton = Roact.createElement(ToggleButton,
-				FFlagToolboxReplaceUILibraryComponentsPt1 and {
-					Disabled = not CopyEnabled,
-					LayoutOrder = 1,
-					OnClick = self.toggleCallback,
-					Selected = CopyOn,
-					Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-				} or {
-					Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
-					Enabled = CopyEnabled, -- Depends on the message from the server.
-					IsOn = CopyOn,
-
-					onToggle = ToggleCallback,
-
-					LayoutOrder = 1,
-				}
-			),
+			ToggleButton = Roact.createElement(ToggleButton, {
+				Disabled = not CopyEnabled,
+				LayoutOrder = 1,
+				OnClick = self.toggleCallback,
+				Selected = CopyOn,
+				Size = UDim2.new(0, TOGGLE_BUTTON_WIDTH, 0, TOGGLE_BUTTON_HEIGHT),
+			}),
 
 			TipsLabel = Roact.createElement("TextLabel", {
 				Size = UDim2.new(1, 0, 0, informationHeight),
@@ -205,17 +174,14 @@ function ConfigCopy:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		ConfigCopy = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(ConfigCopy)
-	else
-		ContextServices.mapToProps(ConfigCopy, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	ConfigCopy = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigCopy)
+else
+	ContextServices.mapToProps(ConfigCopy, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return ConfigCopy

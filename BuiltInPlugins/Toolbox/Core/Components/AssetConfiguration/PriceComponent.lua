@@ -16,34 +16,20 @@
 	Optional props:
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
+ local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local RoundTextBox
-local TextInput
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	local Framework = require(Libs.Framework)
-	TextInput = Framework.UI.TextInput
-else
-	RoundTextBox = UILibrary.Component.RoundTextBox
-end
+local Framework = require(Libs.Framework)
+local TextInput = Framework.UI.TextInput
 
-local TitledFrame
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
-else
-	TitledFrame = UILibrary.Component.TitledFrame
-end
+local TitledFrame = require(Libs.Framework).StudioUI.TitledFrame
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -52,7 +38,6 @@ local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local Images = require(Util.Images)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ROW_HEIGHT = 24
@@ -73,23 +58,13 @@ function PriceComponent:init(props)
 end
 
 function PriceComponent:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function PriceComponent:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 
@@ -126,33 +101,17 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	local feeVector = Constants.getTextSize(feeString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 	local earnVector = Constants.getTextSize(finalPriceString, Constants.FONT_SIZE_MEDIUM, Constants.FONT, inputBoxSize)
 
-	local textOverMaxCount = false
 	local textboxText = tostring(price or "")
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		local textLength = utf8.len(textboxText)
-		textOverMaxCount = textLength > FIntToolboxPriceTextBoxMaxCount
-	end
+	local textLength = utf8.len(textboxText)
+	local textOverMaxCount = textLength > FIntToolboxPriceTextBoxMaxCount
 
-	return Roact.createElement(TitledFrame, FFlagToolboxReplaceUILibraryComponentsPt1 and {
+	return Roact.createElement(TitledFrame, {
 		Title = localizedContent.Sales.Price,
-		LayoutOrder = order
-	} or {
-		Title = localizedContent.Sales.Price,
-		MaxHeight = componentHeight,
-		TextSize = Constants.FONT_SIZE_TITLE,
 		LayoutOrder = order
 	}, {
-		UIListLayout = (not FFlagToolboxReplaceUILibraryComponentsPt1) and Roact.createElement("UIListLayout", {
-			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			Padding = UDim.new(0, 0),
-		}),
-
 		InputRow = Roact.createElement("Frame", {
-			Size = FFlagToolboxReplaceUILibraryComponentsPt1 and UDim2.new(1, 0, 0, componentHeight-30) or UDim2.new(1, 0, 1, -30),
+			Size = UDim2.new(1, 0, 0, componentHeight-30),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			LayoutOrder = orderIterator:getNextOrder(),
@@ -187,27 +146,12 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 					BackgroundTransparency = 1,
 				}),
 
-				RoundTextBox = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInput, {
+				RoundTextBox = Roact.createElement(TextInput, {
 					Enabled = AssetConfigUtil.isOnSale(assetStatus),
 					OnTextChanged = self.onPriceChange,
 					Size = UDim2.new(0.9, 0 ,1, 0),
 					Style = (textOverMaxCount or not isPriceValid) and "FilledRoundedRedBorder" or "FilledRoundedBorder",
 					Text = textboxText,
-				})
-				or Roact.createElement(RoundTextBox, {
-					Active = AssetConfigUtil.isOnSale(assetStatus),
-					Position = UDim2.new(0.1, 0, 0, 0),
-					Size = UDim2.new(0.9, 0 ,1, 0),
-					Text = price or "",
-					TextSize = Constants.FONT_SIZE_MEDIUM,
-					Multiline = false,
-					MaxLength = 1000,
-					Height = TEXT_INPUT_BOX_HEIGHT,
-					ShowToolTip = false,
-					ErrorBorder = not isPriceValid,
-					WidthOffset = -21,
-
-					SetText = self.onPriceChange,
 				}),
 			}),
 
@@ -367,17 +311,14 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		PriceComponent = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(PriceComponent)
-	else
-		ContextServices.mapToProps(PriceComponent, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	PriceComponent = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PriceComponent)
+else
+	ContextServices.mapToProps(PriceComponent, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return PriceComponent

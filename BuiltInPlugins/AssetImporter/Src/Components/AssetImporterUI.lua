@@ -11,6 +11,7 @@ local AssetRenderModel = require(Plugin.Packages.Framework).StudioUI.AssetRender
 local Localization = ContextServices.Localization
 local Stylizer = Framework.Style.Stylizer
 
+
 local UI = Framework.UI
 local Pane = UI.Pane
 local Separator = UI.Separator
@@ -18,6 +19,8 @@ local Separator = UI.Separator
 local AssetImportTree = require(Plugin.Src.Components.AssetImportTree)
 local ImportConfiguration = require(Plugin.Src.Components.ImportConfiguration)
 local TopBar = require(Plugin.Src.Components.TopBar)
+
+local AxisIndicator = require(Plugin.Src.Components.AxisIndicator)
 
 local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 
@@ -36,6 +39,10 @@ local function getRenderModel(instanceMap, selectedInstance)
 		return emptyModel
 	end
 	return object:Clone()
+end
+
+function AssetImporterUI:init()
+	self.camera = Instance.new("Camera")
 end
 
 function AssetImporterUI:render()
@@ -77,7 +84,18 @@ function AssetImporterUI:render()
 				}, {
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
-					})
+						Camera = self.camera,
+					}),
+					AxisIndicatorContainer = Roact.createElement(Pane, {
+						Size = UDim2.new(0, sizes.IndicatorSize, 0, sizes.IndicatorSize),
+						Position = UDim2.new(1, sizes.IndicatorOffset, 1, sizes.IndicatorOffset),
+						AnchorPoint = Vector2.new(1, 1),
+						ZIndex = 2,
+					}, {
+						AxisIndicator = Roact.createElement(AxisIndicator, {
+							ReferenceCamera = self.camera,
+						}),
+					}),
 				}),
 
 				Separator = Roact.createElement(Separator, {

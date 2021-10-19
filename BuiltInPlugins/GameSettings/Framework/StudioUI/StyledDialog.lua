@@ -31,7 +31,6 @@
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
 local FFlagDevFrameworkStyledDialogStyleModifier = game:GetFastFlag("DevFrameworkStyledDialogStyleModifier")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -216,7 +215,7 @@ function StyledDialog:render()
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			Contents = Roact.createElement(Container, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize or nil,
+				AutomaticSize = automaticSize,
 				Position = UDim2.new(0, CONTENT_PADDING, 0, CONTENT_PADDING),
 				Size = UDim2.new(1, -(CONTENT_PADDING * 2), 1, -((CONTENT_PADDING * 3) + BUTTON_HEIGHT))
 			}, self.props[Roact.Children]),

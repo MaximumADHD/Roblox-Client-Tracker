@@ -21,7 +21,6 @@ local Utility				= require(script.Parent.Utility)
 local SnappingType			= require(script.Parent.Enum.SnappingType)
 
 -- Flags
-local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
 local FFlagFixUIEditorUndoRedo = game:DefineFastFlag("FixUIEditorUndoRedo", false)
 
 -- Services
@@ -669,12 +668,7 @@ function Resize:updateDrag(location)
 									(not Utility:isOnlyOffsetUDim2(data[DATA_SIZE]) and
 									GlobalValues:isScale())
 
-		local guiAncestor
-		if FFlagCleanupLuaPluginErrors then
-			guiAncestor = guiObject:FindFirstAncestorWhichIsA("GuiBase2d")
-		else
-			guiAncestor = guiObject.Parent
-		end
+		local guiAncestor = guiObject:FindFirstAncestorWhichIsA("GuiBase2d")
 		intendedPosition[guiObject], intendedSize[guiObject] = Convert:convertAbsoluteToScaleOrOffset(
 											shouldUseScalePosition, shouldUseScaleSize,
 											newAbsolutePosition, newAbsoluteSize, 

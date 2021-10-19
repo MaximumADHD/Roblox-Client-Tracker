@@ -11,7 +11,6 @@
 		Permissions = table, containing permission information (Revoked, UseView, Edit)
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxCollaboratorSearchUseFind = game:GetFastFlag("ToolboxCollaboratorSearchUseFind")
 
@@ -46,17 +45,6 @@ local ELEMENT_PADDING = 24
 
 -- TODO: enable friends option
 local MY_FRIENDS_KEY = nil
-
-local FitToContent
-if (not FFlagToolboxReplaceUILibraryComponentsPt3) then
-	local UILibrary = require(Libs.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-		Padding = UDim.new(0, ELEMENT_PADDING),
-	})
-end
 
 local function getMatchesFromTable(text, t)
 	local matches = {}
@@ -225,18 +213,18 @@ function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 	local results = getResults(searchTerm, matches, localized)
 	local tooManyCollaboratorsText = localization:getLocalizedTooManyCollaborators(maxCollaborators)
 
-	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
-		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+	return Roact.createElement("Frame", {
+		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder,
 	}, {
-		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, ELEMENT_PADDING),
 		}),
 
 		Title = Roact.createElement("TextLabel", {
-			AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 0,
 
 			Text = localized.PackagePermissions.Title.ShareWith,
@@ -253,7 +241,6 @@ function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 			Enabled = props.Enabled and not tooManyCollaborators,
 
 			HeaderHeight = 25,
-			ItemHeight = (not FFlagToolboxReplaceUILibraryComponentsPt3) and 50 or nil,
 
 			ErrorText = tooManyCollaborators and tooManyCollaboratorsText or nil,
 			DefaultText = localized.PackagePermissions.Searchbar.Default,

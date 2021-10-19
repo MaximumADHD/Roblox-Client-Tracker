@@ -58,7 +58,7 @@ function TreeViewToolbar:render()
 			Disabled = not props.Expansion or #props.Expansion == 0,
 			LayoutOrder = 1,
 			OnClick = expandCollapseAll,
-			-- TODO: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
+			-- TODO CIN-43: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
 			Size = UDim2.new(0, 70, 1, 0),
 			Style = "Round",
 			Text = localization:getText("TreeViewToolbar", buttonTextKey),

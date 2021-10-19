@@ -264,8 +264,11 @@ return Rodux.createReducer(productionStartStore, {
 
 		local stepStateBundle = action.stepStateBundle
 
+		local flattenedTree = action.isVariablesTab and stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables or 
+			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Watches
+		
 		for path, filteredOut in pairs(action.textFilterMap) do
-			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[path].scopeFilteredOut = filteredOut
+			flattenedTree[path].scopeFilteredOut = filteredOut
 		end
 
 		return Cryo.Dictionary.join(state, {
@@ -281,8 +284,11 @@ return Rodux.createReducer(productionStartStore, {
 
 		local stepStateBundle = action.stepStateBundle
 
+		local flattenedTree = action.isVariablesTab and stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables or 
+			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Watches
+
 		for path, filteredOut in pairs(action.textFilterMap) do
-			stateTokenToFlattenedTreeCopy[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber].Variables[path].textFilteredOut = filteredOut
+			flattenedTree[path].textFilteredOut = filteredOut
 		end
 
 		return Cryo.Dictionary.join(state, {

@@ -44,30 +44,35 @@ function PropertyListView:render()
 	for sectionIndex, sectionMetadata: Types.Section in pairs(getPropertiesForInstance(props.Instance)) do
 		local sectionProperties = {}
 		for propertyIndex, propertyMetadata: Types.PropDescriptor in pairs(sectionMetadata.Properties) do
-			sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
-				Instance = props.Instance,
-				PropertyName = propertyMetadata.Name,
-				Editable = propertyMetadata.Editable,
-				SetProperty = props.SetProperty,
-				LayoutOrder = propertyIndex,
-				Localization = localization,
-				Dependencies = propertyMetadata.Dependencies,
-			})
+			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide() then 
+				sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
+					Instance = props.Instance,
+					PropertyName = propertyMetadata.Name,
+					Editable = propertyMetadata.Editable,
+					SetProperty = props.SetProperty,
+					LayoutOrder = propertyIndex,
+					Localization = localization,
+					Dependencies = propertyMetadata.Dependencies,
+				})
+			end
 		end
 
-		sections[sectionIndex] = Roact.createElement(ExpandablePane, {
-			Expanded = getExpanded(self.state.expanded, sectionMetadata.Section),
-			OnExpandedChanged = function()
-				self:setState({
-					expanded = Cryo.Dictionary.join(self.state.expanded, {
-						[sectionMetadata.Section] = not self.state.expanded[sectionMetadata.Section],
+		-- Only create the section if it has a visible property
+		if #sectionProperties > 0 then
+			sections[sectionIndex] = Roact.createElement(ExpandablePane, {
+				Expanded = getExpanded(self.state.expanded, sectionMetadata.Section),
+				OnExpandedChanged = function()
+					self:setState({
+						expanded = Cryo.Dictionary.join(self.state.expanded, {
+							[sectionMetadata.Section] = not self.state.expanded[sectionMetadata.Section],
+						})
 					})
-				})
-			end,
-			Layout = Enum.FillDirection.Vertical,
-			LayoutOrder = sectionIndex,
-			Text = localization:getText("Sections", sectionMetadata.Section),
-		}, sectionProperties)
+				end,
+				Layout = Enum.FillDirection.Vertical,
+				LayoutOrder = sectionIndex,
+				Text = localization:getText("Sections", sectionMetadata.Section),
+			}, sectionProperties)
+		end
 	end
 
 

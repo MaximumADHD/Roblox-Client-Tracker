@@ -40,6 +40,9 @@ if isCli() then
 	return
 end
 
+local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
+
+local InsertAsset = require(Util.InsertAsset)
 local Analytics = require(Util.Analytics.Analytics)
 local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
 local DebugFlags = require(Util.DebugFlags)
@@ -76,6 +79,7 @@ local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 local ContextServices = Framework.ContextServices
+local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
 
 local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
@@ -83,12 +87,15 @@ local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReference
 local HttpService = game:GetService("HttpService")
 local MemStorageService = game:GetService("MemStorageService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
+local StudioAssetService = game:GetService("StudioAssetService")
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 if not getToolboxEnabled() then
 	return
 end
 
-local localization2 = ContextServices.Localization.new({
+local devFrameworkLocalization = ContextServices.Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
 	translationResourceTable = TranslationReferenceTable,
 	pluginName = "Toolbox",
@@ -196,6 +203,19 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		defaultTab = ConfigTypes:getOverrideTab()
 	end
 
+	local middleware
+	if FFlagStudioSerializeInstancesOffUIThread then
+		middleware = {
+			ThunkWithArgsMiddleware({
+				StudioAssetService = StudioAssetService,
+			}),
+		}
+	else
+		middleware = {
+			Rodux.thunkMiddleware
+		}
+	end
+
 	-- If we don't have asset id, we will be publish an new asset.
 	-- Otherwise, we will be editing an asset.
 	local assetConfigStore = Rodux.Store.new(AssetConfigReducer, {
@@ -212,10 +232,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 			currentTab = defaultTab,
 			packagePermissions = packagePermissions,
 			overrideCursor = {},
-		}, {
-			Rodux.thunkMiddleware
-		}
-	)
+		}, middleware)
 
 	local theme = createAssetConfigTheme()
 	local networkInterface = NetworkInterface.new()
@@ -253,7 +270,7 @@ local function createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 		onAssetConfigDestroy = onAssetConfigDestroy
 	})
 	local assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
-		localization = localization2,
+		localization = devFrameworkLocalization,
 		plugin = plugin,
 		theme = theme,
 		store = assetConfigStore,
@@ -317,7 +334,7 @@ local function main()
 	})
 	local toolboxWithServices
 	toolboxWithServices = Roact.createElement(ToolboxServiceWrapper, {
-		localization = localization2,
+		localization = devFrameworkLocalization,
 		plugin = plugin,
 		theme = theme,
 		store = toolboxStore,
@@ -382,6 +399,11 @@ local function main()
 					Enum.AssetType.MeshPart)
 			end
 		end)
+
+	if FFlagToolboxMeshPartFiltering then
+		InsertAsset.registerLocalization(devFrameworkLocalization)
+		InsertAsset.registerProcessDragHandler(plugin)
+	end
 end
 
 main()

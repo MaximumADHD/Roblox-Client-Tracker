@@ -43,6 +43,8 @@ local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyfram
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 
+local FFlagRenameExportToPublish = game:DefineFastFlag("ACERenameExportToPublish", false)
+
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
 function AnimationClipMenu:makeLoadMenu(localization, current)
@@ -153,7 +155,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 		}
 	})
 	table.insert(actions, {
-		Name = localization:getText("Menu", "Export"),
+		Name = localization:getText("Menu", FFlagRenameExportToPublish and "PublishToRoblox" or "Export"),
 		ItemSelected = function()
 			props.ExportKeyframeSequence(plugin, props.Analytics)
 		end,

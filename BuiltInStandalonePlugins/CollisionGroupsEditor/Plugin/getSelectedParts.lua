@@ -1,5 +1,3 @@
-local FFlagCleanupLuaPluginErrors = game:DefineFastFlag("CleanupLuaPluginErrors", false)
-
 local function testRestrictedInstance(instance)
 	local a = instance.Name
 end
@@ -8,7 +6,7 @@ return function()
 	local parts = {}
 
 	for _, object in pairs(game:GetService("Selection"):Get()) do
-		if FFlagCleanupLuaPluginErrors and not pcall(testRestrictedInstance, object) then
+		if not pcall(testRestrictedInstance, object) then
 			continue
 		end
 

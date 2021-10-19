@@ -32,9 +32,7 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -45,19 +43,10 @@ local RoactRodux = require(Libs.RoactRodux)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local StyledScrollingFrame
-local TitledFrame
-local Separator
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	local Framework = require(Libs.Framework)
-	TitledFrame = Framework.StudioUI.TitledFrame
-	Separator = Framework.UI.Separator
-	StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
-else
-	local UILibrary = require(Libs.UILibrary)
-	TitledFrame = UILibrary.Component.TitledFrame
-	StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-end
+local Framework = require(Libs.Framework)
+local TitledFrame = Framework.StudioUI.TitledFrame
+local Separator = Framework.UI.Separator
+local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
@@ -65,7 +54,6 @@ local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local Constants = require(Util.Constants)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
@@ -90,35 +78,6 @@ local COMMENT_HEIGHT = 80
 local PADDING = 24
 local HEIGHT_FOR_ACCOUNT_SETTING_TEXT = 60
 local DIVIDER_BASE_HEIGHT = 20
-local DIVIDER_WIDTH = 672
-
-local createDivider
-if (not FFlagToolboxReplaceUILibraryComponentsPt1) then
-	createDivider = function (props)
-		local size = props.size
-		local order = props.order
-		local theme = props.theme
-
-		return Roact.createElement("Frame", {
-			Size = size,
-
-			BackgroundTransparency = 1,
-			BorderSizePixel = 0,
-
-			LayoutOrder = order,
-		}, {
-			Divider = Roact.createElement("Frame", {
-				-- The postion includes current padding.
-				Position = UDim2.new(0, 4, 0, 0),
-				Size = UDim2.new(0, DIVIDER_WIDTH, 0, 2),
-
-				BorderSizePixel = 0,
-				BackgroundTransparency = 0,
-				BackgroundColor3 = FFlagToolboxReplaceUILibraryComponentsPt1 and theme.horizontalLineColor or theme.divider.horizontalLineColor,
-			})
-		})
-	end
-end
 
 function PublishAsset:init(props)
 	self.state = {
@@ -180,23 +139,13 @@ function PublishAsset:bumpCanvas(top, bottom)
 end
 
 function PublishAsset:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end)
 end
 
 function PublishAsset:renderContent(theme, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 
@@ -241,26 +190,11 @@ function PublishAsset:renderContent(theme, localizedContent)
 		configCopyHeight = configCopyHeight + HEIGHT_FOR_ACCOUNT_SETTING_TEXT
 	end
 
-	local scrollingFrameProps
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		scrollingFrameProps = {
-			Size = Size,
-			LayoutOrder = LayoutOrder,
-			[Roact.Ref] = self.baseFrameRef,
-		}
-	else
-		scrollingFrameProps = {
-			Size = Size,
-
-			BackgroundTransparency = 0,
-			BackgroundColor3 = publishAssetTheme.backgroundColor,
-			BorderSizePixel = 0,
-
-			LayoutOrder = LayoutOrder,
-
-			[Roact.Ref] = self.baseFrameRef,
-		}
-	end
+	local scrollingFrameProps = {
+		Size = Size,
+		LayoutOrder = LayoutOrder,
+		[Roact.Ref] = self.baseFrameRef,
+	}
 
 	return Roact.createElement(StyledScrollingFrame,
 		scrollingFrameProps,
@@ -316,14 +250,8 @@ function PublishAsset:renderContent(theme, localizedContent)
 			LayoutOrder = orderIterator:getNextOrder(),
 		}),
 
-		AssetType = displayAssetType and Roact.createElement(TitledFrame,
-		FFlagToolboxReplaceUILibraryComponentsPt1 and {
+		AssetType = displayAssetType and Roact.createElement(TitledFrame, {
 			Title = publishAssetLocalized.AssetType,
-			LayoutOrder = orderIterator:getNextOrder(),
-		} or {
-			Title = publishAssetLocalized.AssetType,
-			MaxHeight = ASSET_TYPE_HEIGHT,
-			TextSize = Constants.FONT_SIZE_TITLE,
 			LayoutOrder = orderIterator:getNextOrder(),
 		}, {
 			Label = Roact.createElement("TextLabel", {
@@ -383,7 +311,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			[Roact.Ref] = self.genreRef,
 		}),
 
-		DividerBase = FFlagToolboxReplaceUILibraryComponentsPt1 and displayGenre and Roact.createElement("Frame", {
+		DividerBase = displayGenre and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			LayoutOrder = orderIterator:getNextOrder(),
 			Size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
@@ -391,12 +319,7 @@ function PublishAsset:renderContent(theme, localizedContent)
 			Separator = Roact.createElement(Separator, {
 				Position = UDim2.new(0.5, 0, 0.5, 0)
 			}),
-		})
-		or ((not FFlagToolboxReplaceUILibraryComponentsPt1) and displayGenre and Roact.createElement(createDivider, {
-			size = UDim2.new(1, 0, 0, DIVIDER_BASE_HEIGHT),
-			order = orderIterator:getNextOrder(),
-			theme = theme,
-		})),
+		}),
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
 			Title = publishAssetLocalized.Copy,
@@ -432,17 +355,14 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		PublishAsset = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(PublishAsset)
-	else
-		ContextServices.mapToProps(PublishAsset, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	PublishAsset = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PublishAsset)
+else
+	ContextServices.mapToProps(PublishAsset, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

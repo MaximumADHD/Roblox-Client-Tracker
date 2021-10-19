@@ -9,9 +9,7 @@
     Optional Properties:
 
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -19,29 +17,14 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-local UILibrary = require(Libs.UILibrary)
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local LayoutOrderIterator
-local StyledScrollingFrame
-local ScrollingFrame
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-    LayoutOrderIterator = Framework.Util.LayoutOrderIterator
-    ScrollingFrame = Framework.UI.ScrollingFrame
-else
-    StyledScrollingFrame = UILibrary.Component.StyledScrollingFrame
-    LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
-end
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
+local ScrollingFrame = Framework.UI.ScrollingFrame
 
-local Separator
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	Separator = require(Libs.Framework).UI.Separator
-else
-	local UILibrary = require(Libs.UILibrary)
-	Separator = UILibrary.Component.Separator
-end
+local Separator = require(Libs.Framework).UI.Separator
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PackageOwnerWidget = require(PermissionsDirectory.PackageOwnerWidget)
@@ -53,7 +36,6 @@ local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
-local withTheme = ContextHelper.withTheme
 
 local SearchCollaborators = require(Plugin.Core.Thunks.SearchCollaborators)
 
@@ -71,23 +53,13 @@ end
 
 --Uses props to display current settings values
 function Permissions:render()
-    if FFlagToolboxReplaceUILibraryComponentsPt1 then
-        return withLocalization(function(localization, localized)
-            return self:renderContent(nil, localization, localized)
-        end)
-    else
-        return withTheme(function(theme)
-            return withLocalization(function(localization, localized)
-                return self:renderContent(theme, localization, localized)
-            end)
-        end)
-    end
+    return withLocalization(function(localization, localized)
+        return self:renderContent(nil, localization, localized)
+    end)
 end
 
 function Permissions:renderContent(theme, localization, localized)
-    if FFlagToolboxReplaceUILibraryComponentsPt1 then
-        theme = self.props.Stylizer
-    end
+    theme = self.props.Stylizer
 
     local orderIterator = LayoutOrderIterator.new()
 
@@ -98,27 +70,12 @@ function Permissions:renderContent(theme, localization, localized)
     -- Text Label should only have 2 lines max
     local textLabelYSize = Constants.FONT_SIZE_MEDIUM * 2
 
-    local scrollingFrameProps
-    if FFlagToolboxReplaceUILibraryComponentsPt3 then
-        scrollingFrameProps = {
-            AutomaticCanvasSize = Enum.AutomaticSize.Y,
-            EnableScrollBarBackground = true,
-            LayoutOrder = self.props.LayoutOrder,
-            Size = self.props.Size,
-        }
-    else
-        scrollingFrameProps = {
-            Size = self.props.Size,
-
-            BackgroundTransparency = 1,
-            LayoutOrder = self.props.LayoutOrder,
-            BackgroundColor3 = theme.assetConfig.packagePermissions.backgroundColor,
-
-            [Roact.Ref] = self.baseFrameRefs,
-        }
-    end
-
-    return Roact.createElement(ScrollingFrame or StyledScrollingFrame, scrollingFrameProps, {
+    return Roact.createElement(ScrollingFrame, {
+        AutomaticCanvasSize = Enum.AutomaticSize.Y,
+        EnableScrollBarBackground = true,
+        LayoutOrder = self.props.LayoutOrder,
+        Size = self.props.Size,
+    }, {
         Padding = Roact.createElement("UIPadding", {
             PaddingTop = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
             PaddingBottom = UDim.new(0, Constants.PERMISSIONS_UI_EDGE_PADDING),
@@ -148,7 +105,6 @@ function Permissions:renderContent(theme, localization, localized)
 
         Separator = Roact.createElement(Separator, {
             LayoutOrder = orderIterator:getNextOrder(),
-            Size = (not FFlagToolboxReplaceUILibraryComponentsPt1) and UDim2.new(1, 0, 0, 0) or nil,
         }),
 
         SearchbarWidget = canManagePermissions and isUserOwnedPackage and Roact.createElement(CollaboratorSearchWidget, {
@@ -238,16 +194,14 @@ local function mapDispatchToProps(dispatch)
     }
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	if FFlagToolboxWithContext then
-		Permissions = withContext({
-				Stylizer = ContextServices.Stylizer,
-			})(Permissions)
-	else
-		ContextServices.mapToProps(Permissions, {
-				Stylizer = ContextServices.Stylizer,
-			})
-	end
+if FFlagToolboxWithContext then
+    Permissions = withContext({
+            Stylizer = ContextServices.Stylizer,
+        })(Permissions)
+else
+    ContextServices.mapToProps(Permissions, {
+            Stylizer = ContextServices.Stylizer,
+        })
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Permissions)

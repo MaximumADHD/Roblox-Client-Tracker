@@ -7,6 +7,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
 
 local Urls = {}
 
@@ -290,10 +291,11 @@ function Urls.constructAssetConfigDataUrl(assetId)
 		})
 end
 
-function Urls.constructAssetConfigGroupDataUrl(groupId)
-	return (GET_ASSET_GROUP):format(groupId)
+if not FFlagRemoveGetAssetConfigGroupDataRequest then
+	function Urls.constructAssetConfigGroupDataUrl(groupId)
+		return (GET_ASSET_GROUP):format(groupId)
+	end
 end
-
 function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, assetName)
 	return ASSET_GAME_ASSET_ID
 		.. Url.makeQueryString({

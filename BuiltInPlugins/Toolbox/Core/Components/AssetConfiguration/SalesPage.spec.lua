@@ -1,7 +1,4 @@
 return function()
-
-	local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local Libs = Plugin.Libs
@@ -68,35 +65,18 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		it("should render correctly when ready for sale", function()
-			local container = Instance.new("Folder")
+	it("should render correctly when ready for sale", function()
+		local container = Instance.new("Folder")
 
-			local price = 200
-			local element = createSales(AssetConfigConstants.ASSET_STATUS.ReviewApproved, price)
+		local price = 200
+		local element = createSales(AssetConfigConstants.ASSET_STATUS.ReviewApproved, price)
 
-			local instance = Roact.mount(element, container)
+		local instance = Roact.mount(element, container)
 
-			local page = container:FindFirstChild("SalesPage", true)
+		local page = container:FindFirstChild("SalesPage", true)
 
-			expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Contents.TextBox.Text).to.equal(tostring(price))
+		expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Contents.TextBox.Text).to.equal(tostring(price))
 
-			Roact.unmount(instance)
-		end)
-	else
-		it("should render correctly when ready for sale", function()
-			local container = Instance.new("Folder")
-
-			local price = 200
-			local element = createSales(AssetConfigConstants.ASSET_STATUS.ReviewApproved, price)
-
-			local instance = Roact.mount(element, container)
-
-			local page = container:FindFirstChild("SalesPage", true)
-
-			expect(page.PriceComponent.Content.InputRow.TextInputBox.RoundTextBox.Border.Text.Text.Text).to.equal(tostring(price))
-
-			Roact.unmount(instance)
-		end)
-	end
+		Roact.unmount(instance)
+	end)
 end

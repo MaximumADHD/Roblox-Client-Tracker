@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -19,6 +20,7 @@ local SetAssetId = require(Actions.SetAssetId)
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
 local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetworkError")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -34,7 +36,7 @@ local FFlagDebugAssetConfigNetworkError = game:GetFastFlag("DebugAssetConfigNetw
 -- price, number, only useful when the sales status is set to OnSale.
 -- iconFile, userData, used for uploading thumbnail for asset.
 return function(publishInfo)
-	return function(store)
+	return function(store, services)
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 		local newAssetId = nil
 
@@ -44,7 +46,7 @@ return function(publishInfo)
 				store:dispatch(UploadResult(false))
 				store:dispatch(NetworkError(result.responseBody))
 
-				Analytics.incrementUploadeAssetFailure(publishInfo.assetType)
+				Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 			else
 				newAssetId = result.responseBody
 				-- No matter what, save the new assetID first.
@@ -69,6 +71,18 @@ return function(publishInfo)
 			end
 		end
 
+
+		local function onSerializeFail(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(UploadResult(false))
+			store:dispatch(NetworkError(tostring(result)))
+
+			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
+		end
+
 		local function onFail(result)
 			if DebugFlags.shouldDebugWarnings() then
 				warn("Got false response from PostInsertAsset")
@@ -77,26 +91,47 @@ return function(publishInfo)
 			store:dispatch(UploadResult(false))
 			store:dispatch(NetworkError(result.responseBody))
 
-			Analytics.incrementUploadeAssetFailure(publishInfo.assetType)
+			Analytics.incrementUploadAssetFailure(publishInfo.assetType)
 		end
 
-		local fileDataString = SerializeInstances(publishInfo.instances)
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
+				local isPublicOverride = publishInfo.copyOn
+				if publishInfo.assetType == Enum.AssetType.Plugin.Name then
+					isPublicOverride = true
+				end
 
-		local ispublicOverride = publishInfo.copyOn
-		if publishInfo.assetType == Enum.AssetType.Plugin.Name then
-			ispublicOverride = true
+				return publishInfo.networkInterface:postUploadAsset(
+					publishInfo.assetId,
+					publishInfo.assetType,
+					publishInfo.name,
+					publishInfo.description,
+					publishInfo.genreTypeID,
+					isPublicOverride,
+					publishInfo.commentOn,
+					publishInfo.groupId,
+					fileDataString
+				):andThen(onSuccess, onFail)
+			end, onSerializeFail)
+		else
+			local fileDataString = SerializeInstances_Deprecated(publishInfo.instances)
+
+			local ispublicOverride = publishInfo.copyOn
+			if publishInfo.assetType == Enum.AssetType.Plugin.Name then
+				ispublicOverride = true
+			end
+
+			return publishInfo.networkInterface:postUploadAsset(
+				publishInfo.assetId,
+				publishInfo.assetType,
+				publishInfo.name,
+				publishInfo.description,
+				publishInfo.genreTypeID,
+				ispublicOverride,
+				publishInfo.commentOn,
+				publishInfo.groupId,
+				fileDataString
+			):andThen(onSuccess, onFail)
 		end
-
-		return publishInfo.networkInterface:postUploadAsset(
-			publishInfo.assetId,
-			publishInfo.assetType,
-			publishInfo.name,
-			publishInfo.description,
-			publishInfo.genreTypeID,
-			ispublicOverride,
-			publishInfo.commentOn,
-			publishInfo.groupId,
-			fileDataString
-		):andThen(onSuccess, onFail)
 	end
 end

@@ -16,7 +16,6 @@
 		numberLayoutOrder
 		callback setDropdownHeight(number height)
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -25,7 +24,6 @@ local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
-local UILibrary = require(Libs.UILibrary)
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
@@ -40,15 +38,8 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local StyleModifier = require(Libs.Framework).Util.StyleModifier
 
-local Pane
-local RoundBox
-local RoundFrame
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	RoundBox = Framework.UI.Decoration.RoundBox
-	Pane = Framework.UI.Pane
-else
-	RoundFrame = UILibrary.Component.RoundFrame
-end
+local RoundBox = Framework.UI.Decoration.RoundBox
+local Pane = Framework.UI.Pane
 
 local Components = Plugin.Core.Components
 local DropdownItemsList = require(Components.DropdownItemsList)
@@ -59,7 +50,6 @@ local SetTagSuggestions = require(Plugin.Core.Actions.SetTagSuggestions)
 
 local getNetwork = ContextGetter.getNetwork
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 -- constants
@@ -221,25 +211,15 @@ function TagsComponent:didMount()
 end
 
 function TagsComponent:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContents(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContents(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContents(nil, localization, localizedContent)
+	end)
 end
 function TagsComponent:renderContents(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local title = props.Title
 	local layoutOrder = props.LayoutOrder
@@ -325,17 +305,6 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 		descriptionText = localization:getMaxTags(props.maximumItemTagsPerItem)
 	end
 
-	local textFieldBorderColor3
-	if not FFlagToolboxReplaceUILibraryComponentsPt2 then
-		if noTagFound then
-			textFieldBorderColor3 = theme.inputFields.error
-		elseif state.active then
-			textFieldBorderColor3 = theme.inputFields.borderColorActive
-		else
-			textFieldBorderColor3 = theme.inputFields.borderColor
-		end
-	end
-
 	local contentHeight = PADDING + LINE_HEIGHT + line*(PADDING + LINE_HEIGHT) + PADDING + DESCRIPTION_HEIGHT
 
 	return Roact.createElement("Frame", {
@@ -373,7 +342,7 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, contentHeight),
 		}, {
-			Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement("Frame", {
+			Textfield = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
 
@@ -381,31 +350,11 @@ function TagsComponent:renderContents(theme, localization, localizedContent)
 				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
 				[Roact.Ref] = self.textFieldRef,
 			},{
-				Textfield = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(RoundBox, {
+				Textfield = Roact.createElement(RoundBox, {
 					Style = noTagFound and "TagsComponentError" or "TagsComponent",
 					StyleModifier = (not self:canAddTags() and StyleModifier.Disabled) or (state.active and StyleModifier.Selected) or nil,
 				}, tagElements)
-			})
-			or Roact.createElement(RoundFrame, {
-				BackgroundColor3 = not self:canAddTags() and theme.inputFields.backgroundColorDisabled or theme.inputFields.backgroundColor,
-				BorderColor3 = textFieldBorderColor3,
-
-				Size = UDim2.new(1, 0, 1, -DESCRIPTION_HEIGHT),
-
-				LayoutOrder = 1,
-
-				[Roact.Ref] = self.textFieldRef,
-
-				[Roact.Change.AbsoluteSize] = self.onTextFieldAbsoluteSizeChanged,
-				[Roact.Change.AbsolutePosition] = self.onTextFieldAbsolutePositionChanged,
-
-
-				OnActivated = function()
-					if not state.active and self.textBoxRef and self.textBoxRef.current then
-						self.textBoxRef.current:CaptureFocus()
-					end
-				end,
-			}, tagElements),
+			}),
 
 			Description = Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
@@ -470,17 +419,14 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	if FFlagToolboxWithContext then
-		TagsComponent = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(TagsComponent)
-	else
-		ContextServices.mapToProps(TagsComponent, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	TagsComponent = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(TagsComponent)
+else
+	ContextServices.mapToProps(TagsComponent, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TagsComponent)

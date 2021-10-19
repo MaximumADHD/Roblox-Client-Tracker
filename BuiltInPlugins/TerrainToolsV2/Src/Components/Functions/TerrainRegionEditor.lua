@@ -1,5 +1,3 @@
-local FFlagFixZoomExtentsCrash = game:GetFastFlag("FixZoomExtentsCrash")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -557,9 +555,7 @@ function FirstTimeSetup()
 					math.max(math.min(voxelCurrent.z,clickStart.z+regionLengthLimit),clickStart.z-regionLengthLimit))
 				selectionStart = Vector3.new(math.min(clickStart.x, voxelCurrent.x), math.min(clickStart.y, voxelCurrent.y), math.min(clickStart.z, voxelCurrent.z))
 				selectionEnd = Vector3.new(math.max(clickStart.x, voxelCurrent.x), math.max(clickStart.y, voxelCurrent.y), math.max(clickStart.z, voxelCurrent.z))
-				if FFlagFixZoomExtentsCrash then
-					updateTerrainSelectionHack()
-				end
+				updateTerrainSelectionHack()
 				renderSelection()
 				game:GetService('RunService').RenderStepped:wait()
 			end
@@ -605,9 +601,7 @@ function FirstTimeSetup()
 				selectionStart = selectionStart + dragVector
 				selectionEnd = selectionEnd + dragVector
 			end
-			if FFlagFixZoomExtentsCrash then
-				updateTerrainSelectionHack()
-			end
+			updateTerrainSelectionHack()
 
 			changeHistory:SetWaypoint('Terrain '..kCurrentTool)
 		end
@@ -628,9 +622,7 @@ function FirstTimeSetup()
 
 			selectionEnd = selectionStart + centerOffset + Vector3.new(temporarySizeX, temporarySizeY, temporarySizeZ) - Vector3.new(1, 1, 1)
 			selectionStart = selectionStart + centerOffset
-			if FFlagFixZoomExtentsCrash then
-				updateTerrainSelectionHack()
-			end
+			updateTerrainSelectionHack()
 			lockInMap()
 			changeHistory:SetWaypoint('Terrain '..kCurrentTool)
 		end
@@ -644,9 +636,7 @@ function FirstTimeSetup()
 	local function historyChanged()
 		selectionStart = nil
 		selectionEnd = nil
-		if FFlagFixZoomExtentsCrash then
-			updateTerrainSelectionHack()
-		end
+		updateTerrainSelectionHack()
 		lockedMaterials = nil
 		lockedOccupancies = nil
 		setButton(ToolId.Select)
@@ -837,9 +827,7 @@ function TerrainRegionEditor.Init (toolName, theMouse)
 	if terrain or kCurrentTool == ToolId.Select then
 		toolSelect[kCurrentTool]()
 	end
-	if FFlagFixZoomExtentsCrash then
-		updateTerrainSelectionHack()
-	end
+	updateTerrainSelectionHack()
 end
 
 function TerrainRegionEditor.ChangeProperties(vals)
@@ -910,9 +898,7 @@ function TerrainRegionEditor.Close()
 	mouse = nil
 	tool = nil
 	mode = "Select"
-	if FFlagFixZoomExtentsCrash then
-		updateTerrainSelectionHack()
-	end
+	updateTerrainSelectionHack()
 end
 
 return TerrainRegionEditor

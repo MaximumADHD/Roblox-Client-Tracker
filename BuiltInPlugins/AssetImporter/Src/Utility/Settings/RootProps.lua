@@ -1,3 +1,5 @@
+local AssetImportService = game:GetService("AssetImportService")
+
 return {
 	{
 		Section = "FileGeneral",
@@ -22,6 +24,12 @@ return {
 			{Name = "PolygonCount", Editable = false},
 			{Name = "MergeMeshes", Editable = true},
 			{Name = "InvertNegativeFaces", Editable = true},
+		},
+	},
+	{
+		Section = "AvatarGeneral",
+		Properties = {
+			{Name = "RigType", Editable = true, ShouldHide = function() return not AssetImportService:IsAvatar() end},
 		},
 	},
 }

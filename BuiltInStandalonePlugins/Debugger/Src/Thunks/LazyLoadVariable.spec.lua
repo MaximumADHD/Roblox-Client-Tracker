@@ -22,7 +22,7 @@ return function()
 		store = TestStore(store)
 		local state = store:getState()
 		local currentMockConnection = MockDebuggerConnection.new(1)
-		local dst = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+		local dst = state.Common.debuggerConnectionIdToDST[1]
 		local stepStateBundle = StepStateBundle.ctor(dst,2,1)
 		
 		store:dispatch(LazyLoadVariable("1", stepStateBundle, false, currentMockConnection))

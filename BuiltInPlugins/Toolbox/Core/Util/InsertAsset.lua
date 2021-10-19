@@ -4,8 +4,12 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
 local Urls = require(Plugin.Core.Util.Urls)
+local isCli = require(Plugin.Core.Util.isCli)
 
 local Category = require(Plugin.Core.Types.Category)
+
+local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
+local FFlagToolboxDragSourceAssetIds = game:GetFastFlag("ToolboxDragSourceAssetIds")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -14,8 +18,18 @@ local StarterPack = game:GetService("StarterPack")
 local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
+local ToolboxService
+if FFlagToolboxMeshPartFiltering then
+	-- ToolboxService is not available in roblox-cli.
+	if isCli() then
+		ToolboxService = {}
+	else
+		ToolboxService = game:GetService("ToolboxService")
+	end
+end
 
 local FFlagToolboxAnimation = game:GetFastFlag("ToolboxAnimationTypes2")
+
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -59,7 +73,38 @@ local function insertAudio(assetId, assetName)
 	return soundObj
 end
 
-local function insertAsset(assetId, assetName, insertToolPromise)
+local function sanitizeMeshAsset(assetId, instances, localization)
+	assert(FFlagToolboxMeshPartFiltering, "Expected FFlagToolboxMeshPartFiltering to be true")
+
+	local changed = false
+	local filtered = {}
+	for _, instance in ipairs(instances) do
+		if instance:IsA("MeshPart") then
+			if #instance:GetChildren() > 0 then
+				instance:ClearAllChildren()
+				changed = true
+			end
+			table.insert(filtered, instance)
+		else
+			instance:Destroy()
+			changed = true
+		end
+	end
+
+	if changed then
+		Analytics.reportMeshPartFiltered(assetId)
+	end
+
+	if #filtered == 0 then
+		warn(localization:getText("Common", "InsertAborted", {
+			assetId = assetId
+		}))
+	end
+
+	return filtered
+end
+
+local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization)
 	local targetParent = Workspace
 
 	local assetInstance = nil
@@ -82,16 +127,20 @@ local function insertAsset(assetId, assetName, insertToolPromise)
 		model.Name = "ToolboxTemporaryInsertModel"
 		model.Parent = targetParent
 
+		if FFlagToolboxMeshPartFiltering and assetTypeId == Enum.AssetType.MeshPart.Value then
+			assetInstance = sanitizeMeshAsset(assetId, assetInstance, localization)
+		end
+
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
 			if o:IsA("Sky") or o:IsA("Atmosphere") then
-				-- If it's a sky or atmosphere object, we will parrent it to lighting.
+				-- If it's a sky or atmosphere object, we will parent it to lighting.
 				-- No promise needed here.
 				o.Parent = Lighting
 			else
-			-- If it's a tool or hopperbin, then we should ask the
-			-- dev if they want to put it in the starterpack or not,
-			-- so we use a promise to get a response from the asset
+				-- If it's a tool or hopperbin, then we should ask the
+				-- dev if they want to put it in the starterpack or not,
+				-- so we use a promise to get a response from the asset
 				local parentToUse = model
 
 				if o:IsA("Tool") or o:IsA("HopperBin") then
@@ -260,7 +309,7 @@ local function dispatchInsertAsset(options, insertToolPromise)
 	elseif options.assetTypeId == Enum.AssetType.Video.Value then
 		return insertVideo(options.assetId, options.assetName)
 	else
-		return insertAsset(options.assetId, options.assetName, insertToolPromise)
+		return insertAsset(options.assetId, options.assetName, insertToolPromise, options.assetTypeId, options.localization)
 	end
 end
 
@@ -279,7 +328,11 @@ local function sendInsertionAnalytics(options, assetWasDragged)
 	Analytics.incrementWorkspaceInsertCounter()
 end
 
-local InsertAsset = {}
+local InsertAsset = {
+	_localization = nil,
+	registerLocalization = nil,
+	registerProcessDragHandler = nil
+}
 
 --[[
 Options table format:
@@ -321,6 +374,10 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 	end
 
 	ChangeHistoryService:SetWaypoint(("Before insert asset %d"):format(assetId))
+
+	if FFlagToolboxMeshPartFiltering then
+		options.localization = InsertAsset._localization
+	end
 
 	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise)
 
@@ -365,7 +422,6 @@ function InsertAsset.doDragInsertAsset(options)
 
 		local isPackage = Category.categoryIsPackage(options.categoryName)
 
-		-- TODO CLIDEVSRVS-1246: This should use uri list or something
 		local url = Urls.constructAssetGameAssetIdUrl(
 			assetId,
 			options.assetTypeId,
@@ -385,17 +441,40 @@ function InsertAsset.doDragInsertAsset(options)
 	if success then
 		sendInsertionAnalytics(options, true)
 
-		-- TODO CLIDEVSRVS-1689: For tracking insert with dragged
-		-- asset, need to listen for dropped event on 3d view which
-		-- depends on viewports api
-
-		-- TODO CLIDEVSRVS-1246: If they cancel the drag, this probably shouldn't be called?
+		-- TODO STM-819: Move (or create new) analytics which fire when the asset is actually inserted
+		-- via drag, rather than when the drag starts.
 		options.onSuccess(assetId)
 	else
 		warn(("Toolbox failed to drag asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end
 	return success
 
+end
+
+local function setSourceAssetIdOnInstances(assetId, instances)
+	for _, instance in ipairs(instances) do
+		instance.SourceAssetId = assetId
+	end
+end
+
+if FFlagToolboxMeshPartFiltering then
+	function InsertAsset.registerLocalization(localization)
+		InsertAsset._localization = localization
+	end
+
+	function InsertAsset.registerProcessDragHandler()
+		ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
+			if FFlagToolboxDragSourceAssetIds then
+				setSourceAssetIdOnInstances(assetId, instances)
+			end
+
+			if assetTypeId == Enum.AssetType.MeshPart.Value then
+				return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
+			end
+
+			return instances
+		end
+	end
 end
 
 return InsertAsset

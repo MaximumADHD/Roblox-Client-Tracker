@@ -45,7 +45,6 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
 local Cryo
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -79,11 +78,7 @@ local function getStyle(self)
 end
 
 function ScrollingFrame:init()
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
-		self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
-	else
-		self.scrollingRef = Roact.createRef()
-	end
+	self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
 	self.onScroll = function(rbx)

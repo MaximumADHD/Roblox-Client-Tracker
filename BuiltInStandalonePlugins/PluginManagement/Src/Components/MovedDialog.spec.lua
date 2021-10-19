@@ -1,4 +1,4 @@
--- Delete file with removal of FFlagPluginManagementDirectlyOpenToolbox
+-- TODO STM-823: Delete file
 
 return function()
 	local Plugin = script.Parent.Parent.Parent

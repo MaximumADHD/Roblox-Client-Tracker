@@ -4,12 +4,18 @@
 local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+
+local Actions = Plugin.Src.Actions
+local ApplyToolAction = require(Actions.ApplyToolAction)
+local SetPlaneLockActive = require(Actions.SetPlaneLockActive)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -97,6 +103,7 @@ function BaseBrush:init()
 		local editPlaneMode = false
 		local planeCFrame
 		local heightPicker = false
+		local planeLockActive
 		-- For tools where these properties aren't settable, we need to set them to a default value
 		-- Otherwise we'd try to pass autoMaterial=nil in the table below
 		-- Which would fail and we'd inherit the state from the previous tool that was used
@@ -129,12 +136,15 @@ function BaseBrush:init()
 			local shortcutEnabled = self.props.planeLock == PlaneLockType.Manual and Constants.ToolUsesPlaneLock[self.props.toolName]
 			self.props.PluginActionsController:SetEnabled("EditPlane", shortcutEnabled)
 		end
-		
+
 		if self.props.dispatchSetFixedPlane then
 			fixedPlane = self.props.fixedPlane
 		end
 		if self.props.dispatchSetHeightPicker then
 			heightPicker = self.props.heightPicker
+		end
+		if self.props.dispatchSetPlaneLockActive then
+			planeLockActive = self.props.PlaneLockActive
 		end
 
 		self.terrainBrush:updateSettings({
@@ -154,6 +164,7 @@ function BaseBrush:init()
 			planeLock = planeLockState,
 			editPlaneMode = editPlaneMode,
 			planeCFrame = planeCFrame,
+			planeLockActive = planeLockActive,
 			planePositionY = self.props.planePositionY,
 			snapToGrid = snapToGrid,
 			strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
@@ -176,11 +187,19 @@ function BaseBrush:_connectEvents()
 		if toolId == self.props.toolName then
 			self.terrainBrush:stop()
 		end
+
+		if FFlagTerrainToolsPlaneLockDraggerHandles and not Constants.ToolUsesPlaneLock[pluginActivationController:getActiveTool()] then
+			self.props.dispatchSetPlaneLockActive(false)
+		end
 	end))
 
 	table.insert(self.connections, pluginActivationController:subscribeToToolActivated(function(toolId)
 		if toolId == self.props.toolName then
 			self.startBrush()
+		end
+
+		if FFlagTerrainToolsPlaneLockDraggerHandles and Constants.ToolUsesPlaneLock[toolId] then
+			self.props.dispatchSetPlaneLockActive(true)
 		end
 	end))
 
@@ -295,7 +314,11 @@ function BaseBrush:render()
 	local strength = self.props.strength
 
 	if FFlagTerrainToolsEditPlaneLock then
-		editPlaneMode = self.props.editPlaneMode
+		if FFlagTerrainToolsPlaneLockDraggerHandles then
+			editPlaneMode = self.props.editPlaneMode and self.props.PlaneLockActive
+		else
+			editPlaneMode = self.props.editPlaneMode
+		end
 		planeCFrame = self.props.planeCFrame
 	end
 
@@ -359,6 +382,8 @@ function BaseBrush:render()
 	})
 end
 
+local REDUCER_KEY = "BaseTool"
+
 if FFlagTerrainToolsV2WithContext then
 	BaseBrush = withContext({
 		Mouse = ContextServices.Mouse,
@@ -377,4 +402,26 @@ else
 	})
 end
 
-return BaseBrush
+if FFlagTerrainToolsPlaneLockDraggerHandles then
+	local function mapStateToProps(state, props)
+		return {
+			PlaneLockActive = state[REDUCER_KEY].planeLockActive,
+		}
+	end
+
+	local function mapDispatchToProps(dispatch)
+		local dispatchToBase = function(action)
+			dispatch(ApplyToolAction(REDUCER_KEY, action))
+		end
+
+		return {
+			dispatchSetPlaneLockActive = function(planeLockActive)
+				dispatchToBase(SetPlaneLockActive(planeLockActive))
+			end,
+		}
+	end
+
+	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
+else
+	return BaseBrush
+end

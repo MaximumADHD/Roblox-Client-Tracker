@@ -14,7 +14,6 @@
 		onStatusChange, function, sales status has changed
 		onPriceChange, function, price has changed
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -35,13 +34,7 @@ local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
-local Separator
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	Separator = require(Libs.Framework).UI.Separator
-else
-	local UILibrary = require(Libs.UILibrary)
-	Separator = UILibrary.Component.Separator
-end
+local Separator = require(Libs.Framework).UI.Separator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -50,49 +43,36 @@ local LayoutOrderIterator = require(Util.LayoutOrderIterator)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local TOTAL_VERTICAL_PADDING = 60
 
 local SalesPage = Roact.PureComponent:extend("SalesPage")
 
-function SalesPage:init(props)
+function SalesPage:init()
 	self.frameRef = Roact.createRef()
 end
 
 function SalesPage:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	function SalesPage:didMount()
-		local isPriceValid = self.props.isPriceValid
-		self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
-	end
+function SalesPage:didMount()
+	local isPriceValid = self.props.isPriceValid
+	self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
+end
 
-	function SalesPage:willUpdate(nextProps, nextState)
-		local isPriceValid = self.props.isPriceValid
-		if isPriceValid ~= nextProps.isPriceValid then
-			self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
-		end
+function SalesPage:willUpdate(nextProps, nextState)
+	local isPriceValid = self.props.isPriceValid
+	if isPriceValid ~= nextProps.isPriceValid then
+		self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
 	end
 end
 
 function SalesPage:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt1 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 
@@ -109,9 +89,6 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 	local onPriceChange = props.onPriceChange
 	local isPriceValid = props.isPriceValid
 
-	if (not FFlagToolboxReplaceUILibraryComponentsPt1) then
-		self.props.setFieldError(AssetConfigConstants.FIELD_NAMES.Price, not isPriceValid)
-	end
 	local layoutOrder = props.layoutOrder
 	local canChangeSalesStatus = AssetConfigUtil.isReadyForSale(newAssetStatus)
 	-- If it's marketplace buyable asset, and if the sales tab are avaialble. You can always toggle it.
@@ -158,9 +135,7 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 			Padding = UDim.new(0, 32),
 
 			[Roact.Change.AbsoluteContentSize] = function(rbx)
-				if (not FFlagToolboxReplaceUILibraryComponentsPt1)
-					or (FFlagToolboxReplaceUILibraryComponentsPt1 and self.frameRef.current)
-				then
+				if self.frameRef.current then
 					self.frameRef.current.CanvasSize = UDim2.new(size.X.Scale, size.X.Offset, 0, rbx.AbsoluteContentSize.y + TOTAL_VERTICAL_PADDING)
 				end
 			end
@@ -211,7 +186,7 @@ function SalesPage:renderContent(theme, localization, localizedContent)
 				Font = Constants.FONT,
 				Text = localizedContent.Sales.PremiumBenefits,
 				Size = UDim2.fromOffset(premiumBenefitsSize.X, premiumBenefitsSize.Y),
-				TextColor3 = FFlagToolboxReplaceUILibraryComponentsPt1 and theme.link or theme.uploadResult.link,
+				TextColor3 = theme.link,
 				TextSize = Constants.FONT_SIZE_MEDIUM,
 				TextYAlignment = Enum.TextYAlignment.Center,
 				[Roact.Event.Activated] = function()
@@ -240,17 +215,14 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt1 then
-	if FFlagToolboxWithContext then
-		SalesPage = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(SalesPage)
-	else
-		ContextServices.mapToProps(SalesPage, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	SalesPage = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(SalesPage)
+else
+	ContextServices.mapToProps(SalesPage, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SalesPage)

@@ -11,11 +11,7 @@
 	GroupMetadata = table, used to populate information about rolesets and what permissions they have.
 	Permissions = table, contains the information about the current shared permissions of the package.
 	PermissionsChanged = function, callback for when a user's role has been changed.
-
-	Optional Properties:
-	
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -40,20 +36,9 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local GroupCollaboratorItem = require(PermissionsDirectory.GroupCollaboratorItem)
 
-local deepJoin
-local FitToContent
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	local FrameworkUtil = require(Libs.Framework).Util
-	deepJoin = FrameworkUtil.deepJoin
-else
-	local UILibrary = require(Libs.UILibrary)
-	local createFitToContent = UILibrary.Component.createFitToContent
-	deepJoin = UILibrary.Util.deepJoin
+local FrameworkUtil = require(Libs.Framework).Util
+local deepJoin = FrameworkUtil.deepJoin
 
-	FitToContent = createFitToContent("Frame", "UIListLayout", {
-		SortOrder = Enum.SortOrder.LayoutOrder,
-	})
-end
 local function getGroupOwnerPermissions(props, localized)
 	if not props.CanManage then return {} end
 
@@ -159,13 +144,13 @@ function PackageOwnerWidget:renderContent(theme, localized)
 		})
 	end
 
-	return Roact.createElement(FFlagToolboxReplaceUILibraryComponentsPt3 and "Frame" or FitToContent, {
-		AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt3 and Enum.AutomaticSize.XY or nil,
+	return Roact.createElement("Frame", {
+		AutomaticSize = Enum.AutomaticSize.XY,
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder or 0,
-		Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 0, 0, 0) or nil,
+		Size = UDim2.new(1, 0, 0, 0),
 	}, {
-		UIListLayout = FFlagToolboxReplaceUILibraryComponentsPt3 and Roact.createElement("UIListLayout", {
+		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
@@ -178,7 +163,7 @@ function PackageOwnerWidget:renderContent(theme, localized)
 			TextXAlignment = Enum.TextXAlignment.Left,
 			BackgroundTransparency = 1,
 			-- Accounting for the CollaboratorItem under it.
-			Size = FFlagToolboxReplaceUILibraryComponentsPt3 and UDim2.new(1, 50, 0, 50) or UDim2.new(1, 0, 0, 50),
+			Size = UDim2.new(1, 50, 0, 50),
 		}),
 
 		Owner = collaboratorItem,

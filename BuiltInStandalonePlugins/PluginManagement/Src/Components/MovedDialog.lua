@@ -1,5 +1,5 @@
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
--- Delete file with removal of FFlagPluginManagementDirectlyOpenToolbox
+-- TODO STM-823: Delete file
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)

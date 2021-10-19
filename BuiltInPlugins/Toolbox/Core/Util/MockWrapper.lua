@@ -25,11 +25,30 @@ local ContextServices = Framework.ContextServices
 local Mouse = ContextServices.Mouse
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
+local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 local function MockWrapper(props)
-	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, {
-		Rodux.thunkMiddleware
-	})
+	local middleware
+	if FFlagStudioSerializeInstancesOffUIThread then
+		local mockStudioAssetService = {}
+		function mockStudioAssetService:SerializeInstances()
+			return ""
+		end
+
+		middleware = {
+			ThunkWithArgsMiddleware({
+				StudioAssetService = mockStudioAssetService,
+			}),
+		}
+	else
+		middleware = {
+			Rodux.thunkMiddleware
+		}
+	end
+
+	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
 	local plugin = props.plugin or nil
 	local pluginGui = props.pluginGui or nil
 	local settings = props.settings or Settings.new(plugin)

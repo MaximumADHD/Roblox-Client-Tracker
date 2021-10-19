@@ -17,7 +17,7 @@ return function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		store = TestStore(store)
 		local state = store:getState()
-		local dst = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+		local dst = state.Common.debuggerConnectionIdToDST[1]
 		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["1"].scopeFilteredOut).to.be.equal(false)
 		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].scopeFilteredOut).to.be.equal(false)
 

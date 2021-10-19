@@ -362,7 +362,7 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_SUCCESSFUL))
 		end,
 		OpenPublishFailPage = function(place, game)
-			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, parentGameId = game.universeId }))
+			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = game.name, parentGameId = game.universeId, failed = true }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_FAIL))
 		end,
 		ClearPlaces = function()

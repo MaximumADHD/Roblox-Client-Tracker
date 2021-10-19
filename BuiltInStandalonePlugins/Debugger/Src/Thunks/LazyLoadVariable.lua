@@ -30,7 +30,7 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 			splitPath[1] = tonumber(variablePath)
 		end
 
-		local rootVar = debuggerConnection.GetVariable(splitPath[1])
+		local rootVar = debuggerConnection:GetVariableById(splitPath[1])
 		local targetVar = rootVar
 
 		for index, debuggerVarId in ipairs(splitPath) do
@@ -40,7 +40,7 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 			targetVar = targetVar:GetVariable(debuggerVarId)
 		end
 
-		debuggerConnection.Populate(targetVar, function ()	
+		debuggerConnection:Populate(targetVar, function ()	
 			local state = store:getState()
 			local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
 

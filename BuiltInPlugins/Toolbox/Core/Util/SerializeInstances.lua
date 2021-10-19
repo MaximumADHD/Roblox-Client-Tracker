@@ -1,25 +1,33 @@
-local StudioService = game:GetService("StudioService")
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
+local Plugin = script.Parent.Parent.Parent
+local Promise = require(Plugin.Libs.Framework).Util.Promise
 
-local function SerializeInstances(instances)
-	-- parent instances RobloxPluginGuiService so C++ can get DataModel
-	local tempFolder = Instance.new("Folder")
-	tempFolder.Name = "TemporaryInstances"
-	tempFolder.Parent = RobloxPluginGuiService
-	for _, instance in pairs(instances) do
-		instance.Parent = tempFolder
-	end
+local function SerializeInstances(instances, studioAssetService)
+	return Promise.new(function(resolve, reject)
+		local tempFolder = Instance.new("Folder")
+		tempFolder.Name = "TemporaryInstances"
+		tempFolder.Parent = RobloxPluginGuiService
+		for _, instance in pairs(instances) do
+			instance.Parent = tempFolder
+		end
 
-	local fileDataString = StudioService:SerializeInstances(instances)
+		local success, result = pcall(function()
+			return studioAssetService:SerializeInstances(instances)
+		end)
 
-	-- parent instances back to nil so they can be GC'd later if needed
-	for _, instance in pairs(instances) do
-		instance.Parent = nil
-	end
-	tempFolder:Destroy()
+		-- parent instances back to nil so they can be GC'd later if needed
+		for _, instance in pairs(instances) do
+			instance.Parent = nil
+		end
+		tempFolder:Destroy()
 
-	return fileDataString
+		if success then
+			resolve(result)
+		else
+			reject("SerializeInstances failed: " .. tostring(result))
+		end
+	end)
 end
 
 return SerializeInstances

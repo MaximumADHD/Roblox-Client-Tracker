@@ -9,6 +9,7 @@ local Mocks = Plugin.Src.Mocks
 local mockThreadState = require(Mocks.ThreadState)
 local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
+local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 
 local Actions = Plugin.Src.Actions
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
@@ -36,36 +37,19 @@ return function()
 			testStackFrameTwo,
 		}
 		local testThread = mockThreadState.new(1, "TestThread1", true, testCallstack)
-
+		local currentMockConnection = MockDebuggerConnection.new(1)
+		
+		-- TODO(aherdzik): move BreakpointHitAction into DebugConnectionListener:onExecutionPaused action, see RIDE-5969
 		store:dispatch(BreakpointHitAction(defaultDebuggerToken))
-		store:dispatch(RequestCallstackThunk(testThread, nil, defaultDebuggerToken))
+		store:dispatch(RequestCallstackThunk(testThread, currentMockConnection, defaultDebuggerToken))
 
 		local state = store:getState()
 		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadList).to.equal(0)
 		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList).to.equal(1)
 		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1]).to.equal(#testCallstack)
-		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][1].functionColumn).to.equal(testStackFrameOne:getFrameName())
-		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][2].functionColumn).to.equal(testStackFrameTwo:getFrameName())
-		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][1].layerColumn).to.equal(testStackFrameOne:getFrameType())
-		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][2].layerColumn).to.equal(testStackFrameTwo:getFrameType())
-	end)
-
-	it("should reject all updates for invalid thread state", function()
-		local store = Rodux.Store.new(CallstackReducer, nil, MainMiddleware)
-		
-		local testStackFrameOne = mockStackFrame.new(10, mockScriptRef.new(), "TestFrame1", "C")
-		local testStackFrameTwo = mockStackFrame.new(20, mockScriptRef.new(), "TestFrame2", "C")
-		local testCallstack = {
-			testStackFrameOne,
-			testStackFrameTwo,
-		}
-		local testThread = mockThreadState.new(1, "TestThread1", false, testCallstack)
-
-		store:dispatch(BreakpointHitAction(defaultDebuggerToken))
-		store:dispatch(RequestCallstackThunk(testThread, nil, defaultDebuggerToken))
-
-		local state = store:getState()
-		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList).to.equal(0)
-		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadList).to.equal(0)
+		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][1].functionColumn).to.equal(testStackFrameOne.FrameName)
+		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][2].functionColumn).to.equal(testStackFrameTwo.FrameName)
+		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][1].layerColumn).to.equal(testStackFrameOne.FrameType)
+		expect(state.stateTokenToCallstackVars[defaultDebuggerToken].threadIdToFrameList[1][2].layerColumn).to.equal(testStackFrameTwo.FrameType)
 	end)
 end

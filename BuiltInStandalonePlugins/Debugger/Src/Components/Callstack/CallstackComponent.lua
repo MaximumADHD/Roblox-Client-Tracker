@@ -38,8 +38,8 @@ local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
 local Constants = require(PluginFolder.Src.Util.Constants)
 
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 local StudioService = game:GetService("StudioService")
 
@@ -55,7 +55,7 @@ local columnNameToKey = {
 local function makeCallstackRootItem(threadInfo, common, callstackVars)
 	local displayString = threadInfo.displayString
 	local threadId = threadInfo.threadId
-	local currentFrameNumber = common.threadIdToCurrentFrameNumber[threadId]
+	local currentFrameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 			
 	local frameList = callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[threadId]
 	
@@ -122,8 +122,12 @@ function CallstackComponent:init()
 	self.onSelectionChange = function(selection)
 		local props = self.props
 		for rowInfo in pairs(selection) do
+			if rowInfo.arrowColumn == "" then 
+				rowInfo.arrowColumn = CallstackRow.ICON_CURRENT_FRAME
+			end
+			
 			self:setState({
-				selectedRows = rowInfo,
+				selectedRows = {rowInfo},
 				selectAll = false
 			})
 			local threadId = props.CurrentThreadId
@@ -142,27 +146,22 @@ function CallstackComponent:init()
 
 	self.copySelectedRows = function()
 		local selectedRows = self.state.selectedRows
-		if next(selectedRows) == nil then
+		if #selectedRows == 0 then
 			return
 		end
 		
-		local selectedRowsString = ""
+		local selectedRowsString = ""	
 		
-		-- If Select All was used to select all the rows for a thread
-		if self.state.selectAll then
-			for _, row in ipairs(selectedRows) do
-				selectedRowsString = selectedRowsString .. self.rowToString(row) .. '\n'
-			end
-			
-		else
-			-- If a single row is selected
-			if next(self.getTreeChildren(selectedRows)) == nil then
-				selectedRowsString = self.rowToString(self.state.selectedRows)
+		for _, currRow in ipairs(selectedRows) do
+			-- If a non-header row is selected
+			if #self.getTreeChildren(currRow) == 0 then
+				selectedRowsString = selectedRowsString .. self.rowToString(currRow) .. '\n'
+
 			-- If a header row for a thread was selected
 			else
-				selectedRowsString = selectedRows.arrowColumn .. '\n'
-				for _, row in ipairs(selectedRows.children) do
-					selectedRowsString = selectedRowsString .. self.rowToString(row) .. '\n'
+				selectedRowsString = selectedRowsString .. currRow.arrowColumn .. '\n'
+				for _, childRow in ipairs(currRow.children) do
+					selectedRowsString = selectedRowsString .. self.rowToString(childRow) .. '\n'
 				end
 			end
 		end
@@ -173,6 +172,14 @@ function CallstackComponent:init()
 	self.selectAllRows = function()
 		local props = self.props
 		local selectedRowList = {}
+		
+		if #self.state.selectedRows == 1 then
+			local currRow = self.state.selectedRows[1]
+			if currRow.threadId and currRow.threadId ~= props.CurrentThreadId then
+				return
+			end
+		end
+		
 		for _, thread in ipairs(props.RootItems) do
 			if props.CurrentThreadId == thread.threadId then
 				for _, row in ipairs(self.getTreeChildren(thread)) do
@@ -194,22 +201,20 @@ function CallstackComponent:init()
 		end
 	end
 	
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClick = function(row)
-			-- Update selectedRows to the right clicked row unless "Select All" was called
-			-- and right clicked row is one of the selected rows
-			if not self.state.selectAll or (row.item.threadId and row.item.threadId ~= self.props.CurrentThreadId) then
-				self:setState({
-					selectedRows = row.item,
-					selectAll = false
-				})
-			end
-			local props = self.props
-			local localization = props.Localization
-			local plugin = props.Plugin:get()
-			local actions = MakePluginActions.getCallstackActions(localization)
-			showContextMenu(plugin, "Callstack", actions, self.onMenuActionSelected, {row = row})
+	self.onRightClick = function(row)
+		-- Update selectedRows to the right clicked row unless "Select All" was called
+		-- and right clicked row is one of the selected rows
+		if not self.state.selectAll or (row.item.threadId and row.item.threadId ~= self.props.CurrentThreadId) then
+			self:setState({
+				selectedRows = row.item,
+				selectAll = false
+			})
 		end
+		local props = self.props
+		local localization = props.Localization
+		local plugin = props.Plugin:get()
+		local actions = MakePluginActions.getCallstackActions(localization)
+		showContextMenu(plugin, "Callstack", actions, self.onMenuActionSelected, {row = row})
 	end
 
 	self.onExpansionChange = function(newExpansion)
@@ -281,9 +286,10 @@ function CallstackComponent:render()
 				GetChildren = self.getTreeChildren,
 				DisableTooltip = false,
 				OnSelectionChange = self.onSelectionChange,
-				RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
+				RightClick = self.onRightClick,
 				OnExpansionChange = self.onExpansionChange,
 				FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and true,
+				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedRows) or nil,
 			})
 		}),
 	})
@@ -300,18 +306,16 @@ CallstackComponent = withContext({
 
 CallstackComponent = RoactRodux.connect(
 	function(state, props)
-		if state.Common.currentThreadId == -1 then
+		local common = state.Common
+		if common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil then
 			return {
 				RootItems = {},
 				CurrentThreadId = nil,
 			}
 		else
-			
-			assert(#state.Common.debuggerStateTokenHistory >= 1)
-			local common = state.Common
 			local callstack = state.Callstack
-			local currentThreadId = common.currentThreadId
-			local address = common.debuggerStateTokenHistory[#common.debuggerStateTokenHistory]
+			local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+			local address = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 			local callstackVars = callstack.stateTokenToCallstackVars[address]
 			assert(callstackVars)
 			local threadList = callstackVars.threadList

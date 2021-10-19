@@ -1,21 +1,37 @@
+local Src = script.Parent.Parent.Parent
+
+local AddThreadId = require(Src.Actions.Callstack.AddThreadId)
+local SetCurrentThread = require(Src.Actions.Callstack.SetCurrentThread)
+local Resumed = require(Src.Actions.Common.Resumed)
+local RequestCallstackThunk = require(Src.Thunks.RequestCallstackThunk)
+
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
 
-function DebugConnectionListener:onExecutionPaused(pausedState, debuggerPauseReason)
-	--TODO(RIDE-5719)
+function DebugConnectionListener:onExecutionPaused(connection, pausedState, debuggerPauseReason)
+	local threadState = connection:GetThreadById(pausedState.ThreadId)
+	local state = self.store:getState()
+	local common = state.Common
+	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+	self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
+	self.store:dispatch(RequestCallstackThunk(threadState, connection, dst))
+	self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 end
 
-function DebugConnectionListener:onExecutionResumed(pausedState)
-	--TODO(RIDE-5719)
+function DebugConnectionListener:onExecutionResumed(connection, pausedState)
+	local state = self.store:getState()
+	local common = state.Common
+	local dst = state.common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+	self.store:dispatch(Resumed(dst, pausedState.ThreadId))
 end
 
 function DebugConnectionListener:connectEvents(debuggerConnectionId, connection)
 	local connectionEvents = {}
 	connectionEvents["paused"] = connection.Paused:Connect(function(pausedState, debuggerPauseReason) 
-		self:onExecutionPaused(pausedState, debuggerPauseReason)
+		self:onExecutionPaused(connection, pausedState, debuggerPauseReason)
 	end)
 	connectionEvents["resumed"] = connection.Resumed:Connect(function(pausedState) 
-		self:onExecutionResumed(pausedState)
+		self:onExecutionResumed(connection, pausedState)
 	end)
 	
 	self.connectionEventConnections[debuggerConnectionId] = connectionEvents

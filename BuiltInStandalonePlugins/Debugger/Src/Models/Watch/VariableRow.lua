@@ -19,11 +19,11 @@ local function fromData(data) : VariableRow
 	}
 end
 
-local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow) : VariableRow
+local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?) : VariableRow
 	return {
 		nameColumn = instance.Name,
-		pathColumn = parent.pathColumn .. tostring(instance.VariableId),
-		scopeColumn = parent.scopeColumn,
+		pathColumn = (parent and parent.pathColumn) or "" .. tostring(instance.VariableId),
+		scopeColumn = (parent and parent.scopeColumn) or scope,
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,
 		childPaths = {},

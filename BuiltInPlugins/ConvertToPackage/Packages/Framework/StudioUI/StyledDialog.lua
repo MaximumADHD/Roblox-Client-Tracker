@@ -27,9 +27,10 @@
 	Style Values:
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
+
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
+local FFlagDevFrameworkStyledDialogStyleModifier = game:GetFastFlag("DevFrameworkStyledDialogStyleModifier")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -127,6 +128,11 @@ function StyledDialog:init()
 			local key = buttonProps.Key
 			local styleName = prioritize(buttonProps.Style, buttonStyle.Style, "Round")
 			local text = buttonProps.Text
+			local styleModifier = nil
+			
+			if FFlagDevFrameworkStyledDialogStyleModifier then
+				styleModifier = buttonProps.StyleModifier
+			end
 
 			buttonsElements[tostring(i)] = Roact.createElement(Button, {
 				LayoutOrder = i,
@@ -135,6 +141,7 @@ function StyledDialog:init()
 				end,
 				Size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
 				Style = styleName,
+				StyleModifier = styleModifier,
 				Text = text,
 			})
 		end
@@ -208,7 +215,7 @@ function StyledDialog:render()
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			Contents = Roact.createElement(Container, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize or nil,
+				AutomaticSize = automaticSize,
 				Position = UDim2.new(0, CONTENT_PADDING, 0, CONTENT_PADDING),
 				Size = UDim2.new(1, -(CONTENT_PADDING * 2), 1, -((CONTENT_PADDING * 3) + BUTTON_HEIGHT))
 			}, self.props[Roact.Children]),

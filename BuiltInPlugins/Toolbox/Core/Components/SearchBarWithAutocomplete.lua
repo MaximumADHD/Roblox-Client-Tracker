@@ -11,7 +11,6 @@
         string PlaceholderText: Placeholder text to show when there is no search term entered.
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
-local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -29,12 +28,7 @@ local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceS
 
 local DropdownMenu = require(Libs.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
-local SearchBar
-if FFlagToolboxUseDeveloperFrameworkSearchBar then
-    SearchBar = require(Libs.Framework).StudioUI.SearchBar
-else
-    SearchBar = require(Plugin.Core.Components.SearchBar.SearchBar)
-end
+local SearchBar = require(Libs.Framework).StudioUI.SearchBar
 
 local DROPDOWN_ITEM_HEIGHT = 32
 local AUTOCOMPLETE_WAIT_TIME = 0.12 -- waittime (in seconds) before firing autocomplete API request
@@ -177,27 +171,16 @@ function SearchBarWithAutocomplete:render()
     local props = self.props
     local displayedSearchTerm = self.state.displayedSearchTerm
 
-    local searchBarProps
-    if FFlagToolboxUseDeveloperFrameworkSearchBar then
-        searchBarProps = {
-            LayoutOrder = props.LayoutOrder,
-            OnInputBegan = self.onInputBegan,
-            OnInputEnded = self.onInputEnded,
-            OnSearchRequested = self.onSearchRequested,
-            OnTextChanged = self.onSearchTextChanged,
-            SearchTerm = displayedSearchTerm,
-            Style = "ToolboxSearchBar",
-            Width = props.Width,
-        }
-    else
-        searchBarProps = {
-            LayoutOrder = props.LayoutOrder,
-            onSearchRequested = self.onSearchRequested,
-            showSearchButton = props.showSearchButton,
-            searchTerm = displayedSearchTerm,
-            width = props.width,
-        }
-    end
+    local searchBarProps = {
+        LayoutOrder = props.LayoutOrder,
+        OnInputBegan = self.onInputBegan,
+        OnInputEnded = self.onInputEnded,
+        OnSearchRequested = self.onSearchRequested,
+        OnTextChanged = self.onSearchTextChanged,
+        SearchTerm = displayedSearchTerm,
+        Style = "ToolboxSearchBar",
+        Width = props.Width,
+    }
 
     return Roact.createElement("Frame", {
         BackgroundTransparency = 1,

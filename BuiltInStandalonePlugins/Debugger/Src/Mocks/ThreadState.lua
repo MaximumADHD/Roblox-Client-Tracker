@@ -7,10 +7,6 @@ ThreadState:
 - callstack : { StackFrame }
 ]]--
 
-local Plugin = script.Parent.Parent.Parent
-local Framework = require(Plugin.Packages.Framework)
-local Promise = Framework.Util.Promise
-
 local StackFrame = require(script.Parent.StackFrame)
 
 local ThreadState = {}
@@ -21,54 +17,27 @@ function ThreadState.new(threadId : number, threadName : string, isValid : boole
 		threadName = threadName,
 		isValid = isValid,
 		callstack = callstack,
+		FrameCount = 0
 	}
-	
-	local requestCallstack = function ()
-		return Promise.new(function(resolve, reject, onCancel)
-			if (self.isValid) then
-				resolve(self.callstack)
-			else
-				reject(self.callstack)
-			end
-		end)
-	end
-	
-	local getCallstackSize = function () : number
-		local count = 0
-		for _ in pairs(self.callstack) do 
-			count = count + 1
-		end
-		return count
-	end
 
-	local getThreadId = function () : number
-		return self.threadId
-	end
-	
-	local getThreadName = function () : string
-		return self.threadName
-	end
-	
-	local getIsValid = function () : boolean
-		return self.isValid
-	end
-	
-	local getCallstack = function () : { StackFrame.StackFrame }
+	local GetChildren = function ()
 		return self.callstack
 	end
 	
+	for _ in pairs(self.callstack) do 
+		self.FrameCount = self.FrameCount + 1
+	end
 	local GetFrame = function(index : number) : StackFrame.StackFrame
 		return self.callstack[index]
 	end
 
 	return {
-		requestCallstack = requestCallstack,
-		getCallstackSize = getCallstackSize,
-		getThreadId = getThreadId,
-		getThreadName = getThreadName,
-		getIsValid = getIsValid,
-		getCallstack = getCallstack,
-		GetFrame = GetFrame
+		GetFrame = GetFrame,
+		GetChildren = GetChildren,
+		FrameCount = self.FrameCount,
+		Populated = true,
+		ThreadId = self.threadId,
+		ThreadName = self.threadName
 	}
 end
 

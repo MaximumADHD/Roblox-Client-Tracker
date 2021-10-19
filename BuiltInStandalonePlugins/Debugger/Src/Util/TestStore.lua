@@ -13,21 +13,24 @@ local mockThreadState = require(Mocks.ThreadState)
 local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
 local mockPausedState = require(Mocks.PausedState)
+local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
+local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 
 local Actions = Src.Actions
-local Thunks = Src.Thunks
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
-local RequestThreadsThunk = require(Thunks.RequestThreadsThunk)
+local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddExpression = require(Actions.Watch.AddExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
+local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
+
 local dst = DebuggerStateToken.fromData({debuggerConnectionId = 1})
 
 local expressionData1 = {
 	expression = "Expression 1",
-	path = "1",
+	path = "3",
 	scope = ScopeEnum.Local,
 	value = "somePreview",
 	dataType = "string",
@@ -123,17 +126,31 @@ local testCallstack2 = {
 
 local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true, testCallstack1)
 local testThreadTwo = mockThreadState.new(2, "TestThread2", true, testCallstack2)
-local threadMap = {
-	[1] = testThreadOne,
-	[2] = testThreadTwo,
-}
-local testPausedState = mockPausedState.new(Enum.DebuggerPauseReason.Requested, true, threadMap)
+
+local debuggerConnection = MockDebuggerConnection.new(1)
+debuggerConnection.MockSetThreadStateById(1, testThreadOne)
+debuggerConnection.MockSetThreadStateById(2, testThreadTwo)
+
+local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
 local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
 local stepStateBundle2 = StepStateBundle.ctor(dst, 2, 1)
+local currentMockConnection = MockDebuggerConnection.new(1)
 
-return function(store)
+return function(store)		
+	-- TODO(aherdzik): move into DebugConnectionListener:onExecutionPaused action, see RIDE-5969
+	store:dispatch(SetFocusedDebuggerConnection(1))
 	store:dispatch(BreakpointHitAction(dst))
-	store:dispatch(RequestThreadsThunk(testPausedState, nil, dst))
+	
+	local mainConnectionManager = MockDebuggerConnectionManager.new()
+	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager)
+	currentMockConnection.MockSetThreadStateById(1, testThreadOne)
+	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
+	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
+
+	currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
+	currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)	
+
 	store:dispatch(AddRootVariables(stepStateBundle1, {variableRow1, variableRow2}))
 	store:dispatch(AddRootVariables(stepStateBundle2, {variableRow2, variableRow1}))
 	store:dispatch(AddExpression("Expression 1"))

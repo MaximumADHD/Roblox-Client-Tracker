@@ -13,6 +13,7 @@ local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local Util = Plugin.Core.Util
 local DebugFlags = require(Util.DebugFlags)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 local Analytics = require(Util.Analytics.Analytics)
 
@@ -20,6 +21,8 @@ local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description)
 	return {
@@ -45,7 +48,7 @@ local function createFormDataBody(configDataJsonBlob, nameWithoutExtension, exte
 end
 
 return function(networkInterface, nameWithoutExtension, extension, description, assetTypeId, instances, tags)
-	return function(store)
+	return function(store, services)
 		-- this thunk should never be called if names and descriptions exceed their maximum lengths, so we don't need to trim the strings here (just precautionary)
 		nameWithoutExtension = string.sub(nameWithoutExtension or "", 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
 		description = string.sub(description or "", 1, AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT)
@@ -63,7 +66,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 					store:dispatch(NetworkError(assetDetails.uploadAssetError))
 					store:dispatch(UploadResult(false))
 
-					Analytics.incrementUploadeAssetFailure(assetTypeId)
+					Analytics.incrementUploadAssetFailure(assetTypeId)
 					return
 				elseif assetDetails.assetId then
 					store:dispatch(SetAssetId(assetDetails.assetId))
@@ -92,6 +95,17 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			store:dispatch(UploadResult(false))
 		end
 
+		local serializeErrorFunc = function(response)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(NetworkError(tostring(response)))
+			store:dispatch(UploadResult(false))
+
+			Analytics.incrementUploadAssetFailure(assetTypeId)
+		end
+
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
 				warn(("Lua toolbox: Could not upload catalog item"))
@@ -99,37 +113,70 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 			store:dispatch(NetworkError(response))
 			store:dispatch(UploadResult(false))
 
-			Analytics.incrementUploadeAssetFailure(assetTypeId)
+			Analytics.incrementUploadAssetFailure(assetTypeId)
 		end
 
-		local fileDataString = SerializeInstances(instances)
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataString)
+				local configDataBlob = networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
 
-		local configDataBlob = networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
-
-		if FFlagCMSUploadFees then
-			local formBodyData = createMultipartFormDataBody({
-				{
-					type = "application/json",
-					disposition = {
-						name = "config",
-						filename = "config.json",
-					},
-					value = configDataBlob,
-				},
-				{
-					type = "application/octet-stream",
-					disposition = {
-						name = nameWithoutExtension,
-						filename = nameWithoutExtension .. "." .. extension,
-					},
-					value = fileDataString,
-				}
-			})
-			networkInterface:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY):andThen(handlerFunc, errorFunc)
+				if FFlagCMSUploadFees then
+					local formBodyData = createMultipartFormDataBody({
+						{
+							type = "application/json",
+							disposition = {
+								name = "config",
+								filename = "config.json",
+							},
+							value = configDataBlob,
+						},
+						{
+							type = "application/octet-stream",
+							disposition = {
+								name = nameWithoutExtension,
+								filename = nameWithoutExtension .. "." .. extension,
+							},
+							value = fileDataString,
+						}
+					})
+					return networkInterface:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+						:andThen(handlerFunc, errorFunc)
+				else
+					local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
+					local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
+					return networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+				end
+			end, serializeErrorFunc)
 		else
-			local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
-			local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
-			networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+			local fileDataString = SerializeInstances_Deprecated(instances)
+
+			local configDataBlob = networkInterface:jsonEncode(createConfigDataTable(nameWithoutExtension, assetTypeId, description))
+
+			if FFlagCMSUploadFees then
+				local formBodyData = createMultipartFormDataBody({
+					{
+						type = "application/json",
+						disposition = {
+							name = "config",
+							filename = "config.json",
+						},
+						value = configDataBlob,
+					},
+					{
+						type = "application/octet-stream",
+						disposition = {
+							name = nameWithoutExtension,
+							filename = nameWithoutExtension .. "." .. extension,
+						},
+						value = fileDataString,
+					}
+				})
+				networkInterface:uploadCatalogItem(formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY):andThen(handlerFunc, errorFunc)
+			else
+				local boundary = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
+				local formBodyData = createFormDataBody(configDataBlob, nameWithoutExtension, extension, fileDataString, boundary)
+				networkInterface:uploadCatalogItem(formBodyData, boundary):andThen(handlerFunc, errorFunc)
+			end
 		end
 	end
 end

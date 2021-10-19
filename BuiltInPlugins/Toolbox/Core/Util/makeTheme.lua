@@ -1,8 +1,4 @@
 local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
-local FFlagToolboxReplaceUILibraryComponentsPt1 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt1")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
-local FFlagToolboxShowAutocompleteResults = game:GetFastFlag("ToolboxShowAutocompleteResults")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
@@ -61,92 +57,81 @@ end
 
 local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 	local styleRoot
-	if FFlagToolboxReplaceUILibraryComponentsPt1 or FFlagToolboxReplaceUILibraryComponentsPt2 or FFlagRemoveUILibraryFromToolbox or FFlagToolboxRemoveWithThemes then
-		local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
-			[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
-			[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
-			[StyleKey.Toolbox_AssetDropdownSize] = 8,
-			[StyleKey.Toolbox_AssetBorderSize] = 1,
-			[StyleKey.Toolbox_AssetBackgroundImage] = "",
-			[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(178, 178, 178),
-			[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
-			[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
-			[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
-			[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
-			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
-			[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
-			[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
-			[StyleKey.Toolbox_TipsTextColor] = Color3.fromRGB(102, 102, 102),
-			[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
-			[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
+	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
+		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
+		[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
+		[StyleKey.Toolbox_AssetDropdownSize] = 8,
+		[StyleKey.Toolbox_AssetBorderSize] = 1,
+		[StyleKey.Toolbox_AssetBackgroundImage] = "",
+		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(178, 178, 178),
+		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(136, 136, 136),
+		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
+		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
+		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
+		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
+		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
+		[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
+		[StyleKey.Toolbox_TipsTextColor] = Color3.fromRGB(102, 102, 102),
+		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
+		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 
-			-- Asset Configuration
-			[StyleKey.AssetConfig_DividerHorizontalLineColor] = StyleColors.Carbon,
-			[StyleKey.AssetConfig_PreviewSelectedColor] = StyleColors.White,
-			[StyleKey.AssetConfig_SidetabSelectedBarColor] = Color3.fromRGB(11, 90, 175),
-			[StyleKey.AssetConfig_SidetabSelectedBarTransparency] = 0,
-			[StyleKey.AssetConfig_SidetabSelectedBarZIndex] = -1,
-			[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 1,
-			[StyleKey.AssetConfig_UploadResultButtonColor] = Color3.fromRGB(136, 136, 136),
-			[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(102, 102, 102),
+		-- Asset Configuration
+		[StyleKey.AssetConfig_DividerHorizontalLineColor] = StyleColors.Carbon,
+		[StyleKey.AssetConfig_PreviewSelectedColor] = StyleColors.White,
+		[StyleKey.AssetConfig_SidetabSelectedBarColor] = Color3.fromRGB(11, 90, 175),
+		[StyleKey.AssetConfig_SidetabSelectedBarTransparency] = 0,
+		[StyleKey.AssetConfig_SidetabSelectedBarZIndex] = -1,
+		[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 1,
+		[StyleKey.AssetConfig_UploadResultButtonColor] = Color3.fromRGB(136, 136, 136),
+		[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(102, 102, 102),
 
-		})
-		local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
-			[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
-			[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
-			[StyleKey.Toolbox_AssetDropdownSize] = 0,
-			[StyleKey.Toolbox_AssetBorderSize] = 0,
-			[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
-			[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(170, 170, 170),
-			[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
-			[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
-			[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
-			[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
-			[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
-			[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(245, 245, 245),
-			[StyleKey.Toolbox_SearchTagBackgroundColor] = StyleColors.Slate,
-			[StyleKey.Toolbox_TipsTextColor] = Colors.GRAY_3,
-			[StyleKey.Toolbox_TabTopBorderColor] = Color3.fromRGB(182, 182, 182),
-			[StyleKey.Toolbox_TabSelectedColor] = StyleColors.Blue,
+	})
+	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
+		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
+		[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
+		[StyleKey.Toolbox_AssetDropdownSize] = 0,
+		[StyleKey.Toolbox_AssetBorderSize] = 0,
+		[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
+		[StyleKey.Toolbox_AssetIconColor] = Color3.fromRGB(170, 170, 170),
+		[StyleKey.Toolbox_DeleteIconColor] = Color3.fromRGB(184, 184, 184),
+		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
+		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
+		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
+		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
+		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(245, 245, 245),
+		[StyleKey.Toolbox_SearchTagBackgroundColor] = StyleColors.Slate,
+		[StyleKey.Toolbox_TipsTextColor] = Colors.GRAY_3,
+		[StyleKey.Toolbox_TabTopBorderColor] = Color3.fromRGB(182, 182, 182),
+		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.Blue,
 
-			-- Asset Configuration
-			[StyleKey.AssetConfig_DividerHorizontalLineColor] = Color3.fromRGB(227, 227, 227),
-			[StyleKey.AssetConfig_PreviewSelectedColor] = StyleColors.Blue,
-			[StyleKey.AssetConfig_SidetabSelectedBarColor] = Colors.GRAY_1,
-			[StyleKey.AssetConfig_SidetabSelectedBarTransparency] = 0.9,
-			[StyleKey.AssetConfig_SidetabSelectedBarZIndex] = 0,
-			[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 0,
-			[StyleKey.AssetConfig_UploadResultButtonColor] = StyleColors.Black,
-			[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(151, 151, 151),
-		})
+		-- Asset Configuration
+		[StyleKey.AssetConfig_DividerHorizontalLineColor] = Color3.fromRGB(227, 227, 227),
+		[StyleKey.AssetConfig_PreviewSelectedColor] = StyleColors.Blue,
+		[StyleKey.AssetConfig_SidetabSelectedBarColor] = Colors.GRAY_1,
+		[StyleKey.AssetConfig_SidetabSelectedBarTransparency] = 0.9,
+		[StyleKey.AssetConfig_SidetabSelectedBarZIndex] = 0,
+		[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 0,
+		[StyleKey.AssetConfig_UploadResultButtonColor] = StyleColors.Black,
+		[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(151, 151, 151),
+	})
 
-		if isCli() then
-			styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
-		else
-			styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
-		end
+	if isCli() then
+		styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
 	else
-		if isCli() then
-			styleRoot = StudioTheme.mock()
-		else
-			styleRoot = StudioTheme.new()
-		end
+		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
 	end
-
-
-
 
 	styleRoot:extend({
 		-- TODO: Move colors from ToolboxTheme to here
 		backgroundColor = StyleKey.InputFieldBackground,
 		progressBarColor = Colors.BLUE_PRIMARY,
-		horizontalLineColor = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.Toolbox_HorizontalLineColor or nil,
-		link = FFlagToolboxReplaceUILibraryComponentsPt1 and StyleKey.LinkText or nil,
+		horizontalLineColor = StyleKey.Toolbox_HorizontalLineColor,
+		link = StyleKey.LinkText,
 		redText = Color3.fromRGB(255, 68, 68),
 
 		asset = FFlagToolboxRemoveWithThemes and {
 			assetName = {
-				textColor = StyleKey.LinkText,
+				textColor = StyleKey.MainText,
 			},
 
 			background = {
@@ -258,16 +243,16 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			balanceText = StyleKey.DimmedText,
 		} or nil,
 
-		assetConfig = FFlagToolboxReplaceUILibraryComponentsPt1 and {
+		assetConfig = {
 			labelTextColor = StyleKey.DimmedText,
-		} or nil,
+		},
 
-		publishAsset = (FFlagToolboxRemoveWithThemes or FFlagToolboxReplaceUILibraryComponentsPt1) and {
+		publishAsset = {
 			backgroundColor = StyleKey.Toolbox_PublishAssetBackground,
 			titleTextColor = StyleKey.SubText,
 			textColor = StyleKey.MainText,
 			tipsTextColor = not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
-		} or nil,
+		},
 
 		searchBar = {
 			backgroundColor = StyleKey.Dropdown,
@@ -351,7 +336,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			selectedColor = StyleKey.Toolbox_TabSelectedColor,
 		} or nil,
 
-		[ui.SearchBar] = FFlagToolboxUseDeveloperFrameworkSearchBar and Cryo.Dictionary.join(getRawComponentStyle("SearchBar"), {
+		[ui.SearchBar] = Cryo.Dictionary.join(getRawComponentStyle("SearchBar"), {
 			["&ToolboxSearchBar"] = {
 				Padding = {
 					Top = -1,
@@ -360,22 +345,20 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 					Right = 0
 				},
 			}
-		}) or nil,
+		}),
 	})
 
-	if FFlagToolboxReplaceUILibraryComponentsPt2 and themeExtension then
+	if themeExtension then
 		styleRoot:extend(themeExtension)
 	end
 
-	if FFlagToolboxShowAutocompleteResults or Rollouts:getMarketplaceAutocomplete() then
-		styleRoot:extend({
-			[ui.DropdownMenu] = Cryo.Dictionary.join(getRawComponentStyle("DropdownMenu"), {
-				["&ToolboxSearchBarDropdown"] = {
-					Offset = Vector2.new(0, 4),
-				}
-			}),
-		})
-	end
+	styleRoot:extend({
+		[ui.DropdownMenu] = Cryo.Dictionary.join(getRawComponentStyle("DropdownMenu"), {
+			["&ToolboxSearchBarDropdown"] = {
+				Offset = Vector2.new(0, 4),
+			}
+		}),
+	})
 
 	if (not FFlagRemoveUILibraryFromToolbox) then
 		if isCli() then

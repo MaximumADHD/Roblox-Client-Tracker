@@ -31,9 +31,7 @@
 		number TextSize: The size of the text in this button.
 		Color3 TextColor: The color of the text in this button.
 ]]
-local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -99,12 +97,12 @@ function Button:render()
 	assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
 
 	local buttonSize = UDim2.new(1, 0, 1, 0)
-	if FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize then
+	if automaticSize then
 		buttonSize = size
 	end
 
 	return Roact.createElement(Container, {
-		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
+		AutomaticSize = automaticSize,
 		Background = background,
 		BackgroundStyle = backgroundStyle,
 		BackgroundStyleModifier = styleModifier,
@@ -124,7 +122,7 @@ function Button:render()
 		}),
 
 		TextButton = Roact.createElement("TextButton", {
-			AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing and FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
+			AutomaticSize = automaticSize,
 			Size = buttonSize,
 			BackgroundTransparency = 1,
 			Font = style.Font,

@@ -2,8 +2,6 @@
 	Gets the new Stylizer-compatible AssetConfigTheme
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
@@ -22,10 +20,6 @@ local StyleColors = FrameworkStyle.Colors
 local Cryo = require(Plugin.Libs.Cryo)
 
 return function()
-	if not FFlagToolboxReplaceUILibraryComponentsPt2 and not FFlagToolboxReplaceUILibraryComponentsPt3 and not FFlagToolboxRemoveWithThemes then
-		return
-	end
-
 	local roundBox = getRawComponentStyle("RoundBox")
 	local button = getRawComponentStyle("Button")
 

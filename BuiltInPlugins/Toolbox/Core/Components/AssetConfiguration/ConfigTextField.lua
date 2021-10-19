@@ -12,14 +12,12 @@
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
-local UILibrary = require(Libs.UILibrary)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
@@ -28,16 +26,9 @@ local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local RoundTextBox
-local TextInputWithBottomText
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	local Framework = require(Libs.Framework)
-	TextInputWithBottomText = Framework.StudioUI.TextInputWithBottomText
-else
-	RoundTextBox = UILibrary.Component.RoundTextBox
-end
+local Framework = require(Libs.Framework)
+local TextInputWithBottomText = Framework.StudioUI.TextInputWithBottomText
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ConfigTextField = Roact.PureComponent:extend("ConfigTextField")
@@ -62,23 +53,13 @@ function ConfigTextField:init(props)
 end
 
 function ConfigTextField:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function ConfigTextField:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local props = self.props
 	local state = self.state
@@ -107,16 +88,10 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 
 	local publishAssetTheme = theme.publishAsset
 
-	local textLength
-	local textOverMaxCount
-	local countText
-	local isMultiLine = false
-	if FFlagToolboxReplaceUILibraryComponentsPt2 then
-		textLength = utf8.len(currentContent)
-		textOverMaxCount = MaxCount and textLength > MaxCount
-		countText = MaxCount and (textLength .. "/" .. MaxCount) or ""
-		isMultiLine = MaxCount and MaxCount > 50
-	end
+	local textLength = utf8.len(currentContent)
+	local textOverMaxCount = MaxCount and textLength > MaxCount
+	local countText = MaxCount and (textLength .. "/" .. MaxCount) or ""
+	local isMultiLine = MaxCount and MaxCount > 50
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, TotalHeight),
@@ -150,7 +125,7 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 			LayoutOrder = 1,
 		}),
 
-		TextField = FFlagToolboxReplaceUILibraryComponentsPt2 and Roact.createElement(TextInputWithBottomText, {
+		TextField = Roact.createElement(TextInputWithBottomText, {
 			BottomText = countText,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -AssetConfigConstants.TITLE_GUTTER_WIDTH, 0, TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT),
@@ -161,36 +136,18 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 				OnTextChanged = self.onTextChanged,
 				Text = currentContent,
 			},
-		})
-		or Roact.createElement(RoundTextBox, {
-			Active = true,
-			ErrorMessage = nil,
-			MaxLength = MaxCount,
-			Text = currentContent,
-			Font = Constants.FONT,
-			TextSize = Constants.FONT_SIZE_LARGE,
-			Height = TotalHeight - TITLE_HEIGHT - TOOL_TIP_HEIGHT,
-			WidthOffset = -AssetConfigConstants.TITLE_GUTTER_WIDTH,
-			Multiline = MaxCount > 50,
-
-			SetText = self.onTextChanged,
-
-			LayoutOrder = 2,
 		}),
 	})
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt2 then
-	if FFlagToolboxWithContext then
-		ConfigTextField = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(ConfigTextField)
-	else
-		ContextServices.mapToProps(ConfigTextField, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	ConfigTextField = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(ConfigTextField)
+else
+	ContextServices.mapToProps(ConfigTextField, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return ConfigTextField

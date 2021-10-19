@@ -6,20 +6,12 @@ local Urls = require(Util.Urls)
 
 local DFIntFileMaxSizeBytes = tonumber(settings():GetFVariable("FileMaxSizeBytes"))
 
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbnailForAnimation")
 local StudioService = game:GetService("StudioService")
 
-local MathUtils
-local round
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	round = function(num, numDecimalPlaces)
-	  local mult = 10^(numDecimalPlaces or 0)
-	  return math.floor(num * mult + 0.5) / mult
-	end
-else
-	local UILibrary = require(Plugin.Libs.UILibrary)
-	MathUtils = UILibrary.Util.MathUtils
+local round = function(num, numDecimalPlaces)
+	local mult = 10^(numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
 end
 
 local AssetConfigUtil = {}
@@ -45,19 +37,11 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	if not price then
 		return 0, 0
 	end
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		price = round(price)
-	else
-		price = MathUtils:round(price)
-	end
+	price = round(price)
+
 	local convertToZeroToOne = 0.01
 	local scaler = convertToZeroToOne * AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
-	local roundedPrice
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		roundedPrice = round(price * scaler)
-	else
-		roundedPrice = MathUtils:round(price * scaler)
-	end
+	local roundedPrice = round(price * scaler)
 	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
 	return math.max(0, price - marketPlaceFee), marketPlaceFee or 0

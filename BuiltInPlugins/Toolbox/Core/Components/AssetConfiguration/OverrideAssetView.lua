@@ -15,7 +15,6 @@
 
 local FFlagToolboxUseInfiniteScroller = game:GetFastFlag("ToolboxUseInfiniteScroller")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -30,7 +29,6 @@ local Requests = Plugin.Core.Networking.Requests
 local MakeChangeRequest = require(Requests.MakeChangeRequest)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local Urls = require(Util.Urls)
 local Images = require(Util.Images)
@@ -42,7 +40,6 @@ local InfiniteScrollingFrame = Framework.UI.InfiniteScrollingFrame
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local withTheme = ContextHelper.withTheme
 
 local OverrideAssetView = Roact.PureComponent:extend("OverrideAssetView")
 
@@ -238,21 +235,13 @@ function OverrideAssetView:createAssets(resultsArray, theme)
 end
 
 function OverrideAssetView:render()
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		return self:renderContent()
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
+	return self:renderContent()
 end
 
-function OverrideAssetView:renderContent(theme)
+function OverrideAssetView:renderContent()
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxReplaceUILibraryComponentsPt3 then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 
 	local Size = props.Size
 
@@ -289,17 +278,14 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	if FFlagToolboxWithContext then
-		OverrideAssetView = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(OverrideAssetView)
-	else
-		ContextServices.mapToProps(OverrideAssetView, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	OverrideAssetView = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(OverrideAssetView)
+else
+	ContextServices.mapToProps(OverrideAssetView, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return RoactRodux.connect(nil, mapDispatchToProps)(OverrideAssetView)

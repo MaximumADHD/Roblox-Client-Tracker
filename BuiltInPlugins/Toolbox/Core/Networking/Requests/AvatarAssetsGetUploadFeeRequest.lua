@@ -10,9 +10,14 @@ local StatusCodes = require(Plugin.Libs.Http.StatusCodes)
 
 local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
+local SerializeInstances_Deprecated = require(Util.SerializeInstances_Deprecated)
 local SerializeInstances = require(Util.SerializeInstances)
 
+local DebugFlags = require(Util.DebugFlags)
+
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
+
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
 
 local function createConfigDataTable()
 	return {
@@ -22,7 +27,7 @@ local function createConfigDataTable()
 end
 
 return function(networkInterface, assetTypeId, instances)
-	return function(store)
+	return function(store, services)
 		local handlerFunc = function(response)
 			local success, body = pcall(function()
 				return HttpService:JSONDecode(response.Body)
@@ -33,6 +38,15 @@ return function(networkInterface, assetTypeId, instances)
 				warn("Unexpected AvatarAssetsGetUploadFee response body:", response.Body)
 				store:dispatch(SetUploadFee(false))
 			end
+		end
+
+		local function onSerializeFail(result)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("Lua toolbox: SerializeInstances failed")
+			end
+
+			store:dispatch(NetworkError(tostring(result)))
+			store:dispatch(UploadResult(false))
 		end
 
 		local errorFunc = function(response)
@@ -46,30 +60,59 @@ return function(networkInterface, assetTypeId, instances)
 			end
 		end
 
-		local fileDataBlob = SerializeInstances(instances)
-		local configDataBlob = networkInterface:jsonEncode(createConfigDataTable())
+		if FFlagStudioSerializeInstancesOffUIThread then
+			return SerializeInstances(instances, services.StudioAssetService):andThen(function(fileDataBlob)
+				local configDataBlob = networkInterface:jsonEncode(createConfigDataTable())
 
-		local formBodyData = createMultipartFormDataBody({
-			{
-				type = "application/json",
-				disposition = {
-					name = "config",
-					filename = "config.json",
-				},
-				value = configDataBlob,
-			},
-			{
-				type = "application/octet-stream",
-				disposition = {
-					name = "accessory",
-					filename = "accessory.rbxm",
-				},
-				value = fileDataBlob,
-			}
-		})
+				local formBodyData = createMultipartFormDataBody({
+					{
+						type = "application/json",
+						disposition = {
+							name = "config",
+							filename = "config.json",
+						},
+						value = configDataBlob,
+					},
+					{
+						type = "application/octet-stream",
+						disposition = {
+							name = "accessory",
+							filename = "accessory.rbxm",
+						},
+						value = fileDataBlob,
+					}
+				})
 
-		networkInterface
-			:avatarAssetsGetUploadFee(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
-			:andThen(handlerFunc, errorFunc)
+				return networkInterface
+					:avatarAssetsGetUploadFee(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+					:andThen(handlerFunc, errorFunc)
+			end, onSerializeFail)
+		else
+			local fileDataBlob = SerializeInstances_Deprecated(instances)
+			local configDataBlob = networkInterface:jsonEncode(createConfigDataTable())
+
+			local formBodyData = createMultipartFormDataBody({
+				{
+					type = "application/json",
+					disposition = {
+						name = "config",
+						filename = "config.json",
+					},
+					value = configDataBlob,
+				},
+				{
+					type = "application/octet-stream",
+					disposition = {
+						name = "accessory",
+						filename = "accessory.rbxm",
+					},
+					value = fileDataBlob,
+				}
+			})
+
+			networkInterface
+				:avatarAssetsGetUploadFee(assetTypeId, formBodyData, AssetConfigConstants.MULTIPART_FORM_BOUNDARY)
+				:andThen(handlerFunc, errorFunc)
+		end
 	end
 end

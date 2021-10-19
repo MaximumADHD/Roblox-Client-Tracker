@@ -8,17 +8,10 @@ local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 
-local FFlagToolboxReplaceUILibraryComponentsPt3 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt3")
 local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
 
-local deepJoin
-if FFlagToolboxReplaceUILibraryComponentsPt3 then
-	local FrameworkUtil = require(Libs.Framework).Util
-	deepJoin = FrameworkUtil.deepJoin
-else
-	local UILibrary = require(Libs.UILibrary)
-	deepJoin = UILibrary.Util.deepJoin
-end
+local FrameworkUtil = require(Libs.Framework).Util
+local deepJoin = FrameworkUtil.deepJoin
 
 local Actions = Plugin.Core.Actions
 local SetAssetId = require(Actions.SetAssetId)

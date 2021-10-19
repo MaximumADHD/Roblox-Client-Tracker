@@ -47,8 +47,8 @@ return function()
 		local tableView = folder:FindFirstChild("TableView", true)
 		local list = tableView.Contents.List
 
-		expect(list["1"].Row[1].Left.Text.Text).to.equal("Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script")
-		expect(list["4"].Row[1].Left.Text.Text).to.equal("TestThread2")
+		expect(list["1"].Row[1].Left.Text.Text).to.equal("TestThread2")
+		expect(list["2"].Row[1].Left.Text.Text).to.equal("Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script")
 
 		Roact.unmount(folderInstance)
 	end)

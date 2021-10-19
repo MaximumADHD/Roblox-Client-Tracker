@@ -125,7 +125,7 @@ function DropdownField:render()
 	if props.NumDisplay == props.MaxDisplay then
 		buttonText = localization:getText(props.Widget, self.props.KeyTexts[1])
 	else
-		buttonText = localization:getText(props.Widget, "DropdownFieldText", {NumFields = props.NumDisplay})
+		buttonText = localization:getText(props.Widget, "DropdownButtonText", {NumFields = props.NumDisplay})
 	end
 
 	return Roact.createElement("Frame", {

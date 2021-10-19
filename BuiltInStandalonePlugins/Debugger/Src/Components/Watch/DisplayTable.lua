@@ -33,7 +33,6 @@ local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
@@ -142,15 +141,13 @@ function DisplayTable:init()
 		end
 	end
 
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClick = function(row)
-			if self.props.SelectedTab == TableTab.Watches then
-				local props = self.props
-				local localization = props.Localization
-				local plugin = props.Plugin:get()
-				local actions = MakePluginActions.getWatchActions(localization)
-				showContextMenu(plugin, "Watch", actions, self.onMenuActionSelected, {row = row})
-			end
+	self.onRightClick = function(row)
+		if self.props.SelectedTab == TableTab.Watches then
+			local props = self.props
+			local localization = props.Localization
+			local plugin = props.Plugin:get()
+			local actions = MakePluginActions.getWatchActions(localization)
+			showContextMenu(plugin, "Watch", actions, self.onMenuActionSelected, {row = row})
 		end
 	end
 end
@@ -204,7 +201,7 @@ function DisplayTable:render()
 		Expansion = props.ExpansionTable,
 		OnFocusLost = FFlagStudioAddTextInputCols and self.OnFocusLost,
 		TextInputCols = FFlagStudioAddTextInputCols and textInputCols,
-		RightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClick,
+		RightClick = self.onRightClick,
 		DisableTooltip = true,
 	})
 end
@@ -219,16 +216,16 @@ DisplayTable = withContext({
 
 DisplayTable = RoactRodux.connect(
 	function(state, props)
-		if state.Common.currentThreadId == -1 then
+		local common = state.Common
+		if common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] == nil then
 			return {
 				SelectedTab = nil,
 				RootItems = {},
 			}
 		else
-			assert(#state.Common.debuggerStateTokenHistory >= 1)
-			local threadId = state.Common.currentThreadId
-			local frameNumber = state.Common.threadIdToCurrentFrameNumber[threadId]
-			local token = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]	
+			local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+			local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
+			local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 
 			local tabState = state.Watch.currentTab
 			local isVariablesTab = (tabState == TableTab.Variables)

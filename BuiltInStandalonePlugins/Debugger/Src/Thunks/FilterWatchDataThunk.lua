@@ -54,17 +54,13 @@ end
 -- Thunk
 return function(filterString)
 	return function(store, contextItems)
-		if (#filterString == 0) then
-			return
-		end
-
 		local state = store:getState()
 		local common = state.Common
 		local watch = state.Watch
 
-		local token = common.debuggerStateTokenHistory[#common.debuggerStateTokenHistory]	
-		local threadId = common.currentThreadId
-		local frameNumber = common.threadIdToCurrentFrameNumber[threadId]
+		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+		local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 
 		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)
 		local isVariablesTab = watch.currentTab == TableTab.Variables
@@ -93,7 +89,7 @@ return function(filterString)
 			local textFilteredOut = not depthFirstTextFilter(filterString, name, flattenedTree, expansionTree)
 			textFilterMap[name] = textFilteredOut
 		end
-		store:dispatch(SetVariablesTextFilteredOut(stepStateBundle, textFilterMap))
+		store:dispatch(SetVariablesTextFilteredOut(stepStateBundle, textFilterMap, isVariablesTab))
 		store:dispatch(SetExpansionTree(isVariablesTab, expansionTree))
 	end
 end

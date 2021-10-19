@@ -10,6 +10,9 @@ local TestStore = require(Util.TestStore)
 
 local Mocks = Plugin.Src.Mocks
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
+local MockStackFrame = require(Mocks.StackFrame)
+local MockScriptRef = require(Mocks.ScriptRef)
+local MockThreadState = require(Mocks.ThreadState)
 
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
@@ -22,7 +25,9 @@ return function()
 		store = TestStore(store)
 		local state = store:getState()
 		local currentMockConnection = MockDebuggerConnection.new(1)
-		local dst = state.Common.debuggerStateTokenHistory[#state.Common.debuggerStateTokenHistory]
+		local mockStackFrame = MockStackFrame.new(1, MockScriptRef.new(),"TestFrame1", "C")
+		currentMockConnection.MockSetThreadStateById(2, MockThreadState.new(2, "testThread", true, {mockStackFrame}))
+		local dst = state.Common.debuggerConnectionIdToDST[1]
 		local stepStateBundle = StepStateBundle.ctor(dst,2,1)
 		local expressionString = "Alex"
 		

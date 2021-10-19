@@ -14,7 +14,7 @@
 		UDim2 Position: The position of the scrolling frame.
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
-		number ItemPadding: The padding between items, in pixels.
+		UDim ItemPadding: The padding between items, in pixels.
 		callback ItemIdentifier: Should return a persistent ID for each item. Defaults to object identity.
 		callback LoadNext: Called when scrolled to the end of the itemList (index #itemList).
 		callback LoadPrevious: Called when scrolled to the start of the itemList (index 1).
@@ -27,6 +27,7 @@
 			The Scale is relative to the size of the scrolling frame.
 		callback OnScrollUpdate: Called whenever the scroller updates.
 			OnScrollUpdate({leadIndex: number, anchorIndex: number, trailIndex: number, animationActive: boolean})
+		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 
 	Style Values:
 		string BottomImage: The image that appears in the bottom 3rd of the scrollbar

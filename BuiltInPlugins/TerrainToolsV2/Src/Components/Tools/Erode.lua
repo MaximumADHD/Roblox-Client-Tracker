@@ -27,7 +27,7 @@ local SetSnapToGrid = require(Actions.SetSnapToGrid)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
-local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "AddTool"
+local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "ErodeTool"
 local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
 
 local function mapStateToProps(state, props)

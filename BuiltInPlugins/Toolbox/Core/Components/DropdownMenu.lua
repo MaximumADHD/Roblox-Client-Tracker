@@ -55,8 +55,6 @@ local DropdownItemsList = require(Components.DropdownItemsList)
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
 
-local FFlagToolboxUseDeveloperFrameworkSearchBar = game:GetFastFlag("ToolboxUseDeveloperFrameworkSearchBar")
-
 function DropdownMenu:init(props)
 	self.state = {
 		isShowingDropdown = false,
@@ -217,15 +215,7 @@ function DropdownMenu:renderContent(theme)
 		or currentSelectionTheme.iconColor
 	end
 
-	local buttonPosition
-	local buttonSize
-	if (FFlagToolboxUseDeveloperFrameworkSearchBar) then
-		buttonPosition = nil
-		buttonSize = UDim2.new(1, 0, 1, 0)
-	else
-		buttonPosition = UDim2.new(0, -1, 0, -1)
-		buttonSize = UDim2.new(1, 2, 1, 2)
-	end
+	local buttonSize = UDim2.new(1, 0, 1, 0)
 
 	return Roact.createElement("Frame", {
 		Position = position,
@@ -237,7 +227,6 @@ function DropdownMenu:renderContent(theme)
 		LayoutOrder = layoutOrder
 	}, {
 		CurrentSelection = Roact.createElement(RoundButton, {
-			Position = buttonPosition,
 			Size = buttonSize,
 
 			BackgroundColor3 = currentSelectionBackgroundColor,
