@@ -8,7 +8,7 @@ local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local FrameworkUtil = require(Libs.Framework).Util
 local deepJoin = FrameworkUtil.deepJoin
@@ -359,7 +359,7 @@ return Rodux.createReducer({
 	end,
 
 	[SetCollaborators.name] = function(state, action)
-		if FFlagUseNewAssetPermissionEndpoint then
+		if FFlagUseNewAssetPermissionEndpoint2 then
 			if state.originalCollaborators then
 				return Cryo.Dictionary.join(state, {
 					collaborators = action.collaborators,

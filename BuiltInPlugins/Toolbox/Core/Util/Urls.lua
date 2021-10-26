@@ -6,7 +6,7 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
 
 local Urls = {}
@@ -416,7 +416,7 @@ function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
 end
 
-if not FFlagUseNewAssetPermissionEndpoint then
+if not FFlagUseNewAssetPermissionEndpoint2 then
 	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 	function Urls.constructGetPackageCollaboratorsUrl(assetId)
 		return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({

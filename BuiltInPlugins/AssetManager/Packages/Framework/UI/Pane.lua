@@ -22,6 +22,7 @@
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -142,15 +143,18 @@ function Pane:render()
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
-	if props.OnClick then 
-		props[Roact.Event.Activated] = props.OnClick 
-	end 
-	if props.OnRightClick then 
-		props[Roact.Event.MouseButton2Click] = props.OnRightClick 
-	end 
-	if hasClickFunctionality and not style.Image then 
-		props.Text = "" 
-	end 
+	if props.OnClick then
+		props[Roact.Event.Activated] = props.OnClick
+	end
+	if props.OnRightClick then
+		props[Roact.Event.MouseButton2Click] = props.OnRightClick
+	end
+	if hasClickFunctionality and not style.Image then
+		if FFlagDevFrameworkRefactorExpandablePaneHeader then
+			props.AutoButtonColor = false
+		end
+		props.Text = ""
+	end
 
 	if style.Image then
 		assign(defaultProps, {

@@ -30,8 +30,6 @@ local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)
 
--- Be sure to turn off ToolboxShowHideABTest before turning on StudioShowHideABTestV2
-local FFlagToolboxShowHideABTest = game:GetFastFlag("ToolboxShowHideABTest")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
@@ -166,12 +164,7 @@ function ToolboxPlugin:render()
 	-- the state when it comes up.
 	local initialEnabled = false
 
-	if FFlagToolboxShowHideABTest then
-		local isToolboxHidden = shouldSeeTestBehavior(ShowHideABTestName)
-		if isToolboxHidden then
-			initialEnabled = false
-		end
-	elseif FFlagStudioShowHideABTestV2 then
+	if FFlagStudioShowHideABTestV2 then
 		local variation = getTestVariation(ABTEST_SHOWHIDEV2_NAME)
 		if variation == 0 or variation == 2 then
 			-- Even though 0 is supposed to be the Control group and preserve existing behaviors,

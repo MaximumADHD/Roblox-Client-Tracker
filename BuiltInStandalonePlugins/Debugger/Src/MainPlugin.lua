@@ -53,10 +53,10 @@ local Middleware = require(Src.Middleware.MainMiddleware)
 
 local TestStore = require(Src.Util.TestStore)
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
+local BreakpointManagerListener = require(Src.Util.BreakpointManagerListener.BreakpointManagerListener)
 
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
-local FFlagStudioDebuggerPluginBreakpointsWindow = game:GetFastFlag("StudioDebuggerPluginBreakpointsWindow")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
 local FFlagStudioDebuggerOverhaul = game:GetFastFlag("StudioDebuggerOverhaul")
 
@@ -116,6 +116,7 @@ function MainPlugin:init(props)
 	end
 
 	self.debugConnectionListener = FFlagStudioDebuggerOverhaul and DebugConnectionListener.new(self.store)
+	self.breakpointManagerListener = FFlagStudioDebuggerOverhaul and BreakpointManagerListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
@@ -150,7 +151,7 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleBreakpointsWindow = FFlagStudioDebuggerPluginBreakpointsWindow and Roact.createElement(PluginButton, {
+		ToggleBreakpointsWindow = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
 			Name = "breakpointsDockWidgetActionV2",
 			Toolbar = toolbar,
 			Active = breakpointsWindowEnabled,
@@ -234,7 +235,7 @@ function MainPlugin:render()
 				self.onWidgetClose("callstackWindow")
 			end,
 		}) or nil,
-		BreakpointsWindow = (FFlagStudioDebuggerPluginBreakpointsWindow and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
+		BreakpointsWindow = (FFlagStudioDebuggerPlugin and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
 			Enabled = breakpointsWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("breakpointsWindow")
@@ -255,6 +256,11 @@ function MainPlugin:willUnmount()
 	if FFlagStudioDebuggerOverhaul and self.debugConnectionListener then
 		self.debugConnectionListener:destroy()
 		self.debugConnectionListener = nil
+	end
+	
+	if FFlagStudioDebuggerOverhaul and self.breakpointManagerListener then
+		self.breakpointManagerListener:destroy()
+		self.breakpointManagerListener = nil
 	end
 end
 

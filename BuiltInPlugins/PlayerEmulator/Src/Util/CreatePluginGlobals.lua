@@ -9,7 +9,7 @@ local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local createMainReducer = require(Plugin.Src.Reducers.createMainReducer)
 
 local localization = ContextServices.Localization.new({
 	stringResourceTable = TranslationDevelopmentTable,
@@ -17,7 +17,7 @@ local localization = ContextServices.Localization.new({
 	pluginName = "PlayerEmulator",
 })
 
-local store = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
+local store = Rodux.Store.new(createMainReducer(), nil, { Rodux.thunkMiddleware })
 
 local networkingImpl = Http.Networking.new({
 	isInternal = true,

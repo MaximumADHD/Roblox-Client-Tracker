@@ -7,7 +7,6 @@
 		number maxDuration: the upper limit of the audio search.
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
-local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
@@ -49,9 +48,7 @@ function AudioSearch:init(props)
 	end
 
 	self.onSliderChange = function(lowerValue, upperValue)
-		if FFlagToolboxFixOneSecondAudioMaxDuration then
-			upperValue = math.max(1, upperValue)
-		end
+		upperValue = math.max(1, upperValue)
 		self.props.onDurationChange(lowerValue, upperValue)
 	end
 end

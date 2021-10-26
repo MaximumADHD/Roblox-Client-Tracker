@@ -7,7 +7,6 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 
 	local PurchaseFailedDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseFailedDialog)
-	local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 
 	local function mockPlugin(container)
 		local plugin = {}
@@ -36,21 +35,4 @@ return function()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
-
-	if not FFlagToolboxUseDevFrameworkDialogs then
-		it("should render correctly", function()
-			local container = Instance.new("ScreenGui")
-			local element = createTestPurchaseFailedDialog(container)
-			local instance = Roact.mount(element)
-
-			local main = container:FindFirstChild("FocusProvider")
-			expect(main).to.be.ok()
-			local content = main:FindFirstChild("Content")
-			expect(content).to.be.ok()
-			expect(content.Header).to.be.ok()
-			expect(content.Details).to.be.ok()
-
-			Roact.unmount(instance)
-		end)
-	end
 end

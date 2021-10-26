@@ -9,7 +9,7 @@ local Analytics = require(Util.Analytics.Analytics)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
-local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
 
 local StudioService = game:GetService("StudioService")
@@ -20,7 +20,7 @@ local HttpService = game:GetService("HttpService")
 local isCli = require(script.Parent.isCli)
 
 local AssetManagerService
-if FFlagToolboxShowMeshAndTextureId then
+if FFlagToolboxShowMeshAndTextureId2 then
 	-- AssetManagerService is not available in roblox-cli. So we create a mock of the asset manager service functionality here.
 	if isCli() then
 		AssetManagerService = {}
@@ -100,7 +100,7 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		if FFlagToolboxShowMeshAndTextureId then
+		if FFlagToolboxShowMeshAndTextureId2 then
 			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyAssetIdToClipboard-%s", instanceGuid) or "CopyAssetIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
 				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
 				StudioService:CopyToClipboard(trueAssetId)
@@ -126,13 +126,12 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 					warn("Failed to get mesh id for asset id " .. trueAssetId)
 				end
 
+				-- do not display warning for texture ids because meshes can be valid without a texture
 				if textureIdSuccess then
 					menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyTextureIdToClipboard-%s", instanceGuid) or "CopyTextureIdToClipboard", localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
 						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
 						StudioService:CopyToClipboard(textureId)
 					end)
-				else
-					warn("Failed to get texture id for asset id " .. trueAssetId)
 				end
 			end
 		else

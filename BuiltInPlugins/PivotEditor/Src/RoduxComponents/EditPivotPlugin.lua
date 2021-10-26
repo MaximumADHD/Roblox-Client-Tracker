@@ -13,8 +13,6 @@ local Analytics = require(Plugin.Packages.DraggerFramework.Utility.Analytics)
 
 local EditPivotSession = require(Plugin.Src.RoduxComponents.EditPivotSession)
 
-local getFFlagPivotAnalytics = require(Plugin.Src.Flags.getFFlagPivotAnalytics)
-
 local EditPivotPlugin = Roact.PureComponent:extend("EditPivotPlugin")
 
 function EditPivotPlugin:init()
@@ -82,11 +80,10 @@ function EditPivotPlugin:_onClearPivot()
 	if didResetAnyPivot then
 		ChangeHistoryService:SetWaypoint("Clear Pivot")
 	end
-	if getFFlagPivotAnalytics() then
-		Analytics:sendEvent("clearPivot", {
-			objectCount = objectCount,
-		})
-	end
+
+	Analytics:sendEvent("clearPivot", {
+		objectCount = objectCount,
+	})
 end
 
 function EditPivotPlugin:render()

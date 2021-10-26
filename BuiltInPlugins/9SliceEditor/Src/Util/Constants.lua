@@ -1,19 +1,19 @@
 local Constants = {}
 
 -- MainPlugin Constants
-Constants.DIALOG_SIZE = Vector2.new(675, 444)
+Constants.WIDGET_SIZE = Vector2.new(330, 255)
 
 -- SliceEditor Constants
 Constants.BUTTON_FROMEDGE_PADDING = 20
 Constants.BUTTON_FROMCENTER_PADDING = 5
 
 -- ImageEditor/ImageDragger Constants
-Constants.BACKGROUND_SIZE = 280
+Constants.BACKGROUND_SIZE = 180
 Constants.IMAGE_SIZE = 150
 
 Constants.BACKGROUND_FROMEDGE_PADDING = 40
 Constants.BACKGROUND_TILE_SIZE = 20
-Constants.PIXEL_TOP_PADDING = 8
+Constants.PIXEL_TOP_PADDING = 5
 Constants.PIXEL_YPOSITION = Constants.BACKGROUND_SIZE + Constants.PIXEL_TOP_PADDING
 
 Constants.DRAGGER_WIDTH = 9
@@ -36,8 +36,8 @@ Constants.MOUSE_CURSORS = {
 Constants.TEXTIMAGE_PADDING = 70
 Constants.TEXTEDITOR_YOFFSET = 116
 Constants.TEXTEDITOR_XOFFSET =  Constants.BACKGROUND_SIZE + Constants.BACKGROUND_FROMEDGE_PADDING + Constants.TEXTIMAGE_PADDING
-Constants.TEXTEDITOR_XSIZE = 220
-Constants.TEXTEDITOR_YSIZE = 128
+Constants.TEXTEDITOR_XSIZE = 115
+Constants.TEXTEDITOR_YSIZE = 140
 Constants.TEXTSIZE = 18
 
 local buttonHeight = 20

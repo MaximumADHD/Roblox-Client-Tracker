@@ -23,7 +23,7 @@ return function()
 			sliceRect = {10, 20, 40, 50},
 			selectedObject = Roact.createElement("ImageLabel")
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton")
+			local background = container:FindFirstChildWhichIsA("ImageButton", true)
 			expect(background).to.be.ok()
 		end)
 	end)
@@ -34,7 +34,7 @@ return function()
 			sliceRect = {10, 20, 40, 50},
 			selectedObject = Roact.createElement("ImageLabel"),
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton")
+			local background = container:FindFirstChildWhichIsA("ImageButton", true)
 			local sliderParent = background.imageLabel
 			expect(sliderParent:FindFirstChild("LeftDragSlider")).to.be.ok()
 			expect(sliderParent:FindFirstChild("RightDragSlider")).to.be.ok()
@@ -56,7 +56,7 @@ return function()
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton")
+			local background = container:FindFirstChildWhichIsA("ImageButton", true)
 			local sliderParent = background.imageLabel
 			local leftSlider = sliderParent.LeftDragSlider
 			expect(leftSlider).to.be.ok()
@@ -96,7 +96,7 @@ return function()
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton")
+			local background = container:FindFirstChildWhichIsA("ImageButton", true)
 			local sliderParent = background.imageLabel
 			local bottomSlider = sliderParent.BottomDragSlider
 			expect(bottomSlider).to.be.ok()
@@ -136,7 +136,7 @@ return function()
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton")
+			local background = container:FindFirstChildWhichIsA("ImageButton", true)
 			local sliderParent = background.imageLabel
 			expect(sliderParent).to.be.ok()
 			local element = Rhodium.Element.new(sliderParent)

@@ -1,5 +1,3 @@
-local FFlagTerrainToolsOutputIssue = game:GetFastFlag("TerrainToolsOutputIssue")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -67,12 +65,7 @@ function TerrainGeneration.new(options)
 	self._onGeneratorFinished = function()
 		local endTime = tick()
 		local totalTime = endTime - self._generateStartTime
-		
-		if not FFlagTerrainToolsOutputIssue then 
-			-- Remove Studio.TerrainToolsV2.Generate.StartGeneration from localized strings when removing FFlagTerrainToolsOutputIssue
-			print(self._localization:getText("Generate", "GenerationFinished", totalTime))
-		end
-			
+
 		if DEBUG_LOG_WORK_TIME then
 			local yieldTime = self._generator.getYieldTime()
 			local workTime = totalTime - yieldTime
@@ -145,15 +138,7 @@ function TerrainGeneration:startGeneration()
 			table.insert(localizedBiomes, self._localization:getText("Generate", Constants.BiomeToLocalizationKey[biome]))
 		end
 	end
-	local biomesStr = table.concat(localizedBiomes, ", ")
-	
-	if not FFlagTerrainToolsOutputIssue then
-		-- Remove Studio.TerrainToolsV2.Generate.StartGeneration from localized strings when removing FFlagTerrainToolsOutputIssue
-		print(self._localization:getText("Generate", "StartGeneration",
-			tostring(sizeV3), tostring(positionV3), tostring(seed), biomesStr
-		))
-	end
-	
+
 	-- Copy the generate settings table in case it is modified whilst we are generating
 	self._generator = makeTerrainGenerator(self._terrain, {
 		position = positionV3,

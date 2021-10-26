@@ -1,7 +1,3 @@
-local Plugin = script.Parent.Parent.Parent
-
-local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
-
 local HOTSPOTS = {
 	-- Center
 	Vector3.new(0, 0, 0),
@@ -48,26 +44,14 @@ local function computeSnapPointsForBounds(cframe: CFrame, size: Vector3)
 	return newSnapPoints
 end
 
-if getFFlagPivotEditorErrors() then
-	return function(instance: Instance?): {CFrame}
-		if not instance then
-			return {}
-		elseif instance:IsA("BasePart") then
-			return computeSnapPointsForBounds(instance.CFrame, instance.Size)
-		elseif instance:IsA("Model") then
-			return computeSnapPointsForBounds(instance:GetBoundingBox())
-		else
-			return {}
-		end
-	end
-else
-	return function(instance)
-		if instance:IsA("BasePart") then
-			return computeSnapPointsForBounds(instance.CFrame, instance.Size)
-		elseif instance:IsA("Model") then
-			return computeSnapPointsForBounds(instance:GetBoundingBox())
-		else
-			return nil
-		end
+return function(instance: Instance?): {CFrame}
+	if not instance then
+		return {}
+	elseif instance:IsA("BasePart") then
+		return computeSnapPointsForBounds(instance.CFrame, instance.Size)
+	elseif instance:IsA("Model") then
+		return computeSnapPointsForBounds(instance:GetBoundingBox())
+	else
+		return {}
 	end
 end

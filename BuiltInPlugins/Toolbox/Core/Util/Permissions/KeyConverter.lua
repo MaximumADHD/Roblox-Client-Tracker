@@ -4,7 +4,7 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local KeyConverter = {}
 
@@ -24,7 +24,7 @@ end
 function KeyConverter.getInternalAction(webKey)
     if webKey == webKeys.OwnAction then
         return PermissionsConstants.OwnKey
-    elseif webKey == webKeys.UseAction and FFlagUseNewAssetPermissionEndpoint then
+    elseif webKey == webKeys.UseAction and FFlagUseNewAssetPermissionEndpoint2 then
         return PermissionsConstants.UseViewKey
     elseif webKey == webKeys.EditAction then
         return PermissionsConstants.EditKey

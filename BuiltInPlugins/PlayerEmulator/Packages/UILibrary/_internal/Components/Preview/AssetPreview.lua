@@ -1,4 +1,6 @@
--- Deprecated - remove this folder with removal of FFlagToolboxUseDevFrameworkAssetPreview and FFlagAssetManagerUseDevFrameworkAssetPreview
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	AssetPreview component is responsible for manageing the models will be displaying on the
 	ViewPortFrame.

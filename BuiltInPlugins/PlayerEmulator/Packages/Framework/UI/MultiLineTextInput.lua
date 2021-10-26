@@ -22,7 +22,6 @@
 		number TextSize: The font size of the text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local TextService = game:GetService("TextService")
 
@@ -110,15 +109,9 @@ function MultiLineTextInput:init()
 
 	self.onTextChanged = function(text)
 		self.updateCanvas()
-		if FFlagToolboxReplaceUILibraryComponentsPt2 then
-			local textInputProps = self.props.TextInputProps
-			if textInputProps and textInputProps.OnTextChanged then
-				textInputProps.OnTextChanged(text)
-			end
-		else
-			if self.props.OnTextChanged then
-				self.props.OnTextChanged(text)
-			end
+		local textInputProps = self.props.TextInputProps
+		if textInputProps and textInputProps.OnTextChanged then
+			textInputProps.OnTextChanged(text)
 		end
 	end
 

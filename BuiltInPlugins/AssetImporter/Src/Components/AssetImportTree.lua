@@ -27,13 +27,10 @@ local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsIt
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
+local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
-local STATUS_TYPE = {
-	Error = 1,
-	Warning = 2,
-}
 
 local AssetImportTree = Roact.PureComponent:extend("AssetImportTree")
 
@@ -56,72 +53,60 @@ local function generateChecked(instances)
 	return checked
 end
 
-local function generateStatuses(instances)
+local function generateStatuses(instances: {ImporterBaseSettings})
 	local statuses = {}
 
-	local function percolateDown(itemList: {ImporterBaseSettings})
-		local errorsPresent = false
-		local warningsPresent = false
+	local function getInstanceStatuses(settingsInstance)
+		local statusTable = settingsInstance:GetStatuses()
+		local errorList = statusTable.Errors
+		local warningList = statusTable.Warnings
 
-		for _, instance in pairs(itemList) do
-			local statusTable = instance:GetStatuses()
-			local errorList = statusTable.Errors
-			local warningList = statusTable.Warnings
+		local subErrors = 0
+		local subWarnings = 0
 
-			statuses[instance] = {
-				errorsCount = #errorList,
-				warningsCount = #warningList,
-				subtreeErrorsPresent = #errorList > 0,
-				subtreeWarningsPresent = #warningList > 0,
-			}
-
-			local subtreeErrorsPresent = false
-			local subtreeWarningsPresent = false
-			local children = instance:GetChildren()
-			if #children > 0 then
-				local errors, warnings = percolateDown(children)
-
-				subtreeErrorsPresent = subtreeErrorsPresent or errors
-				subtreeWarningsPresent = subtreeWarningsPresent or warnings
-			end
-
-			errorsPresent = subtreeErrorsPresent or errorsPresent or #errorList > 0
-			warningsPresent = subtreeWarningsPresent or warningsPresent or #warningList > 0
-
-			statuses[instance].subtreeErrorsPresent = subtreeErrorsPresent or statuses[instance].subtreeErrorsPresent
-			statuses[instance].subtreeWarningsPresent = subtreeWarningsPresent or statuses[instance].subtreeWarningsPresent
+		for _, child in pairs(settingsInstance:GetChildren()) do
+			getInstanceStatuses(child)
+			subErrors += statuses[child].errorsCount + statuses[child].subErrorsCount
+			subWarnings += statuses[child].warningsCount + statuses[child].subWarningsCount
 		end
 
-		return errorsPresent, warningsPresent
+		statuses[settingsInstance] = {
+			errorsCount = #errorList,
+			warningsCount = #warningList,
+			subErrorsCount = subErrors,
+			subWarningsCount = subWarnings
+		}
 	end
 
-	percolateDown(instances)
+	for _, instance in pairs(instances) do
+		getInstanceStatuses(instance)
+	end
 
 	return statuses
 end
 
 local function getStatusImage(status, statusType, layoutOrderIterator, localization)
-	local statusIcon, statusName, statusesCount, subtreeStatusesPresent
+	local statusIcon, statusName, statusesCount, subtreeStatusesCount
 
-	if statusType == STATUS_TYPE.Error then
+	if statusType == StatusLevel.Error then
 		statusIcon = "rbxasset://textures/StudioSharedUI/alert_error@2x.png"
 		statusName = localization:getText("AssetImportTree", "Errors")
 		statusesCount = status.errorsCount
-		subtreeStatusesPresent = status.subtreeErrorsPresent
-	elseif statusType == STATUS_TYPE.Warning then
+		subtreeStatusesCount = status.subErrorsCount
+	elseif statusType == StatusLevel.Warning then
 		statusIcon = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png"
 		statusName = localization:getText("AssetImportTree", "Warnings")
 		statusesCount = status.warningsCount
-		subtreeStatusesPresent = status.subtreeWarningsPresent
+		subtreeStatusesCount = status.subWarningsCount
 	end
-	
+
 	local message
 	if statusesCount > 0 then
 		local containsString = localization:getText("AssetImportTree", "Contains")
 		message = string.format(containsString, statusesCount, statusName)
-	elseif subtreeStatusesPresent then
+	elseif subtreeStatusesCount > 0 then
 		local descendantContainsString = localization:getText("AssetImportTree", "Descendants")
-		message = string.format(descendantContainsString, statusName)
+		message = string.format(descendantContainsString, subtreeStatusesCount, statusName)
 	else
 		return nil
 	end
@@ -177,8 +162,8 @@ function AssetImportTree:init()
 		if status then
 			local layoutOrderIterator = LayoutOrderIterator.new()
 
-			local errors = getStatusImage(status, STATUS_TYPE.Error, layoutOrderIterator, self.props.Localization)
-			local warnings = getStatusImage(status, STATUS_TYPE.Warning, layoutOrderIterator, self.props.Localization)
+			local errors = getStatusImage(status, StatusLevel.Error, layoutOrderIterator, self.props.Localization)
+			local warnings = getStatusImage(status, StatusLevel.Warning, layoutOrderIterator, self.props.Localization)
 
 			local width = errors and ICON_DIMENSION or 0
 			width = width + (warnings and ICON_DIMENSION or 0)
@@ -268,7 +253,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetTreeExpansion(expansion))
 		end,
 		SetChecked = function(checked)
-			dispatch(UpdateChecked(checked))			
+			dispatch(UpdateChecked(checked))
 		end,
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))

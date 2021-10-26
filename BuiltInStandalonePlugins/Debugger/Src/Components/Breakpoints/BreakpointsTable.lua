@@ -21,14 +21,32 @@ local showContextMenu = StudioUI.showContextMenu
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
+
+local Thunks = PluginFolder.Src.Thunks
+local DeleteBreakpointThunk = require(Thunks.Breakpoints.DeleteBreakpointThunk)
+local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
 
 local BUTTON_SIZE = 40
 local BUTTON_PADDING = 5
 
 function BreakpointsTable:init()
+	
+	self.state = {
+		selectedBreakpoint = {},
+	}
+	
+	self.onSelectionChange = function(selection)
+		for rowInfo in pairs(selection) do
+			self:setState({
+				selectedBreakpoint = {rowInfo},
+			})
+		end
+	end
+	
 	self.onMenuActionSelected = function(actionId, extraParameters)
 
 	end
@@ -46,6 +64,32 @@ function BreakpointsTable:init()
 			showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
 		end
 	end
+	
+	self.deleteBreakpoint = function()
+		if #self.state.selectedBreakpoint ~= 0 then
+			local BreakpointManager = game:GetService("BreakpointManager")
+			self.props.onDeleteBreakpointThunk(self.state.selectedBreakpoint[1].id, BreakpointManager)
+			
+			self:setState({
+				selectedBreakpoint = {},
+			})
+		end
+	end
+	
+	self.deleteAllBreakpoints = function()
+		local BreakpointManager = game:GetService("BreakpointManager")
+		for _, breakpoint in ipairs(self.props.Breakpoints) do
+			self.props.onDeleteBreakpointThunk(breakpoint.id, BreakpointManager)
+		end
+		self:setState({
+			selectedBreakpoint = {},
+		})
+	end
+
+	self.toggleEnabledAll = function()
+		local BreakpointManager = game:GetService("BreakpointManager")
+		self.props.onToggleEnabledAll(BreakpointManager)
+	end
 end
 
 -- Compares breakpoints based on line number
@@ -57,7 +101,6 @@ function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
-
 	local tableColumns = {
 		{
 			Name = localization:getText("BreakpointsWindow", "EnabledColumn"),
@@ -77,6 +120,9 @@ function BreakpointsTable:render()
 		}, {
 			Name = localization:getText("BreakpointsWindow", "LogMessageColumn"),
 			Key = "logMessage",
+		}, {
+			Name = localization:getText("BreakpointsWindow", "ContinueExecutionColumn"),
+			Key = "continueExecution",
 		}
 	}
 	return Roact.createElement(Pane, {
@@ -106,19 +152,19 @@ function BreakpointsTable:render()
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
-				OnClick = function() end,
+				OnClick = self.toggleEnabledAll,
 			}),
 			DeleteBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 3,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete@2x.png",
-				OnClick = function() end,
+				OnClick = self.deleteBreakpoint,
 			}),
 			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 4,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
-				OnClick = function() end,
+				OnClick = self.deleteAllBreakpoints,
 			}),
 		}),
 		TablePane = Roact.createElement(Pane, {
@@ -134,6 +180,8 @@ function BreakpointsTable:render()
 				Expansion = {},
 				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,
+				OnSelectionChange = self.onSelectionChange,
+				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoint) or nil,
 			}),
 		})
 	})
@@ -155,6 +203,18 @@ BreakpointsTable = RoactRodux.connect(
 		
 		return {
 			Breakpoints = breakpointsArray
+		}
+	end,
+	
+	function(dispatch)
+		return {
+			onDeleteBreakpointThunk = function(id, breakpointManager)
+				return dispatch(DeleteBreakpointThunk(id, breakpointManager))
+			end,
+
+			onToggleEnabledAll = function(breakpointManager)
+				return dispatch(ToggleAllBreakpoints(breakpointManager))
+			end
 		}
 	end
 )(BreakpointsTable)

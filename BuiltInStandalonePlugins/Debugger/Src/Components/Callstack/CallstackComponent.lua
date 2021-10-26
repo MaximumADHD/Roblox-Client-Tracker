@@ -206,7 +206,7 @@ function CallstackComponent:init()
 		-- and right clicked row is one of the selected rows
 		if not self.state.selectAll or (row.item.threadId and row.item.threadId ~= self.props.CurrentThreadId) then
 			self:setState({
-				selectedRows = row.item,
+				selectedRows = {row.item},
 				selectAll = false
 			})
 		end

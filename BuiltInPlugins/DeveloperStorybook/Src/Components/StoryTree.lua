@@ -2,7 +2,6 @@
 	Display a list of available targets
 ]]
 local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -83,7 +82,7 @@ function StoryTree:render()
 			RenderRow = self.renderRow,
 			Size = UDim2.fromScale(1, 1),
 			Expansion = props.Expansion,
-			Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+			Style = "BorderBox",
 		})
 	})
 end

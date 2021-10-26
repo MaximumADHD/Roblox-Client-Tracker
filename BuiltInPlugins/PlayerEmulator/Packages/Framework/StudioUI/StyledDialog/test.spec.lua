@@ -1,4 +1,4 @@
-local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
+local FFlagDevFrameworkStyledDialogStyleModifier = game:GetFastFlag("DevFrameworkStyledDialogStyleModifier")
 
 return function()
 	local Framework = script.Parent.Parent.Parent
@@ -61,18 +61,42 @@ return function()
 			Roact.unmount(instance)
 		end)
 
+		it("should render properly for FullBleed", function()
+			local element = TestHelpers.provideMockContext(nil, {
+				StyledDialog = Roact.createElement(StyledDialog, {
+					Title = "Test4",
+					MinContentSize = Vector2.new(400, 400),
+					Buttons = {
+						{ Key = "ok", String = "OK" },
+					},
+					Style = "FullBleed",
+					OnButtonPressed = function() end,
+					OnClose = function() end,
+				})
+			})
+			local instance = Roact.mount(element)
+			Roact.unmount(instance)
+		end)
 
-		if FFlagDevFrameworkStyledDialogFullBleed then
-			it("should render properly for FullBleed", function()
+		if FFlagDevFrameworkStyledDialogStyleModifier then
+			local Util = require(Framework).Util
+			local StyleModifier = Util.StyleModifier
+			it("should render buttons with style modifiers", function()
 				local element = TestHelpers.provideMockContext(nil, {
 					StyledDialog = Roact.createElement(StyledDialog, {
-						Title = "Test4",
+						Title = "Test5",
 						MinContentSize = Vector2.new(400, 400),
 						Buttons = {
-							{ Key = "ok", String = "OK" },
+							{
+								Key = "accept",
+								String = "Accept",
+								Style = "RoundPrimary",
+								StyleModifier = StyleModifier.Disabled,
+							},
+							{ Key = "cancel", String = "Cancel" },
 						},
-						Style = "FullBleed",
-						OnButtonPressed = function() end,
+						Style = "AcceptCancel",
+						OnButtonPressed = function(_) end,
 						OnClose = function() end,
 					})
 				})

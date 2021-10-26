@@ -6,7 +6,6 @@
 
 -- New Plugin Setup: Define initial fast flag
 game:DefineFastFlag("StudioDebuggerPluginEditBreakpoint_alpha", false)
-game:DefineFastFlag("StudioDebuggerPluginBreakpointsWindow", false)
 game:DefineFastFlag("DebugPopulateDebuggerPlugin", false)
 
 return nil

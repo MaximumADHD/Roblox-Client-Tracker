@@ -1,3 +1,6 @@
+local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
+local FFlagDevFrameworkExpandablePaneSectionStyle = game:GetFastFlag("DevFrameworkExpandablePaneSectionStyle")
+
 local Framework = script.Parent.Parent.Parent
 
 local FrameworkStyle = Framework.Style
@@ -25,7 +28,39 @@ if THEME_REFACTOR then
 	local roundBox = pane["&RoundBox"]
 	local borderBox = pane["&BorderBox"]
 
-	local default = {
+	local default = FFlagDevFrameworkRefactorExpandablePaneHeader and {
+		Content = {
+			Padding = {
+				Left = 18,
+				Top = 10,
+				Right = 18,
+				Bottom = 10,
+			},
+			Spacing = 10,
+		},
+		Header = {
+			Arrow = {
+				Color = StyleKey.DimmedText,
+				Image = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
+				Size = UDim2.fromOffset(12, 12),
+				[StyleModifier.Selected] = {
+					Image = "rbxasset://textures/DeveloperFramework/button_arrow_down.png",
+				},
+			},
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Padding = {
+				Left = 10,
+				Right = 10,
+			},
+			Size = UDim2.new(1, 0, 0, 32),
+			Spacing = 6,
+			Text = join(common.MainText, {
+				Font = Enum.Font.SourceSansBold,
+				TextColor = StyleKey.TitlebarText,
+			}),
+			VerticalAlignment = Enum.VerticalAlignment.Center,
+		}
+	} or {
 		Arrow = {
 			AnchorPoint = Vector2.new(0, 0.5),
 			Color = StyleKey.DimmedText,
@@ -55,6 +90,11 @@ if THEME_REFACTOR then
 		["&Box"] = box,
 		["&BorderBox"] = borderBox,
 		["&RoundBox"] = roundBox,
+		["&Section"] = FFlagDevFrameworkRefactorExpandablePaneHeader and FFlagDevFrameworkExpandablePaneSectionStyle and join(box, {
+			Header = join(default.Header, {
+				Background = StyleKey.Titlebar,
+			}),
+		}) or nil,
 	})
 else
 	return function(theme, getColor)

@@ -4,10 +4,10 @@
 local FFlagDeveloperStorybookDeduplicatePackages = game:GetFastFlag("DeveloperStorybookDeduplicatePackages")
 if FFlagDeveloperStorybookDeduplicatePackages then
 	local PackageIndex = script.Parent._Index
-	local Package = require(PackageIndex["roblox_roact"]["roact"])
+	local Package = require(PackageIndex["Roact"]["Roact"])
 	return Package
 else
 	local PackageIndex = script.Parent._IndexOld
-	return require(PackageIndex["roblox_roact"]["roact"])
+	return require(PackageIndex["Roact"]["Roact"])
 end
 

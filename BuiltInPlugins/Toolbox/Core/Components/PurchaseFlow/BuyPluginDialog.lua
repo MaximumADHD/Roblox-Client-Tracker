@@ -23,8 +23,6 @@ local PurchaseDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseDialo
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 
-local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
-
 local BuyPluginDialog = Roact.PureComponent:extend("BuyPluginDialog")
 
 function BuyPluginDialog:render()
@@ -37,7 +35,7 @@ function BuyPluginDialog:render()
 		local creator = props.Creator
 		local cost = props.Cost
 		local balance = props.Balance
-		local primaryString = FFlagToolboxUseDevFrameworkDialogs and "RoundPrimary" or "Primary"
+		local primaryString = "RoundPrimary"
 
 		return Roact.createElement(PurchaseDialog, {
 			Buttons = {

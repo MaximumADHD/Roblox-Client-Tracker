@@ -1,18 +1,26 @@
 local Src = script.Parent.Parent.Parent
+local Actions = Src.Actions
+local AddThreadId = require(Actions.Callstack.AddThreadId)
+local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
+local Resumed = require(Actions.Common.Resumed)
+local BreakpointHitAction = require(Actions.Common.BreakpointHit)
+local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
+local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
 
-local AddThreadId = require(Src.Actions.Callstack.AddThreadId)
-local SetCurrentThread = require(Src.Actions.Callstack.SetCurrentThread)
-local Resumed = require(Src.Actions.Common.Resumed)
-local RequestCallstackThunk = require(Src.Thunks.RequestCallstackThunk)
+local Models = Src.Models
+local DebuggerStateToken = require(Models.DebuggerStateToken)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
 
 function DebugConnectionListener:onExecutionPaused(connection, pausedState, debuggerPauseReason)
-	local threadState = connection:GetThreadById(pausedState.ThreadId)
+	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local state = self.store:getState()
 	local common = state.Common
-	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] or 
+		DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
+	self.store:dispatch(BreakpointHitAction(dst, pausedState.ThreadId))
+	local threadState = connection:GetThreadById(pausedState.ThreadId)
 	self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
 	self.store:dispatch(RequestCallstackThunk(threadState, connection, dst))
 	self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
@@ -21,11 +29,12 @@ end
 function DebugConnectionListener:onExecutionResumed(connection, pausedState)
 	local state = self.store:getState()
 	local common = state.Common
-	local dst = state.common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	self.store:dispatch(Resumed(dst, pausedState.ThreadId))
 end
 
 function DebugConnectionListener:connectEvents(debuggerConnectionId, connection)
+	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local connectionEvents = {}
 	connectionEvents["paused"] = connection.Paused:Connect(function(pausedState, debuggerPauseReason) 
 		self:onExecutionPaused(connection, pausedState, debuggerPauseReason)
@@ -79,12 +88,12 @@ function DebugConnectionListener:destroy()
 	
 	if self._connectionEndedConnection then
 		self._connectionEndedConnection:Disconnect()
-		self._connectionStartedConnection = nil
+		self._connectionEndedConnection = nil
 	end
 	
 	if self._focusChangedConnection then
 		self._focusChangedConnection:Disconnect()
-		self._connectionStartedConnection = nil
+		self._focusChangedConnection = nil
 	end
 
 	for id, connection in pairs(self.debuggerConnections) do

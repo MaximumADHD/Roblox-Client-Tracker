@@ -25,6 +25,7 @@ local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPubli
 local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local Theme = {}
 
@@ -524,6 +525,17 @@ function Theme.createValues(theme, getColor)
 				},
 				padding = 10,
 				width = 140,
+			} or nil,
+
+			playabilityWidget = FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
+				buttonPane = {
+					padding = 165,
+					spacing = 20,
+				},
+				spacing = 45,
+				titlePane = {
+					spacing = 15,
+				},
 			} or nil,
 		}),
 

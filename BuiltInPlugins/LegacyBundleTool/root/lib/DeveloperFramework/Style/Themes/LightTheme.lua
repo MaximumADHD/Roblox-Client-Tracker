@@ -5,6 +5,7 @@ local Colors = require(Framework.Style.Colors)
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagDevFrameworkFixInputFieldColors = game:GetFastFlag("DevFrameworkFixInputFieldColors")
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 return {
 	[StyleKey.Border] = Color3.fromRGB(182, 182, 182),
@@ -63,6 +64,7 @@ return {
 	[StyleKey.SubBackground] = Colors.Gray_Lighter,
 	[StyleKey.SubBackground2] = Colors.Gray_Lightest,
 
+	[StyleKey.RadioButtonDisabledImage] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png" or nil,
 	[StyleKey.RibbonTab] = Color3.fromRGB(243, 243, 243),
 
 	[StyleKey.ScrollBarBackground] = Color3.fromRGB(238, 238, 238),

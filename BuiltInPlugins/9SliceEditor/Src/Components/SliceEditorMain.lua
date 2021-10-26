@@ -15,8 +15,8 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
-local Constants = require(Plugin.Src.Util.Constants)
 local Orientation = require(Plugin.Src.Util.Orientation)
+local MouseCursorManager = require(Plugin.Src.Util.MouseCursorManager)
 
 local Components = Plugin.Src.Components
 local ImageEditor = require(Components.ImageEditor)
@@ -139,6 +139,8 @@ end
 function SliceEditor:didMount()
 	self.sliceCenterChangedSignal = self.props.selectedObject:GetPropertyChangedSignal("SliceCenter"):Connect(
 		self.onSliceCenterChanged)
+
+	MouseCursorManager.resetCursor(self.props.Mouse)
 end
 
 function SliceEditor:willUnmount()
@@ -151,6 +153,8 @@ end
 function SliceEditor:render()
 	-- Renders SliceEditor as a pane, ImageEditor, TextEditor, and Close/Revert
 	local props = self.props
+	local style = props.Stylizer
+
 	local selectedObject = props.selectedObject
 	local pixelDimensions = props.pixelDimensions
 	local setSliceRect = self.setSliceRect
@@ -161,34 +165,67 @@ function SliceEditor:render()
 
 	return Roact.createElement(Pane, {
 		Style = "Box",
+		Size = UDim2.fromScale(1, 1),
+		Position = UDim2.fromOffset(0, 0),
 	}, {
-		ImageEditorComponent = Roact.createElement(ImageEditor, {
-			selectedObject = selectedObject,
-			pixelDimensions = pixelDimensions,
-			setSliceRect = setSliceRect,
-			sliceRect = sliceRect,
-		}),
-		TextEditorComponent = Roact.createElement(TextEditor, {
-			pixelDimensions = pixelDimensions,
-			setSliceRect = setSliceRect,
-			sliceRect = sliceRect,
-		}),
-		revertButton = Roact.createElement(Button, {
-			AnchorPoint = Vector2.new(0, 1),
-			OnClick = self.onRevert,
-			Position = UDim2.new(0.5, Constants.BUTTON_FROMCENTER_PADDING, 1, -Constants.BUTTON_FROMEDGE_PADDING),
-			Size = buttonStyle.Size,
-			Style = buttonStyle.Style,
-			StyleModifier = revertDisabled and StyleModifier.Disabled or nil,
-			Text = localization:getText("SliceEditor", "RevertButton"),
-		}),
-		closeButton = Roact.createElement(Button, {
-			AnchorPoint = Vector2.new(1, 1),
-			OnClick = props.onClose,
-			Position = UDim2.new(0.5, -Constants.BUTTON_FROMCENTER_PADDING, 1, -Constants.BUTTON_FROMEDGE_PADDING),
-			Size = buttonStyle.Size,
-			Style = buttonStyle.Style,
-			Text = localization:getText("SliceEditor", "CloseButton"),
+		EntireFrame = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+		}, {
+			VerticalLayout = Roact.createElement(Pane, {
+				Layout = Enum.FillDirection.Vertical,
+				Spacing = style.VerticalSpacing,
+			}, {
+				ImageArea = Roact.createElement(Pane, {
+					LayoutOrder = 1,
+					Layout = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					Spacing = style.HorizontalSpacing,
+					Size = style.ImageAreaSize,
+				}, {
+					ImageEditorComponent = Roact.createElement(ImageEditor, {
+						layoutOrder = 1,
+						selectedObject = selectedObject,
+						pixelDimensions = pixelDimensions,
+						setSliceRect = setSliceRect,
+						sliceRect = sliceRect,
+						position = style.ImageEditorPos,
+					}),
+					TextEditorComponent = Roact.createElement(TextEditor, {
+						layoutOrder = 2,
+						pixelDimensions = pixelDimensions,
+						setSliceRect = setSliceRect,
+						sliceRect = sliceRect,
+						position = style.TextEditorPos,
+					}),
+				}),
+
+				ButtonsArea = Roact.createElement(Pane, {
+					LayoutOrder = 2,
+					Layout = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+					Size = style.ButtonsAreaSize,
+					Position = UDim2.fromOffset(0, style.ButtonsAreaYPos),
+					Spacing = style.ButtonsSpacing,
+				}, {
+					RevertButton = Roact.createElement(Button, {
+						OnClick = self.onRevert,
+						Size = buttonStyle.Size,
+						Style = buttonStyle.Style,
+						StyleModifier = revertDisabled and StyleModifier.Disabled or nil,
+						Text = localization:getText("SliceEditor", "RevertButton"),
+					}),
+					CloseButton = Roact.createElement(Button, {
+						OnClick = props.onClose,
+						Size = buttonStyle.Size,
+						Style = buttonStyle.Style,
+						Text = localization:getText("SliceEditor", "CloseButton"),
+					}),
+				})
+			}),
 		}),
 	})
 end
@@ -197,6 +234,7 @@ SliceEditor = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = ContextServices.Stylizer,
+	Mouse = ContextServices.Mouse,
 })(SliceEditor)
 
 return SliceEditor

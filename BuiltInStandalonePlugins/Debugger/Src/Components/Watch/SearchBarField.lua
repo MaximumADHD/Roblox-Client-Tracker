@@ -6,7 +6,7 @@ local Framework = require(Plugin.Packages.Framework)
 local StudioUI = Framework.StudioUI
 local SearchBar = StudioUI.SearchBar
 
-local FilterWatchDataThunk = require(Plugin.Src.Thunks.FilterWatchDataThunk)
+local FilterWatchDataThunk = require(Plugin.Src.Thunks.Watch.FilterWatchDataThunk)
 
 local SearchBarField = Roact.PureComponent:extend("SearchBarField")
 

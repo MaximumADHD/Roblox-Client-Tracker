@@ -8,9 +8,8 @@ require(script.Parent.defineLuaFlags)
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
-local FFlagEnablePlayerEmulatorStylizer = game:GetFastFlag("EnablePlayerEmulatorStylizer")
 local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = FFlagEnablePlayerEmulatorStylizer
+RefactorFlags.THEME_REFACTOR = true
 
 local PlayerEmulatorPlugin = require(Plugin.Src.Components.PlayerEmulatorPlugin)
 

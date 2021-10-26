@@ -9,8 +9,6 @@ local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local DraggerSchemaCore = require(Packages.DraggerSchemaCore.DraggerSchema)
 
-local getFFlagPivotExclusiveSelection = require(Plugin.Src.Flags.getFFlagPivotExclusiveSelection)
-
 local DraggerSchema = {
 	SelectionInfo = require(script.Parent.SelectionInfo),
 	BoundsChangedTracker = require(script.Parent.BoundsChangedTracker),
@@ -19,7 +17,7 @@ local DraggerSchema = {
 	RotateHandlesImplementation = require(script.Parent.RotateHandlesImplementation),
 	FreeformDragger = require(script.Parent.FreeformDragger),
 	
-	isExclusiveSelectable = getFFlagPivotExclusiveSelection() and DraggerSchemaCore.isExclusiveSelectable or require(script.Parent.isExclusiveSelectable),
+	isExclusiveSelectable = DraggerSchemaCore.isExclusiveSelectable,
 	getMouseTarget = DraggerSchemaCore.getMouseTarget,
 	getNextSelectables = DraggerSchemaCore.getNextSelectables,
 	Selection = DraggerSchemaCore.Selection,

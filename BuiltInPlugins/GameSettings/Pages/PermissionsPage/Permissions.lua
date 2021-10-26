@@ -1,5 +1,6 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -13,6 +14,9 @@ local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Separator = require(Plugin.Framework).UI.Separator
+local Pane = require(Plugin.Framework).UI.Pane
+local RadioButtonList = require(Plugin.Framework).UI.RadioButtonList
+local TextLabel = require(Plugin.Framework).UI.Decoration.TextLabel
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
@@ -245,12 +249,17 @@ function Permissions:render()
 		local DEPRECATED_canUserSeeCollaborators = false
 		if not FFlagUXImprovementsShowUserPermsWhenCollaborator2 then
 			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators
-			-- group games show existing individual collaboraters; they can be removed but not edited
+			-- group games show existing individual collaborators; they can be removed but not edited
 			local DEPRECATED_canUserRemoveCollaborators = self:isLoggedInUserGameOwner() and self:isTeamCreate()
 			DEPRECATED_canUserSeeCollaborators = canUserEditCollaborators or DEPRECATED_canUserRemoveCollaborators
 		end
 
-		local playabilityButtons = {
+		-- once user changes to public and has monetize enabled the playability button will be disabled
+		local playabilityEnabled
+		if FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+			playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		end
+		local playabilityButtons = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
 			{
 				Id = true,
 				Title = localization:getText("General", "PlayabilityPublic"),
@@ -260,13 +269,34 @@ function Permissions:render()
 				Title = localization:getText("General", "PlayabilityPrivate"),
 				Description = localization:getText("General", "PlayabilityPrivateDesc"),
 			},
+		} or {
+			{
+				Description = localization:getText("General", "PlayabilityPublicDesc"),
+				Disabled = not playabilityEnabled,
+				Key = true,
+				Text = localization:getText("General", "PlayabilityPublic"),
+			}, {
+				Description = localization:getText("General", "PlayabilityPrivateDesc"),
+				Disabled = not playabilityEnabled,
+				Key = false,
+				Text = localization:getText("General", "PlayabilityPrivate"),
+			},
 		}
 		if not self:isGroupGame() then
-			table.insert(playabilityButtons, 1, {
-				Id = "Friends",
-				Title = localization:getText("General", "PlayabilityFriends"),
-				Description = localization:getText("General", "PlayabilityFriendsDesc"),
-			})
+			if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+				table.insert(playabilityButtons, 1, {
+					Id = "Friends",
+					Title = localization:getText("General", "PlayabilityFriends"),
+					Description = localization:getText("General", "PlayabilityFriendsDesc"),
+				})
+			else
+				table.insert(playabilityButtons, 1, {
+					Description = localization:getText("General", "PlayabilityFriendsDesc"),
+					Disabled = not playabilityEnabled,
+					Key = "Friends",
+					Text = localization:getText("General", "PlayabilityFriends"),
+				})
+			end
 		end
 
 		local teamCreateWarningVisible
@@ -277,11 +307,13 @@ function Permissions:render()
 		end
 
 		-- once user change to public and have the monetize enabled the plability button will be disabled
-		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+			playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		end
 		local playabilityWarningVisible = not playabilityEnabled
 
 		return {
-			Playability = Roact.createElement(RadioButtonSet, {
+			Playability = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(RadioButtonSet, {
 				Title = localization:getText("General", "TitlePlayability"),
 				Description = localization:getText("General", "PlayabilityHeader"),
 				LayoutOrder = 10,
@@ -304,6 +336,79 @@ function Permissions:render()
 				end,
 
 				Warning = playabilityWarningVisible and localization:getText("AccessPermissions", "PlayabilityWarning"),
+			}),
+
+			PlayabilityWidget = FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				Layout = Enum.FillDirection.Vertical,
+				Spacing = theme.playabilityWidget.spacing,
+			}, {
+				TitlePane = Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Layout = Enum.FillDirection.Horizontal,
+					Spacing = theme.playabilityWidget.titlePane.spacing,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}, {
+					Title = Roact.createElement(TextLabel, {
+						BackgroundTransparency = 1,
+						Style = "SubText",
+						Text = localization:getText("General", "TitlePlayability"),
+						TextSize = theme.fontStyle.Subtitle.TextSize,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}),
+					ButtonsFrame = Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						Layout = Enum.FillDirection.Vertical,
+						Padding = {
+							Left = theme.playabilityWidget.buttonPane.padding,
+						},
+						Spacing = theme.playabilityWidget.buttonPane.spacing,
+					}, {
+						Header = Roact.createElement(TextLabel, {
+							BackgroundTransparency = 1,
+							LayoutOrder = 0,
+							Style = "Title",
+							Text = localization:getText("General", "PlayabilityHeader"),
+							TextColor = playabilityWarningVisible and theme.fontStyle.Subtitle.TextColor3 or nil,
+							TextSize = theme.fontStyle.Subtitle.TextSize,
+							TextXAlignment = Enum.TextXAlignment.Left,
+						}),
+						VerticalList = Roact.createElement(RadioButtonList, {
+							Buttons = playabilityButtons,
+							FillDirection = Enum.FillDirection.Vertical,
+							LayoutOrder = 1,
+							OnClick = function(key)
+								if key == "Friends" then
+									isFriendsOnlyChanged(true)
+									isActiveChanged(true, false)
+								else
+									isFriendsOnlyChanged(false)
+									local willShutdown = (function()
+										return isCurrentlyActive and not key
+									end)()
+									isActiveChanged(key, willShutdown)
+								end
+							end,
+							SelectedKey = isFriendsOnly and "Friends" or isActive,
+							TextSize = {
+								Description = theme.fontStyle.Subtext.TextSize,
+								MainText = theme.fontStyle.Normal.TextSize,
+							},
+						}),
+					})
+				}),
+				PlayabilityWarning = playabilityWarningVisible and Roact.createElement(TextLabel, {
+					BackgroundTransparency = 1,
+					LayoutOrder = 15,
+					Style = "SubText",
+					Text = localization:getText("AccessPermissions", "PlayabilityWarning"),
+					TextColor = theme.warningColor,
+					TextSize = theme.fontStyle.Subtitle.TextSize,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
 			}),
 
 			Separator1 = Roact.createElement(Separator, {

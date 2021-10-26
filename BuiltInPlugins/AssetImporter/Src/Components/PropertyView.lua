@@ -9,10 +9,13 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Localization = ContextServices.Localization
+local Stylizer = ContextServices.Stylizer
 
 local UI = Framework.UI
+local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
+local Tooltip = UI.Tooltip
 
 local Properties = script.Parent.Properties
 local BooleanProperty = require(Properties.BooleanProperty)
@@ -22,6 +25,7 @@ local StringProperty = require(Properties.StringProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
+local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
@@ -30,6 +34,21 @@ local ELEMENT_CLASSES = {
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
 }
+
+local function getHighestSeverityStatus(instance)
+	local statuses = instance:GetStatuses()
+	local level = nil
+	local message = ""
+	if #statuses.Errors > 0 then
+		level = StatusLevel.Error
+		message = statuses.Errors[1].StatusType
+	elseif #statuses.Warnings > 0 then
+		level = StatusLevel.Warning
+		message = statuses.Warnings[1].StatusType
+	end
+
+	return level, message
+end
 
 local function GetPropertyComponent(instance)
 	local constructor = ELEMENT_CLASSES[type(instance)]
@@ -126,29 +145,58 @@ end
 function PropertyView:render()
 	local props = self.props
 	local localization = props.Localization
+	local style = props.Stylizer
 
 	local editable = props.Editable
-	local value = props.Instance[props.PropertyName]
+	local instance = props.Instance
+	local value = instance[props.PropertyName]
 
 	local dependentValues
 	if self.props.Dependencies then
-		dependentValues = getDependentValues(self.props.Dependencies, props.Instance)
+		dependentValues = getDependentValues(self.props.Dependencies, instance)
 	end
+
+	local iconSize = style.PropertyView.IconSize
+	local spacing = style.PropertyView.Spacing
+
+	local statusLevel, message = getHighestSeverityStatus(instance)
+	local statusIcon = nil
+
+	if statusLevel then
+		local iconStyle = statusLevel == StatusLevel.Error and style.ErrorIcon or style.WarningIcon
+		statusIcon = Roact.createElement(Image, {
+			Size = UDim2.fromOffset(iconSize, iconSize),
+			Style = iconStyle,
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				Text = message,
+			})
+		})
+	end
+
+	local labelOffset = iconSize + spacing
 
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, 28),
 		Layout = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
-		Spacing = 4,
 	}, {
+		StatusArea = Roact.createElement(Pane, {
+			HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			Layout = Enum.FillDirection.Horizontal,
+			LayoutOrder = 1,
+			Size = UDim2.new(0, labelOffset, 1, 0),
+		}, {
+			Icon = statusIcon,
+		}),
 		Label = Roact.createElement(TextLabel, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Text = localization:getText("Properties", props.PropertyName),
 			TextWrapped = false,
 			TextXAlignment = Enum.TextXAlignment.Left,
-			LayoutOrder = 1,
-			Size = UDim2.fromScale(0.5, 0),
+			LayoutOrder = 2,
+			Size = UDim2.new(0.5, -labelOffset, 0, 0),
 		}),
 		Editor = Roact.createElement(GetPropertyComponent(value), {
 			Value = value,
@@ -165,6 +213,7 @@ end
 
 PropertyView = withContext({
 	Localization = Localization,
+	Stylizer = Stylizer,
 })(PropertyView)
 
 local function mapStateToProps(state)

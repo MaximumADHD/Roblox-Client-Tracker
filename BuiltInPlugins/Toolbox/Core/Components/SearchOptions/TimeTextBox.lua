@@ -14,7 +14,6 @@
 		UDim2 position: the position of the component.
 		UDim2 size: the size of the component.
 ]]
-local FFlagToolboxFixOneSecondAudioMaxDuration = game:GetFastFlag("ToolboxFixOneSecondAudioMaxDuration")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
@@ -94,8 +93,7 @@ function TimeTextBox:init()
 		local sec = self.sec
 		local totalSeconds = self.totalSeconds
 
-		if (not FFlagToolboxFixOneSecondAudioMaxDuration and totalSeconds == 0)
-		or (totalSeconds == self.props.defaultValue) then
+		if (totalSeconds == self.props.defaultValue) then
 			renderMin = ""
 			renderSec = ""
 		else

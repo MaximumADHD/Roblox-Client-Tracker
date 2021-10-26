@@ -1,4 +1,3 @@
-local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
@@ -238,10 +237,10 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			}
 		},
 
-		purchaseDialog = FFlagToolboxUseDevFrameworkDialogs and {
+		purchaseDialog = {
 			promptText = StyleKey.MainText,
 			balanceText = StyleKey.DimmedText,
-		} or nil,
+		},
 
 		assetConfig = {
 			labelTextColor = StyleKey.DimmedText,

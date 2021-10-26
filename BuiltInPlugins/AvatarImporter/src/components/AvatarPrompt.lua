@@ -24,7 +24,7 @@ local Studio = settings().Studio
 local AvatarPrompt = Roact.Component:extend("AvatarPrompt")
 
 function AvatarPrompt:render()
-	local showImportRequirements = not game:GetFastFlag("RemoveImportRequirements")
+	local showImportRequirements = false
 	return Roact.createElement("Frame", {
 		Name = "AvatarPrompt",
 		Size = UDim2.new(1, 0, 1, 0),

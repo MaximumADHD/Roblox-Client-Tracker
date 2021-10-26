@@ -10,7 +10,7 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
-local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
@@ -245,7 +245,7 @@ function Analytics.onToolboxDisplayed()
 	})
 end
 
-if FFlagToolboxShowMeshAndTextureId then
+if FFlagToolboxShowMeshAndTextureId2 then
 	function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)
 		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", eventName, {
 			assetId = assetId,

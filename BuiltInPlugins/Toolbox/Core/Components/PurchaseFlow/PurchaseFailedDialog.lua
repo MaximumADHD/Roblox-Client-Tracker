@@ -9,7 +9,6 @@
 		function OnClose = A callback for when the dialog is closed.
 ]]
 
-local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -19,33 +18,20 @@ local Roact = require(Libs.Roact)
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local StyledDialog
-if FFlagToolboxUseDevFrameworkDialogs then
-	local StudioUI = require(Libs.Framework).StudioUI
-	StyledDialog = StudioUI.StyledDialog
-else
-	local UILibrary = require(Libs.UILibrary)
-	StyledDialog = UILibrary.Component.StyledDialog
-end
+local StudioUI = require(Libs.Framework).StudioUI
+local StyledDialog = StudioUI.StyledDialog
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Constants = require(Plugin.Core.Util.Constants)
 local Dialog = Constants.Dialog
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local PurchaseDialog = Roact.PureComponent:extend("PurchaseDialog")
 
 function PurchaseDialog:render()
 	return withLocalization(function(localization, localizedContent)
-		if FFlagToolboxUseDevFrameworkDialogs then
-			return self:renderContent(nil, localization, localizedContent)
-		else
-			return withTheme(function(theme)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end
+		return self:renderContent(nil, localization, localizedContent)
 	end)
 end
 
@@ -55,54 +41,29 @@ function PurchaseDialog:renderContent(theme, localization, localizedContent)
 		local onClose = props.OnClose
 		local name = props.Name
 
-		if FFlagToolboxUseDevFrameworkDialogs then
-			theme = self.props.Stylizer
-		end
+		theme = self.props.Stylizer
 
-		local styledDialogProps
-		if FFlagToolboxUseDevFrameworkDialogs then
-			styledDialogProps = {
-				AutomaticSize = FFlagToolboxUseDevFrameworkDialogs and Enum.AutomaticSize.Y or nil,
-				Title = localizedContent.PurchaseFlow.BuyTitle,
-				MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.DETAILS_SIZE.Y.Offset),
-				Buttons = {
-					{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-					{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "RoundPrimary"},
-				},
-				OnButtonPressed = onButtonClicked,
-				OnClose = onClose,
-			}
-		else
-			styledDialogProps = {
-				Buttons = {
-					{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-					{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "Primary"},
-				},
-				OnButtonClicked = onButtonClicked,
-				OnClose = onClose,
-				Size = Dialog.SIZE,
-				Resizable = false,
-				BorderPadding = Dialog.BORDER_PADDING,
-				ButtonHeight = Dialog.BUTTON_SIZE.Y,
-				ButtonWidth = Dialog.BUTTON_SIZE.X,
-				ButtonPadding = Dialog.BUTTON_PADDING,
-				TextSize = Constants.FONT_SIZE_LARGE,
-				Title = localizedContent.PurchaseFlow.BuyTitle,
-				Modal = false,
-			}
-		end
-
-		return Roact.createElement(StyledDialog, styledDialogProps, {
-			UIListLayout = FFlagToolboxUseDevFrameworkDialogs and Roact.createElement("UIListLayout", {
+		return Roact.createElement(StyledDialog, {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Title = localizedContent.PurchaseFlow.BuyTitle,
+			MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.DETAILS_SIZE.Y.Offset),
+			Buttons = {
+				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
+				{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "RoundPrimary"},
+			},
+			OnButtonPressed = onButtonClicked,
+			OnClose = onClose,
+		}, {
+			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				SortOrder = Enum.SortOrder.LayoutOrder
 			}),
 
 			Header = Roact.createElement("TextLabel", {
-				AutomaticSize = FFlagToolboxUseDevFrameworkDialogs and Enum.AutomaticSize.Y or nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = Dialog.HEADER_SIZE,
 				BackgroundTransparency = 1,
-				LayoutOrder = FFlagToolboxUseDevFrameworkDialogs and 1 or nil,
+				LayoutOrder = 1,
 
 				Text = localizedContent.PurchaseFlow.FailedHeader,
 				TextSize = Constants.FONT_SIZE_TITLE,
@@ -113,12 +74,12 @@ function PurchaseDialog:renderContent(theme, localization, localizedContent)
 			}),
 
 			Details = Roact.createElement("TextLabel", {
-				AutomaticSize = FFlagToolboxUseDevFrameworkDialogs and Enum.AutomaticSize.Y or nil,
+				AutomaticSize = Enum.AutomaticSize.Y,
 				Size = Dialog.DETAILS_SIZE,
 				Position = Dialog.DETAILS_POSITION,
 				AnchorPoint = Vector2.new(0, 0.5),
 				BackgroundTransparency = 1,
-				LayoutOrder = FFlagToolboxUseDevFrameworkDialogs and 2 or nil,
+				LayoutOrder = 2,
 
 				Text = localization:getPurchaseFailedDetails(name),
 				TextSize = Constants.FONT_SIZE_LARGE,
@@ -130,17 +91,14 @@ function PurchaseDialog:renderContent(theme, localization, localizedContent)
 		})
 end
 
-if FFlagToolboxUseDevFrameworkDialogs then
-	if FFlagToolboxWithContext then
-		PurchaseDialog = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(PurchaseDialog)
-	else
-		ContextServices.mapToProps(PurchaseDialog, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxWithContext then
+	PurchaseDialog = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(PurchaseDialog)
+else
+	ContextServices.mapToProps(PurchaseDialog, {
+		Stylizer = ContextServices.Stylizer,
+	})
 end
 
 return PurchaseDialog

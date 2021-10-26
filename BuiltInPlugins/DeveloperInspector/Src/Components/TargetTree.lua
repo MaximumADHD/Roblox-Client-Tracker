@@ -2,7 +2,6 @@
 	Display a list of available targets
 ]]
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -37,11 +36,11 @@ function TargetTree:init()
 
 		local inspector = self.props.Inspector:get()
 		local roactInspectorApi = inspector:attachRoactTree(target.BridgeId, target.Id)
-		
+
 		-- Load the root of the roact tree
 		roactInspectorApi:getRoot()
 		self.props.selectTarget(target)
-		
+
 		UserInputService.MouseIconEnabled = true
 	end
 end
@@ -64,7 +63,7 @@ function TargetTree:render()
 		OnExpansionChange = props.toggleTarget,
 		OnSelectionChange = self.onSelectTarget,
 		Size = UDim2.new(1, 0, 1, 0),
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 	})
 end
 

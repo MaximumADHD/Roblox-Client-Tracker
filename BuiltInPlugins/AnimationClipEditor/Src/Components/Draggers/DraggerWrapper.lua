@@ -18,10 +18,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
-local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
-local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 
@@ -36,9 +34,7 @@ end
 function DraggerWrapper:willUpdate(nextProps)
 	local props = self.props
 	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
-		if GetFFlagRevertExplorerSelection() then
-			self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
-		end
+		self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
 		if not GetFFlagCreateSelectionBox() then
 			Selection:Set(nextProps.SelectedTrackInstances)
 		end
@@ -131,16 +127,7 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		SetSelectedTrackInstances = function(tracks)
-			local trackNames = {}
-			if not GetFFlagRevertExplorerSelection() then
-				for index, track in pairs(tracks) do
-					trackNames[index] = track.Name
-				end
-			end
 			dispatch(SetSelectedTrackInstances(tracks))
-			if not GetFFlagRevertExplorerSelection() then
-				dispatch(SetSelectedTracks(trackNames))
-			end
 		end,
 
 		ValueChanged = function(instanceName, trackName, trackType, tick, value, analytics)

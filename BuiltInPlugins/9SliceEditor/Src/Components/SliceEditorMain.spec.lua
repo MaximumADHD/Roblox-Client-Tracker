@@ -43,7 +43,7 @@ return function()
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
-			Size = UDim2.fromOffset(Constants.DIALOG_SIZE.x, Constants.DIALOG_SIZE.y),
+			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
 				SliceEditor = Roact.createElement(SliceEditor, {
 					selectedObject = imageLabel,
@@ -80,7 +80,7 @@ return function()
 		-- Mounts and unmounts 9 slice editor
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
-			Size = UDim2.fromOffset(Constants.DIALOG_SIZE.x, Constants.DIALOG_SIZE.y),
+			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
 				SliceEditor = Roact.createElement(SliceEditor, {
 					selectedObject = imageLabel,
@@ -110,7 +110,7 @@ return function()
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
-			Size = UDim2.fromOffset(Constants.DIALOG_SIZE.x, Constants.DIALOG_SIZE.y),
+			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
 				SliceEditor = Roact.createElement(SliceEditor, {
 					selectedObject = imageLabel,
@@ -159,7 +159,7 @@ return function()
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
-			Size = UDim2.fromOffset(Constants.DIALOG_SIZE.x, Constants.DIALOG_SIZE.y),
+			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
 				SliceEditor = Roact.createElement(SliceEditor, {
 					selectedObject = imageLabel,
@@ -193,7 +193,7 @@ return function()
 			-- Slice center should be changed
 			expect(imageLabel.SliceCenter).to.equal(expectedSliceCenter)
 
-			local revertButton = frameElement:FindFirstChild("revertButton", true)
+			local revertButton = frameElement:FindFirstChild("RevertButton", true)
 			expect(revertButton).to.be.ok()
 			local revertButtonElement = Rhodium.Element.new(revertButton)
 			revertButtonElement:click()

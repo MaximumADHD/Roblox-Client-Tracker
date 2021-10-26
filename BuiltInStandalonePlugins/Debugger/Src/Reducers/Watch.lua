@@ -25,6 +25,7 @@ local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 
 --Other
 local BreakpointHit = require(Actions.Common.BreakpointHit)
+local Resumed = require(Actions.Common.Resumed)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
 
@@ -189,14 +190,52 @@ local productionStartStore = {
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[BreakpointHit.name] = function(state : WatchStore, action : BreakpointHit.Props)
-		assert(state.stateTokenToRoots[action.debuggerStateToken] == nil)
+	[BreakpointHit.name] = function(state : WatchStore, action : BreakpointHit.Props)	
+		assert((state.stateTokenToRoots[action.debuggerStateToken] == nil or 
+			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] == nil) and
+			(state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil or 
+				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] == nil))
+		
+		if state.stateTokenToRoots[action.debuggerStateToken] == nil then
+			state.stateTokenToRoots[action.debuggerStateToken] = {}
+		end
+		
+		if state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil then
+			state.stateTokenToFlattenedTree[action.debuggerStateToken] = {}
+		end
+
 		return Cryo.Dictionary.join(state, {
 			stateTokenToRoots = Cryo.Dictionary.join(state.stateTokenToRoots, {
-				[action.debuggerStateToken] = {}
+				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToRoots[action.debuggerStateToken], {
+					[action.threadId] = {}
+				})
 			}),
 			stateTokenToFlattenedTree = Cryo.Dictionary.join(state.stateTokenToFlattenedTree, {
-				[action.debuggerStateToken] = {}
+				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToFlattenedTree[action.debuggerStateToken], {
+					[action.threadId] = {}
+				})
+			}),
+		})
+	end,
+	
+	[Resumed.name] = function(state : WatchStore, action : Resumed.Props)	
+		assert((state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
+			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil) and
+			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil or 
+				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil))
+		
+		local newStateTokenRootsForDST =  deepCopy(state.stateTokenToRoots[action.debuggerStateToken])
+		newStateTokenRootsForDST[action.threadId] = nil
+		
+		local newStateTokenToFlattenedTreeForDST=  deepCopy(state.stateTokenToFlattenedTree[action.debuggerStateToken])
+		newStateTokenToFlattenedTreeForDST[action.threadId] = nil
+		
+		return Cryo.Dictionary.join(state, {
+			stateTokenToRoots = Cryo.Dictionary.join(state.stateTokenToRoots, {
+				[action.debuggerStateToken] = newStateTokenRootsForDST
+			}),
+			stateTokenToFlattenedTree = Cryo.Dictionary.join(state.stateTokenToFlattenedTree, {
+				[action.debuggerStateToken] = newStateTokenToFlattenedTreeForDST
 			}),
 		})
 	end,

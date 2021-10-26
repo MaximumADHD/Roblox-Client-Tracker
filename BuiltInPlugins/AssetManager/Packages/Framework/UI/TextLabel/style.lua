@@ -1,5 +1,6 @@
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 local FFlagFixDevFrameworkTextLabelTextColor = game:DefineFastFlag("FixDevFrameworkTextLabelTextColor", false)
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local Framework = script.Parent.Parent.Parent
 
@@ -32,7 +33,7 @@ if THEME_REFACTOR then
 			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
 			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
 		},
-		["&SubText"] = FFlagRemoveUILibraryDetailedDropdown and {
+		["&SubText"] = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and {
 			Font = Enum.Font.SourceSans,
 			TextSize = 16,
 			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.SubText or nil,
@@ -73,7 +74,7 @@ else
 			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("MainText") or nil,
 		})
 
-		local SubText = FFlagRemoveUILibraryDetailedDropdown and Style.extend(Default, {
+		local SubText = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and Style.extend(Default, {
 			Font = Enum.Font.SourceSans,
 			TextSize = 16,
 			TextColor = FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("SubText") or nil,

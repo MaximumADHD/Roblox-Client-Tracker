@@ -6,7 +6,7 @@
 		string Title: The title to the left of the content
 
 	Optional Props:
-		number TitleWidth: The pixel pize of the padding between the title and content
+		number TitleWidth: The pixel size of the padding between the title and content
 		Enum.FillDirection FillDirection: The direction in which the content is filled.
 		number LayoutOrder: The layoutOrder of this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.

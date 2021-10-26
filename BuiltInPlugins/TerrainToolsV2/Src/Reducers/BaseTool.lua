@@ -16,6 +16,7 @@ local ReplaceMode = TerrainEnums.ReplaceMode
 
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
+local FFlagTerrainToolsGlobalStateFixStrength = game:GetFastFlag("TerrainToolsGlobalStateFixStrength")
 
 local BaseTool = Rodux.createReducer({
 	autoMaterial = false,
@@ -47,6 +48,7 @@ local BaseTool = Rodux.createReducer({
 		Z = 1024,
 	},
 	snapToGrid = false,
+	strength = FFlagTerrainToolsGlobalStateFixStrength and Constants.INITIAL_BRUSH_STRENGTH,
 	SourceMaterial = Enum.Material.Brick,
 	TargetMaterial = Enum.Material.CrackedLava,
 }, {
@@ -90,6 +92,13 @@ local BaseTool = Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			size = size,
+		})
+	end,
+	ChangeStrength = FFlagTerrainToolsGlobalStateFixStrength and function(state, action)
+		local strength = action.strength
+
+		return Cryo.Dictionary.join(state, {
+			strength = strength,
 		})
 	end,
 	ChooseBrushShape = function(state, action)

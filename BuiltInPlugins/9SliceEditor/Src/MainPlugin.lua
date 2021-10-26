@@ -24,7 +24,7 @@ local SliceEditor = require(main.Src.Components.SliceEditorMain)
 local AlertDialog = require(main.Src.Components.AlertDialog)
 
 local StudioUI = Framework.StudioUI
-local Dialog = StudioUI.Dialog
+local DockWidget = StudioUI.DockWidget
 
 local GuiService = game:GetService("GuiService")
 
@@ -61,6 +61,12 @@ function MainPlugin:init(props)
 	self.onClose = function()
 		self:setState({
 			enabled = false,
+		})
+	end
+
+	self.onRestore = function(enabled)
+		self:setState({
+			enabled = enabled
 		})
 	end
 
@@ -129,14 +135,16 @@ function MainPlugin:render()
 		self.localization,
 		self.analytics,
 	}, {
-		MainWidget = enabled and Roact.createElement(Dialog, {
+		MainWidget = enabled and Roact.createElement(DockWidget, {
 			Enabled = enabled,
 			Title = self.localization:getText("Plugin", "Name"),
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Size = Constants.DIALOG_SIZE,
-			Resizable = false,
+			InitialDockState = Enum.InitialDockState.Float,
+			ZIndexBehavior = Enum.ZIndexBehavior.Global,
+			Size = Constants.WIDGET_SIZE,
+			MinSize = Constants.WIDGET_SIZE,
 			OnClose = self.onClose,
-			AllowUndoRedoKeyboardShortcuts = true,
+			ShouldRestore = true,
+			OnWidgetRestored = self.onRestore,
 		}, {
 			SliceEditor = enabled and Roact.createElement(SliceEditor, {
 				onClose = self.onClose,

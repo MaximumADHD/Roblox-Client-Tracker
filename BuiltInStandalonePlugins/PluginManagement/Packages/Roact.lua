@@ -3,10 +3,8 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["Roact-e3b370a8-986c1d58"].Packages["Roact"]
-
-if package.ClassName == "ModuleScript" then
-	return require(package)
+if game:GetFastFlag("PluginManagementUseRoactv14") then
+	return require(PackageIndex["roblox_roact"]["roact"])
 end
 
-return package
+return require(PackageIndex["Roact-e3b370a8-986c1d58"].Packages["Roact"])

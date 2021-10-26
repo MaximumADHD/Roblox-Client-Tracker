@@ -23,8 +23,6 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local DropdownMenu = UILibrary.Component.DropdownMenu
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local DropdownModule = Roact.PureComponent:extend("DropdownModule")
 
 function DropdownModule:init()
@@ -67,12 +65,7 @@ function DropdownModule:render()
 	local currentSelected = props.CurrentSelected
 	local onItemClicked = props.OnItemClicked
 
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 
@@ -163,14 +156,12 @@ end
 
 if FFlagPlayerEmulatorWithContext then
 	DropdownModule = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 		Localization = ContextServices.Localization,
 	})(DropdownModule)
 else
 	ContextServices.mapToProps(DropdownModule, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 		Localization = ContextServices.Localization,
 	})
 end

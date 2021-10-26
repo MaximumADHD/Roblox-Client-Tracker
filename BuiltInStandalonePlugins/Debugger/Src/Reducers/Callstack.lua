@@ -57,7 +57,9 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[BreakpointHit.name] = function(state : CallstackStore, action : BreakpointHit.Props)
-		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] == nil)
+		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] == nil or
+			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId] == nil)
+		
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
@@ -78,12 +80,16 @@ return Rodux.createReducer(productionStartStore, {
 			end
 		end
 		
+		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] ~= nil and
+			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId] ~= nil)
+
+		local newThreadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList
+		newThreadIdToFrameList[action.threadId] = nil
+
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
-					threadIdToFrameList = Cryo.Dictionary.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList, {
-						[action.threadId] = {}
-					}),
+					threadIdToFrameList = newThreadIdToFrameList,
 					threadList = newThreadList,
 				}
 			})

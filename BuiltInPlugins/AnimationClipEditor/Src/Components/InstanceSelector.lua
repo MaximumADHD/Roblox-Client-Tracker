@@ -18,7 +18,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local ErrorDialogContents = require(Plugin.Src.Components.BlockingDialog.ErrorDialogContents)
 
 local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
-local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local RunService = game:GetService("RunService")
 local CoreGui = game:GetService("CoreGui")
@@ -27,9 +26,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local SignalsContext = require(Plugin.Src.Context.Signals)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
-local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
 
-local GetFFlagRevertExplorerSelection = require(Plugin.LuaFlags.GetFFlagRevertExplorerSelection)
 local GetFFlagUseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 
@@ -110,7 +107,7 @@ function InstanceSelector:init()
 
 	self.deselectAndRemoveSelectedTrackInstances = function()
 		self.deselect()
-		if (not GetFFlagRevertExplorerSelection()) or GetFFlagUseLuaDraggers() then
+		if GetFFlagUseLuaDraggers() then
 			self.props.SetSelectedTrackInstances({})
 
 			self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
@@ -133,76 +130,21 @@ function InstanceSelector:init()
 		local selectedInstance = getSelectedInstance()
 		local rigInstance = getModel(selectedInstance)
 		local plugin = self.props.Plugin
-		local selectionSignal
-
-		if not GetFFlagRevertExplorerSelection() then
-			selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
-
-			-- if the user clicks the selected rig again, do nothing
-			if selectedInstance == self.props.RootInstance then
-				return
-			end
-		end
 
 		if isValidRig(rigInstance) and not self:isCurrentRootInstance(rigInstance) then
 			local hasErrors, errorList = RigUtils.rigHasErrors(rigInstance)
 			if not hasErrors then
 				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
-				if not GetFFlagRevertExplorerSelection() then
-					if self.descendantRemoving then
-						self.descendantRemoving:Disconnect()
-					end
-					if self.ancestryChanged then
-						self.ancestryChanged:Disconnect()
-					end
-
-					self.descendantRemoving = rigInstance.DescendantRemoving:Connect(function(descendant)
-						-- if a part of the rig is deleted, delete the track and disable the draggers
-						if descendant:IsA("BasePart") then
-							self.props.DeleteTrack(descendant.Name, self.props.Analytics)
-							self.props.SetSelectedTrackInstances({})
-							selectionSignal:Fire()
-						end
-						-- if a motor6d is deleted, delete the track and disable the draggers on the respective part
-						if descendant:IsA("Motor6D") then
-							local part = descendant.Parent
-							self.props.DeleteTrack(part.Name, self.props.Analytics)
-							self.props.SetSelectedTrackInstances({})
-							selectionSignal:Fire()
-						end
-					end)
-
-					-- if the selected rig is deleted, delete all tracks,  hide the draggers and deactivate the plugin
-					self.ancestryChanged = rigInstance.AncestryChanged:Connect(function(child, newParent)
-						self.deselectAndRemoveSelectedTrackInstances()
-						for _, track in ipairs(self.props.Tracks) do
-							self.props.DeleteTrack(track.Name, self.props.Analytics)
-						end
-						plugin:get():Deactivate()
-					end)
-				end
 				self.deselectAndRemoveSelectedTrackInstances()
 			else
-				if GetFFlagUseLuaDraggers() then 
+				if GetFFlagUseLuaDraggers() then
 					self.deselectAndRemoveSelectedTrackInstances()
 				end
 				plugin:get():Deactivate()
 				self:showErrorDialogs(plugin:get(), errorList)
 			end
-		elseif GetFFlagRevertExplorerSelection() and selectedInstance and plugin then
-			if GetFFlagUseLuaDraggers() then 
-				self.deselectAndRemoveSelectedTrackInstances()
-			end
+		elseif selectedInstance and plugin then
 			plugin:get():Deactivate()
-		-- if the user clicks on a part in the hierarchy, it gets selected and the draggers switch to it. otherwise we deselect the previously selected part
-		elseif not GetFFlagRevertExplorerSelection() and Selection:Get() ~= self.props.SelectedTrackInstances and selectedInstance ~= nil then
-			if selectedInstance:IsA("BasePart") then
-				self.props.SetSelectedTrackInstances(selectedInstance)
-				selectionSignal:Fire()
-			else
-				self.props.SetSelectedTrackInstances({})
-				selectionSignal:Fire()
-			end
 		end
 	end)
 end
@@ -218,7 +160,7 @@ function InstanceSelector:didMount()
 		plugin:get():Activate(true)
 
 		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
-			if GetFFlagRevertExplorerSelection() and not GetFFlagUseLuaDraggers() then
+			if not GetFFlagUseLuaDraggers() then
 				self:selectValidInstance(self.selectInstance, self.deselect)
 			else
 				self:selectValidInstance(self.selectInstance)
@@ -258,8 +200,9 @@ function InstanceSelector:render()
 end
 
 function InstanceSelector:willUnmount()
-	if GetFFlagUseLuaDraggers() then 
-		self.deselectAndRemoveSelectedTrackInstances()
+	if GetFFlagUseLuaDraggers() then
+		self.props.SetSelectedTrackInstances({})
+		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 	end
 
 	if self.Heartbeat then
@@ -277,16 +220,6 @@ function InstanceSelector:willUnmount()
 	if self.props.Plugin then
 		self.props.Plugin:get():Deactivate()
 	end
-
-	if not GetFFlagRevertExplorerSelection() then
-		if self.descendantRemoving then
-			self.descendantRemoving:Disconnect()
-		end
-
-		if self.ancestryChanged then
-			self.ancestryChanged:Disconnect()
-		end
-	end
 end
 
 if FFlagAnimationClipEditorWithContext then
@@ -294,14 +227,14 @@ if FFlagAnimationClipEditorWithContext then
 		Plugin = ContextServices.Plugin,
 		Mouse = ContextServices.Mouse,
 		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
+		Signals = SignalsContext,
 	})(InstanceSelector)
 else
 	ContextServices.mapToProps(InstanceSelector, {
 		Plugin = ContextServices.Plugin,
 		Mouse = ContextServices.Mouse,
 		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,  -- Unused if GetFFlagRevertExplorerSelection
+		Signals = SignalsContext,
 	})
 end
 
@@ -309,14 +242,12 @@ end
 local function mapStateToProps(state, props)
 	return {
 		RootInstance = state.Status.RootInstance,
-		SelectedTrackInstances = state.Status.SelectedTrackInstances,  -- Unused if GetFFlagRevertExplorerSelection
-		Tracks = state.Status.Tracks,  -- Unused if GetFFlagRevertExplorerSelection
+		SelectedTrackInstances = state.Status.SelectedTrackInstances,
 	}
 end
 
 local function mapDispatchToProps(dispatch)
 	return {
-		-- Unused if GetFFlagRevertExplorerSelection
 		SetSelectedTrackInstances = function(tracks)
 			local trackNames = {}
 			for index, track in pairs(tracks) do
@@ -324,11 +255,6 @@ local function mapDispatchToProps(dispatch)
 			end
 			dispatch(SetSelectedTrackInstances(tracks))
 			dispatch(SetSelectedTracks(trackNames))
-		end,
-		-- Unused if GetFFlagRevertExplorerSelection
-		DeleteTrack = function(trackName, analytics)
-			dispatch(AddWaypoint())
-			dispatch(DeleteTrack(trackName, analytics))
 		end,
 		UpdateRootInstance = function(rootInstance, analytics)
 			dispatch(UpdateRootInstance(rootInstance, analytics))

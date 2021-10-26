@@ -3,4 +3,8 @@
 ]]
 local PackageIndex = script.Parent.package_index
 
+if game:GetFastFlag("PlayerEmulatorUseRoactv14") then
+	return require(PackageIndex["roblox_roact-rodux"]["roact-rodux"])
+end
+
 return require(PackageIndex["RoactRodux-d65ac2db2841-f36097a9ef27"].packages["RoactRodux"])

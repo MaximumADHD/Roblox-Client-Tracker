@@ -4,8 +4,6 @@
 
 game:DefineFastFlag("FixImporterCustomConfigurer", false)
 
-game:DefineFastFlag("RemoveImportRequirements", false)
-
 game:DefineFastFlag("DisplayCorrectTypeInDetectionPrompt", false)
 
 return nil

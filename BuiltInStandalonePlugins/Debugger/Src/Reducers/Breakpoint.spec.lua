@@ -9,6 +9,10 @@ local BreakpointReducer = require(script.Parent.Breakpoint)
 local Actions = Plugin.Src.Actions
 local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
+local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
+local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
+local SetContinuedExecution = require(Actions.BreakpointsWindow.SetContinuedExecution)
+local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
 local Breakpoint = require(Models.Breakpoint)
 
 local function getSize(dict)
@@ -46,7 +50,6 @@ return function()
 	end)
 
 	describe(AddBreakpointAction.name, function()
-
 		it("should Add Breakpoints", function()
 			local uniqueId = 0
 
@@ -108,5 +111,96 @@ return function()
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
+	
+	describe(ModifyBreakpointAction.name, function()
+		it("should Modify Breakpoints", function()
+			local uniqueId = 0
+			
+			-- Add a breakpoint in the debugger connection
+			local breakpoint1 = Breakpoint.mockBreakpoint({}, uniqueId)
+			local state = BreakpointReducer({}, AddBreakpointAction(123, breakpoint1))
+			expect(state).to.be.ok()
+			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
+			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
+			expect(state.BreakpointInfo[uniqueId].lineNumber).to.equal(0)
 
+			-- Modify the breakpoint in the connection
+			local newBreakpoint = Breakpoint.mockBreakpoint({lineNumber = 2500}, uniqueId)
+			state = BreakpointReducer(state, ModifyBreakpointAction(newBreakpoint))
+			expect(state).to.be.ok()
+			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
+			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
+			expect(getSize(state.BreakpointInfo)).to.equal(1)
+			expect(state.BreakpointInfo[uniqueId].lineNumber).to.equal(2500)
+		end)
+
+		it("should break when modifying breakpoint that doesn't exist", function()
+			local newBreakpoint = Breakpoint.mockBreakpoint({}, 0)
+			expect(function()BreakpointReducer({}, ModifyBreakpointAction(newBreakpoint)) end).to.throw()
+		end)
+	end)
+	
+	describe(DeleteBreakpointAction.name, function()
+		it("should Delete Breakpoints", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
+			local state = BreakpointReducer({BreakpointInfo = {[0] = breakpoint}, 
+				BreakpointIdsInDebuggerConnection = {[123] = {[0] = 0}}}, DeleteBreakpointAction(0))
+			expect(state).to.be.ok()
+			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
+			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(0)
+			expect(getSize(state.BreakpointInfo)).to.equal(0)
+		end)
+		
+		it("should throw assert when deleting breakpoint not in store", function()
+			expect(function() BreakpointReducer({BreakpointInfo = {}, BreakpointIdsInDebuggerConnection = {}}, DeleteBreakpointAction(0)) end).to.throw()
+		end)
+		
+		it("should preserve immutability", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
+			local immutabilityPreserved = testImmutability(BreakpointReducer, 
+				DeleteBreakpointAction(uniqueId), {BreakpointInfo = {[uniqueId] = breakpoint}, BreakpointIdsInDebuggerConnection = {}})
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+		
+	end)
+
+	describe(SetContinuedExecution.name, function()
+		it("should set Continue Execution correctly", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({continueExecution = false}, uniqueId)
+			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
+			expect(prepState.BreakpointInfo[uniqueId].continueExecution).to.equal(false)
+			local state = BreakpointReducer(prepState, SetContinuedExecution(uniqueId, true))
+			expect(state.BreakpointInfo[uniqueId].continueExecution).to.equal(true)
+		end)
+
+		it("should preserve immutability", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({continueExecution = false}, uniqueId)
+			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
+			local immutabilityPreserved = testImmutability(BreakpointReducer, SetContinuedExecution(uniqueId, true), prepState)
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(SetBreakpointEnabled.name, function()
+		it("should set Is Enabled correctly", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({isEnabled = false}, uniqueId)
+			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
+			expect(prepState.BreakpointInfo[uniqueId].isEnabled).to.equal(false)
+			local state = BreakpointReducer(prepState, SetBreakpointEnabled(uniqueId, true))
+			expect(state.BreakpointInfo[uniqueId].isEnabled).to.equal(true)
+		end)
+
+		it("should preserve immutability", function()
+			local uniqueId = 0
+			local breakpoint = Breakpoint.mockBreakpoint({isEnabled = false}, uniqueId)
+			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
+			local immutabilityPreserved = testImmutability(BreakpointReducer, SetBreakpointEnabled(uniqueId, true), prepState)
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
 end

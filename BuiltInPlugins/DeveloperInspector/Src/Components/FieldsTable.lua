@@ -1,5 +1,4 @@
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -44,7 +43,7 @@ function FieldsTable:init()
 				-- Get the value of the item toggled
 				api:getFields(self.props.SelectedPath, self.props.SelectedNodeIndex, item.Path)
 			end
-			
+
 		end
 	end
 	self.onSelectField = function(change)
@@ -116,7 +115,7 @@ function FieldsTable:render()
 		RenderRow = self.renderRow,
 		GetChildren = getChildren,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 	})
 end
 

@@ -15,7 +15,7 @@ local isCli = require(Plugin.Core.Util.isCli)
 local Localization = {}
 Localization.__index = Localization
 
-local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
 
 --[[
@@ -524,8 +524,8 @@ function Localization:_recalculateContent()
 		RightClickMenu = {
 			CopyAssetID = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyAssetID"),
 			CopyAssetURI = (not FFlagToolboxRemoveAssetUris and self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyAssetURI")) or nil, -- Remove CopyAssetURI from TranslationDevelopmentTable.csv with ToolboxRemoveAssetUris
-			CopyMeshID = FFlagToolboxShowMeshAndTextureId and self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyMeshID") or nil,
-			CopyTextureID = FFlagToolboxShowMeshAndTextureId and self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyTextureID") or nil,
+			CopyMeshID = FFlagToolboxShowMeshAndTextureId2 and self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyMeshID") or nil,
+			CopyTextureID = FFlagToolboxShowMeshAndTextureId2 and self:_safeLocalize("Studio.Toolbox.General.RightClickMenuCopyTextureID") or nil,
 			ViewInBrowser = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuViewInBrowser"),
 			ConfigureAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuConfigureAsset"),
 			EditAsset = self:_safeLocalize("Studio.Toolbox.General.RightClickMenuEditAsset"),

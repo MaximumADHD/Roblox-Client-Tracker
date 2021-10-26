@@ -32,59 +32,55 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
-function TextEditor:createLabel(orientation)
-	-- helper function to create TextLabels for  Left, Right, Top, Bottom
-	local localization = self.props.Localization
-	local labelPosition, labelText
-
-	if orientation == LEFT then
-		labelPosition = Constants.LEFTLABEL_YPOSITION
-		labelText = localization:getText("TextEditor", "Left")
-	elseif orientation == RIGHT then
-		labelPosition = Constants.RIGHTLABEL_YPOSITION
-		labelText = localization:getText("TextEditor", "Right")
-	elseif orientation == TOP then
-		labelPosition = Constants.TOPLABEL_YPOSITION
-		labelText = localization:getText("TextEditor", "Top")
-	elseif orientation == BOTTOM then
-		labelPosition = Constants.BOTTOMLABEL_YPOSITION
-		labelText = localization:getText("TextEditor", "Bottom")
-	end
-
-	return Roact.createElement(TextLabel, {
-		Position = UDim2.fromOffset(0, labelPosition),
-		Text = labelText,
-		TextSize = Constants.TEXTSIZE,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		TextYAlignment = Enum.TextYAlignment.Top,
-	})
-end
-
 function TextEditor:createOffset(orientation)
 	-- helper function to create TextOffsets
 	local props = self.props
+	local localization = props.Localization
+	local labelText, layoutOrder
+
+	if orientation == LEFT then
+		labelText = localization:getText("TextEditor", "Left")
+		layoutOrder = 1
+	elseif orientation == RIGHT then
+		labelText = localization:getText("TextEditor", "Right")
+		layoutOrder = 2
+	elseif orientation == TOP then
+		labelText = localization:getText("TextEditor", "Top")
+		layoutOrder = 3
+	elseif orientation == BOTTOM then
+		labelText = localization:getText("TextEditor", "Bottom")
+		layoutOrder = 4
+	end
 
 	return Roact.createElement(TextOffset, {
 		orientation = orientation,
+		labelText = labelText,
 		sliceRect = props.sliceRect,
 		setSliceRect = props.setSliceRect,
 		pixelDimensions = props.pixelDimensions,
+		layoutOrder = layoutOrder,
 	})
 end
 
 function TextEditor:render()
-	-- Renders the TextEditor as a pane with labels for offsets and four text boxes
+	-- Renders the TextEditor as a pane with labels for offset items
 	local props = self.props
+	local style = props.Stylizer
 	local localization = props.Localization
 
 	return Roact.createElement(Pane, {
-		BackgroundTransparency = 1,
-		Position = UDim2.fromOffset(Constants.TEXTEDITOR_XOFFSET, Constants.TEXTEDITOR_YOFFSET),
+		Position = props.position,
 		Size = UDim2.fromOffset(Constants.TEXTEDITOR_XSIZE, Constants.TEXTEDITOR_YSIZE),
+		Layout = Enum.FillDirection.Vertical,
+		VerticalAlignment = Enum.VerticalAlignment.Top,
+		HorizontalAlignment = Enum.HorizontalAlignment.Center,
+		Spacing = style.TextEditor.OffsetItemSpacing,
+		LayoutOrder = props.layoutOrder,
 	}, {
 		OffsetLabel = Roact.createElement(TextLabel, {
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.fromScale(0.5, 0),
+			Size = UDim2.new(1, 0, 0, Constants.TEXTSIZE),
 			Text = localization:getText("TextEditor", "Offsets"),
 			TextSize = Constants.TEXTSIZE,
 			TextXAlignment = Enum.TextXAlignment.Center,
@@ -93,11 +89,6 @@ function TextEditor:render()
 		RightInput = self:createOffset(RIGHT),
 		TopInput = self:createOffset(TOP),
 		BottomInput = self:createOffset(BOTTOM),
-
-		LeftText = self:createLabel(LEFT),
-		RightText = self:createLabel(RIGHT),
-		TopText = self:createLabel(TOP),
-		BottomText = self:createLabel(BOTTOM),
 	})
 end
 

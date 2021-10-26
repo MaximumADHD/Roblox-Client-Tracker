@@ -24,9 +24,6 @@ if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
 	local TestsFolderPlugin = Plugin.Src
 
-	local MouseCursorUtil = require(Plugin.Src.Util.MouseCursorUtil)
-	MouseCursorUtil.setPluginObject(plugin) -- Needs to be set before any components are rendered.
-
 	print("----- All " .. Plugin.Name .. " Tests ------")
 	local startt = tick()
 	TestBootstrap:run({TestsFolderPlugin}, reporter)

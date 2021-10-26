@@ -21,7 +21,7 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local PlayersService = game:GetService("Players")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local function DEPRECATED_deserializeResult(collaboratorsGETResults)
 	local collaborators = {
@@ -72,7 +72,7 @@ end
 
 return function(networkInterface, assetId)
 	return function(store)
-        if FFlagUseNewAssetPermissionEndpoint then
+        if FFlagUseNewAssetPermissionEndpoint2 then
             return networkInterface:getAssetPermissions(assetId):andThen(
                 function(result) 
                     if FFlagNewPackageAnalyticsWithRefactor2 then

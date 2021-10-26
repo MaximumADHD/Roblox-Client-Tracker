@@ -7,8 +7,6 @@ local join = Dash.join
 local UI = require(Framework.UI)
 local TreeView = UI.TreeView
 
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
-
 local ExampleTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeView")
 
 function ExampleTreeView:init()
@@ -76,7 +74,7 @@ function ExampleTreeView:render()
 		Expansion = self.state.Expansion,
 		Selection = self.state.Selection,
 		RootItems = self.state.Items,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 		OnExpansionChange = function(newExpansion)
 			self:setState({
 				Expansion = join(self.state.Expansion, newExpansion)

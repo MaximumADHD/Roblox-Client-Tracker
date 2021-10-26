@@ -8,6 +8,6 @@ if FFlagDeveloperStorybookDeduplicatePackages then
 	return Package
 else
 	local PackageIndex = script.Parent._IndexOld
-	return require(PackageIndex["roblox_rodux"]["rodux"])
+	return require(PackageIndex["roblox_rodux-0c3f252d-3.0.0"]["rodux"])
 end
 

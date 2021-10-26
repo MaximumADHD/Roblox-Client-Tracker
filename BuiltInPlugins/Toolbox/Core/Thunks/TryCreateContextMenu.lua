@@ -7,7 +7,7 @@ local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 local Category = require(Plugin.Core.Types.Category)
 
-local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 
 local function nameForValueInEnum(enum, value)
 	local items = enum:GetEnumItems()
@@ -69,7 +69,7 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 			ViewInBrowser = true,
 		}
 
-		local currentCategory = (FFlagToolboxShowMeshAndTextureId and assetData.Context.currentCategory) or nil
+		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
 			assetId,

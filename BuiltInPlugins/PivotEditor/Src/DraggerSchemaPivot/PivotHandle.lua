@@ -10,10 +10,7 @@ local FreeformDragger = require(script.Parent.FreeformDragger)
 
 local PivotRing = require(Plugin.Src.Components.PivotRing)
 
-local getFFlagPivotAnalytics = require(Plugin.Src.Flags.getFFlagPivotAnalytics)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
-local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
 
 local ALWAYS_ON_TOP = true
 
@@ -53,19 +50,11 @@ function PivotHandle:hitTest(mouseRay, ignoreExtraThreshold)
 		local distanceFromCursor = (screenLocation - mouseLocation).Magnitude
 		if getFFlagSummonPivot() then
 			if distanceFromCursor < PivotRing.HitTestRadius then
-				if getFFlagPivotAnalytics() then
-					return "Pivot", 0, ALWAYS_ON_TOP
-				else
-					return 0, 0, ALWAYS_ON_TOP
-				end
+				return "Pivot", 0, ALWAYS_ON_TOP
 			end
 		else
 			if distanceFromCursor < PIVOT_HITTEST_RADIUS then
-				if getFFlagPivotAnalytics() then
-					return "Pivot", 0, ALWAYS_ON_TOP
-				else
-					return 0, 0, ALWAYS_ON_TOP
-				end
+				return "Pivot", 0, ALWAYS_ON_TOP
 			end
 		end
 	end
@@ -143,7 +132,7 @@ end
 function PivotHandle:mouseDown(mouseRay, handleId)
 	-- Note: We may not have a _pivotOwner in the case where the owner was
 	-- deleted in the middle of a drag of the PivotHandle.
-	if not getFFlagPivotEditorErrors() or self._pivotOwner then
+	if self._pivotOwner then
 		local dragInfo = {
 			ClickedSelectable = self._pivotOwner,
 			HandleId = "Pivot",
@@ -155,38 +144,26 @@ function PivotHandle:mouseDown(mouseRay, handleId)
 end
 
 function PivotHandle:keyDown(keyCode)
-	if getFFlagPivotEditorErrors() then
-		if self._freeformDrag then
-			if keyCode == Enum.KeyCode.R then
-				self._freeformDrag:rotate(Vector3.new(0, 1, 0))
-				return true
-			elseif keyCode == Enum.KeyCode.T then
-				self._freeformDrag:rotate(Vector3.new(1, 0, 0))
-				return true
-			end
-		end
-		return false
-	else
+	if self._freeformDrag then
 		if keyCode == Enum.KeyCode.R then
 			self._freeformDrag:rotate(Vector3.new(0, 1, 0))
 			return true
 		elseif keyCode == Enum.KeyCode.T then
 			self._freeformDrag:rotate(Vector3.new(1, 0, 0))
 			return true
-		else
-			return false
 		end
 	end
+	return false
 end
 
 function PivotHandle:mouseDrag(mouseRay)
-	if not getFFlagPivotEditorErrors() or self._freeformDrag then
+	if self._freeformDrag then
 		self._freeformDrag:update()
 	end
 end
 
 function PivotHandle:mouseUp(mouseRay)
-	if not getFFlagPivotEditorErrors() or self._freeformDrag then
+	if self._freeformDrag then
 		self._freeformDrag:destroy()
 		self._freeformDrag = nil
 		self._schema.addUndoWaypoint(self._draggerContext, "Modify Pivot")

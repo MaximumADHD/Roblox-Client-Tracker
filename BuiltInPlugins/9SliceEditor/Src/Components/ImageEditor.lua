@@ -15,7 +15,7 @@ local Framework = require(Plugin.Packages.Framework)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local Orientation = require(Plugin.Src.Util.Orientation)
-local MouseCursorUtil = require(Plugin.Src.Util.MouseCursorUtil)
+local MouseCursorManager = require(Plugin.Src.Util.MouseCursorManager)
 local ImageDragger = require(Plugin.Src.Components.ImageDragger)
 
 local ContextServices = Framework.ContextServices
@@ -25,6 +25,7 @@ local Localization = ContextServices.Localization
 
 local UI = Framework.UI
 local TextLabel = UI.Decoration.TextLabel
+local Pane = UI.Pane
 
 local ImageEditor = Roact.PureComponent:extend("ImageEditor")
 
@@ -55,7 +56,14 @@ function ImageEditor:init(props)
 		self.dragOrientation = orientation
 		self.mousePosition = mousePosition
 		self.draggerPosition = draggerPosition
+		self.dragging = true
+
+		MouseCursorManager.setLocked(self.props.Mouse, true)
 	end
+
+	self:setState({
+		hoveringDraggerOrientation = -1,
+	})
 
 	self.onDragging = function(inputPosition, dragOrientation)
 		-- when onInputChanged for red draggers
@@ -64,7 +72,6 @@ function ImageEditor:init(props)
 			return
 		end
 
-		self.dragging = true
 		self.draggerHandlingMovement = true
 		self.dragOrientation = dragOrientation
 
@@ -92,13 +99,109 @@ function ImageEditor:init(props)
 				local newSliceValue = math.round(self.bottomPos * pixelDimensions.Y)
 				newSliceRect = {slice[LEFT], slice[RIGHT], slice[TOP], newSliceValue}
 			end
-			setSliceRect(newSliceRect, true)
+
+			if newSliceRect then
+				setSliceRect(newSliceRect, true)
+			end
+
 			self.dragging = false
+			self.updateHoverDragger()
+			MouseCursorManager.setLocked(self.props.Mouse, false)
 		end
-		if not self.dragging then
-			MouseCursorUtil.resetMouseCursor()
-		end
+		
 		self.draggerHandlingMovement = false
+	end
+
+	self.priorityDragCandidates = {}
+	self.getBestPriorityDragCandidate = function()
+		local bestPriority = nil
+		local bestCandidate = nil
+		for orientation, item in pairs(self.priorityDragCandidates) do
+			if bestPriority == nil or item.priority > bestPriority then
+				bestPriority = item.priority
+				bestCandidate = item
+			end
+		end
+
+		return bestCandidate
+	end
+
+	-- Uncertain dragging and hovering:
+	self.uncertainDragCandidates = {}
+	self.getBestUncertainDragCandidate = function()
+		local bestDistance = nil
+		local bestCandidate = nil
+		for orientation, item in pairs(self.uncertainDragCandidates) do
+			if bestDistance == nil or item.distance < bestDistance then
+				bestDistance = item.distance
+				bestCandidate = item
+			end
+		end
+
+		return bestCandidate
+	end
+
+	self.uncertainDragStarted = false
+	self.startUncertainDrag = function(mousePosition)
+		if self.uncertainDragStarted then
+			return
+		end
+
+		self.uncertainDragStarted = true
+		local candidate = self.getBestUncertainDragCandidate()
+		if candidate then
+			local obj = candidate.instance
+			local draggerPosition = Vector2.new(obj.Position.X.Scale, obj.Position.Y.Scale)
+			self.onDragBegin(obj, candidate.orientation, mousePosition, draggerPosition)
+			self.draggerHandlingMovement = false
+		end
+	end
+
+	self.priorityHoverOrientation = nil
+	self.updateHoverDragger = function(orientation, priority)
+		if self.dragging then
+			return
+		end
+
+		local hoverDragger = -1
+
+		local priorityCandidate = self.getBestPriorityDragCandidate()
+		if priorityCandidate then
+			hoverDragger = priorityCandidate.orientation
+		else
+			local candidate = self.getBestUncertainDragCandidate()
+			if candidate then
+				hoverDragger = candidate.orientation
+			end
+		end
+
+		self:setState({
+			hoveringDraggerOrientation = hoverDragger,
+		})
+
+		if hoverDragger == LEFT or hoverDragger == RIGHT then
+			MouseCursorManager.setCursor(self.props.Mouse, Constants.MOUSE_CURSORS.EW)
+		elseif hoverDragger == TOP or hoverDragger == BOTTOM then
+			MouseCursorManager.setCursor(self.props.Mouse, Constants.MOUSE_CURSORS.NS)
+		end
+
+		if hoverDragger == -1 then
+			MouseCursorManager.resetCursor(self.props.Mouse)
+		end
+	end
+
+	self.addDragCandidate = function(draggerOrientation, distance, instance)
+		self.uncertainDragCandidates[draggerOrientation] = {
+			distance = distance,
+			instance = instance,
+			orientation = draggerOrientation,
+		}
+		self.updateHoverDragger()
+	end
+
+	self.removeDragCandidate = function(draggerOrientation)
+		self.uncertainDragCandidates[draggerOrientation] = nil
+		self.updateHoverDragger()
 	end
 
 	self.onBackgroundInputChanged = function(_, input)
@@ -110,17 +213,16 @@ function ImageEditor:init(props)
 				return
 			end
 
-			-- update mouse cursor icon if needed
-			if MouseCursorUtil.currentIconPath == "" then
-				if self.dragOrientation == LEFT or self.dragOrientation == RIGHT then
-					MouseCursorUtil.setMouseCursor(Constants.MOUSE_CURSORS.EW)
-
-				elseif self.dragOrientation == TOP or self.dragOrientation == BOTTOM then
-					MouseCursorUtil.setMouseCursor(Constants.MOUSE_CURSORS.NS)
-				end
-			end
-
 			self.updateDraggedPosition(input.Position)
+		end
+	end
+
+	self.onBackgroundInputEnded = function(obj, input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if self.uncertainDragStarted then
+				self.onDragEnd(input, self.dragOrientation)
+				self.uncertainDragStarted = false
+			end
 		end
 	end
 
@@ -166,6 +268,20 @@ function ImageEditor:init(props)
 			self.obj.Position = UDim2.fromScale(self.obj.Position.X.Scale, self.bottomPos)
 		end
 	end
+
+	self.addPriorityDragCandidate = function(orientation, priority, instance)
+		self.priorityDragCandidates[orientation] = {
+			priority = priority,
+			instance = instance,
+			orientation = orientation,
+		}
+		self.updateHoverDragger()
+	end
+
+	self.removePriorityDragCandidate = function(orientation)
+		self.priorityDragCandidates[orientation] = nil
+		self.updateHoverDragger()
+	end
 end
 
 function ImageEditor:createDragger(orientation)
@@ -177,6 +293,12 @@ function ImageEditor:createDragger(orientation)
 			onDragBegin = self.onDragBegin,
 			onDragging = self.onDragging,
 			onDragEnd = self.onDragEnd,
+			addDragCandidate = self.addDragCandidate,
+			removeDragCandidate = self.removeDragCandidate,
+			isHovering = (self.state.hoveringDraggerOrientation == orientation),
+			addPriorityDragCandidate = self.addPriorityDragCandidate,
+			removePriorityDragCandidate = self.removePriorityDragCandidate,
+			startUncertainDrag = self.startUncertainDrag,
 		})
 end
 
@@ -201,38 +323,48 @@ function ImageEditor:render()
 	self.updateFitImageSize()
 	local fitImageSize = self.getFitImageSize()
 	
-	return Roact.createElement("ImageButton", {
-		-- also the coding logic background for draggers
-		BackgroundTransparency = 1,
-		Image = Constants.IMAGES.BACKGROUND_GRID,
-		Position = UDim2.fromOffset(Constants.BACKGROUND_FROMEDGE_PADDING, Constants.BACKGROUND_FROMEDGE_PADDING),
-		ScaleType = Enum.ScaleType.Tile,
-		Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE),
-		TileSize = UDim2.fromOffset(Constants.BACKGROUND_TILE_SIZE, Constants.BACKGROUND_TILE_SIZE),
-		[Roact.Event.InputChanged] = self.onBackgroundInputChanged,
+	return Roact.createElement(Pane, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Position = props.position,
+		Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE + Constants.TEXTSIZE),
 	}, {
-		imageLabel = Roact.createElement("ImageLabel", {
-			AnchorPoint = Vector2.new(0.5, 0.5),
+		BackgroundCheckboardImage = Roact.createElement("ImageButton", {
+			-- also the coding logic background for draggers
 			BackgroundTransparency = 1,
-			Image = selectedObject.Image,
-			ImageColor3 = selectedObject.ImageColor3,
-			Position = UDim2.fromScale(0.5, 0.5),
-			ScaleType = Enum.ScaleType.Fit,
-			ResampleMode = selectedObject.ResampleMode,
-			Size = UDim2.fromOffset(fitImageSize.X, fitImageSize.Y),
+			Image = Constants.IMAGES.BACKGROUND_GRID,
+			
+			ScaleType = Enum.ScaleType.Tile,
+			Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE),
+			TileSize = UDim2.fromOffset(Constants.BACKGROUND_TILE_SIZE, Constants.BACKGROUND_TILE_SIZE),
+			[Roact.Event.InputChanged] = self.onBackgroundInputChanged,
+			[Roact.Event.InputEnded] = self.onBackgroundInputEnded,
+			ZIndex = 1,
+			LayoutOrder = props.layoutOrder,
 		}, {
-			LeftDragSlider = self:createDragger(LEFT),
-			RightDragSlider = self:createDragger(RIGHT),
-			TopDragSlider = self:createDragger(TOP),
-			BottomDragSlider = self:createDragger(BOTTOM),
-		}),
-		PixelText = Roact.createElement(TextLabel, {
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, Constants.PIXEL_YPOSITION),
-			Text = imageSizeText,
-			TextSize = Constants.TEXTSIZE,
-			TextXAlignment = Enum.TextXAlignment.Center,
-			TextYAlignment = Enum.TextYAlignment.Top,
+			imageLabel = Roact.createElement("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 1,
+				Image = selectedObject.Image,
+				ImageColor3 = selectedObject.ImageColor3,
+				Position = UDim2.fromScale(0.5, 0.5),
+				ScaleType = Enum.ScaleType.Fit,
+				ResampleMode = selectedObject.ResampleMode,
+				Size = UDim2.fromOffset(fitImageSize.X, fitImageSize.Y),
+			}, {
+				LeftDragSlider = self:createDragger(LEFT),
+				RightDragSlider = self:createDragger(RIGHT),
+				TopDragSlider = self:createDragger(TOP),
+				BottomDragSlider = self:createDragger(BOTTOM),
+			}),
+			PixelText = Roact.createElement(TextLabel, {
+				AnchorPoint = Vector2.new(0, 0),
+				Position = UDim2.new(0, 0, 0, Constants.PIXEL_YPOSITION),
+				Size = UDim2.new(1, 0, 0, Constants.TEXTSIZE),
+				Text = imageSizeText,
+				TextSize = Constants.TEXTSIZE,
+				TextXAlignment = Enum.TextXAlignment.Center,
+				TextYAlignment = Enum.TextYAlignment.Top,
+			}),
 		}),
 	})
 end
@@ -241,6 +373,7 @@ ImageEditor = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = ContextServices.Stylizer,
+	Mouse = ContextServices.Mouse,
 })(ImageEditor)
 
 return ImageEditor

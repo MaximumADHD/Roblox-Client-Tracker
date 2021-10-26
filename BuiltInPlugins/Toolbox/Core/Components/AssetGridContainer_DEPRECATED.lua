@@ -17,7 +17,8 @@ local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
-local FFlagToolboxShowMeshAndTextureId = game:GetFastFlag("ToolboxShowMeshAndTextureId")
+local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
+local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -254,7 +255,7 @@ function AssetGridContainer:init(props)
 			ViewInBrowser = true,
 		}
 
-		local currentCategory = (FFlagToolboxShowMeshAndTextureId and assetData.Context.currentCategory) or nil
+		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
 		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, currentCategory, trackingAttributes)
 	end
 
@@ -337,10 +338,12 @@ function AssetGridContainer:didMount()
 						Updated = responseItem.asset.updatedUtc,
 
 					},
+					Context = FFlagToolboxFixTryInStudioContextMenu and {} or nil, -- TODO: STM-828 Add currentCategory and other context item Analytics
 					Creator = {
 						Name = responseItem.creator.name,
 						Id = responseItem.creator.id,
-						TypeId = responseItem.creator.type,
+						TypeId = (not FFlagToolboxFixTryInStudioContextMenu) and responseItem.creator.type or nil,
+						Type = FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 					},
 				}
 

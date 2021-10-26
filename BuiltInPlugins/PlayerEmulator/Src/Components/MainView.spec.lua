@@ -7,8 +7,8 @@ local MainView = require(Plugin.Src.Components.MainView)
 
 return function()
 	local function runTests(customPolicyFastFlagEnabled: boolean)
-		withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
-			it("should create and destroy without errors with custom policy fast flag set to ".. tostring(customPolicyFastFlagEnabled), function()
+		it("should create and destroy without errors with custom policy fast flag set to ".. tostring(customPolicyFastFlagEnabled), function()
+			withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
 				local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 					MainView = Roact.createElement(MainView)
 				})

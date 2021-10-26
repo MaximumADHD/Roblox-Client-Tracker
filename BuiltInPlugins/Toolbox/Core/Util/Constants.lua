@@ -7,7 +7,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Constants = {}
@@ -238,7 +237,6 @@ Constants.Dialog = {
 	SIZE = Vector2.new(400, 186),
 	BUTTON_SIZE = Vector2.new(120, 32),
 	BUTTON_PADDING = 20,
-	BORDER_PADDING = (not FFlagToolboxUseDevFrameworkDialogs and 24) or nil,
 
 	IMAGE_SIZE = UDim2.fromOffset(80, 80),
 	PROMPT_SIZE = UDim2.fromOffset(260, 60),

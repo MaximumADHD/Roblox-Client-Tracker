@@ -18,7 +18,6 @@
 		function OnTreeUpdated = callback for when the nodes of the tree are updated
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
@@ -108,7 +107,7 @@ function IKTreeView:init()
 			}
 		end)
 	end
-	
+
 	self.contributeItem = function(item, depth, list)
 		table.insert(list, item)
 		if self.state.expandedItems[item] then
@@ -121,7 +120,7 @@ function IKTreeView:init()
 	end
 
 	self.calculateRows = function(prevState)
-		if prevState and self.state.expandedItems == prevState.expandedItems then 
+		if prevState and self.state.expandedItems == prevState.expandedItems then
 			return
 		end
 		local rows = {}
@@ -284,7 +283,7 @@ function IKTreeView:render()
 						})
 					})
 				end,
-				Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+				Style = "BorderBox",
 			})
 		})
 end

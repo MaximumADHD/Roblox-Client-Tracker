@@ -12,7 +12,7 @@ local Stylizer = Framework.Style.Stylizer
 local DropdownField = require(PluginFolder.Src.Components.Common.DropdownField)
 
 local Thunks = PluginFolder.Src.Thunks
-local FilterScopeWatchThunk = require(Thunks.FilterScopeWatchThunk)
+local FilterScopeWatchThunk = require(Thunks.Watch.FilterScopeWatchThunk)
 
 local ScopeDropdownField = Roact.PureComponent:extend("ScopeDropdownField")
 

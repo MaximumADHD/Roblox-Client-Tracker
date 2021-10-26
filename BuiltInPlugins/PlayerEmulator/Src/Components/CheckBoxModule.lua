@@ -23,8 +23,6 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local CheckBox = UILibrary.Component.CheckBox
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local CheckBoxModule = Roact.PureComponent:extend("CheckBoxModule")
 
 function CheckBoxModule:init(props)
@@ -35,13 +33,8 @@ end
 
 function CheckBoxModule:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
-
+	local theme = props.Stylizer
+	
 	local enabled = props.Enabled
 	local itemKey = props.ItemKey
 	local selected = props.Selected
@@ -70,13 +63,11 @@ end
 
 if FFlagPlayerEmulatorWithContext then
 	CheckBoxModule = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})(CheckBoxModule)
 else
 	ContextServices.mapToProps(CheckBoxModule, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})
 end
 

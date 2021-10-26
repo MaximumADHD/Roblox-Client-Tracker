@@ -23,6 +23,8 @@ local PropertyListView = Roact.PureComponent:extend("PropertyListView")
 
 local getPropertiesForInstance = require(Plugin.Src.Utility.getPropertiesForInstance)
 
+local getFFlagDevFrameworkExpandablePaneSectionStyle = require(Plugin.Src.Flags.getFFlagDevFrameworkExpandablePaneSectionStyle)
+
 local function getExpanded(expanded, section)
 	return expanded[section] or expanded[section] == nil
 end
@@ -44,7 +46,7 @@ function PropertyListView:render()
 	for sectionIndex, sectionMetadata: Types.Section in pairs(getPropertiesForInstance(props.Instance)) do
 		local sectionProperties = {}
 		for propertyIndex, propertyMetadata: Types.PropDescriptor in pairs(sectionMetadata.Properties) do
-			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide() then 
+			if not propertyMetadata.ShouldHide or not propertyMetadata.ShouldHide() then
 				sectionProperties[propertyIndex] = Roact.createElement(PropertyView, {
 					Instance = props.Instance,
 					PropertyName = propertyMetadata.Name,
@@ -70,6 +72,7 @@ function PropertyListView:render()
 				end,
 				Layout = Enum.FillDirection.Vertical,
 				LayoutOrder = sectionIndex,
+				Style = "AssetSettings",
 				Text = localization:getText("Sections", sectionMetadata.Section),
 			}, sectionProperties)
 		end

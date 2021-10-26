@@ -6,6 +6,13 @@ return {
 		Properties = {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},
+			{Name = "InsertInWorkspace", Editable = true},
+		},
+	},
+	{
+		Section = "AvatarGeneral",
+		Properties = {
+			{Name = "RigType", Editable = true, ShouldHide = function() return not AssetImportService:IsAvatar() end},
 		},
 	},
 	{
@@ -13,7 +20,6 @@ return {
 		Properties = {
 			{Name = "WorldForward", Editable = true, Dependencies = {"WorldUp"}},
 			{Name = "WorldUp", Editable = true, Dependencies = {"WorldForward"}},
-			{Name = "ZeroOrigin", Editable = true},
 		},
 	},
 	{
@@ -24,12 +30,6 @@ return {
 			{Name = "PolygonCount", Editable = false},
 			{Name = "MergeMeshes", Editable = true},
 			{Name = "InvertNegativeFaces", Editable = true},
-		},
-	},
-	{
-		Section = "AvatarGeneral",
-		Properties = {
-			{Name = "RigType", Editable = true, ShouldHide = function() return not AssetImportService:IsAvatar() end},
 		},
 	},
 }

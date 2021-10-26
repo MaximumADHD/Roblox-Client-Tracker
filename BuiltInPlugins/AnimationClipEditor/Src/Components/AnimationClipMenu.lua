@@ -32,11 +32,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local GetFFlagUseAnimationClipEditorConstantsSeparator = require(Plugin.LuaFlags.GetFFlagUseAnimationClipEditorConstantsSeparator)
-
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
-local Separator = GetFFlagUseAnimationClipEditorConstantsSeparator() and Constants.MENU_SEPARATOR or ContextMenu.Separator
+local Separator = Constants.MENU_SEPARATOR
 
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)

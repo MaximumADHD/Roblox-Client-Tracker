@@ -11,6 +11,8 @@ local SetAssetPreview = require(Actions.SetAssetPreview)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
+local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
+
 return function(assetId, tryInsert, localization, api)
 	return function(store)
 		local ok, result = pcall(function()
@@ -45,10 +47,12 @@ return function(assetId, tryInsert, localization, api)
 						Created = responseItem.asset.createdUtc,
 						Updated = responseItem.asset.updatedUtc,
 					},
+					Context = FFlagToolboxFixTryInStudioContextMenu and {} or nil, -- TODO: STM-828 Add currentCategory and other context item Analytics
 					Creator = {
 						Name = responseItem.creator.name,
 						Id = responseItem.creator.id,
-						TypeId = responseItem.creator.type,
+						TypeId = (not FFlagToolboxFixTryInStudioContextMenu) and responseItem.creator.type or nil,
+						Type = FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 					},
 				}
 

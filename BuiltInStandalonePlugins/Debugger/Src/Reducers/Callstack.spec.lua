@@ -16,6 +16,7 @@ local BreakpointHitAction = require(Actions.Common.BreakpointHit)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 
 local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1})
+local defaultThreadId = 1
 
 return function()
 	it("should return its expected default state", function()
@@ -36,8 +37,7 @@ return function()
 				lineColumn = "d",
 				sourceColumn = "e",
 			}
-			-- TODO(aherdzik): move BreakpointHitAction into DebugConnectionListener:onExecutionPaused action, see RIDE-5969
-			local prepState = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken))
+			local prepState = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken, defaultThreadId))
 			local state = CallstackReducer(prepState, AddCallstackAction(123, testInfo, defaultDebuggerToken))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToCallstackVars).to.be.ok()
@@ -72,8 +72,7 @@ return function()
 
 	describe(AddThreadIdAction.name, function()
 		it("should Add the ThreadId", function()
-			-- TODO(aherdzik): move BreakpointHitAction into DebugConnectionListener:onExecutionPaused action, see RIDE-5969
-			local prepState = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken))
+			local prepState = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken, defaultThreadId))
 			local state = CallstackReducer(prepState, AddThreadIdAction(123, "TestScript.Lua", defaultDebuggerToken))
 
 			expect(state).to.be.ok()
@@ -103,11 +102,10 @@ return function()
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
-	
-	-- TODO(aherdzik):Reevaluate with RIDE-5969
+
 	describe(BreakpointHitAction.name, function()
 		it("should should add empty data to state map", function()
-			local state = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken))
+			local state = CallstackReducer(nil, BreakpointHitAction(defaultDebuggerToken, defaultThreadId))
 			expect(state).to.be.ok()
 			expect(state.listOfEnabledColumns).to.be.ok()
 			expect(state.stateTokenToCallstackVars).to.be.ok()

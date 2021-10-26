@@ -141,10 +141,10 @@ return function()
 			expect(type(state.allPolicies)).to.equal("table")
 			expect(type(state.allPolicySortedKeys)).to.equal("table")
 			expect(type(state.policySettingStatus)).to.equal("table")
+			expect(mockPlugin:GetSetting(Constants.POLICY_SETTING_KEY)).never.to.be.ok() --on init (i.e. before user toggles anything) nothing should be cached
 			assert(deepEqual(state.allPolicies, mockAllPolicies))
 			assert(deepEqual(state.policySettingStatus, mockPolicyApiSetting))
 			assert(deepEqual(PlayerEmulatorService:GetEmulatedPolicyInfo(), mockPolicyApiSetting))
-			assert(deepEqual(mockPlugin:GetSetting(Constants.POLICY_SETTING_KEY), mockPolicyApiSetting))
 		end)
 
 		it("should load cached settings when http succeeded and has local cache", function()

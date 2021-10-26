@@ -10,15 +10,33 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagDevFrameworkExpandablePaneSectionStyle = require(Plugin.Src.Flags.getFFlagDevFrameworkExpandablePaneSectionStyle)
+
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Style = Framework.Style
+local BaseTheme = Style.Themes.BaseTheme
 local StudioTheme = Style.Themes.StudioTheme
+local ui = Style.ComponentSymbols
+
+local UIData = Framework.UIData
+local ExpandablePaneStyle = require(UIData.ExpandablePane.style)
+
+local section = getFFlagDevFrameworkExpandablePaneSectionStyle() and ExpandablePaneStyle["&Section"] or nil
+local content = ExpandablePaneStyle.Content
+
+local Dash = Framework.Dash
+local join = Dash.join
 
 local PluginTheme = {
+	PropertyView = {
+		IconSize = 20,
+		Spacing = 4,
+	},
+
 	TopBar = {
 		-- TODO CIN-43: Use AutomaticSize.X once FFlagDevFrameworkAddContainerAutomaticSizing is enabled
 		ButtonSize = UDim2.new(0, 80, 1, 0),
@@ -48,6 +66,26 @@ local PluginTheme = {
 		ToolbarHeight = 30,
 		TopBarHeight = 40,
 	},
+
+	ErrorIcon = {
+		Image = "rbxasset://textures/StudioSharedUI/alert_error@2x.png",
+	},
+	WarningIcon = {
+		Image = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png",
+	},
+
+	[ui.ExpandablePane] = join(BaseTheme[ui.ExpandablePane], {
+		["&AssetSettings"] = join(section, {
+			Content = join(content, {
+				Padding = {
+					Left = 4,
+					Top = 10,
+					Right = 4,
+					Bottom = 10,
+				},
+			}),
+		}),
+	})
 }
 
 if THEME_REFACTOR then

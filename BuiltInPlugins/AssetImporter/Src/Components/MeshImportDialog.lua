@@ -21,8 +21,6 @@ local StyledDialog = StudioUI.StyledDialog
 
 local AssetImporterUI = require(Plugin.Src.Components.AssetImporterUI)
 
-local getFFlagDevFrameworkStyledDialogFullBleed = require(Plugin.Src.Flags.getFFlagDevFrameworkStyledDialogFullBleed)
-
 local MeshImportDialog = Roact.PureComponent:extend("MeshImportDialog")
 
 function MeshImportDialog:init()
@@ -42,8 +40,8 @@ function MeshImportDialog:render()
 	local props = self.props
 	local localization = props.Localization
 
-	local dialogWidth = 600
-	local dialogHeight = 500
+	local dialogWidth = 800
+	local dialogHeight = 650
 
 	local importEnabled = props.SettingsCheckedCount ~= 0
 
@@ -60,7 +58,7 @@ function MeshImportDialog:render()
 		},
 		OnClose = props.OnClose,
 		OnButtonPressed = self.onButtonPressed,
-		Style = getFFlagDevFrameworkStyledDialogFullBleed() and "FullBleed" or nil,
+		Style = "FullBleed",
 	}, {
 		Content = Roact.createElement(Pane, {
 			Layout = Enum.FillDirection.Vertical,

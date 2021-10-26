@@ -8,6 +8,7 @@ local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local FFlagCubicEasingStyle = game:DefineFastFlag("ACECubicEasingStyle2", false)
 
 local KeyframeUtils = {}
 
@@ -155,6 +156,7 @@ function KeyframeUtils.snapToFrame(value, tolerance)
 end
 
 -- TODO: AVBURST-877 We need to have an equivalent for Cubic easing
+-- Deprecated with FFlagCubicEasingStyle
 local function convertEasingStyle(poseEasingStyle)
 	if poseEasingStyle == Enum.PoseEasingStyle.Cubic then
 		return Enum.EasingStyle.Quad
@@ -177,7 +179,7 @@ function KeyframeUtils:blendKeyframes(dataTable, tick, low, high)
 		alpha = distance
 	else
 		alpha = TweenService:GetValue(distance,
-			convertEasingStyle(lowEntry.EasingStyle),
+			FFlagCubicEasingStyle and Enum.EasingStyle[lowEntry.EasingStyle.Name] or convertEasingStyle(lowEntry.EasingStyle),
 			Enum.EasingDirection[lowEntry.EasingDirection.Name])
 	end
 

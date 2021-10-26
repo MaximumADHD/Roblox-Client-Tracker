@@ -10,6 +10,7 @@ game:DefineFastFlag("TerrainToolsMoreOutputIssue", false)
 game:DefineFastFlag("TerrainToolsFixSnapPlaneLock", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
 game:DefineFastFlag("TerrainToolsProgressWidgetInfoDialogTests", false)
+game:DefineFastFlag("TerrainToolsGlobalStateFixStrength", false)
 
 local Plugin = script.Parent.Parent
 local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)

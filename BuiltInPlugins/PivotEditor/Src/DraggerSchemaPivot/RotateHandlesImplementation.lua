@@ -14,8 +14,6 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
-local getFFlagPivotEditorErrors = require(Plugin.Src.Flags.getFFlagPivotEditorErrors)
-
 local MoveHandlesForDisplay = {
 	MinusZ = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0)),
@@ -131,7 +129,7 @@ function RotateHandlesImplementation:updateDrag(globalTransform)
 end
 
 function RotateHandlesImplementation:endDrag()
-	if not getFFlagPivotEditorErrors() or self._primaryObject then
+	if self._primaryObject then
 		self._draggerContext:getAnalytics():sendEvent("setPivot", {
 			gridSize = self._draggerContext:getGridSize(),
 			rotateIncrement = self._draggerContext:getRotateIncrement(),

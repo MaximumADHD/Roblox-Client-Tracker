@@ -63,26 +63,26 @@ return Rodux.createReducer(productionStartStore, {
 
 	[ResumedAction.name] = function(state : CommonStore, action)
 		local currentConnectionId = state.currentDebuggerConnectionId
-		local currentThreadMap = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
+		local newConnectionIdToThreadId = deepCopy(state.debuggerConnectionIdToCurrentThreadId)
 		local newCurrentFrameMap = deepCopy(state.currentFrameMap)
 
-		local currentThreadId = currentThreadMap[currentConnectionId]
+		local currentThreadId = newConnectionIdToThreadId[currentConnectionId]
+		assert(newCurrentFrameMap[currentConnectionId] ~= nil and 
+			newCurrentFrameMap[currentConnectionId][action.threadId] ~= nil)
 
-		assert(newCurrentFrameMap[currentConnectionId] ~= nil)
-		assert(newCurrentFrameMap[currentConnectionId][currentThreadId] ~= nil)
+		newCurrentFrameMap[currentConnectionId][action.threadId] = nil
 
-		newCurrentFrameMap[currentConnectionId][currentThreadId] = nil
-		currentThreadMap[currentConnectionId] = nil
 		if currentThreadId == action.threadId then
+			newConnectionIdToThreadId[currentConnectionId] = nil
 			-- just pick the first threadID that is still valid if we are resuming the focused thread
 			for k,v in pairs(newCurrentFrameMap[currentConnectionId]) do
-				currentThreadMap[currentConnectionId] = k
+				newConnectionIdToThreadId[currentConnectionId] = k
 				break
 			end
 		end
 		
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToCurrentThreadId = currentThreadMap,
+			debuggerConnectionIdToCurrentThreadId = newConnectionIdToThreadId,
 			currentFrameMap = newCurrentFrameMap
 		})
 	end,

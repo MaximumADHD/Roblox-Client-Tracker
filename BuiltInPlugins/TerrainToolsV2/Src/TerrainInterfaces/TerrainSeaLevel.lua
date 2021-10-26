@@ -1,5 +1,3 @@
-local FFlagTerrainToolsMoreOutputIssue = game:GetFastFlag("TerrainToolsMoreOutputIssue")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -75,14 +73,6 @@ function TerrainSeaLevel:localizedWarn(...)
 	end
 end
 
-if not FFlagTerrainToolsMoreOutputIssue then
-	function TerrainSeaLevel:localizedPrint(...)
-		if self._localization then
-			print(self._localization:getText(...))
-		end
-	end
-end
-
 function TerrainSeaLevel:subscribeToProgressChange(...)
 	return self._progressChanged:Connect(...)
 end
@@ -116,11 +106,6 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	self._updateReplaceProgress(0)
 	self._setReplacing(true)
 
-	if not FFlagTerrainToolsMoreOutputIssue then
-		self:localizedPrint("SeaLevel", "Start")
-	end
-
-	local startTime = tick()
 	local terrain = self._terrain
 	if not terrain then
 		self:localizedWarn("Warning", "MissingTerrain")
@@ -223,10 +208,6 @@ function TerrainSeaLevel:replaceMaterial(position, size, sourceMaterial, targetM
 	-- resolution is currently a fixed value of 4 until terrain
 	-- provides that as an actual option
 	self._updateReplaceProgress(1)
-	local endTime = tick()
-	if not FFlagTerrainToolsMoreOutputIssue then
-		self:localizedPrint("SeaLevel", "End", endTime - startTime)
-	end
 	self._setReplacing(false)
 end
 

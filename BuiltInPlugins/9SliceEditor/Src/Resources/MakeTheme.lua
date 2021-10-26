@@ -20,7 +20,11 @@ local StudioTheme = Style.Themes.StudioTheme
 local ui = Style.ComponentSymbols
 -- local _StyleKey = Style.StyleKey -- uncomment to use
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 ui:add("AlertDialog")
+ui:add("ImageDragger")
+ui:add("SliceEditor")
 
 local PluginTheme = {
 	Button = {
@@ -28,15 +32,36 @@ local PluginTheme = {
 		Style = "Round",
 	},
 
-	TextInput = {
-		Size = UDim2.fromOffset(60, 20),
+	TextEditor = {
+		OffsetItemSpacing = UDim.new(0, 7),
+	},
+
+	TextOffsetItem = {
+		PaneSize = UDim2.fromOffset(110, 20),
+		LabelXWidth = 50,
+		TextBoxSize = UDim2.fromOffset(50, 20),
+		LabelTextBoxSpacing = 10,
 		Style = "RoundedBorder",
 	},
 
 	[ui.AlertDialog] = {
 		PopupMessageSize = Vector2.new(400, 60),
 		TextSize = 18,
-	}
+	},
+
+	[ui.ImageDragger] = {
+		EdgeHandleSize = UDim2.fromOffset(30, 27),
+		EdgeHandleInsetPx = 2,
+	},
+
+	[ui.SliceEditor] = {
+		ImageAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE,
+			Constants.BACKGROUND_SIZE + Constants.TEXTSIZE + 10),
+		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10, 32),
+		ButtonsSpacing = UDim.new(0, 10),
+		VerticalSpacing = UDim.new(0, 5),
+		HorizontalSpacing = UDim.new(0, 5),
+	},
 }
 
 if THEME_REFACTOR then

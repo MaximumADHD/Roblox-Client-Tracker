@@ -21,7 +21,6 @@
 			update setting of list item
 ]]
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
-local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -61,7 +60,7 @@ function PolicySection:render()
 	local updateToggleItem = props.updateToggleItem
 	local updateListItem = props.updateListItem
 	
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 and not props.customPoliciesEnabled then
+	if game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2") and not props.customPoliciesEnabled then
 		return nil
 	end
 	
@@ -118,7 +117,7 @@ end
 
 
 local function mapStateToProps(state, _)
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 then
+	if game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2") then
 		return {
 			mainSwitchEnabled = state.MainSwitch.mainSwitchEnabled,
 			customPoliciesEnabled = state.CustomPolicySwitch.customPoliciesEnabled,

@@ -6,7 +6,7 @@
 
 local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -613,7 +613,7 @@ function NetworkInterface:getLocalUserFriends(userId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
-if not FFlagUseNewAssetPermissionEndpoint then
+if not FFlagUseNewAssetPermissionEndpoint2 then
 	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 	function NetworkInterface:getPackageCollaborators(assetId)
 		local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
@@ -685,7 +685,7 @@ function NetworkInterface:revokeAssetPermissions(assetId, permissions)
 	return self._networkImp:httpDeleteWithPayload(targetUrl, putPayload)
 end
 
-if FFlagUseNewAssetPermissionEndpoint then
+if FFlagUseNewAssetPermissionEndpoint2 then
 	function NetworkInterface:getAssetPermissions(assetId)
 		local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
 

@@ -232,11 +232,12 @@ DisplayTable = RoactRodux.connect(
 			local watchVars = state.Watch.stateTokenToRoots[token]
 
 			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
-			local rootsList = isVariablesTab and deepCopy(roots.Variables) or deepCopy(roots.Watches)
+			local treeKey = isVariablesTab and "Variables" or "Watches"
+			local rootsList = roots and (roots[treeKey] and deepCopy(roots[treeKey]) or {}) or {}
 
 			local watchTree = state.Watch.stateTokenToFlattenedTree[token]
 			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
-			local flattenedTreeCopy = isVariablesTab and deepCopy(tree.Variables) or deepCopy(tree.Watches)
+			local flattenedTreeCopy = tree and (tree[treeKey] and deepCopy(tree[treeKey]) or {}) or {}
 
 			if not isVariablesTab then
 				rootsList = useListOfExpressionsAsSOT(state.Watch.listOfExpressions, rootsList, flattenedTreeCopy)

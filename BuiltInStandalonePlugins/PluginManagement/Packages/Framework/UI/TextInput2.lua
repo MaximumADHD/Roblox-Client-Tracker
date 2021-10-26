@@ -215,15 +215,6 @@ function TextInput2:render()
 	return textInput
 end
 
-function TextInput2:_getText()
-	local textBox = self.textBoxRef.current
-	if textBox then
-		return textBox.Text
-	else
-		return self.props.Text
-	end
-end
-
 function TextInput2:_renderTextInput(hasBottomText)
 	local props = self.props
 	local style = props.Stylizer
@@ -299,7 +290,7 @@ function TextInput2:_renderTextInput(hasBottomText)
 			PlaceholderText = props.PlaceholderText,
 			PlaceholderTextColor = style.PlaceholderTextColor,
 			Size = textBoxSize,
-			Text = self:_getText(),
+			Text = props.Text,
 			TextColor = style.TextColor,
 			TextSize = style.TextSize,
 			TextWrapped = false,

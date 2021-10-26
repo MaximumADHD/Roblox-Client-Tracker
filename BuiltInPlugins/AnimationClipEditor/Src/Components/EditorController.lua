@@ -72,6 +72,8 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
+local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
+
 local EditorController = Roact.PureComponent:extend("EditorController")
 
 function EditorController:init()
@@ -121,7 +123,11 @@ function EditorController:init()
 
 	self.onScroll = function(delta)
 		local topTrackIndex = self.state.TopTrackIndex
-		self.setTopTrackIndex(topTrackIndex - delta)
+		if FFlagFixMouseWheel then
+			self.setTopTrackIndex(topTrackIndex - (delta > 0 and 1 or -1))
+		else
+			self.setTopTrackIndex(topTrackIndex - delta)
+		end
 	end
 
 	self.onSizeUpdate = function(rbx)
@@ -732,7 +738,7 @@ if FFlagAnimationClipEditorWithContext then
 else
 	ContextServices.mapToProps(EditorController, {
 		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext, 
+		Signals = SignalsContext,
 	})
 end
 

@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 
-local MainReducer = require(Plugin.Src.Reducers.MainReducer)
+local createMainReducer = require(Plugin.Src.Reducers.createMainReducer)
 local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
@@ -37,7 +37,7 @@ function MockServiceWrapper:render()
 	end
 
 	local storeState = self.props.storeState
-	local store = Rodux.Store.new(MainReducer, storeState, { Rodux.thunkMiddleware })
+	local store = Rodux.Store.new(createMainReducer(), storeState, { Rodux.thunkMiddleware })
 
 	local networkingImpl = Http.Networking.mock()
 

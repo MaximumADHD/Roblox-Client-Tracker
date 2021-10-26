@@ -45,8 +45,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local function GetLocaleId()
 	return PlayerEmulatorService.EmulatedGameLocale
 end
@@ -161,12 +159,7 @@ function LanguageSection:render()
 	local localeId = state.localeId
 	local languagesList = props.languagesList
 
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Stylizer
 	local localization = props.Localization
 	local layoutOrder = props.LayoutOrder
 
@@ -269,16 +262,14 @@ end
 
 if FFlagPlayerEmulatorWithContext then
 	LanguageSection = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 		Localization = ContextServices.Localization,
 		Networking = NetworkingContext,
 		Plugin = ContextServices.Plugin,
 	})(LanguageSection)
 else
 	ContextServices.mapToProps(LanguageSection, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 		Localization = ContextServices.Localization,
 		Networking = NetworkingContext,
 		Plugin = ContextServices.Plugin,

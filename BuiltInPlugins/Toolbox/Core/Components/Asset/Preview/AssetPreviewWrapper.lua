@@ -73,6 +73,10 @@ local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccess
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
+local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
+local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
+
+local disableRatings = (FFlagToolboxPolicyDisableRatings and require(Plugin.Core.Util.ToolboxUtilities).disableRatings) or nil
 
 local PADDING = 32
 local INSTALLATION_ANIMATION_TIME = 1.0 --seconds
@@ -521,6 +525,24 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		end
 	end
 
+	local favorites
+	if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites and disableRatings() then
+		favorites = nil
+	else
+		favorites = {
+			OnClick = self.onFavoritedActivated,
+			Count = tonumber(self.props.favoriteCounts),
+			IsFavorited = self.props.favorited
+		}
+	end
+
+	local voting
+	if FFlagToolboxPolicyDisableRatings and disableRatings() then
+		voting = nil
+	else
+		voting = (purchaseFlow.HasRating and self.props.voting)
+	end
+
 	local assetPreview = Roact.createElement(AssetPreview, {
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		AnchorPoint = Vector2.new(0.5, 0.5),
@@ -539,13 +561,9 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		PurchaseFlow = purchaseFlow.PurchaseFlow,
 		SuccessDialog = purchaseFlow.SuccessDialog,
 
-		Favorites = {
-			OnClick = self.onFavoritedActivated,
-			Count = tonumber(self.props.favoriteCounts),
-			IsFavorited = self.props.favorited
-		},
+		Favorites = favorites,
 
-		Voting = purchaseFlow.HasRating and self.props.voting or nil,
+		Voting = voting,
 		OnVoteUp = self.onVoteUpButtonActivated,
 		OnVoteDown = self.onVoteDownButtonActivated,
 		OnClickCreator = self.searchByCreator,

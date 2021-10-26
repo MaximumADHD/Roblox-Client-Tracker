@@ -6,6 +6,8 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
+local getFFlagPreserveMotor6D = require(DraggerFramework.Flags.getFFlagPreserveMotor6D)
+
 local JointMaker = {}
 JointMaker.__index = JointMaker
 
@@ -33,7 +35,10 @@ function JointMaker:pickUpParts(parts)
 	self._parts = parts
 	self._rootPartSet = {} -- Intentionally empty, only needed for IK moves
 
+	local FFlagPreserveMotor6D = getFFlagPreserveMotor6D()
+
 	local weldConstraintsToReenableSet = {}
+	local motor6dsToAdjustAndReenableSet = {}
 	local jointsToDestroy = {}
 	local alreadyConnectedToSets = {}
 	local initiallyTouchingSets = {}
@@ -66,7 +71,13 @@ function JointMaker:pickUpParts(parts)
 				if partSet[other] then
 					internalJointSet[joint] = joint.Part1
 				else
-					table.insert(jointsToDestroy, joint)
+					if FFlagPreserveMotor6D and joint:IsA("Motor6D") then
+						joint.Enabled = false
+						motor6dsToAdjustAndReenableSet[joint] = part.CFrame
+						alreadyConnectedToSets[part][other] = true
+					else
+						table.insert(jointsToDestroy, joint)
+					end
 				end
 			elseif joint:IsA("WeldConstraint") then
 				local other = JointUtil.getWeldConstraintCounterpart(joint, part)
@@ -90,6 +101,9 @@ function JointMaker:pickUpParts(parts)
 	self._initiallyTouchingSets = initiallyTouchingSets
 	self._jointsToDestroy = jointsToDestroy
 	self._weldConstraintsToReenableSet = weldConstraintsToReenableSet
+	if FFlagPreserveMotor6D then
+		self._motor6dsToAdjustAndReenableSet = motor6dsToAdjustAndReenableSet
+	end
 	self._alreadyConnectedToSets = alreadyConnectedToSets
 	self._geometryCache = {}
 end
@@ -188,6 +202,21 @@ end
 function JointMaker:putDownParts()
 	for weld, _ in pairs(self._weldConstraintsToReenableSet) do
 		weld.Enabled = true
+	end
+	if getFFlagPreserveMotor6D() then
+		for motor6d, originalCFrame in pairs(self._motor6dsToAdjustAndReenableSet) do
+			if self._partSet[motor6d.Part0] then
+				-- Modify C0
+				local part0 = motor6d.Part0
+				motor6d.C0 = part0.CFrame:Inverse() * originalCFrame * motor6d.C0
+			else
+				-- Modify C1
+				local part1 = motor6d.Part1
+				motor6d.C1 = part1.CFrame:Inverse() * originalCFrame * motor6d.C1
+			end
+			motor6d.Enabled = true
+		end
+		self._motor6dsToAdjustAndReenableSet = nil
 	end
 	self._weldConstraintsToReenableSet = nil
 	self._alreadyConnectedToSets = nil

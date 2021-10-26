@@ -18,7 +18,7 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local Promise = require(Plugin.Libs.Framework).Util.Promise
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagUseNewAssetPermissionEndpoint = game:GetFastFlag("UseNewAssetPermissionEndpoint")
+local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local RevokeSubjectAction = KeyConverter.getWebAction(PermissionsConstants.NoAccessKey)
 
@@ -114,7 +114,7 @@ return function(networkInterface, assetId, assetVersionNumber)
 
         -- should be verified already in AssetConfig but just in case
         if changeTable and next(changeTable) ~= nil then
-            if FFlagUseNewAssetPermissionEndpoint then
+            if FFlagUseNewAssetPermissionEndpoint2 then
                 local originalCollaborators = store:getState().originalCollaborators
         
                 local grantRequest = serializeForGrantAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata)
@@ -124,9 +124,14 @@ return function(networkInterface, assetId, assetVersionNumber)
                 local revokePromise = next(revokeRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:revokeAssetPermissions(assetId, revokeRequest);
 
                 return Promise.all({grantPromise, revokePromise}):andThen(
-                    function(result)
+                    function(results)
                         if FFlagNewPackageAnalyticsWithRefactor2 then
-                            Analytics.sendResultToKibana(result)
+                            for _, result in pairs(results) do
+                                -- skip result that does not have "url" key
+                                if result.url ~= nil then
+                                    Analytics.sendResultToKibana(result)
+                                end
+                            end
                         end
                         store:dispatch(ClearChange("permissions"))
                         store:dispatch(ClearChange("groupMetadata"))

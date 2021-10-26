@@ -1,5 +1,4 @@
 local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -126,7 +125,7 @@ function RoactElementTree:render()
 		RenderRow = self.renderRow,
 		GetChildren = getChildren,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 	})
 end
 

@@ -38,7 +38,6 @@ commonInit()
 local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 
-local MouseCursorUtil = require(main.Src.Util.MouseCursorUtil)
 local MainPlugin = require(main.Src.MainPlugin)
 
 -- Allows connecton to the Developer Inspector for internal engineers
@@ -61,8 +60,6 @@ local function init()
 	if inspector then
 		inspector:addRoactTree("Roact tree", handle)
 	end
-
-	MouseCursorUtil.setPluginObject(plugin)
 end
 
 plugin.Unloading:Connect(function()

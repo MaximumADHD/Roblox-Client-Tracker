@@ -1,5 +1,5 @@
-game:DefineFastFlag("UseLuaDraggers4", false)
+game:DefineFastFlag("UseLuaDraggers5", false)
 
 return function()
-	return game:GetFastFlag("UseLuaDraggers4")
+	return game:GetFastFlag("UseLuaDraggers5")
 end

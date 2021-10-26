@@ -1,9 +1,12 @@
 --[[
-	Component for Left, Right, Top, and Bottom TextInput boxes in the TextEditor.
+	This component contains a TextInput text box as well as a TextLabel.
+	This component is used for the Left, Right, Top, and Bottom TextInput boxes in the TextEditor.
 	Clamps values so that values do not exceed image bounds or other drag lines.
 	Also checks that inputs are integer values.
 
 	Props:
+		layoutOrder (number) -- Layout order of this entire element
+		labelText (string) -- The label of this text input box.
 		orientation (int) -- specifies which TextInput: left = 1, right = 2, top = 3, bottom = 4
 		pixelDimensions (Vector2) -- dimensions of the image in pixels
 		sliceRect -- current SliceCenter ordered in { X0, X1, Y0, Y1 } format
@@ -23,6 +26,8 @@ local Localization = ContextServices.Localization
 
 local UI = Framework.UI
 local TextInput = UI.TextInput
+local TextLabel = UI.Decoration.TextLabel
+local Pane = UI.Pane
 
 local TextOffset = Roact.PureComponent:extend("TextOffset")
 
@@ -126,41 +131,47 @@ end
 function TextOffset:render()
 	-- Renders the input text boxes and clamps values based on orientation
 	local props = self.props
+	local style = props.Stylizer
 	local pixelDimensions = props.pixelDimensions
 	local sliceRect = props.sliceRect
 	local orientation = props.orientation
-	local TextInputStyle = props.Stylizer.TextInput
+	local TextInputStyle = style.TextOffsetItem
 
-	local yPosition, onFocusLost
+	local onFocusLost
 	local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 	local offsetValue = offsetRect[orientation]
 
 	if orientation == LEFT then
-		yPosition = Constants.LEFTINPUT_YPOSITION
 		onFocusLost = self.onLeftFocusLost
-
 	elseif orientation == RIGHT then
-		yPosition = Constants.RIGHTINPUT_YPOSITION
 		onFocusLost = self.onRightFocusLost
-
 	elseif orientation == TOP then
-		yPosition = Constants.TOPINPUT_YPOSITION
 		onFocusLost = self.onTopFocusLost
-
 	elseif orientation == BOTTOM then
-		yPosition = Constants.BOTTOMINPUT_YPOSITION
 		onFocusLost = self.onBottomFocusLost
 	end
 
-	return Roact.createElement(TextInput, {
-		AnchorPoint = Vector2.new(1, 0),
-		Enabled = true,
-		Size = TextInputStyle.Size,
-		Position = UDim2.new(1, 0, 0, yPosition),
-		Style = TextInputStyle.Style,
-		Text = ("%d"):format(offsetValue),
-		TextXAlignment = Enum.TextXAlignment.Center,
-		OnFocusLost = onFocusLost,
+	return Roact.createElement(Pane, {
+		Size = TextInputStyle.PaneSize,
+		LayoutOrder = props.layoutOrder or 0,
+	}, {
+		Label = Roact.createElement(TextLabel, {
+			Position = UDim2.fromOffset(0, 0),
+			Size = UDim2.new(0, TextInputStyle.LabelXWidth, 1, 0),
+			Text = props.labelText or "",
+			TextSize = Constants.TEXTSIZE,
+			TextXAlignment = Enum.TextXAlignment.Right,
+			TextYAlignment = Enum.TextYAlignment.Center,
+		}),
+		TextInput = Roact.createElement(TextInput, {
+			Enabled = true,
+			Size = TextInputStyle.TextBoxSize,
+			Position = UDim2.fromOffset(TextInputStyle.LabelXWidth + TextInputStyle.LabelTextBoxSpacing, 0),
+			Style = TextInputStyle.Style,
+			Text = ("%d"):format(offsetValue),
+			TextXAlignment = Enum.TextXAlignment.Center,
+			OnFocusLost = onFocusLost,
+		}),
 	})
 end
 

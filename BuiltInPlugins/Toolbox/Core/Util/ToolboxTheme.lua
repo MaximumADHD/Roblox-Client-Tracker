@@ -1,4 +1,3 @@
-local FFlagToolboxUseDevFrameworkDialogs = game:GetFastFlag("ToolboxUseDevFrameworkDialogs")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
 local Plugin = script.Parent.Parent.Parent
@@ -460,11 +459,6 @@ function ToolboxTheme:_recalculateTheme()
 			contentColor = color(c.TitlebarText),
 			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
 		},
-
-		purchaseDialog = (not FFlagToolboxUseDevFrameworkDialogs and {
-			promptText = color(c.MainText),
-			balanceText = color(c.DimmedText),
-		}) or nil,
 	})
 
 	if (not FFlagRemoveUILibraryFromToolbox) then

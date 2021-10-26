@@ -3,7 +3,6 @@
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection, CustomPolicySwitchSection, and PolicySection
 ]]
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
-local PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -20,22 +19,15 @@ local LanguageSection = require(Plugin.Src.Components.LanguageSection)
 local CountryRegionSection = require(Plugin.Src.Components.CountryRegionSection)
 local PolicySection = require(Plugin.Src.Components.PolicySection)
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:render()
 	local layoutIndex = LayoutOrderIterator.new()
 
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
-	
-	if PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2 then
+	local theme = props.Stylizer
+
+	if game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2") then
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(1,0,1,0),
 			BackgroundColor3 = theme.BackgroundColor,
@@ -109,13 +101,11 @@ end
 
 if FFlagPlayerEmulatorWithContext then
 	MainView = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})(MainView)
 else
 	ContextServices.mapToProps(MainView, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})
 end
 

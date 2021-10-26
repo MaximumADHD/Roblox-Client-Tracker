@@ -38,8 +38,8 @@ return function()
 	}
 	
 	local function runTests(customPolicyFastFlagEnabled: boolean)
-		withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
-			it("should create and destroy without errors with mock data with custom policy fast flag set to ".. tostring(customPolicyFastFlagEnabled), function()
+		it("should create and destroy without errors with mock data with custom policy fast flag set to ".. tostring(customPolicyFastFlagEnabled), function()
+			withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
 				local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {
 					storeState = store
 				}, {
@@ -49,8 +49,10 @@ return function()
 				local instance = Roact.mount(mockServiceWrapper)
 				Roact.unmount(instance)
 			end)
+		end)
 
-			it("should create and destroy without errors with custom policy fast flag set to " .. tostring(customPolicyFastFlagEnabled), function()
+		it("should create and destroy without errors with custom policy fast flag set to " .. tostring(customPolicyFastFlagEnabled), function()
+			withFlag("PlayerEmulatorCustomPoliciesToggleEnabledUIChanges2", customPolicyFastFlagEnabled, function()
 				local mockServiceWrapper = Roact.createElement(MockServiceWrapper, {}, {
 					PolicySection = Roact.createElement(PolicySection)
 				})

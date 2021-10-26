@@ -3,8 +3,14 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
+local StyleModifier = Framework.Util.StyleModifier
+
+local Actions = Plugin.Src.Actions
+local SetContinuedExecution = require(Actions.BreakpointsWindow.SetContinuedExecution)
+local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
 
 local Dash = Framework.Dash
 local join = Dash.join
@@ -16,6 +22,8 @@ local Checkbox = UI.Checkbox
 local TreeTableCell = UI.TreeTableCell
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
+
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 local debugpointIconTable = {
 	breakpointDisabled = Constants.BreakpointIconDirectoryFilePath .. "breakpoint_disabled@2x.png",
@@ -69,9 +77,16 @@ function BreakpointsTreeTableCell:render()
 	local cellProps = props.CellProps
 	local value = row.item[key]
 	local isEnabledCol = key == "isEnabled"
+	local isContinueExecutionCol = key == "continueExecution"
 
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
+	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+		if style[StyleModifier.Hover] then
+			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
+				style[StyleModifier.Hover].BackgroundEven
+		end
+	end
 	local isExpanded = cellProps.Expansion[row.item]
 	local arrowSize = style.Arrow.Size
 	local indent = row.depth * style.Indent
@@ -116,8 +131,9 @@ function BreakpointsTreeTableCell:render()
 				}) or nil,
 				EnabledCheckbox = Roact.createElement(Checkbox, {
 					Checked = value,
-					-- TODO: replace OnClick with function that toggles the isEnabled for breakpoint.
-					OnClick = function() end,
+					OnClick = function() 
+						self.props.onSetEnabled(row.item.id, not row.item.isEnabled)
+					end,
 					LayoutOrder = 1,
 				}),
 				BreakpointIcon = Roact.createElement(Image, {
@@ -126,6 +142,23 @@ function BreakpointsTreeTableCell:render()
 					Image = debugpointIconPath,
 				}),
 			})
+		})
+	elseif isContinueExecutionCol then
+		return Roact.createElement(Pane, {
+			Style = "Box",
+			BackgroundColor3 = backgroundColor,
+			BorderSizePixel = 1,
+			BorderColor3 = style.Border,
+			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+			OnRightClick = props.OnRightClick,
+		}, {
+			EnabledCheckbox = Roact.createElement(Checkbox, {
+				Checked = value,
+				OnClick = function()
+					self.props.onSetContinueExection(row.item.id, not row.item.continueExecution)
+				end,
+				LayoutOrder = 1,
+			}),
 		})
 	end
 	
@@ -136,9 +169,40 @@ function BreakpointsTreeTableCell:render()
 		Row = props.Row,
 		Style = props.Style,
 		RowIndex = props.RowIndex,
+		HighlightCell = FFlagDevFrameworkHighlightTableRows and props.HighlightCell or nil,
 		OnRightClick = props.OnRightClick
 	})
 end
+
+BreakpointsTreeTableCell = RoactRodux.connect(
+	function(state, props)
+		return {
+			-- empty
+		}
+	end,
+
+	function(dispatch)
+		return {
+			onSetContinueExection = function(id, isEnabled)
+				local bpManager = game:GetService("BreakpointManager")
+				local bp = bpManager:GetBreakpointById(id)
+				bp.setContinuedExecution(isEnabled)
+
+				-- todo remove this dispatch when debugger event listener is set up RIDE-4761
+				return dispatch(SetContinuedExecution(id, isEnabled))
+			end,
+
+			onSetEnabled = function(id, isEnabled)
+				local bpManager = game:GetService("BreakpointManager")
+				local bp = bpManager:GetBreakpointById(id)
+				bp.setEnabled(isEnabled)
+
+				-- todo remove this dispatch when debugger event listener is set up RIDE-4761
+				return dispatch(SetBreakpointEnabled(id, isEnabled))
+			end
+		}
+	end
+)(BreakpointsTreeTableCell)
 
 return BreakpointsTreeTableCell
 

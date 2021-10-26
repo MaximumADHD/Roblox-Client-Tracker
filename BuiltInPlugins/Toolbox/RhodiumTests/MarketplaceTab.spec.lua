@@ -37,6 +37,9 @@ return function()
 
 	describe("Marketplace Tab Test Suite", function()
 		local originalConstructAssetThumbnailUrl
+		local container
+		local instance
+
 		beforeAll(function()
 			originalConstructAssetThumbnailUrl = Urls.constructAssetThumbnailUrl
 			Urls.constructAssetThumbnailUrl = function()
@@ -47,6 +50,10 @@ return function()
 		beforeEach(function()
 			-- Cleanup any test Toolbox left behind by a previously failed test
 			TestHelpers.cleanupTestToolbox()
+
+			-- Setup Mocked Toolbox
+			container = Instance.new("ScreenGui", game.CoreGui)
+			instance = TestHelpers.createTestToolbox(container)
 		end)
 
 
@@ -55,38 +62,29 @@ return function()
 		end)
 
 		afterEach(function()
+			-- Cleanup
+			Roact.unmount(instance)
+			container:Destroy()
 			TestHelpers.cleanupCategoryVerification()
 		end)
 
 		it("marketplace tab should open by default with models option", function()
-			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 			local _tabIcon = Element.new(XPath.new(MarketplaceTabIconPath))
 
 			-- expect(tostring(tabIcon:getRbxInstance().ImageColor3)).to.equal(SelectedTabColor)
 			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
-
-			Roact.unmount(instance)
-			container:Destroy()
 		end)
 
 		it("dropdown menu should show up after click dropdown icon", function()
-			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container)
 			TestHelpers.clickInstanceWithXPath(DropdownIconPath)
 
 			local dropdownInstance = Element.new("game.CoreGui.ScreenGui.ClickEventDetectFrame")
 			expect(dropdownInstance:getRbxInstance()).to.be.ok()
-
-			Roact.unmount(instance)
-			container:Destroy()
 		end)
 
 		it("dropdown menu models option should work", function()
-			local container = Instance.new("ScreenGui", game.CoreGui)
-			local instance = TestHelpers.createTestToolbox(container)
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
 			local _dropdown = TestHelpers.clickInstanceWithXPath(DropdownIconPath)
@@ -99,9 +97,6 @@ return function()
 
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
 			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
-
-			Roact.unmount(instance)
-			container:Destroy()
 		end)
 
 		-- Looping through options Audio, Images, Meshes, skipping Videos and Plugins for now
@@ -111,8 +106,6 @@ return function()
 		local expectedCategoryName = {AudioCategoryName, ImagesCategoryName, MeshesCategoryName}
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
-				local container = Instance.new("ScreenGui", game.CoreGui)
-				local instance = TestHelpers.createTestToolbox(container)
 				local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)
@@ -121,9 +114,6 @@ return function()
 
 				expect(currentSelection:getRbxInstance().Text).to.equal(expectedCurrentSelectionText[i])
 				expect(game.CoreGui.CategoryVerification.value).to.equal(expectedCategoryName[i])
-
-				Roact.unmount(instance)
-				container:Destroy()
 			end)
 		end
 	end)

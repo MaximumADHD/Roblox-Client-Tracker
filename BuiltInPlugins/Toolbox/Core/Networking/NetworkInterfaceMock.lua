@@ -25,8 +25,8 @@ local function getFakeAsset(fakeId)
 			typeId = 10,
 			isEndorsed = true,
 			description = "mocked asset item",
-			createdUtc = "2019-05-01T00:37:18.59Z",
-			updatedUtc = "2021-05-06T19:56:54.437Z",
+			createdUtc = "2018-05-10T02:28:14.227Z",
+			updatedUtc = "2018-06-10T02:28:14.24Z",
 			assetGenres = {},
 		},
 		creator = {
@@ -46,8 +46,8 @@ local function getFakeAsset(fakeId)
 			upVotes = 4506,
 			downVotes = 581,
 			canVote = true,
-			userVote = true, -- Vote Up
-			hasVoted = true,
+			userVote = "", -- Vote Up
+			hasVoted = false,
 			reasonForNotVoteable = "",
 		},
 	}
@@ -246,8 +246,8 @@ function NetworkInterfaceMock:postUnvote(assetId)
 		model = {
 			HasVoted = false,
 			CanVote = true,
-			upVotes = 4507,
-			UserVote = false,
+			upVotes = 4506,
+			UserVote = "",
 			DownVote = 581,
 			ShowVotes = true,
 		},
@@ -300,19 +300,13 @@ end
 
 function NetworkInterfaceMock:getFavoriteCounts(assetId)
 	return Promise.resolve({
-		responseBody = {
-			assetId = assetId,
-			favoriteCounts = 15
-		}
+		responseBody = "10"
 	})
 end
 
 function NetworkInterfaceMock:getFavorited(assetId)
 	return Promise.resolve({
-		responseBody = {
-			assetId = assetId,
-			favorited = false
-		}
+		responseBody = "null"
 	})
 end
 

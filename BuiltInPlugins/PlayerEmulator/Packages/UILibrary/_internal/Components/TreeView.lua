@@ -41,6 +41,8 @@ local withTheme = Theming.withTheme
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 
+local FFlagAddDefaultSizeUILibraryTreeView = game:GetFastFlag("AddDefaultSizeUILibraryTreeView")
+
 function TreeView:init()
 	assert(self.props.dataTree ~= nil, "TreeView expected a dataTree, but none was provided")
 	assert(type(self.props.getChildren) == "function", "TreeView expected getChildren() to be defined")
@@ -346,7 +348,8 @@ function TreeView:render()
 
 		local padding = theme.treeView.scrollbar.scrollbarPadding
 
-		local size = props.Size
+		local size = FFlagAddDefaultSizeUILibraryTreeView and (props.Size or UDim2.new(1, -2*padding, 1, -2*padding))
+			or props.Size
 
 		local layoutOrder = props.LayoutOrder
 

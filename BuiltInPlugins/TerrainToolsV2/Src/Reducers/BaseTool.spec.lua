@@ -2,6 +2,7 @@ local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLo
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
 local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
+local FFlagTerrainToolsGlobalStateFixStrength = game:GetFastFlag("TerrainToolsGlobalStateFixStrength")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -29,6 +30,7 @@ local ChangePivot = require(Actions.ChangePivot)
 local ChangePlanePositionY = require(Actions.ChangePlanePositionY)
 local ChangePosition = require(Actions.ChangePosition)
 local ChangeSize = require(Actions.ChangeSize)
+local ChangeStrength = require(Actions.ChangeStrength)
 local SetAutoMaterial = require(Actions.SetAutoMaterial)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
@@ -77,6 +79,9 @@ if FFlagTerrainToolsGlobalState then
 			expect(r:getState().size.X).to.equal(1024)
 			expect(r:getState().size.Y).to.equal(512)
 			expect(r:getState().size.Z).to.equal(1024)
+			if FFlagTerrainToolsGlobalStateFixStrength then
+				expect(r:getState().strength).to.equal(1)
+			end
 
 			expect(r:getState().planePositionY).to.equal(30)
 			expect(r:getState().heightPicker).to.equal(false)
@@ -352,6 +357,22 @@ if FFlagTerrainToolsGlobalState then
 				expect(immutabilityPreserved).to.equal(true)
 			end)
 		end)
+		if FFlagTerrainToolsGlobalStateFixStrength then
+			describe("ChangeStrength", function()
+				it("should set size", function()
+					local state = BaseTool(nil, ChangeStrength(0.5))
+
+					expect(state).to.be.ok()
+					expect(state.strength).to.be.ok()
+					expect(state.strength).to.equal(0.5)
+				end)
+
+				it("should preserve immutability", function()
+					local immutabilityPreserved = testImmutability(BaseTool, ChangeStrength(0.5))
+					expect(immutabilityPreserved).to.equal(true)
+				end)
+			end)
+		end
 
 		describe("ChangePlanePositionY", function()
 			it("should set PlanePosition", function()

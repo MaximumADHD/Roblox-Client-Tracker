@@ -22,6 +22,7 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -64,6 +65,8 @@ local Framework = require(Libs.Framework)
 local ShowOnTop = Framework.UI.ShowOnTop
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+
+local disableRatings = (FFlagToolboxPolicyDisableRatings and require(Plugin.Core.Util.ToolboxUtilities).disableRatings) or nil
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -377,11 +380,17 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local votingProps = props.voting or {}
 	local showVotes = votingProps.ShowVotes
 	local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-	if isCurrentlyCreationsTab then
-		showVotes = false
-	end
-	if showAudioLength then
-		showVotes = false
+	if FFlagToolboxPolicyDisableRatings then
+		if isCurrentlyCreationsTab or showAudioLength or disableRatings() then
+			showVotes = false
+		end
+	else
+		if isCurrentlyCreationsTab then
+			showVotes = false
+		end
+		if showAudioLength then
+			showVotes = false
+		end
 	end
 
 	local showStatus = isCurrentlyCreationsTab

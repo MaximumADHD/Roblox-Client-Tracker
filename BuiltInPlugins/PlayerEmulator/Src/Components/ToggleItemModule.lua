@@ -22,8 +22,6 @@ local withContext = ContextServices.withContext
 local UILibrary = require(Plugin.Packages.UILibrary)
 local ToggleButton = UILibrary.Component.ToggleButton
 
-local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
-
 local ToggleItemModule = Roact.PureComponent:extend("ToggleItemModule")
 
 function ToggleItemModule:init(props)
@@ -38,12 +36,7 @@ end
 
 function ToggleItemModule:render()
 	local props = self.props
-	local theme
-	if THEME_REFACTOR then
-	    theme = props.Stylizer
-	else
-	    theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Stylizer
 	local key = props.Key
 	local isOn = props.IsOn
 	local enabled = props.Enabled
@@ -74,14 +67,12 @@ end
 if FFlagPlayerEmulatorWithContext then
 	ToggleItemModule = withContext({
 		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})(ToggleItemModule)
 else
 	ContextServices.mapToProps(ToggleItemModule, {
 		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+		Stylizer = ContextServices.Stylizer,
 	})
 end
 
