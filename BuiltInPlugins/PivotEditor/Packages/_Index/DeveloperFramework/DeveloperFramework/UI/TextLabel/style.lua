@@ -1,3 +1,7 @@
+local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
+local FFlagFixDevFrameworkTextLabelTextColor = game:DefineFastFlag("FixDevFrameworkTextLabelTextColor", false)
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
+
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -20,17 +24,26 @@ if THEME_REFACTOR then
 		["&Normal"] = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
-			TextColor3 = StyleKey.MainText,
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
 		},
 		["&Semibold"] = {
 			Font = Enum.Font.SourceSansSemibold,
 			TextSize = 22,
-			TextColor3 = StyleKey.MainText,
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and StyleKey.MainText or nil,
 		},
+		["&SubText"] = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and {
+			Font = Enum.Font.SourceSans,
+			TextSize = 16,
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.SubText or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and StyleKey.SubText or nil,
+		} or nil,
 		["&Title"] = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 24,
-			TextColor3 = StyleKey.TitlebarText,
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and StyleKey.TitlebarText or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and StyleKey.TitlebarText or nil,
 		},
 	}
 else
@@ -50,23 +63,34 @@ else
 		local Normal = Style.extend(Default, {
 			Font = Enum.Font.SourceSans,
 			TextSize = 22,
-			TextColor3 = theme:GetColor("MainText"),
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("MainText") or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("MainText") or nil,
 		})
 
 		local Semibold = Style.extend(Default, {
 			Font = Enum.Font.SourceSansSemibold,
 			TextSize = 22,
-			TextColor3 = theme:GetColor("MainText"),
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("MainText") or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("MainText") or nil,
 		})
+
+		local SubText = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and Style.extend(Default, {
+			Font = Enum.Font.SourceSans,
+			TextSize = 16,
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("SubText") or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("SubText") or nil,
+		}) or nil
 
 		local Title = Style.extend(Default, {
 			Font = Enum.Font.SourceSans,
 			TextSize = 24,
-			TextColor3 = theme:GetColor("TitlebarText"),
+			TextColor = FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("TitlebarText") or nil,
+			TextColor3 = not FFlagFixDevFrameworkTextLabelTextColor and theme:GetColor("TitlebarText") or nil,
 		})
 
 		return {
 			Title = Title,
+			SubText = SubText,
 			Semibold = Semibold,
 			Normal = Normal,
 			Bold = Bold,

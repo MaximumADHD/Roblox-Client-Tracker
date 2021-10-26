@@ -22,7 +22,7 @@
 		BorderBox: The pane has the current theme's main background with square border.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
+local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -41,7 +41,7 @@ local Pane = Roact.PureComponent:extend("Pane")
 
 local function getClassName(props, style)
 	local className
-	local hasClickFunctionality = props.OnClick or (FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick)
+	local hasClickFunctionality = props.OnClick or props.OnRightClick
 	if style.Image then
 		if hasClickFunctionality then
 			className = "ImageButton"
@@ -142,24 +142,18 @@ function Pane:render()
 		defaultProps.BackgroundTransparency = 0
 	end
 
-	local hasClickFunctionality = props.OnClick or (FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick)
-	if FFlagDevFrameworkAddRightClickEventToPane then 
-		if props.OnClick then 
-			props[Roact.Event.Activated] = props.OnClick 
-		end 
-		if props.OnRightClick then 
-			props[Roact.Event.MouseButton2Click] = props.OnRightClick 
-		end 
-		if hasClickFunctionality and not style.Image then 
-			props.Text = "" 
-		end 
-	else 
-		if props.OnClick then 
-			props[Roact.Event.Activated] = props.OnClick 
-			if not style.Image then 
-				props.Text = "" 
-			end 
-		end 
+	local hasClickFunctionality = props.OnClick or props.OnRightClick
+	if props.OnClick then
+		props[Roact.Event.Activated] = props.OnClick
+	end
+	if props.OnRightClick then
+		props[Roact.Event.MouseButton2Click] = props.OnRightClick
+	end
+	if hasClickFunctionality and not style.Image then
+		if FFlagDevFrameworkRefactorExpandablePaneHeader then
+			props.AutoButtonColor = false
+		end
+		props.Text = ""
 	end
 
 	if style.Image then

@@ -5,7 +5,7 @@
 		UDim2 Size: The size of the component
 		table RootItems: The root items displayed in the tree view.
 		table Expansion: Which items should be expanded - Set<Item>
-		
+
 		Optional Props:
 		Theme Theme: The theme supplied from withContext()
 		Style Style: a style table supplied from props and theme:getStyle()
@@ -48,15 +48,12 @@ local join = Dash.join
 
 local UI = Framework.UI
 local Pane = require(UI.Pane)
-local Container = require(UI.Container)
 local Util = require(Framework.Util)
 local TreeViewRow = require(UI.TreeViewRow)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -70,27 +67,25 @@ function TreeView:init()
 	self.state = {
 		rows = {}
 	}
-	if FFlagDevFrameworkTreeViewRow then
-		self.defaultGetChildren = function(item)
-			return item.children
+	self.defaultGetChildren = function(item)
+		return item.children
+	end
+	self.getChildren = self.props.GetChildren or self.defaultGetChildren
+	self.renderRow = self.props.RenderRow or TreeViewRow
+	self.onToggle = function(rowProps)
+		local item = rowProps.Item
+		if self.props.OnExpansionChange then
+			self.props.OnExpansionChange({
+				[item] = not self.props.Expansion[item]
+			})
 		end
-		self.getChildren = self.props.GetChildren or self.defaultGetChildren
-		self.renderRow = self.props.RenderRow or TreeViewRow
-		self.onToggle = function(rowProps)
-			local item = rowProps.Item
-			if self.props.OnExpansionChange then
-				self.props.OnExpansionChange({
-					[item] = not self.props.Expansion[item]
-				})
-			end
-		end
-		self.onSelect = function(rowProps)
-			local item = rowProps.Item
-			if self.props.OnSelectionChange then
-				self.props.OnSelectionChange({
-					[item] = true
-				})
-			end
+	end
+	self.onSelect = function(rowProps)
+		local item = rowProps.Item
+		if self.props.OnSelectionChange then
+			self.props.OnSelectionChange({
+				[item] = true
+			})
 		end
 	end
 end
@@ -100,10 +95,8 @@ function TreeView:didMount()
 end
 
 function TreeView:willUpdate(nextProps)
-	if FFlagDevFrameworkTreeViewRow then
-		if nextProps.GetChildren ~= self.props.GetChildren then
-			self.getChildren = nextProps.GetChildren or self.defaultGetChildren
-		end
+	if nextProps.GetChildren ~= self.props.GetChildren then
+		self.getChildren = nextProps.GetChildren or self.defaultGetChildren
 	end
 end
 
@@ -139,12 +132,7 @@ function TreeView:contributeItem(item, depth, list)
 		item = item,
 	})
 	if props.Expansion[item] then
-		local children
-		if FFlagDevFrameworkTreeViewRow then
-			children = self.getChildren(item)
-		else
-			children = props.GetChildren(item)
-		end
+		local children = self.getChildren(item)
 		if props.SortChildren then
 			table.sort(children, props.SortChildren)
 		end
@@ -170,7 +158,7 @@ function TreeView:render()
 	local children = {}
 	for index, row in ipairs(rows) do
 		local key = props.GetItemKey and props.GetItemKey(row.item, index) or index
-		if FFlagDevFrameworkTreeViewRow and not props.RenderRow then
+		if not props.RenderRow then
 			local itemChildren = self.getChildren(row.item)
 			children[key] = Roact.createElement(props.RowComponent or TreeViewRow, join({
 				Index = index,
@@ -186,41 +174,21 @@ function TreeView:render()
 			children[key] = props.RenderRow(row)
 		end
 	end
-	if FFlagDevFrameworkTreeViewRow then
-		return Roact.createElement(Pane, {
-			Padding = style.Padding,
-			Size = props.Size,
-			LayoutOrder = props.LayoutOrder,
-			Style = FFlagDevFrameworkFixTreeViewTheme and style or "BorderBox",
-		}, {
-			ScrollingFrame = Roact.createElement(ScrollingFrame, {
-				Size = UDim2.fromScale(1, 1),
-				Style = style.ScrollingFrame,
-				CanvasSize = UDim2.fromScale(0, 0),
-				ScrollingDirection = props.ScrollingDirection or Enum.ScrollingDirection.XY,
-				AutomaticCanvasSize = Enum.AutomaticSize.XY,
-				Layout = Enum.FillDirection.Vertical,
-			}, children)
-		})
-	else
-		return Roact.createElement(Container, {
-			Padding = style.Padding,
-			Size = props.Size,
-			Background = style.Background,
-			BackgroundStyle = style.BackgroundStyle,
-			LayoutOrder = props.LayoutOrder,
-		}, {
-			ScrollingFrame = Roact.createElement(ScrollingFrame, {
-				Size = UDim2.fromScale(1, 1),
-				Style = style.ScrollingFrame,
-				ScrollingDirection = props.ScrollingDirection,
-				AutoSizeCanvas = true,
-				AutoSizeLayoutOptions = {
-					SortOrder = Enum.SortOrder.LayoutOrder
-				}
-			}, children)
-		})
-	end
+	return Roact.createElement(Pane, {
+		Padding = style.Padding,
+		Size = props.Size,
+		LayoutOrder = props.LayoutOrder,
+		Style = style,
+	}, {
+		ScrollingFrame = Roact.createElement(ScrollingFrame, {
+			Size = UDim2.fromScale(1, 1),
+			Style = style.ScrollingFrame,
+			CanvasSize = UDim2.fromScale(0, 0),
+			ScrollingDirection = props.ScrollingDirection or Enum.ScrollingDirection.XY,
+			AutomaticCanvasSize = Enum.AutomaticSize.XY,
+			Layout = Enum.FillDirection.Vertical,
+		}, children)
+	})
 end
 
 if FFlagDeveloperFrameworkWithContext then

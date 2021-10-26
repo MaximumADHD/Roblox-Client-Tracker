@@ -32,12 +32,7 @@ local join = Dash.join
 local UI = Framework.UI
 local Checkbox = require(UI.Checkbox)
 local Pane = require(UI.Pane)
-local TextLabel = require(UI.TextLabel)
 local TreeView = require(UI.TreeView)
-
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
-local FFlagDevFrameworkLeftAlignedCheckboxTreeView = game:GetFastFlag("DevFrameworkLeftAlignedCheckboxTreeView")
-local FFlagDevFrameworkTreeViewRowAfterItem = game:GetFastFlag("DevFrameworkTreeViewRowAfterItem")
 
 local function buildRootExpansion(expandableRoot, rootItems)
 	local expansion = {}
@@ -58,18 +53,8 @@ local function TreeRowCheckbox(props)
 		Size = UDim2.fromOffset(24, 24),
 	}
 
-	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or #props.Children > 0 then
-		paneProps.Padding = 4
-		paneProps.Size = UDim2.fromOffset(24, 24)
-	else
-		paneProps.Padding = {
-			Top = 4,
-			Bottom = 4,
-			Left = 21,
-			Right = 4,
-		}
-		paneProps.Size = UDim2.fromOffset(40, 24)
-	end
+	paneProps.Padding = 4
+	paneProps.Size = UDim2.fromOffset(24, 24)
 
 	return Roact.createElement(Pane, paneProps, {
 		Checkbox = Roact.createElement(Checkbox, {
@@ -180,17 +165,11 @@ CheckboxTreeView.defaultProps = {
 }
 
 function CheckboxTreeView:init()
-	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
-		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
+	local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
 
-		self.state = {
-			expansion = expansion,
-		}
-	else
-		self.state = {
-			expansion = {}
-		}
-	end
+	self.state = {
+		expansion = expansion,
+	}
 
 	self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
 	
@@ -200,16 +179,12 @@ function CheckboxTreeView:init()
 		})
 	end
 
-	local expandableRoot
-	if FFlagDevFrameworkLeftAlignedCheckboxTreeView then
-		expandableRoot = self.props.ExpandableRoot
-	end
+	local expandableRoot = self.props.ExpandableRoot
 
 	self.rowProps = {
-		BeforeIcon = not FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
-		BeforeIndentItem = FFlagDevFrameworkLeftAlignedCheckboxTreeView and TreeRowCheckbox or nil,
+		BeforeIndentItem = TreeRowCheckbox,
 		ExpandableRoot = expandableRoot,
-		AfterItem = FFlagDevFrameworkTreeViewRowAfterItem and self.props.AfterItem or nil,
+		AfterItem = self.props.AfterItem,
 		OnCheck = function(item)
 			self.props.OnCheck(buildChange(item, not self.props.Checked[item], self.props.Checked, self.ancestry, self.props.GetChildren))
 		end,
@@ -217,11 +192,9 @@ function CheckboxTreeView:init()
 end
 
 function CheckboxTreeView:didUpdate(previousProps, previousState)
-	if FFlagDevFrameworkLeftAlignedCheckboxTreeView or self.props.RootItems ~= previousProps.RootItems then
-		self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
-	end
+	self.ancestry = buildAncestry(self.props.RootItems, self.props.GetChildren)
 
-	if FFlagDevFrameworkLeftAlignedCheckboxTreeView and (not self.props.ExpandableRoot and previousProps.ExpandableRoot ~= self.props.ExpandableRoot) then
+	if not self.props.ExpandableRoot and previousProps.ExpandableRoot ~= self.props.ExpandableRoot then
 		local expansion = buildRootExpansion(self.props.ExpandableRoot, self.props.RootItems)
 
 		self:setState({
@@ -243,12 +216,6 @@ function CheckboxTreeView:render()
 		GetContents = self.props.GetContents,
 	})
 
-	if not FFlagDevFrameworkTreeViewRow then
-		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
-			AutomaticSize = Enum.AutomaticSize.XY,
-		})
-	end
 	return Roact.createElement(TreeView, {
 		Size = self.props.Size,
 		Expansion = self.props.Expansion or self.state.expansion,

@@ -11,12 +11,12 @@
 		callback OnClickCreator: what to do when clicking the creator's name.
 			OnClickCreator(creatorName: string)
 		callback OnClickContext: what to do when clicking the 'triple dot' button.
-		table Favorites: props to pass to Favorites.
 		UDim2 Size: The size of this component.
 
 	Optional Props:
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table Favorites: props to pass to Favorites. Favorites will be hidden if this is not shown.
 		Voting Voting: Table of Voting info. Voting will be hidden if this is not shown.
 		callback OnVoteUp: called when the upvote button is clicked. Required if Voting is passed.
 		callback OnVoteDown: called when the downvote button is clicked. Required if Voting is passed.
@@ -32,9 +32,8 @@
 		boolean HideCreatorSearch: Whether to show creator search link
 ]]
 
-local FFlagDevFrameworkAssetPreviewFixes = game:GetFastFlag("DevFrameworkAssetPreviewFixes")
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagStudioAssetManagerRefactorAssetPreview = game:GetFastFlag("StudioAssetManagerRefactorAssetPreview")
+local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
 
 local TextService = game:GetService("TextService")
 
@@ -179,7 +178,7 @@ function AssetPreview:formatLocalDateTimeForAsset(asset, key)
 		end
 	end
 
-	if FFlagDevFrameworkAssetPreviewFixes and field == nil then
+	if field == nil then
 		return ""
 	end
 
@@ -210,7 +209,7 @@ function AssetPreview:updateAssetInfoRows()
 				local height = video.Resolution.Y
 
 				-- Resolution may be 0x0 due to https://jira.rbx.com/browse/CLI-42841 - avoid showing the resolution row if this is the case.
-				if not FFlagDevFrameworkAssetPreviewFixes or width ~= 0 or height ~= 0 then
+				if width ~= 0 or height ~= 0 then
 					local localization = self.props.Localization
 					self:setState({
 						assetInfoRows = {
@@ -285,7 +284,7 @@ function AssetPreview:render()
 	local infoRowStyle = style.ScrollingFrame.InfoRow
 
 	local creatorLinkAction = self.onClickCreatorLink
-	if FFlagStudioAssetManagerRefactorAssetPreview and props.HideCreatorSearch then
+	if props.HideCreatorSearch then
 		creatorLinkAction = nil
 	end
 
@@ -314,6 +313,18 @@ function AssetPreview:render()
 
 	local scrollingFramePadding = style.ScrollingFrame.Padding
 	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
+
+	local favorites = function (nextOrder)
+		if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites then
+			return props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
+				LayoutOrder = nextOrder,
+			}, props.Favorites))
+		else
+			return Roact.createElement(Favorites, Immutable.JoinDictionaries({
+				LayoutOrder = nextOrder,
+			}, props.Favorites))
+		end
+	end
 
 	return Roact.createElement(Container, {
 		AnchorPoint = anchorPoint,
@@ -393,9 +404,7 @@ function AssetPreview:render()
 					OnPauseVideo = self.onPauseVideo,
 				}),
 
-				Favorites = Roact.createElement(Favorites, Immutable.JoinDictionaries({
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-				}, props.Favorites)),
+				Favorites = favorites(layoutOrderIterator:getNextOrder()),
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,

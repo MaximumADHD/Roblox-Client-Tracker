@@ -27,9 +27,9 @@
 	Style Values:
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
+
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
-local FFlagDevFrameworkStyledDialogFullBleed = game:GetFastFlag("DevFrameworkStyledDialogFullBleed")
+local FFlagDevFrameworkStyledDialogStyleModifier = game:GetFastFlag("DevFrameworkStyledDialogStyleModifier")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -42,7 +42,6 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button =  require(Framework.UI.Button)
-local Container = require(Framework.UI.Container)
 local Pane =  require(Framework.UI.Pane)
 local Dialog = require(Framework.StudioUI.Dialog)
 local prioritize = Util.prioritize
@@ -50,9 +49,6 @@ local Typecheck = Util.Typecheck
 
 local BUTTON_HEIGHT = 32
 local BUTTON_WIDTH = 120
-local BUTTON_PADDING = 24 -- Remove with FFlagDevFrameworkCustomStyledDialogPadding
-local BUTTON_EDGE_PADDING = 70 -- Remove with FFlagDevFrameworkCustomStyledDialogPadding
-local CONTENT_PADDING = 24 -- Remove with FFlagDevFrameworkCustomStyledDialogPadding
 
 local StyledDialog = Roact.PureComponent:extend("StyledDialog")
 
@@ -61,45 +57,27 @@ StyledDialog.defaultProps = {
 }
 
 function StyledDialog:init()
-	if FFlagDevFrameworkStyledDialogFullBleed then
-		self.getComputedSizes = function(style)
-			local buttons = self.props.Buttons
+	self.getComputedSizes = function(style)
+		local buttons = self.props.Buttons
 
-			local buttonContainerSize
-			if buttons and #buttons then
-				local buttonPadding = Padding(style.ButtonPadding)
-				local spacing = style.ButtonSpacing
-				local width = (#buttons * BUTTON_WIDTH) + (spacing * (#buttons - 1)) + buttonPadding.Horizontal
-				local height = BUTTON_HEIGHT + buttonPadding.Vertical
-				buttonContainerSize = Vector2.new(width, height)
-			else
-				buttonContainerSize = Vector2.new(0, 0)
-			end
-
-			local contentSize = self.props.MinContentSize
-			local contentPadding = Padding(style.ContentPadding)
-			local width = math.max(contentSize.X + contentPadding.Horizontal, buttonContainerSize.X)
-			local height = contentSize.Y + contentPadding.Vertical + buttonContainerSize.Y
-			local windowSize = Vector2.new(width, height)
-
-			return windowSize, buttonContainerSize
+		local buttonContainerSize
+		if buttons and #buttons then
+			local buttonPadding = Padding(style.ButtonPadding)
+			local spacing = style.ButtonSpacing
+			local width = (#buttons * BUTTON_WIDTH) + (spacing * (#buttons - 1)) + buttonPadding.Horizontal
+			local height = BUTTON_HEIGHT + buttonPadding.Vertical
+			buttonContainerSize = Vector2.new(width, height)
+		else
+			buttonContainerSize = Vector2.new(0, 0)
 		end
-	else
-		self.getWindowSize = function()
-			local contentSize = self.props.MinContentSize
-			local buttons = self.props.Buttons
 
-			local size
+		local contentSize = self.props.MinContentSize
+		local contentPadding = Padding(style.ContentPadding)
+		local width = math.max(contentSize.X + contentPadding.Horizontal, buttonContainerSize.X)
+		local height = contentSize.Y + contentPadding.Vertical + buttonContainerSize.Y
+		local windowSize = Vector2.new(width, height)
 
-			if buttons and #buttons >= 1 then
-				local minContentWidth = (2 * CONTENT_PADDING) + contentSize.X
-				local totalButtonWidth = (#buttons * BUTTON_WIDTH) + (CONTENT_PADDING * (#buttons - 1)) + (2 * BUTTON_EDGE_PADDING)
-				local minContentHeight = (3 * CONTENT_PADDING) + BUTTON_HEIGHT + contentSize.Y
-				size = Vector2.new(math.max(minContentWidth, totalButtonWidth), minContentHeight)
-			end
-
-			return size or Vector2.new(0,0)
-		end
+		return windowSize, buttonContainerSize
 	end
 
 	self.getButtons = function(styleTable)
@@ -107,19 +85,8 @@ function StyledDialog:init()
 		local buttons = self.props.Buttons
 		local defaultButtons = styleTable.Buttons or {}
 
-		local buttonHorizontalAlignment = prioritize(self.props.ButtonHorizontalAlignment, styleTable.ButtonHorizontalAlignment)
-
 		local buttonsElements = {}
-		if not FFlagDevFrameworkStyledDialogFullBleed then
-			if buttons then
-				buttonsElements["Layout"] = Roact.createElement("UIListLayout", {
-					FillDirection = Enum.FillDirection.Horizontal,
-					HorizontalAlignment = buttonHorizontalAlignment,
-					Padding = UDim.new(0, BUTTON_PADDING),
-					SortOrder = Enum.SortOrder.LayoutOrder,
-				})
-			end
-		end
+
 		for i, buttonProps in ipairs(buttons) do
 			assert(buttonProps.Key ~= nil, string.format("Dialog buttons must have keys. Missing at index : %d", i))
 
@@ -127,6 +94,11 @@ function StyledDialog:init()
 			local key = buttonProps.Key
 			local styleName = prioritize(buttonProps.Style, buttonStyle.Style, "Round")
 			local text = buttonProps.Text
+			local styleModifier = nil
+
+			if FFlagDevFrameworkStyledDialogStyleModifier then
+				styleModifier = buttonProps.StyleModifier
+			end
 
 			buttonsElements[tostring(i)] = Roact.createElement(Button, {
 				LayoutOrder = i,
@@ -135,6 +107,7 @@ function StyledDialog:init()
 				end,
 				Size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
 				Style = styleName,
+				StyleModifier = styleModifier,
 				Text = text,
 			})
 		end
@@ -161,29 +134,18 @@ function StyledDialog:render()
 	local title = self.props.Title
 	local zIndexBehavior = self.props.ZIndexBehavior
 
-	local buttonContainer
-	if not FFlagDevFrameworkStyledDialogFullBleed then
-		buttonContainer = Roact.createElement(Container, {
-			Position = UDim2.new(0, CONTENT_PADDING, 1, -(BUTTON_HEIGHT + CONTENT_PADDING)),
-			Size = UDim2.new(1, -(CONTENT_PADDING * 2), 0, BUTTON_HEIGHT),
-		}, self.getButtons(style))
-	end
-
-	local windowSize, buttonContainerSize
-	if FFlagDevFrameworkStyledDialogFullBleed then
-		windowSize, buttonContainerSize = self.getComputedSizes(style)
-	end
+	local windowSize, buttonContainerSize = self.getComputedSizes(style)
 
 	return Roact.createElement(Dialog, {
 		Enabled = isEnabled,
 		Modal = isModal,
 		OnClose = onClose,
 		Resizable = isResizable,
-		Size = FFlagDevFrameworkStyledDialogFullBleed and windowSize or self.getWindowSize(style),
+		Size = windowSize,
 		Title = title,
 		ZIndexBehavior = zIndexBehavior,
 	}, {
-		SolidBackground = FFlagDevFrameworkStyledDialogFullBleed and Roact.createElement(Pane, {
+		SolidBackground = Roact.createElement(Pane, {
 			BackgroundColor = backgroundColor,
 			Layout = Enum.FillDirection.Vertical,
 			VerticalAlignment = Enum.VerticalAlignment.Top,
@@ -203,17 +165,6 @@ function StyledDialog:render()
 				Size = UDim2.new(1, 0, 0, buttonContainerSize.Y),
 				Spacing = style.ButtonSpacing,
 			}, self.getButtons(style))
-		}) or Roact.createElement("Frame", {
-			BackgroundColor3 = backgroundColor,
-			Size = UDim2.new(1, 0, 1, 0),
-		}, {
-			Contents = Roact.createElement(Container, {
-				AutomaticSize = FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize or nil,
-				Position = UDim2.new(0, CONTENT_PADDING, 0, CONTENT_PADDING),
-				Size = UDim2.new(1, -(CONTENT_PADDING * 2), 1, -((CONTENT_PADDING * 3) + BUTTON_HEIGHT))
-			}, self.props[Roact.Children]),
-
-			ButtonContainer = buttonContainer,
 		}),
 	})
 end

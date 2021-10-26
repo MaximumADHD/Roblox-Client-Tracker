@@ -96,7 +96,8 @@ end
 
 function RoactInspectorApi:setProfiling(isProfiling: boolean)
 	if isProfiling then
-		local thread = coroutine.wrap(function()
+		local thread
+		thread = coroutine.wrap(function()
 			while thread == self.profileThread do
 				self:getProfileData()
 				wait(0.5)

@@ -8,9 +8,6 @@ local LightTheme =  require(Framework.Style.Themes.LightTheme)
 local createDefaultTheme = require(Framework.Style.createDefaultTheme)
 local Util = require(Framework.Util)
 local Cryo = Util.Cryo
-local FlagsList = Util.Flags.new({
-	FFlagToolboxReplaceUILibraryComponentsPt1 = {"ToolboxReplaceUILibraryComponentsPt1"},
-})
 
 local getThemeName = function()
 	return settings().Studio.Theme.Name
@@ -42,7 +39,7 @@ end
 
 function StudioTheme.mock(themeOverride)
 	local darkTheme = DarkTheme
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt1") and themeOverride then
+	if themeOverride then
 		darkTheme = Cryo.Dictionary.join(DarkTheme, themeOverride)
 	end
 

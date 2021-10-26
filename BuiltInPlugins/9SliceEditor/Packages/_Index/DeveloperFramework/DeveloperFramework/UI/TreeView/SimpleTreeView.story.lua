@@ -1,5 +1,3 @@
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
-
 local Framework = script.Parent.Parent.Parent
 
 local Dash = require(Framework.packages.Dash)
@@ -69,7 +67,7 @@ function ExampleTreeView:render()
 		Size = UDim2.new(0, 240, 0, 240),
 		Expansion = self.state.Expansion,
 		RootItems = self.state.Items,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 		RenderRow = function(row)
 			local isExpanded = self.state.Expansion[row.item]
 			local hasChildren = row.item.children and #row.item.children > 0

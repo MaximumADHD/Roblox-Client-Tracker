@@ -5,11 +5,7 @@ local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 
 local UI = require(Framework.UI)
-local TextLabel = UI.Decoration.TextLabel
 local TreeView = UI.TreeView
-
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local ExampleTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeView")
 
@@ -73,18 +69,12 @@ function ExampleTreeView:init()
 end
 
 function ExampleTreeView:render()
-	if not FFlagDevFrameworkTreeViewRow then
-		return Roact.createElement(TextLabel, {
-			Text = "Please enable FFlagDevFrameworkTreeViewRow to view this story",
-			AutomaticSize = Enum.AutomaticSize.XY,
-		})
-	end
 	return Roact.createElement(TreeView, {
 		Size = UDim2.new(0, 240, 0, 240),
 		Expansion = self.state.Expansion,
 		Selection = self.state.Selection,
 		RootItems = self.state.Items,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 		OnExpansionChange = function(newExpansion)
 			self:setState({
 				Expansion = join(self.state.Expansion, newExpansion)

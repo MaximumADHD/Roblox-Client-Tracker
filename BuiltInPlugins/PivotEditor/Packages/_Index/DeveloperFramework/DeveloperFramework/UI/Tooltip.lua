@@ -28,6 +28,7 @@
 			after the user stops moving the mouse over the element.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -146,7 +147,12 @@ function Tooltip:render()
 		Child = props.Child or nil
 	}
 
-	local pluginGui = props.Focus.target
+	local pluginGui
+	if FFlagRefactorDevFrameworkContextItems then
+		pluginGui = props.Focus:get()
+	else
+		pluginGui = props.Focus.target
+	end
 
 	if state.showTooltip and mousePosition and enabled and pluginGui then
 		local targetX = mousePosition.X + offset.X

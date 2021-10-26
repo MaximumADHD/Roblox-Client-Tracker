@@ -3,17 +3,19 @@
 	This component only allows one radio button to be selected at a time.
 
 	Required Props:
-		table Buttons: A list of buttons to display. Example: { Key = "", Text = "", Disabled = false }.
+		table Buttons: A list of buttons to display. Example: { Key = "", Text = "", Description = "", Disabled = false }.
 
 	Optional Props:
 		string SelectedKey: The initially selected key.
 		number LayoutOrder: The layout order of the frame.
 		Enum.FillDirection FillDirection: The direction in which buttons are filled.
 		callback OnClick: paramters(string key). Fires when the button is activated and returns back the Key.
+		table TextSize: A list of text sizes to display. Example: { MainText = 22, Description = 16, }.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -67,16 +69,20 @@ function RadioButtonList:render()
 		style = theme:getStyle("Framework", self)
 	end
 
+	local textSize = FFlagRemoveUILibraryTitledFrameRadioButtonSet and self.props.TextSize or nil
+
 	local children = {}
 
 	for index, button in ipairs(buttons) do
 		children[button.Key] = Roact.createElement(RadioButton, {
+			Description = FFlagRemoveUILibraryTitledFrameRadioButtonSet and button.Description or nil,
 			Disabled = button.Disabled,
 			Key = button.Key,
 			LayoutOrder = index,
 			OnClick = function() self.onClick(button.Key, button.Disabled) end,
 			Selected = (self.state.selectedKey == button.Key),
 			Text = button.Text,
+			TextSize = textSize,
 		})
 	end
 
