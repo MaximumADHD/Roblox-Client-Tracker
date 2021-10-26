@@ -4175,6 +4175,39 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "NoPromptUpdateOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Name": "rigType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HumanoidRigType"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PerformCreateOutfit",
                     "Parameters": [
                         {
@@ -4334,6 +4367,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PerformUpdateOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PromptAllowInventoryReadAccess",
                     "Parameters": [
                     ],
@@ -4457,6 +4509,39 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "PromptUpdateOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "updatedOutfit",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Name": "rigType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HumanoidRigType"
                             }
                         }
                     ],
@@ -4597,6 +4682,30 @@
                 {
                     "MemberType": "Function",
                     "Name": "SignalSetFavoritePermissionDenied",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalUpdateOutfitFailed",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SignalUpdateOutfitPermissionDenied",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -4984,6 +5093,35 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "OpenPromptUpdateOutfit",
+                    "Parameters": [
+                        {
+                            "Name": "outfitId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "humanoidDescription",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "HumanoidDescription"
+                            }
+                        },
+                        {
+                            "Name": "rigType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "HumanoidRigType"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "PromptAllowInventoryReadAccessCompleted",
                     "Parameters": [
                         {
@@ -5074,6 +5212,21 @@
                 {
                     "MemberType": "Event",
                     "Name": "PromptSetFavoriteCompleted",
+                    "Parameters": [
+                        {
+                            "Name": "result",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "AvatarPromptResult"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PromptUpdateOutfitCompleted",
                     "Parameters": [
                         {
                             "Name": "result",
@@ -11498,6 +11651,17 @@
             "MemoryCategory": "Instances",
             "Name": "Configuration",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ConfigureServerService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
+            ]
         },
         {
             "Members": [
@@ -24288,6 +24452,28 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "ContentText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "Font",
                     "Security": {
                         "Read": "None",
@@ -24976,6 +25162,28 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "ContentText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
                 {
                     "Category": "Text",
                     "MemberType": "Property",
@@ -25679,6 +25887,28 @@
                 {
                     "Category": "Scrolling",
                     "MemberType": "Property",
+                    "Name": "ScrollVelocity",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    }
+                },
+                {
+                    "Category": "Scrolling",
+                    "MemberType": "Property",
                     "Name": "ScrollingDirection",
                     "Security": {
                         "Read": "None",
@@ -25848,6 +26078,28 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "ContentText",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -34617,6 +34869,24 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "InsertInWorkspace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
                 }
             ],
             "MemoryCategory": "Instances",
@@ -34792,6 +35062,24 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "InsertInWorkspace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "InvertNegativeFaces",
                     "Security": {
                         "Read": "None",
@@ -34917,24 +35205,6 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "NormalId"
-                    }
-                },
-                {
-                    "Category": "Data",
-                    "MemberType": "Property",
-                    "Name": "ZeroOrigin",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 }
             ],
@@ -41782,6 +42052,29 @@
                 {
                     "Category": "State",
                     "MemberType": "Property",
+                    "Name": "ContinueExecution",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "State",
+                    "MemberType": "Property",
                     "Name": "Enabled",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -41941,6 +42234,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetContinueExecution",
+                    "Parameters": [
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetEnabled",
                     "Parameters": [
                         {
@@ -41949,18 +42261,11 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
-                        },
-                        {
-                            "Name": "status",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
                         }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
-                        "Name": "int"
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -78117,6 +78422,29 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "VRDeviceAvailable",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "VRDeviceName",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -80302,6 +80630,13 @@
                 "Service",
                 "NotReplicated"
             ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "VoiceChannel",
+            "Superclass": "Instance"
         },
         {
             "Members": [
@@ -87493,32 +87828,24 @@
         {
             "Items": [
                 {
-                    "Name": "R6",
+                    "Name": "R15",
                     "Value": 0
                 },
                 {
-                    "Name": "R15",
+                    "Name": "Rthro",
                     "Value": 1
                 },
                 {
-                    "Name": "Rthro",
+                    "Name": "RthroNarrow",
                     "Value": 2
                 },
                 {
-                    "Name": "RthroNarrow",
+                    "Name": "Custom",
                     "Value": 3
                 },
                 {
-                    "Name": "S15",
-                    "Value": 4
-                },
-                {
-                    "Name": "Custom",
-                    "Value": 5
-                },
-                {
                     "Name": "None",
-                    "Value": 6
+                    "Value": 4
                 }
             ],
             "Name": "RigType"

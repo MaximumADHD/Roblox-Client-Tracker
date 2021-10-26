@@ -49,6 +49,7 @@ Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint
 Studio.Debugger.BreakpointsWindow.WindowName,Breakponts Window,Breakpoints Window
 Studio.Debugger.BreakpointsWindow.SourceLineColumn,Source Line,Source Line
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution
 Studio.Debugger.Watch.AllScopes,All Scopes,All Scopes
 Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
 Studio.Debugger.Watch.VariablesTab,Variables,Variables

@@ -2499,6 +2499,9 @@
                 },
                 "TextStrokeTransparency": {
                     "summary": "Controls the transparency of the outline around the text. Multiplied with TextTransparency."
+                },
+                "ContentText": {
+                    "summary": "Raw string without format information that will be displayed."
                 }
             }
         },
@@ -2519,6 +2522,9 @@
                 },
                 "TextStrokeTransparency": {
                     "summary": "Controls the transparency of the outline around the text. Multiplied with TextTransparency."
+                },
+                "ContentText": {
+                    "summary": "Raw string without format information that will be displayed."
                 }
             }
         },
@@ -2539,6 +2545,9 @@
                 },
                 "TextStrokeTransparency": {
                     "summary": "Controls the transparency of the outline around the text. Multiplied with TextTransparency."
+                },
+                "ContentText": {
+                    "summary": "Raw string without format information that will be displayed."
                 }
             }
         },

@@ -217,6 +217,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:NoPromptRenameOutfit(int64 outfitId, string name) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
+	Function bool AvatarEditorService:NoPromptUpdateOutfit(int64 outfitId, HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformDeleteOutfit() {RobloxScriptSecurity}
@@ -225,12 +226,14 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
+	Function void AvatarEditorService:PerformUpdateOutfit(HumanoidDescription humanoidDescription) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PromptAllowInventoryReadAccess()
 	Function void AvatarEditorService:PromptCreateOutfit(HumanoidDescription outfit, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptDeleteOutfit(int64 outfitId)
 	Function void AvatarEditorService:PromptRenameOutfit(int64 outfitId)
 	Function void AvatarEditorService:PromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType)
 	Function void AvatarEditorService:PromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite)
+	Function void AvatarEditorService:PromptUpdateOutfit(int64 outfitId, HumanoidDescription updatedOutfit, Enum.HumanoidRigType rigType)
 	Function CatalogPages AvatarEditorService:SearchCatalog(CatalogSearchParams searchParameters) [Yields]
 	Function void AvatarEditorService:SetAllowInventoryReadAccess(bool inventoryReadAccessGranted) {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalCreateOutfitFailed() {RobloxScriptSecurity}
@@ -243,18 +246,22 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:SignalSaveAvatarPermissionDenied() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoriteFailed() {RobloxScriptSecurity}
 	Function void AvatarEditorService:SignalSetFavoritePermissionDenied() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalUpdateOutfitFailed() {RobloxScriptSecurity}
+	Function void AvatarEditorService:SignalUpdateOutfitPermissionDenied() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenAllowInventoryReadAccess() {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptCreateOufit(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptDeleteOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptRenameOutfit(int64 outfitId) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.OpenPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
+	Event AvatarEditorService.OpenPromptUpdateOutfit(int64 outfitId, HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
 	Event AvatarEditorService.PromptAllowInventoryReadAccessCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptCreateOutfitCompleted(Enum.AvatarPromptResult result, Variant failureType)
 	Event AvatarEditorService.PromptDeleteOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptRenameOutfitCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptSaveAvatarCompleted(Enum.AvatarPromptResult result, HumanoidDescription humanoidDescription)
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
+	Event AvatarEditorService.PromptUpdateOutfitCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance AvatarImportService:ImportFBXAnimationUserMayChooseModel(Instance selectedRig, Function userChooseModelThenImportCB) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:ImportFbxRigWithoutSceneLoad(bool isR15 = true) {RobloxScriptSecurity} [Yields]
@@ -599,6 +606,7 @@ Class CommandService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function CommandInstance CommandService:RegisterCommand(Plugin plugin, string name, string context, Enum.CommandPermission permission = "LocalUser") {RobloxScriptSecurity} [Yields]
 	Event CommandService.CommandExecuting(string name, Variant params) {RobloxScriptSecurity}
 Class Configuration : Instance
+Class ConfigureServerService : Instance [NotCreatable] [Service]
 Class Constraint : Instance [NotCreatable]
 	Property BrickColor Constraint.Color
 	Property bool Constraint.Visible
@@ -1281,6 +1289,7 @@ Class ImageButton : GuiButton
 	Function void ImageButton:SetEnableContentImageSizeChangedEvents(bool enabled) {RobloxScriptSecurity}
 Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
+	Property string TextButton.ContentText [ReadOnly]
 	Property Enum.Font TextButton.Font
 	Property Enum.FontSize TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
@@ -1319,6 +1328,7 @@ Class ImageLabel : GuiLabel
 	Function void ImageLabel:SetEnableContentImageSizeChangedEvents(bool enabled) {RobloxScriptSecurity}
 Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
+	Property string TextLabel.ContentText [ReadOnly]
 	Property Enum.Font TextLabel.Font
 	Property Enum.FontSize TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
@@ -1356,6 +1366,7 @@ Class ScrollingFrame : GuiObject
 	Property Color3 ScrollingFrame.ScrollBarImageColor3
 	Property float ScrollingFrame.ScrollBarImageTransparency
 	Property int ScrollingFrame.ScrollBarThickness
+	Property Vector2 ScrollingFrame.ScrollVelocity {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.ScrollingDirection ScrollingFrame.ScrollingDirection
 	Property bool ScrollingFrame.ScrollingEnabled
 	Property Content ScrollingFrame.TopImage
@@ -1375,6 +1386,7 @@ Class TextBox : GuiObject
 	Property bool TextBox.ShowNativeInput
 	Property bool TextBox.TextEditable
 	Property Enum.TextInputType TextBox.TextInputType {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property string TextBox.ContentText [ReadOnly]
 	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.Font TextBox.Font
 	Property Enum.FontSize TextBox.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -1858,6 +1870,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterGroupSettings.ImportAsModelAsset
+	Property bool ImporterGroupSettings.InsertInWorkspace
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.Anchored
@@ -1868,6 +1881,7 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.ImportAsModelAsset
+	Property bool ImporterRootSettings.InsertInWorkspace
 	Property bool ImporterRootSettings.InvertNegativeFaces
 	Property bool ImporterRootSettings.MergeMeshes
 	Property float ImporterRootSettings.PolygonCount [ReadOnly]
@@ -1875,7 +1889,6 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.MeshScaleUnit ImporterRootSettings.ScaleUnit
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
-	Property bool ImporterRootSettings.ZeroOrigin
 Class ImporterTextureSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
@@ -2223,11 +2236,13 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
-	Function int MetaBreakpoint:SetEnabled(bool enabled, Function status) {RobloxScriptSecurity}
+	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
+	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
 Class MetaBreakpointContext : Instance [NotCreatable] [NotReplicated]
 Class Mouse : Instance [NotCreatable]
@@ -4123,6 +4138,7 @@ Class UserService : Instance [NotCreatable] [Service]
 	Function Array UserService:GetUserInfosByUserIdsAsync(Array userIds) [Yields]
 Class VRService : Instance [NotCreatable] [Service]
 	Property Enum.UserCFrame VRService.GuiInputUserCFrame
+	Property bool VRService.VRDeviceAvailable {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string VRService.VRDeviceName {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool VRService.VREnabled [ReadOnly]
 	Function Enum.VRTouchpadMode VRService:GetTouchpadMode(Enum.VRTouchpad pad)
@@ -4228,6 +4244,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
+Class VoiceChannel : Instance
 Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
@@ -5816,13 +5833,11 @@ Enum RibbonTool
 	EnumItem RibbonTool.Ungroup : 8
 	EnumItem RibbonTool.None : 9
 Enum RigType
-	EnumItem RigType.R6 : 0
-	EnumItem RigType.R15 : 1
-	EnumItem RigType.Rthro : 2
-	EnumItem RigType.RthroNarrow : 3
-	EnumItem RigType.S15 : 4
-	EnumItem RigType.Custom : 5
-	EnumItem RigType.None : 6
+	EnumItem RigType.R15 : 0
+	EnumItem RigType.Rthro : 1
+	EnumItem RigType.RthroNarrow : 2
+	EnumItem RigType.Custom : 3
+	EnumItem RigType.None : 4
 Enum RollOffMode
 	EnumItem RollOffMode.Inverse : 0
 	EnumItem RollOffMode.Linear : 1

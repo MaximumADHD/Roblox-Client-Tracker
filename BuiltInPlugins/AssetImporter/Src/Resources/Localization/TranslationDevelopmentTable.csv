@@ -1,24 +1,25 @@
 Key,en-us
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s
-Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %s
+Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s
 Studio.AssetImporter.AssetImportTree.Errors,error(s)
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
 Studio.AssetImporter.Plugin.Browse,Browse...
 Studio.AssetImporter.Plugin.Button,Import
 Studio.AssetImporter.Plugin.Cancel,Cancel
-Studio.AssetImporter.Plugin.Description,Import an FBX file using the Mesh Importer.
+Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file using the import UI.
 Studio.AssetImporter.Plugin.Import,Import
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
 Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
-Studio.AssetImporter.Plugin.WindowTitle,Import Mesh
+Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.Properties.Anchored,Anchored
-Studio.AssetImporter.Properties.Dimensions,Dimensions
-Studio.AssetImporter.Properties.DoubleSided,Double Sided
+Studio.AssetImporter.Properties.Dimensions,Object Dimensions
+Studio.AssetImporter.Properties.DoubleSided,Make Double Sided
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions
 Studio.AssetImporter.Properties.IgnoreVertexColors,Ignore Vertex Colors
-Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Model Asset
-Studio.AssetImporter.Properties.ImportName,Import Name
+Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Separate Asset
+Studio.AssetImporter.Properties.ImportName,Name
+Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count
@@ -26,7 +27,6 @@ Studio.AssetImporter.Properties.RigType,Rig Type
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
-Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin
 Studio.AssetImporter.Sections.AvatarGeneral,Avatar General
 Studio.AssetImporter.Sections.FileGeneral,File General
 Studio.AssetImporter.Sections.FileGeometry,File Geometry

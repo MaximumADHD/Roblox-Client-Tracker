@@ -6748,6 +6748,11 @@
             <double name="UINumTicks">100</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ContentText</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6797,6 +6802,11 @@
             <double name="UINumTicks">100</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ContentText</string>
+          </Properties>
+        </Item>
       </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -6844,6 +6854,11 @@
             <double name="UIMinimum">0</double>
             <double name="UIMaximum">1</double>
             <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">ContentText</string>
           </Properties>
         </Item>
       </Item>

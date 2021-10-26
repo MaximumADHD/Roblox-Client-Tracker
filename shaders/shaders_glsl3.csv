@@ -277,8 +277,6 @@ GridVS_Level4098,Vertex
 GridVS_Level4106,Vertex
 HighlightInPlaceFS_Level0,Fragment
 HighlightPostprocessFS_Level0,Fragment
-IBLDebugFS,Fragment
-IBLDebugVS,Vertex
 ImageProcessAlphaFS,Fragment
 ImageProcessBloomFS,Fragment
 ImageProcessBloomLinearFS,Fragment
