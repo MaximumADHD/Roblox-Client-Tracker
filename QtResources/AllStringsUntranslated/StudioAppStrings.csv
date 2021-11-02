@@ -302,6 +302,7 @@ Studio.App.MainWindow.StudsSuffix,, studs, studs
 Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
 Studio.App.MainWindow.OpenPlaceFailureIncidentId1,Incident ID field displayed in error message dialog,Incident ID: %1,Incident ID: %1
 Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog ,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>"
+Studio.App.MainWindow.FatalErrorDialog1,"Message shown when Studio experiences an error that it can't recover from, and must exit. %1 is the message for the error that occurred.",Studio encountered an unrecoverable error and must shut down: %1,Studio encountered an unrecoverable error and must shut down: %1
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
 Studio.App.UIEditor.TextButton,ui editor menu,Text Button,Text Button
 Studio.App.UIEditor.TextLabel,ui editor menu,Text Label,Text Label
@@ -3146,3 +3147,5 @@ Studio.App.StudioDeviceEmulatorService.CannotChangeEmulationDevice,,Can't set em
 Studio.App.StudioDeviceEmulatorService.InvalidOrientation1,,Can't set orientation to '%1'.,Can't set orientation to '%1'.
 Studio.App.StudioDeviceEmulatorService.NonExistantDeviceId1,,Device ID '%1' doesn't exist.,Device ID '%1' doesn't exist.
 Studio.App.ToastNotificationService.NotAvailable,,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false,ToastNotificationService is not available when FFlagStudioToastNotificationsInLua is false
+Studio.App.BetaFeatures.NineSliceEditorTitle,,9-Slice Editor,9-Slice Editor
+Studio.App.BetaFeatures.NineSliceEditorDescription,,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.

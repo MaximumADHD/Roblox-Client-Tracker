@@ -82,6 +82,14 @@ Class KeyframeSequence : AnimationClip
 	Function void KeyframeSequence:AddKeyframe(Instance keyframe)
 	Function Objects KeyframeSequence:GetKeyframes()
 	Function void KeyframeSequence:RemoveKeyframe(Instance keyframe)
+Class AnimationClipProvider : Instance [NotCreatable] [Service] [NotReplicated]
+	Function AnimationClip AnimationClipProvider:GetAnimationClip(Content assetId) {PluginSecurity} [Deprecated]
+	Function AnimationClip AnimationClipProvider:GetAnimationClipAsync(Content assetId) [Yields]
+	Function AnimationClip AnimationClipProvider:GetAnimationClipById(int64 assetId, bool useCache) {PluginSecurity} [Deprecated]
+	Function Instance AnimationClipProvider:GetAnimations(int64 userId) [Yields]
+	Function Dictionary AnimationClipProvider:GetMemStats() {RobloxScriptSecurity}
+	Function Content AnimationClipProvider:RegisterActiveAnimationClip(AnimationClip animationClip)
+	Function Content AnimationClipProvider:RegisterAnimationClip(AnimationClip animationClip)
 Class AnimationController : Instance [Deprecated]
 	Function Array AnimationController:GetPlayingAnimationTracks() [Deprecated]
 	Function AnimationTrack AnimationController:LoadAnimation(Animation animation) [Deprecated]
@@ -125,8 +133,8 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple AssetImportService:ImportMesh(string fileName) {RobloxScriptSecurity}
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
-	Function void AssetImportService:UpdateSettings(Instance settings) {RobloxScriptSecurity}
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
+	Event AssetImportService.SettingsChanged(string property)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
@@ -851,6 +859,10 @@ Class FileMesh : DataModelMesh
 	Property Content FileMesh.TextureId
 Class SpecialMesh : FileMesh
 	Property Enum.MeshType SpecialMesh.MeshType
+Class DataModelPatchService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance DataModelPatchService:GetPatch(string patchName) {RobloxScriptSecurity}
+	Function void DataModelPatchService:RegisterPatch(string patchName, string behaviorName, string localConfigPath, int64 userId) {RobloxScriptSecurity}
+	Function void DataModelPatchService:UpdatePatch(int64 userId, string patchName, Function callbackFunction) {RobloxScriptSecurity}
 Class DataModelSession : Instance [NotCreatable]
 	Property Enum.StudioDataModelType DataModelSession.CurrentDataModelType {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DataModelSession.SessionId {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -962,6 +974,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DebuggerManager.DebuggerAdded(Instance debugger)
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2107,6 +2120,7 @@ Class ModuleScript : LuaSourceContainer
 	Property Content ModuleScript.LinkedSource
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
+Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum.InfoType infoType = "Asset") [Yields]
@@ -2235,9 +2249,11 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string MetaBreakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
@@ -2611,6 +2627,10 @@ Class PackageLink : Instance [NotCreatable] [NotBrowsable]
 	Property string PackageLink.Status {RobloxScriptSecurity} [ReadOnly]
 	Property int64 PackageLink.VersionNumber {✏️NotAccessibleSecurity} [<📁> LoadOnly] [NotReplicated]
 Class PackageService : Instance [NotCreatable] [Service] [NotReplicated]
+Class PackageUIService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void PackageUIService:ConvertToPackageUpload(string uploadUrl, Objects cloneInstances, Objects originalInstances) {RobloxScriptSecurity}
+	Event PackageUIService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
+	Event PackageUIService.OnOpenConvertToPackagePlugin(Objects instances, string name, Objects cloneInstances) {RobloxScriptSecurity}
 Class Pages : Instance [NotCreatable] [NotReplicated]
 	Property bool Pages.IsFinished [ReadOnly]
 	Function void Pages:AdvanceToNextPageAsync() [Yields]
@@ -3205,6 +3225,11 @@ Class RunService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event RunService.Stepped(double time, double deltaTime)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
+	Event ScriptChangeService.ScriptAdded(LuaSourceContainer script) {RobloxScriptSecurity}
+	Event ScriptChangeService.ScriptBeingRemoved(LuaSourceContainer script) {RobloxScriptSecurity}
+	Event ScriptChangeService.ScriptChanged(LuaSourceContainer script, string property) {RobloxScriptSecurity}
+	Event ScriptChangeService.ScriptFullNameChanged(LuaSourceContainer script) {RobloxScriptSecurity}
+	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -3811,6 +3836,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
 	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
+Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TerrainRegion : Instance
 	Property bool TerrainRegion.IsSmooth [ReadOnly] [Deprecated]
 	Property Vector3 TerrainRegion.SizeInCells [ReadOnly]
@@ -4270,7 +4296,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
-Class VoiceChatService : Instance [Service]
+Class VoiceChatService : Instance [NotCreatable] [Service]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]

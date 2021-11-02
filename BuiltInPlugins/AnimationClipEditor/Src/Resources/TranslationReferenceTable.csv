@@ -165,4 +165,5 @@ Studio.AnimationClipEditor.Settings.05x,.5x,.5x,.5x,.5x,.5x,.5x,.5x, ,.5x,.5x,.5
 Studio.AnimationClipEditor.Settings.1x,1x,1x,1x,1x,1x,1x,1x, ,1x,1x,1x
 Studio.AnimationClipEditor.Settings.2x,2x,2x,2x,2x,2x,2x,2x, ,2x,2x,2x
 Studio.AnimationClipEditor.Settings.4x,4x,4x,4x,4x,4x,4x,4x, ,4x,4x,4x
-Studio.AnimationClipEditor.Settings.SnapNone,None,None,Ninguno, , ,없음,Nenhum, ,无,无,無
+Studio.AnimationClipEditor.Settings.SnapNone,None,None,Ninguno, ,なし,없음,Nenhum, ,无,无,無
+Studio.AnimationClipEditor.Menu.PublishToRoblox,Publish to Roblox,Publish to Roblox,Publicar en Roblox, ,Robloxに公開,Roblox에 게시,Publicar na Roblox, ,发布至 Roblox,发布至 Roblox,發布到 Roblox

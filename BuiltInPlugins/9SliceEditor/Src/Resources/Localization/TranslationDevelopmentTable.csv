@@ -6,8 +6,11 @@ Studio.9SliceEditor.AlertDialog.InvalidInstanceErrorMessage,Can't open the 9 Sli
 Studio.9SliceEditor.AlertDialog.OkButtonText,Ok
 Studio.9SliceEditor.ImageEditor.ImageSize,Image Size
 Studio.9SliceEditor.ImageEditor.ImageSizeError,Image Size Error: isLoaded is false
+Studio.9SliceEditor.Plugin.ImageLoadErrorMessage,9-Slice Editor: Couldn't load image
 Studio.9SliceEditor.Plugin.Name,9-Slice Editor
 Studio.9SliceEditor.SliceEditor.CloseButton,Close
+Studio.9SliceEditor.SliceEditor.ImageLoadingMessage,Loading...
+Studio.9SliceEditor.SliceEditor.NoImageSelectedMessage,No image selected. Select an ImageLabel or ImageButton to use the 9-Slice Editor.
 Studio.9SliceEditor.SliceEditor.RevertButton,Revert
 Studio.9SliceEditor.TextEditor.Bottom,Bottom
 Studio.9SliceEditor.TextEditor.Left,Left

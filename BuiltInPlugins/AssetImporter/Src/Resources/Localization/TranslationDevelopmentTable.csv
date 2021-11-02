@@ -33,5 +33,7 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Statues.MeshScaleWarning,One of the objects dimensions are larger than can be imported
+Studio.AssetImporter.Statues.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand

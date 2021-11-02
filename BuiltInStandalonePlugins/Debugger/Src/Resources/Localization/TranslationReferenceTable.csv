@@ -20,7 +20,7 @@ Studio.Debugger.Common.EditBreakpoint,Edit Breakpoint,Edit Breakpoint,Editar pun
 Studio.Debugger.EditBreakpoint.DialogName,Edit Breakpoint,Edit Breakpoint,Editar punto de interrupción,ブレークポイントを編集,중단점 편집,Editar ponto de interrupção,编辑断点,编辑断点,編輯中斷點
 Studio.Debugger.Callstack.WhatColumn,What,What,Qué,名前,대상,Que,类型,类型,名稱
 Studio.Debugger.Callstack.LineNumberColumn,Line No.,Line No.,Número de línea,行番号,줄 번호,Nº da linha,行号,行号,行號
-Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes,{NumFields:int} ámbitos, ,{NumFields:int} 범위,{NumFields:int} Escopos,{NumFields:int} 域,{NumFields:int} 域,{NumFields:int} 範圍
+Studio.Debugger.Watch.DropdownFieldText,{NumFields:int} Scopes,{NumFields:int} Scopes,{NumFields:int} ámbitos,{NumFields:int} 範囲,{NumFields:int} 범위,{NumFields:int} Escopos,{NumFields:int} 域,{NumFields:int} 域,{NumFields:int} 範圍
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s),Insertar condiciones,条件を入力,조건 입력,Insira condições,输入条件,输入条件,輸入條件
 Studio.Debugger.Callstack.SourceColumn,Source,Source,Fuente,ソース,소스,Fonte,来源,来源,來源
 Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script: ,Script actual: ,現在のスクリプト: ,현재 스크립트: ,Script atual: ,当前脚本： ,当前脚本： ,目前指令碼： 
@@ -67,5 +67,6 @@ Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint,Editar punto de 
 Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression,Añadir expresión,式を編集,식 편집,Editar expressão,编辑表达式,编辑表达式,編輯運算式
-Studio.Debugger.Callstack.AllColumns,All Columns,All Columns,Todas las columnas, ,모든 열,Todas as colunas,所有列,所有列,所有行
-Studio.Debugger.Callstack.DropdownButtonText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas, ,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行
+Studio.Debugger.Callstack.AllColumns,All Columns,All Columns,Todas las columnas,すべての列,모든 열,Todas as colunas,所有列,所有列,所有行
+Studio.Debugger.Callstack.DropdownButtonText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas,{NumFields:int} 列,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行
+Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution,Continuar ejecución,実行を続ける,계속 실행,Continuar execução,继续执行,继续执行,繼續執行

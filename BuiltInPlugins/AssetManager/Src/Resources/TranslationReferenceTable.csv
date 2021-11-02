@@ -50,7 +50,7 @@ Studio.AssetManager.ContextMenu.PackageDetails,Package Details,Package Details,D
 Studio.AssetManager.ContextMenu.RefreshScript,Refresh Script,Refresh Script,Actualizar script,Rafraîchir script,スクリプトをリフレッシュ,스크립트 새로고침,Atualizar script,刷新脚本,刷新脚本,重新整理指令碼
 Studio.AssetManager.ContextMenu.AddAudio,Add Audio,Add Audio,Añadir audio,Ajouter audio,オーディオを追加,오디오 추가,Adicionar áudio,添加音频,添加音频,新增音訊
 Studio.AssetManager.AssetGrid.LoadButton,Load All Pages,Load All Pages,Cargar todas las páginas,Charger toutes les pages,すべてのページを読み込む,모든 페이지 불러오기,Carregar todas as páginas,加载所有页面,加载所有页面,載入所有頁面
-Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard,Copiar ID de la malla al portapapeles, , ,메시 ID를 클립보드로 복사,Copiar ID da malha para a área de transferência,将网格 ID 复制到剪贴板,将网格 ID 复制到剪贴板,將網格 ID 複製到剪貼簿
+Studio.AssetManager.ContextMenu.CopyMeshIdToClipboard,Copy Mesh ID to Clipboard,Copy Mesh ID to Clipboard,Copiar ID de la malla al portapapeles, ,メッシュIDをクリップボードにコピー,메시 ID를 클립보드로 복사,Copiar ID da malha para a área de transferência,将网格 ID 复制到剪贴板,将网格 ID 复制到剪贴板,將網格 ID 複製到剪貼簿
 Studio.AssetManager.ContextMenu.OpenFolder,Open,Open,Abrir,Ouvert,開く,열기,Abrir,打开,打开,開啟
 Studio.AssetManager.RecentlyImportedView.Title,Recently Added,Recently Added,Añadido recientemente,Ajouté récemment,最近、追加されたもの,최근 추가된 항목,Adicionado recentemente,最近添加,最近添加,最近新增
 Studio.AssetManager.TopBar.BackButton,Back,Back,Volver,Retour,戻る,뒤로,Voltar,返回,返回,返回

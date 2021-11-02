@@ -38,15 +38,12 @@ ClearOneChannelCS,Compute
 ClearThreeChannelCS,Compute
 ClearTwoChannelCS,Compute
 Clouds2dFS,Fragment
-Clouds2dOldFS,Fragment
 CloudsBsmFS,Fragment
-CloudsBsmOldFS,Fragment
 CloudsClearToSkyColorFS,Fragment
 CloudsCompFS,Fragment
 CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsFS,Fragment
-CloudsOldFS,Fragment
 CloudsReprojectFilterFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
@@ -202,6 +199,10 @@ DefaultSurfaceAppearanceDitheredDepthVS_Level2,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level6,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level4098,Vertex
 DefaultSurfaceAppearanceDitheredFS,Fragment
+DefaultSurfaceAppearanceDitheredFS_Level0,Fragment
+DefaultSurfaceAppearanceDitheredFS_Level2,Fragment
+DefaultSurfaceAppearanceDitheredFS_Level2048,Fragment
+DefaultSurfaceAppearanceDitheredFS_Level2050,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level2,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level8,Fragment
@@ -317,6 +318,7 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
+FastConvolutionPSDep,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment
