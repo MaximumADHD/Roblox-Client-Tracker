@@ -15,7 +15,6 @@ local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -75,10 +74,8 @@ function CheckBoxSet:render()
 	local maxHeight = numBoxes * DEPRECATED_Constants.CHECKBOX_SIZE
 		+ numBoxes * DEPRECATED_Constants.CHECKBOX_PADDING
 
-	if FFlagCheckPublishedPlaceExistsForDevPublish then
-		if props.ShowWarning then
-			maxHeight = maxHeight * 3
-		end
+	if props.ShowWarning then
+		maxHeight = maxHeight * 3
 	end
 
 	return Roact.createElement(TitledFrame, {

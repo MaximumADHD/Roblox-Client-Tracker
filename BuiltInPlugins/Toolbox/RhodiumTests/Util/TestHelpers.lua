@@ -141,6 +141,14 @@ function TestHelpers.clickInstanceWithXPath(XPath)
 	return element
 end
 
+function TestHelpers.typeInstanceWithXPath(XPath, str)
+	local element = Element.new(XPath)
+	element:sendText(str)
+	TestHelpers.delay()
+
+	return element
+end
+
 function TestHelpers.clickInstance(instance)
 	local element = Element.new(instance)
 	element:click()

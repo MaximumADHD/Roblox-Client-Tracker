@@ -7,8 +7,6 @@
 			This will enable the Save button if true.
 ]]
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FOOTER_GRADIENT_SIZE = 3
@@ -41,8 +39,8 @@ local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local chinaKey = KeyProvider.getChinaKeyName()
 local selectedKey = KeyProvider.getSelectedKeyName()
-local footerKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getFooterKeyName() or "Footer"
-local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
+local footerKey = KeyProvider.getFooterKeyName()
+local seriesNameKey = KeyProvider.getLuobuStudioDevPublishKeyName()
 
 local Footer = Roact.PureComponent:extend("Footer")
 
@@ -128,7 +126,7 @@ function Footer:render()
 						userPressedSave = userPressedSave,
 					})
 				else
-					if FFlagLuobuDevPublishAnalytics and userPressedSave and shouldShowDevPublishLocations() and self.props.CurrentOptInLocations then
+					if userPressedSave and shouldShowDevPublishLocations() and self.props.CurrentOptInLocations then
 						if self.props.CurrentOptInLocations[chinaKey][selectedKey] then
 							local points = {
 								[optInLocationsKey] = chinaKey,
@@ -173,13 +171,11 @@ function Footer:render()
 					local submitButtonPressed = buttonKey == "Submit"
 					if submitButtonPressed then
 						if email1 == email2 then
-							if FFlagLuobuDevPublishAnalytics then
-								local points = {
-									[optInLocationsKey] = chinaKey,
-									[selectedKey] = true,
-								}
-								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
-							end
+							local points = {
+								[optInLocationsKey] = chinaKey,
+								[selectedKey] = true,
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, footerKey, points)
 							local responseCode = postContactEmail(email1)
 							if not responseCode then
 								self:saveAllSettings(self.state.userPressedSave)

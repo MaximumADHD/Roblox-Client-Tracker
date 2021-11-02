@@ -14,9 +14,13 @@ local Urls = require(Plugin.Src.Util.Urls)
 
 local sendResultToKibana = require(Plugin.Packages.Framework).Util.sendResultToKibana
 
+-- remove StudioServcie here when remove FFlagPreventChangesWhenConvertingPackage
 local StudioService = game:GetService("StudioService")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
+local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
+
+local PackageUIService = FFlagPreventChangesWhenConvertingPackage and game:GetService("PackageUIService") or nil
 
 -- assetId, number, default to 0 for new asset.
 -- name, string, need to be url encoded.
@@ -25,13 +29,12 @@ local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyt
 -- ispublic, bool
 -- allowComments, bool
 -- groupId, number, default to nil
-return function(assetid, name, description, genreTypeID, ispublic, allowComments, groupId)
+return function(assetid, name, description, genreTypeID, ispublic, allowComments, groupId, instances, clonedInstances)
 	return function(store)
 		store:dispatch(SetCurrentScreen(Constants.SCREENS.UPLOADING_ASSET))
 		local urlToUse = Urls.constructPostUploadAssetUrl(assetid, "Model", name or "", description or "", genreTypeID, ispublic, allowComments, groupId)
 
-		local conn; conn = StudioService.OnConvertToPackageResult:Connect(function(result, errorMessage)
-			conn:Disconnect()
+		local function onConvertToPackageResult(result, errorMessage)
 			store:dispatch(UploadResult(result))
 			if FFlagNewPackageAnalyticsWithRefactor2 then
 				local convertedResponse = {
@@ -45,8 +48,21 @@ return function(assetid, name, description, genreTypeID, ispublic, allowComments
 				store:dispatch(NetworkError(errorMessage, "uploadRequest"))
 			end
 			return
-		end)
-		StudioService:ConvertToPackageUpload(urlToUse)
+		end
+
+		if FFlagPreventChangesWhenConvertingPackage then
+			local conn; conn = PackageUIService.OnConvertToPackageResult:Connect(function(result, errorMessage)
+				conn:Disconnect()
+				onConvertToPackageResult(result, errorMessage)
+			end)
+			PackageUIService:ConvertToPackageUpload(urlToUse, instances, clonedInstances)
+		else
+			local conn; conn = StudioService.OnConvertToPackageResult:Connect(function(result, errorMessage)
+				conn:Disconnect()
+				onConvertToPackageResult(result, errorMessage)
+			end)
+			StudioService:ConvertToPackageUpload(urlToUse, instances)
+		end
 		return
 	end
 end

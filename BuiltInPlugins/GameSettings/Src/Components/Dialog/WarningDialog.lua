@@ -8,7 +8,6 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -40,16 +39,7 @@ function WarningDialog:render()
 		Buttons = buttons,
 		OnResult = props.OnResult,
 	}, {
-
-		Warning = not FFlagFixWarningDialogIcon and Roact.createElement("ImageLabel", {
-			Image = DEPRECATED_Constants.WARNING_IMAGE,
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Size = UDim2.new(0, 16, 0, 16),
-			Position = UDim2.new(0, 30, 0, 68),
-		}),
-
-		Header = FFlagFixWarningDialogIcon and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
+		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
 			AutomaticSize = Enum.AutomaticSize.Y,
 			Size = UDim2.new(1, theme.warningDialog.headerOffset, 0, 0),
 			AnchorPoint = Vector2.new(0.5, 0),
@@ -57,17 +47,9 @@ function WarningDialog:render()
 			BackgroundTransparency = 1,
 			Text = header,
 			TextXAlignment = Enum.TextXAlignment.Left,
-		})) or Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			Size = UDim2.new(1, -60, 0, 23),
-			AnchorPoint = Vector2.new(0.5, 0),
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Position = UDim2.new(0.5, 0, 0, 30),
-			BackgroundTransparency = 1,
-			Text = header,
-			TextXAlignment = Enum.TextXAlignment.Left,
 		})),
 
-		WarningDescription = FFlagFixWarningDialogIcon and Roact.createElement("Frame", {
+		WarningDescription = Roact.createElement("Frame", {
 			AutomaticSize = Enum.AutomaticSize.XY,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
@@ -97,16 +79,6 @@ function WarningDialog:render()
 				TextWrapped = true,
 			})),
 		}),
-
-		Description = not FFlagFixWarningDialogIcon and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Warning, {
-			Size = UDim2.new(0, 387, 0, 40),
-			Position = UDim2.new(0, 56, 0, 65),
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder:getNextOrder(),
-			Text = description,
-			TextXAlignment = Enum.TextXAlignment.Left,
-			TextWrapped = true,
-		})),
 	})
 end
 

@@ -11,6 +11,7 @@ local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
 local mockThreadState = require(Mocks.ThreadState)
 local mockPausedState = require(Mocks.PausedState)
+local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 
 return function()
@@ -22,8 +23,11 @@ return function()
 			testStackFrameOne,
 			testStackFrameTwo,
 		}
-		local testThreadOne = mockThreadState.new(fakeThreadId, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true, testCallstack1)
+		local testThreadOne = mockThreadState.new(fakeThreadId, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
 		mockConnection.MockSetThreadStateById(fakeThreadId, testThreadOne)
+		mockConnection.MockSetCallstackByThreadId(fakeThreadId, testCallstack1)
+		mockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,mockDebuggerVariable.GetDefaultFrameVariables())
+		mockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,mockDebuggerVariable.GetDefaultFrameVariables())
 	end
 
 	it("should create and destroy DebugConnectionListener without errors", function()
@@ -106,6 +110,43 @@ return function()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(nil)
 
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
+		mainListener:destroy()
+	end)
+	
+	it("should change connection focus on FocusChanged signal", function()
+		-- setup 2 mock DebuggerConnections
+		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
+		local mainConnectionManager = MockDebuggerConnectionManager.new()
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager)
+		local mockConnection1 = MockDebuggerConnection.new(1)
+		local mockConnection2 = MockDebuggerConnection.new(2)
+
+		setupFakeThread(mockConnection1, 1)
+		setupFakeThread(mockConnection2, 2)
+		
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+		
+		-- start and pause the 2 DebuggerConnections
+		mainConnectionManager.ConnectionStarted:Fire(mockConnection1)
+		mainConnectionManager.ConnectionStarted:Fire(mockConnection2)
+		mockConnection1.Paused:Fire(testPausedState1, testPausedState1.Reason)
+		mockConnection2.Paused:Fire(testPausedState2, testPausedState2.Reason)
+		
+		local state = mainStore:getState()
+		expect(state.Common.currentDebuggerConnectionId).to.equal(2)
+		
+		-- Firing a FocusChanged signal should change our current debuggerConnectionId
+		mainConnectionManager.FocusChanged:Fire(mockConnection1)
+		state = mainStore:getState()
+		expect(state.Common.currentDebuggerConnectionId).to.equal(1)
+		
+		mainConnectionManager.FocusChanged:Fire(mockConnection2)
+		state = mainStore:getState()
+		expect(state.Common.currentDebuggerConnectionId).to.equal(2)
+		
+		mainConnectionManager.ConnectionEnded:Fire(mockConnection2)
+		mainConnectionManager.ConnectionEnded:Fire(mockConnection1)
 		mainListener:destroy()
 	end)
 end

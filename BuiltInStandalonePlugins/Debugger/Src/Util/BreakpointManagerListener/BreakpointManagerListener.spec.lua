@@ -18,7 +18,7 @@ local function fakeDebuggerConnect(store)
 end
 
 local function createMockMetaBreakpoint(id, scriptString)
-	return MockMetaBreakpoint.new(scriptString, 123, "conditionString", id,true,true,true)
+	return MockMetaBreakpoint.new(scriptString, 123, "conditionString", id, "testLogMessage", true, true, true,true)
 end
 
 return function()

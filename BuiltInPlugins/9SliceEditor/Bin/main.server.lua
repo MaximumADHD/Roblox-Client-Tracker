@@ -18,8 +18,8 @@ local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)
 
-if not ok or not hasInternalPermission then
-	return
+if not ok then
+	hasInternalPermission = false
 end
 
 if not (FFlagEnable9SliceEditor and FFlagDevFrameworkAddEnumerateToUtil) then

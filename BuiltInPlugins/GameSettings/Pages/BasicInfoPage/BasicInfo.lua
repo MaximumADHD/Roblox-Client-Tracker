@@ -26,9 +26,6 @@
 ]]
 
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
-local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local StudioService = game:GetService("StudioService")
@@ -97,11 +94,11 @@ local playerAcceptanceKey = KeyProvider.getPlayerAcceptanceKeyName()
 local approvedKey = KeyProvider.getApprovedKeyName()
 local inReviewKey = KeyProvider.getInReviewKeyName()
 local rejectedKey = KeyProvider.getRejectedKeyName()
-local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
-local checkboxToggleKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCheckboxToggleKeyName() or "CheckboxToggle"
-local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
-local termsOfUseDialogKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getTermsOfUseDialogKeyName() or "TermsOfUseDialog"
-local buttonClickedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getButtonClickedKeyName() or "buttonClicked"
+local seriesNameKey = KeyProvider.getLuobuStudioDevPublishKeyName()
+local checkboxToggleKey = KeyProvider.getCheckboxToggleKeyName()
+local selectedKey = KeyProvider.getSelectedKeyName()
+local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
+local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
 
 local Framework = require(Plugin.Framework)
 local Tooltip = Framework.UI.Tooltip
@@ -121,7 +118,7 @@ local function loadSettings(store, contextItems)
 	local gameInfoController = contextItems.gameInfoController
 	local gameMetadataController = contextItems.gameMetadataController
 	local policyInfoController = contextItems.policyInfoController
-	local placesController = FFlagCheckPublishedPlaceExistsForDevPublish and contextItems.placesController or nil
+	local placesController = contextItems.placesController
 
 	return {
 		function(loadedSettings)
@@ -226,7 +223,7 @@ local function loadSettings(store, contextItems)
 			end
 		end,
 		function(loadedSettings)
-			if FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations() then
+			if shouldShowDevPublishLocations() then
 				local rootPlaceId = gameMetadataController:getRootPlace(gameId)
 				loadedSettings["publishedVersions"] = placesController:getAssetPublishedVersions(rootPlaceId)
 			end
@@ -403,7 +400,7 @@ local function loadValuesToProps(getValue, state)
 
 		PlayerAcceptance = shouldShowDevPublishLocations() and getValue(playerAcceptanceKey) or nil,
 
-		PublishedVersions = FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations() and getValue("publishedVersions") or nil,
+		PublishedVersions = shouldShowDevPublishLocations() and getValue("publishedVersions") or nil,
 
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -506,7 +503,6 @@ local function calculateTextSize(text, textSize, font)
 end
 
 local function publishedVersionExists(publishedVersions)
-	assert(FFlagCheckPublishedPlaceExistsForDevPublish)
 	if not publishedVersions.data or next(publishedVersions.data) == nil then
 		return false
 	end
@@ -581,14 +577,8 @@ function BasicInfo:init()
 	end
 
 	self.getOptInLocationsRequirementsLink = function()
-		local publishExists
-		if FFlagCheckPublishedPlaceExistsForDevPublish then
-			publishExists = publishedVersionExists(self.props.PublishedVersions)
-			if publishExists then
-				local url = getOptInLocationsRequirementsLink(chinaKey)
-				GuiService:OpenBrowserWindow(url)
-			end
-		else
+		local publishExists = publishedVersionExists(self.props.PublishedVersions)
+		if publishExists then
 			local url = getOptInLocationsRequirementsLink(chinaKey)
 			GuiService:OpenBrowserWindow(url)
 		end
@@ -601,38 +591,30 @@ function BasicInfo:init()
 
 		local optInLocations = props[optInLocationsKey]
 
-		local publishExists
 		local requirementsLinkStyle
-		if FFlagCheckPublishedPlaceExistsForDevPublish then
-			publishExists = publishedVersionExists(props.PublishedVersions)
-			if publishExists then
-				requirementsLinkStyle = "RequirementsLink"
-			else
-				requirementsLinkStyle = "RequirementsLinkDisabled"
-			end
-		else
+		local publishExists = publishedVersionExists(props.PublishedVersions)
+		if publishExists then
 			requirementsLinkStyle = "RequirementsLink"
+		else
+			requirementsLinkStyle = "RequirementsLinkDisabled"
 		end
 
 		local boxes = {}
 
-		local showWarning
-		if FFlagCheckPublishedPlaceExistsForDevPublish then
-			showWarning = not publishExists
-		end
+		local showWarning = not publishExists
 
 		for region,values in pairs(optInLocations) do
 			local status = values.status
 			local selected = values.selected
 
 			local moderationStatus = self:getModerationStatus(region, status)
-			local layoutOrder3 = (FFlagCheckPublishedPlaceExistsForDevPublish and shouldShowDevPublishLocations()) and LayoutOrderIterator.new() or nil
+			local layoutOrder3 = shouldShowDevPublishLocations() and LayoutOrderIterator.new() or nil
 
 			table.insert(boxes, {
 				Id = region,
 				Title = localization:getText("General", "Location" .. region),
 				Selected = selected,
-				LinkTextFrame = FFlagCheckPublishedPlaceExistsForDevPublish and Roact.createElement("Frame", {
+				LinkTextFrame = Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					LayoutOrder = layoutOrder:getNextOrder(),
 					Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
@@ -706,42 +688,9 @@ function BasicInfo:init()
 							TextXAlignment = Enum.TextXAlignment.Left,
 						}),
 					}) or nil,
-				}) or Roact.createElement("Frame", {
-					BackgroundTransparency = 1,
-					LayoutOrder = layoutOrder:getNextOrder(),
-					Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
-					Size = UDim2.new(1, theme.requirementsLink.length, 0, theme.requirementsLink.height),
-				}, {
-					UILayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						Padding = UDim.new(0, theme.requirementsLink.paddingX),
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						VerticalAlignment = Enum.VerticalAlignment.Top,
-					}),
-
-					ModerationStatus = moderationStatus.show and Roact.createElement("TextLabel", {
-						BackgroundTransparency = 1,
-						Font = theme.fontStyle.Subtext.Font,
-						LayoutOrder = -1,
-						Size = UDim2.new(0, calculateTextSize(moderationStatus.statusText, theme.fontStyle.Subtext.TextSize, theme.fontStyle.Subtext.Font).X, 0, theme.fontStyle.Subtext.TextSize),
-						Text = moderationStatus.statusText,
-						TextColor3 = moderationStatus.textColor,
-						TextSize = theme.fontStyle.Subtext.TextSize,
-						TextXAlignment = Enum.TextXAlignment.Left,
-					}) or nil,
-
-					RequirementsText = Roact.createElement(PartialHyperlink, {
-						HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
-						Mouse = props.Mouse:get(),
-						NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
-						OnClick = self.getOptInLocationsRequirementsLink,
-						Style = requirementsLinkStyle,
-					}),
 				})
 			})
-			if FFlagCheckPublishedPlaceExistsForDevPublish then
-				showWarning = false
-			end
+			showWarning = false
 		end
 
 		return boxes
@@ -773,9 +722,7 @@ function BasicInfo:render()
 		if shouldShowDevPublishLocations() then
 			optInLocations = props[optInLocationsKey]
 			playerAcceptance = props.PlayerAcceptance and props.PlayerAcceptance or nil
-			if FFlagCheckPublishedPlaceExistsForDevPublish then
-				publishExists = publishedVersionExists(props.PublishedVersions)
-			end
+			publishExists = publishedVersionExists(props.PublishedVersions)
 		end
 
 		local localizedGenreList = {
@@ -973,8 +920,8 @@ function BasicInfo:render()
 				Title = localization:getText("General", "TitleOptInLocations"),
 				LayoutOrder = layoutOrder:getNextOrder(),
 				Boxes = self:createOptInLocationBoxes(layoutOrder),
-				ShowWarning = not ((FFlagCheckPublishedPlaceExistsForDevPublish and publishExists) or (not FFlagCheckPublishedPlaceExistsForDevPublish)),
-				Enabled = optInLocations ~= nil and ((FFlagCheckPublishedPlaceExistsForDevPublish and publishExists) or (not FFlagCheckPublishedPlaceExistsForDevPublish)),
+				ShowWarning = not publishExists,
+				Enabled = optInLocations ~= nil and publishExists,
 				--Functionality
 				EntryClicked = function(box)
 					local dialogProps = {
@@ -1000,25 +947,21 @@ function BasicInfo:render()
 					}
 					if not playerAcceptance then
 						dialog.showDialog(SimpleDialog, dialogProps):await()
-						if FFlagLuobuDevPublishAnalytics then
-							local points = {
-								[buttonClickedKey] = true,
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-						end
+						local points = {
+							[buttonClickedKey] = true,
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
 					else
 						local newOptInLocations = deepJoin(optInLocations, {
 							[box.Id] = {
 								selected = not box.Selected,
 							}
 						})
-						if FFlagLuobuDevPublishAnalytics then
-							local points = {
-								[optInLocationsKey] = box.Id,
-								[selectedKey] = not box.Selected,
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
-						end
+						local points = {
+							[optInLocationsKey] = box.Id,
+							[selectedKey] = not box.Selected,
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
 						props.OptInLocationsChanged(newOptInLocations)
 					end
 				end,

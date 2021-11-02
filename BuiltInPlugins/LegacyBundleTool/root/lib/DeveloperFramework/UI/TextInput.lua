@@ -41,7 +41,6 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddSearchBarInputEvents = game:GetFastFlag("DevFrameworkAddSearchBarInputEvents")
 local FFlagDevFrameworkTextBoxRefProp = game:GetFastFlag("DevFrameworkTextBoxRefProp")
 
 local Framework = script.Parent.Parent
@@ -193,9 +192,8 @@ function TextInput:render()
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local text = props.Text or ""
 	local textWrapped = props.TextWrapped
-
-	local onInputBegan = FFlagDevFrameworkAddSearchBarInputEvents and self.props.OnInputBegan or nil
-	local onInputEnded = FFlagDevFrameworkAddSearchBarInputEvents and self.props.OnInputEnded or nil
+	local onInputBegan = self.props.OnInputBegan
+	local onInputEnded = self.props.OnInputEnded
 
 	local theme = props.Theme
 	local style

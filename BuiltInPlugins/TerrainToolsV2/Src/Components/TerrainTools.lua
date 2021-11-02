@@ -20,20 +20,10 @@ local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
 
 local INITIAL_WIDGET_SIZE = Vector2.new(300, 600)
 
-local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
-local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
-
 local TerrainTools = Roact.PureComponent:extend("TerrainTools")
 
 function TerrainTools:init()
 	local initiallyEnabled = true
-
-	if FFlagStudioShowHideABTestV2 then
-		local variation = Framework.Util.getTestVariation(ABTEST_SHOWHIDEV2_NAME)
-		if variation == 2 then
-			initiallyEnabled = false
-		end
-	end
 
 	self.state = {
 		enabled = initiallyEnabled,

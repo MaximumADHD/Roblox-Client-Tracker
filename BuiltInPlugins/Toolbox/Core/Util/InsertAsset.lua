@@ -10,6 +10,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxDragSourceAssetIds = game:GetFastFlag("ToolboxDragSourceAssetIds")
+local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -466,6 +467,13 @@ if FFlagToolboxMeshPartFiltering then
 		ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
 			if FFlagToolboxDragSourceAssetIds then
 				setSourceAssetIdOnInstances(assetId, instances)
+			end
+
+			if FFlagToolboxTrackDragInsertFinished then
+				-- Do not block the insert on tracking the analytic
+				spawn(function()
+					Analytics.reportDragInsertFinished(assetId, assetTypeId)
+				end)
 			end
 
 			if assetTypeId == Enum.AssetType.MeshPart.Value then

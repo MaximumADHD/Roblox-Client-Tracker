@@ -9,6 +9,7 @@ local Mocks = Plugin.Src.Mocks
 local mockThreadState = require(Mocks.ThreadState)
 local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
+local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 
 local Actions = Plugin.Src.Actions
@@ -36,8 +37,11 @@ return function()
 			testStackFrameOne,
 			testStackFrameTwo,
 		}
-		local testThread = mockThreadState.new(1, "TestThread1", true, testCallstack)
+		local testThread = mockThreadState.new(1, "TestThread1", true)
 		local currentMockConnection = MockDebuggerConnection.new(1)
+		currentMockConnection.MockSetCallstackByThreadId(1, testCallstack)
+		currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,mockDebuggerVariable.GetDefaultFrameVariables()) 
+		currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,mockDebuggerVariable.GetDefaultFrameVariables()) 
 		
 		store:dispatch(BreakpointHitAction(defaultDebuggerToken, 1))
 		store:dispatch(RequestCallstackThunk(testThread, currentMockConnection, defaultDebuggerToken))

@@ -11,8 +11,6 @@ local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
 local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
-local SetContinuedExecution = require(Actions.BreakpointsWindow.SetContinuedExecution)
-local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
 local Breakpoint = require(Models.Breakpoint)
 
 local function getSize(dict)
@@ -164,43 +162,5 @@ return function()
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 		
-	end)
-
-	describe(SetContinuedExecution.name, function()
-		it("should set Continue Execution correctly", function()
-			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({continueExecution = false}, uniqueId)
-			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
-			expect(prepState.BreakpointInfo[uniqueId].continueExecution).to.equal(false)
-			local state = BreakpointReducer(prepState, SetContinuedExecution(uniqueId, true))
-			expect(state.BreakpointInfo[uniqueId].continueExecution).to.equal(true)
-		end)
-
-		it("should preserve immutability", function()
-			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({continueExecution = false}, uniqueId)
-			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
-			local immutabilityPreserved = testImmutability(BreakpointReducer, SetContinuedExecution(uniqueId, true), prepState)
-			expect(immutabilityPreserved).to.equal(true)
-		end)
-	end)
-
-	describe(SetBreakpointEnabled.name, function()
-		it("should set Is Enabled correctly", function()
-			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({isEnabled = false}, uniqueId)
-			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
-			expect(prepState.BreakpointInfo[uniqueId].isEnabled).to.equal(false)
-			local state = BreakpointReducer(prepState, SetBreakpointEnabled(uniqueId, true))
-			expect(state.BreakpointInfo[uniqueId].isEnabled).to.equal(true)
-		end)
-
-		it("should preserve immutability", function()
-			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({isEnabled = false}, uniqueId)
-			local prepState = BreakpointReducer(nil, AddBreakpointAction(123, breakpoint))
-			local immutabilityPreserved = testImmutability(BreakpointReducer, SetBreakpointEnabled(uniqueId, true), prepState)
-			expect(immutabilityPreserved).to.equal(true)
-		end)
 	end)
 end

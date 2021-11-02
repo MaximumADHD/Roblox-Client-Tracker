@@ -69,7 +69,9 @@ function AssetConfig:init(props)
 			genreTypeId, 					-- Convert into a ID
 			state.copyOn,
 			state.commentOn,
-			state.groupId					-- Used only for upload group asset.
+			state.groupId,					-- Used only for upload group asset.
+			props.instances,
+			props.clonedInstances
 		)
 	end
 
@@ -318,7 +320,9 @@ local function mapStateToProps(state, props)
 		currentScreen = state.AssetConfigReducer.currentScreen,
 		changeTable = changed,
 		networkError = state.NetworkReducer.networkError,
-		networkErrorAction = state.NetworkReducer.networkErrorAction
+		networkErrorAction = state.NetworkReducer.networkErrorAction,
+		instances = state.AssetConfigReducer.instances,
+		clonedInstances = state.AssetConfigReducer.clonedInstances
 	}
 end
 
@@ -327,9 +331,9 @@ local function mapDispatchToProps(dispatch)
 		makeChangeRequest = function(setting, currentValue, newValue)
 			dispatch(MakeChangeRequest(setting, currentValue, newValue))
 		end,
-		sendConvertToPackageItem = function(assetid, name, description, genreTypeId, ispublic, allowComments, groupId)
+		sendConvertToPackageItem = function(assetid, name, description, genreTypeId, ispublic, allowComments, groupId, instances, clonedInstances)
 			dispatch(SetAssetName(name))
-			dispatch(UploadConvertToPackageRequest(assetid, name, description, genreTypeId, ispublic, allowComments, groupId))
+			dispatch(UploadConvertToPackageRequest(assetid, name, description, genreTypeId, ispublic, allowComments, groupId, instances, clonedInstances))
 		end
 	}
 end

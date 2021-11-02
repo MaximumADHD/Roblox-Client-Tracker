@@ -145,9 +145,6 @@ function AssetImportTree:init()
 	self.setChecked = function(checked)
 		self.props.SetChecked(checked)
 
-		for _, setting in pairs(self.props.Instances) do
-			AssetImportService:UpdateSettings(setting)
-		end
 		local instanceMap = AssetImportService:GetCurrentImportMap()
 
 		self.props.SetInstanceMap(instanceMap)
@@ -162,19 +159,17 @@ function AssetImportTree:init()
 		if status then
 			local layoutOrderIterator = LayoutOrderIterator.new()
 
-			local errors = getStatusImage(status, StatusLevel.Error, layoutOrderIterator, self.props.Localization)
-			local warnings = getStatusImage(status, StatusLevel.Warning, layoutOrderIterator, self.props.Localization)
+			local statusesImages = getStatusImage(status, StatusLevel.Error, layoutOrderIterator, self.props.Localization)
+			statusesImages = statusesImages or getStatusImage(status, StatusLevel.Warning, layoutOrderIterator, self.props.Localization)
 
-			local width = errors and ICON_DIMENSION or 0
-			width = width + (warnings and ICON_DIMENSION or 0)
+			local width = statusesImages and ICON_DIMENSION or 0
 
 			return Roact.createElement(Pane, {
 				Size = UDim2.new(0, width, 0, ICON_DIMENSION),
 				LayoutOrder = props.LayoutOrder,
 				Layout = Enum.FillDirection.Horizontal,
 			}, {
-				Errors = errors,
-				Warnings = warnings,
+				Statuses = statusesImages,
 			})
 		else
 			return nil

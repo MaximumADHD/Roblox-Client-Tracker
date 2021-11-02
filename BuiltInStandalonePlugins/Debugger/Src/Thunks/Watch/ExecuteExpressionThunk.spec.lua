@@ -17,7 +17,10 @@ local MockThreadState = require(Mocks.ThreadState)
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 
-local ExecuteExpressionThunk = require(script.Parent.ExecuteExpressionThunk)
+local Thunks = Plugin.Src.Thunks
+
+local ExecuteExpressionThunk = require(Thunks.Watch.ExecuteExpressionThunk)
+local RequestCallstackThunk = require(Thunks.Callstack.RequestCallstackThunk)
 
 return function()
 	it("should evaluate expressions correctly", function()			
@@ -26,11 +29,13 @@ return function()
 		local state = store:getState()
 		local currentMockConnection = MockDebuggerConnection.new(1)
 		local mockStackFrame = MockStackFrame.new(1, MockScriptRef.new(),"TestFrame1", "C")
-		currentMockConnection.MockSetThreadStateById(2, MockThreadState.new(2, "testThread", true, {mockStackFrame}))
+		local mockThreadState = MockThreadState.new(2, "testThread", true)
+		currentMockConnection.MockSetThreadStateById(2, mockThreadState)
+		currentMockConnection.MockSetCallstackByThreadId(2, {mockStackFrame})
 		local dst = state.Common.debuggerConnectionIdToDST[1]
 		local stepStateBundle = StepStateBundle.ctor(dst,2,1)
 		local expressionString = "Alex"
-		
+		store:dispatch(RequestCallstackThunk(mockThreadState, currentMockConnection, dst))
 		store:dispatch(ExecuteExpressionThunk(expressionString,stepStateBundle,currentMockConnection))
 		state = store:getState()
 		

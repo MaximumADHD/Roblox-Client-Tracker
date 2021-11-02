@@ -22,6 +22,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
 local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local RigUtils = {}
@@ -894,6 +895,10 @@ function RigUtils.getRigInfo(rig)
 					partNameToConstraintMap[child.Name] = constraint
 					break
 				end
+			end
+		elseif GetFFlagFixRigInfoForFacs() then
+			if child:IsA(Constants.BONE_CLASS_NAME) and child.IsCFrameDriven then
+				table.insert(parts, child)
 			end
 		elseif child:IsA(Constants.BONE_CLASS_NAME) then
 			table.insert(parts, child)

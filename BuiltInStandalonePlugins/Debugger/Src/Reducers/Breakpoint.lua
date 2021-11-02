@@ -7,8 +7,6 @@ local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
 local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
-local SetContinuedExecution = require(Actions.BreakpointsWindow.SetContinuedExecution)
-local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
 local Breakpoint = require(Models.Breakpoint)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -82,22 +80,6 @@ return Rodux.createReducer(initialState, {
 		end
 		return Cryo.Dictionary.join(
 			state, {BreakpointIdsInDebuggerConnection = newBreakpointIdsForConnection}, {BreakpointInfo = newBreakpointInfo}
-		)
-	end,
-
-	[SetContinuedExecution.name] = function(state : BreakpointStore, action : SetContinuedExecution.Props)
-		local newBreakpointInfo = deepCopy(state.BreakpointInfo)
-		newBreakpointInfo[action.breakpointId].continueExecution = action.isEnabled
-		return Cryo.Dictionary.join(
-			state, {BreakpointInfo = newBreakpointInfo}
-		)
-	end,
-
-	[SetBreakpointEnabled.name] = function(state : BreakpointStore, action : SetContinuedExecution.Props)
-		local newBreakpointInfo = deepCopy(state.BreakpointInfo)
-		newBreakpointInfo[action.breakpointId].isEnabled = action.isEnabled
-		return Cryo.Dictionary.join(
-			state, {BreakpointInfo = newBreakpointInfo}
 		)
 	end,
 })

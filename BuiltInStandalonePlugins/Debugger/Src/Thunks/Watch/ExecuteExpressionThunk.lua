@@ -17,7 +17,7 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 			return
 		end
 		
-		local currentFrame = currentThread.GetFrame(stepStateBundle.frameNumber)
+		local currentFrame = currentThread:GetFrame(stepStateBundle.frameNumber)
 		if currentFrame == nil then
 			assert(false)
 			return

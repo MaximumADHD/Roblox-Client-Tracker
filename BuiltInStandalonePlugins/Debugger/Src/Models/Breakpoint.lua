@@ -17,7 +17,6 @@ export type Breakpoint = {
 	debugpointType : DebugpointType
 }
 
-
 local BreakpointInternal = {}
 BreakpointInternal.__index = BreakpointInternal
 
@@ -49,7 +48,6 @@ local function fromBreakpoint(breakpoint) : Breakpoint
 	})
 end
 
--- TODO(aherdzik): All fields should be set here from metaBreakpoint (see RIDE-6049)
 local function fromMetaBreakpoint(metaBreakpoint)
 	return BreakpointInternal.new({
 		id = metaBreakpoint.Id,
@@ -58,10 +56,10 @@ local function fromMetaBreakpoint(metaBreakpoint)
 		lineNumber = metaBreakpoint.Line,
 		scriptName = metaBreakpoint.Script,
 		scriptLine = "",
-		condition = "",
-		logMessage = "",
+		condition = metaBreakpoint.Condition,
+		logMessage = metaBreakpoint.LogMessage,
 		continueExecution = metaBreakpoint.ContinueExecution,
-		debugpointType = DebugpointType.Breakpoint
+		debugpointType = metaBreakpoint.IsLogpoint and DebugpointType.Logpoint or DebugpointType.Breakpoint
 	})
 end
 

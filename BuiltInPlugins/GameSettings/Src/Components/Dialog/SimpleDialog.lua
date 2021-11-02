@@ -7,7 +7,6 @@
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
 local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
-local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -34,8 +33,8 @@ function SimpleDialog:render()
 		OnResult = props.OnResult,
 	}, {
 		Header = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Title, {
-			AutomaticSize = FFlagFixWarningDialogIcon and Enum.AutomaticSize.Y or nil,
-			Size = not FFlagFixWarningDialogIcon and UDim2.new(1, 0, 0, 60) or UDim2.new(1, 0, 0, 0),
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = UDim2.new(1, 0, 0, 0),
 			BackgroundTransparency = 1,
 			Text = header,
 			TextWrapped = true,

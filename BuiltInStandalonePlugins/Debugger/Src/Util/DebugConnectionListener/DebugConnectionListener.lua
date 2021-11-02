@@ -6,9 +6,11 @@ local Resumed = require(Actions.Common.Resumed)
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
 local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
+local LoadStackFrameVariables = require(Src.Thunks.Callstack.LoadStackFrameVariables)
 
 local Models = Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
+local StepStateBundle = require(Models.StepStateBundle)
 
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
@@ -23,6 +25,15 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	local threadState = connection:GetThreadById(pausedState.ThreadId)
 	self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
 	self.store:dispatch(RequestCallstackThunk(threadState, connection, dst))
+	
+	connection:Populate(threadState, function ()
+		local callstack = threadState:GetChildren()
+		for stackFrameId, stackFrame in ipairs(callstack) do
+			local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
+			self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
+		end
+	end)
+	
 	self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 end
 
@@ -61,14 +72,15 @@ function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason)
 	self.debuggerConnections[debuggerConnection.Id] = nil
 end
 
-function DebugConnectionListener:onFocusChanged(instance)
+function DebugConnectionListener:onFocusChanged(debuggerConnection)
+	self.store:dispatch(SetFocusedDebuggerConnection(debuggerConnection.Id))
 end
 
 local function setUpConnections(debugConnectionListener, debuggerConnectionManager)
 	local DebuggerConnectionManager = debuggerConnectionManager or game:GetService("DebuggerConnectionManager")
 	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection) end)
 	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason) end)
-	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(function(instance) debugConnectionListener:onFocusChanged(instance) end)
+	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(function(debuggerConnection) debugConnectionListener:onFocusChanged(debuggerConnection) end)
 end
 
 function DebugConnectionListener.new(store, debuggerConnectionManager)

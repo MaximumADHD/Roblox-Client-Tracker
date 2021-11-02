@@ -31,24 +31,9 @@ local getTestVariation = FrameworkUtil.getTestVariation
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
-
-local ShowHideABTestName = "AllUsers.RobloxStudio.ShowHideToolbox"
-local ABTEST_SHOWHIDEV2_NAME = "AllUsers.RobloxStudio.ShowHideV2"
-
-local function shouldSeeTestBehavior(abTestName)
-	-- REMOVE THIS WITH FFlagShowHideABTest
-
-	-- helper function for showing a behavior so long as the result is not "Control"
-	-- further specificity can be used if the exact variation is required
-	local variation = ABTestService:GetVariant(abTestName)
-	local shouldShowBehavior = variation ~= "Control"
-	return shouldShowBehavior, variation
-end
-
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
@@ -160,20 +145,7 @@ function ToolboxPlugin:render()
 
 	local pluginGuiLoaded = pluginGui ~= nil
 
-	-- Setting this value to false lets the DockWidget properly reflect
-	-- the state when it comes up.
-	local initialEnabled = false
-
-	if FFlagStudioShowHideABTestV2 then
-		local variation = getTestVariation(ABTEST_SHOWHIDEV2_NAME)
-		if variation == 0 or variation == 2 then
-			-- Even though 0 is supposed to be the Control group and preserve existing behaviors,
-			-- Toolbox should be enabled by default. The fact that it isn't is a bug.
-			initialEnabled = true
-		elseif variation == 1 then
-			initialEnabled = false
-		end
-	end
+	local initialEnabled = true
 
 	local title = self.props.Localization:getText("General", "ToolboxToolbarName")
 

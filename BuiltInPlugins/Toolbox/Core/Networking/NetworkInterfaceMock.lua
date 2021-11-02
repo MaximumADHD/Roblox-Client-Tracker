@@ -82,7 +82,7 @@ local function getFakeCreationsItems(fakeId)
 	}
 end
 
-local function createStringValueforVerification(categoryName)
+local function createStringValueforVerification(categoryName, sortType)
 	for i, child in ipairs(game.CoreGui:GetChildren()) do
 		if child.Name == "CategoryVerification" then
 			child:Destroy()
@@ -90,8 +90,15 @@ local function createStringValueforVerification(categoryName)
 	end
 
 	local vString = Instance.new("StringValue",game.CoreGui)
-	vString.Value = categoryName
 	vString.Name = "CategoryVerification"
+
+	local categoryString = Instance.new("StringValue",game.CoreGui.CategoryVerification)
+	categoryString.Value = categoryName
+	categoryString.Name = "Category"
+
+	local sortTypeString = Instance.new("StringValue",game.CoreGui.CategoryVerification)
+	sortTypeString.Value = sortType
+	sortTypeString.Name = "Sort"
 
 	return vString
 end
@@ -120,7 +127,7 @@ end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)
-	createStringValueforVerification(category)
+	createStringValueforVerification(category, sortType)
 	local fakeItemListContent = {
 		responseBody = {
 			totalResults = ARBITRARY_LARGE_TOTAL_COUNT,

@@ -56,8 +56,6 @@ local GuiService = game:GetService("GuiService")
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
-local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
@@ -68,11 +66,11 @@ local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local chinaKey = KeyProvider.getChinaKeyName()
-local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
-local checkboxToggleKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCheckboxToggleKeyName() or "CheckboxToggle"
-local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
-local termsOfUseDialogKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getTermsOfUseDialogKeyName() or "TermsOfUseDialog"
-local buttonClickedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getButtonClickedKeyName() or "buttonClicked"
+local seriesNameKey = KeyProvider.getLuobuStudioDevPublishKeyName()
+local checkboxToggleKey = KeyProvider.getCheckboxToggleKeyName()
+local selectedKey = KeyProvider.getSelectedKeyName()
+local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
+local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
 
 local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
@@ -433,13 +431,11 @@ local function displayContents(parent)
 							local newLocations = Cryo.Dictionary.join(optInLocations, {
 								[box.Id] = (box.Selected) and Cryo.None or not box.Selected,
 							})
-							if FFlagLuobuDevPublishAnalytics then
-								local points = {
-									[optInLocationsKey] = box.Id,
-									[selectedKey] = not box.Selected,
-								}
-								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
-							end
+							local points = {
+								[optInLocationsKey] = box.Id,
+								[selectedKey] = not box.Selected,
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, checkboxToggleKey, points)
 							optInLocationsChanged(newLocations)
 						end
 					end,
@@ -472,23 +468,19 @@ local function displayContents(parent)
 						parent:setState({
 							showDialog = false,
 						})
-						if FFlagLuobuDevPublishAnalytics then
-							local points = {
-								[buttonClickedKey] = "OK",
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-						end
+						local points = {
+							[buttonClickedKey] = "OK",
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
 					end,
 					OnClose = function()
 						parent:setState({
 							showDialog = false
 						})
-						if FFlagLuobuDevPublishAnalytics then
-							local points = {
-								[buttonClickedKey] = "Close",
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
-						end
+						local points = {
+							[buttonClickedKey] = "Close",
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, termsOfUseDialogKey, points)
 					end,
 					ButtonHorizontalAlignment = Enum.HorizontalAlignment.Center,
 				}, {

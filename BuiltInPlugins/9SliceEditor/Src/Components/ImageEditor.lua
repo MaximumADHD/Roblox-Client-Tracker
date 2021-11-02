@@ -36,34 +36,30 @@ local BOTTOM = Orientation.Bottom.rawValue()
 local UNDEFINED = Orientation.Undefined.rawValue()
 
 function ImageEditor:init(props)
-	local pixelDimensions = props.pixelDimensions
-	local setSliceRect = props.setSliceRect
-	local sliceRect = props.sliceRect
-
 	self.draggerHandlingMovement = false -- red dragger not currently handling drag
 	self.dragOrientation = UNDEFINED -- no current orientation
 	self.dragging = false
 
-	self.leftPos = math.clamp(sliceRect[LEFT] / pixelDimensions.X, 0, 1)
-	self.rightPos =  math.clamp(sliceRect[RIGHT] / pixelDimensions.X, 0, 1)
-	self.topPos = math.clamp(sliceRect[TOP] / pixelDimensions.Y, 0, 1)
-	self.bottomPos =  math.clamp(sliceRect[BOTTOM] / pixelDimensions.Y, 0, 1)
-
-	self.onDragBegin = function(obj, orientation, mousePosition, draggerPosition)
-		-- when onInputBegan for red draggers
-		self.obj = obj
-		self.draggerHandlingMovement = true
-		self.dragOrientation = orientation
-		self.mousePosition = mousePosition
-		self.draggerPosition = draggerPosition
-		self.dragging = true
-
-		MouseCursorManager.setLocked(self.props.Mouse, true)
-	end
-
 	self:setState({
 		hoveringDraggerOrientation = -1,
 	})
+	
+	if math.max(props.pixelDimensions.X, props.pixelDimensions.Y) <= 0 then
+		self.leftPos = 0
+		self.rightPos = 1
+		self.topPos = 0
+		self.bottomPos = 1
+	else
+		local pixelDimensions = props.pixelDimensions
+		assert(pixelDimensions.X > 0)
+		assert(pixelDimensions.Y > 0)
+
+		local sliceRect = props.sliceRect
+		self.leftPos = math.clamp(sliceRect[LEFT] / pixelDimensions.X, 0, 1)
+		self.rightPos =  math.clamp(sliceRect[RIGHT] / pixelDimensions.X, 0, 1)
+		self.topPos = math.clamp(sliceRect[TOP] / pixelDimensions.Y, 0, 1)
+		self.bottomPos =  math.clamp(sliceRect[BOTTOM] / pixelDimensions.Y, 0, 1)
+	end
 
 	self.onDragging = function(inputPosition, dragOrientation)
 		-- when onInputChanged for red draggers
@@ -78,9 +74,41 @@ function ImageEditor:init(props)
 		self.updateDraggedPosition(inputPosition)
 	end
 
+	self.disconnectMouseMoveInputObject = function()
+		if self.mouseMoveInputObjectConnection then
+			self.mouseMoveInputObjectConnection:Disconnect()
+			self.mouseMoveInputObjectConnection = nil
+		end
+	end
+
+	self.onDragBegin = function(obj, orientation, mousePosition, draggerPosition)
+		-- when onInputBegan for red draggers
+		self.obj = obj
+		self.draggerHandlingMovement = true
+		self.dragOrientation = orientation
+		self.mousePosition = mousePosition
+		self.draggerPosition = draggerPosition
+		self.dragging = true
+
+		MouseCursorManager.setLocked(self.props.Mouse, true)
+
+		local inputObj = self.lastMouseMoveInputObject
+		if inputObj ~= nil then
+			self.disconnectMouseMoveInputObject()
+
+			self.mouseMoveInputObjectConnection = inputObj:GetPropertyChangedSignal("Position"):Connect(function()
+				if self.dragging then
+					self.onDragging(inputObj.Position, orientation)
+				end
+			end)
+		end
+	end
+
 	self.onDragEnd = function(input, orientation)
 		-- when onInputEnded for red draggers
 		local slice = self.props.sliceRect
+		local pixelDimensions = self.props.pixelDimensions
+
 		if (input.UserInputType == Enum.UserInputType.MouseButton1) then
 			local newSliceRect
 			if self.dragOrientation == LEFT then
@@ -101,10 +129,12 @@ function ImageEditor:init(props)
 			end
 
 			if newSliceRect then
-				setSliceRect(newSliceRect, true)
+				self.props.setSliceRect(newSliceRect, true)
 			end
 
+			self.disconnectMouseMoveInputObject()
 			self.dragging = false
+			self.uncertainDragStarted = false
 			self.updateHoverDragger()
 			MouseCursorManager.setLocked(self.props.Mouse, false)
 		end
@@ -221,30 +251,17 @@ function ImageEditor:init(props)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			if self.uncertainDragStarted then
 				self.onDragEnd(input, self.dragOrientation)
-				self.uncertainDragStarted = false
 			end
 		end
-	end
-
-	self.fitImageSize = nil
-	self.getFitImageSize = function()
-		if not self.fitImageSize then
-			self.fitImageSize = pixelDimensions / math.max(pixelDimensions.X, pixelDimensions.Y) * Constants.IMAGE_SIZE
-		end
-		return self.fitImageSize
-	end
-
-	self.updateFitImageSize = function()
-		self.fitImageSize = nil
-		self.getFitImageSize()
 	end
 
 	self.updateDraggedPosition = function(inputPosition)
 		-- calculates new dragged location
 		local slice = self.props.sliceRect
 		local deltaPosition = Vector2.new(inputPosition.X, inputPosition.Y) - self.mousePosition
-		local imageDimension = self.getFitImageSize()
+		local imageDimension = self.state.fitImageSize
 		self.newPosition = self.draggerPosition + deltaPosition / imageDimension
+		local pixelDimensions = self.props.pixelDimensions
 
 		-- set corresponding position and clamp values to dragger bounds and whole pixel locations
 		if self.dragOrientation == LEFT then
@@ -282,6 +299,25 @@ function ImageEditor:init(props)
 		self.priorityDragCandidates[orientation] = nil
 		self.updateHoverDragger()
 	end
+
+	self.setMostRecentMouseMoveInputObject = function(inputObj: InputObject)
+		self.lastMouseMoveInputObject = inputObj
+	end
+end
+
+function ImageEditor.getDerivedStateFromProps(nextProps, lastState)
+	local fitImageSize = Vector2.new(1, 1)
+
+	local pixelDimensions = nextProps.pixelDimensions
+	local largestDimension = math.max(pixelDimensions.X, pixelDimensions.Y)
+	
+	if largestDimension > 0 then
+		fitImageSize = pixelDimensions / largestDimension * Constants.IMAGE_SIZE
+	end
+	
+	return {
+		fitImageSize = fitImageSize,
+	}
 end
 
 function ImageEditor:createDragger(orientation)
@@ -299,6 +335,7 @@ function ImageEditor:createDragger(orientation)
 			addPriorityDragCandidate = self.addPriorityDragCandidate,
 			removePriorityDragCandidate = self.removePriorityDragCandidate,
 			startUncertainDrag = self.startUncertainDrag,
+			setMostRecentMouseMoveInputObject = self.setMostRecentMouseMoveInputObject,
 		})
 end
 
@@ -313,15 +350,15 @@ function ImageEditor:render()
 	local localization = props.Localization
 	local imageSizeText = localization:getText("ImageEditor", "ImageSize")
 
-	-- if the pixelDimensions have not been loaded, print an error msg
-	if not selectedObject.IsLoaded then
-		imageSizeText = localization:getText("ImageEditor", "ImageSizeError")
-	else
-		imageSizeText = imageSizeText .. (": %dx%d"):format(pixelDimensions.X, pixelDimensions.Y)
+	local fitImageSize = self.state.fitImageSize
+	if selectedObject then
+		-- if the pixelDimensions have not been loaded, print an error msg
+		if not selectedObject.IsLoaded then
+			imageSizeText = localization:getText("ImageEditor", "ImageSizeError")
+		else
+			imageSizeText = imageSizeText .. (": %dx%d"):format(pixelDimensions.X, pixelDimensions.Y)
+		end
 	end
-
-	self.updateFitImageSize()
-	local fitImageSize = self.getFitImageSize()
 	
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,

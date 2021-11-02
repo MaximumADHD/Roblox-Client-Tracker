@@ -12,11 +12,11 @@ local mockThreadState = require(Mocks.ThreadState)
 local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
 local mockPausedState = require(Mocks.PausedState)
+local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 
 local Actions = Src.Actions
-local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddExpression = require(Actions.Watch.AddExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
@@ -34,13 +34,7 @@ local expressionData1 = {
 
 local expressionRow1 = WatchRow.fromData(expressionData1)
 
-local varData1 = {
-	name = "Alex",
-	path = "1",
-	scope = ScopeEnum.Local,
-	value = "somePreview",
-	dataType = "map",
-}
+local debuggerVar1 = mockDebuggerVariable.new(1,"Alex", "somePreview", "map")
 
 local varData1Child1 = {
 	name = "Heesoo",
@@ -74,13 +68,7 @@ local varData1Child21 = {
 	dataType = "string",
 }
 
-local varData2 = {
-	name = "UnitedStates",
-	path = "2",
-	scope = ScopeEnum.Local,
-	value = "somePreview2",
-	dataType = "map",
-}
+local debuggerVar2 = mockDebuggerVariable.new(2,"UnitedStates", "somePreview2", "map")
 
 local varData2Child1 = {
 	name = "Wisconsin",
@@ -98,12 +86,10 @@ local varData2Child11 = {
 	dataType = "string",
 }
 
-local variableRow1 = VariableRow.fromData(varData1)
 local variableRow1Child1 = VariableRow.fromData(varData1Child1)
 local variableRow1Child2 = VariableRow.fromData(varData1Child2)
 local variableRow1Child11 = VariableRow.fromData(varData1Child11)
 local variableRow1Child21 = VariableRow.fromData(varData1Child21)
-local variableRow2 = VariableRow.fromData(varData2)
 local variableRow2Child1 = VariableRow.fromData(varData2Child1)
 local variableRow2Child11 = VariableRow.fromData(varData2Child11)
 
@@ -119,8 +105,8 @@ local testCallstack2 = {
 	testStackFrameOne,
 }
 
-local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true, testCallstack1)
-local testThreadTwo = mockThreadState.new(2, "TestThread2", true, testCallstack2)
+local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
+local testThreadTwo = mockThreadState.new(2, "TestThread2", true)
 
 local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
 local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
@@ -131,6 +117,16 @@ return function(store)
 	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager)
 	currentMockConnection.MockSetThreadStateById(1, testThreadOne)
 	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
+	currentMockConnection.MockSetCallstackByThreadId(1, testCallstack1)
+	currentMockConnection.MockSetCallstackByThreadId(2, testCallstack2)
+	
+	local defaults1 = mockDebuggerVariable.GetDefaultFrameVariables()
+	defaults1["Locals"]:MockSetChildren({debuggerVar1,debuggerVar2 })
+	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,defaults1)
+	local defaults2 = mockDebuggerVariable.GetDefaultFrameVariables()
+	defaults2["Locals"]:MockSetChildren({debuggerVar2,debuggerVar1 })
+	currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,defaults2)
+	
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 
 	currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
@@ -141,9 +137,7 @@ return function(store)
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 	
 	local stepStateBundle1 = StepStateBundle.ctor(dst, 1, 1)
-	local stepStateBundle2 = StepStateBundle.ctor(dst, 2, 1)
-	store:dispatch(AddRootVariables(stepStateBundle1, {variableRow1, variableRow2}))
-	store:dispatch(AddRootVariables(stepStateBundle2, {variableRow2, variableRow1}))
+	
 	store:dispatch(AddExpression("Expression 1"))
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 

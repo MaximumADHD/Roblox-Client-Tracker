@@ -8,10 +8,6 @@ local Framework = require(Plugin.Packages.Framework)
 local Constants = require(Plugin.Src.Util.Constants)
 local StyleModifier = Framework.Util.StyleModifier
 
-local Actions = Plugin.Src.Actions
-local SetContinuedExecution = require(Actions.BreakpointsWindow.SetContinuedExecution)
-local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
-
 local Dash = Framework.Dash
 local join = Dash.join
 
@@ -132,7 +128,9 @@ function BreakpointsTreeTableCell:render()
 				EnabledCheckbox = Roact.createElement(Checkbox, {
 					Checked = value,
 					OnClick = function() 
-						self.props.onSetEnabled(row.item.id, not row.item.isEnabled)
+						local bpManager = game:GetService("BreakpointManager")
+						local bp = bpManager:GetBreakpointById(row.item.id)
+						bp:SetEnabled(not row.item.isEnabled)
 					end,
 					LayoutOrder = 1,
 				}),
@@ -155,7 +153,9 @@ function BreakpointsTreeTableCell:render()
 			EnabledCheckbox = Roact.createElement(Checkbox, {
 				Checked = value,
 				OnClick = function()
-					self.props.onSetContinueExection(row.item.id, not row.item.continueExecution)
+					local bpManager = game:GetService("BreakpointManager")
+					local bp = bpManager:GetBreakpointById(row.item.id)
+					bp:SetContinueExecution(not row.item.continueExecution)
 				end,
 				LayoutOrder = 1,
 			}),
@@ -182,25 +182,7 @@ BreakpointsTreeTableCell = RoactRodux.connect(
 	end,
 
 	function(dispatch)
-		return {
-			onSetContinueExection = function(id, isEnabled)
-				local bpManager = game:GetService("BreakpointManager")
-				local bp = bpManager:GetBreakpointById(id)
-				bp.setContinuedExecution(isEnabled)
-
-				-- todo remove this dispatch when debugger event listener is set up RIDE-4761
-				return dispatch(SetContinuedExecution(id, isEnabled))
-			end,
-
-			onSetEnabled = function(id, isEnabled)
-				local bpManager = game:GetService("BreakpointManager")
-				local bp = bpManager:GetBreakpointById(id)
-				bp.setEnabled(isEnabled)
-
-				-- todo remove this dispatch when debugger event listener is set up RIDE-4761
-				return dispatch(SetBreakpointEnabled(id, isEnabled))
-			end
-		}
+		return nil
 	end
 )(BreakpointsTreeTableCell)
 

@@ -6,7 +6,7 @@ local AddCallstack = require(Plugin.Src.Actions.Callstack.AddCallstack)
 return function(threadState, debuggerConnection, debuggerStateToken)
 	return function(store, contextItems)
 		debuggerConnection:Populate(threadState, function ()
-			local callstack = threadState.GetChildren()
+			local callstack = threadState:GetChildren()
 
 			local callstackRows = {}
 			for stackFrameId, stackFrame in ipairs(callstack) do

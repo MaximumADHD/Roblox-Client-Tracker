@@ -73,7 +73,7 @@ return function()
 			local _tabIcon = Element.new(XPath.new(MarketplaceTabIconPath))
 
 			-- expect(tostring(tabIcon:getRbxInstance().ImageColor3)).to.equal(SelectedTabColor)
-			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
+			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
 		end)
 
@@ -96,7 +96,7 @@ return function()
 			TestHelpers.clickInstanceWithXPath(dropdownModelsPath)
 
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
-			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
+			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 		end)
 
 		-- Looping through options Audio, Images, Meshes, skipping Videos and Plugins for now
@@ -113,7 +113,7 @@ return function()
 				TestHelpers.clickInstanceWithXPath(dropdownAudioPath)
 
 				expect(currentSelection:getRbxInstance().Text).to.equal(expectedCurrentSelectionText[i])
-				expect(game.CoreGui.CategoryVerification.value).to.equal(expectedCategoryName[i])
+				expect(game.CoreGui.CategoryVerification.Category.value).to.equal(expectedCategoryName[i])
 			end)
 		end
 	end)

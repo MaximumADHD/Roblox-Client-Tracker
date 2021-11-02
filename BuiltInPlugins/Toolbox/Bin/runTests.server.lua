@@ -9,6 +9,8 @@ RefactorFlags.THEME_REFACTOR = true
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
+require(script.Parent.defineLuaFlags)
+
 local TestsFolderPlugin = Plugin.Core
 
 -- This ensures that coverage stats include all module scripts within the plugin.

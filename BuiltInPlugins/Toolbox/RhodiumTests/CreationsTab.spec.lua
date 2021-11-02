@@ -71,7 +71,7 @@ return function()
 			local _tabIcon = Element.new(XPath.new(CreationsTabIconPath))
 			local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))
 
-			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
+			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
 		end)
 
@@ -100,7 +100,7 @@ return function()
 			TestHelpers.clickInstanceWithXPath(dropdownModelsPath)
 
 			expect(currentSelection:getRbxInstance().Text).to.equal(CurrentSelectionModelsText)
-			expect(game.CoreGui.CategoryVerification.value).to.equal(ModelsCategoryName)
+			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 		end)
 
 		local testCases = {Category.CREATIONS_AUDIO.name, Category.CREATIONS_DECALS.name, Category.CREATIONS_MESHES.name, 

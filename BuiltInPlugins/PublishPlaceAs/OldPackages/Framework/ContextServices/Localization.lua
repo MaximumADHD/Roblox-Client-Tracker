@@ -238,7 +238,7 @@ function Localization:getProjectText(project, scope, key, args)
 			return translated
 		end
 	end
-	
+
 	if self.keyPluginName ~= MOCK_PLUGIN_NAME and not success and not string.find(translated, "LocalizationTable or parent tables do not contain a translation") then
 		-- TODO DEVTOOLS-4532: Use logger contextItem for this
 		warn(translated, debug.traceback())
@@ -265,6 +265,8 @@ function Localization:updateLocaleAndTranslator()
 end
 
 function Localization.mock(props)
+	props = props or {}
+
 	local mockResourceTable = {
 		GetTranslator = function()
 			local translator = {
@@ -291,12 +293,8 @@ function Localization.mock(props)
 		end
 	}
 
-	local currentLocaleIndex = 0
-	local localeIDs = {"en-us", "es-es", "ko-kr", "ja-jp"}
-	local function getLocale()
-		currentLocaleIndex = math.max((currentLocaleIndex + 1) % #localeIDs, 1)
-		local nextLocale = localeIDs[currentLocaleIndex]
-		return nextLocale
+	local getLocale = props.getLocale or function ()
+		return "en-us"
 	end
 
 	-- create a mock localization object for tests

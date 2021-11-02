@@ -8,7 +8,6 @@ require(script.Parent.defineLuaFlags)
 local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagStudioShowHideABTestV2 = game:GetFastFlag("StudioShowHideABTestV2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
 
@@ -213,12 +212,6 @@ local function main()
 	end
 
 	local initiallyEnabled = true
-	if FFlagStudioShowHideABTestV2 then
-		local variation = Framework.Util.getTestVariation(ABTEST_SHOWHIDEV2_NAME)
-		if variation == 2 then
-			initiallyEnabled = false
-		end
-	end
 
 	-- create the plugin
 	local widgetInfo = DockWidgetPluginGuiInfo.new(

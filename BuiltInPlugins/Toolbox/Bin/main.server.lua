@@ -6,6 +6,9 @@ if not plugin then
 end
 
 local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
+local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider")
+
+require(script.Parent.defineLuaFlags)
 
 local StudioService = game:GetService("StudioService")
 local hasInternalPermission = StudioService:HasInternalPermission()
@@ -353,10 +356,18 @@ local function main()
 	StudioService.OnSaveToRoblox:connect(function(instances)
 		local function proceedToUpload()
 			local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-			if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
-				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+			if FFlagUseNewAnimationClipProvider then 
+				if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+				else
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+				end
 			else
-				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+				if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+				else
+					createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
+				end
 			end
 		end
 		toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)

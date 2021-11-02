@@ -61,6 +61,7 @@ local PluginTheme = {
 		ButtonsSpacing = UDim.new(0, 10),
 		VerticalSpacing = UDim.new(0, 5),
 		HorizontalSpacing = UDim.new(0, 5),
+		InfoBoxSize = UDim2.fromOffset(300, 200),
 	},
 }
 

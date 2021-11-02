@@ -12,6 +12,7 @@ local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyt
 local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
+local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -153,6 +154,20 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 		userId = getUserId(),
 		isEditMode = getIsEditMode(),
 	})
+end
+
+if FFlagToolboxTrackDragInsertFinished then
+	function Analytics.reportDragInsertFinished(assetId, assetTypeId)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "DragInsertFinished", {
+			assetId = assetId,
+			assetTypeId = assetTypeId,
+			studioSid = getStudioSessionId(),
+			clientId = getClientId(),
+			placeId = getPlaceId(),
+			userId = getUserId(),
+			isEditMode = getIsEditMode(),
+		})
+	end
 end
 
 function Analytics.incrementToolboxInsertCounter(assetTypeId)

@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
+local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider")
 
 local TABS_KEYS = {
 	Avatars = "TAB_KEY_Avatars",
@@ -73,7 +74,11 @@ local TABS_INFO = {
 		PanelBlockerLocalizationKey = "PanelBlockerAddAnimation",
 		InvalidAddLocalizationKey = "AnimationInvalidAdd",
 		IsSelectedInstanceValid = function(item)
-			return item:IsA("KeyframeSequence")
+			if FFlagUseNewAnimationClipProvider then
+				return item:IsA("AnimationClip")
+			else
+				return item:IsA("KeyframeSequence")
+			end
 		end,
 
 		IsMultiSelect = false, --only one selection for all of sub grid tabs

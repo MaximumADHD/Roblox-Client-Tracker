@@ -1,6 +1,5 @@
 -- Centralized Place for Keys used throughout the widget
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 
 local KeyProvider = {}
@@ -72,63 +71,47 @@ function KeyProvider.getPlayerAcceptanceKeyName()
 end
 
 function KeyProvider.getGameSettingsKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "GameSettings"
 end
 
 function KeyProvider.getPluginKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "plugin"
 end
 
 function KeyProvider.getContextKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "context"
 end
 
 function KeyProvider.getLuobuStudioDevPublishKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "LuobuStudioDevPublish"
 end
 
 function KeyProvider.getTermsOfUseDialogKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "TermsOfUseDialog"
 end
 
 function KeyProvider.getCheckboxToggleKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "CheckboxToggle"
 end
 
 function KeyProvider.getButtonClickedKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "buttonClicked"
 end
 
 function KeyProvider.getFooterKeyName()
-	assert(FFlagLuobuDevPublishAnalyticsKeys)
-
 	return "Footer"
 end
 
 function KeyProvider.getTeamCreateStreamingEnabledKeyName()
-    assert(FFlagStudioTeamCreateStreamingEnabled)
-    
-    return "TeamCreateStreamingEnabled"
+	assert(FFlagStudioTeamCreateStreamingEnabled)
+
+	return "TeamCreateStreamingEnabled"
 end
 
 function KeyProvider.getTeamCreateEnabledKeyName()
-    assert(FFlagStudioTeamCreateStreamingEnabled)
-    
-    return "TeamCreateEnabled"
+	assert(FFlagStudioTeamCreateStreamingEnabled)
+
+	return "TeamCreateEnabled"
 end
 
 return KeyProvider

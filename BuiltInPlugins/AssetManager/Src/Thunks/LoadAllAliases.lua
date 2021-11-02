@@ -21,7 +21,8 @@ local function GetAliases(apiImpl, assetType, state)
         if assetType == Enum.AssetType.Image
         or assetType == Enum.AssetType.MeshPart
         or assetType == Enum.AssetType.Lua
-        or (enableAudioImport() and assetType == Enum.AssetType.Audio) then
+        or (enableAudioImport() and assetType == Enum.AssetType.Audio)
+        or (FFlagAssetManagerEnableModelAssets and assetType == Enum.AssetType.Model) then
             return apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
             :andThen(function(response)
                 local body = response.responseBody

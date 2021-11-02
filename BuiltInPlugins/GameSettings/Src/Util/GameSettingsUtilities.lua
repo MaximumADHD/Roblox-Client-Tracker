@@ -1,6 +1,4 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
-local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
@@ -10,9 +8,9 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
-local contextKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getContextKeyName() or "context"
-local pluginKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getPluginKeyName() or "plugin"
-local gameSettingsKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getGameSettingsKeyName() or "GameSettings"
+local contextKey = KeyProvider.getContextKeyName()
+local pluginKey = KeyProvider.getPluginKeyName()
+local gameSettingsKey = KeyProvider.getGameSettingsKeyName()
 
 local GameSettingsUtilities =  {}
 
@@ -49,7 +47,6 @@ function GameSettingsUtilities.getOptInLocationsRequirementsLink(location)
 end
 
 local function getDevPublishKibanaPoints(plugin, context)
-	assert(FFlagLuobuDevPublishAnalytics)
 	return {
 		[pluginKey] = plugin,
 		[contextKey] = context,
@@ -57,7 +54,6 @@ local function getDevPublishKibanaPoints(plugin, context)
 end
 
 function GameSettingsUtilities.sendAnalyticsToKibana(seriesName, throttlingPercentage, context, values)
-	assert(FFlagLuobuDevPublishAnalytics)
 	local points = getDevPublishKibanaPoints(gameSettingsKey, context)
 	points = Cryo.Dictionary.join(points, values)
 	RbxAnalyticsService:reportInfluxSeries(seriesName, points, throttlingPercentage)

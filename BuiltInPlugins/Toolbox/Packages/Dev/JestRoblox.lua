@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local package = PackageIndex["roblox_jest-roblox"]["jest-roblox"]
+local Package = require(PackageIndex["roblox_jest-roblox"]["jest-roblox"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

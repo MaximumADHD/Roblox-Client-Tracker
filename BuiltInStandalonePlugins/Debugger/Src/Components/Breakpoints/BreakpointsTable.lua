@@ -20,6 +20,8 @@ local showContextMenu = StudioUI.showContextMenu
 
 local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints.BreakpointsTreeTableCell)
 
+local Constants = require(PluginFolder.Src.Util.Constants)
+
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
@@ -27,7 +29,6 @@ local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 
 local Thunks = PluginFolder.Src.Thunks
-local DeleteBreakpointThunk = require(Thunks.Breakpoints.DeleteBreakpointThunk)
 local ToggleAllBreakpoints = require(Thunks.Breakpoints.ToggleAllBreakpoints)
 
 local BUTTON_SIZE = 40
@@ -36,22 +37,42 @@ local BUTTON_PADDING = 5
 function BreakpointsTable:init()
 	
 	self.state = {
-		selectedBreakpoint = {},
+		selectedBreakpoints = {},
 	}
 	
 	self.onSelectionChange = function(selection)
 		for rowInfo in pairs(selection) do
 			self:setState({
-				selectedBreakpoint = {rowInfo},
+				selectedBreakpoints = {rowInfo},
 			})
 		end
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
-
+		local row = extraParameters.row
+		
+		if actionId == Constants.BreakpointActions.DeleteBreakpoint or actionId == Constants.LogpointActions.DeleteLogpoint then
+			local BreakpointManager = game:GetService("BreakpointManager")
+			BreakpointManager:RemoveBreakpointById(row.item.id)
+			
+		elseif actionId == Constants.BreakpointActions.EditBreakpoint or actionId == Constants.LogpointActions.EditLogpoint then
+			local DebuggerUIService = game:GetService("DebuggerUIService")
+			DebuggerUIService:EditBreakpoint(row.item.id)
+			--TODO: RIDE-6048 will hook up EditBreakpointDialog with DebuggerV2, and we should make an appropriate thunk/action in listener after.
+			
+		elseif actionId == Constants.BreakpointActions.EnableBreakpoint or actionId == Constants.LogpointActions.EnableLogpoint or 
+			actionId == Constants.BreakpointActions.DisableBreakpoint or actionId == Constants.LogpointActions.DisableLogpoint then
+			local bpManager = game:GetService("BreakpointManager")
+			local bp = bpManager:GetBreakpointById(row.item.id)
+			bp:SetEnabled(not row.item.isEnabled)		
+		end
 	end
 
 	self.onRightClick = function(row)
+		self:setState({
+			selectedBreakpoints = {row.item},
+		})
+		
 		local props = self.props
 		local localization = props.Localization
 		local plugin = props.Plugin:get()
@@ -66,24 +87,17 @@ function BreakpointsTable:init()
 	end
 	
 	self.deleteBreakpoint = function()
-		if #self.state.selectedBreakpoint ~= 0 then
+		if #self.state.selectedBreakpoints ~= 0 then
 			local BreakpointManager = game:GetService("BreakpointManager")
-			self.props.onDeleteBreakpointThunk(self.state.selectedBreakpoint[1].id, BreakpointManager)
-			
-			self:setState({
-				selectedBreakpoint = {},
-			})
+			BreakpointManager:RemoveBreakpointById(self.state.selectedBreakpoint[1].id)
 		end
 	end
 	
 	self.deleteAllBreakpoints = function()
 		local BreakpointManager = game:GetService("BreakpointManager")
 		for _, breakpoint in ipairs(self.props.Breakpoints) do
-			self.props.onDeleteBreakpointThunk(breakpoint.id, BreakpointManager)
+			BreakpointManager:RemoveBreakpointById(breakpoint.id)
 		end
-		self:setState({
-			selectedBreakpoint = {},
-		})
 	end
 
 	self.toggleEnabledAll = function()
@@ -95,6 +109,28 @@ end
 -- Compares breakpoints based on line number
 local breakpointLineNumberComp = function(a, b)
 	return a.lineNumber < b.lineNumber
+end
+
+function BreakpointsTable:didUpdate(prevProps)
+	if self.props.Breakpoints ~= prevProps.Breakpoints then
+		if #self.state.selectedBreakpoints ~= 0 then
+			local updatedSelections = {}
+			local selectedBreakpointIds = {}
+			
+			for _, currentBreakpoint in ipairs(self.state.selectedBreakpoints) do
+				selectedBreakpointIds[currentBreakpoint.id] = true
+			end
+			
+			for _, breakpoint in ipairs(self.props.Breakpoints) do
+				if selectedBreakpointIds[breakpoint.id] then
+					table.insert(updatedSelections, breakpoint)
+				end
+			end
+			self:setState({
+				selectedBreakpoints = updatedSelections,
+			})	
+		end
+	end
 end
 
 function BreakpointsTable:render()
@@ -181,7 +217,7 @@ function BreakpointsTable:render()
 				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
-				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoint) or nil,
+				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoints) or nil,
 			}),
 		})
 	})
@@ -208,13 +244,9 @@ BreakpointsTable = RoactRodux.connect(
 	
 	function(dispatch)
 		return {
-			onDeleteBreakpointThunk = function(id, breakpointManager)
-				return dispatch(DeleteBreakpointThunk(id, breakpointManager))
-			end,
-
 			onToggleEnabledAll = function(breakpointManager)
 				return dispatch(ToggleAllBreakpoints(breakpointManager))
-			end
+			end,
 		}
 	end
 )(BreakpointsTable)

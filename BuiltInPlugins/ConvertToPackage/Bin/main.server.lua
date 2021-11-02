@@ -5,6 +5,7 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
+local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
 
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -26,7 +27,10 @@ local Localization = UILibrary.Studio.Localization
 
 local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 
+-- remove StudioServcie here when remove FFlagPreventChangesWhenConvertingPackage
 local StudioService = game:GetService("StudioService")
+local PackageUIService = FFlagPreventChangesWhenConvertingPackage and game:GetService("PackageUIService") or nil
+ 
 local ScreenSelect = require(Plugin.Src.Components.ConvertToPackageWindow.ScreenSelect)
 
 local localization = Localization.new({
@@ -75,14 +79,14 @@ end
 -- instances instances, Will be used in publishing new assets. Instances are userdata,
 --				we can't check the assetType using that, using AssetType instead.
 -- string assetName, the initial name of the asset (used for default config).
-local function openAssetConfigWindow(instances, assetName)
+local function openAssetConfigWindow(instances, assetName, clonedInstances)
 	if assetConfigHandle then
 		return
 	end
 
 	local mainStore = Rodux.Store.new(MainReducer,
 	{
-		AssetConfigReducer = { instances = instances}
+		AssetConfigReducer = { instances = instances, clonedInstances = clonedInstances}
 	},{
 			Rodux.thunkMiddleware
 	})
@@ -115,21 +119,28 @@ end
 local function main()
 	plugin.Name = localization:getText("Meta", "PluginName")
 	makePluginGui()
-	StudioService.OnOpenConvertToPackagePlugin:connect(function(instances, name)
-		-- clone instances so that user cannot edit them while validating/uploading
-		local clonedInstances = {}
-		for i = 1, #instances do
-			pcall(function()
-				clonedInstances[i] = instances[i]:Clone()
-			end)
-		end
-		if clonedInstances == {} then
-			print(localization:getText("General", "InstanceFail"))
-			return
-		end
+	if FFlagPreventChangesWhenConvertingPackage then
+		PackageUIService.OnOpenConvertToPackagePlugin:connect(function(instances, name, clonedInstances)
+			openAssetConfigWindow(instances, name, clonedInstances)
+		end)
+	else
+		StudioService.OnOpenConvertToPackagePlugin:connect(function(instances, name, clonedInstances)
+			-- clone instances so that user cannot edit them while validating/uploading
+			local clonedInstances = {}
+			for i = 1, #instances do
+				pcall(function()
+					clonedInstances[i] = instances[i]:Clone()
+				end)
+			end
+			if clonedInstances == {} then
+				print(localization:getText("General", "InstanceFail"))
+				return
+			end
 
-		openAssetConfigWindow(clonedInstances, name)
-	end)
+			openAssetConfigWindow(clonedInstances, name)
+		end)
+	end
+	
 end
 
 main()

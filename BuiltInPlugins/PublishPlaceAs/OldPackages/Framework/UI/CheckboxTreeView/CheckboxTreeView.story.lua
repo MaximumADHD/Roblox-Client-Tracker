@@ -7,8 +7,6 @@ local join = Dash.join
 local UI = require(Framework.UI)
 local CheckboxTreeView = UI.CheckboxTreeView
 
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
-
 local ExampleCheckboxTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleCheckboxTreeView")
 
 function ExampleCheckboxTreeView:init()
@@ -79,7 +77,7 @@ function ExampleCheckboxTreeView:render()
 				checked = join(self.state.checked, checked)
 			})
 		end,
-		Style = FFlagDevFrameworkFixTreeViewTheme and "BorderBox" or nil,
+		Style = "BorderBox",
 	})
 end
 

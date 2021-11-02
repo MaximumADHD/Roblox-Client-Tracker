@@ -487,8 +487,8 @@ elseif FFlagTerrainToolsPlaneLockDraggerHandles then
 				local state = BaseTool(nil, SetPlaneLockActive(false))
 
 				expect(state).to.be.ok()
-				expect(state.planeCFrame).to.be.ok()
-				expect(state.planeCFrame).to.equal(false)
+				expect(state.planeLockActive).to.be.ok()
+				expect(state.planeLockActive).to.equal(false)
 			end)
 
 			it("should preserve immutability", function()

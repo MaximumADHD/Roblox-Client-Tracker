@@ -67,6 +67,9 @@ function InstanceSelector:isCurrentRootInstance(instance)
 end
 
 function InstanceSelector:selectValidInstance(validFunc, invalidFunc)
+	if GetFFlagUseLuaDraggers() and not self.isMounted then
+		return
+	end
 	local target = getMouseTarget(self)
 	if target ~= nil then
 		local model = getModel(target)
@@ -151,6 +154,9 @@ end
 
 function InstanceSelector:didMount()
 	self.deselect()
+	if GetFFlagUseLuaDraggers() then
+		self.isMounted = true
+	end
 
 	self.Heartbeat = RunService.Heartbeat:Connect(function(step)
 		self:selectValidInstance(self.highlightInstance, self.removeHighlight)
@@ -201,12 +207,16 @@ end
 
 function InstanceSelector:willUnmount()
 	if GetFFlagUseLuaDraggers() then
-		self.props.SetSelectedTrackInstances({})
-		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
+		self.isMounted = false
 	end
 
 	if self.Heartbeat then
 		self.Heartbeat:Disconnect()
+	end
+
+	if GetFFlagUseLuaDraggers() then
+		self.props.SetSelectedTrackInstances({})
+		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 	end
 
 	if self.SelectionChangedHandle then

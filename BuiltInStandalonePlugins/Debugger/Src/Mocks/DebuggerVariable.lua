@@ -9,35 +9,39 @@ DebuggerVariable:
 ]]--
 
 local DebuggerVariable = {}
+DebuggerVariable.__index = DebuggerVariable
 
 function DebuggerVariable.new(variableId : number, name : string, value : string, type : string)
 	local self = {
-		variableId = variableId,
-		name = name,
-		value = value,
-		type = type,
-		childrenPopulated = false
+		VariableId = variableId,
+		Name = name,
+		Value = value,
+		Type = type,
+		Populated = true,
+		PopulatableType = "DebuggerVariable"
 	}
 	
-	local GetVariableByIndex = function () : DebuggerVariable
-		-- not implemented yet
-		return DebuggerVariable.new(0, "", "", "")
-	end	
+	setmetatable(self, DebuggerVariable)
+	return self
+end
 
-	local GetChildren = function ()
-		return {
-			[1] = DebuggerVariable.new(1, 'Heesoo', 'Instance', 'Map')
-		}
-	end
+function DebuggerVariable:MockSetChildren(newVariables)
+	self.children = newVariables
+end
 
-	return {
-		GetVariableByIndex = GetVariableByIndex,
-		Populated = self.childrenPopulated,
-		Name = self.name,
-		Value = self.value,
-		Type = self.type,
-		VariableId = self.variableId,
-		GetChildren = GetChildren,
+function DebuggerVariable:GetChildren()
+	return self.children and self.children or {}
+end
+
+function DebuggerVariable:GetVariableByIndex()
+	-- not implemented yet
+	return DebuggerVariable.new(0, "", "", "")
+end
+
+function DebuggerVariable.GetDefaultFrameVariables()
+	return {["Locals"] = DebuggerVariable.new(1, "", "", ""),
+		["Globals"] = DebuggerVariable.new(1, "", "", ""),
+		["Upvalues"] = DebuggerVariable.new(1, "", "", "")
 	}
 end
 

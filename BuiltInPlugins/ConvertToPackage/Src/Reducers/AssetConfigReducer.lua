@@ -28,6 +28,7 @@ local initial = {
 	assetId = nil,
 	assetName = nil,
 	instances = nil,
+	clonedInstance = nil,
 	assetTypeEnum = nil, -- Enum.AssetType.*
 	screenConfigs = {},
 	isCatalogItemCreator = false,

@@ -52,8 +52,6 @@ local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPub
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
-local FFlagLuobuDevPublishAnalytics = game:GetFastFlag("LuobuDevPublishAnalytics")
-local FFlagLuobuDevPublishAnalyticsKeys = game:GetFastFlag("LuobuDevPublishAnalyticsKeys")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
@@ -62,9 +60,9 @@ local TextInputDialog = Framework.UI.TextInputDialog
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local chinaKey = KeyProvider.getChinaKeyName()
-local seriesNameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getLuobuStudioDevPublishKeyName() or "LuobuStudioDevPublish"
-local selectedKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getSelectedKeyName() or "selected"
-local createNewGameKey = FFlagLuobuDevPublishAnalyticsKeys and KeyProvider.getCreateNewGameKeyName() or "CreateNewGame"
+local seriesNameKey = KeyProvider.getLuobuStudioDevPublishKeyName()
+local selectedKey = KeyProvider.getSelectedKeyName()
+local createNewGameKey = KeyProvider.getCreateNewGameKeyName()
 
 local MENU_ENTRIES = {
 	"BasicInfo",
@@ -249,7 +247,7 @@ function ScreenCreateNewGame:render()
 								showEmailDialog = true,
 							})
 						else
-							if FFlagLuobuDevPublishAnalytics and shouldShowDevPublishLocations() then
+							if shouldShowDevPublishLocations() then
 								local points = {
 									[optInLocationsKey] = chinaKey,
 									[selectedKey] = false,
@@ -271,7 +269,7 @@ function ScreenCreateNewGame:render()
 								showEmailDialog = true,
 							})
 						else
-							if FFlagLuobuDevPublishAnalytics and shouldShowDevPublishLocations() then
+							if shouldShowDevPublishLocations() then
 								local points = {
 									[optInLocationsKey] = chinaKey,
 									[selectedKey] = false,
@@ -328,13 +326,11 @@ function ScreenCreateNewGame:render()
 				OnButtonPressed = function(buttonKey, email1, email2)
 					local submitButtonPressed = buttonKey == "Submit"
 					if submitButtonPressed then
-						if FFlagLuobuDevPublishAnalytics then
-							local points = {
-								[optInLocationsKey] = chinaKey,
-								[selectedKey] = true,
-							}
-							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
-						end
+						local points = {
+							[optInLocationsKey] = chinaKey,
+							[selectedKey] = true,
+						}
+						sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
 						if email1 == email2 then
 							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
 								self:setState({

@@ -21,8 +21,6 @@ local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local FFlagCheckPublishedPlaceExistsForDevPublish = game:GetFastFlag("CheckPublishedPlaceExistsForDevPublish")
-local FFlagFixWarningDialogIcon = game:GetFastFlag("FixWarningDialogIcon")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
 local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
@@ -122,9 +120,9 @@ function Theme.createValues(theme, getColor)
 			},
 		})
 
-		local WarningStyle = FFlagCheckPublishedPlaceExistsForDevPublish and Style.new({
+		local WarningStyle = Style.new({
 			Image = "rbxasset://textures/GameSettings/Warning.png",
-		}) or nil
+		})
 
 		return {
 			TooltipStyle = TooltipStyle,
@@ -497,19 +495,19 @@ function Theme.createValues(theme, getColor)
 				}
 			},
 
-			optInWarning = FFlagCheckPublishedPlaceExistsForDevPublish and {
+			optInWarning = {
 				padding = 5,
 				size = 20,
 				transparency = 0.5,
-			} or nil,
+			},
 
-			extraOptInInfo = FFlagCheckPublishedPlaceExistsForDevPublish and {
+			extraOptInInfo = {
 				padding = 30,
 				length = 250,
 				height = 150,
-			} or nil,
+			},
 
-			warningDialog = FFlagFixWarningDialogIcon and {
+			warningDialog = {
 				headerOffset = -60,
 				description = {
 					length = 387,
@@ -517,7 +515,7 @@ function Theme.createValues(theme, getColor)
 				icon = {
 					size = 16,
 				},
-			} or nil,
+			},
 
 			selectInput = FFlagRemoveUILibraryDetailedDropdown and {
 				button = {
@@ -907,9 +905,9 @@ local function getUILibraryTheme()
 			},
 			RequirementsLinkDisabled = {
 				textSize = 16,
-				textColor = FFlagCheckPublishedPlaceExistsForDevPublish and theme:GetColor(c.BrightText) or theme:GetColor(c.DimmedText),
+				textColor = theme:GetColor(c.BrightText),
 				font = Enum.Font.SourceSans,
-				transparency = FFlagCheckPublishedPlaceExistsForDevPublish and 0.5 or 0,
+				transparency = 0.5,
 			},
 		},
 	}

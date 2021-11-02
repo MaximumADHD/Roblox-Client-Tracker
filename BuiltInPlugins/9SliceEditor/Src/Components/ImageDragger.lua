@@ -57,6 +57,7 @@ function ImageDragger:init(props)
 			props.onDragBegin(obj, orientation, mousePosition, draggerPosition)
 		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
 			self.props.addPriorityDragCandidate(orientation, obj.ZIndex, obj)
+			self.props.setMostRecentMouseMoveInputObject(input)
 		end
 	end
 
@@ -76,9 +77,9 @@ function ImageDragger:init(props)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
 			local mousePosition = Vector2.new(input.Position.X, input.Position.Y)
 			self.props.startUncertainDrag(mousePosition)
-
 		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
 			self.onHandleInputChanged(obj, input)
+			self.props.setMostRecentMouseMoveInputObject(input)
 		end
 	end
 
@@ -104,8 +105,16 @@ function ImageDragger:init(props)
 		end
 	end
 
-	self.onHandleMouseLeave = function(obj, x, y)
-		self.props.removeDragCandidate(self.props.orientation)
+	self.onHandleInputEnded = function(_, input)
+		local orientation = self.props.orientation
+		props.onDragEnd(input, orientation)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			self:setState({
+				dragging = false,
+			})
+		elseif input.UserInputType == Enum.UserInputType.MouseMovement then
+			self.props.removeDragCandidate(self.props.orientation)
+		end
 	end
 end
 
@@ -170,7 +179,7 @@ function ImageDragger:render()
 			BackgroundTransparency = 1,
 			[Roact.Event.InputBegan] = self.onInputBeganOnLowPriorityHandles,
 			[Roact.Event.InputChanged] = self.onHandleInputChanged,
-			[Roact.Event.MouseLeave] = self.onHandleMouseLeave,
+			[Roact.Event.InputEnded] = self.onHandleInputEnded,
 		}),
 		handle2 = handle1Position and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 0.5),
@@ -182,7 +191,7 @@ function ImageDragger:render()
 			BackgroundTransparency = 1,
 			[Roact.Event.InputBegan] = self.onInputBeganOnLowPriorityHandles,
 			[Roact.Event.InputChanged] = self.onHandleInputChanged,
-			[Roact.Event.MouseLeave] = self.onHandleMouseLeave,
+			[Roact.Event.InputEnded] = self.onHandleInputEnded,
 		}),
 	})
 end

@@ -25,6 +25,9 @@ local function isValidBone(rootInstance, bone, boneMap)
 end
 
 return function(draggerContext, mouseRay, currentSelection)
+	if not draggerContext.RootInstance then 
+		return nil
+	end
 	local hitItem, hitPosition = Workspace:FindPartOnRayWithIgnoreList(mouseRay, {RigUtils.findRootPart(draggerContext.RootInstance)})
 
 	-- Selection favoring: If there is a selected object and a non-selected

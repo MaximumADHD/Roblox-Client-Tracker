@@ -62,44 +62,15 @@ function SliceEditor:init(props)
 		sliceRect will be stored as { Min.X, Min.Y, Max.X, Max.Y } or { left, right, top, bottom }
 		order to align with offsets order and use the SliceCenter coordinate system of calculating from (0, 0)
 	]]--
-	local selectedObject = props.selectedObject
-	local revertSliceCenter = selectedObject.SliceCenter
-	local pixelDimensions = props.pixelDimensions
-
-	local minX = revertSliceCenter.Min.X
-	local maxX = revertSliceCenter.Max.X
-	local minY = revertSliceCenter.Min.Y
-	local maxY = revertSliceCenter.Max.Y
-
-	local initSlice = { minX, maxX, minY, maxY }
-	if checkEqualSlices(initSlice, {0, 0, 0, 0}) then
-		-- if the SliceCenter is currently {0, 0, 0, 0} then init the slice as 0 offset
-		initSlice = { 0, pixelDimensions.X, 0, pixelDimensions.Y }
-		revertSliceCenter = Rect.new(initSlice[LEFT], initSlice[TOP], initSlice[RIGHT], initSlice[BOTTOM])
-		selectedObject.SliceCenter = revertSliceCenter
-	end
-
-	self:setState({
-		revertDisabled = false, -- (bool) whether Revert button should be unpressable
-		sliceRect = initSlice, -- {X0, X1, Y0, Y1} current Slice in the editors in Rect coords
-	})
 
 	self.clampAndRoundSliceRect = function(newValue)
+		local pixelDimensions = self.props.pixelDimensions
 		local minX, maxX, minY, maxY
 		minX = math.clamp(math.round(newValue[LEFT]), 0, pixelDimensions.X)
 		maxX = math.clamp(math.round(newValue[RIGHT]), 0, pixelDimensions.X)
 		minY = math.clamp(math.round(newValue[TOP]), 0, pixelDimensions.Y)
 		maxY = math.clamp(math.round(newValue[BOTTOM]), 0, pixelDimensions.Y)
 		return { minX, maxX, minY, maxY }
-	end
-
-	self.internalSetSliceRectState = function(newValue)
-		local sliceUnchanged = checkEqualSlices(newValue, initSlice)
-
-		self:setState({
-			sliceRect = newValue,
-			revertDisabled = sliceUnchanged,
-		})
 	end
 
 	-- Called when SliceRect changed due to interaction with this editor.
@@ -109,45 +80,20 @@ function SliceEditor:init(props)
 			newValue = self.clampAndRoundSliceRect(newValueRaw)
 		end
 
-		self.internalSetSliceRectState(newValue)
-
-		props.selectedObject.SliceCenter = Rect.new(newValue[LEFT], newValue[TOP], newValue[RIGHT], newValue[BOTTOM])
+		if self.props.selectedObject then
+			self.props.selectedObject.SliceCenter = Rect.new(newValue[LEFT], newValue[TOP], newValue[RIGHT], newValue[BOTTOM])
+		end
 		ChangeHistoryService:SetWaypoint("9SliceEditor changed SliceCenter")
 	end
 
 	self.onRevert = function()
 		-- when revert button clicked, revert SliceCenter to initial values
-		selectedObject.SliceCenter = revertSliceCenter
-		local minX = revertSliceCenter.Min.X
-		local maxX = revertSliceCenter.Max.X
-		local minY = revertSliceCenter.Min.Y
-		local maxY = revertSliceCenter.Max.Y
-
-		local slice = { minX, maxX, minY, maxY }
-		self.setSliceRect(slice, false) -- can revert to invalid inputs
+		self.setSliceRect(self.props.revertSliceRect, false) -- can revert to invalid inputs
 	end
-
-	self.onSliceCenterChanged = function()
-		local sliceCenter = selectedObject.SliceCenter
-		local slice = { sliceCenter.Min.X, sliceCenter.Max.X, sliceCenter.Min.Y, sliceCenter.Max.Y }
-		
-		-- If the user is editing SliceCenter outside of the window, update the displayed SliceRect.
-		self.internalSetSliceRectState(slice)
-	end	
 end
 
 function SliceEditor:didMount()
-	self.sliceCenterChangedSignal = self.props.selectedObject:GetPropertyChangedSignal("SliceCenter"):Connect(
-		self.onSliceCenterChanged)
-
 	MouseCursorManager.resetCursor(self.props.Mouse)
-end
-
-function SliceEditor:willUnmount()
-	if self.sliceCenterChangedSignal then
-		self.sliceCenterChangedSignal:Disconnect()
-		self.sliceCenterChangedSignal = nil
-	end
 end
 
 function SliceEditor:render()
@@ -158,21 +104,34 @@ function SliceEditor:render()
 	local selectedObject = props.selectedObject
 	local pixelDimensions = props.pixelDimensions
 	local setSliceRect = self.setSliceRect
-	local sliceRect = self.state.sliceRect
-	local revertDisabled = self.state.revertDisabled
+	local sliceRect = props.sliceRect
 	local localization = props.Localization
 	local buttonStyle = props.Stylizer.Button
+	local revertEnabled = false
 
-	return Roact.createElement(Pane, {
-		Style = "Box",
-		Size = UDim2.fromScale(1, 1),
-		Position = UDim2.fromOffset(0, 0),
-	}, {
-		EntireFrame = Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.XY,
-			AnchorPoint = Vector2.new(0.5, 0.5),
-			Position = UDim2.fromScale(0.5, 0.5),
-		}, {
+	local childrenComponents
+
+	if not selectedObject then
+		-- Display an informational message instead of the 9SliceEditor
+		local infoText = localization:getText("SliceEditor", "NoImageSelectedMessage")
+		if props.loading then
+			infoText = localization:getText("SliceEditor", "ImageLoadingMessage")
+		end
+
+		childrenComponents = {
+			Message = Roact.createElement(UI.Decoration.TextLabel, {
+				Text = infoText,
+				TextWrapped = true,
+				Size = style.InfoBoxSize,
+			}),
+		}
+	else
+		-- Display 9SliceEditor
+		if not checkEqualSlices(props.sliceRect, props.revertSliceRect) then
+			revertEnabled = true
+		end
+
+		childrenComponents = {
 			VerticalLayout = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Vertical,
 				Spacing = style.VerticalSpacing,
@@ -215,7 +174,7 @@ function SliceEditor:render()
 						OnClick = self.onRevert,
 						Size = buttonStyle.Size,
 						Style = buttonStyle.Style,
-						StyleModifier = revertDisabled and StyleModifier.Disabled or nil,
+						StyleModifier = (not revertEnabled) and StyleModifier.Disabled or nil,
 						Text = localization:getText("SliceEditor", "RevertButton"),
 					}),
 					CloseButton = Roact.createElement(Button, {
@@ -226,7 +185,19 @@ function SliceEditor:render()
 					}),
 				})
 			}),
-		}),
+		}
+	end
+
+	return Roact.createElement(Pane, {
+		Style = "Box",
+		Size = UDim2.fromScale(1, 1),
+		Position = UDim2.fromOffset(0, 0),
+	}, {
+		EntireFrame = Roact.createElement(Pane, {
+			AutomaticSize = Enum.AutomaticSize.XY,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+		}, childrenComponents),
 	})
 end
 

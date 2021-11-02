@@ -13,15 +13,28 @@ MockDebuggerConnection.__index = MockDebuggerConnection
 
 function MockDebuggerConnection.new(mockID)
 	local self = {}
+	
+	local rootVariable = DebuggerVariable.new(1, 'Alex', 'Instance', 'Map')
+	rootVariable:MockSetChildren({DebuggerVariable.new(1,"Alex2", "somePreview", "map")})
 	self.VariableMap = {
-		[1] = DebuggerVariable.new(1, 'Alex', 'Instance', 'Map')
+		[1] = rootVariable
 	}
 	self.MockThreadMap = {}
+	self.MockThreadIdToCallstackMap = {}
+	self.MockCallstackFrameToDebuggerVariables ={}
 	self.Id = mockID
 	self.Paused = Signal.new()
 	self.Resumed = Signal.new()
 	self.MockSetThreadStateById = function(id, threadState)
 		self.MockThreadMap[id] = threadState
+	end
+	
+	self.MockSetCallstackByThreadId = function (id, callstack)
+		self.MockThreadIdToCallstackMap[id] = callstack
+	end
+	
+	self.MockSetDebuggerVariablesByCallstackFrame = function (frame, variables)
+		self.MockCallstackFrameToDebuggerVariables[frame] = variables
 	end
 
 	setmetatable(self, MockDebuggerConnection)
@@ -45,6 +58,14 @@ function MockDebuggerConnection:EvaluateWatch(expression : string, frame : Stack
 end
 
 function MockDebuggerConnection:Populate(targetVar, callback) : number
+	if not targetVar.Populated then
+		if targetVar.PopulatableType == "ThreadState" then
+			targetVar:MockSetChildren(self.MockThreadIdToCallstackMap[targetVar.ThreadId])
+		elseif targetVar.PopulatableType == "StackFrame" then
+			targetVar:MockSetChildren(self.MockCallstackFrameToDebuggerVariables[targetVar])
+		end
+	end
+	
 	local promise = Promise.new(function(resolve, reject, onCancel)
 		resolve(callback)
 	end)

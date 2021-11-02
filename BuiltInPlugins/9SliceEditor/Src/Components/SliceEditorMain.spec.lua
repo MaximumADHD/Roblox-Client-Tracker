@@ -7,15 +7,22 @@ return function()
 	local withTestComponent = TestHelper.withTestComponent
 
 	local SliceEditor = require(script.Parent.SliceEditorMain)
+	local SliceRectUtil = require(Plugin.Src.Util.SliceRectUtil)
 	local Orientation = require(Plugin.Src.Util.Orientation)
 	local Constants = require(Plugin.Src.Util.Constants)
 	
+	local SliceEditorTestWrapper = require(Plugin.Src.TestComponents.SliceEditorTestWrapper)
+	
 	it("should create and destroy without errors", function()
+		local instance = Instance.new("ImageLabel")
+		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 		withTestComponent(SliceEditor, {
-			selectedObject = Instance.new("ImageLabel"),
+			selectedObject = instance,
 			pixelDimensions = Vector2.new(100, 100),
 			onClose = function()
-			end
+			end,
+			sliceRect = sliceRect,
+			revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
 		}, function()
 		end)
 	end)
@@ -49,7 +56,9 @@ return function()
 					selectedObject = imageLabel,
 					pixelDimensions = pixelDimensions,
 					onClose = function()
-					end
+					end,
+					sliceRect = sliceRect,
+					revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
 				}),
 			},
 		}, function(container)
@@ -76,6 +85,7 @@ return function()
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
+		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
 
 		-- Mounts and unmounts 9 slice editor
 		withTestComponent("Frame", {
@@ -86,7 +96,9 @@ return function()
 					selectedObject = imageLabel,
 					pixelDimensions = pixelDimensions,
 					onClose = function()
-					end
+					end,
+					sliceRect = sliceRect,
+					revertSliceRect = SliceRectUtil.copySliceRect(sliceRect),
 				}),
 			},
 		}, function(container)
@@ -104,6 +116,7 @@ return function()
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
+		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
 
 		local requestedOffsets = {22, -43, 40, 507}
 		local expectedClampedOffsets = {22, 0, 40, 60}
@@ -112,11 +125,10 @@ return function()
 			Position = UDim2.fromOffset(100, 100),
 			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
-				SliceEditor = Roact.createElement(SliceEditor, {
+				SliceEditor = Roact.createElement(SliceEditorTestWrapper, {
 					selectedObject = imageLabel,
 					pixelDimensions = pixelDimensions,
-					onClose = function()
-					end
+					sliceRect = sliceRect,
 				}),
 			},
 		}, function(container)
@@ -154,18 +166,17 @@ return function()
 		local imageLabel = Instance.new("ImageLabel")
 		imageLabel.ScaleType = Enum.ScaleType.Slice
 		imageLabel.SliceCenter = sliceCenter
-
+		local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(imageLabel.SliceCenter)
 		local requestedOffsets = {22, 11, 15, 20}
 
 		withTestComponent("Frame", {
 			Position = UDim2.fromOffset(100, 100),
 			Size = UDim2.fromOffset(Constants.WIDGET_SIZE.x, Constants.WIDGET_SIZE.y),
 			[Roact.Children] = {
-				SliceEditor = Roact.createElement(SliceEditor, {
+				SliceEditor = Roact.createElement(SliceEditorTestWrapper, {
 					selectedObject = imageLabel,
 					pixelDimensions = pixelDimensions,
-					onClose = function()
-					end
+					sliceRect = sliceRect,
 				}),
 			},
 		}, function(container)

@@ -1,7 +1,3 @@
-local Plugin = script.Parent.Parent.Parent.Parent
-local Actions = Plugin.Src.Actions
-local SetBreakpointEnabled = require(Actions.BreakpointsWindow.SetBreakpointEnabled)
-
 return function(breakpointManager)
 	return function(store, contextItems)
 		if breakpointManager == nil then
@@ -21,10 +17,7 @@ return function(breakpointManager)
 		
 		for id, info in pairs(state.Breakpoint.BreakpointInfo) do
 			local bp = breakpointManager:GetBreakpointById(id)
-			bp:setEnabled(stateToSet)
-
-			--TODO: remove store dispatch when bpManager Event Listener is set up RIDE-4761
-			store:dispatch(SetBreakpointEnabled(id, stateToSet))
+			bp:SetEnabled(stateToSet)
 		end
 	end
 end

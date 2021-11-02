@@ -4,7 +4,6 @@
 game:DefineFastFlag("GameSettingsWithContext", false)
 
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
-game:DefineFastFlag("FixWarningDialogIcon", false)
 
 game:DefineFastFlag("GameSettingsUseRoactv14", false)
 return nil
