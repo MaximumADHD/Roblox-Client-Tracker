@@ -16,6 +16,7 @@ Studio.AssetImporter.Properties.Anchored,Anchored
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions
+Studio.AssetImporter.Properties.FilePath,File Path
 Studio.AssetImporter.Properties.IgnoreVertexColors,Ignore Vertex Colors
 Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Separate Asset
 Studio.AssetImporter.Properties.ImportName,Name
@@ -27,13 +28,28 @@ Studio.AssetImporter.Properties.RigType,Rig Type
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
+Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored
+Studio.AssetImporter.PropertiesTooltip.Dimensions,The size of the given object in studs
+Studio.AssetImporter.PropertiesTooltip.DoubleSided,Whether or not vertices should be one sided (you can see through them from one direction) or double sided (opaque from both directions)
+Studio.AssetImporter.PropertiesTooltip.FileDimensions,The size of the extents of the file in studs
+Studio.AssetImporter.PropertiesTooltip.IgnoreVertexColors,Whether or not vertex color information should be extracted
+Studio.AssetImporter.PropertiesTooltip.ImportAsModelAsset,Whether or not this object should have its own model uploaded
+Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object
+Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import
+Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces
+Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one mesh
+Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object
+Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import
+Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file
+Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector
+Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector
 Studio.AssetImporter.Sections.AvatarGeneral,Avatar General
 Studio.AssetImporter.Sections.FileGeneral,File General
 Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
-Studio.AssetImporter.Statues.MeshScaleWarning,One of the objects dimensions are larger than can be imported
-Studio.AssetImporter.Statues.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
+Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported
+Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand

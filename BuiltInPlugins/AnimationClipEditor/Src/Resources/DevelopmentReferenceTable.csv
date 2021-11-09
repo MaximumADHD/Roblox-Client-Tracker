@@ -4,6 +4,7 @@ Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, ,Add Reset Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration, ,Change Duration
+Studio.AnimationClipEditor.ContextMenu.ClearTrack, ,Clear Track
 Studio.AnimationClipEditor.ContextMenu.CopyEvents, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CopySelected, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CutEvents, ,Cut Selected
@@ -38,6 +39,7 @@ Studio.AnimationClipEditor.Dialog.EditorErrorsHeader, ,Editor Error Detected
 Studio.AnimationClipEditor.Dialog.ErrorsHeader, ,Rig Error(s) Detected
 Studio.AnimationClipEditor.Dialog.No, ,No
 Studio.AnimationClipEditor.Dialog.Ok, ,OK
+Studio.AnimationClipEditor.Dialog.PromotePrompt, ,This operation cannot be reverted and might cause issues with third party animation editors. Are you sure you want to proceed?
 Studio.AnimationClipEditor.Dialog.RenameAllPrompt_Migrated, ,Do you want to change all {name} to {newName}?
 Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
@@ -70,6 +72,7 @@ Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
+Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:

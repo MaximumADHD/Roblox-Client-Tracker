@@ -16,4 +16,7 @@ Studio.9SliceEditor.ImageEditor.ImageSizeError,Image Size Error: isLoaded is fal
 Studio.9SliceEditor.AlertDialog.ImageLoadedErrorMessage,Can't open the 9 Slice Editor because the image asset "{contentId}" hasn't loaded.,Can't open the 9 Slice Editor because the image asset "{contentId}" hasn't loaded.
 Studio.9SliceEditor.AlertDialog.InvalidInstanceErrorMessage,Can't open the 9 Slice Editor because the selected instance must be an ImageLabel or ImageButton.,Can't open the 9 Slice Editor because the selected instance must be an ImageLabel or ImageButton.
 Studio.9SliceEditor.AlertDialog.ImageContentDimensionsErrorMessage,Can't open the 9 Slice Editor because couldn't get image content size. Please make sure the image is visible on screen.,Can't open the 9 Slice Editor because couldn't get image content size. Please make sure the image is visible on screen.
+Studio.9SliceEditor.Plugin.ImageLoadErrorMessage,9-Slice Editor: Couldn't load image,9-Slice Editor: Couldn't load image
 Studio.9SliceEditor.AlertDialog.ErrorMessageTitle,Error,Error
+Studio.9SliceEditor.SliceEditor.NoImageSelectedMessage,No image selected. Select an ImageLabel or ImageButton to use the 9-Slice Editor.,No image selected. Select an ImageLabel or ImageButton to use the 9-Slice Editor.
+Studio.9SliceEditor.SliceEditor.ImageLoadingMessage,Loading...,Loading...

@@ -1887,6 +1887,13 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
+            <string name="Name">ShapePartial</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
             <string name="Name">Rotation</string>
             <double name="UIMinimum">-180</double>
             <double name="UIMaximum">180</double>

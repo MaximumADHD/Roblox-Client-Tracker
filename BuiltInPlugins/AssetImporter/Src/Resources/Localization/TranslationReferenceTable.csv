@@ -33,6 +33,8 @@ Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up,World Up
 Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin,Zero Origin
+Studio.AssetImporter.Statues.MeshScaleWarning,One of the objects dimensions are larger than can be imported,One of the objects dimensions are larger than can be imported
 Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Separate Asset,Import As Separate Asset
 Studio.AssetImporter.Sections.AvatarGeneral,Avatar General,Avatar General
 Studio.AssetImporter.Properties.RigType,Rig Type,Rig Type
+Studio.AssetImporter.Statues.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified,The number of triangles is greater than is supported. Object will be simplified

@@ -167,7 +167,9 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetManagerService:ShowPackageDetails(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:UpdateAllPackages(int64 packageId) {RobloxScriptSecurity}
 	Function void AssetManagerService:ViewPackageOnWebsite(int64 packageId) {RobloxScriptSecurity}
-	Event AssetManagerService.AssetImportedSignal(int assetType, int64 assetId, string assetName) {RobloxScriptSecurity}
+	Event AssetManagerService.AssetImportedSignal(Enum.AssetType assetType, string assetId, int64 assetName) {RobloxScriptSecurity}
+	Event AssetManagerService.ImportSessionFinished() {RobloxScriptSecurity}
+	Event AssetManagerService.ImportSessionStarted() {RobloxScriptSecurity}
 	Event AssetManagerService.MayBeLinkedSourceModified(string aliasName) {RobloxScriptSecurity}
 Class AssetService : Instance [NotCreatable] [Service]
 	Function int64 AssetService:CreatePlaceAsync(string placeName, int64 templatePlaceID, string description = "") [Yields]
@@ -230,7 +232,6 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformDeleteOutfit() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformRenameOutfit(string name) {RobloxScriptSecurity}
-	Function void AvatarEditorService:PerformSaveAvatar() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
@@ -446,6 +447,7 @@ Class Breakpoint : Instance [NotReplicated]
 	Property int Breakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string Breakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property bool Breakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Verified {RobloxScriptSecurity} [Hidden] [ReadOnly]
 Class BreakpointManager : Instance [NotCreatable] [Service] [NotReplicated]
@@ -941,6 +943,9 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Function void DebuggerConnection:RemoveBreakpoint(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
 	Function int DebuggerConnection:SetVariable(DebuggerVariable variable, string value, Function callback) {RobloxScriptSecurity}
+	Function int DebuggerConnection:Step(ThreadState thread, Function callback) {RobloxScriptSecurity}
+	Function int DebuggerConnection:StepIn(ThreadState thread, Function callback) {RobloxScriptSecurity}
+	Function int DebuggerConnection:StepOut(ThreadState thread, Function callback) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointAdded(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointChanged(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Event DebuggerConnection.BreakpointRemoved(Breakpoint breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
@@ -1882,6 +1887,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property bool ImporterBaseSettings.ShouldImport
 	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterGroupSettings.Anchored
 	Property bool ImporterGroupSettings.ImportAsModelAsset
 	Property bool ImporterGroupSettings.InsertInWorkspace
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
@@ -1892,6 +1898,7 @@ Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.IgnoreVertexColors
 	Property float ImporterMeshSettings.PolygonCount [ReadOnly]
 Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property bool ImporterRootSettings.Anchored
 	Property Vector3 ImporterRootSettings.FileDimensions [ReadOnly]
 	Property bool ImporterRootSettings.ImportAsModelAsset
 	Property bool ImporterRootSettings.InsertInWorkspace
@@ -1903,6 +1910,7 @@ Class ImporterRootSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property Enum.NormalId ImporterRootSettings.WorldForward
 	Property Enum.NormalId ImporterRootSettings.WorldUp
 Class ImporterTextureSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property string ImporterTextureSettings.FilePath [ReadOnly]
 Class IncrementalPatchBuilder : Instance [NotCreatable] [Service] [NotReplicated]
 Class InputObject : Instance [NotCreatable]
 	Property Vector3 InputObject.Delta
@@ -2088,6 +2096,9 @@ Class LocalizationTable : Instance
 	Function void LocalizationTable:SetEntrySource(string key, string source, string context, string newSource)
 	Function void LocalizationTable:SetEntryValue(string key, string source, string context, string localeId, string text)
 	Function void LocalizationTable:SetIsExemptFromUGCAnalytics(bool value) {RobloxScriptSecurity}
+Class LodDataEntity : Instance [NotCreatable]
+	Property bool LodDataEntity.EntityLodEnabled [Hidden] [NotReplicated]
+Class LodDataService : Instance [NotCreatable] [Service] [NotReplicated]
 Class LogService : Instance [NotCreatable] [Service]
 	Function void LogService:ExecuteScript(string source) {RobloxScriptSecurity}
 	Function Array LogService:GetHttpResultHistory() {RobloxScriptSecurity}
