@@ -20,8 +20,11 @@
 		Box: The pane has the current theme's main background.
 		RoundBox: The pane has the current theme's main background with the standard rounded border.
 		BorderBox: The pane has the current theme's main background with square border.
+		CornerBox: Uses UICorner for adjustable rounded border.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
+local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -142,15 +145,18 @@ function Pane:render()
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
-	if props.OnClick then 
-		props[Roact.Event.Activated] = props.OnClick 
-	end 
-	if props.OnRightClick then 
-		props[Roact.Event.MouseButton2Click] = props.OnRightClick 
-	end 
-	if hasClickFunctionality and not style.Image then 
-		props.Text = "" 
-	end 
+	if props.OnClick then
+		props[Roact.Event.Activated] = props.OnClick
+	end
+	if props.OnRightClick then
+		props[Roact.Event.MouseButton2Click] = props.OnRightClick
+	end
+	if hasClickFunctionality and not style.Image then
+		if FFlagDevFrameworkRefactorExpandablePaneHeader then
+			props.AutoButtonColor = false
+		end
+		props.Text = ""
+	end
 
 	if style.Image then
 		assign(defaultProps, {
@@ -176,6 +182,13 @@ function Pane:render()
 			}, children)
 		}
 	end
+
+	if FFlagDevFrameworkPaneAddCornerBoxStyle and style.CornerRadius then
+		children.UICorner = Roact.createElement("UICorner", {
+			CornerRadius = style.CornerRadius,
+		})
+	end
+
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",

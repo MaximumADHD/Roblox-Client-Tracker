@@ -23,7 +23,6 @@
 		number IconPadding: The horizontal padding around the icon.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -107,7 +106,7 @@ function InstanceTreeView:render()
 		RenderRow = self.renderRow,
 		Size = props.Size,
 		Expansion = props.Expansion,
-		Style = FFlagDevFrameworkFixTreeViewTheme and style or style.TreeView,
+		Style = style,
 	})
 end
 

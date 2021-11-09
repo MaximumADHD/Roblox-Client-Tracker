@@ -26,21 +26,13 @@ else
 	UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
 end
 
-local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
-
-local shouldGetUILibraryFromParent = not FlagsList:get("FFlagStudioDevFrameworkPackage") or
-	(FlagsList:get("FFlagStudioDevFrameworkPackage") and not isUsedAsPackage())
-
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local UILibraryFromParent
-if shouldGetUILibraryFromParent then
-	-- We assume plugins will completely move away from the UILibrary
-	-- to the Framework in the future, so we don't want to depend on it.
-	if not Framework.Parent:FindFirstChild("UILibrary") then
-		return nil :: any -- temporary Luau typechecker workaround wrt multiple returns from a module
-	end
 
+-- We assume plugins will completely move away from the UILibrary
+-- to the Framework in the future, so we don't want to depend on it.
+if Framework.Parent:FindFirstChild("UILibrary") then
 	UILibraryFromParent = require(Framework.Parent.UILibrary)
 end
 
@@ -99,10 +91,10 @@ local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 function UILibraryWrapper.new(uiLibraryProp)
 	local UILibrary
 
-	if not FlagsList:get("FFlagStudioDevFrameworkPackage") or shouldGetUILibraryFromParent then
+	if not FlagsList:get("FFlagStudioDevFrameworkPackage") then
 		UILibrary = UILibraryFromParent
 	else
-		UILibrary = uiLibraryProp
+		UILibrary = uiLibraryProp or UILibraryFromParent
 		assert(UILibrary, "UILibraryWrapper must be passed a reference to UILibrary")
 	end
 

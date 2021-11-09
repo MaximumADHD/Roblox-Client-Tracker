@@ -28,7 +28,6 @@
 		Color3 TextColor: The color of the search term text.
 ]]
 local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddSearchBarInputEvents = game:GetFastFlag("DevFrameworkAddSearchBarInputEvents")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -209,19 +208,14 @@ function SearchBar:render()
 	local props = self.props
 	local state = self.state
 
-	local containerWidth,buttonWidth, layoutOrder, placeholderText, showSearchButton, showSearchIcon
-	containerWidth = props.Width
-	buttonWidth = props.ButtonWidth
-	layoutOrder = props.LayoutOrder
-	placeholderText = props.PlaceholderText
-	showSearchButton = props.ShowSearchButton
-	showSearchIcon = props.ShowSearchIcon
-	local onInputBegan
-	local onInputEnded
-	if FFlagDevFrameworkAddSearchBarInputEvents then
-		onInputBegan = props.OnInputBegan
-		onInputEnded = props.OnInputEnded
-	end
+	local containerWidth = props.Width
+	local buttonWidth = props.ButtonWidth
+	local layoutOrder = props.LayoutOrder
+	local placeholderText = props.PlaceholderText
+	local showSearchButton = props.ShowSearchButton
+	local showSearchIcon = props.ShowSearchIcon
+	local onInputBegan = props.OnInputBegan
+	local onInputEnded = props.OnInputEnded
 
 	local shouldFocus = state.shouldFocus
 	local text = state.text
