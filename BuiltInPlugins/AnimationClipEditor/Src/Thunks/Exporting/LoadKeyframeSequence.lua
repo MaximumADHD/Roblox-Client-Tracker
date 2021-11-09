@@ -3,8 +3,8 @@
 	from the AnimSaves folder.
 ]]
 
+-- TODO: Remove when GetFFlacChannelAnimations() is ON
 local Plugin = script.Parent.Parent.Parent.Parent
-local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)

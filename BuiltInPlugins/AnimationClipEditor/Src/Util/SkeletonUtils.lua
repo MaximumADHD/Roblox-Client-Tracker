@@ -3,6 +3,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
+local Constants = require(Plugin.Src.Util.Constants)
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local SkeletonUtils = {}
 
@@ -47,6 +48,7 @@ function SkeletonUtils.getUnusedSkeletonTracks(names, tracks)
 			table.insert(unusedTracks, {
 				Name = bone,
 				Instance = "Root",
+				Type = Constants.TRACK_TYPES.CFrame,
 			})
 		end
 	end

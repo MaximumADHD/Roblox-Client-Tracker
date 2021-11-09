@@ -49,8 +49,6 @@ return function()
 				Size = UDim2.new(0, 1000, 0, 24),
 				Track = sampleTrack,
 				SelectedKeyframes = selectedKeyframes or {},
-				PreviewKeyframes = previewKeyframes,
-				PreviewData = testPreviewData,
 				LayoutOrder = 0,
 				Width = 1000,
 				StartTick = 0,
@@ -98,16 +96,6 @@ return function()
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(#frame.KeyframeDisplayArea:GetChildren()).to.be.equal(1)
-
-		Roact.unmount(instance)
-	end)
-
-	it("should not render selected keyframes when PreviewKeyframes exists", function()
-		local container = Instance.new("Folder")
-		local instance = Roact.mount(createTestTrack(testSelectedKeyframes, {}), container)
-		local frame = container:FindFirstChildOfClass("Frame")
-
-		expect(#frame.KeyframeDisplayArea:GetChildren()).to.equal(7)
 
 		Roact.unmount(instance)
 	end)

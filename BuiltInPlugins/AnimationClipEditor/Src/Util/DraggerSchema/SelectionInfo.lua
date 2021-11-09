@@ -8,7 +8,7 @@ SelectionInfo.__index = SelectionInfo
 
 function SelectionInfo.new(draggerContext, selection)
 	local self = setmetatable(BoundingBoxUtils.computeInfo(draggerContext, selection), SelectionInfo)
-	self.joints = RigUtils.getJoints(self.parts, self.draggerContext.RootInstance)
+	self.joints = self.draggerContext.RootInstance and RigUtils.getJoints(self.parts, self.draggerContext.RootInstance) or nil
 	return self
 end
 

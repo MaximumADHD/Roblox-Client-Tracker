@@ -37,6 +37,7 @@ local ContextButton = require(Plugin.Src.Components.ContextButton)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local Track = Roact.PureComponent:extend("Track")
 
@@ -125,7 +126,7 @@ function Track:render()
 			AnchorPoint = Vector2.new(0, 0.5),
 			Position = UDim2.new(0, Constants.ARROW_SIZE / 2, 0.5, 0),
 			BackgroundTransparency = 1,
-
+			ZIndex = GetFFlagChannelAnimations() and 2 or nil,
 			Image = expanded and arrowTheme.expanded or arrowTheme.collapsed,
 			ImageColor3 = selected and trackTheme.selectedTextColor or trackTheme.textColor,
 			ScaleType = Enum.ScaleType.Fit,
@@ -134,7 +135,7 @@ function Track:render()
 		}) or nil,
 
 		NameLabel = Roact.createElement("TextButton", {
-			Size = UDim2.new(0, nameLabelLength, 1, 0),
+			Size = GetFFlagChannelAnimations() and UDim2.new(1, 0, 1, 0) or UDim2.new(0, nameLabelLength, 1, 0),
 			Position = UDim2.new(0, Constants.ARROW_SIZE * 2, 0, 0),
 			BackgroundTransparency = 1,
 			AutoButtonColor = false,
@@ -151,6 +152,7 @@ function Track:render()
 		ContextButton = showContextMenu and Roact.createElement(ContextButton, {
 			AnchorPoint = Vector2.new(1, 0.5),
 			Position = UDim2.new(1, -Constants.TRACKLIST_RIGHT_PADDING, 0.5, 0),
+			ZIndex = GetFFlagChannelAnimations() and 2 or nil,
 			TrackSelected = selected,
 			OnActivated = self.onContextButtonClick,
 		}) or nil,

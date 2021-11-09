@@ -1,7 +1,7 @@
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
-local deepEqual = require(game:GetService("CorePackages").tutils :: any).deepEqual
 
 local Plugin = script.Parent.Parent.Parent
+local deepEqual = require(Plugin.Packages.Framework).Util.deepEqual
 local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local TestImmutability = require(Plugin.Src.TestHelpers.testImmutability)

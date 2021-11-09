@@ -26,12 +26,14 @@ local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEdito
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local PathUtils = require(Plugin.Src.Util.PathUtils)
 local Constants = require(Plugin.Src.Util.Constants)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
@@ -39,6 +41,7 @@ local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
 
@@ -62,6 +65,52 @@ function ScaleControls:init()
 		end
 	end
 
+	self.getSelectionChannelExtents = function(selectionData)
+		local props = self.props
+		local tracks = props.Tracks
+		local topTrackIndex = props.TopTrackIndex
+		local line = 1
+		local topValue = selectionData.topSelectedChannelIndex
+		local bottomValue = selectionData.bottomSelectedChannelIndex
+		local topLine = nil
+		local bottomLine = nil
+
+		local trackIndex = topTrackIndex
+		while trackIndex <= #tracks do
+			local track = tracks[trackIndex]
+
+			local function traverse(track, path)
+				local pathValue = PathUtils.getPathValue(path)
+				local componentIndex = trackIndex + pathValue
+				if componentIndex >= topValue and topLine == nil then
+					topLine = line
+				end
+				if componentIndex <= bottomValue then
+					bottomLine = line
+				end
+				if track.Expanded then
+					if self.props.IsChannelAnimation then
+						line = line + 1
+						for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
+							local component = track.Components and track.Components[componentName]
+							if component then
+								traverse(component, Cryo.List.join(path, {componentName}))
+							end
+						end
+					else
+						line = line + TrackUtils.getExpandedSize(track)
+					end
+				else
+					line = line + 1
+				end
+			end
+
+			traverse(track, {})
+			trackIndex = trackIndex + 1
+		end
+		return topLine, bottomLine
+	end
+
 	self.calculateScaleHandleExtents = function(selectionData)
 		local props = self.props
 
@@ -71,16 +120,31 @@ function ScaleControls:init()
 		local endTick = props.EndTick
 		local trackWidth = props.DopeSheetWidth
 
-		table.sort(selectionData.trackIndices)
-		local topSelectedTrackIndex = selectionData.trackIndices[1]
-		local bottomSelectedTrackIndex = selectionData.trackIndices[#selectionData.trackIndices]
+		if GetFFlagChannelAnimations() then
+			local topLine, bottomLine = self.getSelectionChannelExtents(selectionData)
 
-		return {
-			top = TrackUtils.getTrackYPosition(tracks, topTrackIndex, topSelectedTrackIndex),
-			bottom =TrackUtils.getTrackYPosition(tracks, topTrackIndex, bottomSelectedTrackIndex) + Constants.TRACK_HEIGHT,
-			left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
-			right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
-		}
+			if topLine and bottomLine then
+				return {
+					top = Constants.SUMMARY_TRACK_HEIGHT + (topLine - 1) * Constants.TRACK_HEIGHT,
+					bottom = Constants.SUMMARY_TRACK_HEIGHT + bottomLine * Constants.TRACK_HEIGHT,
+					left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
+					right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+				}
+			else
+				return nil
+			end
+		else
+			table.sort(selectionData.trackIndices)
+			local topSelectedTrackIndex = selectionData.trackIndices[1]
+			local bottomSelectedTrackIndex = selectionData.trackIndices[#selectionData.trackIndices]
+
+			return {
+				top = TrackUtils.getTrackYPosition(tracks, topTrackIndex, topSelectedTrackIndex),
+				bottom =TrackUtils.getTrackYPosition(tracks, topTrackIndex, bottomSelectedTrackIndex) + Constants.TRACK_HEIGHT,
+				left = TrackUtils.getScaledKeyframePosition(selectionData.earliestKeyframe, startTick, endTick, trackWidth),
+				right = TrackUtils.getScaledKeyframePosition(selectionData.latestKeyframe, startTick, endTick, trackWidth),
+			}
+		end
 	end
 
 	self.getSelectionData = function()
@@ -88,22 +152,63 @@ function ScaleControls:init()
 		local earliestKeyframe = self.props.EndTick + 1
 		local latestKeyframe = 0
 		local selectionData = self.props.SelectedKeyframes
+		local topSelectedChannelIndex = nil
+		local bottomSelectedChannelIndex = nil
 
-		for _, instance in pairs(selectionData) do
-			for trackName, keyframes in pairs(instance) do
-				local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
-				table.insert(trackIndices, trackIndex)
-				for key, _ in pairs(keyframes) do
-					earliestKeyframe = math.min(earliestKeyframe, key)
-					latestKeyframe = math.max(latestKeyframe, key)
+		if GetFFlagChannelAnimations() then
+			local function traverse(track, trackIndex, path)
+				if track.Selection then
+					-- This component has a selection. Calculate the path value, add it
+					-- to the trackIndex, and check if the result extends the current
+					-- trackRange
+
+					local pathValue = PathUtils.getPathValue(path)
+					local componentIndex = trackIndex + pathValue
+					if topSelectedChannelIndex == nil then
+						topSelectedChannelIndex = componentIndex
+						bottomSelectedChannelIndex = componentIndex
+					else
+						topSelectedChannelIndex = math.min(topSelectedChannelIndex, componentIndex)
+						bottomSelectedChannelIndex = math.max(bottomSelectedChannelIndex, componentIndex)
+					end
+
+					-- Calculate the extents of the selection
+					for tick, _ in pairs(track.Selection or {}) do
+						earliestKeyframe = math.min(earliestKeyframe, tick)
+						latestKeyframe = math.max(latestKeyframe, tick)
+					end
+				end
+				for componentName, component in pairs(track.Components or {}) do
+					local componentPath = Cryo.List.join(path, {componentName})
+					traverse(component, trackIndex, componentPath)
+				end
+			end
+
+			for _, instance in pairs(selectionData) do
+				for trackName, track in pairs(instance) do
+					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
+					traverse(track, trackIndex, {})
+				end
+			end
+		else
+			for _, instance in pairs(selectionData) do
+				for trackName, keyframes in pairs(instance) do
+					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
+					table.insert(trackIndices, trackIndex)
+					for key, _ in pairs(keyframes) do
+						earliestKeyframe = math.min(earliestKeyframe, key)
+						latestKeyframe = math.max(latestKeyframe, key)
+					end
 				end
 			end
 		end
 
 		return {
-			trackIndices = trackIndices,
+			trackIndices = not GetFFlagChannelAnimations() and trackIndices or nil,
 			earliestKeyframe = earliestKeyframe,
 			latestKeyframe = latestKeyframe,
+			topSelectedChannelIndex = GetFFlagChannelAnimations() and topSelectedChannelIndex or nil,
+			bottomSelectedChannelIndex = GetFFlagChannelAnimations() and bottomSelectedChannelIndex or nil,
 		}
 	end
 end
@@ -125,6 +230,10 @@ function ScaleControls:render()
 
 	local selectionData = self.getSelectionData()
 	local extents = self.calculateScaleHandleExtents(selectionData)
+	if GetFFlagChannelAnimations() and not extents then
+		return
+	end
+
 	local earliestKeyframe = selectionData.earliestKeyframe
 	local latestKeyframe = selectionData.latestKeyframe
 

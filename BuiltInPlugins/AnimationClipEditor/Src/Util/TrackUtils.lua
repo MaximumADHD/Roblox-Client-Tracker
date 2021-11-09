@@ -7,9 +7,15 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Constants = require(Plugin.Src.Util.Constants)
+local Templates = require(Plugin.Src.Util.Templates)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
+local CurveUtils = require(Plugin.Src.Util.CurveUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
+local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 
 local TrackUtils = {}
 
@@ -19,6 +25,36 @@ local function removeNegativeZero(val)
 	else
 		return val
 	end
+end
+
+-- Performs a visiting function on each component track (i.e. Position and Rotation
+-- tracks of a CFrame track). func is called with the track, the path to that
+-- track (as an array of track names), and a flag telling if it's a leaf track.
+-- If leavesOnly is true, then func is only called for tracks that don't have components
+function TrackUtils.traverseTracks(trackName, track, func, leavesOnly)
+	assert(func ~= nil)
+
+	local function traverse(track, trackName, path)
+		if track ~= nil then
+			if trackName then
+				path = Cryo.List.join(path, {trackName})
+			end
+
+			local isLeaf = track.Components == nil or isEmpty(track.Components)
+
+			if isLeaf or not leavesOnly then
+				func(track, trackName, path, isLeaf)
+			end
+
+			if track.Components ~= nil then
+				for componentName, componentTrack in pairs(track.Components) do
+					traverse(componentTrack, componentName, path)
+				end
+			end
+		end
+	end
+
+	traverse(track, trackName, {})
 end
 
 -- Performs a visiting function on each keyframe between the range
@@ -38,6 +74,40 @@ function TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, func)
 	end
 end
 
+-- Gets the next keyframe of the animation (for navigation)
+function TrackUtils.getNextKeyframe(tracks, playhead)
+	local minFrame = nil
+	for trackName, track in pairs(tracks) do
+		TrackUtils.traverseTracks(nil, track, function(track)
+			local keyframes = track.Keyframes
+			local exactIndex, _, nextIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead+1)
+			nextIndex = exactIndex or nextIndex
+			local nextFrame = nextIndex and keyframes[nextIndex] or nil
+			if nextFrame then
+				minFrame = minFrame and math.min(minFrame, nextFrame) or nextFrame
+			end
+		end, true)
+	end
+	return minFrame or playhead
+end
+
+-- Gets the previous keyframe of the animation (for navigation)
+function TrackUtils.getPreviousKeyframe(tracks, playhead)
+	local maxFrame = nil
+	for trackName, track in pairs(tracks) do
+		TrackUtils.traverseTracks(nil, track, function(track)
+			local keyframes = track.Keyframes
+			local exactIndex, prevIndex = KeyframeUtils.findNearestKeyframesProperly(keyframes, playhead-1)
+			prevIndex = exactIndex or prevIndex
+			local prevFrame = prevIndex and keyframes[prevIndex] or nil
+			if prevFrame and prevFrame < playhead then
+				maxFrame = maxFrame and math.max(maxFrame, prevFrame) or prevFrame
+			end
+		end, true)
+	end
+	return maxFrame or playhead
+end
+
 -- Gets the summary keyframes between startTick and endTick for tracks.
 -- selectedKeyframes and previewing are optional parameters.
 -- selectedKeyframes is used to find which summary keyframes are selected, and
@@ -46,29 +116,58 @@ function TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyf
 	local foundTicks = {}
 	local selectedTicks = {}
 
-	for _, track in pairs(tracks) do
-		local instance = track.Instance
-		local name = track.Name
-		local keyframes = track.Keyframes
+	if GetFFlagChannelAnimations() then
+		for trackName, track in pairs(tracks) do
+			local instance = track.Instance
+			-- Sometimes, tracks is passed as an array of tracks without a name
+			local name = track.Name or trackName
 
-		if keyframes then
-			TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
-				local selected = selectedKeyframes and selectedKeyframes[instance]
-					and selectedKeyframes[instance][name]
-					and selectedKeyframes[instance][name][tick]
+			TrackUtils.traverseTracks(name, track, function(track, _, path)
+				local keyframes = track.Keyframes
 
-				if not (selected and previewing) then
-					foundTicks[tick] = true
-					if selected then
-						selectedTicks[tick] = true
-					end
+				local selectedTrack = selectedKeyframes and selectedKeyframes[instance] or nil
+				for _, part in ipairs(path) do
+					selectedTrack = selectedTrack and (selectedTrack.Components and selectedTrack.Components[part] or selectedTrack[part])
+						or nil
 				end
-			end)
+
+				local selection = selectedTrack and selectedTrack.Selection or {}
+				if keyframes and not isEmpty(keyframes) then
+					TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
+
+						foundTicks[tick] = true
+						if selection[tick] then
+							selectedTicks[tick] = true
+						end
+					end)
+				end
+			end, true)
+		end
+	else
+		for _, track in pairs(tracks) do
+			local instance = track.Instance
+			local name = track.Name
+			local keyframes = track.Keyframes
+
+			if keyframes then
+				TrackUtils.traverseKeyframeRange(keyframes, startTick, endTick, function(tick)
+					local selected = selectedKeyframes and selectedKeyframes[instance]
+						and selectedKeyframes[instance][name]
+						and selectedKeyframes[instance][name][tick]
+
+					if not (selected and previewing) then
+						foundTicks[tick] = true
+						if selected then
+							selectedTicks[tick] = true
+						end
+					end
+				end)
+			end
 		end
 	end
 
-	local frames = Cryo.Dictionary.keys(foundTicks)
-	return frames, selectedTicks
+	local ticks = Cryo.Dictionary.keys(foundTicks)
+	return ticks, selectedTicks
 end
 
 function TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
@@ -110,27 +209,51 @@ end
 
 -- Returns the expanded size of a track based on its type.
 function TrackUtils.getExpandedSize(track)
-	local trackType = track.Type
-	if trackType == Constants.TRACK_TYPES.CFrame then
-		return 3
+	if GetFFlagChannelAnimations() and track.Components then
+		-- If the track has components, rely on them
+		local function recGetExpandedSize(track)
+			local total = 1
+			if track.Expanded then
+				for _, component in pairs(track.Components) do
+					total = total + recGetExpandedSize(component)
+				end
+			end
+			return total
+		end
+
+		return recGetExpandedSize(track)
 	else
-		return 2
+		local trackType = track.Type
+		if trackType == Constants.TRACK_TYPES.CFrame then
+			return 3
+		else
+			return 2
+		end
 	end
 end
 
--- Returns the default value for a new keyframe based on a track type.
-function TrackUtils.getDefaultValueByType(trackType)
-	if trackType == Constants.TRACK_TYPES.CFrame then
-		return CFrame.new()
-	elseif trackType == Constants.TRACK_TYPES.Facs then
-		return 0
+if not GetFFlagChannelAnimations() then
+	-- This is moved to KeyframeUtils
+	-- Returns the default value for a new keyframe based on a track type.
+	function TrackUtils.getDefaultValueByType(trackType)
+		if trackType == Constants.TRACK_TYPES.CFrame then
+			return CFrame.new()
+		elseif trackType == Constants.TRACK_TYPES.Facs then
+			return 0
+		end
+
+		assert(false, "No default value defined for type " .. trackType)
 	end
 end
 
-if GetFFlagFacialAnimationSupport() then
+if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 	function TrackUtils.getDefaultValue(track)
 		if track and track.Type then
-			return TrackUtils.getDefaultValueByType(track.Type)
+			if GetFFlagChannelAnimations() then
+				return KeyframeUtils.getDefaultValue(track.Type)
+			else
+				return TrackUtils.getDefaultValueByType(track.Type)
+			end
 		end
 	end
 else
@@ -191,6 +314,52 @@ function TrackUtils.getTrackFromPosition(tracks, topTrackIndex, yPos)
 	end
 end
 
+-- Given a vertical position yPos in the dope sheet, finds which track
+-- is at that position. Returns the track index, the path, and the track
+-- type
+function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
+	if yPos < Constants.SUMMARY_TRACK_HEIGHT then
+		return 0, {}, nil
+	end
+
+	yPos = yPos - Constants.SUMMARY_TRACK_HEIGHT
+
+	local function recurse(track, y, path)
+		if y < Constants.SUMMARY_TRACK_HEIGHT then
+			return path, y, track.Type
+		end
+
+		y = y - Constants.SUMMARY_TRACK_HEIGHT
+		if track.Expanded then
+			for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
+				local resPath, trackType
+				resPath, y, trackType = recurse(track.Components[componentName], y, Cryo.List.join(path, {componentName}))
+				if resPath then
+					return resPath, y, trackType
+				end
+			end
+		end
+		return nil, y, nil
+	end
+
+	local trackIndex = math.max(0, topTrackIndex - 1)
+	local trackType
+
+	for index, track in ipairs(tracks) do
+		if index >= topTrackIndex then
+			local relPath
+			relPath, yPos, trackType = recurse(track, yPos, {track.Name})
+			trackIndex = trackIndex + 1
+
+			if relPath then
+				return trackIndex, relPath, trackType
+			end
+		end
+	end
+
+	return #tracks + 1, {}, nil
+end
+
 function TrackUtils.getTrackIndex(tracks, trackName)
 	for index, track in ipairs(tracks) do
 		if trackName == track.Name then
@@ -223,7 +392,11 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 	local currentValue
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
-		currentValue = KeyframeUtils:getValue(currentTrack, tick)
+		if GetFFlagChannelAnimations() then
+			currentValue = KeyframeUtils.getValue(currentTrack, tick)
+		else
+			currentValue = KeyframeUtils:getValue(currentTrack, tick)
+		end
 	else
 		currentValue = TrackUtils.getDefaultValue(track)
 	end
@@ -231,16 +404,46 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 	return currentValue
 end
 
-function TrackUtils.getItemsForProperty(track, value)
+-- Return the value of the track identified by path, at the specified tick. If the track is not
+-- found, return the default value based on trackType
+function TrackUtils.getCurrentValueForPath(path, instance, tick, animationData, trackType)
+	local currentTrack = animationData.Instances[instance]
+
+	-- Follow the path, through Tracks for the first part, or through Components for the next parts
+	for index, name in ipairs(path) do
+		currentTrack = (index == 1 and currentTrack.Tracks or currentTrack.Components)[name]
+		if not currentTrack then
+			return KeyframeUtils.getDefaultValue(trackType)
+		end
+	end
+
+	return KeyframeUtils.getValue(currentTrack, tick)
+end
+
+function TrackUtils.getItemsForProperty(track, value, name)
 	local trackType = track.Type
 	local properties = Constants.PROPERTY_KEYS
-	local items = {}
+	local items
+
+	local function makeVectorItems(x, y, z)
+		return {
+			{ Name = Constants.PROPERTY_KEYS.X, Key = "X", Value = x },
+			{ Name = Constants.PROPERTY_KEYS.Y, Key = "Y", Value = y },
+			{ Name = Constants.PROPERTY_KEYS.Z, Key = "Z", Value = z },
+		}
+	end
 
 	if trackType == Constants.TRACK_TYPES.CFrame then
+		-- This is only used for animations that have not been promoted to channels
 		local position = value.Position
 		local xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		if GetFFlagChannelAnimations() then
+			xRot = removeNegativeZero(math.deg(xRot))
+			yRot = removeNegativeZero(math.deg(yRot))
+			zRot = removeNegativeZero(math.deg(zRot))
+		end
 		items = {
-			Position = {
+			Position = GetFFlagChannelAnimations() and makeVectorItems(position.X, position.Y, position.Z) or {
 				{
 					Name = properties.X,
 					Key = "X",
@@ -257,7 +460,7 @@ function TrackUtils.getItemsForProperty(track, value)
 					Value = position.Z,
 				},
 			},
-			Rotation = {
+			Rotation = GetFFlagChannelAnimations() and makeVectorItems(xRot, yRot, zRot) or {
 				{
 					Name = properties.X,
 					Key = "X",
@@ -275,11 +478,40 @@ function TrackUtils.getItemsForProperty(track, value)
 				},
 			},
 		}
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
+		items = makeVectorItems(value.X, value.Y, value.Z)
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Rotation then
+		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
+			removeNegativeZero(math.deg(value.Y)),
+			removeNegativeZero(math.deg(value.Z)))
 	elseif trackType == Constants.TRACK_TYPES.Facs then
+		if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() then
+			if GetFFlagFixClampValuesForFacs() then
+				value = math.floor(0.5 + math.clamp(value, 0, 1) * 100)
+			else
+				value = math.floor(0.5 + (value * 100))
+			end
+		end
 		items = {
 			{
 				Name = "V",
 				Key = "Value",
+				Value = value,
+			},
+		}
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
+		items = {
+			{
+				Name = name,
+				Key = name,
+				Value = removeNegativeZero(math.deg(value)),
+			},
+		}
+	else
+		items = {
+			{
+				Name = name,
+				Key = name,
 				Value = value,
 			},
 		}
@@ -300,6 +532,19 @@ function TrackUtils.getPropertyForItems(track, items)
 		local zRot = math.rad(rotation[3].Value)
 		value = CFrame.new(position[1].Value, position[2].Value, position[3].Value)
 			* CFrame.fromEulerAnglesXYZ(xRot, yRot, zRot)
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
+		value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Rotation then
+		value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Number then
+		value = items[1].Value
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
+		value = math.rad(items[1].Value)
+	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Facs then
+		value = items[1].Value
+		if GetFFlagFacsUiChanges() then
+			value = math.clamp(value / 100, 0, 1)
+		end
 	end
 
 	return value
@@ -322,6 +567,223 @@ function TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 	range.End = range.Start + zoomedLength
 
 	return range
+end
+
+function TrackUtils.adjustCurves(track)
+	-- Make a copy, because we're possibly going to add new keyframes (cubic/bounce/elastic interpolation)
+	local keyframesCopy = Cryo.List.join({}, track.Keyframes)
+
+	for index, tick in pairs(keyframesCopy) do
+		local data = track.Data[tick]
+		local easingStyle = data.EasingStyle
+		local easingDirection = data.EasingDirection
+
+		data.EasingStyle = nil
+		data.EasingDirection = nil
+		data.InterpolationMode = Constants.POSE_EASING_STYLE_TO_KEY_INTERPOLATION[easingStyle]
+
+		if index < #keyframesCopy then
+			local nextTick = keyframesCopy[index+1]
+			local nextData = track.Data[nextTick]
+
+			local newKeyframes = CurveUtils.generateCurve(easingStyle, easingDirection, tick, data, nextTick, nextData)
+			if newKeyframes and not isEmpty(newKeyframes) then
+				track.Keyframes = Cryo.List.join(track.Keyframes, Cryo.Dictionary.keys(newKeyframes))
+				track.Data = Cryo.Dictionary.join(track.Data, newKeyframes)
+			end
+		end
+	end
+
+	table.sort(track.Keyframes)
+	track.IsCurveTrack = true
+end
+
+function TrackUtils.splitTrackComponents(track)
+	if track.Type == Constants.TRACK_TYPES.CFrame then
+		-- Creates the components hierarchy for a track
+		local function createTrackComponents(_track)
+			local componentTypes = Constants.COMPONENT_TRACK_TYPES[_track.Type]
+
+			if componentTypes then
+				-- If there are children, create them and their descendants
+				_track.Components = {}
+				for _, componentName in pairs(componentTypes._Order) do
+					local componentType = componentTypes[componentName]
+					_track.Components[componentName] = Templates.track(componentType)
+					createTrackComponents(_track.Components[componentName])
+				end
+			else
+				-- We can already duplicate the keyframes from the top track and prepare the data array
+				_track.Keyframes = track.Keyframes and Cryo.List.join({}, track.Keyframes) or {}
+				_track.Data = {}
+			end
+		end
+		createTrackComponents(track)
+
+		for _, tick in pairs(track.Keyframes or {}) do
+			-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
+			local cFrame = track.Data[tick].Value
+			local position = cFrame.Position
+			local rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
+
+			for componentName, componentTrack in pairs(track.Components) do
+				local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
+
+				for grandchildName, grandchild in pairs(componentTrack.Components) do
+					grandchild.Data[tick] = Cryo.Dictionary.join(track.Data[tick], {
+						Value = values[grandchildName]
+					})
+				end
+			end
+		end
+
+		-- Adjust tangents, add intermediate nodes (bouncing/elastic), etc
+		for _, componentTrack in pairs(track.Components) do
+			for _, grandchild in pairs(componentTrack.Components) do
+				TrackUtils.adjustCurves(grandchild)
+			end
+		end
+
+		-- Delete top track data
+		track.Keyframes = nil
+		track.Data = nil
+	elseif track.Type == Constants.TRACK_TYPES.Facs then
+		track.Keyframes = track.Keyframes or {}
+		track.Data = track.Data or {}
+		TrackUtils.adjustCurves(track)
+	end
+end
+
+function TrackUtils.createTrackListEntryComponents(track, instanceName)
+	local componentTypes = Constants.COMPONENT_TRACK_TYPES[track.Type]
+	track.Instance = instanceName
+
+	if componentTypes then
+		-- If there are children, create them and their descendants
+		track.Components = {}
+		for _, componentName in ipairs(componentTypes._Order) do
+			track.Components[componentName] = Templates.trackListEntry(componentTypes[componentName])
+			track.Components[componentName].Name = componentName
+			TrackUtils.createTrackListEntryComponents(track.Components[componentName], instanceName)
+		end
+	end
+end
+
+-- For each tick between startTick and endTick, return a table that contains:
+-- Count: The number of component leaves that are defined
+-- Complete: Whether all expected components are defined
+-- EasingStyle: The easing style shared by all components, or nil if there's a mismatch
+
+function TrackUtils.getComponentsInfo(track, startTick, endTick)
+	endTick = endTick or startTick
+
+	local info = {}
+	local expectedComponents = 0
+	TrackUtils.traverseTracks(nil, track, function()
+		expectedComponents = expectedComponents + 1
+	end, true)
+
+	TrackUtils.traverseTracks(nil, track, function(track)
+		if track.Data then
+			for tick, data in pairs(track.Data) do
+				if tick >= startTick and tick <= endTick then
+					if info[tick] then
+						info[tick].Count = info[tick].Count + 1
+						info[tick].Complete = info[tick].Count == expectedComponents
+						if info[tick].EasingStyle ~= data.EasingStyle then
+							info[tick].EasingStyle = nil
+						end
+						if info[tick].InterpolationMode ~= data.InterpolationMode then
+							info[tick].InterpolationMode = nil
+						end
+					else
+						info[tick] = {
+							Count = 1,
+							Complete = expectedComponents == 1,
+							EasingStyle = data.EasingStyle,
+							InterpolationMode = data.InterpolationMode
+						}
+					end
+				end
+			end
+		end
+	end, true)
+	return info
+end
+
+-- Follows the elements of trackPath to reach a specific track in the trackEntries hierarchies
+function TrackUtils.findTrackEntry(trackEntries, trackPath)
+	if not (trackEntries and trackPath) then
+		return nil
+	end
+
+	local currentTrack
+	for _, trackEntry in ipairs(trackEntries) do
+		if trackEntry.Name == trackPath[1] then
+			currentTrack = trackEntry
+			break
+		end
+	end
+
+	if not currentTrack then
+		return nil
+	end
+
+	for index, pathPart in ipairs(trackPath) do
+		if index > 1 then
+			currentTrack = currentTrack.Components[pathPart]
+			if not currentTrack then
+				return nil
+			end
+		end
+	end
+
+	return currentTrack
+end
+
+-- Traverse all components of the provided trackType, calling func with
+-- the relative path of each leaf (to the initial track type)
+function TrackUtils.traverseComponents(trackType, func)
+	local function recurse(_trackType, relPath)
+		local compTypes = Constants.COMPONENT_TRACK_TYPES[_trackType]
+
+		if compTypes then
+			for _, compName in ipairs(compTypes._Order) do
+				recurse(compTypes[compName], Cryo.List.join(relPath, {compName}))
+			end
+		else
+			func(_trackType, relPath)
+		end
+	end
+
+	recurse(trackType, {})
+end
+
+-- Takes a trackType and a value, and calls the func callback for each leaf component.
+-- func is called with the leaf relative path (to the initial track type), and the value.
+-- This relies on paths only, tracks don't have to exist.
+function TrackUtils.traverseValue(trackType, value, func)
+	local function recurse(_trackType, relPath, _value)
+		if _trackType == Constants.TRACK_TYPES.CFrame then
+			local position = _value.Position
+			local rotation = Vector3.new(_value:ToEulerAnglesXYZ())
+
+			recurse(Constants.TRACK_TYPES.Position, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Position}), position)
+			recurse(Constants.TRACK_TYPES.Rotation, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
+		elseif _trackType == Constants.TRACK_TYPES.Position then
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
+			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
+		elseif _trackType == Constants.TRACK_TYPES.Rotation then
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
+			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
+		else
+			func(_trackType, relPath, _value)
+		end
+	end
+
+	recurse(trackType, {}, value)
 end
 
 return TrackUtils

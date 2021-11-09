@@ -24,6 +24,11 @@ local function getSize(dict)
 	return count
 end
 
+local initialState = {
+	BreakpointIdsInDebuggerConnection = {},
+	BreakpointInfo = {},
+}
+
 return function()
 	local function expectBreakpoint(state, debuggerConnectionId, breakpoint)
 		-- Check that breakpoint exists
@@ -52,7 +57,7 @@ return function()
 			local uniqueId = 0
 
 			local breakpoint1 = Breakpoint.mockBreakpoint({}, uniqueId)
-			local state = BreakpointReducer({}, AddBreakpointAction(123, breakpoint1))
+			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint1))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
@@ -86,7 +91,7 @@ return function()
 			uniqueId = uniqueId + 1
 			local breakpointOverride = Breakpoint.mockBreakpoint({id = breakpoint.id}, uniqueId)
 
-			local state = BreakpointReducer({}, AddBreakpointAction(123, breakpoint))
+			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint))
 
 			-- Add the override breakpoint to a different debugger connection, should replace the original breakpoint 
 			-- in BreakpointInfo since they have the same id
@@ -105,7 +110,7 @@ return function()
 		it("should preserve immutability", function()
 			local uniqueId = 0
 			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
-			local immutabilityPreserved = testImmutability(BreakpointReducer, AddBreakpointAction(321, breakpoint), {})
+			local immutabilityPreserved = testImmutability(BreakpointReducer, AddBreakpointAction(321, breakpoint), initialState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -116,7 +121,7 @@ return function()
 			
 			-- Add a breakpoint in the debugger connection
 			local breakpoint1 = Breakpoint.mockBreakpoint({}, uniqueId)
-			local state = BreakpointReducer({}, AddBreakpointAction(123, breakpoint1))
+			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint1))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
@@ -134,7 +139,7 @@ return function()
 
 		it("should break when modifying breakpoint that doesn't exist", function()
 			local newBreakpoint = Breakpoint.mockBreakpoint({}, 0)
-			expect(function()BreakpointReducer({}, ModifyBreakpointAction(newBreakpoint)) end).to.throw()
+			expect(function()BreakpointReducer(initialState, ModifyBreakpointAction(newBreakpoint)) end).to.throw()
 		end)
 	end)
 	
@@ -151,7 +156,7 @@ return function()
 		end)
 		
 		it("should throw assert when deleting breakpoint not in store", function()
-			expect(function() BreakpointReducer({BreakpointInfo = {}, BreakpointIdsInDebuggerConnection = {}}, DeleteBreakpointAction(0)) end).to.throw()
+			expect(function() BreakpointReducer(initialState, DeleteBreakpointAction(0)) end).to.throw()
 		end)
 		
 		it("should preserve immutability", function()
@@ -161,6 +166,5 @@ return function()
 				DeleteBreakpointAction(uniqueId), {BreakpointInfo = {[uniqueId] = breakpoint}, BreakpointIdsInDebuggerConnection = {}})
 			expect(immutabilityPreserved).to.equal(true)
 		end)
-		
 	end)
 end

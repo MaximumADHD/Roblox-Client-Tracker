@@ -27,8 +27,8 @@ local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationD
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local TabbedView = require(Components.TabbedView)
+local PlaybackTabView = require(Components.PlaybackTabView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -126,10 +126,14 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			-- Plugin contents are mounted here
-			-- New Plugin Setup: Switch out ExampleComponent with your component
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
+			TabbedView = enabled and Roact.createElement(TabbedView, {
+				Tabs = {
+					{
+						Label = "Playback",
+						ContentComponent = PlaybackTabView,
+					},
+				},
+			}),
 		}),
 	})
 end

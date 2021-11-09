@@ -22,6 +22,7 @@ return function()
 	local Templates = require(Plugin.Src.Util.Templates)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local emptyData = Templates.animationData()
@@ -31,8 +32,8 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
+					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -40,14 +41,14 @@ return function()
 						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
-						[80] = GetFFlagUseTicks() and {
+						[160] = GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
 					},
 				},
 				UpperTorso = {
-					Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
+					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -55,7 +56,7 @@ return function()
 						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
-						[80] = GetFFlagUseTicks() and {
+						[160] = GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
 					},
@@ -71,7 +72,7 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagFacialAnimationSupport() then
+			if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 			else
 				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
@@ -94,12 +95,15 @@ return function()
 			local container = test:getContainer()
 			local analytics = Analytics.mock()
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagFacialAnimationSupport() then
+			if GetFFlagChannelAnimations() then
+				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
+			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 80 or 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
 			else
 				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", GetFFlagUseTicks() and 80 or 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
 			end
 			TestHelpers.delay()
 
@@ -117,7 +121,10 @@ return function()
 			local analytics = Analytics.mock()
 
 			TestHelpers.loadAnimation(store, emptyData)
-			if GetFFlagFacialAnimationSupport() then
+			if GetFFlagChannelAnimations() then
+				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", {"UpperTorso"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
+			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 				store:dispatch(ValueChanged("Root", "UpperTorso", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
 			else
@@ -255,8 +262,13 @@ return function()
 			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(selectedKeyframes.Root.Head[1]).never.to.be.ok()
-			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
+			if GetFFlagChannelAnimations() then
+				expect(selectedKeyframes.Root.Head.Selection[1]).never.to.be.ok()
+				expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
+			else
+				expect(selectedKeyframes.Root.Head[1]).never.to.be.ok()
+				expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
+			end
 		end)
 	end)
 
@@ -289,13 +301,23 @@ return function()
 			local endTick = animationData.Metadata.EndTick
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
-			expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
-			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[endTick - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[endTick - (GetFFlagUseTicks() and 80 or 1)]).to.be.ok()
+
+			if GetFFlagChannelAnimations() then
+				expect(selectedKeyframes.Root.Head.Selection[0]).never.to.be.ok()
+				expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
+				expect(selectedKeyframes.Root.Head.Selection[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso.Selection[0]).never.to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+			else
+				expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
+				expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
+				expect(selectedKeyframes.Root.Head[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+			end
 		end)
 	end)
 
@@ -363,11 +385,11 @@ return function()
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
+			expect(selectedKeyframes.Root.Head[(GetFFlagUseTicks() and 160 or 1)]).never.to.be.ok()
 			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[(GetFFlagUseTicks() and 80 or 1)]).never.to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[(GetFFlagUseTicks() and 160 or 1)]).never.to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
 		end)
 	end)

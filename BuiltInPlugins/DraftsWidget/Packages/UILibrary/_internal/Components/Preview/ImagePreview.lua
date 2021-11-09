@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	This component is used to display a single image in an AssetPreview.
 

@@ -4,6 +4,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
+local FFlagPluginManagementFixLoadingState = game:GetFastFlag("PluginManagementFixLoadingState")
 
 local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
@@ -103,8 +104,10 @@ end
 
 function ManagementMainView:didMount()
 	self.refreshPlugins()
-	local changedToken = StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(self.refreshPlugins)
-	table.insert(self.tokens, changedToken)
+	if not FFlagPluginManagementFixLoadingState then
+		local changedToken = StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(self.refreshPlugins)
+		table.insert(self.tokens, changedToken)
+	end
 end
 
 function ManagementMainView:willUnmount()
@@ -248,8 +251,8 @@ function ManagementMainView:render()
 		}),
 
 		Indicator = loading and Roact.createElement(LoadingIndicator, {
-			AnchorPoint = Vector2.new(0.5, 0),
-			Position = UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
+			AnchorPoint = FFlagPluginManagementFixLoadingState and Vector2.new(0.5, 0.5) or Vector2.new(0.5, 0),
+			Position = FFlagPluginManagementFixLoadingState and UDim2.fromScale(0.5, 0.5) or UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
 			Size = UDim2.new(0, 92, 0, 24),
 		}),
 	})

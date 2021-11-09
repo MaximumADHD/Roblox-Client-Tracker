@@ -11,9 +11,11 @@
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
+local FFlagDumpTrackMenu = game:DefineFastFlag("ACEDEBUGDumpTrackMenu", false)
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Framework = Plugin.Packages.Framework
@@ -23,21 +25,26 @@ local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
 local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
+local ClearTrack = require(Plugin.Src.Thunks.ClearTrack)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
-function TrackActions:makeMenuActions()
+function TrackActions:makeMenuActions(isTopLevel)
 	local pluginActions = self.props.PluginActions
+	local deleteAction = isTopLevel and "DeleteTrack" or "ClearTrack"
+
 	local actions = {
 		pluginActions:get("AddKeyframe"),
-		pluginActions:get("DeleteTrack"),
+		pluginActions:get(GetFFlagChannelAnimations() and deleteAction or "DeleteTrack"),
 	}
 
 	return actions
@@ -59,34 +66,77 @@ function TrackActions:didMount()
 
 	self:addAction(actions:get("DeleteTrack"), function()
 		local props = self.props
-		local trackName = props.TrackName
+		local trackName
+		if GetFFlagChannelAnimations() then
+			trackName = props.Path[1]
+		else
+			trackName = props.TrackName
+		end
 		props.DeleteTrack(trackName, props.Analytics)
+	end)
+
+	self:addAction(actions:get("ClearTrack"), function()
+		local props = self.props
+		local path = props.Path
+		local instanceName = props.InstanceName
+		props.ClearTrack(instanceName, path, props.Analytics)
 	end)
 
 	self:addAction(actions:get("AddKeyframe"), function()
 		local props = self.props
 		local playhead = props.Playhead
-		local trackName = props.TrackName
 		local trackType = props.TrackType
 		local instanceName = props.InstanceName
+		local animationData = props.AnimationData
+		local isChannelAnimation = props.IsChannelAnimation
 
-		if instanceName and trackName then
-			local instance = props.AnimationData.Instances[instanceName]
-			local track = instance.Tracks[trackName]
+		if GetFFlagChannelAnimations() then
+			local path = props.Path
+
 			local newValue
-			if track and track.Keyframes then
-				newValue = KeyframeUtils:getValue(track, playhead)
-			else
-				if GetFFlagFacialAnimationSupport() then
-					newValue = TrackUtils.getDefaultValueByType(trackType)
+			if instanceName and path then
+				if isChannelAnimation then
+					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
+						local componentPath = Cryo.List.join(path, relPath)
+						local track = AnimationData.getTrack(animationData, instanceName, componentPath)
+						if track and track.Keyframes then
+							newValue = KeyframeUtils.getValue(track, playhead)
+						else
+							newValue = KeyframeUtils.getDefaultValue(componentType)
+						end
+						props.AddKeyframe(instanceName, componentPath, componentType, playhead, newValue, props.Analytics)
+					end)
 				else
-					newValue = TrackUtils.getDefaultValue(track)
+					local track = AnimationData.getTrack(animationData, instanceName, path)
+					if track and track.Keyframes then
+						newValue = KeyframeUtils.getValue(track, playhead)
+					else
+						newValue = KeyframeUtils.getDefaultValue(trackType)
+					end
+					props.AddKeyframe(instanceName, path, trackType, playhead, newValue, props.Analytics)
 				end
 			end
-			if GetFFlagFacialAnimationSupport() then
-				props.AddKeyframe(instanceName, trackName, trackType, playhead, newValue, props.Analytics)
-			else
-				props.AddKeyframe_deprecated(instanceName, trackName, playhead, newValue, props.Analytics)
+		else
+			local trackName = props.TrackName
+
+			if instanceName and trackName then
+				local instance = animationData.Instances[instanceName]
+				local track = instance.Tracks[trackName]
+				local newValue
+				if track and track.Keyframes then
+					newValue = KeyframeUtils:getValue(track, playhead)
+				else
+					if GetFFlagFacialAnimationSupport() then
+						newValue = TrackUtils.getDefaultValueByType(trackType)
+					else
+						newValue = TrackUtils.getDefaultValue(track)
+					end
+				end
+				if GetFFlagFacialAnimationSupport() then
+					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, playhead, newValue, props.Analytics)
+				else
+					props.AddKeyframe_deprecated(instanceName, trackName, playhead, newValue, props.Analytics)
+				end
 			end
 		end
 	end)
@@ -95,6 +145,7 @@ end
 function TrackActions:render()
 	local props = self.props
 	local showMenu = props.ShowMenu
+	local path = props.Path
 	local trackName = props.TrackName
 	local instanceName = props.InstanceName
 	local animationData = props.AnimationData
@@ -102,25 +153,74 @@ function TrackActions:render()
 
 	local actions = self.Actions
 	local pluginActions = self.props.PluginActions
+	local isChannelAnimation = self.props.IsChannelAnimation
 
 	if not isEmpty(pluginActions) and actions ~= nil then
 		for _, action in ipairs(actions) do
 			action.Enabled = false
 		end
 
-		if trackName and instanceName then
-			local instance = animationData.Instances[instanceName]
-			local track = instance.Tracks[trackName]
-			if not (track and track.Data and track.Data[playhead]) then
-				pluginActions:get("AddKeyframe").Enabled = true
+		if GetFFlagChannelAnimations() then
+			if path and instanceName then
+				local track = AnimationData.getTrack(animationData, instanceName, path)
+				local enabled
+
+				if not isChannelAnimation then
+					enabled = not (track and track.Data and track.Data[playhead])
+				elseif not track then
+					enabled = true
+				else
+					local compInfo = TrackUtils.getComponentsInfo(track, playhead)
+					enabled = not compInfo[playhead] or not compInfo[playhead].Complete
+				end
+
+				pluginActions:get("AddKeyframe").Enabled = enabled
+			end
+		else
+			if trackName and instanceName then
+				local instance = animationData.Instances[instanceName]
+				local track = instance.Tracks[trackName]
+				if not (track and track.Data and track.Data[playhead]) then
+					pluginActions:get("AddKeyframe").Enabled = true
+				end
 			end
 		end
 
 		pluginActions:get("DeleteTrack").Enabled = true
+		if GetFFlagChannelAnimations() then
+			pluginActions:get("ClearTrack").Enabled = true
+		end
+	end
+
+	local topLevelTrack = not isChannelAnimation or (path ~= nil and #path <= 1)
+	local menuActions = self:makeMenuActions(topLevelTrack)
+
+	if FFlagDumpTrackMenu then
+		table.insert(menuActions, {
+			Name = "Dump track data",
+			ItemSelected = function()
+				local instance = animationData.Instances[instanceName]
+				trackName = trackName or path[1]
+				local track = instance.Tracks[trackName]
+				local dumpTable = require(Plugin.Src.Util.Debug.dumpTable)
+				dumpTable(track)
+			end
+		})
+
+		table.insert(menuActions, {
+			Name = "Dump track as CSV",
+			ItemSelected = function()
+				local dumpTrack = require(Plugin.Src.Util.Debug.dumpTrack)
+				local instance = animationData.Instances[instanceName]
+				trackName = trackName or path[1]
+				local track = instance.Tracks[trackName]
+				dumpTrack(track, trackName)
+			end
+		})
 	end
 
 	return showMenu and Roact.createElement(ContextMenu, {
-		Actions = self:makeMenuActions(),
+		Actions = menuActions,
 		OnMenuOpened = props.OnMenuOpened,
 	}) or nil
 end
@@ -151,13 +251,13 @@ else
 	})
 end
 
-
 local function mapStateToProps(state, props)
 	local status = state.Status
 
 	return {
 		AnimationData = state.AnimationData,
 		TrackName = status.RightClickContextInfo.TrackName,
+		Path = status.RightClickContextInfo.Path,
 		TrackType = status.RightClickContextInfo.TrackType,
 		InstanceName = status.RightClickContextInfo.InstanceName,
 		Playhead = status.Playhead,
@@ -172,7 +272,20 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, trackName, trackType, tick, value, analytics)
+		ClearTrack = function(instance, path, analytics)
+			dispatch(AddWaypoint())
+			dispatch(ClearTrack(instance, path, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		AddKeyframe = function(instance, path, trackType, tick, value, analytics)
+			dispatch(AddWaypoint())
+			dispatch(AddKeyframe(instance, path, trackType, tick, value, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		-- Remove when GetFFlagChannelAnimations() is retired
+		AddKeyframe_deprecated2 = function(instance, trackName, trackType, tick, value, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddKeyframe(instance, trackName, trackType, tick, value, analytics))
 			dispatch(SetRightClickContextInfo({}))

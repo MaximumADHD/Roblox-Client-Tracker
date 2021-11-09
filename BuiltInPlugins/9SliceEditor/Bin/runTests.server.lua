@@ -11,6 +11,8 @@ end
 local commonInit = require(script.Parent.commonInit)
 commonInit()
 
+require(script.Parent.defineFlags)
+
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Framework = require(Plugin.Packages.Framework)
 

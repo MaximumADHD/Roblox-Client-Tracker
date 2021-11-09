@@ -20,8 +20,10 @@ local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
+local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(pivotTick, newTick, dragContext)
 	return function(store)
@@ -54,43 +56,85 @@ return function(pivotTick, newTick, dragContext)
 		local earliestTick, latestTick = AnimationData.getSelectionBounds(newData, selectedKeyframes)
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
-		for instanceName, instance in pairs(selectedKeyframes) do
+		for instanceName, instance in pairs(GetFFlagChannelAnimations() and newSelectedKeyframes or selectedKeyframes) do
 			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
 			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
 			local dataInstance = newData.Instances[instanceName]
 
-			for trackName, _ in pairs(instance) do
+			-- Iterate through all selected tracks. For each track, traverse its selected components and
+			-- adjust the keyframes both in the selection and in the animationData (if relevant; composite
+			-- tracks don't have keyframes)
+			for trackName, selectionTrack in pairs(instance) do
 				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
-				local keyframes = Cryo.Dictionary.keys(instance[trackName])
-				table.sort(keyframes)
+				if GetFFlagChannelAnimations() then
+					local dataTrack = dataInstance.Tracks[trackName]
+					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+						if not selectionTrack.Selection then
+							return
+						end
 
-				local startIndex, endIndex, step
-				if moveLastToFirst then
-					startIndex = #keyframes
-					endIndex = 1
-					step = -1
+						local keyframes = Cryo.Dictionary.keys(selectionTrack.Selection)
+						table.sort(keyframes)
+
+						local startIndex, endIndex, step
+						if moveLastToFirst then
+							startIndex = #keyframes
+							endIndex = 1
+							step = -1
+						else
+							startIndex = 1
+							endIndex = #keyframes
+							step = 1
+						end
+
+						for index = startIndex, endIndex, step do
+							local oldTick = keyframes[index]
+							local insertTick = newTick + (oldTick - pivotTick)
+							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							end
+							insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
+							if dataTrack.Keyframes then
+								AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
+								AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+							end
+
+							selectionTrack.Selection[oldTick] = nil
+							selectionTrack.Selection[insertTick] = true
+						end
+					end)
 				else
-					startIndex = 1
-					endIndex = #keyframes
-					step = 1
-				end
+					local keyframes = Cryo.Dictionary.keys(instance[trackName])
+					table.sort(keyframes)
 
-				local track = dataInstance.Tracks[trackName]
-
-				for index = startIndex, endIndex, step do
-					local oldTick = keyframes[index]
-					local insertTick = newTick + (oldTick - pivotTick)
-					if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-						insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+					local startIndex, endIndex, step
+					if moveLastToFirst then
+						startIndex = #keyframes
+						endIndex = 1
+						step = -1
+					else
+						startIndex = 1
+						endIndex = #keyframes
+						step = 1
 					end
-					insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
-					AnimationData.moveKeyframe(track, oldTick, insertTick)
-					AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-					newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-					newSelectedKeyframes[instanceName][trackName][insertTick] = true
+					local track = dataInstance.Tracks[trackName]
+
+					for index = startIndex, endIndex, step do
+						local oldTick = keyframes[index]
+						local insertTick = newTick + (oldTick - pivotTick)
+						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+						end
+						insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
+						AnimationData.moveKeyframe(track, oldTick, insertTick)
+						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+
+						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+						newSelectedKeyframes[instanceName][trackName][insertTick] = true
+					end
 				end
 			end
 		end

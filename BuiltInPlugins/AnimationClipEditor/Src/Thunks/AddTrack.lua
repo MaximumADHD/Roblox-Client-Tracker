@@ -10,9 +10,13 @@ local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Templates = require(Plugin.Src.Util.Templates)
+local Constants = require(Plugin.Src.Util.Constants)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SortAndSetTracks = require(Plugin.Src.Thunks.SortAndSetTracks)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local function wrappee(instanceName, trackName, trackType, analytics)
 	return function(store)
@@ -31,11 +35,20 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 			end
 		end
 
-		local newTrack = Templates.trackListEntry()
+		local newTrack = Templates.trackListEntry(GetFFlagChannelAnimations() and (trackType or Constants.TRACK_TYPES.CFrame) or nil)
 		newTrack.Name = trackName
 		newTrack.Instance = instanceName
-		if GetFFlagFacialAnimationSupport() then
-			newTrack.Type = trackType
+
+		if GetFFlagChannelAnimations() then
+			local data = state.AnimationData
+
+			if AnimationData.isChannelAnimation(data) then
+				TrackUtils.createTrackListEntryComponents(newTrack, instanceName)
+			end
+		else
+			if GetFFlagFacialAnimationSupport() then
+				newTrack.Type = trackType
+			end
 		end
 
 		local newTracks = Cryo.List.join(tracks, {newTrack})
@@ -47,7 +60,7 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 	end
 end
 
-if GetFFlagFacialAnimationSupport() then
+if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 	return function(instanceName, trackName, trackType, analytics)
 		return wrappee(instanceName, trackName, trackType, analytics)
 	end

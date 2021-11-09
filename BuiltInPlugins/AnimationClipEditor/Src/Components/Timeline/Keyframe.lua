@@ -24,6 +24,8 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+
 local DEFAULT_WIDTH = 10
 local DEFAULT_BORDER_SIZE = 2
 
@@ -37,7 +39,6 @@ function Keyframe:render()
 
 		local themeBase = style and theme.keyframe[style] or theme.keyframe.Default
 		local keyframeTheme = selected and themeBase.selected or themeBase
-
 		local position = props.Position
 		local borderSize = props.BorderSizePixel or DEFAULT_BORDER_SIZE
 		local width = props.Width or DEFAULT_WIDTH
@@ -47,6 +48,8 @@ function Keyframe:render()
 		local onRightClick = props.OnRightClick
 		local onInputBegan = props.OnInputBegan
 		local onInputEnded = props.OnInputEnded
+
+		local backgroundColor = props.Filled and keyframeTheme.backgroundColor or theme.backgroundColor
 
 		return Roact.createElement("ImageButton", {
 			Size = UDim2.new(0, width, 0, width),
@@ -61,7 +64,7 @@ function Keyframe:render()
 
 			BorderSizePixel = borderSize,
 			BorderColor3 = keyframeTheme.borderColor,
-			BackgroundColor3 = keyframeTheme.backgroundColor,
+			BackgroundColor3 = GetFFlagChannelAnimations() and backgroundColor or keyframeTheme.backgroundColor,
 
 			[Roact.Event.Activated] = onActivated,
 			[Roact.Event.MouseButton2Click] = onRightClick,

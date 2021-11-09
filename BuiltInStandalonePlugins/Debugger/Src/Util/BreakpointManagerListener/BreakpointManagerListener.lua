@@ -47,9 +47,9 @@ function BreakpointManagerListener:destroy()
 		self._metaBreakpointRemovedConnection = nil
 	end
 
-	if self._focusChangedConnection then
-		self._focusChangedConnection:Disconnect()
-		self._focusChangedConnection = nil
+	if self._metaBreakpointChangedConnection then
+		self._metaBreakpointChangedConnection:Disconnect()
+		self._metaBreakpointChangedConnection = nil
 	end
 end
 

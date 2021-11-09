@@ -10,6 +10,9 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
+
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(analytics)
 	return function(store)
@@ -29,23 +32,50 @@ return function(analytics)
 
 			local dataInstance = newData.Instances[instanceName]
 
-			for trackName, _ in pairs(instance) do
+			for trackName, selectionTrack in pairs(instance) do
 				dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
-				local keyframes = Cryo.Dictionary.keys(instance[trackName])
-				table.sort(keyframes)
-				local track = dataInstance.Tracks[trackName]
+				if GetFFlagChannelAnimations() then
+					local dataTrack = dataInstance.Tracks[trackName]
+					local trackHasBeenTraversed = false
+					local trackHasKeyframes = false
 
-				for _, keyframe in ipairs(keyframes) do
-					if track.Data[keyframe] then
-						AnimationData.deleteKeyframe(track, keyframe)
+					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+						if not selectionTrack.Selection then
+							return
+						end
+						trackHasBeenTraversed = true
+						for keyframe, _ in pairs(selectionTrack.Selection) do
+							if dataTrack.Data and dataTrack.Data[keyframe] then
+								AnimationData.deleteKeyframe(dataTrack, keyframe)
+							end
+						end
+						if dataTrack.Data and not isEmpty(dataTrack.Data) then
+							trackHasKeyframes = true
+						end
+					end)
 
-						analytics:report("onDeleteKeyframe", trackName, keyframe)
+					-- Check if we have actually traversed something, and the resulting track
+					-- did not have any data. If so, remove the track completely.
+					if trackHasBeenTraversed and not trackHasKeyframes then
+						dataInstance.Tracks[trackName] = nil
 					end
-				end
+				else
+					local keyframes = Cryo.Dictionary.keys(instance[trackName])
+					table.sort(keyframes)
+					local track = dataInstance.Tracks[trackName]
 
-				if isEmpty(track.Data) then
-					dataInstance.Tracks[trackName] = nil
+					for _, keyframe in ipairs(keyframes) do
+						if track.Data[keyframe] then
+							AnimationData.deleteKeyframe(track, keyframe)
+
+							analytics:report("onDeleteKeyframe", trackName, keyframe)
+						end
+					end
+
+					if isEmpty(track.Data) then
+						dataInstance.Tracks[trackName] = nil
+					end
 				end
 			end
 		end

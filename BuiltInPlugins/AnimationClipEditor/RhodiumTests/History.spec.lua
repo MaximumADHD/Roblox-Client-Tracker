@@ -26,7 +26,7 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
+					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -34,13 +34,13 @@ return function()
 						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
-						[80] = GetFFlagUseTicks() and {
+						[160] = GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil
 					},
 				},
 				UpperTorso = {
-					Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
+					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
@@ -48,7 +48,7 @@ return function()
 						[1] = not GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil,
-						[80] = GetFFlagUseTicks() and {
+						[160] = GetFFlagUseTicks() and {
 							Value = CFrame.new(),
 						} or nil
 					},
@@ -165,6 +165,7 @@ return function()
 			local store = test:getStore()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
+
 			local summaryTrack = TestPaths.getTrack(container, "SummaryTrack")
 			TestHelpers.clickInstance(summaryTrack["1"])
 			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
@@ -174,6 +175,9 @@ return function()
 			local keyframeElement = Element.new(summaryTrack["1"])
 			local endPoint = keyframeElement:getCenter() + Vector2.new(20, 0)
 
+			-- The selection is OK. However, VirtualInput.mouseLeftDown does not
+			-- trigger any mouse related callback in DopeSheetController. Is the
+			-- position correct?
 			VirtualInput.setCurrentWindow(container)
 			VirtualInput.mouseLeftDown(keyframeElement:getCenter())
 			TestHelpers.delay()
@@ -239,22 +243,22 @@ return function()
 
 			local animationData = store:getState().AnimationData
 			local tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 80 or 1]).never.to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 80 or 1]).never.to.be.ok()
+			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
+			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
 
 			store:dispatch(Undo())
 			TestHelpers.delay()
 			animationData = store:getState().AnimationData
 			tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 80 or 1]).to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 80 or 1]).to.be.ok()
+			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).to.be.ok()
+			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).to.be.ok()
 
 			store:dispatch(Redo())
 			TestHelpers.delay()
 			animationData = store:getState().AnimationData
 			tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 80 or 1]).never.to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 80 or 1]).never.to.be.ok()
+			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
+			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
 		end)
 	end)
 end

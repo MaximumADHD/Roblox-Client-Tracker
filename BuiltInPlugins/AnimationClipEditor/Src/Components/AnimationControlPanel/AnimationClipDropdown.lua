@@ -32,16 +32,21 @@ local FocusedPrompt = require(Plugin.Src.Components.EditEventsDialog.FocusedProm
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 local ActionToast = require(Plugin.Src.Components.Toast.ActionToast)
 local LoadKeyframeSequence = require(Plugin.Src.Thunks.Exporting.LoadKeyframeSequence)
+local LoadAnimation = require(Plugin.Src.Thunks.Exporting.LoadAnimation)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
+local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
 local ImportFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimation)
 local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
+local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
 function AnimationClipDropdown:init()
@@ -50,6 +55,7 @@ function AnimationClipDropdown:init()
 		showSaveAsPrompt = false,
 		showCreateNewPrompt = false,
 		showImportAnimModelChoicePrompt = false,
+		showPromotePrompt = false,
 		overwriteName = nil,
 		loadingName = nil,
 	}
@@ -115,6 +121,18 @@ function AnimationClipDropdown:init()
 		})
 	end
 
+	self.showPromotePrompt = function()
+		self:setState({
+			showPromotePrompt = true,
+		})
+	end
+
+	self.hidePromotePrompt = function()
+		self:setState({
+			showPromotePrompt = false,
+		})
+	end
+
 	self.showLoadNewPrompt = function(name)
 		self:setState({
 			loadingName = name,
@@ -161,7 +179,11 @@ function AnimationClipDropdown:init()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(name)
 		else
-			self.props.LoadKeyframeSequence(name, self.props.Analytics)
+			if GetFFlagChannelAnimations() then
+				self.props.LoadAnimation(name, self.props.Analytics)
+			else
+				self.props.LoadKeyframeSequence(name, self.props.Analytics)
+			end
 		end
 	end
 
@@ -185,7 +207,11 @@ function AnimationClipDropdown:init()
 				props.ImportFBXAnimation(plugin, props.Analytics)
 			end
 		else
-			props.LoadKeyframeSequence(loadingName, props.Analytics)
+			if GetFFlagChannelAnimations() then
+				props.LoadAnimation(loadingName, props.Analytics)
+			else
+				props.LoadKeyframeSequence(loadingName, props.Analytics)
+			end
 			self.hideLoadNewPrompt()
 		end
 	end
@@ -200,6 +226,7 @@ function AnimationClipDropdown:render()
 
 	local animationName = props.AnimationName
 	local layoutOrder = props.LayoutOrder
+	local isChannelAnimation = props.IsChannelAnimation
 
 	local dropdownTheme = theme.dropdownTheme
 
@@ -209,6 +236,7 @@ function AnimationClipDropdown:render()
 	local showImportAnimModelChoicePrompt = state.showImportAnimModelChoicePrompt
 	local overwriteName = state.overwriteName
 	local loadingName = state.loadingName
+	local showPromotePrompt = state.showPromotePrompt
 	local style = theme.button
 
 	return Roact.createElement("ImageButton", {
@@ -246,6 +274,7 @@ function AnimationClipDropdown:render()
 		AnimationClipMenu = Roact.createElement(AnimationClipMenu, {
 			ShowMenu = showMenu,
 			CurrentAnimation = animationName,
+			IsChannelAnimation = isChannelAnimation,
 			OnMenuOpened = self.hideMenu,
 			OnOverwriteRequested = self.showOverwritePrompt,
 			OnSaveAsRequested = self.showSaveAsPrompt,
@@ -253,6 +282,7 @@ function AnimationClipDropdown:render()
 			OnLoadRequested = self.loadNew,
 			OnImportRequested = self.importRequested,
 			OnImportFbxRequested = self.importFbxRequested,
+			OnPromoteRequested = GetFFlagChannelAnimations() and self.showPromotePrompt or nil,
 		}),
 
 		CreateNewPrompt = showCreateNewPrompt and Roact.createElement(TextEntryPrompt, {
@@ -284,7 +314,11 @@ function AnimationClipDropdown:render()
 			},
 			OnTextSubmitted = function(text)
 				self.hideSaveAsPrompt()
-				props.SaveKeyframeSequence(text, props.Analytics)
+				if GetFFlagChannelAnimations() then
+					props.SaveAnimation(text, props.Analytics)
+				else
+					props.SaveKeyframeSequence(text, props.Analytics)
+				end
 			end,
 			OnClose = self.hideSaveAsPrompt,
 		}),
@@ -311,11 +345,30 @@ function AnimationClipDropdown:render()
 			OnButtonClicked = function(didSave)
 				self.hideOverwritePrompt()
 				if didSave then
-					props.SaveKeyframeSequence(overwriteName, props.Analytics)
+					if GetFFlagChannelAnimations() then
+						props.SaveAnimation(overwriteName, props.Analytics)
+					else
+						props.SaveKeyframeSequence(overwriteName, props.Analytics)
+					end
 				end
 			end,
 			OnClose = self.hideOverwritePrompt,
 		}),
+
+		PromotePrompt = GetFFlagChannelAnimations() and showPromotePrompt and Roact.createElement(FocusedPrompt, {
+			PromptText = localization:getText("Dialog", "PromotePrompt"),
+			Buttons = {
+				{Key = false, Text = localization:getText("Dialog", "Cancel")},
+				{Key = true, Text = localization:getText("Dialog", "Confirm"), Style = style.Primary},
+			},
+			OnButtonClicked = function(didPromote)
+				self.hidePromotePrompt()
+				if didPromote then
+					props.PromoteKeyframeSequence()
+				end
+			end,
+			OnClose = self.hidePromotePrompt
+		}) or nil,
 
 		LoadNewPrompt = loadingName and Roact.createElement(TextEntryPrompt, {
 			PromptText = localization:getText("Title", "ConfirmSave"),
@@ -333,7 +386,11 @@ function AnimationClipDropdown:render()
 				end
 			end,
 			OnTextSubmitted = function(text)
-				props.SaveKeyframeSequence(text, props.Analytics)
+				if GetFFlagChannelAnimations() then
+					props.SaveAnimation(text, props.Analytics)
+				else
+					props.SaveKeyframeSequence(text, props.Analytics)
+				end
 				self.handleLoadNewPrompt()
 			end,
 			OnClose = self.hideLoadNewPrompt,
@@ -372,12 +429,22 @@ local function mapDispatchToProps(dispatch)
 			dispatch(LoadAnimationData(name, analytics))
 		end,
 
+		-- Remove when GetFFlagChannelAnimations is ON
 		LoadKeyframeSequence = function(name, analytics)
 			dispatch(LoadKeyframeSequence(name, analytics))
 		end,
 
+		LoadAnimation = function(name, analytics)
+			dispatch(LoadAnimation(name, analytics))
+		end,
+
+		-- Remove when GetFFlagChannelAnimations is ON
 		SaveKeyframeSequence = function(name, analytics)
 			dispatch(SaveKeyframeSequence(name, analytics))
+		end,
+
+		SaveAnimation = function(name, analytics)
+			dispatch(SaveAnimation(name, analytics))
 		end,
 
 		SetIsPlaying = function(isPlaying)
@@ -402,6 +469,10 @@ local function mapDispatchToProps(dispatch)
 
 		SetIsDirty = function(isDirty)
 			dispatch(SetIsDirty(isDirty))
+		end,
+
+		PromoteKeyframeSequence = function()
+			dispatch(PromoteKeyframeSequence())
 		end,
 	}
 end

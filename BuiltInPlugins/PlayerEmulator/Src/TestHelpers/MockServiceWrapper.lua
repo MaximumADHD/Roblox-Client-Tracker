@@ -10,9 +10,11 @@ local createMainReducer = require(Plugin.Src.Reducers.createMainReducer)
 local MockStudioPlugin = require(Plugin.Src.TestHelpers.MockStudioPlugin)
 local Http = require(Plugin.Packages.Http)
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
+local MakeTheme = require(Plugin.Src.Resources.MakeTheme)
 
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
-local globals = require(Plugin.Src.Util.CreatePluginGlobals)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local UILibraryWrapper = ContextServices.UILibraryWrapper
 
 local MockServiceWrapper = Roact.Component:extend("MockServiceWrapper")
 
@@ -40,15 +42,15 @@ function MockServiceWrapper:render()
 	local store = Rodux.Store.new(createMainReducer(), storeState, { Rodux.thunkMiddleware })
 
 	local networkingImpl = Http.Networking.mock()
-
+	
 	return ContextServices.provide({
 		ContextServices.Plugin.new(pluginInstance),
 		ContextServices.Focus.new(focusGui),
-		globals.theme,
+		MakeTheme(),
 		localization,
 		ContextServices.Store.new(store),
 		NetworkingContext.new(networkingImpl),
-		globals.uiLibraryWrapper,
+		UILibraryWrapper.new(),
 	}, self.props[Roact.Children])
 end
 

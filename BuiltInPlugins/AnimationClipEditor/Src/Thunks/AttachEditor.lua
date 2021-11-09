@@ -19,6 +19,7 @@ local SetActive = require(Plugin.Src.Actions.SetActive)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(analytics)
 	return function(store)
@@ -51,7 +52,7 @@ return function(analytics)
 			store:dispatch(SortAndSetTracks({}))
 			for instanceName, instance in pairs(animationData.Instances) do
 				for trackName, track in pairs(instance.Tracks) do
-					if GetFFlagFacialAnimationSupport() then
+					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 						store:dispatch(AddTrack(instanceName, trackName, track.Type, analytics))
 					else
 						store:dispatch(AddTrack(instanceName, trackName, analytics))

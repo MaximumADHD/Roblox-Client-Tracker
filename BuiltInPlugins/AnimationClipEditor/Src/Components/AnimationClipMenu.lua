@@ -28,6 +28,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local Constants = require(Plugin.Src.Util.Constants)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -37,9 +38,14 @@ local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local Separator = Constants.MENU_SEPARATOR
 
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
+local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
+
 local ExportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ExportKeyframeSequence)
+local ExportAnimation = require(Plugin.Src.Thunks.Exporting.ExportAnimation)
+
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local FFlagRenameExportToPublish = game:DefineFastFlag("ACERenameExportToPublish", false)
 
@@ -122,19 +128,26 @@ end
 function AnimationClipMenu:makeMenuActions(localization)
 	local props = self.props
 	local onCreateNewRequested = props.OnCreateNewRequested
+	local onPromoteRequested = props.OnPromoteRequested
 	local current = props.CurrentAnimation or ""
 	local animationData = props.AnimationData
 	local plugin = props.Plugin
+	local isChannelAnimation = props.IsChannelAnimation
 
 	local currentPriority = animationData and animationData.Metadata
 		and animationData.Metadata.Priority
+	local enablePromote = animationData and not isChannelAnimation
 
 	local actions = {}
 	table.insert(actions, self:makeLoadMenu(localization, current))
 	table.insert(actions, {
 		Name = localization:getText("Menu", "Save"),
 		ItemSelected = function()
-			props.SaveKeyframeSequence(current, props.Analytics)
+			if GetFFlagChannelAnimations() then
+				props.SaveAnimation(current, props.Analytics)
+			else
+				props.SaveKeyframeSequence(current, props.Analytics)
+			end
 		end,
 	})
 	table.insert(actions, self:makeSaveAsMenu(localization, current))
@@ -155,7 +168,11 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, {
 		Name = localization:getText("Menu", FFlagRenameExportToPublish and "PublishToRoblox" or "Export"),
 		ItemSelected = function()
-			props.ExportKeyframeSequence(plugin, props.Analytics)
+			if GetFFlagChannelAnimations() then
+				props.ExportAnimation(plugin, props.Analytics)
+			else
+				props.ExportKeyframeSequence(plugin, props.Analytics)
+			end
 		end,
 	})
 	table.insert(actions, Separator)
@@ -163,6 +180,15 @@ function AnimationClipMenu:makeMenuActions(localization)
 		Name = localization:getText("Menu", "CreateNew"),
 		ItemSelected = onCreateNewRequested,
 	})
+
+	if GetFFlagChannelAnimations() then
+		table.insert(actions, {
+			Name = localization:getText("Menu", "PromoteToChannels"),
+			ItemSelected = onPromoteRequested,
+			Enabled = enablePromote,
+		})
+	end
+
 	table.insert(actions, Separator)
 	table.insert(actions, self:makePrioritySubMenu(localization, currentPriority))
 
@@ -205,12 +231,22 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		-- Remove when GetFFlagChannelAnimations is ON
 		SaveKeyframeSequence = function(name, analytics)
 			dispatch(SaveKeyframeSequence(name, analytics))
 		end,
 
+		SaveAnimation = function(name, analytics)
+			dispatch(SaveAnimation(name, analytics))
+		end,
+
+		-- Remove when GetFFlagChannelAnimations is ON
 		ExportKeyframeSequence = function(plugin, analytics)
 			dispatch(ExportKeyframeSequence(plugin, analytics))
+		end,
+
+		ExportAnimation = function(plugin, analytics)
+			dispatch(ExportAnimation(plugin, analytics))
 		end,
 
 		SetPriority = function(priority)

@@ -1,21 +1,37 @@
--- Fast flags
-require(script.Parent.defineLuaFlags)
-
 local Plugin = script.Parent.Parent
-local TestsFolderPlugin = Plugin.Src
---local TestsFolderPackages = Plugin.Packages -- Can be used to run package's unit tests
 
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local SHOULD_RUN_TESTS = false -- Do not check in as true!
+local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = true
 
-if SHOULD_RUN_TESTS then
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local TestEZ = require(Plugin.Packages.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
-	local TextReporter = TestEZ.Reporters.TextReporterQuiet
 
-	-- You can also run the unit tests for the packages by adding TestsFolderPackages
-	-- to the table. Some of them might be broken though.
-	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
-	TestBootstrap:run({ TestsFolderPlugin}, TextReporter)
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+	local reporter = TestEZ.Reporters.TextReporter
+	if DebugFlags.LogTestsQuiet() then
+		reporter = TestEZ.Reporters.TextReporterQuiet
+	end
+
+	reporter = _G["TEAMCITY"] and TeamCityReporter or reporter
+
+	print("----- All " .. script.Parent.Parent.Name .. " Tests ------")
+	require(script.Parent.defineLuaFlags)
+	TestBootstrap:run({Plugin.Src}, reporter)
 	print("----------------------------------")
+
+	if DebugFlags.RunDeveloperFrameworkTests() then
+		print("")
+		print("----- All Developer Framework Tests ------")
+		TestBootstrap:run({Plugin.Packages._Index.DeveloperFramework.DeveloperFramework}, reporter)
+		print("----------------------------------")
+	end
+end
+
+if DebugFlags.RunningUnderCLI() then
+	pcall(function()
+		game:GetService("ProcessService"):ExitAsync(0)
+	end)
 end

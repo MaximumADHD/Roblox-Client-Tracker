@@ -40,9 +40,12 @@ local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 
+local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
@@ -51,6 +54,7 @@ local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 local function isSupportedBulkImportAssetScreen(screen)
     return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
         or (shouldEnableAudioImport() and screen.Key == Screens.AUDIO.Key)
+        or (FFlagAssetManagerEnableModelAssets and screen.Key == Screens.MODELS.Key)
 end
 
 function AssetGridContainer:init()
@@ -63,6 +67,7 @@ function AssetGridContainer:init()
     self.listLayoutRef = Roact.createRef()
 
     self.bulkImportFinishedConnection = nil
+	self.importSessionFinishedConnection = nil
 
     self.onClearSelection = function()
         if not self.props.Enabled then
@@ -109,12 +114,28 @@ function AssetGridContainer:didMount()
             props.dispatchGetAssets(apiImpl, screen.AssetType)
         end
     end)
+
+	if FFlagAssetManagerGeneralizeSignalAPI then
+		self.importSessionFinishedConnection = AssetManagerService.ImportSessionFinished:Connect(function()
+			local props = self.props
+			local screen = props.CurrentScreen
+			if isSupportedBulkImportAssetScreen(screen) then
+				local apiImpl = props.API:get()
+				props.dispatchSetAssets({ assets = {} })
+				props.dispatchGetAssets(apiImpl, screen.AssetType)
+			end
+		end)
+	end
 end
 
 function AssetGridContainer:willUnmount()
     if self.bulkImportFinishedConnection then
         self.bulkImportFinishedConnection:disconnect()
     end
+
+	if self.importSessionFinishedConnection then
+		self.importSessionFinishedConnection:Disconnect()
+	end
 end
 
 function AssetGridContainer:createTiles(apiImpl, localization, theme,

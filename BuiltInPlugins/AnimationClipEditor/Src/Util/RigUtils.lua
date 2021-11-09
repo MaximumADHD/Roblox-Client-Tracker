@@ -14,6 +14,7 @@ local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local Adorn = require(Plugin.Src.Util.Adorn)
+local Templates = require(Plugin.Src.Util.Templates)
 
 local Workspace = game:GetService("Workspace")
 
@@ -24,6 +25,7 @@ local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimatio
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local RigUtils = {}
 
@@ -915,10 +917,21 @@ function RigUtils.getRigInfo(rig)
 	return parts, partNameToMotorMap, partNameToConstraintMap, boneNameToBoneInstanceMap
 end
 
+local function traverseFolders(instance, func)
+	local children = instance:GetChildren()
+
+	for _, child in pairs(children) do
+		if child:IsA("Folder") then
+			func(child)
+			traverseFolders(child, func)
+		end
+	end
+end
+
 -- For KeyframeSequence animations, traverse all poses and sub-poses for a given keyframe.
 local function traversePoses(instance, func)
 	local poses = {}
-	if GetFFlagFacialAnimationSupport() then
+	if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 		-- For now, we need to traverse Folders as well (For the FaceControls folder)
 		if instance:IsA("Keyframe") then
 			poses = instance:GetPoses()
@@ -931,7 +944,7 @@ local function traversePoses(instance, func)
 	end
 
 	for _, pose in pairs(poses) do
-		if GetFFlagFacialAnimationSupport() then
+		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 			-- Do not call the function for folders
 			if pose:IsA("PoseBase") then
 				func(pose)
@@ -994,8 +1007,8 @@ local function AddAnimationRigToKeyframeSequence(animationData, model, keyframeS
 	end
 end
 
--- Unused when GetFFlagFacialAnimationSupport is ON
-local function makePoseChain_deprecated_too(keyframe, trackName, trackData, pathMap)
+-- Unused when GetFFlagFacialAnimationSupport and GetFFlagChannelAnimations is ON
+local function makePoseChain_deprecated2(keyframe, trackName, trackData, pathMap)
 	local path = pathMap[trackName]
 
 	-- We haven't found a path to this trackName in the rig, bail out
@@ -1068,7 +1081,6 @@ local function makePoseChain(keyframe, trackName, trackType, trackData, pathMap)
 	pose.Weight = 1
 	pose.EasingStyle = trackData.EasingStyle.Name
 	pose.EasingDirection = trackData.EasingDirection.Name
-
 end
 
 -- For each track name (name of a part), find the parents leading to the root instance
@@ -1097,7 +1109,7 @@ local function createPathMap(tracks, partsToMotors, boneMap)
 	end
 
 	for trackName, track in pairs(tracks) do
-		if GetFFlagFacialAnimationSupport() then
+		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 			if track.Type == Constants.TRACK_TYPES.CFrame then
 				pathMap[trackName] = getPartPath(trackName)
 			elseif track.Type == Constants.TRACK_TYPES.Facs then
@@ -1129,6 +1141,233 @@ local function createPathMap(tracks, partsToMotors, boneMap)
 	end
 
 	return pathMap
+end
+
+local function makeFolderChain(curveAnimation, trackName, pathMap)
+	local path = pathMap[trackName]
+
+	-- We haven't found a path to this trackName in the rig, bail out
+	if path == nil then
+		return
+	end
+
+	-- Add all intermediate poses (or FACS folder)
+	local folder = curveAnimation
+	for _, folderName in ipairs(path) do
+		folder = folder:FindFirstChild(folderName) or Instance.new("Folder", folder)
+		folder.Name = folderName
+	end
+
+	return folder
+end
+
+function RigUtils.fillFloatCurve(track, curve)
+	for tick, keyframe in pairs(track.Data) do
+		local time = tick / Constants.TICK_FREQUENCY
+		local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
+		key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
+		if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+		end
+		curve:InsertKey(key)
+	end
+end
+
+function RigUtils.makeVector3Curve(track)
+	local vector3Curve = Instance.new("Vector3Curve")
+
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], vector3Curve:X())
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], vector3Curve:Y())
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], vector3Curve:Z())
+
+	return vector3Curve
+end
+
+function RigUtils.makeEulerCurve(track, parent)
+	local eulerCurve = Instance.new("EulerRotationCurve")
+	eulerCurve.RotationOrder = Enum.RotationOrder.XYZ
+
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
+	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
+
+	return eulerCurve
+end
+
+function RigUtils.makeFacsCurve(track)
+	local facsCurve = Instance.new("FloatCurve")
+	RigUtils.fillFloatCurve(track, facsCurve)
+
+	return facsCurve
+end
+
+-- Exporting to CurveAnimation animation requires a dummy rig so that we
+-- can determine which parts are connected to other parts to build a pose chain.
+function RigUtils.toCurveAnimation(animationData, rig)
+	assert(animationData ~= nil, "No data table was provided.")
+	assert(rig ~= nil, "Exporting to CurveAnimation requires a reference rig.")
+	local metadata = animationData.Metadata
+
+	local curveAnimation = Instance.new("CurveAnimation")
+	curveAnimation.Name = metadata.Name
+	curveAnimation.Loop = metadata.Looping
+	curveAnimation.Priority = metadata.Priority
+
+	local _, partsToMotors, _, boneMap = RigUtils.getRigInfo(rig)
+
+	-- Create curves
+	local root = animationData.Instances.Root
+	assert(root.Type == Constants.INSTANCE_TYPES.Rig, "Can only export Rig animations to CurveAnimation.")
+	local tracks = root.Tracks
+
+	local pathMap = createPathMap(tracks, partsToMotors, boneMap)
+
+	for trackName, track in pairs(tracks) do
+		local folder = makeFolderChain(curveAnimation, trackName, pathMap)
+
+		if track.Type == Constants.TRACK_TYPES.CFrame then
+			-- Only create a folder if needed
+			folder = folder:FindFirstChild(trackName) or Instance.new("Folder", folder)
+			folder.Name = trackName
+
+			local vectorCurve = RigUtils.makeVector3Curve(track.Components[Constants.PROPERTY_KEYS.Position])
+			vectorCurve.Name = Constants.PROPERTY_KEYS.Position
+			vectorCurve.Parent = folder
+
+			local eulerCurve = RigUtils.makeEulerCurve(track.Components[Constants.PROPERTY_KEYS.Rotation])
+			eulerCurve.Name = Constants.PROPERTY_KEYS.Rotation
+			eulerCurve.Parent = folder
+		elseif track.Type == Constants.TRACK_TYPES.Facs then
+			local facsCurve = RigUtils.makeFacsCurve(track)
+			facsCurve.Name = trackName
+			facsCurve.Parent = folder
+		end
+	end
+
+	-- TODO: Export events
+
+	return curveAnimation
+end
+
+function RigUtils.readCurve(track, curve, trackType)
+	local endTick = 0
+	local lastTick = 0
+
+	track.IsCurveTrack = true
+	-- We are at the bottom of the components hierarchy (Number or Angle).
+	-- This is where we read all the keys and fill the track data
+	if trackType == Constants.TRACK_TYPES.Number or
+		trackType == Constants.TRACK_TYPES.Angle or
+		trackType == Constants.TRACK_TYPES.Facs then
+
+		track.Keyframes = {}
+		track.Data = {}
+
+		local keys = curve:GetKeys()
+		for _, key in ipairs(keys) do
+			local tick = KeyframeUtils.getNearestTick(key.Time * Constants.TICK_FREQUENCY)
+			if tick > endTick then
+				endTick = tick
+			end
+
+			local leftSlope = key.LeftTangent and (key.LeftTangent / Constants.TICK_FREQUENCY) or nil
+			local rightSlope = key.RightTangent and (key.RightTangent / Constants.TICK_FREQUENCY) or nil
+			AnimationData.addCurveKeyframe(track, tick, key.Value, key.Interpolation, leftSlope, rightSlope)
+		end
+	else
+		track.Components = {}
+
+		-- We iterate through all the expected components
+		for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[trackType]._Order) do
+			-- Try to find a curve with the name of the component
+			local componentType = Constants.COMPONENT_TRACK_TYPES[trackType][componentName]
+			local componentCurve = curve:FindFirstChild(componentName)
+
+			if componentCurve == nil then
+				continue
+			end
+
+			local componentTrack = Templates.track(componentType)
+			componentTrack.IsCurveTrack = true
+
+			lastTick = RigUtils.readCurve(componentTrack, componentCurve, componentType)
+			track.Components[componentName] = componentTrack
+
+			if lastTick > endTick then
+				endTick = lastTick
+			end
+		end
+	end
+
+	return endTick
+end
+
+function RigUtils.readFacsCurves(tracks, faceControlsFolder)
+	if not GetFFlagFacialAnimationSupport() then
+		return 0
+	end
+
+	local endTick = 0
+	local facsCurves = faceControlsFolder:GetChildren()
+
+	for _, facsCurve in pairs(facsCurves) do
+		if not facsCurve:IsA("FloatCurve") then
+			continue
+		end
+
+		local facsName = facsCurve.Name
+		local track = AnimationData.addTrack(tracks, facsName, Constants.TRACK_TYPES.Facs)
+		local lastTick = RigUtils.readCurve(track, facsCurve, Constants.TRACK_TYPES.Facs)
+
+		if lastTick > endTick then
+			endTick = lastTick
+		end
+	end
+
+	return endTick
+end
+
+function RigUtils.fromCurveAnimation(curveAnimation)
+	assert(curveAnimation ~= nil
+		and typeof(curveAnimation) == "Instance"
+		and curveAnimation.ClassName == "CurveAnimation",
+		"Expected a CurveAnimation for the AnimationData."
+	)
+
+	local animationData = AnimationData.new(curveAnimation.Name, Constants.INSTANCE_TYPES.Rig)
+
+	local tracks = animationData.Instances.Root.Tracks
+	local endTick = 0
+
+	traverseFolders(curveAnimation, function(folder)
+		local lastTick = 0
+		if folder.Name == Constants.FACE_CONTROLS_FOLDER then
+			-- Read all FACS curves from the FaceControls folder
+			lastTick = RigUtils.readFacsCurves(tracks, folder)
+		else
+			-- Read a single CFrame curve from the folder, provided that there is something to read.
+			-- We don't want to add empty tracks to animationData
+			if folder:FindFirstChild(Constants.PROPERTY_KEYS.Position)
+				or folder:FindFirstChild(Constants.PROPERTY_KEYS.Rotation) then
+				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true)
+				lastTick = RigUtils.readCurve(track, folder, Constants.TRACK_TYPES.CFrame)
+			end
+		end
+
+		if lastTick > endTick then
+			endTick = lastTick
+		end
+	end)
+
+	local metadata = animationData.Metadata
+
+	metadata.Name = curveAnimation.Name
+	metadata.Looping = curveAnimation.Loop
+	metadata.Priority = curveAnimation.Priority
+	metadata.EndTick = endTick
+	metadata.IsChannelAnimation = true
+
+	return animationData
 end
 
 -- Exporting to KeyframeSequence animation requires a dummy rig so that we
@@ -1170,10 +1409,10 @@ function RigUtils.toRigAnimation(animationData, rig)
 			local trackType = track.Type
 			local trackData = track.Data[tick]
 
-			if GetFFlagFacialAnimationSupport() then
+			if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 				makePoseChain(keyframeInstance, trackName, trackType, trackData, pathMap)
 			else
-				makePoseChain_deprecated_too(keyframeInstance, trackName, trackData, pathMap)
+				makePoseChain_deprecated2(keyframeInstance, trackName, trackData, pathMap)
 			end
 
 			-- Set keyframe name, if one exists
@@ -1285,14 +1524,14 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 			if poseName ~= "HumanoidRootPart" and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if GetFFlagFacialAnimationSupport() then
+					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 						AnimationData.addTrack(tracks, poseName, trackType)
 					else
 						AnimationData.addTrack(tracks, poseName)
 					end
 				end
 				local track = tracks[poseName]
-				if GetFFlagFacialAnimationSupport() then
+				if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
 					AnimationData.addKeyframe(track, tick, value)
 				else
@@ -1376,14 +1615,14 @@ function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapT
 
 			if poseName ~= "HumanoidRootPart" and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
-					if GetFFlagFacialAnimationSupport() then
+					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 						AnimationData.addTrack(tracks, poseName, trackType)
 					else
 						AnimationData.addTrack(tracks, poseName)
 					end
 				end
 				local track = tracks[poseName]
-				if GetFFlagFacialAnimationSupport() then
+				if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
 					AnimationData.addKeyframe(track, tick, value)
 				else
@@ -1448,7 +1687,11 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			local joint = partsToMotors[part.Name] or boneMap[part.Name]
 			local track = instance.Tracks[part.Name]
 			if track then
-				joint.Transform = KeyframeUtils:getValue(track, tick)
+				if GetFFlagChannelAnimations() then
+					joint.Transform = KeyframeUtils.getValue(track, tick)
+				else
+					joint.Transform = KeyframeUtils:getValue(track, tick)
+				end
 			else
 				joint.Transform = CFrame.new()
 			end
@@ -1459,7 +1702,11 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			if joint then
 				local track = instance.Tracks[part.Name]
 				if track then
-					joint.Transform = KeyframeUtils:getValue(track, tick)
+					if GetFFlagChannelAnimations() then
+						joint.Transform = KeyframeUtils.getValue(track, tick)
+					else
+						joint.Transform = KeyframeUtils:getValue(track, tick)
+					end
 				else
 					joint.Transform = CFrame.new()
 				end
@@ -1470,7 +1717,11 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 		if faceControls ~= nil then
 			for trackName, track in pairs(instance.Tracks) do
 				if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
-					faceControls[trackName] = KeyframeUtils:getValue(track, tick)
+					if GetFFlagChannelAnimations() then
+						faceControls[trackName] = KeyframeUtils.getValue(track, tick)
+					else
+						faceControls[trackName] = KeyframeUtils:getValue(track, tick)
+					end
 				end
 			end
 		end
@@ -1511,7 +1762,7 @@ function RigUtils.getAnimSaves(rig)
 		local children = animSaves:GetChildren()
 		local animations = {}
 		for _, child in ipairs(children) do
-			if child:IsA("KeyframeSequence") then
+			if child:IsA("KeyframeSequence") or (GetFFlagChannelAnimations() and child:IsA("CurveAnimation")) then
 				table.insert(animations, child)
 			end
 		end

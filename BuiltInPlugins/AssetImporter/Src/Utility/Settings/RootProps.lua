@@ -7,6 +7,7 @@ return {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},
 			{Name = "InsertInWorkspace", Editable = true},
+			{Name = "Anchored", Editable = true},
 		},
 	},
 	{

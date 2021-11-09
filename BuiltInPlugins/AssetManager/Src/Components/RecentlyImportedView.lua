@@ -35,7 +35,6 @@ local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
 function RecentlyImportedView:createListItems(theme, recentAssets, selectedAssets, enabled)
     local assetsToDisplay = {}
-
     for _, asset in pairs(recentAssets) do
         local assetItem = Roact.createElement(ListItem, {
             AssetData = asset,

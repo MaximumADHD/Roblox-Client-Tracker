@@ -26,7 +26,7 @@ local DOCKWIDGET_MIN_HEIGHT = 180
 local DOCKWIDGET_INITIAL_WIDTH = 600
 local DOCKWIDGET_INITIAL_HEIGHT = 560
 
-local FFlagPluginManagementFixWhiteScreen = game:DefineFastFlag("PluginManagementFixWhiteScreen", false)
+local FFlagPluginManagementFixWhiteScreen = game:GetFastFlag("PluginManagementFixWhiteScreen")
 
 local makeTheme
 

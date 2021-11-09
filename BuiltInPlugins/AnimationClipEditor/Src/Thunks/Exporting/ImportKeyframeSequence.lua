@@ -4,6 +4,7 @@
 ]]
 
 local KeyframeSequenceProvider = game:GetService("KeyframeSequenceProvider")
+local AnimationClipProvider = game:GetService("AnimationClipProvider")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
@@ -14,6 +15,7 @@ local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(plugin, analytics)
 	return function(store)
@@ -27,7 +29,11 @@ return function(plugin, analytics)
 		if id and tonumber(id) > 0 then
 			local anim
 			local status = pcall(function()
-				anim = KeyframeSequenceProvider:GetKeyframeSequenceById(id, false)
+				if GetFFlagChannelAnimations() then
+					anim = AnimationClipProvider:GetAnimationClipById(id, false)
+				else
+					anim = KeyframeSequenceProvider:GetKeyframeSequenceById(id, false)
+				end
 			end)
 
 			if not status then
@@ -39,11 +45,20 @@ return function(plugin, analytics)
 			end
 
 			local newData, frameRate
-			if GetFFlagUseTicks() then
-				newData, frameRate = RigUtils.fromRigAnimation(anim)
+			if GetFFlagChannelAnimations() then
+				if anim:IsA("KeyframeSequence") then
+					newData, frameRate = RigUtils.fromRigAnimation(anim)
+				else
+					newData = RigUtils.fromCurveAnimation(anim)
+					frameRate = Constants.DEFAULT_FRAMERATE
+				end
 			else
-				frameRate = RigUtils.calculateFrameRate(anim)
-				newData = RigUtils.fromRigAnimation_deprecated(anim, frameRate)
+				if GetFFlagUseTicks() then
+					newData, frameRate = RigUtils.fromRigAnimation(anim)
+				else
+					frameRate = RigUtils.calculateFrameRate(anim)
+					newData = RigUtils.fromRigAnimation_deprecated(anim, frameRate)
+				end
 			end
 
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME

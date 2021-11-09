@@ -1,3 +1,5 @@
+require(script.Parent.defineLuaFlags)
+
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 

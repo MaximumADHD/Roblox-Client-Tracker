@@ -1,3 +1,3 @@
-export type Example = any
+export type PlaybackMode = string
 
 return {}

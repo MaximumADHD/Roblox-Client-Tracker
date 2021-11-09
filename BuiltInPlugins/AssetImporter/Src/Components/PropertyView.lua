@@ -12,10 +12,11 @@ local Localization = ContextServices.Localization
 local Stylizer = ContextServices.Stylizer
 
 local UI = Framework.UI
-local Image = UI.Decoration.Image
 local Pane = UI.Pane
 local TextLabel = UI.Decoration.TextLabel
 local Tooltip = UI.Tooltip
+
+local PropertyStatus = require(Plugin.Src.Components.PropertyStatus)
 
 local Properties = script.Parent.Properties
 local BooleanProperty = require(Properties.BooleanProperty)
@@ -25,8 +26,6 @@ local StringProperty = require(Properties.StringProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
-local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
-local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
@@ -35,44 +34,6 @@ local ELEMENT_CLASSES = {
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
 }
-
-local function statusIsRelevant(statusType, propertyName)
-	if StatusPropertyMap[propertyName] then
-		return StatusPropertyMap[propertyName][statusType] or false
-	end
-	return false
-end
-
-local function getRelevantStatuses(statusTable, propertyName)
-	local relevantStatuses = {}
-	for statusType, subStatusTable in pairs(statusTable) do
-		relevantStatuses[statusType] = {}
-		for _, status in pairs(subStatusTable) do
-			if statusIsRelevant(status.StatusType, propertyName) then
-				table.insert(relevantStatuses[statusType], status)
-			end
-		end
-	end
-	return relevantStatuses
-end
-
-local function getHighestSeverityStatus(instance, propertyName)
-	local statuses = instance:GetStatuses()
-	local level = nil
-	local message = ""
-
-	statuses = getRelevantStatuses(statuses, propertyName)
-
-	if #statuses.Errors > 0 then
-		level = StatusLevel.Error
-		message = statuses.Errors[1].StatusType
-	elseif #statuses.Warnings > 0 then
-		level = StatusLevel.Warning
-		message = statuses.Warnings[1].StatusType
-	end
-
-	return level, message
-end
 
 local function GetPropertyComponent(instance)
 	local constructor = ELEMENT_CLASSES[type(instance)]
@@ -150,6 +111,8 @@ function PropertyView:render()
 
 	local editable = props.Editable
 	local instance = props.Instance
+	local statusLevel = props.StatusLevel
+	local statusMessage = props.StatusMessage
 	local value = instance[props.PropertyName]
 
 	local dependentValues
@@ -159,22 +122,6 @@ function PropertyView:render()
 
 	local iconSize = style.PropertyView.IconSize
 	local spacing = style.PropertyView.Spacing
-
-	local statusLevel, message = getHighestSeverityStatus(instance, props.PropertyName)
-	local statusIcon = nil
-
-	if statusLevel then
-		local iconStyle = statusLevel == StatusLevel.Error and style.ErrorIcon or style.WarningIcon
-		statusIcon = Roact.createElement(Image, {
-			Size = UDim2.fromOffset(iconSize, iconSize),
-			Style = iconStyle,
-		}, {
-			Tooltip = Roact.createElement(Tooltip, {
-				Text = localization:getText("Statues", message),
-			})
-		})
-	end
-
 	local labelOffset = iconSize + spacing
 
 	return Roact.createElement(Pane, {
@@ -189,7 +136,10 @@ function PropertyView:render()
 			LayoutOrder = 2,
 			Size = UDim2.new(0, labelOffset, 1, 0),
 		}, {
-			Icon = statusIcon,
+			Icon = statusLevel and Roact.createElement(PropertyStatus, {
+				StatusLevel = statusLevel,
+				StatusMessage = statusMessage,
+			}) or nil,
 		}),
 		Label = Roact.createElement(TextLabel, {
 			AutomaticSize = Enum.AutomaticSize.Y,
@@ -198,6 +148,10 @@ function PropertyView:render()
 			TextXAlignment = Enum.TextXAlignment.Left,
 			LayoutOrder = 1,
 			Size = UDim2.new(0.5, -labelOffset, 0, 0),
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				Text = localization:getText("PropertiesTooltip", props.PropertyName),
+			})
 		}),
 		Editor = Roact.createElement(GetPropertyComponent(value), {
 			Value = value,

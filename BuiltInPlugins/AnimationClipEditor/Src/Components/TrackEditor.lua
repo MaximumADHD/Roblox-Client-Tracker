@@ -166,6 +166,7 @@ function TrackEditor:render()
 	local tracks = props.Tracks or {}
 	local showEvents = props.ShowEvents
 	local playhead = props.Playhead
+	local isChannelAnimation = props.IsChannelAnimation
 
 	local snapToNearestKeyframe = props.SnapToNearestKeyframe
 	local snapToNearestFrame = props.SnapToNearestFrame
@@ -225,6 +226,7 @@ function TrackEditor:render()
 			Tracks = tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			ShowAsSeconds = showAsSeconds,
+			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		ZoomBar = Roact.createElement(ZoomBar, {

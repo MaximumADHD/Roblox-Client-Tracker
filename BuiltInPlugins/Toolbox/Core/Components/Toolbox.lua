@@ -63,13 +63,13 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local FFlagStudioToolboxPersistBackgroundColor = game:GetFastFlag("StudioToolboxPersistsBackgroundColor")
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -195,7 +195,6 @@ function Toolbox:init(props)
 			searchTerm = "",
 			sortIndex = 1,
 			groupIndex = 0,
-			selectedBackgroundIndex = (not FFlagStudioToolboxPersistBackgroundColor) and 0 or nil,
 		}, optionsOverrides or {})
 		local mySettings = self.props.Settings:get("Plugin")
 		self.props.changeMarketplaceTab(networkInterface, tabName, newCategories, mySettings, options)
@@ -229,20 +228,38 @@ function Toolbox:didMount()
 	self.props.setRoles(getNetwork(self))
 
 	self.props.getRobuxBalance(getNetwork(self))
+	if FFlagImprovePluginSpeed_Toolbox then
+		self._showPluginsConnection = self.props.pluginLoaderContext and self.props.pluginLoaderContext.signals[
+			"MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
+			local categoryName = Category.WHITELISTED_PLUGINS.name
 
-	self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-		local categoryName = Category.WHITELISTED_PLUGINS.name
+			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+				categoryName = categoryName,
+			})
 
-		self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-			categoryName = categoryName,
-		})
+			Analytics.openedFromPluginManagement()
+		end) or nil
+	else
+		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+			local categoryName = Category.WHITELISTED_PLUGINS.name
 
-		Analytics.openedFromPluginManagement()
-	end)
+			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+				categoryName = categoryName,
+			})
+
+			Analytics.openedFromPluginManagement()
+		end)
+	end
 end
 
 function Toolbox:willUnmount()
-	self._showPluginsConnection:Disconnect()
+	if FFlagImprovePluginSpeed_Toolbox then
+		if self._showPluginsConnection then
+			self._showPluginsConnection:Disconnect()
+		end
+	else
+		self._showPluginsConnection:Disconnect()
+	end
 end
 
 function Toolbox:render()

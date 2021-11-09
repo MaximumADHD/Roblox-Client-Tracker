@@ -8,6 +8,7 @@
 
 local Action = require(script.Parent.Action)
 
+-- Deprecated with GetFFlagChannelAnimations
 return Action(script.Name, function(tracks, expanded)
 	return {
 		tracks = tracks,

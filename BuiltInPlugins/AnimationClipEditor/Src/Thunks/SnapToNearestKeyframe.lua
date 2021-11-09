@@ -13,6 +13,7 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(tick, trackWidth)
 	return function(store)
@@ -47,13 +48,27 @@ return function(tick, trackWidth)
 
 			local closestKey = range.End + 1
 			for _, track in pairs(tracks) do
-				if #track.Keyframes > 0 then
-					local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tick)
-					if math.abs(track.Keyframes[first] - tick) < math.abs(tick - closestKey) then
-						closestKey = track.Keyframes[first]
-					end
-					if second and math.abs(track.Keyframes[second] - tick) < math.abs(tick - closestKey) then
-						closestKey = track.Keyframes[second]
+				if GetFFlagChannelAnimations() then
+					TrackUtils.traverseTracks(nil, track, function(t)
+						if t.Keyframes and #t.Keyframes > 0 then
+							local first, second = KeyframeUtil.findNearestKeyframes(t.Keyframes, tick)
+							if math.abs(t.Keyframes[first] - tick) < math.abs(tick - closestKey) then
+								closestKey = t.Keyframes[first]
+							end
+							if second and math.abs(t.Keyframes[second] - tick) < math.abs(tick - closestKey) then
+								closestKey = t.Keyframes[second]
+							end
+						end
+					end, true)
+				else
+					if track.Keyframes and #track.Keyframes > 0 then
+						local first, second = KeyframeUtil.findNearestKeyframes(track.Keyframes, tick)
+						if math.abs(track.Keyframes[first] - tick) < math.abs(tick - closestKey) then
+							closestKey = track.Keyframes[first]
+						end
+						if second and math.abs(track.Keyframes[second] - tick) < math.abs(tick - closestKey) then
+							closestKey = track.Keyframes[second]
+						end
 					end
 				end
 			end

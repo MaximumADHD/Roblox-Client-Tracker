@@ -5,5 +5,6 @@
 game:DefineFastInt("DebugStudioDraftsWidgetTestCase", 0)
 game:DefineFastFlag("DraftsWidgetDeduplicatePackages", false)
 game:DefineFastFlag("DraftsWidgetUseCreateContext", false)
+game:DefineFastFlag("DraftsWidgetDontInitializeNonEditDm", false)
 
 return nil

@@ -1,4 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -103,14 +104,50 @@ local function themeExtended()
 	return Cryo.Dictionary.join(pluginTheme, constants)
 end
 
+local function getMockUILibraryTheme()
+	local mockStyleGuideColor = {}
+	setmetatable(mockStyleGuideColor, {
+		__index = function()
+			return Color3.new(math.random(), math.random(), math.random())
+		end
+	})
+
+	local mockStyleGuideModifier = {}
+	setmetatable(mockStyleGuideModifier, {
+		__index = function()
+			return nil
+		end
+	})
+
+	local styleGuide = StudioStyle.new(
+		function(...)
+			return Color3.new()
+		end,
+		mockStyleGuideColor,
+		mockStyleGuideModifier
+	)
+
+	return createTheme(styleGuide, {})
+end
+
 local function makeTheme()
-	local theme = settings().Studio.Theme
-	local styleRoot = StudioTheme.new()
-	local extended = themeExtended()
-	styleRoot:extend(extended)
-	function styleRoot:getUILibraryTheme()
-		return getUILibraryTheme(theme, styleRoot)
+	local makeMockTheme = DebugFlags.RunningUnderCLI()
+
+	local styleRoot
+	if makeMockTheme then
+		styleRoot = StudioTheme.mock()
+		function styleRoot:getUILibraryTheme()
+			return getMockUILibraryTheme()
+		end
+	else
+		styleRoot = StudioTheme.new()
+		local theme = settings().Studio.Theme
+		function styleRoot:getUILibraryTheme()
+			return getUILibraryTheme(theme, styleRoot)
+		end
 	end
+	styleRoot:extend(themeExtended())
+
 	return styleRoot
 end
 

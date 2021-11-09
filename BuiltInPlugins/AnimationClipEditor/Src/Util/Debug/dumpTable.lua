@@ -1,5 +1,8 @@
 -- Debug method to dump a table recursively
 local function dump(table, depth)
+	if table == nil then
+		return "<nil>"
+	end
     local prefix = string.rep("⋅⋅", depth)
     local s = "{\n"
     for key, value in pairs(table) do

@@ -64,11 +64,14 @@ return function()
 	end)
 	
 	describe("OnEmulatedCountryRegionChanged", function()
-		it("should set switch to active when region is CN", function()
+		it("should set switch to active when region is CN and c++ fast flag is enabled", function()
+			-- we unfortunately cannot use SetFastFlagForTesting for a c++ flag, but rotest with flags on/off should cover both cases
+			local expected = game:GetFastFlag("PlayerEmulatorCustomPoliciesToggleEnabled3")
+
 			local state = CustomPolicySwitchReducer(nil, OnEmulatedCountryRegionChanged("CN"))
 			expect(state.customPolicySwitchActive).to.be.ok()
 			expect(type(state.customPolicySwitchActive)).to.equal("boolean")
-			expect(state.customPolicySwitchActive).to.equal(true)
+			expect(state.customPolicySwitchActive).to.equal(expected)
 		end)
 		it("should set switch to not active when region is not CN", function()
 			local state = CustomPolicySwitchReducer(nil, OnEmulatedCountryRegionChanged("XYZ"))

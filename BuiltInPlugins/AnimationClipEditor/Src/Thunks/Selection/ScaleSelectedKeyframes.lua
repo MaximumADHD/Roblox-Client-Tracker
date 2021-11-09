@@ -28,9 +28,11 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
+local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -74,106 +76,202 @@ return function(pivotTick, scale, dragContext)
 
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
-		for instanceName, instance in pairs(selectedKeyframes) do
-			newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
-			newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
+		if GetFFlagChannelAnimations() then
+			for instanceName, instance in pairs(newSelectedKeyframes) do
+				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
-			local dataInstance = newData.Instances[instanceName]
+				local dataInstance = newData.Instances[instanceName]
 
-			if scale > 1 then
-				for trackName, _ in pairs(instance) do
+				-- Iterate through all selected tracks. For each track, traverse its selected components and
+				-- adjust the keyframes both in the selection and in the animationData (if relevant; composite
+				-- tracks don't have keyframes)
+
+				for trackName, selectionTrack in pairs(instance) do
 					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
-
-					local keyframes = Cryo.Dictionary.keys(instance[trackName])
-					table.sort(keyframes)
-					local track = dataInstance.Tracks[trackName]
-
-					-- Everything below the pivot is moving left, so perform
-					-- the move from left to right to avoid clobbering
-					for index = 1, #keyframes, 1 do
-						local oldTick = keyframes[index]
-						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+					local dataTrack = dataInstance.Tracks[trackName]
+					SelectionUtils.traverse(selectionTrack, dataTrack, function(selectionTrack, dataTrack)
+						if not selectionTrack.Selection then
+							return
 						end
-						insertTick = math.clamp(insertTick, startTick, maxLength)
-						if insertTick >= pivotTick then
-							break
-						end
-						AnimationData.moveKeyframe(track, oldTick, insertTick)
-						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+						local keyframes = Cryo.Dictionary.keys(selectionTrack.Selection)
+						table.sort(keyframes)
 
-						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-						newSelectedKeyframes[instanceName][trackName][insertTick] = true
-					end
+						if scale > 1 then
+							local function scaleKeyframe(oldTick, step)
+								local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+								if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+									insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+								end
+								insertTick = math.clamp(insertTick, startTick, maxLength)
 
-					-- Everything above the pivot is moving right, so perform
-					-- the move from right to left to avoid clobbering
-					for index = #keyframes, 1, -1 do
-						local oldTick = keyframes[index]
-						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
-						end
-						insertTick = math.clamp(insertTick, startTick, maxLength)
-						if insertTick <= pivotTick then
-							break
-						end
-						AnimationData.moveKeyframe(track, oldTick, insertTick)
-						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+								-- Step is 1 when going from left to right, and -1 when going from right to left.
+								-- Use that to stop the loop (by returning true) when we reach the pivot
+								if insertTick * step >= pivotTick * step then
+									return true
+								end
 
-						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-						newSelectedKeyframes[instanceName][trackName][insertTick] = true
-					end
+								if dataTrack.Keyframes then
+									AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
+									AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+								end
+
+								selectionTrack.Selection[oldTick] = nil
+								selectionTrack.Selection[insertTick] = true
+
+								return false
+							end
+
+							-- Everything below the pivot is moving left, so perform
+							-- the move from left to right to avoid clobbering
+							for index = 1, #keyframes, 1 do
+								if scaleKeyframe(keyframes[index], 1) then
+									break
+								end
+							end
+
+							-- Everything above the pivot is moving right, so perform
+							-- the move from right to left to avoid clobbering
+							for index = #keyframes, 1, -1 do
+								if scaleKeyframe(keyframes[index], -1) then
+									break
+								end
+							end
+						else
+							local lowPivot, highPivot = KeyframeUtils.findNearestKeyframes(keyframes, pivotTick)
+							if highPivot == nil then
+								highPivot = lowPivot + 1
+							end
+
+							local function scaleKeyframe(oldTick)
+								local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+								if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+									insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+								end
+								insertTick = math.clamp(insertTick, startTick, maxLength)
+
+								if dataTrack.Keyframes then
+									AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
+									AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+								end
+
+								selectionTrack.Selection[oldTick] = nil
+								selectionTrack.Selection[insertTick] = true
+							end
+
+							for index = lowPivot, 1, -1 do
+								scaleKeyframe(keyframes[index])
+							end
+
+							for index = highPivot, #keyframes, 1 do
+								scaleKeyframe(keyframes[index])
+							end
+						end
+					end)
 				end
-			else
-				for trackName, _ in pairs(instance) do
-					dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+			end
 
-					local keyframes = Cryo.Dictionary.keys(instance[trackName])
-					table.sort(keyframes)
-					local track = dataInstance.Tracks[trackName]
+		else
+			for instanceName, instance in pairs(selectedKeyframes) do
+				newData.Instances[instanceName] = Cryo.Dictionary.join({}, newData.Instances[instanceName])
+				newData.Instances[instanceName].Tracks = Cryo.Dictionary.join({}, newData.Instances[instanceName].Tracks)
 
-					local lowPivot, highPivot = KeyframeUtils.findNearestKeyframes(keyframes, pivotTick)
-					if highPivot == nil then
-						highPivot = lowPivot + 1
-					end
+				local dataInstance = newData.Instances[instanceName]
 
-					-- Everything below the pivot is moving right, so perform
-					-- the move from right to left to avoid clobbering
-					for index = lowPivot, 1, -1 do
-						local oldTick = keyframes[index]
-						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+				if scale > 1 then
+					for trackName, _ in pairs(instance) do
+						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
+
+						local keyframes = Cryo.Dictionary.keys(instance[trackName])
+						table.sort(keyframes)
+						local track = dataInstance.Tracks[trackName]
+
+						-- Everything below the pivot is moving left, so perform
+						-- the move from left to right to avoid clobbering
+						for index = 1, #keyframes, 1 do
+							local oldTick = keyframes[index]
+							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							end
+							insertTick = math.clamp(insertTick, startTick, maxLength)
+							if insertTick >= pivotTick then
+								break
+							end
+							AnimationData.moveKeyframe(track, oldTick, insertTick)
+							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+
+							newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+							newSelectedKeyframes[instanceName][trackName][insertTick] = true
 						end
-						insertTick = math.clamp(insertTick, startTick, insertTick)
-						AnimationData.moveKeyframe(track, oldTick, insertTick)
-						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-						newSelectedKeyframes[instanceName][trackName][insertTick] = true
-					end
+						-- Everything above the pivot is moving right, so perform
+						-- the move from right to left to avoid clobbering
+						for index = #keyframes, 1, -1 do
+							local oldTick = keyframes[index]
+							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							end
+							insertTick = math.clamp(insertTick, startTick, maxLength)
+							if insertTick <= pivotTick then
+								break
+							end
+							AnimationData.moveKeyframe(track, oldTick, insertTick)
+							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 
-					-- Everything above the pivot is moving left, so perform
-					-- the move from left to right to avoid clobbering
-					for index = highPivot, #keyframes, 1 do
-						local oldTick = keyframes[index]
-						local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+							newSelectedKeyframes[instanceName][trackName][insertTick] = true
 						end
-						insertTick = math.clamp(insertTick, startTick, maxLength)
-						AnimationData.moveKeyframe(track, oldTick, insertTick)
-						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+					end
+				else
+					for trackName, _ in pairs(instance) do
+						dataInstance.Tracks[trackName] = deepCopy(dataInstance.Tracks[trackName])
 
-						newSelectedKeyframes[instanceName][trackName][oldTick] = nil
-						newSelectedKeyframes[instanceName][trackName][insertTick] = true
+						local keyframes = Cryo.Dictionary.keys(instance[trackName])
+						table.sort(keyframes)
+						local track = dataInstance.Tracks[trackName]
+
+						local lowPivot, highPivot = KeyframeUtils.findNearestKeyframes(keyframes, pivotTick)
+						if highPivot == nil then
+							highPivot = lowPivot + 1
+						end
+
+						-- Everything below the pivot is moving right, so perform
+						-- the move from right to left to avoid clobbering
+						for index = lowPivot, 1, -1 do
+							local oldTick = keyframes[index]
+							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							end
+							insertTick = math.clamp(insertTick, startTick, insertTick)
+							AnimationData.moveKeyframe(track, oldTick, insertTick)
+							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+
+							newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+							newSelectedKeyframes[instanceName][trackName][insertTick] = true
+						end
+
+						-- Everything above the pivot is moving left, so perform
+						-- the move from left to right to avoid clobbering
+						for index = highPivot, #keyframes, 1 do
+							local oldTick = keyframes[index]
+							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
+							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							end
+							insertTick = math.clamp(insertTick, startTick, maxLength)
+							AnimationData.moveKeyframe(track, oldTick, insertTick)
+							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
+
+							newSelectedKeyframes[instanceName][trackName][oldTick] = nil
+							newSelectedKeyframes[instanceName][trackName][insertTick] = true
+						end
 					end
 				end
 			end
 		end
-
 		store:dispatch(UpdateAnimationData(newData))
 		store:dispatch(SetSelectedKeyframes(newSelectedKeyframes))
 	end

@@ -5,6 +5,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+
 local Templates = {}
 
 function Templates.animationData()
@@ -44,26 +46,31 @@ end
 function Templates.track(trackType)
 	return {
 		Type = trackType,
-		Keyframes = {},
-		Data = {},
+		IsCurveTrack = false,
+		-- Keyframes and Data are now optional
+		Keyframes = not GetFFlagChannelAnimations() and {} or nil,
+		Data = not GetFFlagChannelAnimations() and {} or nil,
 	}
 end
 
-function Templates.trackListEntry()
+function Templates.trackListEntry(trackType)
 	return {
 		Name = "",
 		Depth = 0,
 		Expanded = false,
 		Selected = false,
-		Type = Constants.TRACK_TYPES.CFrame,
+		Type = GetFFlagChannelAnimations() and trackType or Constants.TRACK_TYPES.CFrame,
 	}
 end
 
 function Templates.keyframe()
 	return {
 		Value = nil,
-		EasingStyle = Enum.PoseEasingStyle.Linear,
-		EasingDirection = Enum.PoseEasingDirection.In,
+		EasingStyle = not GetFFlagChannelAnimations() and Enum.PoseEasingStyle.Linear or nil,
+		EasingDirection = not GetFFlagChannelAnimations() and Enum.PoseEasingDirection.In or nil,
+		InterpolationMode = nil,
+		LeftSlope = nil,
+		RightSlope = nil,
 	}
 end
 

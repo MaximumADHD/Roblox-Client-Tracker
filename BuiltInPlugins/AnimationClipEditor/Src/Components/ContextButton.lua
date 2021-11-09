@@ -19,6 +19,8 @@ local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+
 local ContextButton = Roact.PureComponent:extend("ContextButton")
 
 function ContextButton:init()
@@ -27,7 +29,7 @@ function ContextButton:init()
 	}
 
 	self.mouseEnter = function()
-		if self.props.Mouse then 
+		if self.props.Mouse then
 			self.props.Mouse:__pushCursor("PointingHand")
 			self:setState({
 				hovered = true,
@@ -36,7 +38,7 @@ function ContextButton:init()
 	end
 
 	self.mouseLeave = function()
-		if self.props.Mouse then 
+		if self.props.Mouse then
 			self.props.Mouse:__popCursor()
 			self:setState({
 				hovered = false,
@@ -62,6 +64,7 @@ function ContextButton:render()
 		local trackTheme = theme.trackTheme
 		local anchorPoint = props.AnchorPoint
 		local position = props.Position
+		local zIndex = GetFFlagChannelAnimations() and props.ZIndex or nil
 		local trackSelected = props.TrackSelected
 
 		local hovered = state.hovered
@@ -80,6 +83,7 @@ function ContextButton:render()
 			AnchorPoint = anchorPoint,
 			Position = position,
 			BackgroundTransparency = 1,
+			ZIndex = zIndex,
 
 			Image = trackTheme.contextMenu,
 			ImageColor3 = imageColor,

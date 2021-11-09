@@ -3,10 +3,12 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
+	local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 
 	local TestHelpers = require(Plugin.RhodiumTests.TestHelpers)
 	local Framework = require(Plugin.Packages.Framework)
-	local ContextServices = Framework.ContextServices
+
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local Analytics = Framework.ContextServices.Analytics
 
@@ -43,7 +45,11 @@ return function()
 			local store = test:getStore()
 			local analytics = Analytics.mock()
 			TestHelpers.loadAnimation(store, testAnimationData)
-			store:dispatch(SaveKeyframeSequence("TestAnimation", analytics))
+			if GetFFlagChannelAnimations() then
+				store:dispatch(SaveAnimation("TestAnimation", analytics))
+			else
+				store:dispatch(SaveKeyframeSequence("TestAnimation", analytics))
+			end
 
 			local rootInstance = store:getState().Status.RootInstance
 			expect(rootInstance:FindFirstChild("AnimSaves")).to.be.ok()
@@ -67,7 +73,11 @@ return function()
 			animSaves.Name = "AnimSaves"
 			animSaves.Parent = rootInstance
 
-			store:dispatch(SaveKeyframeSequence("TestAnimation", analytics))
+			if GetFFlagChannelAnimations() then
+				store:dispatch(SaveAnimation("TestAnimation", analytics))
+			else
+				store:dispatch(SaveKeyframeSequence("TestAnimation", analytics))
+			end
 			expect(rootInstance:FindFirstChild("AnimSaves")).to.be.ok()
 			expect(rootInstance.AnimSaves:FindFirstChild("TestAnimation")).to.be.ok()
 			local testAnimation = rootInstance.AnimSaves.TestAnimation

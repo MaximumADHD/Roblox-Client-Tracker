@@ -4,6 +4,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local AnimationData = require(script.Parent.AnimationData)
 
@@ -20,7 +21,7 @@ return function()
 				Type = "Skeleton",
 				Tracks = {
 					["TestTrack"] = {
-						Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 						Keyframes = {1, 2, 3},
 						Data = {
 							[1] = {
@@ -41,7 +42,7 @@ return function()
 						}
 					},
 					["OtherTrack"] = {
-						Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 						Keyframes = {1, 2, 3},
 						Data = {
 							[1] = {
@@ -294,7 +295,7 @@ return function()
 	describe("addKeyframe", function()
 		it("should add a new keyframe", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {},
 				Data = {},
 			}
@@ -306,7 +307,7 @@ return function()
 
 		it("should preserve the old keyframes", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1},
 				Data = {
 					[1] = {},
@@ -319,7 +320,7 @@ return function()
 
 		it("should sort the Keyframes table after adding", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1, 3},
 				Data = {
 					[1] = {},
@@ -336,7 +337,7 @@ return function()
 	describe("moveKeyframe", function()
 		it("should move a keyframe", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1},
 				Data = {
 					[1] = {},
@@ -351,7 +352,7 @@ return function()
 
 		it("should preserve the old keyframes", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1, 2},
 				Data = {
 					[1] = {},
@@ -365,7 +366,7 @@ return function()
 
 		it("should clobber a keyframe if another is moved onto it", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1, 2},
 				Data = {
 					[1] = {
@@ -383,7 +384,7 @@ return function()
 
 		it("should sort the Keyframes table after moving", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {2, 3},
 				Data = {
 					[2] = {},
@@ -399,7 +400,7 @@ return function()
 	describe("deleteKeyframe", function()
 		it("should delete a keyframe", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1, 2},
 				Data = {
 					[1] = {},
@@ -413,7 +414,7 @@ return function()
 
 		it("should preserve the old keyframes", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1, 2},
 				Data = {
 					[1] = {},
@@ -428,7 +429,7 @@ return function()
 	describe("setKeyframeData", function()
 		it("should set a keyframe's data", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1},
 				Data = {
 					[1] = {},
@@ -447,7 +448,7 @@ return function()
 
 		it("should merge with the keyframe's existing data", function()
 			local track = {
-				Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 				Keyframes = {1},
 				Data = {
 					[1] = {

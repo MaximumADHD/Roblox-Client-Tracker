@@ -26,6 +26,12 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
 
 -----------------------------------
+----------------FLAGS--------------
+-----------------------------------
+local GetFFlagFixResizingWithPadding = require(script.Parent.Flags.FFlagFixResizingWithPadding)
+
+
+-----------------------------------
 -------------VARIABLES-------------
 -----------------------------------
 
@@ -65,18 +71,41 @@ local function dragElementsBy(vector)
 									(not Utility:isOnlyOffsetUDim2(m_originalSelectionData[i][DATA_POSITION]) and
 									GlobalValues:isScale())
 										
+			local padding = element.parent:FindFirstChildWhichIsA("UIPadding")
+			local paddingTL = Vector2.new(0, 0)
+			local paddingBR = Vector2.new(0, 0)
+			if padding then
+				paddingTL = Vector2.new(padding.PaddingLeft.Offset, padding.PaddingTop.Offset)
+					+ Vector2.new(padding.PaddingLeft.Scale, padding.PaddingTop.Scale) * element.parent.AbsoluteSize
+				paddingBR = Vector2.new(padding.PaddingRight.Offset, padding.PaddingBottom.Offset)
+					+ Vector2.new(padding.PaddingRight.Scale, padding.PaddingBottom.Scale) * element.parent.AbsoluteSize
+			end
+
 			if (shouldUseScalePosition) then
-				local scale = vector / element.Parent.AbsoluteSize
+				local scale
+				if GetFFlagFixResizingWithPadding() then
+					scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
+				else
+					scale = vector / element.Parent.AbsoluteSize
+				end
 				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
 				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
 				-- to get accurate scale for position when dragging
 				if (element.Parent:IsA("ScrollingFrame")) then
 					-- bug in quantum gui, should use scrolling frame's parent size
 					if (element.Parent.CanvasSize.X.Scale >= 1) then
-						scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
+						if GetFFlagFixResizingWithPadding() then
+							scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
+						else
+							scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
+						end
 					end
 					if (element.Parent.CanvasSize.Y.Scale >= 1) then
-						scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
+						if GetFFlagFixResizingWithPadding() then
+							scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
+						else
+							scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
+						end
 					end
 				end
 				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)

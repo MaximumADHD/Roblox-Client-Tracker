@@ -7,6 +7,7 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -31,7 +32,7 @@ return function()
 				Type = "Rig",
 				Tracks = {
 					["Head"] = {
-						Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 						Keyframes = {0},
 						Data = {
 							[0] = {
@@ -42,7 +43,7 @@ return function()
 						}
 					},
 					["UpperTorso"] = {
-						Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+						Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 						Keyframes = {0},
 						Data = {
 							[0] = {

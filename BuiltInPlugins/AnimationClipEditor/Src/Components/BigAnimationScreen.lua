@@ -27,6 +27,7 @@ function BigAnimationScreen:render()
 	local size = props.Size
 	local layoutOrder = props.LayoutOrder
 	local localization = props.Localization
+	local isChannelAnimation = props.IsChannelAnimation
 
 	local emptyFunc = function() end
 
@@ -48,6 +49,7 @@ function BigAnimationScreen:render()
 		TimelineActions = Roact.createElement(TimelineActions, {
 			ShowMenu = false,
 			MultipleSelected = false,
+			IsChannelAnimation = isChannelAnimation,
 			OnMenuOpened = emptyFunc,
 			OnItemSelected = emptyFunc,
 			OnRenameKeyframe = emptyFunc,

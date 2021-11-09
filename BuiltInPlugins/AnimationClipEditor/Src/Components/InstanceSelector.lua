@@ -67,7 +67,7 @@ function InstanceSelector:isCurrentRootInstance(instance)
 end
 
 function InstanceSelector:selectValidInstance(validFunc, invalidFunc)
-	if GetFFlagUseLuaDraggers() and not self.isMounted then
+	if GetFFlagUseLuaDraggers() and self.wasUnmounted then
 		return
 	end
 	local target = getMouseTarget(self)
@@ -96,6 +96,10 @@ function InstanceSelector:showErrorDialogs(plugin, errorList)
 end
 
 function InstanceSelector:init()
+	if GetFFlagUseLuaDraggers() then
+		self.wasUnmounted = false
+	end
+
 	self.state = {
 		HoverPart = nil
 	}
@@ -154,9 +158,6 @@ end
 
 function InstanceSelector:didMount()
 	self.deselect()
-	if GetFFlagUseLuaDraggers() then
-		self.isMounted = true
-	end
 
 	self.Heartbeat = RunService.Heartbeat:Connect(function(step)
 		self:selectValidInstance(self.highlightInstance, self.removeHighlight)
@@ -207,7 +208,7 @@ end
 
 function InstanceSelector:willUnmount()
 	if GetFFlagUseLuaDraggers() then
-		self.isMounted = false
+		self.wasUnmounted = true
 	end
 
 	if self.Heartbeat then

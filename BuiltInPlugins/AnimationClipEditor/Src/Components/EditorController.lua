@@ -45,7 +45,8 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SettingsButton = require(Plugin.Src.Components.SettingsButton)
 
 local AddTrack = require(Plugin.Src.Thunks.AddTrack)
-local SetTracksExpanded = require(Plugin.Src.Actions.SetTracksExpanded)
+local SetTracksExpanded_deprecated = require(Plugin.Src.Actions.SetTracksExpanded)
+local SetTracksExpanded = require(Plugin.Src.Thunks.SetTracksExpanded)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 local MoveSelectedTrack = require(Plugin.Src.Thunks.MoveSelectedTrack)
@@ -71,6 +72,7 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
 
@@ -139,16 +141,30 @@ function EditorController:init()
 		})
 	end
 
-	self.showMenu = function(track)
-		self.props.SetIsPlaying(false)
-		self.props.SetRightClickContextInfo({
-			TrackName = track.Name,
-			TrackType = GetFFlagFacialAnimationSupport() and track.Type or nil,
-			InstanceName = track.Instance,
-		})
-		self:setState({
-			showContextMenu = true,
-		})
+	if GetFFlagChannelAnimations() then
+		self.showMenu = function(instanceName, path, trackType)
+			self.props.SetIsPlaying(false)
+			self.props.SetRightClickContextInfo({
+				Path = path,
+				TrackType = trackType,
+				InstanceName = instanceName,
+			})
+			self:setState({
+				showContextMenu = true,
+			})
+		end
+	else
+		self.showMenu = function(track)
+			self.props.SetIsPlaying(false)
+			self.props.SetRightClickContextInfo({
+				TrackName = track.Name,
+				TrackType = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and track.Type or nil,
+				InstanceName = track.Instance,
+			})
+			self:setState({
+				showContextMenu = true,
+			})
+		end
 	end
 
 	self.hideMenu = function()
@@ -263,7 +279,7 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if GetFFlagFacialAnimationSupport() then
+		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 			self.props.AddTrack(instanceName, trackName, trackType, self.props.Analytics)
 		elseif self.props.Analytics then
 			self.props.AddTrack_deprecated(instanceName, trackName, self.props.Analytics)
@@ -281,11 +297,21 @@ function EditorController:init()
 			self.props.AttachEditor(self.props.Analytics)
 		end
 	end
+
+	self.onValueChanged = function(instanceName, path, trackType, tick, value)
+		if not AnimationData.isChannelAnimation(self.props.AnimationData) then
+			self.props.ValueChanged(instanceName, path, trackType, tick, value, self.props.Analytics)
+		else
+			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
+				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tick, _value, self.props.Analytics)
+			end)
+		end
+	end
 end
 
 if UseLuaDraggers() then
 	function EditorController:willUpdate(nextProps)
-		if nextProps.RootInstance ~= self.props.RootInstance and nextProps.RootInstance ~= nil then
+		if (nextProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil) and nextProps.RootInstance ~= nil then
 			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
 			for _, part in ipairs(self.KinematicParts) do
 				self.nameToPart[part.Name] = part
@@ -333,6 +359,14 @@ function EditorController:render()
 	local showEditor = animationData ~= nil
 	local useJointSelector = not UseLuaDraggers()
 	local bigAnimation = false
+	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
+
+	local selectedPaths = {}
+	if GetFFlagChannelAnimations() and selectedTracks then
+		for _, track in pairs(selectedTracks) do
+			table.insert(selectedPaths, {track})
+		end
+	end
 
 	if animationData then
 		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
@@ -383,6 +417,7 @@ function EditorController:render()
 				EditingLength = editingLength,
 				AnimationData = props.AnimationData,
 				ShowAsSeconds = showAsSeconds,
+				IsChannelAnimation = isChannelAnimation,
 			}),
 
 			EventsAndTracks = Roact.createElement("ImageButton", {
@@ -426,9 +461,11 @@ function EditorController:render()
 
 					OnScroll = self.onScroll,
 					OpenContextMenu = self.showMenu,
-					ToggleTrackExpanded = props.SetTracksExpanded,
+					ToggleTrackExpanded = GetFFlagChannelAnimations() and props.SetTracksExpanded or props.SetTracksExpanded_deprecated,
 					OnTrackAdded = self.addTrackWrapper,
-					OnValueChanged = props.ValueChanged,
+					OnValueChanged = GetFFlagChannelAnimations() and self.onValueChanged or props.ValueChanged,
+					-- Remove when GetFFlagChannelAnimations() is retired
+					OnValueChangedDeprecated2 = props.ValueChanged_deprecated2,
 					-- Remove when GetFFlagFacialAnimationSupport() is retired
 					OnValueChangedDeprecated = props.ValueChanged_deprecated,
 					OnChangeBegan = props.AddWaypoint,
@@ -442,9 +479,17 @@ function EditorController:render()
 						elseif Input.isDown(input.KeyCode) then
 							props.MoveSelectedTrack(1)
 						elseif Input.isLeft(input.KeyCode) then
-							props.CloseSelectedTracks(selectedTracks)
+							if GetFFlagChannelAnimations() then
+								props.CloseSelectedTracks(selectedPaths)
+							else
+								props.CloseSelectedTracks_deprecated(selectedTracks)
+							end
 						elseif Input.isRight(input.KeyCode) then
-							props.ExpandSelectedTracks(selectedTracks)
+							if GetFFlagChannelAnimations() then
+								props.ExpandSelectedTracks(selectedPaths)
+							else
+								props.ExpandSelectedTracks_deprecated(selectedTracks)
+							end
 						elseif Input.isControl(input.KeyCode) then
 							self.controlDown = true
 						elseif Input.isShift(input.KeyCode) then
@@ -484,6 +529,7 @@ function EditorController:render()
 			Scroll = scroll,
 			Zoom = zoom,
 			OnScroll = self.onScroll,
+			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		SettingsAndVerticalScrollBar = showEditor and not bigAnimation and Roact.createElement("Frame", {
@@ -509,6 +555,7 @@ function EditorController:render()
 		BigAnimationScreen = bigAnimation and Roact.createElement(BigAnimationScreen, {
 			Size = UDim2.new(1, -trackListWidth, 1, 0),
 			LayoutOrder = 2,
+			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		StartScreen = not showEditor and Roact.createElement(StartScreen, {
@@ -532,16 +579,20 @@ function EditorController:render()
 			OnSelectPart = self.onPartSelected,
 			OnDragStart = not isPlaying and props.AddWaypoint or nil,
 			OnManipulateJoint = not isPlaying and function(instanceName, trackName, value)
-				if GetFFlagFacialAnimationSupport() then
-					props.ValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
+				if GetFFlagChannelAnimations() then
+					self.onValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, playhead, value)
+				elseif GetFFlagFacialAnimationSupport() then
+					props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
 				else
 					props.ValueChanged_deprecated(instanceName, trackName, playhead, value, props.Analytics)
 				end
 			end or nil,
 			OnManipulateJoints = not isPlaying and function(instanceName, values)
 				for trackName, value in pairs(values) do
-					if GetFFlagFacialAnimationSupport() then
-						props.ValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
+					if GetFFlagChannelAnimations() then
+						self.onValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, playhead, value)
+					elseif GetFFlagFacialAnimationSupport() then
+						props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
 					else
 						props.ValueChanged_deprecated(instanceName, trackName, playhead, value, props.Analytics)
 					end
@@ -556,6 +607,7 @@ function EditorController:render()
 		TrackActions = active and showEditor and Roact.createElement(TrackActions, {
 			ShowMenu = state.showContextMenu,
 			OnMenuOpened = self.hideMenu,
+			IsChannelAnimation = GetFFlagChannelAnimations() and isChannelAnimation or nil,
 		}),
 
 		IgnoreLayout = showEditor and Roact.createElement("Folder", {}, {
@@ -635,8 +687,12 @@ end
 
 local function mapDispatchToProps(dispatch)
 	local dispatchToProps = {
-		SetTracksExpanded = function(tracks, expanded)
-			dispatch(SetTracksExpanded(tracks, expanded))
+		SetTracksExpanded = function(paths, expanded)
+			dispatch(SetTracksExpanded(paths, expanded, false))
+		end,
+
+		SetTracksExpanded_deprecated = function(tracks, expanded)
+			dispatch(SetTracksExpanded_deprecated(tracks, expanded))
 		end,
 
 		SetSelectedTrackInstances = function(trackInstances)
@@ -651,12 +707,20 @@ local function mapDispatchToProps(dispatch)
 			dispatch(MoveSelectedTrack(movement))
 		end,
 
-		ExpandSelectedTracks = function(tracks)
-			dispatch(SetTracksExpanded(tracks, true))
+		ExpandSelectedTracks = function(paths)
+			dispatch(SetTracksExpanded(paths, true, true))
 		end,
 
-		CloseSelectedTracks = function(tracks)
-			dispatch(SetTracksExpanded(tracks, false))
+		ExpandSelectedTracks_deprecated = function(tracks)
+			dispatch(SetTracksExpanded_deprecated(tracks, true))
+		end,
+
+		CloseSelectedTracks = function(paths)
+			dispatch(SetTracksExpanded(paths, false, true))
+		end,
+
+		CloseSelectedTracks_deprecated = function(tracks)
+			dispatch(SetTracksExpanded_deprecated(tracks, false))
 		end,
 
 		AddTrack = function(instance, track, trackType, analytics)
@@ -664,7 +728,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(AddTrack(instance, track, trackType, analytics))
 		end,
 
-		-- Remove when GetFFlagFacialAnimationSupport() is retired
+		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
 		AddTrack_deprecated = function(instance, track, analytics)
 			dispatch(AddWaypoint())
 			dispatch(AddTrack(instance, track, analytics))
@@ -674,7 +738,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo(info))
 		end,
 
-		ValueChanged = function(instanceName, trackName, trackType, tick, value, analytics)
+		ValueChanged = function(instanceName, path, trackType, tick, value, analytics)
+			dispatch(ValueChanged(instanceName, path, trackType, tick, value, analytics))
+		end,
+
+		-- Remove when GetFFlagChannelAnimations() is retired
+		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)
 			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
 		end,
 

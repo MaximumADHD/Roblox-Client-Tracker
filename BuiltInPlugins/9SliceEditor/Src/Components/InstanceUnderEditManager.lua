@@ -25,17 +25,24 @@ local AlertDialog = require(Plugin.Src.Components.AlertDialog)
 
 local GuiService = game:GetService("GuiService")
 local SelectionService = game:GetService("Selection")
+local RunService = game:GetService("RunService")
+
+local FFlag9SliceEditorAllowImageReplacement = game:GetFastFlag("9SliceEditorAllowImageReplacement")
 
 local InstanceUnderEditManager = Roact.PureComponent:extend("InstanceUnderEditManager")
 
 function InstanceUnderEditManager:init(props)
 	self.state = {
-		selectedInstance = nil,
+		-- TODO: Remove with FFlag9SliceEditorAllowImageReplacement
+		DEPRECATED_selectedInstance = nil,
 
 		-- String if we should show an alert, otherwise nil
 		showingAlertTitleKey = nil,
 		showingAlertMessageKey = nil,
 	}
+
+	self.instanceUnderEdit = nil
+	self.instanceWatchedForImageChange = nil
 
 	self.showAlertDialog = function(title, message, messageReplacements)
 		self:setState({
@@ -64,9 +71,14 @@ function InstanceUnderEditManager:init(props)
 	end
 
 	self.onSliceCenterChanged = function()
-		local selectedInstance = self.state.selectedInstance
-		if selectedInstance ~= nil then
-			local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(selectedInstance.SliceCenter)
+		local instance = self.state.DEPRECATED_selectedInstance
+
+		if FFlag9SliceEditorAllowImageReplacement then
+			instance = self.instanceUnderEdit
+		end
+
+		if instance ~= nil then
+			local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			self.props.SliceRectChanged(sliceRect)
 		end
 	end
@@ -98,9 +110,13 @@ function InstanceUnderEditManager:init(props)
 			title = title .. ": " .. tostring(instance.Name)
 		end
 
-		self:setState({
-			selectedInstance = instance or Roact.None,
-		})
+		if FFlag9SliceEditorAllowImageReplacement then
+			self.instanceUnderEdit = instance
+		else
+			self:setState({
+				DEPRECATED_selectedInstance = instance or Roact.None,
+			})
+		end
 		self.props.InstanceUnderEditChanged(instance, title, pixelSize, sliceRect, revertSliceRect)
 	end
 
@@ -118,6 +134,11 @@ function InstanceUnderEditManager:init(props)
 			if not instance or not (instance:IsA("ImageLabel") or instance:IsA("ImageButton")) then
 				reject(false, thisToken)
 				return
+			end
+
+			if FFlag9SliceEditorAllowImageReplacement then
+				-- Listen for Image changed event on any selected ImageLabel or ImageButton instance.
+				self.connectImageChangedConnection(instance)
 			end
 
 			if instance.IsLoaded then
@@ -149,27 +170,12 @@ function InstanceUnderEditManager:init(props)
 		end)
 	end
 
-	self.onSelectionChanged = function()
-		local selections = SelectionService:Get()
-		if #selections > 1 then
-			return
+	self.createAndRunPromiseForImageLoaded = function(inst: Instance, shouldResetSliceCenter: boolean)
+		if FFlag9SliceEditorAllowImageReplacement then
+			self.disconnectImageChangedConnection()
 		end
-
-		if #selections == 0 then
-			self.openInstanceInEditor(nil)
-			return
-		end
-
-		local selection = selections[1]
-
-		assert(selection)
-
-		if selection == self.state.selectedInstance then
-			-- This instance is already selected.
-			return
-		end
-
-		local promise = self.createPromiseForImageLoaded(selection)
+		
+		local promise = self.createPromiseForImageLoaded(inst)
 
 		local resolveCallback = function(instance)
 			if not self._isMounted then
@@ -178,6 +184,11 @@ function InstanceUnderEditManager:init(props)
 
 			-- Instance should be loaded now.
 			assert(instance.IsLoaded)
+
+			if shouldResetSliceCenter then
+				instance.SliceCenter = Rect.new(0, 0, 0, 0)
+			end
+
 			self.openInstanceInEditor(instance)
 			self.props.LoadingChanged(false)
 		end
@@ -200,6 +211,64 @@ function InstanceUnderEditManager:init(props)
 		end
 
 		promise:andThen(resolveCallback, rejectedCallback)
+	end
+
+	self.onImageChanged = function()
+		-- Wait until after the next frame is rendered, so that the IsLoaded property is updated.
+		-- RenderStepped is fired before each frame is rendered, so wait for it twice.
+		for i = 1, 2 do
+			RunService.RenderStepped:Wait()
+		end
+
+		if not self._isMounted then -- Check if still mounted because we just yielded the thread.
+			return
+		end
+
+		local instance = self.instanceWatchedForImageChange
+		if instance ~= nil then
+			self.createAndRunPromiseForImageLoaded(instance, true)
+		end
+	end
+
+	self.onSelectionChanged = function()
+		local selections = SelectionService:Get()
+		if #selections > 1 then
+			return
+		end
+
+		if #selections == 0 then
+			if FFlag9SliceEditorAllowImageReplacement then
+				self.disconnectImageChangedConnection()
+			end
+			self.openInstanceInEditor(nil)
+			return
+		end
+
+		local selection = selections[1]
+
+		assert(selection)
+
+		if selection == self.instanceUnderEdit then
+			-- This instance is already being edited.
+			return
+		end
+
+		self.createAndRunPromiseForImageLoaded(selection, false)
+	end
+
+	self.connectImageChangedConnection = function(instance)
+		if not self.imageChangedConnection then
+			self.instanceWatchedForImageChange = instance
+			self.imageChangedConnection = instance:GetPropertyChangedSignal("Image"):Connect(self.onImageChanged)
+		end
+	end
+
+	self.disconnectImageChangedConnection = function()
+		if self.imageChangedConnection then
+			self.imageChangedConnection:Disconnect()
+			self.imageChangedConnection = nil
+		end
+		self.instanceWatchedForImageChange = nil
 	end
 
 	self.startListeningToSelection = function()
@@ -235,6 +304,10 @@ function InstanceUnderEditManager:init(props)
 		end
 
 		self.openInstanceInEditor(selectedInstance)
+
+		if FFlag9SliceEditorAllowImageReplacement then
+			self.connectImageChangedConnection(selectedInstance)
+		end
 	end
 
 	if props.WidgetEnabled then
@@ -255,6 +328,10 @@ function InstanceUnderEditManager:didUpdate(previousProps, previousState)
 		-- On widget hidden, disconnect all signals:
 		self.stopListeningToSelection()
 		self.clearCurrentImageUnderEdit()
+
+		if FFlag9SliceEditorAllowImageReplacement then
+			self.disconnectImageChangedConnection()
+		end
 	end
 end
 
@@ -262,6 +339,10 @@ function InstanceUnderEditManager:willUnmount()
 	self._isMounted = false
 	self.stopListeningToSelection()
 	self.clearCurrentImageUnderEdit()
+
+	if FFlag9SliceEditorAllowImageReplacement then
+		self.disconnectImageChangedConnection()
+	end
 
 	if self.onOpen9SliceEditorConnection then
 		self.onOpen9SliceEditorConnection:Disconnect()

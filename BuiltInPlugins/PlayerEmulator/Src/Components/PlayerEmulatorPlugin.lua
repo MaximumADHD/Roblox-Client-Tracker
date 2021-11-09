@@ -18,17 +18,21 @@ local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
 local TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png"
 local PLUGIN_WINDOW_SIZE = Vector2.new(320, 330)
 
+local FFlagImprovePluginSpeed_PlayerEmulator = game:GetFastFlag("ImprovePluginSpeed_PlayerEmulator")
+
 function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
 	local active = self.state.active
 	self.button:SetActive(active)
 end
 
-function PlayerEmulatorPlugin:renderButton(toolbar, icon, enabled)
-	if not self.button then
-		self.button = toolbar:CreateButton("luaPlayerEmulatorButton", "", icon)
-		self.button.Click:Connect(self.toggleActive)
+if not FFlagImprovePluginSpeed_PlayerEmulator then
+	function PlayerEmulatorPlugin:renderButton(toolbar, icon, enabled)
+		if not self.button then
+			self.button = toolbar:CreateButton("luaPlayerEmulatorButton", "", icon)
+			self.button.Click:Connect(self.toggleActive)
+		end
+		self.button.Enabled = enabled
 	end
-	self.button.Enabled = enabled
 end
 
 function PlayerEmulatorPlugin:initPluginWidgetStatus()
@@ -68,6 +72,11 @@ function PlayerEmulatorPlugin:init()
 			self.props.onPluginWillDestroy()
 		end
 	end
+
+	if FFlagImprovePluginSpeed_PlayerEmulator then
+		self.button = self.props.pluginLoaderContext.mainButton
+		self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleActive)
+	end
 end
 
 function PlayerEmulatorPlugin:didMount()
@@ -88,36 +97,63 @@ function PlayerEmulatorPlugin:render()
 
 	local enabled = RunService:IsEdit()
 
-	return ContextServices.provide({
-		ContextServices.Plugin.new(plugin),
-	}, {
-		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = "luaPlayerEmulatorToolbar",
-			RenderButtons = function(toolbar)
-				return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
-			end,
-		}),
-		MainWidget = enabled and Roact.createElement(DockWidget, {
-			Enabled = active,
-			Title = globals.localization:getText("Meta", "PluginTitle"),
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Left,
-			Size = PLUGIN_WINDOW_SIZE,
-			MinSize = PLUGIN_WINDOW_SIZE,
-			OnClose = self.onClose,
-			ShouldRestore = false,
+	if FFlagImprovePluginSpeed_PlayerEmulator then
+		return ContextServices.provide({
+			ContextServices.Plugin.new(plugin),
 		}, {
-			MainProvider = active and ContextServices.provide({
-				globals.localization,
-				globals.theme,
-				globals.uiLibraryWrapper,
-				globals.store,
-				globals.networking,
+			MainWidget = enabled and Roact.createElement(DockWidget, {
+				Enabled = active,
+				Title = globals.localization:getText("Meta", "PluginTitle"),
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				InitialDockState = Enum.InitialDockState.Left,
+				Size = PLUGIN_WINDOW_SIZE,
+				MinSize = PLUGIN_WINDOW_SIZE,
+				OnClose = self.onClose,
+				ShouldRestore = false,
 			}, {
-				MainView = Roact.createElement(MainView)
+				MainProvider = active and ContextServices.provide({
+					globals.localization,
+					globals.theme,
+					globals.uiLibraryWrapper,
+					globals.store,
+					globals.networking,
+				}, {
+					MainView = Roact.createElement(MainView)
+				})
 			})
 		})
-	})
+	else
+		return ContextServices.provide({
+			ContextServices.Plugin.new(plugin),
+		}, {
+			Toolbar = Roact.createElement(PluginToolbar, {
+				Title = "luaPlayerEmulatorToolbar",
+				RenderButtons = function(toolbar)
+					return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
+				end,
+			}),
+			MainWidget = enabled and Roact.createElement(DockWidget, {
+				Enabled = active,
+				Title = globals.localization:getText("Meta", "PluginTitle"),
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				InitialDockState = Enum.InitialDockState.Left,
+				Size = PLUGIN_WINDOW_SIZE,
+				MinSize = PLUGIN_WINDOW_SIZE,
+				OnClose = self.onClose,
+				ShouldRestore = false,
+			}, {
+				MainProvider = active and ContextServices.provide({
+					globals.localization,
+					globals.theme,
+					globals.uiLibraryWrapper,
+					globals.store,
+					globals.networking,
+				}, {
+					MainView = Roact.createElement(MainView)
+				})
+			})
+		})
+	end
 end
 
 return PlayerEmulatorPlugin

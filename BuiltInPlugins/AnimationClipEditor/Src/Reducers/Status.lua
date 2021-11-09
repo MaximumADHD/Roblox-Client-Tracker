@@ -126,6 +126,7 @@ return Rodux.createReducer({
 		})
 	end,
 
+	-- Deprecated with GetFFlagChannelAnimations
 	SetTracksExpanded = function(state, action)
 		if state.Tracks and action.tracks then
 			local tracks = Cryo.List.join(state.Tracks)

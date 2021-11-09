@@ -29,7 +29,6 @@
 ]]
 local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
-local StudioService = game:GetService("StudioService")
 local LocalizationService = game:GetService("LocalizationService")
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -41,6 +40,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local NetworkingContext = require(Plugin.Src.ContextServices.NetworkingContext)
 local Constants = require(Plugin.Src.Util.Constants)
+local getStudioLocaleId = require(Plugin.Src.Util.PlayerEmulatorUtilities).getStudioLocaleId
 
 local DropdownModule = require(Plugin.Src.Components.DropdownModule)
 local GetLanguages = require(Plugin.Src.Networking.Requests.GetLanguages)
@@ -58,7 +58,7 @@ local function GetMainSwitchEnabled()
 end
 
 -- set default Play Solo language using studio locale instead of en-us
-LocalizationService.RobloxForcePlayModeRobloxLocaleId = StudioService.StudioLocaleId
+LocalizationService.RobloxForcePlayModeRobloxLocaleId = getStudioLocaleId()
 
 local LanguageSection = Roact.PureComponent:extend("LanguageSection")
 
@@ -100,7 +100,7 @@ function LanguageSection:onPlayerEmulationEnabledChanged()
 	if GetMainSwitchEnabled() then
 		SetLocaleId(curLocale)
 	else
-		SetLocaleId(StudioService.StudioLocaleId)
+		SetLocaleId(getStudioLocaleId())
 	end
 end
 

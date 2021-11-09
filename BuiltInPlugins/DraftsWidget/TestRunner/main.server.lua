@@ -5,6 +5,8 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
+local FFlagDraftsWidgetDontInitializeNonEditDm = game:GetFastFlag("DraftsWidgetDontInitializeNonEditDm")
+
 local Plugin = script.Parent.Parent
 
 if not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
@@ -103,6 +105,33 @@ end
 
 local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
+end
+
+local function createToolTip(enabled)
+    assert(FFlagDraftsWidgetDontInitializeNonEditDm)
+    
+    local toolbar = plugin:CreateToolbar("draftsToolbar")
+    local pluginButton = toolbar:CreateButton(
+        "draftsButton",
+        localization:getText("Meta", "PluginButtonTooltip"),
+        ""
+    )
+    
+    if enabled then
+        pluginButton.ClickableWhenViewportHidden = true
+        pluginButton.Click:connect(toggleWidget)
+    end
+    
+    pluginButton.Enabled = enabled
+    
+    return pluginButton
+end
+
+if FFlagDraftsWidgetDontInitializeNonEditDm then
+    if not game:GetService("RunService"):IsEdit() then
+        createToolTip(false)
+        return
+    end
 end
 
 -- The widget should open automatically if there are checked out drafts, or whenever
@@ -208,17 +237,23 @@ end
 --Binds a toolbar button
 local function main()
 	local pluginTitle = localization:getText("Meta", "PluginName")
-	plugin.Name = pluginTitle
+    plugin.Name = pluginTitle
+    
+    local pluginButton
+    
+    if FFlagDraftsWidgetDontInitializeNonEditDm then
+        pluginButton = createToolTip(true)
+    else
+        local toolbar = plugin:CreateToolbar("draftsToolbar")
+        pluginButton = toolbar:CreateButton(
+            "draftsButton",
+            localization:getText("Meta", "PluginButtonTooltip"),
+            ""
+        )
 
-	local toolbar = plugin:CreateToolbar("draftsToolbar")
-	local pluginButton = toolbar:CreateButton(
-		"draftsButton",
-		localization:getText("Meta", "PluginButtonTooltip"),
-		""
-	)
-
-	pluginButton.ClickableWhenViewportHidden = true
-	pluginButton.Click:connect(toggleWidget)
+        pluginButton.ClickableWhenViewportHidden = true
+        pluginButton.Click:connect(toggleWidget)    
+    end
 
 	local function showIfEnabled()
 		if pluginGui.Enabled then

@@ -26,7 +26,7 @@ type BreakpointStore = {
 	},
 	BreakpointInfo : {
 		[BreakpointId] : Breakpoint.Breakpoint,
-	}
+	},
 }
 
 local initialState : BreakpointStore = {
@@ -41,13 +41,13 @@ return Rodux.createReducer(initialState, {
 			state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId][action.breakpoint.id] then
 			assert(false)
 		end
-		local updatedBreakpointIdsForConnection = Cryo.Dictionary.join(state.BreakpointIdsInDebuggerConnection or {}, {
+		local updatedBreakpointIdsForConnection = Cryo.Dictionary.join(state.BreakpointIdsInDebuggerConnection, {
 			[action.debuggerConnectionId] = Cryo.Dictionary.join(
 				(state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId]) or {}, 
 				{[action.breakpoint.id] = action.breakpoint.id}
 			)
 		})
-		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo or {}, {
+		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo, {
 			[action.breakpoint.id] = action.breakpoint
 		})
 		return Cryo.Dictionary.join(
@@ -60,7 +60,7 @@ return Rodux.createReducer(initialState, {
 		if state.BreakpointIdsInDebuggerConnection == nil or state.BreakpointInfo[action.breakpoint.id] == nil then
 			assert(false)
 		end
-		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo or {}, {
+		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo, {
 			[action.breakpoint.id] = action.breakpoint
 		})
 		return Cryo.Dictionary.join(

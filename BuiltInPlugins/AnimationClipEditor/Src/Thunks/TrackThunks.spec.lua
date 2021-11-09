@@ -2,7 +2,6 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Rodux = require(Plugin.Packages.Rodux)
 	local Templates = require(Plugin.Src.Util.Templates)
-	local ContextServices = Plugin.Packages.Framework.ContextServices
 	local Framework = require(Plugin.Packages.Framework)
 
 	local Analytics = Framework.ContextServices.Analytics
@@ -19,6 +18,7 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local mockSkeleton = {
 		ClassName = "MockSkeleton",
@@ -30,7 +30,7 @@ return function()
 	testAnimationData.Metadata.EndTick = 10
 	testAnimationData.Instances.Root.Tracks = {
 		Hips = {
-			Type = GetFFlagFacialAnimationSupport() and Constants.TRACK_TYPES.CFrame or nil,
+			Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
 			Keyframes = {0},
 		},
 	}
@@ -219,7 +219,9 @@ return function()
 		it("should add a track if the track does not exist", function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
-			if GetFFlagFacialAnimationSupport() then
+			if GetFFlagChannelAnimations() then
+				store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, nil, analytics))
+			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(AddKeyframe("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, nil, analytics))
 			else
 				store:dispatch(AddKeyframe("Root", "Head", 0, nil, analytics))

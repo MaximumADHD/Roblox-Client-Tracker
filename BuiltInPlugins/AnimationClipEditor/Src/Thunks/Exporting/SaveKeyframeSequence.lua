@@ -2,6 +2,7 @@
 	Saves the current animation as a KeyframeSequence under the current name,
 	into the AnimSaves folder under the currently selected rig.
 ]]
+-- TODO: Remove when GetFFlagChannelAnimations() is ON
 
 local CollectionService = game:GetService("CollectionService")
 
@@ -27,6 +28,7 @@ return function(name, analytics)
 		store:dispatch(SetAnimationData(newData))
 
 		local animSaves = RigUtils.getAnimSavesFolder(rootInstance, true)
+
 		local keyframeSequence, numKeyframes, numPoses, numEvents
 			= RigUtils.toRigAnimation(newData, rootInstance)
 

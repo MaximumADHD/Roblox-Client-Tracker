@@ -68,6 +68,7 @@ function AnimationControlPanel:render()
 	local updateEditingLength = props.UpdateEditingLength
 	local stepAnimation = props.StepAnimation
 	local displayFrameRate = props.DisplayFrameRate
+	local isChannelAnimation = props.IsChannelAnimation
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
@@ -89,6 +90,7 @@ function AnimationControlPanel:render()
 			LoadAnimationData = self.loadAnimationDataWrapper,
 			InstanceType = rootInstance and animationData and animationData.Instances.Root.Type,
 			LayoutOrder = 0,
+			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		MediaControls = Roact.createElement(MediaControls, {

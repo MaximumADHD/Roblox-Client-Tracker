@@ -30,6 +30,7 @@ local DropdownMenuItem = Roact.PureComponent:extend("DropdownMenuItem")
 
 local withContext = ContextServices.withContext
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagToolboxFixAutocompletePatterns = game:GetFastFlag("ToolboxFixAutocompletePatterns")
 
 local TEXT_PADDING = 10
 
@@ -37,10 +38,22 @@ DropdownMenuItem.defaultProps = {
 	Size = UDim2.new(0, 200, 0, 25),
 }
 
+local function removeRichTextTags(text)
+	-- Remove characters which could be interpreted as RichText tags
+	return text:gsub("[</>]", "")
+end
+	
 local function getBoldedText(text, focusedText)
 	local lowercaseText = text:lower()
 	local lowercaseFocusedText = focusedText:lower()
-	local substringIndex = string.find(lowercaseText, lowercaseFocusedText)
+	local substringIndex
+	if FFlagToolboxFixAutocompletePatterns then
+		lowercaseText = removeRichTextTags(lowercaseText)
+		lowercaseFocusedText = removeRichTextTags(lowercaseFocusedText)
+		substringIndex = string.find(lowercaseText, lowercaseFocusedText, 1, true)
+	else
+		substringIndex = string.find(lowercaseText, lowercaseFocusedText)
+	end
 	local newString
 	if (substringIndex ~= nil) then
 		newString = string.sub(text, 0, substringIndex-1) .. "</b>" .. string.sub(text, substringIndex, substringIndex + string.len(focusedText)-1) .."<b>" ..

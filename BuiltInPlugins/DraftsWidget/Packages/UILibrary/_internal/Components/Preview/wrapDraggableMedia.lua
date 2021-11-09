@@ -1,3 +1,6 @@
+if game:GetFastFlag("StudioDeleteUILibraryAssetPreview") then
+    error("File should not be required with FFlagStudioDeleteUILibraryAssetPreview")
+end
 --[[
 	Wraps a component with logic required for a media's time interactable progressbar, play/pause button,
 	and time countdown. The wrapped component passes all props that wrapMedia in addition to interactable slider logic.

@@ -23,9 +23,12 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 
 local SliceEditor = require(main.Src.Components.SliceEditorMain)
 local InstanceUnderEditManager = require(main.Src.Components.InstanceUnderEditManager)
+local AnalyticsHandlers = require(main.Src.Resources.AnalyticsHandlers)
 
 local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
+
+local FFlag9SliceEditorEnableAnalytics = game:GetFastFlag("9SliceEditorEnableAnalytics")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -36,9 +39,14 @@ function MainPlugin:init(props)
 		pluginName = "9SliceEditor",
 	})
 
-	self.analytics = ContextServices.Analytics.new(function()
-		return {}
-	end, {})
+	self.analytics = nil
+	if FFlag9SliceEditorEnableAnalytics then
+		self.analytics = ContextServices.Analytics.new(AnalyticsHandlers)
+	else
+		self.analytics = ContextServices.Analytics.new(function()
+			return {}
+		end, {})
+	end
 
 	self.state = {
 		-- Main 9-Slice Editor window visible
@@ -53,13 +61,34 @@ function MainPlugin:init(props)
 		loading = false,
 	}
 
+	self.timeOpened = nil
+	self.reportOpen = function()
+		-- Opening the editor when it was previously closed
+		self.timeOpened = tick()
+		self.analytics:report("sliceEditorOpened")
+	end
+
+	self.reportClose = function()
+		if self.timeOpened then
+			self.analytics:report("sliceEditorOpenTime", tick() - self.timeOpened)
+		end
+	end
+
 	self.onClose = function()
+		if FFlag9SliceEditorEnableAnalytics and self.state.enabled then
+			self.reportClose()
+		end
+
 		self:setState({
 			enabled = false,
 		})
 	end
 
 	self.onRestore = function(enabled)
+		if FFlag9SliceEditorEnableAnalytics and enabled and not self.state.enabled then
+			self.reportOpen()
+		end
+		
 		self:setState({
 			enabled = enabled
 		})
@@ -67,6 +96,17 @@ function MainPlugin:init(props)
 
 	self.onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
 		sliceRect: SliceRectUtil.SliceRectType, revertSliceRect: SliceRectUtil.SliceRectType)
+
+		if FFlag9SliceEditorEnableAnalytics then
+			if not self.state.enabled then
+				self.reportOpen()
+			end
+
+			if instance then
+				-- Every time an image is loaded into editor
+				self.analytics:report("sliceEditorImageLoadedIntoEditor")
+			end
+		end
 
 		self:setState({
 			enabled = true,
@@ -88,6 +128,12 @@ function MainPlugin:init(props)
 		self:setState({
 			loading = loading
 		})
+	end
+end
+
+function MainPlugin:willUnmount()
+	if FFlag9SliceEditorEnableAnalytics and self.state.enabled then
+		self.reportClose()
 	end
 end
 

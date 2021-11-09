@@ -29,6 +29,7 @@ local ACTION_KEYS = {
 
 	-- Track manipulation
 	"DeleteTrack",
+	"ClearTrack",
 	"AddKeyframe",
 
 	-- History

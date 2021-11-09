@@ -25,6 +25,16 @@ local split = string.split
 local SetStories = require(Main.Src.Actions.SetStories)
 local ModuleLoader = require(Main.Src.Util.ModuleLoader)
 
+-- Services to search for .storybook files
+local STORYBOOK_SOURCES = {
+	"CorePackages",
+	"CoreGui",
+	"ReplicatedStorage",
+	"ReplicatedFirst",
+	"ServerScriptService",
+	"StarterGui",
+}
+
 -- Implements GetChildren for a tree item by returning the sorted items of Children
 local function getChildren(item: Types.StoryItem): Types.Array<Types.StoryItem>
 	local children = values(item.Children)
@@ -59,12 +69,12 @@ local function compactItem(item: Types.StoryItem)
 		assign(newItem, {
 			Path = child.Path and (item.Name .. "/" .. child.Path) or item.Name,
 			Script = item.Script or child.Script,
-			Storybook = item.Storybook or child.Storybook
+			Storybook = item.Storybook or child.Storybook,
 		})
 		return newItem
 	else
 		return assign(item, {
-			Children = map(item.Children, compactItem)
+			Children = map(item.Children, compactItem),
 		})
 	end
 end
@@ -73,7 +83,7 @@ end
 local function getStoryHierarchy(storybook: Types.Storybook, instance: Instance): Types.Array<Types.StoryItem>
 	-- The storyRoots provides an optional override for where to look for stories.
 	-- By default, it is in the storybook's parent.
-	local roots = storybook.storyRoots or {instance.Parent}
+	local roots = storybook.storyRoots or { instance.Parent }
 	-- Return the StoryItem for a date-model instance, if there is a suitable one
 	local function getItem(instance: Instance, parentItem: Types.StoryItem?): Types.StoryItem?
 		-- Do not include an instance or its descendants if its name matches the provided exlcude pattern
@@ -119,7 +129,12 @@ end
 
 -- A Storybook can define a folder path that it should be grouped under.
 -- Add the provided storybook item and any un-created folder items along that path
-local function groupItem(storybookItem: Types.StoryItem, path: Types.Array<string>, mut_foldersByPath: {[string]: Types.StoryItem}, mut_storybookItems: Types.Array<Types.StoryItem>)
+local function groupItem(
+	storybookItem: Types.StoryItem,
+	path: Types.Array<string>,
+	mut_foldersByPath: { [string]: Types.StoryItem },
+	mut_storybookItems: Types.Array<Types.StoryItem>
+)
 	local folderResult = reduce(path, function(current, folder: string, index: number)
 		if folder == "" then
 			return current
@@ -143,7 +158,7 @@ local function groupItem(storybookItem: Types.StoryItem, path: Types.Array<strin
 	end, {
 		-- Store how far along the path we've progressed
 		pathPrefix = "",
-		item = nil
+		item = nil,
 	})
 	if folderResult.item then
 		insert(folderResult.item.Children, storybookItem)
@@ -153,7 +168,11 @@ local function groupItem(storybookItem: Types.StoryItem, path: Types.Array<strin
 end
 
 -- Visit each instance in the data-model to see if it or any of its descendants are storybook scripts
-local function visitInstance(instance: Instance, mut_foldersByPath: {[string]: Types.StoryItem}, mut_storybookItems: Types.Array<Types.StoryItem>)
+local function visitInstance(
+	instance: Instance,
+	mut_foldersByPath: { [string]: Types.StoryItem },
+	mut_storybookItems: Types.Array<Types.StoryItem>
+)
 	local isStorybook = instance:IsA("ModuleScript") and endsWith(instance.Name, STORYBOOK_SUFFIX)
 	if not isStorybook then
 		return
@@ -181,13 +200,7 @@ end
 local function findStorybooks()
 	-- We have an _Index if we are a plugin, not an embedded storybook
 	local index = Main.Packages:FindFirstChild("_Index")
-	local sources = collectArray({
-		"CorePackages",
-		"CoreGui",
-		"ReplicatedStorage",
-		"ReplicatedFirst",
-		"StarterGui",
-	}, function(_index: number, serviceName: string)
+	local sources = collectArray(STORYBOOK_SOURCES, function(_index: number, serviceName: string)
 		local ok, service = pcall(function()
 			local service = game:GetService(serviceName)
 			-- Ensure we can call GetChildren
@@ -198,7 +211,7 @@ local function findStorybooks()
 	end)
 	local devFramework = index and index.DeveloperFramework.DeveloperFramework or Main.Parent.Framework
 	insert(sources, devFramework)
-	local foldersByPath: {[string]: Types.StoryItem} = {}
+	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}
 	forEach(sources, function(source: Instance)
 		forEach(source:GetDescendants(), function(instance: Instance)

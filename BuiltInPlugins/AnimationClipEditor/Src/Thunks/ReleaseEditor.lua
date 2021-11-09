@@ -12,6 +12,9 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
+local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
+
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(analytics)
 	return function(store)
@@ -40,7 +43,11 @@ return function(analytics)
 		if animationData.Metadata and animationData.Instances and animationData.Instances.Root
 			and animationData.Instances.Root.Type == Constants.INSTANCE_TYPES.Rig
 			and state.Status.IsDirty then
-			store:dispatch(SaveKeyframeSequence(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
+			if GetFFlagChannelAnimations() then
+				store:dispatch(SaveAnimation(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
+			else
+				store:dispatch(SaveKeyframeSequence(Constants.DEFAULT_AUTOSAVE_NAME, analytics))
+			end
 		end
 
 		RigUtils.clearMicrobones()

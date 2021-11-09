@@ -17,6 +17,7 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local AnimationData = {}
@@ -26,6 +27,7 @@ function AnimationData.new(name, rootType)
 
 	local animationData = Templates.animationData()
 	animationData.Metadata.Name = name
+	animationData.Metadata.IsChannelAnimation = false
 	animationData.Instances.Root.Type = rootType
 	return animationData
 end
@@ -40,6 +42,7 @@ function AnimationData.new_deprecated(name, frameRate, rootType)
 	local animationData = Templates.animationData()
 	animationData.Metadata.Name = name
 	animationData.Metadata.FrameRate = frameRate
+	animationData.Metadata.IsChannelAnimation = false
 	animationData.Instances.Root.Type = rootType
 	return animationData
 end
@@ -78,7 +81,12 @@ function AnimationData.toCFrameArray(bones, data, frameRate)
 		local keyframes = {}
 		if tracks[boneName] then
 			for tick = 1, outputLength do
-				local value = KeyframeUtils:getValue(tracks[boneName], tick * rateConversion)
+				local value
+				if GetFFlagChannelAnimations() then
+					value = KeyframeUtils.getValue(tracks[boneName], tick * rateConversion)
+				else
+					value = KeyframeUtils:getValue(tracks[boneName], tick * rateConversion)
+				end
 				keyframes[tick] = value
 			end
 		end
@@ -99,10 +107,18 @@ function AnimationData.fromCFrameArray(bones, poses, name, frameRate)
 	for boneIndex, boneName in ipairs(bones) do
 		if #poses[boneIndex] > 0 then
 			rootTracks[boneName] = Templates.track(Constants.TRACK_TYPES.CFrame)
+			if GetFFlagChannelAnimations() then
+				rootTracks[boneName].Keyframes = {}
+				rootTracks[boneName].Data = {}
+			end
 			animationData.Metadata.EndTick = math.max(animationData.Metadata.EndTick, #poses[boneIndex])
 			for tick = 1, #poses[boneIndex] do
 				table.insert(rootTracks[boneName].Keyframes, tick)
 				local newKeyframe = Templates.keyframe()
+				if GetFFlagChannelAnimations() then
+					newKeyframe.EasingStyle = Enum.PoseEasingStyle.Linear
+					newKeyframe.EasingDirection = Enum.PoseEasingDirection.In
+				end
 				newKeyframe.Value = poses[boneIndex][tick]
 				rootTracks[boneName].Data[tick] = newKeyframe
 			end
@@ -184,23 +200,55 @@ function AnimationData.removeEvent(events, tick, name)
 end
 
 -- Adds a new track at trackName to the given track.
-function AnimationData.addTrack(tracks, trackName, trackType)
+function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation)
 	tracks[trackName] = Templates.track(trackType)
+	if GetFFlagChannelAnimations() then
+		if isChannelAnimation then
+			TrackUtils.splitTrackComponents(tracks[trackName])
+		else
+			tracks[trackName].Keyframes = {}
+			tracks[trackName].Data = {}
+		end
+		return tracks[trackName]
+	end
 end
 
 -- Adds a new keyframe at the given tick with the given value.
+-- This should be called for KFS animations. For Curve animations, see addCurveKeyframe
 function AnimationData.addKeyframe(track, tick, value)
 	local trackKeyframes = track.Keyframes
 	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
 	if insertIndex then
 		table.insert(trackKeyframes, insertIndex, tick)
 		track.Data[tick] = Templates.keyframe()
+		if GetFFlagChannelAnimations() then
+			track.Data[tick].EasingStyle = Enum.PoseEasingStyle.Linear
+			track.Data[tick].EasingDirection = Enum.PoseEasingDirection.In
+		end
 		track.Data[tick].Value = value
 	end
 end
 
+function AnimationData.addCurveKeyframe(track, tick, value, interpolationMode, leftSlope, rightSlope)
+	local trackKeyframes = track.Keyframes
+	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
+	if insertIndex then
+		table.insert(trackKeyframes, insertIndex, tick)
+		track.Data[tick] = Templates.keyframe()
+		track.Data[tick].Value = value
+		track.Data[tick].InterpolationMode = interpolationMode
+		track.Data[tick].LeftSlope = leftSlope
+		track.Data[tick].RightSlope = rightSlope
+	end
+end
+
 function AnimationData.addDefaultKeyframe(track, tick, trackType)
-	local value = TrackUtils.getDefaultValueByType(trackType)
+	local value
+	if GetFFlagChannelAnimations() then
+		value = KeyframeUtils.getDefaultValue(trackType)
+	else
+		value = TrackUtils.getDefaultValueByType(trackType)
+	end
 	AnimationData.addKeyframe(track, tick, value)
 end
 
@@ -290,20 +338,35 @@ function AnimationData.validateKeyframeNames(data)
 end
 
 function AnimationData.setEndTick(data)
+	if not data then
+		return
+	end
+
 	local endTick = 0
 	if data and data.Instances then
 		for _, instance in pairs(data.Instances) do
 			if instance.Tracks then
 				for _, track in pairs(instance.Tracks) do
-					if track.Keyframes then
-						local lastKey = track.Keyframes[#track.Keyframes]
-						endTick = math.max(endTick, lastKey)
+					if GetFFlagChannelAnimations() then
+						TrackUtils.traverseTracks(nil, track, function(track)
+							if track.Keyframes and not isEmpty(track.Keyframes) then
+								local lastKey = track.Keyframes[#track.Keyframes]
+								endTick = math.max(endTick, lastKey)
+							end
+						end)
+					else
+						if track.Keyframes then
+							local lastKey = track.Keyframes[#track.Keyframes]
+							endTick = math.max(endTick, lastKey)
+						end
 					end
 				end
 			end
 		end
 	end
-	data.Metadata.EndTick = endTick
+	if data.Metadata then
+		data.Metadata.EndTick = endTick
+	end
 end
 
 function AnimationData.getMaximumLength(framerate)
@@ -338,52 +401,84 @@ end
 function AnimationData.removeExtraKeyframes(data)
 	local removed = false
 
-	if data and data.Instances and data.Metadata then
-		local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
-
-		-- first pass: remove keyframes
-		local keysToRemove = {}
-
-		-- get range of keyframe indices past max tick limit
-		for instanceName, instance in pairs(data.Instances) do
-			keysToRemove[instanceName] = {}
-			for trackName, track in pairs(instance.Tracks) do
-				local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, maxLength)
-				keysToRemove[instanceName][trackName] = {
-					Start = minIndex,
-					End = #track.Keyframes,
-				}
-			end
+	if GetFFlagChannelAnimations() then
+		if not data or not data.Metadata then
+			return removed
 		end
 
-		-- remove each keyframe in range
-		for instance, tracks in pairs(keysToRemove) do
-			for track, range in pairs(tracks) do
-				for i = range.End, range.Start, -1 do
-					local keyframes = data.Instances[instance].Tracks[track].Keyframes
-					local kfData = data.Instances[instance].Tracks[track].Data
-					local tick = keyframes[i]
-					if tick > maxLength then
-						removed = true
-						kfData[tick] = nil
-						table.remove(keyframes, i)
+		if data and data.Instances and data.Metadata then
+			local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
+
+			-- Remove keyframes and Data. Works for tracks and events.
+			local function removeKeyframesAndData(track)
+				if track and track.Keyframes and track.Data then
+					for index, tick in ipairs(track.Keyframes) do
+						if tick > maxLength then
+							track.Data[tick] = nil
+							track.Keyframes[index] = nil
+							removed = true
+						end
 					end
 				end
 			end
-		end
 
-		-- second pass: remove events
-		if data.Events and data.Events.Keyframes then
-			local eventsToRemove = {}
-			for _, tick in ipairs(data.Events.Keyframes) do
-				if tick > maxLength then
-					removed = true
-					table.insert(eventsToRemove, tick)
+			for _, instance in pairs(data.Instances or {}) do
+				for _, track in pairs(instance.Tracks) do
+					TrackUtils.traverseTracks(nil, track, removeKeyframesAndData, true)
 				end
 			end
 
-			for _, tick in ipairs(eventsToRemove) do
-				AnimationData.deleteEvents(data.Events, tick)
+			-- Remove events
+			removeKeyframesAndData(data.Events)
+		end
+	else
+		if data and data.Instances and data.Metadata then
+			local maxLength = AnimationData.getMaximumLength(data.Metadata.FrameRate)
+
+			-- first pass: remove keyframes
+			local keysToRemove = {}
+
+			-- get range of keyframe indices past max tick limit
+			for instanceName, instance in pairs(data.Instances) do
+				keysToRemove[instanceName] = {}
+				for trackName, track in pairs(instance.Tracks) do
+					local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, maxLength)
+					keysToRemove[instanceName][trackName] = {
+						Start = minIndex,
+						End = #track.Keyframes,
+					}
+				end
+			end
+
+			-- remove each keyframe in range
+			for instance, tracks in pairs(keysToRemove) do
+				for track, range in pairs(tracks) do
+					for i = range.End, range.Start, -1 do
+						local keyframes = data.Instances[instance].Tracks[track].Keyframes
+						local kfData = data.Instances[instance].Tracks[track].Data
+						local tick = keyframes[i]
+						if tick > maxLength then
+							removed = true
+							kfData[tick] = nil
+							table.remove(keyframes, i)
+						end
+					end
+				end
+			end
+
+			-- second pass: remove events
+			if data.Events and data.Events.Keyframes then
+				local eventsToRemove = {}
+				for _, tick in ipairs(data.Events.Keyframes) do
+					if tick > maxLength then
+						removed = true
+						table.insert(eventsToRemove, tick)
+					end
+				end
+
+				for _, tick in ipairs(eventsToRemove) do
+					AnimationData.deleteEvents(data.Events, tick)
+				end
 			end
 		end
 	end
@@ -398,16 +493,36 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 
 	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
 	local latest = 0
-	for _, instance in pairs(selectedKeyframes) do
-		for trackName, _ in pairs(instance) do
-			local keyframes = Cryo.Dictionary.keys(instance[trackName])
-			table.sort(keyframes)
-			if keyframes then
-				if keyframes[1] <= earliest then
-					earliest = keyframes[1]
-				end
-				if keyframes[#keyframes] >= latest then
-					latest = keyframes[#keyframes]
+
+	if GetFFlagChannelAnimations() then
+		local function traverse(track)
+			-- Find the extents of the track selection, if any
+			for tick, _ in pairs(track.Selection or {}) do
+				earliest = math.min(tick, earliest)
+				latest = math.max(tick, latest)
+			end
+			for _, component in pairs(track.Components or {}) do
+				traverse(component)
+			end
+		end
+
+		for _, instance in pairs(selectedKeyframes) do
+			for _, track in pairs(instance) do
+				traverse(track)
+			end
+		end
+	else
+		for _, instance in pairs(selectedKeyframes) do
+			for trackName, _ in pairs(instance) do
+				local keyframes = Cryo.Dictionary.keys(instance[trackName])
+				table.sort(keyframes)
+				if keyframes then
+					if keyframes[1] <= earliest then
+						earliest = keyframes[1]
+					end
+					if keyframes[#keyframes] >= latest then
+						latest = keyframes[#keyframes]
+					end
 				end
 			end
 		end
@@ -429,6 +544,48 @@ function AnimationData.getEventBounds(animationData, selectedEvents)
 		end
 	end
 	return earliest, latest
+end
+
+function AnimationData.promoteToChannels(data)
+	if not data or (data.Metadata and data.Metadata.IsChannelAnimation) then
+		return
+	end
+
+	-- Split CFrames into Position.X/Y/Z and Rotation.X/Y/Z tracks
+	for _, instance in pairs(data.Instances) do
+		for _, track in pairs(instance.Tracks) do
+			TrackUtils.splitTrackComponents(track)
+		end
+	end
+
+	data.Metadata.IsChannelAnimation = true
+	data.Metadata.Name = data.Metadata.Name .. " [CHANNELS]"
+end
+
+function AnimationData.isChannelAnimation(data)
+	return data and data.Metadata and data.Metadata.IsChannelAnimation
+end
+
+function AnimationData.getTrack(data, instanceName, path)
+	if not data or not data.Instances[instanceName] then
+		return nil
+	end
+
+	local tracks = data.Instances[instanceName].Tracks
+	local track
+	for i, pathPart in ipairs(path) do
+		if i == 1 then
+			track = tracks[pathPart]
+		else
+			track = track.Components[pathPart]
+		end
+
+		if not track then
+			return nil
+		end
+	end
+
+	return track
 end
 
 return AnimationData

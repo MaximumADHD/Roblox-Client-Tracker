@@ -8,6 +8,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local SelectKeyframe = require(Plugin.Src.Thunks.Selection.SelectKeyframe)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
+local SelectKeyframeRange = require(Plugin.Src.Thunks.Selection.SelectKeyframeRange)
+
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(tick, multiSelect)
 	return function(store)
@@ -23,7 +26,11 @@ return function(tick, multiSelect)
 
 		for instanceName, instance in pairs(animationData.Instances) do
 			for trackName, _ in pairs(instance.Tracks) do
-				store:dispatch(SelectKeyframe(instanceName, trackName, tick, true))
+				if GetFFlagChannelAnimations() then
+					store:dispatch(SelectKeyframeRange(instanceName, {trackName}, tick, tick, true))
+				else
+					store:dispatch(SelectKeyframe(instanceName, trackName, tick, true))
+				end
 			end
 		end
 	end

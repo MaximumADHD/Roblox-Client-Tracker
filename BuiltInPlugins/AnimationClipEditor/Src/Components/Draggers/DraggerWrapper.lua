@@ -22,6 +22,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -58,8 +59,10 @@ local function mapDraggerContextToProps(draggerContext, props)
 		end
 
 		for trackName, value in pairs(values) do
-			if GetFFlagFacialAnimationSupport() then
-				props.ValueChanged(instanceName, trackName, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+			if GetFFlagChannelAnimations() then
+				props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+			elseif GetFFlagFacialAnimationSupport() then
+				props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
 			else
 				props.ValueChanged_deprecated(instanceName, trackName, props.Playhead, value, props.Analytics)
 			end
@@ -97,8 +100,9 @@ function DraggerWrapper:render()
 		end
 	end
 
-	mapDraggerContextToProps(self.draggerContext, props)
-
+	if props.AnimationData ~= nil then 
+		mapDraggerContextToProps(self.draggerContext, props)
+	end
 
 	return Roact.createElement(AnimationClipEditorDragger, {
 		Context = self.draggerContext,
@@ -130,11 +134,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetSelectedTrackInstances(tracks))
 		end,
 
-		ValueChanged = function(instanceName, trackName, trackType, tick, value, analytics)
+		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)
 			dispatch(ValueChanged(instanceName, trackName, trackType, tick, value, analytics))
 		end,
 
-		-- Remove when GetFFlagFacialAnimationSupport() is retired
+		-- Remove when GetFFlagFacialAnimationSupport() and GetFFlagChannelAnimations() are retired
 		ValueChanged_deprecated = function(instanceName, trackName, tick, value, analytics)
 			dispatch(ValueChanged(instanceName, trackName, tick, value, analytics))
 		end,

@@ -1,4 +1,4 @@
-local FFlagPluginManagementScrollbarDesign = game:DefineFastFlag("PluginManagementScrollbarDesign", false)
+local FFlagPluginManagementScrollbarDesign = game:GetFastFlag("PluginManagementScrollbarDesign")
 local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local StudioService = game:GetService("StudioService")

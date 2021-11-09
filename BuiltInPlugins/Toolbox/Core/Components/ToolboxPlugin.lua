@@ -31,6 +31,7 @@ local getTestVariation = FrameworkUtil.getTestVariation
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
@@ -55,21 +56,38 @@ function ToolboxPlugin:init(props)
 		pluginGui = nil,
 	}
 
-	self.toolbar = self.plugin:CreateToolbar("luaToolboxToolbar")
-	self.toolboxButton = self.toolbar:CreateButton("luaToolboxButton",
-		"Insert items from the toolbox", Images.TOOLBOX_ICON)
+	if FFlagImprovePluginSpeed_Toolbox then
+		self.toolbar = props.pluginLoaderContext.toolbar
+		self.toolboxButton = props.pluginLoaderContext.mainButton
+	else
+		self.toolbar = self.plugin:CreateToolbar("luaToolboxToolbar")
+		self.toolboxButton = self.toolbar:CreateButton("luaToolboxButton",
+			"Insert items from the toolbox", Images.TOOLBOX_ICON)
 
-	self.toolboxButton.ClickableWhenViewportHidden = true
+		self.toolboxButton.ClickableWhenViewportHidden = true
+	end
 
-	self.toolboxButton.Click:connect(function()
-		-- Toggle dock window, update button
-		self.dockWidget.Enabled = not self.dockWidget.Enabled
-		if self.dockWidget.Enabled then
-			Analytics.onPluginButtonClickOpen()
-		else
-			Analytics.onPluginButtonClickClose()
-		end
-	end)
+	if FFlagImprovePluginSpeed_Toolbox then
+		props.pluginLoaderContext.mainButtonClickedSignal:Connect(function()
+			-- Toggle dock window, update button
+			self.dockWidget.Enabled = not self.dockWidget.Enabled
+			if self.dockWidget.Enabled then
+				Analytics.onPluginButtonClickOpen()
+			else
+				Analytics.onPluginButtonClickClose()
+			end
+		end)
+	else
+		self.toolboxButton.Click:connect(function()
+			-- Toggle dock window, update button
+			self.dockWidget.Enabled = not self.dockWidget.Enabled
+			if self.dockWidget.Enabled then
+				Analytics.onPluginButtonClickOpen()
+			else
+				Analytics.onPluginButtonClickClose()
+			end
+		end)
+	end
 
 	self.onDockWidgetEnabledChanged = function(rbx)
 		if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch and self.dockWidget.Enabled == false then
@@ -110,12 +128,22 @@ function ToolboxPlugin:didMount()
 		pluginGui = self.dockWidget,
 	})
 
-	self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-		self.dockWidget.Enabled = true
-		if FFlagPluginDockWidgetRaiseFromLua then
-			self.dockWidget:RequestRaise()
-		end
-	end)
+	if FFlagImprovePluginSpeed_Toolbox then
+		self._showPluginsConnection =
+			self.props.pluginLoaderContext.signals["MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
+			self.dockWidget.Enabled = true
+			if FFlagPluginDockWidgetRaiseFromLua then
+				self.dockWidget:RequestRaise()
+			end
+		end)
+	else
+		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
+			self.dockWidget.Enabled = true
+			if FFlagPluginDockWidgetRaiseFromLua then
+				self.dockWidget:RequestRaise()
+			end
+		end)
+	end
 end
 
 function ToolboxPlugin:willUnmount()
@@ -149,48 +177,83 @@ function ToolboxPlugin:render()
 
 	local title = self.props.Localization:getText("General", "ToolboxToolbarName")
 
-	return Roact.createElement(DockWidget, {
-		plugin = plugin,
+	if FFlagImprovePluginSpeed_Toolbox then
+		return Roact.createElement(DockWidget, {
+			Title = title,
+			Name = "Toolbox",
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			Widget = props.pluginLoaderContext.mainDockWidget,
 
-		Title = title,
-		Name = "Toolbox",
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-
-		InitialDockState = Enum.InitialDockState.Left,
-		InitialEnabled = initialEnabled,
-		InitialEnabledShouldOverrideRestore = false,
-		FloatingXSize = 0,
-		FloatingYSize = 0,
-		MinWidth = Constants.TOOLBOX_MIN_WIDTH,
-		MinHeight = Constants.TOOLBOX_MIN_HEIGHT,
-
-		Enabled = enabled,
-
-		[Roact.Ref] = self.dockWidgetRefFunc,
-		[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
-		[Roact.Event.AncestryChanged] = self.onAncestryChanged,
-	}, {
-		Toolbox = pluginGuiLoaded and ContextServices.provide({
-			ContextServices.Focus.new(self.state.pluginGui),
-			(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
+			[Roact.Ref] = self.dockWidgetRefFunc,
+			[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
+			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
 		}, {
-			Roact.createElement(ExternalServicesWrapper, {
-				plugin = plugin,
-				pluginGui = pluginGui,
-				theme = theme,
-				networkInterface = networkInterface,
-				localization = localization,
+			Toolbox = pluginGuiLoaded and ContextServices.provide({
+				ContextServices.Focus.new(self.state.pluginGui),
+				(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 			}, {
-				Roact.createElement(Toolbox, {
-					initialWidth = initialWidth,
-					backgrounds = backgrounds,
-					suggestions = suggestions,
-					tryOpenAssetConfig = tryOpenAssetConfig,
+				Roact.createElement(ExternalServicesWrapper, {
+					plugin = plugin,
 					pluginGui = pluginGui,
+					theme = theme,
+					networkInterface = networkInterface,
+					localization = localization,
+				}, {
+					Roact.createElement(Toolbox, {
+						initialWidth = initialWidth,
+						backgrounds = backgrounds,
+						suggestions = suggestions,
+						tryOpenAssetConfig = tryOpenAssetConfig,
+						pluginGui = pluginGui,
+						pluginLoaderContext = props.pluginLoaderContext
+					})
 				})
 			})
 		})
-	})
+	else
+		return Roact.createElement(DockWidget, {
+			plugin = plugin,
+
+			Title = title,
+			Name = "Toolbox",
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+
+			InitialDockState = Enum.InitialDockState.Left,
+			InitialEnabled = initialEnabled,
+			InitialEnabledShouldOverrideRestore = false,
+			FloatingXSize = 0,
+			FloatingYSize = 0,
+			MinWidth = Constants.TOOLBOX_MIN_WIDTH,
+			MinHeight = Constants.TOOLBOX_MIN_HEIGHT,
+
+			Enabled = enabled,
+
+			[Roact.Ref] = self.dockWidgetRefFunc,
+			[Roact.Change.Enabled] = self.onDockWidgetEnabledChanged,
+			[Roact.Event.AncestryChanged] = self.onAncestryChanged,
+		}, {
+			Toolbox = pluginGuiLoaded and ContextServices.provide({
+				ContextServices.Focus.new(self.state.pluginGui),
+				(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
+			}, {
+				Roact.createElement(ExternalServicesWrapper, {
+					plugin = plugin,
+					pluginGui = pluginGui,
+					theme = theme,
+					networkInterface = networkInterface,
+					localization = localization,
+				}, {
+					Roact.createElement(Toolbox, {
+						initialWidth = initialWidth,
+						backgrounds = backgrounds,
+						suggestions = suggestions,
+						tryOpenAssetConfig = tryOpenAssetConfig,
+						pluginGui = pluginGui,
+					})
+				})
+			})
+		})
+	end
 end
 
 if FFlagToolboxWithContext then

@@ -12,9 +12,15 @@ local Cryo = require(Plugin.Packages.Cryo)
 local SetClipboard = require(Plugin.Src.Actions.SetClipboard)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
+-- TODO: Can be deleted when GetFFlagChannelAnimations() is ON
 return function(instanceName, trackName, tick, multiAdd)
 	return function(store)
+		if GetFFlagChannelAnimations() then
+			return
+		end
+
 		local state = store:getState()
 		local clipboard = state.Status.Clipboard
 		local animationData = state.AnimationData

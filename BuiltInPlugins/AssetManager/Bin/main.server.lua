@@ -9,6 +9,7 @@ local OverrideLocaleId = settings():GetFVariable("StudioForceLocale")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagStudioAssetManagerFixToolbarButtonScript = game:GetFastFlag("StudioAssetManagerFixToolbarButtonScript")
 
 local AssetManagerService = game:GetService("AssetManagerService")
@@ -94,6 +95,12 @@ local pluginGui
 
 -- For recently imported view
 local assetIndex
+if FFlagAssetManagerGeneralizeSignalAPI then
+	assetIndex = 1
+end
+
+-- Signal connections to disconnect when the plugin gets unloaded
+local signalConnections = {}
 
 --Initializes and populates the plugin popup window
 local function openPluginWindow()
@@ -133,7 +140,58 @@ local function toggleWidget()
 end
 
 local function onPluginUnloading()
+	for _, connection in ipairs(signalConnections) do
+		connection:disconnect()
+	end
+
 	closePluginWindow()
+end
+
+-- only use behind FFlagAssetManagerGeneralizeSignalAPI
+local function onImportSessionStarted()
+	if FFlagStudioAssetManagerAddRecentlyImportedView then
+		store:dispatch(SetRecentAssets({}))
+	end
+	assetIndex = 1
+end
+
+-- only use behind FFlagAssetManagerGeneralizeSignalAPI
+local function onImportSessionFinished()
+	local state = store:getState()
+	if next(state.AssetManagerReducer.recentAssets) ~= nil then
+		store:dispatch(SetRecentViewToggled(true))
+	end
+end
+
+local AssetPrefixes = {
+	 [Enum.AssetType.Image] = "Images/",
+	 [Enum.AssetType.MeshPart] = "Meshes/",
+	 [Enum.AssetType.Lua] = "Scripts/",
+	 [Enum.AssetType.Audio] = "Audio/",
+	 [Enum.AssetType.Model] = "Models/",
+}
+
+local function stripNamePrefix(assetType, name)
+	return AssetPrefixes[assetType] and string.gsub(name, AssetPrefixes[assetType], "") or name
+end
+
+-- only use behind FFlagAssetManagerGeneralizeSignalAPI
+local function addRecentAsset(assetType, name, id)
+	local state = store:getState()
+	local strippedName = stripNamePrefix(assetType, name)
+
+	local sAssetId = tostring(id)
+	local recentAssets = Cryo.Dictionary.join(state.AssetManagerReducer.recentAssets, {
+		[sAssetId] = {
+			key = assetIndex,
+			assetType = assetType,
+			name = strippedName,
+			id = id,
+		},
+	})
+
+	assetIndex = assetIndex + 1
+	store:dispatch(SetRecentAssets(recentAssets))
 end
 
 local function connectBulkImporterSignals()
@@ -240,10 +298,14 @@ local function main()
 		store:dispatch(SetUniverseName(name))
 	end)
 
-	if FFlagAssetManagerEnableModelAssets then
-		AssetManagerService.AssetImportedSignal:connect(function(assetType, assetId, assetName)
-			AssetManagerService:CreateAlias(assetType, assetId, assetName)
-		end)
+	if FFlagAssetManagerGeneralizeSignalAPI then
+		local assetImportedConnection = AssetManagerService.AssetImportedSignal:Connect(addRecentAsset)
+		local sessionStartedConnection = AssetManagerService.ImportSessionStarted:Connect(onImportSessionStarted)
+		local sessionFinishedConnection = AssetManagerService.ImportSessionFinished:Connect(onImportSessionFinished)
+
+		table.insert(signalConnections, assetImportedConnection)
+		table.insert(signalConnections, sessionStartedConnection)
+		table.insert(signalConnections, sessionFinishedConnection)
 	end
 end
 

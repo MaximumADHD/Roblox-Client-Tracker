@@ -4,5 +4,9 @@
 -- And then error when trying to use flags that aren't yet defined
 -- In most circumstances flags should be initialized to false
 game:DefineFastFlag("Enable9SliceEditor", false)
+game:DefineFastFlag("9SliceEditorAllowImageReplacement", false)
+game:DefineFastFlag("9SliceEditorEnableAnalytics", false)
+game:DefineFastInt("9SliceEditorAnalyticsReportingHundrethsPercent", 0)
+
 
 return nil

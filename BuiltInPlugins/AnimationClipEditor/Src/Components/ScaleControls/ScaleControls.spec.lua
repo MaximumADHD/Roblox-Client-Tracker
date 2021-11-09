@@ -7,8 +7,23 @@ return function()
 	local ScaleControls = require(script.Parent.ScaleControls)
 
 	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
-	local selectedKeyframes = {
+	local selectedKeyframes = GetFFlagChannelAnimations() and {
+		Root = {
+			TestTrack1 = {
+				Selection = {
+					[18] = true,
+					[27] = true,
+				},
+			},
+			TestTrack2 = {
+				Selection = {
+					[24] = true,
+				},
+			},
+		}
+	} or {
 		["Root"] = {
 			["TestTrack1"] = {
 				[18] = true,

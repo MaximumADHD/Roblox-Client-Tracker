@@ -1,11 +1,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local UrlConstructor = require(Plugin.Src.Networking.UrlConstructor)
 local Http = require(Plugin.Packages.Http)
-local StudioService = game:GetService("StudioService")
+local getStudioLocaleId = require(Plugin.Src.Util.PlayerEmulatorUtilities).getStudioLocaleId
 local LoadCountryRegion = require(Plugin.Src.Actions.LoadCountryRegion)
 local InitCountryRegionSetting = require(Plugin.Src.Thunks.InitCountryRegionSetting)
 
-local studioLocaleId = StudioService["StudioLocaleId"]
+local studioLocaleId = getStudioLocaleId()
 local SUBDOMAIN = "locale"
 local PATH = "v1/country-regions?locale=" .. studioLocaleId
 
