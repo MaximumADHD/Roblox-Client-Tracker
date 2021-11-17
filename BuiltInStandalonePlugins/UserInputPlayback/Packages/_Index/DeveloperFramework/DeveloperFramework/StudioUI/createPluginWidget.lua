@@ -15,7 +15,6 @@ local withContext = ContextServices.withContext
 local Focus = ContextServices.Focus
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
@@ -39,7 +38,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			return
 		end
 
-		widget.Name = title or ""
+		widget.Name = title or "" -- TODO STUDIOPLAT-26329: We might want to assert that a title is provided
 		widget.ZIndexBehavior = props.ZIndexBehavior or Enum.ZIndexBehavior.Sibling
 
 		if widget:IsA("PluginGui") then
@@ -159,17 +158,10 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			self.widget = nil
 		end
 	end
-
-	if FFlagDeveloperFrameworkWithContext then
-		PluginWidget = withContext({
-			Plugin = ContextServices.Plugin,
-		})(PluginWidget)
-	else
-		ContextServices.mapToProps(PluginWidget, {
-			Plugin = ContextServices.Plugin,
-		})
-	end
-
+	
+	PluginWidget = withContext({
+		Plugin = ContextServices.Plugin,
+	})(PluginWidget)
 
 	return PluginWidget
 end

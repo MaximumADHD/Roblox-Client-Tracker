@@ -24,8 +24,8 @@
 		Color3 ArrowColor: The color of the dropdown arrow image.
 		Color3 PlaceholderTextColor: The color of the dropdown placeholder text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
+local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -148,25 +148,19 @@ function SelectInput:render()
 			Items = items,
 			OnFocusLost = self.focusLost,
 			OnItemActivated = props.OnItemActivated,
-			OnRenderItem = FFlagRemoveUILibraryDetailedDropdown and props.OnRenderItem or nil,
+			OnRenderItem = (FFlagRemoveUILibraryStyledDropdownPt1 or FFlagRemoveUILibraryDetailedDropdown) and props.OnRenderItem or nil,
 			Style = style.DropdownMenu,
 		})
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	SelectInput = withContext({
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(SelectInput)
-else
-	ContextServices.mapToProps(SelectInput, {
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+SelectInput = withContext({
+	Focus = ContextServices.Focus,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(SelectInput)
+
 
 
 return SelectInput

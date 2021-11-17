@@ -1,4 +1,3 @@
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local provideMockContext = require(script.Parent.provideMockContext)
@@ -57,25 +56,14 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		if FFlagDeveloperFrameworkWithContext then
-			testComponent = withContext({
-				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-				Localization = ContextServices.Localization,
-				Mouse = ContextServices.Mouse,
-				Plugin = ContextServices.Plugin,
-			})(testComponent)
-		else
-			ContextServices.mapToProps(testComponent,
-			{
-				Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-				Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-				Localization = ContextServices.Localization,
-				Mouse = ContextServices.Mouse,
-				Plugin = ContextServices.Plugin,
-			})
-		end
-
+		
+		testComponent = withContext({
+			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+			Localization = ContextServices.Localization,
+			Mouse = ContextServices.Mouse,
+			Plugin = ContextServices.Plugin,
+		})(testComponent)
 
 		local element = provideMockContext(nil, {
 			test = Roact.createElement(testComponent)
@@ -116,17 +104,9 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		if FFlagDeveloperFrameworkWithContext then
-			testComponent = withContext({
-				Test = testContextItem,
-			})(testComponent)
-		else
-			ContextServices.mapToProps(testComponent, {
-				Test = testContextItem,
-			})
-		end
-
-
+		testComponent = withContext({
+			Test = testContextItem,
+		})(testComponent)
 
 		local element = provideMockContext({
 			testContextItem.new("abc")
@@ -152,17 +132,9 @@ return function()
 				expect(icon).to.equal(cursorTexture)
 				return Roact.createElement("Frame")
 			end
-			if FFlagDeveloperFrameworkWithContext then
-				testComponent = withContext({
-					Mouse = ContextServices.Mouse
-				})(testComponent)
-			else
-				ContextServices.mapToProps(testComponent, 
-				{
-					Mouse = ContextServices.Mouse
-				})
-			end
-
+			testComponent = withContext({
+				Mouse = ContextServices.Mouse
+			})(testComponent)
 
 			return Roact.createElement(testComponent)
 		end

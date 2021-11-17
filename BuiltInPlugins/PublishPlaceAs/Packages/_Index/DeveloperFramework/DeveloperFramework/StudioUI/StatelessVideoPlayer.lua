@@ -24,7 +24,6 @@
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -224,17 +223,12 @@ function StatelessVideoPlayer:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	StatelessVideoPlayer = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(StatelessVideoPlayer)
-else
-	ContextServices.mapToProps(StatelessVideoPlayer, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+StatelessVideoPlayer = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(StatelessVideoPlayer)
+
 
 
 return StatelessVideoPlayer

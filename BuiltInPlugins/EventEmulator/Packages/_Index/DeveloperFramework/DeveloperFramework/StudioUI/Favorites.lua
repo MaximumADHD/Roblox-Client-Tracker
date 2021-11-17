@@ -15,7 +15,6 @@
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -101,19 +100,13 @@ function Favorites:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Favorites = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Favorites)
-else
-	ContextServices.mapToProps(Favorites, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Favorites = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Favorites)
+
 
 
 return Favorites

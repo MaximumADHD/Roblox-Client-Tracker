@@ -12,6 +12,7 @@
 		Plugin Plugin: A Plugin ContextItem, which is provided via mapToProps.
 
 	Optional Props:
+		string Id: The plugin's uniqueId.
 		Vector2 MinSize: The minimum size of the widget, in pixels.
 		Enum.ZIndexBehavior ZIndexBehavior: The ZIndexBehavior of the widget.
 
@@ -25,7 +26,10 @@
 		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
 			That method is run in its own thread, but that means creation of the widget is delayed.
 			Set this to true to create the widget immediately instead. Mostly useful for unit tests.
+		Instance Widget: an optional override of dockwidget instance
+
 ]]
+local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
 local expectsRestoredMessage = [[
 DockWidget expects an OnWidgetRestored function if ShouldRestore is true.
@@ -34,13 +38,17 @@ This DockWidget may restore as enabled, so we need to listen for that!]]
 local Framework = script.Parent.Parent
 local Typecheck = require(Framework.Util).Typecheck
 local createPluginWidget = require(Framework.StudioUI.createPluginWidget)
+local FFlagImprovePluginSpeed_Common = game:GetFastFlag("ImprovePluginSpeed_Common")
 
 local DockWidget = createPluginWidget("DockWidget", function(props)
+	if FFlagImprovePluginSpeed_Common and props.Widget then
+		return props.Widget
+	end
+
 	local plugin = props.Plugin:get()
-
 	local minSize = props.MinSize or Vector2.new(0, 0)
-
 	local shouldRestore = props.ShouldRestore or false
+	local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and (props.Id or props.Title) or props.Title
 
 	if shouldRestore then
 		assert(props.OnWidgetRestored, expectsRestoredMessage)
@@ -57,7 +65,7 @@ local DockWidget = createPluginWidget("DockWidget", function(props)
 		minSize.X,
 		minSize.Y)
 
-	return plugin:CreateDockWidgetPluginGui(props.Title, info)
+	return plugin:CreateDockWidgetPluginGui(pluginId, info)
 end)
 
 Typecheck.wrap(DockWidget, script)

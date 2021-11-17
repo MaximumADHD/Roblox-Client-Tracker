@@ -18,7 +18,6 @@
 		number Radius: The radius of the shadow, in pixels.
 		number Transparency: The transparency of the shadow (ranges from 0 to 1).
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -87,17 +86,12 @@ function DropShadow:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	DropShadow = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(DropShadow)
-else
-	ContextServices.mapToProps(DropShadow, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+DropShadow = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(DropShadow)
+
 
 
 return DropShadow

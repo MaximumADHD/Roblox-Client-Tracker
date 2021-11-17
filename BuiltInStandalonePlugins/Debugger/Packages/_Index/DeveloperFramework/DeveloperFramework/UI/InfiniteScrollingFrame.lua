@@ -37,7 +37,9 @@
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -93,6 +95,7 @@ function InfiniteScrollingFrame:init()
 			OnScrollUpdate = Cryo.None,
 			RenderItem = Cryo.None,
 			Items = Cryo.None,
+			ScrollFocusIndex = Cryo.None,
 		}
 	}
 
@@ -107,6 +110,12 @@ function InfiniteScrollingFrame:init()
 		else
 			updatedProps = props
 		end
+
+		local currFocusIndex = self.state.focusLockToken
+		if (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) then
+			currFocusIndex = props.ScrollFocusIndex
+		end
+
 		return Cryo.Dictionary.join(
 			style,
 			updatedProps,
@@ -122,7 +131,7 @@ function InfiniteScrollingFrame:init()
 				padding = props.ItemPadding,
 				identifier = props.ItemIdentifier,
 				loadingBuffer = props.LoadingBuffer,
-				focusIndex = self.state.focusLockToken,
+				focusIndex = currFocusIndex,
 				anchorLocation = props.AnchorLocation or UDim.new(1, 0),
 				onScrollUpdate = props.OnScrollUpdate
 			})
@@ -164,17 +173,12 @@ function InfiniteScrollingFrame:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	InfiniteScrollingFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(InfiniteScrollingFrame)
-else
-	ContextServices.mapToProps(InfiniteScrollingFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+InfiniteScrollingFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(InfiniteScrollingFrame)
+
 
 
 return InfiniteScrollingFrame

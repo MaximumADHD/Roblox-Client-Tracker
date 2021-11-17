@@ -24,7 +24,6 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues = game:GetFastFlag("DeveloperFrameworkFixRangeSliderKnobSwitchingValues")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -292,19 +291,13 @@ function RangeSlider:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	RangeSlider = withContext({
-		Mouse = ContextServices.Mouse,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(RangeSlider)
-else
-	ContextServices.mapToProps(RangeSlider, {
-		Mouse = ContextServices.Mouse,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+RangeSlider = withContext({
+	Mouse = ContextServices.Mouse,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(RangeSlider)
+
 
 
 return RangeSlider

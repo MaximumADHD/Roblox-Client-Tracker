@@ -1,5 +1,6 @@
 local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 local FFlagDevFrameworkExpandablePaneSectionStyle = game:GetFastFlag("DevFrameworkExpandablePaneSectionStyle")
+local FFlagDevFrameworkExpandablePaneNewArrow = game:GetFastFlag("DevFrameworkExpandablePaneNewArrow")
 
 local Framework = script.Parent.Parent.Parent
 
@@ -40,11 +41,14 @@ if THEME_REFACTOR then
 		},
 		Header = {
 			Arrow = {
-				Color = StyleKey.DimmedText,
-				Image = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
+				Color = FFlagDevFrameworkExpandablePaneNewArrow and StyleKey.MainText or StyleKey.DimmedText,
+				Image = FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png" or "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
+				ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 0) or nil,
+				ImageRectSize = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 12) or nil,
 				Size = UDim2.fromOffset(12, 12),
 				[StyleModifier.Selected] = {
-					Image = "rbxasset://textures/DeveloperFramework/button_arrow_down.png",
+					Image = not FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/DeveloperFramework/button_arrow_down.png" or nil,
+					ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(24, 0) or nil,
 				},
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -63,13 +67,16 @@ if THEME_REFACTOR then
 	} or {
 		Arrow = {
 			AnchorPoint = Vector2.new(0, 0.5),
-			Color = StyleKey.DimmedText,
-			Image = "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
+			Color = FFlagDevFrameworkExpandablePaneNewArrow and StyleKey.MainText or StyleKey.DimmedText,
+			Image = FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png" or "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
+			ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 0) or nil,
+			ImageRectSize = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 12) or nil,
 			Position = UDim2.fromScale(0, 0.5),
 			Size = UDim2.fromOffset(12, 12),
 
 			[StyleModifier.Selected] = {
-				Image = "rbxasset://textures/DeveloperFramework/button_arrow_down.png",
+				Image = not FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/DeveloperFramework/button_arrow_down.png" or nil,
+				ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(24, 0) or nil,
 			},
 		},
 		ContentPadding = {

@@ -14,7 +14,7 @@
 		UDim2 Position: The position of the scrolling frame.
 		UDim2 Size: The size of the scrolling frame.
 		integer LayoutOrder: The order this component will display in a UILayout.
-		number ItemPadding: The padding between items, in pixels.
+		UDim ItemPadding: The padding between items, in pixels.
 		callback ItemIdentifier: Should return a persistent ID for each item. Defaults to object identity.
 		callback LoadNext: Called when scrolled to the end of the itemList (index #itemList).
 		callback LoadPrevious: Called when scrolled to the start of the itemList (index 1).
@@ -27,6 +27,7 @@
 			The Scale is relative to the size of the scrolling frame.
 		callback OnScrollUpdate: Called whenever the scroller updates.
 			OnScrollUpdate({leadIndex: number, anchorIndex: number, trailIndex: number, animationActive: boolean})
+		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 
 	Style Values:
 		string BottomImage: The image that appears in the bottom 3rd of the scrollbar
@@ -36,7 +37,9 @@
 		integer ScrollBarThickness: The horizontal width of the scrollbar.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
@@ -92,6 +95,7 @@ function InfiniteScrollingFrame:init()
 			OnScrollUpdate = Cryo.None,
 			RenderItem = Cryo.None,
 			Items = Cryo.None,
+			ScrollFocusIndex = Cryo.None,
 		}
 	}
 
@@ -106,6 +110,12 @@ function InfiniteScrollingFrame:init()
 		else
 			updatedProps = props
 		end
+
+		local currFocusIndex = self.state.focusLockToken
+		if (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) then
+			currFocusIndex = props.ScrollFocusIndex
+		end
+
 		return Cryo.Dictionary.join(
 			style,
 			updatedProps,
@@ -121,7 +131,7 @@ function InfiniteScrollingFrame:init()
 				padding = props.ItemPadding,
 				identifier = props.ItemIdentifier,
 				loadingBuffer = props.LoadingBuffer,
-				focusIndex = self.state.focusLockToken,
+				focusIndex = currFocusIndex,
 				anchorLocation = props.AnchorLocation or UDim.new(1, 0),
 				onScrollUpdate = props.OnScrollUpdate
 			})
@@ -163,17 +173,12 @@ function InfiniteScrollingFrame:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	InfiniteScrollingFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(InfiniteScrollingFrame)
-else
-	ContextServices.mapToProps(InfiniteScrollingFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+InfiniteScrollingFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(InfiniteScrollingFrame)
+
 
 
 return InfiniteScrollingFrame

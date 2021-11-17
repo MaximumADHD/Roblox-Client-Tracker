@@ -26,7 +26,6 @@ else
 	UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
 end
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local UILibraryFromParent
 
@@ -39,7 +38,6 @@ end
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local withContext = require(Framework.ContextServices.withContext)
-local mapToProps = require(Framework.ContextServices.mapToProps)
 local Stylizer = require(Framework.Style.Stylizer)
 local Theme = require(Framework.ContextServices.Theme)
 local Plugin = require(Framework.ContextServices.Plugin)
@@ -70,21 +68,14 @@ function UILibraryProvider:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	UILibraryProvider = withContext({
-		Stylizer = THEME_REFACTOR and Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and Theme or nil,
-		Plugin = Plugin,
-		Focus = Focus,
-	})(UILibraryProvider)
-else
-	mapToProps(UILibraryProvider, {
-		Stylizer = THEME_REFACTOR and Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and Theme or nil,
-		Plugin = Plugin,
-		Focus = Focus,
-	})
-end
+
+UILibraryProvider = withContext({
+	Stylizer = THEME_REFACTOR and Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and Theme or nil,
+	Plugin = Plugin,
+	Focus = Focus,
+})(UILibraryProvider)
+
 
 local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 

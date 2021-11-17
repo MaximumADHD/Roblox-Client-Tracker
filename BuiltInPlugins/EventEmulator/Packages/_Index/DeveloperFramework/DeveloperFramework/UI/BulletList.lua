@@ -22,7 +22,6 @@
 		Color3 TextColor: The color of the text.
 		number TextSize: The size of the text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -227,17 +226,12 @@ function BulletList:render()
 	)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	BulletList = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(BulletList)
-else
-	ContextServices.mapToProps(BulletList, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+BulletList = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(BulletList)
+
 
 
 return BulletList

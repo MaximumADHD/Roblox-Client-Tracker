@@ -12,7 +12,6 @@
 		UDim2 Size: The size of this component.
 		UDim2 IconSize: The size of the icon.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Framework = script.Parent.Parent
@@ -89,17 +88,12 @@ function AssetRenderThumbnail:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetRenderThumbnail = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetRenderThumbnail)
-else
-	ContextServices.mapToProps(AssetRenderThumbnail, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetRenderThumbnail = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetRenderThumbnail)
+
 
 
 return AssetRenderThumbnail

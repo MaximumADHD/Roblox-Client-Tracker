@@ -28,7 +28,6 @@
 		Color3 BackgroundColor3: Background color of the dialog.
 ]]
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkStyledDialogStyleModifier = game:GetFastFlag("DevFrameworkStyledDialogStyleModifier")
 
 local Framework = script.Parent.Parent
@@ -168,17 +167,12 @@ function StyledDialog:render()
 		}),
 	})
 end
-if FFlagDeveloperFrameworkWithContext then
-	StyledDialog = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(StyledDialog)
-else
-	ContextServices.mapToProps(StyledDialog, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+StyledDialog = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(StyledDialog)
+
 
 
 Typecheck.wrap(StyledDialog, script)

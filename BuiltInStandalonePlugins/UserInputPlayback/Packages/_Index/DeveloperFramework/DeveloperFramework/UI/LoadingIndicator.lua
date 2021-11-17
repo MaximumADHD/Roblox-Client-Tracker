@@ -16,7 +16,6 @@
 		Color3 StartColor: The starting color of the blocks.
 		Color3 EndColor: The color of the blocks as they are at their maximum height.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local RunService = game:GetService("RunService")
 
@@ -151,17 +150,12 @@ function LoadingIndicator:render()
 	}, children)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	LoadingIndicator = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(LoadingIndicator)
-else
-	ContextServices.mapToProps(LoadingIndicator, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+LoadingIndicator = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(LoadingIndicator)
+
 
 
 return LoadingIndicator

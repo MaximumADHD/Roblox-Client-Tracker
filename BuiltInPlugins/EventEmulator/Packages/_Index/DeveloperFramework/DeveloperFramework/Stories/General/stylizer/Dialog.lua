@@ -1,7 +1,6 @@
 --[[
 	Dialog
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -42,15 +41,11 @@ function Dialog:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Dialog = withContext({
-		Stylizer = Stylizer
-	})(Dialog)
-else
-	ContextServices.mapToProps(Dialog, {
-		Stylizer = Stylizer
-	})
-end
+
+Dialog = withContext({
+	Stylizer = Stylizer
+})(Dialog)
+
 
 
 return Dialog
