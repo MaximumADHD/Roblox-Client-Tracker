@@ -6,6 +6,7 @@ Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
 Studio.AssetImporter.Plugin.Browse,Browse...
 Studio.AssetImporter.Plugin.Button,Import
 Studio.AssetImporter.Plugin.Cancel,Cancel
+Studio.AssetImporter.Plugin.Close,Close
 Studio.AssetImporter.Plugin.Description,Import a mesh rig or avatar from a file using the import UI.
 Studio.AssetImporter.Plugin.Import,Import
 Studio.AssetImporter.Plugin.ImportConfiguration,Settings for the current import
@@ -49,7 +50,17 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object
+Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error
+Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning
+Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported
 Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
+Studio.AssetImporter.Upload.Failure,Import failed
+Studio.AssetImporter.Upload.FailureDescription,Something went wrong while uploading. Please try again.
+Studio.AssetImporter.Upload.Success,Successfully Imported!
+Studio.AssetImporter.Upload.SuccessDescription,You may find your asset in Toolbox or Asset Manager.
+Studio.AssetImporter.Upload.Uploading,Uploading
+Studio.AssetImporter.Upload.WindowTitle,Importing

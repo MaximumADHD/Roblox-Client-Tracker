@@ -19,7 +19,8 @@
       <addaction name="fileNewAction"/>
       <addaction name="fileOpenAction"/>
       <addaction name="fileOpenRecentAction"/>
-      <addaction name="fileCloseAction" style="textundericon"/>
+      <addaction name="fileCloseAction" style="textundericon" fflag="!StudioCloseFileToClose"/>
+      <addaction name="placeCloseAction" style="textundericon" fflag="StudioCloseFileToClose"/>
       <addseparator />
       <addaction name="fileSaveAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
       <addaction name="fileSaveAsAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
@@ -321,6 +322,7 @@
       </Group>
       <Group name="Constraints" text="Studio.App.RobloxRibbonMainWindow.Constraints">
         <MenuPopupButton fflag="!RibbonBarGalleryDropdown" name="createConstraintAction" handleMenuTrigger="true" style="textundericon" popupStyle="menubutton" ischeckable="true" text="Studio.Common.Action.Create" tooltip="Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="32" height="32">
+          <addaction fflag="SimRigidConstraint" name="createRigidConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.RigidConstraint" tooltip="Studio.App.RobloxRibbonMainWindow.CreateRigidConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rigid-32x32.png" width="32" height="32" />
           <addaction name="createBallInSocketConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.BallInSocket" tooltip="Studio.App.RobloxRibbonMainWindow.CreateBallInSocket" icon=":/RibbonBar/images/RibbonIcons/Physics/ball-in-socket-32x32.png" width="32" height="32" />
           <addaction name="createHingeConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Hinge" tooltip="Studio.App.RobloxRibbonMainWindow.CreateHinge" icon=":/RibbonBar/images/RibbonIcons/Physics/hinge-32x32.png" width="32" height="32" />
           <addaction name="createPrismaticConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Prismatic" tooltip="Studio.App.RobloxRibbonMainWindow.CreatePrismaticConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/prismatic-constraint-32x32.png" width="32" height="32" />
@@ -346,6 +348,7 @@
         </MenuPopupButton>
         <MenuPopupButton fflag="RibbonBarGalleryDropdown" name="createConstraintAction" handleMenuTrigger="true" style="textundericon" popupStyle="menubutton" ischeckable="true" text="Studio.Common.Action.Create" tooltip="Studio.App.RobloxRibbonMainWindow.PlaceConstraintAttachment" icon=":/RibbonBar/images/RibbonIcons/Physics/constraint-32x32.png" width="32" height="32">
           <Gallery galleryColumns="4">
+            <addaction fflag="SimRigidConstraint" name="createRigidConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.RigidConstraint" tooltip="Studio.App.RobloxRibbonMainWindow.CreateRigidConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/rigid-32x32.png" width="32" height="32" />
             <addaction name="createBallInSocketConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.BallInSocket" tooltip="Studio.App.RobloxRibbonMainWindow.CreateBallInSocket" icon=":/RibbonBar/images/RibbonIcons/Physics/ball-in-socket-32x32.png" width="32" height="32" />
             <addaction name="createHingeConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Hinge" tooltip="Studio.App.RobloxRibbonMainWindow.CreateHinge" icon=":/RibbonBar/images/RibbonIcons/Physics/hinge-32x32.png" width="32" height="32" />
             <addaction name="createPrismaticConstraintAction" style="textundericon" iscommonslot="true" text="Studio.App.RobloxRibbonMainWindow.Prismatic" tooltip="Studio.App.RobloxRibbonMainWindow.CreatePrismaticConstraint" icon=":/RibbonBar/images/RibbonIcons/Physics/prismatic-constraint-32x32.png" width="32" height="32" />
@@ -621,15 +624,23 @@
             icon=":/RibbonBar/images/RibbonIcons/Test/gst_client_light.png"
             width="32"
             height="32"/>
-        <addaction name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
-        <addaction text="Studio.Common.Action.Resume" name="simulationResumeAction" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
+        <addaction fflag="!StudioDebuggerPlugin" name="simulationPauseAction" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction fflag="StudioDebuggerPlugin" name="simulationPauseActionV2" type="plugin" style="textundericon" text="Studio.Common.Action.Pause" icon=":/RibbonBar/images/RibbonIcons/Test/Pause.png" width="32" height="32" />
+        <addaction fflag="!StudioDebuggerPlugin" name="simulationResumeAction" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
+        <addaction fflag="StudioDebuggerPlugin" name="simulationResumeActionV2" type="plugin" text="Studio.Common.Action.Resume" style="textundericon"  value="simulationResumeAction" icon=":/RibbonBar/images/RibbonIcons/Test/Resume.png" width="32" height="32"/>
         <addaction name="simulationResetAction" style="textundericon" text="Studio.Common.Action.Stop" icon=":/RibbonBar/images/RibbonIcons/Test/Stop.png" width="32" height="32"/>
       </Group>
       <Group name="Debugger" text="Studio.App.RBXMainWindow.Debugger" debugOnly="true">
         <!--<addaction name="toggleAllBreakpointsStateAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Toggle-Breakpoints.png" tooltip="Enabled/Disable all breakpoints" width="32" height="32"/>-->
-        <addaction name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
-        <addaction name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
-        <addaction name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
+        <addaction fflag="!StudioDebuggerPlugin" name="stepIntoAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
+        <addaction fflag="StudioDebuggerPlugin" name="stepIntoActionV2" text="Studio.App.RBXMainWindow.StepInto" tooltip="Studio.App.RBXMainWindow.StepInto" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-In.png" width="32" height="32"/>
+
+        <addaction fflag="!StudioDebuggerPlugin" name="stepOverAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
+        <addaction fflag="StudioDebuggerPlugin" name="stepOverActionV2" text="Studio.App.RBXMainWindow.StepOver" tooltip="Studio.App.RBXMainWindow.StepOver" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Over.png" width="32" height="32"/>
+
+        <addaction fflag="!StudioDebuggerPlugin" name="stepOutAction"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
+        <addaction fflag="StudioDebuggerPlugin" name="stepOutActionV2" text="Studio.App.RBXMainWindow.StepOut" tooltip="Studio.App.RBXMainWindow.StepOut" type="plugin"  style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Step-Out.png" width="32" height="32"/>
+        
         <addaction name="addWatchAction" style="textundericon" icon=":/RibbonBar/images/RibbonIcons/Test/Add-Watch.png" tooltip="Studio.App.RobloxRibbonMainWindow.WatchTheHighlightedVariables" width="32" height="32"/>
       </Group>
       <Group debugOnly="true" name="Debug Errors" text="Studio.App.RobloxRibbonMainWindow.DebugErrors">

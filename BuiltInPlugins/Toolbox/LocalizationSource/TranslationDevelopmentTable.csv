@@ -270,4 +270,5 @@ Sound Length,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID
 Filter ID,Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
 "For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
-Invalid Animation ID
+Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
+This plugin was created by a third party. Roblox does not guarantee its safety or quality.

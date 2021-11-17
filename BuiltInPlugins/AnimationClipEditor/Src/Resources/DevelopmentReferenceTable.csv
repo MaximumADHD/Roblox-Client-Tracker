@@ -4,6 +4,7 @@ Studio.AnimationClipEditor.ContextMenu.AddKeyframe, ,Add Keyframe
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere, ,Add Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe, ,Add Reset Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.ChangeDuration, ,Change Duration
+Studio.AnimationClipEditor.ContextMenu.ClearTangents, ,Clear Tangents
 Studio.AnimationClipEditor.ContextMenu.ClearTrack, ,Clear Track
 Studio.AnimationClipEditor.ContextMenu.CopyEvents, ,Copy Selected
 Studio.AnimationClipEditor.ContextMenu.CopySelected, ,Copy Selected
@@ -18,6 +19,7 @@ Studio.AnimationClipEditor.ContextMenu.EasingDirection, ,Easing Direction
 Studio.AnimationClipEditor.ContextMenu.EasingStyle, ,Easing Style
 Studio.AnimationClipEditor.ContextMenu.EditEventName, ,Edit Event Name
 Studio.AnimationClipEditor.ContextMenu.EditEvents, ,Edit Animation Event
+Studio.AnimationClipEditor.ContextMenu.InterpolationMode, ,Interpolation Mode
 Studio.AnimationClipEditor.ContextMenu.PasteEvents, ,Paste Events
 Studio.AnimationClipEditor.ContextMenu.PasteKeyframes, ,Paste Keyframes
 Studio.AnimationClipEditor.ContextMenu.Redo, ,Redo

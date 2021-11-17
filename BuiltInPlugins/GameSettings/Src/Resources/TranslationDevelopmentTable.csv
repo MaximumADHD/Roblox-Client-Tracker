@@ -39,7 +39,7 @@ Studio.GameSettings.General.ButtonSave,Save, ,Save
 Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel
 Studio.GameSettings.General.CategoryOptions,Options, ,Options
 Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity
-Studio.GameSettings.General.ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled., ,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.
+Studio.GameSettings.General.DEPRECATED_ScriptCollabWarning,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled., ,Warning: The Team Create server needs to restart before this feature is disabled. The server will automatically restart once all editors have left the session. Any unsaved drafts will no longer be accessible until Collaborative Editing is re-enabled.
 Studio.GameSettings.AccessPermissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
 Studio.GameSettings.Permissions.NoAccessDescription,Cannot play or edit this game, ,Cannot play or edit this game
 Studio.GameSettings.General.ButtonSubmit,Submit, ,Submit
@@ -274,7 +274,7 @@ Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and mana
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, ,Enable Streaming to begin editing your experience sooner
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
-Studio.GameSettings.General.TeamCreateStreamingWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
+Studio.GameSettings.General.ServerRestartWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.
 Studio.GameSettings.General.TitleScriptCollab,Enable Collaborative Editing, ,Enable Collaborative Editing
 Studio.GameSettings.General.TitleJump,Jump, ,Jump
 Studio.GameSettings.General.TitleCollaborators,Collaborators, ,Collaborators
@@ -324,8 +324,8 @@ Studio.GameSettings.Permissions.TeamCreateWarning,"To add collaborators, turn on
 Studio.GameSettings.DraftGames.PublishRequiredToActivatePlayability, to activate Playability options, , to activate Playability options
 Studio.GameSettings.AccessPermissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name
 Studio.GameSettings.Permissions.DEPRECATED_CollaboratorSearchbarDefaultText,Search by user or group name, ,Search by user or group name
-Studio.GameSettings.AccessPermissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!
-Studio.GameSettings.Permissions.PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!
+Studio.GameSettings.AccessPermissions.DEPRECATED_PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!
+Studio.GameSettings.Permissions.DEPRECATED_PermissionsUpdateMessage, We've updated our permission system!, , We've updated our permission system!
 Studio.GameSettings.General.SourceLanguageTitle,Source Language, ,Source Language
 Studio.GameSettings.General.AutoTextCaptureDesc,Automatically capture text from game UI while players play., ,Automatically capture text from game UI while players play.
 Studio.GameSettings.General.UseTranslatedContentDesc,Enable translated content in game., ,Enable translated content in game.

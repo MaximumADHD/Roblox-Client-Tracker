@@ -790,6 +790,47 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">RigidConstraint</string>
+        <string name="FFlag">SimRigidConstraint</string>
+        <string name="ClassCategory">Constraints</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">135</string>
+        <string name="PreferredParent">PVInstance</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DestructionEnabled</string>
+            <string name="PropertyOrder">0</string>
+            <string name="FFlag">SimSolverEnableDestruction</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">Broken</string>
+            <string name="PropertyOrder">1</string>
+            <string name="FFlag">SimSolverEnableDestruction</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DestructionForce</string>
+            <string name="PropertyOrder">2</string>
+            <string name="FFlag">SimSolverEnableDestruction</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">DestructionTorque</string>
+            <string name="PropertyOrder">3</string>
+            <string name="FFlag">SimSolverEnableDestruction</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">HingeConstraint</string>
         <string name="ClassCategory">Constraints</string>
             <string name="ExplorerOrder">30</string>
@@ -3619,6 +3660,16 @@
         <string name="Name">ChatService</string>
         <string name="ExplorerOrder">510</string>
         <string name="ExplorerImageIndex">33</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+      </Item>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">VoiceChatService</string>
+        <string name="ExplorerOrder">520</string>
+        <string name="ExplorerImageIndex">136</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">
       </Item>

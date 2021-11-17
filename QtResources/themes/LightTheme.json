@@ -39,7 +39,8 @@
             "MenuSelectedBackground": "#265AA9",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#B3B3B3",
-            "MenuBorder":  "#666666"
+            "MenuBorder":  "#666666",
+            "DocViewCodeBackground": "#d4d4d4"
         },
         "Extra1": {
             "Default": "#000000",
@@ -79,7 +80,8 @@
             "MenuSelectedBackground": "#265AA9",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#B3B3B3",
-            "MenuBorder":  "#666666"
+            "MenuBorder":  "#666666",
+            "DocViewCodeBackground": "#d4d4d4"
         },
         "Extra2": {
             "Default": "#D8DEE9",
@@ -119,7 +121,8 @@
             "MenuSelectedBackground": "#265AA9",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#B3B3B3",
-            "MenuBorder":  "#666666"
+            "MenuBorder":  "#666666",
+            "DocViewCodeBackground": "#d4d4d4"
         },
         "Custom": {
             "Default": "#000000",
@@ -159,7 +162,8 @@
             "MenuSelectedBackground": "#265AA9",
             "MenuScrollbarBackground": "#FFFFFF",
             "MenuScrollbarHandle": "#B3B3B3",
-            "MenuBorder":  "#666666"
+            "MenuBorder":  "#666666",
+            "DocViewCodeBackground": "#d4d4d4"
         }
     },
     "Colors": [{

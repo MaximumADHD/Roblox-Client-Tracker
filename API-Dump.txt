@@ -134,7 +134,9 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Tuple AssetImportService:ImportMeshWithPrompt() {RobloxScriptSecurity} [Yields]
 	Function bool AssetImportService:IsAvatar() {RobloxScriptSecurity}
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
+	Event AssetImportService.ProgressUpdate(float progressRatio)
 	Event AssetImportService.SettingsChanged(string property)
+	Event AssetImportService.UploadFinished(bool succeeded)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
@@ -691,6 +693,11 @@ Class LinearVelocity : Constraint
 	Property Vector3 LinearVelocity.SecondaryTangentAxis
 	Property Vector3 LinearVelocity.VectorVelocity
 Class Plane : Constraint
+Class RigidConstraint : Constraint [NotBrowsable]
+	Property bool RigidConstraint.Broken [NotBrowsable]
+	Property bool RigidConstraint.DestructionEnabled [NotBrowsable]
+	Property float RigidConstraint.DestructionForce [NotBrowsable]
+	Property float RigidConstraint.DestructionTorque [NotBrowsable]
 Class RodConstraint : Constraint
 	Property float RodConstraint.Thickness
 	Property float RodConstraint.CurrentDistance [ReadOnly]
@@ -980,6 +987,8 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
+	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
+	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1186,7 +1195,7 @@ Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property bool GameSettings.VideoCaptureEnabled
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
-Class GamepadService : Instance [NotCreatable] [Service]
+Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool GamepadService.GamepadCursorEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
@@ -2132,6 +2141,12 @@ Class ModuleScript : LuaSourceContainer
 	Property ProtectedString ModuleScript.Source {PluginSecurity}
 Class LuaWebService : Instance [NotCreatable] [Service]
 Class LuauScriptAnalyzerService : Instance [NotCreatable] [Service] [NotReplicated]
+Class MarkerCurve : Instance
+	Property int MarkerCurve.Length [ReadOnly]
+	Function Dictionary MarkerCurve:GetMarkerAtIndex(int index)
+	Function Array MarkerCurve:GetMarkers()
+	Function Array MarkerCurve:InsertMarkerAtTime(float time, string marker)
+	Function int MarkerCurve:RemoveMarkerAtIndex(int startingIndex, int count = 1)
 Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function Instance MarketplaceService:GetDeveloperProductsAsync() [Yields]
 	Function Dictionary MarketplaceService:GetProductInfo(int64 assetId, Enum.InfoType infoType = "Asset") [Yields]
@@ -2186,25 +2201,28 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.ThirdPartyPurchaseFinished(Instance player, string productId, string receipt, bool wasPurchased) {LocalUserSecurity}
 	Callback Enum.ProductPurchaseDecision MarketplaceService.ProcessReceipt(Dictionary receiptInfo)
 Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
-	Property MaterialVariant MaterialService.Brick
-	Property MaterialVariant MaterialService.Cobblestone
-	Property MaterialVariant MaterialService.Concrete
-	Property MaterialVariant MaterialService.CorrodedMetal
-	Property MaterialVariant MaterialService.DiamondPlate
-	Property MaterialVariant MaterialService.Fabric
-	Property MaterialVariant MaterialService.Foil
-	Property MaterialVariant MaterialService.Granite
-	Property MaterialVariant MaterialService.Grass
-	Property MaterialVariant MaterialService.Ice
-	Property MaterialVariant MaterialService.Marble
-	Property MaterialVariant MaterialService.Metal
-	Property MaterialVariant MaterialService.Pebble
-	Property MaterialVariant MaterialService.Plastic
-	Property MaterialVariant MaterialService.Sand
-	Property MaterialVariant MaterialService.Slate
-	Property MaterialVariant MaterialService.SmoothPlastic
-	Property MaterialVariant MaterialService.Wood
-	Property MaterialVariant MaterialService.WoodPlanks
+	Property MaterialVariant MaterialService.Brick {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Cobblestone {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Concrete {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.CorrodedMetal {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.DiamondPlate {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Fabric {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Foil {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Granite {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Grass {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Ice {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Marble {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Metal {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Pebble {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Plastic {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Sand {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Slate {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.SmoothPlastic {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.Wood {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
+	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
+	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
+	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
 Class MaterialVariant : Instance [NotBrowsable]
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
@@ -2265,7 +2283,6 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property bool MetaBreakpoint.Valid {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
@@ -2700,6 +2717,7 @@ Class PathfindingLink : Instance
 	Property Attachment PathfindingLink.Attachment0
 	Property Attachment PathfindingLink.Attachment1
 	Property bool PathfindingLink.IsBidirectional
+	Property string PathfindingLink.ModifierId
 Class PathfindingModifier : Instance
 	Property string PathfindingModifier.ModifierId
 	Property bool PathfindingModifier.PassThrough
@@ -3271,6 +3289,8 @@ Class ScriptDebugger : Instance [NotCreatable]
 	Event ScriptDebugger.Resuming()
 	Event ScriptDebugger.WatchAdded(Instance watch)
 	Event ScriptDebugger.WatchRemoved(Instance watch)
+Class ScriptRegistrationService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function LuaSourceContainer ScriptRegistrationService:GetSourceContainerByScriptGuid(string guid) {RobloxScriptSecurity}
 Class ScriptService : Instance [NotCreatable] [Service]
 Class Selection : Instance [NotCreatable] [Service]
 	Property float Selection.SelectionThickness [ReadOnly]
@@ -3638,9 +3658,11 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Auto Closing Quotes
 	Property Enum.AutoIndentRule Studio.Auto Indent Rule
 	Property bool Studio.Enable Autocomplete
+	Property bool Studio.Enable Autocomplete Doc View {RobloxScriptSecurity}
 	Property bool Studio.Enable Script Analysis {RobloxScriptSecurity}
 	Property bool Studio.Enable Scrollbar Markers {RobloxScriptSecurity}
 	Property bool Studio.Enable Signature Help {RobloxScriptSecurity}
+	Property bool Studio.Enable Signature Help Doc View {RobloxScriptSecurity}
 	Property bool Studio.Enable Temporary Tabs
 	Property bool Studio.Enable Temporary Tabs In Explorer
 	Property bool Studio.Enable Type Hover {RobloxScriptSecurity}
@@ -3671,6 +3693,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Color3 Studio.Current Line Highlight Color [NotReplicated]
 	Property Color3 Studio.Debugger Current Line Color [NotReplicated]
 	Property Color3 Studio.Debugger Error Line Color [NotReplicated]
+	Property Color3 Studio.Doc View Code Background Color {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Color3 Studio.Error Color [NotReplicated]
 	Property Color3 Studio.Find Selection Background Color [NotReplicated]
 	Property Color3 Studio.Function Name Color [NotReplicated]
@@ -3879,6 +3902,9 @@ Class TestService : Instance [Service]
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
 Class TextChannel : Instance
+	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
+	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
+	Event TextChannel.MessageReceived(TextChatMessage textChatMessage)
 Class TextChatService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
@@ -4239,6 +4265,7 @@ Class Vector3Curve : Instance
 	Function FloatCurve Vector3Curve:Y()
 	Function FloatCurve Vector3Curve:Z()
 Class VersionControlService : Instance [NotCreatable] [Service]
+	Property bool VersionControlService.ScriptCollabEnabled {RobloxScriptSecurity} [Hidden]
 Class VirtualInputManager : Instance [Service]
 	Property string VirtualInputManager.AdditionalLuaState {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function void VirtualInputManager:Dump() {RobloxScriptSecurity}
@@ -4307,8 +4334,8 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
-Class VoiceChatService : Instance [NotCreatable] [Service]
-	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
+Class VoiceChatService : Instance [NotCreatable] [Service] [Deprecated]
+	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields] [Deprecated]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
@@ -6038,6 +6065,7 @@ Enum StudioScriptEditorColorCategories
 	EnumItem StudioScriptEditorColorCategories.MenuScrollbarBackground : 35
 	EnumItem StudioScriptEditorColorCategories.MenuScrollbarHandle : 36
 	EnumItem StudioScriptEditorColorCategories.MenuBorder : 37
+	EnumItem StudioScriptEditorColorCategories.DocViewCodeBackground : 38
 Enum StudioScriptEditorColorPresets
 	EnumItem StudioScriptEditorColorPresets.RobloxDefault : 0
 	EnumItem StudioScriptEditorColorPresets.Extra1 : 1
@@ -6107,59 +6135,60 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ScriptError : 60
 	EnumItem StudioStyleGuideColor.ScriptWhitespace : 61
 	EnumItem StudioStyleGuideColor.ScriptRuler : 62
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 63
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 64
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 65
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 66
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 67
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 68
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 69
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 70
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 71
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 72
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 73
-	EnumItem StudioStyleGuideColor.DiffLineNum : 74
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 75
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 76
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 77
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 78
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 79
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 80
-	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 81
-	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 82
-	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 83
-	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 84
-	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 85
-	EnumItem StudioStyleGuideColor.Separator : 86
-	EnumItem StudioStyleGuideColor.ButtonBorder : 87
-	EnumItem StudioStyleGuideColor.ButtonText : 88
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 89
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 90
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 91
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 92
-	EnumItem StudioStyleGuideColor.HeaderSection : 93
-	EnumItem StudioStyleGuideColor.Midlight : 94
-	EnumItem StudioStyleGuideColor.StatusBar : 95
-	EnumItem StudioStyleGuideColor.DialogButton : 96
-	EnumItem StudioStyleGuideColor.DialogButtonText : 97
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 98
-	EnumItem StudioStyleGuideColor.DialogMainButton : 99
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 100
-	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 101
-	EnumItem StudioStyleGuideColor.InfoBarWarningText : 102
-	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 103
-	EnumItem StudioStyleGuideColor.ScriptMethod : 104
-	EnumItem StudioStyleGuideColor.ScriptProperty : 105
-	EnumItem StudioStyleGuideColor.ScriptNil : 106
-	EnumItem StudioStyleGuideColor.ScriptBool : 107
-	EnumItem StudioStyleGuideColor.ScriptFunction : 108
-	EnumItem StudioStyleGuideColor.ScriptLocal : 109
-	EnumItem StudioStyleGuideColor.ScriptSelf : 110
-	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 111
-	EnumItem StudioStyleGuideColor.ScriptFunctionName : 112
-	EnumItem StudioStyleGuideColor.ScriptTodo : 113
-	EnumItem StudioStyleGuideColor.ScriptBracket : 114
-	EnumItem StudioStyleGuideColor.AttributeCog : 115
+	EnumItem StudioStyleGuideColor.DocViewCodeBackground : 63
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 64
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 65
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 66
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 67
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 68
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 69
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 70
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 71
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 72
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 73
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 74
+	EnumItem StudioStyleGuideColor.DiffLineNum : 75
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 76
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 77
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 78
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 79
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 80
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 81
+	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 82
+	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 83
+	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 84
+	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 85
+	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 86
+	EnumItem StudioStyleGuideColor.Separator : 87
+	EnumItem StudioStyleGuideColor.ButtonBorder : 88
+	EnumItem StudioStyleGuideColor.ButtonText : 89
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 90
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 91
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 92
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 93
+	EnumItem StudioStyleGuideColor.HeaderSection : 94
+	EnumItem StudioStyleGuideColor.Midlight : 95
+	EnumItem StudioStyleGuideColor.StatusBar : 96
+	EnumItem StudioStyleGuideColor.DialogButton : 97
+	EnumItem StudioStyleGuideColor.DialogButtonText : 98
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 99
+	EnumItem StudioStyleGuideColor.DialogMainButton : 100
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 101
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 102
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 103
+	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 104
+	EnumItem StudioStyleGuideColor.ScriptMethod : 105
+	EnumItem StudioStyleGuideColor.ScriptProperty : 106
+	EnumItem StudioStyleGuideColor.ScriptNil : 107
+	EnumItem StudioStyleGuideColor.ScriptBool : 108
+	EnumItem StudioStyleGuideColor.ScriptFunction : 109
+	EnumItem StudioStyleGuideColor.ScriptLocal : 110
+	EnumItem StudioStyleGuideColor.ScriptSelf : 111
+	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 112
+	EnumItem StudioStyleGuideColor.ScriptFunctionName : 113
+	EnumItem StudioStyleGuideColor.ScriptTodo : 114
+	EnumItem StudioStyleGuideColor.ScriptBracket : 115
+	EnumItem StudioStyleGuideColor.AttributeCog : 116
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1

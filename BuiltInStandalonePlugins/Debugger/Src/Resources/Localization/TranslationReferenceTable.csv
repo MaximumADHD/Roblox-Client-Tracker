@@ -69,4 +69,5 @@ Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desacti
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression,Añadir expresión,式を編集,식 편집,Editar expressão,编辑表达式,编辑表达式,編輯運算式
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns,Todas las columnas,すべての列,모든 열,Todas as colunas,所有列,所有列,所有行
 Studio.Debugger.Callstack.DropdownButtonText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas,{NumFields:int} 列,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行
+Studio.Debugger.Callstack.DropdownFieldText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas,{NumFields:int} 列,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行
 Studio.Debugger.BreakpointsWindow.ContinueExecutionColumn,Continue Execution,Continue Execution,Continuar ejecución,実行を続ける,계속 실행,Continuar execução,继续执行,继续执行,繼續執行

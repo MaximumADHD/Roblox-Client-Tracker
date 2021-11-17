@@ -26,6 +26,8 @@ Studio.Debugger.Callstack.SourceColumn,Source,Source
 Studio.Debugger.EditDebugpoint.ConditionPlaceholder,Enter condition(s),Enter condition(s)
 Studio.Debugger.EditDebugpoint.LogTooltip,Log message will be displayed in Output widget when a Logpoint is hit.,Log message will be displayed in Output widget when a Logpoint is hit.
 Studio.Debugger.Callstack.WindowName,Call Stack,Call Stack
+Studio.Debugger.Common.stepOutActionV2,Step Out,Step Out
+Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns
 Studio.Debugger.Callstack.FrameColumn,Frame,Frame
 Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint
@@ -40,6 +42,11 @@ Studio.Debugger.Callstack.CurrentScriptTitle,Current Script: ,Current Script:
 Studio.Debugger.Callstack.SelectInputPlaceholderText,Select Script,Select Script
 Studio.Debugger.Common.DisableBreakpoint,Disable Breakpoint,Disable Breakpoint
 Studio.Debugger.Common.SelectAll,Select All,Select All
+Studio.Debugger.Watch.ValueColumn,Value,Value
+Studio.Debugger.Common.simulationResumeActionV2,Resume,Resume
+Studio.Debugger.Watch.ScopeColumn,Scope,Scope
+Studio.Debugger.Watch.ExpressionColumn,Expression,Expression
+Studio.Debugger.Common.stepIntoActionV2,Step Into,Step Into
 Studio.Debugger.Watch.Global,Global,Global
 Studio.Debugger.Common.AddExpression,Add Expression,Add Expression
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression
@@ -55,6 +62,3 @@ Studio.Debugger.Watch.Upvalue,Upvalue,Upvalue
 Studio.Debugger.Watch.VariablesTab,Variables,Variables
 Studio.Debugger.Watch.WatchesTab,My Watches,My Watches
 Studio.Debugger.Watch.NameColumn,Name,Name
-Studio.Debugger.Watch.ScopeColumn,Scope,Scope
-Studio.Debugger.Watch.ExpressionColumn,Expression,Expression
-Studio.Debugger.Watch.ValueColumn,Value,Value

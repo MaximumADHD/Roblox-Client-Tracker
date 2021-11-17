@@ -2609,6 +2609,21 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "ProgressUpdate",
+                    "Parameters": [
+                        {
+                            "Name": "progressRatio",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "SettingsChanged",
                     "Parameters": [
                         {
@@ -2616,6 +2631,21 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UploadFinished",
+                    "Parameters": [
+                        {
+                            "Name": "succeeded",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -13089,6 +13119,100 @@
         {
             "Members": [
                 {
+                    "Category": "Destruction",
+                    "MemberType": "Property",
+                    "Name": "Broken",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Destruction",
+                    "MemberType": "Property",
+                    "Name": "DestructionEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Destruction",
+                    "MemberType": "Property",
+                    "Name": "DestructionForce",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Destruction",
+                    "MemberType": "Property",
+                    "Name": "DestructionTorque",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                }
+            ],
+            "MemoryCategory": "PhysicsParts",
+            "Name": "RigidConstraint",
+            "Superclass": "Constraint",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Derived",
                     "MemberType": "Property",
                     "Name": "CurrentDistance",
@@ -18480,6 +18604,30 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Pause",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "Resume",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -22427,7 +22575,8 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service"
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -39586,6 +39735,119 @@
         {
             "Members": [
                 {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "Length",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMarkerAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "index",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMarkers",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InsertMarkerAtTime",
+                    "Parameters": [
+                        {
+                            "Name": "time",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "float"
+                            }
+                        },
+                        {
+                            "Name": "marker",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "RemoveMarkerAtIndex",
+                    "Parameters": [
+                        {
+                            "Name": "startingIndex",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Default": "1",
+                            "Name": "count",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "MarkerCurve",
+            "Superclass": "Instance"
+        },
+        {
+            "Members": [
+                {
                     "MemberType": "Function",
                     "Name": "PlayerCanMakePurchases",
                     "Parameters": [
@@ -40972,13 +41234,16 @@
                     "MemberType": "Property",
                     "Name": "Brick",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -40990,13 +41255,16 @@
                     "MemberType": "Property",
                     "Name": "Cobblestone",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41008,13 +41276,16 @@
                     "MemberType": "Property",
                     "Name": "Concrete",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41026,13 +41297,16 @@
                     "MemberType": "Property",
                     "Name": "CorrodedMetal",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41044,13 +41318,16 @@
                     "MemberType": "Property",
                     "Name": "DiamondPlate",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41062,13 +41339,16 @@
                     "MemberType": "Property",
                     "Name": "Fabric",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41080,13 +41360,16 @@
                     "MemberType": "Property",
                     "Name": "Foil",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41098,13 +41381,16 @@
                     "MemberType": "Property",
                     "Name": "Granite",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41116,13 +41402,16 @@
                     "MemberType": "Property",
                     "Name": "Grass",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41134,13 +41423,16 @@
                     "MemberType": "Property",
                     "Name": "Ice",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41152,13 +41444,16 @@
                     "MemberType": "Property",
                     "Name": "Marble",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41170,13 +41465,16 @@
                     "MemberType": "Property",
                     "Name": "Metal",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41188,13 +41486,16 @@
                     "MemberType": "Property",
                     "Name": "Pebble",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41206,13 +41507,16 @@
                     "MemberType": "Property",
                     "Name": "Plastic",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41224,13 +41528,16 @@
                     "MemberType": "Property",
                     "Name": "Sand",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41242,13 +41549,16 @@
                     "MemberType": "Property",
                     "Name": "Slate",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41260,13 +41570,16 @@
                     "MemberType": "Property",
                     "Name": "SmoothPlastic",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41278,13 +41591,16 @@
                     "MemberType": "Property",
                     "Name": "Wood",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -41296,18 +41612,78 @@
                     "MemberType": "Property",
                     "Name": "WoodPlanks",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
                         "Name": "MaterialVariant"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearOverridePartMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetOverridePartMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetOverridePartMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "materialVariant",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MaterialVariant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -42702,29 +43078,6 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
-                    }
-                },
-                {
-                    "Category": "State",
-                    "MemberType": "Property",
-                    "Name": "Valid",
-                    "Security": {
-                        "Read": "RobloxScriptSecurity",
-                        "Write": "RobloxScriptSecurity"
-                    },
-                    "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
-                    },
-                    "Tags": [
-                        "Hidden",
-                        "ReadOnly",
-                        "NotReplicated"
-                    ],
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
                     }
                 },
                 {
@@ -51405,6 +51758,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ModifierId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 }
             ],
@@ -62279,6 +62650,37 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSourceContainerByScriptGuid",
+                    "Parameters": [
+                        {
+                            "Name": "guid",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "LuaSourceContainer"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ScriptRegistrationService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
             ],
             "MemoryCategory": "Instances",
             "Name": "ScriptService",
@@ -68637,6 +69039,28 @@
                     }
                 },
                 {
+                    "Category": "Script Editor Colors",
+                    "MemberType": "Property",
+                    "Name": "Doc View Code Background Color",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Color3"
+                    }
+                },
+                {
                     "Category": "Advanced",
                     "MemberType": "Property",
                     "Name": "Drag Multiple Parts As Single Part",
@@ -68661,6 +69085,24 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Enable Autocomplete Doc View",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -68784,6 +69226,24 @@
                     "Category": "Script Editor",
                     "MemberType": "Property",
                     "Name": "Enable Signature Help",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "Enable Signature Help Doc View",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -73766,6 +74226,70 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "DisplaySystemMessage",
+                    "Parameters": [
+                        {
+                            "Name": "systemMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "TextChatMessage"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "AddUserAsync",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MessageReceived",
+                    "Parameters": [
+                        {
+                            "Name": "textChatMessage",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "TextChannel",
@@ -80355,6 +80879,27 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "ScriptCollabEnabled",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "VersionControlService",
@@ -81902,7 +82447,8 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service"
+                "Service",
+                "Deprecated"
             ]
         },
         {
@@ -89268,6 +89814,10 @@
                 {
                     "Name": "MenuBorder",
                     "Value": 37
+                },
+                {
+                    "Name": "DocViewCodeBackground",
+                    "Value": 38
                 }
             ],
             "Name": "StudioScriptEditorColorCategories"
@@ -89548,216 +90098,220 @@
                     "Value": 62
                 },
                 {
-                    "Name": "DebuggerCurrentLine",
+                    "Name": "DocViewCodeBackground",
                     "Value": 63
                 },
                 {
-                    "Name": "DebuggerErrorLine",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 64
                 },
                 {
-                    "Name": "ScriptEditorCurrentLine",
-                    "Value": 103
-                },
-                {
-                    "Name": "DiffFilePathText",
+                    "Name": "DebuggerErrorLine",
                     "Value": 65
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
-                    "Value": 66
-                },
-                {
-                    "Name": "DiffTextNoChange",
-                    "Value": 67
-                },
-                {
-                    "Name": "DiffTextAddition",
-                    "Value": 68
-                },
-                {
-                    "Name": "DiffTextDeletion",
-                    "Value": 69
-                },
-                {
-                    "Name": "DiffTextSeparatorBackground",
-                    "Value": 70
-                },
-                {
-                    "Name": "DiffTextNoChangeBackground",
-                    "Value": 71
-                },
-                {
-                    "Name": "DiffTextAdditionBackground",
-                    "Value": 72
-                },
-                {
-                    "Name": "DiffTextDeletionBackground",
-                    "Value": 73
-                },
-                {
-                    "Name": "DiffLineNum",
-                    "Value": 74
-                },
-                {
-                    "Name": "DiffLineNumSeparatorBackground",
-                    "Value": 75
-                },
-                {
-                    "Name": "DiffLineNumNoChangeBackground",
-                    "Value": 76
-                },
-                {
-                    "Name": "DiffLineNumAdditionBackground",
-                    "Value": 77
-                },
-                {
-                    "Name": "DiffLineNumDeletionBackground",
-                    "Value": 78
-                },
-                {
-                    "Name": "DiffFilePathBackground",
-                    "Value": 79
-                },
-                {
-                    "Name": "DiffFilePathBorder",
-                    "Value": 80
-                },
-                {
-                    "Name": "ChatIncomingBgColor",
-                    "Value": 81
-                },
-                {
-                    "Name": "ChatIncomingTextColor",
-                    "Value": 82
-                },
-                {
-                    "Name": "ChatOutgoingBgColor",
-                    "Value": 83
-                },
-                {
-                    "Name": "ChatOutgoingTextColor",
-                    "Value": 84
-                },
-                {
-                    "Name": "ChatModeratedMessageColor",
-                    "Value": 85
-                },
-                {
-                    "Name": "Separator",
-                    "Value": 86
-                },
-                {
-                    "Name": "ButtonBorder",
-                    "Value": 87
-                },
-                {
-                    "Name": "ButtonText",
-                    "Value": 88
-                },
-                {
-                    "Name": "InputFieldBorder",
-                    "Value": 89
-                },
-                {
-                    "Name": "CheckedFieldBackground",
-                    "Value": 90
-                },
-                {
-                    "Name": "CheckedFieldBorder",
-                    "Value": 91
-                },
-                {
-                    "Name": "CheckedFieldIndicator",
-                    "Value": 92
-                },
-                {
-                    "Name": "HeaderSection",
-                    "Value": 93
-                },
-                {
-                    "Name": "Midlight",
-                    "Value": 94
-                },
-                {
-                    "Name": "StatusBar",
-                    "Value": 95
-                },
-                {
-                    "Name": "DialogButton",
-                    "Value": 96
-                },
-                {
-                    "Name": "DialogButtonText",
-                    "Value": 97
-                },
-                {
-                    "Name": "DialogButtonBorder",
-                    "Value": 98
-                },
-                {
-                    "Name": "DialogMainButton",
-                    "Value": 99
-                },
-                {
-                    "Name": "DialogMainButtonText",
-                    "Value": 100
-                },
-                {
-                    "Name": "InfoBarWarningBackground",
-                    "Value": 101
-                },
-                {
-                    "Name": "InfoBarWarningText",
-                    "Value": 102
-                },
-                {
-                    "Name": "ScriptMethod",
+                    "Name": "ScriptEditorCurrentLine",
                     "Value": 104
                 },
                 {
-                    "Name": "ScriptProperty",
+                    "Name": "DiffFilePathText",
+                    "Value": 66
+                },
+                {
+                    "Name": "DiffTextHunkInfo",
+                    "Value": 67
+                },
+                {
+                    "Name": "DiffTextNoChange",
+                    "Value": 68
+                },
+                {
+                    "Name": "DiffTextAddition",
+                    "Value": 69
+                },
+                {
+                    "Name": "DiffTextDeletion",
+                    "Value": 70
+                },
+                {
+                    "Name": "DiffTextSeparatorBackground",
+                    "Value": 71
+                },
+                {
+                    "Name": "DiffTextNoChangeBackground",
+                    "Value": 72
+                },
+                {
+                    "Name": "DiffTextAdditionBackground",
+                    "Value": 73
+                },
+                {
+                    "Name": "DiffTextDeletionBackground",
+                    "Value": 74
+                },
+                {
+                    "Name": "DiffLineNum",
+                    "Value": 75
+                },
+                {
+                    "Name": "DiffLineNumSeparatorBackground",
+                    "Value": 76
+                },
+                {
+                    "Name": "DiffLineNumNoChangeBackground",
+                    "Value": 77
+                },
+                {
+                    "Name": "DiffLineNumAdditionBackground",
+                    "Value": 78
+                },
+                {
+                    "Name": "DiffLineNumDeletionBackground",
+                    "Value": 79
+                },
+                {
+                    "Name": "DiffFilePathBackground",
+                    "Value": 80
+                },
+                {
+                    "Name": "DiffFilePathBorder",
+                    "Value": 81
+                },
+                {
+                    "Name": "ChatIncomingBgColor",
+                    "Value": 82
+                },
+                {
+                    "Name": "ChatIncomingTextColor",
+                    "Value": 83
+                },
+                {
+                    "Name": "ChatOutgoingBgColor",
+                    "Value": 84
+                },
+                {
+                    "Name": "ChatOutgoingTextColor",
+                    "Value": 85
+                },
+                {
+                    "Name": "ChatModeratedMessageColor",
+                    "Value": 86
+                },
+                {
+                    "Name": "Separator",
+                    "Value": 87
+                },
+                {
+                    "Name": "ButtonBorder",
+                    "Value": 88
+                },
+                {
+                    "Name": "ButtonText",
+                    "Value": 89
+                },
+                {
+                    "Name": "InputFieldBorder",
+                    "Value": 90
+                },
+                {
+                    "Name": "CheckedFieldBackground",
+                    "Value": 91
+                },
+                {
+                    "Name": "CheckedFieldBorder",
+                    "Value": 92
+                },
+                {
+                    "Name": "CheckedFieldIndicator",
+                    "Value": 93
+                },
+                {
+                    "Name": "HeaderSection",
+                    "Value": 94
+                },
+                {
+                    "Name": "Midlight",
+                    "Value": 95
+                },
+                {
+                    "Name": "StatusBar",
+                    "Value": 96
+                },
+                {
+                    "Name": "DialogButton",
+                    "Value": 97
+                },
+                {
+                    "Name": "DialogButtonText",
+                    "Value": 98
+                },
+                {
+                    "Name": "DialogButtonBorder",
+                    "Value": 99
+                },
+                {
+                    "Name": "DialogMainButton",
+                    "Value": 100
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 101
+                },
+                {
+                    "Name": "InfoBarWarningBackground",
+                    "Value": 102
+                },
+                {
+                    "Name": "InfoBarWarningText",
+                    "Value": 103
+                },
+                {
+                    "Name": "ScriptMethod",
                     "Value": 105
                 },
                 {
-                    "Name": "ScriptNil",
+                    "Name": "ScriptProperty",
                     "Value": 106
                 },
                 {
-                    "Name": "ScriptBool",
+                    "Name": "ScriptNil",
                     "Value": 107
                 },
                 {
-                    "Name": "ScriptFunction",
+                    "Name": "ScriptBool",
                     "Value": 108
                 },
                 {
-                    "Name": "ScriptLocal",
+                    "Name": "ScriptFunction",
                     "Value": 109
                 },
                 {
-                    "Name": "ScriptSelf",
+                    "Name": "ScriptLocal",
                     "Value": 110
                 },
                 {
-                    "Name": "ScriptLuauKeyword",
+                    "Name": "ScriptSelf",
                     "Value": 111
                 },
                 {
-                    "Name": "ScriptFunctionName",
+                    "Name": "ScriptLuauKeyword",
                     "Value": 112
                 },
                 {
-                    "Name": "ScriptTodo",
+                    "Name": "ScriptFunctionName",
                     "Value": 113
                 },
                 {
-                    "Name": "ScriptBracket",
+                    "Name": "ScriptTodo",
                     "Value": 114
                 },
                 {
-                    "Name": "AttributeCog",
+                    "Name": "ScriptBracket",
                     "Value": 115
+                },
+                {
+                    "Name": "AttributeCog",
+                    "Value": 116
                 }
             ],
             "Name": "StudioStyleGuideColor"

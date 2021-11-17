@@ -275,6 +275,8 @@ Studio.App.MainWindow.SaveToFile,Main Window,Save to File,Save to File
 Studio.App.MainWindow.SaveToFileAsPrompt,Main Window,Save to File As...,Save to File As...
 Studio.App.MainWindow.CloseFile,Main Window,Close File,Close File
 Studio.App.MainWindow.CloseFileStatusTip,Main Window,Close the open file,Close the open file
+Studio.App.MainWindow.ClosePlace,Main Window,Close Place,Close Place
+Studio.App.MainWindow.ClosePlaceStatusTip,Main Window,Close the open place,Close the open place
 Studio.App.MainWindow.CloseTab,Main Window,Close Tab,Close Tab
 Studio.App.MainWindow.CloseTabStatusTip,Main Window,Close the active tab,Close the active tab
 Studio.App.MainWindow.TeamCreateReconnectFailedUnableToFetchSettingsData,Main Window,Team Create reconnect failed. Unable to fetch game settings data.,Team Create reconnect failed. Unable to fetch game settings data.
@@ -1095,6 +1097,7 @@ Studio.App.RobloxRibbonMainWindow.ToggleSelectionAnchor,,Anchor/Unanchor the sel
 Studio.App.RobloxRibbonMainWindow.Attachment,,Attachment,Attachment
 Studio.App.RobloxRibbonMainWindow.Audio,,Audio,Audio
 Studio.App.RobloxRibbonMainWindow.BallInSocket,,Ball in Socket,Ball in Socket
+Studio.App.RobloxRibbonMainWindow.RigidConstraint,,Rigid Constraint,Rigid Constraint
 Studio.App.RobloxRibbonMainWindow.Beam,,Beam,Beam
 Studio.App.RobloxRibbonMainWindow.Block,,Block,Block
 Studio.App.RobloxRibbonMainWindow.Brick,,Brick,Brick
@@ -1123,6 +1126,7 @@ Studio.App.RobloxRibbonMainWindow.CorrodedMetal,,Corroded Metal,Corroded Metal
 Studio.App.RobloxRibbonMainWindow.CreateAlignOrientation,,Create align orientation,Create align orientation
 Studio.App.RobloxRibbonMainWindow.CreateAlignPosition,,Create align position,Create align position
 Studio.App.RobloxRibbonMainWindow.CreateBallInSocket,,Create ball in socket,Create ball in socket
+Studio.App.RobloxRibbonMainWindow.CreateRigidConstraint,,Create rigid constraint,Create rigid constraint
 Studio.App.RobloxRibbonMainWindow.CreateBeamToolTip,,Create beam,Create beam
 Studio.App.RobloxRibbonMainWindow.CreateCylindricalConstraint,,Create cylindrical constraint,Create cylindrical constraint
 Studio.App.RobloxRibbonMainWindow.CreateExplosionToolTip,,Create explosion,Create explosion
@@ -1811,10 +1815,12 @@ Studio.App.Property.AutoCleanEmptyLine,,Auto Clean Empty Line,Auto Clean Empty L
 Studio.App.Property.AutoClosingQuotes,,Auto Closing Quotes,Auto Closing Quotes
 Studio.App.Property.SkipClosingBracketsAndQuotes,,Skip Closing Brackets and Quotes,Skip Closing Brackets and Quotes
 Studio.App.Property.EnableAutocomplete,,Enable Autocomplete,Enable Autocomplete
+Studio.App.Property.EnableAutocompleteDocView,,Enable Autocomplete Documentation,Enable Autocomplete Documentation
 Studio.App.Property.EnableOnTypeAutocomplete,,Enable On-Type Autocomplete,Enable On-Type Autocomplete
 Studio.App.Property.EnableScriptAnalysis,,Enable Script Analysis,Enable Script Analysis
 Studio.App.Property.EnableTypeHover,,Enable Type Hover,Enable Type Hover
 Studio.App.Property.EnableSignatureHelp,,Enable Signature Help,Enable Signature Help
+Studio.App.Property.EnableSignatureHelpDocView,,Enable Signature Help Documentation,Enable Signature Help Documentation
 Studio.App.Property.HighlightCurrentLine,Should we highlight the line we are currently editing in script editor,Highlight Current Line,Highlight Current Line
 Studio.App.Property.HighlightOccurances,Should we highlight other occurances of the word under the cursor in script editor,Highlight Current Word,Highlight Current Word
 Studio.App.Property.ScriptEditorColorPreset,The set of colors used in syntax highlighting in script editor,Script Editor Color Preset,Script Editor Color Preset
@@ -1866,6 +1872,7 @@ Studio.App.Property.SelectedMenuItemBackgroundColor,,Selected Menu Item Backgrou
 Studio.App.Property.ScriptEditorScrollbarBackgroundColor,,Script Editor Scrollbar Background,Script Editor Scrollbar Background
 Studio.App.Property.ScriptEditorScrollbarHandleColor,,Script Editor Scrollbar Handle,Script Editor Scrollbar Handle
 Studio.App.Property.ScriptEditorMenuBorderColor,,Script Editor Menu Border,Script Editor Menu Border
+Studio.App.Property.DocViewCodeBackgroundColor,,Documentation Code Block Background Color,Documentation Code Block Background Color
 Studio.App.SettingsCategory.StudioOutput,,Output,Output
 Studio.App.Property.OutputLayoutMode,,Output Layout Mode,Output Layout Mode
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
@@ -2006,9 +2013,11 @@ Studio.App.PropertyTooltip.AutoCleanEmptyLine,,Automatically clean tabs and spac
 Studio.App.PropertyTooltip.AutoClosingQuotes,,Automatically insert a closing quotation following an opening quotation.,Automatically insert a closing quotation following an opening quotation.
 Studio.App.PropertyTooltip.SkipClosingBracketsAndQuotes,,Skip over a closing bracket/quote instead of inserting another.,Skip over a closing bracket/quote instead of inserting another.
 Studio.App.PropertyTooltip.EnableAutocomplete,,Enable code suggestions to show up while typing.,Enable code suggestions to show up while typing.
+Studio.App.PropertyTooltip.EnableAutocompleteDocView,,Enable documentation view to alongside code suggestion.,Enable documentation view to alongside code suggestion.
 Studio.App.PropertyTooltip.EnableScriptAnalysis,,Enable Script Editor error and warning detection,Enable Script Editor error and warning detection
 Studio.App.PropertyTooltip.EnableTypeHover,,Enable showing object type on cursor hover.,Enable showing object type on cursor hover.
 Studio.App.PropertyTooltip.EnableSignatureHelp,,Enable showing the types/names of function arguments when relevant,Enable showing the types/names of function arguments when relevant
+Studio.App.PropertyTooltip.EnableSignatureHelpDocView,,Enable documentation view alongside signature help view.,Enable documentation view alongside signature help view.
 Studio.App.PropertyTooltip.EnableScrollbarMarkers,,Show markers over the vertical scrollbar in Script Editor.,Show markers over the vertical scrollbar in Script Editor.
 Studio.App.PropertyTooltip.RandomizeJoinInstanceOrder,,"Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins.","Randomize instance order during join for test clients. This helps uncover bugs by approximating the behavior of real clients & servers, where the order of instances will change over time as more players join. Randomization may slightly increase join time bandwidth usage compared to real client-server joins."
 Studio.App.Category.AutoSave,,Auto-Save,Auto-Save
@@ -2155,8 +2164,8 @@ Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vecto
 Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
-Studio.App.BetaFeatures.NewGamesInCloudTitle,,New Games in the Cloud,New Games in the Cloud
-Studio.App.BetaFeatures.NewGamesInCloudDescription,,Allows saving games to the cloud without publishing.,Allows saving games to the cloud without publishing.
+Studio.App.BetaFeatures.DefaultSaveToCloudTitle,,Default Save to Cloud,Default Save to Cloud
+Studio.App.BetaFeatures.DefaultSaveToCloudDescription,,Allows saving games to the cloud without publishing.,Allows saving games to the cloud without publishing.
 Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
 Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.
 Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
