@@ -7,7 +7,6 @@
 		table SettingsLoadJobs - Table of function callbacks invoked on page load used to load settings
 		table SettingsSaveJobs - Table of function callbacks invoked on page save used to save settings
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -134,15 +133,11 @@ function SettingsPage:render()
 	return nil
 end
 
-if FFlagGameSettingsWithContext then
-	SettingsPage = withContext({
-		Theme = ContextServices.Theme,
-	})(SettingsPage)
-else
-	ContextServices.mapToProps(SettingsPage, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+SettingsPage = withContext({
+	Theme = ContextServices.Theme,
+})(SettingsPage)
+
 
 
 SettingsPage = RoactRodux.connect(

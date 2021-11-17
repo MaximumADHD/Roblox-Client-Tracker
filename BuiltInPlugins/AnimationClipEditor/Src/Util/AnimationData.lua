@@ -18,7 +18,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local AnimationData = {}
 
@@ -32,27 +31,8 @@ function AnimationData.new(name, rootType)
 	return animationData
 end
 
--- Deprecated when GetFFlagUseTicks is ON
--- We don't want to expose the FrameRate
-function AnimationData.new_deprecated(name, frameRate, rootType)
-	assert(name ~= nil, "Expected a name for the AnimationData.")
-	assert(frameRate ~= nil, "Expected a frameRate for the AnimationData.")
-	assert(frameRate > 0, "Expected frameRate to be positive.")
-
-	local animationData = Templates.animationData()
-	animationData.Metadata.Name = name
-	animationData.Metadata.FrameRate = frameRate
-	animationData.Metadata.IsChannelAnimation = false
-	animationData.Instances.Root.Type = rootType
-	return animationData
-end
-
 function AnimationData.newRigAnimation(name)
-	if GetFFlagUseTicks() then
-		return AnimationData.new(name, Constants.INSTANCE_TYPES.Rig)
-	else
-		return AnimationData.new_deprecated(name, Constants.DEFAULT_FRAMERATE, Constants.INSTANCE_TYPES.Rig)
-	end
+	return AnimationData.new(name, Constants.INSTANCE_TYPES.Rig)
 end
 
 function AnimationData.toCFrameArray(bones, data, frameRate)
@@ -61,7 +41,7 @@ function AnimationData.toCFrameArray(bones, data, frameRate)
 	assert(typeof(bones) == "table", "Bones should be an array of bone names.")
 	assert(typeof(data) == "table", "Data must be an AnimationData table.")
 
-	local inputFrameRate = GetFFlagUseTicks() and Constants.TICK_FREQUENCY or data.Metadata.FrameRate
+	local inputFrameRate = Constants.TICK_FREQUENCY
 	local outputFrameRate = frameRate or inputFrameRate
 	assert(outputFrameRate ~= nil, "No frame rate was found for exporting.")
 	assert(inputFrameRate > 0, "Input frame rate must be positive.")
@@ -214,42 +194,44 @@ function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation
 end
 
 -- Adds a new keyframe at the given tick with the given value.
--- This should be called for KFS animations. For Curve animations, see addCurveKeyframe
-function AnimationData.addKeyframe(track, tick, value)
+-- If the keyframe already exists, update its data
+function AnimationData.addKeyframe(track, tick, keyframeData)
 	local trackKeyframes = track.Keyframes
 	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
 	if insertIndex then
 		table.insert(trackKeyframes, insertIndex, tick)
-		track.Data[tick] = Templates.keyframe()
-		if GetFFlagChannelAnimations() then
-			track.Data[tick].EasingStyle = Enum.PoseEasingStyle.Linear
-			track.Data[tick].EasingDirection = Enum.PoseEasingDirection.In
-		end
-		track.Data[tick].Value = value
 	end
+	track.Data[tick] = Cryo.Dictionary.join(track.Data[tick] or Templates.keyframe(), keyframeData)
 end
 
-function AnimationData.addCurveKeyframe(track, tick, value, interpolationMode, leftSlope, rightSlope)
+-- Adds a new keyframe at the given tick with the given value.
+-- Deprecated when GetFFlagChannelAnimations() is retired
+function AnimationData.addKeyframe_deprecated(track, tick, value)
 	local trackKeyframes = track.Keyframes
 	local insertIndex = KeyframeUtils.findInsertIndex(trackKeyframes, tick)
 	if insertIndex then
 		table.insert(trackKeyframes, insertIndex, tick)
 		track.Data[tick] = Templates.keyframe()
 		track.Data[tick].Value = value
-		track.Data[tick].InterpolationMode = interpolationMode
-		track.Data[tick].LeftSlope = leftSlope
-		track.Data[tick].RightSlope = rightSlope
 	end
 end
 
 function AnimationData.addDefaultKeyframe(track, tick, trackType)
-	local value
 	if GetFFlagChannelAnimations() then
-		value = KeyframeUtils.getDefaultValue(trackType)
+		local keyframeData = {
+			Value = KeyframeUtils.getDefaultValue(trackType),
+		}
+		if track.IsCurveTrack then
+			keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+		else
+			keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
+			keyframeData.EasingDirection = Enum.PoseEasingDirection.In
+		end
+		AnimationData.addKeyframe(track, tick, keyframeData)
 	else
-		value = TrackUtils.getDefaultValueByType(trackType)
+		local value = TrackUtils.getDefaultValueByType(trackType)
+		AnimationData.addKeyframe_deprecated(track, tick, value)
 	end
-	AnimationData.addKeyframe(track, tick, value)
 end
 
 -- Finds a named keyframe at oldTick and moves it to newTick if it exists
@@ -407,13 +389,11 @@ function AnimationData.removeExtraKeyframes(data)
 		end
 
 		if data and data.Instances and data.Metadata then
-			local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
-
 			-- Remove keyframes and Data. Works for tracks and events.
 			local function removeKeyframesAndData(track)
 				if track and track.Keyframes and track.Data then
 					for index, tick in ipairs(track.Keyframes) do
-						if tick > maxLength then
+						if tick > Constants.MAX_ANIMATION_LENGTH then
 							track.Data[tick] = nil
 							track.Keyframes[index] = nil
 							removed = true
@@ -433,8 +413,6 @@ function AnimationData.removeExtraKeyframes(data)
 		end
 	else
 		if data and data.Instances and data.Metadata then
-			local maxLength = AnimationData.getMaximumLength(data.Metadata.FrameRate)
-
 			-- first pass: remove keyframes
 			local keysToRemove = {}
 
@@ -442,7 +420,7 @@ function AnimationData.removeExtraKeyframes(data)
 			for instanceName, instance in pairs(data.Instances) do
 				keysToRemove[instanceName] = {}
 				for trackName, track in pairs(instance.Tracks) do
-					local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, maxLength)
+					local minIndex = KeyframeUtils.findNearestKeyframes(track.Keyframes, Constants.MAX_ANIMATION_LENGTH)
 					keysToRemove[instanceName][trackName] = {
 						Start = minIndex,
 						End = #track.Keyframes,
@@ -457,7 +435,7 @@ function AnimationData.removeExtraKeyframes(data)
 						local keyframes = data.Instances[instance].Tracks[track].Keyframes
 						local kfData = data.Instances[instance].Tracks[track].Data
 						local tick = keyframes[i]
-						if tick > maxLength then
+						if tick > Constants.MAX_ANIMATION_LENGTH then
 							removed = true
 							kfData[tick] = nil
 							table.remove(keyframes, i)
@@ -470,7 +448,7 @@ function AnimationData.removeExtraKeyframes(data)
 			if data.Events and data.Events.Keyframes then
 				local eventsToRemove = {}
 				for _, tick in ipairs(data.Events.Keyframes) do
-					if tick > maxLength then
+					if tick > Constants.MAX_ANIMATION_LENGTH then
 						removed = true
 						table.insert(eventsToRemove, tick)
 					end
@@ -491,7 +469,7 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 		return nil, nil
 	end
 
-	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(data.Metadata.FrameRate)
+	local earliest = Constants.MAX_ANIMATION_LENGTH
 	local latest = 0
 
 	if GetFFlagChannelAnimations() then
@@ -531,7 +509,7 @@ function AnimationData.getSelectionBounds(data, selectedKeyframes)
 end
 
 function AnimationData.getEventBounds(animationData, selectedEvents)
-	local earliest = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
+	local earliest = Constants.MAX_ANIMATION_LENGTH
 	local latest = 0
 	local eventFrames = Cryo.Dictionary.keys(selectedEvents)
 	table.sort(eventFrames)

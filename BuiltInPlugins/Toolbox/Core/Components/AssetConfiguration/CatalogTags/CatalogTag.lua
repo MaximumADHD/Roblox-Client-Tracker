@@ -8,7 +8,6 @@
 		number textSize
 		callback onClose
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -70,14 +69,10 @@ function CatalogTag:renderContents(theme)
 	}, contents)
 end
 
-if FFlagToolboxWithContext then
-	CatalogTag = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CatalogTag)
-else
-	ContextServices.mapToProps(CatalogTag, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+CatalogTag = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CatalogTag)
+
 
 return CatalogTag

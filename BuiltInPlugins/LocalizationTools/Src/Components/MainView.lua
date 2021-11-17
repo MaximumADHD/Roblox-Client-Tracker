@@ -1,7 +1,6 @@
 --[[
 	Localization Tools plugin main view
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -90,17 +89,12 @@ function MainView:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	MainView = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+MainView = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(MainView)
+
 
 
 return MainView

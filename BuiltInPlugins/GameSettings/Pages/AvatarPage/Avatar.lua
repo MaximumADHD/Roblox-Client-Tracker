@@ -10,7 +10,6 @@
 		string AvatarAnimation - Whether to allow user-equipped animation packs
 		string AvatarCollision - Whether to define collision based on avatar scale
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
@@ -386,19 +385,13 @@ function Avatar:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Avatar = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(Avatar)
-else
-	ContextServices.mapToProps(Avatar, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+Avatar = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(Avatar)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

@@ -7,8 +7,6 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetPlaybackStartInfo = require(Plugin.Src.Actions.SetPlaybackStartInfo)
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 local RunService = game:GetService("RunService")
 local Playback = Roact.PureComponent:extend("Playback")
 
@@ -25,37 +23,20 @@ function Playback:didMount()
 			if metadata.EndTick > 0 then
 				local now = tick()
 				local endTick = metadata.EndTick
-				if GetFFlagUseTicks() then
-					if not playbackStartInfo.startTime then
-						local startPlayhead = playhead
-						if startPlayhead >= math.floor(endTick) then
-							startPlayhead = 0
-						end
-						playbackStartInfo = {
-							startTime = now,
-							startPlayhead = startPlayhead,
-						}
-						props.SetPlaybackStartInfo(playbackStartInfo)
+				if not playbackStartInfo.startTime then
+					local startPlayhead = playhead
+					if startPlayhead >= math.floor(endTick) then
+						startPlayhead = 0
 					end
-				else
-					if not self.StartTime then
-						self.StartTime = now
-						self.PlayheadStart = playhead
-						if self.PlayheadStart >= math.floor(endTick) then
-							self.PlayheadStart = 0
-						end
-					end
+					playbackStartInfo = {
+						startTime = now,
+						startPlayhead = startPlayhead,
+					}
+					props.SetPlaybackStartInfo(playbackStartInfo)
 				end
 
-				local newTick
-
-				if GetFFlagUseTicks() then
-					local elapsed = (now - playbackStartInfo.startTime) * playbackSpeed
-					newTick = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
-				else
-					local elapsed = now - self.StartTime
-					newTick = self.PlayheadStart + elapsed * metadata.FrameRate
-				end
+				local elapsed = (now - playbackStartInfo.startTime) * playbackSpeed
+				local newTick = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
 
 				if metadata.Looping then
 					newTick = newTick % endTick
@@ -70,13 +51,7 @@ function Playback:didMount()
 				props.SetIsPlaying(false)
 			end
 		else
-			if GetFFlagUseTicks() then
-				props.SetPlaybackStartInfo({})
-			else
-				if self.StartTime ~= nil then
-					self.StartTime = nil
-				end
-			end
+			props.SetPlaybackStartInfo({})
 		end
 	end)
 end

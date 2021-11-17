@@ -1,4 +1,3 @@
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -52,15 +51,11 @@ function ColoredSquare:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	ColoredSquare = withContext({
-		Theme = ContextServices.Theme,
-	})(ColoredSquare)
-else
-	ContextServices.mapToProps(ColoredSquare, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ColoredSquare = withContext({
+	Theme = ContextServices.Theme,
+})(ColoredSquare)
+
 
 
 return ColoredSquare

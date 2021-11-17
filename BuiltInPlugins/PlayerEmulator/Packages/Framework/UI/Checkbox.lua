@@ -13,7 +13,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Text: The text to display after the check button.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -128,17 +127,12 @@ function Checkbox:render()
 	end
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Checkbox = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Checkbox)
-else
-	ContextServices.mapToProps(Checkbox, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Checkbox = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Checkbox)
+
 
 
 return Checkbox

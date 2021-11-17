@@ -15,7 +15,6 @@
 	Optional Props:
 		thumbnail Icon = Icon to display in first column of row entry
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -334,17 +333,12 @@ function TableWithMenuItem:render()
 	}, row))
 end
 
-if FFlagGameSettingsWithContext then
-	TableWithMenuItem = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(TableWithMenuItem)
-else
-	ContextServices.mapToProps(TableWithMenuItem, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+TableWithMenuItem = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(TableWithMenuItem)
+
 
 
 return TableWithMenuItem

@@ -50,7 +50,6 @@ local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEven
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
 local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -94,8 +93,8 @@ function EventsController:init()
 			self.props.AbsoluteSize.X - self.props.TrackPadding
 		)
 
-		if GetFFlagUseTicks() and snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.None then
-			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
+		if snapToFrame and self.props.SnapMode ~= Constants.SNAP_MODES.None then
+			tick = KeyframeUtils.getNearestFrame(tick, self.props.FrameRate)
 		end
 
 		return tick
@@ -405,7 +404,7 @@ local function mapStateToProps(state, props)
 		Active = state.Status.Active,
 		SelectedEvents = state.Status.SelectedEvents,
 		EventEditingTick = state.Status.EventEditingTick,
-		DisplayFrameRate = state.Status.DisplayFrameRate,
+		FrameRate = state.Status.FrameRate,
 		SnapMode = state.Status.SnapMode,
 	}
 end

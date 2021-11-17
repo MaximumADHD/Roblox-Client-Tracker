@@ -67,7 +67,7 @@ function AnimationControlPanel:render()
 	local showAsSeconds = props.ShowAsSeconds
 	local updateEditingLength = props.UpdateEditingLength
 	local stepAnimation = props.StepAnimation
-	local displayFrameRate = props.DisplayFrameRate
+	local frameRate = props.FrameRate
 	local isChannelAnimation = props.IsChannelAnimation
 
 	return Roact.createElement("Frame", {
@@ -107,7 +107,7 @@ function AnimationControlPanel:render()
 		TimeDisplay = Roact.createElement(TimeDisplay, {
 			StartTick = startTick,
 			EndTick = endTick,
-			DisplayFrameRate = displayFrameRate,
+			FrameRate = frameRate,
 			ShowAsTime = showAsSeconds,
 			AnimationData = animationData,
 			Playhead = playhead,
@@ -136,7 +136,7 @@ local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
 		RootInstance = state.Status.RootInstance,
-		DisplayFrameRate = state.Status.DisplayFrameRate
+		FrameRate = state.Status.FrameRate
 	}
 end
 

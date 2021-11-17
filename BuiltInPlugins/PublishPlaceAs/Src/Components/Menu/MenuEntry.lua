@@ -8,7 +8,6 @@
 		string Title = The text to display on this menu entry
 		function onClicked = Callback invoked when this MenuEntry is clicked
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -95,14 +94,10 @@ function MenuEntry:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	MenuEntry = withContext({
-		Theme = ContextServices.Theme,
-	})(MenuEntry)
-else
-	ContextServices.mapToProps(MenuEntry,{
-		Theme = ContextServices.Theme,
-	})
-end
+
+MenuEntry = withContext({
+	Theme = ContextServices.Theme,
+})(MenuEntry)
+
 
 return MenuEntry

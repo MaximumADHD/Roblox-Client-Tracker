@@ -35,8 +35,6 @@ return function()
 	local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
 	local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 	local SetRootInstance = require(Plugin.Src.Actions.SetRootInstance)
-	local ToggleSnapToKeys = require(Plugin.Src.Thunks.ToggleSnapToKeys)
-	local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
 	local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 	local SetActive = require(Plugin.Src.Actions.SetActive)
 	local RenameKeyframe = require(Plugin.Src.Thunks.RenameKeyframe)
@@ -54,7 +52,6 @@ return function()
 	local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	-- TODO: Ideally we want to write tests for number values and CFrame values
@@ -62,7 +59,6 @@ return function()
 
 	local testAnimationData = {
 		Metadata = {
-			FrameRate = not GetFFlagUseTicks() and 30 or nil,
 			StartTick = 0,
 			EndTick = 8,
 		},
@@ -130,11 +126,7 @@ return function()
 		local store = Rodux.Store.new(MainReducer, nil, middlewares)
 		store:dispatch(SetAnimationData(deepCopy(testAnimationData)))
 		store:dispatch(SetActive(true))
-		if GetFFlagUseTicks() then
-			-- This test uses old frames as offsets. Disable snap mode so that
-			-- move/scale operations don't regroup them all at offset 0
-			store:dispatch(SetSnapMode(Constants.SNAP_MODES.None))
-		end
+		store:dispatch(SetSnapMode(Constants.SNAP_MODES.None))
 		return store
 	end
 
@@ -1055,7 +1047,7 @@ return function()
 		it("playhead should go to closest keyframe within threshold", function()
 			local store = createTestStore()
 			store:dispatch(SetEditingLength(10))
-			store:dispatch(SetSnapToKeys(true))
+			store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
 
 			local instance = Instance.new("Model")
 			instance.Name = "Test"
@@ -1063,19 +1055,6 @@ return function()
 			store:dispatch(SnapToNearestKeyframe(9, 100))
 			local state = store:getState()
 			expect(state.Status.Playhead).to.equal(8)
-		end)
-	end)
-
-	describe("ToggleSnapToKeys", function()
-		it("should toggle SnapToKeys", function()
-			local store = createTestStore()
-			store:dispatch(SetSnapToKeys(true))
-			store:dispatch(ToggleSnapToKeys())
-			local state = store:getState()
-			expect(state.Status.SnapToKeys).to.equal(false)
-			store:dispatch(ToggleSnapToKeys())
-			state = store:getState()
-			expect(state.Status.SnapToKeys).to.equal(true)
 		end)
 	end)
 
@@ -1156,23 +1135,14 @@ return function()
 	describe("UpdateEditingLength", function()
 		it("should set the editing length", function()
 			local store = createTestStore()
-			if GetFFlagUseTicks() then
-				store:dispatch(UpdateEditingLength(4800))
-				expect(store:getState().Status.EditingLength).to.equal(4800)
-			else
-				store:dispatch(UpdateEditingLength(60))
-				expect(store:getState().Status.EditingLength).to.equal(60)
-			end
+			store:dispatch(UpdateEditingLength(4800))
+			expect(store:getState().Status.EditingLength).to.equal(4800)
 		end)
 
 		it("should max the length with the min length and animation length", function()
 			local store = createTestStore()
 			store:dispatch(UpdateEditingLength(2))
-			if GetFFlagUseTicks() then
-				expect(store:getState().Status.EditingLength).to.equal(Constants.TICK_FREQUENCY)
-			else
-				expect(store:getState().Status.EditingLength).to.equal(Constants.DEFAULT_FRAMERATE)
-			end
+			expect(store:getState().Status.EditingLength).to.equal(Constants.TICK_FREQUENCY)
 		end)
 	end)
 end

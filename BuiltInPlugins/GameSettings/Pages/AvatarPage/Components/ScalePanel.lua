@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -154,17 +153,12 @@ function ScalePanel:render()
 	)
 end
 
-if FFlagGameSettingsWithContext then
-	ScalePanel = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(ScalePanel)
-else
-	ContextServices.mapToProps(ScalePanel, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+ScalePanel = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(ScalePanel)
+
 
 
 ScalePanel = RoactRodux.UNSTABLE_connect2(

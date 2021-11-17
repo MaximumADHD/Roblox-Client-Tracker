@@ -13,7 +13,6 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		number ZIndex: The render index of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -90,17 +89,12 @@ function TitledFrame:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TitledFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TitledFrame)
-else
-	ContextServices.mapToProps(TitledFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TitledFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TitledFrame)
+
 
 
 return TitledFrame

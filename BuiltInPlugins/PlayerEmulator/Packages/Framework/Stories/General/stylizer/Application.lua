@@ -2,7 +2,6 @@
 	Application
 
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
@@ -62,15 +61,11 @@ function Application:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Application = withContext({
-		Stylizer = Stylizer
-	})(Application)
-else
-	ContextServices.mapToProps(Application, {
-		Stylizer = Stylizer
-	})
-end
+
+Application = withContext({
+	Stylizer = Stylizer
+})(Application)
+
 
 
 return Application

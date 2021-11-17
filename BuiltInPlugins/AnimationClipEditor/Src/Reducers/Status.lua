@@ -21,7 +21,6 @@ return Rodux.createReducer({
 	Zoom = 0,
 	EditingLength = 0,
 
-	SnapToKeys = false,		-- Deprecated when GetFFlagUseTicks is ON
 	ShowAsSeconds = true,
 	SnapMode = Constants.SNAP_MODES.Frames,
 	ShowEvents = true,
@@ -42,7 +41,7 @@ return Rodux.createReducer({
 
 	EventEditingTick = nil,
 	VisualizeBones = true,
-	DisplayFrameRate = Constants.DEFAULT_FRAMERATE,
+	FrameRate = Constants.DEFAULT_FRAMERATE,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -105,9 +104,9 @@ return Rodux.createReducer({
 		})
 	end,
 
-	SetDisplayFrameRate = function(state, action)
+	SetFrameRate = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			DisplayFrameRate = action.displayFrameRate,
+			FrameRate = action.frameRate,
 		})
 	end,
 
@@ -161,12 +160,6 @@ return Rodux.createReducer({
 	SetEditingLength = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			EditingLength = action.editingLength,
-		})
-	end,
-
-	SetSnapToKeys = function(state, action)
-		return Cryo.Dictionary.join(state, {
-			SnapToKeys = action.snapToKeys,
 		})
 	end,
 

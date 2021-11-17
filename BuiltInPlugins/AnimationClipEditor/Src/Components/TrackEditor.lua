@@ -38,7 +38,6 @@ local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -124,16 +123,9 @@ function TrackEditor:init()
 	end
 
 	self.getTrackPadding = function()
-		local lastFrame
-
-		if GetFFlagUseTicks() then
-			local frameRate = self.props.DisplayFrameRate
-
-			local lastTick = math.max(self.props.LastTick, self.props.EndTick)
-			lastFrame = lastTick * frameRate / Constants.TICK_FREQUENCY
-		else
-			lastFrame = self.props.LastTick
-		end
+		local frameRate = self.props.FrameRate
+		local lastTick = math.max(self.props.LastTick, self.props.EndTick)
+		local lastFrame = lastTick * frameRate / Constants.TICK_FREQUENCY
 
 		if lastFrame < 100 then
 			return Constants.TRACK_PADDING_SMALL
@@ -152,10 +144,8 @@ function TrackEditor:render()
 	local startTick = props.StartTick
 	local endTick = props.EndTick
 	local lastTick = props.LastTick
-	local snapToKeys = props.SnapToKeys
 	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
-	local displayFrameRate = props.DisplayFrameRate
 	local showAsSeconds = props.ShowAsSeconds
 	local scroll = props.Scroll
 	local zoom = props.Zoom
@@ -201,11 +191,9 @@ function TrackEditor:render()
 			StartTick = startTick,
 			EndTick = endTick,
 			LastTick = lastTick,
-			SnapToKeys = not GetFFlagUseTicks() and snapToKeys or nil,
-			SnapMode = GetFFlagUseTicks() and snapMode or nil,
+			SnapMode = snapMode,
 			TrackPadding = trackPadding,
-			FrameRate = not GetFFlagUseTicks() and frameRate,
-			DisplayFrameRate = GetFFlagUseTicks() and displayFrameRate,
+			FrameRate = frameRate,
 			ShowAsSeconds = showAsSeconds,
 			LayoutOrder = 0,
 			ParentSize = absoluteSize,
@@ -278,7 +266,6 @@ end
 local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
-		SnapToKeys = state.Status.SnapToKeys,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
 	}

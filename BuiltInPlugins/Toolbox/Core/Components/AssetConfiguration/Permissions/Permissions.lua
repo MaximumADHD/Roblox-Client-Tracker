@@ -9,7 +9,6 @@
     Optional Properties:
 
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -194,14 +193,10 @@ local function mapDispatchToProps(dispatch)
     }
 end
 
-if FFlagToolboxWithContext then
-    Permissions = withContext({
-            Stylizer = ContextServices.Stylizer,
-        })(Permissions)
-else
-    ContextServices.mapToProps(Permissions, {
-            Stylizer = ContextServices.Stylizer,
-        })
-end
+
+Permissions = withContext({
+    Stylizer = ContextServices.Stylizer,
+})(Permissions)
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Permissions)

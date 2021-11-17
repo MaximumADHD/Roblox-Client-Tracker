@@ -11,7 +11,6 @@
 		ContextItem Localization: A Localization ContextItem, which is provided via withContext.
 
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -172,17 +171,12 @@ function PageNavigation:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	PageNavigation = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(PageNavigation)
-else
-	ContextServices.mapToProps(PageNavigation, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+PageNavigation = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(PageNavigation)
+
 
 
 return PageNavigation

@@ -40,9 +40,6 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkTextBoxRefProp = game:GetFastFlag("DevFrameworkTextBoxRefProp")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -67,11 +64,7 @@ game:DefineFastFlag("AllowTextInputTextXAlignment", false)
 local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
 
 function TextInput:init()
-	if FFlagDevFrameworkTextBoxRefProp then
-		self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
-	else
-		self.textBoxRef = Roact.createRef()
-	end
+	self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
 
 	self.isHover = false
 	self.isFocused = false
@@ -263,17 +256,12 @@ function TextInput:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TextInput = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TextInput)
-else
-	ContextServices.mapToProps(TextInput, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TextInput = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TextInput)
+
 
 
 return TextInput

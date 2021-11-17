@@ -12,7 +12,6 @@
 		table{RoactComponents} Children, a table of Roact components that will be shown with this radio button.
 			e.g. think of more things under the radio button like description.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -160,17 +159,12 @@ function RadioButton:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	RadioButton = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(RadioButton)
-else
-	ContextServices.mapToProps(RadioButton, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+RadioButton = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(RadioButton)
+
 
 
 return RadioButton

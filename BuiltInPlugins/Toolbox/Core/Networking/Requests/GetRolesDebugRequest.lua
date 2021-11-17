@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
+local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 
 local Promise = require(Plugin.Libs.Framework).Util.Promise
 
@@ -35,15 +35,15 @@ return function(networkInterface)
 			FrontAccessory = { allowedFileExtensions = { ".rbxm" } },
 			BackAccessory = { allowedFileExtensions = { ".rbxm" } },
 			WaistAccessory = { allowedFileExtensions = { ".rbxm" } },
-			TShirtAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			ShirtAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			PantsAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			JacketAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			SweaterAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			ShortsAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			LeftShoeAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			RightShoeAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
-			DressSkirtAccessory = FFlagUGCLCAssetTypes and { allowedFileExtensions = { ".rbxm" } } or nil,
+			TShirtAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			ShirtAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			PantsAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			JacketAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			SweaterAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			ShortsAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			LeftShoeAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			RightShoeAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
+			DressSkirtAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
 			Plugin = { allowedFileExtensions = { ".rbxm" } }
 		}
 		local allowedAssetTypesForRelease = {
@@ -123,7 +123,7 @@ return function(networkInterface)
 				allowedPriceRange = { minRobux = 2, maxRobux = 999999999 },
 				marketplaceFeesPercentage = 30,
 			},
-			TShirtAccessory = FFlagUGCLCAssetTypes and {
+			TShirtAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -131,7 +131,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			ShirtAccessory = FFlagUGCLCAssetTypes and {
+			ShirtAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -139,7 +139,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			PantsAccessory = FFlagUGCLCAssetTypes and {
+			PantsAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -147,7 +147,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			JacketAccessory = FFlagUGCLCAssetTypes and {
+			JacketAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -155,7 +155,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			SweaterAccessory = FFlagUGCLCAssetTypes and {
+			SweaterAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -163,7 +163,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			ShortsAccessory = FFlagUGCLCAssetTypes and {
+			ShortsAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -171,7 +171,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			LeftShoeAccessory = FFlagUGCLCAssetTypes and {
+			LeftShoeAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -179,7 +179,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			RightShoeAccessory = FFlagUGCLCAssetTypes and {
+			RightShoeAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
@@ -187,7 +187,7 @@ return function(networkInterface)
 					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
 				}
 			} or nil,
-			DressSkirtAccessory = FFlagUGCLCAssetTypes and {
+			DressSkirtAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {

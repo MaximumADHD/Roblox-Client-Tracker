@@ -15,7 +15,6 @@
     Optional props:
         LayoutOrder = number, order in which this component should appear under its parent.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local PLACEHOLDER_TAX_RATE = 0.90
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -312,17 +311,12 @@ function RobuxFeeBase:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	RobuxFeeBase = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})(RobuxFeeBase)
-else
-	ContextServices.mapToProps(RobuxFeeBase, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})
-end
+
+RobuxFeeBase = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+})(RobuxFeeBase)
+
 
 
 return RobuxFeeBase

@@ -8,6 +8,8 @@
 	from, its scope, what files we need to use it in, etc, whereas {[webKeys.UserId] = _} is
 	a lot more explicit
 --]]
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
+
 local webKeys = {
 	UserId = "userId",
 	UserName = "userName",
@@ -25,9 +27,10 @@ local webKeys = {
 
 	UseViewAction = "UseView",
 	EditAction = "Edit",
-	OwnAction = "Own",
+	OwnAction = (not FFlagUseNewAssetPermissionEndpoint3) and "Own" or nil,
 	RevokedAction = "Revoked",
 	UseAction = "Use",
+	GrantAssetPermissionsAction = FFlagUseNewAssetPermissionEndpoint3 and "GrantAssetPermissions" or nil,
 
 	-- Outbound POST/DELETE requests
 	SubjectType = "subjectType",
@@ -37,7 +40,13 @@ local webKeys = {
 	GroupSubject = "Group",
 	RoleSubject = "Roleset",
 	GroupRolesetSubject = "GroupRoleset",
-	Requests = "requests"
+	Requests = "requests",
+
+	--Permissions Status
+	UnknownError = FFlagUseNewAssetPermissionEndpoint3 and "UnknownError" or nil,
+	HasPermission = FFlagUseNewAssetPermissionEndpoint3 and "HasPermission" or nil,
+	NoPermission = FFlagUseNewAssetPermissionEndpoint3 and "NoPermission" or nil,
+	AssetNotFound = FFlagUseNewAssetPermissionEndpoint3 and "AssetNotFound" or nil,
 }
 
 return {

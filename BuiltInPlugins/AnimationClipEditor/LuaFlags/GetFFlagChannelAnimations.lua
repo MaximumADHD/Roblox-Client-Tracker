@@ -1,8 +1,7 @@
 local Plugin = script.Parent.Parent
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
-game:DefineFastFlag("ACEChannelAnimations", false)
+game:DefineFastFlag("ACEChannelAnimations2", false)
 
 return function()
-	return GetFFlagUseTicks() and game:GetFastFlag("ACEChannelAnimations")
+	return game:GetFastFlag("ACEChannelAnimations2")
 end

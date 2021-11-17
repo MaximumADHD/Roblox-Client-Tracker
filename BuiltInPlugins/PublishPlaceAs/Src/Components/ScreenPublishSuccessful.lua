@@ -28,7 +28,6 @@ local BUTTON_HEIGHT = 30
 local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccessful")
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -152,17 +151,12 @@ function ScreenPublishSuccessful:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ScreenPublishSuccessful = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(ScreenPublishSuccessful)
-else
-	ContextServices.mapToProps(ScreenPublishSuccessful, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ScreenPublishSuccessful = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(ScreenPublishSuccessful)
+
 
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo

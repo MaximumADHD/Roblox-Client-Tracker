@@ -9,7 +9,6 @@
 		bool Wrapped = Controls whether bullet text is wrapped or not
 		enum Truncate = Controls whether text is truncated or not
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -73,15 +72,11 @@ function ListDialog:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	ListDialog = withContext({
-		Theme = ContextServices.Theme,
-	})(ListDialog)
-else
-	ContextServices.mapToProps(ListDialog, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ListDialog = withContext({
+	Theme = ContextServices.Theme,
+})(ListDialog)
+
 
 
 return ListDialog

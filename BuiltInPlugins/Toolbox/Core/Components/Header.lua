@@ -16,7 +16,6 @@
 		callback onSearchOptionsToggled()
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent
@@ -331,17 +330,12 @@ function Header:willUnmount()
 	destroyTabRefreshEvent(self.props.pluginGui)
 end
 
-if FFlagToolboxWithContext then
-	Header = withContext({
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(Header)
-else
-	ContextServices.mapToProps(Header, {
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+Header = withContext({
+	Settings = Settings,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(Header)
+
 
 
 local function mapStateToProps(state, props)

@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -54,17 +53,12 @@ function AvatarTypePanel:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	AvatarTypePanel = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(AvatarTypePanel)
-else
-	ContextServices.mapToProps(AvatarTypePanel, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+AvatarTypePanel = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(AvatarTypePanel)
+
 
 
 return AvatarTypePanel

@@ -29,11 +29,11 @@ function MockDebuggerConnection.new(mockID)
 		self.MockThreadMap[id] = threadState
 	end
 	
-	self.MockSetCallstackByThreadId = function (id, callstack)
+	self.MockSetCallstackByThreadId = function(id, callstack)
 		self.MockThreadIdToCallstackMap[id] = callstack
 	end
 	
-	self.MockSetDebuggerVariablesByCallstackFrame = function (frame, variables)
+	self.MockSetDebuggerVariablesByCallstackFrame = function(frame, variables)
 		self.MockCallstackFrameToDebuggerVariables[frame] = variables
 	end
 
@@ -50,8 +50,20 @@ function MockDebuggerConnection:EvaluateWatch(expression : string, frame : Stack
 		resolve(callback)
 	end)
 
-	promise:andThen(function (newCallback)
+	promise:andThen(function(newCallback)
 		local data = {debuggerVarId = 1}
+		newCallback(data)
+	end)
+	return 0
+end
+
+function MockDebuggerConnection:GetThreads(callback) : number
+	local promise = Promise.new(function(resolve, reject, onCancel)
+		resolve(callback)
+	end)
+
+	promise:andThen(function(newCallback)
+		local data = {}
 		newCallback(data)
 	end)
 	return 0
@@ -70,7 +82,7 @@ function MockDebuggerConnection:Populate(targetVar, callback) : number
 		resolve(callback)
 	end)
 
-	promise:andThen(function (newCallback)
+	promise:andThen(function(newCallback)
 		local data = {}
 		newCallback(data)
 	end)

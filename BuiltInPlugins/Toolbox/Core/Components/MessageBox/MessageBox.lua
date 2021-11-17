@@ -1,5 +1,4 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -274,17 +273,12 @@ function MessageBox:renderContent(theme)
 	})
 end
 
-if FFlagToolboxWithContext then
-	MessageBox = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(MessageBox)
-else
-	ContextServices.mapToProps(MessageBox, {
-		Plugin = ContextServices.Plugin,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+MessageBox = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(MessageBox)
+
 
 
 return MessageBox

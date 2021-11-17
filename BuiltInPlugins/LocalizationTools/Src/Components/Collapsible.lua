@@ -1,7 +1,6 @@
 --[[
 	A collapsible widget for advanced options
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -100,17 +99,12 @@ function Collapsible:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	Collapsible = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Collapsible)
-else
-	ContextServices.mapToProps(Collapsible, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Collapsible = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Collapsible)
+
 
 
 return Collapsible

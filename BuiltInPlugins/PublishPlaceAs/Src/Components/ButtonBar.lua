@@ -6,7 +6,6 @@
 			Determines if buttons should be centered or aligned to one corner.
 		table Buttons = The buttons to add to this button bar.
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local BUTTON_BAR_PADDING = 25
 local BUTTON_BAR_EDGE_PADDING = 35
@@ -90,17 +89,12 @@ function ButtonBar:render()
 	}, components)
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ButtonBar = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(ButtonBar)
-else
-	ContextServices.mapToProps(ButtonBar, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ButtonBar = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(ButtonBar)
+
 
 
 return ButtonBar

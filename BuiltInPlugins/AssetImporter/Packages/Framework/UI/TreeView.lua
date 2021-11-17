@@ -53,7 +53,6 @@ local TreeViewRow = require(UI.TreeViewRow)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -191,17 +190,12 @@ function TreeView:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TreeView = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TreeView)
-else
-	ContextServices.mapToProps(TreeView, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TreeView = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TreeView)
+
 
 
 return TreeView

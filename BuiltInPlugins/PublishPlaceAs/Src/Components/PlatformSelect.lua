@@ -12,7 +12,6 @@
 		function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id
 			of box and selection state to set in store
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -116,14 +115,10 @@ function PlatformSelect:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	PlatformSelect = withContext({
-		Localization = ContextServices.Localization,
-	})(PlatformSelect)
-else
-	ContextServices.mapToProps(PlatformSelect, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+PlatformSelect = withContext({
+	Localization = ContextServices.Localization,
+})(PlatformSelect)
+
 
 return PlatformSelect

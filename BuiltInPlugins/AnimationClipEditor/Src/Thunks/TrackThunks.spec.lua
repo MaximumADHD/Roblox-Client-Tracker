@@ -220,7 +220,7 @@ return function()
 			local store = createTestStore()
 			local analytics = Analytics.mock()
 			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, nil, analytics))
+				store:dispatch(AddKeyframe("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, {}, analytics))
 			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(AddKeyframe("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, nil, analytics))
 			else

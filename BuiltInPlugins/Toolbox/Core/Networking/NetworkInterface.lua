@@ -4,9 +4,9 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
-local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -19,11 +19,7 @@ local Constants = require(Plugin.Core.Util.Constants)
 
 local Category = require(Plugin.Core.Types.Category)
 
-local ToolboxUtilities
-
-if FFlagToolboxPolicyForPluginCreatorWhitelist then
-	ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
-end
+local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -98,14 +94,8 @@ end
 function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit)
 	local useCreatorWhitelist = nil
 
-	if FFlagToolboxPolicyForPluginCreatorWhitelist then
-		if category == Category.WHITELISTED_PLUGINS.name then
-			useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
-		end
-	else
-		if category == Category.WHITELISTED_PLUGINS.name then
-			useCreatorWhitelist = true
-		end
+	if category == Category.WHITELISTED_PLUGINS.name then
+		useCreatorWhitelist = ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
 	end
 
 	local targetUrl = Urls.constructGetToolboxItemsUrl(
@@ -694,11 +684,24 @@ if FFlagUseNewAssetPermissionEndpoint2 then
 	end
 end
 
-function NetworkInterface:getPackageHighestPermission(assetIds)
-	local targetUrl = Urls.constructPackageHighestPermissionUrl(assetIds)
+if FFlagUseNewAssetPermissionEndpoint3 then
+	function NetworkInterface:postAssetCheckPermissions(actions, assetIds)
 
-	printUrl("getPackageHighestPermission", "GET", targetUrl)
-	return self._networkImp:httpGet(targetUrl)
+		local targetUrl = Urls.constructAssetCheckPermissionsUrl()
+	
+		return sendRequestAndRetry(function()
+			local payload = self._networkImp:jsonEncode({ actions = actions, assetIds = assetIds })
+			printUrl("postAssetCheckPermissions", "POST", targetUrl)
+			return self._networkImp:httpPostJson(targetUrl, payload)
+		end)
+	end
+else
+	function NetworkInterface:getPackageHighestPermission(assetIds)
+		local targetUrl = Urls.constructPackageHighestPermissionUrl(assetIds)
+
+		printUrl("getPackageHighestPermission", "GET", targetUrl)
+		return self._networkImp:httpGet(targetUrl)
+	end
 end
 
 function NetworkInterface:tagsPrefixSearch(prefix, numberOfResults)

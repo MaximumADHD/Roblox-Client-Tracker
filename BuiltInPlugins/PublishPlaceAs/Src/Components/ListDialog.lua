@@ -21,7 +21,6 @@
 		function OnClose = A callback for when the user closed the dialog by
 			clicking the X in the corner of the window.
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -103,14 +102,10 @@ function ListDialog:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ListDialog = withContext({
-		Theme = ContextServices.Theme,
-	})(ListDialog)
-else
-	ContextServices.mapToProps(ListDialog, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ListDialog = withContext({
+	Theme = ContextServices.Theme,
+})(ListDialog)
+
 
 return ListDialog

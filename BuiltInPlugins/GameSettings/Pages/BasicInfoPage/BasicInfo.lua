@@ -25,7 +25,6 @@
 		devices: "NoDevices"
 ]]
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local StudioService = game:GetService("StudioService")
@@ -993,21 +992,14 @@ function BasicInfo:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	BasicInfo = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Dialog = Dialog,
-		Mouse = ContextServices.Mouse,
-	})(BasicInfo)
-else
-	ContextServices.mapToProps(BasicInfo, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Dialog = Dialog,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+BasicInfo = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+	Dialog = Dialog,
+	Mouse = ContextServices.Mouse,
+})(BasicInfo)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

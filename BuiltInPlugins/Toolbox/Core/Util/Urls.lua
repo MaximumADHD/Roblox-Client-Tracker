@@ -8,6 +8,7 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Urls = {}
 
@@ -80,6 +81,7 @@ local GET_PACKAGE_HIGHEST_PERMISSION_LIST = Url.DEVELOP_URL .. "v1/packages/asse
 
 -- Asset Permissions URLs
 local ASSET_PERMISSIONS = Url.APIS_URL .. "asset-permissions-api/v1/assets/%s/permissions"
+local ASSET_CHECK_PERMISSIONS = Url.APIS_URL .. "asset-permissions-api/v1/assets/check-actions"
 
 local GET_TAGS_PREFIX_SEARCH = Url.ITEM_CONFIGURATION_URL .. "v1/tags/prefix-search?"
 local GET_ITEM_TAGS_METADATA = Url.ITEM_CONFIGURATION_URL .. "v1/item-tags/metadata"
@@ -433,6 +435,13 @@ function Urls.constructAssetPermissionsUrl(assetId)
 	return ASSET_PERMISSIONS:format(assetId)
 end
 
+if FFlagUseNewAssetPermissionEndpoint3 then
+	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+	function Urls.constructAssetCheckPermissionsUrl()
+		return ASSET_CHECK_PERMISSIONS
+	end
+end
+
 function Urls.getRobuxPurchaseUrl()
 	return ROBUX_PURCHASE_URL
 end
@@ -450,12 +459,15 @@ function Urls.constructGetGroupRoleInfoUrl(groupId)
 	return GET_GROUP_ROLE_INFO:format(groupId)
 end
 
-function Urls.constructPackageHighestPermissionUrl(assetIds)
-	local assetIdStringList = ""
-	for i, assetId in ipairs(assetIds) do
-		assetIdStringList = assetIdStringList .. assetId .. (assetIds[i+1] ~= nil and "," or "")
+if not FFlagUseNewAssetPermissionEndpoint3 then
+	--Need to remove URL below on flag change GET_PACKAGE_HIGHEST_PERMISSION_LIST
+	function Urls.constructPackageHighestPermissionUrl(assetIds)
+		local assetIdStringList = ""
+		for i, assetId in ipairs(assetIds) do
+			assetIdStringList = assetIdStringList .. assetId .. (assetIds[i+1] ~= nil and "," or "")
+		end
+		return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
 	end
-	return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
 end
 
 function Urls.constructCanManageAssetUrl(assetId, userId)

@@ -25,7 +25,6 @@
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
@@ -414,15 +413,11 @@ function MainView:render()
 	end)
 end
 
-if FFlagToolboxWithContext then
-	MainView = withContext({
-		Settings = Settings,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Settings = Settings,
-	})
-end
+
+MainView = withContext({
+	Settings = Settings,
+})(MainView)
+
 
 
 local function mapStateToProps(state, props)

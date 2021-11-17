@@ -47,6 +47,8 @@ local function connectStoreToDragger(store, context, selection)
 		context.latticeBoundsData = newState.latticeTool.latticeBoundsData
 		context.editingCage = newState.selectItem.editingCage
 		context.editingItem = newState.selectItem.editingItem
+		context.selectedPoints = newState.pointTool.selectedPoints
+		context.draggerType = newState.status.draggerType
 
 		selection.toolMode = newState.status.toolMode
 		selection.clickedPoints = newState.pointTool.clickedPoints
@@ -118,6 +120,7 @@ local function run(testChildren, container, testRunner, draggerType)
 	local store = Rodux.Store.new(MainReducer, nil, middlewares)
 	local signals = Signals.new(Constants.SIGNAL_KEYS)
 	local editingItemContext = EditingItemContext.new()
+	local theme = PluginTheme.mock()
 
 	local previewContext
 	if not draggerType then
@@ -125,7 +128,7 @@ local function run(testChildren, container, testRunner, draggerType)
 	end
 
 	local element = provideMockContext({
-		PluginTheme.mock(),
+		theme,
 		ContextServices.Store.new(store),
 		ContextServices.API.new({
 			networking = Http.Networking.mock({
@@ -151,7 +154,7 @@ local function run(testChildren, container, testRunner, draggerType)
 
 	local success, result = pcall(function()
 		if testRunner then
-			testRunner(container, store, dragger)
+			testRunner(container, store, dragger, editingItemContext)
 		end
 	end)
 

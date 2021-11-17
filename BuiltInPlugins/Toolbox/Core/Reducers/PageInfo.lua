@@ -20,14 +20,13 @@ local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories
-if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
+if disableMarketplaceAndRecents() then
 	defaultCategories = FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS
 else
 	defaultCategories = Category.MARKETPLACE

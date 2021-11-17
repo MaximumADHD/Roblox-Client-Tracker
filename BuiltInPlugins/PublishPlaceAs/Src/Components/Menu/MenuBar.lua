@@ -6,7 +6,6 @@
 		number Selected: Index of Entries that is selected
 		function selectionChanged: Callback when the selected menu entry changes
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -58,17 +57,12 @@ function MenuBar:render()
 	}, menuEntries)
 end
 
-if FFlagPublishPlaceAsWithContext then
-	MenuBar = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(MenuBar)
-else
-	ContextServices.mapToProps(MenuBar, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+MenuBar = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(MenuBar)
+
 
 
 return MenuBar

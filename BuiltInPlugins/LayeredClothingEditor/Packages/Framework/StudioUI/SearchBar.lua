@@ -27,7 +27,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the search term text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -319,17 +318,12 @@ function SearchBar:render()
 	}, children)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	SearchBar = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(SearchBar)
-else
-	ContextServices.mapToProps(SearchBar, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+SearchBar = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(SearchBar)
+
 
 
 return SearchBar

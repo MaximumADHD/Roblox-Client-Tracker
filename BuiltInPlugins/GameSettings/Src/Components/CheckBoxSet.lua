@@ -14,7 +14,6 @@ local Roact = require(Plugin.Roact)
 local Cryo = require(Plugin.Cryo)
 local UILibrary = require(Plugin.UILibrary)
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -87,15 +86,11 @@ function CheckBoxSet:render()
 	}, children)
 end
 
-if FFlagGameSettingsWithContext then
-	CheckBoxSet = withContext({
-		Theme = ContextServices.Theme,
-	})(CheckBoxSet)
-else
-	ContextServices.mapToProps(CheckBoxSet, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+CheckBoxSet = withContext({
+	Theme = ContextServices.Theme,
+})(CheckBoxSet)
+
 
 
 return CheckBoxSet

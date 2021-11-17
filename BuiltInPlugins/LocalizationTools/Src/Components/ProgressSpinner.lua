@@ -1,7 +1,6 @@
 --[[
 	A progress spinner widget shown when busy
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -79,17 +78,12 @@ function ProgressSpinner:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	ProgressSpinner = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(ProgressSpinner)
-else
-	ContextServices.mapToProps(ProgressSpinner, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+ProgressSpinner = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(ProgressSpinner)
+
 
 
 local function mapStateToProps(state, _)

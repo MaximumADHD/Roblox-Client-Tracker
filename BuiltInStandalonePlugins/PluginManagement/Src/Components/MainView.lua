@@ -1,4 +1,3 @@
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -6,8 +5,6 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
-
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MainView = Roact.Component:extend("MainView")
 
@@ -110,12 +107,7 @@ end
 function MainView:render()
 	local pluginInfo = self.props.info
 
-	local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-	else
-		theme = self.props.Theme:get("Plugin")
-	end
+	local theme = self.props.Stylizer
 	local localization = self.props.Localization
 
 	local contents
@@ -134,20 +126,10 @@ function MainView:render()
 	}, contents)
 end
 
-if FFlagPluginManagementWithContext then
-	MainView = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
-
+MainView = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(MainView)
 
 return RoactRodux.connect(function(state, props)
 	local targetPluginId = props.pluginId

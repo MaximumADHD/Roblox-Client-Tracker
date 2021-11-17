@@ -1,16 +1,18 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
-
+	local Constants = require(Plugin.Src.Util.Constants)
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local TimeDisplay = require(script.Parent.TimeDisplay)
 
 	local function createTestTimeDisplay()
 		return Roact.createElement(MockWrapper, {}, {
+			-- Create a 1 second clip, set the Playhead at half length.
 			TimeDisplay = Roact.createElement(TimeDisplay, {
-				EndTick = 30,
-				Playhead = 15,
-				EditingLength = 30,
+				EndTick = Constants.TICK_FREQUENCY,
+				Playhead = Constants.TICK_FREQUENCY / 2,
+				EditingLength = Constants.TICK_FREQUENCY,
+				FrameRate = Constants.DEFAULT_FRAMERATE,
 			})
 		})
 	end

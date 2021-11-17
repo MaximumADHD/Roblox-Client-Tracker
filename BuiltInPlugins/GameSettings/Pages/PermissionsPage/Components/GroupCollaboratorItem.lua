@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -201,17 +200,12 @@ function GroupCollaboratorItem:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	GroupCollaboratorItem = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(GroupCollaboratorItem)
-else
-	ContextServices.mapToProps(GroupCollaboratorItem, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+GroupCollaboratorItem = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(GroupCollaboratorItem)
+
 
 
 GroupCollaboratorItem = RoactRodux.connect(

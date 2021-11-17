@@ -48,7 +48,6 @@ local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
 local DevProducts = Roact.PureComponent:extend(script.Name)
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function DevProducts:render()
     local props = self.props
@@ -153,17 +152,12 @@ function DevProducts:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	DevProducts = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})(DevProducts)
-else
-	ContextServices.mapToProps(DevProducts, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})
-end
+
+DevProducts = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+})(DevProducts)
+
 
 
 return DevProducts

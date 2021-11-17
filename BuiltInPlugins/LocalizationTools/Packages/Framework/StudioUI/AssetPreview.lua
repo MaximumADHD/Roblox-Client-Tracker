@@ -11,12 +11,12 @@
 		callback OnClickCreator: what to do when clicking the creator's name.
 			OnClickCreator(creatorName: string)
 		callback OnClickContext: what to do when clicking the 'triple dot' button.
-		table Favorites: props to pass to Favorites.
 		UDim2 Size: The size of this component.
 
 	Optional Props:
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		table Favorites: props to pass to Favorites. Favorites will be hidden if this is not shown.
 		Voting Voting: Table of Voting info. Voting will be hidden if this is not shown.
 		callback OnVoteUp: called when the upvote button is clicked. Required if Voting is passed.
 		callback OnVoteDown: called when the downvote button is clicked. Required if Voting is passed.
@@ -30,9 +30,11 @@
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
 		boolean HideCreatorSearch: Whether to show creator search link
+		callback RenderFooter: Callback to render optional footer element for the preview.
 ]]
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
+local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
+local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
 
 local TextService = game:GetService("TextService")
 
@@ -313,6 +315,18 @@ function AssetPreview:render()
 	local scrollingFramePadding = style.ScrollingFrame.Padding
 	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
 
+	local favorites = function (nextOrder)
+		if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites then
+			return props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
+				LayoutOrder = nextOrder,
+			}, props.Favorites))
+		else
+			return Roact.createElement(Favorites, Immutable.JoinDictionaries({
+				LayoutOrder = nextOrder,
+			}, props.Favorites))
+		end
+	end
+
 	return Roact.createElement(Container, {
 		AnchorPoint = anchorPoint,
 		Position = position,
@@ -391,9 +405,7 @@ function AssetPreview:render()
 					OnPauseVideo = self.onPauseVideo,
 				}),
 
-				Favorites = Roact.createElement(Favorites, Immutable.JoinDictionaries({
-					LayoutOrder = layoutOrderIterator:getNextOrder(),
-				}, props.Favorites)),
+				Favorites = favorites(layoutOrderIterator:getNextOrder()),
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,
@@ -475,6 +487,15 @@ function AssetPreview:render()
 					end)
 				),
 
+				FooterSeparator = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(Separator, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}) or nil,
+
+				Footer = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(props.RenderFooter, {
+					FitMaxWidth = textMaxWidth,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}) or nil,
+
 				-- UIListLayout AbsoluteContentSize does not account for padding, so add a spacer div here.
 				BottomSpacer = Roact.createElement(Container, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -522,21 +543,14 @@ function AssetPreview:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetPreview = withContext({
-		Analytics = ContextServices.Analytics,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetPreview)
-else
-	ContextServices.mapToProps(AssetPreview, {
-		Analytics = ContextServices.Analytics,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetPreview = withContext({
+	Analytics = ContextServices.Analytics,
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetPreview)
+
 
 
 return AssetPreview

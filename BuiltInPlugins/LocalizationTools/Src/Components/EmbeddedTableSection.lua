@@ -1,7 +1,6 @@
 --[[
 	For managing embedded localization tables
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local LocalizationService = game:GetService("LocalizationService")
 
@@ -118,23 +117,15 @@ local function mapStateToProps(state, _)
 	}
 end
 
-if FFlagLocalizationToolsWithContext then
-	EmbeddedTableSection = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Localization = ContextServices.Localization,
-		Analytics = AnalyticsContext,
-	})(EmbeddedTableSection)
-else
-	ContextServices.mapToProps(EmbeddedTableSection, {
-		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Localization = ContextServices.Localization,
-		Analytics = AnalyticsContext,
-	})
-end
+
+EmbeddedTableSection = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Localization = ContextServices.Localization,
+	Analytics = AnalyticsContext,
+})(EmbeddedTableSection)
+
 
 
 return RoactRodux.connect(mapStateToProps)(EmbeddedTableSection)

@@ -4,7 +4,6 @@ local Colors = require(Framework.Style.Colors)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagDevFrameworkFixInputFieldColors = game:GetFastFlag("DevFrameworkFixInputFieldColors")
 local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 return {
@@ -47,7 +46,7 @@ return {
 	[StyleKey.InputFieldBorder] = Color3.fromRGB(200, 200, 200),
 	[StyleKey.InputFieldBorderDisabled] = Color3.fromRGB(182, 182, 182),
 	[StyleKey.InputFieldBorderHover] = Colors.Blue,
-	[StyleKey.InputFieldBorderSelected] = FFlagDevFrameworkFixInputFieldColors and Colors.Blue or Color3.fromRGB(102, 145, 220),
+	[StyleKey.InputFieldBorderSelected] = Colors.Blue,
 	[StyleKey.Item] = Colors.White,
 	[StyleKey.ItemHovered] = Colors.Gray,
 	[StyleKey.ItemSelected] = Colors.Blue_Dark,

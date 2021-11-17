@@ -62,10 +62,10 @@ local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -213,18 +213,15 @@ function TreeTable:render()
 		CellComponent = cellComponent,
 		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
 		HighlightedRows = (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows) or nil,
+		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TreeTable = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(TreeTable)
-else
-	ContextServices.mapToProps(TreeTable, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+TreeTable = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(TreeTable)
+
 
 
 return TreeTable

@@ -23,7 +23,6 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local emptyData = Templates.animationData()
 	local testAnimationData = Templates.animationData()
@@ -33,32 +32,26 @@ return function()
 			Tracks = {
 				Head = {
 					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
+					Keyframes = {0, 160},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = not GetFFlagUseTicks() and {
+						[160] = {
 							Value = CFrame.new(),
-						} or nil,
-						[160] = GetFFlagUseTicks() and {
-							Value = CFrame.new(),
-						} or nil,
+						},
 					},
 				},
 				UpperTorso = {
 					Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
-					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
+					Keyframes = {0, 160},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = not GetFFlagUseTicks() and {
+						[160] = {
 							Value = CFrame.new(),
-						} or nil,
-						[160] = GetFFlagUseTicks() and {
-							Value = CFrame.new(),
-						} or nil,
+						},
 					},
 				},
 			},
@@ -97,13 +90,13 @@ return function()
 			TestHelpers.loadAnimation(store, emptyData)
 			if GetFFlagChannelAnimations() then
 				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", {"Head"}, Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
 			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", Constants.TRACK_TYPES.CFrame, 160, CFrame.new(), analytics))
 			else
 				store:dispatch(ValueChanged("Root", "Head", 0, CFrame.new(), analytics))
-				store:dispatch(ValueChanged("Root", "Head", GetFFlagUseTicks() and 160 or 1, CFrame.new(), analytics))
+				store:dispatch(ValueChanged("Root", "Head", 160, CFrame.new(), analytics))
 			end
 			TestHelpers.delay()
 
@@ -195,7 +188,7 @@ return function()
 
 			TestHelpers.clickInstance(testTrack["1"])
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(GetFFlagUseTicks() and 240 or 3, analytics))
+			store:dispatch(PasteKeyframes(240, analytics))
 			TestHelpers.delay()
 
 			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(3)
@@ -219,7 +212,7 @@ return function()
 			TestHelpers.clickInstance(summaryTrack["2"])
 			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedKeyframes())
-			store:dispatch(PasteKeyframes(GetFFlagUseTicks() and 240 or 3, analytics))
+			store:dispatch(PasteKeyframes(240, analytics))
 			TestHelpers.delay()
 
 			expect(#Cryo.Dictionary.keys(testTrack:GetChildren())).to.equal(4)
@@ -272,7 +265,10 @@ return function()
 		end)
 	end)
 
-	it("should be able to move multiple selected keyframes", function()
+	-- In Keyframe.lua, we set [Roact.Event.InputBegan] and [Roact.Event.InputEnded] for the InputButton element.
+	-- Those events are called with a UserInputType=MouseMovement when executed from Studio.
+	-- However, they are not called from this unit test.
+	itSKIP("should be able to move multiple selected keyframes", function()
 		runTest(function(test)
 			local store = test:getStore()
 			local container = test:getContainer()
@@ -306,17 +302,17 @@ return function()
 			if GetFFlagChannelAnimations() then
 				expect(selectedKeyframes.Root.Head.Selection[0]).never.to.be.ok()
 				expect(selectedKeyframes.Root.Head.Selection[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.Head.Selection[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.Head.Selection[endTick - 160]).to.be.ok()
 				expect(selectedKeyframes.Root.UpperTorso.Selection[0]).never.to.be.ok()
 				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso.Selection[endTick - 160]).to.be.ok()
 			else
 				expect(selectedKeyframes.Root.Head[0]).never.to.be.ok()
 				expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.Head[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.Head[endTick - 160]).to.be.ok()
 				expect(selectedKeyframes.Root.UpperTorso[0]).never.to.be.ok()
 				expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
-				expect(selectedKeyframes.Root.UpperTorso[endTick - (GetFFlagUseTicks() and 160 or 1)]).to.be.ok()
+				expect(selectedKeyframes.Root.UpperTorso[endTick - 160]).to.be.ok()
 			end
 		end)
 	end)
@@ -385,11 +381,11 @@ return function()
 			expect(selectedKeyframes.Root).to.be.ok()
 			expect(selectedKeyframes.Root.Head).to.be.ok()
 			expect(selectedKeyframes.Root.Head[0]).to.be.ok()
-			expect(selectedKeyframes.Root.Head[(GetFFlagUseTicks() and 160 or 1)]).never.to.be.ok()
+			expect(selectedKeyframes.Root.Head[160]).never.to.be.ok()
 			expect(selectedKeyframes.Root.Head[endTick]).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso).to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[0]).to.be.ok()
-			expect(selectedKeyframes.Root.UpperTorso[(GetFFlagUseTicks() and 160 or 1)]).never.to.be.ok()
+			expect(selectedKeyframes.Root.UpperTorso[160]).never.to.be.ok()
 			expect(selectedKeyframes.Root.UpperTorso[endTick]).to.be.ok()
 		end)
 	end)

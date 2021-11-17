@@ -10,7 +10,6 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local testAnimationData = Templates.animationData()
@@ -18,41 +17,32 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = GetFFlagUseTicks() and {160, 320} or {1, 2},
+					Keyframes = {160, 320},
 					Data = {
-						[1] = not GetFFlagUseTicks() and {} or nil,
-						[2] = not GetFFlagUseTicks() and {} or nil,
-						[160] = GetFFlagUseTicks() and {} or nil,
-						[320] = GetFFlagUseTicks() and {} or nil,
+						[160] = {},
+						[320] = {},
 					},
 				},
 				UpperTorso = {
-					Keyframes = GetFFlagUseTicks() and {160, 320, 480} or {1, 2, 3},
+					Keyframes = {160, 320, 480},
 					Data = {
-						[1] = not GetFFlagUseTicks() and {} or nil,
-						[2] = not GetFFlagUseTicks() and {} or nil,
-						[3] = not GetFFlagUseTicks() and {} or nil,
-						[160] = GetFFlagUseTicks() and {} or nil,
-						[320] = GetFFlagUseTicks() and {} or nil,
-						[480] = GetFFlagUseTicks() and {} or nil,
+						[160] = {},
+						[320] = {},
+						[480] = {},
 					},
 				},
 			},
 		},
 	}
 	testAnimationData.Events = {
-		Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
+		Keyframes = {0, 160},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[1] = not GetFFlagUseTicks() and {
+			[160] = {
 				OtherEvent = "OtherValue",
-			} or nil,
-			[160] = GetFFlagUseTicks() and {
-				OtherEvent = "OtherValue",
-			} or nil,
-
+			},
 		},
 	}
 
@@ -255,7 +245,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[GetFFlagUseTicks() and 160 or 1]).to.equal(true)
+			expect(selectedEvents[160]).to.equal(true)
 		end)
 	end)
 
@@ -300,7 +290,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[GetFFlagUseTicks() and 160 or 1]).to.equal(true)
+			expect(selectedEvents[160]).to.equal(true)
 		end)
 	end)
 end

@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local WIDGET_HEIGHT = 25
 
 local TOGGLE_BUTTON_WIDTH = 40
@@ -100,17 +99,12 @@ function AssetInput:render()
 	}, children)
 end
 
-if FFlagGameSettingsWithContext then
-	AssetInput = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(AssetInput)
-else
-	ContextServices.mapToProps(AssetInput, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+AssetInput = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(AssetInput)
+
 
 
 calculateTextSize = function(text, textSize, font)

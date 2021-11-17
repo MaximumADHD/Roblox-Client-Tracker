@@ -9,16 +9,10 @@ function ItemCharacteristics.isItemEmpty(item)
 end
 
 function ItemCharacteristics.getOuterCage(item)
-	if DebugFlags.UseMockCages() then
-		return not ItemCharacteristics.isItemEmpty(item) and (item:FindFirstChild("Outer") or item:FindFirstChild(item.Name)) or nil
-	end
 	return not ItemCharacteristics.isItemEmpty(item) and (item:FindFirstChildWhichIsA("WrapTarget", true) or item:FindFirstChildWhichIsA("WrapLayer", true)) or nil
 end
 
 function ItemCharacteristics.getInnerCage(item)
-	if DebugFlags.UseMockCages() then
-		return not ItemCharacteristics.isItemEmpty(item) and (item:FindFirstChild("Inner") or item:FindFirstChild(item.Name)) or nil
-	end
 	return not ItemCharacteristics.isItemEmpty(item) and item:FindFirstChildWhichIsA("WrapLayer", true) or nil
 end
 

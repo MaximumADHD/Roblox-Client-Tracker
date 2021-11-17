@@ -11,7 +11,6 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
 
 local Plugin = script.Parent.Parent.Parent
@@ -227,6 +226,7 @@ function AssetGridContainer:render()
 			parentAbsolutePosition = state.absolutePosition,
 			parentSize = state.absoluteSize,
 			tryInsert = self.tryInsert,
+			tryOpenAssetConfig = tryOpenAssetConfig,
 		}),
 
 		-- TODO: Swimlanes here

@@ -8,7 +8,6 @@
 		table FirstPublishContext - set only when doing "first publish after save"
 			This table contain 2 elements, universeId and placeId
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -196,11 +195,7 @@ function ScreenCreateNewGame:render()
 		actionButtonLabel = "Save"
 	end
 
-	local replaceUpdateWithLocalSave = FFlagStudioAllowRemoteSaveBeforePublish and (isPublish == false)
 	local nextScreenText = "UpdateExistingGame"
-	if replaceUpdateWithLocalSave then
-		nextScreenText = "SaveToFile"
-	end
 
 	local children = {
 		MenuBar = Roact.createElement(MenuBar, {
@@ -298,7 +293,6 @@ function ScreenCreateNewGame:render()
 			OnClose = onClose,
 			NextScreen = Constants.SCREENS.CHOOSE_GAME,
 			NextScreenText = nextScreenText,
-			IsLocalSaveButton = replaceUpdateWithLocalSave,
 			IsPublish = isPublish,
 		}, {
 			EmailDialog = Roact.createElement(TextInputDialog,
@@ -388,19 +382,13 @@ function ScreenCreateNewGame:render()
 	}, children)
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ScreenCreateNewGame = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		API = ContextServices.API,
-	})(ScreenCreateNewGame)
-else
-	ContextServices.mapToProps(ScreenCreateNewGame,{
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		API = ContextServices.API,
-	})
-end
+
+ScreenCreateNewGame = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	API = ContextServices.API,
+})(ScreenCreateNewGame)
+
 
 local function mapStateToProps(state, props)
 	local settings = state.NewGameSettings

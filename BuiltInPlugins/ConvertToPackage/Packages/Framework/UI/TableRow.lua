@@ -16,7 +16,6 @@
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		boolean HighlightedRow: An optional boolean specifying whether to highlight the row.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
@@ -106,15 +105,11 @@ function TableRow:render()
 
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TableRow = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(TableRow)
-else
-	ContextServices.mapToProps(TableRow, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+TableRow = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(TableRow)
+
 
 
 return withControl(TableRow)

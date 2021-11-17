@@ -5,8 +5,6 @@ return function()
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 	local TimelineContainer = require(script.Parent.TimelineContainer)
 
 	local function createTestTimelineContainer()
@@ -15,10 +13,10 @@ return function()
 				LayoutOrder = 0,
 				ParentSize = Vector2.new(1000, 500),
 				StartTick = 0,
-				EndTick = 30,
+				EndTick = Constants.TICK_FREQUENCY,
 				Playhead = 0,
 				TrackPadding = Constants.TRACK_PADDING_SMALL,
-				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,
+				FrameRate = Constants.DEFAULT_FRAMERATE,
 			})
 		})
 	end

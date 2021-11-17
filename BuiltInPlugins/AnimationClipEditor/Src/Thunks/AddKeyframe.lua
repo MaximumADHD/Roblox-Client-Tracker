@@ -15,7 +15,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 if GetFFlagChannelAnimations() then
-	return function(instanceName, path, trackType, tick, value, analytics)
+	return function(instanceName, path, trackType, tick, keyframeData, analytics)
 		return function(store)
 			local state = store:getState()
 			local animationData = state.AnimationData
@@ -44,7 +44,7 @@ if GetFFlagChannelAnimations() then
 
 			local trackData = track.Data
 			if trackData[tick] == nil then
-				AnimationData.addKeyframe(track, tick, value)
+				AnimationData.addKeyframe(track, tick, keyframeData)
 				if tick ~= 0 and trackData[0] == nil then
 					AnimationData.addDefaultKeyframe(track, 0, trackType)
 				end
@@ -87,14 +87,14 @@ else
 			local trackData = track.Data
 
 			if trackData[tick] == nil then
-				AnimationData.addKeyframe(track, tick, value)
+				AnimationData.addKeyframe_deprecated(track, tick, value)
 
 				-- if no base pose kf exists at time 0, create one now
 				if tick ~= 0 and trackData[0] == nil then
 					if GetFFlagFacialAnimationSupport() then
 						AnimationData.addDefaultKeyframe(track, 0, trackType)
 					else
-						AnimationData.addKeyframe(track, 0, CFrame.new())
+						AnimationData.addKeyframe_deprecated(track, 0, CFrame.new())
 					end
 				end
 

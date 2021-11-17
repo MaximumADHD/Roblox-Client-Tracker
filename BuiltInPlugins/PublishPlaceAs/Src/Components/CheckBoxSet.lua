@@ -8,7 +8,6 @@
 		int LayoutOrder = The order this CheckBoxSet will sort to when placed in a UIListLayout.
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -99,15 +98,11 @@ function CheckBoxSet:render()
 	}, children)
 end
 
-if FFlagPublishPlaceAsWithContext then
-	CheckBoxSet = withContext({
-		Theme = ContextServices.Theme,
-	})(CheckBoxSet)
-else
-	ContextServices.mapToProps(CheckBoxSet, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+CheckBoxSet = withContext({
+	Theme = ContextServices.Theme,
+})(CheckBoxSet)
+
 
 
 return CheckBoxSet

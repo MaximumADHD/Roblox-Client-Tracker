@@ -19,7 +19,6 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
@@ -102,17 +101,12 @@ function TextInputWithBottomText:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TextInputWithBottomText = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TextInputWithBottomText)
-else
-	ContextServices.mapToProps(TextInputWithBottomText, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TextInputWithBottomText = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TextInputWithBottomText)
+
 
 
 return TextInputWithBottomText

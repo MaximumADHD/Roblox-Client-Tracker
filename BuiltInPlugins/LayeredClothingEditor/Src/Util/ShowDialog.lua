@@ -22,9 +22,17 @@ local function showDialog(plugin, localization, dialog, props)
 		end
 	end
 
+	local isRunningTests = DebugFlags.RunTests() or DebugFlags.RunRhodiumTests()
+	local theme
+	if isRunningTests then
+		theme = PluginTheme.mock()
+	else
+		theme = PluginTheme.makePluginTheme()
+	end
+
 	local dialogElement = ContextServices.provide({
 		localization,
-		PluginTheme.makePluginTheme(),
+		theme,
 		plugin
 	},{
 		Roact.createElement(dialog, Cryo.Dictionary.join(props,{
@@ -34,9 +42,9 @@ local function showDialog(plugin, localization, dialog, props)
 		}))
 	})
 	local parent = nil
-	local isRunningTests = DebugFlags.RunTests() or DebugFlags.RunRhodiumTests()
+
 	if isRunningTests then
-		parent = TestHelper.getTempScreenGui()
+		--parent = TestHelper.getTempScreenGui()
 	end
 	handle = Roact.mount(dialogElement,parent)
 

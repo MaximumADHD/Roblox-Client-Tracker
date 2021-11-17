@@ -3,6 +3,23 @@ StatusPropertyMap = {
     Dimensions = {"MeshScaleWarning"},
     FileDimensions = {"MeshScaleWarning"},
     PolygonCount = {"MeshSizeWarning"},
+    ObjectGeneral = {
+        "MaterialIgnoredWarning",
+        "CouldNotReadTextureError",
+        "ContentNotFoundError",
+        "MeshIdNotFoundError",
+        "NoValidParentError",
+        "NullNodeError",
+        "SettingsTypeMismatchError",
+        "SettingsNotCreatedError",
+        "SettingsInstanceNotCreatedError",
+        "SettingsBadTextureSizeError",
+        "IllegalNodeTypeError",
+        "BadCallError",
+        "PoseError",
+        "UncaughtExceptionError",
+        "UploadAlreadyRunningError"
+    },
 }
 
 local function convertToSet(table)

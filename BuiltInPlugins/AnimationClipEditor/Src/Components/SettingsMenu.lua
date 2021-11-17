@@ -19,13 +19,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local ContextMenu = require(Plugin.Src.Components.ContextMenu)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
-local ToggleSnapToKeys = require(Plugin.Src.Thunks.ToggleSnapToKeys)
-local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
-local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
+local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetShowEvents = require(Plugin.Src.Actions.SetShowEvents)
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
-
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local SettingsMenu = Roact.PureComponent:extend("SettingsMenu")
 
@@ -89,7 +85,7 @@ function SettingsMenu:makeFrameRateMenu(localization)
 		return
 	end
 
-	local currentFPS = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
+	local currentFPS = props.FrameRate
 
 	local isPresetFrameRate = false
 	for _, fps in pairs(Constants.FRAMERATES) do
@@ -112,11 +108,7 @@ function SettingsMenu:makeFrameRateMenu(localization)
 		CurrentValue = isPresetFrameRate and currentFPS or Constants.FRAMERATES.CUSTOM,
 		ItemSelected = function(item)
 			if item.Value ~= Constants.FRAMERATES.CUSTOM then
-				if GetFFlagUseTicks() then
-					props.SetDisplayFrameRate(item.Value)
-				else
-					props.SetFrameRate(item.Value)
-				end
+				props.SetFrameRate(item.Value)
 			else
 				if props.OnChangeFPS then
 					props.OnChangeFPS()
@@ -153,9 +145,7 @@ function SettingsMenu:makeMenuActions(localization)
 	table.insert(actions, Constants.MENU_SEPARATOR)
 
 	table.insert(actions, self:makeFrameRateMenu(localization))
-	if GetFFlagUseTicks() then
-		table.insert(actions, self:makePlaybackSpeedMenu(localization))
-	end
+	table.insert(actions, self:makePlaybackSpeedMenu(localization))
 	table.insert(actions, Constants.MENU_SEPARATOR)
 
 	table.insert(actions, {
@@ -165,18 +155,7 @@ function SettingsMenu:makeMenuActions(localization)
 			props.SetShowEvents(not props.ShowEvents)
 		end,
 	})
-	if GetFFlagUseTicks() then
-		table.insert(actions, self:makeSnapMenu(localization))
-	else
-		table.insert(actions, {
-			Name = localization:getText("Settings", "SnapToKeys"),
-			Checked = props.SnapToKeys,
-			ItemSelected = function()
-				props.ToggleSnapToKeys()
-				props.Analytics:report("onKeyframeSnapChanged", not props.SnapToKeys)
-			end,
-		})
-	end
+	table.insert(actions, self:makeSnapMenu(localization))
 	return actions
 end
 
@@ -196,11 +175,10 @@ local function mapStateToProps(state, props)
 
 	local stateToProps = {
 		ShowAsSeconds = status.ShowAsSeconds,
-		SnapToKeys = status.SnapToKeys,
 		ShowEvents = status.ShowEvents,
 		Analytics = state.Analytics,
 		AnimationData = state.AnimationData,
-		DisplayFrameRate = status.DisplayFrameRate,
+		FrameRate = status.FrameRate,
 		SnapMode = status.SnapMode,
 		PlaybackSpeed = status.PlaybackSpeed,
 	}
@@ -214,21 +192,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetShowAsSeconds(showAsSeconds))
 		end,
 
-		ToggleSnapToKeys = function()
-			dispatch(ToggleSnapToKeys())
-		end,
-
-		SetDisplayFrameRate = function(frameRate)
-			dispatch(SetDisplayFrameRate(frameRate))
+		SetFrameRate = function(frameRate)
+			dispatch(SetFrameRate(frameRate))
 		end,
 
 		SetPlaybackSpeed = function(playbackSpeed)
 			dispatch(SetPlaybackSpeed(playbackSpeed))
-		end,
-
-		-- Deprecated when GetFFlagUseTicks is ON
-		SetFrameRate = function(frameRate)
-			dispatch(SetFrameRate(frameRate))
 		end,
 
 		SetSnapMode = function(snapMode)

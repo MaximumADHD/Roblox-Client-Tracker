@@ -5,7 +5,6 @@
 	Allow the user to pick a universe to overwrite a place in
 
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -280,17 +279,12 @@ function ScreenChooseGame:willUnmount()
 	for key, _ in pairs(self.props.Games) do self.props.Games[key] = nil end
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ScreenChooseGame = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(ScreenChooseGame)
-else
-	ContextServices.mapToProps(ScreenChooseGame, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ScreenChooseGame = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(ScreenChooseGame)
+
 
 local function mapStateToProps(state, props)
 	local gameInfo = state.ExistingGame.gameInfo

@@ -24,6 +24,7 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -89,7 +90,7 @@ function BreakpointsTable:init()
 	self.deleteBreakpoint = function()
 		if #self.state.selectedBreakpoints ~= 0 then
 			local BreakpointManager = game:GetService("BreakpointManager")
-			BreakpointManager:RemoveBreakpointById(self.state.selectedBreakpoint[1].id)
+			BreakpointManager:RemoveBreakpointById(self.state.selectedBreakpoints[1].id)
 		end
 	end
 	
@@ -111,7 +112,23 @@ local breakpointLineNumberComp = function(a, b)
 	return a.lineNumber < b.lineNumber
 end
 
+function BreakpointsTable:didMount()
+	if self.props.IsPaused and self.props.CurrentBreakpoint then
+		self:setState({
+			selectedBreakpoints = {self.props.CurrentBreakpoint},
+		})	
+	end
+end
+
 function BreakpointsTable:didUpdate(prevProps)
+	if self.props.IsPaused ~= prevProps.IsPaused then
+		if self.props.IsPaused and self.props.CurrentBreakpoint then
+			self:setState({
+				selectedBreakpoints = {self.props.CurrentBreakpoint},
+			})	
+		end
+	end
+	
 	if self.props.Breakpoints ~= prevProps.Breakpoints then
 		if #self.state.selectedBreakpoints ~= 0 then
 			local updatedSelections = {}
@@ -137,6 +154,8 @@ function BreakpointsTable:render()
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
+	local shouldFocusBreakpoint = props.IsPaused and props.CurrentBreakpoint and self.state.selectedBreakpoints[1] and
+		props.CurrentBreakpoint.id == self.state.selectedBreakpoints[1].id
 	local tableColumns = {
 		{
 			Name = localization:getText("BreakpointsWindow", "EnabledColumn"),
@@ -218,6 +237,8 @@ function BreakpointsTable:render()
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
 				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoints) or nil,
+				Scroll = true,
+				ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and shouldFocusBreakpoint and self.props.CurrentBreakpointIndex) or nil,
 			}),
 		})
 	})
@@ -232,13 +253,24 @@ BreakpointsTable = ContextServices.withContext({
 BreakpointsTable = RoactRodux.connect(
 	function(state, props)
 		local breakpointsArray = {}
-		for breakpointId, breakpoint in pairs(state.Breakpoint.BreakpointInfo) do
+		local currentBreakpoint = nil
+		local currentBreakpointIndex = nil
+		local i = 1
+		for breakpointId, breakpoint in ipairs(state.Breakpoint.BreakpointInfo) do
 			breakpointsArray = Cryo.List.join(breakpointsArray, {breakpoint})
+			if breakpointId == state.Common.currentBreakpointId then
+				currentBreakpoint = breakpoint
+				currentBreakpointIndex = i
+			end
+			i = i + 1
 		end
 		table.sort(breakpointsArray, breakpointLineNumberComp)
-		
+
 		return {
-			Breakpoints = breakpointsArray
+			Breakpoints = breakpointsArray,
+			IsPaused = state.Common.isPaused,
+			CurrentBreakpoint = currentBreakpoint,
+			CurrentBreakpointIndex = currentBreakpointIndex
 		}
 	end,
 	

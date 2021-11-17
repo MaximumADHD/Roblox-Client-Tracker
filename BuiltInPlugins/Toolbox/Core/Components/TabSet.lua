@@ -11,7 +11,6 @@
 		function onTabSelected = A callback for when a Tab is selected.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -160,17 +159,10 @@ function TabSet:renderContent(theme)
 	}, children)
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		TabSet = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(TabSet)
-	else
-		ContextServices.mapToProps(TabSet, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	TabSet = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(TabSet)
 end
 
 return TabSet

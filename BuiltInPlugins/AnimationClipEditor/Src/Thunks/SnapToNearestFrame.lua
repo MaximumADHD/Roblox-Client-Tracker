@@ -10,8 +10,8 @@ return function(tick)
 	return function(store)
 		local state = store:getState()
 
-		local displayFrameRate = state.Status.DisplayFrameRate
-		local snapTick = KeyframeUtils.getNearestFrame(tick, displayFrameRate)
+		local frameRate = state.Status.FrameRate
+		local snapTick = KeyframeUtils.getNearestFrame(tick, frameRate)
 
 		store:dispatch(StepAnimation(snapTick))
 	end

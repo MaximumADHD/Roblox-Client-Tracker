@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local RunService = game:GetService("RunService")
@@ -463,17 +462,12 @@ function Permissions:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Permissions = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})(Permissions)
-else
-	ContextServices.mapToProps(Permissions, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})
-end
+
+Permissions = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})(Permissions)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

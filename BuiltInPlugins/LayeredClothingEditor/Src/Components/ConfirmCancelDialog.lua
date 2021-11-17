@@ -47,7 +47,7 @@ function ConfirmCancelDialog:render()
 	local theme = props.Stylizer
 	local onClose = props.OnClose
 	return Roact.createElement(StyledDialog, {
-		Style = "FullBleed",
+		Style = game:GetFastFlag("DevFrameworkStyledDialogFullBleed") and "FullBleed",
 		Title = title,
 		OnClose = onClose,
 		OnButtonPressed = self.onMessageBoxButtonClicked,

@@ -1,4 +1,4 @@
-local FFlagUGCLCAssetTypes = game:GetFastFlag("UGCLCAssetTypes")
+local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -126,7 +126,7 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
 }
 
-if FFlagUGCLCAssetTypes then
+if FFlagUGCLCAssetTypes2 then
 	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.TShirtAccessory, true))
 	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.ShirtAccessory, true))
 	table.insert(AssetConfigConstants.ASSET_TYPE_INFO, catalogAssetInfo(Enum.AssetType.PantsAccessory, true))

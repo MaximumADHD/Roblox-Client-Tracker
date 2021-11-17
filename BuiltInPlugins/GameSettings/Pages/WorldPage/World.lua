@@ -14,7 +14,6 @@
 		float WalkSpeed
 		float MaxSlopeAngle - maximum incline angle (in degrees) that the avatar can walk up
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -324,17 +323,12 @@ function World:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	World = withContext({
-		Localization = ContextServices.Localization,
-		WorldRootPhysics = WorldRootPhysics,
-	})(World)
-else
-	ContextServices.mapToProps(World, {
-		Localization = ContextServices.Localization,
-		WorldRootPhysics = WorldRootPhysics,
-	})
-end
+
+World = withContext({
+	Localization = ContextServices.Localization,
+	WorldRootPhysics = WorldRootPhysics,
+})(World)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

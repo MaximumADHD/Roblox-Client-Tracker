@@ -15,20 +15,15 @@ return function()
 	local Templates = require(Plugin.Src.Util.Templates)
 	local testAnimationData = Templates.animationData()
 
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 	testAnimationData.Events = {
-		Keyframes = GetFFlagUseTicks() and {0, 80} or {0, 1},
+		Keyframes = {0, 80},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[1] = not GetFFlagUseTicks() and {
+			[80] = {
 				OtherEvent = "OtherValue",
-			} or nil,
-			[80] = GetFFlagUseTicks() and {
-				OtherEvent = "OtherValue",
-			} or nil,
+			},
 
 		},
 	}
@@ -50,7 +45,7 @@ return function()
 			local store = test:getStore()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
-			store:dispatch(StepAnimation(GetFFlagUseTicks() and 160 or 2))
+			store:dispatch(StepAnimation(160))
 			local eventsTitle = TestPaths.getEventsTitleTrack(container)
 			TestHelpers.clickInstance(eventsTitle:WaitForChild("AddEvent"))
 
@@ -114,7 +109,7 @@ return function()
 
 			TestHelpers.clickInstance(eventsTrack["1"])
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(GetFFlagUseTicks() and 160 or 2))
+			store:dispatch(PasteEvents(160))
 			TestHelpers.delay()
 
 			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(3)
@@ -134,7 +129,7 @@ return function()
 			TestHelpers.clickInstance(eventsTrack["2"])
 			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(GetFFlagUseTicks() and 160 or 2))
+			store:dispatch(PasteEvents(160))
 			TestHelpers.delay()
 
 			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(4)

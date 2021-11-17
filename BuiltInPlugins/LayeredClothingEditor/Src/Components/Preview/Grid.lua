@@ -123,7 +123,6 @@ function Grid:init()
 
 	self.onInstanceSelectorValidSelection = function(instance)
 		local props = self.props
-
 		ShowDialog(props.Plugin, props.Localization, ConfirmCancelDialog,{
 			Text = self.props.Localization:getText(Constants.LOCALIZATION_KEYS.Preview, "ConfirmAddTile", {
 				itemName = instance.Name,

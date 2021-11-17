@@ -8,7 +8,6 @@
 		function OnClick = A callback invoked when this widget is clicked.
 			This will mean that the user wants to add a new icon.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -74,17 +73,12 @@ function NewUploadableIcon:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	NewUploadableIcon = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(NewUploadableIcon)
-else
-	ContextServices.mapToProps(NewUploadableIcon, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+NewUploadableIcon = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(NewUploadableIcon)
+
 
 
 return NewUploadableIcon

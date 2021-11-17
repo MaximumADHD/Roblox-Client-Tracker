@@ -13,7 +13,6 @@
 		function StopDragging = A callback for when the user has let go of the mouse and
 			is no longer dragging the thumbnail.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -81,15 +80,11 @@ function DragGhostThumbnail:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	DragGhostThumbnail = withContext({
-		Theme = ContextServices.Theme,
-	})(DragGhostThumbnail)
-else
-	ContextServices.mapToProps(DragGhostThumbnail, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+DragGhostThumbnail = withContext({
+	Theme = ContextServices.Theme,
+})(DragGhostThumbnail)
+
 
 
 return DragGhostThumbnail

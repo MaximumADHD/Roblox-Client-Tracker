@@ -1,5 +1,4 @@
 local FFlagPluginManagementScrollbarDesign = game:GetFastFlag("PluginManagementScrollbarDesign")
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local StudioService = game:GetService("StudioService")
 
@@ -11,8 +10,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local PluginHolder = Roact.Component:extend("PluginHolder")
 
@@ -65,12 +62,7 @@ function PluginHolder:render()
 	local state = self.state
 
 	local localization = props.Localization
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-    else
-        theme = props.Theme:get("Plugin")
-	end
+	local theme = props.Stylizer
 
 	local contentHeight = state.contentHeight
 	local plugin = props.plugin
@@ -186,19 +178,11 @@ function PluginHolder:render()
 	}, pluginEntries)
 end
 
-if FFlagPluginManagementWithContext then
-	PluginHolder = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(PluginHolder)
-else
-	ContextServices.mapToProps(PluginHolder, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+PluginHolder = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer
+})(PluginHolder)
 
 
 return PluginHolder

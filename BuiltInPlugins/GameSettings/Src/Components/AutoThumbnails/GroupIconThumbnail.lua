@@ -17,7 +17,6 @@
 		LayoutOrder
 		ZIndex
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework).ContextServices
@@ -75,15 +74,11 @@ function GroupIconThumbnail:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	GroupIconThumbnail = withContext({
-		Theme = ContextServices.Theme,
-	})(GroupIconThumbnail)
-else
-	ContextServices.mapToProps(GroupIconThumbnail, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+GroupIconThumbnail = withContext({
+	Theme = ContextServices.Theme,
+})(GroupIconThumbnail)
+
 
 
 return GroupIconThumbnail

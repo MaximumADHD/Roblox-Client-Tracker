@@ -15,7 +15,6 @@
 		boolean RecenterCameraOnUpdate: Whether to recenter the camera on update.
 		any Camera: The camera instance used for the viewport frame - won't catch changes made by the parent component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 
 local Framework = script.Parent.Parent
@@ -229,17 +228,12 @@ function AssetRenderModel:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetRenderModel = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetRenderModel)
-else
-	ContextServices.mapToProps(AssetRenderModel, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetRenderModel = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetRenderModel)
+
 
 
 return AssetRenderModel

@@ -19,7 +19,6 @@
 		number StretchMargin: The padding in pixels to subtract from either side of the separator's dominant axis.
 		number Weight: The thickness of the separator line.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -75,17 +74,12 @@ function Separator:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Separator = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Separator)
-else
-	ContextServices.mapToProps(Separator, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Separator = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Separator)
+
 
 
 return Separator

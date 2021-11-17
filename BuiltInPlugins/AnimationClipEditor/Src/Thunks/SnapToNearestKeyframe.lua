@@ -12,7 +12,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(tick, trackWidth)
@@ -82,7 +81,7 @@ return function(tick, trackWidth)
 			end
 		end
 
-		if snapped or not GetFFlagUseTicks() then
+		if snapped then
 			store:dispatch(StepAnimation(snapTick))
 		else
 			-- We didn't snap to a keyframe, but we still need to snap to the frames

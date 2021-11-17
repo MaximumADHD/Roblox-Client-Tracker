@@ -29,7 +29,6 @@
 		number Padding: Padding between components in dialog
 		number Spacing: Spacing between borders of dialog
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 
@@ -202,17 +201,12 @@ function TextInputDialog:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TextInputDialog = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TextInputDialog)
-else
-	ContextServices.mapToProps(TextInputDialog, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TextInputDialog = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TextInputDialog)
+
 
 
 return TextInputDialog

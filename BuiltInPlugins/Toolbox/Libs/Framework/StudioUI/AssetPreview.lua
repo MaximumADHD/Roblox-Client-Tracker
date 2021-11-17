@@ -30,10 +30,11 @@
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
 		boolean HideCreatorSearch: Whether to show creator search link
+		callback RenderFooter: Callback to render optional footer element for the preview.
 ]]
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
+local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
 
 local TextService = game:GetService("TextService")
 
@@ -486,6 +487,15 @@ function AssetPreview:render()
 					end)
 				),
 
+				FooterSeparator = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(Separator, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}) or nil,
+
+				Footer = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(props.RenderFooter, {
+					FitMaxWidth = textMaxWidth,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}) or nil,
+
 				-- UIListLayout AbsoluteContentSize does not account for padding, so add a spacer div here.
 				BottomSpacer = Roact.createElement(Container, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -533,21 +543,14 @@ function AssetPreview:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetPreview = withContext({
-		Analytics = ContextServices.Analytics,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetPreview)
-else
-	ContextServices.mapToProps(AssetPreview, {
-		Analytics = ContextServices.Analytics,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetPreview = withContext({
+	Analytics = ContextServices.Analytics,
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetPreview)
+
 
 
 return AssetPreview

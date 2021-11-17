@@ -30,7 +30,6 @@ local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
@@ -256,15 +255,11 @@ function ToolboxPlugin:render()
 	end
 end
 
-if FFlagToolboxWithContext then
-	ToolboxPlugin = withContext({
-		Localization = ContextServices.Localization,
-	})(ToolboxPlugin)
-else
-	ContextServices.mapToProps(ToolboxPlugin, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+ToolboxPlugin = withContext({
+	Localization = ContextServices.Localization,
+})(ToolboxPlugin)
+
 
 
 if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then

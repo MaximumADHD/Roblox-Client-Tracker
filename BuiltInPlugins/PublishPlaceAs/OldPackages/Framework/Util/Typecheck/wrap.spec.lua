@@ -11,7 +11,6 @@
 	Style Values:
 		Color3 Color: The color of the component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 return function()
 	local Framework = script.Parent.Parent.Parent
@@ -43,18 +42,10 @@ return function()
 		})
 	end
 
-	if FFlagDeveloperFrameworkWithContext then
-		WrapTestComponent = withContext({
-			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		})(WrapTestComponent)
-	else
-		ContextServices.mapToProps(WrapTestComponent, {
-			Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-			Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		})
-	end
-
+	WrapTestComponent = withContext({
+		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	})(WrapTestComponent)
 
 	local function createWrapTestComponent(props, styleTable)
 		local theme

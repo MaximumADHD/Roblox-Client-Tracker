@@ -13,7 +13,6 @@ local RadioButtonSetPanel = require(Page.Components.RadioButtonSetPanel)
 
 local CollisionPanel = Roact.Component:extend("ComponentCollisionPanel")
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function CollisionPanel:render()
 	local collisionTypeSetFunctions = {
@@ -47,17 +46,12 @@ function CollisionPanel:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	CollisionPanel = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(CollisionPanel)
-else
-	ContextServices.mapToProps(CollisionPanel, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+CollisionPanel = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(CollisionPanel)
+
 
 
 return CollisionPanel

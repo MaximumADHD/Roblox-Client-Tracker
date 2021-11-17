@@ -16,7 +16,6 @@
 	Optional props:
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
  local FIntToolboxPriceTextBoxMaxCount = game:GetFastInt("ToolboxPriceTextBoxMaxCount")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -311,14 +310,10 @@ function PriceComponent:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxWithContext then
-	PriceComponent = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PriceComponent)
-else
-	ContextServices.mapToProps(PriceComponent, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PriceComponent = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PriceComponent)
+
 
 return PriceComponent

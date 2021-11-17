@@ -23,6 +23,7 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
+local FFlagImprovePluginSpeed_TestHarness = game:GetFastFlag("ImprovePluginSpeed_TestHarness")
 
 local MainView = require(main.Src.Components.MainView)
 
@@ -51,6 +52,12 @@ function MainPlugin:init(props)
 		self:setState({
 			enabled = enabled
 		})
+		-- The DevFramework delay the initialization of creating the dockwidget(controlled by "CreateWidgetImmediately")
+		-- which cause the onResotre function called later, and override the enabled state of button click.
+		-- so we connection and flush the button event here after onRestore
+		if FFlagImprovePluginSpeed_TestHarness then
+			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
+		end
 	end
 
 	self.onWidgetEnabledChanged = function(widget)
@@ -68,22 +75,34 @@ function MainPlugin:init(props)
 		translationResourceTable = TranslationReferenceTable,
 		pluginName = "TestHarness",
 	})
+
+	if FFlagImprovePluginSpeed_TestHarness then
+		self.button = self.props.pluginLoaderContext.mainButton
+	end
 end
 
-function MainPlugin:renderButtons(toolbar)
-	local enabled = self.state.enabled
+if not FFlagImprovePluginSpeed_TestHarness then
+	function MainPlugin:renderButtons(toolbar)
+		local enabled = self.state.enabled
 
-	return {
-		Toggle = Roact.createElement(PluginButton, {
-			Toolbar = toolbar,
-			Active = enabled,
-			Title = self.localization:getText("Plugin", "Button"),
-			Tooltip = self.localization:getText("Plugin", "Description"),
-			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
-			OnClick = self.toggleEnabled,
-			ClickableWhenViewportHidden = true,
-		}),
-	}
+		return {
+			Toggle = Roact.createElement(PluginButton, {
+				Toolbar = toolbar,
+				Active = enabled,
+				Title = self.localization:getText("Plugin", "Button"),
+				Tooltip = self.localization:getText("Plugin", "Description"),
+				Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
+				OnClick = self.toggleEnabled,
+				ClickableWhenViewportHidden = true,
+			}),
+		}
+	end
+end
+
+if FFlagImprovePluginSpeed_TestHarness then
+	function MainPlugin:didUpdate()
+		self.button:SetActive(self.state.enabled)
+	end
 end
 
 function MainPlugin:render()
@@ -92,33 +111,55 @@ function MainPlugin:render()
 	local plugin = props.Plugin
 	local enabled = state.enabled
 
-	return ContextServices.provide({
-		Plugin.new(plugin),
-		Store.new(self.store),
-		Mouse.new(plugin:getMouse()),
-		MakeTheme(),
-	}, {
-		Toolbar = Roact.createElement(PluginToolbar, {
-			Title = self.localization:getText("Plugin", "Toolbar"),
-			RenderButtons = function(toolbar)
-				return self:renderButtons(toolbar)
-			end,
-		}),
-
-		MainWidget = Roact.createElement(DockWidget, {
-			Enabled = enabled,
-			Title = self.localization:getText("Plugin", "Name"),
-			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
-			OnClose = self.onClose,
-			ShouldRestore = true,
-			OnWidgetRestored = self.onRestore,
+	if FFlagImprovePluginSpeed_TestHarness then
+		return ContextServices.provide({
+			Plugin.new(plugin),
+			Store.new(self.store),
+			Mouse.new(plugin:getMouse()),
+			MakeTheme(),
 		}, {
-			Toolbar = Roact.createElement(MainView),
-		}),
-	})
+			MainWidget = Roact.createElement(DockWidget, {
+				Enabled = enabled,
+				Widget = props.pluginLoaderContext.mainDockWidget,
+				Title = self.localization:getText("Plugin", "Name"),
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				InitialDockState = Enum.InitialDockState.Bottom,
+				Size = Vector2.new(640, 480),
+				OnClose = self.onClose,
+				OnWidgetRestored = self.onRestore,
+			}, {
+				Toolbar = Roact.createElement(MainView),
+			}),
+		})
+	else
+		return ContextServices.provide({
+			Plugin.new(plugin),
+			Store.new(self.store),
+			Mouse.new(plugin:getMouse()),
+			MakeTheme(),
+		}, {
+			Toolbar = Roact.createElement(PluginToolbar, {
+				Title = self.localization:getText("Plugin", "Toolbar"),
+				RenderButtons = function(toolbar)
+					return self:renderButtons(toolbar)
+				end,
+			}),
+
+			MainWidget = Roact.createElement(DockWidget, {
+				Enabled = enabled,
+				Title = self.localization:getText("Plugin", "Name"),
+				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+				InitialDockState = Enum.InitialDockState.Bottom,
+				Size = Vector2.new(640, 480),
+				MinSize = Vector2.new(250, 200),
+				OnClose = self.onClose,
+				ShouldRestore = true,
+				OnWidgetRestored = self.onRestore,
+			}, {
+				Toolbar = Roact.createElement(MainView),
+			}),
+		})
+	end
 end
 
 return MainPlugin

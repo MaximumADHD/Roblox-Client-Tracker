@@ -17,7 +17,6 @@
 		Rect SliceCenter: The slice center.
 		number ZIndex: The render index of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -74,17 +73,12 @@ function RoundBox:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	RoundBox = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(RoundBox)
-else
-	ContextServices.mapToProps(RoundBox, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+RoundBox = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(RoundBox)
+
 
 
 return RoundBox

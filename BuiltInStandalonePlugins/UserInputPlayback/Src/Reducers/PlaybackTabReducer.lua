@@ -9,6 +9,11 @@ type PlaybackTabStore = {
 	playbackMode: Types.PlaybackMode,
 	shouldStartPlayback: boolean,
 	currentPlaybackRecordingDataValid: boolean,
+	currentRecordingDurationSec: number,
+	currentRecordingNumEvents: number,
+	currentRecordingResolution: Vector2,
+	currentRecordingDeviceId: string,
+	currentRecordingDeviceOrientation: string,
 	shouldSetEmulationDevice: boolean,
 }
 
@@ -18,6 +23,11 @@ local defaultPlaybackTabStore: PlaybackTabStore = {
 	playbackMode = Enums.PlaybackMode.Default,
 	shouldStartPlayback = false,
 	currentPlaybackRecordingDataValid = false,
+	currentRecordingDurationSec = 0,
+	currentRecordingNumEvents = 0,
+	currentRecordingResolution = Vector2.new(),
+	currentRecordingDeviceId = "Unknown",
+	currentRecordingDeviceOrientation = "Unknown",
 	shouldSetEmulationDevice = true,
 }
 

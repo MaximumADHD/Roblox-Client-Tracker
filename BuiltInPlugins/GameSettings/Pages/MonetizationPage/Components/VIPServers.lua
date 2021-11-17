@@ -54,7 +54,6 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 
 local VIPServers = Roact.PureComponent:extend("VIPServers")
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function VIPServers:init()
     self.lastNonFreePrice = 10
@@ -264,19 +263,13 @@ function VIPServers:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	VIPServers = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})(VIPServers)
-else
-	ContextServices.mapToProps(VIPServers, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})
-end
+
+VIPServers = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
+})(VIPServers)
+
 
 
 return VIPServers

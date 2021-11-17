@@ -12,4 +12,10 @@ export type Section = {
 
 export type InstanceProperties = {Section}
 
+export type SectionStatus = {
+	StatusLevel: string,
+	StatusMessage: string,
+	GlobalStatus: boolean,
+}
+
 return {}

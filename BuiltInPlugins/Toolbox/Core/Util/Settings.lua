@@ -12,7 +12,6 @@ Settings.__index = Settings
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxDefaultCategory = game:GetFastFlag("ToolboxDefaultCategory")
 
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
@@ -105,7 +104,7 @@ function Settings:loadInitialSettings()
 	end
 
 	local initSettings = {}
-	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
+	if disableMarketplaceAndRecents() then
 		-- We don't allow Marketplace or Recents for Luobu. We can't risk the loaded setting defaulting to Marketplace.
 		initSettings.categoryName = Category.DEFAULT.name
 	else

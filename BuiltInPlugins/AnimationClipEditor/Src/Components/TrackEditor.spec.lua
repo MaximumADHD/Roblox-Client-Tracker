@@ -1,9 +1,9 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
+	local Constants = require(Plugin.Src.Util.Constants)
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
-	local GetFFlagUseTicks =require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 	local TrackEditor = require(script.Parent.TrackEditor)
 
@@ -14,10 +14,10 @@ return function()
 				LayoutOrder = 1,
 				Size = UDim2.new(0, 1000, 0, 500),
 				StartTick = 0,
-				EndTick = 30,
-				LastTick = 100,
+				EndTick = Constants.TICK_FREQUENCY,
+				LastTick = Constants.TICK_FREQUENCY * 2,
 				Playhead = 0,
-				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,
+				FrameRate = Constants.DEFAULT_FRAMERATE,
 			})
 		})
 	end

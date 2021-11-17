@@ -21,6 +21,12 @@ if not FFlagEnableUserInputPlaybackPlugin then
 end
 
 local main = script.Parent.Parent
+
+local DebugFlags = require(main.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 
 local inspector

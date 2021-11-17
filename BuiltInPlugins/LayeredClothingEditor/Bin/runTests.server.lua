@@ -14,7 +14,7 @@ local function runTests()
 	TestBootstrap:run({tests}, TextReporter)
 end
 
---[[
+
 local function runRhodiumTests()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local tests = Plugin.RhodiumTests
@@ -24,7 +24,7 @@ local function runRhodiumTests()
 
 	TestBootstrap:run({tests}, TextReporter, false, true)
 end
-]]
+
 
 -- Do not check in as true!
 local SHOULD_RUN_TESTS = DebugFlags.RunTests()
@@ -39,7 +39,7 @@ end
 if SHOULD_RUN_RHODIUM_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Rhodium Tests ------")
 	-- TODO: Fix Rhodium tests, they have to be rewritten after last major design change
-	--runRhodiumTests()
+	runRhodiumTests()
 	print("----------------------------------")
 	game:GetService("ProcessService"):ExitAsync(0)
 end

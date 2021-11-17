@@ -3,6 +3,7 @@
 
 	Provide dummy data for testing
 ]]--
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -120,10 +121,34 @@ function NetworkInterfaceMock:getAssets(pageInfo)
 	return Promise.resolve(fakeItemListContent)
 end
 
-function NetworkInterfaceMock:getPackageHighestPermission(assetIds)
-	return Promise.resolve({})
+if FFlagUseNewAssetPermissionEndpoint3 then
+	function NetworkInterfaceMock:postAssetCheckPermissions(actions, assetIds)
+		local fakeAssetPermissionsList = {
+			responseBody = {
+				TotalResults = 11,
+			}
+		}
+		local Results = {
+			{action = "Use",                   assetId = 7327, status = "HasPermission"},
+			{action = "Edit",                  assetId = 7327, status = "HasPermission"},
+			{action = "GrantAssetPermissions", assetId = 7327, status = "HasPermission"},
+			{action = "Use",                   assetId = 3127, status = "HasPermission"},
+			{action = "Edit",                  assetId = 3127, status = "HasPermission"},
+			{action = "GrantAssetPermissions", assetId = 3127, status = "NoPermission"},
+			{action = "GrantAssetPermissions", assetId = 2134, status = "AssetNotFound"},
+			{action = "Edit",                  assetId = 9765, status = "UnknownError"},
+			{action = "Use",                   assetId = 7340, status = "NoPermission"},
+			{action = "Edit",                  assetId = 7340, status = "NoPermission"},
+			{action = "GrantAssetPermissions", assetId = 7340, status = "NoPermission"},
+		}
+		fakeAssetPermissionsList.responseBody.results = Results
+		return Promise.resolve(fakeAssetPermissionsList)
+	end
+else
+	function NetworkInterfaceMock:getPackageHighestPermission(assetIds)
+		return Promise.resolve({})
+	end
 end
-
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
 function NetworkInterfaceMock:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)

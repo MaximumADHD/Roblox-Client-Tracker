@@ -12,7 +12,6 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 local CurveUtils = require(Plugin.Src.Util.CurveUtils)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
@@ -178,7 +177,7 @@ function TrackUtils.getKeyframeFromPosition(position, startTick, endTick, trackL
 	local timelineScale = trackWidth / (endTick - startTick)
 	local xposInTimeline = position.X - trackLeft
 	local tick = startTick + xposInTimeline / timelineScale
-	return GetFFlagUseTicks() and KeyframeUtils.getNearestTick(tick) or KeyframeUtils.getNearestFrame_deprecated(tick)
+	return KeyframeUtils.getNearestTick(tick)
 end
 
 function TrackUtils.countVisibleKeyframes(keyframes, startTick, endTick)
@@ -554,11 +553,10 @@ function TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 	local range = {}
 	local startTick = animationData.Metadata.StartTick
 	local endTick = math.max(animationData.Metadata.EndTick, editingLength)
-	local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or (animationData.Metadata.FrameRate * Constants.MAX_TIME)
 
 	local length = endTick - startTick
 	local lengthWithPadding = length * Constants.LENGTH_PADDING
-	lengthWithPadding = math.min(lengthWithPadding, maxLength)
+	lengthWithPadding = math.min(lengthWithPadding, Constants.MAX_ANIMATION_LENGTH)
 
 	local zoomedLength = lengthWithPadding * (1 - zoom)
 	zoomedLength = math.max(zoomedLength, 1)
@@ -784,6 +782,17 @@ function TrackUtils.traverseValue(trackType, value, func)
 	end
 
 	recurse(trackType, {}, value)
+end
+
+-- Returns the previous keyframe. If exactMatch is set, and there is an existing keyframe at that tick,
+-- that keyframe is returned
+function TrackUtils.findPreviousKeyframe(track, tick, exactMatch)
+	local exactIndex, prevIndex, _ = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tick)
+	if exactMatch then
+		prevIndex = prevIndex or exactIndex
+	end
+	local prevTick = prevIndex and track.Keyframes[prevIndex] or nil
+	return prevTick and track.Data[prevTick] or nil
 end
 
 return TrackUtils

@@ -7,7 +7,6 @@
 		number maxDuration: the upper limit of the audio search.
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -138,17 +137,12 @@ function AudioSearch:renderContent(theme)
 	})
 end
 
-if FFlagToolboxWithContext then
-	AudioSearch = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(AudioSearch)
-else
-	ContextServices.mapToProps(AudioSearch, {
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+AudioSearch = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(AudioSearch)
+
 
 
 return AudioSearch

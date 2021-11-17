@@ -5,7 +5,6 @@ local FIntPrivateServersMinPrice = game:DefineFastInt("PrivateServersMinPrice", 
 local FIntDevProductsMinPrice = game:DefineFastInt("DevProductsMinPrice", 1)
 local FIntDevProductsMaxPrice = game:DefineFastInt("DevProductsMaxPrice", 1000000000)
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
 local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobuxPrice", 2000)
 
@@ -1047,17 +1046,12 @@ function Monetization:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	Monetization = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})(Monetization)
-else
-	ContextServices.mapToProps(Monetization, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})
-end
+
+Monetization = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+})(Monetization)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

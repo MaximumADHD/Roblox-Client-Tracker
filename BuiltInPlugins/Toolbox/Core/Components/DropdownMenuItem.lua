@@ -29,7 +29,7 @@ local Separator = Framework.UI.Separator
 local DropdownMenuItem = Roact.PureComponent:extend("DropdownMenuItem")
 
 local withContext = ContextServices.withContext
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
+
 local FFlagToolboxFixAutocompletePatterns = game:GetFastFlag("ToolboxFixAutocompletePatterns")
 
 local TEXT_PADDING = 10
@@ -117,14 +117,10 @@ function DropdownMenuItem:render()
 
 end
 
-if FFlagToolboxWithContext then
-	DropdownMenuItem = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(DropdownMenuItem)
-else
-	ContextServices.mapToProps(DropdownMenuItem, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+DropdownMenuItem = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(DropdownMenuItem)
+
 
 return DropdownMenuItem

@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -117,15 +116,11 @@ function RolesetCollaboratorItem:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	RolesetCollaboratorItem = withContext({
-		Localization = ContextServices.Localization,
-	})(RolesetCollaboratorItem)
-else
-	ContextServices.mapToProps(RolesetCollaboratorItem, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+RolesetCollaboratorItem = withContext({
+	Localization = ContextServices.Localization,
+})(RolesetCollaboratorItem)
+
 
 
 RolesetCollaboratorItem = RoactRodux.connect(

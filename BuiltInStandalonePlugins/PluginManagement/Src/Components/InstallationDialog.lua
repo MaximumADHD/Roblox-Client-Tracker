@@ -7,7 +7,6 @@
 	Props:
 		Vector2 Size = An optional override size for the widget.
 ]]
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local DEFAULT_DIALOG_SIZE = Vector2.new(400, 217)
 local BORDER_PADDING = 24
@@ -80,15 +79,11 @@ function InstallationDialog:render()
 	}, self.props[Roact.Children])
 end
 
-if FFlagPluginManagementWithContext then
-	InstallationDialog = withContext({
-		Localization = ContextServices.Localization,
-	})(InstallationDialog)
-else
-	ContextServices.mapToProps(InstallationDialog, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+InstallationDialog = withContext({
+	Localization = ContextServices.Localization,
+})(InstallationDialog)
+
 
 
 

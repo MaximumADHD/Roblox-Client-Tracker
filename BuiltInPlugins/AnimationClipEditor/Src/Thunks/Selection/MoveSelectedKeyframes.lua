@@ -22,7 +22,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(pivotTick, newTick, dragContext)
@@ -30,21 +29,13 @@ return function(pivotTick, newTick, dragContext)
 		local state = store:getState()
 		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
 		local animationData = dragContext and dragContext.animationData or state.AnimationData
-		local displayFrameRate = state.Status.DisplayFrameRate
-		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
+		local frameRate = state.Status.FrameRate
+		local snapMode = state.Status.SnapMode
 
 		if not (animationData and selectedKeyframes) then
 			return
 		end
 
-		local maxLength
-		if GetFFlagUseTicks() then
-			maxLength = Constants.MAX_ANIMATION_LENGTH
-		else
-			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
-				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-				or AnimationData.getMaximumLength(30)
-		end
 		local newData = Cryo.Dictionary.join({}, animationData)
 		newData.Instances = Cryo.Dictionary.join({}, newData.Instances)
 		newData.Events = deepCopy(newData.Events)
@@ -92,10 +83,10 @@ return function(pivotTick, newTick, dragContext)
 						for index = startIndex, endIndex, step do
 							local oldTick = keyframes[index]
 							local insertTick = newTick + (oldTick - pivotTick)
-							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							if snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 							end
-							insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
+							insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
 							if dataTrack.Keyframes then
 								AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
 								AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
@@ -125,10 +116,10 @@ return function(pivotTick, newTick, dragContext)
 					for index = startIndex, endIndex, step do
 						local oldTick = keyframes[index]
 						local insertTick = newTick + (oldTick - pivotTick)
-						if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-							insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+						if snapMode ~= Constants.SNAP_MODES.None then
+							insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 						end
-						insertTick = math.clamp(insertTick, oldTick - earliestTick, maxLength - (latestTick - oldTick))
+						insertTick = math.clamp(insertTick, oldTick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - oldTick))
 						AnimationData.moveKeyframe(track, oldTick, insertTick)
 						AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 

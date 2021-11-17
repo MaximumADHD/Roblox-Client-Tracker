@@ -33,8 +33,6 @@ local withContext = ContextServices.withContext
 local TextBox = require(Plugin.Src.Components.TextBox)
 local Tooltip = require(Plugin.Src.Components.Tooltip)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 local TimeDisplay = Roact.PureComponent:extend("TimeDisplay")
 
 function TimeDisplay:init()
@@ -47,18 +45,15 @@ function TimeDisplay:init()
 			local endTick = props.EndTick
 			local updateEditingLength = props.UpdateEditingLength
 			local stepAnimation = props.StepAnimation
-
-			local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
+			local frameRate = props.FrameRate
 
 			local time = StringUtils.parseTime(rbx.Text, frameRate) or 0
-
 			time = math.clamp(time, startTick, AnimationData.getMaximumLength(frameRate))
 
 			if time > endTick then
 				updateEditingLength(time)
 			end
-			rbx.Text = GetFFlagUseTicks() and StringUtils.formatTime(time, frameRate, showAsTime)
-				or (showAsTime and StringUtils.formatTime(time, frameRate) or tostring(time))
+			rbx.Text = StringUtils.formatTime(time, frameRate, showAsTime)
 			stepAnimation(time)
 		end
 	end
@@ -68,18 +63,13 @@ function TimeDisplay:init()
 		local animationData = props.AnimationData
 		if not focused and animationData then
 			local showAsTime = props.ShowAsTime
-			local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate or animationData.Metadata.FrameRate
+			local frameRate = props.FrameRate
 			local updateEditingLength = props.UpdateEditingLength
-			local maxLength = GetFFlagUseTicks() and Constants.MAX_ANIMATION_LENGTH or AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
 			local endTick = animationData.Metadata.EndTick
 
 			local newLength = StringUtils.parseTime(rbx.Text, frameRate) or 0
-
-			newLength = math.min(newLength, maxLength)
-			newLength = math.max(newLength, endTick,
-				GetFFlagUseTicks() and Constants.TICK_FREQUENCY or animationData.Metadata.FrameRate)
-			rbx.Text = GetFFlagUseTicks() and StringUtils.formatTime(newLength, frameRate, showAsTime)
-				or (showAsTime and StringUtils.formatTime(newLength, frameRate) or tostring(newLength))
+			newLength = math.clamp(newLength, math.max(endTick, Constants.TICK_FREQUENCY), Constants.MAX_ANIMATION_LENGTH)
+			rbx.Text = StringUtils.formatTime(newLength, frameRate, showAsTime)
 			updateEditingLength(newLength)
 		end
 	end
@@ -93,10 +83,7 @@ function TimeDisplay:render()
 		local playhead = props.Playhead
 		local animationData = props.AnimationData
 		local editingLength = props.EditingLength
-
-		local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate
-			or (animationData and animationData.Metadata.FrameRate or Constants.DEFAULT_FRAMERATE)
-
+		local frameRate = props.FrameRate
 		local textBoxTheme = theme.textBox
 		local playbackTheme = theme.playbackTheme
 
@@ -114,8 +101,7 @@ function TimeDisplay:render()
 
 			CurrentFrameBox = Roact.createElement(TextBox, {
 				Size = UDim2.new(0, 40, 1, -6),
-				Text = GetFFlagUseTicks() and StringUtils.formatTime(playhead, frameRate, showAsTime)
-					or (showAsTime and StringUtils.formatTime(playhead, frameRate) or tostring(math.floor(playhead))),
+				Text = StringUtils.formatTime(playhead, frameRate, showAsTime),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				LayoutOrder = 0,
 				ClearTextOnFocus = false,
@@ -138,8 +124,7 @@ function TimeDisplay:render()
 
 			EndFrameBox = Roact.createElement(TextBox, {
 				Size = UDim2.new(0, 40, 1, -6),
-				Text = GetFFlagUseTicks() and StringUtils.formatTime(editingLength, frameRate, showAsTime)
-					or (showAsTime and StringUtils.formatTime(editingLength, frameRate) or tostring(math.floor(editingLength))),
+				Text = StringUtils.formatTime(editingLength, frameRate, showAsTime),
 				TextXAlignment = Enum.TextXAlignment.Left,
 				LayoutOrder = 2,
 				ClearTextOnFocus = false,

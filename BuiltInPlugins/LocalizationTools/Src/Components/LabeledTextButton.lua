@@ -1,7 +1,6 @@
 --[[
 	A widget containing a text label on the left and a text button on the right
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -70,17 +69,12 @@ function LabeledTextButton:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	LabeledTextButton = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(LabeledTextButton)
-else
-	ContextServices.mapToProps(LabeledTextButton, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+LabeledTextButton = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(LabeledTextButton)
+
 
 
 return LabeledTextButton

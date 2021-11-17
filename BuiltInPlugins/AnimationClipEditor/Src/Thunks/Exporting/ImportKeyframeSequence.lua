@@ -11,10 +11,9 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
+local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 return function(plugin, analytics)
@@ -53,22 +52,15 @@ return function(plugin, analytics)
 					frameRate = Constants.DEFAULT_FRAMERATE
 				end
 			else
-				if GetFFlagUseTicks() then
-					newData, frameRate = RigUtils.fromRigAnimation(anim)
-				else
-					frameRate = RigUtils.calculateFrameRate(anim)
-					newData = RigUtils.fromRigAnimation_deprecated(anim, frameRate)
-				end
+				newData, frameRate = RigUtils.fromRigAnimation(anim)
 			end
 
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))
-			if GetFFlagUseTicks() then
-				store:dispatch(SetDisplayFrameRate(frameRate))
-			end
+			store:dispatch(SetFrameRate(frameRate))
 
-			if not GetFFlagUseTicks() or analytics then
+			if analytics then
 				analytics:report("onImportAnimation", id)
 			end
 		end

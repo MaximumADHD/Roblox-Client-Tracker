@@ -10,7 +10,6 @@
 		string Title = The title of this widget's TitledFrame
 		bool TutorialEnabled = Whether or not we show the tutorial for icons
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local GuiService = game:GetService("GuiService")
 local HttpRbxApiService = game:GetService("HttpRbxApiService")
@@ -150,19 +149,13 @@ function UploadableIconWidget:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	UploadableIconWidget = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(UploadableIconWidget)
-else
-	ContextServices.mapToProps(UploadableIconWidget, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+UploadableIconWidget = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(UploadableIconWidget)
+
 
 
 return UploadableIconWidget

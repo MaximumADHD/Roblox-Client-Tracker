@@ -16,7 +16,6 @@
 ]]
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -310,14 +309,10 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-if FFlagToolboxWithContext then
-	AssetConfigFooter = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetConfigFooter)
-else
-	ContextServices.mapToProps(AssetConfigFooter, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+AssetConfigFooter = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetConfigFooter)
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetConfigFooter)

@@ -15,9 +15,6 @@
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkHandleNilVotes = game:GetFastFlag("DevFrameworkHandleNilVotes")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -105,13 +102,8 @@ function VoteBar:render()
 	local leftWidthScale = 0.6
 	local votesWidth = 65
 
-	local upVotes = props.Voting.UpVotes
-	local downVotes = props.Voting.DownVotes
-
-	if FFlagDevFrameworkHandleNilVotes then
-		upVotes = upVotes or 0
-		downVotes = downVotes or 0
-	end
+	local upVotes = props.Voting.UpVotes or 0
+	local downVotes = props.Voting.DownVotes or 0
 
 	return Roact.createElement(Container, {
 		Background = style.Background,
@@ -169,19 +161,13 @@ function VoteBar:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	VoteBar = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(VoteBar)
-else
-	ContextServices.mapToProps(VoteBar, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+VoteBar = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(VoteBar)
+
 
 
 return VoteBar

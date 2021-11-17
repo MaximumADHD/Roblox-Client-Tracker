@@ -108,10 +108,10 @@ local testCallstack2 = {
 local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
 local testThreadTwo = mockThreadState.new(2, "TestThread2", true)
 
-local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
-local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, BreakpointModel.mockBreakpoint({}, 1))
+local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, BreakpointModel.mockBreakpoint({}, 1))
 
-return function(store)	
+return function(store)
 	local currentMockConnection = MockDebuggerConnection.new(1)	
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
 	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager)
@@ -142,8 +142,8 @@ return function(store)
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 
 	local i = 0
-	for _, uniqueId in ipairs({80,91,60,71}) do
-		store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({isEnabled = (i>=2)}, uniqueId)))
+	for _, uniqueId in ipairs({1,2,3,4,5,6,7,8,9,10,11,12}) do
+		store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({isEnabled = (i>=6)}, uniqueId)))
 		i = i+ 1
 	end
 

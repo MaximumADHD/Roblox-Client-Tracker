@@ -29,10 +29,11 @@
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		array[any] HighlightedRows: An optional list of rows to highlight.
+		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -174,6 +175,7 @@ function Table:renderScroll()
 		EstimatedItemSize = style.RowHeight,
 		Items = props.Rows,
 		RenderItem = self.onRenderRow,
+		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
 	})
 end
 
@@ -244,15 +246,11 @@ function Table:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Table = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(Table)
-else
-	ContextServices.mapToProps(Table, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+Table = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(Table)
+
 
 
 return Table

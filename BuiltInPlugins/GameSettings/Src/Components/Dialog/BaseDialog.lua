@@ -4,7 +4,6 @@
 	Props:
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -55,15 +54,11 @@ function BaseDialog:render()
 	}))
 end
 
-if FFlagGameSettingsWithContext then
-	BaseDialog = withContext({
-		Theme = ContextServices.Theme,
-	})(BaseDialog)
-else
-	ContextServices.mapToProps(BaseDialog, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+BaseDialog = withContext({
+	Theme = ContextServices.Theme,
+})(BaseDialog)
+
 
 
 return BaseDialog

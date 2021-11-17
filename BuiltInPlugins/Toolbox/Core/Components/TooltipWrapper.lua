@@ -7,7 +7,6 @@
 		bool isHovered
 ]]
 
-local FFlagFixMarketplaceTooltips = game:GetFastFlag("FixMarketplaceTooltips")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent
@@ -20,11 +19,6 @@ local Tooltip = require(Libs.Framework).UI.Tooltip
 local TooltipWrapper = Roact.PureComponent:extend("TooltipWrapper")
 
 function TooltipWrapper:render()
-	if not FFlagFixMarketplaceTooltips then
-		-- Tooltips were broken previously, so they did not display at all
-		return nil
-	end
-
 	local props = self.props
 
 	local text = tostring(props.Text or "")

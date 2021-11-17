@@ -7,7 +7,6 @@
 		string Description = The main message to display in this Dialog.
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -82,15 +81,11 @@ function WarningDialog:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	WarningDialog = withContext({
-		Theme = ContextServices.Theme,
-	})(WarningDialog)
-else
-	ContextServices.mapToProps(WarningDialog, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+WarningDialog = withContext({
+	Theme = ContextServices.Theme,
+})(WarningDialog)
+
 
 
 return WarningDialog

@@ -1,4 +1,3 @@
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 --!nolint ImplicitReturn
 --^ DEVTOOLS-4493
 
@@ -269,19 +268,13 @@ function UploadDialogContent:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	UploadDialogContent = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Localization = ContextServices.Localization,
-	})(UploadDialogContent)
-else
-	ContextServices.mapToProps(UploadDialogContent, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Localization = ContextServices.Localization,
-	})
-end
+
+UploadDialogContent = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Localization = ContextServices.Localization,
+})(UploadDialogContent)
+
 
 
 return UploadDialogContent

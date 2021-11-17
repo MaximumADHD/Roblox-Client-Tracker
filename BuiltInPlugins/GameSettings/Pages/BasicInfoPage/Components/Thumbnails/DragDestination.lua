@@ -8,7 +8,6 @@
 	Props:
 		int LayoutOrder = The order in which this widget will appear in the set.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
 
@@ -36,15 +35,11 @@ function DragDestination:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	DragDestination = withContext({
-		Theme = ContextServices.Theme,
-	})(DragDestination)
-else
-	ContextServices.mapToProps(DragDestination, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+DragDestination = withContext({
+	Theme = ContextServices.Theme,
+})(DragDestination)
+
 
 
 return DragDestination

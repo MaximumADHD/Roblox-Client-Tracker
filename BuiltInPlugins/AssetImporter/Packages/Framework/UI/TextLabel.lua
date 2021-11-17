@@ -54,7 +54,6 @@ Typecheck.wrap(TextLabel, script)
 
 local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -133,17 +132,12 @@ function TextLabel:render()
 	end
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TextLabel = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TextLabel)
-else
-	ContextServices.mapToProps(TextLabel, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TextLabel = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TextLabel)
+
 
 
 return TextLabel

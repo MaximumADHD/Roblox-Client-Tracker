@@ -6,7 +6,6 @@
 		bool SaveActive = Whether or not saving is currently allowed.
 			This will enable the Save button if true.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FOOTER_GRADIENT_SIZE = 3
@@ -206,19 +205,13 @@ function Footer:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Footer = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})(Footer)
-else
-	ContextServices.mapToProps(Footer,{
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})
-end
+
+Footer = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Dialog = Dialog,
+})(Footer)
+
 
 
 Footer = RoactRodux.connect(

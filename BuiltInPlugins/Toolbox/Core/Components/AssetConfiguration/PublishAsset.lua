@@ -32,7 +32,6 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -355,14 +354,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxWithContext then
-	PublishAsset = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PublishAsset)
-else
-	ContextServices.mapToProps(PublishAsset, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PublishAsset = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PublishAsset)
+
 
 return RoactRodux.connect(nil, mapDispatchToProps)(PublishAsset)

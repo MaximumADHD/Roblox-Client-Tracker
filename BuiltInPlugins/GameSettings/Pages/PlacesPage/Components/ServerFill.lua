@@ -12,7 +12,6 @@
         OnSocialSlotTypeChanged = function(button) callback for when radio button is selected
         OnCustomSocialSlotsCountChanged = function(text) callback for when text inside custom social slot input is changed
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -153,17 +152,12 @@ function ServerFill:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	ServerFill = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})(ServerFill)
-else
-	ContextServices.mapToProps(ServerFill, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	})
-end
+
+ServerFill = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+})(ServerFill)
+
 
 
 return ServerFill

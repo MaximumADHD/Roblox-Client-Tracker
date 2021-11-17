@@ -21,7 +21,6 @@
 		number ScrollBarOffset: The padding between the text input and scrollbar.
 		number TextSize: The font size of the text.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -199,17 +198,12 @@ function MultiLineTextInput:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	MultiLineTextInput = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MultiLineTextInput)
-else
-	ContextServices.mapToProps(MultiLineTextInput, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+MultiLineTextInput = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(MultiLineTextInput)
+
 
 
 return MultiLineTextInput

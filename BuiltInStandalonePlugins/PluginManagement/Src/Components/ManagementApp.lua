@@ -28,15 +28,7 @@ local DOCKWIDGET_INITIAL_HEIGHT = 560
 
 local FFlagPluginManagementFixWhiteScreen = game:GetFastFlag("PluginManagementFixWhiteScreen")
 
-local makeTheme
-
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
-
-if THEME_REFACTOR then
-	makeTheme = require(Plugin.Src.Resources.makeTheme2)
-else
-	makeTheme = require(Plugin.Src.Resources.makeTheme)
-end
+local makeTheme = require(Plugin.Src.Resources.makeTheme)
 
 local ManagementApp = Roact.PureComponent:extend("ManagementApp")
 
@@ -54,12 +46,7 @@ function ManagementApp:init()
 		pluginName = "PluginInstallation",
 	})
 
-	self.theme = nil
-	if THEME_REFACTOR then
-		self.theme = makeTheme
-	else
-		self.theme = makeTheme()
-	end
+	self.theme = makeTheme
 
 	self.toggleState = function()
 		self:setState({

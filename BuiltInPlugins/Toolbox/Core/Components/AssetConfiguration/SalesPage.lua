@@ -14,7 +14,6 @@
 		onStatusChange, function, sales status has changed
 		onPriceChange, function, price has changed
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -215,14 +214,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxWithContext then
-	SalesPage = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SalesPage)
-else
-	ContextServices.mapToProps(SalesPage, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+SalesPage = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SalesPage)
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SalesPage)

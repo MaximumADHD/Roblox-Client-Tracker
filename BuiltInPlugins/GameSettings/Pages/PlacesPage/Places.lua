@@ -86,7 +86,6 @@ local nameErrors = {
 	Empty = "ErrorNameEmpty",
 }
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local function loadSettings(store, contextItems)
 	local state = store:getState()
@@ -575,17 +574,12 @@ function Places:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Places = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})(Places)
-else
-	ContextServices.mapToProps(Places, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})
-end
+
+Places = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})(Places)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

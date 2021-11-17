@@ -4,13 +4,12 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local Constants = require(Plugin.Src.Util.Constants)
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local TweenService = game:GetService("TweenService")
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
+local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local FFlagCubicEasingStyle = game:DefineFastFlag("ACECubicEasingStyle2", false)
 
 local KeyframeUtils = {}
@@ -39,7 +38,7 @@ if GetFFlagChannelAnimations() then
 			if highIndex == nil then
 				return track.Data[lowKeyframe].Value
 			elseif track.IsCurveTrack then
-				return KeyframeUtils.blendCurveKeyframes(track.Data, tick, lowKeyframe, highKeyframe)
+				return KeyframeUtils.blendCurveKeyframes(track, tick, lowKeyframe, highKeyframe)
 			else
 				return KeyframeUtils:blendKeyframes(track.Data, tick, lowKeyframe, highKeyframe)
 			end
@@ -198,6 +197,7 @@ end
 
 -- Finds the index to insert the new frame so that the
 -- Keyframes array stays sorted.
+-- Returns nil if the keyframe already exists.
 function KeyframeUtils.findInsertIndex(keyframes, tick)
 	local minIndex = 1
 	local maxIndex = #keyframes
@@ -234,12 +234,6 @@ function KeyframeUtils.getNearestTick(tick)
 	return math.floor(tick + 0.5)
 end
 
--- Rounds a float to the nearest frame.
--- Deprecated when GetFFlagUseTicks() is ON
-function KeyframeUtils.getNearestFrame_deprecated(value)
-	return math.floor(value + 0.5)
-end
-
 function KeyframeUtils.getNearestFrame(tick, frameRate)
 	-- Find the closest frame
 	local frame = tick * frameRate / Constants.TICK_FREQUENCY
@@ -256,7 +250,7 @@ end
 -- Snaps a float to the nearest tick within a tolerance value
 function KeyframeUtils.snapToFrame(value, tolerance)
 	assert(tolerance > 0 and tolerance < 1, "Tolerance should be between 0 and 1.")
-	local nearestFrame = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(value) or KeyframeUtils.getNearestFrame_deprecated(value)
+	local nearestFrame = KeyframeUtils.getNearestTick(value)
 	if math.abs(value - nearestFrame) < tolerance then
 		return nearestFrame
 	else
@@ -274,8 +268,151 @@ local function convertEasingStyle(poseEasingStyle)
 	end
 end
 
-function KeyframeUtils.blendCurveKeyframes(dataTable, tick, low, high)
+-- Get either the left or the right slope at a tick. The keyframe at that tick must exist.
+-- This is used by auto tangents to "fill in the blanks".
+-- To get the slopes anywhere, CurveUtils.getSlopes() should be used
+function KeyframeUtils.getSlope(track, tick, side)
+	-- This local function does the heavy work. It can be reentrant and requesting to use finiteDifferences
+	-- rather than using the "other" slope. This avoids the situation where the right slope asks the value of
+	-- the left slope, which in turn asks the value of the right slope, etc.
+	local function getSlope(track, tick, side, useFiniteDifference)
+		local keyIndex = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tick)
+		if not keyIndex then
+			return 0
+		end
+
+		local keyTick = track.Keyframes[keyIndex]
+		local keyframe = track.Data[keyTick]
+
+		-- Helpers to navigate the keyframes
+		local function getPrevKeyframe()
+			local prevTick = track.Keyframes[keyIndex-1]
+			return prevTick, prevTick and track.Data[prevTick] or nil
+		end
+
+		local function getNextKeyframe()
+			local nextTick = track.Keyframes[keyIndex+1]
+			return nextTick, nextTick and track.Data[nextTick] or nil
+		end
+
+		-- Finite difference. If both the previous and the next keyframe are available,
+		-- return the slope. If not, return 0
+		local function finiteDifference()
+			local prevTick, prevKeyframe = getPrevKeyframe()
+			local nextTick, nextKeyframe = getNextKeyframe()
+			if prevTick and nextTick then
+				return .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tick)) +
+							((prevKeyframe.Value - keyframe.Value) / (prevTick - tick)))
+			else
+				return 0
+			end
+		end
+
+		if side == Constants.SLOPES.Right then
+			-- Trivial cases: Constant and linear
+			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Constant then
+				return 0
+			elseif keyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
+				local nextTick, nextKeyframe = getNextKeyframe()
+				return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tick)) or 0
+			-- Cubic case
+			else
+				if keyframe.RightSlope then
+					-- If the slope is defined, use it.
+					return keyframe.RightSlope
+				elseif not useFiniteDifference then
+					-- If not, find the left slope in any possible way, including finite differences
+					return getSlope(track, tick, Constants.SLOPES.Left, true)
+				else
+					-- We are here because the left side asked us to find the right side, and neither is available.
+					-- Use finite differences.
+					return finiteDifference()
+				end
+			end
+		else
+			local prevTick, prevKeyframe = getPrevKeyframe()
+			if not prevKeyframe then
+				return 0
+			end
+			-- Trivial cases: Constant and Linear
+			if prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Constant then
+				return 0
+			elseif prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
+				return (prevKeyframe.Value - keyframe.Value) / (prevTick - tick)
+			-- Cubic case
+			else
+				if keyframe.LeftSlope then
+					-- If the slope is defined, use it
+					return keyframe.LeftSlope
+				elseif not useFiniteDifference then
+					-- If not, find the right slope in any possible way, including finite differences
+					return getSlope(track, tick, Constants.SLOPES.Right, true)
+				else
+					-- We are here because the right side asked us to find the left side, and neither is available.
+					-- Use finite differences
+					return finiteDifference()
+				end
+			end
+		end
+	end
+
+	return getSlope(track, tick, side, false)
+end
+
+-- Get the left and right slopes of the given track at the given tick
+function KeyframeUtils.getSlopes(track, tick)
+	if track.Keyframes and not isEmpty(track.Keyframes) then
+		local keyframes = track.Keyframes
+		local data = track.Data
+
+		if data[tick] then
+			return KeyframeUtils.getSlope(track, tick, Constants.SLOPES.Left),
+					KeyframeUtils.getSlope(track, tick, Constants.SLOPES.Right)
+		end
+
+		local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tick)
+		if lowIndex and highIndex then
+			local lowTick = keyframes[lowIndex]
+			local highTick = keyframes[highIndex]
+			local lowKey = data[lowTick]
+			local highKey = data[highTick]
+
+			-- Trivial: Constant or linear modes
+			if lowKey.EasingSyle == Enum.KeyInterpolationMode.Constant then
+				return 0, 0
+			elseif lowKey.EasingStyle == Enum.KeyInterpolationMode.Linear then
+				local slope = (highKey.Value - lowKey.Value) / (highTick - lowTick)
+				return slope, slope
+			end
+
+			-- Compute the slope somewhere on a cubic curve
+			-- https://www.desmos.com/calculator/7zzfzpzidl
+			local lowSlope = KeyframeUtils.getSlope(track, lowTick, Constants.SLOPES.Right)
+			local highSlope = KeyframeUtils.getSlope(track, highTick, Constants.SLOPES.Left)
+			local deltaTick = highTick - lowTick
+			local t = (tick - lowTick) / deltaTick
+
+			local g00 = 6 * t * (t - 1)
+			local g10 = (t - 1) * (3 * t - 1)
+			local g01 = -g00
+			local g11 = t * (3 * t - 2)
+
+			local slope = (g00 * lowKey.Value + g01 * highKey.Value) / deltaTick
+				+ g10 * lowSlope
+				+ g11 * highSlope
+
+			return slope, slope
+		end
+
+		return 0, 0
+	end
+
+	return nil, nil
+end
+
+function KeyframeUtils.blendCurveKeyframes(track, tick, low, high)
 	assert(low < high, "Low keyframe must be less than high keyframe.")
+	local dataTable = track.Data
 	local lowEntry = dataTable[low]
 	local highEntry = dataTable[high]
 	local deltaTick = high - low
@@ -287,15 +424,18 @@ function KeyframeUtils.blendCurveKeyframes(dataTable, tick, low, high)
 		return KeyframeUtils.interpolate(lowEntry.Value, highEntry.Value, t)
 	else
 		-- Evaluate the curve using Hermite coefficients
+		local lowSlope = KeyframeUtils.getSlope(track, low, Constants.SLOPES.Right)
+		local highSlope = KeyframeUtils.getSlope(track, high, Constants.SLOPES.Left)
+
 		local t2 = t * t
 		local h00 = t2 * (2 * t - 3) + 1
 		local h10 = ((t - 2) * t + 1) * t
 		local h01 = t2 * (3 - 2 * t)
 		local h11 = t2 * (t - 1)
 		return h00 * lowEntry.Value
-			+ h10 * deltaTick * lowEntry.RightSlope
+			+ h10 * deltaTick * lowSlope
 			+ h01 * highEntry.Value
-			+ h11 * deltaTick * highEntry.LeftSlope
+			+ h11 * deltaTick * highSlope
 	end
 end
 

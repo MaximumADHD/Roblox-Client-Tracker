@@ -6,7 +6,6 @@ return function()
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local ScaleControls = require(script.Parent.ScaleControls)
 
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local selectedKeyframes = GetFFlagChannelAnimations() and {
@@ -62,8 +61,7 @@ return function()
 				Tracks = tracks,
 				Dragging = true,
 				ShowAsSeconds = true,
-				FrameRate = not GetFFlagUseTicks() and 30 or nil,
-				DisplayFrameRate = GetFFlagUseTicks() and 30 or nil,
+				FrameRate = 30,
 				DopeSheetWidth = 500,
 				ZIndex = 2,
 				ShowSelectionArea = false,

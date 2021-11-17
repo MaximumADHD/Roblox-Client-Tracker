@@ -36,7 +36,6 @@ local TextService = game:GetService("TextService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI");
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function MainView:init()
 	local selectedPage
@@ -214,17 +213,12 @@ function MainView:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	MainView = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView,{
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme
-	})
-end
+
+MainView = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme
+})(MainView)
+
 
 
 MainView = RoactRodux.connect(

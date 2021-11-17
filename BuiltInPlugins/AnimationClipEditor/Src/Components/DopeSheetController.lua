@@ -66,7 +66,6 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -107,8 +106,8 @@ function DopeSheetController:init()
 			self.state.AbsoluteSize.X - self.props.TrackPadding
 		)
 
-		if GetFFlagUseTicks() and useSnap and self.props.SnapMode ~= Constants.SNAP_MODES.None then
-			tick = KeyframeUtils.getNearestFrame(tick, self.props.DisplayFrameRate)
+		if useSnap and self.props.SnapMode ~= Constants.SNAP_MODES.None then
+			tick = KeyframeUtils.getNearestFrame(tick, self.props.FrameRate)
 		end
 
 		return tick
@@ -322,6 +321,14 @@ function DopeSheetController:init()
 		self.props.SetSelectedKeyframeData(newData)
 	end
 
+	self.onClearTangentsSelected = function(enumName, item)
+		local newData = {
+			LeftSlope = Cryo.None,
+			RightSlope = Cryo.None,
+		}
+		self.props.SetSelectedKeyframeData(newData)
+	end
+
 	self.showMenu = function()
 		self.props.SetIsPlaying(false)
 		self:setState({
@@ -349,8 +356,7 @@ function DopeSheetController:init()
 
 	self.setSelectedKeyframeDuration = function(textInput)
 		self.setChangingDuration()
-		local newLength = StringUtils.parseTime(textInput, GetFFlagUseTicks() and self.props.DisplayFrameRate
-			or self.props.AnimationData.Metadata.FrameRate)
+		local newLength = StringUtils.parseTime(textInput, self.props.FrameRate)
 		if newLength ~= nil then
 			local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
 			local currentLength = latest - earliest
@@ -574,7 +580,6 @@ function DopeSheetController:render()
 	local showContextMenu = state.showContextMenu
 	local renamingKeyframe = state.renamingKeyframe
 	local changingDuration = state.changingDuration
-
 	local active = props.Active
 	local animationData = props.AnimationData
 	local selectedKeyframes = props.SelectedKeyframes
@@ -584,7 +589,7 @@ function DopeSheetController:render()
 	local topTrackIndex = props.TopTrackIndex
 	local showEvents = props.ShowEvents
 	local localization = self.props.Localization
-	local displayFrameRate = self.props.DisplayFrameRate
+	local frameRate = self.props.FrameRate
 	local showAsSeconds = self.props.ShowAsSeconds
 	local isChannelAnimation = self.props.IsChannelAnimation
 
@@ -592,16 +597,7 @@ function DopeSheetController:render()
 		and animationData.Events.NamedKeyframes or {}
 
 	local quantizeWarningText = localization:getText("Toast", "QuantizeWarning")
-	if not GetFFlagUseTicks() then
-		local frameRate = animationData and animationData.Metadata and animationData.Metadata.FrameRate
-		if frameRate and frameRate > Constants.MAX_FRAMERATE then
-			quantizeWarningText = localization:getText("Toast", "MaxFramerateWarning")
-		end
-	end
 
-	-- Quantization is deprecated when we use ticks
-	local showQuantizeWarning = not GetFFlagUseTicks() and props.QuantizeWarning
-		and not AnimationData.isQuantized(animationData)
 	local loadedAnimName = props.Loaded
 	local savedAnimName = props.Saved
 	local showClippedWarning = props.ClippedWarning
@@ -615,11 +611,7 @@ function DopeSheetController:render()
 	local currentDuration
 	if changingDuration then
 		local earliest, latest = AnimationData.getSelectionBounds(self.props.AnimationData, self.props.SelectedKeyframes)
-		currentDuration = latest - earliest
-		if GetFFlagUseTicks() then
-			-- Convert to frames
-			currentDuration = currentDuration * props.DisplayFrameRate / Constants.TICK_FREQUENCY
-		end
+		currentDuration = (latest - earliest) * props.FrameRate / Constants.TICK_FREQUENCY
 	end
 
 	self.tracks = self:makeTracks()
@@ -682,7 +674,6 @@ function DopeSheetController:render()
 					Tracks = self.tracks,
 					IsChannelAnimation = isChannelAnimation,
 					NamedKeyframes = namedKeyframes,
-					ShowLegacyKeyframes = showQuantizeWarning,
 					TrackHeight = Constants.TRACK_HEIGHT,
 					SummaryTrackHeight = Constants.SUMMARY_TRACK_HEIGHT,
 					ZIndex = 1,
@@ -719,6 +710,7 @@ function DopeSheetController:render()
 					IsChannelAnimation = isChannelAnimation,
 					OnMenuOpened = self.hideMenu,
 					OnItemSelected = self.onEasingItemSelected,
+					OnClearTangentsSelected = self.onClearTangentsSelected,
 					OnRenameKeyframe = function(tick)
 						-- The prompt was sometimes not displaying when not using spawn
 						spawn(function()
@@ -740,9 +732,8 @@ function DopeSheetController:render()
 					Tracks = self.tracks,
 					TrackPadding = trackPadding,
 					Dragging = draggingScale or dragging,
-					ShowAsSeconds = not GetFFlagUseTicks() or showAsSeconds,
-					FrameRate = not GetFFlagUseTicks() and animationData and animationData.Metadata and animationData.Metadata.FrameRate or nil,
-					DisplayFrameRate = displayFrameRate,
+					ShowAsSeconds = showAsSeconds,
+					FrameRate = frameRate,
 					DopeSheetWidth = absoluteSize.X - props.TrackPadding,
 					ZIndex = 2,
 					ShowSelectionArea = true,
@@ -785,22 +776,6 @@ function DopeSheetController:render()
 					},
 					OnTextSubmitted = self.setSelectedKeyframeDuration,
 					OnClose = self.setChangingDuration,
-				}),
-
-				QuantizeToast = showQuantizeWarning and Roact.createElement(ActionToast, {
-					Text = quantizeWarningText,
-					ButtonWidth = Constants.PROMPT_BUTTON_SIZE.X * 1.5,
-					Buttons = {
-						{Key = true, Text = localization:getText("Toast", "AlignNow"), Style = "Round"},
-						{Key = false, Text = localization:getText("Toast", "IgnoreWarning"), Style = "Round"},
-					},
-					OnButtonClicked = function(didQuantize)
-						if didQuantize then
-							props.QuantizeKeyframes()
-						end
-						props.CloseQuantizeWarning()
-						props.Analytics:report("onQuantizeSelection", didQuantize)
-					end,
 				}),
 
 				ClippedToast = showClippedWarning and Roact.createElement(NoticeToast, {
@@ -861,7 +836,7 @@ local function mapStateToProps(state, props)
 		Saved = state.Notifications.Saved,
 		Loaded = state.Notifications.Loaded,
 		ClippedWarning = state.Notifications.ClippedWarning,
-		DisplayFrameRate = status.DisplayFrameRate,
+		FrameRate = status.FrameRate,
 		SnapMode = status.SnapMode,
 		InvalidIdWarning = state.Notifications.InvalidAnimation
 	}

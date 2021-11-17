@@ -7,8 +7,6 @@ local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 local Category = require(Plugin.Core.Types.Category)
 local Constants = require(Plugin.Core.Util.Constants)
 
-local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-
 local PageInfoHelper = {}
 
 function PageInfoHelper.getCurrentTab(pageInfo)

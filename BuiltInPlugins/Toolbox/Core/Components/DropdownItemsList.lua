@@ -25,7 +25,6 @@
 		callback closeDropdown - called when the parent component should close dropdown
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -262,16 +261,9 @@ function DropdownItemsList:renderContent(modalTarget, theme)
 end
 
 if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		DropdownItemsList = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(DropdownItemsList)
-	else
-		ContextServices.mapToProps(DropdownItemsList, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+	DropdownItemsList = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(DropdownItemsList)
 end
 
 return DropdownItemsList

@@ -2,6 +2,8 @@
 	The main plugin for the Developer Storybook.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
+local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
+
 local Main = script.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local Rodux = require(Main.Packages.Rodux)
@@ -61,13 +63,13 @@ function MainPlugin:init(props)
 	self.store = Rodux.Store.new(MainReducer, {}, {
 		Rodux.thunkMiddleware,
 	})
-	
+
 	self.theme = MakeTheme()
 
 	self.localization = Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
-		pluginName = "DeveloperStorybook",
+		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or "DeveloperStorybook",
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
@@ -93,7 +95,7 @@ function MainPlugin:renderButtons(toolbar)
 		Toggle = Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Title = "Storybook",
+			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or "Storybook",
 			Icon = "rbxasset://textures/DeveloperStorybook/ToolbarIcon.png",
 			OnClick = self.toggleState,
 		}),
@@ -115,7 +117,8 @@ function MainPlugin:render()
 		}),
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Title = plugin.Name,
+			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and self.localization:getText("Toolbar", "Title") or plugin.Name,
+			Id = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or nil,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),

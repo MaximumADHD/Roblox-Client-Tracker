@@ -67,11 +67,32 @@ local PluginTheme = {
 		TopBarHeight = 40,
 	},
 
+	UploadWidget = {
+		Width = 500,
+		Height = 100,
+		TextLabelSize = UDim2.new(1, 0, 0, 22),
+		TextSize = 24,
+		SubtextSize = 16,
+		TextAlignment = Enum.TextXAlignment.Center,
+		LoadingBarHeight = 12,
+		LoadingBarContainerSize = UDim2.new(0.8, 0, 0, 10),
+		SuccessColor = Color3.fromRGB(2, 183, 87),
+		FailureColor = Color3.fromRGB(255, 85, 85),
+	},
+
 	ErrorIcon = {
 		Image = "rbxasset://textures/StudioSharedUI/alert_error@2x.png",
 	},
 	WarningIcon = {
 		Image = "rbxasset://textures/StudioSharedUI/alert_warning@2x.png",
+	},
+	ErrorStatus = {
+		TextColor = Color3.fromRGB(255, 85, 85),
+		TextXAlignment = Enum.TextXAlignment.Left,
+	},
+	WarningStatus = {
+		TextColor = Color3.fromRGB(255, 170, 33),
+		TextXAlignment = Enum.TextXAlignment.Left,
 	},
 
 	[ui.ExpandablePane] = join(BaseTheme[ui.ExpandablePane], {

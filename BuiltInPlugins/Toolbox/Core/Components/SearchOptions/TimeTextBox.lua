@@ -14,7 +14,6 @@
 		UDim2 position: the position of the component.
 		UDim2 size: the size of the component.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -319,17 +318,12 @@ function TimeTextBox:renderContent(theme)
 	})
 end
 
-if FFlagToolboxWithContext then
-	TimeTextBox = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(TimeTextBox)
-else
-	ContextServices.mapToProps(TimeTextBox, {
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+TimeTextBox = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(TimeTextBox)
+
 
 
 return TimeTextBox

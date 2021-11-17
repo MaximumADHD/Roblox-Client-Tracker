@@ -28,6 +28,7 @@ local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
+local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
 local SEPARATOR_WEIGHT = 1
 local ICON_DIMENSION = 20
@@ -124,11 +125,6 @@ local function getStatusImage(status, statusType, layoutOrderIterator, localizat
 	})
 end
 
-local function trimFileName(fileName)
-	local splitFilePath = fileName:split("/")
-	return splitFilePath[#splitFilePath]
-end
-
 function AssetImportTree:init()
 	self.getChildren = function(item)
 		return item:GetChildren()
@@ -136,7 +132,7 @@ function AssetImportTree:init()
 
 	self.getContents = function(item)
 		if item.ClassName == "ImporterRootSettings" then
-			return trimFileName(self.props.FileName), nil
+			return trimFilename(self.props.FileName), nil
 		else
 			return item.ImportName, nil
 		end
@@ -220,6 +216,8 @@ function AssetImportTree:render()
 			GetContents = self.getContents,
 			ExpandableRoot = false,
 			AfterItem = self.afterItem,
+			ToggleAncestors = CheckboxTreeView.UpPropagators.toggleAncestorsByAllChildren,
+			ToggleDescendants = CheckboxTreeView.DownPropagators.toggleAllChildren,
 		})
 	})
 end

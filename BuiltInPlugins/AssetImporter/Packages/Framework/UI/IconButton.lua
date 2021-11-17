@@ -30,7 +30,6 @@
 		Default: The pane has no background
 ]]
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -153,17 +152,12 @@ function IconButton:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	IconButton = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(IconButton)
-else
-	ContextServices.mapToProps(IconButton, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+IconButton = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(IconButton)
+
 
 
 return IconButton

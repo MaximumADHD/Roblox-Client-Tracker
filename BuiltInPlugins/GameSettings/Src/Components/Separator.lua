@@ -7,7 +7,6 @@
 		UDim2 Position = UDim2.new()
 		int LayoutOrder = The order this Separator will sort to when placed in a UIListLayout.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -30,15 +29,11 @@ function Separator:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Separator = withContext({
-		Theme = ContextServices.Theme
-	})(Separator)
-else
-	ContextServices.mapToProps(Separator,{
-		Theme = ContextServices.Theme
-	})
-end
+
+Separator = withContext({
+	Theme = ContextServices.Theme
+})(Separator)
+
 
 
 return Separator

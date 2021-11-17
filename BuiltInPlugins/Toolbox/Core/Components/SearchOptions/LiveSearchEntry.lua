@@ -10,7 +10,6 @@
 		function onClick = A callback for when this entry is clicked.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -153,17 +152,10 @@ function LiveSearchEntry:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		LiveSearchEntry = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(LiveSearchEntry)
-	else
-		ContextServices.mapToProps(LiveSearchEntry, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	LiveSearchEntry = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LiveSearchEntry)
 end
 
 return LiveSearchEntry

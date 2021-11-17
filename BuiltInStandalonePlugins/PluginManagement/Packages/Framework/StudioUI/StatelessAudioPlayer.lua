@@ -40,7 +40,6 @@ local Image = UI.Decoration.Image
 local MediaPlayerControls = require(Framework.StudioUI.MediaPlayerControls)
 local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPlayerSignal)
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -157,17 +156,12 @@ function StatelessAudioPlayer:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	StatelessAudioPlayer = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(StatelessAudioPlayer)
-else
-	ContextServices.mapToProps(StatelessAudioPlayer, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+StatelessAudioPlayer = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(StatelessAudioPlayer)
+
 
 
 return StatelessAudioPlayer

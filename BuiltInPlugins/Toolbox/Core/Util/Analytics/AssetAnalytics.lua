@@ -1,5 +1,6 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
+local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -174,7 +175,10 @@ function AssetAnalytics:logImpression(assetData: AssetData)
 
     if not search.impressions[assetId] then
         self.senders.sendEventDeferred(EVENT_TARGET, EVENT_CONTEXT, "MarketplaceAssetImpression", AssetAnalytics.getTrackingAttributes(assetData))
-        
+		if FFlagToolboxAddAssetImpressionCounterAnalytics then
+			Analytics.incrementAssetImpressionCounter()
+		end
+
         search.impressions[assetId] = true
     end
 end

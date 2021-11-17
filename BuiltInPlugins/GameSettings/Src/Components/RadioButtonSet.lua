@@ -40,7 +40,6 @@ local UILibrary = require(Plugin.UILibrary)
 local RadioButton = require(Plugin.Src.Components.RadioButton)
 local DEPRECATED_TitledFrame = UILibrary.Component.TitledFrame
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 
@@ -169,15 +168,11 @@ function RadioButtonSet:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	RadioButtonSet = withContext({
-		Theme = ContextServices.Theme,
-	})(RadioButtonSet)
-else
-	ContextServices.mapToProps(RadioButtonSet, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+RadioButtonSet = withContext({
+	Theme = ContextServices.Theme,
+})(RadioButtonSet)
+
 
 
 return RadioButtonSet

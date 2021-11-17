@@ -9,10 +9,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
+local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
-
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 return function(name, analytics)
 	return function(store)
@@ -34,14 +32,7 @@ return function(name, analytics)
 
 		local newData, numKeyframes, numPoses, numEvents, frameRate
 		if animation:IsA("KeyframeSequence") then
-			if GetFFlagUseTicks() then
-				newData, frameRate, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(
-					animation)
-			else
-				frameRate = RigUtils.calculateFrameRate(animation)
-				newData, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation_deprecated(
-					animation, frameRate)
-			end
+			newData, frameRate, numKeyframes, numPoses, numEvents = RigUtils.fromRigAnimation(animation)
 		elseif animation:IsA("CurveAnimation") then
 			newData = RigUtils.fromCurveAnimation(animation)
 			frameRate = Constants.DEFAULT_FRAMERATE
@@ -52,9 +43,7 @@ return function(name, analytics)
 		store:dispatch(LoadAnimationData(newData, analytics))
 		store:dispatch(SetNotification("Loaded", name))
 		store:dispatch(SetIsDirty(false))
-		if GetFFlagUseTicks() then
-			store:dispatch(SetDisplayFrameRate(frameRate))
-		end
+		store:dispatch(SetFrameRate(frameRate))
 
 		-- TODO: Add analytics for channel animations
 		if not AnimationData.isChannelAnimation(newData) then

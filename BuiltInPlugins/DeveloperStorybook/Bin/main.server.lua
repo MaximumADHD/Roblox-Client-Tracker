@@ -11,12 +11,14 @@ if DebugFlags.RunningUnderCLI() then
 	return
 end
 
-if not game:GetService("StudioService"):HasInternalPermission() then	
+if not game:GetService("StudioService"):HasInternalPermission() then
 	return
 end
 
 local commonInit = require(Main.Src.Util.commonInit)
 commonInit()
+
+local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
 local Roact = require(Main.Packages.Roact)
 local MainPlugin = require(Main.Src.MainPlugin)
@@ -25,8 +27,8 @@ local handle
 local inspector
 
 local function init()
-	plugin.Name = "Developer Storybook"
-	
+	plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or "Developer Storybook"
+
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,
 	})

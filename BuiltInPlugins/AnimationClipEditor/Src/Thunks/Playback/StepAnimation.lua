@@ -9,8 +9,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 return function(tick)
 	return function(store)
 		local state = store:getState()
@@ -34,7 +32,7 @@ return function(tick)
 		end
 
 		if not isPlaying then
-			tick = GetFFlagUseTicks() and KeyframeUtils.getNearestTick(tick) or KeyframeUtils.getNearestFrame_deprecated(tick)
+			tick = KeyframeUtils.getNearestTick(tick)
 		end
 		store:dispatch(SetPlayhead(tick))
 

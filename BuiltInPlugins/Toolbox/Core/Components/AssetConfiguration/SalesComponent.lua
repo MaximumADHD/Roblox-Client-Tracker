@@ -12,7 +12,6 @@
 	Optional props:
 		LayoutOrder, number, used to override position of the whole component by the layouter.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -114,14 +113,10 @@ function SalesComponent:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxWithContext then
-	SalesComponent = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SalesComponent)
-else
-	ContextServices.mapToProps(SalesComponent, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+SalesComponent = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SalesComponent)
+
 
 return SalesComponent

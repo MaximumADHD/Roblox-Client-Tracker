@@ -1,4 +1,5 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagGameSettingsRemovePermissionsWarning = game:GetFastFlag("GameSettingsRemovePermissionsWarning")
+
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -225,16 +226,20 @@ function CollaboratorSearchWidget:render()
 		maxNumCollaborators = maxCollaborators,
 	})
 
-	local WarningTextSize = TextService:GetTextSize(localization:getText(PERMISSIONS_ID, "PermissionsUpdateMessage"),
-		theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
+	local WarningTextSize
+	local titleWidth
+	if not FFlagGameSettingsRemovePermissionsWarning then
+		WarningTextSize = TextService:GetTextSize(localization:getText(PERMISSIONS_ID, "DEPRECATED_PermissionsUpdateMessage"),
+			theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
 
-	local titleWidth = UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
+		titleWidth = UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
+	end
 
 	return Roact.createElement(FitToContent, {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		WarningLayout = Roact.createElement(TextFitToContent, {
+		WarningLayout = not FFlagGameSettingsRemovePermissionsWarning and Roact.createElement(TextFitToContent, {
 			BackgroundTransparency = 1,
 			LayoutOrder = 0,
 		}, {
@@ -254,12 +259,23 @@ function CollaboratorSearchWidget:render()
 
 				Size = UDim2.new(0, WarningTextSize.X + PADDING, 0, theme.fontStyle.Smaller.TextSize),
 
-				Text = localization:getText(PERMISSIONS_ID, "PermissionsUpdateMessage"),
+				Text = localization:getText(PERMISSIONS_ID, "DEPRECATED_PermissionsUpdateMessage"),
 				TextXAlignment = Enum.TextXAlignment.Left,
 
 				BackgroundTransparency = 1,
 			})),
-		}),
+		}) or nil,
+
+		Title = FFlagGameSettingsRemovePermissionsWarning and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			LayoutOrder = 0,
+
+			Size = titleWidth,
+
+			Text = localization:getText("General", "TitleCollaborators"),
+			TextXAlignment = Enum.TextXAlignment.Left,
+
+			BackgroundTransparency = 1,
+		})) or nil,
 
 		Searchbar = Roact.createElement(Searchbar, {
 			LayoutOrder = 1,
@@ -294,19 +310,13 @@ function CollaboratorSearchWidget:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	CollaboratorSearchWidget = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(CollaboratorSearchWidget)
-else
-	ContextServices.mapToProps(CollaboratorSearchWidget, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+CollaboratorSearchWidget = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(CollaboratorSearchWidget)
+
 
 
 CollaboratorSearchWidget = RoactRodux.connect(

@@ -9,8 +9,8 @@ return {
 	{
 		Section = "ObjectGeometry",
 		Properties = {
-			{Name = "Dimensions", Editable = true},
-			{Name = "PolygonCount", Editable = true},
+			{Name = "Dimensions", Editable = false},
+			{Name = "PolygonCount", Editable = false},
 			{Name = "DoubleSided", Editable = true},
 			{Name = "IgnoreVertexColors", Editable = true},
 		},

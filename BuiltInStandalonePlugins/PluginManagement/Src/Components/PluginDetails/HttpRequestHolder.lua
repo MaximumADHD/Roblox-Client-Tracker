@@ -1,4 +1,3 @@
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local TextService = game:GetService("TextService")
@@ -22,7 +21,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local Checkbox = UI.Checkbox
 
 local truncateMiddleText = require(Plugin.Src.Util.truncateMiddleText)
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local HttpRequestHolder = Roact.Component:extend("HttpRequestHolder")
 
@@ -102,12 +100,7 @@ function HttpRequestHolder:render()
 	local httpPermissions = self.props.httpPermissions
 	local layoutOrder = self.props.LayoutOrder
 
-    local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-    else
-        theme = self.props.Theme:get("Plugin")
-    end
+	local theme = self.props.Stylizer
 
 	local checkboxItems = {}
 	for index, permission in pairs(httpPermissions) do
@@ -116,7 +109,7 @@ function HttpRequestHolder:render()
 
 	return Roact.createElement(FitFrameVertical, {
 		BackgroundTransparency = 1,
-        contentPadding = UDim.new(0, CONTENT_PADDING),
+		contentPadding = UDim.new(0, CONTENT_PADDING),
 		LayoutOrder = layoutOrder,
 		width = UDim.new(1, 0),
 		[Roact.Ref] = self.frameRef,
@@ -131,7 +124,7 @@ function HttpRequestHolder:render()
 
 		InfoText = Roact.createElement(FluidFitTextLabel, {
 			BackgroundTransparency = 1,
-            Font = theme.Font,
+			Font = theme.Font,
 			LayoutOrder = 1,
 			TextSize = 16,
 			Text = localization:getText("Details", "HttpRequestInfo"),
@@ -141,21 +134,12 @@ function HttpRequestHolder:render()
 	})
 end
 
-if FFlagPluginManagementWithContext then
-	HttpRequestHolder = withContext({
-		API = PluginAPI2,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(HttpRequestHolder)
-else
-	ContextServices.mapToProps(HttpRequestHolder, {
-		API = PluginAPI2,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+HttpRequestHolder = withContext({
+	API = PluginAPI2,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(HttpRequestHolder)
 
 
 local function mapDispatchToProps(dispatch)

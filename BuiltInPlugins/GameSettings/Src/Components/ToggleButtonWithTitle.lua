@@ -13,7 +13,6 @@
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 
 local Plugin = script.Parent.Parent.Parent
@@ -118,15 +117,11 @@ function ToggleButtonWithTitle:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	ToggleButtonWithTitle = withContext({
-		Theme = ContextServices.Theme,
-	})(ToggleButtonWithTitle)
-else
-	ContextServices.mapToProps(ToggleButtonWithTitle, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ToggleButtonWithTitle = withContext({
+	Theme = ContextServices.Theme,
+})(ToggleButtonWithTitle)
+
 
 
 return ToggleButtonWithTitle

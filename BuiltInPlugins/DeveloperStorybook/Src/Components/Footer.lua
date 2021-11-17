@@ -1,7 +1,6 @@
 --[[
 	The footer displayed at the bottom of the plugin.
 ]]
-local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
@@ -90,19 +89,13 @@ function Footer:render()
 	})
 end
 
-if FFlagDeveloperStorybookWithContext then
-	Footer = withContext({
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-		Plugin = ContextServices.Plugin
-	})(Footer)
-else
-	ContextServices.mapToProps(Footer, {
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-		Plugin = ContextServices.Plugin
-	})
-end
+
+Footer = withContext({
+	Inspector = InspectorContext,
+	Stylizer = ContextServices.Stylizer,
+	Plugin = ContextServices.Plugin
+})(Footer)
+
 
  
 return RoactRodux.connect(function(state: Types.RoduxStore)

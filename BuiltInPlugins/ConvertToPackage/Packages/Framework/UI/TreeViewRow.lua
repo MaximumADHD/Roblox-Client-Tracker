@@ -24,7 +24,6 @@
 		boolean ExpandableRoot: Defines whether or not the root can be expanded, this determines indent depth for each row
 ]]
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -149,17 +148,12 @@ TreeViewRow.defaultProps = {
 	ExpandableRoot = true,
 }
 
-if FFlagDeveloperFrameworkWithContext then
-	TreeViewRow = withContext({
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(TreeViewRow)
-else
-	ContextServices.mapToProps(TreeViewRow, {
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+TreeViewRow = withContext({
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(TreeViewRow)
+
 
 
 return withControl(TreeViewRow)

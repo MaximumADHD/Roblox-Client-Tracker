@@ -13,6 +13,8 @@
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 		function OnItemSelected(key, item) = A callback for when the user selects an
 			item in one of the submenus to edit a key's Easing info.
+		function OnClearTangentsSelected() = A callback to reset tangents and use auto-tangent
+			mode on the selected keys
 		function OnRenameKeyframe(tick) = A callback for when the user wants to start renaming
 			a keyframe in the timeline.
 ]]
@@ -75,15 +77,15 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
--- Returns the easing value shared among all selected keyframes,
--- or nil if any keyframes do not share the same easing info.
-function TimelineActions:getSharedEasingValue(key)
+-- Returns the property value shared among all selected keyframes,
+-- or nil if any keyframes do not share the same property value.
+function TimelineActions:getSharedPropertyValue(key)
 	local props = self.props
 	local selectedKeyframes = props.SelectedKeyframes
 	local animationData = props.AnimationData
 	local foundMismatch = false
 
-	local sharedEasingValue = nil
+	local sharedPropertyValue = nil
 	for instanceName, instance in pairs(selectedKeyframes) do
 		local dataInstance = animationData.Instances[instanceName]
 		for trackName, selectionTrack in pairs(instance) do
@@ -96,10 +98,10 @@ function TimelineActions:getSharedEasingValue(key)
 					for keyframe, _ in pairs(selectionTrack.Selection) do
 						local pose = dataTrack.Data[keyframe]
 						if pose then
-							if sharedEasingValue == nil then
-								sharedEasingValue = pose[key]
-							elseif sharedEasingValue ~= pose[key] then
-								sharedEasingValue = nil
+							if sharedPropertyValue == nil then
+								sharedPropertyValue = pose[key]
+							elseif sharedPropertyValue ~= pose[key] then
+								sharedPropertyValue = nil
 								foundMismatch = true -- Immediately bail out when processing the rest of the traversal
 								break
 							end
@@ -111,10 +113,10 @@ function TimelineActions:getSharedEasingValue(key)
 				local track = dataInstance.Tracks[trackName]
 				for _, keyframe in ipairs(keyframes) do
 					if track.Data[keyframe] then
-						if sharedEasingValue == nil then
-							sharedEasingValue = track.Data[keyframe][key]
-						elseif sharedEasingValue ~= track.Data[keyframe][key] then
-							sharedEasingValue = nil
+						if sharedPropertyValue == nil then
+							sharedPropertyValue = track.Data[keyframe][key]
+						elseif sharedPropertyValue ~= track.Data[keyframe][key] then
+							sharedPropertyValue = nil
 							break
 						end
 					end
@@ -122,7 +124,7 @@ function TimelineActions:getSharedEasingValue(key)
 			end
 		end
 	end
-	return sharedEasingValue and sharedEasingValue.Value
+	return sharedPropertyValue and sharedPropertyValue.Value
 end
 
 -- Creates a submenu for selecting an enum item.
@@ -141,7 +143,7 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 	return {
 		Name = displayText,
 		Items = items,
-		CurrentValue = self:getSharedEasingValue(dataKey),
+		CurrentValue = self:getSharedPropertyValue(dataKey),
 		ItemSelected = function(item)
 			props.OnItemSelected(dataKey, item)
 		end,
@@ -171,8 +173,9 @@ function TimelineActions:makeMenuActions(localization)
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
 		if GetFFlagChannelAnimations() and props.IsChannelAnimation then
-			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "EasingStyle",
-				localization:getText("ContextMenu", "EasingStyle")))
+			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
+				localization:getText("ContextMenu", "InterpolationMode")))
+			table.insert(actions, pluginActions:get("ClearTangents"))
 		else
 			table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle",
 				localization:getText("ContextMenu", "EasingStyle")))
@@ -227,23 +230,44 @@ function TimelineActions:didMount()
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
 						local componentTrack = AnimationData.getTrack(animationData, instanceName, componentPath)
-						local newValue
+						local value
+						local leftSlope, rightSlope
+						local interpolationMode = Enum.KeyInterpolationMode.Cubic
+
 						if componentTrack and componentTrack.Keyframes then
-							newValue = KeyframeUtils.getValue(componentTrack, tick)
+							value = KeyframeUtils.getValue(componentTrack, tick)
+							local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, tick)
+							if prevKeyframe then
+								interpolationMode = prevKeyframe.InterpolationMode
+								if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+									leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, tick)
+								end
+							end
 						else
-							newValue = KeyframeUtils.getDefaultValue(componentType)
+							value = KeyframeUtils.getDefaultValue(componentType)
 						end
-						props.AddKeyframe(instanceName, componentPath, componentType, tick, newValue, props.Analytics)
+						local keyframeData = {
+							Value = value,
+							InterpolationMode = interpolationMode,
+							LeftSlope = leftSlope,
+							RightSlope = rightSlope
+						}
+						props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
 					end)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
-					local newValue
+					local value
 					if track and track.Keyframes then
-						newValue = KeyframeUtils.getValue(track, tick)
+						value = KeyframeUtils.getValue(track, tick)
 					else
-						newValue = KeyframeUtils.getDefaultValue(trackType)
+						value = KeyframeUtils.getDefaultValue(trackType)
 					end
-					props.AddKeyframe(instanceName, path, trackType, tick, newValue, props.Analytics)
+					local keyframeData = {
+						Value = value,
+						EasingStyle = Enum.PoseEasingStyle.Linear,
+						EasingDirection = Enum.PoseEasingDirection.In
+					}
+					props.AddKeyframe(instanceName, path, trackType, tick, keyframeData, props.Analytics)
 				end
 			end
 		else
@@ -266,7 +290,7 @@ function TimelineActions:didMount()
 					end
 				end
 				if GetFFlagFacialAnimationSupport() then
-					props.AddKeyframe(instanceName, trackName, trackType, tick, newValue, props.Analytics)
+					props.AddKeyframe_deprecated2(instanceName, trackName, trackType, tick, newValue, props.Analytics)
 				else
 					props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
 				end
@@ -313,22 +337,43 @@ function TimelineActions:didMount()
 							TrackUtils.traverseComponents(track.Type, function(componentType, relPath)
 								local componentPath = Cryo.List.join({selectedTrack}, relPath)
 								local componentTrack = AnimationData.getTrack(props.AnimationData, instanceName, componentPath)
-								local newValue
+								local value
+								local leftSlope, rightSlope
+								local interpolationMode = Enum.KeyInterpolationMode.Cubic
+
 								if componentTrack and componentTrack.Keyframes then
-									newValue = KeyframeUtils.getValue(componentTrack, playhead)
+									value = KeyframeUtils.getValue(componentTrack, playhead)
+									local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, playhead)
+									if prevKeyframe then
+										interpolationMode = prevKeyframe.InterpolationMode
+										if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+											leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, playhead)
+										end
+									end
 								else
-									newValue = KeyframeUtils.getDefaultValue(componentType)
+									value = KeyframeUtils.getDefaultValue(componentType)
 								end
-								props.AddKeyframe(instanceName, componentPath, componentType, playhead, newValue, props.Analytics)
+								local keyframeData = {
+									Value = value,
+									InterpolationMode = interpolationMode,
+									LeftSlope = leftSlope,
+									RightSlope = rightSlope
+								}
+								props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
 							end)
 						else
-							local newValue
+							local value
 							if track and track.Keyframes then
-								newValue = KeyframeUtils.getValue(track, playhead)
+								value = KeyframeUtils.getValue(track, playhead)
 							else
-								newValue = KeyframeUtils.getDefaultValue(track.Type)
+								value = KeyframeUtils.getDefaultValue(track.Type)
 							end
-							props.AddKeyframe(instanceName, {selectedTrack}, track.Type, playhead, newValue, props.Analytics)
+							local keyframeData = {
+								Value = value,
+								EasingStyle = Enum.PoseEasingStyle.Linear,
+								EasingDirection = Enum.PoseEasingDirection.In
+							}
+							props.AddKeyframe(instanceName, {selectedTrack}, track.Type, playhead, keyframeData, props.Analytics)
 						end
 					else
 						local newValue
@@ -379,17 +424,26 @@ function TimelineActions:didMount()
 				props.AddKeyframe_deprecated(instanceName, trackName, tick, newValue, props.Analytics)
 			end
 		elseif GetFFlagChannelAnimations() and instanceName and path then
-			local newValue
+			local value
 			local trackType = props.TrackType
 			if isChannelAnimation then
 				TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 					local componentPath = Cryo.List.join(path, relPath)
-					newValue = KeyframeUtils.getDefaultValue(componentType)
-					props.AddKeyframe(instanceName, componentPath, componentType, tick, newValue, props.Analytics)
+					value = KeyframeUtils.getDefaultValue(componentType)
+					local keyframeData = {
+						Value = value,
+						InterpolationMode = Enum.KeyInterpolationMode.Cubic
+					}
+					props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
 				end)
 			else
-				newValue = KeyframeUtils.getDefaultValue(trackType)
-				props.AddKeyframe(instanceName, path, trackType, tick, newValue, props.Analytics)
+				value = KeyframeUtils.getDefaultValue(trackType)
+				local keyframeData = {
+					Value = value,
+					EasingStyle = Enum.PoseEasingStyle.Linear,
+					EasingDirection = Enum.PoseEasingDirection.In
+				}
+				props.AddKeyframe(instanceName, path, trackType, tick, keyframeData, props.Analytics)
 			end
 		else
 			-- If the user clicked the summary track, add a reset keyframe for
@@ -406,13 +460,22 @@ function TimelineActions:didMount()
 						TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 							local path = Cryo.List.join({trackName}, relPath)
 							newValue = KeyframeUtils.getDefaultValue(componentType)
-							props.AddKeyframe(instanceName, path, componentType, tick, newValue, props.Analytics)
+							local keyframeData = {
+								Value = newValue,
+								InterpolationMode = Enum.KeyInterpolationMode.Cubic
+							}
+							props.AddKeyframe(instanceName, path, componentType, tick, keyframeData, props.Analytics)
 						end)
 					else
 						if GetFFlagChannelAnimations() then
 							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
 							newValue = KeyframeUtils.getDefaultValue(trackType)
-							props.AddKeyframe(instanceName, {trackName}, trackType, tick, newValue, props.Analytics)
+							local keyframeData = {
+								Value = newValue,
+								EasingStyle = Enum.PoseEasingStyle.Linear,
+								EasingDirection = Enum.PoseEasingDirection.In
+							}
+							props.AddKeyframe(instanceName, {trackName}, trackType, tick, keyframeData, props.Analytics)
 						elseif GetFFlagFacialAnimationSupport() then
 							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
 							newValue = TrackUtils.getDefaultValueByType(trackType)
@@ -488,6 +551,9 @@ function TimelineActions:didMount()
 
 	self:addAction(actions:get("TogglePlay"), togglePlayWrapper)
 	self:addAction(actions:get("ToggleBoneVis"), self.props.ToggleBoneVisibility)
+	if GetFFlagChannelAnimations() then
+		self:addAction(actions:get("ClearTangents"), self.props.OnClearTangentsSelected)
+	end
 end
 
 function TimelineActions:render()
@@ -553,6 +619,10 @@ function TimelineActions:render()
 
 		if summaryKeyframe ~= nil then
 			pluginActions:get("RenameKeyframe").Enabled = true
+		end
+
+		if GetFFlagChannelAnimations() and isChannelAnimation then
+			pluginActions:get("ClearTangents").Enabled = true
 		end
 
 		if tool == Enum.RibbonTool.Rotate or tool == Enum.RibbonTool.Move then
@@ -661,9 +731,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, path, trackType, tick, value, analytics)
+		AddKeyframe = function(instance, path, trackType, tick, keyframeData, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, path, trackType, tick, value, analytics))
+			dispatch(AddKeyframe(instance, path, trackType, tick, keyframeData, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

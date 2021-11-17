@@ -16,7 +16,6 @@
 		table SelectedKeyframes = table containing information on what keyframes are selected for each track/instance
 		table PreviewKeyframes = table containing keyframes that are currently being transformed for preview
 		table NamedKeyframes = table mapping ticks to summary keyframe names.
-		bool ShowLegacyKeyframes = Whether to highlight keyframes off of the framerate with an error color.
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
 
@@ -52,11 +51,11 @@ function SummaryTrack:getSummaryKeyframes()
 	return TrackUtils.getSummaryKeyframes(tracks, startTick, endTick, selectedKeyframes, previewKeyframes)
 end
 
-function SummaryTrack:renderKeyframe(selected, xOffset, tick, name, override)
+function SummaryTrack:renderKeyframe(selected, xOffset, tick, name)
 	local props = self.props
 	return Roact.createElement(Keyframe, {
 		Selected = selected,
-		Style = Constants.KEYFRAME_STYLE[override] or Constants.KEYFRAME_STYLE.Primary,
+		Style = Constants.KEYFRAME_STYLE.Primary,
 		Position = UDim2.new(0, xOffset, 0.5, 0),
 		ZIndex = props.ZIndex,
 		Width = Constants.SUMMARY_KEYFRAME_WIDTH,
@@ -105,7 +104,6 @@ function SummaryTrack:renderKeyframes(keys)
 	local endTick = props.EndTick
 	local showCluster = props.ShowCluster
 	local namedKeyframes = props.NamedKeyframes
-	local showLegacyKeyframes = props.ShowLegacyKeyframes
 
 	local startIndex, endIndex = TrackUtils.getKeyframesExtents(ticks, startTick, endTick)
 
@@ -119,9 +117,7 @@ function SummaryTrack:renderKeyframes(keys)
 			local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
 			local selected = selectedTicks[tick]
 
-			local override = (showLegacyKeyframes and tick ~= math.floor(tick))
-				and Constants.KEYFRAME_STYLE.PrimaryError or nil
-			keys[index] = self:renderKeyframe(selected, xPos, tick, namedKeyframes[tick], override)
+			keys[index] = self:renderKeyframe(selected, xPos, tick, namedKeyframes[tick])
 		end
 	end
 end

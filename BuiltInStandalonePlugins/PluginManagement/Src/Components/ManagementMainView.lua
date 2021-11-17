@@ -3,10 +3,7 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local FFlagPluginManagementFixLoadingState = game:GetFastFlag("PluginManagementFixLoadingState")
-
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
@@ -127,12 +124,7 @@ function ManagementMainView:render()
 	local updating = state.updating
 
 	local localization = props.Localization
-	local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-	else
-		theme = self.props.Theme:get("Plugin")
-	end
+	local theme = self.props.Stylizer
 
 	local anyUpdateNeeded = self.anyUpdateNeeded()
 	local updateDisabled = not anyUpdateNeeded or updating
@@ -258,25 +250,14 @@ function ManagementMainView:render()
 	})
 end
 
-if FFlagPluginManagementWithContext then
-	ManagementMainView = withContext({
-		Plugin = ContextServices.Plugin,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-		Analytics = ContextServices.Analytics,
-	})(ManagementMainView)
-else
-	ContextServices.mapToProps(ManagementMainView, {
-		Plugin = ContextServices.Plugin,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+ManagementMainView = withContext({
+	Plugin = ContextServices.Plugin,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+	API = PluginAPI2,
+	Analytics = ContextServices.Analytics,
+})(ManagementMainView)
 
 
 local function mapStateToProps(state, _)

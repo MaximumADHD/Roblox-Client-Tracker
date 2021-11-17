@@ -49,6 +49,58 @@ function TestHelper.sendInputToXPath(xpath,inputValue)
 	delay()
 end
 
+function TestHelper.goToAssetTypeScreenFromStart(caged)
+	local ScreenFlowPath = TestHelper.getScreenFlow()
+	local SelectFramePath =
+		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
+	local NextButtonPath =
+		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
+
+	TestHelper.waitForXPathInstance(NextButtonPath)
+
+	if caged then
+		TestHelper.addLCItemWithFullCageFromExplorer()
+	else
+		TestHelper.addLCItemWithoutCageFromExplorer()
+	end
+	TestHelper.clickXPath(NextButtonPath)
+	delay()
+end
+
+function TestHelper.goToEditScreenFromStart(caged)
+	TestHelper.goToAssetTypeScreenFromStart(caged)
+
+	local ScreenFlowPath = TestHelper.getScreenFlow()
+	local AssetTypeScreenPath =
+		ScreenFlowPath:cat(XPath.new("Screen.ViewArea"))
+	local ShirtButtonPath =
+		AssetTypeScreenPath:cat(XPath.new("Content.ClothingTypeList.List.Shirt"))
+	local WaistButtonPath =
+		AssetTypeScreenPath:cat(XPath.new("Content.AccessoryTypeList.List.Waist"))
+	local WaistFrontButtonPath =
+		AssetTypeScreenPath:cat(XPath.new("Content.List.Front"))
+	local NextButtonPath =
+		AssetTypeScreenPath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
+
+	if caged then
+		TestHelper.waitForXPathInstance(ShirtButtonPath)
+		TestHelper.clickXPath(ShirtButtonPath)
+	else
+		TestHelper.waitForXPathInstance(WaistButtonPath)
+		TestHelper.clickXPath(WaistButtonPath)
+
+		TestHelper.waitForXPathInstance(NextButtonPath)
+		TestHelper.clickXPath(NextButtonPath)
+
+		TestHelper.waitForXPathInstance(WaistFrontButtonPath)
+		TestHelper.clickXPath(WaistFrontButtonPath)
+	end
+
+	TestHelper.waitForXPathInstance(NextButtonPath)
+	TestHelper.clickXPath(NextButtonPath)
+	delay()
+end
+
 function TestHelper.clickEquippableGridTile(index)
 	local gridScrollerChildPath = TestHelper.getEquippableGridTilePath(index)
 	TestHelper.waitForXPathInstance(gridScrollerChildPath)
@@ -59,7 +111,7 @@ function TestHelper.clickEquippableGridTile(index)
 end
 
 function TestHelper.getEquippableGridTilePath(index)
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
@@ -128,8 +180,12 @@ function TestHelper.waitForChildrenCountEqualTo(instance, expectValue)
 	end)
 end
 
-function TestHelper.getMainScroller()
-	return XPath.new("game.CoreGui.PluginMockGui.LayeredClothingEditor.MainFrame.Contents.Scroller")
+function TestHelper.getScreenFlow()
+	return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow")
+end
+
+function TestHelper.getEditScreenContainer()
+	return XPath.new("game.CoreGui.PluginMockGui.Container.MainFrame")
 end
 
 function TestHelper.cleanTempInstances()
@@ -250,15 +306,13 @@ function TestHelper.createAvatarWithFullCages(name)
 	innerCage.Name = "Inner"
 	local outerCage = Instance.new("MeshPart",avatar)
 	outerCage.Name = "Outer"
+	avatar.PrimaryPart = meshPart
 	return avatar
 end
 
 local function addItemAndConfirm(item, addItemFromExplorerButton)
 	if not addItemFromExplorerButton then
-		local ScrollerPath = TestHelper.getMainScroller()
-		local AddItemFromExplorerButtonPath =
-			XPath.new("SelectSwizzle.ViewArea.SelectFrame.SelectItemFrame.AddItemFromExplorerButton.ImageButton")
-		addItemFromExplorerButton = ScrollerPath:cat(AddItemFromExplorerButtonPath)
+		return
 	end
 
 	TestHelper.clickXPath(addItemFromExplorerButton)
@@ -275,32 +329,52 @@ local function addItemAndConfirm(item, addItemFromExplorerButton)
 	TestHelper.clickXPath(dialogConfirmButtonPath)
 end
 
-function TestHelper.addLCItemWithoutCageFromExplorer(item)
-	item = item or TestHelper.createClothesWithoutCage()
-	assert(not ItemCharacteristics.hasFullCages(item))
+function TestHelper.addRegularPartFromExplorer()
+	local item = Instance.new("Part")
+	item.Parent = TestHelper.getTempInstancesFolder()
 
-	addItemAndConfirm(item)
+	local Selection = game:GetService("Selection")
+	Selection:Set({item})
+	delay()
 
-	-- item does not have full cage need to confirm another dialog
-	local dialogName = Localization.mock():getText("Dialog","DefaultTitle")
-	local dialogPath = XPath.new(game.CoreGui[dialogName])
-	local dialogConfirmButtonPath =
-		dialogPath:cat(XPath.new("SolidBackground.ButtonContainer.Contents.1.Contents.TextButton"))
-	TestHelper.waitForXPathInstance(dialogConfirmButtonPath)
-	TestHelper.clickXPath(dialogConfirmButtonPath)
 	return item
+end
+
+function TestHelper.addLCItemWithoutCageFromExplorer(item)
+	local lcItem = item or TestHelper.createClothesWithoutCage()
+	assert(not ItemCharacteristics.hasFullCages(lcItem))
+
+	local Selection = game:GetService("Selection")
+	Selection:Set({lcItem})
+	delay()
+
+	return lcItem
 end
 
 function TestHelper.addLCItemWithFullCageFromExplorer(item)
-	item = item or TestHelper.createClothesWithFullCages()
-	assert(ItemCharacteristics.hasFullCages(item))
+	local lcItem = item or TestHelper.createClothesWithFullCages()
+	assert(ItemCharacteristics.hasFullCages(lcItem))
 
-	addItemAndConfirm(item)
-	return item
+	local Selection = game:GetService("Selection")
+	Selection:Set({lcItem})
+	delay()
+
+	return lcItem
+end
+
+function TestHelper.addAvatarWithFullCagesFromExplorer()
+	local lcItem = TestHelper.createAvatarWithFullCages()
+	assert(ItemCharacteristics.hasFullCages(lcItem))
+
+	local Selection = game:GetService("Selection")
+	Selection:Set({lcItem})
+	delay()
+
+	return lcItem
 end
 
 local function addItemToGrid(item)
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
 	local GridScrollerPath
 	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then

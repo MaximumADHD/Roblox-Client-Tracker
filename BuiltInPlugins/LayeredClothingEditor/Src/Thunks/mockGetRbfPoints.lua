@@ -12,12 +12,14 @@ return function(useFullR15)
 	return function(store)
 		local basePointData = {}
 
+		local mockVerts = MockRbfData.Verts
+
 		if useFullR15 then
-			basePointData[Enum.CageType.Inner] = deepCopy(MockRbfData)
-			basePointData[Enum.CageType.Outer] = deepCopy(MockRbfData)
+			basePointData[Enum.CageType.Inner] = deepCopy(mockVerts)
+			basePointData[Enum.CageType.Outer] = deepCopy(mockVerts)
 		else
-			basePointData[Enum.CageType.Inner] = { Clothing = deepCopy(MockRbfData["UpperTorso"])}
-			basePointData[Enum.CageType.Outer] = { Clothing = deepCopy(MockRbfData["UpperTorso"])}
+			basePointData[Enum.CageType.Inner] = { Clothing = deepCopy(mockVerts["UpperTorso"])}
+			basePointData[Enum.CageType.Outer] = { Clothing = deepCopy(mockVerts["UpperTorso"])}
 		end
 
 		store:dispatch(SetPointData(basePointData))

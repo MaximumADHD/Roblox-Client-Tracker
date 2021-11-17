@@ -22,7 +22,6 @@
         bool showTableBackground = If true, we show the table background
 ]]
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -202,15 +201,11 @@ function TableWithMenu:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	TableWithMenu = withContext({
-	    Theme = ContextServices.Theme,
-	})(TableWithMenu)
-else
-	ContextServices.mapToProps(TableWithMenu, {
-	    Theme = ContextServices.Theme,
-	})
-end
+
+TableWithMenu = withContext({
+    Theme = ContextServices.Theme,
+})(TableWithMenu)
+
 
 
 return TableWithMenu

@@ -11,7 +11,6 @@
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -153,15 +152,11 @@ function MemStorageEventView:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	MemStorageEventView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(MemStorageEventView)
-else
-	ContextServices.mapToProps(MemStorageEventView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+MemStorageEventView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(MemStorageEventView)
+
 
 
 return RoactRodux.connect(

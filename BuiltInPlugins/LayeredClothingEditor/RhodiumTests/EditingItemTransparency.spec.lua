@@ -14,7 +14,7 @@ return function()
 
 	local nearLimit = 1e-5 -- when set transparency, there might be some value precision issue
 
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local PointToolTabButton =
 		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TabsRibbon.2 PointTool.1.Contents.TextButton"))
 	local TransparencyViewPath =
@@ -36,8 +36,18 @@ return function()
 		return path:cat(XPath.new("ValueTextBox.Contents.TextBox"))
 	end
 
-	it("transparency sliders exist", function()
+	it("transparency sliders exist for caged item", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
+			expect(TestHelper.waitForXPathInstance(MeshValueTextBoxPath)).to.be.ok()
+			expect(TestHelper.waitForXPathInstance(OuterCageValueTextBoxPath)).to.be.ok()
+			expect(TestHelper.waitForXPathInstance(InnerCageValueTextBoxPath)).to.equal(nil)
+		end)
+	end)
+
+	it("transparency sliders exist for rigid item", function()
+		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(false)
 			expect(TestHelper.waitForXPathInstance(MeshValueTextBoxPath)).to.be.ok()
 			expect(TestHelper.waitForXPathInstance(OuterCageValueTextBoxPath)).to.equal(nil)
 			expect(TestHelper.waitForXPathInstance(InnerCageValueTextBoxPath)).to.equal(nil)
@@ -45,21 +55,22 @@ return function()
 	end)
 
 	it("change mesh transparency for clothes", function()
-		runRhodiumTest(function(container, store)
-			local fullCageClothes = TestHelper.addLCItemWithFullCageFromExplorer()
+		runRhodiumTest(function(container, store, _, editingItemContext)
+			TestHelper.goToEditScreenFromStart(true)
 			local MeshValueTextPath = getTextBox(MeshValueTextBoxPath)
 			expect(TestHelper.waitForXPathInstance(MeshValueTextPath)).to.be.ok()
 
 			TestHelper.sendInputToXPath(MeshValueTextPath,"20")
 
 			expect(TestHelper.waitForXPathInstance(MeshValueTextPath).Text).to.equal("20")
-			expect(GetTransparency(fullCageClothes)).to.near(20, nearLimit)
+			expect(editingItemContext:getItem()).to.be.ok()
+			expect(GetTransparency(editingItemContext:getItem())).to.near(20, nearLimit)
 		end)
 	end)
 
 	it("change inner cage transparency for clothes", function()
 		runRhodiumTest(function(container, store)
-			TestHelper.addLCItemWithFullCageFromExplorer()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(PointToolTabButton)).to.be.ok()
 			TestHelper.clickXPath(PointToolTabButton)
 			expect(TestHelper.waitForXPathInstance(InnerCageRadioButton)).to.be.ok()
@@ -74,7 +85,7 @@ return function()
 
 	it("change outer cage transparency for clothes", function()
 		runRhodiumTest(function()
-			TestHelper.addLCItemWithFullCageFromExplorer()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(PointToolTabButton)).to.be.ok()
 			TestHelper.clickXPath(PointToolTabButton)
 			expect(TestHelper.waitForXPathInstance(OuterCageRadioButton)).to.be.ok()

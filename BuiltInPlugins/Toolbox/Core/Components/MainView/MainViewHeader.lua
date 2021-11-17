@@ -1,4 +1,3 @@
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -120,17 +119,12 @@ function MainViewHeader:render()
 	end)
 end
 
-if FFlagToolboxWithContext then
-	MainViewHeader = withContext({
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})(MainViewHeader)
-else
-	ContextServices.mapToProps(MainViewHeader, {
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})
-end
+
+MainViewHeader = withContext({
+	Localization = ContextServices.Localization,
+	Settings = Settings,
+})(MainViewHeader)
+
 
 
 local function mapStateToProps(state, props)

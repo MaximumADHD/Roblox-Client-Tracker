@@ -9,7 +9,6 @@
 		TextXAlignment Alignment = the horizontal alignment of the text
 			(vertical alignment is never used)
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -38,15 +37,11 @@ function DeveloperSubscriptionListHeaderText:render()
 	}))
 end
 
-if FFlagGameSettingsWithContext then
-	DeveloperSubscriptionListHeaderText = withContext({
-		Theme = ContextServices.Theme,
-	})(DeveloperSubscriptionListHeaderText)
-else
-	ContextServices.mapToProps(DeveloperSubscriptionListHeaderText,{
-		Theme = ContextServices.Theme,
-	})
-end
+
+DeveloperSubscriptionListHeaderText = withContext({
+	Theme = ContextServices.Theme,
+})(DeveloperSubscriptionListHeaderText)
+
 
 
 return DeveloperSubscriptionListHeaderText

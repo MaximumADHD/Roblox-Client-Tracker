@@ -16,7 +16,6 @@
 		numberLayoutOrder
 		callback setDropdownHeight(number height)
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -419,14 +418,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxWithContext then
-	TagsComponent = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(TagsComponent)
-else
-	ContextServices.mapToProps(TagsComponent, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+TagsComponent = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(TagsComponent)
+
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TagsComponent)

@@ -28,10 +28,12 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		table CellProps: A table of props which are passed from the table's props to the CellComponent.
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
+		array[any] HighlightedRows: An optional list of rows to highlight.
+		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -80,11 +82,9 @@ function Table:init()
 		end
 	end
 	
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClickRow = function(rowProps)
-			if self.props.OnRightClickRow then
-				self.props.OnRightClickRow(rowProps)
-			end
+	self.onRightClickRow = function(rowProps)
+		if self.props.OnRightClickRow then
+			self.props.OnRightClickRow(rowProps)
 		end
 	end
 	
@@ -93,6 +93,15 @@ function Table:init()
 		local rowIndex = self.rowToIndex[row]
 		local props = self.props
 		local RowComponent = self.props.RowComponent or TableRow
+		local isHighlightedRow = false
+		if FFlagDevFrameworkHighlightTableRows and props.HighlightedRows then
+			for _, currRow in ipairs(props.HighlightedRows) do
+				if Util.deepEqual(currRow, row.item) then
+					isHighlightedRow = true
+				end
+			end
+		end
+		
 		return Roact.createElement(RowComponent, {
 			CellProps = self.props.CellProps,
 			CellComponent = self.props.CellComponent,
@@ -104,8 +113,9 @@ function Table:init()
 			OnHover = self.props.OnHoverRow and self.onHoverRow,
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
-			OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil,
+			OnRightClick = self.onRightClickRow,
 			FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+			HighlightRow = (FFlagDevFrameworkHighlightTableRows and isHighlightedRow) or nil,
 		})
 	end
 	self.getDefaultRowKey = function(row)
@@ -165,6 +175,7 @@ function Table:renderScroll()
 		EstimatedItemSize = style.RowHeight,
 		Items = props.Rows,
 		RenderItem = self.onRenderRow,
+		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
 	})
 end
 
@@ -235,15 +246,11 @@ function Table:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Table = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(Table)
-else
-	ContextServices.mapToProps(Table, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+Table = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(Table)
+
 
 
 return Table

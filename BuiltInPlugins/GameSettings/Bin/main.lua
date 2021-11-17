@@ -4,6 +4,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagImprovePluginSpeed_GameSettings = game:GetFastFlag("ImprovePluginSpeed_GameSettings")
+	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
 	if not FFlagImprovePluginSpeed_GameSettings then
 		-- Moved to loader.server.lua
@@ -117,7 +118,7 @@ return function(plugin, pluginLoaderContext)
 	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 	local localization = ContextServices.Localization.new({
-		pluginName = "GameSettings",
+		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or "GameSettings",
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 	})
@@ -251,15 +252,16 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function makePluginGui()
-		pluginGui = plugin:CreateQWidgetPluginGui(plugin.Name, {
+		local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
+		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
 			Size = Vector2.new(960, 600),
 			MinSize = Vector2.new(960, 600),
 			Resizable = true,
 			Modal = true,
 			InitialEnabled = false,
 		})
-		pluginGui.Name = plugin.Name
-		pluginGui.Title = plugin.Name
+		pluginGui.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
+		pluginGui.Title = FFlagPluginDockWidgetsUseNonTranslatedIds and localization:getText("General", "PluginName") or plugin.Name
 		pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 		pluginGui:BindToClose(function()
@@ -315,7 +317,7 @@ return function(plugin, pluginLoaderContext)
 
 	--Binds a toolbar button to the Game Settings window
 	local function main()
-		plugin.Name = localization:getText("General", "PluginName")
+		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("General", "PluginName")
 
 		local settingsButton
 		if FFlagImprovePluginSpeed_GameSettings then

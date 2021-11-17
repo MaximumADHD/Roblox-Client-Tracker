@@ -1,6 +1,7 @@
 -- Centralized Place for Keys used throughout the widget
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
+local FFlagCollabEditingWarnBothWays = game:GetFastFlag("CollabEditingWarnBothWays")
 
 local KeyProvider = {}
 
@@ -112,6 +113,12 @@ function KeyProvider.getTeamCreateEnabledKeyName()
 	assert(FFlagStudioTeamCreateStreamingEnabled)
 
 	return "TeamCreateEnabled"
+end
+
+function KeyProvider.getScriptCollaborationEnabledOnServerKeyName()
+    assert(FFlagCollabEditingWarnBothWays)
+    
+    return "ScriptCollaborationEnabledOnServer"
 end
 
 return KeyProvider

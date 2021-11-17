@@ -17,6 +17,7 @@ local ACTION_KEYS = {
 	"DeselectAll",
 	"RenameKeyframe",
 	"ChangeDuration",
+	"ClearTangents",
 
 	-- Event Manipulation
 	"CopyEvents",

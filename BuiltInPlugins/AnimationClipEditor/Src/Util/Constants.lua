@@ -351,6 +351,11 @@ local Constants = {
 		Enum.KeyInterpolationMode.Constant,
 		Enum.KeyInterpolationMode.Cubic,
 	} or nil,
+
+	SLOPES = GetFFlagChannelAnimations() and {
+		Right = "Right",
+		Left = "Left",
+	} or nil,
 }
 
 Constants.MAX_ANIMATION_LENGTH = Constants.MAX_TIME * Constants.TICK_FREQUENCY

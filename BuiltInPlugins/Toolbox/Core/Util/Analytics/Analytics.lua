@@ -13,6 +13,7 @@ local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
+local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -201,6 +202,11 @@ end
 function Analytics.sendResultToKibana(result)
 	assert(FFlagNewPackageAnalyticsWithRefactor2)
 	AnalyticsSenders.sendResultToKibana(result)
+end
+
+function Analytics.incrementAssetImpressionCounter()
+	assert(FFlagToolboxAddAssetImpressionCounterAnalytics)
+	AnalyticsSenders.reportCounter("Studio.ToolboxAsset.Impression")
 end
 
 -- AssetPreview

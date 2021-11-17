@@ -6,7 +6,6 @@
 		list Order = The order in which the thumbnails are sorted.
 		variant StartId = The thumbnailId of the thumbnail to display first.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BLACK = Color3.new(0, 0, 0)
 local WHITE = Color3.new(1, 1, 1)
@@ -189,19 +188,13 @@ function ThumbnailPreviewDialog:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	ThumbnailPreviewDialog = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(ThumbnailPreviewDialog)
-else
-	ContextServices.mapToProps(ThumbnailPreviewDialog, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+ThumbnailPreviewDialog = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(ThumbnailPreviewDialog)
+
 
 
 return ThumbnailPreviewDialog

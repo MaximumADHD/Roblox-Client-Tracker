@@ -5,7 +5,6 @@
 		Backgrounds backgrounds
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -186,17 +185,12 @@ function Footer:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxWithContext then
-	Footer = withContext({
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(Footer)
-else
-	ContextServices.mapToProps(Footer, {
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+Footer = withContext({
+	Settings = Settings,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(Footer)
+
 
 
 local function mapStateToProps(state, props)

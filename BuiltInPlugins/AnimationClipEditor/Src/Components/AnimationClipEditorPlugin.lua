@@ -34,14 +34,12 @@ local MakePluginActions = require(Plugin.Src.Util.MakePluginActions)
 local showBlockingDialog = require(Plugin.Src.Util.showBlockingDialog)
 
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
-local SetSnapToKeys = require(Plugin.Src.Actions.SetSnapToKeys)
 local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 local SetTool = require(Plugin.Src.Actions.SetTool)
 
 local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local FFlagImprovePluginSpeed_AnimationClipEditor = game:GetFastFlag("ImprovePluginSpeed_AnimationClipEditor")
 
@@ -198,39 +196,29 @@ end
 
 function AnimationClipEditorPlugin:getPluginSettings()
 	local plugin = self.props.plugin
-	local snapMode = GetFFlagUseTicks() and plugin:GetSetting("SnapMode") or nil
+	local snapMode = plugin:GetSetting("SnapMode")
 	-- Legacy snap preference
 	local snapToKeys = plugin:GetSetting("SnapToKeys")
 	local showAsSeconds = plugin:GetSetting("ShowAsSeconds")
 
-	if GetFFlagUseTicks() then
-		if snapMode ~= nil then
-			self.store:dispatch(SetSnapMode(snapMode))
-		elseif snapToKeys ~= nil then
-			self.store:dispatch(SetSnapMode(snapToKeys and Constants.SNAP_MODES.Keyframes or Constants.SNAP_MODES.Frames))
-		else
-			self.store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
-		end
-
-		if showAsSeconds ~= nil then
-			self.store:dispatch(SetShowAsSeconds(showAsSeconds))
-		end
+	if snapMode ~= nil then
+		self.store:dispatch(SetSnapMode(snapMode))
+	elseif snapToKeys ~= nil then
+		self.store:dispatch(SetSnapMode(snapToKeys and Constants.SNAP_MODES.Keyframes or Constants.SNAP_MODES.Frames))
 	else
-		if snapToKeys ~= nil and showAsSeconds ~= nil then
-			self.store:dispatch(SetShowAsSeconds(showAsSeconds))
-			self.store:dispatch(SetSnapToKeys(snapToKeys))
-		end
+		self.store:dispatch(SetSnapMode(Constants.SNAP_MODES.Keyframes))
+	end
+
+	if showAsSeconds ~= nil then
+		self.store:dispatch(SetShowAsSeconds(showAsSeconds))
 	end
 end
 
 function AnimationClipEditorPlugin:setPluginSettings()
 	local plugin = self.props.plugin
 	local status = self.store:getState().Status
-	plugin:SetSetting("SnapToKeys", status.SnapToKeys)
 	plugin:SetSetting("ShowAsSeconds", status.ShowAsSeconds)
-	if GetFFlagUseTicks() then
-		plugin:SetSetting("SnapMode", status.SnapMode)
-	end
+	plugin:SetSetting("SnapMode", status.SnapMode)
 end
 
 function AnimationClipEditorPlugin:didMount()

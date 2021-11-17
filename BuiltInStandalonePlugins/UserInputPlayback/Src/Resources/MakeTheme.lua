@@ -44,6 +44,10 @@ end
 ui:add("TabbedView")
 ui:add("PlaybackTabView")
 ui:add("FileSelectorUIGroup")
+ui:add("PlaybackInfoUIGroup")
+ui:add("FilterSettingsUIGroup")
+ui:add("LabeledToggleButton")
+ui:add("UIKeyValueTextLabel")
 
 local devFrameworkButton = getRawComponentStyle("Button")
 local devFrameworkButtonRoundPrimary = devFrameworkButton["&RoundPrimary"]
@@ -56,9 +60,26 @@ local roundBox = deepCopy(devFrameworkRoundBox)
 local function getPluginTheme()
 	return {
 		PrimaryButtonSize = UDim2.new(0, 160, 0, 32),
-		UIGroupWidthPx = 350,
+		UIGroupWidthPx = 340,
+		PaddingPx = 10,
 
 		[ui.Button] = Cryo.Dictionary.join(devFrameworkButton, {
+			["&RoundPrimaryRecordButton"] = Cryo.Dictionary.join(devFrameworkButtonRoundPrimary, {
+				[StyleModifier.Selected] = {
+					BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+						Color = Color3.fromRGB(255, 211, 16),
+					}),
+					TextColor = Color3.fromRGB(0, 0, 0),
+				},
+				[StyleModifier.Pressed] = {
+					BackgroundStyle = Cryo.Dictionary.join(roundBox, {
+						Color = Color3.fromRGB(255, 25, 25),
+					}),
+					TextColor = Color3.fromRGB(255, 255, 255),
+				},
+				
+			}),
+			
 			["&RoundPrimaryPlayButton"] = Cryo.Dictionary.join(devFrameworkButtonRoundPrimary, {
 				[StyleModifier.Selected] = {
 					BackgroundStyle = Cryo.Dictionary.join(roundBox, {
@@ -103,6 +124,34 @@ local function getPluginTheme()
 				TextWrapped = true,
 			}
 		}),
+
+		[ui.LabeledToggleButton] = {
+			ComponentSize = UDim2.new(0, 100, 0, 30),
+			ToggleSize = UDim2.fromOffset(40, 24),
+			LeftInsetPx = 12,
+			PaddingPx = 10,
+		},
+
+		[ui.UIKeyValueTextLabel] = {
+			PaddingPx = 10,
+			HeightPx = 25,
+			KeyWidthPx = 150,
+		},
+
+		[ui.FileSelectorUIGroup] = {
+			PaddingPx = 10,
+		},
+
+		[ui.FilterSettingsUIGroup] = {
+			GridAreaHeightPx = 100,
+			PaddingPx = 10,
+			GridLayoutCellSize = UDim2.fromOffset(150, 30),
+			GridCellPaddingYPx = 2,
+		},
+
+		[ui.PlaybackInfoUIGroup] = {
+			PaddingPx = 10,
+		},
 
 		PlaybackSelectInput = Cryo.Dictionary.join(devFrameworkSelectInput, {
 			Size = UDim2.new(0, 240, 0, 32),

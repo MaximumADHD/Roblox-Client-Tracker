@@ -19,7 +19,6 @@
 		table PreviewKeyframes = table containing information on keyframes that are currently being manipulated
 		table PreviewData = table containing data for preview keyframes by index
 		table NamedKeyframes = table mapping ticks to summary keyframe names.
-		bool ShowLegacyKeyframes = Whether to highlight keyframes off of the framerate with an error color.
 		int TrackHeight = pixel height of each track
 		int SummaryTrackHeight = pixel height of the summary track
 		int LayoutOrder = The layout order of the frame, if in a Layout.
@@ -53,7 +52,6 @@ function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClus
 	local selectedKeyframes = props.SelectedKeyframes
 	local namedKeyframes = props.NamedKeyframes
 	local summaryTrackHeight = props.SummaryTrackHeight
-	local showLegacyKeyframes = props.ShowLegacyKeyframes
 	local zIndex = props.ZIndex
 	local padding = props.Padding or 0
 
@@ -68,7 +66,6 @@ function DopeSheet:renderSummaryTrack(components, startIndex, endIndex, showClus
 		Tracks = tracks,
 		SelectedKeyframes = selectedKeyframes,
 		NamedKeyframes = namedKeyframes,
-		ShowLegacyKeyframes = showLegacyKeyframes,
 		LayoutOrder = 0,
 		Size = UDim2.new(1, 0, 0, summaryTrackHeight),
 		Width = width,
@@ -90,7 +87,6 @@ function DopeSheet:renderTrackHierarchy(components, track, showClusters, trackCo
 	local endTick = props.EndTick
 	local selectedKeyframes = props.SelectedKeyframes
 	local trackHeight = props.TrackHeight
-	local showLegacyKeyframes = props.ShowLegacyKeyframes
 	local zIndex = props.ZIndex
 	local padding = props.Padding or 0
 
@@ -110,7 +106,6 @@ function DopeSheet:renderTrackHierarchy(components, track, showClusters, trackCo
 		Track = track,
 		Path = path,
 		SelectedKeyframes = selectedKeyframes,
-		ShowLegacyKeyframes = showLegacyKeyframes,
 		LayoutOrder = trackCount,
 		Size = UDim2.new(1, 0, 0, trackHeight),
 		Width = width,
@@ -142,7 +137,6 @@ function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 	local tracks = props.Tracks
 	local selectedKeyframes = props.SelectedKeyframes
 	local trackHeight = props.TrackHeight
-	local showLegacyKeyframes = props.ShowLegacyKeyframes
 	local zIndex = props.ZIndex
 	local padding = props.Padding or 0
 	local isChannelAnimation = props.IsChannelAnimation
@@ -169,7 +163,6 @@ function DopeSheet:renderTracks(components, startIndex, endIndex, showClusters)
 					Track = track,
 					IsChannelAnimation = false,
 					SelectedKeyframes = selectedKeyframes,
-					ShowLegacyKeyframes = showLegacyKeyframes,
 					LayoutOrder = trackCount,
 					Size = UDim2.new(1, 0, 0, trackHeight),
 					Width = width,

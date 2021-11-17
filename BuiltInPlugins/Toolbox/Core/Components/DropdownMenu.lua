@@ -29,7 +29,6 @@
 		dropdown menu.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -290,17 +289,10 @@ function DropdownMenu:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		DropdownMenu = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(DropdownMenu)
-	else
-		ContextServices.mapToProps(DropdownMenu, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	DropdownMenu = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(DropdownMenu)
 end
 
 return DropdownMenu

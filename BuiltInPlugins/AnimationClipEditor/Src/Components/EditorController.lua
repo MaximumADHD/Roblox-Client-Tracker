@@ -60,8 +60,7 @@ local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
-local SetFrameRate = require(Plugin.Src.Thunks.SetFrameRate)
-local SetDisplayFrameRate = require(Plugin.Src.Actions.SetDisplayFrameRate)
+local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
 
 local Playback = require(Plugin.Src.Components.Playback)
@@ -71,7 +70,6 @@ local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPane
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
@@ -522,8 +520,7 @@ function EditorController:render()
 			EndTick = endTick,
 			LastTick = lastTick,
 			Playhead = playhead,
-			FrameRate = not GetFFlagUseTicks() and (animationData and animationData.Metadata and animationData.Metadata.FrameRate) or nil,
-			DisplayFrameRate = GetFFlagUseTicks() and props.DisplayFrameRate or nil,
+			FrameRate = props.FrameRate,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
 			Scroll = scroll,
@@ -624,9 +621,8 @@ function EditorController:render()
 		}),
 
 		ChangeFPSPrompt = showChangeFPSPrompt and Roact.createElement(ChangeFPSPrompt, {
-			FrameRate = not GetFFlagUseTicks() and (animationData and animationData.Metadata and animationData.Metadata.FrameRate) or nil,
-			DisplayFrameRate = GetFFlagUseTicks() and props.DisplayFrameRate or nil,
-			SetFrameRate = GetFFlagUseTicks() and props.SetDisplayFrameRate or props.SetFrameRate,
+			FrameRate = props.FrameRate,
+			SetFrameRate = props.SetFrameRate,
 			OnClose = self.hideChangeFPSPrompt,
 		}),
 
@@ -640,12 +636,11 @@ end
 
 function EditorController:didMount()
 	local props = self.props
-	local snapToKeys = props.SnapToKeys
-	local snapMode = GetFFlagUseTicks() and props.SnapMode or nil
+	local snapMode = props.SnapMode
 
 	local timelineUnit = props.ShowAsSeconds and "Seconds" or "Frames"
 	props.AttachEditor(props.Analytics)
-	props.Analytics:report("onEditorOpened", timelineUnit, snapToKeys, snapMode)
+	props.Analytics:report("onEditorOpened", timelineUnit, false, snapMode)
 	self.openedTimestamp = os.time()
 end
 
@@ -663,7 +658,6 @@ local function mapStateToProps(state, props)
 		EditingLength = state.Status.EditingLength,
 		Playhead = state.Status.Playhead,
 		ShowAsSeconds = state.Status.ShowAsSeconds,
-		SnapToKeys = state.Status.SnapToKeys,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
 		Scroll = status.Scroll,
@@ -679,7 +673,7 @@ local function mapStateToProps(state, props)
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
 		IsPlaying = status.IsPlaying,
-		DisplayFrameRate = status.DisplayFrameRate,
+		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,
 	}
@@ -778,13 +772,8 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetIsDirty(false))
 		end,
 
-		-- Remove when GetFFlagUseTicks is ON
 		SetFrameRate = function(frameRate)
 			dispatch(SetFrameRate(frameRate))
-		end,
-
-		SetDisplayFrameRate = function(frameRate)
-			dispatch(SetDisplayFrameRate(frameRate))
 		end,
 
 		SetIsPlaying = function(isPlaying)

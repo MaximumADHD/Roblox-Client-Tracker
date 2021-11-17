@@ -15,7 +15,7 @@ return function()
 	local localization = Localization.mock()
 	local dialogName = localization:getText("Dialog","DefaultTitle")
 
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame"))
 
 	local PointToolTabButton =
@@ -34,14 +34,19 @@ return function()
 		EditorFrame:cat(XPath.new("EditingModeFrame.EditingModeRadioButtonList.Outer.RadioImage.Contents.TextButton"))
 
 	local XInput =
-			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.XInputFrame.XInput.Contents.TextBox"))
+			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.XInput.Contents.TextBox"))
 
 	local YInput =
-			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.YInputFrame.YInput.Contents.TextBox"))
+			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.YInput.Contents.TextBox"))
 
 	local ZInput =
-			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.ZInputFrame.ZInput.Contents.TextBox"))
+			LatticeToolSettings:cat(XPath.new("Subdivisions.InputBoxes.ZInput.Contents.TextBox"))
 
+	local GenerateButton =
+		LatticeToolSettings:cat(XPath.new("GenerateButtonContainer.GenerateButton.Contents.TextButton"))
+
+	-- These will not be used currently but we might bring the dropdown back for caged lc items if we
+	-- can figure out a way to isolate points per part
 	local DropdownButton =
 		LatticeToolSettings:cat(XPath.new("DropdownMenu.Container.DropdownFrame.Contents.TextButton"))
 
@@ -51,40 +56,18 @@ return function()
 	local DropdownMenuItem =
 		XPath.new("game.CoreGui.PluginMockGui.TopLevelDetector.ScrollBlocker.Menu.Contents.ScrollingContainer.Contents.Scroller.1.Contents.TextButton")
 
-	local GenerateButton =
-		LatticeToolSettings:cat(XPath.new("GenerateButtonContainer.GenerateButton.Contents.TextButton"))
 
-	local function setDeformerAndSubdivisions(container, store, useAvatar)
-		local avatar
-		if useAvatar then
-			avatar = TestHelper.createAvatarWithFullCages()
-		end
-		TestHelper.addLCItemWithFullCageFromExplorer(avatar)
+	local function setDeformerAndSubdivisions(container, store)
+		TestHelper.goToEditScreenFromStart(true)
+
 		TestHelper.clickXPath(LatticeToolTabButton)
 		local state = store:getState()
 		expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.Lattice)
 
-		local dropdownLabelInstance
-		if useAvatar then
-			expect(TestHelper.waitForXPathInstance(DropdownButton)).to.be.ok()
-			TestHelper.clickXPath(DropdownButton)
-
-			expect(TestHelper.waitForXPathInstance(DropdownMenuItem)).to.be.ok()
-			TestHelper.clickXPath(DropdownMenuItem)
-
-			dropdownLabelInstance = TestHelper.waitForXPathInstance(DropdownLabel)
-			expect(dropdownLabelInstance).to.be.ok()
-		end
-
 		state = store:getState()
 		local selectedLattice = state.latticeTool.selectedLattice
 
-		if useAvatar then
-			local text = dropdownLabelInstance.Text
-			expect(selectedLattice).to.equal(text)
-		else
-			expect(selectedLattice).to.equal(TestHelper.DefaultClothesName)
-		end
+		expect(selectedLattice).to.equal(TestHelper.DefaultClothesName)
 
 		expect(TestHelper.waitForXPathInstance(XInput)).to.be.ok()
 		expect(TestHelper.waitForXPathInstance(YInput)).to.be.ok()
@@ -112,37 +95,6 @@ return function()
 		expect(subdivisions.Y).to.equal(6)
 		expect(subdivisions.Z).to.equal(4)
 	end
-
-	it("Tool Button should be inactive if avatar has no cages", function()
-		runRhodiumTest(function(container, store)
-			expect(TestHelper.waitForXPathInstance(LatticeToolTabButton)).to.be.ok()
-			TestHelper.clickXPath(LatticeToolTabButton)
-			local state = store:getState()
-			expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.None)
-		end)
-	end)
-
-	it("No selection should be available when first opening Lattice Tool Settings Panel", function()
-		runRhodiumTest(function(container, store)
-			TestHelper.addLCItemWithFullCageFromExplorer(TestHelper.createAvatarWithFullCages())
-			TestHelper.clickXPath(LatticeToolTabButton)
-			local state = store:getState()
-			expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.Lattice)
-
-			local dropdownLabelInstance = TestHelper.waitForXPathInstance(DropdownLabel)
-			expect(dropdownLabelInstance.Text).to.equal("")
-
-			expect(TestHelper.waitForXPathInstance(GenerateButton)).to.be.ok()
-			TestHelper.clickXPath(GenerateButton, 1)
-			expect(TestHelper.waitForXPathInstance(XPath.new("game.CoreGui." ..dialogName))).to.equal(nil)
-		end)
-	end)
-
-	it("Should be able to select deformer and set subdivisons", function()
-		runRhodiumTest(function(container, store)
-			setDeformerAndSubdivisions(container, store, true)
-		end)
-	end)
 
 	it("Subdivision changes should remain even if user switches deformer or cage", function()
 		runRhodiumTest(function(container, store)

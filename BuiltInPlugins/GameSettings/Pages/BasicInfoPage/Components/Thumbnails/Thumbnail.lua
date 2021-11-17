@@ -14,7 +14,6 @@
 		function DragMove = A callback for when the user drags a Thumbnail over this Thumbnail.
 		function ButtonPressed = A callback for when the user interacts with this Thumbnail.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -142,19 +141,13 @@ function Thumbnail:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Thumbnail = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(Thumbnail)
-else
-	ContextServices.mapToProps(Thumbnail, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+Thumbnail = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(Thumbnail)
+
 
 
 return Thumbnail

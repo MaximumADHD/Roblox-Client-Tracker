@@ -20,7 +20,6 @@
 		table SelectedKeyframes = table containing information on what keyframes are selected for each track/instance
 		table PreviewKeyframes = table containing keyframes that are currently being transformed for preview
 		table PreviewData = table containing data for preview keyframes by index
-		bool ShowLegacyKeyframes = Whether to highlight keyframes off of the framerate with an error color.
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
 
@@ -111,7 +110,6 @@ function DopeSheetTrack:renderKeyframes(keys)
 		local endTick = props.EndTick
 		local selectedKeyframes = props.SelectedKeyframes
 		local showCluster = props.ShowCluster
-		local showLegacyKeyframes = props.ShowLegacyKeyframes
 		local isChannelAnimation = props.IsChannelAnimation
 		local path = props.Path or {track.Name}
 
@@ -137,16 +135,12 @@ function DopeSheetTrack:renderKeyframes(keys)
 			end
 
 			for tick, info in pairs(componentsInfo) do
-				local override, data
+				local override
+				local data = trackData and trackData[tick]
 				local complete = not isChannelAnimation or info.Complete
 
-				if showLegacyKeyframes and tick ~= math.floor(tick) then
-					override = Constants.KEYFRAME_STYLE.Error
-				else
-					data = trackData and trackData[tick]
-					if componentsInfo[tick].Complete then
-						override = isChannelAnimation and componentsInfo[tick].InterpolationMode or componentsInfo[tick].EasingStyle
-					end
+				if componentsInfo[tick].Complete then
+					override = isChannelAnimation and componentsInfo[tick].InterpolationMode or componentsInfo[tick].EasingStyle
 				end
 
 				local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
@@ -162,7 +156,6 @@ function DopeSheetTrack:renderKeyframes(keys)
 		local endTick = props.EndTick
 		local selectedKeyframes = props.SelectedKeyframes
 		local showCluster = props.ShowCluster
-		local showLegacyKeyframes = props.ShowLegacyKeyframes
 
 		local keyframes = track.Keyframes
 		local trackData = track.Data
@@ -178,14 +171,8 @@ function DopeSheetTrack:renderKeyframes(keys)
 		elseif startIndex ~= nil and endIndex ~= nil then
 			for index = startIndex, endIndex do
 				local tick = keyframes[index]
-
-				local override, data
-				if showLegacyKeyframes and tick ~= math.floor(tick) then
-					override = Constants.KEYFRAME_STYLE.Error
-				else
-					data = trackData[tick]
-					override = data.EasingStyle
-				end
+				local data = trackData[tick]
+				local override = data.EasingStyle
 
 				local xPos = TrackUtils.getScaledKeyframePosition(tick, startTick, endTick, width)
 				local selected = selectedKeyframes[instance] and selectedKeyframes[instance][name]

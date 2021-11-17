@@ -11,7 +11,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local TabsTypes = require(script.types)
 local ContextServices = require(Framework.ContextServices)
@@ -57,17 +56,12 @@ function Tabs:render()
 	}, tabs)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Tabs = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Tabs)
-else
-	ContextServices.mapToProps(Tabs, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Tabs = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Tabs)
+
 
 
 return Tabs

@@ -36,7 +36,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
@@ -173,17 +172,10 @@ function LiveSearchDropdown:renderContent(modalTarget, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		LiveSearchDropdown = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(LiveSearchDropdown)
-	else
-		ContextServices.mapToProps(LiveSearchDropdown, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	LiveSearchDropdown = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(LiveSearchDropdown)
 end
 
 return LiveSearchDropdown

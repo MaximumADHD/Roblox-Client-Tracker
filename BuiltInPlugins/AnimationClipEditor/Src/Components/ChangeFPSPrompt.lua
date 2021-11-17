@@ -19,7 +19,6 @@ local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 
 local ChangeFPSPrompt = Roact.PureComponent:extend("ChangeFPSPrompt")
 
@@ -69,7 +68,7 @@ function ChangeFPSPrompt:render()
 	local props = self.props
 	local state = self.state
 
-	local frameRate = GetFFlagUseTicks() and props.DisplayFrameRate or props.FrameRate
+	local frameRate = props.FrameRate
 	local noticeText = state.noticeText
 
 	local hasNoticeText = noticeText ~= Roact.None

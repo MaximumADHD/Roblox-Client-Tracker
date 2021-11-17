@@ -8,6 +8,7 @@ local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNum
 local ResumedAction = require(Actions.Common.Resumed)
 local Step = require(Actions.Common.Step)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SetCurrentBreakpointId = require(Actions.Common.SetCurrentBreakpointId)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 
@@ -30,6 +31,8 @@ type CommonStore = {
 	currentDebuggerConnectionId : number,
 	debuggerConnectionIdToCurrentThreadId : {[DebuggerConnectionId] : number},
 	currentFrameMap : {[DebuggerConnectionId] : ThreadToFrameMap},
+	currentBreakpointId : number,
+	isPaused : boolean,
 }
 
 local productionStartStore = {
@@ -37,6 +40,8 @@ local productionStartStore = {
 	currentDebuggerConnectionId = -1,
 	debuggerConnectionIdToCurrentThreadId = {},
 	currentFrameMap = {},
+	currentBreakpointId = nil,
+	isPaused = false,
 }
 
 return Rodux.createReducer(productionStartStore, {
@@ -83,7 +88,8 @@ return Rodux.createReducer(productionStartStore, {
 		
 		return Cryo.Dictionary.join(state, {
 			debuggerConnectionIdToCurrentThreadId = newConnectionIdToThreadId,
-			currentFrameMap = newCurrentFrameMap
+			currentFrameMap = newCurrentFrameMap,
+			isPaused = false
 		})
 	end,
 
@@ -99,10 +105,12 @@ return Rodux.createReducer(productionStartStore, {
 	[BreakpointHit.name] = function(state : CommonStore, action : BreakpointHit.Props)
 		local newDebuggerConnectionMap = deepCopy(state.debuggerConnectionIdToDST)
 		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
-
-		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = newDebuggerConnectionMap,
-		})
+		
+		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap}, {isPaused = true})
+	end,
+	
+	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)
+		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId})
 	end,
 
 	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)

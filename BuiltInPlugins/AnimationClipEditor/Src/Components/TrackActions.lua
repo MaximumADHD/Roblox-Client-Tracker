@@ -93,27 +93,50 @@ function TrackActions:didMount()
 		if GetFFlagChannelAnimations() then
 			local path = props.Path
 
-			local newValue
+			local value
+			local leftSlope, rightSlope
+			local interpolationMode = Enum.KeyInterpolationMode.Cubic
+
 			if instanceName and path then
 				if isChannelAnimation then
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
 						local track = AnimationData.getTrack(animationData, instanceName, componentPath)
 						if track and track.Keyframes then
-							newValue = KeyframeUtils.getValue(track, playhead)
+							value = KeyframeUtils.getValue(track, playhead)
+							-- Use the same interpolation mode as the previous key, if any
+							local prevKeyframe = TrackUtils.findPreviousKeyframe(track, playhead)
+							if prevKeyframe then
+								interpolationMode = prevKeyframe.InterpolationMode
+								if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+									leftSlope, rightSlope = KeyframeUtils.getSlopes(track, playhead)
+								end
+							end
 						else
-							newValue = KeyframeUtils.getDefaultValue(componentType)
+							value = KeyframeUtils.getDefaultValue(componentType)
 						end
-						props.AddKeyframe(instanceName, componentPath, componentType, playhead, newValue, props.Analytics)
+
+						local keyframeData = {
+							Value = value,
+							InterpolationMode = interpolationMode,
+							LeftSlope = leftSlope,
+							RightSlope = rightSlope
+						}
+						props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
 					end)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
 					if track and track.Keyframes then
-						newValue = KeyframeUtils.getValue(track, playhead)
+						value = KeyframeUtils.getValue(track, playhead)
 					else
-						newValue = KeyframeUtils.getDefaultValue(trackType)
+						value = KeyframeUtils.getDefaultValue(trackType)
 					end
-					props.AddKeyframe(instanceName, path, trackType, playhead, newValue, props.Analytics)
+					local keyframeData = {
+						Value = value,
+						EasingStyle = Enum.PoseEasingStyle.Linear,
+						EasingDirection = Enum.PoseEasingDirection.In
+					}
+					props.AddKeyframe(instanceName, path, trackType, playhead, keyframeData, props.Analytics)
 				end
 			end
 		else
@@ -278,9 +301,9 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetRightClickContextInfo({}))
 		end,
 
-		AddKeyframe = function(instance, path, trackType, tick, value, analytics)
+		AddKeyframe = function(instance, path, trackType, tick, keyframeData, analytics)
 			dispatch(AddWaypoint())
-			dispatch(AddKeyframe(instance, path, trackType, tick, value, analytics))
+			dispatch(AddKeyframe(instance, path, trackType, tick, keyframeData, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

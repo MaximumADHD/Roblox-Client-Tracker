@@ -32,7 +32,6 @@ local insert = table.insert
 local PanelEntry = require(Main.Src.Components.PanelEntry)
 
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
-local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local StoryHost = Roact.PureComponent:extend("StoryHost")
 
@@ -227,19 +226,13 @@ function StoryHost:render()
 	})
 end
 
-if FFlagDeveloperStorybookWithContext then
-	StoryHost = withContext({
-		Focus = ContextServices.Focus or nil,
-		Plugin = ContextServices.Plugin or nil,
-		Stylizer = ContextServices.Stylizer or nil,
-	})(StoryHost)
-else
-	ContextServices.mapToProps(StoryHost, {
-		Focus = ContextServices.Focus or nil,
-		Plugin = ContextServices.Plugin or nil,
-		Stylizer = ContextServices.Stylizer or nil,
-	})
-end
+
+StoryHost = withContext({
+	Focus = ContextServices.Focus or nil,
+	Plugin = ContextServices.Plugin or nil,
+	Stylizer = ContextServices.Stylizer or nil,
+})(StoryHost)
+
 
 
 return StoryHost

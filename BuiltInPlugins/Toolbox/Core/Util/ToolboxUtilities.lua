@@ -1,5 +1,5 @@
-local FFlagToolboxPolicyForPluginCreatorWhitelist = game:GetFastFlag("ToolboxPolicyForPluginCreatorWhitelist")
 local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
+local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
 
 local isCli = require(script.Parent.isCli)
 
@@ -10,6 +10,7 @@ if isCli() then
         ShowRobloxCreatedAssets = false,
         DisableMarketplaceAndRecents = false,
         DisableRatings = false,
+        HideNonRelevanceSorts = false,
         MarketplaceDisabledCategories = "FreePlugins;PaidPlugins;Plugins;FreeVideo",
         MarketplaceShouldUsePluginCreatorWhitelist = true,
         Enabled = true,
@@ -40,22 +41,26 @@ function ToolboxUtilities.getMarketplaceDisabledCategories()
     return ToolboxPolicy["MarketplaceDisabledCategories"]
 end
 
-if FFlagToolboxPolicyForPluginCreatorWhitelist then
-    function ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
-        local policy = ToolboxPolicy["MarketplaceShouldUsePluginCreatorWhitelist"]
+function ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
+    local policy = ToolboxPolicy["MarketplaceShouldUsePluginCreatorWhitelist"]
 
-        -- Default to true (existing behaviour) if the policy is not defined
-        if policy == nil then
-            return true
-        end
-
-        return policy
+    -- Default to true (original behaviour) if the policy is not defined
+    if policy == nil then
+        return true
     end
+
+    return policy
 end
 
 if FFlagToolboxPolicyDisableRatings then
     function ToolboxUtilities.disableRatings()
         return ToolboxPolicy["DisableRatings"]
+    end
+end
+
+if FFlagToolboxPolicyHideNonRelevanceSorts then
+    function ToolboxUtilities.getShouldHideNonRelevanceSorts()
+        return ToolboxPolicy["HideNonRelevanceSorts"]
     end
 end
 

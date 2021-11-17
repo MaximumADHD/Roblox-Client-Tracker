@@ -16,6 +16,7 @@ local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
+local BreakpointModel = require(Models.Breakpoint)
 
 local Actions = Plugin.Src.Actions
 local AddThreadId = require(Actions.Callstack.AddThreadId)
@@ -34,7 +35,7 @@ return function()
 		local stepStateBundle = StepStateBundle.ctor(dst,1,1)
 		local testStackFrameOne = mockStackFrame.new(10, mockScriptRef.new(), "TestFrame1", "C")
 		local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
-		local testPausedState = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+		local testPausedState = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, BreakpointModel.mockBreakpoint({}, 1))
 		
 		-- set default connection data
 		local defaultFrameVariables = mockDebuggerVariable.GetDefaultFrameVariables()

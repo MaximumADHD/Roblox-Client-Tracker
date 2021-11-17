@@ -33,6 +33,7 @@ local PluginButton = StudioUI.PluginButton
 local Components = main.Src.Components
 local ImportPrompt = require(Components.ImportPrompt)
 local MeshImportDialog = require(Components.MeshImportDialog)
+local ProgressWidget = require(Components.ProgressWidget)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -40,6 +41,7 @@ function MainPlugin:init(props)
 	self.state = {
 		hasImportSettings = false,
 		promptRequested = false,
+		uploadInProgress = false,
 	}
 
 	self.promptClosed = function(succeeded)
@@ -67,11 +69,15 @@ function MainPlugin:init(props)
 		self:setState({
 			hasImportSettings = false,
 			promptRequested = false,
+			uploadInProgress = false,
 		})
 	end
 
 	self.onImport = function(assetSettings)
 		self.onClose()
+		self:setState({
+			uploadInProgress = true,
+		})
 		AssetImportService:Upload()
 	end
 end
@@ -101,6 +107,7 @@ function MainPlugin:render()
 
 	local hasImportSettings = state.hasImportSettings
 	local shouldShowPrompt = not state.hasImportSettings and state.promptRequested
+	local shouldShowProgress = state.uploadInProgress
 
 	return ContextServices.provide({
 		props.Plugin,
@@ -127,6 +134,11 @@ function MainPlugin:render()
 
 		Prompt = shouldShowPrompt and Roact.createElement(ImportPrompt, {
 			OnPromptClosed = self.promptClosed,
+		}),
+
+		ProgressWidget = shouldShowProgress and Roact.createElement(ProgressWidget, {
+			OnClose = self.onClose,
+			Title = localization:getText("Upload", "WindowTitle"),
 		}),
 	})
 end

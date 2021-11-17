@@ -5,7 +5,7 @@
 		UDim2 Size: The size of the component
 		table RootItems: The root items displayed in the tree view.
 		table Expansion: Which items should be expanded - Set<Item>
-		
+
 		Optional Props:
 		Theme Theme: The theme supplied from withContext()
 		Style Style: a style table supplied from props and theme:getStyle()
@@ -53,8 +53,6 @@ local TreeViewRow = require(UI.TreeViewRow)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local TreeView = Roact.PureComponent:extend("TreeView")
 local ScrollingFrame = require(Framework.UI.ScrollingFrame)
@@ -179,7 +177,7 @@ function TreeView:render()
 		Padding = style.Padding,
 		Size = props.Size,
 		LayoutOrder = props.LayoutOrder,
-		Style = FFlagDevFrameworkFixTreeViewTheme and style or "BorderBox",
+		Style = style,
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
 			Size = UDim2.fromScale(1, 1),
@@ -192,17 +190,12 @@ function TreeView:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TreeView = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(TreeView)
-else
-	ContextServices.mapToProps(TreeView, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+TreeView = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(TreeView)
+
 
 
 return TreeView

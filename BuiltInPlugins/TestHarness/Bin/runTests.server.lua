@@ -1,12 +1,11 @@
 local Plugin = script.Parent.Parent
 
-local commonInit = require(script.Parent.commonInit)
-commonInit()
-
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
-local Framework = require(Plugin.Packages.Framework)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
+	local commonInit = require(script.Parent.commonInit)
+	commonInit()
+	local Framework = require(Plugin.Packages.Framework)
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap

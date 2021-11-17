@@ -10,7 +10,6 @@
 
 	Style Values:
 ]]
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -96,15 +95,11 @@ function ThemeView:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	ThemeView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ThemeView)
-else
-	ContextServices.mapToProps(ThemeView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ThemeView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ThemeView)
+
 
 
 return ThemeView

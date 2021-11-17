@@ -8,7 +8,6 @@
 		bool Flipped = Whether this button is flipped (arrow facing left)
 		function OnClick = A callback invoked when the button is clicked.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BUTTON_IMAGE = "rbxasset://textures/GameSettings/RoundArrowButton.png"
 local BUTTON_SIZE = UDim2.new(0, 48, 0, 48)
@@ -70,15 +69,11 @@ function RoundArrowButton:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	RoundArrowButton = withContext({
-		Mouse = ContextServices.Mouse,
-	})(RoundArrowButton)
-else
-	ContextServices.mapToProps(RoundArrowButton, {
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+RoundArrowButton = withContext({
+	Mouse = ContextServices.Mouse,
+})(RoundArrowButton)
+
 
 
 return RoundArrowButton

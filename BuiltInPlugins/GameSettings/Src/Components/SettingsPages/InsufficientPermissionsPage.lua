@@ -3,7 +3,6 @@
 
 	No public props
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -40,17 +39,12 @@ function InsufficientPermissionsPage:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	InsufficientPermissionsPage = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(InsufficientPermissionsPage)
-else
-	ContextServices.mapToProps(InsufficientPermissionsPage, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+InsufficientPermissionsPage = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(InsufficientPermissionsPage)
+
 
 
 return InsufficientPermissionsPage

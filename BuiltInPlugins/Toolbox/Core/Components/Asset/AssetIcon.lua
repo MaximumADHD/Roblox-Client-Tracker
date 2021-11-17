@@ -14,7 +14,6 @@
 		callback onMouseLeave()
 		callback onPreviewAudioButtonClicked() // remove with FFlagToolboxAssetGridRefactor
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -185,15 +184,11 @@ function AssetIcon:render()
 	end)
 end
 
-if FFlagToolboxWithContext then
-	AssetIcon = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetIcon)
-else
-	ContextServices.mapToProps(AssetIcon, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+AssetIcon = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetIcon)
+
 
 
 local function mapStateToProps(state, props)

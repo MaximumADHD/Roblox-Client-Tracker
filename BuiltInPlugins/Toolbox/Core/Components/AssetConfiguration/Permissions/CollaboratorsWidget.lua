@@ -10,7 +10,6 @@
 		Enabled - bool, Whether the component is enabled or not
 		LayoutOrder - int, Where this component will be placed in hierarchy
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -217,14 +216,10 @@ function CollaboratorsWidget:renderContent(theme, localization, localized)
 	})
 end
 
-if FFlagToolboxWithContext then
-	CollaboratorsWidget = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CollaboratorsWidget)
-else
-	ContextServices.mapToProps(CollaboratorsWidget, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+CollaboratorsWidget = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CollaboratorsWidget)
+
 
 return CollaboratorsWidget

@@ -8,7 +8,6 @@
 	Optional Props:
 		number Priority: The ZIndex of this component relative to other focused elements.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local FOCUSED_ZINDEX = 1000000
 
@@ -40,15 +39,11 @@ function ShowOnTop:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	ShowOnTop = withContext({
-		Focus = ContextServices.Focus,
-	})(ShowOnTop)
-else
-	ContextServices.mapToProps(ShowOnTop, {
-		Focus = ContextServices.Focus,
-	})
-end
+
+ShowOnTop = withContext({
+	Focus = ContextServices.Focus,
+})(ShowOnTop)
+
 
 
 return ShowOnTop

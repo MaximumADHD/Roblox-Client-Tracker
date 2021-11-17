@@ -154,14 +154,15 @@ function PropertyView:render()
 			})
 		}),
 		Editor = Roact.createElement(GetPropertyComponent(value), {
-			Value = value,
-			LayoutOrder = 3,
-			OnToggleItem = self.onToggleItem,
-			OnSetItem = self.onSetItem,
-			OnSelectItem = self.onSelectItem,
-			Size = UDim2.new(0.5, 0, 0, 24),
 			DependentValues = dependentValues,
-			Name = props.PropertyName
+			Editable = editable,
+			LayoutOrder = 3,
+			Name = props.PropertyName,
+			OnSelectItem = self.onSelectItem,
+			OnSetItem = self.onSetItem,
+			OnToggleItem = self.onToggleItem,
+			Size = UDim2.new(0.5, 0, 0, 24),
+			Value = value,
 		}),
 	})
 end

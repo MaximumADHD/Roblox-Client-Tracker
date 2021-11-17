@@ -15,10 +15,10 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -57,7 +57,8 @@ local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
-local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.GetPackageHighestPermission)
+local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.DEPRECATED_GetPackageHighestPermission) --delete with UseNewAssetPermissionEndpoint3
+local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
@@ -446,7 +447,11 @@ function AssetGridContainer:render()
 				end
 
 				if #assetIdList ~= 0 then
-					self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
+					if FFlagUseNewAssetPermissionEndpoint3 then
+						self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
+					else
+						self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
+					end
 				end
 			end
 
@@ -538,21 +543,14 @@ function AssetGridContainer:render()
 	end)
 end
 
-if FFlagToolboxWithContext then
-	AssetGridContainer = withContext({
-		API = ContextServices.API,
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		AssetAnalytics = AssetAnalyticsContextItem,
-	})(AssetGridContainer)
-else
-	ContextServices.mapToProps(AssetGridContainer, {
-		API = ContextServices.API,
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		AssetAnalytics = AssetAnalyticsContextItem,
-	})
-end
+
+AssetGridContainer = withContext({
+	API = ContextServices.API,
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	AssetAnalytics = AssetAnalyticsContextItem,
+})(AssetGridContainer)
+
 
 
 local function mapStateToProps(state, props)
@@ -597,8 +595,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetAssetPreview(isPreviewing))
 		end,
 
-		dispatchGetPackageHighestPermission = function(networkInterface, assetIds)
+		dispatchGetPackageHighestPermission = (not FFlagUseNewAssetPermissionEndpoint3) and function(networkInterface, assetIds)
 			dispatch(GetPackageHighestPermission(networkInterface, assetIds))
+		end,
+
+		dispatchPostAssetCheckPermissions = FFlagUseNewAssetPermissionEndpoint3 and function(networkInterface, assetIds)
+			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
 	}
 end

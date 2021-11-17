@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -62,17 +61,12 @@ function AssetsPanel:render()
 	)
 end
 
-if FFlagGameSettingsWithContext then
-	AssetsPanel = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(AssetsPanel)
-else
-	ContextServices.mapToProps(AssetsPanel, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+AssetsPanel = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(AssetsPanel)
+
 
 
 local createInputRow = function(self, label, assetTypeId, layoutOrderIterator)

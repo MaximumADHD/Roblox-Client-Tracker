@@ -1,4 +1,3 @@
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -11,8 +10,6 @@ local PluginAPI2 = require(Plugin.Src.ContextServices.PluginAPI2)
 local Navigation = require(Plugin.Src.ContextServices.Navigation)
 
 local FitFrameVertical = FitFrame.FitFrameVertical
-
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local CONTENT_PADDING = 18
 local BACK_ICON_SIZE = 32
@@ -36,12 +33,7 @@ function DetailsTopBar:render()
 	local layoutOrder = self.props.LayoutOrder
 	local name = self.props.name
 
-	local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-	else
-		theme = self.props.Theme:get("Plugin")
-	end
+	local theme = self.props.Stylizer
 	local api = self.props.API:get()
 
 	local thumbnailUrl = api.Images.AssetThumbnailUrl(assetId)
@@ -100,21 +92,13 @@ function DetailsTopBar:render()
 	})
 end
 
-if FFlagPluginManagementWithContext then
-	DetailsTopBar = withContext({
-		Navigation = Navigation,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})(DetailsTopBar)
-else
-	ContextServices.mapToProps(DetailsTopBar, {
-		Navigation = Navigation,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})
-end
+
+DetailsTopBar = withContext({
+	Navigation = Navigation,
+	Stylizer = ContextServices.Stylizer,
+	API = PluginAPI2,
+})(DetailsTopBar)
+
 
 
 return DetailsTopBar

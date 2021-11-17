@@ -10,7 +10,6 @@
 		number LayoutOrder: The sort order of this component.
 		string Description: Description text for this component.
 ]]
-local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
@@ -99,15 +98,11 @@ function PropsList:render()
 	}, children)
 end
 
-if FFlagDeveloperStorybookWithContext then
-	PropsList = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PropsList)
-else
-	ContextServices.mapToProps(PropsList, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PropsList = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PropsList)
+
 
 
 return PropsList

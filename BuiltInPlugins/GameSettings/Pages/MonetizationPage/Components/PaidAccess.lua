@@ -44,7 +44,6 @@ local shouldDisablePrivateServersAndPaidAccess = require(Plugin.Src.Util.GameSet
 
 local PaidAccess = Roact.PureComponent:extend("PaidAccess")
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 function PaidAccess:render()
     -- Remove this block once economy team enables the double wallets workflow (see STUDIOCORE-24488 & STUDIOCORE-24576)
@@ -151,19 +150,13 @@ function PaidAccess:render()
     })
 end
 
-if FFlagGameSettingsWithContext then
-	PaidAccess = withContext({
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})(PaidAccess)
-else
-	ContextServices.mapToProps(PaidAccess, {
-	    Localization = ContextServices.Localization,
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})
-end
+
+PaidAccess = withContext({
+    Localization = ContextServices.Localization,
+    Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
+})(PaidAccess)
+
 
 
 return PaidAccess

@@ -13,7 +13,6 @@
 		function OnClose = A callback for when the dialog is closed.
 ]]
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
@@ -133,15 +132,11 @@ function PurchaseDialog:renderContent(theme, localizedContent)
 		})
 end
 
-	if FFlagToolboxWithContext then
-		PurchaseDialog = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(PurchaseDialog)
-	else
-		ContextServices.mapToProps(PurchaseDialog, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
+	
+PurchaseDialog = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PurchaseDialog)
+
 
 
 return PurchaseDialog

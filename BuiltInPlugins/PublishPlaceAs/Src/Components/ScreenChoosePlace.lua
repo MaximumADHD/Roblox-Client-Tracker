@@ -2,7 +2,6 @@
 	Allow the user to go back to picking a universe
 	Allow the user to select a place to overwrite
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 
 local StudioService = game:GetService("StudioService")
@@ -312,17 +311,12 @@ function ScreenChoosePlace:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ScreenChoosePlace = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(ScreenChoosePlace)
-else
-	ContextServices.mapToProps(ScreenChoosePlace, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ScreenChoosePlace = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(ScreenChoosePlace)
+
 
 local function mapStateToProps(state, props)
 	local placeInfo = state.ExistingGame.placeInfo

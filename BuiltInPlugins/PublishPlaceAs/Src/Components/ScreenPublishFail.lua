@@ -35,7 +35,6 @@ local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
@@ -169,19 +168,13 @@ function ScreenPublishFail:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	ScreenPublishFail = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
-	})(ScreenPublishFail)
-else
-	ContextServices.mapToProps(ScreenPublishFail, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
-	})
-end
+
+ScreenPublishFail = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
+})(ScreenPublishFail)
+
 
 local function mapStateToProps(state, props)
 	local publishInfo = state.PublishedPlace.publishInfo

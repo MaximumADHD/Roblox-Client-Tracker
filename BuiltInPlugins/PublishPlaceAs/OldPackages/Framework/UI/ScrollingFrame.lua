@@ -35,7 +35,6 @@
 		integer ZIndex: The draw index of the frame.
 ]]
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 
@@ -237,17 +236,12 @@ function ScrollingFrame:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	ScrollingFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(ScrollingFrame)
-else
-	ContextServices.mapToProps(ScrollingFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+ScrollingFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(ScrollingFrame)
+
 
 
 return ScrollingFrame

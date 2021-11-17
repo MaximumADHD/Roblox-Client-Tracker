@@ -13,7 +13,6 @@
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -171,17 +170,12 @@ function VersionItem:renderContent(theme)
 	})
 end
 
-if FFlagToolboxWithContext then
-	VersionItem = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(VersionItem)
-else
-	ContextServices.mapToProps(VersionItem, {
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+VersionItem = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(VersionItem)
+
 
 
 return VersionItem

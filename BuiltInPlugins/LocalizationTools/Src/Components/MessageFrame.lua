@@ -1,7 +1,6 @@
 --[[
 	The message fram at the bottom of plugin window
 ]]
-local FFlagLocalizationToolsWithContext = game:GetFastFlag("LocalizationToolsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -46,17 +45,12 @@ function MessageFrame:render()
 	})
 end
 
-if FFlagLocalizationToolsWithContext then
-	MessageFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MessageFrame)
-else
-	ContextServices.mapToProps(MessageFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+MessageFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(MessageFrame)
+
 
 
 local function mapStateToProps(state, _)

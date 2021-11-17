@@ -14,27 +14,16 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 return function(pivot, newTick, dragContext)
 	return function(store)
 		local state = store:getState()
 		local animationData = dragContext and dragContext.animationData or store:getState().AnimationData
 		local selectedEvents = dragContext and dragContext.selectedEvents or store:getState().Status.SelectedEvents
-		local displayFrameRate = state.Status.DisplayFrameRate
-		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
+		local frameRate = state.Status.FrameRate
+		local snapMode = state.Status.SnapMode
 
 		if not (animationData and animationData.Events) then
 			return
-		end
-
-		local maxLength
-		if GetFFlagUseTicks() then
-			maxLength = Constants.MAX_ANIMATION_LENGTH
-		else
-			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
-				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-				or AnimationData.getMaximumLength(30)
 		end
 
 		-- Avoid a deepCopy of the entire animationData
@@ -55,10 +44,10 @@ return function(pivot, newTick, dragContext)
 			-- Moving backwards, iterate through selection left to right to avoid overwriting
 			for _, tick in ipairs(selectedTicks) do
 				local insertTick = tick + delta
-				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+				if snapMode ~= Constants.SNAP_MODES.None then
+					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
+				insertTick = math.clamp(insertTick, tick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tick))
 				AnimationData.moveEvents(events, tick, insertTick)
 
 				newSelectedEvents[tick] = nil
@@ -69,10 +58,10 @@ return function(pivot, newTick, dragContext)
 			for index = #selectedTicks, 1, -1 do
 				local tick = selectedTicks[index]
 				local insertTick = tick + delta
-				if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-					insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+				if snapMode ~= Constants.SNAP_MODES.None then
+					insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 				end
-				insertTick = math.clamp(insertTick, tick - earliestTick, maxLength - (latestTick - tick))
+				insertTick = math.clamp(insertTick, tick - earliestTick, Constants.MAX_ANIMATION_LENGTH - (latestTick - tick))
 				AnimationData.moveEvents(events, tick, insertTick)
 
 				newSelectedEvents[tick] = nil

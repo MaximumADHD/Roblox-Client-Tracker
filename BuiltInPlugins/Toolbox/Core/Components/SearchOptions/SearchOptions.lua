@@ -47,8 +47,9 @@ local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOp
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
+local getShouldHideNonRelevanceSorts = (FFlagToolboxPolicyHideNonRelevanceSorts and require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts) or nil
 
 local Separator = Framework.UI.Separator
 
@@ -262,6 +263,11 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 	self:resetLayout()
 
+	local showSortOptions = true
+	if FFlagToolboxPolicyHideNonRelevanceSorts then
+		showSortOptions = not getShouldHideNonRelevanceSorts()
+	end
+
 	local searchOptions = {
 		Main = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -306,7 +312,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 				Separator2 = showAudioSearch and self:createSeparator(optionsTheme.separator),
 
-				SortBy = Roact.createElement(SearchOptionsEntry, {
+				SortBy = showSortOptions and Roact.createElement(SearchOptionsEntry, {
 					LayoutOrder = self:nextLayout(),
 					Header = localizedContent.SearchOptions.Sort,
 				}, {
@@ -322,7 +328,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 					}),
 				}),
 
-				Separator3 = self:createSeparator(optionsTheme.separator),
+				Separator3 = showSortOptions and self:createSeparator(optionsTheme.separator),
 
 				Footer = Roact.createElement(SearchOptionsFooter, {
 					LayoutOrder = self:nextLayout(),
@@ -351,17 +357,12 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	})
 end
 
-if FFlagToolboxWithContext then
-	SearchOptions = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(SearchOptions)
-else
-	ContextServices.mapToProps(SearchOptions, {
-		Localization = ContextServices.Localization,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+SearchOptions = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(SearchOptions)
+
 
 
 local function mapStateToProps(state, props)

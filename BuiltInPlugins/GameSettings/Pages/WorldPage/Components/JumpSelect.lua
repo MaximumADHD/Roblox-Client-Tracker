@@ -11,7 +11,6 @@
 	Optional Props:
 		LayoutOrder (number)
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -155,19 +154,13 @@ function JumpSelect:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	JumpSelect = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		WorldRootPhysics = WorldRootPhysics,
-	})(JumpSelect)
-else
-	ContextServices.mapToProps(JumpSelect, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		WorldRootPhysics = WorldRootPhysics,
-	})
-end
+
+JumpSelect = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+	WorldRootPhysics = WorldRootPhysics,
+})(JumpSelect)
+
 
 
 return JumpSelect

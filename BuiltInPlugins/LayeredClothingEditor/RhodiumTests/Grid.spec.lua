@@ -15,9 +15,15 @@ return function()
 
 	local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
 
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
+	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
 	local GridPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.Grid"))
-	local GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Contents.Scroller"))
+	local GridScrollerPath
+	if game:GetFastFlag("DevFrameworkScrollingFrameUsePane") then
+		GridScrollerPath = GridPath:cat(XPath.new("ScrollingFrame.Scroller"))
+	else
+		GridScrollerPath =GridPath:cat(XPath.new("ScrollingFrame.Contents.Scroller"))
+	end
 
 	local function isSelected(instance)
 		return 0 == instance.Decoration.BackgroundTransparency
@@ -34,18 +40,21 @@ return function()
 
 	it("grid should exist", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(GridPath)).to.be.ok()
 		end)
 	end)
 
 	it("grid scroller should exist", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(GridScrollerPath)).to.be.ok()
 		end)
 	end)
 
 	it("no tiles should be initially selected", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
 			-- start at 2 as the LayoutOrder is reused for the child table index, and LayoutOrder 1 is the add from explorer tile
 			local tileIndex = 2
 			local gridScrollerChildPath = GridScrollerPath:cat(XPath.new(tostring(tileIndex)))
@@ -64,7 +73,10 @@ return function()
 				return
 			end
 
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			expect(isSelected(TestHelper.getEquippableGridTileInstance(1))).to.equal(false)
 			TestHelper.clickEquippableGridTile(1)
@@ -78,7 +90,10 @@ return function()
 				return
 			end
 
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- check the starting state is what we expect
 			local state = store:getState()
@@ -109,7 +124,10 @@ return function()
 				return
 			end
 
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- change to a multi-select tab
 			store:dispatch(SelectPreviewTab(PreviewConstants.TABS_KEYS.Clothing))
@@ -139,7 +157,10 @@ return function()
 
 	it("there should be a tile for adding from explorer when required", function()
 		runRhodiumTest(function(_, store)
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- change to a tab with an 'add new' tile
 			store:dispatch(SelectPreviewTab(PreviewConstants.TABS_KEYS.Avatars))
@@ -160,7 +181,10 @@ return function()
 
 	it("clicking the tile to add from explorer should activate the controls panel blocker", function()
 		runRhodiumTest(function(_, store)
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- change to a tab with an 'add new' tile
 			store:dispatch(SelectPreviewTab(PreviewConstants.TABS_KEYS.Avatars))
@@ -183,7 +207,11 @@ return function()
 				return
 			end
 
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
+
 			-- check the starting state is what we expect
 			local state = store:getState()
 			local selectedTab = state.previewStatus.selectedTab

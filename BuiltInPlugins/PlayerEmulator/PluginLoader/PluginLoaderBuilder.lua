@@ -14,7 +14,7 @@ export type ButtonInfo = {
 export type DockWidgetInfo = {
 	dockWidgetPluginGuiInfo : DockWidgetPluginGuiInfo,
 	getDockTitle : GetLocalizatedTextFunction,
-	name : string,
+	name : string?,
 	zIndexBehavior : Enum.ZIndexBehavior
 }
 
@@ -25,9 +25,10 @@ export type Args = {
 	fallbackResourceTable : LocalizationTable,
 	overrideLocaleId : string?,
 	localizationNamespace : string?,
-	getToolbarName : GetLocalizatedTextFunction,
-	buttonInfo : ButtonInfo,
-	dockWidgetInfo : DockWidgetInfo,
+	noToolbar : boolean?,
+	getToolbarName : GetLocalizatedTextFunction?,
+	buttonInfo : ButtonInfo?,
+	dockWidgetInfo : DockWidgetInfo?,
 	extraTriggers : { [string] : () -> (RBXScriptSignal | { Connect : (any) -> any }) }?,
 	shouldImmediatelyOpen : (() -> (boolean))?,
 }
@@ -35,10 +36,10 @@ export type Args = {
 export type PluginLoaderContext = {
 	pluginLoader : PluginLoader.PluginLoader,
 	plugin : Plugin,
-	toolbar : PluginToolbar,
-	mainButton : PluginToolbarButton,
+	toolbar : PluginToolbar?,
+	mainButton : PluginToolbarButton?,
 	mainDockWidget : PluginGui?,
-	mainButtonClickedSignal : PluginLoader.FlushOnConnectSignal,
+	mainButtonClickedSignal : PluginLoader.FlushOnConnectSignal?,
 	signals : {
 		[string] : PluginLoader.FlushOnConnectSignal
 	}
@@ -49,7 +50,9 @@ local PluginLoaderBuilder = {}
 local function createDockWidgetPluginGui(plugin : Plugin, title : string, dockWidgetInfo : DockWidgetInfo) : DockWidgetPluginGui
 	local newDockWidget = plugin:CreateDockWidgetPluginGui(title, dockWidgetInfo.dockWidgetPluginGuiInfo)
 	newDockWidget.Title = title
-	newDockWidget.Name = dockWidgetInfo.name
+	if dockWidgetInfo.name ~= nil then
+		newDockWidget.Name = dockWidgetInfo.name
+	end
 	newDockWidget.ZIndexBehavior = dockWidgetInfo.zIndexBehavior or Enum.ZIndexBehavior.Sibling
 	return newDockWidget
 end
@@ -71,25 +74,30 @@ function PluginLoaderBuilder.build(args : Args)
 		return pluginLoader:getLocalizedText(...)
 	end
 
-	local toolbarString = args.getToolbarName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
-	local toolbar =	args.plugin:CreateToolbar(toolbarString)
+	local toolbar
+	local mainButton
+	local mainButtonClickedSignal
+	if args.noToolbar ~= true then
+		local toolbarString = args.getToolbarName and args.getToolbarName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
+		toolbar = args.plugin:CreateToolbar(toolbarString)
 
-	local buttonInfo = args.buttonInfo
-	local mainButton = toolbar:CreateButton(
-		buttonInfo.getName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
-		buttonInfo.getDescription(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
-		buttonInfo.icon,
-		buttonInfo.text
-	)
-	if buttonInfo.clickableWhenViewportHidden then
-		mainButton.ClickableWhenViewportHidden = buttonInfo.clickableWhenViewportHidden
-	end
-	if buttonInfo.enabled ~= nil then
-		mainButton.Enabled = buttonInfo.enabled
-	end
-	mainButton:SetActive(false)
+		local buttonInfo = args.buttonInfo
+		mainButton = toolbar:CreateButton(
+			buttonInfo.getName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
+			buttonInfo.getDescription(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
+			buttonInfo.icon,
+			buttonInfo.text
+		)
+		if buttonInfo.clickableWhenViewportHidden then
+			mainButton.ClickableWhenViewportHidden = buttonInfo.clickableWhenViewportHidden
+		end
+		if buttonInfo.enabled ~= nil then
+			mainButton.Enabled = buttonInfo.enabled
+		end
+		mainButton:SetActive(false)
 
-	local mainButtonClickedSignal = pluginLoader:registerButton(mainButton)
+		mainButtonClickedSignal = pluginLoader:registerButton(mainButton)
+	end
 
 	local mainDockWidget = nil
 	if args.dockWidgetInfo then
@@ -123,7 +131,9 @@ function PluginLoaderBuilder.build(args : Args)
 		pluginLoader:Destroy()
 		pluginLoader = nil
 		pluginLoaderContext.pluginLoader = nil
-		pluginLoaderContext.mainButtonClickedSignal:Destroy()
+		if pluginLoaderContext.mainButtonClickedSignal then
+			pluginLoaderContext.mainButtonClickedSignal:Destroy()
+		end
 		for _, signal in pairs(pluginLoaderContext.signals) do
 			signal:Destroy()
 		end

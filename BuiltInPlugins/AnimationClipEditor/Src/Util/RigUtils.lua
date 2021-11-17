@@ -24,7 +24,6 @@ local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", 
 local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local RigUtils = {}
@@ -1272,7 +1271,13 @@ function RigUtils.readCurve(track, curve, trackType)
 
 			local leftSlope = key.LeftTangent and (key.LeftTangent / Constants.TICK_FREQUENCY) or nil
 			local rightSlope = key.RightTangent and (key.RightTangent / Constants.TICK_FREQUENCY) or nil
-			AnimationData.addCurveKeyframe(track, tick, key.Value, key.Interpolation, leftSlope, rightSlope)
+			local keyframeData = {
+				Value = key.Value,
+				InterpolationMode = key.Interpolation,
+				LeftSlope = leftSlope,
+				RightSlope = rightSlope
+			}
+			AnimationData.addKeyframe(track, tick, keyframeData)
 		end
 	else
 		track.Components = {}
@@ -1378,7 +1383,6 @@ function RigUtils.toRigAnimation(animationData, rig)
 	local metadata = animationData.Metadata
 	local events = animationData.Events
 	local namedKeyframes = events.NamedKeyframes
-	local frameRate = not GetFFlagUseTicks() and metadata.FrameRate or nil
 
 	local keyframeSequence = Instance.new("KeyframeSequence")
 	keyframeSequence.Name = metadata.Name
@@ -1400,7 +1404,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 
 	for trackName, track in pairs(tracks) do
 		for _, tick in pairs(track.Keyframes) do
-			local time = tick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or frameRate)
+			local time = tick / Constants.TICK_FREQUENCY
 			local keyframeInstance = kfsByTick[tick]
 			if not keyframeInstance then
 				keyframeInstance = createKeyframeInstance(keyframeSequence, time)
@@ -1428,7 +1432,7 @@ function RigUtils.toRigAnimation(animationData, rig)
 	for _, tick in ipairs(events.Keyframes) do
 		local data = events.Data[tick]
 		for name, value in pairs(data) do
-			local time = tick / (GetFFlagUseTicks() and Constants.TICK_FREQUENCY or frameRate)
+			local time = tick / Constants.TICK_FREQUENCY
 			local keyframeInstance = kfsByTick[tick]
 				if not keyframeInstance then
 					keyframeInstance = createKeyframeInstance(keyframeSequence, time)
@@ -1505,8 +1509,7 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	local keyframes = keyframeSequence:GetKeyframes()
 	local length = 0
 	local lastKeyframe
-	local animationData = GetFFlagUseTicks() and AnimationData.new(keyframeSequence.Name, Constants.INSTANCE_TYPES.Rig)
-		or AnimationData.new_deprecated(keyframeSequence.Name, frameRate, Constants.INSTANCE_TYPES.Rig)
+	local animationData = AnimationData.new(keyframeSequence.Name, Constants.INSTANCE_TYPES.Rig)
 	local numPoses = 0
 	local numEvents = 0
 
@@ -1531,16 +1534,27 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 					end
 				end
 				local track = tracks[poseName]
-				if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+				if GetFFlagChannelAnimations() then
+					local keyframeData = {
+						Value = pose:IsA("Pose") and pose.CFrame or pose.Value,
+						EasingStyle = pose.EasingStyle,
+						EasingDirection = pose.EasingDirection
+					}
+					AnimationData.addKeyframe(track, tick, keyframeData)
+				elseif GetFFlagFacialAnimationSupport() then
 					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
-					AnimationData.addKeyframe(track, tick, value)
+					AnimationData.addKeyframe_deprecated(track, tick, value)
+					AnimationData.setKeyframeData(track, tick, {
+						EasingStyle = pose.EasingStyle,
+						EasingDirection = pose.EasingDirection,
+					})
 				else
-					AnimationData.addKeyframe(track, tick, pose.CFrame)
+					AnimationData.addKeyframe_deprecated(track, tick, pose.CFrame)
+					AnimationData.setKeyframeData(track, tick, {
+						EasingStyle = pose.EasingStyle,
+						EasingDirection = pose.EasingDirection,
+					})
 				end
-				AnimationData.setKeyframeData(track, tick, {
-					EasingStyle = pose.EasingStyle,
-					EasingDirection = pose.EasingDirection,
-				})
 
 				numPoses = numPoses + 1
 			end
@@ -1571,7 +1585,14 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 		for _, track in pairs(tracks) do
 			local lastFrame = track.Keyframes[#track.Keyframes]
 			local lastValue = track.Data[lastFrame].Value
-			AnimationData.addKeyframe(track, endTick, lastValue)
+			if GetFFlagChannelAnimations() then
+				AnimationData.addKeyframe(track, endTick, {
+					Value = lastValue,
+					EasingStyle = Enum.PoseEasingStyle.Linear,
+					EasingDirection = Enum.PoseEasingDirection.In })
+			else
+				AnimationData.addKeyframe_deprecated(track, endTick, lastValue)
+			end
 		end
 	end
 
@@ -1582,99 +1603,6 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 
 	local numKeyframes = #keyframeSequence:GetKeyframes()
 	return animationData, frameRate, numKeyframes, numPoses, numEvents
-end
-
--- Deprecated when GetFFlagUseTicks() is retired
-function RigUtils.fromRigAnimation_deprecated(keyframeSequence, frameRate, snapTolerance)
-	assert(keyframeSequence ~= nil
-		and typeof(keyframeSequence) == "Instance"
-		and keyframeSequence.ClassName == "KeyframeSequence",
-		"Expected a KeyframeSequence for the AnimationData."
-	)
-
-	assert(frameRate ~= nil, "Expected a frameRate for the AnimationData.")
-
-	local keyframes = keyframeSequence:GetKeyframes()
-	local length = 0
-	local lastKeyframe
-	local animationData = AnimationData.new_deprecated(keyframeSequence.Name, frameRate, Constants.INSTANCE_TYPES.Rig)
-	local numPoses = 0
-	local numEvents = 0
-
-	local tracks = animationData.Instances.Root.Tracks
-	for _, keyframe in pairs(keyframes) do
-		local time = keyframe.Time
-		local tick = KeyframeUtils.snapToFrame(time * frameRate, snapTolerance or DEFAULT_TOLERANCE)
-
-		-- Add keyframes at this frame
-		traversePoses(keyframe, function(pose)
-			local poseName = pose.Name
-			-- TODO: At some point we will need to differentiate NumberPoses into
-			-- FACS channels and generic float channels. On name? Parent?
-			local trackType = pose:IsA("Pose") and Constants.TRACK_TYPES.CFrame or Constants.TRACK_TYPES.Facs
-
-			if poseName ~= "HumanoidRootPart" and pose.Weight ~= 0 then
-				if tracks[poseName] == nil then
-					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
-						AnimationData.addTrack(tracks, poseName, trackType)
-					else
-						AnimationData.addTrack(tracks, poseName)
-					end
-				end
-				local track = tracks[poseName]
-				if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
-					local value = pose:IsA("Pose") and pose.CFrame or pose.Value
-					AnimationData.addKeyframe(track, tick, value)
-				else
-					AnimationData.addKeyframe(track, tick, pose.CFrame)
-				end
-				AnimationData.setKeyframeData(track, tick, {
-					EasingStyle = pose.EasingStyle,
-					EasingDirection = pose.EasingDirection,
-				})
-
-				numPoses = numPoses + 1
-			end
-		end)
-
-		-- Add events at this frame
-		traverseKeyframeMarkers(keyframe, function(marker)
-			AnimationData.addEvent(animationData.Events, tick,
-				marker.Name, marker.Value)
-
-			numEvents = numEvents + 1
-		end)
-
-		-- Adjust animation length to fit the last keyframe
-		if time > length then
-			lastKeyframe = keyframe
-			length = math.max(length, keyframe.Time)
-		end
-
-		if keyframe.Name ~= Constants.DEFAULT_KEYFRAME_NAME then
-			AnimationData.setKeyframeName(animationData, tick, keyframe.Name)
-		end
-	end
-
-	-- If the last keyframe was empty and only there to determine length,
-	-- we need to add an explicit keyframe at the end of the animation to
-	-- preserve the correct length.
-	local endTick = KeyframeUtils.getNearestFrame_deprecated(length * frameRate)
-	if lastKeyframe and #lastKeyframe:GetChildren() == 0 then
-		for _, track in pairs(tracks) do
-			local lastFrame = track.Keyframes[#track.Keyframes]
-			local lastValue = track.Data[lastFrame].Value
-			AnimationData.addKeyframe(track, endTick, lastValue)
-		end
-	end
-
-	animationData.Metadata.EndTick = endTick
-	animationData.Metadata.Priority = keyframeSequence.Priority
-	animationData.Metadata.Looping = keyframeSequence.Loop
-	animationData.Metadata.Name = keyframeSequence.Name
-
-	local numKeyframes = #keyframeSequence:GetKeyframes()
-	return animationData, numKeyframes, numPoses, numEvents
 end
 
 function RigUtils.stepRigAnimation(rig, instance, tick)

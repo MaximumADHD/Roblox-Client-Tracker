@@ -8,6 +8,9 @@ local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermiss
 
 local KeyConverter = {}
 
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
+local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+
 function KeyConverter.getInternalSubjectType(webKey)
     if webKey == webKeys.UserSubject then
         return PermissionsConstants.UserSubjectKey
@@ -22,7 +25,9 @@ function KeyConverter.getInternalSubjectType(webKey)
 end
 
 function KeyConverter.getInternalAction(webKey)
-    if webKey == webKeys.OwnAction then
+    if webKey == webKeys.OwnAction and not FFlagUseNewAssetPermissionEndpoint3 then
+        return PermissionsConstants.OwnKey
+    elseif webKey == webKeys.GrantAssetPermissionsAction and FFlagUseNewAssetPermissionEndpoint3 then
         return PermissionsConstants.OwnKey
     elseif webKey == webKeys.UseAction and FFlagUseNewAssetPermissionEndpoint2 then
         return PermissionsConstants.UseViewKey
@@ -83,6 +88,27 @@ function KeyConverter.getAssetPermissionSubjectType(internalSubjectType)
 		return webKeys.GroupRolesetSubject
     else
         return internalSubjectType
+    end
+end
+
+--For PostCheckActions reponse parsing,
+--status can be 1 of 4 values : "HasPermission","NoPermission","AssetNotFound","UnknownError"
+if FFlagUseNewAssetPermissionEndpoint3 then
+    function KeyConverter.resolveActionPermission(webKey, status, assetId)
+        if status == webKeys.HasPermission then
+            return KeyConverter.getInternalAction(webKey)
+        elseif status == webKeys.NoPermission then
+            return PermissionsConstants.NoAccessKey
+        elseif status == webKeys.AssetNotFound then
+            error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
+        else
+            -- "status == Unknown Error"
+            if FFlagToolboxAssetGridRefactor then
+                error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
+            else
+                return PermissionsConstants.NoAccessKey
+            end
+        end
     end
 end
 

@@ -12,7 +12,6 @@
 		LayoutOrder number, layout order of the button
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -111,17 +110,10 @@ function NavButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		NavButton = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(NavButton)
-	else
-		ContextServices.mapToProps(NavButton, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	NavButton = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(NavButton)
 end
 
 return NavButton

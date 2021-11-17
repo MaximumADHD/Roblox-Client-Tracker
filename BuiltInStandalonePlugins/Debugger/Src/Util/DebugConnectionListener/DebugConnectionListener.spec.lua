@@ -14,6 +14,9 @@ local mockPausedState = require(Mocks.PausedState)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 
+local Models = Plugin.Src.Models
+local Breakpoint = require(Models.Breakpoint)
+
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
 		-- setup fake data
@@ -56,10 +59,14 @@ return function()
 
 		setupFakeThread(currentMockConnection, 1)
 
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true, Breakpoint.mockBreakpoint({}, 2))
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
+		local state = mainStore:getState()
+		expect(state.Common.currentBreakpointId).to.equal(2)
+		expect(state.Common.isPaused).to.equal(true)
+		
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
 	end)
@@ -73,38 +80,43 @@ return function()
 		setupFakeThread(currentMockConnection, 1)
 		setupFakeThread(currentMockConnection, 2)
 
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, Breakpoint.mockBreakpoint({}, 1))
+		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, Breakpoint.mockBreakpoint({}, 1))
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		
 		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		local state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 		
 		currentMockConnection.Resumed:Fire(testPausedState1)
 		state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(false)
 		expect(state.Common.currentFrameMap[1][1]).to.equal(nil)
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 		
 		currentMockConnection.Resumed:Fire(testPausedState2)
 		state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(false)
 		expect(state.Common.currentFrameMap[1][1]).to.equal(nil)
 		expect(state.Common.currentFrameMap[1][2]).to.equal(nil)
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(nil)
 
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.equal(nil)
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
 		
 		currentMockConnection.Resumed:Fire(testPausedState2)
 		state = mainStore:getState()
+		expect(state.Common.isPaused).to.equal(false)
 		expect(state.Common.currentFrameMap[1][1]).to.equal(nil)
 		expect(state.Common.currentFrameMap[1][2]).to.equal(nil)
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(nil)
@@ -124,8 +136,8 @@ return function()
 		setupFakeThread(mockConnection1, 1)
 		setupFakeThread(mockConnection2, 2)
 		
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, Breakpoint.mockBreakpoint({}, 1))
+		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, Breakpoint.mockBreakpoint({}, 1))
 		
 		-- start and pause the 2 DebuggerConnections
 		mainConnectionManager.ConnectionStarted:Fire(mockConnection1)

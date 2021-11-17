@@ -11,7 +11,7 @@ return function()
 
 	local SelectRbfPoint = require(Plugin.Src.Thunks.SelectRbfPoint)
 
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame"))
 
 	local PointToolTabButton =
@@ -27,30 +27,21 @@ return function()
 			PointToolSettings:cat(XPath.new("FalloffSetting.SliderContainer.ValueTextBoxFrame.ValueTextBox.Contents.TextBox"))
 
 	local function selectPoint(store)
-		TestHelper.addLCItemWithFullCageFromExplorer()
 		TestHelper.clickXPath(PointToolTabButton)
 		local state = store:getState()
 		expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.Point)
 
 		store:dispatch(SelectRbfPoint({
 			{
-				Deformer = "RightHand",
+				Deformer = TestHelper.DefaultClothesName,
 				Index = 1,
 			}
 		}))
 	end
 
-	it("Tool Button should be inactive if avatar has no cages", function()
+	it("Changing falloff value should change selected points and their weight", function()
 		runRhodiumTest(function(container, store)
-			expect(TestHelper.waitForXPathInstance(PointToolTabButton)).to.be.ok()
-			TestHelper.clickXPath(PointToolTabButton)
-			local state = store:getState()
-			expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.None)
-		end)
-	end)
-
-	itSKIP("Changing falloff value should change selected points and their weight", function()
-		runRhodiumTest(function(container, store)
+			TestHelper.goToEditScreenFromStart(true)
 			selectPoint(store)
 
 			expect(TestHelper.waitForXPathInstance(FalloffInput)).to.be.ok()
@@ -58,13 +49,12 @@ return function()
 			-- default is 0.5
 			local state = store:getState()
 			expect(#state.pointTool.clickedPoints).to.equal(1)
-			expect(state.pointTool.selectedPoints["RightHand"][1]).to.equal(1)
+			expect(state.pointTool.selectedPoints[TestHelper.DefaultClothesName][1]).to.equal(1)
 			local multiplePoints = false
 			for deformer, pointsPerDeformer in pairs(state.pointTool.selectedPoints) do
 				for pointIndex, weight in pairs(pointsPerDeformer) do
-					if deformer ~= "RightHand" and pointIndex ~= 1 then
+					if pointIndex ~= 1 then
 						multiplePoints = true
-						expect(weight >= 0 and weight < 1).to.equal(true)
 					end
 				end
 			end
@@ -73,24 +63,26 @@ return function()
 			TestHelper.sendInputToXPath(FalloffInput, 0)
 			state = store:getState()
 			expect(#state.pointTool.clickedPoints).to.equal(1)
-			expect(state.pointTool.selectedPoints["RightHand"][1]).to.equal(1)
+			expect(state.pointTool.selectedPoints[TestHelper.DefaultClothesName][1]).to.equal(1)
 
-			TestHelper.sendInputToXPath(FalloffInput, 20)
+			TestHelper.sendInputToXPath(FalloffInput, 100)
 			state = store:getState()
 			expect(#state.pointTool.clickedPoints).to.equal(1)
-			expect(state.pointTool.selectedPoints["RightHand"][1]).to.equal(1)
+			expect(state.pointTool.selectedPoints[TestHelper.DefaultClothesName][1]).to.equal(1)
 			local count = 0
 			for _, pointsPerDeformer in pairs(state.pointTool.selectedPoints) do
 				for _, weight in pairs(pointsPerDeformer) do
 					count = count + 1
 				end
 			end
-			expect(count).to.equal(565)
+			expect(count).to.equal(824)
 		end)
 	end)
 
-	itSKIP("Changing tool should deselect points", function()
+	it("Changing tool should deselect points", function()
 		runRhodiumTest(function(container, store)
+			TestHelper.goToEditScreenFromStart(true)
+
 			selectPoint(store)
 			TestHelper.clickXPath(LatticeToolTabButton)
 

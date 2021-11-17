@@ -98,7 +98,7 @@ return function()
 		it("should add a keyframe at the given frame", function()
 			local store = createTestStore()
 			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
+				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
 			else
@@ -119,7 +119,7 @@ return function()
 		it("should add a new track if it does not exist", function()
 			local store = createTestStore()
 			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"NewTrack"}, Constants.TRACK_TYPES.CFrame, 1, CFrame.new()))
+				store:dispatch(AddKeyframe("Root", {"NewTrack"}, Constants.TRACK_TYPES.CFrame, 1, { Value = CFrame.new() }))
 			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(AddKeyframe("Root", "NewTrack", Constants.TRACK_TYPES.CFrame, 1, CFrame.new()))
 			else
@@ -134,7 +134,7 @@ return function()
 		it("should preserve the other keyframes", function()
 			local store = createTestStore()
 			if GetFFlagChannelAnimations() then
-				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
+				store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 			elseif GetFFlagFacialAnimationSupport() then
 				store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
 			else
@@ -159,7 +159,7 @@ return function()
 		it("should preserve the other tracks", function()
 			tracksPreservedTest(function(store)
 				if GetFFlagChannelAnimations() then
-					store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
+					store:dispatch(AddKeyframe("Root", {"TestTrack"}, Constants.TRACK_TYPES.CFrame, 4, { Value = CFrame.new() }))
 				elseif GetFFlagFacialAnimationSupport() then
 					store:dispatch(AddKeyframe("Root", "TestTrack", Constants.TRACK_TYPES.CFrame, 4, CFrame.new()))
 				else

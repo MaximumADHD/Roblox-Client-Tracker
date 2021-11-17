@@ -1,4 +1,3 @@
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -33,15 +32,11 @@ function EventEmulator:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	EventEmulator = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(EventEmulator)
-else
-	ContextServices.mapToProps(EventEmulator, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+EventEmulator = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(EventEmulator)
+
 
 
 return RoactRodux.connect(

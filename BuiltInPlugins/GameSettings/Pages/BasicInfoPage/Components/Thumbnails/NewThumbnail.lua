@@ -5,7 +5,6 @@
 		int LayoutOrder = The order in which this widget will appear in the set.
 		function OnClick = A callback for when this button is clicked.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local BORDER = "rbxasset://textures/GameSettings/DottedBorder.png"
 local PLUS = "rbxasset://textures/GameSettings/CenterPlus.png"
@@ -66,17 +65,12 @@ function NewThumbnail:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	NewThumbnail = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(NewThumbnail)
-else
-	ContextServices.mapToProps(NewThumbnail, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+NewThumbnail = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(NewThumbnail)
+
 
 
 return NewThumbnail

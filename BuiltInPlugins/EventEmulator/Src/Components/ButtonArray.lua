@@ -1,4 +1,3 @@
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -58,15 +57,11 @@ function ButtonArray:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	ButtonArray = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ButtonArray)
-else
-	ContextServices.mapToProps(ButtonArray, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ButtonArray = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ButtonArray)
+
 
 
 return ButtonArray

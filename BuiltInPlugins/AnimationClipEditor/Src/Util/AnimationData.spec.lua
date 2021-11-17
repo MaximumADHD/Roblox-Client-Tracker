@@ -3,7 +3,6 @@ return function()
 	local Constants = require(Plugin.Src.Util.Constants)
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 	local AnimationData = require(script.Parent.AnimationData)
@@ -73,20 +72,6 @@ return function()
 				AnimationData.new()
 			end).to.throw()
 		end)
-
-		if not GetFFlagUseTicks() then
-			it("should expect a frameRate parameter", function()
-				expect(function()
-					AnimationData.new_deprecated("Test")
-				end).to.throw()
-			end)
-
-			it("should expect frameRate to be positive", function()
-				expect(function()
-					AnimationData.new_deprecated("Test", -1)
-				end).to.throw()
-			end)
-		end
 	end)
 
 	describe("toCFrameArray", function()
@@ -129,16 +114,14 @@ return function()
 
 		it("should create a double length array for double frame rate", function()
 			local metadata = testAnimationData.Metadata
-			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
-				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 2)
+			local poses = AnimationData.toCFrameArray(bones, testAnimationData, Constants.TICK_FREQUENCY * 2)
 			local length = metadata.EndTick - metadata.StartTick
 			expect(#poses[1]).to.equal(length * 2)
 		end)
 
 		it("should create a half length array for half frame rate", function()
 			local metadata = testAnimationData.Metadata
-			local poses = AnimationData.toCFrameArray(bones, testAnimationData,
-				(GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate) * 0.5)
+			local poses = AnimationData.toCFrameArray(bones, testAnimationData, Constants.TICK_FREQUENCY * 0.5)
 			local length = metadata.EndTick - metadata.StartTick
 			expect(#poses[1]).to.equal(math.floor(length * 0.5))
 		end)
@@ -174,9 +157,7 @@ return function()
 		it("should create a valid animation table", function()
 			local metadata = testAnimationData.Metadata
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData)
-
-			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
+			local newAnimData = AnimationData.fromCFrameArray(bones, poses, metadata.Name, Constants.TICK_FREQUENCY)
 
 			expect(newAnimData).to.be.ok()
 			expect(newAnimData.Metadata).to.be.ok()
@@ -211,9 +192,7 @@ return function()
 		it("should set the correct values", function()
 			local metadata = testAnimationData.Metadata
 			local poses = AnimationData.toCFrameArray(bones, testAnimationData)
-
-			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
+			local newAnimData = AnimationData.fromCFrameArray(bones, poses, metadata.Name, Constants.TICK_FREQUENCY)
 
 			local tracks = newAnimData.Instances.Root.Tracks
 
@@ -234,9 +213,7 @@ return function()
 			local metadata = testAnimationData.Metadata
 			local moreBones = {"TestTrack", "OtherTrack", "NoTrack"}
 			local poses = AnimationData.toCFrameArray(moreBones, testAnimationData)
-
-			local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-				metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
+			local newAnimData = AnimationData.fromCFrameArray(bones, poses, metadata.Name, Constants.TICK_FREQUENCY)
 
 			local tracks = newAnimData.Instances.Root.Tracks
 			expect(tracks["TestTrack"]).to.be.ok()
@@ -258,9 +235,7 @@ return function()
 	it("should round-trip from the same CFrame[][] without loss", function()
 		local metadata = testAnimationData.Metadata
 		local poses = AnimationData.toCFrameArray(bones, testAnimationData)
-
-		local newAnimData = AnimationData.fromCFrameArray(bones, poses,
-			metadata.Name, GetFFlagUseTicks() and Constants.TICK_FREQUENCY or metadata.FrameRate)
+		local newAnimData = AnimationData.fromCFrameArray(bones, poses, metadata.Name, Constants.TICK_FREQUENCY)
 
 		local newPoses = AnimationData.toCFrameArray(bones, newAnimData)
 
@@ -299,7 +274,7 @@ return function()
 				Keyframes = {},
 				Data = {},
 			}
-			AnimationData.addKeyframe(track, 1, CFrame.new())
+			AnimationData.addKeyframe(track, 1, { Value = CFrame.new() })
 			expect(#track.Keyframes).to.equal(1)
 			expect(track.Data[1]).to.be.ok()
 			expect(track.Data[1].Value).to.equal(CFrame.new())
@@ -313,7 +288,7 @@ return function()
 					[1] = {},
 				},
 			}
-			AnimationData.addKeyframe(track, 2, CFrame.new())
+			AnimationData.addKeyframe(track, 2, { Value = CFrame.new() })
 			expect(#track.Keyframes).to.equal(2)
 			expect(track.Data[1]).to.be.ok()
 		end)
@@ -327,7 +302,49 @@ return function()
 					[3] = {},
 				},
 			}
-			AnimationData.addKeyframe(track, 2, CFrame.new())
+			AnimationData.addKeyframe(track, 2, { Value = CFrame.new() })
+			expect(track.Keyframes[1]).to.equal(1)
+			expect(track.Keyframes[2]).to.equal(2)
+			expect(track.Keyframes[3]).to.equal(3)
+		end)
+	end)
+
+	describe("addKeyframe_deprecated", function()
+		it("should add a new keyframe", function()
+			local track = {
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+				Keyframes = {},
+				Data = {},
+			}
+			AnimationData.addKeyframe_deprecated(track, 1, CFrame.new())
+			expect(#track.Keyframes).to.equal(1)
+			expect(track.Data[1]).to.be.ok()
+			expect(track.Data[1].Value).to.equal(CFrame.new())
+		end)
+
+		it("should preserve the old keyframes", function()
+			local track = {
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+				Keyframes = {1},
+				Data = {
+					[1] = {},
+				},
+			}
+			AnimationData.addKeyframe_deprecated(track, 2, CFrame.new())
+			expect(#track.Keyframes).to.equal(2)
+			expect(track.Data[1]).to.be.ok()
+		end)
+
+		it("should sort the Keyframes table after adding", function()
+			local track = {
+				Type = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and Constants.TRACK_TYPES.CFrame or nil,
+				Keyframes = {1, 3},
+				Data = {
+					[1] = {},
+					[3] = {},
+				},
+			}
+			AnimationData.addKeyframe_deprecated(track, 2, CFrame.new())
 			expect(track.Keyframes[1]).to.equal(1)
 			expect(track.Keyframes[2]).to.equal(2)
 			expect(track.Keyframes[3]).to.equal(3)

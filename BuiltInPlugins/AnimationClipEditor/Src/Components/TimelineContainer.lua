@@ -26,8 +26,6 @@ local KeyboardListener = Framework.UI.KeyboardListener
 local Input = require(Plugin.Src.Util.Input)
 local Timeline = require(Plugin.Src.Components.Timeline.Timeline)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 local TimelineContainer = Roact.PureComponent:extend("TimelineContainer")
 
 local function getExponent(value)
@@ -77,15 +75,7 @@ function TimelineContainer:init()
 			tick = math.clamp(tick,
 				self.props.StartTick,
 				self.props.EndTick)
-			if GetFFlagUseTicks() then
-				self.moveToTick(tick)
-			else
-				if self.props.SnapToKeys then
-					self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
-				else
-					self.props.StepAnimation(tick)
-				end
-			end
+			self.moveToTick(tick)
 		end
 	end
 
@@ -100,15 +90,7 @@ function TimelineContainer:init()
 		tick = math.clamp(tick,
 			self.props.StartTick,
 			self.props.EndTick)
-		if GetFFlagUseTicks() then
-			self.moveToTick(tick)
-		else
-			if self.props.SnapToKeys then
-				self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
-			else
-				self.props.StepAnimation(tick)
-			end
-		end
+		self.moveToTick(tick)
 	end
 
 	self.moveScrubberBackward= function()
@@ -116,15 +98,7 @@ function TimelineContainer:init()
 		tick = math.clamp(tick,
 			self.props.StartTick,
 			self.props.EndTick)
-		if GetFFlagUseTicks() then
-			self.moveToTick(tick)
-		else
-			if self.props.SnapToKeys then
-				self.props.SnapToNearestKeyframe(tick, self.props.ParentSize.X - self.props.TrackPadding)
-			else
-				self.props.StepAnimation(tick)
-			end
-		end
+		self.moveToTick(tick)
 	end
 end
 
@@ -134,18 +108,15 @@ function TimelineContainer:render()
 	local startTick = props.StartTick
 	local endTick = props.EndTick
 	local lastTick = props.LastTick
-	local displayFrameRate = props.DisplayFrameRate
+	local frameRate = props.FrameRate
 	local showAsSeconds = props.ShowAsSeconds
 	local layoutOrder = props.LayoutOrder
 	local parentSize = props.ParentSize
 	local animationData = props.AnimationData
 
-	if GetFFlagUseTicks() then
-		startTick = startTick * displayFrameRate / Constants.TICK_FREQUENCY
-		endTick = endTick * displayFrameRate / Constants.TICK_FREQUENCY
-		-- lastTick is optional
-		lastTick = lastTick and (lastTick * displayFrameRate / Constants.TICK_FREQUENCY) or nil
-	end
+	startTick = startTick * frameRate / Constants.TICK_FREQUENCY
+	endTick = endTick * frameRate / Constants.TICK_FREQUENCY
+	lastTick = lastTick and (lastTick * frameRate / Constants.TICK_FREQUENCY) or nil
 
 	local majorInterval, minorInterval = calculateIntervals(
 		parentSize.X - self.props.TrackPadding,
@@ -171,12 +142,11 @@ function TimelineContainer:render()
 			Width = parentSize.X - self.props.TrackPadding,
 			TickHeightScale = 0.7,
 			SmallTickHeightScale = 0.3,
-			SampleRate = displayFrameRate,
 			ShowAsTime = showAsSeconds,
 			OnInputBegan = self.onTimelineClicked,
 			OnDragMoved = self.onScrubberMoved,
 			AnimationData = animationData,
-			DisplayFrameRate = displayFrameRate,
+			FrameRate = frameRate,
 		}),
 		KeyboardListener = Roact.createElement(KeyboardListener, {
 			OnKeyPressed = function(input)

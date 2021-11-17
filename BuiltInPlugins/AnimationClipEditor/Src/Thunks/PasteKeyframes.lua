@@ -54,8 +54,7 @@ return function(tick, analytics)
 
 					for keyframe, data in pairs(track.Data) do
 						local insertFrame = tick + (keyframe - lowestFrame)
-						AnimationData.addKeyframe(dataTrack, insertFrame, data.Value)
-						AnimationData.setKeyframeData(dataTrack, insertFrame, data)
+						AnimationData.addKeyframe(dataTrack, insertFrame, data)
 					end
 				end
 			else
@@ -80,7 +79,7 @@ return function(tick, analytics)
 					for keyframe, data in pairs(GetFFlagFacialAnimationSupport() and track.Data or track) do
 						local insertFrame = tick + (keyframe - lowestFrame)
 						-- AddKeyframe will only add a keyframe if it needs to
-						AnimationData.addKeyframe(dataTrack, insertFrame, data.Value)
+						AnimationData.addKeyframe_deprecated(dataTrack, insertFrame, data.Value)
 						AnimationData.setKeyframeData(dataTrack, insertFrame, data)
 
 						analytics:report("onAddKeyframe", trackName, insertFrame)

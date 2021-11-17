@@ -1,7 +1,6 @@
 --[[
 	Handles user input
 ]]
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -67,15 +66,11 @@ function InputPane:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	InputPane = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(InputPane)
-else
-	ContextServices.mapToProps(InputPane, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+InputPane = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(InputPane)
+
 
 
 return RoactRodux.connect(

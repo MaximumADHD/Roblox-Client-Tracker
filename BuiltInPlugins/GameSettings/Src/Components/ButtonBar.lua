@@ -23,7 +23,6 @@ local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local RoundTextButton = UILibrary.Component.RoundTextButton
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local ButtonBar = Roact.PureComponent:extend("ButtonBar")
 
@@ -76,15 +75,11 @@ function ButtonBar:render()
 	}, components)
 end
 
-if FFlagGameSettingsWithContext then
-	ButtonBar = withContext({
-		Theme = ContextServices.Theme
-	})(ButtonBar)
-else
-	ContextServices.mapToProps(ButtonBar,{
-		Theme = ContextServices.Theme
-	})
-end
+
+ButtonBar = withContext({
+	Theme = ContextServices.Theme
+})(ButtonBar)
+
 
 
 return ButtonBar

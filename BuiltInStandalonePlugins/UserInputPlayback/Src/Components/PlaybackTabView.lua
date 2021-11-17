@@ -11,6 +11,8 @@ local UI = Framework.UI
 local Pane = UI.Pane
 
 local FileSelectorUIGroup = require(Plugin.Src.Components.FileSelectorUIGroup)
+local PlaybackInfoUIGroup = require(Plugin.Src.Components.PlaybackInfoUIGroup)
+local FilterSettingsUIGroup = require(Plugin.Src.Components.FilterSettingsUIGroup)
 
 local PlaybackTabView = Roact.PureComponent:extend("PlaybackTabView")
 
@@ -33,7 +35,16 @@ function PlaybackTabView:render()
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
 	}, {
-		FileSelector = Roact.createElement(FileSelectorUIGroup),
+		FileSelector = Roact.createElement(FileSelectorUIGroup, {
+			LayoutOrder = 1,
+		}),
+		PlaybackInfoGroup = Roact.createElement(PlaybackInfoUIGroup, {
+			LayoutOrder = 2,
+		}),
+		FilterSettings = Roact.createElement(FilterSettingsUIGroup, {
+			LayoutOrder = 3,
+			RoduxStoreContext = "playbackTabFilter",
+		}),
 	})
 end
 

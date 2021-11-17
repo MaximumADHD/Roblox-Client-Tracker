@@ -1,4 +1,3 @@
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -124,16 +123,11 @@ function TilePlace:render()
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	TilePlace = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(TilePlace)
-else
-	ContextServices.mapToProps(TilePlace, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+TilePlace = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(TilePlace)
+
 
 return TilePlace

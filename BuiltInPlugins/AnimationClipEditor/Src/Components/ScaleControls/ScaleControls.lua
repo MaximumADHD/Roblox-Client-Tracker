@@ -40,7 +40,6 @@ local StringUtils = require(Plugin.Src.Util.StringUtils)
 local ScaleHandle = require(Plugin.Src.Components.ScaleControls.ScaleHandle)
 local TimeTag = require(Plugin.Src.Components.ScaleControls.TimeTag)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local ScaleControls = Roact.PureComponent:extend("PureComponent")
@@ -221,7 +220,7 @@ function ScaleControls:render()
 	local showAsSeconds = props.ShowAsSeconds
 	local frameRate = props.FrameRate
 	local dragging = props.Dragging
-	local displayFrameRate = props.DisplayFrameRate
+	local frameRate = props.FrameRate
 
 	local zIndex = props.ZIndex
 
@@ -272,8 +271,7 @@ function ScaleControls:render()
 			Position = UDim2.new(0, 0, 0, timeTagYOffset),
 			Size = TIME_TAG_SIZE,
 			AnchorPoint = Vector2.new(1, 1),
-			Time = GetFFlagUseTicks() and StringUtils.formatTime(earliestKeyframe, displayFrameRate, showAsSeconds)
-				or (showAsSeconds and StringUtils.formatTime(earliestKeyframe, frameRate) or earliestKeyframe),
+			Time = StringUtils.formatTime(earliestKeyframe, frameRate, showAsSeconds),
 			ZIndex = zIndex,
 		}),
 
@@ -281,8 +279,7 @@ function ScaleControls:render()
 			Position = UDim2.new(1, 0, 0, timeTagYOffset),
 			Size = TIME_TAG_SIZE,
 			AnchorPoint = Vector2.new(0, 1),
-			Time = GetFFlagUseTicks() and StringUtils.formatTime(latestKeyframe, displayFrameRate, showAsSeconds)
-				or (showAsSeconds and StringUtils.formatTime(latestKeyframe, frameRate) or latestKeyframe),
+			Time = StringUtils.formatTime(latestKeyframe, frameRate, showAsSeconds),
 			ZIndex = zIndex,
 		}),
 	})

@@ -10,9 +10,11 @@ local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
 
 return function(checked)
 	return function(store)
-		local count = GetCheckedCount(checked)
+		store:dispatch(SetTreeChecked(checked))
+
+		local state = store:getState()
+		local count = GetCheckedCount(state.assetSettings)
 
 		store:dispatch(SetCheckedCount(count))
-		store:dispatch(SetTreeChecked(checked))
 	end
 end

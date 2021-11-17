@@ -12,7 +12,6 @@
 		function onClick = A callback for when the user clicks this Tab.
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -151,17 +150,10 @@ function Tab:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	if FFlagToolboxWithContext then
-		Tab = withContext({
-			Stylizer = ContextServices.Stylizer,
-		})(Tab)
-	else
-		ContextServices.mapToProps(Tab, {
-			Stylizer = ContextServices.Stylizer,
-		})
-	end
-
+if FFlagToolboxRemoveWithThemes then	
+	Tab = withContext({
+		Stylizer = ContextServices.Stylizer,
+	})(Tab)
 end
 
 return Tab

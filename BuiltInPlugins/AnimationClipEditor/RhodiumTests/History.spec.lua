@@ -19,38 +19,30 @@ return function()
 
 	local Templates = require(Plugin.Src.Util.Templates)
 
-	local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 	local testAnimationData = Templates.animationData()
 	testAnimationData.Instances = {
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
+					Keyframes = {0, 160},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = not GetFFlagUseTicks() and {
+						[160] = {
 							Value = CFrame.new(),
-						} or nil,
-						[160] = GetFFlagUseTicks() and {
-							Value = CFrame.new(),
-						} or nil
+						}
 					},
 				},
 				UpperTorso = {
-					Keyframes = GetFFlagUseTicks() and {0, 160} or {0, 1},
+					Keyframes = {0, 160},
 					Data = {
 						[0] = {
 							Value = CFrame.new(),
 						},
-						[1] = not GetFFlagUseTicks() and {
+						[160] = {
 							Value = CFrame.new(),
-						} or nil,
-						[160] = GetFFlagUseTicks() and {
-							Value = CFrame.new(),
-						} or nil
+						}
 					},
 				},
 			},
@@ -65,7 +57,7 @@ return function()
 			local trackList = TestPaths.getTrackList(container)
 			TestHelpers.delay()
 
-			store:dispatch(StepAnimation(GetFFlagUseTicks() and 240 or 3))
+			store:dispatch(StepAnimation(240))
 
 			TestHelpers.clickInstance(trackList:WaitForChild("Track_Head").Arrow)
 			expect(trackList:WaitForChild("Head_Rotation")).to.be.ok()
@@ -243,22 +235,22 @@ return function()
 
 			local animationData = store:getState().AnimationData
 			local tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
+			expect(tracks.Head.Data[160]).never.to.be.ok()
+			expect(tracks.UpperTorso.Data[160]).never.to.be.ok()
 
 			store:dispatch(Undo())
 			TestHelpers.delay()
 			animationData = store:getState().AnimationData
 			tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).to.be.ok()
+			expect(tracks.Head.Data[160]).to.be.ok()
+			expect(tracks.UpperTorso.Data[160]).to.be.ok()
 
 			store:dispatch(Redo())
 			TestHelpers.delay()
 			animationData = store:getState().AnimationData
 			tracks = animationData.Instances.Root.Tracks
-			expect(tracks.Head.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
-			expect(tracks.UpperTorso.Data[GetFFlagUseTicks() and 160 or 1]).never.to.be.ok()
+			expect(tracks.Head.Data[160]).never.to.be.ok()
+			expect(tracks.UpperTorso.Data[160]).never.to.be.ok()
 		end)
 	end)
 end

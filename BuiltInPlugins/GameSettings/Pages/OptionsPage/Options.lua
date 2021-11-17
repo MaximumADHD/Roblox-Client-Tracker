@@ -1,4 +1,4 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
+local FFlagCollabEditingWarnBothWays = game:GetFastFlag("CollabEditingWarnBothWays")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -46,27 +46,30 @@ local teamCreateStreamingEnabledKey = FFlagStudioTeamCreateStreamingEnabled and 
 local GetTeamCreateEnabledKeyName = KeyProvider.getTeamCreateEnabledKeyName
 local teamCreateEnabledKey = FFlagStudioTeamCreateStreamingEnabled and GetTeamCreateEnabledKeyName() or nil
 
+local GetScriptCollaborationEnabledOnServerKeyName = KeyProvider.getScriptCollaborationEnabledOnServerKeyName
+local scriptCollaborationEnabledOnServerKey = FFlagCollabEditingWarnBothWays and GetScriptCollaborationEnabledOnServerKeyName() or nil
+
 local LOCALIZATION_ID = script.Name
 
 local function loadSettings(store, contextItems)
-	local state = store:getState()
-	local game = state.Metadata.game
-	local gameId = state.Metadata.gameId
-	local gameOptionsController = contextItems.gameOptionsController
+    local state = store:getState()
+    local game = state.Metadata.game
+    local gameId = state.Metadata.gameId
+    local gameOptionsController = contextItems.gameOptionsController
 
-	return {
-		function(loadedSettings)
-			local enabled = gameOptionsController:getScriptCollaborationEnabled(game)
+    return {
+        function(loadedSettings)
+            local enabled = gameOptionsController:getScriptCollaborationEnabled(game)
 
-			loadedSettings["ScriptCollabEnabled"] = enabled
-		end,
+            loadedSettings["ScriptCollabEnabled"] = enabled
+        end,
 
-		function(loadedSettings)
-			if FFlagGameSettingsEnableVoiceChat then
-				local optIn = gameOptionsController:getVoiceChatEnabled(gameId)
+        function(loadedSettings)
+            if FFlagGameSettingsEnableVoiceChat then
+                local optIn = gameOptionsController:getVoiceChatEnabled(gameId)
 
-				loadedSettings[voiceChatEnabledKey] = optIn
-			end
+                loadedSettings[voiceChatEnabledKey] = optIn
+            end
         end,
         
         function(loadedSettings)
@@ -76,7 +79,7 @@ local function loadSettings(store, contextItems)
                 loadedSettings[teamCreateStreamingEnabledKey] = enabled
             end
         end,
-        
+
         function(loadedSettings)
             if FFlagStudioTeamCreateStreamingEnabled then
                 local enabled = gameOptionsController:getTeamCreateEnabled(gameId)
@@ -84,31 +87,39 @@ local function loadSettings(store, contextItems)
                 loadedSettings[teamCreateEnabledKey] = enabled
             end
         end,
-	}
+        
+        function(loadedSettings)
+            if FFlagCollabEditingWarnBothWays then
+                local enabled = gameOptionsController:getScriptCollaborationEnabledOnServer(game)
+                                
+                loadedSettings[scriptCollaborationEnabledOnServerKey] = enabled
+            end
+        end,
+    }
 end
 
 local function saveSettings(store, contextItems)
-	local state = store:getState()
-	local game = state.Metadata.game
-	local gameId = state.Metadata.gameId
-	local gameOptionsController = contextItems.gameOptionsController
+    local state = store:getState()
+    local game = state.Metadata.game
+    local gameId = state.Metadata.gameId
+    local gameOptionsController = contextItems.gameOptionsController
 
-	return {
-		function()
-			local changed = state.Settings.Changed.ScriptCollabEnabled
+    return {
+        function()
+            local changed = state.Settings.Changed.ScriptCollabEnabled
 
-			if changed ~= nil then
-				gameOptionsController:setScriptCollaborationEnabled(game, changed)
-			end
-		end,
-		function()
-			if FFlagGameSettingsEnableVoiceChat then
-				local changed = state.Settings.Changed.VoiceChatEnabled
+            if changed ~= nil then
+                gameOptionsController:setScriptCollaborationEnabled(game, changed)
+            end
+        end,
+        function()
+            if FFlagGameSettingsEnableVoiceChat then
+                local changed = state.Settings.Changed.VoiceChatEnabled
 
-				if changed ~= nil then
-					gameOptionsController:setVoiceChatEnabled(gameId, changed)
-				end
-			end
+                if changed ~= nil then
+                    gameOptionsController:setVoiceChatEnabled(gameId, changed)
+                end
+            end
         end,
         function()
             if FFlagStudioTeamCreateStreamingEnabled then
@@ -124,14 +135,23 @@ end
 
 --Loads settings values into props by key
 local function loadValuesToProps(getValue, state)
-	local loadedProps = {
-		ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
-		CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
+    local scriptCollabEnabledOnServer = nil
+    
+    if FFlagCollabEditingWarnBothWays then 
+        scriptCollabEnabledOnServer = state.Settings.Current.ScriptCollaborationEnabledOnServer
+    end
+    
+    local loadedProps = {
+        ScriptCollabEnabled = getValue("ScriptCollabEnabled"),
+        CurrentScriptCollabEnabled = state.Settings.Current.ScriptCollabEnabled,
         VoiceChatEnabled = FFlagGameSettingsEnableVoiceChat and getValue(voiceChatEnabledKey) or nil,
         TeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and getValue(teamCreateStreamingEnabledKey) or nil,
         CurrentTeamCreateStreamingEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateStreamingEnabled or nil,
         TeamCreateEnabled = FFlagStudioTeamCreateStreamingEnabled and state.Settings.Current.TeamCreateEnabled or nil,
-	}
+        -- This value holds the server value (which cannot be changed during session). Used to display warning about needing to restart
+        ScriptCollabEnabledOnServer = scriptCollabEnabledOnServer
+    }
+    
 	return loadedProps
 end
 
@@ -168,10 +188,18 @@ function Options:render()
 
 	local dispatchShutdownAllServers = props.dispatchShutdownAllServers
 
-    -- Display warning to user if they are switching Collab off when it is currently saved as on
-    local shouldDisplayScriptCollabWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
+    -- Display warning to user that collab editing change will only take affect if the server restarts
+    local shouldDisplayScriptCollabWarning
+    local scriptCollabWarningText
+    if FFlagCollabEditingWarnBothWays then
+        shouldDisplayScriptCollabWarning = props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled
+        scriptCollabWarningText = localization:getText("General", "ServerRestartWarning")
+    else
+        shouldDisplayScriptCollabWarning = props.CurrentScriptCollabEnabled and (props.ScriptCollabEnabled == false)
+        scriptCollabWarningText = localization:getText("General", "DEPRECATED_ScriptCollabWarning")
+    end
     
-    -- Display warning to user that streaming setting change will only take affect if the server restarts
+    -- Display warning to user that streaming setting change will only take effect if the server restarts
     local displayTeamCreateStreamingWarning = nil
     if FFlagStudioTeamCreateStreamingEnabled then
         displayTeamCreateStreamingWarning = (props.CurrentTeamCreateStreamingEnabled ~= props.TeamCreateStreamingEnabled)
@@ -187,7 +215,7 @@ function Options:render()
         return {
             EnableTeamCreateStreamingToggle = FFlagStudioTeamCreateStreamingEnabled and props.TeamCreateEnabled and Roact.createElement(ToggleButtonWithTitle, {
                 Title = localization:getText("General", "TitleTeamCreateStreaming"),
-                Description = displayTeamCreateStreamingWarning and localization:getText("General", "TeamCreateStreamingWarning")
+                Description = displayTeamCreateStreamingWarning and localization:getText("General", "ServerRestartWarning")
                     or localization:getText("General", "TeamCreateStreamingDesc"),
                 LayoutOrder = layoutIndex:getNextOrder(),
                 Disabled = false,
@@ -200,7 +228,7 @@ function Options:render()
             
             EnableScriptCollab = Roact.createElement(ToggleButtonWithTitle, {
                 Title = localization:getText("General", "TitleScriptCollab"),
-                Description = shouldDisplayScriptCollabWarning and localization:getText("General", "ScriptCollabWarning")
+                Description = shouldDisplayScriptCollabWarning and scriptCollabWarningText
                     or localization:getText("General", "ScriptCollabDesc"),
                 LayoutOrder = layoutIndex:getNextOrder(),
                 Disabled = false,
@@ -286,19 +314,13 @@ function Options:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Options = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})(Options)
-else
-	ContextServices.mapToProps(Options, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})
-end
+
+Options = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Dialog = Dialog,
+})(Options)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

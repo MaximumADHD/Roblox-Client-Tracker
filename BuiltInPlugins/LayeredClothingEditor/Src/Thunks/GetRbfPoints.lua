@@ -37,11 +37,31 @@ local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
+local function getVerticesForWrap(cage, wrap, mock)
+	local verts
+	if mock then
+		verts = MockRbfData.Verts["UpperTorso"]
+	else
+		verts = wrap:GetVertices(cage)
+	end
+	return verts
+end
+
+local function getFacesForWrap(cage, wrap, mock)
+	local faces
+	if mock then
+		faces = MockRbfData.Faces["UpperTorso"]
+	else
+		faces = wrap:GetFaces(cage)
+	end
+	return faces
+end
+
 local function getVertices(cage)
 	local deformerToPartMap = ModelUtil:getDeformerToPartMap()
 	local pointsPerDeformer = {}
 	for _, deformer in pairs(deformerToPartMap) do
-		local verts = deformer:GetVertices(cage)
+		local verts = getVerticesForWrap(cage, deformer, DebugFlags.UseMockCages())
 		local data = {}
 		for _, vert in ipairs(verts) do
 			table.insert(data, {
@@ -58,7 +78,7 @@ local function getFaces(pointData, cage)
 	local deformerToPartMap = ModelUtil:getDeformerToPartMap()
 	local facesPerDeformer = {}
 	for _, deformer in pairs(deformerToPartMap) do
-		local faces = deformer:GetFaces(cage)
+		local faces = getFacesForWrap(cage, deformer, DebugFlags.UseMockCages())
 		local data = {}
 		for i = 1, #faces, 3 do
 			table.insert(data, {faces[i] + 1, faces[i + 1] + 1, faces[i + 2] + 1})
@@ -94,24 +114,13 @@ return function(editingItem)
 				return
 			end
 
-			if DebugFlags.UseMockCages() then
-				if isClothes then
-					local name = next(ModelUtil:getDeformerToPartMap())
-					basePointData[Enum.CageType.Inner] = { [name] = deepCopy(MockRbfData["UpperTorso"])}
-					basePointData[Enum.CageType.Outer] = { [name] = deepCopy(MockRbfData["UpperTorso"])}
-				else
-					basePointData[Enum.CageType.Inner] = deepCopy(MockRbfData)
-					basePointData[Enum.CageType.Outer] = deepCopy(MockRbfData)
-				end
-			else
-				if isClothes then
-					basePointData[Enum.CageType.Inner] = getVertices(Enum.CageType.Inner)
-					polyData[Enum.CageType.Inner] = getFaces(basePointData[Enum.CageType.Inner], Enum.CageType.Inner)
-				end
-
-				basePointData[Enum.CageType.Outer] = getVertices(Enum.CageType.Outer)
-				polyData[Enum.CageType.Outer] = getFaces(basePointData[Enum.CageType.Outer], Enum.CageType.Outer)
+			if isClothes then
+				basePointData[Enum.CageType.Inner] = getVertices(Enum.CageType.Inner)
+				polyData[Enum.CageType.Inner] = getFaces(basePointData[Enum.CageType.Inner], Enum.CageType.Inner)
 			end
+
+			basePointData[Enum.CageType.Outer] = getVertices(Enum.CageType.Outer)
+			polyData[Enum.CageType.Outer] = getFaces(basePointData[Enum.CageType.Outer], Enum.CageType.Outer)
 
 			store:dispatch(SetPointData(basePointData))
 			store:dispatch(SetOriginalPointData(deepCopy(basePointData)))

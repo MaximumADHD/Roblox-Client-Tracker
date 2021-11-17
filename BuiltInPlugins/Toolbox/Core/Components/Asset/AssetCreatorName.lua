@@ -10,7 +10,6 @@
 		callback onMouseLeave()
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -155,17 +154,12 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 	})
 end
 
-if FFlagToolboxWithContext then
-	AssetCreatorName = withContext({
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(AssetCreatorName)
-else
-	ContextServices.mapToProps(AssetCreatorName, {
-		Settings = Settings,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+AssetCreatorName = withContext({
+	Settings = Settings,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(AssetCreatorName)
+
 
 
 local mapStateToProps = function(state, props)

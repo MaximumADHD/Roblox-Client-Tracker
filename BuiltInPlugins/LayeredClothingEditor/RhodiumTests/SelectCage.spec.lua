@@ -9,20 +9,51 @@ return function()
 
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local ScrollerPath = TestHelper.getMainScroller()
-	local SelectCageRadioButtonListPath =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
+	local MainPath = TestHelper.getEditScreenContainer()
+	local EditingModeRadioButtonList =
+		MainPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.EditingModeFrame.EditingModeRadioButtonList"))
 	local SelectInnerCageRadioButtonPath =
-		SelectCageRadioButtonListPath:cat(XPath.new("Inner.RadioImage.Contents"))
+		EditingModeRadioButtonList:cat(XPath.new("Inner.RadioImage.Contents"))
 	local SelectOuterCageRadioButtonPath =
-		SelectCageRadioButtonListPath:cat(XPath.new("Outer.RadioImage.Contents"))
+		EditingModeRadioButtonList:cat(XPath.new("Outer.RadioImage.Contents"))
+	local SelectMeshPartModeRadioButtonPath =
+		EditingModeRadioButtonList:cat(XPath.new("Mesh.RadioImage.Contents"))
 
-	it("cage selection buttons exist but non get selected", function()
+	it("Default Selection is Outer Cage for caged accessory", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
+
 			local innerCageButton = TestHelper.waitForXPathInstance(SelectInnerCageRadioButtonPath)
 			expect(innerCageButton).to.be.ok()
 			local innerCageForegroundPath = SelectInnerCageRadioButtonPath:cat(XPath.new("Foreground"))
 			expect(innerCageForegroundPath:getFirstInstance()).to.equal(nil)
+
+			local meshPartButton = TestHelper.waitForXPathInstance(SelectMeshPartModeRadioButtonPath)
+			expect(meshPartButton).to.be.ok()
+			local meshPartButtonForegroundPath = SelectMeshPartModeRadioButtonPath:cat(XPath.new("Foreground"))
+			expect(meshPartButtonForegroundPath:getFirstInstance()).to.equal(nil)
+
+			local outerCageButton = TestHelper.waitForXPathInstance(SelectOuterCageRadioButtonPath)
+			expect(outerCageButton).to.be.ok()
+			local outerCageForegroundPath = SelectOuterCageRadioButtonPath:cat(XPath.new("Foreground"))
+			expect(outerCageForegroundPath:getFirstInstance()).to.be.ok()
+		end)
+	end)
+
+	it("Default Selection is MeshPart for rigid accessory", function()
+		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(false)
+
+			local innerCageButton = TestHelper.waitForXPathInstance(SelectInnerCageRadioButtonPath)
+			expect(innerCageButton).to.be.ok()
+			local innerCageForegroundPath = SelectInnerCageRadioButtonPath:cat(XPath.new("Foreground"))
+			expect(innerCageForegroundPath:getFirstInstance()).to.equal(nil)
+
+			local meshPartButton = TestHelper.waitForXPathInstance(SelectMeshPartModeRadioButtonPath)
+			expect(meshPartButton).to.be.ok()
+			local meshPartButtonForegroundPath = SelectMeshPartModeRadioButtonPath:cat(XPath.new("Foreground"))
+			expect(meshPartButtonForegroundPath:getFirstInstance()).to.be.ok()
+
 			local outerCageButton = TestHelper.waitForXPathInstance(SelectOuterCageRadioButtonPath)
 			expect(outerCageButton).to.be.ok()
 			local outerCageForegroundPath = SelectOuterCageRadioButtonPath:cat(XPath.new("Foreground"))
@@ -30,24 +61,47 @@ return function()
 		end)
 	end)
 
-	it("select outer cage when select a full cage avatar", function()
-		runRhodiumTest(function()
-			local fullCageAvatar = TestHelper.createAvatarWithFullCages()
-			TestHelper.addLCItemWithFullCageFromExplorer(fullCageAvatar)
-			local outerCageForegroundPath = SelectOuterCageRadioButtonPath:cat(XPath.new("Foreground"))
-			expect(TestHelper.waitForXPathInstance(outerCageForegroundPath)).to.be.ok()
+	it("Can't select Outer/Inner cage for rigid accessory", function()
+		runRhodiumTest(function(_, store)
+			TestHelper.goToEditScreenFromStart(false)
+			expect(store:getState().selectItem.editingCage).to.equal(Constants.EDIT_MODE.Mesh)
+
+			local innerCageButton = TestHelper.waitForXPathInstance(SelectInnerCageRadioButtonPath)
+			expect(innerCageButton).to.be.ok()
+			TestHelper.clickXPath(SelectInnerCageRadioButtonPath)
+
+			expect(store:getState().selectItem.editingCage).to.equal(Constants.EDIT_MODE.Mesh)
+
+			local outerCageButton = TestHelper.waitForXPathInstance(SelectOuterCageRadioButtonPath)
+			expect(outerCageButton).to.be.ok()
+			TestHelper.clickXPath(SelectOuterCageRadioButtonPath)
+
+			expect(store:getState().selectItem.editingCage).to.equal(Constants.EDIT_MODE.Mesh)
 		end)
 	end)
 
-	it("select cage would change selected button and value in store", function()
+	it("Can't select MeshPart for caged accessory", function()
 		runRhodiumTest(function(_, store)
-			expect(store:getState().selectItem.editingCage).to.equal(nil)
-
-			TestHelper.addLCItemWithFullCageFromExplorer()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(store:getState().selectItem.editingCage).to.equal(Enum.CageType.Outer)
-			TestHelper.selectCage(Enum.CageType.Inner)
-			local innerCageForegroundPath = SelectInnerCageRadioButtonPath:cat(XPath.new("Foreground"))
-			expect(TestHelper.waitForXPathInstance(innerCageForegroundPath)).to.be.ok()
+
+			local meshPartButton = TestHelper.waitForXPathInstance(SelectMeshPartModeRadioButtonPath)
+			expect(meshPartButton).to.be.ok()
+			TestHelper.clickXPath(SelectMeshPartModeRadioButtonPath)
+
+			expect(store:getState().selectItem.editingCage).to.equal(Enum.CageType.Outer)
+		end)
+	end)
+
+	it("Clicking button changes cage", function()
+		runRhodiumTest(function(_, store)
+			TestHelper.goToEditScreenFromStart(true)
+			expect(store:getState().selectItem.editingCage).to.equal(Enum.CageType.Outer)
+
+			local innerCageButton = TestHelper.waitForXPathInstance(SelectInnerCageRadioButtonPath)
+			expect(innerCageButton).to.be.ok()
+			TestHelper.clickXPath(SelectInnerCageRadioButtonPath)
+
 			expect(store:getState().selectItem.editingCage).to.equal(Enum.CageType.Inner)
 		end)
 	end)

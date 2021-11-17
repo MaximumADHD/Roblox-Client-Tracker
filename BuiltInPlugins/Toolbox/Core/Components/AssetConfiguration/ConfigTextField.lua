@@ -12,7 +12,6 @@
 	Optional Props:
 	LayoutOrder = number, will automatic be overrode Position property by UILayouter.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -140,14 +139,10 @@ function ConfigTextField:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxWithContext then
-	ConfigTextField = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ConfigTextField)
-else
-	ContextServices.mapToProps(ConfigTextField, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ConfigTextField = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ConfigTextField)
+
 
 return ConfigTextField

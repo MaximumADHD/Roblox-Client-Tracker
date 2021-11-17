@@ -29,6 +29,7 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 local Components = main.Src.Components
 local TabbedView = require(Components.TabbedView)
 local PlaybackTabView = require(Components.PlaybackTabView)
+local RecordTabView = require(Components.RecordTabView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -120,8 +121,8 @@ function MainPlugin:render()
 			Title = self.localization:getText("Plugin", "Name"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
-			Size = Vector2.new(640, 480),
-			MinSize = Vector2.new(250, 200),
+			Size = Vector2.new(360, 480),
+			MinSize = Vector2.new(360, 200),
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
@@ -129,7 +130,11 @@ function MainPlugin:render()
 			TabbedView = enabled and Roact.createElement(TabbedView, {
 				Tabs = {
 					{
-						Label = "Playback",
+						Label = self.localization:getText("Plugin", "RecordingTabTitle"),
+						ContentComponent = RecordTabView,
+					},
+					{
+						Label = self.localization:getText("Plugin", "PlaybackTabTitle"),
 						ContentComponent = PlaybackTabView,
 					},
 				},

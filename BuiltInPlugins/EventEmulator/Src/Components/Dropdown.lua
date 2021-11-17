@@ -9,7 +9,6 @@
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 		table Sizes: consistent sizes across the plugin
 ]]
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -64,15 +63,11 @@ function Dropdown:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	Dropdown = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Dropdown)
-else
-	ContextServices.mapToProps(Dropdown, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+Dropdown = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Dropdown)
+
 
 
 return RoactRodux.connect(

@@ -4,6 +4,7 @@ local AddThreadId = require(Actions.Callstack.AddThreadId)
 local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
 local Resumed = require(Actions.Common.Resumed)
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
+local SetCurrentBreakpointIdAction = require(Actions.Common.SetCurrentBreakpointId)
 local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 local RequestCallstackThunk = require(Src.Thunks.Callstack.RequestCallstackThunk)
 local LoadStackFrameVariables = require(Src.Thunks.Callstack.LoadStackFrameVariables)
@@ -22,19 +23,28 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] or 
 		DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
 	self.store:dispatch(BreakpointHitAction(dst, pausedState.ThreadId))
-	local threadState = connection:GetThreadById(pausedState.ThreadId)
-	self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
-	self.store:dispatch(RequestCallstackThunk(threadState, connection, dst))
+	if pausedState.Breakpoint then
+		self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.id))
+	end
 	
-	connection:Populate(threadState, function ()
-		local callstack = threadState:GetChildren()
-		for stackFrameId, stackFrame in ipairs(callstack) do
-			local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
-			self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
-		end
+	-- TODO: Call GoToScript from C++ side RIDE-6137
+	
+	-- thread info is retrieved here; you cannot call GetThreadById before calling GetThreads
+	connection:GetThreads(function(threads) 
+		local threadState = connection:GetThreadById(pausedState.ThreadId)
+		assert(threadState ~= nil)
+		self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
+		self.store:dispatch(RequestCallstackThunk(threadState, connection, dst))
+		connection:Populate(threadState, function()
+			local callstack = threadState:GetChildren()
+			for stackFrameId, stackFrame in ipairs(callstack) do
+				local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
+				self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
+			end
+		end)
+
+		self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 	end)
-	
-	self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 end
 
 function DebugConnectionListener:onExecutionResumed(connection, pausedState)

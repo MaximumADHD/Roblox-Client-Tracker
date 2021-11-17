@@ -18,6 +18,7 @@ local Plugin = script.Parent.Parent.Parent.Parent.Parent
 local Libs = Plugin.Libs
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Cryo = require(Libs.Cryo)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -49,6 +50,7 @@ local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
 
 local PluginPurchaseFlow = require(Plugin.Core.Components.PurchaseFlow.PluginPurchaseFlow)
 local PurchaseSuccessDialog = require(Plugin.Core.Components.PurchaseFlow.PurchaseSuccessDialog)
+local AssetPreviewFooter = require(Plugin.Core.Components.Asset.Preview.AssetPreviewFooter)
 
 local Requests = Plugin.Core.Networking.Requests
 local GetPreviewInstanceRequest = require(Requests.GetPreviewInstanceRequest)
@@ -68,13 +70,13 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
 local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
+local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
 
 local disableRatings = (FFlagToolboxPolicyDisableRatings and require(Plugin.Core.Util.ToolboxUtilities).disableRatings) or nil
 
@@ -457,6 +459,14 @@ function AssetPreviewWrapper:init(props)
 	end
 
 	self.props.clearPurchaseFlow(props.assetData.Asset.Id)
+
+	if FFlagToolboxPluginPreviewFooter then
+		self.renderFooter = function(footerProps)
+			return Roact.createElement(AssetPreviewFooter, Cryo.Dictionary.join(footerProps, {
+				AssetData = self.props.assetData,
+			}))
+		end
+	end
 end
 
 function AssetPreviewWrapper:didMount()
@@ -567,6 +577,8 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		OnVoteUp = self.onVoteUpButtonActivated,
 		OnVoteDown = self.onVoteDownButtonActivated,
 		OnClickCreator = self.searchByCreator,
+
+		RenderFooter = FFlagToolboxPluginPreviewFooter and self.renderFooter or nil,
 	})
 
 	return modalTarget and Roact.createElement(Roact.Portal, {
@@ -705,21 +717,14 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxWithContext then
-	AssetPreviewWrapper = withContext({
-		Settings = Settings,
-		AssetAnalytics = AssetAnalyticsContextItem,
-		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(AssetPreviewWrapper)
-else
-	ContextServices.mapToProps(AssetPreviewWrapper, {
-		Settings = Settings,
-		AssetAnalytics = AssetAnalyticsContextItem,
-		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+AssetPreviewWrapper = withContext({
+	Settings = Settings,
+	AssetAnalytics = AssetAnalyticsContextItem,
+	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(AssetPreviewWrapper)
+
 
 
 return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AssetPreviewWrapper)

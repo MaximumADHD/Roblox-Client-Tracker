@@ -1,5 +1,4 @@
 local FFlagEnableStudioServiceOpenBrowser = game:GetFastFlag("EnableStudioServiceOpenBrowser")
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local FFlagPluginManagementFixOverlappingDescriptions = game:GetFastFlag("PluginManagementFixOverlappingDescriptions")
 
 local StudioService = game:getService("StudioService")
@@ -13,7 +12,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local FlagsListFile = require(Plugin.Src.Util.FlagsList)
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 local Constants = require(Plugin.Src.Util.Constants)
 local UpdateStatus = require(Plugin.Src.Util.UpdateStatus)
@@ -175,12 +173,7 @@ function PluginEntry:render()
 	local showMore = state.showMore
 
 	local localization = props.Localization
-	local theme
-	if THEME_REFACTOR then
-		theme = props.Stylizer
-    else
-        theme = props.Theme:get("Plugin")
-    end
+	local theme = props.Stylizer
 	local api = props.API:get()
 
 	local layoutOrder = props.LayoutOrder
@@ -363,34 +356,13 @@ function PluginEntry:render()
 			Text = localization:getText("Entry", "UpdateSuccess"),
 		}),
 
-		ToggleButton = THEME_REFACTOR and Roact.createElement(ToggleButton, {
+		ToggleButton = Roact.createElement(ToggleButton, {
 			Disabled = false,
 			Selected = enabled,
 			OnClick = self.onToggleClick,
 			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
 			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
 				- Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
-		}),
-
-		EnableButton = (not THEME_REFACTOR) and not enabled and Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
-			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
-				- Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
-			Image = theme.Toggle.Off,
-			BackgroundTransparency = 1,
-			[Roact.Event.Activated] = isModerated and function() end or self.onPluginEnabled,
-		}),
-
-		DisableButton = (not THEME_REFACTOR) and enabled and Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Size = UDim2.new(0, Constants.PLUGIN_ENABLE_WIDTH, 0, 24),
-			Position = UDim2.new(1,Constants.PLUGIN_HORIZONTAL_PADDING*-2 - Constants.PLUGIN_ENABLE_WIDTH
-				- Constants.PLUGIN_CONTEXT_WIDTH,.5,0),
-			Image = theme.Toggle.On,
-			BackgroundTransparency = 1,
-
-			[Roact.Event.Activated] = self.onPluginDisabled,
 		}),
 
 		ShowMoreButton = Roact.createElement(FrameworkButton, {
@@ -442,25 +414,14 @@ function PluginEntry:render()
 	})
 end
 
-if FFlagPluginManagementWithContext then
-	PluginEntry = withContext({
-		Navigation = Navigation,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-		Analytics = ContextServices.Analytics,
-	})(PluginEntry)
-else
-	ContextServices.mapToProps(PluginEntry, {
-		Navigation = Navigation,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+PluginEntry = withContext({
+	Navigation = Navigation,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+	API = PluginAPI2,
+	Analytics = ContextServices.Analytics,
+})(PluginEntry)
 
 
 local mapStateToProps = function(state, props)

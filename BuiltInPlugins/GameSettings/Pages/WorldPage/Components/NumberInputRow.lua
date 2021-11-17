@@ -17,7 +17,6 @@
 		MinValue (number) - Minimum value the user can select
 		MaxValue (number) - Maxmimum value the user can select
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -104,17 +103,12 @@ function NumberInputRow:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	NumberInputRow = withContext({
-		Mouse = ContextServices.Mouse,
-		WorldRootPhysics = WorldRootPhysics,
-	})(NumberInputRow)
-else
-	ContextServices.mapToProps(NumberInputRow, {
-		Mouse = ContextServices.Mouse,
-		WorldRootPhysics = WorldRootPhysics,
-	})
-end
+
+NumberInputRow = withContext({
+	Mouse = ContextServices.Mouse,
+	WorldRootPhysics = WorldRootPhysics,
+})(NumberInputRow)
+
 
 
 return NumberInputRow

@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -138,17 +137,12 @@ function PresetsPanel:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	PresetsPanel = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(PresetsPanel)
-else
-	ContextServices.mapToProps(PresetsPanel, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+PresetsPanel = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(PresetsPanel)
+
 
 
 PresetsPanel = RoactRodux.UNSTABLE_connect2(

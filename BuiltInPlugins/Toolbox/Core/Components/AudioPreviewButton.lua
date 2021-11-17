@@ -10,7 +10,6 @@
 		callback onClick(number assetId)
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 
 local Plugin = script.Parent.Parent.Parent
@@ -131,15 +130,11 @@ function AudioPreviewButton:renderContent(theme)
 	end
 end
 
-if FFlagToolboxWithContext then
-	AudioPreviewButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AudioPreviewButton)
-else
-	ContextServices.mapToProps(AudioPreviewButton, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+AudioPreviewButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AudioPreviewButton)
+
 
 if FFlagToolboxAssetGridRefactor then
 	local function mapStateToProps(state, props)

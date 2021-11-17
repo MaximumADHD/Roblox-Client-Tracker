@@ -13,7 +13,6 @@
 		list Languags enabled for automatic trnaslation
 ]]
 
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local StudioService = game:GetService("StudioService")
 
@@ -390,19 +389,13 @@ local function dispatchChanges(setValue, dispatch)
 	return dispatchFuncs
 end
 
-if FFlagGameSettingsWithContext then
-	LocalizationPage = withContext({
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		Theme = ContextServices.Theme,
-	})(LocalizationPage)
-else
-	ContextServices.mapToProps(LocalizationPage, {
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		Theme = ContextServices.Theme,
-	})
-end
+
+LocalizationPage = withContext({
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+	Theme = ContextServices.Theme,
+})(LocalizationPage)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

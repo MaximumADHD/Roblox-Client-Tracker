@@ -1,4 +1,3 @@
-local FFlagPivotEditorWithContext = game:GetFastFlag("PivotEditorWithContext")
 local Selection = game:GetService("Selection")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
@@ -125,15 +124,11 @@ function EditPivotPlugin:render()
 	})
 end
 
-if FFlagPivotEditorWithContext then
-	EditPivotPlugin = withContext({
-		Plugin = ContextServices.Plugin,
-	})(EditPivotPlugin)
-else
-	ContextServices.mapToProps(EditPivotPlugin, {
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+EditPivotPlugin = withContext({
+	Plugin = ContextServices.Plugin,
+})(EditPivotPlugin)
+
 
 
 return EditPivotPlugin

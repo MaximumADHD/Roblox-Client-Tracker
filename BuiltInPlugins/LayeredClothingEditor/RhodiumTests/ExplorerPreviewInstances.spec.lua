@@ -11,17 +11,22 @@ return function()
 	local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 
 	local LayeredClothingEditorPreviewPath = XPath.new("game.Workspace.LayeredClothingEditorPreview")
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
+	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
 
 	it("LayeredClothingEditorPreview folder should exist in Workspace", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
 		end)
 	end)
 
 	it("clicking an avatar grid tile should put it in the scene", function()
 		runRhodiumTest(function()
-			TestHelper.addLCItemWithoutCageFromExplorer() -- a clothes item for editing makes grid options selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- make sure we have the LayeredClothingEditorPreview folder, and it initially has no children
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
@@ -38,7 +43,10 @@ return function()
 
 	it("clicking an avatar grid tile twice should put it in the scene, then remove it", function()
 		runRhodiumTest(function()
-			TestHelper.addLCItemWithoutCageFromExplorer() -- a clothes item for editing makes grid options selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- make sure we have the LayeredClothingEditorPreview folder, and it initially has no children
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
@@ -59,7 +67,10 @@ return function()
 
 	it("clicking a clothes grid tile should make it a child of the preview avatar", function()
 		runRhodiumTest(function(_, store)
-			TestHelper.addLCItemWithFullCageFromExplorer() -- a clothes item for editing makes grid options selectable
+			TestHelper.goToEditScreenFromStart(true)
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
 
 			-- make sure we have the LayeredClothingEditorPreview folder, and it initially has no children
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()

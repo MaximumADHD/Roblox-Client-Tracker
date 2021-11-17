@@ -38,7 +38,6 @@
 		callback OnItemClicked(key) : A callback when the user selects an item in the dropdown.
 			Returns the key as it was defined in the Results array.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -742,17 +741,12 @@ function SearchBar:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	SearchBar = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(SearchBar)
-else
-	ContextServices.mapToProps(SearchBar, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+SearchBar = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(SearchBar)
+
 
 
 return SearchBar

@@ -31,7 +31,6 @@ local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 -- Helper function which allows us to snap keyframes
@@ -46,8 +45,8 @@ return function(pivotTick, scale, dragContext)
 		local state = store:getState()
 		local scroll = state.Status.Scroll
 		local zoom = state.Status.Zoom
-		local displayFrameRate = state.Status.DisplayFrameRate
-		local snapMode = GetFFlagUseTicks() and state.Status.SnapMode or nil
+		local frameRate = state.Status.FrameRate
+		local snapMode = state.Status.SnapMode
 		local editingLength = state.Status.EditingLength
 		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
 		local animationData = dragContext and dragContext.animationData or state.AnimationData
@@ -63,15 +62,6 @@ return function(pivotTick, scale, dragContext)
 		if not GetFFlagFixScaleKeyframeClobbering() then
 			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 			startTick = range.Start
-		end
-
-		local maxLength
-		if GetFFlagUseTicks() then
-			maxLength = Constants.MAX_ANIMATION_LENGTH
-		else
-			maxLength = AnimationData.Metadata and animationData.Metadata.FrameRate
-				and AnimationData.getMaximumLength(animationData.Metadata.FrameRate)
-				or AnimationData.getMaximumLength(30)
 		end
 
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
@@ -100,10 +90,10 @@ return function(pivotTick, scale, dragContext)
 						if scale > 1 then
 							local function scaleKeyframe(oldTick, step)
 								local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-								if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-									insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+								if snapMode ~= Constants.SNAP_MODES.None then
+									insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 								end
-								insertTick = math.clamp(insertTick, startTick, maxLength)
+								insertTick = math.clamp(insertTick, startTick, Constants.MAX_ANIMATION_LENGTH)
 
 								-- Step is 1 when going from left to right, and -1 when going from right to left.
 								-- Use that to stop the loop (by returning true) when we reach the pivot
@@ -145,10 +135,10 @@ return function(pivotTick, scale, dragContext)
 
 							local function scaleKeyframe(oldTick)
 								local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-								if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-									insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+								if snapMode ~= Constants.SNAP_MODES.None then
+									insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 								end
-								insertTick = math.clamp(insertTick, startTick, maxLength)
+								insertTick = math.clamp(insertTick, startTick, Constants.MAX_ANIMATION_LENGTH)
 
 								if dataTrack.Keyframes then
 									AnimationData.moveKeyframe(dataTrack, oldTick, insertTick)
@@ -191,10 +181,10 @@ return function(pivotTick, scale, dragContext)
 						for index = 1, #keyframes, 1 do
 							local oldTick = keyframes[index]
 							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							if snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 							end
-							insertTick = math.clamp(insertTick, startTick, maxLength)
+							insertTick = math.clamp(insertTick, startTick, Constants.MAX_ANIMATION_LENGTH)
 							if insertTick >= pivotTick then
 								break
 							end
@@ -210,10 +200,10 @@ return function(pivotTick, scale, dragContext)
 						for index = #keyframes, 1, -1 do
 							local oldTick = keyframes[index]
 							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							if snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 							end
-							insertTick = math.clamp(insertTick, startTick, maxLength)
+							insertTick = math.clamp(insertTick, startTick, Constants.MAX_ANIMATION_LENGTH)
 							if insertTick <= pivotTick then
 								break
 							end
@@ -242,8 +232,8 @@ return function(pivotTick, scale, dragContext)
 						for index = lowPivot, 1, -1 do
 							local oldTick = keyframes[index]
 							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							if snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 							end
 							insertTick = math.clamp(insertTick, startTick, insertTick)
 							AnimationData.moveKeyframe(track, oldTick, insertTick)
@@ -258,10 +248,10 @@ return function(pivotTick, scale, dragContext)
 						for index = highPivot, #keyframes, 1 do
 							local oldTick = keyframes[index]
 							local insertTick = roundToInt(pivotTick + ((oldTick - pivotTick) * scale))
-							if GetFFlagUseTicks() and snapMode ~= Constants.SNAP_MODES.None then
-								insertTick = KeyframeUtils.getNearestFrame(insertTick, displayFrameRate)
+							if snapMode ~= Constants.SNAP_MODES.None then
+								insertTick = KeyframeUtils.getNearestFrame(insertTick, frameRate)
 							end
-							insertTick = math.clamp(insertTick, startTick, maxLength)
+							insertTick = math.clamp(insertTick, startTick, Constants.MAX_ANIMATION_LENGTH)
 							AnimationData.moveKeyframe(track, oldTick, insertTick)
 							AnimationData.moveNamedKeyframe(newData, oldTick, insertTick)
 

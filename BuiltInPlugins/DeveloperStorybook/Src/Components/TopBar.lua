@@ -1,4 +1,3 @@
-local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
@@ -145,15 +144,11 @@ function TopBar:render()
 	})
 end
 
-if FFlagDeveloperStorybookWithContext then
-	TopBar = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(TopBar)
-else
-	ContextServices.mapToProps(TopBar, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+TopBar = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(TopBar)
+
 
 
 return RoactRodux.connect(

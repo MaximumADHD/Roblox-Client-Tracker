@@ -1,4 +1,3 @@
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -66,15 +65,11 @@ function RepopulatableHistory:render()
 	})
 end
 
-if FFlagEventEmulatorWithContext then
-	RepopulatableHistory = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(RepopulatableHistory)
-else
-	ContextServices.mapToProps(RepopulatableHistory,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+RepopulatableHistory = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(RepopulatableHistory)
+
 
 
 return RoactRodux.connect(

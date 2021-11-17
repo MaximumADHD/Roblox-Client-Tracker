@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -160,17 +159,12 @@ function Security:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	Security = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})(Security)
-else
-	ContextServices.mapToProps(Security, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})
-end
+
+Security = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})(Security)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

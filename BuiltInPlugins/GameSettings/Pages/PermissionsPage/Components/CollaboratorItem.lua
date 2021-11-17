@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 
 local ITEM_HEIGHT = 60
@@ -71,15 +70,11 @@ function DeleteButton:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	DeleteButton = withContext({
-		Theme = ContextServices.Theme,
-	})(DeleteButton)
-else
-	ContextServices.mapToProps(DeleteButton, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+DeleteButton = withContext({
+	Theme = ContextServices.Theme,
+})(DeleteButton)
+
 
 
 local CollaboratorItem = Roact.PureComponent:extend("CollaboratorItem")
@@ -266,17 +261,9 @@ function CollaboratorItem:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	CollaboratorItem = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(CollaboratorItem)
-else
-	ContextServices.mapToProps(CollaboratorItem, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
-
+CollaboratorItem = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(CollaboratorItem)
 
 return CollaboratorItem

@@ -68,7 +68,7 @@ function FileSelectorUIGroup:render()
 	end
 
 	return Roact.createElement(Pane, {
-		LayoutOrder = 1,
+		LayoutOrder = props.LayoutOrder,
 		Style = "CornerBox",
 		Size = UDim2.fromOffset(style.UIGroupWidthPx, 0),
 		AutomaticSize = Enum.AutomaticSize.Y,

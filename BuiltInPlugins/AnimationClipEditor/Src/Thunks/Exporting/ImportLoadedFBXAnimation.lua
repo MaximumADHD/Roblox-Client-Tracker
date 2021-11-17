@@ -8,8 +8,6 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
-
 return function(plugin, useFbxModel, analytics)
 	return function(store)
 		local success, result = pcall(function()
@@ -17,13 +15,7 @@ return function(plugin, useFbxModel, analytics)
 		end)
 
 		if success then
-			local newData
-			if GetFFlagUseTicks() then
-				newData = RigUtils.fromRigAnimation(result)
-			else
-				local frameRate = RigUtils.calculateFrameRate(result)
-				newData = RigUtils.fromRigAnimation_deprecated(result, frameRate)
-			end
+			local newData = RigUtils.fromRigAnimation(result)
 			newData.Metadata.Name = Constants.DEFAULT_IMPORTED_NAME
 			store:dispatch(LoadAnimationData(newData, analytics))
 			store:dispatch(SetIsDirty(false))

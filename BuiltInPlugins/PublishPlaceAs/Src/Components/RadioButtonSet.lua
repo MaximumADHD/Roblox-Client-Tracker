@@ -23,7 +23,6 @@
 		function SelectionChanged(index, title) = A callback for when the selected option changes.
 		int LayoutOrder = The order this RadioButtonSet will sort to when placed in a UIListLayout.
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -122,14 +121,10 @@ function RadioButtonSet:render()
 		}, children)
 end
 
-if FFlagPublishPlaceAsWithContext then
-	RadioButtonSet = withContext({
-		Theme = ContextServices.Theme,
-	})(RadioButtonSet)
-else
-	ContextServices.mapToProps(RadioButtonSet, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+RadioButtonSet = withContext({
+	Theme = ContextServices.Theme,
+})(RadioButtonSet)
+
 
 return RadioButtonSet

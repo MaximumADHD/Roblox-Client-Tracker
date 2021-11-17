@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent.Parent
@@ -58,15 +57,11 @@ function PublishingHint:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	PublishingHint = withContext({
-		Localization = ContextServices.Localization,
-	})(PublishingHint)
-else
-	ContextServices.mapToProps(PublishingHint, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+PublishingHint = withContext({
+	Localization = ContextServices.Localization,
+})(PublishingHint)
+
 
 
 return PublishingHint

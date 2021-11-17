@@ -1,4 +1,5 @@
 local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
+local FFlagCollabEditingWarnBothWays = game:GetFastFlag("CollabEditingWarnBothWays")
 
 local GameOptionsController = {}
 GameOptionsController.__index = GameOptionsController
@@ -46,16 +47,24 @@ function GameOptionsController:voiceUniverseSettingsGET(gameId)
     return networking:get("voice", "/v1/settings/universe/" .. gameId)
 end
 
-function GameOptionsController:getScriptCollaborationEnabled(game)
-	local StudioData = game:GetService("StudioData")
+function GameOptionsController:getScriptCollaborationEnabledOnServer(game)
+    assert(FFlagCollabEditingWarnBothWays)
+    
+    local versionControlService = game:GetService("VersionControlService")
 
-	return StudioData.EnableScriptCollabByDefaultOnLoad
+    return versionControlService.ScriptCollabEnabled
+end
+
+function GameOptionsController:getScriptCollaborationEnabled(game)
+    local StudioData = game:GetService("StudioData")
+
+    return StudioData.EnableScriptCollabByDefaultOnLoad
 end
 
 function GameOptionsController:setScriptCollaborationEnabled(game, enabled)
-	local StudioData = game:GetService("StudioData")
+    local StudioData = game:GetService("StudioData")
 
-	StudioData.EnableScriptCollabByDefaultOnLoad = enabled
+    StudioData.EnableScriptCollabByDefaultOnLoad = enabled
 end
 
 function GameOptionsController:getTeamCreateStreamingEnabled(game)

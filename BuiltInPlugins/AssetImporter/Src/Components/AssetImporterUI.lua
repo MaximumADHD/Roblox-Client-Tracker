@@ -38,7 +38,10 @@ local function getRenderModel(instanceMap, selectedInstance)
 	if object == nil then
 		return emptyModel
 	end
-	return object:Clone()
+	local object = object:Clone()
+	local wrapper = Instance.new("Model")
+	object.Parent = wrapper
+	return wrapper
 end
 
 function AssetImporterUI:init()

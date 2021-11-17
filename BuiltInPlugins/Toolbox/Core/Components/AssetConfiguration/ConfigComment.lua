@@ -4,7 +4,6 @@
 	Props:
 	ToggleCallback, function, will return current selected statue if toggled.
 ]]
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -92,14 +91,10 @@ function ConfigComment:renderContent()
 	})
 end
 
-if FFlagToolboxWithContext then
-	ConfigComment = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ConfigComment)
-else
-	ContextServices.mapToProps(ConfigComment, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ConfigComment = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ConfigComment)
+
 
 return ConfigComment

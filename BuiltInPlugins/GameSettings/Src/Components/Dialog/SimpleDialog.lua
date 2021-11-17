@@ -6,7 +6,6 @@
 		string Header = The header text to display at the top of this Dialog.
 		table Buttons = {string cancelButtonName, string confirmButtonName}
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -44,15 +43,11 @@ function SimpleDialog:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	SimpleDialog = withContext({
-		Theme = ContextServices.Theme,
-	})(SimpleDialog)
-else
-	ContextServices.mapToProps(SimpleDialog, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+SimpleDialog = withContext({
+	Theme = ContextServices.Theme,
+})(SimpleDialog)
+
 
 
 return SimpleDialog

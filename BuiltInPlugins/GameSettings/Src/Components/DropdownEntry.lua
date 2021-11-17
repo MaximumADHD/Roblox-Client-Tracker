@@ -10,7 +10,6 @@
 		int LayoutOrder = The order in which this entry appears in the Dropdown.
 		function OnClick = Callback when this entry is clicked by the user.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local DEFAULT_SIZE = UDim2.new(0, 220, 0, 38)
 
@@ -108,17 +107,12 @@ function DropdownEntry:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	DropdownEntry = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(DropdownEntry)
-else
-	ContextServices.mapToProps(DropdownEntry, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+DropdownEntry = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(DropdownEntry)
+
 
 
 return DropdownEntry

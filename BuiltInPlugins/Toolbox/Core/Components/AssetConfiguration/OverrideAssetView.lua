@@ -14,7 +14,6 @@
 ]]
 
 local FFlagToolboxUseInfiniteScroller = game:GetFastFlag("ToolboxUseInfiniteScroller")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -278,14 +277,10 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxWithContext then
-	OverrideAssetView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(OverrideAssetView)
-else
-	ContextServices.mapToProps(OverrideAssetView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+OverrideAssetView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(OverrideAssetView)
+
 
 return RoactRodux.connect(nil, mapDispatchToProps)(OverrideAssetView)

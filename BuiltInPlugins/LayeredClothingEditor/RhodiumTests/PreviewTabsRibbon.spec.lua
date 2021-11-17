@@ -8,18 +8,19 @@ return function()
 	local TestRunner = require(Plugin.Src.Util.TestRunner)
 	local runRhodiumTest = TestRunner.runRhodiumTest
 
-	local ScrollerPath = TestHelper.getMainScroller()
+	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local PreviewTabsRibbonPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.PreviewTabsRibbon"))
 
 	it("main tabs ribbon should exist", function()
 		runRhodiumTest(function()
+			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(PreviewTabsRibbonPath)).to.be.ok()
 		end)
 	end)
 
 	it("avatar button should be initially selected after selecting an editing item", function()
 		runRhodiumTest(function()
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
 
 			local avatarButtonPath = PreviewTabsRibbonPath:cat(XPath.new("1 TAB_KEY_Avatars"))
 			expect(TestHelper.waitForXPathInstance(avatarButtonPath)).to.be.ok()
@@ -34,7 +35,7 @@ return function()
 
 	it("clothes button should be selected after clicking it", function()
 		runRhodiumTest(function()
-			TestHelper.addLCItemWithoutCageFromExplorer() -- an editing item makes tabs selectable
+			TestHelper.goToEditScreenFromStart(true)
 
 			local clothesButtonPath = PreviewTabsRibbonPath:cat(XPath.new("2 TAB_KEY_Clothing"))
 			expect(TestHelper.waitForXPathInstance(clothesButtonPath)).to.be.ok()

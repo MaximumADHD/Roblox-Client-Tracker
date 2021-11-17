@@ -1,4 +1,3 @@
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -16,7 +15,6 @@ local IconWithText = require(Plugin.Src.Components.IconWithText)
 local FitTextLabel = FitFrame.FitTextLabel
 
 local FlagsList = require(Plugin.Src.Util.FlagsList)
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
 
 --TODO: Rename this component to PermissionOverview as it now pertains to multiple permissions
 local HttpRequestOverview = Roact.PureComponent:extend("HttpRequestOverview")
@@ -52,12 +50,7 @@ function HttpRequestOverview:render()
 	local layoutOrder = self.props.LayoutOrder
 	local localization = self.props.Localization
 
-	local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-	else
-		theme = self.props.Theme:get("Plugin")
-	end
+	local theme = self.props.Stylizer
 
 	local layoutIndex = LayoutOrderIterator.new()
 	return Roact.createElement("TextButton", {
@@ -166,23 +159,11 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagPluginManagementWithContext then
-	HttpRequestOverview = withContext({
-		Navigation = Navigation,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})(HttpRequestOverview)
-else
-	ContextServices.mapToProps(HttpRequestOverview, {
-		Navigation = Navigation,
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-		API = PluginAPI2,
-	})
-end
-
+HttpRequestOverview = withContext({
+	Navigation = Navigation,
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+	API = PluginAPI2,
+})(HttpRequestOverview)
 
 return RoactRodux.connect(mapStateToProps, nil)(HttpRequestOverview)

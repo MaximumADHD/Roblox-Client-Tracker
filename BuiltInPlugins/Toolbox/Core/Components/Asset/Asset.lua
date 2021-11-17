@@ -20,7 +20,6 @@
 		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 
@@ -648,19 +647,13 @@ function Asset:renderContent(theme, localization, localizedContent)
 	end
 end
 
-if FFlagToolboxWithContext then
-	Asset = withContext({
-		AssetAnalytics = AssetAnalyticsContextItem,
-		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})(Asset)
-else
-	ContextServices.mapToProps(Asset, {
-		AssetAnalytics = AssetAnalyticsContextItem,
-		Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
-		Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
-	})
-end
+
+Asset = withContext({
+	AssetAnalytics = AssetAnalyticsContextItem,
+	Plugin = FFlagToolboxAssetGridRefactor and ContextServices.Plugin or nil,
+	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+})(Asset)
+
 
 
 local function mapStateToProps(state, props)

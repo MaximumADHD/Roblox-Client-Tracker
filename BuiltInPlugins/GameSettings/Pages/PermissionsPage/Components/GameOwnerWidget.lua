@@ -1,4 +1,3 @@
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -62,17 +61,12 @@ function GameOwnerWidget:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	GameOwnerWidget = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(GameOwnerWidget)
-else
-	ContextServices.mapToProps(GameOwnerWidget, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+GameOwnerWidget = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(GameOwnerWidget)
+
 
 
 GameOwnerWidget = RoactRodux.connect(

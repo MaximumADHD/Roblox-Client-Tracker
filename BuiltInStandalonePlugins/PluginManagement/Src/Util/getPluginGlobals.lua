@@ -17,16 +17,8 @@ local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local dataStore = Rodux.Store.new(MainReducer, nil, { Rodux.thunkMiddleware })
 
 -- theme
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
-local makeTheme
-local theme
-if THEME_REFACTOR then
-	makeTheme = require(Plugin.Src.Resources.makeTheme2)
-	theme = makeTheme
-else
-	makeTheme = require(Plugin.Src.Resources.makeTheme)
-	theme = makeTheme()
-end
+local theme = require(Plugin.Src.Resources.makeTheme)
+
 
 -- localization
 local TranslationDevelopmentTable = Plugin.Src.Resources.TranslationDevelopmentTable

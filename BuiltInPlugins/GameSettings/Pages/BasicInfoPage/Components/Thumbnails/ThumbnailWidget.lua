@@ -21,7 +21,6 @@
 			thumbnail, or when the user has finished dragging a thumbnail.
 			These actions are handled by the ThumbnailController above this component.
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -250,19 +249,13 @@ function ThumbnailWidget:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	ThumbnailWidget = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(ThumbnailWidget)
-else
-	ContextServices.mapToProps(ThumbnailWidget, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+ThumbnailWidget = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(ThumbnailWidget)
+
 
 
 return ThumbnailWidget

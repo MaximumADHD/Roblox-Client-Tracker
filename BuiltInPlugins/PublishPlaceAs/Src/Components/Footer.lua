@@ -11,7 +11,6 @@
 	  Active - is clickable
 	  OnActivated - function to run on click
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -49,7 +48,6 @@ function Footer:render()
 	local nextScreen = props.NextScreen
 	local nextScreenText = props.NextScreenText
 	local openNextScreen = props.OpenNextScreen
-	local isLocalSaveButton = props.IsLocalSaveButton
 	local isPublish = props.IsPublish
 
 	local children = props[Roact.Children]
@@ -106,28 +104,18 @@ function Footer:render()
 			Text = localization:getText("FooterButton", nextScreenText),
 
 			[Roact.Event.Activated] = function()
-				-- When saving, the "existing game" button is repurposed into a "save locally" button
-				if isLocalSaveButton then
-					StudioService:PromptForLocalSave()
-				else
-					openNextScreen(nextScreen)
-				end
+				openNextScreen(nextScreen)
 			end,
 		}),
 	})
 end
 
-if FFlagPublishPlaceAsWithContext then
-	Footer = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(Footer)
-else
-	ContextServices.mapToProps(Footer, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+Footer = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(Footer)
+
 
 
 local function useDispatchForProps(dispatch)

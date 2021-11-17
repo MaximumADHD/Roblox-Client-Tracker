@@ -56,7 +56,6 @@ type State = {
 }
 
 local FFlagEnableLoadModule = game:GetFastFlag("EnableLoadModule")
-local FFlagDeveloperStorybookWithContext = game:GetFastFlag("DeveloperStorybookWithContext")
 
 local InfoPanel = Roact.PureComponent:extend("InfoPanel")
 
@@ -493,17 +492,12 @@ function InfoPanel:render()
 	})
 end
 
-if FFlagDeveloperStorybookWithContext then
-	InfoPanel = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Plugin = ContextServices.Plugin
-	})(InfoPanel)
-else
-	ContextServices.mapToProps(InfoPanel, {
-		Stylizer = ContextServices.Stylizer,
-		Plugin = ContextServices.Plugin
-	})
-end
+
+InfoPanel = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Plugin = ContextServices.Plugin
+})(InfoPanel)
+
 
 
 InfoPanel = RoactRodux.connect(

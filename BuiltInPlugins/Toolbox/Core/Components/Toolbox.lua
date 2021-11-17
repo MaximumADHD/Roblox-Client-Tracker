@@ -63,10 +63,7 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
-
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
 local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
@@ -109,16 +106,14 @@ function Toolbox:handleInitialSettings()
 		requestReason = RequestReason.InitLoad,
 	}
 
-	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu then
-		local shouldGetGroups
-		if FFlagToolboxRemoveGroupInventory2 then
-			shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
-		else
-			shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
-		end
-		if shouldGetGroups then
-			self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
-		end
+	local shouldGetGroups
+	if FFlagToolboxRemoveGroupInventory2 then
+		shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+	else
+		shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
+	end
+	if shouldGetGroups then
+		self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
 	end
 
 	-- Set the initial page info for the toolbox
@@ -331,19 +326,13 @@ function Toolbox:render()
 	})
 end
 
-if FFlagToolboxWithContext then
-	Toolbox = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})(Toolbox)
-else
-	ContextServices.mapToProps(Toolbox, {
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Settings = Settings,
-	})
-end
+
+Toolbox = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Settings = Settings,
+})(Toolbox)
+
 
 
 local function mapStateToProps(state, props)

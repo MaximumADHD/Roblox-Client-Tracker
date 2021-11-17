@@ -1,4 +1,3 @@
-local FFlagToolboxWithContext = game:GetFastFlag("ToolboxWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Libs = Plugin.Libs
@@ -83,15 +82,11 @@ function DetailedDropdownItem:render()
 	})
 end
 
-if FFlagToolboxWithContext then
-	DetailedDropdownItem = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(DetailedDropdownItem)
-else
-	ContextServices.mapToProps(DetailedDropdownItem, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+DetailedDropdownItem = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(DetailedDropdownItem)
+
 
 
 return DetailedDropdownItem

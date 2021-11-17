@@ -25,7 +25,6 @@
 				a table of Roact elements, created using this component's props.
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
-local FFlagPublishPlaceAsWithContext = game:GetFastFlag("PublishPlaceAsWithContext")
 local FFlagAddAutoSizingCreateMenuPage = game:DefineFastFlag("AddAutoSizingCreateMenuPage", false)
 
 local Plugin = script.Parent.Parent.Parent
@@ -107,21 +106,14 @@ return function(loadValuesToProps, dispatchForProps)
 		}))
 	end
 
-	if FFlagPublishPlaceAsWithContext then
-		Page = withContext({
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-			Mouse = ContextServices.Mouse,
-			API = ContextServices.API,
-		})(Page)
-	else
-		ContextServices.mapToProps(Page, {
-			Theme = ContextServices.Theme,
-			Localization = ContextServices.Localization,
-			Mouse = ContextServices.Mouse,
-			API = ContextServices.API,
-		})
-	end
+	
+Page = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+	API = ContextServices.API,
+})(Page)
+
 
 
 	local function mapStateToProps(state, props)

@@ -19,15 +19,8 @@ return function()
 			local rootPath = XPath.new("game.CoreGui.PluginMockGui")
 			expect(TestHelper.waitForXPathInstance(rootPath)).to.be.ok()
 
-			local layeredClothingEditorPath = rootPath:cat(XPath.new("LayeredClothingEditor"))
+			local layeredClothingEditorPath = rootPath:cat(XPath.new("ScreenFlow"))
 			expect(TestHelper.waitForXPathInstance(layeredClothingEditorPath)).to.be.ok()
-		end)
-	end)
-
-	it("scroller should exist", function()
-		runRhodiumTest(function()
-			local scrollerPath = TestHelper.getMainScroller()
-			expect(TestHelper.waitForXPathInstance(scrollerPath)).to.be.ok()
 		end)
 	end)
 end

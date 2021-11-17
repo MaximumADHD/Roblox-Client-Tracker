@@ -31,7 +31,16 @@ if GetFFlagChannelAnimations() then
 				else
 					store:dispatch(AddTrack(instanceName, topTrackName, Constants.TRACK_TYPES.CFrame, analytics))
 				end
-				store:dispatch(AddKeyframe(instanceName, path, trackType, tick, value, analytics))
+				local keyframeData = {
+					Value = value
+				}
+				if AnimationData.isChannelAnimation(animationData) then
+					keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+				else
+					keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
+					keyframeData.EasingDirection = Enum.PoseEasingDirection.In
+				end
+				store:dispatch(AddKeyframe(instanceName, path, trackType, tick, keyframeData, analytics))
 			else
 				local trackData = track.Data
 
@@ -40,7 +49,17 @@ if GetFFlagChannelAnimations() then
 						Value = value,
 					}))
 				else
-					store:dispatch(AddKeyframe(instanceName, path, trackType, tick, value, analytics))
+					local keyframeData = {
+						Value = value
+					}
+					if track.IsCurveTrack then
+						keyframeData.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+					else
+						keyframeData.EasingStyle = Enum.PoseEasingStyle.Linear
+						keyframeData.EasingDirection = Enum.PoseEasingDirection.In
+					end
+
+					store:dispatch(AddKeyframe(instanceName, path, trackType, tick, keyframeData, analytics))
 				end
 			end
 			store:dispatch(StepAnimation(tick))

@@ -10,10 +10,8 @@ local Category = require(Plugin.Core.Types.Category)
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxDisableMarketplaceAndRecentsForLuobu = game:GetFastFlag("ToolboxDisableMarketplaceAndRecentsForLuobu")
-
 local getTabs = function(localizedContent)
-	if FFlagToolboxDisableMarketplaceAndRecentsForLuobu and disableMarketplaceAndRecents() then
+	if disableMarketplaceAndRecents() then
 		return {
 			{Key = Category.INVENTORY_KEY, Text = localizedContent:getText("General", "TabInventory"), Image = Images.INVENTORY_TAB},
 			{Key = Category.CREATIONS_KEY, Text = localizedContent:getText("General", "TabCreations"), Image = Images.CREATIONS_TAB}

@@ -1,4 +1,3 @@
-local FFlagPluginManagementWithContext = game:GetFastFlag("PluginManagementWithContext")
 -- TODO STM-823: Delete file
 
 local Plugin = script.Parent.Parent.Parent
@@ -12,19 +11,12 @@ local StudioUI = require(Plugin.Packages.Framework).StudioUI
 local Dialog = StudioUI.Dialog
 local FrameworkButton = UI.Button
 
-local THEME_REFACTOR = require(Plugin.Packages.Framework).Util.RefactorFlags.THEME_REFACTOR
-
 local MovedDialog = Roact.PureComponent:extend("MovedDialog")
 
 function MovedDialog:render()
 	local props = self.props
 	local localization = props.Localization
-    local theme
-	if THEME_REFACTOR then
-		theme = self.props.Stylizer
-    else
-        theme = self.props.Theme:get("Plugin")
-	end
+	local theme = self.props.Stylizer
 
 	return Roact.createElement(Dialog, {
 		Title = localization:getText("Moved", "Title"),
@@ -93,19 +85,9 @@ function MovedDialog:render()
 	})
 end
 
-if FFlagPluginManagementWithContext then
-	MovedDialog = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MovedDialog)
-else
-	ContextServices.mapToProps(MovedDialog, {
-		Localization = ContextServices.Localization,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
-
+MovedDialog = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(MovedDialog)
 
 return MovedDialog

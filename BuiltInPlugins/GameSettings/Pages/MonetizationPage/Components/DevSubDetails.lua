@@ -10,7 +10,6 @@
 		func OnEditFinished = function to call when this page wants to return to the
 			list view, when the back button gets clicked
 ]]
-local FFlagGameSettingsWithContext = game:GetFastFlag("GameSettingsWithContext")
 
 local StudioService = game:GetService("StudioService")
 
@@ -389,19 +388,13 @@ function DeveloperSubscriptionDetails:render()
 	})
 end
 
-if FFlagGameSettingsWithContext then
-	DeveloperSubscriptionDetails = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})(DeveloperSubscriptionDetails)
-else
-	ContextServices.mapToProps(DeveloperSubscriptionDetails,{
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Dialog = Dialog,
-	})
-end
+
+DeveloperSubscriptionDetails = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Dialog = Dialog,
+})(DeveloperSubscriptionDetails)
+
 
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)

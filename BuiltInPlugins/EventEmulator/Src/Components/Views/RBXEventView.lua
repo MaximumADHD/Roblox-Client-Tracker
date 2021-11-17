@@ -12,7 +12,6 @@
 	Style Values:
 		table Layout: consistent values for either horizontal or vertical UIListLayout
 ]]
-local FFlagEventEmulatorWithContext = game:GetFastFlag("EventEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -136,15 +135,11 @@ function RBXEventView:render()
 	}, self.createChildren())
 end
 
-if FFlagEventEmulatorWithContext then
-	RBXEventView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(RBXEventView)
-else
-	ContextServices.mapToProps(RBXEventView,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+RBXEventView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(RBXEventView)
+
 
 
 return RoactRodux.connect(

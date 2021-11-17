@@ -1,4 +1,3 @@
-local FFlagPivotEditorWithContext = game:GetFastFlag("PivotEditorWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -127,19 +126,13 @@ if getFFlagSummonPivot() then
 	end
 end
 
-if FFlagPivotEditorWithContext then
-	EditPivotSession = withContext({
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		ToastNotification = ToastNotification,
-	})(EditPivotSession)
-else
-	ContextServices.mapToProps(EditPivotSession, {
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		ToastNotification = ToastNotification,
-	})
-end
+
+EditPivotSession = withContext({
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	ToastNotification = ToastNotification,
+})(EditPivotSession)
+
 
 
 local function mapStateToProps(state, _)

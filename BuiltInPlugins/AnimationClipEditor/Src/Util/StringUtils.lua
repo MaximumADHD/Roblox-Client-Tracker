@@ -6,7 +6,6 @@ local Framework = require(Plugin.Packages.Framework)
 local MathUtils = Framework.Util.Math
 
 local Constants = require(Plugin.Src.Util.Constants)
-local GetFFlagUseTicks = require(Plugin.LuaFlags.GetFFlagUseTicks)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
 local StringUtils = {}
@@ -43,26 +42,21 @@ function StringUtils.parseTime(text, frameRate)
 		end
 	end
 	if #nums == 1 then
-		return GetFFlagUseTicks() and (nums[1] * Constants.TICK_FREQUENCY / frameRate) or nums[1]
+		return nums[1] * Constants.TICK_FREQUENCY / frameRate
 	elseif #nums > 1 then
-		return GetFFlagUseTicks() and ((nums[1] + nums[2] / frameRate) * Constants.TICK_FREQUENCY) or (nums[1] * frameRate + nums[2])
+		return (nums[1] + nums[2] / frameRate) * Constants.TICK_FREQUENCY
 	else
 		return nil
 	end
 end
 
 function StringUtils.formatTime(tick, frameRate, asSeconds)
-	if GetFFlagUseTicks() and not asSeconds then
+	if not asSeconds then
 		return math.floor(tostring(tick * frameRate / Constants.TICK_FREQUENCY))
 	end
 
 	-- Convert ticks to frames
-	local frame
-	if GetFFlagUseTicks() then
-		frame = KeyframeUtils.getNearestTick(tick * frameRate / Constants.TICK_FREQUENCY)
-	else
-		frame = tick
-	end
+	local frame = KeyframeUtils.getNearestTick(tick * frameRate / Constants.TICK_FREQUENCY)
 
 	if frameRate == 0 then
 		return tostring("0:" ..string.format("%02d", 0))

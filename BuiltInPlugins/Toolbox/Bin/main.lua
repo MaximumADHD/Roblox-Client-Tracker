@@ -10,6 +10,7 @@ return function(plugin, pluginLoaderContext)
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
 	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider")
 	local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
+	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 
 	if not FFlagImprovePluginSpeed_Toolbox then
 		-- Move this to loader.server.lua
@@ -82,6 +83,7 @@ return function(plugin, pluginLoaderContext)
 	local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrapper)
 
 	local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
+	local GetRolesDebugRequest = require(Plugin.Core.Networking.Requests.GetRolesDebugRequest)
 	local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 	local ContextServices = Framework.ContextServices
@@ -336,7 +338,11 @@ return function(plugin, pluginLoaderContext)
 				local function proceedToEdit()
 					createAssetConfig(assetId, flowType, instances, assetTypeEnum)
 				end
-				toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
+				if FFlagDebugToolboxGetRolesRequest then
+					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
+				else
+					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToEdit, proceedToEdit)
+				end
 			end,
 		})
 		local toolboxWithServices
@@ -375,7 +381,11 @@ return function(plugin, pluginLoaderContext)
 						end
 					end
 				end
-				toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				if FFlagDebugToolboxGetRolesRequest then
+					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				else
+					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				end
 			end)
 
 			pluginLoaderContext.signals["StudioService.OnImportFromRoblox"]:Connect(function(callback)
@@ -433,7 +443,11 @@ return function(plugin, pluginLoaderContext)
 						end
 					end
 				end
-				toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				if FFlagDebugToolboxGetRolesRequest then
+					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				else
+					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+				end
 			end)
 
 			StudioService.OnImportFromRoblox:connect(function(callback)
