@@ -1,4 +1,3 @@
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -22,15 +21,11 @@ function Label:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Label = withContext({
-		Localization = ContextServices.Localization,
-	})(Label)
-else
-	ContextServices.mapToProps(Label, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+Label = withContext({
+	Localization = ContextServices.Localization,
+})(Label)
+
 
 
 return Label

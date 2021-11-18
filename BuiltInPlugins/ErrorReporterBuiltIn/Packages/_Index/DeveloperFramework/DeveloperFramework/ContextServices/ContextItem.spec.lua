@@ -1,4 +1,3 @@
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 return function()
 	local Framework = script.Parent.Parent
 	local Signal = require(Framework.Util.Signal)
@@ -86,12 +85,7 @@ return function()
 				return nil
 			end
 
-			if FFlagDeveloperFrameworkWithContext then
-				TestComponent = withContext({Foo = Foo})(TestComponent)
-			else
-				ContextServices.mapToProps(TestComponent, {Foo = Foo})
-			end
-
+			TestComponent = withContext({Foo = Foo})(TestComponent)
 
 			local TestTopLevelComponent = Roact.PureComponent:extend("TestTopLevelComponent")
 

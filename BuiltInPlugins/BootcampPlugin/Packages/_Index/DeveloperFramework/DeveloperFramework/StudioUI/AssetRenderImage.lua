@@ -11,7 +11,6 @@
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -76,17 +75,12 @@ function AssetRenderImage:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetRenderImage = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetRenderImage)
-else
-	ContextServices.mapToProps(AssetRenderImage, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetRenderImage = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetRenderImage)
+
 
 
 return AssetRenderImage

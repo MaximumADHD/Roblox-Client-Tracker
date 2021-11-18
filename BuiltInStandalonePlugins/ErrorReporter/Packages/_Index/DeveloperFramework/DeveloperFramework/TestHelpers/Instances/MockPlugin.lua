@@ -8,7 +8,10 @@ local MockPlugin = {}
 MockPlugin.__index = MockPlugin
 
 local function createScreenGui()
-	local screen = Instance.new("ScreenGui", game.CoreGui)
+	local screen = Instance.new("ScreenGui")
+	pcall(function()
+		screen.Parent = game.CoreGui
+	end)
 	screen.Name = "PluginMockGui"
 	screen.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	return screen

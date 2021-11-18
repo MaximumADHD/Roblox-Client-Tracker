@@ -24,7 +24,7 @@ return strict({
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
-	
+	ellipsizeMiddle = require(script.ellipsizeMiddle),
 	enumerate = FFlagDevFrameworkAddEnumerateToUtil and require(script.enumerate) or nil,
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),
@@ -33,6 +33,7 @@ return strict({
 	Immutable = require(script.Immutable),
 	isInputMainPress = require(script.isInputMainPress),
 	LayoutOrderIterator = require(script.LayoutOrderIterator),
+	NoYield = require(script.NoYield),
 	Math = require(script.Math),
 	Promise = require(script.Promise),
 	Signal = require(script.Signal),

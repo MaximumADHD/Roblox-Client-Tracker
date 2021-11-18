@@ -17,7 +17,6 @@
 		callback MouseEnter: A callback for when the mouse enters the area.
 		callback MouseLeave: A callback for when the mouse leaves the area.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -69,15 +68,11 @@ function HoverArea:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	HoverArea = withContext({
-		Mouse = ContextServices.Mouse,
-	})(HoverArea)
-else
-	ContextServices.mapToProps(HoverArea, {
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+HoverArea = withContext({
+	Mouse = ContextServices.Mouse,
+})(HoverArea)
+
 
 
 return HoverArea

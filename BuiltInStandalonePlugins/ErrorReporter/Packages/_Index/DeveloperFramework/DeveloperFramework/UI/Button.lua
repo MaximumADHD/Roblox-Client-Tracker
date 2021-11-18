@@ -31,10 +31,6 @@
 		number TextSize: The size of the text in this button.
 		Color3 TextColor: The color of the text in this button.
 ]]
-local FFlagStudioFixTreeViewForSquish = settings():GetFFlag("StudioFixTreeViewForSquish")
-local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagToolboxReplaceUILibraryComponentsPt2 = game:GetFastFlag("ToolboxReplaceUILibraryComponentsPt2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -100,12 +96,12 @@ function Button:render()
 	assert(typeof(onClick) == "function", string.format("Button requires OnClick to be of type function, not %s", typeof(onClick)))
 
 	local buttonSize = UDim2.new(1, 0, 1, 0)
-	if FFlagToolboxReplaceUILibraryComponentsPt2 and automaticSize then
+	if automaticSize then
 		buttonSize = size
 	end
 
 	return Roact.createElement(Container, {
-		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
+		AutomaticSize = automaticSize,
 		Background = background,
 		BackgroundStyle = backgroundStyle,
 		BackgroundStyleModifier = styleModifier,
@@ -125,7 +121,7 @@ function Button:render()
 		}),
 
 		TextButton = Roact.createElement("TextButton", {
-			AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing and FFlagToolboxReplaceUILibraryComponentsPt2) and automaticSize or nil,
+			AutomaticSize = automaticSize,
 			Size = buttonSize,
 			BackgroundTransparency = 1,
 			Font = style.Font,
@@ -133,8 +129,8 @@ function Button:render()
 			TextColor3 = style.TextColor,
 			TextTruncate = style.TextTruncate,
 			TextWrapped = style.TextWrapped,
-			TextXAlignment = FFlagStudioFixTreeViewForSquish and style.TextXAlignment or nil,
-			TextYAlignment = FFlagStudioFixTreeViewForSquish and style.TextYAlignment or nil,
+			TextXAlignment = style.TextXAlignment,
+			TextYAlignment = style.TextYAlignment,
 			Text = text,
 			ZIndex = 2,
 
@@ -145,17 +141,12 @@ function Button:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Button = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Button)
-else
-	ContextServices.mapToProps(Button, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Button = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Button)
+
 
 
 return Button

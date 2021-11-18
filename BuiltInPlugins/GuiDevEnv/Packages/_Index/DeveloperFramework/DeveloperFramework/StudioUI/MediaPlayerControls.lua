@@ -20,7 +20,6 @@
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -136,17 +135,12 @@ function MediaPlayerControls:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	MediaPlayerControls = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(MediaPlayerControls)
-else
-	ContextServices.mapToProps(MediaPlayerControls, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+MediaPlayerControls = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(MediaPlayerControls)
+
 
 
 return MediaPlayerControls

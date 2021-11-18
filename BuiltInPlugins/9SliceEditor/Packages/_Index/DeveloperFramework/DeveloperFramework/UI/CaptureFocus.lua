@@ -9,7 +9,6 @@
 	Optional Props:
 		number Priority: The ZIndex of this component relative to other focused elements.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local FOCUSED_ZINDEX = 1000000
 
@@ -54,15 +53,11 @@ function CaptureFocus:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	CaptureFocus = withContext({
-		Focus = ContextServices.Focus,
-	})(CaptureFocus)
-else
-	ContextServices.mapToProps(CaptureFocus, {
-		Focus = ContextServices.Focus,
-	})
-end
+
+CaptureFocus = withContext({
+	Focus = ContextServices.Focus,
+})(CaptureFocus)
+
 
 
 return CaptureFocus

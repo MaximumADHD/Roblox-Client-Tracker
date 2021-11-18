@@ -27,7 +27,6 @@
 		Vector2 ImageRectSize: partial pixel size of the image
 		Vector2 ImageRectOffset: pixel offset for rendering part of image
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -84,17 +83,12 @@ function Image:render()
 	}, props[Roact.Children])
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Image = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Image)
-else
-	ContextServices.mapToProps(Image, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Image = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Image)
+
 
 
 return Image

@@ -14,7 +14,6 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -95,17 +94,12 @@ function RadioButtonList:render()
 	}, children)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	RadioButtonList = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(RadioButtonList)
-else
-	ContextServices.mapToProps(RadioButtonList, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+RadioButtonList = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(RadioButtonList)
+
 
 
 return RadioButtonList

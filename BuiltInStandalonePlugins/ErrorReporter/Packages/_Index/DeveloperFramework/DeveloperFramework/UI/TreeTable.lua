@@ -32,10 +32,12 @@
 		callback RowComponent: An optional component to render each row.
 		callback RightClick: An optional callback called when a row is right-clicked. (item: Item)->()
 		callback OnFocusLost: An optional callback called when a cell that has input enabled loses focus. Enable text change by column with TextInputCols prop
+		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		array[any] TextInputCols: An optional set used to determine if a given column with just display text or allow text input as well
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
+		array[any] HighlightedRows: An optional list of rows to highlight.
 ]]
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -60,9 +62,10 @@ local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
+local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -82,13 +85,11 @@ function TreeTable:init()
 		self.props.OnSelectionChange(newSelection)
 	end	
 	
-	if FFlagDevFrameworkAddRightClickEventToPane then
-		self.onRightClickRow = function(row)
-			if not self.props.RightClick then
-				return
-			end
-			self.props.RightClick(row)
+	self.onRightClickRow = function(row)
+		if not self.props.RightClick then
+			return
 		end
+		self.props.RightClick(row)
 	end
 	
 	self.getRowKey = function(row)
@@ -205,23 +206,22 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
-		OnRightClickRow = FFlagDevFrameworkAddRightClickEventToPane and self.onRightClickRow or nil,
+		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,
 		RowComponent = props.RowComponent,
 		CellComponent = cellComponent,
+		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+		HighlightedRows = (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows) or nil,
+		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	TreeTable = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(TreeTable)
-else
-	ContextServices.mapToProps(TreeTable, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+TreeTable = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(TreeTable)
+
 
 
 return TreeTable

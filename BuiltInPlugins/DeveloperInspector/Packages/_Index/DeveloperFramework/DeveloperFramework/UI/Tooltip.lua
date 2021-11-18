@@ -27,7 +27,6 @@
 		number ShowDelay: The time in seconds before the tooltip appears
 			after the user stops moving the mouse over the element.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local RunService = game:GetService("RunService")
@@ -221,19 +220,13 @@ function Tooltip:render()
 	}, content)
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Tooltip = withContext({
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Tooltip)
-else
-	ContextServices.mapToProps(Tooltip, {
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Tooltip = withContext({
+	Focus = ContextServices.Focus,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Tooltip)
+
 
 
 return Tooltip

@@ -22,8 +22,6 @@
 		number RowHeight: The height of each row.
 		number IconPadding: The horizontal padding around the icon.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkFixTreeViewTheme = game:GetFastFlag("DevFrameworkFixTreeViewTheme")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -107,21 +105,16 @@ function InstanceTreeView:render()
 		RenderRow = self.renderRow,
 		Size = props.Size,
 		Expansion = props.Expansion,
-		Style = FFlagDevFrameworkFixTreeViewTheme and style or style.TreeView,
+		Style = style,
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	InstanceTreeView = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(InstanceTreeView)
-else
-	ContextServices.mapToProps(InstanceTreeView, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+InstanceTreeView = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(InstanceTreeView)
+
 
 
 return InstanceTreeView

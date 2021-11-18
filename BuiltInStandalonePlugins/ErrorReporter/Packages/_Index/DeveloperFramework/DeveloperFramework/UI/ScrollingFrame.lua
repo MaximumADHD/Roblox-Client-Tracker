@@ -35,9 +35,8 @@
 		integer ZIndex: The draw index of the frame.
 ]]
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkTreeViewRow = game:GetFastFlag("DevFrameworkTreeViewRow")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
+local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -45,7 +44,6 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
 local Cryo
 local isUsedAsPackage = require(Framework.Util.isUsedAsPackage)
@@ -79,11 +77,7 @@ local function getStyle(self)
 end
 
 function ScrollingFrame:init()
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
-		self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
-	else
-		self.scrollingRef = Roact.createRef()
-	end
+	self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
 	self.onScroll = function(rbx)
@@ -202,14 +196,26 @@ function ScrollingFrame:render()
 			})),
 			Children = Roact.createFragment(children),
 		}
-	elseif FFlagDevFrameworkTreeViewRow and props.Layout then
-		children = {
-			Layout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				FillDirection = props.Layout,
-			}),
-			Children = Roact.createFragment(children),
-		}
+	elseif props.Layout then
+		if FFlagDevFrameworkScrollingFrameFixUpdate then
+			children = {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = props.Layout,
+					[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
+					[Roact.Ref] = self.layoutRef,
+				}),
+				Children = Roact.createFragment(children),
+			}
+		else
+			children = {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = props.Layout,
+				}),
+				Children = Roact.createFragment(children),
+			}
+		end
 	end
 
 	return Roact.createElement(FFlagDevFrameworkScrollingFrameUsePane and Pane or Container, {
@@ -230,17 +236,12 @@ function ScrollingFrame:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	ScrollingFrame = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(ScrollingFrame)
-else
-	ContextServices.mapToProps(ScrollingFrame, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+ScrollingFrame = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(ScrollingFrame)
+
 
 
 return ScrollingFrame

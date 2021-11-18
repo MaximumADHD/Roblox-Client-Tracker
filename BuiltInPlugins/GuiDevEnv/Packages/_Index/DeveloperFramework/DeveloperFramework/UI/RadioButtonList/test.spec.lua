@@ -1,3 +1,5 @@
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
+
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
@@ -22,6 +24,18 @@ return function()
 			Text = text,
 			Disabled = enabled,
 		}
+	end
+
+	local function createDescriptionRadioButton(key, text, description, enabled)
+		if FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+			return {
+				Key = key,
+				Text = text,
+				Description = description,
+				Disabled = enabled,
+			}
+		end
+		return
 	end
 
 	local function createTestToggle(props, children)
@@ -69,18 +83,70 @@ return function()
 		local button = folder:FindFirstChildOfClass("ImageLabel")
 		expect(button).to.be.ok()
 
-		local aChild = button[textA]
-		expect(aChild).to.be.ok()
-		expect(aChild.TextLabel.Text).to.equal(textA)
+		if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+			local aChild = button[textA]
+			expect(aChild).to.be.ok()
+			expect(aChild.TextLabel.Text).to.equal(textA)
 
-		local bChild = button[textB]
-		expect(bChild).to.be.ok()
-		expect(bChild.TextLabel.Text).to.equal(textB)
+			local bChild = button[textB]
+			expect(bChild).to.be.ok()
+			expect(bChild.TextLabel.Text).to.equal(textB)
 
-		local cChild = button[textC]
-		expect(cChild).to.be.ok()
-		expect(cChild.TextLabel.Text).to.equal(textC)
+			local cChild = button[textC]
+			expect(cChild).to.be.ok()
+			expect(cChild.TextLabel.Text).to.equal(textC)
+		else
+			local aChild = button[textA]
+			expect(aChild).to.be.ok()
+			expect(aChild.TextFrame.MainTextLabel.Text).to.equal(textA)
+
+			local bChild = button[textB]
+			expect(bChild).to.be.ok()
+			expect(bChild.TextFrame.MainTextLabel.Text).to.equal(textB)
+
+			local cChild = button[textC]
+			expect(cChild).to.be.ok()
+			expect(cChild.TextFrame.MainTextLabel.Text).to.equal(textC)
+		end
 
 		Roact.unmount(instance)
 	end)
+
+	if FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+		it("should render the correct text, description, and order for each radio button", function()
+			local folder = Instance.new("Folder")
+			local textA = "A"
+			local textB = "B"
+			local textC = "C"
+			local textDescription = "description"
+			local element = createTestToggle({
+				Buttons = {
+					createDescriptionRadioButton(textA, textA, textDescription, true),
+					createDescriptionRadioButton(textB, textB, textDescription, true),
+					createDescriptionRadioButton(textC, textC, textDescription, true),
+				},
+			})
+			local instance = Roact.mount(element, folder)
+
+			local button = folder:FindFirstChildOfClass("ImageLabel")
+			expect(button).to.be.ok()
+
+			local aChild = button[textA]
+			expect(aChild).to.be.ok()
+			expect(aChild.TextFrame.MainTextLabel.Text).to.equal(textA)
+			expect(aChild.TextFrame.DescriptionTextLabel.Text).to.equal(textDescription)
+
+			local bChild = button[textB]
+			expect(bChild).to.be.ok()
+			expect(bChild.TextFrame.MainTextLabel.Text).to.equal(textB)
+			expect(bChild.TextFrame.DescriptionTextLabel.Text).to.equal(textDescription)
+
+			local cChild = button[textC]
+			expect(cChild).to.be.ok()
+			expect(cChild.TextFrame.MainTextLabel.Text).to.equal(textC)
+			expect(cChild.TextFrame.DescriptionTextLabel.Text).to.equal(textDescription)
+
+			Roact.unmount(instance)
+		end)
+	end
 end

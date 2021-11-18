@@ -21,7 +21,6 @@ local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
 })
 
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
 Typecheck.wrap(KeyboardListener, script)
@@ -83,15 +82,11 @@ function KeyboardListener:willUnmount()
 	end
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	KeyboardListener = withContext({
-		Focus = ContextServices.Focus,
-	})(KeyboardListener)
-else
-	ContextServices.mapToProps(KeyboardListener, {
-		Focus = ContextServices.Focus,
-	})
-end
+
+KeyboardListener = withContext({
+	Focus = ContextServices.Focus,
+})(KeyboardListener)
+
 
 
 return KeyboardListener

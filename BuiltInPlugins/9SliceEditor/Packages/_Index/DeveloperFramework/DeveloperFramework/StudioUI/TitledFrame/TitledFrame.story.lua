@@ -1,4 +1,3 @@
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
@@ -25,19 +24,13 @@ function Example:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Example = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Example)
-else
-	ContextServices.mapToProps(Example, {
-		Plugin = ContextServices.Plugin,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Example = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Example)
+
 
 
 return Example

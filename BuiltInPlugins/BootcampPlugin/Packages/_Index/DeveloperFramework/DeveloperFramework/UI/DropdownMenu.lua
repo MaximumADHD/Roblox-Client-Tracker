@@ -27,7 +27,6 @@
 		number Width: The width of the menu area.
 		number MaxHeight: The maximum height of the menu area.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -48,7 +47,6 @@ local TextLabel = require(UI.TextLabel)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -136,7 +134,7 @@ function DropdownMenu:init()
 			yPos = sourcePosition.Y + sourceSize.Y + offset.Y
 			verticalAlignment = Enum.VerticalAlignment.Top
 		else
-			local heightToSubtract = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and math.min(height, maxHeight) or maxHeight
+			local heightToSubtract = math.min(height, maxHeight)
 			yPos = sourcePosition.Y - offset.Y - heightToSubtract
 			verticalAlignment = Enum.VerticalAlignment.Bottom
 		end
@@ -274,19 +272,13 @@ function DropdownMenu:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	DropdownMenu = withContext({
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(DropdownMenu)
-else
-	ContextServices.mapToProps(DropdownMenu, {
-		Focus = ContextServices.Focus,
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+DropdownMenu = withContext({
+	Focus = ContextServices.Focus,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(DropdownMenu)
+
 
 
 return DropdownMenu
