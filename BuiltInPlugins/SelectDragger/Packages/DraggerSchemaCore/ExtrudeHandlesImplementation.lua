@@ -10,15 +10,13 @@ local Math = require(DraggerFramework.Utility.Math)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
-local getFFlagSimPartVisualSize = require(DraggerFramework.Flags.getFFlagSimPartVisualSize)
-
 local EMPTY_CFRAME = CFrame.new()
 local ZERO_VECTOR = Vector3.new()
 local ONES_VECTOR = Vector3.new(1, 1, 1)
 local HUGE_VECTOR = ONES_VECTOR * math.huge
 
 -- controls how large/small a part may be on any dimension
-local MIN_PART_SIZE = 0.05
+local MIN_PART_SIZE = 0.001
 local MAX_PART_SIZE = 2048.0
 
 local ExtrudeHandlesImplementation = {}
@@ -138,10 +136,6 @@ function ExtrudeHandlesImplementation:getMinimumSize(selection, selectionInfo, n
 	local partsToResize = selectionInfo:getObjectsToTransform()
 	local boundsCFrame, boundsOffset, boundsSize = self:getBoundingBox(selection, selectionInfo)
 
-	local MIN_PART_SIZE = 0.05
-	if getFFlagSimPartVisualSize() then
-		MIN_PART_SIZE = 0.001
-	end
 	if #partsToResize == 1 then
 		-- The modulo covers resizing down to smaller than the initial size in
 		-- gridSize increments.
@@ -195,9 +189,6 @@ end
 	that all parts have sizes between MIN_PART_SIZE and MAX_PART_SIZE in all dimensions.
 ]]
 function ExtrudeHandlesImplementation:getMinMaxSizes(selectionInfo, axesToScale, bounds)
-	if getFFlagSimPartVisualSize() then
-		MIN_PART_SIZE = 0.001
-	end
 	local axesVec = Math.setToVector3(axesToScale)
 	-- this vector has 0 for axes along which we scale, and a huge number elsewhere
 	local ignoredAxesVec = (ONES_VECTOR - axesVec) * MAX_PART_SIZE * 10

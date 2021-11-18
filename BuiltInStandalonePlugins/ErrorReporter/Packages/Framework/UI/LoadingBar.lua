@@ -23,7 +23,6 @@
 		Component Foreground: The bar itself which fills the background.
 		Style ForegroundStyle: The style with which to render the foreground.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -83,17 +82,12 @@ function LoadingBar:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	LoadingBar = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(LoadingBar)
-else
-	ContextServices.mapToProps(LoadingBar, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+LoadingBar = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(LoadingBar)
+
 
 
 return LoadingBar

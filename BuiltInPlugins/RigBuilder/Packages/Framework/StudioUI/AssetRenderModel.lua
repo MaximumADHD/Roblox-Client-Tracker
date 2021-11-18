@@ -13,9 +13,9 @@
 		callback OnMouseEnter: called on MouseEnter - useful to delegate mouse scroll input to this component.
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
 		boolean RecenterCameraOnUpdate: Whether to recenter the camera on update.
+		any Camera: The camera instance used for the viewport frame - won't catch changes made by the parent component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkAssetImportFixes = game:GetFastFlag("DevFrameworkAssetImportFixes")
+local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -47,8 +47,14 @@ function AssetRenderModel:init()
 
 	self.viewportFrameRef = Roact.createRef()
 
-	local camera = Instance.new("Camera")
-	camera.Name = "AssetRenderModelCamera"
+	local camera
+	if FFlagDevFrameworkExtractAssetRenderModelCamera and self.props.Camera then
+		camera = self.props.Camera
+	else
+		camera = Instance.new("Camera")
+		camera.Name = "AssetRenderModelCamera"
+	end
+
 	self.camera = camera
 
 	self.viewportFrameModel = nil
@@ -166,7 +172,7 @@ function AssetRenderModel:updateViewportModel()
 		viewportFrame:ClearAllChildren()
 		self.viewportFrameModel.Parent = viewportFrame
 
-		if not FFlagDevFrameworkAssetImportFixes or not self.initialCenter or self.props.RecenterCameraOnUpdate then
+		if not self.initialCenter or self.props.RecenterCameraOnUpdate then
 			self.centerCamera()
 			self.initialCenter = true
 		end
@@ -222,17 +228,12 @@ function AssetRenderModel:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	AssetRenderModel = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(AssetRenderModel)
-else
-	ContextServices.mapToProps(AssetRenderModel, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+AssetRenderModel = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(AssetRenderModel)
+
 
 
 return AssetRenderModel

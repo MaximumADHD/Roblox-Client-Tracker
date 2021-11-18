@@ -3,10 +3,6 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local TestHelpers = require(Framework.TestHelpers)
 	local TextInput = require(script.Parent)
-	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
-	})
 
 	local function createTestTextInput(props)
 		props = props or {}
@@ -41,27 +37,25 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") then
-		it("should not remove newlines if the MultiLine property is true", function()
-			local actualText
-			local element = createTestTextInput({
-				MultiLine = true,
-				OnTextChanged = function(text)
-					actualText = text
-				end
-			})
-			local container = Instance.new("Folder")
-			local instance = Roact.mount(element, container)
-			local textBox = container:FindFirstChild("TextBox", true)
+	it("should not remove newlines if the MultiLine property is true", function()
+		local actualText
+		local element = createTestTextInput({
+			MultiLine = true,
+			OnTextChanged = function(text)
+				actualText = text
+			end
+		})
+		local container = Instance.new("Folder")
+		local instance = Roact.mount(element, container)
+		local textBox = container:FindFirstChild("TextBox", true)
 
-			local str = "Hello\nWorld"
-			textBox.Text = str
+		local str = "Hello\nWorld"
+		textBox.Text = str
 
-			expect(actualText).to.equal(str)
+		expect(actualText).to.equal(str)
 
-			Roact.unmount(instance)
-		end)
-	end
+		Roact.unmount(instance)
+	end)
 
 	it("should change the alignment of the TextBox if text is too long", function()
 		local element = createTestTextInput()

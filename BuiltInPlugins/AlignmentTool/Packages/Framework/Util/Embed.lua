@@ -75,10 +75,10 @@ end
 
 function EmbedFramework.rewriteStaticFlagsWithCurrentValues(framework: ModuleScript)
 	EmbedFramework.rewriteFlagsForScript(framework)
+	EmbedFramework.rewriteFlagsForScript(framework:FindFirstChild("Util") :: ModuleScript)
+	EmbedFramework.rewriteFlagsForScript(framework:FindFirstChild("UI") :: ModuleScript)
+	EmbedFramework.rewriteFlagsForScript(framework:FindFirstChild("StudioUI") :: ModuleScript)
 	forEach(framework:GetChildren(), function(folder: Instance)
-		if folder.Name == "packages" then
-			return
-		end
 		forEach(folder:GetDescendants(), function(child: Instance)
 			if child:IsA("ModuleScript") then
 				EmbedFramework.rewriteFlagsForScript(child :: ModuleScript)
@@ -128,6 +128,12 @@ local function getString(stringName: string)
 	end, stringName)
 end
 
+local function getInt(intName: string)
+	return tryCall(function()
+		return game:GetFastInt(intName)
+	end, intName)
+end
+
 local function getFVariable(settingName: string)
 	return tryCall(function()
 		return settings():GetFVariable(settingName)
@@ -144,6 +150,9 @@ end
 local function rewriteString(stringName: string)
 	return rewriteMethodCall(stringName, getString(stringName))
 end
+local function rewriteInt(intName: string)
+	return rewriteMethodCall(intName, getInt(intName))
+end
 local function rewriteSetting(settingName: string)
 	return rewriteMethodCall(settingName, getFVariable(settingName))
 end
@@ -156,9 +165,13 @@ function EmbedFramework.rewriteFlagsForScript(script: ModuleScript)
 		:gsub([[game:GetEngineFeature%(%s*"([^"]+)"[^)]*%)]], rewriteEngineFeature)
 		:gsub([[game:GetFastFlag%(%s*"([^"]+)"[^)]*%)]], rewriteFlag)
 		:gsub([[game:GetFastString%(%s*"([^"]+)"[^)]*%)]], rewriteString)
+		:gsub([[game:GetFastInt%(%s*"([^"]+)"[^)]*%)]], rewriteInt)
 		:gsub([[settings%(%):GetFFlag%(%s*"([^"]+)"%)]], rewriteFlag)
 		:gsub([[settings%(%):GetFVariable%(%s*"([^"]+)"%)]], rewriteSetting)
 		:gsub([[settings%(%):GetFVariable%(%s*"([^"]+)"%)]], rewriteSetting)
+		:gsub([[game:GetService%("StudioService"%)]], [[({StudioLocaleId = "en-us", GetPropertyChangedSignal = function() return {Connect = function() return {Disconnect = function() end} end} end, HasInternalPermission = function() return true end})]])
+		:gsub([[game:GetService%("ABTestService"%)]], [[({GetVariant = function() return "Control" end})]])
+		:gsub([[settings%(%)%.Studio]], [[({Theme = {Name = "Light", GetColor = function(_, color) return color == Enum.StudioStyleGuideColor.MainBackground and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(0, 0, 0) end}, ThemeChanged = {Connect = function() return {Disconnect = function() end} end}})]])
 		
 end
 

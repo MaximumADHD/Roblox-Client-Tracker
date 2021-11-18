@@ -13,7 +13,6 @@
 		Color3 BorderColor: The color of the border.
 		number BorderSize: the size of the border.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -49,17 +48,12 @@ function Box:render()
 	}, props[Roact.Children])
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Box = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Box)
-else
-	ContextServices.mapToProps(Box, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Box = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Box)
+
 
 
 return Box

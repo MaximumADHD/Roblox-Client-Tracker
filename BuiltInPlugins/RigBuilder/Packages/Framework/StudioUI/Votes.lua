@@ -12,8 +12,6 @@
 		UDim2 Position: The position of this component.
 		UDim2 Size: The size of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
-local FFlagDevFrameworkHandleNilVotes = game:GetFastFlag("DevFrameworkHandleNilVotes")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -38,13 +36,8 @@ function Votes:render()
 	local props = self.props
 	local Voting = props.Voting
 
-	local upVotes = Voting.UpVotes
-	local downVotes = Voting.DownVotes
-
-	if FFlagDevFrameworkHandleNilVotes then
-		upVotes = upVotes or 0
-		downVotes = downVotes or 0
-	end
+	local upVotes = Voting.UpVotes or 0
+	local downVotes = Voting.DownVotes or 0
 
 	local votePercentage = 0
 	local total = upVotes + downVotes
@@ -87,17 +80,12 @@ function Votes:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	Votes = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(Votes)
-else
-	ContextServices.mapToProps(Votes, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+Votes = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(Votes)
+
 
 
 return Votes

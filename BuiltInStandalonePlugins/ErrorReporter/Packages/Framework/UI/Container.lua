@@ -30,11 +30,6 @@ local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
 
-local FlagsList = Util.Flags.new({
-	FFlagToolboxReplaceUILibraryComponentsPt2 = {"ToolboxReplaceUILibraryComponentsPt2"},
-})
-local FFlagDevFrameworkAddContainerAutomaticSizing = game:GetFastFlag("DevFrameworkAddContainerAutomaticSizing")
-
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
 
@@ -100,13 +95,13 @@ function Container:render()
 	end
 
 	local contentSize = UDim2.new(1, 0, 1, 0)
-	if FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and automaticSize then
+	if automaticSize then
 		contentSize = size
 	end
 
 	return Roact.createElement(elementOverride or "Frame", {
 		Active = active,
-		AutomaticSize = (FFlagDevFrameworkAddContainerAutomaticSizing or FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2")) and automaticSize or nil,
+		AutomaticSize = automaticSize,
 		BackgroundTransparency = 1,
 		Size = size,
 		SizeConstraint = props.SizeConstraint,
@@ -117,7 +112,7 @@ function Container:render()
 		Visible = visible,
 		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = props[Roact.Change.AbsoluteSize],
-		[Roact.Change.AbsolutePosition] = FlagsList:get("FFlagToolboxReplaceUILibraryComponentsPt2") and props[Roact.Change.AbsolutePosition] or nil,
+		[Roact.Change.AbsolutePosition] = props[Roact.Change.AbsolutePosition],
 	}, {
 		Margin = marginComponent,
 

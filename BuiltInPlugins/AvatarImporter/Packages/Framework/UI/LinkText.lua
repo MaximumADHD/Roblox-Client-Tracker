@@ -26,7 +26,6 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -171,17 +170,12 @@ function LinkText:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	LinkText = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(LinkText)
-else
-	ContextServices.mapToProps(LinkText, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+LinkText = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(LinkText)
+
 
 
 return LinkText

@@ -16,7 +16,6 @@ local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDra
 local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
 
 local getFFlagMoreLuaDraggerFixes = require(DraggerFramework.Flags.getFFlagMoreLuaDraggerFixes)
-local getFFlagIgnoreSpuriousViewChange = require(DraggerFramework.Flags.getFFlagIgnoreSpuriousViewChange)
 
 local DraggerToolModel = {}
 DraggerToolModel.__index = DraggerToolModel
@@ -388,7 +387,7 @@ local function debugErrorInNeither()
 end
 
 function DraggerToolModel:_processViewChanged()
-	if getFFlagIgnoreSpuriousViewChange() and not self._stateObject then
+	if not self._stateObject then
 		return
 	end
 	if getFFlagMoreLuaDraggerFixes() and not self._stateObject then

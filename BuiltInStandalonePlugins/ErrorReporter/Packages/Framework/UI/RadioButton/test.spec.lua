@@ -1,3 +1,5 @@
+local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
+
 return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
@@ -67,9 +69,37 @@ return function()
 
 		local button = folder:FindFirstChildOfClass("TextButton")
 		expect(button.RadioImage).to.be.ok()
-		expect(button.TextLabel).to.be.ok()
-		expect(button.TextLabel.Text).to.equal(myText)
+
+		if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+			expect(button.TextLabel).to.be.ok()
+			expect(button.TextLabel.Text).to.equal(myText)
+		else
+			expect(button.TextFrame.MainTextLabel).to.be.ok()
+			expect(button.TextFrame.MainTextLabel.Text).to.equal(myText)
+		end
 
 		Roact.unmount(instance)
 	end)
+
+	if FFlagRemoveUILibraryTitledFrameRadioButtonSet then
+		it("should render the correct main and description text", function()
+			local folder = Instance.new("Folder")
+			local myText = "My Text"
+			local element = createTestRadioButton({
+				Key = "Key",
+				Text = myText,
+				Description = myText,
+			})
+			local instance = Roact.mount(element, folder)
+
+			local button = folder:FindFirstChildOfClass("TextButton")
+			expect(button.RadioImage).to.be.ok()
+			expect(button.TextFrame.MainTextLabel).to.be.ok()
+			expect(button.TextFrame.MainTextLabel.Text).to.equal(myText)
+			expect(button.TextFrame.DescriptionTextLabel).to.be.ok()
+			expect(button.TextFrame.DescriptionTextLabel.Text).to.equal(myText)
+
+			Roact.unmount(instance)
+		end)
+	end
 end

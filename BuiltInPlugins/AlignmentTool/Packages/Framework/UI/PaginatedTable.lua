@@ -29,7 +29,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck
@@ -107,15 +106,11 @@ function PaginatedTable:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	PaginatedTable = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})(PaginatedTable)
-else
-	ContextServices.mapToProps(PaginatedTable, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	})
-end
+
+PaginatedTable = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+})(PaginatedTable)
+
 
 
 return PaginatedTable

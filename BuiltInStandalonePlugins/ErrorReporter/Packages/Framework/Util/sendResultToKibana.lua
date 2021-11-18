@@ -4,7 +4,6 @@
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagNewPackageAnalyticsWithRefactor3 = game:DefineFastFlag("NewPackageAnalyticsWithRefactor3", false)
 local FFlagInfluxReportingPackageAnalyticsHundrethsPercent = game:GetFastInt("InfluxReportingPackageAnalyticsHundrethsPercent")
 
 local function __sendResultToKibana(result)
@@ -20,14 +19,14 @@ local function __sendResultToKibana(result)
     if result.url then
         valueTable["url"] = result.url
     end
-    if FFlagNewPackageAnalyticsWithRefactor3 then
-        if result.Method then
-            valueTable["requestType"] = result.Method
-        end
-        if result.requestType then
-            valueTable["requestType"] = result.requestType
-        end
+
+    if result.Method then
+        valueTable["requestType"] = result.Method
     end
+    if result.requestType then
+        valueTable["requestType"] = result.requestType
+    end
+  
     RbxAnalyticsService:reportInfluxSeries("StudioPackagesEndpointsStatus", valueTable, FFlagInfluxReportingPackageAnalyticsHundrethsPercent)
 end
 
@@ -39,12 +38,12 @@ local function formatForKibana(response)
         formattedResponse.responseBody.ErrorMessage = nil
     end
     if formattedResponse.requestOptions then
-        if FFlagNewPackageAnalyticsWithRefactor3 then
-            if formattedResponse.requestOptions.Url then
-                formattedResponse.url = formattedResponse.requestOptions.Url
-                formattedResponse.requestOptions.url = nil
-            end
+
+        if formattedResponse.requestOptions.Url then
+            formattedResponse.url = formattedResponse.requestOptions.Url
+            formattedResponse.requestOptions.url = nil
         end
+
         if formattedResponse.requestOptions.url then
             formattedResponse.url = formattedResponse.requestOptions.url
             formattedResponse.requestOptions.url = nil
@@ -54,10 +53,9 @@ local function formatForKibana(response)
             formattedResponse.requestOptions.Method = nil
         end
     end
-    if FFlagNewPackageAnalyticsWithRefactor3 then
-        if formattedResponse.url.Url then
-            formattedResponse.url = formattedResponse.url.Url
-        end
+
+    if formattedResponse.url.Url then
+        formattedResponse.url = formattedResponse.url.Url
     end
     __sendResultToKibana(formattedResponse)
 end

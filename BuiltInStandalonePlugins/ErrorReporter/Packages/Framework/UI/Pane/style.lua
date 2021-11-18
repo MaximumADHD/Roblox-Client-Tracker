@@ -13,6 +13,8 @@ local StyleModifier = Util.StyleModifier
 local Style = Util.Style
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
+
 if THEME_REFACTOR then
 	local box = {
 		Background = StyleKey.MainBackground,
@@ -37,11 +39,20 @@ if THEME_REFACTOR then
 			SliceCenter = Rect.new(3, 3, 13, 13),
 		}
 	})
+	
+	local cornerBox = nil
+	if FFlagDevFrameworkPaneAddCornerBoxStyle then
+		cornerBox = join(box, {
+			CornerRadius = UDim.new(0, 8),
+		})
+	end
+
 	return {
 		["&Box"] = box,
 		["&SubtleBox"] = subtleBox,
 		["&RoundBox"] = roundBox,
 		["&BorderBox"] = borderBox,
+		["&CornerBox"] = cornerBox,
 	}
 else
 	return function(theme, getColor)
@@ -66,11 +77,19 @@ else
 			}
 		})
 
+		local CornerBox = nil
+		if FFlagDevFrameworkPaneAddCornerBoxStyle then
+			CornerBox = Style.extend(Box, {
+				CornerRadius = UDim.new(0, 8),
+			})
+		end
+
 		return {
 			Default = Default,
 			Box = Box,
 			RoundBox = RoundBox,
 			BorderBox = BorderBox,
+			CornerBox = CornerBox,
 		}
 	end
 end

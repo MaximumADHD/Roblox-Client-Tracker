@@ -13,12 +13,14 @@ local Pane = require(UI.Pane)
 local Tooltip = require(UI.Tooltip)
 local TextLabel = require(UI.TextLabel)
 local TextInput = require(UI.TextInput)
+local Util = require(Framework.Util)
+local StyleModifier = Util.StyleModifier
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
 local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagDevFrameworkAddRightClickEventToPane = game:GetFastFlag("DevFrameworkAddRightClickEventToPane")
 local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
+local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 function TreeTableCell:init()
 	self.onToggle = function()
@@ -97,6 +99,13 @@ function TreeTableCell:render()
 	
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
+	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+		if style[StyleModifier.Hover] then
+			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
+				style[StyleModifier.Hover].BackgroundEven
+		end
+	end
+
 	local isExpanded = cellProps.Expansion[row.item]
 	local arrowSize = style.Arrow.Size
 	local indent = row.depth * style.Indent
@@ -116,7 +125,6 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-		OnRightClick = FFlagDevFrameworkAddRightClickEventToPane and props.OnRightClick or nil,
 		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {

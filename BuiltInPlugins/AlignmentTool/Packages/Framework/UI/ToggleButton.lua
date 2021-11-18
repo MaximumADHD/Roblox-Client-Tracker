@@ -19,7 +19,6 @@
 		string Text: A text to be displayed over the image if any.
 		number ZIndex: The render index of this component.
 ]]
-local FFlagDeveloperFrameworkWithContext = game:GetFastFlag("DeveloperFrameworkWithContext")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -92,17 +91,12 @@ function ToggleButton:render()
 	})
 end
 
-if FFlagDeveloperFrameworkWithContext then
-	ToggleButton = withContext({
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})(ToggleButton)
-else
-	ContextServices.mapToProps(ToggleButton, {
-		Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-		Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
-	})
-end
+
+ToggleButton = withContext({
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+})(ToggleButton)
+
 
 
 return ToggleButton

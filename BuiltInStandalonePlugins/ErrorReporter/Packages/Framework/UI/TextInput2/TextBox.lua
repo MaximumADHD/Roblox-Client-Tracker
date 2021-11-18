@@ -123,7 +123,7 @@ function TextBox:render()
 			PlaceholderColor3 = props.PlaceholderTextColor,
 			PlaceholderText = props.PlaceholderText,
 			Size = UDim2.fromScale(1, 1),
-			Text = self:_getText(),
+			Text = props.Text,
 			TextColor3 = props.TextColor,
 			TextEditable = not props.Disabled,
 			TextSize = props.TextSize,
@@ -138,15 +138,6 @@ function TextBox:render()
 			[Roact.Ref] = self.textBoxRef,
 		})
 	})
-end
-
-function TextBox:_getText()
-	local textBox = self.textBoxRef.current
-	if textBox then
-		return textBox.Text
-	else
-		return self.props.Text
-	end
 end
 
 function TextBox:_resetTextBoxOffset()

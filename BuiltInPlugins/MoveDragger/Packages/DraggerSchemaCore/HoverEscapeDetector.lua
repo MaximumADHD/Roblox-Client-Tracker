@@ -12,7 +12,6 @@ local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
 local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
-local getFFlagTemporaryDisableUpdownAsserts = require(DraggerFramework.Flags.getFFlagTemporaryDisableUpdownAsserts)
 
 local HoverEscapeDetector = {}
 HoverEscapeDetector.__index = HoverEscapeDetector
@@ -69,14 +68,7 @@ function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 end
 
 function HoverEscapeDetector:destroy()
-	if getFFlagTemporaryDisableUpdownAsserts() then
-		-- Should not be needed, temporary code to diagnose issues.
-		if self._destroyed then
-			return
-		end
-	else
-		assert(not self._destroyed)
-	end
+	assert(not self._destroyed)
 	if getFFlagDraggerFrameworkFixes() then
 		self._destroyed = true
 	end
