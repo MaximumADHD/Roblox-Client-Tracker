@@ -11,6 +11,7 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Size: The size of this component.
+		boolean RichText: Whether to not to use rich text formatting.
 		UDim2 Position: The position of this component.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
@@ -74,6 +75,7 @@ function TextLabel:render()
 
 	local backgroundTransparency = prioritize(self.props.BackgroundTransparency, style.BackgroundTransparency, 1)
 	local font = prioritize(self.props.Font, style.Font)
+	local richText = self.props.RichText
 	local textColor = prioritize(self.props.TextColor, style.TextColor)
 	local textSize = prioritize(self.props.TextSize, style.TextSize)
 	local transparency = prioritize(self.props.TextTransparency, style.TextTransparency)
@@ -92,6 +94,7 @@ function TextLabel:render()
 		BackgroundTransparency = backgroundTransparency,
 		Font = font,
 		LayoutOrder = layoutOrder,
+		RichText = richText,
 		Size = size,
 		Text = text,
 		TextColor3 = textColor,
