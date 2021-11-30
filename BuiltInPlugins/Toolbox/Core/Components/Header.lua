@@ -16,7 +16,7 @@
 		callback onSearchOptionsToggled()
 ]]
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -352,7 +352,7 @@ local function mapStateToProps(state, props)
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
-		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and assets.mostRecentAssetInsertTime or nil,
+		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor2 and assets.mostRecentAssetInsertTime or nil,
 	}
 end
 

@@ -1,3 +1,9 @@
-export type Example = any
+export type SliceRectType = {
+	[number]: number,
+}
 
-return {}
+export type SliceOffsetsType = {
+	[number]: number,
+}
+
+return nil

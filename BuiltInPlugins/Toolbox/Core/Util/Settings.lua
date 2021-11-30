@@ -12,8 +12,6 @@ Settings.__index = Settings
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 
-local FFlagToolboxDefaultCategory = game:GetFastFlag("ToolboxDefaultCategory")
-
 -- Built in plugins share the same namespace for settings, so mark this as from the toolbox
 local SETTING_PREFIX = "Toolbox_"
 local SELECTED_CATEGORY_NAME_KEY = SETTING_PREFIX .. "SelectedCategoryName"
@@ -110,7 +108,7 @@ function Settings:loadInitialSettings()
 	else
 		initSettings.categoryName = self:getSelectedCategoryName()
 
-		if FFlagToolboxDefaultCategory and not Category.getCategoryByName(initSettings.categoryName) then
+		if not Category.getCategoryByName(initSettings.categoryName) then
 			initSettings.categoryName = Category.DEFAULT.name
 		end
 	end

@@ -163,6 +163,7 @@ function PropertyView:render()
 			OnToggleItem = self.onToggleItem,
 			Size = UDim2.new(0.5, 0, 0, 24),
 			Value = value,
+			Localization = localization,
 		}),
 	})
 end

@@ -11,7 +11,6 @@
 		function OnInputBegan = A callback for when the user starts interacting with the event.
 		function OnInputEnded = A callback for when the user stops interacting with the event.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -91,15 +90,11 @@ function EventMarker:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	EventMarker = withContext({
-		Theme = ContextServices.Theme,
-	})(EventMarker)
-else
-	ContextServices.mapToProps(EventMarker, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+EventMarker = withContext({
+	Theme = ContextServices.Theme,
+})(EventMarker)
+
 
 
 

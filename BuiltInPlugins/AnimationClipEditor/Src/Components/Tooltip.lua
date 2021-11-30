@@ -13,7 +13,6 @@
 		int Priority = The display order of this tooltip relative to other
 			always-on-top elements.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -52,15 +51,11 @@ function Tooltip:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	Tooltip = withContext({
-		Localization = ContextServices.Localization,
-	})(Tooltip)
-else
-	ContextServices.mapToProps(Tooltip, {
-		Localization = ContextServices.Localization,
-	})
-end
+
+Tooltip = withContext({
+	Localization = ContextServices.Localization,
+})(Tooltip)
+
 
 
 return Tooltip

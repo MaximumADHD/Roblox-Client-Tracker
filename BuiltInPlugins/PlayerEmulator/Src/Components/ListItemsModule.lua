@@ -13,7 +13,6 @@
 		function ListItemsCheckBoxCallback
 			callback to parent when checkbox in this list is clicked
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
@@ -99,17 +98,12 @@ function ListItemsModule:render()
 	}) or nil
 end
 
-if FFlagPlayerEmulatorWithContext then
-	ListItemsModule = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-	})(ListItemsModule)
-else
-	ContextServices.mapToProps(ListItemsModule, {
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ListItemsModule = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+})(ListItemsModule)
+
 
 
 return ListItemsModule

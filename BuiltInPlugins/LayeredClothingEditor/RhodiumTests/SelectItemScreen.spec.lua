@@ -18,6 +18,10 @@ return function()
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
 	local SelectScreenTextBoxPath =
 		SelectFramePath:cat(XPath.new("Content.SelectedPartBox.Contents.TextBox"))
+	local AssetTypeScreenPath =
+		ScreenFlowPath:cat(XPath.new("Screen.MainFrame.SwizzleView.ViewArea"))
+	local BackButtonPath =
+		AssetTypeScreenPath:cat(XPath.new("NextAndBackButtonContainer.BackButton.Contents.TextButton"))
 
 	describe("Next Button", function()
 		it("Should be inactive if there is no selection", function()
@@ -52,6 +56,26 @@ return function()
 				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
 
 				TestHelper.addLCItemWithFullCageFromExplorer()
+				TestHelper.clickXPath(NextButtonPath)
+
+				-- We should no longer be on SelectItemScreen if we clicked Next while the button was active
+				expect(TestHelper.waitForXPathInstance(SelectFramePath)).to.equal(nil)
+			end)
+		end)
+
+		it("Should be enabled if we went back from a later screen", function()
+			runRhodiumTest(function()
+				TestHelper.goToAssetTypeScreenFromStart(true)
+
+				expect(TestHelper.waitForXPathInstance(BackButtonPath)).to.be.ok()
+				TestHelper.clickXPath(BackButtonPath)
+
+				local textBox = TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)
+				expect(textBox).to.be.ok()
+				expect(textBox.Text).to.equal(TestHelper.DefaultClothesName)
+
+				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
+				-- we should still be able to click on Next Button here because the selection is remembered
 				TestHelper.clickXPath(NextButtonPath)
 
 				-- We should no longer be on SelectItemScreen if we clicked Next while the button was active

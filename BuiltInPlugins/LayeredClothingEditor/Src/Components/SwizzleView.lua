@@ -11,7 +11,6 @@
 		boolean IsSubsection: if this is a subsection of another swizzle view
 		boolean StayOpen: if this swizzle view can be collapsed
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -123,15 +122,11 @@ function SwizzleView:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SwizzleView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SwizzleView)
-else
-	ContextServices.mapToProps(SwizzleView,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+SwizzleView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SwizzleView)
+
 
 
 return SwizzleView

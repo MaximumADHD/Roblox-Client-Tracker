@@ -10,7 +10,6 @@
 		function OnAddEvent() = A callback for when the user wants to
 			add a new event to the event list.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local ICON_SIZE = UDim2.new(0, 9, 0, 8)
 
@@ -86,19 +85,13 @@ function AddEventEntry:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	AddEventEntry = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})(AddEventEntry)
-else
-	ContextServices.mapToProps(AddEventEntry, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+AddEventEntry = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+})(AddEventEntry)
+
 
 
 

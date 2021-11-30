@@ -5,7 +5,6 @@
 		UDim2 Size = size of the frame
 		number LayoutOrder = render order of component in layout
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -64,17 +63,12 @@ function PointToolSettings:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	PointToolSettings = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(PointToolSettings)
-else
-	ContextServices.mapToProps(PointToolSettings,{
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PointToolSettings = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(PointToolSettings)
+
 
 
 local function mapStateToProps(state, props)

@@ -12,7 +12,6 @@
 		Vector2 ParentSize = size of the frame this frame is parented to
 		int Playhead = current tick the scrubber is on
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -161,15 +160,11 @@ function TimelineContainer:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TimelineContainer = withContext({
-		Theme = ContextServices.Theme,
-	})(TimelineContainer)
-else
-	ContextServices.mapToProps(TimelineContainer, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TimelineContainer = withContext({
+	Theme = ContextServices.Theme,
+})(TimelineContainer)
+
 
 
 

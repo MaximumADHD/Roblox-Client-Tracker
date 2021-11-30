@@ -63,6 +63,7 @@ local PluginTheme = {
 		IndicatorOffset = 20,
 		IndicatorSize = 100,
 		PreviewRatio = 0.5,
+		StatusMessagePadding = 24,
 		ToolbarHeight = 30,
 		TopBarHeight = 40,
 	},
@@ -78,6 +79,21 @@ local PluginTheme = {
 		LoadingBarContainerSize = UDim2.new(0.8, 0, 0, 10),
 		SuccessColor = Color3.fromRGB(2, 183, 87),
 		FailureColor = Color3.fromRGB(255, 85, 85),
+		TopPadding = {
+			Left = 10,
+			Top = 20,
+			Right = 10,
+			Bottom = 10,
+		},
+	},
+
+	ErrorWidget = {
+		Height = 100,
+		IconSize = 48,
+		IconSpacing = 16,
+		SubtextSize = 18,
+		TextSize = 24,
+		Width = 500,
 	},
 
 	ErrorIcon = {

@@ -10,10 +10,11 @@ local SetFilename = require(Plugin.Src.Actions.SetFilename)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsItem)
 local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
+local SetImportStatuses = require(Plugin.Src.Actions.SetImportStatuses)
 
 return function(promptClosedHandler)
 	return function(store)
-		local settings, filename = AssetImportService:ImportMeshWithPrompt()
+		local settings, filename, statuses = AssetImportService:ImportMeshWithPrompt()
 
 		if settings and filename then
 			local instanceMap = AssetImportService:GetCurrentImportMap()
@@ -40,6 +41,8 @@ return function(promptClosedHandler)
 			store:dispatch(SetSelectedSettingsItem(settings))
 			store:dispatch(SetTreeChecked(checked))
 		end
+
+		store:dispatch(SetImportStatuses(statuses))
 
 		if promptClosedHandler then
 			local succeeded = settings ~= nil and filename ~= nil

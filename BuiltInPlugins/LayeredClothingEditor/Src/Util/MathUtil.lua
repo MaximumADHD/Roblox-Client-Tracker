@@ -5,10 +5,13 @@ function MathUtil:fuzzyEq(a, b)
 	return math.abs(a - b) < epsilon
 end
 
-function MathUtil:fuzzyEq_Vector3(vec1, vec2)
-	return	MathUtil:fuzzyEq(vec1.X, vec2.X) and
-			MathUtil:fuzzyEq(vec1.Y, vec2.Y) and
-			MathUtil:fuzzyEq(vec1.Z, vec2.Z)
+function MathUtil:fuzzyEq_CFrame(cf1, cf2)
+	local rx1, ry1, rz1 = cf1:ToEulerAnglesXYZ()
+	local rx2, ry2, rz2 = cf2:ToEulerAnglesXYZ()
+	return	cf1.p:FuzzyEq(cf2.p) and
+			MathUtil:fuzzyEq(rx1, rx2) and
+			MathUtil:fuzzyEq(ry1, ry2) and
+			MathUtil:fuzzyEq(rz1, rz2)
 end
 
 function MathUtil:adornLocalSpace(adornee, position)

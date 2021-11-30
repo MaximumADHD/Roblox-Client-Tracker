@@ -15,7 +15,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -158,17 +157,12 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditorScreen = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(EditorScreen)
-else
-	ContextServices.mapToProps(EditorScreen,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+EditorScreen = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(EditorScreen)
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorScreen)

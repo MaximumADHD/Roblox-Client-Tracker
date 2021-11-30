@@ -9,7 +9,7 @@ end
 
 formatter.formatDeviceName = function(rawDeviceId: string, localization): string
 	if rawDeviceId == "default" then
-		return localization:getText("RecordTabView", "ComputerEmulationDeviceOrientation")
+		return localization:getText("RecordTabView", "ComputerEmulationDeviceName")
 	end
 	return rawDeviceId
 end

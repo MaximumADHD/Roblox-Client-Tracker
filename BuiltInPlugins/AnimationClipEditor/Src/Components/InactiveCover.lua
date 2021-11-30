@@ -7,7 +7,6 @@
 		function OnFocused() = A callback for when the user wants to
 			return focus to the Animation Editor plugin.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -44,17 +43,12 @@ function InactiveCover:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	InactiveCover = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(InactiveCover)
-else
-	ContextServices.mapToProps(InactiveCover, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+InactiveCover = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(InactiveCover)
+
 
 
 

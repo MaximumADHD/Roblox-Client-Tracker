@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary RoundFrame component, but modified to use dev framework context
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -85,15 +84,11 @@ function RoundFrame:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	RoundFrame = withContext({
-		Theme = ContextServices.Theme,
-	})(RoundFrame)
-else
-	ContextServices.mapToProps(RoundFrame, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+RoundFrame = withContext({
+	Theme = ContextServices.Theme,
+})(RoundFrame)
+
 
 
 

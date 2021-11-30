@@ -1,9 +1,8 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
-local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-local FFlagTerrainToolsFixSnapPlaneLock = game:GetFastFlag("TerrainToolsFixSnapPlaneLock")
+local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -179,8 +178,8 @@ function TerrainBrush.new(options)
 		"TerrainBrush needs a tool passed to constructor")
 
 	self._raycastParams = RaycastParams.new()
-	if (not FFlagTerrainToolsPartInteractToggle) then
-		self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
+	if EngineFeatureDraggerBruteForce then
+		self._raycastParams.BruteForceAllSlow = true
 	end
 
 	return self
@@ -440,7 +439,7 @@ function TerrainBrush:_run()
 		local ignoreWater = self._operationSettings.ignoreWater
 		local editPlaneMode = self._operationSettings.editPlaneMode
 		local planeCFrame = self._operationSettings.planeCFrame
-		local ignoreParts = FFlagTerrainToolsPartInteractToggle and self._operationSettings.ignoreParts or nil
+		local ignoreParts = self._operationSettings.ignoreParts
 
 		if FFlagTerrainToolsEditPlaneLock then
 			planeLock = self._operationSettings.planeLock ~= PlaneLockType.Off
@@ -451,34 +450,30 @@ function TerrainBrush:_run()
 
 		-- Why is mouse used for camera?
 		local cameraPos = self._mouse.Origin.p
-		if FFlagTerrainToolsPartInteractToggle then
-			if ignoreParts then
-				local acceptList = {self._terrain}
-				if Workspace:FindFirstChild("Baseplate") then
-					table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
-				end
-				self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
-				self._raycastParams.FilterDescendantsInstances = acceptList
-			else
-				local ignoreList = {self._cursor:getCursorPart()}
-				if Players.LocalPlayer and Players.LocalPlayer.Character then
-					table.insert(ignoreList, Players.LocalPlayer.Character)
-				end
-				self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-				self._raycastParams.FilterDescendantsInstances = ignoreList
-			end
-		else
+		if ignoreParts then
 			local acceptList = {self._terrain}
 			if Workspace:FindFirstChild("Baseplate") then
 				table.insert(acceptList, Workspace:FindFirstChild("Baseplate"))
 			end
+			self._raycastParams.FilterType = Enum.RaycastFilterType.Whitelist
 			self._raycastParams.FilterDescendantsInstances = acceptList
+		else
+			local ignoreList = {self._cursor:getCursorPart()}
+			if Players.LocalPlayer and Players.LocalPlayer.Character then
+				table.insert(ignoreList, Players.LocalPlayer.Character)
+			end
+			self._raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+			self._raycastParams.FilterDescendantsInstances = ignoreList
 		end
 
 		local unitRay = self._mouse.UnitRay.Direction
 		local rayHit, mainPoint, hitMaterial, hitNormal
 
 		self._raycastParams.IgnoreWater = ignoreWater
+
+		if EngineFeatureDraggerBruteForce then
+			self._raycastParams.BruteForceAllSlow = true
+		end
 
 		local raycastResult = Workspace:Raycast(cameraPos, unitRay * 10000, self._raycastParams)
 
@@ -566,39 +561,22 @@ function TerrainBrush:_run()
 
 		if snapToGrid then
 			mainPoint = snapToVoxelGrid(mainPoint, radius)
-			if FFlagTerrainToolsFixSnapPlaneLock then
-				modifiedMainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
-			else
-				mainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
-			end
+			modifiedMainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
 		end
 
 		if usePlanePositionY then
 			-- It's possible that the previous blocks could change the Y value of mainPointOnPlane
 			-- So if we're using planePositionY, then ensure that we keep using Y = planePositionY
-			if FFlagTerrainToolsFixSnapPlaneLock then
-				modifiedMainPointOnPlane = self:putPlanePositionYIntoVector(modifiedMainPointOnPlane or mainPointOnPlane)
-			else
-				mainPointOnPlane = self:putPlanePositionYIntoVector(mainPointOnPlane)
-			end
-			
+			modifiedMainPointOnPlane = self:putPlanePositionYIntoVector(modifiedMainPointOnPlane or mainPointOnPlane)
 		end
 
 		if planeLock then
-			if FFlagTerrainToolsFixSnapPlaneLock then
-				mainPoint = modifiedMainPointOnPlane or mainPointOnPlane
-				modifiedMainPointOnPlane = mainPointOnPlane
-			else
-				mainPoint = mainPointOnPlane
-			end
+			mainPoint = modifiedMainPointOnPlane or mainPointOnPlane
+			modifiedMainPointOnPlane = mainPointOnPlane
 		end
 
 		self._operationSettings.targetPoint = mainPoint
-		if FFlagTerrainToolsFixSnapPlaneLock then
-			self._operationSettings.planePoint = modifiedMainPointOnPlane or mainPointOnPlane
-		else
-			self._operationSettings.planePoint = mainPointOnPlane
-		end
+		self._operationSettings.planePoint = modifiedMainPointOnPlane or mainPointOnPlane
 		self._operationSettings.planeNormal = lastNormal
 
 		if self._mouseDown then

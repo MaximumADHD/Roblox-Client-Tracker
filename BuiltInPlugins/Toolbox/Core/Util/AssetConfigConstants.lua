@@ -1,3 +1,4 @@
+local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -191,5 +192,12 @@ AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT = "avatar_meshpart_accesso
 AssetConfigConstants.MULTIPART_FORM_BOUNDARY = "EA0A21C3-8388-4038-9BD5-92C8B1B7BF8E"
 
 AssetConfigConstants.OVERRIDE_ASSET_ID = "OverrideAssetId"
+
+if FFlagToolboxRedirectToLibraryAbuseReport then
+	AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES = {
+		[Enum.AssetType.Model] = true,
+		[Enum.AssetType.Plugin] = true,
+	}
+end
 
 return AssetConfigConstants

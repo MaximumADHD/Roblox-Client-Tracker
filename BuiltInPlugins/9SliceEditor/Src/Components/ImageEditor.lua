@@ -38,7 +38,6 @@ local UNDEFINED = Orientation.Undefined.rawValue()
 function ImageEditor:init(props)
 	self.draggerHandlingMovement = false -- red dragger not currently handling drag
 	self.dragOrientation = UNDEFINED -- no current orientation
-	self.dragging = false
 
 	self:setState({
 		hoveringDraggerOrientation = -1,
@@ -81,6 +80,15 @@ function ImageEditor:init(props)
 		end
 	end
 
+	self.setDraggingState = function(value: boolean)
+		self.dragging = value
+		self:setState({
+			dragging = value, -- Mirror the value to Roact
+		})
+	end
+
+	self.setDraggingState(false)
+
 	self.onDragBegin = function(obj, orientation, mousePosition, draggerPosition)
 		-- when onInputBegan for red draggers
 		self.obj = obj
@@ -88,7 +96,8 @@ function ImageEditor:init(props)
 		self.dragOrientation = orientation
 		self.mousePosition = mousePosition
 		self.draggerPosition = draggerPosition
-		self.dragging = true
+
+		self.setDraggingState(true)
 
 		MouseCursorManager.setLocked(self.props.Mouse, true)
 
@@ -133,7 +142,7 @@ function ImageEditor:init(props)
 			end
 
 			self.disconnectMouseMoveInputObject()
-			self.dragging = false
+			self.setDraggingState(false)
 			self.uncertainDragStarted = false
 			self.updateHoverDragger()
 			MouseCursorManager.setLocked(self.props.Mouse, false)
@@ -159,10 +168,17 @@ function ImageEditor:init(props)
 	-- Uncertain dragging and hovering:
 	self.uncertainDragCandidates = {}
 	self.getBestUncertainDragCandidate = function()
+		local bestPriority = nil
+		for _, item in pairs(self.uncertainDragCandidates) do
+			if bestPriority == nil or item.priority > bestPriority then
+				bestPriority = item.priority
+			end
+		end
+
 		local bestDistance = nil
 		local bestCandidate = nil
-		for orientation, item in pairs(self.uncertainDragCandidates) do
-			if bestDistance == nil or item.distance < bestDistance then
+		for _, item in pairs(self.uncertainDragCandidates) do
+			if item.priority == bestPriority and (bestDistance == nil or item.distance < bestDistance) then
 				bestDistance = item.distance
 				bestCandidate = item
 			end
@@ -220,17 +236,34 @@ function ImageEditor:init(props)
 		end
 	end
 
+	-- TODO: Remove addDragCandidate, removeDragCandidate with flag FFlag9SliceEditorNewDraggers
 	self.addDragCandidate = function(draggerOrientation, distance, instance)
 		self.uncertainDragCandidates[draggerOrientation] = {
 			distance = distance,
 			instance = instance,
 			orientation = draggerOrientation,
+			priority = 0,
+		}
+		self.updateHoverDragger()
+	end
+
+	self.addDragCandidateWithId = function(id, draggerOrientation, distance, instance, priority)
+		self.uncertainDragCandidates[id] = {
+			distance = distance,
+			instance = instance,
+			orientation = draggerOrientation,
+			priority = priority or 0
 		}
 		self.updateHoverDragger()
 	end
 
 	self.removeDragCandidate = function(draggerOrientation)
 		self.uncertainDragCandidates[draggerOrientation] = nil
+		self.updateHoverDragger()
+	end
+
+	self.removeDragCandidateWithId = function(id)
+		self.uncertainDragCandidates[id] = nil
 		self.updateHoverDragger()
 	end
 
@@ -329,9 +362,13 @@ function ImageEditor:createDragger(orientation)
 			onDragBegin = self.onDragBegin,
 			onDragging = self.onDragging,
 			onDragEnd = self.onDragEnd,
+			-- TODO: Remove addDragCandidate, removeDragCandidate with flag FFlag9SliceEditorNewDraggers
 			addDragCandidate = self.addDragCandidate,
 			removeDragCandidate = self.removeDragCandidate,
+			addDragCandidateWithId = self.addDragCandidateWithId,
+			removeDragCandidateWithId = self.removeDragCandidateWithId,
 			isHovering = (self.state.hoveringDraggerOrientation == orientation),
+			isDragging = self.state.dragging,
 			addPriorityDragCandidate = self.addPriorityDragCandidate,
 			removePriorityDragCandidate = self.removePriorityDragCandidate,
 			startUncertainDrag = self.startUncertainDrag,

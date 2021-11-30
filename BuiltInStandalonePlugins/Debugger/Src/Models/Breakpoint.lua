@@ -7,7 +7,6 @@ local DebugpointType : {[string]: DebugpointType} = {
 export type Breakpoint = {
 	id: number,
 	isEnabled: boolean,
-	isValid: boolean,
 	lineNumber: number,
 	scriptName: string,
 	scriptLine: string,
@@ -37,7 +36,6 @@ local function fromBreakpoint(breakpoint) : Breakpoint
 	return BreakpointInternal.new({
 		id = breakpoint:GetId(),
 		isEnabled = breakpoint:GetEnabled(),
-		isValid = breakpoint:GetValid(),
 		lineNumber = breakpoint:GetLine(),
 		scriptName = "",
 		scriptLine = "",
@@ -52,7 +50,6 @@ local function fromMetaBreakpoint(metaBreakpoint)
 	return BreakpointInternal.new({
 		id = metaBreakpoint.Id,
 		isEnabled = metaBreakpoint.Enabled,
-		isValid = metaBreakpoint.Valid,
 		lineNumber = metaBreakpoint.Line,
 		scriptName = metaBreakpoint.Script,
 		scriptLine = "",
@@ -67,7 +64,6 @@ local function fromData(breakpoint) : Breakpoint
 	return BreakpointInternal.new({
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,
-		isValid = breakpoint.isValid,
 		lineNumber = breakpoint.lineNumber,
 		scriptName = breakpoint.scriptName,
 		scriptLine = breakpoint.scriptLine,
@@ -84,10 +80,6 @@ local function mockBreakpoint(breakpoint, uniqueId) : Breakpoint
 		breakpoint.isEnabled = math.random()>0.5
 	end
 
-	if breakpoint.isValid == nil then
-		breakpoint.isValid = math.random()>0.5
-	end
-
 	if breakpoint.continueExecution == nil then
 		breakpoint.continueExecution = math.random()>0.5
 	end
@@ -95,7 +87,6 @@ local function mockBreakpoint(breakpoint, uniqueId) : Breakpoint
 	return BreakpointInternal.new({
 		id = breakpoint.id or uniqueId,
 		isEnabled = breakpoint.isEnabled,
-		isValid = breakpoint.isValid,
 		lineNumber = breakpoint.lineNumber or uniqueId,
 		scriptName = breakpoint.scriptName or ("script"..tostring(uniqueId)),
 		scriptLine = breakpoint.scriptLine or ("local varNum"..tostring(uniqueId).." = 0"),

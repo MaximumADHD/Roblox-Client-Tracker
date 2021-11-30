@@ -255,16 +255,20 @@ BreakpointsTable = RoactRodux.connect(
 		local breakpointsArray = {}
 		local currentBreakpoint = nil
 		local currentBreakpointIndex = nil
-		local i = 1
-		for breakpointId, breakpoint in ipairs(state.Breakpoint.BreakpointInfo) do
+		
+		for breakpointId, breakpoint in pairs(state.Breakpoint.BreakpointInfo) do
 			breakpointsArray = Cryo.List.join(breakpointsArray, {breakpoint})
-			if breakpointId == state.Common.currentBreakpointId then
+		end
+		table.sort(breakpointsArray, breakpointLineNumberComp)
+		
+		local i = 1
+		for _, breakpoint in ipairs(breakpointsArray) do
+			if breakpoint.id == state.Common.currentBreakpointId then
 				currentBreakpoint = breakpoint
 				currentBreakpointIndex = i
 			end
 			i = i + 1
 		end
-		table.sort(breakpointsArray, breakpointLineNumberComp)
 
 		return {
 			Breakpoints = breakpointsArray,

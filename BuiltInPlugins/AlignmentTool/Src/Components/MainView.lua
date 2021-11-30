@@ -4,7 +4,6 @@
 	Contains a UI section for each alignment setting, and button for aligning
 	the selection using the current settings.
 ]]
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -173,22 +172,12 @@ function MainView:willUnmount()
 	self._boundsChangedTracker:uninstall()
 end
 
-if FFlagAlignmentToolWithContext then
-	MainView = withContext({
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Analytics = ContextServices.Analytics,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Analytics = ContextServices.Analytics,
-	})
-end
-
+MainView = withContext({
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+	Analytics = ContextServices.Analytics,
+})(MainView)
 
 local function mapStateToProps(state, _)
 	return {

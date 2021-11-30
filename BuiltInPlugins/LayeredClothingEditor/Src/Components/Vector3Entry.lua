@@ -12,7 +12,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Vector3 VectorValue: vector data to be displayed in text boxes by default
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -169,15 +168,11 @@ function Vector3Entry:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	Vector3Entry = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Vector3Entry)
-else
-	ContextServices.mapToProps(Vector3Entry,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+Vector3Entry = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Vector3Entry)
+
 
 
 return Vector3Entry

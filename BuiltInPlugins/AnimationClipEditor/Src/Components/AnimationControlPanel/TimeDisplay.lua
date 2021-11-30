@@ -16,7 +16,6 @@
 		function StepAnimation(int tick) = A callback for scrubbing the animation
 			to the given tick.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -137,14 +136,10 @@ function TimeDisplay:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TimeDisplay = withContext({
-		Theme = ContextServices.Theme,
-	})(TimeDisplay)
-else
-	ContextServices.mapToProps(TimeDisplay, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TimeDisplay = withContext({
+	Theme = ContextServices.Theme,
+})(TimeDisplay)
+
 
 return TimeDisplay

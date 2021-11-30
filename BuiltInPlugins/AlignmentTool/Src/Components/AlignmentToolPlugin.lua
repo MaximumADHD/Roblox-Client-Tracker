@@ -3,7 +3,7 @@
 
 	Consists of the PluginToolbar, DockWidget, and MainView.
 ]]
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
+local FFlagImprovePluginSpeed_AlignmentTool = game:GetFastFlag("ImprovePluginSpeed_AlignmentTool")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -47,22 +47,28 @@ function AlignmentToolPlugin:init()
 	self.onRestore = function(enabled)
 		local initiatedByUser = false
 		self.setToolEnabled(enabled, initiatedByUser)
+
+		if FFlagImprovePluginSpeed_AlignmentTool then
+			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
+		end
 	end
 
-	self.renderButtons = function(toolbar)
-		local props = self.props
-		local enabled = props.toolEnabled
+	if not FFlagImprovePluginSpeed_AlignmentTool then
+		self.renderButtons = function(toolbar)
+			local props = self.props
+			local enabled = props.toolEnabled
 
-		return {
-			Toggle = Roact.createElement(PluginButton, {
-				Toolbar = toolbar,
-				Active = enabled,
-				Title = STUDIO_RELAY_PLUGIN_BUTTON,
-				Tooltip = "",
-				Icon = "", -- C++ code is source of truth for Tooltip & Icon
-				OnClick = self.toggleState,
-			})
-		}
+			return {
+				Toggle = Roact.createElement(PluginButton, {
+					Toolbar = toolbar,
+					Active = enabled,
+					Title = STUDIO_RELAY_PLUGIN_BUTTON,
+					Tooltip = "",
+					Icon = "", -- C++ code is source of truth for Tooltip & Icon
+					OnClick = self.toggleState,
+				})
+			}
+		end
 	end
 
 	self.setToolEnabled = function(enabled, initiatedByUser)
@@ -96,6 +102,12 @@ function AlignmentToolPlugin:_renderDockWidgetContents(enabled)
 	end
 end
 
+if FFlagImprovePluginSpeed_AlignmentTool then
+	function AlignmentToolPlugin:didUpdate()
+		self.props.pluginLoaderContext.mainButton:SetActive(self.props.toolEnabled)
+	end
+end
+
 function AlignmentToolPlugin:render()
 	local props = self.props
 
@@ -103,13 +115,14 @@ function AlignmentToolPlugin:render()
 	local enabled = props.toolEnabled
 
 	return Roact.createFragment({
-		Toolbar = Roact.createElement(PluginToolbar, {
+		Toolbar = not FFlagImprovePluginSpeed_AlignmentTool and Roact.createElement(PluginToolbar, {
 			Title = STUDIO_RELAY_PLUGIN_TOOLBAR,
 			RenderButtons = self.renderButtons,
-		}),
+		}) or nil,
 
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
+			Widget = FFlagImprovePluginSpeed_AlignmentTool and props.pluginLoaderContext.mainDockWidget,
 			Title = localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
@@ -124,18 +137,10 @@ function AlignmentToolPlugin:render()
 	})
 end
 
-if FFlagAlignmentToolWithContext then
-	AlignmentToolPlugin = withContext({
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics,
-	})(AlignmentToolPlugin)
-else
-	ContextServices.mapToProps(AlignmentToolPlugin, {
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics,
-	})
-end
-
+AlignmentToolPlugin = withContext({
+	Localization = ContextServices.Localization,
+	Analytics = ContextServices.Analytics,
+})(AlignmentToolPlugin)
 
 local function mapStateToProps(state, _)
 	return {

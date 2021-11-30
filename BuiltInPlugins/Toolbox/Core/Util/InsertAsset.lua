@@ -10,6 +10,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxDragSourceAssetIds = game:GetFastFlag("ToolboxDragSourceAssetIds")
+local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -49,13 +50,24 @@ local function getInsertPosition()
 	local unitRay = camera:ViewportPointToRay(viewportPoint.X, viewportPoint.Y, 0)
 
 	local ray = Ray.new(unitRay.Origin, unitRay.Direction * INSERT_MAX_SEARCH_DEPTH)
-	local part, hitPosition = Workspace:FindPartOnRay(ray)
+	if EngineFeatureDraggerBruteForce then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
+		if result then
+			return result.Position
+		else
+			return camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
+		end
+	else
+		local part, hitPosition = Workspace:FindPartOnRay(ray)
 
-	if not part then
-		hitPosition = camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
+		if not part then
+			hitPosition = camera.CFrame.p + unitRay.Direction * INSERT_MAX_DISTANCE_AWAY
+		end
+
+		return hitPosition
 	end
-
-	return hitPosition
 end
 
 local function insertAudio(assetId, assetName)

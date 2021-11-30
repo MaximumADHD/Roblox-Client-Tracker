@@ -95,7 +95,7 @@ function MainPlugin:renderButtons(toolbar)
 		Toggle = Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or "Storybook",
+			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and self.localization:getText("Toolbar", "Title") or "Storybook",
 			Icon = "rbxasset://textures/DeveloperStorybook/ToolbarIcon.png",
 			OnClick = self.toggleState,
 		}),

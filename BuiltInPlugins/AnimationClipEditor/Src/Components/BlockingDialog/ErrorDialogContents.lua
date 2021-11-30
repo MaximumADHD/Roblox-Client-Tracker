@@ -9,7 +9,6 @@
 			is used to index into the Localization table to display a message.
 		table Entries = A list of strings to format into the error message.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local PADDING = 10
 local HEADER_HEIGHT = 21
@@ -87,17 +86,12 @@ function ErrorDialogContents:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ErrorDialogContents = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})(ErrorDialogContents)
-else
-	ContextServices.mapToProps(ErrorDialogContents, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ErrorDialogContents = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+})(ErrorDialogContents)
+
 
 
 

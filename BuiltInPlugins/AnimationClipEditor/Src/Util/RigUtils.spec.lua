@@ -1,5 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
+	local Cryo = require(Plugin.Packages.Cryo)
 	local RigUtils = require(script.Parent.RigUtils)
 	local Constants = require(script.Parent.Constants)
 	local isEmpty = require(script.Parent.isEmpty)
@@ -7,6 +8,8 @@ return function()
 
 	local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 	local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+	local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
+	local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 	local testRigAnimationData = {
 		Metadata = {
@@ -82,6 +85,60 @@ return function()
 		return keyframeSequence
 	end
 
+	local function buildTestCurveAnimation()
+		local function insertKey(curve, time, value, interpolation, leftTangent, rightTangent)
+			local key = FloatCurveKey.new(time, value, interpolation)
+			if rightTangent then
+				key.RightTangent = rightTangent
+			end
+			if leftTangent then
+				key.LeftTangent = leftTangent
+			end
+			curve:InsertKey(key)
+		end
+
+		local curveAnimation = Instance.new("CurveAnimation")
+		curveAnimation.Priority = Enum.AnimationPriority.Idle
+		curveAnimation.Loop = true
+
+		local hrp = Instance.new("Folder", curveAnimation)
+		hrp.Name = "HumanoidRootPart"
+
+		local ut = Instance.new("Folder", hrp)
+		ut.Name = "UpperTorso"
+		local utr = Instance.new("Vector3Curve", ut)
+		utr.Name = "Rotation"
+		insertKey(utr:X(), 0, 1.5, Enum.KeyInterpolationMode.Constant)
+
+		local h = Instance.new("Folder", ut)
+		h.Name = "Head"
+		local hp = Instance.new("Vector3Curve", h)
+		hp.Name = "Position"
+		insertKey(hp:X(), 0, 1, Enum.KeyInterpolationMode.Constant)
+		insertKey(hp:X(), 0.5, 2, Enum.KeyInterpolationMode.Linear)
+		insertKey(hp:X(), 1, 3, Enum.KeyInterpolationMode.Cubic)
+		insertKey(hp:Y(), 0, 0, Enum.KeyInterpolationMode.Cubic, nil, 1)
+		insertKey(hp:Y(), 1, 1, Enum.KeyInterpolationMode.Cubic, 0, nil)
+
+		local fcf = Instance.new("Folder", h)
+		fcf.Name = Constants.FACE_CONTROLS_FOLDER
+		local f = Instance.new("FloatCurve", fcf)
+		f.Name = "Corrugator"
+		insertKey(f, 0, 0.123, Enum.KeyInterpolationMode.Cubic)
+		insertKey(f, 1, 0.456, Enum.KeyInterpolationMode.Cubic)
+		insertKey(f, 2, 0.789, Enum.KeyInterpolationMode.Cubic)
+
+		local mf = Instance.new("MarkerCurve", curveAnimation)
+		mf.Name = "FooEvent"
+		mf:InsertMarkerAtTime(0, "FooValue1")
+		mf:InsertMarkerAtTime(0.5, "FooValue2")
+		local mb = Instance.new("MarkerCurve", curveAnimation)
+		mb.Name = "BarEvent"
+		mb:InsertMarkerAtTime(0, "BarValue")
+
+		return curveAnimation
+	end
+
 	-- A KeyframeSequence with a frame set at a weird time.
 	local function buildTestBadKeyframeSequence()
 		local keyframeSequence = Instance.new("KeyframeSequence")
@@ -94,6 +151,110 @@ return function()
 		keyframeSequence.Priority = Enum.AnimationPriority.Idle
 		return keyframeSequence
 	end
+
+	local testCurveAnimationData = {
+		Metadata = {
+			Name = "Test Curve Animation",
+			StartTick = 0,
+			EndTick = 2400,
+			Looping = true,
+			Priority = Enum.AnimationPriority.Idle,
+		},
+		Events = {
+			Keyframes = {0, 1200},
+			Data = {
+				[0] = {
+					FooEvent = "FooValue1",
+					BarEvent = "BarValue"
+				},
+				[1200] = {
+					FooEvent = "FooValue2",
+				},
+			},
+		},
+		Instances = {
+			Root = {
+				Type = "Rig",
+				Tracks = {
+					["Head"] = {
+						Type = Constants.TRACK_TYPES.CFrame,
+						Components = {
+							Position = {
+								Type = Constants.TRACK_TYPES.Position,
+								Components = {
+									X = {
+										Type = Constants.TRACK_TYPES.Number,
+										Keyframes = {0, 1200, 2400},
+										Data = {
+											[0] = {
+												Value = 1,
+												InterpolationMode = Enum.KeyInterpolationMode.Constant,
+											},
+											[1200] = {
+												Value = 2,
+												InterpolationMode = Enum.KeyInterpolationMode.Linear,
+											},
+											[2400] = {
+												Value = 3,
+											},
+										},
+									},
+									Y = {
+										Type = Constants.TRACK_TYPES.Number,
+										Keyframes = {0, 2400},
+										Data = {
+											[0] = {
+												Value = 0,
+												InterpolationMode = Enum.KeyInterpolationMode.Cubic,
+												RightSlope = 1/2400,
+											},
+											[1] = {
+												Value = 1,
+												LeftSlope = 0,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					["UpperTorso"] = {
+						Type = Constants.TRACK_TYPES.CFrame,
+						Components = {
+							Rotation = {
+								Type = GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation,
+								Components = {
+									X = {
+										Type = Constants.TRACK_TYPES.Angle,
+										Keyframes = {0},
+										Data = {
+											[0] = {
+												Value = 1.5,
+												InterpolationMode = Enum.KeyInterpolationMode.Constant,
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+					["FACS"] = GetFFlagFacialAnimationSupport() and {
+						Type = Constants.TRACK_TYPES.Facs,
+						Keyframes = {0, 1200},
+						Data = {
+							[0] = {
+								Value = 50,
+								InterpolationMode = Enum.KeyInterpolationMode.Cubic,
+							},
+							[1200] = {
+								Value = 75,
+							},
+						},
+					} or nil,
+				},
+			},
+		},
+	}
 
 	local function buildTestRig()
 		local model = Instance.new("Model")
@@ -346,6 +507,159 @@ return function()
 			end).to.throw()
 		end)
 	end)
+
+	if GetFFlagChannelAnimations() then
+		describe("toCurveAnimation", function()
+			it("should create a new CurveAnimation", function()
+				local rig = buildTestRig()
+				local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
+				expect(curveAnimation).to.be.ok()
+				expect(typeof(curveAnimation)).to.equal("Instance")
+				expect(curveAnimation.ClassName).to.equal("CurveAnimation")
+			end)
+
+			it("should set the correct values", function()
+				local rig = buildTestRig()
+				local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
+				local root = curveAnimation:FindFirstChild("HumanoidRootPart")
+				expect(root).to.be.ok()
+				expect(root.UpperTorso).to.be.ok()
+				expect(root.UpperTorso:FindFirstChild("Position")).never.to.be.ok()
+
+				expect(root.UpperTorso.Rotation).to.be.ok()
+				local rx = root.UpperTorso.Rotation:X()
+				expect(rx).to.be.ok()
+				expect(rx.Length).to.equal(1)
+				expect(rx:GetKeyAtIndex(1).Value).to.equal(1.5)
+				expect(rx:GetKeyAtIndex(1).Interpolation).to.equal(Enum.KeyInterpolationMode.Constant)
+
+				expect(root.UpperTorso.Head).to.be.ok()
+				expect(root.UpperTorso.Head.Position).to.be.ok()
+				local px = root.UpperTorso.Head.Position:X()
+				expect(px).to.be.ok()
+				expect(px.Length).to.equal(3)
+				expect(px:GetKeyAtIndex(2).Interpolation).to.equal(Enum.KeyInterpolationMode.Linear)
+				expect(px:GetKeyAtIndex(3).Value).to.equal(3)
+				expect(root.UpperTorso.Head:FindFirstChild("Rotation")).never.to.be.ok()
+			end)
+
+			it("should set the metadata", function()
+				local rig = buildTestRig()
+				local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
+				expect(curveAnimation.Loop).to.equal(true)
+				expect(curveAnimation.Priority).to.equal(Enum.AnimationPriority.Idle)
+				expect(curveAnimation.Name).to.equal("Test Curve Animation")
+			end)
+
+			if GetFFlagMarkerCurves() then
+				it("should add MarkerCurves for events", function()
+					local rig = buildTestRig()
+					local curveAnimation = RigUtils.toCurveAnimation(testCurveAnimationData, rig)
+					local foo = curveAnimation:FindFirstChild("FooEvent")
+					expect(foo).to.be.ok()
+					local markers = foo:GetMarkers()
+					expect(#markers).to.equal(2)
+					expect(markers[1].Value).to.equal("FooValue1")
+					expect(markers[1].Time).to.equal(0)
+					expect(markers[2].Value).to.equal("FooValue2")
+					expect(markers[2].Time).to.equal(0.5)
+				end)
+			end
+
+			it("should throw if the expected AnimationData is not correct", function()
+				local rig = buildTestRig()
+				expect(function()
+					RigUtils.toCurveAnimation(nil, rig)
+				end).to.throw()
+
+				expect(function()
+					RigUtils.toCurveAnimation("String", rig)
+				end).to.throw()
+			end)
+
+			it("should throw if no rig was provided", function()
+				expect(function()
+					RigUtils.toCurveAnimation(testCurveAnimationData)
+				end).to.throw()
+			end)
+		end)
+	end
+
+	if GetFFlagChannelAnimations() then
+		describe("fromCurveAnimation", function()
+			it("should read a curveAnimation", function()
+				local curveAnimation = buildTestCurveAnimation()
+				local animationData = RigUtils.fromCurveAnimation(curveAnimation)
+				expect(animationData).to.be.ok()
+			end)
+
+			it("should read the curves", function()
+				local curveAnimation = buildTestCurveAnimation()
+				local animationData = RigUtils.fromCurveAnimation(curveAnimation)
+				local ut = animationData.Instances.Root.Tracks.UpperTorso
+				expect(ut).to.be.ok()
+				expect(ut.IsCurveTrack).to.equal(true)
+				expect(ut.Type).to.equal(Constants.TRACK_TYPES.CFrame)
+				expect(ut.Components).to.be.ok()
+
+				local utr = ut.Components[Constants.PROPERTY_KEYS.Rotation]
+				expect(utr).to.be.ok()
+				expect(utr.IsCurveTrack).to.equal(true)
+				expect(utr.Type).to.equal(GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation)
+				expect(utr.Components).to.be.ok()
+
+				local utrx = utr.Components[Constants.PROPERTY_KEYS.X]
+				expect(utrx).to.be.ok()
+				expect(utrx.IsCurveTrack).to.equal(true)
+				expect(utrx.Type).to.equal(Constants.TRACK_TYPES.Angle)
+				expect(utrx.Keyframes).to.be.ok()
+				expect(#utrx.Keyframes).to.equal(1)
+				expect(utrx.Keyframes[1]).to.equal(0)
+				expect(utrx.Data).to.be.ok()
+				expect(utrx.Data[0].Value).to.equal(1.5)
+
+				expect(animationData.Instances.Root.Tracks.Head).to.be.ok()
+
+				local c = animationData.Instances.Root.Tracks.Corrugator
+				expect(c).to.be.ok()
+				expect(c.IsCurveTrack).to.equal(true)
+				expect(c.Type).to.equal(Constants.TRACK_TYPES.Facs)
+				expect(c.Keyframes).to.be.ok()
+				expect(#c.Keyframes).to.equal(3)
+				expect(c.Keyframes[1]).to.equal(0)
+				expect(c.Keyframes[2]).to.equal(2400)
+				expect(c.Keyframes[3]).to.equal(4800)
+				expect(c.Data).to.be.ok()
+				expect(c.Data[0]).to.be.ok()
+				expect(math.round(c.Data[0].Value * 1000)).to.equal(123)
+				expect(math.round(c.Data[2400].Value * 1000)).to.equal(456)
+				expect(c.Data[4800].InterpolationMode).to.equal(Enum.KeyInterpolationMode.Cubic)
+				-- TODO: Waiting for auto-tangents to be enabled in the API
+				--[[
+				expect(c.Data[4800].LeftSlope).never.to.be.ok()
+				expect(c.Data[4800].RightSlope).never.to.be.ok()
+				]]
+			end)
+
+			if GetFFlagMarkerCurves() then
+				it("should read the events", function()
+					local curveAnimation = buildTestCurveAnimation()
+					local animationData = RigUtils.fromCurveAnimation(curveAnimation)
+					local events = animationData.Events
+					local dumpTable = require(Plugin.Src.Util.Debug.dumpTable)
+					dumpTable(animationData)
+					local e = animationData.Events
+					expect(#e.Keyframes).to.equal(2)
+					expect(e.Keyframes[2]).to.equal(1200)
+					expect(#Cryo.Dictionary.keys(e.Data[0])).to.equal(2)
+					expect(e.Data[0]["FooEvent"]).to.be.ok()
+					expect(e.Data[0]["BarEvent"]).to.be.ok()
+					expect(#Cryo.Dictionary.keys(e.Data[1200])).to.equal(1)
+					expect(e.Data[1200]["FooEvent"]).to.be.ok()
+				end)
+			end
+		end)
+	end
 
 	describe("getRigInfo", function()
 		it("should return a list of parts which are animated", function()

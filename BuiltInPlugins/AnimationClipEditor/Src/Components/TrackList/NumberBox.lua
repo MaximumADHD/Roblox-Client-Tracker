@@ -25,7 +25,6 @@
 		function OnDragMoved(input) = A callback for when the user drags the mouse
 			after clicking and holding the label for the track.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local PADDING = 12
 
@@ -184,15 +183,11 @@ function NumberBox:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	NumberBox = withContext({
-		Theme = ContextServices.Theme,
-	})(NumberBox)
-else
-	ContextServices.mapToProps(NumberBox, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+NumberBox = withContext({
+	Theme = ContextServices.Theme,
+})(NumberBox)
+
 
 
 

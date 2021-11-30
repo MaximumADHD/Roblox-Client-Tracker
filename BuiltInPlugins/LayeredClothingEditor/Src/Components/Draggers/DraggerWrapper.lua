@@ -3,7 +3,6 @@
 	Studio dragger functionality is overriden to support dragging vertices while this component is active.
 	Sets up it's own undo/redo stack since manipulating vertices isn't supported by studio undo/redo.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -304,25 +303,16 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	DraggerWrapper = withContext({
-		Plugin = ContextServices.Plugin,
-		PluginActions = ContextServices.PluginActions,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-		Mouse = ContextServices.Mouse,
-	})(DraggerWrapper)
-else
-	ContextServices.mapToProps(DraggerWrapper,{
-		Plugin = ContextServices.Plugin,
-		PluginActions = ContextServices.PluginActions,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+DraggerWrapper = withContext({
+	Plugin = ContextServices.Plugin,
+	PluginActions = ContextServices.PluginActions,
+	Localization = ContextServices.Localization,
+	Signals = SignalsContext,
+	EditingItemContext = EditingItemContext,
+	Mouse = ContextServices.Mouse,
+})(DraggerWrapper)
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(DraggerWrapper)

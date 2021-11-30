@@ -16,7 +16,6 @@
 		EnumItem EditingCage: which cage on the model is currently being edited, provided by mapStateToProps
 		number LayoutOrder: render order of component in layout
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -187,23 +186,15 @@ function LatticeToolSettings:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	LatticeToolSettings = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-	})(LatticeToolSettings)
-else
-	ContextServices.mapToProps(LatticeToolSettings,{
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+LatticeToolSettings = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Signals = SignalsContext,
+	EditingItemContext = EditingItemContext,
+})(LatticeToolSettings)
+
 
 
 local function mapStateToProps(state, props)

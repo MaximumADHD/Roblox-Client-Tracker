@@ -15,6 +15,8 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
+local GetFFlagNilCheckAnimationDataInTrackUtils = require(Plugin.LuaFlags.GetFFlagNilCheckAnimationDataInTrackUtils)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 local TrackUtils = {}
 
@@ -332,9 +334,11 @@ function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
 		if track.Expanded then
 			for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[track.Type]._Order) do
 				local resPath, trackType
-				resPath, y, trackType = recurse(track.Components[componentName], y, Cryo.List.join(path, {componentName}))
-				if resPath then
-					return resPath, y, trackType
+				if track.Components[componentName] then
+					resPath, y, trackType = recurse(track.Components[componentName], y, Cryo.List.join(path, {componentName}))
+					if resPath then
+						return resPath, y, trackType
+					end
 				end
 			end
 		end
@@ -389,6 +393,11 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 	local instance = track.Instance
 
 	local currentValue
+	if GetFFlagNilCheckAnimationDataInTrackUtils() and animationData == nil then
+		currentValue = TrackUtils.getDefaultValue(track)
+		return currentValue
+	end
+	
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
 		if GetFFlagChannelAnimations() then
@@ -399,7 +408,6 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 	else
 		currentValue = TrackUtils.getDefaultValue(track)
 	end
-
 	return currentValue
 end
 
@@ -479,10 +487,15 @@ function TrackUtils.getItemsForProperty(track, value, name)
 		}
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
 		items = makeVectorItems(value.X, value.Y, value.Z)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Rotation then
+	elseif GetFFlagChannelAnimations() and trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
 		items = makeVectorItems(removeNegativeZero(math.deg(value.X)),
 			removeNegativeZero(math.deg(value.Y)),
 			removeNegativeZero(math.deg(value.Z)))
+	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
+		local xRot, yRot, zRot = value:ToEulerAnglesXYZ()
+		items = makeVectorItems(removeNegativeZero(math.deg(xRot)),
+			removeNegativeZero(math.deg(yRot)),
+			removeNegativeZero(math.deg(zRot)))
 	elseif trackType == Constants.TRACK_TYPES.Facs then
 		if GetFFlagFacsUiChanges() and GetFFlagChannelAnimations() then
 			if GetFFlagFixClampValuesForFacs() then
@@ -533,8 +546,10 @@ function TrackUtils.getPropertyForItems(track, items)
 			* CFrame.fromEulerAnglesXYZ(xRot, yRot, zRot)
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Position then
 		value = Vector3.new(items[1].Value, items[2].Value, items[3].Value)
-	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Rotation then
+	elseif GetFFlagChannelAnimations() and trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
 		value = Vector3.new(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
+	elseif GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
+		value = CFrame.fromEulerAnglesXYZ(math.rad(items[1].Value), math.rad(items[2].Value), math.rad(items[3].Value))
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Number then
 		value = items[1].Value
 	elseif GetFFlagChannelAnimations() and trackType == Constants.TRACK_TYPES.Angle then
@@ -568,6 +583,10 @@ function TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 end
 
 function TrackUtils.adjustCurves(track)
+	if not track.Keyframes then
+		return
+	end
+
 	-- Make a copy, because we're possibly going to add new keyframes (cubic/bounce/elastic interpolation)
 	local keyframesCopy = Cryo.List.join({}, track.Keyframes)
 
@@ -576,19 +595,19 @@ function TrackUtils.adjustCurves(track)
 		local easingStyle = data.EasingStyle
 		local easingDirection = data.EasingDirection
 
-		data.EasingStyle = nil
-		data.EasingDirection = nil
-		data.InterpolationMode = Constants.POSE_EASING_STYLE_TO_KEY_INTERPOLATION[easingStyle]
-
 		if index < #keyframesCopy then
 			local nextTick = keyframesCopy[index+1]
 			local nextData = track.Data[nextTick]
 
-			local newKeyframes = CurveUtils.generateCurve(easingStyle, easingDirection, tick, data, nextTick, nextData)
+			local newKeyframes = CurveUtils.generateCurve(track.Type, easingStyle, easingDirection, tick, data, nextTick, nextData)
 			if newKeyframes and not isEmpty(newKeyframes) then
 				track.Keyframes = Cryo.List.join(track.Keyframes, Cryo.Dictionary.keys(newKeyframes))
 				track.Data = Cryo.Dictionary.join(track.Data, newKeyframes)
 			end
+		else
+			data.EasingStyle = nil
+			data.EasingDirection = nil
+			data.InterpolationMode = Constants.POSE_EASING_STYLE_TO_KEY_INTERPOLATION[easingStyle]
 		end
 	end
 
@@ -596,7 +615,7 @@ function TrackUtils.adjustCurves(track)
 	track.IsCurveTrack = true
 end
 
-function TrackUtils.splitTrackComponents(track)
+function TrackUtils.splitTrackComponents(track, rotationType)
 	if track.Type == Constants.TRACK_TYPES.CFrame then
 		-- Creates the components hierarchy for a track
 		local function createTrackComponents(_track)
@@ -607,6 +626,10 @@ function TrackUtils.splitTrackComponents(track)
 				_track.Components = {}
 				for _, componentName in pairs(componentTypes._Order) do
 					local componentType = componentTypes[componentName]
+					if componentName == Constants.PROPERTY_KEYS.Rotation and rotationType then
+						componentType = rotationType
+					end
+
 					_track.Components[componentName] = Templates.track(componentType)
 					createTrackComponents(_track.Components[componentName])
 				end
@@ -616,28 +639,47 @@ function TrackUtils.splitTrackComponents(track)
 				_track.Data = {}
 			end
 		end
+
 		createTrackComponents(track)
 
 		for _, tick in pairs(track.Keyframes or {}) do
-			-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
 			local cFrame = track.Data[tick].Value
-			local position = cFrame.Position
-			local rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
 
-			for componentName, componentTrack in pairs(track.Components) do
-				local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
+			if rotationType == Constants.TRACK_TYPES.Quaternion then
+				local position = cFrame.Position
+				local quaternion = cFrame - cFrame.Position
 
-				for grandchildName, grandchild in pairs(componentTrack.Components) do
-					grandchild.Data[tick] = Cryo.Dictionary.join(track.Data[tick], {
-						Value = values[grandchildName]
-					})
+				local positionTrack = track.Components.Position
+				local rotationTrack = track.Components.Rotation
+
+				for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[Constants.TRACK_TYPES.Position]._Order) do
+					positionTrack.Components[componentName].Data[tick] = Cryo.Dictionary.join(track.Data[tick], { Value = position[componentName] })
+				end
+
+				rotationTrack.Data[tick] = Cryo.Dictionary.join(track.Data[tick], { Value = quaternion })
+			else
+				-- Decompose the CFrame into two Vectors so they can both be accessed by .X, .Y, .Z
+				local position = cFrame.Position
+				local rotation = Vector3.new(cFrame:ToEulerAnglesXYZ())
+
+				for componentName, componentTrack in pairs(track.Components) do
+					local values = componentName == Constants.PROPERTY_KEYS.Position and position or rotation
+
+					for grandchildName, grandchild in pairs(componentTrack.Components) do
+						grandchild.Data[tick] = Cryo.Dictionary.join(track.Data[tick], {
+							Value = values[grandchildName]
+						})
+					end
+					componentTrack.Keyframes = nil
+					componentTrack.Data = nil
 				end
 			end
 		end
 
 		-- Adjust tangents, add intermediate nodes (bouncing/elastic), etc
 		for _, componentTrack in pairs(track.Components) do
-			for _, grandchild in pairs(componentTrack.Components) do
+			TrackUtils.adjustCurves(componentTrack)
+			for _, grandchild in pairs(componentTrack.Components or {}) do
 				TrackUtils.adjustCurves(grandchild)
 			end
 		end
@@ -652,7 +694,7 @@ function TrackUtils.splitTrackComponents(track)
 	end
 end
 
-function TrackUtils.createTrackListEntryComponents(track, instanceName)
+function TrackUtils.createTrackListEntryComponents(track, instanceName, rotationType)
 	local componentTypes = Constants.COMPONENT_TRACK_TYPES[track.Type]
 	track.Instance = instanceName
 
@@ -660,9 +702,14 @@ function TrackUtils.createTrackListEntryComponents(track, instanceName)
 		-- If there are children, create them and their descendants
 		track.Components = {}
 		for _, componentName in ipairs(componentTypes._Order) do
-			track.Components[componentName] = Templates.trackListEntry(componentTypes[componentName])
+			local componentType = componentTypes[componentName]
+			if componentName == Constants.PROPERTY_KEYS.Rotation then
+				componentType = rotationType
+			end
+
+			track.Components[componentName] = Templates.trackListEntry(componentType)
 			track.Components[componentName].Name = componentName
-			TrackUtils.createTrackListEntryComponents(track.Components[componentName], instanceName)
+			TrackUtils.createTrackListEntryComponents(track.Components[componentName], instanceName, rotationType)
 		end
 	end
 end
@@ -760,19 +807,25 @@ end
 -- Takes a trackType and a value, and calls the func callback for each leaf component.
 -- func is called with the leaf relative path (to the initial track type), and the value.
 -- This relies on paths only, tracks don't have to exist.
-function TrackUtils.traverseValue(trackType, value, func)
+-- rotationType determines if we want to follow the Quaternion hierarchy, or the Euler angles hierarchy.
+function TrackUtils.traverseValue(trackType, value, func, rotationType)
 	local function recurse(_trackType, relPath, _value)
 		if _trackType == Constants.TRACK_TYPES.CFrame then
 			local position = _value.Position
-			local rotation = Vector3.new(_value:ToEulerAnglesXYZ())
-
 			recurse(Constants.TRACK_TYPES.Position, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Position}), position)
-			recurse(Constants.TRACK_TYPES.Rotation, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
+
+			local rotation
+			if rotationType == Constants.TRACK_TYPES.Quaternion then
+				rotation = _value - position
+			else
+				rotation = Vector3.new(_value:ToEulerAnglesXYZ())
+			end
+			recurse(rotationType, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Rotation}), rotation)
 		elseif _trackType == Constants.TRACK_TYPES.Position then
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Number, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)
-		elseif _trackType == Constants.TRACK_TYPES.Rotation then
+		elseif _trackType == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.X}), _value.X)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Y}), _value.Y)
 			recurse(Constants.TRACK_TYPES.Angle, Cryo.List.join(relPath, {Constants.PROPERTY_KEYS.Z}), _value.Z)

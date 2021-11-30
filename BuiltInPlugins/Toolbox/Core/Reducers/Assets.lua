@@ -1,4 +1,4 @@
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -90,7 +90,7 @@ return Rodux.createReducer({
 	previewAssetId = nil,
 	isPreviewing = false,
 
-	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor and 0 or nil,
+	mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor2 and 0 or nil,
 	manageableAssets = {},
 	-- Will be used to fetch versionId to install the latest plugin.
 	previewPluginData = nil,
@@ -125,7 +125,7 @@ return Rodux.createReducer({
 	[SetAssetPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			isPreviewing = action.isPreviewing,
-			previewAssetId = FFlagToolboxAssetGridRefactor and action.previewAssetId or nil,
+			previewAssetId = FFlagToolboxAssetGridRefactor2 and action.previewAssetId or nil,
 		})
 	end,
 

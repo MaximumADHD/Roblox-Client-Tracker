@@ -5,7 +5,6 @@
 		bool ShowMenu = Whether to display the menu.
 		function OnMenuOpened = A callback for when the menu is displayed.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -212,17 +211,12 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-if FFlagAnimationClipEditorWithContext then
-	SettingsMenu = withContext({
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics
-	})(SettingsMenu)
-else
-	ContextServices.mapToProps(SettingsMenu, {
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics
-	})
-end
+
+SettingsMenu = withContext({
+	Localization = ContextServices.Localization,
+	Analytics = ContextServices.Analytics
+})(SettingsMenu)
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SettingsMenu)

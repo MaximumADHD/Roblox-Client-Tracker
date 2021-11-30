@@ -180,11 +180,11 @@ function AnimationData.removeEvent(events, tick, name)
 end
 
 -- Adds a new track at trackName to the given track.
-function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation)
+function AnimationData.addTrack(tracks, trackName, trackType, isChannelAnimation, rotationType)
 	tracks[trackName] = Templates.track(trackType)
 	if GetFFlagChannelAnimations() then
 		if isChannelAnimation then
-			TrackUtils.splitTrackComponents(tracks[trackName])
+			TrackUtils.splitTrackComponents(tracks[trackName], rotationType)
 		else
 			tracks[trackName].Keyframes = {}
 			tracks[trackName].Data = {}
@@ -524,15 +524,14 @@ function AnimationData.getEventBounds(animationData, selectedEvents)
 	return earliest, latest
 end
 
-function AnimationData.promoteToChannels(data)
+function AnimationData.promoteToChannels(data, rotationType)
 	if not data or (data.Metadata and data.Metadata.IsChannelAnimation) then
 		return
 	end
 
-	-- Split CFrames into Position.X/Y/Z and Rotation.X/Y/Z tracks
 	for _, instance in pairs(data.Instances) do
 		for _, track in pairs(instance.Tracks) do
-			TrackUtils.splitTrackComponents(track)
+			TrackUtils.splitTrackComponents(track, rotationType)
 		end
 	end
 

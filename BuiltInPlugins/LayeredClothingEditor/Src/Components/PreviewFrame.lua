@@ -10,7 +10,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: render order of component in layout
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -90,15 +89,11 @@ function PreviewFrame:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	PreviewFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PreviewFrame)
-else
-	ContextServices.mapToProps(PreviewFrame,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PreviewFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PreviewFrame)
+
 
 
 return PreviewFrame

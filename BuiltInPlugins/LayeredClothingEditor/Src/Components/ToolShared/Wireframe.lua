@@ -2,7 +2,6 @@
 	Uses cage mesh vertex data to render a wireframe out of LineHandleAdornments. This
 	component does not receive any props from its parent.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -81,15 +80,11 @@ function Wireframe:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	Wireframe = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Wireframe)
-else
-	ContextServices.mapToProps(Wireframe,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+Wireframe = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Wireframe)
+
 
 
 local function mapStateToProps(state, props)

@@ -15,7 +15,6 @@
 		callback OnLatticeHoverStart = callback for when lattice volume is hovered by mouse
 		callback OnLatticeHoverEnd: callback for when lattice volume is no longer hovered by mouse
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -168,15 +167,11 @@ function Lattice:render()
 	return Roact.createFragment(elements)
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	Lattice = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Lattice)
-else
-	ContextServices.mapToProps(Lattice,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+Lattice = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Lattice)
+
 
 
 return Lattice

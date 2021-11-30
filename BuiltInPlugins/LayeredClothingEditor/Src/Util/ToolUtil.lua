@@ -25,16 +25,16 @@ function ToolUtil:createBasis(initialAxis, largestExtentAxis)
 
 	if largestExtentAxis == Enum.Axis.Z then
 		lookVector = initialAxis
-		upVector = MathUtil:fuzzyEq_Vector3(lookVector, upVector) and rightVector or upVector
+		upVector = lookVector:FuzzyEq(upVector) and rightVector or upVector
 		rightVector = lookVector:Cross(upVector)
 		upVector = rightVector:Cross(lookVector)
 	elseif largestExtentAxis == Enum.Axis.Y then
 		upVector = initialAxis
-		lookVector = MathUtil:fuzzyEq_Vector3(lookVector, upVector) and rightVector or lookVector
+		lookVector = lookVector:FuzzyEq(upVector) and rightVector or lookVector
 		rightVector = lookVector:Cross(upVector)
 	else
 		rightVector = initialAxis
-		upVector = MathUtil:fuzzyEq_Vector3(rightVector, upVector) and rightVector or upVector
+		upVector = rightVector:FuzzyEq(upVector) and rightVector or upVector
 		upVector = rightVector:Cross(upVector)
 	end
 

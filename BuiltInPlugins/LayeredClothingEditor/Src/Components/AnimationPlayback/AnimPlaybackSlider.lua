@@ -13,7 +13,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number TrackLength: length of the current track, which is provided via store
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -102,15 +101,11 @@ function AnimPlaybackSlider:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	AnimPlaybackSlider = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AnimPlaybackSlider)
-else
-	ContextServices.mapToProps(AnimPlaybackSlider,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+AnimPlaybackSlider = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AnimPlaybackSlider)
+
 
 
 local function mapStateToProps(state, props)

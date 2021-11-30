@@ -151,7 +151,7 @@ function ScreenPublishFail:render()
 				if not isPublishing then
 					if parentGameId == 0 then
 						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-							SettingsImpl.saveAll(settings, localization, nil, nil, apiImpl)
+							SettingsImpl.saveAll(settings, localization, apiImpl)
 						else
 							SettingsImpl.saveAll(settings, localization)
 						end

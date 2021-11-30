@@ -11,10 +11,10 @@ local Localization = ContextServices.Localization
 local Stylizer = ContextServices.Stylizer
 
 local UI = Framework.UI
+local ExpandablePane = UI.ExpandablePane
 local Pane = UI.Pane
 local ScrollingFrame = UI.ScrollingFrame
-local ExpandablePane = UI.ExpandablePane
-local TruncatedTextLabel = UI.TruncatedTextLabel
+local TextLabel = UI.Decoration.TextLabel
 
 local PropertyView = require(script.Parent.PropertyView)
 local PropertyStatus = require(Plugin.Src.Components.PropertyStatus)
@@ -24,6 +24,7 @@ local PropertyListView = Roact.PureComponent:extend("PropertyListView")
 local getPropertiesForInstance = require(Plugin.Src.Utility.getPropertiesForInstance)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
+local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local getFFlagDevFrameworkRefactorExpandablePaneHeader = require(Plugin.Src.Flags.getFFlagDevFrameworkRefactorExpandablePaneHeader)
 
@@ -69,11 +70,11 @@ local function getHighestSeverityStatus(instance, propertyName)
 end
 
 local function getLocalizedStatusMessage(localization, statusType, level)
-    local message = localization:getText("Statuses", statusType)
-    if message:sub(-#statusType) == statusType then
-        return localization:getText("Statuses", string.format("Default%s", level), {type = statusType});
-    end
-    return message
+	local message = GetLocalizedString(localization, "Statuses", statusType)
+	if not message then
+		message = localization:getText("Statuses", string.format("Default%s", level), {type = statusType});
+	end
+	return message
 end
 
 function PropertyListView:init()
@@ -82,11 +83,18 @@ function PropertyListView:init()
 			FileGeneral = true,
 			ObjectGeneral = true,
 		},
+		absoluteHorizontalSize = 0,
 	})
+	self.onContentResize = function(absoluteContentSize)
+		self:setState({
+			absoluteHorizontalSize = absoluteContentSize.x
+		})
+	end
 end
 
 function PropertyListView:render()
 	local props = self.props
+	local state = self.state
 	local localization = props.Localization
 	local style = props.Stylizer
 
@@ -106,6 +114,7 @@ function PropertyListView:render()
 		}
 
 		-- Create statuses associated with this section
+		local statusMaxWidth = state.absoluteHorizontalSize - style.Sizes.StatusMessagePadding
 		local statuses = getRelevantStatuses(props.Instance:GetStatuses(), sectionMetadata.Section)
 		for statusBucketType, subStatusTable in pairs(statuses) do
 			for _, status in pairs(subStatusTable) do
@@ -115,12 +124,14 @@ function PropertyListView:render()
 					statusObject.GlobalStatus = true
 				end
 				local statusStyle = statusBucketToType[statusBucketType] == StatusLevel.Error and style.ErrorStatus or style.WarningStatus
-				table.insert(sectionStatuses, Roact.createElement(TruncatedTextLabel, {
+				table.insert(sectionStatuses, Roact.createElement(TextLabel, {
+					FitMaxWidth = statusMaxWidth,
+					FitWidth = true,
 					LayoutOrder = #sectionStatuses,
-					Size = UDim2.new(1, 0, 0, 28),
 					Style = statusStyle,
 					Text = getLocalizedStatusMessage(localization, status.StatusType, statusBucketType),
-					TextSize = 10,
+					TextSize = 18,
+					TextXAlignment = Enum.TextXAlignment.Left,
 				}))
 			end
 		end
@@ -191,18 +202,19 @@ function PropertyListView:render()
 		Layout = Enum.FillDirection.Vertical,
 	}, {
 		ScrollingFrame = Roact.createElement(ScrollingFrame, {
-			Size = UDim2.fromScale(1, 1),
-			Position = UDim2.fromScale(0, 0),
-			CanvasSize = UDim2.fromScale(0, 0),
-			ScrollingDirection = Enum.ScrollingDirection.Y,
-			AutomaticCanvasSize = Enum.AutomaticSize.XY,
+			AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			CanvasSize = UDim2.fromScale(1, 0),
 			Layout = Enum.FillDirection.Vertical,
+			OnCanvasResize = self.onContentResize,
+			Position = UDim2.fromScale(0, 0),
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			Size = UDim2.fromScale(1, 1),
 		}, {
 			Pane = Roact.createElement(Pane, {
-				Size = UDim2.new(1, -10, 1, 0),
 				Layout = Enum.FillDirection.Vertical,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
 				LayoutOrder = props.LayoutOrder,
+				Size = UDim2.new(1, -10, 1, 0),
+				VerticalAlignment = Enum.VerticalAlignment.Top,
 			}, sections)
 		})
 	})

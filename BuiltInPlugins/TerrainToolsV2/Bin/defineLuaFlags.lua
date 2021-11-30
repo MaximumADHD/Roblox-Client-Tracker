@@ -7,9 +7,7 @@ game:DefineFastFlag("TerrainOpenCloseMetrics", false)
 game:DefineFastFlag("TerrainToolsImportUploadAssets", false)
 game:DefineFastFlag("TerrainToolsOutputIssue", false)
 game:DefineFastFlag("TerrainToolsMoreOutputIssue", false)
-game:DefineFastFlag("TerrainToolsFixSnapPlaneLock", false)
 game:DefineFastFlag("TerrainToolsGlobalState", false)
-game:DefineFastFlag("TerrainToolsProgressWidgetInfoDialogTests", false)
 game:DefineFastFlag("TerrainToolsGlobalStateFixStrength", false)
 
 local Plugin = script.Parent.Parent

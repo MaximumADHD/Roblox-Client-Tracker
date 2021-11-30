@@ -67,4 +67,3 @@ TabbedView = ContextServices.withContext({
 })(TabbedView)
 
 return TabbedView
-

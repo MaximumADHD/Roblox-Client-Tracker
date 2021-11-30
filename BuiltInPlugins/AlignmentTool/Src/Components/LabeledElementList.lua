@@ -15,7 +15,6 @@
 		number LayoutOrder: The layout order of the component.
 		number MaximumLabelWidth: The maximum label width showing the two-column layout.
 ]]--
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -208,15 +207,9 @@ function LabeledElementList:render()
 	}, children)
 end
 
-if FFlagAlignmentToolWithContext then
-	LabeledElementList = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(LabeledElementList)
-else
-	ContextServices.mapToProps(LabeledElementList, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+LabeledElementList = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(LabeledElementList)
 
 
 return LabeledElementList

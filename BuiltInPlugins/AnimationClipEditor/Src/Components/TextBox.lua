@@ -15,7 +15,6 @@
 			gained or lost on the text box.
 		function TextChanged(string text) = A callback for when the text has changed.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local PADDING = UDim.new(0, 6)
 
@@ -152,17 +151,12 @@ function TextBox:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TextBox = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(TextBox)
-else
-	ContextServices.mapToProps(TextBox, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+TextBox = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(TextBox)
+
 
 
 return TextBox

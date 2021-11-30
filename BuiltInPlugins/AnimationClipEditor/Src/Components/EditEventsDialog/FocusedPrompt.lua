@@ -15,7 +15,6 @@
 			a button in the prompt. Accepts the Key of the button that was clicked.
 		function OnClose = A callback for when the user closed the prompt.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -130,15 +129,11 @@ function FocusedPrompt:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	FocusedPrompt = withContext({
-		Theme = ContextServices.Theme,
-	})(FocusedPrompt)
-else
-	ContextServices.mapToProps(FocusedPrompt, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+FocusedPrompt = withContext({
+	Theme = ContextServices.Theme,
+})(FocusedPrompt)
+
 
 
 

@@ -8,7 +8,6 @@
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -45,15 +44,11 @@ function ControlsPanelBlocker:render()
     })
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ControlsPanelBlocker = withContext({
-	    Stylizer = ContextServices.Stylizer,
-	})(ControlsPanelBlocker)
-else
-	ContextServices.mapToProps(ControlsPanelBlocker,{
-	    Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ControlsPanelBlocker = withContext({
+    Stylizer = ContextServices.Stylizer,
+})(ControlsPanelBlocker)
+
 
 
 return ControlsPanelBlocker

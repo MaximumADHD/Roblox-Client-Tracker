@@ -6,7 +6,6 @@
 	Props:
 		UDim2 Position = position of the IK Button frame.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -198,19 +197,13 @@ function IKController:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	IKController = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics,
-	})(IKController)
-else
-	ContextServices.mapToProps(IKController, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+IKController = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Analytics = ContextServices.Analytics,
+})(IKController)
+
 
 
 local function mapStateToProps(state, props)

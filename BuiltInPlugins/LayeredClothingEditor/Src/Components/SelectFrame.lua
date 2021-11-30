@@ -9,7 +9,6 @@
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -97,17 +96,12 @@ function SelectFrame:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SelectFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(SelectFrame)
-else
-	ContextServices.mapToProps(SelectFrame,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+SelectFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(SelectFrame)
+
 
 
 return SelectFrame

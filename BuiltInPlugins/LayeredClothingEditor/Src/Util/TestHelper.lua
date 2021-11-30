@@ -18,6 +18,8 @@ local timeoutSeconds = 5
 local TestHelper = {}
 
 TestHelper.DefaultClothesName = "clothes"
+TestHelper.AttachmentCFrame = CFrame.new(10, 20, 10)
+TestHelper.DefaultAttachmentName = "WaistFrontAttachment"
 
 local function delay()
 	local TEST_DELAY_SECONDS = 0.1
@@ -49,7 +51,7 @@ function TestHelper.sendInputToXPath(xpath,inputValue)
 	delay()
 end
 
-function TestHelper.goToAssetTypeScreenFromStart(caged)
+function TestHelper.goToAssetTypeScreenFromStart(caged, hasAttachment)
 	local ScreenFlowPath = TestHelper.getScreenFlow()
 	local SelectFramePath =
 		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
@@ -61,18 +63,22 @@ function TestHelper.goToAssetTypeScreenFromStart(caged)
 	if caged then
 		TestHelper.addLCItemWithFullCageFromExplorer()
 	else
-		TestHelper.addLCItemWithoutCageFromExplorer()
+		if hasAttachment then
+			TestHelper.addLCItemWithAttachmentFromExplorer()
+		else
+			TestHelper.addLCItemWithoutCageFromExplorer()
+		end
 	end
 	TestHelper.clickXPath(NextButtonPath)
 	delay()
 end
 
-function TestHelper.goToEditScreenFromStart(caged)
-	TestHelper.goToAssetTypeScreenFromStart(caged)
+function TestHelper.goToEditScreenFromStart(caged, hasAttachment)
+	TestHelper.goToAssetTypeScreenFromStart(caged, hasAttachment)
 
-	local ScreenFlowPath = TestHelper.getScreenFlow()
+	local ScreenFlowPath = TestHelper.getScreenFlow(true)
 	local AssetTypeScreenPath =
-		ScreenFlowPath:cat(XPath.new("Screen.ViewArea"))
+		ScreenFlowPath:cat(XPath.new("SwizzleView.ViewArea"))
 	local ShirtButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("Content.ClothingTypeList.List.Shirt"))
 	local WaistButtonPath =
@@ -180,8 +186,12 @@ function TestHelper.waitForChildrenCountEqualTo(instance, expectValue)
 	end)
 end
 
-function TestHelper.getScreenFlow()
-	return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow")
+function TestHelper.getScreenFlow(hasScrollFrame)
+	if hasScrollFrame then
+		return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow.Screen.MainFrame")
+	else
+		return XPath.new("game.CoreGui.PluginMockGui.ScreenFlow")
+	end
 end
 
 function TestHelper.getEditScreenContainer()
@@ -302,12 +312,20 @@ function TestHelper.createAvatarWithFullCages(name)
 	humanoid.Parent = avatar
 	local meshPart = Instance.new("MeshPart")
 	meshPart.Parent = avatar
+	local attachment = Instance.new("Attachment", meshPart)
+	attachment.Name = TestHelper.DefaultAttachmentName
 	local innerCage = Instance.new("MeshPart",avatar)
 	innerCage.Name = "Inner"
 	local outerCage = Instance.new("MeshPart",avatar)
 	outerCage.Name = "Outer"
 	avatar.PrimaryPart = meshPart
 	return avatar
+end
+
+local function selectItem(item)
+	local Selection = game:GetService("Selection")
+	Selection:Set({item})
+	delay()
 end
 
 local function addItemAndConfirm(item, addItemFromExplorerButton)
@@ -317,14 +335,12 @@ local function addItemAndConfirm(item, addItemFromExplorerButton)
 
 	TestHelper.clickXPath(addItemFromExplorerButton)
 
-	local Selection = game:GetService("Selection")
-	Selection:Set({item})
-	delay()
+	selectItem(item)
 
 	local dialogName = Localization.mock():getText("Dialog","DefaultTitle")
 	local dialogPath = XPath.new(game.CoreGui[dialogName])
 	local dialogConfirmButtonPath =
-		dialogPath:cat(XPath.new("SolidBackground.ButtonContainer.Contents.1.Contents.TextButton"))
+		dialogPath:cat(XPath.new("SolidBackground.ButtonContainer.1.Contents.TextButton"))
 	TestHelper.waitForXPathInstance(dialogConfirmButtonPath)
 	TestHelper.clickXPath(dialogConfirmButtonPath)
 end
@@ -333,9 +349,18 @@ function TestHelper.addRegularPartFromExplorer()
 	local item = Instance.new("Part")
 	item.Parent = TestHelper.getTempInstancesFolder()
 
-	local Selection = game:GetService("Selection")
-	Selection:Set({item})
-	delay()
+	selectItem(item)
+
+	return item
+end
+
+function TestHelper.addLCItemWithAttachmentFromExplorer()
+	local item = TestHelper.createClothesWithoutCage()
+	local attachment = Instance.new("Attachment", item)
+	attachment.Name = TestHelper.DefaultAttachmentName
+	attachment.CFrame = TestHelper.AttachmentCFrame
+
+	selectItem(item)
 
 	return item
 end
@@ -344,9 +369,7 @@ function TestHelper.addLCItemWithoutCageFromExplorer(item)
 	local lcItem = item or TestHelper.createClothesWithoutCage()
 	assert(not ItemCharacteristics.hasFullCages(lcItem))
 
-	local Selection = game:GetService("Selection")
-	Selection:Set({lcItem})
-	delay()
+	selectItem(lcItem)
 
 	return lcItem
 end
@@ -355,9 +378,7 @@ function TestHelper.addLCItemWithFullCageFromExplorer(item)
 	local lcItem = item or TestHelper.createClothesWithFullCages()
 	assert(ItemCharacteristics.hasFullCages(lcItem))
 
-	local Selection = game:GetService("Selection")
-	Selection:Set({lcItem})
-	delay()
+	selectItem(lcItem)
 
 	return lcItem
 end
@@ -366,9 +387,7 @@ function TestHelper.addAvatarWithFullCagesFromExplorer()
 	local lcItem = TestHelper.createAvatarWithFullCages()
 	assert(ItemCharacteristics.hasFullCages(lcItem))
 
-	local Selection = game:GetService("Selection")
-	Selection:Set({lcItem})
-	delay()
+	selectItem(lcItem)
 
 	return lcItem
 end

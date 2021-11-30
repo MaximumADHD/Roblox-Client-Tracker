@@ -12,6 +12,7 @@ local Localization = ContextServices.Localization
 local Stylizer = ContextServices.Stylizer
 
 local UI = Framework.UI
+local Checkbox = UI.Checkbox
 local CheckboxTreeView = UI.CheckboxTreeView
 local Image = UI.Decoration.Image
 local Pane = UI.Pane
@@ -27,6 +28,7 @@ local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsIt
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
+local SetCheckedState = require(Plugin.Src.Thunks.SetCheckedState)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
@@ -125,6 +127,47 @@ local function getStatusImage(status, statusType, layoutOrderIterator, localizat
 	})
 end
 
+-- TODO: Rework ancestry and getChildren for cleaner traversal of instance tree
+local function toggleAncestors(item, checkedStates, ancestry, getChildren, updateChecked)
+	local function toggleAncestorsRecursive(item)
+		local parent = ancestry[item]
+		if not parent or updateChecked[item] == nil then
+			return
+		end
+
+		local allChildrenChecked = true
+		local anyChildChecked = false
+
+		for _, child in ipairs(getChildren(parent)) do
+			local checked = updateChecked[child]
+
+			if checked == nil then
+				checked = checkedStates[child] or false
+			end
+
+			allChildrenChecked = allChildrenChecked and (checked ~= Checkbox.Indeterminate and checked)
+			anyChildChecked = anyChildChecked or (checked == Checkbox.Indeterminate or checked)
+		end
+
+		if allChildrenChecked then
+			if checkedStates[parent] == true then
+				return
+			elseif (parent:IsA("ImporterGroupSettings") or parent:IsA("ImporterRootSettings")) then
+				updateChecked[parent] = true
+			end
+		elseif not anyChildChecked then
+			if checkedStates[parent] == false then
+				return
+			elseif (parent:IsA("ImporterGroupSettings") or parent:IsA("ImporterRootSettings")) then
+				updateChecked[parent] = false
+			end
+		end
+
+		toggleAncestorsRecursive(parent)
+	end
+	toggleAncestorsRecursive(item)
+end
+
 function AssetImportTree:init()
 	self.getChildren = function(item)
 		return item:GetChildren()
@@ -173,6 +216,10 @@ function AssetImportTree:init()
 	end
 end
 
+function AssetImportTree:didMount()
+	self.props.InitChecked()
+end
+
 function AssetImportTree:render()
 	local props = self.props
 	local state = self.state
@@ -216,7 +263,7 @@ function AssetImportTree:render()
 			GetContents = self.getContents,
 			ExpandableRoot = false,
 			AfterItem = self.afterItem,
-			ToggleAncestors = CheckboxTreeView.UpPropagators.toggleAncestorsByAllChildren,
+			ToggleAncestors = toggleAncestors,
 			ToggleDescendants = CheckboxTreeView.DownPropagators.toggleAllChildren,
 		})
 	})
@@ -251,6 +298,10 @@ local function mapDispatchToProps(dispatch)
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))
 		end,
+		InitChecked = function()
+			dispatch(SetCheckedState())
+		end,
+
 	}
 end
 

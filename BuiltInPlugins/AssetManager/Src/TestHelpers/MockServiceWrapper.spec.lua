@@ -1,4 +1,3 @@
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local MockServiceWrapper = require(script.Parent.MockServiceWrapper)
 
 local Plugin = script.Parent.Parent.Parent
@@ -42,17 +41,10 @@ return function()
 					Text = localization:getText("namespace", "stringkey")
 				})
 			end
-
-			if FFlagAssetManagerWithContext then
-				testElement = withContext({
-					Localization = ContextServices.Localization,
-				})(testElement)
-			else
-				ContextServices.mapToProps(testElement, {
-					Localization = ContextServices.Localization,
-				})
-			end
-
+			
+			testElement = withContext({
+				Localization = ContextServices.Localization,
+			})(testElement)
 
 			return testElement
 		end
@@ -127,16 +119,9 @@ return function()
 				})
 			end
 
-			if FFlagAssetManagerWithContext then
-				testThemedElement = withContext({
-					Theme = ContextServices.Theme,
-				})(testThemedElement)
-			else
-				ContextServices.mapToProps(testThemedElement, {
-					Theme = ContextServices.Theme,
-				})
-			end
-
+			testThemedElement = withContext({
+				Theme = ContextServices.Theme,
+			})(testThemedElement)
 
 			return testThemedElement
 		end

@@ -8,7 +8,6 @@
 		int Playhead = current tick location of the scubber
 		int EditingLength = current maximum length of the animation editor timeline
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -119,17 +118,12 @@ function AnimationControlPanel:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	AnimationControlPanel = withContext({
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics
-	})(AnimationControlPanel)
-else
-	ContextServices.mapToProps(AnimationControlPanel, {
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics
-	})
-end
+
+AnimationControlPanel = withContext({
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics
+})(AnimationControlPanel)
+
 
 
 local function mapStateToProps(state, props)

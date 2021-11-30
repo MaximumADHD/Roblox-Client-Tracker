@@ -12,7 +12,6 @@
 		table PreviewContext: A PreviewContext item, which is provided via withContext.
 
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local InsertService = game:GetService("InsertService")
 
@@ -189,8 +188,8 @@ local function updatePreviewAttachments(self)
 				weld:Destroy()
 			end
 			clone.Size = self.props.ItemSize
-			ModelUtil:addAttachment(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint)
-			ModelUtil:attachClothingItem(clone.Parent, clone, self.props.AccessoryTypeInfo.Name, false, true)
+			ModelUtil:createOrReuseAttachmentInstance(clone, clone.Parent, self.props.AccessoryTypeInfo, self.props.AttachmentPoint)
+			ModelUtil:attachClothingItem(clone.Parent, clone, self.props.AccessoryTypeInfo.Name, true, true)
 		end
 	end
 end
@@ -265,17 +264,12 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ExplorerPreviewInstances = withContext({
-		EditingItemContext = EditingItemContext,
-		PreviewContext = PreviewContext,
-	})(ExplorerPreviewInstances)
-else
-	ContextServices.mapToProps(ExplorerPreviewInstances,{
-		EditingItemContext = EditingItemContext,
-		PreviewContext = PreviewContext,
-	})
-end
+
+ExplorerPreviewInstances = withContext({
+	EditingItemContext = EditingItemContext,
+	PreviewContext = PreviewContext,
+})(ExplorerPreviewInstances)
+
 
 
 return RoactRodux.connect(mapStateToProps)(ExplorerPreviewInstances)

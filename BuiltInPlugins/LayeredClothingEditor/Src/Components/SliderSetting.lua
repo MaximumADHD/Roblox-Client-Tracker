@@ -15,7 +15,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number SnapIncrement: optional increment when dragging slider. Default to 1
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -158,15 +157,11 @@ function SliderSetting:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SliderSetting = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SliderSetting)
-else
-	ContextServices.mapToProps(SliderSetting,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+SliderSetting = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SliderSetting)
+
 
 
 return SliderSetting

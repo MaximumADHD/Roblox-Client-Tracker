@@ -10,7 +10,6 @@
 		int TopTrackIndex = index of the track that should be displayed at the top of the Dope Sheet
 		bool ShowEvents = Whether to show the AnimationEvents track.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -54,6 +53,7 @@ local MoveSelectedKeyframes = require(Plugin.Src.Thunks.Selection.MoveSelectedKe
 local ScaleSelectedKeyframes = require(Plugin.Src.Thunks.Selection.ScaleSelectedKeyframes)
 local SetSelectedKeyframeData = require(Plugin.Src.Thunks.Selection.SetSelectedKeyframeData)
 local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
+local GenerateCurve = require(Plugin.Src.Thunks.Selection.GenerateCurve)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 local RenameKeyframe = require(Plugin.Src.Thunks.RenameKeyframe)
 local QuantizeKeyframes = require(Plugin.Src.Thunks.QuantizeKeyframes)
@@ -711,6 +711,7 @@ function DopeSheetController:render()
 					OnMenuOpened = self.hideMenu,
 					OnItemSelected = self.onEasingItemSelected,
 					OnClearTangentsSelected = self.onClearTangentsSelected,
+					OnGenerateCurve = self.props.GenerateCurve,
 					OnRenameKeyframe = function(tick)
 						-- The prompt was sometimes not displaying when not using spawn
 						spawn(function()
@@ -809,19 +810,13 @@ function DopeSheetController:render()
 	end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	DopeSheetController = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics
-	})(DopeSheetController)
-else
-	ContextServices.mapToProps(DopeSheetController, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics
-	})
-end
+
+DopeSheetController = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics
+})(DopeSheetController)
+
 
 
 local function mapStateToProps(state, props)
@@ -933,6 +928,11 @@ local function mapDispatchToProps(dispatch)
 
 		CloseInvalidAnimationToast = function()
 			dispatch(SetNotification("InvalidAnimation", false))
+		end,
+
+		GenerateCurve = function(easingStyle, easingDirection)
+			dispatch(AddWaypoint())
+			dispatch(GenerateCurve(easingStyle, easingDirection))
 		end,
 	}
 

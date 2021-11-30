@@ -49,7 +49,6 @@ local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -458,15 +457,11 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagAnimationClipEditorWithContext then
-	EventsController = withContext({
-		Analytics = ContextServices.Analytics,
-	})(EventsController)
-else
-	ContextServices.mapToProps(EventsController, {
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+EventsController = withContext({
+	Analytics = ContextServices.Analytics,
+})(EventsController)
+
 
 
 EventsController = RoactRodux.connect(mapStateToProps,

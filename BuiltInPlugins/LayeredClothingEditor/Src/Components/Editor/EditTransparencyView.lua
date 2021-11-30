@@ -10,7 +10,6 @@
 		table CagesTransparency: cages transparency, which is provided via store
 		number LayoutOrder: render order of component in layout
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -90,19 +89,13 @@ function EditTransparencyView:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditTransparencyView = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-	})(EditTransparencyView)
-else
-	ContextServices.mapToProps(EditTransparencyView,{
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+EditTransparencyView = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+	EditingItemContext = EditingItemContext,
+})(EditTransparencyView)
+
 
 
 local function mapStateToProps(state, props)

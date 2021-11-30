@@ -19,7 +19,6 @@
 			clicks a button that has a string key (not for text submitting)
 		function OnClose = A callback for when the user closed the prompt.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local TextService = game:GetService("TextService")
 
@@ -187,15 +186,11 @@ function TextEntryPrompt:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TextEntryPrompt = withContext({
-		Theme = ContextServices.Theme,
-	})(TextEntryPrompt)
-else
-	ContextServices.mapToProps(TextEntryPrompt, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TextEntryPrompt = withContext({
+	Theme = ContextServices.Theme,
+})(TextEntryPrompt)
+
 
 
 

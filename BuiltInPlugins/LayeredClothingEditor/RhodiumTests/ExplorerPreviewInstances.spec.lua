@@ -9,15 +9,71 @@ return function()
 	local runRhodiumTest = TestRunner.runRhodiumTest
 
 	local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
+	local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 	local LayeredClothingEditorPreviewPath = XPath.new("game.Workspace.LayeredClothingEditorPreview")
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
+	local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
+	local previewClothesPath = previewAvatarPath:cat(XPath.new(TestHelper.DefaultClothesName))
 
 	it("LayeredClothingEditorPreview folder should exist in Workspace", function()
 		runRhodiumTest(function()
 			TestHelper.goToEditScreenFromStart(true)
 			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
+		end)
+	end)
+
+	it("Transformations to rigid item should also be shown in Preview", function()
+		runRhodiumTest(function(_, _, _, editingItemContext)
+			TestHelper.goToEditScreenFromStart(false)
+
+			local editingItem = editingItemContext:getItem()
+
+			-- minimize edit swizzle in case UI is too big and cuts off animation slider
+			TestHelper.clickXPath(editSwizzlePath)
+
+			-- make sure we have the LayeredClothingEditorPreview folder, and it initially has no children
+			expect(TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath)).to.be.ok()
+			expect(#TestHelper.waitForXPathInstance(LayeredClothingEditorPreviewPath):GetChildren()).to.equal(0)
+
+			TestHelper.addAvatarToGrid() -- calling TestHelper.addLCItemWithoutCageFromExplorer() earlier makes avatar tab active
+
+			-- click the avatar tile created with TestHelper.addAvatarToGrid() to put it in the scene
+			TestHelper.clickEquippableGridTile(1) -- click the tile added with TestHelper.addAvatarToGrid()
+
+			local previewAvatar = TestHelper.waitForXPathInstance(previewAvatarPath)
+			expect(previewAvatar).to.be.ok()
+
+			-- avatar should be wearing a clone of the accessory
+			local itemClone = TestHelper.waitForXPathInstance(previewClothesPath)
+			expect(itemClone).to.be.ok()
+
+			local sourceAttachment = editingItem:WaitForChild(TestHelper.DefaultAttachmentName)
+			local cloneAttachment = itemClone:WaitForChild(TestHelper.DefaultAttachmentName)
+
+			expect(sourceAttachment).to.be.ok()
+			expect(cloneAttachment).to.be.ok()
+
+			-- expand edit swizzle to resume editing
+			TestHelper.clickXPath(editSwizzlePath)
+
+			-- test changing cframe
+			local newCFrame = editingItem.CFrame + Vector3.new(0, 1, 0)
+			newCFrame = newCFrame * CFrame.fromEulerAnglesXYZ(math.pi/6, 0, 0)
+			editingItem.CFrame = newCFrame
+
+			TestHelper.delay()
+
+			expect(MathUtil:fuzzyEq_CFrame(sourceAttachment.CFrame, cloneAttachment.CFrame)).to.equal(true)
+
+			-- test changing size
+			local cloneOriginalSize = itemClone.Size
+			editingItem.Size = editingItem.Size * 2
+
+			TestHelper.delay()
+
+			expect(itemClone.Size:FuzzyEq(cloneOriginalSize * 2)).to.equal(true)
 		end)
 	end)
 
@@ -36,7 +92,6 @@ return function()
 
 			-- click the avatar tile created with TestHelper.addAvatarToGrid() to put it in the scene
 			TestHelper.clickEquippableGridTile(1) -- click the tile added with TestHelper.addAvatarToGrid()
-			local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
 			expect(TestHelper.waitForXPathInstance(previewAvatarPath)).to.be.ok()
 		end)
 	end)
@@ -56,7 +111,6 @@ return function()
 
 			-- click the avatar tile created with TestHelper.addAvatarToGrid() to put it in the scene
 			TestHelper.clickEquippableGridTile(1) -- click the tile added with TestHelper.addAvatarToGrid()
-			local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
 			expect(TestHelper.waitForXPathInstance(previewAvatarPath)).to.be.ok()
 
 			-- click the avatar tile again to remove it from the scene
@@ -80,7 +134,6 @@ return function()
 
 			-- click the avatar tile created with TestHelper.addAvatarToGrid() to put it in the scene
 			TestHelper.clickEquippableGridTile(1) -- click the tile added with TestHelper.addAvatarToGrid()
-			local previewAvatarPath = LayeredClothingEditorPreviewPath:cat(XPath.new(PreviewConstants.PreviewAvatarName))
 			expect(TestHelper.waitForXPathInstance(previewAvatarPath)).to.be.ok()
 
 			-- change to the clothes tab

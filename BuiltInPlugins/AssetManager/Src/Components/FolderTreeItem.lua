@@ -10,7 +10,6 @@
 		rowIndex = number, The order in which this item appears in the list.
 		toggleSelected = callback, A callback when this item is clicked.
 ]]
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -163,17 +162,9 @@ function FolderTreeItem:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	FolderTreeItem = withContext({
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})(FolderTreeItem)
-else
-	ContextServices.mapToProps(FolderTreeItem,{
-	    Theme = ContextServices.Theme,
-	    Mouse = ContextServices.Mouse,
-	})
-end
-
+FolderTreeItem = withContext({
+    Theme = ContextServices.Theme,
+    Mouse = ContextServices.Mouse,
+})(FolderTreeItem)
 
 return FolderTreeItem

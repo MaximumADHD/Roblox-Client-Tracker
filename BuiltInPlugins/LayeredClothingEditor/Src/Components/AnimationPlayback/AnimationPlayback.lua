@@ -13,7 +13,6 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table PreviewContext: A Preview ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -184,17 +183,12 @@ function AnimationPlayback:willUnmount()
 	end
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	AnimationPlayback = withContext({
-		EditingItemContext = EditingItemContext,
-		PreviewContext = PreviewContext,
-	})(AnimationPlayback)
-else
-	ContextServices.mapToProps(AnimationPlayback,{
-		EditingItemContext = EditingItemContext,
-		PreviewContext = PreviewContext,
-	})
-end
+
+AnimationPlayback = withContext({
+	EditingItemContext = EditingItemContext,
+	PreviewContext = PreviewContext,
+})(AnimationPlayback)
+
 
 
 local function mapStateToProps(state, props)

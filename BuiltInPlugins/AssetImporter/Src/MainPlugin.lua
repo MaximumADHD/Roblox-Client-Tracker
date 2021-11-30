@@ -34,6 +34,7 @@ local Components = main.Src.Components
 local ImportPrompt = require(Components.ImportPrompt)
 local MeshImportDialog = require(Components.MeshImportDialog)
 local ProgressWidget = require(Components.ProgressWidget)
+local ErrorWidget = require(Components.ErrorWidget)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -42,6 +43,7 @@ function MainPlugin:init(props)
 		hasImportSettings = false,
 		promptRequested = false,
 		uploadInProgress = false,
+		importOpenError = false,
 	}
 
 	self.promptClosed = function(succeeded)
@@ -49,6 +51,7 @@ function MainPlugin:init(props)
 
 		self:setState({
 			hasImportSettings = succeeded,
+			importOpenError = not succeeded,
 			promptRequested = false,
 		})
 	end
@@ -70,6 +73,7 @@ function MainPlugin:init(props)
 			hasImportSettings = false,
 			promptRequested = false,
 			uploadInProgress = false,
+			importOpenError = false,
 		})
 	end
 
@@ -108,6 +112,7 @@ function MainPlugin:render()
 	local hasImportSettings = state.hasImportSettings
 	local shouldShowPrompt = not state.hasImportSettings and state.promptRequested
 	local shouldShowProgress = state.uploadInProgress
+	local importOpenError = state.importOpenError
 
 	return ContextServices.provide({
 		props.Plugin,
@@ -139,6 +144,11 @@ function MainPlugin:render()
 		ProgressWidget = shouldShowProgress and Roact.createElement(ProgressWidget, {
 			OnClose = self.onClose,
 			Title = localization:getText("Upload", "WindowTitle"),
+		}),
+
+		ErrorWidget = importOpenError and Roact.createElement(ErrorWidget, {
+			OnClose = self.onClose,
+			Title = localization:getText("Error", "WindowTitle"),
 		}),
 	})
 end

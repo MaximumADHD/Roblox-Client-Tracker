@@ -11,7 +11,6 @@
 		number ZIndex: the z sorting order of the component
 		boolean HasEditingCage: determines if a cage has been loaded into the editor, some tab buttons are disabled if not.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -70,15 +69,11 @@ function EditorTabsRibbon:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditorTabsRibbon = withContext({
-		Localization = ContextServices.Localization,
-	})(EditorTabsRibbon)
-else
-	ContextServices.mapToProps(EditorTabsRibbon,{
-		Localization = ContextServices.Localization,
-	})
-end
+
+EditorTabsRibbon = withContext({
+	Localization = ContextServices.Localization,
+})(EditorTabsRibbon)
+
 
 
 return EditorTabsRibbon

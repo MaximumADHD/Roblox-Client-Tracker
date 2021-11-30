@@ -13,7 +13,6 @@
 		int ZIndex = The draw index of the frame.
 		bool ShowEvents = Whether to show the Animation Events track.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -291,15 +290,11 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackEditor = withContext({
-		Mouse = ContextServices.Mouse,
-	})(TrackEditor)
-else
-	ContextServices.mapToProps(TrackEditor, {
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+TrackEditor = withContext({
+	Mouse = ContextServices.Mouse,
+})(TrackEditor)
+
 
 
 

@@ -13,7 +13,6 @@
 		number LayoutOrder: render order of component in layout
 		string Image: the image to display on the tile
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -93,15 +92,11 @@ function Tile:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	Tile = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Tile)
-else
-	ContextServices.mapToProps(Tile,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+Tile = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Tile)
+
 
 
 return Tile

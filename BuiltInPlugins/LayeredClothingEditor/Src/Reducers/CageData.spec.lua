@@ -65,7 +65,7 @@ return function()
 						for _, linkPoint in pairs(linkPoints) do
 							local position = pointData[Enum.CageType.Outer][part][pointIndex].Position
 							local linkedPosition = pointData[Enum.CageType.Outer][linkPoint.Deformer][linkPoint.Index].Position
-							expect(MathUtil:fuzzyEq_Vector3(position, linkedPosition)).to.equal(true)
+							expect(position:FuzzyEq(linkedPosition)).to.equal(true)
 						end
 					end
 				end

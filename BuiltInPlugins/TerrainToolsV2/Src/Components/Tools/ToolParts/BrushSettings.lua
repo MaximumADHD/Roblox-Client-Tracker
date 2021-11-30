@@ -1,7 +1,6 @@
 --[[
 	BrushSettings.lua
 ]]
-local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsRenameSnapToGrid = game:GetFastFlag("TerrainToolsRenameSnapToGrid")
@@ -336,7 +335,7 @@ function BrushSettings:render()
 			Disabled = disableIgnoreWaterToggle,
 		}),
 
-		IgnorePartsToggle = (FFlagTerrainToolsPartInteractToggle and showIgnoreParts) and Roact.createElement(LabeledToggle, {
+		IgnorePartsToggle = showIgnoreParts and Roact.createElement(LabeledToggle, {
 			LayoutOrder = FFlagTerrainToolsEditPlaneLock and LayoutOrderIterator:getNextOrder() or 12,
 			Text = localization:getText("BrushSettings", "IgnoreParts"),
 			IsOn = self.props.ignoreParts,

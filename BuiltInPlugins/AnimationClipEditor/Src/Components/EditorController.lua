@@ -8,7 +8,6 @@
 		UDim2 Size = size of the frame
 		int ZIndex = The draw index of the frame.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local UserInputService = game:GetService("UserInputService")
 
 local Plugin = script.Parent.Parent.Parent
@@ -36,7 +35,6 @@ local TrackListBorder = require(Plugin.Src.Components.TrackList.TrackListBorder)
 local AnimationEventsTrack = require(Plugin.Src.Components.TrackList.AnimationEventsTrack)
 local TrackScrollbar = require(Plugin.Src.Components.TrackList.TrackScrollbar)
 local StartScreen = require(Plugin.Src.Components.StartScreen)
-local BigAnimationScreen = require(Plugin.Src.Components.BigAnimationScreen)
 local FloorGrid = require(Plugin.Src.Components.FloorGrid)
 local ChangeFPSPrompt = require(Plugin.Src.Components.ChangeFPSPrompt)
 local ChangePlaybackSpeedPrompt = require(Plugin.Src.Components.ChangePlaybackSpeedPrompt)
@@ -71,6 +69,7 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
 
@@ -297,12 +296,26 @@ function EditorController:init()
 	end
 
 	self.onValueChanged = function(instanceName, path, trackType, tick, value)
-		if not AnimationData.isChannelAnimation(self.props.AnimationData) then
+		local animationData = self.props.AnimationData
+		if not AnimationData.isChannelAnimation(animationData) then
 			self.props.ValueChanged(instanceName, path, trackType, tick, value, self.props.Analytics)
 		else
+			local rotationType
+			if GetFFlagQuaternionChannels() then
+				rotationType = Constants.TRACK_TYPES.EulerAngles
+				-- We need to know if we're dealing with a quaternion rotation
+				local trackName = path[1]
+				local track = AnimationData.getTrack(animationData, instanceName, {trackName})
+				if track and track.Components[Constants.PROPERTY_KEYS.Rotation] then
+					rotationType = track.Components[Constants.PROPERTY_KEYS.Rotation].Type
+				end
+			else
+				rotationType = Constants.TRACK_TYPES.Rotation
+			end
+			-- Change the value of all tracks
 			TrackUtils.traverseValue(trackType, value, function(_trackType, relPath, _value)
 				self.props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, tick, _value, self.props.Analytics)
-			end)
+			end, rotationType)
 		end
 	end
 end
@@ -356,7 +369,6 @@ function EditorController:render()
 	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
 	local showEditor = animationData ~= nil
 	local useJointSelector = not UseLuaDraggers()
-	local bigAnimation = false
 	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
 
 	local selectedPaths = {}
@@ -509,7 +521,7 @@ function EditorController:render()
 			OnDragMoved = self.updateTrackListWidth,
 		}),
 
-		TrackEditor = showEditor and not bigAnimation and Roact.createElement(TrackEditor, {
+		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
 			ZIndex = zIndex,
 			TopTrackIndex = topTrackIndex,
 			Tracks = tracks,
@@ -529,7 +541,7 @@ function EditorController:render()
 			IsChannelAnimation = isChannelAnimation,
 		}),
 
-		SettingsAndVerticalScrollBar = showEditor and not bigAnimation and Roact.createElement("Frame", {
+		SettingsAndVerticalScrollBar = showEditor and Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
 			LayoutOrder = 3,
@@ -547,12 +559,6 @@ function EditorController:render()
 				SetTopTrackIndex = self.setTopTrackIndex,
 				OnScroll = self.onScroll,
 			}),
-		}),
-
-		BigAnimationScreen = bigAnimation and Roact.createElement(BigAnimationScreen, {
-			Size = UDim2.new(1, -trackListWidth, 1, 0),
-			LayoutOrder = 2,
-			IsChannelAnimation = isChannelAnimation,
 		}),
 
 		StartScreen = not showEditor and Roact.createElement(StartScreen, {
@@ -788,17 +794,12 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-if FFlagAnimationClipEditorWithContext then
-	EditorController = withContext({
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})(EditorController)
-else
-	ContextServices.mapToProps(EditorController, {
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})
-end
+
+EditorController = withContext({
+	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
+})(EditorController)
+
 
 
 

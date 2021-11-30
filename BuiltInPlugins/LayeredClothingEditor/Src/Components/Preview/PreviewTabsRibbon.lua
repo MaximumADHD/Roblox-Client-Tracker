@@ -12,7 +12,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -85,19 +84,13 @@ function PreviewTabsRibbon:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	PreviewTabsRibbon = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-	})(PreviewTabsRibbon)
-else
-	ContextServices.mapToProps(PreviewTabsRibbon,{
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+PreviewTabsRibbon = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+	EditingItemContext = EditingItemContext,
+})(PreviewTabsRibbon)
+
 
 
 local function mapStateToProps(state, props)

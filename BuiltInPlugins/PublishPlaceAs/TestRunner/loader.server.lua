@@ -27,9 +27,6 @@ local args : PluginLoaderBuilder.Args = {
 		["StudioService.OnPublishPlaceToRoblox"] = function()
 			return StudioService.OnPublishPlaceToRoblox
 		end,
-		["StudioService.FirstPublishOfCloudPlace"] = function()
-			return StudioService.FirstPublishOfCloudPlace
-		end,
 		["StudioService.GamePublishFinished"] = function()
 			return StudioService.GamePublishFinished
 		end,

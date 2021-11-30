@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
 
 local Roact = require(Plugin.Packages.Roact)
@@ -174,26 +173,14 @@ end
 local function mapStateToProps(state, props)
 end
 
-if FFlagAssetManagerWithContext then
-	AssetPreviewWrapper = withContext({
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Focus = ContextServices.Focus,
-	    Localization = ContextServices.Localization,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})(AssetPreviewWrapper)
-else
-	ContextServices.mapToProps(AssetPreviewWrapper, {
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Focus = ContextServices.Focus,
-	    Localization = ContextServices.Localization,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})
-end
-
+AssetPreviewWrapper = withContext({
+    Analytics = ContextServices.Analytics,
+    API = ContextServices.API,
+    Focus = ContextServices.Focus,
+    Localization = ContextServices.Localization,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
+})(AssetPreviewWrapper)
 
 local function mapDispatchToProps(dispatch)
 	return {

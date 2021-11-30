@@ -9,7 +9,6 @@
 		number LayoutOrder: render order of component in layout
 		callback ResetPoints: Resets RbfPoint data to default, provided via mapDispatchToProps.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -68,17 +67,12 @@ function ResetSettings:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ResetSettings = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(ResetSettings)
-else
-	ContextServices.mapToProps(ResetSettings,{
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ResetSettings = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(ResetSettings)
+
 
 
 local function mapStateToProps(state, props)

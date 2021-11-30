@@ -27,7 +27,6 @@
 		function OnInputBegan = A callback fired when the user clicks in the frame.
 		function OnDragMoved = A callback fired when the user drags after clicking in the frame.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -196,15 +195,11 @@ function Timeline:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	Timeline = withContext({
-		Theme = ContextServices.Theme,
-	})(Timeline)
-else
-	ContextServices.mapToProps(Timeline, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+Timeline = withContext({
+	Theme = ContextServices.Theme,
+})(Timeline)
+
 
 
 

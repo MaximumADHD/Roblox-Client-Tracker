@@ -1,4 +1,3 @@
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -64,18 +63,10 @@ function AlignmentSettings:render()
 	})
 end
 
-if FFlagAlignmentToolWithContext then
-	AlignmentSettings = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(AlignmentSettings)
-else
-	ContextServices.mapToProps(AlignmentSettings, {
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+AlignmentSettings = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(AlignmentSettings)
 
 local function mapStateToProps(state, _)
 	return {

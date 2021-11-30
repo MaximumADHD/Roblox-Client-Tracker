@@ -5,8 +5,6 @@
 
 	Props:
 		function OnClose - closure to run to close the QWidget dialog
-		table FirstPublishContext - set only when doing "first publish after save"
-			This table contain 2 elements, universeId and placeId
 ]]
 local StudioService = game:GetService("StudioService")
 
@@ -47,7 +45,6 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePlaceWorkflow")
-local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
@@ -87,14 +84,7 @@ function ScreenCreateNewGame:init()
 	self.scrollingFrameRef = Roact.createRef()
 
 	if not FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-		if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
-			local success, existingConfig = DEPRECATED_Configuration.Get(self.props.FirstPublishContext.universeId):await()
-			if success then
-				self.props.dispatchSetExistingUniverseConfiguration(existingConfig)
-			end
-		else
-			self.props.DispatchLoadGroups()
-		end
+		self.props.DispatchLoadGroups()
 
 		if FFlagStudioClosePromptOnLocalSave then
 			StudioService.SaveLocallyAsComplete:connect(function(success)
@@ -133,21 +123,7 @@ function ScreenCreateNewGame:didMount()
 	end)
 
 	if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-		if FFlagStudioPromptOnFirstPublish and self.props.FirstPublishContext ~= nil then
-			local apiImpl = self.props.API:get()
-			apiImpl.Develop.V2.Universes.configuration(self.props.FirstPublishContext.universeId):makeRequest()
-			:andThen(function(response)
-				self.props.dispatchSetExistingUniverseConfiguration(response.responseBody)
-			end, function(response)
-				local message = self.props.Localization:getText("Error","GetConfiguration") .. " HTTP " .. response.responseCode
-				warn(message)
-				for _, value in pairs(response.responseBody.errors) do
-					warn(value.userFacingMessage)
-				end
-			end):await()
-		else
-			self.props.DispatchLoadGroups()
-		end
+		self.props.DispatchLoadGroups()
 
 		if FFlagStudioClosePromptOnLocalSave then
 			StudioService.SaveLocallyAsComplete:connect(function(success)
@@ -182,7 +158,6 @@ function ScreenCreateNewGame:render()
 	local isPublishing = props.IsPublishing
 	local changed = props.Changed
 	local isPublish = props.IsPublish
-	local firstPublishContext = props.FirstPublishContext
 
 	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
@@ -236,50 +211,28 @@ function ScreenCreateNewGame:render()
 				Name = actionButtonLabel,
 				Active = readyToSave and not isPublishing,
 				OnActivated = function()
-					if FFlagStudioPromptOnFirstPublish and firstPublishContext then
-						if shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
-							self:setState({
-								showEmailDialog = true,
-							})
-						else
-							if shouldShowDevPublishLocations() then
-								local points = {
-									[optInLocationsKey] = chinaKey,
-									[selectedKey] = false,
-								}
-								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
-							end
-
-							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-								dispatchSetIsPublishing(true)
-								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl)
-							else
-								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId)
-							end
-						end
+					-- Make changes here before save happens to show dialog
+					if shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
+						self:setState({
+							showEmailDialog = true,
+						})
 					else
-						-- Make changes here before save happens to show dialog
-						if shouldShowDevPublishLocations() and self.shouldShowEmailDialog() then
-							self:setState({
-								showEmailDialog = true,
-							})
-						else
-							if shouldShowDevPublishLocations() then
-								local points = {
-									[optInLocationsKey] = chinaKey,
-									[selectedKey] = false,
-								}
-								sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
-							end
+						if shouldShowDevPublishLocations() then
+							local points = {
+								[optInLocationsKey] = chinaKey,
+								[selectedKey] = false,
+							}
+							sendAnalyticsToKibana(seriesNameKey, FIntLuobuDevPublishAnalyticsHundredthsPercentage, createNewGameKey, points)
+						end
 
-							if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-								dispatchSetIsPublishing(true)
-								SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl)
-							else
-								SettingsImpl.saveAll(changed, localization)
-							end
+						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
+							dispatchSetIsPublishing(true)
+							SettingsImpl.saveAll(changed, localization, apiImpl)
+						else
+							SettingsImpl.saveAll(changed, localization)
 						end
 					end
+					
 					if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
 						Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
 					end
@@ -333,11 +286,7 @@ function ScreenCreateNewGame:render()
 								})
 								dispatchSetIsPublishing(true)
 							end
-							if firstPublishContext then
-								SettingsImpl.saveAll(changed, localization, firstPublishContext.universeId, firstPublishContext.placeId, apiImpl, email1)
-							else
-								SettingsImpl.saveAll(changed, localization, nil, nil, apiImpl, email1)
-							end
+							SettingsImpl.saveAll(changed, localization, apiImpl, email1)
 							if not FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
 								dispatchSetIsPublishing(true)
 								self:setState({
@@ -371,7 +320,6 @@ function ScreenCreateNewGame:render()
 		}, {
 			Roact.createElement(BasicInfo, {
 				IsPublish = isPublish,
-				IsFirstPublish = firstPublishContext ~= nil,
 			}),
 		})
 	end

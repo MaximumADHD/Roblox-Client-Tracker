@@ -3,7 +3,6 @@
 	when a user has selected an instance in either the Workspace
 	Viewport or the Explorer.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -233,21 +232,14 @@ function InstanceSelector:willUnmount()
 	end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	InstanceSelector = withContext({
-		Plugin = ContextServices.Plugin,
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})(InstanceSelector)
-else
-	ContextServices.mapToProps(InstanceSelector, {
-		Plugin = ContextServices.Plugin,
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})
-end
+
+InstanceSelector = withContext({
+	Plugin = ContextServices.Plugin,
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
+})(InstanceSelector)
+
 
 
 local function mapStateToProps(state, props)

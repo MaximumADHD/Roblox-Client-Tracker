@@ -43,14 +43,22 @@ local function EnumProperty(props)
 		return true
 	end)
 
+	local localizedItems = {}
+	for i, v in ipairs(items) do
+		localizedItems[i] = props.Localization:getText("EnumItem", v)
+	end
+
 	return Roact.createElement(Pane, {
 		LayoutOrder = props.LayoutOrder,
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Size = props.Size,
 	}, {
 		WrapperContents = Roact.createElement(SelectInput, {
-			OnItemActivated = props.OnSelectItem,
-			Items = items,
+			OnItemActivated = function(item, index)
+				props.OnSelectItem(items[index])
+		    end,
+			Items = localizedItems,
+			-- the value isn't localized so use the items table to get the index
 			SelectedIndex = getSelectedIndex(props.Value, items),
 			Focus = props.Value.Name,
 			Size = UDim2.fromScale(1, 1),

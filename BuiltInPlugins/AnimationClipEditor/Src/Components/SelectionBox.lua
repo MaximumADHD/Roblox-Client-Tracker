@@ -10,7 +10,6 @@
 		function OnDragMoved(input) = A callback for when the user drags.
 		function OnDragEnded = A callback for when the user stops dragging.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -57,15 +56,11 @@ function SelectionBox:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	SelectionBox = withContext({
-		Theme = ContextServices.Theme,
-	})(SelectionBox)
-else
-	ContextServices.mapToProps(SelectionBox, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+SelectionBox = withContext({
+	Theme = ContextServices.Theme,
+})(SelectionBox)
+
 
 
 

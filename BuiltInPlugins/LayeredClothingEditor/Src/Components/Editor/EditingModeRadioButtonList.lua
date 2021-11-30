@@ -12,7 +12,6 @@
 		table Signals: A Signals ContextItem, which is provided via withContext.
 		table PointData: Rbf point data for the cages being edited, provided via mapStateToProps.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -122,21 +121,14 @@ function EditingModeRadioButtonList:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditingModeRadioButtonList = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-	})(EditingModeRadioButtonList)
-else
-	ContextServices.mapToProps(EditingModeRadioButtonList,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+EditingModeRadioButtonList = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Signals = SignalsContext,
+	EditingItemContext = EditingItemContext,
+})(EditingModeRadioButtonList)
+
 
 
 local function mapStateToProps(state, props)

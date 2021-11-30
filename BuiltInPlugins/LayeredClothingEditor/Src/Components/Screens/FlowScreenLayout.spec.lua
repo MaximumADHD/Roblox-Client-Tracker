@@ -7,7 +7,7 @@ return function()
 
 	local FlowScreenLayout = require(script.Parent.FlowScreenLayout)
 
-	local function createFlowScreenLayout(hasBackButton, hasContent)
+	local function createFlowScreenLayout(hasBackButton, hasContent, scrollable)
 		local renderContentFrame = function()
 			return Roact.createElement("Frame")
 		end
@@ -19,15 +19,33 @@ return function()
 			NextButtonEnabled = true,
 			BackButtonEnabled = true,
 			HasBackButton = hasBackButton,
+			Scrollable = scrollable,
 			GoToNext = function() end,
 			GoToPrevious = function() end,
 			RenderContent = hasContent and renderContentFrame or nil,
 		})
 	end
 
+	it("should render correctly with scollbar", function ()
+		runComponentTest(
+			createFlowScreenLayout(false, true, true),
+			function(container)
+				local frame = container:FindFirstChildOfClass("Frame")
+				local scrollingFrame = frame.MainFrame
+				local swizzleView = scrollingFrame.SwizzleView
+				local viewArea = swizzleView.ViewArea
+
+				expect(frame).to.be.ok()
+				expect(swizzleView).to.be.ok()
+				expect(viewArea).to.be.ok()
+				expect(scrollingFrame).to.be.ok()
+			end
+		)
+	end)
+
 	it("should render correctly with no back button and content", function ()
 		runComponentTest(
-			createFlowScreenLayout(false, true),
+			createFlowScreenLayout(false, true, false),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local viewArea = frame.ViewArea
@@ -55,7 +73,7 @@ return function()
 
 	it("should render correctly with no back button and no content", function ()
 		runComponentTest(
-			createFlowScreenLayout(false, false),
+			createFlowScreenLayout(false, false, false),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local viewArea = frame.ViewArea
@@ -83,7 +101,7 @@ return function()
 
 	it("should render correctly with back button and content", function ()
 		runComponentTest(
-			createFlowScreenLayout(true, true),
+			createFlowScreenLayout(true, true, false),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local viewArea = frame.ViewArea
@@ -111,7 +129,7 @@ return function()
 
 	it("should render correctly with back button and no content", function ()
 		runComponentTest(
-			createFlowScreenLayout(true, false),
+			createFlowScreenLayout(true, false, false),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local viewArea = frame.ViewArea

@@ -1,5 +1,3 @@
-local FFlagTerrainFlattenColumnMethod = game:GetFastFlag("TerrainFlattenColumnMethod")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -122,7 +120,7 @@ local function performOperation(terrain, opSet)
 	-- And a writeable copy
 	local writeMaterials, writeOccupancies = terrain:ReadVoxels(region, Constants.VOXEL_RESOLUTION)
 
-	if FFlagTerrainFlattenColumnMethod and tool == ToolId.Flatten then
+	if tool == ToolId.Flatten then
 		smartColumnSculptBrush(opSet, minBounds, maxBounds,
 			readMaterials, readOccupancies, writeMaterials, writeOccupancies)
 		terrain:WriteVoxels(region, Constants.VOXEL_RESOLUTION, writeMaterials, writeOccupancies)

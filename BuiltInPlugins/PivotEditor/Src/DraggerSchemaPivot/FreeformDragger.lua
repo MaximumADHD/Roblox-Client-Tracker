@@ -20,6 +20,7 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
 
 local ZERO_VECTOR = Vector3.new()
 
@@ -174,7 +175,11 @@ end
 
 function FreeformDragger:_recomputeSnapPoints()
 	local ray = self._draggerContext:getMouseRay()
-	local result = Workspace:Raycast(ray.Origin, ray.Direction)
+	local params = RaycastParams.new()
+	if getEngineFeatureDraggerBruteForceAll() then
+		params.BruteForceAllSlow = true
+	end
+	local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
 	if result then
 		local useBoundsOf = getSelectableWithCache(result.Instance, false, {})
 		if useBoundsOf then

@@ -7,7 +7,6 @@
 		string Name: name for plugin menu
 		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -41,15 +40,11 @@ function ContextMenu:render()
 	return nil
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ContextMenu = withContext({
-		Plugin = ContextServices.Plugin,
-	})(ContextMenu)
-else
-	ContextServices.mapToProps(ContextMenu,{
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+ContextMenu = withContext({
+	Plugin = ContextServices.Plugin,
+})(ContextMenu)
+
 
 
 return ContextMenu

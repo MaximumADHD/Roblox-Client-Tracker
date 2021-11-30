@@ -13,7 +13,6 @@
 		function SkipForward() = A callback for when the user wants to skip forward to the next
 			keyframe in the animation, or to the end of the animation.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local DEFAULT_STYLE = "MediaControl"
 local ACTIVE_STYLE = "ActiveControl"
@@ -123,15 +122,11 @@ function MediaControls:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	MediaControls = withContext({
-		Theme = ContextServices.Theme,
-	})(MediaControls)
-else
-	ContextServices.mapToProps(MediaControls, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+MediaControls = withContext({
+	Theme = ContextServices.Theme,
+})(MediaControls)
+
 
 
 

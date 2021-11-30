@@ -2,7 +2,6 @@
 	The top level container of the Player Emulator window.
 	Contains MainSwitchSection, LanuageSection, CountryRegionSection, CustomPolicySwitchSection, and PolicySection
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -99,15 +98,11 @@ function MainView:render()
 	end
 end
 
-if FFlagPlayerEmulatorWithContext then
-	MainView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+MainView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(MainView)
+
 
 
 return MainView

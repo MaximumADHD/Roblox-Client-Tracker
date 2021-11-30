@@ -76,7 +76,7 @@ local Constants = {
 				Attachments = {
 					Hat = {
 						Name = "HatAttachment",
-						Bounds = Vector3.new(1.5, 2, 1.5),
+						Bounds = Vector3.new(3, 4, 3),
 						Offset = Vector3.new(0, 0, 0),
 					}
 				}
@@ -86,8 +86,8 @@ local Constants = {
 				Attachments = {
 					Hair = {
 						Name = "HairAttachment",
-						Bounds = Vector3.new(1.5, 5, 3.5),
-						Offset = Vector3.new(0, -1, 0.5),
+						Bounds = Vector3.new(3, 5, 3.5),
+						Offset = Vector3.new(0, -0.5, 0.25),
 					}
 				}
 			},
@@ -96,9 +96,14 @@ local Constants = {
 				Attachments = {
 					Face = {
 						Name = "FaceFrontAttachment",
-						Bounds = Vector3.new(1.5, 1, 1),
+						Bounds = Vector3.new(3, 2, 2),
 						Offset = Vector3.new(0, 0, 0),
-					}
+					},
+					Center = {
+						Name = "FaceCenterAttachment",
+						Bounds = Vector3.new(3, 2, 2),
+						Offset = Vector3.new(0, 0, 0),
+					},
 				}
 			},
 			Neck = {
@@ -106,7 +111,7 @@ local Constants = {
 				Attachments = {
 					Neck = {
 						Name = "NeckAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1),
+						Bounds = Vector3.new(3, 3, 2),
 						Offset = Vector3.new(0, 0, 0),
 					}
 				}
@@ -116,27 +121,27 @@ local Constants = {
 				Attachments = {
 					Neck = {
 						Name = "NeckAttachment",
-						Bounds = Vector3.new(3.5, 1.5, 1),
+						Bounds = Vector3.new(7, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
 					},
 					RightCollar = {
 						Name = "RightCollarAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1.5),
+						Bounds = Vector3.new(3, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
 					},
 					LeftCollar = {
 						Name = "LeftCollarAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1.5),
+						Bounds = Vector3.new(3, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
 					},
 					RightShoulder = {
 						Name = "RightShoulderAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1.5),
+						Bounds = Vector3.new(3, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
 					},
 					LeftShoulder = {
 						Name = "LeftShoulderAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1.5),
+						Bounds = Vector3.new(3, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
 					},
 				}
@@ -146,9 +151,9 @@ local Constants = {
 				Attachments = {
 					Front = {
 						Name = "BodyFrontAttachment",
-						Bounds = Vector3.new(1.5, 1.5, 1.5),
+						Bounds = Vector3.new(3, 3, 3),
 						Offset = Vector3.new(0, 0, 0),
-					}
+					},
 				}
 			},
 			Back = {
@@ -156,7 +161,7 @@ local Constants = {
 				Attachments = {
 					Back = {
 						Name = "BodyBackAttachment",
-						Bounds = Vector3.new(5, 3.5, 4.5),
+						Bounds = Vector3.new(10, 7, 4.5),
 						Offset = Vector3.new(0, 0, 0.75),
 					}
 				}
@@ -166,18 +171,18 @@ local Constants = {
 				Attachments = {
 					Front = {
 						Name = "WaistFrontAttachment",
-						Bounds = Vector3.new(2, 3.5, 3.5),
-						Offset = Vector3.new(0, -0.5, 0),
+						Bounds = Vector3.new(4, 3.5, 7),
+						Offset = Vector3.new(0, -0.25, 0),
 					},
 					Back = {
 						Name = "WaistBackAttachment",
-						Bounds = Vector3.new(2, 3.5, 3.5),
-						Offset = Vector3.new(0, -0.5, 0),
+						Bounds = Vector3.new(4, 3.5, 7),
+						Offset = Vector3.new(0, -0.25, 0),
 					},
 					Center = {
 						Name = "WaistCenterAttachment",
-						Bounds = Vector3.new(2, 3.5, 3.5),
-						Offset = Vector3.new(0, -0.5, 0),
+						Bounds = Vector3.new(4, 3.5, 7),
+						Offset = Vector3.new(0, -0.25, 0),
 					},
 				}
 			},

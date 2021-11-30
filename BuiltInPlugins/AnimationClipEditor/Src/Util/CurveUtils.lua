@@ -11,32 +11,9 @@ local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local CurveUtils = {}
 
-function CurveUtils.makeConstant(easingDirection, tickA, keyframeA, tickB, keyframeB)
-	keyframeA.InterpolationMode = Enum.KeyInterpolationMode.Constant
-	keyframeA.EasingStyle = nil
-	keyframeA.EasingDirection = nil
-	keyframeA.LeftSlope = nil
-	keyframeB.RightSlope = nil
-
-	-- No new keyframes
-	return {}
-end
-
-function CurveUtils.makeLinear(easingDirection, tickA, keyframeA, tickB, keyframeB)
+function CurveUtils.makeCubic(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack)
 	local dt = tickB - tickA
-	local dv = keyframeB.Value - keyframeA.Value
-	local slope = dv / dt
-
-	keyframeA.RightSlope = nil
-	keyframeB.LeftSlope = nil
-
-	-- No new keyframes
-	return {}
-end
-
-function CurveUtils.makeCubic(easingDirection, tickA, keyframeA, tickB, keyframeB)
-	local dt = tickB - tickA
-	local dv = keyframeB.Value - keyframeA.Value
+	local dv = isQuaternionTrack and 1 or (keyframeB.Value - keyframeA.Value)
 
 	if easingDirection == Enum.PoseEasingDirection.Out then
 		keyframeA.RightSlope = 3 * dv / dt
@@ -50,159 +27,168 @@ function CurveUtils.makeCubic(easingDirection, tickA, keyframeA, tickB, keyframe
 	return {}
 end
 
-function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyframeB)
-	-- See https://www.desmos.com/calculator/r4ifprprpp
-	-- The weight is the equation of a curve between points (0, 1) and (1, 0).
-	-- After an affine scaling (translation is irrelevant) bringing the weight curve to
-	-- the domain [0, dt] -> [0, dv], the initial derivative of the curve is multiplied
-	-- by dv and divided by dt. We evaluate that curve on each rebound. Also, the slopes
-	-- are mirrored for each curve (the curves are parabolas).
-
-	-- The magic numbers come from KeyframeSequence.cpp:bounceEasingStyle(t)
-	-- Note that Easing In and Out are inverted compared to the engine. The ACE relied
-	-- on TweenService and should continue to do so.
-	local dt = tickB - tickA
-	local dv = keyframeB.Value - keyframeA.Value
-	local factor = 2 * 7.5625 * dv / dt
-
-	-- Each bounce is defined by the abscissa of its extremum and its halfwidth (distance to
-	-- the root/rebound)
-	local bounces = {
-		{extremum = 0.0, halfWidth = 0.36363636},
-		{extremum = 0.54545454, halfWidth = 0.18181818},
-		{extremum = 0.81818181, halfWidth = 0.09090909},
-		{extremum = 0.95454545, halfWidth = 0.04545454},
-	}
-
-	local prevKeyframe
-	local slope
+function CurveUtils.makeBounce(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack, elasticity, count)
 	local keyframes = {}
+	local dt = tickB - tickA
+	local dv = isQuaternionTrack and 1 or (keyframeB.Value - keyframeA.Value)
 
-	if easingDirection == Enum.PoseEasingDirection.Out then
+	-- https://www.desmos.com/calculator/kxuvw88gec
+	-- The graph shown in Desmos represents the weight of a Bounce Out interpolation. Keep in mind that the weight
+	-- is always expected to go from (0, 0) to (1, 1), as it is used in a lerp going from a key value to the next.
+
+	-- Put in default values that produce the legacy bounce interpolation
+	-- We also precalculate the square root of the elasticity as it appears everywhere
+	elasticity = elasticity or 0.25
+	count = count or 3
+
+	local elSqrt = math.sqrt(elasticity)
+
+	-- Calculate the acceleration constant from the elasticity
+	local a = 1
+	for n = 1, count do
+		a = a + 2 * math.pow(elSqrt, n)
+	end
+
+	-- Calculate the new keyframes points (there should be `count` roots and `count` apexes between the two keyframes)
+	-- Avoid calculating successive values that involve math.pow(elSqrt, k)
+	-- This code isn't really legible, as I have used the same variable names as in Desmos (and variables there are limited to
+	-- one character), but I expected the math to be clearer there anyway.
+	-- This code also relies on cumulative variables to handle the Sum operator.
+	local e = elSqrt
+	local slope = 2 * a
+	local root = 1
+
+	for _ = 1, count do
+		local tick
+		local keyframe
+
+		-- Add a rebound
+		local reboundX = root / a
+		-- For normal tracks, the slope is described by the equations in Desmos. Each rebound has a right slope that is
+		-- flatter than the previous one (by a factor elSqrt) and of opposite sign (the previous curve goes up, the next one goes down,
+		-- as shown on the graph).
+		-- For quaternions, however, the value always goes from 0 to 1, so there is no dampening (the dampening comes from the value of
+		-- the node), and slope is always positive.
+		local reboundLeftSlope = isQuaternionTrack and (2 * a * elSqrt) / e or slope
+		local reboundRightSlope = isQuaternionTrack and (2 * a) / e or (-slope * elSqrt)
+
+		-- Add an apex
+		local apexX = reboundX + e / a
+		local apexY = 1 - e * e
+
+		-- Invert position and slopes if we're dealing with EasingIn
+		if easingDirection == Enum.PoseEasingDirection.In then
+			reboundX = 1 - reboundX
+			local t = reboundLeftSlope
+			reboundLeftSlope = reboundRightSlope
+			reboundRightSlope = t
+
+			apexX = 1 - apexX
+			apexY = 1 - apexY
+		end
+
+		-- Create a keyframe for the root
+		tick = KeyframeUtils.getNearestTick(tickA + reboundX * dt)
+		keyframe = Templates.keyframe()
+		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+		keyframe.LeftSlope = reboundLeftSlope * dv / dt
+		keyframe.RightSlope = reboundRightSlope * dv / dt
+		keyframe.Value = easingDirection == Enum.PoseEasingDirection.In and keyframeA.Value or keyframeB.Value
+		keyframes[tick] = keyframe
+
+		-- Create a keyframe for the apex
+		tick = KeyframeUtils.getNearestTick(tickA + apexX * dt)
+		keyframe = Templates.keyframe()
+		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+		keyframe.LeftSlope = 0
+		keyframe.RightSlope = 0
+		if isQuaternionTrack then
+			keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, apexY)
+		else
+			keyframe.Value = keyframeA.Value + apexY * (keyframeB.Value - keyframeA.Value)
+		end
+		keyframes[tick] = keyframe
+
+		-- Prepare for next iteration
+		root = root + 2 * e
+		e = e * elSqrt
+		slope = slope * elSqrt
+	end
+
+	-- Adjust the slopes at the ends of the segment
+	keyframeA.EasingStyle = Enum.KeyInterpolationMode.Cubic
+	keyframeA.EasingDirection = nil
+	keyframeA.RightSlope = 0
+	keyframeB.LeftSlope = 0
+
+	return keyframes
+end
+
+function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack, frequency, dampening)
+	local keyframes = {}
+	local dt = tickB - tickA
+	local dv = isQuaternionTrack and 1 or (keyframeB.Value - keyframeA.Value)
+
+	-- https://www.desmos.com/calculator/glh1mdog1v
+	-- The graph shown in Desmos represents the weight of an Elastic Out interpolation. Keep in mind that the weight
+	-- is always expected to go from (0, 0) to (1, 1), as it is used in a lerp going from a key value to the next.
+
+	-- Put in default values that produce the legacy bounce interpolation
+	frequency = frequency or (10/3)
+	dampening = dampening or 10
+
+	-- There is an abominable value in the equation for the extrema, but amazingly enough that value is constant.
+	local TwoPiFrequency = 2 * math.pi * frequency
+	local magic = math.atan(-dampening * math.log(2) / TwoPiFrequency) / TwoPiFrequency
+	for n = 1, 2 * frequency do
+		local x = magic + n / (2 * frequency)
+		local y = 1 - math.pow(2, -dampening * x) * math.cos(TwoPiFrequency	* x)
+
+		-- Invert position and slope if we're dealing with EasingIn
+		if easingDirection == Enum.PoseEasingDirection.In then
+			x = 1 - x
+			y = 1 - y
+		end
+
+		-- Create a keyframe
+		local tick = KeyframeUtils.getNearestTick(tickA + x * dt)
+		local keyframe = Templates.keyframe()
+		keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
+		keyframe.LeftSlope = 0
+		keyframe.RightSlope = 0
+		if isQuaternionTrack then
+			keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, y)
+		else
+			keyframe.Value = keyframeA.Value + y * (keyframeB.Value - keyframeA.Value)
+		end
+		keyframes[tick] = keyframe
+	end
+
+	-- Adjust the slopes at the ends of the segment
+	-- The slope at (0, 0) is dampening * ln(2)
+	if easingDirection == Enum.PoseEasingDirection.In then
 		keyframeA.RightSlope = 0
-		for index, bounce in ipairs(bounces) do
-			local keyframe
-
-			slope = factor * bounce.halfWidth
-
-			if index < #bounces then
-				-- Create an intermediate keyframe
-				keyframe = Templates.keyframe()
-				keyframe.Value = keyframeB.Value
-				keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-				keyframe.LeftSlope = slope
-
-				-- Calculate the rebound tick
-				local tick = bounce.extremum + bounce.halfWidth
-				tick = KeyframeUtils.getNearestTick(tick * dt)
-
-				keyframes[tick] = keyframe
-			end
-
-			if prevKeyframe then
-				prevKeyframe.RightSlope = -slope
-			end
-			prevKeyframe = keyframe
-		end
-		keyframeB.LeftSlope = slope
+		keyframeB.LeftSlope = dampening * math.log(2) * dv / dt
 	else
+		keyframeA.RightSlope = dampening * math.log(2) * dv / dt
 		keyframeB.LeftSlope = 0
-		for index, bounce in ipairs(bounces) do
-			local keyframe
-
-			slope = -factor * bounce.halfWidth
-
-			if index < #bounces then
-				-- Create an intermediate keyframe
-				keyframe = Templates.keyframe()
-				keyframe.Value = keyframeA.Value
-				keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-				keyframe.RightSlope = -slope
-
-				-- Calculate the rebound tick
-				local tick = 1 - bounce.extremum - bounce.halfWidth
-				tick = KeyframeUtils.getNearestTick(tick * dt)
-
-				keyframes[tick] = keyframe
-			end
-
-			if prevKeyframe then
-				prevKeyframe.LeftSlope = slope
-			end
-			prevKeyframe = keyframe
-		end
-
-		keyframeA.RightSlope = -slope
 	end
 
 	return keyframes
 end
 
-function CurveUtils.makeElastic(easingDirection, tickA, keyframeA, tickB, keyframeB)
-	local dt = tickB - tickA
-	local dv = keyframeB.Value - keyframeA.Value
-
-	-- The original elastic equation is:
-	-- w = 1+2^(-10t) * sin(t - 0.3/4) * 2 * pi / 0.3)  [keyframeSequence.cpp again]
-	-- Desmos (https://www.desmos.com/calculator/tv7kefajsi) provides the local extrema so we'll
-	-- hardcode them rather than finding them analytically. Eventually this will be replaced
-	-- by a generator anyway. At those extrema, by definition, the slope is zero.
-	-- The only value not provided by Desmos is the slope when t = 0, which can easily
-	-- be found and is 10*ln(2) ~= 6.9314718056
-	local extrema = {
-		{ x = 0.135, y = 1.3731 },
-		{ x = 0.285, y = 0.8681 },
-		{ x = 0.435, y = 1.0466 },
-		{ x = 0.585, y = 0.9835 },
-		{ x = 0.735, y = 1.0058 },
-		{ x = 0.885, y = 0.9979 }
-	}
-
-	local keyframes = {}
-
-	if easingDirection == Enum.PoseEasingDirection.Out then
-		keyframeA.RightSlope = 6.9314718056 * dv / dt
-		keyframeB.LeftSlope = 0
-
-		for _, extremum in ipairs(extrema) do
-			-- Create an intermediate keyframe
-			local keyframe = Templates.keyframe()
-			keyframe.Value = keyframeA.Value + extremum.y * dv
-			keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-			keyframe.LeftSlope = 0
-			keyframe.RightSlope = 0
-
-			local tick = KeyframeUtils.getNearestTick(tickA + extremum.x * dt)
-			keyframes[tick] = keyframe
-		end
-	else
-		keyframeA.RightSlope = 0
-		keyframeB.LeftSlope = 6.9314718056 * dv / dt
-
-		for _, extremum in ipairs(extrema) do
-			-- Create an intermediate keyframe
-			local keyframe = Templates.keyframe()
-			keyframe.Value = keyframeA.Value + (1 - extremum.y) * dv
-			keyframe.InterpolationMode = Enum.KeyInterpolationMode.Cubic
-			keyframe.LeftSlope = 0
-			keyframe.RightSlope = 0
-
-			local tick = KeyframeUtils.getNearestTick(tickA + (1 - extremum.x) * dt)
-			keyframes[tick] = keyframe
-		end
-	end
-
-	return keyframes
-end
-
-function CurveUtils.generateCurve(easingStyle, easingDirection, tickA, keyframeA, tickB, keyframeB)
+function CurveUtils.generateCurve(trackType, easingStyle, easingDirection, tickA, keyframeA, tickB, keyframeB)
 	local func = {
-		[Enum.PoseEasingStyle.Constant] = CurveUtils.makeConstant,
-		[Enum.PoseEasingStyle.Linear] = CurveUtils.makeLinear,
+		-- Nothing to do for Constant and Linear
 		[Enum.PoseEasingStyle.Cubic] = CurveUtils.makeCubic,
 		[Enum.PoseEasingStyle.Bounce] = CurveUtils.makeBounce,
-		[Enum.PoseEasingStyle.Elastic] = CurveUtils.makeElastic
+		[Enum.PoseEasingStyle.Elastic] = CurveUtils.makeElastic,
 	}
+	local isQuaternionTrack = trackType == Constants.TRACK_TYPES.Quaternion
+
+	keyframeA.InterpolationMode = Constants.POSE_EASING_STYLE_TO_KEY_INTERPOLATION[easingStyle]
+	keyframeA.EasingStyle = nil
+	keyframeA.EasingDirection = nil
 
 	if easingDirection == Enum.PoseEasingDirection.InOut
 		and (easingStyle ~= Enum.PoseEasingStyle.Constant and easingStyle ~= Enum.PoseEasingStyle.Linear) then
@@ -212,10 +198,15 @@ function CurveUtils.generateCurve(easingStyle, easingDirection, tickA, keyframeA
 		-- the easing Out on the second half.
 		local tick = KeyframeUtils.getNearestTick((tickA + tickB) * 0.5)
 		local keyframe = Templates.keyframe()
-		keyframe.Value = (keyframeA.Value + keyframeB.Value) * 0.5
 
-		local keyframesA = CurveUtils.generateCurve(easingStyle, Enum.PoseEasingDirection.In, tickA, keyframeA, tick, keyframe)
-		local keyframesB = CurveUtils.generateCurve(easingStyle, Enum.PoseEasingDirection.Out, tick, keyframe, tickB, keyframeB)
+		if isQuaternionTrack then
+			keyframe.Value = keyframeA.Value:lerp(keyframeB.Value, 0.5)
+		else
+			keyframe.Value = (keyframeA.Value + keyframeB.Value) * 0.5
+		end
+
+		local keyframesA = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.In, tickA, keyframeA, tick, keyframe)
+		local keyframesB = CurveUtils.generateCurve(trackType, easingStyle, Enum.PoseEasingDirection.Out, tick, keyframe, tickB, keyframeB)
 
 		local keyframes = Cryo.Dictionary.join(keyframesA, keyframesB)
 
@@ -226,7 +217,12 @@ function CurveUtils.generateCurve(easingStyle, easingDirection, tickA, keyframeA
 
 		return keyframes
 	else
-		return func[easingStyle](easingDirection, tickA, keyframeA, tickB, keyframeB)
+		if func[easingStyle] then
+			return func[easingStyle](easingDirection, tickA, keyframeA, tickB, keyframeB, isQuaternionTrack)
+		else
+			-- Nothing special to do, and no additional keyframes
+			return {}
+		end
 	end
 end
 

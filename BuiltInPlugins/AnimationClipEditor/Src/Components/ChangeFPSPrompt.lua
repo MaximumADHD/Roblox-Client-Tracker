@@ -7,9 +7,6 @@
 		function OnClose = callback for when window has been closed
 		function SetFrameRate(frameRate) = adjusts frame rate of animation in the editor
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
-local FFlagFpsDialogFix = game:DefineFastFlag("ACEFpsDialogFix", false)
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -46,7 +43,7 @@ function ChangeFPSPrompt:init()
 				return tonumber(text)
 			end)
 
-			if status and (not FFlagFpsDialogFix or result ~= nil) then
+			if status and result ~= nil then
 				result = math.ceil(result)
 				if result < Constants.MIN_FRAMERATE then
 					self.setNotice(localization:getText("Title", "MinFPS"))
@@ -91,17 +88,12 @@ function ChangeFPSPrompt:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ChangeFPSPrompt = withContext({
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})(ChangeFPSPrompt)
-else
-	ContextServices.mapToProps(ChangeFPSPrompt, {
-		Localization = ContextServices.Localization,
-		Theme = ContextServices.Theme,
-	})
-end
+
+ChangeFPSPrompt = withContext({
+	Localization = ContextServices.Localization,
+	Theme = ContextServices.Theme,
+})(ChangeFPSPrompt)
+
 
 
 return ChangeFPSPrompt

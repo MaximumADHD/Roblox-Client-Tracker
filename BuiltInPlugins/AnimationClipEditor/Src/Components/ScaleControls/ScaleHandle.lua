@@ -11,7 +11,6 @@
 		function OnScaleHandleDragMoved(input) = callback for when user is actively dragging a scale handle
 		function OnScaleHandleDragEnded() = callback for when user has finished dragging a scale handle
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -58,15 +57,11 @@ function ScaleHandle:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ScaleHandle = withContext({
-		Theme = ContextServices.Theme,
-	})(ScaleHandle)
-else
-	ContextServices.mapToProps(ScaleHandle, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ScaleHandle = withContext({
+	Theme = ContextServices.Theme,
+})(ScaleHandle)
+
 
 
 

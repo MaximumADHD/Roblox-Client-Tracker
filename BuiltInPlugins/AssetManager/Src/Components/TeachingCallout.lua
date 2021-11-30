@@ -1,4 +1,3 @@
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -49,15 +48,8 @@ function TeachingCallout:render()
 	})
 end
 
-if FFlagAssetManagerWithContext then
-	TeachingCallout = withContext({
-		CalloutController = CalloutController,
-	})(TeachingCallout)
-else
-	ContextServices.mapToProps(TeachingCallout, {
-		CalloutController = CalloutController,
-	})
-end
-
+TeachingCallout = withContext({
+	CalloutController = CalloutController,
+})(TeachingCallout)
 
 return TeachingCallout

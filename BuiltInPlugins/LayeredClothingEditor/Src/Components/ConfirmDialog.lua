@@ -11,7 +11,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Title: title for dialog, using layered clothing editor is undefined
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -58,17 +57,12 @@ function ConfirmDialog:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ConfirmDialog = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(ConfirmDialog)
-else
-	ContextServices.mapToProps(ConfirmDialog,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ConfirmDialog = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(ConfirmDialog)
+
 
 
 return ConfirmDialog

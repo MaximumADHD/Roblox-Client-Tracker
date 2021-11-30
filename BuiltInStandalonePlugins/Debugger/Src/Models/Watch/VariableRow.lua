@@ -22,7 +22,7 @@ end
 local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?) : VariableRow
 	return {
 		nameColumn = instance.Name,
-		pathColumn = (parent and parent.pathColumn) or "" .. tostring(instance.VariableId),
+		pathColumn = (parent and parent.pathColumn) or "" .. (instance.VariableId ~= 0 and tostring(instance.VariableId) or instance.Name),
 		scopeColumn = (parent and parent.scopeColumn) or scope,
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,

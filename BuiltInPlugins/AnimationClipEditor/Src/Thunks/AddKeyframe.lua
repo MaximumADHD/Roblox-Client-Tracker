@@ -32,13 +32,15 @@ if GetFFlagChannelAnimations() then
 			local tracks = newData.Instances[instanceName].Tracks
 			local track = AnimationData.getTrack(newData, instanceName, path)
 			if track == nil then
+				local rotationType = state.Status and state.Status.DefaultRotationType or Constants.DEFAULT_ROTATION_TYPE
+
 				local topTrackType = Constants.TRACK_TYPES.CFrame
 				if trackType == Constants.TRACK_TYPES.Facs then
 					topTrackType = Constants.TRACK_TYPES.Facs
 				end
 
 				store:dispatch(AddTrack(instanceName, path[1], topTrackType, analytics))
-				AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData))
+				AnimationData.addTrack(tracks, path[1], topTrackType, AnimationData.isChannelAnimation(newData), rotationType)
 				track = AnimationData.getTrack(newData, instanceName, path)
 			end
 

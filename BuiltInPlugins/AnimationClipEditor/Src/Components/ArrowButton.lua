@@ -8,7 +8,6 @@
 
 		function OnActivated = A callback for when the user clicks this button.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local ARROW_SIZE = UDim2.new(0, 9, 0, 5)
 
@@ -53,15 +52,11 @@ function ArrowButton:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ArrowButton = withContext({
-		Theme = ContextServices.Theme,
-	})(ArrowButton)
-else
-	ContextServices.mapToProps(ArrowButton, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ArrowButton = withContext({
+	Theme = ContextServices.Theme,
+})(ArrowButton)
+
 
 
 return ArrowButton

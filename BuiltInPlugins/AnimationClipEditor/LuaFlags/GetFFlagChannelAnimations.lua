@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent
 
-game:DefineFastFlag("ACEChannelAnimations2", false)
+game:DefineFastFlag("ACEChannelAnimations4", false)
 
 return function()
-	return game:GetFastFlag("ACEChannelAnimations2")
+	return game:GetFastFlag("ACEChannelAnimations4")
 end

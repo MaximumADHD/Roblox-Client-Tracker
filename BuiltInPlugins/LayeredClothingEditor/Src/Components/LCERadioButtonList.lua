@@ -9,7 +9,6 @@
 		number LayoutOrder: Render order of this component in a layout
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -67,15 +66,11 @@ function LCERadioButtonList:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	LCERadioButtonList = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(LCERadioButtonList)
-else
-	ContextServices.mapToProps(LCERadioButtonList, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+LCERadioButtonList = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(LCERadioButtonList)
+
 
 
 return LCERadioButtonList

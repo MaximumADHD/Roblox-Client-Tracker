@@ -9,7 +9,6 @@
 		string Time = time to be displayed in the tag
 		int ZIndex = display order of this frame
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -55,15 +54,11 @@ function TimeTag:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TimeTag = withContext({
-		Theme = ContextServices.Theme,
-	})(TimeTag)
-else
-	ContextServices.mapToProps(TimeTag, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TimeTag = withContext({
+	Theme = ContextServices.Theme,
+})(TimeTag)
+
 
 
 

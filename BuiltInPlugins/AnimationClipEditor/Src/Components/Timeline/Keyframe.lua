@@ -15,7 +15,6 @@
 		function OnInputBegan = A callback for when the user starts interacting with the keyframe.
 		function OnInputEnded = A callback for when the user stops interacting with the keyframe.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -74,15 +73,11 @@ function Keyframe:render()
 		}, props[Roact.Children])
 end
 
-if FFlagAnimationClipEditorWithContext then
-	Keyframe = withContext({
-		Theme = ContextServices.Theme,
-	})(Keyframe)
-else
-	ContextServices.mapToProps(Keyframe, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+Keyframe = withContext({
+	Theme = ContextServices.Theme,
+})(Keyframe)
+
 
 
 

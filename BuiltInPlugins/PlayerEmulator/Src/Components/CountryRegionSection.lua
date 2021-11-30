@@ -27,7 +27,6 @@
 		function onEmulatedCountryRegionChanged
 			on changing selected country region
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -141,21 +140,14 @@ function CountryRegionSection:render()
 	})
 end
 
-if FFlagPlayerEmulatorWithContext then
-	CountryRegionSection = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Networking = NetworkingContext,
-		Plugin = ContextServices.Plugin,
-	})(CountryRegionSection)
-else
-	ContextServices.mapToProps(CountryRegionSection, {
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Networking = NetworkingContext,
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+CountryRegionSection = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Networking = NetworkingContext,
+	Plugin = ContextServices.Plugin,
+})(CountryRegionSection)
+
 
 
 local function mapStateToProps(state, _)

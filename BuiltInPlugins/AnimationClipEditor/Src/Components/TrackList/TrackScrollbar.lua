@@ -11,7 +11,6 @@
 		function OnScroll(delta) = A callback for when the user uses the mouse
 			wheel within the scroll bar area.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -163,15 +162,11 @@ function TrackScrollbar:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackScrollbar = withContext({
-		Theme = ContextServices.Theme,
-	})(TrackScrollbar)
-else
-	ContextServices.mapToProps(TrackScrollbar, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TrackScrollbar = withContext({
+	Theme = ContextServices.Theme,
+})(TrackScrollbar)
+
 
 
 return TrackScrollbar

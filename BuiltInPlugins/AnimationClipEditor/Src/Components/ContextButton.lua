@@ -10,7 +10,6 @@
 
 		function OnActivated = A callback for when the user clicks this button.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -95,17 +94,12 @@ function ContextButton:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ContextButton = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(ContextButton)
-else
-	ContextServices.mapToProps(ContextButton, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+ContextButton = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(ContextButton)
+
 
 
 

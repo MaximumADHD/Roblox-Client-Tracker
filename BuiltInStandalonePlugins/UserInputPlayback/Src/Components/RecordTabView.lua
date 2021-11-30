@@ -20,44 +20,107 @@ local StyleModifier = Util.StyleModifier
 
 local FilterSettingsUIGroup = require(Plugin.Src.Components.FilterSettingsUIGroup)
 local DeviceEmulationInfoUIGroup = require(Plugin.Src.Components.DeviceEmulationInfoUIGroup)
+local ChooseRecordingNamePopUp = require(Plugin.Src.Components.ChooseRecordingNamePopUp)
 local Enums = require(Plugin.Src.Util.Enums)
+local DMBridge = require(Plugin.Src.Util.DMBridge)
+
+local SetScreenSize = require(Plugin.Src.Actions.RecordTab.SetScreenSize)
+local SetEmulationDeviceId = require(Plugin.Src.Actions.RecordTab.SetEmulationDeviceId)
+local SetEmulationDeviceOrientation = require(Plugin.Src.Actions.RecordTab.SetEmulationDeviceOrientation)
+local SetPluginState = require(Plugin.Src.Actions.Common.SetPluginState)
 
 local RecordTabView = Roact.PureComponent:extend("TabView")
 
-RecordTabView.defaultProps = {
-	ShouldRecordOnGamePlayStart = false,
-	RecordingMode = Enums.RecordingMode.Default,
-}
-
 function RecordTabView:init()
+	self.state = {
+		SaveRecordingDialogVisible = false,
+		SaveRecordingDialogMessageLocalizationKey = nil,
+		SaveRecordingDialogMessageLocalizationArgs = nil,
+	}
+
 	self.onRecordingButtonClicked = function()
+		local pluginState = self.props.PluginState
+		if pluginState == Enums.PluginState.Default then
+			if DMBridge.getIsPlayMode() then
+				-- Immediately start recording
+				DMBridge.onStartRecordingButtonClicked()
+			else
+				self.props.SetPluginState(Enums.PluginState.ShouldStartRecording)
+			end
+
+		elseif pluginState == Enums.PluginState.Recording then
+			DMBridge.onStopRecordingButtonClicked()
+		
+		elseif pluginState == Enums.PluginState.ShouldStartRecording then
+			self.props.SetPluginState(Enums.PluginState.Default)
+		end
 	end
+
+	self.setSaveRecordingDialogVisible = function(messageKey: string, args:{[string]: string})
+		self:setState({
+			SaveRecordingDialogVisible = true,
+			SaveRecordingDialogMessageLocalizationKey = messageKey,
+			SaveRecordingDialogMessageLocalizationArgs = args,
+		})
+	end
+
+	self.onSaveRecordingDialogCancel = function()
+		self:setState({
+			SaveRecordingDialogVisible = false,
+		})
+		DMBridge.onSaveRecordingDialogCancel()
+	end
+
+	self.onSaveRecordingDialogSave = function(input:string)
+		self:setState({
+			SaveRecordingDialogVisible = false,
+		})
+		DMBridge.onSaveRecordingDialogSave(input)
+	end
+		
+end
+
+function RecordTabView:didMount()
+	local actionsDict: DMBridge.RecordTabActionsType = {
+		SetEmulationDeviceId = self.props.SetEmulationDeviceId,
+		SetEmulationDeviceOrientation = self.props.SetEmulationDeviceOrientation,
+		SetCurrentScreenSize = self.props.SetCurrentScreenSize,
+		SetSaveRecordingDialogVisible = self.setSaveRecordingDialogVisible,
+	}
+	DMBridge.connectRecordTabEventListenersWithActions(actionsDict)
+	DMBridge.onRecordTabShown()
+end
+
+function RecordTabView:willUnmount()
+	DMBridge.disconnectRecordTabEventListeners()
+	DMBridge.onRecordTabHidden()
+	self.props.SetPluginState(Enums.PluginState.Default)
 end
 
 function RecordTabView:render()
 	local props = self.props
 	local style = props.Stylizer
 	local localization = self.props.Localization
+	local state = self.state
 
 	local statusMessage, recordButtonText, recordButtonStyleModifier
 	local isUIDisabled
-	if props.RecordingMode == Enums.RecordingMode.Recording then
+	if props.PluginState == Enums.PluginState.Recording then
 		statusMessage = localization:getText("RecordTabView", "StatusMessageRecording")
 		recordButtonText = localization:getText("RecordTabView", "RecordButtonStopRecording")
 		recordButtonStyleModifier = StyleModifier.Pressed
 		isUIDisabled = true
-	elseif props.RecordingMode == Enums.RecordingMode.Default then
+	elseif props.PluginState == Enums.PluginState.ShouldStartRecording then
+		statusMessage = localization:getText("RecordTabView", "StatusMessageShouldRecordOnGamePlayStart")
+		recordButtonText = localization:getText("RecordTabView", "RecordButtonReadyToRecord")
+		recordButtonStyleModifier = StyleModifier.Selected
 		isUIDisabled = false
-		if props.ShouldRecordOnGamePlayStart then
-			statusMessage = localization:getText("RecordTabView", "StatusMessageShouldRecordOnGamePlayStart")
-			recordButtonText = localization:getText("RecordTabView", "RecordButtonReadyToRecord")
-			recordButtonStyleModifier = StyleModifier.Selected
-		else
-			statusMessage = localization:getText("RecordTabView", "StatusMessageNotRecording")
-			recordButtonText = localization:getText("RecordTabView", "RecordButtonRecord")
-			recordButtonStyleModifier = nil
-		end
-	elseif props.RecordingMode == Enums.RecordingMode.Disabled then
+	elseif props.PluginState == Enums.PluginState.Default then
+		statusMessage = localization:getText("RecordTabView", "StatusMessageNotRecording")
+		recordButtonText = localization:getText("RecordTabView", "RecordButtonRecord")
+		recordButtonStyleModifier = nil
+		isUIDisabled = false
+	elseif props.PluginState == Enums.PluginState.Disabled then
 		statusMessage = localization:getText("RecordTabView", "StatusMessageDisabled")
 		recordButtonText = localization:getText("RecordTabView", "RecordButtonRecord")
 		recordButtonStyleModifier = StyleModifier.Disabled
@@ -115,6 +178,14 @@ function RecordTabView:render()
 				TextYAlignment = Enum.TextYAlignment.Top,
 			}),
 		}),
+
+		ChooseRecordingNamePopUp = state.SaveRecordingDialogVisible and Roact.createElement(ChooseRecordingNamePopUp, {
+			DefaultInputValue = localization:getText("RecordTabView", "DefaultRecordingName"),
+			OnSaveButtonPressed = self.onSaveRecordingDialogSave,
+			OnCancelButtonPressed = self.onSaveRecordingDialogCancel,
+			MessageLocalizationKey = state.SaveRecordingDialogMessageLocalizationKey,
+			MessageLocalizationArgs = state.SaveRecordingDialogMessageLocalizationArgs,
+		})
 	})
 end
 
@@ -126,8 +197,25 @@ RecordTabView = ContextServices.withContext({
 
 local function mapStateToProps(state, props)
 	return {
-		RecordingMode = state.recordTab.recordingMode,
+		PluginState = state.common.pluginState,
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(RecordTabView)
+local function mapDispatchToProps(dispatch)
+	return {
+		SetCurrentScreenSize = function(value)
+			dispatch(SetScreenSize(value))
+		end,
+		SetEmulationDeviceId = function(value)
+			dispatch(SetEmulationDeviceId(value))
+		end,
+		SetEmulationDeviceOrientation = function(value)
+			dispatch(SetEmulationDeviceOrientation(value))
+		end,
+		SetPluginState = function(value)
+			dispatch(SetPluginState(value))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(RecordTabView)

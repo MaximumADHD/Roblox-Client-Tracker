@@ -18,7 +18,6 @@
 		function ToggleExpanded(element) = callback function for UILibrary TreeView when
 			an element becomes expanded.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -120,15 +119,11 @@ function HierarchyLines:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	HierarchyLines = withContext({
-		Theme = ContextServices.Theme,
-	})(HierarchyLines)
-else
-	ContextServices.mapToProps(HierarchyLines, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+HierarchyLines = withContext({
+	Theme = ContextServices.Theme,
+})(HierarchyLines)
+
 
 
 

@@ -40,7 +40,6 @@ return function()
 		-- Check that the breakpoint's props are correct
 		local stateBreakpoint = state.BreakpointInfo[breakpoint.id]
 		expect(stateBreakpoint.id).to.equal(breakpoint.id)
-		expect(stateBreakpoint.isValid).to.equal(breakpoint.isValid)
 		expect(stateBreakpoint.scriptName).to.equal(stateBreakpoint.scriptName)
 		expect(stateBreakpoint.scriptLine).to.equal(stateBreakpoint.scriptLine)
 		expect(stateBreakpoint.condition).to.equal(stateBreakpoint.condition)

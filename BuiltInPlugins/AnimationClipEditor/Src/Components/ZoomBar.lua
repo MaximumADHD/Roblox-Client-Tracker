@@ -9,7 +9,6 @@
 		int LayoutOrder = The layout order of the frame, if in a Layout.
 		int ZIndex = The draw index of the frame.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -249,15 +248,11 @@ function ZoomBar:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ZoomBar = withContext({
-		Theme = ContextServices.Theme,
-	})(ZoomBar)
-else
-	ContextServices.mapToProps(ZoomBar, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ZoomBar = withContext({
+	Theme = ContextServices.Theme,
+})(ZoomBar)
+
 
 
 

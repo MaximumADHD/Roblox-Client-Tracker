@@ -26,7 +26,6 @@ local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerFixAssetPreviewHover = game:GetFastFlag("StudioAssetManagerFixAssetPreviewHover")
 
@@ -416,26 +415,14 @@ function Tile:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	Tile = withContext({
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})(Tile)
-else
-	ContextServices.mapToProps(Tile, {
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})
-end
-
+Tile = withContext({
+    Analytics = ContextServices.Analytics,
+    API = ContextServices.API,
+    Localization = ContextServices.Localization,
+    Mouse = ContextServices.Mouse,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
+})(Tile)
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

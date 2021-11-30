@@ -10,7 +10,6 @@
 
     Optional Properties:
 ]]
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -125,18 +124,10 @@ function ExplorerOverlay:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	ExplorerOverlay = withContext({
-	    Theme = ContextServices.Theme,
-	    Localization = ContextServices.Localization,
-	})(ExplorerOverlay)
-else
-	ContextServices.mapToProps(ExplorerOverlay, {
-	    Theme = ContextServices.Theme,
-	    Localization = ContextServices.Localization,
-	})
-end
-
+ExplorerOverlay = withContext({
+    Theme = ContextServices.Theme,
+    Localization = ContextServices.Localization,
+})(ExplorerOverlay)
 
 local function mapStateToProps(state, props)
 	return {

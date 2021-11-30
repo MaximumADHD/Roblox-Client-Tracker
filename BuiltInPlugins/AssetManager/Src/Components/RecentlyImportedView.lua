@@ -29,7 +29,6 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
 
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -165,22 +164,12 @@ function RecentlyImportedView:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	RecentlyImportedView = withContext({
-	    Analytics = ContextServices.Analytics,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Theme = ContextServices.Theme,
-	})(RecentlyImportedView)
-else
-	ContextServices.mapToProps(RecentlyImportedView,{
-	    Analytics = ContextServices.Analytics,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Theme = ContextServices.Theme,
-	})
-end
-
+RecentlyImportedView = withContext({
+    Analytics = ContextServices.Analytics,
+    Localization = ContextServices.Localization,
+    Mouse = ContextServices.Mouse,
+    Theme = ContextServices.Theme,
+})(RecentlyImportedView)
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

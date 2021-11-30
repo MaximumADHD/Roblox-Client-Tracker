@@ -2,7 +2,6 @@
 	Container component for rendering the points on the cage mesh. This
 	component does not receive any props from its parent.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -149,15 +148,11 @@ function PointTool:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	PointTool = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PointTool)
-else
-	ContextServices.mapToProps(PointTool,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+PointTool = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PointTool)
+
 
 
 local function mapStateToProps(state, props)

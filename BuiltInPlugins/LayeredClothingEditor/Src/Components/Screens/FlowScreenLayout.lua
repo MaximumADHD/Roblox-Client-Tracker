@@ -15,8 +15,8 @@
 		number LayoutOrder: render order of component in layout.
 		callback GoToPrevious: function fired when back button is clicked.
 		boolean BackButtonEnabled: if the back button is interactable or not.
+		boolean Scrollable: if the entire frame is scrollable or not
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -28,6 +28,7 @@ local withContext = ContextServices.withContext
 local UI = Framework.UI
 local Button = UI.Button
 local TextLabel = UI.Decoration.TextLabel
+local Pane = UI.Pane
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
@@ -46,7 +47,7 @@ function FlowScreenLayout:init()
 	end
 end
 
-function FlowScreenLayout:render()
+function FlowScreenLayout:renderSwizzle()
 	local props = self.props
 
 	local title = props.Title
@@ -121,15 +122,38 @@ function FlowScreenLayout:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	FlowScreenLayout = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(FlowScreenLayout)
-else
-	ContextServices.mapToProps(FlowScreenLayout,{
-		Stylizer = ContextServices.Stylizer,
-	})
+function FlowScreenLayout:render()
+	local props = self.props
+
+	local scrollable = props.Scrollable
+	local theme = props.Stylizer
+
+	local swizzle = self:renderSwizzle()
+
+	if not scrollable then
+		return swizzle
+	else
+		return Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 1, 0),
+		}, {
+			MainFrame = Roact.createElement("ScrollingFrame", {
+				BackgroundTransparency = 1,
+				BorderSizePixel = 0,
+				ScrollBarThickness = theme.ScrollBarThickness,
+				ScrollBarImageColor3 = theme.ScrollBarColor,
+				Size = UDim2.new(1, 0, 1, 0),
+				CanvasSize = UDim2.new(0, 0, 0, 0),
+				VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+			}, {
+				SwizzleView = swizzle,
+			})
+		})
+	end
 end
 
+FlowScreenLayout = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(FlowScreenLayout)
 
 return FlowScreenLayout

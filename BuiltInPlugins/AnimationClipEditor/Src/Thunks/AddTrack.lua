@@ -28,6 +28,7 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 		end
 
 		local tracks = status.Tracks
+		local rotationType = status.DefaultRotationType
 
 		for _, track in ipairs(tracks) do
 			if track.Name == trackName then
@@ -43,7 +44,7 @@ local function wrappee(instanceName, trackName, trackType, analytics)
 			local data = state.AnimationData
 
 			if AnimationData.isChannelAnimation(data) then
-				TrackUtils.createTrackListEntryComponents(newTrack, instanceName)
+				TrackUtils.createTrackListEntryComponents(newTrack, instanceName, rotationType)
 			end
 		else
 			if GetFFlagFacialAnimationSupport() then

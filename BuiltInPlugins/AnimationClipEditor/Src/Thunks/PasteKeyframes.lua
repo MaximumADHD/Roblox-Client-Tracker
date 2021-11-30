@@ -47,7 +47,8 @@ return function(tick, analytics)
 
 					-- Create the track if necessary
 					if dataTrack == nil then
-						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation)
+						-- TODO: Use Clipboard quaternion info (Part of AVBURST-6647)
+						AnimationData.addTrack(dataInstance.Tracks, track.TopTrackName, track.TopTrackType, isChannelAnimation, true)
 						store:dispatch(AddTrack(instanceName, track.TopTrackName, track.TopTrackType, analytics))
 						dataTrack = AnimationData.getTrack(newData, instanceName, path)
 					end

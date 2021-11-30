@@ -42,6 +42,7 @@ return Rodux.createReducer({
 	EventEditingTick = nil,
 	VisualizeBones = true,
 	FrameRate = Constants.DEFAULT_FRAMERATE,
+	DefaultRotationType = Constants.DEFAULT_ROTATION_TYPE,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {

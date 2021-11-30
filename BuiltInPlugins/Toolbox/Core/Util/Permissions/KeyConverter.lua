@@ -9,7 +9,7 @@ local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermiss
 local KeyConverter = {}
 
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
-local FFlagToolboxAssetGridRefactor = game:GetFastFlag("ToolboxAssetGridRefactor")
+local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 function KeyConverter.getInternalSubjectType(webKey)
     if webKey == webKeys.UserSubject then
@@ -103,7 +103,7 @@ if FFlagUseNewAssetPermissionEndpoint3 then
             error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
         else
             -- "status == Unknown Error"
-            if FFlagToolboxAssetGridRefactor then
+            if FFlagToolboxAssetGridRefactor2 then
                 error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
             else
                 return PermissionsConstants.NoAccessKey

@@ -26,10 +26,13 @@ return function()
 				faceInstance.Face = normalId
 
 				local ray = lookAtPartFace(part, normalId)
-				local hitPart, hitPosition = Workspace:FindPartOnRayWithWhitelist(ray, {part})
-				assert(hitPart == part)
+				local params = RaycastParams.new()
+				params.FilterDescendantsInstances = {part}
+				params.BruteForceAllSlow = true
+				local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
+				assert(result.Instance == part)
 
-				local result = getFaceInstance(part, hitPosition)
+				local result = getFaceInstance(part, result.Position)
 				expect(result).to.equal(faceInstance)
 			end
 
@@ -43,10 +46,13 @@ return function()
 
 		for _, normalId in ipairs(Enum.NormalId:GetEnumItems()) do
 			local ray = lookAtPartFace(part, normalId)
-			local hitPart, hitPosition = Workspace:FindPartOnRayWithWhitelist(ray, {part})
-			assert(hitPart == part)
+			local params = RaycastParams.new()
+			params.FilterDescendantsInstances = {part}
+			params.BruteForceAllSlow = true
+			local result = Workspace:Raycast(ray.Origin, ray.Direction, params)
+			assert(result.Instance == part)
 
-			local result = getFaceInstance(part, hitPosition)
+			local result = getFaceInstance(part, result.Position)
 			expect(result).to.equal(nil)
 		end
 

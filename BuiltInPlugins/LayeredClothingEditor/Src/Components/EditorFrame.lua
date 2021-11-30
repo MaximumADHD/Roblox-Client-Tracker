@@ -12,7 +12,6 @@
 		EnumItem EditingCage: Is the current cage being edited the Inner/Outer cage, or neither. Comes from mapStateToProps
 		table PointData: Rbf point data for current cages being edited, provided via mapStateToProps.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -125,19 +124,13 @@ function EditorFrame:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditorFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-	})(EditorFrame)
-else
-	ContextServices.mapToProps(EditorFrame,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Signals = SignalsContext,
-	})
-end
+
+EditorFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Signals = SignalsContext,
+})(EditorFrame)
+
 
 
 local function mapStateToProps(state, props)

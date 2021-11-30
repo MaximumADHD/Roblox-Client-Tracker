@@ -10,7 +10,6 @@
 		function onPlayerEmulationEnabledChanged
 			on toggle plugin enabled
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
 
@@ -107,19 +106,13 @@ function MainSwitchSection:render()
 	})
 end
 
-if FFlagPlayerEmulatorWithContext then
-	MainSwitchSection = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(MainSwitchSection)
-else
-	ContextServices.mapToProps(MainSwitchSection, {
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+MainSwitchSection = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(MainSwitchSection)
+
 
 
 local function mapStateToProps(state, _)

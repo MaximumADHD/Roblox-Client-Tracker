@@ -43,7 +43,6 @@ local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
 
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 
@@ -378,24 +377,13 @@ function AssetGridContainer:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	AssetGridContainer = withContext({
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})(AssetGridContainer)
-else
-	ContextServices.mapToProps(AssetGridContainer,{
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})
-end
-
+AssetGridContainer = withContext({
+    Analytics = ContextServices.Analytics,
+    API = ContextServices.API,
+    Localization = ContextServices.Localization,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
+})(AssetGridContainer)
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

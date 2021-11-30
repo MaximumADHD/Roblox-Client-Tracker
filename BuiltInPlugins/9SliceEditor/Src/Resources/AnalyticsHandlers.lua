@@ -1,10 +1,15 @@
 local FInt9SliceEditorAnalyticsReportingHundrethsPercent = game:GetFastInt("9SliceEditorAnalyticsReportingHundrethsPercent")
+local FFlag9SliceEditorFixAnalyticsReportingThrottling = game:GetFastFlag("9SliceEditorFixAnalyticsReportingThrottling")
 
 return function(analyticsService: RbxAnalyticsService)
 	local rand = Random.new()
 
 	local function shouldReport(): boolean
-		return rand:NextNumber() < FInt9SliceEditorAnalyticsReportingHundrethsPercent / 100
+		if FFlag9SliceEditorFixAnalyticsReportingThrottling then
+			return rand:NextNumber() < FInt9SliceEditorAnalyticsReportingHundrethsPercent / 10000
+		else
+			return rand:NextNumber() < FInt9SliceEditorAnalyticsReportingHundrethsPercent / 100
+		end
 	end
 
 	local function report1Count(counterName: string)

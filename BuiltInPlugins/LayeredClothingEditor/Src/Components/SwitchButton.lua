@@ -14,7 +14,6 @@
 		boolean IsOn: is the switch button rendered in the switched on state
 		string Image: the path to the icon image to be used
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -102,15 +101,11 @@ function SwitchButton:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SwitchButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SwitchButton)
-else
-	ContextServices.mapToProps(SwitchButton,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+SwitchButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SwitchButton)
+
 
 
 return SwitchButton

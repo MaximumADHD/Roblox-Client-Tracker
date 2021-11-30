@@ -12,7 +12,6 @@
 		bool Highlight = Whether to highlight the line as a primary line (for seconds)
 		bool PastEnd = Whether the frame is past the end of the animation.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -87,15 +86,11 @@ function TimelineTick:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TimelineTick = withContext({
-		Theme = ContextServices.Theme,
-	})(TimelineTick)
-else
-	ContextServices.mapToProps(TimelineTick, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TimelineTick = withContext({
+	Theme = ContextServices.Theme,
+})(TimelineTick)
+
 
 
 

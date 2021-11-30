@@ -55,7 +55,6 @@ local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 local GuiService = game:GetService("GuiService")
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
@@ -526,12 +525,6 @@ local function displayContents(parent)
 			displayResult.Devices = nil
 			displayResult.Separator4 = nil
 		end
-
-		-- Creator has already been set and can not be changed in "first publish" mode, hide the control
-		if FFlagStudioPromptOnFirstPublish and props.IsFirstPublish then
-			displayResult.Creator = nil
-			displayResult.Separator2 = nil
-		end
 	end
 
 	return displayResult
@@ -624,7 +617,6 @@ local function BasicInfo(props)
 		Content = displayContents,
 		AddLayout = true,
 		IsPublish = props.IsPublish,
-		IsFirstPublish = props.IsFirstPublish,
 	})
 end
 

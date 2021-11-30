@@ -10,7 +10,6 @@
 		int ZIndex = display order of the scrubber component
 		int thickness = pixel width of the scrubber line
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -63,15 +62,11 @@ function Scrubber:render()
 		}, children)
 end
 
-if FFlagAnimationClipEditorWithContext then
-	Scrubber = withContext({
-		Theme = ContextServices.Theme,
-	})(Scrubber)
-else
-	ContextServices.mapToProps(Scrubber, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+Scrubber = withContext({
+	Theme = ContextServices.Theme,
+})(Scrubber)
+
 
 
 

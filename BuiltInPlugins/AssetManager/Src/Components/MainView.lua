@@ -44,7 +44,6 @@ local StudioService = game:GetService("StudioService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -305,20 +304,11 @@ function MainView:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	MainView = withContext({
-	    API = ContextServices.API,
-	    Theme = ContextServices.Theme,
-	    Localization = ContextServices.Localization,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView,{
-	    API = ContextServices.API,
-	    Theme = ContextServices.Theme,
-	    Localization = ContextServices.Localization,
-	})
-end
-
+MainView = withContext({
+    API = ContextServices.API,
+    Theme = ContextServices.Theme,
+    Localization = ContextServices.Localization,
+})(MainView)
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

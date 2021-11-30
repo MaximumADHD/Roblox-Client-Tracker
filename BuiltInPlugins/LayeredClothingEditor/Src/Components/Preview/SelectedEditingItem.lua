@@ -11,7 +11,6 @@
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
 		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local InsertService = game:GetService("InsertService")
 local HttpService = game:GetService("HttpService")
@@ -91,11 +90,12 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 
 		ModelUtil:positionAvatar(self.mannequin, self.editingItem, not regenerated)
 
-		ModelUtil:clearOldAttachments(self.editingItem)
 		local newAttachmentName = ""
 		if self.props.AccessoryTypeInfo and self.props.AttachmentPoint then
 			newAttachmentName = self.props.AccessoryTypeInfo.Name
-			ModelUtil:addAttachment(
+			useCurrentAttachmentPointInfo = useCurrentAttachmentPointInfo or
+				ModelUtil:getExistingAttachmentInstance(self.editingItem, newAttachmentName) ~= nil
+			ModelUtil:createOrReuseAttachmentInstance(
 				self.editingItem,
 				self.mannequin,
 				self.props.AccessoryTypeInfo,
@@ -231,15 +231,11 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SelectedEditingItem = withContext({
-		EditingItemContext = EditingItemContext,
-	})(SelectedEditingItem)
-else
-	ContextServices.mapToProps(SelectedEditingItem,{
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+SelectedEditingItem = withContext({
+	EditingItemContext = EditingItemContext,
+})(SelectedEditingItem)
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SelectedEditingItem)

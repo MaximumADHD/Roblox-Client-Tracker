@@ -11,7 +11,6 @@
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -81,15 +80,11 @@ function CheckboxSetting:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	CheckboxSetting = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CheckboxSetting)
-else
-	ContextServices.mapToProps(CheckboxSetting,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+CheckboxSetting = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CheckboxSetting)
+
 
 
 return CheckboxSetting

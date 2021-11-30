@@ -18,7 +18,6 @@
 		function OnContextButtonClick() = A callback for when the user clicks
 			the button in this component to show a context menu for this track.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -114,15 +113,11 @@ function ExpandableTrack:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ExpandableTrack = withContext({
-		Theme = ContextServices.Theme,
-	})(ExpandableTrack)
-else
-	ContextServices.mapToProps(ExpandableTrack, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+ExpandableTrack = withContext({
+	Theme = ContextServices.Theme,
+})(ExpandableTrack)
+
 
 
 

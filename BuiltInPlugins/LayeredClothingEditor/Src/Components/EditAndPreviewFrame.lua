@@ -8,7 +8,6 @@
 	Optional Props:
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -48,15 +47,11 @@ function EditAndPreviewFrame:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditAndPreviewFrame = withContext({
-		Localization = ContextServices.Localization,
-	})(EditAndPreviewFrame)
-else
-	ContextServices.mapToProps(EditAndPreviewFrame,{
-		Localization = ContextServices.Localization,
-	})
-end
+
+EditAndPreviewFrame = withContext({
+	Localization = ContextServices.Localization,
+})(EditAndPreviewFrame)
+
 
 
 local function mapStateToProps(state, props)

@@ -13,7 +13,6 @@
 			Because the CheckBox in UILibrary doesn't take parameters,
 			but we need pass the checkbox status into callback for any meaning logic business
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -61,15 +60,11 @@ function CheckBoxModule:render()
 	})
 end
 
-if FFlagPlayerEmulatorWithContext then
-	CheckBoxModule = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CheckBoxModule)
-else
-	ContextServices.mapToProps(CheckBoxModule, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+CheckBoxModule = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CheckBoxModule)
+
 
 
 return CheckBoxModule

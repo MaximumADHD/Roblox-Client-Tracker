@@ -11,7 +11,6 @@
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -74,19 +73,13 @@ function GenerateScreen:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	GenerateScreen = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})(GenerateScreen)
-else
-	ContextServices.mapToProps(GenerateScreen,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+GenerateScreen = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	EditingItemContext = EditingItemContext,
+})(GenerateScreen)
+
 
 
 local function mapDispatchToProps(dispatch)

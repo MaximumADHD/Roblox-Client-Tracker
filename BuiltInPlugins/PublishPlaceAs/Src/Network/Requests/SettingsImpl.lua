@@ -9,8 +9,8 @@
 ]]
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
+local FFlagStudioTCSaveAsStaysOldSession = game:GetFastFlag("StudioTCSaveAsStaysOldSession")
 
 local StudioService = game:GetService("StudioService")
 
@@ -70,7 +70,7 @@ end
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
-local function saveAll(state, localization, existingUniverseId, existingPlaceId, apiImpl, email)
+local function saveAll(state, localization, apiImpl, email)
 	local configuration = {}
 	local rootPlaceInfo = {}
 	local universeActivate = {}
@@ -100,11 +100,7 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId,
 		end
 	end
 
-	if FFlagStudioPromptOnFirstPublish and existingUniverseId and existingPlaceId then
-		StudioService:publishAs(existingUniverseId, existingPlaceId, state.creatorId)
-	else
-		StudioService:publishAs(0, 0, state.creatorId)
-	end
+	StudioService:publishAs(0, 0, state.creatorId)
 
 	if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
 		local success, gameId = StudioService.GamePublishFinished:wait()
@@ -147,7 +143,9 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId,
 		apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
 		:andThen(function()
 			StudioService:SetUniverseDisplayName(configuration.name)
-			StudioService:SetDocumentDisplayName(configuration.name)
+			if not FFlagStudioTCSaveAsStaysOldSession then
+				StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
+			end
 			StudioService:EmitPlacePublishedSignal()
 		end, function(response)
 			parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
@@ -197,7 +195,9 @@ local function saveAll(state, localization, existingUniverseId, existingPlaceId,
 				end
 				Promise.all(setRequests):andThen(function()
 					StudioService:SetUniverseDisplayName(configuration.name)
-					StudioService:SetDocumentDisplayName(configuration.name)
+					if not FFlagStudioTCSaveAsStaysOldSession then
+						StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
+					end
 					StudioService:EmitPlacePublishedSignal()
 				end):catch(function(err)
 					warn(tostring(localization:getText("PublishFail", "FailConfiguration")))

@@ -10,7 +10,6 @@
 		function OnTrackAdded(track) = A callback for when the user clicks the
 			add button and then selects a track to add to the TrackList.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -86,15 +85,11 @@ function SummaryTrack:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	SummaryTrack = withContext({
-		Theme = ContextServices.Theme,
-	})(SummaryTrack)
-else
-	ContextServices.mapToProps(SummaryTrack, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+SummaryTrack = withContext({
+	Theme = ContextServices.Theme,
+})(SummaryTrack)
+
 
 
 

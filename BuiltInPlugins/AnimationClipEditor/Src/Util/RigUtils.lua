@@ -9,6 +9,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local Framework = require(Plugin.Packages.Framework)
 
+local Types = require(Plugin.Src.Types)
+
 local MathUtils = Framework.Util.Math
 local buildHierarchy = require(Plugin.Src.Util.buildHierarchy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
@@ -25,6 +27,8 @@ local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimatio
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
 
 local RigUtils = {}
 
@@ -892,7 +896,7 @@ function RigUtils.getRigInfo(rig)
 				end
 			end
 			for _, constraint in ipairs(constraints) do
-				if constraint.Attachment1.Parent == child then
+				if constraint.Attachment1 and constraint.Attachment1.Parent == child then
 					partNameToConstraintMap[child.Name] = constraint
 					break
 				end
@@ -990,13 +994,13 @@ local function IsR15Humanoid(humanoid)
 	return true
 end
 
-local function AddAnimationRigToKeyframeSequence(animationData, model, keyframeSequence)
+local function AddAnimationRigToKeyframeSequence(animationData, model, parent)
 	-- Create AnimationRig
 	local humanoid = model:FindFirstChildOfClass("Humanoid")
 	if IsR15Humanoid(humanoid) then
 		-- it would be nice to just have an AnimationRig constructor that takes a humanoid,
 		-- but the lua reflection c++ code does not seem to support that
-		local animationRig = Instance.new("AnimationRigData", keyframeSequence)
+		local animationRig = Instance.new("AnimationRigData", parent)
 		local builtOk = animationRig:LoadFromHumanoid(humanoid)
 		if (not builtOk) then
 			animationRig:Destroy()
@@ -1161,43 +1165,79 @@ local function makeFolderChain(curveAnimation, trackName, pathMap)
 end
 
 function RigUtils.fillFloatCurve(track, curve)
+	if track then
+		for tick, keyframe in pairs(track.Data) do
+			local time = tick / Constants.TICK_FREQUENCY
+			local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode or Enum.KeyInterpolationMode.Cubic)
+			key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
+			if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+				key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
+			end
+			curve:InsertKey(key)
+		end
+	end
+end
+
+function RigUtils.fillQuaternionCurve(track, curve)
 	for tick, keyframe in pairs(track.Data) do
 		local time = tick / Constants.TICK_FREQUENCY
-		local key = FloatCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
-		key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
+		local key = RotationCurveKey.new(time, keyframe.Value, keyframe.InterpolationMode)
 		if keyframe.InterpolationMode == Enum.KeyInterpolationMode.Cubic then
+			key.LeftTangent = keyframe.LeftSlope and (keyframe.LeftSlope * Constants.TICK_FREQUENCY) or nil
 			key.RightTangent = keyframe.RightSlope and (keyframe.RightSlope * Constants.TICK_FREQUENCY) or nil
 		end
+
 		curve:InsertKey(key)
 	end
 end
 
 function RigUtils.makeVector3Curve(track)
-	local vector3Curve = Instance.new("Vector3Curve")
+	if track then
+		local vector3Curve = Instance.new("Vector3Curve")
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], vector3Curve:X())
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], vector3Curve:Y())
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], vector3Curve:Z())
 
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], vector3Curve:X())
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], vector3Curve:Y())
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], vector3Curve:Z())
-
-	return vector3Curve
+		return vector3Curve
+	end
 end
 
-function RigUtils.makeEulerCurve(track, parent)
-	local eulerCurve = Instance.new("EulerRotationCurve")
-	eulerCurve.RotationOrder = Enum.RotationOrder.XYZ
+function RigUtils.makeEulerCurve(track)
+	if track then
+		local eulerCurve = Instance.new("EulerRotationCurve")
+		eulerCurve.RotationOrder = Enum.RotationOrder.XYZ
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
+		RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
 
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.X], eulerCurve:X())
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Y], eulerCurve:Y())
-	RigUtils.fillFloatCurve(track.Components[Constants.PROPERTY_KEYS.Z], eulerCurve:Z())
+		return eulerCurve
+	end
+end
 
-	return eulerCurve
+function RigUtils.makeQuaternionCurve(track)
+	local quaternionCurve = Instance.new("RotationCurve")
+	RigUtils.fillQuaternionCurve(track, quaternionCurve)
+
+	return quaternionCurve
+end
+
+function RigUtils.makeRotationCurve(track)
+	if track then
+		if track.Type == Constants.TRACK_TYPES.Quaternion then
+			return RigUtils.makeQuaternionCurve(track)
+		else
+			return RigUtils.makeEulerCurve(track)
+		end
+	end
 end
 
 function RigUtils.makeFacsCurve(track)
-	local facsCurve = Instance.new("FloatCurve")
-	RigUtils.fillFloatCurve(track, facsCurve)
+	if track then
+		local facsCurve = Instance.new("FloatCurve")
+		RigUtils.fillFloatCurve(track, facsCurve)
 
-	return facsCurve
+		return facsCurve
+	end
 end
 
 -- Exporting to CurveAnimation animation requires a dummy rig so that we
@@ -1230,20 +1270,68 @@ function RigUtils.toCurveAnimation(animationData, rig)
 			folder.Name = trackName
 
 			local vectorCurve = RigUtils.makeVector3Curve(track.Components[Constants.PROPERTY_KEYS.Position])
-			vectorCurve.Name = Constants.PROPERTY_KEYS.Position
-			vectorCurve.Parent = folder
+			if vectorCurve then
+				vectorCurve.Name = Constants.PROPERTY_KEYS.Position
+				vectorCurve.Parent = folder
+			end
 
-			local eulerCurve = RigUtils.makeEulerCurve(track.Components[Constants.PROPERTY_KEYS.Rotation])
-			eulerCurve.Name = Constants.PROPERTY_KEYS.Rotation
-			eulerCurve.Parent = folder
+			if GetFFlagQuaternionChannels() then
+				local rotationCurve = RigUtils.makeRotationCurve(track.Components[Constants.PROPERTY_KEYS.Rotation])
+				if rotationCurve then
+					rotationCurve.Name = Constants.PROPERTY_KEYS.Rotation
+					rotationCurve.Parent = folder
+				end
+			else
+				local eulerCurve = RigUtils.makeEulerCurve(track.Components[Constants.PROPERTY_KEYS.Rotation])
+				if eulerCurve then
+					eulerCurve.Name = Constants.PROPERTY_KEYS.Rotation
+					eulerCurve.Parent = folder
+				end
+			end
 		elseif track.Type == Constants.TRACK_TYPES.Facs then
 			local facsCurve = RigUtils.makeFacsCurve(track)
-			facsCurve.Name = trackName
-			facsCurve.Parent = folder
+			if facsCurve then
+				facsCurve.Name = trackName
+				facsCurve.Parent = folder
+			end
 		end
 	end
 
-	-- TODO: Export events
+	if GetFFlagMarkerCurves() then
+		-- Export markers
+		-- The ACE does not use marker channels yet. All markers are (de)serialized as
+		-- KeyframeSequence Events, which are all merged into the Events table.
+		-- We split them by name here, and then export them as separate marker channels
+		-- in the asset.
+		type MarkerChannel = {[number]: string}
+		local markerChannels: {[string]: MarkerChannel} = {}
+		local animationEvents: Types.AnimationEvents = animationData.Events
+
+		for eventTick: number, events: Types.Events in pairs(animationEvents.Data) do
+			for eventName: string, eventValue: string in pairs(events) do
+				if not markerChannels[eventName] then
+					markerChannels[eventName] = {}
+				end
+				markerChannels[eventName][eventTick] = eventValue
+			end
+		end
+
+		for channelName: string, markers: MarkerChannel in pairs(markerChannels) do
+			local markersCurve: MarkerCurve = Instance.new("MarkerCurve")
+			markersCurve.Name = channelName
+			markersCurve.Parent = curveAnimation
+
+			for markerTick: number, payload: string in pairs(markers) do
+				local markerTime = markerTick / Constants.TICK_FREQUENCY
+				markersCurve:InsertMarkerAtTime(markerTime, payload)
+			end
+		end
+	end
+
+	-- Create AnimationRig
+	if GetFFlagMarkerCurves() and FFSaveAnimationRigWithKeyframeSequence then
+		AddAnimationRigToKeyframeSequence(animationData, rig, curveAnimation)
+	end
 
 	return curveAnimation
 end
@@ -1257,7 +1345,8 @@ function RigUtils.readCurve(track, curve, trackType)
 	-- This is where we read all the keys and fill the track data
 	if trackType == Constants.TRACK_TYPES.Number or
 		trackType == Constants.TRACK_TYPES.Angle or
-		trackType == Constants.TRACK_TYPES.Facs then
+		trackType == Constants.TRACK_TYPES.Facs or
+		GetFFlagQuaternionChannels() and trackType == Constants.TRACK_TYPES.Quaternion then
 
 		track.Keyframes = {}
 		track.Data = {}
@@ -1285,13 +1374,24 @@ function RigUtils.readCurve(track, curve, trackType)
 		-- We iterate through all the expected components
 		for _, componentName in ipairs(Constants.COMPONENT_TRACK_TYPES[trackType]._Order) do
 			-- Try to find a curve with the name of the component
-			local componentType = Constants.COMPONENT_TRACK_TYPES[trackType][componentName]
+			local componentType
 			local componentCurve = curve:FindFirstChild(componentName)
 
 			if componentCurve == nil then
 				continue
 			end
 
+			if GetFFlagQuaternionChannels() then
+				if componentCurve.ClassName == "RotationCurve" then
+					componentType = Constants.TRACK_TYPES.Quaternion
+				elseif componentCurve.ClassName == "EulerRotationCurve" then
+					componentType = Constants.TRACK_TYPES.EulerAngles
+				else
+					componentType = Constants.COMPONENT_TRACK_TYPES[trackType][componentName]
+				end
+			else
+				componentType = Constants.COMPONENT_TRACK_TYPES[trackType][componentName]
+			end
 			local componentTrack = Templates.track(componentType)
 			componentTrack.IsCurveTrack = true
 
@@ -1314,7 +1414,6 @@ function RigUtils.readFacsCurves(tracks, faceControlsFolder)
 
 	local endTick = 0
 	local facsCurves = faceControlsFolder:GetChildren()
-
 	for _, facsCurve in pairs(facsCurves) do
 		if not facsCurve:IsA("FloatCurve") then
 			continue
@@ -1328,7 +1427,6 @@ function RigUtils.readFacsCurves(tracks, faceControlsFolder)
 			endTick = lastTick
 		end
 	end
-
 	return endTick
 end
 
@@ -1344,6 +1442,7 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 	local tracks = animationData.Instances.Root.Tracks
 	local endTick = 0
 
+	-- Read channels
 	traverseFolders(curveAnimation, function(folder)
 		local lastTick = 0
 		if folder.Name == Constants.FACE_CONTROLS_FOLDER then
@@ -1352,9 +1451,18 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 		else
 			-- Read a single CFrame curve from the folder, provided that there is something to read.
 			-- We don't want to add empty tracks to animationData
-			if folder:FindFirstChild(Constants.PROPERTY_KEYS.Position)
-				or folder:FindFirstChild(Constants.PROPERTY_KEYS.Rotation) then
-				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true)
+			local positionCurve = folder:FindFirstChild(Constants.PROPERTY_KEYS.Position)
+			local rotationCurve = folder:FindFirstChild(Constants.PROPERTY_KEYS.Rotation)
+			if positionCurve or rotationCurve then
+				local rotationType
+				if rotationCurve then
+					if rotationCurve.ClassName == "RotationCurve" then
+						rotationType = Constants.TRACK_TYPES.Quaternion
+					elseif rotationCurve.ClassName == "EulerRotationCurve" then
+						rotationType = Constants.TRACK_TYPES.Rotation
+					end
+				end
+				local track = AnimationData.addTrack(tracks, folder.Name, Constants.TRACK_TYPES.CFrame, true, rotationType)
 				lastTick = RigUtils.readCurve(track, folder, Constants.TRACK_TYPES.CFrame)
 			end
 		end
@@ -1364,8 +1472,26 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 		end
 	end)
 
-	local metadata = animationData.Metadata
+	-- Read markers
+	if GetFFlagMarkerCurves() then
+		local children: {Instance} = curveAnimation:getChildren()
+		for _, child: Instance in ipairs(children) do
+			if not child:IsA("MarkerCurve") then
+				continue
+			end
+			local markers: {Types.Marker} = (child::MarkerCurve):getMarkers()
+			for _, marker: Types.Marker in ipairs(markers) do
+				local markerTick = KeyframeUtils.getNearestTick(marker.Time * Constants.TICK_FREQUENCY)
+				if markerTick > endTick then
+					endTick = markerTick
+				end
 
+				AnimationData.addEvent(animationData.Events, markerTick, child.Name, marker.Value)
+			end
+		end
+	end
+
+	local metadata = animationData.Metadata
 	metadata.Name = curveAnimation.Name
 	metadata.Looping = curveAnimation.Loop
 	metadata.Priority = curveAnimation.Priority

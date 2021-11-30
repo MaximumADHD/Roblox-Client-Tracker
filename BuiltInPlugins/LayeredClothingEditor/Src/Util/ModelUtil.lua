@@ -29,7 +29,7 @@ local function getExents(item)
 	end
 end
 
-local function isAccessoryOrClothingAttachment(att)
+function isAccessoryOrClothingAttachment(att)
 	local assetTypes = Constants.ASSET_TYPE_ATTACHMENT
 	for category, types in pairs(assetTypes) do
 		for assetType, info in pairs(types) do
@@ -44,8 +44,14 @@ local function isAccessoryOrClothingAttachment(att)
 	return false
 end
 
-function ModelUtil:clearOldAttachments(item)
-	for _, child in ipairs(item:GetChildren()) do
+function ModelUtil:clearAccessoryAssetAttachmentsWithFilter(item, filter)
+	local filtered = item:GetChildren()
+
+	if filter then
+		filtered = filter(filtered)
+	end
+
+	for _, child in ipairs(filtered) do
 		if child:IsA("Attachment") and isAccessoryOrClothingAttachment(child) then
 			child:Destroy()
 		end
@@ -84,25 +90,67 @@ function ModelUtil:cleanupDeformerNames(editingItem, sourceItem)
 	end
 end
 
-function ModelUtil:addAttachment(item, body, attachmentInfo, attachmentPoint)
+function ModelUtil:getExistingAttachmentInstance(item, attachmentName)
+	local attachmentInst = nil
+	for _, child in ipairs(item:GetChildren()) do
+		if attachmentName == child.Name then
+			attachmentInst = child
+			break
+		end
+	end
+
+	return attachmentInst
+end
+
+function ModelUtil:getExistingAttachmentPoint(item, body, attachmentName)
+	local bodyAttachmentInst = self:findAvatarAttachmentByName(body, attachmentName)
+	if not bodyAttachmentInst then
+		return
+	end
+
+	local existingAttachmentInst = self:getExistingAttachmentInstance(item, attachmentName)
+	if not existingAttachmentInst then
+		return
+	end
+
+	return {
+		ItemCFrame = existingAttachmentInst.CFrame:inverse(),
+		AttachmentCFrame = existingAttachmentInst.CFrame,
+	}
+end
+
+function ModelUtil:createOrReuseAttachmentInstance(item, body, attachmentInfo, attachmentPoint)
 	if not attachmentInfo then
 		return
 	end
 
-	local bodyAttachment = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
-	if not bodyAttachment then
+	local bodyAttachmentInst = self:findAvatarAttachmentByName(body, attachmentInfo.Name)
+	if not bodyAttachmentInst then
 		return
 	end
 
-	self:clearOldAttachments(item)
+	local attachmentInst = self:getExistingAttachmentInstance(item, attachmentInfo.Name)
 
-	local newAttachment = Instance.new("Attachment", item)
-	newAttachment.Name = attachmentInfo.Name
+	self:clearAccessoryAssetAttachmentsWithFilter(item, function(instances)
+		local filtered = {}
+		for _, instance in ipairs(instances) do
+			if instance.Name ~= attachmentInfo.Name then
+				table.insert(filtered, instance)
+			end
+		end
+		return filtered
+	end)
+
+	if not attachmentInst then
+		attachmentInst = Instance.new("Attachment", item)
+		attachmentInst.Name = attachmentInfo.Name
+	end
+
 	if attachmentPoint then
-		newAttachment.CFrame = attachmentPoint.AttachmentCFrame
-		item.CFrame = bodyAttachment.WorldCFrame * attachmentPoint.ItemCFrame
+		attachmentInst.CFrame = attachmentPoint.AttachmentCFrame
+		item.CFrame = bodyAttachmentInst.WorldCFrame * attachmentPoint.ItemCFrame
 	else
-		newAttachment.CFrame = bodyAttachment.CFrame
+		attachmentInst.CFrame = bodyAttachmentInst.CFrame
 	end
 end
 
@@ -283,10 +331,6 @@ function ModelUtil:attachClothingItem(avatar, item, attachmentName, weldWithCurr
 		end
 	end
 
-	if not bodyWrapTarget then
-		return
-	end
-
 	-- copy cleanup clothes and copy into ReplicatedFirst (bug workaround)
 	item.Parent = game.ReplicatedFirst
 
@@ -301,6 +345,10 @@ function ModelUtil:attachClothingItem(avatar, item, attachmentName, weldWithCurr
 	-- Accessory is not an LC item
 	if #clothesMeshes <= 0 then
 		self:attachNonClothingItem(characterRoot, avatar, item, attachmentName, weldWithCurrentPos, applyAutoScale)
+		return
+	end
+
+	if not bodyWrapTarget then
 		return
 	end
 

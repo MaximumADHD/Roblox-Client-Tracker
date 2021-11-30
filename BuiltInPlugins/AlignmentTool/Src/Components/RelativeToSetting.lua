@@ -11,7 +11,6 @@
 	Optional Props:
 		number LayoutOrder: The layout order of the component.
 ]]
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -103,17 +102,9 @@ function RelativeToSetting:render()
 	})
 end
 
-if FFlagAlignmentToolWithContext then
-	RelativeToSetting = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(RelativeToSetting)
-else
-	ContextServices.mapToProps(RelativeToSetting, {
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+RelativeToSetting = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(RelativeToSetting)
 
 return RelativeToSetting

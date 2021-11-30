@@ -14,6 +14,7 @@ local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
 local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
+local getFFlagCheckAllowFreeformDrag = require(DraggerFramework.Flags.getFFlagCheckAllowFreeformDrag)
 
 local getFFlagMoreLuaDraggerFixes = require(DraggerFramework.Flags.getFFlagMoreLuaDraggerFixes)
 
@@ -447,6 +448,10 @@ function DraggerToolModel:_updatePivotIndicatorVisibility()
 end
 
 function DraggerToolModel:_processToolboxInitiatedFreeformSelectionDrag()
+	-- Check if we allow freeform drag
+	if getFFlagCheckAllowFreeformDrag() and not self:doesAllowFreeformDrag() then 
+		return
+	end
 	-- We didn't get an associated mouse down, so we have to set the mouse
 	-- down tracking variable here.
 	self._isMouseDown = true

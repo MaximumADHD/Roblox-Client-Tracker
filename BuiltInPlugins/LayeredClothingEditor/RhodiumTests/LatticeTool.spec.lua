@@ -59,7 +59,6 @@ return function()
 
 	local function setDeformerAndSubdivisions(container, store)
 		TestHelper.goToEditScreenFromStart(true)
-
 		TestHelper.clickXPath(LatticeToolTabButton)
 		local state = store:getState()
 		expect(state.status.toolMode).to.equal(Constants.TOOL_MODE.Lattice)
@@ -82,7 +81,7 @@ return function()
 
 		local DialogPath = XPath.new(game.CoreGui[dialogName])
 		local DialogConfirmButtonPath =
-			DialogPath:cat(XPath.new("SolidBackground.ButtonContainer.Contents.1.Contents.TextButton"))
+			DialogPath:cat(XPath.new("SolidBackground.ButtonContainer.1.Contents.TextButton"))
 
 		expect(TestHelper.waitForXPathInstance(DialogPath)).to.be.ok()
 		expect(TestHelper.waitForXPathInstance(DialogConfirmButtonPath)).to.be.ok()

@@ -6,7 +6,6 @@
 		boolean Selected: is this point selected via mouse click
 		boolean Hovered: is this point hovered by the mouse
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -43,15 +42,11 @@ function ControlPoint:render()
 	}, children)
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ControlPoint = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ControlPoint)
-else
-	ContextServices.mapToProps(ControlPoint,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+ControlPoint = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ControlPoint)
+
 
 
 return ControlPoint

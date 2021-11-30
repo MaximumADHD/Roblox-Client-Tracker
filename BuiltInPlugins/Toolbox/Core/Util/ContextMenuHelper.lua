@@ -11,6 +11,12 @@ local EnumConvert = require(Util.EnumConvert)
 
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
+local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+
+local getReportUrl
+if FFlagToolboxRedirectToLibraryAbuseReport then
+	getReportUrl = require(Util.getReportUrl)
+end
 
 local StudioService = game:GetService("StudioService")
 local GuiService = game:GetService("GuiService")
@@ -88,7 +94,12 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			end
 
 			local baseUrl = ContentProvider.BaseUrl
-			local targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+			local targetUrl
+			if FFlagToolboxRedirectToLibraryAbuseReport then
+				targetUrl = getReportUrl(assetId, assetTypeId)
+			else
+				targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+			end
 			GuiService:OpenBrowserWindow(targetUrl)
 		end)
 	end

@@ -11,7 +11,6 @@
 		callback OnClick = parameters(string key) function to call when a button is clicked
 		string SelectedKey = which button is in the selected state
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -81,15 +80,11 @@ function TabsRibbon:render()
 	}, children)
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	TabsRibbon = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(TabsRibbon)
-else
-	ContextServices.mapToProps(TabsRibbon,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+TabsRibbon = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(TabsRibbon)
+
 
 
 return TabsRibbon

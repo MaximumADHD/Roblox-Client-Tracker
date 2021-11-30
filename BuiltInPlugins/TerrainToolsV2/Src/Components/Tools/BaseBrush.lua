@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the BaseBrush tool
 ]]
-local FFlagTerrainToolsPartInteractToggle = game:GetFastFlag("TerrainToolsPartInteractToggle")
 local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
@@ -302,7 +301,7 @@ function BaseBrush:render()
 	local height = self.props.height
 	local heightPicker = self.props.heightPicker
 	local ignoreWater = self.props.ignoreWater
-	local ignoreParts = nil
+	local ignoreParts = self.props.ignoreParts
 	local material = self.props.material
 	local pivot = self.props.pivot
 	local planeCFrame
@@ -320,10 +319,6 @@ function BaseBrush:render()
 			editPlaneMode = self.props.editPlaneMode
 		end
 		planeCFrame = self.props.planeCFrame
-	end
-
-	if FFlagTerrainToolsPartInteractToggle then
-		ignoreParts = self.props.ignoreParts
 	end
 
 	return Roact.createFragment({
@@ -360,7 +355,7 @@ function BaseBrush:render()
 			setHeight = self.setHeight,
 			setHeightPicker = self.props.dispatchSetHeightPicker,
 			setIgnoreWater = self.props.dispatchSetIgnoreWater,
-			setIgnoreParts = FFlagTerrainToolsPartInteractToggle and self.props.dispatchSetIgnoreParts or nil,
+			setIgnoreParts = self.props.dispatchSetIgnoreParts,
 			setPivot = self.props.dispatchChangePivot,
 			setPlaneCFrame = self.props.dispatchSetPlaneCFrame,
 			setPlaneLock = self.props.dispatchSetPlaneLock,

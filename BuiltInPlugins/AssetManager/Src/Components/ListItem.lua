@@ -27,7 +27,6 @@ local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
-local FFlagAssetManagerWithContext = game:GetFastFlag("AssetManagerWithContext")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 
 local AssetManagerService = game:GetService("AssetManagerService")
@@ -395,26 +394,14 @@ function ListItem:render()
     })
 end
 
-if FFlagAssetManagerWithContext then
-	ListItem = withContext({
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})(ListItem)
-else
-	ContextServices.mapToProps(ListItem, {
-	    Analytics = ContextServices.Analytics,
-	    API = ContextServices.API,
-	    Localization = ContextServices.Localization,
-	    Mouse = ContextServices.Mouse,
-	    Plugin = ContextServices.Plugin,
-	    Theme = ContextServices.Theme,
-	})
-end
-
+ListItem = withContext({
+    Analytics = ContextServices.Analytics,
+    API = ContextServices.API,
+    Localization = ContextServices.Localization,
+    Mouse = ContextServices.Mouse,
+    Plugin = ContextServices.Plugin,
+    Theme = ContextServices.Theme,
+})(ListItem)
 
 local function mapStateToProps(state, props)
     local assetManagerReducer = state.AssetManagerReducer

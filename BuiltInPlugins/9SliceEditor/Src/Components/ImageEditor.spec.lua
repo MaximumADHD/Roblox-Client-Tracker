@@ -69,9 +69,10 @@ return function()
 
 			local startPos = element:getCenter()
 			local dragAmountPx = 25
+			Rhodium.VirtualInput.Mouse.mouseMove(startPos)
+			wait()
 			element:mouseDrag(dragAmountPx, 0, 1)
 			local endPos = element:getCenter()
-
 			-- Should have dragged right
 			expect(endPos.x - startPos.x > 0).to.equal(true)
 			wait()
@@ -109,6 +110,8 @@ return function()
 
 			local startPos = element:getCenter()
 			local dragAmountPx = 40
+			Rhodium.VirtualInput.Mouse.mouseMove(startPos)
+			wait()
 			element:mouseDrag(0, -dragAmountPx, 1) -- Drag up
 			local endPos = element:getCenter()
 			

@@ -1,19 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
 local Types = require(Plugin.Src.Types)
 
-local RecordingMode: {[string]: Types.RecordingMode} = {
+local PluginState: {[string]: Types.PluginState} = {
 	Default = "Default",
 	Recording = "Recording",
-	Disabled = "Disabled",
-}
-
-local PlaybackMode: {[string]: Types.PlaybackMode} = {
-	Default = "Default",
 	Playing = "Playing",
 	Disabled = "Disabled",
+	ShouldStartPlayback = "ShouldStartPlayback",
+	ShouldStartRecording = "ShouldStartRecording",
 }
 
 return {
-	RecordingMode = RecordingMode,
-	PlaybackMode = PlaybackMode,
+	PluginState = PluginState,
 }

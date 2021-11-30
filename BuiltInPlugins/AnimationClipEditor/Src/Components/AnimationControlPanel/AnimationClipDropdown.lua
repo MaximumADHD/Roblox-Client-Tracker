@@ -44,7 +44,6 @@ local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequenc
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
@@ -398,21 +397,14 @@ function AnimationClipDropdown:render()
 	})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	AnimationClipDropdown = withContext({
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Analytics = ContextServices.Analytics,
-	})(AnimationClipDropdown)
-else
-	ContextServices.mapToProps(AnimationClipDropdown, {
-		Theme = ContextServices.Theme,
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+AnimationClipDropdown = withContext({
+	Theme = ContextServices.Theme,
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Analytics = ContextServices.Analytics,
+})(AnimationClipDropdown)
+
 
 
 

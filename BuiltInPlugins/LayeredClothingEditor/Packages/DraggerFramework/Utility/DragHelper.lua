@@ -7,6 +7,7 @@ local roundRotation = require(DraggerFramework.Utility.roundRotation)
 local snapRotationToPrimaryDirection = require(DraggerFramework.Utility.snapRotationToPrimaryDirection)
 
 local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -144,27 +145,63 @@ function DragHelper.getClosestFace(part, mouseWorld)
 end
 
 function DragHelper.getPartAndSurface(mouseRay)
-	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
-	
-	local closestFace, _
-	if part then
-		if part:IsA("Terrain") then
-			-- Terrain doesn't have Primary Axis based surfaces to return
-			return part, nil
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
+
+		if not result then
+			return nil, nil
 		end
 
-		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
-	end
+		if result.Instance:IsA("Terrain") then
+			-- Terrain doesn't have Primary Axis based surfaces to return
+			return result.Instance, nil
+		end
 
-	if closestFace then
-		return part, closestFace.surface
+		closestFace, _ = DragHelper.getClosestFace(result.Instance, result.Position)
+		if closestFace then
+			return result.Instance, closestFace.surface
+		else
+			return result.Instance, nil
+		end
 	else
-		return part, nil
+		local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
+	
+		local closestFace, _
+		if part then
+			if part:IsA("Terrain") then
+				-- Terrain doesn't have Primary Axis based surfaces to return
+				return part, nil
+			end
+
+			closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
+		end
+
+		if closestFace then
+			return part, closestFace.surface
+		else
+			return part, nil
+		end
 	end
 end
 
 function DragHelper.getSurfaceMatrix(mouseRay, selection, lastSurfaceMatrix)
-	local part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(mouseRay, selection)
+	local part, mouseWorld, normal = nil
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		params.FilterDescendantsInstances = selection
+		local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
+		if result then
+			part = result.Instance
+			mouseWorld = result.Position
+			normal = result.Normal
+		end
+	else
+		part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(mouseRay, selection)
+	end
+
 	if part and part:IsA("Terrain") then
 		-- First, find the closest aligned global axis normal, and the two other
 		-- axes mutually orthogonal to it.

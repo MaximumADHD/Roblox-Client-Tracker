@@ -71,9 +71,9 @@ local Redo = require(Plugin.Src.Thunks.History.Redo)
 local TogglePlay = require(Plugin.Src.Thunks.Playback.TogglePlay)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -150,11 +150,42 @@ function TimelineActions:makeSelectionSubMenu(enumKey, dataKey, displayText)
 	}
 end
 
+function TimelineActions:makeGenerateCurveMenu(localization)
+	local props = self.props
+	local function makeSubmenu(easingStyle)
+		return {
+			Name = easingStyle,
+			Items = Enum.PoseEasingDirection:GetEnumItems(),
+			ItemSelected = function(easingDirection)
+				props.OnGenerateCurve(easingStyle, easingDirection)
+			end
+		}
+	end
+
+	return {
+		Name = localization:getText("ContextMenu", "GenerateCurve"),
+		Items = {
+			makeSubmenu(Enum.PoseEasingStyle.Bounce),
+			makeSubmenu(Enum.PoseEasingStyle.Elastic)
+		}
+	}
+end
+
+function TimelineActions:multipleSelected()
+	local props = self.props
+	local data = props.AnimationData
+	local selectedKeyframes = props.SelectedKeyframes
+
+	local earliest, latest = AnimationData.getSelectionBounds(data, selectedKeyframes)
+	return selectedKeyframes and earliest ~= latest
+end
+
 function TimelineActions:makeMenuActions(localization)
 	local props = self.props
 	local selectedKeyframes = props.SelectedKeyframes
 	local summaryKeyframe = props.SummaryKeyframe
 	local pluginActions = self.props.PluginActions
+	local isChannelAnimation = props.IsChannelAnimation
 
 	local actions = {
 		pluginActions:get("AddKeyframeHere"),
@@ -172,10 +203,13 @@ function TimelineActions:makeMenuActions(localization)
 		table.insert(actions, pluginActions:get("ChangeDuration"))
 		-- EasingStyle and EasingDirection customization
 		table.insert(actions, Constants.MENU_SEPARATOR)
-		if GetFFlagChannelAnimations() and props.IsChannelAnimation then
+		if GetFFlagChannelAnimations() and isChannelAnimation then
 			table.insert(actions, self:makeSelectionSubMenu("KeyInterpolationMode", "InterpolationMode",
 				localization:getText("ContextMenu", "InterpolationMode")))
 			table.insert(actions, pluginActions:get("ClearTangents"))
+			if GetFFlagQuaternionChannels() and self:multipleSelected() then
+				table.insert(actions, self:makeGenerateCurveMenu(localization))
+			end
 		else
 			table.insert(actions, self:makeSelectionSubMenu("PoseEasingStyle", "EasingStyle",
 				localization:getText("ContextMenu", "EasingStyle")))
@@ -657,21 +691,14 @@ function TimelineActions:willUnmount()
 	end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TimelineActions = withContext({
-		Localization = ContextServices.Localization,
-		PluginActions = ContextServices.PluginActions,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})(TimelineActions)
-else
-	ContextServices.mapToProps(TimelineActions, {
-		Localization = ContextServices.Localization,
-		PluginActions = ContextServices.PluginActions,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})
-end
+
+TimelineActions = withContext({
+	Localization = ContextServices.Localization,
+	PluginActions = ContextServices.PluginActions,
+	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
+})(TimelineActions)
+
 
 
 local function mapStateToProps(state, props)

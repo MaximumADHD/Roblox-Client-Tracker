@@ -6,7 +6,6 @@
 			the line instances into. Defaults to CoreGui.
 		Instance RootInstance = The root instance of the animation.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 -- Previously, there were magic numbers in the old Animation Editor
 -- Keeping these here to maintain the same grid appearance
@@ -78,15 +77,11 @@ function FloorGrid:render()
 		end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	FloorGrid = withContext({
-		Theme = ContextServices.Theme,
-	})(FloorGrid)
-else
-	ContextServices.mapToProps(FloorGrid, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+FloorGrid = withContext({
+	Theme = ContextServices.Theme,
+})(FloorGrid)
+
 
 
 

@@ -42,12 +42,7 @@ function BreakpointsTreeTableCell:init()
 end
 
 local function fetchDebugpointIcon(row, iconMapping)
-	if row.item.debugpointType == "Breakpoint" then
-		
-		if not row.item.isValid then
-			return iconMapping.invalidBreakpoint
-		end
-		
+	if row.item.debugpointType == "Breakpoint" then	
 		if not row.item.condition then
 			return (row.item.isEnabled and iconMapping.breakpointEnabled) or iconMapping.breakpointDisabled
 		else
@@ -55,11 +50,6 @@ local function fetchDebugpointIcon(row, iconMapping)
 		end
 		
 	else
-		
-		if not row.item.isValid then
-			return iconMapping.invalidLogpoint
-		end
-		
 		return (row.item.isEnabled and iconMapping.logpointEnabled) or iconMapping.logpointDisabled
 	end
 end

@@ -14,7 +14,6 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -156,6 +155,15 @@ function SelectItemScreen:init()
 	end
 end
 
+function SelectItemScreen:didMount()
+	local sourceItem = self.props.EditingItemContext:getSourceItem()
+	if sourceItem then
+		self:setState({
+			selectedPart = sourceItem
+		})
+	end
+end
+
 function SelectItemScreen:render()
 	local props = self.props
 	local state = self.state
@@ -196,21 +204,14 @@ function SelectItemScreen:willUnmount()
 	end
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	SelectItemScreen = withContext({
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})(SelectItemScreen)
-else
-	ContextServices.mapToProps(SelectItemScreen,{
-		Plugin = ContextServices.Plugin,
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+SelectItemScreen = withContext({
+	Plugin = ContextServices.Plugin,
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	EditingItemContext = EditingItemContext,
+})(SelectItemScreen)
+
 
 
 local function mapDispatchToProps(dispatch)

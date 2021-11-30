@@ -1,4 +1,3 @@
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -149,23 +148,15 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagAnimationClipEditorWithContext then
-	DraggerWrapper = withContext({
-		Plugin = ContextServices.Plugin,
-		PluginActions = ContextServices.PluginActions,
-		Signals = SignalsContext,
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-	})(DraggerWrapper)
-else
-	ContextServices.mapToProps(DraggerWrapper,{
-		Plugin = ContextServices.Plugin,
-		PluginActions = ContextServices.PluginActions,
-		Signals = SignalsContext,
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+DraggerWrapper = withContext({
+	Plugin = ContextServices.Plugin,
+	PluginActions = ContextServices.PluginActions,
+	Signals = SignalsContext,
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+})(DraggerWrapper)
+
 
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(DraggerWrapper)

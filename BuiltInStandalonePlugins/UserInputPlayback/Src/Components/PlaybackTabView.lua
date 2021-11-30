@@ -16,12 +16,6 @@ local FilterSettingsUIGroup = require(Plugin.Src.Components.FilterSettingsUIGrou
 
 local PlaybackTabView = Roact.PureComponent:extend("PlaybackTabView")
 
-PlaybackTabView.defaultProps = {
-	ShouldStartPlayback = false,
-	PlaybackFileNameOptions = {},
-	CurrentPlaybackRecordingDataValid = false,
-}
-
 function PlaybackTabView:render()
 	local props = self.props
 	local style = props.Stylizer

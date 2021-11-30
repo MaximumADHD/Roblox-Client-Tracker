@@ -8,7 +8,6 @@
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -58,15 +57,11 @@ function EditorSettingView:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditorSettingView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(EditorSettingView)
-else
-	ContextServices.mapToProps(EditorSettingView,{
-		Stylizer = ContextServices.Stylizer,
-	})
-end
+
+EditorSettingView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(EditorSettingView)
+
 
 
 return EditorSettingView

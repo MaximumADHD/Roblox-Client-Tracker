@@ -11,29 +11,35 @@ local Actions = Plugin.Src.Actions
 local SetAssetSettings = require(Actions.SetAssetSettings)
 local SetCheckedCount = require(Actions.SetCheckedCount)
 local SetFilename = require(Actions.SetFilename)
+local SetImportStatuses = require(Actions.SetImportStatuses)
 local SetInstanceMap = require(Actions.SetInstanceMap)
 local SetSelectedSettingsItem = require(Actions.SetSelectedSettingsItem)
 local SetTreeChecked = require(Actions.SetTreeChecked)
 local SetTreeExpansion = require(Actions.SetTreeExpansion)
+local SetErrorNodeChecked = require(Actions.SetErrorNodeChecked)
 
 export type Store = {
 	assetSettings: Instance,
 	filename: string,
+	importStatuses: SetImportStatuses.StatusMap,
 	instanceMap: SetInstanceMap.InstanceMap,
 	selectedSettingsItem: Instance,
-	settingsExpansion: SetTreeExpansion.ExpansionMap,
 	settingsChecked: SetTreeChecked.CheckedMap,
 	settingsCheckedCount: number,
+	errorNodeChecked: boolean,
+	settingsExpansion: SetTreeExpansion.ExpansionMap,
 }
 
 local initialState = {
 	assetSettings = nil,
 	filename = "",
+	importStatuses = nil,
 	instanceMap = {},
 	selectedSettingsItem = nil,
-	settingsExpansion = {},
 	settingsChecked = {},
 	settingsCheckedCount = -1,
+	errorNodeChecked = false,
+	settingsExpansion = {},
 }
 
 local MainReducer = Rodux.createReducer(initialState, {
@@ -77,6 +83,16 @@ local MainReducer = Rodux.createReducer(initialState, {
 	[SetTreeExpansion.name] = function(state: Store, action: SetTreeExpansion.Props)
 		return Cryo.Dictionary.join(state, {
 			settingsExpansion = Cryo.Dictionary.join(state.settingsExpansion, action.expansion),
+		})
+	end,
+	[SetErrorNodeChecked.name] = function(state: Store, action: SetErrorNodeChecked.Props)
+		return Cryo.Dictionary.join(state, {
+			errorNodeChecked = action.isErrorChecked,
+		})
+	end,
+	[SetImportStatuses.name] = function(state: Store, action: SetImportStatuses.Props)
+		return Cryo.Dictionary.join(state, {
+			importStatuses = action.statuses,
 		})
 	end,
 })

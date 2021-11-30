@@ -3,7 +3,6 @@
 	Tracks positional changes of accessory for preview and bounds verification. This
 	component does not receive any props from its parent.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local CoreGui = game:GetService("CoreGui")
 local Selection = game:GetService("Selection")
@@ -232,19 +231,13 @@ function MeshPartTool:willUnmount()
 	end
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	MeshPartTool = withContext({
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-		Signals = SignalsContext,
-	})(MeshPartTool)
-else
-	ContextServices.mapToProps(MeshPartTool,{
-		Stylizer = ContextServices.Stylizer,
-		EditingItemContext = EditingItemContext,
-		Signals = SignalsContext,
-	})
-end
+
+MeshPartTool = withContext({
+	Stylizer = ContextServices.Stylizer,
+	EditingItemContext = EditingItemContext,
+	Signals = SignalsContext,
+})(MeshPartTool)
+
 
 local function mapStateToProps(state, props)
     local selectItem = state.selectItem

@@ -22,6 +22,8 @@ local ui = Style.ComponentSymbols
 
 local Constants = require(Plugin.Src.Util.Constants)
 
+local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
+
 ui:add("AlertDialog")
 ui:add("ImageDragger")
 ui:add("SliceEditor")
@@ -50,7 +52,7 @@ local PluginTheme = {
 	},
 
 	[ui.ImageDragger] = {
-		EdgeHandleSize = UDim2.fromOffset(30, 27),
+		EdgeHandleSize = FFlag9SliceEditorNewDraggers and UDim2.fromOffset(30, 28) or UDim2.fromOffset(30, 27),
 		EdgeHandleInsetPx = 2,
 	},
 

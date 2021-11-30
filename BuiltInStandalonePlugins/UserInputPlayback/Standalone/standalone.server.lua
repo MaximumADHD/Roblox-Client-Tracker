@@ -36,10 +36,12 @@ local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 
 local MainPlugin = require(main.Src.MainPlugin)
+local DMBridge = require(main.Src.Util.DMBridge)
 local handle, inspector
 
 local function init()
 	plugin.Name = main.Name
+	DMBridge.setPluginObject(plugin)
 
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,

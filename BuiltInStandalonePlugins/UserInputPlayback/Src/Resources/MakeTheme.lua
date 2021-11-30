@@ -48,6 +48,7 @@ ui:add("PlaybackInfoUIGroup")
 ui:add("FilterSettingsUIGroup")
 ui:add("LabeledToggleButton")
 ui:add("UIKeyValueTextLabel")
+ui:add("ChooseRecordingNamePopUp")
 
 local devFrameworkButton = getRawComponentStyle("Button")
 local devFrameworkButtonRoundPrimary = devFrameworkButton["&RoundPrimary"]
@@ -156,6 +157,15 @@ local function getPluginTheme()
 		PlaybackSelectInput = Cryo.Dictionary.join(devFrameworkSelectInput, {
 			Size = UDim2.new(0, 240, 0, 32),
 		}),
+
+		[ui.ChooseRecordingNamePopUp] = {
+			ContentSize = Vector2.new(300, 60),
+			PanelSize = UDim2.fromOffset(250, 60),
+			PanelPosition = UDim2.fromOffset(20, -10),
+			DialogMessageSize = UDim2.new(1, 0, 0, 40),
+			TextInputSize = UDim2.fromOffset(250, 30),
+			PaddingPx = 1,
+		}
 	}
 end
 

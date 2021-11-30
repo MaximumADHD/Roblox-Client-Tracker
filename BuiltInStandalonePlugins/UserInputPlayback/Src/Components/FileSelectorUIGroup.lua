@@ -43,25 +43,23 @@ function FileSelectorUIGroup:render()
 	local style = props.Stylizer
 
 	local statusMessage, playButtonText, playButtonStyleModifier
-	if props.PlaybackMode == Enums.PlaybackMode.Playing then
+	if props.PluginState == Enums.PluginState.Playing then
 		statusMessage = localization:getText("PlaybackTabView", "StatusMessagePlaying")
 		playButtonText = localization:getText("PlaybackTabView", "PlayButtonStop")
 		playButtonStyleModifier = StyleModifier.Pressed
-	elseif props.PlaybackMode == Enums.PlaybackMode.Default then
-		if props.ShouldStartPlayback then
-			statusMessage = localization:getText("PlaybackTabView", "StatusMessageShouldStartPlayback")
-			playButtonText = localization:getText("PlaybackTabView", "PlayButtonReady")
-			playButtonStyleModifier = StyleModifier.Selected
+	elseif props.PluginState == Enums.PluginState.ShouldStartPlayback then
+		statusMessage = localization:getText("PlaybackTabView", "StatusMessageShouldStartPlayback")
+		playButtonText = localization:getText("PlaybackTabView", "PlayButtonReady")
+		playButtonStyleModifier = StyleModifier.Selected
+	elseif props.PluginState == Enums.PluginState.Default then
+		statusMessage = localization:getText("PlaybackTabView", "StatusMessageNotPlaying")
+		playButtonText = localization:getText("PlaybackTabView", "PlayButtonPlay")
+		if props.CurrentPlaybackRecordingDataValid == true then
+			playButtonStyleModifier = nil
 		else
-			statusMessage = localization:getText("PlaybackTabView", "StatusMessageNotPlaying")
-			playButtonText = localization:getText("PlaybackTabView", "PlayButtonPlay")
-			if props.CurrentPlaybackRecordingDataValid == true then
-				playButtonStyleModifier = nil
-			else
-				playButtonStyleModifier = StyleModifier.Disabled
-			end
+			playButtonStyleModifier = StyleModifier.Disabled
 		end
-	elseif props.PlaybackMode == Enums.PlaybackMode.Disabled then
+	elseif props.PluginState == Enums.PluginState.Disabled then
 		statusMessage = localization:getText("PlaybackTabView", "StatusMessageDisabled")
 		playButtonText = localization:getText("PlaybackTabView", "PlayButtonPlay")
 		playButtonStyleModifier = StyleModifier.Disabled
@@ -138,10 +136,9 @@ local function mapStateToProps(state, props)
 	return {
 		SelectedRecordingIndex = state.playbackTab.selectedRecordingIndex,
 		PlaybackFileNameOptions = state.playbackTab.playbackFileNameOptions,
-		PlaybackMode = state.playbackTab.playbackMode,
-		ShouldStartPlayback = state.playbackTab.shouldStartPlayback,
 		CurrentPlaybackRecordingDataValid = state.playbackTab.currentPlaybackRecordingDataValid,
 		ShouldSetEmulationDevice = state.playbackTab.shouldSetEmulationDevice,
+		PluginState = state.common.pluginState,
 	}
 end
 

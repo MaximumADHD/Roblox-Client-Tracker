@@ -11,7 +11,7 @@ local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Framework = require(main.Packages.Framework)
 local Constants = require(main.Src.Util.Constants)
-local SliceRectUtil = require(main.Src.Util.SliceRectUtil)
+local Types = require(main.Src.Types)
 
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
@@ -29,6 +29,7 @@ local StudioUI = Framework.StudioUI
 local DockWidget = StudioUI.DockWidget
 
 local FFlag9SliceEditorEnableAnalytics = game:GetFastFlag("9SliceEditorEnableAnalytics")
+local FFlag9SliceEditorDontRestoreOnDMLoad = game:GetFastFlag("9SliceEditorDontRestoreOnDMLoad")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -84,6 +85,7 @@ function MainPlugin:init(props)
 		})
 	end
 
+	-- Remove .onRestore with FFlag9SliceEditorDontRestoreOnDMLoad
 	self.onRestore = function(enabled)
 		if FFlag9SliceEditorEnableAnalytics and enabled and not self.state.enabled then
 			self.reportOpen()
@@ -95,7 +97,7 @@ function MainPlugin:init(props)
 	end
 
 	self.onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
-		sliceRect: SliceRectUtil.SliceRectType, revertSliceRect: SliceRectUtil.SliceRectType)
+		sliceRect: Types.SliceRectType, revertSliceRect: Types.SliceRectType)
 
 		if FFlag9SliceEditorEnableAnalytics then
 			if not self.state.enabled then
@@ -118,7 +120,7 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.onSliceRectChanged = function(sliceRect: SliceRectUtil.SliceRectType)
+	self.onSliceRectChanged = function(sliceRect: Types.SliceRectType)
 		self:setState({
 			sliceRect = sliceRect,
 		})
@@ -143,6 +145,13 @@ function MainPlugin:render()
 	local plugin = props.Plugin
 	local enabled = state.enabled
 
+	local shouldRestore
+	if FFlag9SliceEditorDontRestoreOnDMLoad then
+		shouldRestore = false
+	else
+		shouldRestore = true
+	end
+
 	return ContextServices.provide({
 		Plugin.new(plugin),
 		Mouse.new(plugin:getMouse()),
@@ -165,8 +174,8 @@ function MainPlugin:render()
 			Size = Constants.WIDGET_SIZE,
 			MinSize = Constants.WIDGET_SIZE,
 			OnClose = self.onClose,
-			ShouldRestore = true,
-			OnWidgetRestored = self.onRestore,
+			ShouldRestore = shouldRestore,
+			OnWidgetRestored = shouldRestore and self.onRestore or nil,
 		}, {
 			SliceEditor = enabled and Roact.createElement(SliceEditor, {
 				onClose = self.onClose,

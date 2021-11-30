@@ -68,7 +68,7 @@ local function generateRigidAccessory(store, editingItem, sourceItem)
 	local clone = sourceItem:clone()
 	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
-	ModelUtil:addAttachment(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
 	clone.Size = itemSize
 
 	parentToAccessory(clone)
@@ -84,7 +84,7 @@ local function generateCagedAccessory(store, editingItem, sourceItem)
 	fixCFrame(clone, ModelUtil:getRootCFrame(editingItem))
 
 	ModelUtil:clearWelds(clone)
-	ModelUtil:addAttachment(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
+	ModelUtil:createOrReuseAttachmentInstance(clone, editingItem.Parent, accessoryTypeInfo, attachmentPoint)
 
 	-- temporary bug workaround: LC item needs to be a child of a model in order for deformation API to work
 	local tempModel = parentToTempModel(clone)

@@ -27,7 +27,6 @@
 		function loadLanguages
 			send HTTP request for all languages information
 ]]
-local FFlagPlayerEmulatorWithContext = game:GetFastFlag("PlayerEmulatorWithContext")
 
 local LocalizationService = game:GetService("LocalizationService")
 local PlayerEmulatorService = game:GetService("PlayerEmulatorService")
@@ -260,21 +259,14 @@ function LanguageSection:render()
 	})
 end
 
-if FFlagPlayerEmulatorWithContext then
-	LanguageSection = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Networking = NetworkingContext,
-		Plugin = ContextServices.Plugin,
-	})(LanguageSection)
-else
-	ContextServices.mapToProps(LanguageSection, {
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Networking = NetworkingContext,
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+LanguageSection = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Networking = NetworkingContext,
+	Plugin = ContextServices.Plugin,
+})(LanguageSection)
+
 
 
 local function mapStateToProps(state, _)

@@ -4,79 +4,75 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 -- Traverses a track, calling a func on each of its leaf components
 local function traverseComponents(track, func)
-    local function traverseComponentsRec(track, name, func)
-        if track.Components then
-            for componentName, component in pairs(track.Components) do
-                traverseComponentsRec(component, (name ~= "" and (name .. ".") or "") .. componentName, func)
-            end
-        else
-            func(track, name)
-        end
-    end
+	local function traverseComponentsRec(track, name, func)
+		if track.Components then
+			for componentName, component in pairs(track.Components) do
+				traverseComponentsRec(component, (name ~= "" and (name .. ".") or "") .. componentName, func)
+			end
+		else
+			func(track, name)
+		end
+	end
 
-    traverseComponentsRec(track, "", func)
+	traverseComponentsRec(track, "", func)
 end
 
--- Return the maximum tick available and the names of the tracks (sorted)
-local function getTrackInfo(track)
-    local maxTick = 0
-    local trackNames = {}
+-- Return the maximum tick available
+local function getTrackExtents(track)
+	local maxTick = 0
 
-    traverseComponents(track, function(t, trackName)
-        for tick, _ in pairs(t.Data) do
-            if tick > maxTick then
-                maxTick = tick
-            end
+	traverseComponents(track, function(t, trackName)
+		if t.Keyframes and #t.Keyframes > 0 then
+			maxTick = math.max(maxTick, t.Keyframes[#t.Keyframes])
 		end
-		if t.Type == Constants.TRACK_TYPES.Facs then
-			trackName = "FACS"
-		end
-        table.insert(trackNames, trackName)
-    end)
-    table.sort(trackNames)
+	end)
 
-    return maxTick, trackNames
+	return maxTick
 end
 
--- Creates a header with the column (track) names
-local function makeHeader(trackNames)
-    return "Timestamp," .. table.concat(trackNames, ",") .. "\n"
+local function format(v)
+	return tostring(math.round(v * 10000) / 10000)
 end
 
 -- Creates a map of values (as strings so that they can be concatenated later)
 local function getValues(track, timestamp)
 	local values = {}
 	if track.Type == Constants.TRACK_TYPES.Facs then
-		values["FACS"] = tostring(KeyframeUtils.getValue(track, timestamp))
-	else
-	    traverseComponents(track, function(tr, name)
-	        values[name] = tostring(KeyframeUtils.getValue(tr, timestamp))
-	    end)
+		values = {format(KeyframeUtils.getValue(track, timestamp))}
+	elseif track.Type == Constants.TRACK_TYPES.CFrame then
+		local cFrame = KeyframeUtils.getValue(track, timestamp)
+		local rX, rY, rZ = cFrame:ToEulerAnglesXYZ()
+		values = {format(cFrame.X), format(cFrame.Y), format(cFrame.Z),
+			format(math.deg(rX)), format(math.deg(rY)), format(math.deg(rZ))}
 	end
-    return values
+	return values
 end
 
-local function makeRow(tick, trackNames, values)
-    local s = tostring(tick / Constants.TICK_FREQUENCY)
-    for _, trackName in pairs(trackNames) do
-        s = s .. "," .. values[trackName]
-    end
-    return s .. "\n"
+local function makeRow(tick, values)
+	local s = (format(tick / Constants.TICK_FREQUENCY) .. ",")
+	return s .. table.concat(values, ",") .. "\n"
 end
 
--- Dumps the value of a track as CSV by sampling the curve every 10 ticks
-local function dump(track)
-    -- Find the max tick across all components, and the track names
-    local maxTick, trackNames = getTrackInfo(track)
+-- Dumps the value of a track as CSV by sampling the curve
+local function dump(track, trackName)
+	local samplingRate = 20
+	local maxTick = getTrackExtents(track)
 
-    local s = makeHeader(trackNames)
+	local headers
+	if track.Type == Constants.TRACK_TYPES.Facs then
+		headers = {trackName or "FACS", "Value"}
+	else
+		headers = {trackName or "CFrame", "Px1", "Py1", "Pz1", "Rx1", "Ry1", "Rz1"}
+	end
 
-    for t = 0, maxTick, 10 do
-        local values = getValues(track, t)
-        s = s .. makeRow(t, trackNames, values)
-    end
+	local s = "\n" .. table.concat(headers, ",") .. "\n"
 
-    print(s)
+	for t = 0, maxTick, samplingRate do
+		local values = getValues(track, t)
+		s = s .. makeRow(t, values)
+	end
+
+	print(s)
 end
 
 return dump

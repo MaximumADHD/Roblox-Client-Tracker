@@ -13,29 +13,33 @@ local SetFuture = require(Plugin.Src.Actions.SetFuture)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 
 return function()
-    return function(store)
-        local state = store:getState()
-        local animationData = state.AnimationData
-        if not animationData or not animationData.Metadata or animationData.Metadata.IsChannelAnimation then
-            return
-        end
+	return function(store)
+		local state = store:getState()
+		local animationData = state.AnimationData
 
-        -- Remove potential change history waypoints
-        store:dispatch(SetPast({}))
-        store:dispatch(SetFuture({}))
+		if not animationData or not animationData.Metadata or animationData.Metadata.IsChannelAnimation then
+			return
+		end
 
-        -- Reset all hanging data
-        store:dispatch(SetSelectedKeyframes({}))
+		local rotationType = state.Status.DefaultRotationType
 
-        local newData = deepCopy(animationData)
-        AnimationData.promoteToChannels(newData)
+		-- Remove potential change history waypoints
+		store:dispatch(SetPast({}))
+		store:dispatch(SetFuture({}))
 
-        local tracks = state.Status.Tracks
-        for _, track in ipairs(tracks) do
-            TrackUtils.createTrackListEntryComponents(track, track.Instance)
-        end
+		-- Reset all hanging data
+		store:dispatch(SetSelectedKeyframes({}))
 
-        store:dispatch(SortAndSetTracks(tracks))
-        store:dispatch(UpdateAnimationData(newData))
-    end
+		local newData = deepCopy(animationData)
+		AnimationData.promoteToChannels(newData, rotationType)
+
+		local tracks = state.Status.Tracks
+
+		for _, track in ipairs(tracks) do
+			TrackUtils.createTrackListEntryComponents(track, track.Instance, rotationType)
+		end
+
+		store:dispatch(SortAndSetTracks(tracks))
+		store:dispatch(UpdateAnimationData(newData))
+	end
 end

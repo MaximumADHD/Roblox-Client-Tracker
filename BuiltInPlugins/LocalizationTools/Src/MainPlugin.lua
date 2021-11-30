@@ -30,6 +30,8 @@ local MainReducer = require(main.Src.Reducers.MainReducer)
 local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
+local FFlagImprovePluginSpeed_LocalizationTool = game:GetFastFlag("ImprovePluginSpeed_LocalizationTool")
+
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
 local PLUGIN_ICON = "rbxasset://textures/localizationTestingIcon.png"
@@ -82,12 +84,20 @@ function MainPlugin:init()
 		self:setState({
 			enabled = enabled,
 		})
+
+		if FFlagImprovePluginSpeed_LocalizationTool then
+			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
+		end
 	end
 
 	self.onClose = function()
 		self:setState({
 			enabled = false,
 		})
+	end
+
+	if FFlagImprovePluginSpeed_LocalizationTool then
+		self.button = self.props.pluginLoaderContext.mainButton
 	end
 end
 
@@ -104,24 +114,32 @@ function MainPlugin:didMount()
 	end)
 end
 
-function MainPlugin:renderButtons(toolbar, isEditMode)
-	local enabled = self.state.enabled
-	local theme
-	if (not THEME_REFACTOR) then
-		theme = self.theme:get("Plugin")
-	end
+if not FFlagImprovePluginSpeed_LocalizationTool then
+	function MainPlugin:renderButtons(toolbar, isEditMode)
+		local enabled = self.state.enabled
+		local theme
+		if (not THEME_REFACTOR) then
+			theme = self.theme:get("Plugin")
+		end
 
-	return {
-		Toggle = Roact.createElement(PluginButton, {
-			Toolbar = toolbar,
-			Active = enabled,
-			Enabled = isEditMode,
-			Title = self.localization:getText("Plugin", "RibbonBarButton"),
-			Tooltip = self.localization:getText("Plugin", "ToolTipMessage"),
-			Icon = THEME_REFACTOR and PLUGIN_ICON or theme.PluginIcon,
-			OnClick = self.toggleState,
-		}),
-	}
+		return {
+			Toggle = Roact.createElement(PluginButton, {
+				Toolbar = toolbar,
+				Active = enabled,
+				Enabled = isEditMode,
+				Title = self.localization:getText("Plugin", "RibbonBarButton"),
+				Tooltip = self.localization:getText("Plugin", "ToolTipMessage"),
+				Icon = THEME_REFACTOR and PLUGIN_ICON or theme.PluginIcon,
+				OnClick = self.toggleState,
+			}),
+		}
+	end
+end
+
+if FFlagImprovePluginSpeed_LocalizationTool then
+	function MainPlugin:didUpdate()
+		self.button:SetActive(self.state.enabled)
+	end
 end
 
 function MainPlugin:render()
@@ -139,7 +157,7 @@ function MainPlugin:render()
 	return ContextServices.provide({
 		Plugin.new(plugin),
 	}, {
-		Toolbar = Roact.createElement(PluginToolbar, {
+		Toolbar = not FFlagImprovePluginSpeed_LocalizationTool and Roact.createElement(PluginToolbar, {
 			Title = self.localization:getText("Plugin", "ToolbarLabel"),
 			RenderButtons = function(toolbar)
 				return self:renderButtons(toolbar, isEditMode)
@@ -148,6 +166,7 @@ function MainPlugin:render()
 
 		MainWidget = isEditMode and Roact.createElement(DockWidget, {
 			Enabled = enabled,
+			Widget = FFlagImprovePluginSpeed_LocalizationTool and props.pluginLoaderContext.mainDockWidget or nil,
 			Title = self.localization:getText("Plugin", "WindowTitle"),
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,

@@ -9,6 +9,7 @@ local plugin, settings = plugin, settings
 --local Flags =  script.Parent.Parent.Flags
 local getFFlagFixTransformScalingSpheresAndCylinders =
 	require(script.Parent.Flags.getFFlagFixTransformScalingSpheresAndCylinders)
+local getEngineFeatureDraggerBruteForceAll = require(script.Parent.Flags.getEngineFeatureDraggerBruteForceAll)
 
 -----------------------------------
 -----------MODULE SCRIPTS----------
@@ -2335,12 +2336,21 @@ end
 function planeDrag()
 	Adorn.setAllAdornVisibility(false)
 
+	local part = nil
 	local ray = mouse.UnitRay
-	ray = Ray.new(ray.Origin, ray.Direction * 800)
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = workspace:Raycast(ray.Origin, ray.Direction * 800, params)
+		if not result then return end
+		if result.Instance:IsA("Terrain") then return end
+		part = result.Instance
+	else
+		ray = Ray.new(ray.Origin, ray.Direction * 800)
+		part = game.Workspace:FindPartOnRay(ray)
+		if not part or part:IsA("Terrain") then return end
+	end
 
-	local part, tmpLocation = game.Workspace:FindPartOnRay(ray)
-
-	if not part or part:IsA("Terrain") then return end
 	holoBox.Visible = true
 
 	local location = part and rayBoxIntersection(ray, part.CFrame, part.Size)
@@ -2493,7 +2503,21 @@ function freeDrag()
 
 	if dragFromToolbox then
 		colPoint = rayPlaneIntersection(currentRay, baseDragPlane)
-		local colPart, colLocation = workspace:FindPartOnRayWithIgnoreList(currentRay, game.Selection:Get())
+		local colPart, colLocation = nil -- remove colPart with EngineFeatureDraggerBruteForceAll
+		if getEngineFeatureDraggerBruteForceAll() then
+			local params = RaycastParams.new()
+			params.FilterDescendantsInstances = game.Selection:Get()
+			params.BruteForceAllSlow = true
+			local result = workspace:Raycast(currentRay.Origin, currentRay.Direction, params)
+			if result then
+				colLocation = result.Position
+			else
+				colLocation = (currentRay.Origin + currentRay.Direction)
+			end
+		else
+			colPart, colLocation = workspace:FindPartOnRayWithIgnoreList(currentRay, game.Selection:Get())
+		end
+
 		local cameraPos = workspace.CurrentCamera.CoordinateFrame.p
 		local partDist = Utility.distanceVector3(colLocation, cameraPos)
 		local planeDist = Utility.distanceVector3(colPoint, cameraPos)
@@ -2562,7 +2586,16 @@ function selectDragPlane(selectBase)
 		tmpLocation = Vector3.new(0,0,0)
 		tmpNormal = Vector3.new(0, 1, 0)
 	else
-		tmpPart = game.Workspace:FindPartOnRay(ray)
+		if getEngineFeatureDraggerBruteForceAll() then
+			local params = RaycastParams.new()
+			params.BruteForceAllSlow = true
+			local result = game.Workspace:Raycast(ray.Origin, ray.Direction, params)
+			if result then
+				tmpPart = result.Instance
+			end
+		else
+			tmpPart = game.Workspace:FindPartOnRay(ray)
+		end
 	end
 
 	if not tmpPart then
@@ -2976,9 +3009,20 @@ function selectPart(instances)
 
 	castPlane = nil
 	local ray = mouse.UnitRay
-	ray = Ray.new(ray.Origin, ray.Direction * 800)
+	local part, location
 
-	local part, location = game.Workspace:FindPartOnRay(ray)
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = game.Worksapce:Raycast(ray.Origin, ray.Direction * 800, params)
+		if result then
+			part = result.Part
+			location = result.Position
+		end
+	else
+		ray = Ray.new(ray.Origin, ray.Direction * 800)
+		part, location = game.Workspace:FindPartOnRay(ray)
+	end
 
 	local alreadySelected = false
 	if List.itemExistsInList(part, game.Selection:Get()) then

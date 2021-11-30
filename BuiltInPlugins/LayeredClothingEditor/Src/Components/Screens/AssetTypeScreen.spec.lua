@@ -22,7 +22,9 @@ return function()
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
 				local screen = frame.Screen
-				local viewArea = screen.ViewArea
+				local mainFrame = screen.MainFrame
+				local swizzleView = mainFrame.SwizzleView
+				local viewArea = swizzleView.ViewArea
 
 				local prompt = viewArea.Prompt
 				local nextBackButtonContainer = viewArea.NextAndBackButtonContainer
@@ -35,6 +37,8 @@ return function()
 				local layout = content.Layout
 
 				expect(frame).to.be.ok()
+				expect(mainFrame).to.be.ok()
+				expect(swizzleView).to.be.ok()
 				expect(screen).to.be.ok()
 				expect(viewArea).to.be.ok()
 				expect(prompt).to.be.ok()

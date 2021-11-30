@@ -8,7 +8,7 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider")
+	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_2")
 	local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 

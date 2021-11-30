@@ -5,7 +5,6 @@
 		table Actions = The set of actions to send to MakePluginMenu.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -38,15 +37,11 @@ function ContextMenu:render()
 	return nil
 end
 
-if FFlagAnimationClipEditorWithContext then
-	ContextMenu = withContext({
-		Plugin = ContextServices.Plugin,
-	})(ContextMenu)
-else
-	ContextServices.mapToProps(ContextMenu, {
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+ContextMenu = withContext({
+	Plugin = ContextServices.Plugin,
+})(ContextMenu)
+
 
 
 return ContextMenu

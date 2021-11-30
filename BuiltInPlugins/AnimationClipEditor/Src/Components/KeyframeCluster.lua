@@ -8,7 +8,6 @@
 		UDim2 Size = size of the frame (not including diamond tips)
 		int ZIndex = The draw index of the frame.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -60,15 +59,11 @@ function KeyframeCluster:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	KeyframeCluster = withContext({
-		Theme = ContextServices.Theme,
-	})(KeyframeCluster)
-else
-	ContextServices.mapToProps(KeyframeCluster, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+KeyframeCluster = withContext({
+	Theme = ContextServices.Theme,
+})(KeyframeCluster)
+
 
 
 

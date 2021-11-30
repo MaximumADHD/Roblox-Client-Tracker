@@ -27,9 +27,10 @@ local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationD
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local Components = main.Src.Components
-local TabbedView = require(Components.TabbedView)
-local PlaybackTabView = require(Components.PlaybackTabView)
-local RecordTabView = require(Components.RecordTabView)
+local MainView = require(Components.MainView)
+
+local DMBridge = require(main.Src.Util.DMBridge)
+local Enums = require(main.Src.Util.Enums)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -37,6 +38,8 @@ function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
+
+	DMBridge.setPluginEnabled(false)
 
 	self.toggleEnabled = function()
 		self:setState(function(state)
@@ -68,6 +71,10 @@ function MainPlugin:init(props)
 		Rodux.thunkMiddleware,
 	}, nil)
 
+	self.roduxStateChangedConnection = self.store.changed:connect(function(newRoduxState, oldRoduxState)
+		DMBridge.setRoduxState(newRoduxState)
+	end)
+
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
@@ -93,6 +100,20 @@ function MainPlugin:renderButtons(toolbar)
 			ClickableWhenViewportHidden = true,
 		}),
 	}
+end
+
+function MainPlugin:didMount()
+	DMBridge.setPluginState(Enums.PluginState.Default)
+end
+
+function MainPlugin:didUpdate(previousProps, previousState)
+	DMBridge.setPluginEnabled(self.state.enabled)
+end
+
+function MainPlugin:willUnmount()
+	if self.roduxStateChangedConnection then
+		self.roduxStateChangedConnection.disconnect() -- Note: not a normal BindableEvent
+	end
 end
 
 function MainPlugin:render()
@@ -127,18 +148,7 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			TabbedView = enabled and Roact.createElement(TabbedView, {
-				Tabs = {
-					{
-						Label = self.localization:getText("Plugin", "RecordingTabTitle"),
-						ContentComponent = RecordTabView,
-					},
-					{
-						Label = self.localization:getText("Plugin", "PlaybackTabTitle"),
-						ContentComponent = PlaybackTabView,
-					},
-				},
-			}),
+			MainView = enabled and Roact.createElement(MainView)
 		}),
 	})
 end

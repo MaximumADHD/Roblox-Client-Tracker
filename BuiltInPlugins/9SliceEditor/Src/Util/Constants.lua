@@ -18,12 +18,33 @@ Constants.PIXEL_YPOSITION = Constants.BACKGROUND_SIZE + Constants.PIXEL_TOP_PADD
 
 Constants.DRAGGER_WIDTH = 9
 Constants.DRAGGER_HEIGHT = 180
+Constants.DRAGGER_WIDTH_V2 = 8
+Constants.DRAGGER_CLICK_WINDOW_WIDTH = 16 -- Should be even
+Constants.DRAGGER_CENTER_INSETPX = 1
 
 local TexturePath = "rbxasset://textures/9SliceEditor/"
 Constants.IMAGES = {
 	BACKGROUND_GRID = TexturePath .. "GridPattern.png",
 	HORIZONTAL_DRAGGER = TexturePath .. "HorizontalDragger.png",
 	VERTICAL_DRAGGER = TexturePath .. "VerticalDragger.png",
+	DRAGGER_V2 = {
+		LEFT = {
+			NORMAL = TexturePath .. "Dragger2Left.png",
+			OUTLINED = TexturePath .. "Dragger2OutlinedLeft.png",
+		},
+		RIGHT = {
+			NORMAL = TexturePath .. "Dragger2Right.png",
+			OUTLINED = TexturePath .. "Dragger2OutlinedRight.png",
+		},
+		TOP = {
+			NORMAL = TexturePath .. "Dragger2Top.png",
+			OUTLINED = TexturePath .. "Dragger2OutlinedTop.png",
+		},
+		BOTTOM = {
+			NORMAL = TexturePath .. "Dragger2Bottom.png",
+			OUTLINED = TexturePath .. "Dragger2OutlinedBottom.png",
+		},
+	}
 }
 
 Constants.MOUSE_CURSORS = {

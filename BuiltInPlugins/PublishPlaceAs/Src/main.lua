@@ -11,7 +11,6 @@ return function(plugin, pluginLoaderContext)
 		require(script.Parent.Parent.TestRunner.defineLuaFlags)
 	end
 	local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-	local FFlagStudioPromptOnFirstPublish = game:GetFastFlag("StudioPromptOnFirstPublish")
 	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
 	--Turn this on when debugging the store and actions
@@ -95,7 +94,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	--Initializes and populates the plugin popup window
-	local function openPluginWindow(showGameSelect, isPublish, closeMode, firstPublishContext)
+	local function openPluginWindow(showGameSelect, isPublish, closeMode)
 		local servicesProvider = Roact.createElement(ServiceWrapper, {
 			focusGui = pluginGui,
 			localization = localization,
@@ -109,12 +108,10 @@ return function(plugin, pluginLoaderContext)
 				OnClose = closePlugin,
 				IsPublish = isPublish,
 				CloseMode = closeMode,
-				FirstPublishContext = firstPublishContext,
 				IsSaveOrPublishAs = showGameSelect,
 			})
 		})
 
-		local isFirstPublish = firstPublishContext ~= nil
 		dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
 
 		pluginHandle = Roact.mount(servicesProvider, pluginGui)
@@ -149,16 +146,6 @@ return function(plugin, pluginLoaderContext)
 				end)
 			end
 
-			if FFlagStudioPromptOnFirstPublish then
-				pluginLoaderContext.signals["StudioService.FirstPublishOfCloudPlace"]:Connect(function(universeId, placeId)
-					local firstPublishContext = {
-						universeId = universeId,
-						placeId = placeId,
-					}
-					openPluginWindow(false, true, Enum.StudioCloseMode.None, firstPublishContext)
-				end)
-			end
-
 			pluginLoaderContext.signals["StudioService.GamePublishFinished"]:Connect(function(success)
 				dataStore:dispatch(SetIsPublishing(false))
 			end)
@@ -183,16 +170,6 @@ return function(plugin, pluginLoaderContext)
 			else
 				StudioService.OnPublishPlaceToRoblox:Connect(function(isOverwritePublish)
 					openPluginWindow(isOverwritePublish)
-				end)
-			end
-
-			if FFlagStudioPromptOnFirstPublish then
-				StudioService.FirstPublishOfCloudPlace:Connect(function(universeId, placeId)
-					local firstPublishContext = {
-						universeId = universeId,
-						placeId = placeId,
-					}
-					openPluginWindow(false, true, Enum.StudioCloseMode.None, firstPublishContext)
 				end)
 			end
 

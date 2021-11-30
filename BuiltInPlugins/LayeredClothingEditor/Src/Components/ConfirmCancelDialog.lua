@@ -10,7 +10,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		string Title: title for dialog, using layered clothing editor is undefined
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -47,7 +46,7 @@ function ConfirmCancelDialog:render()
 	local theme = props.Stylizer
 	local onClose = props.OnClose
 	return Roact.createElement(StyledDialog, {
-		Style = game:GetFastFlag("DevFrameworkStyledDialogFullBleed") and "FullBleed",
+		Style = "FullBleed",
 		Title = title,
 		OnClose = onClose,
 		OnButtonPressed = self.onMessageBoxButtonClicked,
@@ -68,17 +67,12 @@ function ConfirmCancelDialog:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	ConfirmCancelDialog = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(ConfirmCancelDialog)
-else
-	ContextServices.mapToProps(ConfirmCancelDialog,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+ConfirmCancelDialog = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(ConfirmCancelDialog)
+
 
 
 return ConfirmCancelDialog

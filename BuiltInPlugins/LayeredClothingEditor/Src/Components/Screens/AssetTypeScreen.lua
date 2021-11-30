@@ -11,7 +11,6 @@
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -25,6 +24,7 @@ local withContext = ContextServices.withContext
 local Pane = Framework.UI.Pane
 
 local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
+local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 
 local LCERadioButtonList = require(Plugin.Src.Components.LCERadioButtonList)
 local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
@@ -32,6 +32,7 @@ local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
 local Constants = require(Plugin.Src.Util.Constants)
+local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -99,6 +100,11 @@ function AssetTypeScreen:init()
 		end
 		self.multiAttachmentAsset = nil
 		self.props.SetAccessoryTypeInfo(Cryo.Dictionary.join(attachment))
+
+		local existingAttachment = ModelUtil:getExistingAttachmentPoint(editingItem, editingItem.Parent, attachment.Name)
+		if existingAttachment then
+			self.props.SetAttachmentPoint(existingAttachment)
+		end
 	end
 
 	self.onClickAttachmentSubList = function(key, assetTypeInfo)
@@ -207,6 +213,7 @@ function AssetTypeScreen:render()
 			BackButtonText = localization:getText("Flow", "Back"),
 			NextButtonEnabled = true,
 			BackButtonEnabled = true,
+			Scrollable = true,
 			HasBackButton = true,
 			GoToNext = self.onNext,
 			GoToPrevious = self.onBack,
@@ -215,25 +222,23 @@ function AssetTypeScreen:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	AssetTypeScreen = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})(AssetTypeScreen)
-else
-	ContextServices.mapToProps(AssetTypeScreen,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+AssetTypeScreen = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	EditingItemContext = EditingItemContext,
+})(AssetTypeScreen)
+
 
 
 local function mapDispatchToProps(dispatch)
 	return {
 		SetAccessoryTypeInfo = function(info)
 			dispatch(SetAccessoryTypeInfo(info))
+		end,
+
+		SetAttachmentPoint = function(attachmentPoint)
+			dispatch(SetAttachmentPoint(attachmentPoint))
 		end,
 	}
 end

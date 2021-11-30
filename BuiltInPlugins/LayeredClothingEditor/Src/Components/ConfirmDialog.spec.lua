@@ -27,8 +27,8 @@ return function()
 				wait()
 				local screenGui = game.CoreGui["title"]
 				local solidBackground = screenGui.SolidBackground
-				local contents = solidBackground.Contents.Contents
-				local buttonContainer = solidBackground.ButtonContainer.Contents
+				local contents = solidBackground.Contents
+				local buttonContainer = solidBackground.ButtonContainer
 				local message = contents.Message
 
 				expect(screenGui).to.be.ok()

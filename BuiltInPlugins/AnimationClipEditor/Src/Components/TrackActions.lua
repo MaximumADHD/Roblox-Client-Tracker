@@ -10,7 +10,6 @@
 		bool ShowMenu = Whether to show the context menu.
 		function OnMenuOpened() = A callback for when the context menu has successfully opened.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 local FFlagDumpTrackMenu = game:DefineFastFlag("ACEDEBUGDumpTrackMenu", false)
 
 local Plugin = script.Parent.Parent.Parent
@@ -262,17 +261,12 @@ function TrackActions:willUnmount()
 	end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackActions = withContext({
-		PluginActions = ContextServices.PluginActions,
-		Analytics = ContextServices.Analytics,
-	})(TrackActions)
-else
-	ContextServices.mapToProps(TrackActions,{
-		PluginActions = ContextServices.PluginActions,
-		Analytics = ContextServices.Analytics,
-	})
-end
+
+TrackActions = withContext({
+	PluginActions = ContextServices.PluginActions,
+	Analytics = ContextServices.Analytics,
+})(TrackActions)
+
 
 local function mapStateToProps(state, props)
 	local status = state.Status

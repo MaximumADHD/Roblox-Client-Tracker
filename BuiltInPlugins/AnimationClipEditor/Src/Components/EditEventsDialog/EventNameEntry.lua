@@ -17,7 +17,6 @@
 		function OnDeleteAllEvents(string name) = A callback for when the user
 			wants to delete all the events with the given name.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local TEXTBOX_PADDING = 8
 local ICON_SIZE = 8
@@ -201,17 +200,12 @@ function EventNameEntry:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	EventNameEntry = withContext({
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})(EventNameEntry)
-else
-	ContextServices.mapToProps(EventNameEntry, {
-		Theme = ContextServices.Theme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+EventNameEntry = withContext({
+	Theme = ContextServices.Theme,
+	Mouse = ContextServices.Mouse,
+})(EventNameEntry)
+
 
 
 

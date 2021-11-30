@@ -43,18 +43,18 @@ function MeshImportDialog:render()
 	local dialogWidth = 800
 	local dialogHeight = 650
 
-	local importEnabled = props.SettingsCheckedCount ~= 0
+	local importEnabled = props.SettingsCheckedCount ~= 0 and not props.ErrorNodeChecked
 
 	return Roact.createElement(StyledDialog, {
 		Enabled = true,
 		MinContentSize = Vector2.new(dialogWidth, dialogHeight),
-		Modal = false,
+		Modal = true,
 		Resizable = true,
 		Title = props.Title,
 		Buttons = {
 			{ Key = "Cancel", Text = localization:getText("Plugin", "Cancel") },
 			{ Key = "Import", Text = localization:getText("Plugin", "Import"), Style = "RoundPrimary",
-				StyleModifier = not importEnabled and StyleModifier.Disabled or nil},
+				StyleModifier = not importEnabled and StyleModifier.Disabled or nil },
 		},
 		OnClose = props.OnClose,
 		OnButtonPressed = self.onButtonPressed,
@@ -82,7 +82,8 @@ MeshImportDialog = withContext({
 local function mapStateToProps(state)
 	return {
 		AssetSettings = state.assetSettings,
-		SettingsCheckedCount = state.settingsCheckedCount
+		SettingsCheckedCount = state.settingsCheckedCount,
+		ErrorNodeChecked = state.errorNodeChecked,
 	}
 end
 

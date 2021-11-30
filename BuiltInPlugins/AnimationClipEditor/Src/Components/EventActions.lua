@@ -31,7 +31,6 @@ local DeleteSelectedEvents = require(Plugin.Src.Thunks.Events.DeleteSelectedEven
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local EventActions = Roact.PureComponent:extend("EventActions")
 
@@ -152,15 +151,11 @@ function EventActions:willUnmount()
 	end
 end
 
-if FFlagAnimationClipEditorWithContext then
-	EventActions = withContext({
-		PluginActions = ContextServices.PluginActions,
-	})(EventActions)
-else
-	ContextServices.mapToProps(EventActions,{
-		PluginActions = ContextServices.PluginActions,
-	})
-end
+
+EventActions = withContext({
+	PluginActions = ContextServices.PluginActions,
+})(EventActions)
+
 
 
 local function mapStateToProps(state, props)

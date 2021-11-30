@@ -7,6 +7,9 @@ game:DefineFastFlag("Enable9SliceEditor", false)
 game:DefineFastFlag("9SliceEditorAllowImageReplacement", false)
 game:DefineFastFlag("9SliceEditorEnableAnalytics", false)
 game:DefineFastInt("9SliceEditorAnalyticsReportingHundrethsPercent", 0)
-
+game:DefineFastFlag("9SliceEditorNewDraggers", false)
+game:DefineFastFlag("9SliceEditorFixAnalyticsReportingThrottling", false)
+game:DefineFastFlag("9SliceEditorSaveSliceOffsets", false)
+game:DefineFastFlag("9SliceEditorDontRestoreOnDMLoad", false)
 
 return nil

@@ -142,7 +142,7 @@ return function(store)
 	store:dispatch(ExpressionEvaluated(stepStateBundle1, expressionRow1))
 
 	local i = 0
-	for _, uniqueId in ipairs({1,2,3,4,5,6,7,8,9,10,11,12}) do
+	for _, uniqueId in ipairs({1,2,3,4,5,6,7,8,9,10,11,12,14}) do
 		store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({isEnabled = (i>=6)}, uniqueId)))
 		i = i+ 1
 	end

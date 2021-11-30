@@ -6,7 +6,6 @@
 		function OnDragMoved(input) = A callback for when the user is dragging
 			this component in order to resize the track list.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local HITBOX_WIDTH = 5
 
@@ -43,15 +42,11 @@ function TrackListBorder:render()
 		})
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackListBorder = withContext({
-		Theme = ContextServices.Theme,
-	})(TrackListBorder)
-else
-	ContextServices.mapToProps(TrackListBorder, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TrackListBorder = withContext({
+	Theme = ContextServices.Theme,
+})(TrackListBorder)
+
 
 
 return TrackListBorder

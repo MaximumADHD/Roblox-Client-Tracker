@@ -8,7 +8,6 @@
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -60,17 +59,12 @@ function EditingModeFrame:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	EditingModeFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(EditingModeFrame)
-else
-	ContextServices.mapToProps(EditingModeFrame,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+EditingModeFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(EditingModeFrame)
+
 
 
 return EditingModeFrame

@@ -11,7 +11,6 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		EnumItem EditingCage: which cage on the model is currently being edited, provided by mapStateToProps
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -154,17 +153,12 @@ function DeformerDropdownMenu:render()
 	})
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	DeformerDropdownMenu = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})(DeformerDropdownMenu)
-else
-	ContextServices.mapToProps(DeformerDropdownMenu,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-	})
-end
+
+DeformerDropdownMenu = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+})(DeformerDropdownMenu)
+
 
 
 local function mapStateToProps(state, props)

@@ -32,14 +32,12 @@
 		function OnChangeBegan() = A function that is called when the user starts interacting
 			with a track before changing properties. Used to dispatch AddWaypoint for History.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
-local AnimationData = require(Plugin.Src.Util.AnimationData)
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 local SignalsContext = require(Plugin.Src.Context.Signals)
 
@@ -60,6 +58,7 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -319,8 +318,17 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 	local isPlaying = self.props.IsPlaying
 	local isChannelAnimation = animationData and animationData.Metadata and animationData.Metadata.IsChannelAnimation
 
-	local isExpandable = isChannelAnimation and (track.Components and not isEmpty(track.Components))
-		or trackType == Constants.TRACK_TYPES.CFrame
+	local isExpandable
+	if GetFFlagQuaternionChannels() then
+		if isChannelAnimation then
+			isExpandable = track.Components and not isEmpty(track.Components)
+		else
+			isExpandable = trackType == Constants.TRACK_TYPES.CFrame
+		end
+	else
+		isExpandable = isChannelAnimation and (track.Components and not isEmpty(track.Components))
+			or (trackType == Constants.TRACK_TYPES.CFrame)
+	end
 
 	local nameWidth = self.getTextWidth(name, theme)
 	local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)
@@ -550,19 +558,13 @@ function TrackList:render()
 		}, children)
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackList = withContext({
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})(TrackList)
-else
-	ContextServices.mapToProps(TrackList, {
-		Theme = ContextServices.Theme,
-		Analytics = ContextServices.Analytics,
-		Signals = SignalsContext,
-	})
-end
+
+TrackList = withContext({
+	Theme = ContextServices.Theme,
+	Analytics = ContextServices.Analytics,
+	Signals = SignalsContext,
+})(TrackList)
+
 
 
 local function mapStateToProps(state, props)

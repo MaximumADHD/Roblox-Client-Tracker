@@ -23,7 +23,6 @@
 		Instance EditingItem: layered clothes item that is editing now, which is provided via mapStateToProps.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -253,23 +252,15 @@ function Grid:didMount()
 	self.props.GetPrebuiltAssetsInfo(API, arrayOfAssetIds)
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	Grid = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		API = ContextServices.API,
-		Plugin = ContextServices.Plugin,
-		EditingItemContext = EditingItemContext,
-	})(Grid)
-else
-	ContextServices.mapToProps(Grid,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		API = ContextServices.API,
-		Plugin = ContextServices.Plugin,
-		EditingItemContext = EditingItemContext,
-	})
-end
+
+Grid = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	API = ContextServices.API,
+	Plugin = ContextServices.Plugin,
+	EditingItemContext = EditingItemContext,
+})(Grid)
+
 
 
 local function mapStateToProps(state, props)

@@ -20,7 +20,6 @@
 		function OnImportFbxRequested() = A callback for when the user wants to
 			import a new animation from FBX.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -206,19 +205,13 @@ function AnimationClipMenu:render()
 	}) or nil
 end
 
-if FFlagAnimationClipEditorWithContext then
-	AnimationClipMenu = withContext({
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Analytics = ContextServices.Analytics
-	})(AnimationClipMenu)
-else
-	ContextServices.mapToProps(AnimationClipMenu, {
-		Localization = ContextServices.Localization,
-		Plugin = ContextServices.Plugin,
-		Analytics = ContextServices.Analytics
-	})
-end
+
+AnimationClipMenu = withContext({
+	Localization = ContextServices.Localization,
+	Plugin = ContextServices.Plugin,
+	Analytics = ContextServices.Analytics
+})(AnimationClipMenu)
+
 
 
 local function mapStateToProps(state, props)

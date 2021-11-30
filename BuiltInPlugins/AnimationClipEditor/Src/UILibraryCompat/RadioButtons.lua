@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary RadioButtons component, but modified to use dev framework context
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 
 local NO_WRAP = Vector2.new(1000000, 50)
@@ -132,15 +131,11 @@ function RadioButtons:render()
 		}, children)
 end
 
-if FFlagAnimationClipEditorWithContext then
-	RadioButtons = withContext({
-		Theme = ContextServices.Theme,
-	})(RadioButtons)
-else
-	ContextServices.mapToProps(RadioButtons, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+RadioButtons = withContext({
+	Theme = ContextServices.Theme,
+})(RadioButtons)
+
 
 
 return RadioButtons

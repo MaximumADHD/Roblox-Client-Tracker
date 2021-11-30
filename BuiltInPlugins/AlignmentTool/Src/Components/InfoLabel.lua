@@ -2,7 +2,6 @@
 	A text label that spans the width of its container, and resizes vertically
 	to fit the height of wrapped text.
 ]]
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -91,15 +90,8 @@ function InfoLabel:render()
 	})
 end
 
-if FFlagAlignmentToolWithContext then
-	InfoLabel = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(InfoLabel)
-else
-	ContextServices.mapToProps(InfoLabel, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+InfoLabel = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(InfoLabel)
 
 return InfoLabel

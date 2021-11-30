@@ -10,7 +10,6 @@
 		bool ShowBackground = Whether to show a background for this track.
 		bool Selected = Whether this track is currently selected.
 ]]
-local FFlagAnimationClipEditorWithContext = game:GetFastFlag("AnimationClipEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -58,15 +57,11 @@ function TrackListEntry:render()
 		}, children)
 end
 
-if FFlagAnimationClipEditorWithContext then
-	TrackListEntry = withContext({
-		Theme = ContextServices.Theme,
-	})(TrackListEntry)
-else
-	ContextServices.mapToProps(TrackListEntry, {
-		Theme = ContextServices.Theme,
-	})
-end
+
+TrackListEntry = withContext({
+	Theme = ContextServices.Theme,
+})(TrackListEntry)
+
 
 
 return TrackListEntry

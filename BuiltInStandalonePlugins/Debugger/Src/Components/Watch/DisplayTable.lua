@@ -191,7 +191,7 @@ function DisplayTable:render()
 	local isVariablesTab = props.SelectedTab == TableTab.Variables
 	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
-		Scroll = false,  
+		Scroll = true,  
 		Size = UDim2.fromScale(1, 1),
 		Columns = isVariablesTab and variableTableColumns or watchTableColumns,
 		RootItems = props.RootItems,

@@ -7,7 +7,6 @@
 		callback OnAlignmentSpaceChanged: Called when the alignment space changes.
 		callback OnEnabledAxesChanged: Called when an axis is enabled or disabled.
 ]]
-local FFlagAlignmentToolWithContext = game:GetFastFlag("AlignmentToolWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -115,17 +114,9 @@ function AxesSettingsFragment:render()
 	})
 end
 
-if FFlagAlignmentToolWithContext then
-	AxesSettingsFragment = withContext({
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})(AxesSettingsFragment)
-else
-	ContextServices.mapToProps(AxesSettingsFragment, {
-		Localization = ContextServices.Localization,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+AxesSettingsFragment = withContext({
+	Localization = ContextServices.Localization,
+	Stylizer = ContextServices.Stylizer,
+})(AxesSettingsFragment)
 
 return AxesSettingsFragment

@@ -11,7 +11,6 @@
 		callback OnInvalidSelection: function to do when select a invalid instance
 		string InvalidSelectionWarningText: if exist, show a popup dialog with this text when select a invalid instance
 ]]
-local FFlagLayeredClothingEditorWithContext = game:GetFastFlag("LayeredClothingEditorWithContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -167,21 +166,14 @@ function InstanceSelector:willUnmount()
 	end
 end
 
-if FFlagLayeredClothingEditorWithContext then
-	InstanceSelector = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		Plugin = ContextServices.Plugin,
-	})(InstanceSelector)
-else
-	ContextServices.mapToProps(InstanceSelector,{
-		Stylizer = ContextServices.Stylizer,
-		Localization = ContextServices.Localization,
-		Mouse = ContextServices.Mouse,
-		Plugin = ContextServices.Plugin,
-	})
-end
+
+InstanceSelector = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
+	Plugin = ContextServices.Plugin,
+})(InstanceSelector)
+
 
 
 return InstanceSelector
