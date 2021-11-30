@@ -54,14 +54,14 @@ Studio.Common.Action.Search,,,Search,Search,Suchen,Buscar,Rechercher,,,検索,�
 Studio.Common.Action.Value,,,Value,Value,Wert,Valor,Valeur,,,値,값,Valor,Значение,,,,值,值,值
 Studio.Common.Action.Warning,,,Warning,Warning,Warnung,Advertencia,Avertissement,,,警告,경고,Aviso,Предупреждение,,,,警告,警告,警告
 Studio.Common.Action.Width,,,Width,Width,Breite,Ancho,Largeur,,,幅,넓이,Largura,Ширина,,,,宽度,宽度,寬度
-Studio.Common.Action.Submit,,,Submit,Submit,,Enviar,Soumettre,,,送信,제출,Enviar,Завершить,,,,提交,提交,提交
-Studio.Common.Action.Install,,,Install,Install,,Instalar,Installer,,,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
-Studio.Common.Action.Installed,,,Installed,Installed,,Instalado,Installé,,,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
-Studio.Common.Action.Loading,,,Loading...,Loading...,,Cargando...,Chargement...,,,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
-Studio.Common.Action.Resume,,,Resume,Resume,,Reanudar,Reprendre,,,再開,재개,Retomar,,,,,继续,继续,繼續
-Studio.Common.Action.Confirm,,,Confirm,Confirm,,Confirmar,Confirmer,,,確定,확인,Confirmar,,,,,确认,确认,確認
-Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,Ocultar detalles,Cacher les détails,,,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,,,,,隐藏详情,隐藏详情,隱藏詳細資料
-Studio.Common.Action.LearnMore,,,Learn More,Learn More,,Aprende más,En savoir plus,,,もっと詳しく,더 알아보기,Saiba mais,,,,,了解更多,了解更多,了解更多
-Studio.Common.Action.SelectAll,,,Select All,Select All,,Seleccionar todo,Tout sélectionner,,,すべて選択,모두 선택,Selecionar tudo,,,,,全选,全选,全選
-Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Mostrar detalles,Afficher détails,,,詳細を表示,세부 정보 표시,Exibir detalhes,,,,,显示详情,显示详情,顯示詳細資料
-Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Reportar error,Signaler un bug,,,バグを報告,버그 신고,Comunicar bug,,,,,回报问题,回报问题,舉報問題
+Studio.Common.Action.Submit,,,Submit,Submit,Submit,Enviar,Soumettre,,,送信,제출,Enviar,Завершить,,,,提交,提交,提交
+Studio.Common.Action.Install,,,Install,Install,Install,Instalar,Installer,,,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
+Studio.Common.Action.Installed,,,Installed,Installed,Installed,Instalado,Installé,,,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
+Studio.Common.Action.Loading,,,Loading...,Loading...,Loading...,Cargando...,Chargement...,,,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
+Studio.Common.Action.Resume,,,Resume,Resume,Resume,Reanudar,Reprendre,,,再開,재개,Retomar,,,,,继续,继续,繼續
+Studio.Common.Action.Confirm,,,Confirm,Confirm,Confirm,Confirmar,Confirmer,,,確定,확인,Confirmar,,,,,确认,确认,確認
+Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,Hide Details,Ocultar detalles,Cacher les détails,,,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,,,,,隐藏详情,隐藏详情,隱藏詳細資料
+Studio.Common.Action.LearnMore,,,Learn More,Learn More,Learn More,Aprende más,En savoir plus,,,もっと詳しく,더 알아보기,Saiba mais,,,,,了解更多,了解更多,了解更多
+Studio.Common.Action.SelectAll,,,Select All,Select All,Select All,Seleccionar todo,Tout sélectionner,,,すべて選択,모두 선택,Selecionar tudo,,,,,全选,全选,全選
+Studio.Common.Action.ShowDetails,,,Show Details,Show Details,Show Details,Mostrar detalles,Afficher détails,,,詳細を表示,세부 정보 표시,Exibir detalhes,,,,,显示详情,显示详情,顯示詳細資料
+Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,Report Bug,Reportar error,Signaler un bug,,,バグを報告,버그 신고,Comunicar bug,,,,,回报问题,回报问题,舉報問題

@@ -22,11 +22,10 @@
       <addaction name="fileCloseAction" style="textundericon" fflag="!StudioCloseFileToClose"/>
       <addaction name="placeCloseAction" style="textundericon" fflag="StudioCloseFileToClose"/>
       <addseparator />
-      <addaction name="fileSaveAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
-      <addaction name="fileSaveAsAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
-      <addaction name="savePlaceToRobloxAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
-      <addaction name="savePlaceToRobloxAsAction" fflag="!StudioUseNewSavePlaceWorkflow"/>
-      <addaction name="savePlaceAction"  fflag="StudioUseNewSavePlaceWorkflow"/>
+      <addaction name="fileSaveAction"/>
+      <addaction name="fileSaveAsAction"/>
+      <addaction name="savePlaceToRobloxAction"/>
+      <addaction name="savePlaceToRobloxAsAction"/>
       <addaction name="savePlaceAsAction"  fflag="StudioUseNewSavePlaceWorkflow"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>

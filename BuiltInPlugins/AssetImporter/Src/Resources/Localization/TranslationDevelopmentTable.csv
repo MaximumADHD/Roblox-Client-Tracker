@@ -3,6 +3,28 @@ Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s
 Studio.AssetImporter.AssetImportTree.Errors,error(s)
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s)
+Studio.AssetImporter.EnumItem.Back,Back
+Studio.AssetImporter.EnumItem.Bottom,Bottom
+Studio.AssetImporter.EnumItem.CM,CM
+Studio.AssetImporter.EnumItem.Custom,Custom
+Studio.AssetImporter.EnumItem.Foot,Foot
+Studio.AssetImporter.EnumItem.Front,Front
+Studio.AssetImporter.EnumItem.Inch,Inch
+Studio.AssetImporter.EnumItem.Left,Left
+Studio.AssetImporter.EnumItem.MM,MM
+Studio.AssetImporter.EnumItem.Meter,Meter
+Studio.AssetImporter.EnumItem.None,No Rig
+Studio.AssetImporter.EnumItem.R15,R15
+Studio.AssetImporter.EnumItem.Right,Right
+Studio.AssetImporter.EnumItem.Rthro,Rthro
+Studio.AssetImporter.EnumItem.RthroNarrow,Rthro Narrow
+Studio.AssetImporter.EnumItem.Stud,Stud
+Studio.AssetImporter.EnumItem.Top,Top
+Studio.AssetImporter.Error.Default,Status: {type}
+Studio.AssetImporter.Error.DefaultNoStatus,Import failed
+Studio.AssetImporter.Error.Header,Failed to open the selected file.
+Studio.AssetImporter.Error.OK,OK
+Studio.AssetImporter.Error.WindowTitle,Error
 Studio.AssetImporter.Plugin.Browse,Browse...
 Studio.AssetImporter.Plugin.Button,Import
 Studio.AssetImporter.Plugin.Cancel,Cancel
@@ -59,7 +81,8 @@ Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand
 Studio.AssetImporter.Upload.Failure,Import failed
-Studio.AssetImporter.Upload.FailureDescription,Something went wrong while uploading. Please try again.
+Studio.AssetImporter.Upload.FailureDescription,Reason:
+Studio.AssetImporter.Upload.FailureDescriptionNoError,Something went wrong. Please try again.
 Studio.AssetImporter.Upload.Success,Successfully Imported!
 Studio.AssetImporter.Upload.SuccessDescription,You may find your asset in Toolbox or Asset Manager.
 Studio.AssetImporter.Upload.Uploading,Uploading

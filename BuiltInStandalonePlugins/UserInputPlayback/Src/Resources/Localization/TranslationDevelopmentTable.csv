@@ -1,4 +1,8 @@
 Key,en-us
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.CancelButtonName,Cancel
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.EnterNameForRecordingMessage,Enter name for recording ({numBytes:int} bytes):
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.SaveButtonName,Save
+Studio.UserInputPlayback.ChooseRecordingNamePopUp.Title,Save Recording As
 Studio.UserInputPlayback.PlaybackTabView.FilterEventsLabel,Filter events:
 Studio.UserInputPlayback.PlaybackTabView.PlayButtonPlay,Play...
 Studio.UserInputPlayback.PlaybackTabView.PlayButtonReady,Ready to Play
@@ -22,7 +26,10 @@ Studio.UserInputPlayback.Plugin.Name,User Input Playback Tool
 Studio.UserInputPlayback.Plugin.PlaybackTabTitle,Playback
 Studio.UserInputPlayback.Plugin.RecordingTabTitle,Recording
 Studio.UserInputPlayback.Plugin.Toolbar,User Input
+Studio.UserInputPlayback.RecordTabView.ComputerEmulationDeviceName,computer (default)
+Studio.UserInputPlayback.RecordTabView.ComputerEmulationDeviceOrientation,Default
 Studio.UserInputPlayback.RecordTabView.CurrentRecordingDeviceLabel,Current recording device:
+Studio.UserInputPlayback.RecordTabView.DefaultRecordingName,Recording
 Studio.UserInputPlayback.RecordTabView.EmulationDeviceName,Name
 Studio.UserInputPlayback.RecordTabView.EmulationDeviceOrientation,Orientation
 Studio.UserInputPlayback.RecordTabView.EmulationDeviceResolution,Resolution

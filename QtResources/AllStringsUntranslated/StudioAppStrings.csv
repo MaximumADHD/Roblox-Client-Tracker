@@ -1491,6 +1491,8 @@ Studio.App.ScriptAnalysisWidget.NumErrorsTextFmt2,,%1 of %2 Errors,%1 of %2 Erro
 Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 Warnings
 Studio.App.ScriptAnalysisWidget.ErrorDisplayToggle,,Toggle lint error display,Toggle lint error display
 Studio.App.ScriptAnalysisWidget.WarningDisplayToggle,,Toggle lint warning display,Toggle lint warning display
+Studio.App.DocumentationView.LearnMore,,Learn more,Learn more
+Studio.App.DocumentationView.Overloads,,overloads,overloads
 Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
 Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
 Studio.App.ScriptRecoveryWidget.ViewDiff,,View Diff,View Diff
@@ -1577,7 +1579,6 @@ Studio.App.PackagesBlockingPublishDialog.Warning,,The following packages are pre
 Studio.App.PackagesBlockingPublishDialog.MessageModifiedWriteAccess,,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.,Unable to publish this place while one or more Packages have unpublished changes. Publish or undo changes to the following Packages.
 Studio.App.PackagesBlockingPublishDialog.MessageModifiedReadAccess,,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Undo the changes or get permission from the Package owner.
 Studio.App.PackagesBlockingPublishDialog.MessageModifiedNoAccess,,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.,Unable to publish this place while one or more Packages have unpublished changes. Get permission to publish changes from the Package owner.
-Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissions,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.
 Studio.App.PackagesBlockingPublishDialog.MessageInsufficientPermissionsRemovePackageLink,,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.,Unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner or remove Package link.
 Studio.App.PackagesBlockingPublishDialog.MessageStillChecking,,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.,Unable to publish this place as Studio is still checking for updates and modifications to the following packages. Please try again later.
 Studio.App.PackagesBlockingPublishDialog.MessageNoAccessOnPlaceOpen,,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.,You will be unable to publish this place as you do not have access to use one or more Packages. Get permission from the Package owner.

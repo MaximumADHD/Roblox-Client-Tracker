@@ -48,8 +48,10 @@ Studio.Debugger.Watch.Global,Global,Global,Global,グローバル,전역,Global,
 Studio.Debugger.Watch.VariablesTab,Variables,Variables,Variables,変数,변수,Variáveis,变量,变量,變數
 Studio.Debugger.Watch.WatchesTab,My Watches,My Watches,Mis inspecciones,観察中,내 조사식,Minhas observações,我的监视,我的监视,我的監看
 Studio.Debugger.Watch.NameColumn,Name,Name,Nombre,名前,이름,Nome,名称,名称,名稱
+Studio.Debugger.Common.stepIntoActionV2,Step Into,Step Into, ,ステップイン, , , , , 
 Studio.Debugger.Watch.ScopeColumn,Scope,Scope,Ámbito,範囲,범위,Escopo,域,域,範圍
 Studio.Debugger.Watch.ExpressionColumn,Expression,Expression,Expresión,式,식,Expressão,表达式,表达式,運算式
+Studio.Debugger.Common.simulationResumeActionV2,Resume,Resume, ,再開, , , , , 
 Studio.Debugger.Watch.ValueColumn,Value,Value,Valor,値,값,Valor,值,值,值
 Studio.Debugger.BreakpointsWindow.EnableLogpoint,Enable Logpoint,Enable Logpoint,Activar punto de registro,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
 Studio.Debugger.Common.EnableLogpoint,Enable Logpoint,Enable Logpoint,Activar punto de registro,ログポイントを有効化,로그 지점 활성화,Ativar ponto de registro,启用日志点,启用日志点,啟用紀錄點
@@ -67,6 +69,8 @@ Studio.Debugger.Common.EditLogpoint,Edit Logpoint,Edit Logpoint,Editar punto de 
 Studio.Debugger.BreakpointsWindow.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
 Studio.Debugger.Common.DisableLogpoint,Disable Logpoint,Disable Logpoint,Desactivar punto de registro,ログポイントを無効化,로그 지점 비활성화,Desativar ponto de registro,停用日志点,停用日志点,停用紀錄點
 Studio.Debugger.Common.EditExpression,Edit Expression,Edit Expression,Añadir expresión,式を編集,식 편집,Editar expressão,编辑表达式,编辑表达式,編輯運算式
+Studio.Debugger.Common.stepOutActionV2,Step Out,Step Out, ,ステップアウト, , , , , 
+Studio.Debugger.Common.stepOverActionV2,Step Over,Step Over, ,ステップオーバー, , , , , 
 Studio.Debugger.Callstack.AllColumns,All Columns,All Columns,Todas las columnas,すべての列,모든 열,Todas as colunas,所有列,所有列,所有行
 Studio.Debugger.Callstack.DropdownButtonText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas,{NumFields:int} 列,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行
 Studio.Debugger.Callstack.DropdownFieldText,{NumFields:int} Columns,{NumFields:int} Columns,{NumFields:int} columnas,{NumFields:int} 列,{NumFields:int} 열,{NumFields:int} Colunas,{NumFields:int} 列,{NumFields:int} 列,{NumFields:int} 行

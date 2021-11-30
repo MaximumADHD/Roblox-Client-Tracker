@@ -19,6 +19,7 @@ Studio.AnimationClipEditor.ContextMenu.EasingDirection, ,Easing Direction
 Studio.AnimationClipEditor.ContextMenu.EasingStyle, ,Easing Style
 Studio.AnimationClipEditor.ContextMenu.EditEventName, ,Edit Event Name
 Studio.AnimationClipEditor.ContextMenu.EditEvents, ,Edit Animation Event
+Studio.AnimationClipEditor.ContextMenu.GenerateCurve, ,Generate Curve
 Studio.AnimationClipEditor.ContextMenu.InterpolationMode, ,Interpolation Mode
 Studio.AnimationClipEditor.ContextMenu.PasteEvents, ,Paste Events
 Studio.AnimationClipEditor.ContextMenu.PasteKeyframes, ,Paste Keyframes
@@ -47,7 +48,6 @@ Studio.AnimationClipEditor.Dialog.Save, ,Save
 Studio.AnimationClipEditor.Dialog.SaveLocation, ,Animation will be saved to Rig > AnimSaves in Explorer
 Studio.AnimationClipEditor.Dialog.Yes, ,Yes
 Studio.AnimationClipEditor.DropdownMenu.CreateNewClip, ,Create New Clip
-Studio.AnimationClipEditor.EditorErrors.BigAnimation, ,"Animation is larger than 30 seconds. It cannot be edited, but you can play it back and export it."
 Studio.AnimationClipEditor.EditorErrors.OpenedWhileRunning, ,Animation Editor cannot be used while game is running!
 Studio.AnimationClipEditor.IKMenu.BodyPart, ,Body Part
 Studio.AnimationClipEditor.IKMenu.DisableIK, ,Disable IK
@@ -135,8 +135,10 @@ Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
 Studio.AnimationClipEditor.Title.MaxPBS, ,Maximum playback speed is 10x
+Studio.AnimationClipEditor.Title.MaxPBSParam, ,Maximum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
 Studio.AnimationClipEditor.Title.MinPBS, ,Minimum playback speed is 0.1x
+Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"
 Studio.AnimationClipEditor.Title.Parameter, ,Parameter

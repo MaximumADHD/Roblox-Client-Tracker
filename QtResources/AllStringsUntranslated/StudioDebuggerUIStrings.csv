@@ -21,3 +21,12 @@ Studio.App.BreakpointEditDialog.InvalidConditionErrorMessage1,,Operation '%1' is
 Studio.App.BreakpointEditDialog.ConditionRevertedMessage1,,Invalid breakpoint condition '%1' entered previously has been reverted. Please edit again if required.,Invalid breakpoint condition '%1' entered previously has been reverted. Please edit again if required.
 Studio.App.BreakpointEditDialog.InvalidLogExpressionErrorMessage1,,Operation '%1' is not allowed for log expression,Operation '%1' is not allowed for log expression
 Studio.App.BreakpointEditDialog.LogExpressionRevertedMessage1,,Invalid log expression '%1' entered previously has been reverted. Please edit again if required.,Invalid log expression '%1' entered previously has been reverted. Please edit again if required.
+Studio.App.DebuggerUIUtilities.Breakpoint,,Breakpoint,Breakpoint
+Studio.App.DebuggerUIUtilities.InsertBreakpoint,,Insert Breakpoint,Insert Breakpoint
+Studio.App.DebuggerUIUtilities.InsertConditionalBreakpointElps,,Insert Conditional Breakpoint...,Insert Conditional Breakpoint...
+Studio.App.DebuggerUIUtilities.InsertContextualBreakpoint,,Insert Contextual Breakpoint,Insert Contextual Breakpoint
+Studio.App.DebuggerUIUtilities.InsertLogpointElps,,Insert Logpoint...,Insert Logpoint...
+Studio.App.DebuggerUIUtilities.DeleteBreakpoint,,Delete Breakpoint,Delete Breakpoint
+Studio.App.DebuggerUIUtilities.EditBreakpointElps,,Edit Breakpoint...,Edit Breakpoint...
+Studio.App.DebuggerUIUtilities.EnableBreakpoint,,Enable Breakpoint,Enable Breakpoint
+Studio.App.DebuggerUIUtilities.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint

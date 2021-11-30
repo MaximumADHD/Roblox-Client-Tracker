@@ -2647,6 +2647,13 @@
                                 "Category": "Primitive",
                                 "Name": "bool"
                             }
+                        },
+                        {
+                            "Name": "errorMap",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
                         }
                     ],
                     "Security": "None",
@@ -13127,10 +13134,12 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
+                        "CanLoad": false,
                         "CanSave": true
                     },
                     "Tags": [
+                        "ReadOnly",
+                        "NotReplicated",
                         "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -24435,7 +24444,7 @@
                 {
                     "Category": "Appearance",
                     "MemberType": "Property",
-                    "Name": "Transparency",
+                    "Name": "GroupTransparency",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -24453,7 +24462,10 @@
             ],
             "MemoryCategory": "Gui",
             "Name": "CanvasGroup",
-            "Superclass": "GuiObject"
+            "Superclass": "GuiObject",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -41587,6 +41599,405 @@
                     }
                 },
                 {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainAsphalt",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainBasalt",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainBrick",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainCobblestone",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainConcrete",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainCrackedLava",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainGlacier",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainGrass",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainGround",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainIce",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainLeafyGrass",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainLimestone",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainMud",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainPavement",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainRock",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainSalt",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainSand",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainSandstone",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainSnow",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "Wood",
@@ -41629,8 +42040,50 @@
                     }
                 },
                 {
+                    "Category": "Material Overrides",
+                    "MemberType": "Property",
+                    "Name": "hasPropertyWarningInStudio",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "ClearOverridePartMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ClearOverrideTerrainMaterial",
                     "Parameters": [
                         {
                             "Name": "material",
@@ -41668,7 +42121,45 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetOverrideTerrainMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "material",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "Material"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetOverridePartMaterial",
+                    "Parameters": [
+                        {
+                            "Name": "materialVariant",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "MaterialVariant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetOverrideTerrainMaterial",
                     "Parameters": [
                         {
                             "Name": "materialVariant",
@@ -41734,6 +42225,24 @@
                     }
                 },
                 {
+                    "Category": "Appearance For Terrain",
+                    "MemberType": "Property",
+                    "Name": "MaterialPattern",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "MaterialPattern"
+                    }
+                },
+                {
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MetalnessMap",
@@ -41788,7 +42297,7 @@
                     }
                 },
                 {
-                    "Category": "Appearance",
+                    "Category": "Appearance For Part",
                     "MemberType": "Property",
                     "Name": "StudsPerTile",
                     "Security": {
@@ -71576,6 +72085,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "DEPRECATED_SetDocumentDisplayName",
+                    "Parameters": [
+                        {
+                            "Name": "newName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "EmitPlacePublishedSignal",
                     "Parameters": [
                     ],
@@ -71815,18 +72343,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "PromptForLocalSave",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "PublishAs",
                     "Parameters": [
                         {
@@ -71892,25 +72408,6 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetDocumentDisplayName",
-                    "Parameters": [
-                        {
-                            "Name": "newName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -72128,28 +72625,6 @@
                     "Tags": [
                         "Yields"
                     ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
-                    "Name": "FirstPublishOfCloudPlace",
-                    "Parameters": [
-                        {
-                            "Name": "universeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        },
-                        {
-                            "Name": "placeId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -82420,6 +82895,27 @@
         {
             "Members": [
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "GenerateDefaultChannel",
+                    "Security": {
+                        "Read": "PluginSecurity",
+                        "Write": "PluginSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "IsVoiceEnabledForUserIdAsync",
                     "Parameters": [
@@ -87770,6 +88266,19 @@
         {
             "Items": [
                 {
+                    "Name": "Regular",
+                    "Value": 0
+                },
+                {
+                    "Name": "Organic",
+                    "Value": 1
+                }
+            ],
+            "Name": "MaterialPattern"
+        },
+        {
+            "Items": [
+                {
                     "Name": "None",
                     "Value": 0
                 },
@@ -88361,6 +88870,10 @@
                 {
                     "Name": "Jump",
                     "Value": 1
+                },
+                {
+                    "Name": "Custom",
+                    "Value": 2
                 }
             ],
             "Name": "PathWaypointAction"
@@ -89974,344 +90487,348 @@
                     "Value": 31
                 },
                 {
-                    "Name": "Shadow",
+                    "Name": "DropShadow",
                     "Value": 32
                 },
                 {
-                    "Name": "Light",
+                    "Name": "Shadow",
                     "Value": 33
                 },
                 {
-                    "Name": "Dark",
+                    "Name": "Light",
                     "Value": 34
                 },
                 {
-                    "Name": "Mid",
+                    "Name": "Dark",
                     "Value": 35
                 },
                 {
-                    "Name": "MainText",
+                    "Name": "Mid",
                     "Value": 36
                 },
                 {
-                    "Name": "SubText",
+                    "Name": "MainText",
                     "Value": 37
                 },
                 {
-                    "Name": "TitlebarText",
+                    "Name": "SubText",
                     "Value": 38
                 },
                 {
-                    "Name": "BrightText",
+                    "Name": "TitlebarText",
                     "Value": 39
                 },
                 {
-                    "Name": "DimmedText",
+                    "Name": "BrightText",
                     "Value": 40
                 },
                 {
-                    "Name": "LinkText",
+                    "Name": "DimmedText",
                     "Value": 41
                 },
                 {
-                    "Name": "WarningText",
+                    "Name": "LinkText",
                     "Value": 42
                 },
                 {
-                    "Name": "ErrorText",
+                    "Name": "WarningText",
                     "Value": 43
                 },
                 {
-                    "Name": "InfoText",
+                    "Name": "ErrorText",
                     "Value": 44
                 },
                 {
-                    "Name": "SensitiveText",
+                    "Name": "InfoText",
                     "Value": 45
                 },
                 {
-                    "Name": "ScriptSideWidget",
+                    "Name": "SensitiveText",
                     "Value": 46
                 },
                 {
-                    "Name": "ScriptBackground",
+                    "Name": "ScriptSideWidget",
                     "Value": 47
                 },
                 {
-                    "Name": "ScriptText",
+                    "Name": "ScriptBackground",
                     "Value": 48
                 },
                 {
-                    "Name": "ScriptSelectionText",
+                    "Name": "ScriptText",
                     "Value": 49
                 },
                 {
-                    "Name": "ScriptSelectionBackground",
+                    "Name": "ScriptSelectionText",
                     "Value": 50
                 },
                 {
-                    "Name": "ScriptFindSelectionBackground",
+                    "Name": "ScriptSelectionBackground",
                     "Value": 51
                 },
                 {
-                    "Name": "ScriptMatchingWordSelectionBackground",
+                    "Name": "ScriptFindSelectionBackground",
                     "Value": 52
                 },
                 {
-                    "Name": "ScriptOperator",
+                    "Name": "ScriptMatchingWordSelectionBackground",
                     "Value": 53
                 },
                 {
-                    "Name": "ScriptNumber",
+                    "Name": "ScriptOperator",
                     "Value": 54
                 },
                 {
-                    "Name": "ScriptString",
+                    "Name": "ScriptNumber",
                     "Value": 55
                 },
                 {
-                    "Name": "ScriptComment",
+                    "Name": "ScriptString",
                     "Value": 56
                 },
                 {
-                    "Name": "ScriptKeyword",
+                    "Name": "ScriptComment",
                     "Value": 57
                 },
                 {
-                    "Name": "ScriptBuiltInFunction",
+                    "Name": "ScriptKeyword",
                     "Value": 58
                 },
                 {
-                    "Name": "ScriptWarning",
+                    "Name": "ScriptBuiltInFunction",
                     "Value": 59
                 },
                 {
-                    "Name": "ScriptError",
+                    "Name": "ScriptWarning",
                     "Value": 60
                 },
                 {
-                    "Name": "ScriptWhitespace",
+                    "Name": "ScriptError",
                     "Value": 61
                 },
                 {
-                    "Name": "ScriptRuler",
+                    "Name": "ScriptWhitespace",
                     "Value": 62
                 },
                 {
-                    "Name": "DocViewCodeBackground",
+                    "Name": "ScriptRuler",
                     "Value": 63
                 },
                 {
-                    "Name": "DebuggerCurrentLine",
+                    "Name": "DocViewCodeBackground",
                     "Value": 64
                 },
                 {
-                    "Name": "DebuggerErrorLine",
+                    "Name": "DebuggerCurrentLine",
                     "Value": 65
                 },
                 {
-                    "Name": "ScriptEditorCurrentLine",
-                    "Value": 104
-                },
-                {
-                    "Name": "DiffFilePathText",
+                    "Name": "DebuggerErrorLine",
                     "Value": 66
                 },
                 {
-                    "Name": "DiffTextHunkInfo",
-                    "Value": 67
-                },
-                {
-                    "Name": "DiffTextNoChange",
-                    "Value": 68
-                },
-                {
-                    "Name": "DiffTextAddition",
-                    "Value": 69
-                },
-                {
-                    "Name": "DiffTextDeletion",
-                    "Value": 70
-                },
-                {
-                    "Name": "DiffTextSeparatorBackground",
-                    "Value": 71
-                },
-                {
-                    "Name": "DiffTextNoChangeBackground",
-                    "Value": 72
-                },
-                {
-                    "Name": "DiffTextAdditionBackground",
-                    "Value": 73
-                },
-                {
-                    "Name": "DiffTextDeletionBackground",
-                    "Value": 74
-                },
-                {
-                    "Name": "DiffLineNum",
-                    "Value": 75
-                },
-                {
-                    "Name": "DiffLineNumSeparatorBackground",
-                    "Value": 76
-                },
-                {
-                    "Name": "DiffLineNumNoChangeBackground",
-                    "Value": 77
-                },
-                {
-                    "Name": "DiffLineNumAdditionBackground",
-                    "Value": 78
-                },
-                {
-                    "Name": "DiffLineNumDeletionBackground",
-                    "Value": 79
-                },
-                {
-                    "Name": "DiffFilePathBackground",
-                    "Value": 80
-                },
-                {
-                    "Name": "DiffFilePathBorder",
-                    "Value": 81
-                },
-                {
-                    "Name": "ChatIncomingBgColor",
-                    "Value": 82
-                },
-                {
-                    "Name": "ChatIncomingTextColor",
-                    "Value": 83
-                },
-                {
-                    "Name": "ChatOutgoingBgColor",
-                    "Value": 84
-                },
-                {
-                    "Name": "ChatOutgoingTextColor",
-                    "Value": 85
-                },
-                {
-                    "Name": "ChatModeratedMessageColor",
-                    "Value": 86
-                },
-                {
-                    "Name": "Separator",
-                    "Value": 87
-                },
-                {
-                    "Name": "ButtonBorder",
-                    "Value": 88
-                },
-                {
-                    "Name": "ButtonText",
-                    "Value": 89
-                },
-                {
-                    "Name": "InputFieldBorder",
-                    "Value": 90
-                },
-                {
-                    "Name": "CheckedFieldBackground",
-                    "Value": 91
-                },
-                {
-                    "Name": "CheckedFieldBorder",
-                    "Value": 92
-                },
-                {
-                    "Name": "CheckedFieldIndicator",
-                    "Value": 93
-                },
-                {
-                    "Name": "HeaderSection",
-                    "Value": 94
-                },
-                {
-                    "Name": "Midlight",
-                    "Value": 95
-                },
-                {
-                    "Name": "StatusBar",
-                    "Value": 96
-                },
-                {
-                    "Name": "DialogButton",
-                    "Value": 97
-                },
-                {
-                    "Name": "DialogButtonText",
-                    "Value": 98
-                },
-                {
-                    "Name": "DialogButtonBorder",
-                    "Value": 99
-                },
-                {
-                    "Name": "DialogMainButton",
-                    "Value": 100
-                },
-                {
-                    "Name": "DialogMainButtonText",
-                    "Value": 101
-                },
-                {
-                    "Name": "InfoBarWarningBackground",
-                    "Value": 102
-                },
-                {
-                    "Name": "InfoBarWarningText",
-                    "Value": 103
-                },
-                {
-                    "Name": "ScriptMethod",
+                    "Name": "ScriptEditorCurrentLine",
                     "Value": 105
                 },
                 {
-                    "Name": "ScriptProperty",
+                    "Name": "DiffFilePathText",
+                    "Value": 67
+                },
+                {
+                    "Name": "DiffTextHunkInfo",
+                    "Value": 68
+                },
+                {
+                    "Name": "DiffTextNoChange",
+                    "Value": 69
+                },
+                {
+                    "Name": "DiffTextAddition",
+                    "Value": 70
+                },
+                {
+                    "Name": "DiffTextDeletion",
+                    "Value": 71
+                },
+                {
+                    "Name": "DiffTextSeparatorBackground",
+                    "Value": 72
+                },
+                {
+                    "Name": "DiffTextNoChangeBackground",
+                    "Value": 73
+                },
+                {
+                    "Name": "DiffTextAdditionBackground",
+                    "Value": 74
+                },
+                {
+                    "Name": "DiffTextDeletionBackground",
+                    "Value": 75
+                },
+                {
+                    "Name": "DiffLineNum",
+                    "Value": 76
+                },
+                {
+                    "Name": "DiffLineNumSeparatorBackground",
+                    "Value": 77
+                },
+                {
+                    "Name": "DiffLineNumNoChangeBackground",
+                    "Value": 78
+                },
+                {
+                    "Name": "DiffLineNumAdditionBackground",
+                    "Value": 79
+                },
+                {
+                    "Name": "DiffLineNumDeletionBackground",
+                    "Value": 80
+                },
+                {
+                    "Name": "DiffFilePathBackground",
+                    "Value": 81
+                },
+                {
+                    "Name": "DiffFilePathBorder",
+                    "Value": 82
+                },
+                {
+                    "Name": "ChatIncomingBgColor",
+                    "Value": 83
+                },
+                {
+                    "Name": "ChatIncomingTextColor",
+                    "Value": 84
+                },
+                {
+                    "Name": "ChatOutgoingBgColor",
+                    "Value": 85
+                },
+                {
+                    "Name": "ChatOutgoingTextColor",
+                    "Value": 86
+                },
+                {
+                    "Name": "ChatModeratedMessageColor",
+                    "Value": 87
+                },
+                {
+                    "Name": "Separator",
+                    "Value": 88
+                },
+                {
+                    "Name": "ButtonBorder",
+                    "Value": 89
+                },
+                {
+                    "Name": "ButtonText",
+                    "Value": 90
+                },
+                {
+                    "Name": "InputFieldBorder",
+                    "Value": 91
+                },
+                {
+                    "Name": "CheckedFieldBackground",
+                    "Value": 92
+                },
+                {
+                    "Name": "CheckedFieldBorder",
+                    "Value": 93
+                },
+                {
+                    "Name": "CheckedFieldIndicator",
+                    "Value": 94
+                },
+                {
+                    "Name": "HeaderSection",
+                    "Value": 95
+                },
+                {
+                    "Name": "Midlight",
+                    "Value": 96
+                },
+                {
+                    "Name": "StatusBar",
+                    "Value": 97
+                },
+                {
+                    "Name": "DialogButton",
+                    "Value": 98
+                },
+                {
+                    "Name": "DialogButtonText",
+                    "Value": 99
+                },
+                {
+                    "Name": "DialogButtonBorder",
+                    "Value": 100
+                },
+                {
+                    "Name": "DialogMainButton",
+                    "Value": 101
+                },
+                {
+                    "Name": "DialogMainButtonText",
+                    "Value": 102
+                },
+                {
+                    "Name": "InfoBarWarningBackground",
+                    "Value": 103
+                },
+                {
+                    "Name": "InfoBarWarningText",
+                    "Value": 104
+                },
+                {
+                    "Name": "ScriptMethod",
                     "Value": 106
                 },
                 {
-                    "Name": "ScriptNil",
+                    "Name": "ScriptProperty",
                     "Value": 107
                 },
                 {
-                    "Name": "ScriptBool",
+                    "Name": "ScriptNil",
                     "Value": 108
                 },
                 {
-                    "Name": "ScriptFunction",
+                    "Name": "ScriptBool",
                     "Value": 109
                 },
                 {
-                    "Name": "ScriptLocal",
+                    "Name": "ScriptFunction",
                     "Value": 110
                 },
                 {
-                    "Name": "ScriptSelf",
+                    "Name": "ScriptLocal",
                     "Value": 111
                 },
                 {
-                    "Name": "ScriptLuauKeyword",
+                    "Name": "ScriptSelf",
                     "Value": 112
                 },
                 {
-                    "Name": "ScriptFunctionName",
+                    "Name": "ScriptLuauKeyword",
                     "Value": 113
                 },
                 {
-                    "Name": "ScriptTodo",
+                    "Name": "ScriptFunctionName",
                     "Value": 114
                 },
                 {
-                    "Name": "ScriptBracket",
+                    "Name": "ScriptTodo",
                     "Value": 115
                 },
                 {
-                    "Name": "AttributeCog",
+                    "Name": "ScriptBracket",
                     "Value": 116
+                },
+                {
+                    "Name": "AttributeCog",
+                    "Value": 117
                 }
             ],
             "Name": "StudioStyleGuideColor"

@@ -48,6 +48,7 @@ CloudsReprojectFilterFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CopyGuiVS,Vertex
+CopyUIRTVS,Vertex
 DefaultDepthFS,Fragment
 DefaultDepthVS_Level0,Vertex
 DefaultDepthVS_Level1,Vertex
@@ -56,9 +57,13 @@ DefaultDepthVS_Level6,Vertex
 DefaultDepthVS_Level4098,Vertex
 DefaultForceFieldFS,Fragment
 DefaultForceFieldHQFS_Level0,Fragment
+DefaultForceFieldHQFS_Level2,Fragment
 DefaultForceFieldHQFS_Level8,Fragment
+DefaultForceFieldHQFS_Level10,Fragment
 DefaultForceFieldHQFS_Level24,Fragment
+DefaultForceFieldHQFS_Level26,Fragment
 DefaultForceFieldHQFS_Level536,Fragment
+DefaultForceFieldHQFS_Level538,Fragment
 DefaultForceFieldHQVS_Level0,Vertex
 DefaultForceFieldHQVS_Level1,Vertex
 DefaultForceFieldHQVS_Level2,Vertex
@@ -80,9 +85,13 @@ DefaultForceFieldHQVS_Level4106,Vertex
 DefaultForceFieldHQVS_Level4122,Vertex
 DefaultForceFieldHQVS_Level4634,Vertex
 DefaultForceFieldSHQFS_Level0,Fragment
+DefaultForceFieldSHQFS_Level2,Fragment
 DefaultForceFieldSHQFS_Level8,Fragment
+DefaultForceFieldSHQFS_Level10,Fragment
 DefaultForceFieldSHQFS_Level24,Fragment
+DefaultForceFieldSHQFS_Level26,Fragment
 DefaultForceFieldSHQFS_Level536,Fragment
+DefaultForceFieldSHQFS_Level538,Fragment
 DefaultForceFieldVS_Level0,Vertex
 DefaultForceFieldVS_Level1,Vertex
 DefaultForceFieldVS_Level2,Vertex
@@ -407,6 +416,7 @@ ImageProcessLQNeonBlurFS,Fragment
 ImageProcessLQNeonFS,Fragment
 ImGuiFS,Fragment
 ImGuiVS,Vertex
+InversePremultipliedFS,Fragment
 LightGridCullCS,Compute
 LightGridDebugFS,Fragment
 LightGridPointSplatFS,Fragment
@@ -590,6 +600,8 @@ UIFSAdv,Fragment
 UIFSAdvSDBox,Fragment
 UIFSMdr,Fragment
 UIFSMdrSDBox,Fragment
+UIFSPremultiplied,Fragment
+UIFSPremultipliedSDBox,Fragment
 UILitFogFS,Fragment
 UILitFogFSSDBox,Fragment
 UILitFogFSShadowed,Fragment

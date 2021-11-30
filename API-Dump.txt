@@ -136,7 +136,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void AssetImportService:Upload() {RobloxScriptSecurity}
 	Event AssetImportService.ProgressUpdate(float progressRatio)
 	Event AssetImportService.SettingsChanged(string property)
-	Event AssetImportService.UploadFinished(bool succeeded)
+	Event AssetImportService.UploadFinished(bool succeeded, Dictionary errorMap)
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
@@ -694,7 +694,7 @@ Class LinearVelocity : Constraint
 	Property Vector3 LinearVelocity.VectorVelocity
 Class Plane : Constraint
 Class RigidConstraint : Constraint [NotBrowsable]
-	Property bool RigidConstraint.Broken [NotBrowsable]
+	Property bool RigidConstraint.Broken [ReadOnly] [NotBrowsable]
 	Property bool RigidConstraint.DestructionEnabled [NotBrowsable]
 	Property float RigidConstraint.DestructionForce [NotBrowsable]
 	Property float RigidConstraint.DestructionTorque [NotBrowsable]
@@ -1281,9 +1281,9 @@ Class GuiObject : GuiBase2d [NotCreatable] [NotBrowsable]
 	Event GuiObject.TouchRotate(Array touchPositions, float rotation, float velocity, Enum.UserInputState state)
 	Event GuiObject.TouchSwipe(Enum.SwipeDirection swipeDirection, int numberOfTouches)
 	Event GuiObject.TouchTap(Array touchPositions)
-Class CanvasGroup : GuiObject
+Class CanvasGroup : GuiObject [NotBrowsable]
 	Property Color3 CanvasGroup.GroupColor
-	Property float CanvasGroup.Transparency
+	Property float CanvasGroup.GroupTransparency
 Class Frame : GuiObject
 	Property Enum.FrameStyle Frame.Style
 Class GuiButton : GuiObject [NotCreatable] [NotBrowsable]
@@ -2220,9 +2220,32 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property MaterialVariant MaterialService.SmoothPlastic {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Wood {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainBrick {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainCobblestone {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainConcrete {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainCrackedLava {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainGlacier {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainGrass {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainGround {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainIce {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainLeafyGrass {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainLimestone {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainMud {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainPavement {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainRock {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainSalt {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainSand {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainSandstone {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainSnow {RobloxSecurity} [NotScriptable]
+	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
+	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
 	Function MaterialVariant MaterialService:GetOverridePartMaterial(Enum.Material material)
+	Function MaterialVariant MaterialService:GetOverrideTerrainMaterial(Enum.Material material)
 	Function void MaterialService:SetOverridePartMaterial(MaterialVariant materialVariant)
+	Function void MaterialService:SetOverrideTerrainMaterial(MaterialVariant materialVariant)
 Class MaterialVariant : Instance [NotBrowsable]
 	Property Enum.Material MaterialVariant.BaseMaterial {PluginSecurity}
 	Property Content MaterialVariant.ColorMap {PluginSecurity}
@@ -2230,6 +2253,7 @@ Class MaterialVariant : Instance [NotBrowsable]
 	Property Content MaterialVariant.NormalMap {PluginSecurity}
 	Property Content MaterialVariant.RoughnessMap {PluginSecurity}
 	Property float MaterialVariant.StudsPerTile
+	Property Enum.MaterialPattern MaterialVariant.MaterialPattern
 Class MemStorageConnection : Instance [NotCreatable] [NotReplicated]
 	Function void MemStorageConnection:Disconnect() {PluginSecurity}
 Class MemStorageService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3771,6 +3795,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:AnimationIdSelected(int64 id) {RobloxScriptSecurity}
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
@@ -3785,13 +3810,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginUpToDate(int64 assetId, int64 currentAssetVersion) {RobloxScriptSecurity}
 	Function void StudioService:OpenInBrowser_DONOTUSE(string url) {RobloxScriptSecurity}
-	Function void StudioService:PromptForLocalSave() {RobloxScriptSecurity}
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
-	Function void StudioService:SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
@@ -3800,7 +3823,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:TryInstallPlugin(int64 assetId, int64 assetVersionId) {RobloxScriptSecurity} [Yields]
 	Function void StudioService:UninstallPlugin(int64 assetId) {RobloxScriptSecurity}
 	Function void StudioService:UpdatePluginManagement() {RobloxScriptSecurity}
-	Event StudioService.FirstPublishOfCloudPlace(int64 universeId, int64 placeId) {RobloxScriptSecurity}
 	Event StudioService.GameNameUpdated(string name) {RobloxScriptSecurity}
 	Event StudioService.GamePublishFinished(bool success, int64 gameId) {RobloxScriptSecurity}
 	Event StudioService.OnConvertToPackageResult(bool isSuccessful, string errorMessage) {RobloxScriptSecurity}
@@ -4335,6 +4357,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
 Class VoiceChatService : Instance [NotCreatable] [Service] [Deprecated]
+	Property bool VoiceChatService.GenerateDefaultChannel {PluginSecurity} [NotBrowsable] [Deprecated]
 	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields] [Deprecated]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
@@ -5583,6 +5606,9 @@ Enum Material
 	EnumItem Material.ForceField : 1584
 	EnumItem Material.Air : 1792 [NotBrowsable]
 	EnumItem Material.Water : 2048 [NotBrowsable]
+Enum MaterialPattern
+	EnumItem MaterialPattern.Regular : 0
+	EnumItem MaterialPattern.Organic : 1
 Enum MembershipType
 	EnumItem MembershipType.None : 0
 	EnumItem MembershipType.BuildersClub : 1
@@ -5719,6 +5745,7 @@ Enum PathStatus
 Enum PathWaypointAction
 	EnumItem PathWaypointAction.Walk : 0
 	EnumItem PathWaypointAction.Jump : 1
+	EnumItem PathWaypointAction.Custom : 2
 Enum PermissionLevelShown
 	EnumItem PermissionLevelShown.Game : 0
 	EnumItem PermissionLevelShown.RobloxGame : 1
@@ -6104,91 +6131,92 @@ Enum StudioStyleGuideColor
 	EnumItem StudioStyleGuideColor.ColorPickerFrame : 29
 	EnumItem StudioStyleGuideColor.CurrentMarker : 30
 	EnumItem StudioStyleGuideColor.Border : 31
-	EnumItem StudioStyleGuideColor.Shadow : 32
-	EnumItem StudioStyleGuideColor.Light : 33
-	EnumItem StudioStyleGuideColor.Dark : 34
-	EnumItem StudioStyleGuideColor.Mid : 35
-	EnumItem StudioStyleGuideColor.MainText : 36
-	EnumItem StudioStyleGuideColor.SubText : 37
-	EnumItem StudioStyleGuideColor.TitlebarText : 38
-	EnumItem StudioStyleGuideColor.BrightText : 39
-	EnumItem StudioStyleGuideColor.DimmedText : 40
-	EnumItem StudioStyleGuideColor.LinkText : 41
-	EnumItem StudioStyleGuideColor.WarningText : 42
-	EnumItem StudioStyleGuideColor.ErrorText : 43
-	EnumItem StudioStyleGuideColor.InfoText : 44
-	EnumItem StudioStyleGuideColor.SensitiveText : 45
-	EnumItem StudioStyleGuideColor.ScriptSideWidget : 46
-	EnumItem StudioStyleGuideColor.ScriptBackground : 47
-	EnumItem StudioStyleGuideColor.ScriptText : 48
-	EnumItem StudioStyleGuideColor.ScriptSelectionText : 49
-	EnumItem StudioStyleGuideColor.ScriptSelectionBackground : 50
-	EnumItem StudioStyleGuideColor.ScriptFindSelectionBackground : 51
-	EnumItem StudioStyleGuideColor.ScriptMatchingWordSelectionBackground : 52
-	EnumItem StudioStyleGuideColor.ScriptOperator : 53
-	EnumItem StudioStyleGuideColor.ScriptNumber : 54
-	EnumItem StudioStyleGuideColor.ScriptString : 55
-	EnumItem StudioStyleGuideColor.ScriptComment : 56
-	EnumItem StudioStyleGuideColor.ScriptKeyword : 57
-	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 58
-	EnumItem StudioStyleGuideColor.ScriptWarning : 59
-	EnumItem StudioStyleGuideColor.ScriptError : 60
-	EnumItem StudioStyleGuideColor.ScriptWhitespace : 61
-	EnumItem StudioStyleGuideColor.ScriptRuler : 62
-	EnumItem StudioStyleGuideColor.DocViewCodeBackground : 63
-	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 64
-	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 65
-	EnumItem StudioStyleGuideColor.DiffFilePathText : 66
-	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 67
-	EnumItem StudioStyleGuideColor.DiffTextNoChange : 68
-	EnumItem StudioStyleGuideColor.DiffTextAddition : 69
-	EnumItem StudioStyleGuideColor.DiffTextDeletion : 70
-	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 71
-	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 72
-	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 73
-	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 74
-	EnumItem StudioStyleGuideColor.DiffLineNum : 75
-	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 76
-	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 77
-	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 78
-	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 79
-	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 80
-	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 81
-	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 82
-	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 83
-	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 84
-	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 85
-	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 86
-	EnumItem StudioStyleGuideColor.Separator : 87
-	EnumItem StudioStyleGuideColor.ButtonBorder : 88
-	EnumItem StudioStyleGuideColor.ButtonText : 89
-	EnumItem StudioStyleGuideColor.InputFieldBorder : 90
-	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 91
-	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 92
-	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 93
-	EnumItem StudioStyleGuideColor.HeaderSection : 94
-	EnumItem StudioStyleGuideColor.Midlight : 95
-	EnumItem StudioStyleGuideColor.StatusBar : 96
-	EnumItem StudioStyleGuideColor.DialogButton : 97
-	EnumItem StudioStyleGuideColor.DialogButtonText : 98
-	EnumItem StudioStyleGuideColor.DialogButtonBorder : 99
-	EnumItem StudioStyleGuideColor.DialogMainButton : 100
-	EnumItem StudioStyleGuideColor.DialogMainButtonText : 101
-	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 102
-	EnumItem StudioStyleGuideColor.InfoBarWarningText : 103
-	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 104
-	EnumItem StudioStyleGuideColor.ScriptMethod : 105
-	EnumItem StudioStyleGuideColor.ScriptProperty : 106
-	EnumItem StudioStyleGuideColor.ScriptNil : 107
-	EnumItem StudioStyleGuideColor.ScriptBool : 108
-	EnumItem StudioStyleGuideColor.ScriptFunction : 109
-	EnumItem StudioStyleGuideColor.ScriptLocal : 110
-	EnumItem StudioStyleGuideColor.ScriptSelf : 111
-	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 112
-	EnumItem StudioStyleGuideColor.ScriptFunctionName : 113
-	EnumItem StudioStyleGuideColor.ScriptTodo : 114
-	EnumItem StudioStyleGuideColor.ScriptBracket : 115
-	EnumItem StudioStyleGuideColor.AttributeCog : 116
+	EnumItem StudioStyleGuideColor.DropShadow : 32
+	EnumItem StudioStyleGuideColor.Shadow : 33
+	EnumItem StudioStyleGuideColor.Light : 34
+	EnumItem StudioStyleGuideColor.Dark : 35
+	EnumItem StudioStyleGuideColor.Mid : 36
+	EnumItem StudioStyleGuideColor.MainText : 37
+	EnumItem StudioStyleGuideColor.SubText : 38
+	EnumItem StudioStyleGuideColor.TitlebarText : 39
+	EnumItem StudioStyleGuideColor.BrightText : 40
+	EnumItem StudioStyleGuideColor.DimmedText : 41
+	EnumItem StudioStyleGuideColor.LinkText : 42
+	EnumItem StudioStyleGuideColor.WarningText : 43
+	EnumItem StudioStyleGuideColor.ErrorText : 44
+	EnumItem StudioStyleGuideColor.InfoText : 45
+	EnumItem StudioStyleGuideColor.SensitiveText : 46
+	EnumItem StudioStyleGuideColor.ScriptSideWidget : 47
+	EnumItem StudioStyleGuideColor.ScriptBackground : 48
+	EnumItem StudioStyleGuideColor.ScriptText : 49
+	EnumItem StudioStyleGuideColor.ScriptSelectionText : 50
+	EnumItem StudioStyleGuideColor.ScriptSelectionBackground : 51
+	EnumItem StudioStyleGuideColor.ScriptFindSelectionBackground : 52
+	EnumItem StudioStyleGuideColor.ScriptMatchingWordSelectionBackground : 53
+	EnumItem StudioStyleGuideColor.ScriptOperator : 54
+	EnumItem StudioStyleGuideColor.ScriptNumber : 55
+	EnumItem StudioStyleGuideColor.ScriptString : 56
+	EnumItem StudioStyleGuideColor.ScriptComment : 57
+	EnumItem StudioStyleGuideColor.ScriptKeyword : 58
+	EnumItem StudioStyleGuideColor.ScriptBuiltInFunction : 59
+	EnumItem StudioStyleGuideColor.ScriptWarning : 60
+	EnumItem StudioStyleGuideColor.ScriptError : 61
+	EnumItem StudioStyleGuideColor.ScriptWhitespace : 62
+	EnumItem StudioStyleGuideColor.ScriptRuler : 63
+	EnumItem StudioStyleGuideColor.DocViewCodeBackground : 64
+	EnumItem StudioStyleGuideColor.DebuggerCurrentLine : 65
+	EnumItem StudioStyleGuideColor.DebuggerErrorLine : 66
+	EnumItem StudioStyleGuideColor.DiffFilePathText : 67
+	EnumItem StudioStyleGuideColor.DiffTextHunkInfo : 68
+	EnumItem StudioStyleGuideColor.DiffTextNoChange : 69
+	EnumItem StudioStyleGuideColor.DiffTextAddition : 70
+	EnumItem StudioStyleGuideColor.DiffTextDeletion : 71
+	EnumItem StudioStyleGuideColor.DiffTextSeparatorBackground : 72
+	EnumItem StudioStyleGuideColor.DiffTextNoChangeBackground : 73
+	EnumItem StudioStyleGuideColor.DiffTextAdditionBackground : 74
+	EnumItem StudioStyleGuideColor.DiffTextDeletionBackground : 75
+	EnumItem StudioStyleGuideColor.DiffLineNum : 76
+	EnumItem StudioStyleGuideColor.DiffLineNumSeparatorBackground : 77
+	EnumItem StudioStyleGuideColor.DiffLineNumNoChangeBackground : 78
+	EnumItem StudioStyleGuideColor.DiffLineNumAdditionBackground : 79
+	EnumItem StudioStyleGuideColor.DiffLineNumDeletionBackground : 80
+	EnumItem StudioStyleGuideColor.DiffFilePathBackground : 81
+	EnumItem StudioStyleGuideColor.DiffFilePathBorder : 82
+	EnumItem StudioStyleGuideColor.ChatIncomingBgColor : 83
+	EnumItem StudioStyleGuideColor.ChatIncomingTextColor : 84
+	EnumItem StudioStyleGuideColor.ChatOutgoingBgColor : 85
+	EnumItem StudioStyleGuideColor.ChatOutgoingTextColor : 86
+	EnumItem StudioStyleGuideColor.ChatModeratedMessageColor : 87
+	EnumItem StudioStyleGuideColor.Separator : 88
+	EnumItem StudioStyleGuideColor.ButtonBorder : 89
+	EnumItem StudioStyleGuideColor.ButtonText : 90
+	EnumItem StudioStyleGuideColor.InputFieldBorder : 91
+	EnumItem StudioStyleGuideColor.CheckedFieldBackground : 92
+	EnumItem StudioStyleGuideColor.CheckedFieldBorder : 93
+	EnumItem StudioStyleGuideColor.CheckedFieldIndicator : 94
+	EnumItem StudioStyleGuideColor.HeaderSection : 95
+	EnumItem StudioStyleGuideColor.Midlight : 96
+	EnumItem StudioStyleGuideColor.StatusBar : 97
+	EnumItem StudioStyleGuideColor.DialogButton : 98
+	EnumItem StudioStyleGuideColor.DialogButtonText : 99
+	EnumItem StudioStyleGuideColor.DialogButtonBorder : 100
+	EnumItem StudioStyleGuideColor.DialogMainButton : 101
+	EnumItem StudioStyleGuideColor.DialogMainButtonText : 102
+	EnumItem StudioStyleGuideColor.InfoBarWarningBackground : 103
+	EnumItem StudioStyleGuideColor.InfoBarWarningText : 104
+	EnumItem StudioStyleGuideColor.ScriptEditorCurrentLine : 105
+	EnumItem StudioStyleGuideColor.ScriptMethod : 106
+	EnumItem StudioStyleGuideColor.ScriptProperty : 107
+	EnumItem StudioStyleGuideColor.ScriptNil : 108
+	EnumItem StudioStyleGuideColor.ScriptBool : 109
+	EnumItem StudioStyleGuideColor.ScriptFunction : 110
+	EnumItem StudioStyleGuideColor.ScriptLocal : 111
+	EnumItem StudioStyleGuideColor.ScriptSelf : 112
+	EnumItem StudioStyleGuideColor.ScriptLuauKeyword : 113
+	EnumItem StudioStyleGuideColor.ScriptFunctionName : 114
+	EnumItem StudioStyleGuideColor.ScriptTodo : 115
+	EnumItem StudioStyleGuideColor.ScriptBracket : 116
+	EnumItem StudioStyleGuideColor.AttributeCog : 117
 Enum StudioStyleGuideModifier
 	EnumItem StudioStyleGuideModifier.Default : 0
 	EnumItem StudioStyleGuideModifier.Selected : 1
