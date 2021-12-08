@@ -1,6 +1,7 @@
 Key,Source,en-us
 Studio.Toolbox.General.FooterBGText,Background:,Background:
 Studio.Toolbox.Common.Submit,Submit,Submit
+Studio.Toolbox.ScriptWarning.DetailText,{assetName} includes {numScripts:int} script(s).,{assetName} includes {numScripts:int} script(s).
 Studio.Toolbox.General.CategoryCreationsHats,Hats,Hats
 Studio.Toolbox.General.SearchResults,Search Results,Search Results
 Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings.","In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
@@ -54,7 +55,10 @@ My Animations,My Animations,Studio.Toolbox.General.SortByText
 Sort by:,Sort by:,Studio.Toolbox.General.CategoryRecentModels
 Recent Models,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes
 Recent Meshes,Recent Meshes,Studio.Toolbox.General.CategoryRecentAnimations
-Recent Animations,Recent Animations,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser
+Recent Animations,Recent Animations,Studio.Toolbox.General.RightClickMenuCopyAssetURI
+Copy Asset URI,Copy Asset URI,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
+Right Shoe Accessories,Right Shoe Accessories,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText
+Creator is ID verified,Creator is ID verified,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser
 Search by username,Search by username,Studio.Toolbox.General.CategoryCreationsFaceAccessory
 Face Accessories,Face Accessories,Studio.Toolbox.General.CategoryGroupModels
 Group Models,Group Models,Studio.Toolbox.General.SuggestionsBuilding
@@ -119,9 +123,7 @@ Jacket Accessories,Jacket Accessories,Studio.Toolbox.General.CategoryCreationsSw
 Sweater Accessories,Sweater Accessories,Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription
 Can use and view this package,Can use and view this package,Studio.Toolbox.General.CategoryCreationsShortsAccessory
 Shorts Accessories,Shorts Accessories,Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory
-Left Shoe Accessories,Left Shoe Accessories,Studio.Toolbox.General.RightClickMenuCopyAssetURI
-Copy Asset URI,Copy Asset URI,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
-Right Shoe Accessories,Right Shoe Accessories,Studio.Toolbox.General.CategoryMyVideos
+Left Shoe Accessories,Left Shoe Accessories,Studio.Toolbox.General.CategoryMyVideos
 My Videos,My Videos,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory
 Dress Skirt Accessories,Dress Skirt Accessories,Studio.Toolbox.AssetUploadResult.Failure
 Submission failed,Submission failed,Studio.Toolbox.General.CategoryCreationsGroupHats
@@ -173,7 +175,8 @@ Mesh,Studio.Toolbox.General.AssetTypeHat,Hat
 Hat,Studio.Toolbox.General.AssetTypeTeeShirt,T-Shirt
 T-Shirt,Studio.Toolbox.General.AssetTypeShirt,Shirt
 Shirt,Studio.Toolbox.General.AssetTypeFaceAccessory,Face Accessory
-Face Accessory,Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
+Face Accessory,Studio.Toolbox.ScriptWarning.InstructionText2,You can disable scripts by right-clicking in Explorer.
+You can disable scripts by right-clicking in Explorer.,Studio.Toolbox.General.AssetTypeNeckAccessory,Neck Accessory
 Neck Accessory,Studio.Toolbox.General.AssetTypeFrontAccessory,Front Accessory
 Front Accessory,Studio.Toolbox.General.AssetTypeBackAccessory,Back Accessory
 Back Accessory,Studio.Toolbox.General.AssetTypeShirtAccessory,Shirt Accessory
@@ -200,7 +203,8 @@ Onsale (apply to save changes),Studio.Toolbox.General.SalesOffsaleApplyToSave,Of
 Offsale (apply to save changes),Studio.Toolbox.General.SalesItemCannotBeSold,This item cannot be sold right now
 This item cannot be sold right now,Studio.Toolbox.General.SalesPrice,Price
 Price,Studio.Toolbox.General.SalesPriceRange,Price range: {minPrice} - {maxPrice}
-Price range: {minPrice} - {maxPrice},Studio.Toolbox.General.SalesEarning,You earn: {earning}
+Price range: {minPrice} - {maxPrice},Studio.Toolbox.ScriptWarning.DontShowAgain,Don't show this again.
+Don't show this again.,Studio.Toolbox.General.SalesEarning,You earn: {earning}
 You earn: {earning},Studio.Toolbox.AssetConfigFooter.Override,Overwrite an existing asset...
 Overwrite an existing asset...,Studio.Toolbox.General.SideTabVersions,Versions
 Versions,Studio.Toolbox.General.SideTabGeneral,General
@@ -271,4 +275,5 @@ Filter ID,Studio.Toolbox.General.CategoryVideos,Videos
 Videos,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try searching in the {link} on our website."
 "For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
-This plugin was created by a third party. Roblox does not guarantee its safety or quality.
+This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
+Please review the scripts to prevent unwanted changes to your experience.

@@ -74,7 +74,7 @@ Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
-Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
+Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animations
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:
@@ -158,9 +158,13 @@ Studio.AnimationClipEditor.Toast.Saved_Migrated, ,Saved animation {savedAnimName
 Studio.AnimationClipEditor.Tooltip.AddTrackButton, ,Add a new animation track
 Studio.AnimationClipEditor.Tooltip.CurrentFrameBox, ,Change scrubber time
 Studio.AnimationClipEditor.Tooltip.EndFrameBox, ,Change timeline length
+Studio.AnimationClipEditor.Tooltip.GoToFirstFrame, ,Move the scrubber to the first frame
+Studio.AnimationClipEditor.Tooltip.GoToLastFrame, ,Move the scrubber to the last frame
+Studio.AnimationClipEditor.Tooltip.Pause, ,Pause the animation [Space]
 Studio.AnimationClipEditor.Tooltip.Play, ,Preview the animation [Space]
-Studio.AnimationClipEditor.Tooltip.SkipBackward, ,Move scrubber to previous key
-Studio.AnimationClipEditor.Tooltip.SkipForward, ,Move scrubber to next key
+Studio.AnimationClipEditor.Tooltip.Reverse, ,Preview the animation in reverse
+Studio.AnimationClipEditor.Tooltip.SkipBackward, ,Move the scrubber to the previous key
+Studio.AnimationClipEditor.Tooltip.SkipForward, ,Move the scrubber to the next key
 Studio.AnimationClipEditor.Tooltip.ToggleLooping, ,Toggle looping animation
 Studio.AnimationClipEditor.RigErrors.MissingPart0,{1},The following Motor6Ds do not have a Part0 set: {1}
 Studio.AnimationClipEditor.RigErrors.MissingPart1,{1},The following Motor6Ds do not have a Part1 set: {1}

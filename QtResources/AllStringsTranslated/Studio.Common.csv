@@ -13,17 +13,17 @@ Studio.Common.Action.Exit,,,Exit,Exit,Beenden,Salir,Quitter,,,退出,나가기,S
 Studio.Common.Action.File,,,File,File,Datei,Archivo,Fichier,,,ファイル,파일,Arquivo,Файл,,,,文件,文件,檔案
 Studio.Common.Action.Find,,,Find,Find,Suchen,Buscar,Rechercher,,,探す,찾기,Localizar,Найти,,,,查找,查找,尋找
 Studio.Common.Action.Help,,,Help,Help,Hilfe,Ayuda,Aide,,,ヘルプ,도움말,Ajuda,Справка,,,,帮助,帮助,說明
-Studio.Common.Action.Home,,,Home,Home,Home,Inicio,Accueil,,,ホーム,홈,Início,Главная,,,,首页,首页,首頁
+Studio.Common.Action.Home,,,Home,Home,,Inicio,Accueil,,,ホーム,홈,Início,Главная,,,,首页,首页,首頁
 Studio.Common.Action.Ignore,,,Ignore,Ignore,Ignorieren,Ignorar,Ignorer,,,無視,무시,Ignorar,Пропустить,,,,忽略,忽略,忽略
 Studio.Common.Action.Insert,,,Insert,Insert,Einfügen,Insertar,Insérer,,,挿入,삽입,Inserir,Вставить,,,,插入,插入,插入
 Studio.Common.Action.New,,,New,New,Neu,Nuevo,Nouveau,,,新着,새로 만들기,Novo,Создать,,,,新增,新增,新增
 Studio.Common.Action.Next,,,Next,Next,Weiter,Siguiente,Suivant,,,次へ,다음,Próximo,Далее,,,,下一个,下一个,繼續
 Studio.Common.Action.No,,,No,No,Nein,No,Non,,,いいえ,아니요,Não,Нет,,,,否,否,否
-Studio.Common.Action.OK,,,OK,OK,OK,Aceptar,OK,,,OK,확인,OK,ОК,,,,确认,确认,確定
-Studio.Common.Action.Okay,,,Okay,Okay,Okay,Aceptar,OK,,,OK,확인,OK,ОК,,,,好的,好的,好
+Studio.Common.Action.OK,,,OK,OK,,Aceptar,OK,,,OK,확인,OK,ОК,,,,确认,确认,確定
+Studio.Common.Action.Okay,,,Okay,Okay,,Aceptar,OK,,,OK,확인,OK,ОК,,,,好的,好的,好
 Studio.Common.Action.Open,,,Open,Open,Öffnen,Abrir,Ouvrir,,,開く,열기,Abrir,Открыть,,,,打开,打开,開啟
 Studio.Common.Action.Paste,,,Paste,Paste,Einfügen,Pegar,Coller,,,貼り付け,붙여넣기,Colar,Вставить,,,,粘贴,粘贴,貼上
-Studio.Common.Action.Pause,,,Pause,Pause,Pause,Pausar,Pause,,,一時停止,일시 중지,Pausar,Пауза,,,,暂停,暂停,暫停
+Studio.Common.Action.Pause,,,Pause,Pause,,Pausar,Pause,,,一時停止,일시 중지,Pausar,Пауза,,,,暂停,暂停,暫停
 Studio.Common.Action.Play,,,Play,Play,Spielen,Jugar,Jouer,,,プレイ,플레이,Jogar,Воспроизвести,,,,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,Zurück,Anterior,Précédent,,,前へ,이전,Anterior,Предыдущий,,,,上一个,上一个,上一步
 Studio.Common.Action.Reload,,,Reload,Reload,Neu laden,Volver a cargar,Recharger,,,再読み込み,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
@@ -48,20 +48,20 @@ Studio.Common.Action.Move,,,Move,Move,Verschieben,Mover,Déplacer,,,移動,이�
 Studio.Common.Action.Rotate,,,Rotate,Rotate,Drehen,Girar,Pivoter,,,回転,회전,Girar,Вращать,,,,旋转,旋转,旋轉
 Studio.Common.Action.Error,,,Error,Error,Fehler,Error,Erreur,,,エラー,오류,Erro,Ошибка,,,,错误,错误,錯誤
 Studio.Common.Action.Height,,,Height,Height,Höhe,Altura,Hauteur,,,高さ,높이,Altura,Высота,,,,高度,高度,高度：
-Studio.Common.Action.LabelWithColon1,,,%1:,%1:,%1:,%1:,%1:,,,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
-Studio.Common.Action.Name,,,Name,Name,Name,Nombre,Nom,,,名前,이름,Nome,Имя,,,,名称,名称,名稱
+Studio.Common.Action.LabelWithColon1,,,%1:,%1:,,%1:,%1:,,,%1:,%1:,%1:,%1:,,,,%1,%1,%1：
+Studio.Common.Action.Name,,,Name,Name,,Nombre,Nom,,,名前,이름,Nome,Имя,,,,名称,名称,名稱
 Studio.Common.Action.Search,,,Search,Search,Suchen,Buscar,Rechercher,,,検索,검색,Pesquisar,Поиск,,,,搜索,搜索,搜尋
 Studio.Common.Action.Value,,,Value,Value,Wert,Valor,Valeur,,,値,값,Valor,Значение,,,,值,值,值
 Studio.Common.Action.Warning,,,Warning,Warning,Warnung,Advertencia,Avertissement,,,警告,경고,Aviso,Предупреждение,,,,警告,警告,警告
 Studio.Common.Action.Width,,,Width,Width,Breite,Ancho,Largeur,,,幅,넓이,Largura,Ширина,,,,宽度,宽度,寬度
-Studio.Common.Action.Submit,,,Submit,Submit,Submit,Enviar,Soumettre,,,送信,제출,Enviar,Завершить,,,,提交,提交,提交
-Studio.Common.Action.Install,,,Install,Install,Install,Instalar,Installer,,,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
-Studio.Common.Action.Installed,,,Installed,Installed,Installed,Instalado,Installé,,,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
-Studio.Common.Action.Loading,,,Loading...,Loading...,Loading...,Cargando...,Chargement...,,,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
-Studio.Common.Action.Resume,,,Resume,Resume,Resume,Reanudar,Reprendre,,,再開,재개,Retomar,,,,,继续,继续,繼續
-Studio.Common.Action.Confirm,,,Confirm,Confirm,Confirm,Confirmar,Confirmer,,,確定,확인,Confirmar,,,,,确认,确认,確認
-Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,Hide Details,Ocultar detalles,Cacher les détails,,,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,,,,,隐藏详情,隐藏详情,隱藏詳細資料
-Studio.Common.Action.LearnMore,,,Learn More,Learn More,Learn More,Aprende más,En savoir plus,,,もっと詳しく,더 알아보기,Saiba mais,,,,,了解更多,了解更多,了解更多
-Studio.Common.Action.SelectAll,,,Select All,Select All,Select All,Seleccionar todo,Tout sélectionner,,,すべて選択,모두 선택,Selecionar tudo,,,,,全选,全选,全選
-Studio.Common.Action.ShowDetails,,,Show Details,Show Details,Show Details,Mostrar detalles,Afficher détails,,,詳細を表示,세부 정보 표시,Exibir detalhes,,,,,显示详情,显示详情,顯示詳細資料
-Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,Report Bug,Reportar error,Signaler un bug,,,バグを報告,버그 신고,Comunicar bug,,,,,回报问题,回报问题,舉報問題
+Studio.Common.Action.Submit,,,Submit,Submit,,Enviar,Soumettre,,,送信,제출,Enviar,Завершить,,,,提交,提交,提交
+Studio.Common.Action.Install,,,Install,Install,,Instalar,Installer,,,インストール,설치,Instalar,Установить,,,,安装,安装,安裝
+Studio.Common.Action.Installed,,,Installed,Installed,,Instalado,Installé,,,インストール済み,설치됨,Instalado,Установлено,,,,已安装,已安装,已安裝
+Studio.Common.Action.Loading,,,Loading...,Loading...,,Cargando...,Chargement...,,,読み込み中...,불러오는 중...,Carregando...,Загрузка...,,,,正在加载...,正在加载...,正在載入……
+Studio.Common.Action.Resume,,,Resume,Resume,,Reanudar,Reprendre,,,再開,재개,Retomar,,,,,继续,继续,繼續
+Studio.Common.Action.Confirm,,,Confirm,Confirm,,Confirmar,Confirmer,,,確定,확인,Confirmar,,,,,确认,确认,確認
+Studio.Common.Action.HideDetails,,,Hide Details,Hide Details,,Ocultar detalles,Cacher les détails,,,詳細を非表示にする,세부 정보 숨기기,Ocultar detalhes,,,,,隐藏详情,隐藏详情,隱藏詳細資料
+Studio.Common.Action.LearnMore,,,Learn More,Learn More,,Aprende más,En savoir plus,,,もっと詳しく,더 알아보기,Saiba mais,,,,,了解更多,了解更多,了解更多
+Studio.Common.Action.SelectAll,,,Select All,Select All,,Seleccionar todo,Tout sélectionner,,,すべて選択,모두 선택,Selecionar tudo,,,,,全选,全选,全選
+Studio.Common.Action.ShowDetails,,,Show Details,Show Details,,Mostrar detalles,Afficher détails,,,詳細を表示,세부 정보 표시,Exibir detalhes,,,,,显示详情,显示详情,顯示詳細資料
+Studio.Common.Action.ReportBug,,,Report Bug,Report Bug,,Reportar error,Signaler un bug,,,バグを報告,버그 신고,Comunicar bug,,,,,回报问题,回报问题,舉報問題

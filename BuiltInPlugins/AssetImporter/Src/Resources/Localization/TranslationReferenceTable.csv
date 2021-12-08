@@ -16,11 +16,9 @@ Studio.AssetImporter.EnumItem.RthroNarrow,Rthro Narrow,Rthro Narrow
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand,Expand
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse,Collapse
 Studio.AssetImporter.Upload.Success,Successfully Imported!,Successfully Imported!
-Studio.AssetImporter.PropertiesTooltip.ImportAsModelAsset,Whether or not this object should have its own model uploaded,Whether or not this object should have its own model uploaded
 Studio.AssetImporter.AssetImportTree.Contains,Contains %d %s,Contains %d %s
 Studio.AssetImporter.AssetImportTree.Descendants,Descendants contain %d %s,Descendants contain %d %s
 Studio.AssetImporter.Upload.WindowTitle,Importing,Importing
-Studio.AssetImporter.Upload.FailureDescription,Something went wrong while uploading. Please try again.,Something went wrong while uploading. Please try again.
 Studio.AssetImporter.Error.DefaultNoStatus,Import failed,Import failed
 Studio.AssetImporter.Upload.Failure,Import failed,Import failed
 Studio.AssetImporter.AssetImportTree.Warnings,warning(s),warning(s)
@@ -46,18 +44,19 @@ Studio.AssetImporter.Properties.DoubleSided,Make Double Sided,Make Double Sided
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces,Invert Negative Faces
 Studio.AssetImporter.Properties.FilePath,File Path,File Path
 Studio.AssetImporter.Upload.SuccessDescription,You may find your asset in Toolbox or Asset Manager.,You may find your asset in Toolbox or Asset Manager.
+Studio.AssetImporter.PropertiesTooltip.ImportAsModelAsset,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
 Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file,The scale used when exporting the file
 Studio.AssetImporter.Properties.WorldForward,World Forward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up,World Up
 Studio.AssetImporter.Properties.ZeroOrigin,Zero Origin,Zero Origin
+Studio.AssetImporter.Properties.ImportAsModelAsset,Import Only as a Model,Import Only as a Model
+Studio.AssetImporter.Sections.AvatarGeneral,Avatar General,Avatar General
+Studio.AssetImporter.Properties.RigType,Rig Type,Rig Type
 Studio.AssetImporter.PropertiesTooltip.IgnoreVertexColors,Whether or not vertex color information should be extracted,Whether or not vertex color information should be extracted
 Studio.AssetImporter.Error.Default,Status: {type},Status: {type}
 Studio.AssetImporter.Statues.MeshScaleWarning,One of the objects dimensions are larger than can be imported,One of the objects dimensions are larger than can be imported
 Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported,One of the objects dimensions are larger than can be imported
-Studio.AssetImporter.Properties.ImportAsModelAsset,Import As Separate Asset,Import As Separate Asset
-Studio.AssetImporter.Sections.AvatarGeneral,Avatar General,Avatar General
-Studio.AssetImporter.Properties.RigType,Rig Type,Rig Type
 Studio.AssetImporter.Statues.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified,The number of triangles is greater than is supported. Object will be simplified
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified,The number of triangles is greater than is supported. Object will be simplified
 Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object,The name of the object
@@ -70,10 +69,12 @@ Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector,Th
 Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector,The file's up vector
 Studio.AssetImporter.Plugin.Close,Close,Close
 Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported,The material included with this object is currently unsupported
+Studio.AssetImporter.Upload.FailureDescription,Reason:,Reason:
 Studio.AssetImporter.Upload.Uploading,Uploading,Uploading
 Studio.AssetImporter.Error.WindowTitle,Error,Error
 Studio.AssetImporter.Error.Header,Failed to open the selected file.,Failed to open the selected file.
 Studio.AssetImporter.Error.OK,OK,OK
+Studio.AssetImporter.HttpError.OK,OK,OK
 Studio.AssetImporter.EnumItem.R15,R15,R15
 Studio.AssetImporter.EnumItem.Rthro,Rthro,Rthro
 Studio.AssetImporter.EnumItem.Custom,Custom,Custom
@@ -89,3 +90,10 @@ Studio.AssetImporter.EnumItem.CM,CM,CM
 Studio.AssetImporter.EnumItem.MM,MM,MM
 Studio.AssetImporter.EnumItem.Foot,Foot,Foot
 Studio.AssetImporter.EnumItem.Inch,Inch,Inch
+Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format,Unsupported texture file format
+Studio.AssetImporter.Upload.FailureDescriptionNoError,Something went wrong. Please try again.,Something went wrong. Please try again.
+Studio.AssetImporter.HttpError.422,Name was moderated. Please rename and try again.,Name was moderated. Please rename and try again.
+Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests - please try again later.,Upload failed. Endpoint has too many requests - please try again later.
+Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:,Upload failed. Status Code:
+Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.,Could not upload. Asset name may have been rejected by moderation.
+Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.,This rig does not follow the guidelines of chosen rig type.

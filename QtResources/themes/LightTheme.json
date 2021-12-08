@@ -1159,17 +1159,6 @@
                 "loginButtonHover": "#FF33B4FF"
             }
         }, {
-            "TwoStepVerificationPage": {
-                "boxBackground": "#FFFFFF",
-                "outerBackground": "#FFFFFF",
-                "mainText": "#191919",
-                "verificationFieldBorder": "#B8B8B8",
-                "verificationFieldFocusBorder": "#FF00A2FF",
-                "verifyButton": "#00b952",
-                "verifyButtonHover": "#3FC679",
-                "verifyButtonDisabled": "#A3E2BD"
-            }
-        }, {
             "WhatsNew": {
                 "border": "#b8b6b5",
                 "scrollBarHandle": "#efefef",

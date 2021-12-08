@@ -350,6 +350,7 @@ Class BaseWrap : Instance [NotCreatable]
 	Property CFrame BaseWrap.CageOrigin {✏️PluginSecurity}
 	Property CFrame BaseWrap.ImportOrigin {✏️PluginSecurity}
 	Property CFrame BaseWrap.CageOriginWorld [ReadOnly]
+	Property Content BaseWrap.HSRAssetId {RobloxSecurity} [NotScriptable]
 	Property CFrame BaseWrap.ImportOriginWorld [ReadOnly]
 	Function Array BaseWrap:GetFaces(Enum.CageType cageType) {RobloxScriptSecurity}
 	Function Array BaseWrap:GetVertices(Enum.CageType cageType) {RobloxScriptSecurity}
@@ -481,6 +482,7 @@ Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
 Class CSGCacheService : Instance [NotCreatable] [Service]
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
+Class HSRDataContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 	Function Dictionary MeshContentProvider:GetContentMemoryData() {RobloxScriptSecurity}
 Class SolidModelContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
@@ -693,7 +695,7 @@ Class LinearVelocity : Constraint
 	Property Vector3 LinearVelocity.SecondaryTangentAxis
 	Property Vector3 LinearVelocity.VectorVelocity
 Class Plane : Constraint
-Class RigidConstraint : Constraint [NotBrowsable]
+Class RigidConstraint : Constraint
 	Property bool RigidConstraint.Broken [ReadOnly] [NotBrowsable]
 	Property bool RigidConstraint.DestructionEnabled [NotBrowsable]
 	Property float RigidConstraint.DestructionForce [NotBrowsable]
@@ -788,6 +790,7 @@ Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 	Property int ContentProvider.RequestQueueSize [ReadOnly]
 	Function int ContentProvider:CalculateNumTrianglesInMesh(string meshId) {RobloxScriptSecurity} [Yields]
 	Function int ContentProvider:CalculateNumTrianglesInMeshSync(string meshId) {RobloxScriptSecurity}
+	Function Array ContentProvider:GetDetailedFailedRequests() {RobloxScriptSecurity}
 	Function Array ContentProvider:GetFailedRequests() {RobloxScriptSecurity}
 	Function Array ContentProvider:ListEncryptedAssets()
 	Function void ContentProvider:Preload(Content contentId) [Deprecated]
@@ -987,6 +990,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
+	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
@@ -1703,6 +1707,7 @@ Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Function void HeightmapImporterService:SetImportHeightmapPaused(bool paused) {RobloxScriptSecurity}
 	Event HeightmapImporterService.ColormapHasUnknownPixels() {RobloxScriptSecurity}
 	Event HeightmapImporterService.ProgressUpdate(float progressRatio, string operation) {RobloxScriptSecurity}
+Class HiddenSurfaceRemovalAsset : Instance
 Class Highlight : Instance
 	Property Enum.HighlightDepthMode Highlight.DepthMode
 	Property bool Highlight.Enabled
@@ -2307,6 +2312,7 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Function Array MetaBreakpoint:GetContexts() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
@@ -2722,6 +2728,11 @@ Class ParticleEmitter : Instance
 	Property Enum.ParticleEmitterShapeInOut ParticleEmitter.ShapeInOut
 	Property float ParticleEmitter.ShapePartial
 	Property Enum.ParticleEmitterShapeStyle ParticleEmitter.ShapeStyle
+	Property NumberRange ParticleEmitter.FlipbookFramerate
+	Property string ParticleEmitter.FlipbookIncompatible
+	Property Enum.ParticleFlipbookLayout ParticleEmitter.FlipbookLayout
+	Property Enum.ParticleFlipbookMode ParticleEmitter.FlipbookMode
+	Property bool ParticleEmitter.FlipbookStartRandom
 	Property Vector3 ParticleEmitter.Acceleration
 	Property float ParticleEmitter.Drag
 	Property bool ParticleEmitter.LockedToPart
@@ -3759,6 +3770,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool Studio.Show Light Guides {RobloxScriptSecurity}
 	Property bool Studio.Show Navigation Areas {RobloxScriptSecurity}
 	Property bool Studio.Show Navigation Mesh
+	Property bool Studio.Show Pathfinding Links {RobloxScriptSecurity}
 	Function Array Studio:GetAvailableThemes() {PluginSecurity}
 	Event Studio.ThemeChanged() {PluginSecurity}
 Class StudioAssetService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -3800,11 +3812,13 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetClassIcon(string className) {PluginSecurity}
+	Function bool StudioService:GetPlaceIsPersistedToCloud() {RobloxScriptSecurity}
 	Function Dictionary StudioService:GetResourceByCategory(string category) {RobloxScriptSecurity}
 	Function string StudioService:GetStartupAssetId() {RobloxScriptSecurity}
 	Function string StudioService:GetStartupPluginId() {RobloxScriptSecurity}
 	Function string StudioService:GetTermsOfUseUrl() {RobloxScriptSecurity}
 	Function int64 StudioService:GetUserId() {PluginSecurity}
+	Function bool StudioService:GetUserIsInTeamCreateToggleRamp() {RobloxScriptSecurity}
 	Function RaycastResult StudioService:GizmoRaycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {PluginSecurity}
 	Function bool StudioService:HasInternalPermission() {RobloxScriptSecurity}
 	Function bool StudioService:IsPluginInstalled(int64 assetId) {RobloxScriptSecurity}
@@ -3813,9 +3827,11 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance StudioService:PromptImportFile(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function Objects StudioService:PromptImportFiles(Array fileTypeFilter = {}) {PluginSecurity} [Yields]
 	Function void StudioService:PublishAs(int64 universeId, int64 placeId, int64 groupId) {RobloxScriptSecurity}
+	Function void StudioService:RefreshDocumentDisplayName() {RobloxScriptSecurity}
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
+	Function void StudioService:SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
@@ -3923,6 +3939,7 @@ Class TestService : Instance [Service]
 	Function bool TestService:isFeatureEnabled(string name)
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
+Class TextBoxService : Instance [NotCreatable] [Service]
 Class TextChannel : Instance
 	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
 	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
@@ -4351,14 +4368,16 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Function bool VoiceChatInternal:PublishPause(bool paused) [Deprecated]
 	Function void VoiceChatInternal:SetMicDevice(string micDeviceName, string micDeviceGuid) [Deprecated]
 	Function void VoiceChatInternal:SetSpeakerDevice(string speakerDeviceName, string speakerDeviceGuid) [Deprecated]
+	Function bool VoiceChatInternal:SubscribeBlock(int64 userId) {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:SubscribePause(int64 userId, bool paused) [Deprecated]
 	Function bool VoiceChatInternal:SubscribePauseAll(bool paused) [Deprecated]
+	Function bool VoiceChatInternal:SubscribeUnblock(int64 userId) {RobloxScriptSecurity}
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.StateChanged(Enum.VoiceChatState old, Enum.VoiceChatState new) {RobloxScriptSecurity} [Deprecated]
-Class VoiceChatService : Instance [NotCreatable] [Service] [Deprecated]
-	Property bool VoiceChatService.GenerateDefaultChannel {PluginSecurity} [NotBrowsable] [Deprecated]
-	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields] [Deprecated]
+Class VoiceChatService : Instance [NotCreatable] [Service]
+	Property bool VoiceChatService.GenerateDefaultChannel {PluginSecurity} [NotBrowsable]
+	Function bool VoiceChatService:IsVoiceEnabledForUserIdAsync(int64 userId) [Yields]
 Class VoiceSource : Instance [NotCreatable] [Deprecated]
 	Property int64 VoiceSource.UserId [ReadOnly] [Deprecated]
 Class WeldConstraint : Instance
@@ -4796,6 +4815,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectBySecurityPolicy : 281
 	EnumItem ConnectionError.DisconnectBlockedIP : 282
 	EnumItem ConnectionError.DisconnectClientFailure : 284
+	EnumItem ConnectionError.DisconnectClientRequest : 285
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -4890,6 +4910,7 @@ Enum DebuggerStatus
 	EnumItem DebuggerStatus.InvalidState : 5
 	EnumItem DebuggerStatus.RpcError : 6
 	EnumItem DebuggerStatus.InvalidArgument : 7
+	EnumItem DebuggerStatus.ConnectionClosed : 8
 Enum DevCameraOcclusionMode
 	EnumItem DevCameraOcclusionMode.Zoom : 0
 	EnumItem DevCameraOcclusionMode.Invisicam : 1
@@ -4927,19 +4948,19 @@ Enum DeveloperMemoryTag
 	EnumItem DeveloperMemoryTag.PhysicsCollision : 6
 	EnumItem DeveloperMemoryTag.PhysicsParts : 7
 	EnumItem DeveloperMemoryTag.GraphicsSolidModels : 8
-	EnumItem DeveloperMemoryTag.GraphicsMeshParts : 9
-	EnumItem DeveloperMemoryTag.GraphicsParticles : 10
-	EnumItem DeveloperMemoryTag.GraphicsParts : 11
-	EnumItem DeveloperMemoryTag.GraphicsSpatialHash : 12
-	EnumItem DeveloperMemoryTag.GraphicsTerrain : 13
-	EnumItem DeveloperMemoryTag.GraphicsTexture : 14
-	EnumItem DeveloperMemoryTag.GraphicsTextureCharacter : 15
-	EnumItem DeveloperMemoryTag.Sounds : 16
-	EnumItem DeveloperMemoryTag.StreamingSounds : 17
-	EnumItem DeveloperMemoryTag.TerrainVoxels : 18
-	EnumItem DeveloperMemoryTag.Gui : 20
-	EnumItem DeveloperMemoryTag.Animation : 21
-	EnumItem DeveloperMemoryTag.Navigation : 22
+	EnumItem DeveloperMemoryTag.GraphicsMeshParts : 10
+	EnumItem DeveloperMemoryTag.GraphicsParticles : 11
+	EnumItem DeveloperMemoryTag.GraphicsParts : 12
+	EnumItem DeveloperMemoryTag.GraphicsSpatialHash : 13
+	EnumItem DeveloperMemoryTag.GraphicsTerrain : 14
+	EnumItem DeveloperMemoryTag.GraphicsTexture : 15
+	EnumItem DeveloperMemoryTag.GraphicsTextureCharacter : 16
+	EnumItem DeveloperMemoryTag.Sounds : 17
+	EnumItem DeveloperMemoryTag.StreamingSounds : 18
+	EnumItem DeveloperMemoryTag.TerrainVoxels : 19
+	EnumItem DeveloperMemoryTag.Gui : 21
+	EnumItem DeveloperMemoryTag.Animation : 22
+	EnumItem DeveloperMemoryTag.Navigation : 23
 Enum DeviceType
 	EnumItem DeviceType.Unknown : 0
 	EnumItem DeviceType.Desktop : 1
@@ -5730,6 +5751,16 @@ Enum ParticleEmitterShapeInOut
 Enum ParticleEmitterShapeStyle
 	EnumItem ParticleEmitterShapeStyle.Volume : 0
 	EnumItem ParticleEmitterShapeStyle.Surface : 1
+Enum ParticleFlipbookLayout
+	EnumItem ParticleFlipbookLayout.None : 0
+	EnumItem ParticleFlipbookLayout.TwoByTwo : 1
+	EnumItem ParticleFlipbookLayout.FourByFour : 2
+	EnumItem ParticleFlipbookLayout.EightByEight : 3
+Enum ParticleFlipbookMode
+	EnumItem ParticleFlipbookMode.Loop : 0
+	EnumItem ParticleFlipbookMode.OneShot : 1
+	EnumItem ParticleFlipbookMode.PingPong : 2
+	EnumItem ParticleFlipbookMode.Random : 3
 Enum ParticleOrientation
 	EnumItem ParticleOrientation.FacingCamera : 0
 	EnumItem ParticleOrientation.FacingCameraWorldUp : 1

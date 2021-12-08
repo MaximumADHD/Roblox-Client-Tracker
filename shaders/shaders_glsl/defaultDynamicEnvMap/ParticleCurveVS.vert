@@ -15,6 +15,8 @@ attribute float TEXCOORD6;
 varying vec3 VARYING0;
 varying vec4 VARYING1;
 varying vec2 VARYING2;
+varying vec2 VARYING3;
+varying float VARYING4;
 
 void main()
 {
@@ -63,5 +65,7 @@ void main()
     VARYING0 = v18;
     VARYING1 = TEXCOORD3 * 0.0039215688593685626983642578125;
     VARYING2 = v22;
+    VARYING3 = v18.xy;
+    VARYING4 = 0.0;
 }
 

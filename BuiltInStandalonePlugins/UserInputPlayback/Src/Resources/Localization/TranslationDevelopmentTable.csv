@@ -14,6 +14,7 @@ Studio.UserInputPlayback.PlaybackTabView.RecordingInfoLabel,Recording info:
 Studio.UserInputPlayback.PlaybackTabView.RecordingNumberOfEvents,Number of Events
 Studio.UserInputPlayback.PlaybackTabView.RecordingOrientation,Orientation
 Studio.UserInputPlayback.PlaybackTabView.RecordingResolution,Resolution
+Studio.UserInputPlayback.PlaybackTabView.SecondsUnitAbbrevation,s
 Studio.UserInputPlayback.PlaybackTabView.SelectInputDefaultText,Choose an item...
 Studio.UserInputPlayback.PlaybackTabView.SetEmulationDeviceLabel,Set emulation device
 Studio.UserInputPlayback.PlaybackTabView.StatusMessageDisabled,Status: Can't start playback now.

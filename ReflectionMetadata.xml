@@ -1964,6 +1964,14 @@
             <double name="UIMaximum">5</double>
           </Properties>
         </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">FlipbookFramerate</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">30</double>
+            <double name="UINumTicks">100</double>
+          </Properties>
+        </Item>
       </Item>
     </Item>
 
@@ -7138,6 +7146,36 @@
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PathfindingLink</string>
+        <string name="ClassCategory">Adornments</string>
+        <string name="ExplorerOrder">210</string>
+        <string name="ExplorerImageIndex">137</string>
+      </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+          <string name="Name">Attachment0</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+          <string name="Name">Attachment1</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+          <string name="Name">ModifierId</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+          <string name="Name">IsBidirectional</string>
+          </Properties>
+        </Item>
+      </Item>
+    </Item>
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Configuration</string>
         <string name="ExplorerOrder">220</string>
         <string name="ExplorerImageIndex">58</string>
@@ -8078,79 +8116,92 @@
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Rock</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Glacier</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Snow</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Sandstone</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Mud</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Basalt</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Ground</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">CrackedLava</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Asphalt</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">LeafyGrass</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Salt</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Limestone</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
       <Item class="ReflectionMetadataEnumItem">
         <Properties>
           <string name="Name">Pavement</string>
-          <bool name="Browsable">false</bool>
+          <bool name="Browsable">true</bool>
+          <string name="FFlag">RenderMaterialVariantTerrain</string>
         </Properties>
       </Item>
     </Item>

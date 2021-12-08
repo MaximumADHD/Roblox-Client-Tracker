@@ -178,9 +178,9 @@ Studio.App.IdeDoc.ScriptExecutionStoppedByUser,Roblox IDE Doc,Script execution s
 Studio.App.IdeDoc.ScriptRunningMayBeHanging,Roblox IDE Doc,"A script has been running for a long time, and may be hanging.","A script has been running for a long time, and may be hanging."
 Studio.App.IdeDoc.Server,Roblox IDE Doc,Server,Server
 Studio.App.IdeDoc.ShutdownServer,Roblox IDE Doc (Starting servers),Shutdown Server,Shutdown Server
-Studio.App.IdeDoc.SorryPublishedPlaceCannotBeLoaded1,Roblox IDE Doc,"Sorry, this published place could not be loaded.
+Studio.App.IdeDoc.SorryPublishedPlaceCannotBeLoaded1,Roblox IDE Doc,"Sorry, this place could not be loaded.
 
-Details: ""%1""","Sorry, this published place could not be loaded.
+Details: ""%1""","Sorry, this place could not be loaded.
 
 Details: ""%1"""
 Studio.App.IdeDoc.Start,Roblox IDE Doc (Starting servers),Start,Start
@@ -284,6 +284,8 @@ Studio.App.MainWindow.UnableToConnect,Main Window,Unable to Connect,Unable to Co
 Studio.App.MainWindow.UnableToFetchUniversePermissions1,Main Window,Unable to fetch universe permissions: %1,Unable to fetch universe permissions: %1
 Studio.App.MainWindow.UnableToOpenDeletedFile1,Main Window,"Could not open the file ""%1"" because it no longer exists.","Could not open the file ""%1"" because it no longer exists."
 Studio.App.MainWindow.UnableToOpenPlace2,Main Window,"Could not open the place ""%1"" with exception: ""%2"".","Could not open the place ""%1"" with exception: ""%2""."
+Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceName2,Main Window,"We could not join the Team Create session for place ""%1"". %2","We could not join the Team Create session for place ""%1"". %2"
+Studio.App.MainWindow.UnableToJoinTeamCreateSessionForPlaceId2,Main Window,We could not join the Team Create session for place [%1]. %2,We could not join the Team Create session for place [%1]. %2
 Studio.App.MainWindow.UnableToLockFileForOpen,Main Window,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.,This file is currently in use by another Studio instance or is read-only. You will need to pick a different name in order to save changes.
 Studio.App.MainWindow.UnableToCreateAutoSaveFile1,Main Window,"Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1"".","Could not create an auto-recovery file. Please ensure that you have sufficient permissions to the path ""%1""."
 Studio.App.MainWindow.UploadingImageQuitAnyway,Main Window,Roblox is uploading an image. Quit anyway?,Roblox is uploading an image. Quit anyway?
@@ -303,7 +305,8 @@ Studio.App.MainWindow.ThirdpartyUses2,About Dialog,Uses '%1' from '%2',Uses '%1'
 Studio.App.MainWindow.StudsSuffix,, studs, studs
 Studio.App.MainWindow.DbarFatalBugNotice1,,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...,Dell Backup and Recovery verion %1 is detected. It has a bug that can cause a fatal error for Roblox Studio. Please try again after it is updated to at least version 1.9 or uninstalled. Roblox Studio will exit now...
 Studio.App.MainWindow.OpenPlaceFailureIncidentId1,Incident ID field displayed in error message dialog,Incident ID: %1,Incident ID: %1
-Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog ,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>"
+Studio.App.MainWindow.OpenPlaceFailureIncidentAndPlaceId2,Incident ID and Place ID field displayed in error message dialog,Incident ID: %1<br>Place ID: %2,Incident ID: %1<br>Place ID: %2
+Studio.App.MainWindow.OpenPlaceFailureReportToForum1,Devforum link field displayed in error message dialog ,"If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. ","If you continue to encounter this error, please report it on the <a href='%1'>Developer Forum</a>. "
 Studio.App.MainWindow.FatalErrorDialog1,"Message shown when Studio experiences an error that it can't recover from, and must exit. %1 is the message for the error that occurred.",Studio encountered an unrecoverable error and must shut down: %1,Studio encountered an unrecoverable error and must shut down: %1
 Studio.App.UIEditor.ScrollingFrame,ui editor menu,Scrolling Frame,Scrolling Frame
 Studio.App.UIEditor.TextButton,ui editor menu,Text Button,Text Button
@@ -512,6 +515,7 @@ Studio.App.LoginManager.PrivacyPolicy,,Privacy Policy,Privacy Policy
 Studio.App.LoginManager.GetUserAgreementsFailure,,Failed to get user agreements. Please try to login again or contact support if problem persists.,Failed to get user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user agreements. Please try to login again or contact support if problem persists.,Failed to accept user agreements. Please try to login again or contact support if problem persists.
 Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
+Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status. Please try to login again or contact support if problem persists.,Fail to get moderation status. Please try to login again or contact support if problem persists.
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
 Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
 Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
@@ -579,12 +583,6 @@ Studio.App.RobloxSettingsDialog.ResetSettingsTitle,,Reset Settings,Reset Setting
 Studio.App.RobloxSettingsDialog.ResetSettingsText,,Resetting settings will not take effect until you restart Roblox,Resetting settings will not take effect until you restart Roblox
 Studio.App.RobloxSettingsDialog.SettingsModificationWarning,,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>,<p>Changing settings may make Roblox unstable.</p><p>We recommend that you don't change any non-Studio settings unless instructed to do so by a Roblox engineer.</p>
 Studio.App.RobloxSettingsDialog.SettingsSearch,,Search...,Search...
-Studio.App.TwoStepVerificationPage.StartOver,,Start Over,Start Over
-Studio.App.TwoStepVerificationPage.Verify,,Verify,Verify
-Studio.App.TwoStepVerificationPage.Enter6DigitCode,,Enter 6-digit code,Enter 6-digit code
-Studio.App.TwoStepVerificationPage.TrustThisDeviceFor30Days,,Trust this device for 30 days,Trust this device for 30 days
-Studio.App.TwoStepVerificationPage.RobloxSupport,,Roblox Support,Roblox Support
-Studio.App.TwoStepVerificationPage.NeedHelpContact,,Need help? Contact ,Need help? Contact 
 Studio.App.StudioCmdService.PermissionError3,,"The current identity (%1) cannot execute command (%2), lacking permission (%3)
 ","The current identity (%1) cannot execute command (%2), lacking permission (%3)
 "
@@ -839,6 +837,10 @@ Studio.App.RBXMainWindow.ViewFindResults,,View Find results,View Find results
 Studio.App.RBXMainWindow.ViewFindReplaceWindow,,View Find/Replace Window,View Find/Replace Window
 Studio.App.RBXMainWindow.ExportSelectionElps,,Export Selection...,Export Selection...
 Studio.App.RBXMainWindow.Duplicate,,Duplicate,Duplicate
+Studio.App.RBXMainWindow.EnableScripts,,Enable Scripts,Enable Scripts
+Studio.App.RBXMainWindow.EnableScriptsTooltip,,Enable all Script and LocalScript instances,Enable all Script and LocalScript instances
+Studio.App.RBXMainWindow.DisableScripts,,Disable Scripts,Disable Scripts
+Studio.App.RBXMainWindow.DisableScriptsTooltip,,Disable all Script and LocalScript instances,Disable all Script and LocalScript instances
 Studio.App.RBXMainWindow.ExportSelection,,Export Selection,Export Selection
 Studio.App.RBXMainWindow.EnableDisableAllBreakpoints,,Enable/disable all breakpoints,Enable/disable all breakpoints
 Studio.App.RBXMainWindow.ExportAsObj,,Export as Obj,Export as Obj
@@ -1017,7 +1019,7 @@ Studio.App.RBXMainWindow.RotateToggle,,Rotate - Toggle,Rotate - Toggle
 Studio.App.RBXMainWindow.SaveAsElps,,Save As...,Save As...
 Studio.App.RBXMainWindow.ZoomTo,,Zoom to,Zoom to
 Studio.App.RBXMainWindow.ExecuteScript,,Execute Script,Execute Script
-Studio.App.RBXMainWindow.SaveTheActiveDocument,,Save the active document,Save the active document
+Studio.App.RBXMainWindow.SaveTheActivePlace,,Save the active place to the location currently open in Studio,Save the active place to the location currently open in Studio
 Studio.App.RBXMainWindow.ExecuteScriptElps,,Execute Script...,Execute Script...
 Studio.App.RBXMainWindow.SaveDocWithNewName,,Save the active document with a new name,Save the active document with a new name
 Studio.App.RBXMainWindow.FindElps,,Find...,Find...
@@ -1919,6 +1921,7 @@ Studio.App.Property.ShowRobloxPluginGUIServiceInExplorer,,Show Roblox Plugin GUI
 Studio.App.SettingsCategory.StudioVisualization,,Visualization,Visualization
 Studio.App.Property.ShowNavigationAreas,,Show Navigation Areas,Show Navigation Areas
 Studio.App.Property.ShowNavigationMesh,,Show Navigation Mesh,Show Navigation Mesh
+Studio.App.Property.ShowPathfindingLinks,,Show Pathfinding Links,Show Pathfinding Links
 Studio.App.Property.ShowLightGuides,,Show Light Guides,Show Light Guides
 Studio.App.Property.ImportPivot,,Set Pivot of Imported Parts,Set Pivot of Imported Parts
 Studio.App.SettingsHeader.Network,,Network,Network
@@ -2165,8 +2168,8 @@ Studio.App.BetaFeatures.LuauNativeVector3Title,,Native Vector3 Type,Native Vecto
 Studio.App.BetaFeatures.LuauNativeVector3Description,,Enable Luau VM built-in support for Vector3 type to improve script performance.,Enable Luau VM built-in support for Vector3 type to improve script performance.
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineTitle,,Accelerated Collision Pipeline,Accelerated Collision Pipeline
 Studio.App.BetaFeatures.AcceleratedCollisionPipelineDescription,,Enable Accelerated Collision Detection which improves collision performance for large assemblies.,Enable Accelerated Collision Detection which improves collision performance for large assemblies.
-Studio.App.BetaFeatures.DefaultSaveToCloudTitle,,Default Save to Cloud,Default Save to Cloud
-Studio.App.BetaFeatures.DefaultSaveToCloudDescription,,Allows saving games to the cloud without publishing.,Allows saving games to the cloud without publishing.
+Studio.App.BetaFeatures.ContextualSaveTitle,,Save shortcut is contextual,Save shortcut is contextual
+Studio.App.BetaFeatures.ContextualSaveDescription,,Saves the place to the location (Local or Roblox) currently open in Studio.,Saves the place to the location (Local or Roblox) currently open in Studio.
 Studio.App.BetaFeatures.TerrainQolTitle,,Terrain Quality of Life Changes,Terrain Quality of Life Changes
 Studio.App.BetaFeatures.TerrainQolDescription,,Enable various small improvements to Terrain Tools.,Enable various small improvements to Terrain Tools.
 Studio.App.BetaFeatures.ImprovedInnerBoxTitle,,Improved Inner Box Avatar Collisions,Improved Inner Box Avatar Collisions
@@ -2179,8 +2182,8 @@ Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbo
 Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
 Studio.App.BetaFeatures.PathfindingModifiersTitle,,Pathfinding Modifiers,Pathfinding Modifiers
 Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
-Studio.App.BetaFeatures.AssetImporterTitle,,Asset Importer,Asset Importer
-Studio.App.BetaFeatures.AssetImporterDescription,,Enable the new Asset Importer.,Enable the new Asset Importer.
+Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
+Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -2416,6 +2419,10 @@ Studio.App.PropertyItems.IssueImportingTexture1,Error message that displays in t
 Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
 Studio.App.PropertyItems.LogInRequired,Title of error message shown to users who try to import meshes while not logged in.,Log in required,Log in required
 Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
+Studio.App.PropertyItems.MaterialOverride.Disabled,Tooltip that displays if a MaterialOverride is set to a MaterialVariant that is not a descendant of MaterialService.,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>
+Studio.App.PropertyItems.MaterialOverride.Invalid,Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
+Studio.App.PropertyItems.MaterialOverride.Missing,Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
+Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialOverridePropertyItem.,<None>,<None>
 Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
 Studio.App.RobloxScriptDoc.LockTakenInactivity,,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,A script lock was taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
@@ -2754,6 +2761,27 @@ Studio.App.FBXMeshImporter.ContainsRiggingData,Warning message that displays if 
 Studio.App.FBXMeshImporter.MultipleMeshes,"Warning message that appears if a user tries to import a 3D mesh file that contains multiple meshes. Studio reacts to this by joining the meshes together, but this could mess up the textures of the mesh.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect.","Multiple meshes detected! The meshes were joined together, and textures may now be incorrect."
 Studio.App.FBXMeshImporter.MultipleTextures,"Warning message that appears if a user tries to import a 3D mesh that contains multiple textures. Studio only allows one of these textures, but this may result in the texture not looking correct.",Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.,Multiple textures detected! We only allow one texture per MeshPart which may now result in the mesh texture not looking correct.
 Studio.App.FBXMeshImporter.UnexpectedFileType,Error message that appears if the user tries to import a 3D FBX mesh that is not properly formatted.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.,Your file does not seem to contain a FBX mesh! Make sure the file extension is correct.
+Studio.App.FBXDynamicHeadImporter.FailureException1,Error message that displays if an internal error occurred while importing dynamic head,Failed importing dynamic head: %1,Failed importing dynamic head: %1
+Studio.App.FBXDynamicHeadImporter.Success2,Success message when importing dynamic head.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Successfully loaded FACS control data: found %1 of %2 controls,Successfully loaded FACS control data: found %1 of %2 controls
+Studio.App.FBXDynamicHeadImporter.UniqueJointNames1,"Error message when imported FBX file contains multiple joints with the same name.  ""joint"", also known as skeleton or bones, is a technical term in 3d animation that refers to a single part of a rig that can deform a 3d mesh geometry.  Please ensure the appropriate technical term for ""joint"" is used in the translation.",Found more than one joint named %1.  All joints must have unique names.,Found more than one joint named %1.  All joints must have unique names.
+Studio.App.FBXDynamicHeadImporter.Max3Correctives2,"Error message when importing FBX file.  Correctives refers to a corrective shape that is used to handle bad deformations in a rig in 3d animation.  Please ensure the appropriate technical term for ""corrective"" is used in the translation.","Failed importing dynamic head: Correctives can be for at most 3 control names.  Found %1 in ""%2""","Failed importing dynamic head: Correctives can be for at most 3 control names.  Found %1 in ""%2"""
+Studio.App.FBXDynamicHeadImporter.UnrecognizedFACS1,Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,"Failed importing dynamic head: Unrecognized FACS control name ""%1""","Failed importing dynamic head: Unrecognized FACS control name ""%1"""
+Studio.App.FBXDynamicHeadImporter.InvalidCorrective1,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","Failed importing dynamic head: Invalid corrective name ""%1"": Neutral cannot be part of a corrective","Failed importing dynamic head: Invalid corrective name ""%1"": Neutral cannot be part of a corrective"
+Studio.App.FBXDynamicHeadImporter.CorrectiveDupe2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"". Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.",Failed importing dynamic head: Found duplicate FACS control name %1 for corrective %2,Failed importing dynamic head: Found duplicate FACS control name %1 for corrective %2
+Studio.App.FBXDynamicHeadImporter.UnparseableFrameNumber1,"Frame refers to a frame of animation.  ""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data","Failed importing dynamic head: Couldn't parse the frame number in Extra Attribute named ""%1"".","Failed importing dynamic head: Couldn't parse the frame number in Extra Attribute named ""%1""."
+Studio.App.FBXDynamicHeadImporter.EmptyAttribute1,"""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data","Failed importing dynamic head: Empty value found for Extra Attribute named""%1"".","Failed importing dynamic head: Empty value found for Extra Attribute named""%1""."
+Studio.App.FBXDynamicHeadImporter.DupeControl3,"""frame"" refers to a frame of animation.  ""control"" refers to a FACS control, where FACS stands for Facial Action Coding System","Failed importing dynamic head: Duplicate control name found: ""%1"" in frame %2 and frame %3","Failed importing dynamic head: Duplicate control name found: ""%1"" in frame %2 and frame %3"
+Studio.App.FBXDynamicHeadImporter.SkipAttribute2,Warning message indicating that some key/value pair was missed.  attribute refers to a specific metadata that is attached to objects in an FBX file,Skipping attribute %1: %2,Skipping attribute %1: %2
+Studio.App.FBXDynamicHeadImporter.NoAttributes,"Error message when expected metadata is not found.  ""Head_Geo"" should not be translated as this refers to a string in the FBX file.  ""Extra Attribute"" refers to a specific data section of an FBX file that contains extra key/value pairs of data. Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.",Failed importing dynamic head: Head_Geo has no Extra Attributes that map FACS controls to animation frames.,Failed importing dynamic head: Head_Geo has no Extra Attributes that map FACS controls to animation frames.
+Studio.App.FBXDynamicHeadImporter.NoNeutral,"""frame"" refers to a frame of animation.  ""Neutral"" should not be translated as this refers to a string expected to be in the FBX file.","Failed importing dynamic head: No frame was set to ""Neutral"" in animation.","Failed importing dynamic head: No frame was set to ""Neutral"" in animation."
+Studio.App.FBXDynamicHeadImporter.MissingSupportCorrective2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","You have corrective %1, but missing corrective %2 to support it.  This may cause odd deformations.","You have corrective %1, but missing corrective %2 to support it.  This may cause odd deformations."
+Studio.App.FBXDynamicHeadImporter.MissingBase2,"Error message when importing FBX file.  ""corrective"" is a technical term that refers to a corrective shape that is used to handle bad deformation.  Please ensure the appropriate technical term is used in the translation for ""corrective"".","Failed importing dynamic head: ""%1"" has not been specified. This is needed for corrective ""%2"".","Failed importing dynamic head: ""%1"" has not been specified. This is needed for corrective ""%2""."
+Studio.App.FBXDynamicHeadImporter.MissingKeyFrame2,"Error message when importing FBX file.  ""key frame"" refers to an animation frame between which other frames are interpolated.  Please use the appropriate technical term for ""key frame"".",Failed importing dynamic head: Missing key frame %1 for %2,Failed importing dynamic head: Missing key frame %1 for %2
+Studio.App.FBXDynamicHeadImporter.MissingNeutralKeyFrame1,"Error message when importing FBX file. ""key frame"" refers to an animation frame between which other frames are interpolated.  Do not translate ""Neutral"".  This is a particular string that is expected to be in the FBX file.",Failed importing dynamic head: Missing key frame %1 for Neutral,Failed importing dynamic head: Missing key frame %1 for Neutral
+Studio.App.FBXDynamicHeadImporter.NoJoints,"Error message when importing FBX file. ""joint"", also known as skeleton or bones, is a technical term in 3d animation that refers to a single part of a rig that can deform a 3d mesh geometry.  Please ensure the appropriate technical term for ""joint"" is used in the translation.  Do not translate ""DynamicHead"" because this refers to a string expected to be in the FBX file.",Failed importing dynamic head: No joints were found under DynamicHead.,Failed importing dynamic head: No joints were found under DynamicHead.
+Studio.App.FBXDynamicHeadImporter.NearNeutral,"Warning message when importing FBX file. ""Control"" refers to a FACS control, where FACS stands for Facial Action Coding System. ""Neutral"" should not be translated as this refers to a string expected to be in the FBX file.",Control %1 is nearly identical to Neutral,Control %1 is nearly identical to Neutral
+Studio.App.FBXDynamicHeadImporter.IncompletePoses,"Warning message when importing FBX file.  ""base poses"" refers to the main facial expressions for an avatar.  ""character"" refers to the 3d avatar",Found only %1 base poses. Your character may not be able to express itself.,Found only %1 base poses. Your character may not be able to express itself.
+Studio.App.FBXDynamicHeadImporter.Unloadable,Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Could not load FACS control data,Could not load FACS control data
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
@@ -2928,6 +2956,9 @@ Files are missing or corrupted:"
 Studio.App.OSVersionWarning.MacOS109,,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.,Beginning in November 2019 we will be discontinuing support for MacOS 10.9. Please upgrade to MacOS 10.10+ to continue to use Roblox Studio.
 Studio.App.OSVersionWarning.MacOS1010,,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.,Beginning in November 2020 we will be discontinuing support for MacOS 10.10. Please upgrade to MacOS 10.11+ to continue to use Roblox Studio.
 Studio.App.OSVersionWarning.LearnMore,Appears on a popup that warns users they are using an OS version that will soon no longer be supported. Links to a page with more information.,Learn More,Learn More
+Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser.Concise,,The connection was cancelled. ,The connection was cancelled. 
+Studio.App.OpenIDEDocErr.HTTPCallFailed.Concise,,Please check that you are connected to the internet and try again. ,Please check that you are connected to the internet and try again. 
+Studio.App.OpenIDEDocErr.Others.Concise,,Please restart your application and try again. ,Please restart your application and try again. 
 Studio.App.OpenIDEDocErr.CloudEditConnectCancelledByUser,,User cancelled cloud edit connection.,User cancelled cloud edit connection.
 Studio.App.OpenIDEDocErr.HTTPCallFailed,,"User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service.","User unable to open the place. Please check that you are connected to the internet and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.OpenIDEDocErr.Others,,"Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Unable to open the place. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
@@ -3150,6 +3181,7 @@ Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do n
 Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
 Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
 Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs
+Studio.App.StartPageDocumentPanel.StartPage,,Start Page,Start Page
 Studio.App.SettingsHeader.ScriptEditor,,Script Editor,Script Editor
 Studio.App.SettingsCategory.General,,General,General
 Studio.App.SettingsCategory.Theme,,Theme,Theme
@@ -3161,3 +3193,9 @@ Studio.App.DataModelLifeCycle.CannotOpenFileForRead,Failed to open file during o
 Studio.App.DataModelLifeCycle.GameIsGoneWhileLoadingDM,Game has disappeared during the dm loading process,Game has disappeared while loading dm (client).,Game has disappeared while loading dm (client).
 Studio.App.BetaFeatures.NineSliceEditorTitle,,9-Slice Editor,9-Slice Editor
 Studio.App.BetaFeatures.NineSliceEditorDescription,,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.,A visual editor for the SliceCenter property of ImageLabels and ImageButtons.
+Studio.App.BetaFeatures.CanvasGroupTitle,,Canvas Group,Canvas Group
+Studio.App.BetaFeatures.CanvasGroupDescription,,A new UI object that renders descendants as a single layer that can be tinted and made transparent.,A new UI object that renders descendants as a single layer that can be tinted and made transparent.
+Studio.App.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Links
+Studio.App.BetaFeatures.PathfindingLinksDescription,,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.
+Studio.App.BetaFeatures.CurveAnimationsTitle,,Channel Animations,Channel Animations
+Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animations with new curve-based format in the Animation Clip Editor.,Enable single-channel animations with new curve-based format in the Animation Clip Editor.

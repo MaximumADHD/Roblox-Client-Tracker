@@ -26,7 +26,6 @@
       <addaction name="fileSaveAsAction"/>
       <addaction name="savePlaceToRobloxAction"/>
       <addaction name="savePlaceToRobloxAsAction"/>
-      <addaction name="savePlaceAsAction"  fflag="StudioUseNewSavePlaceWorkflow"/>
       <addaction name="publishToRobloxAction"/>
       <addaction name="publishToRobloxAsAction"/>
       <addaction name="downloadPlaceCopyAction"/>

@@ -13,11 +13,13 @@ in vec3 VARYING0;
 in vec4 VARYING1;
 in vec2 VARYING2;
 in vec4 VARYING3;
+in vec2 VARYING4;
+in float VARYING5;
 out vec4 _entryPointOutput;
 
 void main()
 {
-    vec4 f0 = texture(texTexture, VARYING0.xy);
+    vec4 f0 = mix(texture(texTexture, VARYING0.xy), texture(texTexture, VARYING4), vec4(VARYING5));
     vec3 f1 = (f0.xyz * VARYING1.xyz).xyz;
     vec4 f2 = texture(LightingAtlasTexture, VARYING2);
     vec3 f3 = (f1 * f1).xyz;

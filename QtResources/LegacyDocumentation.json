@@ -722,6 +722,23 @@
                 }
             }
         },
+        "PathfindingLink": {
+            "summary": "Pathfinding link can be used to connect areas in the place which otherwise are unconnected.",
+            "members": {
+                "Attachment0": {
+                    "summary": "The Attachment instance which is the source of the link."
+                },
+                "Attachment1": {
+                    "summary": "The Attachment instance which is the destination of the link."
+                },
+                "ModifierId": {
+                    "summary": "The link identifier used to set a cost for the link when calling PathfindingService:CreatePath."
+                },
+                "IsBidirectional": {
+                    "summary": "Specifies if the link is bidirectional; default is true."
+                }
+            }
+        },
         "Sparkles": {
             "summary": "Makes the parent part or model object fantastic"
         },

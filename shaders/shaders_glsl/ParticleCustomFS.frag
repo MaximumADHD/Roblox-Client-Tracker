@@ -11,10 +11,12 @@ uniform sampler2D texTexture;
 varying vec3 VARYING0;
 varying vec4 VARYING1;
 varying vec2 VARYING2;
+varying vec2 VARYING3;
+varying float VARYING4;
 
 void main()
 {
-    vec4 f0 = texture2D(texTexture, VARYING0.xy);
+    vec4 f0 = mix(texture2D(texTexture, VARYING0.xy), texture2D(texTexture, VARYING3), vec4(VARYING4));
     vec3 f1 = (f0.xyz * VARYING1.xyz).xyz;
     vec4 f2 = texture2D(LightingAtlasTexture, VARYING2);
     vec3 f3 = (f1 * f1).xyz;

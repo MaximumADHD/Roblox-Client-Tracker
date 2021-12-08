@@ -13,10 +13,13 @@ in vec2 TEXCOORD2;
 in vec4 TEXCOORD3;
 in vec2 TEXCOORD4;
 in float TEXCOORD6;
+in vec3 TEXCOORD7;
 out vec3 VARYING0;
 out vec4 VARYING1;
 out vec2 VARYING2;
 out vec4 VARYING3;
+out vec2 VARYING4;
+out float VARYING5;
 
 void main()
 {
@@ -109,10 +112,25 @@ void main()
     vec2 v33 = (TEXCOORD4 + ((TEXCOORD2 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
     vec2 v34 = v33;
     v34.y = 1.0 - v33.y;
+    vec2 v35 = CB1[3].zw * vec2(0.015625);
+    vec2 v36 = vec2(1.0) / CB1[3].zw;
+    vec2 v37 = clamp(v26.xy, v35, vec2(1.0) - v35).xy * v36;
+    float v38 = v36.x;
+    vec3 v39 = vec3(v37.x, v37.y, v26.z);
+    v39.x = v37.x + (mod(TEXCOORD7.x, CB1[3].z) * v38);
+    float v40 = v36.y;
+    vec3 v41 = v39;
+    v41.y = v37.y + (floor(TEXCOORD7.x / CB1[3].z) * v40);
+    vec2 v42 = v37.xy;
+    v42.x = v37.x + (mod(TEXCOORD7.y, CB1[3].z) * v38);
+    vec2 v43 = v42;
+    v43.y = v37.y + (floor(TEXCOORD7.y / CB1[3].z) * v40);
     gl_Position = v28;
-    VARYING0 = v26;
+    VARYING0 = v41;
     VARYING1 = TEXCOORD3 * 0.0039215688593685626983642578125;
     VARYING2 = v34;
     VARYING3 = v32;
+    VARYING4 = v43;
+    VARYING5 = TEXCOORD7.z;
 }
 

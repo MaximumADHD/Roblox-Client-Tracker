@@ -16,6 +16,8 @@ out vec3 VARYING0;
 out vec4 VARYING1;
 out vec2 VARYING2;
 out vec4 VARYING3;
+out vec2 VARYING4;
+out float VARYING5;
 
 void main()
 {
@@ -71,5 +73,7 @@ void main()
     VARYING1 = TEXCOORD3 * 0.0039215688593685626983642578125;
     VARYING2 = v26;
     VARYING3 = v24;
+    VARYING4 = v18.xy;
+    VARYING5 = 0.0;
 }
 

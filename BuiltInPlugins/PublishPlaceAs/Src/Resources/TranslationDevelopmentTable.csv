@@ -97,3 +97,6 @@ Studio.PublishPlaceAs.OptInLocations.ErrorEmailNotEqual,The emails you have ente
 Studio.PublishPlaceAs.OptInLocations.EmailAddress,Email address, ,Email address
 Studio.PublishPlaceAs.OptInLocations.ConfirmEmailAddress,Confirm email address, ,Confirm email address
 Studio.PublishPlaceAs.OptInLocations.EmailSubmitFailure,Failed to submit email for review feedback. Opt-In locations have not been updated. Please go to Game Settings to update Opt-In locations., ,Failed to submit email for review feedback. Opt-In locations have not been updated. Please go to Game Settings to update Opt-In locations.
+Studio.PublishPlaceAs.TeamCreate.Title,Team Create, ,Team Create
+Studio.PublishPlaceAs.TeamCreate.LinkDescription,Enables collaboration and autosave to cloud [link]  , ,Enables collaboration and autosave to cloud [link]  
+Studio.PublishPlaceAs.TeamCreate.LinkText,Learn More, ,Learn more
