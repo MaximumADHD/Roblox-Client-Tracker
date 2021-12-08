@@ -12,7 +12,6 @@
 		PreviewTitle : string
 			Title to use on the expanded preview window
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -107,15 +106,11 @@ function LocalImageSelector:render()
 	return Roact.createElement(PromptSelectorWithPreview, newProps)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	LocalImageSelector = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(LocalImageSelector)
-else
-	ContextServices.mapToProps(LocalImageSelector, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+LocalImageSelector = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(LocalImageSelector)
+
 
 
 return LocalImageSelector

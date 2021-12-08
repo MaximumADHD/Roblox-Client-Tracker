@@ -16,10 +16,6 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 local computeDraggedDistance = require(DraggerFramework.Utility.computeDraggedDistance)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
-local getFFlagFixDraggerMovingInWrongDirection = require(DraggerFramework.Flags.getFFlagFixDraggerMovingInWrongDirection)
-
 local ALWAYS_ON_TOP = true
 
 local MoveHandles = {}
@@ -66,7 +62,7 @@ end
 
 function MoveHandles:update(draggerToolModel, selectionInfo)
 	if not self._draggingHandleId then
-		if getFFlagSummonPivot() and not self._tabKeyDown then
+		if not self._tabKeyDown then
 			self:_endSummon()
 		end
 
@@ -156,13 +152,8 @@ function MoveHandles:render(hoveredHandleId)
 			end
 		end
 
-		if getFFlagSummonPivot() then
-			children.ImplementationRendered =
-				self._implementation:render(self._lastGlobalTransformForRender)
-		else
-			children.ImplementationRendered =
-				self._implementation:render(self._boundingBox.CFrame * self:_getBasisOffset())
-		end
+		children.ImplementationRendered =
+			self._implementation:render(self._lastGlobalTransformForRender)
 	else
 		for handleId, handleProps in pairs(self._handles) do
 			local color = handleProps.Color
@@ -192,7 +183,7 @@ function MoveHandles:render(hoveredHandleId)
 		})
 	end
 
-	if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() and self._props.Summonable then
+	if getEngineFeatureModelPivotVisual() and self._props.Summonable then
 		if self._summonBasisOffset then
 			children.SummonedPivot = Roact.createElement(DraggedPivot, {
 				DraggerContext = self._draggerContext,
@@ -255,14 +246,7 @@ function MoveHandles:_setupMoveAtCurrentBoundingBox(mouseRay)
 	self._axis = axis
 
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
-	if getFFlagFixDraggerMovingInWrongDirection() then
-		self._startDistance = hasDistance and distance or 0.0
-	else
-		-- In order to hitTest true in the first place it has to not be parallel
-		-- and thus have a distance here.
-		assert(hasDistance)
-		self._startDistance = distance
-	end
+	self._startDistance = hasDistance and distance or 0.0
 	self._lastGlobalTransformForRender = CFrame.new()
 end
 
@@ -274,26 +258,13 @@ end
 	Returns the distance the mouse cursor was dragged along handle axis
 ]]
 function MoveHandles:_getDistanceAlongAxis(mouseRay)
-	-- this flag fixes issue MOD-602
-	if getFFlagFixDraggerMovingInWrongDirection() then
-		local draggedFrame = self._draggingOriginalBoundingBoxCFrame
-		if getEngineFeatureModelPivotVisual() then
-			draggedFrame = draggedFrame * self:_getBasisOffset()
-		end
-		local dragStartPosition = draggedFrame.Position
-		local dragDirection = self._axis.Unit
-		return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
-	else
-		if getEngineFeatureModelPivotVisual() then
-			return Math.intersectRayRay(
-				(self._draggingOriginalBoundingBoxCFrame * self:_getBasisOffset()).Position, self._axis,
-				mouseRay.Origin, mouseRay.Direction.Unit)
-		else
-			return Math.intersectRayRay(
-				self._draggingOriginalBoundingBoxCFrame.Position, self._axis,
-				mouseRay.Origin, mouseRay.Direction.Unit)
-		end
+	local draggedFrame = self._draggingOriginalBoundingBoxCFrame
+	if getEngineFeatureModelPivotVisual() then
+		draggedFrame = draggedFrame * self:_getBasisOffset()
 	end
+	local dragStartPosition = draggedFrame.Position
+	local dragDirection = self._axis.Unit
+	return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
 end
 
 
@@ -314,7 +285,7 @@ end
 function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 	local EngineFeatureModelPivotVisual = getEngineFeatureModelPivotVisual()
 
-	-- vvvv TODO mlangen: Remove with FFlagSummonPivot
+	-- vvvv TODO mlangen: Remove with EngineFeatureModelPivotVisual
 	local offsetDueToBoundingBox
 	local offsetInHandleSpace
 	if EngineFeatureModelPivotVisual then
@@ -331,7 +302,7 @@ function MoveHandles:_solveForAdjustedDistance(unadjustedDistance)
 			self._draggingOriginalBoundingBoxCFrame +
 			self._axis * (distance - self._startDistance)
 		local baseCFrameAtDistance
-		if EngineFeatureModelPivotVisual and getFFlagSummonPivot() then
+		if EngineFeatureModelPivotVisual then
 			baseCFrameAtDistance = boundingBoxAtDistance * self:_getBasisOffset() * handleRotation
 		else
 			baseCFrameAtDistance =
@@ -483,7 +454,7 @@ function MoveHandles:mouseUp(mouseRay)
 	self._draggingHandleId = nil
 	local newSelectionInfoHint = self._implementation:endDrag()
 	self._schema.addUndoWaypoint(self._draggerContext, "Axis Move Selection")
-	if getFFlagSummonPivot() and not self._tabKeyDown then
+	if not self._tabKeyDown then
 		self:_endSummon()
 	end
 	return newSelectionInfoHint
@@ -495,34 +466,15 @@ function MoveHandles:_updateHandles()
 	else
 		for handleId, handleDef in pairs(MoveHandleDefinitions) do
 			if getEngineFeatureModelPivotVisual() then
-				if getFFlagSummonPivot() then
-					local handleBaseCFrame =
-						self._boundingBox.CFrame * self:_getBasisOffset() * handleDef.Offset
-					self._handles[handleId] = {
-						Outset = self._props.Outset,
-						Axis = handleBaseCFrame,
-						Color = handleDef.Color,
-						Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
-						AlwaysOnTop = ALWAYS_ON_TOP,
-					}
-				else
-					local inverseHandleCFrame = handleDef.Offset:Inverse()
-					local localPosition = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
-					local offsetDueToBoundingBox = -localPosition.Z
-					local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
-					local offsetInHandleSpace =
-						CFrame.new(offsetDueToBasisOffset.X, offsetDueToBasisOffset.Y, -offsetDueToBoundingBox)
-					local handleBaseCFrame =
-						self._boundingBox.CFrame * handleDef.Offset * offsetInHandleSpace
-					self._handles[handleId] = {
-						OffsetInHandleSpace = offsetInHandleSpace,
-						Outset = self._props.Outset,
-						Axis = handleBaseCFrame,
-						Color = handleDef.Color,
-						Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
-						AlwaysOnTop = ALWAYS_ON_TOP,
-					}
-				end
+				local handleBaseCFrame =
+					self._boundingBox.CFrame * self:_getBasisOffset() * handleDef.Offset
+				self._handles[handleId] = {
+					Outset = self._props.Outset,
+					Axis = handleBaseCFrame,
+					Color = handleDef.Color,
+					Scale = self._draggerContext:getHandleScale(handleBaseCFrame.Position),
+					AlwaysOnTop = ALWAYS_ON_TOP,
+				}
 			else
 				-- Offset the handle's base position by the size of the bounding
 				-- box on that handle's axis.
@@ -544,7 +496,7 @@ function MoveHandles:_updateHandles()
 	end
 end
 
-if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() then
+if getEngineFeatureModelPivotVisual() then
 	function MoveHandles:keyDown(keyCode)
 		if keyCode == Enum.KeyCode.Tab then
 			self._tabKeyDown = true

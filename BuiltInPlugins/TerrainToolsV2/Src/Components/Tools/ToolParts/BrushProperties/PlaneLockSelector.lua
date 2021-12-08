@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)

@@ -10,6 +10,8 @@ local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterf
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local SetEditingCage = require(Plugin.Src.Actions.SetEditingCage)
 local SetItemSize = require(Plugin.Src.Actions.SetItemSize)
+local SetAccessoryTypeInfo = require(Plugin.Src.Actions.SetAccessoryTypeInfo)
+local SetAttachmentPoint = require(Plugin.Src.Actions.SetAttachmentPoint)
 local GetRbfPoints = require(Plugin.Src.Thunks.GetRbfPoints)
 local MakeLattices = require(Plugin.Src.Thunks.MakeLattices)
 local SelectPreviewTab = require(Plugin.Src.Actions.SelectPreviewTab)
@@ -74,6 +76,11 @@ return function(item)
 
 		store:dispatch(ChangeTool(Constants.TOOL_MODE.None))
 		store:dispatch(SelectPreviewTab(getPreviewTab(item, state)))
+		store:dispatch(SetAccessoryTypeInfo(Cryo.None))
+		store:dispatch(SetAttachmentPoint({
+			ItemCFrame = CFrame.new(),
+			AttachmentCFrame = CFrame.new(),
+		}))
 		store:dispatch(SetPreviewAssetsSelected({}))
 		if ItemCharacteristics.isClothes(item) then
 			store:dispatch(SetItemSize(item.Size))

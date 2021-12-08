@@ -33,10 +33,18 @@ local ELEMENT_CLASSES = {
 	["number"] = NumberProperty,
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
+	["path"] = StringProperty, -- TODO: Create specialized path editor 
 }
 
-local function GetPropertyComponent(instance)
-	local constructor = ELEMENT_CLASSES[type(instance)]
+local function GetPropertyComponent(instance, valueType)
+	local constructor
+
+	if valueType then
+		constructor = ELEMENT_CLASSES[valueType]
+	else
+		constructor = ELEMENT_CLASSES[type(instance)]
+	end
+
 	assert(constructor, "Unsupported settings type")
 
 	return constructor
@@ -153,7 +161,7 @@ function PropertyView:render()
 				Text = localization:getText("PropertiesTooltip", props.PropertyName),
 			})
 		}),
-		Editor = Roact.createElement(GetPropertyComponent(value), {
+		Editor = Roact.createElement(GetPropertyComponent(value, props.ValueType), {
 			DependentValues = dependentValues,
 			Editable = editable,
 			LayoutOrder = 3,

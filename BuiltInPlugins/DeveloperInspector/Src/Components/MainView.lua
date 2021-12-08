@@ -3,7 +3,6 @@
 
 	Displays the targets to attach to or the inspector for a specific target if selected.
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
@@ -90,16 +89,9 @@ function MainView:renderTarget(props)
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	MainView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(MainView)
-else
-	ContextServices.mapToProps(MainView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+MainView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(MainView)
 
 return RoactRodux.connect(
 	function(state, props)

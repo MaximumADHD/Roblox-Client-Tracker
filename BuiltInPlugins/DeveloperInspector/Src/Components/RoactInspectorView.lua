@@ -1,7 +1,6 @@
 --[[
 	The main view of the Roact inspector.
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -58,15 +57,8 @@ function RoactInspectorView:render()
 
 end
 
-if FFlagDeveloperInspectorWithContext then
-	RoactInspectorView = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(RoactInspectorView)
-else
-	ContextServices.mapToProps(RoactInspectorView, {
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+RoactInspectorView = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(RoactInspectorView)
 
 return RoactInspectorView

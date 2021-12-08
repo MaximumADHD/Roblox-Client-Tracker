@@ -12,7 +12,14 @@ local UpdateAssetConfigData = require(Actions.UpdateAssetConfigData)
 local NetworkError = require(Actions.NetworkError)
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
 
 local firstToUpper = require(Plugin.Core.Util.firstToUpper)
 

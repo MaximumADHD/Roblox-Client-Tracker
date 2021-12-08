@@ -4,7 +4,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
 
 local Urls = require(Plugin.Core.Util.Urls)
 

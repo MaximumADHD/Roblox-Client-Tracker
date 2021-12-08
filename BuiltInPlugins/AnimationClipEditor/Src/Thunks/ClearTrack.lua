@@ -9,7 +9,10 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local Cryo = require(Plugin.Packages.Cryo)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
+local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
+
+local FFlagACEFixClearTrack = game:DefineFastFlag("ACEFixClearTrack", false)
 
 return function(instanceName, path, analytics)
 	return function(store)
@@ -32,7 +35,11 @@ return function(instanceName, path, analytics)
 				t.Data = {}
 			end)
 
-			store:dispatch(SetAnimationData(newData))
+			if FFlagACEFixClearTrack then
+				store:dispatch(UpdateAnimationData(newData))
+			else
+				store:dispatch(SetAnimationData(newData))
+			end
 		end
 	end
 end

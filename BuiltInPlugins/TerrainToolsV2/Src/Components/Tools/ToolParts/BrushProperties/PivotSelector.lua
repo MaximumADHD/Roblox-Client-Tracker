@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -50,15 +49,11 @@ function PivotSelector:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PivotSelector = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(PivotSelector)
-else
-	ContextServices.mapToProps(PivotSelector, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+PivotSelector = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(PivotSelector)
+
 
 
 return PivotSelector

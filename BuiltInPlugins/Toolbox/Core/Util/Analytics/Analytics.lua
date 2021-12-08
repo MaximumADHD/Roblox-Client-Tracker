@@ -14,6 +14,7 @@ local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTe
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -309,6 +310,19 @@ if FFlagToolboxMeshPartFiltering then
 			isEditMode = getIsEditMode(),
 			placeId = getPlaceId(),
 			assetId = assetId,
+		})
+	end
+end
+
+if FFlagToolboxVerifiedCreatorBadges then
+	function Analytics.onIdVerificationIconClicked(assetId)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "IdVerificationIconClicked", {
+			assetId = assetId,
+			clientId = getClientId(),
+			userId = getUserId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			isEditMode = getIsEditMode(),
 		})
 	end
 end

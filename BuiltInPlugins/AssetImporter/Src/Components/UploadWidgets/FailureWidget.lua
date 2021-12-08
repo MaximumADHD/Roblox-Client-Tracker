@@ -4,6 +4,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
+local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -19,12 +20,19 @@ local TextLabel = Decoration.TextLabel
 
 local FailureWidget = Roact.PureComponent:extend("FailureWidget")
 
-local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize, instanceMap)
+local function generateErrorSections(errorMap, uploadStyle, absoluteContentSize, instanceMap, localization)
     local sections = {}
-    for nodeId, errorMsg in pairs(errorMap) do
-        local sectionText = errorMsg
+    for nodeId, errorCode in pairs(errorMap) do
+        local errorMsg, sectionText
+        -- TODO: not all errored nodes may have an analog in instance. Retrieve the actual node name by receiving a list of error pairs instead.
         if (instanceMap[nodeId]) then
-             sectionText = string.format("%s: %s", instanceMap[nodeId].Name, errorMsg)
+            errorMsg = GetLocalizedString(localization, "HttpError", errorCode)
+            if not errorMsg then
+                errorMsg = string.format("%s %s", localization:getText("HttpError", "UnknownStatusCode"), errorCode)
+            end
+            sectionText = string.format("%s: %s", instanceMap[nodeId].Name, errorMsg)
+        else
+            sectionText = errorCode
         end
 
         local section = Roact.createElement(TextLabel, {
@@ -66,7 +74,7 @@ function FailureWidget:render()
         and localization:getText("Upload", "FailureDescriptionNoError")
         or localization:getText("Upload", "FailureDescription")
 
-    local sections = generateErrorSections(errorMap, uploadStyle, state.absoluteContentSize, props.InstanceMap)
+    local sections = generateErrorSections(errorMap, uploadStyle, state.absoluteContentSize, props.InstanceMap, localization)
 
     local titleSize = uploadStyle.TextSize + uploadStyle.SubtextSize + 10
 
@@ -113,7 +121,7 @@ function FailureWidget:render()
                 Layout = Enum.FillDirection.Vertical,
             }, {
                 Pane = Roact.createElement(Pane, {
-                    Size = UDim2.new(1, 0, 0, 22),
+                    Size = uploadStyle.TextLabelSize,
                     Layout = Enum.FillDirection.Vertical,
                     VerticalAlignment = Enum.VerticalAlignment.Top,
                     LayoutOrder = 1,

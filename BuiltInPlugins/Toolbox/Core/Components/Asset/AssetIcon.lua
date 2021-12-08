@@ -18,7 +18,13 @@ local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefacto
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Framework = require(Libs.Framework)
@@ -28,6 +34,7 @@ local Constants = require(Util.Constants)
 local Images = require(Util.Images)
 local ContextGetter = require(Util.ContextGetter)
 local ContextHelper = require(Util.ContextHelper)
+local ToolboxUtilities = require(Util.ToolboxUtilities)
 local Urls = require(Util.Urls)
 
 local Types = Plugin.Core.Types
@@ -91,6 +98,7 @@ function AssetIcon:render()
 		local backgroundIndex = props.backgroundIndex
 		local isEndorsed = props.isEndorsed
 		local typeId = props.typeId
+		local isPlugin = typeId == Enum.AssetType.Plugin.Value
 		local currentSoundId = props.currentSoundId
 		local isPlaying = (not FFlagToolboxAssetGridRefactor2) and props.isPlaying or nil
 		local isLoading = props.isLoading

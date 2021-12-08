@@ -280,6 +280,22 @@ function TrackUtils.getTrackTypeFromName(trackName, tracks)
 	end
 end
 
+-- Given a track, return the type of rotation used (if relevant)
+function TrackUtils.getRotationType(track)
+	local rotationTrack = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation]
+	return rotationTrack and rotationTrack.Type or nil
+end
+
+-- Given a track name and a list of trackEntries, find the
+-- type of rotation used by the track
+function TrackUtils.getRotationTypeFromName(trackName, tracks)
+	for _, track in pairs(tracks) do
+		if track.Name == trackName then
+			return TrackUtils.getRotationType(track)
+		end
+	end
+end
+
 -- Given a vertical position yPos in the dope sheet, finds which track
 -- is at that position.
 function TrackUtils.getTrackFromPosition(tracks, topTrackIndex, yPos)
@@ -320,14 +336,14 @@ end
 -- type
 function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
 	if yPos < Constants.SUMMARY_TRACK_HEIGHT then
-		return 0, {}, nil
+		return 0, {}, nil, nil
 	end
 
 	yPos = yPos - Constants.SUMMARY_TRACK_HEIGHT
 
 	local function recurse(track, y, path)
 		if y < Constants.SUMMARY_TRACK_HEIGHT then
-			return path, y, track.Type
+			return path, y, track.Type, TrackUtils.getRotationType(track)
 		end
 
 		y = y - Constants.SUMMARY_TRACK_HEIGHT
@@ -337,30 +353,30 @@ function TrackUtils.getTrackInfoFromPosition(tracks, topTrackIndex, yPos)
 				if track.Components[componentName] then
 					resPath, y, trackType = recurse(track.Components[componentName], y, Cryo.List.join(path, {componentName}))
 					if resPath then
-						return resPath, y, trackType
+						return resPath, y, trackType, nil
 					end
 				end
 			end
 		end
-		return nil, y, nil
+		return nil, y, nil, nil
 	end
 
 	local trackIndex = math.max(0, topTrackIndex - 1)
-	local trackType
+	local trackType, rotationType
 
 	for index, track in ipairs(tracks) do
 		if index >= topTrackIndex then
 			local relPath
-			relPath, yPos, trackType = recurse(track, yPos, {track.Name})
+			relPath, yPos, trackType, rotationType = recurse(track, yPos, {track.Name})
 			trackIndex = trackIndex + 1
 
 			if relPath then
-				return trackIndex, relPath, trackType
+				return trackIndex, relPath, trackType, rotationType
 			end
 		end
 	end
 
-	return #tracks + 1, {}, nil
+	return #tracks + 1, {}, nil, nil
 end
 
 function TrackUtils.getTrackIndex(tracks, trackName)
@@ -397,7 +413,7 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 		currentValue = TrackUtils.getDefaultValue(track)
 		return currentValue
 	end
-	
+
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
 		if GetFFlagChannelAnimations() then
@@ -788,13 +804,19 @@ end
 
 -- Traverse all components of the provided trackType, calling func with
 -- the relative path of each leaf (to the initial track type)
-function TrackUtils.traverseComponents(trackType, func)
+-- TODO: We can get rid of rotationType if we decide to have two different CFrame types,
+-- such as EulerCFrame and QuaternionCFrame, for the top level track.
+function TrackUtils.traverseComponents(trackType, func, rotationType)
 	local function recurse(_trackType, relPath)
-		local compTypes = Constants.COMPONENT_TRACK_TYPES[_trackType]
 
+		local compTypes = Constants.COMPONENT_TRACK_TYPES[_trackType]
 		if compTypes then
 			for _, compName in ipairs(compTypes._Order) do
-				recurse(compTypes[compName], Cryo.List.join(relPath, {compName}))
+				local compType = compTypes[compName]
+				if GetFFlagQuaternionChannels() and compName == Constants.PROPERTY_KEYS.Rotation then
+					compType = rotationType
+				end
+				recurse(compType, Cryo.List.join(relPath, {compName}))
 			end
 		else
 			func(_trackType, relPath)

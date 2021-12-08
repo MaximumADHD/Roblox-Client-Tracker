@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the Clear tool
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -209,19 +208,13 @@ function Clear:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Clear = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-		Terrain = ContextItems.Terrain,
-	})(Clear)
-else
-	ContextServices.mapToProps(Clear, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-		Terrain = ContextItems.Terrain,
-	})
-end
+
+Clear = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+	Terrain = ContextItems.Terrain,
+})(Clear)
+
 
 
 local function mapDispatchToProps(dispatch)

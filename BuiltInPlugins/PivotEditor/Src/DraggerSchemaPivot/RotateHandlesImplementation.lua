@@ -12,8 +12,6 @@ local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 local MoveHandlesForDisplay = {
 	MinusZ = {
 		Offset = CFrame.fromMatrix(Vector3.new(), Vector3.new(1, 0, 0), Vector3.new(0, 1, 0)),
@@ -151,10 +149,7 @@ end
 function RotateHandlesImplementation:render(globalTransform)
 	local elements = {}
 
-	local currentPivot = globalTransform
-	if getFFlagSummonPivot() then
-		currentPivot = self._lastPivot
-	end
+	local currentPivot = self._lastPivot
 
 	local scale = self._draggerContext:getHandleScale(currentPivot.Position)
 	for handleId, definition in pairs(MoveHandlesForDisplay) do
@@ -169,18 +164,11 @@ function RotateHandlesImplementation:render(globalTransform)
 	end
 
 	if self._draggerContext:shouldSnapPivotToGeometry() then
-		if getFFlagSummonPivot() then
-			elements.SnapPoints = Roact.createElement(SnapPoints, {
-				Focus = currentPivot.Position,
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		else
-			elements.SnapPoints = Roact.createElement(SnapPoints, {
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		end
+		elements.SnapPoints = Roact.createElement(SnapPoints, {
+			Focus = currentPivot.Position,
+			SnapPoints = self._snapPoints,
+			DraggerContext = self._draggerContext,
+		})
 		elements.DraggedPivot = Roact.createElement(DraggedPivot, {
 			DraggerContext = self._draggerContext,
 			CFrame = self._lastPivot,

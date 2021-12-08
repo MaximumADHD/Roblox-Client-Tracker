@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -94,15 +93,11 @@ function PropertyLock:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PropertyLock = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(PropertyLock)
-else
-	ContextServices.mapToProps(PropertyLock, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+PropertyLock = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(PropertyLock)
+
 
 
 return PropertyLock

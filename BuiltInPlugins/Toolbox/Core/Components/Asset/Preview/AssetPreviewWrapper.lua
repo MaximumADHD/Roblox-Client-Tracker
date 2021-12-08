@@ -16,7 +16,13 @@ local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 local Cryo = require(Libs.Cryo)
@@ -71,7 +77,6 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagStudioHideSuccessDialogWhenFree = game:GetFastFlag("StudioHideSuccessDialogWhenFree")
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
@@ -344,12 +349,10 @@ function AssetPreviewWrapper:init(props)
 		if tryInstall() then
 
 			-- if this is a free asset/plugin, don't show the success dialog
-			if FFlagStudioHideSuccessDialogWhenFree then
-				local assetData = props.assetData
-				local price = assetData.Product and assetData.Product.Price or 0
-				if price == 0 then
-					return
-				end
+			local assetData = props.assetData
+			local price = assetData.Product and assetData.Product.Price or 0
+			if price == 0 then
+				return
 			end
 
 			self:setState({

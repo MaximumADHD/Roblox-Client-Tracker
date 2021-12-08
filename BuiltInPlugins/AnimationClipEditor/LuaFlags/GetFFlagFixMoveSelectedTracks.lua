@@ -1,5 +1,5 @@
-game:DefineFastFlag("ACEFixMoveSelectedTracks", false)
+game:DefineFastFlag("ACEFixMoveSelectedTracks2", false)
 
 return function()
-	return game:GetFastFlag("ACEFixMoveSelectedTracks")
+	return game:GetFastFlag("ACEFixMoveSelectedTracks2")
 end

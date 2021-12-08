@@ -2,7 +2,13 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 local UILibrary = require(Libs.UILibrary)
 

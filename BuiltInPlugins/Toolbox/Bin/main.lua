@@ -25,14 +25,25 @@ return function(plugin, pluginLoaderContext)
 	local StudioService = game:GetService("StudioService")
 	local hasInternalPermission = StudioService:HasInternalPermission()
 
-	local Libs = Plugin.Libs
+	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	local Libs
+	if FFlagToolboxDeduplicatePackages then
+		Libs = Plugin.Packages
+	else
+		Libs = Plugin.Libs
+	end
 	local Roact = require(Libs.Roact)
 
 	--[[
 		RefactorFlags needs to be required and updated directly; before Framework's init
 		is required (so that any files that Framework's init requires get the correct values).
 	]]
-	local RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
+	local RefactorFlags
+	if FFlagToolboxDeduplicatePackages then
+		RefactorFlags = require(Libs._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+	else
+		RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
+	end
 	RefactorFlags.THEME_REFACTOR = true
 
 	local Framework = require(Libs.Framework)

@@ -4,10 +4,15 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
+local Pause = require(Plugin.Src.Actions.Pause)
 local SetPlaybackStartInfo = require(Plugin.Src.Actions.SetPlaybackStartInfo)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local RunService = game:GetService("RunService")
+
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+
 local Playback = Roact.PureComponent:extend("Playback")
 
 function Playback:didMount()
@@ -18,15 +23,30 @@ function Playback:didMount()
 		local playbackSpeed = props.PlaybackSpeed
 		local playbackStartInfo = props.PlaybackStartInfo
 
-		if props.IsPlaying and props.AnimationData ~= nil then
+		local isPlaying
+		if GetFFlagMoarMediaControls() then
+			isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+		else
+			isPlaying = props.IsPlaying
+		end
+		if isPlaying and props.AnimationData ~= nil then
 			local metadata = props.AnimationData.Metadata
 			if metadata.EndTick > 0 then
 				local now = tick()
 				local endTick = metadata.EndTick
 				if not playbackStartInfo.startTime then
 					local startPlayhead = playhead
-					if startPlayhead >= math.floor(endTick) then
-						startPlayhead = 0
+					if GetFFlagMoarMediaControls() then
+						if props.PlayState == Constants.PLAY_STATE.Play and startPlayhead >= math.floor(endTick) then
+							startPlayhead = 0
+						end
+						if props.PlayState == Constants.PLAY_STATE.Reverse and startPlayhead <= 0 then
+							startPlayhead = math.floor(endTick)
+						end
+					else
+						if startPlayhead >= math.floor(endTick) then
+							startPlayhead = 0
+						end
 					end
 					playbackStartInfo = {
 						startTime = now,
@@ -36,19 +56,33 @@ function Playback:didMount()
 				end
 
 				local elapsed = (now - playbackStartInfo.startTime) * playbackSpeed
+				if GetFFlagMoarMediaControls() and props.PlayState == Constants.PLAY_STATE.Reverse then
+					elapsed = -elapsed
+				end
 				local newTick = playbackStartInfo.startPlayhead + elapsed * Constants.TICK_FREQUENCY
 
 				if metadata.Looping then
 					newTick = newTick % endTick
 				else
 					newTick = math.clamp(newTick, 0, endTick)
-					if newTick == endTick then
-						props.SetIsPlaying(false)
+					if GetFFlagMoarMediaControls() then
+						if (newTick == endTick and props.PlayState == Constants.PLAY_STATE.Play) or
+							(newTick == 0 and props.PlayState == Constants.PLAY_STATE.Reverse) then
+							props.Pause()
+						end
+					else
+						if newTick == endTick then
+							props.SetIsPlaying(false)
+						end
 					end
 				end
 				props.StepAnimation(newTick)
 			else
-				props.SetIsPlaying(false)
+				if GetFFlagMoarMediaControls() then
+					props.Pause()
+				else
+					props.SetIsPlaying(false)
+				end
 			end
 		else
 			props.SetPlaybackStartInfo({})
@@ -70,6 +104,7 @@ local function mapStateToProps(state, props)
 	return {
 		AnimationData = state.AnimationData,
 		IsPlaying = state.Status.IsPlaying,
+		PlayState = state.Status.PlayState,
 		Playhead = state.Status.Playhead,
 		PlaybackSpeed = state.Status.PlaybackSpeed,
 		PlaybackStartInfo = state.Status.PlaybackStartInfo,
@@ -82,8 +117,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(StepAnimation(tick))
 		end,
 
+		-- Deprecated when GetFFlagMoarMediaControls() is ON
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		Pause = function()
+			dispatch(Pause())
 		end,
 
 		SetPlaybackStartInfo = function(playbackStartInfo)

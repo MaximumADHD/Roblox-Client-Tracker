@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary Button component, but modified to use dev framework context
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -127,15 +126,11 @@ function Button:render()
 	end
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Button = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(Button)
-else
-	ContextServices.mapToProps(Button, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+Button = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(Button)
+
 
 
 return Button

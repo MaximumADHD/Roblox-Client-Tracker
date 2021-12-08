@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -14,6 +15,8 @@ local AnimationClipEditorDragger = require(Plugin.Src.Components.Draggers.Animat
 local DraggerFramework = Plugin.Packages.DraggerFramework
 local DraggerContext_PluginImpl = require(DraggerFramework.Implementation.DraggerContext_PluginImpl)
 local Constants = require(Plugin.Src.Util.Constants)
+local AnimationData = require(Plugin.Src.Util.AnimationData)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local ValueChanged = require(Plugin.Src.Thunks.ValueChanged)
 local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
@@ -22,6 +25,8 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -50,16 +55,45 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.PinnedParts = props.PinnedParts
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
-	draggerContext.IsPlaying = props.IsPlaying
+	if GetFFlagMoarMediaControls() then
+		draggerContext.IsPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+	else
+		draggerContext.IsPlaying = props.IsPlaying
+	end
+
 	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
-		if props.IsPlaying then
-			return
+		if GetFFlagMoarMediaControls() then
+			if props.PlayState ~= Constants.PLAY_STATE.Pause then
+				return
+			end
+		else
+			if props.IsPlaying then
+				return
+			end
 		end
 
 		for trackName, value in pairs(values) do
 			if GetFFlagChannelAnimations() then
-				props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+				if GetFFlagQuaternionChannels() then
+					local path = {trackName}
+					if not AnimationData.isChannelAnimation(props.AnimationData) then
+						props.ValueChanged(instanceName, path, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+					else
+						local rotationType
+						if GetFFlagQuaternionChannels() then
+							rotationType = TrackUtils.getRotationTypeFromName(trackName, props.Tracks) or props.DefaultRotationType
+						else
+							rotationType = Constants.TRACK_TYPES.Rotation
+						end
+						-- Change the value of all tracks
+						TrackUtils.traverseValue(Constants.TRACK_TYPES.CFrame, value, function(_trackType, relPath, _value)
+							props.ValueChanged(instanceName, Cryo.List.join(path, relPath), _trackType, props.Playhead, _value, props.Analytics)
+						end, rotationType)
+					end
+				else
+					props.ValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
+				end
 			elseif GetFFlagFacialAnimationSupport() then
 				props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, props.Playhead, value, props.Analytics)
 			else
@@ -99,7 +133,7 @@ function DraggerWrapper:render()
 		end
 	end
 
-	if props.AnimationData ~= nil then 
+	if props.AnimationData ~= nil then
 		mapDraggerContextToProps(self.draggerContext, props)
 	end
 
@@ -122,8 +156,11 @@ local function mapStateToProps(state, props)
 		PinnedParts = state.Status.PinnedParts,
 		IKEnabled = state.Status.IKEnabled,
 		Playhead = state.Status.Playhead,
+		Tracks = state.Status.Tracks,
 		IsPlaying = status.IsPlaying,
+		PlayState = status.PlayState,
 		AnimationData = state.AnimationData,
+		DefaultRotationType = status.DefaultRotationType,
 	}
 end
 
@@ -131,6 +168,10 @@ local function mapDispatchToProps(dispatch)
 	return {
 		SetSelectedTrackInstances = function(tracks)
 			dispatch(SetSelectedTrackInstances(tracks))
+		end,
+
+		ValueChanged = function(instanceName, path, trackType, tck, value, analytics)
+			dispatch(ValueChanged(instanceName, path, trackType, tck, value, analytics))
 		end,
 
 		ValueChanged_deprecated2 = function(instanceName, trackName, trackType, tick, value, analytics)

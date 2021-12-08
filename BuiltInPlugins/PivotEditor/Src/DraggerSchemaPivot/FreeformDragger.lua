@@ -19,7 +19,6 @@ local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
 local getSelectableWithCache = require(Packages.DraggerSchemaCore.getSelectableWithCache)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
 
 local ZERO_VECTOR = Vector3.new()
@@ -111,18 +110,11 @@ function FreeformDragger:render()
 	})
 
 	if self._draggerContext:shouldSnapPivotToGeometry() and self._snapPoints then
-		if getFFlagSummonPivot() then
-			adornments.SnapPoints = Roact.createElement(SnapPoints, {
-				Focus = self._lastDragTarget.mainCFrame.Position,
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		else
-			adornments.SnapPoints = Roact.createElement(SnapPoints, {
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		end
+		adornments.SnapPoints = Roact.createElement(SnapPoints, {
+			Focus = self._lastDragTarget.mainCFrame.Position,
+			SnapPoints = self._snapPoints,
+			DraggerContext = self._draggerContext,
+		})
 	end
 
 	return Roact.createFragment(adornments)

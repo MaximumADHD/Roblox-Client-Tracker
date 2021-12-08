@@ -66,12 +66,41 @@ local function hasMultipleAttachments(assetTypeInfo)
 	return false
 end
 
+function AssetTypeScreen:initWithPreviousAssetTypeInfo()
+	local accessoryTypeInfo = self.props.AccessoryTypeInfo
+	if accessoryTypeInfo then
+		local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[accessoryTypeInfo.AssetType]
+		local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[accessoryTypeInfo.AssetType]
+		if assetTypeAccessoryTable then
+			if hasMultipleAttachments(assetTypeAccessoryTable) then
+				self.multiAttachmentAsset = {
+					[accessoryTypeInfo.AssetType] = assetTypeAccessoryTable
+				}
+			end
+			self.initialSelectedAccessoryType = accessoryTypeInfo.AssetType
+		elseif assetTypeClothingTable then
+			if hasMultipleAttachments(assetTypeClothingTable) then
+				self.multiAttachmentAsset = {
+					[accessoryTypeInfo.AssetType] = assetTypeClothingTable
+				}
+			end
+			self.initialSelectedClothingType = accessoryTypeInfo.AssetType
+		end
+
+		self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
+	end
+end
+
 function AssetTypeScreen:init()
 	self.state = {
 		multiAttachmentAsset = nil,
+		resetAccessoryList = false,
+		resetClothingList = false,
 	}
 
 	self.multiAttachmentAsset = nil
+
+	self:initWithPreviousAssetTypeInfo()
 
 	self.onNext = function()
 		if self.multiAttachmentAsset then
@@ -84,7 +113,7 @@ function AssetTypeScreen:init()
 	end
 
 	self.onBack = function()
-		if self.multiAttachmentAsset then
+		if self.state.multiAttachmentAsset then
 			self:setState({
 				multiAttachmentAsset = Roact.None,
 			})
@@ -93,13 +122,16 @@ function AssetTypeScreen:init()
 		end
 	end
 
-	self.onClickAttachment = function(attachment)
+	self.onClickAttachment = function(assetTypeName, key, attachment)
 		local editingItem = self.props.EditingItemContext:getItem()
 		if not editingItem then
 			return
 		end
 		self.multiAttachmentAsset = nil
-		self.props.SetAccessoryTypeInfo(Cryo.Dictionary.join(attachment))
+		self.props.SetAccessoryTypeInfo(Cryo.Dictionary.join(attachment, {
+			AssetType = assetTypeName,
+			AssetSubType = key,
+		}))
 
 		local existingAttachment = ModelUtil:getExistingAttachmentPoint(editingItem, editingItem.Parent, attachment.Name)
 		if existingAttachment then
@@ -107,17 +139,17 @@ function AssetTypeScreen:init()
 		end
 	end
 
-	self.onClickAttachmentSubList = function(key, assetTypeInfo)
+	self.onClickAttachmentSubList = function(assetTypeName, key, assetTypeInfo)
 		if assetTypeInfo and key and assetTypeInfo.Attachments[key] then
-			self.onClickAttachment(assetTypeInfo.Attachments[key])
+			self.onClickAttachment(assetTypeName, key, assetTypeInfo.Attachments[key])
 		end
 	end
 
 	self.onClickAssetType = function(key, assetTypeInfo)
 		if assetTypeInfo then
 			if not hasMultipleAttachments(assetTypeInfo) then
-				local _, attachment = next(assetTypeInfo.Attachments)
-				self.onClickAttachment(attachment)
+				local assetSubType, attachment = next(assetTypeInfo.Attachments)
+				self.onClickAttachment(key, assetSubType, attachment)
 			else
 				self.multiAttachmentAsset = {
 					[key] = assetTypeInfo,
@@ -128,10 +160,16 @@ function AssetTypeScreen:init()
 
 	self.onClickAccessoryType = function(key)
 		self.onClickAssetType(key, Constants.ASSET_TYPE_ATTACHMENT.Accessory[key])
+		self:setState({
+			resetClothingList = true,
+		})
 	end
 
 	self.onClickClothingType = function(key)
 		self.onClickAssetType(key, Constants.ASSET_TYPE_ATTACHMENT.Clothing[key])
+		self:setState({
+			resetAccessoryList = true,
+		})
 	end
 
 	self.renderAttachmentSubList = function(order)
@@ -140,20 +178,25 @@ function AssetTypeScreen:init()
 
 		local localization = props.Localization
 
-		local key, info = next(state.multiAttachmentAsset)
+		local assetTypeName, info = next(state.multiAttachmentAsset)
 
 		return Roact.createElement(LCERadioButtonList, {
-			Title = key,
+			Title = assetTypeName,
 			Buttons = makeButtonList(localization, info.Attachments),
 			OnClick = function(selectedKey)
-				self.onClickAttachmentSubList(selectedKey, info)
+				self.onClickAttachmentSubList(assetTypeName, selectedKey, info)
 			end,
 			LayoutOrder = order,
+			InitialSelectedKey = self.initialSelectedSubType,
 		})
 	end
 
 	self.renderAssetTypeList = function(order)
 		local props = self.props
+		local state = self.state
+
+		local accessoryListEnabled = not state.resetAccessoryList
+		local clothingListEnabled = not state.resetClothingList
 
 		local theme = props.Stylizer
 		local localization = props.Localization
@@ -168,19 +211,43 @@ function AssetTypeScreen:init()
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Spacing = theme.MainPadding,
 		}, {
-			AccessoryTypeList = Roact.createElement(LCERadioButtonList, {
+			AccessoryTypeList = accessoryListEnabled and Roact.createElement(LCERadioButtonList, {
 				Title = localization:getText("AssetType", "Accessory"),
 				Buttons = makeButtonList(localization, Constants.ASSET_TYPE_ATTACHMENT.Accessory),
 				OnClick = self.onClickAccessoryType,
 				LayoutOrder = order + orderIterator:getNextOrder(),
+				InitialSelectedKey = self.initialSelectedAccessoryType,
 			}),
 
-			ClothingTypeList = Roact.createElement(LCERadioButtonList, {
+			ClothingTypeList = clothingListEnabled and Roact.createElement(LCERadioButtonList, {
 				Title = localization:getText("AssetType", "Clothing"),
 				Buttons = makeButtonList(localization, Constants.ASSET_TYPE_ATTACHMENT.Clothing),
 				OnClick = self.onClickClothingType,
 				LayoutOrder = order + orderIterator:getNextOrder(),
+				InitialSelectedKey = self.initialSelectedClothingType,
 			}),
+		})
+	end
+end
+
+function AssetTypeScreen:resetInitialSelectedKeys()
+	self.initialSelectedClothingType = nil
+	self.initialSelectedAccessoryType = nil
+	self.initialSelectedSubType = nil
+end
+
+function AssetTypeScreen:didUpdate(prevProps, prevState)
+	if self.state.resetClothingList then
+		self:resetInitialSelectedKeys()
+		self:setState({
+			resetClothingList = false,
+		})
+	end
+
+	if self.state.resetAccessoryList then
+		self:resetInitialSelectedKeys()
+		self:setState({
+			resetAccessoryList = false,
 		})
 	end
 end
@@ -229,7 +296,13 @@ AssetTypeScreen = withContext({
 	EditingItemContext = EditingItemContext,
 })(AssetTypeScreen)
 
+local function mapStateToProps(state, props)
+	local selectItem = state.selectItem
 
+	return {
+		AccessoryTypeInfo = selectItem.accessoryTypeInfo,
+	}
+end
 
 local function mapDispatchToProps(dispatch)
 	return {
@@ -243,4 +316,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(AssetTypeScreen)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetTypeScreen)

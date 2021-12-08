@@ -53,6 +53,7 @@ local initial = {
 		description = "",
 		genre = Constants.GENRE_IDS[1],
 		playableDevices = {Computer = true, Phone = true, Tablet = true,},
+		teamCreateEnabled = true,
 		OptInLocations = optInLocations,
 	},
 	errors = {},

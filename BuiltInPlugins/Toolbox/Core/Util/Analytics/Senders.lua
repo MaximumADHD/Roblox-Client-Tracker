@@ -1,7 +1,14 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local AnalyticsLogs = require(Plugin.Core.Util.Analytics.Logs)
-local sendResultToKibana = require(Plugin.Libs.Framework).Util.sendResultToKibana
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local sendResultToKibana
+if FFlagToolboxDeduplicatePackages then
+	sendResultToKibana = require(Packages.Framework).Util.sendResultToKibana
+else
+	sendResultToKibana = require(Plugin.Libs.Framework).Util.sendResultToKibana
+end
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 

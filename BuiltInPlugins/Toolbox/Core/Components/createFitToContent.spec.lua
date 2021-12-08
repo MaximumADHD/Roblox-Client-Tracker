@@ -1,6 +1,13 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local Roact = require(Plugin.Libs.Roact)
+	local Packages = Plugin.Packages
+	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	local Roact
+	if FFlagToolboxDeduplicatePackages then
+		Roact = require(Packages.Roact)
+	else
+		Roact = require(Plugin.Libs.Roact)
+	end
 
 	local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 

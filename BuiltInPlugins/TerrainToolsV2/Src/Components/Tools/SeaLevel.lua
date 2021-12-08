@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the SeaLevel tool
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -100,17 +99,12 @@ function SeaLevel:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	SeaLevel = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-		SeaLevel = ContextItems.SeaLevel,
-	})(SeaLevel)
-else
-	ContextServices.mapToProps(SeaLevel, {
-		Localization = ContextItems.UILibraryLocalization,
-		SeaLevel = ContextItems.SeaLevel,
-	})
-end
+
+SeaLevel = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+	SeaLevel = ContextItems.SeaLevel,
+})(SeaLevel)
+
 
 
 local function mapStateToProps(state, props)

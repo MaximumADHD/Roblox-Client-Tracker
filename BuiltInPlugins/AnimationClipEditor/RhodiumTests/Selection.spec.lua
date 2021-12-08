@@ -17,30 +17,30 @@ return function()
 		Root = {
 			Tracks = {
 				Head = {
-					Keyframes = {160, 320},
+					Keyframes = {320, 640},
 					Data = {
-						[160] = {},
 						[320] = {},
+						[640] = {},
 					},
 				},
 				UpperTorso = {
-					Keyframes = {160, 320, 480},
+					Keyframes = {320, 640, 960},
 					Data = {
-						[160] = {},
 						[320] = {},
-						[480] = {},
+						[640] = {},
+						[960] = {},
 					},
 				},
 			},
 		},
 	}
 	testAnimationData.Events = {
-		Keyframes = {0, 160},
+		Keyframes = {0, 320},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[160] = {
+			[320] = {
 				OtherEvent = "OtherValue",
 			},
 		},
@@ -124,6 +124,9 @@ return function()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local summary = TestPaths.getTrack(container, "SummaryTrack")
+
+			print(Element.new(summary["1"]):getCenter())
+			print(Element.new(summary["2"]):getCenter())
 
 			TestHelpers.clickInstance(summary["1"])
 			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
@@ -245,7 +248,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[160]).to.equal(true)
+			expect(selectedEvents[320]).to.equal(true)
 		end)
 	end)
 
@@ -290,7 +293,7 @@ return function()
 
 			local selectedEvents = store:getState().Status.SelectedEvents
 			expect(selectedEvents[0]).to.equal(true)
-			expect(selectedEvents[160]).to.equal(true)
+			expect(selectedEvents[320]).to.equal(true)
 		end)
 	end)
 end

@@ -3,7 +3,6 @@ local DraggerStateType = require(DraggerFramework.Implementation.DraggerStateTyp
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local DraggingHandle = {}
 DraggingHandle.__index = DraggingHandle
@@ -61,46 +60,22 @@ function DraggingHandle:processMouseUp()
 end
 
 function DraggingHandle:processKeyDown(keyCode)
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyDown then
-				if handles:keyDown(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
-			end
-		end
-	else
-		if self._draggingHandles.keyDown then
-			if self._draggingHandles:keyDown(keyCode) then
-				-- Update the drag
+	for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+		if handles.keyDown then
+			if handles:keyDown(keyCode) then
 				self:processViewChanged()
-				if getEngineFeatureModelPivotVisual() then
-					self._draggerToolModel:_scheduleRender()
-				end
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end
 end
 
 function DraggingHandle:processKeyUp(keyCode)
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyUp then
-				if handles:keyUp(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
-			end
-		end
-	else
-		if self._draggingHandles.keyUp then
-			if self._draggingHandles:keyUp(keyCode) then
-				-- Update the drag
+	for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+		if handles.keyUp then
+			if handles:keyUp(keyCode) then
 				self:processViewChanged()
-				if getEngineFeatureModelPivotVisual() then
-					self._draggerToolModel:_scheduleRender()
-				end
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end

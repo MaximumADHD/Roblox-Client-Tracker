@@ -156,6 +156,7 @@ function PropertyListView:render()
 					SetProperty = props.SetProperty,
 					StatusLevel = level,
 					StatusMessage = message,
+					ValueType = propertyMetadata.ValueType,
 				})
 			end
 		end

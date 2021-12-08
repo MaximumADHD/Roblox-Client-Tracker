@@ -1,3 +1,8 @@
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+if FFlagToolboxDeduplicatePackages then
+	error("Deprecated Libs Rodux being used when FFlagToolboxDeduplicatePackages is enabled. Use Packages.Rodux instead.")
+end
+
 local Store = require(script.Store)
 local createReducer = require(script.createReducer)
 local combineReducers = require(script.combineReducers)

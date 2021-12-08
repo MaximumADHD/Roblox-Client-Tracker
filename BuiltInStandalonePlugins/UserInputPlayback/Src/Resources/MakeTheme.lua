@@ -127,7 +127,7 @@ local function getPluginTheme()
 		}),
 
 		[ui.LabeledToggleButton] = {
-			ComponentSize = UDim2.new(0, 100, 0, 30),
+			ComponentSize = UDim2.new(0, 150, 0, 30),
 			ToggleSize = UDim2.fromOffset(40, 24),
 			LeftInsetPx = 12,
 			PaddingPx = 10,
@@ -141,6 +141,7 @@ local function getPluginTheme()
 
 		[ui.FileSelectorUIGroup] = {
 			PaddingPx = 10,
+			ProgressBarWidth = 250,
 		},
 
 		[ui.FilterSettingsUIGroup] = {
@@ -165,7 +166,7 @@ local function getPluginTheme()
 			DialogMessageSize = UDim2.new(1, 0, 0, 40),
 			TextInputSize = UDim2.fromOffset(250, 30),
 			PaddingPx = 1,
-		}
+		},
 	}
 end
 

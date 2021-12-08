@@ -33,18 +33,18 @@ end
 if GetFFlagChannelAnimations() then
 	-- Gets the value of the given track at the given tick.
 	-- Can also receive values between frames, for exporting at higher framerates.
-	KeyframeUtils.getValue = function(track, tick)
+	KeyframeUtils.getValue = function(track, tck)
 		if track.Keyframes and not isEmpty(track.Keyframes) then
 			local keyframes = track.Keyframes
-			local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tick)
+			local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
 			local lowKeyframe = keyframes[lowIndex]
 			local highKeyframe = highIndex and keyframes[highIndex]
 			if highIndex == nil then
 				return track.Data[lowKeyframe].Value
 			elseif track.IsCurveTrack then
-				return KeyframeUtils.blendCurveKeyframes(track, tick, lowKeyframe, highKeyframe)
+				return KeyframeUtils.blendCurveKeyframes(track, tck, lowKeyframe, highKeyframe)
 			else
-				return KeyframeUtils:blendKeyframes(track.Data, tick, lowKeyframe, highKeyframe)
+				return KeyframeUtils:blendKeyframes(track.Data, tck, lowKeyframe, highKeyframe)
 			end
 		end
 		if not GetFFlagChannelAnimations() then
@@ -54,13 +54,13 @@ if GetFFlagChannelAnimations() then
 				local positionTrack = track.Components[Constants.PROPERTY_KEYS.Position]
 				local rotationTrack = track.Components[Constants.PROPERTY_KEYS.Rotation]
 
-				local position = positionTrack and KeyframeUtils.getValue(positionTrack, tick) or Vector3.new()
+				local position = positionTrack and KeyframeUtils.getValue(positionTrack, tck) or Vector3.new()
 
 				if rotationTrack.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
-					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tick) or Vector3.new()
+					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck) or Vector3.new()
 					return CFrame.new(position) * CFrame.fromEulerAnglesXYZ(rotation.X, rotation.Y, rotation.Z)
 				else
-					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tick) or CFrame.new()
+					local rotation = rotationTrack and KeyframeUtils.getValue(rotationTrack, tck) or CFrame.new()
 					return CFrame.new(position) * rotation
 				end
 			elseif track.Type == Constants.TRACK_TYPES.Position or track.Type == (GetFFlagQuaternionChannels() and Constants.TRACK_TYPES.EulerAngles or Constants.TRACK_TYPES.Rotation) then
@@ -68,9 +68,9 @@ if GetFFlagChannelAnimations() then
 				local YTrack = track.Components[Constants.PROPERTY_KEYS.Y]
 				local ZTrack = track.Components[Constants.PROPERTY_KEYS.Z]
 
-				local x = XTrack and KeyframeUtils.getValue(XTrack, tick) or 0
-				local y = YTrack and KeyframeUtils.getValue(YTrack, tick) or 0
-				local z = ZTrack and KeyframeUtils.getValue(ZTrack, tick) or 0
+				local x = XTrack and KeyframeUtils.getValue(XTrack, tck) or 0
+				local y = YTrack and KeyframeUtils.getValue(YTrack, tck) or 0
+				local z = ZTrack and KeyframeUtils.getValue(ZTrack, tck) or 0
 
 				return Vector3.new(x, y, z)
 			end
@@ -81,15 +81,15 @@ if GetFFlagChannelAnimations() then
 else
 	-- Gets the value of the given track at the given tick.
 	-- Can also receive values between ticks, for exporting at higher framerates.
-	KeyframeUtils.getValue = function(self, track, tick)
+	KeyframeUtils.getValue = function(self, track, tck)
 		local keyframes = track.Keyframes
-		local lowIndex, highIndex = self.findNearestKeyframes(keyframes, tick)
+		local lowIndex, highIndex = self.findNearestKeyframes(keyframes, tck)
 		local lowKeyframe = keyframes[lowIndex]
 		local highKeyframe = highIndex and keyframes[highIndex]
 		if highIndex == nil then
 			return track.Data[lowKeyframe].Value
 		else
-			return self:blendKeyframes(track.Data, tick, lowKeyframe, highKeyframe)
+			return self:blendKeyframes(track.Data, tck, lowKeyframe, highKeyframe)
 		end
 	end
 end
@@ -104,7 +104,7 @@ end
 -- If the tick is not found, the indices of the two nearest ticks are returned.
 -- If the tick is too low, the index of the first keyframe is returned.
 -- If the tick is too high, the index of the last keyframe is returned.
-function KeyframeUtils.findNearestKeyframes(keyframes, tick)
+function KeyframeUtils.findNearestKeyframes(keyframes, tck)
 	if GetFFlagChannelAnimations() then
 		if keyframes == nil or #keyframes == 0 then
 			return nil, nil
@@ -116,9 +116,9 @@ function KeyframeUtils.findNearestKeyframes(keyframes, tick)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
-	if (tick < keyframes[minIndex]) then
+	if (tck < keyframes[minIndex]) then
 		return minIndex, nil
-	elseif (tick > keyframes[maxIndex]) then
+	elseif (tck > keyframes[maxIndex]) then
 		return maxIndex, nil
 	end
 
@@ -127,16 +127,16 @@ function KeyframeUtils.findNearestKeyframes(keyframes, tick)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if tick == currentValue then
+		if tck == currentValue then
 			return currentIndex, nil
-		elseif tick > currentValue then
+		elseif tck > currentValue then
 			minIndex = currentIndex + 1
-		elseif tick < currentValue then
+		elseif tck < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
 
-	if keyframes[currentIndex] > tick then
+	if keyframes[currentIndex] > tck then
 		return currentIndex - 1, currentIndex
 	else
 		return currentIndex, currentIndex + 1
@@ -146,7 +146,7 @@ end
 -- Returns the exact index, the previous index, and the next index around a specific keyframe.
 -- The exact index is set if the keyframe is exactly found
 -- The previous and next index are returned if the keyframe is not found
-function KeyframeUtils.findNearestKeyframesProperly(keyframes, tick)
+function KeyframeUtils.findNearestKeyframesProperly(keyframes, tck)
 	if keyframes == nil or #keyframes == 0 then
 		return nil, nil, nil
 	end
@@ -154,9 +154,9 @@ function KeyframeUtils.findNearestKeyframesProperly(keyframes, tick)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
-	if (tick < keyframes[minIndex]) then
+	if tck < keyframes[minIndex] then
 		return nil, nil, minIndex
-	elseif (tick > keyframes[maxIndex]) then
+	elseif tck > keyframes[maxIndex] then
 		return nil, maxIndex, nil
 	end
 
@@ -165,16 +165,16 @@ function KeyframeUtils.findNearestKeyframesProperly(keyframes, tick)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if tick == currentValue then
+		if tck == currentValue then
 			return currentIndex, nil, nil
-		elseif tick > currentValue then
+		elseif tck > currentValue then
 			minIndex = currentIndex + 1
-		elseif tick < currentValue then
+		elseif tck < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
 
-	if keyframes[currentIndex] > tick then
+	if keyframes[currentIndex] > tck then
 		return nil, currentIndex - 1, currentIndex
 	else
 		return nil, currentIndex, currentIndex + 1
@@ -183,7 +183,7 @@ end
 
 -- Finds the index of the given keyframe, or returns nil if
 -- the keyframe does not exist in the table.
-function KeyframeUtils.findKeyframe(keyframes, tick)
+function KeyframeUtils.findKeyframe(keyframes, tck)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
@@ -192,11 +192,11 @@ function KeyframeUtils.findKeyframe(keyframes, tick)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if tick == currentValue then
+		if tck == currentValue then
 			return currentIndex
-		elseif tick > currentValue then
+		elseif tck > currentValue then
 			minIndex = currentIndex + 1
-		elseif tick < currentValue then
+		elseif tck < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
@@ -207,7 +207,7 @@ end
 -- Finds the index to insert the new frame so that the
 -- Keyframes array stays sorted.
 -- Returns nil if the keyframe already exists.
-function KeyframeUtils.findInsertIndex(keyframes, tick)
+function KeyframeUtils.findInsertIndex(keyframes, tck)
 	local minIndex = 1
 	local maxIndex = #keyframes
 
@@ -216,11 +216,11 @@ function KeyframeUtils.findInsertIndex(keyframes, tick)
 		currentIndex = math.floor((maxIndex + minIndex) / 2)
 		local currentValue = keyframes[currentIndex]
 
-		if tick == currentValue then
+		if tck == currentValue then
 			return nil
-		elseif tick > currentValue then
+		elseif tck > currentValue then
 			minIndex = currentIndex + 1
-		elseif tick < currentValue then
+		elseif tck < currentValue then
 			maxIndex = currentIndex - 1
 		end
 	end
@@ -239,19 +239,19 @@ function KeyframeUtils.interpolate(a, b, alpha)
 	end
 end
 
-function KeyframeUtils.getNearestTick(tick)
-	return math.floor(tick + 0.5)
+function KeyframeUtils.getNearestTick(tck)
+	return math.floor(tck + 0.5)
 end
 
-function KeyframeUtils.getNearestFrame(tick, frameRate)
+function KeyframeUtils.getNearestFrame(tck, frameRate)
 	-- Find the closest frame
-	local frame = tick * frameRate / Constants.TICK_FREQUENCY
+	local frame = tck * frameRate / Constants.TICK_FREQUENCY
 	local snapFrame = math.floor(frame + 0.5)
 
 	-- Convert the frame back to ticks.
 	-- frameRate might not be a divisor of TICK_FREQUENCY, so we round again.
-	tick = snapFrame * Constants.TICK_FREQUENCY / frameRate
-	local snapTick = math.floor(tick + 0.5)
+	tck = snapFrame * Constants.TICK_FREQUENCY / frameRate
+	local snapTick = math.floor(tck + 0.5)
 
 	return snapTick
 end
@@ -280,12 +280,12 @@ end
 -- Get either the left or the right slope at a tick. The keyframe at that tick must exist.
 -- This is used by auto tangents to "fill in the blanks".
 -- To get the slopes anywhere, CurveUtils.getSlopes() should be used
-function KeyframeUtils.getSlope(track, tick, side)
+function KeyframeUtils.getSlope(track, tck, side)
 	-- This local function does the heavy work. It can be reentrant and requesting to use finiteDifferences
 	-- rather than using the "other" slope. This avoids the situation where the right slope asks the value of
 	-- the left slope, which in turn asks the value of the right slope, etc.
-	local function getSlope(track, tick, side, useFiniteDifference)
-		local keyIndex = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tick)
+	local function getSlope(track, tck, side, useFiniteDifference)
+		local keyIndex = KeyframeUtils.findNearestKeyframesProperly(track.Keyframes, tck)
 		if not keyIndex then
 			return 0
 		end
@@ -310,8 +310,12 @@ function KeyframeUtils.getSlope(track, tick, side)
 			local prevTick, prevKeyframe = getPrevKeyframe()
 			local nextTick, nextKeyframe = getNextKeyframe()
 			if prevTick and nextTick then
-				return .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tick)) +
-							((prevKeyframe.Value - keyframe.Value) / (prevTick - tick)))
+				if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+					return .5 * ((1 / (nextTick - tck)) + (1 / (tck - prevTick)))
+				else
+					return .5 * (((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) +
+								((prevKeyframe.Value - keyframe.Value) / (prevTick - tck)))
+				end
 			else
 				return 0
 			end
@@ -323,7 +327,7 @@ function KeyframeUtils.getSlope(track, tick, side)
 				return 0
 			elseif keyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
 				local nextTick, nextKeyframe = getNextKeyframe()
-				return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tick)) or 0
+				return nextKeyframe and ((nextKeyframe.Value - keyframe.Value) / (nextTick - tck)) or 0
 			-- Cubic case
 			else
 				if keyframe.RightSlope then
@@ -331,7 +335,7 @@ function KeyframeUtils.getSlope(track, tick, side)
 					return keyframe.RightSlope
 				elseif not useFiniteDifference then
 					-- If not, find the left slope in any possible way, including finite differences
-					return getSlope(track, tick, Constants.SLOPES.Left, true)
+					return getSlope(track, tck, Constants.SLOPES.Left, true)
 				else
 					-- We are here because the left side asked us to find the right side, and neither is available.
 					-- Use finite differences.
@@ -347,7 +351,7 @@ function KeyframeUtils.getSlope(track, tick, side)
 			if prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Constant then
 				return 0
 			elseif prevKeyframe.InterpolationMode == Enum.KeyInterpolationMode.Linear then
-				return (prevKeyframe.Value - keyframe.Value) / (prevTick - tick)
+				return (prevKeyframe.Value - keyframe.Value) / (prevTick - tck)
 			-- Cubic case
 			else
 				if keyframe.LeftSlope then
@@ -355,7 +359,7 @@ function KeyframeUtils.getSlope(track, tick, side)
 					return keyframe.LeftSlope
 				elseif not useFiniteDifference then
 					-- If not, find the right slope in any possible way, including finite differences
-					return getSlope(track, tick, Constants.SLOPES.Right, true)
+					return getSlope(track, tck, Constants.SLOPES.Right, true)
 				else
 					-- We are here because the right side asked us to find the left side, and neither is available.
 					-- Use finite differences
@@ -365,67 +369,95 @@ function KeyframeUtils.getSlope(track, tick, side)
 		end
 	end
 
-	return getSlope(track, tick, side, false)
+	return getSlope(track, tck, side, false)
 end
 
 -- Get the left and right slopes of the given track at the given tick
-function KeyframeUtils.getSlopes(track, tick)
-	if track.Keyframes and not isEmpty(track.Keyframes) then
-		local keyframes = track.Keyframes
-		local data = track.Data
+-- This is called before adding a keyframe, so in the case of a quaternion track we need to scale the slopes:
+-- Each segment of a quaternion curve goes from value 0 to 1 over the range (previous tick, next tick).
+-- The new slopes at tick must consider that the value at tick is now 1, and not what the curve used to be.
+-- Since the slope is constant for constant and linear segments, this only applies to cubic segments.
+function KeyframeUtils.getSlopes(track, tck)
+	if not track.Keyframes or isEmpty(track.Keyframes) then
+		return nil, nil
+	end
 
-		if data[tick] then
-			return KeyframeUtils.getSlope(track, tick, Constants.SLOPES.Left),
-					KeyframeUtils.getSlope(track, tick, Constants.SLOPES.Right)
-		end
+	local keyframes = track.Keyframes
+	local data = track.Data
 
-		local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tick)
-		if lowIndex and highIndex then
-			local lowTick = keyframes[lowIndex]
-			local highTick = keyframes[highIndex]
-			local lowKey = data[lowTick]
-			local highKey = data[highTick]
+	if data[tck] then
+		return KeyframeUtils.getSlope(track, tck, Constants.SLOPES.Left),
+				KeyframeUtils.getSlope(track, tck, Constants.SLOPES.Right)
+	end
 
-			-- Trivial: Constant or linear modes
-			if lowKey.EasingSyle == Enum.KeyInterpolationMode.Constant then
-				return 0, 0
-			elseif lowKey.EasingStyle == Enum.KeyInterpolationMode.Linear then
-				local slope = (highKey.Value - lowKey.Value) / (highTick - lowTick)
-				return slope, slope
+	local lowIndex, highIndex = KeyframeUtils.findNearestKeyframes(keyframes, tck)
+	if lowIndex and highIndex then
+		local lowTick = keyframes[lowIndex]
+		local highTick = keyframes[highIndex]
+		local lowKey = data[lowTick]
+		local highKey = data[highTick]
+
+		-- Trivial: Constant or linear modes
+		if lowKey.EasingSyle == Enum.KeyInterpolationMode.Constant then
+			return 0, 0
+		elseif lowKey.EasingStyle == Enum.KeyInterpolationMode.Linear then
+			local slope
+			if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+				slope = 1 / (highTick - lowTick)
+			else
+				slope = (highKey.Value - lowKey.Value) / (highTick - lowTick)
 			end
-
-			-- Compute the slope somewhere on a cubic curve
-			-- https://www.desmos.com/calculator/7zzfzpzidl
-			local lowSlope = KeyframeUtils.getSlope(track, lowTick, Constants.SLOPES.Right)
-			local highSlope = KeyframeUtils.getSlope(track, highTick, Constants.SLOPES.Left)
-			local deltaTick = highTick - lowTick
-			local t = (tick - lowTick) / deltaTick
-
-			local g00 = 6 * t * (t - 1)
-			local g10 = (t - 1) * (3 * t - 1)
-			local g01 = -g00
-			local g11 = t * (3 * t - 2)
-
-			local slope = (g00 * lowKey.Value + g01 * highKey.Value) / deltaTick
-				+ g10 * lowSlope
-				+ g11 * highSlope
-
 			return slope, slope
 		end
 
-		return 0, 0
+		-- Compute the slope somewhere on a cubic curve
+		-- https://www.desmos.com/calculator/7zzfzpzidl
+		local lowSlope = KeyframeUtils.getSlope(track, lowTick, Constants.SLOPES.Right)
+		local highSlope = KeyframeUtils.getSlope(track, highTick, Constants.SLOPES.Left)
+		local deltaTick = highTick - lowTick
+		local t = (tck - lowTick) / deltaTick
+
+		local g00 = 6 * t * (t - 1)
+		local g10 = (t - 1) * (3 * t - 1)
+		local g01 = -g00
+		local g11 = t * (3 * t - 2)
+
+		local slope
+		if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
+			slope = g01 / deltaTick
+			+ g10 * lowSlope
+			+ g11 * highSlope
+
+			-- Scale the slope. We need to calculate the k used for the slerp at tick
+			local t2 = t * t
+			local h10 = ((t - 2) * t + 1) * t
+			local h01 = t2 * (3 - 2 * t)
+			local h11 = t2 * (t - 1)
+			local k = h10 * deltaTick * lowSlope
+				+ h01
+				+ h11 * deltaTick * highSlope
+			local sleft = slope / k
+			local sright = slope / (1 - k)
+			return sleft, sright
+		else
+			slope = (g00 * lowKey.Value + g01 * highKey.Value) / deltaTick
+				+ g10 * lowSlope
+				+ g11 * highSlope
+			return slope, slope
+		end
+
 	end
 
-	return nil, nil
+	return 0, 0
 end
 
-function KeyframeUtils.blendCurveKeyframes(track, tick, low, high)
+function KeyframeUtils.blendCurveKeyframes(track, tck, low, high)
 	assert(low < high, "Low keyframe must be less than high keyframe.")
 	local dataTable = track.Data
 	local lowEntry = dataTable[low]
 	local highEntry = dataTable[high]
 	local deltaTick = high - low
-	local t = (tick - low) / deltaTick
+	local t = (tck - low) / deltaTick
 
 	if lowEntry.InterpolationMode == Enum.KeyInterpolationMode.Constant then
 		return lowEntry.Value
@@ -442,7 +474,7 @@ function KeyframeUtils.blendCurveKeyframes(track, tick, low, high)
 		local h01 = t2 * (3 - 2 * t)
 		local h11 = t2 * (t - 1)
 
-		if GetFFlagQuaternionChannels() and typeof(lowEntry.Value) == "CFrame" then
+		if GetFFlagQuaternionChannels() and track.Type == Constants.TRACK_TYPES.Quaternion then
 			-- The curve describes how the lerp coefficient evolves (always between 0 and 1)
 			local k = h10 * deltaTick * lowSlope
 				+ h01
@@ -458,11 +490,11 @@ function KeyframeUtils.blendCurveKeyframes(track, tick, low, high)
 end
 
 -- Blends the values of two keyframes based on the current tick position
-function KeyframeUtils:blendKeyframes(dataTable, tick, low, high)
+function KeyframeUtils:blendKeyframes(dataTable, tck, low, high)
 	assert(low < high, "Low keyframe must be less than high keyframe.")
 	local lowEntry = dataTable[low]
 	local highEntry = dataTable[high]
-	local distance = (tick - low) / (high - low)
+	local distance = (tck - low) / (high - low)
 
 	local alpha
 	if lowEntry.EasingStyle == Enum.PoseEasingStyle.Constant then

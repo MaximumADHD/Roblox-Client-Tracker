@@ -6,7 +6,13 @@ local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 
 local Framework = require(Libs.Framework)
 
@@ -17,7 +23,7 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 local StyleModifier = require(Libs.Framework).Util.StyleModifier
 local StyleColors = FrameworkStyle.Colors
 
-local Cryo = require(Plugin.Libs.Cryo)
+local Cryo = require(Libs.Cryo)
 
 return function()
 	local roundBox = getRawComponentStyle("RoundBox")

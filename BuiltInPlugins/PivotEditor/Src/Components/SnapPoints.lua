@@ -1,9 +1,6 @@
 local Workspace = game:GetService("Workspace")
 
 local Plugin = script.Parent.Parent.Parent
-local DraggerFramework = Plugin.Packages.DraggerFramework
-
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
 
 local Roact = require(Plugin.Packages.Roact)
 
@@ -17,29 +14,27 @@ local EQUAL_POINTS_THRESHOLD = 0.001
 return function(props)
 	local snapPointElements = {}
 
-	local boundsMin, boundsMax, totalSize
-	if getFFlagSummonPivot() then
-		boundsMin = Vector3.new(math.huge, math.huge, math.huge)
-		boundsMax = Vector3.new(-math.huge, -math.huge, -math.huge)
-		for i, pointCFrame in ipairs(props.SnapPoints) do
-			boundsMin = boundsMin:Min(pointCFrame.Position)
-			boundsMax = boundsMax:Max(pointCFrame.Position)
-		end
-		totalSize = (boundsMax - boundsMin).Magnitude
+	local boundsMin = Vector3.new(math.huge, math.huge, math.huge)
+	local boundsMax = Vector3.new(-math.huge, -math.huge, -math.huge)
+	for i, pointCFrame in ipairs(props.SnapPoints) do
+		boundsMin = boundsMin:Min(pointCFrame.Position)
+		boundsMax = boundsMax:Max(pointCFrame.Position)
 	end
+	local totalSize = (boundsMax - boundsMin).Magnitude
 
 	for i, pointCFrame in ipairs(props.SnapPoints) do
 		local point = pointCFrame.Position
 		local scale = props.DraggerContext:getHandleScale(point)
-		if getFFlagSummonPivot() then
-			local distanceToClosest = (point - props.Focus).Magnitude
-			if distanceToClosest > totalSize or distanceToClosest < EQUAL_POINTS_THRESHOLD then
-				continue
-			end
-			-- Frac ranges between 1.8 and 0.2 depending on the distance
-			local frac = 1.8 - 1.6 * (distanceToClosest / totalSize) ^ 0.5
-			scale *= frac
+
+		local distanceToClosest = (point - props.Focus).Magnitude
+		if distanceToClosest > totalSize or distanceToClosest < EQUAL_POINTS_THRESHOLD then
+			continue
 		end
+		
+		-- Frac ranges between 1.8 and 0.2 depending on the distance
+		local frac = 1.8 - 1.6 * (distanceToClosest / totalSize) ^ 0.5
+		scale *= frac
+
 		snapPointElements[i * 2 - 1] = Roact.createElement("BoxHandleAdornment", {
 			ZIndex = 0,
 			Adornee = Workspace.Terrain,

@@ -44,6 +44,7 @@ local StartSelectingFromExplorer = require(Plugin.Src.Thunks.StartSelectingFromE
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
@@ -144,6 +145,20 @@ local function getUserAddedAssets(self, selectedTab)
 	return userAddedAssets and userAddedAssets[selectedTab] or {}
 end
 
+function Grid:createPrebuiltAssetTile(id, thumbnailType, order)
+	local props = self.props
+	local prebuiltAssetsInfo = props.PrebuiltAssetsInfo
+	local localization = props.Localization
+	local zIndex = props.zIndex or 1
+
+	local infoForAsset = prebuiltAssetsInfo[id] -- will only be available on production
+	if infoForAsset then
+		local image = "rbxthumb://type=" ..thumbnailType .."&id=" .. tostring(id) .. "&w=150&h=150"
+		local name = infoForAsset.Name or infoForAsset.name or localization:getText(Constants.LOCALIZATION_KEYS.Preview, "Asset")
+		return createEquipTile(self, order, zIndex, image, nil, id, name)
+	end
+end
+
 function Grid:render()
 	local props = self.props
 	local size = props.size
@@ -151,7 +166,6 @@ function Grid:render()
 	local zIndex = props.zIndex or 1
 	local theme = props.Stylizer
 	local selectedTab = props.SelectedTab
-	local prebuiltAssetsInfo = props.PrebuiltAssetsInfo
 	local localization = props.Localization
 	local selectorMode = props.SelectorMode
 
@@ -201,14 +215,13 @@ function Grid:render()
 		-- add prebuilt asset tiles
 		if tabInfo.AssetIds then
 			for _, assetId in ipairs(tabInfo.AssetIds) do
-				local infoForAsset = prebuiltAssetsInfo[assetId] -- will only be available on production
-				if infoForAsset then
-					local tileLayoutOrder = orderIterator:getNextOrder()
-					local image = "rbxthumb://type=Asset&id=" .. tostring(assetId) .. "&w=150&h=150"
-					local name = infoForAsset.name or localization:getText(Constants.LOCALIZATION_KEYS.Preview, "Asset")
-					children[tileLayoutOrder] =
-						createEquipTile(self, tileLayoutOrder, zIndex, image, nil, assetId, name)
-				end
+				local tileLayoutOrder = orderIterator:getNextOrder()
+				children[tileLayoutOrder] = self:createPrebuiltAssetTile(assetId, "Asset", tileLayoutOrder)
+			end
+		elseif tabInfo.BundleIds then
+			for _, bundleId in ipairs(tabInfo.BundleIds) do
+				local tileLayoutOrder = orderIterator:getNextOrder()
+				children[tileLayoutOrder] = self:createPrebuiltAssetTile(bundleId, "BundleThumbnail", tileLayoutOrder)
 			end
 		end
 	end
@@ -248,8 +261,11 @@ function Grid:didMount()
 	local props = self.props
 	local API = props.API
 
+	local assetService = self.props.AssetServiceWrapper:get()
+
 	local arrayOfAssetIds = PreviewConstantsInterface.getAllAssetIds()
-	self.props.GetPrebuiltAssetsInfo(API, arrayOfAssetIds)
+	local arrayOfBundleIds = PreviewConstantsInterface.getAllBundleIds()
+	self.props.GetPrebuiltAssetsInfo(API, assetService, arrayOfAssetIds, arrayOfBundleIds)
 end
 
 
@@ -259,6 +275,7 @@ Grid = withContext({
 	API = ContextServices.API,
 	Plugin = ContextServices.Plugin,
 	EditingItemContext = EditingItemContext,
+	AssetServiceWrapper = AssetServiceWrapper,
 })(Grid)
 
 
@@ -282,8 +299,8 @@ local function mapDispatchToProps(dispatch)
 		StartSelectingFromExplorer = function(mode, message)
 			dispatch(StartSelectingFromExplorer(mode, message))
 		end,
-		GetPrebuiltAssetsInfo = function(robloxApi, arrayOfAssetIds)
-			dispatch(GetPrebuiltAssetsInfo(robloxApi, arrayOfAssetIds))
+		GetPrebuiltAssetsInfo = function(robloxApi, assetService, arrayOfAssetIds, arrayOfBundleIds)
+			dispatch(GetPrebuiltAssetsInfo(robloxApi, assetService, arrayOfAssetIds, arrayOfBundleIds))
 		end,
 		UpdatePreviewAssetsSelected = function(id, addAsset)
 			dispatch(UpdatePreviewAssetsSelected(id, addAsset))

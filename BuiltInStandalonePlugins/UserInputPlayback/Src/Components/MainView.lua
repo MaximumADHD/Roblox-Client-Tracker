@@ -18,6 +18,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 function MainView:didMount()
 	DMBridge.setPluginObject(self.props.Plugin:get())
+	DMBridge.setLocalizationObject(self.props.Localization)
 	DMBridge.setPluginStateRoduxActionHandler(self.props.SetPluginState)
 end
 

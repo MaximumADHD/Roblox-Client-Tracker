@@ -9,12 +9,20 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-return function(tick)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+
+return function(tck)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
 		local targetInstance = state.Status.RootInstance
-		local isPlaying = state.Status.IsPlaying
+		local isPlaying
+		if GetFFlagMoarMediaControls() then
+		 	isPlaying = state.Status.PlayState ~= Constants.PLAY_STATE.Pause
+		else
+			isPlaying = state.Status.IsPlaying
+		end
+
 		local active = state.Status.Active
 		local visualizeBones = state.Status.VisualizeBones
 
@@ -26,15 +34,15 @@ return function(tick)
 		if instances then
 			for _, instance in pairs(instances) do
 				if instance.Type == Constants.INSTANCE_TYPES.Rig then
-					RigUtils.stepRigAnimation(targetInstance, instance, tick)
+					RigUtils.stepRigAnimation(targetInstance, instance, tck)
 				end
 			end
 		end
 
 		if not isPlaying then
-			tick = KeyframeUtils.getNearestTick(tick)
+			tck = KeyframeUtils.getNearestTick(tck)
 		end
-		store:dispatch(SetPlayhead(tick))
+		store:dispatch(SetPlayhead(tck))
 
 		RigUtils.updateMicrobones(targetInstance, visualizeBones)
 	end

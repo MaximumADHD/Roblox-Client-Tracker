@@ -3,7 +3,6 @@
 
 	Contains the tool buttons and the tabs for different views.
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
@@ -190,18 +189,10 @@ function RoactProfilerView:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	RoactProfilerView = withContext({
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-	})(RoactProfilerView)
-else
-	ContextServices.mapToProps(RoactProfilerView, {
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+RoactProfilerView = withContext({
+	Inspector = InspectorContext,
+	Stylizer = ContextServices.Stylizer,
+})(RoactProfilerView)
 
 return RoactRodux.connect(
 	function(state)

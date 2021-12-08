@@ -1,7 +1,6 @@
 --[[
 	Children of this component should not have a UiListLayout Sibling
 --]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -134,15 +133,11 @@ function Panel:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Panel = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(Panel)
-else
-	ContextServices.mapToProps(Panel, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+Panel = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(Panel)
+
 
 
 return Panel

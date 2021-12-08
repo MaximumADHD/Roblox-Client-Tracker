@@ -45,10 +45,13 @@ local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
+local Pause = require(Plugin.Src.Actions.Pause)
 
 local EditEventsDialog = require(Plugin.Src.Components.EditEventsDialog.EditEventsDialog)
 
 local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEditorFixBackspaceOnMac)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local EventsController = Roact.PureComponent:extend("EventsController")
 
@@ -175,7 +178,11 @@ function EventsController:init()
 	end
 
 	self.showMenu = function()
-		self.props.SetIsPlaying(false)
+		if GetFFlagMoarMediaControls() then
+			self.props.Pause()
+		else
+			self.props.SetIsPlaying(false)
+		end
 		self:setState({
 			showContextMenu = true,
 		})
@@ -451,8 +458,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetEventEditingTick(tick))
 		end or nil,
 
+		-- Deprecated if GetFFlagMoarMediaControls() is ON
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		Pause = function()
+			dispatch(Pause())
 		end,
 	}
 end

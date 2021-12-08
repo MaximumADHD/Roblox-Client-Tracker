@@ -47,6 +47,7 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
+local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
 local PasteKeyframes = require(Plugin.Src.Thunks.PasteKeyframes)
 local CopySelectedKeyframes = require(Plugin.Src.Thunks.Selection.CopySelectedKeyframes)
 local DeleteSelectedKeyframes = require(Plugin.Src.Thunks.Selection.DeleteSelectedKeyframes)
@@ -250,6 +251,7 @@ function TimelineActions:didMount()
 		local instanceName = props.InstanceName
 		local tracks = props.Tracks
 		local trackType = props.TrackType
+		local rotationType = props.RotationType
 		local path = props.Path
 		local animationData = props.AnimationData
 		local isChannelAnimation = props.IsChannelAnimation
@@ -260,34 +262,39 @@ function TimelineActions:didMount()
 			addKeyframe = function(instanceName, path)
 				-- If the user clicked outside of a track, the trackType is not set
 				trackType = trackType or TrackUtils.getTrackTypeFromName(path[1], tracks)
+				rotationType = rotationType or TrackUtils.getRotationTypeFromName(path[1], tracks)
 				if isChannelAnimation then
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
-						local componentTrack = AnimationData.getTrack(animationData, instanceName, componentPath)
-						local value
-						local leftSlope, rightSlope
-						local interpolationMode = Enum.KeyInterpolationMode.Cubic
-
-						if componentTrack and componentTrack.Keyframes then
-							value = KeyframeUtils.getValue(componentTrack, tick)
-							local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, tick)
-							if prevKeyframe then
-								interpolationMode = prevKeyframe.InterpolationMode
-								if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-									leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, tick)
-								end
-							end
+						if GetFFlagQuaternionChannels() then
+							props.SplitTrack(instanceName, componentPath, componentType, tick, props.Analytics)
 						else
-							value = KeyframeUtils.getDefaultValue(componentType)
+							local componentTrack = AnimationData.getTrack(animationData, instanceName, componentPath)
+							local value
+							local leftSlope, rightSlope
+							local interpolationMode = Enum.KeyInterpolationMode.Cubic
+
+							if componentTrack and componentTrack.Keyframes then
+								value = KeyframeUtils.getValue(componentTrack, tick)
+								local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, tick)
+								if prevKeyframe then
+									interpolationMode = prevKeyframe.InterpolationMode
+									if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+										leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, tick)
+									end
+								end
+							else
+								value = KeyframeUtils.getDefaultValue(componentType)
+							end
+							local keyframeData = {
+								Value = value,
+								InterpolationMode = interpolationMode,
+								LeftSlope = leftSlope,
+								RightSlope = rightSlope
+							}
+							props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
 						end
-						local keyframeData = {
-							Value = value,
-							InterpolationMode = interpolationMode,
-							LeftSlope = leftSlope,
-							RightSlope = rightSlope
-						}
-						props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
-					end)
+					end, rotationType)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
 					local value
@@ -368,33 +375,40 @@ function TimelineActions:didMount()
 					local track = instance.Tracks[selectedTrack]
 					if GetFFlagChannelAnimations() then
 						if isChannelAnimation then
+							local rotationComponent = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation] or nil
+							local rotationType = rotationComponent and rotationComponent.Type or nil
+
 							TrackUtils.traverseComponents(track.Type, function(componentType, relPath)
 								local componentPath = Cryo.List.join({selectedTrack}, relPath)
-								local componentTrack = AnimationData.getTrack(props.AnimationData, instanceName, componentPath)
-								local value
-								local leftSlope, rightSlope
-								local interpolationMode = Enum.KeyInterpolationMode.Cubic
-
-								if componentTrack and componentTrack.Keyframes then
-									value = KeyframeUtils.getValue(componentTrack, playhead)
-									local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, playhead)
-									if prevKeyframe then
-										interpolationMode = prevKeyframe.InterpolationMode
-										if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-											leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, playhead)
-										end
-									end
+								if GetFFlagQuaternionChannels() then
+									props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 								else
-									value = KeyframeUtils.getDefaultValue(componentType)
+									local componentTrack = AnimationData.getTrack(props.AnimationData, instanceName, componentPath)
+									local value
+									local leftSlope, rightSlope
+									local interpolationMode = Enum.KeyInterpolationMode.Cubic
+
+									if componentTrack and componentTrack.Keyframes then
+										value = KeyframeUtils.getValue(componentTrack, playhead)
+										local prevKeyframe = TrackUtils.findPreviousKeyframe(componentTrack, playhead)
+										if prevKeyframe then
+											interpolationMode = prevKeyframe.InterpolationMode
+											if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+												leftSlope, rightSlope = KeyframeUtils.getSlopes(componentTrack, playhead)
+											end
+										end
+									else
+										value = KeyframeUtils.getDefaultValue(componentType)
+									end
+									local keyframeData = {
+										Value = value,
+										InterpolationMode = interpolationMode,
+										LeftSlope = leftSlope,
+										RightSlope = rightSlope
+									}
+									props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
 								end
-								local keyframeData = {
-									Value = value,
-									InterpolationMode = interpolationMode,
-									LeftSlope = leftSlope,
-									RightSlope = rightSlope
-								}
-								props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
-							end)
+							end, rotationType)
 						else
 							local value
 							if track and track.Keyframes then
@@ -460,6 +474,7 @@ function TimelineActions:didMount()
 		elseif GetFFlagChannelAnimations() and instanceName and path then
 			local value
 			local trackType = props.TrackType
+			local rotationType = props.RotationType
 			if isChannelAnimation then
 				TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 					local componentPath = Cryo.List.join(path, relPath)
@@ -469,7 +484,7 @@ function TimelineActions:didMount()
 						InterpolationMode = Enum.KeyInterpolationMode.Cubic
 					}
 					props.AddKeyframe(instanceName, componentPath, componentType, tick, keyframeData, props.Analytics)
-				end)
+				end, rotationType)
 			else
 				value = KeyframeUtils.getDefaultValue(trackType)
 				local keyframeData = {
@@ -488,9 +503,16 @@ function TimelineActions:didMount()
 					local track = instance.Tracks[trackName]
 					local newValue
 					local trackType
-
+					local rotationType
 					if GetFFlagChannelAnimations() and isChannelAnimation then
-						trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
+						if track then
+							trackType = track.Type
+							local rotationTrack = track.Components and track.Components[Constants.PROPERTY_KEYS.Rotation]
+							rotationType = rotationTrack and rotationTrack.Type or nil
+						else
+							trackType = TrackUtils.getTrackTypeFromName(trackName, tracks)
+							rotationType = TrackUtils.getRotationTypeFromName(trackName, tracks)
+						end
 						TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 							local path = Cryo.List.join({trackName}, relPath)
 							newValue = KeyframeUtils.getDefaultValue(componentType)
@@ -499,7 +521,7 @@ function TimelineActions:didMount()
 								InterpolationMode = Enum.KeyInterpolationMode.Cubic
 							}
 							props.AddKeyframe(instanceName, path, componentType, tick, keyframeData, props.Analytics)
-						end)
+						end, rotationType)
 					else
 						if GetFFlagChannelAnimations() then
 							trackType = track and track.Type or TrackUtils.getTrackTypeFromName(trackName, tracks)
@@ -714,6 +736,7 @@ local function mapStateToProps(state, props)
 		Path = status.RightClickContextInfo.Path,
 		TrackName = status.RightClickContextInfo.TrackName,
 		TrackType = status.RightClickContextInfo.TrackType,
+		RotationType = status.RightClickContextInfo.RotationType,
 		InstanceName = status.RightClickContextInfo.InstanceName,
 		Tick = status.RightClickContextInfo.Tick,
 		SummaryKeyframe = status.RightClickContextInfo.SummaryKeyframe,
@@ -755,6 +778,12 @@ local function mapDispatchToProps(dispatch)
 		PasteKeyframes = function(tick, analytics)
 			dispatch(AddWaypoint())
 			dispatch(PasteKeyframes(tick, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		SplitTrack = function(instance, path, trackType, tck, analytics)
+			dispatch(AddWaypoint())
+			dispatch(SplitTrack(instance, path, trackType, tck, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

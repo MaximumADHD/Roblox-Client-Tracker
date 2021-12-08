@@ -3,8 +3,14 @@
 	Allow the user to select a place to overwrite
 ]]
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
 
 local StudioService = game:GetService("StudioService")
+
+local teamCreateToggleEnabled = false 
+if FIntTeamCreateTogglePercentageRollout > 0 then
+	teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
+end
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -301,6 +307,9 @@ function ScreenChoosePlace:render()
 				Active = parentGame and self.state.selectedPlace ~= nil and not isPublishing,
 				OnActivated = function()
 					-- groupId is unused
+					if teamCreateToggleEnabled then
+						StudioService:setTurnOnTeamCreateOnPublish(false)
+					end
 					StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
 					dispatchSetIsPublishing(true)
 				end,

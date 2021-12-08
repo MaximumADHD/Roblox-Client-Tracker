@@ -5,10 +5,15 @@ MetaBreakpoint:
 - Line : number
 - Condition : string
 - Id : number
+- LogMessage : string
 - Enabled: boolean
 - Valid : boolean
 - ContinueExecution: boolean
+- IsLogpoint : boolean
 ]]--
+
+local main = script.Parent.Parent.Parent
+local Constants = require(main.Src.Util.Constants)
 
 local MetaBreakpoint = {}
 MetaBreakpoint.__index = MetaBreakpoint
@@ -31,6 +36,10 @@ function MetaBreakpoint:SetMockBreakpointManager(mockBreakpointManager)
 	self.mockBreakpointManager = mockBreakpointManager
 end
 
+function MetaBreakpoint:GetContexts()
+	return {[1] = Constants.GameStateTypes.Client, [2] = Constants.GameStateTypes.Server}
+end
+
 function MetaBreakpoint.new(scriptString : string, line : number, condition : string, id : number, logMessage : string,
 	enabled: boolean,  valid : boolean, continueExecution: boolean, isLogpoint : boolean)	
 	local self = {
@@ -38,9 +47,9 @@ function MetaBreakpoint.new(scriptString : string, line : number, condition : st
 		Line = line,
 		Condition = condition,
 		Id = id,
+		LogMessage = logMessage,
 		Enabled = enabled,
 		Valid = valid,
-		LogMessage = logMessage,
 		ContinueExecution = continueExecution,
 		IsLogpoint = isLogpoint
 	}

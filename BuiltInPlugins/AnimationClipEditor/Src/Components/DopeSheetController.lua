@@ -60,12 +60,15 @@ local QuantizeKeyframes = require(Plugin.Src.Thunks.QuantizeKeyframes)
 
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
+local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
@@ -330,7 +333,11 @@ function DopeSheetController:init()
 	end
 
 	self.showMenu = function()
-		self.props.SetIsPlaying(false)
+		if GetFFlagMoarMediaControls() then
+			self.props.Pause()
+		else
+			self.props.SetIsPlaying(false)
+		end
 		self:setState({
 			showContextMenu = true,
 		})
@@ -408,11 +415,11 @@ function DopeSheetController:handleTimelineInputEnded(input)
 	elseif input.UserInputType == Enum.UserInputType.MouseButton2 then
 		if GetFFlagChannelAnimations() then
 			local path
-			local track, trackIndex, trackType
+			local track, trackIndex, trackType, rotationType
 			local isChannelAnimation = self.props.IsChannelAnimation
 
 			if isChannelAnimation then
-				trackIndex, path, trackType = self.getTrackInfoFromPosition(input.Position)
+				trackIndex, path, trackType, rotationType = self.getTrackInfoFromPosition(input.Position)
 				track = self.tracks[trackIndex]
 			else
 				trackIndex = self.getTrackFromPosition(input.Position)
@@ -420,6 +427,7 @@ function DopeSheetController:handleTimelineInputEnded(input)
 				if track then
 					path = {track.Name}
 					trackType = track.Type
+					rotationType = TrackUtils.getRotationType(track)
 				end
 			end
 
@@ -427,6 +435,7 @@ function DopeSheetController:handleTimelineInputEnded(input)
 				Tick = self.getTickFromPosition(input.Position, true),
 				Path = path,
 				TrackType = trackType,
+				RotationType = rotationType,
 				InstanceName = track and track.Instance or nil,
 			})
 		else
@@ -918,8 +927,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetNotification("Loaded", false))
 		end,
 
+		-- Deprecated if GetFFlagMoarMediaControls() is ON
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		Pause = function()
+			dispatch(Pause())
 		end,
 
 		CloseClippedToast = function()

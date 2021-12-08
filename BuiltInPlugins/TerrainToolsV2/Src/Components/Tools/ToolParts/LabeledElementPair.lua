@@ -11,7 +11,6 @@
 		FillDirection - UIListLayout fill direction
 ]]
 
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -189,15 +188,11 @@ function LabeledElementPair:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	LabeledElementPair = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(LabeledElementPair)
-else
-	ContextServices.mapToProps(LabeledElementPair, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+LabeledElementPair = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(LabeledElementPair)
+
 
 
 return LabeledElementPair

@@ -13,8 +13,6 @@ local Roact = require(Library.Packages.Roact)
 local ANIMATED_HOVER_BOX_UPDATE_BIND_NAME = "AnimatedHoverBoxUpdate"
 local MODEL_LINE_THICKNESS_SCALE = 2.5
 
-local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
-
 --[[
 	Return a hover color that is a blend between the Studio settings HoverOverColor
 	and SelectColor, based on the current time and HoverAnimateSpeed.
@@ -41,18 +39,15 @@ function AnimatedHoverBox:init(initialProps)
 	self._isMounted = false
 	self._startTime = 0
 
-	if getFFlagDraggerFrameworkFixes() then
-		local guid = HttpService:GenerateGUID(false)
-		self._bindName = ANIMATED_HOVER_BOX_UPDATE_BIND_NAME .. "_" .. guid
-	end
+	local guid = HttpService:GenerateGUID(false)
+	self._bindName = ANIMATED_HOVER_BOX_UPDATE_BIND_NAME .. "_" .. guid
 end
 
 function AnimatedHoverBox:didMount()
 	self._isMounted = true
 	self._startTime = tick()
 
-	local bindName = getFFlagDraggerFrameworkFixes() and self._bindName or ANIMATED_HOVER_BOX_UPDATE_BIND_NAME
-	RunService:BindToRenderStep(bindName, Enum.RenderPriority.First.Value, function()
+	RunService:BindToRenderStep(self._bindName, Enum.RenderPriority.First.Value, function()
 		if self._isMounted then
 			local deltaT = tick() - self._startTime
 			self:setState({
@@ -65,9 +60,8 @@ end
 
 function AnimatedHoverBox:willUnmount()
 	self._isMounted = false
-
-	local bindName = getFFlagDraggerFrameworkFixes() and self._bindName or ANIMATED_HOVER_BOX_UPDATE_BIND_NAME
-	RunService:UnbindFromRenderStep(bindName)
+	
+	RunService:UnbindFromRenderStep(self._bindName)
 end
 
 function AnimatedHoverBox:render()

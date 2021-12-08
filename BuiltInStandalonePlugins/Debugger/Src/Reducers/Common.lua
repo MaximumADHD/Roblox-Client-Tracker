@@ -106,11 +106,11 @@ return Rodux.createReducer(productionStartStore, {
 		local newDebuggerConnectionMap = deepCopy(state.debuggerConnectionIdToDST)
 		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
 		
-		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap}, {isPaused = true})
+		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap})
 	end,
 	
 	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)
-		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId})
+		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId}, {isPaused = true})
 	end,
 
 	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)

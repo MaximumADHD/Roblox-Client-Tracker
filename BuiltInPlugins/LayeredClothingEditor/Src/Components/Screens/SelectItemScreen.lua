@@ -47,6 +47,7 @@ Typecheck.wrap(SelectItemScreen, script)
 function SelectItemScreen:init()
 	self.state = {
 		selectedPart = nil,
+		isSelecting = false,
 	}
 
 	self.checkForPreviewAvatar = function(item)
@@ -139,7 +140,9 @@ function SelectItemScreen:init()
 	self.onSelectValidInstance = function(instance)
 		self:setState({
 			selectedPart = instance,
+			isSelecting = false,
 		})
+		self.props.Mouse:__resetCursor()
 
 		if self.ancestryChangedHandle then
 			self.ancestryChangedHandle:Disconnect()
@@ -152,6 +155,13 @@ function SelectItemScreen:init()
 			self.ancestryChangedHandle:Disconnect()
 			self.ancestryChangedHandle = nil
 		end)
+	end
+
+	self.onStartSelection = function()
+	    self.props.Mouse:__pushCursor("PointingHand")
+		self:setState({
+			isSelecting = true,
+		})
 	end
 end
 
@@ -169,6 +179,7 @@ function SelectItemScreen:render()
 	local state = self.state
 
 	local partName = state.selectedPart and state.selectedPart.Name or ""
+	local isSelecting = state.isSelecting
 
 	local theme = props.Stylizer
 	local localization = props.Localization
@@ -186,10 +197,11 @@ function SelectItemScreen:render()
 		SelectFrame = Roact.createElement(SelectFrame, {
 			PartName = partName,
 			ButtonEnabled = partName ~= "",
+			OnStartSelection = self.onStartSelection,
 			OnConfirmSelection = self.onConfirmSelection
 		}),
 
-		InstanceSelector = Roact.createElement(InstanceSelector, {
+		InstanceSelector = isSelecting and Roact.createElement(InstanceSelector, {
 			IsSelectedInstanceValid = self.isSelectedInstanceValid,
 			OnValidSelection = self.onSelectValidInstance,
 			InvalidSelectionWarningText = invalidAddText,
@@ -209,6 +221,7 @@ SelectItemScreen = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
+	Mouse = ContextServices.Mouse,
 	EditingItemContext = EditingItemContext,
 })(SelectItemScreen)
 

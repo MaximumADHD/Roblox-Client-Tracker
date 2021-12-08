@@ -4,8 +4,8 @@ local Category = require(Plugin.Core.Types.Category)
 local Url = require(Plugin.Libs.Http.Url)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
+local Rollouts = require(Plugin.Core.Rollouts)
 
-local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
@@ -102,17 +102,11 @@ local AUTOCOMPLETE = Url.APIS_URL .. "autocomplete-studio/v2/suggest?"
 local DEFAULT_ASSET_SIZE = 100
 local DEFAULT_SEARCH_ROWS = 3
 
-if FFlagToolboxUseGetItemDetails then
-	function Urls.constructGetItemDetails(assetIds)
-		-- assetIds : array<number>
-		return GET_ITEM_DETAILS .. Url.makeQueryString({
-			assetIds = table.concat(assetIds, ",")
-		})
-	end
-else
-	function Urls.constructPostGetItemDetails()
-		return GET_ITEM_DETAILS
-	end
+function Urls.constructGetItemDetails(assetIds)
+	-- assetIds : array<number>
+	return GET_ITEM_DETAILS .. Url.makeQueryString({
+		assetIds = table.concat(assetIds, ",")
+	})
 end
 
 function Urls.constructGetAssetsUrl(category, searchTerm, pageSize, page, sortType, groupId, creatorId)
@@ -147,6 +141,7 @@ function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDu
 	end
 
 	local apiName = Category.API_NAMES[category]
+	local isCreationsTab = Category.getTabForCategoryName(categoryData.name) == Category.CREATIONS
 
 	if not apiName then
 		error(string.format("Could not find API_NAME for %s", category))
@@ -156,7 +151,11 @@ function Urls.constructGetToolboxItemsUrl(category, sortType, creatorType, minDu
 	if categoryData.ownershipType == Category.OwnershipType.MY then
 		targetUrl = string.format("%s/inventory/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
 	elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
-		targetUrl = string.format("%s/inventory/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+		if Rollouts:getToolboxGroupCreationsMigration() and isCreationsTab then
+			targetUrl = string.format("%s/creations/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+		else
+			targetUrl = string.format("%s/inventory/group/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
+		end
 	elseif categoryData.ownershipType == Category.OwnershipType.RECENT then
 		targetUrl = string.format("%s/recent/user/%d/%s?", TOOLBOX_SERVICE_URL, ownerId, apiName)
 	else

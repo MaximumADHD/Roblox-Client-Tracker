@@ -5,6 +5,8 @@ return function()
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 	local MediaControls = require(script.Parent.MediaControls)
 
+	local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+
 	local function createTestMediaControls()
 		return Roact.createElement(MockWrapper, {}, {
 			MediaControls = Roact.createElement(MediaControls, {
@@ -13,8 +15,10 @@ return function()
 				layoutOrder = 0,
 				SkipBackward = function () end,
 				SkipForward = function () end,
-				TogglePlay = function () end,
+				TogglePlay = not GetFFlagMoarMediaControls() and function () end or nil,
 				ToggleLooping = function () end,
+				GoToFirstFrame = GetFFlagMoarMediaControls() and function () end or nil,
+				GoToLastFrame = GetFFlagMoarMediaControls() and function () end or nil,
 			})
 		})
 	end
@@ -31,9 +35,21 @@ return function()
 		local frame = container:FindFirstChildOfClass("Frame")
 
 		expect(frame).to.be.ok()
+		if GetFFlagMoarMediaControls() then
+			expect(frame.GoToFirstFrame).to.be.ok()
+		end
 		expect(frame.SkipBackward).to.be.ok()
-		expect(frame.PlayPause).to.be.ok()
+		if GetFFlagMoarMediaControls() then
+			expect(frame.Reverse).to.be.ok()
+			expect(frame.Pause).to.be.ok()
+			expect(frame.Play).to.be.ok()
+		else
+			expect(frame.PlayPause).to.be.ok()
+		end
 		expect(frame.SkipForward).to.be.ok()
+		if GetFFlagMoarMediaControls() then
+			expect(frame.GoToLastFrame).to.be.ok()
+			end
 		expect(frame.Loop).to.be.ok()
 
 		Roact.unmount(instance)

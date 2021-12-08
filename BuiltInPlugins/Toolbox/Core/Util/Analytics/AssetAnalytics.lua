@@ -1,10 +1,17 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -139,6 +146,9 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
         -- Legacy fields kept for S&D (see STM-215)
         label = assetData.Asset.Id,
         value = 0,
+
+        isVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and assetData.Creator.IsVerifiedCreator or nil,
+        isEndorsed = FFlagToolboxVerifiedCreatorBadges and assetData.Asset.IsEndorsed or nil,
     })
 
     -- We track "ID" as standard

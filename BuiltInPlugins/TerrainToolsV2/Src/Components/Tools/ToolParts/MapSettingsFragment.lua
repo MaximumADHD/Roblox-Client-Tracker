@@ -12,7 +12,6 @@ Props:
 	OnSizeChanged : (vector : string, axis : string, value : string, isValid : bool) -> void
 	SetMapSettingsValid : (bool) -> void
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -166,15 +165,11 @@ function MapSettingsFragment:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	MapSettingsFragment = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(MapSettingsFragment)
-else
-	ContextServices.mapToProps(MapSettingsFragment, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+MapSettingsFragment = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(MapSettingsFragment)
+
 
 
 return MapSettingsFragment

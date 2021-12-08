@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary RoundTextButton component, but modified to use dev framework context
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -99,15 +98,11 @@ function RoundTextButton:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	RoundTextButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(RoundTextButton)
-else
-	ContextServices.mapToProps(RoundTextButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+RoundTextButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(RoundTextButton)
+
 
 
 return RoundTextButton

@@ -40,7 +40,15 @@
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") --file added with this flag
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Libs.Cryo)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Packages
+else
+	Libs = Plugin.Libs
+end
+local Cryo = require(Libs.Cryo)
 
 local SetPackagePermission = require(Plugin.Core.Actions.SetPackagePermission)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
@@ -51,7 +59,7 @@ local KeyConverter = require(Plugin.Core.Util.Permissions.KeyConverter)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local Promise = require(Libs.Framework).Util.Promise
 
 --[[
 	response comes in batches of objects with different objects for different permission levels for same object, so need to filter

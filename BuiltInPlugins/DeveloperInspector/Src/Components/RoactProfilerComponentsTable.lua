@@ -2,7 +2,6 @@
 	A paginated table displaying rows of components that have had events (render/mount/update)
 	during the profile session.
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
@@ -161,18 +160,10 @@ function RoactProfilerComponentsTable:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	RoactProfilerComponentsTable = withContext({
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-	})(RoactProfilerComponentsTable)
-else
-	ContextServices.mapToProps(RoactProfilerComponentsTable, {
-		Inspector = InspectorContext,
-		Stylizer = ContextServices.Stylizer,
-	})
-end
-
+RoactProfilerComponentsTable = withContext({
+	Inspector = InspectorContext,
+	Stylizer = ContextServices.Stylizer,
+})(RoactProfilerComponentsTable)
 
 return RoactRodux.connect(
 	function(state)

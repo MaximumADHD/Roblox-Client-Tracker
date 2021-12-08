@@ -1,7 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 
 local Keys = require(Plugin.Core.Util.Keys)

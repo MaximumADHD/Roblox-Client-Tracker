@@ -15,6 +15,7 @@
 local InsertService = game:GetService("InsertService")
 local HttpService = game:GetService("HttpService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
+local Workspace = game.Workspace
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -81,8 +82,8 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 	if isClothing then
 		local useCurrentAttachmentPointInfo = not accessoryTypeChanged and regenerated
 
-		self.mannequin = InsertService:LoadLocalAsset("rbxasset://models/LayeredClothingEditor/mannequin.rbxm")
-		self.mannequin.Parent = game.Workspace
+		self.mannequin = InsertService:LoadLocalAsset(Constants.MANNEQUIN_PATH)
+		self.mannequin.Parent = Workspace
 
 		if regenerated then
 			self.editingItem.Size = self.props.ItemSize
@@ -106,7 +107,7 @@ local function setupEditingItem(self, regenerated, accessoryTypeChanged)
 
 		self.MannequinAncestryChangedHandle = self.mannequin.AncestryChanged:Connect(self.onEditingItemExternalChange)
 	else
-		self.editingItem.Parent = game.Workspace
+		self.editingItem.Parent = Workspace
 
 		ModelUtil:positionAvatar(self.editingItem, self.sourceItemWithUniqueDeformerNames, not regenerated)
 	end

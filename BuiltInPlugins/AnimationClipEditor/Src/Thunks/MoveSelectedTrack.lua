@@ -8,6 +8,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
+local isEmpty = require(Plugin.Src.Util.isEmpty)
 
 local GetFFlagFixMoveSelectedTracks = require(Plugin.LuaFlags.GetFFlagFixMoveSelectedTracks)
 
@@ -18,7 +19,7 @@ return function(movement)
 		local numTracks = #tracks
 		local selectedTracks = status.SelectedTracks
 
-		if not selectedTracks then
+		if not selectedTracks or (GetFFlagFixMoveSelectedTracks() and isEmpty(selectedTracks)) then
 			return
 		end
 

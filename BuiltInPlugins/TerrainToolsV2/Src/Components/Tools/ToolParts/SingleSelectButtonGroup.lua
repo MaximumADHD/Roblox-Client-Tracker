@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -129,15 +128,11 @@ function SingleSelectButton:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	SingleSelectButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(SingleSelectButton)
-else
-	ContextServices.mapToProps(SingleSelectButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+SingleSelectButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(SingleSelectButton)
+
 
 
 local SingleSelectButtonGroup = Roact.PureComponent:extend("SingleSelectButtonGroup")
@@ -207,15 +202,8 @@ function SingleSelectButtonGroup:render()
 	}, content)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	SingleSelectButtonGroup = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(SingleSelectButtonGroup)
-else
-	ContextServices.mapToProps(SingleSelectButtonGroup, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
-
+SingleSelectButtonGroup = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(SingleSelectButtonGroup)
 
 return SingleSelectButtonGroup

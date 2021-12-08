@@ -1,5 +1,3 @@
-local FFlagTerrainToolsMoreOutputIssue = game:GetFastFlag("TerrainToolsMoreOutputIssue")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -19,14 +17,6 @@ local CONVERT_BIOME_WAYPOINT = "ConvertPart_Biome"
 local DEBUG_LOG_WORK_TIME = false
 
 local function logConversionFinished(data, operation)
-	if not FFlagTerrainToolsMoreOutputIssue then
-		local totalTime = operation:getTimeTaken()
-		local totalInstances = data.currentIndex or 0
-		
-		print(data.localization:getText("ConvertPart", "ConvertFinished",
-			totalTime, totalInstances))
-	end
-		
 	if DEBUG_LOG_WORK_TIME then
 		local totalFillCalls = data.totalFillCalls
 		local yieldTime = operation:getYieldTime()

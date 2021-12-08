@@ -12,6 +12,13 @@
 		function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id
 			of box and selection state to set in store
 ]]
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+
+local teamCreateToggleEnabled = false
+if FIntTeamCreateTogglePercentageRollout > 0 then
+	local StudioService = game:GetService("StudioService")
+    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
+end
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -50,6 +57,8 @@ end
 function PlatformSelect:render()
 	local props = self.props
 	local localization = props.Localization
+	
+	local theme = teamCreateToggleEnabled and props.Theme:get("Plugin") or nil
 
 	local layoutOrder = props.LayoutOrder or 0
 	local devicesError = props.DevicesError
@@ -57,60 +66,62 @@ function PlatformSelect:render()
 	local devices = props.Devices
 
 	return Roact.createElement(CheckBoxSet, {
-			Title = localization:getText("PageTitle", "Devices"),
-			LayoutOrder = layoutOrder,
-			Boxes = {
-				{
-					Id = "Computer",
-					Title = localization:getText("Devices", "Computer"),
-					Selected = devices.Computer,
-				}, {
-					Id = "Phone",
-					Title = localization:getText("Devices", "Phone"),
-					Selected = devices.Phone,
-				}, {
-					Id = "Tablet",
-					Title = localization:getText("Devices", "Tablet"),
-					Selected = devices.Tablet,
-				}, {
-					Id = "Console",
-					Title = localization:getText("Devices", "Console"),
-					Selected = devices.Console,
-				},
+		Title = localization:getText("PageTitle", "Devices"),
+		LayoutOrder = layoutOrder,
+		Boxes = {
+			{
+				Id = "Computer",
+				Title = localization:getText("Devices", "Computer"),
+				Selected = devices.Computer,
+			}, {
+				Id = "Phone",
+				Title = localization:getText("Devices", "Phone"),
+				Selected = devices.Phone,
+			}, {
+				Id = "Tablet",
+				Title = localization:getText("Devices", "Tablet"),
+				Selected = devices.Tablet,
+			}, {
+				Id = "Console",
+				Title = localization:getText("Devices", "Console"),
+				Selected = devices.Console,
 			},
-			ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
-			EntryClicked = function(box)
-				if box.Id == "Console" and not box.Selected then
-					self.showDialog()
+		},
+		ErrorMessage = (devicesError and localization:getText("Error", "NoDevices")) or nil,
+		EntryClicked = function(box)
+			if box.Id == "Console" and not box.Selected then
+				self.showDialog()
+			else
+				deviceSelected(box.Id, not box.Selected)
+			end
+		end,
+		AbsoluteMaxHeight = teamCreateToggleEnabled and theme.checkboxset.maxHeight or nil,
+		UseGridLayout = teamCreateToggleEnabled,
+	}, {
+		ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
+			Title = localization:getText("General", "ContentDialogTitle"),
+			Header = localization:getText("General", "ContentDialogHeader"),
+			Entries = {
+				localization:getText("General", "ContentDialogItem1"),
+				localization:getText("General", "ContentDialogItem2"),
+				localization:getText("General", "ContentDialogItem3"),
+				localization:getText("General", "ContentDialogItem4"),
+				localization:getText("General", "ContentDialogItem5"),
+			},
+			Buttons = {
+				{ Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
+				{ Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
+			},
+			OnButtonClicked = function(key)
+				if key == "Agree" then
+					self.closeDialog(true)
 				else
-					deviceSelected(box.Id, not box.Selected)
+					self.closeDialog(false)
 				end
 			end,
-		}, {
-			ListDialog = self.state.dialogEnabled and Roact.createElement(ListDialog, {
-				Title = localization:getText("General", "ContentDialogTitle"),
-				Header = localization:getText("General", "ContentDialogHeader"),
-				Entries = {
-					localization:getText("General", "ContentDialogItem1"),
-					localization:getText("General", "ContentDialogItem2"),
-					localization:getText("General", "ContentDialogItem3"),
-					localization:getText("General", "ContentDialogItem4"),
-					localization:getText("General", "ContentDialogItem5"),
-				},
-				Buttons = {
-					{ Key = "Disagree", Text = localization:getText("Button", "ReplyDisagree") },
-					{ Key = "Agree", Text = localization:getText("Button", "ReplyAgree"), Style = "Primary" },
-				},
-				OnButtonClicked = function(key)
-					if key == "Agree" then
-						self.closeDialog(true)
-					else
-						self.closeDialog(false)
-					end
-				end,
-				OnClose = function()
-					self.closeDialog(false)
-				end,
+			OnClose = function()
+				self.closeDialog(false)
+			end,
 		}),
 	})
 end
@@ -118,6 +129,7 @@ end
 
 PlatformSelect = withContext({
 	Localization = ContextServices.Localization,
+	Theme = teamCreateToggleEnabled and ContextServices.Theme or nil
 })(PlatformSelect)
 
 

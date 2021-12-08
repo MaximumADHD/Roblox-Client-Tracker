@@ -5,8 +5,11 @@
 		table robloxApi: the ContextServices.API
 		table assetIds: a table of assetIds
 ]]
+local AssetService = game:GetService("AssetService")
 
 local Plugin = script.Parent.Parent.Parent
+local Cryo = require(Plugin.Packages.Cryo)
+
 local SetPrebuiltAssetsInfo = require(Plugin.Src.Actions.SetPrebuiltAssetsInfo)
 
 local isProductionEnvironment = require(Plugin.Src.Util.isProductionEnvironment)
@@ -19,7 +22,15 @@ local function convertArrayToIdIndexedTable(table)
 	return result
 end
 
-return function(robloxApi, assetIds)
+local function getBundleInfo(assetService, bundleIds)
+	local bundleInfo = {}
+	for _, bundleId in ipairs(bundleIds) do
+		bundleInfo[bundleId] = assetService:GetBundleDetailsAsync(bundleId)
+	end
+	return bundleInfo
+end
+
+return function(robloxApi, assetService, assetIds, bundleIds)
 	return function(store)
 		if not isProductionEnvironment() then
 			return
@@ -28,7 +39,9 @@ return function(robloxApi, assetIds)
 		local responseFunc = function(response)
 			local responseBody = response.responseBody
 			local assetsInfo = convertArrayToIdIndexedTable(responseBody.data)
-			store:dispatch(SetPrebuiltAssetsInfo(assetsInfo))
+			local bundleInfo = getBundleInfo(assetService, bundleIds)
+			local combinedInfo = Cryo.Dictionary.join(assetsInfo, bundleInfo)
+			store:dispatch(SetPrebuiltAssetsInfo(combinedInfo))
 		end
 
 		local errFunc = function(err)

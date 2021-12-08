@@ -13,7 +13,7 @@ local mockContext = require(Plugin.Src.Util.mockContext)
 return function()
 	local function createBreakpointsTable(...)
 		local arg = {...}
-		local initialStore = arg[1] or {Breakpoint = {BreakpointIdsInDebuggerConnection = {}, BreakpointInfo = {}}}
+		local initialStore = arg[1] or {Breakpoint = {BreakpointIdsInDebuggerConnection = {}, MetaBreakpoints = {}}}
 		return mockContext(initialStore, {
 			Frame = Roact.createElement("Frame", {
 				Size = UDim2.fromOffset(200, 200),
@@ -83,7 +83,7 @@ return function()
 			{Breakpoint = 
 				{
 					BreakpointIdsInDebuggerConnection = {[123] = {[8]=8, [10]=10, [9]=9}}, 
-					BreakpointInfo = initialBreakpointData
+					MetaBreakpoints = initialBreakpointData
 				}
 			})
 		

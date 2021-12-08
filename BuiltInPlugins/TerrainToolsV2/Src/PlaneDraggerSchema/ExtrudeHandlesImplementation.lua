@@ -15,14 +15,6 @@ function ExtrudeHandlesImplementation:shouldScaleFromCenter(selection, selection
 	return self._draggerContext:isCtrlKeyDown()
 end
 
-function ExtrudeHandlesImplementation:shouldKeepAspectRatio(selection, selectionInfo, normalId)
-	return self._draggerContext:isShiftKeyDown()
-end
-
-function ExtrudeHandlesImplementation:getMinimumSize(selection, selectionInfo, normalId)
-	return Vector3.new(0, 0, 0)
-end
-
 function ExtrudeHandlesImplementation:beginScale(selection, initialSelectionInfo, normalId)
 	local cframe, offset, size = self:getBoundingBox(selection, initialSelectionInfo)
 	self._originalBoundingBoxCFrame = cframe * CFrame.new(offset)

@@ -51,14 +51,28 @@ function TestHelper.sendInputToXPath(xpath,inputValue)
 	delay()
 end
 
+function TestHelper.confirmDialog()
+	local dialogName = Localization.mock():getText("Dialog","DefaultTitle")
+	local dialogPath = XPath.new(game.CoreGui[dialogName])
+	local dialogConfirmButtonPath =
+		dialogPath:cat(XPath.new("SolidBackground.ButtonContainer.1.Contents.TextButton"))
+	TestHelper.waitForXPathInstance(dialogConfirmButtonPath)
+	TestHelper.clickXPath(dialogConfirmButtonPath)
+end
+
 function TestHelper.goToAssetTypeScreenFromStart(caged, hasAttachment)
 	local ScreenFlowPath = TestHelper.getScreenFlow()
 	local SelectFramePath =
 		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
 	local NextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
+	local SelectScreenTextBoxPath =
+		SelectFramePath:cat(XPath.new("Content.SelectedPartBox.Contents.TextBox"))
 
 	TestHelper.waitForXPathInstance(NextButtonPath)
+	TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)
+
+	TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 	if caged then
 		TestHelper.addLCItemWithFullCageFromExplorer()
@@ -260,6 +274,17 @@ function TestHelper.createClothesWithFullCages(name)
 	return clothes
 end
 
+function TestHelper.createClothesWithOuterCage(name)
+	local model = Instance.new("Model")
+	local clothes = Instance.new("MeshPart", model)
+	clothes.Name = name or TestHelper.DefaultClothesName
+	model.Parent = TestHelper.getTempInstancesFolder()
+	local wrapInst = Instance.new("MeshPart",clothes)
+	wrapInst.Name = clothes.Name
+	Instance.new("WrapTarget", clothes)
+	return clothes
+end
+
 local function createAvatar(name)
 	local avatar = Instance.new("Model")
 	avatar.Parent = TestHelper.getTempInstancesFolder()
@@ -337,12 +362,7 @@ local function addItemAndConfirm(item, addItemFromExplorerButton)
 
 	selectItem(item)
 
-	local dialogName = Localization.mock():getText("Dialog","DefaultTitle")
-	local dialogPath = XPath.new(game.CoreGui[dialogName])
-	local dialogConfirmButtonPath =
-		dialogPath:cat(XPath.new("SolidBackground.ButtonContainer.1.Contents.TextButton"))
-	TestHelper.waitForXPathInstance(dialogConfirmButtonPath)
-	TestHelper.clickXPath(dialogConfirmButtonPath)
+	TestHelper.confirmDialog()
 end
 
 function TestHelper.addRegularPartFromExplorer()
@@ -377,6 +397,15 @@ end
 function TestHelper.addLCItemWithFullCageFromExplorer(item)
 	local lcItem = item or TestHelper.createClothesWithFullCages()
 	assert(ItemCharacteristics.hasFullCages(lcItem))
+
+	selectItem(lcItem)
+
+	return lcItem
+end
+
+function TestHelper.addLCItemWithOuterCageFromExplorer(item)
+	local lcItem = item or TestHelper.createClothesWithOuterCage()
+	assert(ItemCharacteristics.hasOuterCage(lcItem))
 
 	selectItem(lcItem)
 

@@ -1,6 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Action = require(Plugin.Libs.Framework).Util.Action
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Framework
+if FFlagToolboxDeduplicatePackages then
+	Framework = require(Packages.Framework)
+else
+	Framework = require(Plugin.Libs.Framework)
+end
+local Action = Framework.Util.Action
 
 return Action(script.Name, function(isUploadFeeEnabled, uploadFee, canAffordUploadFee)
 	assert(type(isUploadFeeEnabled) == "boolean", "isUploadFeeEnabled must be a boolean")

@@ -1,8 +1,16 @@
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
-local Roact = require(Plugin.Libs.Roact)
-local UILibrary = require(Plugin.Libs.UILibrary)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Packages
+else
+	Libs = Plugin.Libs
+end
+local Roact = require(Libs.Roact)
+local UILibrary = require(Libs.UILibrary)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local UILibraryProvider = Roact.PureComponent:extend("UILibraryProvider")

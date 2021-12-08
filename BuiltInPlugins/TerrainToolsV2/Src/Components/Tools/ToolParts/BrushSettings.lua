@@ -1,7 +1,6 @@
 --[[
 	BrushSettings.lua
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsRenameSnapToGrid = game:GetFastFlag("TerrainToolsRenameSnapToGrid")
 
@@ -344,15 +343,11 @@ function BrushSettings:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	BrushSettings = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(BrushSettings)
-else
-	ContextServices.mapToProps(BrushSettings, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+BrushSettings = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(BrushSettings)
+
 
 
 return BrushSettings

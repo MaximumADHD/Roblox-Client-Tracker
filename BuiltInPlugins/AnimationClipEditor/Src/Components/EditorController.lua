@@ -57,9 +57,11 @@ local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
+local Pause = require(Plugin.Src.Actions.Pause)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
@@ -69,7 +71,9 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 
 local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
 
@@ -139,11 +143,16 @@ function EditorController:init()
 	end
 
 	if GetFFlagChannelAnimations() then
-		self.showMenu = function(instanceName, path, trackType)
-			self.props.SetIsPlaying(false)
+		self.showMenu = function(instanceName, path, trackType, rotationType)
+			if GetFFlagMoarMediaControls() then
+				self.props.Pause()
+			else
+				self.props.SetIsPlaying(false)
+			end
 			self.props.SetRightClickContextInfo({
 				Path = path,
 				TrackType = trackType,
+				RotationType = rotationType,
 				InstanceName = instanceName,
 			})
 			self:setState({
@@ -152,7 +161,11 @@ function EditorController:init()
 		end
 	else
 		self.showMenu = function(track)
-			self.props.SetIsPlaying(false)
+			if GetFFlagMoarMediaControls() then
+				self.props.Pause()
+			else
+				self.props.SetIsPlaying(false)
+			end
 			self.props.SetRightClickContextInfo({
 				TrackName = track.Name,
 				TrackType = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and track.Type or nil,
@@ -235,6 +248,7 @@ function EditorController:init()
 				end
 			end
 		end
+		
 		local props = self.props
 		local setSelectedTrackInstances = props.SetSelectedTrackInstances
 		if (#currentParts > 0) and currentParts then
@@ -327,6 +341,10 @@ if UseLuaDraggers() then
 			for _, part in ipairs(self.KinematicParts) do
 				self.nameToPart[part.Name] = part
 			end
+			if GetFFlagRootMotionTrack() then 
+				local rootPart = RigUtils.findRootPart(nextProps.RootInstance)
+				self.nameToPart[rootPart.Name] = rootPart
+			end
 		end
 		-- if the selected tracks has changed, update the selected track instances
 		if nextProps.SelectedTracks ~= self.props.SelectedTracks then
@@ -349,7 +367,12 @@ function EditorController:render()
 
 	local active = props.Active
 	local playhead = props.Playhead
-	local isPlaying = props.IsPlaying
+	local isPlaying
+	if GetFFlagMoarMediaControls() then
+		isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
+	else
+		isPlaying = props.IsPlaying
+	end
 	local showAsSeconds = props.ShowAsSeconds
 	local editingLength = props.EditingLength
 	local topTrackIndex = state.TopTrackIndex
@@ -678,7 +701,9 @@ local function mapStateToProps(state, props)
 		MotorData = status.MotorData,
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
+		-- Deprecated when GetFFlagMoarMediaControls() is ON
 		IsPlaying = status.IsPlaying,
+		PlayState = status.PlayState,
 		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,
@@ -782,8 +807,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetFrameRate(frameRate))
 		end,
 
+		-- Deprecated when GetFFlagMoarMediaControls() is ON
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		Pause = function()
+			dispatch(Pause())
 		end,
 
 		SetPlaybackSpeed = function(playbackSpeed)

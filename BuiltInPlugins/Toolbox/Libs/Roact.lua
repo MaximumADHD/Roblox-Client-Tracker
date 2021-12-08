@@ -1,3 +1,8 @@
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+if FFlagToolboxDeduplicatePackages then
+	error("Deprecated Libs Roact being used when FFlagToolboxDeduplicatePackages is enabled. Use Packages.Roact instead.")
+end
+
 --[[
 	Packages up the internals of Roact and exposes a public API for it.
 ]]

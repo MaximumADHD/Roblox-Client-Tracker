@@ -18,13 +18,13 @@ local function createAxisIndicator()
     local model = Instance.new("Model")
 
     local xAxis = makeAxisFor(model, X_COLOR)
-    xAxis.CFrame = CFrame.new(-AXIS_SIZE.X / 2, 0, 0)
+    xAxis.CFrame = CFrame.new(AXIS_SIZE.X / 2, 0, 0)
 
     local yAxis = makeAxisFor(model, Y_COLOR)
     yAxis.CFrame = CFrame.new(0, AXIS_SIZE.X / 2, 0) * CFrame.Angles(0, 0, math.rad(90))
 
     local zAxis = makeAxisFor(model, Z_COLOR)
-    zAxis.CFrame = CFrame.new(0, 0, -AXIS_SIZE.X / 2) * CFrame.Angles(0, math.rad(90), 0)
+    zAxis.CFrame = CFrame.new(0, 0, AXIS_SIZE.X / 2) * CFrame.Angles(0, math.rad(90), 0)
 
     local wrapperPart = Instance.new("Part")
     wrapperPart.Size = Vector3.new(4, 4, 4)

@@ -24,14 +24,14 @@ type BreakpointStore = {
 			[BreakpointId] : BreakpointId,
 		}
 	},
-	BreakpointInfo : {
+	MetaBreakpoints : {
 		[BreakpointId] : Breakpoint.Breakpoint,
 	},
 }
 
 local initialState : BreakpointStore = {
 	BreakpointIdsInDebuggerConnection = {},
-	BreakpointInfo = {},
+	MetaBreakpoints = {},
 }
 
 return Rodux.createReducer(initialState, {
@@ -47,39 +47,39 @@ return Rodux.createReducer(initialState, {
 				{[action.breakpoint.id] = action.breakpoint.id}
 			)
 		})
-		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo, {
+		local updatedMetaBreakpoints = Cryo.Dictionary.join(state.MetaBreakpoints, {
 			[action.breakpoint.id] = action.breakpoint
 		})
 		return Cryo.Dictionary.join(
-			state, {BreakpointIdsInDebuggerConnection = updatedBreakpointIdsForConnection}, {BreakpointInfo = updatedBreakpointInfo}
+			state, {BreakpointIdsInDebuggerConnection = updatedBreakpointIdsForConnection}, {MetaBreakpoints = updatedMetaBreakpoints}
 		)
 	end,
 	
 	[ModifyBreakpointAction.name] = function(state : BreakpointStore, action : ModifyBreakpointAction.Props)
 		-- throw warning if modifying breakpoint ID that doesn't exist
-		if state.BreakpointIdsInDebuggerConnection == nil or state.BreakpointInfo[action.breakpoint.id] == nil then
+		if state.BreakpointIdsInDebuggerConnection == nil or state.MetaBreakpoints[action.breakpoint.id] == nil then
 			assert(false)
 		end
-		local updatedBreakpointInfo = Cryo.Dictionary.join(state.BreakpointInfo, {
+		local updatedMetaBreakpoints = Cryo.Dictionary.join(state.MetaBreakpoints, {
 			[action.breakpoint.id] = action.breakpoint
 		})
 		return Cryo.Dictionary.join(
-			state, {BreakpointInfo = updatedBreakpointInfo}
+			state, {MetaBreakpoints = updatedMetaBreakpoints}
 		)
 	end,
 	
 	[DeleteBreakpointAction.name] = function(state : BreakpointStore, action : DeleteBreakpointAction.Props)
-		if not (state.BreakpointInfo and state.BreakpointInfo[action.breakpointId]) then
+		if not (state.MetaBreakpoints and state.MetaBreakpoints[action.breakpointId]) then
 			assert(false)
 		end
-		local newBreakpointInfo = deepCopy(state.BreakpointInfo)
-		newBreakpointInfo[action.breakpointId] = nil
+		local newMetaBreakpoints = deepCopy(state.MetaBreakpoints)
+		newMetaBreakpoints[action.breakpointId] = nil
 		local newBreakpointIdsForConnection = deepCopy(state.BreakpointIdsInDebuggerConnection)
 		for _, debuggerConnBreakpoints in pairs(newBreakpointIdsForConnection) do
 			debuggerConnBreakpoints[action.breakpointId] = nil
 		end
 		return Cryo.Dictionary.join(
-			state, {BreakpointIdsInDebuggerConnection = newBreakpointIdsForConnection}, {BreakpointInfo = newBreakpointInfo}
+			state, {BreakpointIdsInDebuggerConnection = newBreakpointIdsForConnection}, {MetaBreakpoints = newMetaBreakpoints}
 		)
 	end,
 })

@@ -21,6 +21,7 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 local PreviewContext = require(Plugin.Src.Context.PreviewContext)
+local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
@@ -30,6 +31,7 @@ local Typecheck = Util.Typecheck
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ModelUtil = require(Plugin.Src.Util.ModelUtil)
+local BundleImporter = require(Plugin.Src.Util.BundleImporter)
 local PreviewConstants = require(Plugin.Src.Util.PreviewConstants)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
@@ -52,17 +54,23 @@ function ExplorerPreviewInstances:render()
 	})
 end
 
-local function getModelFromBackend(assetId)
+local function getModelFromBackend(assetService, assetId, isBundleId)
 	local containerModel = nil
 	local model = nil
 	local success, err = pcall(function()
-		containerModel = InsertService:LoadAsset(assetId)
-		model = containerModel:GetChildren()[1]
+		if isBundleId then
+			model = BundleImporter.getAvatarFromBundleId(assetService, assetId)
+		else
+			containerModel = InsertService:LoadAsset(assetId)
+			model = containerModel:GetChildren()[1]
+		end
 	end)
 	if success then
 		model.Parent = nil
 		model.Archivable = false
-		containerModel:Destroy()
+		if containerModel then
+			containerModel:Destroy()
+		end
 		return model
 	else
 		warn("unable to insert model because: " .. err)
@@ -93,7 +101,11 @@ local function getModel(self, uniqueId, tabKey)
 	end
 	local isInt = (type(uniqueId) == "number") and (math.floor(uniqueId) == uniqueId)
 	assert(isInt, "if the uniqueId does not refer to a user added asset it must be an integer referring to an assetId")
-	return isInt and getModelFromBackend(uniqueId) or nil
+
+	-- if we have an assetId for an avatar then it is a bundle
+	local isBundleId = isInt and tabKey == PreviewConstants.TABS_KEYS.Avatars
+
+	return isInt and getModelFromBackend(self.props.AssetServiceWrapper:get(), uniqueId, isBundleId) or nil
 end
 
 local function getSelectedUniqueIds(self, tabKey)
@@ -268,6 +280,7 @@ end
 ExplorerPreviewInstances = withContext({
 	EditingItemContext = EditingItemContext,
 	PreviewContext = PreviewContext,
+	AssetServiceWrapper = AssetServiceWrapper,
 })(ExplorerPreviewInstances)
 
 

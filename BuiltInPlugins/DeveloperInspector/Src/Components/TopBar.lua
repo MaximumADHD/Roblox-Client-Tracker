@@ -3,7 +3,6 @@
 
 	Contains the tool buttons and the tabs for different views.
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 local Main = script.Parent.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local RoactRodux = require(Main.Packages.RoactRodux)
@@ -179,20 +178,11 @@ function TopBar:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	TopBar = withContext({
-		PluginActions = ContextServices.PluginActions,
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext,
-	})(TopBar)
-else
-	ContextServices.mapToProps(TopBar, {
-		PluginActions = ContextServices.PluginActions,
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext,
-	})
-end
-
+TopBar = withContext({
+	PluginActions = ContextServices.PluginActions,
+	Stylizer = ContextServices.Stylizer,
+	Inspector = InspectorContext,
+})(TopBar)
 
 return RoactRodux.connect(
 	function(state)

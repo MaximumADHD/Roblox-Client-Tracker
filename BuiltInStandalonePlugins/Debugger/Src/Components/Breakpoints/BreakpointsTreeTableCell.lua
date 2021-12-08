@@ -16,6 +16,7 @@ local Pane = UI.Pane
 local Image = UI.Decoration.Image
 local Checkbox = UI.Checkbox
 local TreeTableCell = UI.TreeTableCell
+local TextLabel = UI.Decoration.TextLabel
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
 
@@ -29,7 +30,9 @@ local debugpointIconTable = {
 	invalidBreakpoint = Constants.BreakpointIconDirectoryFilePath .. "invalid_breakpoint@2x.png",
 	invalidLogpoint = Constants.BreakpointIconDirectoryFilePath .. "invalid_logpoint@2x.png",
 	logpointDisabled = Constants.BreakpointIconDirectoryFilePath .. "logpoint_disabled@2x.png",
-	logpointEnabled = Constants.BreakpointIconDirectoryFilePath .. "logpoint_enabled@2x.png"
+	logpointEnabled = Constants.BreakpointIconDirectoryFilePath .. "logpoint_enabled@2x.png",
+	client = Constants.BreakpointIconDirectoryFilePath .. "client@2x.png",
+	server = Constants.BreakpointIconDirectoryFilePath .. "server@2x.png",
 }
 
 local ICON_SIZE = 16
@@ -41,17 +44,26 @@ function BreakpointsTreeTableCell:init()
 	end
 end
 
-local function fetchDebugpointIcon(row, iconMapping)
+local function fetchDebugpointIcon(row)
 	if row.item.debugpointType == "Breakpoint" then	
 		if not row.item.condition then
-			return (row.item.isEnabled and iconMapping.breakpointEnabled) or iconMapping.breakpointDisabled
+			return (row.item.isEnabled and debugpointIconTable.breakpointEnabled) or debugpointIconTable.breakpointDisabled
 		else
-			return (row.item.isEnabled and iconMapping.conditionalEnabled) or iconMapping.conditionalDisabled
+			return (row.item.isEnabled and debugpointIconTable.conditionalEnabled) or debugpointIconTable.conditionalDisabled
 		end
-		
 	else
-		return (row.item.isEnabled and iconMapping.logpointEnabled) or iconMapping.logpointDisabled
+		return (row.item.isEnabled and debugpointIconTable.logpointEnabled) or debugpointIconTable.logpointDisabled
 	end
+end
+
+local function fetchContextIcon(row)
+	local context = row.item.context
+	if context == Constants.GameStateTypes.Client then
+		return debugpointIconTable.client
+	elseif context == Constants.GameStateTypes.Server then
+		return debugpointIconTable.server
+	end
+	return nil
 end
 
 function BreakpointsTreeTableCell:render()
@@ -64,6 +76,7 @@ function BreakpointsTreeTableCell:render()
 	local value = row.item[key]
 	local isEnabledCol = key == "isEnabled"
 	local isContinueExecutionCol = key == "continueExecution"
+	local isScriptNameCol = key == "scriptName"
 
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
@@ -75,20 +88,24 @@ function BreakpointsTreeTableCell:render()
 	end
 	local isExpanded = cellProps.Expansion[row.item]
 	local arrowSize = style.Arrow.Size
-	local indent = row.depth * style.Indent
-
-	local isFirstRow = props.ColumnIndex == 1
-	local padding = isFirstRow and {
-		Top = style.CellPadding.Top,
-		Left = style.CellPadding.Left + indent,
-		Right = style.CellPadding.Right,
-		Bottom = style.CellPadding.Bottom,
-	} or style.CellPadding
-	
-	local hasChildren = isFirstRow and row.item.children and #row.item.children > 0
-	
+	local hasChildren = row.item.children and #row.item.children > 0
 	if isEnabledCol then
-		local debugpointIconPath = fetchDebugpointIcon(row, debugpointIconTable)
+		local isFirstCol = props.ColumnIndex == 1
+
+		local indent = row.depth * style.Indent
+		local left = style.CellPadding.Left + indent
+		if not hasChildren then
+			left = left + indent*2
+		end
+
+		local padding = isFirstCol and {
+			Top = style.CellPadding.Top,
+			Left = left,
+			Right = style.CellPadding.Right,
+			Bottom = style.CellPadding.Bottom,
+		} or style.CellPadding
+				
+		local debugpointIconPath = fetchDebugpointIcon(row)
 		return Roact.createElement(Pane, {
 			Style = "Box",
 			BackgroundColor3 = backgroundColor,
@@ -99,7 +116,7 @@ function BreakpointsTreeTableCell:render()
 		}, {
 			Left = Roact.createElement(Pane, {
 				Layout = Enum.FillDirection.Horizontal,
-				LayoutOrder = props.ColumnIndex,
+				LayoutOrder = 0,
 				Padding = padding,
 				Spacing = style.CellSpacing,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -115,7 +132,7 @@ function BreakpointsTreeTableCell:render()
 					ImageRectOffset = isExpanded and style.Arrow.ExpandedOffset or style.Arrow.CollapsedOffset,
 					[Roact.Event.Activated] = self.onToggle
 				}) or nil,
-				EnabledCheckbox = Roact.createElement(Checkbox, {
+				EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
 					Checked = value,
 					OnClick = function() 
 						local bpManager = game:GetService("BreakpointManager")
@@ -124,8 +141,14 @@ function BreakpointsTreeTableCell:render()
 					end,
 					LayoutOrder = 1,
 				}),
-				BreakpointIcon = Roact.createElement(Image, {
+				ChildCountIndicator = hasChildren and Roact.createElement(TextLabel, {
+					Text = '(x' .. #row.item.children .. ')',
+					BackgroundTransparency = 1,
 					LayoutOrder = 2,
+					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+				}),
+				BreakpointIcon = Roact.createElement(Image, {
+					LayoutOrder = 3,
 					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
 					Image = debugpointIconPath,
 				}),
@@ -140,15 +163,46 @@ function BreakpointsTreeTableCell:render()
 			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
 			OnRightClick = props.OnRightClick,
 		}, {
-			EnabledCheckbox = Roact.createElement(Checkbox, {
+			EnabledCheckbox = hasChildren and Roact.createElement(Checkbox, {
 				Checked = value,
 				OnClick = function()
 					local bpManager = game:GetService("BreakpointManager")
 					local bp = bpManager:GetBreakpointById(row.item.id)
 					bp:SetContinueExecution(not row.item.continueExecution)
 				end,
-				LayoutOrder = 1,
+				LayoutOrder = 0,
 			}),
+		})
+	elseif isScriptNameCol then
+		local imageToUse = fetchContextIcon(row)
+
+		return Roact.createElement(Pane, {
+			Style = "Box",
+			BackgroundColor3 = backgroundColor,
+			BorderSizePixel = 1,
+			BorderColor3 = style.Border,
+			Size = UDim2.new(width.Scale, width.Offset, 1, 0),
+			OnRightClick = props.OnRightClick,
+		}, {
+			Left = Roact.createElement(Pane, {
+				Layout = Enum.FillDirection.Horizontal,
+				LayoutOrder = 0,
+				Spacing = style.CellSpacing,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				AutomaticSize = Enum.AutomaticSize.XY,
+			}, {
+				ClientServerIcon = imageToUse and Roact.createElement(Image, {
+					LayoutOrder = 0,
+					Size = UDim2.new(0, ICON_SIZE, 0, ICON_SIZE),
+					Image = imageToUse,
+				}),
+				ScriptNameLabel = Roact.createElement(TextLabel, {
+					Text = row.item.scriptName,
+					BackgroundTransparency = 1,
+					LayoutOrder = 1,
+					FitWidth = true,
+				}),
+			})
 		})
 	end
 	

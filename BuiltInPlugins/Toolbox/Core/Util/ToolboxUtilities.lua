@@ -1,5 +1,6 @@
 local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 local isCli = require(script.Parent.isCli)
 
@@ -61,6 +62,12 @@ end
 if FFlagToolboxPolicyHideNonRelevanceSorts then
     function ToolboxUtilities.getShouldHideNonRelevanceSorts()
         return ToolboxPolicy["HideNonRelevanceSorts"]
+    end
+end
+
+if FFlagToolboxVerifiedCreatorBadges then
+    function ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+        return ToolboxPolicy["HideVerifiedCreatorBadges"]
     end
 end
 

@@ -1,3 +1,5 @@
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
+
 local AssetInfo = {}
 --[[
 	Model for asset data.
@@ -8,7 +10,7 @@ local AssetInfo = {}
 			string Name : the asset name
 			number TypeId : the assetType id
 			table AssetGenres : a list of genres the asset belongs to
-			bool IsEndorsed : whether or not teh asset is endorsed
+			bool IsEndorsed : whether or not the asset is endorsed
 			string Description : the asset description
 			string Duration : the duration of an audio asset. Only audio assets have this field.
 			string Created : the date in which the asset was created
@@ -18,6 +20,7 @@ local AssetInfo = {}
 			number Id : the creator id
 			string Name : the creator name
 			string Type : the creator type, such as User or Group
+			bool IsVerifiedCreator : whether the creator of the asset is verified
 
 		ProductId
 			number ProductId : the product id of the asset
@@ -69,6 +72,7 @@ function AssetInfo.fromItemDetailsRequest(data)
 			Id = data.creator.id,
 			Name = data.creator.name,
 			Type = data.creator.type,
+			IsVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and data.creator.isVerifiedCreator or nil,
 		}
 	end
 

@@ -56,7 +56,6 @@
 		end,
 	})
 --]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -341,15 +340,11 @@ function LabeledTextInput:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	LabeledTextInput = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(LabeledTextInput)
-else
-	ContextServices.mapToProps(LabeledTextInput, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+LabeledTextInput = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(LabeledTextInput)
+
 
 
 return LabeledTextInput

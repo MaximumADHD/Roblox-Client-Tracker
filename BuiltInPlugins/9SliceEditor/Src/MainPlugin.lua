@@ -9,6 +9,7 @@
 
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
+local Cryo = require(main.Packages.Cryo)
 local Framework = require(main.Packages.Framework)
 local Constants = require(main.Src.Util.Constants)
 local Types = require(main.Src.Types)
@@ -30,6 +31,7 @@ local DockWidget = StudioUI.DockWidget
 
 local FFlag9SliceEditorEnableAnalytics = game:GetFastFlag("9SliceEditorEnableAnalytics")
 local FFlag9SliceEditorDontRestoreOnDMLoad = game:GetFastFlag("9SliceEditorDontRestoreOnDMLoad")
+local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -57,6 +59,9 @@ function MainPlugin:init(props)
 		pixelDimensions = Vector2.new(0, 0),
 		sliceRect = {0, 0, 0, 0},
 		revertSliceRect = {0, 0, 0, 0},
+		imageRectSize = Vector2.new(),
+		imageRectOffset = Vector2.new(),
+		imageColor3 = Color3.new(),
 		selectedInstance = nil,
 		title = self.localization:getText("Plugin", "Name"),
 		loading = false,
@@ -96,7 +101,7 @@ function MainPlugin:init(props)
 		})
 	end
 
-	self.onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
+	self.DEPRECATED_onInstanceUnderEditChanged = function(instance: Instance?, title: string, pixelDimensions: Vector2,
 		sliceRect: Types.SliceRectType, revertSliceRect: Types.SliceRectType)
 
 		if FFlag9SliceEditorEnableAnalytics then
@@ -120,6 +125,27 @@ function MainPlugin:init(props)
 		})
 	end
 
+	self.onInstanceUnderEditChanged = function(instance: Instance?, newState: {[string]: any})
+		if FFlag9SliceEditorEnableAnalytics then
+			if not self.state.enabled then
+				self.reportOpen()
+			end
+
+			if instance then
+				-- Every time an image is loaded into editor
+				self.analytics:report("sliceEditorImageLoadedIntoEditor")
+			end
+		end
+
+		local nextState = {
+			enabled = true,
+			selectedInstance = instance or Roact.None,
+		}
+
+		nextState = Cryo.Dictionary.join(nextState, newState)
+		self:setState(nextState)
+	end
+
 	self.onSliceRectChanged = function(sliceRect: Types.SliceRectType)
 		self:setState({
 			sliceRect = sliceRect,
@@ -130,6 +156,26 @@ function MainPlugin:init(props)
 		self:setState({
 			loading = loading
 		})
+	end
+
+	self.onInstancePropertyChanged = function(property: string, value: any)
+		if property == "ImageRectOffset" then
+			self:setState({
+				imageRectOffset = value,
+			})
+		elseif property == "ImageRectSize" then
+			self:setState({
+				imageRectSize = value,
+			})
+		elseif property == "ImageColor3" then
+			self:setState({
+				imageColor3 = value,
+			})
+		elseif property == "ResampleMode" then
+			self:setState({
+				resampleMode = value,
+			})
+		end
 	end
 end
 
@@ -161,7 +207,9 @@ function MainPlugin:render()
 	}, {
 		InstanceUnderEditManager = Roact.createElement(InstanceUnderEditManager, {
 			WidgetEnabled = enabled,
-			InstanceUnderEditChanged = self.onInstanceUnderEditChanged,
+			InstanceUnderEditChanged = FFlag9SliceEditorRespectImageRectSize and self.onInstanceUnderEditChanged
+				or self.DEPRECATED_onInstanceUnderEditChanged,
+			InstancePropertyChanged = self.onInstancePropertyChanged,
 			SliceRectChanged = self.onSliceRectChanged,
 			LoadingChanged = self.onLoadingChanged,
 		}),
@@ -184,6 +232,10 @@ function MainPlugin:render()
 				sliceRect = state.sliceRect,
 				revertSliceRect = state.revertSliceRect,
 				loading = state.loading,
+				imageRectSize = state.imageRectSize,
+				imageRectOffset = state.imageRectOffset,
+				imageColor3 = state.imageColor3,
+				resampleMode = state.resampleMode,
 			}),
 		}),
 

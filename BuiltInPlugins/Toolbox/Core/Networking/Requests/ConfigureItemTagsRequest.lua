@@ -4,7 +4,15 @@ local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local UploadResult = require(Plugin.Core.Actions.UploadResult)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
+
 
 return function(networkInterface, assetId, fromItemTags, toTags)
 	return function(store)

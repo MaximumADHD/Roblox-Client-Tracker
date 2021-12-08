@@ -221,11 +221,11 @@ return function()
 			local textLabelPath = gridScrollerChildPath:cat(XPath.new("Contents.TextButton.TextLabelFrame.TextLabel"))
 			expect(TestHelper.waitForXPathInstance(textLabelPath)).to.be.ok()
 
-			while "Merely's ROBLOX Tablet" ~= Element.new(textLabelPath):getAttribute("Text") do
+			while "ROBLOX Boy" ~= Element.new(textLabelPath):getAttribute("Text") do
 				wait() --  we need to spin until the ui updates from getting the mock netwrok results back
 			end
 			-- check state, correct name used from makeMockNetworkLaer.lua
-			expect(Element.new(textLabelPath):getAttribute("Text")).to.equal("Merely's ROBLOX Tablet")
+			expect(Element.new(textLabelPath):getAttribute("Text")).to.equal("ROBLOX Boy")
 		end)
 	end)
 end

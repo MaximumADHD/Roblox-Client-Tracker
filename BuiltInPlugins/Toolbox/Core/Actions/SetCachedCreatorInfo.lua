@@ -1,6 +1,12 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local FrameworkUtil = require(Libs.Framework).Util
 local Action = FrameworkUtil.Action
 local Util = Plugin.Core.Util

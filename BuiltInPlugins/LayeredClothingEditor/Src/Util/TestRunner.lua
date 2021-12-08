@@ -16,6 +16,8 @@ local makeMockNetworkLayer = require(Plugin.Src.Util.makeMockNetworkLayer)
 local Signals = require(Plugin.Src.Context.Signals)
 local PreviewContext = require(Plugin.Src.Context.PreviewContext)
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
+local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
+local MockAssetService = require(Plugin.Src.Util.MockAssetService)
 
 local TransformPoints = require(Plugin.Src.Thunks.TransformPoints)
 local TransformLatticePoints = require(Plugin.Src.Thunks.TransformLatticePoints)
@@ -120,6 +122,7 @@ local function run(testChildren, container, testRunner, draggerType)
 	local store = Rodux.Store.new(MainReducer, nil, middlewares)
 	local signals = Signals.new(Constants.SIGNAL_KEYS)
 	local editingItemContext = EditingItemContext.new()
+	local assetServiceWrapper = AssetServiceWrapper.new(MockAssetService)
 	local theme = PluginTheme.mock()
 
 	local previewContext
@@ -139,6 +142,7 @@ local function run(testChildren, container, testRunner, draggerType)
 		signals,
 		editingItemContext,
 		previewContext,
+		assetServiceWrapper,
 	}, testChildren)
 	local handle = Roact.mount(element, container)
 

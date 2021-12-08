@@ -23,26 +23,31 @@ function PreviewConstantsInterface.isTabMultiSelect(tabSelect)
 	return tab.IsMultiSelect
 end
 
+local function getAllPrebuiltIdsInternal(tbl, assetIdKeyedTable, idKey)
+	assetIdKeyedTable = assetIdKeyedTable or {}
+	for key, value in pairs(tbl) do
+		if key == idKey then
+			for _, assetId in pairs(value) do
+				local unusedValue = true
+				assetIdKeyedTable[assetId] = unusedValue
+			end
+		elseif type(value) == "table" then
+			getAllPrebuiltIdsInternal(value, assetIdKeyedTable, idKey)
+		end
+	end
+	return assetIdKeyedTable
+end
+
 -- returns an array of asset ids
 function PreviewConstantsInterface.getAllAssetIds()
-	local function getAllPrebuiltAssetIdsInternal(tbl, assetIdKeyedTable)
-		assetIdKeyedTable = assetIdKeyedTable or {}
-		for key, value in pairs(tbl) do
-			if key == "AssetIds" then
-				for _, assetId in pairs(value) do
-					local unusedValue = true
-					assetIdKeyedTable[assetId] = unusedValue
-				end
-			elseif type(value) == "table" then
-				getAllPrebuiltAssetIdsInternal(value, assetIdKeyedTable)
-			end
-		end
-		return assetIdKeyedTable
-	end
+	local assetIdKeyedTable = getAllPrebuiltIdsInternal(PreviewConstants.TABS_INFO, nil, "AssetIds")
+	return Cryo.Dictionary.keys(assetIdKeyedTable)
+end
 
-	local assetIdKeyedTable = getAllPrebuiltAssetIdsInternal(PreviewConstants.TABS_INFO)
-	local arrayOfAssetIds = Cryo.Dictionary.keys(assetIdKeyedTable)
-	return arrayOfAssetIds
+-- returns an array of bundle ids
+function PreviewConstantsInterface.getAllBundleIds()
+	local bundleIdKeyedTable = getAllPrebuiltIdsInternal(PreviewConstants.TABS_INFO, nil, "BundleIds")
+	return Cryo.Dictionary.keys(bundleIdKeyedTable)
 end
 
 function PreviewConstantsInterface.getTabs()

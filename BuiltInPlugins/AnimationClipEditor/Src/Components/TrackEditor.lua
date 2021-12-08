@@ -38,6 +38,8 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
 function TrackEditor:init()
@@ -101,7 +103,7 @@ function TrackEditor:init()
 
 	self.stepAnimation = function(tick)
 		local props = self.props
-		if not props.IsPlaying then
+		if (not GetFFlagMoarMediaControls() and not props.IsPlaying) or (GetFFlagMoarMediaControls() and props.PlayState == Constants.PLAY_STATE.Pause) then
 			props.StepAnimation(tick)
 		end
 	end
@@ -265,6 +267,7 @@ end
 local function mapStateToProps(state, props)
 	return {
 		IsPlaying = state.Status.IsPlaying,
+		PlayState = state.Status.PlayState,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
 	}

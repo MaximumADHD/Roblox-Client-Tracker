@@ -3,9 +3,11 @@ StatusPropertyMap = {
     Dimensions = {"MeshScaleWarning"},
     FileDimensions = {"MeshScaleWarning"},
     PolygonCount = {"MeshSizeWarning"},
+    RigType = {"IncorrectR15Warning"},
     ObjectGeneral = {
         "MaterialIgnoredWarning",
         "CouldNotReadTextureError",
+        "TextureBadFileFormatError",
         "ContentNotFoundError",
         "MeshIdNotFoundError",
         "NoValidParentError",

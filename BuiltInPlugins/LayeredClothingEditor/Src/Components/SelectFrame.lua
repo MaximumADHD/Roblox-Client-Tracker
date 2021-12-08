@@ -5,6 +5,7 @@
 		boolean ButtonEnabled: if the next button is interactable or not.
 		string PartName: name of the valid selected part.
 		callback OnConfirmSelection: callback for when the next button is clicked and selection is confirmed.
+		callback OnStartSelection: callback for when user wants to select an instance
 	Optional Props:
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -33,6 +34,10 @@ local Typecheck = Util.Typecheck
 Typecheck.wrap(SelectFrame, script)
 
 function SelectFrame:init()
+	self.onFocus = function()
+		self.props.OnStartSelection()
+	end
+
 	self.renderContent = function(order)
 		local props = self.props
 
@@ -64,9 +69,11 @@ function SelectFrame:init()
 				Enabled = false,
 				ShouldFocus = false,
 				Text = partName,
+				PlaceholderText = localization:getText("Select", "Click"),
 				Size = UDim2.new(0.5, 0, 1, 0),
 				LayoutOrder = order + 2,
 				Style = "FilledRoundedBorder",
+				OnFocusGained = self.onFocus,
 			}),
 		})
 	end

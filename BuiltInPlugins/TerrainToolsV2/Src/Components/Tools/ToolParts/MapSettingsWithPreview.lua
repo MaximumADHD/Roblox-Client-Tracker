@@ -1,7 +1,6 @@
 --[[
 	Wraps MapSettingsWithPreviewFragment inside a Panel called Map Settings
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -42,15 +41,11 @@ function MapSettingsWithPreview:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	MapSettingsWithPreview = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(MapSettingsWithPreview)
-else
-	ContextServices.mapToProps(MapSettingsWithPreview, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+MapSettingsWithPreview = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(MapSettingsWithPreview)
+
 
 
 return MapSettingsWithPreview

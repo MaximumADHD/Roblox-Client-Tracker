@@ -28,7 +28,8 @@ function MeshImportDialog:init()
 		if key == "Cancel" then
 			self.props.OnClose()
 		elseif key == "Import" then
-			local importEnabled = self.props.SettingsCheckedCount ~= 0
+			local props = self.props
+			local importEnabled = props.SettingsCheckedCount ~= 0 and not props.ErrorNodeChecked
 			if importEnabled then
 				self.props.OnImport(self.props.AssetSettings)
 			end

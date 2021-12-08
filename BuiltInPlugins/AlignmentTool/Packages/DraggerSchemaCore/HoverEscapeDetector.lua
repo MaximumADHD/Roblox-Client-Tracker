@@ -11,30 +11,27 @@ local DraggerSchemaCore = script.Parent
 local Packages = DraggerSchemaCore.Parent
 local DraggerFramework = Packages.DraggerFramework
 
-local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
-
 local HoverEscapeDetector = {}
 HoverEscapeDetector.__index = HoverEscapeDetector
 
 function HoverEscapeDetector.new(draggerContext, hoveredItem, onEscaped)
 	local SignalsAreDeferred
-	if getFFlagDraggerFrameworkFixes() then
-		local firedFlag = false
-		local temporaryEvent = Instance.new("BindableEvent")
-		temporaryEvent.Event:Connect(function()
-			firedFlag = true
-		end)
-		temporaryEvent:Fire()
-		SignalsAreDeferred = not firedFlag
-		temporaryEvent:Destroy()
-	end
+
+	local firedFlag = false
+	local temporaryEvent = Instance.new("BindableEvent")
+	temporaryEvent.Event:Connect(function()
+		firedFlag = true
+	end)
+	temporaryEvent:Fire()
+	SignalsAreDeferred = not firedFlag
+	temporaryEvent:Destroy()
 
 	local self = setmetatable({
 		_destroyed = false,
 	}, HoverEscapeDetector)
 	self._hoverInstanceEscapedConnection =
 		hoveredItem.AncestryChanged:Connect(function(child, newParent)
-			if not getFFlagDraggerFrameworkFixes() or not SignalsAreDeferred then
+			if not SignalsAreDeferred then
 				-- Waiting on the parent changing here is done to give
 				-- the engine a chance to update the physics state.
 				-- Engine physics state updates happen on hierarchy
@@ -69,14 +66,9 @@ end
 
 function HoverEscapeDetector:destroy()
 	assert(not self._destroyed)
-	if getFFlagDraggerFrameworkFixes() then
-		self._destroyed = true
-	end
+	self._destroyed = true
 	self._hoverInstanceEscapedConnection:Disconnect()
 	self._hoverInstanceContentsChangedConnection:Disconnect()
-	if not getFFlagDraggerFrameworkFixes() then
-		self._destroyed = true
-	end
 end
 
 return HoverEscapeDetector

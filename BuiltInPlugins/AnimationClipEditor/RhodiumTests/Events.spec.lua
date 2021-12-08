@@ -16,12 +16,12 @@ return function()
 	local testAnimationData = Templates.animationData()
 
 	testAnimationData.Events = {
-		Keyframes = {0, 80},
+		Keyframes = {0, 800},
 		Data = {
 			[0] = {
 				TestEvent = "TestValue",
 			},
-			[80] = {
+			[800] = {
 				OtherEvent = "OtherValue",
 			},
 
@@ -45,7 +45,7 @@ return function()
 			local store = test:getStore()
 			local container = test:getContainer()
 			TestHelpers.loadAnimation(store, testAnimationData)
-			store:dispatch(StepAnimation(160))
+			store:dispatch(StepAnimation(1600))
 			local eventsTitle = TestPaths.getEventsTitleTrack(container)
 			TestHelpers.clickInstance(eventsTitle:WaitForChild("AddEvent"))
 
@@ -109,7 +109,7 @@ return function()
 
 			TestHelpers.clickInstance(eventsTrack["1"])
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(160))
+			store:dispatch(PasteEvents(1600))
 			TestHelpers.delay()
 
 			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(3)
@@ -123,15 +123,13 @@ return function()
 			TestHelpers.loadAnimation(store, testAnimationData)
 			local eventsTrack = TestPaths.getEventsTrack(container)
 			TestHelpers.delay()
-
 			TestHelpers.clickInstance(eventsTrack["1"])
 			VirtualInput.pressKey(Enum.KeyCode.LeftControl)
 			TestHelpers.clickInstance(eventsTrack["2"])
 			VirtualInput.releaseKey(Enum.KeyCode.LeftControl)
 			store:dispatch(CopySelectedEvents())
-			store:dispatch(PasteEvents(160))
+			store:dispatch(PasteEvents(1600))
 			TestHelpers.delay()
-
 			expect(#Cryo.Dictionary.keys(eventsTrack:GetChildren())).to.equal(4)
 		end)
 	end)

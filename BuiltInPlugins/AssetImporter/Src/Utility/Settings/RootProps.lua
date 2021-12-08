@@ -1,3 +1,7 @@
+local Plugin = script.Parent.Parent.Parent.Parent
+
+local getFFlagDisableAvatarAnchoredSetting = require(Plugin.Src.Flags.getFFlagDisableAvatarAnchoredSetting)
+
 local AssetImportService = game:GetService("AssetImportService")
 
 return {
@@ -7,7 +11,7 @@ return {
 			{Name = "ImportName", Editable = true},
 			{Name = "ImportAsModelAsset", Editable = true},
 			{Name = "InsertInWorkspace", Editable = true},
-			{Name = "Anchored", Editable = true},
+			{Name = "Anchored", Editable = true, ShouldHide = function() return AssetImportService:IsAvatar() and getFFlagDisableAvatarAnchoredSetting() end},
 		},
 	},
 	{

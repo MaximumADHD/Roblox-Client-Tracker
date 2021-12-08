@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -86,17 +85,12 @@ function BiomeSelector:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	BiomeSelector = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})(BiomeSelector)
-else
-	ContextServices.mapToProps(BiomeSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+BiomeSelector = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})(BiomeSelector)
+
 
 
 return BiomeSelector

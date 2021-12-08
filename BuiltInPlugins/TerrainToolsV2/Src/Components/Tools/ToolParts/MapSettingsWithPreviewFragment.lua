@@ -14,7 +14,6 @@ Props
 	OnSizeChanged :     ({X: number, Y: number, Z: number}) -> void
 	SetWarnings :       ((bool) -> void) | nil
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -150,17 +149,12 @@ function MapSettingsWithPreviewFragment:render()
 	return Roact.createElement(MapSettingsFragment, props)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	MapSettingsWithPreviewFragment = withContext({
-		Mouse = ContextServices.Mouse,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})(MapSettingsWithPreviewFragment)
-else
-	ContextServices.mapToProps(MapSettingsWithPreviewFragment, {
-		Mouse = ContextServices.Mouse,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})
-end
+
+MapSettingsWithPreviewFragment = withContext({
+	Mouse = ContextServices.Mouse,
+	PluginActivationController = ContextItems.PluginActivationController,
+})(MapSettingsWithPreviewFragment)
+
 
 
 return MapSettingsWithPreviewFragment

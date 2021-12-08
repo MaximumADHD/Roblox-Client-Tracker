@@ -1,6 +1,4 @@
 return function()
-	local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
-
 	local Plugin = script.Parent.Parent.Parent
 
 	local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -83,70 +81,6 @@ return function()
 				expect(state.groups[index].name).to.equal(testGroup.name)
 			end
 		end)
-
-		if not FFlagToolboxRemoveGroupInventory2 then
-			-- TODO: Fix me and make me a smaller unit test.
-			-- DEVTOOLS-2937
-			itSKIP("should update the categories and group index+id if necessary", function()
-				local state = PageInfo(nil, {})
-
-				-- SetCategories is removed, but this test is skipped anyway.
-				local SetCategories = nil -- Silence warning caused by roblox-cli. Delete this line along with the fix for this unit test.
-				state = PageInfo(state, SetCategories(Category.INVENTORY_KEY, Category.INVENTORY))
-				expect(state.categories).to.equal(Category.INVENTORY)
-				expect(state.groupIndex).to.equal(0)
-				expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
-
-				local firstTestGroups = {
-					{id = 12345, name = "Test1"},
-					{id = 67890, name = "Test2"},
-				}
-				state = PageInfo(state, SetToolboxManageableGroups(firstTestGroups))
-
-				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
-
-				-- First time we have groups so set groupIndex to 1
-				expect(state.groupIndex).to.equal(1)
-				expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(firstTestGroups[state.groupIndex].id)
-
-				-- Change the groups list
-				-- Previous selected group id stil exists in new array
-				-- So index should change to where it is
-				local secondTestGroups = {
-					{id = 13579, name = "Test3"},
-					{id = 12345, name = "Test1"},
-					{id = 24680, name = "Test4"},
-				}
-				state = PageInfo(state, SetToolboxManageableGroups(secondTestGroups))
-
-				expect(state.categories).to.equal(Category.INVENTORY_WITH_GROUPS)
-				expect(state.groupIndex).to.equal(2)
-				expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(secondTestGroups[state.groupIndex].id)
-
-				local groupModelsCategoryIndex = 6
-				local groupModelsCategoryName = Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].categoryName
-
-				state = PageInfo(state, UpdatePageInfo({
-					categoryName = groupModelsCategoryName,
-					category = Category.INVENTORY_WITH_GROUPS[groupModelsCategoryIndex].category
-				}))
-				expect(state.categoryName).to.equal(groupModelsCategoryName)
-
-				-- Clear the groups list
-				local thirdTestGroups = {}
-				state = PageInfo(state, SetToolboxManageableGroups(thirdTestGroups))
-
-				-- Categories list should remove groups
-				expect(state.categories).to.equal(Category.INVENTORY)
-
-				-- Category should be reset to "" because the groups categories now don't exist
-				expect(state.categoryName).to.equal("")
-
-				-- Group index and id should be reset to 0
-				expect(state.groupIndex).to.equal(0)
-				expect(PageInfoHelper.getGroupIdForPageInfo(state)).to.equal(0)
-			end)
-		end
 	end)
 
 	describe("UpdateSearchTerm action", function()

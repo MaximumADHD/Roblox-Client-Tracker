@@ -11,7 +11,6 @@ return function()
             return Urls.constructGetToolboxItemsUrl(category, nil, nil, nil, nil, nil, OWNER_ID, nil, nil, nil, nil)
         end
 
-        -- Uncommit animation after ToolboxAnimationTypes is removed
         local EXPECTED = {
             { Category.FREE_AUDIO,          "/Audio" },
             { Category.WHITELISTED_PLUGINS, "/Plugins" },
@@ -27,14 +26,14 @@ return function()
             { Category.MY_DECALS,           ("/inventory/user/%d/decal"):format(OWNER_ID) },
             { Category.MY_VIDEOS,           ("/inventory/user/%d/video"):format(OWNER_ID) },
             { Category.MY_PACKAGES,         ("/inventory/user/%d/package"):format(OWNER_ID) },
-            -- { Category.MY_ANIMATIONS,       ("/inventory/user/%d/animation"):format(OWNER_ID) },
+            { Category.MY_ANIMATIONS,       ("/inventory/user/%d/animation"):format(OWNER_ID) },
 
             { Category.RECENT_AUDIO,        ("/recent/user/%d/audio"):format(OWNER_ID) },
             { Category.RECENT_MODELS,       ("/recent/user/%d/model"):format(OWNER_ID) },
             { Category.RECENT_MESHES,       ("/recent/user/%d/meshpart"):format(OWNER_ID) },
             { Category.RECENT_DECALS,       ("/recent/user/%d/decal"):format(OWNER_ID) },
             { Category.RECENT_VIDEO,        ("/recent/user/%d/video"):format(OWNER_ID) },
-            -- { Category.RECENT_ANIMATIONS, ("/recent/user/%d/animation"):format(OWNER_ID)},
+            { Category.RECENT_ANIMATIONS,   ("/recent/user/%d/animation"):format(OWNER_ID)},
         }
 
         for _, item in ipairs(EXPECTED) do

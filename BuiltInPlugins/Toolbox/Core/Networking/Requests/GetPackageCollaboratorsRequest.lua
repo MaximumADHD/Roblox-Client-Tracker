@@ -12,7 +12,15 @@ local SetCollaborators = require(Actions.SetCollaborators)
 local NetworkError = require(Actions.NetworkError)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
+
 
 local KeyConverter = require(Plugin.Core.Util.Permissions.KeyConverter)
 local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys

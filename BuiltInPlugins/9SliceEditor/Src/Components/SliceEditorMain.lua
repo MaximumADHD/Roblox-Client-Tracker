@@ -39,6 +39,8 @@ local RIGHT = Orientation.Right.rawValue()
 local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 
+local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
+
 local function checkEqualSlices(slice1, slice2)
 	-- checks if values in slice1 == values in slice2
 	return
@@ -62,9 +64,19 @@ function SliceEditor:init(props)
 		sliceRect will be stored as { Min.X, Min.Y, Max.X, Max.Y } or { left, right, top, bottom }
 		order to align with offsets order and use the SliceCenter coordinate system of calculating from (0, 0)
 	]]--
+	self.getImageDimensions = function(): Vector2
+		if FFlag9SliceEditorRespectImageRectSize then
+			local imageRectSize: Vector2? = self.props.imageRectSize
+			if imageRectSize and imageRectSize.X > 0 and imageRectSize.Y > 0 then
+				return imageRectSize
+			end
+		end
+
+		return self.props.pixelDimensions
+	end
 
 	self.clampAndRoundSliceRect = function(newValue)
-		local pixelDimensions = self.props.pixelDimensions
+		local pixelDimensions = self.getImageDimensions()
 		local minX, maxX, minY, maxY
 		minX = math.clamp(math.round(newValue[LEFT]), 0, pixelDimensions.X)
 		maxX = math.clamp(math.round(newValue[RIGHT]), 0, pixelDimensions.X)
@@ -102,7 +114,8 @@ function SliceEditor:render()
 	local style = props.Stylizer
 
 	local selectedObject = props.selectedObject
-	local pixelDimensions = props.pixelDimensions
+	local pixelDimensions = self.getImageDimensions()
+
 	local setSliceRect = self.setSliceRect
 	local sliceRect = props.sliceRect
 	local localization = props.Localization
@@ -151,6 +164,10 @@ function SliceEditor:render()
 						setSliceRect = setSliceRect,
 						sliceRect = sliceRect,
 						position = style.ImageEditorPos,
+						imageRectOffset = props.imageRectOffset,
+						imageRectSize = FFlag9SliceEditorRespectImageRectSize and pixelDimensions or nil,
+						imageColor3 = props.imageColor3,
+						resampleMode = props.resampleMode,
 					}),
 					TextEditorComponent = Roact.createElement(TextEditor, {
 						layoutOrder = 2,

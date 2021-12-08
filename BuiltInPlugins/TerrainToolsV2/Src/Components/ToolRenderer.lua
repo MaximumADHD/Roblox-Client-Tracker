@@ -2,7 +2,6 @@
 	Controls which Tool is shown in the tool frame
 	Handles all the bindings between the ui and the tool functionality
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -169,17 +168,12 @@ function ToolRenderer:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ToolRenderer = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Mouse = ContextServices.Mouse,
-	})(ToolRenderer)
-else
-	ContextServices.mapToProps(ToolRenderer, {
-		Theme = ContextItems.UILibraryTheme,
-		Mouse = ContextServices.Mouse,
-	})
-end
+
+ToolRenderer = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Mouse = ContextServices.Mouse,
+})(ToolRenderer)
+
 
 
 local function mapStateToProps(state, props)

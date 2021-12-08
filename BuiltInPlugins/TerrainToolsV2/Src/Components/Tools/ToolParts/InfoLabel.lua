@@ -7,7 +7,6 @@ Props
 	Type : String = "Info" - What information is the label showing? i.e. information, warnings or errors
 	                         Use InfoLabel.Info, .Warning and .Error
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -95,15 +94,11 @@ function InfoLabel:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	InfoLabel = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(InfoLabel)
-else
-	ContextServices.mapToProps(InfoLabel, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+InfoLabel = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(InfoLabel)
+
 
 
 return InfoLabel

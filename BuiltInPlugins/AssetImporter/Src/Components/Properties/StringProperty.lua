@@ -8,15 +8,21 @@ local Roact = require(Plugin.Packages.Roact)
 local UI = Framework.UI
 local TextInput = UI.TextInput -- Remove with FFlagDevFrameworkTextInput2
 local TextInput2 = UI.TextInput2
-local TextLabel = UI.Decoration.TextLabel
+local Tooltip = UI.Tooltip
+local TruncatedTextLabel = UI.TruncatedTextLabel
 
 local function StringProperty(props)
 	if props.Editable ~= nil and not props.Editable then
-		return Roact.createElement(TextLabel, {
+		return Roact.createElement(TruncatedTextLabel, {
 			LayoutOrder = props.LayoutOrder,
 			Size = props.Size,
+			SuffixLength = 20,
 			Text = props.Value,
 			TextXAlignment = Enum.TextXAlignment.Left,
+		}, {
+			Tooltip = Roact.createElement(Tooltip, {
+				Text = props.Value,
+			})
 		})
 	else
 		return Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {

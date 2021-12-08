@@ -47,6 +47,7 @@ local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local FFlagRenameExportToPublish = game:DefineFastFlag("ACERenameExportToPublish", false)
+local FFlagAnimationClipProvider = game:GetEngineFeature("UseNewAnimationClipProvider_2")
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
@@ -173,6 +174,9 @@ function AnimationClipMenu:makeMenuActions(localization)
 				props.ExportKeyframeSequence(plugin, props.Analytics)
 			end
 		end,
+		-- If the AnimationClipProvider flag is off, we have to make sure that the animation
+		-- we export is a KFS. If not, the exporter will save it as a mesh, which will be unusable.
+		Enabled = not isChannelAnimation or FFlagAnimationClipProvider,
 	})
 	table.insert(actions, Separator)
 	table.insert(actions, {

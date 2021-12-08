@@ -39,7 +39,7 @@ local Cryo = require(main.Packages.Cryo)
 
 DMBridge.setPluginObject(plugin)
 
-local recordingSessionProperties: Types.RecordingSessionProperties
+local recordingSessionProperties: Types.RecordingMetadata
 
 local function setInputTypesToIgnore(ignoreState)
 	local groups = {
@@ -73,10 +73,89 @@ local function setInputTypesToIgnore(ignoreState)
 	VirtualInputManager:SetInputTypesToIgnore(ignoreList)
 end
 
-local function startPlayback()
+local function setStudioEmulationDevice()
+	local roduxState = DMBridge.getRoduxState()
+	assert(roduxState, "Access rodux state")
+
+	if roduxState.playbackTab.shouldSetEmulationDevice then
+		-- Note we only set emulation device for delayed-start playback:
+		local recordingObject: Types.RecordingObject? = DMBridge.getCurrentPlaybackRecordingDataObj()
+		assert(recordingObject, "Could not get recording data")
+
+		local metadata: Types.RecordingMetadata = recordingObject.additionalMetadata
+
+		local resolution = metadata.resolution
+		local deviceId = metadata.deviceId
+		local orientation = metadata.orientation
+		
+		if deviceId == "default" then
+			StudioDeviceEmulatorService:EmulatePCDeviceWithResolution("Test Computer Device",
+				Vector2.new(resolution[1], resolution[2]))
+		else
+			StudioDeviceEmulatorService:SetCurrentDeviceId(deviceId)
+			StudioDeviceEmulatorService:SetCurrentOrientation(orientation)
+		end
+	end
+end
+
+local stopPlaybackConnection: RBXScriptConnection? = nil
+local function disconnectStopPlaybackConnection()
+	if stopPlaybackConnection then
+		stopPlaybackConnection:Disconnect()
+		stopPlaybackConnection = nil
+	end
+end
+
+local function onPlaybackEnded()
+	assert(plugin.HostDataModelType == Enum.StudioDataModelType.PlayClient, "Correct datamodel game state type")
+	disconnectStopPlaybackConnection()
+	assert(DMBridge.getPluginState() == Enums.PluginState.Playing)
+	DMBridge.setPluginState(Enums.PluginState.Default)
 end
 
 local function stopPlayback()
+	assert(DMBridge.getPluginState() == Enums.PluginState.Playing)
+	assert(plugin.HostDataModelType == Enum.StudioDataModelType.PlayClient, "Correct datamodel game state type")
+
+	VirtualInputManager:StopPlaying()
+end
+
+local function startPlayback()
+	local state: Types.PluginState? = DMBridge.getPluginState()
+	assert(state == Enums.PluginState.Default or state == Enums.PluginState.ShouldStartPlayback)
+	assert(plugin.HostDataModelType == Enum.StudioDataModelType.PlayClient, "Correct datamodel game state type")
+	local roduxState = DMBridge.getRoduxState()
+	assert(roduxState, "Access rodux state")
+
+	local dataStr = DMBridge.getCurrentPlaybackRecordingDataStr()
+	assert(dataStr, "Recording data string not found")
+
+	DMBridge.setPluginState(Enums.PluginState.Disabled)
+
+	setInputTypesToIgnore({
+		mouseMove = roduxState.playbackTabFilter.mouseMove,
+		mouseButton = roduxState.playbackTabFilter.mouseClick,
+		keyboard = roduxState.playbackTabFilter.keyboard,
+		gamepad = roduxState.playbackTabFilter.gamepad,
+		touch = roduxState.playbackTabFilter.touch
+	})
+
+	-- Wait for game to start...
+	while game.Players.LocalPlayer == nil do
+		wait()
+	end
+	if not game:IsLoaded() then
+		game.Loaded:Wait()
+	end
+
+	DMBridge.setPluginState(Enums.PluginState.Playing)
+
+	setStudioEmulationDevice()
+
+	disconnectStopPlaybackConnection()
+	stopPlaybackConnection = VirtualInputManager.PlaybackCompleted:Connect(onPlaybackEnded)
+
+	VirtualInputManager:StartPlayingJSON(dataStr)
 end
 
 local function startRecording()
@@ -92,12 +171,12 @@ local function startRecording()
 
 	-- Wait for game to load assets.
 	if not game:IsLoaded() then
-        game.Loaded:Wait()
-    end
+		game.Loaded:Wait()
+	end
 
 	while game.Players.LocalPlayer == nil do
-        game.Players.PlayerAdded:Wait()
-    end
+		game.Players.PlayerAdded:Wait()
+	end
 
 	DMBridge.setPluginState(Enums.PluginState.Recording)
 
@@ -130,8 +209,8 @@ local function stopRecording()
 
 	local recCompleteCon = nil
 	recCompleteCon = VirtualInputManager.RecordingCompleted:Connect(function(dataStr: string)
-		local recordingObject = HttpService:JSONDecode(dataStr)
-		recordingObject.metaData = recordingSessionProperties
+		local recordingObject: Types.RecordingObject = HttpService:JSONDecode(dataStr)
+		recordingObject.additionalMetadata = recordingSessionProperties
 		if not recordingObject.additionalLuaState then
 			-- additionalLuaState must be defined for proper parsing by VirtualInputManager
 			recordingObject.additionalLuaState = {"dummy state"}
@@ -162,6 +241,8 @@ local function setupPlayClientDMEventListeners()
 	DMBridge.setupPlayClientDMEventListeners()
 	DMBridge.connectToStartRecordButtonClicked(startRecording)
 	DMBridge.connectToStopRecordButtonClicked(stopRecording)
+	DMBridge.connectToStartPlaybackButtonClicked(startPlayback)
+	DMBridge.connectToStopPlaybackButtonClicked(stopPlayback)
 
 	local focusedDMSession = mdiInstance.FocusedDataModelSession
 	focusedDMSession.CurrentDataModelTypeAboutToChange:Connect(function(targetGst)
@@ -173,6 +254,8 @@ local function setupPlayClientDMEventListeners()
 				stopRecording()
 			elseif pluginState == Enums.PluginState.Playing then
 				stopPlayback()
+			elseif pluginState == Enums.PluginState.Disabled then
+				DMBridge.setPluginState(Enums.PluginState.Default)
 			end
 		end
 	end)

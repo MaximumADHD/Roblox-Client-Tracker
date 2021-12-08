@@ -1,15 +1,19 @@
-local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
-local FFlagToolboxLegacyFetchGroupModelsAndPackages = game:GetFastFlag("ToolboxLegacyFetchGroupModelsAndPackages")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
-local FFlagToolboxAnimationTypes = game:GetFastFlag("ToolboxAnimationTypes2")
 
 local Plugin = script.Parent.Parent.Parent
 local CreatorInfoHelper = require(Plugin.Core.Util.CreatorInfoHelper)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
 
-local Cryo = require(Plugin.Libs.Cryo)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Cryo
+if FFlagToolboxDeduplicatePackages then
+	Cryo = require(Packages.Cryo)
+else
+	Cryo = require(Plugin.Libs.Cryo)
+end
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
@@ -44,6 +48,7 @@ Category.AssetType = {
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
 	VIDEO = 18,
+	ANIMATION = 19
 }
 
 if FFlagUGCLCAssetTypes2 then
@@ -56,10 +61,7 @@ if FFlagUGCLCAssetTypes2 then
 	Category.AssetType.LEFT_SHOE_ACCESSORY = 25
 	Category.AssetType.RIGHT_SHOE_ACCESSORY = 26
 	Category.AssetType.DRESS_SKIRT_ACCESSORY = 27
-end
-
-if FFlagToolboxAnimationTypes then
-	Category.AssetType.ANIMATION = FFlagUGCLCAssetTypes2 and 28 or 19
+	Category.AssetType.ANIMATION = 28
 end
 
 Category.ToolboxAssetTypeToEngine = {
@@ -82,6 +84,7 @@ Category.ToolboxAssetTypeToEngine = {
 	[Category.AssetType.BACK_ACCESSORY] = Enum.AssetType.BackAccessory,
 	[Category.AssetType.WAIST_ACCESSORY] = Enum.AssetType.WaistAccessory,
 	[Category.AssetType.VIDEO] = Enum.AssetType.Video,
+	[Category.AssetType.ANIMATION] = Enum.AssetType.Animation,
 }
 
 if FFlagUGCLCAssetTypes2 then
@@ -94,10 +97,6 @@ if FFlagUGCLCAssetTypes2 then
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.LEFT_SHOE_ACCESSORY] = Enum.AssetType.LeftShoeAccessory
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.RIGHT_SHOE_ACCESSORY] = Enum.AssetType.RightShoeAccessory
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.DRESS_SKIRT_ACCESSORY] = Enum.AssetType.DressSkirtAccessory
-end
-
-if FFlagToolboxAnimationTypes then
-	Category.ToolboxAssetTypeToEngine[Category.AssetType.ANIMATION] = Enum.AssetType.Animation
 end
 
 Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
@@ -121,6 +120,8 @@ Category.MY_AUDIO = {name = "MyAudio", category = "MyAudio",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.AUDIO}
 Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
 	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PLUGIN}
+Category.MY_ANIMATIONS = {name = "MyAnimations", category = "MyAnimations",
+	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.ANIMATION}
 
 Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
 	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
@@ -137,6 +138,8 @@ Category.RECENT_MESHES = {name = "RecentMeshes", category = "RecentMeshes",
 	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MESH}
 Category.RECENT_AUDIO = {name = "RecentAudio", category = "RecentAudio",
 	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.AUDIO}
+Category.RECENT_ANIMATIONS = {name = "RecentAnimations", category = "RecentAnimations",
+	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.ANIMATION}
 
 Category.GROUP_MODELS = {name = "GroupModels", category = "GroupModelsExceptPackage",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MODEL}
@@ -155,27 +158,13 @@ Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
 	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
-if FFlagToolboxRemoveGroupInventory2 then
-	-- Eventually, the itemsconfiguration endpoint should fetch MyModelsExceptPackages,
-	-- but currently it is fetching both Models and Packages.
-	-- Until then, pull the logic from the develop api.
-	Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = "GroupModelsExceptPackage",
-		ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MODEL}
-	Category.CREATIONS_GROUP_PACKAGES = {name = "CreationsGroupPackages", category = "GroupPackages",
-		ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
-else
-	Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = "CreationsGroupModels", assetType = Category.AssetType.MODEL,
-	ownershipType = Category.OwnershipType.GROUP,}
-
-	if FFlagToolboxLegacyFetchGroupModelsAndPackages then
-		-- change the category to reflect the develop api categories
-		Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = "GroupModels", assetType = Category.AssetType.MODEL,
-			ownershipType = Category.OwnershipType.GROUP,}
-
-		-- stub in GroupPackages
-		Category.CREATIONS_GROUP_PACKAGES = {name = "" }
-	end
-end
+-- Eventually, the itemsconfiguration endpoint should fetch MyModelsExceptPackages,
+-- but currently it is fetching both Models and Packages.
+-- Until then, pull the logic from the develop api.
+Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = "GroupModelsExceptPackage",
+	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MODEL}
+Category.CREATIONS_GROUP_PACKAGES = {name = "CreationsGroupPackages", category = "GroupPackages",
+	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
 
 Category.CREATIONS_MODELS = {name = "CreationsModels", category = "CreationsModels", assetType = Category.AssetType.MODEL,
 		ownershipType = Category.OwnershipType.MY,}
@@ -187,6 +176,8 @@ Category.CREATIONS_MESHES = {name = "CreationsMeshes", category = "CreationsMesh
 	ownershipType = Category.OwnershipType.MY,}
 Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", category = "CreationsPlugins", assetType = Category.AssetType.PLUGIN,
 	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_ANIMATIONS = {name = "CreationsAnimations", category = "CreationsAnimations", assetType = Category.AssetType.ANIMATION,
+	ownershipType = Category.OwnershipType.MY,}
 Category.CREATIONS_GROUP_DECALS = {name = "CreationsGroupDecals", category = "CreationsGroupDecals", assetType = Category.AssetType.DECAL,
 	ownershipType = Category.OwnershipType.GROUP,}
 Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", category = "CreationsGroupAudio", assetType = Category.AssetType.AUDIO,
@@ -194,6 +185,8 @@ Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", category = "Crea
 Category.CREATIONS_GROUP_MESHES = {name = "CreationsGroupMeshes", category = "CreationsGroupMeshes", assetType = Category.AssetType.MESHPART,
 	ownershipType = Category.OwnershipType.GROUP,}
 Category.CREATIONS_GROUP_PLUGIN = {name = "CreationsGroupPlugins", category = "CreationsGroupPlugins", assetType = Category.AssetType.PLUGIN,
+	ownershipType = Category.OwnershipType.GROUP,}
+Category.CREATIONS_GROUP_ANIMATIONS = {name = "CreationsGroupAnimations", category = "CreationsGroupAnimations", assetType = Category.AssetType.ANIMATION,
 	ownershipType = Category.OwnershipType.GROUP,}
 Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
 Category.CREATIONS_HATS = {name = "CreationsHats", category = "CreationsHats", assetType = Category.AssetType.HAT,
@@ -296,23 +289,8 @@ Category.INVENTORY = {
 	Category.MY_PACKAGES,
 	Category.MY_VIDEOS,
 	Category.MY_PLUGINS,
+	Category.MY_ANIMATIONS,
 }
-
-if not FFlagToolboxRemoveGroupInventory2 then
-	Category.INVENTORY_WITH_GROUPS = {
-		Category.MY_MODELS,
-		Category.MY_DECALS,
-		Category.MY_MESHES,
-		Category.MY_AUDIO,
-		Category.MY_PACKAGES,
-		Category.MY_VIDEOS,
-		Category.GROUP_MODELS,
-		Category.GROUP_DECALS,
-		Category.GROUP_MESHES,
-		Category.GROUP_AUDIO,
-		Category.GROUP_PACKAGES,
-	}
-end
 
 Category.RECENT = {
 	Category.RECENT_MODELS,
@@ -320,6 +298,7 @@ Category.RECENT = {
 	Category.RECENT_MESHES,
 	Category.RECENT_AUDIO,
 	Category.RECENT_VIDEO,
+	Category.RECENT_ANIMATIONS,
 }
 
 Category.DEFAULT = nil
@@ -356,12 +335,14 @@ Category.API_NAMES = {
 	[Category.MY_DECALS.name] = "decal",
 	[Category.MY_VIDEOS.name] = "video",
 	[Category.MY_PACKAGES.name] = "package",
+	[Category.MY_ANIMATIONS.name] = "animation",
 
 	[Category.RECENT_AUDIO.name] = "audio",
 	[Category.RECENT_MODELS.name] = "model",
 	[Category.RECENT_MESHES.name] = "meshpart",
 	[Category.RECENT_DECALS.name] = "decal",
 	[Category.RECENT_VIDEO.name] = "video",
+	[Category.RECENT_ANIMATIONS.name] = "animation",
 }
 
 Category.AUTOCOMPLETE_API_NAMES = {
@@ -371,31 +352,8 @@ Category.AUTOCOMPLETE_API_NAMES = {
 	[Category.FREE_DECALS.name] = "image",
 	[Category.MARKETPLACE_VIDEOS.name] = "video",
 	[Category.FREE_MODELS.name] = "model",
+	[Category.MY_ANIMATIONS.name] = "animation",
 }
-
-
-if FFlagToolboxAnimationTypes then
-	Category.MY_ANIMATIONS = {name = "MyAnimations", category = "MyAnimations",
-		ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.ANIMATION}
-	Category.RECENT_ANIMATIONS = {name = "RecentAnimations", category = "RecentAnimations",
-		ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.ANIMATION}
-	Category.CREATIONS_ANIMATIONS = {name = "CreationsAnimations", category = "CreationsAnimations", assetType = Category.AssetType.ANIMATION,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_GROUP_ANIMATIONS = {name = "CreationsGroupAnimations", category = "CreationsGroupAnimations",
-		ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.ANIMATION}
-
-	table.insert(Category.INVENTORY, Category.MY_ANIMATIONS);
-	table.insert(Category.RECENT, Category.RECENT_ANIMATIONS);
-
-	Category.API_NAMES[Category.MY_ANIMATIONS.name] = "animation"
-	Category.API_NAMES[Category.RECENT_ANIMATIONS.name] = "animation"
-	Category.AUTOCOMPLETE_API_NAMES[Category.MY_ANIMATIONS.name] = "animation"
-
-	if not FFlagToolboxRemoveGroupInventory2 then
-		local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
-		table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_ANIMATIONS);
-	end
-end
 
 local function getCreationCategories()
 	local categories = {
@@ -405,22 +363,15 @@ local function getCreationCategories()
 		Category.CREATIONS_AUDIO,
 		Category.CREATIONS_MESHES,
 		Category.CREATIONS_PLUGIN,
+		Category.CREATIONS_ANIMATIONS,
 		Category.CREATIONS_GROUP_MODELS,
 		Category.CREATIONS_GROUP_DECALS,
 		Category.CREATIONS_GROUP_AUDIO,
 		Category.CREATIONS_GROUP_MESHES,
 		Category.CREATIONS_GROUP_PLUGIN,
+		Category.CREATIONS_GROUP_PACKAGES,
+		Category.CREATIONS_GROUP_ANIMATIONS,
 	}
-
-	if FFlagToolboxRemoveGroupInventory2 then
-		table.insert(categories, Category.CREATIONS_GROUP_PACKAGES)
-	end
-
-	if FFlagToolboxAnimationTypes then
-		local insertIndex = Cryo.List.find(categories, Category.CREATIONS_PLUGIN) + 1
-		table.insert(categories, insertIndex, Category.CREATIONS_ANIMATIONS)
-		table.insert(categories, Category.CREATIONS_GROUP_ANIMATIONS)
-	end
 
 	return categories
 end
@@ -429,14 +380,6 @@ Category.MARKETPLACE_KEY = "Marketplace"
 Category.INVENTORY_KEY = "Inventory"
 Category.RECENT_KEY = "Recent"
 Category.CREATIONS_KEY = "Creations"
-
-if not FFlagToolboxRemoveGroupInventory2 then
-	local insertIndex = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.MY_VIDEOS) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex, Category.MY_PLUGINS)
-
-	local insertIndex2 = Cryo.List.find(Category.INVENTORY_WITH_GROUPS, Category.GROUP_AUDIO) + 1
-	table.insert(Category.INVENTORY_WITH_GROUPS, insertIndex2, Category.GROUP_PLUGINS)
-end
 
 local disabledCategories = string.split(getMarketplaceDisabledCategories(), ";")
 
@@ -469,7 +412,7 @@ local tabs
 local tabKeys
 if disableMarketplaceAndRecents() then
 	tabs = {
-		FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY,
 		Category.CREATIONS,
 	}
 	tabKeys = {
@@ -479,7 +422,7 @@ if disableMarketplaceAndRecents() then
 elseif showRobloxCreatedAssets() then
 	tabs = {
 		Category.MARKETPLACE,
-		FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY,
 		Category.CREATIONS,
 	}
 	tabKeys = {
@@ -490,7 +433,7 @@ elseif showRobloxCreatedAssets() then
 else
 	tabs = {
 		Category.MARKETPLACE,
-		FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS,
+		Category.INVENTORY,
 		Category.RECENT,
 		Category.CREATIONS,
 	}
@@ -644,7 +587,7 @@ function Category.getCategories(tabName, roles)
 	elseif Category.MARKETPLACE_KEY == tabName then
 		return Category.MARKETPLACE
 	elseif Category.INVENTORY_KEY == tabName then
-		return FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS
+		return Category.INVENTORY
 	elseif Category.RECENT_KEY == tabName then
 		return Category.RECENT
 	end

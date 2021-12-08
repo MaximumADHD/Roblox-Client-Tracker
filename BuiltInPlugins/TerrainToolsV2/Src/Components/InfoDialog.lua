@@ -18,7 +18,6 @@
 		callback OnClose
 			Called when the user either clicks the "ok" button or closes the dialog
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -179,15 +178,11 @@ function InfoDialog:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	InfoDialog = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(InfoDialog)
-else
-	ContextServices.mapToProps(InfoDialog, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+InfoDialog = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(InfoDialog)
+
 
 
 return InfoDialog

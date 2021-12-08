@@ -15,7 +15,14 @@ local getUserId = require(Plugin.Core.Util.getUserId)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetOwnsAsset = require(Plugin.Core.Actions.SetOwnsAsset)
 
-local Framework = require(Plugin.Libs.Framework)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Framework
+if FFlagToolboxDeduplicatePackages then
+	Framework = require(Packages.Framework)
+else
+	Framework = require(Plugin.Libs.Framework)
+end
 local RobloxAPI = Framework.RobloxAPI
 local Networking = Framework.Http.Networking
 local API = RobloxAPI.new({

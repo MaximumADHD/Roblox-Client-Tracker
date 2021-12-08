@@ -20,7 +20,13 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 

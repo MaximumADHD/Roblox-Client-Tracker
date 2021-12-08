@@ -11,16 +11,22 @@ local Constants = require(Plugin.Src.Util.Constants)
 local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetActive = require(Plugin.Src.Actions.SetActive)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 return function(analytics)
 	return function(store)
 		local state = store:getState()
 		store:dispatch(SetActive(false))
-		store:dispatch(SetIsPlaying(false))
+		if GetFFlagMoarMediaControls() then
+			store:dispatch(SetPlayState(Constants.PLAY_STATE.Pause))
+		else
+			store:dispatch(SetIsPlaying(false))
+		end
 		local animationData = state.AnimationData
 		local targetInstance = state.Status.RootInstance
 

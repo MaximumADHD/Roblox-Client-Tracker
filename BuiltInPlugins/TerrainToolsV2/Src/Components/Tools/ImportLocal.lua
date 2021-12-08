@@ -2,7 +2,6 @@
 	Displays panels associated with the improved import tool
 ]]
 
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -539,17 +538,12 @@ function ImportLocal:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ImportLocal = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-		TerrainImporter = ContextItems.TerrainImporter,
-	})(ImportLocal)
-else
-	ContextServices.mapToProps(ImportLocal, {
-		Localization = ContextItems.UILibraryLocalization,
-		TerrainImporter = ContextItems.TerrainImporter,
-	})
-end
+
+ImportLocal = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+	TerrainImporter = ContextItems.TerrainImporter,
+})(ImportLocal)
+
 
 
 local function mapStateToProps(state, props)

@@ -34,13 +34,15 @@ return function()
                 Asset = {
                     Id = 123,
                     TypeId = Enum.AssetType.Model.Value,
-                }
+                },
+                Creator = {},
             },
             {
                 Asset = {
                     Id = 124,
                     TypeId = Enum.AssetType.Model.Value,
-                }
+                },
+                Creator = {},
             },
         }
     end

@@ -48,7 +48,7 @@ return function()
 		
 		-- before toggling all breakpoints, all should be enabled
 		local state = store:getState()
-		for id, info in pairs(state.Breakpoint.BreakpointInfo) do
+		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
 			expect(info.isEnabled).to.equal(true)
 		end
 		
@@ -56,7 +56,7 @@ return function()
 		
 		state = store:getState()
 		-- after toggling all breakpoints, all should be disabled
-		for id, info in pairs(state.Breakpoint.BreakpointInfo) do
+		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
 			expect(info.isEnabled).to.equal(false)
 		end
 	end)

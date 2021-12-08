@@ -17,7 +17,6 @@
 		number BlockWidth: Width of each block segment
 		number InnerRadius: Radius of the inner circle the block segments surround
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -140,15 +139,11 @@ function Spinner:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Spinner = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Spinner)
-else
-	ContextServices.mapToProps(Spinner, {
-		Stylizer = ContextServices.Stylizer or nil,
-	})
-end
+
+Spinner = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Spinner)
+
 
 
 return Spinner

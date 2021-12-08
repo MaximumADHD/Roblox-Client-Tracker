@@ -66,6 +66,11 @@ local function createStyles(theme, getColor)
 					TextSize = 22,
 					TextColor3 = theme:getColor(c.MainText),
 				},
+				Subtext = {
+					Font = Enum.Font.SourceSans,
+					TextSize = 16,
+					TextColor3 = theme:getColor(c.DimmedText)
+				}
 			},
 
 			icons = {
@@ -76,6 +81,12 @@ local function createStyles(theme, getColor)
 				backgroundColor = isDark and Color3.fromRGB(37, 37, 37) or Color3.fromRGB(245, 245, 245),
 				imageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151),
 			},
+			
+			descriptionBox = {
+				maxHeight = 120,
+				textBoxHeight = 90,
+			},
+			
 			dialog = {
 				minSize = {
 					width = 400,
@@ -140,6 +151,7 @@ local function createStyles(theme, getColor)
 			checkboxset = {
 				font = Enum.Font.SourceSans,
 				error = theme:getColor(c.ErrorText),
+				maxHeight = 65
 			},
 			listDialog = {
 				font = Enum.Font.SourceSansSemibold,

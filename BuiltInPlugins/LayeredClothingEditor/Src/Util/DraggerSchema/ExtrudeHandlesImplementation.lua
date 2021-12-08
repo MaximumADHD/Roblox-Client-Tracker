@@ -21,20 +21,12 @@ function ExtrudeHandlesImplementation:shouldScaleFromCenter(selection, selection
 	return true
 end
 
-function ExtrudeHandlesImplementation:shouldKeepAspectRatio(selection, selectionInfo, normalId)
-	return self._draggerContext:isCtrlKeyDown()
-end
-
 function ExtrudeHandlesImplementation:axesToScale(selectionInfo, normalId)
 	if self._draggerContext:isCtrlKeyDown() then
 		return {X = true, Y = true, Z = true}
 	end
 	local axes = {{X = true}, {Y = true}, {Z = true}}
 	return axes[normalId]
-end
-
-function ExtrudeHandlesImplementation:getMinimumSize(selection, selectionInfo, normalId)
-	return Vector3.new(0, 0, 0)
 end
 
 function ExtrudeHandlesImplementation:beginScale(selection, initialSelectionInfo, normalId)

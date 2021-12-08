@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -50,15 +49,11 @@ function OtherGenerateSettings:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	OtherGenerateSettings = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(OtherGenerateSettings)
-else
-	ContextServices.mapToProps(OtherGenerateSettings, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+OtherGenerateSettings = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(OtherGenerateSettings)
+
 
 
 return OtherGenerateSettings

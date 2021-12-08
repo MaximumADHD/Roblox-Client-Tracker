@@ -1,7 +1,6 @@
 --[[
 	Mostly the same as UILibrary RoundFrame component, but modified to use dev framework context
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -86,15 +85,11 @@ function RoundFrame:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	RoundFrame = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(RoundFrame)
-else
-	ContextServices.mapToProps(RoundFrame, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+RoundFrame = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(RoundFrame)
+
 
 
 return RoundFrame

@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the Fill tool
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -87,15 +86,11 @@ function Fill:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Fill = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(Fill)
-else
-	ContextServices.mapToProps(Fill, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+Fill = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(Fill)
+
 
 
 local function mapStateToProps(state, props)

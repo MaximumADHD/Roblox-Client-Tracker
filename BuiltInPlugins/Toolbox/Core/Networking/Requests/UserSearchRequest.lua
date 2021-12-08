@@ -1,5 +1,12 @@
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Libs.Cryo)
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Cryo
+if FFlagToolboxDeduplicatePackages then
+	Cryo = require(Packages.Cryo)
+else
+	Cryo = require(Plugin.Libs.Cryo)
+end
 
 local Urls = require(Plugin.Core.Util.Urls)
 

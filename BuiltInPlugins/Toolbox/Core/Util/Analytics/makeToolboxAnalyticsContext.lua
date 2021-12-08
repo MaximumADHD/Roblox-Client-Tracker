@@ -1,6 +1,13 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Framework = require(Plugin.Libs.Framework)
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Framework
+if FFlagToolboxDeduplicatePackages then
+	Framework = require(Packages.Framework)
+else
+	Framework = require(Plugin.Libs.Framework)
+end
 local Analytics = Framework.ContextServices.Analytics
 
 local Senders = require(Plugin.Core.Util.Analytics.Senders)

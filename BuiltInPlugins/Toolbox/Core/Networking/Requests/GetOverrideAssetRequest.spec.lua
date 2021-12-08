@@ -1,6 +1,13 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local Rodux = require(Plugin.Libs.Rodux)
+	local Packages = Plugin.Packages
+	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	local Rodux
+	if FFlagToolboxDeduplicatePackages then
+		Rodux = require(Packages.Rodux)
+	else
+		Rodux = require(Plugin.Libs.Rodux)
+	end
 	local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 	local GetOverrideAssetRequest = require(Plugin.Core.Networking.Requests.GetOverrideAssetRequest)
 	local AssetConfigReducer = require(Plugin.Core.Reducers.AssetConfigReducer)

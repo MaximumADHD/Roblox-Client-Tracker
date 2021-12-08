@@ -11,7 +11,8 @@ local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
 local getFFlagPreserveMotor6D = require(DraggerFramework.Flags.getFFlagPreserveMotor6D)
-local getFFlagOnlyGetGeometryOnce = require(DraggerFramework.Flags.getFFlagOnlyGetGeometryOnce)
+
+local getFFlagDraggerHandleRigidConstraints = require(DraggerFramework.Flags.getFFlagDraggerHandleRigidConstraints)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
 
@@ -175,32 +176,21 @@ end
 	_getGeometry caches into nearbyGeometry, so here we reset that table
 	and load the initial geometry of the parts to move into the cache.
 ]]
-function PartMover:_setupGeometryTracking(parts)
-	if getFFlagOnlyGetGeometryOnce() then
-		-- Remove the parts argument with OnlyGetGeometryOnce flag
-		assert(parts == nil)
-		assert(not self._hasSetupGeometryTracking)
-	end
+function PartMover:_setupGeometryTracking()
+	assert(not self._hasSetupGeometryTracking)
+
 	self._nearbyGeometry = {}
 	self._rootPartSet = {}
 
-	if getFFlagOnlyGetGeometryOnce() then
-		for _, part in ipairs(self._workspaceParts) do
-			-- If the part somehow got removed from the workspace (for instance,
-			-- by a user plugin) since we added it to the _workspaceParts table,
-			-- then it won't have a root part.
-			local root = part:GetRootPart()
-			if root then
-				-- We have to track the roots separately, because some of the root parts
-				-- of the dragged parts may not be in the set of dragged parts.
-				self._rootPartSet[root] = true
-			end
-		end
-	else
-		for _, part in ipairs(parts) do
+	for _, part in ipairs(self._workspaceParts) do
+		-- If the part somehow got removed from the workspace (for instance,
+		-- by a user plugin) since we added it to the _workspaceParts table,
+		-- then it won't have a root part.
+		local root = part:GetRootPart()
+		if root then
 			-- We have to track the roots separately, because some of the root parts
 			-- of the dragged parts may not be in the set of dragged parts.
-			self._rootPartSet[part:GetRootPart()] = true
+			self._rootPartSet[root] = true
 		end
 	end
 end
@@ -259,6 +249,8 @@ function PartMover:_prepareJoints(parts, breakJoints)
 	self._adjustAndReenableMotor6Ds = {}
 	self._alreadyConnectedToSets = {}
 	local FFlagPreserveMotor6D = getFFlagPreserveMotor6D()
+
+	local FFlagDraggerHandleRigidConstraints = getFFlagDraggerHandleRigidConstraints()
 	for _, part in ipairs(parts) do
 		self._alreadyConnectedToSets[part] = {}
 		for _, joint in ipairs(part:GetJoints()) do
@@ -293,6 +285,15 @@ function PartMover:_prepareJoints(parts, breakJoints)
 					-- The if is because some constraints like VectorForce
 					-- will not have a counterpart.
 					self._alreadyConnectedToSets[part][other] = true
+
+					-- We just said that Constraints don't affect non-IK movement,
+					-- but wait, RigidConstraint _does_ affect non-IK movement :(
+					-- Special case disabling RigidConstraints to parts outside
+					-- the set to move.
+					if FFlagDraggerHandleRigidConstraints and joint:IsA("RigidConstraint") and not self._partSet[other] then
+						joint.Enabled = false
+						self._reenableWeldConstraints[joint] = true
+					end
 				end
 			elseif joint:IsA("WeldConstraint") then
 				local other = JointUtil.getWeldConstraintCounterpart(joint, part)
@@ -342,13 +343,7 @@ end
 function PartMover:computeJointPairs(globalTransform)
 	assert(self._moving)
 
-	if getFFlagOnlyGetGeometryOnce() then
-		self:_ensureGeometryTrackingHasBeenSetup()
-	else
-		if not self._hasSetupGeometryTracking then
-			self:_setupGeometryTracking(self._workspaceParts)
-		end
-	end
+	self:_ensureGeometryTrackingHasBeenSetup()
 
 	local jointPairs = JointPairs.new(self._parts, self._partSet, self._rootPartSet,
 		globalTransform,
@@ -360,11 +355,7 @@ function PartMover:computeJointPairs(globalTransform)
 		end)
 
 	if RunService:IsRunning() then
-		if getFFlagOnlyGetGeometryOnce() then
-			self:_flushNonDraggedGeometryCache()
-		else
-			self:_clearOtherGeometry()
-		end
+		self:_flushNonDraggedGeometryCache()
 	end
 
 	return jointPairs
@@ -459,20 +450,16 @@ end
 ]]
 function PartMover:isIntersectingOthers(overlapToIgnore)
 	assert(self._moving)
-	if getFFlagOnlyGetGeometryOnce() then
-		-- Pcall because a user plugin may have removed some of the _workspaceParts
-		-- from the workspace mid-move, and ArePartsTouchingOthers requires all the
-		-- passed parts to be in a WorldRoot.
-		local st, result = pcall(Workspace.ArePartsTouchingOthers, Workspace,
-			self._workspaceParts, overlapToIgnore or DEFAULT_COLLISION_THRESHOLD)
-		if st then
-			return result
-		else
-			return true
-		end
+
+	-- Pcall because a user plugin may have removed some of the _workspaceParts
+	-- from the workspace mid-move, and ArePartsTouchingOthers requires all the
+	-- passed parts to be in a WorldRoot.
+	local st, result = pcall(Workspace.ArePartsTouchingOthers, Workspace,
+		self._workspaceParts, overlapToIgnore or DEFAULT_COLLISION_THRESHOLD)
+	if st then
+		return result
 	else
-		return Workspace:ArePartsTouchingOthers(self._workspaceParts,
-			overlapToIgnore or DEFAULT_COLLISION_THRESHOLD)
+		return true
 	end
 end
 
@@ -556,16 +543,6 @@ end
 	we still want to keep them cached _within_ a frame, because multiple parts
 	may need to check for joints vs a given part's geometry.
 ]]
-if not getFFlagOnlyGetGeometryOnce() then
-	function PartMover:_clearOtherGeometry()
-		for part, _ in pairs(self._nearbyGeometry) do
-			if not self._partSet[part] then
-				self._nearbyGeometry[part] = nil
-			end
-		end
-	end
-end
-
 function PartMover:_flushNonDraggedGeometryCache()
 	for part, _ in pairs(self._nearbyGeometry) do
 		if not self._partSet[part] then

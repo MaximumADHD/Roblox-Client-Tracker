@@ -4,7 +4,14 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 
 local createSignal = require(Plugin.Core.Util.createSignal)
@@ -223,6 +230,13 @@ end
 function Localization:getPurchaseSuccessDetails(name)
 	return self:_safeLocalize("Studio.Toolbox.Purchase.SuccessDetails", {
 		name = name,
+	})
+end
+
+function Localization:getScriptConfirmation(assetName, numScripts)
+	return FFlagToolboxEnableScriptConfirmation and self:_safeLocalize("Studio.Toolbox.ScriptWarning.DetailText", {
+		assetName = assetName,
+		numScripts = numScripts,
 	})
 end
 
@@ -723,6 +737,12 @@ function Localization:_recalculateContent()
 			SuccessHeader = self:_safeLocalize("Studio.Toolbox.Purchase.SuccessHeader"),
 			Free = self:_safeLocalize("Studio.Toolbox.Purchase.Free"),
 			OK = self:_safeLocalize("Studio.Toolbox.Common.OK"),
+		},
+
+		ScriptWarning = FFlagToolboxEnableScriptConfirmation and {
+			DontShowAgain = self:_safeLocalize("Studio.Toolbox.ScriptWarning.DontShowAgain"),
+			InstructionText = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText"),
+			InstructionText2 = self:_safeLocalize("Studio.Toolbox.ScriptWarning.InstructionText2"),
 		},
 	})
 end

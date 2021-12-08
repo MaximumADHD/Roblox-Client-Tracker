@@ -323,6 +323,11 @@ function ModelUtil:attachClothingItem(avatar, item, attachmentName, weldWithCurr
 		return
 	end
 
+	if item:IsA("Accessory") then
+		item.Parent = avatar
+		return
+	end
+
 	local bodyWrapTarget = nil
 	for _, instance in pairs(avatar:GetDescendants()) do
 		if instance:IsA("WrapTarget") then

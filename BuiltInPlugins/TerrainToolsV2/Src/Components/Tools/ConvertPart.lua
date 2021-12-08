@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -368,19 +367,13 @@ function ConvertPart:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ConvertPart = withContext({
-		Plugin = ContextServices.Plugin,
-		Localization = ContextItems.UILibraryLocalization,
-		PartConverter = ContextItems.PartConverter,
-	})(ConvertPart)
-else
-	ContextServices.mapToProps(ConvertPart, {
-		Plugin = ContextServices.Plugin,
-		Localization = ContextItems.UILibraryLocalization,
-		PartConverter = ContextItems.PartConverter,
-	})
-end
+
+ConvertPart = withContext({
+	Plugin = ContextServices.Plugin,
+	Localization = ContextItems.UILibraryLocalization,
+	PartConverter = ContextItems.PartConverter,
+})(ConvertPart)
+
 
 
 local function mapStateToProps(state, props)

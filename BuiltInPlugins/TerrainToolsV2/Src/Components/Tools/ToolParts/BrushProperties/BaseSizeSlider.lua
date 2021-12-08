@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -43,15 +42,11 @@ function BrushBaseSizeSlider:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	BrushBaseSizeSlider = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(BrushBaseSizeSlider)
-else
-	ContextServices.mapToProps(BrushBaseSizeSlider, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+BrushBaseSizeSlider = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(BrushBaseSizeSlider)
+
 
 
 return BrushBaseSizeSlider

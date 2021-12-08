@@ -8,14 +8,14 @@ return function(breakpointManager)
 		-- default to enabled all. If all are already enabled, disable
 		local stateToSet = false
 		local state = store:getState()
-		for id, info in pairs(state.Breakpoint.BreakpointInfo) do
+		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
 			if info.isEnabled == false then
 				stateToSet = true
 				break
 			end
 		end
 		
-		for id, info in pairs(state.Breakpoint.BreakpointInfo) do
+		for id, info in pairs(state.Breakpoint.MetaBreakpoints) do
 			local bp = breakpointManager:GetBreakpointById(id)
 			bp:SetEnabled(stateToSet)
 		end

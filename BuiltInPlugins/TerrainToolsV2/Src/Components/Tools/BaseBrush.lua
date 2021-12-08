@@ -1,7 +1,6 @@
 --[[
 	Displays panels associated with the BaseBrush tool
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
@@ -379,23 +378,15 @@ end
 
 local REDUCER_KEY = "BaseTool"
 
-if FFlagTerrainToolsV2WithContext then
-	BaseBrush = withContext({
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-		Terrain = ContextItems.Terrain,
-		PluginActivationController = ContextItems.PluginActivationController,
-		PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
-	})(BaseBrush)
-else
-	ContextServices.mapToProps(BaseBrush, {
-		Mouse = ContextServices.Mouse,
-		Analytics = ContextServices.Analytics,
-		Terrain = ContextItems.Terrain,
-		PluginActivationController = ContextItems.PluginActivationController,
-		PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
-	})
-end
+
+BaseBrush = withContext({
+	Mouse = ContextServices.Mouse,
+	Analytics = ContextServices.Analytics,
+	Terrain = ContextItems.Terrain,
+	PluginActivationController = ContextItems.PluginActivationController,
+	PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
+})(BaseBrush)
+
 
 if FFlagTerrainToolsPlaneLockDraggerHandles then
 	local function mapStateToProps(state, props)

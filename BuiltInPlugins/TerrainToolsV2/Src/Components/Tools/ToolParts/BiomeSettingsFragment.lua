@@ -1,5 +1,4 @@
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -64,15 +63,11 @@ function BiomeSettingsFragment:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	BiomeSettingsFragment = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(BiomeSettingsFragment)
-else
-	ContextServices.mapToProps(BiomeSettingsFragment, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+BiomeSettingsFragment = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(BiomeSettingsFragment)
+
 
 
 return BiomeSettingsFragment

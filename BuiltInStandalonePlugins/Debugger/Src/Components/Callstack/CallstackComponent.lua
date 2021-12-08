@@ -133,13 +133,22 @@ function CallstackComponent:init()
 			local threadId = props.CurrentThreadId
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
+			
+			if rowInfo.sourceColumn and rowInfo.lineColumn then
+				local DebuggerUIService = game:GetService("DebuggerUIService")
+				DebuggerUIService:OpenScriptAtLine(rowInfo.sourceColumn, props.CurrentDebuggerConnectionId, rowInfo.lineColumn)
+			end
 		end
 	end
 	
 	self.rowToString = function(row)
 		local rowString = ""
 		for _, v in pairs(self.props.ColumnFilter) do
-			rowString = rowString .. row[columnNameToKey[v]] .. '\t'
+			if typeof(row[columnNameToKey[v]]) == "EnumItem" then
+				rowString = rowString .. row[columnNameToKey[v]].Name .. '\t'
+			else
+				rowString = rowString .. row[columnNameToKey[v]] .. '\t'
+			end
 		end
 		return rowString
 	end
@@ -335,6 +344,7 @@ CallstackComponent = RoactRodux.connect(
 				CurrentThreadId = currentThreadId,
 				ExpansionTable = expansionTable,
 				ColumnFilter = callstack.listOfEnabledColumns,
+				CurrentDebuggerConnectionId = common.currentDebuggerConnectionId,
 			}
 		end
 	end,

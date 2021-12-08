@@ -39,7 +39,7 @@ function LabeledToggleButton:render()
 
 	return Roact.createElement(UI.Pane, {
 		Size = style.ComponentSize,
-		BackgroundTransparency = 1,
+		AutomaticSize = Enum.AutomaticSize.X,
 		Layout = Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Center,
@@ -47,6 +47,7 @@ function LabeledToggleButton:render()
 			Left = style.LeftInsetPx,
 		},
 		Spacing = style.PaddingPx,
+		LayoutOrder = props.LayoutOrder
 	}, {
 		ToggleButton = Roact.createElement(ToggleButton, {
 			OnClick = props.OnClick,

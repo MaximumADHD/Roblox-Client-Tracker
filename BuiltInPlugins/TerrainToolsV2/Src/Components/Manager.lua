@@ -2,7 +2,6 @@
 	This component connects Rodux to the ui and manages its layout. It is
 	composed of 3 frames: tabs, tools, and then tool components.
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -122,15 +121,11 @@ function Manager:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Manager = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(Manager)
-else
-	ContextServices.mapToProps(Manager, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+Manager = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(Manager)
+
 
 
 local function mapStateToProps(state, props)

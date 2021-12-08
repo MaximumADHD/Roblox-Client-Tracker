@@ -9,6 +9,7 @@ local SetLoading = require(Actions.SetLoading)
 local SetCachedCreatorInfo = require(Actions.SetCachedCreatorInfo)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
+local Rollouts = require(Plugin.Core.Rollouts)
 local Category = require(Plugin.Core.Types.Category)
 
 local Util = Plugin.Core.Util
@@ -81,7 +82,7 @@ return function(networkInterface, pageInfoOnStart)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
-		if FFlagToolboxLegacyFetchGroupModelsAndPackages then
+		if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 			-- special case : temporarily pull Group Creations Models and Packages from the develop API
 			local categoryName = pageInfoOnStart.categoryName
 			
@@ -132,7 +133,7 @@ return function(networkInterface, pageInfoOnStart)
 			store:dispatch(GetAssets(data.Results, data.TotalResults))
 			store:dispatch(SetCurrentPage(0))
 			store:dispatch(SetLoading(false))
-		elseif isCreationSearch then -- General Category Search
+		elseif not Rollouts:getToolboxGroupCreationsMigration() and isCreationSearch then -- General Category Search
 			-- Creations search
 			local currentCursor = store:getState().assets.currentCursor
 			if PagedRequestCursor.isNextPageAvailable(currentCursor) then
@@ -182,7 +183,7 @@ return function(networkInterface, pageInfoOnStart)
 			local isVideo = Category.categoryIsVideo(pageInfoOnStart.categoryName)
 			local isSpecialCase = false
 
-			if FFlagToolboxLegacyFetchGroupModelsAndPackages then
+			if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 				-- special case : temporarily pull Group Creations Models and Packages from the develop API
 				local categoryName = pageInfoOnStart.categoryName
 				if categoryName == Category.CREATIONS_GROUP_MODELS.name or

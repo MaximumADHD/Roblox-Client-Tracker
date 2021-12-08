@@ -78,7 +78,7 @@ return function()
 		local marker = Instance.new("KeyframeMarker", keyframe)
 		marker.Name = "TestEvent"
 		marker.Value = "TestValue"
-		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence") then
+		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
 			local animationRig = Instance.new("AnimationRigData", keyframeSequence)
 			animationRig.Name = "KFSAnimationRig"
 		end
@@ -98,6 +98,7 @@ return function()
 		end
 
 		local curveAnimation = Instance.new("CurveAnimation")
+		curveAnimation.Name = "CurveAnimation"
 		curveAnimation.Priority = Enum.AnimationPriority.Idle
 		curveAnimation.Loop = true
 
@@ -135,6 +136,11 @@ return function()
 		local mb = Instance.new("MarkerCurve", curveAnimation)
 		mb.Name = "BarEvent"
 		mb:InsertMarkerAtTime(0, "BarValue")
+
+		if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+			local animationRig = Instance.new("AnimationRigData", curveAnimation)
+			animationRig.Name = "CurveAnimationRig"
+		end
 
 		return curveAnimation
 	end
@@ -366,6 +372,10 @@ return function()
 			expect(metadata.Name).to.equal("KeyframeSequence")
 			expect(metadata.Looping).to.equal(false)
 			expect(metadata.Priority).to.equal(Enum.AnimationPriority.Idle)
+			if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+				expect(metadata.AnimationRig).to.be.ok()
+				expect(metadata.AnimationRig.Name).to.equal("KFSAnimationRig")
+			end
 		end)
 
 		it("should snap keyframes to the nearest frame within an epsilon tolerance", function()
@@ -383,14 +393,6 @@ return function()
 			expect(animationData.Events.Data[0]).to.be.ok()
 			expect(animationData.Events.Data[0].TestEvent).to.be.ok()
 			expect(animationData.Events.Data[0].TestEvent).to.equal("TestValue")
-		end)
-
-		it("should create the animationRig", function()
-			local keyframeSequence = buildTestKeyframeSequence()
-			if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence") then
-				local animationRig = keyframeSequence:FindFirstChildOfClass("AnimationRigData")
-				expect(animationRig).to.be.ok()
-			end
 		end)
 
 		it("should throw if the expected KeyframeSequence is not correct", function()
@@ -645,9 +647,6 @@ return function()
 				it("should read the events", function()
 					local curveAnimation = buildTestCurveAnimation()
 					local animationData = RigUtils.fromCurveAnimation(curveAnimation)
-					local events = animationData.Events
-					local dumpTable = require(Plugin.Src.Util.Debug.dumpTable)
-					dumpTable(animationData)
 					local e = animationData.Events
 					expect(#e.Keyframes).to.equal(2)
 					expect(e.Keyframes[2]).to.equal(1200)
@@ -658,6 +657,21 @@ return function()
 					expect(e.Data[1200]["FooEvent"]).to.be.ok()
 				end)
 			end
+
+			it("should set the metadata", function()
+				local curveAnimation = buildTestCurveAnimation()
+				local animationData = RigUtils.fromCurveAnimation(curveAnimation)
+				local metadata = animationData.Metadata
+				expect(metadata).to.be.ok()
+				expect(metadata.Name).to.equal("CurveAnimation")
+				expect(metadata.Looping).to.equal(true)
+				expect(metadata.Priority).to.equal(Enum.AnimationPriority.Idle)
+				if game:GetFastFlag("UseFilteredGetKeyframes") and game:GetFastFlag("SaveAnimationRigWithKeyframeSequence2") then
+					expect(metadata.AnimationRig).to.be.ok()
+					expect(metadata.AnimationRig.Name).to.equal("CurveAnimationRig")
+				end
+			end)
+
 		end)
 	end
 

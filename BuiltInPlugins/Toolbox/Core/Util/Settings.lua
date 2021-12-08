@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
-
+local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
@@ -17,6 +17,7 @@ local SETTING_PREFIX = "Toolbox_"
 local SELECTED_CATEGORY_NAME_KEY = SETTING_PREFIX .. "SelectedCategoryName"
 local SELECTED_SEARCH_TERM_KEY = SETTING_PREFIX .. "SelectedSearchTerm"
 local SELECTED_SORT_INDEX_KEY = SETTING_PREFIX .. "SelectedSortIndex"
+local SHOW_SCRIPT_WARNING_KEY = FFlagToolboxEnableScriptConfirmation and SETTING_PREFIX .. "ShowScriptWarning"
 
 function Settings.new(plugin)
 	local self = {
@@ -84,6 +85,16 @@ end
 
 function Settings:setSelectedSortIndex(index)
 	return self:_setSetting(SELECTED_SORT_INDEX_KEY, index)
+end
+
+function Settings:getShowScriptWarning()
+	if not FFlagToolboxEnableScriptConfirmation then return false end
+	return self:_getSetting(SHOW_SCRIPT_WARNING_KEY, "true") == "true"
+end
+
+function Settings:setShowScriptWarning(value)
+	if not FFlagToolboxEnableScriptConfirmation then return end
+	return self:_setSetting(SHOW_SCRIPT_WARNING_KEY, tostring(value))
 end
 
 function Settings:updateFromPageInfo(pageInfo)

@@ -29,6 +29,7 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local SkipAnimation = require(Plugin.Src.Thunks.Playback.SkipAnimation)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 
 local AnimationControlPanel = Roact.PureComponent:extend("AnimationControlPanel")
 
@@ -50,6 +51,21 @@ function AnimationControlPanel:init()
 	self.togglePlayWrapper = function()
 		return self.props.TogglePlay(self.props.Analytics)
 	end
+
+	self.setPlayStateWrapper = function(playState)
+		return self.props.SetPlayState(playState, self.props.Analytics)
+	end
+
+	self.goToFirstFrameWrapper = function()
+		local props = self.props
+		return props.StepAnimation(0)
+	end
+
+	self.goToLastFrameWrapper = function()
+		local props = self.props
+		local animationData = props.AnimationData
+		return props.StepAnimation(animationData.Metadata.EndTick)
+	end
 end
 
 function AnimationControlPanel:render()
@@ -58,6 +74,7 @@ function AnimationControlPanel:render()
 
 	local animationData = props.AnimationData
 	local isPlaying = props.IsPlaying
+	local playState = props.PlayState
 	local rootInstance = props.RootInstance
 	local startTick = props.StartTick
 	local endTick = props.EndTick
@@ -94,12 +111,16 @@ function AnimationControlPanel:render()
 
 		MediaControls = Roact.createElement(MediaControls, {
 			IsPlaying = isPlaying,
+			PlayState = playState,
 			IsLooping = animationData and animationData.Metadata
 				and animationData.Metadata.Looping or false,
 			SkipBackward = self.skipBackwardWrapper,
 			SkipForward = self.skipForwardWrapper,
 			TogglePlay = self.togglePlayWrapper,
+			SetPlayState = self.setPlayStateWrapper,
 			ToggleLooping = self.toggleLoopingWrapper,
+			GoToFirstFrame = self.goToFirstFrameWrapper,
+			GoToLastFrame = self.goToLastFrameWrapper,
 			LayoutOrder = 1,
 		}),
 
@@ -128,7 +149,8 @@ AnimationControlPanel = withContext({
 
 local function mapStateToProps(state, props)
 	return {
-		IsPlaying = state.Status.IsPlaying,
+		IsPlaying = state.Status.IsPlaying, -- Deprecated with GetFFlagMoarMediaControls()
+		PlayState = state.Status.PlayState,
 		RootInstance = state.Status.RootInstance,
 		FrameRate = state.Status.FrameRate
 	}
@@ -144,8 +166,12 @@ local function mapDispatchToProps(dispatch)
 			dispatch(TogglePlay(analytics))
 		end,
 
-		StepAnimation = function(tick)
-			dispatch(StepAnimation(tick))
+		StepAnimation = function(tck)
+			dispatch(StepAnimation(tck))
+		end,
+
+		SetPlayState = function(playState)
+			dispatch(SetPlayState(playState))
 		end,
 
 		LoadAnimationData = function(data, analytics)

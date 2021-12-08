@@ -28,7 +28,6 @@ local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsIt
 local SetTreeExpansion = require(Plugin.Src.Actions.SetTreeExpansion)
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
-local SetCheckedState = require(Plugin.Src.Thunks.SetCheckedState)
 local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local trimFilename = require(Plugin.Src.Utility.trimFilename)
 
@@ -88,7 +87,7 @@ local function generateStatuses(instances: {ImporterBaseSettings})
 	return statuses
 end
 
-local function getStatusImage(status, statusType, layoutOrderIterator, localization)
+local function getStatusImage(status, statusType, expanded, layoutOrderIterator, localization)
 	local statusIcon, statusName, statusesCount, subtreeStatusesCount
 
 	if statusType == StatusLevel.Error then
@@ -107,7 +106,7 @@ local function getStatusImage(status, statusType, layoutOrderIterator, localizat
 	if statusesCount > 0 then
 		local containsString = localization:getText("AssetImportTree", "Contains")
 		message = string.format(containsString, statusesCount, statusName)
-	elseif subtreeStatusesCount > 0 then
+	elseif subtreeStatusesCount > 0 and not expanded then
 		local descendantContainsString = localization:getText("AssetImportTree", "Descendants")
 		message = string.format(descendantContainsString, subtreeStatusesCount, statusName)
 	else
@@ -198,8 +197,8 @@ function AssetImportTree:init()
 		if status then
 			local layoutOrderIterator = LayoutOrderIterator.new()
 
-			local statusesImages = getStatusImage(status, StatusLevel.Error, layoutOrderIterator, self.props.Localization)
-			statusesImages = statusesImages or getStatusImage(status, StatusLevel.Warning, layoutOrderIterator, self.props.Localization)
+			local statusesImages = getStatusImage(status, StatusLevel.Error, props.Expanded, layoutOrderIterator, self.props.Localization)
+			statusesImages = statusesImages or getStatusImage(status, StatusLevel.Warning, props.Expanded, layoutOrderIterator, self.props.Localization)
 
 			local width = statusesImages and ICON_DIMENSION or 0
 
@@ -216,13 +215,8 @@ function AssetImportTree:init()
 	end
 end
 
-function AssetImportTree:didMount()
-	self.props.InitChecked()
-end
-
 function AssetImportTree:render()
 	local props = self.props
-	local state = self.state
 
 	local style = props.Stylizer
 
@@ -298,10 +292,6 @@ local function mapDispatchToProps(dispatch)
 		SetInstanceMap = function(instanceMap)
 			dispatch(SetInstanceMap(instanceMap))
 		end,
-		InitChecked = function()
-			dispatch(SetCheckedState())
-		end,
-
 	}
 end
 

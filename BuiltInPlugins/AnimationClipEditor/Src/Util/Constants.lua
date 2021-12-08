@@ -2,6 +2,7 @@ local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagPlaybackSpeedChanges = require(Plugin.LuaFlags.GetFFlagPlaybackSpeedChanges)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -29,7 +30,6 @@ local Constants = {
 	MIN_TIMELINE_RANGE = 30,
 
 	MAIN_FLOATING_SIZE = Vector2.new(640, 200),
-	MAIN_MINIMUM_SIZE = Vector2.new(535, 200),
 
 	MAX_WAYPOINT_SIZE = 20,
 	MIN_SPACE_BETWEEN_KEYS = 8,
@@ -43,14 +43,14 @@ local Constants = {
 	EVENT_MARKER_BORDER_SIZE = UDim2.new(0, 8, 0, 22),
 
 	TIMELINE_HEIGHT = 24,
-	CONTROLS_WIDTH = 110,
+	CONTROLS_WIDTH = GetFFlagMoarMediaControls() and 200 or 110,
 	TIME_DISPLAY_WIDTH = 100,
 
 	SCROLL_BAR_SIZE = 17,
 	SCROLL_BAR_PADDING = 2,
 
-	TRACK_LIST_START_WIDTH = GetFFlagChannelAnimations() and 350 or 335,
-	TRACK_LIST_MIN_WIDTH = GetFFlagChannelAnimations() and 350 or 335,
+	TRACK_LIST_START_WIDTH = (GetFFlagChannelAnimations() and 350 or 335) + (GetFFlagMoarMediaControls() and 90 or 0),
+	TRACK_LIST_MIN_WIDTH = (GetFFlagChannelAnimations() and 350 or 335) + (GetFFlagMoarMediaControls() and 90 or 0),
 	TIMELINE_MIN_WIDTH = 200,
 
 	INDENT_PADDING = 8,
@@ -360,7 +360,15 @@ local Constants = {
 		Right = "Right",
 		Left = "Left",
 	} or nil,
+
+	PLAY_STATE = {
+		Reverse = "Reverse",
+		Pause = "Pause",
+		Play = "Play",
+	}
 }
+
+Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)
 
 Constants.MAX_ANIMATION_LENGTH = Constants.MAX_TIME * Constants.TICK_FREQUENCY
 

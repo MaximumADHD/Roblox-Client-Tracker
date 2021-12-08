@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -48,15 +47,11 @@ function TeachingCallout:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	TeachingCallout = withContext({
-		CalloutController = ContextItems.CalloutController,
-	})(TeachingCallout)
-else
-	ContextServices.mapToProps(TeachingCallout, {
-		CalloutController = ContextItems.CalloutController,
-	})
-end
+
+TeachingCallout = withContext({
+	CalloutController = ContextItems.CalloutController,
+})(TeachingCallout)
+
 
 
 return TeachingCallout

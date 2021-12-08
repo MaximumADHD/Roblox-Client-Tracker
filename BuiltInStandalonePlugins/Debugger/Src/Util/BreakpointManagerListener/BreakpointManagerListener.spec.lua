@@ -41,18 +41,18 @@ return function()
 		local metaBreakpoint1 = createMockMetaBreakpoint(1,"scriptString1")
 		mockBreakpointManager.MetaBreakpointAdded:Fire(metaBreakpoint1)
 		local state = mainStore:getState()
-		expect(state.Breakpoint.BreakpointInfo[1].scriptName).to.equal("scriptString1")
+		expect(state.Breakpoint.MetaBreakpoints[1].scriptName).to.equal("scriptString1")
 		
 		-- breakpoint should modify
 		local modifiedBreakpoint1 = createMockMetaBreakpoint(1,"modifiedString1")
 		mockBreakpointManager.MetaBreakpointChanged:Fire(modifiedBreakpoint1)
 		state = mainStore:getState()
-		expect(state.Breakpoint.BreakpointInfo[1].scriptName).to.equal("modifiedString1")
+		expect(state.Breakpoint.MetaBreakpoints[1].scriptName).to.equal("modifiedString1")
 		
 		-- breakpoint should be removed
 		mockBreakpointManager.MetaBreakpointRemoved:Fire(modifiedBreakpoint1)
 		state = mainStore:getState()
-		expect(state.Breakpoint.BreakpointInfo[1]).to.equal(nil)
+		expect(state.Breakpoint.MetaBreakpoints[1]).to.equal(nil)
 		
 		mainBreakpointListener:destroy()
 	end)

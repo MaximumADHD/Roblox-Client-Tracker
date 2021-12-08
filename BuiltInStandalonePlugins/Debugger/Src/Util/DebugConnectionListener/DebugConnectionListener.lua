@@ -16,18 +16,17 @@ local StepStateBundle = require(Models.StepStateBundle)
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
 
-function DebugConnectionListener:onExecutionPaused(connection, pausedState, debuggerPauseReason)
+function DebugConnectionListener:onExecutionPaused(connection, pausedState, debuggerPauseReason, debuggerUIService)
 	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local state = self.store:getState()
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] or 
 		DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
 	self.store:dispatch(BreakpointHitAction(dst, pausedState.ThreadId))
-	if pausedState.Breakpoint then
-		self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.id))
+	if debuggerPauseReason == Enum.DebuggerPauseReason.Breakpoint and pausedState.Breakpoint then
+		self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.Id))
+		debuggerUIService:OpenScriptAtLine(pausedState.Breakpoint.Script, common.currentDebuggerConnectionId, pausedState.Breakpoint.Line)
 	end
-	
-	-- TODO: Call GoToScript from C++ side RIDE-6137
 	
 	-- thread info is retrieved here; you cannot call GetThreadById before calling GetThreads
 	connection:GetThreads(function(threads) 
@@ -54,11 +53,11 @@ function DebugConnectionListener:onExecutionResumed(connection, pausedState)
 	self.store:dispatch(Resumed(dst, pausedState.ThreadId))
 end
 
-function DebugConnectionListener:connectEvents(debuggerConnectionId, connection)
+function DebugConnectionListener:connectEvents(debuggerConnectionId, connection, debuggerUIService)
 	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local connectionEvents = {}
 	connectionEvents["paused"] = connection.Paused:Connect(function(pausedState, debuggerPauseReason) 
-		self:onExecutionPaused(connection, pausedState, debuggerPauseReason)
+		self:onExecutionPaused(connection, pausedState, debuggerPauseReason, debuggerUIService)
 	end)
 	connectionEvents["resumed"] = connection.Resumed:Connect(function(pausedState) 
 		self:onExecutionResumed(connection, pausedState)
@@ -67,10 +66,10 @@ function DebugConnectionListener:connectEvents(debuggerConnectionId, connection)
 	self.connectionEventConnections[debuggerConnectionId] = connectionEvents
 end
 
-function DebugConnectionListener:onConnectionStarted(debuggerConnection)
+function DebugConnectionListener:onConnectionStarted(debuggerConnection, debuggerUIService)
 	assert(debuggerConnection and debuggerConnection.Id~=0)
 	self.debuggerConnections[debuggerConnection.Id] = debuggerConnection
-	self:connectEvents(debuggerConnection.Id, debuggerConnection)
+	self:connectEvents(debuggerConnection.Id, debuggerConnection, debuggerUIService)
 end
 
 function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason)
@@ -86,18 +85,19 @@ function DebugConnectionListener:onFocusChanged(debuggerConnection)
 	self.store:dispatch(SetFocusedDebuggerConnection(debuggerConnection.Id))
 end
 
-local function setUpConnections(debugConnectionListener, debuggerConnectionManager)
+local function setUpConnections(debugConnectionListener, debuggerConnectionManager, debuggerUIService)
 	local DebuggerConnectionManager = debuggerConnectionManager or game:GetService("DebuggerConnectionManager")
-	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection) end)
+	local DebuggerUIService = debuggerUIService or game:GetService("DebuggerUIService")
+	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection, DebuggerUIService) end)
 	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason) end)
 	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(function(debuggerConnection) debugConnectionListener:onFocusChanged(debuggerConnection) end)
 end
 
-function DebugConnectionListener.new(store, debuggerConnectionManager)
+function DebugConnectionListener.new(store, debuggerConnectionManager, debuggerUIService)
 	local self = {store = store}
 	self.debuggerConnections = {}
 	self.connectionEventConnections = {}
-	setUpConnections(self, debuggerConnectionManager)
+	setUpConnections(self, debuggerConnectionManager, debuggerUIService)
 	setmetatable(self, DebugConnectionListener)
 	return self
 end

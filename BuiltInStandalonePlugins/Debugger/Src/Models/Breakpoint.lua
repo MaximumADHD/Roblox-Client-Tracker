@@ -1,8 +1,5 @@
-export type DebugpointType = string
-local DebugpointType : {[string]: DebugpointType} = {
-	Breakpoint = "Breakpoint",
-	Logpoint = "Logpoint",
-}
+local PluginFolder = script.Parent.Parent.Parent
+local Constants = require(PluginFolder.Src.Util.Constants)
 
 export type Breakpoint = {
 	id: number,
@@ -13,27 +10,12 @@ export type Breakpoint = {
 	condition: string,
 	logMessage: string,
 	continueExecution: boolean,
-	debugpointType : DebugpointType
+	debugpointType : Constants.DebugpointType,
+	contexts : {string},
 }
 
-local BreakpointInternal = {}
-BreakpointInternal.__index = BreakpointInternal
-
-function BreakpointInternal.new(data) 
-    local self = {}
-    setmetatable(self, BreakpointInternal)
-    for key, value in pairs(data) do
-		self[key] = value
-	  end
-    return self
-end
-
-function BreakpointInternal:setEnabled(value : boolean)
-    self.isEnabled = value
-end
-
 local function fromBreakpoint(breakpoint) : Breakpoint
-	return BreakpointInternal.new({
+	return {
 		id = breakpoint:GetId(),
 		isEnabled = breakpoint:GetEnabled(),
 		lineNumber = breakpoint:GetLine(),
@@ -42,12 +24,13 @@ local function fromBreakpoint(breakpoint) : Breakpoint
 		condition = breakpoint:GetCondition(),
 		logMessage = breakpoint:GetLogExpression(),
 		continueExecution = breakpoint:GetContinueExecution(),
-		debugpointType = breakpoint:GetDebugpointType()
-	})
+		debugpointType = breakpoint:GetDebugpointType(),
+		contexts = breakpoint:GetContexts(),
+	}
 end
 
 local function fromMetaBreakpoint(metaBreakpoint)
-	return BreakpointInternal.new({
+	return {
 		id = metaBreakpoint.Id,
 		isEnabled = metaBreakpoint.Enabled,
 		lineNumber = metaBreakpoint.Line,
@@ -56,12 +39,13 @@ local function fromMetaBreakpoint(metaBreakpoint)
 		condition = metaBreakpoint.Condition,
 		logMessage = metaBreakpoint.LogMessage,
 		continueExecution = metaBreakpoint.ContinueExecution,
-		debugpointType = metaBreakpoint.IsLogpoint and DebugpointType.Logpoint or DebugpointType.Breakpoint
-	})
+		debugpointType = metaBreakpoint.IsLogpoint and Constants.DebugpointType.Logpoint or Constants.DebugpointType.Breakpoint,
+		contexts = metaBreakpoint:GetContexts(),
+	}
 end
 
 local function fromData(breakpoint) : Breakpoint
-	return BreakpointInternal.new({
+	return {
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,
 		lineNumber = breakpoint.lineNumber,
@@ -70,8 +54,9 @@ local function fromData(breakpoint) : Breakpoint
 		condition = breakpoint.condition,
 		logMessage = breakpoint.logMessage,
 		continueExecution = breakpoint.continueExecution,
-		debugpointType = breakpoint.debugpointType
-	})
+		debugpointType = breakpoint.debugpointType,
+		contexts = breakpoint.contexts,
+	}
 end
 
 -- Create unique values for props that are not passed in
@@ -84,7 +69,7 @@ local function mockBreakpoint(breakpoint, uniqueId) : Breakpoint
 		breakpoint.continueExecution = math.random()>0.5
 	end
 
-	return BreakpointInternal.new({
+	return {
 		id = breakpoint.id or uniqueId,
 		isEnabled = breakpoint.isEnabled,
 		lineNumber = breakpoint.lineNumber or uniqueId,
@@ -93,8 +78,9 @@ local function mockBreakpoint(breakpoint, uniqueId) : Breakpoint
 		condition = breakpoint.condition or ("varNum"..tostring(uniqueId).." == 0"),
 		logMessage = breakpoint.logMessage or ("varNum"..tostring(uniqueId)),
 		continueExecution = breakpoint.continueExecution,
-		debugpointType = breakpoint.debugpointType or math.fmod(uniqueId,2)==0 and DebugpointType.Breakpoint or DebugpointType.Logpoint
-	})
+		debugpointType = breakpoint.debugpointType or math.fmod(uniqueId,2)==0 and Constants.DebugpointType.Breakpoint or Constants.DebugpointType.Logpoint,
+		contexts = {[1] = Constants.GameStateTypes.Client, [2] = Constants.GameStateTypes.Server},
+	}
 end
 
 return {
@@ -102,5 +88,4 @@ return {
 	fromData = fromData,
 	fromMetaBreakpoint = fromMetaBreakpoint,
 	mockBreakpoint = mockBreakpoint,
-	debugpointType = DebugpointType
 }

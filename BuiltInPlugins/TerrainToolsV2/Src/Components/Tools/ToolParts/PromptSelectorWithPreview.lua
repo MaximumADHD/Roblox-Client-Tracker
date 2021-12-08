@@ -20,7 +20,6 @@
 		ClearSelection : void -> void
 			Callback to clear the current selection
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -134,15 +133,11 @@ function PreviewToolbarButton:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PreviewToolbarButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(PreviewToolbarButton)
-else
-	ContextServices.mapToProps(PreviewToolbarButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+PreviewToolbarButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(PreviewToolbarButton)
+
 
 
 local PreviewDialog = Roact.PureComponent:extend("PreviewDialog")
@@ -228,16 +223,9 @@ function PreviewDialog:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PreviewDialog = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(PreviewDialog)
-else
-	ContextServices.mapToProps(PreviewDialog, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
-
+PreviewDialog = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(PreviewDialog)
 
 local PromptSelectorWithPreview = Roact.PureComponent:extend(script.Name)
 
@@ -475,15 +463,8 @@ function PromptSelectorWithPreview:render()
 	}, content)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PromptSelectorWithPreview = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(PromptSelectorWithPreview)
-else
-	ContextServices.mapToProps(PromptSelectorWithPreview, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
-
+PromptSelectorWithPreview = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(PromptSelectorWithPreview)
 
 return PromptSelectorWithPreview

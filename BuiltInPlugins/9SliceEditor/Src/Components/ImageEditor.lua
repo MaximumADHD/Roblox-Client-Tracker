@@ -35,6 +35,8 @@ local TOP = Orientation.Top.rawValue()
 local BOTTOM = Orientation.Bottom.rawValue()
 local UNDEFINED = Orientation.Undefined.rawValue()
 
+local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
+
 function ImageEditor:init(props)
 	self.draggerHandlingMovement = false -- red dragger not currently handling drag
 	self.dragOrientation = UNDEFINED -- no current orientation
@@ -346,6 +348,10 @@ function ImageEditor.getDerivedStateFromProps(nextProps, lastState)
 	
 	if largestDimension > 0 then
 		fitImageSize = pixelDimensions / largestDimension * Constants.IMAGE_SIZE
+		if FFlag9SliceEditorRespectImageRectSize then
+			-- UDim2 offsets are integers, so we need integer size.
+			fitImageSize = Vector2.new(math.round(fitImageSize.X), math.round(fitImageSize.Y))
+		end
 	end
 	
 	return {
@@ -419,10 +425,12 @@ function ImageEditor:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
 				Image = selectedObject.Image,
-				ImageColor3 = selectedObject.ImageColor3,
+				ImageColor3 = FFlag9SliceEditorRespectImageRectSize and props.imageColor3 or selectedObject.ImageColor3,
 				Position = UDim2.fromScale(0.5, 0.5),
 				ScaleType = Enum.ScaleType.Fit,
-				ResampleMode = selectedObject.ResampleMode,
+				ResampleMode = FFlag9SliceEditorRespectImageRectSize and props.resampleMode or selectedObject.ResampleMode,
+				ImageRectOffset = props.imageRectOffset,
+				ImageRectSize = props.imageRectSize,
 				Size = UDim2.fromOffset(fitImageSize.X, fitImageSize.Y),
 			}, {
 				LeftDragSlider = self:createDragger(LEFT),

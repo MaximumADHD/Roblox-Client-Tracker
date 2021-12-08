@@ -1,4 +1,3 @@
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -129,18 +128,10 @@ function RoactElementTree:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	RoactElementTree = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext
-	})(RoactElementTree)
-else
-	ContextServices.mapToProps(RoactElementTree, {
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext
-	})
-end
-
+RoactElementTree = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Inspector = InspectorContext
+})(RoactElementTree)
 
 return RoactRodux.connect(
 	function(state, props)

@@ -11,8 +11,6 @@ local SelectionWrapper = require(DraggerFramework.Utility.SelectionWrapper)
 local SelectionHelper = require(DraggerFramework.Utility.SelectionHelper)
 local classifyPivot = require(DraggerFramework.Utility.classifyPivot)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-local getFFlagDraggerFrameworkFixes = require(DraggerFramework.Flags.getFFlagDraggerFrameworkFixes)
 local getFFlagBoxSelectNoPivot = require(DraggerFramework.Flags.getFFlagBoxSelectNoPivot)
 local getFFlagCheckAllowFreeformDrag = require(DraggerFramework.Flags.getFFlagCheckAllowFreeformDrag)
 
@@ -127,9 +125,7 @@ function DraggerToolModel:transitionToState(draggerStateType, ...)
 end
 
 function DraggerToolModel:render()
-	if getFFlagDraggerFrameworkFixes() then
-		self:_updateHandles()
-	end
+	self:_updateHandles()
 
 	return Roact.createElement(Roact.Portal, {
 		target = self._draggerContext:getGuiParent(),
@@ -248,7 +244,7 @@ function DraggerToolModel:_processSelected()
 	self._mainState = DraggerStateType.Ready
 	self._stateObject = DraggerState[DraggerStateType.Ready].new(self)
 
-	if getFFlagSummonPivot() and self._modelProps.ShowPivotIndicator then
+	if self._modelProps.ShowPivotIndicator then
 		self._oldShowPivot = self._draggerContext:setPivotIndicator(true)
 	end
 
@@ -295,7 +291,7 @@ function DraggerToolModel:_processDeselected()
 		self:_processMouseUp()
 	end
 
-	if getFFlagSummonPivot() and self._modelProps.ShowPivotIndicator then
+	if self._modelProps.ShowPivotIndicator then
 		self._draggerContext:setPivotIndicator(self._oldShowPivot)
 	end
 
@@ -321,9 +317,7 @@ end
 function DraggerToolModel:_processSelectionChanged()
 	self:_updateSelectionInfo()
 	self._stateObject:processSelectionChanged()
-	if getFFlagDraggerFrameworkFixes() then
-		self:_scheduleRender()
-	end
+	self:_scheduleRender()
 end
 
 function DraggerToolModel:_processKeyDown(keyCode)
@@ -426,15 +420,9 @@ function DraggerToolModel:_updateSelectionInfo(newSelectionInfoHint)
 	end
 	self._boundsChangedTracker:setSelection(self._selectionInfo)
 
-	if getFFlagDraggerFrameworkFixes() then
-		self:_updateHandles()
-	else
-		self:_scheduleRender()
-	end
+	self:_updateHandles()
 
-	if getFFlagSummonPivot() then
-		self:_updatePivotIndicatorVisibility()
-	end
+	self:_updatePivotIndicatorVisibility()
 end
 
 function DraggerToolModel:_updatePivotIndicatorVisibility()
@@ -490,10 +478,6 @@ function DraggerToolModel:_processToolboxInitiatedFaceDrag(instances)
 end
 
 function DraggerToolModel:_scheduleRender()
-	if not getFFlagDraggerFrameworkFixes() then
-		self:_updateHandles()
-	end
-
 	self._requestRenderCallback()
 end
 

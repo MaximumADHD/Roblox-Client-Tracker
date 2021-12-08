@@ -108,8 +108,8 @@ local testCallstack2 = {
 local testThreadOne = mockThreadState.new(1, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
 local testThreadTwo = mockThreadState.new(2, "TestThread2", true)
 
-local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, BreakpointModel.mockBreakpoint({}, 1))
-local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, BreakpointModel.mockBreakpoint({}, 1))
+local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
 
 return function(store)
 	local currentMockConnection = MockDebuggerConnection.new(1)	

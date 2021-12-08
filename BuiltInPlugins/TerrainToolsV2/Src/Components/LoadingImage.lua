@@ -8,7 +8,6 @@
 	Optional Props:
 		All other ImageLabel properties
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -114,15 +113,11 @@ function LoadingImage:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	LoadingImage = withContext({
-		ImageLoader = ContextItems.ImageLoader,
-	})(LoadingImage)
-else
-	ContextServices.mapToProps(LoadingImage, {
-		ImageLoader = ContextItems.ImageLoader,
-	})
-end
+
+LoadingImage = withContext({
+	ImageLoader = ContextItems.ImageLoader,
+})(LoadingImage)
+
 
 
 return LoadingImage

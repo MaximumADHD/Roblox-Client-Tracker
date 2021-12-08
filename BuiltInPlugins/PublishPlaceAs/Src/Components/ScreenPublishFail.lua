@@ -35,7 +35,6 @@ local BUTTON_WIDTH = 150
 local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 
@@ -150,16 +149,11 @@ function ScreenPublishFail:render()
 			OnClicked = function()
 				if not isPublishing then
 					if parentGameId == 0 then
-						if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-							SettingsImpl.saveAll(settings, localization, apiImpl)
-						else
-							SettingsImpl.saveAll(settings, localization)
-						end
+						SettingsImpl.saveAll(settings, localization, apiImpl)
 					else
 						-- groupId is unused in existing game/place publish, only new game publish
 						-- which is in the if block
 						StudioService:publishAs(parentGameId, id, 0)
-
 					end
 				end
 				dispatchSetIsPublishing(true)
@@ -172,7 +166,7 @@ end
 ScreenPublishFail = withContext({
 	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
-	API = FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 and ContextServices.API or nil,
+	API = ContextServices.API,
 })(ScreenPublishFail)
 
 

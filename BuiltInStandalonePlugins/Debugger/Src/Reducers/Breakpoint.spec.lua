@@ -26,7 +26,7 @@ end
 
 local initialState = {
 	BreakpointIdsInDebuggerConnection = {},
-	BreakpointInfo = {},
+	MetaBreakpoints = {},
 }
 
 return function()
@@ -35,10 +35,10 @@ return function()
 		expect(state).to.be.ok()
 		expect(state.BreakpointIdsInDebuggerConnection[debuggerConnectionId]).to.be.ok()
 		expect(state.BreakpointIdsInDebuggerConnection[debuggerConnectionId][breakpoint.id]).to.be.ok()
-		expect(state.BreakpointInfo[breakpoint.id]).to.be.ok()
+		expect(state.MetaBreakpoints[breakpoint.id]).to.be.ok()
 	
 		-- Check that the breakpoint's props are correct
-		local stateBreakpoint = state.BreakpointInfo[breakpoint.id]
+		local stateBreakpoint = state.MetaBreakpoints[breakpoint.id]
 		expect(stateBreakpoint.id).to.equal(breakpoint.id)
 		expect(stateBreakpoint.scriptName).to.equal(stateBreakpoint.scriptName)
 		expect(stateBreakpoint.scriptLine).to.equal(stateBreakpoint.scriptLine)
@@ -93,11 +93,11 @@ return function()
 			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint))
 
 			-- Add the override breakpoint to a different debugger connection, should replace the original breakpoint 
-			-- in BreakpointInfo since they have the same id
+			-- in MetaBreakpoints since they have the same id
 			state = BreakpointReducer(state, AddBreakpointAction(321, breakpointOverride))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(2)
-			expect(getSize(state.BreakpointInfo)).to.equal(1)
+			expect(getSize(state.MetaBreakpoints)).to.equal(1)
 			expectBreakpoint(state, 123, breakpointOverride)
 			expectBreakpoint(state, 321, breakpointOverride)
 
@@ -124,7 +124,7 @@ return function()
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
-			expect(state.BreakpointInfo[uniqueId].lineNumber).to.equal(0)
+			expect(state.MetaBreakpoints[uniqueId].lineNumber).to.equal(0)
 
 			-- Modify the breakpoint in the connection
 			local newBreakpoint = Breakpoint.mockBreakpoint({lineNumber = 2500}, uniqueId)
@@ -132,8 +132,8 @@ return function()
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(1)
-			expect(getSize(state.BreakpointInfo)).to.equal(1)
-			expect(state.BreakpointInfo[uniqueId].lineNumber).to.equal(2500)
+			expect(getSize(state.MetaBreakpoints)).to.equal(1)
+			expect(state.MetaBreakpoints[uniqueId].lineNumber).to.equal(2500)
 		end)
 
 		it("should break when modifying breakpoint that doesn't exist", function()
@@ -146,12 +146,12 @@ return function()
 		it("should Delete Breakpoints", function()
 			local uniqueId = 0
 			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
-			local state = BreakpointReducer({BreakpointInfo = {[0] = breakpoint}, 
+			local state = BreakpointReducer({MetaBreakpoints = {[0] = breakpoint}, 
 				BreakpointIdsInDebuggerConnection = {[123] = {[0] = 0}}}, DeleteBreakpointAction(0))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(0)
-			expect(getSize(state.BreakpointInfo)).to.equal(0)
+			expect(getSize(state.MetaBreakpoints)).to.equal(0)
 		end)
 		
 		it("should throw assert when deleting breakpoint not in store", function()
@@ -162,7 +162,7 @@ return function()
 			local uniqueId = 0
 			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
 			local immutabilityPreserved = testImmutability(BreakpointReducer, 
-				DeleteBreakpointAction(uniqueId), {BreakpointInfo = {[uniqueId] = breakpoint}, BreakpointIdsInDebuggerConnection = {}})
+				DeleteBreakpointAction(uniqueId), {MetaBreakpoints = {[uniqueId] = breakpoint}, BreakpointIdsInDebuggerConnection = {}})
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

@@ -1,7 +1,6 @@
 --[[
 	Display a list of available targets
 ]]
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -67,16 +66,9 @@ function TargetTree:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	TargetTree = withContext({
-		Inspector = InspectorContext
-	})(TargetTree)
-else
-	ContextServices.mapToProps(TargetTree, {
-		Inspector = InspectorContext
-	})
-end
-
+TargetTree = withContext({
+	Inspector = InspectorContext
+})(TargetTree)
 
 return RoactRodux.connect(
 	function(state, props)

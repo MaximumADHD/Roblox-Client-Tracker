@@ -5,4 +5,9 @@ local isUserIdInGradualRollout = require(Plugin.Core.Util.isUserIdInGradualRollo
 
 local Rollouts = {}
 
+function Rollouts:getToolboxGroupCreationsMigration()
+    local rolloutPercentage = tonumber(settings():GetFVariable("ToolboxGroupCreationsMigrationRolloutPercentage"))
+    return isUserIdInGradualRollout(getUserId(), rolloutPercentage)
+end
+
 return Rollouts

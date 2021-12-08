@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -34,17 +33,12 @@ function ToolSelectionListener:render()
 	return nil
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ToolSelectionListener = withContext({
-		Analytics = ContextServices.Analytics,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})(ToolSelectionListener)
-else
-	ContextServices.mapToProps(ToolSelectionListener, {
-		Analytics = ContextServices.Analytics,
-		PluginActivationController = ContextItems.PluginActivationController,
-	})
-end
+
+ToolSelectionListener = withContext({
+	Analytics = ContextServices.Analytics,
+	PluginActivationController = ContextItems.PluginActivationController,
+})(ToolSelectionListener)
+
 
 
 local function mapStateToProps(state, props)

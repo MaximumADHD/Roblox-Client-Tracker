@@ -8,6 +8,14 @@
 		int LayoutOrder = The order this CheckBoxSet will sort to when placed in a UIListLayout.
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+
+local teamCreateToggleEnabled = false
+if FIntTeamCreateTogglePercentageRollout > 0 then
+	local StudioService = game:GetService("StudioService")
+    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
+end
+
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -49,9 +57,26 @@ function CheckBoxSet:render()
 		})
 	}
 
+	local components
+	local tableToInsert = children
+	if props.UseGridLayout then
+		assert(teamCreateToggleEnabled)
+		components = {
+			Roact.createElement("UIGridLayout", {
+				CellSize = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.ICON_SIZE, 0,
+					25),
+				CellPadding = UDim2.new(0, theme.SCREEN_CHOOSE_GAME.CELL_PADDING_X, 0, 2),
+				[Roact.Ref] = self.layoutRef,
+				FillDirectionMaxCells = 2
+			})
+		}
+		
+		tableToInsert = components
+	end
+	
 	-- TODO: Implement CheckBox changes into DevFramework since we want to deprecate UILibrary eventually.
 	for i, box in ipairs(boxes) do
-		table.insert(children, Roact.createElement(CheckBox, {
+		table.insert(tableToInsert, Roact.createElement(CheckBox, {
 			Title = box.Title,
 			Id = box.Id,
 			Height = CHECKBOX_SIZE,
@@ -64,6 +89,12 @@ function CheckBoxSet:render()
 			end,
 			Link = box.LinkTextFrame,
 		}))
+	end
+	
+	if props.UseGridLayout then
+		for i, child in ipairs(components) do
+			table.insert(children, child)
+		end
 	end
 
 	if props[Roact.Children] then
@@ -87,6 +118,12 @@ function CheckBoxSet:render()
 	local maxHeight = #boxes * (CHECKBOX_SIZE + CHECKBOX_PADDING)
 	if props.MaxHeight then
 		maxHeight += props.MaxHeight
+	end
+
+	if teamCreateToggleEnabled then
+		if props.AbsoluteMaxHeight then 
+			maxHeight = props.AbsoluteMaxHeight
+		end
 	end
 
 	return Roact.createElement(TitledFrame, {

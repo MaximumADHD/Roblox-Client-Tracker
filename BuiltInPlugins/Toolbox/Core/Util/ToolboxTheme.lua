@@ -1,9 +1,16 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
+local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 local Plugin = script.Parent.Parent.Parent
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 
 local UILibrary = require(Libs.UILibrary)
@@ -212,6 +219,7 @@ function ToolboxTheme:_recalculateTheme()
 		asset = {
 			outline = (not FFlagToolboxRemoveWithThemes) and {
 				backgroundColor = color(c.MainBackground),
+				verifiedBackgroundColor = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and (isDark and Color3.fromRGB(12, 43, 89) or Color3.fromRGB(229, 243, 255)) or nil,
 				borderColor = color(c.Border),
 			},
 

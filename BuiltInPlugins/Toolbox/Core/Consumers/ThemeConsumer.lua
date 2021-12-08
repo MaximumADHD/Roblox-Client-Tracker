@@ -1,13 +1,13 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
-
-local Libs = Plugin.Libs
-local Roact = require(Libs.Roact)
-local Symbol = require(Libs.Roact.Symbol)
-if (not FFlagRemoveUILibraryFromToolbox) then
-	local UILibraryThemeKey = Symbol.named("UILibraryraryTheme")
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
 end
+local Roact = require(Libs.Roact)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
 local getTheme = ContextGetter.getTheme

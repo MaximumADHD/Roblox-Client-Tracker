@@ -12,6 +12,8 @@
 		boolean HasEditingCage: determines if a cage has been loaded into the editor, some tab buttons are disabled if not.
 ]]
 
+local FFlagDebugEnableLatticeTool = game:DefineFastFlag("DebugEnableLatticeTool", false)
+
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
@@ -44,24 +46,29 @@ function EditorTabsRibbon:render()
 
 	local hasEditingCage = props.HasEditingCage
 
+	local buttons = {}
+	if FFlagDebugEnableLatticeTool then
+		table.insert(buttons, {
+			Key = Constants.TOOL_MODE.Lattice,
+			Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Lattice),
+			IsEnabled = hasEditingCage
+		})
+	end
+
+	table.insert(buttons, {
+		Key = Constants.TOOL_MODE.Point,
+		Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Point),
+		IsEnabled = hasEditingCage,
+	})
+
+	table.insert(buttons, {
+		Key = Constants.TOOL_MODE.Reset,
+		Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Reset),
+		IsEnabled = hasEditingCage,
+	})
+
 	return Roact.createElement(TabsRibbon, {
-		Buttons = {
-			{
-				Key = Constants.TOOL_MODE.Lattice,
-				Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Lattice),
-				IsEnabled = hasEditingCage
-			},
-			{
-				Key = Constants.TOOL_MODE.Point,
-				Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Point),
-				IsEnabled = hasEditingCage,
-			},
-			{
-				Key = Constants.TOOL_MODE.Reset,
-				Text = localization:getText(Constants.LOCALIZATION_KEYS.Editor, Constants.TOOL_MODE.Reset),
-				IsEnabled = hasEditingCage,
-			},
-		},
+		Buttons = buttons,
 		OnClick = self.onClick,
 		SelectedKey = self.props.ToolMode,
 		ZIndex = zIndex,

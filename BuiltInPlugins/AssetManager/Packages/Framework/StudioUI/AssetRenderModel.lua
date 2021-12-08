@@ -14,8 +14,10 @@
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
 		boolean RecenterCameraOnUpdate: Whether to recenter the camera on update.
 		any Camera: The camera instance used for the viewport frame - won't catch changes made by the parent component.
+		Vector3 FocusDirection: A vector representing the angle the camera should view the model at
 ]]
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
+local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -36,6 +38,7 @@ local PAN_CAMERA_DIST_MULT = 0.1
 
 AssetRenderModel.defaultProps = {
 	RecenterCameraOnUpdate = true,
+	FocusDirection = Vector3.new(1, 1, 1),
 }
 
 -- TODO STM-169: Should we unify this with AssetConfig's PreviewArea component?
@@ -150,7 +153,12 @@ function AssetRenderModel:init()
 		end
 
 		local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-		local dir = Vector3.new(1, 1, 1).Unit
+		local dir
+		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
+			dir = self.props.FocusDirection.Unit
+		else
+			dir = Vector3.new(1, 1, 1).Unit
+		end
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.p)
 	end

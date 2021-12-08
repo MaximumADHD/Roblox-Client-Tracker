@@ -31,11 +31,23 @@ local StepActionIds : {[string]: ActionId} = {
 	stepOutActionV2 = "stepOutActionV2",
 }
 
+local GameStateTypes : {[string] : string} = {
+	Client = "StudioGameStateType_PlayClient",
+	Server = "StudioGameStateType_PlayServer",
+	Edit = "StudioGameStateType_Edit",
+}
+
 local HEADER_HEIGHT = 40
 
 local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
 
 local SeparationToken = "_"
+
+export type DebugpointType = string
+local DebugpointType : {[string]: DebugpointType} = {
+	Breakpoint = "Breakpoint",
+	Logpoint = "Logpoint",
+}
 
 return {
 	CallstackActionIds = CallstackActionIds,
@@ -46,4 +58,6 @@ return {
 	HEADER_HEIGHT = HEADER_HEIGHT,
 	BreakpointIconDirectoryFilePath = BreakpointIconDirectoryFilePath,
 	SeparationToken = SeparationToken,
+	GameStateTypes = GameStateTypes,
+	DebugpointType = DebugpointType,
 }

@@ -2,16 +2,20 @@
 	Contains a series of buttons meant to control editing or playback.
 
 	Props:
-		bool IsPlaying = Whether the animation is currently playing.
+		bool IsPlaying = Whether the animation is currently playing. (Deprecated with GetFFlagMoarMediaControls)
+		string PlayState = One of Constants.PLAY_STATE (Reverse, Paused, Play).
 		bool IsLooping = Whether the animation is a looping animation.
 		int LayoutOrder = The display order of this component.
 
-		function TogglePlay() = A callback for when the user wants to toggle the playback state.
+		function TogglePlay() = A callback for when the user wants to toggle the playback state. (Deprecated with GetFFlagMoarMediaControls)
+		function SetPlayState(playState) = A callback for when the user changes the playback state.
 		function ToggleLooping() = A callback for when the user wants to toggle the looping state.
 		function SkipBackward() = A callback for when the user wants to skip backward to the
-			previous keyframe in the animation, or the start of the animation.
+			previous keyframe in the animation.
 		function SkipForward() = A callback for when the user wants to skip forward to the next
-			keyframe in the animation, or to the end of the animation.
+			keyframe in the animation.
+		function GoToFirstFrame() = A callback for when the user wants to go to the first frame.
+		function GoToLastFrame() = A callback for when the user wants to go to the last frame.
 ]]
 
 local DEFAULT_STYLE = "MediaControl"
@@ -28,6 +32,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
+
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
@@ -70,32 +76,64 @@ function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, p
 			Style = active and style.ActiveControl or style.MediaControl,
 			OnClick = onClick,
 		}, {
-				Image = Roact.createElement("ImageLabel", {
-					BackgroundTransparency = 1,
-					Size = UDim2.new(1, 0, 1, 0),
-					Image = active and activeImage or inactiveImage,
-					ImageColor3 = active and playbackTheme.iconHighlightColor or playbackTheme.iconColor,
-				}),
-				Tooltip = tooltipKey and Roact.createElement(Tooltip, {
-					TextKey = tooltipKey,
-				}),
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = active and activeImage or inactiveImage,
+				ImageColor3 = active and playbackTheme.iconHighlightColor or playbackTheme.iconColor,
 			}),
-		})
-	end
-	
+			Tooltip = tooltipKey and Roact.createElement(Tooltip, {
+				TextKey = tooltipKey,
+			}),
+		}),
+	})
+end
+
+function MediaControls:makePlayToggle(active, image, playState, playbackTheme, tooltipKey)
+	local style = self.props.Theme:get("PluginTheme").button
+	return Roact.createElement("Frame", {
+		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
+		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
+		BackgroundTransparency = 1,
+	}, {
+		Button = Roact.createElement(Button, {
+			ZIndex = 1,
+			Size = UDim2.new(1, 0, 1, 0),
+			Style = active and style.ActiveControl or style.MediaControl,
+			OnClick = function()
+				if self.props.SetPlayState then
+					self.props.SetPlayState(playState)
+				end
+			end,
+		}, {
+			Image = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Size = UDim2.new(1, 0, 1, 0),
+				Image = image,
+				ImageColor3 = active and playbackTheme.iconHighlightColor or playbackTheme.iconColor,
+			}),
+			Tooltip = tooltipKey and Roact.createElement(Tooltip, {
+				TextKey = tooltipKey,
+			}),
+		}),
+	})
+end
 
 function MediaControls:render()
 		local props = self.props
 		local theme = props.Theme:get("PluginTheme")
 
-		local isPlaying = props.IsPlaying
 		local isLooping = props.IsLooping
+		local isReverse = props.PlayState == Constants.PLAY_STATE.Reverse
+		local isPaused = props.PlayState == Constants.PLAY_STATE.Pause
+		local isPlaying = GetFFlagMoarMediaControls() and (props.PlayState == Constants.PLAY_STATE.Play) or props.IsPlaying
 		local layoutOrder = props.LayoutOrder
 		local skipBackward = props.SkipBackward
 		local skipForward = props.SkipForward
 		local togglePlay = props.TogglePlay
 		local toggleLooping = props.ToggleLooping
-
+		local goToFirstFrame = props.GoToFirstFrame
+		local goToLastFrame = props.GoToLastFrame
 		local playbackTheme = theme.playbackTheme
 
 		self.layoutOrderIterator = LayoutOrderIterator.new()
@@ -111,14 +149,19 @@ function MediaControls:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
-			SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward,
-				playbackTheme, "SkipBackward"),
-			PlayPause = self:makeToggle(isPlaying, playbackTheme.pause, playbackTheme.play, togglePlay,
-				playbackTheme, "Play"),
-			SkipForward = self:makeButton(playbackTheme.skipForward, skipForward,
-				playbackTheme, "SkipForward"),
-			Loop = self:makeToggle(isLooping, playbackTheme.loop, playbackTheme.loop, toggleLooping,
-				playbackTheme, "ToggleLooping"),
+			GoToFirstFrame = GetFFlagMoarMediaControls() and self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame") or nil,
+			SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward, playbackTheme, "SkipBackward"),
+
+			Reverse = GetFFlagMoarMediaControls() and self:makePlayToggle(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse") or nil,
+			Pause = GetFFlagMoarMediaControls() and self:makePlayToggle(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause") or nil,
+			Play = GetFFlagMoarMediaControls() and self:makePlayToggle(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play") or nil,
+			-- Deprecated with GetFFlagMoarMediaControls()
+			PlayPause = not GetFFlagMoarMediaControls() and self:makeToggle(isPlaying, playbackTheme.pause, playbackTheme.play, togglePlay, playbackTheme, "Play") or nil,
+
+			SkipForward = self:makeButton(playbackTheme.skipForward, skipForward, playbackTheme, "SkipForward"),
+			GoToLastFrame = GetFFlagMoarMediaControls() and self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame") or nil,
+
+			Loop = self:makeToggle(isLooping, playbackTheme.loop, playbackTheme.loop, toggleLooping, playbackTheme, "ToggleLooping"),
 		})
 end
 

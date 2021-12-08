@@ -7,7 +7,6 @@ Props:
 	setMaterial : (Enum.Material) => void - Callback to select a material
 	AllowAir : boolean = false - Whether to show Air in the materials grid
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -95,15 +94,11 @@ do
 		})
 	end
 
-	if FFlagTerrainToolsV2WithContext then
-		MaterialTooltip = withContext({
-			Theme = ContextItems.UILibraryTheme,
-		})(MaterialTooltip)
-	else
-		ContextServices.mapToProps(MaterialTooltip, {
-			Theme = ContextItems.UILibraryTheme,
-		})
-	end
+	
+MaterialTooltip = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(MaterialTooltip)
+
 
 
 	function MaterialButton:init(props)
@@ -156,17 +151,10 @@ do
 		})
 	end
 
-	if FFlagTerrainToolsV2WithContext then
-		MaterialButton = withContext({
-			Theme = ContextItems.UILibraryTheme,
-			Localization = ContextItems.UILibraryLocalization,
-		})(MaterialButton)
-	else
-		ContextServices.mapToProps(MaterialButton, {
-			Theme = ContextItems.UILibraryTheme,
-			Localization = ContextItems.UILibraryLocalization,
-		})
-	end
+	MaterialButton = withContext({
+		Theme = ContextItems.UILibraryTheme,
+		Localization = ContextItems.UILibraryLocalization,
+	})(MaterialButton)
 
 end
 
@@ -264,17 +252,9 @@ function MaterialSelector:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	MaterialSelector = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})(MaterialSelector)
-else
-	ContextServices.mapToProps(MaterialSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
-
+MaterialSelector = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})(MaterialSelector)
 
 return MaterialSelector

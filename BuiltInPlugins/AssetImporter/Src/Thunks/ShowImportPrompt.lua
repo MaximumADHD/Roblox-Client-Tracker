@@ -12,6 +12,8 @@ local SetSelectedSettingsItem = require(Plugin.Src.Actions.SetSelectedSettingsIt
 local SetTreeChecked = require(Plugin.Src.Actions.SetTreeChecked)
 local SetImportStatuses = require(Plugin.Src.Actions.SetImportStatuses)
 
+local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
+
 return function(promptClosedHandler)
 	return function(store)
 		local settings, filename, statuses = AssetImportService:ImportMeshWithPrompt()
@@ -39,7 +41,7 @@ return function(promptClosedHandler)
 			store:dispatch(SetAssetSettings(settings))
 			store:dispatch(SetFilename(filename))
 			store:dispatch(SetSelectedSettingsItem(settings))
-			store:dispatch(SetTreeChecked(checked))
+			store:dispatch(UpdateChecked(checked))
 		end
 
 		store:dispatch(SetImportStatuses(statuses))

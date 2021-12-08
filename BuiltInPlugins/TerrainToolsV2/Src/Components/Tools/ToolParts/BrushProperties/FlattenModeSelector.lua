@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -78,17 +77,12 @@ function FlattenModeSelector:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	FlattenModeSelector = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})(FlattenModeSelector)
-else
-	ContextServices.mapToProps(FlattenModeSelector, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+FlattenModeSelector = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})(FlattenModeSelector)
+
 
 
 return FlattenModeSelector

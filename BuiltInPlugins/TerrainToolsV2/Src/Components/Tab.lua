@@ -1,7 +1,6 @@
 --[[
 	Renders the top tab which allows switching tab-view by clicking
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -61,17 +60,12 @@ function Tab:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Tab = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})(Tab)
-else
-	ContextServices.mapToProps(Tab, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+Tab = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})(Tab)
+
 
 
 return Tab

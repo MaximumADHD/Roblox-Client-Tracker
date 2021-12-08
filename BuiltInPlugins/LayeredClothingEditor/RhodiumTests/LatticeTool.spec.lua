@@ -9,12 +9,6 @@ return function()
 
 	local Constants = require(Plugin.Src.Util.Constants)
 
-	local Framework = require(Plugin.Packages.Framework)
-	local ContextServices = Framework.ContextServices
-	local Localization = ContextServices.Localization
-	local localization = Localization.mock()
-	local dialogName = localization:getText("Dialog","DefaultTitle")
-
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame"))
 
@@ -79,13 +73,7 @@ return function()
 		expect(TestHelper.waitForXPathInstance(GenerateButton)).to.be.ok()
 		TestHelper.clickXPath(GenerateButton)
 
-		local DialogPath = XPath.new(game.CoreGui[dialogName])
-		local DialogConfirmButtonPath =
-			DialogPath:cat(XPath.new("SolidBackground.ButtonContainer.1.Contents.TextButton"))
-
-		expect(TestHelper.waitForXPathInstance(DialogPath)).to.be.ok()
-		expect(TestHelper.waitForXPathInstance(DialogConfirmButtonPath)).to.be.ok()
-		TestHelper.clickXPath(DialogConfirmButtonPath)
+		TestHelper.confirmDialog()
 
 		state = store:getState()
 		local editingCage = state.selectItem.editingCage

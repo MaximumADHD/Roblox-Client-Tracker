@@ -2,10 +2,12 @@
 	Final screen in the flow to let the user publish their cage edits.
 
 	Required Props:
+		boolean IsControlsPanelBlockerActive: is the blocker over this component active, provided via mapStateToProps
 		callback GoToNext: request to go to next screen in flow.
 		callback GoToPrevious: request to go to previous screen in flow.
 		callback FinishEditing: callback for finalizing edits and publishing cages, provided via mapDispatchToProps
 		callback ReleaseEditor: callback for restoring editor to default state, provided via mapDispatchToProps
+		callback SetControlsPanelBlockerActivity: callback for deactivating blocker. Provided via mapDispatchToProps
 	Optional Props:
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
@@ -22,10 +24,12 @@ local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
+local SetControlsPanelBlockerActivity = require(Plugin.Src.Actions.SetControlsPanelBlockerActivity)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
-
-local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 local FinishEditing = require(Plugin.Src.Thunks.FinishEditing)
+
+local ControlsPanelBlocker = require(Plugin.Src.Components.ControlsPanelBlocker)
+local FlowScreenLayout = require(Plugin.Src.Components.Screens.FlowScreenLayout)
 
 local GenerateScreen = Roact.PureComponent:extend("GenerateScreen")
 
@@ -37,7 +41,9 @@ function GenerateScreen:init()
 	self.onGenerateClicked = function()
 		local editingItem = self.props.EditingItemContext:getItem()
 		local sourceItem = self.props.EditingItemContext:getSourceItemWithUniqueDeformerNames()
+		self.props.SetControlsPanelBlockerActivity(true)
 		self.props.FinishEditing(editingItem, sourceItem)
+		self.props.SetControlsPanelBlockerActivity(false)
 
 		-- return to start screen
 		self.props.EditingItemContext:clear()
@@ -69,7 +75,12 @@ function GenerateScreen:render()
 			HasBackButton = true,
 			GoToNext = self.onGenerateClicked,
 			GoToPrevious = goToPrevious,
-		})
+		}),
+
+		ControlsPanelBlocker = props.IsControlsPanelBlockerActive and Roact.createElement(ControlsPanelBlocker,{
+			OnFocused = function() end,
+			Text = localization:getText("Generate", "Wait"),
+		}),
 	})
 end
 
@@ -80,10 +91,19 @@ GenerateScreen = withContext({
 	EditingItemContext = EditingItemContext,
 })(GenerateScreen)
 
-
+local function mapStateToProps(state, props)
+	local controlsPanelBlocker = state.controlsPanelBlocker
+	return {
+		IsControlsPanelBlockerActive = controlsPanelBlocker.isActive,
+	}
+end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		SetControlsPanelBlockerActivity = function(isActive)
+			dispatch(SetControlsPanelBlockerActivity(isActive))
+		end,
+
 		FinishEditing = function(item, sourceItem)
 			dispatch(FinishEditing(item, sourceItem))
 		end,
@@ -94,4 +114,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.connect(nil, mapDispatchToProps)(GenerateScreen)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(GenerateScreen)

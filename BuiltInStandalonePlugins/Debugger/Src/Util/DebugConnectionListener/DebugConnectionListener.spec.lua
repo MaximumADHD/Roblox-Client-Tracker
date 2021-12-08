@@ -13,9 +13,8 @@ local mockThreadState = require(Mocks.ThreadState)
 local mockPausedState = require(Mocks.PausedState)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
-
-local Models = Plugin.Src.Models
-local Breakpoint = require(Models.Breakpoint)
+local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
+local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
 
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
@@ -54,18 +53,22 @@ return function()
 	it("should pause DebugConnections", function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager)
+		local debuggerUIService = MockDebuggerUIService.new()
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
-
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true, Breakpoint.mockBreakpoint({}, 2))
+		
+		local mockMetaBreakpoint = MockMetaBreakpoint.new("TestScript", 1, "ConditionString", 2, "TestLog", true, true, true, true)
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
+		testPausedState1:SetBreakpointHit(mockMetaBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
 		local state = mainStore:getState()
 		expect(state.Common.currentBreakpointId).to.equal(2)
 		expect(state.Common.isPaused).to.equal(true)
+		expect(debuggerUIService.openScripts["TestScript"]).to.equal(true)
 		
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
@@ -74,14 +77,18 @@ return function()
 	it("should pause and resume DebugConnections", function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager)
+		local debuggerUIService = MockDebuggerUIService.new()
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
 		setupFakeThread(currentMockConnection, 2)
-
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, Breakpoint.mockBreakpoint({}, 1))
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, Breakpoint.mockBreakpoint({}, 1))
+		
+		local mockMetaBreakpoint = MockMetaBreakpoint.new("TestScript2", 1, "ConditionString", 3, "TestLog", true, true, true, true)
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
+		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 2, true)
+		testPausedState1:SetBreakpointHit(mockMetaBreakpoint)
+		testPausedState2:SetBreakpointHit(mockMetaBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		
@@ -89,6 +96,8 @@ return function()
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		local state = mainStore:getState()
 		expect(state.Common.isPaused).to.equal(true)
+		expect(state.Common.currentBreakpointId).to.equal(3)
+		expect(debuggerUIService.openScripts["TestScript2"]).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)
@@ -129,15 +138,16 @@ return function()
 		-- setup 2 mock DebuggerConnections
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager)
+		local debuggerUIService = MockDebuggerUIService.new()
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
 		local mockConnection1 = MockDebuggerConnection.new(1)
 		local mockConnection2 = MockDebuggerConnection.new(2)
 
 		setupFakeThread(mockConnection1, 1)
 		setupFakeThread(mockConnection2, 2)
-		
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true, Breakpoint.mockBreakpoint({}, 1))
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true, Breakpoint.mockBreakpoint({}, 1))
+
+		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
+		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
 		
 		-- start and pause the 2 DebuggerConnections
 		mainConnectionManager.ConnectionStarted:Fire(mockConnection1)

@@ -1,11 +1,18 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Images = require(Plugin.Core.Util.Images)
 local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 
 local UILibrary = require(Libs.UILibrary)
 local createTheme
@@ -33,7 +40,7 @@ local StyleColors = FrameworkStyle.Colors
 local DarkTheme = require(Libs.Framework).Style.Themes.DarkTheme
 local LightTheme = require(Libs.Framework).Style.Themes.LightTheme
 
-local Cryo = require(Plugin.Libs.Cryo)
+local Cryo = require(Libs.Cryo)
 
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
@@ -59,6 +66,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
+		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and Color3.fromRGB(12, 43, 89) or nil,
 		[StyleKey.Toolbox_AssetDropdownSize] = 8,
 		[StyleKey.Toolbox_AssetBorderSize] = 1,
 		[StyleKey.Toolbox_AssetBackgroundImage] = "",
@@ -88,6 +96,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
+		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and Color3.fromRGB(229, 243, 255) or nil,
 		[StyleKey.Toolbox_AssetDropdownSize] = 0,
 		[StyleKey.Toolbox_AssetBorderSize] = 0,
 		[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
@@ -148,8 +157,9 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 
 			outline = {
 				backgroundColor = StyleKey.MainBackground,
+				verifiedBackgroundColor = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and StyleKey.Toolbox_AssetOutlineVerifiedBackground or nil,
 				borderColor = StyleKey.Border,
-				transparency = StyleKey.Toolbox_AssetOutlineTransparency,
+				transparency = StyleKey.Toolbox_AssetOutlineTransparency
 			},
 
 			textColor = StyleKey.MainText,

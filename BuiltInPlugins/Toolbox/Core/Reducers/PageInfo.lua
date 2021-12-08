@@ -2,7 +2,13 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 local Rodux = require(Libs.Rodux)
 
@@ -20,14 +26,12 @@ local UpdatePageInfo = require(Actions.UpdatePageInfo)
 local UpdateSearchTerm = require(Actions.UpdateSearchTerm)
 local SetCurrentPage = require(Actions.SetCurrentPage)
 
-local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
-
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 
 local defaultSorts = Sort.SORT_OPTIONS
 local defaultCategories
 if disableMarketplaceAndRecents() then
-	defaultCategories = FFlagToolboxRemoveGroupInventory2 and Category.INVENTORY or Category.INVENTORY_WITH_GROUPS
+	defaultCategories = Category.INVENTORY
 else
 	defaultCategories = Category.MARKETPLACE
 end
@@ -183,16 +187,8 @@ return Rodux.createReducer({
 			end
 
 			newState.groupIndex = newIndex
-
-			if not FFlagToolboxRemoveGroupInventory2 and newState.categories == Category.INVENTORY then
-				newState.categories = Category.INVENTORY_WITH_GROUPS
-			end
 		else
 			newState.groupIndex = 0
-
-			if not FFlagToolboxRemoveGroupInventory2 and newState.categories == Category.INVENTORY_WITH_GROUPS then
-				newState.categories = Category.INVENTORY
-			end
 
 			if newState.categoryName == "" then
 				newState.categoryName = newState.categories[1].name

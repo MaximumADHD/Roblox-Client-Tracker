@@ -1,4 +1,3 @@
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -60,15 +59,11 @@ function ToggleButton:render()
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ToggleButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(ToggleButton)
-else
-	ContextServices.mapToProps(ToggleButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+ToggleButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(ToggleButton)
+
 
 
 local PickerButton = Roact.PureComponent:extend("PickerButton")
@@ -85,16 +80,9 @@ function PickerButton:render()
 	return Roact.createElement(BaseToggleButton, newProps)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	PickerButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(PickerButton)
-else
-	ContextServices.mapToProps(PickerButton, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
-
+PickerButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(PickerButton)
 
 return {
 	ToggleButton = ToggleButton,

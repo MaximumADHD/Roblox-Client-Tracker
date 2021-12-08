@@ -8,6 +8,7 @@
 	Optional Props:
 		number LayoutOrder: Render order of this component in a layout
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
+		string InitialSelectedKey: default selection on the radio button list
 ]]
 
 local Plugin = script.Parent.Parent.Parent
@@ -37,6 +38,7 @@ function LCERadioButtonList:render()
 	local buttons = props.Buttons
 	local onClick = props.OnClick
 	local layoutOrder = props.LayoutOrder
+	local initialSelectedKey = props.InitialSelectedKey
 	local theme = props.Stylizer
 
 	local orderIterator = LayoutOrderIterator.new()
@@ -62,6 +64,7 @@ function LCERadioButtonList:render()
 			Buttons = buttons,
 			OnClick = onClick,
 			LayoutOrder = orderIterator:getNextOrder(),
+			SelectedKey = initialSelectedKey,
 		}),
 	})
 end

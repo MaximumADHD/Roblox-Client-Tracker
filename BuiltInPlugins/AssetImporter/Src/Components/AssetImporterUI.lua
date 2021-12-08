@@ -88,6 +88,7 @@ function AssetImporterUI:render()
 					PreviewRender = Roact.createElement(AssetRenderModel, {
 						Model = getRenderModel(props.InstanceMap, props.SelectedSettingsItem),
 						Camera = self.camera,
+						FocusDirection = Vector3.new(-1, 1, -1),
 					}),
 					AxisIndicatorContainer = Roact.createElement(Pane, {
 						Size = UDim2.new(0, sizes.IndicatorSize, 0, sizes.IndicatorSize),

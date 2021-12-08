@@ -1,8 +1,15 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 
 local Constants = require(Plugin.Core.Util.Constants)
@@ -84,6 +91,8 @@ function VoteBar:renderContent(theme, localization, localizedContent)
 
 			Font = Constants.FONT,
 			TextSize = Constants.ASSET_VOTE_COUNT_FONT_SIZE,
+
+			TextXAlignment = FFlagToolboxVerifiedCreatorBadges and Enum.TextXAlignment.Left or nil,
 		}),
 	})
 end

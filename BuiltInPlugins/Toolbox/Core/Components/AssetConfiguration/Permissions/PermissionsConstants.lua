@@ -4,7 +4,14 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Libs.Cryo)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Cryo
+if FFlagToolboxDeduplicatePackages then
+	Cryo = require(Packages.Cryo)
+else
+	Cryo = require(Plugin.Libs.Cryo)
+end
 
 local function createKey(keyName)
 	local key = newproxy(true)

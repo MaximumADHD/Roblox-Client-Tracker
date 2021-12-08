@@ -1,4 +1,3 @@
-local FFlagDeveloperInspectorWithContext = game:GetFastFlag("DeveloperInspectorWithContext")
 
 local main = script.Parent.Parent.Parent
 local Roact = require(main.Packages.Roact)
@@ -119,18 +118,10 @@ function FieldsTable:render()
 	})
 end
 
-if FFlagDeveloperInspectorWithContext then
-	FieldsTable = withContext({
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext
-	})(FieldsTable)
-else
-	ContextServices.mapToProps(FieldsTable, {
-		Stylizer = ContextServices.Stylizer,
-		Inspector = InspectorContext
-	})
-end
-
+FieldsTable = withContext({
+	Stylizer = ContextServices.Stylizer,
+	Inspector = InspectorContext
+})(FieldsTable)
 
 return RoactRodux.connect(
 	function(state, props)

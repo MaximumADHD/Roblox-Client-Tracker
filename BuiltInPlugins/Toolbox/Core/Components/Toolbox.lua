@@ -19,7 +19,13 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Cryo = require(Libs.Cryo)
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
@@ -64,7 +70,6 @@ local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxRemoveGroupInventory2 = game:GetFastFlag("ToolboxRemoveGroupInventory2")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 
@@ -106,12 +111,7 @@ function Toolbox:handleInitialSettings()
 		requestReason = RequestReason.InitLoad,
 	}
 
-	local shouldGetGroups
-	if FFlagToolboxRemoveGroupInventory2 then
-		shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
-	else
-		shouldGetGroups = pageInfoCategories == Category.INVENTORY_WITH_GROUPS or pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
-	end
+	local shouldGetGroups = pageInfoCategories == Category.INVENTORY or pageInfoCategories == Category.CREATIONS
 	if shouldGetGroups then
 		self.props.getToolboxManageableGroups(networkInterface, settings, newPageInfo)
 	end

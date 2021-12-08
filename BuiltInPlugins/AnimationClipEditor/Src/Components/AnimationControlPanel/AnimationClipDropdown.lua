@@ -42,9 +42,12 @@ local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoade
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
 local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
+local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
+local Pause = require(Plugin.Src.Actions.Pause)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local AnimationClipDropdown = Roact.PureComponent:extend("AnimationClipDropdown")
 
@@ -60,7 +63,11 @@ function AnimationClipDropdown:init()
 	}
 
 	self.showMenu = function()
-		self.props.SetIsPlaying(false)
+		if GetFFlagMoarMediaControls() then
+			self.props.Pause()
+		else
+			self.props.SetIsPlaying(false)
+		end
 		self:setState({
 			showMenu = true,
 		})
@@ -439,8 +446,13 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SaveAnimation(name, analytics))
 		end,
 
+		-- Deprecated when GetFFlagMoarMediaControls is ON
 		SetIsPlaying = function(isPlaying)
 			dispatch(SetIsPlaying(isPlaying))
+		end,
+
+		Pause = function()
+			dispatch(Pause())
 		end,
 
 		ImportKeyframeSequence = function(plugin, analytics)

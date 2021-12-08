@@ -1,11 +1,15 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
+local AssetService = game:GetService("AssetService")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+
+local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : plugin wrapper created from ContextServices
@@ -52,6 +56,7 @@ function ServiceWrapper:render()
 		signals,
 		ContextServices.Mouse.new(mouse),
 		editingItemContext,
+		AssetServiceWrapper.new(AssetService),
 	}, children)
 end
 

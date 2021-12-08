@@ -12,6 +12,7 @@ local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering
 local FFlagToolboxDragSourceAssetIds = game:GetFastFlag("ToolboxDragSourceAssetIds")
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
+local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -29,9 +30,6 @@ if FFlagToolboxMeshPartFiltering then
 		ToolboxService = game:GetService("ToolboxService")
 	end
 end
-
-local FFlagToolboxAnimation = game:GetFastFlag("ToolboxAnimationTypes2")
-
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -117,6 +115,25 @@ local function sanitizeMeshAsset(assetId, instances, localization)
 	return filtered
 end
 
+local function doScriptConfirmationIfContainsScripts(assetName, instances, insertToolPromise)
+	if not FFlagToolboxEnableScriptConfirmation then return end
+	
+	-- Note: instance:IsA("Script") covers both LocalScript and Script types.
+	local numScripts = 0
+	for _, instance in ipairs(instances) do
+		if instance:IsA("Script") then
+			numScripts = numScripts + 1
+		end
+		for _, descendant in ipairs(instance:GetDescendants()) do
+			if descendant:IsA("Script") then
+				numScripts = numScripts + 1
+			end
+		end
+	end
+	if numScripts < 1 then return end
+	insertToolPromise:promptScriptWarningAndWait({assetName = assetName, numScripts = numScripts})
+end
+
 local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization)
 	local targetParent = Workspace
 
@@ -143,6 +160,7 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 		if FFlagToolboxMeshPartFiltering and assetTypeId == Enum.AssetType.MeshPart.Value then
 			assetInstance = sanitizeMeshAsset(assetId, assetInstance, localization)
 		end
+		doScriptConfirmationIfContainsScripts(assetName, assetInstance, insertToolPromise)
 
 		local newSelection = {}
 		for _, o in ipairs(assetInstance) do
@@ -299,7 +317,7 @@ local function assetTypeIdToString(assetTypeId)
 		return "Plugin"
 	elseif assetTypeId == Enum.AssetType.Video.Value then
 		return "Video"
-	elseif FFlagToolboxAnimation and assetTypeId == Enum.AssetType.Animation.Value then
+	elseif assetTypeId == Enum.AssetType.Animation.Value then
 		return "Animation"
 	else
 		if DebugFlags.shouldDebugWarnings() then

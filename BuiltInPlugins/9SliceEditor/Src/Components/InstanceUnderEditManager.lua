@@ -31,6 +31,7 @@ local RunService = game:GetService("RunService")
 
 local FFlag9SliceEditorAllowImageReplacement = game:GetFastFlag("9SliceEditorAllowImageReplacement")
 local FFlag9SliceEditorSaveSliceOffsets = game:GetFastFlag("9SliceEditorSaveSliceOffsets")
+local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
 
 local InstanceUnderEditManager = Roact.PureComponent:extend("InstanceUnderEditManager")
 
@@ -88,22 +89,68 @@ function InstanceUnderEditManager:init(props)
 		return offsets
 	end
 
-	self.onSliceCenterChanged = function()
-		local instance = self.state.DEPRECATED_selectedInstance
-
-		if FFlag9SliceEditorAllowImageReplacement then
-			instance = self.instanceUnderEdit
+	self.getImageDimensionsForInstance = function(instance: Types.GuiImageInstance): Vector2
+		if FFlag9SliceEditorRespectImageRectSize and instance.ImageRectSize.X > 0 and instance.ImageRectSize.Y > 0 then
+			return instance.ImageRectSize
 		end
+		return instance.ContentImageSize
+	end
+
+	self.getImageUnderEdit = function(): Types.GuiImageInstance?
+		return FFlag9SliceEditorAllowImageReplacement and self.instanceUnderEdit or self.state.DEPRECATED_selectedInstance
+	end
+
+	self.onSliceCenterChanged = function()
+		local instance = self.getImageUnderEdit()
 
 		if instance ~= nil then
 			local sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			self.props.SliceRectChanged(sliceRect)
 
 			if FFlag9SliceEditorSaveSliceOffsets then
-				local pixelDimensions: Vector2 = instance.ContentImageSize
-				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, pixelDimensions)
+				local croppedDimensions: Vector2 = self.getImageDimensionsForInstance(instance)
+				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedDimensions)
 			end
 		end
+	end
+
+	self.getInstanceProperty = function(property)
+		local instance = self.getImageUnderEdit()
+		return instance and instance[property]
+	end
+
+	self.onImageRectOffsetChanged = function()
+		self.props.InstancePropertyChanged("ImageRectOffset", self.getInstanceProperty("ImageRectOffset"))
+	end
+
+	self.clampSliceCenterToDimensions = function(sliceCenter: Rect, dimensions: Vector2): Rect
+		return Rect.new(math.clamp(sliceCenter.Min.X, 0, dimensions.X),
+			math.clamp(sliceCenter.Min.Y, 0, dimensions.Y),
+			math.clamp(sliceCenter.Max.X, 0, dimensions.X),
+			math.clamp(sliceCenter.Max.Y, 0, dimensions.Y))
+	end
+
+	self.onImageRectSizeChanged = function()
+		local instance = self.getImageUnderEdit()
+		if not instance then
+			return
+		end
+
+		local imageRectSize = instance.ImageRectSize
+		self.props.InstancePropertyChanged("ImageRectSize", imageRectSize)
+
+		if imageRectSize.X > 0 and imageRectSize.Y > 0 then
+			-- Clamp SliceRect if needed
+			instance.SliceCenter = self.clampSliceCenterToDimensions(instance.SliceCenter, imageRectSize)
+		end
+	end
+
+	self.onImageColor3Changed = function()
+		self.props.InstancePropertyChanged("ImageColor3", self.getInstanceProperty("ImageColor3"))
+	end
+
+	self.onResampleModeChanged = function()
+		self.props.InstancePropertyChanged("ResampleMode", self.getInstanceProperty("ResampleMode"))
 	end
 
 	self.openInstanceInEditor = function(instance)
@@ -115,17 +162,30 @@ function InstanceUnderEditManager:init(props)
 		local sliceRect = {0, 0, 0, 0}
 		local revertSliceRect = {0, 0, 0, 0}
 		local title = self.props.Localization:getText("Plugin", "Name")
+		local info = {
+			title = title,
+			pixelDimensions = pixelSize,
+			sliceRect = sliceRect,
+			revertSliceRect = revertSliceRect,
+		}
 
 		if instance ~= nil then
-			pixelSize = instance.ContentImageSize
+			pixelSize = instance.ContentImageSize -- Uncropped
+			local croppedPixelSize = self.getImageDimensionsForInstance(instance)
 
 			-- When opening an image to edit, if SliceCenter is zero, change it to the image content size.
 			if instance.SliceCenter == Rect.new(0, 0, 0, 0) then
-				instance.SliceCenter = Rect.new(0, 0, pixelSize.X, pixelSize.Y)
+				instance.SliceCenter = Rect.new(0, 0, croppedPixelSize.X, croppedPixelSize.Y)
 			end
 
 			-- Connect to changed events from this instance:
 			table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("SliceCenter"):Connect(self.onSliceCenterChanged))
+			if FFlag9SliceEditorRespectImageRectSize then
+				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectOffset"):Connect(self.onImageRectOffsetChanged))
+				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageRectSize"):Connect(self.onImageRectSizeChanged))
+				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ImageColor3"):Connect(self.onImageColor3Changed))
+				table.insert(self.imageUnderEditConnections, instance:GetPropertyChangedSignal("ResampleMode"):Connect(self.onResampleModeChanged))
+			end
 
 			sliceRect = SliceRectUtil.getSliceRectFromSliceCenter(instance.SliceCenter)
 			revertSliceRect = SliceRectUtil.copySliceRect(sliceRect)
@@ -133,7 +193,20 @@ function InstanceUnderEditManager:init(props)
 			title = title .. ": " .. tostring(instance.Name)
 
 			if FFlag9SliceEditorSaveSliceOffsets then
-				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, pixelSize)
+				self.lastSliceOffsets = SliceRectUtil.getOffsetsFromSliceRect(sliceRect, croppedPixelSize)
+			end
+
+			if FFlag9SliceEditorRespectImageRectSize then
+				info = {
+					title = title,
+					pixelDimensions = pixelSize,
+					sliceRect = sliceRect,
+					revertSliceRect = revertSliceRect,
+					imageRectOffset = instance.ImageRectOffset,
+					imageRectSize = instance.ImageRectSize,
+					imageColor3 = instance.ImageColor3,
+					resampleMode = instance.ResampleMode,
+				}
 			end
 		end
 
@@ -144,7 +217,12 @@ function InstanceUnderEditManager:init(props)
 				DEPRECATED_selectedInstance = instance or Roact.None,
 			})
 		end
-		self.props.InstanceUnderEditChanged(instance, title, pixelSize, sliceRect, revertSliceRect)
+
+		if FFlag9SliceEditorRespectImageRectSize then
+			self.props.InstanceUnderEditChanged(instance, info)
+		else
+			self.props.InstanceUnderEditChanged(instance, title, pixelSize, sliceRect, revertSliceRect)
+		end
 	end
 
 	self.loadingToken = 0
@@ -214,8 +292,9 @@ function InstanceUnderEditManager:init(props)
 
 			if shouldResetSliceCenter then
 				if FFlag9SliceEditorSaveSliceOffsets and self.lastSliceOffsets ~= nil then
-					local newOffsets = self.getOffsetsForResizedImage(self.lastSliceOffsets, instance.ContentImageSize)
-					local sliceRect: Types.SliceRectType = SliceRectUtil.getSliceRectFromOffsets(newOffsets, instance.ContentImageSize)
+					local imageDimensions = self.getImageDimensionsForInstance(instance) -- cropped
+					local newOffsets = self.getOffsetsForResizedImage(self.lastSliceOffsets, imageDimensions)
+					local sliceRect: Types.SliceRectType = SliceRectUtil.getSliceRectFromOffsets(newOffsets, imageDimensions)
 					instance.SliceCenter = SliceRectUtil.getSliceCenterFromSliceRect(sliceRect)
 				else
 					instance.SliceCenter = Rect.new(0, 0, 0, 0)

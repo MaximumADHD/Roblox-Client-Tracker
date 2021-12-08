@@ -4,13 +4,19 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
-local FFlagToolboxUseGetItemDetails = game:GetFastFlag("ToolboxUseGetItemDetails")
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
@@ -119,29 +125,17 @@ end
 
 function NetworkInterface:getItemDetails(data)
 	-- data = [ {"id":<long>, "itemType":"Asset"}, ... ]
-	if FFlagToolboxUseGetItemDetails then
-		local assetIds = {}
-		for _, assetInfo in ipairs(data) do
-			table.insert(assetIds, assetInfo.id)
-		end
-
-		local targetUrl = Urls.constructGetItemDetails(assetIds)
-
-		return sendRequestAndRetry(function()
-			printUrl("getItemDetails", "GET", targetUrl)
-			return self._networkImp:httpGetJson(targetUrl)
-		end)
-	else
-		local targetUrl = Urls.constructPostGetItemDetails()
-		local payload = self._networkImp:jsonEncode({
-			items = data,
-		})
-
-		return sendRequestAndRetry(function()
-			printUrl("getItemDetails", "POST", targetUrl, payload)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
+	local assetIds = {}
+	for _, assetInfo in ipairs(data) do
+		table.insert(assetIds, assetInfo.id)
 	end
+
+	local targetUrl = Urls.constructGetItemDetails(assetIds)
+
+	return sendRequestAndRetry(function()
+		printUrl("getItemDetails", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
 end
 
 -- For now, only whitelistplugin uses this endpoint to fetch data.

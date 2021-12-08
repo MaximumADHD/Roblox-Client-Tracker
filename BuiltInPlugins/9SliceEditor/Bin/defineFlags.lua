@@ -11,5 +11,6 @@ game:DefineFastFlag("9SliceEditorNewDraggers", false)
 game:DefineFastFlag("9SliceEditorFixAnalyticsReportingThrottling", false)
 game:DefineFastFlag("9SliceEditorSaveSliceOffsets", false)
 game:DefineFastFlag("9SliceEditorDontRestoreOnDMLoad", false)
+game:DefineFastFlag("9SliceEditorRespectImageRectSize", false)
 
 return nil

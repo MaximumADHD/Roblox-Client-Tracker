@@ -12,10 +12,17 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
+local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local Plugin = script.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
@@ -34,6 +41,7 @@ local getNetwork = ContextGetter.getNetwork
 
 local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
 local MessageBox = require(Plugin.Core.Components.MessageBox.MessageBox)
+local ScriptConfirmationDialog = require(Plugin.Core.Components.ScriptConfirmationDialog)
 
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 
@@ -45,6 +53,7 @@ local SetMostRecentAssetInsertTime = require(Plugin.Core.Actions.SetMostRecentAs
 local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
+local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
@@ -59,6 +68,8 @@ function AssetGridContainer:init(props)
 		isShowingToolMessageBox = false,
 		absoluteSize = Vector2.new(Constants.TOOLBOX_MIN_WIDTH, 0),
 		absolutePosition = Vector2.new(),
+		isShowingScriptWarningMessageBox = false,
+		scriptWarningInfo = nil,
 	}
 
 	--[[
@@ -102,7 +113,34 @@ function AssetGridContainer:init(props)
 		})
 	end
 
-	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt)
+	self.onScriptWarningBoxClosed = function()
+		if not FFlagToolboxEnableScriptConfirmation then return end
+		self:setState({
+			isShowingScriptWarningMessageBox = false,
+		})
+		self.insertToolPromise:dismissWarningPrompt()
+	end
+	
+	self.onInsertScriptWarningPrompt = function(info)
+		if not FFlagToolboxEnableScriptConfirmation then return end
+		local settings = self.props.Settings:get("Plugin")
+		if settings:getShowScriptWarning() then
+			self:setState({
+				isShowingScriptWarningMessageBox = true,
+				scriptWarningInfo = info,
+			})
+			return true
+		else
+			return false
+		end
+	end
+
+	self.onScriptWarningBoxToggleShow = function(showState)
+		local settings = self.props.Settings:get("Plugin")
+		settings:setShowScriptWarning(showState)
+	end
+	
+	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt, self.onInsertScriptWarningPrompt)
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
 		self.lastInsertAttemptTime = tick()
@@ -184,6 +222,8 @@ function AssetGridContainer:render()
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 
 	local isShowingToolMessageBox = state.isShowingToolMessageBox
+	local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
+	local scriptWarningInfo = state.scriptWarningInfo
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = automaticSize,
@@ -195,6 +235,17 @@ function AssetGridContainer:render()
 		[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
 		[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
 	}, {
+		ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(ScriptConfirmationDialog, {
+			Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolScriptWarningMessageBox",
+
+			Info = scriptWarningInfo,
+			Icon = Images.INFO_ICON,
+
+			onClose = self.onScriptWarningBoxClosed,
+			onButtonClicked = self.onScriptWarningBoxClosed,
+			onChangeShowDialog = self.onScriptWarningBoxToggleShow,
+		}),
+
 		ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 			Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolMessageBox",
 
@@ -238,6 +289,7 @@ AssetGridContainer = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
+	Settings = Settings,
 })(AssetGridContainer)
 
 local function mapStateToProps(state, props)

@@ -4,7 +4,13 @@ local Plugin = script.Parent.Parent
 	RefactorFlags needs to be required and updated directly; before Framework's init
 	is required (so that any files that Framework's init requires get the correct values).
 ]]
-local RefactorFlags = require(Plugin.Libs.Framework.Util.RefactorFlags)
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local RefactorFlags
+if FFlagToolboxDeduplicatePackages then
+	RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+else
+	RefactorFlags = require(Plugin.Libs.Framework.Util.RefactorFlags)
+end
 RefactorFlags.THEME_REFACTOR = true
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)

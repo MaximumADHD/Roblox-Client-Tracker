@@ -13,7 +13,6 @@
 
 		See LabeledTextInput for more
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -140,15 +139,11 @@ function NumberTextInput:render()
 	return Roact.createElement(LabeledTextInput, newProps)
 end
 
-if FFlagTerrainToolsV2WithContext then
-	NumberTextInput = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(NumberTextInput)
-else
-	ContextServices.mapToProps(NumberTextInput, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+NumberTextInput = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(NumberTextInput)
+
 
 
 return NumberTextInput

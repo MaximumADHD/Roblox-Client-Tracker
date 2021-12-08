@@ -22,10 +22,18 @@
 local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
+local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Libs = Plugin.Libs
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Libs
+if FFlagToolboxDeduplicatePackages then
+	Libs = Plugin.Packages
+else
+	Libs = Plugin.Libs
+end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
@@ -360,6 +368,11 @@ function Asset:renderContent(theme, localization, localizedContent)
 	assetId = FFlagToolboxAssetGridRefactor2 and props.assetId or asset.Id
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
+	local isVerifiedCreator
+	if FFlagToolboxVerifiedCreatorBadges then
+		isVerifiedCreator = assetData.Creator.IsVerifiedCreator
+	end
+
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
 		showAudioLength = true
@@ -474,7 +487,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = isHovered and outlineTransparency or 1,
 
-			BackgroundColor3 = outlineTheme.backgroundColor,
+			BackgroundColor3 = FFlagToolboxVerifiedCreatorBadges and FFlagToolboxVerifiedCreatorBadgesDesignTweaks and isVerifiedCreator and outlineTheme.verifiedBackgroundColor or outlineTheme.backgroundColor,
 			BorderColor3 = outlineTheme.borderColor,
 
 			BorderSizePixel = 1,
@@ -583,7 +596,9 @@ function Asset:renderContent(theme, localization, localizedContent)
 				assetId = assetId,
 				creatorName = creatorName,
 
-				clickable = not isCurrentlyCreationsTab
+				clickable = not isCurrentlyCreationsTab,
+
+				isVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and isVerifiedCreator,
 			}),
 
 			Voting = isHovered and showVotes and Roact.createElement(Voting, {

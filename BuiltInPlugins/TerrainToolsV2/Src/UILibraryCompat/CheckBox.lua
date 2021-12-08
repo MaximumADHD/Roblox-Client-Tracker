@@ -2,7 +2,6 @@
 	Mostly the same as UILibrary CheckBox component, but modified to use dev framework context
 	And updated font/text size handling
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -89,15 +88,11 @@ function CheckBox:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	CheckBox = withContext({
-		Theme = ContextItems.UILibraryTheme,
-	})(CheckBox)
-else
-	ContextServices.mapToProps(CheckBox, {
-		Theme = ContextItems.UILibraryTheme,
-	})
-end
+
+CheckBox = withContext({
+	Theme = ContextItems.UILibraryTheme,
+})(CheckBox)
+
 
 
 return CheckBox

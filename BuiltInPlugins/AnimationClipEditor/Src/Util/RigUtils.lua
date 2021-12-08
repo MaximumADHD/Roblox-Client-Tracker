@@ -23,12 +23,13 @@ local Workspace = game:GetService("Workspace")
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
-local FFSaveAnimationRigWithKeyframeSequence = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence", false)
+local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence2", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
+local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 
 local RigUtils = {}
 
@@ -861,6 +862,25 @@ function RigUtils.getUnusedRigTracks(rig, tracks)
 	table.sort(unusedTracks, function(first, second)
 		return first.Name < second.Name
 	end)
+
+	if GetFFlagRootMotionTrack() then 
+		local used = false
+		for _, track in ipairs(tracks) do
+			if rootPart.Name == track.Name then
+				used = true
+				break
+			end
+		end
+
+		if not used then 
+			table.insert(unusedTracks, {
+				Name = rootPart.Name,
+				Instance = "Root",
+				Type = Constants.TRACK_TYPES.CFrame,
+			})
+		end
+	end
+
 	return unusedTracks
 end
 
@@ -994,18 +1014,19 @@ local function IsR15Humanoid(humanoid)
 	return true
 end
 
-local function AddAnimationRigToKeyframeSequence(animationData, model, parent)
+local function AddAnimationRigToAnimationClip(animationData, model, parentClip)
 	-- Create AnimationRig
 	local humanoid = model:FindFirstChildOfClass("Humanoid")
 	if IsR15Humanoid(humanoid) then
 		-- it would be nice to just have an AnimationRig constructor that takes a humanoid,
 		-- but the lua reflection c++ code does not seem to support that
-		local animationRig = Instance.new("AnimationRigData", parent)
+		local animationRig = Instance.new("AnimationRigData", parentClip)
 		local builtOk = animationRig:LoadFromHumanoid(humanoid)
 		if (not builtOk) then
 			animationRig:Destroy()
 		else
 			animationRig.Name = model.Name .. "AnimationRigData"
+			animationData.Metadata.AnimationRig = animationRig
 		end
 	end
 end
@@ -1329,8 +1350,8 @@ function RigUtils.toCurveAnimation(animationData, rig)
 	end
 
 	-- Create AnimationRig
-	if GetFFlagMarkerCurves() and FFSaveAnimationRigWithKeyframeSequence then
-		AddAnimationRigToKeyframeSequence(animationData, rig, curveAnimation)
+	if FFSaveAnimationRigWithKeyframeSequence2 then
+		AddAnimationRigToAnimationClip(animationData, rig, curveAnimation)
 	end
 
 	return curveAnimation
@@ -1498,6 +1519,14 @@ function RigUtils.fromCurveAnimation(curveAnimation)
 	metadata.EndTick = endTick
 	metadata.IsChannelAnimation = true
 
+	-- Create AnimationRig
+	if FFSaveAnimationRigWithKeyframeSequence2 then
+		local animationRig = curveAnimation:FindFirstChildOfClass("AnimationRigData")
+		if animationRig then
+			metadata.AnimationRig = animationRig
+		end
+	end
+
 	return animationData
 end
 
@@ -1573,8 +1602,8 @@ function RigUtils.toRigAnimation(animationData, rig)
 	end
 
 	-- Create AnimationRig
-	if FFSaveAnimationRigWithKeyframeSequence then
-		AddAnimationRigToKeyframeSequence(animationData, rig, keyframeSequence)
+	if FFSaveAnimationRigWithKeyframeSequence2 then
+		AddAnimationRigToAnimationClip(animationData, rig, keyframeSequence)
 	end
 
 	local numKeyframes = #keyframeSequence:GetKeyframes()
@@ -1650,8 +1679,9 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 			-- TODO: At some point we will need to differentiate NumberPoses into
 			-- FACS channels and generic float channels. On name? Parent?
 			local trackType = pose:IsA("Pose") and Constants.TRACK_TYPES.CFrame or Constants.TRACK_TYPES.Facs
+			local shouldAddTrackForPose = GetFFlagRootMotionTrack() and true or poseName ~= "HumanoidRootPart"
 
-			if poseName ~= "HumanoidRootPart" and pose.Weight ~= 0 then
+			if shouldAddTrackForPose and pose.Weight ~= 0 then
 				if tracks[poseName] == nil then
 					if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
 						AnimationData.addTrack(tracks, poseName, trackType)
@@ -1726,6 +1756,14 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	animationData.Metadata.Priority = keyframeSequence.Priority
 	animationData.Metadata.Looping = keyframeSequence.Loop
 	animationData.Metadata.Name = keyframeSequence.Name
+
+	-- Create AnimationRig
+	if FFSaveAnimationRigWithKeyframeSequence2 then
+		local animationRig = keyframeSequence:FindFirstChildOfClass("AnimationRigData")
+		if animationRig then
+			animationData.Metadata.AnimationRig = animationRig
+		end
+	end
 
 	local numKeyframes = #keyframeSequence:GetKeyframes()
 	return animationData, frameRate, numKeyframes, numPoses, numEvents

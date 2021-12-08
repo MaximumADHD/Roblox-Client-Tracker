@@ -1,6 +1,15 @@
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Libs.Roact)
-local Cryo = require(Plugin.Libs.Cryo)
+local Packages = Plugin.Packages
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Roact
+local Cryo
+if FFlagToolboxDeduplicatePackages then
+	Roact = require(Packages.Roact)
+	Cryo = require(Packages.Cryo)
+else
+	Roact = require(Plugin.Libs.Roact)
+	Cryo = require(Plugin.Libs.Cryo)
+end
 
 local function createFitToContent(containerComponent, layoutComponent, layoutProps)
 	local name = ("FitComponent(%s, %s)"):format(containerComponent, layoutComponent)

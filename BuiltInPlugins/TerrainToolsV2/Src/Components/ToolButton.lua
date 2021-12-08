@@ -6,7 +6,6 @@
 	|  Button |
 	|_________|
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -97,17 +96,12 @@ function ToolButton:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	ToolButton = withContext({
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})(ToolButton)
-else
-	ContextServices.mapToProps(ToolButton, {
-		Theme = ContextItems.UILibraryTheme,
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+ToolButton = withContext({
+	Theme = ContextItems.UILibraryTheme,
+	Localization = ContextItems.UILibraryLocalization,
+})(ToolButton)
+
 
 
 return ToolButton

@@ -4,29 +4,27 @@ PausedState:
 - reason : Enum.DebuggerPauseReason (temporarily string)
 - threadId : number
 - allThreadsPaused : boolean
-- breakpoint : Breakpoint.Breakpoint
 ]]--
-local main = script.Parent.Parent.Parent
-local Models = main.Src.Models
-local Breakpoint = require(Models.Breakpoint)
+
+local MetaBreakpoint = require(script.Parent.MetaBreakpoint)
 
 local PausedState = {}
+PausedState.__index = PausedState
 
-function PausedState.new(reason : string, threadId : number, allThreadsPaused : boolean, breakpoint : Breakpoint.Breakpoint)	
+function PausedState:SetBreakpointHit(metaBreakpoint : MetaBreakpoint.MetaBreakpoint)
+	self.Breakpoint = metaBreakpoint
+end
+
+function PausedState.new(reason : string, threadId : number, allThreadsPaused : boolean)	
 	local self = {
 		Reason = reason,
 		ThreadId = threadId,
 		AllThreadsPaused = allThreadsPaused,
-		Breakpoint = breakpoint,
 	}
-	
-	return {
-		Reason = self.Reason,
-		ThreadId =  self.ThreadId,
-		AllThreadsPaused =  self.AllThreadsPaused,
-		Breakpoint = self.Breakpoint,
-	}
+	setmetatable(self, PausedState)
+	return self
 end
 
-export type PausedState = typeof(PausedState.new("DefaultReason", 1, true, Breakpoint.mockBreakpoint({}, 1)))
+export type PausedState = typeof(PausedState.new("DefaultReason", 1, true))
+
 return PausedState

@@ -9,25 +9,23 @@
 ]]
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 = game:GetFastFlag("PublishPlaceAsUseDevFrameworkRobloxAPI2")
-local FFlagStudioTCSaveAsStaysOldSession = game:GetFastFlag("StudioTCSaveAsStaysOldSession")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FFlagStudioTCSaveAsStaysOldSession2 = game:GetFastFlag("StudioTCSaveAsStaysOldSession2")
 
 local StudioService = game:GetService("StudioService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = game:GetFastFlag("PublishPlaceAsUseFrameworkPromise") and require(Plugin.Packages.Framework).Util.Promise or require(Plugin.Packages.Promise)
 
--- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
-local DEPRECATED_Configuration = require(Plugin.Src.Network.Requests.Configuration)
--- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
-local DEPRECATED_RootPlaceInfo = require(Plugin.Src.Network.Requests.RootPlaceInfo)
--- TODO: jbousellam - 8/16/21 - Remove with FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2
-local DEPRECATED_UniverseActivate = require(Plugin.Src.Network.Requests.UniverseActivate)
 local PostContactEmail = require(Plugin.Src.Thunks.PostContactEmail)
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
+
+local teamCreateToggleEnabled = false 
+if FIntTeamCreateTogglePercentageRollout > 0 then
+    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
+end
 
 local UNIVERSEACTIVATE_ACCEPTED_KEYS = {
 	isActive = true,
@@ -70,141 +68,89 @@ end
 	Used to save the chosen state of all game settings by saving to web
 	endpoints or setting properties in the datamodel.
 ]]
+
 local function saveAll(state, localization, apiImpl, email)
 	local configuration = {}
-	local rootPlaceInfo = {}
 	local universeActivate = {}
 
-	if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-		for setting, value in pairs(state) do
-			-- Add name, genre, game description, and playable devices
-			if configurationAcceptsValue(setting) then
-				configuration[setting] = value
-			-- Set if the game is public or private
-			elseif universeActivateAcceptsValue(setting) then
-				universeActivate[setting] = value
-			end
+	for setting, value in pairs(state) do
+		-- Add name, genre, game description, and playable devices
+		if configurationAcceptsValue(setting) then
+			configuration[setting] = value
+		-- Set if the game is public or private
+		elseif universeActivateAcceptsValue(setting) then
+			universeActivate[setting] = value
 		end
-	else
-		for setting, value in pairs(state) do
-			-- Add name, genre, and playable devices
-			if DEPRECATED_Configuration.AcceptsValue(setting) then
-				configuration[setting] = value
-			-- Add the game description
-			elseif DEPRECATED_RootPlaceInfo.AcceptsValue(setting) then
-				rootPlaceInfo[setting] = value
-			-- Set if the game is public or private
-			elseif DEPRECATED_UniverseActivate.AcceptsValue(setting) then
-				universeActivate[setting] = value
-			end
-		end
+	end
+
+	if teamCreateToggleEnabled then
+		StudioService:setTurnOnTeamCreateOnPublish(state.teamCreateEnabled)
 	end
 
 	StudioService:publishAs(0, 0, state.creatorId)
 
-	if FFlagPublishPlaceAsUseDevFrameworkRobloxAPI2 then
-		local success, gameId = StudioService.GamePublishFinished:wait()
-		-- Failure handled in ScreenCreateNewGame
-		if not success then
-			return
-		end
+	local success, gameId = StudioService.GamePublishFinished:wait()
+	-- Failure handled in ScreenCreateNewGame
+	if not success then
+		return
+	end
 
-		if configuration.playableDevices then
-			local toTable = {}
-			for key, value in pairs(configuration.playableDevices) do
+	if configuration.playableDevices then
+		local toTable = {}
+		for key, value in pairs(configuration.playableDevices) do
+			if value then
+				table.insert(toTable, key)
+			end
+		end
+		configuration.playableDevices = toTable
+	end
+
+	if shouldShowDevPublishLocations() and email ~= nil then
+		local responseCode = PostContactEmail(apiImpl, email, gameId)
+		if responseCode == 200 then
+			assert(configuration.OptInLocations)
+			local optInTable = {}
+			local optOutTable = {}
+			for key, value in pairs(configuration.OptInLocations) do
 				if value then
-					table.insert(toTable, key)
-				end
-			end
-			configuration.playableDevices = toTable
-		end
-
-		if shouldShowDevPublishLocations() and email ~= nil then
-			local responseCode = PostContactEmail(apiImpl, email, gameId)
-			if responseCode == 200 then
-				assert(configuration.OptInLocations)
-				local optInTable = {}
-				local optOutTable = {}
-				for key, value in pairs(configuration.OptInLocations) do
-					if value then
-						table.insert(optInTable, key)
-					else
-						table.insert(optOutTable, key)
-					end
-				end
-				configuration.optInRegions = optInTable
-				configuration.optOutRegions = optOutTable
-			else
-				warn(localization:getText(optInLocationsKey, "EmailSubmitFailure"))
-			end
-			configuration.OptInLocations = nil
-		end
-
-		apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
-		:andThen(function()
-			StudioService:SetUniverseDisplayName(configuration.name)
-			if not FFlagStudioTCSaveAsStaysOldSession then
-				StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
-			end
-			StudioService:EmitPlacePublishedSignal()
-		end, function(response)
-			parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
-		end)
-
-		if FFlagStudioAllowRemoteSaveBeforePublish then
-			if universeActivate.isActive then
-				apiImpl.Develop.V1.Universes.activate(gameId):makeRequest()
-				:catch(function(response)
-					parseErrorMessages(response, localization:getText("Error","ActivatingUniverse"))
-				end)
-			else
-				apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest()
-				:catch(function(response)
-					parseErrorMessages(response, localization:getText("Error","DeactivatingUniverse"))
-				end)
-			end
-		end
-	else
-		spawn(function()
-			-- Failure handled in ScreenCreateNewGame
-			local success, gameId = StudioService.GamePublishFinished:wait()
-			if success then
-				local setRequests
-				if email ~= nil then
-					local includeOptInLocations
-					local responseCode = PostContactEmail(apiImpl, email, gameId)
-					if responseCode == 200 then
-						includeOptInLocations = true
-					else
-						warn(tostring(localization:getText(optInLocationsKey, "EmailSubmitFailure")))
-						includeOptInLocations = false
-					end
-					setRequests = {
-						DEPRECATED_Configuration.Set(gameId, configuration, includeOptInLocations),
-						DEPRECATED_RootPlaceInfo.Set(gameId, rootPlaceInfo),
-					}
+					table.insert(optInTable, key)
 				else
-					setRequests = {
-						DEPRECATED_Configuration.Set(gameId, configuration),
-						DEPRECATED_RootPlaceInfo.Set(gameId, rootPlaceInfo),
-					}
+					table.insert(optOutTable, key)
 				end
-
-				if FFlagStudioAllowRemoteSaveBeforePublish then
-					table.insert(setRequests, DEPRECATED_UniverseActivate.Set(gameId, universeActivate))
-				end
-				Promise.all(setRequests):andThen(function()
-					StudioService:SetUniverseDisplayName(configuration.name)
-					if not FFlagStudioTCSaveAsStaysOldSession then
-						StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
-					end
-					StudioService:EmitPlacePublishedSignal()
-				end):catch(function(err)
-					warn(tostring(localization:getText("PublishFail", "FailConfiguration")))
-					warn(tostring(err))
-				end)
 			end
-		end)
+			configuration.optInRegions = optInTable
+			configuration.optOutRegions = optOutTable
+		else
+			warn(localization:getText(optInLocationsKey, "EmailSubmitFailure"))
+		end
+		configuration.OptInLocations = nil
+	end
+
+	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
+	:andThen(function()
+		StudioService:SetUniverseDisplayName(configuration.name)
+		if FFlagStudioTCSaveAsStaysOldSession2 then
+			StudioService:RefreshDocumentDisplayName()
+		else
+			StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)
+		end
+		StudioService:EmitPlacePublishedSignal()
+	end, function(response)
+		parseErrorMessages(response, localization:getText("Error","SetConfiguration"))
+	end)
+
+	if FFlagStudioAllowRemoteSaveBeforePublish then
+		if universeActivate.isActive then
+			apiImpl.Develop.V1.Universes.activate(gameId):makeRequest()
+			:catch(function(response)
+				parseErrorMessages(response, localization:getText("Error","ActivatingUniverse"))
+			end)
+		else
+			apiImpl.Develop.V1.Universes.deactivate(gameId):makeRequest()
+			:catch(function(response)
+				parseErrorMessages(response, localization:getText("Error","DeactivatingUniverse"))
+			end)
+		end
 	end
 end
 

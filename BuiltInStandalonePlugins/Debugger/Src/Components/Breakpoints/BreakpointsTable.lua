@@ -1,13 +1,13 @@
 local PluginFolder = script.Parent.Parent.Parent.Parent
 local Roact = require(PluginFolder.Packages.Roact)
 local RoactRodux = require(PluginFolder.Packages.RoactRodux)
-local Cryo = require(PluginFolder.Packages.Cryo)
 local Framework = require(PluginFolder.Packages.Framework)
+local Cryo = require(PluginFolder.Packages.Cryo)
 
 local ContextServices = Framework.ContextServices
 local Plugin = ContextServices.Plugin
 local Localization = ContextServices.Localization
-local BreakpointModel = require(PluginFolder.Src.Models.Breakpoint)
+local BreakpointRow = require(PluginFolder.Src.Models.BreakpointRow)
 
 local Stylizer = Framework.Style.Stylizer
 
@@ -25,6 +25,7 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+local FFlagDevFrameworkIconButtonTooltip = game:GetFastFlag("DevFrameworkIconButtonTooltip")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -39,14 +40,17 @@ function BreakpointsTable:init()
 	
 	self.state = {
 		selectedBreakpoints = {},
+		breakpointIdToExpansionState = {},
 	}
 	
 	self.onSelectionChange = function(selection)
+		local selectedBps = {}
 		for rowInfo in pairs(selection) do
-			self:setState({
-				selectedBreakpoints = {rowInfo},
-			})
+			table.insert(selectedBps, rowInfo)
 		end
+		self:setState({
+			selectedBreakpoints = selectedBps
+		})
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
@@ -71,17 +75,17 @@ function BreakpointsTable:init()
 
 	self.onRightClick = function(row)
 		self:setState({
-			selectedBreakpoints = {row.item},
+			selectedBreakpoints = {row.item}
 		})
 		
 		local props = self.props
 		local localization = props.Localization
 		local plugin = props.Plugin:get()
 
-		if row.item.debugpointType == BreakpointModel.debugpointType.Breakpoint then
+		if row.item.debugpointType == Constants.DebugpointType.Breakpoint then
 			local actions = MakePluginActions.getBreakpointActions(localization, row.item.isEnabled)
 			showContextMenu(plugin, "Breakpoint", actions, self.onMenuActionSelected, {row = row})
-		elseif row.item.debugpointType == BreakpointModel.debugpointType.Logpoint then
+		elseif row.item.debugpointType == Constants.DebugpointType.Logpoint then
 			local actions = MakePluginActions.getLogpointActions(localization, row.item.isEnabled)
 			showContextMenu(plugin, "Logpoint", actions, self.onMenuActionSelected, {row = row})
 		end
@@ -105,6 +109,28 @@ function BreakpointsTable:init()
 		local BreakpointManager = game:GetService("BreakpointManager")
 		self.props.onToggleEnabledAll(BreakpointManager)
 	end
+	
+	self.goToScript = function()
+		if #self.state.selectedBreakpoints ~= 0 then
+			local currBreakpoint = self.state.selectedBreakpoints[1]
+			local DebuggerUIService = game:GetService("DebuggerUIService")
+			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptName, self.props.CurrentDebuggerConnectionId, currBreakpoint.lineNumber)
+		end
+	end
+
+	self.onExpansionChange = function(newExpansion)
+		self:setState(function(state)
+			local newExpansionMap = {}
+			for row, expandedBool in pairs(newExpansion) do
+				newExpansionMap[row.id] = expandedBool
+			end
+			return {breakpointIdToExpansionState = Cryo.Dictionary.join(state.breakpointIdToExpansionState, newExpansionMap)}
+		end)
+	end
+
+	self.getTreeChildren = function(item)
+		return item.children or {}
+	end
 end
 
 -- Compares breakpoints based on line number
@@ -115,8 +141,8 @@ end
 function BreakpointsTable:didMount()
 	if self.props.IsPaused and self.props.CurrentBreakpoint then
 		self:setState({
-			selectedBreakpoints = {self.props.CurrentBreakpoint},
-		})	
+			selectedBreakpoints = {self.props.CurrentBreakpoint}
+		})
 	end
 end
 
@@ -124,8 +150,8 @@ function BreakpointsTable:didUpdate(prevProps)
 	if self.props.IsPaused ~= prevProps.IsPaused then
 		if self.props.IsPaused and self.props.CurrentBreakpoint then
 			self:setState({
-				selectedBreakpoints = {self.props.CurrentBreakpoint},
-			})	
+				selectedBreakpoints = {self.props.CurrentBreakpoint}
+			})
 		end
 	end
 	
@@ -144,8 +170,8 @@ function BreakpointsTable:didUpdate(prevProps)
 				end
 			end
 			self:setState({
-				selectedBreakpoints = updatedSelections,
-			})	
+				selectedBreakpoints = updatedSelections
+			})
 		end
 	end
 end
@@ -161,11 +187,11 @@ function BreakpointsTable:render()
 			Name = localization:getText("BreakpointsWindow", "EnabledColumn"),
 			Key = "isEnabled",
 		}, {
-			Name = localization:getText("BreakpointsWindow", "LineColumn"),
-			Key = "lineNumber",
-		}, {
 			Name = localization:getText("BreakpointsWindow", "ScriptColumn"),
 			Key = "scriptName",
+		}, {
+			Name = localization:getText("BreakpointsWindow", "LineColumn"),
+			Key = "lineNumber",
 		}, {
 			Name = localization:getText("BreakpointsWindow", "SourceLineColumn"),
 			Key = "scriptLine",
@@ -180,6 +206,15 @@ function BreakpointsTable:render()
 			Key = "continueExecution",
 		}
 	}
+
+	local expansionTable = {}
+	for _, bp in pairs(props.Breakpoints) do
+		if (self.state.breakpointIdToExpansionState[bp.id] == nil) then
+			self.state.breakpointIdToExpansionState[bp.id] = false
+		end
+		expansionTable[bp] = self.state.breakpointIdToExpansionState[bp.id] 
+	end
+
 	return Roact.createElement(Pane, {
 		Size = UDim2.fromScale(1, 1),
 		Style = "Box",
@@ -201,26 +236,30 @@ function BreakpointsTable:render()
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 1,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/go_to_script@2x.png",
-				OnClick = function() end,
+				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "GoToScript") or nil,
+				OnClick = self.goToScript,
 			}),
 			DisableAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
+				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "DisableAll") or nil,
 				OnClick = self.toggleEnabledAll,
 			}),
 			DeleteBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 3,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete@2x.png",
+				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("Common", "DeleteBreakpoint") or nil,
 				OnClick = self.deleteBreakpoint,
 			}),
 			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 4,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
+				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "DeleteAll") or nil,
 				OnClick = self.deleteAllBreakpoints,
-			}),
+			})
 		}),
 		TablePane = Roact.createElement(Pane, {
 			Size = UDim2.new(1, 0, 1, -BUTTON_SIZE),
@@ -231,14 +270,16 @@ function BreakpointsTable:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				Columns = tableColumns,
 				RootItems = props.Breakpoints or {},
+				OnExpansionChange = self.onExpansionChange,
 				RightClick = self.onRightClick,
-				Expansion = {},
 				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
 				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoints) or nil,
 				Scroll = true,
 				ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and shouldFocusBreakpoint and self.props.CurrentBreakpointIndex) or nil,
+				Expansion = expansionTable,
+				GetChildren = self.getTreeChildren,
 			}),
 		})
 	})
@@ -255,9 +296,8 @@ BreakpointsTable = RoactRodux.connect(
 		local breakpointsArray = {}
 		local currentBreakpoint = nil
 		local currentBreakpointIndex = nil
-		
-		for breakpointId, breakpoint in pairs(state.Breakpoint.BreakpointInfo) do
-			breakpointsArray = Cryo.List.join(breakpointsArray, {breakpoint})
+		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
+			table.insert(breakpointsArray, breakpoint)
 		end
 		table.sort(breakpointsArray, breakpointLineNumberComp)
 		
@@ -268,13 +308,18 @@ BreakpointsTable = RoactRodux.connect(
 				currentBreakpointIndex = i
 			end
 			i = i + 1
+			breakpoint.children = {}
+			for index, context in ipairs(breakpoint.contexts) do
+				table.insert(breakpoint.children, BreakpointRow.extractNonChildData(breakpoint, context))
+			end
 		end
 
 		return {
 			Breakpoints = breakpointsArray,
 			IsPaused = state.Common.isPaused,
 			CurrentBreakpoint = currentBreakpoint,
-			CurrentBreakpointIndex = currentBreakpointIndex
+			CurrentBreakpointIndex = currentBreakpointIndex,
+			CurrentDebuggerConnectionId = state.Common.currentDebuggerConnectionId,
 		}
 	end,
 	

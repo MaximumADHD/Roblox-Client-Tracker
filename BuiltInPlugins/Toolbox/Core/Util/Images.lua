@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
+
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local AssetConfigConstants = require(Plugin.Core.Util.AssetConfigConstants)
 
@@ -32,6 +34,11 @@ Images.DROP_SHADOW_IMAGE = "rbxasset://textures/StudioUIEditor/resizeHandleDropS
 Images.NO_BACKGROUND_ICON = "rbxasset://textures/StudioToolbox/NoBackgroundIcon.png"
 
 Images.ENDORSED_BADGE_ICON = "rbxasset://textures/StudioToolbox/EndorsedBadge.png"
+
+if FFlagToolboxVerifiedCreatorBadges then
+	Images.VERIFIED_CREATOR_BADGE_ICON = "rbxasset://textures/StudioToolbox/verified-badge-2x.png"
+	Images.VERIFIED_CREATOR_BADGE_ICON_SMALL = "rbxasset://textures/StudioToolbox/verified-badge-sm-2x.png"
+end
 
 Images.TOOLBOX_ICON = "rbxasset://textures/StudioToolbox/ToolboxIcon.png"
 

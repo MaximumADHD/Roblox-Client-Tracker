@@ -12,8 +12,6 @@ local SnapPoints = require(Plugin.Src.Components.SnapPoints)
 local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local classifyInstancePivot = require(Plugin.Src.Utility.classifyInstancePivot)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 local MoveHandlesImplementation = {}
 MoveHandlesImplementation.__index = MoveHandlesImplementation
 
@@ -136,10 +134,7 @@ function MoveHandlesImplementation:getSnapPoints()
 end
 
 function MoveHandlesImplementation:render(globalTransform)
-	local currentPivot = globalTransform
-	if getFFlagSummonPivot() then
-		currentPivot = globalTransform * self._initialPivot
-	end
+	local currentPivot = globalTransform * self._initialPivot
 	local contents = {
 		DraggedPivot = Roact.createElement(DraggedPivot, {
 			DraggerContext = self._draggerContext,
@@ -149,18 +144,11 @@ function MoveHandlesImplementation:render(globalTransform)
 	}
 	-- not _snapPoints will be the case when we drag into a Tool or Constraint.
 	if self._draggerContext:shouldSnapPivotToGeometry() then
-		if getFFlagSummonPivot() then
-			contents.SnapPoints = Roact.createElement(SnapPoints, {
-				Focus = currentPivot.Position,
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		else
-			contents.SnapPoints = Roact.createElement(SnapPoints, {
-				SnapPoints = self._snapPoints,
-				DraggerContext = self._draggerContext,
-			})
-		end
+		contents.SnapPoints = Roact.createElement(SnapPoints, {
+			Focus = currentPivot.Position,
+			SnapPoints = self._snapPoints,
+			DraggerContext = self._draggerContext,
+		})
 	end
 	return Roact.createFragment(contents)
 end

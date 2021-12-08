@@ -28,12 +28,14 @@ local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local AddKeyframe = require(Plugin.Src.Thunks.AddKeyframe)
+local SplitTrack = require(Plugin.Src.Thunks.SplitTrack)
 local DeleteTrack = require(Plugin.Src.Thunks.DeleteTrack)
 local ClearTrack = require(Plugin.Src.Thunks.ClearTrack)
 local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContextInfo)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
@@ -85,6 +87,7 @@ function TrackActions:didMount()
 		local props = self.props
 		local playhead = props.Playhead
 		local trackType = props.TrackType
+		local rotationType = props.RotationType
 		local instanceName = props.InstanceName
 		local animationData = props.AnimationData
 		local isChannelAnimation = props.IsChannelAnimation
@@ -100,29 +103,33 @@ function TrackActions:didMount()
 				if isChannelAnimation then
 					TrackUtils.traverseComponents(trackType, function(componentType, relPath)
 						local componentPath = Cryo.List.join(path, relPath)
-						local track = AnimationData.getTrack(animationData, instanceName, componentPath)
-						if track and track.Keyframes then
-							value = KeyframeUtils.getValue(track, playhead)
-							-- Use the same interpolation mode as the previous key, if any
-							local prevKeyframe = TrackUtils.findPreviousKeyframe(track, playhead)
-							if prevKeyframe then
-								interpolationMode = prevKeyframe.InterpolationMode
-								if interpolationMode == Enum.KeyInterpolationMode.Cubic then
-									leftSlope, rightSlope = KeyframeUtils.getSlopes(track, playhead)
-								end
-							end
+						if GetFFlagQuaternionChannels() then
+							props.SplitTrack(instanceName, componentPath, componentType, playhead, props.Analytics)
 						else
-							value = KeyframeUtils.getDefaultValue(componentType)
-						end
+							local track = AnimationData.getTrack(animationData, instanceName, componentPath)
+							if track and track.Keyframes then
+								value = KeyframeUtils.getValue(track, playhead)
+								-- Use the same interpolation mode as the previous key, if any
+								local prevKeyframe = TrackUtils.findPreviousKeyframe(track, playhead)
+								if prevKeyframe then
+									interpolationMode = prevKeyframe.InterpolationMode
+									if interpolationMode == Enum.KeyInterpolationMode.Cubic then
+										leftSlope, rightSlope = KeyframeUtils.getSlopes(track, playhead)
+									end
+								end
+							else
+								value = KeyframeUtils.getDefaultValue(componentType)
+							end
 
-						local keyframeData = {
-							Value = value,
-							InterpolationMode = interpolationMode,
-							LeftSlope = leftSlope,
-							RightSlope = rightSlope
-						}
-						props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
-					end)
+							local keyframeData = {
+								Value = value,
+								InterpolationMode = interpolationMode,
+								LeftSlope = leftSlope,
+								RightSlope = rightSlope
+							}
+							props.AddKeyframe(instanceName, componentPath, componentType, playhead, keyframeData, props.Analytics)
+						end
+					end, rotationType)
 				else
 					local track = AnimationData.getTrack(animationData, instanceName, path)
 					if track and track.Keyframes then
@@ -276,6 +283,7 @@ local function mapStateToProps(state, props)
 		TrackName = status.RightClickContextInfo.TrackName,
 		Path = status.RightClickContextInfo.Path,
 		TrackType = status.RightClickContextInfo.TrackType,
+		RotationType = status.RightClickContextInfo.RotationType,
 		InstanceName = status.RightClickContextInfo.InstanceName,
 		Playhead = status.Playhead,
 	}
@@ -292,6 +300,12 @@ local function mapDispatchToProps(dispatch)
 		ClearTrack = function(instance, path, analytics)
 			dispatch(AddWaypoint())
 			dispatch(ClearTrack(instance, path, analytics))
+			dispatch(SetRightClickContextInfo({}))
+		end,
+
+		SplitTrack = function(instance, path, trackType, tck, analytics)
+			dispatch(AddWaypoint())
+			dispatch(SplitTrack(instance, path, trackType, tck, analytics))
 			dispatch(SetRightClickContextInfo({}))
 		end,
 

@@ -2,7 +2,6 @@
 	Displays panels associated with The Replace tool
 ]]
 
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
@@ -252,21 +251,14 @@ function Replace:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	Replace = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-		-- Replace tool reuses SeaLevel object
-		-- TODO: Rename SeaLevel object to TerrainReplacer?
-		Replace = ContextItems.SeaLevel,
-	})(Replace)
-else
-	ContextServices.mapToProps(Replace, {
-		Localization = ContextItems.UILibraryLocalization,
-		-- Replace tool reuses SeaLevel object
-		-- TODO: Rename SeaLevel object to TerrainReplacer?
-		Replace = ContextItems.SeaLevel,
-	})
-end
+
+Replace = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+	-- Replace tool reuses SeaLevel object
+	-- TODO: Rename SeaLevel object to TerrainReplacer?
+	Replace = ContextItems.SeaLevel,
+})(Replace)
+
 
 
 local function mapStateToProps(state, props)

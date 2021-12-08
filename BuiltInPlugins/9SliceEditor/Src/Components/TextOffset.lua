@@ -54,11 +54,10 @@ local function SliceToOffset (slice, pixelSize)
 end
 
 function TextOffset:init(props)
-	local pixelDimensions = props.pixelDimensions
-	local setSliceRect= props.setSliceRect
-
 	self.onLeftFocusLost = function(_, textBox)
 		local sliceRect = self.props.sliceRect
+		local setSliceRect = self.props.setSliceRect
+		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[LEFT] -- value in Offset form
 		local numberInput: number = tonumber(textBox.Text)
@@ -76,6 +75,8 @@ function TextOffset:init(props)
 
 	self.onRightFocusLost = function(_, textBox)
 		local sliceRect = self.props.sliceRect
+		local setSliceRect = self.props.setSliceRect
+		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[RIGHT]
 		local numberInput: number = tonumber(textBox.Text)
@@ -94,6 +95,8 @@ function TextOffset:init(props)
 
 	self.onTopFocusLost = function(_, textBox)
 		local sliceRect = self.props.sliceRect
+		local setSliceRect = self.props.setSliceRect
+		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[TOP]
 		local numberInput: number = tonumber(textBox.Text)
@@ -111,6 +114,8 @@ function TextOffset:init(props)
 
 	self.onBottomFocusLost = function(_, textBox)
 		local sliceRect = self.props.sliceRect
+		local setSliceRect = self.props.setSliceRect
+		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[BOTTOM]
 		local numberInput: number = tonumber(textBox.Text)

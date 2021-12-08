@@ -15,13 +15,59 @@ local Pane = UI.Pane
 
 local UIKeyValueTextLabel = require(Plugin.Src.Components.UIKeyValueTextLabel)
 local StringFormatters = require(Plugin.Src.Util.StringFormatters)
+local DMBridge = require(Plugin.Src.Util.DMBridge)
+local Types = require(Plugin.Src.Types)
+
+local PlaybackTabActions = Plugin.Src.Actions.PlaybackTab
+local SetCurrentRecordingDurationSec = require(PlaybackTabActions.SetCurrentRecordingDurationSec)
+local SetCurrentRecordingNumEvents = require(PlaybackTabActions.SetCurrentRecordingNumEvents)
+local SetCurrentRecordingResolution = require(PlaybackTabActions.SetCurrentRecordingResolution)
+local SetCurrentRecordingDeviceId = require(PlaybackTabActions.SetCurrentRecordingDeviceId)
+local SetCurrentRecordingDeviceOrientation = require(PlaybackTabActions.SetCurrentRecordingDeviceOrientation)
 
 local PlaybackInfoUIGroup = Roact.PureComponent:extend("PlaybackInfoUIGroup")
 
 function PlaybackInfoUIGroup:init()
+	self.state = {
+		dataValid = false,
+	}
+
+	self.onPlaybackInfoChanged = function(metadata: Types.RecordingMetadata?, durationSec: number, numEvents: number)
+		if metadata ~= nil then
+			local props = self.props
+			props.SetCurrentRecordingDurationSec(durationSec)
+			props.SetCurrentRecordingNumEvents(numEvents)
+			props.SetCurrentRecordingDeviceId(metadata.deviceId)
+			props.SetCurrentRecordingDeviceOrientation(metadata.orientation)
+
+			local resolutionList = metadata.resolution
+			local resolutionVector = Vector2.new(resolutionList[1], resolutionList[2])
+			props.SetCurrentRecordingResolution(resolutionVector)
+
+			self:setState({
+				dataValid = true,
+			})
+		else
+			self:setState({
+				dataValid = false,
+			})
+		end
+	end
+end
+
+function PlaybackInfoUIGroup:didMount()
+	DMBridge.connectPlaybackInfoChangedCallback(self.onPlaybackInfoChanged)
+end
+
+function PlaybackInfoUIGroup:willUnmount()
+	DMBridge.disconnectPlaybackInfoChangedCallback()
 end
 
 function PlaybackInfoUIGroup:render()
+	if not self.state.dataValid then
+		return nil
+	end
+
 	local props = self.props
 	local localization = props.Localization
 	local style = props.Stylizer
@@ -56,7 +102,8 @@ function PlaybackInfoUIGroup:render()
 		}, {
 			RecordingDuration = Roact.createElement(UIKeyValueTextLabel, {
 				Label = localization:getText("PlaybackTabView", "RecordingDuration"),
-				Value = tostring(props.CurrentRecordingDurationSec),
+				Value = string.format("%.2f ", props.CurrentRecordingDurationSec)
+					.. localization:getText("PlaybackTabView", "SecondsUnitAbbrevation"),
 				LayoutOrder = 1,
 			}),
 			NumberOfEvents = Roact.createElement(UIKeyValueTextLabel, {
@@ -100,4 +147,24 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(PlaybackInfoUIGroup)
+local function mapDispatchToProps(dispatch)
+	return {
+		SetCurrentRecordingDurationSec = function(value)
+			dispatch(SetCurrentRecordingDurationSec(value))
+		end,
+		SetCurrentRecordingDeviceId = function(value)
+			dispatch(SetCurrentRecordingDeviceId(value))
+		end,
+		SetCurrentRecordingNumEvents = function(value)
+			dispatch(SetCurrentRecordingNumEvents(value))
+		end,
+		SetCurrentRecordingResolution = function(value)
+			dispatch(SetCurrentRecordingResolution(value))
+		end,
+		SetCurrentRecordingDeviceOrientation = function(value)
+			dispatch(SetCurrentRecordingDeviceOrientation(value))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlaybackInfoUIGroup)

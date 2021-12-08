@@ -1,7 +1,6 @@
 --[[
 	EditSettings.lua
 ]]
-local FFlagTerrainToolsV2WithContext = game:GetFastFlag("TerrainToolsV2WithContext")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -35,15 +34,11 @@ function EditSettings:render()
 	})
 end
 
-if FFlagTerrainToolsV2WithContext then
-	EditSettings = withContext({
-		Localization = ContextItems.UILibraryLocalization,
-	})(EditSettings)
-else
-	ContextServices.mapToProps(EditSettings, {
-		Localization = ContextItems.UILibraryLocalization,
-	})
-end
+
+EditSettings = withContext({
+	Localization = ContextItems.UILibraryLocalization,
+})(EditSettings)
+
 
 
 return EditSettings

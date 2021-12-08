@@ -3,6 +3,7 @@ export type PropDescriptor = {
 	Editable: boolean,
 	ShouldHide: () -> boolean,
 	Dependencies: {string}?,
+	ValueType: string,
 }
 
 export type Section = {

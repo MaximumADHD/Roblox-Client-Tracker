@@ -26,6 +26,20 @@
 ]]
 local MAX_NAME_LENGTH = 50
 local MAX_DESCRIPTION_LENGTH = 1000
+local TEAM_CREATE_ENABLED = "teamCreateEnabled"
+
+local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
+local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
+local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
+local FStringTeamCreateLearnMoreLink = game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/en-us/articles/Team-Create")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+
+local teamCreateToggleEnabled = false
+if FIntTeamCreateTogglePercentageRollout > 0 then
+    local StudioService = game:GetService("StudioService")
+    teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
+end
+
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -43,6 +57,7 @@ local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
+local ToggleButtonWithTitle = teamCreateToggleEnabled and require(Plugin.Src.Components.ToggleButtonWithTitle) or nil
 
 local GetPlayerAcceptances = require(Plugin.Src.Thunks.GetPlayerAcceptances)
 
@@ -53,10 +68,6 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local createMenuPage = require(Plugin.Src.Components.createMenuPage)
 
 local GuiService = game:GetService("GuiService")
-
-local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
-local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
@@ -186,13 +197,13 @@ local function displayContents(parent)
 
 		Description = Roact.createElement(TitledFrame, {
 			Title = localization:getText("PageTitle", "Description"),
-			MaxHeight = 150,
+			MaxHeight = teamCreateToggleEnabled and theme.descriptionBox.maxHeight or 150,
 			LayoutOrder = layoutOrder:getNextOrder(),
 			TextSize = Constants.TEXT_SIZE,
 		}, {
 			TextBox = Roact.createElement(RoundTextBox, {
 				Active = true,
-				Height = 130,
+				Height = teamCreateToggleEnabled and theme.descriptionBox.textBoxHeight or 130,
 				Multiline = true,
 				MaxLength = MAX_DESCRIPTION_LENGTH,
 				Text = description,
@@ -336,59 +347,32 @@ local function displayContents(parent)
 				})
 				devicesChanged(newDevices)
 			end,
-		}),
-	}
+        }),
+        
+        Separator3 = teamCreateToggleEnabled and Roact.createElement(Separator, {
+            LayoutOrder = layoutOrder:getNextOrder(),
+        }) or nil,
+        
+        EnableTeamCreate = teamCreateToggleEnabled and Roact.createElement(ToggleButtonWithTitle, {
+            Title = localization:getText("TeamCreate", "Title"),
+            LayoutOrder = layoutOrder:getNextOrder(),
+            Disabled = false,
+            Selected = props.TeamCreateEnabled,
+            LinkProps = {
+                Text = localization:getText("TeamCreate", "LinkDescription"),
+                LinkText = localization:getText("TeamCreate", "LinkText"),
+                OnLinkClicked = function()
+                    GuiService:OpenBrowserWindow(FStringTeamCreateLearnMoreLink)
+                end,
+            },
+            OnClick = function()
+                props.TeamCreateEnabledChanged(not props.TeamCreateEnabled)
+            end,
+        }) or nil,
+    }
 
 	if FFlagStudioAllowRemoteSaveBeforePublish then
 		if props.IsPublish then
-			-- Add playability controls
-			displayResult.Separator3 = Roact.createElement(Separator, {
-				LayoutOrder = layoutOrder:getNextOrder(),
-			})
-
-			local playabilityButtons = {
-				{
-					Id = "Public",
-					Title = localization:getText("General", "PlayabilityPublic"),
-					Description = localization:getText("General", "PlayabilityPublicDesc"),
-				}, {
-					Id = "Friends",
-					Title = localization:getText("General", "PlayabilityFriends"),
-					Description = localization:getText("General", "PlayabilityFriendsDesc"),
-				}, {
-					Id = "Private",
-					Title = localization:getText("General", "PlayabilityPrivate"),
-					Description = localization:getText("General", "PlayabilityPrivateDesc"),
-				},
-			}
-
-			local selectedButton = "Private"
-			if props.IsFriendsOnly and props.IsActive then
-				selectedButton = "Friends"
-			elseif props.IsActive then
-				selectedButton = "Public"
-			end
-
-			displayResult.Playability = Roact.createElement(RadioButtonSet, {
-				Buttons = playabilityButtons,
-				Description = localization:getText("General", "PlayabilityHeader"),
-				Enabled = true,
-				LayoutOrder = layoutOrder:getNextOrder(),
-				Selected = selectedButton,
-				SelectionChanged = function(button)
-					if button.Id == "Friends" then
-						isFriendsOnlyChanged(true)
-						isActiveChanged(true)
-					elseif button.Id == "Public" then
-						isFriendsOnlyChanged(false)
-						isActiveChanged(true)
-					elseif button.Id == "Private" then
-						isFriendsOnlyChanged(false)
-						isActiveChanged(false)
-					end
-				end,
-				Title = localization:getText("General", "TitlePlayability"),
-			})
 			if shouldShowDevPublishLocations() then
 				displayResult.Separator5 = Roact.createElement(Separator, {
 					LayoutOrder = layoutOrder:getNextOrder(),
@@ -514,16 +498,6 @@ local function displayContents(parent)
 					})
 				})
 			end
-		else
-			-- Dialog is in save mode, not publish mode
-			-- Hide the controls that are only used on publish
-			displayResult.Separator1 = nil
-			displayResult.Description = nil
-			displayResult.Separator2 = nil
-			displayResult.Genre = nil
-			displayResult.Separator3 = nil
-			displayResult.Devices = nil
-			displayResult.Separator4 = nil
 		end
 	end
 
@@ -535,6 +509,7 @@ local function loadValuesToProps(getValue, state)
 	-- Set in settings reducer.
 	local errors = state.NewGameSettings.errors
 	local groupInfo = state.GroupsHavePermission.groupInfo
+
 	return {
 		NameError = errors.name,
 		DescriptionError = errors.description,
@@ -552,6 +527,7 @@ local function loadValuesToProps(getValue, state)
 		CreatorId = getValue("creatorId"),
 		OptInLocations = shouldShowDevPublishLocations() and getValue(optInLocationsKey) or {},
 		PlayerAcceptance = state.Policy.PlayerAcceptance,
+		TeamCreateEnabled = teamCreateToggleEnabled and getValue(TEAM_CREATE_ENABLED) or nil,
 	}
 end
 
@@ -607,6 +583,10 @@ local function dispatchForProps(setValue, dispatch)
 
 			dispatch(GetPlayerAcceptances(apiImpl))
 		end,
+
+		TeamCreateEnabledChanged = teamCreateToggleEnabled and function(enabled)
+			dispatch(AddChange(TEAM_CREATE_ENABLED, enabled))
+		end or nil,
 	}
 end
 

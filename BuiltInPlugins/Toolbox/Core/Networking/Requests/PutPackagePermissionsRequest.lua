@@ -15,7 +15,14 @@ local ClearChange = require(Plugin.Core.Actions.ClearChange)
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")

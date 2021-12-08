@@ -18,9 +18,11 @@ local TABS_KEYS = {
 
 local TABS_INFO = {
 	[TABS_KEYS.Avatars] = {
-		AssetIds = {
-			5757830455,
-			2280822931,
+		BundleIds = {
+			109, -- Roblox Boy
+			511, -- Bazooka Bones
+			800, -- Goblin
+			429, -- Magma Fiend
 		},
 
 		CanAddNew = true,
@@ -36,13 +38,26 @@ local TABS_INFO = {
 	},
 	[TABS_KEYS.Clothing] = {
 		AssetIds = {
-			5609096680,
-			5612035582,
-			5368411829,
-			5081624439,
-			3599544679,
-			1657047,
-			1028595,
+			7178735702, -- Camo T-Shirt
+			7178744611, -- Flannel
+			7178740556, -- Raglan
+			6984769289, -- Knit Sweater
+			7192543873, -- Puffer Jacket
+			7192532009, -- Long Coat
+			6984765766, -- Hoodie
+			7192690731, -- Short Skirt
+			7192695838, -- Long Skirt
+			6984740059, -- Long Pants
+			7192668209, -- Ripped Jeans
+			7192683061, -- Long Shorts
+			7192686536, -- Jean Shorts
+			7192843096, -- Shoe 1
+			7192846003, -- Shoe 2
+			7193168012, -- Boot 1
+			7193169059, -- Boot 2
+			7193442167, -- Hair 1
+			7193450455, -- Hair 2
+			7193397693, -- Hair 3
 		},
 
 		CanAddNew = true,

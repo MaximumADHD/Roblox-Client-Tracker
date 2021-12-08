@@ -1,7 +1,14 @@
 local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 
 local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Libs.Framework).Util.Promise
+local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local Packages = Plugin.Packages
+local Promise
+if FFlagToolboxDeduplicatePackages then
+	Promise = require(Packages.Framework).Util.Promise
+else
+	Promise = require(Plugin.Libs.Framework).Util.Promise
+end
 
 local function SerializeInstances(instances, studioAssetService)
 	return Promise.new(function(resolve, reject)
