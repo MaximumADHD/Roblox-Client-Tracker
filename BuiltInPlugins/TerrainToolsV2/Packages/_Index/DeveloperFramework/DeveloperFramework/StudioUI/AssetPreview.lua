@@ -37,6 +37,7 @@ local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFo
 local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagDevFrameworkAddCreatorToAssetPreviewHeader = game:GetFastFlag("DevFrameworkAddCreatorToAssetPreviewHeader")
+local FFlagDevFrameworkAddTooltipToAssetPreviewFlagIcon = game:GetFastFlag("DevFrameworkAddTooltipToAssetPreviewFlagIcon")
 
 local TextService = game:GetService("TextService")
 
@@ -73,6 +74,7 @@ local HoverArea = UI.HoverArea
 local TextLabel = Decoration.TextLabel
 local Image = Decoration.Image
 local Pane = UI.Pane
+local Tooltip = UI.Tooltip
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -430,6 +432,14 @@ function AssetPreview:render()
 							Position = UDim2.new(0, 0, 0, 5),
 							Size = style.ScrollingFrame.FlagAsset.Size,
 							[Roact.Event.Activated] = self.props.OnClickReport,
+						}, {
+							Tooltip = FFlagDevFrameworkAddTooltipToAssetPreviewFlagIcon and Roact.createElement(Tooltip, {
+								Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Report"),
+							}) or nil,
+
+							HoverArea = Roact.createElement(HoverArea, {
+								Cursor = "PointingHand",
+							})
 						}),
 					}),
 				}),

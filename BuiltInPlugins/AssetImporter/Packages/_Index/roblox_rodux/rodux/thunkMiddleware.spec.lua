@@ -10,7 +10,7 @@ return function()
 		local store = Store.new(reducer, {}, { thunkMiddleware })
 		local thunkCount = 0
 
-		local function thunk(store)
+		local function thunk(_store)
 			thunkCount = thunkCount + 1
 		end
 
@@ -47,12 +47,74 @@ return function()
 		local store = Store.new(reducer, {}, { thunkMiddleware })
 		local thunkValue = "test"
 
-		local function thunk(store)
+		local function thunk(_store)
 			return thunkValue
 		end
 
 		local result = store:dispatch(thunk)
 
 		expect(result).to.equal(thunkValue)
+	end)
+
+	it("should report errors captured in thunks via the provided error reporter", function()
+		local caughtState, caughtAction, caughtErrorResult
+		local errorReporter = {
+			reportReducerError = function(state, action, errorResult)
+				caughtState = state
+				caughtAction = action
+				caughtErrorResult = errorResult
+			end
+		}
+
+		local function reducer(state, action)
+			return state
+		end
+
+		local store = Store.new(reducer, {
+			Value = 1
+		}, { thunkMiddleware }, errorReporter)
+
+		local innerErrorMessage = "thunk failed"
+		local function thunk(_store)
+			error(innerErrorMessage)
+		end
+
+		store:dispatch(thunk)
+
+		expect(caughtState.Value).to.equal(1)
+		expect(caughtAction).to.equal(thunk)
+		expect(caughtErrorResult.message).to.equal("Caught error in thunk")
+	end)
+
+	it("should recover and continue to update after a thunk errors", function()
+		local caughtErrorResult
+		local errorReporter = {
+			reportReducerError = function(_state, _action, errorResult)
+				caughtErrorResult = errorResult
+			end
+		}
+
+		local function reducer(state, action)
+			return state
+		end
+
+		local store = Store.new(reducer, {
+			Value = 1
+		}, { thunkMiddleware }, errorReporter)
+
+		local innerErrorMessage = "thunk failed"
+		local function errorThunk(_store)
+			error(innerErrorMessage)
+		end
+		local ranSafeThunk = false
+		local function safeThunk(_store)
+			ranSafeThunk = true
+		end
+
+		store:dispatch(errorThunk)
+		expect(caughtErrorResult.message).to.equal("Caught error in thunk")
+
+		store:dispatch(safeThunk)
+		expect(ranSafeThunk).to.equal(true)
 	end)
 end

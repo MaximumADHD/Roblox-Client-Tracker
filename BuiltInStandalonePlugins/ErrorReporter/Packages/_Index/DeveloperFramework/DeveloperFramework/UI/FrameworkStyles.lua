@@ -7,6 +7,7 @@
 	default values for Studio plugins.
 ]]
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 
 local function newDefaults()
 	return {
@@ -62,6 +63,7 @@ function FrameworkStyles.new()
 		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
 		TreeViewRow = newDefaults(),
+		TimeProgressBar = FFlagDevFrameworkTimeProgressBar and newDefaults() or nil,
 
 		-- StudioUI Styles
 		AssetPreview = newDefaults(),

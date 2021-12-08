@@ -30,11 +30,14 @@
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
 		boolean HideCreatorSearch: Whether to show creator search link
+		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
 ]]
-
-local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
 local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
+local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
+local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+local FFlagDevFrameworkAddCreatorToAssetPreviewHeader = game:GetFastFlag("DevFrameworkAddCreatorToAssetPreviewHeader")
+local FFlagDevFrameworkAddTooltipToAssetPreviewFlagIcon = game:GetFastFlag("DevFrameworkAddTooltipToAssetPreviewFlagIcon")
 
 local TextService = game:GetService("TextService")
 
@@ -70,6 +73,8 @@ local Separator = UI.Separator
 local HoverArea = UI.HoverArea
 local TextLabel = Decoration.TextLabel
 local Image = Decoration.Image
+local Pane = UI.Pane
+local Tooltip = UI.Tooltip
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -327,6 +332,15 @@ function AssetPreview:render()
 		end
 	end
 
+	local canFlagAsset
+	local assetHeaderSpacing
+	local reportButtonWidth
+	if FFlagToolboxRedirectToLibraryAbuseReport then
+		canFlagAsset = (assetData.Creator.Id ~= 1)
+		assetHeaderSpacing = style.ScrollingFrame.AssetHeader.Spacing
+		reportButtonWidth = canFlagAsset and style.ScrollingFrame.FlagAsset.Size.X.Offset or 0
+	end
+
 	return Roact.createElement(Container, {
 		AnchorPoint = anchorPoint,
 		Position = position,
@@ -367,16 +381,93 @@ function AssetPreview:render()
 			}, {
 				Padding = Roact.createElement("UIPadding", scrollingFramePadding),
 
-				AssetName = Roact.createElement(TextLabel, {
-					FitWidth = true,
-					FitMaxWidth = textMaxWidth,
+				AssetNameHeader = FFlagToolboxRedirectToLibraryAbuseReport and Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Padding = 5,
+					Size = UDim2.new(1, 0, 0, 0),
+					Spacing = assetHeaderSpacing,
+					Layout = Enum.FillDirection.Horizontal,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}, {
+					AssetNameContainer = Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Size = UDim2.new(1, -reportButtonWidth - assetHeaderSpacing, 0, 0),
+						LayoutOrder = 1,
+						Layout = Enum.FillDirection.Vertical,
+					}, {
+						AssetName = Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							FitWidth = (not FFlagDevFrameworkAddCreatorToAssetPreviewHeader) and true or nil,
+							FitMaxWidth = (not FFlagDevFrameworkAddCreatorToAssetPreviewHeader) and textMaxWidth or nil,
+							LayoutOrder = 1,
+							Size = UDim2.new(1, 0, 0, 0),
+							Style = style.ScrollingFrame.AssetName,
+							Text = assetData.Asset.Name,
+							TextWrapped = true,
+						}),
+
+						CreatorName = FFlagDevFrameworkAddCreatorToAssetPreviewHeader and Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							LayoutOrder = 2,
+							RichText = true,
+							Size = UDim2.new(1, 0, 0, 0),
+							Style = style.ScrollingFrame.CreatorName,
+							Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "ByUsername", {
+								username = "<b>" .. assetData.Creator.Name .. "</b>",
+							}),
+							TextWrapped = true,
+						}) or nil,
+					}),
+
+					FlagAssetContainer = canFlagAsset and Roact.createElement(Pane, {
+						BackgroundTransparency = 1,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = 2,
+					}, {
+						FlagAsset = Roact.createElement("ImageButton", {
+							BackgroundTransparency = 1,
+							Image = style.ScrollingFrame.FlagAsset.Image,
+							ImageColor3 = style.ScrollingFrame.FlagAsset.ImageColor3,
+							Position = UDim2.new(0, 0, 0, 5),
+							Size = style.ScrollingFrame.FlagAsset.Size,
+							[Roact.Event.Activated] = self.props.OnClickReport,
+						}, {
+							Tooltip = FFlagDevFrameworkAddTooltipToAssetPreviewFlagIcon and Roact.createElement(Tooltip, {
+								Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Report"),
+							}) or nil,
+
+							HoverArea = Roact.createElement(HoverArea, {
+								Cursor = "PointingHand",
+							})
+						}),
+					}),
+				}),
+
+				AssetName = (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
+					AutomaticSize = FFlagDevFrameworkAddCreatorToAssetPreviewHeader and Enum.AutomaticSize.Y or nil,
+					FitWidth = (not FFlagDevFrameworkAddCreatorToAssetPreviewHeader) and true or nil,
+					FitMaxWidth = (not FFlagDevFrameworkAddCreatorToAssetPreviewHeader) and textMaxWidth or nil,
 					TextWrapped = true,
+					Size = FFlagDevFrameworkAddCreatorToAssetPreviewHeader and UDim2.new(1, 0, 0, 0) or nil,
 					Style = style.ScrollingFrame.AssetName,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					Text = assetData.Asset.Name,
 				}),
 
-				Votes = props.Voting and Roact.createElement(Votes, {
+				CreatorName = FFlagDevFrameworkAddCreatorToAssetPreviewHeader and (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					RichText = true,
+					Size = UDim2.new(1, 0, 0, 0),
+					Style = style.ScrollingFrame.CreatorName,
+					Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "ByUsername", {
+						username = "<b>" .. assetData.Creator.Name .. "</b>",
+					}),
+					TextWrapped = true,
+				}) or nil,
+
+				Votes = (not FFlagDevFrameworkAddCreatorToAssetPreviewHeader) and props.Voting and Roact.createElement(Votes, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					Voting = props.Voting
 				}),

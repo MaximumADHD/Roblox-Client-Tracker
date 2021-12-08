@@ -14,8 +14,6 @@
 	end)
 ]]--
 
-local FFlagPluginManagementFixYieldingAndRetries = settings():GetFFlag("PluginManagementFixYieldingAndRetries")
-
 local HttpService = game:GetService("HttpService")
 
 local Promise = require(script.Parent.Parent.Promise)
@@ -160,15 +158,13 @@ function Networking:handleRetry(requestPromise, numRetries, disableBackoff)
 					return
 				end
 
-				if FFlagPluginManagementFixYieldingAndRetries then
-					local is400Error = errResponse.responseCode >= 400 and errResponse.responseCode < 500
-					if is400Error and errResponse.responseCode ~= 429 then
-						if self._isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then
-							print("Http request failed due to request errors. Ignoring retry.")
-						end
-						reject(errResponse)
-						return
+				local is400Error = errResponse.responseCode >= 400 and errResponse.responseCode < 500
+				if is400Error and errResponse.responseCode ~= 429 then
+					if self._isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then
+						print("Http request failed due to request errors. Ignoring retry.")
 					end
+					reject(errResponse)
+					return
 				end
 
 				if self._isLoggingEnabled(LOGGING_CHANNELS.DEBUG) then
@@ -247,11 +243,7 @@ function Networking:request(options)
 				local statusCode = responseDict.StatusCode -- integer
 				local requestSuccess
 				if self._isInternal then
-					if FFlagPluginManagementFixYieldingAndRetries then
-						requestSuccess = statusMsg == "OK"
-					else
-						requestSuccess = success
-					end
+					requestSuccess = statusMsg == "OK"
 				else
 					requestSuccess = responseDict.Success -- boolean
 				end
@@ -283,16 +275,12 @@ function Networking:request(options)
 		local function handleRequest()
 			-- fetch the raw response from the server
 			if self._isInternal then
-				if FFlagPluginManagementFixYieldingAndRetries then
-					if self._allowYielding then
-						self._httpImpl:RequestInternal(options):Start(function(success, responseDict)
-							spawn(function()
-								parseResponse(success, responseDict)
-							end)
+				if self._allowYielding then
+					self._httpImpl:RequestInternal(options):Start(function(success, responseDict)
+						spawn(function()
+							parseResponse(success, responseDict)
 						end)
-					else
-						self._httpImpl:RequestInternal(options):Start(parseResponse)
-					end
+					end)
 				else
 					self._httpImpl:RequestInternal(options):Start(parseResponse)
 				end

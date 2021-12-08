@@ -2,6 +2,7 @@
 	Public interface for UI
 ]]
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 
 local Src = script
 
@@ -61,6 +62,7 @@ local MultiLineTextInput = require(Src.MultiLineTextInput)
 local TruncatedTextLabel = require(Src.TruncatedTextLabel)
 local Checkbox = require(Src.Checkbox)
 local ExpandablePane = require(Src.ExpandablePane)
+local TimeProgressBar = require(Src.TimeProgressBar)
 
 -- NOTE: Please keep components in alphabetical order
 local UI = strict({
@@ -116,6 +118,7 @@ local UI = strict({
 	TreeView = TreeView,
 	TreeViewRow = TreeViewRow,
 	TruncatedTextLabel = TruncatedTextLabel,
+	TimeProgressBar = FFlagDevFrameworkTimeProgressBar and TimeProgressBar or nil,
 
 	Decoration = {
 		Box = Box,

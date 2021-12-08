@@ -76,9 +76,7 @@ function Expectation.new(value)
 	local self = {
 		value = value,
 		successCondition = true,
-		condition = false,
-		matchers = {},
-		_boundMatchers = {},
+		condition = false
 	}
 
 	setmetatable(self, Expectation)
@@ -93,31 +91,6 @@ function Expectation.new(value)
 	return self
 end
 
-function Expectation.checkMatcherNameCollisions(name)
-	if SELF_KEYS[name] or NEGATION_KEYS[name] or Expectation[name] then
-		return false
-	end
-
-	return true
-end
-
-function Expectation:extend(matchers)
-	self.matchers = matchers or {}
-
-	for name, implementation in pairs(self.matchers) do
-		self._boundMatchers[name] = bindSelf(self, function(_self, ...)
-			local result = implementation(self.value, ...)
-			local pass = result.pass == self.successCondition
-
-			assertLevel(pass, result.message, 3)
-			self:_resetModifiers()
-			return self
-		end)
-	end
-
-	return self
-end
-
 function Expectation.__index(self, key)
 	-- Keys that don't do anything except improve readability
 	if SELF_KEYS[key] then
@@ -126,14 +99,10 @@ function Expectation.__index(self, key)
 
 	-- Invert your assertion
 	if NEGATION_KEYS[key] then
-		local newExpectation = Expectation.new(self.value):extend(self.matchers)
+		local newExpectation = Expectation.new(self.value)
 		newExpectation.successCondition = not self.successCondition
 
 		return newExpectation
-	end
-
-	if self._boundMatchers[key] then
-		return self._boundMatchers[key]
 	end
 
 	-- Fall back to methods provided by Expectation
@@ -181,9 +150,6 @@ function Expectation:a(typeName)
 
 	return self
 end
-
--- Make alias public on class
-Expectation.an = Expectation.a
 
 --[[
 	Assert that our expectation value is truthy
@@ -264,43 +230,18 @@ function Expectation:near(otherValue, limit)
 end
 
 --[[
-	Assert that our functoid expectation value throws an error when called.
-	An optional error message can be passed to assert that the error message
-	contains the given value.
+	Assert that our functoid expectation value throws an error when called
 ]]
-function Expectation:throw(messageSubstring)
+function Expectation:throw()
 	local ok, err = pcall(self.value)
 	local result = ok ~= self.successCondition
 
-	if messageSubstring and not ok then
-		if self.successCondition then
-			result = err:find(messageSubstring, 1, true) ~= nil
-		else
-			result = err:find(messageSubstring, 1, true) == nil
-		end
-	end
-
-	local message
-
-	if messageSubstring then
-		message = formatMessage(self.successCondition,
-			("Expected function to throw an error containing %q, but it %s"):format(
-				messageSubstring,
-				err and ("threw: %s"):format(err) or "did not throw."
-			),
-			("Expected function to never throw an error containing %q, but it threw: %s"):format(
-				messageSubstring,
-				tostring(err)
-			)
+	local message = formatMessage(self.successCondition,
+		"Expected function to throw an error, but it did not.",
+		("Expected function to succeed, but it threw an error: %s"):format(
+			tostring(err)
 		)
-	else
-		message = formatMessage(self.successCondition,
-			"Expected function to throw an error, but it did not throw.",
-			("Expected function to succeed, but it threw an error: %s"):format(
-				tostring(err)
-			)
-		)
-	end
+	)
 
 	assertLevel(result, message, 3)
 	self:_resetModifiers()

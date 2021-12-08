@@ -1,12 +1,14 @@
 Key,Source,en-us
+Studio.Framework.AssetPreview.AllGenre,All,All
+Studio.Framework.AssetPreview.ByUsername,By @{username},By @{username}
 Studio.Framework.AssetPreview.Resolution,Resolution,Resolution
 Studio.Framework.AssetPreview.Creator,Creator,Creator
-Studio.Framework.Favorites.FlooredCountInThousands,{count:int}k+,{count:int}k+
+Studio.Framework.AssetPreview.Report,Report,Report
 Studio.Framework.AssetPreview.Created,Created,Created
 Studio.Framework.AssetPreview.LastUpdated,Last Updated,Last Updated
-Studio.Framework.AssetPreview.AllGenre,All,All
-Studio.Framework.PageNavigation.FirstPage,First page,First page
 Studio.Framework.AssetPreview.Genre,Genre,Genre
+Studio.Framework.Favorites.FlooredCountInThousands,{count:int}k+,{count:int}k+
+Studio.Framework.PageNavigation.FirstPage,First page,First page
 Studio.Framework.PageNavigation.LastPage,Last page,Last page
 Studio.Framework.PageNavigation.NextPage,Next page,Next page
 Studio.Framework.PageNavigation.PreviousPage,Previous page,Previous page
