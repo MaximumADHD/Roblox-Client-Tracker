@@ -7,7 +7,7 @@ require(script.Parent.defineLuaFlags)
 local main = script.Parent.Parent
 
 local getFFlagEnableAssetImporter = require(main.Src.Flags.getFFlagEnableAssetImporter)
-if not getFFlagEnableAssetImporter() or not game:GetService("StudioService"):HasInternalPermission() then
+if not getFFlagEnableAssetImporter() then
 	return
 end
 
