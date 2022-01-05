@@ -1,7 +1,5 @@
 local Framework = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
-
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
@@ -27,9 +25,9 @@ if THEME_REFACTOR then
 			TextSize = 18,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		},
-		["&ImageOffset"] = FFlagRemoveUILibraryDropdownMenuPt1 and {
+		["&ImageOffset"] = {
 			Offset = Vector2.new(-40, 0),
-		} or nil,
+		},
 	}
 else
 	return function(theme, getColor)
@@ -47,9 +45,9 @@ else
 			},
 		})
 
-		local ImageOffset = FFlagRemoveUILibraryDropdownMenuPt1 and Style.extend(Default, {
+		local ImageOffset = Style.extend(Default, {
 			Offset = Vector2.new(-40, 0),
-		}) or nil
+		})
 
 		return {
 			Default = Default,

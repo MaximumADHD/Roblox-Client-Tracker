@@ -1,6 +1,3 @@
-local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
-
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -30,11 +27,11 @@ if THEME_REFACTOR then
 			TextSize = 22,
 			TextColor = StyleKey.MainText,
 		},
-		["&SubText"] = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and {
+		["&SubText"] = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 16,
 			TextColor = StyleKey.SubText,
-		} or nil,
+		},
 		["&Title"] = {
 			Font = Enum.Font.SourceSans,
 			TextSize = 24,
@@ -67,11 +64,11 @@ else
 			TextColor = theme:GetColor("MainText"),
 		})
 
-		local SubText = (FFlagRemoveUILibraryDetailedDropdown or FFlagRemoveUILibraryTitledFrameRadioButtonSet) and Style.extend(Default, {
+		local SubText = Style.extend(Default, {
 			Font = Enum.Font.SourceSans,
 			TextSize = 16,
 			TextColor = theme:GetColor("SubText"),
-		}) or nil
+		})
 
 		local Title = Style.extend(Default, {
 			Font = Enum.Font.SourceSans,

@@ -3,8 +3,6 @@ local StyleKey = require(Framework.Style.StyleKey)
 local Colors = require(Framework.Style.Colors)
 
 local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 return {
 	[StyleKey.Border] = Color3.fromRGB(182, 182, 182),
@@ -28,7 +26,7 @@ return {
 	[StyleKey.DialogButtonBorder] = Colors.Gray_Light,
 	[StyleKey.DialogButtonHover] = Colors.Blue_Light,
 	[StyleKey.DialogButtonPressed] = Color3.fromRGB(219, 219, 219),
-	[StyleKey.DialogButtonText] = FFlagToolboxRemoveWithThemes and Colors.Black or Colors.White,
+	[StyleKey.DialogButtonText] = Colors.Black,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Color3.fromRGB(153, 218, 255),
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
@@ -63,7 +61,7 @@ return {
 	[StyleKey.SubBackground] = Colors.Gray_Lighter,
 	[StyleKey.SubBackground2] = Colors.Gray_Lightest,
 
-	[StyleKey.RadioButtonDisabledImage] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png" or nil,
+	[StyleKey.RadioButtonDisabledImage] = "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png",
 	[StyleKey.RibbonTab] = Color3.fromRGB(243, 243, 243),
 
 	[StyleKey.ScrollBarBackground] = Color3.fromRGB(238, 238, 238),

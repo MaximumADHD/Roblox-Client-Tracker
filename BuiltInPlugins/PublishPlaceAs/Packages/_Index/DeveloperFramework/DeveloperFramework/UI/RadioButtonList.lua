@@ -14,7 +14,6 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -68,13 +67,13 @@ function RadioButtonList:render()
 		style = theme:getStyle("Framework", self)
 	end
 
-	local textSize = FFlagRemoveUILibraryTitledFrameRadioButtonSet and self.props.TextSize or nil
+	local textSize = self.props.TextSize
 
 	local children = {}
 
 	for index, button in ipairs(buttons) do
 		children[button.Key] = Roact.createElement(RadioButton, {
-			Description = FFlagRemoveUILibraryTitledFrameRadioButtonSet and button.Description or nil,
+			Description = button.Description,
 			Disabled = button.Disabled,
 			Key = button.Key,
 			LayoutOrder = index,

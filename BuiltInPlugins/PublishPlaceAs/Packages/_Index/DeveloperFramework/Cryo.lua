@@ -4,12 +4,7 @@
 local PackageIndex = script.Parent.Parent
 
 local package
-if game:GetFastFlag("PublishPlaceAsDeduplicatePackages") then
-	package = PackageIndex["roblox_cryo"]["cryo"]
-else
-	local OldPackages = PackageIndex.Parent.Parent.OldPackages
-	package = OldPackages.Cryo
-end
+package = PackageIndex["roblox_cryo"]["cryo"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

@@ -159,7 +159,6 @@ function Component:setState(mapState)
 	elseif lifecyclePhase == ComponentLifecyclePhase.Idle then
 		-- Outside of our lifecycle, the state update is safe to make immediately
 		self:__update(nil, newState)
-
 	else
 		local messageTemplate = invalidSetStateMessages.default
 

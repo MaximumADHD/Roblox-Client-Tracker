@@ -1,8 +1,5 @@
 local Framework = script.Parent.Parent.Parent
 
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
-
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
 local Common = require(StudioFrameworkStyles.Common)
 
@@ -18,10 +15,10 @@ if THEME_REFACTOR then
 		TextSize = 24,
 		TextColor = StyleKey.TitlebarText,
 
-		["&Subtitle"] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
+		["&Subtitle"] = {
 			TextColor = StyleKey.SubText,
 			TextSize = 22,
-		} or nil,
+		},
 	}
 else
 	return function(theme, getColor)
@@ -29,14 +26,14 @@ else
 
 		local Default = Style.extend(common.MainText, {
 			Padding = 10,
-			TextSize = FFlagRemoveUILibraryTitledFrameRadioButtonSet and 24 or 22,
+			TextSize = 24,
 			TextColor = theme:GetColor("TitlebarText"),
 		})
 
-		local Subtitle = (FFlagRemoveUILibraryTitledFrameRadioButtonSet or FIntTeamCreateTogglePercentageRollout > 0) and Style.extend(Default, {
+		local Subtitle = Style.extend(Default, {
 			TextColor = theme:GetColor("SubText"),
 			TextSize = 22,
-		}) or nil
+		})
 
 		return {
 			Default = Default,
