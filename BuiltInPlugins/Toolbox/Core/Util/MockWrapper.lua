@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
@@ -69,11 +68,8 @@ local function MockWrapper(props)
 	local focus = ContextServices.Focus.new(Instance.new("ScreenGui"))
 	local pluginContext = ContextServices.Plugin.new(plugin)
 	local settingsContext = SettingsContext.new(settings)
-	local themeContext = makeTheme((not FFlagRemoveUILibraryFromToolbox) and theme:getUILibraryTheme() or nil, getAssetConfigTheme())
+	local themeContext = makeTheme(getAssetConfigTheme())
 	local uiLibraryWrapper
-	if (not FFlagRemoveUILibraryFromToolbox) then
-		uiLibraryWrapper = UILibraryWrapper.new()
-	end
 	local storeContext = ContextServices.Store.new(store)
 	local api = ContextServices.API.new({
 		networking = Networking.mock(),
@@ -82,34 +78,17 @@ local function MockWrapper(props)
 
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 
-	local context
-
-	if FFlagRemoveUILibraryFromToolbox then
-		context = {
-			storeContext,
-			focus,
-			mouse,
-			pluginContext,
-			settingsContext,
-			themeContext,
-			api,
-			assetAnalytics,
-			analytics,
-		}
-	else
-		context = {
-			storeContext,
-			focus,
-			mouse,
-			pluginContext,
-			settingsContext,
-			themeContext,
-			uiLibraryWrapper,
-			api,
-			assetAnalytics,
-			analytics,
-		}
-	end
+	local context = {
+		storeContext,
+		focus,
+		mouse,
+		pluginContext,
+		settingsContext,
+		themeContext,
+		api,
+		assetAnalytics,
+		analytics,
+	}
 
 	return Roact.createElement(ExternalServicesWrapper, {
 		store = store,

@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -24,11 +23,8 @@ if FFlagToolboxRemoveUnusedSuggestionsFeature then
 	return {}
 end
 
-local function renderContent(props, theme)
-
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+local function renderContent(props)
+	local theme = props.Stylizer
 	local text = props.Text or ""
 	local textWidth = Constants.getTextSize(text).x
 
@@ -46,22 +42,13 @@ local function renderContent(props, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	local SuggestionsLabel = Roact.PureComponent:extend("SuggestionsLabel")
+local SuggestionsLabel = Roact.PureComponent:extend("SuggestionsLabel")
 
-	function SuggestionsLabel:render()
-		return renderContent(self.props, nil)
-	end
-
-	SuggestionsLabel = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SuggestionsLabel)
-	return SuggestionsLabel
-else
-	local function SuggestionsLabel(props)
-		return withTheme(function(theme)
-			return renderContent(props, theme)
-		end)
-	end
-	return SuggestionsLabel
+function SuggestionsLabel:render()
+	return renderContent(self.props)
 end
+
+SuggestionsLabel = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SuggestionsLabel)
+return SuggestionsLabel

@@ -25,7 +25,6 @@ function ToolboxTestWrapper:init()
     }
 end
 
-
 function ToolboxTestWrapper:render(props)
     local _theme = self.state.theme
 

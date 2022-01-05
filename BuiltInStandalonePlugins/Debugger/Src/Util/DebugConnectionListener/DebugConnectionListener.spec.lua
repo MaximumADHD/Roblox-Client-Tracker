@@ -14,7 +14,7 @@ local mockPausedState = require(Mocks.PausedState)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
-local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
+local MockBreakpoint = require(Mocks.Breakpoint)
 
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
@@ -59,16 +59,21 @@ return function()
 
 		setupFakeThread(currentMockConnection, 1)
 		
-		local mockMetaBreakpoint = MockMetaBreakpoint.new("TestScript", 1, "ConditionString", 2, "TestLog", true, true, true, true)
+		local mockBreakpoint = MockBreakpoint.new({
+			Script = "TestScriptGuid",
+			Id = 2,
+			MetaBreakpointId = 30,
+		})
+
 		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
-		testPausedState1:SetBreakpointHit(mockMetaBreakpoint)
+		testPausedState1:SetBreakpointHit(mockBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		currentMockConnection.Paused:Fire(testPausedState1, testPausedState1.Reason)
 		local state = mainStore:getState()
-		expect(state.Common.currentBreakpointId).to.equal(2)
+		expect(state.Common.currentBreakpointId).to.equal(30)
 		expect(state.Common.isPaused).to.equal(true)
-		expect(debuggerUIService.openScripts["TestScript"]).to.equal(true)
+		expect(debuggerUIService.openScripts["TestScriptGuid"]).to.equal(true)
 		
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
 		mainListener:destroy()
@@ -84,11 +89,15 @@ return function()
 		setupFakeThread(currentMockConnection, 1)
 		setupFakeThread(currentMockConnection, 2)
 		
-		local mockMetaBreakpoint = MockMetaBreakpoint.new("TestScript2", 1, "ConditionString", 3, "TestLog", true, true, true, true)
+		local mockBreakpoint = MockBreakpoint.new({
+			Script = "TestScriptGuid",
+			Id = 3,
+			MetaBreakpointId = 30,
+		})
 		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
 		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 2, true)
-		testPausedState1:SetBreakpointHit(mockMetaBreakpoint)
-		testPausedState2:SetBreakpointHit(mockMetaBreakpoint)
+		testPausedState1:SetBreakpointHit(mockBreakpoint)
+		testPausedState2:SetBreakpointHit(mockBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		
@@ -96,8 +105,8 @@ return function()
 		currentMockConnection.Paused:Fire(testPausedState2, testPausedState2.Reason)
 		local state = mainStore:getState()
 		expect(state.Common.isPaused).to.equal(true)
-		expect(state.Common.currentBreakpointId).to.equal(3)
-		expect(debuggerUIService.openScripts["TestScript2"]).to.equal(true)
+		expect(state.Common.currentBreakpointId).to.equal(30)
+		expect(debuggerUIService.openScripts["TestScriptGuid"]).to.equal(true)
 		expect(state.Common.currentFrameMap[1][1]).to.be.ok()
 		expect(state.Common.currentFrameMap[1][2]).to.be.ok()
 		expect(state.Common.debuggerConnectionIdToCurrentThreadId[1]).to.equal(2)

@@ -7,8 +7,6 @@
 	UseMask = bool, default to false. The thumbnail will be clipped to a circle and be given a slightly dark background color	
 	ImageLabel.props.* = ..., Any property for ImageLabel is supported
 --]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -82,26 +80,14 @@ function CollaboratorThumbnail:willUnmount()
 end
 
 function CollaboratorThumbnail:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function CollaboratorThumbnail:renderContent(theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 	local useMask = self.props.UseMask or false
 	local isLoadedThumbnail = self.props.IsLoadedThumbnail or false
 
 	local imageProps = Cryo.Dictionary.join(self.props, {
 		UseMask = Cryo.None,
 		IsLoadedThumbnail = Cryo.None,
-		Stylizer = FFlagToolboxRemoveWithThemes and Cryo.None or nil,
+		Stylizer = Cryo.None,
 	})
 
 	return Roact.createElement("ImageLabel", Cryo.Dictionary.join(imageProps, {
@@ -123,10 +109,8 @@ function CollaboratorThumbnail:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	CollaboratorThumbnail = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CollaboratorThumbnail)
-end
+CollaboratorThumbnail = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CollaboratorThumbnail)
 
 return CollaboratorThumbnail

@@ -24,8 +24,6 @@
 		callback onItemClicked(number index) - called when a user clicks on a dropdown item
 		callback closeDropdown - called when the parent component should close dropdown
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -168,26 +166,16 @@ function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key
 end
 
 function DropdownItemsList:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget)
-			return self:renderContent(modalTarget, nil)
-		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget)
-				return self:renderContent(modalTarget, theme)
-			end)
-		end)
-	end
+	return withModal(function(modalTarget)
+		return self:renderContent(modalTarget, nil)
+	end)
 end
 
-function DropdownItemsList:renderContent(modalTarget, theme)
+function DropdownItemsList:renderContent(modalTarget)
 	local props = self.props
 	local state = self.state
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local key = props.key or nil
 
@@ -266,10 +254,8 @@ function DropdownItemsList:renderContent(modalTarget, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	DropdownItemsList = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(DropdownItemsList)
-end
+DropdownItemsList = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(DropdownItemsList)
 
 return DropdownItemsList

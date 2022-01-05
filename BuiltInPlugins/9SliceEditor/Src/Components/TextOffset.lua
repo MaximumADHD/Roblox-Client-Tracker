@@ -60,7 +60,7 @@ function TextOffset:init(props)
 		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[LEFT] -- value in Offset form
-		local numberInput: number = tonumber(textBox.Text)
+		local numberInput: number? = tonumber(textBox.Text)
 
 		if numberInput then -- check that input is a number
 			local newText = math.clamp(numberInput, 0, sliceRect[RIGHT])
@@ -79,7 +79,7 @@ function TextOffset:init(props)
 		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[RIGHT]
-		local numberInput: number = tonumber(textBox.Text)
+		local numberInput: number? = tonumber(textBox.Text)
 
 		if numberInput then
 			local newText = math.clamp(numberInput, 0, pixelDimensions.X - sliceRect[LEFT])
@@ -99,7 +99,7 @@ function TextOffset:init(props)
 		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[TOP]
-		local numberInput: number = tonumber(textBox.Text)
+		local numberInput: number? = tonumber(textBox.Text)
 
 		if numberInput then
 			local newText = math.clamp(numberInput, 0, sliceRect[BOTTOM])
@@ -118,7 +118,7 @@ function TextOffset:init(props)
 		local pixelDimensions = self.props.pixelDimensions
 		local offsetRect = SliceToOffset(sliceRect, pixelDimensions)
 		local offsetValue = offsetRect[BOTTOM]
-		local numberInput: number = tonumber(textBox.Text)
+		local numberInput: number? = tonumber(textBox.Text)
 
 		if numberInput then
 			local newText = math.clamp(numberInput, 0, pixelDimensions.Y - sliceRect[TOP])

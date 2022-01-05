@@ -1,3 +1,7 @@
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
+
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -6,7 +10,10 @@ local Tools = require(Reducers.Tools)
 
 local AddTool = require(Reducers.AddTool)
 local BaseTool = require(Reducers.BaseTool)
-local ConvertPartTool = require(Reducers.ConvertPartTool)
+local ConvertPartTool
+if not convertToolRemoval then
+	ConvertPartTool = require(Reducers.ConvertPartTool)
+end
 local ErodeTool = require(Reducers.ErodeTool)
 local FillTool = require(Reducers.FillTool)
 local FlattenTool = require(Reducers.FlattenTool)
@@ -20,10 +27,7 @@ local ReplaceTool = require(Reducers.ReplaceTool)
 local SmoothTool = require(Reducers.SmoothTool)
 local SubtractTool = require(Reducers.SubtractTool)
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
-local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
-local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
 
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
@@ -40,7 +44,7 @@ local toolReducerTable = {
 	SeaLevelTool = SeaLevelTool,
 	ReplaceTool = ReplaceTool,
 	PaintTool = PaintTool,
-	BaseTool = (FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool,
+	BaseTool = BaseTool,
 }
 
 local Actions = Plugin.Src.Actions
@@ -72,7 +76,7 @@ local MainReducer = function(state, action)
 		-- there's no other paint tools under the paint category
 		PaintTool = PaintTool(state, action),
 		
-		BaseTool = (FFlagTerrainToolsPlaneLockDraggerHandles or FFlagTerrainToolsGlobalState or FFlagTerrainToolsGlobalPlaneLockState) and BaseTool(state, action),
+		BaseTool = BaseTool(state, action),
 	}
 
 	-- ApplyToolAction is used to direct the same action across multiple reducers

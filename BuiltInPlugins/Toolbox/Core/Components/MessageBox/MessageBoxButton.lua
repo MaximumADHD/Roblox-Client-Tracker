@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -60,21 +59,9 @@ function MessageBoxButton:init(props)
 end
 
 function MessageBoxButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function MessageBoxButton:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local index = props.index
 	local text = props.Text
@@ -115,10 +102,8 @@ function MessageBoxButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	MessageBoxButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(MessageBoxButton)
-end
+MessageBoxButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(MessageBoxButton)
 
 return MessageBoxButton

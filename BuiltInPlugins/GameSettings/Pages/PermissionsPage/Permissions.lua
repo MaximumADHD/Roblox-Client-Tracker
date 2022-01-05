@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -16,7 +15,6 @@ local Separator = require(Plugin.Framework).UI.Separator
 local Pane = require(Plugin.Framework).UI.Pane
 local RadioButtonList = require(Plugin.Framework).UI.RadioButtonList
 local TextLabel = require(Plugin.Framework).UI.Decoration.TextLabel
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
 local SearchbarWidget = require(Page.Components.CollaboratorSearchWidget)
@@ -236,7 +234,6 @@ function Permissions:render()
 		local isMonetized = props.IsMonetized
 		local isInitiallyEnabled = props.IsInitiallyEnabled
 
-		local localization = props.Localization
 		local theme = props.Theme:get("Plugin")
 
 		local canUserEditPermissions = self:isLoggedInUserGameOwner()
@@ -254,21 +251,8 @@ function Permissions:render()
 		end
 
 		-- once user changes to public and has monetize enabled the playability button will be disabled
-		local playabilityEnabled
-		if FFlagRemoveUILibraryTitledFrameRadioButtonSet then
-			playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
-		end
-		local playabilityButtons = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
-			{
-				Id = true,
-				Title = localization:getText("General", "PlayabilityPublic"),
-				Description = localization:getText("General", "PlayabilityPublicDesc"),
-			},  {
-				Id = false,
-				Title = localization:getText("General", "PlayabilityPrivate"),
-				Description = localization:getText("General", "PlayabilityPrivateDesc"),
-			},
-		} or {
+		local playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
+		local playabilityButtons = {
 			{
 				Description = localization:getText("General", "PlayabilityPublicDesc"),
 				Disabled = not playabilityEnabled,
@@ -282,20 +266,12 @@ function Permissions:render()
 			},
 		}
 		if not self:isGroupGame() then
-			if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
-				table.insert(playabilityButtons, 1, {
-					Id = "Friends",
-					Title = localization:getText("General", "PlayabilityFriends"),
-					Description = localization:getText("General", "PlayabilityFriendsDesc"),
-				})
-			else
-				table.insert(playabilityButtons, 1, {
+			table.insert(playabilityButtons, 1, {
 					Description = localization:getText("General", "PlayabilityFriendsDesc"),
 					Disabled = not playabilityEnabled,
 					Key = "Friends",
 					Text = localization:getText("General", "PlayabilityFriends"),
-				})
-			end
+			})
 		end
 
 		local teamCreateWarningVisible
@@ -305,39 +281,10 @@ function Permissions:render()
 			teamCreateWarningVisible = (not canUserEditCollaborators) and (not self:isGroupGame())
 		end
 
-		-- once user change to public and have the monetize enabled the plability button will be disabled
-		if not FFlagRemoveUILibraryTitledFrameRadioButtonSet then
-			playabilityEnabled = (self:isLoggedInUserGameOwner() or self:isGroupGame()) and (not isPublic and isInitiallyEnabled or not isMonetized)
-		end
 		local playabilityWarningVisible = not playabilityEnabled
 
 		return {
-			Playability = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(RadioButtonSet, {
-				Title = localization:getText("General", "TitlePlayability"),
-				Description = localization:getText("General", "PlayabilityHeader"),
-				LayoutOrder = 10,
-				Buttons = playabilityButtons,
-				Enabled = playabilityEnabled,
-
-				--Functionality
-				Selected = isFriendsOnly and "Friends" or isActive,
-				SelectionChanged = function(button)
-					if button.Id == "Friends" then
-						isFriendsOnlyChanged(true)
-						isActiveChanged(true, false)
-					else
-						isFriendsOnlyChanged(false)
-						local willShutdown = (function()
-							return isCurrentlyActive and not button.Id
-						end)()
-						isActiveChanged(button.Id, willShutdown)
-					end
-				end,
-
-				Warning = playabilityWarningVisible and localization:getText("AccessPermissions", "PlayabilityWarning"),
-			}),
-
-			PlayabilityWidget = FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(Pane, {
+			PlayabilityWidget = Roact.createElement(Pane, {
 				AutomaticSize = Enum.AutomaticSize.Y,
 				HorizontalAlignment = Enum.HorizontalAlignment.Left,
 				Layout = Enum.FillDirection.Vertical,

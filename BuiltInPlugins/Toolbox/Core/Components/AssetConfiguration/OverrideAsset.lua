@@ -13,8 +13,6 @@
 	Optional Props:
 	LayoutOrder, number, will used by the layouter to override the position.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -124,25 +122,16 @@ function OverrideAsset:didMount()
 end
 
 function OverrideAsset:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function OverrideAsset:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
+
 	local assetConfigTheme = theme.assetConfig
 
 	local LayoutOrder = props.LayoutOrder
@@ -305,10 +294,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	OverrideAsset = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(OverrideAsset)
-end
+OverrideAsset = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(OverrideAsset)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(OverrideAsset)

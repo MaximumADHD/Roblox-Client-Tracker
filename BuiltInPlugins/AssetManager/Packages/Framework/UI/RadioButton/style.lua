@@ -1,5 +1,4 @@
 local Framework = script.Parent.Parent.Parent
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
 
 local StyleKey = require(Framework.Style.StyleKey)
 
@@ -45,7 +44,7 @@ if THEME_REFACTOR then
 					Color = StyleKey.MainBackground,
 				},
 			},
-			[StyleModifier.Indeterminate] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
+			[StyleModifier.Indeterminate] = {
 				BackgroundStyle = {
 					Image = "rbxasset://textures/GameSettings/RadioButton.png",
 					Color = StyleKey.MainBackground,
@@ -57,7 +56,7 @@ if THEME_REFACTOR then
 					Position = UDim2.new(0.5, 0, 0.5, 0),
 					Size = UDim2.new(0.4, 0, 0.4, 0),
 				},
-			} or nil,
+			},
 		},
 	}
 else
@@ -65,10 +64,10 @@ else
 		local common = Common(theme, getColor)
 		local themeName = theme.Name
 
-		local disabledImage = FFlagRemoveUILibraryTitledFrameRadioButtonSet and StyleValue.new("disabledImage", {
+		local disabledImage = StyleValue.new("disabledImage", {
 			Light = "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot.png",
 			Dark = "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png",
-		}) or nil
+		})
 
 		local Default = Style.extend(common.MainText, {
 			Padding = 6,
@@ -99,7 +98,7 @@ else
 						Color = theme:GetColor("MainBackground"),
 					},
 				},
-				[StyleModifier.Indeterminate] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
+				[StyleModifier.Indeterminate] = {
 					BackgroundStyle = {
 						Image = "rbxasset://textures/GameSettings/RadioButton.png",
 						Color = theme:GetColor("MainBackground"),
@@ -111,7 +110,7 @@ else
 						Position = UDim2.new(0.5, 0, 0.5, 0),
 						Size = UDim2.new(0.4, 0, 0.4, 0)
 					},
-				} or nil,
+				},
 			},
 		})
 

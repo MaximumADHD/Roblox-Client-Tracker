@@ -3,13 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package
-if game:GetFastFlag("PublishPlaceAsDeduplicatePackages") then
-	package = PackageIndex["roblox_roact-rodux"]["roact-rodux"]
-else
-	local OldPackages = PackageIndex.Parent.Parent.OldPackages
-	package = OldPackages.RoactRodux
-end
+local package = PackageIndex["roblox_roact-rodux"]["roact-rodux"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

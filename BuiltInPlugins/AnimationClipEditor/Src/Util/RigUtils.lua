@@ -30,6 +30,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagMarkerCurves = require(Plugin.LuaFlags.GetFFlagMarkerCurves)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
+local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 local RigUtils = {}
 
@@ -863,7 +864,7 @@ function RigUtils.getUnusedRigTracks(rig, tracks)
 		return first.Name < second.Name
 	end)
 
-	if GetFFlagRootMotionTrack() then 
+	if GetFFlagRootMotionTrack() then
 		local used = false
 		for _, track in ipairs(tracks) do
 			if rootPart.Name == track.Name then
@@ -872,7 +873,7 @@ function RigUtils.getUnusedRigTracks(rig, tracks)
 			end
 		end
 
-		if not used then 
+		if not used then
 			table.insert(unusedTracks, {
 				Name = rootPart.Name,
 				Instance = "Root",
@@ -1779,10 +1780,10 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			local joint = partsToMotors[part.Name] or boneMap[part.Name]
 			local track = instance.Tracks[part.Name]
 			if track then
-				if GetFFlagChannelAnimations() then
+				if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
 					joint.Transform = KeyframeUtils.getValue(track, tick)
 				else
-					joint.Transform = KeyframeUtils:getValue(track, tick)
+					joint.Transform = KeyframeUtils:getValue_deprecated(track, tick)
 				end
 			else
 				joint.Transform = CFrame.new()
@@ -1794,10 +1795,10 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 			if joint then
 				local track = instance.Tracks[part.Name]
 				if track then
-					if GetFFlagChannelAnimations() then
+					if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
 						joint.Transform = KeyframeUtils.getValue(track, tick)
 					else
-						joint.Transform = KeyframeUtils:getValue(track, tick)
+						joint.Transform = KeyframeUtils:getValue_deprecated(track, tick)
 					end
 				else
 					joint.Transform = CFrame.new()
@@ -1809,10 +1810,10 @@ function RigUtils.stepRigAnimation(rig, instance, tick)
 		if faceControls ~= nil then
 			for trackName, track in pairs(instance.Tracks) do
 				if track.Type == Constants.TRACK_TYPES.Facs and Constants.FacsControlToRegionMap[trackName] ~= nil then
-					if GetFFlagChannelAnimations() then
+					if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
 						faceControls[trackName] = KeyframeUtils.getValue(track, tick)
 					else
-						faceControls[trackName] = KeyframeUtils:getValue(track, tick)
+						faceControls[trackName] = KeyframeUtils:getValue_deprecated(track, tick)
 					end
 				end
 			end

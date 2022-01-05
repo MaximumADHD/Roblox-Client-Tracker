@@ -6,7 +6,6 @@
 		onClose callback, called when the user presses the "cancel" button
 ]]
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -67,20 +66,8 @@ function AssetUpload:init(props)
 end
 
 function AssetUpload:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AssetUpload:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local previewType = AssetConfigUtil.getPreviewType(props.assetTypeEnum, props.instances)
 
@@ -152,10 +139,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetUpload = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetUpload)
-end
+AssetUpload = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetUpload)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetUpload)

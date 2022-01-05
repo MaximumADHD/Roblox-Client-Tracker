@@ -14,8 +14,6 @@
 		Position UDim2, position of the dropdown
 		onAssetTypeSelected callback, returns a Enum.AssetType when a type of asset has been selected
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -75,22 +73,9 @@ function AssetTypeSelector:getFirstSelectableIndex()
 end
 
 function AssetTypeSelector:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AssetTypeSelector:renderContent(theme)
-
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -133,10 +118,8 @@ function AssetTypeSelector:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetTypeSelector = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetTypeSelector)
-end
+AssetTypeSelector = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetTypeSelector)
 
 return AssetTypeSelector

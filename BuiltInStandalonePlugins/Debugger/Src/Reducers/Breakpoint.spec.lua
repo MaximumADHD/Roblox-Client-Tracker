@@ -11,7 +11,7 @@ local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
 local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
-local Breakpoint = require(Models.Breakpoint)
+local MetaBreakpoint = require(Models.MetaBreakpoint)
 
 local function getSize(dict)
 	if not dict then
@@ -55,7 +55,7 @@ return function()
 		it("should Add Breakpoints", function()
 			local uniqueId = 0
 
-			local breakpoint1 = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint1 = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint1))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
@@ -63,7 +63,7 @@ return function()
 
 			-- Add a breakpoint in the same debugger connection
 			uniqueId = uniqueId + 1
-			local breakpoint2 = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint2 = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			state = BreakpointReducer(state, AddBreakpointAction(123, breakpoint2))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
@@ -71,7 +71,7 @@ return function()
 
 			-- Add a breakpoint in a different debugger connection
 			uniqueId = uniqueId + 1
-			local breakpoint3 = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint3 = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			state = BreakpointReducer(state, AddBreakpointAction(321, breakpoint3))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(2)
@@ -86,9 +86,9 @@ return function()
 			local uniqueId = 0
 
 			-- Create two breakpoints with the same id
-			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			uniqueId = uniqueId + 1
-			local breakpointOverride = Breakpoint.mockBreakpoint({id = breakpoint.id}, uniqueId)
+			local breakpointOverride = MetaBreakpoint.mockMetaBreakpoint({id = breakpoint.id}, uniqueId)
 
 			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint))
 
@@ -108,7 +108,7 @@ return function()
 
 		it("should preserve immutability", function()
 			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			local immutabilityPreserved = testImmutability(BreakpointReducer, AddBreakpointAction(321, breakpoint), initialState)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
@@ -119,7 +119,7 @@ return function()
 			local uniqueId = 0
 			
 			-- Add a breakpoint in the debugger connection
-			local breakpoint1 = Breakpoint.mockBreakpoint({}, uniqueId)
+			local breakpoint1 = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			local state = BreakpointReducer(initialState, AddBreakpointAction(123, breakpoint1))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
@@ -127,7 +127,7 @@ return function()
 			expect(state.MetaBreakpoints[uniqueId].lineNumber).to.equal(0)
 
 			-- Modify the breakpoint in the connection
-			local newBreakpoint = Breakpoint.mockBreakpoint({lineNumber = 2500}, uniqueId)
+			local newBreakpoint = MetaBreakpoint.mockMetaBreakpoint({lineNumber = 2500}, uniqueId)
 			state = BreakpointReducer(state, ModifyBreakpointAction(newBreakpoint))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
@@ -137,7 +137,7 @@ return function()
 		end)
 
 		it("should break when modifying breakpoint that doesn't exist", function()
-			local newBreakpoint = Breakpoint.mockBreakpoint({}, 0)
+			local newBreakpoint = MetaBreakpoint.mockMetaBreakpoint({}, 0)
 			expect(function()BreakpointReducer(initialState, ModifyBreakpointAction(newBreakpoint)) end).to.throw()
 		end)
 	end)
@@ -145,9 +145,9 @@ return function()
 	describe(DeleteBreakpointAction.name, function()
 		it("should Delete Breakpoints", function()
 			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
-			local state = BreakpointReducer({MetaBreakpoints = {[0] = breakpoint}, 
-				BreakpointIdsInDebuggerConnection = {[123] = {[0] = 0}}}, DeleteBreakpointAction(0))
+			local metaBreakpoint = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
+			local state = BreakpointReducer({MetaBreakpoints = {[metaBreakpoint.id] = metaBreakpoint},
+				BreakpointIdsInDebuggerConnection = {[123] = {[0] = 0}}}, DeleteBreakpointAction(uniqueId))
 			expect(state).to.be.ok()
 			expect(getSize(state.BreakpointIdsInDebuggerConnection)).to.equal(1)
 			expect(getSize(state.BreakpointIdsInDebuggerConnection[123])).to.equal(0)
@@ -160,9 +160,9 @@ return function()
 		
 		it("should preserve immutability", function()
 			local uniqueId = 0
-			local breakpoint = Breakpoint.mockBreakpoint({}, uniqueId)
+			local metaBreakpoint = MetaBreakpoint.mockMetaBreakpoint({}, uniqueId)
 			local immutabilityPreserved = testImmutability(BreakpointReducer, 
-				DeleteBreakpointAction(uniqueId), {MetaBreakpoints = {[uniqueId] = breakpoint}, BreakpointIdsInDebuggerConnection = {}})
+				DeleteBreakpointAction(uniqueId), {MetaBreakpoints = {[uniqueId] = metaBreakpoint}, BreakpointIdsInDebuggerConnection = {}})
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

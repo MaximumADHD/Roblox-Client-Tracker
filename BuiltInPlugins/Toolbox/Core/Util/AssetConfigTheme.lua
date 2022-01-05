@@ -1,6 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
@@ -10,12 +8,6 @@ else
 	Libs = Plugin.Libs
 end
 local Cryo = require(Libs.Cryo)
-local UILibrary = require(Libs.UILibrary)
-
-local createTheme
-if (not FFlagRemoveUILibraryFromToolbox) then
-	createTheme = UILibrary.createTheme
-end
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
@@ -96,13 +88,6 @@ function AssetConfigTheme:_update(changedValues)
 	self._signal:fire(self.values, self._UILibraryTheme)
 end
 
-if (not FFlagRemoveUILibraryFromToolbox) then
-	function AssetConfigTheme:_updateUILibrary(style, overrides)
-		self._UILibraryTheme = createTheme(style, overrides)
-		self._signal:fire(self.values, self._UILibraryTheme)
-	end
-end
-
 function AssetConfigTheme:_getExternalTheme()
 	local getter = self._externalThemeGetter
 
@@ -119,7 +104,7 @@ function AssetConfigTheme:_isDarkerTheme()
 	if self._externalThemeGetter then
 		darkSide = self._externalThemeGetter().Name == "Dark"
 	end
-	
+
 	return darkSide
 end
 
@@ -148,11 +133,6 @@ function AssetConfigTheme:_recalculateTheme()
 			packagePermissions = {
 				backgroundColor = color(c.MainBackground),
 				subTextColor = color(c.SubText),
-
-				subjectThumbnail = (not FFlagToolboxRemoveWithThemes) and {
-					backgroundColor = color(c.TableItem),
-					defaultImageColor = isDark and Color3.fromRGB(102, 102, 102) or Color3.fromRGB(151, 151, 151)
-				},
 
 				collaboratorItem = {
 					collapseStateArrow = isDark and Color3.fromRGB(204, 204, 204) or Color3.fromRGB(25, 25, 25),
@@ -189,19 +169,6 @@ function AssetConfigTheme:_recalculateTheme()
 			}
 		},
 
-		versions = (not FFlagToolboxRemoveWithThemes) and {
-			thumbnailBorderColor = Color3.fromRGB(117, 117, 117),
-			buttonSelectedColor = Color3.fromRGB(0, 162, 255),
-			buttonDefaultColor = Color3.fromRGB(117, 117, 117),
-			textColor = color(c.MainText),
-		},
-
-		previewArea = (not FFlagToolboxRemoveWithThemes) and {
-			backgroundColor = isDark and Color3.fromRGB(42, 42, 42) or color(c.MainBackground),
-			textColor = color(c.MainText),
-			selectedColor = isDark and Colors.WHITE or Colors.BLUE_PRIMARY,
-		},
-
 		publishAsset = {
 			backgroundColor = isDark and color(c.MainBackground) or Color3.fromRGB(46, 46, 46),
 			titleTextColor = color(c.SubText),
@@ -211,7 +178,6 @@ function AssetConfigTheme:_recalculateTheme()
 
 		divider = {
 			horizontalLineColor =  isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
-			verticalLineColor = (not FFlagToolboxRemoveWithThemes) and (isDark and color(c.Border) or color(c.Titlebar)) or nil
 		},
 
 		dropdownMenu = {
@@ -274,19 +240,6 @@ function AssetConfigTheme:_recalculateTheme()
 			}
 		},
 
-		sideTab = (not FFlagToolboxRemoveWithThemes) and {
-			backgroundColor = color(c.MainBackground),
-			leftBorderColor = isDark and Colors.BLUE_PRIMARY or color(c.Border),
-			tabBackground = color(c.Titlebar),
-			contentColor = color(c.TitlebarText),
-			selecteBarColor = isDark and Color3.fromRGB(11, 90, 175) or Colors.GRAY_1,
-			selecteBarTrans = isDark and 0 or 0.9,
-			selecteBarZindex = isDark and -1 or 0,
-			selecteIndicatorColor = Colors.BLUE_PRIMARY,
-			selecteIndicatorTrans = isDark and 1 or 0,
-			textColor = color(c.MainText),
-		},
-
 		cancelButton = {
 			ButtonColor = color(c.Button),
 			ButtonColor_Hover = color(c.Button, m.Hover),
@@ -305,32 +258,10 @@ function AssetConfigTheme:_recalculateTheme()
 			BorderColor = color(c.Light),
 		},
 
-		thumbnailPreview = (not FFlagToolboxRemoveWithThemes) and {
-			background = color(c.Item),
-			border = color(c.Border),
-			text = color(c.MainText),
-		},
-
-		typeSelection = (not FFlagToolboxRemoveWithThemes) and {
-			background = color(c.TableItem),
-			selector = {
-				title = color(c.MainText),
-				description = color(c.MainText, m.Disabled),
-			},
-			footer = {
-				background = color(c.MainBackground),
-				border = color(c.Border),
-			},
-		},
-
 		loading = {
 			text = color(c.MainText),
 			backgroundBar = color(c.Midlight),
 			bar = color(c.CurrentMarker),
-		},
-
-		typeValidation = (not FFlagToolboxRemoveWithThemes) and {
-			background = color(c.TableItem),
 		},
 
 		uploadResult = {
@@ -341,28 +272,6 @@ function AssetConfigTheme:_recalculateTheme()
 			idText = color(c.DimmedText),
 			background = color(c.TableItem),
 			link = color(c.LinkText),
-		},
-
-		nav = (not FFlagToolboxRemoveWithThemes) and {
-			mainButton = {
-				background = color(c.DialogMainButton),
-				hoverBackground = color(c.DialogMainButton, m.Hover),
-				pressBackground = color(c.DialogMainButton, m.Pressed),
-				borderColor = color(c.Border),
-				textColor = color(c.DialogMainButtonText),
-			},
-			button = {
-				background = color(c.DialogButton),
-				hoverBackground = color(c.DialogButton, m.Hover),
-				pressBackground = color(c.DialogButton, m.Pressed),
-				borderColor = color(c.Border),
-				textColor = color(c.DialogButtonText),
-			},
-		},
-
-		linkButton = (not FFlagToolboxRemoveWithThemes) and {
-			-- Check what to do with the dark theme
-			textColor = Color3.fromRGB(0, 162, 255),
 		},
 
 		inputFields = {
@@ -381,70 +290,6 @@ function AssetConfigTheme:_recalculateTheme()
 			borderColor = color(c.InputFieldBorder),
 		},
 	})
-
-	if (not FFlagRemoveUILibraryFromToolbox) then
-		-- Need more color for the style
-		local styleGuide = {
-			backgroundColor = color(c.InputFieldBackground),
-			textColor = color(c.MainText),
-			subTextColor = color(c.SubText),
-			dimmerTextColor = color(c.DimmedText),
-			disabledColor = color(c.Tab),
-			borderColor = color(c.Border),
-			hoverColor = isDark and color(c.MainButton) or color(c.CurrentMarker),
-			itemColor = color(c.MainBackground),
-
-			-- Dropdown item
-			hoveredItemColor = color(c.Button, m.Hover),
-			hoveredTextColor = color(c.ButtonText, m.Hover),
-
-			-- Dropdown button
-			selectionColor = color(c.Button, m.Selected),
-			selectedTextColor = color(c.ButtonText, m.Selected),
-			selectionBorderColor = color(c.ButtonBorder, m.Selected),
-
-			errorColor = color(c.ErrorText),
-		}
-
-		local overrides = {
-			toggleButton = {
-				defaultWidth = 40,
-				defaultHeight = 24,
-
-				onImage = isDark and Images.TOGGLE_ON_DARK or Images.TOGGLE_ON_LIGHT,
-				offImage = isDark and Images.TOGGLE_OFF_DARK or Images.TOGGLE_OFF_LIGHT,
-				disabledImage = isDark and Images.TOGGLE_DISABLE_DARK or Images.TOGGLE_DISABLE_LIGHT,
-			},
-
-			detailedDropdown = {
-				backgroundColor = color(c.MainBackground),
-				borderColor = color(c.DialogButtonBorder),
-
-				hovered = {
-					backgroundColor = color(c.Item, m.Hover),
-					displayText = color(c.MainText, m.Hover),
-					borderColor = color(c.DialogButtonBorder, m.Hover),
-				},
-
-				selected = {
-					backgroundColor = color(c.Item, m.Selected),
-					displayText = color(c.MainText, m.Selected),
-				}
-			},
-
-			scrollingFrame = {
-				scrollbarColor = isDark and Color3.fromRGB(85, 85, 85) or Color3.fromRGB(245, 245, 245),
-			},
-		}
-
-		self:_updateUILibrary(styleGuide, overrides)
-	end
-end
-
-if (not FFlagRemoveUILibraryFromToolbox) then
-	function AssetConfigTheme:getUILibraryTheme()
-		return self._UILibraryTheme
-	end
 end
 
 return AssetConfigTheme

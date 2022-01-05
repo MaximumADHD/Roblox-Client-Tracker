@@ -13,8 +13,6 @@
 		LayoutOrder, number, will be used by the parent layouter to change this componnet's position.
 		Position, UDim2, you should have a Position or LayoutOrder.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -86,25 +84,15 @@ function ImagePicker:getStatus(localization, localizedContent)
 end
 
 function ImagePicker:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function ImagePicker:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local size = props.Size
 	local position = props.Position
@@ -185,10 +173,8 @@ function ImagePicker:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	ImagePicker = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ImagePicker)
-end
+ImagePicker = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ImagePicker)
 
 return ImagePicker

@@ -2341,7 +2341,7 @@ function planeDrag()
 	if getEngineFeatureDraggerBruteForceAll() then
 		local params = RaycastParams.new()
 		params.BruteForceAllSlow = true
-		local result = workspace:Raycast(ray.Origin, ray.Direction * 800, params)
+		local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
 		if not result then return end
 		if result.Instance:IsA("Terrain") then return end
 		part = result.Instance
@@ -3014,9 +3014,9 @@ function selectPart(instances)
 	if getEngineFeatureDraggerBruteForceAll() then
 		local params = RaycastParams.new()
 		params.BruteForceAllSlow = true
-		local result = game.Worksapce:Raycast(ray.Origin, ray.Direction * 800, params)
+		local result = game:GetService("Workspace"):Raycast(ray.Origin, ray.Direction * 800, params)
 		if result then
-			part = result.Part
+			part = result.Instance
 			location = result.Position
 		end
 	else

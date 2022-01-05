@@ -12,8 +12,6 @@
 	Permissions = table, contains the information about the current shared permissions of the package.
 	PermissionsChanged = function, callback for when a user's role has been changed.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -61,58 +59,31 @@ end
 
 local PackageOwnerWidget = Roact.PureComponent:extend("PackageOwnerWidget")
 
-if FFlagToolboxRemoveWithThemes then
-	function PackageOwnerWidget:init()
-		self.rolePermissionChanged = function(roleId, newPermission)
-			local props = self.props
+function PackageOwnerWidget:init()
+	self.rolePermissionChanged = function(roleId, newPermission)
+		local props = self.props
 
-			local newPermissions = deepJoin(props.Permissions, {
-				[PermissionsConstants.RoleSubjectKey] = {
-					[roleId] = {
-						[PermissionsConstants.ActionKey] = newPermission,
-					}
+		local newPermissions = deepJoin(props.Permissions, {
+			[PermissionsConstants.RoleSubjectKey] = {
+				[roleId] = {
+					[PermissionsConstants.ActionKey] = newPermission,
 				}
-			})
+			}
+		})
 
-			props.PermissionsChanged(newPermissions)
-		end
+		props.PermissionsChanged(newPermissions)
 	end
 end
 
 function PackageOwnerWidget:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(_, localized)
-			return self:renderContent(nil, localized)
-		end)
-	else
-		return withLocalization(function(_, localized)
-			return withTheme(function(theme)
-				return self:renderContent(theme, localized)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localized)
+		return self:renderContent(nil, localized)
+	end)
 end
 
 function PackageOwnerWidget:renderContent(theme, localized)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
-
-	local rolePermissionChanged
-	if (not FFlagToolboxRemoveWithThemes) then
-		rolePermissionChanged = function(roleId, newPermission)
-			local newPermissions = deepJoin(props.Permissions, {
-				[PermissionsConstants.RoleSubjectKey] = {
-					[roleId] = {
-						[PermissionsConstants.ActionKey] = newPermission,
-					}
-				}
-			})
-
-			props.PermissionsChanged(newPermissions)
-		end
-	end
+	theme = props.Stylizer
 
 	local collaboratorItem
 	if props.OwnerType == Enum.CreatorType.User then
@@ -144,7 +115,7 @@ function PackageOwnerWidget:renderContent(theme, localized)
 
 			Items = getGroupOwnerPermissions(props, localized),
 
-			RolePermissionChanged = FFlagToolboxRemoveWithThemes and self.rolePermissionChanged or rolePermissionChanged,
+			RolePermissionChanged = self.rolePermissionChanged,
 
 			Permissions = props.Permissions,
 		})
@@ -176,10 +147,8 @@ function PackageOwnerWidget:renderContent(theme, localized)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	PackageOwnerWidget = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PackageOwnerWidget)
-end
+PackageOwnerWidget = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PackageOwnerWidget)
 
 return PackageOwnerWidget

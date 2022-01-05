@@ -6,13 +6,13 @@ PausedState:
 - allThreadsPaused : boolean
 ]]--
 
-local MetaBreakpoint = require(script.Parent.MetaBreakpoint)
+local Breakpoint = require(script.Parent.Breakpoint)
 
 local PausedState = {}
 PausedState.__index = PausedState
 
-function PausedState:SetBreakpointHit(metaBreakpoint : MetaBreakpoint.MetaBreakpoint)
-	self.Breakpoint = metaBreakpoint
+function PausedState:SetBreakpointHit(breakpoint : Breakpoint.Breakpoint)
+	self.Breakpoint = breakpoint
 end
 
 function PausedState.new(reason : string, threadId : number, allThreadsPaused : boolean)	

@@ -3,7 +3,7 @@ local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
 
 local Plugin = script.Parent.Parent.Parent
-local Promise = game:GetFastFlag("PublishPlaceAsUseFrameworkPromise") and require(Plugin.Packages.Framework).Util.Promise or require(Plugin.Packages.Promise)
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local BAD_REQUEST = 400
 

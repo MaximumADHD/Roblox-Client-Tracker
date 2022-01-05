@@ -1,6 +1,6 @@
 local Src = script.Parent.Parent.Parent
 local Actions = Src.Actions
-local Breakpoint = require(Src.Models.Breakpoint)
+local MetaBreakpoint = require(Src.Models.MetaBreakpoint)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local ModifyBreakpoint = require(Actions.BreakpointsWindow.ModifyBreakpoint)
 local DeleteBreakpoint = require(Actions.BreakpointsWindow.DeleteBreakpoint)
@@ -9,13 +9,13 @@ local BreakpointManagerListener = {}
 BreakpointManagerListener.__index = BreakpointManagerListener
 
 function BreakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint)
-	local convertedBreakpoint = Breakpoint.fromMetaBreakpoint(metaBreakpoint)
+	local convertedBreakpoint = MetaBreakpoint.fromMetaBreakpoint(metaBreakpoint)
 	local state = self.store:getState()
 	self.store:dispatch(AddBreakpoint(state.Common.currentDebuggerConnectionId, convertedBreakpoint))
 end
 
 function BreakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
-	local convertedBreakpoint = Breakpoint.fromMetaBreakpoint(metaBreakpoint)
+	local convertedBreakpoint = MetaBreakpoint.fromMetaBreakpoint(metaBreakpoint)
 	self.store:dispatch(ModifyBreakpoint(convertedBreakpoint))
 end
 

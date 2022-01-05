@@ -19,9 +19,7 @@
 		boolean isPlaying 	// remove with FFlagToolboxAssetGridRefactor2
 		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor2
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
-local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 
@@ -73,7 +71,7 @@ local ShowOnTop = Framework.UI.ShowOnTop
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local disableRatings = (FFlagToolboxPolicyDisableRatings and require(Plugin.Core.Util.ToolboxUtilities).disableRatings) or nil
+local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
 local Category = require(Plugin.Core.Types.Category)
 
@@ -311,24 +309,14 @@ function Asset:didMount()
 end
 
 function Asset:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function Asset:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local isPreviewing
 	local assetData
@@ -392,17 +380,8 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local votingProps = props.voting or {}
 	local showVotes = votingProps.ShowVotes
 	local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-	if FFlagToolboxPolicyDisableRatings then
-		if isCurrentlyCreationsTab or showAudioLength or disableRatings() then
-			showVotes = false
-		end
-	else
-		if isCurrentlyCreationsTab then
-			showVotes = false
-		end
-		if showAudioLength then
-			showVotes = false
-		end
+	if isCurrentlyCreationsTab or showAudioLength or disableRatings() then
+		showVotes = false
 	end
 
 	local showStatus = isCurrentlyCreationsTab
@@ -444,18 +423,9 @@ function Asset:renderContent(theme, localization, localizedContent)
 		durationText = (asset.Duration ~= nil) and getTimeString(asset.Duration, 1) or ""
 	end
 
-	local outlineTransparency
-	local isDarkerTheme
-	local dropShadowSize
-	if FFlagToolboxRemoveWithThemes then
-		isDarkerTheme = true
-		dropShadowSize = theme.asset.dropShadowSize
-		outlineTransparency = outlineTheme.transparency
-	else
-		isDarkerTheme = theme.isDarkerTheme
-		dropShadowSize = Constants.DROP_SHADOW_SIZE
-		outlineTransparency = (isDarkerTheme and 0 or Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY)
-	end
+	local isDarkerTheme = true
+	local dropShadowSize = theme.asset.dropShadowSize
+	local outlineTransparency = outlineTheme.transparency
 
 	local tryCreateLocalizedContextMenu
 	if FFlagToolboxAssetGridRefactor2 then
@@ -565,14 +535,14 @@ function Asset:renderContent(theme, localization, localizedContent)
 					Image = Images.ROBUX_SMALL,
 					Size = Constants.Dialog.ROBUX_SIZE,
 					BackgroundTransparency = 1,
-					ImageColor3 = FFlagToolboxRemoveWithThemes and theme.asset.textColor or theme.asset.status.textColor,
+					ImageColor3 = theme.asset.textColor,
 				}),
 
 				PriceText = not ownsAsset and Roact.createElement("TextLabel", {
 					LayoutOrder = 2,
 					BackgroundTransparency = 1,
 					Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
-					TextColor3 = FFlagToolboxRemoveWithThemes and theme.asset.textColor or theme.asset.status.textColor,
+					TextColor3 = theme.asset.textColor,
 					Font = Constants.FONT,
 					TextSize = Constants.PRICE_FONT_SIZE,
 					TextXAlignment = Enum.TextXAlignment.Left,
@@ -585,7 +555,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 					Image = Images.OWNED_ICON,
 					Size = Constants.Dialog.ROBUX_SIZE,
 					BackgroundTransparency = 1,
-					ImageColor3 = FFlagToolboxRemoveWithThemes and theme.asset.textColor or theme.asset.status.textColor,
+					ImageColor3 = theme.asset.textColor,
 				}),
 			}),
 
@@ -616,7 +586,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				TextXAlignment = Enum.TextXAlignment.Left,
 				Font = Constants.FONT,
 				TextSize = Constants.FONT_SIZE_SMALL,
-				TextColor3 = FFlagToolboxRemoveWithThemes and theme.asset.textColor or theme.asset.status.textColor,
+				TextColor3 = theme.asset.textColor,
 			}),
 
 			Status = isHovered and showStatus and Roact.createElement("TextLabel", {
@@ -624,7 +594,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				LayoutOrder = 5,
 				Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
 				Text = localizedContent.Status[status],
-				TextColor3 = FFlagToolboxRemoveWithThemes and theme.asset.textColor or theme.asset.status.textColor,
+				TextColor3 = theme.asset.textColor,
 				Font = Constants.FONT,
 				TextSize = Constants.STATUS_NAME_FONT_SIZE,
 				TextXAlignment = Enum.TextXAlignment.Center,
@@ -666,7 +636,7 @@ end
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor2 and ContextServices.Plugin or nil,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Asset)
 
 

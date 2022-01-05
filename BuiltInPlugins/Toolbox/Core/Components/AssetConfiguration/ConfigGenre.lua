@@ -4,8 +4,6 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -21,12 +19,10 @@ local Framework = require(Libs.Framework)
 local DropdownMenu = require(Plugin.Core.Components.DropdownMenu)
 
 local Util = Plugin.Core.Util
-local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -35,29 +31,10 @@ local ConfigGenre = Roact.PureComponent:extend("ConfigGenre")
 local DROP_DOWN_WIDTH = 220
 local DROP_DOWN_HEIGHT = 38
 
-if (not FFlagToolboxRemoveWithThemes) then
-	function ConfigGenre:init(props)
-		self.state = {
-		}
-	end
-end
-
 function ConfigGenre:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function ConfigGenre:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local Title = props.Title
 	local LayoutOrder = props.LayoutOrder
@@ -122,10 +99,8 @@ function ConfigGenre:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	ConfigGenre = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ConfigGenre)
-end
+ConfigGenre = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ConfigGenre)
 
 return ConfigGenre

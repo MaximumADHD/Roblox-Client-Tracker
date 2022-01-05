@@ -11,7 +11,6 @@
 ]]
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -96,29 +95,17 @@ function AssetCreatorName:didMount()
 end
 
 function AssetCreatorName:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget, modalStatus)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(nil, localization, localizedContent, modalTarget, modalStatus)
-			end)
+	return withModal(function(modalTarget, modalStatus)
+		return withLocalization(function(localization, localizedContent)
+			return self:renderContent(nil, localization, localizedContent, modalTarget, modalStatus)
 		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget, modalStatus)
-				return withLocalization(function(localization, localizedContent)
-					return self:renderContent(theme, localization, localizedContent, modalTarget, modalStatus)
-				end)
-			end)
-		end)
-	end
+	end)
 end
 
 function AssetCreatorName:renderContent(theme, localization, localizedContent, modalTarget, modalStatus)
 	local props = self.props
 	local showVerifiedCreatorBadge = FFlagToolboxVerifiedCreatorBadges and props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local creatorNameField
 	local layoutOrder = props.LayoutOrder or 0
@@ -223,7 +210,7 @@ end
 
 AssetCreatorName = withContext({
 	Settings = Settings,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(AssetCreatorName)
 
 

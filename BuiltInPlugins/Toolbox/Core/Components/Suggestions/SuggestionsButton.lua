@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -56,21 +55,9 @@ function SuggestionsButton:init(props)
 end
 
 function SuggestionsButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function SuggestionsButton:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 
 	local isHovered = state.isHovered
 
@@ -108,10 +95,8 @@ function SuggestionsButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SuggestionsButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SuggestionsButton)
-end
+SuggestionsButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SuggestionsButton)
 
 return SuggestionsButton

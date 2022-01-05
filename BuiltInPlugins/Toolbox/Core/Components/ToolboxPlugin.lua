@@ -30,7 +30,6 @@ local makeTheme = require(Util.makeTheme)
 
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
-local UILibraryWrapper = ContextServices.UILibraryWrapper
 local FrameworkUtil = require(Libs.Framework).Util
 local getTestVariation = FrameworkUtil.getTestVariation
 
@@ -38,8 +37,6 @@ local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
-local FFlagPluginDockWidgetRaiseFromLua = game:GetFastFlag("PluginDockWidgetRaiseFromLua")
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
@@ -137,16 +134,12 @@ function ToolboxPlugin:didMount()
 		self._showPluginsConnection =
 			self.props.pluginLoaderContext.signals["MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
 			self.dockWidget.Enabled = true
-			if FFlagPluginDockWidgetRaiseFromLua then
-				self.dockWidget:RequestRaise()
-			end
+			self.dockWidget:RequestRaise()
 		end)
 	else
 		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
 			self.dockWidget.Enabled = true
-			if FFlagPluginDockWidgetRaiseFromLua then
-				self.dockWidget:RequestRaise()
-			end
+			self.dockWidget:RequestRaise()
 		end)
 	end
 end
@@ -195,7 +188,6 @@ function ToolboxPlugin:render()
 		}, {
 			Toolbox = pluginGuiLoaded and ContextServices.provide({
 				ContextServices.Focus.new(self.state.pluginGui),
-				(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 			}, {
 				Roact.createElement(ExternalServicesWrapper, {
 					plugin = plugin,
@@ -239,7 +231,6 @@ function ToolboxPlugin:render()
 		}, {
 			Toolbox = pluginGuiLoaded and ContextServices.provide({
 				ContextServices.Focus.new(self.state.pluginGui),
-				(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
 			}, {
 				Roact.createElement(ExternalServicesWrapper, {
 					plugin = plugin,

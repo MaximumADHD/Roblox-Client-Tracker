@@ -25,8 +25,6 @@
 				a table of Roact elements, created using this component's props.
 			bool AddLayout = Whether or not to add a default UIListLayout to the page contents.
 ]]
-local FFlagAddAutoSizingCreateMenuPage = game:DefineFastFlag("AddAutoSizingCreateMenuPage", false)
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -85,7 +83,7 @@ return function(loadValuesToProps, dispatchForProps)
 		local contentHeightChanged = props.ContentHeightChanged
 
 		return Roact.createElement("Frame", {
-			AutomaticSize = FFlagAddAutoSizingCreateMenuPage and Enum.AutomaticSize.Y or nil,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 			LayoutOrder = layoutOrder,

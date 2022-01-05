@@ -22,7 +22,9 @@ return function(plugin, pluginLoaderContext)
 
 	local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 	local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
-	local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
+	local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+	local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+	local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
 
 	-- Libraries
 	local Framework = require(Plugin.Packages.Framework)
@@ -60,7 +62,10 @@ return function(plugin, pluginLoaderContext)
 	local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 	local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 	local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
-	local PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
+	local PartConverter
+	if not convertToolRemoval then
+		PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
+	end
 
 	local ImageUploader = require(Plugin.Src.Util.ImageUploader)
 	local ImageLoader = require(Plugin.Src.Util.ImageLoader)
@@ -85,7 +90,7 @@ return function(plugin, pluginLoaderContext)
 		})
 		local localizationItem = ContextItems.UILibraryLocalization.new(localization)
 
-		local pluginActions = FFlagTerrainToolsEditPlaneLock and {
+		local pluginActions = {
 			EditPlane = {
 				allowBinding = false,
 				defaultShortcut = "ctrl+shift+space",
@@ -94,11 +99,8 @@ return function(plugin, pluginLoaderContext)
 				text = localization:getText("EditPlaneAction", "Text"),
 			}
 		}
-
-		local pluginActionsController
-		if FFlagTerrainToolsEditPlaneLock then
-			pluginActionsController = PluginActionsController.new(plugin, pluginActions)
-		end
+	
+		local pluginActionsController = PluginActionsController.new(plugin, pluginActions)
 
 		local networking
 		local imageUploader

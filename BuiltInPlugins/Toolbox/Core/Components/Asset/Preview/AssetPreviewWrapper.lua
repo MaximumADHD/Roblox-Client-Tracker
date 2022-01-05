@@ -77,16 +77,12 @@ local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
 local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
-local FFlagToolboxDeleteUILibraryAssetPreviewTheme = game:GetFastFlag("ToolboxDeleteUILibraryAssetPreviewTheme")
-local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
-local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
-local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
-local disableRatings = (FFlagToolboxPolicyDisableRatings and require(Plugin.Core.Util.ToolboxUtilities).disableRatings) or nil
+local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
 
 local getReportUrl
 if FFlagToolboxRedirectToLibraryAbuseReport then
@@ -477,9 +473,7 @@ function AssetPreviewWrapper:init(props)
 			local asset = assetData.Asset
 			local assetTypeId = asset.TypeId
 			local targetUrl = getReportUrl(assetId, assetTypeId)
-			if FFlagToolboxTrackReportAction then
-				Analytics.reportAssetClicked(assetId, assetTypeId)
-			end
+			Analytics.reportAssetClicked(assetId, assetTypeId)
 			GuiService:OpenBrowserWindow(targetUrl)
 		end
 	end
@@ -514,21 +508,11 @@ function AssetPreviewWrapper:didMount()
 end
 
 function AssetPreviewWrapper:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(nil, modalTarget, localizedContent)
-			end)
+	return withModal(function(modalTarget)
+		return withLocalization(function(_, localizedContent)
+			return self:renderContent(nil, modalTarget, localizedContent)
 		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget)
-				return withLocalization(function(_, localizedContent)
-					return self:renderContent(theme, modalTarget, localizedContent)
-				end)
-			end)
-		end)
-	end
+	end)
 end
 
 function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
@@ -544,12 +528,6 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 
 	local previewModel = props.previewModel
 
-	local popUpTheme
-	if not FFlagToolboxRemoveWithThemes and not FFlagToolboxDeleteUILibraryAssetPreviewTheme then
-		-- TODO: Remove popUpTheme when enabling FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme
-		popUpTheme = theme.assetPreview.popUpWrapperButton
-	end
-
 	local actionEnabled = not purchaseFlow.InstallDisabled and not self.state.showInstallationBar
 
 	local tryCreateLocalizedContextMenu
@@ -560,20 +538,16 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 	end
 
 	local favorites
-	if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites and disableRatings() then
+	local voting
+	if disableRatings() then
 		favorites = nil
+		voting = nil
 	else
 		favorites = {
 			OnClick = self.onFavoritedActivated,
 			Count = tonumber(self.props.favoriteCounts),
 			IsFavorited = self.props.favorited
 		}
-	end
-
-	local voting
-	if FFlagToolboxPolicyDisableRatings and disableRatings() then
-		voting = nil
-	else
 		voting = (purchaseFlow.HasRating and self.props.voting)
 	end
 
@@ -604,6 +578,8 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		OnClickReport = FFlagToolboxRedirectToLibraryAbuseReport and self.onClickReport or nil,
 
 		RenderFooter = FFlagToolboxPluginPreviewFooter and self.renderFooter or nil,
+
+		CanFlagAsset = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId()) or nil,
 	})
 
 	return modalTarget and Roact.createElement(Roact.Portal, {
@@ -615,8 +591,8 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		ScreenClickDetector = Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 
-			BackgroundTransparency = (FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme) and DETECTOR_BACKGROUND_TRANSPARENCY or popUpTheme.detectorBGTrans,
-			BackgroundColor3 = (FFlagToolboxRemoveWithThemes or FFlagToolboxDeleteUILibraryAssetPreviewTheme) and DETECTOR_BACKGROUND_COLOR or popUpTheme.detectorBackground,
+			BackgroundTransparency = DETECTOR_BACKGROUND_TRANSPARENCY,
+			BackgroundColor3 = DETECTOR_BACKGROUND_COLOR,
 			ZIndex = 1,
 			AutoButtonColor = false,
 
@@ -747,7 +723,7 @@ AssetPreviewWrapper = withContext({
 	Settings = Settings,
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor2 and ContextServices.Plugin or nil,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(AssetPreviewWrapper)
 
 

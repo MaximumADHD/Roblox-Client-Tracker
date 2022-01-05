@@ -29,7 +29,7 @@ return function()
         ignoreParts = true,
         planeLock = false,
         fixedPlane = false,
-        snapToGrid = false,
+        snapToVoxels = false,
         heightPicker = false,
 
 		source = Enum.Material.Grass,

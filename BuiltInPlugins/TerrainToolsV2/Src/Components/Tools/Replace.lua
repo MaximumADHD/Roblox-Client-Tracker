@@ -1,10 +1,7 @@
 --[[
 	Displays panels associated with The Replace tool
 ]]
-
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
-local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -33,7 +30,7 @@ local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
-local SetSnapToGrid = require(Actions.SetSnapToGrid)
+local SetSnapToVoxels = require(Actions.SetSnapToVoxels)
 
 local ToolParts = script.Parent.ToolParts
 local ButtonGroup = require(ToolParts.ButtonGroup)
@@ -50,7 +47,7 @@ local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ReplaceMode = TerrainEnums.ReplaceMode
 
 local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "ReplaceTool"
-local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
+local PLANE_REDUCER_KEY = "BaseTool"
 
 local Replace = Roact.PureComponent:extend(script.Name)
 
@@ -122,7 +119,7 @@ function Replace:render()
 	local planeLock = self.props.planeLock
 	local planeCFrame = self.props.planeCFrame
 	local editPlaneMode = self.props.editPlaneMode
-	local snapToGrid = self.props.snapToGrid
+	local snapToVoxels = self.props.snapToVoxels
 	local strength = self.props.strength
 	local source = self.props.Source
 	local target = self.props.Target
@@ -164,7 +161,7 @@ function Replace:render()
 				planeLock = planeLock,
 				planeCFrame = planeCFrame,
 				editPlaneMode = editPlaneMode,
-				snapToGrid = snapToGrid,
+				snapToVoxels = snapToVoxels,
 				strength = strength,
 				source = source,
 				target = target,
@@ -179,7 +176,7 @@ function Replace:render()
 				dispatchChangePivot = self.props.dispatchChangePivot,
 				dispatchSetPlaneCFrame = self.props.dispatchSetPlaneCFrame,
 				dispatchSetPlaneLock = self.setPlaneLock,
-				dispatchSetSnapToGrid = self.props.dispatchSetSnapToGrid,
+				dispatchSetSnapToVoxels = self.props.dispatchSetSnapToVoxels,
 				dispatchSetSourceMaterial = self.props.dispatchSetSourceMaterial,
 				dispatchSetTargetMaterial = self.props.dispatchSetTargetMaterial,
 				disablePlaneLock = self.props.Source == Enum.Material.Air,
@@ -288,13 +285,8 @@ local function mapDispatchToProps(dispatch)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
 
-	local dispatchToBase
-	if FFlagTerrainToolsGlobalPlaneLockState then
-		function dispatchToBase(action)
-			dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
-		end
-	else
-		dispatchToBase = dispatchToReplace
+	local dispatchToBase = function(action)
+		dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
 	end
 	return {
 		dispatchChangePosition = function(position)
@@ -342,8 +334,8 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetPlaneLock = function(planeLock)
 			dispatchToBase(SetPlaneLock(planeLock))
 		end,
-		dispatchSetSnapToGrid = function(snapToGrid)
-			dispatchToBase(SetSnapToGrid(snapToGrid))
+		dispatchSetSnapToVoxels = function(snapToVoxels)
+			dispatchToBase(SetSnapToVoxels(snapToVoxels))
 		end,
 	}
 end

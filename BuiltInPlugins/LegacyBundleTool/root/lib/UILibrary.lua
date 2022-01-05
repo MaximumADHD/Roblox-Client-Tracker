@@ -2,15 +2,10 @@
 	Public interface for UILibrary
 ]]
 
-local FFlagStudioDeleteUILibraryAssetPreview = game:GetFastFlag("StudioDeleteUILibraryAssetPreview")
-
 local Src = script._internal
 local Components = Src.Components
 local Utils = Src.Utils
 
-local ActionBar = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.ActionBar) or nil
-local AssetDescription = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.AssetDescription) or nil
-local AssetPreview = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.AssetPreview) or nil
 local BulletPoint = require(Components.BulletPoint)
 local Button = require(Components.Button)
 local CheckBox = require(Components.CheckBox)
@@ -20,14 +15,9 @@ local DragTarget = require(Components.DragTarget)
 local DropdownMenu = require(Components.DropdownMenu)
 local DropShadow = require(Components.DropShadow)
 local ExpandableList = require(Components.ExpandableList)
-local Favorites = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.Favorites) or nil
-local ImagePreview = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.ImagePreview) or nil
-local AudioPreview = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.AudioPreview) or nil
 local InfiniteScrollingFrame = require(Components.InfiniteScrollingFrame)
 local LoadingBar = require(Components.LoadingBar)
 local LoadingIndicator = require(Components.LoadingIndicator)
-local ModelPreview = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.ModelPreview) or nil
-local PreviewController = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.PreviewController) or nil
 local RadioButtons = require(Components.RadioButtons)
 local RoundFrame = require(Components.RoundFrame)
 local RoundTextBox = require(Components.RoundTextBox)
@@ -39,14 +29,10 @@ local StyledDropdown = require(Components.StyledDropdown)
 local StyledScrollingFrame = require(Components.StyledScrollingFrame)
 local StyledTooltip = require(Components.StyledTooltip)
 local TextEntry = require(Components.TextEntry)
-local ThumbnailIconPreview = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.ThumbnailIconPreview) or nil
 local TitledFrame = require(Components.TitledFrame)
 local Tooltip = require(Components.Tooltip)
 local ToggleButton = require(Components.ToggleButton)
 local TreeView = require(Components.TreeView)
-local TreeViewButton = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.TreeViewButton) or nil
-local TreeViewItem = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.InstanceTreeViewItem) or nil
-local Vote = not FFlagStudioDeleteUILibraryAssetPreview and require(Components.Preview.Vote) or nil
 
 local Spritesheet = require(Utils.Spritesheet)
 local LayoutOrderIterator = require(Utils.LayoutOrderIterator)
@@ -104,19 +90,6 @@ local UILibrary = createStrictTable({
 		Tooltip = Tooltip,
 		ToggleButton = ToggleButton,
 		TreeView = TreeView,
-
-		AssetPreview = not FFlagStudioDeleteUILibraryAssetPreview and AssetPreview or nil,
-		ActionBar = not FFlagStudioDeleteUILibraryAssetPreview and ActionBar or nil,
-		AssetDescription = not FFlagStudioDeleteUILibraryAssetPreview and AssetDescription or nil,
-		Favorites = not FFlagStudioDeleteUILibraryAssetPreview and Favorites or nil,
-		ImagePreview = not FFlagStudioDeleteUILibraryAssetPreview and ImagePreview or nil,
-		AudioPreview = not FFlagStudioDeleteUILibraryAssetPreview and AudioPreview or nil,
-		ModelPreview = not FFlagStudioDeleteUILibraryAssetPreview and ModelPreview or nil,
-		PreviewController = not FFlagStudioDeleteUILibraryAssetPreview and PreviewController or nil,
-		ThumbnailIconPreview = not FFlagStudioDeleteUILibraryAssetPreview and ThumbnailIconPreview or nil,
-		TreeViewButton = not FFlagStudioDeleteUILibraryAssetPreview and TreeViewButton or nil,
-		TreeViewItem = not FFlagStudioDeleteUILibraryAssetPreview and TreeViewItem or nil,
-		Vote = not FFlagStudioDeleteUILibraryAssetPreview and Vote or nil,
 	}),
 
 	Studio = createStrictTable({

@@ -217,7 +217,10 @@ DisplayTable = withContext({
 DisplayTable = RoactRodux.connect(
 	function(state, props)
 		local common = state.Common
-		if common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] == nil then
+		if common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] == nil or 
+			common.currentFrameMap[common.currentDebuggerConnectionId] == nil or 
+			common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil
+		then
 			return {
 				SelectedTab = nil,
 				RootItems = {},

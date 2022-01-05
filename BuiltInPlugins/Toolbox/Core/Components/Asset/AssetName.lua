@@ -8,7 +8,6 @@
 		callback onMouseEnter()
 		callback onMouseLeave()
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -57,24 +56,14 @@ function AssetName:init(props)
 end
 
 function AssetName:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget, modalStatus)
-			return self:renderContent(nil, modalTarget, modalStatus)
-		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget, modalStatus)
-				return self:renderContent(theme, modalTarget, modalStatus)
-			end)
-		end)
-	end
+	return withModal(function(modalTarget, modalStatus)
+		return self:renderContent(nil, modalTarget, modalStatus)
+	end)
 end
 
 function AssetName:renderContent(theme, modalTarget, modalStatus)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local assetId = props.assetId
 	local assetName = props.assetName
@@ -111,10 +100,8 @@ function AssetName:renderContent(theme, modalTarget, modalStatus)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetName = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetName)
-end
+AssetName = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetName)
 
 return AssetName

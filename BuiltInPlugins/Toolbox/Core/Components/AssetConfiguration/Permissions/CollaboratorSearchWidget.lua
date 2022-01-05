@@ -11,7 +11,6 @@
 		Permissions = table, containing permission information (Revoked, UseView, Edit)
 		PermissionsChanged = function, callback function that is called when a new user is added.		
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxCollaboratorSearchUseFind = game:GetFastFlag("ToolboxCollaboratorSearchUseFind")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -147,25 +146,15 @@ end
 local CollaboratorSearchWidget = Roact.PureComponent:extend("CollaboratorSearchWidget")
 
 function CollaboratorSearchWidget:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localized)
-			return self:renderContent(nil, localization, localized)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localized)
-				return self:renderContent(theme, localization, localized)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localized)
+		return self:renderContent(nil, localization, localized)
+	end)
 end
 
 function CollaboratorSearchWidget:renderContent(theme, localization, localized)
 	local props = self.props
 	local searchData = props.SearchData
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local searchTerm = searchData.SearchText
 
@@ -282,10 +271,8 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	CollaboratorSearchWidget = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CollaboratorSearchWidget)
-end
+CollaboratorSearchWidget = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CollaboratorSearchWidget)
 
 return RoactRodux.connect(mapStateToProps)(CollaboratorSearchWidget)

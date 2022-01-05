@@ -4,6 +4,8 @@
 ]]
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+
 
 local StudioService = game:GetService("StudioService")
 
@@ -34,13 +36,36 @@ local SetScreen = require(Plugin.Src.Actions.SetScreen)
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
+local LoadGameConfiguration = require(Plugin.Src.Thunks.LoadGameConfiguration)
 
 local Footer = require(Plugin.Src.Components.Footer)
 local TilePlace = require(Plugin.Src.Components.TilePlace)
 
+local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
+local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
+
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
+
+function shouldShowNextPublishManagemnt(optInRegions, isPublish)
+	if not FFlagPlacePublishManagementUI or not isPublish then
+		return false
+	end
+
+	-- global game
+	if not shouldShowDevPublishLocations() then
+		return true
+	end
+
+	-- china optin game
+	if getIsOptInChina(optInRegions) == true then
+		return true
+	end
+
+	-- china game but non-optin
+	return false
+end
 
 function ScreenChoosePlace:init()
 	self.state = {
@@ -78,6 +103,7 @@ function ScreenChoosePlace:render()
 	local localization = props.Localization
 
 	local onClose = props.OnClose
+	local isPublish = FFlagPlacePublishManagementUI and props.IsPublish or nil
 
 	local nextPageCursor = props.NextPageCursor
 	local places = props.Places
@@ -88,6 +114,7 @@ function ScreenChoosePlace:render()
 	local dispatchLoadExistingPlaces = props.DispatchLoadExistingPlaces
 	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 	local openChooseGamePage = props.OpenChooseGamePage
+	local OpenPublishManagement =  FFlagPlacePublishManagementUI and props.OpenPublishManagement or nil
 
 	local newPlaceSelected = false
 	if self.state.selectedPlace ~= nil then
@@ -144,8 +171,8 @@ function ScreenChoosePlace:render()
 		})
 	end
 
-
-	local footerMainButtonName = newPlaceSelected and "Create" or "Overwrite"
+	local showNextPublishManagemnt = FFlagPlacePublishManagementUI and shouldShowNextPublishManagemnt(props.OptInRegions, isPublish) and not newPlaceSelected
+	local footerMainButtonName = newPlaceSelected and "Create" or (showNextPublishManagemnt and "Next" or "Overwrite")
 
 	local TILE_HEIGHT = 80
 
@@ -310,8 +337,14 @@ function ScreenChoosePlace:render()
 					if teamCreateToggleEnabled then
 						StudioService:setTurnOnTeamCreateOnPublish(false)
 					end
-					StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
-					dispatchSetIsPublishing(true)
+					if FFlagPlacePublishManagementUI and showNextPublishManagemnt then
+						-- open place publish screen
+						OpenPublishManagement(self.state.selectedPlace, self.props.ParentGame)
+					else
+						-- groupId is unused
+						StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
+						dispatchSetIsPublishing(true)
+					end
 				end,
 			},
 			OnClose = onClose,
@@ -319,7 +352,6 @@ function ScreenChoosePlace:render()
 		}),
 	})
 end
-
 
 ScreenChoosePlace = withContext({
 	Theme = ContextServices.Theme,
@@ -330,20 +362,23 @@ ScreenChoosePlace = withContext({
 local function mapStateToProps(state, props)
 	local placeInfo = state.ExistingGame.placeInfo
 	local selectedGame = state.ExistingGame.selectedGame
+	local gameConfiguration = state.ExistingGame.gameConfiguration
 	if FFlagFixPublishAsWhenQueryFails then
 		return {
 			NextPageCursor = placeInfo.nextPageCursor,
 			Places = placeInfo.places,
 			ParentGame = FFlagFixPublishAsWhenQueryFails and selectedGame or placeInfo.parentGame,
 			IsPublishing = state.PublishedPlace.isPublishing,
-			PlacesQueryState = placeInfo.queryState
+			PlacesQueryState = placeInfo.queryState,
+			OptInRegions = FFlagPlacePublishManagementUI and gameConfiguration.optInRegions or nil,
 		}
 	else
 		return {
 			NextPageCursor = placeInfo.nextPageCursor,
 			Places = placeInfo.places,
 			ParentGame = placeInfo.parentGame,
-			IsPublishing = state.PublishedPlace.isPublishing
+			IsPublishing = state.PublishedPlace.isPublishing,
+			OptInRegions = FFlagPlacePublishManagementUI and gameConfiguration.optInRegions or nil,
 		}
 	end
 end
@@ -370,6 +405,11 @@ local function useDispatchForProps(dispatch)
 		end,
 		ClearPlaces = function()
 			dispatch(SetPlaceInfo({ places = {} }))
+		end,
+		OpenPublishManagement = function(place, universe)
+			dispatch(SetPlaceInfo({ places = {}, parentGame = universe }))
+			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = universe.name, parentGameId = universe.universeId}))
+			dispatch(SetScreen(Constants.SCREENS.PUBLISH_MANAGEMENT))
 		end,
 	}
 end

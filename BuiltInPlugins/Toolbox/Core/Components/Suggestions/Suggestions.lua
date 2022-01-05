@@ -10,7 +10,6 @@
 
 		callback onSuggestionSelected(number index)
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxRemoveUnusedSuggestionsFeature = game:GetFastFlag("ToolboxRemoveUnusedSuggestionsFeature")
 if FFlagToolboxRemoveUnusedSuggestionsFeature then
 	return {}
@@ -54,20 +53,10 @@ local function renderContent(props, theme)
 	}, rows)
 end
 
-if FFlagToolboxRemoveWithThemes then
-	local Suggestions = Roact.PureComponent:extend("Suggestions")
+local Suggestions = Roact.PureComponent:extend("Suggestions")
 
-	function Suggestions:render()
-		return renderContent(self.props, nil)
-	end
-
-	return Suggestions
-else
-	local function Suggestions(props)
-		return withTheme(function(theme)
-			return renderContent(props, theme)
-		end)
-	end
-
-	return Suggestions
+function Suggestions:render()
+	return renderContent(self.props, nil)
 end
+
+return Suggestions

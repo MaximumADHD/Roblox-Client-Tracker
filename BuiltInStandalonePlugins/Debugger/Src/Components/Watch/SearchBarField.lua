@@ -18,6 +18,7 @@ function SearchBarField:render()
 		ShowSearchIcon = true,
 		ShowSearchButton = false,
 		OnTextChanged = props.onFilterTextChanged,
+		OnSearchRequested = props.onSearchRequested,
 		LayoutOrder = props.LayoutOrder,
 		Size = props.Size,
 	})
@@ -29,6 +30,9 @@ SearchBarField = RoactRodux.connect(
 	function(dispatch)
 		return {
 			onFilterTextChanged = function(filterString)
+				return dispatch(FilterWatchDataThunk(filterString))
+			end,
+			onSearchRequested = function(filterString)
 				return dispatch(FilterWatchDataThunk(filterString))
 			end,
 		}

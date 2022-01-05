@@ -6,7 +6,7 @@ local Components = Plugin.Src.Components
 local BreakpointsTable = require(Components.Breakpoints.BreakpointsTable)
 --local AddBreakpoint = require(Plugin.Src.Actions.BreakpointsWindow.AddBreakpoint)
 --local Models = Plugin.Src.Models
---local BreakpointModel = require(Models.Breakpoint)
+--local MetaBreakpointModel = require(Models.MetaBreakpoint)
 
 local mockContext = require(Plugin.Src.Util.mockContext)
 
@@ -42,7 +42,7 @@ return function()
 		
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
 		for i, uniqueId in ipairs({8, 10, 9}) do
-			store:dispatch(AddBreakpoint(123, BreakpointModel.mockBreakpoint({}, uniqueId)))
+			store:dispatch(AddBreakpoint(123, MetaBreakpointModel.mockMetaBreakpoint(({}, uniqueId)))
 		end
 		store:flush()
 
@@ -77,7 +77,7 @@ return function()
 		
 		--uniqueID is used as the lineNumber in the mock breakpoints, which is how the breakpoints are sorted
 		for i, uniqueId in ipairs({8, 10, 9}) do
-			initialBreakpointData = Cryo.Dictionary.join(initialBreakpointData, {[uniqueId] = BreakpointModel.mockBreakpoint({}, uniqueId)})
+			initialBreakpointData = Cryo.Dictionary.join(initialBreakpointData, {[uniqueId] = MetaBreakpointModel.mockMetaBreakpoint(({}, uniqueId)})
 		end
 		local breakpointsTableElement = createBreakpointsTable(
 			{Breakpoint = 

@@ -30,7 +30,6 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
-local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 local FStringTeamCreateLearnMoreLink = game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/en-us/articles/Team-Create")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
 
@@ -48,11 +47,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
-local StyledDropDown = UILibrary.Component.StyledDropdown
 local Separator = UILibrary.Component.Separator
 local PartialHyperlink = UILibrary.Studio.PartialHyperlink
-
-local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
@@ -95,7 +91,6 @@ local Tooltip = Framework.UI.Tooltip
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
 local function PaddedTextLabel(props)
-	assert(FFlagRemoveUILibraryStyledDropdownPt1)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
 		LayoutOrder = props.LayoutOrder,
@@ -224,21 +219,7 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			DEPRECATED_Selector = not FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(StyledDropDown, {
-				ButtonText = creatorItem.Text,
-				ItemHeight = 38,
-				Items = dropdownItems,
-				ListWidth = 330,
-				MaxItems = 4,
-				OnItemClicked = function(item) creatorChanged(item.Key) end,
-				Position = UDim2.new(0, 0, 0, 0),
-				SelectedItem = creatorItem.Key,
-				ShowRibbon = not theme.isDarkerTheme,
-				Size = UDim2.new(0, theme.DROPDOWN_WIDTH, 0, theme.DROPDOWN_HEIGHT),
-				TextSize = Constants.TEXT_SIZE,
-			}),
-
-			Selector = FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(SelectInput, {
+			Selector = Roact.createElement(SelectInput, {
 				Items = dropdownItems,
 				OnItemActivated = function(item)
 					creatorChanged(item.Key)
@@ -284,21 +265,7 @@ local function displayContents(parent)
 			ZIndex = 2,
 			LayoutOrder = layoutOrder:getNextOrder(),
 		}, {
-			DEPRECATED_Selector = not FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(StyledDropDown, {
-				ButtonText = localization:getText("Genre", genre),
-				ItemHeight = 38,
-				Items = genres,
-				ListWidth = 210,
-				MaxItems = 4,
-				OnItemClicked = function(item) genreChanged(item.Key) end,
-				Position = UDim2.new(0, 0, 0, 0),
-				SelectedItem = genre,
-				ShowRibbon = not theme.isDarkerTheme,
-				Size = UDim2.new(0, 220, 0, 38),
-				TextSize = Constants.TEXT_SIZE,
-			}),
-
-			Selector = FFlagRemoveUILibraryStyledDropdownPt1 and Roact.createElement(SelectInput, {
+			Selector = Roact.createElement(SelectInput, {
 				Items = genres,
 				OnItemActivated = function(item)
 					genreChanged(item.Key)
@@ -348,11 +315,11 @@ local function displayContents(parent)
 				devicesChanged(newDevices)
 			end,
         }),
-        
+
         Separator3 = teamCreateToggleEnabled and Roact.createElement(Separator, {
             LayoutOrder = layoutOrder:getNextOrder(),
         }) or nil,
-        
+
         EnableTeamCreate = teamCreateToggleEnabled and Roact.createElement(ToggleButtonWithTitle, {
             Title = localization:getText("TeamCreate", "Title"),
             LayoutOrder = layoutOrder:getNextOrder(),

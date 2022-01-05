@@ -21,6 +21,9 @@ if not FFlagEnableUserInputPlaybackPlugin then
 end
 
 local main = script.Parent.Parent
+local Common = main.Common
+local commonInit = require(Common.commonInit)
+commonInit()
 
 local DebugFlags = require(main.Src.Util.DebugFlags)
 if DebugFlags.RunningUnderCLI() then
@@ -30,12 +33,20 @@ end
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local StudioDeviceEmulatorService = game:GetService("StudioDeviceEmulatorService")
 local HttpService = game:GetService("HttpService")
+local CoreGui = game:GetService("CoreGui")
 
 local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 local DMBridge = require(main.Src.Util.DMBridge)
+local InputVisualizer = require(main.Src.Components.InputVisualizer)
 local Types = require(main.Src.Types)
 local Enums = require(main.Src.Util.Enums)
 local Cryo = require(main.Packages.Cryo)
+local Roact = require(main.Packages.Roact)
+
+local Framework = require(main.Packages.Framework)
+local ContextServices = Framework.ContextServices
+local Plugin = ContextServices.Plugin
+local MakeTheme = require(main.Src.Resources.MakeTheme)
 
 DMBridge.setPluginObject(plugin)
 
@@ -106,11 +117,38 @@ local function disconnectStopPlaybackConnection()
 	end
 end
 
+local roactHandle
+local function setupInputVisualizer()
+	local inputVisualizer = ContextServices.provide({
+		Plugin.new(plugin),
+		MakeTheme(),
+	}, {
+		InputVisualizer = Roact.createElement("ScreenGui", {
+			DisplayOrder = 1000, -- Render on top of Core Gui menus
+			Enabled = true,
+		}, {
+			InputVisualizer = Roact.createElement(InputVisualizer)
+		}),
+	})
+
+	assert(roactHandle == nil)
+	roactHandle = Roact.mount(inputVisualizer, CoreGui)
+end
+
+local function teardownInputVisualizer()
+	if roactHandle then
+		Roact.unmount(roactHandle)
+		roactHandle = nil
+	end
+end
+
 local function onPlaybackEnded()
 	assert(plugin.HostDataModelType == Enum.StudioDataModelType.PlayClient, "Correct datamodel game state type")
 	disconnectStopPlaybackConnection()
 	assert(DMBridge.getPluginState() == Enums.PluginState.Playing)
 	DMBridge.setPluginState(Enums.PluginState.Default)
+
+	teardownInputVisualizer()
 end
 
 local function stopPlayback()
@@ -139,6 +177,8 @@ local function startPlayback()
 		gamepad = roduxState.playbackTabFilter.gamepad,
 		touch = roduxState.playbackTabFilter.touch
 	})
+
+	setupInputVisualizer()
 
 	-- Wait for game to start...
 	while game.Players.LocalPlayer == nil do
@@ -261,6 +301,12 @@ local function setupPlayClientDMEventListeners()
 	end)
 end
 
+local function setupPlayClientDM()
+	DMBridge.setIsPlayMode(true)
+	setupPlayClientDMEventListeners()
+	DMBridge.onPlayClientSessionStarted()
+end
+
 local inspector
 local function initializeDataModel()
 	local Framework = require(main.Packages.Framework)
@@ -272,9 +318,7 @@ local function initializeDataModel()
 
 	elseif plugin.HostDataModelType == Enum.StudioDataModelType.PlayClient then
 		if DMBridge.getPluginEnabled() then
-			DMBridge.setIsPlayMode(true)
-			setupPlayClientDMEventListeners()
-			DMBridge.onPlayClientSessionStarted()
+			setupPlayClientDM()
 			startRecordingOrPlayingIfRequested()
 		end
 	end

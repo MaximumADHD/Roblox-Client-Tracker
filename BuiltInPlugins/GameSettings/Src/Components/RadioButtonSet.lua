@@ -35,13 +35,7 @@ local withContext = ContextServices.withContext
 local TitledFrame = Framework.StudioUI.TitledFrame
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
-local UILibrary = require(Plugin.UILibrary)
-
 local RadioButton = require(Plugin.Src.Components.RadioButton)
-local DEPRECATED_TitledFrame = UILibrary.Component.TitledFrame
-
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
-
 
 local RadioButtonSet = Roact.PureComponent:extend("RadioButtonSet")
 
@@ -133,27 +127,19 @@ function RadioButtonSet:render()
 
 	local topFrameLayoutIndex = LayoutOrderIterator.new()
 	return Roact.createElement("Frame", {
-		AutomaticSize = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and Enum.AutomaticSize.XY or nil,
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 		LayoutOrder = props.LayoutOrder or 1,
-		Size = FFlagRemoveUILibraryTitledFrameRadioButtonSet and UDim2.new(1, 0, 0, maxHeight) or nil,
+		Size = UDim2.new(1, 0, 0, maxHeight),
 	},{
 		ListLayout = Roact.createElement("UIListLayout", {
 			Padding = UDim.new(0, radioButtonSetTheme.padding),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 
-		ButtonSet = FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(TitledFrame, {
+		ButtonSet = Roact.createElement(TitledFrame, {
 			Title = props.Title,
 			Style = "Subtitle",
-			LayoutOrder = topFrameLayoutIndex:getNextOrder(),
-		}, children),
-
-		DEPRECATED_ButtonSet = not FFlagRemoveUILibraryTitledFrameRadioButtonSet and Roact.createElement(DEPRECATED_TitledFrame, {
-			Title = props.Title,
-			MaxHeight = maxHeight,
-			TextSize = theme.fontStyle.Title.TextSize,
 			LayoutOrder = topFrameLayoutIndex:getNextOrder(),
 		}, children),
 
@@ -168,11 +154,8 @@ function RadioButtonSet:render()
 	})
 end
 
-
 RadioButtonSet = withContext({
 	Theme = ContextServices.Theme,
 })(RadioButtonSet)
-
-
 
 return RadioButtonSet

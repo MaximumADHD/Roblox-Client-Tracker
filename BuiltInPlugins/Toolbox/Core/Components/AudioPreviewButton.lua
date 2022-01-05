@@ -9,7 +9,6 @@
 
 		callback onClick(number assetId)
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -25,12 +24,7 @@ local Roact = require(Libs.Roact)
 local Framework = require(Libs.Framework)
 local RoactRodux = require(Libs.RoactRodux)
 
-local LoadingIndicator
-if FFlagToolboxRemoveWithThemes then
-	LoadingIndicator = Framework.UI.LoadingIndicator
-else
-	LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
-end
+local LoadingIndicator = Framework.UI.LoadingIndicator
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
@@ -77,20 +71,8 @@ if FFlagToolboxAssetGridRefactor2 then
 end
 
 function AudioPreviewButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AudioPreviewButton:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local position = UDim2.new(1, 0, 1, 0)
 	local size = UDim2.new(0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE, 0, Constants.ASSET_PLAY_AUDIO_ICON_SIZE)
@@ -106,7 +88,7 @@ function AudioPreviewButton:renderContent(theme)
 	local showPauseIcon = (currentSoundId == assetId) and isPlaying
 	local image = showPauseIcon and Images.AUDIO_PREVIEW_PAUSE or Images.AUDIO_PREVIEW_PLAY
 
-	local assetIconTheme = FFlagToolboxRemoveWithThemes and theme.asset.icon or theme.asset.assetIcon
+	local assetIconTheme = theme.asset.icon
 
 	if isLoading then
 		return Roact.createElement(LoadingIndicator, {

@@ -10,7 +10,6 @@
 
 		function onTabSelected = A callback for when a Tab is selected.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -96,19 +95,7 @@ local function canTextBeDisplayed(tabs, maxWidth)
 end
 
 function TabSet:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function TabSet:renderContent(theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 	local size = self.props.Size or UDim2.new()
 	local position = self.props.Position or UDim2.new()
 	local tabs = self.props.Tabs or {}
@@ -165,10 +152,8 @@ function TabSet:renderContent(theme)
 	}, children)
 end
 
-if FFlagToolboxRemoveWithThemes then	
-	TabSet = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(TabSet)
-end
+TabSet = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(TabSet)
 
 return TabSet

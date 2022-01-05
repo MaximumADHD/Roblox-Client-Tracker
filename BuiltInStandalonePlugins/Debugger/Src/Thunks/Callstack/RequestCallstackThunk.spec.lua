@@ -11,6 +11,8 @@ local mockStackFrame = require(Mocks.StackFrame)
 local mockScriptRef = require(Mocks.ScriptRef)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
+local MockScriptRegService = require(Mocks.MockScriptRegService)
+local mockLSC = require(Mocks.MockLSC)
 
 local Actions = Plugin.Src.Actions
 local BreakpointHitAction = require(Actions.Common.BreakpointHit)
@@ -31,8 +33,10 @@ return function()
 	it("should accurately reflect the updates", function()
 		local store = Rodux.Store.new(CallstackReducer, nil, MainMiddleware)
 		
-		local testStackFrameOne = mockStackFrame.new(10, mockScriptRef.new(), "TestFrame1", "C")
-		local testStackFrameTwo = mockStackFrame.new(20, mockScriptRef.new(), "TestFrame2", "C")
+		local scriptRef1 = mockScriptRef.new()
+		local scriptRef2 = mockScriptRef.new()
+		local testStackFrameOne = mockStackFrame.new(10, scriptRef1, "TestFrame1", "C")
+		local testStackFrameTwo = mockStackFrame.new(20, scriptRef2, "TestFrame2", "C")
 		local testCallstack = {
 			testStackFrameOne,
 			testStackFrameTwo,
@@ -43,8 +47,13 @@ return function()
 		currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameOne,mockDebuggerVariable.GetDefaultFrameVariables()) 
 		currentMockConnection.MockSetDebuggerVariablesByCallstackFrame(testStackFrameTwo,mockDebuggerVariable.GetDefaultFrameVariables()) 
 		
+		local guidMapping = {
+			[scriptRef1] = mockLSC.new("Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script"),
+			[scriptRef2] = mockLSC.new("TestThread2")
+		}
+
 		store:dispatch(BreakpointHitAction(defaultDebuggerToken, 1))
-		store:dispatch(RequestCallstackThunk(testThread, currentMockConnection, defaultDebuggerToken))
+		store:dispatch(RequestCallstackThunk(testThread, currentMockConnection, defaultDebuggerToken, MockScriptRegService.new(guidMapping)))
 
 		local state = store:getState()
 		expect(#state.stateTokenToCallstackVars[defaultDebuggerToken].threadList).to.equal(0)

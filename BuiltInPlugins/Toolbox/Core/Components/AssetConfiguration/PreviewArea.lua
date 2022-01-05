@@ -13,8 +13,6 @@
 	AssetStatus, AssetConfigConstants.ASSET_STATUS, will not show status label if nil or unknown passed in
 	AssetId int, will not show asset id label if nil passed in
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -86,24 +84,14 @@ function PreviewArea:didMount()
 end
 
 function PreviewArea:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function PreviewArea:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local tabItems = props.TabItems
 	local currentTab = props.CurrentTab
@@ -333,10 +321,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	PreviewArea = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(PreviewArea)
-end
+PreviewArea = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(PreviewArea)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PreviewArea)

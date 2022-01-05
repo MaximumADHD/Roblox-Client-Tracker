@@ -4,7 +4,7 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local initial = {
 	isPublishing = false,
-	publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, },
+	publishInfo = { id = 0, name = "", parentGameName = "", parentGameId = 0, settings = {}, publishParameters = {} },
 }
 
 

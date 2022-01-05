@@ -9,6 +9,7 @@ local ResumedAction = require(Actions.Common.Resumed)
 local Step = require(Actions.Common.Step)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local SetCurrentBreakpointId = require(Actions.Common.SetCurrentBreakpointId)
+local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local SetFocusedDebuggerConnection = require(Actions.Common.SetFocusedDebuggerConnection)
 
@@ -90,6 +91,23 @@ return Rodux.createReducer(productionStartStore, {
 			debuggerConnectionIdToCurrentThreadId = newConnectionIdToThreadId,
 			currentFrameMap = newCurrentFrameMap,
 			isPaused = false
+		})
+	end,
+	
+	[ClearConnectionDataAction.name] = function(state : CommonStore, action)
+		local removedConnectionId = action.debuggerStateToken.debuggerConnectionId
+		local shouldBePaused = state.isPaused
+		local newFocusedConnectionId = state.currentDebuggerConnectionId
+		if removedConnectionId == state.currentDebuggerConnectionId then
+			newFocusedConnectionId = -1
+			shouldBePaused = false
+		end
+		return Cryo.Dictionary.join(state, {
+			debuggerConnectionIdToDST = Cryo.List.removeValue(state.debuggerConnectionIdToDST, removedConnectionId),
+			currentDebuggerConnectionId = newFocusedConnectionId,
+			debuggerConnectionIdToCurrentThreadId = Cryo.List.removeValue(state.debuggerConnectionIdToCurrentThreadId, removedConnectionId),
+			currentFrameMap = Cryo.List.removeValue(state.currentFrameMap, removedConnectionId),
+			isPaused = shouldBePaused
 		})
 	end,
 

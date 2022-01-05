@@ -4,12 +4,14 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 
 if FFlagFixPublishAsWhenQueryFails then
 	local initial = {
 		placeInfo = { places = {}, parentGame = {}, queryState = Constants.QUERY_STATE.QUERY_STATE_NONE },
 		gameInfo = { games = {}, queryState = Constants.QUERY_STATE.QUERY_STATE_NONE },
-		selectedGame = {}
+		selectedGame = {},
+		gameConfiguration = { optInRegions = {} },
 	}
 
 	return Rodux.createReducer(initial, {
@@ -49,11 +51,18 @@ if FFlagFixPublishAsWhenQueryFails then
 				placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo),
 			})
 		end,
+
+		SetGameConfiguration = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				gameConfiguration = Cryo.Dictionary.join(state.gameConfiguration, action.gameConfiguration),
+			})
+		end,
 	})
 else
 	local initial = {
 		placeInfo = { places = {}, parentGame = {} },
-		gameInfo = { games = {} }
+		gameInfo = { games = {} },		
+		gameConfiguration = { optInRegions = {} },
 	}
 
 	return Rodux.createReducer(initial, {
@@ -73,6 +82,12 @@ else
 			return Cryo.Dictionary.join(state, {
 				gameInfo = Cryo.Dictionary.join(state.gameInfo, action.gameInfo),
 				placeInfo = Cryo.Dictionary.join(state.placeInfo, action.placeInfo),
+			})
+		end,
+
+		SetGameConfiguration = function(state, action)
+			return Cryo.Dictionary.join(state, {
+				gameConfiguration = Cryo.Dictionary.join(state.gameConfiguration, action.gameConfiguration),
 			})
 		end,
 	})

@@ -10,8 +10,6 @@
 			function Tags.onDelete(table tag) = A callback when the user wants to delete a tag.
 		function OnClearTags = A callback when the user wants to clear all tags.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -129,23 +127,14 @@ function SearchTags:createPrompt(searchTerm, theme, localizedContent)
 end
 
 function SearchTags:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function SearchTags:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
+
 	local tags = self.props.Tags
 	local searchTerm = self.props.searchTerm
 	local onClearTags = self.props.onClearTags
@@ -179,10 +168,8 @@ function SearchTags:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchTags = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchTags)
-end
+SearchTags = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchTags)
 
 return SearchTags

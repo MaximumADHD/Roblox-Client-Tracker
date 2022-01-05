@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -61,21 +60,9 @@ function SearchBarButtons:init()
 end
 
 function SearchBarButtons:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function SearchBarButtons:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local isSearchButtonHovered = state.isSearchButtonHovered
 	local isClearButtonHovered = state.isClearButtonHovered
@@ -155,10 +142,8 @@ function SearchBarButtons:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchBarButtons = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchBarButtons)
-end
+SearchBarButtons = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchBarButtons)
 
 return SearchBarButtons

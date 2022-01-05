@@ -1,6 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+	local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 	local Libs
 	if FFlagToolboxDeduplicatePackages then
@@ -21,6 +22,9 @@ return function()
 				assetData = {
 					Asset = {
 						Id = 1,
+						Creator = FFlagToolboxHideReportFlagForCreator and {
+							Id = 1,
+						} or nil,
 					},
 				},
 				previewFuncs = {}

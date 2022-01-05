@@ -1,3 +1,9 @@
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
+
+assert(not convertToolRemoval)
+
 local Constants = require(script.Parent.Constants)
 
 local TerrainEnums = require(script.Parent.TerrainEnums)

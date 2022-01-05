@@ -12,11 +12,38 @@ local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local contextKey = KeyProvider.getContextKeyName()
 local pluginKey = KeyProvider.getPluginKeyName()
 local publishPlaceAsKey = KeyProvider.getPublishPlaceAsKeyName()
+local regionKey = KeyProvider.getRegionKeyName()
+local statusKey = KeyProvider.getStatusKeyName()
 
 local PublishPlaceAsUtilities =  {}
 
 function PublishPlaceAsUtilities.shouldShowDevPublishLocations()
 	return PublishPlaceAsPolicy["ShowOptInLocations"]
+end
+
+function PublishPlaceAsUtilities.getIsOptInChina(optInRegions)
+    --[[
+        Endpoint returns optInLocations in the following format:
+            [
+                {
+                    "region": "China",
+                    "status": "Approved"
+                },
+            ]
+    ]]
+    
+    if optInRegions == nil then
+        return false
+    end
+
+    for _,optInRegion in pairs(optInRegions) do
+        local region = optInRegion[regionKey]
+        local status = optInRegion[statusKey]
+        if region == "China" and status == "Approved" then
+            return true
+        end
+    end
+    return false
 end
 
 function PublishPlaceAsUtilities.getOptInLocationsRequirementsLink(location)

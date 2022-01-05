@@ -1,5 +1,3 @@
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -49,27 +47,25 @@ local function makeTerrainToolsTheme()
 		},
 	}
 
-	if FFlagTerrainToolsEditPlaneLock then
-		theme[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
+	theme[ui.Button] = Cryo.Dictionary.join(BaseTheme[ui.Button], {
+		BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
+			Color = Color3.fromRGB(0, 162, 255),
+		}),
+		TextColor = Color3.fromRGB(255, 255, 255),
+		TextSize = 16,
+
+		[StyleModifier.Hover] = {
 			BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-				Color = Color3.fromRGB(0, 162, 255),
-			}),
-			TextColor = Color3.fromRGB(255, 255, 255),
-			TextSize = 16,
+				Color = Color3.fromRGB(50, 181, 254),
+			})
+		},
 
-			[StyleModifier.Hover] = {
-				BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-					Color = Color3.fromRGB(50, 181, 254),
-				})
-			},
-
-			[StyleModifier.Disabled] = {
-				BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
-					Color = StyleKey.TerrainTools_DisabledColor,
-				})
-			},
-		})
-	end
+		[StyleModifier.Disabled] = {
+			BackgroundStyle = Cryo.Dictionary.join(BaseTheme[ui.RoundBox], {
+				Color = StyleKey.TerrainTools_DisabledColor,
+			})
+		},
+	})
 
 	return theme
 end
@@ -89,11 +85,6 @@ end
 return function(makeMock)
 	makeMock = makeMock or false
 
-	local studioTheme
-	if FFlagTerrainToolsEditPlaneLock then
-		studioTheme = makeMock and StudioTheme.mock(makeThemeColors()) or StudioTheme.new(makeThemeColors())
-	else
-		studioTheme = makeMock and StudioTheme.mock() or StudioTheme.new()
-	end
+	local studioTheme = makeMock and StudioTheme.mock(makeThemeColors()) or StudioTheme.new(makeThemeColors())
 	return studioTheme:extend(makeTerrainToolsTheme())
 end

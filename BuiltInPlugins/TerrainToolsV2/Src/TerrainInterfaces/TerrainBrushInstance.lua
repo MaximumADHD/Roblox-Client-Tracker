@@ -1,7 +1,6 @@
 game:DefineFastFlag("TerrainToolsBrushUseIsKeyDown", false)
 
 local FFlagTerrainToolsBrushUseIsKeyDown = game:GetFastFlag("TerrainToolsBrushUseIsKeyDown")
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 
 local Plugin = script.Parent.Parent.Parent
@@ -54,7 +53,7 @@ local function round(n)
 	return math.floor(n + 0.5)
 end
 
-local function snapToVoxelGrid(vector, radius)
+local function snapToVoxelsGrid(vector, radius)
 	local snapOffset = Vector3.new(1, 1, 1) * (radius % Constants.VOXEL_RESOLUTION)
 	local tempVector = ((vector - snapOffset) / Constants.VOXEL_RESOLUTION) + Vector3.new(0.5, 0.5, 0.5)
 	return (Vector3.new(math.floor(tempVector.x),
@@ -87,7 +86,7 @@ local function applyOverrideToSettings(settings)
 	local autoMaterial
 
 	if tool == ToolId.Flatten then
-		planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Off or false
+		planeLock = PlaneLockType.Off 
 		autoMaterial = true
 	end
 
@@ -103,11 +102,7 @@ TerrainBrush.__index = TerrainBrush
 function TerrainBrush.new(options)
 	assert(options and type(options) == "table", "TerrainBrush requires an options table")
 
-	local planeLock = false
-
-	if FFlagTerrainToolsEditPlaneLock then
-		planeLock = PlaneLockType.Off
-	end
+	local planeLock = PlaneLockType.Off
 
 	local self = setmetatable({
 		_terrain = options.terrain,
@@ -133,7 +128,7 @@ function TerrainBrush.new(options)
 			ignoreParts = true,
 			fixedPlane = false,
 			editPlaneMode = false,
-			snapToGrid = false,
+			snapToVoxels = false,
 			heightPicker = false,
 
 			planeCFrame = nil,
@@ -264,14 +259,9 @@ function TerrainBrush:_updateCursor()
 
 	local planePoint
 	local planeNormal
-	if FFlagTerrainToolsEditPlaneLock then
-		if self._operationSettings.planeCFrame ~= nil and self._operationSettings.editPlaneMode then
-			planePoint = self._operationSettings.planeCFrame.Position
-			planeNormal = self._operationSettings.planeCFrame.LookVector
-		else
-			planePoint = self._operationSettings.planePoint
-			planeNormal = self._operationSettings.planeNormal
-		end
+	if self._operationSettings.planeCFrame ~= nil and self._operationSettings.editPlaneMode then
+		planePoint = self._operationSettings.planeCFrame.Position
+		planeNormal = self._operationSettings.planeCFrame.LookVector
 	else
 		planePoint = self._operationSettings.planePoint
 		planeNormal = self._operationSettings.planeNormal
@@ -284,9 +274,9 @@ function TerrainBrush:_updateCursor()
 			planePoint = planePoint,
 			planeNormal = planeNormal,
 			mouseDown = self._mouseDown,
-			planeCFrame = FFlagTerrainToolsEditPlaneLock and self._operationSettings.planeCFrame or nil,
-			planeLock = FFlagTerrainToolsEditPlaneLock and self._operationSettings.planeLock or nil,
-			editPlaneMode = FFlagTerrainToolsEditPlaneLock and self._operationSettings.editPlaneMode or nil,
+			planeCFrame = self._operationSettings.planeCFrame,
+			planeLock = self._operationSettings.planeLock,
+			editPlaneMode = self._operationSettings.editPlaneMode,
 		})
 	else
 		self._cursorGrid:hide()
@@ -432,18 +422,14 @@ function TerrainBrush:_run()
 
 		local currentTool = self._operationSettings.currentTool
 		local heightPicker = self._operationSettings.heightPicker
-		local planeLock = self._operationSettings.planeLock
+		local planeLock = self._operationSettings.planeLock ~= PlaneLockType.Off
 		local planeLockManual = self._operationSettings.planeLock == PlaneLockType.Manual
 		local fixedPlane = self._operationSettings.fixedPlane
-		local snapToGrid = self._operationSettings.snapToGrid
+		local snapToVoxels = self._operationSettings.snapToVoxels
 		local ignoreWater = self._operationSettings.ignoreWater
 		local editPlaneMode = self._operationSettings.editPlaneMode
 		local planeCFrame = self._operationSettings.planeCFrame
 		local ignoreParts = self._operationSettings.ignoreParts
-
-		if FFlagTerrainToolsEditPlaneLock then
-			planeLock = self._operationSettings.planeLock ~= PlaneLockType.Off
-		end
 
 		local currentTick = tick()
 		local radius = self._operationSettings.cursorSize * 0.5 * Constants.VOXEL_RESOLUTION
@@ -504,7 +490,7 @@ function TerrainBrush:_run()
 		end
 
 		if heightPicker or (currentTool == ToolId.Flatten and self._mouseClick and not fixedPlane and not planeLock) then
-			self._planePositionYChanged:Fire(snapToGrid and snapToVoxelGrid(mainPoint, radius).y or (mainPoint.y - 1))
+			self._planePositionYChanged:Fire(snapToVoxels and snapToVoxelsGrid(mainPoint, radius).y or (mainPoint.y - 1))
 		end
 
 		local shiftDown
@@ -527,10 +513,10 @@ function TerrainBrush:_run()
 		end
 
 		if updatePlane then
-			if FFlagTerrainToolsEditPlaneLock and planeLockManual and editPlaneMode then
+			if planeLockManual and editPlaneMode then
 				lastPlanePoint = self._operationSettings.planeCFrame.Position
 				lastNormal = Vector3.new(0, 1, 0)
-			elseif FFlagTerrainToolsEditPlaneLock and planeLockManual and not editPlaneMode and planeCFrame then
+			elseif planeLockManual and not editPlaneMode and planeCFrame then
 				lastPlanePoint = self._operationSettings.planeCFrame.Position
 				lastNormal = planeCFrame.LookVector
 			else
@@ -559,9 +545,9 @@ function TerrainBrush:_run()
 		-- point at which terrain is drawn will be snapped to the correct voxel.
 		local modifiedMainPointOnPlane
 
-		if snapToGrid then
-			mainPoint = snapToVoxelGrid(mainPoint, radius)
-			modifiedMainPointOnPlane = snapToVoxelGrid(mainPointOnPlane, radius)
+		if snapToVoxels then
+			mainPoint = snapToVoxelsGrid(mainPoint, radius)
+			modifiedMainPointOnPlane = snapToVoxelsGrid(mainPointOnPlane, radius)
 		end
 
 		if usePlanePositionY then
@@ -585,10 +571,7 @@ function TerrainBrush:_run()
 				lastMainPoint = mainPoint
 			end
 			
-			local performOperation = self._mouseClick or currentTick > firstOperation + CLICK_THRESHOLD
-			if FFlagTerrainToolsEditPlaneLock then
-				performOperation = performOperation and not editPlaneMode
-			end
+			local performOperation = (self._mouseClick or currentTick > firstOperation + CLICK_THRESHOLD) and not editPlaneMode
 
 			if performOperation then
 				self._mouseClick = false

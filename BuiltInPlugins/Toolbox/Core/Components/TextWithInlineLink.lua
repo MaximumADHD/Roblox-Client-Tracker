@@ -4,7 +4,6 @@
 
 -- 2021/05/07 This file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
 local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local TextService = game:GetService("TextService")
 
@@ -35,7 +34,7 @@ if FFlagToolboxUseDevFrameworkTextWithInlineLink then
 	return {}
 end
 
-local function renderContent(props, theme)
+local function renderContent(props)
 	assert(t.interface({
 		text = t.string,
 		onLinkClicked = t.callback,
@@ -47,9 +46,7 @@ local function renderContent(props, theme)
 		})
 	})(props))
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 	local position = props.Position or UDim2.new(0, 0, 0, 0)
 	local textProps = props.textProps
 	local text = props.text
@@ -191,22 +188,13 @@ local function renderContent(props, theme)
 	}, lineElements)
 end
 
-if FFlagToolboxRemoveWithThemes then
-	local TextWithInlineLink = Roact.PureComponent:extend("TextWithInlineLink")
+local TextWithInlineLink = Roact.PureComponent:extend("TextWithInlineLink")
 
-	function TextWithInlineLink:render()
-		return renderContent(self.props, nil)
-	end
-
-	TextWithInlineLink = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(TextWithInlineLink)
-	return TextWithInlineLink
-else
-	local function TextWithInlineLink(props)
-		return withTheme(function(theme)
-			return renderContent(props, theme)
-		end)
-	end
-	return TextWithInlineLink
+function TextWithInlineLink:render()
+	return renderContent(self.props)
 end
+
+TextWithInlineLink = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(TextWithInlineLink)
+return TextWithInlineLink

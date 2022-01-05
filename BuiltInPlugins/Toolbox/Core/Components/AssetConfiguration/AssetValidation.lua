@@ -12,7 +12,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
 local FFlagDebugDisableLocalUGCValidation = game:GetFastFlag("DebugDisableLocalUGCValidation")
@@ -140,21 +139,9 @@ function AssetValidation:init(props)
 end
 
 function AssetValidation:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AssetValidation:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local reasonText = "Reason:\n" .. table.concat(self.state.reasons or {}, "\n")
 
@@ -247,10 +234,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetValidation = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetValidation)
-end
+AssetValidation = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetValidation)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetValidation)

@@ -9,10 +9,8 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
-local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
@@ -158,18 +156,16 @@ function Analytics.onAssetDragInserted(assetId, searchTerm, assetIndex, currentC
 	})
 end
 
-if FFlagToolboxTrackDragInsertFinished then
-	function Analytics.reportDragInsertFinished(assetId, assetTypeId)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "DragInsertFinished", {
-			assetId = assetId,
-			assetTypeId = assetTypeId,
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			placeId = getPlaceId(),
-			userId = getUserId(),
-			isEditMode = getIsEditMode(),
-		})
-	end
+function Analytics.reportDragInsertFinished(assetId, assetTypeId)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "DragInsertFinished", {
+		assetId = assetId,
+		assetTypeId = assetTypeId,
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		placeId = getPlaceId(),
+		userId = getUserId(),
+		isEditMode = getIsEditMode(),
+	})
 end
 
 function Analytics.incrementToolboxInsertCounter(assetTypeId)
@@ -290,16 +286,14 @@ function Analytics.openedFromPluginManagement()
 	})
 end
 
-if FFlagToolboxTrackReportAction then
-	function Analytics.reportAssetClicked(assetId, assetTypeId)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ReportAssetClicked", {
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			isEditMode = getIsEditMode(),
-			assetId = assetId,
-			assetTypeId = assetTypeId,
-		})
-	end
+function Analytics.reportAssetClicked(assetId, assetTypeId)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ReportAssetClicked", {
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		isEditMode = getIsEditMode(),
+		assetId = assetId,
+		assetTypeId = assetTypeId,
+	})
 end
 
 if FFlagToolboxMeshPartFiltering then

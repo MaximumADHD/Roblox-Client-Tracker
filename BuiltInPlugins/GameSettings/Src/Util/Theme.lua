@@ -21,10 +21,6 @@ local StudioTheme = UILibrary.Studio.Theme
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
-local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
-local FFlagRemoveUILibraryDropdownMenuPt1 = game:GetFastFlag("RemoveUILibraryDropdownMenuPt1")
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
-
 local Theme = {}
 
 function Theme.isDarkerTheme()
@@ -216,9 +212,9 @@ function Theme.createValues(theme, getColor)
 						backgroundColor = theme:getColor(StyleColor.Button, StyleModifier.Hover),
 						itemText = theme:getColor(StyleColor.ButtonText, StyleModifier.Hover),
 					},
-					item = FFlagRemoveUILibraryDropdownMenuPt1 and {
+					item = {
 						offset = 2,
-					} or nil,
+					},
 					selected = {
 						backgroundColor = theme:getColor(StyleColor.Button, StyleModifier.Selected),
 					},
@@ -517,15 +513,15 @@ function Theme.createValues(theme, getColor)
 				},
 			},
 
-			selectInput = FFlagRemoveUILibraryDetailedDropdown and {
+			selectInput = {
 				button = {
 					height = 50,
 				},
 				padding = 10,
 				width = 140,
-			} or nil,
+			},
 
-			playabilityWidget = FFlagRemoveUILibraryTitledFrameRadioButtonSet and {
+			playabilityWidget = {
 				buttonPane = {
 					padding = 165,
 					spacing = 20,
@@ -534,7 +530,7 @@ function Theme.createValues(theme, getColor)
 				titlePane = {
 					spacing = 15,
 				},
-			} or nil,
+			},
 		}),
 
 		Framework = Style.extend(studioStyles, {

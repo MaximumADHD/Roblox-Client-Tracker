@@ -1,4 +1,3 @@
-local FFlagToolboxPolicyDisableRatings = game:GetFastFlag("ToolboxPolicyDisableRatings")
 local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
@@ -53,10 +52,8 @@ function ToolboxUtilities.getShouldUsePluginCreatorWhitelist()
     return policy
 end
 
-if FFlagToolboxPolicyDisableRatings then
-    function ToolboxUtilities.disableRatings()
-        return ToolboxPolicy["DisableRatings"]
-    end
+function ToolboxUtilities.disableRatings()
+    return ToolboxPolicy["DisableRatings"]
 end
 
 if FFlagToolboxPolicyHideNonRelevanceSorts then

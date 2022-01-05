@@ -12,7 +12,6 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagAddVersionScrollbar = game:DefineFastFlag("AddVersionScrollbar", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -172,25 +171,16 @@ local function createItemList(props)
 end
 
 function Versions:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function Versions:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
+
 	local versionsTheme = theme.versions
 
 	local LayoutOrder = props.LayoutOrder
@@ -315,10 +305,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	Versions = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(Versions)
-end
+Versions = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(Versions)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Versions)

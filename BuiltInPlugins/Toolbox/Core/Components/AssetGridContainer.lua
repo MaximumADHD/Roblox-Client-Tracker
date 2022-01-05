@@ -11,7 +11,6 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local Plugin = script.Parent.Parent.Parent
@@ -236,7 +235,7 @@ function AssetGridContainer:render()
 		[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
 	}, {
 		ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(ScriptConfirmationDialog, {
-			Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolScriptWarningMessageBox",
+			Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
 
 			Info = scriptWarningInfo,
 			Icon = Images.INFO_ICON,
@@ -247,7 +246,7 @@ function AssetGridContainer:render()
 		}),
 
 		ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
-			Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolMessageBox",
+			Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
 
 			Title = "Insert Tool",
 			Text = "Put this tool into the starter pack?",

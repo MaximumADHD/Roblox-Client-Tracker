@@ -8,8 +8,6 @@
 
 		function onButtonClicked(string Button) = A callback when the user clicks a button.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local MIN_BUTTON_WIDTH = 55
 local BUTTON_TEXT_PADDING = 20
 
@@ -46,23 +44,13 @@ function SearchOptionsFooter:init()
 end
 
 function SearchOptionsFooter:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end)
 end
 
 function SearchOptionsFooter:renderContent(theme, localizedContent)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local applyText = localizedContent.SearchOptions.Apply
 	local cancelText = localizedContent.SearchOptions.Cancel
@@ -126,10 +114,8 @@ function SearchOptionsFooter:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchOptionsFooter = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchOptionsFooter)
-end
+SearchOptionsFooter = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchOptionsFooter)
 
 return SearchOptionsFooter

@@ -49,6 +49,8 @@ ui:add("FilterSettingsUIGroup")
 ui:add("LabeledToggleButton")
 ui:add("UIKeyValueTextLabel")
 ui:add("ChooseRecordingNamePopUp")
+ui:add("InputVisualizer")
+ui:add("KeyBarTile")
 
 local devFrameworkButton = getRawComponentStyle("Button")
 local devFrameworkButtonRoundPrimary = devFrameworkButton["&RoundPrimary"]
@@ -101,6 +103,10 @@ local function getPluginTheme()
 			["&CornerBox"] = {
 				CornerRadius = UDim.new(0, 8),
 				Background = StyleKey.UIGroupColor,
+			},
+			["&KeyTileBox"] = {
+				CornerRadius = UDim.new(0, 8),
+				Background = Color3.new(0, 0, 0),
 			},
 		}),
 
@@ -166,6 +172,16 @@ local function getPluginTheme()
 			DialogMessageSize = UDim2.new(1, 0, 0, 40),
 			TextInputSize = UDim2.fromOffset(250, 30),
 			PaddingPx = 1,
+		},
+
+		[ui.InputVisualizer] = {
+			KeyBarRowSpacingPx = 2,
+			KeyBarSize = UDim2.fromOffset(200, 100),
+		},
+
+		[ui.KeyBarTile] = {
+			TextColor = Color3.new(1, 1, 1),
+			BackgroundColor = Color3.new(0, 0, 0),
 		},
 	}
 end

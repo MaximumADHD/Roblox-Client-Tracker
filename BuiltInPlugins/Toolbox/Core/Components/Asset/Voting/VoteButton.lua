@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -41,22 +40,14 @@ function VoteButton:init(props)
 end
 
 function VoteButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
+	return self:renderContent()
 end
 
-function VoteButton:renderContent(theme)
+function VoteButton:renderContent()
 	local props = self.props
 	local state = self.state
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 	local hasVoted = props.hasVoted
 	local userVotedThisButton = props.userVote
 
@@ -113,10 +104,8 @@ function VoteButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	VoteButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(VoteButton)
-end
+VoteButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(VoteButton)
 
 return VoteButton

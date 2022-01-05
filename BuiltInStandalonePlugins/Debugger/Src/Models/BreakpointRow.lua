@@ -1,6 +1,6 @@
 local PluginFolder = script.Parent.Parent.Parent
 local Constants = require(PluginFolder.Src.Util.Constants)
-local Metabreakpoint = require(PluginFolder.Src.Models.Breakpoint)
+local Metabreakpoint = require(PluginFolder.Src.Models.MetaBreakpoint)
 
 export type BreakpointRow = {
 	id: number,
@@ -15,7 +15,7 @@ export type BreakpointRow = {
 	context : string,
 }
 
-local function extractNonChildData(breakpoint : Metabreakpoint.Breakpoint, context : string) : BreakpointRow
+local function extractNonChildData(breakpoint : Metabreakpoint.MetaBreakpoint, context : string) : BreakpointRow
 	return {
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,

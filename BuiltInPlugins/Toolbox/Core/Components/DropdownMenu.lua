@@ -28,7 +28,6 @@
 		LayoutOrder = LayoutOrder, this wwill be used to override the position of the
 		dropdown menu.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -145,22 +144,10 @@ function DropdownMenu:didMount()
 end
 
 function DropdownMenu:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function DropdownMenu:renderContent(theme)
 	local props = self.props
 	local state = self.state
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local key = props.key or nil
 
@@ -211,14 +198,7 @@ function DropdownMenu:renderContent(theme)
 		or currentSelectionTheme.backgroundColor
 	local currentSelectionTextColor = hoverOrShow and currentSelectionTheme.textSelectedColor
 		or currentSelectionTheme.textColor
-	local dropdownIconColor
-	if FFlagToolboxRemoveWithThemes then
-		dropdownIconColor = currentSelectionTheme.dropdownIconColor
-	else
-		local isDarkerTheme = theme.isDarkerTheme
-		dropdownIconColor = (isDarkerTheme or hoverOrShow) and currentSelectionTheme.iconSelectedColor
-		or currentSelectionTheme.iconColor
-	end
+	local dropdownIconColor = currentSelectionTheme.dropdownIconColor
 
 	local buttonSize = UDim2.new(1, 0, 1, 0)
 
@@ -295,10 +275,8 @@ function DropdownMenu:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then	
-	DropdownMenu = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(DropdownMenu)
-end
+DropdownMenu = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(DropdownMenu)
 
 return DropdownMenu

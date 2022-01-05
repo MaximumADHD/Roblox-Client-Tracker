@@ -1,9 +1,11 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Models = Plugin.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
-local AddCallstack = require(Plugin.Src.Actions.Callstack.AddCallstack)
+local Actions = Plugin.Src.Actions
+local AddCallstack = require(Actions.Callstack.AddCallstack)
+local SetFilenameForGuid = require(Actions.Common.SetFilenameForGuid)
 
-return function(threadState, debuggerConnection, debuggerStateToken)
+return function(threadState, debuggerConnection, debuggerStateToken, scriptRegService)
 	return function(store, contextItems)
 		debuggerConnection:Populate(threadState, function ()
 			local callstack = threadState:GetChildren()
@@ -26,6 +28,8 @@ return function(threadState, debuggerConnection, debuggerStateToken)
 					lineColumn = stackFrame.Line,
 					sourceColumn = stackFrame.Script,
 				}
+				local lsc = scriptRegService:GetSourceContainerByScriptGuid(stackFrame.Script)
+				store:dispatch(SetFilenameForGuid(stackFrame.Script, lsc and lsc:GetFullName() or stackFrame.Script))
 				table.insert(callstackRows, CallstackRow.fromData(data))
 			end
 			store:dispatch(AddCallstack(threadState.ThreadId, callstackRows, debuggerStateToken))

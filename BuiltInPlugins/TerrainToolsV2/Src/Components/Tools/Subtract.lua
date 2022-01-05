@@ -2,7 +2,6 @@
 	Displays panels associated with the Subtract tool
 ]]
 local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
-local FFlagTerrainToolsGlobalPlaneLockState = game:GetFastFlag("TerrainToolsGlobalPlaneLockState")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -22,12 +21,12 @@ local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
 local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
 local SetPlaneLock = require(Actions.SetPlaneLock)
-local SetSnapToGrid = require(Actions.SetSnapToGrid)
+local SetSnapToVoxels = require(Actions.SetSnapToVoxels)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 
 local REDUCER_KEY = FFlagTerrainToolsGlobalState and "BaseTool" or "SubtractTool"
-local PLANE_REDUCER_KEY = FFlagTerrainToolsGlobalPlaneLockState and "BaseTool" or REDUCER_KEY
+local PLANE_REDUCER_KEY = "BaseTool"
 
 local function mapStateToProps(state, props)
 	return {
@@ -41,7 +40,7 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
 		planeLock = state[PLANE_REDUCER_KEY].planeLock,
-		snapToGrid = state[REDUCER_KEY].snapToGrid,
+		snapToVoxels = state[REDUCER_KEY].snapToVoxels,
 		editPlaneMode = state[PLANE_REDUCER_KEY].editPlaneMode,
 		planeCFrame = state[PLANE_REDUCER_KEY].planeCFrame,
 	}
@@ -52,13 +51,8 @@ local function mapDispatchToProps (dispatch)
 		dispatch(ApplyToolAction(REDUCER_KEY, action))
 	end
 
-	local dispatchToBase
-	if FFlagTerrainToolsGlobalPlaneLockState then
-		function dispatchToBase(action)
-			dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
-		end
-	else
-		dispatchToBase = dispatchToSubtract
+	local dispatchToBase = function(action)
+		dispatch(ApplyToolAction(PLANE_REDUCER_KEY, action))
 	end
 	return {
 		dispatchChangeBaseSize = function (size)
@@ -91,8 +85,8 @@ local function mapDispatchToProps (dispatch)
 		dispatchSetPlaneCFrame = function(planeCFrame)
 			dispatchToBase(SetPlaneCFrame(planeCFrame))
 		end,
-		dispatchSetSnapToGrid = function (snapToGrid)
-			dispatchToSubtract(SetSnapToGrid(snapToGrid))
+		dispatchSetSnapToVoxels = function(snapToVoxels)
+			dispatchToSubtract(SetSnapToVoxels(snapToVoxels))
 		end,
 	}
 end

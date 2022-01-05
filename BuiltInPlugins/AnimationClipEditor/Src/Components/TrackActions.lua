@@ -36,6 +36,7 @@ local SetRightClickContextInfo = require(Plugin.Src.Actions.SetRightClickContext
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 local TrackActions = Roact.PureComponent:extend("TrackActions")
 
@@ -153,7 +154,11 @@ function TrackActions:didMount()
 				local track = instance.Tracks[trackName]
 				local newValue
 				if track and track.Keyframes then
-					newValue = KeyframeUtils:getValue(track, playhead)
+					if GetFFlagKeyframeUtilsGetValueCleanup() then
+						newValue = KeyframeUtils.getValue(track, playhead)
+					else
+						newValue = KeyframeUtils:getValue_deprecated(track, playhead)
+					end
 				else
 					if GetFFlagFacialAnimationSupport() then
 						newValue = TrackUtils.getDefaultValueByType(trackType)

@@ -19,8 +19,6 @@
 	Optional Pros:
 	LayoutOrder = number, will override the Position.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local ICON_SCALE = 0.4
 local ERROR_ICON_SIZE = 20
 
@@ -174,24 +172,14 @@ function SideTabs:createSideButtons(items, currentTab, ItemHeight, theme, locali
 end
 
 function SideTabs:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function SideTabs:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local LayoutOrder = props.LayoutOrder
 	local Size = props.Size
@@ -235,10 +223,8 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SideTabs = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SideTabs)
-end
+SideTabs = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SideTabs)
 
 return RoactRodux.connect(mapStateToProps)(SideTabs)

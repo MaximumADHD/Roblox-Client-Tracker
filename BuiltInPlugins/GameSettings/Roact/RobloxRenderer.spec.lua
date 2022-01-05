@@ -11,6 +11,7 @@ return function()
 	local GlobalConfig = require(script.Parent.GlobalConfig)
 	local Portal = require(script.Parent.Portal)
 	local Ref = require(script.Parent.PropMarkers.Ref)
+	local Event = require(script.Parent.PropMarkers.Event)
 
 	local RobloxRenderer = require(script.Parent.RobloxRenderer)
 
@@ -811,7 +812,9 @@ return function()
 
 			local capturedContext
 			function Consumer:init()
-				capturedContext = self._context
+				capturedContext = {
+					hello = self:__getContext("hello")
+				}
 			end
 
 			function Consumer:render()
@@ -826,6 +829,77 @@ return function()
 				hello = "world",
 			}
 			local node = reconciler.mountVirtualNode(element, hostParent, hostKey, context)
+
+			expect(capturedContext).never.to.equal(context)
+			assertDeepEqual(capturedContext, context)
+
+			reconciler.unmountVirtualNode(node)
+		end)
+
+		it("should pass context values through portal nodes", function()
+			local target = Instance.new("Folder")
+
+			local Provider = Component:extend("Provider")
+
+			function Provider:init()
+				self:__addContext("foo", "bar")
+			end
+
+			function Provider:render()
+				return createElement("Folder", nil, self.props[Children])
+			end
+
+			local Consumer = Component:extend("Consumer")
+
+			local capturedContext
+			function Consumer:init()
+				capturedContext = {
+					foo = self:__getContext("foo"),
+				}
+			end
+
+			function Consumer:render()
+				return nil
+			end
+
+			local element = createElement(Provider, nil, {
+				Portal = createElement(Portal, {
+					target = target,
+				}, {
+					Consumer = createElement(Consumer),
+				})
+			})
+			local hostParent = nil
+			local hostKey = "Some Key"
+			reconciler.mountVirtualNode(element, hostParent, hostKey)
+
+			assertDeepEqual(capturedContext, {
+				foo = "bar"
+			})
+		end)
+	end)
+
+	describe("Legacy context", function()
+		it("should pass context values through Roblox host nodes", function()
+			local Consumer = Component:extend("Consumer")
+
+			local capturedContext
+			function Consumer:init()
+				capturedContext = self._context
+			end
+
+			function Consumer:render()
+			end
+
+			local element = createElement("Folder", nil, {
+				Consumer = createElement(Consumer)
+			})
+			local hostParent = nil
+			local hostKey = "Context Test"
+			local context = {
+				hello = "world",
+			}
+			local node = reconciler.mountVirtualNode(element, hostParent, hostKey, nil, context)
 
 			expect(capturedContext).never.to.equal(context)
 			assertDeepEqual(capturedContext, context)
@@ -871,6 +945,415 @@ return function()
 			assertDeepEqual(capturedContext, {
 				foo = "bar"
 			})
+		end)
+	end)
+
+
+	describe("Integration Tests", function()
+		it("should not allow re-entrancy in updateChildren", function()
+			local configValues = {
+				tempFixUpdateChildrenReEntrancy = true,
+			}
+
+			GlobalConfig.scoped(configValues, function()
+				local ChildComponent = Component:extend("ChildComponent")
+
+				function ChildComponent:init()
+					self:setState({
+						firstTime = true
+					})
+				end
+
+				local childCoroutine
+
+				function ChildComponent:render()
+					if self.state.firstTime then
+						return createElement("Frame")
+					end
+
+					return createElement("TextLabel")
+				end
+
+				function ChildComponent:didMount()
+					childCoroutine = coroutine.create(function()
+						self:setState({
+							firstTime = false
+						})
+					end)
+				end
+
+				local ParentComponent = Component:extend("ParentComponent")
+
+				function ParentComponent:init()
+					self:setState({
+						count = 1
+					})
+
+					self.childAdded = function()
+						self:setState({
+							count = self.state.count + 1,
+						})
+					end
+				end
+
+				function ParentComponent:render()
+					return createElement("Frame", {
+						[Event.ChildAdded] = self.childAdded,
+					}, {
+						ChildComponent = createElement(ChildComponent, {
+							count = self.state.count
+						})
+					})
+				end
+
+				local parent = Instance.new("ScreenGui")
+				parent.Parent = game.CoreGui
+
+				local tree = createElement(ParentComponent)
+
+				local hostKey = "Some Key"
+				local instance = reconciler.mountVirtualNode(tree, parent, hostKey)
+
+				coroutine.resume(childCoroutine)
+
+				expect(#parent:GetChildren()).to.equal(1)
+
+				local frame = parent:GetChildren()[1]
+
+				expect(#frame:GetChildren()).to.equal(1)
+
+				reconciler.unmountVirtualNode(instance)
+			end)
+		end)
+
+		it("should not allow re-entrancy in updateChildren even with callbacks", function()
+			local configValues = {
+				tempFixUpdateChildrenReEntrancy = true,
+			}
+
+			GlobalConfig.scoped(configValues, function()
+				local LowestComponent = Component:extend("LowestComponent")
+
+				function LowestComponent:render()
+					return createElement("Frame")
+				end
+
+				function LowestComponent:didMount()
+					self.props.onDidMountCallback()
+				end
+
+				local ChildComponent = Component:extend("ChildComponent")
+
+				function ChildComponent:init()
+					self:setState({
+						firstTime = true
+					})
+				end
+
+				local childCoroutine
+
+				function ChildComponent:render()
+					if self.state.firstTime then
+						return createElement("Frame")
+					end
+
+					return createElement(LowestComponent, {
+						onDidMountCallback = self.props.onDidMountCallback
+					})
+				end
+
+				function ChildComponent:didMount()
+					childCoroutine = coroutine.create(function()
+						self:setState({
+							firstTime = false
+						})
+					end)
+				end
+
+				local ParentComponent = Component:extend("ParentComponent")
+
+				local didMountCallbackCalled = 0
+
+				function ParentComponent:init()
+					self:setState({
+						count = 1
+					})
+
+					self.onDidMountCallback = function()
+						didMountCallbackCalled = didMountCallbackCalled + 1
+						if self.state.count < 5 then
+							self:setState({
+								count = self.state.count + 1,
+							})
+						end
+					end
+				end
+
+				function ParentComponent:render()
+					return createElement("Frame", {
+
+					}, {
+						ChildComponent = createElement(ChildComponent, {
+							count = self.state.count,
+							onDidMountCallback = self.onDidMountCallback,
+						})
+					})
+				end
+
+				local parent = Instance.new("ScreenGui")
+				parent.Parent = game.CoreGui
+
+				local tree = createElement(ParentComponent)
+
+				local hostKey = "Some Key"
+				local instance = reconciler.mountVirtualNode(tree, parent, hostKey)
+
+				coroutine.resume(childCoroutine)
+
+				expect(#parent:GetChildren()).to.equal(1)
+
+				local frame = parent:GetChildren()[1]
+
+				expect(#frame:GetChildren()).to.equal(1)
+
+				-- In an ideal world, the didMount callback would probably be called only once. Since it is called by two different
+				-- LowestComponent instantiations 2 is also acceptable though.
+				expect(didMountCallbackCalled <= 2).to.equal(true)
+
+				reconciler.unmountVirtualNode(instance)
+			end)
+		end)
+
+		it("should never call unmount twice when tempFixUpdateChildrenReEntrancy is turned on", function()
+			local configValues = {
+				tempFixUpdateChildrenReEntrancy = true,
+			}
+
+			GlobalConfig.scoped(configValues, function()
+				local unmountCounts = {}
+
+				local function addUnmount(id)
+					unmountCounts[id] = unmountCounts[id] + 1
+				end
+
+				local function addInit(id)
+					unmountCounts[id] = 0
+				end
+
+				local LowestComponent = Component:extend("LowestComponent")
+				function LowestComponent:init()
+					addInit(tostring(self))
+				end
+
+				function LowestComponent:render()
+					return createElement("Frame")
+				end
+
+				function LowestComponent:didMount()
+					self.props.onDidMountCallback()
+				end
+
+				function LowestComponent:willUnmount()
+					addUnmount(tostring(self))
+				end
+
+				local FirstComponent = Component:extend("FirstComponent")
+				function FirstComponent:init()
+					addInit(tostring(self))
+				end
+
+				function FirstComponent:render()
+					return createElement("TextLabel")
+				end
+
+				function FirstComponent:willUnmount()
+					addUnmount(tostring(self))
+				end
+
+				local ChildComponent = Component:extend("ChildComponent")
+
+				function ChildComponent:init()
+					addInit(tostring(self))
+
+					self:setState({
+						firstTime = true
+					})
+				end
+
+				local childCoroutine
+
+				function ChildComponent:render()
+					if self.state.firstTime then
+						return createElement(FirstComponent)
+					end
+
+					return createElement(LowestComponent, {
+						onDidMountCallback = self.props.onDidMountCallback
+					})
+				end
+
+				function ChildComponent:didMount()
+					childCoroutine = coroutine.create(function()
+						self:setState({
+							firstTime = false
+						})
+					end)
+				end
+
+				function ChildComponent:willUnmount()
+					addUnmount(tostring(self))
+				end
+
+				local ParentComponent = Component:extend("ParentComponent")
+
+				local didMountCallbackCalled = 0
+
+				function ParentComponent:init()
+					self:setState({
+						count = 1
+					})
+
+					self.onDidMountCallback = function()
+						didMountCallbackCalled = didMountCallbackCalled + 1
+						if self.state.count < 5 then
+							self:setState({
+								count = self.state.count + 1,
+							})
+						end
+					end
+				end
+
+				function ParentComponent:render()
+					return createElement("Frame", {
+
+					}, {
+						ChildComponent = createElement(ChildComponent, {
+							count = self.state.count,
+							onDidMountCallback = self.onDidMountCallback,
+						})
+					})
+				end
+
+				local parent = Instance.new("ScreenGui")
+				parent.Parent = game.CoreGui
+
+				local tree = createElement(ParentComponent)
+
+				local hostKey = "Some Key"
+				local instance = reconciler.mountVirtualNode(tree, parent, hostKey)
+
+				coroutine.resume(childCoroutine)
+
+				expect(#parent:GetChildren()).to.equal(1)
+
+				local frame = parent:GetChildren()[1]
+
+				expect(#frame:GetChildren()).to.equal(1)
+
+				-- In an ideal world, the didMount callback would probably be called only once. Since it is called by two different
+				-- LowestComponent instantiations 2 is also acceptable though.
+				expect(didMountCallbackCalled <= 2).to.equal(true)
+
+				reconciler.unmountVirtualNode(instance)
+
+				for _, value in pairs(unmountCounts) do
+					expect(value).to.equal(1)
+				end
+			end)
+		end)
+
+		it("should never unmount a node unnecesarily in the case of re-rentry", function()
+			local configValues = {
+				tempFixUpdateChildrenReEntrancy = true,
+			}
+
+			GlobalConfig.scoped(configValues, function()
+				local LowestComponent = Component:extend("LowestComponent")
+				function LowestComponent:render()
+					return createElement("Frame")
+				end
+
+				function LowestComponent:didUpdate(prevProps, prevState)
+					if prevProps.firstTime and not self.props.firstTime then
+						self.props.onChangedCallback()
+					end
+				end
+
+				local ChildComponent = Component:extend("ChildComponent")
+
+				function ChildComponent:init()
+					self:setState({
+						firstTime = true
+					})
+				end
+
+				local childCoroutine
+
+				function ChildComponent:render()
+					return createElement(LowestComponent, {
+						firstTime = self.state.firstTime,
+						onChangedCallback = self.props.onChangedCallback
+					})
+				end
+
+				function ChildComponent:didMount()
+					childCoroutine = coroutine.create(function()
+						self:setState({
+							firstTime = false
+						})
+					end)
+				end
+
+				local ParentComponent = Component:extend("ParentComponent")
+
+				local onChangedCallbackCalled = 0
+
+				function ParentComponent:init()
+					self:setState({
+						count = 1
+					})
+
+					self.onChangedCallback = function()
+						onChangedCallbackCalled = onChangedCallbackCalled + 1
+						if self.state.count < 5 then
+							self:setState({
+								count = self.state.count + 1,
+							})
+						end
+					end
+				end
+
+				function ParentComponent:render()
+					return createElement("Frame", {
+
+					}, {
+						ChildComponent = createElement(ChildComponent, {
+							count = self.state.count,
+							onChangedCallback = self.onChangedCallback,
+						})
+					})
+				end
+
+				local parent = Instance.new("ScreenGui")
+				parent.Parent = game.CoreGui
+
+				local tree = createElement(ParentComponent)
+
+				local hostKey = "Some Key"
+				local instance = reconciler.mountVirtualNode(tree, parent, hostKey)
+
+				coroutine.resume(childCoroutine)
+
+				expect(#parent:GetChildren()).to.equal(1)
+
+				local frame = parent:GetChildren()[1]
+
+				expect(#frame:GetChildren()).to.equal(1)
+
+				expect(onChangedCallbackCalled).to.equal(1)
+
+				reconciler.unmountVirtualNode(instance)
+			end)
 		end)
 	end)
 end

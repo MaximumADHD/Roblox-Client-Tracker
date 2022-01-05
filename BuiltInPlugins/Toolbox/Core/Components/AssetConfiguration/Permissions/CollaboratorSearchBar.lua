@@ -40,8 +40,6 @@
 	Optional Properties:
 		LayoutOrder = num, default to 0, optional layout order for UI layouts
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -330,21 +328,9 @@ function CollaboratorSearchBar:onRenderItem(item, index, activated, theme, searc
 end
 
 function CollaboratorSearchBar:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function CollaboratorSearchBar:renderContent(theme)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local orderIterator = LayoutOrderIterator.new()
 
@@ -528,10 +514,8 @@ function CollaboratorSearchBar:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	CollaboratorSearchBar = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CollaboratorSearchBar)
-end
+CollaboratorSearchBar = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CollaboratorSearchBar)
 
 return CollaboratorSearchBar

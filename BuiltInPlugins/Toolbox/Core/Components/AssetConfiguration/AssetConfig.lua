@@ -10,7 +10,6 @@ local FFlagAssetConfigEnforceNonEmptyDescription = game:GetFastFlag("AssetConfig
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
 local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 
@@ -704,30 +703,17 @@ local function getMessageBoxProps(getAssetFailed, localizedContent, cancelFunc, 
 end
 
 function AssetConfig:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(nil, modalTarget, localizedContent)
-			end)
+	return withModal(function(modalTarget)
+		return withLocalization(function(_, localizedContent)
+			return self:renderContent(modalTarget, localizedContent)
 		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget)
-				return withLocalization(function(_, localizedContent)
-					return self:renderContent(theme, modalTarget, localizedContent)
-				end)
-			end)
-		end)
-	end
+	end)
 end
 
-function AssetConfig:renderContent(theme, modalTarget, localizedContent)
+function AssetConfig:renderContent(modalTarget, localizedContent)
 	local props = self.props
 	local state = self.state
-
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local Size = props.Size
 
@@ -963,7 +949,7 @@ end
 
 AssetConfig = withContext({
 	Focus = ContextServices.Focus,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(AssetConfig)
 
 

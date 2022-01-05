@@ -9,7 +9,6 @@
 		function onDelete = A callback when the user wants to delete the tag.
 		string prefix = The text pre-appended before the Name
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -45,23 +44,13 @@ SearchTag.defaultProps = {
 }
 
 function SearchTag:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end)
 end
 
 function SearchTag:renderContent(theme, localizedContent)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 	local prefix = self.props.prefix
 	local name = self.props.Name
 	local onDelete = self.props.onDelete
@@ -120,10 +109,8 @@ function SearchTag:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchTag = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchTag)
-end
+SearchTag = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchTag)
 
 return SearchTag

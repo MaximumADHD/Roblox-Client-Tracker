@@ -6,8 +6,6 @@
 	bool ShowIcon = Show the preview button to toggle the asset preview.
 	function onClick = A callback when the user clicks this button.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -21,9 +19,6 @@ local Roact = require(Libs.Roact)
 
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
-local ContextHelper = require(Util.ContextHelper)
-
-local withTheme = ContextHelper.withTheme
 
 local PopUpWrapperButton = Roact.PureComponent:extend("PopUpWrapperButton")
 
@@ -49,16 +44,6 @@ function PopUpWrapperButton:init(props)
 end
 
 function PopUpWrapperButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function PopUpWrapperButton:renderContent(theme)
 	local props = self.props
 	local state = self.state
 

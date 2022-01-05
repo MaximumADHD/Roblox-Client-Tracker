@@ -1,5 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -41,20 +39,8 @@ function FooterButton:init(props)
 end
 
 function FooterButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function FooterButton:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local index = props.index
 	local name = props.name
@@ -127,10 +113,8 @@ function FooterButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	FooterButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(FooterButton)
-end
+FooterButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(FooterButton)
 
 return FooterButton

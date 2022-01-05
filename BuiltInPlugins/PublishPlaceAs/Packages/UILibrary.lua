@@ -3,13 +3,7 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package
-if game:GetFastFlag("PublishPlaceAsDeduplicatePackages") then
-	package = PackageIndex["UILibrary"]["UILibrary"]
-else
-	local OldPackages = PackageIndex.Parent.Parent.OldPackages
-	package = OldPackages.UILibrary
-end
+local package = PackageIndex["UILibrary"]["UILibrary"]
 
 if package.ClassName == "ModuleScript" then
 	return require(package)

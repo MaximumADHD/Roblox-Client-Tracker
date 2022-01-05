@@ -45,6 +45,7 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagStudioAssetManagerGetScriptsConflict = game:GetFastFlag("StudioAssetManagerGetScriptsConflict")
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
 
@@ -119,10 +120,21 @@ function MainView:init()
         local dispatchLoadAllAliases = props.dispatchLoadAllAliases
         dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
     end
+
+    self.hasScripts = function()
+        local props = self.props
+        local apiImpl = props.API:get()
+        local dispatchLoadAllAliases = props.dispatchLoadAllAliases
+        dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua, true)
+    end
 end
 
 function MainView:didMount()
-    self.getScripts()
+    if FFlagStudioAssetManagerGetScriptsConflict then
+        self.hasScripts()
+    else
+        self.getScripts()    
+    end
     if game.GameId ~= 0 then
         self.props.dispatchGetUniverseConfiguration(self.props.API:get())
     end
@@ -325,8 +337,8 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        dispatchLoadAllAliases = function(apiImpl, assetType)
-            dispatch(LoadAllAliases(apiImpl, assetType))
+        dispatchLoadAllAliases = function(apiImpl, assetType, scriptCheck)
+            dispatch(LoadAllAliases(apiImpl, assetType, scriptCheck))
         end,
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))

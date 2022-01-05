@@ -9,8 +9,6 @@
 		function closeDropdown = A callback for when the dropdown should be closed.
 		function onClick = A callback for when this entry is clicked.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -64,22 +62,10 @@ function LiveSearchEntry:init(props)
 end
 
 function LiveSearchEntry:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function LiveSearchEntry:renderContent(theme)
 	local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
 	local rowHeight = Constants.SEARCH_ENTRY_HEIGHT
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 
 	local isDarkerTheme = theme.isDarkerTheme
 	local dropdownTheme = theme.dropdownMenu
@@ -158,10 +144,8 @@ function LiveSearchEntry:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then	
-	LiveSearchEntry = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(LiveSearchEntry)
-end
+LiveSearchEntry = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(LiveSearchEntry)
 
 return LiveSearchEntry

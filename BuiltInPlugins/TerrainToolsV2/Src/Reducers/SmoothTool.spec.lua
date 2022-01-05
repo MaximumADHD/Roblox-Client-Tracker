@@ -1,5 +1,3 @@
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -24,7 +22,7 @@ local ChooseBrushShape = require(Actions.ChooseBrushShape)
 local SetPlaneLock = require(Actions.SetPlaneLock)
 local SetEditPlaneMode = require(Actions.SetEditPlaneMode)
 local SetPlaneCFrame = require(Actions.SetPlaneCFrame)
-local SetSnapToGrid = require(Actions.SetSnapToGrid)
+local SetSnapToVoxels = require(Actions.SetSnapToVoxels)
 local SetBaseSizeHeightLocked = require(Actions.SetBaseSizeHeightLocked)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
@@ -39,14 +37,10 @@ return function()
 		expect(r:getState().baseSizeHeightLocked).to.equal(true)
 		expect(r:getState().strength).to.equal(Constants.INITIAL_BRUSH_STRENGTH)
 		expect(r:getState().pivot).to.equal(PivotType.Center)
-		if FFlagTerrainToolsEditPlaneLock then
-			expect(r:getState().planeLock).to.equal(PlaneLockType.Off)
-			expect(r:getState().editPlaneMode).to.equal(false)
-			expect(r:getState().planeCFrame).to.equal(nil)
-		else
-			expect(r:getState().planeLock).to.equal(false)
-		end
-		expect(r:getState().snapToGrid).to.equal(false)
+		expect(r:getState().planeLock).to.equal(PlaneLockType.Off)
+		expect(r:getState().editPlaneMode).to.equal(false)
+		expect(r:getState().planeCFrame).to.equal(nil)
+		expect(r:getState().snapToVoxels).to.equal(false)
 		expect(r:getState().ignoreWater).to.equal(false)
 		expect(r:getState().ignoreParts).to.equal(true)
 	end)
@@ -113,76 +107,61 @@ return function()
 
 	describe("SetPlaneLock", function()
 		it("should set the current planeLock", function()
-			if FFlagTerrainToolsEditPlaneLock then
-				local state = SmoothTool(nil, SetPlaneLock(PlaneLockType.Auto))
+			local state = SmoothTool(nil, SetPlaneLock(PlaneLockType.Auto))
 
-				expect(state).to.be.ok()
-				expect(state.planeLock).to.be.ok()
-				expect(state.planeLock).to.equal(PlaneLockType.Auto)
-			else
-				local state = SmoothTool(nil, SetPlaneLock(true))
-
-				expect(state).to.be.ok()
-				expect(state.planeLock).to.be.ok()
-				expect(state.planeLock).to.equal(true)
-			end
+			expect(state).to.be.ok()
+			expect(state.planeLock).to.be.ok()
+			expect(state.planeLock).to.equal(PlaneLockType.Auto)
 		end)
 
 		it("should preserve immutability", function()
-			if FFlagTerrainToolsEditPlaneLock then
-				local immutabilityPreserved = testImmutability(SmoothTool, SetPlaneLock(PlaneLockType.Auto))
-				expect(immutabilityPreserved).to.equal(true)
-			else
-				local immutabilityPreserved = testImmutability(SmoothTool, SetPlaneLock(true))
-				expect(immutabilityPreserved).to.equal(true)
-			end
+			local immutabilityPreserved = testImmutability(SmoothTool, SetPlaneLock(PlaneLockType.Auto))
+			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
 
-	if FFlagTerrainToolsEditPlaneLock then
-		describe("SetEditPlaneMode", function()
-			it("should set the current editPlaneMode", function()
-				local state = SmoothTool(nil, SetEditPlaneMode(true))
-
-				expect(state).to.be.ok()
-				expect(state.editPlaneMode).to.be.ok()
-				expect(state.editPlaneMode).to.equal(true)
-			end)
-	
-			it("should preserve immutability", function()
-				local immutabilityPreserved = testImmutability(SmoothTool, SetEditPlaneMode(true))
-				expect(immutabilityPreserved).to.equal(true)
-			end)
-		end)
-	
-		describe("SetPlaneCFrame", function()
-			it("should set the current planeCFrame", function()
-				local frame = CFrame.new()
-				local state = SmoothTool(nil, SetPlaneCFrame(frame))
-
-				expect(state).to.be.ok()
-				expect(state.planeCFrame).to.be.ok()
-				expect(state.planeCFrame).to.equal(frame)
-			end)
-	
-			it("should preserve immutability", function()
-				local immutabilityPreserved = testImmutability(SmoothTool, SetPlaneCFrame(CFrame.new()))
-				expect(immutabilityPreserved).to.equal(true)
-			end)
-		end)
-	end
-
-	describe("SetSnapToGrid", function()
-		it("should set the current snapToGrid", function()
-			local state = SmoothTool(nil, SetSnapToGrid(true))
+	describe("SetEditPlaneMode", function()
+		it("should set the current editPlaneMode", function()
+			local state = SmoothTool(nil, SetEditPlaneMode(true))
 
 			expect(state).to.be.ok()
-			expect(state.snapToGrid).to.be.ok()
-			expect(state.snapToGrid).to.equal(true)
+			expect(state.editPlaneMode).to.be.ok()
+			expect(state.editPlaneMode).to.equal(true)
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(SmoothTool, SetSnapToGrid(true))
+			local immutabilityPreserved = testImmutability(SmoothTool, SetEditPlaneMode(true))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe("SetPlaneCFrame", function()
+		it("should set the current planeCFrame", function()
+			local frame = CFrame.new()
+			local state = SmoothTool(nil, SetPlaneCFrame(frame))
+
+			expect(state).to.be.ok()
+			expect(state.planeCFrame).to.be.ok()
+			expect(state.planeCFrame).to.equal(frame)
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(SmoothTool, SetPlaneCFrame(CFrame.new()))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe("SetSnapToVoxels", function()
+		it("should set the current snapToVoxels", function()
+			local state = SmoothTool(nil, SetSnapToVoxels(true))
+
+			expect(state).to.be.ok()
+			expect(state.snapToVoxels).to.be.ok()
+			expect(state.snapToVoxels).to.equal(true)
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(SmoothTool, SetSnapToVoxels(true))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

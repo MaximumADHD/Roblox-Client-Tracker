@@ -22,7 +22,7 @@ local ReducerToolFlatten = Rodux.createReducer({
 	planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
 	fixedPlane = false,
 	heightPicker = false,
-	snapToGrid = false,
+	snapToVoxels = false,
 	ignoreWater = true,
 	ignoreParts = true,
 }, {
@@ -90,11 +90,11 @@ local ReducerToolFlatten = Rodux.createReducer({
 			heightPicker = heightPicker,
 		})
 	end,
-	SetSnapToGrid = function(state, action)
-		local snapToGrid = action.snapToGrid
+	SetSnapToVoxels = function(state, action)
+		local snapToVoxels = action.snapToVoxels
 
 		return Cryo.Dictionary.join(state, {
-			snapToGrid = snapToGrid,
+			snapToVoxels = snapToVoxels,
 		})
 	end,
 	SetIgnoreWater = function(state, action)

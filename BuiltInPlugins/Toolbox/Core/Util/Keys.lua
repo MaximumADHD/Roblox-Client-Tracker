@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 
@@ -21,9 +20,6 @@ Keys.plugin = createKey("Plugin")
 Keys.settings = createKey("Settings")
 Keys.theme = createKey("Theme")
 Keys.camera = createKey("MarketplaceCamera")
-if (not FFlagRemoveUILibraryFromToolbox) then
-	Keys.UILibraryTheme = createKey("UILibraryraryTheme")
-end
 Keys.LoadingInProgress = createKey("LoadingInProgress")
 
 return wrapStrictTable(Keys, "Keys")

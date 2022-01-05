@@ -4,7 +4,6 @@
 	Props:
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagUGCGroupUploads2 = game:GetFastFlag("UGCGroupUploads2")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -67,25 +66,15 @@ function ConfigAccess:didMount()
 end
 
 function ConfigAccess:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function ConfigAccess:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local Title = props.Title
 	local LayoutOrder = props.LayoutOrder
@@ -216,10 +205,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	ConfigAccess = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ConfigAccess)
-end
+ConfigAccess = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ConfigAccess)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ConfigAccess)

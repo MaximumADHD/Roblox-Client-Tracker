@@ -14,7 +14,6 @@
 		int LayoutOrder - will be used by the layouter to change the position of the components (defaults to 1 if not passed in)
 
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local PREVIEW_TITLE_PADDING = 12
 local PREVIEW_TITLE_HEIGHT = 24
@@ -56,20 +55,8 @@ function DefaultThumbnailPreview:getName()
 end
 
 function DefaultThumbnailPreview:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function DefaultThumbnailPreview:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local title = props.title or self:getName()
 	local showTitle = true
@@ -119,10 +106,8 @@ local function mapStateToProps(state, props)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	DefaultThumbnailPreview = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(DefaultThumbnailPreview)
-end
+DefaultThumbnailPreview = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(DefaultThumbnailPreview)
 
 return RoactRodux.connect(mapStateToProps)(DefaultThumbnailPreview)

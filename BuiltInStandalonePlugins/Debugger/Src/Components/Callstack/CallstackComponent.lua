@@ -52,26 +52,44 @@ local columnNameToKey = {
 }
 
 -- Local Functions
-local function makeCallstackRootItem(threadInfo, common, callstackVars)
+local function setArrowIcon(index, frameData, frameListCopy, currentFrameNumber)
+	if (index == 1) then
+		frameListCopy[index].arrowColumn = CallstackRow.ICON_FRAME_TOP
+	elseif (frameData.frameColumn == currentFrameNumber) then
+		frameListCopy[index].arrowColumn = CallstackRow.ICON_CURRENT_FRAME
+	else
+		frameListCopy[index].arrowColumn = ""
+	end
+end
+
+local function convertGUIDToFileName(guid, scriptInfoReducer)
+	return scriptInfoReducer.ScriptInfo[guid]
+end
+
+local function convertSourceCol(index, frameData, frameListCopy, scriptInfoReducer)
+	local fileName = convertGUIDToFileName(frameListCopy[index].sourceColumn, scriptInfoReducer)
+	assert(fileName ~= nil and fileName ~= "")
+	frameListCopy[index].sourceColumn = fileName
+end
+
+local function makeCallstackRootItem(threadInfo, callstackVars, common, scriptInfoReducer)
 	local displayString = threadInfo.displayString
 	local threadId = threadInfo.threadId
 	local currentFrameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
-			
+	
 	local frameList = callstackVars.threadIdToFrameList and callstackVars.threadIdToFrameList[threadId]
+	if frameList == nil then
+		return nil
+	end
 	
 	local frameListCopy = deepCopy(frameList)
 	for index, frameData in ipairs(frameListCopy) do
-		if (index == 1) then
-			frameListCopy[index].arrowColumn = CallstackRow.ICON_FRAME_TOP
-		elseif (frameData.frameColumn == currentFrameNumber) then
-			frameListCopy[index].arrowColumn = CallstackRow.ICON_CURRENT_FRAME
-		else
-			frameListCopy[index].arrowColumn = ""
-		end
+		setArrowIcon(index, frameData, frameListCopy, currentFrameNumber)
+		convertSourceCol(index, frameData, frameListCopy, scriptInfoReducer)
 	end
 
 	return {
-		arrowColumn = displayString,
+		arrowColumn = convertGUIDToFileName(displayString, scriptInfoReducer),
 		threadId = threadId,
 		children = frameListCopy,
 	}
@@ -332,10 +350,12 @@ CallstackComponent = RoactRodux.connect(
 			local rootList = {}
 			local expansionTable = nil
 			for _, threadInfo in ipairs(threadList) do
-				local rootItem = makeCallstackRootItem(threadInfo, common, callstackVars)
-				table.insert(rootList, rootItem)
-				if (threadInfo.threadId == currentThreadId) then
-					expansionTable = {[rootItem] = true}
+				local rootItem = makeCallstackRootItem(threadInfo, callstackVars, common, state.ScriptInfo)
+				if rootItem then
+					table.insert(rootList, rootItem)
+					if (threadInfo.threadId == currentThreadId) then
+						expansionTable = {[rootItem] = true}
+					end
 				end
 			end
 

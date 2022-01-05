@@ -11,8 +11,6 @@
 
 		callback onScroll()
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -26,18 +24,14 @@ local Roact = require(Libs.Roact)
 local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local Images = require(Plugin.Core.Util.Images)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local withTheme = ContextHelper.withTheme
+local function renderContent(props)
+	local theme = props.Stylizer
 
-local function renderContent(props, theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
 	local position = props.Position or UDim2.new(0, 0, 0, 0)
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
 	local canvasSize = props.CanvasSize or UDim2.new(1, 0, 1, 0)
@@ -98,23 +92,14 @@ local function renderContent(props, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	local StyledScrollingFrame = Roact.PureComponent:extend("StyledScrollingFrame")
+local StyledScrollingFrame = Roact.PureComponent:extend("StyledScrollingFrame")
 
-	function StyledScrollingFrame:render()
-		return renderContent(self.props, nil)
-	end
-
-	StyledScrollingFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(StyledScrollingFrame)
-
-	return StyledScrollingFrame
-else
-	local function StyledScrollingFrame(props)
-		return withTheme(function(theme)
-			return renderContent(props, theme)
-		end)
-	end
-	return StyledScrollingFrame
+function StyledScrollingFrame:render()
+	return renderContent(self.props)
 end
+
+StyledScrollingFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(StyledScrollingFrame)
+
+return StyledScrollingFrame

@@ -7,7 +7,6 @@
 		callback onClose - called when the user presses the "cancel" button
 ]]
 
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -122,24 +121,15 @@ function AssetTypeSelection:canSkip()
 end
 
 function AssetTypeSelection:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
+
 	local shouldShowDefaultThumbnailForAnimation = FFlagUseDefaultThumbnailForAnimation and self.props.assetTypeEnum == Enum.AssetType.Animation
 
 	return Roact.createElement("Frame", {
@@ -176,8 +166,8 @@ function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 		Footer = Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, FOOTER_HEIGHT),
 			Position = UDim2.new(0, 0, 1, -FOOTER_HEIGHT),
-			BackgroundColor3 = FFlagToolboxRemoveWithThemes and theme.typeSelection.configFooter.background or theme.typeSelection.footer.background,
-			BorderColor3 = FFlagToolboxRemoveWithThemes and theme.typeSelection.configFooter.border or  theme.typeSelection.footer.border,
+			BackgroundColor3 = theme.typeSelection.configFooter.background,
+			BorderColor3 = theme.typeSelection.configFooter.border,
 		}, {
 			UIListLayout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, FOOTER_PADDING),
@@ -249,10 +239,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetTypeSelection = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetTypeSelection)
-end
+AssetTypeSelection = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetTypeSelection)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetTypeSelection)

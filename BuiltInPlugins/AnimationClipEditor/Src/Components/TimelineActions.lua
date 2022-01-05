@@ -75,6 +75,7 @@ local FFlagAnimEditorFixBackspaceOnMac = require(Plugin.LuaFlags.GetFFlagAnimEdi
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 local TimelineActions = Roact.PureComponent:extend("TimelineActions")
 
@@ -319,7 +320,11 @@ function TimelineActions:didMount()
 				local newValue
 
 				if track and track.Keyframes then
-					newValue = KeyframeUtils:getValue(track, tick)
+					if GetFFlagKeyframeUtilsGetValueCleanup() then
+						newValue = KeyframeUtils.getValue(track, tick)
+					else
+						newValue = KeyframeUtils:getValue_deprecated(track, tick)
+					end
 				else
 					if GetFFlagFacialAnimationSupport() then
 						-- If the type could not be determined by an existing track or by
@@ -428,7 +433,11 @@ function TimelineActions:didMount()
 						local trackType = track and track.Type
 
 						if track and track.Keyframes then
-							newValue = KeyframeUtils:getValue(track, playhead)
+							if GetFFlagKeyframeUtilsGetValueCleanup() then
+								newValue = KeyframeUtils.getValue(track, playhead)
+							else
+								newValue = KeyframeUtils:getValue_deprecated(track, playhead)
+							end
 						else
 							if GetFFlagFacialAnimationSupport() then
 								trackType = trackType or TrackUtils.getTrackTypeFromName(selectedTrack, tracks)

@@ -7,7 +7,6 @@ local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
 local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
-local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Urls = {}
@@ -292,11 +291,6 @@ function Urls.constructAssetConfigDataUrl(assetId)
 		})
 end
 
-if not FFlagRemoveGetAssetConfigGroupDataRequest then
-	function Urls.constructAssetConfigGroupDataUrl(groupId)
-		return (GET_ASSET_GROUP):format(groupId)
-	end
-end
 function Urls.constructAssetGameAssetIdUrl(assetId, assetTypeId, isPackage, assetName)
 	return ASSET_GAME_ASSET_ID
 		.. Url.makeQueryString({

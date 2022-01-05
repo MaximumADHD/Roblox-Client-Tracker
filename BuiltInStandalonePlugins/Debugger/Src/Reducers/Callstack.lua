@@ -7,6 +7,7 @@ local Models = Plugin.Src.Models
 local AddCallstackAction = require(Actions.Callstack.AddCallstack)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local ResumedAction = require(Actions.Common.Resumed)
+local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 local ThreadInfo = require(Models.ThreadInfo)
@@ -93,6 +94,12 @@ return Rodux.createReducer(productionStartStore, {
 					threadList = newThreadList,
 				}
 			})
+		})
+	end,
+	
+	[ClearConnectionDataAction.name] = function(state : CallstackStore, action)
+		return Cryo.Dictionary.join(state, {
+			stateTokenToCallstackVars = Cryo.List.removeValue(state.stateTokenToCallstackVars, action.debuggerStateToken),
 		})
 	end,
 	

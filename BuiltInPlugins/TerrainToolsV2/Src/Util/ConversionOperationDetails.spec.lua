@@ -1,3 +1,12 @@
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
+
+if convertToolRemoval then
+	return function() end
+end
+
+-- TODO: smkuhne: Remove file with removal of the ConversionOperationDetails
 local ConversionOperationDetails = require(script.Parent.ConversionOperationDetails)
 
 return function()

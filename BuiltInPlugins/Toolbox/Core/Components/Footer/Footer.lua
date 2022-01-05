@@ -4,8 +4,6 @@
 	Props:
 		Backgrounds backgrounds
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -79,23 +77,13 @@ function Footer:willUnmount()
 end
 
 function Footer:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function Footer:renderContent(theme, localization, localizedContent)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 	local props = self.props
 	local backgrounds = props.backgrounds
 	local selectedBackgroundIndex = props.selectedBackgroundIndex
@@ -194,7 +182,7 @@ end
 
 Footer = withContext({
 	Settings = Settings,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Footer)
 
 

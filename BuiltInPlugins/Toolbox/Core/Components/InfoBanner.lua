@@ -8,7 +8,6 @@
 		boolean Visible = true
 		string Text = ""
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -22,16 +21,12 @@ local Roact = require(Libs.Roact)
 local Framework = require(Libs.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
-local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local function renderContent(props, theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+local function renderContent(props)
+	local theme = props.Stylizer
 	local fontSize = Constants.FONT_SIZE_LARGE
 	local height = fontSize + (2 * Constants.INFO_BANNER_PADDING)
 
@@ -60,22 +55,13 @@ local function renderContent(props, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	local InfoBanner = Roact.PureComponent:extend("InfoBanner")
+local InfoBanner = Roact.PureComponent:extend("InfoBanner")
 
-	function InfoBanner:render()
-		return renderContent(self.props, nil)
-	end
-
-	InfoBanner = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(InfoBanner)
-	return InfoBanner
-else
-	local function InfoBanner(props)
-		return withTheme(function(theme)
-			return renderContent(props, theme)
-		end)
-	end
-	return InfoBanner
+function InfoBanner:render()
+	return renderContent(self.props)
 end
+
+InfoBanner = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(InfoBanner)
+return InfoBanner

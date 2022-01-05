@@ -5,8 +5,6 @@
 		string Header = The text to display at the top of this entry.
 		int LayoutOrder = The order in which to display this entry in the SearchOptions page.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -37,19 +35,7 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 function SearchOptionsEntry:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function SearchOptionsEntry:renderContent(theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 	local header = self.props.Header
 	local layoutOrder = self.props.LayoutOrder
 	local ZIndex = self.props.ZIndex or 1
@@ -75,10 +61,8 @@ function SearchOptionsEntry:renderContent(theme)
 	}))
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchOptionsEntry = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchOptionsEntry)
-end
+SearchOptionsEntry = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchOptionsEntry)
 
 return SearchOptionsEntry

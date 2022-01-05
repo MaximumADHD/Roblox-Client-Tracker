@@ -1,6 +1,3 @@
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
@@ -57,15 +54,7 @@ function TerrainBrushCursor.isVisibleForOperation(operationSettings)
 		return false
 	end
 
-	if FFlagTerrainToolsEditPlaneLock then
-		if FFlagTerrainToolsPlaneLockDraggerHandles then
-			return operationSettings.planeLockActive and not operationSettings.heightPicker and not operationSettings.editPlaneMode
-		else
-			return not operationSettings.heightPicker and not operationSettings.editPlaneMode
-		end
-	else
-		return not operationSettings.heightPicker
-	end
+	return operationSettings.planeLockActive and not operationSettings.heightPicker and not operationSettings.editPlaneMode
 end
 
 function TerrainBrushCursor:getCursorPart()

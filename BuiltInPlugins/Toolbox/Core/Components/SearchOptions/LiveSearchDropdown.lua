@@ -42,7 +42,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 
 local LiveSearchDropdown = Roact.PureComponent:extend("LiveSearchDropdown")
 
@@ -106,20 +105,12 @@ function LiveSearchDropdown:defaultLayout(items)
 end
 
 function LiveSearchDropdown:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withModal(function(modalTarget)
-			return self:renderContent(modalTarget, nil)
-		end)
-	else
-		return withTheme(function(theme)
-			return withModal(function(modalTarget)
-				return self:renderContent(modalTarget, theme)
-			end)
-		end)
-	end
+	return withModal(function(modalTarget)
+		return self:renderContent(modalTarget)
+	end)
 end
 
-function LiveSearchDropdown:renderContent(modalTarget, theme)
+function LiveSearchDropdown:renderContent(modalTarget)
 	local position = self.props.Position or UDim2.new()
 	local size = self.props.Size
 	local layoutOrder = self.props.LayoutOrder or 0
@@ -127,9 +118,7 @@ function LiveSearchDropdown:renderContent(modalTarget, theme)
 
 	local maxHeight = self.props.MaxHeight or Constants.SEARCH_ENTRY_HEIGHT * 5
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 
 	local dropdownTheme = theme.dropdownMenu
 
@@ -178,10 +167,8 @@ function LiveSearchDropdown:renderContent(modalTarget, theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then	
-	LiveSearchDropdown = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(LiveSearchDropdown)
-end
+LiveSearchDropdown = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(LiveSearchDropdown)
 
 return LiveSearchDropdown

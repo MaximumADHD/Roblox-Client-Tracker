@@ -1,10 +1,8 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Images = require(Plugin.Core.Util.Images)
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
@@ -12,14 +10,6 @@ if FFlagToolboxDeduplicatePackages then
 	Libs = Plugin.Packages
 else
 	Libs = Plugin.Libs
-end
-
-local UILibrary = require(Libs.UILibrary)
-local createTheme
-local StudioStyle
-if (not FFlagRemoveUILibraryFromToolbox) then
-	createTheme = UILibrary.createTheme
-	StudioStyle = UILibrary.Studio.Style
 end
 
 local Framework = require(Libs.Framework)
@@ -45,23 +35,7 @@ local Cryo = require(Libs.Cryo)
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-local function getUILibraryTheme(styleRoot, overrides)
-	if FFlagRemoveUILibraryFromToolbox then
-		return
-	end
-	local theme = settings().Studio.Theme
-
-	local styleGuide = StudioStyle.new(function(...)
-		return theme:GetColor(...)
-	end, Enum.StudioStyleGuideColor, Enum.StudioStyleGuideModifier)
-
-	local styleKeysTable = Stylizer:getStyleKeysTable(styleRoot)
-	overrides = Stylizer:convertStyleKeys(overrides or {}, nil, nil, styleKeysTable)
-
-	return createTheme(styleGuide, overrides)
-end
-
-local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
+local makeTheme = function(themeExtension)
 	local styleRoot
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
@@ -137,7 +111,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 		link = StyleKey.LinkText,
 		redText = Color3.fromRGB(255, 68, 68),
 
-		asset = FFlagToolboxRemoveWithThemes and {
+		asset = {
 			assetName = {
 				textColor = StyleKey.MainText,
 			},
@@ -172,13 +146,13 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 				votedUpThumb = Color3.fromRGB(0, 178, 89),
 				voteThumb = Color3.fromRGB(117, 117, 117),
 			},
-		} or nil,
+		},
 
-		creatorName = FFlagToolboxRemoveWithThemes and {
+		creatorName = {
 			textColor = StyleKey.SubText,
-		} or nil,
+		},
 
-		dropdownMenu = FFlagToolboxRemoveWithThemes and {
+		dropdownMenu = {
 			dropdownIconColor = StyleKey.Toolbox_DropdownIconColor,
 
 			currentSelection = {
@@ -201,7 +175,7 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			dropdownFrame = {
 				borderColor = StyleKey.Border,
 			},
-		} or nil,
+		},
 
 		footer = {
 			backgroundColor = StyleKey.Titlebar,
@@ -218,21 +192,21 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			},
 		},
 
-		header = FFlagToolboxRemoveWithThemes and {
+		header = {
 			backgroundColor = StyleKey.Titlebar,
 			borderColor = StyleKey.Border,
-		} or nil,
+		},
 
-		infoBanner = FFlagToolboxRemoveWithThemes and {
+		infoBanner = {
 			backgroundColor = StyleKey.Titlebar,
 			textColor = StyleKey.SubText,
-		} or nil,
+		},
 
-		linkButton = FFlagToolboxRemoveWithThemes and {
+		linkButton = {
 			textColor = Color3.fromRGB(0, 162, 255),
-		} or nil,
+		},
 
-		messageBox = FFlagToolboxRemoveWithThemes and {
+		messageBox = {
 			backgroundColor = StyleKey.MainBackground,
 			textColor = StyleKey.MainText,
 			informativeTextColor = StyleKey.SubText,
@@ -285,19 +259,19 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			},
 		},
 
-		scrollingFrame = FFlagToolboxRemoveWithThemes and {
+		scrollingFrame = {
 			scrollbarBackgroundColor = StyleKey.ScrollingFrameBackgroundColor,
 			scrollbarImageColor = StyleKey.ScrollingFrameImageColor,
 		},
 
-		suggestionsComponent = FFlagToolboxRemoveWithThemes and {
+		suggestionsComponent = {
 			labelTextColor = StyleKey.MainText,
 			textColor = StyleKey.SubText,
 			textHoveredColor = StyleKey.LinkText,
 			underlineColor = StyleKey.LinkText,
 		},
 
-		searchOptions = FFlagToolboxRemoveWithThemes and {
+		searchOptions = {
 			background = StyleKey.MainBackground,
 			headerTextColor = StyleKey.MainText,
 			imageColor = Colors.GRAY_2,
@@ -329,21 +303,21 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			},
 		},
 
-		searchTag = FFlagToolboxRemoveWithThemes and {
+		searchTag = {
 			backgroundColor = StyleKey.Toolbox_SearchTagBackgroundColor,
 			borderColor = StyleKey.Border,
 			textColor = StyleKey.MainText,
 			clearAllText = StyleKey.LinkText,
 		},
 
-		tabSet = FFlagToolboxRemoveWithThemes and {
+		tabSet = {
 			backgroundColor = StyleKey.MainBackground,
 			borderColor = StyleKey.Border,
 			topBorderColor = StyleKey.Toolbox_TabTopBorderColor,
 			tabBackground = StyleKey.Titlebar,
 			contentColor = StyleKey.TitlebarText,
 			selectedColor = StyleKey.Toolbox_TabSelectedColor,
-		} or nil,
+		},
 
 		[ui.SearchBar] = Cryo.Dictionary.join(getRawComponentStyle("SearchBar"), {
 			["&ToolboxSearchBar"] = {
@@ -368,26 +342,6 @@ local makeTheme = function(uiLibraryDeprecatedTheme, themeExtension)
 			}
 		}),
 	})
-
-	if (not FFlagRemoveUILibraryFromToolbox) then
-		if isCli() then
-			function styleRoot:getUILibraryTheme()
-				local styleGuide = StudioStyle.new(
-					function(...)
-						return Color3.new()
-					end,
-					TestHelpers.createMockStudioStyleGuideColor(),
-					TestHelpers.createMockStudioStyleGuideModifier()
-				)
-
-				return createTheme(styleGuide, {})
-			end
-		else
-			function styleRoot:getUILibraryTheme()
-				return getUILibraryTheme(styleRoot, uiLibraryDeprecatedTheme)
-			end
-		end
-	end
 
 	return styleRoot
 end

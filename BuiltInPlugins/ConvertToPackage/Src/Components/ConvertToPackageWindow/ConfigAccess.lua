@@ -5,8 +5,6 @@
 	onDropDownSelect, function, will return current selected item if selected.
 ]]
 
-local FFlagRemoveGetAssetConfigGroupDataRequest = game:GetFastFlag("RemoveGetAssetConfigGroupDataRequest")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -21,10 +19,6 @@ local StyledDropdownMenu = UILibrary.Component.StyledDropdown
 
 local Thunks = Plugin.Src.Thunks
 local GetAssetConfigGroupDataRequest
-
-if not FFlagRemoveGetAssetConfigGroupDataRequest then
-	GetAssetConfigGroupDataRequest = require(Thunks.GetAssetConfigGroupDataRequest)
-end
 
 local GetMyGroupsRequest = require(Thunks.GetMyGroupsRequest)
 local withContext = require(Plugin.Src.ContextServices.withContext)
@@ -164,23 +158,11 @@ local function mapStateToProps(state, props)
 end
 
 local function mapDispatchToProps(dispatch)
-	if FFlagRemoveGetAssetConfigGroupDataRequest then
-		return {
-			getMyGroups = function(networkInterface)
-				dispatch(GetMyGroupsRequest(networkInterface))
-			end
-		}
-	else
-		return {
-			getGroupsData = function(networkInterface, groupId)
-				dispatch(GetAssetConfigGroupDataRequest(networkInterface, groupId))
-			end,
-	
-			getMyGroups = function(networkInterface)
-				dispatch(GetMyGroupsRequest(networkInterface))
-			end,
-		}
-	end
+	return {
+		getMyGroups = function(networkInterface)
+			dispatch(GetMyGroupsRequest(networkInterface))
+		end
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(ConfigAccess)

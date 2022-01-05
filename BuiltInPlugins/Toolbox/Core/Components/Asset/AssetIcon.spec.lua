@@ -1,4 +1,6 @@
 return function()
+	-- SKIP until we fix/block the attempt to load the invalid assetId used in the test with ContentProvider:PreloadAsync()
+	SKIP()
 	local Plugin = script.Parent.Parent.Parent.Parent
 
 	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")

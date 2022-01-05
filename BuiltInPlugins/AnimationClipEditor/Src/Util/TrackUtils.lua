@@ -17,6 +17,7 @@ local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagNilCheckAnimationDataInTrackUtils = require(Plugin.LuaFlags.GetFFlagNilCheckAnimationDataInTrackUtils)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
+local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
 local TrackUtils = {}
 
@@ -416,10 +417,10 @@ function TrackUtils.getCurrentValue(track, tick, animationData)
 
 	local currentTrack = animationData.Instances[instance].Tracks[name]
 	if currentTrack then
-		if GetFFlagChannelAnimations() then
+		if (GetFFlagChannelAnimations() or GetFFlagKeyframeUtilsGetValueCleanup()) then
 			currentValue = KeyframeUtils.getValue(currentTrack, tick)
 		else
-			currentValue = KeyframeUtils:getValue(currentTrack, tick)
+			currentValue = KeyframeUtils:getValue_deprecated(currentTrack, tick)
 		end
 	else
 		currentValue = TrackUtils.getDefaultValue(track)

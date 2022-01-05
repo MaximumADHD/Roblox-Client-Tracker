@@ -1,4 +1,6 @@
 local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
@@ -14,8 +16,12 @@ local BiomeSelector = require(ToolParts.BiomeSelector)
 local LabeledSlider = require(ToolParts.LabeledSlider)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 
-local BrushProperties = ToolParts.BrushProperties
-local HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
+local BrushProperties
+local HeightSelectionToggle
+if not convertToolRemoval then
+	BrushProperties = ToolParts.BrushProperties
+	HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
+end
 
 local Constants = require(Plugin.Src.Util.Constants)
 
@@ -26,7 +32,10 @@ function BiomeSettingsFragment:render()
 
 	local layoutOrder = self.props.LayoutOrder or 1
 
-	local useHeightPicker = self.props.showHeightPicker
+	local useHeightPicker
+	if not convertToolRemoval then
+		useHeightPicker = self.props.showHeightPicker
+	end
 
 	return Roact.createFragment({
 		BiomeSelect = Roact.createElement(BiomeSelector, {
@@ -63,11 +72,8 @@ function BiomeSettingsFragment:render()
 	})
 end
 
-
 BiomeSettingsFragment = withContext({
 	Localization = ContextItems.UILibraryLocalization,
 })(BiomeSettingsFragment)
-
-
 
 return BiomeSettingsFragment

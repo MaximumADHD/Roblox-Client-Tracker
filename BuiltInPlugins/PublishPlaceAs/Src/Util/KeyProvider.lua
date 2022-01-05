@@ -9,6 +9,14 @@ function KeyProvider.getChinaKeyName()
 	return "China"
 end
 
+function KeyProvider.getStatusKeyName()
+	return "status"
+end
+
+function KeyProvider.getRegionKeyName()
+	return "region"
+end
+
 function KeyProvider.getPublishPlaceAsKeyName()
 	return "PublishPlaceAs"
 end

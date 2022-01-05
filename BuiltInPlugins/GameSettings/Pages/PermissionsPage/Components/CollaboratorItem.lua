@@ -1,5 +1,4 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
-local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -106,7 +105,6 @@ function CollaboratorItem:getCurrentPermissionLabel()
 end
 
 function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOrder)
-	assert(FFlagRemoveUILibraryDetailedDropdown)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -125,13 +123,13 @@ function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOr
 end
 
 function CollaboratorItem:init()
-	self.onItemActivated = FFlagRemoveUILibraryDetailedDropdown and function(permission)
+	self.onItemActivated = function(permission)
 		if self.props.Writable and permission.Key ~= self.props.CurrentPermission then
 			self.props.OnPermissionChanged(permission.Key)
 		end
-	end or nil
+	end
 
-	self.onRenderItem = FFlagRemoveUILibraryDetailedDropdown and function(item, index, activated)
+	self.onRenderItem = function(item, index, activated)
 		local theme = self.props.Theme:get("Plugin")
 		local mainText = item.Display
 		local description = item.Description
@@ -152,7 +150,7 @@ function CollaboratorItem:init()
 
 			DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1),
 		})
-	end or nil
+	end
 end
 
 function CollaboratorItem:render()
@@ -218,30 +216,13 @@ function CollaboratorItem:render()
 				Size = UDim2.fromScale(1, 1),
 			}),
 
-			PermissionsDropdown = FFlagRemoveUILibraryDetailedDropdown and (not loading) and Roact.createElement(SelectInput, {
+			PermissionsDropdown = not loading and Roact.createElement(SelectInput, {
 				Enabled = writable and #availablePermissions > 1,
 				Items = availablePermissions,
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,
 				PlaceholderText = self:getCurrentPermissionLabel(),
 				Width = theme.selectInput.width,
-			}) or nil,
-
-			DEPRECATED_PermissionsDropdown = not FFlagRemoveUILibraryDetailedDropdown and (not loading) and Roact.createElement(DEPRECATED_DetailedDropdown, {
-				Enabled = writable and #availablePermissions > 1,
-				Size = UDim2.fromScale(1, 1),
-				ItemHeight = ITEM_HEIGHT,
-				DescriptionTextSize = theme.fontStyle.Subtext.TextSize,
-				DisplayTextSize = theme.fontStyle.Normal.TextSize,
-				IconSize = 20,
-
-				ButtonText = self:getCurrentPermissionLabel(),
-				Items = availablePermissions,
-				OnItemClicked = function(permission)
-					if writable and permission ~= currentPermission then
-						onPermissionChanged(permission)
-					end
-				end,
 			}) or nil,
 		}),
 

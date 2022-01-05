@@ -6,7 +6,7 @@ local TestsFolderPlugin = Plugin.Src
 
 local SHOULD_RUN_TESTS = false -- Do not check in as true!
 if SHOULD_RUN_TESTS then
-	local TestEZ = game:GetFastFlag("PublishPlaceAsDeduplicatePackages") and require(Plugin.Packages.Dev.TestEZ) or require(Plugin.OldPackages.TestEZ)
+	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quite to see output
 

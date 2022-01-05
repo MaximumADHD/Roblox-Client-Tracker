@@ -14,10 +14,6 @@ local FlattenMode = TerrainEnums.FlattenMode
 local PlaneLockType = TerrainEnums.PlaneLockType
 local ReplaceMode = TerrainEnums.ReplaceMode
 
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
-local FFlagTerrainToolsGlobalStateFixStrength = game:GetFastFlag("TerrainToolsGlobalStateFixStrength")
-
 local BaseTool = Rodux.createReducer({
 	autoMaterial = false,
 	baseSize = Constants.INITIAL_BRUSH_SIZE,
@@ -33,9 +29,9 @@ local BaseTool = Rodux.createReducer({
 	material = Enum.Material.Grass,
 	pivot = PivotType.Center,
 	planeCFrame = nil,
-	planeLock = FFlagTerrainToolsEditPlaneLock and PlaneLockType.Auto or true,
+	planeLock = PlaneLockType.Auto,
 	planePositionY = Constants.INITIAL_PLANE_POSITION_Y,
-	planeLockActive = FFlagTerrainToolsPlaneLockDraggerHandles and true or nil,
+	planeLockActive = true,
 	position = {
 		X = 0,
 		Y = 0,
@@ -47,8 +43,8 @@ local BaseTool = Rodux.createReducer({
 		Y = 512,
 		Z = 1024,
 	},
-	snapToGrid = false,
-	strength = FFlagTerrainToolsGlobalStateFixStrength and Constants.INITIAL_BRUSH_STRENGTH,
+	snapToVoxels = false,
+	strength = Constants.INITIAL_BRUSH_STRENGTH,
 	SourceMaterial = Enum.Material.Brick,
 	TargetMaterial = Enum.Material.CrackedLava,
 }, {
@@ -94,7 +90,7 @@ local BaseTool = Rodux.createReducer({
 			size = size,
 		})
 	end,
-	ChangeStrength = FFlagTerrainToolsGlobalStateFixStrength and function(state, action)
+	ChangeStrength = function(state, action)
 		local strength = action.strength
 
 		return Cryo.Dictionary.join(state, {
@@ -197,11 +193,11 @@ local BaseTool = Rodux.createReducer({
 			ReplaceMode = ReplaceMode,
 		})
 	end,
-	SetSnapToGrid = function(state, action)
-		local snapToGrid = action.snapToGrid
+	SetSnapToVoxels = function(state, action)
+		local snapToVoxels = action.snapToVoxels
 
 		return Cryo.Dictionary.join(state, {
-			snapToGrid = snapToGrid,
+			snapToVoxels = snapToVoxels,
 		})
 	end,
 	SetSourceMaterial = function(state, action)

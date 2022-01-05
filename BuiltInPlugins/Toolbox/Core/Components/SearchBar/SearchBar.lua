@@ -15,8 +15,6 @@
 			or clicks the search button
 		callback onTextChanged(string text) : callback for when the text was changed
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -153,25 +151,15 @@ function SearchBar:onFocusLost(enterPressed)
 end
 
 function SearchBar:render()
-    if FFlagToolboxRemoveWithThemes then
-        return withLocalization(function(localization, localizedContent)
-            return self:renderContent(nil, localization, localizedContent)
-        end)
-    else
-        return withTheme(function(theme)
-            return withLocalization(function(localization, localizedContent)
-                return self:renderContent(theme, localization, localizedContent)
-            end)
-        end)
-    end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function SearchBar:renderContent(theme, localization, localizedContent)
 	local props = self.props
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local containerWidth = props.width
 	local layoutOrder = props.LayoutOrder or 0
@@ -290,10 +278,8 @@ function SearchBar:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchBar = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchBar)
-end
+SearchBar = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchBar)
 
 return SearchBar

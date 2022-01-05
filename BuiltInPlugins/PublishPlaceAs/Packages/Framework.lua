@@ -3,13 +3,8 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package
-if game:GetFastFlag("PublishPlaceAsDeduplicatePackages") then
-	package = PackageIndex["DeveloperFramework"]["DeveloperFramework"]
-else
-	local OldPackages = PackageIndex.Parent.Parent.OldPackages
-	package = OldPackages.Framework
-end
+local package = PackageIndex["DeveloperFramework"]["DeveloperFramework"]
+
 if package.ClassName == "ModuleScript" then
 	return require(package)
 end

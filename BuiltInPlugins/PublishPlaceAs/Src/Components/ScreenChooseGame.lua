@@ -5,6 +5,7 @@
 	Allow the user to pick a universe to overwrite a place in
 
 ]]
+local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -21,7 +22,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 local LoadExistingGames = require(Plugin.Src.Thunks.LoadExistingGames)
 local LoadExistingPlaces = require(Plugin.Src.Thunks.LoadExistingPlaces)
 local LoadGroups = require(Plugin.Src.Thunks.LoadGroups)
-
+local LoadGameConfiguration = require(Plugin.Src.Thunks.LoadGameConfiguration)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Footer = require(Plugin.Src.Components.Footer)
@@ -99,7 +100,7 @@ function ScreenChooseGame:render()
 					State = game.privacyType,
 					LayoutOrder = #components + 1,
 					OnActivated = function()
-						openChoosePlacePage(game)
+						openChoosePlacePage(game, FFlagPlacePublishManagementUI and self.props.API:get() or nil)
 					end,
 				})
 			end
@@ -283,6 +284,7 @@ end
 ScreenChooseGame = withContext({
 	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
+	API = ContextServices.API,
 })(ScreenChooseGame)
 
 
@@ -314,8 +316,11 @@ local function useDispatchForProps(dispatch)
 		DispatchLoadExistingGames = function(type, id, cursor)
 			dispatch(LoadExistingGames(type, id, cursor))
 		end,
-		OpenChoosePlacePage = function(parentGame)
+		OpenChoosePlacePage = function(parentGame, apiImpl)
 			dispatch(LoadExistingPlaces(parentGame))
+			if FFlagPlacePublishManagementUI then
+				dispatch(LoadGameConfiguration(parentGame.universeId, apiImpl))
+            end
 			dispatch(SetScreen(Constants.SCREENS.CHOOSE_PLACE))
 		end,
 	}

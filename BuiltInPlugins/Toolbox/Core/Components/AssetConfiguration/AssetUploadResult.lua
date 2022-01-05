@@ -5,8 +5,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local ContentProvider = game:GetService("ContentProvider")
@@ -125,9 +123,7 @@ end
 
 function AssetUploadResult:renderContent(theme, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
 	local showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
@@ -336,17 +332,9 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 end
 
 function AssetUploadResult:render()
-	if FFlagToolboxRemoveWithThemes then
-		return FFlagToolboxAssetConfigAddPublishBackButton and withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end) or self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return FFlagToolboxAssetConfigAddPublishBackButton and withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end) or self:renderContent(theme)
-		end)
-	end
+	return FFlagToolboxAssetConfigAddPublishBackButton and withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end) or self:renderContent(nil)
 end
 
 local function mapStateToProps(state, props)
@@ -380,10 +368,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-if FFlagToolboxRemoveWithThemes then
-	AssetUploadResult = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(AssetUploadResult)
-end
+AssetUploadResult = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(AssetUploadResult)
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetUploadResult)

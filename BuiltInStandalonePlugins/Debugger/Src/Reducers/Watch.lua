@@ -26,6 +26,7 @@ local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 --Other
 local BreakpointHit = require(Actions.Common.BreakpointHit)
 local Resumed = require(Actions.Common.Resumed)
+local ClearConnectionData = require(Actions.Common.ClearConnectionData)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
 
@@ -237,6 +238,21 @@ return Rodux.createReducer(productionStartStore, {
 			stateTokenToFlattenedTree = Cryo.Dictionary.join(state.stateTokenToFlattenedTree, {
 				[action.debuggerStateToken] = newStateTokenToFlattenedTreeForDST
 			}),
+		})
+	end,
+	
+	[ClearConnectionData.name] = function(state : WatchStore, action : Resumed.Props)
+		-- in the case where we end multiple connections at once, stateTokens can be empty
+		local hasTheStateToken = state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
+			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil)
+		local hasNoStateTokens = true
+		for k, v in pairs(state.stateTokenToRoots) do
+			hasNoStateTokens = false
+		end
+		assert(hasTheStateToken or hasNoStateTokens)
+		return Cryo.Dictionary.join(state, {
+			stateTokenToRoots = Cryo.List.removeValue(state.stateTokenToRoots, action.debuggerStateToken),
+			stateTokenToFlattenedTree = Cryo.List.removeValue(state.stateTokenToFlattenedTree, action.debuggerStateToken)
 		})
 	end,
 

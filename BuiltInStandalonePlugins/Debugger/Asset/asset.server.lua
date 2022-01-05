@@ -14,6 +14,9 @@ local main = script.Parent.Parent
 
 local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 
+local Common = script.Parent.Parent.Common
+local commonInit = require(Common.commonInit)
+
 local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)
@@ -37,6 +40,7 @@ local function initializeDataModel()
 end
 
 local function init()
+	commonInit()
 	local session = mdiInstance.FocusedDataModelSession
 
 	session.CurrentDataModelTypeAboutToChange:Connect(function()

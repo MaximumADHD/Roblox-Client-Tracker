@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local StudioService = game:GetService("StudioService")
@@ -47,26 +46,16 @@ function CopyID:init()
 end
 
 function CopyID:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(_, localizedContent)
-			return self:renderContent(nil, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return self:renderContent(theme, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(_, localizedContent)
+		return self:renderContent(nil, localizedContent)
+	end)
 end
 
 function CopyID:renderContent(theme, localizedContent)
 	local props = self.props
 	local state = self.state
+	theme = props.Stylizer
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
 	local copied = state.copied
 
 	local yPos = props.YPos
@@ -129,10 +118,8 @@ function CopyID:renderContent(theme, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	CopyID = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CopyID)
-end
+CopyID = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CopyID)
 
 return CopyID

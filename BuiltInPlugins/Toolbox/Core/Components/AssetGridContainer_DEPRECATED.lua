@@ -15,11 +15,11 @@
 ]]
 local HttpService = game:GetService("HttpService")
 
-local FFlagToolboxFixDuplicateToolGuis = game:GetFastFlag("ToolboxFixDuplicateToolGuis")
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -294,8 +294,9 @@ function AssetGridContainer:init(props)
 			ViewInBrowser = true,
 		}
 
+		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
 		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
-		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, currentCategory, trackingAttributes)
+		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, currentCategory, trackingAttributes, creatorId)
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
@@ -543,7 +544,7 @@ function AssetGridContainer:render()
 			end
 			
 			assetElements.ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(ScriptConfirmationDialog, {
-				Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolScriptWarningMessageBox",
+				Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
 
 				Info = scriptWarningInfo,
 				Icon = Images.INFO_ICON,
@@ -554,7 +555,7 @@ function AssetGridContainer:render()
 			})
 
 			assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
-				Name = FFlagToolboxFixDuplicateToolGuis and string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()) or "ToolboxToolMessageBox",
+				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
 
 				Title = "Insert Tool",
 				Text = "Put this tool into the starter pack?",

@@ -1,3 +1,12 @@
+local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
+local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
+local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
+
+-- TODO: smkuhne: Remove file with removal of the ConvertPart
+if convertToolRemoval then
+	return function() end
+end
+
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)

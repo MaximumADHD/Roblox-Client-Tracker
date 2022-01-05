@@ -7,7 +7,7 @@
 	CollaboratorId = num, for external scripts to check whose permission changed when we fire events
 	CollaboratorIcon = string, path to icon to display for item (e.g. user headshot, group logo, etc)
 	Action = string, permission level the collaborator has (Own | Edit | UseView | No Access (rolesets only))
-	
+
 	Optional Properties:
 	HideLastSeparator = bool, default to false. If true the last separator will be hidden so that separators don't overlap.
 	LayoutOrder = num, default to 0.
@@ -16,8 +16,6 @@
 	RolePermissionChanged = function, callback function for when a user who has had this package shared with them, has their
 		permissions changed.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local ITEM_HEIGHT = 60
 local PADDING_Y = 10
 local PADDING_X = 6
@@ -47,8 +45,6 @@ local IconButton = Framework.UI.IconButton
 local Util = Plugin.Core.Util
 local Images = require(Util.Images)
 local Constants = require(Util.Constants)
-local ContextHelper = require(Util.ContextHelper)
-local withTheme = ContextHelper.withTheme
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
@@ -69,34 +65,6 @@ local function CollaboratorIcon(props)
 	})
 end
 
-local function CollaboratorLabels(props)
-	if FFlagToolboxRemoveWithThemes then
-		-- TODO: Remove this function when FFlagToolboxRemoveWithThemes is enabled
-		return
-	end
-	return withTheme(function(theme)
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
-			Position = UDim2.new(0, CONTENT_HEIGHT + LIST_PADDING, 0, 0),
-			LayoutOrder = props.LayoutOrder or 0,
-
-			BackgroundTransparency = 1,
-		}, {
-			PrimaryLabel = Roact.createElement("TextLabel", {
-				Size = UDim2.new(1, 0, props.SecondaryText and 0.5 or 1, 0),
-				Text = props.CollaboratorName or "",
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				Font = Constants.FONT,
-				TextSize = Constants.FONT_SIZE_TITLE,
-				TextColor3 = theme.assetConfig.packagePermissions.subTextColor,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-
-				BackgroundTransparency = 1,
-			}),
-		})
-	end)
-end
 
 function CollaboratorItem:init()
 	self.state = {
@@ -163,20 +131,8 @@ function CollaboratorItem:willUnmount()
 end
 
 function CollaboratorItem:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function CollaboratorItem:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	props.Items = props.Items or {}
 
@@ -218,7 +174,7 @@ function CollaboratorItem:renderContent(theme)
 				DefaultIcon = defaultIcon,
 				IsLoadedThumbnail = isLoadedThumbnail,
 			}),
-			Labels = FFlagToolboxRemoveWithThemes and Roact.createElement("Frame", {
+			Labels = Roact.createElement("Frame", {
 				Size = UDim2.new(1, -(LIST_PADDING*4 + CONTENT_HEIGHT + DROPDOWN_WIDTH), 0, CONTENT_HEIGHT),
 				Position = UDim2.new(0, CONTENT_HEIGHT + LIST_PADDING, 0, 0),
 				LayoutOrder = props.LayoutOrder or 0,
@@ -236,13 +192,6 @@ function CollaboratorItem:renderContent(theme)
 
 					BackgroundTransparency = 1,
 				}),
-			})
-			or Roact.createElement(CollaboratorLabels, {
-				LayoutOrder = 1,
-				Enabled = props.Enabled,
-
-				CollaboratorName = props.CollaboratorName,
-				SecondaryText = props.SecondaryText,
 			}),
 
 			DropdownFrame = Roact.createElement("Frame",{
@@ -286,10 +235,8 @@ function CollaboratorItem:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	CollaboratorItem = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(CollaboratorItem)
-end
+CollaboratorItem = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(CollaboratorItem)
 
 return CollaboratorItem

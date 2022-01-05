@@ -32,9 +32,10 @@
 		boolean HideCreatorSearch: Whether to show creator search link
 		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
+		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
 ]]
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
-local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagDevFrameworkAddCreatorToAssetPreviewHeader = game:GetFastFlag("DevFrameworkAddCreatorToAssetPreviewHeader")
 local FFlagDevFrameworkAddTooltipToAssetPreviewFlagIcon = game:GetFastFlag("DevFrameworkAddTooltipToAssetPreviewFlagIcon")
@@ -320,23 +321,15 @@ function AssetPreview:render()
 	local scrollingFramePadding = style.ScrollingFrame.Padding
 	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
 
-	local favorites = function (nextOrder)
-		if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites then
-			return props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
-				LayoutOrder = nextOrder,
-			}, props.Favorites))
-		else
-			return Roact.createElement(Favorites, Immutable.JoinDictionaries({
-				LayoutOrder = nextOrder,
-			}, props.Favorites))
-		end
-	end
-
 	local canFlagAsset
 	local assetHeaderSpacing
 	local reportButtonWidth
 	if FFlagToolboxRedirectToLibraryAbuseReport then
-		canFlagAsset = (assetData.Creator.Id ~= 1)
+		if FFlagToolboxHideReportFlagForCreator then
+			canFlagAsset = props.CanFlagAsset
+		else
+			canFlagAsset = (assetData.Creator.Id ~= 1)
+		end
 		assetHeaderSpacing = style.ScrollingFrame.AssetHeader.Spacing
 		reportButtonWidth = canFlagAsset and style.ScrollingFrame.FlagAsset.Size.X.Offset or 0
 	end
@@ -496,7 +489,9 @@ function AssetPreview:render()
 					OnPauseVideo = self.onPauseVideo,
 				}),
 
-				Favorites = favorites(layoutOrderIterator:getNextOrder()),
+				Favorites = props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}, props.Favorites)),
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,

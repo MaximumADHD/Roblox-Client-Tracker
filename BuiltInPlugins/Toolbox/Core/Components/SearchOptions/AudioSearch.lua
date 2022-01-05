@@ -7,8 +7,6 @@
 		number maxDuration: the upper limit of the audio search.
 		callback onDurationChange: callback to notice parent component about the min and max length for audio search.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -59,20 +57,8 @@ function AudioSearch:init(props)
 end
 
 function AudioSearch:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function AudioSearch:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local minDuration = props.minDuration
 	local maxDuration = props.maxDuration
@@ -146,7 +132,7 @@ end
 
 AudioSearch = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(AudioSearch)
 
 

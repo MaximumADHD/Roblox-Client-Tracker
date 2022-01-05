@@ -12,8 +12,6 @@
 	}[]
 	LayoutOrder: number (optional)
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -124,24 +122,14 @@ function ReasonFrame:init(props)
 end
 
 function ReasonFrame:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function ReasonFrame:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local size = props.Size
 	local position = props.Position
@@ -163,10 +151,8 @@ function ReasonFrame:renderContent(theme, localization, localizedContent)
 	}, reasonsContent)
 end
 
-if FFlagToolboxRemoveWithThemes then
-	ReasonFrame = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(ReasonFrame)
-end
+ReasonFrame = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(ReasonFrame)
 
 return ReasonFrame

@@ -12,6 +12,7 @@ local EnumConvert = require(Util.EnumConvert)
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
 local getReportUrl
 if FFlagToolboxRedirectToLibraryAbuseReport then
@@ -37,9 +38,6 @@ if FFlagToolboxShowMeshAndTextureId2 then
 	end
 end
 
-local FFlagToolboxAssetMenuGuid = game:GetFastFlag("ToolboxAssetMenuGuid")
-local FFlagToolboxTrackReportAction = game:GetFastFlag("ToolboxTrackReportAction")
-
 local ContextMenuHelper = {}
 
 local function getImageIdFromDecalId(decalId)
@@ -61,23 +59,16 @@ local function getImageIdFromDecalId(decalId)
 end
 
 -- typeof(assetTypeId) == number
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, currentCategory, trackingAttributes)
-	local menuName
-	local instanceGuid
-
-	if FFlagToolboxAssetMenuGuid then
-		instanceGuid = HttpService:GenerateGUID()
-		menuName = string.format("ToolboxAssetMenu-%s", instanceGuid)
-	else
-		menuName = "ToolboxAssetMenu"
-	end
+function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, currentCategory, trackingAttributes, creatorId)
+	local instanceGuid = HttpService:GenerateGUID()
+	local menuName = string.format("ToolboxAssetMenu-%s", instanceGuid)
 
 	local menu = plugin:CreatePluginMenu(menuName)
 
 	local localize = localizedContent
 
 	-- add an action to view an asset in browser
-	menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("OpenInBrowser-%s", instanceGuid) or "OpenInBrowser", localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
+	menu:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
 		local baseUrl = ContentProvider.BaseUrl
 		local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
 		if trackingAttributes then
@@ -86,12 +77,10 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 		GuiService:OpenBrowserWindow(targetUrl)
 	end)
 
-	if not showEditOption then
+	if not showEditOption and (not FFlagToolboxHideReportFlagForCreator or creatorId ~= 1) then
 		-- User should only be able to report assets they can't edit
-		menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("Report-%s", instanceGuid) or "Report", localize.RightClickMenu.Report).Triggered:connect(function()
-			if FFlagToolboxTrackReportAction then
-				Analytics.reportAssetClicked(assetId, assetTypeId)
-			end
+		menu:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered:connect(function()
+			Analytics.reportAssetClicked(assetId, assetTypeId)
 
 			local baseUrl = ContentProvider.BaseUrl
 			local targetUrl
@@ -112,13 +101,13 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 		end
 
 		if FFlagToolboxShowMeshAndTextureId2 then
-			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyAssetIdToClipboard-%s", instanceGuid) or "CopyAssetIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+			menu:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
 				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
 				StudioService:CopyToClipboard(trueAssetId)
 			end)
 
 			if not FFlagToolboxRemoveAssetUris then
-				menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyAssetUriToClipboard-%s", instanceGuid) or "CopyAssetUriToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
+				menu:AddNewAction(string.format("CopyAssetUriToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
 					Analytics.onContextMenuClicked("CopyAssetUri", assetId, assetTypeId, currentCategory)
 					StudioService:CopyToClipboard("rbxassetid://" .. trueAssetId)
 				end)
@@ -129,7 +118,7 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 				local textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
 
 				if meshIdSuccess then
-					menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyMeshIdToClipboard-%s", instanceGuid) or "CopyMeshIdToClipboard", localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
+					menu:AddNewAction(string.format("CopyMeshIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
 						Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
 						StudioService:CopyToClipboard(meshId)
 					end)
@@ -139,19 +128,19 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 
 				-- do not display warning for texture ids because meshes can be valid without a texture
 				if textureIdSuccess then
-					menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyTextureIdToClipboard-%s", instanceGuid) or "CopyTextureIdToClipboard", localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
+					menu:AddNewAction(string.format("CopyTextureIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
 						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
 						StudioService:CopyToClipboard(textureId)
 					end)
 				end
 			end
 		else
-			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyIdToClipboard-%s", instanceGuid) or "CopyIdToClipboard", localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+			menu:AddNewAction(string.format("CopyIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
 				StudioService:CopyToClipboard(trueAssetId)
 			end)
 
 			if not FFlagToolboxRemoveAssetUris then
-				menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("CopyURIToClipboard-%s", instanceGuid) or "CopyURIToClipboard", localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
+				menu:AddNewAction(string.format("CopyURIToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
 					StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
 				end)
 			end
@@ -160,11 +149,11 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 
 	if showEditOption and editAssetFunc then
 		if isPackageAsset then
-			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("PackageDetails-%s", instanceGuid) or "PackageDetails", localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
+			menu:AddNewAction(string.format("PackageDetails-%s", instanceGuid), localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
 				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 			end)
 		else
-			menu:AddNewAction(FFlagToolboxAssetMenuGuid and string.format("EditAsset-%s", instanceGuid) or "EditAsset", localize.RightClickMenu.EditAsset).Triggered:connect(function()
+			menu:AddNewAction(string.format("EditAsset-%s", instanceGuid), localize.RightClickMenu.EditAsset).Triggered:connect(function()
 				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
 			end)
 		end

@@ -8,6 +8,7 @@ local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.P
 local Category = require(Plugin.Core.Types.Category)
 
 local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
 local function nameForValueInEnum(enum, value)
 	local items = enum:GetEnumItems()
@@ -69,6 +70,7 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 			ViewInBrowser = true,
 		}
 
+		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
 		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
@@ -79,7 +81,8 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 			tryOpenAssetConfig, -- TODO: Call as a function instead of as parameter (involves refactoring main.server.lua)
 			isPackageAsset,
 			currentCategory,
-			trackingAttributes
+			trackingAttributes,
+			creatorId
 		)
 	end
 end

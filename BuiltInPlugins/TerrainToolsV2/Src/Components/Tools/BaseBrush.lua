@@ -1,9 +1,6 @@
 --[[
 	Displays panels associated with the BaseBrush tool
 ]]
-local FFlagTerrainToolsEditPlaneLock = game:GetFastFlag("TerrainToolsEditPlaneLock")
-local FFlagTerrainToolsPlaneLockDraggerHandles = game:GetFastFlag("TerrainToolsPlaneLockDraggerHandles")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -96,12 +93,14 @@ function BaseBrush:init()
 		local autoMaterial = false
 		local ignoreWater = false
 		local ignoreParts = true
-		local snapToGrid = false
+		local snapToVoxels = false
 		local fixedPlane = false
 		local editPlaneMode = false
-		local planeCFrame
+		local planeCFrame = Cryo.None
 		local heightPicker = false
 		local planeLockActive
+		local shortcutEnabled = self.props.planeLock == PlaneLockType.Manual and Constants.ToolUsesPlaneLock[self.props.toolName]
+		self.props.PluginActionsController:SetEnabled("EditPlane", shortcutEnabled)
 		-- For tools where these properties aren't settable, we need to set them to a default value
 		-- Otherwise we'd try to pass autoMaterial=nil in the table below
 		-- Which would fail and we'd inherit the state from the previous tool that was used
@@ -117,24 +116,15 @@ function BaseBrush:init()
 		if self.props.dispatchSetIgnoreParts then
 			ignoreParts = self.props.ignoreParts
 		end
-		if self.props.dispatchSetSnapToGrid then
-			snapToGrid = self.props.snapToGrid
+		if self.props.dispatchSetSnapToVoxels then
+			snapToVoxels = self.props.snapToVoxels
 		end
-		if FFlagTerrainToolsEditPlaneLock then
-			editPlaneMode = false
-			planeCFrame = Cryo.None
-
-			if self.props.dispatchSetEditPlaneMode then
-				editPlaneMode = self.props.editPlaneMode
-			end
-			if self.props.dispatchSetPlaneCFrame then
-				planeCFrame = self.props.planeCFrame
-			end
-
-			local shortcutEnabled = self.props.planeLock == PlaneLockType.Manual and Constants.ToolUsesPlaneLock[self.props.toolName]
-			self.props.PluginActionsController:SetEnabled("EditPlane", shortcutEnabled)
+		if self.props.dispatchSetEditPlaneMode then
+			editPlaneMode = self.props.editPlaneMode
 		end
-
+		if self.props.dispatchSetPlaneCFrame then
+			planeCFrame = self.props.planeCFrame
+		end
 		if self.props.dispatchSetFixedPlane then
 			fixedPlane = self.props.fixedPlane
 		end
@@ -164,7 +154,7 @@ function BaseBrush:init()
 			planeCFrame = planeCFrame,
 			planeLockActive = planeLockActive,
 			planePositionY = self.props.planePositionY,
-			snapToGrid = snapToGrid,
+			snapToVoxels = snapToVoxels,
 			strength = self.props.strength or Constants.INITIAL_BRUSH_STRENGTH,
 		})
 	end
@@ -186,7 +176,7 @@ function BaseBrush:_connectEvents()
 			self.terrainBrush:stop()
 		end
 
-		if FFlagTerrainToolsPlaneLockDraggerHandles and not Constants.ToolUsesPlaneLock[pluginActivationController:getActiveTool()] then
+		if not Constants.ToolUsesPlaneLock[pluginActivationController:getActiveTool()] then
 			self.props.dispatchSetPlaneLockActive(false)
 		end
 	end))
@@ -196,7 +186,7 @@ function BaseBrush:_connectEvents()
 			self.startBrush()
 		end
 
-		if FFlagTerrainToolsPlaneLockDraggerHandles and Constants.ToolUsesPlaneLock[toolId] then
+		if Constants.ToolUsesPlaneLock[toolId] then
 			self.props.dispatchSetPlaneLockActive(true)
 		end
 	end))
@@ -244,13 +234,11 @@ function BaseBrush:_connectEvents()
 		end
 	end))
 
-	if FFlagTerrainToolsEditPlaneLock then
-		table.insert(self.connections, pluginActionsController:Connect("EditPlane", function()
-			if self.props.dispatchSetEditPlaneMode then
-				self.props.dispatchSetEditPlaneMode(not self.props.editPlaneMode)
-			end
-		end))
-	end
+	table.insert(self.connections, pluginActionsController:Connect("EditPlane", function()
+		if self.props.dispatchSetEditPlaneMode then
+			self.props.dispatchSetEditPlaneMode(not self.props.editPlaneMode)
+		end
+	end))
 end
 
 function BaseBrush:didUpdate(previousProps, previousState)
@@ -294,7 +282,7 @@ function BaseBrush:render()
 	local baseSize = self.props.baseSize
 	local baseSizeHeightLocked = self.props.baseSizeHeightLocked
 	local brushShape = self.props.brushShape
-	local editPlaneMode
+	local editPlaneMode = self.props.editPlaneMode and self.props.PlaneLockActive
 	local fixedPlane = self.props.fixedPlane
 	local flattenMode = self.props.flattenMode
 	local height = self.props.height
@@ -303,22 +291,13 @@ function BaseBrush:render()
 	local ignoreParts = self.props.ignoreParts
 	local material = self.props.material
 	local pivot = self.props.pivot
-	local planeCFrame
+	local planeCFrame = self.props.planeCFrame
 	local planeLock = self.props.planeLock
 	local disablePlaneLock = self.props.disablePlaneLock
 	local disableIgnoreWater = self.props.disableIgnoreWater
 	local planePositionY = self.props.planePositionY
-	local snapToGrid = self.props.snapToGrid
+	local snapToVoxels = self.props.snapToVoxels
 	local strength = self.props.strength
-
-	if FFlagTerrainToolsEditPlaneLock then
-		if FFlagTerrainToolsPlaneLockDraggerHandles then
-			editPlaneMode = self.props.editPlaneMode and self.props.PlaneLockActive
-		else
-			editPlaneMode = self.props.editPlaneMode
-		end
-		planeCFrame = self.props.planeCFrame
-	end
 
 	return Roact.createFragment({
 		BrushSettings = Roact.createElement(BrushSettings, {
@@ -341,7 +320,7 @@ function BaseBrush:render()
 			disablePlaneLock = disablePlaneLock,
 			disableIgnoreWater = disableIgnoreWater,
 			planePositionY = planePositionY,
-			snapToGrid = snapToGrid,
+			snapToVoxels = snapToVoxels,
 			editPlaneMode = editPlaneMode,
 			planeCFrame = planeCFrame,
 			strength = strength,
@@ -359,7 +338,7 @@ function BaseBrush:render()
 			setPlaneCFrame = self.props.dispatchSetPlaneCFrame,
 			setPlaneLock = self.props.dispatchSetPlaneLock,
 			setPlanePositionY = self.props.dispatchChangePlanePositionY,
-			setSnapToGrid = self.props.dispatchSetSnapToGrid,
+			setSnapToVoxels = self.props.dispatchSetSnapToVoxels,
 			setStrength = self.props.dispatchChangeStrength,
 			toggleBaseSizeHeightLocked = self.toggleBaseSizeHeightLocked,
 		}),
@@ -378,36 +357,30 @@ end
 
 local REDUCER_KEY = "BaseTool"
 
-
 BaseBrush = withContext({
 	Mouse = ContextServices.Mouse,
 	Analytics = ContextServices.Analytics,
 	Terrain = ContextItems.Terrain,
 	PluginActivationController = ContextItems.PluginActivationController,
-	PluginActionsController = FFlagTerrainToolsEditPlaneLock and ContextItems.PluginActionsController or nil,
+	PluginActionsController = ContextItems.PluginActionsController,
 })(BaseBrush)
 
-
-if FFlagTerrainToolsPlaneLockDraggerHandles then
-	local function mapStateToProps(state, props)
-		return {
-			PlaneLockActive = state[REDUCER_KEY].planeLockActive,
-		}
-	end
-
-	local function mapDispatchToProps(dispatch)
-		local dispatchToBase = function(action)
-			dispatch(ApplyToolAction(REDUCER_KEY, action))
-		end
-
-		return {
-			dispatchSetPlaneLockActive = function(planeLockActive)
-				dispatchToBase(SetPlaneLockActive(planeLockActive))
-			end,
-		}
-	end
-
-	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)
-else
-	return BaseBrush
+local function mapStateToProps(state, props)
+	return {
+		PlaneLockActive = state[REDUCER_KEY].planeLockActive,
+	}
 end
+
+local function mapDispatchToProps(dispatch)
+	local dispatchToBase = function(action)
+		dispatch(ApplyToolAction(REDUCER_KEY, action))
+	end
+
+	return {
+		dispatchSetPlaneLockActive = function(planeLockActive)
+			dispatchToBase(SetPlaneLockActive(planeLockActive))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(BaseBrush)

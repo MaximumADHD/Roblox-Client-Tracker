@@ -37,11 +37,7 @@ local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
-local UILibraryWrapper = require(Libs.Framework).ContextServices.UILibraryWrapper
-
 local ContextServices = require(Libs.Framework).ContextServices
-
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
 
 local ASSET_CONFIG_WIDTH = 960
 local ASSET_CONFIG_HEIGHT = 640
@@ -85,11 +81,6 @@ function AssetConfigWrapper:render()
 	local localization = props.localization
 	local plugin = props.plugin
 
-	local uiLibraryTheme
-	if (not FFlagRemoveUILibraryFromToolbox) then
-		uiLibraryTheme = theme:getUILibraryTheme()
-	end
-
 	return Roact.createElement(Dialog, {
 		Title = "Asset Configuration",
 
@@ -107,8 +98,7 @@ function AssetConfigWrapper:render()
 	}, {
 		ContextServices = state.popUpGui and ContextServices.provide({
 			ContextServices.Focus.new(state.popUpGui),
-			makeTheme(uiLibraryTheme, getAssetConfigTheme()),
-			(not FFlagRemoveUILibraryFromToolbox) and UILibraryWrapper.new() or nil,
+			makeTheme(getAssetConfigTheme()),
 		}, {
 			ThemeProvider = Roact.createElement(ThemeProvider, {
 				theme = theme,

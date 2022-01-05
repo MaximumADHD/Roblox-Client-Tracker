@@ -23,7 +23,7 @@ local SetFixedPlane = require(Actions.SetFixedPlane)
 local SetHeightPicker = require(Actions.SetHeightPicker)
 local SetIgnoreWater = require(Actions.SetIgnoreWater)
 local SetIgnoreParts = require(Actions.SetIgnoreParts)
-local SetSnapToGrid = require(Actions.SetSnapToGrid)
+local SetSnapToVoxels = require(Actions.SetSnapToVoxels)
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
 local ToolId = TerrainEnums.ToolId
@@ -45,7 +45,7 @@ local function mapStateToProps(state, props)
 		ignoreParts = state[REDUCER_KEY].ignoreParts,
 		pivot = state[REDUCER_KEY].pivot,
 		planePositionY = state[REDUCER_KEY].planePositionY,
-		snapToGrid = state[REDUCER_KEY].snapToGrid,
+		snapToVoxels = state[REDUCER_KEY].snapToVoxels,
 		strength = state[REDUCER_KEY].strength,
 	}
 end
@@ -92,8 +92,8 @@ local function mapDispatchToProps(dispatch)
 		dispatchSetIgnoreParts = function(ignoreParts)
 			dispatchToFlatten(SetIgnoreParts(ignoreParts))
 		end,
-		dispatchSetSnapToGrid = function (snapToGrid)
-			dispatchToFlatten(SetSnapToGrid(snapToGrid))
+		dispatchSetSnapToVoxels = function(snapToVoxels)
+			dispatchToFlatten(SetSnapToVoxels(snapToVoxels))
 		end,
 	}
 end

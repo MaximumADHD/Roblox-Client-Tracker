@@ -7,7 +7,7 @@ local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
 local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
-local Breakpoint = require(Models.Breakpoint)
+local MetaBreakpoint = require(Models.MetaBreakpoint)
 
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
@@ -25,7 +25,7 @@ type BreakpointStore = {
 		}
 	},
 	MetaBreakpoints : {
-		[BreakpointId] : Breakpoint.Breakpoint,
+		[BreakpointId] : MetaBreakpoint.MetaBreakpoint,
 	},
 }
 
@@ -38,17 +38,17 @@ return Rodux.createReducer(initialState, {
 	[AddBreakpointAction.name] = function(state : BreakpointStore, action : AddBreakpointAction.Props)
 		-- throw warning if adding breakpointId to a debuggerConnectionId that already contains it.
 		if state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId] and 
-			state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId][action.breakpoint.id] then
+			state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId][action.metaBreakpoint.id] then
 			assert(false)
 		end
 		local updatedBreakpointIdsForConnection = Cryo.Dictionary.join(state.BreakpointIdsInDebuggerConnection, {
 			[action.debuggerConnectionId] = Cryo.Dictionary.join(
 				(state.BreakpointIdsInDebuggerConnection and state.BreakpointIdsInDebuggerConnection[action.debuggerConnectionId]) or {}, 
-				{[action.breakpoint.id] = action.breakpoint.id}
+				{[action.metaBreakpoint.id] = action.metaBreakpoint.id}
 			)
 		})
 		local updatedMetaBreakpoints = Cryo.Dictionary.join(state.MetaBreakpoints, {
-			[action.breakpoint.id] = action.breakpoint
+			[action.metaBreakpoint.id] = action.metaBreakpoint
 		})
 		return Cryo.Dictionary.join(
 			state, {BreakpointIdsInDebuggerConnection = updatedBreakpointIdsForConnection}, {MetaBreakpoints = updatedMetaBreakpoints}
@@ -57,11 +57,11 @@ return Rodux.createReducer(initialState, {
 	
 	[ModifyBreakpointAction.name] = function(state : BreakpointStore, action : ModifyBreakpointAction.Props)
 		-- throw warning if modifying breakpoint ID that doesn't exist
-		if state.BreakpointIdsInDebuggerConnection == nil or state.MetaBreakpoints[action.breakpoint.id] == nil then
+		if state.BreakpointIdsInDebuggerConnection == nil or state.MetaBreakpoints[action.metaBreakpoint.id] == nil then
 			assert(false)
 		end
 		local updatedMetaBreakpoints = Cryo.Dictionary.join(state.MetaBreakpoints, {
-			[action.breakpoint.id] = action.breakpoint
+			[action.metaBreakpoint.id] = action.metaBreakpoint
 		})
 		return Cryo.Dictionary.join(
 			state, {MetaBreakpoints = updatedMetaBreakpoints}
@@ -69,14 +69,14 @@ return Rodux.createReducer(initialState, {
 	end,
 	
 	[DeleteBreakpointAction.name] = function(state : BreakpointStore, action : DeleteBreakpointAction.Props)
-		if not (state.MetaBreakpoints and state.MetaBreakpoints[action.breakpointId]) then
+		if not (state.MetaBreakpoints and state.MetaBreakpoints[action.metaBreakpointId]) then
 			assert(false)
 		end
 		local newMetaBreakpoints = deepCopy(state.MetaBreakpoints)
-		newMetaBreakpoints[action.breakpointId] = nil
+		newMetaBreakpoints[action.metaBreakpointId] = nil
 		local newBreakpointIdsForConnection = deepCopy(state.BreakpointIdsInDebuggerConnection)
 		for _, debuggerConnBreakpoints in pairs(newBreakpointIdsForConnection) do
-			debuggerConnBreakpoints[action.breakpointId] = nil
+			debuggerConnBreakpoints[action.metaBreakpointId] = nil
 		end
 		return Cryo.Dictionary.join(
 			state, {BreakpointIdsInDebuggerConnection = newBreakpointIdsForConnection}, {MetaBreakpoints = newMetaBreakpoints}

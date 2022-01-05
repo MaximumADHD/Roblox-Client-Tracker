@@ -2,14 +2,14 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Action = Util.Action
-local Breakpoint = require(Plugin.Src.Models.Breakpoint)
+local MetaBreakpoint = require(Plugin.Src.Models.MetaBreakpoint)
 
 export type Props = {
-	breakpoint : Breakpoint.Breakpoint,
+	metaBreakpoint : MetaBreakpoint.MetaBreakpoint,
 }
 
-return Action(script.Name, function(breakpoint : Breakpoint.Breakpoint) : Props
+return Action(script.Name, function(metaBreakpoint : MetaBreakpoint.MetaBreakpoint) : Props
 	return {
-		breakpoint = breakpoint,
+		metaBreakpoint = metaBreakpoint,
 	}
 end)

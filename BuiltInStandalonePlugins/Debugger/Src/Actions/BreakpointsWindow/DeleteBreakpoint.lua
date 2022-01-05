@@ -4,11 +4,11 @@ local Util = Framework.Util
 local Action = Util.Action
 
 export type Props = {
-	breakpointId : number,
+	metaBreakpointId : number,
 }
 
-return Action(script.Name, function(breakpointId : number) : Props
+return Action(script.Name, function(metaBreakpointId : number) : Props
 	return {
-		breakpointId = breakpointId,
+		metaBreakpointId = metaBreakpointId,
 	}
 end)

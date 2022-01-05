@@ -24,8 +24,6 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 local GuiService = game:GetService("GuiService")
@@ -65,12 +63,8 @@ local AssetGridContainer = require(Plugin.Core.Components.AssetGridContainer)
 
 local InfoBanner = require(Plugin.Core.Components.InfoBanner)
 local NoResultsDetail = require(Plugin.Core.Components.NoResultsDetail)
-local LoadingIndicator
-if FFlagToolboxRemoveWithThemes then
-	LoadingIndicator = Framework.UI.LoadingIndicator
-else
-	LoadingIndicator = require(Plugin.Core.Components.LoadingIndicator)
-end
+local LoadingIndicator = Framework.UI.LoadingIndicator
+
 local MainViewHeader = require(Plugin.Core.Components.MainView.MainViewHeader)
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 local Toast = require(Plugin.Core.Components.Toast)
@@ -407,7 +401,7 @@ function MainView:render()
 			LoadingIndicator = isLoading and Roact.createElement(LoadingIndicator, {
 				AnchorPoint = Vector2.new(0.5, 1),
 				Position = UDim2.new(0.5, 0, 1, -16),
-				Size = FFlagToolboxRemoveWithThemes and UDim2.new(0, 92, 0, 24) or nil,
+				Size = UDim2.new(0, 92, 0, 24),
 				ZIndex = 3,
 			}),
 

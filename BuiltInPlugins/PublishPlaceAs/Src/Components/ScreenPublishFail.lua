@@ -3,6 +3,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local UILibrary = require(Plugin.Packages.UILibrary)
@@ -28,6 +30,8 @@ local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local StudioService = game:GetService("StudioService")
+--StudioPublishService will be add in another PR and uncomment next line
+--local StudioPublishService = FFlagPlacePublishManagementUI and game:GetService("StudioPublishService") or nil
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
@@ -95,6 +99,7 @@ function ScreenPublishFail:render()
 	local parentGameId = props.ParentGameId
 	local settings = props.Settings
 	local isPublishing = props.IsPublishing
+	local publishParameters = props.PublishParameters
 
 	local dispatchSetIsPublishing = props.dispatchSetIsPublishing
 
@@ -151,9 +156,15 @@ function ScreenPublishFail:render()
 					if parentGameId == 0 then
 						SettingsImpl.saveAll(settings, localization, apiImpl)
 					else
-						-- groupId is unused in existing game/place publish, only new game publish
-						-- which is in the if block
-						StudioService:publishAs(parentGameId, id, 0)
+						if FFlagPlacePublishManagementUI and publishParameters ~= nil and next(publishParameters) ~= nil then
+							-- groupId is unused in existing game/place publish, only new game publish
+							--StudioPublishService will be add in another PR and uncomment next line and the publishAs flow in StudioServcie should be migraged to StudioPublishService
+							--StudioPublishService:publishAs(parentGameId, id, 0, publishParameters)
+						else
+							-- groupId is unused in existing game/place publish, only new game publish
+							-- which is in the if block
+							StudioService:publishAs(parentGameId, id, 0)
+						end
 					end
 				end
 				dispatchSetIsPublishing(true)
@@ -179,6 +190,7 @@ local function mapStateToProps(state, props)
         ParentGameId = publishInfo.parentGameId,
 		Settings = publishInfo.settings,
 		IsPublishing = state.PublishedPlace.isPublishing,
+		PublishParameters = publishInfo.publishParameters,
 	}
 end
 

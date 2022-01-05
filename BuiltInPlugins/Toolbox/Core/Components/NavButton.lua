@@ -11,8 +11,6 @@
 		Position UDim2, position of the button
 		LayoutOrder number, layout order of the button
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -65,21 +63,8 @@ function NavButton:init(props)
 end
 
 function NavButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function NavButton:renderContent(theme)
 	local props = self.props
-
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local colors = props.isPrimary and theme.nav.mainButton or theme.nav.button
 
@@ -116,10 +101,8 @@ function NavButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then	
-	NavButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(NavButton)
-end
+NavButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(NavButton)
 
 return NavButton

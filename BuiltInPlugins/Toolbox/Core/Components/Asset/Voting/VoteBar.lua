@@ -1,4 +1,3 @@
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
@@ -15,7 +14,6 @@ local Roact = require(Libs.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = require(Libs.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -23,24 +21,14 @@ local withContext = ContextServices.withContext
 local VoteBar = Roact.PureComponent:extend("VoteBar")
 
 function VoteBar:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function VoteBar:renderContent(theme, localization, localizedContent)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 	local votingTheme = theme.asset.voting
 
 	local upVotes = props.voting.UpVotes
@@ -97,10 +85,8 @@ function VoteBar:renderContent(theme, localization, localizedContent)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	VoteBar = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(VoteBar)
-end
+VoteBar = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(VoteBar)
 
 return VoteBar

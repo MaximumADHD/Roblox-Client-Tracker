@@ -15,7 +15,6 @@
 		callback onGroupSelected()
 		callback onSearchOptionsToggled()
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
 
 local Plugin = script.Parent.Parent.Parent
@@ -140,25 +139,15 @@ function Header:init()
 end
 
 function Header:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(localization, localizedContent)
-			return self:renderContent(nil, localization, localizedContent)
-		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(localization, localizedContent)
-				return self:renderContent(theme, localization, localizedContent)
-			end)
-		end)
-	end
+	return withLocalization(function(localization, localizedContent)
+		return self:renderContent(nil, localization, localizedContent)
+	end)
 end
 
 function Header:renderContent(theme, localization, localizedContent)
 	local props = self.props
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	theme = props.Stylizer
 
 	local categories = localization:getLocalizedCategories(props.categories)
 	local categoryName = props.categoryName
@@ -339,7 +328,7 @@ end
 
 Header = withContext({
 	Settings = Settings,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(Header)
 
 

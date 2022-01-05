@@ -7,8 +7,6 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Constants = {}
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
@@ -59,9 +57,6 @@ Constants.DROP_SHADOW_SLICE_CENTER = Rect.new(
 	Constants.DROP_SHADOW_IMAGE_SLICE_1,
 	Constants.DROP_SHADOW_IMAGE_SLICE_1)
 Constants.DROP_SHADOW_TRANSPARENCY = 0.8
-if (not FFlagToolboxRemoveWithThemes) then
-Constants.DROP_SHADOW_SIZE = 8
-end
 Constants.DROP_SHADOW_COLOR = Color3.fromRGB(0, 0, 0)
 
 Constants.DEFAULT_PADDING = 8
@@ -138,9 +133,6 @@ Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constant
 Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING
 	+ Constants.ASSET_NAME_HEIGHT
 
-if (not FFlagToolboxRemoveWithThemes) then
-	Constants.ASSET_OUTLINE_HOVERED_TRANSPARENCY = 0.08
-end
 Constants.ASSET_OUTLINE_PADDING = 8
 Constants.ASSET_OUTLINE_EXTRA_HEIGHT = Constants.ASSET_CREATOR_NAME_HEIGHT
 	+ Constants.ASSET_INNER_PADDING + (2 * Constants.ASSET_OUTLINE_PADDING)

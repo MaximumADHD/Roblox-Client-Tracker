@@ -12,8 +12,6 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -57,20 +55,8 @@ function VersionItem:init(props)
 end
 
 function VersionItem:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function VersionItem:renderContent(theme)
 	local props = self.props
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local versionsTheme = theme.versions
 
@@ -176,12 +162,9 @@ function VersionItem:renderContent(theme)
 	})
 end
 
-
 VersionItem = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(VersionItem)
-
-
 
 return VersionItem

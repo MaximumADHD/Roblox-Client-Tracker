@@ -13,6 +13,8 @@ return function(plugin, pluginLoaderContext)
 	local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
+	local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+
 	--Turn this on when debugging the store and actions
 	local LOG_STORE_STATE_AND_EVENTS = false
 
@@ -123,7 +125,7 @@ return function(plugin, pluginLoaderContext)
 		makePluginGui()
 
 		if FFlagImprovePluginSpeed_PublishPlaceAs then
-			if FFlagStudioAllowRemoteSaveBeforePublish then
+			if FFlagStudioAllowRemoteSaveBeforePublish or FFlagPlacePublishManagementUI then
 				pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(function(showGameSelect, isPublish, closeMode)
 					if FFlagStudioNewGamesInCloudUI then
 						if isPublish then
@@ -150,7 +152,7 @@ return function(plugin, pluginLoaderContext)
 				dataStore:dispatch(SetIsPublishing(false))
 			end)
 		else
-			if FFlagStudioAllowRemoteSaveBeforePublish then
+			if FFlagStudioAllowRemoteSaveBeforePublish or FFlagPlacePublishManagementUI then
 				StudioService.OnSaveOrPublishPlaceToRoblox:Connect(function(showGameSelect, isPublish, closeMode)
 					if FFlagStudioNewGamesInCloudUI then
 						if isPublish then

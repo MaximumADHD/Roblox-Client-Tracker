@@ -18,8 +18,6 @@ local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local Util = Plugin.Core.Util
 local makeTheme = require(Util.makeTheme)
 
-local FFlagRemoveUILibraryFromToolbox = require(Plugin.Core.Util.getFFlagRemoveUILibraryFromToolbox)()
-
 local ToolboxServiceWrapper = Roact.PureComponent:extend("ToolboxServiceWrapper")
 
 function ToolboxServiceWrapper:render()
@@ -38,7 +36,7 @@ function ToolboxServiceWrapper:render()
 		ContextServices.API.new(),
 		ContextServices.Plugin.new(plugin),
 		localization,
-		makeTheme((not FFlagRemoveUILibraryFromToolbox) and theme:getUILibraryTheme() or nil),
+		makeTheme(),
 		ContextServices.Store.new(store),
 		SettingsContext.new(settings),
 		ContextServices.Mouse.new(mouse),

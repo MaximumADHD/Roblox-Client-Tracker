@@ -9,9 +9,7 @@ local isCli = require(Plugin.Core.Util.isCli)
 local Category = require(Plugin.Core.Types.Category)
 
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
-local FFlagToolboxDragSourceAssetIds = game:GetFastFlag("ToolboxDragSourceAssetIds")
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
-local FFlagToolboxTrackDragInsertFinished = game:GetFastFlag("ToolboxTrackDragInsertFinished")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -495,16 +493,12 @@ if FFlagToolboxMeshPartFiltering then
 
 	function InsertAsset.registerProcessDragHandler()
 		ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
-			if FFlagToolboxDragSourceAssetIds then
-				setSourceAssetIdOnInstances(assetId, instances)
-			end
+			setSourceAssetIdOnInstances(assetId, instances)
 
-			if FFlagToolboxTrackDragInsertFinished then
-				-- Do not block the insert on tracking the analytic
-				spawn(function()
-					Analytics.reportDragInsertFinished(assetId, assetTypeId)
-				end)
-			end
+			-- Do not block the insert on tracking the analytic
+			spawn(function()
+				Analytics.reportDragInsertFinished(assetId, assetTypeId)
+			end)
 
 			if assetTypeId == Enum.AssetType.MeshPart.Value then
 				return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)

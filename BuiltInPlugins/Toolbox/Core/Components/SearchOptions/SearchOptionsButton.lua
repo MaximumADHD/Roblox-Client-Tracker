@@ -5,7 +5,6 @@
 		int LayoutOrder = The order in which this button appears in a layout.
 		function onClick = A callback for when the user clicks this button.
 ]]
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -53,19 +52,7 @@ function SearchOptionsButton:init()
 end
 
 function SearchOptionsButton:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function SearchOptionsButton:renderContent(theme)
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	local theme = self.props.Stylizer
 	local layoutOrder = self.props.LayoutOrder
 	local hovered = self.state.hovered
 
@@ -85,10 +72,8 @@ function SearchOptionsButton:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	SearchOptionsButton = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(SearchOptionsButton)
-end
+SearchOptionsButton = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(SearchOptionsButton)
 
 return SearchOptionsButton

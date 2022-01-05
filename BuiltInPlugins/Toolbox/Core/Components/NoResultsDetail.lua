@@ -1,5 +1,4 @@
 local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -54,16 +53,6 @@ function NoResultsDetail:didMount()
 end
 
 function NoResultsDetail:render()
-	if FFlagToolboxRemoveWithThemes then
-		return self:renderContent(nil)
-	else
-		return withTheme(function(theme)
-			return self:renderContent(theme)
-		end)
-	end
-end
-
-function NoResultsDetail:renderContent(theme)
 	local props = self.props
 	assert(t.interface({
 		content = t.interface({
@@ -74,9 +63,7 @@ function NoResultsDetail:renderContent(theme)
 		onLinkClicked = t.callback,
 	})(props))
 
-	if FFlagToolboxRemoveWithThemes then
-		theme = props.Stylizer
-	end
+	local theme = props.Stylizer
 
 	local fontSize = Constants.FONT_SIZE_MEDIUM
 
@@ -152,10 +139,8 @@ function NoResultsDetail:renderContent(theme)
 	})
 end
 
-if FFlagToolboxRemoveWithThemes then
-	NoResultsDetail = withContext({
-		Stylizer = ContextServices.Stylizer,
-	})(NoResultsDetail)
-end
+NoResultsDetail = withContext({
+	Stylizer = ContextServices.Stylizer,
+})(NoResultsDetail)
 
 return NoResultsDetail

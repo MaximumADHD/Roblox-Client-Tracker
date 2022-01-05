@@ -75,14 +75,18 @@ local function GetAliases(apiImpl, assetType, state)
     return request(1)
 end
 
-return function(apiImpl, assetType)
+return function(apiImpl, assetType, scriptCheck)
     return function(store)
         local state = store:getState()
-        store:dispatch(SetIsFetchingAssets(true))
+        if not scriptCheck then
+            store:dispatch(SetIsFetchingAssets(true))
+        end
         return Promise.resolve(GetAliases(apiImpl, assetType, state)):andThen(function(newAssets, index, hasLinkedScripts)
                 store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
-                store:dispatch(SetIsFetchingAssets(false))
-                store:dispatch(SetAssets(newAssets, index))
+                if not scriptCheck then
+                    store:dispatch(SetIsFetchingAssets(false))
+                    store:dispatch(SetAssets(newAssets, index))
+                end
             end, function()
                 store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load aliases")

@@ -53,7 +53,6 @@ local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOp
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
 local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
 local getShouldHideNonRelevanceSorts = (FFlagToolboxPolicyHideNonRelevanceSorts and require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts) or nil
 
@@ -187,18 +186,9 @@ function SearchOptions:init(initialProps)
 end
 
 function SearchOptions:createSeparator(color)
-	if FFlagToolboxRemoveWithThemes then
-		return Roact.createElement(Separator, {
-			LayoutOrder = self:nextLayout(),
-		})
-	else
-		return Roact.createElement("Frame", {
-			BackgroundColor3 = color,
-			BorderSizePixel = 0,
-			Size = UDim2.new(1, 0, 0, 1),
-			LayoutOrder = self:nextLayout(),
-		})
-	end
+	return Roact.createElement(Separator, {
+		LayoutOrder = self:nextLayout(),
+	})
 end
 
 function SearchOptions:resetLayout()
@@ -211,28 +201,16 @@ function SearchOptions:nextLayout()
 end
 
 function SearchOptions:render()
-	if FFlagToolboxRemoveWithThemes then
-		return withLocalization(function(_, localizedContent)
-			return withModal(function(modalTarget)
-				return self:renderContent(nil, localizedContent, modalTarget)
-			end)
+	return withLocalization(function(_, localizedContent)
+		return withModal(function(modalTarget)
+			return self:renderContent(nil, localizedContent, modalTarget)
 		end)
-	else
-		return withTheme(function(theme)
-			return withLocalization(function(_, localizedContent)
-				return withModal(function(modalTarget)
-					return self:renderContent(theme, localizedContent, modalTarget)
-				end)
-			end)
-		end)
-	end
+	end)
 end
 
 function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	local state = self.state
-	if FFlagToolboxRemoveWithThemes then
-		theme = self.props.Stylizer
-	end
+	theme = self.props.Stylizer
 
 	local optionsTheme = theme.searchOptions
 	local liveSearchData = self.props.LiveSearchData
@@ -366,7 +344,7 @@ end
 
 SearchOptions = withContext({
 	Localization = ContextServices.Localization,
-	Stylizer = FFlagToolboxRemoveWithThemes and ContextServices.Stylizer or nil,
+	Stylizer = ContextServices.Stylizer,
 })(SearchOptions)
 
 
