@@ -1,7 +1,8 @@
 Key,Source,Context,en-us
 Studio.PublishPlaceAs.Genre.Adventure,Adventure, ,Adventure
-Studio.PublishPlaceAs.General.PublishPlace,Publish Place, ,Publish Place
 Studio.PublishPlaceAs.General.SavePlace,Save Place, ,Save Place
+Studio.PublishPlaceAs.General.RollbackToggleDesc,Enabling rollback to previous version if the owerwrite is rejected [link], ,Enabling rollback to previous version if the owerwrite is rejected [link]
+Studio.PublishPlaceAs.General.PublishPlace,Publish Place, ,Publish Place
 Studio.PublishPlaceAs.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox
 Studio.PublishPlaceAs.General.ContentDialogItem2,Intense Violence, ,Intense Violence
 Studio.PublishPlaceAs.General.PublishGame,Publish Game, ,Publish Game
@@ -10,7 +11,6 @@ Studio.PublishPlaceAs.General.ContentDialogTitle,Content Agreement, ,Content Agr
 Studio.PublishPlaceAs.Button.Retry,Retry, ,Retry
 Studio.PublishPlaceAs.Button.ReplyDisagree,Disagree, ,Disagree
 Studio.PublishPlaceAs.General.ContentDialogHeader,Do you agree that your game is controller compatible and contains NONE of the following?, ,Do you agree that your game is controller compatible and contains NONE of the following?
-Studio.PublishPlaceAs.Genre.TownAndCity,Town and City, ,Town and City
 Studio.PublishPlaceAs.GroupDropdown.Me,Me, ,Me
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
 Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,Tablet
@@ -18,18 +18,20 @@ Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,St
 Studio.PublishPlaceAs.Devices.Header,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Devices,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,Genre
+Studio.PublishPlaceAs.General.RolloutOptionDefaultDesc,New player join updated server, ,New player join updated server
 Studio.PublishPlaceAs.General.ContentDialogItem4,Robux Gambling, ,Robux Gambling
-Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use
-Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.
 Studio.PublishPlaceAs.Devices.Computer,Computer, ,Computer
-Studio.PublishPlaceAs.Genre.Sports,Sports, ,Sports
+Studio.PublishPlaceAs.Error.DescriptionModerated,The description didn't go through our moderation. Please revise it and try again., ,The description didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use, ,Drug Reference or Use
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New, ,Add New
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game, ,Untitled Game
 Studio.PublishPlaceAs.General.FetchFailed,Fetch failed, ,Fetch failed
 Studio.PublishPlaceAs.Genre.Pirate,Naval, ,Naval
 Studio.PublishPlaceAs.General.TitlePlayability,Playability, ,Playability
+Studio.PublishPlaceAs.General.RollbackToggleTitle,Enable Rollback to Previous Version, ,Enable Rollback to Previous Version
 Studio.PublishPlaceAs.General.PlayabilityPublic,Public, ,Public
 Studio.PublishPlaceAs.PrivacyType.Public,Public, ,Public
+Studio.PublishPlaceAs.General.RollbackToggleDesclinkText,Learn more, ,Learn more
 Studio.PublishPlaceAs.General.PlayabilityFriends,Friends, ,Friends
 Studio.PublishPlaceAs.General.PlayabilityPrivate,Private, ,Private
 Studio.PublishPlaceAs.PrivacyType.Private,Private, ,Private
@@ -37,6 +39,12 @@ Studio.PublishPlaceAs.General.PlayabilityFriendsDesc,Friends on Roblox, ,Friends
 Studio.PublishPlaceAs.Genre.Ninja,Fighting, ,Fighting
 Studio.PublishPlaceAs.PageTitle.Creator,Creator, ,Creator
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game
+Studio.PublishPlaceAs.General.RolloutOptionDefault,Default, ,Default
+Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
+Studio.PublishPlaceAs.Genre.All,All, ,All
+Studio.PublishPlaceAs.General.RolloutOptionForce,Force, ,Force
+Studio.PublishPlaceAs.General.RolloutOption,RolloutOption, ,RolloutOption
+Studio.PublishPlaceAs.General.RolloutOptionForceDesc,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server.", ,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server."
 Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,Create new game...
@@ -44,12 +52,12 @@ Studio.PublishPlaceAs.Button.ReplyAgree,Agree, ,Agree
 Studio.PublishPlaceAs.Button.Close,Close, ,Close
 Studio.PublishPlaceAs.Button.Submit,Submit, ,Submit
 Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file..., ,Save to file...
-Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,Update existing game...
 Studio.PublishPlaceAs.Error.NameModerated,The name didn't go through our moderation. Please revise it and try again., ,The name didn't go through our moderation. Please revise it and try again.
+Studio.PublishPlaceAs.FooterButton.UpdateExistingGame,Update existing game..., ,Update existing game...
 Studio.PublishPlaceAs.FooterButton.Create,Create, ,Create
 Studio.PublishPlaceAs.Genre.Funny,Comedy, ,Comedy
 Studio.PublishPlaceAs.FooterButton.Overwrite,Overwrite, ,Overwrite
-Studio.PublishPlaceAs.Genre.RPG,RPG, ,RPG
+Studio.PublishPlaceAs.FooterButton.Next,Next, ,Next
 Studio.PublishPlaceAs.FooterButton.Save,Save, ,Save
 Studio.PublishPlaceAs.GroupDropdown.MyGames,My Games, ,My Games
 Studio.PublishPlaceAs.MenuItem.BasicInfo,Basic Info, ,Basic Info
@@ -59,13 +67,14 @@ Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
 Studio.PublishPlaceAs.Genre.Fantasy,Medieval, ,Medieval
 Studio.PublishPlaceAs.Genre.Scary,Horror, ,Horror
 Studio.PublishPlaceAs.PageTitle.Description,Description, ,Description
-Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
-Studio.PublishPlaceAs.Genre.All,All, ,All
-Studio.PublishPlaceAs.Genre.WildWest,Western, ,Western
 Studio.PublishPlaceAs.Genre.Tutorial,Building, ,Building
 Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS
 Studio.PublishPlaceAs.Genre.War,Military, ,Military
+Studio.PublishPlaceAs.Genre.RPG,RPG, ,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi, ,Sci-Fi
+Studio.PublishPlaceAs.Genre.Sports,Sports, ,Sports
+Studio.PublishPlaceAs.Genre.TownAndCity,Town and City, ,Town and City
+Studio.PublishPlaceAs.Genre.WildWest,Western, ,Western
 Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty., ,Name cannot be empty.
 Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},Substituted with current description length and max description length,{1}/{2}
 Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},Substituted with current name length and max name length,{1}/{2}
@@ -76,6 +85,7 @@ Studio.PublishPlaceAs.Error.ActivatingUniverse,Error activating the universe., ,
 Studio.PublishPlaceAs.Error.DeactivatingUniverse,Error deactivating the universe., ,Error deactivating the universe.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,Choose an existing game to add this place
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
+Studio.PublishPlaceAs.ScreenHeader.PublishManagement,How would you like to release the overwrite to {1} under {2}?, ,How would you like to release the overwrite to {1} under {2}?
 Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,Successfully published!
 Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!, ,Successfully saved!
 Studio.PublishPlaceAs.PublishSuccess.FindInGame,You may find this place in {1},Substituted with game name to tell user where their place has been published to,You may find this place in {1}

@@ -100,7 +100,7 @@ DefaultHQVS_Level4098,Vertex
 DefaultHQVS_Level4106,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
-DefaultNeonFS,Fragment
+DefaultModelLodVSNew,Vertex
 DefaultNeonFS_Level0,Fragment
 DefaultNeonFS_Level2048,Fragment
 DefaultNeonHQFS_Level0,Fragment
@@ -121,7 +121,6 @@ DefaultNewShadowVS_Level66,Vertex
 DefaultNewShadowVS_Level70,Vertex
 DefaultNewShadowVS_Level4098,Vertex
 DefaultNewShadowVS_Level4162,Vertex
-DefaultOpaqueFS,Fragment
 DefaultOpaqueFS_Level0,Fragment
 DefaultOpaqueFS_Level2,Fragment
 DefaultOpaqueFS_Level2048,Fragment
@@ -130,12 +129,10 @@ DefaultOpaqueHQFS_Level0,Fragment
 DefaultOpaqueHQFS_Level2,Fragment
 DefaultOpaqueHQFS_Level8,Fragment
 DefaultOpaqueHQFS_Level10,Fragment
-DefaultPlasticFS,Fragment
 DefaultPlasticFS_Level0,Fragment
 DefaultPlasticFS_Level2048,Fragment
 DefaultPlasticHQFS_Level0,Fragment
 DefaultPlasticHQFS_Level8,Fragment
-DefaultPlasticReflectionFS,Fragment
 DefaultPlasticReflectionFS_Level0,Fragment
 DefaultPlasticReflectionFS_Level2048,Fragment
 DefaultReflectionVS_Level0,Vertex
@@ -162,7 +159,6 @@ DefaultSurfaceAppearanceDitheredDepthVS_Level1,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level2,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level6,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level4098,Vertex
-DefaultSurfaceAppearanceDitheredFS,Fragment
 DefaultSurfaceAppearanceDitheredFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredFS_Level2,Fragment
 DefaultSurfaceAppearanceDitheredFS_Level2048,Fragment
@@ -171,7 +167,6 @@ DefaultSurfaceAppearanceDitheredHQFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level2,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level8,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level10,Fragment
-DefaultSurfaceAppearanceFS,Fragment
 DefaultSurfaceAppearanceFS_Level0,Fragment
 DefaultSurfaceAppearanceFS_Level2,Fragment
 DefaultSurfaceAppearanceFS_Level2048,Fragment
@@ -198,7 +193,6 @@ DefaultTiledHideDiffuseRepHQFS_Level0,Fragment
 DefaultTiledHideDiffuseRepHQFS_Level8,Fragment
 DefaultTiledHQFS_Level0,Fragment
 DefaultTiledHQFS_Level8,Fragment
-DefaultTransparentFS,Fragment
 DefaultTransparentFS_Level0,Fragment
 DefaultTransparentFS_Level2,Fragment
 DefaultTransparentFS_Level2048,Fragment
@@ -310,7 +304,6 @@ LightGridPointSplatVS,Vertex
 LinearizeDepthAAFS,Fragment
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
-LowQMaterialFS,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialFS_Level2048,Fragment
 LowQMaterialWangFallbackFS,Fragment
@@ -430,7 +423,6 @@ SmoothClusterVS_Level16384,Vertex
 SmoothClusterVS_Level16640,Vertex
 SmoothClusterVS_Level17408,Vertex
 SmoothClusterVS_Level17664,Vertex
-SmoothWaterFS,Fragment
 SmoothWaterFS_Level0,Fragment
 SmoothWaterFS_Level2048,Fragment
 SmoothWaterHQFS_Level0,Fragment

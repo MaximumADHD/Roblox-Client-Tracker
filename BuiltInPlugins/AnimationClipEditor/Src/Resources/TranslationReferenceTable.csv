@@ -59,7 +59,7 @@ Studio.AnimationClipEditor.IKMenu.DisableIK,Disable IK,Disable IK,Desactivar cin
 Studio.AnimationClipEditor.IKMenu.EnableIK,Enable IK,Enable IK,Activar cinemática inversa (IK),Activer IK (cinématique inverse),IKを有効化,IK 활성화,Ativar cinemática inversa (IK),Включить обратную кинематику,启用 IK,启用 IK,啟用 IK
 Studio.AnimationClipEditor.IKMenu.IKMode,IK Mode,IK Mode,Modo cinemática inversa (IK),Mode IK (cinématique inverse),IKモード,IK 모드,Modo cinemática inversa (IK),Режим обратной кинематики,IK 模式,IK 模式,IK 模式
 Studio.AnimationClipEditor.IKMenu.BodyPart,Body Part,Body Part,Parte del cuerpo,Partie du corps,体のパーツ,신체 부위,Parte do corpo,Часть тела,身体部件,身体部件,身體部位
-Studio.AnimationClipEditor.Title.IK,IK,IK,Cinemática inversa (IK),IK,IK,IK,Cinemática inversa (IK),Обратная кинематика,IK,IK,IK
+Studio.AnimationClipEditor.Title.IK,IK,IK,Cinemática inversa (IK),IK,IK,IK,Cinemática inversa (IK),Обратная кинематика,IK,IK,逆向運動（IK）
 Studio.AnimationClipEditor.Menu.Tongue,Tongue,Tongue,Lengua,Langue,舌,혀,Língua, ,舌头,舌头,舌頭
 Studio.AnimationClipEditor.Title.CreateNew,Create New Animation,Create New Animation,Crear animación nueva,Créer une nouvelle animation,新しいアニメーションを作成,새 애니메이션 만들기,Criar nova animação,Создать новую анимацию,创建新动画,创建新动画,創作新動畫
 Studio.AnimationClipEditor.IKMenu.ShowTreeview,Show Treeview,Show Treeview,Mostrar Vista de árbol,Afficher l'arborescence,ツリービューを表示,트리뷰 표시,Mostra vista de árvore,Показать Дерево выбора,显示树状图,显示树状图,顯示樹狀檢視

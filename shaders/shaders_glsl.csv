@@ -68,20 +68,16 @@ DefaultHQVS_Level0,Vertex
 DefaultHQVS_Level2,Vertex
 DefaultHQVS_Level6,Vertex
 DefaultHQVS_Level4098,Vertex
-DefaultNeonFS,Fragment
 DefaultNeonFS_Level0,Fragment
 DefaultNeonHQFS_Level0,Fragment
 DefaultNeonHQInGuiFS,Fragment
 DefaultNeonInGuiFS,Fragment
-DefaultOpaqueFS,Fragment
 DefaultOpaqueFS_Level0,Fragment
 DefaultOpaqueFS_Level2,Fragment
 DefaultOpaqueHQFS_Level0,Fragment
 DefaultOpaqueHQFS_Level2,Fragment
-DefaultPlasticFS,Fragment
 DefaultPlasticFS_Level0,Fragment
 DefaultPlasticHQFS_Level0,Fragment
-DefaultPlasticReflectionFS,Fragment
 DefaultPlasticReflectionFS_Level0,Fragment
 DefaultReflectionVS_Level0,Vertex
 DefaultReflectionVS_Level2,Vertex
@@ -103,12 +99,10 @@ DefaultSurfaceAppearanceDitheredDepthVS_Level0,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level2,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level6,Vertex
 DefaultSurfaceAppearanceDitheredDepthVS_Level4098,Vertex
-DefaultSurfaceAppearanceDitheredFS,Fragment
 DefaultSurfaceAppearanceDitheredFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredFS_Level2,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level0,Fragment
 DefaultSurfaceAppearanceDitheredHQFS_Level2,Fragment
-DefaultSurfaceAppearanceFS,Fragment
 DefaultSurfaceAppearanceFS_Level0,Fragment
 DefaultSurfaceAppearanceFS_Level2,Fragment
 DefaultSurfaceAppearanceHQFS_Level0,Fragment
@@ -121,7 +115,6 @@ DefaultTiledEmissiveHideDiffuseRepHQFS_Level0,Fragment
 DefaultTiledHideAllRepHQFS_Level0,Fragment
 DefaultTiledHideDiffuseRepHQFS_Level0,Fragment
 DefaultTiledHQFS_Level0,Fragment
-DefaultTransparentFS,Fragment
 DefaultTransparentFS_Level0,Fragment
 DefaultTransparentFS_Level2,Fragment
 DefaultTransparentHQFS_Level0,Fragment
@@ -190,7 +183,6 @@ LightGridPointSplatFS,Fragment
 LightGridPointSplatVS,Vertex
 LinearizeDepthFS,Fragment
 LowQGlassFS,Fragment
-LowQMaterialFS,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
@@ -258,7 +250,6 @@ SmoothClusterVS_Level16384,Vertex
 SmoothClusterVS_Level16640,Vertex
 SmoothClusterVS_Level17408,Vertex
 SmoothClusterVS_Level17664,Vertex
-SmoothWaterFS,Fragment
 SmoothWaterFS_Level0,Fragment
 SmoothWaterHQFS_Level0,Fragment
 SmoothWaterHQVS_Level0,Vertex

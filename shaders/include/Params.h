@@ -1,6 +1,7 @@
 struct Params
 {
-    vec4 WaveParams;
-    vec4 WaterColor;
-    vec4 WaterParams;
+    mat4 World;
+    mat4 ViewProjection;
+    vec4 Color1;
+    vec4 Color2;
 };

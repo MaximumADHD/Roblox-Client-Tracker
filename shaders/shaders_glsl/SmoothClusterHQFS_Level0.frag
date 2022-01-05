@@ -70,5 +70,5 @@ void main()
 //$$ShadowMapTexture=s1
 //$$LightMapTexture=s6
 //$$LightGridSkylightTexture=s7
-//$$SpecularMapTexture=s2
+//$$SpecularMapTexture=s3
 //$$AlbedoMapTexture=s0

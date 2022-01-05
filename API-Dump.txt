@@ -94,6 +94,14 @@ Class AnimationController : Instance [Deprecated]
 	Function Array AnimationController:GetPlayingAnimationTracks() [Deprecated]
 	Function AnimationTrack AnimationController:LoadAnimation(Animation animation) [Deprecated]
 	Event AnimationController.AnimationPlayed(AnimationTrack animationTrack) [Deprecated]
+Class AnimationFromVideoCreatorService : Instance [NotCreatable] [Service]
+	Function string AnimationFromVideoCreatorService:CreateJob(string filePath) {RobloxScriptSecurity} [Yields]
+	Function string AnimationFromVideoCreatorService:DownloadJobResult(string jobId, string outputFilePath) {RobloxScriptSecurity} [Yields]
+	Function string AnimationFromVideoCreatorService:FullProcess(string videoFilePath, Function progressCallback) {RobloxScriptSecurity} [Yields]
+	Function string AnimationFromVideoCreatorService:GetJobStatus(string jobId) {RobloxScriptSecurity} [Yields]
+Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(Function progressCallback) {RobloxScriptSecurity} [Yields]
+	Function string AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AnimationRigData : Instance
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
@@ -274,6 +282,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event AvatarEditorService.PromptSetFavoriteCompleted(Enum.AvatarPromptResult result)
 	Event AvatarEditorService.PromptUpdateOutfitCompleted(Enum.AvatarPromptResult result)
 Class AvatarImportService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function Instance AvatarImportService:ImportFBXAnimationFromFilePathUserMayChooseModel(string fbxFilePath, Instance selectedRig, Function userChooseModelThenImportCB) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:ImportFBXAnimationUserMayChooseModel(Instance selectedRig, Function userChooseModelThenImportCB) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:ImportFbxRigWithoutSceneLoad(bool isR15 = true) {RobloxScriptSecurity} [Yields]
 	Function Instance AvatarImportService:ImportLoadedFBXAnimation(bool useFBXModel) {RobloxScriptSecurity} [Yields]
@@ -449,6 +458,7 @@ Class Breakpoint : Instance [NotReplicated]
 	Property int Breakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int Breakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string Breakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property int Breakpoint.MetaBreakpointId {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string Breakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool Breakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property bool Breakpoint.Enabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -1080,6 +1090,7 @@ Class Explosion : Instance
 	Property float Explosion.DestroyJointRadiusPercent
 	Property Enum.ExplosionType Explosion.ExplosionType
 	Property Vector3 Explosion.Position
+	Property float Explosion.TimeScale
 	Property bool Explosion.Visible
 	Event Explosion.Hit(BasePart part, float distance)
 Class FaceControls : Instance [NotBrowsable]
@@ -1165,6 +1176,7 @@ Class Fire : Instance
 	Property float Fire.Heat [<📁> LoadOnly] [NotReplicated]
 	Property Color3 Fire.SecondaryColor
 	Property float Fire.Size [<📁> LoadOnly] [NotReplicated]
+	Property float Fire.TimeScale
 Class FlagStandService : Instance [NotCreatable] [Service]
 Class FloatCurve : Instance
 	Property int FloatCurve.Length [ReadOnly]
@@ -1709,6 +1721,7 @@ Class HeightmapImporterService : Instance [Service] [NotReplicated]
 	Event HeightmapImporterService.ProgressUpdate(float progressRatio, string operation) {RobloxScriptSecurity}
 Class HiddenSurfaceRemovalAsset : Instance
 Class Highlight : Instance
+	Property Instance Highlight.Adornee
 	Property Enum.HighlightDepthMode Highlight.DepthMode
 	Property bool Highlight.Enabled
 	Property Color3 Highlight.FillColor
@@ -3438,6 +3451,7 @@ Class Smoke : Instance
 	Property float Smoke.Opacity [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.RiseVelocity [<📁> LoadOnly] [NotReplicated]
 	Property float Smoke.Size [<📁> LoadOnly] [NotReplicated]
+	Property float Smoke.TimeScale
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool SocialService:CanSendGameInviteAsync(Instance player) [Yields]
 	Function void SocialService:InvokeGameInvitePromptClosed(Instance player, Array recipientIds) {RobloxScriptSecurity}
@@ -3545,6 +3559,7 @@ Class Sparkles : Instance
 	Property Color3 Sparkles.Color [<📁> LoadOnly] [Hidden] [NotReplicated]
 	Property bool Sparkles.Enabled
 	Property Color3 Sparkles.SparkleColor
+	Property float Sparkles.TimeScale
 Class SpawnerService : Instance [NotCreatable] [Service]
 Class Speaker : Instance [Deprecated]
 	Property int Speaker.ChannelCount [ReadOnly] [NotBrowsable] [Deprecated]
@@ -4146,6 +4161,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.UsedHideHudShortcut {RobloxScriptSecurity}
 	Property bool UserGameSettings.VREnabled {RobloxScriptSecurity}
 	Property int UserGameSettings.VRRotationIntensity {RobloxScriptSecurity}
+	Property bool UserGameSettings.VignetteEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function int UserGameSettings:GetCameraYInvertValue()
 	Function bool UserGameSettings:GetOnboardingCompleted(string onboardingId)
 	Function bool UserGameSettings:GetTutorialState(string tutorialId) {RobloxScriptSecurity}
@@ -5171,7 +5187,7 @@ Enum HandlesStyle
 	EnumItem HandlesStyle.Movement : 1
 Enum HighlightDepthMode
 	EnumItem HighlightDepthMode.AlwaysOnTop : 0
-	EnumItem HighlightDepthMode.Default : 1
+	EnumItem HighlightDepthMode.Occluded : 1
 Enum HorizontalAlignment
 	EnumItem HorizontalAlignment.Center : 0
 	EnumItem HorizontalAlignment.Left : 1

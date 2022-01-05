@@ -72,7 +72,7 @@
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">37</string>
         <string name="PreferredParent">Model</string>
-      </Properties>
+      </Properties>      
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -1654,6 +1654,15 @@
         <string name="ExplorerImageIndex">59</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TimeScale</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
 
     <Item class="ReflectionMetadataClass">
@@ -1983,6 +1992,15 @@
         <string name="ExplorerImageIndex">42</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
+      <Item class="ReflectionMetadataProperties">        
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TimeScale</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
+          </Properties>
+        </Item>
+      </Item>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -2011,6 +2029,13 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">ExplosionType</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TimeScale</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
           </Properties>
         </Item>
       </Item>
@@ -2042,6 +2067,13 @@
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Size</string>
+          </Properties>
+        </Item>
+        <Item class="ReflectionMetadataMember">
+          <Properties>
+            <string name="Name">TimeScale</string>
+            <double name="UIMinimum">0</double>
+            <double name="UIMaximum">1</double>
           </Properties>
         </Item>
       </Item>

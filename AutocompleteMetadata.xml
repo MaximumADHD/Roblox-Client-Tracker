@@ -2532,9 +2532,9 @@
       <Vector3 name="Normal">
         The surface normal at the hit position
       </Vector3>
-      <Enum.PartMaterial name="Material">
+      <Enum.MaterialType name="Material">
         The material of the hit surface
-      </Enum.PartMaterial>
+      </Enum.MaterialType>
     </Properties>
   </ItemStruct>
   <ItemStruct name="OverlapParams">

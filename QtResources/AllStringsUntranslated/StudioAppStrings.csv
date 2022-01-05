@@ -101,6 +101,7 @@ Studio.App.FileType.MeshFiles,,Mesh Files,Mesh Files
 Studio.App.FileType.JSONFiles,,JSON Files,JSON Files
 Studio.App.FileType.Images,,Images,Images
 Studio.App.FileType.Meshes,,Meshes,Meshes
+Studio.App.FileType.VideoFiles,,Video Files,Video Files
 Studio.App.IdeDoc.AllRobloxPlaceFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),All Roblox Place Files(*rbxl *rbxlx);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.RobloxPlaceSaveFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx),Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx)
 Studio.App.IdeDoc.AllRobloxFilesFileFilter,"Roblox IDE Doc. NOTE TO LOCALIZERS: Do not translate the parentheses (), whatever is inside the parentheses, or any other special characters, use ASCII instead.",All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1),All Roblox Files(*rbxl *rbxlx *%1);; Roblox Place Files(*.rbxl);; Roblox XML Place Files(*.rbxlx);; Roblox Project File(*.%1)
@@ -423,6 +424,9 @@ Studio.App.EmulatorMainWidget.PhoneSectionName,,Phone,Phone
 Studio.App.EmulatorMainWidget.CustomDeviceSectionName,,Custom Device,Custom Device
 Studio.App.EmulatorMainWidget.ManageDevices,,Manage Devices,Manage Devices
 Studio.App.EmulatorMainWidget.ModeNotEnabledTitle,,%1 Not Enabled,%1 Not Enabled
+Studio.App.EmulatorMainWidget.StarterGuiModeNotEnabledMessage1,,%1 mode is not enabled for your game.,%1 mode is not enabled for your game.
+Studio.App.EmulatorMainWidget.StarterGuiEnabledModeMessage3,,"To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3","To enable it, stop the experience if running, and set the %1 setting of %2 to one of the following: %3"
+Studio.App.EmulatorMainWidget.StarterGui,,StarterGui,StarterGui
 Studio.App.EmulatorMainWidget.ModeNotEnabledMessage1,,"%1 mode is not enabled for your game. To enable it, %2 set the ","%1 mode is not enabled for your game. To enable it, %2 set the "
 Studio.App.EmulatorMainWidget.ScreenOrientation,,ScreenOrientation,ScreenOrientation
 Studio.App.EmulatorMainWidget.ModeNotEnabledMessage2,,setting of StarterGui to,setting of StarterGui to
@@ -1043,6 +1047,10 @@ Studio.App.RBXMainWindow.SaveSelectionAsModel,,Save the selection as a Model to 
 Studio.App.RBXMainWindow.SaveToFileElps,,Save to File...,Save to File...
 Studio.App.RBXMainWindow.LoadLocalizationTableEntriesFromCSV,,Load LocalizationTable entries from a CSV file,Load LocalizationTable entries from a CSV file
 Studio.App.RBXMainWindow.SaveSelectionToFileElps,,Save selection to file...,Save selection to file...
+Studio.App.RBXMainWindow.ExportForUploadElps,,(INTERNAL) Export for upload...,(INTERNAL) Export for upload...
+Studio.App.RBXMainWindow.ExportSelectionForUploadElps,,(INTERNAL) Export selection for upload...,(INTERNAL) Export selection for upload...
+Studio.App.RBXMainWindow.ExportSelectionForUpload,,(INTERNAL) Export selection for upload via admin site,(INTERNAL) Export selection for upload via admin site
+Studio.App.Error.Publishing.Dependancies,,Error publishing asset dependancies,Error publishing asset dependancies
 Studio.App.RBXMainWindow.CreatePluginFromScript,,Create a local plugin from this script,Create a local plugin from this script
 Studio.App.RBXMainWindow.SaveDocToRoblox,,Publish the active document to the Roblox website,Publish the active document to the Roblox website
 Studio.App.RBXMainWindow.InsertFromFileElps,,Insert from File...,Insert from File...
@@ -1241,6 +1249,7 @@ Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipul
 Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
 Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
 Studio.App.RobloxRibbonMainWindow.RecentFiles,,Recent Files,Recent Files
+Studio.App.RobloxRibbonMainWindow.RecentPlaces,,Recent Places,Recent Places
 Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
 Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
 Studio.App.RobloxRibbonMainWindow.ResizeAnObject,,Resize an Object,Resize an Object
@@ -2138,8 +2147,6 @@ Studio.App.BetaFeatures.AutomaticSizeTitle,,Automatic Size Beta,Automatic Size B
 Studio.App.BetaFeatures.AutomaticSizeDescription,,UI object property that automatically sizes objects based on their child content.,UI object property that automatically sizes objects based on their child content.
 Studio.App.BetaFeatures.AttributesUITitle,,Attributes Beta,Attributes Beta
 Studio.App.BetaFeatures.AttributesUIDescription,,Customize instances with your own data,Customize instances with your own data
-Studio.App.BetaFeatures.DynamicIndoorEnvMapTitle,,Dynamic Indoor Environment Map,Dynamic Indoor Environment Map
-Studio.App.BetaFeatures.DynamicIndoorEnvMapDescription,,"Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale.","Enables automatically updated indoor environment map, which can be tuned by Lighting.EnvironmentDiffuseScale/EnvironmentSpecularScale."
 Studio.App.BetaFeatures.ScriptEditorTitle,,Script Editor Beta Features,Script Editor Beta Features
 Studio.App.BetaFeatures.ScriptEditorDescription,,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.,Customizable Semantic Highlighting and Temporary tabs that open Scripts in preview mode by default.
 Studio.App.BetaFeatures.ScriptEditorHoverTitle,,Luau-Powered Type Hover,Luau-Powered Type Hover
@@ -2419,9 +2426,9 @@ Studio.App.PropertyItems.IssueImportingTexture1,Error message that displays in t
 Studio.App.PropertyItems.UnsupportedFiletype,One of the issues that could be encountered when uploading a texture.,Unsupported filetype,Unsupported filetype
 Studio.App.PropertyItems.LogInRequired,Title of error message shown to users who try to import meshes while not logged in.,Log in required,Log in required
 Studio.App.PropertyItems.YouMustLogInToCreateMeshes,Body of error message shown to users to try to import meshes while not logged in.,You must log in to create meshes.,You must log in to create meshes.
-Studio.App.PropertyItems.MaterialOverride.Disabled,Tooltip that displays if a MaterialOverride is set to a MaterialVariant that is not a descendant of MaterialService.,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>
-Studio.App.PropertyItems.MaterialOverride.Invalid,Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
-Studio.App.PropertyItems.MaterialOverride.Missing,Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
+Studio.App.PropertyItems.MaterialOverride.Disabled,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that is not a descendant of MaterialService.",<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>,<font>The Override will not function unless the MaterialVariant is placed in MaterialService. Place the variant in MaterialService or choose another variant.</font>
+Studio.App.PropertyItems.MaterialOverride.Invalid,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant whose BaseMaterial does not equal to the Material it is supposed to be overriding.",<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>,<font>The Base Material for the MaterialVariant does not match the Override material. Select matching materials for the variant to function.</font>
+Studio.App.PropertyItems.MaterialOverride.Missing,"Note to localization: Make sure <font></font> remain unchanged, they are needed for text wrapping with rtf. Tooltip that displays if a MaterialOverride is set to a MaterialVariant that has been deleted.",<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>,<font>The Override will not be functional because the MaterialVariant no longer exists. Apply a new variant or set the Override to None.</font>
 Studio.App.PropertyItems.MaterialOverride.None,Item text for the default value of the combobox created by MaterialOverridePropertyItem.,<None>,<None>
 Studio.App.RobloxScriptDoc.MultipleScriptLocks,,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.,Multiple script locks were taken from you due to inactivity. Please see the Script Recovery Widget to resolve issues.
 Studio.App.RobloxScriptDoc.CantAccessRevertingChange,,"Cannot gain write access to script, reverting your change","Cannot gain write access to script, reverting your change"
@@ -3076,6 +3083,8 @@ Studio.App.ScriptsInBatchDialog.FailedToLoadDataErrorMessage,,Failed to load dat
 Studio.App.ScriptsInBatchDialog.Title,,Scripts In Batch,Scripts In Batch
 Studio.App.ScriptsInBatchDialog.ScriptSectionHeader,,Script,Script
 Studio.App.ScriptsInBatchDialog.VersionSectionHeader,,Version,Version
+Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a mp4 video,Select a mp4 video
+Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
 Studio.App.AssetManagerService.AssetIdInvalid,,AssetId is invalid,AssetId is invalid
 Studio.App.AssetManagerService.AliasNameInvalid,,Alias name is invalid,Alias name is invalid
 Studio.App.AssetManagerService.DataModelInvalid,,DataModel is invalid,DataModel is invalid

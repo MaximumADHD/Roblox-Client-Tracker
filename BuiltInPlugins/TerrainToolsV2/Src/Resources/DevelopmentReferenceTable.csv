@@ -69,7 +69,6 @@ Studio.TerrainToolsV2.BrushSettings.Reset, ,Reset
 Studio.TerrainToolsV2.BrushSettings.Rotation, ,Rotation
 Studio.TerrainToolsV2.BrushSettings.Shape, ,Shape
 Studio.TerrainToolsV2.BrushSettings.Size, ,Size
-Studio.TerrainToolsV2.BrushSettings.SnapToGrid, ,Snap to Grid
 Studio.TerrainToolsV2.BrushSettings.SnapToVoxels, ,Snap to Voxels
 Studio.TerrainToolsV2.BrushSettings.Strength, ,Strength
 Studio.TerrainToolsV2.BrushSettings.TopPivot, ,Top
