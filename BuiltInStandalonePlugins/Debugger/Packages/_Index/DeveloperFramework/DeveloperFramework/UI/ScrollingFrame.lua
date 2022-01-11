@@ -34,7 +34,6 @@
 		Color3 ScrollBarBackgroundColor: Background color of the scrollbar.
 		integer ZIndex: The draw index of the frame.
 ]]
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 
@@ -128,8 +127,8 @@ function ScrollingFrame:init()
 			Style = Cryo.None,
 			Stylizer = Cryo.None,
 			getUILibraryTheme = Cryo.None,
-			ScrollBarBackgroundColor = FFlagDevFrameworkRefactorScrollbarColor and Cryo.None or nil,
-			EnableScrollBarBackground = FFlagDevFrameworkRefactorScrollbarColor and Cryo.None or nil,
+			ScrollBarBackgroundColor = Cryo.None,
+			EnableScrollBarBackground = Cryo.None,
 		},
 	}
 
@@ -223,7 +222,7 @@ function ScrollingFrame:render()
 		Size = size,
 		LayoutOrder = layoutOrder,
 	}, {
-		ScrollBarBackground = FFlagDevFrameworkRefactorScrollbarColor and enableScrollBarBackground and Roact.createElement("Frame", {
+		ScrollBarBackground = enableScrollBarBackground and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(1, 0),
 			Position = UDim2.new(1, 0, 0, 0),
 			Size = UDim2.new(0, style.ScrollBarThickness, 1, 0),

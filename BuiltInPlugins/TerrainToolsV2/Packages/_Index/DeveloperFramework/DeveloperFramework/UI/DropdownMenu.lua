@@ -14,6 +14,7 @@
 		number Width: The width of the dropdown
 		Theme Theme: a Theme object supplied by withContext()
 		string PlaceholderText: A placeholder to display if there is no item selected.
+		number Priority: The ZIndex of this component relative to other focused elements.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		callback OnFocusLost: A function called when the focus on the menu is lost.
 		number SelectedIndex: The currently selected item index.
@@ -47,6 +48,7 @@ local TextLabel = require(UI.TextLabel)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagToolboxAssetGridRefactor3 = {"ToolboxAssetGridRefactor3"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -251,7 +253,6 @@ function DropdownMenu:renderMenu()
 			BackgroundColor3 = backgroundColor,
 		}, listElements),
 	})
-
 end
 
 function DropdownMenu:render()
@@ -260,12 +261,14 @@ function DropdownMenu:render()
 
 	local isOpen = not props.Hide
 	local canRender = state.absolutePosition ~= Vector2.new(0, 0)
+	local priority = props.Priority
 
 	return Roact.createElement(Container, {
 		[Roact.Ref] = self.ref,
 	}, {
 		PortalToRoot = isOpen and Roact.createElement(CaptureFocus, {
 			OnFocusLost = props.OnFocusLost,
+			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor3") and priority or nil,
 		}, {
 			Menu = isOpen and canRender and self:renderMenu()
 		})
