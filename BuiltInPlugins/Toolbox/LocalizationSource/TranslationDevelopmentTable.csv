@@ -55,8 +55,7 @@ My Animations,My Animations,Studio.Toolbox.General.SortByText
 Sort by:,Sort by:,Studio.Toolbox.General.CategoryRecentModels
 Recent Models,Recent Models,Studio.Toolbox.General.CategoryRecentMeshes
 Recent Meshes,Recent Meshes,Studio.Toolbox.General.CategoryRecentAnimations
-Recent Animations,Recent Animations,Studio.Toolbox.General.RightClickMenuCopyAssetURI
-Copy Asset URI,Copy Asset URI,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
+Recent Animations,Recent Animations,Studio.Toolbox.General.CategoryCreationsRightShoeAccessory
 Right Shoe Accessories,Right Shoe Accessories,Studio.Toolbox.General.VerifiedCreatorBadgeTooltipText
 Creator is ID verified,Creator is ID verified,Studio.Toolbox.AssetConfigPackagePermissions.SearchByUser
 Search by username,Search by username,Studio.Toolbox.General.CategoryCreationsFaceAccessory

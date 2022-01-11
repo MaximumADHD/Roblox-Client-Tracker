@@ -99,9 +99,6 @@ Class AnimationFromVideoCreatorService : Instance [NotCreatable] [Service]
 	Function string AnimationFromVideoCreatorService:DownloadJobResult(string jobId, string outputFilePath) {RobloxScriptSecurity} [Yields]
 	Function string AnimationFromVideoCreatorService:FullProcess(string videoFilePath, Function progressCallback) {RobloxScriptSecurity} [Yields]
 	Function string AnimationFromVideoCreatorService:GetJobStatus(string jobId) {RobloxScriptSecurity} [Yields]
-Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function string AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(Function progressCallback) {RobloxScriptSecurity} [Yields]
-	Function string AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AnimationRigData : Instance
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
@@ -149,10 +146,8 @@ Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function int64 AssetManagerService:AddNewPlace() {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:CreateAlias(int assetType, int64 assetId, string aliasName) {RobloxScriptSecurity} [Yields]
 	Function void AssetManagerService:DeleteAlias(string aliasName) {RobloxScriptSecurity} [Yields]
-	Function int64 AssetManagerService:GetMeshId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetMeshIdFromAliasName(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetMeshIdFromAssetId(int64 assetId) {RobloxScriptSecurity}
-	Function int64 AssetManagerService:GetTextureId(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureIdFromAliasName(string aliasName) {RobloxScriptSecurity}
 	Function int64 AssetManagerService:GetTextureIdFromAssetId(int64 assetId) {RobloxScriptSecurity}
 	Function bool AssetManagerService:HasUnpublishedChangesForLinkedSource(string aliasName) {RobloxScriptSecurity}
@@ -2765,9 +2760,9 @@ Class PathfindingLink : Instance
 	Property Attachment PathfindingLink.Attachment0
 	Property Attachment PathfindingLink.Attachment1
 	Property bool PathfindingLink.IsBidirectional
-	Property string PathfindingLink.ModifierId
+	Property string PathfindingLink.Label
 Class PathfindingModifier : Instance
-	Property string PathfindingModifier.ModifierId
+	Property string PathfindingModifier.Label
 	Property bool PathfindingModifier.PassThrough
 Class PathfindingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property float PathfindingService.EmptyCutoff [<📁> LoadOnly] [NotReplicated] [Deprecated]
@@ -3804,6 +3799,8 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum.ScreenOrientation orientation) {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
+Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]

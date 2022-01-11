@@ -2064,55 +2064,6 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "CreateAnimationByUploadingVideo",
-                    "Parameters": [
-                        {
-                            "Name": "progressCallback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ImportVideoWithPrompt",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                }
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "AnimationFromVideoCreatorStudioService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service",
-                "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-                {
-                    "MemberType": "Function",
                     "Name": "LoadFromHumanoid",
                     "Parameters": [
                         {
@@ -2835,25 +2786,6 @@
             "Members": [
                 {
                     "MemberType": "Function",
-                    "Name": "GetMeshId",
-                    "Parameters": [
-                        {
-                            "Name": "aliasName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetMeshIdFromAliasName",
                     "Parameters": [
                         {
@@ -2880,25 +2812,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int64"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "GetTextureId",
-                    "Parameters": [
-                        {
-                            "Name": "aliasName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
                             }
                         }
                     ],
@@ -52731,7 +52644,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "ModifierId",
+                    "Name": "Label",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -52756,7 +52669,7 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
-                    "Name": "ModifierId",
+                    "Name": "Label",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -72230,6 +72143,65 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "StudioDeviceEmulatorService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "PublishAs",
+                    "Parameters": [
+                        {
+                            "Name": "universeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "placeId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "groupId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "isPublish",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        },
+                        {
+                            "Name": "publishParameters",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "StudioPublishService",
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",

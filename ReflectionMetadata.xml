@@ -7172,7 +7172,7 @@
       </Properties>
       <Item class="ReflectionMetadataMember">
         <Properties>
-        <string name="Name">ModifierId</string>
+        <string name="Name">Label</string>
         </Properties>
       </Item>
     </Item>
@@ -7196,7 +7196,7 @@
         </Item>
         <Item class="ReflectionMetadataMember">
           <Properties>
-          <string name="Name">ModifierId</string>
+          <string name="Name">Label</string>
           </Properties>
         </Item>
         <Item class="ReflectionMetadataMember">

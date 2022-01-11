@@ -2188,7 +2188,7 @@ Studio.App.BetaFeatures.MinPartSizeDescription,,"Reduces the minimum limit on pa
 Studio.App.BetaFeatures.RibbonBarGalleryMenuTitle,,Ribbon Bar Gallery Menu,Ribbon Bar Gallery Menu
 Studio.App.BetaFeatures.RibbonBarGalleryMenuDescription,,"Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view.","Switches dropdown menu for Parts, Effects, Materials, and Physics constraints to use a gallery view from a list view."
 Studio.App.BetaFeatures.PathfindingModifiersTitle,,Pathfinding Modifiers,Pathfinding Modifiers
-Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property ModifierId can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
+Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
 Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
@@ -2741,8 +2741,8 @@ Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
-Studio.App.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
-Studio.App.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
+Studio.App.RESTRICTED.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
+Studio.App.RESTRICTED.QtUtilities.DisabledDuringTesting,,Disabled during testing,Disabled during testing
 Studio.App.RobloxMouseConfig.ContextMenu,,Context Menu,Context Menu
 Studio.App.RobloxMouseConfig.RightClick,,Right Click,Right Click
 Studio.App.RobloxMouseConfig.RightClickShift,,Right Click + Shift,Right Click + Shift

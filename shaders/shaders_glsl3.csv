@@ -448,6 +448,7 @@ SunRaysFS,Fragment
 TentFilterFS,Fragment
 TexCompFS,Fragment
 TexCompPMAFS,Fragment
+TexCompPMAFSFixed,Fragment
 TexCompVS,Vertex
 TrailFS,Fragment
 TrailFSLight,Fragment

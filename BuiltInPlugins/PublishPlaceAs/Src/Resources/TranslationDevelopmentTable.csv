@@ -15,6 +15,7 @@ Studio.PublishPlaceAs.GroupDropdown.Me,Me, ,Me
 Studio.PublishPlaceAs.General.ContentDialogItem1,Blood or Gore, ,Blood or Gore
 Studio.PublishPlaceAs.Devices.Tablet,Tablet, ,Tablet
 Studio.PublishPlaceAs.General.ContentDialogItem3,Strong Language (Swearing), ,Strong Language (Swearing)
+Studio.PublishPlaceAs.General.RolloutOptionForce,Forced, ,Forced
 Studio.PublishPlaceAs.Devices.Header,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Devices,Devices, ,Devices
 Studio.PublishPlaceAs.PageTitle.Genre,Genre, ,Genre
@@ -40,9 +41,6 @@ Studio.PublishPlaceAs.Genre.Ninja,Fighting, ,Fighting
 Studio.PublishPlaceAs.PageTitle.Creator,Creator, ,Creator
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game, ,Only developers of this game
 Studio.PublishPlaceAs.General.RolloutOptionDefault,Default, ,Default
-Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
-Studio.PublishPlaceAs.Genre.All,All, ,All
-Studio.PublishPlaceAs.General.RolloutOptionForce,Force, ,Force
 Studio.PublishPlaceAs.General.RolloutOption,RolloutOption, ,RolloutOption
 Studio.PublishPlaceAs.General.RolloutOptionForceDesc,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server.", ,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server."
 Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
@@ -67,6 +65,8 @@ Studio.PublishPlaceAs.PageTitle.Name,Name, ,Name
 Studio.PublishPlaceAs.Genre.Fantasy,Medieval, ,Medieval
 Studio.PublishPlaceAs.Genre.Scary,Horror, ,Horror
 Studio.PublishPlaceAs.PageTitle.Description,Description, ,Description
+Studio.PublishPlaceAs.General.TermsDialogBodyLink,You can download the LuoBuLeSi app here., ,You can download the LuoBuLeSi app here.
+Studio.PublishPlaceAs.Genre.All,All, ,All
 Studio.PublishPlaceAs.Genre.Tutorial,Building, ,Building
 Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS
 Studio.PublishPlaceAs.Genre.War,Military, ,Military

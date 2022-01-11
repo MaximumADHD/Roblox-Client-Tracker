@@ -714,7 +714,7 @@
         "PathfindingModifier": {
             "summary": "Pathfinding Modifiers can be used to represent space that has a higher or lower cost to be traversed.",
             "members": {
-                "ModifierId": {
+                "Label": {
                     "summary": "The name of the navigation area inside or on top of the Part's volume."
                 },
                 "PassThrough": {
@@ -731,7 +731,7 @@
                 "Attachment1": {
                     "summary": "The Attachment instance which is the destination of the link."
                 },
-                "ModifierId": {
+                "Label": {
                     "summary": "The link identifier used to set a cost for the link when calling PathfindingService:CreatePath."
                 },
                 "IsBidirectional": {

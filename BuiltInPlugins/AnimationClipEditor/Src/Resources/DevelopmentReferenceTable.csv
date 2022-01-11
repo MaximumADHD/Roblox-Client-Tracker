@@ -61,6 +61,7 @@ Studio.AnimationClipEditor.Menu.AddAllFacs, ,Add All Facial Animation Controls
 Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All
 Studio.AnimationClipEditor.Menu.Brows, ,Brows
 Studio.AnimationClipEditor.Menu.Core, ,Core
+Studio.AnimationClipEditor.Menu.CreateFromVideo, ,Create from video
 Studio.AnimationClipEditor.Menu.CreateNew, ,Create New
 Studio.AnimationClipEditor.Menu.Export, ,Export
 Studio.AnimationClipEditor.Menu.Eyes, ,Eyes
@@ -74,7 +75,7 @@ Studio.AnimationClipEditor.Menu.Mouth, ,Mouth
 Studio.AnimationClipEditor.Menu.Movement, ,Movement
 Studio.AnimationClipEditor.Menu.New, ,New...
 Studio.AnimationClipEditor.Menu.Overwrite_Migrated, ,Do you want to overwrite existing animation {overwriteName}?
-Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animations
+Studio.AnimationClipEditor.Menu.PromoteToChannels, ,Promote to Channel Animation
 Studio.AnimationClipEditor.Menu.PublishToRoblox, ,Publish to Roblox
 Studio.AnimationClipEditor.Menu.RenameKeyframePrompt, ,New Keyframe Name
 Studio.AnimationClipEditor.Menu.RenamePrompt, ,New Animation Name:

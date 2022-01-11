@@ -57,8 +57,8 @@ Studio.PublishPlaceAs.Genre.Pirate,Naval,Naval,Naval,Naval,海軍,해군,Naval,�
 Studio.PublishPlaceAs.Genre.RPG,RPG,RPG,RPG,Jeu de rôle,RPG,RPG,RPG,Ролевая игра,RPG,RPG,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi,Sci-Fi,Ciencia-ficción,SF,SF,SF,Ficção científica,Фантастика,科幻,科幻,科幻
 Studio.PublishPlaceAs.Error.NameEmpty,Name cannot be empty.,Name cannot be empty.,El nombre no puede estar vacío.,Le nom ne peut pas être vide.,名前を空欄にはできません。,이름은 비워둘 수 없습니다.,O nome não pode ficar vazio.,Имя не может быть пустым.,名称不能为空。,名称不能为空。,名稱不可空白。
-Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2}
-Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2}
+Studio.PublishPlaceAs.Error.DescriptionTooLong,{1}/{2},{1}/{2},{1} de {2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2}
+Studio.PublishPlaceAs.Error.NameTooLong,{1}/{2},{1}/{2},{1} de {2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2},{1}/{2}
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place,Choose an existing game to add this place,Elige un juego existente para añadir este lugar,Choisis un jeu existant pour ajouter à cet emplacement,このプレースを追加する既存のゲームを1つ選択,이 플레이스를 추가할 기존 게임을 선택하세요,Escolha um jogo existente para adicionar a este local,"Выберите, в какую из существующих игр добавить это место",选择现有游戏添加此场景,选择现有游戏添加此场景,選擇要加到此地點的既有遊戲
 Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!,Successfully published!,¡Publicado correctamente!,Publié avec succès !,公開できました！,게시 성공!,Publicado com sucesso!,Публикация выполнена!,发布成功！,发布成功！,發布成功！
 Studio.PublishPlaceAs.PublishFail.Fail,Publish failed,Publish failed,Error en la publicación,Échec de la publication,公開できませんでした,게시 실패,Falha na publicação,Публикация не выполнена.,发布失败,发布失败,發布失敗
@@ -71,11 +71,13 @@ Studio.PublishPlaceAs.PrivacyType.Private,Private,Private,Privado,Privé,プラ�
 Studio.PublishPlaceAs.General.FetchFailed,Fetch failed,Fetch failed,Error al recuperar,Échec de la récupération,取得できませんでした,가져오기 실패,Falha ao buscar, ,获取失败,获取失败,擷取失敗
 Studio.PublishPlaceAs.General.PlayabilityFriends,Friends,Friends,Amigos,Amis,友達,친구,Amigos, ,好友,好友,好友
 Studio.PublishPlaceAs.General.PlayabilityPrivateDesc,Only developers of this game,Only developers of this game,Solo los desarrolladores de este juego,Seulement les développeurs de ce jeu,このゲームの開発者のみ,이 게임의 개발자만 가능,Apenas os desenvolvedores deste jogo, ,仅开放给此游戏的开发人员,仅开放给此游戏的开发人员,只有本遊戲的開發者
+Studio.PublishPlaceAs.General.RollbackToggleDesc,Enabling rollback to previous version if the owerwrite is rejected [link],Enabling rollback to previous version if the owerwrite is rejected [link], , , , , , , , , 
 Studio.PublishPlaceAs.General.SavePlace,Save Place,Save Place,Guardar lugar,Sauvegarder l'emplacement,プレースを保存,플레이스 저장,Salvar local, ,保存场景,保存场景,儲存地點
 Studio.PublishPlaceAs.FooterButton.SaveToFile,Save to file...,Save to file...,Guardar en un archivo...,Enregistrer dans un fichier...,ファイルに保存...,파일에 저장...,Salvar em arquivo..., ,保存到文件...,保存到文件...,儲存到檔案……
 Studio.PublishPlaceAs.PublishSuccess.SaveSuccess,Successfully saved!,Successfully saved!,Guardada correctamente.,Sauvé avec succès !,保存できました！,저장 완료!,Salvo com sucesso!, ,保存成功！,保存成功！,儲存成功！
 Studio.PublishPlaceAs.General.PublishGame,Publish Game,Publish Game,Publicar juego,Publier un jeu,ゲームを公開,게임 게시,Publicar jogo, ,发布游戏,发布游戏,發布遊戲
 Studio.PublishPlaceAs.General.SaveGame,Save Game,Save Game,Guardar juego,Sauvegarder un jeu,ゲームを保存,게임 저장,Salvar jogo, ,保存游戏,保存游戏,儲存遊戲
+Studio.PublishPlaceAs.FooterButton.Next,Next,Next, , , , , , , , , 
 Studio.PublishPlaceAs.FooterButton.Save,Save,Save,Guardar,Sauvegarder,保存,저장,Salvar, ,保存,保存,儲存
 Studio.PublishPlaceAs.OptInLocations.ChinaRequirements, to publish to China, to publish to China, para publicar en China, à publier en Chine,中国で公開, 중국에 게시, para publicar na China, , 在中国发布, 在中国发布,在中國發布
 Studio.PublishPlaceAs.PublishFail.SaveFail,Save failed,Save failed,Error al guardar,La sauvegarde a échoué,保存ができませんでした,저장 실패,Falha no salvamento, ,保存失败,保存失败, 儲存失敗
@@ -99,6 +101,14 @@ Studio.PublishPlaceAs.Error.SetConfiguration,Error setting universe configuratio
 Studio.PublishPlaceAs.Error.SetRootPlaceInfo,Error setting root place info.,Error setting root place info.,Error al definir la información del lugar raíz, ,ルートプレース情報の設定でエラーが発生。,루트 플레이스 정보를 설정하는 동안 오류가 발생했습니다.,Erro ao definir a informação do local raiz., ,设置根场景信息时出错。,设置根场景信息时出错。,設定根地點時發生錯誤。
 Studio.PublishPlaceAs.Error.ActivatingUniverse,Error activating the universe.,Error activating the universe.,Error al activar el universo, ,ユニバースのアクティブ化でエラーが発生。,유니버스를 활성화하는 동안 오류가 발생했습니다.,Erro ao ativar o universo., ,激活 Universe 时出错。,激活 Universe 时出错。,啟用宇宙時發生錯誤。
 Studio.PublishPlaceAs.Error.DeactivatingUniverse,Error deactivating the universe.,Error deactivating the universe.,Error al desactivar el universo, ,ユニバースの非アクティブ化でエラーが発生。,유니버스를 비활성화하는 동안 오류가 발생했습니다.,Erro ao desativar o universo., ,停止 Universe 时出错。,停止 Universe 时出错。,停用宇宙時發生錯誤。
-Studio.PublishPlaceAs.TeamCreate.Title,Team Create,Team Create, , , , , , , , , 
-Studio.PublishPlaceAs.TeamCreate.LinkDescription,Enables collaboration and autosave to cloud [link]  ,Enables collaboration and autosave to cloud [link]  , , , , , , , , , 
-Studio.PublishPlaceAs.TeamCreate.LinkText,Learn more,Learn more, , , , , , , , , 
+Studio.PublishPlaceAs.TeamCreate.Title,Team Create,Team Create,Creación en equipo, ,チームクリエイト,팀 제작, , , , ,團隊創作
+Studio.PublishPlaceAs.TeamCreate.LinkDescription,Enables collaboration and autosave to cloud [link]  ,Enables collaboration and autosave to cloud [link]  ,Activa la colaboración y el guardado automático en la nube [link]  , , ,협업 및 클라우드에 자동 저장 활성화 [link]  , , , , ,啟用合作和自動儲存到雲端 [link]
+Studio.PublishPlaceAs.General.RollbackToggleDesclinkText,Learn more,Learn more, , , , , , , , , 
+Studio.PublishPlaceAs.TeamCreate.LinkText,Learn more,Learn more,Aprende más, ,もっと詳しく,더 알아보기, , , , ,了解更多
+Studio.PublishPlaceAs.General.RolloutOptionDefault,Default,Default, , , , , , , , , 
+Studio.PublishPlaceAs.General.RolloutOptionForce,Force,Force, , , , , , , , , 
+Studio.PublishPlaceAs.General.RolloutOption,RolloutOption,RolloutOption, , , , , , , , , 
+Studio.PublishPlaceAs.General.RolloutOptionDefaultDesc,New player join updated server,New player join updated server, , , , , , , , , 
+Studio.PublishPlaceAs.General.RolloutOptionForceDesc,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server.","On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server.", , , , , , , , , 
+Studio.PublishPlaceAs.General.RollbackToggleTitle,Enable Rollback to Previous Version,Enable Rollback to Previous Version, , , , , , , , , 
+Studio.PublishPlaceAs.ScreenHeader.PublishManagement,How would you like to release the overwrite to {1} under {2}?,How would you like to release the overwrite to {1} under {2}?, , , , , , , , , 
