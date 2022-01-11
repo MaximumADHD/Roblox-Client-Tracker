@@ -16,7 +16,6 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
-local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
@@ -295,7 +294,7 @@ function AssetGridContainer:init(props)
 		}
 
 		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
-		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
+		local currentCategory = assetData.Context.currentCategory
 		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, currentCategory, trackingAttributes, creatorId)
 	end
 

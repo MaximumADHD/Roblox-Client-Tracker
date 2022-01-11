@@ -1,5 +1,12 @@
 local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
-local FFlagCollabEditingWarnBothWays = game:GetFastFlag("CollabEditingWarnBothWays")
+local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
+
+local isTeamCreateEnabled
+
+if FFlagCollabEditingWarnBothWays2 then
+    local Plugin = script.Parent.Parent.Parent.Parent
+    isTeamCreateEnabled = require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled
+end
 
 local GameOptionsController = {}
 GameOptionsController.__index = GameOptionsController
@@ -48,7 +55,11 @@ function GameOptionsController:voiceUniverseSettingsGET(gameId)
 end
 
 function GameOptionsController:getScriptCollaborationEnabledOnServer(game)
-    assert(FFlagCollabEditingWarnBothWays)
+    assert(FFlagCollabEditingWarnBothWays2)
+    
+    if not isTeamCreateEnabled() then
+        return false
+    end
     
     local versionControlService = game:GetService("VersionControlService")
 

@@ -58,7 +58,6 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
-game:DefineFastFlag("AllowInputObjOnFocusLost", false)
 game:DefineFastFlag("AllowTextInputTextXAlignment", false)
 
 local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
@@ -147,11 +146,7 @@ function TextInput:init()
 		end
 
 		if self.props.OnFocusLost then
-			if game:GetFastFlag("AllowInputObjOnFocusLost") then
-				self.props.OnFocusLost(enterPressed, rbx)
-			else 
-				self.props.OnFocusLost(enterPressed)
-			end
+			self.props.OnFocusLost(enterPressed, rbx)
 		end
 	end
 

@@ -4,7 +4,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Resources.Constants)
 
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
-local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 
 if FFlagFixPublishAsWhenQueryFails then
 	local initial = {

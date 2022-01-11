@@ -19,8 +19,6 @@ local Category = require(Plugin.Core.Types.Category)
 
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
-local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
-
 return function(networkInterface, tabName, newCategories,  settings, options)
 	return function(store)
 		local categories = Category.getCategories(tabName, store:getState().roles)
@@ -52,8 +50,6 @@ return function(networkInterface, tabName, newCategories,  settings, options)
 			store:dispatch(GetToolboxManageableGroupsRequest(networkInterface))
 		end
 
-		if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then
-			store:dispatch(StopAllSounds())
-		end
+		store:dispatch(StopAllSounds())
 	end
 end

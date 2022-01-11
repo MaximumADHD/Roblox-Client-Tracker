@@ -47,7 +47,8 @@ local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
 local FFlagRenameExportToPublish = game:DefineFastFlag("ACERenameExportToPublish", false)
-local FFlagAnimationClipProvider = game:GetEngineFeature("UseNewAnimationClipProvider_2")
+local FFlagAnimationClipProvider = game:GetEngineFeature("UseNewAnimationClipProvider_3")
+local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
 
@@ -125,6 +126,31 @@ function AnimationClipMenu:makePrioritySubMenu(localization, current)
 	}
 end
 
+function AnimationClipMenu:makeImportSubMenu(localization)
+	local props = self.props
+	local importSubactions = {
+		{
+			Name = localization:getText("Menu", "FromRoblox"),
+			ItemSelected = props.OnImportRequested,
+		},
+		{
+			Name = localization:getText("Menu", "FromFBX"),
+			ItemSelected = props.OnImportFbxRequested,
+		},
+	}
+	if FFlagAnimationFromVideoCreatorServiceInAnimationEditor then
+		table.insert(importSubactions, {
+			Name = localization:getText("Menu", "CreateFromVideo"),
+			ItemSelected = props.OnCreateFromVideoRequested,
+		})
+	end
+
+	return {
+		Name = localization:getText("Menu", "Import"),
+		Items = importSubactions,
+	}
+end
+
 function AnimationClipMenu:makeMenuActions(localization)
 	local props = self.props
 	local onCreateNewRequested = props.OnCreateNewRequested
@@ -152,19 +178,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	})
 	table.insert(actions, self:makeSaveAsMenu(localization, current))
 	table.insert(actions, Separator)
-	table.insert(actions, {
-		Name = localization:getText("Menu", "Import"),
-		Items = {
-			{
-				Name = localization:getText("Menu", "FromRoblox"),
-				ItemSelected = props.OnImportRequested,
-			},
-			{
-				Name = localization:getText("Menu", "FromFBX"),
-				ItemSelected = props.OnImportFbxRequested,
-			},
-		}
-	})
+	table.insert(actions, self:makeImportSubMenu(localization))
 	table.insert(actions, {
 		Name = localization:getText("Menu", FFlagRenameExportToPublish and "PublishToRoblox" or "Export"),
 		ItemSelected = function()

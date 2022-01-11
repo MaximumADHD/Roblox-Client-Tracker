@@ -7,6 +7,7 @@ local VariableRow = require(Plugin.Src.Models.Watch.VariableRow)
 
 local Actions = Plugin.Src.Actions
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
+local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
 local function populateStackVariables(debuggerConnection, stackFrame, callback)
 	local populatedScopes = {}
@@ -48,12 +49,39 @@ local function convertStackFrameInstancesToVariableRows(stackFrame)
 	return toReturn
 end
 
+local function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
+	local toReturn = {}
+	local children = debuggerVar:GetChildren()
+	if #children == 0 then
+		return
+	end
+	for _, child in ipairs(children) do
+		-- the table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row 
+		local parentRow = VariableRow.fromData({["path"] = tostring(debuggerVar.VariableId),["scope"] = scope })
+		table.insert(toReturn, VariableRow.fromInstance(child, parentRow))
+	end
+	store:dispatch(AddChildVariables(stepStateBundle, tostring(debuggerVar.VariableId), toReturn))
+end
+
+local function addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, debuggerVarList, scope)
+	for _, debuggerVar in ipairs(debuggerVarList) do
+		if debuggerVar.VariableId ~=0 and not debuggerVar.Populated then
+			debuggerConnection:Populate(debuggerVar, function()
+				addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
+			end)
+		end
+	end
+end
+
 return function(debuggerConnection, stackFrame, stepStateBundle : StepStateBundle.StepStateBundle)
 	return function(store, contextItems)
 		debuggerConnection:Populate(stackFrame, function ()
 			populateStackVariables(debuggerConnection, stackFrame, function() 
 				local rootVars = convertStackFrameInstancesToVariableRows(stackFrame)
 				store:dispatch(AddRootVariables(stepStateBundle, rootVars))
+				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Locals:GetChildren(), ScopeEnum.Local)
+				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Globals:GetChildren(), ScopeEnum.Global)
+				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Upvalues:GetChildren(), ScopeEnum.Upvalue)
 			end)
 		end)
     end

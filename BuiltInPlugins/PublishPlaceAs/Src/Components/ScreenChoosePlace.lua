@@ -5,6 +5,7 @@
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
 local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 
 
 local StudioService = game:GetService("StudioService")
@@ -43,6 +44,7 @@ local TilePlace = require(Plugin.Src.Components.TilePlace)
 
 local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtilities).shouldShowDevPublishLocations
 local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
+local isTeamCreateEnabled = require(Plugin.Src.Util.PublishPlaceAsUtilities).isTeamCreateEnabled
 
 local ScreenChoosePlace = Roact.PureComponent:extend("ScreenChoosePlace")
 
@@ -50,6 +52,10 @@ local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 function shouldShowNextPublishManagemnt(optInRegions, isPublish)
 	if not FFlagPlacePublishManagementUI or not isPublish then
+		return false
+	end
+
+	if not FFlagEnablePlacePublishManagementInTeamCreate and isTeamCreateEnabled() then
 		return false
 	end
 

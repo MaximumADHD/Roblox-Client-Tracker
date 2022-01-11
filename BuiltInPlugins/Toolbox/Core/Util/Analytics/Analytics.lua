@@ -9,7 +9,6 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
 local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
@@ -263,19 +262,17 @@ function Analytics.onToolboxDisplayed()
 	})
 end
 
-if FFlagToolboxShowMeshAndTextureId2 then
-	function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", eventName, {
-			assetId = assetId,
-			assetTypeId = assetTypeId,
-			clientId = getClientId(),
-			userId = getUserId(),
-			platformId = getPlatformId(),
-			studioSid = getStudioSessionId(),
-			isEditMode = getIsEditMode(),
-			currentCategory = currentCategory,
-		})
-	end
+function Analytics.onContextMenuClicked(eventName, assetId, assetTypeId, currentCategory)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", eventName, {
+		assetId = assetId,
+		assetTypeId = assetTypeId,
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+		studioSid = getStudioSessionId(),
+		isEditMode = getIsEditMode(),
+		currentCategory = currentCategory,
+	})
 end
 
 function Analytics.openedFromPluginManagement()

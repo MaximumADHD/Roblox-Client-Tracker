@@ -5,6 +5,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Constants = require(Plugin.Src.Util.Constants)
 
+local FFlagFixPathEvaluation = game:DefineFastFlag("ACEFixPathEvaluation", false)
+
 local PathUtils = {}
 
 function PathUtils.getRelativePath(path)
@@ -21,7 +23,7 @@ end
 -- This value typically is added to the track index to get a unique value for each
 -- component track
 function PathUtils.getPathValue(path)
-	local scale = 0.1  -- Change this to 0.01 if any value of Constants.COMPONENT_PATH_VALUE is greater than 9
+	local scale = FFlagFixPathEvaluation and Constants.COMPONENT_PATH_BASE_SCALE or 0.1
 
 	local value = 0
 	for _, pathPart in ipairs(path) do
@@ -29,7 +31,7 @@ function PathUtils.getPathValue(path)
 		-- Ignore path parts that are not found (if the path is absolute, and not relative to a track)
 		if componentPathValue then
 			value = value + scale * componentPathValue
-			scale = scale * scale
+			scale = scale * (FFlagFixPathEvaluation and Constants.COMPONENT_PATH_BASE_SCALE or scale)
 		end
 	end
 	return value

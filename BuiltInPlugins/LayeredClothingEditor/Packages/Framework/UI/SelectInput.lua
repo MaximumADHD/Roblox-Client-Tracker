@@ -24,8 +24,6 @@
 		Color3 ArrowColor: The color of the dropdown arrow image.
 		Color3 PlaceholderTextColor: The color of the dropdown placeholder text.
 ]]
-local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
-local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -73,7 +71,7 @@ function SelectInput:init()
 
 	self.onInputBegan = function(rbx, input)
 		local isMainPress = isInputMainPress(input)
-		if isMainPress and ((FFlagRemoveUILibraryDetailedDropdown and self.props.Enabled == true) or not FFlagRemoveUILibraryDetailedDropdown) then
+		if isMainPress and self.props.Enabled == true then
 			self:setState({
 				isOpen = true
 			})
@@ -81,7 +79,7 @@ function SelectInput:init()
 	end
 
 	self.focusLost = function()
-		if (FFlagRemoveUILibraryDetailedDropdown and self.props.Enabled == true) or not FFlagRemoveUILibraryDetailedDropdown then
+		if self.props.Enabled == true then
 			self:setState({
 				isOpen = false
 			})
@@ -148,7 +146,7 @@ function SelectInput:render()
 			Items = items,
 			OnFocusLost = self.focusLost,
 			OnItemActivated = props.OnItemActivated,
-			OnRenderItem = (FFlagRemoveUILibraryStyledDropdownPt1 or FFlagRemoveUILibraryDetailedDropdown) and props.OnRenderItem or nil,
+			OnRenderItem = props.OnRenderItem,
 			Style = style.DropdownMenu,
 		})
 	})

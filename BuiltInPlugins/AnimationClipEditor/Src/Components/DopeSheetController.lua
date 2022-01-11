@@ -70,6 +70,8 @@ local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAni
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
+local FFlagResizingToSingleFrame = game:DefineFastFlag("ACEFixResizingToSingleFrame", false)
+
 local DopeSheetController = Roact.Component:extend("DopeSheetController")
 
 function DopeSheetController:init()
@@ -193,21 +195,33 @@ function DopeSheetController:init()
 	end
 
 	self.onKeyframeDragEnded = function()
+		if FFlagResizingToSingleFrame then
+			self.DragContext = nil
+		end
+
 		self:setState({
 			dragging = false,
 			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
-		self.DragContext = nil
+		if not FFlagResizingToSingleFrame then
+			self.DragContext = nil
+		end
 	end
 
 	self.onScaleHandleDragEnded = function()
+		if FFlagResizingToSingleFrame then
+			self.DragContext = nil
+		end
+
 		self:setState({
 			draggingScale = false,
 			dragTick = Roact.None,
 			hasDragWaypoint = false,
 		})
-		self.DragContext = nil
+		if not FFlagResizingToSingleFrame then
+			self.DragContext = nil
+		end
 	end
 
 	self.onSelectDragStarted = function(input)

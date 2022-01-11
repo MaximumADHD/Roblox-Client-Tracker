@@ -18,8 +18,6 @@ local SetPurchaseStatus = require(Plugin.Core.Actions.SetPurchaseStatus)
 local GetRobuxBalance = require(Plugin.Core.Networking.Requests.GetRobuxBalance)
 local PurchaseStatus = require(Plugin.Core.Types.PurchaseStatus)
 
-local FFlagToolboxRefreshRobuxBalanceOnPurchase = game:GetFastFlag("ToolboxRefreshRobuxBalanceOnPurchase")
-
 return function(networkInterface, assetId, productId, price)
 	return function(store)
 		store:dispatch(SetPurchaseStatus(PurchaseStatus.Waiting))
@@ -32,9 +30,7 @@ return function(networkInterface, assetId, productId, price)
 			if purchased then
 				store:dispatch(SetPurchaseStatus(PurchaseStatus.Success))
 				store:dispatch(SetOwnsAsset(true, assetId))
-				if FFlagToolboxRefreshRobuxBalanceOnPurchase then
-					store:dispatch(GetRobuxBalance(networkInterface))
-				end
+				store:dispatch(GetRobuxBalance(networkInterface))
 			else
 				store:dispatch(SetPurchaseStatus(PurchaseStatus.Failed))
 			end

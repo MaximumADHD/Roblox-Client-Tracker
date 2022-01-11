@@ -70,14 +70,14 @@ local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
+local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 
 local Background = require(Plugin.Core.Types.Background)
 
 local Toolbox = Roact.PureComponent:extend("Toolbox")
 
-if FFlagToolboxAssetGridRefactor2 then
+if FFlagToolboxAssetGridRefactor3 then
 	Toolbox.defaultProps = {
 		Size = UDim2.new(1, 0, 1, 0),
 	}
@@ -127,7 +127,7 @@ function Toolbox:init(props)
 		showSearchOptions = false,
 		-- Keep track of the timestamp an asset was last inserted
 		-- Allows us to track an analytic if a search is made and no asset is chosen
-		mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor2) and 0 or nil,
+		mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor3) and 0 or nil,
 	}
 
 	self.toolboxRef = Roact.createRef()
@@ -204,7 +204,7 @@ function Toolbox:init(props)
 		)
 	end
 
-	if (not FFlagToolboxAssetGridRefactor2) then
+	if (not FFlagToolboxAssetGridRefactor3) then
 		self.updateMostRecentAssetTime = function()
 			self:setState({
 				mostRecentAssetInsertTime = tick()
@@ -282,7 +282,7 @@ function Toolbox:render()
 
 	return Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = FFlagToolboxAssetGridRefactor2 and size or UDim2.new(1, 0, 1, 0),
+		Size = FFlagToolboxAssetGridRefactor3 and size or UDim2.new(1, 0, 1, 0),
 
 		BorderSizePixel = 0,
 		BackgroundColor3 = toolboxTheme.backgroundColor,
@@ -302,7 +302,7 @@ function Toolbox:render()
 			maxWidth = toolboxWidth,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			pluginGui = pluginGui,
-			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor2) and self.state.mostRecentAssetInsertTime or nil,
+			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor3) and self.state.mostRecentAssetInsertTime or nil,
 		}),
 
 		MainView = Roact.createElement(MainView, {
@@ -314,8 +314,8 @@ function Toolbox:render()
 			showSearchOptions = showSearchOptions,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			tryOpenAssetConfig = tryOpenAssetConfig,
-			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor2) and self.state.mostRecentAssetInsertTime or nil,
-			onAssetInsertionSuccesful = (not FFlagToolboxAssetGridRefactor2) and self.updateMostRecentAssetTime or nil,
+			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor3) and self.state.mostRecentAssetInsertTime or nil,
+			onAssetInsertionSuccesful = (not FFlagToolboxAssetGridRefactor3) and self.updateMostRecentAssetTime or nil,
 		}),
 
 		Footer = Roact.createElement(Footer, {

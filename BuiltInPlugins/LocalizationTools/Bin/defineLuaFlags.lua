@@ -4,7 +4,6 @@
 game:DefineFastFlag("EnableLocalizationToolsStylizer", false)
 game:DefineFastFlag("LocalizationToolsPluginInvalidEntryIdentifierMessageEnabled", false)
 game:DefineFastFlag("LocalizationToolsAllowUploadZhCjv", false)
-game:DefineFastFlag("LocalizationToolsPluginEnableCollaborator", false)
 game:DefineFastFlag("LocalizationToolsFixExampleNotDownloaded", false)
 game:DefineFastFlag("ImageLocalizationFeatureEnabled", false)
 game:DefineFastFlag("LocalizationToolsUseRoactv14", false)

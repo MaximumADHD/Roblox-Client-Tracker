@@ -7,7 +7,6 @@ local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 local Category = require(Plugin.Core.Types.Category)
 
-local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
 local function nameForValueInEnum(enum, value)
@@ -71,7 +70,7 @@ return function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 		}
 
 		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
-		local currentCategory = (FFlagToolboxShowMeshAndTextureId2 and assetData.Context.currentCategory) or nil
+		local currentCategory = assetData.Context.currentCategory
 		ContextMenuHelper.tryCreateContextMenu(
 			plugin,
 			assetId,

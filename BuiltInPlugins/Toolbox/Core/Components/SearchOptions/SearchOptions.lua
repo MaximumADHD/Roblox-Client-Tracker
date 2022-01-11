@@ -13,6 +13,7 @@
 			that were set by the user.
 ]]
 local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -29,7 +30,6 @@ local Framework = require(Libs.Framework)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local getModal = ContextGetter.getModal
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local withModal = ContextHelper.withModal
 
@@ -47,6 +47,7 @@ if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 else
 	RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
 end
+local ShowOnTop = Framework.UI.ShowOnTop
 
 local AudioSearch = require(Plugin.Core.Components.SearchOptions.AudioSearch)
 local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOptionsEntry)
@@ -202,9 +203,13 @@ end
 
 function SearchOptions:render()
 	return withLocalization(function(_, localizedContent)
-		return withModal(function(modalTarget)
-			return self:renderContent(nil, localizedContent, modalTarget)
-		end)
+		if FFlagToolboxAssetGridRefactor3 then
+			return self:renderContent(nil, localizedContent)
+		else
+			return withModal(function(modalTarget)
+				return self:renderContent(nil, localizedContent, modalTarget)
+			end)
+		end
 	end)
 end
 
@@ -322,12 +327,24 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 		})
 	}
 
+	local elem
+	local elemProps
+	if FFlagToolboxAssetGridRefactor3 then
+		elem = ShowOnTop
+		elemProps = {
+			Priority = 2,
+		}
+	else
+		elem = Roact.Portal
+		elemProps = {
+			target = modalTarget,
+		}
+	end
+
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 	}, {
-		Portal = modalTarget and Roact.createElement(Roact.Portal, {
-			target = modalTarget,
-		}, {
+		Portal = (FFlagToolboxAssetGridRefactor3 or modalTarget) and Roact.createElement(elem, elemProps, {
 			ClickEventDetectFrame = Roact.createElement("ImageButton", {
 				ZIndex = 10,
 				Position = UDim2.new(0, 0, 0, 0),

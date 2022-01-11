@@ -1,4 +1,4 @@
-local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
+local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -48,7 +48,7 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 	local assetId = myAsset.Asset.Id
 
 	mockProps = mockProps or {}
-	if FFlagToolboxAssetGridRefactor2 then
+	if FFlagToolboxAssetGridRefactor3 then
 		mockProps = Cryo.Dictionary.join(mockProps, {
 			store = Rodux.Store.new(ToolboxReducer, {
 				assets = {
@@ -60,10 +60,10 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			asset = (not FFlagToolboxAssetGridRefactor2) and myAsset or nil,
-			assetId = FFlagToolboxAssetGridRefactor2 and assetId or nil,
+			asset = (not FFlagToolboxAssetGridRefactor3) and myAsset or nil,
+			assetId = FFlagToolboxAssetGridRefactor3 and assetId or nil,
 			LayoutOrder = 1,
-			isHovered = (not FFlagToolboxAssetGridRefactor2) and false or nil,
+			isHovered = (not FFlagToolboxAssetGridRefactor3) and false or nil,
 			Selected = false,
 		}),
 	})

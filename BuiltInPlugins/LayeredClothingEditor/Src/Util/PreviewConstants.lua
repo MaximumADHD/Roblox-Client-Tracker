@@ -6,7 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
-local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_2")
+local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_3")
 
 local TABS_KEYS = {
 	Avatars = "TAB_KEY_Avatars",

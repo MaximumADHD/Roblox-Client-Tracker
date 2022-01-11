@@ -9,8 +9,6 @@ local Analytics = require(Util.Analytics.Analytics)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local EnumConvert = require(Util.EnumConvert)
 
-local FFlagToolboxShowMeshAndTextureId2 = game:GetFastFlag("ToolboxShowMeshAndTextureId2")
-local FFlagToolboxRemoveAssetUris = game:GetFastFlag("ToolboxRemoveAssetUris")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
@@ -27,15 +25,13 @@ local HttpService = game:GetService("HttpService")
 local isCli = require(script.Parent.isCli)
 
 local AssetManagerService
-if FFlagToolboxShowMeshAndTextureId2 then
-	-- AssetManagerService is not available in roblox-cli. So we create a mock of the asset manager service functionality here.
-	if isCli() then
-		AssetManagerService = {}
-		function AssetManagerService:GetMeshIdFromAssetId() return 1 end
-		function AssetManagerService:GetTextureIdFromAssetId() return 1 end
-	else
-		AssetManagerService = game:GetService("AssetManagerService")
-	end
+-- AssetManagerService is not available in roblox-cli. So we create a mock of the asset manager service functionality here.
+if isCli() then
+	AssetManagerService = {}
+	function AssetManagerService:GetMeshIdFromAssetId() return 1 end
+	function AssetManagerService:GetTextureIdFromAssetId() return 1 end
+else
+	AssetManagerService = game:GetService("AssetManagerService")
 end
 
 local ContextMenuHelper = {}
@@ -100,48 +96,29 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		if FFlagToolboxShowMeshAndTextureId2 then
-			menu:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
-				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
-				StudioService:CopyToClipboard(trueAssetId)
-			end)
+		menu:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
+			Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
+			StudioService:CopyToClipboard(trueAssetId)
+		end)
 
-			if not FFlagToolboxRemoveAssetUris then
-				menu:AddNewAction(string.format("CopyAssetUriToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
-					Analytics.onContextMenuClicked("CopyAssetUri", assetId, assetTypeId, currentCategory)
-					StudioService:CopyToClipboard("rbxassetid://" .. trueAssetId)
+		if assetTypeId == Enum.AssetType.MeshPart.Value then
+			local meshIdSuccess, meshId = pcall(AssetManagerService.GetMeshIdFromAssetId, AssetManagerService, trueAssetId)
+			local textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
+
+			if meshIdSuccess then
+				menu:AddNewAction(string.format("CopyMeshIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
+					Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
+					StudioService:CopyToClipboard(meshId)
 				end)
+			else
+				warn("Failed to get mesh id for asset id " .. trueAssetId)
 			end
 
-			if assetTypeId == Enum.AssetType.MeshPart.Value then
-				local meshIdSuccess, meshId = pcall(AssetManagerService.GetMeshIdFromAssetId, AssetManagerService, trueAssetId)
-				local textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
-
-				if meshIdSuccess then
-					menu:AddNewAction(string.format("CopyMeshIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
-						Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
-						StudioService:CopyToClipboard(meshId)
-					end)
-				else
-					warn("Failed to get mesh id for asset id " .. trueAssetId)
-				end
-
-				-- do not display warning for texture ids because meshes can be valid without a texture
-				if textureIdSuccess then
-					menu:AddNewAction(string.format("CopyTextureIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
-						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
-						StudioService:CopyToClipboard(textureId)
-					end)
-				end
-			end
-		else
-			menu:AddNewAction(string.format("CopyIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
-				StudioService:CopyToClipboard(trueAssetId)
-			end)
-
-			if not FFlagToolboxRemoveAssetUris then
-				menu:AddNewAction(string.format("CopyURIToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetURI).Triggered:connect(function()
-					StudioService:CopyToClipboard("rbxassetid://"..trueAssetId)
+			-- do not display warning for texture ids because meshes can be valid without a texture
+			if textureIdSuccess then
+				menu:AddNewAction(string.format("CopyTextureIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
+					Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
+					StudioService:CopyToClipboard(textureId)
 				end)
 			end
 		end

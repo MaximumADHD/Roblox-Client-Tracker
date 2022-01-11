@@ -38,6 +38,7 @@ local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
 local ImportFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimation)
 local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimationUserMayChooseModel)
+local CreateFromVideoAndImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
 local PromoteKeyframeSequence = require(Plugin.Src.Thunks.PromoteKeyframeSequence)
@@ -173,6 +174,15 @@ function AnimationClipDropdown:init()
 		end
 	end
 
+	self.createFromVideoRequested = function()
+		if self.props.IsDirty then
+			self.showLoadNewPrompt(IMPORT_FBX_KEY)
+		else
+			local plugin = self.props.Plugin
+			self.props.CreateFromVideoAndImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
+		end
+	end
+
 	self.createNew = function()
 		if self.props.IsDirty then
 			self.showLoadNewPrompt(NEW_KEY)
@@ -288,6 +298,7 @@ function AnimationClipDropdown:render()
 			OnLoadRequested = self.loadNew,
 			OnImportRequested = self.importRequested,
 			OnImportFbxRequested = self.importFbxRequested,
+			OnCreateFromVideoRequested = self.createFromVideoRequested,
 			OnPromoteRequested = GetFFlagChannelAnimations() and self.showPromotePrompt or nil,
 		}),
 
@@ -465,6 +476,10 @@ local function mapDispatchToProps(dispatch)
 
 		ImportFBXAnimationUserMayChooseModel = function(plugin, animationClipDropdown, analytics)
 			dispatch(ImportFBXAnimationUserMayChooseModel(plugin, animationClipDropdown, analytics))
+		end,
+
+		CreateFromVideoAndImportFBXAnimationUserMayChooseModel = function(plugin, animationClipDropdown, analytics)
+			dispatch(CreateFromVideoAndImportFBXAnimationUserMayChooseModel(plugin, animationClipDropdown, analytics))
 		end,
 
 		ImportLoadedFBXAnimation = function(plugin, useFBXModel, analytics)

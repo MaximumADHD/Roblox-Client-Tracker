@@ -1,4 +1,4 @@
-local FFlagCollabEditingWarnBothWays = game:GetFastFlag("CollabEditingWarnBothWays")
+local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -47,7 +47,7 @@ local GetTeamCreateEnabledKeyName = KeyProvider.getTeamCreateEnabledKeyName
 local teamCreateEnabledKey = FFlagStudioTeamCreateStreamingEnabled and GetTeamCreateEnabledKeyName() or nil
 
 local GetScriptCollaborationEnabledOnServerKeyName = KeyProvider.getScriptCollaborationEnabledOnServerKeyName
-local scriptCollaborationEnabledOnServerKey = FFlagCollabEditingWarnBothWays and GetScriptCollaborationEnabledOnServerKeyName() or nil
+local scriptCollaborationEnabledOnServerKey = FFlagCollabEditingWarnBothWays2 and GetScriptCollaborationEnabledOnServerKeyName() or nil
 
 local LOCALIZATION_ID = script.Name
 
@@ -89,7 +89,7 @@ local function loadSettings(store, contextItems)
         end,
         
         function(loadedSettings)
-            if FFlagCollabEditingWarnBothWays then
+            if FFlagCollabEditingWarnBothWays2 then
                 local enabled = gameOptionsController:getScriptCollaborationEnabledOnServer(game)
                                 
                 loadedSettings[scriptCollaborationEnabledOnServerKey] = enabled
@@ -137,7 +137,7 @@ end
 local function loadValuesToProps(getValue, state)
     local scriptCollabEnabledOnServer = nil
     
-    if FFlagCollabEditingWarnBothWays then 
+    if FFlagCollabEditingWarnBothWays2 then 
         scriptCollabEnabledOnServer = state.Settings.Current.ScriptCollaborationEnabledOnServer
     end
     
@@ -191,7 +191,7 @@ function Options:render()
     -- Display warning to user that collab editing change will only take affect if the server restarts
     local shouldDisplayScriptCollabWarning
     local scriptCollabWarningText
-    if FFlagCollabEditingWarnBothWays then
+    if FFlagCollabEditingWarnBothWays2 then
         shouldDisplayScriptCollabWarning = props.ScriptCollabEnabledOnServer ~= props.ScriptCollabEnabled
         scriptCollabWarningText = localization:getText("General", "ServerRestartWarning")
     else

@@ -64,15 +64,6 @@ end
 
 return function()
     describe("GetManageTranslationPermission", function()
-        local oldFlagValue
-        beforeEach(function()
-            oldFlagValue = game:SetFastFlagForTesting("LocalizationToolsPluginEnableCollaborator", true)
-        end)
-
-        afterEach(function()
-            game:SetFastFlagForTesting("LocalizationToolsPluginEnableCollaborator", oldFlagValue)
-        end)
-
         local function runTest(testData, expectedHasPermission)
             local mockLocalization = makeMockLocalization()
             local mockStore = makeMockStore()

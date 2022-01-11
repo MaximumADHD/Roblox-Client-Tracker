@@ -501,8 +501,7 @@ if GetFFlagChannelAnimations() then
 	-- Note that 0 should not be used, as it would represent the parent track.
 	-- The values should never be larger than 9 (nor should it be needed, as this would mean
 	-- that a track needs more than 9 coordinates). However, if a value larger than 9 is really
-	-- needed, then the scale in PathUtils.getPathValue needs to be changed to 0.01 (to support
-	-- values
+	-- needed, then COMPONENT_PATH_BASE_SCALE needs to be changed to 0.01
 	Constants.COMPONENT_PATH_VALUE = {
 		[Constants.PROPERTY_KEYS.Position] = 1,
 		[Constants.PROPERTY_KEYS.Rotation] = 2,
@@ -510,6 +509,7 @@ if GetFFlagChannelAnimations() then
 		[Constants.PROPERTY_KEYS.Y] = 2,
 		[Constants.PROPERTY_KEYS.Z] = 3,
 	}
+	Constants.COMPONENT_PATH_BASE_SCALE = 0.1
 
 	-- Add style mapping to new enum
 	Constants.KEYFRAME_STYLE[Enum.KeyInterpolationMode.Constant] = "Constant"

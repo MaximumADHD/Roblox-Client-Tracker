@@ -1,5 +1,5 @@
 return function()
-	local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
+	local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 
 	local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -54,7 +54,7 @@ return function()
 		local assetId = myAsset.Asset.Id
 
 		mockProps = mockProps or {}
-		if FFlagToolboxAssetGridRefactor2 then
+		if FFlagToolboxAssetGridRefactor3 then
 			mockProps = Cryo.Dictionary.join(mockProps, {
 				store = Rodux.Store.new(ToolboxReducer, {
 					assets = {
@@ -66,10 +66,10 @@ return function()
 
 		local element = Roact.createElement(MockWrapper, mockProps, {
 			Asset = Roact.createElement(Asset, {
-				asset = (not FFlagToolboxAssetGridRefactor2) and myAsset or nil,
-				assetId = FFlagToolboxAssetGridRefactor2 and assetId or nil,
+				asset = (not FFlagToolboxAssetGridRefactor3) and myAsset or nil,
+				assetId = FFlagToolboxAssetGridRefactor3 and assetId or nil,
 				LayoutOrder = 1,
-				isHovered = (not FFlagToolboxAssetGridRefactor2) and false or nil,
+				isHovered = (not FFlagToolboxAssetGridRefactor3) and false or nil,
 			}),
 		})
 

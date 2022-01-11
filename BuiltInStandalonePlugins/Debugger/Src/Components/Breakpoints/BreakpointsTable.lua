@@ -25,7 +25,6 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
-local FFlagDevFrameworkIconButtonTooltip = game:GetFastFlag("DevFrameworkIconButtonTooltip")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -236,28 +235,28 @@ function BreakpointsTable:render()
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 1,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/go_to_script@2x.png",
-				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "GoToScript") or nil,
+				TooltipText = localization:getText("BreakpointsWindow", "GoToScript"),
 				OnClick = self.goToScript,
 			}),
 			DisableAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 2,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/disable_all@2x.png",
-				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "DisableAll") or nil,
+				TooltipText = localization:getText("BreakpointsWindow", "DisableAll"),
 				OnClick = self.toggleEnabledAll,
 			}),
 			DeleteBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 3,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete@2x.png",
-				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("Common", "DeleteBreakpoint") or nil,
+				TooltipText = localization:getText("Common", "DeleteBreakpoint"),
 				OnClick = self.deleteBreakpoint,
 			}),
 			DeleteAllBreakpointButton = Roact.createElement(IconButton, {
 				Size = UDim2.new(0, BUTTON_SIZE, 0, BUTTON_SIZE),
 				LayoutOrder = 4,
 				LeftIcon = "rbxasset://textures/Debugger/Breakpoints/delete_all@2x.png",
-				TooltipText = FFlagDevFrameworkIconButtonTooltip and localization:getText("BreakpointsWindow", "DeleteAll") or nil,
+				TooltipText = localization:getText("BreakpointsWindow", "DeleteAll"),
 				OnClick = self.deleteAllBreakpoints,
 			})
 		}),

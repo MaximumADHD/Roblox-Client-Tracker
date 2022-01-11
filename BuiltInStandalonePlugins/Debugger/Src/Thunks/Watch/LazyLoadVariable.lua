@@ -1,5 +1,4 @@
 local Plugin = script.Parent.Parent.Parent.Parent
-local Constants = require(Plugin.Src.Util.Constants)
 
 local Models = Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
@@ -8,6 +7,8 @@ local VariableRow = require(Plugin.Src.Models.Watch.VariableRow)
 local Actions = Plugin.Src.Actions
 local AddChildExpression = require(Actions.Watch.AddChildExpression)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
+
+local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
 local function convertChildrenToVariableRows(parent, parentVariableRow)
 	local toReturn = {}
@@ -22,24 +23,10 @@ end
 return function(variablePath : string, stepStateBundle : StepStateBundle.StepStateBundle,
 	isExpression : boolean, debuggerConnection)
 	return function(store, contextItems)
-		local splitPath = {}
-		for debuggerVarIdString in string.gmatch(variablePath, Constants.SeparationToken) do
-   			table.insert(splitPath, tonumber(debuggerVarIdString))
+		local targetVar = WatchHelperFunctions.getDebuggerVariableFromSplitPath(variablePath, debuggerConnection)
+		if not targetVar then
+			return
 		end
-		if #splitPath == 0 then
-			splitPath[1] = tonumber(variablePath)
-		end
-
-		local rootVar = debuggerConnection:GetVariableById(splitPath[1])
-		local targetVar = rootVar
-
-		for index, debuggerVarId in ipairs(splitPath) do
-			if (index == 1) then
-				continue
-			end
-			targetVar = targetVar:GetVariable(debuggerVarId)
-		end
-
 		debuggerConnection:Populate(targetVar, function ()	
 			local state = store:getState()
 			local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]

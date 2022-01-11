@@ -15,9 +15,20 @@ function MockDebuggerConnection.new(mockID)
 	local self = {}
 	
 	local rootVariable = DebuggerVariable.new(1, 'Alex', 'Instance', 'Map')
-	rootVariable:MockSetChildren({DebuggerVariable.new(1,"Alex2", "somePreview", "map")})
+	local rootVariable3 = DebuggerVariable.new(3,"Alex2", "somePreview", "map")
+	rootVariable:MockSetChildren({rootVariable3})
+	local rootVariable2= DebuggerVariable.new(2, 'UnitedStatesMockDebugger', 'Instance', 'Map')
+	local rootVariable4 = DebuggerVariable.new(4, 'TexasMockDebugger', 'Instance', 'Map')
+	local rootVariable5 = DebuggerVariable.new(5,"PlanoMockDebugger", "somePreview", "map")
+	rootVariable4:MockSetChildren({rootVariable5})
+	rootVariable2:MockSetChildren({rootVariable4})
+
 	self.VariableMap = {
-		[1] = rootVariable
+		[1] = rootVariable,
+		[2] = rootVariable2,
+		[3] = rootVariable3,
+		[4] = rootVariable4,
+		[5] = rootVariable5
 	}
 	self.MockThreadMap = {}
 	self.MockThreadIdToCallstackMap = {}

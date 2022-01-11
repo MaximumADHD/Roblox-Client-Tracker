@@ -25,8 +25,7 @@ local SetIsPublishing = require(Plugin.Src.Actions.SetIsPublishing)
 local SetPublishInfo = require(Plugin.Src.Actions.SetPublishInfo)
 local getIsOptInChina = require(Plugin.Src.Util.PublishPlaceAsUtilities).getIsOptInChina
 local StudioService = game:GetService("StudioService")
---StudioPublishService will be add in another PR and uncomment next line
---local StudioPublishService = game:GetService("StudioPublishService")
+local StudioPublishService = game:GetService("StudioPublishService")
 local GuiService = game:GetService("GuiService")
 local layoutOrder = LayoutOrderIterator.new()
 
@@ -278,9 +277,7 @@ function ScreenPublishManagement:render()
 					end
 					self.publishParameters = publishParameters
 					self.props.DispatchSetIsPublishing(true)
-					--StudioPublishService will be add in another PR and uncomment next line
-					--StudioPublishService:publishAs(parentGame.universeId, placeId, 0, publishParameters)
-					self.props.DispatchSetIsPublishing(true)
+					StudioPublishService:publishAs(parentGame.universeId, placeId, 0, true, publishParameters)
 				end,
 			},
 			OnClose = onClose,

@@ -31,6 +31,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -44,11 +45,10 @@ local Framework = require(Libs.Framework)
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextGetter = require(Util.ContextGetter)
-local ContextHelper = require(Util.ContextHelper)
 local Images = require(Util.Images)
 
 local getModal = ContextGetter.getModal
-local withTheme = ContextHelper.withTheme
+local ShowOnTop = Framework.UI.ShowOnTop
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -122,6 +122,13 @@ function DropdownMenu:init(props)
 				})
 			end
 		end
+	end
+
+	self.onItemClicked = function(index, item)
+		if self.props.onItemClicked then
+			self.props.onItemClicked(index, item)
+		end
+		self.closeDropdown()
 	end
 end
 
@@ -251,8 +258,26 @@ function DropdownMenu:render()
 				BackgroundTransparency = 1,
 			}),
 		}),
+		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor3 and isShowingDropdown and Roact.createElement(ShowOnTop, {
+			Priority = 2,
+		}, {
+			DropdownItemsList = Roact.createElement(DropdownItemsList, {
+				key = key,
+				items = items,
+				visibleDropDownCount = visibleDropDownCount,
+				rowHeight = rowHeight,
+				fontSize = fontSize,
+				onItemClicked = self.onItemClicked,
 
-		DropdownItemsList = isShowingDropdown and Roact.createElement(DropdownItemsList, {
+				closeDropdown = self.closeDropdown,
+				setDropdownHeight = setDropdownHeight,
+
+				dropDownWidth = state.dropDownWidth,
+				top = state.dropDownTop,
+				left = state.dropDownLeft,
+			}),
+		}),
+		DropdownItemsList = (not FFlagToolboxAssetGridRefactor3) and isShowingDropdown and Roact.createElement(DropdownItemsList, {
 			key = key,
 			items = items,
 			visibleDropDownCount = visibleDropDownCount,

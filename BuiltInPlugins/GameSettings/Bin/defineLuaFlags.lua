@@ -2,6 +2,7 @@
 -- If the flags are defined in main, then it's possible for the tests run first
 -- And then error when trying to use flags that aren't yet defined
 game:DefineFastFlag("UXImprovementsShowUserPermsWhenCollaborator2", false)
-game:DefineFastFlag("CollabEditingWarnBothWays", false)
+game:DefineFastFlag("CollabEditingWarnBothWays2", false)
+game:DefineFastFlag("GsPermissionsUseCentralizedTcCheck", false)
 
 return nil

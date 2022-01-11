@@ -1,6 +1,9 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
+local FFlagGsPermissionsUseCentralizedTcCheck = game:GetFastFlag("GsPermissionsUseCentralizedTcCheck")
+local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
+local RunService = (FFlagGsPermissionsUseCentralizedTcCheck or FFlagCollabEditingWarnBothWays2) and game:GetService("RunService") or nil
 
 local GameSettingsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("GameSettings")
 
@@ -57,6 +60,15 @@ function GameSettingsUtilities.sendAnalyticsToKibana(seriesName, throttlingPerce
 	local points = getDevPublishKibanaPoints(gameSettingsKey, context)
 	points = Cryo.Dictionary.join(points, values)
 	RbxAnalyticsService:reportInfluxSeries(seriesName, points, throttlingPercentage)
+end
+
+function GameSettingsUtilities.isTeamCreateEnabled()
+	assert(FFlagCollabEditingWarnBothWays2 or FFlagGsPermissionsUseCentralizedTcCheck)
+	
+	-- The endpoint to check this fails a permission error if you do not have Manage, so we have
+	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
+	-- TC you are only running the client. The server is run by RCC
+	return RunService:IsEdit() and not RunService:IsServer()
 end
 
 return GameSettingsUtilities

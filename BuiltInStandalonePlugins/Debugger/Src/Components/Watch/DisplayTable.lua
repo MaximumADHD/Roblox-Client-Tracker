@@ -21,12 +21,15 @@ local deepCopy = Util.deepCopy
 local Models = PluginRoot.Src.Models
 local TableTab = require(Models.Watch.TableTab)
 local WatchRow = require(Models.Watch.WatchRow)
+local StepStateBundle = require(Models.StepStateBundle)
 
 local Actions = PluginRoot.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
+
+local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
 
 local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -112,7 +115,18 @@ function DisplayTable:init()
 	end
 	
 	self.onExpansionChange = function(newExpansion)
+		local props = self.props
+		local currentStepStateBundle = props.CurrentStepStateBundle
+		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+		if not currentStepStateBundle or not debuggerConnectionManager then
+			assert(false)
+			return
+		end
+		local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
 		for row, expandedBool in pairs(newExpansion) do
+			if expandedBool then
+				self.props.onLazyLoadChildren(row.pathColumn, currentStepStateBundle, props.SelectedTab == TableTab.Watches, debuggerConnection)
+			end
 			self.props.onExpansionDispatch(row.pathColumn, expandedBool)
 		end
 	end
@@ -259,7 +273,8 @@ DisplayTable = RoactRodux.connect(
 			return {
 				SelectedTab = tabState,
 				RootItems = rootItems or {},
-				ExpansionTable = expansionTable
+				ExpansionTable = expansionTable,
+				CurrentStepStateBundle = StepStateBundle.ctor(token,threadId,frameNumber)
 			}
 		end
 	end,
@@ -274,6 +289,9 @@ DisplayTable = RoactRodux.connect(
 			end,
 			OnAddExpression = function(newExpression)
 				return dispatch(AddExpression(newExpression))
+			end,
+			onLazyLoadChildren = function(path, stepStateBundle, isExpression, debuggerConnection)
+				return dispatch(LazyLoadVariableChildren(path, stepStateBundle, isExpression, debuggerConnection))
 			end,
 			onRemoveExpression = function(oldExpression)
 				return dispatch(RemoveExpression(oldExpression))

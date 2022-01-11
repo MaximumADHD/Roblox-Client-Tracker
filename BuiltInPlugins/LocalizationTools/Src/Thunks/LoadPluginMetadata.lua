@@ -14,16 +14,9 @@ local FFlagLocalizationToolsAllowUploadZhCjv = game:GetFastFlag("LocalizationToo
 
 local ACCEPTED_ROLES = {
 	owner = true,
+	collaborator = true,
 	translator = true,
 }
-
-local function getAcceptedRoles()
-	return {
-		owner = true,
-		collaborator = game:GetFastFlag("LocalizationToolsPluginEnableCollaborator"),
-		translator = true,
-	}
-end
 
 local function getAllLanguageCodes(api, localization)
 	return function(store)
@@ -68,39 +61,21 @@ local function getManageTranslationPermission(api, localization)
 	return function(store)
 		local request = api.TranslationRoles.V1.GameLocalizationRoles.Games.CurrentUser.roles(game.GameId)
 
-		if game:GetFastFlag("LocalizationToolsPluginEnableCollaborator") then
-			store:dispatch(LoadManageTranslationPermission(false))
-			return request:makeRequest():andThen(
-				function(response)
-					local acceptedRoles = getAcceptedRoles()
-					for _, role in ipairs(response.responseBody.data) do
-						if acceptedRoles[role] then
-							store:dispatch(LoadManageTranslationPermission(true))
-							return true
-						end
+		store:dispatch(LoadManageTranslationPermission(false))
+		return request:makeRequest():andThen(
+			function(response)
+				for _, role in ipairs(response.responseBody.data) do
+					if ACCEPTED_ROLES[role] then
+						store:dispatch(LoadManageTranslationPermission(true))
+						return true
 					end
-					return false
-				end,
-				function()
-					warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
-					return false
-				end):await()
-		else
-			request:makeRequest():andThen(
-				function(response)
-					for _, role in ipairs(response.responseBody.data) do
-						if ACCEPTED_ROLES[role] then
-							store:dispatch(LoadManageTranslationPermission(true))
-							return
-						end
-					end
-				end,
-				function()
-					warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
-				end)
-			store:dispatch(LoadManageTranslationPermission(false))
-			return
-		end
+				end
+				return false
+			end,
+			function()
+				warn(localization:getText("PluginMetadata", "GetPermissionFailedMessage"))
+				return false
+			end):await()
 	end
 end
 

@@ -3,8 +3,6 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagPluginManagementFixLoadingState = game:GetFastFlag("PluginManagementFixLoadingState")
-
 local MemStorageService = game:GetService("MemStorageService")
 local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
@@ -101,10 +99,6 @@ end
 
 function ManagementMainView:didMount()
 	self.refreshPlugins()
-	if not FFlagPluginManagementFixLoadingState then
-		local changedToken = StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(self.refreshPlugins)
-		table.insert(self.tokens, changedToken)
-	end
 end
 
 function ManagementMainView:willUnmount()
@@ -243,8 +237,8 @@ function ManagementMainView:render()
 		}),
 
 		Indicator = loading and Roact.createElement(LoadingIndicator, {
-			AnchorPoint = FFlagPluginManagementFixLoadingState and Vector2.new(0.5, 0.5) or Vector2.new(0.5, 0),
-			Position = FFlagPluginManagementFixLoadingState and UDim2.fromScale(0.5, 0.5) or UDim2.new(0.5, 0, 0, Constants.HEADER_HEIGHT + Constants.HEADER_MESSAGE_LINE_HEIGHT),
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
 			Size = UDim2.new(0, 92, 0, 24),
 		}),
 	})

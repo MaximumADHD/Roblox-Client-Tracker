@@ -46,7 +46,6 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local withModal = ContextHelper.withModal
-local withTheme = ContextHelper.withTheme
 
 local Components = Plugin.Core.Components
 local StyledScrollingFrame = require(Components.StyledScrollingFrame)

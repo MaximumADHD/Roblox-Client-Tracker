@@ -1,4 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagGsPermissionsUseCentralizedTcCheck = game:GetFastFlag("GsPermissionsUseCentralizedTcCheck")
 
 local RunService = game:GetService("RunService")
 local StudioService = game:GetService("StudioService")
@@ -31,6 +32,9 @@ local SetCreatorType = require(Plugin.Src.Actions.SetCreatorType)
 local SetGroupOwnerId = require(Page.Actions.SetGroupOwnerId)
 local SetGroupOwnerName = require(Page.Actions.SetGroupOwnerName)
 local SetCreatorFriends = require(Plugin.Src.Actions.SetCreatorFriends)
+
+local isTeamCreateEnabled = FFlagGsPermissionsUseCentralizedTcCheck and require(Plugin.Src.Util.GameSettingsUtilities).isTeamCreateEnabled or nil
+
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local GetIsFriendsOnlyKeyName = KeyProvider.getIsFriendOnlyKeyName
@@ -198,6 +202,10 @@ function Permissions:isGroupGame()
 end
 
 function Permissions:isTeamCreate()
+	if FFlagGsPermissionsUseCentralizedTcCheck then
+		return isTeamCreateEnabled()
+	end
+	
 	-- The endpoint to check this fails a permission error if you do not have Manage, so we have
 	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
 	-- TC you are only running the client. The server is run by RCC

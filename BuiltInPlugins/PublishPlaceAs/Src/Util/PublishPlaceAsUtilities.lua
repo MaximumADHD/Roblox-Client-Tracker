@@ -1,7 +1,9 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
+local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local PublishPlaceAsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("PublishPlaceAs")
+local RunService = (FFlagPlacePublishManagementUI) and game:GetService("RunService") or nil
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -44,6 +46,13 @@ function PublishPlaceAsUtilities.getIsOptInChina(optInRegions)
         end
     end
     return false
+end
+
+function PublishPlaceAsUtilities.isTeamCreateEnabled()
+    assert(FFlagPlacePublishManagementUI)
+	-- In non-TC games you are running both client/server in Edit, but in
+	-- TC you are only running the client. The server is run by RCC
+	return RunService:IsEdit() and not RunService:IsServer()
 end
 
 function PublishPlaceAsUtilities.getOptInLocationsRequirementsLink(location)

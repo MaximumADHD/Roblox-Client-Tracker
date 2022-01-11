@@ -36,7 +36,6 @@ local getTestVariation = FrameworkUtil.getTestVariation
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
-local FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch = game:GetFastFlag("ToolboxStopAudioFromPlayingOnCloseAndCategorySwitch")
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
@@ -92,7 +91,7 @@ function ToolboxPlugin:init(props)
 	end
 
 	self.onDockWidgetEnabledChanged = function(rbx)
-		if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch and self.dockWidget.Enabled == false then
+		if self.dockWidget.Enabled == false then
 			self.props.stopAllSounds()
 		end
 		-- Update Button to match DockWidget
@@ -259,16 +258,12 @@ ToolboxPlugin = withContext({
 
 
 
-if FFlagToolboxStopAudioFromPlayingOnCloseAndCategorySwitch then
-	local function mapDispatchToProps(dispatch)
-		return {
-			stopAllSounds = function()
-				dispatch(StopAllSounds())
-			end,
-		}
-	end
-
-	return RoactRodux.connect(nil, mapDispatchToProps)(ToolboxPlugin)
-else
-	return ToolboxPlugin
+local function mapDispatchToProps(dispatch)
+	return {
+		stopAllSounds = function()
+			dispatch(StopAllSounds())
+		end,
+	}
 end
+
+return RoactRodux.connect(nil, mapDispatchToProps)(ToolboxPlugin)

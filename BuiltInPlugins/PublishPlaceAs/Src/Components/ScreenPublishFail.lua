@@ -30,8 +30,7 @@ local SettingsImpl = require(Plugin.Src.Network.Requests.SettingsImpl)
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local StudioService = game:GetService("StudioService")
---StudioPublishService will be add in another PR and uncomment next line
---local StudioPublishService = FFlagPlacePublishManagementUI and game:GetService("StudioPublishService") or nil
+local StudioPublishService = FFlagPlacePublishManagementUI and game:GetService("StudioPublishService") or nil
 local ContentProvider = game:GetService("ContentProvider")
 
 local ICON_SIZE = 150
@@ -158,8 +157,7 @@ function ScreenPublishFail:render()
 					else
 						if FFlagPlacePublishManagementUI and publishParameters ~= nil and next(publishParameters) ~= nil then
 							-- groupId is unused in existing game/place publish, only new game publish
-							--StudioPublishService will be add in another PR and uncomment next line and the publishAs flow in StudioServcie should be migraged to StudioPublishService
-							--StudioPublishService:publishAs(parentGameId, id, 0, publishParameters)
+							StudioPublishService:publishAs(parentGameId, id, 0, publishParameters)
 						else
 							-- groupId is unused in existing game/place publish, only new game publish
 							-- which is in the if block

@@ -4,8 +4,6 @@ local Actions = Plugin.Core.Actions
 local NetworkError = require(Actions.NetworkError)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local FFlagToolboxFixAutocompleteErrorHandler = game:GetFastFlag("ToolboxFixAutocompleteErrorHandler")
-
 local SetAutocompleteResults = require(Actions.SetAutocompleteResults)
 
 return function(networkInterface, categoryName, searchTerm, numberOfItems)
@@ -30,11 +28,7 @@ return function(networkInterface, categoryName, searchTerm, numberOfItems)
 				end,
 				function(err)
 					if DebugFlags.shouldDebugWarnings() then
-						if FFlagToolboxFixAutocompleteErrorHandler then
-							warn("Toolbox: Could not fetch autocomplete results")
-						else
-							warn(("Request error: " .. err))
-						end
+						warn("Toolbox: Could not fetch autocomplete results")
 					end
 					store:dispatch(NetworkError(err))
 				end

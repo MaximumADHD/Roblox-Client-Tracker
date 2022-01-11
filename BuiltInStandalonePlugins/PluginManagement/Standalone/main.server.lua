@@ -12,8 +12,6 @@ local InstallPluginFromWeb = require(Plugin.Src.Thunks.InstallPluginFromWeb)
 local RefreshPlugins = require(Plugin.Src.Thunks.RefreshPlugins)
 local ManagementApp = require(Plugin.Src.Components.ManagementApp)
 
-local FFlagPluginManagementFixLoadingState = game:GetFastFlag("PluginManagementFixLoadingState")
-
 -- initialize all globals
 local globals = getPluginGlobals(plugin)
 local tokens = {}
@@ -46,17 +44,9 @@ local function main()
 		end
 	end)
 
-	if FFlagPluginManagementFixLoadingState then
-		table.insert(tokens, StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(function()
-			globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
-		end))
-	else
-		-- start preloading data
-		spawn(function()
-			wait()
-			globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
-		end)
-	end
+	table.insert(tokens, StudioService:GetPropertyChangedSignal("InstalledPluginData"):Connect(function()
+		globals.store:dispatch(RefreshPlugins(globals.api, MarketplaceService))
+	end))
 
 	local mgmtWindow = Roact.createElement(ManagementApp, {
 		plugin = plugin,

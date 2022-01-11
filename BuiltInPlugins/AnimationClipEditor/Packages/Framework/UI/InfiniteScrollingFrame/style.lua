@@ -1,5 +1,3 @@
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-
 local Framework = script.Parent.Parent.Parent
 
 local StudioFrameworkStyles = Framework.StudioUI.StudioFrameworkStyles
@@ -16,14 +14,14 @@ if THEME_REFACTOR then
 		BorderSizePixel = 0,
 		BackgroundColor3 = StyleKey.MainBackground,
 
-		TopImage = FFlagDevFrameworkRefactorScrollbarColor and "rbxasset://textures/StudioSharedUI/ScrollBarTop.png" or "rbxasset://textures/StudioToolbox/ScrollBarTop.png",
-		MidImage = FFlagDevFrameworkRefactorScrollbarColor and "rbxasset://textures/StudioSharedUI/ScrollBarMiddle.png" or "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
-		BottomImage = FFlagDevFrameworkRefactorScrollbarColor and "rbxasset://textures/StudioSharedUI/ScrollBarBottom.png" or "rbxasset://textures/StudioToolbox/ScrollBarMiddle.png",
+		TopImage = "rbxasset://textures/StudioSharedUI/ScrollBarTop.png",
+		MidImage = "rbxasset://textures/StudioSharedUI/ScrollBarMiddle.png",
+		BottomImage = "rbxasset://textures/StudioSharedUI/ScrollBarBottom.png",
 
 		ScrollingEnabled = true,
 		ScrollingDirection = Enum.ScrollingDirection.Y,
 		ScrollBarThickness = 8,
-		ScrollBarImageTransparency = FFlagDevFrameworkRefactorScrollbarColor and 0 or 0.5,
+		ScrollBarImageTransparency = 0,
 		ScrollBarImageColor3 = StyleKey.ScrollBar,
 		VerticalScrollBarInset = Enum.ScrollBarInset.Always
 	}

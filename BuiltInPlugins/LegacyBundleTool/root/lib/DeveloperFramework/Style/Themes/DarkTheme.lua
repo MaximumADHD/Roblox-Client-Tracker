@@ -2,8 +2,6 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -65,7 +63,7 @@ return {
 	[StyleKey.RibbonTab] = Color3.fromRGB(37, 37, 37),
 
 	[StyleKey.ScrollBarBackground] = Color3.fromRGB(41, 41, 41),
-	[StyleKey.ScrollBar] = FFlagDevFrameworkRefactorScrollbarColor and Color3.fromRGB(56, 56, 56) or Colors.lighter(Colors.Black, 0.22),
+	[StyleKey.ScrollBar] = Color3.fromRGB(56, 56, 56),
 	[StyleKey.SliderKnobColor] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.SliderKnobImage] = "rbxasset://textures/DeveloperFramework/slider_knob.png",
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),

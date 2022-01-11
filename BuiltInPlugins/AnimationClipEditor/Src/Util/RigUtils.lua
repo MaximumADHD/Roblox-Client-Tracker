@@ -1832,7 +1832,9 @@ function RigUtils.clearPose(rig)
 		joint.Transform = CFrame.new()
 	end
 
-	animator:StepAnimations(0)
+	if animator then
+		animator:StepAnimations(0)
+	end
 end
 
 function RigUtils.getAnimSavesFolder(rig, create)

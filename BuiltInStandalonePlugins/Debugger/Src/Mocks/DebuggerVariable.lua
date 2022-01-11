@@ -17,7 +17,7 @@ function DebuggerVariable.new(variableId : number, name : string, value : string
 		Name = name,
 		Value = value,
 		Type = type,
-		Populated = true,
+		Populated = false,
 		PopulatableType = "DebuggerVariable"
 	}
 	

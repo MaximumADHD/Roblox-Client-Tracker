@@ -15,7 +15,7 @@
 		callback onGroupSelected()
 		callback onSearchOptionsToggled()
 ]]
-local FFlagToolboxAssetGridRefactor2 = game:GetFastFlag("ToolboxAssetGridRefactor2")
+local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -347,7 +347,7 @@ local function mapStateToProps(state, props)
 		groups = pageInfo.groups or {},
 		groupIndex = pageInfo.groupIndex or 0,
 		creatorFilter = pageInfo.creator or {},
-		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor2 and assets.mostRecentAssetInsertTime or nil,
+		mostRecentAssetInsertTime = FFlagToolboxAssetGridRefactor3 and assets.mostRecentAssetInsertTime or nil,
 	}
 end
 

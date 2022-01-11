@@ -31,8 +31,6 @@
 		Default: The pane has no background
 ]]
 
-local FFlagDevFrameworkIconButtonTooltip = game:GetFastFlag("DevFrameworkIconButtonTooltip")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -152,9 +150,9 @@ function IconButton:render()
 				}
 			}),
 		}),
-		Tooltip = FFlagDevFrameworkIconButtonTooltip and props.TooltipText and Roact.createElement(Tooltip, {
+		Tooltip = props.TooltipText and Roact.createElement(Tooltip, {
 			Text = props.TooltipText
-		}) or nil
+		})
 	})
 end
 
