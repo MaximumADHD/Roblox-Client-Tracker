@@ -4051,11 +4051,11 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/AlignOrientation"
   },
   "@roblox/globaltype/AlignOrientation.AlignType": {
-    "documentation": "<p>The constraint's axis alignment type, parallel or perpendicular</p>",
+    "documentation": "<p>The constraint's axis alignment type (parallel or perpendicular).</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/AlignType"
   },
   "@roblox/globaltype/AlignOrientation.CFrame": {
-    "documentation": "",
+    "documentation": "<p>The goal orientation of the <code>AlignOrientation</code> (the translation component is ignored).</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/CFrame"
   },
   "@roblox/globaltype/AlignOrientation.MaxAngularVelocity": {
@@ -4067,15 +4067,15 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/MaxTorque"
   },
   "@roblox/globaltype/AlignOrientation.Mode": {
-    "documentation": "",
+    "documentation": "<p>The way the constraint determines its goal orientation.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/Mode"
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxis": {
-    "documentation": "",
+    "documentation": "<p>The direction of the goal's X-Axis, represented as a unit <code>Vector3</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/PrimaryAxis"
   },
   "@roblox/globaltype/AlignOrientation.PrimaryAxisOnly": {
-    "documentation": "<p>If set to true, then the AlignOrientation will only apply torque if the primary axis of its Attachment0 becomes unaligned with Attachment1. This means that any rotation about the Attachment0’s primary axis will not create a torque.</p>",
+    "documentation": "<p>If true, the <code>AlignOrientation</code> applies torque if the primary axis of its <code>Constraint.Attachment0</code> becomes unaligned with the goal.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/PrimaryAxisOnly"
   },
   "@roblox/globaltype/AlignOrientation.ReactionTorqueEnabled": {
@@ -4083,15 +4083,15 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/ReactionTorqueEnabled"
   },
   "@roblox/globaltype/AlignOrientation.Responsiveness": {
-    "documentation": "<p>Used to control how quickly the constraint will reach its goal. Higher values will cause the attachment to align quicker. Value can be between 5 and 200.</p>",
+    "documentation": "<p>Controls how quickly the constraint will reach its goal. Higher values will cause the attachment to align quicker. Value can be between 5 and 200.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/Responsiveness"
   },
   "@roblox/globaltype/AlignOrientation.RigidityEnabled": {
-    "documentation": "<p>When set to true, the solver will react as quickly as possible to align the attachments. When false, the torque is dependent on <code>AlignOrientation.MaxTorque</code>, <code>AlignOrientation.MaxAngularVelocity</code>, and <code>AlignOrientation.Responsiveness</code>.</p>",
+    "documentation": "<p>When true, the solver reacts as quickly as possible to complete the alignment. When false, the torque is dependent on <code>AlignOrientation.MaxTorque</code>, <code>AlignOrientation.MaxAngularVelocity</code>, and <code>AlignOrientation.Responsiveness</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/RigidityEnabled"
   },
   "@roblox/globaltype/AlignOrientation.SecondaryAxis": {
-    "documentation": "",
+    "documentation": "<p>The direction of the goal's Y-Axis, represented as a unit <code>Vector3</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignOrientation/SecondaryAxis"
   },
   "@roblox/globaltype/AlignPosition": {
@@ -4109,7 +4109,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/AlignPosition"
   },
   "@roblox/globaltype/AlignPosition.ApplyAtCenterOfMass": {
-    "documentation": "<p>When true, applies force at center of mass of Attachment0’s parent Part. When false, applied at Attachment0.</p>",
+    "documentation": "<p>When true, applies force at center of mass of Attachment0's parent Part. When false, applied at Attachment0.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/ApplyAtCenterOfMass"
   },
   "@roblox/globaltype/AlignPosition.MaxForce": {
@@ -4121,23 +4121,23 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/MaxVelocity"
   },
   "@roblox/globaltype/AlignPosition.Mode": {
-    "documentation": "",
+    "documentation": "<p>The way the constraint determines its goal.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/Mode"
   },
   "@roblox/globaltype/AlignPosition.Position": {
-    "documentation": "",
+    "documentation": "<p>The position the constraint should move its <code>Constraint.Attachment0</code> to when using the <code>Enum.PositionAlignmentMode</code> mode.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/Position"
   },
   "@roblox/globaltype/AlignPosition.ReactionForceEnabled": {
-    "documentation": "<p>When true the constraint will apply force on both Attachments to achieve the goal.</p>",
+    "documentation": "<p>If true the constraint applies force on both Attachments to achieve the goal.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/ReactionForceEnabled"
   },
   "@roblox/globaltype/AlignPosition.Responsiveness": {
-    "documentation": "<p>Used to control how quickly the constraint will reach its goal. Higher values will cause the attachments to move together quicker. Value can be between 5 and 200.</p>",
+    "documentation": "<p>Controls how quickly the constraint reaches its goal. Higher values will cause the attachment(s) to align more rapidly. Value can be between 5 and 200.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/Responsiveness"
   },
   "@roblox/globaltype/AlignPosition.RigidityEnabled": {
-    "documentation": "<p>When set to true, the solver will react as quickly as possible to move the attachments together. When false, the torque is dependent on <code>AlignPosition.MaxForce</code>, <code>AlignPosition.MaxVelocity</code>, and <code>AlignPosition.Responsiveness</code>.</p>",
+    "documentation": "<p>If true, the solver reacts as quickly as possible to complete the alignment. If false, the torque is dependent on <code>AlignPosition.MaxForce</code>, <code>AlignPosition.MaxVelocity</code>, and <code>AlignPosition.Responsiveness</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/AlignPosition/RigidityEnabled"
   },
   "@roblox/globaltype/AnalysticsSettings": {
@@ -4658,6 +4658,106 @@
       "Wait": "@roblox/globaltype/AnimationController.AnimationPlayed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/AnimationController/AnimationPlayed"
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService": {
+    "documentation": "",
+    "keys": {
+      "CreateJob": "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob",
+      "DownloadJobResult": "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult",
+      "FullProcess": "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess",
+      "GetJobStatus": "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/class/AnimationFromVideoCreatorService"
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationFromVideoCreatorService.CreateJob/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/AnimationFromVideoCreatorService/CreateJob"
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "jobId",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/param/0"
+      },
+      {
+        "name": "outputFilePath",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationFromVideoCreatorService.DownloadJobResult/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/AnimationFromVideoCreatorService/DownloadJobResult"
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "videoFilePath",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/param/0"
+      },
+      {
+        "name": "progressCallback",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationFromVideoCreatorService.FullProcess/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/AnimationFromVideoCreatorService/FullProcess"
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "jobId",
+        "documentation": "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationFromVideoCreatorService.GetJobStatus/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/AnimationFromVideoCreatorService/GetJobStatus"
   },
   "@roblox/globaltype/AnimationRigData": {
     "documentation": "",
@@ -6636,7 +6736,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/Attachment"
   },
   "@roblox/globaltype/Attachment.Axis": {
-    "documentation": "<p>Represents the direction of the X-Axis, relative to the Attachment's <code>Attachment.Rotation</code>, as a unit <a href=\"/api-reference/datatype/Vector3\" class=\"mw-redirect\" title=\"Vector3\">Vector3</a> with a length of 1.</p>",
+    "documentation": "<p>The direction of the <code>Attachment</code>'s X-Axis, represented as a unit <code>Vector3</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Attachment/Axis"
   },
   "@roblox/globaltype/Attachment.CFrame": {
@@ -6656,7 +6756,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Attachment/Rotation"
   },
   "@roblox/globaltype/Attachment.SecondaryAxis": {
-    "documentation": "<p>Represents the direction of the Y-Axis, relative to the Attachment's <code>Attachment.Rotation</code>, as a unit <a href=\"/api-reference/datatype/Vector3\" class=\"mw-redirect\" title=\"Vector3\">Vector3</a> with a length of 1.</p>",
+    "documentation": "<p>The direction of the <code>Attachment</code>'s Y-Axis, represented as a unit <code>Vector3</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Attachment/SecondaryAxis"
   },
   "@roblox/globaltype/Attachment.Visible": {
@@ -6664,7 +6764,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Attachment/Visible"
   },
   "@roblox/globaltype/Attachment.WorldAxis": {
-    "documentation": "<p>Represents the direction of the <code>Attachment</code> Attachment/Axis|X-Axis<code>relative to the world, as a unit</code>DataType.Vector3` with a length of 1</p>",
+    "documentation": "<p>Represents the direction of the <code>Attachment</code> <code>Attachment.Axis</code> relative to the world, as a unit <code>DataType.Vector3</code> with a length of 1</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Attachment/WorldAxis"
   },
   "@roblox/globaltype/Attachment.WorldCFrame": {
@@ -8172,12 +8272,46 @@
   "@roblox/globaltype/AvatarImportService": {
     "documentation": "",
     "keys": {
+      "ImportFBXAnimationFromFilePathUserMayChooseModel": "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel",
       "ImportFBXAnimationUserMayChooseModel": "@roblox/globaltype/AvatarImportService.ImportFBXAnimationUserMayChooseModel",
       "ImportFbxRigWithoutSceneLoad": "@roblox/globaltype/AvatarImportService.ImportFbxRigWithoutSceneLoad",
       "ImportLoadedFBXAnimation": "@roblox/globaltype/AvatarImportService.ImportLoadedFBXAnimation",
       "LoadRigAndDetectType": "@roblox/globaltype/AvatarImportService.LoadRigAndDetectType"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/AvatarImportService"
+  },
+  "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "fbxFilePath",
+        "documentation": "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/0"
+      },
+      {
+        "name": "selectedRig",
+        "documentation": "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/1"
+      },
+      {
+        "name": "userChooseModelThenImportCB",
+        "documentation": "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarImportService.ImportFBXAnimationFromFilePathUserMayChooseModel/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/AvatarImportService/ImportFBXAnimationFromFilePathUserMayChooseModel"
   },
   "@roblox/globaltype/AvatarImportService.ImportFBXAnimationUserMayChooseModel/param/0": {
     "documentation": ""
@@ -10536,6 +10670,7 @@
       "Id": "@roblox/globaltype/Breakpoint.Id",
       "Line": "@roblox/globaltype/Breakpoint.Line",
       "LogMessage": "@roblox/globaltype/Breakpoint.LogMessage",
+      "MetaBreakpointId": "@roblox/globaltype/Breakpoint.MetaBreakpointId",
       "Script": "@roblox/globaltype/Breakpoint.Script",
       "Verified": "@roblox/globaltype/Breakpoint.Verified"
     },
@@ -10564,6 +10699,10 @@
   "@roblox/globaltype/Breakpoint.LogMessage": {
     "documentation": "",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Breakpoint/LogMessage"
+  },
+  "@roblox/globaltype/Breakpoint.MetaBreakpointId": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Breakpoint/MetaBreakpointId"
   },
   "@roblox/globaltype/Breakpoint.Script": {
     "documentation": "",
@@ -19733,6 +19872,7 @@
       "DestroyJointRadiusPercent": "@roblox/globaltype/Explosion.DestroyJointRadiusPercent",
       "ExplosionType": "@roblox/globaltype/Explosion.ExplosionType",
       "Position": "@roblox/globaltype/Explosion.Position",
+      "TimeScale": "@roblox/globaltype/Explosion.TimeScale",
       "Visible": "@roblox/globaltype/Explosion.Visible",
       "Hit": "@roblox/globaltype/Explosion.Hit"
     },
@@ -19757,6 +19897,10 @@
   "@roblox/globaltype/Explosion.Position": {
     "documentation": "<p>This property is the position of the center of the <code>Explosion</code>. It is defined in world-space and not influenced by the <code>Explosion</code>'s parent.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Explosion/Position"
+  },
+  "@roblox/globaltype/Explosion.TimeScale": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Explosion/TimeScale"
   },
   "@roblox/globaltype/Explosion.Visible": {
     "documentation": "<p>This property determines whether or not the visual effect of an <code>Explosion</code> is shown or not.</p>",
@@ -20147,6 +20291,7 @@
       "Heat": "@roblox/globaltype/Fire.Heat",
       "SecondaryColor": "@roblox/globaltype/Fire.SecondaryColor",
       "Size": "@roblox/globaltype/Fire.Size",
+      "TimeScale": "@roblox/globaltype/Fire.TimeScale",
       "size": "@roblox/globaltype/Fire.size"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/Fire"
@@ -20170,6 +20315,10 @@
   "@roblox/globaltype/Fire.Size": {
     "documentation": "<p>Determines the size of the flame particles</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Fire/Size"
+  },
+  "@roblox/globaltype/Fire.TimeScale": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Fire/TimeScale"
   },
   "@roblox/globaltype/Fire.size": {
     "documentation": "",
@@ -24727,6 +24876,7 @@
   "@roblox/globaltype/Highlight": {
     "documentation": "",
     "keys": {
+      "Adornee": "@roblox/globaltype/Highlight.Adornee",
       "DepthMode": "@roblox/globaltype/Highlight.DepthMode",
       "Enabled": "@roblox/globaltype/Highlight.Enabled",
       "FillColor": "@roblox/globaltype/Highlight.FillColor",
@@ -24735,6 +24885,10 @@
       "OutlineTransparency": "@roblox/globaltype/Highlight.OutlineTransparency"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/Highlight"
+  },
+  "@roblox/globaltype/Highlight.Adornee": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Highlight/Adornee"
   },
   "@roblox/globaltype/Highlight.DepthMode": {
     "documentation": "",
@@ -37651,7 +37805,7 @@
       "Attachment0": "@roblox/globaltype/PathfindingLink.Attachment0",
       "Attachment1": "@roblox/globaltype/PathfindingLink.Attachment1",
       "IsBidirectional": "@roblox/globaltype/PathfindingLink.IsBidirectional",
-      "ModifierId": "@roblox/globaltype/PathfindingLink.ModifierId"
+      "Label": "@roblox/globaltype/PathfindingLink.Label"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/PathfindingLink"
   },
@@ -37667,21 +37821,21 @@
     "documentation": "",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PathfindingLink/IsBidirectional"
   },
-  "@roblox/globaltype/PathfindingLink.ModifierId": {
+  "@roblox/globaltype/PathfindingLink.Label": {
     "documentation": "",
-    "learn_more_link": "https://developer.roblox.com/api-reference/property/PathfindingLink/ModifierId"
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/PathfindingLink/Label"
   },
   "@roblox/globaltype/PathfindingModifier": {
     "documentation": "<p>Modifiers used to represent space that has a higher or lower cost to be traversed when creating paths using the <code>PathfindingService</code></p>",
     "keys": {
-      "ModifierId": "@roblox/globaltype/PathfindingModifier.ModifierId",
+      "Label": "@roblox/globaltype/PathfindingModifier.Label",
       "PassThrough": "@roblox/globaltype/PathfindingModifier.PassThrough"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/PathfindingModifier"
   },
-  "@roblox/globaltype/PathfindingModifier.ModifierId": {
+  "@roblox/globaltype/PathfindingModifier.Label": {
     "documentation": "<p>The name of the navigation area inside or on top of the <code>Part</code> volume</p>",
-    "learn_more_link": "https://developer.roblox.com/api-reference/property/PathfindingModifier/ModifierId"
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/PathfindingModifier/Label"
   },
   "@roblox/globaltype/PathfindingModifier.PassThrough": {
     "documentation": "<p>Determines if the parts enclosed by the modifier are traversable, even if they would normally be collided with.</p>",
@@ -43218,7 +43372,7 @@
     "documentation": "<p>A dictionary containing information about the policy information of a given player</p>"
   },
   "@roblox/globaltype/PolicyService.GetPolicyInfoForPlayerAsync": {
-    "documentation": "<p>Returns policy information about a player which is based on geolocation, age group, and platform</p>",
+    "documentation": "<p>Returns policy information about a player which is based on geolocation, age group, and platform.</p>",
     "params": [
       {
         "name": "player",
@@ -45362,7 +45516,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/ReverbSoundEffect/WetLevel"
   },
   "@roblox/globaltype/RigidConstraint": {
-    "documentation": "",
+    "documentation": "<p>Creates a rigid connection between two Attachment.</p>",
     "keys": {
       "Broken": "@roblox/globaltype/RigidConstraint.Broken",
       "DestructionEnabled": "@roblox/globaltype/RigidConstraint.DestructionEnabled",
@@ -48543,7 +48697,8 @@
       "Enabled": "@roblox/globaltype/Smoke.Enabled",
       "Opacity": "@roblox/globaltype/Smoke.Opacity",
       "RiseVelocity": "@roblox/globaltype/Smoke.RiseVelocity",
-      "Size": "@roblox/globaltype/Smoke.Size"
+      "Size": "@roblox/globaltype/Smoke.Size",
+      "TimeScale": "@roblox/globaltype/Smoke.TimeScale"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/Smoke"
   },
@@ -48566,6 +48721,10 @@
   "@roblox/globaltype/Smoke.Size": {
     "documentation": "<p>Determines the size of newly emit smoke particles</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Smoke/Size"
+  },
+  "@roblox/globaltype/Smoke.TimeScale": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Smoke/TimeScale"
   },
   "@roblox/globaltype/Snap": {
     "documentation": "<p>Holds two parts together and functions identically to <code>Weld</code></p>",
@@ -49431,7 +49590,8 @@
     "keys": {
       "Color": "@roblox/globaltype/Sparkles.Color",
       "Enabled": "@roblox/globaltype/Sparkles.Enabled",
-      "SparkleColor": "@roblox/globaltype/Sparkles.SparkleColor"
+      "SparkleColor": "@roblox/globaltype/Sparkles.SparkleColor",
+      "TimeScale": "@roblox/globaltype/Sparkles.TimeScale"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/Sparkles"
   },
@@ -49446,6 +49606,10 @@
   "@roblox/globaltype/Sparkles.SparkleColor": {
     "documentation": "<p>Determines the color of the sparkle particles.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/Sparkles/SparkleColor"
+  },
+  "@roblox/globaltype/Sparkles.TimeScale": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/Sparkles/TimeScale"
   },
   "@roblox/globaltype/SpawnerService": {
     "documentation": "<p>An internal service that is responsible for the behavior or <code>SpawnLocation</code>s. Its functionality is not accessible to developers.</p>",
@@ -51414,6 +51578,60 @@
       "Wait": "@roblox/globaltype/StudioDeviceEmulatorService.OrientationChanged.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/StudioDeviceEmulatorService/OrientationChanged"
+  },
+  "@roblox/globaltype/StudioPublishService": {
+    "documentation": "",
+    "keys": {
+      "PublishAs": "@roblox/globaltype/StudioPublishService.PublishAs"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/class/StudioPublishService"
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/param/3": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/param/4": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/StudioPublishService.PublishAs": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "universeId",
+        "documentation": "@roblox/globaltype/StudioPublishService.PublishAs/param/0"
+      },
+      {
+        "name": "placeId",
+        "documentation": "@roblox/globaltype/StudioPublishService.PublishAs/param/1"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/StudioPublishService.PublishAs/param/2"
+      },
+      {
+        "name": "isPublish",
+        "documentation": "@roblox/globaltype/StudioPublishService.PublishAs/param/3"
+      },
+      {
+        "name": "publishParameters",
+        "documentation": "@roblox/globaltype/StudioPublishService.PublishAs/param/4"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioPublishService.PublishAs/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/function/StudioPublishService/PublishAs"
   },
   "@roblox/globaltype/StudioScriptDebugEventListener": {
     "documentation": "",
@@ -57905,6 +58123,7 @@
       "UsedHideHudShortcut": "@roblox/globaltype/UserGameSettings.UsedHideHudShortcut",
       "VREnabled": "@roblox/globaltype/UserGameSettings.VREnabled",
       "VRRotationIntensity": "@roblox/globaltype/UserGameSettings.VRRotationIntensity",
+      "VignetteEnabled": "@roblox/globaltype/UserGameSettings.VignetteEnabled",
       "GetCameraYInvertValue": "@roblox/globaltype/UserGameSettings.GetCameraYInvertValue",
       "GetOnboardingCompleted": "@roblox/globaltype/UserGameSettings.GetOnboardingCompleted",
       "GetTutorialState": "@roblox/globaltype/UserGameSettings.GetTutorialState",
@@ -58068,6 +58287,10 @@
   "@roblox/globaltype/UserGameSettings.VRRotationIntensity": {
     "documentation": "",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/UserGameSettings/VRRotationIntensity"
+  },
+  "@roblox/globaltype/UserGameSettings.VignetteEnabled": {
+    "documentation": "",
+    "learn_more_link": "https://developer.roblox.com/api-reference/property/UserGameSettings/VignetteEnabled"
   },
   "@roblox/globaltype/UserGameSettings.GetCameraYInvertValue/return/0": {
     "documentation": ""
@@ -69554,7 +69777,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "<p class=\"text-nowrap\" style=\"font-family: 'Arial'; font-size: 1.5em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<p class=\"text-nowrap\" style={{fontFamily: 'Arial', fontSize: '1.5em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69563,7 +69786,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "<p class=\"text-nowrap\" style=\"font-family: 'Arial'; font-size: 1.5em; font-weight: bold; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<p class=\"text-nowrap\" style={{fontFamily: 'Arial', fontSize: '1.5em', fontWeight: 'bold', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69572,7 +69795,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Source Sans Pro'; font-size: 1.7em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Source Sans Pro', fontSize: '1.7em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69581,7 +69804,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" class=\"text-nowrap\" style=\"font-family: 'Source Sans Pro'; font-size: 1.7em; font-weight: 700; margin: 5px 0px; min-width: 540px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" class=\"text-nowrap\" style={{fontFamily: 'Source Sans Pro', fontSize: '1.7em', fontWeight: 700, margin: '5px 0px', minWidth: '540px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69590,7 +69813,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Source Sans Pro'; font-size: 1.7em; font-weight: 600; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Source Sans Pro', fontSize: '1.7em', fontWeight: 600, margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69599,7 +69822,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Source Sans Pro'; font-size: 1.7em; font-weight: 300; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Source Sans Pro', fontSize: '1.7em', fontWeight: 300, margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69608,7 +69831,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Source Sans Pro'; font-size: 1.7em; margin: 5px 0px;\"><i>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</i></p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Source Sans Pro', fontSize: '1.7em', margin: '5px 0px'}}><i>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</i></p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69626,7 +69849,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=EB+Garamond');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'EB Garamond'; font-size: 1.85em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=EB+Garamond');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'EB Garamond', fontSize: '1.85em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69734,7 +69957,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Amatic+SC');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Amatic SC'; font-size: 1.9em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Amatic+SC');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Amatic SC', fontSize: '1.9em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69743,7 +69966,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Bangers');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Bangers'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Bangers');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Bangers', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69752,7 +69975,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Creepster');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Creepster'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Creepster');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Creepster', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69761,7 +69984,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Denk+One');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Denk One'; font-size: 1.7em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Denk+One');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Denk One', fontSize: '1.7em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69770,7 +69993,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Fondamento');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Fondamento'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Fondamento');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Fondamento', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69779,7 +70002,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Fredoka+One');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Fredoka One'; font-size: 1.6em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Fredoka+One');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Fredoka One', fontSize: '1.6em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69788,7 +70011,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Grenze Gotisch'; font-size: 1.95em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Grenze Gotisch', fontSize: '1.95em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69797,7 +70020,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Indie+Flower');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Indie Flower'; font-size: 1.85em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Indie+Flower');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Indie Flower', fontSize: '1.85em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69806,7 +70029,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Josefin Sans'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Josefin Sans', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69815,7 +70038,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family= Jura');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Jura'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family= Jura');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Jura', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69824,7 +70047,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Kalam');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Kalam'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Kalam');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Kalam', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69833,7 +70056,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Luckiest Guy'; font-size: 1.6em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Luckiest Guy', fontSize: '1.6em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69842,7 +70065,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Merriweather');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Merriweather'; font-size: 1.6em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Merriweather');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Merriweather', fontSize: '1.6em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69851,7 +70074,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Michroma');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Michroma'; font-size: 1.3em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Michroma');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Michroma', fontSize: '1.3em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69860,7 +70083,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Nunito');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Nunito'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Nunito');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Nunito', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69869,7 +70092,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Oswald');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Oswald'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Oswald');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Oswald', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69878,7 +70101,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Patrick Hand'; font-size: 1.8em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Patrick Hand', fontSize: '1.8em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69887,7 +70110,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Permanent Marker'; font-size: 1.6em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Permanent Marker', fontSize: '1.6em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69896,7 +70119,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Roboto'; font-size: 1.55em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Roboto', fontSize: '1.55em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69905,7 +70128,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Roboto Condensed'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Roboto Condensed', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69914,7 +70137,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Roboto Mono'; font-size: 1.45em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Roboto Mono', fontSize: '1.45em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69923,7 +70146,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Sarpanch');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Sarpanch'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Sarpanch');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Sarpanch', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69932,7 +70155,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Special+Elite');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Special Elite'; font-size: 1.6em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Special+Elite');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Special Elite', fontSize: '1.6em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69941,7 +70164,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Titillium+Web');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Titillium Web'; font-size: 1.75em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Titillium+Web');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Titillium Web', fontSize: '1.75em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -69950,7 +70173,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Font"
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Ubuntu');</style>\n<p class=\"text-nowrap\" style=\"font-family: 'Ubuntu'; font-size: 1.65em; margin: 5px 0px;\">The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
+    "documentation": "<style>@import url('https://fonts.googleapis.com/css2?family=Ubuntu');</style>\n<p class=\"text-nowrap\" style={{fontFamily: 'Ubuntu', fontSize: '1.65em', margin: '5px 0px'}}>The quick brown fox jumps over the lazy dog.<br />0123456789 , : ! ? # % & ( ) - + =</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -70867,7 +71090,7 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/HighlightDepthMode"
   },
-  "@roblox/enum/HighlightDepthMode.Default": {
+  "@roblox/enum/HighlightDepthMode.Occluded": {
     "documentation": "",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
@@ -70880,7 +71103,7 @@
     "documentation": "",
     "keys": {
       "AlwaysOnTop": "@roblox/enum/HighlightDepthMode.AlwaysOnTop",
-      "Default": "@roblox/enum/HighlightDepthMode.Default"
+      "Occluded": "@roblox/enum/HighlightDepthMode.Occluded"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/HighlightDepthMode"
   },
@@ -76067,7 +76290,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/NormalId"
   },
   "@roblox/enum/OrientationAlignmentMode.OneAttachment": {
-    "documentation": "",
+    "documentation": "<p>Use one attachment.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76076,7 +76299,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/OrientationAlignmentMode"
   },
   "@roblox/enum/OrientationAlignmentMode.TwoAttachment": {
-    "documentation": "",
+    "documentation": "<p>Use two attachments.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76085,7 +76308,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/OrientationAlignmentMode"
   },
   "@roblox/enum/OrientationAlignmentMode": {
-    "documentation": "",
+    "documentation": "<p>The OrientationAlignmentMode Enum is used to select the number of <code>Attachment</code>s used in an alignment.</p>",
     "keys": {
       "OneAttachment": "@roblox/enum/OrientationAlignmentMode.OneAttachment",
       "TwoAttachment": "@roblox/enum/OrientationAlignmentMode.TwoAttachment"
@@ -77271,7 +77494,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PoseEasingStyle"
   },
   "@roblox/enum/PositionAlignmentMode.OneAttachment": {
-    "documentation": "",
+    "documentation": "<p>Use one attachment.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -77280,7 +77503,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PositionAlignmentMode"
   },
   "@roblox/enum/PositionAlignmentMode.TwoAttachment": {
-    "documentation": "",
+    "documentation": "<p>Use two attachments.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -77289,7 +77512,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PositionAlignmentMode"
   },
   "@roblox/enum/PositionAlignmentMode": {
-    "documentation": "",
+    "documentation": "<p>The PositionAlignmentMode Enum is used to select the number of <code>Attachment</code>s used in an alignment.</p>",
     "keys": {
       "OneAttachment": "@roblox/enum/PositionAlignmentMode.OneAttachment",
       "TwoAttachment": "@roblox/enum/PositionAlignmentMode.TwoAttachment"
@@ -77353,7 +77576,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PrivilegeType"
   },
   "@roblox/enum/ProductLocationRestriction.AvatarShop": {
-    "documentation": "",
+    "documentation": "<p>Item is purchasable only in the Avatar Shop.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -77362,7 +77585,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/ProductLocationRestriction"
   },
   "@roblox/enum/ProductLocationRestriction.AllowedGames": {
-    "documentation": "",
+    "documentation": "<p>Item is purchasable in the Avatar Shop and experiences owned by the item creator.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -77371,7 +77594,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/ProductLocationRestriction"
   },
   "@roblox/enum/ProductLocationRestriction.AllGames": {
-    "documentation": "",
+    "documentation": "<p>(Default) Item is purchasable in the Avatar Shop and all experiences.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -84337,7 +84560,7 @@
     "documentation": ""
   },
   "@luau/global/debug.traceback/overload/(string?, number?) -> string": {
-    "documentation": "<p>Returns a string of undefined format which describes the current function call stack.</p>",
+    "documentation": "<p>Returns a string of undefined format that describes the current function call stack.</p>",
     "params": [
       {
         "name": "message",
@@ -84366,7 +84589,7 @@
     "documentation": ""
   },
   "@luau/global/debug.traceback/overload/(thread, string?, number?) -> string": {
-    "documentation": "<p>''</p>",
+    "documentation": "<p>Returns a string of undefined format that describes the current function call stack.</p>",
     "params": [
       {
         "name": "thread",

@@ -12,5 +12,5 @@ Studio.Framework.PageNavigation.LastPage,Last page,Last page,Última página,Der
 Studio.Framework.PageNavigation.NextPage,Next page,Next page,Siguiente página,Prochaine page,次のページ,다음 페이지,Próxima página,下一页,下一页,下一頁
 Studio.Framework.PageNavigation.PreviousPage,Previous page,Previous page,Página anterior,Page précédente,前のページ,이전 페이지,Página anterior,上一页,上一页,上一頁
 Studio.Framework.PageNavigation.PageCount,of {count:int},of {count:int},de {count:int},de {count:int},（全 {count:int} ページ中）,{count:int} 중,de {count:int},共 {count:int} 页,共 {count:int} 页,（共 {count:int} 頁）
-Studio.Framework.AssetPreview.ByUsername,By @{username},By @{username}, , , , , , , , 
-Studio.Framework.AssetPreview.Report,Report,Report, , , , , , , , 
+Studio.Framework.AssetPreview.ByUsername,By @{username},By @{username},De {username}, ,作：{username},제작: @{username},De @{username}, , ,創作者：@{username}
+Studio.Framework.AssetPreview.Report,Report,Report,Reportar, ,報告する,보고서,Informar, , ,舉報

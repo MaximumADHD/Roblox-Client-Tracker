@@ -135,10 +135,8 @@ Studio.AnimationClipEditor.Title.EventName, ,Event Name
 Studio.AnimationClipEditor.Title.IK, ,IK
 Studio.AnimationClipEditor.Title.ManageIK, ,Manage IK
 Studio.AnimationClipEditor.Title.MaxFPS, ,Maximum frame rate is 120 fps
-Studio.AnimationClipEditor.Title.MaxPBS, ,Maximum playback speed is 10x
 Studio.AnimationClipEditor.Title.MaxPBSParam, ,Maximum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.MinFPS, ,Minimum frame rate is 1 fps
-Studio.AnimationClipEditor.Title.MinPBS, ,Minimum playback speed is 0.1x
 Studio.AnimationClipEditor.Title.MinPBSParam, ,Minimum playback speed is {speed}x
 Studio.AnimationClipEditor.Title.NewDuration, ,New Duration
 Studio.AnimationClipEditor.Title.NoAnimationExists_Migrated, ,"No animation exists for {rig}, please create one to start animating"

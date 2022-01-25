@@ -24,7 +24,7 @@ void main()
     vec4 f0 = texture2D(DiffuseMapTexture, VARYING0);
     vec4 f1 = texture2D(Tc2DiffuseMapTexture, VARYING1);
     float f2 = f1.w;
-    if (smoothstep(0.0, 1.0, f2) < (fract(52.98291778564453125 * fract(dot(gl_FragCoord.xy, vec2(0.067110560834407806396484375, 0.005837149918079376220703125)))) * CB0[47].z))
+    if (f2 < (0.5 * CB0[47].z))
     {
         discard;
     }

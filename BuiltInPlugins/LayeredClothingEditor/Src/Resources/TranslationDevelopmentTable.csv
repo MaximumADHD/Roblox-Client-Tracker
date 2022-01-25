@@ -39,7 +39,8 @@ Studio.LayeredClothingEditor.AssetType.Waist,Waist
 Studio.LayeredClothingEditor.Dialog.Cancel,Cancel
 Studio.LayeredClothingEditor.Dialog.Confirm,Confirm
 Studio.LayeredClothingEditor.Dialog.DefaultTitle,Layered Clothing Editor
-Studio.LayeredClothingEditor.EditAndPreview.Prompt,"Move, rotate, and scale accessory within the bounding box to adjust fitting. Once finished, click next to generate the asset."
+Studio.LayeredClothingEditor.EditAndPreview.PromptCage,Adjust fitting by editing the cage mesh vertices. Use preview to access fitting quality with different options for bodies and animations.
+Studio.LayeredClothingEditor.EditAndPreview.PromptNoCage,"Move, rotate and scale accessory within the bounding box to adjust fitting. Use preview to access fitting quality on different bodies and animations."
 Studio.LayeredClothingEditor.EditingMode.InnerCage,Inner Cage
 Studio.LayeredClothingEditor.EditingMode.MeshPart,Mesh Part
 Studio.LayeredClothingEditor.EditingMode.OuterCage,Outer Cage
@@ -63,11 +64,11 @@ Studio.LayeredClothingEditor.Flow.Next,Next
 Studio.LayeredClothingEditor.Generate.Prompt,The asset is ready.
 Studio.LayeredClothingEditor.Generate.Wait,Please wait while the asset is being generated...
 Studio.LayeredClothingEditor.LatticeTool.GenerateMessageBoxText,The previous lattice on this deformer will be replaced. Any transformations on the lattice will be overwritten. Proceed?
-Studio.LayeredClothingEditor.Main.Title,Accessory Tool
-Studio.LayeredClothingEditor.Main.ToolbarButton,Accessory Tool
+Studio.LayeredClothingEditor.Main.Title,Accessory Fitting Tool
+Studio.LayeredClothingEditor.Main.ToolbarButton,Accessory Fitting Tool
 Studio.LayeredClothingEditor.Main.Tooltip,Edit and Preview Cage Mesh for Clothing and Accessories
 Studio.LayeredClothingEditor.Meta.PluginName,Layered Clothing Editor
-Studio.LayeredClothingEditor.Meta.ToolbarName,Accessory Tool
+Studio.LayeredClothingEditor.Meta.ToolbarName,Avatar
 Studio.LayeredClothingEditor.Preview.AddNew,Add new...
 Studio.LayeredClothingEditor.Preview.AnimationInvalidAdd,Only a KeyframeSequence Instance can be added
 Studio.LayeredClothingEditor.Preview.Animations,Animations
@@ -84,6 +85,7 @@ Studio.LayeredClothingEditor.Preview.Transparency,Transparency
 Studio.LayeredClothingEditor.Reset.InnerCage,Reset Inner Cage
 Studio.LayeredClothingEditor.Reset.OuterCage,Reset Outer Cage
 Studio.LayeredClothingEditor.Select.Click,Click here to begin selecting...
+Studio.LayeredClothingEditor.Select.Invalid,Invalid Selection
 Studio.LayeredClothingEditor.Select.LoseChanges,You have unpublished changes on the previous item. You will lose those changes if you select this new item. Proceed?
 Studio.LayeredClothingEditor.Select.Part,Part:
 Studio.LayeredClothingEditor.Select.Prompt,Click the part you want to become the accessory.

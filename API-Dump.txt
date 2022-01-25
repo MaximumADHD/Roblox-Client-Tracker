@@ -853,6 +853,9 @@ Class CookiesService : Instance [NotCreatable] [Service]
 Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
+Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
+	Function void CrossDMScriptChangeListener:StartWatchingScript(string scriptRef, int debuggerConnectionId) {RobloxScriptSecurity}
+	Event CrossDMScriptChangeListener.GuidNameChanged(string guid, string fullName) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
 	Function Objects CustomEvent:GetAttachedReceivers() [Deprecated]
 	Function void CustomEvent:SetValue(float newValue) [Deprecated]
@@ -966,6 +969,7 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Event DebuggerConnection.BreakpointRemoved(Breakpoint breakpoint, Enum.BreakpointRemoveReason reason) {RobloxScriptSecurity}
 	Event DebuggerConnection.Paused(PausedState pausedState, Enum.DebuggerPauseReason reason) {RobloxScriptSecurity}
 	Event DebuggerConnection.Resumed(PausedState pausedState) {RobloxScriptSecurity}
+Class LocalDebuggerConnection : DebuggerConnection [NotCreatable] [NotReplicated]
 Class DebuggerConnectionManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Property double DebuggerConnectionManager.Timeout {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function int DebuggerConnectionManager:ConnectLocal(DataModel dataModel) {RobloxScriptSecurity}
@@ -995,6 +999,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
+	Function bool DebuggerUIService:IsConnectionForPlayDataModel(int debuggerConnectionId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
@@ -3918,7 +3923,7 @@ Class TeleportService : Instance [NotCreatable] [Service]
 	Function void TeleportService:TeleportToPrivateServer(int64 placeId, string reservedServerAccessCode, Objects players, string spawnName = "", Variant teleportData, Instance customLoadingScreen = nil)
 	Function void TeleportService:TeleportToSpawnByName(int64 placeId, string spawnName, Instance player = nil, Variant teleportData, Instance customLoadingScreen = nil)
 	Event TeleportService.LocalPlayerArrivedFromTeleport(Instance loadingGui, Variant dataTable)
-	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage)
+	Event TeleportService.TeleportInitFailed(Instance player, Enum.TeleportResult teleportResult, string errorMessage, int64 placeId, Instance teleportOptions)
 Class TemporaryCageMeshProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TerrainRegion : Instance
@@ -4158,7 +4163,7 @@ Class UserGameSettings : Instance [NotCreatable] [UserSettings]
 	Property bool UserGameSettings.UsedHideHudShortcut {RobloxScriptSecurity}
 	Property bool UserGameSettings.VREnabled {RobloxScriptSecurity}
 	Property int UserGameSettings.VRRotationIntensity {RobloxScriptSecurity}
-	Property bool UserGameSettings.VignetteEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool UserGameSettings.VignetteEnabled {✏️RobloxScriptSecurity}
 	Function int UserGameSettings:GetCameraYInvertValue()
 	Function bool UserGameSettings:GetOnboardingCompleted(string onboardingId)
 	Function bool UserGameSettings:GetTutorialState(string tutorialId) {RobloxScriptSecurity}

@@ -527,6 +527,7 @@ Studio.App.TeamCreate.UnableToFetchPlaceAndUniverseInfo,Failed to fetch place or
 Studio.App.TeamCreate.ConnectionResult1,,Connection Result: %1,Connection Result: %1
 Studio.App.TeamCreate.MembersOfYourGroupCanWorkTogether,,"Members of your group can work together, see updates instantly. Contact your admin to enable Team Create.","Members of your group can work together, see updates instantly. Contact your admin to enable Team Create."
 Studio.App.TeamCreate.RemovingThisUserWillPrevent,,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?,Removing this user will prevent them from accessing this Team Create game. Are you sure you want to do this?
+Studio.App.TeamCreate.UpdatingScriptVersionHistory,,Adding current script versions to Script Version History before closing place %1.,Adding current script versions to Script Version History before closing place %1.
 Studio.App.TeamCreate.Form,,Form,Form
 Studio.App.TeamCreate.EnableTeamCreateEditPlaceTogether,,"Enable Team Create: edit your place together, see updates instantly.","Enable Team Create: edit your place together, see updates instantly."
 Studio.App.TeamCreate.SavingLatestUpdatesAndEnablingTeamCreate,,Saving latest updates and enabling Team Create...,Saving latest updates and enabling Team Create...
@@ -1249,7 +1250,7 @@ Studio.App.RobloxRibbonMainWindow.PreciselyManipulateAnObject,,Precisely manipul
 Studio.App.RobloxRibbonMainWindow.Prismatic,,Prismatic,Prismatic
 Studio.App.RobloxRibbonMainWindow.PushScriptTCServer,,Push the current edits to a script to the Team Create server,Push the current edits to a script to the Team Create server
 Studio.App.RobloxRibbonMainWindow.RecentFiles,,Recent Files,Recent Files
-Studio.App.RobloxRibbonMainWindow.RecentPlaces,,Recent Places,Recent Places
+Studio.App.RobloxRibbonMainWindow.RecentGames,,Recent Games,Recent Games
 Studio.App.RobloxRibbonMainWindow.RecordAVideo,,Record a video,Record a video
 Studio.App.RobloxRibbonMainWindow.Render,,Render,Render
 Studio.App.RobloxRibbonMainWindow.ResizeAnObject,,Resize an Object,Resize an Object
@@ -1503,6 +1504,8 @@ Studio.App.ScriptAnalysisWidget.NumWarningsTextFmt2,,%1 of %2 Warnings,%1 of %2 
 Studio.App.ScriptAnalysisWidget.ErrorDisplayToggle,,Toggle lint error display,Toggle lint error display
 Studio.App.ScriptAnalysisWidget.WarningDisplayToggle,,Toggle lint warning display,Toggle lint warning display
 Studio.App.DocumentationView.LearnMore,,Learn more,Learn more
+Studio.App.DocumentationView.Overload,,+1 overload,+1 overload
+Studio.App.DocumentationView.Overload.Plural1,%1 is an integer. example '+2 overloads',+%1 overloads,+%1 overloads
 Studio.App.DocumentationView.Overloads,,overloads,overloads
 Studio.App.ScriptRecoveryWidget.OpenFile,,Open file,Open file
 Studio.App.ScriptRecoveryWidget.SelectAndOpenScript,,Select and open script,Select and open script
@@ -2135,8 +2138,8 @@ Studio.App.BetaFeatures.ConvertToTerrainTitle,,TerrainTools: ConvertTool Beta,Te
 Studio.App.BetaFeatures.ConvertToTerrainDescription,,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.,Enables the Convert TerrainTool which can convert Parts into Terrain materials and biomes.
 Studio.App.BetaFeatures.LayeredClothingBetaTitle2,,3D Layered Clothing,3D Layered Clothing
 Studio.App.BetaFeatures.LayeredClothingBetaDescription2,,Enable 3D Layered Clothing in your experiences.,Enable 3D Layered Clothing in your experiences.
-Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Tool,Accessory Tool
-Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Tool to edit caged clothing items as well as rigid accessories.
+Studio.App.BetaFeatures.AccessoryToolBetaTitle,,Accessory Fitting Tool,Accessory Fitting Tool
+Studio.App.BetaFeatures.AccessoryToolBetaDescription,,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.,Use Accessory Fitting Tool to edit caged clothing items as well as rigid accessories.
 Studio.App.BetaFeatures.FacialAnimationBetaTitle,,Facial Animation,Facial Animation
 Studio.App.BetaFeatures.FacialAnimationBetaDescription,,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.,Enable the FaceControls instance which supports facial animation for avatars that have a dynamic-head.
 Studio.App.BetaFeatures.ProximityPromptTitle,,Proximity Prompt Beta,Proximity Prompt Beta

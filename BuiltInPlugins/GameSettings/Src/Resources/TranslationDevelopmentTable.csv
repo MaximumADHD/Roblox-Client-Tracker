@@ -119,7 +119,6 @@ Studio.GameSettings.General.ErrorNameEmpty,Name cannot be empty., ,Name cannot b
 Studio.GameSettings.General.ImagePreview,Preview, ,Preview
 Studio.GameSettings.General.PreviewDialogHeader,Preview, ,Preview
 Studio.GameSettings.Monetization.DEPRECATED_VIPServersHint,Paid Access must not be enabled and the game must be public to enable VIP Servers., ,Paid Access must not be enabled and the game must be public to enable VIP Servers.
-Studio.GameSettings.Places.NumberError,Please enter a number betwen {minRange:int} and {maxRange:int}., ,Please enter a number betwen {minRange:int} and {maxRange:int}.
 Studio.GameSettings.General.GenreAdventure,Adventure, ,Adventure
 Studio.GameSettings.Monetization.BadgeImage,Badge Image, ,Badge Image
 Studio.GameSettings.General.GenreBuilding,Building, ,Building
@@ -341,6 +340,7 @@ Studio.GameSettings.Places.OptimizedTitle,Roblox Optimized, ,Roblox Optimized
 Studio.GameSettings.Places.OptimizedDescription,Fills your server to optimize for the best social gameplay experience., ,Fills your server to optimize for the best social gameplay experience.
 Studio.GameSettings.Places.CustomizeSlotsTitle,Customize Reserved Server Slots, ,Customize Reserved Server Slots
 Studio.GameSettings.Places.CustomizeSlotsDescription,Friends are more likely to join players in your game if you reserve slots., ,Friends are more likely to join players in your game if you reserve slots.
+Studio.GameSettings.Places.NumberError,Please enter a number between {minRange:int} and {maxRange:int}., ,Please enter a number between {minRange:int} and {maxRange:int}.
 Studio.GameSettings.Monetization.FeeLabel,{1}% Fee:, ,{1}% Fee:
 Studio.GameSettings.Monetization.TitlePaidAccess,Paid Access, ,Paid Access
 Studio.GameSettings.Monetization.Price,Price:, ,Price:
