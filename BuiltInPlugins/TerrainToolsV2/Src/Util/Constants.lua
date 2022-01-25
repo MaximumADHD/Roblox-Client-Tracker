@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent
 
 local TerrainEnums = require(Plugin.Src.Util.TerrainEnums)
@@ -34,10 +30,6 @@ Constants.ToolIcons = {
 	[ToolId.Flatten] = TexturePath .. "mt_flatten.png",
 	[ToolId.Paint] = TexturePath .. "mt_paint.png",
 }
-
-if not convertToolRemoval then
-	Constants.ToolIcons[ToolId.ConvertPart] = TexturePath .. "mt_convert_part.png"
-end
 
 Constants.INITIAL_BRUSH_SIZE = 6
 Constants.MIN_BRUSH_SIZE = 1

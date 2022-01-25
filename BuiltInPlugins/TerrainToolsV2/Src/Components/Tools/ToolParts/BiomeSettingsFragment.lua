@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -16,13 +12,6 @@ local BiomeSelector = require(ToolParts.BiomeSelector)
 local LabeledSlider = require(ToolParts.LabeledSlider)
 local LabeledToggle = require(ToolParts.LabeledToggle)
 
-local BrushProperties
-local HeightSelectionToggle
-if not convertToolRemoval then
-	BrushProperties = ToolParts.BrushProperties
-	HeightSelectionToggle = require(BrushProperties.HeightSelectionToggle)
-end
-
 local Constants = require(Plugin.Src.Util.Constants)
 
 local BiomeSettingsFragment = Roact.PureComponent:extend("BiomeSettingsFragment")
@@ -31,11 +20,6 @@ function BiomeSettingsFragment:render()
 	local localization = self.props.Localization:get()
 
 	local layoutOrder = self.props.LayoutOrder or 1
-
-	local useHeightPicker
-	if not convertToolRemoval then
-		useHeightPicker = self.props.showHeightPicker
-	end
 
 	return Roact.createFragment({
 		BiomeSelect = Roact.createElement(BiomeSelector, {
@@ -52,15 +36,6 @@ function BiomeSettingsFragment:render()
 			SnapIncrement = Constants.BIOME_SNAP_INCREMENT,
 			Value = self.props.biomeSize,
 			SetValue = self.props.setBiomeSize,
-		}),
-
-		HeightSelection = FFlagTerrainToolsConvertPartTool and useHeightPicker and Roact.createElement(HeightSelectionToggle, {
-			LayoutOrder = layoutOrder + 2,
-			Label = localization:getText("Generate", "BaseLevel"),
-			heightPicker = self.props.heightPicker,
-			setHeightPicker = self.props.setHeightPicker,
-			planePositionY = self.props.planePositionY,
-			setPlanePositionY = self.props.setPlanePositionY,
 		}),
 
 		CavesToggle = Roact.createElement(LabeledToggle, {

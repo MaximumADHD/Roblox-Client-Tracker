@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -42,7 +38,6 @@ return {
 	TerrainGeneration = require(TerrainInterfaces.TerrainGenerationInstance),
 	TerrainImporter = require(TerrainInterfaces.TerrainImporterInstance),
 	SeaLevel = require(TerrainInterfaces.TerrainSeaLevel),
-	PartConverter = not convertToolRemoval and require(TerrainInterfaces.PartConverter) or nil,
 
 	ImageLoader = require(script.Parent.Util.ImageLoader),
 	CalloutController =  require(script.Parent.Util.CalloutController),

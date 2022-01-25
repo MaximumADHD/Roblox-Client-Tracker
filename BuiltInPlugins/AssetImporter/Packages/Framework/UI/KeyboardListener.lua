@@ -18,7 +18,7 @@ local Typecheck = require(Framework.Util).Typecheck
 local ShowOnTop = require(Framework.UI.ShowOnTop)
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 })
 
 
@@ -48,7 +48,7 @@ end
 function KeyboardListener:didMount()
 	local props = self.props
 	self.keysHeld = {}
-	self.target = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()
+	self.target = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and props.Focus:get() or props.Focus:getTarget()
 
 	if self.target:IsA("PluginGui") then
 		self.focusConnection = self.target.WindowFocusReleased:Connect(function()

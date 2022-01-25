@@ -8,7 +8,11 @@ local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework).ContextServices
 
 local ContextItem = ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Plugin.Framework).ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 local Impl = require(Plugin.Src.ContextServices.NetworkingImpl)
 
 local Item = ContextItem:extend(script.Name)
@@ -21,10 +25,12 @@ function Item.new(...)
 	return setmetatable(self, Item)
 end
 
-function Item:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Item:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Item:get()

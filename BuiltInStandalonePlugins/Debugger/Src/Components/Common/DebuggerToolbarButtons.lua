@@ -27,30 +27,33 @@ local TOOLBAR_NAME = "Debugger"
 function DebuggerToolbarButtons:init(props)
 	self.onResume = function()
 		local uiService = game:GetService("DebuggerUIService")
-		uiService:resume()
+		uiService:Resume()
 	end
 
 	self.onPause = function()
 		local uiService = game:GetService("DebuggerUIService")
-		uiService:pause()
+		uiService:Pause()
 	end
 
 	self.onStepOver = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		local connection = debuggerConnectionManager:getConnectionById(self.props.CurrentConnectionId)
-		connection:Step(self.props.CurrentThreadId)
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:Step(currThread, function() end)
 	end
 
 	self.onStepInto = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		local connection = debuggerConnectionManager:getConnectionById(self.props.CurrentConnectionId)
-		connection:StepInto(self.props.CurrentThreadId)
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:StepIn(currThread, function() end)
 	end
 
 	self.onStepOut = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		local connection = debuggerConnectionManager:getConnectionById(self.props.CurrentConnectionId)
-		connection:StepOut(self.props.CurrentThreadId)
+		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
+		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
+		connection:StepOut(currThread, function() end)
 	end
 end
 
@@ -72,52 +75,63 @@ function DebuggerToolbarButtons:didMount()
 end
 
 function DebuggerToolbarButtons:renderButtons(toolbar)
+	local uiService = game:GetService("DebuggerUIService")
+	local connectionForPlayDataModel = false
+	if self.props.CurrentConnectionId ~= -1 then
+		connectionForPlayDataModel = uiService:IsConnectionForPlayDataModel(self.props.CurrentConnectionId)
+	end
 	local isPaused = self.props.IsPaused
+	
 	return {
-		ResumeButton = isPaused and Roact.createElement(PluginButton, {
+		ResumeButton = Roact.createElement(PluginButton, {
 			Name = "simulationResumeActionV2",
 			Toolbar = toolbar,
 			Active = false,
+			Enabled = isPaused,
 			Title = RESUME_META_NAME,
 			Tooltip = "", --todo we have this
 			Icon = "rbxasset://textures/Debugger/Resume.png",
 			OnClick = self.onResume,
 			ClickableWhenViewportHidden = true,
 		}),
-		PauseButton = isPaused and Roact.createElement(PluginButton, {
+		PauseButton = Roact.createElement(PluginButton, {
 			Name = "simulationPauseActionV2",
 			Toolbar = toolbar,
 			Active = false,
+			Enabled = (not isPaused and connectionForPlayDataModel),
 			Title = PAUSE_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Pause.png",
 			OnClick = self.onPause,
 			ClickableWhenViewportHidden = true,
 		}),
-		StepOverButton = isPaused and Roact.createElement(PluginButton, {
+		StepOverButton = Roact.createElement(PluginButton, {
 			Name = "stepOverActionV2",
 			Toolbar = toolbar,
 			Active = false,
+			Enabled = isPaused,
 			Title = STEPOVER_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Over.png",
 			OnClick = self.onStepOver,
 			ClickableWhenViewportHidden = true,
 		}),
-		StepIntoButton = isPaused and Roact.createElement(PluginButton, {
+		StepIntoButton = Roact.createElement(PluginButton, {
 			Name = "stepIntoActionV2",
 			Toolbar = toolbar,
 			Active = false,
+			Enabled = isPaused,
 			Title = STEPINTO_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-In.png",
 			OnClick = self.onStepInto,
 			ClickableWhenViewportHidden = true,
 		}),
-		StepOutButton = isPaused and Roact.createElement(PluginButton, {
+		StepOutButton = Roact.createElement(PluginButton, {
 			Name = "stepOutActionV2",
 			Toolbar = toolbar,
 			Active = false,
+			Enabled = isPaused,
 			Title = STEPOUT_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Out.png",
@@ -143,14 +157,10 @@ DebuggerToolbarButtons = ContextServices.withContext({
 DebuggerToolbarButtons = RoactRodux.connect(
 	function(state, props)
 		local common = state.Common
-		local isPaused = false
-		for k,v in pairs(common.debuggerConnectionIdToDST) do
-			isPaused = true
-			break
-		end
-
+		local isPaused = common.isPaused
 		local currentThreadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
 		local currentConnectionId = common.currentDebuggerConnectionId
+		
 		return {
 			IsPaused = isPaused,
 			CurrentThreadId = currentThreadId,

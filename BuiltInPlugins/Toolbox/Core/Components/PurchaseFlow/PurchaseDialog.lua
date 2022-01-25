@@ -2,8 +2,7 @@
 	A generic dialog used for purchase flow.
 
 	Props:
-		table Buttons = The buttons to use in this dialog. See StyledDialog
-			in the UILibrary for examples.
+		table Buttons = The buttons to use in this dialog.
 		string Title = The title text of the dialog.
 		string Prompt = The text displayed within the dialog.
 		Content Thumbnail = The thumbnail image displayed within the dialog.

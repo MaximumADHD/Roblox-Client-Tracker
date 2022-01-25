@@ -11,7 +11,7 @@
 		int LayoutOrder
 		UDim2 Size
 ]]
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
+local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
 

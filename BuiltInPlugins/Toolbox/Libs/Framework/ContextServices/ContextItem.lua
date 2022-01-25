@@ -1,4 +1,7 @@
 --[[
+	TODO FFlagDevFrameworkUseCreateContext: When flag is retired, update the docs to explain that
+	React.createContext provider is used, and you instead use an updateSignal if required.
+
 	A base ContextItem used to create new items which will go into Context.
 	Use the extend function to extend this class, then override the createProvider function.
 	The createProvider function takes a root of a Roact tree, and creates a Provider
@@ -20,12 +23,6 @@
 			return self
 		end
 
-		function MyItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-			}, {root})
-		end
-
 		function MyItem:get()
 			return self.item
 		end
@@ -37,6 +34,9 @@ local Symbol = Util.Symbol
 local Signal = Util.Signal
 
 local Roact = require(Framework.Parent.Roact)
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Framework.ContextServices.Provider)
 
 local contextItemMetatable = {}
@@ -49,6 +49,7 @@ local ContextItem = {}
 ContextItem.__index = ContextItem
 setmetatable(ContextItem, contextItemMetatable)
 
+-- TODO FFlagDevFrameworkUseCreateContext: Remove this when flag is retired
 local missingCreateProviderMessage = [[
 The ContextItem %q is missing the `createProvider` method.
 `createProvider` must be defined when creating a Context item!]]
@@ -74,22 +75,30 @@ function ContextItem:extend(name)
 	return class
 end
 
---[[
-	Creates a Provider for this context item which will be used
-	to provide it to context.
+if FFlagDevFrameworkUseCreateContext then
+	--[[
+		Specifies a signal which will fire when any consumers should be re-rendered.
+	]]
+	function ContextItem:getSignal()
+		return nil
+	end
+else
+	--[[
+		Creates a Provider for this context item which will be used
+		to provide it to context.
 
-	Expected Parameters:
-		Element root = The root element to place the provider above.
+		Expected Parameters:
+			Element root = The root element to place the provider above.
 
-	Returns:
-		A Provider element which provides self and passes {root} as its child.
-]]
-function ContextItem:createProvider()
-	local message = missingCreateProviderMessage:format(
-		tostring(self)
-	)
-
-	error(message, 0)
+		Returns:
+			A Provider element which provides self and passes {root} as its child.
+	]]
+	function ContextItem:createProvider()
+		local message = missingCreateProviderMessage:format(
+			tostring(self)
+		)
+		error(message, 0)
+	end
 end
 
 --[[
@@ -159,15 +168,23 @@ function ContextItem:createSimple(name, options)
 		self._obj = nil
 	end
 
+	if FFlagDevFrameworkUseCreateContext then
+		function SimpleContextItem:getSignal()
+			return self._updateSignal
+		end
+	end
+
 	function SimpleContextItem:get()
 		return options and options.getValues and options.getValues(self._obj) or self._obj
 	end
 
-	function SimpleContextItem:createProvider(root)
-		return Roact.createElement(Provider, {
-			ContextItem = self,
-			UpdateSignal = self._updateSignal,
-		}, {root})
+	if not FFlagDevFrameworkUseCreateContext then
+		function SimpleContextItem:createProvider(root)
+			return Roact.createElement(Provider, {
+				ContextItem = self,
+				UpdateSignal = self._updateSignal,
+			}, {root})
+		end
 	end
 
 	return SimpleContextItem

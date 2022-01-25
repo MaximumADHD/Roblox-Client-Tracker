@@ -9,8 +9,8 @@
 ]]
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
-local FFlagStudioTCSaveAsStaysOldSession2 = game:GetFastFlag("StudioTCSaveAsStaysOldSession2")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
+local FFlagStudioTCSaveAsStaysOldSession3 = game:GetFastFlag("StudioTCSaveAsStaysOldSession3")
 
 local StudioService = game:GetService("StudioService")
 
@@ -129,7 +129,7 @@ local function saveAll(state, localization, apiImpl, email)
 	apiImpl.Develop.V2.Universes.configuration(gameId, configuration):makeRequest()
 	:andThen(function()
 		StudioService:SetUniverseDisplayName(configuration.name)
-		if FFlagStudioTCSaveAsStaysOldSession2 then
+		if FFlagStudioTCSaveAsStaysOldSession3 then
 			StudioService:RefreshDocumentDisplayName()
 		else
 			StudioService:DEPRECATED_SetDocumentDisplayName(configuration.name)

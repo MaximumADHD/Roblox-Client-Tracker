@@ -8,7 +8,6 @@ local isCli = require(Plugin.Core.Util.isCli)
 
 local Category = require(Plugin.Core.Types.Category)
 
-local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 
@@ -20,14 +19,13 @@ local Workspace = game:GetService("Workspace")
 local StudioService = game:GetService("StudioService")
 local Lighting = game:GetService("Lighting")
 local ToolboxService
-if FFlagToolboxMeshPartFiltering then
-	-- ToolboxService is not available in roblox-cli.
-	if isCli() then
-		ToolboxService = {}
-	else
-		ToolboxService = game:GetService("ToolboxService")
-	end
+-- ToolboxService is not available in roblox-cli.
+if isCli() then
+	ToolboxService = {}
+else
+	ToolboxService = game:GetService("ToolboxService")
 end
+
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -83,8 +81,6 @@ local function insertAudio(assetId, assetName)
 end
 
 local function sanitizeMeshAsset(assetId, instances, localization)
-	assert(FFlagToolboxMeshPartFiltering, "Expected FFlagToolboxMeshPartFiltering to be true")
-
 	local changed = false
 	local filtered = {}
 	for _, instance in ipairs(instances) do
@@ -155,7 +151,7 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 		model.Name = "ToolboxTemporaryInsertModel"
 		model.Parent = targetParent
 
-		if FFlagToolboxMeshPartFiltering and assetTypeId == Enum.AssetType.MeshPart.Value then
+		if assetTypeId == Enum.AssetType.MeshPart.Value then
 			assetInstance = sanitizeMeshAsset(assetId, assetInstance, localization)
 		end
 		doScriptConfirmationIfContainsScripts(assetName, assetInstance, insertToolPromise)
@@ -404,9 +400,7 @@ function InsertAsset.doInsertAsset(options, insertToolPromise)
 
 	ChangeHistoryService:SetWaypoint(("Before insert asset %d"):format(assetId))
 
-	if FFlagToolboxMeshPartFiltering then
-		options.localization = InsertAsset._localization
-	end
+	options.localization = InsertAsset._localization
 
 	local asset, errorMessage = dispatchInsertAsset(options, insertToolPromise)
 
@@ -486,26 +480,24 @@ local function setSourceAssetIdOnInstances(assetId, instances)
 	end
 end
 
-if FFlagToolboxMeshPartFiltering then
-	function InsertAsset.registerLocalization(localization)
-		InsertAsset._localization = localization
-	end
+function InsertAsset.registerLocalization(localization)
+	InsertAsset._localization = localization
+end
 
-	function InsertAsset.registerProcessDragHandler()
-		ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
-			setSourceAssetIdOnInstances(assetId, instances)
+function InsertAsset.registerProcessDragHandler()
+	ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
+		setSourceAssetIdOnInstances(assetId, instances)
 
-			-- Do not block the insert on tracking the analytic
-			spawn(function()
-				Analytics.reportDragInsertFinished(assetId, assetTypeId)
-			end)
+		-- Do not block the insert on tracking the analytic
+		spawn(function()
+			Analytics.reportDragInsertFinished(assetId, assetTypeId)
+		end)
 
-			if assetTypeId == Enum.AssetType.MeshPart.Value then
-				return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
-			end
-
-			return instances
+		if assetTypeId == Enum.AssetType.MeshPart.Value then
+			return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
 		end
+
+		return instances
 	end
 end
 

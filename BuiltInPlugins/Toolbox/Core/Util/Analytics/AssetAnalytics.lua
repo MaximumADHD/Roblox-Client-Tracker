@@ -1,7 +1,6 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -147,8 +146,8 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
         label = assetData.Asset.Id,
         value = 0,
 
-        isVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and assetData.Creator.IsVerifiedCreator or nil,
-        isEndorsed = FFlagToolboxVerifiedCreatorBadges and assetData.Asset.IsEndorsed or nil,
+        isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
+        isEndorsed = assetData.Asset.IsEndorsed,
     })
 
     -- We track "ID" as standard

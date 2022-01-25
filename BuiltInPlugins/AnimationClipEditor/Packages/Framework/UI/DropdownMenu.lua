@@ -47,7 +47,7 @@ local TextLabel = require(UI.TextLabel)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 	FFlagToolboxAssetGridRefactor3 = {"ToolboxAssetGridRefactor3"},
 })
 
@@ -206,7 +206,7 @@ function DropdownMenu:renderMenu()
 	local width = props.Width or style.Width
 	local offset = prioritize(style.Offset, Vector2.new(0, 0))
 
-	local pluginGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()
+	local pluginGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and props.Focus:get() or props.Focus:getTarget()
 
 	local menuPositionAndSize = self.getPositionAndSize(pluginGui, width, offset)
 	local x = menuPositionAndSize.X

@@ -12,7 +12,7 @@
 		function DeviceSelected(id, selected) = Callback for when device is selected. Accepts the id
 			of box and selection state to set in store
 ]]
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then

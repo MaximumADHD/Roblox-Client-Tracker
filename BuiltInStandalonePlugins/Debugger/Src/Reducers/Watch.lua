@@ -24,7 +24,7 @@ local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 
 --Other
-local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 local Resumed = require(Actions.Common.Resumed)
 local ClearConnectionData = require(Actions.Common.ClearConnectionData)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
@@ -191,7 +191,7 @@ local productionStartStore = {
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[BreakpointHit.name] = function(state : WatchStore, action : BreakpointHit.Props)	
+	[SimPaused.name] = function(state : WatchStore, action : SimPaused.Props)	
 		assert((state.stateTokenToRoots[action.debuggerStateToken] == nil or 
 			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] == nil) and
 			(state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil or 

@@ -7,7 +7,7 @@ local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNumber)
 local ResumedAction = require(Actions.Common.Resumed)
 local Step = require(Actions.Common.Step)
-local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 local SetCurrentBreakpointId = require(Actions.Common.SetCurrentBreakpointId)
 local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
@@ -120,15 +120,15 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[BreakpointHit.name] = function(state : CommonStore, action : BreakpointHit.Props)
+	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
 		local newDebuggerConnectionMap = deepCopy(state.debuggerConnectionIdToDST)
 		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
 		
-		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap})
+		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap}, {isPaused = true})
 	end,
 	
 	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)
-		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId}, {isPaused = true})
+		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId})
 	end,
 
 	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)

@@ -17,14 +17,17 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 			return
 		end
 		
-		local currentFrame = currentThread:GetFrame(stepStateBundle.frameNumber)
+		local frameNumber = stepStateBundle.frameNumber - 1 -- C++ uses index at 0
+		local currentFrame = currentThread:GetFrame(frameNumber)
 		if currentFrame == nil then
 			assert(false)
 			return
 		end
-		
+
 		debuggerConnection:EvaluateWatch(expressionString, currentFrame, function(data)
-			local debuggerVariable = debuggerConnection:GetVariableById(data.debuggerVarId)
+			local debuggerVarRaw = data:GetArg()
+			-- name gets filled in after being stored
+			local debuggerVariable = debuggerConnection:GetVariableById(debuggerVarRaw.VariableId)
 			local watchRow = WatchRow.fromInstance(debuggerVariable, nil)
 			store:dispatch(ExpressionEvaluated(stepStateBundle, watchRow))
 		end)

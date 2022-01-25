@@ -57,9 +57,8 @@ return Rodux.createReducer(initialState, {
 	
 	[ModifyBreakpointAction.name] = function(state : BreakpointStore, action : ModifyBreakpointAction.Props)
 		-- throw warning if modifying breakpoint ID that doesn't exist
-		if state.BreakpointIdsInDebuggerConnection == nil or state.MetaBreakpoints[action.metaBreakpoint.id] == nil then
-			assert(false)
-		end
+		assert(state.BreakpointIdsInDebuggerConnection)
+		assert(state.MetaBreakpoints[action.metaBreakpoint.id])
 		local updatedMetaBreakpoints = Cryo.Dictionary.join(state.MetaBreakpoints, {
 			[action.metaBreakpoint.id] = action.metaBreakpoint
 		})

@@ -9,9 +9,11 @@ local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local Framework = Plugin.Framework
-local UILibraryWrapper = require(Framework.ContextServices.UILibraryWrapper :: any)
-local provideMockContext = require(Framework.TestHelpers.provideMockContext)
+local Framework = require(Plugin.Framework)
+local ContextServices = Framework.ContextServices
+local UILibraryWrapper = ContextServices.UILibraryWrapper :: any
+local provideMockContext = Framework.TestHelpers.provideMockContext
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local Theme = require(Plugin.Src.Util.Theme)
 
@@ -53,8 +55,16 @@ return function(props, children)
     local uiLibWrapper = props.UILibraryWrapper
     if not uiLibWrapper then
         uiLibWrapper = UILibraryWrapper.new()
-        table.insert(contextItems, uiLibWrapper)
+        if not FFlagDevFrameworkUseCreateContext then
+            table.insert(contextItems, uiLibWrapper)
+        end
     end
 
-    return provideMockContext(contextItems, children)
+    if FFlagDevFrameworkUseCreateContext then
+        return provideMockContext(contextItems, {
+            UILibraryWrapper = ContextServices.provide({uiLibWrapper}, children)
+        })
+    else
+        return provideMockContext(contextItems, children)
+    end
 end

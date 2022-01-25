@@ -4,7 +4,6 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
-local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
@@ -179,6 +178,28 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetCreations", "GET", targetUrl)
+		return self._networkImp:httpGetJson(targetUrl)
+	end)
+end
+
+function NetworkInterface:getAssetGroupCreations(pageInfo, cursor, assetTypeOverride, groupIdOverride)
+	local assetTypeName = assetTypeOverride
+	local groupId = groupIdOverride
+	if pageInfo then
+		assetTypeName = PageInfoHelper.getBackendNameForPageInfoCategory(pageInfo)
+
+		local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
+
+		groupId = categoryIsGroup
+			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
+			or nil
+	end
+
+	local targetUrl = Urls.constructGetAssetGroupCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor, nil, groupId)
+
+	return sendRequestAndRetry(function()
+		printUrl("getAssetGroupCreations", "GET", targetUrl)
 		return self._networkImp:httpGetJson(targetUrl)
 	end)
 end
@@ -597,16 +618,6 @@ function NetworkInterface:getLocalUserFriends(userId)
 	return self._networkImp:httpGet(targetUrl)
 end
 
-if not FFlagUseNewAssetPermissionEndpoint2 then
-	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-	function NetworkInterface:getPackageCollaborators(assetId)
-		local targetUrl = Urls.constructGetPackageCollaboratorsUrl(assetId)
-
-		printUrl("getPackageCollaborators", "GET", assetId)
-		return self._networkImp:httpGet(targetUrl)
-	end
-end
-
 function NetworkInterface:postForPackageMetadata(assetid)
 	local targetUrl = Urls.constructPostPackageMetadata()
 
@@ -669,13 +680,11 @@ function NetworkInterface:revokeAssetPermissions(assetId, permissions)
 	return self._networkImp:httpDeleteWithPayload(targetUrl, putPayload)
 end
 
-if FFlagUseNewAssetPermissionEndpoint2 then
-	function NetworkInterface:getAssetPermissions(assetId)
-		local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
+function NetworkInterface:getAssetPermissions(assetId)
+	local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
 
-		printUrl("getAssetPermissions", "GET", targetUrl)
-		return self._networkImp:httpGetJson(targetUrl)
-	end
+	printUrl("getAssetPermissions", "GET", targetUrl)
+	return self._networkImp:httpGetJson(targetUrl)
 end
 
 if FFlagUseNewAssetPermissionEndpoint3 then

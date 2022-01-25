@@ -1,6 +1,7 @@
 --[[
 	ContextItem for WorldRootPhysicsController
 ]]
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -9,6 +10,7 @@ local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework).ContextServices
 
 local ContextItem = ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Plugin.Framework).ContextServices.Provider
 local Impl = require(Page.Controllers.WorldRootPhysicsController)
 
@@ -23,10 +25,12 @@ function Item.new(...)
 	return self
 end
 
-function Item:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Item:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Item:get()

@@ -1,3 +1,5 @@
+local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
+
 local MainView = require(script.Parent.MainView)
 
 local Plugin = script.Parent.Parent.Parent
@@ -6,6 +8,27 @@ local Roact = require(Plugin.Packages.Roact)
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
 local MockServiceWrapper = require(Plugin.Src.Components.MockManagement)
 
+local createPluginInfo = function(installStatus)
+	local commentsEnabled = if FFlagPluginManagementRemoveCommentsEnabled then nil else false
+
+	return {
+		PluginInfo = {
+			plugins = {
+				["1234"] = {
+					installStatus = installStatus,
+					installationMsg = "",
+					installProgress = 0.0,
+					name = "",
+					description = "",
+					commentsEnabled = commentsEnabled,
+					versionId = "",
+					created = "",
+					updated = "",
+				}
+			},
+		},
+	}
+end
 
 return function()
 	it("should construct and destroy without errors", function()
@@ -21,23 +44,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is UNKNOWN", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.UNKNOWN,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.UNKNOWN)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -53,23 +60,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is PLUGIN_INSTALLED_SUCCESSFULLY", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.PLUGIN_INSTALLED_SUCCESSFULLY,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "Test Plugin",
-						description = "some description",
-						commentsEnabled = false,
-						versionId = "1",
-						created = "some date",
-						updated = "some other date",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_INSTALLED_SUCCESSFULLY)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -85,23 +76,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is HTTP_ERROR", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.HTTP_ERROR,
-						installationMsg = "Forbidden",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.HTTP_ERROR)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -117,23 +92,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is PLUGIN_NOT_OWNED", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.PLUGIN_NOT_OWNED,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_NOT_OWNED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -149,23 +108,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is PLUGIN_DETAILS_UNAVAILABLE", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -181,23 +124,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is PLUGIN_NOT_INSTALLED", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.PLUGIN_NOT_INSTALLED,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_NOT_INSTALLED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store
@@ -213,23 +140,7 @@ return function()
 	end)
 
 	it("should construct when PluginInstalledStatus is PLUGIN_AlREADY_INSTALLED", function()
-		local store = {
-			PluginInfo = {
-				plugins = {
-					["1234"] = {
-						installStatus = PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED,
-						installationMsg = "",
-						installProgress = 0.0,
-						name = "",
-						description = "",
-						commentsEnabled = false,
-						versionId = "",
-						created = "",
-						updated = "",
-					}
-				},
-			},
-		}
+		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
 			storeState = store

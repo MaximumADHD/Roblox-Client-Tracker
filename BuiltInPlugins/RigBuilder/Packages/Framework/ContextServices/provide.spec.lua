@@ -1,7 +1,11 @@
 return function()
+
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+	
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(script.Parent.provide)
+	-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 	local Provider = require(script.Parent.Provider)
 	local ContextItem = require(script.Parent.ContextItem)
 
@@ -46,40 +50,47 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-	it("should provide each ContextItem to context", function()
-		local confirmed = false
+	-- TODO: Remove when FFlagDevFrameworkUseCreateContext is retired
+	-- ContextItems can no longer cross-rely on each other as this
+	-- breaks Roact's onion-skin context model
+	if not FFlagDevFrameworkUseCreateContext then
+		it("should provide each ContextItem to context", function()
+			local confirmed = false
 
-		local testItem = ContextItem:extend("TestItem")
-		function testItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-				UpdateSignal = self.update,
-			}, {root})
-		end
-
-		local otherItem = ContextItem:extend("OtherItem")
-		function otherItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-				UpdateSignal = self.update,
-			}, {root})
-		end
-
-		local Component = Roact.PureComponent:extend("TestComponent")
-		function Component:render()
-			if self._context[testItem.Key]
-				and self._context[otherItem.Key] then
-				confirmed = true
+			local testItem = ContextItem:extend("TestItem")
+			function testItem:createProvider(root)
+				return Roact.createElement(Provider, {
+					ContextItem = self,
+					UpdateSignal = self.update,
+				}, {root})
 			end
-		end
 
-		local element = provide({testItem, otherItem}, {
-			Component = Roact.createElement(Component),
-		})
+			local otherItem = ContextItem:extend("OtherItem")
+			function otherItem:createProvider(root)
+				return Roact.createElement(Provider, {
+					ContextItem = self,
+					UpdateSignal = self.update,
+				}, {root})
+			end
 
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
+			local Component = Roact.PureComponent:extend("TestComponent")
 
-		expect(confirmed).to.equal(true)
-	end)
+			function Component:render()
+				if self._context[testItem.Key]
+					and self._context[otherItem.Key] then
+					confirmed = true
+				end
+			end
+
+			local element = provide({testItem, otherItem}, {
+				Component = Roact.createElement(Component),
+			})
+
+			local folder = Instance.new("Folder")
+			local instance = Roact.mount(element, folder)
+			Roact.unmount(instance)
+
+			expect(confirmed).to.equal(true)
+		end)
+	end
 end

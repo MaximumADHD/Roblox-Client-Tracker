@@ -17,7 +17,7 @@ local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
-local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 
 local WatchReducer = require(script.Parent.Watch)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
@@ -40,7 +40,7 @@ return function()
 
 	describe(AddRootVariables.name, function()
 		it("should add the variables", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -79,7 +79,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -109,7 +109,7 @@ return function()
 
 	describe(AddChildVariables.name, function()
 		it("should add the variables", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -153,7 +153,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -187,9 +187,9 @@ return function()
 		end)
 	end)
 
-	describe(BreakpointHit.name, function() 
+	describe(SimPaused.name, function() 
 		it("should add empty data to state map", function()
-			local state = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local state = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			expect(state).to.be.ok()
 			expect(state.stateTokenToRoots).to.be.ok()
 			expect(state.stateTokenToRoots[defaultDebuggerToken]).to.be.ok()
@@ -200,7 +200,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local immutabilityPreserved = testImmutability(WatchReducer, BreakpointHit)
+			local immutabilityPreserved = testImmutability(WatchReducer, SimPaused)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -243,7 +243,7 @@ return function()
 
 	describe(SetVariableExpanded.name, function() 
 		it("should be able to update root item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -279,7 +279,7 @@ return function()
 		end)
 
 		it("should be able to update child item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
@@ -321,7 +321,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -354,7 +354,7 @@ return function()
 
 	describe(SetVariablesScopeFilteredOut .name, function() 
 		it("should be able to update root item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -391,7 +391,7 @@ return function()
 		end)
 
 		it("should be able to update child item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
@@ -433,7 +433,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -466,7 +466,7 @@ return function()
 
 	describe(SetVariablesTextFilteredOut .name, function()
 		it("should be able to update root item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -503,7 +503,7 @@ return function()
 		end)
 
 		it("should be able to update child item", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
@@ -545,7 +545,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"

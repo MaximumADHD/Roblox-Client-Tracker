@@ -1,6 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagPlaybackSpeedChanges = require(Plugin.LuaFlags.GetFFlagPlaybackSpeedChanges)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
@@ -19,7 +18,7 @@ local Constants = {
 	DEFAULT_FRAMERATE = 30,
 	MIN_FRAMERATE = 1,
 	MAX_FRAMERATE = 120,
-	MIN_PLAYBACK_SPEED = GetFFlagPlaybackSpeedChanges() and 0.01 or 0.1,
+	MIN_PLAYBACK_SPEED = 0.01,
 	MAX_PLAYBACK_SPEED = 10,
 
 	MAX_TIME = 1800,

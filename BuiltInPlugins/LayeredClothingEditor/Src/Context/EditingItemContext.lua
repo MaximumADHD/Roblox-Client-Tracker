@@ -10,7 +10,10 @@ local Signal = require(DraggerFramework.Utility.Signal)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = Framework.ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local EditingItemContext = ContextItem:extend("EditingItemContext")
 
@@ -39,10 +42,12 @@ function EditingItemContext:setEditingItem(item)
 	self.editingItemChangedSignal:Fire(item)
 end
 
-function EditingItemContext:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function EditingItemContext:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function EditingItemContext:clear()

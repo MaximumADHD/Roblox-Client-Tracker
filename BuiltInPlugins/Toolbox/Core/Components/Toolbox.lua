@@ -19,6 +19,9 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
+
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -251,9 +254,19 @@ function Toolbox:willUnmount()
 	if FFlagImprovePluginSpeed_Toolbox then
 		if self._showPluginsConnection then
 			self._showPluginsConnection:Disconnect()
+			if FFlagToolboxNilDisconnectSignals then
+				self._showPluginsConnection = nil
+			end
 		end
 	else
-		self._showPluginsConnection:Disconnect()
+		if FFlagToolboxNilDisconnectSignals then
+			if self._showPluginsConnection then
+				self._showPluginsConnection:Disconnect()
+				self._showPluginsConnection = nil
+			end
+		else
+			self._showPluginsConnection:Disconnect()
+		end
 	end
 end
 
@@ -289,6 +302,7 @@ function Toolbox:render()
 
 		[Roact.Ref] = self.toolboxRef,
 		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
+		[Roact.Event.MouseEnter] = FFlagToolboxWindowTelemetry and props.onMouseEnter or nil,
 	}, {
 		Tabs = Roact.createElement(TabSet, {
 			Size = UDim2.new(1, 0, 0, Constants.TAB_WIDGET_HEIGHT),

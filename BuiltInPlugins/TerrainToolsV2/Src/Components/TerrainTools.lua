@@ -16,6 +16,7 @@ local ToolSelectionListener = require(Plugin.Src.Components.ToolSelectionListene
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagImprovePluginSpeed_TerrainTools = game:GetFastFlag("ImprovePluginSpeed_TerrainTools")
+local FFlagTerrainToolsPluginButtonRestore = game:GetFastFlag("TerrainToolsPluginButtonRestore")
 
 local EDITOR_META_NAME = "Editor"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
@@ -51,6 +52,9 @@ function TerrainTools:init()
 		self:setEnabled(enabled, initiatedByUser)
 
 		if FFlagImprovePluginSpeed_TerrainTools then
+			if FFlagTerrainToolsPluginButtonRestore then
+				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
+			end
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 		end
 	end
@@ -163,8 +167,6 @@ function TerrainTools:render()
 		terrainImporter,
 		terrainGeneration,
 		seaLevel,
-		-- partConverter will be nil if FFlagTerrainToolsConvertPartTool is false
-		partConverter,
 		imageLoader,
 		calloutController,
 	}, {

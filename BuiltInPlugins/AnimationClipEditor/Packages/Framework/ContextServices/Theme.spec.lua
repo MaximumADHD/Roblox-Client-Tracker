@@ -3,9 +3,12 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(Framework.ContextServices.provide)
 	local mapToProps = require(script.Parent.mapToProps)
+	local withContext = require(script.Parent.withContext)
 
 	local Theme = require(script.Parent.Theme)
 	local THEME_REFACTOR = require(Framework.Util.RefactorFlags).THEME_REFACTOR
+
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	local Util = require(Framework.Util)
 	local Style = Util.Style
@@ -28,9 +31,15 @@ return function()
 			end
 		end
 
-		mapToProps(TestThemedComponent, {
-			Theme = Theme,
-		})
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestThemedComponent = withContext({
+				Theme = Theme,
+			})(TestThemedComponent)
+		else
+			mapToProps(TestThemedComponent, {
+				Theme = Theme,
+			})
+		end
 
 		return TestThemedComponent
 	end

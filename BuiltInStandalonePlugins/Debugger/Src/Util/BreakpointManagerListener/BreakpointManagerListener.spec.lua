@@ -9,6 +9,7 @@ local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockBreakpointManager = require(Mocks.MockBreakpointManager)
 local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
+local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
 local function fakeDebuggerConnect(store)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
@@ -45,7 +46,9 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, {})
 		fakeDebuggerConnect(mainStore)
 		local mockBreakpointManager = MockBreakpointManager.new()
-		local mainBreakpointListener = BreakpointManagerListener.new(mainStore, mockBreakpointManager)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainBreakpointListener = BreakpointManagerListener.new(mainStore, mockBreakpointManager, mockCrossDMScriptChangeListenerService)
 		
 		-- added breakpoint should show up
 		local metaBreakpoint1 = createMockMetaBreakpoint(1,"scriptString1")

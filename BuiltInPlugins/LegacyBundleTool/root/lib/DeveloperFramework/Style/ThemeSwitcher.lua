@@ -8,7 +8,11 @@
 ]]
 local Framework = script.Parent.Parent
 
+local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
+
 local Signal = require(Framework.Util.Signal)
+local Util = require(Framework.Util)
+local Cryo = Util.Cryo
 local Style = Framework.Style
 local DarkTheme = require(Style.Themes.DarkTheme)
 local LightTheme =  require(Style.Themes.LightTheme)
@@ -31,14 +35,23 @@ pcall(function()
 	end)
 end)
 
-local ThemeSwitcher = {
-	current = "Default",
-	themesList = {
-		Dark = DarkTheme,
-		Light = LightTheme
-	},
-	themeChangedConnection = themeSignal
-}
+local ThemeSwitcher
+
+if FFlagToolboxStorybook then
+	ThemeSwitcher = {
+		current = "Default",
+	}
+else
+	ThemeSwitcher = {
+		current = "Default",
+		themesList = {
+			Dark = DarkTheme,
+			Light = LightTheme
+		},
+		themeChangedConnection = themeSignal
+	}
+end
+
 function ThemeSwitcher.getThemeName()
 	if ThemeSwitcher.current == "Default" then
 		return getStudioTheme()
@@ -52,8 +65,30 @@ function ThemeSwitcher.setTheme(name: string)
 	themeSignal:Fire()
 end
 
-function ThemeSwitcher.new()
-	return createDefaultTheme(ThemeSwitcher)
+function ThemeSwitcher.new(darkThemeOverride, lightThemeOverride)
+	if FFlagToolboxStorybook then
+		local darkTheme = DarkTheme
+		if darkThemeOverride then
+			darkTheme = Cryo.Dictionary.join(DarkTheme, darkThemeOverride)
+		end
+
+		local lightTheme = LightTheme
+		if lightThemeOverride then
+			lightTheme = Cryo.Dictionary.join(LightTheme, lightThemeOverride)
+		end
+
+		local themeProps = Cryo.Dictionary.join({
+			themesList = {
+				["Dark"] = darkTheme,
+				["Light"] = lightTheme,
+			},
+			themeChangedConnection = themeSignal
+		}, ThemeSwitcher)
+
+		return createDefaultTheme(themeProps)
+	else
+		return createDefaultTheme(ThemeSwitcher)
+	end
 end
 
 return ThemeSwitcher

@@ -18,7 +18,7 @@ local Asset = require(Plugin.Core.Components.Asset.Asset)
 local AssetPreviewWrapper = require(Plugin.Core.Components.Asset.Preview.AssetPreviewWrapper)
 
 local MockWrapper = require(Plugin.Core.Util.MockWrapper)
-local MockItems = require(script.Parent.MockItems)
+local MockItems = require(Plugin.TestUtils.MockItems)
 local TabTestWrapper = require(script.Parent.TabTestWrapper)
 local ToolboxTestWrapper = require(script.Parent.ToolboxTestWrapper)
 

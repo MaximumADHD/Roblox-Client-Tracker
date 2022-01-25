@@ -107,7 +107,7 @@ function TopBar:render()
     local searchBarOffset = topBarTheme.Button.Size * 5 + topBarTheme.Padding * 4
 
     local defaultText = localization:getText("SearchBar", "PlaceholderText")
-        .. " " .. localization:getText("Folders", currentScreen.Key)
+        .. " " .. localization:getText("Folders", currentScreen.Path)
 
     local layoutIndex = LayoutOrderIterator.new()
 
@@ -342,7 +342,7 @@ function TopBar:render()
             }),
         }),
 
-        SearchBar = currentScreen.Key ~= Screens.MAIN.Key and Roact.createElement(SearchBar, {
+        SearchBar = currentScreen.Path ~= Screens.MAIN.Path and Roact.createElement(SearchBar, {
             Size = UDim2.new(1, -searchBarOffset, 1, 0),
             LayoutOrder = layoutIndex:getNextOrder(),
 

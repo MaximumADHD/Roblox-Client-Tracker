@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
@@ -10,10 +6,6 @@ local Tools = require(Reducers.Tools)
 
 local AddTool = require(Reducers.AddTool)
 local BaseTool = require(Reducers.BaseTool)
-local ConvertPartTool
-if not convertToolRemoval then
-	ConvertPartTool = require(Reducers.ConvertPartTool)
-end
 local ErodeTool = require(Reducers.ErodeTool)
 local FillTool = require(Reducers.FillTool)
 local FlattenTool = require(Reducers.FlattenTool)
@@ -32,7 +24,6 @@ local FFlagTerrainToolsGlobalState = game:GetFastFlag("TerrainToolsGlobalState")
 local toolReducerTable = {
 	GenerateTool = GenerateTool,
 	ImportLocalTool = ImportLocalTool,
-	ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool or nil,
 	RegionTool = RegionTool,
 	FillTool = FillTool,
 	AddTool = AddTool,
@@ -56,8 +47,6 @@ local MainReducer = function(state, action)
 
 		GenerateTool = GenerateTool(state, action),
 		ImportLocalTool = ImportLocalTool(state, action),
-
-		ConvertPartTool = FFlagTerrainToolsConvertPartTool and ConvertPartTool(state, action) or nil,
 
 		RegionTool = RegionTool(state, action),
 		FillTool = FillTool(state, action),

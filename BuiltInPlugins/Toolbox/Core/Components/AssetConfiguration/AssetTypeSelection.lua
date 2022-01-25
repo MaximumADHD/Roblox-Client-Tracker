@@ -7,8 +7,6 @@
 		callback onClose - called when the user presses the "cancel" button
 ]]
 
-local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -55,7 +53,6 @@ local FOOTER_PADDING = 24
 local BUTTON_WIDTH = 120
 local BUTTON_HEIGHT = 32
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -64,11 +61,7 @@ local AssetTypeSelection = Roact.PureComponent:extend("AssetTypeSelection")
 
 function AssetTypeSelection:didMount()
 	if self:canSkip() then
-		if FFlagToolboxAssetConfigAddPublishBackButton then
-			self.props.goToNextScreen()
-		else
-			self.props.onNext(self.props.screenFlowType)
-		end
+		self.props.goToNextScreen()
 	end
 end
 
@@ -193,11 +186,7 @@ function AssetTypeSelection:renderContent(theme, localization, localizedContent)
 				titleText = "Next",
 				isPrimary = true,
 				onClick = function()
-					if FFlagToolboxAssetConfigAddPublishBackButton then
-						self.props.goToNextScreen()
-					else
-						self.props.onNext(self.props.screenFlowType)
-					end
+					self.props.goToNextScreen()
 				end,
 			}),
 		}),
@@ -219,17 +208,6 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		-- TODO: Move this function into the thunk
-		onNext = function(flowType)
-			if FFlagToolboxAssetConfigAddPublishBackButton then
-				-- TODO: remove function when flag is enabled
-				return
-			end
-			if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
-				dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.ASSET_VALIDATION))
-			else
-				dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.CONFIGURE_ASSET))
-			end
-		end,
 		goToNextScreen = function()
 			dispatch(GoToNextScreen())
 		end,

@@ -27,7 +27,7 @@
 		number ShowDelay: The time in seconds before the tooltip appears
 			after the user stops moving the mouse over the element.
 ]]
-local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
@@ -147,7 +147,7 @@ function Tooltip:render()
 	}
 
 	local pluginGui
-	if FFlagRefactorDevFrameworkContextItems then
+	if FFlagRefactorDevFrameworkContextItems2 then
 		pluginGui = props.Focus:get()
 	else
 		pluginGui = props.Focus.target

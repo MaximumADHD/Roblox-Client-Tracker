@@ -104,15 +104,19 @@ function DropdownField:init()
 	end
 
 	self.openMenu = function()
-		self:setState({
-			isOpen = true,
-		})
+		self:setState(function(state)
+			return {
+				isOpen = true,
+			}
+		end)
 	end
 
 	self.closeMenu = function()
-		self:setState({
-			isOpen = false,
-		})
+		self:setState(function(state)
+			return {
+				isOpen = false,
+			}
+		end)
 	end
 
 end

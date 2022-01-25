@@ -11,6 +11,9 @@ local BreakpointRow = require(PluginFolder.Src.Models.BreakpointRow)
 
 local Stylizer = Framework.Style.Stylizer
 
+local Util = Framework.Util
+local deepCopy = Util.deepCopy
+
 local UI = Framework.UI
 local IconButton = UI.IconButton
 local Pane = UI.Pane
@@ -47,9 +50,11 @@ function BreakpointsTable:init()
 		for rowInfo in pairs(selection) do
 			table.insert(selectedBps, rowInfo)
 		end
-		self:setState({
-			selectedBreakpoints = selectedBps
-		})
+		self:setState(function(state)
+			return {
+				selectedBreakpoints = selectedBps
+			}
+		end)
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
@@ -73,9 +78,11 @@ function BreakpointsTable:init()
 	end
 
 	self.onRightClick = function(row)
-		self:setState({
-			selectedBreakpoints = {row.item}
-		})
+		self:setState(function(state)
+			return {
+				selectedBreakpoints = {row.item}
+			}
+		end)
 		
 		local props = self.props
 		local localization = props.Localization
@@ -139,18 +146,22 @@ end
 
 function BreakpointsTable:didMount()
 	if self.props.IsPaused and self.props.CurrentBreakpoint then
-		self:setState({
-			selectedBreakpoints = {self.props.CurrentBreakpoint}
-		})
+		self:setState(function(state)
+			return {
+				selectedBreakpoints = {self.props.CurrentBreakpoint}
+			}
+		end)
 	end
 end
 
 function BreakpointsTable:didUpdate(prevProps)
 	if self.props.IsPaused ~= prevProps.IsPaused then
 		if self.props.IsPaused and self.props.CurrentBreakpoint then
-			self:setState({
-				selectedBreakpoints = {self.props.CurrentBreakpoint}
-			})
+			self:setState(function(state)
+				return {
+					selectedBreakpoints = {self.props.CurrentBreakpoint}
+				}
+			end)
 		end
 	end
 	
@@ -168,9 +179,11 @@ function BreakpointsTable:didUpdate(prevProps)
 					table.insert(updatedSelections, breakpoint)
 				end
 			end
-			self:setState({
-				selectedBreakpoints = updatedSelections
-			})
+			self:setState(function(state)
+				return {
+					selectedBreakpoints = updatedSelections
+				}
+			end)
 		end
 	end
 end
@@ -296,7 +309,9 @@ BreakpointsTable = RoactRodux.connect(
 		local currentBreakpoint = nil
 		local currentBreakpointIndex = nil
 		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
-			table.insert(breakpointsArray, breakpoint)
+			local bpCopy = deepCopy(breakpoint)
+			bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
+			table.insert(breakpointsArray, bpCopy)
 		end
 		table.sort(breakpointsArray, breakpointLineNumberComp)
 		
@@ -308,11 +323,12 @@ BreakpointsTable = RoactRodux.connect(
 			end
 			i = i + 1
 			breakpoint.children = {}
+
 			for index, context in ipairs(breakpoint.contexts) do
-				table.insert(breakpoint.children, BreakpointRow.extractNonChildData(breakpoint, context))
+				local bpRow = BreakpointRow.extractNonChildData(breakpoint, context)
+				table.insert(breakpoint.children, bpRow)
 			end
 		end
-
 		return {
 			Breakpoints = breakpointsArray,
 			IsPaused = state.Common.isPaused,

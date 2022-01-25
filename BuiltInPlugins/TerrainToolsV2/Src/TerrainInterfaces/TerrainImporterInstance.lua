@@ -8,7 +8,10 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextItem = Framework.ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = Framework.ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
@@ -96,11 +99,17 @@ function TerrainImporter.new(options)
 	return self
 end
 
-function TerrainImporter:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-		UpdateSignal = self._updateSignal,
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function TerrainImporter:getSignal()
+		return self._updateSignal
+	end
+else
+	function TerrainImporter:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+			UpdateSignal = self._updateSignal,
+		}, {root})
+	end
 end
 
 function TerrainImporter:subscribeToImportFinish(callback)

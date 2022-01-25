@@ -10,8 +10,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local getFFlagDevFrameworkExpandablePaneSectionStyle = require(Plugin.Src.Flags.getFFlagDevFrameworkExpandablePaneSectionStyle)
-
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
@@ -25,7 +23,7 @@ local ui = Style.ComponentSymbols
 local UIData = Framework.UIData
 local ExpandablePaneStyle = require(UIData.ExpandablePane.style)
 
-local section = getFFlagDevFrameworkExpandablePaneSectionStyle() and ExpandablePaneStyle["&Section"] or nil
+local section = ExpandablePaneStyle["&Section"]
 local content = ExpandablePaneStyle.Content
 
 local Dash = Framework.Dash

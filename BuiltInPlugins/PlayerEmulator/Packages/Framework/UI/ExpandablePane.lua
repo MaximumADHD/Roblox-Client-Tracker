@@ -31,8 +31,6 @@
 		any Padding: A number or table adding padding to the component.
 		table Title: The style with which to render the header text.
 ]]
-local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
-
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -49,7 +47,6 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
-local prioritize = Util.prioritize -- Remove with FFlagDevFrameworkRefactorExpandablePaneHeader
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
@@ -69,42 +66,6 @@ ExpandablePane.defaultProps = {
 
 function ExpandablePane:init()
 	assert(THEME_REFACTOR, "ExpandablePane not supported in Theme1, please upgrade your plugin to Theme2")
-
-	if not FFlagDevFrameworkRefactorExpandablePaneHeader then
-		self.renderHeader = function()
-			local props = self.props
-			local style = props.Stylizer
-
-			local children = {
-				Image = Roact.createElement(Image, {
-					Style = style.Arrow,
-					StyleModifier = props.Expanded and StyleModifier.Selected or nil,
-				})
-			}
-
-			if props.Text then
-				children.Title = Roact.createElement(TextLabel, {
-					AutomaticSize = Enum.AutomaticSize.XY,
-					Position = UDim2.fromOffset(style.TitleOffset, 0),
-					Style = style.Title,
-					Text = props.Text,
-					TextWrapped = true,
-				})
-			end
-
-			local headerComponent = props.HeaderComponent
-			if headerComponent then
-				children.HeaderComponent = headerComponent
-			end
-
-			return Roact.createElement(Pane, {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				HorizontalAlignment = Enum.HorizontalAlignment.Left,
-				LayoutOrder = 1,
-				OnClick = props.OnExpandedChanged,
-			}, children)
-		end
-	end
 end
 
 function ExpandablePane:render()
@@ -128,18 +89,11 @@ function ExpandablePane:render()
 		"Text",
 	})
 
-	local contentPadding
-	local contentSpacing
-	if FFlagDevFrameworkRefactorExpandablePaneHeader then
-		contentPadding = style.Content.Padding
-		contentSpacing = style.Content.Spacing
-	else
-		contentPadding = prioritize(props.ContentPadding, style.ContentPadding)
-		contentSpacing = prioritize(props.ContentSpacing, style.ContentSpacing)
-	end
+	local contentPadding = style.Content.Padding
+	local contentSpacing = style.Content.Spacing
 
 	return Roact.createElement(Pane, componentProps, {
-		Header = FFlagDevFrameworkRefactorExpandablePaneHeader and self:_renderHeader() or self.renderHeader(),
+		Header = self:_renderHeader(),
 
 		Content = props.Expanded and Roact.createElement(Pane, {
 			AutomaticSize = Enum.AutomaticSize.Y,

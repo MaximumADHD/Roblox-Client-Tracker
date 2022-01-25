@@ -26,8 +26,6 @@ local StatusLevel = require(Plugin.Src.Utility.StatusLevel)
 local StatusPropertyMap = require(Plugin.Src.Utility.StatusPropertyMap)
 local GetLocalizedString = require(Plugin.Src.Utility.GetLocalizedString)
 
-local getFFlagDevFrameworkRefactorExpandablePaneHeader = require(Plugin.Src.Flags.getFFlagDevFrameworkRefactorExpandablePaneHeader)
-
 local statusBucketToType = {
 	["Errors"] = StatusLevel.Error,
 	["Warnings"] = StatusLevel.Warning,
@@ -168,8 +166,7 @@ function PropertyListView:render()
 			local headerComponent
 			local headerComponentProps
 
-			if getFFlagDevFrameworkRefactorExpandablePaneHeader() and
-				statusObject.StatusLevel and (not expanded or statusObject.GlobalStatus) then
+			if statusObject.StatusLevel and (not expanded or statusObject.GlobalStatus) then
 				headerComponent = PropertyStatus
 				headerComponentProps = {
 					StatusLevel = statusObject.StatusLevel,

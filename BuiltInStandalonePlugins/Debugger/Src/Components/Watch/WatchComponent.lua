@@ -50,23 +50,29 @@ function WatchComponent:init()
 		end
 		if currentWindow.AbsoluteSize.x < MINIMUM_WIDTH_FOR_SEARCHBAR then
 			if (self.state.shouldShowDropdown or self.state.shouldShowSearchBar) then
-				self:setState({
-					shouldShowDropdown = false,
-					shouldShowSearchBar = false,
-				})
+				self:setState(function(state)
+					return {
+						shouldShowDropdown = false,
+						shouldShowSearchBar = false,
+					}
+				end)
 			end
 		elseif currentWindow.AbsoluteSize.x < MINIMUM_WIDTH_FOR_DROPDOWN then
 			if (self.state.shouldShowDropdown or not self.state.shouldShowSearchBar) then
-				self:setState({
-					shouldShowDropdown = false,
-					shouldShowSearchBar = true,
-				})
+				self:setState(function(state)
+					return {
+						shouldShowDropdown = false,
+						shouldShowSearchBar = true,
+					}
+				end)
 			end
 		elseif (not self.state.shouldShowDropdown) or not (self.state.shouldShowSearchBar) then
-			self:setState({
-				shouldShowDropdown = true,
-				shouldShowSearchBar = true,
-			})
+			self:setState(function(state)
+				return {
+					shouldShowDropdown = true,
+					shouldShowSearchBar = true,
+				}
+			end)
 		end
 	end
 

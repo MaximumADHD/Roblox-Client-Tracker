@@ -34,10 +34,6 @@ local Typecheck = Util.Typecheck
 Typecheck.wrap(SelectFrame, script)
 
 function SelectFrame:init()
-	self.onFocus = function()
-		self.props.OnStartSelection()
-	end
-
 	self.renderContent = function(order)
 		local props = self.props
 
@@ -69,11 +65,9 @@ function SelectFrame:init()
 				Enabled = false,
 				ShouldFocus = false,
 				Text = partName,
-				PlaceholderText = localization:getText("Select", "Click"),
 				Size = UDim2.new(0.5, 0, 1, 0),
 				LayoutOrder = order + 2,
 				Style = "FilledRoundedBorder",
-				OnFocusGained = self.onFocus,
 			}),
 		})
 	end

@@ -68,7 +68,6 @@ end
 
 local function convertSourceCol(index, frameData, frameListCopy, scriptInfoReducer)
 	local fileName = convertGUIDToFileName(frameListCopy[index].sourceColumn, scriptInfoReducer)
-	assert(fileName ~= nil and fileName ~= "")
 	frameListCopy[index].sourceColumn = fileName
 end
 
@@ -89,7 +88,7 @@ local function makeCallstackRootItem(threadInfo, callstackVars, common, scriptIn
 	end
 
 	return {
-		arrowColumn = convertGUIDToFileName(displayString, scriptInfoReducer),
+		arrowColumn = displayString,
 		threadId = threadId,
 		children = frameListCopy,
 	}
@@ -144,10 +143,12 @@ function CallstackComponent:init()
 				rowInfo.arrowColumn = CallstackRow.ICON_CURRENT_FRAME
 			end
 			
-			self:setState({
-				selectedRows = {rowInfo},
-				selectAll = false
-			})
+			self:setState(function(state)
+				return {
+					selectedRows = {rowInfo},
+					selectAll = false
+				}
+			end)
 			local threadId = props.CurrentThreadId
 			local frameNumber = rowInfo.frameColumn
 			props.setCurrentFrameNumber(threadId, frameNumber)
@@ -214,10 +215,12 @@ function CallstackComponent:init()
 				end
 			end
 		end
-		self:setState({
-			selectedRows = selectedRowList,
-			selectAll = true
-		})
+		self:setState(function(state)
+			return {
+				selectedRows = selectedRowList,
+				selectAll = true
+			}
+		end)
 	end
 	
 	self.onMenuActionSelected = function(actionId, extraParameters)
@@ -232,10 +235,12 @@ function CallstackComponent:init()
 		-- Update selectedRows to the right clicked row unless "Select All" was called
 		-- and right clicked row is one of the selected rows
 		if not self.state.selectAll or (row.item.threadId and row.item.threadId ~= self.props.CurrentThreadId) then
-			self:setState({
-				selectedRows = {row.item},
-				selectAll = false
-			})
+			self:setState(function(state)
+				return {
+					selectedRows = {row.item},
+					selectAll = false
+				}
+			end)
 		end
 		local props = self.props
 		local localization = props.Localization

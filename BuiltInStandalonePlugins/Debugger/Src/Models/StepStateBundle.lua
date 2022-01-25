@@ -1,5 +1,7 @@
 local DebuggerStateToken = require(script.Parent.DebuggerStateToken)
 
+-- There is a discrepancy between Lua and C++ indexes for arrays, like FrameNumber. Subtract by one when interfacing with C++ API
+
 export type StepStateBundle = {
 	debuggerStateToken : DebuggerStateToken.DebuggerStateToken,
 	threadId : number,

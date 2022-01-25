@@ -10,9 +10,12 @@ local SetAssets = require(Plugin.Src.Actions.SetAssets)
 local SetIsFetchingAssets = require(Plugin.Src.Actions.SetIsFetchingAssets)
 local SetHasLinkedScripts = require(Plugin.Src.Actions.SetHasLinkedScripts)
 
-local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local GetAliases = require(Plugin.Src.Thunks.GetAliases)
 
-local function GetAliases(apiImpl, assetType, state)
+local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+
+local function DEPRECATED_GetAliases(apiImpl, assetType, state)
     local newAssets = {}
     newAssets.assets = {}
     local index = 1
@@ -81,7 +84,8 @@ return function(apiImpl, assetType, scriptCheck)
         if not scriptCheck then
             store:dispatch(SetIsFetchingAssets(true))
         end
-        return Promise.resolve(GetAliases(apiImpl, assetType, state)):andThen(function(newAssets, index, hasLinkedScripts)
+        local getAliases = FFlagAssetManagerRefactorPath and GetAliases or DEPRECATED_GetAliases
+        return Promise.resolve(getAliases(apiImpl, assetType, state)):andThen(function(newAssets, index, hasLinkedScripts)
                 store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                 if not scriptCheck then
                     store:dispatch(SetIsFetchingAssets(false))

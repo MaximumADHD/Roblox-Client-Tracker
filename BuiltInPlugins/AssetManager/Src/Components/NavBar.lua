@@ -43,15 +43,15 @@ function NavBar:getCurrentPath(currentScreen)
     local path = {}
     local startingScreen = currentScreen
 
-    local isFolderScreen = currentScreen.Key == Screens.MAIN.Key
+    local isFolderScreen = currentScreen.Path == Screens.MAIN.Path
 
     local navBarWidth = self.NavBar.current and self.NavBar.current.AbsoluteSize.X or 0
 
     while currentScreen ~= nil do
         if self.state.contentWidth + NavBarPadding > navBarWidth then
             self.preTruncContentWidth = self.state.contentWidth
-            if (currentScreen.Key ~= startingScreen.Key or isFolderScreen) and not self.truncatedPathParts[currentScreen.Key] then
-                self.truncatedPathParts[currentScreen.Key] = true
+            if (currentScreen.Path ~= startingScreen.Path or isFolderScreen) and not self.truncatedPathParts[currentScreen.Path] then
+                self.truncatedPathParts[currentScreen.Path] = true
             end
         elseif self.preTruncContentWidth + NavBarPadding <= navBarWidth then
             self.truncatedPathParts = {}
@@ -76,25 +76,25 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
 
     local count = 1
     local layoutIndex = LayoutOrderIterator.new()
-    local startingScreenKey = currentScreen.Key
+    local startingScreenPath = currentScreen.Path
 
     for index, screen in ipairs(path) do
-        local isStartingElement = screen.Key == startingScreenKey
-        local isTopLevel = screen.Key == Screens.MAIN.Key
+        local isStartingElement = screen.Path == startingScreenPath
+        local isTopLevel = screen.Path == Screens.MAIN.Path
 
         local gameName = props.UniverseName ~= "" and props.UniverseName
         or localization:getText("NavBar", "GamePlaceholderName")
-        local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Key)
+        local pathPartText = isTopLevel and gameName or localization:getText("Folders", screen.Path)
 
-        local textTruncate = self.truncatedPathParts[screen.Key] and Enum.TextTruncate.AtEnd or nil
+        local textTruncate = self.truncatedPathParts[screen.Path] and Enum.TextTruncate.AtEnd or nil
 
         local size = nil
 
-        if self.truncatedPathParts[screen.Key] then
+        if self.truncatedPathParts[screen.Path] then
             size = UDim2.new(theme.NavBar.TruncatedTextScale, 0, 1, 0)
         end
 
-        pathComponents[screen.Key] = Roact.createElement(LinkText, {
+        pathComponents[screen.Path] = Roact.createElement(LinkText, {
             Size = size,
             Text = pathPartText,
 
@@ -132,7 +132,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
             })
         end
 
-        if startingScreenKey == Screens.MAIN.Key then
+        if startingScreenPath == Screens.MAIN.Path then
             local gameIDText = "[" .. localization:getText("NavBar", "ID", {gameId = game.GameId}) .. "]"
 
             local textExtents = GetTextSize(gameIDText, theme.FontSizeMedium, theme.Font)

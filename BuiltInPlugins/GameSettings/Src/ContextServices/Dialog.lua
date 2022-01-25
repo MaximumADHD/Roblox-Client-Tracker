@@ -3,7 +3,10 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local Framework = Plugin.Framework
 local ContextItem = require(Framework.ContextServices.ContextItem)
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Framework.ContextServices.Provider)
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local DialogProvider = ContextItem:extend("DialogProvider")
 
@@ -17,10 +20,12 @@ function DialogProvider.new(showDialog)
     return self
 end
 
-function DialogProvider:createProvider(root)
-    return Roact.createElement(Provider, {
-        ContextItem = self,
-    }, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function DialogProvider:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 return DialogProvider

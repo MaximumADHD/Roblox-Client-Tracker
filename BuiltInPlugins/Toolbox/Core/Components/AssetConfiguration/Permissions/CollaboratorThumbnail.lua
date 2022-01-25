@@ -9,6 +9,8 @@
 --]]
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
+
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -52,7 +54,12 @@ function CollaboratorThumbnail:init()
 
 		if collaboratorThumbnail == nil then return end
 
-		if self.colorChanged then self.colorChanged:Disconnect() end
+		if self.colorChanged then 
+			self.colorChanged:Disconnect()
+			if FFlagToolboxNilDisconnectSignals then
+				self.colorChanged = nil
+			end		
+		end
 		if collaboratorThumbnail.Parent then
 			self.colorChanged = collaboratorThumbnail.Parent:GetPropertyChangedSignal("BackgroundColor3"):Connect(colorChanged)
 			colorChanged()
@@ -73,9 +80,19 @@ function CollaboratorThumbnail:didMount()
 end
 
 function CollaboratorThumbnail:willUnmount()
-	self.parentChangedSignal:Disconnect()
+	if FFlagToolboxNilDisconnectSignals then
+		if self.parentChangedSignal then
+			self.parentChangedSignal:Disconnect()
+			self.parentChangedSignal = nil
+		end
+	else
+		self.parentChangedSignal:Disconnect()
+	end
 	if self.colorChanged then
 		self.colorChanged:Disconnect()
+		if FFlagToolboxNilDisconnectSignals then
+			self.colorChanged = nil
+		end
 	end
 end
 

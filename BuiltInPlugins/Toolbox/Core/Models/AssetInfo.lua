@@ -1,5 +1,3 @@
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
-
 local AssetInfo = {}
 --[[
 	Model for asset data.
@@ -72,7 +70,7 @@ function AssetInfo.fromItemDetailsRequest(data)
 			Id = data.creator.id,
 			Name = data.creator.name,
 			Type = data.creator.type,
-			IsVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and data.creator.isVerifiedCreator or nil,
+			IsVerifiedCreator = data.creator.isVerifiedCreator,
 		}
 	end
 

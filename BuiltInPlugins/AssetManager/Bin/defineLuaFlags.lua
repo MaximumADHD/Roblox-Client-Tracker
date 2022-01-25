@@ -7,4 +7,5 @@ game:DefineFastFlag("StudioAssetManagerAssetModeration", false)
 game:DefineFastFlag("StudioAssetManagerFixToolbarButtonScript", false)
 game:DefineFastFlag("StudioAssetManagerFixAssetPreviewHover", false)
 game:DefineFastFlag("StudioAssetManagerGetScriptsConflict", false)
+game:DefineFastFlag("AssetManagerRefactorPath", false)
 return nil

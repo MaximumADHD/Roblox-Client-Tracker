@@ -3,7 +3,6 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 
 local Actions = Plugin.Src.Actions
-local ChangeFilenameForGuidAction = require(Actions.Common.ChangeFilenameForGuid)
 local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 
 type ScriptRefGuid = string
@@ -21,19 +20,15 @@ local initialState : ScriptInfoStore = {
 
 return Rodux.createReducer(initialState, {
 	[SetFilenameForGuidAction.name] = function(state: ScriptInfoStore, action : SetFilenameForGuidAction.Props)
-		local updatedScriptInfo = Cryo.Dictionary.join(state.ScriptInfo, {
-			[action.scriptRefGuid] = action.fileName
-		})
-		return Cryo.Dictionary.join(
-			state, {ScriptInfo = updatedScriptInfo}
-		)
-	end,
-	
-	[ChangeFilenameForGuidAction.name] = function(state: ScriptInfoStore, action : ChangeFilenameForGuidAction.Props)
-		-- Check if ScriptRef already in store (should be added into the store from setFilenameForGuid)
-		if not state.ScriptInfo[action.scriptRefGuid] then
-			return state
+		-- Guids are registered with a blank string initially, but should never be made blank after this
+		-- We might attempt to do this in the case where the callstack hits a scripts already registered
+		-- Return early rather than clearing the entry
+		if action.fileName == "" then
+			if state.ScriptInfo[action.scriptRefGuid] ~= nil then
+				return state
+			end
 		end
+
 		local updatedScriptInfo = Cryo.Dictionary.join(state.ScriptInfo, {
 			[action.scriptRefGuid] = action.fileName
 		})

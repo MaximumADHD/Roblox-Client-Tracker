@@ -3,6 +3,8 @@ local Roact = require(Framework.Parent.Roact)
 local provideMockContext = require(script.Parent.provideMockContext)
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Framework.ContextServices.Provider)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 local Util = require(Framework.Util)
@@ -83,10 +85,12 @@ return function()
 			setmetatable(self, testContextItem)
 			return self
 		end
-		function testContextItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-			}, {root})
+		if not FFlagDevFrameworkUseCreateContext then
+			function testContextItem:createProvider(root)
+				return Roact.createElement(Provider, {
+					ContextItem = self,
+				}, {root})
+			end
 		end
 		function testContextItem:get()
 			return self.item

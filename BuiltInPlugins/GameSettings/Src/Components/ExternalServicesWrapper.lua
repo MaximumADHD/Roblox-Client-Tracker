@@ -46,7 +46,6 @@ function ServiceWrapper:render()
 		ContextServices.Plugin.new(plugin),
 		localization,
 		theme,
-		ContextServices.UILibraryWrapper.new(),
 	}
 
 	if showDialog then
@@ -64,7 +63,12 @@ function ServiceWrapper:render()
 		table.insert(contextItems, worldRootPhysics)
 	end
 
-	return ContextServices.provide(contextItems, children)
+	-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
+	return ContextServices.provide(contextItems, {
+		UILibraryWrapper = ContextServices.provide({
+			ContextServices.UILibraryWrapper.new()
+		}, children)
+	})
 end
 
 return ServiceWrapper

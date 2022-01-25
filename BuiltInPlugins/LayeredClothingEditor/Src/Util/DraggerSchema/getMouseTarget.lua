@@ -21,6 +21,7 @@ return function(draggerContext, mouseRay, currentSelection)
 		local params = RaycastParams.new()
 		params.FilterDescendantsInstances = whitelist
 		params.BruteForceAllSlow = true
+		params.FilterType = Enum.RaycastFilterType.Whitelist
 		local hitResult = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
 		
 		if not hitResult then
@@ -32,7 +33,7 @@ return function(draggerContext, mouseRay, currentSelection)
 			local selectedPointMeta = draggerContext.SelectedPointMeta
 			local result = {Deformer = hitResult.Instance.Parent.Name, Index = tonumber(hitResult.Instance.Name)}
 			result = setmetatable(result, selectedPointMeta)
-			return result, result.Instance, result.Distance
+			return result, hitResult.Instance, hitResult.Distance
 		elseif ToolUtil:isDraggerLatticeMode(draggerContext) and latticeTag then
 			local selectedControlPointMeta = draggerContext.SelectedControlPointMeta
 			local result = {
@@ -41,7 +42,7 @@ return function(draggerContext, mouseRay, currentSelection)
 				GridPosition = latticeTag.Value
 			}
 			result = setmetatable(result, selectedControlPointMeta)
-			return result, hitResult.Instance, result.Distance
+			return result, hitResult.Instance, hitResult.Distance
 		end
 	else
 		local hitItem, hitPosition = Workspace:FindPartOnRayWithWhitelist(mouseRay, whitelist)

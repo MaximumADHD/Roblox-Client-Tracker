@@ -6,7 +6,6 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
-local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Urls = {}
@@ -182,6 +181,13 @@ function Urls.getDevelopAssetUrl(category, keyword, sort, creatorId, num, page, 
 		groupId = groupId,
 		creatorType = creatorType,
 		creatorId = creatorId,
+	})
+end
+
+function Urls.constructGetAssetGroupCreationsUrl(assetType, limit, cursor, isPackageExcluded, groupId)
+	return string.format("%s/creations/group/%d/%s?", TOOLBOX_SERVICE_URL, groupId, assetType) .. Url.makeQueryString({
+		limit = limit,
+		cursor = cursor,
 	})
 end
 
@@ -409,15 +415,6 @@ end
 
 function Urls.constructGetUserFriendsUrl(userId)
 	return GET_USER_FRIENDS_URL:format(userId)
-end
-
-if not FFlagUseNewAssetPermissionEndpoint2 then
-	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-	function Urls.constructGetPackageCollaboratorsUrl(assetId)
-		return GET_PACKAGE_COLLABORATORS:format(assetId) .. Url.makeQueryString({
-			actionsTextToFilter = "UseView,Edit"
-		})
-	end
 end
 
 function Urls.constructPutPackagePermissionsUrl(assetId)

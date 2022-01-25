@@ -13,8 +13,6 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagKeyframeUtilsGetValueCleanup = require(Plugin.LuaFlags.GetFFlagKeyframeUtilsGetValueCleanup)
 
-local FFlagCubicEasingStyle = game:DefineFastFlag("ACECubicEasingStyle2", false)
-
 local KeyframeUtils = {}
 
 function KeyframeUtils.getDefaultValue(trackType)
@@ -202,16 +200,6 @@ function KeyframeUtils.snapToFrame(value, tolerance)
 		return nearestFrame
 	else
 		return value
-	end
-end
-
--- TODO: AVBURST-877 We need to have an equivalent for Cubic easing
--- Deprecated with FFlagCubicEasingStyle
-local function convertEasingStyle(poseEasingStyle)
-	if poseEasingStyle == Enum.PoseEasingStyle.Cubic then
-		return Enum.EasingStyle.Quad
-	else
-		return Enum.EasingStyle[poseEasingStyle.Name]
 	end
 end
 
@@ -441,7 +429,7 @@ function KeyframeUtils.blendKeyframes(dataTable, tck, low, high)
 		alpha = distance
 	else
 		alpha = TweenService:GetValue(distance,
-			FFlagCubicEasingStyle and Enum.EasingStyle[lowEntry.EasingStyle.Name] or convertEasingStyle(lowEntry.EasingStyle),
+			Enum.EasingStyle[lowEntry.EasingStyle.Name],
 			Enum.EasingDirection[lowEntry.EasingDirection.Name])
 	end
 
@@ -463,7 +451,7 @@ function KeyframeUtils:blendKeyframes_deprecated(dataTable, tck, low, high)
 		alpha = distance
 	else
 		alpha = TweenService:GetValue(distance,
-			FFlagCubicEasingStyle and Enum.EasingStyle[lowEntry.EasingStyle.Name] or convertEasingStyle(lowEntry.EasingStyle),
+			Enum.EasingStyle[lowEntry.EasingStyle.Name],
 			Enum.EasingDirection[lowEntry.EasingDirection.Name])
 	end
 

@@ -31,7 +31,7 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/en-us/articles/Team-Create")
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then

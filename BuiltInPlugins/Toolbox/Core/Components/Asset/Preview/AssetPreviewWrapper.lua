@@ -79,7 +79,6 @@ local AssetPreviewWrapper = Roact.PureComponent:extend("AssetPreviewWrapper")
 
 local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
-local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
 local disableRatings = require(Plugin.Core.Util.ToolboxUtilities).disableRatings
@@ -478,12 +477,10 @@ function AssetPreviewWrapper:init(props)
 		end
 	end
 
-	if FFlagToolboxPluginPreviewFooter then
-		self.renderFooter = function(footerProps)
-			return Roact.createElement(AssetPreviewFooter, Cryo.Dictionary.join(footerProps, {
-				AssetData = self.props.assetData,
-			}))
-		end
+	self.renderFooter = function(footerProps)
+		return Roact.createElement(AssetPreviewFooter, Cryo.Dictionary.join(footerProps, {
+			AssetData = self.props.assetData,
+		}))
 	end
 end
 
@@ -577,7 +574,7 @@ function AssetPreviewWrapper:renderContent(theme, modalTarget, localizedContent)
 		OnClickCreator = self.searchByCreator,
 		OnClickReport = FFlagToolboxRedirectToLibraryAbuseReport and self.onClickReport or nil,
 
-		RenderFooter = FFlagToolboxPluginPreviewFooter and self.renderFooter or nil,
+		RenderFooter = self.renderFooter,
 
 		CanFlagAsset = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id ~= 1 and assetData.Creator.Id ~= getUserId()) or nil,
 	})

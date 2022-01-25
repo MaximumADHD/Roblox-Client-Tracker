@@ -8,7 +8,10 @@ else
 end
 local Roact = require(Libs.Roact)
 local ContextItem = require(Libs.Framework).ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Libs.Framework).ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local Settings = ContextItem:extend("Settings")
 
@@ -21,10 +24,12 @@ function Settings.new(settings)
 	return self
 end
 
-function Settings:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Settings:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Settings:get()

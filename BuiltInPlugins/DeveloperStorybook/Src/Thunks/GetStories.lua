@@ -2,6 +2,8 @@
 	Discover the storybooks & their corresponding stories in the data model.
 ]]
 
+local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
+
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Framework = require(Main.Packages.Framework)
@@ -197,24 +199,44 @@ local function visitInstance(
 	end
 end
 
+local function safeGetService(_index: number, serviceName: string)
+	local ok, service = pcall(function()
+		local service = game:GetService(serviceName)
+		-- Ensure we can call GetChildren
+		service:GetChildren()
+		return service
+	end)
+	return ok and service or nil
+end
+
 local function findStorybooks()
 	-- We have an _Index if we are a plugin, not an embedded storybook
 	local index = Main.Packages:FindFirstChild("_Index")
-	local sources = collectArray(STORYBOOK_SOURCES, function(_index: number, serviceName: string)
-		local ok, service = pcall(function()
-			local service = game:GetService(serviceName)
-			-- Ensure we can call GetChildren
-			service:GetChildren()
-			return service
-		end)
-		return ok and service or nil
-	end)
+	local sources = collectArray(STORYBOOK_SOURCES, safeGetService)
 	local devFramework = index and index.DeveloperFramework.DeveloperFramework or Main.Parent.Framework
 	insert(sources, devFramework)
 	local foldersByPath: { [string]: Types.StoryItem } = {}
 	local storybookItems: Types.Array<Types.StoryItem> = {}
+
+	if FFlagToolboxStorybook and index then
+		local PluginDebugService = safeGetService(0, "PluginDebugService")
+		if PluginDebugService then
+			forEach(PluginDebugService:GetChildren(), function(source: Plugin)
+				-- If we are a plugin, don't check ourself for storybooks
+				if index and source == plugin then
+					return
+				end
+				insert(sources, source)
+			end)
+		end
+	end
+
 	forEach(sources, function(source: Instance)
 		forEach(source:GetDescendants(), function(instance: Instance)
+			if FFlagToolboxStorybook and index and source:IsA("Plugin") and (instance:GetFullName():find(".Packages") or instance:GetFullName():find(".Libs")) then
+				-- Skip library folders for plugins
+				return
+			end
 			visitInstance(instance, foldersByPath, storybookItems)
 		end)
 	end)

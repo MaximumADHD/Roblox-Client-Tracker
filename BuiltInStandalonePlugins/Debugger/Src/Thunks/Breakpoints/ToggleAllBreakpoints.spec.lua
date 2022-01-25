@@ -16,6 +16,7 @@ local MockBreakpointManager = require(Mocks.MockBreakpointManager)
 local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
+local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
 local ToggleAllBreakpoints = require(script.Parent.ToggleAllBreakpoints)
 
@@ -48,7 +49,8 @@ return function()
 		fakeDebuggerConnect(store)
 		
 		local mockBreakpointManager = MockBreakpointManager.new()
-		local _mainBreakpointListener = BreakpointManagerListener.new(store, mockBreakpointManager)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+		local _mainBreakpointListener = BreakpointManagerListener.new(store, mockBreakpointManager, mockCrossDMScriptChangeListenerService)
 
 		-- add breakpoints to the store
 		local metaBreakpoint1 = createMockMetaBreakpoint(1,"scriptString1", mockBreakpointManager)

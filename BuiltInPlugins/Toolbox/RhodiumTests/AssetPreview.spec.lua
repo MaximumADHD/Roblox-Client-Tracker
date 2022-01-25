@@ -243,6 +243,8 @@ return function()
 			expect(genreInfoInstance:getRbxInstance().Text).to.be.equal("All")
 		end)
 
+		local FORMATTED_DATE_PATTERN = "%d+/%d+/%d+ %d+:%d+:%d+ [AP]M"
+
 		it("asset preview created time should show", function()
 			TestHelpers.clickInstanceWithXPath(AssetPreviewButtonPath)
 
@@ -250,7 +252,7 @@ return function()
 			local createdTimeInfoPath = PreviewInfoPath .. ".InfoRow_3.Contents.ContentWrapper.Contents.Content"
 			local createdTimeInfoInstance = Element.new(createdTimeInfoPath)
 			expect(createdTimeInfoInstance).to.be.ok()
-			expect(createdTimeInfoInstance:getRbxInstance().Text).to.be.equal("05/09/2018 9:28:14 PM")
+			expect(createdTimeInfoInstance:getRbxInstance().Text:match(FORMATTED_DATE_PATTERN)).to.be.ok()
 		end)
 
 		it("asset preview updated time should show", function()
@@ -260,7 +262,7 @@ return function()
 			local updatedTimeInfoPath = PreviewInfoPath .. ".InfoRow_4.Contents.ContentWrapper.Contents.Content"
 			local updatedTimeInfoInstance = Element.new(updatedTimeInfoPath)
 			expect(updatedTimeInfoInstance).to.be.ok()
-			-- expect(updatedTimeInfoInstance:getRbxInstance().Text).to.be.equal("09/05/2018 19:28:14")
+			expect(updatedTimeInfoInstance:getRbxInstance().Text:match(FORMATTED_DATE_PATTERN)).to.be.ok()
 		end)
 
 		local testCases = {Category.FREE_AUDIO.category, Category.FREE_DECALS.category, Category.FREE_MESHES.category}

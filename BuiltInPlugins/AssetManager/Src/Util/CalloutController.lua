@@ -5,7 +5,10 @@ local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 local ContextItem = ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local CalloutController = ContextItem:extend("CalloutController")
 
@@ -22,10 +25,12 @@ function CalloutController:destroy()
 	self._calloutService = nil
 end
 
-function CalloutController:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function CalloutController:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function CalloutController:defineCallout(definitionId, title, description, learnMoreUrl)

@@ -10,6 +10,9 @@
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Framework.ContextServices.Provider)
 local t = require(Framework.Util.Typecheck.t)
 
@@ -73,10 +76,12 @@ function PluginActions:__mapActionDefinitions(actionDefinitions)
 	return actions
 end
 
-function PluginActions:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function PluginActions:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function PluginActions:get(id)

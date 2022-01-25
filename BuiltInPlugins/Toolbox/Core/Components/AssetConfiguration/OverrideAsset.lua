@@ -24,8 +24,6 @@ else
 end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
-local UILibrary = require(Libs.UILibrary)
-local Framework = require(Libs.Framework)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local OverrideAssetView = require(AssetConfiguration.OverrideAssetView)
@@ -37,14 +35,11 @@ local ContextGetter = require(Util.ContextGetter)
 local Constants = require(Util.Constants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 local getUserId = require(Util.getUserId)
-local PagedRequestCursor = require(Util.PagedRequestCursor)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local RoundTextBox
 local Framework = require(Libs.Framework)
 local TextInput = Framework.UI.TextInput
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext

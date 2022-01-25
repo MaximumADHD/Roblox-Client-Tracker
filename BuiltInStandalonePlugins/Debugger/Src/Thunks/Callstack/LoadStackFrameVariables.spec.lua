@@ -20,7 +20,7 @@ local DebuggerStateToken = require(Models.DebuggerStateToken)
 local Actions = Plugin.Src.Actions
 local AddThreadId = require(Actions.Callstack.AddThreadId)
 local SetCurrentThread = require(Actions.Callstack.SetCurrentThread)
-local BreakpointHitAction = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 
 local LoadStackFrameVariables = require(script.Parent.LoadStackFrameVariables)
 
@@ -44,7 +44,7 @@ return function()
 		currentMockConnection.MockSetThreadStateById(1, testThreadOne)
 		
 		-- fake a stopped thread and load the stack frame variables
-		store:dispatch(BreakpointHitAction(dst, testPausedState.ThreadId))
+		store:dispatch(SimPaused(dst, testPausedState.ThreadId))
 		local threadState = currentMockConnection:GetThreadById(testPausedState.ThreadId)
 		store:dispatch(AddThreadId(testPausedState.ThreadId, threadState.ThreadName, dst))
 		store:dispatch(SetCurrentThread(testPausedState.ThreadId))

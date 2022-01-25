@@ -1,5 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
+
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -78,6 +80,9 @@ end
 function AssetConfigTheme:destroy()
 	if self._externalThemeChangedConnection then
 		self._externalThemeChangedConnection:Disconnect()
+		if FFlagToolboxNilDisconnectSignals then
+			self._externalThemeChangedConnection = nil
+		end
 	end
 end
 

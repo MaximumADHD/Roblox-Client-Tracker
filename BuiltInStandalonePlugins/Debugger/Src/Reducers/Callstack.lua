@@ -8,7 +8,7 @@ local AddCallstackAction = require(Actions.Callstack.AddCallstack)
 local AddThreadIdAction = require(Actions.Callstack.AddThreadId)
 local ResumedAction = require(Actions.Common.Resumed)
 local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
-local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 local ColumnFilterChange = require(Actions.Callstack.ColumnFilterChange)
 local ThreadInfo = require(Models.ThreadInfo)
 local DebuggerStateToken = require(Models.DebuggerStateToken)
@@ -45,6 +45,11 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[AddCallstackAction.name] = function(state : CallstackStore, action : AddCallstackAction.Props)
+		if state.stateTokenToCallstackVars[action.debuggerStateToken] == nil then
+			assert(false)
+			return state
+		end
+		
 		return Cryo.Dictionary.join(state, {
 			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {
 				[action.debuggerStateToken] = {
@@ -57,7 +62,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[BreakpointHit.name] = function(state : CallstackStore, action : BreakpointHit.Props)
+	[SimPaused.name] = function(state : CallstackStore, action : SimPaused.Props)
 		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] == nil or
 			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId] == nil)
 		

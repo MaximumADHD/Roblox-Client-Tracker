@@ -30,6 +30,7 @@ local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 
 local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
+local ExecuteExpression = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionThunk)
 
 local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -125,23 +126,32 @@ function DisplayTable:init()
 		local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
 		for row, expandedBool in pairs(newExpansion) do
 			if expandedBool then
-				self.props.onLazyLoadChildren(row.pathColumn, currentStepStateBundle, props.SelectedTab == TableTab.Watches, debuggerConnection)
+				self.props.OnLazyLoadChildren(row.pathColumn, currentStepStateBundle, props.SelectedTab == TableTab.Watches, debuggerConnection)
 			end
-			self.props.onExpansionDispatch(row.pathColumn, expandedBool)
+			self.props.OnExpansionDispatch(row.pathColumn, expandedBool)
 		end
 	end
 
 	self.OnFocusLost = function(enterPress, inputObj, row, col)
 		local oldExpression = row.item.expressionColumn
 		local newExpression = inputObj.Text
-		
+
+		local currentStepStateBundle = self.props.CurrentStepStateBundle
+		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
+		if not currentStepStateBundle or not debuggerConnectionManager then
+			assert(false)
+			return
+		end
+		local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
 		if col == 1 then
 			if oldExpression == "" and newExpression ~= "" then
 				self.props.OnAddExpression(newExpression)
+				self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
 			elseif newExpression == "" then
-				self.props.onRemoveExpression(oldExpression)
+				self.props.OnRemoveExpression(oldExpression)
 			elseif oldExpression ~= newExpression then
 				self.props.OnChangeExpression(oldExpression, newExpression)
+				self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
 			end
 		end
 	end
@@ -231,39 +241,46 @@ DisplayTable = withContext({
 DisplayTable = RoactRodux.connect(
 	function(state, props)
 		local common = state.Common
+		local watch = state.Watch
+		local tabState = watch.currentTab
+		local isVariablesTab = (tabState == TableTab.Variables)
+
 		if common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] == nil or 
 			common.currentFrameMap[common.currentDebuggerConnectionId] == nil or 
 			common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId] == nil
 		then
+			local rootItems = {}
+			if not isVariablesTab then
+				table.insert(rootItems, WatchRow.fromExpression(""))
+			end
+
 			return {
 				SelectedTab = nil,
-				RootItems = {},
+				RootItems = rootItems,
+				ExpansionTable = {},
 			}
 		else
 			local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
 			local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 			local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
-
-			local tabState = state.Watch.currentTab
-			local isVariablesTab = (tabState == TableTab.Variables)
-			local watchVars = state.Watch.stateTokenToRoots[token]
+			local watchVars = watch.stateTokenToRoots[token]
 
 			local roots = watchVars and watchVars[threadId] and watchVars[threadId][frameNumber]
 			local treeKey = isVariablesTab and "Variables" or "Watches"
 			local rootsList = roots and (roots[treeKey] and deepCopy(roots[treeKey]) or {}) or {}
 
-			local watchTree = state.Watch.stateTokenToFlattenedTree[token]
+			local watchTree = watch.stateTokenToFlattenedTree[token]
 			local tree = watchTree and watchTree[threadId] and watchTree[threadId][frameNumber]
 			local flattenedTreeCopy = tree and (tree[treeKey] and deepCopy(tree[treeKey]) or {}) or {}
 
 			if not isVariablesTab then
-				rootsList = useListOfExpressionsAsSOT(state.Watch.listOfExpressions, rootsList, flattenedTreeCopy)
+				rootsList = useListOfExpressionsAsSOT(watch.listOfExpressions, rootsList, flattenedTreeCopy)
 			end
 
 			local rootItems = populateRootItems(rootsList, flattenedTreeCopy)
 			rootItems = applyFilters(rootItems, flattenedTreeCopy)
 			local expansionTable = {}
-			local storeExpansionTable = isVariablesTab and state.Watch.pathToExpansionState or state.Watch.expressionToExpansionState
+			local storeExpansionTable = isVariablesTab and watch.pathToExpansionState or watch.expressionToExpansionState
 			populateExpansionTable(rootItems, expansionTable, storeExpansionTable)
 
 			if not isVariablesTab then
@@ -281,7 +298,7 @@ DisplayTable = RoactRodux.connect(
 	
 	function(dispatch)
 		return {
-			onExpansionDispatch = function(path, expanded)
+			OnExpansionDispatch = function(path, expanded)
 				return dispatch(SetVariableExpanded(path, expanded))
 			end,
 			OnChangeExpression = function(oldName, newName)
@@ -290,10 +307,13 @@ DisplayTable = RoactRodux.connect(
 			OnAddExpression = function(newExpression)
 				return dispatch(AddExpression(newExpression))
 			end,
-			onLazyLoadChildren = function(path, stepStateBundle, isExpression, debuggerConnection)
+			OnLazyLoadChildren = function(path, stepStateBundle, isExpression, debuggerConnection)
 				return dispatch(LazyLoadVariableChildren(path, stepStateBundle, isExpression, debuggerConnection))
 			end,
-			onRemoveExpression = function(oldExpression)
+			OnExecuteExpression = function(expression, stepStateBundle, debuggerConnection)
+				return dispatch(ExecuteExpression(expression, stepStateBundle, debuggerConnection))
+			end,
+			OnRemoveExpression = function(oldExpression)
 				return dispatch(RemoveExpression(oldExpression))
 			end,
 		}

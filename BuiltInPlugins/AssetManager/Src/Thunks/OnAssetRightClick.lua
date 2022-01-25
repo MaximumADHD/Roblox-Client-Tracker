@@ -21,6 +21,7 @@ local StudioService = game:GetService("StudioService")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
@@ -46,7 +47,12 @@ local function removeAssets(apiImpl, assetData, assets, selectedAssets, store)
     store:dispatch(SetAssets({
         assets = {},
     }))
-    store:dispatch(GetAssets(apiImpl, assetData.assetType))
+    if FFlagAssetManagerRefactorPath then
+        local state = store:getState()
+        store:dispatch(GetAssets(apiImpl, state.Screen.currentScreen.Path))
+    else
+        store:dispatch(GetAssets(apiImpl, assetData.assetType))
+    end
 end
 
 local function addRenameAliasContextItem(contextMenu, analytics, assetData, localization, onAssetPreviewClose, store)
@@ -83,22 +89,22 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
         store:dispatch(SetScreen(assetData.Screen))
         analytics:report("clickContextMenuItem")
     end)
-    if assetData.Screen.Key == Screens.IMAGES.Key then
+    if assetData.Screen.Path == Screens.IMAGES.Path then
         contextMenu:AddNewAction("AddImages", localization:getText("ContextMenu", "AddImages")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.Image.Value))
             analytics:report("clickContextMenuItem")
         end)
-    elseif enableAudioImport() and assetData.Screen.Key == Screens.AUDIO.Key then
+    elseif enableAudioImport() and assetData.Screen.Path == Screens.AUDIO.Path then
         contextMenu:AddNewAction("AddAudio", localization:getText("ContextMenu", "AddAudio")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.Audio.Value))
             analytics:report("clickContextMenuItem")
         end)
-    elseif assetData.Screen.Key == Screens.MESHES.Key then
+    elseif assetData.Screen.Path == Screens.MESHES.Path then
         contextMenu:AddNewAction("AddMeshes", localization:getText("ContextMenu", "AddMeshes")).Triggered:connect(function()
             store:dispatch(LaunchBulkImport(Enum.AssetType.MeshPart.Value))
             analytics:report("clickContextMenuItem")
         end)
-    elseif assetData.Screen.Key == Screens.PLACES.Key then
+    elseif assetData.Screen.Path == Screens.PLACES.Path then
         contextMenu:AddNewAction("AddPlace", localization:getText("ContextMenu", "AddNewPlace")).Triggered:connect(function()
             local placeId, errorMessage = AssetManagerService:AddNewPlace()
             if errorMessage then
@@ -109,8 +115,12 @@ local function createFolderContextMenu(analytics, apiImpl, assetData, contextMen
                 assets = {},
             }))
             local state = store:getState()
-            if state.Screen.currentScreen.Key == Screens.PLACES.Key then
-                store:dispatch(GetAssets(apiImpl, Screens.PLACES.AssetType))
+            if state.Screen.currentScreen.Path == Screens.PLACES.Path then
+                if FFlagAssetManagerRefactorPath then
+                    store:dispatch(GetAssets(apiImpl, Screens.PLACES.Path))
+                else
+                    store:dispatch(GetAssets(apiImpl, Screens.PLACES.AssetType))
+                end
             else
                 store:dispatch(SetScreen(Screens.PLACES))
             end

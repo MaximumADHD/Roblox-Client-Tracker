@@ -18,8 +18,6 @@ local withContext = ContextServices.withContext
 local Constants = require(Plugin.Src.Util.Constants)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
 
-local GetFFlagPlaybackSpeedChanges = require(Plugin.LuaFlags.GetFFlagPlaybackSpeedChanges)
-
 local ChangePlaybackSpeedPrompt = Roact.PureComponent:extend("ChangePlaybackSpeedPrompt")
 
 function ChangePlaybackSpeedPrompt:init()
@@ -50,20 +48,10 @@ function ChangePlaybackSpeedPrompt:init()
 			if status and result ~= nil then
 				result = math.floor(result * 100) / 100
 				if result < Constants.MIN_PLAYBACK_SPEED then
-					if GetFFlagPlaybackSpeedChanges() then
-						self.setNotice(localization:getText("Title", "MinPBSParam", {speed = tostring(Constants.MIN_PLAYBACK_SPEED)}))
-					else
-						-- Remove from translation table when retiring the flag
-						self.setNotice(localization:getText("Title", "MinPBS"))
-					end
+					self.setNotice(localization:getText("Title", "MinPBSParam", {speed = tostring(Constants.MIN_PLAYBACK_SPEED)}))
 					return false
 				elseif result > Constants.MAX_PLAYBACK_SPEED then
-					if GetFFlagPlaybackSpeedChanges() then
-						self.setNotice(localization:getText("Title", "MaxPBSParam", {speed = tostring(Constants.MAX_PLAYBACK_SPEED)}))
-					else
-						-- Remove from translation table when retiring the flag
-						self.setNotice(localization:getText("Title", "MaxPBS"))
-					end
+					self.setNotice(localization:getText("Title", "MaxPBSParam", {speed = tostring(Constants.MAX_PLAYBACK_SPEED)}))
 					return false
 				else
 					self.props.SetPlaybackSpeed(result)

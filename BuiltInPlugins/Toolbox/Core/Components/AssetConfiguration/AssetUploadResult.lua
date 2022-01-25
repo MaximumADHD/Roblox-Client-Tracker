@@ -5,7 +5,6 @@
 		Size UDim2, the size of the window
 		onClose callback, called when the user presses the "cancel" button
 ]]
-local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
@@ -150,15 +149,10 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 	local showFail = not showSuccess
 	local showReasons = false
 
-	local footerHeight
-	if FFlagToolboxAssetConfigAddPublishBackButton then
-		footerHeight = BASE_FOOTER_HEIGHT + FOOTER_PADDING + Constants.FONT_SIZE_MEDIUM
-	else
-		footerHeight = BASE_FOOTER_HEIGHT
-	end
+	local footerHeight = BASE_FOOTER_HEIGHT + FOOTER_PADDING + Constants.FONT_SIZE_MEDIUM
 
 	return Roact.createElement("Frame", {
-		AutomaticSize = FFlagToolboxAssetConfigAddPublishBackButton and Enum.AutomaticSize.Y or nil,
+		AutomaticSize = Enum.AutomaticSize.Y,
 		BackgroundColor3 = theme.uploadResult.background,
 		BackgroundTransparency = 0,
 		BorderSizePixel = 0,
@@ -302,12 +296,12 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 		}),
 
 		Footer = Roact.createElement("Frame", {
-			AutomaticSize = FFlagToolboxAssetConfigAddPublishBackButton and Enum.AutomaticSize.Y or nil,
+			AutomaticSize = Enum.AutomaticSize.Y,
 			BackgroundTransparency = 1,
 			Position = UDim2.new(0, 0, 1, -footerHeight),
 			Size = UDim2.new(1, 0, 0, footerHeight),
 		}, {
-			UIListLayout = FFlagToolboxAssetConfigAddPublishBackButton and Roact.createElement("UIListLayout", {
+			UIListLayout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 				Padding = UDim.new(0, FOOTER_PADDING),
@@ -318,11 +312,10 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 				onClick = props.onClose,
 				titleText = "Close",
 				LayoutOrder = 0,
-				Position = (not FFlagToolboxAssetConfigAddPublishBackButton) and UDim2.new(0.5, -BUTTON_WIDTH/2, 0.5, -BUTTON_HEIGHT/2) or nil,
 				Size = UDim2.new(0, BUTTON_WIDTH, 0, BUTTON_HEIGHT),
 			}),
 
-			LinkText = FFlagToolboxAssetConfigAddPublishBackButton and Roact.createElement(LinkText, {
+			LinkText = Roact.createElement(LinkText, {
 				LayoutOrder = 1,
 				OnClick = self.clickBackLink,
 				Text = localizedContent.AssetConfig.UploadResult.Back,
@@ -332,9 +325,9 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 end
 
 function AssetUploadResult:render()
-	return FFlagToolboxAssetConfigAddPublishBackButton and withLocalization(function(_, localizedContent)
+	return withLocalization(function(_, localizedContent)
 		return self:renderContent(nil, localizedContent)
-	end) or self:renderContent(nil)
+	end)
 end
 
 local function mapStateToProps(state, props)

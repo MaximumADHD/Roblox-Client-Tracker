@@ -46,8 +46,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
-local FFlagRenameExportToPublish = game:DefineFastFlag("ACERenameExportToPublish", false)
-local FFlagAnimationClipProvider = game:GetEngineFeature("UseNewAnimationClipProvider_3")
+local FFlagAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_3")
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")
@@ -180,7 +179,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	table.insert(actions, Separator)
 	table.insert(actions, self:makeImportSubMenu(localization))
 	table.insert(actions, {
-		Name = localization:getText("Menu", FFlagRenameExportToPublish and "PublishToRoblox" or "Export"),
+		Name = localization:getText("Menu", "PublishToRoblox"),
 		ItemSelected = function()
 			if GetFFlagChannelAnimations() then
 				props.ExportAnimation(plugin, props.Analytics)

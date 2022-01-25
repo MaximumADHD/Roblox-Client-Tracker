@@ -47,7 +47,7 @@ Typecheck.wrap(SelectItemScreen, script)
 function SelectItemScreen:init()
 	self.state = {
 		selectedPart = nil,
-		isSelecting = false,
+		invalidSelected = false,
 	}
 
 	self.checkForPreviewAvatar = function(item)
@@ -140,9 +140,8 @@ function SelectItemScreen:init()
 	self.onSelectValidInstance = function(instance)
 		self:setState({
 			selectedPart = instance,
-			isSelecting = false,
+			invalidSelected = false,
 		})
-		self.props.Mouse:__resetCursor()
 
 		if self.ancestryChangedHandle then
 			self.ancestryChangedHandle:Disconnect()
@@ -151,16 +150,17 @@ function SelectItemScreen:init()
 		self.ancestryChangedHandle = instance.AncestryChanged:Connect(function()
 			self:setState({
 				selectedPart = Roact.None,
+				invalidSelected = false,
 			})
 			self.ancestryChangedHandle:Disconnect()
 			self.ancestryChangedHandle = nil
 		end)
 	end
 
-	self.onStartSelection = function()
-	    self.props.Mouse:__pushCursor("PointingHand")
+	self.onInvalidSelectionInstance = function()
 		self:setState({
-			isSelecting = true,
+			invalidSelected = true,
+			selectedPart = Roact.None,
 		})
 	end
 end
@@ -179,15 +179,12 @@ function SelectItemScreen:render()
 	local state = self.state
 
 	local partName = state.selectedPart and state.selectedPart.Name or ""
-	local isSelecting = state.isSelecting
+	local invalidSelected = state.invalidSelected
+	local validPartSelected = partName ~= ""
 
 	local theme = props.Stylizer
 	local localization = props.Localization
-
-	local invalidAddText = localization:getText("AddEditingItemFromExplorer", "InvalidAddTextAccOnly")
-	if GetFFlagDebugLCEditAvatarCage() then
-		invalidAddText = localization:getText("AddEditingItemFromExplorer", "InvalidAddText")
-	end
+	local partNameText = invalidSelected and localization:getText("Select", "Invalid") or partName
 
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -195,16 +192,15 @@ function SelectItemScreen:render()
 		BorderSizePixel = 0,
 	}, {
 		SelectFrame = Roact.createElement(SelectFrame, {
-			PartName = partName,
-			ButtonEnabled = partName ~= "",
-			OnStartSelection = self.onStartSelection,
+			PartName = partNameText,
+			ButtonEnabled = validPartSelected,
 			OnConfirmSelection = self.onConfirmSelection
 		}),
 
-		InstanceSelector = isSelecting and Roact.createElement(InstanceSelector, {
+		InstanceSelector = Roact.createElement(InstanceSelector, {
 			IsSelectedInstanceValid = self.isSelectedInstanceValid,
 			OnValidSelection = self.onSelectValidInstance,
-			InvalidSelectionWarningText = invalidAddText,
+			OnInvalidSelection = self.onInvalidSelectionInstance,
 		})
 	})
 end
@@ -221,7 +217,6 @@ SelectItemScreen = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
-	Mouse = ContextServices.Mouse,
 	EditingItemContext = EditingItemContext,
 })(SelectItemScreen)
 

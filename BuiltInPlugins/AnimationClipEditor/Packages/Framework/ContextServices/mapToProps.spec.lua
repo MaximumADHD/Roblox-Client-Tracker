@@ -1,4 +1,8 @@
+-- TODO: Remove this test when FFlagDevFrameworkUseCreateContext is retired
+
 return function()
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+	
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local mapToProps = require(script.Parent.mapToProps)
@@ -8,6 +12,10 @@ return function()
 
 	local Util = require(Framework.Util)
 	local Signal = Util.Signal
+
+	if FFlagDevFrameworkUseCreateContext then
+		return
+	end
 
 	it("should throw if called before defining Render", function()
 		expect(function()

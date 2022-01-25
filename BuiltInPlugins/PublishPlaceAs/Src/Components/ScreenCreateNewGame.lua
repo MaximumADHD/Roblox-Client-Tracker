@@ -42,7 +42,6 @@ local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).s
 local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
-local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePlaceWorkflow")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
@@ -204,10 +203,6 @@ function ScreenCreateNewGame:render()
 
 						dispatchSetIsPublishing(true)
 						SettingsImpl.saveAll(changed, localization, apiImpl)
-					end
-
-					if FFlagStudioUseNewSavePlaceWorkflow and FFlagStudioEnableNewGamesInTheCloudMetrics and isPublish then
-						Analytics.reportInitialPerms(changed.isActive, changed.isFriendsOnly)
 					end
 				end,
 			},

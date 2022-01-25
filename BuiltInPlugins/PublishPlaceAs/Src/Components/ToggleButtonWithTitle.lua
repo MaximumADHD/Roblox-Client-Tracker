@@ -13,7 +13,6 @@
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
 
-
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Cryo = require(Plugin.Packages.Cryo)
@@ -99,7 +98,7 @@ function ToggleButtonWithTitle:render()
 
         LinkText = props.LinkProps and Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join(linkProps, {
             LinkPlaceholder = "[link]",
-            MaxWidth = descriptionWidth,
+            MaxWidth = math.max(descriptionWidth, theme.textWithInlineLink.maxWidth),
             LayoutOrder = layoutIndex:getNextOrder(),
             TextProps = Cryo.Dictionary.join(theme.fontStyle.Subtext, {
                 BackgroundTransparency = 1,

@@ -54,8 +54,7 @@ local SearchOptionsEntry = require(Plugin.Core.Components.SearchOptions.SearchOp
 local SearchOptionsFooter = require(Plugin.Core.Components.SearchOptions.SearchOptionsFooter)
 
 local FFlagToolboxFixCreatorSearchResults = game:GetFastFlag("ToolboxFixCreatorSearchResults")
-local FFlagToolboxPolicyHideNonRelevanceSorts = game:GetFastFlag("ToolboxPolicyHideNonRelevanceSorts")
-local getShouldHideNonRelevanceSorts = (FFlagToolboxPolicyHideNonRelevanceSorts and require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts) or nil
+local getShouldHideNonRelevanceSorts = require(Plugin.Core.Util.ToolboxUtilities).getShouldHideNonRelevanceSorts
 
 local Separator = Framework.UI.Separator
 
@@ -252,10 +251,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 
 	self:resetLayout()
 
-	local showSortOptions = true
-	if FFlagToolboxPolicyHideNonRelevanceSorts then
-		showSortOptions = not getShouldHideNonRelevanceSorts()
-	end
+	local showSortOptions = not getShouldHideNonRelevanceSorts()
 
 	local searchOptions = {
 		Main = Roact.createElement("Frame", {

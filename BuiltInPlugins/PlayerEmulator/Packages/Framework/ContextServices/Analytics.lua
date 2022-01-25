@@ -35,7 +35,7 @@
 			Analytics = ContextServices.Analytics,
 		})(Button)
 ]]
-
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local Framework = script.Parent.Parent
@@ -60,10 +60,12 @@ function Analytics.new(createEventHandlers, rbxAnalyticsService)
 	return self
 end
 
-function Analytics:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Analytics:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Analytics:report(event, ...)

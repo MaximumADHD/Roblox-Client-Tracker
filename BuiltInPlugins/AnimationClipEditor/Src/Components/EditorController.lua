@@ -75,8 +75,6 @@ local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaContr
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 
-local FFlagFixMouseWheel = game:DefineFastFlag("ACEFixMouseWheel", false)
-
 local EditorController = Roact.PureComponent:extend("EditorController")
 
 function EditorController:init()
@@ -126,11 +124,7 @@ function EditorController:init()
 
 	self.onScroll = function(delta)
 		local topTrackIndex = self.state.TopTrackIndex
-		if FFlagFixMouseWheel then
-			self.setTopTrackIndex(topTrackIndex - (delta > 0 and 1 or -1))
-		else
-			self.setTopTrackIndex(topTrackIndex - delta)
-		end
+		self.setTopTrackIndex(topTrackIndex - (delta > 0 and 1 or -1))
 	end
 
 	self.onSizeUpdate = function(rbx)
@@ -248,7 +242,7 @@ function EditorController:init()
 				end
 			end
 		end
-		
+
 		local props = self.props
 		local setSelectedTrackInstances = props.SetSelectedTrackInstances
 		if (#currentParts > 0) and currentParts then
@@ -341,7 +335,7 @@ if UseLuaDraggers() then
 			for _, part in ipairs(self.KinematicParts) do
 				self.nameToPart[part.Name] = part
 			end
-			if GetFFlagRootMotionTrack() then 
+			if GetFFlagRootMotionTrack() then
 				local rootPart = RigUtils.findRootPart(nextProps.RootInstance)
 				self.nameToPart[rootPart.Name] = rootPart
 			end

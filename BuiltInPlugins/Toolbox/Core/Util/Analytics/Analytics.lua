@@ -9,9 +9,8 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getUserId = require(Plugin.Core.Util.getUserId)
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
+local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
 
 -- TODO CLIDEVSRVS-1689: StudioSession + StudioID
 local function getStudioSessionId()
@@ -293,29 +292,25 @@ function Analytics.reportAssetClicked(assetId, assetTypeId)
 	})
 end
 
-if FFlagToolboxMeshPartFiltering then
-	function Analytics.reportMeshPartFiltered(assetId)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MeshPartFiltered", {
-			studioSid = getStudioSessionId(),
-			clientId = getClientId(),
-			isEditMode = getIsEditMode(),
-			placeId = getPlaceId(),
-			assetId = assetId,
-		})
-	end
+function Analytics.reportMeshPartFiltered(assetId)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MeshPartFiltered", {
+		studioSid = getStudioSessionId(),
+		clientId = getClientId(),
+		isEditMode = getIsEditMode(),
+		placeId = getPlaceId(),
+		assetId = assetId,
+	})
 end
 
-if FFlagToolboxVerifiedCreatorBadges then
-	function Analytics.onIdVerificationIconClicked(assetId)
-		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "IdVerificationIconClicked", {
-			assetId = assetId,
-			clientId = getClientId(),
-			userId = getUserId(),
-			platformId = getPlatformId(),
-			studioSid = getStudioSessionId(),
-			isEditMode = getIsEditMode(),
-		})
-	end
+function Analytics.onIdVerificationIconClicked(assetId)
+	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "IdVerificationIconClicked", {
+		assetId = assetId,
+		clientId = getClientId(),
+		userId = getUserId(),
+		platformId = getPlatformId(),
+		studioSid = getStudioSessionId(),
+		isEditMode = getIsEditMode(),
+	})
 end
 
 function Analytics.marketplaceSearch(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo: AnalyticsTypes.SearchInfo)
@@ -339,6 +334,20 @@ function Analytics.marketplaceSearch(keyword, prefix, keyCount, delCount, autoco
 		sort = searchInfo.sort,
 		toolboxTab = searchInfo.toolboxTab,
 	})
+end
+
+if FFlagToolboxWindowTelemetry then
+	function Analytics.onToolboxWidgetInteraction(widgetSize)
+		AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "ToolboxWidgetInteraction", {
+			clientId = getClientId(),
+			userId = getUserId(),
+			platformId = getPlatformId(),
+			studioSid = getStudioSessionId(),
+			isEditMode = getIsEditMode(),
+			widgetWidth = widgetSize.X,
+			widgetHeight = widgetSize.Y
+		})
+	end
 end
 
 return Analytics

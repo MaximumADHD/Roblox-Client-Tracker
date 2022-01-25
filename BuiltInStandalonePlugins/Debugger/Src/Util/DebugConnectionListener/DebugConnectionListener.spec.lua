@@ -15,6 +15,7 @@ local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
 local MockBreakpoint = require(Mocks.Breakpoint)
+local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
@@ -22,8 +23,8 @@ return function()
 		local testStackFrameOne = mockStackFrame.new(10* fakeThreadId, mockScriptRef.new(), "TestFrame1", "C")
 		local testStackFrameTwo = mockStackFrame.new(20 * fakeThreadId, mockScriptRef.new(), "TestFrame2", "C")
 		local testCallstack1 = {
-			testStackFrameOne,
-			testStackFrameTwo,
+			[0] = testStackFrameOne,
+			[1] = testStackFrameTwo,
 		}
 		local testThreadOne = mockThreadState.new(fakeThreadId, "Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script", true)
 		mockConnection.MockSetThreadStateById(fakeThreadId, testThreadOne)
@@ -83,7 +84,7 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
 		local debuggerUIService = MockDebuggerUIService.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, MockCrossDMScriptChangeListenerService.new())
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)

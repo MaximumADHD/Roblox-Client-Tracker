@@ -1,3 +1,5 @@
+local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Rodux = require(Plugin.Packages.Rodux)
@@ -13,7 +15,6 @@ return Rodux.createReducer({
 	--  - installProgress : number
 	--  - name = string
 	--	- description = string
-	--	- commentsEnabled = bool
 	--	- versionId = string
 	--	- created = string
 	--	- updated = string
@@ -22,6 +23,8 @@ return Rodux.createReducer({
 
 	--[[ Initializes a plugin entry ]]
 	SetPluginId = function(state, action)
+		local commentsEnabled = if FFlagPluginManagementRemoveCommentsEnabled then nil else false
+
 		return Cryo.Dictionary.join(state, {
 			plugins = Cryo.Dictionary.join(state.plugins, {
 				[action.pluginId] = {
@@ -30,7 +33,7 @@ return Rodux.createReducer({
 					installProgress = 0.0,
 					name = "",
 					description = "",
-					commentsEnabled = false,
+					commentsEnabled = commentsEnabled,
 					versionId = "",
 					created = "",
 					updated = "",
@@ -54,7 +57,7 @@ return Rodux.createReducer({
 	end,
 
 	--[[ Updates an existing plugin entry with metadata about the plugin ]]
-	SetPluginMetadata = function(state, action)
+	DEPRECATED_SetPluginMetadata = function(state, action)
 		assert(state.plugins[action.pluginId], string.format("No plugin entry found for %s", action.pluginId))
 
 		return Cryo.Dictionary.join(state, {
@@ -63,6 +66,22 @@ return Rodux.createReducer({
 					name = action.name,
 					description = action.description,
 					commentsEnabled = action.commentsEnabled,
+					versionId = action.versionId,
+					created = action.created,
+					updated = action.updated,
+				})
+			})
+		})
+	end,
+
+	SetPluginMetadata = function(state, action)
+		assert(state.plugins[action.pluginId], string.format("No plugin entry found for %s", action.pluginId))
+
+		return Cryo.Dictionary.join(state, {
+			plugins = Cryo.Dictionary.join(state.plugins, {
+				[action.pluginId] = Cryo.Dictionary.join(state.plugins[action.pluginId], {
+					name = action.name,
+					description = action.description,
 					versionId = action.versionId,
 					created = action.created,
 					updated = action.updated,

@@ -1,3 +1,5 @@
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 return function()
 	local Framework = script.Parent.Parent
 	local Signal = require(Framework.Util.Signal)
@@ -29,17 +31,21 @@ return function()
 		expect(testItem2.Key).never.to.equal(testItem.Key)
 	end)
 
-	it("should require overriding createProvider", function()
-		local testItem = ContextItem:extend("TestItem")
-		expect(function()
+	if not FFlagDevFrameworkUseCreateContext then
+
+		it("should require overriding createProvider", function()
+			local testItem = ContextItem:extend("TestItem")
+			expect(function()
+				testItem:createProvider()
+			end).to.throw()
+
+			function testItem:createProvider()
+			end
+
 			testItem:createProvider()
-		end).to.throw()
+		end)
 
-		function testItem:createProvider()
-		end
-
-		testItem:createProvider()
-	end)
+	end
 
 	describe("ContextItem:createSimple() get method", function()
 		it("should require a name be passed", function()

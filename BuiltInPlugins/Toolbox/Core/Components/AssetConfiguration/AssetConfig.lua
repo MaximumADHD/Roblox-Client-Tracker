@@ -6,11 +6,8 @@
 	assetId, number, will be used to request assetData on didMount.
 ]]
 
-local FFlagAssetConfigEnforceNonEmptyDescription = game:GetFastFlag("AssetConfigEnforceNonEmptyDescription")
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
-local FFlagAssetConfigNonCatalogOptionalDescription = game:GetFastFlag("AssetConfigNonCatalogOptionalDescription")
-local FFlagRefactorDevFrameworkContextItems = game:GetFastFlag("RefactorDevFrameworkContextItems")
-local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 
 local StudioService = game:GetService("StudioService")
@@ -350,7 +347,7 @@ function AssetConfig:init(props)
 	self.tryCloseAssetConfig = function(index, action)
 		if action == "yes" then
 			-- Close the assetConfig
-			local pluginGui = FFlagRefactorDevFrameworkContextItems and self.props.Focus:get() or self.props.Focus:getTarget()
+			local pluginGui = FFlagRefactorDevFrameworkContextItems2 and self.props.Focus:get() or self.props.Focus:getTarget()
 
 			-- And we will let AssetConfigWrapper to handle the onClose and unMount.
 			pluginGui.Enabled = false
@@ -636,10 +633,8 @@ local function checkCanSave(changeTable, name, description, price, minPrice, max
 		local changed = changeTable and next(changeTable) ~= nil
 		local nameDataIsOk = (#name <= AssetConfigConstants.NAME_CHARACTER_LIMIT) and (tostring(name) ~= "")
 		local descriptionDataIsOk = #description <= AssetConfigConstants.DESCRIPTION_CHARACTER_LIMIT
-		if FFlagAssetConfigEnforceNonEmptyDescription then
-			if not FFlagAssetConfigNonCatalogOptionalDescription or AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
-				descriptionDataIsOk = descriptionDataIsOk and (tostring(description) ~= "")
-			end
+		if AssetConfigUtil.isCatalogAsset(assetTypeEnum) then
+			descriptionDataIsOk = descriptionDataIsOk and (tostring(description) ~= "")
 		end
 		local priceDataIsOk = validatePrice(price, minPrice, maxPrice, assetStatus)
 
@@ -1027,11 +1022,7 @@ local function mapDispatchToProps(dispatch)
 
 		setTab = function(tabItem)
 			dispatch(SetAssetConfigTab(tabItem))
-			if FFlagToolboxAssetConfigAddPublishBackButton then
-				dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
-			else
-				dispatch(ClearChange("OverrideAssetId"))
-			end
+			dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
 		end,
 
 		overrideAsset = function(networkInterface, assetid, type, instances)

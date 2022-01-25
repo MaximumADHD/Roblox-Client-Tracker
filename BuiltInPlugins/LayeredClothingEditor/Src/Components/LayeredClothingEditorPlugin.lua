@@ -72,7 +72,7 @@ function LayeredClothingEditorPlugin:init()
 		translationResourceTable = TranslationReferenceTable,
 	})
 
-	local toolbar = plugin:CreateToolbar(TOOLBAR_NAME)
+	local toolbar = plugin:CreateToolbar(self.localization:getText("Meta", "ToolbarName"))
 	self.toolbarButton = toolbar:CreateButton(
 		TOOLBAR_BUTTON_NAME,
 		self.localization:getText("Main", "Tooltip"),

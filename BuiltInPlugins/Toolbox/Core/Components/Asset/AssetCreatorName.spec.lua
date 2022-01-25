@@ -1,7 +1,6 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
 
-	local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
 	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 	local Libs
 	if FFlagToolboxDeduplicatePackages then
@@ -37,12 +36,7 @@ return function()
 		local instance = Roact.mount(element, container, "AssetCreatorName")
 		local assetCreatorName = container.AssetCreatorName
 		-- Use match to handle localization
-		local text
-		if FFlagToolboxVerifiedCreatorBadges then
-			text = assetCreatorName:GetChildren()[1].Text
-		else
-			text = assetCreatorName.Text
-		end
+		local text = assetCreatorName:GetChildren()[1].Text
 		expect(text:match(creatorNameString)).to.be.ok()
 		Roact.unmount(instance)
 	end)

@@ -21,7 +21,6 @@ local AssetAnalyticsContextItem = require(Plugin.Core.Util.Analytics.AssetAnalyt
 local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 
 local ExternalServicesWrapper = require(Plugin.Core.Components.ExternalServicesWrapper)
-local UILibraryWrapper = require(Libs.Framework).ContextServices.UILibraryWrapper :: any
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
 local Framework = require(Libs.Framework)
@@ -30,28 +29,11 @@ local ContextServices = Framework.ContextServices
 local Mouse = ContextServices.Mouse
 local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
-local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 local function MockWrapper(props)
-	local middleware
-	if FFlagStudioSerializeInstancesOffUIThread then
-		local mockStudioAssetService = {}
-		function mockStudioAssetService:SerializeInstances()
-			return ""
-		end
-
-		middleware = {
-			ThunkWithArgsMiddleware({
-				StudioAssetService = mockStudioAssetService,
-			}),
-		}
-	else
-		middleware = {
-			Rodux.thunkMiddleware
-		}
-	end
+	local middleware = CoreTestUtils.createThunkMiddleware()
 
 	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
 	local plugin = props.plugin or nil
@@ -65,11 +47,10 @@ local function MockWrapper(props)
 		Icon = "rbxasset://SystemCursors/Arrow",
 	})
 
-	local focus = ContextServices.Focus.new(Instance.new("ScreenGui"))
+	local focus = ContextServices.Focus.new(props.focus or Instance.new("ScreenGui"))
 	local pluginContext = ContextServices.Plugin.new(plugin)
 	local settingsContext = SettingsContext.new(settings)
 	local themeContext = makeTheme(getAssetConfigTheme())
-	local uiLibraryWrapper
 	local storeContext = ContextServices.Store.new(store)
 	local api = ContextServices.API.new({
 		networking = Networking.mock(),

@@ -1,5 +1,3 @@
-local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local Actions = Plugin.Core.Actions
@@ -16,11 +14,7 @@ return function(currentTab)
 		if ConfigTypes:isOverride(currentTab) then
 			-- Returning from the override screen without selecting an asset to override
 			store:dispatch(SetAssetConfigTab(ConfigTypes:getGeneralTab()))
-			if FFlagToolboxAssetConfigAddPublishBackButton then
-				store:dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
-			else
-				store:dispatch(ClearChange("OverrideAssetId"))
-			end
+			store:dispatch(ClearChange(AssetConfigConstants.OVERRIDE_ASSET_ID))
 		else
 			store:dispatch(SetAssetConfigTab(ConfigTypes:getOverrideTab()))
 		end

@@ -22,8 +22,8 @@
 		BorderBox: The pane has the current theme's main background with square border.
 		CornerBox: Uses UICorner for adjustable rounded border.
 ]]
-local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -151,9 +151,7 @@ function Pane:render()
 		props[Roact.Event.MouseButton2Click] = props.OnRightClick
 	end
 	if hasClickFunctionality and not style.Image then
-		if FFlagDevFrameworkRefactorExpandablePaneHeader then
-			props.AutoButtonColor = false
-		end
+		props.AutoButtonColor = false
 		props.Text = ""
 	end
 
@@ -188,6 +186,10 @@ function Pane:render()
 		})
 	end
 
+	if FFlagDevFrameworkForwardRef and props.ForwardRef then
+		defaultProps[Roact.Ref] = props.ForwardRef
+	end
+
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",
@@ -204,6 +206,7 @@ function Pane:render()
 		"OnClick",
 		"OnRightClick",
 		"OnPress",
+		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
 
 	return Roact.createElement(className, componentProps, children)

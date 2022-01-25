@@ -12,7 +12,7 @@ return function(analytics, assetData, isAssetPreviewInsertButton)
     return function(store)
         local isFolder = assetData.ClassName == "Folder"
         if isFolder then
-            analytics:report("openFolder", assetData.Screen.Key)
+            analytics:report("openFolder", assetData.Screen.Path)
             store:dispatch(SetScreen(assetData.Screen))
         else
             local assetType = assetData.assetType

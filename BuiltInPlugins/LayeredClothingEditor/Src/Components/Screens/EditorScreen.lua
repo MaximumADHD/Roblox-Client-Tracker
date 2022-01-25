@@ -40,6 +40,8 @@ local AnimationPlayback = require(Plugin.Src.Components.AnimationPlayback.Animat
 local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFromExplorer)
 local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetForPreview)
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 local SetPreviewAssetsSelected = require(Plugin.Src.Actions.SetPreviewAssetsSelected)
 
 local EditorScreen = Roact.PureComponent:extend("EditorScreen")
@@ -51,6 +53,7 @@ function EditorScreen:render()
 	local props = self.props
 
 	local userAddedAssets = props.UserAddedAssets
+	local editingCage = props.EditingCage
 	local theme = props.Stylizer
 	local goToNext = props.GoToNext
 	local addUserAddedAssetForPreview = props.AddUserAddedAssetForPreview
@@ -58,6 +61,12 @@ function EditorScreen:render()
 	local localization = props.Localization
 
 	local orderIterator = LayoutOrderIterator.new()
+
+	local isRigidMode = editingCage == Constants.EDIT_MODE.Mesh
+	local promptText = localization:getText("EditAndPreview", "PromptCage")
+	if isRigidMode then
+		promptText = localization:getText("EditAndPreview", "PromptNoCage")
+	end
 
 	return ContextServices.provide({
 		PreviewContext.new(),
@@ -87,6 +96,7 @@ function EditorScreen:render()
 					LayoutOrder = orderIterator:getNextOrder(),
 				}, {
 					EditAndPreviewFrame = Roact.createElement(EditAndPreviewFrame, {
+						PromptText = promptText,
 						GoToNext = goToNext,
 						GoToPrevious = goToPrevious,
 					}),
@@ -134,7 +144,9 @@ end
 local function mapStateToProps(state, props)
 	local controlsPanelBlocker = state.controlsPanelBlocker
 	local previewStatus = state.previewStatus
+	local selectItem = state.selectItem
 	return {
+		EditingCage = selectItem.editingCage,
 		IsControlsPanelBlockerActive = controlsPanelBlocker.isActive,
 		ControlsPanelBlockerMessage = controlsPanelBlocker.message,
 		UserAddedAssets = previewStatus.userAddedAssets,

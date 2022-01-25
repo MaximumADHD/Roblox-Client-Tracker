@@ -32,7 +32,7 @@ local layoutOrder = LayoutOrderIterator.new()
 local ScreenPublishManagement = Roact.PureComponent:extend("ScreenPublishManagement")
 
 local ROLLOUT_OPTION_DEFAULT = "Default"
-local ROLLOUT_OPTION_FORCE = "Force"
+local ROLLOUT_OPTION_FORCE = "Forced"
 
 function ScreenPublishManagement:init()
 	self.state = {
@@ -103,7 +103,7 @@ function ScreenPublishManagement:render()
 	if showRolloutOption then
 		table.insert(rolloutOptionButtons, {
 			Id = ROLLOUT_OPTION_DEFAULT,
-			Title = localization:getText("General", "RolloutOptionDefault"),			
+			Title = localization:getText("General", "RolloutOptionDefault"),
 			Description = localization:getText("General", "RolloutOptionDefaultDesc"),
 		})
 
@@ -233,7 +233,7 @@ function ScreenPublishManagement:render()
 
 					LinkText = Roact.createElement(TextWithInlineLink, {
 						LinkText = self.state.showLearnMoreLink and localization:getText("General", "RollbackToggleDesclinkText") or "", --"Learn more"
-						Text = localization:getText("General", "RollbackToggleDesc"), --"Enabling rollback to previous version if the owerwrite is rejected {link}",
+						Text = localization:getText("General", "RollbackToggleDesc"), --"Enabling rollback to previous version if the overwrite is rejected {link}",
 						LinkPlaceholder = "[link]",
 						MaxWidth = toggleDescriptionWidth,
 						LayoutOrder = layoutOrder:getNextOrder(),
@@ -293,14 +293,14 @@ ScreenPublishManagement = withContext({
 })(ScreenPublishManagement)
 
 local function mapStateToProps(state, props)
-	local publishInfo = state.PublishedPlace.publishInfo
 	local placeInfo = state.ExistingGame.placeInfo
+	local place = placeInfo.places[1]
 	local gameConfiguration = state.ExistingGame.gameConfiguration
 	return {
-		PlaceId = publishInfo.id,
-		Name = publishInfo.name,
+		PlaceId = place.placeId,
+		Name = place.name,
 		-- universeId
-		ParentGameName = publishInfo.parentGameName,
+		ParentGameName = placeInfo.parentGame.name,
 		ParentGame = placeInfo.parentGame,
 		OptInRegions = gameConfiguration.optInRegions,
 	}

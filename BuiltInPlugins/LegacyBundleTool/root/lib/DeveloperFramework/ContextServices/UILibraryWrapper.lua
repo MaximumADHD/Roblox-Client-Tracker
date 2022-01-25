@@ -14,7 +14,7 @@ local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FlagsList = Util.Flags.new({
 	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 })
 
 local noGetThemeError
@@ -26,7 +26,7 @@ else
 	UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
 end
 
-
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 local UILibraryFromParent
 
 -- We assume plugins will completely move away from the UILibrary
@@ -62,7 +62,7 @@ function UILibraryProvider:render()
 	return Roact.createElement(UILibrary.Wrapper, {
 		theme = theme:getUILibraryTheme(),
 		plugin = plugin:get(),
-		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget(),
+		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and focus:get() or focus:getTarget(),
 	}, {
 		Roact.oneChild(self.props[Roact.Children])
 	})
@@ -97,10 +97,18 @@ function UILibraryWrapper.new(uiLibraryProp)
 	return self
 end
 
-function UILibraryWrapper:createProvider(root)
-	return Roact.createElement(UILibraryProvider, {
-		UILibrary = self.UILibrary
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function UILibraryWrapper:getProvider(children)
+		return Roact.createElement(UILibraryProvider, {
+			UILibrary = self.UILibrary
+		}, children)
+	end
+else
+	function UILibraryWrapper:createProvider(root)
+		return Roact.createElement(UILibraryProvider, {
+			UILibrary = self.UILibrary
+		}, {root})
+	end
 end
 
 return UILibraryWrapper

@@ -4,7 +4,6 @@
 	This allows reporting on whether the user saved, published, or cancelled after opening the plugin window
 	as well as the initial permissions that users set when publishing.
 ]]
-local FFlagStudioUseNewSavePlaceWorkflow = game:GetFastFlag("StudioUseNewSavePlaceWorkflow")
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
 local FFlagStudioReportTcToggleMetrics = game:GetFastFlag("StudioReportTcToggleMetrics")
 
@@ -24,7 +23,7 @@ local CONTEXT_TEAMCREATE = "TeamCreate"
 
 function getNewGamesInTheCloudArgs()
 	return {
-		newGamesInTheCloud = FFlagStudioUseNewSavePlaceWorkflow and 1 or 0
+		newGamesInTheCloud = 0
 	}
 end
 

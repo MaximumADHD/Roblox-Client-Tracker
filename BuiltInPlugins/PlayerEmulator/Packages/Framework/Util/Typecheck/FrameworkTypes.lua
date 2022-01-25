@@ -9,7 +9,7 @@ local t = require(script.Parent.t)
 local FrameworkTypes = {}
 local Flags = require(Framework.Util.Flags)
 local FlagsList = Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 })
 
 function FrameworkTypes.Component(value)
@@ -22,7 +22,13 @@ end
 
 function FrameworkTypes.ContextItem(value)
 	local errMsg = "ContextItem expected, got %s."
-	if not t.table(value) or not t.callback(value.createProvider) then
+	local missingMethod = false
+	if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
+		missingMethod = not t.table(value) or not t.callback(value.getSignal)
+	else
+		missingMethod = not t.table(value) or not t.callback(value.createProvider)
+	end
+	if missingMethod then
 		return false, errMsg:format(type(value))
 	end
 	return true
@@ -62,8 +68,7 @@ end
 
 function FrameworkTypes.Focus(value)
 	local errMsg = "Focus expected, got %s."
-	local getFunction = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and value.get or value.getTarget
-	if not t.table(value) or not t.callback(getFunction) then
+	if not t.table(value) or not t.callback(FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and value.get or value.getTarget) then
 		return false, errMsg:format(type(value))
 	end
 	return true

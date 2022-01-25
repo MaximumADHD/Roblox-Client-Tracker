@@ -9,7 +9,10 @@ local Framework = require(Plugin.Packages.Framework)
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextItem = Framework.ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = Framework.ContextServices.Provider
+
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local FrameworkUtil = Framework.Util
 local Signal = FrameworkUtil.Signal
@@ -44,10 +47,12 @@ function PluginActivationController.new(plugin)
 	return self
 end
 
-function PluginActivationController:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function PluginActivationController:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 -- Temporarily deactivates the current tool, and saves it as our selected tool

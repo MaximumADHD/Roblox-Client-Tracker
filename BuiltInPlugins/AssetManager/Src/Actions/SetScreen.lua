@@ -6,7 +6,7 @@ local Screens = require(Plugin.Src.Util.Screens)
 
 return Action(script.Name, function(screen)
 	assert(typeof(screen) == "table", string.format("SetScreen requires a table, not %s", typeof(screen)))
-	assert(Screens[screen.Key] ~= nil, string.format("Invalid SetScreen: %s does not exist", screen.Key))
+	assert(Screens[screen.Path] ~= nil, string.format("Invalid SetScreen: %s does not exist", screen.Path))
 
 	return {
 		screen = screen

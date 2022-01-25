@@ -36,6 +36,8 @@ local getTestVariation = FrameworkUtil.getTestVariation
 local Analytics = require(Util.Analytics.Analytics)
 
 local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
+local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 
 local ToolboxPlugin = Roact.PureComponent:extend("ToolboxPlugin")
 
@@ -113,6 +115,18 @@ function ToolboxPlugin:init(props)
 		-- Update Button on initial Load
 		self.toolboxButton:SetActive(self.dockWidget.Enabled)
 	end
+
+	if FFlagToolboxWindowTelemetry then
+		local lastSize = nil
+		self.onDockWidgetInteraction = function()
+			local size = self.dockWidget.AbsoluteSize
+			-- If the size has changed, fire this Analytic
+			if lastSize == nil or lastSize.X ~= size.X or lastSize.Y ~= size.Y then
+				Analytics.onToolboxWidgetInteraction(size)
+				lastSize = size
+			end
+		end
+	end
 end
 
 function ToolboxPlugin:didMount()
@@ -123,6 +137,10 @@ function ToolboxPlugin:didMount()
 	end
 
 	self.onDockWidgetEnabledChanged(self.dockWidget)
+
+	if FFlagToolboxWindowTelemetry then
+		self._dockWidgetInteractionConnection = self.dockWidget.WindowFocused:Connect(self.onDockWidgetInteraction)
+	end
 
 	-- Now we have the dock widget, trigger a rerender
 	self:setState({
@@ -148,7 +166,26 @@ function ToolboxPlugin:willUnmount()
 		self.disconnectLocalizationListener()
 	end
 
-	self._showPluginsConnection:Disconnect()
+	if FFlagToolboxNilDisconnectSignals then
+		if self._showPluginsConnection then
+			self._showPluginsConnection:Disconnect()
+			self._showPluginsConnection = nil
+		end
+	else
+		self._showPluginsConnection:Disconnect()
+	end
+
+	if FFlagToolboxWindowTelemetry then
+		if FFlagToolboxNilDisconnectSignals then
+			if self._dockWidgetInteractionConnection then
+				self._dockWidgetInteractionConnection:Disconnect()
+				self._dockWidgetInteractionConnection = nil
+			end
+		else
+			self._dockWidgetInteractionConnection:Disconnect()
+			self._dockWidgetInteractionConnection = nil
+		end
+	end
 end
 
 function ToolboxPlugin:render()
@@ -201,7 +238,8 @@ function ToolboxPlugin:render()
 						suggestions = suggestions,
 						tryOpenAssetConfig = tryOpenAssetConfig,
 						pluginGui = pluginGui,
-						pluginLoaderContext = props.pluginLoaderContext
+						pluginLoaderContext = props.pluginLoaderContext,
+						onMouseEnter = FFlagToolboxWindowTelemetry and self.onDockWidgetInteraction or nil,
 					})
 				})
 			})

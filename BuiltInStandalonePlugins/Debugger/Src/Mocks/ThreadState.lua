@@ -23,11 +23,17 @@ function ThreadState:GetFrame(index : number) : StackFrame.StackFrame
 end
 
 function ThreadState:GetChildren()
-	return self.callstack
+	-- the index value is converted when we go from C++ to lua. Here we are doing that conversion as well
+	local toReturn = {}
+	for cppIndex, frame in pairs(self.callstack) do
+		toReturn[cppIndex + 1] = frame
+	end
+	return toReturn
 end
 
 function ThreadState:MockSetChildren(newCallstack : { StackFrame.StackFrame })
 	assert(newCallstack)
+	assert(newCallstack[0])
 	self.callstack = newCallstack
 	self.FrameCount = 0
 	for _ in pairs(self.callstack) do 

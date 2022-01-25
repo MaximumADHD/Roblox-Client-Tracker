@@ -185,7 +185,9 @@ function ScaleControls:init()
 			for _, instance in pairs(selectionData) do
 				for trackName, track in pairs(instance) do
 					local trackIndex = TrackUtils.getTrackIndex(self.props.Tracks, trackName)
-					traverse(track, trackIndex, {})
+					if trackIndex then
+						traverse(track, trackIndex, {})
+					end
 				end
 			end
 		else

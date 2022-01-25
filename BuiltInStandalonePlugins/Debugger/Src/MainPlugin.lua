@@ -53,7 +53,7 @@ local Middleware = require(Src.Middleware.MainMiddleware)
 local TestStore = require(Src.Util.TestStore)
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
 local BreakpointManagerListener = require(Src.Util.BreakpointManagerListener.BreakpointManagerListener)
-local ScriptChangeServiceListener = require(Src.Util.ScriptChangeServiceListener.ScriptChangeServiceListener)
+local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener.CrossDMScriptChangeListener)
 
 local FFlagStudioDebuggerPluginEditBreakpoint = game:GetFastFlag("StudioDebuggerPluginEditBreakpoint_alpha")
 local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
@@ -96,19 +96,23 @@ function MainPlugin:init(props)
 	end
 
 	self.onWidgetClose = function(targetWidget)
-		self:setState({
-			[targetWidget] = {
-				Enabled = false,
+		self:setState(function(state)
+			return {
+				[targetWidget] = {
+					Enabled = false,
+				}
 			}
-		})
+		end)
 	end
 
 	self.onWidgetEnabledChanged = function(targetWidget)
-		self:setState({
-			[targetWidget] = {
-				Enabled = false,
-			},
-		})
+		self:setState(function(state)
+			return {
+				[targetWidget] = {
+					Enabled = false,
+				},
+			}
+		end)
 	end
 
 	self.store = Rodux.Store.new(MainReducer, nil, Middleware)
@@ -119,7 +123,7 @@ function MainPlugin:init(props)
 
 	self.debugConnectionListener = FFlagStudioDebuggerOverhaul and DebugConnectionListener.new(self.store)
 	self.breakpointManagerListener = FFlagStudioDebuggerOverhaul and BreakpointManagerListener.new(self.store)
-	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul and ScriptChangeServiceListener.new(self.store)
+	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul and CrossDMScriptChangeListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,

@@ -2,8 +2,6 @@
 	Controls which ToolButtons show for each tab and sizes its frame appropriately
 ]]
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -35,12 +33,6 @@ local tabLookup = {
 		ToolId.Paint, ToolId.SeaLevel, ToolId.Replace
 	},
 }
-
-if FFlagTerrainToolsConvertPartTool then
-	-- Put between import and clear
-	-- When removing flag, put this straight into the tabLookup table
-	table.insert(tabLookup[TabId.Create], 3, ToolId.ConvertPart)
-end
 
 function ToolManager:init()
 	self.layoutRef = Roact.createRef()

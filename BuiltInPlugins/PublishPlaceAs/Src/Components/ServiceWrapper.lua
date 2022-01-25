@@ -6,6 +6,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 -- props.localization : (UILibary.Localization) an object for fetching translated strings
 -- props.plugin : (plugin instance) the instance of plugin defined in main.server.lua
@@ -34,18 +35,38 @@ function ServiceWrapper:render()
 	local theme = self.props.theme
 	local mouse = self.props.mouse
 
-	-- the order of these providers should be read as bottom up,
-	-- things most likely to change or trigger updates should be near the top of the list
-	return ContextServices.provide({
-		ContextServices.Focus.new(focusGui),
-		ContextServices.Plugin.new(plugin),
-		localization,
-		theme,
-		uiLibraryWrapper,
-		ContextServices.Store.new(store),
-		ContextServices.API.new(),
-		ContextServices.Mouse.new(mouse),
-	}, children)
+	if FFlagDevFrameworkUseCreateContext then
+		-- the order of these providers should be read as bottom up,
+		-- things most likely to change or trigger updates should be near the top of the list
+		return ContextServices.provide({
+			ContextServices.Focus.new(focusGui),
+			ContextServices.Plugin.new(plugin),
+			localization,
+			theme,
+			ContextServices.Store.new(store),
+			ContextServices.API.new(),
+			ContextServices.Mouse.new(mouse),
+		}, {
+			-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
+			UILibraryWrapper = ContextServices.provide({
+				uiLibraryWrapper
+			}, children)
+		})
+
+	else
+		-- the order of these providers should be read as bottom up,
+		-- things most likely to change or trigger updates should be near the top of the list
+		return ContextServices.provide({
+			ContextServices.Focus.new(focusGui),
+			ContextServices.Plugin.new(plugin),
+			localization,
+			theme,
+			uiLibraryWrapper,
+			ContextServices.Store.new(store),
+			ContextServices.API.new(),
+			ContextServices.Mouse.new(mouse),
+		}, children)
+	end
 end
 
 return ServiceWrapper

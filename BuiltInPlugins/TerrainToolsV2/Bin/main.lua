@@ -22,9 +22,6 @@ return function(plugin, pluginLoaderContext)
 
 	local FFlagTerrainToolsImportUploadAssets = game:GetFastFlag("TerrainToolsImportUploadAssets")
 	local FFlagTerrainToolsRoactInspector = game:GetFastFlag("TerrainToolsRoactInspector")
-	local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-	local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-	local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
 
 	-- Libraries
 	local Framework = require(Plugin.Packages.Framework)
@@ -62,10 +59,6 @@ return function(plugin, pluginLoaderContext)
 	local TerrainImporter = require(Plugin.Src.TerrainInterfaces.TerrainImporterInstance)
 	local TerrainGeneration = require(Plugin.Src.TerrainInterfaces.TerrainGenerationInstance)
 	local TerrainSeaLevel = require(Plugin.Src.TerrainInterfaces.TerrainSeaLevel)
-	local PartConverter
-	if not convertToolRemoval then
-		PartConverter = require(Plugin.Src.TerrainInterfaces.PartConverter)
-	end
 
 	local ImageUploader = require(Plugin.Src.Util.ImageUploader)
 	local ImageLoader = require(Plugin.Src.Util.ImageLoader)
@@ -135,15 +128,6 @@ return function(plugin, pluginLoaderContext)
 			localization = localization,
 		})
 
-		local partConverter
-		if game:GetFastFlag("TerrainToolsConvertPartTool") then
-			partConverter = PartConverter.new({
-				terrain = terrainInstance,
-				localization = localization,
-				analytics = analytics,
-			})
-		end
-
 		local devFrameworkThemeItem = makeTheme()
 
 		local imageLoader = ImageLoader.new()
@@ -176,7 +160,6 @@ return function(plugin, pluginLoaderContext)
 			terrainImporter = terrainImporter,
 			terrainGeneration = terrainGeneration,
 			seaLevel = seaLevel,
-			partConverter = partConverter,
 			calloutController = calloutController,
 		}
 	end

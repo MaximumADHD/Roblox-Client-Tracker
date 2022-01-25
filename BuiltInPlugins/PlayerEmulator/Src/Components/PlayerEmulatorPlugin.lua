@@ -15,6 +15,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local PlayerEmulatorPlugin = Roact.PureComponent:extend("PlayerEmulatorPlugin")
 
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 local TOOLBAR_ICON_PATH = "rbxasset://textures/StudioPlayerEmulator/player_emulator_32.png"
 local PLUGIN_WINDOW_SIZE = Vector2.new(320, 330)
 
@@ -22,7 +24,13 @@ local FFlagImprovePluginSpeed_PlayerEmulator = game:GetFastFlag("ImprovePluginSp
 
 function PlayerEmulatorPlugin:updateToolbarButtonActiveState()
 	local active = self.state.active
-	self.button:SetActive(active)
+	if FFlagDevFrameworkUseCreateContext then
+		if self.button then
+			self.button:SetActive(active)
+		end
+	else
+		self.button:SetActive(active)
+	end
 end
 
 if not FFlagImprovePluginSpeed_PlayerEmulator then
@@ -49,6 +57,16 @@ function PlayerEmulatorPlugin:init()
 	self.state = {
 		active = false,
 	}
+
+	if FFlagDevFrameworkUseCreateContext then
+		self.contextItems = {
+			ContextServices.Plugin.new(self.props.plugin),
+			globals.localization,
+			globals.theme,
+			globals.networking,
+			globals.store,
+		}
+	end
 
 	self.toggleActive = function()
 		local plugin = self.props.plugin
@@ -90,69 +108,120 @@ end
 
 function PlayerEmulatorPlugin:render()
 	local state = self.state
-	local props = self.props
-
 	local active = state.active
-	local plugin = props.plugin
 
 	local enabled = RunService:IsEdit()
 
+	local props = self.props
+	local plugin = props.plugin
+
 	if FFlagImprovePluginSpeed_PlayerEmulator then
-		return ContextServices.provide({
-			ContextServices.Plugin.new(plugin),
-		}, {
-			MainWidget = enabled and Roact.createElement(DockWidget, {
-				Enabled = active,
-				Title = globals.localization:getText("Meta", "PluginTitle"),
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				InitialDockState = Enum.InitialDockState.Left,
-				Size = PLUGIN_WINDOW_SIZE,
-				MinSize = PLUGIN_WINDOW_SIZE,
-				OnClose = self.onClose,
-				ShouldRestore = false,
-			}, {
-				MainProvider = active and ContextServices.provide({
-					globals.localization,
-					globals.theme,
-					globals.uiLibraryWrapper,
-					globals.store,
-					globals.networking,
+		if FFlagDevFrameworkUseCreateContext then
+			return ContextServices.provide(self.contextItems, {
+				MainWidget = enabled and Roact.createElement(DockWidget, {
+					Enabled = active,
+					Title = globals.localization:getText("Meta", "PluginTitle"),
+					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+					InitialDockState = Enum.InitialDockState.Left,
+					Size = PLUGIN_WINDOW_SIZE,
+					MinSize = PLUGIN_WINDOW_SIZE,
+					OnClose = self.onClose,
+					ShouldRestore = false,
 				}, {
-					MainView = Roact.createElement(MainView)
+					-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
+					MainView = active and ContextServices.provide({
+						globals.uiLibraryWrapper
+					}, {
+						MainView = Roact.createElement(MainView)
+					})
 				})
 			})
-		})
+		else
+			return ContextServices.provide({
+				ContextServices.Plugin.new(plugin),
+			}, {
+				MainWidget = enabled and Roact.createElement(DockWidget, {
+					Enabled = active,
+					Title = globals.localization:getText("Meta", "PluginTitle"),
+					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+					InitialDockState = Enum.InitialDockState.Left,
+					Size = PLUGIN_WINDOW_SIZE,
+					MinSize = PLUGIN_WINDOW_SIZE,
+					OnClose = self.onClose,
+					ShouldRestore = false,
+				}, {
+					MainProvider = active and ContextServices.provide({
+						globals.localization,
+						globals.theme,
+						globals.uiLibraryWrapper,
+						globals.store,
+						globals.networking,
+					}, {
+						MainView = Roact.createElement(MainView)
+					})
+				})
+			})
+		end
 	else
-		return ContextServices.provide({
-			ContextServices.Plugin.new(plugin),
-		}, {
-			Toolbar = Roact.createElement(PluginToolbar, {
-				Title = "luaPlayerEmulatorToolbar",
-				RenderButtons = function(toolbar)
-					return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
-				end,
-			}),
-			MainWidget = enabled and Roact.createElement(DockWidget, {
-				Enabled = active,
-				Title = globals.localization:getText("Meta", "PluginTitle"),
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				InitialDockState = Enum.InitialDockState.Left,
-				Size = PLUGIN_WINDOW_SIZE,
-				MinSize = PLUGIN_WINDOW_SIZE,
-				OnClose = self.onClose,
-				ShouldRestore = false,
-			}, {
-				MainProvider = active and ContextServices.provide({
-					globals.localization,
-					globals.theme,
-					globals.uiLibraryWrapper,
-					globals.store,
-					globals.networking,
+		if FFlagDevFrameworkUseCreateContext then
+			return ContextServices.provide(self.contextItems, {
+				Toolbar = Roact.createElement(PluginToolbar, {
+					Title = "luaPlayerEmulatorToolbar",
+					RenderButtons = function(toolbar)
+						return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
+					end,
+				}),
+				MainWidget = enabled and Roact.createElement(DockWidget, {
+					Enabled = active,
+					Title = globals.localization:getText("Meta", "PluginTitle"),
+					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+					InitialDockState = Enum.InitialDockState.Left,
+					Size = PLUGIN_WINDOW_SIZE,
+					MinSize = PLUGIN_WINDOW_SIZE,
+					OnClose = self.onClose,
+					ShouldRestore = false,
 				}, {
-					MainView = Roact.createElement(MainView)
+					-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
+					MainView = active and ContextServices.provide({
+						globals.uiLibraryWrapper
+					}, {
+						MainView = Roact.createElement(MainView)
+					})
 				})
 			})
-		})
+		else
+			return ContextServices.provide({
+				ContextServices.Plugin.new(plugin),
+			}, {
+				Toolbar = Roact.createElement(PluginToolbar, {
+					Title = "luaPlayerEmulatorToolbar",
+					RenderButtons = function(toolbar)
+						return self:renderButton(toolbar, TOOLBAR_ICON_PATH, enabled)
+					end,
+				}),
+				MainWidget = enabled and Roact.createElement(DockWidget, {
+					Enabled = active,
+					Title = globals.localization:getText("Meta", "PluginTitle"),
+					ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+					InitialDockState = Enum.InitialDockState.Left,
+					Size = PLUGIN_WINDOW_SIZE,
+					MinSize = PLUGIN_WINDOW_SIZE,
+					OnClose = self.onClose,
+					ShouldRestore = false,
+				}, {
+					MainProvider = active and ContextServices.provide({
+						globals.localization,
+						globals.theme,
+						globals.uiLibraryWrapper,
+						globals.store,
+						globals.networking,
+					}, {
+						
+						MainView = Roact.createElement(MainView)
+					})
+				}),
+			})
+		end
 	end
 end
 

@@ -3,7 +3,7 @@
 	Allow the user to select a place to overwrite
 ]]
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 
@@ -413,8 +413,7 @@ local function useDispatchForProps(dispatch)
 			dispatch(SetPlaceInfo({ places = {} }))
 		end,
 		OpenPublishManagement = function(place, universe)
-			dispatch(SetPlaceInfo({ places = {}, parentGame = universe }))
-			dispatch(SetPublishInfo({ id = place.placeId, name = place.name, parentGameName = universe.name, parentGameId = universe.universeId}))
+			dispatch(SetPlaceInfo({ places = {place}, parentGame = universe }))
 			dispatch(SetScreen(Constants.SCREENS.PUBLISH_MANAGEMENT))
 		end,
 	}

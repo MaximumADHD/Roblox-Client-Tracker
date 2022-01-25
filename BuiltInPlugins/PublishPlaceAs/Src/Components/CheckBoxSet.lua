@@ -8,7 +8,7 @@
 		int LayoutOrder = The order this CheckBoxSet will sort to when placed in a UIListLayout.
 		string ErrorMessage = An error message to display on this CheckBoxSet.
 ]]
-local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage")
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then

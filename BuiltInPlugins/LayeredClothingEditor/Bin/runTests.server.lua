@@ -1,7 +1,7 @@
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
-local themeRefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
+local themeRefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 themeRefactorFlags.THEME_REFACTOR = true
 
 local function runTests()

@@ -20,8 +20,6 @@
 		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor3
 ]]
 local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
-local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -354,10 +352,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	assetId = FFlagToolboxAssetGridRefactor3 and props.assetId or asset.Id
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
-	local isVerifiedCreator
-	if FFlagToolboxVerifiedCreatorBadges then
-		isVerifiedCreator = assetData.Creator.IsVerifiedCreator
-	end
+	local isVerifiedCreator = assetData.Creator.IsVerifiedCreator
 
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
@@ -455,7 +450,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = isHovered and outlineTransparency or 1,
 
-			BackgroundColor3 = FFlagToolboxVerifiedCreatorBadges and FFlagToolboxVerifiedCreatorBadgesDesignTweaks and isVerifiedCreator and outlineTheme.verifiedBackgroundColor or outlineTheme.backgroundColor,
+			BackgroundColor3 = isVerifiedCreator and outlineTheme.verifiedBackgroundColor or outlineTheme.backgroundColor,
 			BorderColor3 = outlineTheme.borderColor,
 
 			BorderSizePixel = 1,
@@ -566,7 +561,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 				clickable = not isCurrentlyCreationsTab,
 
-				isVerifiedCreator = FFlagToolboxVerifiedCreatorBadges and isVerifiedCreator,
+				isVerifiedCreator = isVerifiedCreator,
 			}),
 
 			Voting = isHovered and showVotes and Roact.createElement(Voting, {

@@ -21,7 +21,7 @@ local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 
 --common
-local BreakpointHit = require(Actions.Common.BreakpointHit)
+local SimPaused = require(Actions.Common.SimPaused)
 local Constants = require(Util.Constants)
 
 local defaultDebuggerToken = DebuggerStateToken.fromData({debuggerConnectionId = 1, stepNumber = 1})
@@ -31,7 +31,7 @@ local stepStateBundle = StepStateBundle.ctor(defaultDebuggerToken, 2, 2)
 return function()
 	describe(AddChildExpression.name, function()
 		it("should add the Child Expressions", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
@@ -71,7 +71,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = tokenizedValue1 .. Constants.SeparationToken .. "2"
@@ -168,7 +168,7 @@ return function()
 		end)
 
 		it("should remove the expression from the roots", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			local prepState1 = WatchReducer(prepState, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
 
@@ -198,7 +198,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			local prepState1 = WatchReducer(prepState, AddExpression("ChangeExpression Test1"))
 			local prepState2 = WatchReducer(prepState1, AddExpression("ChangeExpression Test2"))
 
@@ -221,7 +221,7 @@ return function()
 
 	describe(ExpressionEvaluated.name, function()
 		it("should add the Watches", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local tokenizedValue2 = "2"
@@ -257,7 +257,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 
 			local tokenizedValue1 = "1"
 			local varData1 = {
@@ -292,7 +292,7 @@ return function()
 		end)
 
 		it("should preserve immutability", function()
-			local prepState = WatchReducer(nil, BreakpointHit(defaultDebuggerToken, defaultThreadId))
+			local prepState = WatchReducer(nil, SimPaused(defaultDebuggerToken, defaultThreadId))
 			local prepState2 = WatchReducer(prepState, AddExpression("RemoveExpression Test"))
 
 			local tokenizedValue1 = "1"

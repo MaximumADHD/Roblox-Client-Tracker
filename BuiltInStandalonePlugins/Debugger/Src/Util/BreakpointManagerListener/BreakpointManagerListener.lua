@@ -4,6 +4,7 @@ local MetaBreakpoint = require(Src.Models.MetaBreakpoint)
 local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local ModifyBreakpoint = require(Actions.BreakpointsWindow.ModifyBreakpoint)
 local DeleteBreakpoint = require(Actions.BreakpointsWindow.DeleteBreakpoint)
+local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 
 local BreakpointManagerListener = {}
 BreakpointManagerListener.__index = BreakpointManagerListener
@@ -12,6 +13,9 @@ function BreakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint)
 	local convertedBreakpoint = MetaBreakpoint.fromMetaBreakpoint(metaBreakpoint)
 	local state = self.store:getState()
 	self.store:dispatch(AddBreakpoint(state.Common.currentDebuggerConnectionId, convertedBreakpoint))
+	self.store:dispatch(SetFilenameForGuidAction(metaBreakpoint.Script, ""))
+
+	self._crossDmScriptChangeListenerService:StartWatchingScript(metaBreakpoint.Script, state.Common.currentDebuggerConnectionId)
 end
 
 function BreakpointManagerListener:onMetaBreakpointChanged(metaBreakpoint)
@@ -23,8 +27,10 @@ function BreakpointManagerListener:onMetaBreakpointRemoved(metaBreakpoint)
 	self.store:dispatch(DeleteBreakpoint(metaBreakpoint.Id))
 end
 
-local function setUpConnections(breakpointManagerListener, breakpointManager)
+local function setUpConnections(breakpointManagerListener, breakpointManager, scriptChangeService)
 	local BreakpointManager = breakpointManager or game:GetService("BreakpointManager")
+	breakpointManagerListener._crossDmScriptChangeListenerService = scriptChangeService or game:GetService("CrossDMScriptChangeListener")
+
 	breakpointManagerListener._metaBreakpointAddedConnection = BreakpointManager.MetaBreakpointAdded:Connect(function(metaBreakpoint)
 		breakpointManagerListener:onMetaBreakpointAdded(metaBreakpoint) 
 	end)
@@ -53,9 +59,9 @@ function BreakpointManagerListener:destroy()
 	end
 end
 
-function BreakpointManagerListener.new(store, breakpointManager)
+function BreakpointManagerListener.new(store, breakpointManager, scriptChangeService)
 	local self = {store = store}
-	setUpConnections(self, breakpointManager)
+	setUpConnections(self, breakpointManager, scriptChangeService)
 	setmetatable(self, BreakpointManagerListener)
 	return self
 end

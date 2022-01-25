@@ -19,48 +19,23 @@ return function()
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 	local AssetAnalytics = require(Plugin.Core.Util.Analytics.AssetAnalytics)
 
+	local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
+	local MockItems = require(Plugin.TestUtils.MockItems)
+
 	local Asset = require(Plugin.Core.Components.Asset.Asset)
 
-	local function getStubAsset()
-		return {
-			Asset = {
-				Id = 123456,
-				IsEndorsed = false,
-				Name = "Hello, world!",
-				TypeId = Enum.AssetType.Model.Value,
-			},
-			Creator = {
-				Name = "Foo",
-				Type = Enum.CreatorType.User.Value,
-				Id = 123,
-			},
-			Thumbnail = {
-				final = true,
-				Url = "rbxasset://textures/StudioToolbox/Animation.png",
-				retryUrl = nil,
-				userId = 0,
-				endpointType = "Avatar",
-			},
-			Voting = {
-				UpVotes = 150,
-				DownVotes = 10,
-				ShowVotes = true,
-			},
-		}
-	end
-
 	local function createTestAsset(container, name, asset, mockProps)
-		local myAsset = asset or getStubAsset()
+		local myAsset = asset or MockItems.getSimpleAsset(123456)
 		local assetId = myAsset.Asset.Id
 
 		mockProps = mockProps or {}
 		if FFlagToolboxAssetGridRefactor3 then
 			mockProps = Cryo.Dictionary.join(mockProps, {
-				store = Rodux.Store.new(ToolboxReducer, {
+				store = CoreTestUtils.storeWithData({
 					assets = {
 						idToAssetMap = { [assetId] = myAsset, },
 					},
-				}, {Rodux.thunkMiddleware})
+				})
 			})
 		end
 
@@ -101,7 +76,7 @@ return function()
 			table.insert(calls, {...})
 		end
 
-		local asset = getStubAsset()
+		local asset = MockItems.getSimpleAsset(123456)
 		local instance = createTestAsset(nil, nil, asset, {
 			assetAnalytics = assetAnalytics,
 		})

@@ -4,6 +4,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
@@ -256,6 +257,9 @@ end
 function Localization:destroy()
 	if self._externalLocaleIdChangedConnection then
 		self._externalLocaleIdChangedConnection:Disconnect()
+		if FFlagToolboxNilDisconnectSignals then
+			self._externalLocaleIdChangedConnection = nil
+		end
 	end
 end
 

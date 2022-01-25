@@ -19,6 +19,21 @@
 			based on the ContextMap.
 ]]
 
+--DEPRECATED: Replaced by React.createContext consumer
+-- TODO FFlagDevFrameworkUseCreateContext: Remove this file when flag is retired
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+local FFlagDebugDevFrameworkWarnMapToPropsUsed = game:GetFastFlag("DebugDevFrameworkWarnMapToPropsUsed")
+if FFlagDebugDevFrameworkWarnMapToPropsUsed and FFlagDevFrameworkUseCreateContext then
+	-- StudioService isn't always available, so ignore if an error is thrown trying to access
+	local ok, hasInternalPermission = pcall(function()
+		return game:GetService("StudioService"):HasInternalPermission()
+	end)
+	if ok and hasInternalPermission then
+		warn("[DeveloperFramework] Consumer is deprecated and should not be used.")
+	end
+	return {}
+end
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Typecheck = require(Framework.Util).Typecheck

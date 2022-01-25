@@ -2,8 +2,6 @@ local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
-
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -56,10 +54,6 @@ function VerifiedCreatorBadge:init(props)
 end
 
 function VerifiedCreatorBadge:render()
-	if not FFlagToolboxVerifiedCreatorBadges then
-		error("Cannot use VerifiedCreatorBadge with FFlagToolboxVerifiedCreatorBadges false")
-	end
-
 	return withModal(function(modalTarget, modalStatus)
 		local props = self.props
 

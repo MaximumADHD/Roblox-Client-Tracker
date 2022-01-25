@@ -52,8 +52,8 @@ local initialHasLinkedScriptValue = false
 local function createDefaultFileOverlayFolders(screen, parent, localization)
     local node = {
         ClassName = "Folder",
-        Name = localization:getText("Folders", screen.Key),
-        Screen = screen.Key,
+        Name = localization:getText("Folders", screen.Path),
+        Screen = screen.Path,
         Children = {},
         Parent = parent,
     }
@@ -71,7 +71,7 @@ function MainView:init()
         fileExplorerData = {
             Name = "Game 1",
             ClassName = "Folder",
-            Screen = Screens.MAIN.Key,
+            Screen = Screens.MAIN.Path,
             Children = {},
         },
     }
@@ -156,9 +156,9 @@ function MainView:didUpdate()
 
     if not initialHasLinkedScriptValue ~= hasLinkedScripts then
         for _, screen in pairs(Screens) do
-            if screen.Key ~= Screens.MAIN.Key then
+            if screen.Path ~= Screens.MAIN.Path then
                 -- Only show the scripts folder if this universe has linked scripts because they're deprecated.
-                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+                if (screen.Path == Screens.SCRIPTS.Path and hasLinkedScripts) or screen.Path ~= Screens.SCRIPTS.Path then
                     createDefaultFileOverlayFolders(screen, self.state.fileExplorerData, localization)
                 end
             end

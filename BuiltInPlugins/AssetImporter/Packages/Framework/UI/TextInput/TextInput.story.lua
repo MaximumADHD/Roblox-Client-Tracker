@@ -4,7 +4,6 @@ local UI = require(Framework.UI)
 local TextInput = UI.TextInput
 
 local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
-local FFlagAllowInputObjOnFocusLost = game:GetFastFlag("AllowInputObjOnFocusLost")
 
 return {
 	stories = {
@@ -22,10 +21,8 @@ return {
 				end,
 				OnFocusLost = function(enterPressed, rbx)
 					print("TextInput - OnFocusLost", enterPressed)
-					if FFlagAllowInputObjOnFocusLost then
-						print("TextInput - OnFocusLost original text", rbx.Text)
-						rbx.Text = "OnFocusLost Changed"
-					end
+					print("TextInput - OnFocusLost original text", rbx.Text)
+					rbx.Text = "OnFocusLost Changed"
 				end
 			}),
 		},

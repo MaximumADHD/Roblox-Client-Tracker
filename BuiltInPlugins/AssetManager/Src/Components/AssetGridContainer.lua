@@ -45,15 +45,16 @@ local BulkImportService = game:GetService("BulkImportService")
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
+local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
 local AssetGridContainer = Roact.Component:extend("AssetGridContainer")
 
 local function isSupportedBulkImportAssetScreen(screen)
-    return screen.Key == Screens.IMAGES.Key or screen.Key == Screens.MESHES.Key
-        or (shouldEnableAudioImport() and screen.Key == Screens.AUDIO.Key)
-        or (FFlagAssetManagerEnableModelAssets and screen.Key == Screens.MODELS.Key)
+    return screen.Path == Screens.IMAGES.Path or screen.Path == Screens.MESHES.Path
+        or (shouldEnableAudioImport() and screen.Path == Screens.AUDIO.Path)
+        or (FFlagAssetManagerEnableModelAssets and screen.Path == Screens.MODELS.Path)
 end
 
 function AssetGridContainer:init()
@@ -82,7 +83,7 @@ function AssetGridContainer:init()
         end
         props.dispatchSetSelectedAssets({})
         local screen = props.CurrentScreen
-        if screen.Key == Screens.PLACES.Key then
+        if screen.Path == Screens.PLACES.Path then
             -- pretend we are right clicking on folder to show add new place context menu
             local placesFolder = {
                 ClassName = "Folder",
@@ -110,7 +111,11 @@ function AssetGridContainer:didMount()
         if state == 1 and isSupportedBulkImportAssetScreen(screen) then
             local apiImpl = props.API:get()
             props.dispatchSetAssets({ assets = {} })
-            props.dispatchGetAssets(apiImpl, screen.AssetType)
+            if FFlagAssetManagerRefactorPath then
+                props.dispatchGetAssets(apiImpl, screen.Path)
+            else
+                props.dispatchGetAssets(apiImpl, screen.AssetType)
+            end
         end
     end)
 
@@ -121,8 +126,12 @@ function AssetGridContainer:didMount()
 			if isSupportedBulkImportAssetScreen(screen) then
 				local apiImpl = props.API:get()
 				props.dispatchSetAssets({ assets = {} })
-				props.dispatchGetAssets(apiImpl, screen.AssetType)
-			end
+                if FFlagAssetManagerRefactorPath then
+                    props.dispatchGetAssets(apiImpl, screen.Path)
+                else
+                    props.dispatchGetAssets(apiImpl, screen.AssetType)
+                end
+            end
 		end)
 	end
 end
@@ -151,23 +160,23 @@ function AssetGridContainer:createTiles(apiImpl, localization, theme,
         })
     }
 
-    if currentScreen.Key == Screens.MAIN.Key then
+    if currentScreen.Path == Screens.MAIN.Path then
         for _, screen in pairs(Screens) do
-            if screen.Key ~= Screens.MAIN.Key then
-                local selectedAssetsKey = screen.LayoutOrder
-                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+            if screen.Path ~= Screens.MAIN.Path then
+                local selectedAssetsPath = screen.LayoutOrder
+                if (screen.Path == Screens.SCRIPTS.Path and hasLinkedScripts) or screen.Path ~= Screens.SCRIPTS.Path then
                     local folderTile = Roact.createElement(Tile, {
                         AssetData = {
-                            name = localization:getText("Folders", screen.Key),
+                            name = localization:getText("Folders", screen.Path),
                             ClassName = "Folder",
                             Screen = screen,
                         },
 
                         LayoutOrder = screen.LayoutOrder,
-                        StyleModifier = selectedAssets[selectedAssetsKey] and StyleModifier.Selected or nil,
+                        StyleModifier = selectedAssets[selectedAssetsPath] and StyleModifier.Selected or nil,
                         Enabled = enabled,
                     })
-                    assetsToDisplay[screen.Key] = folderTile
+                    assetsToDisplay[screen.Path] = folderTile
                 end
             end
         end
@@ -207,13 +216,13 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
         }),
     }
 
-    if currentScreen.Key == Screens.MAIN.Key then
+    if currentScreen.Path == Screens.MAIN.Path then
         for _, screen in pairs(Screens) do
-            if screen.Key ~= Screens.MAIN.Key then
-                if (screen.Key == Screens.SCRIPTS.Key and hasLinkedScripts) or screen.Key ~= Screens.SCRIPTS.Key then
+            if screen.Path ~= Screens.MAIN.Path then
+                if (screen.Path == Screens.SCRIPTS.Path and hasLinkedScripts) or screen.Path ~= Screens.SCRIPTS.Path then
                     local folderListItem = Roact.createElement(ListItem, {
                         AssetData = {
-                            name = localization:getText("Folders", screen.Key),
+                            name = localization:getText("Folders", screen.Path),
                             ClassName = "Folder",
                             Screen = screen,
                         },
@@ -222,7 +231,7 @@ function AssetGridContainer:createListItems(apiImpl, localization, theme,
                         StyleModifier = selectedAssets[screen.LayoutOrder] and StyleModifier.Selected or nil,
                         Enabled = enabled,
                     })
-                    assetsToDisplay[screen.Key] = folderListItem
+                    assetsToDisplay[screen.Path] = folderListItem
                 end
             end
         end
@@ -297,11 +306,11 @@ function AssetGridContainer:render()
         layoutRef = self.gridLayoutRef
     end
 
-    local hasAssetsToDisplay = currentScreen.Key == Screens.MAIN.Key or assetCount ~= 0
+    local hasAssetsToDisplay = currentScreen.Path == Screens.MAIN.Path or assetCount ~= 0
 
     local hasMorePages = nextPageNumber ~= nil
 
-    local assetTypeText = localization:getText("Folders", currentScreen.Key)
+    local assetTypeText = localization:getText("Folders", currentScreen.Path)
     local noResultsText = localization:getText("AssetGrid", "NoResults", {assetType = assetTypeText})
     local noResultsTextExtents = GetTextSize(noResultsText, theme.FontSizeMedium, theme.Font)
     local loadButtonText = localization:getText("AssetGrid", "LoadButton")
@@ -324,9 +333,17 @@ function AssetGridContainer:render()
             NextPageRequestDistance = 100,
             NextPageFunc = function()
                 if nextPageCursor then
-                    dispatchGetAssets(apiImpl, currentScreen.AssetType, nextPageCursor)
+                    if FFlagAssetManagerRefactorPath then
+                        dispatchGetAssets(apiImpl, currentScreen.Path, nextPageCursor)
+                    else
+                        dispatchGetAssets(apiImpl, currentScreen.AssetType, nextPageCursor)
+                    end
                 elseif nextPageNumber then
-                    dispatchGetAssets(apiImpl, currentScreen.AssetType, nil, nextPageNumber)
+                    if FFlagAssetManagerRefactorPath then
+                        dispatchGetAssets(apiImpl, currentScreen.Path, nil, nextPageNumber)
+                    else
+                        dispatchGetAssets(apiImpl, currentScreen.AssetType, nil, nextPageNumber)
+                    end
                 end
             end,
         }, contents),
@@ -401,8 +418,8 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
-        dispatchGetAssets = function(apiImpl, assetType, pageCursor, pageNumber)
-            dispatch(GetAssets(apiImpl, assetType, pageCursor, pageNumber))
+        dispatchGetAssets = function(apiImpl, path, pageCursor, pageNumber)
+            dispatch(GetAssets(apiImpl, path, pageCursor, pageNumber))
         end,
         dispatchLoadAllAliases = function(apiImpl, assetType)
             dispatch(LoadAllAliases(apiImpl, assetType))

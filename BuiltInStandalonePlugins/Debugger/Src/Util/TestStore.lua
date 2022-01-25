@@ -15,8 +15,7 @@ local mockPausedState = require(Mocks.PausedState)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
-local MockScriptRegService = require(Mocks.MockScriptRegService)
-local mockLSC = require(Mocks.MockLSC)
+local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
 local Actions = Src.Actions
 local AddExpression = require(Actions.Watch.AddExpression)
@@ -102,13 +101,13 @@ local scriptRef2 = mockScriptRef.new()
 local testStackFrameOne = mockStackFrame.new(10, scriptRef1, "TestFrame1", "C")
 local testStackFrameTwo = mockStackFrame.new(20, scriptRef2, "TestFrame2", "C")
 local testCallstack1 = {
-	testStackFrameOne,
-	testStackFrameTwo,
+	[0] = testStackFrameOne,
+	[1] = testStackFrameTwo,
 }
 
 local testCallstack2 = {
-	testStackFrameTwo,
-	testStackFrameOne,
+	[0] = testStackFrameTwo,
+	[1] = testStackFrameOne,
 }
 
 local testThreadOne = mockThreadState.new(1, scriptRef1, true)
@@ -117,14 +116,10 @@ local testThreadTwo = mockThreadState.new(2, scriptRef2, true)
 local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
 local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
 
-local guidMapping = {
-	[scriptRef1] = mockLSC.new("Workspace.NewFolder.SomeFolder.AbsurdlyLongPath.script"),
-	[scriptRef2] = mockLSC.new("TestThread2")
-}
 return function(store)
 	local currentMockConnection = MockDebuggerConnection.new(1)	
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, nil, MockScriptRegService.new(guidMapping))
+	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, nil, MockCrossDMScriptChangeListenerService.new())
 	currentMockConnection.MockSetThreadStateById(1, testThreadOne)
 	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
 	currentMockConnection.MockSetCallstackByThreadId(1, testCallstack1)

@@ -1,8 +1,11 @@
+local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
+
 local Plugin = script.Parent.Parent.Parent
 local PIS = require(Plugin.Src.Constants.PluginInstalledStatus)
 local SetPluginInstallStatus = require(Plugin.Src.Actions.SetPluginInstallStatus)
 local SetPluginId = require(Plugin.Src.Actions.SetPluginId)
 local SetPluginMetadata = require(Plugin.Src.Actions.SetPluginMetadata)
+local DEPRECATED_SetPluginMetadata = require(Plugin.Src.Actions.DEPRECATED_SetPluginMetadata)
 local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 
 -- studioServiceImpl : (StudioService)
@@ -40,10 +43,26 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 						local pluginsData = pluginsResults.responseBody.data
 						local targetPluginData = pluginsData[1]
 						if targetPluginData and targetPluginData["versionId"] then
-							store:dispatch(SetPluginMetadata(pluginId, targetPluginData["name"],
-								targetPluginData["description"] or "", tostring(targetPluginData["commentsEnabled"]),
-								tostring(targetPluginData["versionId"]) or "", targetPluginData["created"] or "",
-								targetPluginData["updated"] or ""))
+							if FFlagPluginManagementRemoveCommentsEnabled then
+								store:dispatch(SetPluginMetadata(
+									pluginId,
+									targetPluginData["name"],
+									targetPluginData["description"] or "",
+									tostring(targetPluginData["versionId"]) or "",
+									targetPluginData["created"] or "",
+									targetPluginData["updated"] or "")
+								)
+							else
+								store:dispatch(DEPRECATED_SetPluginMetadata(
+									pluginId,
+									targetPluginData["name"],
+									targetPluginData["description"] or "",
+									tostring(targetPluginData["commentsEnabled"]),
+									tostring(targetPluginData["versionId"]) or "",
+									targetPluginData["created"] or "",
+									targetPluginData["updated"] or "")
+								)
+							end
 
 							-- 3) tell the c++ code to install the plugin
 							local versionNumber = targetPluginData["versionId"]

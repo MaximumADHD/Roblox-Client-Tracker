@@ -19,7 +19,7 @@ local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 })
 
 local CaptureFocus = Roact.PureComponent:extend("CaptureFocus")
@@ -27,7 +27,7 @@ Typecheck.wrap(CaptureFocus, script)
 
 function CaptureFocus:render()
 	local props = self.props
-	local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()
+	local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and props.Focus:get() or props.Focus:getTarget()
 	local priority = props.Priority or 0
 	return Roact.createElement(Roact.Portal, {
 		target = target,

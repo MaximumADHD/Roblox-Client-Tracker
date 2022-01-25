@@ -1,4 +1,4 @@
-local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
+local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -13,15 +13,10 @@ else
 end
 
 local Framework = require(Libs.Framework)
-local ContextServices = Framework.ContextServices
-
-local Stylizer = ContextServices.Stylizer
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
 local isCli = require(Util.isCli)
-local TestHelpers = require(Util.Test.TestHelpers)
-local Rollouts = require(Plugin.Core.Rollouts)
 
 local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
@@ -35,12 +30,18 @@ local Cryo = require(Libs.Cryo)
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
-local makeTheme = function(themeExtension)
+local makeTheme = function(themeExtension, themeClass)
+	if FFlagToolboxStorybook then
+		themeClass = themeClass or StudioTheme
+	else
+		themeClass = StudioTheme
+	end
+
 	local styleRoot
 	local overridedDarkTheme = Cryo.Dictionary.join(DarkTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0,
-		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and Color3.fromRGB(12, 43, 89) or nil,
+		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = Color3.fromRGB(12, 43, 89),
 		[StyleKey.Toolbox_AssetDropdownSize] = 8,
 		[StyleKey.Toolbox_AssetBorderSize] = 1,
 		[StyleKey.Toolbox_AssetBackgroundImage] = "",
@@ -70,7 +71,7 @@ local makeTheme = function(themeExtension)
 	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
 		[StyleKey.Toolbox_AssetOutlineTransparency] = 0.08,
-		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and Color3.fromRGB(229, 243, 255) or nil,
+		[StyleKey.Toolbox_AssetOutlineVerifiedBackground] = Color3.fromRGB(229, 243, 255),
 		[StyleKey.Toolbox_AssetDropdownSize] = 0,
 		[StyleKey.Toolbox_AssetBorderSize] = 0,
 		[StyleKey.Toolbox_AssetBackgroundImage] = Images.NO_BACKGROUND_ICON,
@@ -100,7 +101,7 @@ local makeTheme = function(themeExtension)
 	if isCli() then
 		styleRoot = StudioTheme.mock(overridedDarkTheme, overridedLightTheme)
 	else
-		styleRoot = StudioTheme.new(overridedDarkTheme, overridedLightTheme)
+		styleRoot = themeClass.new(overridedDarkTheme, overridedLightTheme)
 	end
 
 	styleRoot:extend({
@@ -131,7 +132,7 @@ local makeTheme = function(themeExtension)
 
 			outline = {
 				backgroundColor = StyleKey.MainBackground,
-				verifiedBackgroundColor = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and StyleKey.Toolbox_AssetOutlineVerifiedBackground or nil,
+				verifiedBackgroundColor = StyleKey.Toolbox_AssetOutlineVerifiedBackground,
 				borderColor = StyleKey.Border,
 				transparency = StyleKey.Toolbox_AssetOutlineTransparency
 			},

@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
@@ -74,12 +70,6 @@ return function(analyticsService)
 				seed = seed,
 			})
 		end,
-
-		convertTerrain = not convertToolRemoval and function(_, partNumber)
-			sendEvent("ConvertTerrain", {
-				partNumber = partNumber,
-			})
-		end or nil,
 
 		useBrushTool = function(_, toolName)
 			sendEvent("UseTerrainTool", {

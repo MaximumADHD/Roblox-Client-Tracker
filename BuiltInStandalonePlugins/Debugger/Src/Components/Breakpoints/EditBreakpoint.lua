@@ -13,13 +13,15 @@ local EditDebugpoint = require(Plugin.Src.Components.Breakpoints.EditDebugpoint)
 local EditBreakpoint = Roact.PureComponent:extend("EditBreakpoint")
 
 function EditBreakpoint:init()
-	self:setState({
-		scriptName = "Workspace/CoolGame/Upper",
-		lineNumber = 8,
-		enabled = true,
-		conditionDetails = "a==2",
-		logDetails = "a.. str(b)",
-	})
+	self:setState(function(state)
+		return {
+			scriptName = "Workspace/CoolGame/Upper",
+			lineNumber = 8,
+			enabled = true,
+			conditionDetails = "a==2",
+			logDetails = "a.. str(b)",
+		}
+	end)
 	self.updateEnable = function()
 		self:setState(function(state)
 			return {
@@ -28,14 +30,18 @@ function EditBreakpoint:init()
 		end)
 	end
 	self.updateCondition = function(newValue: string)
-		self:setState({
-			conditionDetails = newValue
-		})
+		self:setState(function(state)
+			return {
+				conditionDetails = newValue
+			}
+		end)
 	end
 	self.updateLogMessage = function(newValue: string)
-		self:setState({
-			logDetails = newValue
-		})
+		self:setState(function(state)
+			return {
+				logDetails = newValue
+			}
+		end)
 	end
 end
 

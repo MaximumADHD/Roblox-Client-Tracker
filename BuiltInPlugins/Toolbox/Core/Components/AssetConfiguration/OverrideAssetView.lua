@@ -14,7 +14,6 @@
 ]]
 
 local FFlagToolboxUseInfiniteScroller = game:GetFastFlag("ToolboxUseInfiniteScroller")
-local FFlagToolboxAssetConfigAddPublishBackButton = game:GetFastFlag("ToolboxAssetConfigAddPublishBackButton")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -91,11 +90,7 @@ function OverrideAssetView:init(props)
 		-- For clicking the apply button.
 		props.onOverrideAssetSelected(assetId)
 
-		if FFlagToolboxAssetConfigAddPublishBackButton then
-			self.props.makeChangeRequest(AssetConfigConstants.OVERRIDE_ASSET_ID, self.state.selectedAssetId, assetId)
-		else
-			self.props.makeChangeRequest("OverrideAssetId", self.state.selectedAssetId, assetId)
-		end
+		self.props.makeChangeRequest(AssetConfigConstants.OVERRIDE_ASSET_ID, self.state.selectedAssetId, assetId)
 
 		-- For UI
 		self:setState({

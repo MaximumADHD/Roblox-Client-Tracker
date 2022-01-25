@@ -1,7 +1,3 @@
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -30,10 +26,6 @@ local TerrainInterfaces = Plugin.Src.TerrainInterfaces
 local TerrainGeneration = require(TerrainInterfaces.TerrainGenerationInstance)
 local TerrainImporter = require(TerrainInterfaces.TerrainImporterInstance)
 local SeaLevel = require(TerrainInterfaces.TerrainSeaLevel)
-local PartConverter
-if not convertToolRemoval then
-	PartConverter = require(TerrainInterfaces.PartConverter)
-end
 
 local ImageUploader = require(Plugin.Src.Util.ImageUploader)
 
@@ -87,18 +79,10 @@ function MockProvider.createMockContextItems(mocks)
 			terrain = mocks.terrain,
 			localization = mocks.localization,
 		}),
-		partConverter = not convertToolRemoval and PartConverter.new({
-			terrain = mocks.terrain,
-			localization = mocks.localization,
-			analytics = analytics,
-		}) or nil,
 	}
 end
 
 function MockProvider.cleanupMocks(mocks, mockItems)
-	if not convertToolRemoval then
-		mockItems.partConverter:destroy()
-	end
 	mockItems.seaLevel:destroy()
 	mockItems.terrainGeneration:destroy()
 	mockItems.terrainImporter:destroy()
@@ -138,7 +122,6 @@ function MockProvider:render()
 		self.mockItems.terrainImporter,
 		self.mockItems.terrainGeneration,
 		self.mockItems.seaLevel,
-		not convertToolRemoval and self.mockItems.partConverter or nil,
 	}, {
 		WrappedComponent = Roact.createFragment(self.props[Roact.Children]),
 	})

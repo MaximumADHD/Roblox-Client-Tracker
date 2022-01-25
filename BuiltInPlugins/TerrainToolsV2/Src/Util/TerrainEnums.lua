@@ -5,10 +5,6 @@ Many of these are also used as a key in the LocalizationTable, so take care if y
 e.g. ToolId.Add = "Add" is used to lookup Studio.TerrainToolsV2.ToolName.Add to retrieve the localized string
 ]]
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local TerrainEnums = {}
 
 TerrainEnums.ToolId = {
@@ -39,8 +35,6 @@ TerrainEnums.ToolId = {
 	Flatten = "Flatten",
 
 	Paint = "Paint",
-
-	ConvertPart = not convertToolRemoval and "ConvertPart" or nil,
 
 	None = "None",
 }
@@ -93,13 +87,6 @@ TerrainEnums.Biome = {
 	Lavascape = "Lavascape",
 }
 
-if not convertToolRemoval then
-	TerrainEnums.ConvertMode = {
-		Biome = "Biome",
-		Material = "Material",
-	}
-end
-
 TerrainEnums.Shape = {
 	Block = "Block",
 
@@ -113,21 +100,6 @@ TerrainEnums.Shape = {
 	Ball = "Ball",
 	Wedge = "Wedge",
 }
-
-if not convertToolRemoval then
-	-- Maps to keys in the localization table under the Warning group
-	TerrainEnums.ConvertPartError = {
-		RegionTooLarge = "RegionTooLarge",
-		UnknownShape = "UnknownShape",
-		InvalidSize = "InvalidSize",
-	}
-
-	TerrainEnums.ConvertPartWarning = {
-		HasProtected = "HasProtected",
-		HasTooSmall = "HasTooSmall",
-		HasOtherInstance = "HasOtherInstance",
-	}
-end
 
 TerrainEnums.ReplaceMode = {
 	Box = "Box",

@@ -21,6 +21,16 @@ local AssetAnalytics = require(Util.Analytics.AssetAnalytics)
 
 local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 
+local function extractAssetIdsFromGetGroupAssetsResponse(data)
+	local result = {}
+	if data then
+		for _,value in pairs(data) do
+			result[#result + 1] = value.id
+		end
+	end
+	return result
+end
+
 local function extractAssetIdsFromGetAssetsResponse(data)
 	local result = {}
 	if data then
@@ -82,6 +92,7 @@ return function(networkInterface, pageInfoOnStart)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
+		local isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
 		if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 			-- special case : temporarily pull Group Creations Models and Packages from the develop API
 			local categoryName = pageInfoOnStart.categoryName
@@ -124,6 +135,18 @@ return function(networkInterface, pageInfoOnStart)
 			end
 		end
 
+		local getAssetGroupCreationIds = function(nextCursor)
+			return networkInterface:getAssetGroupCreations(pageInfoOnStart, nextCursor):andThen(function(creationsResult)
+				return extractAssetIdsFromGetGroupAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data), creationsResult
+			end)
+		end
+
+		local getAssetCreationIds = function(nextCursor)
+			return networkInterface:getAssetCreations(pageInfoOnStart, nextCursor):andThen(function(creationsResult)
+				return extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data), creationsResult
+			end)
+		end
+
 		-- Search Creator
 		if isCreatorSearchEmpty then
 			local data = {
@@ -133,13 +156,18 @@ return function(networkInterface, pageInfoOnStart)
 			store:dispatch(GetAssets(data.Results, data.TotalResults))
 			store:dispatch(SetCurrentPage(0))
 			store:dispatch(SetLoading(false))
-		elseif not Rollouts:getToolboxGroupCreationsMigration() and isCreationSearch then -- General Category Search
+		elseif isCreationSearch then -- General Category Search
 			-- Creations search
 			local currentCursor = store:getState().assets.currentCursor
 			if PagedRequestCursor.isNextPageAvailable(currentCursor) then
-				return networkInterface:getAssetCreations(pageInfoOnStart, PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(creationsResult)
+				local getAssetIds
+				if Rollouts:getToolboxGroupCreationsMigration() and isGroupCreation then
+					getAssetIds = getAssetGroupCreationIds
+				else
+					getAssetIds = getAssetCreationIds
+				end
+				return getAssetIds(PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(assetIds, creationsResult)
 					local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
-					local assetIds = extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data)
 					if assetIds and #assetIds > 0 then
 						networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
 							local creationDetailsTable = creationDetailsResult.responseBody

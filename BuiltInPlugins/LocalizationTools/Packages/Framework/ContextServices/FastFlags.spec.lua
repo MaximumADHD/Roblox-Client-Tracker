@@ -3,6 +3,9 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
 	local provide = require(Framework.ContextServices.provide)
+	local withContext = require(Framework.ContextServices.withContext)
+
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	local FastFlags = require(script.Parent.FastFlags)
 
@@ -42,9 +45,16 @@ return function()
 			expect(val).to.equal(true)			
 			return Roact.createElement("Frame")
 		end
-		mapToProps(TestElement, {
-			flags = FastFlags,
-		})
+
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestElement = withContext({
+				flags = FastFlags,
+			})(TestElement)
+		else
+			mapToProps(TestElement, {
+				flags = FastFlags,
+			})
+		end
 
 		local fastFlagsMock = FastFlags.mock(false, {
 			testFeatureName = true,

@@ -5,6 +5,7 @@
 		callback GoToNext: request to go to next screen in flow.
 		callback GoToPrevious: request to go to previous screen in flow.
 		boolean inBounds: determines if the item is within the preset accessory bounding box
+		string PromptText: text to display in prompt
 	Optional Props:
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]
@@ -29,6 +30,7 @@ function EditAndPreviewFrame:render()
 	local props = self.props
 
 	local inBounds = props.InBounds
+	local promptText = props.PromptText
 
 	local goToNext = props.GoToNext
 	local goToPrevious = props.GoToPrevious
@@ -36,7 +38,7 @@ function EditAndPreviewFrame:render()
 
 	return Roact.createElement(FlowScreenLayout, {
 		Title = localization:getText("Editor", "EditAndPreview"),
-		PromptText = localization:getText("EditAndPreview", "Prompt"),
+		PromptText = promptText,
 		NextButtonText = localization:getText("Flow", "Next"),
 		BackButtonText = localization:getText("Flow", "Back"),
 		NextButtonEnabled = inBounds,

@@ -1,5 +1,3 @@
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
-
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -80,7 +78,7 @@ function VoteBar:renderContent(theme, localization, localizedContent)
 			Font = Constants.FONT,
 			TextSize = Constants.ASSET_VOTE_COUNT_FONT_SIZE,
 
-			TextXAlignment = FFlagToolboxVerifiedCreatorBadges and Enum.TextXAlignment.Left or nil,
+			TextXAlignment = Enum.TextXAlignment.Left,
 		}),
 	})
 end

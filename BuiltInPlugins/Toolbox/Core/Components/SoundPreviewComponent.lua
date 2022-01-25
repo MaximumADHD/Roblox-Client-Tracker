@@ -2,6 +2,8 @@ local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
+
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -92,6 +94,9 @@ end
 function SoundPreviewComponent:willUnmount()
 	if self.runServiceConnection then
 		self.runServiceConnection:Disconnect()
+		if FFlagToolboxNilDisconnectSignals then
+			self.runServiceConnection = nil
+		end
 	end
 end
 

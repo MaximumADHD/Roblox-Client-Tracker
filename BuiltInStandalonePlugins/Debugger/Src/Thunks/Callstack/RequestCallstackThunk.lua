@@ -3,9 +3,9 @@ local Models = Plugin.Src.Models
 local CallstackRow = require(Models.Callstack.CallstackRow)
 local Actions = Plugin.Src.Actions
 local AddCallstack = require(Actions.Callstack.AddCallstack)
-local SetFilenameForGuid = require(Actions.Common.SetFilenameForGuid)
+local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 
-return function(threadState, debuggerConnection, debuggerStateToken, scriptRegService)
+return function(threadState, debuggerConnection, debuggerStateToken, scriptChangeService)
 	return function(store, contextItems)
 		debuggerConnection:Populate(threadState, function ()
 			local callstack = threadState:GetChildren()
@@ -28,11 +28,15 @@ return function(threadState, debuggerConnection, debuggerStateToken, scriptRegSe
 					lineColumn = stackFrame.Line,
 					sourceColumn = stackFrame.Script,
 				}
-				local lsc = scriptRegService:GetSourceContainerByScriptGuid(stackFrame.Script)
-				store:dispatch(SetFilenameForGuid(stackFrame.Script, lsc and lsc:GetFullName() or stackFrame.Script))
+				store:dispatch(SetFilenameForGuidAction(stackFrame.Script, ""))
+				scriptChangeService:StartWatchingScript(stackFrame.Script, store:getState().Common.currentDebuggerConnectionId)
 				table.insert(callstackRows, CallstackRow.fromData(data))
 			end
-			store:dispatch(AddCallstack(threadState.ThreadId, callstackRows, debuggerStateToken))
+			
+			-- only add the callstack if there are rows to add
+			if table.getn(callstackRows) > 0 then
+				store:dispatch(AddCallstack(threadState.ThreadId, callstackRows, debuggerStateToken))
+			end
 		end)
     end
 end

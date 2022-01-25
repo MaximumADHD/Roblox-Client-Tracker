@@ -9,9 +9,6 @@
 		callback onMouseEnter()
 		callback onMouseLeave()
 ]]
-local FFlagToolboxVerifiedCreatorBadges = game:GetFastFlag("ToolboxVerifiedCreatorBadges")
-local FFlagToolboxVerifiedCreatorBadgesDesignTweaks = game:GetFastFlag("ToolboxVerifiedCreatorBadgesDesignTweaks")
-
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -104,7 +101,7 @@ end
 
 function AssetCreatorName:renderContent(theme, localization, localizedContent, modalTarget, modalStatus)
 	local props = self.props
-	local showVerifiedCreatorBadge = FFlagToolboxVerifiedCreatorBadges and props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+	local showVerifiedCreatorBadge = props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
 	theme = props.Stylizer
 
 	local creatorNameField
@@ -126,56 +123,14 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 	local isHovered = self.state.isHovered
 	local maxTextWidth = 60
 
-	if FFlagToolboxVerifiedCreatorBadges then
-		return Roact.createElement("Frame", {
+	return Roact.createElement("Frame", {
+		BackgroundTransparency = 1,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT)
+	}, {
+		Text = Roact.createElement("TextButton", {
 			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT)
-		}, {
-			Text = Roact.createElement("TextButton", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(0, maxTextWidth, 1, 0),
-				Text = creatorNameField,
-				TextColor3 = creatorNameTheme.textColor,
-				Font = Constants.FONT,
-				TextSize = Constants.ASSET_CREATOR_NAME_FONT_SIZE,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				ClipsDescendants = false,
-				TextTruncate = Enum.TextTruncate.AtEnd,
-				AutoButtonColor = false,
-
-				Position = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and showVerifiedCreatorBadge and UDim2.new(0, 16, 0, 0) or nil,
-
-				[Roact.Event.MouseEnter] = self.onMouseEnter,
-				[Roact.Event.MouseLeave] = self.onMouseLeave,
-				[Roact.Event.Activated] = self.onActivated,
-				[Roact.Ref] = self.textButtonRef,
-			}, {
-				TooltipWrapper = isHovered and Roact.createElement(TooltipWrapper, {
-					Text = creatorName,
-					canShowCurrentTooltip = canShowCurrentTooltip,
-					isHovered = isHovered,
-				}),
-
-				UnderLine = isHovered and (nil == props.clickable or props.clickable) and Roact.createElement("Frame", {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.new(0.5, 0, 1, 1),
-					Size = UDim2.new(0, self.underLineWidth, 0, 1),
-					BorderSizePixel = 0,
-				})
-			}),
-
-			VerifiedCreatorBadge = showVerifiedCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
-				small = true,
-				Position = FFlagToolboxVerifiedCreatorBadgesDesignTweaks and UDim2.new(0, 0, 0, 1) or UDim2.new(0, maxTextWidth, 0, 1),
-			})
-		})
-	else
-		return Roact.createElement("TextButton", {
-			BackgroundTransparency = 1,
-			LayoutOrder = layoutOrder,
-			Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
+			Size = UDim2.new(0, maxTextWidth, 1, 0),
 			Text = creatorNameField,
 			TextColor3 = creatorNameTheme.textColor,
 			Font = Constants.FONT,
@@ -185,6 +140,8 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 			ClipsDescendants = false,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			AutoButtonColor = false,
+
+			Position = showVerifiedCreatorBadge and UDim2.new(0, 16, 0, 0) or nil,
 
 			[Roact.Event.MouseEnter] = self.onMouseEnter,
 			[Roact.Event.MouseLeave] = self.onMouseLeave,
@@ -203,8 +160,13 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 				Size = UDim2.new(0, self.underLineWidth, 0, 1),
 				BorderSizePixel = 0,
 			})
+		}),
+
+		VerifiedCreatorBadge = showVerifiedCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
+			small = true,
+			Position = UDim2.new(0, 0, 0, 1),
 		})
-	end
+	})
 end
 
 

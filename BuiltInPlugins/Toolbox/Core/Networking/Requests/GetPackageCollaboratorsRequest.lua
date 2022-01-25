@@ -29,7 +29,6 @@ local ProximityPromptService = game:GetService("ProximityPromptService")
 local PlayersService = game:GetService("Players")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local function DEPRECATED_deserializeResult(collaboratorsGETResults)
 	local collaborators = {
@@ -80,41 +79,21 @@ end
 
 return function(networkInterface, assetId)
 	return function(store)
-        if FFlagUseNewAssetPermissionEndpoint2 then
-            return networkInterface:getAssetPermissions(assetId):andThen(
-                function(result) 
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        Analytics.sendResultToKibana(result)
-                    end
-                    local deserializeResultData = deserializeResponse(result.responseBody)
-
-                    store:dispatch(SetCollaborators(deserializeResultData))
-                end,
-                function(err)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        Analytics.sendResultToKibana(err)
-                    end
-                    store:dispatch(NetworkError(err))
+        return networkInterface:getAssetPermissions(assetId):andThen(
+            function(result)
+                if FFlagNewPackageAnalyticsWithRefactor2 then
+                    Analytics.sendResultToKibana(result)
                 end
-            )
-        else
-            return networkInterface:getPackageCollaborators(assetId):andThen(
-                function(result)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        Analytics.sendResultToKibana(result)
-                    end
-                    local resultData = HttpService:JSONDecode(result.responseBody).data
-                    local deserializeResultData = DEPRECATED_deserializeResult(resultData)
+                local deserializeResultData = deserializeResponse(result.responseBody)
 
-                    store:dispatch(SetCollaborators(deserializeResultData))
-                end,
-                function(err)
-                    if FFlagNewPackageAnalyticsWithRefactor2 then
-                        Analytics.sendResultToKibana(err)
-                    end
-                    store:dispatch(NetworkError(err))
+                store:dispatch(SetCollaborators(deserializeResultData))
+            end,
+            function(err)
+                if FFlagNewPackageAnalyticsWithRefactor2 then
+                    Analytics.sendResultToKibana(err)
                 end
-            )
-        end
-	end
+                store:dispatch(NetworkError(err))
+            end
+        )
+    end
 end

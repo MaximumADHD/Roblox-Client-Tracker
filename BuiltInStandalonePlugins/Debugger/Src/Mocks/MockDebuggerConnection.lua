@@ -5,6 +5,7 @@ local Signal = Framework.Util.Signal
 local ThreadState = require(script.Parent.ThreadState)
 local StackFrame = require(script.Parent.StackFrame)
 local DebuggerVariable = require(script.Parent.DebuggerVariable)
+local DebuggerLuaResponse = require(script.Parent.MockDebuggerLuaResponse)
 
 local Promise = Framework.Util.Promise
 
@@ -62,8 +63,8 @@ function MockDebuggerConnection:EvaluateWatch(expression : string, frame : Stack
 	end)
 
 	promise:andThen(function(newCallback)
-		local data = {debuggerVarId = 1}
-		newCallback(data)
+		local luaResponse = DebuggerLuaResponse.new({VariableId = 1})
+		newCallback(luaResponse)
 	end)
 	return 0
 end
@@ -87,7 +88,7 @@ function MockDebuggerConnection:Populate(targetVar, callback) : number
 		elseif targetVar.PopulatableType == "StackFrame" then
 			targetVar:MockSetChildren(self.MockCallstackFrameToDebuggerVariables[targetVar])
 		end
-	end
+	end 
 	
 	local promise = Promise.new(function(resolve, reject, onCancel)
 		resolve(callback)

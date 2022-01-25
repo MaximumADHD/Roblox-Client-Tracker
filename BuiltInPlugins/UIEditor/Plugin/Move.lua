@@ -24,13 +24,6 @@ local SnappingType 			= require(script.Parent.Enum.SnappingType)
 local UserInputService = game:GetService("UserInputService")
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 
-
------------------------------------
-----------------FLAGS--------------
------------------------------------
-local GetFFlagFixResizingWithPadding = require(script.Parent.Flags.FFlagFixResizingWithPadding)
-
-
 -----------------------------------
 -------------VARIABLES-------------
 -----------------------------------
@@ -82,30 +75,17 @@ local function dragElementsBy(vector)
 			end
 
 			if (shouldUseScalePosition) then
-				local scale
-				if GetFFlagFixResizingWithPadding() then
-					scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
-				else
-					scale = vector / element.Parent.AbsoluteSize
-				end
+				local scale = vector / (element.Parent.AbsoluteSize - paddingTL - paddingBR)
 				-- divide by AbsoluteWindowSize to get Frame without scrollbars and further divide
 				-- scale by CanvasSize scale since that represents the entire area of ScrollFrame
 				-- to get accurate scale for position when dragging
 				if (element.Parent:IsA("ScrollingFrame")) then
 					-- bug in quantum gui, should use scrolling frame's parent size
 					if (element.Parent.CanvasSize.X.Scale >= 1) then
-						if GetFFlagFixResizingWithPadding() then
-							scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
-						else
-							scale = Vector2.new(vector.X / (element.Parent.Parent.AbsoluteSize.X * element.Parent.CanvasSize.X.Scale), scale.Y)
-						end
+						scale = Vector2.new(vector.X / (element.Parent.AbsoluteCanvasSize.X - paddingTL.X - paddingBR.X), scale.Y)
 					end
 					if (element.Parent.CanvasSize.Y.Scale >= 1) then
-						if GetFFlagFixResizingWithPadding() then
-							scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
-						else
-							scale = Vector2.new(scale.X , vector.Y / (element.Parent.Parent.AbsoluteSize.Y * element.Parent.CanvasSize.Y.Scale))
-						end
+						scale = Vector2.new(scale.X , vector.Y / (element.Parent.AbsoluteCanvasSize.Y - paddingTL.Y - paddingBR.Y))
 					end
 				end
 				element.Position = m_originalSelectionData[i][DATA_POSITION] + UDim2.new(scale.X, 0, scale.Y, 0)

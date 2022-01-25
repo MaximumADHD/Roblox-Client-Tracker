@@ -25,7 +25,6 @@ else
 end
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagUseNewAssetPermissionEndpoint2 = game:GetFastFlag("UseNewAssetPermissionEndpoint2")
 
 local RevokeSubjectAction = KeyConverter.getWebAction(PermissionsConstants.NoAccessKey)
 
@@ -121,55 +120,34 @@ return function(networkInterface, assetId, assetVersionNumber)
 
         -- should be verified already in AssetConfig but just in case
         if changeTable and next(changeTable) ~= nil then
-            if FFlagUseNewAssetPermissionEndpoint2 then
-                local originalCollaborators = store:getState().originalCollaborators
-        
-                local grantRequest = serializeForGrantAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata)
-                local revokeRequest = serializeForRevokeAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata, originalCollaborators)
+            local originalCollaborators = store:getState().originalCollaborators
+    
+            local grantRequest = serializeForGrantAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata)
+            local revokeRequest = serializeForRevokeAssetPermissionRequest(changeTable.permissions, changeTable.groupMetadata, originalCollaborators)
 
-                local grantPromise = next(grantRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:grantAssetPermissions(assetId, grantRequest);
-                local revokePromise = next(revokeRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:revokeAssetPermissions(assetId, revokeRequest);
+            local grantPromise = next(grantRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:grantAssetPermissions(assetId, grantRequest);
+            local revokePromise = next(revokeRequest[webKeys.Requests]) == nil and Promise.resolve(true) or networkInterface:revokeAssetPermissions(assetId, revokeRequest);
 
-                return Promise.all({grantPromise, revokePromise}):andThen(
-                    function(results)
-                        if FFlagNewPackageAnalyticsWithRefactor2 then
-                            for _, result in pairs(results) do
-                                -- skip result that does not have "url" key
-                                if result.url ~= nil then
-                                    Analytics.sendResultToKibana(result)
-                                end
-                            end
-                        end
-                        store:dispatch(ClearChange("permissions"))
-                        store:dispatch(ClearChange("groupMetadata"))
-                    end,
-                    function(err)
-                        if FFlagNewPackageAnalyticsWithRefactor2 then
-                            Analytics.sendResultToKibana(err)
-                        end
-                        store:dispatch(NetworkError(err))
-                    end
-                )
-            else
-                local permissions = serializeForRequest(changeTable.permissions, changeTable.groupMetadata, assetVersionNumber)
-                if next(permissions) ~= nil then
-                    return networkInterface:DEPRECATED_putPackagePermissions(assetId, permissions):andThen(
-                        function(result)
-                            if FFlagNewPackageAnalyticsWithRefactor2 then
+            return Promise.all({grantPromise, revokePromise}):andThen(
+                function(results)
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        for _, result in pairs(results) do
+                            -- skip result that does not have "url" key
+                            if result.url ~= nil then
                                 Analytics.sendResultToKibana(result)
                             end
-                            store:dispatch(ClearChange("permissions"))
-                            store:dispatch(ClearChange("groupMetadata"))
-                        end,
-                        function(err)
-                            if FFlagNewPackageAnalyticsWithRefactor2 then
-                                Analytics.sendResultToKibana(err)
-                            end
-                            store:dispatch(NetworkError(err))
                         end
-                    )
+                    end
+                    store:dispatch(ClearChange("permissions"))
+                    store:dispatch(ClearChange("groupMetadata"))
+                end,
+                function(err)
+                    if FFlagNewPackageAnalyticsWithRefactor2 then
+                        Analytics.sendResultToKibana(err)
+                    end
+                    store:dispatch(NetworkError(err))
                 end
-            end
+            )
         end
 	end
 end

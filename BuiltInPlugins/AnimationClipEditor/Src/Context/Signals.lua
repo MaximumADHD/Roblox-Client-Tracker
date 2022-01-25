@@ -5,6 +5,7 @@
 		get():
 			Returns the signals which were passed in Signals.new.
 ]]
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -14,6 +15,7 @@ local Signal = require(DraggerFramework.Utility.Signal)
 
 local Framework = require(Plugin.Packages.Framework)
 local ContextItem = Framework.ContextServices.ContextItem
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = Framework.ContextServices.Provider
 
 local Signals = ContextItem:extend("Signals")
@@ -39,10 +41,12 @@ function Signals:__mapSignalIDs(signalIDs)
 	return signals
 end
 
-function Signals:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Signals:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Signals:get(id)

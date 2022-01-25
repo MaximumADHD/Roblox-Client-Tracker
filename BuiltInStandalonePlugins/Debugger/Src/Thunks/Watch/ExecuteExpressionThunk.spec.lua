@@ -31,7 +31,7 @@ return function()
 		local mockStackFrame = MockStackFrame.new(1, MockScriptRef.new(),"TestFrame1", "C")
 		local mockThreadState = MockThreadState.new(2, "testThread", true)
 		currentMockConnection.MockSetThreadStateById(2, mockThreadState)
-		currentMockConnection.MockSetCallstackByThreadId(2, {mockStackFrame})
+		currentMockConnection.MockSetCallstackByThreadId(2, {[0] = mockStackFrame})
 		local dst = state.Common.debuggerConnectionIdToDST[1]
 		local stepStateBundle = StepStateBundle.ctor(dst,2,1)
 		local expressionString = "Alex"

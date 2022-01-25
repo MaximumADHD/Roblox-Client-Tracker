@@ -10,8 +10,6 @@ local UI = require(Framework.UI)
 local Container = UI.Container
 local TextLabel = UI.Decoration.TextLabel
 
-local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
-
 return function()
 	local model = Instance.new("Model")
 	local part = Instance.new("Part")
@@ -148,7 +146,7 @@ return function()
 			}))
 		}),
 
-		Footer = FFlagToolboxPluginPreviewFooter and Roact.createElement(Container, {
+		Footer = Roact.createElement(Container, {
 			Size = UDim2.new(0, 207, 0, 750)
 		}, {
 			Roact.createElement(AssetPreview, Cryo.Dictionary.join(props, {
@@ -160,6 +158,6 @@ return function()
 					}))
 				end
 			}))
-		}) or nil,
+		}),
 	}
 end

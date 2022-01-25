@@ -4,8 +4,6 @@ local Rodux = require(Plugin.Packages.Rodux)
 
 local MainReducer = require(script.Parent.MainReducer)
 
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-
 return function()
 	it("should combine all of its reducers", function()
 		local r = Rodux.Store.new(MainReducer)
@@ -33,10 +31,6 @@ return function()
 
 			"PaintTool",
 		}
-
-		if FFlagTerrainToolsConvertPartTool then
-			table.insert(expectedKeys, "ConvertPartTool")
-		end
 
 		for _, childReducerName in ipairs(expectedKeys) do
 			expect(state[childReducerName]).to.be.ok()

@@ -58,8 +58,6 @@ return function(plugin, pluginLoaderContext)
 
 	local Rodux = require(Libs.Rodux)
 
-	local FFlagToolboxMeshPartFiltering = game:GetFastFlag("ToolboxMeshPartFiltering")
-
 	local InsertAsset = require(Util.InsertAsset)
 	local Analytics = require(Util.Analytics.Analytics)
 	local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextItem)
@@ -500,10 +498,8 @@ return function(plugin, pluginLoaderContext)
 				end)
 		end
 
-		if FFlagToolboxMeshPartFiltering then
-			InsertAsset.registerLocalization(devFrameworkLocalization)
-			InsertAsset.registerProcessDragHandler(plugin)
-		end
+		InsertAsset.registerLocalization(devFrameworkLocalization)
+		InsertAsset.registerProcessDragHandler(plugin)
 	end
 
 	main()

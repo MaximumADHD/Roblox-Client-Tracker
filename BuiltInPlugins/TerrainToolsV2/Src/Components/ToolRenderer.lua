@@ -2,10 +2,6 @@
 	Controls which Tool is shown in the tool frame
 	Handles all the bindings between the ui and the tool functionality
 ]]
-local FFlagTerrainToolsConvertPartTool = game:GetFastFlag("TerrainToolsConvertPartTool")
-local FFlagTerrainToolsFlagConvertToolRemoval = game:GetFastFlag("TerrainToolsFlagConvertToolRemoval")
-local convertToolRemoval = FFlagTerrainToolsFlagConvertToolRemoval and not FFlagTerrainToolsConvertPartTool
-
 local Plugin = script.Parent.Parent.Parent
 
 local Framework = require(Plugin.Packages.Framework)
@@ -19,10 +15,6 @@ local ContextItems = require(Plugin.Src.ContextItems)
 local Tools = script.Parent.Tools
 local Add = require(Tools.Add)
 local Clear = require(Tools.Clear)
-local ConvertPart
-if not convertToolRemoval then
-	ConvertPart = require(Tools.ConvertPart)
-end
 local Erode = require(Tools.Erode)
 local Fill = require(Tools.Fill)
 local Flatten = require(Tools.Flatten)
@@ -82,10 +74,6 @@ local toolComponent = {
 	[ToolId.Replace] = Replace,
 	[ToolId.Paint] = Paint,
 }
-
-if not convertToolRemoval then
-	toolComponent[ToolId.ConvertPart] = ConvertPart
-end
 
 local function ToggleTool(toolName, mouse)
 	-- TODO: As other terrain interface modules get refactored
