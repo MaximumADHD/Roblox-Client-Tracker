@@ -141,9 +141,12 @@ return function()
 			plugin,
 			focus,
 			theme,
-			wrapper,
 		}, {
-			Frame = Roact.createElement("Frame"),
+			provide({
+				wrapper,
+			}, {
+				Frame = Roact.createElement("Frame"),
+			}),
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

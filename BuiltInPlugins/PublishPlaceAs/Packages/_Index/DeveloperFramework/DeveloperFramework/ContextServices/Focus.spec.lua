@@ -4,7 +4,7 @@ return function()
 	local provide = require(Framework.ContextServices.provide)
 	local Util = require(Framework.Util)
 	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+		FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 	})
 
 	local Focus = require(script.Parent.Focus)
@@ -28,7 +28,7 @@ return function()
 	it("should return the target via getTarget", function()
 		local screenGui = Instance.new("ScreenGui")
 		local focus = Focus.new(screenGui)
-		local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget()
+		local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and focus:get() or focus:getTarget()
 		expect(target).to.equal(screenGui)
 	end)
 end

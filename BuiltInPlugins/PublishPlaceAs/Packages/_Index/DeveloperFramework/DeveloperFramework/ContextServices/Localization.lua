@@ -67,6 +67,8 @@ local Util = require(Framework.Util)
 local Signal = Util.Signal
 local Cryo = Util.Cryo
 
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 -- constants
 local MOCK_PLUGIN_NAME = "Test"
 local FALLBACK_LOCALE = "en-us"
@@ -170,15 +172,20 @@ function Localization.new(props)
 
 	-- create the translators for the first time
 	self:updateLocaleAndTranslator()
-
 	return self
 end
 
-function Localization:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-		UpdateSignal = self.localeChanged,
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function Localization:getSignal()
+		return self.localeChanged
+	end
+else
+	function Localization:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+			UpdateSignal = self.localeChanged,
+		}, {root})
+	end
 end
 
 -- scope : (string) the general group of data that the key belongs to

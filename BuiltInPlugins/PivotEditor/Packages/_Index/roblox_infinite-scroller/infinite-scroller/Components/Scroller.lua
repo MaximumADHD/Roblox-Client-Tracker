@@ -1,5 +1,3 @@
-local FFlagDevFrameworkInfiniteScrollerNilChecks = game:GetFastFlag("DevFrameworkInfiniteScrollerNilChecks")
-
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 
@@ -842,9 +840,6 @@ function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 			return nextIndex
 		end
 		return currentIndex
-	elseif FFlagDevFrameworkInfiniteScrollerNilChecks and currentDist == nil then
-		-- NOTE: See STM-844. This code is not originally in infinite-scroller v0.7.5.
-		return hintIndex
 	end
 
 	-- Get the distance from one end of the list.
@@ -871,9 +866,6 @@ function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 		self.log:trace("    End is {} from target", nextDist)
 		if nextDist == 0 then
 			return nextIndex
-		elseif FFlagDevFrameworkInfiniteScrollerNilChecks and nextDist == nil then
-			-- NOTE: See STM-844. This code is not originally in infinite-scroller v0.7.5.
-			return hintIndex
 		end
 
 		-- If the target position lies outside of the loaded elements.
@@ -900,8 +892,7 @@ function Scroller:findIndexAt(targetPos, hintIndex, extrapolate)
 	end
 
 	-- Linear search from best guess index.
-	-- NOTE: See STM-844. This code was modifed to be different from infinite-scroller v0.7.5.
-	while currentDist ~= 0 and (not FFlagDevFrameworkInfiniteScrollerNilChecks or (FFlagDevFrameworkInfiniteScrollerNilChecks and currentDist ~= nil)) do
+	while currentDist ~= 0 do
 		if currentDist < 0 then
 			currentIndex = currentIndex - 1
 		else

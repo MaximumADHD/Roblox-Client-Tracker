@@ -12,6 +12,7 @@ local provide = require(Src.provide)
 
 local Analytics = require(Src.Analytics)
 local API = require(Src.API)
+local Context = require(Src.Context)
 local ContextItem = require(Src.ContextItem)
 local Focus = require(Src.Focus)
 local FastFlags = require(Src.FastFlags)
@@ -37,6 +38,7 @@ local ContextServices = strict({
 	-- ContextItems
 	Analytics = Analytics,
 	API = API,
+	Context = Context,
 	ContextItem = ContextItem,
 	FastFlags = FastFlags,
 	Focus = Focus,

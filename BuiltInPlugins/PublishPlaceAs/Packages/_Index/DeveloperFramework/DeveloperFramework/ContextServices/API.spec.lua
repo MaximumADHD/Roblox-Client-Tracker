@@ -1,8 +1,11 @@
 return function()
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
+	local withContext = require(Framework.ContextServices.withContext)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
 	local provide = require(Framework.ContextServices.provide)
+
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	local API = require(script.Parent.API)
 
@@ -35,9 +38,16 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		mapToProps(TestElement, {
-			api = API,
-		})
+
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestElement = withContext({
+				api = API,
+			})(TestElement)
+		else
+			mapToProps(TestElement, {
+				api = API,
+			})
+		end
 
 		local element = provide({ API.new()	},{
 			TestElement = Roact.createElement(TestElement)

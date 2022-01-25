@@ -14,6 +14,8 @@ local Roact = require(Framework.Parent.Roact)
 local RoactRodux = require(Framework.Parent.RoactRodux)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 local Store = ContextItem:extend("Store")
 
 function Store.new(store)
@@ -26,10 +28,18 @@ function Store.new(store)
 	return self
 end
 
-function Store:createProvider(root)
-	return Roact.createElement(RoactRodux.StoreProvider, {
-		store = self.store,
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function Store:getProvider(children)
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, children)
+	end	
+else
+	function Store:createProvider(root)
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, {root})
+	end
 end
 
 return Store

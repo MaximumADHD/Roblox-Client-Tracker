@@ -14,10 +14,10 @@
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
+	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
 })
 
-if FlagsList:get("FFlagRefactorDevFrameworkContextItems") then
+if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
 	local ContextItem = require(Framework.ContextServices.ContextItem)
 	local verifyNewItem = function(target)
 		assert(target and target:IsA("LayerCollector"),

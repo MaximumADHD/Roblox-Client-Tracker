@@ -2,8 +2,9 @@ return function()
 	local Stylizer = require(script.Parent.Stylizer)
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
-	local provide = require(Framework.ContextServices.provide)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
+	local provide = require(Framework.ContextServices.provide)
+	local withContext = require(Framework.ContextServices.withContext)
 
 	local FrameworkStyle = require(Framework.Style)
 	local ui = FrameworkStyle.ComponentSymbols
@@ -15,6 +16,8 @@ return function()
 
 	local testSymbols = {}
 
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+
 	local function createTestThemedComponent(render)
 		local TestThemedComponent = Roact.PureComponent:extend("TestThemedComponent")
 
@@ -25,9 +28,15 @@ return function()
 			end
 		end
 
-		mapToProps(TestThemedComponent, {
-			Theme = Stylizer,
-		})
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestThemedComponent = withContext({
+				Theme = Stylizer,
+			})(TestThemedComponent)
+		else
+			mapToProps(TestThemedComponent, {
+				Theme = Stylizer,
+			})
+		end
 
 		return TestThemedComponent
 	end

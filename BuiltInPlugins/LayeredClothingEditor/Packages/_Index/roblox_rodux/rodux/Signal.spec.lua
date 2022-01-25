@@ -111,4 +111,56 @@ return function()
 		expect(countA).to.equal(1)
 		expect(countB).to.equal(0)
 	end)
+
+	it("should throw an error if the argument to `connect` is not a function", function()
+		local signal = Signal.new()
+		expect(function()
+			signal:connect("not a function")
+		end).to.throw()
+	end)
+
+	it("should throw an error when disconnecting more than once", function()
+		local signal = Signal.new()
+
+		local connection = signal:connect(function() end)
+		-- Okay to disconnect once
+		expect(connection.disconnect).never.to.throw()
+
+		-- Throw an error if we disconnect twice
+		expect(connection.disconnect).to.throw()
+	end)
+
+	it("should throw an error when subscribing during dispatch", function()
+		local mockStore = {
+			_isDispatching = false
+		}
+		local signal = Signal.new(mockStore)
+
+		signal:connect(function()
+			-- Subscribe while listeners are being fired
+			signal:connect(function() end)
+		end)
+
+		mockStore._isDispatching = true
+		expect(function()
+			signal:fire()
+		end).to.throw()
+	end)
+
+	it("should throw an error when unsubscribing during dispatch", function()
+		local mockStore = {
+			_isDispatching = false
+		}
+		local signal = Signal.new(mockStore)
+
+		local connection
+		connection = signal:connect(function()
+			connection.disconnect()
+		end)
+
+		mockStore._isDispatching = true
+		expect(function()
+			signal:fire()
+		end).to.throw()
+	end)
 end

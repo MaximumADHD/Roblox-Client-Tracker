@@ -8,6 +8,7 @@ return strict({
 	Http = require(script.Http),
 	Resources = require(script.Resources),
 	RobloxAPI = require(script.RobloxAPI),
+	Stories = require(script.Stories),
 	StudioUI = require(script.StudioUI),
 	Style = require(script.Style),
 	TestHelpers = require(script.TestHelpers),
