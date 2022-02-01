@@ -3,14 +3,7 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagImprovePluginSpeed_GameSettings = game:GetFastFlag("ImprovePluginSpeed_GameSettings")
 	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
-	if not FFlagImprovePluginSpeed_GameSettings then
-		-- Moved to loader.server.lua
-		-- Define Fast flags
-		require(script.Parent.defineLuaFlags)
-	end
 
 	-- Fast flags
 	local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
@@ -319,17 +312,7 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("General", "PluginName")
 
-		local settingsButton
-		if FFlagImprovePluginSpeed_GameSettings then
-			settingsButton = pluginLoaderContext.mainButton
-		else
-			local toolbar = plugin:CreateToolbar("gameSettingsToolbar")
-			settingsButton = toolbar:CreateButton(
-				"gameSettingsButton",
-				localization:getText("General", "PluginDescription"),
-				"rbxasset://textures/GameSettings/ToolbarIcon.png"
-			)
-		end
+		local settingsButton = pluginLoaderContext.mainButton
 
 		-- Don't want to be able to open game settings while the game is running
 		-- it is for edit mode only!
@@ -337,15 +320,10 @@ return function(plugin, pluginLoaderContext)
 			makePluginGui()
 			settingsButton.ClickableWhenViewportHidden = true
 			settingsButton.Enabled = true
-			if FFlagImprovePluginSpeed_GameSettings then
-				pluginLoaderContext.mainButtonClickedSignal:Connect(function()
-					openGameSettings(game.GameId, game)
-				end)
-			else
-				settingsButton.Click:connect(function()
-					openGameSettings(game.GameId, game)
-				end)
-			end
+
+			pluginLoaderContext.mainButtonClickedSignal:Connect(function()
+				openGameSettings(game.GameId, game)
+			end)
 			settingsStore.changed:connect(function(state)
 				if state.Status ~= lastObservedStatus then
 					settingsButton:SetActive(state.Status ~= CurrentStatus.Closed)
@@ -355,15 +333,9 @@ return function(plugin, pluginLoaderContext)
 			end)
 
 			-- hook into event for opening game settings
-			if FFlagImprovePluginSpeed_GameSettings then
-				pluginLoaderContext.signals["StudioService.OnOpenGameSettings"]:Connect(function(pageIdentifier)
-					openGameSettings(game.GameId, game, pageIdentifier)
-				end)
-			else
-				StudioService.OnOpenGameSettings:Connect(function(pageIdentifier)
-					openGameSettings(game.GameId, game, pageIdentifier)
-				end)
-			end
+			pluginLoaderContext.signals["StudioService.OnOpenGameSettings"]:Connect(function(pageIdentifier)
+				openGameSettings(game.GameId, game, pageIdentifier)
+			end)
 		else
 			settingsButton.Enabled = false
 		end

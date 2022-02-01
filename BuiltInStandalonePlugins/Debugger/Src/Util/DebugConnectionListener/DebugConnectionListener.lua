@@ -25,7 +25,11 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 		DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
 	
 	if debuggerPauseReason == Enum.DebuggerPauseReason.Breakpoint then
-		assert(pausedState.Breakpoint ~= nil)
+		if (pausedState.Breakpoint == nil) then
+			-- this should be temporary. We will be removing this check entirely when we implement step actions
+			print('recieved pausedState without a breakpoint')
+			return
+		end
 		self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
 		debuggerUIService:OpenScriptAtLine(pausedState.Breakpoint.Script, common.currentDebuggerConnectionId, pausedState.Breakpoint.Line)
 	end

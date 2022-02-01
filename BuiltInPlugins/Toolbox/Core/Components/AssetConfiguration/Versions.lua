@@ -12,7 +12,6 @@
 	Optional properties:
 	LayoutOrder, number, will be used by the internal layouter. So Position will be overrode.
 ]]
-local FFlagAddVersionScrollbar = game:DefineFastFlag("AddVersionScrollbar", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -195,10 +194,10 @@ function Versions:renderContent(theme, localization, localizedContent)
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
 
-		CanvasSize = (FFlagAddVersionScrollbar and versionHistory and UDim2.new(0, 0, 1, #versionHistory * ITEM_HEIGHT)) or nil,
+		CanvasSize = (versionHistory and UDim2.new(0, 0, 1, #versionHistory * ITEM_HEIGHT)) or nil,
 
 		LayoutOrder = LayoutOrder,
-		ScrollBarImageColor3 = (FFlagAddVersionScrollbar and versionsTheme.textColor) or nil,
+		ScrollBarImageColor3 = versionsTheme.textColor,
 		Size = Size,
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {

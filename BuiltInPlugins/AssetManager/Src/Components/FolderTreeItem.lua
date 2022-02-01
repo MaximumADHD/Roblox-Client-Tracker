@@ -22,8 +22,6 @@ local withContext = ContextServices.withContext
 local UI = require(Framework.UI)
 local Button = UI.Button
 
-local GetClassIcon = UILibrary.Util.GetClassIcon
-
 local FolderTreeItem = Roact.PureComponent:extend("FolderTreeItem")
 
 function FolderTreeItem:init()

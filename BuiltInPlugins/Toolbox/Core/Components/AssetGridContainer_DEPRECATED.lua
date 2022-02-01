@@ -16,7 +16,6 @@
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 
@@ -65,7 +64,6 @@ local PausePreviewSound = require(Plugin.Core.Actions.PausePreviewSound)
 local ResumePreviewSound = require(Plugin.Core.Actions.ResumePreviewSound)
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 local SetAssetPreview = require(Plugin.Core.Actions.SetAssetPreview)
-local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.DEPRECATED_GetPackageHighestPermission) --delete with UseNewAssetPermissionEndpoint3
 local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
@@ -487,11 +485,7 @@ function AssetGridContainer:render()
 				end
 
 				if #assetIdList ~= 0 then
-					if FFlagUseNewAssetPermissionEndpoint3 then
-						self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
-					else
-						self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
-					end
+					self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
 				end
 			end
 
@@ -647,11 +641,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetAssetPreview(isPreviewing))
 		end,
 
-		dispatchGetPackageHighestPermission = (not FFlagUseNewAssetPermissionEndpoint3) and function(networkInterface, assetIds)
-			dispatch(GetPackageHighestPermission(networkInterface, assetIds))
-		end,
-
-		dispatchPostAssetCheckPermissions = FFlagUseNewAssetPermissionEndpoint3 and function(networkInterface, assetIds)
+		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
 	}

@@ -8,12 +8,9 @@
 			Returns the plugin instance which was passed in Plugin.new.
 ]]
 local Framework = script.Parent.Parent
-local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-})
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
-if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
+if FFlagRefactorDevFrameworkContextItems2 then
 	local ContextItem = require(Framework.ContextServices.ContextItem)
 	return ContextItem:createSimple("Plugin")
 else

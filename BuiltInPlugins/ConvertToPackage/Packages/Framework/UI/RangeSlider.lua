@@ -24,7 +24,6 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues = game:GetFastFlag("DeveloperFrameworkFixRangeSliderKnobSwitchingValues")
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -50,19 +49,15 @@ RangeSlider.defaultProps = {
 	VerticalDragTolerance = 300,
 }
 
-if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-	RangeSlider.KnobType = enumerate("KnobType", {
-		"Lower",
-		"Upper",
-	})
-end
+RangeSlider.KnobType = enumerate("KnobType", {
+	"Lower",
+	"Upper",
+})
 
 local isInputMainPress = Util.isInputMainPress
 
 function RangeSlider:init()
-	if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-		self.currentlySelectedKnob = nil
-	end
+	self.currentlySelectedKnob = nil
 
 	self.sliderFrameRef = Roact.createRef()
 
@@ -70,10 +65,8 @@ function RangeSlider:init()
 		pressed = false,
 	}
 
-	if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-		self.isSwitchingKnob = function(newKnobType)
-			return self.currentlySelectedKnob ~= nil and self.currentlySelectedKnob ~= newKnobType
-		end
+	self.isSwitchingKnob = function(newKnobType)
+		return self.currentlySelectedKnob ~= nil and self.currentlySelectedKnob ~= newKnobType
 	end
 
 	self.getTotalRange = function()
@@ -129,14 +122,10 @@ function RangeSlider:init()
 		local mouseClickValue = self.getMouseClickValue(input)
 
 		if mouseClickValue < self.props.LowerRangeValue then
-			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-				self.currentlySelectedKnob = self.KnobType.Lower
-			end
+			self.currentlySelectedKnob = self.KnobType.Lower
 			return self.props.UpperRangeValue
 		elseif mouseClickValue > self.props.UpperRangeValue then
-			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-				self.currentlySelectedKnob = self.KnobType.Upper
-			end
+			self.currentlySelectedKnob = self.KnobType.Upper
 			return self.props.LowerRangeValue
 		end
 
@@ -182,9 +171,7 @@ function RangeSlider:init()
 	self.onInputEnded = function(rbx, input)
 		local isMainPress = isInputMainPress(input)
 		if not self.props.Disabled and isMainPress then
-			if FFlagDeveloperFrameworkFixRangeSliderKnobSwitchingValues then
-				self.currentlySelectedKnob = nil
-			end
+			self.currentlySelectedKnob = nil
 			self:setState({
 				pressed = false,
 			})

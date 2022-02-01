@@ -142,6 +142,12 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 end
 
 function DebuggerToolbarButtons:render()
+	if self.shortcuts then
+		for _,action in pairs(self.shortcuts) do
+			action.Enabled = self.props.IsPaused
+		end
+	end
+
 	return Roact.createElement(PluginToolbar, {
 		Title = TOOLBAR_NAME,
 		RenderButtons = function(toolbar)

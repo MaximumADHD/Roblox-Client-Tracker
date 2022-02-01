@@ -36,8 +36,6 @@ local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
-local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
-
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
 type PathMapping = {
@@ -138,20 +136,25 @@ function DisplayTable:init()
 
 		local currentStepStateBundle = self.props.CurrentStepStateBundle
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		if not currentStepStateBundle or not debuggerConnectionManager then
+		if not debuggerConnectionManager then
 			assert(false)
 			return
 		end
-		local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
 		if col == 1 then
 			if oldExpression == "" and newExpression ~= "" then
 				self.props.OnAddExpression(newExpression)
-				self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+				if (currentStepStateBundle ~= nil) then
+					local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
+					self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+				end
 			elseif newExpression == "" then
 				self.props.OnRemoveExpression(oldExpression)
 			elseif oldExpression ~= newExpression then
 				self.props.OnChangeExpression(oldExpression, newExpression)
-				self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+				if (currentStepStateBundle ~= nil) then
+					local debuggerConnection = debuggerConnectionManager:GetConnectionById(currentStepStateBundle.debuggerStateToken.debuggerConnectionId)
+					self.props.OnExecuteExpression(newExpression, self.props.CurrentStepStateBundle, debuggerConnection)
+				end
 			end
 		end
 	end
@@ -223,8 +226,8 @@ function DisplayTable:render()
 		OnExpansionChange = self.onExpansionChange,
 		GetChildren = self.getTreeChildren,
 		Expansion = props.ExpansionTable,
-		OnFocusLost = FFlagStudioAddTextInputCols and self.OnFocusLost,
-		TextInputCols = FFlagStudioAddTextInputCols and textInputCols,
+		OnFocusLost = self.OnFocusLost,
+		TextInputCols = textInputCols,
 		RightClick = self.onRightClick,
 		DisableTooltip = true,
 	})

@@ -23,7 +23,7 @@ local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
 	if FFlagUGCGroupUploads2 then

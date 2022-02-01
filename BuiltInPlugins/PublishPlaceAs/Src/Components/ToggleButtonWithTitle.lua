@@ -12,6 +12,7 @@
 		boolean Selected: whether the button should be on or off.
 		boolean ShowWarning: whether the description text is shown as warning text
 ]]
+local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -47,13 +48,15 @@ function ToggleButtonWithTitle:init()
 
         self:setState({
             descriptionWidth = descriptionWidthContainer.AbsoluteSize.X
-        })  
+        })
     end
 end
 
 function ToggleButtonWithTitle:render()
     local props = self.props
     local theme = props.Theme:get("Plugin")  
+
+    local callout = if FFlagPlacePublishTcToggleCalloutEnabled then props[Roact.Children].TeachingCallout else nil
 
     local descriptionWidth = self.state.descriptionWidth
 
@@ -79,6 +82,8 @@ function ToggleButtonWithTitle:render()
             LayoutOrder = layoutIndex:getNextOrder(),
             OnClick = onClick,
             Size = UDim2.fromOffset(40, 24),
+        }, {
+            TeachingCallout = if FFlagPlacePublishTcToggleCalloutEnabled then callout else nil
         }),
 
         Description = props.Description and
@@ -113,7 +118,7 @@ function ToggleButtonWithTitle:render()
             Size = UDim2.new(1,0,0,0),
             [Roact.Ref] = self.descriptionRef,
             [Roact.Change.AbsoluteSize] = self.onResize,
-        }),
+        }),	
     })
 end
 

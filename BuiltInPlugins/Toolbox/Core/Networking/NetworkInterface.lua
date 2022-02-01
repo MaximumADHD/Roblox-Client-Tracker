@@ -4,7 +4,6 @@
 	Provides an interface between real Networking implementation and Mock one for production and test
 ]]--
 
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -687,24 +686,14 @@ function NetworkInterface:getAssetPermissions(assetId)
 	return self._networkImp:httpGetJson(targetUrl)
 end
 
-if FFlagUseNewAssetPermissionEndpoint3 then
-	function NetworkInterface:postAssetCheckPermissions(actions, assetIds)
+function NetworkInterface:postAssetCheckPermissions(actions, assetIds)
+	local targetUrl = Urls.constructAssetCheckPermissionsUrl()
 
-		local targetUrl = Urls.constructAssetCheckPermissionsUrl()
-	
-		return sendRequestAndRetry(function()
-			local payload = self._networkImp:jsonEncode({ actions = actions, assetIds = assetIds })
-			printUrl("postAssetCheckPermissions", "POST", targetUrl)
-			return self._networkImp:httpPostJson(targetUrl, payload)
-		end)
-	end
-else
-	function NetworkInterface:getPackageHighestPermission(assetIds)
-		local targetUrl = Urls.constructPackageHighestPermissionUrl(assetIds)
-
-		printUrl("getPackageHighestPermission", "GET", targetUrl)
-		return self._networkImp:httpGet(targetUrl)
-	end
+	return sendRequestAndRetry(function()
+		local payload = self._networkImp:jsonEncode({ actions = actions, assetIds = assetIds })
+		printUrl("postAssetCheckPermissions", "POST", targetUrl)
+		return self._networkImp:httpPostJson(targetUrl, payload)
+	end)
 end
 
 function NetworkInterface:tagsPrefixSearch(prefix, numberOfResults)

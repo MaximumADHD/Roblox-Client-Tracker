@@ -17,7 +17,7 @@ local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 local SetAssetId = require(Actions.SetAssetId)
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
 -- publishInfo is a table contains the following:
 -- assetId, number, defualt to 0 for new asset.
@@ -67,7 +67,7 @@ return function(publishInfo)
 		end
 
 		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
+			return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(function(fileDataString)
 				return publishInfo.networkInterface:postUploadAnimation(
 					publishInfo.assetId,
 					publishInfo.name,

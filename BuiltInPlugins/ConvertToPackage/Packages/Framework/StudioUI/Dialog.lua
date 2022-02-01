@@ -20,6 +20,7 @@
 			Set this to false to create the widget immediately instead. Mostly useful for unit tests.
 		boolean AllowUndoRedoKeyboardShortcuts: Whether the Studio undo/redo keyboard shortcuts will
 			work if this subwindow is active (focused).
+		callback Roact.Change.Enabled: A callback for when the widget shows or hides.
 ]]
 local HttpService = game:GetService("HttpService")
 

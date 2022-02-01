@@ -37,8 +37,6 @@
 		assetIds = A list of asset ids, that must be all packages.
 ]]
 
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") --file added with this flag
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local Packages = Plugin.Packages
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")

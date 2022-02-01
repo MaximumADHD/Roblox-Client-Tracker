@@ -20,10 +20,11 @@ local StyleModifier = Util.StyleModifier
 local UI = require(Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
+local LoadingIndicator = UI.LoadingIndicator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local LoadingIndicator = UILibrary.Component.LoadingIndicator
+local DEPRECATED_LoadingIndicator = UILibrary.Component.LoadingIndicator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local Screens = require(Plugin.Src.Util.Screens)
@@ -46,6 +47,7 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
@@ -386,7 +388,7 @@ function AssetGridContainer:render()
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
         }),
 
-        LoadingIndicator = isFetchingAssets and Roact.createElement(LoadingIndicator, {
+        LoadingIndicator = isFetchingAssets and Roact.createElement(if FFlagAssetManagerRemoveUILibraryPart1 then LoadingIndicator else DEPRECATED_LoadingIndicator, {
             Position = UDim2.new(0.5, 0, 0.5, 0),
             AnchorPoint = Vector2.new(0.5, 0.5),
             ZIndex = 2,

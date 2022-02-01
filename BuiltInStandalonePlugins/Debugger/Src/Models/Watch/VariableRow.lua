@@ -1,6 +1,9 @@
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
-local DebuggerVariable = require(script.Parent.Parent.Parent.Mocks.DebuggerVariable)
-local Constants = require(script.Parent.Parent.Parent.Util.Constants)
+
+local Src = script.Parent.Parent.Parent
+local DebuggerVariable = require(Src.Mocks.DebuggerVariable)
+local Constants = require(Src.Util.Constants)
+local WatchHelperFunctions = require(Src.Util.WatchHelperFunctions)
 
 type VarName = {nameColumn : string}
 
@@ -20,8 +23,8 @@ local function fromData(data) : VariableRow
 	}
 end
 
-local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?) : VariableRow
-	return {
+local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?, filterText : string, enabledScopes : {string}) : VariableRow
+	local toReturn = {
 		nameColumn = instance.Name,
 		pathColumn = (parent and parent.pathColumn .. Constants.SeparationToken or "") .. (instance.VariableId ~= 0 and tostring(instance.VariableId) or instance.Name),
 		scopeColumn = (parent and parent.scopeColumn) or scope,
@@ -32,6 +35,10 @@ local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent
 		textFilteredOut = false,
 		scopeFilteredOut = false,
 	}
+
+	toReturn.textFilteredOut = not WatchHelperFunctions.textMatchRow(filterText, toReturn)
+	toReturn.scopeFilteredOut = WatchHelperFunctions.isScopeFiltered(enabledScopes, toReturn)
+	return toReturn
 end
 
 return {

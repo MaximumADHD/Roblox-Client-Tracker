@@ -74,7 +74,6 @@ local Settings = require(Plugin.Core.ContextServices.Settings)
 
 local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
 local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
-local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
 
 local Background = require(Plugin.Core.Types.Background)
 
@@ -226,46 +225,24 @@ function Toolbox:didMount()
 	self.props.setRoles(getNetwork(self))
 
 	self.props.getRobuxBalance(getNetwork(self))
-	if FFlagImprovePluginSpeed_Toolbox then
-		self._showPluginsConnection = self.props.pluginLoaderContext and self.props.pluginLoaderContext.signals[
-			"MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
-			local categoryName = Category.WHITELISTED_PLUGINS.name
 
-			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-				categoryName = categoryName,
-			})
+	self._showPluginsConnection = self.props.pluginLoaderContext and self.props.pluginLoaderContext.signals[
+		"MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
+		local categoryName = Category.WHITELISTED_PLUGINS.name
 
-			Analytics.openedFromPluginManagement()
-		end) or nil
-	else
-		self._showPluginsConnection = MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function()
-			local categoryName = Category.WHITELISTED_PLUGINS.name
+		self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+			categoryName = categoryName,
+		})
 
-			self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-				categoryName = categoryName,
-			})
-
-			Analytics.openedFromPluginManagement()
-		end)
-	end
+		Analytics.openedFromPluginManagement()
+	end) or nil
 end
 
 function Toolbox:willUnmount()
-	if FFlagImprovePluginSpeed_Toolbox then
-		if self._showPluginsConnection then
-			self._showPluginsConnection:Disconnect()
-			if FFlagToolboxNilDisconnectSignals then
-				self._showPluginsConnection = nil
-			end
-		end
-	else
+	if self._showPluginsConnection then
+		self._showPluginsConnection:Disconnect()
 		if FFlagToolboxNilDisconnectSignals then
-			if self._showPluginsConnection then
-				self._showPluginsConnection:Disconnect()
-				self._showPluginsConnection = nil
-			end
-		else
-			self._showPluginsConnection:Disconnect()
+			self._showPluginsConnection = nil
 		end
 	end
 end

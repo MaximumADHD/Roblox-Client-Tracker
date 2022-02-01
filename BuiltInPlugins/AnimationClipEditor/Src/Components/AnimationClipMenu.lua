@@ -46,7 +46,7 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 
-local FFlagAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_3")
+local FFlagAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
 
 local AnimationClipMenu = Roact.PureComponent:extend("AnimationClipMenu")

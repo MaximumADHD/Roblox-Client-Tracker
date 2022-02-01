@@ -18,6 +18,7 @@ local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
 local SimPaused = require(Actions.Common.SimPaused)
+local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
 
 local WatchReducer = require(script.Parent.Watch)
 local ScopeEnum = require(Models.Watch.ScopeEnum)
@@ -603,6 +604,21 @@ return function()
 			local isVariablesTab = true
 
 			local immutabilityPreserved = testImmutability(WatchReducer, SetExpansionTree(isVariablesTab, expandedTree))
+			expect(immutabilityPreserved).to.equal(true)
+		end)
+	end)
+
+	describe(FilterTextChanged.name, function() 
+		it("Should set filterText", function()
+			local state = WatchReducer(nil, FilterTextChanged("FilterTextChanged Test"))
+
+			expect(state).to.be.ok()
+			expect(state.filterText).to.be.ok()
+			expect(state.filterText).to.equal("FilterTextChanged Test")
+		end)
+
+		it("should preserve immutability", function()
+			local immutabilityPreserved = testImmutability(WatchReducer, FilterTextChanged("FilterTextChanged Test"))
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)

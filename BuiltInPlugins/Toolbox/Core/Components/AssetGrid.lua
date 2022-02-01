@@ -11,7 +11,7 @@
 		int LayoutOrder
 		UDim2 Size
 ]]
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
+
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -37,7 +37,6 @@ local Asset = require(Plugin.Core.Components.Asset.Asset)
 
 local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 
-local GetPackageHighestPermission = require(Plugin.Core.Networking.Requests.DEPRECATED_GetPackageHighestPermission) -- delete with FFlagUseNewAssetPermissionEndpoint3
 local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
 local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
 
@@ -142,11 +141,7 @@ function AssetGrid:render(modalStatus, localizedContent)
 		end
 
 		if #assetIdList ~= 0 then
-			if FFlagUseNewAssetPermissionEndpoint3 then
-				self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
-			else
-				self.props.dispatchGetPackageHighestPermission(getNetwork(self), assetIdList)
-			end
+			self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
 		end
 	end
 
@@ -215,10 +210,7 @@ local function mapDispatchToProps(dispatch)
 		nextPage = function(networkInterface, settings)
 			dispatch(NextPageRequest(networkInterface, settings))
 		end,
-		dispatchGetPackageHighestPermission = (not FFlagUseNewAssetPermissionEndpoint3) and function(networkInterface, assetIds)
-			dispatch(GetPackageHighestPermission(networkInterface, assetIds))
-		end,
-		dispatchPostAssetCheckPermissions = FFlagUseNewAssetPermissionEndpoint3 and function(networkInterface, assetIds)
+		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
 		end,
 	}

@@ -1,25 +1,16 @@
 local Main = script.Parent.Parent
 
 require(script.Parent.defineLuaFlags)
-local FFlagImprovePluginSpeed_DeveloperStorybook = game:GetFastFlag("ImprovePluginSpeed_DeveloperStorybook")
 
 local DebugFlags = require(Main.Src.Util.DebugFlags)
 
 local Framework = nil
-if not FFlagImprovePluginSpeed_DeveloperStorybook then
+
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local commonInit = require(Main.Src.Util.commonInit)
 	commonInit()
 
 	Framework = require(Main.Packages.Framework)
-end
-
-if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	if FFlagImprovePluginSpeed_DeveloperStorybook then
-		local commonInit = require(Main.Src.Util.commonInit)
-		commonInit()
-
-		Framework = require(Main.Packages.Framework)
-	end
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Main.Packages.Dev.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap

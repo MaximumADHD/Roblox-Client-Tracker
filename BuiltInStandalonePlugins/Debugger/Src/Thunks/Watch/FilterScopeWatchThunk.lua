@@ -7,18 +7,7 @@ local TableTab = require(Models.Watch.TableTab)
 local Actions = Plugin.Src.Actions
 local SetVariablesScopeFilteredOut = require(Actions.Watch.SetVariablesScopeFilteredOut)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
-
-local function isScopeFiltered(enabledScopes, root, flattenedTree)
-	local rowData = flattenedTree[root]
-	assert(rowData ~= nil, ("FilterScopeWatchThunk got a nil node for path %s"):format(tostring(rowData)))
-
-	for _, scope in ipairs(enabledScopes) do
-		if string.find(rowData.scopeColumn, scope) then
-			return false
-		end
-	end
-	return true
-end
+local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
 -- Thunk
 return function(enabledScopes)
@@ -56,7 +45,7 @@ return function(enabledScopes)
 		local textFilterMap = {}
 
 		for index, root in pairs(rootsList) do
-			local textFilteredOut = isScopeFiltered(enabledScopes, root, flattenedTree)
+			local textFilteredOut = WatchHelperFunctions.isScopeFiltered(enabledScopes, flattenedTree[root])
 			textFilterMap[root] = textFilteredOut
 		end
 		store:dispatch(SetVariablesScopeFilteredOut(stepStateBundle, textFilterMap, isVariablesTab))

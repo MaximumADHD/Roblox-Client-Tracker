@@ -1,3 +1,12 @@
+local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
+
+local teamCreateToggleEnabled = false
+if FIntTeamCreateTogglePercentageRollout > 0 then
+	local StudioService = game:GetService("StudioService")
+	local studioUserId = StudioService:GetUserId()
+	teamCreateToggleEnabled = FIntTeamCreateTogglePercentageRollout > (studioUserId % 10000)
+end
+
 return function(plugin, pluginLoaderContext)
 	if not plugin then
 		return
@@ -14,6 +23,7 @@ return function(plugin, pluginLoaderContext)
 	local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
 	local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+	local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 	--Turn this on when debugging the store and actions
 	local LOG_STORE_STATE_AND_EVENTS = false
@@ -94,6 +104,20 @@ return function(plugin, pluginLoaderContext)
 			closePlugin()
 		end)
 	end
+	
+	local calloutController = nil
+	if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then
+		local CalloutController = require(Plugin.Src.Util.CalloutController)
+		calloutController = CalloutController.new()
+		
+		local title = localization:getText("TcToggleCallout", "Title")
+		local definitionId = "PublishPlaceAsTeamCreateToggleCallout"
+		local description = localization:getText("TcToggleCallout", "Description")
+		local learnMoreUrl = game:GetFastString("TeamCreateLink")
+
+		
+		calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
+	end
 
 	--Initializes and populates the plugin popup window
 	local function openPluginWindow(showGameSelect, isPublish, closeMode)
@@ -105,6 +129,7 @@ return function(plugin, pluginLoaderContext)
 			store = dataStore,
 			theme = theme,
 			uiLibraryWrapper = UILibraryWrapper.new(),
+			calloutController = calloutController
 		}, {
 			Roact.createElement(ScreenSelect, {
 				OnClose = closePlugin,

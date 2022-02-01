@@ -29,6 +29,7 @@ local Resumed = require(Actions.Common.Resumed)
 local ClearConnectionData = require(Actions.Common.ClearConnectionData)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
+local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
 
 --Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
@@ -70,6 +71,7 @@ type WatchStore = {
 	stateTokenToFlattenedTree: {[DebuggerStateToken.DebuggerStateToken] : ThreadIdToFrameMapping},
 	currentTab : string,
 	listOfEnabledScopes : {string},
+	filterText : string,
 	listOfExpressions : {string},
 	pathToExpansionState : PathToExpansionMap,
 	expressionToExpansionState : PathToExpansionMap,
@@ -188,6 +190,7 @@ local productionStartStore = {
 	listOfExpressions = {},
 	pathToExpansionState = {}, -- clear on continue
 	expressionToExpansionState = {}, -- clear on continue
+	filterText = "",
 }
 
 return Rodux.createReducer(productionStartStore, {
@@ -447,5 +450,11 @@ return Rodux.createReducer(productionStartStore, {
 				expressionToExpansionState = Cryo.Dictionary.join(state.expressionToExpansionState, action.expansionMapping),
 			})
 		end
-	end
+	end,
+
+	[FilterTextChanged.name] = function(state : WatchStore, action : FilterTextChanged.Props)
+		return Cryo.Dictionary.join(state, {
+			filterText = action.filterText,
+		})
+	end,
 })

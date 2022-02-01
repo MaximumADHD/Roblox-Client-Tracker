@@ -1,6 +1,3 @@
-if not game:GetFastFlag("ImprovePluginSpeed_GameSettings") then
-	return
-end
 
 require(script.Parent.defineLuaFlags)
 

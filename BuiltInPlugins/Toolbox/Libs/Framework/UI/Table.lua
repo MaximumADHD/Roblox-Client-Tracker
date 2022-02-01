@@ -31,7 +31,6 @@
 		array[any] HighlightedRows: An optional list of rows to highlight.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 
@@ -114,7 +113,7 @@ function Table:init()
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
 			OnRightClick = self.onRightClickRow,
-			FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+			FullSpan = props.FullSpan,
 			HighlightRow = (FFlagDevFrameworkHighlightTableRows and isHighlightedRow) or nil,
 		})
 	end

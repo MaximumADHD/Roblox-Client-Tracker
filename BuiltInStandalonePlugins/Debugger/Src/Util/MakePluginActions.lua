@@ -25,7 +25,7 @@ local function getStepActions(localization)
 	/*
 	 https://stackoverflow.com/questions/16809139/qt-how-to-define-cmdkey-shortcut-for-mac
 	 */
-	 // F11 is also fullscreen. We probably don't want 2 differnt things bound to the same shortcut depending on focus.
+	 // F11 is also fullscreen. We probably don't want 2 different things bound to the same shortcut depending on focus.
 	]]
 	actions[Constants.StepActionIds.stepOverActionV2].defaultShortcut = "F10"
 	actions[Constants.StepActionIds.stepIntoActionV2].defaultShortcut = "F11"
@@ -39,10 +39,12 @@ local function getCallstackActions(localization)
 	for key, value in pairs(Constants.CallstackActionIds) do
 		actions[value] = makeAction(localization, value)
 	end
-
-	actions[Constants.CallstackActionIds.CopySelected].defaultShortcut = "Ctrl+C"
-	actions[Constants.CallstackActionIds.SelectAll].defaultShortcut = "Ctrl+A"
-
+	
+	-- This is commented out until the Command Framework gets implemented, so that we can
+	-- have unambiguous shortcuts for common actions.
+	--[[actions[Constants.CallstackActionIds.CopySelected].defaultShortcut = "Ctrl+C"
+	actions[Constants.CallstackActionIds.SelectAll].defaultShortcut = "Ctrl+A"]]
+	
 	return actions
 end
 
@@ -87,15 +89,11 @@ end
 
 local function getActionsWithShortcuts(localization)
 	local toReturn = {}
-	local callstackActions = getCallstackActions(localization)
 	local stepActions = getStepActions(localization)
-	for k,v in pairs(callstackActions) do
-		toReturn[k] = v
-	end
 	for k,v in pairs(stepActions) do
 		toReturn[k] = v
 	end
-	return stepActions
+	return toReturn
 end
 
 return {

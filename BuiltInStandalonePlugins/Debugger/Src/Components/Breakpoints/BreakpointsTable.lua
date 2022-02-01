@@ -120,7 +120,7 @@ function BreakpointsTable:init()
 		if #self.state.selectedBreakpoints ~= 0 then
 			local currBreakpoint = self.state.selectedBreakpoints[1]
 			local DebuggerUIService = game:GetService("DebuggerUIService")
-			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptName, self.props.CurrentDebuggerConnectionId, currBreakpoint.lineNumber)
+			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, self.props.CurrentDebuggerConnectionId, currBreakpoint.lineNumber)
 		end
 	end
 
@@ -136,6 +136,21 @@ function BreakpointsTable:init()
 
 	self.getTreeChildren = function(item)
 		return item.children or {}
+	end
+
+	self.OnFocusLost = function(enterPress, inputObj, row, col)
+		local breakpointManager = game:GetService("BreakpointManager")
+		if not breakpointManager then
+			assert(false)
+			return
+		end
+
+		local bpModified = self.props.Breakpoints[row.index]
+		local bpId = bpModified.id
+		local metaBP = breakpointManager:GetBreakpointById(bpId)
+		
+		local newCondition = inputObj.Text
+		metaBP.Condition = newCondition
 	end
 end
 
@@ -218,6 +233,7 @@ function BreakpointsTable:render()
 			Key = "continueExecution",
 		}
 	}
+	local textInputCols = {[5] = true}
 
 	local expansionTable = {}
 	for _, bp in pairs(props.Breakpoints) do
@@ -292,6 +308,8 @@ function BreakpointsTable:render()
 				ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and shouldFocusBreakpoint and self.props.CurrentBreakpointIndex) or nil,
 				Expansion = expansionTable,
 				GetChildren = self.getTreeChildren,
+				TextInputCols = textInputCols,
+				OnFocusLost = self.OnFocusLost,
 			}),
 		})
 	})
@@ -310,6 +328,7 @@ BreakpointsTable = RoactRodux.connect(
 		local currentBreakpointIndex = nil
 		for breakpointId, breakpoint in pairs(state.Breakpoint.MetaBreakpoints) do
 			local bpCopy = deepCopy(breakpoint)
+			bpCopy.scriptGUID = breakpoint.scriptName
 			bpCopy.scriptName = state.ScriptInfo.ScriptInfo[bpCopy.scriptName]
 			table.insert(breakpointsArray, bpCopy)
 		end

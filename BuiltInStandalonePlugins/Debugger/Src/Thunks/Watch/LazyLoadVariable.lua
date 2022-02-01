@@ -10,11 +10,13 @@ local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
 local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
-local function convertChildrenToVariableRows(parent, parentVariableRow)
+local function convertChildrenToVariableRows(parent, parentVariableRow, state)
+	local filterText = state.Watch.filterText
+	local listOfEnabledScopes = state.Watch.listOfEnabledScopes	
 	local toReturn = {}
 	local children = parent:GetChildren()
 	for index, child in ipairs(children) do
-		local instance1 = VariableRow.fromInstance(child, parentVariableRow)
+		local instance1 = VariableRow.fromInstance(child, parentVariableRow, nil, filterText, listOfEnabledScopes)
 		table.insert(toReturn, instance1)
 	end 
 	return toReturn
@@ -33,11 +35,11 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 
 			if (isExpression) then
 				local targetVariableRow = flattenedTree.Watches[variablePath]
-				local children = convertChildrenToVariableRows(targetVar, targetVariableRow)
+				local children = convertChildrenToVariableRows(targetVar, targetVariableRow, state)
 				store:dispatch(AddChildExpression(stepStateBundle, variablePath, children))
 			else
 				local targetVariableRow = flattenedTree.Variables[variablePath]
-				local children = convertChildrenToVariableRows(targetVar, targetVariableRow)
+				local children = convertChildrenToVariableRows(targetVar, targetVariableRow, state)
 				store:dispatch(AddChildVariables(stepStateBundle, variablePath, children))
 			end
 		end)

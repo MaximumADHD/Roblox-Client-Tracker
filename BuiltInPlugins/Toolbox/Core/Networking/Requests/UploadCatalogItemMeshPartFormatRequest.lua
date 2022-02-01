@@ -12,7 +12,7 @@ local convertSpecialMeshAccessory = require(Util.convertSpecialMeshAccessory)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
 return function(networkInterface, assetId, assetTypeEnum, name, description, instances, tags)
 	return function(store, services)

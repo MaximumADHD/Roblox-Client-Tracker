@@ -38,7 +38,6 @@ local SetShowAsSeconds = require(Plugin.Src.Actions.SetShowAsSeconds)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 local SetTool = require(Plugin.Src.Actions.SetTool)
 
-local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
 local DraggerWrapper = require(Plugin.Src.Components.Draggers.DraggerWrapper)
 
 local FFlagImprovePluginSpeed_AnimationClipEditor = game:GetFastFlag("ImprovePluginSpeed_AnimationClipEditor")
@@ -278,7 +277,7 @@ function AnimationClipEditorPlugin:render()
 				signals = self.signals,
 			}, {
 				AnimationClipEditor = Roact.createElement(AnimationClipEditor),
-				Dragger = UseLuaDraggers() and Roact.createElement(DraggerWrapper),
+				Dragger = Roact.createElement(DraggerWrapper),
 			})
 		})
 	else
@@ -311,7 +310,7 @@ function AnimationClipEditorPlugin:render()
 				signals = self.signals,
 			}, {
 				AnimationClipEditor = Roact.createElement(AnimationClipEditor),
-				Dragger = UseLuaDraggers() and Roact.createElement(DraggerWrapper),
+				Dragger = Roact.createElement(DraggerWrapper),
 			})
 		})
 	end

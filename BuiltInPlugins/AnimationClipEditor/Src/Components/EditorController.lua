@@ -23,8 +23,6 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SignalsContext = require(Plugin.Src.Context.Signals)
 
-local UseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
-
 local KeyboardListener = Framework.UI.KeyboardListener
 local InactiveCover = require(Plugin.Src.Components.InactiveCover)
 
@@ -65,7 +63,6 @@ local Pause = require(Plugin.Src.Actions.Pause)
 
 local Playback = require(Plugin.Src.Components.Playback)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
-local JointSelector = require(Plugin.Src.Components.JointManipulator.JointSelector)
 local AnimationControlPanel = require(Plugin.Src.Components.AnimationControlPanel.AnimationControlPanel)
 local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
@@ -262,9 +259,7 @@ function EditorController:init()
 			self.lastSelected = trackName
 			setSelectedTracks({trackName})
 		end
-		if UseLuaDraggers() then
-			self.findCurrentParts({trackName}, props.RootInstance)
-		end
+		self.findCurrentParts({trackName}, props.RootInstance)
 		props.Analytics:report("onTrackSelected", trackName, "TrackList")
 	end
 
@@ -328,26 +323,24 @@ function EditorController:init()
 	end
 end
 
-if UseLuaDraggers() then
-	function EditorController:willUpdate(nextProps)
-		if (nextProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil) and nextProps.RootInstance ~= nil then
-			self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
-			for _, part in ipairs(self.KinematicParts) do
-				self.nameToPart[part.Name] = part
-			end
-			if GetFFlagRootMotionTrack() then
-				local rootPart = RigUtils.findRootPart(nextProps.RootInstance)
-				self.nameToPart[rootPart.Name] = rootPart
-			end
+function EditorController:willUpdate(nextProps)
+	if (nextProps.RootInstance ~= self.props.RootInstance or next(self.nameToPart) == nil) and nextProps.RootInstance ~= nil then
+		self.KinematicParts, self.PartsToMotors = RigUtils.getRigInfo(nextProps.RootInstance)
+		for _, part in ipairs(self.KinematicParts) do
+			self.nameToPart[part.Name] = part
 		end
-		-- if the selected tracks has changed, update the selected track instances
-		if nextProps.SelectedTracks ~= self.props.SelectedTracks then
-			self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
+		if GetFFlagRootMotionTrack() then
+			local rootPart = RigUtils.findRootPart(nextProps.RootInstance)
+			self.nameToPart[rootPart.Name] = rootPart
 		end
+	end
+	-- if the selected tracks has changed, update the selected track instances
+	if nextProps.SelectedTracks ~= self.props.SelectedTracks then
+		self.findCurrentParts(nextProps.SelectedTracks, nextProps.RootInstance)
+	end
 
-		if nextProps.Playhead ~= self.props.Playhead then
-			self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
-		end
+	if nextProps.Playhead ~= self.props.Playhead then
+		self.props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged):Fire()
 	end
 end
 
@@ -385,7 +378,6 @@ function EditorController:render()
 	local showChangeFPSPrompt = state.showChangeFPSPrompt
 	local showChangePlaybackSpeedPrompt = state.showChangePlaybackSpeedPrompt
 	local showEditor = animationData ~= nil
-	local useJointSelector = not UseLuaDraggers()
 	local isChannelAnimation = AnimationData.isChannelAnimation(animationData)
 
 	local selectedPaths = {}
@@ -455,9 +447,7 @@ function EditorController:render()
 
 				[Roact.Event.Activated] = function()
 					props.SetSelectedTracks()
-					if UseLuaDraggers() then
-						props.SetSelectedTrackInstances({})
-					end
+					props.SetSelectedTrackInstances({})
 				end,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
@@ -587,38 +577,6 @@ function EditorController:render()
 
 		Playback = active and showEditor and Roact.createElement(Playback),
 		InstanceSelector = active and Roact.createElement(InstanceSelector),
-
-		JointSelector = active and showEditor and useJointSelector and Roact.createElement(JointSelector, {
-			RootInstance = props.RootInstance,
-			IKEnabled = props.IKEnabled,
-			IKMode = props.IKMode,
-			MotorData = props.MotorData,
-			PinnedParts = props.PinnedParts,
-			SetMotorData = props.SetMotorData,
-			SelectedTracks = selectedTracks,
-			OnSelectPart = self.onPartSelected,
-			OnDragStart = not isPlaying and props.AddWaypoint or nil,
-			OnManipulateJoint = not isPlaying and function(instanceName, trackName, value)
-				if GetFFlagChannelAnimations() then
-					self.onValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, playhead, value)
-				elseif GetFFlagFacialAnimationSupport() then
-					props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
-				else
-					props.ValueChanged_deprecated(instanceName, trackName, playhead, value, props.Analytics)
-				end
-			end or nil,
-			OnManipulateJoints = not isPlaying and function(instanceName, values)
-				for trackName, value in pairs(values) do
-					if GetFFlagChannelAnimations() then
-						self.onValueChanged(instanceName, {trackName}, Constants.TRACK_TYPES.CFrame, playhead, value)
-					elseif GetFFlagFacialAnimationSupport() then
-						props.ValueChanged_deprecated2(instanceName, trackName, Constants.TRACK_TYPES.CFrame, playhead, value, props.Analytics)
-					else
-						props.ValueChanged_deprecated(instanceName, trackName, playhead, value, props.Analytics)
-					end
-				end
-			end or nil,
-		}),
 
 		FloorGrid = active and showEditor and Roact.createElement(FloorGrid, {
 			RootInstance = props.RootInstance,

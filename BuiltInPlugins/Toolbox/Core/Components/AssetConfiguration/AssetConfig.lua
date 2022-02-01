@@ -8,7 +8,6 @@
 
 local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3") 
 
 local StudioService = game:GetService("StudioService")
 
@@ -68,7 +67,6 @@ local GetIsVerifiedCreatorRequest = require(Requests.GetIsVerifiedCreatorRequest
 local PostPackageMetadataRequest = require(Requests.PostPackageMetadataRequest)
 local GetPackageCollaboratorsRequest = require(Requests.GetPackageCollaboratorsRequest)
 local PutPackagePermissionsRequest = require(Requests.PutPackagePermissionsRequest)
-local GetPackageHighestPermission = require(Requests.DEPRECATED_GetPackageHighestPermission) --delete with FFlagUseNewAssetPermissionEndpoint3
 local PostAssetCheckPermissions = require(Requests.PostAssetCheckPermissions)
 local GetMarketplaceInfoRequest = require(Requests.GetMarketplaceInfoRequest)
 local AvatarAssetsGetUploadFeeRequest = require(Requests.AvatarAssetsGetUploadFeeRequest)
@@ -572,11 +570,7 @@ function AssetConfig:didMount()
 				-- Current user's package permissions is not known when Asset Config is opened from Game Explorer,
 				-- so a call needs to be made to query for it.
 				if not self.props.hasPackagePermission then
-					if FFlagUseNewAssetPermissionEndpoint3 then
-						self.props.dispatchPostAssetCheckPermissions(getNetwork(self), { self.props.assetId })
-					else
-						self.props.dispatchGetPackageHighestPermission(getNetwork(self), { self.props.assetId })
-					end
+					self.props.dispatchPostAssetCheckPermissions(getNetwork(self), { self.props.assetId })
 				end
 			end
 		end
@@ -1056,12 +1050,8 @@ local function mapDispatchToProps(dispatch)
 		dispatchPutPackagePermissionsRequest = function(networkInterface, assetId)
 			dispatch(PutPackagePermissionsRequest(networkInterface, assetId))
 		end,
-
-		dispatchGetPackageHighestPermission = (not FFlagUseNewAssetPermissionEndpoint3) and function(networkInterface, assetId)
-			dispatch(GetPackageHighestPermission(networkInterface, assetId))
-		end,
 		
-		dispatchPostAssetCheckPermissions = FFlagUseNewAssetPermissionEndpoint3 and function(networkInterface, assetId)
+		dispatchPostAssetCheckPermissions = function(networkInterface, assetId)
 			dispatch(PostAssetCheckPermissions(networkInterface, assetId))
 		end,
 

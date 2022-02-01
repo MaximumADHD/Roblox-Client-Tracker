@@ -20,7 +20,7 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 			return
 		end
 		for _, childVar in ipairs(targetVar:GetChildren()) do
-			if childVar.VariableId ~=0 and not childVar.Populated then
+			if childVar.VariableId ~= 0 and not childVar.Populated then
 				local childPath = variablePath .. Constants.SeparationToken .. tostring(childVar.VariableId)
 				store:dispatch(LazyLoadVariableThunk(childPath, stepStateBundle, isExpression, debuggerConnection))
 			end

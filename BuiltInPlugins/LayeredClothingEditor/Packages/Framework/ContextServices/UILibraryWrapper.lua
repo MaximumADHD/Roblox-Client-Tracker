@@ -12,10 +12,8 @@
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-})
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+local FFlagStudioDevFrameworkPackage = game:GetFastFlag("StudioDevFrameworkPackage")
 
 local noGetThemeError
 if THEME_REFACTOR then
@@ -26,7 +24,7 @@ else
 	UILibraryProvider expects Theme to have a 'getUILibraryTheme' instance function.]]
 end
 
-
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 local UILibraryFromParent
 
 -- We assume plugins will completely move away from the UILibrary
@@ -62,7 +60,7 @@ function UILibraryProvider:render()
 	return Roact.createElement(UILibrary.Wrapper, {
 		theme = theme:getUILibraryTheme(),
 		plugin = plugin:get(),
-		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget(),
+		focusGui = FFlagRefactorDevFrameworkContextItems2 and focus:get() or focus:getTarget(),
 	}, {
 		Roact.oneChild(self.props[Roact.Children])
 	})
@@ -82,7 +80,7 @@ local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 function UILibraryWrapper.new(uiLibraryProp)
 	local UILibrary
 
-	if not FlagsList:get("FFlagStudioDevFrameworkPackage") then
+	if not FFlagStudioDevFrameworkPackage then
 		UILibrary = UILibraryFromParent
 	else
 		UILibrary = uiLibraryProp or UILibraryFromParent
@@ -97,10 +95,18 @@ function UILibraryWrapper.new(uiLibraryProp)
 	return self
 end
 
-function UILibraryWrapper:createProvider(root)
-	return Roact.createElement(UILibraryProvider, {
-		UILibrary = self.UILibrary
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function UILibraryWrapper:getProvider(children)
+		return Roact.createElement(UILibraryProvider, {
+			UILibrary = self.UILibrary
+		}, children)
+	end
+else
+	function UILibraryWrapper:createProvider(root)
+		return Roact.createElement(UILibraryProvider, {
+			UILibrary = self.UILibrary
+		}, {root})
+	end
 end
 
 return UILibraryWrapper

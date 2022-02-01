@@ -6,6 +6,10 @@
 	(rather than a table)
 ]]
 
+-- Dummy placeholder type
+-- Can be used when we ignore the type, or for method calls (e.g. `type Foo = { doSomething : (_, string) -> ()})` for `foo:doSomething()`)
+export type _ = any
+
 -- TODO #luau: support these internally
 export type Array<T> = {[number]: T}
 export type Record<K, V> = {[K]: V}
@@ -32,5 +36,24 @@ export type WrapperProps = {
 
 -- TODO #lua-foundation: Types for symbols
 export type StyleModifier = any
+
+export type StudioTheme = any
+
+
+-- Framework context items
+export type ContextItem = {
+	destroy : () -> (),
+}
+
+export type Analytics = ContextItem & {
+	report : (_, event : string, ...any) -> (),
+}
+
+export type Localization = ContextItem & {
+	getText : (_, scope : string, key : string, args : {[string] : any}?) -> string,
+}
+
+export type Stylizer = ContextItem & {}
+
 
 return nil

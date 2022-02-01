@@ -14,10 +14,11 @@ local Tooltip = UI.Tooltip
 local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local FitFrameOnAxis = Util.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
@@ -28,6 +29,7 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -310,7 +312,12 @@ function ListItem:render()
     end
 
     local layoutOrder = props.LayoutOrder
-    local layoutIndex = LayoutOrderIterator.new()
+    local layoutIndex
+    if FFlagAssetManagerRemoveUILibraryPart1 then
+        layoutIndex = LayoutOrderIterator.new()
+    else
+        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
+    end
 
     return Roact.createElement("ImageButton", {
         Size = size,

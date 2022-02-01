@@ -31,6 +31,7 @@ local LoadPluginMetadata = require(main.Src.Thunks.LoadPluginMetadata)
 local Analytics = require(main.Src.Util.Analytics)
 
 local FFlagImprovePluginSpeed_LocalizationTool = game:GetFastFlag("ImprovePluginSpeed_LocalizationTool")
+local FFlagFixToolbarButtonForFreshInstallation = game:GetFastFlag("FixToolbarButtonForFreshInstallation")
 
 local THEME_REFACTOR = Framework.Util.RefactorFlags.THEME_REFACTOR
 
@@ -85,8 +86,16 @@ function MainPlugin:init()
 			enabled = enabled,
 		})
 
-		if FFlagImprovePluginSpeed_LocalizationTool then
+		if not FFlagFixToolbarButtonForFreshInstallation and FFlagImprovePluginSpeed_LocalizationTool then
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
+		end
+	end
+
+	if FFlagFixToolbarButtonForFreshInstallation then
+		self.onDockWidgetCreated = function()
+			if FFlagImprovePluginSpeed_LocalizationTool then
+				self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
+			end
 		end
 	end
 
@@ -174,6 +183,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
+			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation and self.onDockWidgetCreated or nil,
 		}, {
 			MainProvider = enabled and ContextServices.provide({
 				Mouse.new(plugin:getMouse()),

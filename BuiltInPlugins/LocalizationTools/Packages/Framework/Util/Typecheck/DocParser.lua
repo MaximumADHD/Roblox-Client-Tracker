@@ -30,6 +30,10 @@
 	For more info, see: https://github.com/osyrisrblx/t
 ]]
 
+game:DefineFastFlag("DevFrameworkDocParserSupportRoactSymbols", false)
+
+local FFlagDevFrameworkDocParserSupportRoactSymbols = game:GetFastFlag("DevFrameworkDocParserSupportRoactSymbols")
+
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Symbol = require(Framework.Util.Symbol)
@@ -237,6 +241,21 @@ function DocParser.__addCheckForProp(addTable, prop, isOptional)
 	if isOptional then
 		newProp = t.optional(newProp)
 	end
+
+	if FFlagDevFrameworkDocParserSupportRoactSymbols then
+		-- Special case for properties that look like `callback Roact.Change.Enabled: ...`
+		-- We need to match that up to the specific symbol in the Roact API
+		if propName:sub(1, 6) == "Roact." then
+			if propName:sub(7, 13) == "Change." then
+				propName = Roact.Change[propName:sub(14)]
+			elseif propName:sub(7, 12) == "Event." then
+				propName = Roact.Event[propName:sub(13)]
+			elseif propName == "Roact.Ref" then
+				propName = Roact.Ref
+			end
+		end
+	end
+
 	if existingProp ~= nil then
 		addTable[propName] = t.union(existingProp, newProp)
 	else

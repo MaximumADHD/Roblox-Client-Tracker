@@ -7,35 +7,9 @@ local TableTab = require(Models.Watch.TableTab)
 local Actions = Plugin.Src.Actions
 local SetVariablesTextFilteredOut = require(Actions.Watch.SetVariablesTextFilteredOut)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
+local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
 
-local function textMatchRow(filterText, rowData)
-
-	if (rowData.nameColumn ~= nil) then
-		if (string.find(rowData.nameColumn, filterText) ~= nil) then
-			return true
-		end
-	end
-	
-	if (rowData.expressionColumn ~= nil) then
-		if (string.find(rowData.expressionColumn, filterText) ~= nil) then
-			return true
-		end
-	end
-
-	if (string.find(rowData.scopeColumn, filterText) ~= nil) then
-		return true
-	end
-
-	if (string.find(rowData.valueColumn, filterText) ~= nil) then
-		return true
-	end
-
-	if (string.find(rowData.dataTypeColumn, filterText) ~= nil) then
-		return true
-	end
-
-	return false
-end
+local WatchHelperFunctions = require(Plugin.Src.Util.WatchHelperFunctions)
 
 local function depthFirstTextFilter(filterText, pathName, flattenedTree, expansionTree)
 	local node = flattenedTree[pathName]
@@ -46,7 +20,7 @@ local function depthFirstTextFilter(filterText, pathName, flattenedTree, expansi
 		childMatch = childMatch or depthFirstTextFilter(filterText, childPath, flattenedTree, expansionTree)
 	end
 
-	local didMatch = childMatch or textMatchRow(filterText, node)
+	local didMatch = childMatch or WatchHelperFunctions.textMatchRow(filterText, node)
 	expansionTree[pathName] = didMatch
 	return didMatch
 end
@@ -54,12 +28,18 @@ end
 -- Thunk
 return function(filterString)
 	return function(store, contextItems)
+		store:dispatch(FilterTextChanged(filterString))
+
 		local state = store:getState()
 		local common = state.Common
 		local watch = state.Watch
 
 		local token = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
 		local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
+		if (threadId == nil) then
+			-- this can happen if we are adding a filter before hitting play
+			return
+		end
 		local frameNumber = common.currentFrameMap[common.currentDebuggerConnectionId][threadId]
 
 		local stepStateBundle = StepStateBundle.ctor(token, threadId, frameNumber)

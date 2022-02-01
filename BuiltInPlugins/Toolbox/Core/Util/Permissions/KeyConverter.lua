@@ -6,7 +6,6 @@ local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local KeyConverter = {}
 
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
 
 function KeyConverter.getInternalSubjectType(webKey)
@@ -23,9 +22,7 @@ function KeyConverter.getInternalSubjectType(webKey)
 end
 
 function KeyConverter.getInternalAction(webKey)
-    if webKey == webKeys.OwnAction and not FFlagUseNewAssetPermissionEndpoint3 then
-        return PermissionsConstants.OwnKey
-    elseif webKey == webKeys.GrantAssetPermissionsAction and FFlagUseNewAssetPermissionEndpoint3 then
+    if webKey == webKeys.GrantAssetPermissionsAction then
         return PermissionsConstants.OwnKey
     elseif webKey == webKeys.UseAction then
         return PermissionsConstants.UseViewKey
@@ -91,21 +88,19 @@ end
 
 --For PostCheckActions reponse parsing,
 --status can be 1 of 4 values : "HasPermission","NoPermission","AssetNotFound","UnknownError"
-if FFlagUseNewAssetPermissionEndpoint3 then
-    function KeyConverter.resolveActionPermission(webKey, status, assetId)
-        if status == webKeys.HasPermission then
-            return KeyConverter.getInternalAction(webKey)
-        elseif status == webKeys.NoPermission then
-            return PermissionsConstants.NoAccessKey
-        elseif status == webKeys.AssetNotFound then
+function KeyConverter.resolveActionPermission(webKey, status, assetId)
+    if status == webKeys.HasPermission then
+        return KeyConverter.getInternalAction(webKey)
+    elseif status == webKeys.NoPermission then
+        return PermissionsConstants.NoAccessKey
+    elseif status == webKeys.AssetNotFound then
+        error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
+    else
+        -- "status == Unknown Error"
+        if FFlagToolboxAssetGridRefactor3 then
             error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
         else
-            -- "status == Unknown Error"
-            if FFlagToolboxAssetGridRefactor3 then
-                error("Permissions Error: " .. tostring(status) .. ", assetId: " .. tostring(assetId))
-            else
-                return PermissionsConstants.NoAccessKey
-            end
+            return PermissionsConstants.NoAccessKey
         end
     end
 end

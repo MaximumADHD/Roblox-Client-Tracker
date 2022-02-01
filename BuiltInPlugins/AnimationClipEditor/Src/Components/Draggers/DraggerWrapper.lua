@@ -22,7 +22,6 @@ local DraggerSchema = require(Plugin.Src.Util.DraggerSchema.DraggerSchema)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 
-local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
@@ -40,9 +39,6 @@ function DraggerWrapper:willUpdate(nextProps)
 	local props = self.props
 	if self.selection and props.SelectedTrackInstances ~= nextProps.SelectedTrackInstances then
 		self.selection.selectedTrackInstances = nextProps.SelectedTrackInstances
-		if not GetFFlagCreateSelectionBox() then
-			Selection:Set(nextProps.SelectedTrackInstances)
-		end
 		local selectionSignal = self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged)
 		selectionSignal:Fire()
 	end

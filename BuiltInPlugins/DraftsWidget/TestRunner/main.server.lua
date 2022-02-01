@@ -6,10 +6,10 @@ end
 require(script.Parent.defineLuaFlags)
 
 local FFlagDraftsWidgetDontInitializeNonEditDm = game:GetFastFlag("DraftsWidgetDontInitializeNonEditDm")
-
 local Plugin = script.Parent.Parent
 
-if not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
+if not game:GetFastFlag("StudioForceDraftsUsageOnRCCSettingDeprecated") and
+   not settings():GetFFlag("StudioForceDraftsUsageOnRCCSetting") then
    return
 end
 

@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -29,8 +29,13 @@ end
 local function createThunkMiddleware()
 	if FFlagStudioSerializeInstancesOffUIThread then
 		local mockStudioAssetService = {}
-		function mockStudioAssetService:SerializeInstances()
-			return ""
+		function mockStudioAssetService:SerializeInstances(instances)
+			assert(typeof(instances) == "table", "Instances must be a table")
+			for _, instance in ipairs(instances) do
+				assert(instance:IsA("Instance"))
+			end
+
+			return "TEST"
 		end
 
 		return {

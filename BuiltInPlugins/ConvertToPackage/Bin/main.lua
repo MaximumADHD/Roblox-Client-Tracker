@@ -3,13 +3,6 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
-	local FFlagImprovePluginSpeed_ConvertToPackage = game:GetFastFlag("ImprovePluginSpeed_ConvertToPackage")
-
-	if not FFlagImprovePluginSpeed_ConvertToPackage then
-		-- Fast flags
-		require(script.Parent.defineLuaFlags)
-	end
-
 	local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
 	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
@@ -127,50 +120,26 @@ return function(plugin, pluginLoaderContext)
 	local function main()
 		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("Meta", "PluginName")
 		makePluginGui()
-		if FFlagImprovePluginSpeed_ConvertToPackage then
-			if FFlagPreventChangesWhenConvertingPackage then
-				pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
-					openAssetConfigWindow(instances, name, clonedInstances)
-				end)
-			else
-				pluginLoaderContext.signals["StudioService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
-					-- clone instances so that user cannot edit them while validating/uploading
-					local clonedInstances = {}
-					for i = 1, #instances do
-						pcall(function()
-							clonedInstances[i] = instances[i]:Clone()
-						end)
-					end
-					if clonedInstances == {} then
-						print(localization:getText("General", "InstanceFail"))
-						return
-					end
-
-					openAssetConfigWindow(clonedInstances, name)
-				end)
-			end
+		if FFlagPreventChangesWhenConvertingPackage then
+			pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
+				openAssetConfigWindow(instances, name, clonedInstances)
+			end)
 		else
-			if FFlagPreventChangesWhenConvertingPackage then
-				PackageUIService.OnOpenConvertToPackagePlugin:connect(function(instances, name, clonedInstances)
-					openAssetConfigWindow(instances, name, clonedInstances)
-				end)
-			else
-				StudioService.OnOpenConvertToPackagePlugin:connect(function(instances, name, clonedInstances)
-					-- clone instances so that user cannot edit them while validating/uploading
-					local clonedInstances = {}
-					for i = 1, #instances do
-						pcall(function()
-							clonedInstances[i] = instances[i]:Clone()
-						end)
-					end
-					if clonedInstances == {} then
-						print(localization:getText("General", "InstanceFail"))
-						return
-					end
+			pluginLoaderContext.signals["StudioService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
+				-- clone instances so that user cannot edit them while validating/uploading
+				local clonedInstances = {}
+				for i = 1, #instances do
+					pcall(function()
+						clonedInstances[i] = instances[i]:Clone()
+					end)
+				end
+				if clonedInstances == {} then
+					print(localization:getText("General", "InstanceFail"))
+					return
+				end
 
-					openAssetConfigWindow(clonedInstances, name)
-				end)
-			end
+				openAssetConfigWindow(clonedInstances, name)
+			end)
 		end
 	end
 

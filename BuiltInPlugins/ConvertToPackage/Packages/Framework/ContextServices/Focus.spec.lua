@@ -2,10 +2,7 @@ return function()
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(Framework.ContextServices.provide)
-	local Util = require(Framework.Util)
-	local FlagsList = Util.Flags.new({
-		FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-	})
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	local Focus = require(script.Parent.Focus)
 
@@ -28,7 +25,7 @@ return function()
 	it("should return the target via getTarget", function()
 		local screenGui = Instance.new("ScreenGui")
 		local focus = Focus.new(screenGui)
-		local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and focus:get() or focus:getTarget()
+		local target = FFlagRefactorDevFrameworkContextItems2 and focus:get() or focus:getTarget()
 		expect(target).to.equal(screenGui)
 	end)
 end

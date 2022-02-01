@@ -24,12 +24,16 @@
 ]]
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
-local isInputMainPress = require(Framework.Util.isInputMainPress)
+
+local Util = require(Framework.Util)
+local isInputMainPress = Util.isInputMainPress
+local prioritize = Util.prioritize
 
 local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
@@ -134,13 +138,13 @@ function Pane:render()
 	local className = getClassName(props, style)
 
 	local defaultProps = {
-		BackgroundTransparency = 1,
+		BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 1) else 1,
 		BorderSizePixel = 0,
 		Size = props.Size or UDim2.fromScale(scaleX, scaleY),
 	}
 	local color = props.BackgroundColor3 or props.BackgroundColor or style.Background
 	if color then
-		defaultProps.BackgroundTransparency = 0
+		defaultProps.BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 0) else 0
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick

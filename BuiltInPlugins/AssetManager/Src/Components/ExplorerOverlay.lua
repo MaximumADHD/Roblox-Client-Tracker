@@ -10,17 +10,23 @@
 
     Optional Properties:
 ]]
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
-local ContextServices = require(Plugin.Packages.Framework).ContextServices
+local Framework = Plugin.Packages.Framework
+local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 
+local UI = require(Framework.UI)
+local Pane = UI.Pane
+local ShowOnTop = UI.ShowOnTop
+
 local UILibrary = require(Plugin.Packages.UILibrary)
-local ShowOnTop = UILibrary.Focus.ShowOnTop
-local Button = UILibrary.Component.RoundFrame
+local DEPRECATED_ShowOnTop = UILibrary.Focus.ShowOnTop -- Remove with FFlagAssetManagerRemoveUILibraryPart1
+local DEPRECATED_Button = UILibrary.Component.RoundFrame -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local TreeView = UILibrary.Component.TreeView
 local FolderTreeItem = require(Plugin.Src.Components.FolderTreeItem)
 
@@ -42,86 +48,152 @@ function ExplorerOverlay:render()
     local recentViewToggled = props.RecentViewToggled
     local dispatchSetRecentViewToggled = props.dispatchSetRecentViewToggled
 
-    return Roact.createElement(ShowOnTop, {}, {
-        Background = Roact.createElement(Button, {
-            Position = UDim2.new(1, 0, 0, 0),
-            Size = UDim2.new(overlayTheme.Background.WidthScale, 0, 1, 0),
-            BorderSizePixel = 0,
-            BackgroundTransparency = overlayTheme.Background.Transparency,
-            BackgroundColor3 = Color3.new(0,0,0),
-
-            OnActivated = closeOverlay,
-        }),
-
-        Overlay = Roact.createElement("Frame", {
-            Position = UDim2.new(0, 0, 0, 0),
-            Size = UDim2.new(overlayTheme.Foreground.WidthScale, 0, 1, 0),
-            BackgroundTransparency = 0,
-            BackgroundColor3 = theme.BackgroundColor,
-            BorderSizePixel = 0,
-            LayoutOrder = 2,
-        }, {
-            UILayout = Roact.createElement("UIListLayout", {
-                SortOrder = Enum.SortOrder.LayoutOrder,
-                FillDirection = Enum.FillDirection.Vertical,
-                VerticalAlignment = Enum.VerticalAlignment.Top,
+    if FFlagAssetManagerRemoveUILibraryPart1 then
+        return Roact.createElement(ShowOnTop, {}, {
+            Background = Roact.createElement(Pane, {
+                BackgroundColor = Color3.new(0, 0, 0),
+                OnClick = closeOverlay,
+                Position = UDim2.new(1, 0, 0, 0),
+                Size = UDim2.new(overlayTheme.Background.WidthScale, 0, 1, 0),
+                Transparency = overlayTheme.Background.Transparency,
             }),
 
-            CloseButton = Roact.createElement(Button, {
-                Size = UDim2.new(1, 0, 0, 24),
+            Overlay = Roact.createElement(Pane, {
+                BackgroundColor = theme.BackgroundColor,
+                Layout = Enum.FillDirection.Vertical,
+                LayoutOrder = 2,
+                VerticalAlignment = Enum.VerticalAlignment.Top,
+                Size = UDim2.new(overlayTheme.Foreground.WidthScale, 0, 1, 0),
+            }, {
+                CloseButton = Roact.createElement(Pane, {
+                    HorizontalAlignment = Enum.HorizontalAlignment.Right,
+                    Layout = Enum.FillDirection.Horizontal,
+                    LayoutOrder = 1,
+                    Padding = {
+                        Right = overlayTheme.Padding.Right,
+                    },
+                    Size = UDim2.new(1, 0, 0, 24),
+                }, {
+                    CloseIcon = Roact.createElement("ImageButton", {
+                        AnchorPoint = Vector2.new(0.5, 0.5),
+                        BackgroundTransparency = 1,
+                        Image = overlayTheme.CloseButton.Images.Close,
+                        Size = UDim2.fromOffset(overlayTheme.CloseButton.Size, overlayTheme.CloseButton.Size),
+
+                        [Roact.Event.Activated] = closeOverlay,
+                    })
+                }),
+
+                FolderTree = Roact.createElement(TreeView, {
+                    dataTree = self.props.FileExplorerData,
+                    createFlatList = false,
+                    getChildren = function(instance)
+                        return instance.Children
+                    end,
+
+                    renderElement = function(properties)
+                        return Roact.createElement(FolderTreeItem, properties)
+                    end,
+
+                    onSelectionChanged = function(instances)
+                        if instances[1] then
+                            if recentViewToggled then
+                                dispatchSetRecentViewToggled(false)
+                            end
+                            local screen = Screens[instances[1].Screen]
+                            dispatchSetScreen(screen)
+                        end
+                        closeOverlay()
+                    end,
+
+                    expandRoot = true,
+
+                    LayoutOrder = 2,
+                })
+            })
+        })
+    else
+        return Roact.createElement(DEPRECATED_ShowOnTop, {}, {
+            Background = Roact.createElement(DEPRECATED_Button, {
+                Position = UDim2.new(1, 0, 0, 0),
+                Size = UDim2.new(overlayTheme.Background.WidthScale, 0, 1, 0),
+                BorderSizePixel = 0,
+                BackgroundTransparency = overlayTheme.Background.Transparency,
+                BackgroundColor3 = Color3.new(0,0,0),
+
+                OnActivated = closeOverlay,
+            }),
+
+            Overlay = Roact.createElement("Frame", {
+                Position = UDim2.new(0, 0, 0, 0),
+                Size = UDim2.new(overlayTheme.Foreground.WidthScale, 0, 1, 0),
                 BackgroundTransparency = 0,
                 BackgroundColor3 = theme.BackgroundColor,
                 BorderSizePixel = 0,
-                LayoutOrder = 1,
-            }, {
-                Padding = Roact.createElement("UIPadding", {
-                    PaddingRight = UDim.new(0, overlayTheme.Padding.Right),
-                }),
-
-                CloseButtonLayout = Roact.createElement("UIListLayout", {
-                    FillDirection = Enum.FillDirection.Horizontal,
-                    HorizontalAlignment = Enum.HorizontalAlignment.Right,
-                    VerticalAlignment = Enum.VerticalAlignment.Center,
-                }),
-
-                CloseIcon = Roact.createElement("ImageButton", {
-                    Size = UDim2.new(0, overlayTheme.CloseButton.Size, 0, overlayTheme.CloseButton.Size),
-                    AnchorPoint = Vector2.new(0.5, 0.5),
-                    BackgroundTransparency = 1,
-                    Image = overlayTheme.CloseButton.Images.Close,
-
-                    [Roact.Event.Activated] = closeOverlay,
-                })
-            }),
-
-            FolderTree = Roact.createElement(TreeView, {
-                dataTree = self.props.FileExplorerData,
-                createFlatList = false,
-                getChildren = function(instance)
-                    return instance.Children
-                end,
-
-                renderElement = function(properties)
-                    return Roact.createElement(FolderTreeItem, properties)
-                end,
-
-                onSelectionChanged = function(instances)
-                    if instances[1] then
-                        if recentViewToggled then
-                            dispatchSetRecentViewToggled(false)
-                        end
-                        local screen = Screens[instances[1].Screen]
-                        dispatchSetScreen(screen)
-                    end
-                    closeOverlay()
-                end,
-
-                expandRoot = true,
-
                 LayoutOrder = 2,
+            }, {
+                UILayout = Roact.createElement("UIListLayout", {
+                    SortOrder = Enum.SortOrder.LayoutOrder,
+                    FillDirection = Enum.FillDirection.Vertical,
+                    VerticalAlignment = Enum.VerticalAlignment.Top,
+                }),
+
+                CloseButton = Roact.createElement(DEPRECATED_Button, {
+                    Size = UDim2.new(1, 0, 0, 24),
+                    BackgroundTransparency = 0,
+                    BackgroundColor3 = theme.BackgroundColor,
+                    BorderSizePixel = 0,
+                    LayoutOrder = 1,
+                }, {
+                    Padding = Roact.createElement("UIPadding", {
+                        PaddingRight = UDim.new(0, overlayTheme.Padding.Right),
+                    }),
+
+                    CloseButtonLayout = Roact.createElement("UIListLayout", {
+                        FillDirection = Enum.FillDirection.Horizontal,
+                        HorizontalAlignment = Enum.HorizontalAlignment.Right,
+                        VerticalAlignment = Enum.VerticalAlignment.Center,
+                    }),
+
+                    CloseIcon = Roact.createElement("ImageButton", {
+                        Size = UDim2.new(0, overlayTheme.CloseButton.Size, 0, overlayTheme.CloseButton.Size),
+                        AnchorPoint = Vector2.new(0.5, 0.5),
+                        BackgroundTransparency = 1,
+                        Image = overlayTheme.CloseButton.Images.Close,
+
+                        [Roact.Event.Activated] = closeOverlay,
+                    })
+                }),
+
+                FolderTree = Roact.createElement(TreeView, {
+                    dataTree = self.props.FileExplorerData,
+                    createFlatList = false,
+                    getChildren = function(instance)
+                        return instance.Children
+                    end,
+
+                    renderElement = function(properties)
+                        return Roact.createElement(FolderTreeItem, properties)
+                    end,
+
+                    onSelectionChanged = function(instances)
+                        if instances[1] then
+                            if recentViewToggled then
+                                dispatchSetRecentViewToggled(false)
+                            end
+                            local screen = Screens[instances[1].Screen]
+                            dispatchSetScreen(screen)
+                        end
+                        closeOverlay()
+                    end,
+
+                    expandRoot = true,
+
+                    LayoutOrder = 2,
+                })
             })
         })
-    })
+    end
 end
 
 ExplorerOverlay = withContext({

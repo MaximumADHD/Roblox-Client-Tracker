@@ -8,7 +8,6 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local FFlagStudioScriptToggleContextItem = game:GetFastFlag("StudioScriptToggleContextItem")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -96,10 +95,8 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local detailTextFontSize = Constants.FONT_SIZE_MEDIUM
 	local detailTextFont = Constants.FONT_BOLD
 
-	local instructionText = localizedContent.ScriptWarning.InstructionText
-	if FFlagStudioScriptToggleContextItem then
-		instructionText = instructionText .. " " .. localizedContent.ScriptWarning.InstructionText2
-	end
+	local instructionText = localizedContent.ScriptWarning.InstructionText .. " " .. localizedContent.ScriptWarning.InstructionText2
+
 	local instructionTextFontSize = Constants.FONT_SIZE_MEDIUM
 	local instructionTextFont = Constants.FONT
 

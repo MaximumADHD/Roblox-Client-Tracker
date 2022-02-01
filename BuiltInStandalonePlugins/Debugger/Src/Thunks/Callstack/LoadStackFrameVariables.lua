@@ -29,27 +29,33 @@ local function populateStackVariables(debuggerConnection, stackFrame, callback)
 	end)
 end
 
-local function convertStackFrameInstancesToVariableRows(stackFrame)
-	local toReturn = {}
-	
+local function convertStackFrameInstancesToVariableRows(stackFrame, store)
+	local filterText = store:getState().Watch.filterText
+	local listOfEnabledScopes = store:getState().Watch.listOfEnabledScopes
+
 	-- these return a debuggerVar with the children being the actual variables
 	local localVars = stackFrame.Locals:GetChildren()
 	local globalVars = stackFrame.Globals:GetChildren()
 	local upvalueVars = stackFrame.Upvalues:GetChildren()
 
+	local toReturn = {}
 	for _, localVar in ipairs(localVars) do
-		table.insert(toReturn, VariableRow.fromInstance(localVar, nil, ScopeEnum.Local))
+		table.insert(toReturn, VariableRow.fromInstance(localVar, nil, ScopeEnum.Local, filterText, listOfEnabledScopes))
 	end
 	for _, globalVar in ipairs(globalVars) do
-		table.insert(toReturn, VariableRow.fromInstance(globalVar, nil, ScopeEnum.Global))
+		table.insert(toReturn, VariableRow.fromInstance(globalVar, nil, ScopeEnum.Global, filterText, listOfEnabledScopes))
 	end
 	for _, upvalueVar in ipairs(upvalueVars) do
-		table.insert(toReturn, VariableRow.fromInstance(upvalueVar, nil, ScopeEnum.Upvalue))
+		table.insert(toReturn, VariableRow.fromInstance(upvalueVar, nil, ScopeEnum.Upvalue, filterText, listOfEnabledScopes))
 	end
 	return toReturn
 end
 
 local function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
+	local state = store:getState()
+	local filterText = state.Watch.filterText
+	local listOfEnabledScopes = state.Watch.listOfEnabledScopes
+
 	local toReturn = {}
 	local children = debuggerVar:GetChildren()
 	if #children == 0 then
@@ -58,7 +64,7 @@ local function addChildVariableRowsForDebuggerVariable(store, stepStateBundle, d
 	for _, child in ipairs(children) do
 		-- the table we pass in here is used to pass in columns from a parent VariableRow that we use to make the child row 
 		local parentRow = VariableRow.fromData({["path"] = tostring(debuggerVar.VariableId),["scope"] = scope })
-		table.insert(toReturn, VariableRow.fromInstance(child, parentRow))
+		table.insert(toReturn, VariableRow.fromInstance(child, parentRow, nil, filterText, listOfEnabledScopes))
 	end
 	store:dispatch(AddChildVariables(stepStateBundle, tostring(debuggerVar.VariableId), toReturn))
 end
@@ -66,7 +72,7 @@ end
 local function addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, debuggerVarList, scope)
 	for _, debuggerVar in ipairs(debuggerVarList) do
 		if debuggerVar.VariableId ~=0 and not debuggerVar.Populated then
-			debuggerConnection:Populate(debuggerVar, function()
+			debuggerConnection:Populate(debuggerVar, function() 
 				addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
 			end)
 		end
@@ -77,7 +83,7 @@ return function(debuggerConnection, stackFrame, stepStateBundle : StepStateBundl
 	return function(store, contextItems)
 		debuggerConnection:Populate(stackFrame, function ()
 			populateStackVariables(debuggerConnection, stackFrame, function() 
-				local rootVars = convertStackFrameInstancesToVariableRows(stackFrame)
+				local rootVars = convertStackFrameInstancesToVariableRows(stackFrame, store)
 				store:dispatch(AddRootVariables(stepStateBundle, rootVars))
 				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Locals:GetChildren(), ScopeEnum.Local)
 				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Globals:GetChildren(), ScopeEnum.Global)

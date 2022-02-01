@@ -8,14 +8,8 @@ return function(plugin, pluginLoaderContext)
 	local Plugin = script.Parent.Parent
 	local Util = Plugin.Core.Util
 	local FFlagDebugToolboxEnableRoactChecks = game:GetFastFlag("DebugToolboxEnableRoactChecks")
-	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_3")
-	local FFlagImprovePluginSpeed_Toolbox = game:GetFastFlag("ImprovePluginSpeed_Toolbox")
+	local FFlagUseNewAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 	local FFlagDebugToolboxGetRolesRequest = game:GetFastFlag("DebugToolboxGetRolesRequest")
-
-	if not FFlagImprovePluginSpeed_Toolbox then
-		-- Move this to loader.server.lua
-		require(script.Parent.defineLuaFlags)
-	end
 
 	local isCli = require(Util.isCli)
 	if isCli() then
@@ -93,7 +87,6 @@ return function(plugin, pluginLoaderContext)
 
 	local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 	local GetRolesDebugRequest = require(Plugin.Core.Networking.Requests.GetRolesDebugRequest)
-	local SettingsContext = require(Plugin.Core.ContextServices.Settings)
 
 	local ContextServices = Framework.ContextServices
 	local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
@@ -102,11 +95,10 @@ return function(plugin, pluginLoaderContext)
 	local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
 
 	local HttpService = game:GetService("HttpService")
-	local MemStorageService = game:GetService("MemStorageService")
 	local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 	local StudioAssetService = game:GetService("StudioAssetService")
 
-	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread")
+	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
 	if not getToolboxEnabled() then
 		return
@@ -337,7 +329,7 @@ return function(plugin, pluginLoaderContext)
 			theme = theme,
 			networkInterface = networkInterface,
 			localization = localization,
-			pluginLoaderContext = FFlagImprovePluginSpeed_Toolbox and pluginLoaderContext or nil,
+			pluginLoaderContext = pluginLoaderContext,
 
 			backgrounds = backgrounds,
 			suggestions = suggestions,
@@ -371,133 +363,67 @@ return function(plugin, pluginLoaderContext)
 			inspector:addRoactTree("Roact tree", toolboxHandle, Roact)
 		end
 
-		if FFlagImprovePluginSpeed_Toolbox then
-			-- Create publish new asset page.
-			pluginLoaderContext.signals["StudioService.OnSaveToRoblox"]:Connect(function(instances)
-				local function proceedToUpload()
-					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-					if FFlagUseNewAnimationClipProvider then
-						if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
-						else
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-						end
+		-- Create publish new asset page.
+		pluginLoaderContext.signals["StudioService.OnSaveToRoblox"]:Connect(function(instances)
+			local function proceedToUpload()
+				local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
+				if FFlagUseNewAnimationClipProvider then
+					if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
+						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
 					else
-						if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
-						else
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-						end
+						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 					end
-				end
-				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
 				else
-					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
-				end
-			end)
-
-			pluginLoaderContext.signals["StudioService.OnImportFromRoblox"]:Connect(function(callback)
-				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW, nil, Enum.AssetType.Animation)
-			end)
-
-			pluginLoaderContext.signals["StudioService.OnOpenManagePackagePlugin"]:Connect(function(userId, assetId)
-				createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
-			end)
-
-			-- Create publish new plugin page.
-			pluginLoaderContext.signals["StudioService.OnPublishAsPlugin"]:Connect(function(instances)
-				createAssetConfig(
-					nil,
-					AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-					AssetConfigUtil.getClonedInstances(instances),
-					Enum.AssetType.Plugin
-				)
-			end)
-
-			-- Listen to MemStorageService
-			pluginLoaderContext.signals["MemStorageService.OpenAssetConfiguration"]:Connect(
-				function(params)
-					local asset = HttpService:JSONDecode(params)
-					if asset.assetType == Enum.AssetType.Image then
-						createAssetConfig(
-							asset.id,
-							AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-							nil,
-							Enum.AssetType.Image)
+					if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
+						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
 					else
-						createAssetConfig(
-							asset.id,
-							AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-							nil,
-							Enum.AssetType.MeshPart)
-					end
-				end)
-		else
-			-- Create publish new asset page.
-			StudioService.OnSaveToRoblox:connect(function(instances)
-				local function proceedToUpload()
-					local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
-					if FFlagUseNewAnimationClipProvider then
-						if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
-						else
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-						end
-					else
-						if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
-						else
-							createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
-						end
+						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 					end
 				end
-				if FFlagDebugToolboxGetRolesRequest then
-					toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+			end
+			if FFlagDebugToolboxGetRolesRequest then
+				toolboxStore:dispatch(GetRolesDebugRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+			else
+				toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+			end
+		end)
+
+		pluginLoaderContext.signals["StudioService.OnImportFromRoblox"]:Connect(function(callback)
+			createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW, nil, Enum.AssetType.Animation)
+		end)
+
+		pluginLoaderContext.signals["StudioService.OnOpenManagePackagePlugin"]:Connect(function(userId, assetId)
+			createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
+		end)
+
+		-- Create publish new plugin page.
+		pluginLoaderContext.signals["StudioService.OnPublishAsPlugin"]:Connect(function(instances)
+			createAssetConfig(
+				nil,
+				AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+				AssetConfigUtil.getClonedInstances(instances),
+				Enum.AssetType.Plugin
+			)
+		end)
+
+		-- Listen to MemStorageService
+		pluginLoaderContext.signals["MemStorageService.OpenAssetConfiguration"]:Connect(
+			function(params)
+				local asset = HttpService:JSONDecode(params)
+				if asset.assetType == Enum.AssetType.Image then
+					createAssetConfig(
+						asset.id,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						Enum.AssetType.Image)
 				else
-					toolboxStore:dispatch(GetRolesRequest(networkInterface)):andThen(proceedToUpload, proceedToUpload)
+					createAssetConfig(
+						asset.id,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						Enum.AssetType.MeshPart)
 				end
 			end)
-
-			StudioService.OnImportFromRoblox:connect(function(callback)
-				createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW, nil, Enum.AssetType.Animation)
-			end)
-
-			StudioService.OnOpenManagePackagePlugin:connect(function(userId, assetId)
-				createAssetConfig(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Model)
-			end)
-
-			-- Create publish new plugin page.
-			StudioService.OnPublishAsPlugin:connect(function(instances)
-				createAssetConfig(
-					nil,
-					AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
-					AssetConfigUtil.getClonedInstances(instances),
-					Enum.AssetType.Plugin
-				)
-			end)
-
-			-- Listen to MemStorageService
-			local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
-			MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG,
-				function(params)
-					local asset = HttpService:JSONDecode(params)
-					if asset.assetType == Enum.AssetType.Image then
-						createAssetConfig(
-							asset.id,
-							AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-							nil,
-							Enum.AssetType.Image)
-					else
-						createAssetConfig(
-							asset.id,
-							AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-							nil,
-							Enum.AssetType.MeshPart)
-					end
-				end)
-		end
-
 		InsertAsset.registerLocalization(devFrameworkLocalization)
 		InsertAsset.registerProcessDragHandler(plugin)
 	end

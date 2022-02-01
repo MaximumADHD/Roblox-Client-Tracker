@@ -38,7 +38,6 @@ local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
 local Constants = require(PluginFolder.Src.Util.Constants)
 
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 local StudioService = game:GetService("StudioService")
@@ -67,6 +66,7 @@ local function convertGUIDToFileName(guid, scriptInfoReducer)
 end
 
 local function convertSourceCol(index, frameData, frameListCopy, scriptInfoReducer)
+	frameListCopy[index].scriptGUID = frameListCopy[index].sourceColumn
 	local fileName = convertGUIDToFileName(frameListCopy[index].sourceColumn, scriptInfoReducer)
 	frameListCopy[index].sourceColumn = fileName
 end
@@ -155,7 +155,7 @@ function CallstackComponent:init()
 			
 			if rowInfo.sourceColumn and rowInfo.lineColumn then
 				local DebuggerUIService = game:GetService("DebuggerUIService")
-				DebuggerUIService:OpenScriptAtLine(rowInfo.sourceColumn, props.CurrentDebuggerConnectionId, rowInfo.lineColumn)
+				DebuggerUIService:OpenScriptAtLine(rowInfo.scriptGUID, props.CurrentDebuggerConnectionId, rowInfo.lineColumn)
 			end
 		end
 	end
@@ -320,7 +320,7 @@ function CallstackComponent:render()
 				OnSelectionChange = self.onSelectionChange,
 				RightClick = self.onRightClick,
 				OnExpansionChange = self.onExpansionChange,
-				FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and true,
+				FullSpan = true,
 				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedRows) or nil,
 			})
 		}),

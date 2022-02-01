@@ -22,8 +22,11 @@ local UI = require(Framework.UI)
 local Button = UI.Button
 local HoverArea = UI.HoverArea
 
+local Util = require(Framework.Util)
+local LayoutOrderIterator = Util.LayoutOrderIterator
+
 local UILibrary = require(Plugin.Packages.UILibrary)
-local LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator
+local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
@@ -45,7 +48,8 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagStudioAssetManagerGetScriptsConflict = game:GetFastFlag("StudioAssetManagerGetScriptsConflict")
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
+
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
 
@@ -130,11 +134,7 @@ function MainView:init()
 end
 
 function MainView:didMount()
-    if FFlagStudioAssetManagerGetScriptsConflict then
-        self.hasScripts()
-    else
-        self.getScripts()    
-    end
+    self.hasScripts()
     if game.GameId ~= 0 then
         self.props.dispatchGetUniverseConfiguration(self.props.API:get())
     end
@@ -186,7 +186,12 @@ function MainView:render()
 
     local universeName = props.UniverseName
 
-    local layoutIndex = LayoutOrderIterator.new()
+    local layoutIndex
+    if FFlagAssetManagerRemoveUILibraryPart1 then
+        layoutIndex = LayoutOrderIterator.new()
+    else
+        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
+    end
 
     self.state.fileExplorerData.Name = universeName
     if universeName ~= "" and not universeNameSet then

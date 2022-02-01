@@ -6,7 +6,7 @@ return PluginWidget("DockWidget", function(self, id)
 	local props = self.props
 	local plugin = props.plugin
 
-	if game:GetFastFlag("ImprovePluginSpeed_Toolbox") and props.Widget then
+	if props.Widget then
 		return props.Widget
 	end
 

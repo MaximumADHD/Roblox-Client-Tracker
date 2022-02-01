@@ -15,6 +15,7 @@ local withContext = ContextServices.withContext
 local Focus = ContextServices.Focus
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+local FFlagFixToolbarButtonForFreshInstallation = game:GetFastFlag("FixToolbarButtonForFreshInstallation")
 
 local function createPluginWidget(componentName, createWidgetFunc)
 	local PluginWidget = Roact.PureComponent:extend(componentName)
@@ -60,6 +61,11 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			-- By the time Lua thread resumes, HostWidgetWasRestored has been set and is safe to use
 			if widget:IsA("DockWidgetPluginGui") and widget.HostWidgetWasRestored and props.OnWidgetRestored then
 				props.OnWidgetRestored(widget.Enabled)
+			end
+
+			if FFlagFixToolbarButtonForFreshInstallation and widget:IsA("DockWidgetPluginGui") and
+				props.OnWidgetCreated then
+				props.OnWidgetCreated(widget.Enabled, widget.HostWidgetWasRestored)
 			end
 		end
 
@@ -158,7 +164,7 @@ local function createPluginWidget(componentName, createWidgetFunc)
 			self.widget = nil
 		end
 	end
-	
+
 	PluginWidget = withContext({
 		Plugin = ContextServices.Plugin,
 	})(PluginWidget)

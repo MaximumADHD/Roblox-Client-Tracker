@@ -1,6 +1,8 @@
 --[[
 	A centralized place for providers, and an entry point for the Roact trees of plugins
 ]]
+local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
@@ -34,6 +36,7 @@ function ServiceWrapper:render()
 	local store = self.props.store
 	local theme = self.props.theme
 	local mouse = self.props.mouse
+	local calloutController = if FFlagPlacePublishTcToggleCalloutEnabled then self.props.calloutController else nil
 
 	if FFlagDevFrameworkUseCreateContext then
 		-- the order of these providers should be read as bottom up,
@@ -46,6 +49,7 @@ function ServiceWrapper:render()
 			ContextServices.Store.new(store),
 			ContextServices.API.new(),
 			ContextServices.Mouse.new(mouse),
+			calloutController
 		}, {
 			-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 			UILibraryWrapper = ContextServices.provide({
@@ -65,6 +69,7 @@ function ServiceWrapper:render()
 			ContextServices.Store.new(store),
 			ContextServices.API.new(),
 			ContextServices.Mouse.new(mouse),
+			calloutController
 		}, children)
 	end
 end

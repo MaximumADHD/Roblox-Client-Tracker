@@ -26,9 +26,6 @@ local SignalsContext = require(Plugin.Src.Context.Signals)
 local SetSelectedTrackInstances = require(Plugin.Src.Actions.SetSelectedTrackInstances)
 local SetSelectedTracks = require(Plugin.Src.Actions.SetSelectedTracks)
 
-local GetFFlagUseLuaDraggers = require(Plugin.LuaFlags.GetFFlagUseLuaDraggers)
-local GetFFlagCreateSelectionBox = require(Plugin.LuaFlags.GetFFlagCreateSelectionBox)
-
 local InstanceSelector = Roact.PureComponent:extend("InstanceSelector")
 
 local function getModel(instance)
@@ -66,7 +63,7 @@ function InstanceSelector:isCurrentRootInstance(instance)
 end
 
 function InstanceSelector:selectValidInstance(validFunc, invalidFunc)
-	if GetFFlagUseLuaDraggers() and self.wasUnmounted then
+	if self.wasUnmounted then
 		return
 	end
 	local target = getMouseTarget(self)
@@ -95,9 +92,7 @@ function InstanceSelector:showErrorDialogs(plugin, errorList)
 end
 
 function InstanceSelector:init()
-	if GetFFlagUseLuaDraggers() then
-		self.wasUnmounted = false
-	end
+	self.wasUnmounted = false
 
 	self.state = {
 		HoverPart = nil
@@ -113,11 +108,9 @@ function InstanceSelector:init()
 
 	self.deselectAndRemoveSelectedTrackInstances = function()
 		self.deselect()
-		if GetFFlagUseLuaDraggers() then
-			self.props.SetSelectedTrackInstances({})
+		self.props.SetSelectedTrackInstances({})
 
-			self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
-		end
+		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 	end
 
 	self.highlightInstance = function(instance)
@@ -143,9 +136,7 @@ function InstanceSelector:init()
 				self.props.UpdateRootInstance(rigInstance, self.props.Analytics)
 				self.deselectAndRemoveSelectedTrackInstances()
 			else
-				if GetFFlagUseLuaDraggers() then
-					self.deselectAndRemoveSelectedTrackInstances()
-				end
+				self.deselectAndRemoveSelectedTrackInstances()
 				plugin:get():Deactivate()
 				self:showErrorDialogs(plugin:get(), errorList)
 			end
@@ -166,11 +157,7 @@ function InstanceSelector:didMount()
 		plugin:get():Activate(true)
 
 		self.MouseButtonDown = self.props.Mouse:get().Button1Down:Connect(function()
-			if not GetFFlagUseLuaDraggers() then
-				self:selectValidInstance(self.selectInstance, self.deselect)
-			else
-				self:selectValidInstance(self.selectInstance)
-			end
+			self:selectValidInstance(self.selectInstance)
 		end)
 	end
 end
@@ -182,7 +169,7 @@ function InstanceSelector:render()
 	local hoverPart = state.HoverPart
 	local container = props.Container or CoreGui
 	local children = {}
-	if GetFFlagCreateSelectionBox() and props.SelectedTrackInstances then
+	if props.SelectedTrackInstances then
 		for index, part in ipairs(props.SelectedTrackInstances) do
 			children["SelectionBox" ..index] = Roact.createElement("SelectionBox", {
 				Archivable = false,
@@ -206,18 +193,14 @@ function InstanceSelector:render()
 end
 
 function InstanceSelector:willUnmount()
-	if GetFFlagUseLuaDraggers() then
-		self.wasUnmounted = true
-	end
+	self.wasUnmounted = true
 
 	if self.Heartbeat then
 		self.Heartbeat:Disconnect()
 	end
 
-	if GetFFlagUseLuaDraggers() then
-		self.props.SetSelectedTrackInstances({})
-		self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
-	end
+	self.props.SetSelectedTrackInstances({})
+	self.props.Signals:get(Constants.SIGNAL_KEYS.SelectionChanged):Fire()
 
 	if self.SelectionChangedHandle then
 		self.SelectionChangedHandle:Disconnect()

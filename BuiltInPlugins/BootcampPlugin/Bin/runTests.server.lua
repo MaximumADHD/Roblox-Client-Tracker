@@ -1,24 +1,14 @@
 local Plugin = script.Parent.Parent
 
-local ImprovePluginSpeed_BootcampPlugin = game:GetFastFlag("ImprovePluginSpeed_BootcampPlugin")
-
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 local Framework
-if not ImprovePluginSpeed_BootcampPlugin then
+
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	local commonInit = require(script.Parent.commonInit)
 	commonInit()
 
 	Framework = require(Plugin.Packages.Framework)
-end
-
-if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
-	if ImprovePluginSpeed_BootcampPlugin then
-		local commonInit = require(script.Parent.commonInit)
-		commonInit()
-
-		Framework = require(Plugin.Packages.Framework)
-	end
 
 	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)

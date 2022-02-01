@@ -30,7 +30,7 @@ local TEAM_CREATE_ENABLED = "teamCreateEnabled"
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
-local FStringTeamCreateLearnMoreLink = game:DefineFastString("TeamCreateLink", "https://developer.roblox.com/en-us/articles/Team-Create")
+local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 
 local teamCreateToggleEnabled = false
@@ -39,6 +39,7 @@ if FIntTeamCreateTogglePercentageRollout > 0 then
     teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
 end
 
+local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
@@ -49,6 +50,9 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Separator = UILibrary.Component.Separator
 local PartialHyperlink = UILibrary.Studio.PartialHyperlink
+
+local TeachingCallout = if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then 
+	require(Plugin.Src.Components.TeachingCallout) else nil
 
 local Header = require(Plugin.Src.Components.Header)
 local PlatformSelect = require(Plugin.Src.Components.PlatformSelect)
@@ -314,29 +318,33 @@ local function displayContents(parent)
 				})
 				devicesChanged(newDevices)
 			end,
-        }),
+		}),
 
-        Separator3 = teamCreateToggleEnabled and Roact.createElement(Separator, {
-            LayoutOrder = layoutOrder:getNextOrder(),
-        }) or nil,
+		Separator3 = if teamCreateToggleEnabled then Roact.createElement(Separator, {
+			LayoutOrder = layoutOrder:getNextOrder(),
+		}) else nil,
 
-        EnableTeamCreate = teamCreateToggleEnabled and Roact.createElement(ToggleButtonWithTitle, {
-            Title = localization:getText("TeamCreate", "Title"),
-            LayoutOrder = layoutOrder:getNextOrder(),
-            Disabled = false,
-            Selected = props.TeamCreateEnabled,
-            LinkProps = {
-                Text = localization:getText("TeamCreate", "LinkDescription"),
-                LinkText = localization:getText("TeamCreate", "LinkText"),
-                OnLinkClicked = function()
-                    GuiService:OpenBrowserWindow(FStringTeamCreateLearnMoreLink)
-                end,
-            },
-            OnClick = function()
-                props.TeamCreateEnabledChanged(not props.TeamCreateEnabled)
-            end,
-        }) or nil,
-    }
+		EnableTeamCreate = if teamCreateToggleEnabled then Roact.createElement(ToggleButtonWithTitle, {
+			Title = localization:getText("TeamCreate", "Title"),
+			LayoutOrder = layoutOrder:getNextOrder(),
+			Disabled = false,
+			Selected = props.TeamCreateEnabled,
+			LinkProps = {
+				Text = localization:getText("TeamCreate", "LinkDescription"),
+				LinkText = localization:getText("TeamCreate", "LinkText"),
+				OnLinkClicked = function()
+					GuiService:OpenBrowserWindow(FStringTeamCreateLearnMoreLink)
+				end,
+			},
+			OnClick = function()
+				props.TeamCreateEnabledChanged(not props.TeamCreateEnabled)
+			end,
+		}, {
+			TeachingCallout = if FFlagPlacePublishTcToggleCalloutEnabled then Roact.createElement(TeachingCallout, {
+				DefinitionId = "PublishPlaceAsTeamCreateToggleCallout",
+				LocationId = "TeamCreateToggle", }) else nil,
+			}) else nil,
+	}
 
 	if FFlagStudioAllowRemoteSaveBeforePublish then
 		if props.IsPublish then

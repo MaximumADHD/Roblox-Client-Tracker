@@ -6,7 +6,6 @@ local Url = require(Plugin.Libs.Http.Url)
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 local Rollouts = require(Plugin.Core.Rollouts)
 
-local FFlagUseNewAssetPermissionEndpoint3 = game:GetFastFlag("UseNewAssetPermissionEndpoint3")
 
 local Urls = {}
 
@@ -425,11 +424,9 @@ function Urls.constructAssetPermissionsUrl(assetId)
 	return ASSET_PERMISSIONS:format(assetId)
 end
 
-if FFlagUseNewAssetPermissionEndpoint3 then
-	-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
-	function Urls.constructAssetCheckPermissionsUrl()
-		return ASSET_CHECK_PERMISSIONS
-	end
+-- TODO DEVTOOLS-4290: Only used in AssetConfiguration
+function Urls.constructAssetCheckPermissionsUrl()
+	return ASSET_CHECK_PERMISSIONS
 end
 
 function Urls.getRobuxPurchaseUrl()
@@ -447,17 +444,6 @@ end
 -- TODO DEVTOOLS-4290: Only used in AssetConfiguration
 function Urls.constructGetGroupRoleInfoUrl(groupId)
 	return GET_GROUP_ROLE_INFO:format(groupId)
-end
-
-if not FFlagUseNewAssetPermissionEndpoint3 then
-	--Need to remove URL below on flag change GET_PACKAGE_HIGHEST_PERMISSION_LIST
-	function Urls.constructPackageHighestPermissionUrl(assetIds)
-		local assetIdStringList = ""
-		for i, assetId in ipairs(assetIds) do
-			assetIdStringList = assetIdStringList .. assetId .. (assetIds[i+1] ~= nil and "," or "")
-		end
-		return GET_PACKAGE_HIGHEST_PERMISSION_LIST:format(assetIdStringList)
-	end
 end
 
 function Urls.constructCanManageAssetUrl(assetId, userId)

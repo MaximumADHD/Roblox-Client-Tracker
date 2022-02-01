@@ -5,7 +5,6 @@
 -- In most circumstances flags should be initialized to false
 
 -- New Plugin Setup: Define initial fast flag
-game:DefineFastFlag("StudioDebuggerPluginEditBreakpoint_alpha", false)
 game:DefineFastFlag("DebugPopulateDebuggerPlugin", false)
 
 return nil

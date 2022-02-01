@@ -4,10 +4,7 @@ return function()
 	local FrameworkTypes = require(script.Parent.FrameworkTypes)
 	local Symbol = require(Framework.Util.Symbol)
 	local Signal = require(Framework.Util.Signal)
-	local Flags = require(Framework.Util.Flags)
-	local FlagsList = Flags.new({
-		FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-	})
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	it("should typecheck Components", function()
 		expect(FrameworkTypes.Component({})).to.equal(false)
@@ -21,14 +18,26 @@ return function()
 	end)
 
 	it("should typecheck ContextItems", function()
-		expect(FrameworkTypes.ContextItem({})).to.equal(false)
-		expect(FrameworkTypes.ContextItem({
-			createProvider = {},
-		})).to.equal(false)
-		expect(FrameworkTypes.ContextItem({
-			createProvider = function()
-			end,
-		})).to.equal(true)
+		if FFlagRefactorDevFrameworkContextItems2 then
+			expect(FrameworkTypes.ContextItem(5)).to.equal(false)
+			expect(FrameworkTypes.ContextItem({})).to.equal(false)
+			expect(FrameworkTypes.ContextItem({
+				getSignal = {},
+			})).to.equal(false)
+			expect(FrameworkTypes.ContextItem({
+				getSignal = function()
+				end,
+			})).to.equal(true)
+		else
+			expect(FrameworkTypes.ContextItem({})).to.equal(false)
+			expect(FrameworkTypes.ContextItem({
+				createProvider = {},
+			})).to.equal(false)
+			expect(FrameworkTypes.ContextItem({
+				createProvider = function()
+				end,
+			})).to.equal(true)
+		end
 	end)
 
 	it("should typecheck Themes", function()
@@ -65,11 +74,8 @@ return function()
 	end)
 
 	it("should typecheck Focuses", function()
-		if FlagsList:get("FFlagRefactorDevFrameworkContextItems") then
-			expect(FrameworkTypes.Focus({})).to.equal(false)
-			expect(FrameworkTypes.Focus({
-				get = {},
-			})).to.equal(false)
+		if FFlagRefactorDevFrameworkContextItems2 then
+			expect(FrameworkTypes.Focus(5)).to.equal(false)
 			expect(FrameworkTypes.Focus({
 				get = function()
 				end,
