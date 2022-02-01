@@ -16,17 +16,14 @@ local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
-local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-})
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 local ShowOnTop = Roact.PureComponent:extend("ShowOnTop")
 Typecheck.wrap(ShowOnTop, script)
 
 function ShowOnTop:render()
 	local props = self.props
-	local target = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and props.Focus:get() or props.Focus:getTarget()
+	local target = FFlagRefactorDevFrameworkContextItems2 and props.Focus:get() or props.Focus:getTarget()
 	local priority = self.props.Priority or 0
 	return Roact.createElement(Roact.Portal, {
 		target = target,

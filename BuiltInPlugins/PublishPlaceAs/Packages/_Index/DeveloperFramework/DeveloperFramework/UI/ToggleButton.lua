@@ -32,6 +32,8 @@ local Button = require(Framework.UI.Button)
 local HoverArea = require(Framework.UI.HoverArea)
 local StyleModifier = Util.StyleModifier
 
+local FFlagPlacePublishTcToggleCalloutEnabled = game:GetFastFlag("PlacePublishTcToggleCalloutEnabled")
+
 local ToggleButton = Roact.PureComponent:extend("ToggleButton")
 Typecheck.wrap(ToggleButton, script)
 
@@ -88,6 +90,7 @@ function ToggleButton:render()
 		ZIndex = zIndex,
 	}, {
 		PointingHand = not isDisabled and Roact.createElement(HoverArea, {Cursor = "PointingHand"}) or nil,
+		TeachingCallout = if FFlagPlacePublishTcToggleCalloutEnabled and self.props[Roact.Children] then self.props[Roact.Children].TeachingCallout else nil,
 	})
 end
 

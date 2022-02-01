@@ -7,8 +7,6 @@ local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
 local TreeTable = UI.TreeTable
 
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
-
 local ExampleTreeTable = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeTable")
 
 function ExampleTreeTable:init()
@@ -164,7 +162,7 @@ function ExampleTreeTable:render()
 			return item.children or {}
 		end,
 		Scroll = true,
-		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and true,
+		FullSpan = true,
 	})
 end
 

@@ -23,11 +23,15 @@
 			is restored to its previous position and enabled state. Passes the
 			new enabled state as a parameter.
 
+		callback OnWidgetCreated: A callback for when the widget
+			is created, after OnWidgetRestored, passes the new enabled state as a parameter.
+
 		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
 			That method is run in its own thread, but that means creation of the widget is delayed.
 			Set this to true to create the widget immediately instead. Mostly useful for unit tests.
 		Instance Widget: an optional override of dockwidget instance
 
+		callback Roact.Change.Enabled: A callback for when the widget shows or hides.
 ]]
 local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
@@ -38,10 +42,9 @@ This DockWidget may restore as enabled, so we need to listen for that!]]
 local Framework = script.Parent.Parent
 local Typecheck = require(Framework.Util).Typecheck
 local createPluginWidget = require(Framework.StudioUI.createPluginWidget)
-local FFlagImprovePluginSpeed_Common = game:GetFastFlag("ImprovePluginSpeed_Common")
 
 local DockWidget = createPluginWidget("DockWidget", function(props)
-	if FFlagImprovePluginSpeed_Common and props.Widget then
+	if props.Widget then
 		return props.Widget
 	end
 

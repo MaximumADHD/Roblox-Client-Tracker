@@ -12,7 +12,6 @@
 		"id": 3454668784,
 		"name": "test_plugin3",
 		"description": "test_plugin3",
-		"commentsEnabled": true,
 		"versionId": 4170963656,
 		"created": "2019-07-11T23:04:39.167Z",
 		"updated": "2019-07-11T23:04:39.183Z"
@@ -28,7 +27,6 @@
 			it is facing. Best used in conjunction with the ResizeAlign plugin also by me:
 			############################################################
 			MESSAGE ME WITH ANY BUGS THAT YOU FIND, PREFERABLY GIVE ME A LINK TO A YOUTUBE VID WITH THE PROBLEM",
-		"commentsEnabled": true,
 		"versionId": 1887335469,
 		"created": "2014-07-10T20:40:37.74Z",
 		"updated": "2018-02-12T04:14:51.047Z"

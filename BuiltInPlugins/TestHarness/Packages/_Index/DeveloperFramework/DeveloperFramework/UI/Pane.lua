@@ -22,14 +22,18 @@
 		BorderBox: The pane has the current theme's main background with square border.
 		CornerBox: Uses UICorner for adjustable rounded border.
 ]]
-local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
-local isInputMainPress = require(Framework.Util.isInputMainPress)
+
+local Util = require(Framework.Util)
+local isInputMainPress = Util.isInputMainPress
+local prioritize = Util.prioritize
 
 local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
@@ -134,13 +138,13 @@ function Pane:render()
 	local className = getClassName(props, style)
 
 	local defaultProps = {
-		BackgroundTransparency = 1,
+		BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 1) else 1,
 		BorderSizePixel = 0,
 		Size = props.Size or UDim2.fromScale(scaleX, scaleY),
 	}
 	local color = props.BackgroundColor3 or props.BackgroundColor or style.Background
 	if color then
-		defaultProps.BackgroundTransparency = 0
+		defaultProps.BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 0) else 0
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
@@ -151,9 +155,7 @@ function Pane:render()
 		props[Roact.Event.MouseButton2Click] = props.OnRightClick
 	end
 	if hasClickFunctionality and not style.Image then
-		if FFlagDevFrameworkRefactorExpandablePaneHeader then
-			props.AutoButtonColor = false
-		end
+		props.AutoButtonColor = false
 		props.Text = ""
 	end
 
@@ -188,6 +190,10 @@ function Pane:render()
 		})
 	end
 
+	if FFlagDevFrameworkForwardRef and props.ForwardRef then
+		defaultProps[Roact.Ref] = props.ForwardRef
+	end
+
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",
@@ -204,6 +210,7 @@ function Pane:render()
 		"OnClick",
 		"OnRightClick",
 		"OnPress",
+		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
 
 	return Roact.createElement(className, componentProps, children)

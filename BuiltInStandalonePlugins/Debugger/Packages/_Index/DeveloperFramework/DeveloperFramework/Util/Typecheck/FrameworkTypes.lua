@@ -7,10 +7,7 @@ local Framework = script.Parent.Parent.Parent
 local StyleModifier = require(Framework.Util.StyleModifier)
 local t = require(script.Parent.t)
 local FrameworkTypes = {}
-local Flags = require(Framework.Util.Flags)
-local FlagsList = Flags.new({
-	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-})
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 function FrameworkTypes.Component(value)
 	local errMsg = "Component expected, got %s."
@@ -23,7 +20,7 @@ end
 function FrameworkTypes.ContextItem(value)
 	local errMsg = "ContextItem expected, got %s."
 	local missingMethod = false
-	if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
+	if FFlagRefactorDevFrameworkContextItems2 then
 		missingMethod = not t.table(value) or not t.callback(value.getSignal)
 	else
 		missingMethod = not t.table(value) or not t.callback(value.createProvider)
@@ -68,7 +65,7 @@ end
 
 function FrameworkTypes.Focus(value)
 	local errMsg = "Focus expected, got %s."
-	if not t.table(value) or not t.callback(FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and value.get or value.getTarget) then
+	if not t.table(value) or not t.callback(FFlagRefactorDevFrameworkContextItems2 and value.get or value.getTarget) then
 		return false, errMsg:format(type(value))
 	end
 	return true

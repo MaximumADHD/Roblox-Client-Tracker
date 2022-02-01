@@ -13,13 +13,13 @@ return function(new: Indices, old: Indices, listSize: number): Indices
 	local isNewLeadPresent: boolean = new.leadIndex ~= nil
 	local isNewTrailPresent: boolean = new.trailIndex ~= nil
 
-	local finalAnchorIndex: number = tonumber(new.anchorIndex or 0)
-	local finalLeadIndex: number = tonumber(new.leadIndex or 0)
-	local finalTrailIndex: number = tonumber(new.trailIndex or 0)
+	local finalAnchorIndex: number = new.anchorIndex or 0
+	local finalLeadIndex: number = new.leadIndex or 0
+	local finalTrailIndex: number = new.trailIndex or 0
 
-	local oldAnchorIndex: number = tonumber(old.anchorIndex or 0)
-	local oldLeadIndex: number = tonumber(old.leadIndex or 0)
-	local oldTrailIndex: number = tonumber(old.trailIndex or 0)
+	local oldAnchorIndex: number = old.anchorIndex or 0
+	local oldLeadIndex: number = old.leadIndex or 0
+	local oldTrailIndex: number = old.trailIndex or 0
 
 	-- There are 8 possibilities here as any combination of these could be deleted. Also, we can't use findIndexAt
 	-- here since that requires access to the children's measurements.

@@ -53,7 +53,6 @@ local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
 
 local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -104,13 +103,11 @@ function TextLabel:render()
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
 		ZIndex = zIndex,
-		[Roact.Ref] = (FFlagTextLabelRefProps or FFlagToggleTreeTableTooltip) and ref or nil,
+		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and onAbsoluteSizeChange or nil,
 	}
 
-	if FFlagToggleTreeTableTooltip then
-		textLabelProps[Roact.Ref] = self.props[Roact.Ref]
-	end
+	textLabelProps[Roact.Ref] = self.props[Roact.Ref]
 	
 	if fitWidth then
 		local maximumWidth
