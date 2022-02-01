@@ -844,11 +844,6 @@
       }
     },
     {
-      "WebPageStyleSheet": {
-        "Default": ""
-      }
-    },
-    {
       "ResponsiveUIToggleOnIcon": {
         "Default": ":/images/ResponsiveUI/Toggle/toggle_on_light.png",
         "Disabled": ":/images/ResponsiveUI/Toggle/toggle_on_disable_light.png"
@@ -971,7 +966,7 @@
       "dimmedText": "#B8B8B8",
       "linkText": "#FF00A2FF",
       "textRenderType": 1,
-      "fontWeight": 25
+      "fontWeight": 50
     },
     "Ribbon": {
         "background": "#FFFFFF",

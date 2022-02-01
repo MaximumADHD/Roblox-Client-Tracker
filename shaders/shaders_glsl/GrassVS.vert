@@ -6,7 +6,7 @@
 #include <GrassPerFrameParams.h>
 uniform vec4 CB0[53];
 uniform vec4 CB1[2];
-uniform vec4 CB2[2];
+uniform vec4 CB2[3];
 attribute vec4 POSITION;
 attribute vec4 NORMAL;
 varying vec4 VARYING0;

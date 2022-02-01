@@ -4489,25 +4489,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "PerformCreateOutfit",
-                    "Parameters": [
-                        {
-                            "Name": "name",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "PerformCreateOutfitWithDescription",
                     "Parameters": [
                         {
@@ -4553,32 +4534,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "void"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "PerformSaveAvatarNew",
-                    "Parameters": [
-                        {
-                            "Name": "addedAssets",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
-                            }
-                        },
-                        {
-                            "Name": "removedAssets",
-                            "Type": {
-                                "Category": "Group",
-                                "Name": "Array"
                             }
                         }
                     ],
@@ -9397,17 +9352,6 @@
                 "NotCreatable",
                 "Service",
                 "NotReplicated"
-            ]
-        },
-        {
-            "Members": [
-            ],
-            "MemoryCategory": "Instances",
-            "Name": "CSGCacheService",
-            "Superclass": "Instance",
-            "Tags": [
-                "NotCreatable",
-                "Service"
             ]
         },
         {
@@ -22846,26 +22790,53 @@
         {
             "Members": [
                 {
-                    "Category": "State",
+                    "Category": "Data",
                     "MemberType": "Property",
                     "Name": "GamepadCursorEnabled",
                     "Security": {
-                        "Read": "RobloxScriptSecurity",
+                        "Read": "None",
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
-                        "CanSave": false
+                        "CanLoad": true,
+                        "CanSave": true
                     },
-                    "Tags": [
-                        "Hidden",
-                        "NotReplicated"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "DisableGamepadCursor",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "EnableGamepadCursor",
+                    "Parameters": [
+                        {
+                            "Name": "guiObject",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -37750,6 +37721,17 @@
             "Members": [
             ],
             "MemoryCategory": "Instances",
+            "Name": "LSPService",
+            "Superclass": "Instance",
+            "Tags": [
+                "Service",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
             "Name": "LanguageService",
             "Superclass": "Instance",
             "Tags": [
@@ -39813,7 +39795,7 @@
                             "Name": "timestamp",
                             "Type": {
                                 "Category": "Primitive",
-                                "Name": "int"
+                                "Name": "double"
                             }
                         }
                     ],
@@ -42339,7 +42321,49 @@
                 {
                     "Category": "Terrain Overrides",
                     "MemberType": "Property",
+                    "Name": "TerrainSlate",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
                     "Name": "TerrainSnow",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "MaterialVariant"
+                    }
+                },
+                {
+                    "Category": "Terrain Overrides",
+                    "MemberType": "Property",
+                    "Name": "TerrainWoodPlanks",
                     "Security": {
                         "Read": "RobloxSecurity",
                         "Write": "RobloxSecurity"
@@ -42657,7 +42681,7 @@
                     }
                 },
                 {
-                    "Category": "Appearance For Part",
+                    "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "StudsPerTile",
                     "Security": {
@@ -43774,12 +43798,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -43965,32 +43988,6 @@
                     "MemberType": "Function",
                     "Name": "Remove",
                     "Parameters": [
-                        {
-                            "Name": "status",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "SetCondition",
-                    "Parameters": [
-                        {
-                            "Name": "condition",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
                         {
                             "Name": "status",
                             "Type": {
@@ -50269,7 +50266,10 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Safe"
+                    "Tags": [
+                        "Deprecated"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Function",
@@ -50303,6 +50303,9 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -50337,6 +50340,9 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -50371,7 +50377,7 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -50405,7 +50411,7 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -50432,7 +50438,7 @@
                         "Name": "Objects"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "MemberType": "Function",
@@ -50509,6 +50515,9 @@
                         "Name": "bool"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -50535,6 +50544,9 @@
                         "Name": "bool"
                     },
                     "Security": "None",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -50833,6 +50845,24 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "GlobalWind",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Vector3"
                     }
                 },
                 {
@@ -62992,6 +63022,28 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "LuaSourceContainer"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "ScriptSourceEdited",
+                    "Parameters": [
+                        {
+                            "Name": "script",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "LuaSourceContainer"
+                            }
+                        },
+                        {
+                            "Name": "edits",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Array"
                             }
                         }
                     ],
@@ -83476,6 +83528,25 @@
                     "Tags": [
                         "Deprecated"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SubscribeRetry",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {

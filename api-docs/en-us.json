@@ -2684,23 +2684,28 @@
   "@roblox/globaltype/RaycastResult": {
     "documentation": "<p>A container for results from a raycast operation.</p>",
     "keys": {
+      "Distance": "@roblox/globaltype/RaycastResult.Distance",
       "Instance": "@roblox/globaltype/RaycastResult.Instance",
-      "Position": "@roblox/globaltype/RaycastResult.Position",
       "Material": "@roblox/globaltype/RaycastResult.Material",
+      "Position": "@roblox/globaltype/RaycastResult.Position",
       "Normal": "@roblox/globaltype/RaycastResult.Normal"
     },
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
+  },
+  "@roblox/globaltype/RaycastResult.Distance": {
+    "documentation": "<p>The distance between the ray origin and the intersection point.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
   },
   "@roblox/globaltype/RaycastResult.Instance": {
     "documentation": "<p>The <code>BasePart</code> that the ray intersected.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
   },
-  "@roblox/globaltype/RaycastResult.Position": {
-    "documentation": "<p>The position of the intersection between the ray and the part.</p>",
-    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
-  },
   "@roblox/globaltype/RaycastResult.Material": {
     "documentation": "<p>The <code>enum.Material</code> at the intersection point.</p>",
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
+  },
+  "@roblox/globaltype/RaycastResult.Position": {
+    "documentation": "<p>The position of the intersection between the ray and the part.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RaycastResult"
   },
   "@roblox/globaltype/RaycastResult.Normal": {
@@ -3326,9 +3331,11 @@
       "Y": "@roblox/globaltype/Vector2.Y",
       "Magnitude": "@roblox/globaltype/Vector2.Magnitude",
       "Unit": "@roblox/globaltype/Vector2.Unit",
-      "Lerp": "@roblox/globaltype/Vector2.Lerp",
+      "Cross": "@roblox/globaltype/Vector2.Cross",
       "Dot": "@roblox/globaltype/Vector2.Dot",
-      "Cross": "@roblox/globaltype/Vector2.Cross"
+      "Lerp": "@roblox/globaltype/Vector2.Lerp",
+      "Max": "@roblox/globaltype/Vector2.Max",
+      "Min": "@roblox/globaltype/Vector2.Min"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
   },
@@ -3364,6 +3371,44 @@
     "documentation": "<p>A normalized copy of the vector.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
   },
+  "@roblox/globaltype/Vector2.Cross/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector2.Cross/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector2.Cross": {
+    "documentation": "<p>Returns the cross product of the two vectors.</p>",
+    "params": [
+      {
+        "name": "other",
+        "documentation": "@roblox/globaltype/Vector2.Cross/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Vector2.Cross/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
+  },
+  "@roblox/globaltype/Vector2.Dot/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector2.Dot/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector2.Dot": {
+    "documentation": "<p>Returns a scalar dot product of the two vectors.</p>",
+    "params": [
+      {
+        "name": "v",
+        "documentation": "@roblox/globaltype/Vector2.Dot/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Vector2.Dot/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
+  },
   "@roblox/globaltype/Vector2.Lerp/param/0": {
     "documentation": ""
   },
@@ -3390,41 +3435,41 @@
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
   },
-  "@roblox/globaltype/Vector2.Dot/param/0": {
+  "@roblox/globaltype/Vector2.Max/param/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector2.Dot/return/0": {
+  "@roblox/globaltype/Vector2.Max/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector2.Dot": {
-    "documentation": "<p>Returns a scalar dot product of the two vectors.</p>",
+  "@roblox/globaltype/Vector2.Max": {
+    "documentation": "<p>Returns a <code>Vector2</code> where each component is the highest among the respective components of the provided <code>Vector2</code>s.</p>",
     "params": [
       {
-        "name": "v",
-        "documentation": "@roblox/globaltype/Vector2.Dot/param/0"
+        "name": "others...",
+        "documentation": "@roblox/globaltype/Vector2.Max/param/0"
       }
     ],
     "returns": [
-      "@roblox/globaltype/Vector2.Dot/return/0"
+      "@roblox/globaltype/Vector2.Max/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
   },
-  "@roblox/globaltype/Vector2.Cross/param/0": {
+  "@roblox/globaltype/Vector2.Min/param/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector2.Cross/return/0": {
+  "@roblox/globaltype/Vector2.Min/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector2.Cross": {
-    "documentation": "<p>Returns the cross product of the two vectors.</p>",
+  "@roblox/globaltype/Vector2.Min": {
+    "documentation": "<p>Returns a <code>Vector2</code> where each component is the lowest among the respective components of the provided <code>Vector2</code>s.</p>",
     "params": [
       {
-        "name": "other",
-        "documentation": "@roblox/globaltype/Vector2.Cross/param/0"
+        "name": "others...",
+        "documentation": "@roblox/globaltype/Vector2.Min/param/0"
       }
     ],
     "returns": [
-      "@roblox/globaltype/Vector2.Cross/return/0"
+      "@roblox/globaltype/Vector2.Min/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector2"
   },
@@ -3550,10 +3595,12 @@
       "Z": "@roblox/globaltype/Vector3.Z",
       "Magnitude": "@roblox/globaltype/Vector3.Magnitude",
       "Unit": "@roblox/globaltype/Vector3.Unit",
-      "Lerp": "@roblox/globaltype/Vector3.Lerp",
-      "Dot": "@roblox/globaltype/Vector3.Dot",
       "Cross": "@roblox/globaltype/Vector3.Cross",
-      "FuzzyEq": "@roblox/globaltype/Vector3.FuzzyEq"
+      "Dot": "@roblox/globaltype/Vector3.Dot",
+      "FuzzyEq": "@roblox/globaltype/Vector3.FuzzyEq",
+      "Lerp": "@roblox/globaltype/Vector3.Lerp",
+      "Max": "@roblox/globaltype/Vector3.Max",
+      "Min": "@roblox/globaltype/Vector3.Min"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
   },
@@ -3597,29 +3644,22 @@
     "documentation": "<p>A normalized copy of the Vector3.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
   },
-  "@roblox/globaltype/Vector3.Lerp/param/0": {
+  "@roblox/globaltype/Vector3.Cross/param/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector3.Lerp/param/1": {
+  "@roblox/globaltype/Vector3.Cross/return/0": {
     "documentation": ""
   },
-  "@roblox/globaltype/Vector3.Lerp/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Vector3.Lerp": {
-    "documentation": "<p>Returns a Vector3 linearly interpolated between this Vector3 and the given goal by the given alpha.</p>",
+  "@roblox/globaltype/Vector3.Cross": {
+    "documentation": "<p>Returns the cross product of the two vectors.</p>",
     "params": [
       {
-        "name": "goal",
-        "documentation": "@roblox/globaltype/Vector3.Lerp/param/0"
-      },
-      {
-        "name": "alpha",
-        "documentation": "@roblox/globaltype/Vector3.Lerp/param/1"
+        "name": "other",
+        "documentation": "@roblox/globaltype/Vector3.Cross/param/0"
       }
     ],
     "returns": [
-      "@roblox/globaltype/Vector3.Lerp/return/0"
+      "@roblox/globaltype/Vector3.Cross/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
   },
@@ -3639,25 +3679,6 @@
     ],
     "returns": [
       "@roblox/globaltype/Vector3.Dot/return/0"
-    ],
-    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
-  },
-  "@roblox/globaltype/Vector3.Cross/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Vector3.Cross/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Vector3.Cross": {
-    "documentation": "<p>Returns the cross product of the two vectors.</p>",
-    "params": [
-      {
-        "name": "other",
-        "documentation": "@roblox/globaltype/Vector3.Cross/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Vector3.Cross/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
   },
@@ -3684,6 +3705,70 @@
     ],
     "returns": [
       "@roblox/globaltype/Vector3.FuzzyEq/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
+  },
+  "@roblox/globaltype/Vector3.Lerp/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Lerp/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Lerp/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Lerp": {
+    "documentation": "<p>Returns a Vector3 linearly interpolated between this Vector3 and the given goal by the given alpha.</p>",
+    "params": [
+      {
+        "name": "goal",
+        "documentation": "@roblox/globaltype/Vector3.Lerp/param/0"
+      },
+      {
+        "name": "alpha",
+        "documentation": "@roblox/globaltype/Vector3.Lerp/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Vector3.Lerp/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
+  },
+  "@roblox/globaltype/Vector3.Max/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Max/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Max": {
+    "documentation": "<p>Returns a <code>Vector3</code> where each component is the highest among the respective components of the provided <code>Vector3</code>s.</p>",
+    "params": [
+      {
+        "name": "others...",
+        "documentation": "@roblox/globaltype/Vector3.Max/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Vector3.Max/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
+  },
+  "@roblox/globaltype/Vector3.Min/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Min/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Vector3.Min": {
+    "documentation": "<p>Returns a <code>Vector3</code> where each component is the lowest among the respective components of the provided <code>Vector3</code>s.</p>",
+    "params": [
+      {
+        "name": "others...",
+        "documentation": "@roblox/globaltype/Vector3.Min/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Vector3.Min/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/Vector3"
   },
@@ -5636,10 +5721,8 @@
   "@roblox/globaltype/AssetManagerService": {
     "documentation": "",
     "keys": {
-      "GetMeshId": "@roblox/globaltype/AssetManagerService.GetMeshId",
       "GetMeshIdFromAliasName": "@roblox/globaltype/AssetManagerService.GetMeshIdFromAliasName",
       "GetMeshIdFromAssetId": "@roblox/globaltype/AssetManagerService.GetMeshIdFromAssetId",
-      "GetTextureId": "@roblox/globaltype/AssetManagerService.GetTextureId",
       "GetTextureIdFromAliasName": "@roblox/globaltype/AssetManagerService.GetTextureIdFromAliasName",
       "GetTextureIdFromAssetId": "@roblox/globaltype/AssetManagerService.GetTextureIdFromAssetId",
       "HasUnpublishedChangesForLinkedSource": "@roblox/globaltype/AssetManagerService.HasUnpublishedChangesForLinkedSource",
@@ -5673,25 +5756,6 @@
       "MayBeLinkedSourceModified": "@roblox/globaltype/AssetManagerService.MayBeLinkedSourceModified"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/AssetManagerService"
-  },
-  "@roblox/globaltype/AssetManagerService.GetMeshId/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AssetManagerService.GetMeshId/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AssetManagerService.GetMeshId": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "aliasName",
-        "documentation": "@roblox/globaltype/AssetManagerService.GetMeshId/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AssetManagerService.GetMeshId/return/0"
-    ],
-    "learn_more_link": "https://developer.roblox.com/api-reference/function/AssetManagerService/GetMeshId"
   },
   "@roblox/globaltype/AssetManagerService.GetMeshIdFromAliasName/param/0": {
     "documentation": ""
@@ -5730,25 +5794,6 @@
       "@roblox/globaltype/AssetManagerService.GetMeshIdFromAssetId/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/AssetManagerService/GetMeshIdFromAssetId"
-  },
-  "@roblox/globaltype/AssetManagerService.GetTextureId/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AssetManagerService.GetTextureId/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/AssetManagerService.GetTextureId": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "aliasName",
-        "documentation": "@roblox/globaltype/AssetManagerService.GetTextureId/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/AssetManagerService.GetTextureId/return/0"
-    ],
-    "learn_more_link": "https://developer.roblox.com/api-reference/function/AssetManagerService/GetTextureId"
   },
   "@roblox/globaltype/AssetManagerService.GetTextureIdFromAliasName/param/0": {
     "documentation": ""
@@ -9617,13 +9662,13 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/BasePlayerGui"
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/param/0": {
-    "documentation": "<p>The x position on the screen relative to the top left corner after the <code>GuiService.GuiInset</code> is applied</p>"
+    "documentation": "<p>The x position on the screen relative to the top left corner after the <code>GuiService:GetGuiInset</code> is applied</p>"
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/param/1": {
-    "documentation": "<p>The y position on the screen relative to the top left corner after the <code>GuiService.GuiInset</code> is applied</p>"
+    "documentation": "<p>The y position on the screen relative to the top left corner after the <code>GuiService:GetGuiInset</code> is applied</p>"
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition/return/0": {
-    "documentation": "<p>A table of the visible <code>GuiObject</code> that occupy the given screen space</p>"
+    "documentation": "<p>A table of the visible <code>GuiObject</code>s that occupy the given screen space</p>"
   },
   "@roblox/globaltype/BasePlayerGui.GetGuiObjectsAtPosition": {
     "documentation": "<p>Returns a list of visible <code>GuiObject</code> occupying the given point on the screen</p>",
@@ -16826,16 +16871,16 @@
     "documentation": "<p>Key name for the versions to list. If <code>DataStoreOptions.AllScopes</code> was set to true when accessing the data store through <code>DataStoreService:GetDataStore</code>, this key name must be prepended with the original scope as in \"scope/key\".</p>"
   },
   "@roblox/globaltype/DataStore.ListVersionsAsync/param/1": {
-    "documentation": "<p><strong>(Optional)</strong> Enum specifying ascending or descending sort order. Default is ascending.</p>"
+    "documentation": "<p>Enum specifying ascending or descending sort order.</p>"
   },
   "@roblox/globaltype/DataStore.ListVersionsAsync/param/2": {
-    "documentation": "<p><strong>(Optional)</strong> Date after which the versions should be listed.</p>"
+    "documentation": "<p>Date after which the versions should be listed.</p>"
   },
   "@roblox/globaltype/DataStore.ListVersionsAsync/param/3": {
-    "documentation": "<p><strong>(Optional)</strong> Date up to which the versions should be listed.</p>"
+    "documentation": "<p>Date up to which the versions should be listed.</p>"
   },
   "@roblox/globaltype/DataStore.ListVersionsAsync/param/4": {
-    "documentation": "<p><strong>(Optional)</strong> Number of items to be returned in each page.</p>"
+    "documentation": "<p>Number of items to be returned in each page.</p>"
   },
   "@roblox/globaltype/DataStore.ListVersionsAsync/return/0": {
     "documentation": "<p>A <code>DataStoreVersionPages</code> instance that enumerates all the versions of the key as <code>DataStoreObjectVersionInfo</code> instances.</p>"
@@ -75162,8 +75207,53 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
+  "@roblox/enum/Material.SmoothPlastic": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Neon": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
   "@roblox/enum/Material.Wood": {
     "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.WoodPlanks": {
+    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Marble": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Basalt": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75180,8 +75270,89 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
+  "@roblox/enum/Material.CrackedLava": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
   "@roblox/enum/Material.Concrete": {
     "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Limestone": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Granite": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Pavement": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Brick": {
+    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Pebble": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Cobblestone": {
+    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Rock": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Sandstone": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75216,6 +75387,15 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
+  "@roblox/enum/Material.Metal": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
   "@roblox/enum/Material.Grass": {
     "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
     "keys": {
@@ -75225,44 +75405,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.Ice": {
-    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Marble": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Granite": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Brick": {
-    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Pebble": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+  "@roblox/enum/Material.LeafyGrass": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75288,8 +75432,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.SmoothPlastic": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+  "@roblox/enum/Material.Snow": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75297,8 +75441,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.Metal": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+  "@roblox/enum/Material.Mud": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75306,7 +75450,34 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.WoodPlanks": {
+  "@roblox/enum/Material.Ground": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Asphalt": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Salt": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Ice": {
     "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
@@ -75315,8 +75486,26 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.Cobblestone": {
-    "documentation": "<p>Applies to <code>BasePart</code> and <code>Terrain</code>.</p>",
+  "@roblox/enum/Material.Glacier": {
+    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.Glass": {
+    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
+  },
+  "@roblox/enum/Material.ForceField": {
+    "documentation": "<p>Applies to <code>BasePart</code> only; see <a href=\"/articles/force-field-material\">details</a>.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -75342,190 +75531,46 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
-  "@roblox/enum/Material.Rock": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Glacier": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Snow": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Sandstone": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Mud": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Basalt": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Ground": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.CrackedLava": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Neon": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Glass": {
-    "documentation": "<p>Applies to <code>BasePart</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Asphalt": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.LeafyGrass": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Salt": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Limestone": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.Pavement": {
-    "documentation": "<p>Applies to <code>Terrain</code> only.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
-  "@roblox/enum/Material.ForceField": {
-    "documentation": "<p>Applies to <code>BasePart</code> only; see <a href=\"/articles/force-field-material\">details</a>.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
-  },
   "@roblox/enum/Material": {
     "documentation": "",
     "keys": {
       "Plastic": "@roblox/enum/Material.Plastic",
+      "SmoothPlastic": "@roblox/enum/Material.SmoothPlastic",
+      "Neon": "@roblox/enum/Material.Neon",
       "Wood": "@roblox/enum/Material.Wood",
+      "WoodPlanks": "@roblox/enum/Material.WoodPlanks",
+      "Marble": "@roblox/enum/Material.Marble",
+      "Basalt": "@roblox/enum/Material.Basalt",
       "Slate": "@roblox/enum/Material.Slate",
+      "CrackedLava": "@roblox/enum/Material.CrackedLava",
       "Concrete": "@roblox/enum/Material.Concrete",
+      "Limestone": "@roblox/enum/Material.Limestone",
+      "Granite": "@roblox/enum/Material.Granite",
+      "Pavement": "@roblox/enum/Material.Pavement",
+      "Brick": "@roblox/enum/Material.Brick",
+      "Pebble": "@roblox/enum/Material.Pebble",
+      "Cobblestone": "@roblox/enum/Material.Cobblestone",
+      "Rock": "@roblox/enum/Material.Rock",
+      "Sandstone": "@roblox/enum/Material.Sandstone",
       "CorrodedMetal": "@roblox/enum/Material.CorrodedMetal",
       "DiamondPlate": "@roblox/enum/Material.DiamondPlate",
       "Foil": "@roblox/enum/Material.Foil",
+      "Metal": "@roblox/enum/Material.Metal",
       "Grass": "@roblox/enum/Material.Grass",
-      "Ice": "@roblox/enum/Material.Ice",
-      "Marble": "@roblox/enum/Material.Marble",
-      "Granite": "@roblox/enum/Material.Granite",
-      "Brick": "@roblox/enum/Material.Brick",
-      "Pebble": "@roblox/enum/Material.Pebble",
+      "LeafyGrass": "@roblox/enum/Material.LeafyGrass",
       "Sand": "@roblox/enum/Material.Sand",
       "Fabric": "@roblox/enum/Material.Fabric",
-      "SmoothPlastic": "@roblox/enum/Material.SmoothPlastic",
-      "Metal": "@roblox/enum/Material.Metal",
-      "WoodPlanks": "@roblox/enum/Material.WoodPlanks",
-      "Cobblestone": "@roblox/enum/Material.Cobblestone",
-      "Air": "@roblox/enum/Material.Air",
-      "Water": "@roblox/enum/Material.Water",
-      "Rock": "@roblox/enum/Material.Rock",
-      "Glacier": "@roblox/enum/Material.Glacier",
       "Snow": "@roblox/enum/Material.Snow",
-      "Sandstone": "@roblox/enum/Material.Sandstone",
       "Mud": "@roblox/enum/Material.Mud",
-      "Basalt": "@roblox/enum/Material.Basalt",
       "Ground": "@roblox/enum/Material.Ground",
-      "CrackedLava": "@roblox/enum/Material.CrackedLava",
-      "Neon": "@roblox/enum/Material.Neon",
-      "Glass": "@roblox/enum/Material.Glass",
       "Asphalt": "@roblox/enum/Material.Asphalt",
-      "LeafyGrass": "@roblox/enum/Material.LeafyGrass",
       "Salt": "@roblox/enum/Material.Salt",
-      "Limestone": "@roblox/enum/Material.Limestone",
-      "Pavement": "@roblox/enum/Material.Pavement",
-      "ForceField": "@roblox/enum/Material.ForceField"
+      "Ice": "@roblox/enum/Material.Ice",
+      "Glacier": "@roblox/enum/Material.Glacier",
+      "Glass": "@roblox/enum/Material.Glass",
+      "ForceField": "@roblox/enum/Material.ForceField",
+      "Air": "@roblox/enum/Material.Air",
+      "Water": "@roblox/enum/Material.Water"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Material"
   },
@@ -75796,6 +75841,42 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
   },
+  "@roblox/enum/MeshType.Sphere": {
+    "documentation": "<p>The mesh is a sphere.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
+  },
+  "@roblox/enum/MeshType.Cylinder": {
+    "documentation": "<p>The mesh is a cylinder.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
+  },
+  "@roblox/enum/MeshType.FileMesh": {
+    "documentation": "<p>The mesh is determined by the Roblox mesh asset id provided.</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
+  },
+  "@roblox/enum/MeshType.Brick": {
+    "documentation": "<p>The mesh is a brick (just like the shape of a default <code>BasePart</code>)</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
+  },
   "@roblox/enum/MeshType.Prism": {
     "documentation": "<p>The mesh is a prism.</p>",
     "keys": {
@@ -75841,57 +75922,21 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
   },
-  "@roblox/enum/MeshType.Brick": {
-    "documentation": "<p>The mesh is a brick (just like the shape of a default <code>BasePart</code>)</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
-  },
-  "@roblox/enum/MeshType.Sphere": {
-    "documentation": "<p>The mesh is a sphere.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
-  },
-  "@roblox/enum/MeshType.Cylinder": {
-    "documentation": "<p>The mesh is a cylinder.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
-  },
-  "@roblox/enum/MeshType.FileMesh": {
-    "documentation": "<p>The mesh is determined by the Roblox mesh asset id provided.</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
-  },
   "@roblox/enum/MeshType": {
     "documentation": "",
     "keys": {
       "Head": "@roblox/enum/MeshType.Head",
       "Torso": "@roblox/enum/MeshType.Torso",
       "Wedge": "@roblox/enum/MeshType.Wedge",
+      "Sphere": "@roblox/enum/MeshType.Sphere",
+      "Cylinder": "@roblox/enum/MeshType.Cylinder",
+      "FileMesh": "@roblox/enum/MeshType.FileMesh",
+      "Brick": "@roblox/enum/MeshType.Brick",
       "Prism": "@roblox/enum/MeshType.Prism",
       "Pyramid": "@roblox/enum/MeshType.Pyramid",
       "ParallelRamp": "@roblox/enum/MeshType.ParallelRamp",
       "RightAngleRamp": "@roblox/enum/MeshType.RightAngleRamp",
-      "CornerWedge": "@roblox/enum/MeshType.CornerWedge",
-      "Brick": "@roblox/enum/MeshType.Brick",
-      "Sphere": "@roblox/enum/MeshType.Sphere",
-      "Cylinder": "@roblox/enum/MeshType.Cylinder",
-      "FileMesh": "@roblox/enum/MeshType.FileMesh"
+      "CornerWedge": "@roblox/enum/MeshType.CornerWedge"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/MeshType"
   },
@@ -79275,15 +79320,6 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/SortDirection"
   },
-  "@roblox/enum/SortOrder.LayoutOrder": {
-    "documentation": "<p>Elements will be ordered by LayoutOrder in ascending order (e.g. 0 will be placed before 1).</p>",
-    "keys": {
-      "Name": "@roblox/globaltype/EnumItem.Name",
-      "Value": "@roblox/globaltype/EnumItem.Value",
-      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
-    },
-    "learn_more_link": "https://developer.roblox.com/api-reference/enum/SortOrder"
-  },
   "@roblox/enum/SortOrder.Name": {
     "documentation": "<p>Elements will be ordered by their name in alphabetical order (e.g. Apple will be placed before Banana).</p>",
     "keys": {
@@ -79302,12 +79338,21 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/SortOrder"
   },
+  "@roblox/enum/SortOrder.LayoutOrder": {
+    "documentation": "<p>Elements will be ordered by LayoutOrder in ascending order (e.g. 0 will be placed before 1).</p>",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://developer.roblox.com/api-reference/enum/SortOrder"
+  },
   "@roblox/enum/SortOrder": {
     "documentation": "",
     "keys": {
-      "LayoutOrder": "@roblox/enum/SortOrder.LayoutOrder",
       "Name": "@roblox/enum/SortOrder.Name",
-      "Custom": "@roblox/enum/SortOrder.Custom"
+      "Custom": "@roblox/enum/SortOrder.Custom",
+      "LayoutOrder": "@roblox/enum/SortOrder.LayoutOrder"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/SortOrder"
   },
@@ -81759,8 +81804,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/TableMajorAxis"
   },
-  "@roblox/enum/Technology.Compatibility": {
-    "documentation": "<p>An approximation of Legacy rendering using newer Future is Bright technology. <a href=\"https://devforum.roblox.com/t/deprecating-lighting-legacy-introducing-lighting-compatibility/232667\">More details</a></p>\n<p><img alt=\"Compatibility\" src=\"/assets/bltb74b240924f43951/Technology.Compatibility.jpg\" /></p>",
+  "@roblox/enum/Technology.Legacy": {
+    "documentation": "<p>Lighting technology that predates Future-Is-Bright. It is no longer available.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -81777,8 +81822,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Technology"
   },
-  "@roblox/enum/Technology.ShadowMap": {
-    "documentation": "<p>Future-Is-Bright lighting features. Features crisp shadows.</p>\n<p><img alt=\"ShadowMap\" src=\"/assets/blt5d79df0c0af20ab8/Technology.ShadowMap.jpg\" /></p>",
+  "@roblox/enum/Technology.Compatibility": {
+    "documentation": "<p>An approximation of Legacy rendering using newer Future is Bright technology. <a href=\"https://devforum.roblox.com/t/deprecating-lighting-legacy-introducing-lighting-compatibility/232667\">More details</a></p>\n<p><img alt=\"Compatibility\" src=\"/assets/bltb74b240924f43951/Technology.Compatibility.jpg\" /></p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -81786,8 +81831,8 @@
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Technology"
   },
-  "@roblox/enum/Technology.Legacy": {
-    "documentation": "<p>Lighting technology that predates Future-Is-Bright. It is no longer available.</p>",
+  "@roblox/enum/Technology.ShadowMap": {
+    "documentation": "<p>Future-Is-Bright lighting features. Features crisp shadows.</p>\n<p><img alt=\"ShadowMap\" src=\"/assets/blt5d79df0c0af20ab8/Technology.ShadowMap.jpg\" /></p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -81807,10 +81852,10 @@
   "@roblox/enum/Technology": {
     "documentation": "",
     "keys": {
-      "Compatibility": "@roblox/enum/Technology.Compatibility",
-      "Voxel": "@roblox/enum/Technology.Voxel",
-      "ShadowMap": "@roblox/enum/Technology.ShadowMap",
       "Legacy": "@roblox/enum/Technology.Legacy",
+      "Voxel": "@roblox/enum/Technology.Voxel",
+      "Compatibility": "@roblox/enum/Technology.Compatibility",
+      "ShadowMap": "@roblox/enum/Technology.ShadowMap",
       "Future": "@roblox/enum/Technology.Future"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/Technology"

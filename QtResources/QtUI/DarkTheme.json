@@ -850,11 +850,6 @@
       }
     },
     {
-      "WebPageStyleSheet": {
-        "Default": "qrc:/RobloxStudio_WebPage.css"
-      }
-    },
-    {
       "ResponsiveUIToggleOnIcon": {
         "Default": ":/images/ResponsiveUI/Toggle/toggle_on_dark.png",
         "Disabled": ":/images/ResponsiveUI/Toggle/toggle_on_disable_dark.png"

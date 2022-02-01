@@ -233,11 +233,9 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool AvatarEditorService:NoPromptSaveAvatar(HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType, Dictionary saveDict, int64 gearAssetId = 0) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptSetFavorite(int64 itemId, Enum.AvatarItemType itemType, bool shouldFavorite) {RobloxScriptSecurity}
 	Function bool AvatarEditorService:NoPromptUpdateOutfit(int64 outfitId, HumanoidDescription humanoidDescription, Enum.HumanoidRigType rigType) {RobloxScriptSecurity}
-	Function void AvatarEditorService:PerformCreateOutfit(string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformCreateOutfitWithDescription(HumanoidDescription humanoidDescription, string name) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformDeleteOutfit() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformRenameOutfit(string name) {RobloxScriptSecurity}
-	Function void AvatarEditorService:PerformSaveAvatarNew(Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSaveAvatarWithDescription(HumanoidDescription humanoidDescription, Array addedAssets, Array removedAssets) {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformSetFavorite() {RobloxScriptSecurity}
 	Function void AvatarEditorService:PerformUpdateOutfit(HumanoidDescription humanoidDescription) {RobloxScriptSecurity}
@@ -485,7 +483,6 @@ Class BulkImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event BulkImportService.AssetImported(Enum.AssetType assetType, string name, int64 id) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportFinished(int state) {RobloxScriptSecurity}
 	Event BulkImportService.BulkImportStarted() {RobloxScriptSecurity}
-Class CSGCacheService : Instance [NotCreatable] [Service]
 Class CacheableContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
 Class HSRDataContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
 Class MeshContentProvider : CacheableContentProvider [NotCreatable] [Service] [NotReplicated]
@@ -1212,7 +1209,9 @@ Class GameSettings : Instance [NotCreatable] [Settings] [NotBrowsable]
 	Property bool GameSettings.VideoRecording {RobloxScriptSecurity} {✏️RobloxSecurity} [<📁> LoadOnly] [NotReplicated]
 	Event GameSettings.VideoRecordingChangeRequest(bool recording) {RobloxScriptSecurity}
 Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property bool GamepadService.GamepadCursorEnabled {RobloxScriptSecurity} [Hidden] [NotReplicated]
+	Property bool GamepadService.GamepadCursorEnabled {✏️RobloxScriptSecurity}
+	Function void GamepadService:DisableGamepadCursor()
+	Function void GamepadService:EnableGamepadCursor(Instance guiObject)
 	Function Vector2 GamepadService:GetGamepadCursorPosition() {RobloxScriptSecurity}
 	Function void GamepadService:SetGamepadCursorPosition(Vector2 position) {RobloxScriptSecurity}
 	Event GamepadService.GamepadThumbstick1Changed(Vector2 event) {RobloxScriptSecurity}
@@ -2028,6 +2027,7 @@ Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicate
 	Function Dictionary KeyframeSequenceProvider:GetMemStats() {RobloxScriptSecurity}
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
+Class LSPService : Instance [Service] [NotReplicated]
 Class LanguageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Light : Instance [NotCreatable]
 	Property float Light.Brightness
@@ -2137,7 +2137,7 @@ Class LogService : Instance [NotCreatable] [Service]
 	Event LogService.MessageOut(string message, Enum.MessageType messageType)
 	Event LogService.OnHttpResultApproved(bool isApproved) {RobloxScriptSecurity}
 	Event LogService.ServerHttpResultOut(Dictionary httpResult) {RobloxScriptSecurity}
-	Event LogService.ServerMessageOut(string message, Enum.MessageType messageType, int timestamp) {RobloxScriptSecurity}
+	Event LogService.ServerMessageOut(string message, Enum.MessageType messageType, double timestamp) {RobloxScriptSecurity}
 Class LoginService : Instance [NotCreatable] [Service]
 	Function void LoginService:Logout() {RobloxSecurity}
 	Function void LoginService:PromptLogin() {RobloxSecurity}
@@ -2256,7 +2256,9 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property MaterialVariant MaterialService.TerrainSalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainSand {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainSandstone {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainSlate {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainSnow {RobloxSecurity} [NotScriptable]
+	Property MaterialVariant MaterialService.TerrainWoodPlanks {RobloxSecurity} [NotScriptable]
 	Property bool MaterialService.hasPropertyWarningInStudio {RobloxSecurity} [Hidden] [ReadOnly]
 	Function void MaterialService:ClearOverridePartMaterial(Enum.Material material)
 	Function void MaterialService:ClearOverrideTerrainMaterial(Enum.Material material)
@@ -2317,7 +2319,7 @@ Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void MessagingService:PublishAsync(string topic, Variant message) [Yields]
 	Function RBXScriptConnection MessagingService:SubscribeAsync(string topic, Function callback) [Yields]
 Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
-	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string MetaBreakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2327,7 +2329,6 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Function Array MetaBreakpoint:GetContexts() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
-	Function int MetaBreakpoint:SetCondition(Instance condition, Function status) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
 	Function int MetaBreakpoint:SetLine(int line, Function status) {RobloxScriptSecurity}
@@ -2638,15 +2639,15 @@ Class WorldRoot : Model [NotCreatable]
 	Function Tuple WorldRoot:FindPartOnRay(Ray ray, Instance ignoreDescendantsInstance = nil, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithIgnoreList(Ray ray, Objects ignoreDescendantsTable, bool terrainCellsAreCubes = false, bool ignoreWater = false) [Deprecated]
 	Function Tuple WorldRoot:FindPartOnRayWithWhitelist(Ray ray, Objects whitelistDescendantsTable, bool ignoreWater = false) [Deprecated]
-	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) {🧬Safe}
-	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20)
-	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20)
-	Function Objects WorldRoot:GetPartBoundsInBox(CFrame cframe, Vector3 size, OverlapParams overlapParams = OverlapParams.new())
-	Function Objects WorldRoot:GetPartBoundsInRadius(Vector3 position, float radius, OverlapParams overlapParams = OverlapParams.new())
-	Function Objects WorldRoot:GetPartsInPart(BasePart part, OverlapParams overlapParams = OverlapParams.new())
+	Function Objects WorldRoot:FindPartsInRegion3(Region3 region, Instance ignoreDescendantsInstance = nil, int maxParts = 20) [Deprecated]
+	Function Objects WorldRoot:FindPartsInRegion3WithIgnoreList(Region3 region, Objects ignoreDescendantsTable, int maxParts = 20) [Deprecated]
+	Function Objects WorldRoot:FindPartsInRegion3WithWhiteList(Region3 region, Objects whitelistDescendantsTable, int maxParts = 20) [Deprecated]
+	Function Objects WorldRoot:GetPartBoundsInBox(CFrame cframe, Vector3 size, OverlapParams overlapParams = OverlapParams.new()) {🧬Safe}
+	Function Objects WorldRoot:GetPartBoundsInRadius(Vector3 position, float radius, OverlapParams overlapParams = OverlapParams.new()) {🧬Safe}
+	Function Objects WorldRoot:GetPartsInPart(BasePart part, OverlapParams overlapParams = OverlapParams.new()) {🧬Safe}
 	Function void WorldRoot:IKMoveTo(BasePart part, CFrame target, float translateStiffness = 0.5, float rotateStiffness = 0.5, Enum.IKCollisionsMode collisionsMode = "OtherMechanismsAnchored") {PluginSecurity}
-	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil)
-	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable)
+	Function bool WorldRoot:IsRegion3Empty(Region3 region, Instance ignoreDescendentsInstance = nil) [Deprecated]
+	Function bool WorldRoot:IsRegion3EmptyWithIgnoreList(Region3 region, Objects ignoreDescendentsTable) [Deprecated]
 	Function RaycastResult WorldRoot:Raycast(Vector3 origin, Vector3 direction, RaycastParams raycastParams = RaycastParams.new()) {🧬Safe}
 	Function void WorldRoot:SetInsertPoint(Vector3 point, bool ignoreGrid = false) {RobloxScriptSecurity}
 Class Workspace : WorldRoot [NotCreatable] [Service]
@@ -2655,6 +2656,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.ClientAnimatorThrottlingMode Workspace.ClientAnimatorThrottling
 	Property float Workspace.FallenPartsDestroyHeight {✏️PluginSecurity}
 	Property bool Workspace.FilteringEnabled {✏️PluginSecurity} [Hidden] [NotReplicated] [Deprecated]
+	Property Vector3 Workspace.GlobalWind
 	Property float Workspace.Gravity
 	Property Enum.HumanoidOnlySetCollisionsOnStateChange Workspace.HumanoidOnlySetCollisionsOnStateChange [NotScriptable]
 	Property Enum.InterpolationThrottlingMode Workspace.InterpolationThrottling {✏️PluginSecurity}
@@ -3307,6 +3309,7 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptChanged(LuaSourceContainer script, string property) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptFullNameChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
+	Event ScriptChangeService.ScriptSourceEdited(LuaSourceContainer script, Array edits) {RobloxScriptSecurity}
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -4389,6 +4392,7 @@ Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Function bool VoiceChatInternal:SubscribeBlock(int64 userId) {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:SubscribePause(int64 userId, bool paused) [Deprecated]
 	Function bool VoiceChatInternal:SubscribePauseAll(bool paused) [Deprecated]
+	Function bool VoiceChatInternal:SubscribeRetry(int64 userId) {RobloxScriptSecurity}
 	Function bool VoiceChatInternal:SubscribeUnblock(int64 userId) {RobloxScriptSecurity}
 	Event VoiceChatInternal.ParticipantsStateChanged(Array participantsLeft, Array participantsJoined, Array updatedStates) {RobloxScriptSecurity} [Deprecated]
 	Event VoiceChatInternal.PlayerMicActivitySignalChange(Dictionary activityInfo) {RobloxScriptSecurity} [Deprecated]

@@ -110,3 +110,5 @@ Studio.PublishPlaceAs.OptInLocations.EmailSubmitFailure,Failed to submit email f
 Studio.PublishPlaceAs.TeamCreate.Title,Team Create, ,Team Create
 Studio.PublishPlaceAs.TeamCreate.LinkDescription,Enables collaboration and autosave to cloud [link]  , ,Enables collaboration and autosave to cloud [link]  
 Studio.PublishPlaceAs.TeamCreate.LinkText,Learn More, ,Learn more
+Studio.PublishPlaceAs.TcToggleCallout.Title,New! Team Create, ,New! Team Create
+Studio.PublishPlaceAs.TcToggleCallout.Description,Team Create enables collaboration and autosave to cloud!, ,Team Create enables collaboration and autosave to cloud!

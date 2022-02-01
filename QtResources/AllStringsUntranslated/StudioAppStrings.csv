@@ -205,10 +205,15 @@ Studio.App.IdeDoc.WouldYouLikeToPublishTheseChanges,Roblox IDE Doc,Would you lik
 Studio.App.IdeDoc.WouldYouLikeToSaveTheseChanges,Roblox IDE Doc,Would you like to save these changes?,Would you like to save these changes?
 Studio.App.IdeDoc.YouMustLogInToCreateMeshes,Roblox IDE Doc,You must log in to create meshes.,You must log in to create meshes.
 Studio.App.IdeDoc.SavedSuccessfully1,Roblox IDE Doc,%1 was saved successfully.,%1 was saved successfully.
+Studio.App.IdeDoc.UncommittedScriptChangesNotSaved,Roblox IDE Doc,Your uncommitted script changes have not been saved.,Your uncommitted script changes have not been saved.
+Studio.App.IdeDoc.UncommittedScriptChangesNotPublished,Roblox IDE Doc,Your uncommitted script changes have not been published.,Your uncommitted script changes have not been published.
+Studio.App.IdeDoc.UncommittedScriptChangesSavedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been saved to the new place.,Your uncommitted script changes have been saved to the new place.
+Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,Your uncommitted script changes have been published to the new place.,Your uncommitted script changes have been published to the new place.
 Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published successfully.,%1 was published successfully.
 Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
-Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
+DEPRECATED.Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
+Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
 Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
 Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
 Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio

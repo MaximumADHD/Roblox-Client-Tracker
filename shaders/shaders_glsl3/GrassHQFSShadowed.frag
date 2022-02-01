@@ -6,7 +6,7 @@
 #include <GrassPerFrameParams.h>
 uniform vec4 CB0[53];
 uniform vec4 CB8[24];
-uniform vec4 CB2[2];
+uniform vec4 CB2[3];
 uniform sampler2D ShadowAtlasTexture;
 uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
