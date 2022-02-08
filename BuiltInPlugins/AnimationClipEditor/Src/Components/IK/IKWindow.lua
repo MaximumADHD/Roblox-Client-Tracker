@@ -30,6 +30,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Button = Framework.UI.Button
 
 local StudioUI = require(Plugin.Packages.Framework).StudioUI
@@ -115,7 +117,7 @@ end
 function IKWindow:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 	local rootInstance = props.RootInstance
 	local pinnedParts = props.PinnedParts
 	local isR15 = props.IsR15
@@ -220,7 +222,8 @@ end
 
 
 IKWindow = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 })(IKWindow)

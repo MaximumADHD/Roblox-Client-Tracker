@@ -1,4 +1,4 @@
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -31,7 +31,7 @@ function ToolboxTestWrapper:render(props)
     return Roact.createElement(Toolbox, {
         backgrounds = Background.BACKGROUNDS,
         suggestions = Suggestion.SUGGESTIONS,
-        Size = FFlagToolboxAssetGridRefactor3 and UDim2.new(0, 400, 0, 400) or nil,
+        Size = FFlagToolboxAssetGridRefactor4 and UDim2.new(0, 400, 0, 400) or nil,
     })
 end
 

@@ -78,14 +78,25 @@ local function DEPRECATED_GetAliases(apiImpl, assetType, state)
     return request(1)
 end
 
-return function(apiImpl, assetType, scriptCheck)
+return function(apiImpl, assetPath, scriptCheck)
     return function(store)
         local state = store:getState()
         if not scriptCheck then
             store:dispatch(SetIsFetchingAssets(true))
         end
-        local getAliases = FFlagAssetManagerRefactorPath and GetAliases or DEPRECATED_GetAliases
-        return Promise.resolve(getAliases(apiImpl, assetType, state)):andThen(function(newAssets, index, hasLinkedScripts)
+        if FFlagAssetManagerRefactorPath then
+            return Promise.resolve(GetAliases(apiImpl, assetPath, 1, state)):andThen(function(newAssets, index, hasLinkedScripts)
+                    store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
+                    if not scriptCheck then
+                        store:dispatch(SetIsFetchingAssets(false))
+                        store:dispatch(SetAssets(newAssets, index))
+                    end
+                end, function()
+                    store:dispatch(SetIsFetchingAssets(false))
+                    error("Failed to load aliases")
+                end)
+        else
+            return Promise.resolve(DEPRECATED_GetAliases(apiImpl, assetPath, state)):andThen(function(newAssets, index, hasLinkedScripts)
                 store:dispatch(SetHasLinkedScripts(hasLinkedScripts))
                 if not scriptCheck then
                     store:dispatch(SetIsFetchingAssets(false))
@@ -95,5 +106,6 @@ return function(apiImpl, assetType, scriptCheck)
                 store:dispatch(SetIsFetchingAssets(false))
                 error("Failed to load aliases")
             end)
+        end
     end
 end

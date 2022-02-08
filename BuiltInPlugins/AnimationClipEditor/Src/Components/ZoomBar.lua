@@ -13,6 +13,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -134,7 +136,7 @@ end
 function ZoomBar:render()
 		local props = self.props
 		local state = self.state
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local zoomBarTheme = theme.zoomBarTheme
 
 		local position = props.Position
@@ -250,7 +252,8 @@ end
 
 
 ZoomBar = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ZoomBar)
 
 

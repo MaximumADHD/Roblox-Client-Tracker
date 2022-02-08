@@ -17,7 +17,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagImprovePluginSpeed_TerrainTools = game:GetFastFlag("ImprovePluginSpeed_TerrainTools")
 local FFlagTerrainToolsPluginButtonRestore = game:GetFastFlag("TerrainToolsPluginButtonRestore")
-local FFlagFixToolbarButtonForFreshInstallation = game:GetFastFlag("FixToolbarButtonForFreshInstallation")
+local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local EDITOR_META_NAME = "Editor"
 local TOOLBAR_NAME = "TerrainToolsLuaToolbarName"
@@ -52,7 +52,7 @@ function TerrainTools:init()
 		local initiatedByUser = false
 		self:setEnabled(enabled, initiatedByUser)
 
-		if not FFlagFixToolbarButtonForFreshInstallation and FFlagImprovePluginSpeed_TerrainTools then
+		if not FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools then
 			if FFlagTerrainToolsPluginButtonRestore then
 				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
 			end
@@ -60,14 +60,12 @@ function TerrainTools:init()
 		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation then
+	if FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools then
 		self.onDockWidgetCreated = function(enabled)
-			if FFlagImprovePluginSpeed_TerrainTools then
-				if FFlagTerrainToolsPluginButtonRestore then
-					self.props.pluginLoaderContext.mainButton:SetActive(enabled)
-				end
-				self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
+			if FFlagTerrainToolsPluginButtonRestore then
+				self.props.pluginLoaderContext.mainButton:SetActive(enabled)
 			end
+			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 		end
 	end
 
@@ -203,7 +201,7 @@ function TerrainTools:render()
 
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TerrainTools and self.onDockWidgetCreated or nil,
 
 			OnWidgetFocused = self.onFocused,
 

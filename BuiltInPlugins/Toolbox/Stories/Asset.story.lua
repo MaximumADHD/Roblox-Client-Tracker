@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -34,12 +34,12 @@ local fakeAssetId = 123456
 return {
     name = "Asset",
     summary = "An asset used in the grid view.",
-    story = FFlagToolboxAssetGridRefactor3 and Roact.createElement(AssetStory, {
+    story = FFlagToolboxAssetGridRefactor4 and Roact.createElement(AssetStory, {
         fakeAsset = MockItems.getSimpleAsset(fakeAssetId),
     }, {
         Asset = Roact.createElement(Asset, {
 			assetId = fakeAssetId,
 			LayoutOrder = 1,
 		}),
-    }) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor3", true),
+    }) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor4", true),
 }

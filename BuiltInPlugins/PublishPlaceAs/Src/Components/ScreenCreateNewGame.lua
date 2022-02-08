@@ -43,7 +43,6 @@ local Analytics = require(Plugin.Src.Util.Analytics)
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
-local FFlagStudioClosePromptOnLocalSave = game:GetFastFlag("StudioClosePromptOnLocalSave")
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 
 local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
@@ -102,19 +101,6 @@ function ScreenCreateNewGame:didMount()
 	end)
 
 	self.props.DispatchLoadGroups()
-
-	if FFlagStudioClosePromptOnLocalSave then
-		StudioService.SaveLocallyAsComplete:connect(function(success)
-			if success then
-				if FFlagStudioEnableNewGamesInTheCloudMetrics then
-					Analytics.reportLocalSaveSuccess()
-				end
-				-- Close out the publish window after a local save
-				self.props.OnClose()
-				StudioService:requestClose(self.props.CloseMode)
-			end
-		end)
-	end
 end
 
 function ScreenCreateNewGame:willUnmount()

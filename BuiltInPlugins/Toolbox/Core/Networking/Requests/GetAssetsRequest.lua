@@ -92,7 +92,12 @@ return function(networkInterface, pageInfoOnStart)
 		store:dispatch(SetLoading(true))
 		local isCreatorSearchEmpty = pageInfoOnStart.creator and pageInfoOnStart.creator.Id == -1
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
-		local isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
+		local isGroupCreation
+		if Rollouts:getToolboxGroupCreationsMigration() then
+			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName) and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
+		else
+			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
+		end
 		if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 			-- special case : temporarily pull Group Creations Models and Packages from the develop API
 			local categoryName = pageInfoOnStart.categoryName

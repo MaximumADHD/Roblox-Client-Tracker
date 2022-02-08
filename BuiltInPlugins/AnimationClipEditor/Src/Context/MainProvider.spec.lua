@@ -10,9 +10,9 @@ return function()
 	local Localization = Framework.ContextServices.Localization
 	local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
+	local THEME_REFACTOR = game:GetFastFlag("AnimationClipEditorStylizer")
 
 	local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
-
 
 	local MainProvider = require(script.Parent.MainProvider)
 
@@ -24,7 +24,7 @@ return function()
 		local mouse = pluginInstance:GetMouse()
 
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
-		local theme = PluginTheme.mock()
+		local theme = THEME_REFACTOR and PluginTheme(true) or PluginTheme.mock()
 
 		local pluginActions = {}
 
@@ -40,7 +40,7 @@ return function()
 		}, {
 			testFrame = Roact.createElement("Frame")
 		})
-		
+
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
@@ -54,7 +54,7 @@ return function()
 		local pluginInstance = MockPlugin.new()
 		local mouse = pluginInstance:GetMouse()
 		local store = Rodux.Store.new(MainReducer, {}, { Rodux.thunkMiddleware })
-		local theme = PluginTheme.mock()
+		local theme = THEME_REFACTOR and PluginTheme(true) or PluginTheme.mock()
 		local pluginActions = ContextServices.PluginActions.new(pluginInstance, {
 			{
 				id = "rerunLastStory",

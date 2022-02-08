@@ -29,6 +29,7 @@ local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local Input = require(Plugin.Src.Util.Input)
 
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
+local CurveCanvasController = require(Plugin.Src.Components.Curves.CurveCanvasController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
@@ -39,6 +40,7 @@ local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
 local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local TrackEditor = Roact.PureComponent:extend("TrackEditor")
 
@@ -158,6 +160,7 @@ function TrackEditor:render()
 	local showEvents = props.ShowEvents
 	local playhead = props.Playhead
 	local isChannelAnimation = props.IsChannelAnimation
+	local colorsPosition = props.ColorsPosition
 
 	local snapToNearestKeyframe = props.SnapToNearestKeyframe
 	local snapToNearestFrame = props.SnapToNearestFrame
@@ -168,6 +171,8 @@ function TrackEditor:render()
 	local trackPadding = self.getTrackPadding()
 
 	local showPlayhead = playhead >= startTick and playhead <= endTick
+	local showDopeSheet = props.EditorMode == Constants.EDITOR_MODE.DopeSheet
+	local showCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -206,7 +211,7 @@ function TrackEditor:render()
 			Playhead = playhead,
 		}),
 
-		DopeSheetController = Roact.createElement(DopeSheetController, {
+		DopeSheetController = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(DopeSheetController, {
 			ShowEvents = showEvents,
 			StartTick = startTick,
 			EndTick = endTick,
@@ -216,7 +221,19 @@ function TrackEditor:render()
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,
-		}),
+			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
+		}) or nil,
+
+		CurveCanvasController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveCanvasController, {
+			ShowEvents = showEvents,
+			StartTick = startTick,
+			EndTick = endTick,
+			TrackPadding = trackPadding,
+			Tracks = tracks,
+			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
+			ShowAsSeconds = showAsSeconds,
+			IsChannelAnimation = isChannelAnimation,
+		}) or nil,
 
 		ZoomBar = Roact.createElement(ZoomBar, {
 			Size = UDim2.new(0, absoluteSize.X - Constants.SCROLL_BAR_PADDING, 0, Constants.SCROLL_BAR_SIZE),
@@ -270,6 +287,7 @@ local function mapStateToProps(state, props)
 		PlayState = state.Status.PlayState,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
+		EditorMode = state.Status.EditorMode,
 	}
 end
 
@@ -293,12 +311,8 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-
 TrackEditor = withContext({
 	Mouse = ContextServices.Mouse,
 })(TrackEditor)
-
-
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(TrackEditor)

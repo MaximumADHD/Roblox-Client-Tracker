@@ -14,6 +14,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Rodux = require(Plugin.Packages.Rodux)
 local Framework = require(Plugin.Packages.Framework)
 local ContextServices = Framework.ContextServices
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local DockWidget = require(Plugin.Src.Components.PluginWidget.DockWidget)
@@ -180,7 +182,7 @@ function AnimationClipEditorPlugin:init(initialProps)
 
 	self.mouse = self.props.plugin:GetMouse()
 
-	self.theme = Theme.new()
+	self.theme = THEME_REFACTOR and Theme() or Theme.new()
 	self.closeWidget = function()
 		if game:GetFastFlag("AnimationEditorDisableOnClosing") then
 			self:setState({

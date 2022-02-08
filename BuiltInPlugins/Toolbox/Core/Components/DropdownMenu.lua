@@ -31,7 +31,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -258,7 +258,7 @@ function DropdownMenu:render()
 				BackgroundTransparency = 1,
 			}),
 		}),
-		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor3 and isShowingDropdown and Roact.createElement(ShowOnTop, {
+		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor4 and isShowingDropdown and Roact.createElement(ShowOnTop, {
 			Priority = 2,
 		}, {
 			DropdownItemsList = Roact.createElement(DropdownItemsList, {
@@ -277,7 +277,7 @@ function DropdownMenu:render()
 				left = state.dropDownLeft,
 			}),
 		}),
-		DropdownItemsList = (not FFlagToolboxAssetGridRefactor3) and isShowingDropdown and Roact.createElement(DropdownItemsList, {
+		DropdownItemsList = (not FFlagToolboxAssetGridRefactor4) and isShowingDropdown and Roact.createElement(DropdownItemsList, {
 			key = key,
 			items = items,
 			visibleDropDownCount = visibleDropDownCount,

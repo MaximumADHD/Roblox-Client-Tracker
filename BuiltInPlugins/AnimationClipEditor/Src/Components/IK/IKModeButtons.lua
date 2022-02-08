@@ -12,6 +12,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local UILibraryCompat = Plugin.Src.UILibraryCompat
 
 local RadioButtons = require(UILibraryCompat.RadioButtons)
@@ -30,7 +32,7 @@ local GROUP_WIDTH = 186
 function IKModeButtons:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
 	local ikMode = props.IKMode
 	local height = props.Height
@@ -83,7 +85,8 @@ end
 
 
 IKModeButtons = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(IKModeButtons)
 
@@ -91,5 +94,3 @@ IKModeButtons = withContext({
 
 
 return IKModeButtons
-
-

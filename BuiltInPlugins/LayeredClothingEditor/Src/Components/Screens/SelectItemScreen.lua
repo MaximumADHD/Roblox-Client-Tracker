@@ -30,6 +30,7 @@ local AddUserAddedAssetForPreview = require(Plugin.Src.Thunks.AddUserAddedAssetF
 local SelectFrame = require(Plugin.Src.Components.SelectFrame)
 local InstanceSelector = require(Plugin.Src.Components.InstanceSelector)
 local ConfirmCancelDialog = require(Plugin.Src.Components.ConfirmCancelDialog)
+local ConfirmDialog = require(Plugin.Src.Components.ConfirmDialog)
 
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 local ShowDialog = require(Plugin.Src.Util.ShowDialog)
@@ -39,6 +40,7 @@ local Constants = require(Plugin.Src.Util.Constants)
 local SelectItemScreen = Roact.PureComponent:extend("SelectItemScreen")
 
 local GetFFlagDebugLCEditAvatarCage = require(Plugin.Src.Flags.GetFFlagDebugLCEditAvatarCage)
+local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
 
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
@@ -99,6 +101,23 @@ function SelectItemScreen:init()
 		local props = self.props
 
 		local selectedPart = state.selectedPart
+
+		-- final sanity check in-case the user tries to change something about the target they selected before hitting "Next"
+		if GetFFlagFixNoCageMeshIdCrash() then
+			local valid = self.isSelectedInstanceValid(selectedPart)
+			if not valid then
+				self:setState({
+					invalidSelected = true,
+					selectedPart = Roact.None,
+				})
+				ShowDialog(props.Plugin, props.Localization, ConfirmDialog,{
+					Text = self.props.Localization:getText("Select", "Invalid"),
+					OnClose = function() end,
+				})
+				return
+			end
+		end
+
 		if selectedPart then
 			local currentSourceItem = props.EditingItemContext:getSourceItem()
 			local newSourceItem = ItemCharacteristics.getAvatarFromMeshPart(selectedPart)
@@ -116,6 +135,10 @@ function SelectItemScreen:init()
 		local editingItem = props.EditingItemContext:getItem()
 
 		if not ItemCharacteristics.isPotentialLayeredClothingItem(item) then
+			return false
+		end
+
+		if GetFFlagFixNoCageMeshIdCrash() and ItemCharacteristics.hasInvalidCage(item) then
 			return false
 		end
 

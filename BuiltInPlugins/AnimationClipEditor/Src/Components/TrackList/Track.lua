@@ -26,6 +26,8 @@ local Roact = require(Plugin.Packages.Roact)
 local DoubleClickDetector = require(Plugin.Src.Util.DoubleClickDetector)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -102,7 +104,7 @@ end
 
 function Track:render()
 	local props = self.props
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 	local layoutOrder = props.LayoutOrder
 	local indent = props.Indent or 0
 	local name = props.Name
@@ -191,7 +193,8 @@ end
 
 
 Track = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Track)
 
 

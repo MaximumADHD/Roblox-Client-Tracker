@@ -24,7 +24,7 @@ local MakeTheme = require(main.Src.Resources.MakeTheme)
 local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 local FFlagImprovePluginSpeed_TestHarness = game:GetFastFlag("ImprovePluginSpeed_TestHarness")
-local FFlagFixToolbarButtonForFreshInstallation = game:GetFastFlag("FixToolbarButtonForFreshInstallation")
+local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local MainView = require(main.Src.Components.MainView)
 
@@ -56,16 +56,14 @@ function MainPlugin:init(props)
 		-- The DevFramework delay the initialization of creating the dockwidget(controlled by "CreateWidgetImmediately")
 		-- which cause the onResotre function called later, and override the enabled state of button click.
 		-- so we connection and flush the button event here after onRestore
-		if not FFlagFixToolbarButtonForFreshInstallation and FFlagImprovePluginSpeed_TestHarness then
+		if not FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TestHarness then
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation then
+	if FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TestHarness then
 		self.onDockWidgetCreated = function()
-			if FFlagImprovePluginSpeed_TestHarness then
-				self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
-			end
+			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleEnabled)
 		end
 	end
 
@@ -136,7 +134,7 @@ function MainPlugin:render()
 				Size = Vector2.new(640, 480),
 				OnClose = self.onClose,
 				OnWidgetRestored = self.onRestore,
-				OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation and self.onDockWidgetCreated or nil,
+				OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_TestHarness and self.onDockWidgetCreated or nil,
 			}, {
 				Toolbar = Roact.createElement(MainView),
 			}),

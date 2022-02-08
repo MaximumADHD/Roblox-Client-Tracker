@@ -364,7 +364,15 @@ local Constants = {
 		Reverse = "Reverse",
 		Pause = "Pause",
 		Play = "Play",
-	}
+	},
+
+	EDITOR_MODE = {
+		DopeSheet = "DopeSheet",
+		CurveCanvas = "CurveCanvas",
+	},
+
+	CURVE_RESOLUTION = 25,  -- When rendering a curve, this is the max number of pixels one segment can be before being split
+	CURVE_REFINEMENT = 5,   -- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)

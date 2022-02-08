@@ -6,7 +6,7 @@
 		UDim2 Position = The position of the keyframe.
 		int ZIndex = The display order of the keyframe.
 		int BorderSizePixel = The size of the keyframe's border highlight.
-		string Style = A style key for coloring this keyframe. Indexed into the keyframe theme.
+		string KeyframeStyle = A style key for coloring this keyframe. Indexed into the keyframe theme.
 
 		bool Selected = Whether this keyframe is currently selected. Changes the appearance.
 
@@ -20,6 +20,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -32,8 +34,8 @@ local Keyframe = Roact.PureComponent:extend("Keyframe")
 
 function Keyframe:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
-		local style = props.Style
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+		local style = THEME_REFACTOR and props.KeyframeStyle or props.Style
 		local selected = props.Selected
 
 		local themeBase = style and theme.keyframe[style] or theme.keyframe.Default
@@ -75,7 +77,8 @@ end
 
 
 Keyframe = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Keyframe)
 
 

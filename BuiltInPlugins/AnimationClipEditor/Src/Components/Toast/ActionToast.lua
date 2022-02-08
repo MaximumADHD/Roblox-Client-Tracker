@@ -25,6 +25,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Button = Framework.UI.Button
 
 local ContextServices = Framework.ContextServices
@@ -52,7 +54,7 @@ end
 
 function ActionToast:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local toastTheme = theme.toastTheme
 		local buttonPadding = Constants.PROMPT_BUTTON_PADDING
 		local buttonHeight = Constants.PROMPT_BUTTON_SIZE.Y
@@ -109,7 +111,8 @@ end
 
 
 ActionToast = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ActionToast)
 
 

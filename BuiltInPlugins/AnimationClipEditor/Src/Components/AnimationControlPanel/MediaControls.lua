@@ -25,6 +25,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -38,7 +40,7 @@ local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaContr
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
 function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
-	local style = self.props.Theme:get("PluginTheme").button
+	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -64,7 +66,7 @@ function MediaControls:makeButton(image, onClick, playbackTheme, tooltipKey)
 end
 
 function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, playbackTheme, tooltipKey)
-	local style = self.props.Theme:get("PluginTheme").button
+	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -90,7 +92,7 @@ function MediaControls:makeToggle(active, activeImage, inactiveImage, onClick, p
 end
 
 function MediaControls:makePlayToggle(active, image, playState, playbackTheme, tooltipKey)
-	local style = self.props.Theme:get("PluginTheme").button
+	local style = THEME_REFACTOR and self.props.Stylizer.PluginTheme.button or self.props.Theme:get("PluginTheme").button
 	return Roact.createElement("Frame", {
 		LayoutOrder = self.layoutOrderIterator:getNextOrder(),
 		Size = UDim2.new(0, Constants.TIMELINE_HEIGHT, 0, Constants.TIMELINE_HEIGHT),
@@ -121,7 +123,7 @@ end
 
 function MediaControls:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
 		local isLooping = props.IsLooping
 		local isReverse = props.PlayState == Constants.PLAY_STATE.Reverse
@@ -167,7 +169,8 @@ end
 
 
 MediaControls = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(MediaControls)
 
 

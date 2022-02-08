@@ -15,6 +15,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -22,7 +24,7 @@ local Scrubber = Roact.PureComponent:extend("Scrubber")
 
 function Scrubber:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local position = props.Position
 		local headSize = props.HeadSize
 		local height = props.Height
@@ -37,8 +39,8 @@ function Scrubber:render()
 		end
 		if showHead then
 			table.insert(children, Roact.createElement("ImageLabel", {
-				Image = theme.scrubber.image,
-				ImageColor3 = theme.scrubber.backgroundColor,
+				Image = THEME_REFACTOR and theme.scrubberTheme.image or theme.scrubber.image,
+				ImageColor3 = THEME_REFACTOR and theme.scrubberTheme.backgroundColor or theme.scrubber.backgroundColor,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 			}))
@@ -47,7 +49,7 @@ function Scrubber:render()
 		table.insert(children, Roact.createElement("Frame", {
 			Position = UDim2.new(0.5, 0, 0, 0),
 			Size = UDim2.new(0, thickness, 0, height),
-			BackgroundColor3 = theme.scrubber.backgroundColor,
+			BackgroundColor3 = THEME_REFACTOR and theme.scrubberTheme.backgroundColor or theme.scrubber.backgroundColor,
 			AnchorPoint = Vector2.new(0.5, 0),
 			BorderSizePixel = 0,
 		}))
@@ -64,7 +66,8 @@ end
 
 
 Scrubber = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Scrubber)
 
 

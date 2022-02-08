@@ -11,7 +11,7 @@
 		string PlaceholderText: Placeholder text to show when there is no search term entered.
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -202,7 +202,7 @@ function SearchBarWithAutocomplete:render()
 			OnFocusLost = self.closeAutocomplete,
 			OnItemActivated = self.onItemActivated,
 			OnRenderItem = self.onAutocompleteRenderItem,
-			Priority = FFlagToolboxAssetGridRefactor3 and 2 or nil,
+			Priority = FFlagToolboxAssetGridRefactor4 and 2 or nil,
 			Style = "ToolboxSearchBarDropdown",
 			Width = props.Width,
 		}),

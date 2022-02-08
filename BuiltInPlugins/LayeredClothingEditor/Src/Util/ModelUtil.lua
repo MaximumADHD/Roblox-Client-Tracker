@@ -8,6 +8,7 @@ local Workspace = game.Workspace
 local HttpService = game:GetService("HttpService")
 
 local FFlagHumanoidGetAccessoryScale = game:GetFastFlag("HumanoidGetAccessoryScale")
+local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
 
 local ModelUtil = {}
 
@@ -403,7 +404,16 @@ local function updateWrapsHelper(deformers, pointData, cageMode)
 		for _, vert in ipairs(verts) do
 			table.insert(newVerts, vert.Position)
 		end
-		deformer:ModifyVertices(cageMode, newVerts)
+		if GetFFlagFixNoCageMeshIdCrash() then
+			local _, err = pcall(function()
+				deformer:ModifyVertices(cageMode, newVerts)
+			end)
+			if err then
+				print(err)
+			end
+		else
+			deformer:ModifyVertices(cageMode, newVerts)
+		end
 	end	
 end
 

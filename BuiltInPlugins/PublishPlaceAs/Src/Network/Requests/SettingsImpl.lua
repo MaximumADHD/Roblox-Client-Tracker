@@ -11,6 +11,7 @@
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagStudioTCSaveAsStaysOldSession3 = game:GetFastFlag("StudioTCSaveAsStaysOldSession3")
+local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
 
 local StudioService = game:GetService("StudioService")
 
@@ -84,7 +85,11 @@ local function saveAll(state, localization, apiImpl, email)
 	end
 
 	if teamCreateToggleEnabled then
-		StudioService:setTurnOnTeamCreateOnPublish(state.teamCreateEnabled)
+		if FFlagStudioTcDialogShowPlaceName then
+			game:GetService("StudioPublishService"):SetTeamCreateOnPublishInfo(state.teamCreateEnabled, configuration.name)
+		else
+			StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(state.teamCreateEnabled)
+		end
 	end
 
 	StudioService:publishAs(0, 0, state.creatorId)

@@ -177,6 +177,9 @@ function BreakpointsTable:didUpdate(prevProps)
 					selectedBreakpoints = {self.props.CurrentBreakpoint}
 				}
 			end)
+			-- Just hit a breakpoint so self.props.CurrentBreakpoint is the selectedBp and we don't need to check if the 
+			-- Breakpoints prop is modified to update the selectedBreakpoint
+			return
 		end
 	end
 	

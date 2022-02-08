@@ -5,6 +5,8 @@ return function()
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 	local EditorController = require(script.Parent.EditorController)
 
 	local function createTestController(animationData)
@@ -51,8 +53,10 @@ return function()
 		expect(frame.SettingsAndVerticalScrollBar).to.be.ok()
 		expect(frame.SettingsAndVerticalScrollBar.SettingsButton).to.be.ok()
 		expect(frame.SettingsAndVerticalScrollBar.TrackScrollbar).to.be.ok()
-		expect(frame.IgnoreLayout).to.be.ok()
-		expect(frame.IgnoreLayout.TrackColors).to.be.ok()
+		if not GetFFlagCurveEditor() then
+			expect(frame.IgnoreLayout).to.be.ok()
+			expect(frame.IgnoreLayout.TrackColors).to.be.ok()
+		end
 		expect(frame:FindFirstChild("StartScreen")).never.to.be.ok()
 		Roact.unmount(instance)
 	end)

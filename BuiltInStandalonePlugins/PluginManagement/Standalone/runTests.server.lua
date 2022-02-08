@@ -1,11 +1,6 @@
 local Plugin = script.Parent.Parent
 
---[[
-	RefactorFlags needs to be required and updated directly; before Framework's init
-	is required (so that any files that Framework's init requires get the correct values).
-]]
-local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = true
+require(Plugin.Bin.defineLuaFlags)
 
 local TestsFolderPlugin = Plugin.Src
 local TestsFolderPackages = Plugin.Packages -- Can be used to run package's unit tests

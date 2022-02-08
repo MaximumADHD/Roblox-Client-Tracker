@@ -19,6 +19,8 @@ local deepCopy = require(Plugin.Src.Util.deepCopy)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local DragTarget = Framework.UI.DragListener
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -35,6 +37,7 @@ local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 local PathUtils = require(Plugin.Src.Util.PathUtils)
 
 local DopeSheet = require(Plugin.Src.Components.DopeSheet)
+local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 local EventsController = require(Plugin.Src.Components.EventsController)
 local SelectionBox = require(Plugin.Src.Components.SelectionBox)
 local TimelineActions = require(Plugin.Src.Components.TimelineActions)
@@ -69,6 +72,7 @@ local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagResizingToSingleFrame = game:DefineFastFlag("ACEFixResizingToSingleFrame", false)
 
@@ -615,6 +619,8 @@ function DopeSheetController:render()
 	local frameRate = self.props.FrameRate
 	local showAsSeconds = self.props.ShowAsSeconds
 	local isChannelAnimation = self.props.IsChannelAnimation
+	local colorsPosition = self.props.ColorsPosition or 0
+	local tracks = self.props.Tracks
 
 	local namedKeyframes = animationData and animationData.Events
 		and animationData.Events.NamedKeyframes or {}
@@ -821,7 +827,16 @@ function DopeSheetController:render()
 					Text = localization:getText("Toast", "InvalidAnimation"),
 					OnClose = props.CloseInvalidAnimationToast,
 				})
-			})
+			}),
+
+			IgnoreLayout = GetFFlagCurveEditor() and Roact.createElement("Folder", {}, {
+				TrackColors = Roact.createElement(TrackColors, {
+					Tracks = tracks,
+					TopTrackIndex = topTrackIndex,
+					Position = UDim2.new(0, 0, 0, colorsPosition),
+					MaxHeight = absoluteSize.Y - colorsPosition,
+				})
+			 }) or nil,
 		})
 	else
 		return Roact.createElement("Frame", {
@@ -836,7 +851,8 @@ end
 
 DopeSheetController = withContext({
 	Localization = ContextServices.Localization,
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Analytics = ContextServices.Analytics
 })(DopeSheetController)
 

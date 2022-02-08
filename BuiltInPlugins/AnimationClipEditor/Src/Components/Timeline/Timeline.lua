@@ -32,6 +32,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local DragTarget = Framework.UI.DragListener
 local ContextServices = Framework.ContextServices
@@ -109,7 +111,7 @@ end
 
 function Timeline:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local timelineTheme = theme.timelineTheme
 
 		local state = self.state
@@ -197,7 +199,8 @@ end
 
 
 Timeline = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Timeline)
 
 

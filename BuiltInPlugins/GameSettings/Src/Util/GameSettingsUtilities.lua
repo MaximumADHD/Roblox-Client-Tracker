@@ -1,6 +1,7 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 local FFlagGsPermissionsUseCentralizedTcCheck = game:GetFastFlag("GsPermissionsUseCentralizedTcCheck")
 local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
+local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local RunService = (FFlagGsPermissionsUseCentralizedTcCheck or FFlagCollabEditingWarnBothWays2) and game:GetService("RunService") or nil
@@ -64,11 +65,18 @@ end
 
 function GameSettingsUtilities.isTeamCreateEnabled()
 	assert(FFlagCollabEditingWarnBothWays2 or FFlagGsPermissionsUseCentralizedTcCheck)
-	
+
 	-- The endpoint to check this fails a permission error if you do not have Manage, so we have
 	-- to check it with a hack. In non-TC games you are running both client/server in Edit, but in
 	-- TC you are only running the client. The server is run by RCC
 	return RunService:IsEdit() and not RunService:IsServer()
+end
+
+function GameSettingsUtilities.calculateTextSize(text, textSize, font)
+	assert(FFlagRemoveUILibraryPartialHyperlink)
+
+	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
+	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 return GameSettingsUtilities

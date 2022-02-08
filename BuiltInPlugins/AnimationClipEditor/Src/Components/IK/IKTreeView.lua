@@ -25,6 +25,8 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeView = Framework.UI.TreeView
 local Button = Framework.UI.Button
 
@@ -222,7 +224,7 @@ end
 
 function IKTreeView:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local position = props.Position
 		local size = props.Size
 		local rootInstance = props.RootInstance
@@ -289,7 +291,8 @@ end
 
 
 IKTreeView = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(IKTreeView)
 
 

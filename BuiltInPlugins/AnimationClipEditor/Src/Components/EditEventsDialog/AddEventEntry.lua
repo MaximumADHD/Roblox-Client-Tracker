@@ -16,6 +16,8 @@ local ICON_SIZE = UDim2.new(0, 9, 0, 8)
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
@@ -40,7 +42,7 @@ end
 function AddEventEntry:render()
 	local localization = self.props.Localization
 	local props = self.props
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 	local size = props.Size
 	local paddingLeft = props.PaddingLeft
 	local paddingRight = props.PaddingRight
@@ -87,7 +89,8 @@ end
 
 
 AddEventEntry = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse,
 })(AddEventEntry)

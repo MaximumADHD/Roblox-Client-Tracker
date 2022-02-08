@@ -17,6 +17,8 @@ local Roact = require(Plugin.Packages.Roact)
 local Constants = require(Plugin.Src.Util.Constants)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local DragTarget = Framework.UI.DragListener
@@ -71,7 +73,7 @@ end
 
 function TrackScrollbar:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local state = self.state
 		local size = props.Size
 		local anchorPoint = props.AnchorPoint
@@ -126,7 +128,8 @@ function TrackScrollbar:render()
 				ScrollBar = canShowScrollbar and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1 / scrollRange, 0),
 					Position = UDim2.new(0, 0, (topTrackIndex - 1) / scrollRange, 0),
-					BorderSizePixel = 0,
+					BorderSizePixel = THEME_REFACTOR and 1 or 0,
+					BorderColor3 = THEME_REFACTOR and scrollTheme.borderColor or nil,
 					BackgroundColor3 = scrollbarColor,
 
 					[Roact.Event.MouseEnter] = self.mouseEnter,
@@ -164,7 +167,8 @@ end
 
 
 TrackScrollbar = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TrackScrollbar)
 
 

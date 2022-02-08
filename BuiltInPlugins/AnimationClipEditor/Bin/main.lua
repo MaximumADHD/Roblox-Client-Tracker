@@ -7,11 +7,6 @@ return function(plugin, pluginLoaderContext)
 	local Roact = require(Plugin.Packages.Roact)
 	local AnimationClipEditorPlugin = require(Plugin.Src.Components.AnimationClipEditorPlugin)
 
-	-- Set THEME_REFACTOR in the DevFramework to false
-	local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-	RefactorFlags.THEME_REFACTOR = false
-
-
 	if DebugFlags.RunTests() or DebugFlags.RunRhodiumTests() then
 		return
 	end

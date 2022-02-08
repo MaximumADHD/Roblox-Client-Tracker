@@ -11,7 +11,7 @@ local ContextServices = Framework.ContextServices
 
 local AssetServiceWrapper = require(Plugin.Src.Context.AssetServiceWrapper)
 
--- props.localization : (UILibary.Localization) an object for fetching translated strings
+-- props.localization : (ContextServices.Localization) an object for fetching translated strings
 -- props.plugin : plugin wrapper created from ContextServices
 -- props.store : (Rodux Store) the data store for the plugin
 -- props.theme : (Resources.PluginTheme) a table for styling elements in the plugin and UILibrary

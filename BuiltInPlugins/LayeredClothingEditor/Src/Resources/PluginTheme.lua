@@ -8,9 +8,8 @@ local StyleModifier = Util.StyleModifier
 
 local getRawComponentStyle = Framework.Style.getRawComponentStyle
 
-local UILibrary = require(Plugin.Packages.UILibrary)
 local UI = Framework.UI
-local Spritesheet = UILibrary.Util.Spritesheet
+local Spritesheet = Framework.Util.Spritesheet
 
 local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme

@@ -382,7 +382,11 @@ function AssetGridContainer:render()
             AnchorPoint = Vector2.new(0.5, 0.5),
 
             OnClick = function()
-                dispatchLoadAllAliases(apiImpl, currentScreen.AssetType)
+                if FFlagAssetManagerRefactorPath then
+                    dispatchLoadAllAliases(apiImpl, currentScreen.Path)
+                else
+                    dispatchLoadAllAliases(apiImpl, currentScreen.AssetType)
+                end
             end,
         }, {
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
@@ -423,8 +427,8 @@ local function mapDispatchToProps(dispatch)
         dispatchGetAssets = function(apiImpl, path, pageCursor, pageNumber)
             dispatch(GetAssets(apiImpl, path, pageCursor, pageNumber))
         end,
-        dispatchLoadAllAliases = function(apiImpl, assetType)
-            dispatch(LoadAllAliases(apiImpl, assetType))
+        dispatchLoadAllAliases = function(apiImpl, assetPath)
+            dispatch(LoadAllAliases(apiImpl, assetPath))
         end,
         dispatchOnAssetRightClick = function(props, placesFolder)
             props.AssetData = placesFolder

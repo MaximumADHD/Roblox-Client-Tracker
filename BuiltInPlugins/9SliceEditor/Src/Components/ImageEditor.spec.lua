@@ -7,6 +7,14 @@ return function()
 
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local Orientation = require(Plugin.Src.Util.Orientation)
+
+	local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
+
+	local function getSliderParentFromContainer(container)
+		local background = container:FindFirstChildWhichIsA("ImageButton", true)
+		local sliderParent = if FFlag9SliceEditorResizableImagePreviewWindow then background.ImagePreview else background.imageLabel
+		return sliderParent
+	end
 	
 	it("should create and destroy without errors", function()
 		TestHelper.withTestComponent(ImageEditor, {
@@ -34,8 +42,7 @@ return function()
 			sliceRect = {10, 20, 40, 50},
 			selectedObject = Roact.createElement("ImageLabel"),
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton", true)
-			local sliderParent = background.imageLabel
+			local sliderParent = getSliderParentFromContainer(container)
 			expect(sliderParent:FindFirstChild("LeftDragSlider")).to.be.ok()
 			expect(sliderParent:FindFirstChild("RightDragSlider")).to.be.ok()
 			expect(sliderParent:FindFirstChild("TopDragSlider")).to.be.ok()
@@ -56,8 +63,7 @@ return function()
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton", true)
-			local sliderParent = background.imageLabel
+			local sliderParent = getSliderParentFromContainer(container)
 			local leftSlider = sliderParent.LeftDragSlider
 			expect(leftSlider).to.be.ok()
 
@@ -77,28 +83,33 @@ return function()
 			expect(endPos.x - startPos.x > 0).to.equal(true)
 			wait()
 			expect(newSliceRect).to.be.ok()
+
+			local displayedImageSize = Vector2.new(1, 1) * Constants.IMAGE_SIZE
+			if FFlag9SliceEditorResizableImagePreviewWindow then
+				displayedImageSize = sliderParent.AbsoluteSize
+			end
+
 			local newSliceVal = initialSliceRect[Orientation.Left.rawValue()] +
-				dragAmountPx / Constants.IMAGE_SIZE * imageXSize
+				dragAmountPx / displayedImageSize.X * imageXSize
 			expect(TestHelper.numericalArrayFuzzyEquality(newSliceRect,
 				{newSliceVal, 90, 10, 90}, 1)).to.equal(true)
 		end)
 	end)
 
 	it("dragging bottom slider should adjust slice center property correctly", function()
-		local imageXSize = 100 -- { X0, X1, Y0, Y1 } format
+		local imageYSize = 100 -- { X0, X1, Y0, Y1 } format
 		local initialSliceRect = {10, 90, 10, 90}
 		local newSliceRect = nil
 
 		TestHelper.withTestComponent(ImageEditor, {
-			pixelDimensions = Vector2.new(imageXSize, 100),
+			pixelDimensions = Vector2.new(100, imageYSize),
 			sliceRect = initialSliceRect,
 			selectedObject = Roact.createElement("ImageLabel"),
 			setSliceRect = function (newValue, shouldClamp)
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton", true)
-			local sliderParent = background.imageLabel
+			local sliderParent = getSliderParentFromContainer(container)
 			local bottomSlider = sliderParent.BottomDragSlider
 			expect(bottomSlider).to.be.ok()
 
@@ -119,8 +130,14 @@ return function()
 			expect(endPos.y - startPos.y < 0).to.equal(true)
 			wait()
 			expect(newSliceRect).to.be.ok()
+
+			local displayedImageSize = Vector2.new(1, 1) * Constants.IMAGE_SIZE
+			if FFlag9SliceEditorResizableImagePreviewWindow then
+				displayedImageSize = sliderParent.AbsoluteSize
+			end
+
 			local newSliceVal = initialSliceRect[Orientation.Bottom.rawValue()] -
-				dragAmountPx / Constants.IMAGE_SIZE * imageXSize
+				dragAmountPx / displayedImageSize.Y * imageYSize
 			expect(TestHelper.numericalArrayFuzzyEquality(newSliceRect,
 				{10, 90, 10, newSliceVal}, 1)).to.equal(true)
 		end)
@@ -139,8 +156,7 @@ return function()
 				newSliceRect = newValue
 			end,
 		}, function (container)
-			local background = container:FindFirstChildWhichIsA("ImageButton", true)
-			local sliderParent = background.imageLabel
+			local sliderParent = getSliderParentFromContainer(container)
 			expect(sliderParent).to.be.ok()
 			local element = Rhodium.Element.new(sliderParent)
 			expect(element:getRbxInstance()).to.be.ok()

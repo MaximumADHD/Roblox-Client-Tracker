@@ -3,10 +3,13 @@
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
 local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 
 local Main = script.Parent.Parent
 local Roact = require(Main.Packages.Roact)
 local Rodux = require(Main.Packages.Rodux)
+
+local Types = require(Main.Src.Types)
 
 local MainReducer = require(Main.Src.Reducers.MainReducer)
 
@@ -24,6 +27,11 @@ local Localization = ContextServices.Localization
 local InspectorContext = require(Main.Src.Util.InspectorContext)
 local MakeTheme = require(Main.Src.Resources.MakeTheme)
 
+local SplitPane
+if FFlagDevFrameworkSplitPane then
+	SplitPane = Framework.UI.SplitPane
+end
+
 local TranslationDevelopmentTable = Main.Src.Resources.TranslationDevelopmentTable
 local TranslationReferenceTable = Main.Src.Resources.TranslationReferenceTable
 
@@ -39,6 +47,17 @@ function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
+	if FFlagDevFrameworkSplitPane then
+		self.state.paneSizes = {
+			UDim.new(0, 300),
+			UDim.new(1, -300),
+		}
+		self.onPaneSizesChange = function(paneSizes: Types.Array<UDim>)
+			self:setState({
+				paneSizes = paneSizes 
+			})
+		end
+	end
 
 	self.toggleState = function()
 		local state = self.state
@@ -107,6 +126,33 @@ function MainPlugin:render()
 	local state = self.state
 	local plugin = props.Plugin
 	local enabled = state.enabled
+	
+	local OFFSET = 42
+
+	local children = {
+		TopBar = enabled and Roact.createElement(TopBar),
+	}
+	if enabled then
+		if FFlagDevFrameworkSplitPane then
+			children.Window = Roact.createElement(SplitPane, {
+				ClampSize = true,
+				MinSizes = {
+					UDim.new(0, 100),
+					UDim.new(0, 100),
+				},
+				OnSizesChange = self.onPaneSizesChange,
+				Sizes = state.paneSizes,
+				Position = UDim2.fromOffset(0, OFFSET),
+				Size = UDim2.new(1, 0, 1, -OFFSET),
+			}, {
+				Roact.createElement(StoryTree),
+				Roact.createElement(InfoPanel),
+			})
+		else
+			children.StoryTree = Roact.createElement(StoryTree)
+			children.InfoPanel = Roact.createElement(InfoPanel)
+		end
+	end
 
 	return ContextServices.provide(self.contextItems, {
 		Toolbar = Roact.createElement(PluginToolbar, {
@@ -126,11 +172,7 @@ function MainPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-		}, {
-			TopBar = enabled and Roact.createElement(TopBar),
-			StoryTree = enabled and Roact.createElement(StoryTree),
-			InfoPanel = enabled and Roact.createElement(InfoPanel),
-		}),
+		}, children),
 	})
 end
 

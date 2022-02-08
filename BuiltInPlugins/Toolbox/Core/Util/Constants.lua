@@ -7,6 +7,8 @@ local getMaxAudioLength = require(Plugin.Core.Util.ToolboxUtilities).getMaxAudio
 local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
+local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
+
 local Constants = {}
 
 Constants.TOOLTIP_LINE_HEIGHT = 1.3
@@ -148,7 +150,8 @@ local staticPadding = (Constants.MAIN_VIEW_PADDING * 2)
 	- Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING
 local perAssetPadding = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-Constants.TOOLBOX_MIN_WIDTH = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
+local calculatedMinWidth = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
+Constants.TOOLBOX_MIN_WIDTH = if FFlagToolboxUpdateWindowMinSize then math.max(calculatedMinWidth, 270) else calculatedMinWidth
 Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_PADDING * 2
 
 Constants.TAB_ICON_SIZE = 16
@@ -160,7 +163,7 @@ function Constants.CalculateTabHeaderWidth(text)
 	return textWidth + Constants.TAB_ICON_SIZE + Constants.TAB_INNER_PADDING + Constants.TAB_OUTER_PADDING * 2
 end
 
-Constants.TOOLBOX_MIN_HEIGHT = 200
+Constants.TOOLBOX_MIN_HEIGHT = if FFlagToolboxUpdateWindowMinSize then 380 else 200
 
 Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE = Constants.ASSET_HEIGHT * 1.2
 

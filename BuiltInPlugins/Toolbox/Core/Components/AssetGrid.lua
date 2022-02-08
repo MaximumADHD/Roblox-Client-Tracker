@@ -1,18 +1,19 @@
+
 --[[
-	An inifinite scrolling grid of assets which uses the Assets Reducer as a datasource.
+	A grid of assets. Use Layouter.calculateAssetsHeight() to know how tall it will be when the assets are rendered.
 
 	Required Props:
+		table assetIds: a table of assetIds to render.
 		callback tryInsert: attempt to insert asset.
 		callback tryOpenAssetConfig: invoke assetConfig page with an assetId.]
-		Vector2 parentSize: The X,Y size of the parent container. This is used for analytics.
-		Vector2 parentAbsolutePosition: The X,Y position of the parent container. This is used for analytics.
+		Vector2 parentSize: The X,Y size of the parent container. This is used for asset impression analytics.
+		Vector2 parentAbsolutePosition: The X,Y position of the parent container. This is used for asset impression analytics.
+		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 
 	Optional Props:
-		int LayoutOrder
-		UDim2 Size
+		UDim2 Size:
+		integer LayoutOrder:
 ]]
-
-
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -24,171 +25,291 @@ else
 end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
+local Cryo = require(Libs.Cryo)
 
-local Util = Plugin.Core.Util
-local Constants = require(Util.Constants)
-local ContextGetter = require(Util.ContextGetter)
-
-local Category = require(Plugin.Core.Types.Category)
-
-local getNetwork = ContextGetter.getNetwork
-
-local Asset = require(Plugin.Core.Components.Asset.Asset)
-
-local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
-
-local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
-local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
+local Constants = require(Plugin.Core.Util.Constants)
+local ContextGetter = require(Plugin.Core.Util.ContextGetter)
+local Layouter = require(Plugin.Core.Util.Layouter)
+local getModal = ContextGetter.getModal
 
 local Settings = require(Plugin.Core.ContextServices.Settings)
 
-local Framework = require(Libs.Framework)
-local ContextServices = Framework.ContextServices
-local withContext = ContextServices.withContext
-local InfiniteScrollingFrame = Framework.UI.InfiniteScrollingFrame
+local Category = require(Plugin.Core.Types.Category)
 
-local Layouter = require(Plugin.Core.Util.Layouter)
-local Pane = Framework.UI.Pane
+local Asset = require(Plugin.Core.Components.Asset.Asset)
+local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
+
+local ContextServices = require(Libs.Framework).ContextServices
+local withContext = ContextServices.withContext
 
 local AssetGrid = Roact.PureComponent:extend("AssetGrid")
 
 AssetGrid.defaultProps = {
+	assetIds = {},
 	Size = UDim2.new(1, 0, 1, 0),
 }
 
-function AssetGrid:init(props)
-	self.ref = Roact.createRef()
+function AssetGrid:didMount()
+	self.calculateRenderBounds()
+end
 
-	self.requestNextPage = function()
-		if self.props.isLoading or self.props.isPreviewing then
-			return
-		end
+function AssetGrid:init()
+	self.state = {
+		displayedAssetIds = {},
+		hoveredAssetId = 0,
+		lowerIndexToRender = 0,
+		upperIndexToRender = 0,
+		width = 0,
+	}
 
-		local settings = self.props.Settings:get("Plugin")
-		local networkInterface = getNetwork(self)
-		self.props.nextPage(networkInterface, settings)
-	end
+	self.scrollingFrameRef = Roact.createRef()
 
-	self.getAssetRowSize = function()
-		local result
-		local showPrices = Category.shouldShowPrices(self.props.categoryName)
-		if showPrices then
-			result = UDim2.new(1, 0, 0, Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
-		else
-			result = UDim2.new(1, 0, 0, Constants.ASSET_HEIGHT)
-		end
-		return result
-	end
-
-	self.renderGridItem = function(item)
+	self.tryRerender = function(forceUpdate)
 		local props = self.props
-		local canInsertAsset = self.props.canInsertAsset
+		local scrollingFrame = self.scrollingFrameRef.current
+		if not scrollingFrame then return end
+		local canvasY = scrollingFrame.CanvasPosition.Y
+		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
+		local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
+
+		-- Where the bottom of the scrolling frame is relative to canvas size
+		local bottom = canvasY + windowHeight
+		local dist = canvasHeight - bottom
+
+		if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE and props.requestNextPage then
+			props.requestNextPage()
+		end
+
+		self.calculateRenderBounds(forceUpdate)
+	end
+
+	self.calculateRenderBounds = function(forceUpdate)
+		local props = self.props
+		local showPrices = Category.shouldShowPrices(props.categoryName)
+
+		local width = self.state.width
+		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+
+		local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
+			containerWidth, 0, showPrices)
+
+		-- If either bound has changed then recalculate the assets
+		if forceUpdate or lowerBound ~= self.state.lowerIndexToRender or upperBound ~= self.state.upperIndexToRender then
+			local displayedAssetIds = Layouter.sliceAssetsFromBounds(props.assetIds or {}, lowerBound, upperBound)
+
+			self:setState({
+				displayedAssetIds = displayedAssetIds,
+				lowerIndexToRender = lowerBound,
+				upperIndexToRender = upperBound,
+			})
+		end
+	end
+
+	self.onScroll = function()
+		if not self.props.isPreviewing then
+			self.tryRerender()
+		end
+		if self.state.hoveredAssetId ~= 0 then
+			self:setState({
+				hoveredAssetId = 0,
+			})
+		end
+	end
+
+	self.onAssetHovered = function(assetId)
+		local modal = getModal(self)
+		if self.state.hoveredAssetId == 0 and modal.canHoverAsset() then
+			self:setState({
+				hoveredAssetId = assetId,
+			})
+		end
+	end
+
+	self.onAssetHoverEnded = function(assetId)
+		if self.state.hoveredAssetId == assetId then
+			self:setState({
+				hoveredAssetId = 0,
+			})
+		end
+	end
+
+	self.onFocusLost = function(rbx, input)
+		if input.UserInputType == Enum.UserInputType.Focus then
+			self.onAssetHoverEnded()
+		end
+	end
+
+	self.getAssetElements = function()
+		local props = self.props
+		local state = self.state
+
+		local canInsertAsset = props.canInsertAsset
 		local parentSize = props.parentSize
 		local parentAbsolutePosition = props.parentAbsolutePosition
 		local tryOpenAssetConfig = props.tryOpenAssetConfig
 		local tryInsert = props.tryInsert
 
-		local rowSize = self.getAssetRowSize()
+		local showPrices = Category.shouldShowPrices(props.categoryName)
+		local cellSize
+		if showPrices then
+			cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
+				Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
+		else
+			cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
+		end
 
-		local falseGridRow = {}
-		for index,assetId in ipairs(item._assetIds) do
-			falseGridRow[tostring(assetId)] = Roact.createElement(Asset, {
+		local assetElements = {
+			UIGridLayout = Roact.createElement("UIGridLayout", {
+				CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
+					0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
+				CellSize = cellSize,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				[Roact.Event.Changed] = self.tryRerender,
+			})
+		}
+
+		for index, asset in ipairs(state.displayedAssetIds) do
+			local assetId = asset[1]
+
+			assetElements[tostring(assetId)] = Roact.createElement(Asset, {
 				assetId = assetId,
 				canInsertAsset = canInsertAsset,
+				isHovered = assetId == self.state.hoveredAssetId,
 				LayoutOrder = index,
+				onAssetHovered = self.onAssetHovered,
+				onAssetHoverEnded = self.onAssetHoverEnded,
 				parentSize = parentSize,
 				parentAbsolutePosition = parentAbsolutePosition,
 				tryInsert = tryInsert,
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			})
 		end
+		return assetElements
+	end
 
-		return Roact.createElement(Pane, {
-			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			LayoutOrder = item._index,
-			Layout = Enum.FillDirection.Horizontal,
-			Padding = {
-				Left = Constants.MAIN_VIEW_PADDING,
-				Right = Constants.MAIN_VIEW_PADDING,
-			},
-			Spacing = Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
-			Size = rowSize,
-			ZIndex = 1,
-		}, falseGridRow)
+	self.calculateCanvasHeight = function()
+		local props = self.props
+		local width = self.state.width
+
+		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+		local showPrices = Category.shouldShowPrices(props.categoryName)
+		local allAssetCount = #props.assetIds
+		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
+			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+
+		return allAssetsHeight + (2 * Constants.MAIN_VIEW_PADDING)
+	end
+
+	self.getWidth = function()
+		if self.scrollingFrameRef.current then
+			self:setState({
+				width = self.scrollingFrameRef.current.AbsoluteSize.X,
+			})
+			self.tryRerender(true)
+		end
 	end
 end
 
-function AssetGrid:render(modalStatus, localizedContent)
-	local props = self.props
+function AssetGrid:didUpdate(prevProps, prevState)
+	local spaceToDisplay = self.state.upperIndexToRender - self.state.lowerIndexToRender
+	local displayedAssetIds = self.state.displayedAssetIds or {}
+	local displayed = #displayedAssetIds
 
-	local assetIds = props.assetIds
+	local networkErrors = self.props.networkErrors or {}
+	local networkError = networkErrors[#networkErrors]
+
+	if (not networkError) and displayed < spaceToDisplay and displayed ~= 0 then
+		self.props.requestNextPage()
+	end
+
+	if prevProps.idsToRender ~= self.props.idsToRender then
+		self:calculateRenderBounds()
+	end
+end
+
+function AssetGrid.getDerivedStateFromProps(nextProps, lastState)
+	local lowerBound = lastState.lowerIndexToRender or 0
+	local upperBound = lastState.upperIndexToRender or 0
+	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.idsToRender or { }, lowerBound, upperBound)
+
+	-- Hovered Asset reset
+	local lastHoveredAssetStillVisible = false
+	for _, assetId in ipairs(nextProps.assetIds) do
+		if lastState.hoveredAssetId == assetId then
+			lastHoveredAssetStillVisible = true
+			break
+		end
+	end
+	local hoveredAssetId
+	if lastHoveredAssetStillVisible then
+		hoveredAssetId = lastState.hoveredAssetId
+	else
+		hoveredAssetId = 0
+	end
+
+	return Cryo.Dictionary.join(lastState, {
+		assetIds = assetIds,
+		hoveredAssetId = hoveredAssetId,
+		lowerIndexToRender = lowerBound,
+		upperIndexToRender = upperBound,
+	})
+end
+
+function AssetGrid:render()
+	local props = self.props
+	local state = self.state
+
+	local categoryName = props.categoryName
 	local isPreviewing = props.isPreviewing
-	local parentSize = props.parentSize
+	local layoutOrder = props.LayoutOrder
+	local position = props.Position
 	local size = props.Size
 
-	local rowSize = self.getAssetRowSize()
-	local isPackages = Category.categoryIsPackage(props.categoryName)
+	local lowerIndexToRender = state.lowerIndexToRender
+	local width = state.width
 
-	if isPackages and #assetIds ~= 0 then
-		local assetIdList = {}
-		local index = 1
-		while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
-			local assetId = assetIds[index]
-			if not self.props.currentUserPackagePermissions[assetId] then
-				table.insert(assetIdList, assetId)
-			end
-			index = index + 1
-		end
+	local assetElements = self.getAssetElements()
+	local canvasHeight = self.calculateCanvasHeight()
+	local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+	local showPrices = Category.shouldShowPrices(categoryName)
 
-		if #assetIdList ~= 0 then
-			self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
-		end
-	end
+	local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
+	local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
+	local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
 
-	local assetsPerRow = Layouter.getAssetsPerRow(parentSize.x)
-	local assetDict = {}
-	local currentFalseGridRow = {}
-	local formattedAssets = {} -- This is list of currentFalseGridRows
-	for index, assetId in ipairs(assetIds) do
-		if not assetDict[assetId] then -- If the asset is in the grid multiple times, show it in the position of the first occurrence
-			assetDict[assetId] = true
-			table.insert(currentFalseGridRow, assetId)
-
-			-- HACK: fake a grid by making rows since InfiniteScroller doesn't support UIGridLayout.
-			-- TODO: Replace with GridLayout once InifintieScroller supports it.
-			if #currentFalseGridRow >= assetsPerRow then
-				table.insert(formattedAssets, {
-					_index = index,
-					_assetIds = currentFalseGridRow
-				})
-				currentFalseGridRow = {}
-			end
-		end
-	end
-	if #currentFalseGridRow > 0 then
-		table.insert(formattedAssets, {
-			_index = #assetIds,
-			_assetIds = currentFalseGridRow
-		})
-	end
-
-	return (#formattedAssets > 0) and Roact.createElement(InfiniteScrollingFrame, {
-		EstimatedItemSize = rowSize.Y.Offset,
-		Items = formattedAssets,
-		ItemIdentifier = function(item)
-			return item and item._assetIds[1] or nil
-		end,
-		ItemPadding = UDim.new(0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
-		LoadNext = self.requestNextPage,
-		RenderItem = self.renderGridItem,
-		ScrollingEnabled = (not isPreviewing),
+	return Roact.createElement(StyledScrollingFrame, {
+		CanvasSize = UDim2.new(0, 0, 0, canvasHeight),
+		LayoutOrder = layoutOrder,
+		onScroll = self.onScroll,
+		Position = position,
+		scrollingEnabled = not isPreviewing,
 		Size = size,
+		[Roact.Ref] = self.scrollingFrameRef,
+	}, {
+		UIPadding = Roact.createElement("UIPadding", {
+			PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+			PaddingLeft = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+			PaddingRight = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+			PaddingTop = UDim.new(0, Constants.MAIN_VIEW_PADDING),
+		}),
+
+		InnerGrid = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			Position = UDim2.new(0, 0, 0, gridContainerOffset),
+			Size = UDim2.new(1, 0, 1, 0),
+			[Roact.Event.InputEnded] = self.onFocusLost,
+			[Roact.Change.AbsoluteSize] = self.getWidth,
+		},
+			assetElements
+		)
 	})
 end
 
 AssetGrid = withContext({
 	Settings = Settings,
 })(AssetGrid)
+
 
 local function mapStateToProps(state, props)
 	state = state or {}
@@ -197,23 +318,10 @@ local function mapStateToProps(state, props)
 	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 	return {
-		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
-		currentUserPackagePermissions = state.packages.permissionsTable or {},
-		isLoading = assets.isLoading or false,
 		isPreviewing = assets.isPreviewing or false,
+		networkErrors = state.networkErrors or {},
 	}
 end
 
-local function mapDispatchToProps(dispatch)
-	return {
-		nextPage = function(networkInterface, settings)
-			dispatch(NextPageRequest(networkInterface, settings))
-		end,
-		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
-			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
-		end,
-	}
-end
-
-return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AssetGrid)
+return RoactRodux.connect(mapStateToProps, nil)(AssetGrid)

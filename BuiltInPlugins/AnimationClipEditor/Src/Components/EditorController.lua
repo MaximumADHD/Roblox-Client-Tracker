@@ -15,6 +15,8 @@ local Cryo = require(Plugin.Packages.Cryo)
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Input = require(Plugin.Src.Util.Input)
@@ -71,6 +73,7 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local EditorController = Roact.PureComponent:extend("EditorController")
 
@@ -347,7 +350,7 @@ end
 function EditorController:render()
 	local props = self.props
 	local state = self.state
-
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 	local startTick = 0
 	local endTick = 0
 	local lastTick = 0
@@ -407,8 +410,13 @@ function EditorController:render()
 	local position = props.Position
 	local size = props.Size
 
-	local colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0)	+ Constants.TIMELINE_HEIGHT
+	local colorsPosition
+	if GetFFlagCurveEditor() then
+		colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.SUMMARY_TRACK_HEIGHT
+	else
+		colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.TIMELINE_HEIGHT
 		+ Constants.SUMMARY_TRACK_HEIGHT
+	end
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -425,10 +433,18 @@ function EditorController:render()
 		}),
 
 		TrackListAndControlContainer = Roact.createElement("Frame", {
-			BackgroundTransparency = 1,
+			BackgroundTransparency = GetFFlagCurveEditor() and 0 or 1,
+			BackgroundColor3 = GetFFlagCurveEditor() and theme.backgroundColor or nil,
+			BorderSizePixel = GetFFlagCurveEditor() and 0 or nil,
 			Size = UDim2.new(0, trackListWidth, 1, 0),
 			LayoutOrder = 0,
+			ZIndex = GetFFlagCurveEditor() and 2 or nil,
 		}, {
+			Layout = GetFFlagCurveEditor() and Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Vertical,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+			}) or nil,
+
 			AnimationControlPanel = Roact.createElement(AnimationControlPanel, {
 				StartTick = startTick,
 				EndTick = endTick,
@@ -437,14 +453,15 @@ function EditorController:render()
 				AnimationData = props.AnimationData,
 				ShowAsSeconds = showAsSeconds,
 				IsChannelAnimation = isChannelAnimation,
+				LayoutOrder = GetFFlagCurveEditor() and 0 or nil,
 			}),
 
 			EventsAndTracks = Roact.createElement("ImageButton", {
 				Size = UDim2.new(0, trackListWidth, 1, -Constants.TIMELINE_HEIGHT),
-				Position = UDim2.new(0, 0, 0, Constants.TIMELINE_HEIGHT),
+				Position = not GetFFlagCurveEditor() and UDim2.new(0, 0, 0, Constants.TIMELINE_HEIGHT) or nil,
 				BackgroundTransparency = 1,
 				ImageTransparency = 1,
-
+				LayoutOrder = GetFFlagCurveEditor() and 1 or nil,
 				[Roact.Event.Activated] = function()
 					props.SetSelectedTracks()
 					props.SetSelectedTrackInstances({})
@@ -521,11 +538,21 @@ function EditorController:render()
 						end
 					end,
 				}),
+
+				IgnoreLayout = GetFFlagCurveEditor() and showEditor and Roact.createElement("Folder", {}, {
+					TrackColors = Roact.createElement(TrackColors, {
+						Tracks = tracks,
+						TopTrackIndex = topTrackIndex,
+						Position = UDim2.new(0, 0, 0, colorsPosition),
+						MaxHeight = absoluteSize.Y - colorsPosition,
+					}),
+				}) or nil,
 			}),
 		}),
 
 		TrackListBorder = Roact.createElement(TrackListBorder, {
 			OnDragMoved = self.updateTrackListWidth,
+			ZIndex = GetFFlagCurveEditor() and 3 or nil,
 		}),
 
 		TrackEditor = showEditor and Roact.createElement(TrackEditor, {
@@ -546,6 +573,7 @@ function EditorController:render()
 			Zoom = zoom,
 			OnScroll = self.onScroll,
 			IsChannelAnimation = isChannelAnimation,
+			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
 		}),
 
 		SettingsAndVerticalScrollBar = showEditor and Roact.createElement("Frame", {
@@ -588,14 +616,14 @@ function EditorController:render()
 			IsChannelAnimation = GetFFlagChannelAnimations() and isChannelAnimation or nil,
 		}),
 
-		IgnoreLayout = showEditor and Roact.createElement("Folder", {}, {
+		IgnoreLayout = not GetFFlagCurveEditor() and showEditor and Roact.createElement("Folder", {}, {
 			TrackColors = Roact.createElement(TrackColors, {
 				Tracks = tracks,
 				TopTrackIndex = topTrackIndex,
 				Position = UDim2.new(0, 0, 0, colorsPosition),
 				MaxHeight = absoluteSize.Y - Constants.TRACK_HEIGHT - colorsPosition,
 			}),
-		}),
+		}) or nil,
 
 		InactiveCover = not active and Roact.createElement(InactiveCover, {
 			OnFocused = self.attachEditorWrapper,
@@ -659,6 +687,7 @@ local function mapStateToProps(state, props)
 		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
 		PlaybackSpeed = status.PlaybackSpeed,
+		EditorMode = status.EditorMode,
 	}
 end
 
@@ -776,13 +805,11 @@ local function mapDispatchToProps(dispatch)
 	return dispatchToProps
 end
 
-
 EditorController = withContext({
 	Analytics = ContextServices.Analytics,
 	Signals = SignalsContext,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(EditorController)
-
-
-
 
 return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EditorController)

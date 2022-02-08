@@ -1,4 +1,5 @@
 local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -56,6 +57,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_TipsTextColor] = Color3.fromRGB(102, 102, 102),
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
+		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization and StyleColors.Black or nil,
 
 		-- Asset Configuration
 		[StyleKey.AssetConfig_DividerHorizontalLineColor] = StyleColors.Carbon,
@@ -86,6 +88,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_TipsTextColor] = Colors.GRAY_3,
 		[StyleKey.Toolbox_TabTopBorderColor] = Color3.fromRGB(182, 182, 182),
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.Blue,
+		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization and StyleColors.Gray_Light or nil,
 
 		-- Asset Configuration
 		[StyleKey.AssetConfig_DividerHorizontalLineColor] = Color3.fromRGB(227, 227, 227),
@@ -149,6 +152,10 @@ local makeTheme = function(themeExtension, themeClass)
 			},
 		},
 
+		assetConfig = {
+			labelTextColor = StyleKey.DimmedText,
+		},
+
 		creatorName = {
 			textColor = StyleKey.SubText,
 		},
@@ -198,6 +205,14 @@ local makeTheme = function(themeExtension, themeClass)
 			borderColor = StyleKey.Border,
 		},
 
+		iconTile = FFlagToolboxAssetCategorization and {
+			font = Enum.Font.SourceSansBold,
+			gradientColor = StyleKey.Toolbox_IconTileGradientColor,
+			textColor = StyleKey.MainText,
+			textColorHovered = StyleKey.BrightText,
+			textSize = 15,
+		} or nil,
+
 		infoBanner = {
 			backgroundColor = StyleKey.Titlebar,
 			textColor = StyleKey.SubText,
@@ -225,10 +240,6 @@ local makeTheme = function(themeExtension, themeClass)
 		purchaseDialog = {
 			promptText = StyleKey.MainText,
 			balanceText = StyleKey.DimmedText,
-		},
-
-		assetConfig = {
-			labelTextColor = StyleKey.DimmedText,
 		},
 
 		publishAsset = {

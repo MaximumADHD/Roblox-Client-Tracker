@@ -11,7 +11,7 @@
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		number LayoutOrder: The layout order of this component in a list.
 		UDim2 Size: The size of this component.
-		UDim2 Position: The position of this component.
+		boolean RichText: Whether to not to use rich text formatting.
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		Enum.TextXAlignment TextXAlignment: Sets text horizontal alignment.
@@ -53,7 +53,6 @@ local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
 
 local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -74,6 +73,7 @@ function TextLabel:render()
 
 	local backgroundTransparency = prioritize(self.props.BackgroundTransparency, style.BackgroundTransparency, 1)
 	local font = prioritize(self.props.Font, style.Font)
+	local richText = self.props.RichText
 	local textColor = prioritize(self.props.TextColor, style.TextColor)
 	local textSize = prioritize(self.props.TextSize, style.TextSize)
 	local transparency = prioritize(self.props.TextTransparency, style.TextTransparency)
@@ -92,6 +92,7 @@ function TextLabel:render()
 		BackgroundTransparency = backgroundTransparency,
 		Font = font,
 		LayoutOrder = layoutOrder,
+		RichText = richText,
 		Size = size,
 		Text = text,
 		TextColor3 = textColor,
@@ -102,13 +103,11 @@ function TextLabel:render()
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
 		ZIndex = zIndex,
-		[Roact.Ref] = (FFlagTextLabelRefProps or FFlagToggleTreeTableTooltip) and ref or nil,
+		[Roact.Ref] = ref,
 		[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and onAbsoluteSizeChange or nil,
 	}
 
-	if FFlagToggleTreeTableTooltip then
-		textLabelProps[Roact.Ref] = self.props[Roact.Ref]
-	end
+	textLabelProps[Roact.Ref] = self.props[Roact.Ref]
 	
 	if fitWidth then
 		local maximumWidth

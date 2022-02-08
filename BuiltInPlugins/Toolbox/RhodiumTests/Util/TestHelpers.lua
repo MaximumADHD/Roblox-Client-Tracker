@@ -1,4 +1,4 @@
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
@@ -8,9 +8,13 @@ if FFlagToolboxDeduplicatePackages then
 else
 	Libs = Plugin.Libs
 end
+local Cryo = require(Libs.Cryo)
+local Framework = require(Libs.Framework)
 local Roact = require(Libs.Roact)
 local Rodux = require(Libs.Rodux)
-local Cryo = require(Libs.Cryo)
+
+local ContextServices = Framework.ContextServices
+local MockPlugin = Framework.TestHelpers.Instances.MockPlugin
 
 local ToolboxReducer = require(Plugin.Core.Reducers.ToolboxReducer)
 
@@ -48,7 +52,7 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 	local assetId = myAsset.Asset.Id
 
 	mockProps = mockProps or {}
-	if FFlagToolboxAssetGridRefactor3 then
+	if FFlagToolboxAssetGridRefactor4 then
 		mockProps = Cryo.Dictionary.join(mockProps, {
 			store = Rodux.Store.new(ToolboxReducer, {
 				assets = {
@@ -60,10 +64,10 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			asset = (not FFlagToolboxAssetGridRefactor3) and myAsset or nil,
-			assetId = FFlagToolboxAssetGridRefactor3 and assetId or nil,
+			asset = (not FFlagToolboxAssetGridRefactor4) and myAsset or nil,
+			assetId = FFlagToolboxAssetGridRefactor4 and assetId or nil,
 			LayoutOrder = 1,
-			isHovered = (not FFlagToolboxAssetGridRefactor3) and false or nil,
+			isHovered = (not FFlagToolboxAssetGridRefactor4) and false or nil,
 			Selected = false,
 		}),
 	})
@@ -161,6 +165,13 @@ function TestHelpers.clickInstance(instance)
 	TestHelpers.delay()
 
 	return element
+end
+
+function TestHelpers.mockMouse(mockPlugin)
+	if not mockPlugin then
+		mockPlugin = MockPlugin.new()
+	end
+	return ContextServices.Mouse.new(mockPlugin:GetMouse())
 end
 
 return TestHelpers

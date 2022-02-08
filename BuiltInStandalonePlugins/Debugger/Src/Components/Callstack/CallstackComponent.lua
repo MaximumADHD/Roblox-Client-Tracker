@@ -155,6 +155,13 @@ function CallstackComponent:init()
 			
 			if rowInfo.sourceColumn and rowInfo.lineColumn then
 				local DebuggerUIService = game:GetService("DebuggerUIService")
+				
+				-- If we click the top frame (the one with the yellow arrow), then we remove any curved blue arrows we are showing.
+				if frameNumber > 1 then
+					DebuggerUIService:SetScriptLineMarker(rowInfo.scriptGUID, props.CurrentDebuggerConnectionId, rowInfo.lineColumn, false)
+				else
+					DebuggerUIService:RemoveScriptLineMarkers(props.CurrentDebuggerConnectionId, false)
+				end
 				DebuggerUIService:OpenScriptAtLine(rowInfo.scriptGUID, props.CurrentDebuggerConnectionId, rowInfo.lineColumn)
 			end
 		end

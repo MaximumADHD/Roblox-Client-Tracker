@@ -37,22 +37,42 @@ local ModelUtil = require(Plugin.Src.Util.ModelUtil)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local ItemCharacteristics = require(Plugin.Src.Util.ItemCharacteristics)
 
+local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
+
 local function getVerticesForWrap(cage, wrap, mock)
-	local verts
+	local verts = {}
 	if mock then
 		verts = MockRbfData.Verts["UpperTorso"]
 	else
-		verts = wrap:GetVertices(cage)
+		if GetFFlagFixNoCageMeshIdCrash() then
+			local _, err = pcall(function()
+				verts = wrap:GetVertices(cage)
+			end)
+			if err then
+				print(err)
+			end
+		else
+			verts = wrap:GetVertices(cage)
+		end
 	end
 	return verts
 end
 
 local function getFacesForWrap(cage, wrap, mock)
-	local faces
+	local faces = {}
 	if mock then
 		faces = MockRbfData.Faces["UpperTorso"]
 	else
-		faces = wrap:GetFaces(cage)
+		if GetFFlagFixNoCageMeshIdCrash() then
+			local _, err = pcall(function()
+				faces = wrap:GetFaces(cage)
+			end)
+			if err then
+				print(err)
+			end
+		else
+			faces = wrap:GetFaces(cage)
+		end
 	end
 	return faces
 end
@@ -107,11 +127,20 @@ return function(editingItem)
 				return
 			end
 
-			if not next(ModelUtil:getDeformerToPartMap()) then
-				store:dispatch(SetPointData({}))
-				store:dispatch(SetOriginalPointData({}))
-				store:dispatch(SetPolyData({}))
-				return
+			if GetFFlagFixNoCageMeshIdCrash() then
+				if not next(ModelUtil:getDeformerToPartMap()) or ItemCharacteristics.hasInvalidCage(editingItem) then
+					store:dispatch(SetPointData({}))
+					store:dispatch(SetOriginalPointData({}))
+					store:dispatch(SetPolyData({}))
+					return
+				end
+			else
+				if not next(ModelUtil:getDeformerToPartMap()) then
+					store:dispatch(SetPointData({}))
+					store:dispatch(SetOriginalPointData({}))
+					store:dispatch(SetPolyData({}))
+					return
+				end
 			end
 
 			if isClothes then

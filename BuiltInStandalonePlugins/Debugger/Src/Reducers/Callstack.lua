@@ -85,9 +85,8 @@ return Rodux.createReducer(productionStartStore, {
 				table.insert(newThreadList, v)
 			end
 		end
-		
-		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] ~= nil and
-			state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList[action.threadId] ~= nil)
+
+		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] ~= nil)
 
 		local newThreadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList
 		newThreadIdToFrameList[action.threadId] = nil

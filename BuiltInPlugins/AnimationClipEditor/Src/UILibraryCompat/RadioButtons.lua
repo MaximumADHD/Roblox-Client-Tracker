@@ -17,6 +17,8 @@ local Roact = require(Plugin.Packages.Roact)
 local createFitToContent = require(script.Parent.createFitToContent)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -104,7 +106,7 @@ end
 
 function RadioButtons:render()
 		local props = self.props
-		local theme = props.Theme:get("UILibraryOverrides")
+		local theme = THEME_REFACTOR and props.Stylizer.UILibraryOverrides or props.Theme:get("UILibraryOverrides")
 
 		local buttons = props.Buttons
 		local layoutOrder = props.LayoutOrder
@@ -133,7 +135,8 @@ end
 
 
 RadioButtons = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(RadioButtons)
 
 

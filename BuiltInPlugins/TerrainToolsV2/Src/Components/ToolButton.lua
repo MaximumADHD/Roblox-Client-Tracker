@@ -55,7 +55,14 @@ function ToolButton:render()
 	local toolId = self.props.ToolId
 	local text = localization:getText("ToolName", toolId)
 	local layoutOrder = self.props.LayoutOrder
-	local image = Constants.ToolIcons[toolId]
+	local mockForUnitTests =  self.props.IsUnitTest or false
+	local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and (mockForUnitTests or  not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild())
+	local image
+	if FFlagHighDpiIcons then 
+		image = string.format(Constants.HighDpiToolIconsWithThemeAndName2, settings().Studio.Theme.Name, Constants.HighDpiToolIconsName[toolId])
+	else
+		image = Constants.ToolIcons[toolId]
+	end
 
 	local isCurrentTool = self.props.IsCurrentTool
 	local isHovered = self.state.isHovered

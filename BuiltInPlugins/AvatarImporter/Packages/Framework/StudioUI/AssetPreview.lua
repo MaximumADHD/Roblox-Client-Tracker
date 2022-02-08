@@ -30,11 +30,12 @@
 		table PurchaseFlow: PurchaseFlow dialog to show.
 		table SuccessDialog: SuccessDialog dialog to show.
 		boolean HideCreatorSearch: Whether to show creator search link
+		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
+		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
 ]]
-
-local FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites = game:GetFastFlag("ToolboxPolicyDisableRatingsAssetPreviewFavorites")
-local FFlagToolboxPluginPreviewFooter = game:GetFastFlag("ToolboxPluginPreviewFooter")
+local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
+local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 
 local TextService = game:GetService("TextService")
 
@@ -58,7 +59,6 @@ local formatLocalDateTime = Util.formatLocalDateTime
 local AssetRender = require(script.Parent.AssetRender)
 local Favorites = require(script.Parent.Favorites)
 local VoteBar = require(script.Parent.VoteBar)
-local Votes = require(script.Parent.Votes)
 
 local UI = require(Framework.UI)
 local Decoration = UI.Decoration
@@ -70,6 +70,8 @@ local Separator = UI.Separator
 local HoverArea = UI.HoverArea
 local TextLabel = Decoration.TextLabel
 local Image = Decoration.Image
+local Pane = UI.Pane
+local Tooltip = UI.Tooltip
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -315,16 +317,17 @@ function AssetPreview:render()
 	local scrollingFramePadding = style.ScrollingFrame.Padding
 	local textMaxWidth = size.X.Offset - scrollingFramePadding.PaddingLeft.Offset - scrollingFramePadding.PaddingRight.Offset
 
-	local favorites = function (nextOrder)
-		if FFlagToolboxPolicyDisableRatingsAssetPreviewFavorites then
-			return props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
-				LayoutOrder = nextOrder,
-			}, props.Favorites))
+	local canFlagAsset
+	local assetHeaderSpacing
+	local reportButtonWidth
+	if FFlagToolboxRedirectToLibraryAbuseReport then
+		if FFlagToolboxHideReportFlagForCreator then
+			canFlagAsset = props.CanFlagAsset
 		else
-			return Roact.createElement(Favorites, Immutable.JoinDictionaries({
-				LayoutOrder = nextOrder,
-			}, props.Favorites))
+			canFlagAsset = (assetData.Creator.Id ~= 1)
 		end
+		assetHeaderSpacing = style.ScrollingFrame.AssetHeader.Spacing
+		reportButtonWidth = canFlagAsset and style.ScrollingFrame.FlagAsset.Size.X.Offset or 0
 	end
 
 	return Roact.createElement(Container, {
@@ -367,19 +370,88 @@ function AssetPreview:render()
 			}, {
 				Padding = Roact.createElement("UIPadding", scrollingFramePadding),
 
-				AssetName = Roact.createElement(TextLabel, {
-					FitWidth = true,
-					FitMaxWidth = textMaxWidth,
+				AssetNameHeader = FFlagToolboxRedirectToLibraryAbuseReport and Roact.createElement(Pane, {
+					AutomaticSize = Enum.AutomaticSize.Y,
+					Padding = 5,
+					Size = UDim2.new(1, 0, 0, 0),
+					Spacing = assetHeaderSpacing,
+					Layout = Enum.FillDirection.Horizontal,
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}, {
+					AssetNameContainer = Roact.createElement(Pane, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Size = UDim2.new(1, -reportButtonWidth - assetHeaderSpacing, 0, 0),
+						LayoutOrder = 1,
+						Layout = Enum.FillDirection.Vertical,
+					}, {
+						AssetName = Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							LayoutOrder = 1,
+							Size = UDim2.new(1, 0, 0, 0),
+							Style = style.ScrollingFrame.AssetName,
+							Text = assetData.Asset.Name,
+							TextWrapped = true,
+						}),
+
+						CreatorName = Roact.createElement(TextLabel, {
+							AutomaticSize = Enum.AutomaticSize.Y,
+							LayoutOrder = 2,
+							RichText = true,
+							Size = UDim2.new(1, 0, 0, 0),
+							Style = style.ScrollingFrame.CreatorName,
+							Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "ByUsername", {
+								username = "<b>" .. assetData.Creator.Name .. "</b>",
+							}),
+							TextWrapped = true,
+						}),
+					}),
+
+					FlagAssetContainer = canFlagAsset and Roact.createElement(Pane, {
+						BackgroundTransparency = 1,
+						AutomaticSize = Enum.AutomaticSize.XY,
+						LayoutOrder = 2,
+					}, {
+						FlagAsset = Roact.createElement("ImageButton", {
+							BackgroundTransparency = 1,
+							Image = style.ScrollingFrame.FlagAsset.Image,
+							ImageColor3 = style.ScrollingFrame.FlagAsset.ImageColor3,
+							Position = UDim2.new(0, 0, 0, 5),
+							Size = style.ScrollingFrame.FlagAsset.Size,
+							[Roact.Event.Activated] = self.props.OnClickReport,
+						}, {
+							Tooltip = Roact.createElement(Tooltip, {
+								Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "Report"),
+							}),
+
+							HoverArea = Roact.createElement(HoverArea, {
+								Cursor = "PointingHand",
+							})
+						}),
+					}),
+				}),
+
+				AssetName = (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
 					TextWrapped = true,
+					Size = UDim2.new(1, 0, 0, 0),
 					Style = style.ScrollingFrame.AssetName,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 					Text = assetData.Asset.Name,
 				}),
 
-				Votes = props.Voting and Roact.createElement(Votes, {
+				CreatorName = (not FFlagToolboxRedirectToLibraryAbuseReport) and Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.Y,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
-					Voting = props.Voting
-				}),
+					RichText = true,
+					Size = UDim2.new(1, 0, 0, 0),
+					Style = style.ScrollingFrame.CreatorName,
+					Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "ByUsername", {
+						username = "<b>" .. assetData.Creator.Name .. "</b>",
+					}),
+					TextWrapped = true,
+				}) or nil,
+
 
 				AssetRender = Roact.createElement(AssetRender, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
@@ -405,7 +477,9 @@ function AssetPreview:render()
 					OnPauseVideo = self.onPauseVideo,
 				}),
 
-				Favorites = favorites(layoutOrderIterator:getNextOrder()),
+				Favorites = props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+				}, props.Favorites)),
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,
@@ -487,14 +561,13 @@ function AssetPreview:render()
 					end)
 				),
 
-				FooterSeparator = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(Separator, {
+				FooterSeparator = props.RenderFooter and Roact.createElement(Separator, {
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
-				}) or nil,
-
-				Footer = FFlagToolboxPluginPreviewFooter and props.RenderFooter and Roact.createElement(props.RenderFooter, {
+				}),
+				Footer = props.RenderFooter and Roact.createElement(props.RenderFooter, {
 					FitMaxWidth = textMaxWidth,
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
-				}) or nil,
+				}),
 
 				-- UIListLayout AbsoluteContentSize does not account for padding, so add a spacer div here.
 				BottomSpacer = Roact.createElement(Container, {

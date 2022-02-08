@@ -3,11 +3,6 @@ require(script.Parent.defineLuaFlags)
 local Plugin = script.Parent.Parent
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
--- Set THEME_REFACTOR in the DevFramework to false
-local RefactorFlags = require(Plugin.Packages.Framework.Util.RefactorFlags)
-RefactorFlags.THEME_REFACTOR = false
-
-
 local function getReporter()
 	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter

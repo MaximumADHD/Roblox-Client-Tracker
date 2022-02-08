@@ -15,6 +15,8 @@ local Roact = require(Plugin.Packages.Roact)
 local DragListenerArea = require(Plugin.Src.Components.DragListenerArea)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -22,7 +24,7 @@ local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
 function TrackListBorder:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
 		return Roact.createElement("Frame", {
 			Size = UDim2.new(0, 2, 1, 0),
@@ -44,7 +46,8 @@ end
 
 
 TrackListBorder = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TrackListBorder)
 
 

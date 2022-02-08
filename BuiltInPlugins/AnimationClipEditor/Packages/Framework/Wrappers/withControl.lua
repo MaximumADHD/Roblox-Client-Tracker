@@ -8,6 +8,9 @@
 	The wrapper passes the WrapperProps table that defines the event handlers for the control,
 	which should be merged with the props for the element that is rendered (using i.e. Dash.assign)
 ]]
+export type WrapperProps = {
+	-- TODO work out how to type Roact.Event
+}
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -46,7 +49,7 @@ function Controllable:init()
 	self.onInputBegan = function(rbx, input)
 		if isInputMainPress(input) then
 			self:setState({
-				isPressed = true,
+				isPressing = true,
 			})
 			if self.props.ComponentProps.OnPress then
 				self.props.ComponentProps.OnPress(self.props.ComponentProps)
@@ -56,8 +59,11 @@ function Controllable:init()
 	self.onInputEnded = function(rbx, input)
 		if isInputMainPress(input) then
 			self:setState({
-				isPressed = false,
+				isPressing = false,
 			})
+			if self.props.ComponentProps.OnPressEnd then
+				self.props.ComponentProps.OnPressEnd(self.props.ComponentProps)
+			end
 		end
 	end
 end

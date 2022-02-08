@@ -28,4 +28,10 @@ function FastFlags:shouldDetectRigTypeInR15Import()
 	return isFlagOn("DetectRigTypeInR15Import2")
 end
 
+function FastFlags:isFacialAnimationBetaFeatureEnabled()
+	-- The Facial Animation beta feature is considered enabled by the OR of the
+	-- following fast flags.
+	return isFlagOn("FacialAnimation1") or isFlagOn("FacialAnimation2")
+end
+
 return FastFlags

@@ -194,7 +194,7 @@ local productionStartStore = {
 }
 
 return Rodux.createReducer(productionStartStore, {
-	[SimPaused.name] = function(state : WatchStore, action : SimPaused.Props)	
+	[SimPaused.name] = function(state : WatchStore, action : SimPaused.Props)
 		assert((state.stateTokenToRoots[action.debuggerStateToken] == nil or 
 			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] == nil) and
 			(state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil or 
@@ -222,16 +222,16 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 	
-	[Resumed.name] = function(state : WatchStore, action : Resumed.Props)	
+	[Resumed.name] = function(state : WatchStore, action : Resumed.Props)
 		assert((state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
 			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil) and
 			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil or 
 				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil))
 		
-		local newStateTokenRootsForDST =  deepCopy(state.stateTokenToRoots[action.debuggerStateToken])
+		local newStateTokenRootsForDST = deepCopy(state.stateTokenToRoots[action.debuggerStateToken])
 		newStateTokenRootsForDST[action.threadId] = nil
 		
-		local newStateTokenToFlattenedTreeForDST=  deepCopy(state.stateTokenToFlattenedTree[action.debuggerStateToken])
+		local newStateTokenToFlattenedTreeForDST = deepCopy(state.stateTokenToFlattenedTree[action.debuggerStateToken])
 		newStateTokenToFlattenedTreeForDST[action.threadId] = nil
 		
 		return Cryo.Dictionary.join(state, {

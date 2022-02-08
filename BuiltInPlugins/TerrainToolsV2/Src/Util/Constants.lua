@@ -5,7 +5,6 @@ local Biome = TerrainEnums.Biome
 local ToolId = TerrainEnums.ToolId
 
 local TexturePath = "rbxasset://textures/TerrainTools/"
-
 local Constants = {}
 
 Constants.ToolIcons = {
@@ -29,6 +28,31 @@ Constants.ToolIcons = {
 	[ToolId.Smooth] = TexturePath .. "mt_smooth.png",
 	[ToolId.Flatten] = TexturePath .. "mt_flatten.png",
 	[ToolId.Paint] = TexturePath .. "mt_paint.png",
+}
+
+Constants.HighDpiToolIconsWithThemeAndName2 = "rbxasset://studio_svg_textures/Shared/Terrain/%s/32/%s"
+
+Constants.HighDpiToolIconsName = {
+	[ToolId.Generate] = "Generate.png",
+	[ToolId.ImportLocal] = "Import.png",
+	[ToolId.SeaLevel] = "SeaLevel.png",
+	[ToolId.Replace] = "Replace.png",
+	[ToolId.Clear] = "Clear.png",
+	[ToolId.Select] = "Select.png",
+	[ToolId.Move] = "Move.png",
+	[ToolId.Resize] = "Resize.png",
+	[ToolId.Rotate] = "Rotate.png",
+	[ToolId.Copy] = "Copy.png",
+	[ToolId.Paste] = "Paste.png",
+	[ToolId.Delete] = "Delete.png",
+	[ToolId.Fill] = "Fill.png",
+	[ToolId.Add] = "Add.png",
+	[ToolId.Subtract] = "Subtract.png",
+	[ToolId.Grow] = "Grow.png",
+	[ToolId.Erode] = "Erode.png",
+	[ToolId.Smooth] = "Smooth.png",
+	[ToolId.Flatten] = "Flatten.png",
+	[ToolId.Paint] = "Paint.png",
 }
 
 Constants.INITIAL_BRUSH_SIZE = 6

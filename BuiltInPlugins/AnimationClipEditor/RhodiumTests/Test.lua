@@ -39,6 +39,7 @@ local AnimationClipEditor = require(Plugin.Src.Components.AnimationClipEditor)
 local MainProvider = require(Plugin.Src.Context.MainProvider)
 local SetSnapMode = require(Plugin.Src.Actions.SetSnapMode)
 
+local THEME_REFACTOR = game:GetFastFlag("AnimationClipEditorStylizer")
 local Test = {}
 
 Test.__index = Test
@@ -145,7 +146,7 @@ end
 function Test.new(plugin)
 	local self = {
 		localization = Localization.mock(),
-		theme = Theme.mock(),
+		theme = THEME_REFACTOR and Theme(true) or Theme.mock(),
 		plugin = plugin,
 		subWindows = {},
 	}

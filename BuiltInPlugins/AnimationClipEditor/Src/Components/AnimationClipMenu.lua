@@ -44,7 +44,10 @@ local ExportAnimation = require(Plugin.Src.Thunks.Exporting.ExportAnimation)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local UpdateMetadata = require(Plugin.Src.Thunks.UpdateMetadata)
+local SetEditorMode = require(Plugin.Src.Actions.SetEditorMode)
+
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagAnimationClipProvider = game:GetFastFlag("UseNewAnimationClipProvider_4")
 local FFlagAnimationFromVideoCreatorServiceInAnimationEditor = game:DefineFastFlag("AnimationFromVideoCreatorServiceInAnimationEditor", false)
@@ -162,6 +165,7 @@ function AnimationClipMenu:makeMenuActions(localization)
 	local currentPriority = animationData and animationData.Metadata
 		and animationData.Metadata.Priority
 	local enablePromote = animationData and not isChannelAnimation
+	local enableEditorMode = animationData and isChannelAnimation
 
 	local actions = {}
 	table.insert(actions, self:makeLoadMenu(localization, current))
@@ -205,6 +209,30 @@ function AnimationClipMenu:makeMenuActions(localization)
 		})
 	end
 
+	if GetFFlagCurveEditor() then
+		if enableEditorMode then
+			table.insert(actions, {
+				Name = "TODO: Editor Mode",
+				CurrentValue = props.EditorMode,
+				Items = {
+					{Name = Constants.EDITOR_MODE.DopeSheet, Value = Constants.EDITOR_MODE.DopeSheet},
+					{Name = Constants.EDITOR_MODE.CurveCanvas, Value = Constants.EDITOR_MODE.CurveCanvas},
+				},
+				ItemSelected = function(editorMode)
+					props.SetEditorMode(editorMode.Name)
+				end,
+				Enabled = enableEditorMode,
+			})
+		else
+			-- We cannot disable a submenu, but we can disable an action that looks like a submenu.
+			-- This will be replaced by a button somewhere anyway.
+			table.insert(actions, {
+				Name = "TODO: Editor Mode",
+				Enabled = false
+			})
+		end
+	end
+
 	table.insert(actions, Separator)
 	table.insert(actions, self:makePrioritySubMenu(localization, currentPriority))
 
@@ -222,20 +250,18 @@ function AnimationClipMenu:render()
 	}) or nil
 end
 
-
 AnimationClipMenu = withContext({
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 	Analytics = ContextServices.Analytics
 })(AnimationClipMenu)
 
-
-
 local function mapStateToProps(state, props)
 	local status = state.Status
 	return {
 		RootInstance = status.RootInstance,
 		AnimationData = state.AnimationData,
+		EditorMode = status.EditorMode
 	}
 end
 
@@ -264,6 +290,10 @@ local function mapDispatchToProps(dispatch)
 			dispatch(UpdateMetadata({
 				Priority = priority,
 			}))
+		end,
+
+		SetEditorMode = function(editorMode)
+			dispatch(SetEditorMode(editorMode))
 		end,
 	}
 end

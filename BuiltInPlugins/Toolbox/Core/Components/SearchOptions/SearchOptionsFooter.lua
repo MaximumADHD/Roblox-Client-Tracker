@@ -61,6 +61,8 @@ function SearchOptionsFooter:renderContent(theme, localizedContent)
 	local applyTheme = theme.searchOptions.applyButton
 
 	return Roact.createElement("Frame", {
+		AnchorPoint = self.props.AnchorPoint,
+		Position = self.props.Position,
 		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, Constants.FOOTER_BUTTON_HEIGHT),
 		BackgroundTransparency = 1,

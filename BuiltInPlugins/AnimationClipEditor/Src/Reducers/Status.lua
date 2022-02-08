@@ -46,6 +46,7 @@ return Rodux.createReducer({
 	VisualizeBones = true,
 	FrameRate = Constants.DEFAULT_FRAMERATE,
 	DefaultRotationType = Constants.DEFAULT_ROTATION_TYPE,
+	EditorMode = Constants.EDITOR_MODE.DopeSheet,
 }, {
 	SetActive = function(state, action)
 		return Cryo.Dictionary.join(state, {
@@ -266,6 +267,12 @@ return Rodux.createReducer({
 	SetBoneVisualization = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			VisualizeBones = action.visualizeBones,
+		})
+	end,
+
+	SetEditorMode = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			EditorMode = action.editorMode,
 		})
 	end,
 })

@@ -12,6 +12,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local StringUtils = require(Plugin.Src.Util.StringUtils)
 
 local ContextServices = Framework.ContextServices
@@ -41,7 +43,7 @@ function AnimationEventsTrack:init()
 	end
 
 	self.mouseEnter = function()
-		if self.props.Mouse then 
+		if self.props.Mouse then
 			self.props.Mouse:__pushCursor("PointingHand")
 		end
 		self:setState({
@@ -50,7 +52,7 @@ function AnimationEventsTrack:init()
 	end
 
 	self.mouseLeave = function()
-		if self.props.Mouse then 
+		if self.props.Mouse then
 			self.props.Mouse:__popCursor()
 		end
 		self:setState({
@@ -66,7 +68,7 @@ end
 function AnimationEventsTrack:render()
 		local localization = self.props.Localization
 			local props = self.props
-			local theme = props.Theme:get("PluginTheme")
+			local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 			local state = self.state
 			local layoutOrder = props.LayoutOrder
 			local indent = props.Indent or 0
@@ -125,7 +127,8 @@ end
 
 
 AnimationEventsTrack = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Mouse = ContextServices.Mouse
 })(AnimationEventsTrack)

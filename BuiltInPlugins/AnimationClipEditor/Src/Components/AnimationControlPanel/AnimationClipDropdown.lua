@@ -16,6 +16,8 @@ local IMPORT_FBX_KEY = newproxy(true)
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -36,7 +38,6 @@ local LoadAnimation = require(Plugin.Src.Thunks.Exporting.LoadAnimation)
 local SaveKeyframeSequence = require(Plugin.Src.Thunks.Exporting.SaveKeyframeSequence)
 local SaveAnimation = require(Plugin.Src.Thunks.Exporting.SaveAnimation)
 local ImportKeyframeSequence = require(Plugin.Src.Thunks.Exporting.ImportKeyframeSequence)
-local ImportFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimation)
 local ImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.ImportFBXAnimationUserMayChooseModel)
 local CreateFromVideoAndImportFBXAnimationUserMayChooseModel = require(Plugin.Src.Thunks.Exporting.CreateFromVideoAndImportFBXAnimationUserMayChooseModel)
 local ImportLoadedFBXAnimation = require(Plugin.Src.Thunks.Exporting.ImportLoadedFBXAnimation)
@@ -166,11 +167,7 @@ function AnimationClipDropdown:init()
 			self.showLoadNewPrompt(IMPORT_FBX_KEY)
 		else
 			local plugin = self.props.Plugin
-			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport2") then
-				self.props.ImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
-			else
-				self.props.ImportFBXAnimation(plugin, self.props.Analytics)
-			end
+			self.props.ImportFBXAnimationUserMayChooseModel(plugin, self, self.props.Analytics)
 		end
 	end
 
@@ -217,11 +214,7 @@ function AnimationClipDropdown:init()
 			props.ImportKeyframeSequence(plugin, props.Analytics)
 		elseif loadingName == IMPORT_FBX_KEY then
 			self.hideLoadNewPrompt()
-			if game:GetFastFlag("UserMayChooseModelForFBXAnimImport2") then
-				props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
-			else
-				props.ImportFBXAnimation(plugin, props.Analytics)
-			end
+			props.ImportFBXAnimationUserMayChooseModel(plugin, self, props.Analytics)
 		else
 			if GetFFlagChannelAnimations() then
 				props.LoadAnimation(loadingName, props.Analytics)
@@ -238,7 +231,7 @@ function AnimationClipDropdown:render()
 	local localization = self.props.Localization
 	local props = self.props
 	local state = self.state
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
 	local animationName = props.AnimationName
 	local layoutOrder = props.LayoutOrder
@@ -417,7 +410,8 @@ end
 
 
 AnimationClipDropdown = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
 	Analytics = ContextServices.Analytics,
@@ -468,10 +462,6 @@ local function mapDispatchToProps(dispatch)
 
 		ImportKeyframeSequence = function(plugin, analytics)
 			dispatch(ImportKeyframeSequence(plugin, analytics))
-		end,
-
-		ImportFBXAnimation = function(plugin, analytics)
-			dispatch(ImportFBXAnimation(plugin, analytics))
 		end,
 
 		ImportFBXAnimationUserMayChooseModel = function(plugin, animationClipDropdown, analytics)

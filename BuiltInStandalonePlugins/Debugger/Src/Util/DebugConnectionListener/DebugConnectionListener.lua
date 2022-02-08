@@ -21,33 +21,43 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	self.store:dispatch(SetFocusedDebuggerConnection(connection.Id))
 	local state = self.store:getState()
 	local common = state.Common
-	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId] or 
-		DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
-	
+	local dst = DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
 	if debuggerPauseReason == Enum.DebuggerPauseReason.Breakpoint then
-		if (pausedState.Breakpoint == nil) then
-			-- this should be temporary. We will be removing this check entirely when we implement step actions
-			print('recieved pausedState without a breakpoint')
-			return
+		if pausedState.Breakpoint ~= nil then
+			self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
+		else
+			print("RIDE-6661: Null BP when BP hit")
 		end
-		self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
-		debuggerUIService:OpenScriptAtLine(pausedState.Breakpoint.Script, common.currentDebuggerConnectionId, pausedState.Breakpoint.Line)
+	end
+
+	local function isThreadIdValid()
+		return dst == self.store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId]
 	end
 
 	self.store:dispatch(SimPaused(dst, pausedState.ThreadId))
-	
+
 	-- thread info is retrieved here; you cannot call GetThreadById before calling GetThreads
-	connection:GetThreads(function(threads) 
+	connection:GetThreads(function(threads)
+		if not isThreadIdValid() then
+			return
+		end
 		local threadState = connection:GetThreadById(pausedState.ThreadId)
 		if threadState ~= nil then
 			self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
 			self.store:dispatch(RequestCallstackThunk(threadState, connection, dst, scriptChangeService))
 			connection:Populate(threadState, function()
+				if not isThreadIdValid() then
+					return
+				end
 				local callstack = threadState:GetChildren()
 				for stackFrameId, stackFrame in ipairs(callstack) do
 					local stepStateBundle = StepStateBundle.ctor(dst,threadState.ThreadId,stackFrameId)
 					self.store:dispatch(LoadStackFrameVariables(connection, stackFrame, stepStateBundle))
 				end
+				-- Open script at top of callstack
+				local topFrame = threadState:GetFrame(0)
+				debuggerUIService:SetScriptLineMarker(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line, true)
+				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line)
 			end)
 		end
 
@@ -55,10 +65,12 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	end)
 end
 
-function DebugConnectionListener:onExecutionResumed(connection, pausedState)
+function DebugConnectionListener:onExecutionResumed(connection, pausedState, debuggerUIService)
 	local state = self.store:getState()
 	local common = state.Common
-	local dst = common.debuggerConnectionIdToDST[common.currentDebuggerConnectionId]
+
+	debuggerUIService:RemoveScriptLineMarkers(connection.Id, true)
+	local dst = common.debuggerConnectionIdToDST[connection.Id]
 	self.store:dispatch(Resumed(dst, pausedState.ThreadId))
 end
 
@@ -68,10 +80,10 @@ function DebugConnectionListener:connectEvents(debuggerConnectionId, connection,
 	connectionEvents["paused"] = connection.Paused:Connect(function(pausedState, debuggerPauseReason)
 		self:onExecutionPaused(connection, pausedState, debuggerPauseReason, debuggerUIService, scriptChangeService)
 	end)
-	connectionEvents["resumed"] = connection.Resumed:Connect(function(pausedState) 
-		self:onExecutionResumed(connection, pausedState)
+	connectionEvents["resumed"] = connection.Resumed:Connect(function(pausedState)
+		self:onExecutionResumed(connection, pausedState, debuggerUIService)
 	end)
-	
+
 	self.connectionEventConnections[debuggerConnectionId] = connectionEvents
 end
 
@@ -124,12 +136,12 @@ function DebugConnectionListener:destroy()
 		self._connectionStartedConnection:Disconnect()
 		self._connectionStartedConnection = nil
 	end
-	
+
 	if self._connectionEndedConnection then
 		self._connectionEndedConnection:Disconnect()
 		self._connectionEndedConnection = nil
 	end
-	
+
 	if self._focusChangedConnection then
 		self._focusChangedConnection:Disconnect()
 		self._focusChangedConnection = nil

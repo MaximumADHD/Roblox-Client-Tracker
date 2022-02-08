@@ -27,6 +27,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local BaseTrack = require(Plugin.Src.Components.BaseTrack)
 
@@ -55,7 +58,8 @@ function SummaryTrack:renderKeyframe(selected, xOffset, tick, name)
 	local props = self.props
 	return Roact.createElement(Keyframe, {
 		Selected = selected,
-		Style = Constants.KEYFRAME_STYLE.Primary,
+		Style = not THEME_REFACTOR and Constants.KEYFRAME_STYLE.Primary or nil,
+		KeyframeStyle = THEME_REFACTOR and Constants.KEYFRAME_STYLE.Primary or nil,
 		Position = UDim2.new(0, xOffset, 0.5, 0),
 		ZIndex = props.ZIndex,
 		Width = Constants.SUMMARY_KEYFRAME_WIDTH,

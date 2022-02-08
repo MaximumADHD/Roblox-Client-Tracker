@@ -45,6 +45,7 @@ local ScriptConfirmationDialog = require(Plugin.Core.Components.ScriptConfirmati
 local PostInsertAssetRequest = require(Plugin.Core.Networking.Requests.PostInsertAssetRequest)
 
 local AssetGrid = require(Plugin.Core.Components.AssetGrid)
+local PermissionsConstants = require(Plugin.Core.Components.AssetConfiguration.Permissions.PermissionsConstants)
 
 local GetAssetPreviewDataForStartup = require(Plugin.Core.Thunks.GetAssetPreviewDataForStartup)
 local SetMostRecentAssetInsertTime = require(Plugin.Core.Actions.SetMostRecentAssetInsertTime)
@@ -53,6 +54,9 @@ local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
+
+local NextPageRequest = require(Plugin.Core.Networking.Requests.NextPageRequest)
+local PostAssetCheckPermissions = require(Plugin.Core.Networking.Requests.PostAssetCheckPermissions)
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")
 
@@ -119,7 +123,7 @@ function AssetGridContainer:init(props)
 		})
 		self.insertToolPromise:dismissWarningPrompt()
 	end
-	
+
 	self.onInsertScriptWarningPrompt = function(info)
 		if not FFlagToolboxEnableScriptConfirmation then return end
 		local settings = self.props.Settings:get("Plugin")
@@ -138,7 +142,7 @@ function AssetGridContainer:init(props)
 		local settings = self.props.Settings:get("Plugin")
 		settings:setShowScriptWarning(showState)
 	end
-	
+
 	self.insertToolPromise = InsertToolPromise.new(self.onInsertToolPrompt, self.onInsertScriptWarningPrompt)
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
@@ -191,6 +195,12 @@ function AssetGridContainer:init(props)
 			})
 		end
 	end
+
+	self.requestNextPage = function()
+		local networkInterface = getNetwork(self)
+		local settings = self.props.Settings:get("Plugin")
+		self.props.nextPage(networkInterface, settings)
+	end
 end
 
 function AssetGridContainer:didMount()
@@ -213,6 +223,7 @@ function AssetGridContainer:render()
 	local props = self.props
 	local state = self.state
 
+	local assetIds = props.assetIds
 	local automaticSize = props.AutomaticSize
 	local layoutOrder = props.LayoutOrder
 	local isPreviewing = props.isPreviewing
@@ -223,6 +234,23 @@ function AssetGridContainer:render()
 	local isShowingToolMessageBox = state.isShowingToolMessageBox
 	local isShowingScriptWarningMessageBox = state.isShowingScriptWarningMessageBox
 	local scriptWarningInfo = state.scriptWarningInfo
+
+	local isPackages = Category.categoryIsPackage(props.categoryName)
+	if isPackages and #assetIds ~= 0 then
+		local assetIdList = {}
+		local index = 1
+		while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
+			local assetId = assetIds[index]
+			if not self.props.currentUserPackagePermissions[assetId] then
+				table.insert(assetIdList, assetId)
+			end
+			index = index + 1
+		end
+
+		if #assetIdList ~= 0 then
+			self.props.dispatchPostAssetCheckPermissions(getNetwork(self), assetIdList)
+		end
+	end
 
 	return Roact.createElement("Frame", {
 		AutomaticSize = automaticSize,
@@ -271,15 +299,15 @@ function AssetGridContainer:render()
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		}),
 
-		InfiniteScrollingFrame = Roact.createElement(AssetGrid, {
+		AssetGrid = Roact.createElement(AssetGrid, {
+			assetIds = assetIds,
 			canInsertAsset = self.canInsertAsset,
 			parentAbsolutePosition = state.absolutePosition,
 			parentSize = state.absoluteSize,
+			requestNextPage = self.requestNextPage,
 			tryInsert = self.tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
 		}),
-
-		-- TODO: Swimlanes here
 	})
 end
 
@@ -298,7 +326,9 @@ local function mapStateToProps(state, props)
 	local categoryName = pageInfo.categoryName or Category.DEFAULT.name
 
 	return {
+		assetIds = assets.idsToRender or {},
 		categoryName = categoryName,
+		currentUserPackagePermissions = state.packages.permissionsTable or {},
 		isPreviewing = assets.isPreviewing or false,
 		searchTerm = pageInfo.searchTerm or "",
 	}
@@ -314,6 +344,12 @@ local function mapDispatchToProps(dispatch)
 		end,
 		setMostRecentAssetInsertTime = function()
 			dispatch(SetMostRecentAssetInsertTime())
+		end,
+		dispatchPostAssetCheckPermissions = function(networkInterface, assetIds)
+			dispatch(PostAssetCheckPermissions(networkInterface, assetIds))
+		end,
+		nextPage = function(networkInterface, settings)
+			dispatch(NextPageRequest(networkInterface, settings))
 		end,
 	}
 end

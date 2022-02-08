@@ -18,15 +18,26 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Style = Framework.Style
 local StudioTheme = Style.Themes.StudioTheme
 local ui = Style.ComponentSymbols
--- local _StyleKey = Style.StyleKey -- uncomment to use
+local StyleKey = Style.StyleKey
 
 local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
+local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 ui:add("AlertDialog")
 ui:add("ImageDragger")
 ui:add("SliceEditor")
+ui:add("TextEditor")
+ui:add("ImageEditor")
+
+local darkThemeOverride = {
+	[StyleKey.SubtleBackgroundColor] = Color3.fromRGB(40, 40, 40),
+}
+
+local lightThemeOverride = {
+	[StyleKey.SubtleBackgroundColor] = Color3.fromRGB(249, 249, 249),
+}
 
 local PluginTheme = {
 	Button = {
@@ -34,8 +45,9 @@ local PluginTheme = {
 		Style = "Round",
 	},
 
-	TextEditor = {
+	[ui.TextEditor] = {
 		OffsetItemSpacing = UDim.new(0, 7),
+		PixelDimensionsHeightPx = 40,
 	},
 
 	TextOffsetItem = {
@@ -56,14 +68,23 @@ local PluginTheme = {
 		EdgeHandleInsetPx = 2,
 	},
 
+	[ui.ImageEditor] = {
+		PaneBackgroundColor = StyleKey.SubtleBackgroundColor,
+		PaneBorderColor = StyleKey.Border,
+	},
+
 	[ui.SliceEditor] = {
+		TextAreaSize = UDim2.fromOffset(Constants.TEXTEDITOR_XSIZE, Constants.TEXTEDITOR_YSIZE + 60),
 		ImageAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE,
 			Constants.BACKGROUND_SIZE + Constants.TEXTSIZE + 10),
-		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10, 32),
+		ButtonsAreaSize = UDim2.fromOffset(Constants.BACKGROUND_SIZE + 10 + Constants.TEXTEDITOR_XSIZE + 10,
+			32 + (FFlag9SliceEditorResizableImagePreviewWindow and 10 or 0)),
 		ButtonsSpacing = UDim.new(0, 10),
 		VerticalSpacing = UDim.new(0, 5),
 		HorizontalSpacing = UDim.new(0, 5),
 		InfoBoxSize = UDim2.fromOffset(300, 200),
+		PaddingPx = 2,
+		TextAreaXWindowScaleFactor = 0.05,
 	},
 }
 
@@ -71,9 +92,9 @@ if THEME_REFACTOR then
 	return function(createMock)
 		local styleRoot
 		if createMock then
-			styleRoot = StudioTheme.mock()
+			styleRoot = StudioTheme.mock(darkThemeOverride, lightThemeOverride)
 		else
-			styleRoot = StudioTheme.new()
+			styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
 		end
 
 		return styleRoot:extend(PluginTheme)

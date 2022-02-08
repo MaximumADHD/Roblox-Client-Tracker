@@ -36,6 +36,7 @@ local TextService = game:GetService("TextService")
 local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI");
+local FFlagStudioRenameSaveButtonToSaveToRoblox = game:GetFastFlag("StudioRenameSaveButtonToSaveToRoblox")
 
 function MainView:init()
 	local selectedPage
@@ -110,7 +111,10 @@ function MainView:render()
 
 	local publishText = localization:getText("General", "PublishText")
     local buttonText = localization:getText("General", "ButtonPublish")
-	if FFlagStudioNewGamesInCloudUI then
+	if FFlagStudioRenameSaveButtonToSaveToRoblox then
+		publishText = localization:getText("General", "SaveText")
+		buttonText = localization:getText("General", "ButtonSaveToRoblox")
+	elseif FFlagStudioNewGamesInCloudUI then
 		publishText = localization:getText("General", "SaveText")
 		buttonText = localization:getText("General", "ButtonSave")
 	end

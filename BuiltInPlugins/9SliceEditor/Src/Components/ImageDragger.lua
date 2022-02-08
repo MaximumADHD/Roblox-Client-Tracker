@@ -24,6 +24,7 @@ local Analytics = ContextServices.Analytics
 local Localization = ContextServices.Localization
 
 local FFlag9SliceEditorNewDraggers = game:GetFastFlag("9SliceEditorNewDraggers")
+local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 local ImageDragger = Roact.PureComponent:extend("ImageDragger")
 
@@ -261,8 +262,14 @@ function ImageDragger:renderNewDraggers()
 		handle2Position = UDim2.new(0.5, 0, 1, -style.EdgeHandleInsetPx)
 		draggerImage = showOutline and draggerImageRoot.OUTLINED or draggerImageRoot.NORMAL
 		sliceCenter = Rect.new(0, 8, 8, 8)
-		draggerSize = UDim2.fromOffset(Constants.DRAGGER_WIDTH_V2, Constants.DRAGGER_HEIGHT)
-		draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH, Constants.DRAGGER_HEIGHT)
+
+		if FFlag9SliceEditorResizableImagePreviewWindow then
+			draggerSize = UDim2.new(0, Constants.DRAGGER_WIDTH_V2, 1, 0)
+			draggerClickWindowSize = UDim2.new(0, Constants.DRAGGER_CLICK_WINDOW_WIDTH, 1, Constants.DRAGGER_HANDLE_SIZE*2)
+		else
+			draggerSize = UDim2.fromOffset(Constants.DRAGGER_WIDTH_V2, Constants.DRAGGER_HEIGHT)
+			draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_CLICK_WINDOW_WIDTH, Constants.DRAGGER_HEIGHT)
+		end
 
 	elseif orientation == TOP or orientation == BOTTOM then
 		local sideOffset = sliceValue / pixelDimensions.Y
@@ -286,8 +293,14 @@ function ImageDragger:renderNewDraggers()
 		handle2Position = UDim2.new(1, -style.EdgeHandleInsetPx, 0.5, 0)
 		draggerImage = showOutline and draggerImageRoot.OUTLINED or draggerImageRoot.NORMAL
 		sliceCenter = Rect.new(8, 0, 8, 8)
-		draggerSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_WIDTH_V2)
-		draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
+
+		if FFlag9SliceEditorResizableImagePreviewWindow then
+			draggerSize = UDim2.new(1, 0, 0, Constants.DRAGGER_WIDTH_V2)
+			draggerClickWindowSize = UDim2.new(1, Constants.DRAGGER_HANDLE_SIZE*2, 0, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
+		else
+			draggerSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_WIDTH_V2)
+			draggerClickWindowSize = UDim2.fromOffset(Constants.DRAGGER_HEIGHT, Constants.DRAGGER_CLICK_WINDOW_WIDTH)
+		end
 	end
 
 	local hoverColor = Color3.fromRGB(255, 131, 131)

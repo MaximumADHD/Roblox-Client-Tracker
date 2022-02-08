@@ -10,8 +10,6 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local JointPairs = require(DraggerFramework.Utility.JointPairs)
 local JointUtil = require(DraggerFramework.Utility.JointUtil)
 
-local getFFlagPreserveMotor6D = require(DraggerFramework.Flags.getFFlagPreserveMotor6D)
-
 local getFFlagDraggerHandleRigidConstraints = require(DraggerFramework.Flags.getFFlagDraggerHandleRigidConstraints)
 
 local DEFAULT_COLLISION_THRESHOLD = 0.001
@@ -248,7 +246,6 @@ function PartMover:_prepareJoints(parts, breakJoints)
 	self._reenableWeldConstraints = {}
 	self._adjustAndReenableMotor6Ds = {}
 	self._alreadyConnectedToSets = {}
-	local FFlagPreserveMotor6D = getFFlagPreserveMotor6D()
 
 	local FFlagDraggerHandleRigidConstraints = getFFlagDraggerHandleRigidConstraints()
 	for _, part in ipairs(parts) do
@@ -258,7 +255,7 @@ function PartMover:_prepareJoints(parts, breakJoints)
 				local other = JointUtil.getJointInstanceCounterpart(joint, part)
 				if breakJoints then
 					if not self._partSet[other] then
-						if FFlagPreserveMotor6D and joint:IsA("Motor6D") then
+						if joint:IsA("Motor6D") then
 							-- Disable Motor6Ds temporarily and adjust them
 							-- after the move. Motor6Ds need to feel more
 							-- "permanent" than other joints.
@@ -478,7 +475,7 @@ function PartMover:commit()
 		end
 		self._reenableWeldConstraints = nil
 	end
-	if getFFlagPreserveMotor6D() and self._adjustAndReenableMotor6Ds then
+	if self._adjustAndReenableMotor6Ds then
 		for motor6d, _ in pairs(self._adjustAndReenableMotor6Ds) do
 			if self._partSet[motor6d.Part0] then
 				-- Modify C0

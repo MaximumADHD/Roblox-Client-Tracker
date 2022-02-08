@@ -18,6 +18,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ShowOnTop = Framework.UI.ShowOnTop
 local DropShadow = Framework.UI.DropShadow
 local ContextServices = Framework.ContextServices
@@ -29,7 +31,7 @@ local BaseToast = Roact.PureComponent:extend("BaseToast")
 
 function BaseToast:render()
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local toastTheme = theme.toastTheme
 
 		local anchorPoint = props.AnchorPoint
@@ -86,7 +88,8 @@ end
 
 
 BaseToast = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(BaseToast)
 
 

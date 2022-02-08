@@ -603,4 +603,10 @@ function Category.getEngineAssetType(assetType)
 	return result
 end
 
+function Category.categoryIsAvatarAssetByCategoryName(categoryName)
+	local category = Category.getCategoryByName(categoryName)
+	local assetTypeEnum = Category.getEngineAssetType(category.assetType)
+	return ASSET_ENUM_GROUP_CATEGORY_MAP[assetTypeEnum] ~= nil
+end
+
 return Category

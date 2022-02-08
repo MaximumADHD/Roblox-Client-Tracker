@@ -36,6 +36,7 @@ local BOTTOM = Orientation.Bottom.rawValue()
 local UNDEFINED = Orientation.Undefined.rawValue()
 
 local FFlag9SliceEditorRespectImageRectSize = game:GetFastFlag("9SliceEditorRespectImageRectSize")
+local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
 
 function ImageEditor:init(props)
 	self.draggerHandlingMovement = false -- red dragger not currently handling drag
@@ -61,6 +62,8 @@ function ImageEditor:init(props)
 		self.topPos = math.clamp(sliceRect[TOP] / pixelDimensions.Y, 0, 1)
 		self.bottomPos =  math.clamp(sliceRect[BOTTOM] / pixelDimensions.Y, 0, 1)
 	end
+
+	self.backgroundImageRef = Roact.createRef()
 
 	self.onDragging = function(inputPosition, dragOrientation)
 		-- when onInputChanged for red draggers
@@ -295,6 +298,10 @@ function ImageEditor:init(props)
 		local slice = self.props.sliceRect
 		local deltaPosition = Vector2.new(inputPosition.X, inputPosition.Y) - self.mousePosition
 		local imageDimension = self.state.fitImageSize
+		if not imageDimension then
+			-- It is possible we haven't rendered yet, so no idea what the scaled image dimensions are.
+			return
+		end
 		self.newPosition = self.draggerPosition + deltaPosition / imageDimension
 		local pixelDimensions = self.props.pixelDimensions
 
@@ -338,14 +345,31 @@ function ImageEditor:init(props)
 	self.setMostRecentMouseMoveInputObject = function(inputObj: InputObject)
 		self.lastMouseMoveInputObject = inputObj
 	end
+	
+	self.onFitImageSizeChanged = function(inst: ImageButton)
+		local pixelDimensions: Vector2 = self.props.pixelDimensions
+
+		local isEnlarged = false
+		if pixelDimensions then
+			isEnlarged = inst.AbsoluteSize.X > pixelDimensions.X
+		end
+
+		self:setState({
+			fitImageSize = inst.AbsoluteSize,
+			isEnlarged = isEnlarged,
+		})
+	end
 end
 
 function ImageEditor.getDerivedStateFromProps(nextProps, lastState)
-	local fitImageSize = Vector2.new(1, 1)
+	if FFlag9SliceEditorResizableImagePreviewWindow then
+		return
+	end
 
+	local fitImageSize = Vector2.new(1, 1)
 	local pixelDimensions = nextProps.pixelDimensions
 	local largestDimension = math.max(pixelDimensions.X, pixelDimensions.Y)
-	
+
 	if largestDimension > 0 then
 		fitImageSize = pixelDimensions / largestDimension * Constants.IMAGE_SIZE
 		if FFlag9SliceEditorRespectImageRectSize then
@@ -382,7 +406,13 @@ function ImageEditor:createDragger(orientation)
 		})
 end
 
-function ImageEditor:render()
+function ImageEditor:didMount()
+	if FFlag9SliceEditorResizableImagePreviewWindow then
+		self.onFitImageSizeChanged(self.backgroundImageRef:getValue())
+	end
+end
+
+function ImageEditor:DEPRECATED_render()
 	--[[
 		Renders image pixel size label + grid background as parent
 		to selected image with four image draggers
@@ -402,7 +432,7 @@ function ImageEditor:render()
 			imageSizeText = imageSizeText .. (": %dx%d"):format(pixelDimensions.X, pixelDimensions.Y)
 		end
 	end
-	
+
 	return Roact.createElement(Pane, {
 		AutomaticSize = Enum.AutomaticSize.Y,
 		Position = props.position,
@@ -412,7 +442,7 @@ function ImageEditor:render()
 			-- also the coding logic background for draggers
 			BackgroundTransparency = 1,
 			Image = Constants.IMAGES.BACKGROUND_GRID,
-			
+
 			ScaleType = Enum.ScaleType.Tile,
 			Size = UDim2.fromOffset(Constants.BACKGROUND_SIZE, Constants.BACKGROUND_SIZE),
 			TileSize = UDim2.fromOffset(Constants.BACKGROUND_TILE_SIZE, Constants.BACKGROUND_TILE_SIZE),
@@ -449,6 +479,77 @@ function ImageEditor:render()
 			}),
 		}),
 	})
+end
+
+function ImageEditor:NEW_render()
+	local props = self.props
+	local style = props.Stylizer
+	local selectedObject = props.selectedObject
+	local pixelDimensions = props.pixelDimensions
+
+	assert(selectedObject)
+	assert(pixelDimensions)
+	assert(pixelDimensions.X > 0 and pixelDimensions.Y > 0)
+
+	local resampleMode = self.state.isEnlarged and Enum.ResamplerMode.Pixelated or Enum.ResamplerMode.Default
+	local aspectRatio = pixelDimensions.X / pixelDimensions.Y
+
+	return Roact.createElement(Pane, {
+		Position = props.position,
+		Size = props.size,
+		Style = "RoundBox",
+		BackgroundColor = style.PaneBackgroundColor,
+		Padding = Constants.IMAGE_PREVIEW_WINDOW_PADDING,
+	}, {
+		BackgroundCheckboardImage = Roact.createElement("ImageButton", {
+			BackgroundTransparency = 1,
+			Image = Constants.IMAGES.BACKGROUND_GRID,
+			ScaleType = Enum.ScaleType.Tile,
+			Size = UDim2.fromScale(1, 1),
+			TileSize = UDim2.fromOffset(Constants.BACKGROUND_TILE_SIZE, Constants.BACKGROUND_TILE_SIZE),
+			[Roact.Event.InputChanged] = self.onBackgroundInputChanged,
+			[Roact.Event.InputEnded] = self.onBackgroundInputEnded,
+			LayoutOrder = props.layoutOrder,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			[Roact.Change.AbsoluteSize] = self.onFitImageSizeChanged,
+			[Roact.Ref] = self.backgroundImageRef,
+		}, {
+			AspectRatioConstraint = Roact.createElement("UIAspectRatioConstraint", {
+				AspectRatio = aspectRatio,
+				AspectType = Enum.AspectType.FitWithinMaxSize,
+				DominantAxis = Enum.DominantAxis.Width,
+			}),
+			ImagePreview = Roact.createElement("ImageLabel", {
+				BackgroundTransparency = 1,
+				Image = selectedObject.Image,
+				ImageColor3 = FFlag9SliceEditorRespectImageRectSize and props.imageColor3 or selectedObject.ImageColor3,
+				Position = UDim2.fromScale(0, 0),
+				ScaleType = Enum.ScaleType.Fit,
+				ResampleMode = resampleMode,
+				ImageRectOffset = props.imageRectOffset,
+				ImageRectSize = props.imageRectSize,
+				Size = UDim2.fromScale(1, 1),
+			}, {
+				LeftDragSlider = self:createDragger(LEFT),
+				RightDragSlider = self:createDragger(RIGHT),
+				TopDragSlider = self:createDragger(TOP),
+				BottomDragSlider = self:createDragger(BOTTOM),
+			}),
+			border = Roact.createElement("UIStroke", {
+				Thickness = 1,
+				Color = style.PaneBorderColor,
+				Transparency = 0,
+			}),
+		}),
+	})
+end
+
+function ImageEditor:render()
+	if FFlag9SliceEditorResizableImagePreviewWindow then
+		return self:NEW_render()
+	end
+	return self:DEPRECATED_render()
 end
 
 ImageEditor = withContext({

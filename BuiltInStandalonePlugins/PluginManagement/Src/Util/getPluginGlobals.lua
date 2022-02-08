@@ -8,8 +8,8 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 -- data
 local Rodux = require(Plugin.Packages.Rodux)

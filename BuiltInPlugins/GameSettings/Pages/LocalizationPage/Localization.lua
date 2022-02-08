@@ -4,17 +4,19 @@
 		- Source language
 		- Automatic text capture enabled
 		- Use translated content enabled
-		- Languags enabled for automatic trnaslation
+		- Languages enabled for automatic translation
 
 	Settings:
 		string SourceLanguage
 		bool AutomaticTextCaptureEnabled
 		bool UseTranslatedContentEnabled
-		list Languags enabled for automatic trnaslation
+		list Languages enabled for automatic translation
 ]]
 
 
 local StudioService = game:GetService("StudioService")
+
+local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
@@ -30,6 +32,7 @@ local FrameworkUtil = require(Framework.Util)
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local UILibrary = require(Plugin.UILibrary)
+--TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
 local StudioWidgetPartialHyperlink = UILibrary.Studio.PartialHyperlink
 local TitledFrame = UILibrary.Component.TitledFrame
 local ToggleButton = UILibrary.Component.ToggleButton
@@ -40,12 +43,15 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
+local LinkText = require(Plugin.Framework).UI.LinkText
 local Separator = require(Plugin.Framework).UI.Separator
+local TextLabel = require(Plugin.Framework).UI.Decoration.TextLabel
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ReloadAutoTranslationTargetLanguages = require(Page.Thunks.ReloadAutoTranslationTargetLanguages)
 
+local calculateTextSize = if FFlagRemoveUILibraryPartialHyperlink then require(Plugin.Src.Util.GameSettingsUtilities).calculateTextSize else nil
 local getAutoTranslationAllowed = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslationAllowed
 local getAutoTranslatedLanguages = require(Plugin.Src.Util.GameSettingsUtilities).getAutoTranslatedLanguages
 local OpenLocalizationSettings = require(Plugin.Src.Util.BrowserUtils).OpenLocalizationSettings
@@ -200,6 +206,9 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 	local showHyperLink = not getAutoTranslationAllowed()
 	local gameId = props.GameId
 
+	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
+	local hyperLinkTextSize = if FFlagRemoveUILibraryPartialHyperlink then calculateTextSize(localization:getText("General", "LocalizationSettingsLinkText"), 14, "SourceSans") else nil
+
 	return {
 		SourceLanguage = Roact.createElement(TitledFrame, {
 			LayoutOrder = layoutIndex:getNextOrder(),
@@ -324,12 +333,28 @@ local function displayLocalizationSettingsPage(props, localization, theme)
 			Size = UDim2.new(1, 0, 0, 20),
 			BackgroundTransparency = 1,
 		}, {
-			LinkText = Roact.createElement(StudioWidgetPartialHyperlink, {
+			LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+				Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
+				Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
+				Style = "Body",
+				Text = localization:getText("General", "LocalizationSettingsNonLinkText"),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				TextYAlignment = Enum.TextYAlignment.Top,
+			}) else nil,
+
+			LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+				OnClick = OpenLocalizationSettings(gameId),
+				Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
+				Style = "Body",
+				Text = localization:getText("General", "LocalizationSettingsLinkText"),
+			}) else nil,
+
+			DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(StudioWidgetPartialHyperlink, {
 				HyperLinkText = localization:getText("General", "LocalizationSettingsLinkText"),
 				NonHyperLinkText = localization:getText("General", "LocalizationSettingsNonLinkText"),
 				Mouse = props.Mouse:get(),
 				OnClick = OpenLocalizationSettings(gameId),
-			}),
+			}) else nil,
 		})
 	}
 end

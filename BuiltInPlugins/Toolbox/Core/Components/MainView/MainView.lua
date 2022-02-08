@@ -24,7 +24,7 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local GuiService = game:GetService("GuiService")
 
@@ -82,7 +82,7 @@ function MainView:init(props)
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
 
-	if (not FFlagToolboxAssetGridRefactor3) then
+	if (not FFlagToolboxAssetGridRefactor4) then
 		self.state = {
 			lowerIndexToRender = 0,
 			upperIndexToRender = 0,
@@ -95,7 +95,7 @@ function MainView:init(props)
 	self.scrollingFrameRef = Roact.createRef()
 
 	local function tryRerender(self)
-		if (not FFlagToolboxAssetGridRefactor3) then
+		if (not FFlagToolboxAssetGridRefactor4) then
 			local scrollingFrame = self.scrollingFrameRef.current
 			if not scrollingFrame then return end
 			local canvasY = scrollingFrame.CanvasPosition.Y
@@ -115,7 +115,7 @@ function MainView:init(props)
 	end
 
 	self.onScroll = function()
-		if FFlagToolboxAssetGridRefactor3 then
+		if FFlagToolboxAssetGridRefactor4 then
 			return
 		end
 		-- We we are previewing the asset, we shouldn't be able
@@ -126,7 +126,7 @@ function MainView:init(props)
 	end
 
 	self.onAssetGridContainerChanged = function()
-		if FFlagToolboxAssetGridRefactor3 then
+		if FFlagToolboxAssetGridRefactor4 then
 			return
 		end
 		tryRerender(self)
@@ -155,7 +155,7 @@ function MainView:init(props)
 end
 
 function MainView.getDerivedStateFromProps(nextProps, lastState)
-	if (not FFlagToolboxAssetGridRefactor3) then
+	if (not FFlagToolboxAssetGridRefactor4) then
 		local lowerBound = lastState.lowerIndexToRender or 0
 		local upperBound = lastState.upperIndexToRender or 0
 
@@ -170,7 +170,7 @@ function MainView.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function MainView:didMount()
-	if (not FFlagToolboxAssetGridRefactor3) then
+	if (not FFlagToolboxAssetGridRefactor4) then
 		self.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
 			self:calculateRenderBounds()
 		end)
@@ -179,7 +179,7 @@ function MainView:didMount()
 end
 
 function MainView:calculateRenderBounds()
-	if FFlagToolboxAssetGridRefactor3 then
+	if FFlagToolboxAssetGridRefactor4 then
 		return
 	end
 	local props = self.props
@@ -200,7 +200,7 @@ function MainView:calculateRenderBounds()
 end
 
 function MainView:didUpdate(prevProps, prevState)
-	if FFlagToolboxAssetGridRefactor3 then
+	if FFlagToolboxAssetGridRefactor4 then
 		return
 	end
 	-- Check if the toolbox has empty space
@@ -246,7 +246,7 @@ function MainView:render()
 		local assetIds
 		local assetCount
 		local allAssetCount
-		if FFlagToolboxAssetGridRefactor3 then
+		if FFlagToolboxAssetGridRefactor4 then
 			allAssetCount = props.allAssetCount
 			assetCount = props.allAssetCount
 		else
@@ -264,7 +264,7 @@ function MainView:render()
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 
 		local allAssetsHeight
-		if (not FFlagToolboxAssetGridRefactor3) then
+		if (not FFlagToolboxAssetGridRefactor4) then
 			-- Add a bit extra to the container so we can see the details of the assets on the last row
 			allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 				+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
@@ -285,7 +285,7 @@ function MainView:render()
 			suggestionIntro, suggestions, containerWidth)
 
 		local canvasHeight
-		if (not FFlagToolboxAssetGridRefactor3) then
+		if (not FFlagToolboxAssetGridRefactor4) then
 			local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
 			canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
 		end
@@ -310,7 +310,7 @@ function MainView:render()
 		local assetHeight
 		local gridContainerOffset
 		local scrollingEnabled
-		if (not FFlagToolboxAssetGridRefactor3) then
+		if (not FFlagToolboxAssetGridRefactor4) then
 			-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
 			assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
 			assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
@@ -332,7 +332,7 @@ function MainView:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 		}, {
-			ScrollingFrame = Roact.createElement(FFlagToolboxAssetGridRefactor3 and "Frame" or StyledScrollingFrame, FFlagToolboxAssetGridRefactor3 and {
+			ScrollingFrame = Roact.createElement(FFlagToolboxAssetGridRefactor4 and "Frame" or StyledScrollingFrame, FFlagToolboxAssetGridRefactor4 and {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, 0, 1, 0),
 			} or {
@@ -364,7 +364,7 @@ function MainView:render()
 					ZIndex = 2
 				}, noResultsDetailProps)),
 
-				AssetGridContainer = (not FFlagToolboxAssetGridRefactor3) and Roact.createElement(AssetGridContainer_DEPRECATED, {
+				AssetGridContainer = (not FFlagToolboxAssetGridRefactor4) and Roact.createElement(AssetGridContainer_DEPRECATED, {
 					Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
 
 					assetIds = assetIds,
@@ -379,8 +379,9 @@ function MainView:render()
 				}),
 			}),
 
-			AssetGridContainerNew = FFlagToolboxAssetGridRefactor3 and Roact.createElement(AssetGridContainer, {
+			AssetGridContainerNew = FFlagToolboxAssetGridRefactor4 and Roact.createElement(AssetGridContainer, {
 				Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding),
+				Size = UDim2.new(1, 0, 1, - headerHeight - headerToBodyPadding),
 				tryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
@@ -436,13 +437,13 @@ local function mapStateToProps(state, props)
 	end
 
 	local isPreviewing
-	if (not FFlagToolboxAssetGridRefactor3) then
+	if (not FFlagToolboxAssetGridRefactor4) then
 		isPreviewing = assets.isPreviewing or false
 	end
 	return {
-		idsToRender = (not FFlagToolboxAssetGridRefactor3) and assets.idsToRender or {} or nil,
+		idsToRender = (not FFlagToolboxAssetGridRefactor4) and assets.idsToRender or {} or nil,
 
-		allAssetCount = FFlagToolboxAssetGridRefactor3 and #assets.idsToRender or nil,
+		allAssetCount = FFlagToolboxAssetGridRefactor4 and #assets.idsToRender or nil,
 		isLoading = assets.isLoading or false,
 
 		isPreviewing = isPreviewing,

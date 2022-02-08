@@ -16,6 +16,8 @@ local HEADER_HEIGHT = 21
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Constants = require(Plugin.Src.Util.Constants)
 local ContextServices = Framework.ContextServices
@@ -24,7 +26,7 @@ local withContext = ContextServices.withContext
 local ErrorDialogContents = Roact.PureComponent:extend("ErrorDialogContents")
 
 function ErrorDialogContents:render()
-	local theme = self.props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and self.props.Stylizer.PluginTheme or self.props.Theme:get("PluginTheme")
 	local localization = self.props.Localization
 	local dialogTheme = theme.dialogTheme
 	local props = self.props
@@ -88,7 +90,8 @@ end
 
 
 ErrorDialogContents = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 })(ErrorDialogContents)
 

@@ -20,6 +20,7 @@ local TestHelper = {}
 TestHelper.DefaultClothesName = "clothes"
 TestHelper.AttachmentCFrame = CFrame.new(10, 20, 10)
 TestHelper.DefaultAttachmentName = "WaistFrontAttachment"
+TestHelper.DefaultMeshId = "https://assetdelivery.roblox.com/v1/asset/?id=6799863967"
 
 local function delay()
 	local TEST_DELAY_SECONDS = 0.1
@@ -270,7 +271,9 @@ function TestHelper.createClothesWithFullCages(name)
 	model.Parent = TestHelper.getTempInstancesFolder()
 	local wrapInst = Instance.new("MeshPart",clothes)
 	wrapInst.Name = clothes.Name
-	Instance.new("WrapLayer", clothes)
+	local layer = Instance.new("WrapLayer", clothes)
+	layer.CageMeshId = TestHelper.DefaultMeshId
+	layer.ReferenceMeshId = TestHelper.DefaultMeshId
 	return clothes
 end
 
@@ -281,7 +284,8 @@ function TestHelper.createClothesWithOuterCage(name)
 	model.Parent = TestHelper.getTempInstancesFolder()
 	local wrapInst = Instance.new("MeshPart",clothes)
 	wrapInst.Name = clothes.Name
-	Instance.new("WrapTarget", clothes)
+	local target = Instance.new("WrapTarget", clothes)
+	target.CageMeshId = TestHelper.DefaultMeshId
 	return clothes
 end
 
@@ -415,6 +419,18 @@ end
 function TestHelper.addAvatarWithFullCagesFromExplorer()
 	local lcItem = TestHelper.createAvatarWithFullCages()
 	assert(ItemCharacteristics.hasFullCages(lcItem))
+
+	selectItem(lcItem)
+
+	return lcItem
+end
+
+function TestHelper.addLCItemWithInvalidCageFromExplorer()
+	local lcItem = TestHelper.createClothesWithFullCages()
+	local layer = lcItem:FindFirstChild("WrapLayer")
+	layer.CageMeshId = ""
+	layer.ReferenceMeshId = ""
+	assert(ItemCharacteristics.hasInvalidCage(lcItem))
 
 	selectItem(lcItem)
 

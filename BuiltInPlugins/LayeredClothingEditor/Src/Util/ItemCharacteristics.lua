@@ -4,6 +4,8 @@ local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Cryo = require(Plugin.Packages.Cryo)
 local ItemCharacteristics = {}
 
+local GetFFlagFixNoCageMeshIdCrash = require(Plugin.Src.Flags.GetFFlagFixNoCageMeshIdCrash)
+
 function ItemCharacteristics.isItemEmpty(item)
 	return not item or item == Cryo.None
 end
@@ -30,6 +32,27 @@ function ItemCharacteristics.hasInnerCage(item)
 	return ItemCharacteristics.getInnerCage(item) and true or false
 end
 
+-- returns true if wraps have no mesh id's or wraps were not found
+function ItemCharacteristics.hasInvalidCage(item)
+	local outerCage = ItemCharacteristics.getOuterCage(item)
+	local innerCage = ItemCharacteristics.getInnerCage(item)
+
+	-- item shouldn't ever have an inner cage but no outer cage
+	assert(not innerCage or outerCage)
+
+	if not outerCage and not innerCage then
+		return false
+	end
+
+	if outerCage and not innerCage then
+		return outerCage.CageMeshId == ""
+	end
+
+	if outerCage and innerCage then
+		return outerCage.CageMeshId == "" or innerCage.ReferenceMeshId == ""
+	end
+end
+
 local function isInWorkspace(item)
 	return not ItemCharacteristics.isItemEmpty(item) and item:FindFirstAncestorOfClass("Workspace") ~= nil
 end
@@ -54,7 +77,11 @@ end
 
 function ItemCharacteristics.hasAnyCage(item)
 	local hasInnerCage, hasOuterCage = ItemCharacteristics.hasCages(item)
-	return hasInnerCage or hasOuterCage
+	if GetFFlagFixNoCageMeshIdCrash() then
+		return not ItemCharacteristics.hasInvalidCage(item) and (hasInnerCage or hasOuterCage)
+	else
+		return hasInnerCage or hasOuterCage
+	end
 end
 
 function ItemCharacteristics.getAvatarFromMeshPart(meshPart)

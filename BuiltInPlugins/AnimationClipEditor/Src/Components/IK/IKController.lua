@@ -13,6 +13,8 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Button = Framework.UI.Button
 
@@ -143,9 +145,9 @@ end
 function IKController:render()
 		local localization = self.props.Localization
 		local props = self.props
-		local theme = props.Theme:get("PluginTheme")
+		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local selectedTrack = self.getLastSelectedTrack()
-		local style = props.Theme:get("PluginTheme").button
+		local style = THEME_REFACTOR and theme.button or props.Theme:get("PluginTheme").button
 		local state = self.state
 
 		local toggleShowTree = props.ToggleShowTree
@@ -199,7 +201,8 @@ end
 
 
 IKController = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Localization = ContextServices.Localization,
 	Analytics = ContextServices.Analytics,
 })(IKController)

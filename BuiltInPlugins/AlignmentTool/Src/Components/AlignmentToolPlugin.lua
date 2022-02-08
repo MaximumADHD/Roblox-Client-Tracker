@@ -28,7 +28,7 @@ local MINIMUM_WINDOW_SIZE = Vector2.new(175, 250)
 local STUDIO_RELAY_PLUGIN_TOOLBAR = "Alignment"
 local STUDIO_RELAY_PLUGIN_BUTTON = "AlignTool"
 
-local FFlagFixToolbarButtonForFreshInstallation = game:GetFastFlag("FixToolbarButtonForFreshInstallation")
+local FFlagFixToolbarButtonForFreshInstallation2 = game:GetFastFlag("FixToolbarButtonForFreshInstallation2")
 
 local AlignmentToolPlugin = Roact.PureComponent:extend("AlignmentToolPlugin")
 
@@ -50,12 +50,12 @@ function AlignmentToolPlugin:init()
 		local initiatedByUser = false
 		self.setToolEnabled(enabled, initiatedByUser)
 
-		if not FFlagFixToolbarButtonForFreshInstallation and FFlagImprovePluginSpeed_AlignmentTool then
+		if not FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_AlignmentTool then
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 		end
 	end
 
-	if FFlagFixToolbarButtonForFreshInstallation then
+	if FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_AlignmentTool then
 		self.onDockWidgetCreated = function()
 			self.props.pluginLoaderContext.mainButtonClickedSignal:Connect(self.toggleState)
 		end
@@ -139,7 +139,7 @@ function AlignmentToolPlugin:render()
 			OnClose = self.onClose,
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
-			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation and self.onDockWidgetCreated or nil,
+			OnWidgetCreated = FFlagFixToolbarButtonForFreshInstallation2 and FFlagImprovePluginSpeed_AlignmentTool and self.onDockWidgetCreated or nil,
 		}, {
 			DockWidgetContent = self:_renderDockWidgetContents(enabled),
 		})

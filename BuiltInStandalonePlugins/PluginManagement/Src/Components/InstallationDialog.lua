@@ -20,10 +20,10 @@ local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus)
 
-local Framework = Plugin.Packages.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local StudioUI = require(Framework.StudioUI)
+local StudioUI = Framework.StudioUI
 local Localization = ContextServices.Localization
 local FrameworkDialog = StudioUI.StyledDialog
 

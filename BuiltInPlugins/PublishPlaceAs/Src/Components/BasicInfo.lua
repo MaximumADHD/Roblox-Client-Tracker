@@ -32,6 +32,7 @@ local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRem
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
 local FStringTeamCreateLearnMoreLink = game:GetFastString("TeamCreateLink")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
+local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then
@@ -49,6 +50,7 @@ local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Separator = UILibrary.Component.Separator
+--TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
 local PartialHyperlink = UILibrary.Studio.PartialHyperlink
 
 local TeachingCallout = if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then 
@@ -73,6 +75,7 @@ local shouldShowDevPublishLocations = require(Plugin.Src.Util.PublishPlaceAsUtil
 local getOptInLocationsRequirementsLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getOptInLocationsRequirementsLink
 local sendAnalyticsToKibana = require(Plugin.Src.Util.PublishPlaceAsUtilities).sendAnalyticsToKibana
 local getPlayerAppDownloadLink = require(Plugin.Src.Util.PublishPlaceAsUtilities).getPlayerAppDownloadLink
+local calculateTextSize = if FFlagRemoveUILibraryPartialHyperlink then require(Plugin.Src.Util.PublishPlaceAsUtilities).calculateTextSize else nil
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 local optInLocationsKey = KeyProvider.getOptInLocationsKeyName()
 local chinaKey = KeyProvider.getChinaKeyName()
@@ -86,6 +89,7 @@ local Framework = require(Plugin.Packages.Framework)
 local Button = Framework.UI.Button
 local HoverArea = Framework.UI.HoverArea
 local Image = Framework.UI.Decoration.Image
+local LinkText = Framework.UI.LinkText
 local SelectInput = Framework.UI.SelectInput
 local StyledDialog = Framework.StudioUI.StyledDialog
 local TextLabel = Framework.UI.Decoration.TextLabel
@@ -171,6 +175,9 @@ local function displayContents(parent)
 	local descriptionLength = utf8.len(description)
 
 	local layoutOrder = LayoutOrderIterator.new()
+
+	-- Question: Is there a way for me to get the size and font type automagically from the LinkText Style "Body"?
+	local hyperLinkTextSize = if FFlagRemoveUILibraryPartialHyperlink then calculateTextSize(localization:getText(optInLocationsKey, "RequirementsLinkText"), 14, "SourceSans") else nil
 
 	local displayResult = {
 		Header = Roact.createElement(Header, {
@@ -366,8 +373,26 @@ local function displayContents(parent)
 							Size = UDim2.new(0, theme.requirementsLink.length, 0, theme.requirementsLink.height),
 							Position = UDim2.new(0, 0, 0, theme.requirementsLink.paddingY),
 						}, {
-							-- TODO: Implement PartialHyperlink changes into DevFramework since we want to deprecate UILibrary eventually.
-							LinkText = Roact.createElement(PartialHyperlink, {
+							LinkTextLabel = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(TextLabel, {
+								Position = UDim2.new(0, hyperLinkTextSize.X, 0, 0),
+								Size = UDim2.new(1, -hyperLinkTextSize.X, 1, 0),
+								Style = "Body",
+								Text = localization:getText(optInLocationsKey, "ChinaRequirements"),
+								TextXAlignment = Enum.TextXAlignment.Left,
+								TextYAlignment = Enum.TextYAlignment.Top,
+							}) else nil,
+
+							LinkText = if FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(LinkText, {
+								OnClick = function()
+									local url = getOptInLocationsRequirementsLink(chinaKey)
+									GuiService:OpenBrowserWindow(url)
+								end,
+								Size = UDim2.new(0, hyperLinkTextSize.X, 0, hyperLinkTextSize.Y),
+								Style = "Body",
+								Text = localization:getText(optInLocationsKey, "RequirementsLinkText"),
+							}) else nil,
+
+							DEPRECATED_LinkText = if not FFlagRemoveUILibraryPartialHyperlink then Roact.createElement(PartialHyperlink, {
 								HyperLinkText = localization:getText(optInLocationsKey, "RequirementsLinkText"),
 								NonHyperLinkText = localization:getText(optInLocationsKey, "ChinaRequirements"),
 								Style = "RequirementsLink",
@@ -376,7 +401,7 @@ local function displayContents(parent)
 									local url = getOptInLocationsRequirementsLink(chinaKey)
 									GuiService:OpenBrowserWindow(url)
 								end,
-							})
+							}) else nil,
 						}),
 					}},
 					Enabled = optInLocations ~= nil,

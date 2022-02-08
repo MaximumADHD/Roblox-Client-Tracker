@@ -75,6 +75,6 @@ return function(fetchedAssets, path: string, state, page: number?, aliases)
 
         fetchedAssets.assets = Cryo.Dictionary.join(fetchedAssets.assets, assets)
 
-        return fetchedAssets, index, hasLinkedScripts
+        return fetchedAssets, index, hasLinkedScripts, body.FinalPage
     end
 end

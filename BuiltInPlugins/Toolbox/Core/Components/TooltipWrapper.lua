@@ -7,7 +7,7 @@
 		bool isHovered
 ]]
 
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -41,7 +41,7 @@ function TooltipWrapper:render()
 		Tooltip = Roact.createElement(Tooltip, {
 			Enabled = canShowCurrentTooltip and isHovered,
 			Text = text,
-			Priority = (FFlagToolboxAssetGridRefactor3) and 2 or nil,
+			Priority = (FFlagToolboxAssetGridRefactor4) and 2 or nil,
 		})
 	})
 end

@@ -1,5 +1,6 @@
 local FStringDevPublishChinaRequirementsLink = game:GetFastString("DevPublishChinaRequirementsLink")
 local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
+local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPartialHyperlink")
 
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local PublishPlaceAsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("PublishPlaceAs")
@@ -33,7 +34,7 @@ function PublishPlaceAsUtilities.getIsOptInChina(optInRegions)
                 },
             ]
     ]]
-    
+
     if optInRegions == nil then
         return false
     end
@@ -74,6 +75,13 @@ function PublishPlaceAsUtilities.sendAnalyticsToKibana(seriesName, throttlingPer
 	local points = getDevPublishKibanaPoints(publishPlaceAsKey, context)
 	points = Cryo.Dictionary.join(points, values)
 	RbxAnalyticsService:reportInfluxSeries(seriesName, points, throttlingPercentage)
+end
+
+function PublishPlaceAsUtilities.calculateTextSize(text, textSize, font)
+	assert(FFlagRemoveUILibraryPartialHyperlink)
+
+	local hugeFrameSizeNoTextWrapping = Vector2.new(5000, 5000)
+	return game:GetService('TextService'):GetTextSize(text, textSize, font, hugeFrameSizeNoTextWrapping)
 end
 
 return PublishPlaceAsUtilities

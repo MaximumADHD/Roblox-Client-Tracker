@@ -1,3 +1,5 @@
+local FFlag9SliceEditorResizableImagePreviewWindow = game:GetFastFlag("9SliceEditorResizableImagePreviewWindow")
+
 local Constants = {}
 
 -- MainPlugin Constants
@@ -15,12 +17,14 @@ Constants.BACKGROUND_FROMEDGE_PADDING = 40
 Constants.BACKGROUND_TILE_SIZE = 20
 Constants.PIXEL_TOP_PADDING = 5
 Constants.PIXEL_YPOSITION = Constants.BACKGROUND_SIZE + Constants.PIXEL_TOP_PADDING
+Constants.IMAGE_PREVIEW_WINDOW_PADDING = 18
 
 Constants.DRAGGER_WIDTH = 9
 Constants.DRAGGER_HEIGHT = 180
 Constants.DRAGGER_WIDTH_V2 = 8
 Constants.DRAGGER_CLICK_WINDOW_WIDTH = 16 -- Should be even
 Constants.DRAGGER_CENTER_INSETPX = 1
+Constants.DRAGGER_HANDLE_SIZE = 16 -- Should be less than or equal to IMAGE_PREVIEW_WINDOW_PADDING
 
 local TexturePath = "rbxasset://textures/9SliceEditor/"
 Constants.IMAGES = {
@@ -57,7 +61,7 @@ Constants.MOUSE_CURSORS = {
 Constants.TEXTIMAGE_PADDING = 70
 Constants.TEXTEDITOR_YOFFSET = 116
 Constants.TEXTEDITOR_XOFFSET =  Constants.BACKGROUND_SIZE + Constants.BACKGROUND_FROMEDGE_PADDING + Constants.TEXTIMAGE_PADDING
-Constants.TEXTEDITOR_XSIZE = 115
+Constants.TEXTEDITOR_XSIZE = if FFlag9SliceEditorResizableImagePreviewWindow then 110 else 115
 Constants.TEXTEDITOR_YSIZE = 140
 Constants.TEXTSIZE = 18
 

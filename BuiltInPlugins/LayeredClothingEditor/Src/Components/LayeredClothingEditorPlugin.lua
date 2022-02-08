@@ -137,7 +137,6 @@ function LayeredClothingEditorPlugin:render()
 	if not self.state.enabled then
 		self.store:dispatch(FinishSelectingFromExplorer())
 	end
-
 	return Roact.createElement(ServiceWrapper, {
 		plugin = self.plugin,
 		analytics = self.analytics,

@@ -1,9 +1,8 @@
 local StudioService = game:GetService("StudioService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
-require(script.Parent.defineLuaFlags)
-
 local Plugin = script.Parent.Parent
+require(Plugin.Bin.defineLuaFlags)
 
 local Roact = require(Plugin.Packages.Roact)
 local getPluginGlobals = require(Plugin.Src.Util.getPluginGlobals)

@@ -9,7 +9,7 @@
 
 		callback onClick(number assetId)
 ]]
-local FFlagToolboxAssetGridRefactor3 = game:GetFastFlag("ToolboxAssetGridRefactor3")
+local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -45,7 +45,7 @@ local AudioPreviewButton = Roact.PureComponent:extend("AudioPreviewButton")
 
 local LOADING_HEIGHT = 10
 
-if FFlagToolboxAssetGridRefactor3 then
+if FFlagToolboxAssetGridRefactor4 then
 	function AudioPreviewButton:init()
 		self.onPreviewAudioButtonClicked = function()
 			local assetId = self.props.assetId
@@ -108,7 +108,7 @@ function AudioPreviewButton:render()
 			BackgroundTransparency = 1,
 
 			[Roact.Event.MouseButton1Click] = function(rbx)
-				if FFlagToolboxAssetGridRefactor3 then
+				if FFlagToolboxAssetGridRefactor4 then
 					self.onPreviewAudioButtonClicked()
 				else
 					props.onClick(assetId)
@@ -124,7 +124,7 @@ AudioPreviewButton = withContext({
 })(AudioPreviewButton)
 
 
-if FFlagToolboxAssetGridRefactor3 then
+if FFlagToolboxAssetGridRefactor4 then
 	local function mapStateToProps(state, props)
 		state = state or {}
 		local sound = state.sound or {}

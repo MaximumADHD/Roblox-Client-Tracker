@@ -21,7 +21,7 @@ return function(apiImpl, path, page, state)
         local isMesh = path == Screens.MESHES.Path
         local isScript = path == Screens.SCRIPTS.Path
         local isAudio = enableAudioImport() and path == Screens.AUDIO.Path
-        local isModel = FFlagAssetManagerEnableModelAssets and path == Screens.AUDIO.Path
+        local isModel = FFlagAssetManagerEnableModelAssets and path == Screens.MODELS.Path
 
         local aliases = {
             ["Images/"] = isImage,
@@ -34,13 +34,13 @@ return function(apiImpl, path, page, state)
         if isImage or isMesh or isScript or isAudio or isModel then
             return apiImpl.API.Universes.getAliases(game.GameId, page):makeRequest()
                 :andThen(GetAssetResponse(fetchedAssets, path, state, page, aliases))
-                :andThen(function(assets, index, hasLinkedScripts)
+                :andThen(function(assets, index, hasLinkedScripts, finalPage)
                     -- The pageNumbe is set to nil upon reaching the FinalPage
                     fetchedAssets = assets
                     fetchedIndex = index
                     fetchedLinkedScripts = hasLinkedScripts or fetchedLinkedScripts
 
-                    if not assets.pageNumber then
+                    if not finalPage then
                         return(request(page + 1))
                     else
                         return fetchedAssets, fetchedIndex, fetchedLinkedScripts

@@ -8,7 +8,7 @@ local Manager = require(script.Parent.Manager)
 
 return function()
 	it("should create and destroy without errors", function()
-		local element = MockProvider.createElementWithMockContext(Manager)
+		local element = MockProvider.createElementWithMockContext(Manager, {IsUnitTest=true})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)

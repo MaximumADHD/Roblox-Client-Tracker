@@ -5,7 +5,6 @@ end
 -- Fast flags
 require(script.Parent.defineLuaFlags)
 
-local FFlagDraftsWidgetDontInitializeNonEditDm = game:GetFastFlag("DraftsWidgetDontInitializeNonEditDm")
 local Plugin = script.Parent.Parent
 
 if not game:GetFastFlag("StudioForceDraftsUsageOnRCCSettingDeprecated") and
@@ -107,9 +106,7 @@ local function toggleWidget()
 	pluginGui.Enabled = not pluginGui.Enabled
 end
 
-local function createToolTip(enabled)
-    assert(FFlagDraftsWidgetDontInitializeNonEditDm)
-    
+local function createToolTip(enabled)    
     local toolbar = plugin:CreateToolbar("draftsToolbar")
     local pluginButton = toolbar:CreateButton(
         "draftsButton",
@@ -127,11 +124,9 @@ local function createToolTip(enabled)
     return pluginButton
 end
 
-if FFlagDraftsWidgetDontInitializeNonEditDm then
-    if not game:GetService("RunService"):IsEdit() then
-        createToolTip(false)
-        return
-    end
+if not game:GetService("RunService"):IsEdit() then
+    createToolTip(false)
+    return
 end
 
 -- The widget should open automatically if there are checked out drafts, or whenever
@@ -236,25 +231,10 @@ end
 
 --Binds a toolbar button
 local function main()
-	local pluginTitle = localization:getText("Meta", "PluginName")
-    plugin.Name = pluginTitle
+	local pluginTitle = localization:getText("Meta", "PluginName")    
+	plugin.Name = pluginTitle
+	local pluginButton = createToolTip(true)
     
-    local pluginButton
-    
-    if FFlagDraftsWidgetDontInitializeNonEditDm then
-        pluginButton = createToolTip(true)
-    else
-        local toolbar = plugin:CreateToolbar("draftsToolbar")
-        pluginButton = toolbar:CreateButton(
-            "draftsButton",
-            localization:getText("Meta", "PluginButtonTooltip"),
-            ""
-        )
-
-        pluginButton.ClickableWhenViewportHidden = true
-        pluginButton.Click:connect(toggleWidget)    
-    end
-
 	local function showIfEnabled()
 		if pluginGui.Enabled then
 			openPluginWindow()

@@ -48,7 +48,9 @@ local MainView = Roact.PureComponent:extend("MainView")
 
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
+local FFlagStudioRenameSaveButtonToSaveToRoblox = game:GetFastFlag("StudioRenameSaveButtonToSaveToRoblox")
 local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
+local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local universeNameSet = false
 local initialHasLinkedScriptValue = false
@@ -122,14 +124,22 @@ function MainView:init()
         local props = self.props
         local apiImpl = props.API:get()
         local dispatchLoadAllAliases = props.dispatchLoadAllAliases
-        dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
+        if FFlagAssetManagerRefactorPath then
+            dispatchLoadAllAliases(apiImpl, Screens.SCRIPTS.Path)
+        else
+            dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua)
+        end
     end
 
     self.hasScripts = function()
         local props = self.props
         local apiImpl = props.API:get()
         local dispatchLoadAllAliases = props.dispatchLoadAllAliases
-        dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua, true)
+        if FFlagAssetManagerRefactorPath then
+            dispatchLoadAllAliases(apiImpl, Screens.SCRIPTS.Path, true)
+        else
+            dispatchLoadAllAliases(apiImpl, Enum.AssetType.Lua, true)
+        end
     end
 end
 
@@ -206,7 +216,9 @@ function MainView:render()
     local publishTextExtents = GetTextSize(publishText, theme.FontSizeLarge, theme.Font,
         Vector2.new(theme.MainView.PublishText.Width, math.huge))
     local buttonText = localization:getText("MainView", "ButtonText")
-    if FFlagStudioNewGamesInCloudUI then
+    if FFlagStudioRenameSaveButtonToSaveToRoblox then
+        buttonText = localization:getText("MainView", "SaveToRobloxButtonText")
+    elseif FFlagStudioNewGamesInCloudUI then
         buttonText = localization:getText("MainView", "SaveButtonText")
     end
     local buttonTextExtents = GetTextSize(buttonText, theme.FontSizeLarge, theme.Font)
@@ -342,8 +354,8 @@ end
 
 local function mapDispatchToProps(dispatch)
     return {
-        dispatchLoadAllAliases = function(apiImpl, assetType, scriptCheck)
-            dispatch(LoadAllAliases(apiImpl, assetType, scriptCheck))
+        dispatchLoadAllAliases = function(apiImpl, assetPath, scriptCheck)
+            dispatch(LoadAllAliases(apiImpl, assetPath, scriptCheck))
         end,
         dispatchGetUniverseConfiguration = function(apiImpl)
             dispatch(GetUniverseConfiguration(apiImpl))

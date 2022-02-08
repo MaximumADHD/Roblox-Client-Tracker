@@ -16,6 +16,8 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local Framework = require(Plugin.Packages.Framework)
+local Util = Framework.Util
+local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TimelineTick = Roact.PureComponent:extend("TimelineTick")
@@ -27,7 +29,7 @@ local TICK_HEIGHT_SCALE = 0.7
 
 function TimelineTick:render()
 	local props = self.props
-	local theme = props.Theme:get("PluginTheme")
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 		local timelineTheme = theme.timelineTheme
 
 		local time = props.Time
@@ -88,7 +90,8 @@ end
 
 
 TimelineTick = withContext({
-	Theme = ContextServices.Theme,
+	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TimelineTick)
 
 
