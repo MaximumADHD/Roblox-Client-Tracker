@@ -5182,7 +5182,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.ApplyJointVelocities": {
-    "documentation": "",
+    "documentation": "<p>Computes relative velocities between parts and apply them to <code>Motor6D.Part1</code>. These relative velocity calculations and assignments happen in the order provided.</p>",
     "params": [
       {
         "name": "motors",
@@ -5198,7 +5198,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Animator.GetPlayingAnimationTracks": {
-    "documentation": "",
+    "documentation": "<p>Returns the list of currently playing <code>AnimationTracks</code>.</p>",
     "params": [],
     "returns": [
       "@roblox/globaltype/Animator.GetPlayingAnimationTracks/return/0"
@@ -27891,7 +27891,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/ImageButton/ScaleType"
   },
   "@roblox/globaltype/ImageButton.SliceCenter": {
-    "documentation": "<p>Determines the center of a nine-slice image.</p>",
+    "documentation": "<p>Sets the slice boundaries of a 9-sliced image.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/ImageButton/SliceCenter"
   },
   "@roblox/globaltype/ImageButton.SliceScale": {
@@ -27993,7 +27993,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/ImageLabel/ScaleType"
   },
   "@roblox/globaltype/ImageLabel.SliceCenter": {
-    "documentation": "<p>Determines the center of a nine-slice image.</p>",
+    "documentation": "<p>Sets the slice boundaries of a 9-sliced image.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/ImageLabel/SliceCenter"
   },
   "@roblox/globaltype/ImageLabel.SliceScale": {
@@ -37201,31 +37201,31 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/PackageLink"
   },
   "@roblox/globaltype/PackageLink.AutoUpdate": {
-    "documentation": "<p>When this property is set to true, the package associated with the given <code>PackageLink</code> will be automatically updated to the latest version</p>",
+    "documentation": "<p>When this property is set to true, the package associated with the given <code>PackageLink</code> automatically updates to the latest version.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/AutoUpdate"
   },
   "@roblox/globaltype/PackageLink.Creator": {
-    "documentation": "",
+    "documentation": "<p>The creator of the package asset.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/Creator"
   },
   "@roblox/globaltype/PackageLink.PackageAssetName": {
-    "documentation": "",
+    "documentation": "<p>The asset name of the package.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/PackageAssetName"
   },
   "@roblox/globaltype/PackageLink.PackageId": {
-    "documentation": "<p>The id of the asset this package corresponds to</p>",
+    "documentation": "<p>The id of the asset this package corresponds to.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/PackageId"
   },
   "@roblox/globaltype/PackageLink.PermissionLevel": {
-    "documentation": "",
+    "documentation": "<p>The package permission for the current studio user.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/PermissionLevel"
   },
   "@roblox/globaltype/PackageLink.Status": {
-    "documentation": "",
+    "documentation": "<p>The status of the package.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/Status"
   },
   "@roblox/globaltype/PackageLink.VersionNumber": {
-    "documentation": "<p>Refers to a revision of a specific package</p>",
+    "documentation": "<p>Refers to a revision of a specific package.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/PackageLink/VersionNumber"
   },
   "@roblox/globaltype/PackageService": {
@@ -53351,7 +53351,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TeleportOptions/SetTeleportData"
   },
   "@roblox/globaltype/TeleportService": {
-    "documentation": "<p>Service responsible for transporting <code>Player</code> between places and servers</p>",
+    "documentation": "<p>Enables transporting <code>Player</code> between places and servers.</p>",
     "keys": {
       "CustomizedTeleportUI": "@roblox/globaltype/TeleportService.CustomizedTeleportUI",
       "GetArrivingTeleportGui": "@roblox/globaltype/TeleportService.GetArrivingTeleportGui",
@@ -53389,7 +53389,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TeleportService/GetArrivingTeleportGui"
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData/return/0": {
-    "documentation": "<p>The <em>teleportData</em> the <code>Players.LocalPlayer</code> arrived into the place with</p>"
+    "documentation": "<p>The teleport data the <code>Players.LocalPlayer</code> arrived into the place with.</p>"
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData": {
     "documentation": "<p>Returns the <em>teleportData</em> the <code>Players.LocalPlayer</code> arrived into the place with</p>",
@@ -53708,19 +53708,19 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TeleportService/ReserveServer"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/0": {
-    "documentation": "<p>The placeId the player(s) should be teleported to</p>"
+    "documentation": "<p>The place ID the player(s) should be teleported to.</p>"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/1": {
-    "documentation": "<p>An array containing the player(s) to teleport</p>"
+    "documentation": "<p>An array of the player(s) to teleport.</p>"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/2": {
-    "documentation": "<p>An instance that contains <strong>optional</strong> arguments to the TeleportAsync call</p>"
+    "documentation": "<p>An optional <code>TeleportOptions</code> object containing additional arguments to the TeleportAsync call.</p>"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/return/0": {
-    "documentation": "<p>An instance of <code>TeleportAsyncResult</code> that provides information on the Teleport</p>"
+    "documentation": "<p>A <code>TeleportAsyncResult</code> object that provides information about the final teleport destination.</p>"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync": {
-    "documentation": "<p>The <span class=\"text-nowrap\">all-encompassing</span> method to teleport a player or group of players from one server to another</p>",
+    "documentation": "<p>The all encompassing method to teleport a player or group of players from one server to another.</p>",
     "params": [
       {
         "name": "placeId",
@@ -53839,7 +53839,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/datatype/RBXScriptSignal"
   },
   "@roblox/globaltype/TeleportService.TeleportInitFailed": {
-    "documentation": "<p>Fires when a teleport fails to start, leaving the player in their current server</p>",
+    "documentation": "<p>Fires when a teleport fails to start, leaving the player in their current server.</p>",
     "keys": {
       "Connect": "@roblox/globaltype/TeleportService.TeleportInitFailed.Connect",
       "Wait": "@roblox/globaltype/TeleportService.TeleportInitFailed.Wait"
@@ -55287,7 +55287,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextBox/ManualFocusRelease"
   },
   "@roblox/globaltype/TextBox.MaxVisibleGraphemes": {
-    "documentation": "",
+    "documentation": "<p>The maximum number of graphemes the <code>TextBox</code> can show.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextBox/MaxVisibleGraphemes"
   },
   "@roblox/globaltype/TextBox.MultiLine": {
@@ -55595,7 +55595,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/TextButton"
   },
   "@roblox/globaltype/TextButton.ContentText": {
-    "documentation": "",
+    "documentation": "<p>A copy of <code>TextButton.Text</code> that contains exactly what is being rendered by the <code>TextButton</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextButton/ContentText"
   },
   "@roblox/globaltype/TextButton.Font": {
@@ -55615,7 +55615,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextButton/LocalizedText"
   },
   "@roblox/globaltype/TextButton.MaxVisibleGraphemes": {
-    "documentation": "",
+    "documentation": "<p>The maximum number of graphemes the <code>TextButton</code> can show.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextButton/MaxVisibleGraphemes"
   },
   "@roblox/globaltype/TextButton.RichText": {
@@ -55881,7 +55881,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/class/TextLabel"
   },
   "@roblox/globaltype/TextLabel.ContentText": {
-    "documentation": "",
+    "documentation": "<p>A copy of <code>TextLabel.Text</code> that contains exactly what is being rendered by the <code>TextLabel</code>.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextLabel/ContentText"
   },
   "@roblox/globaltype/TextLabel.Font": {
@@ -55901,7 +55901,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextLabel/LocalizedText"
   },
   "@roblox/globaltype/TextLabel.MaxVisibleGraphemes": {
-    "documentation": "",
+    "documentation": "<p>The maximum number of graphemes the <code>TextLabel</code> can show.</p>",
     "learn_more_link": "https://developer.roblox.com/api-reference/property/TextLabel/MaxVisibleGraphemes"
   },
   "@roblox/globaltype/TextLabel.RichText": {
@@ -76459,7 +76459,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/OverrideMouseIconBehavior"
   },
   "@roblox/enum/PackagePermission.None": {
-    "documentation": "",
+    "documentation": "<p>Permission data is not available for the current user or group roleset.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76468,7 +76468,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission.NoAccess": {
-    "documentation": "",
+    "documentation": "<p>The current user or group roleset doesn't have access.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76477,7 +76477,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission.Revoked": {
-    "documentation": "",
+    "documentation": "<p>The current user's or group roleset's permission is revoked.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76486,7 +76486,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission.UseView": {
-    "documentation": "",
+    "documentation": "<p>The current user or group roleset can download a copy of the package from Roblox.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76495,7 +76495,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission.Edit": {
-    "documentation": "",
+    "documentation": "<p>The current user or group roleset can download a copy of the package from Roblox and publish package changes to Roblox.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76504,7 +76504,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission.Own": {
-    "documentation": "",
+    "documentation": "<p>The current user or group roleset can download a copy of the page from Roblox, publish package changes to Roblox, and manage who has access to the package.</p>",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -76513,7 +76513,7 @@
     "learn_more_link": "https://developer.roblox.com/api-reference/enum/PackagePermission"
   },
   "@roblox/enum/PackagePermission": {
-    "documentation": "",
+    "documentation": "<p>Indicates the current user's or group roleset's permission to the package.</p>",
     "keys": {
       "None": "@roblox/enum/PackagePermission.None",
       "NoAccess": "@roblox/enum/PackagePermission.NoAccess",
@@ -84313,6 +84313,9 @@
   "@luau/global/bit32.replace/param/2": {
     "documentation": ""
   },
+  "@luau/global/bit32.replace/param/3": {
+    "documentation": ""
+  },
   "@luau/global/bit32.replace/return/0": {
     "documentation": ""
   },
@@ -84324,12 +84327,16 @@
         "documentation": "@luau/global/bit32.replace/param/0"
       },
       {
-        "name": "field",
+        "name": "v",
         "documentation": "@luau/global/bit32.replace/param/1"
       },
       {
-        "name": "width",
+        "name": "field",
         "documentation": "@luau/global/bit32.replace/param/2"
+      },
+      {
+        "name": "width",
+        "documentation": "@luau/global/bit32.replace/param/3"
       }
     ],
     "returns": [
@@ -86036,8 +86043,10 @@
       "find": "@luau/global/table.find",
       "foreach": "@luau/global/table.foreach",
       "foreachi": "@luau/global/table.foreachi",
+      "freeze": "@luau/global/table.freeze",
       "getn": "@luau/global/table.getn",
       "insert": "@luau/global/table.insert",
+      "isfrozen": "@luau/global/table.isfrozen",
       "move": "@luau/global/table.move",
       "pack": "@luau/global/table.pack",
       "remove": "@luau/global/table.remove",
@@ -86211,6 +86220,25 @@
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/lua-docs/table"
   },
+  "@luau/global/table.freeze/param/0": {
+    "documentation": "<p>The table to be frozen.</p>"
+  },
+  "@luau/global/table.freeze/return/0": {
+    "documentation": "<p>The frozen table.</p>"
+  },
+  "@luau/global/table.freeze": {
+    "documentation": "<p>Makes the given table read-only.</p>",
+    "params": [
+      {
+        "name": "t",
+        "documentation": "@luau/global/table.freeze/param/0"
+      }
+    ],
+    "returns": [
+      "@luau/global/table.freeze/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/lua-docs/table"
+  },
   "@luau/global/table.getn/param/0": {
     "documentation": "<p>The table whose size is being measured.</p>"
   },
@@ -86292,6 +86320,25 @@
     ],
     "returns": [
       "@luau/global/table.insert/overload/(table, Variant) -> ()/return/0"
+    ],
+    "learn_more_link": "https://developer.roblox.com/api-reference/lua-docs/table"
+  },
+  "@luau/global/table.isfrozen/param/0": {
+    "documentation": "<p>The table to check.</p>"
+  },
+  "@luau/global/table.isfrozen/return/0": {
+    "documentation": "<p>Whether the table is frozen from <code>table.freeze()</code>.</p>"
+  },
+  "@luau/global/table.isfrozen": {
+    "documentation": "<p>Returns <code>true</code> if the given table is frozen and <code>false</code> if it isn't frozen.</p>",
+    "params": [
+      {
+        "name": "t",
+        "documentation": "@luau/global/table.isfrozen/param/0"
+      }
+    ],
+    "returns": [
+      "@luau/global/table.isfrozen/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/lua-docs/table"
   },

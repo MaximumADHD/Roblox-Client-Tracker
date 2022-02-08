@@ -12,6 +12,7 @@ Studio.AssetManager.TopBar.ForwardButton,Forward,Forward
 Studio.AssetManager.ContextMenu.RevertToLastPublishedVersion,Revert To Last Published Version,Revert To Last Published Version
 Studio.AssetManager.NavBar.ID,ID: {gameId:int},ID: {gameId:int}
 Studio.AssetManager.Meta.PluginName,AssetManager,AssetManager
+Studio.AssetManager.MainView.SaveToRobloxButtonText,Save to Roblox,Save to Roblox
 Studio.AssetManager.ContextMenu.EditAsset,Edit Asset,Edit Asset
 Studio.AssetManager.BulkImport.BulkImportRunning,You can import other files after the current import is finished.,You can import other files after the current import is finished.
 Studio.AssetManager.ContextMenu.UpdateAll,Update All,Update All

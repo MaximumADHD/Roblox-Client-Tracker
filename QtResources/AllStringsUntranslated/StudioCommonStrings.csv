@@ -46,6 +46,7 @@ Studio.Common.Action.Resize,,Resize,Resize
 Studio.Common.Action.Resume,,Resume,Resume
 Studio.Common.Action.Retry,,Retry,Retry
 Studio.Common.Action.Save,,Save,Save
+Studio.Common.Action.SaveToRoblox,,Save to Roblox,Save to Roblox
 Studio.Common.Action.Search,,Search,Search
 Studio.Common.Action.Select,,Select,Select
 Studio.Common.Action.SelectAll,,Select All,Select All

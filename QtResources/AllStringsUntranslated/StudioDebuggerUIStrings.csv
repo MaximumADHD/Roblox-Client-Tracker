@@ -12,8 +12,10 @@ Studio.App.BreakpointEditDialog.Options,,Options,Options
 Studio.App.BreakpointEditDialog.ContinueExecution,,Continue Execution,Continue Execution
 Studio.App.BreakpointEditDialog.TriggerAt,,Trigger At,Trigger At
 Studio.App.BreakpointEditDialog.AllContext,,All Context,All Context
+Studio.App.BreakpointEditDialog.AllContexts,,All Contexts,All Contexts
 Studio.App.BreakpointEditDialog.CurrentContext,,Current Context,Current Context
 Studio.App.BreakpointEditDialog.CustomContext,,Custom Context,Custom Context
+Studio.App.BreakpointEditDialog.Current,,(Current),(Current)
 Studio.App.BreakpointEditDialog.ClientCustomContext,,Client,Client
 Studio.App.BreakpointEditDialog.ServerCustomContext,,Server,Server
 Studio.App.BreakpointEditDialog.EditCustomContext,,Edit,Edit

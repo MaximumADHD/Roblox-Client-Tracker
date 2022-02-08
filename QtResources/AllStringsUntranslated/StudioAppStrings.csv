@@ -212,7 +212,7 @@ Studio.App.IdeDoc.UncommittedScriptChangesPublishedToNewPlace,Roblox IDE Doc,You
 Studio.App.IdeDoc.PublishedSuccessfully1,Roblox IDE Doc,%1 was published successfully.,%1 was published successfully.
 Studio.App.IdeDoc.PublishedFailed1,Roblox IDE Doc,%1 publish failed.,%1 publish failed.
 Studio.App.IdeDoc.SaveFailed1,Roblox IDE Doc,%1 save failed.,%1 save failed.
-DEPRECATED.Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
+Studio.App.IdeDoc.DEPRECATEDPlaceNotDirty,Roblox IDE Doc,No changes detected. Did not save.,No changes detected. Did not save.
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
 Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
 Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
@@ -343,8 +343,6 @@ Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Auto
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.MaterialServiceTitle,,Material Service,Material Service
 Studio.App.BetaFeatures.MaterialServiceDescription,,"Enables MaterialService and MaterialVariant, which allows Part Material appearance customization.","Enables MaterialService and MaterialVariant, which allows Part Material appearance customization."
-Studio.App.BetaFeatures.BetterBreakpointsTitle,,Better Breakpoints,Better Breakpoints
-Studio.App.BetaFeatures.BetterBreakpointsDescription,,Enables Logpoints and the new Edit Breakpiont dialog in the Debugger.,Enables Logpoints and the new Edit Breakpiont dialog in the Debugger.
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
@@ -526,6 +524,8 @@ Studio.App.LoginManager.UserAgreementsAcceptanceFailure,,Failed to accept user a
 Studio.App.LoginManager.UserAgreementsAcceptanceCancel,,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.,Are you sure you want to cancel? This will log you out and close all other running instances of Studio.
 Studio.App.LoginManager.FailToFetchModerationInfo,,Fail to get moderation status. Please try to login again or contact support if problem persists.,Fail to get moderation status. Please try to login again or contact support if problem persists.
 Studio.App.TeamCreate.LoadingGame,,Loading game,Loading game
+Studio.App.TeamCreate.LoadingPlaceWithMissingName,,Loading place,Loading place
+Studio.App.TeamCreate.LoadingPlace1,,Loading place: %1,Loading place: %1
 Studio.App.TeamCreate.LoadingGameWithAttemptCount1,Load game with display of the attempt count,Loading game (attempt #%1),Loading game (attempt #%1)
 Studio.App.TeamCreate.PlaceLauncherRequestStatus1,,Request Status Code: %1,Request Status Code: %1
 Studio.App.TeamCreate.UnableToFetchPlaceAndUniverseInfo,Failed to fetch place or universe info when opening a place,Unable to fetch place/universe info,Unable to fetch place/universe info
@@ -662,7 +662,7 @@ Studio.App.ScriptingCmd.UNFOLDALLTooltip,,Expand all collapsed folds in the scri
 Studio.App.ScriptingCmd.UNINDENT,,Unindent,Unindent
 Studio.App.ScriptingCmd.UNINDENTTooltip,,Unindent selected line(s),Unindent selected line(s)
 Studio.App.ScriptingCmd.TOGGLECOMMENT,,Toggle Comment,Toggle Comment
-Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Show the Find / Replace All window,Show the Find / Replace All window
+Studio.App.ScriptingCmd.TOGGLECOMMENTTooltip,,Toggle selection commenting,Toggle selection commenting
 Studio.App.ScriptingCmd.SHOWFINDREPLACEWINDOW,,Show Find / Replace All window,Show Find / Replace All window
 Studio.App.ScriptingCmd.SELECTWORD,,Select Word,Select Word
 Studio.App.ScriptingCmd.SELECTWORDTooltip,,Select the word under the cursor,Select the word under the cursor
@@ -687,8 +687,6 @@ Studio.App.NamedViewCmd.TOGGLEDISPLAYWARNINGSTooltip,,Display warnings in the Sc
 Studio.App.RBXMainWindow.Debugger,,Debugger,Debugger
 Studio.App.RBXMainWindow.DisableBreakpoint,,Disable Breakpoint,Disable Breakpoint
 Studio.App.RBXMainWindow.AddWatch,,Add Watch,Add Watch
-Studio.App.RBXMainWindow.ConditionElps,,Condition...,Condition...
-Studio.App.RBXMainWindow.EditBreakpointCondition,,Edit Breakpoint Condition,Edit Breakpoint Condition
 Studio.App.RBXMainWindow.EditBreakpointElps,,Edit Breakpoint...,Edit Breakpoint...
 Studio.App.RBXMainWindow.EditBreakpoint,,Edit Breakpoint,Edit Breakpoint
 Studio.App.RBXMainWindow.InsertConditionalBreakpointElps,,Insert Conditional Breakpoint...,Insert Conditional Breakpoint...
@@ -999,7 +997,6 @@ Studio.App.RBXMainWindow.AboutRobloxStudio,,About Roblox Studio,About Roblox Stu
 Studio.App.RBXMainWindow.StartServer,,Start Server,Start Server
 Studio.App.RBXMainWindow.PublishAllToRoblox,,"Publish all places, developer products, and other parts of your game to Roblox","Publish all places, developer products, and other parts of your game to Roblox"
 Studio.App.RBXMainWindow.OnlineHelpElps,,Online Help...,Online Help...
-Studio.App.RBXMainWindow.LaunchSoloMode,,Launch Studio in Solo Player Mode,Launch Studio in Solo Player Mode
 Studio.App.RBXMainWindow.PlaySolo,,Play Solo,Play Solo
 Studio.App.RBXMainWindow.ObjectBrowser,,Object Browser,Object Browser
 Studio.App.RBXMainWindow.PlayInSoloMode,,Play in Solo Mode,Play in Solo Mode
@@ -3182,6 +3179,7 @@ Studio.App.ColorPreviewWidget.InvalidArgumentsTooltip,,Invalid arguments to Colo
 Studio.App.AboutStudioDialog.AmongRegisteredTrademarks,Replacement of Studio.App.MainWindow.AmongRegisteredTrademarks2 without contact us hyper link,"<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries.","<i>Roblox</i>, the Roblox <i>logo</i> and <i>Powering Imagination</i> are among our registered and unregistered trademarks in the U.S. and other countries."
 Studio.App.AboutStudioDialog.ContactUs,Hyper link for contacting Roblox support,Contact Us,Contact Us
 Studio.App.AboutStudioDialog.PrivacyPolicy,Hyper link for privacy policy,Privacy Policy,Privacy Policy
+Studio.App.AboutStudioDialog.UpdatesNotAvailableForBuild,,Updates not available for this build,Updates not available for this build
 Studio.App.BulkAudioImportErrors.FileTooLarge,,The file in the request is too large.,The file in the request is too large.
 Studio.App.BulkAudioImportErrors.DurationTooLarge,,The duration of the audio file is too long.,The duration of the audio file is too long.
 Studio.App.BulkAudioImportErrors.FileTypeNotSupported,,The file type is not supported.,The file type is not supported.

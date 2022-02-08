@@ -36,6 +36,7 @@ Studio.GameSettings.General.TitleSlope,Slope, ,Slope
 Studio.GameSettings.General.ButtonPublish,Publish, ,Publish
 Studio.GameSettings.Monetization.EditDeveloperProduct,Edit Developer Product, ,Edit Developer Product
 Studio.GameSettings.General.ButtonSave,Save, ,Save
+Studio.GameSettings.General.ButtonSaveToRoblox,Save to Roblox, ,Save to Roblox
 Studio.GameSettings.General.ButtonCancel,Cancel, ,Cancel
 Studio.GameSettings.General.CategoryOptions,Options, ,Options
 Studio.GameSettings.General.TitleGravity,Gravity, ,Gravity

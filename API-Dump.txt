@@ -99,6 +99,9 @@ Class AnimationFromVideoCreatorService : Instance [NotCreatable] [Service]
 	Function string AnimationFromVideoCreatorService:DownloadJobResult(string jobId, string outputFilePath) {RobloxScriptSecurity} [Yields]
 	Function string AnimationFromVideoCreatorService:FullProcess(string videoFilePath, Function progressCallback) {RobloxScriptSecurity} [Yields]
 	Function string AnimationFromVideoCreatorService:GetJobStatus(string jobId) {RobloxScriptSecurity} [Yields]
+Class AnimationFromVideoCreatorStudioService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function string AnimationFromVideoCreatorStudioService:CreateAnimationByUploadingVideo(Function progressCallback) {RobloxScriptSecurity} [Yields]
+	Function string AnimationFromVideoCreatorStudioService:ImportVideoWithPrompt() {RobloxScriptSecurity} [Yields]
 Class AnimationRigData : Instance
 	Function bool AnimationRigData:LoadFromHumanoid(Instance humanoid) {RobloxScriptSecurity}
 Class AnimationTrack : Instance [NotCreatable]
@@ -999,7 +1002,9 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function bool DebuggerUIService:IsConnectionForPlayDataModel(int debuggerConnectionId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
+	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
+	Function void DebuggerUIService:SetScriptLineMarker(string guid, int debuggerConnectionId, int line, bool lineMarkerType) {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property string DebuggerVariable.Type {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -2238,6 +2243,7 @@ Class MaterialService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property MaterialVariant MaterialService.SmoothPlastic {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.Wood {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.WoodPlanks {RobloxSecurity} [NotScriptable]
+	Property bool MaterialService.Use2022Materials {RobloxScriptSecurity}
 	Property MaterialVariant MaterialService.TerrainAsphalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBasalt {RobloxSecurity} [NotScriptable]
 	Property MaterialVariant MaterialService.TerrainBrick {RobloxSecurity} [NotScriptable]
@@ -2663,6 +2669,7 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Enum.MeshPartHeadsAndAccessories Workspace.MeshPartHeadsAndAccessories [NotScriptable]
 	Property Enum.PhysicsSimulationRate Workspace.PhysicsSimulationRate [Hidden] [NotReplicated]
 	Property Enum.PhysicsSteppingMethod Workspace.PhysicsSteppingMethod [NotScriptable]
+	Property Enum.ReplicateInstanceDestroySetting Workspace.ReplicateInstanceDestroySetting [NotScriptable]
 	Property Enum.AnimatorRetargetingMode Workspace.Retargeting
 	Property Enum.SignalBehavior Workspace.SignalBehavior [NotScriptable]
 	Property Terrain Workspace.Terrain [ReadOnly]
@@ -3310,6 +3317,8 @@ Class ScriptChangeService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event ScriptChangeService.ScriptFullNameChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptSourceChanged(LuaSourceContainer script) {RobloxScriptSecurity}
 	Event ScriptChangeService.ScriptSourceEdited(LuaSourceContainer script, Array edits) {RobloxScriptSecurity}
+Class ScriptCloneWatcher : Instance [NotCreatable] [Service] [NotReplicated]
+Class ScriptCloneWatcherHelper : Instance [NotCreatable] [Service] [NotReplicated]
 Class ScriptContext : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool ScriptContext.ScriptsDisabled {LocalUserSecurity} [Hidden]
 	Function void ScriptContext:AddCoreScriptLocal(string name, Instance parent) {RobloxScriptSecurity}
@@ -3807,8 +3816,11 @@ Class StudioDeviceEmulatorService : Instance [NotCreatable] [Service] [NotReplic
 	Function void StudioDeviceEmulatorService:SetCurrentOrientation(Enum.ScreenOrientation orientation) {RobloxScriptSecurity} [Yields]
 	Event StudioDeviceEmulatorService.CurrentDeviceIdChanged() {RobloxScriptSecurity}
 	Event StudioDeviceEmulatorService.OrientationChanged() {RobloxScriptSecurity}
+Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool StudioHighDpiService:IsNotHighDPIAwareBuild() {RobloxScriptSecurity}
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
+	Function void StudioPublishService:SetTeamCreateOnPublishInfo(bool shouldTurnOnTcOnPublish, string newPlaceName) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3828,6 +3840,7 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:ConvertToPackageUpload(string uploadUrl) {RobloxScriptSecurity}
 	Function void StudioService:CopyToClipboard(string stringToCopy) {RobloxScriptSecurity}
 	Function void StudioService:DEPRECATED_SetDocumentDisplayName(string newName) {RobloxScriptSecurity}
+	Function void StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:EmitPlacePublishedSignal() {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeConfigureUrl(int64 badgeId) {RobloxScriptSecurity}
 	Function string StudioService:GetBadgeUploadUrl() {RobloxScriptSecurity}
@@ -3851,7 +3864,6 @@ Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioService:RequestClose(Enum.StudioCloseMode closeMode) {RobloxScriptSecurity}
 	Function string StudioService:SerializeInstances(Objects instances) {RobloxScriptSecurity}
 	Function void StudioService:SetPluginEnabled(int64 assetId, bool state) {RobloxScriptSecurity}
-	Function void StudioService:SetTurnOnTeamCreateOnPublish(bool turnOn) {RobloxScriptSecurity}
 	Function void StudioService:SetUniverseDisplayName(string newName) {RobloxScriptSecurity}
 	Function void StudioService:ShowPlaceVersionHistoryDialog(int64 placeId) {RobloxScriptSecurity}
 	Function void StudioService:ShowPublishToRoblox() {RobloxScriptSecurity}
@@ -3964,6 +3976,17 @@ Class TextChannel : Instance
 	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
 	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
 	Event TextChannel.MessageReceived(TextChatMessage textChatMessage)
+Class TextChatMessage : Instance [NotCreatable]
+	Property string TextChatMessage.Metadata
+	Property string TextChatMessage.PrefixText
+	Property Enum.TextChatMessageStatus TextChatMessage.Status
+	Property string TextChatMessage.Text
+	Property TextChannel TextChatMessage.TextChannel
+	Property TextSource TextChatMessage.TextSource
+	Property DateTime TextChatMessage.Timestamp
+Class TextChatMessageProperties : Instance
+	Property string TextChatMessageProperties.PrefixText
+	Property string TextChatMessageProperties.Text
 Class TextChatService : Instance [NotCreatable] [Service] [NotReplicated]
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
@@ -4367,6 +4390,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void VirtualUser:StartRecording() {LocalUserSecurity}
 	Function string VirtualUser:StopRecording() {LocalUserSecurity}
 	Function void VirtualUser:TypeKey(string key) {LocalUserSecurity}
+Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChannel : Instance
 Class VoiceChatInternal : Instance [NotCreatable] [Service]
@@ -5930,6 +5954,10 @@ Enum RenderPriority
 Enum RenderingTestComparisonMethod
 	EnumItem RenderingTestComparisonMethod.psnr : 0
 	EnumItem RenderingTestComparisonMethod.diff : 1
+Enum ReplicateInstanceDestroySetting
+	EnumItem ReplicateInstanceDestroySetting.Default : 0
+	EnumItem ReplicateInstanceDestroySetting.Disabled : 1
+	EnumItem ReplicateInstanceDestroySetting.Enabled : 2
 Enum ResamplerMode
 	EnumItem ResamplerMode.Default : 0
 	EnumItem ResamplerMode.Pixelated : 1
@@ -6353,11 +6381,13 @@ Enum TerrainAcquisitionMethod
 	EnumItem TerrainAcquisitionMethod.RegionPasteTool : 10
 	EnumItem TerrainAcquisitionMethod.Other : 11
 Enum TextChatMessageStatus
-	EnumItem TextChatMessageStatus.Success : 1
-	EnumItem TextChatMessageStatus.TextFilterFailed : 2
-	EnumItem TextChatMessageStatus.Floodchecked : 3
-	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 4
-	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 5
+	EnumItem TextChatMessageStatus.Unknown : 1
+	EnumItem TextChatMessageStatus.Success : 2
+	EnumItem TextChatMessageStatus.Sending : 3
+	EnumItem TextChatMessageStatus.TextFilterFailed : 4
+	EnumItem TextChatMessageStatus.Floodchecked : 5
+	EnumItem TextChatMessageStatus.InvalidPrivacySettings : 6
+	EnumItem TextChatMessageStatus.InvalidTextChannelPermissions : 7
 Enum TextFilterContext
 	EnumItem TextFilterContext.PublicChat : 1
 	EnumItem TextFilterContext.PrivateChat : 2
