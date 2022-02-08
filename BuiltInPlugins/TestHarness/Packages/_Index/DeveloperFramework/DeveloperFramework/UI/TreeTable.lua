@@ -126,6 +126,7 @@ function TreeTable:calculateItems(prevProps)
 		or props.GetChildren ~= prevProps.GetChildren
 		or props.GetItemKey ~= prevProps.GetItemKey
 		or props.Expansion ~= prevProps.Expansion
+		or (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows and props.HighlightedRows ~= prevProps.HighlightedRows)
 	)
 	local selectionChanged = not prevProps or props.Selection ~= prevProps.Selection
 	if not rowsChanged and not selectionChanged then

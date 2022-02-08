@@ -225,8 +225,14 @@ return function(AppComponent)
 		end
 	end
 
-	function NavigationContainer:_getScreenProps()
-		return self.props.screenProps
+	function NavigationContainer:_getScreenProps(propKey, defaultValue)
+		local screenProps = self.props.screenProps or {}
+		if propKey ~= nil then
+			return screenProps[propKey] or defaultValue
+		end
+
+		-- Legacy: return original table if no args provided
+		return screenProps
 	end
 
 	function NavigationContainer:dispatch(action)

@@ -102,5 +102,42 @@ return function()
 		Roact.unmount(instance)
 		expect(registeredCallback).to.equal(nil)
 	end)
+
+	it("should correctly pass screenProps to pages", function()
+		local passedScreenProps = nil
+		local extractedValue1 = nil
+		local extractedMissingValue1 = nil
+		local extractedMissingValue2 = nil
+
+		local testScreenProps = {
+			MyKey1 = "MyValue1",
+		}
+
+		local TestNavigator = createSwitchNavigator({
+			routes = {
+				Foo = function(props)
+					-- doing this in render is an abuse, but it's just a test
+					passedScreenProps = props.navigation.getScreenProps()
+					extractedValue1 = props.navigation.getScreenProps("MyKey1")
+					extractedMissingValue1 = props.navigation.getScreenProps("MyMissingKey", 5)
+					extractedMissingValue2 = props.navigation.getScreenProps("MyMissingKey")
+				end,
+			},
+			initialRouteName = "Foo",
+		})
+
+		local TestApp = createAppContainer(TestNavigator)
+		local element = Roact.createElement(TestApp, {
+			screenProps = testScreenProps,
+		})
+		local instance = Roact.mount(element)
+
+		expect(passedScreenProps).to.equal(testScreenProps)
+		expect(extractedValue1).to.equal("MyValue1")
+		expect(extractedMissingValue1).to.equal(5)
+		expect(extractedMissingValue2).to.equal(nil)
+
+		Roact.unmount(instance)
+	end)
 end
 

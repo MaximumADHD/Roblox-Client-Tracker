@@ -1,6 +1,7 @@
 --[[
 	Public interface for UI
 ]]
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
 
@@ -23,6 +24,7 @@ local FakeLoadingBar = require(Src.FakeLoadingBar)
 local HoverArea = require(Src.HoverArea)
 local CaptureFocus = require(Src.CaptureFocus)
 local ShowOnTop = require(Src.ShowOnTop)
+local DragBar = require(Src.DragBar)
 local DragListener = require(Src.DragListener)
 local DropShadow = require(Src.DropShadow)
 local KeyboardListener = require(Src.KeyboardListener)
@@ -56,6 +58,7 @@ local ScrollingFrame = require(Src.ScrollingFrame)
 local SelectInput = require(Src.SelectInput)
 local Separator = require(Src.Separator)
 local SimpleTab = require(Src.SimpleTab)
+local SplitPane = require(Src.SplitPane)
 local Slider = require(Src.Slider)
 local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 local MultiLineTextInput = require(Src.MultiLineTextInput)
@@ -76,6 +79,7 @@ local UI = strict({
 	Checkbox = Checkbox,
 	CheckboxTreeView = CheckboxTreeView,
 	Container = Container,
+	DragBar = FFlagDevFrameworkSplitPane and DragBar or nil,
 	DragListener = DragListener,
 	DropdownMenu = DropdownMenu,
 	DropShadow = DropShadow,
@@ -104,6 +108,7 @@ local UI = strict({
 	SimpleTab = SimpleTab,
 	ShowOnTop = ShowOnTop,
 	Slider = Slider,
+	SplitPane = FFlagDevFrameworkSplitPane and SplitPane or nil,
 	Table = Table,
 	TableRow = TableRow,
 	Tabs = Tabs,

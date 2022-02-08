@@ -4,7 +4,7 @@ local validate = require(script.Parent.Parent.utils.validate)
 return function(route)
 	local result = {}
 
-	-- Go back to screen identified by 'key', or the default for current route.
+	-- Go back FROM screen identified by 'key', or the default for current route.
 	function result.goBack(key)
 		if key == nil and route.key then
 			validate(type(route.key) == "string", ".goBack(): key should be a string")

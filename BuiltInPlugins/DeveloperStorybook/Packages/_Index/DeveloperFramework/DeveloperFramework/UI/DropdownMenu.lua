@@ -48,7 +48,7 @@ local TextLabel = require(UI.TextLabel)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 local FlagsList = Util.Flags.new({
-	FFlagToolboxAssetGridRefactor3 = {"ToolboxAssetGridRefactor3"},
+	FFlagToolboxAssetGridRefactor4 = {"ToolboxAssetGridRefactor4"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -268,7 +268,7 @@ function DropdownMenu:render()
 	}, {
 		PortalToRoot = isOpen and Roact.createElement(CaptureFocus, {
 			OnFocusLost = props.OnFocusLost,
-			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor3") and priority or nil,
+			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor4") and priority or nil,
 		}, {
 			Menu = isOpen and canRender and self:renderMenu()
 		})

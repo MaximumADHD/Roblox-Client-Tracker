@@ -267,7 +267,8 @@ return function(config)
 				end
 
 				-- Remove unused routes at tail
-				local routes = Cryo.List.removeRange(state.routes, lastRouteIndex + 1, #state.routes)
+				local tailIndex = state.index == lastRouteIndex and lastRouteIndex or lastRouteIndex + 1
+				local routes = Cryo.List.removeRange(state.routes, tailIndex, #state.routes)
 
 				-- Apply params if provided
 				if action.params then
@@ -547,7 +548,7 @@ return function(config)
 							route,
 							-- don't change index for these action types
 							action.type == NavigationActions.SetParams or
-							action.type == StackActions.CompleteTransition
+							action.type == NavigationActions.CompleteTransition
 						)
 					end
 				end
