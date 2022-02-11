@@ -89366,34 +89366,58 @@
                 },
                 {
                     "Name": "Rock",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 896
                 },
                 {
                     "Name": "Glacier",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1552
                 },
                 {
                     "Name": "Snow",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1328
                 },
                 {
                     "Name": "Sandstone",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 912
                 },
                 {
                     "Name": "Mud",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1344
                 },
                 {
                     "Name": "Basalt",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 788
                 },
                 {
                     "Name": "Ground",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1360
                 },
                 {
                     "Name": "CrackedLava",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 804
                 },
                 {
@@ -89406,22 +89430,37 @@
                 },
                 {
                     "Name": "Asphalt",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1376
                 },
                 {
                     "Name": "LeafyGrass",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1284
                 },
                 {
                     "Name": "Salt",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 1392
                 },
                 {
                     "Name": "Limestone",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 820
                 },
                 {
                     "Name": "Pavement",
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "Value": 836
                 },
                 {
