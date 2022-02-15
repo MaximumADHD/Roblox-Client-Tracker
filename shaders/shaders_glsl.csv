@@ -182,7 +182,6 @@ LowQGlassFS,Fragment
 LowQMaterialFS_Level0,Fragment
 LowQMaterialWangFallbackFS,Fragment
 LowQMaterialWangFS,Fragment
-OutlineEffectFS,Fragment
 ParticleCurveAddFS,Fragment
 ParticleCurveAddFS_Soft,Fragment
 ParticleCurveCrazyFS,Fragment

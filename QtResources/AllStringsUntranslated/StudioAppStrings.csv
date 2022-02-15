@@ -216,6 +216,17 @@ Studio.App.IdeDoc.DEPRECATEDPlaceNotDirty,Roblox IDE Doc,No changes detected. Di
 Studio.App.IdeDoc.PlaceNotDirty,Roblox IDE Doc,No changes to the place detected. Did not save.,No changes to the place detected. Did not save.
 Studio.App.IdeDoc.AreYouSureYouWantToExit1,Message prompt for when user exits a Team Create place,Are you sure you want to exit '%1'?,Are you sure you want to exit '%1'?
 Studio.App.IdeDoc.DeprecateCSGv1,,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>,You are using the legacy CSG modeling system that will soon be removed from Roblox Studio. We have changed your Studio Setting to use the latest version. <a href=%1>Learn More</a>
+Studio.App.IdeDoc.SavedToLocalFile1,Message displayed when a user successfully saves a place to a file. %1 is the file path.,"Saved to ""%1""","Saved to ""%1"""
+Studio.App.IdeDoc.SavedToRoblox1,Message displayed when a user successfully saves a place to Roblox.,"Saved ""%1"" to Roblox.","Saved ""%1"" to Roblox."
+Studio.App.IdeDoc.SavedToRoblox2,"Message displayed when a user successfully saves a place to Roblox, %1 is place name and %2 is game name.","Saved ""%1"" to ""%2"" in Roblox.","Saved ""%1"" to ""%2"" in Roblox."
+Studio.App.IdeDoc.SavedToRobloxNew1,Message displayed when a user successfully saves a place to Roblox.,"Saved new changes in ""%1"" to Roblox.","Saved new changes in ""%1"" to Roblox."
+Studio.App.IdeDoc.SavedToRobloxNotMoved2,Message displayed when a user successfully saves a place to Roblox. %1 and %2 are both place names.,"Saved ""%1"" to Roblox, but you are still editing ""%2"".","Saved ""%1"" to Roblox, but you are still editing ""%2""."
+Studio.App.IdeDoc.SavedToRobloxNotMoved3,"Message displayed when a user successfully saves a place to Roblox, %1 and %3 are place names and %2 is game name.","Saved ""%1"" to ""%2"" in Roblox, but you are still editing ""%3"".","Saved ""%1"" to ""%2"" in Roblox, but you are still editing ""%3""."
+Studio.App.IdeDoc.PublishedToRoblox1,Message displayed when a user successfully saves a place to Roblox.,"Published ""%1"" to Roblox.","Published ""%1"" to Roblox."
+Studio.App.IdeDoc.PublishedToRoblox2,"Message displayed when a user successfully saves a place to Roblox, %1 is place name and %2 is game name.","Published ""%1"" to ""%2"" in Roblox.","Published ""%1"" to ""%2"" in Roblox."
+Studio.App.IdeDoc.PublishedToRobloxNew1,Message displayed when a user successfully saves a place to Roblox.,"Published new changes in ""%1"" to Roblox.","Published new changes in ""%1"" to Roblox."
+Studio.App.IdeDoc.PublishedToRobloxNotMoved2,Message displayed when a user successfully saves a place to Roblox. %1 and %2 are both place names.,"Published ""%1"" to Roblox, but you are still editing ""%2"".","Published ""%1"" to Roblox, but you are still editing ""%2""."
+Studio.App.IdeDoc.PublishedToRobloxNotMoved3,"Message displayed when a user successfully saves a place to Roblox, %1 and %3 are place names and %2 is game name.","Published ""%1"" to ""%2"" in Roblox, but you are still editing ""%3"".","Published ""%1"" to ""%2"" in Roblox, but you are still editing ""%3""."
 Studio.App.MainWindow.AboutRobloxStudio,Main Window,About Roblox Studio,About Roblox Studio
 Studio.App.MainWindow.AboutToLogOutNewLine,Main Window,"Roblox Studio is about to log out.
 
@@ -240,6 +251,7 @@ Studio.App.MainWindow.FailedConnectRemoteServers,Main Window,"Failed to connect 
 Studio.App.MainWindow.FailedToAutoSave,Main Window,Failed to AutoSave,Failed to AutoSave
 Studio.App.MainWindow.FailedToAutoSaveTemporarilyDisable,Main Window,Failed to AutoSave.  Do you want to temporarily disable AutoSave?,Failed to AutoSave.  Do you want to temporarily disable AutoSave?
 Studio.App.GUAC.FailedToFetch,,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.,Web request to load GUAC policies failed. The backend UniversalAppConfiguration service may be down.
+Studio.App.GUAC.UserFriendlyFailedToFetch1,main,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.,Failed to load settings with %s. Please restart Studio or contact support if the problem persists.
 Studio.App.MainWindow.FailedToLoadSettings,Main Window,Failed to load settings,Failed to load settings
 Studio.App.MainWindow.FailedToOpenObjectBrowser,Main Window,"Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service.","Failed to open Object Browser. Please restart your application and try again. If you continue to encounter this error, please contact customer service."
 Studio.App.MainWindow.FileNotExistNewLine1,Main Window,"%1
@@ -1448,6 +1460,7 @@ Studio.App.InsertObjectCategory.Parts,,Parts,Parts
 Studio.App.InsertObjectCategory.PostProcessingEffects,,Post Processing Effects,Post Processing Effects
 Studio.App.InsertObjectCategory.Scripting,,Scripting,Scripting
 Studio.App.InsertObjectCategory.Sounds,,Sounds,Sounds
+Studio.App.InsertObjectCategory.TextChat,,Text Chat,Text Chat
 Studio.App.InsertObjectCategory.Uncategorized,,Uncategorized,Uncategorized
 Studio.App.InsertObjectCategory.Values,,Values,Values
 Studio.App.InsertObjectCategory.World,,World,World
@@ -1948,8 +1961,6 @@ Studio.App.SettingsCategory.NetworkAppearance,,Appearance,Appearance
 Studio.App.Property.RenderStreamedRegions,,Render Streamed Regions,Render Streamed Regions
 Studio.App.Property.ShowActiveAnimationAsset,,Show Active Animation Asset,Show Active Animation Asset
 Studio.App.SettingsCategory.NetworkDiagnostics,,Diagnostics,Diagnostics
-Studio.App.Property.TrackDataTypes,,Track Data Types,Track Data Types
-Studio.App.Property.TrackPhysicsDetails,,Track Physics Details,Track Physics Details
 Studio.App.Property.PrintStreamInstanceQuota,,Print Stream Instance Quota,Print Stream Instance Quota
 Studio.App.Property.PrintPhysicsErrors,,Print PhysicsErrors,Print PhysicsErrors
 Studio.App.Property.PrintJoinSizeBreakdown,,Print Join Size Breakdown,Print Join Size Breakdown

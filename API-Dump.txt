@@ -999,6 +999,7 @@ Class DebuggerManager : Instance [NotCreatable] [Service] [NotReplicated]
 	Event DebuggerManager.DebuggerRemoved(Instance debugger)
 Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:EditBreakpoint(int metaBreakpointId) {RobloxScriptSecurity}
+	Function void DebuggerUIService:EditWatch(string expression) {RobloxScriptSecurity}
 	Function bool DebuggerUIService:IsConnectionForPlayDataModel(int debuggerConnectionId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:OpenScriptAtLine(string guid, int debuggerConnectionId, int line) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
@@ -1922,6 +1923,11 @@ Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated
 	Property bool ImporterGroupSettings.ImportAsModelAsset
 	Property bool ImporterGroupSettings.InsertInWorkspace
 Class ImporterJointSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+Class ImporterMaterialSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
+	Property string ImporterMaterialSettings.DiffuseFilePath [ReadOnly]
+	Property string ImporterMaterialSettings.MetalnessFilePath [ReadOnly]
+	Property string ImporterMaterialSettings.NormalFilePath [ReadOnly]
+	Property string ImporterMaterialSettings.RoughnessFilePath [ReadOnly]
 Class ImporterMeshSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterMeshSettings.Anchored
 	Property Vector3 ImporterMeshSettings.Dimensions [ReadOnly]
@@ -2396,8 +2402,6 @@ Class NetworkSettings : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property bool NetworkSettings.PrintJoinSizeBreakdown
 	Property bool NetworkSettings.PrintPhysicsErrors
 	Property bool NetworkSettings.PrintStreamInstanceQuota
-	Property bool NetworkSettings.TrackDataTypes
-	Property bool NetworkSettings.TrackPhysicsDetails
 	Property bool NetworkSettings.HttpProxyEnabled {✏️RobloxScriptSecurity}
 	Property string NetworkSettings.HttpProxyURL {✏️RobloxScriptSecurity}
 Class NoCollisionConstraint : Instance
@@ -3171,6 +3175,7 @@ Class ProximityPromptService : Instance [Service] [NotBrowsable]
 	Event ProximityPromptService.PromptTriggered(ProximityPrompt prompt, Player playerWhoTriggered)
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Content PublishService:PublishCageMeshAsync(Instance wrap, Enum.CageType cageType) {RobloxScriptSecurity} [Yields]
+	Function bool PublishService:PublishDescendantAssets(Instance instance) {RobloxScriptSecurity}
 Class RbxAnalyticsService : Instance [NotCreatable] [Service]
 	Function void RbxAnalyticsService:AddGlobalPointsField(string key, int value) {RobloxScriptSecurity}
 	Function void RbxAnalyticsService:AddGlobalPointsTag(string key, string value) {RobloxScriptSecurity}
@@ -3821,6 +3826,7 @@ Class StudioHighDpiService : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioPublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void StudioPublishService:PublishAs(int64 universeId, int64 placeId, int64 groupId, bool isPublish, Variant publishParameters) {RobloxScriptSecurity}
 	Function void StudioPublishService:SetTeamCreateOnPublishInfo(bool shouldTurnOnTcOnPublish, string newPlaceName) {RobloxScriptSecurity}
+	Function void StudioPublishService:SetUploadNames(string placeName, string universeName) {RobloxScriptSecurity}
 Class StudioScriptDebugEventListener : Instance [NotCreatable] [Service] [NotReplicated]
 Class StudioService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property bool StudioService.AlignDraggedObjects {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -3972,11 +3978,25 @@ Class TestService : Instance [Service]
 	Event TestService.ServerCollectConditionalResult(bool condition, string text, Instance script, int line)
 	Event TestService.ServerCollectResult(string text, Instance script, int line)
 Class TextBoxService : Instance [NotCreatable] [Service]
-Class TextChannel : Instance
+Class TextChannel : Instance [NotBrowsable]
 	Function Tuple TextChannel:AddUserAsync(int64 userId) [Yields]
 	Function TextChatMessage TextChannel:DisplaySystemMessage(string systemMessage, string metadata = "")
-	Event TextChannel.MessageReceived(TextChatMessage textChatMessage)
+	Function TextChatMessage TextChannel:SendAsync(string message, string metadata = "")
+	Event TextChannel.MessageReceived(TextChatMessage incomingMessage)
+	Callback Tuple TextChannel.OnIncomingMessage(TextChatMessage message)
+Class TextChatCommand : Instance [NotBrowsable]
+	Property bool TextChatCommand.Enabled
+	Property string TextChatCommand.PrimaryAlias
+	Property string TextChatCommand.SecondaryAlias
+	Event TextChatCommand.Triggered(TextSource originTextSource, string unfilteredText)
+Class TextChatConfigurations : Instance [NotCreatable] [NotReplicated]
+Class ChatInputBarConfiguration : TextChatConfigurations [NotCreatable] [NotBrowsable]
+	Property bool ChatInputBarConfiguration.Enabled
+	Property TextChannel ChatInputBarConfiguration.TargetTextChannel
+Class ChatWindowConfiguration : TextChatConfigurations [NotCreatable] [NotBrowsable]
+	Property bool ChatWindowConfiguration.Enabled
 Class TextChatMessage : Instance [NotCreatable]
+	Property string TextChatMessage.MessageId
 	Property string TextChatMessage.Metadata
 	Property string TextChatMessage.PrefixText
 	Property Enum.TextChatMessageStatus TextChatMessage.Status
@@ -3987,7 +4007,13 @@ Class TextChatMessage : Instance [NotCreatable]
 Class TextChatMessageProperties : Instance
 	Property string TextChatMessageProperties.PrefixText
 	Property string TextChatMessageProperties.Text
-Class TextChatService : Instance [NotCreatable] [Service] [NotReplicated]
+Class TextChatService : Instance [NotCreatable] [Service] [NotBrowsable]
+	Property Enum.ChatVersion TextChatService.ChatVersion {✏️NotAccessibleSecurity}
+	Property bool TextChatService.CreateDefaultCommands [NotScriptable]
+	Property bool TextChatService.CreateDefaultTextChannels [NotScriptable]
+	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
+	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
+	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
 Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetChatForUserAsync(int64 toUserId) [Yields]
 	Function string TextFilterResult:GetNonChatStringForBroadcastAsync() [Yields]
@@ -3996,7 +4022,7 @@ Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
-Class TextSource : Instance [NotCreatable]
+Class TextSource : Instance [NotCreatable] [NotBrowsable]
 	Property bool TextSource.CanSend
 	Property int64 TextSource.UserId [ReadOnly]
 Class ThirdPartyUserService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4021,6 +4047,7 @@ Class ToastNotificationService : Instance [NotCreatable] [Service] [NotReplicate
 	Function void ToastNotificationService:ShowNotification(string message, string notificationId) {RobloxScriptSecurity}
 Class ToolboxService : Instance [NotCreatable] [Service] [NotReplicated]
 	Callback Objects ToolboxService.ProcessAssetInsertionDrag(string assetId, int assetTypeId, Objects instances) {RobloxScriptSecurity} [NoYield]
+	Callback void ToolboxService.ProcessAssetInsertionDrop() {RobloxScriptSecurity} [NoYield]
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
 Class TracerService : Instance [NotCreatable] [Service] [NotReplicated]
@@ -4393,6 +4420,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChannel : Instance
+	Function Tuple VoiceChannel:AddUserAsync(int64 userId = -1) {RobloxScriptSecurity} [Yields]
 Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
@@ -4501,6 +4529,9 @@ Enum AnimationPriority
 	EnumItem AnimationPriority.Idle : 0
 	EnumItem AnimationPriority.Movement : 1
 	EnumItem AnimationPriority.Action : 2
+	EnumItem AnimationPriority.Action2 : 3
+	EnumItem AnimationPriority.Action3 : 4
+	EnumItem AnimationPriority.Action4 : 5
 	EnumItem AnimationPriority.Core : 1000
 Enum AnimatorRetargetingMode
 	EnumItem AnimatorRetargetingMode.Default : 0
@@ -4809,6 +4840,9 @@ Enum ChatStyle
 	EnumItem ChatStyle.Classic : 0
 	EnumItem ChatStyle.Bubble : 1
 	EnumItem ChatStyle.ClassicAndBubble : 2
+Enum ChatVersion
+	EnumItem ChatVersion.LegacyChatService : 0
+	EnumItem ChatVersion.TextChatService : 1
 Enum ClientAnimatorThrottlingMode
 	EnumItem ClientAnimatorThrottlingMode.Default : 0
 	EnumItem ClientAnimatorThrottlingMode.Disabled : 1
@@ -5141,6 +5175,19 @@ Enum FontSize
 	EnumItem FontSize.Size42 : 12
 	EnumItem FontSize.Size60 : 13
 	EnumItem FontSize.Size96 : 14
+Enum FontStyle
+	EnumItem FontStyle.Normal : 0
+	EnumItem FontStyle.Italic : 1
+Enum FontWeight
+	EnumItem FontWeight.Thin : 100
+	EnumItem FontWeight.ExtraLight : 200
+	EnumItem FontWeight.Light : 300
+	EnumItem FontWeight.Regular : 400
+	EnumItem FontWeight.Medium : 500
+	EnumItem FontWeight.SemiBold : 600
+	EnumItem FontWeight.Bold : 700
+	EnumItem FontWeight.ExtraBold : 800
+	EnumItem FontWeight.Heavy : 900
 Enum FormFactor
 	EnumItem FormFactor.Symmetric : 0
 	EnumItem FormFactor.Brick : 1

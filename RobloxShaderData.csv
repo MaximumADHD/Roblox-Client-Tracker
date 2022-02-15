@@ -405,7 +405,8 @@ LowQMaterialWangFS,Fragment,✔,✔,✔,✔,✔,✔
 ModelLodDepthFS,Fragment,✔,✔,✔,❌,✔,✔
 ModelLodDepthVS,Vertex,✔,✔,✔,❌,✔,✔
 OccupancyDebugFS,Fragment,✔,✔,✔,❌,✔,✔
-OutlineEffectFS,Fragment,✔,✔,✔,✔,✔,✔
+OutlineEffectFS,Fragment,❌,✔,✔,❌,✔,✔
+OutlineEffectFSMSAA,Fragment,❌,✔,✔,❌,✔,✔
 ParticleCurveAddFS,Fragment,✔,✔,✔,✔,✔,✔
 ParticleCurveAddFS_Soft,Fragment,✔,✔,✔,✔,✔,✔
 ParticleCurveCrazyFS,Fragment,✔,✔,✔,✔,✔,✔

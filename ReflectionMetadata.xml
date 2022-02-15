@@ -72,7 +72,7 @@
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">37</string>
         <string name="PreferredParent">Model</string>
-      </Properties>      
+      </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
       <Properties>
@@ -791,7 +791,6 @@
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">RigidConstraint</string>
-        <string name="FFlag">SimRigidConstraint</string>
         <string name="ClassCategory">Constraints</string>
         <string name="ExplorerOrder">30</string>
         <string name="ExplorerImageIndex">135</string>
@@ -1992,7 +1991,7 @@
         <string name="ExplorerImageIndex">42</string>
         <string name="PreferredParent">BasePart</string>
       </Properties>
-      <Item class="ReflectionMetadataProperties">        
+      <Item class="ReflectionMetadataProperties">
         <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">TimeScale</string>
@@ -2493,7 +2492,7 @@
         </Item>
       </Item>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">Speaker</string>
@@ -2511,7 +2510,7 @@
         </Item>
       </Item>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">VoiceSource</string>
@@ -3707,6 +3706,69 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">TextChatService</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">511</string>
+        <string name="ExplorerImageIndex">143</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ChatWindowConfiguration</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">141</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">ChatInputBarConfiguration</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">11</string>
+        <string name="ExplorerImageIndex">142</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">TextChannel</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">12</string>
+        <string name="ExplorerImageIndex">140</string>
+        <string name="PreferredParent">TextChatService</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">TextSource</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">10</string>
+        <string name="ExplorerImageIndex">139</string>
+        <string name="PreferredParent">TextChannel</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
+        <string name="Name">TextChatCommand</string>
+        <string name="ClassCategory">Text Chat</string>
+        <string name="ExplorerOrder">13</string>
+        <string name="ExplorerImageIndex">138</string>
+        <string name="PreferredParent">TextChatService</string>
+        <string name="FFlag">TextChatServiceEnabled</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">VoiceChatService</string>
         <string name="ExplorerOrder">520</string>
         <string name="ExplorerImageIndex">136</string>
@@ -4002,7 +4064,7 @@
         <string name="ExplorerImageIndex">28</string>
         <string name="PreferredParent">Workspace</string>
       </Properties>
-      <Item class="ReflectionMetadataProperties"> 
+      <Item class="ReflectionMetadataProperties">
 	    <Item class="ReflectionMetadataMember">
           <Properties>
             <string name="Name">Enabled</string>
@@ -4031,7 +4093,7 @@
         </Item>
       </Item>
     </Item>
-    
+
     <Item class="ReflectionMetadataClass">
       <Properties>
         <string name="Name">MaterialVariant</string>
@@ -4176,9 +4238,9 @@
 					<double name="UIMaximum">1</double>
 				</Properties>
 			</Item>
-			
+
 	    </Item>
-    </Item> 
+    </Item>
 
     <Item class="ReflectionMetadataClass">
       <Properties>

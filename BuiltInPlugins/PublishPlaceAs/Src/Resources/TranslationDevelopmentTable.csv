@@ -26,7 +26,6 @@ Studio.PublishPlaceAs.General.ContentDialogItem5,Drug Reference or Use, ,Drug Re
 Studio.PublishPlaceAs.Button.AddNewPlace,Add New, ,Add New
 Studio.PublishPlaceAs.General.UntitledGame,Untitled Game, ,Untitled Game
 Studio.PublishPlaceAs.General.FetchFailed,Fetch failed, ,Fetch failed
-Studio.PublishPlaceAs.Genre.Pirate,Naval, ,Naval
 Studio.PublishPlaceAs.General.TitlePlayability,Playability, ,Playability
 Studio.PublishPlaceAs.General.RollbackToggleTitle,Enable Rollback to Previous Version, ,Enable Rollback to Previous Version
 Studio.PublishPlaceAs.General.PlayabilityPublic,Public, ,Public
@@ -43,6 +42,7 @@ Studio.PublishPlaceAs.General.RolloutOptionDefault,Default, ,Default
 Studio.PublishPlaceAs.General.RolloutOption,RolloutOption, ,RolloutOption
 Studio.PublishPlaceAs.General.RolloutOptionForceDesc,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server.", ,"On publish, all servers running this place are shutdown. Players are teleproted to new, updated servers, New player join updated server."
 Studio.PublishPlaceAs.General.RollbackToggleDesc,Enabling rollback to previous version if the overwrite is rejected [link], ,Enabling rollback to previous version if the overwrite is rejected [link]
+Studio.PublishPlaceAs.Button.AddNewPlaceToGame,Add as a new place, ,Add as a new place
 Studio.PublishPlaceAs.Button.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.Cancel,Cancel, ,Cancel
 Studio.PublishPlaceAs.FooterButton.CreateNewGame,Create new game..., ,Create new game...
@@ -70,6 +70,7 @@ Studio.PublishPlaceAs.Genre.All,All, ,All
 Studio.PublishPlaceAs.Genre.Tutorial,Building, ,Building
 Studio.PublishPlaceAs.Genre.FPS,FPS, ,FPS
 Studio.PublishPlaceAs.Genre.War,Military, ,Military
+Studio.PublishPlaceAs.Genre.Pirate,Naval, ,Naval
 Studio.PublishPlaceAs.Genre.RPG,RPG, ,RPG
 Studio.PublishPlaceAs.Genre.SciFi,Sci-Fi, ,Sci-Fi
 Studio.PublishPlaceAs.Genre.Sports,Sports, ,Sports
@@ -84,6 +85,7 @@ Studio.PublishPlaceAs.Error.SetConfiguration,Error setting universe configuratio
 Studio.PublishPlaceAs.Error.ActivatingUniverse,Error activating the universe., ,Error activating the universe.
 Studio.PublishPlaceAs.Error.DeactivatingUniverse,Error deactivating the universe., ,Error deactivating the universe.
 Studio.PublishPlaceAs.ScreenHeader.ChooseGame,Choose an existing game to add this place, ,Choose an existing game to add this place
+Studio.PublishPlaceAs.ScreenHeader.ChooseGameNew,Choose a game to add this place to, ,Choose a game to add this place to
 Studio.PublishPlaceAs.ScreenHeader.ChoosePlace,Overwrite or add a new place to {1},Substituted with game name to tell user where their place will be added,Overwrite or add a new place to {1}
 Studio.PublishPlaceAs.ScreenHeader.PublishManagement,How would you like to release the overwrite to {1} under {2}?, ,How would you like to release the overwrite to {1} under {2}?
 Studio.PublishPlaceAs.PublishSuccess.Success,Successfully published!, ,Successfully published!

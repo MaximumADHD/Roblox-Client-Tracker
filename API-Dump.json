@@ -18856,6 +18856,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "EditWatch",
+                    "Parameters": [
+                        {
+                            "Name": "expression",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "IsConnectionForPlayDataModel",
                     "Parameters": [
                         {
@@ -35918,6 +35937,105 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "DiffuseFilePath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MetalnessFilePath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "NormalFilePath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "RoughnessFilePath",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterMaterialSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "Anchored",
                     "Security": {
                         "Read": "None",
@@ -45212,42 +45330,6 @@
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "ShowActiveAnimationAsset",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "TrackDataTypes",
-                    "Security": {
-                        "Read": "None",
-                        "Write": "None"
-                    },
-                    "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
-                    },
-                    "ThreadSafety": "ReadSafe",
-                    "ValueType": {
-                        "Category": "Primitive",
-                        "Name": "bool"
-                    }
-                },
-                {
-                    "Category": "Diagnostics",
-                    "MemberType": "Property",
-                    "Name": "TrackPhysicsDetails",
                     "Security": {
                         "Read": "None",
                         "Write": "None"
@@ -60680,6 +60762,25 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "PublishDescendantAssets",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PublishCageMeshAsync",
                     "Parameters": [
                         {
@@ -72568,6 +72669,32 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetUploadNames",
+                    "Parameters": [
+                        {
+                            "Name": "placeName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "universeName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -75665,6 +75792,33 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SendAsync",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "",
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "TextChatMessage"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "AddUserAsync",
                     "Parameters": [
                         {
@@ -75690,7 +75844,7 @@
                     "Name": "MessageReceived",
                     "Parameters": [
                         {
-                            "Name": "textChatMessage",
+                            "Name": "incomingMessage",
                             "Type": {
                                 "Category": "Class",
                                 "Name": "TextChatMessage"
@@ -75699,14 +75853,227 @@
                     ],
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "OnIncomingMessage",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
             "Name": "TextChannel",
-            "Superclass": "Instance"
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "PrimaryAlias",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "SecondaryAlias",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "Triggered",
+                    "Parameters": [
+                        {
+                            "Name": "originTextSource",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextSource"
+                            }
+                        },
+                        {
+                            "Name": "unfilteredText",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TextChatCommand",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TextChatConfigurations",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "TargetTextChannel",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "TextChannel"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ChatInputBarConfiguration",
+            "Superclass": "TextChatConfigurations",
+            "Tags": [
+                "NotCreatable",
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ChatWindowConfiguration",
+            "Superclass": "TextChatConfigurations",
+            "Tags": [
+                "NotCreatable",
+                "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "MessageId",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    }
+                },
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -75886,6 +76253,115 @@
         },
         {
             "Members": [
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "ChatVersion",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "NotAccessibleSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "ChatVersion"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CreateDefaultCommands",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "CreateDefaultTextChannels",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "MessageReceived",
+                    "Parameters": [
+                        {
+                            "Name": "textChatMessage",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "SendingMessage",
+                    "Parameters": [
+                        {
+                            "Name": "textChatMessage",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "OnIncomingMessage",
+                    "Parameters": [
+                        {
+                            "Name": "message",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "TextChatService",
@@ -75893,7 +76369,7 @@
             "Tags": [
                 "NotCreatable",
                 "Service",
-                "NotReplicated"
+                "NotBrowsable"
             ]
         },
         {
@@ -76121,7 +76597,8 @@
             "Name": "TextSource",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "NotBrowsable"
             ]
         },
         {
@@ -76470,6 +76947,21 @@
                     "ReturnType": {
                         "Category": "DataType",
                         "Name": "Objects"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "NoYield"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Callback",
+                    "Name": "ProcessAssetInsertionDrop",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -83526,6 +84018,29 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "AddUserAsync",
+                    "Parameters": [
+                        {
+                            "Default": "-1",
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "VoiceChannel",
@@ -84561,6 +85076,18 @@
                 {
                     "Name": "Action",
                     "Value": 2
+                },
+                {
+                    "Name": "Action2",
+                    "Value": 3
+                },
+                {
+                    "Name": "Action3",
+                    "Value": 4
+                },
+                {
+                    "Name": "Action4",
+                    "Value": 5
                 },
                 {
                     "Name": "Core",
@@ -85837,6 +86364,19 @@
                 }
             ],
             "Name": "ChatStyle"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "LegacyChatService",
+                    "Value": 0
+                },
+                {
+                    "Name": "TextChatService",
+                    "Value": 1
+                }
+            ],
+            "Name": "ChatVersion"
         },
         {
             "Items": [
@@ -87209,6 +87749,60 @@
                 }
             ],
             "Name": "FontSize"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Normal",
+                    "Value": 0
+                },
+                {
+                    "Name": "Italic",
+                    "Value": 1
+                }
+            ],
+            "Name": "FontStyle"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Thin",
+                    "Value": 100
+                },
+                {
+                    "Name": "ExtraLight",
+                    "Value": 200
+                },
+                {
+                    "Name": "Light",
+                    "Value": 300
+                },
+                {
+                    "Name": "Regular",
+                    "Value": 400
+                },
+                {
+                    "Name": "Medium",
+                    "Value": 500
+                },
+                {
+                    "Name": "SemiBold",
+                    "Value": 600
+                },
+                {
+                    "Name": "Bold",
+                    "Value": 700
+                },
+                {
+                    "Name": "ExtraBold",
+                    "Value": 800
+                },
+                {
+                    "Name": "Heavy",
+                    "Value": 900
+                }
+            ],
+            "Name": "FontWeight"
         },
         {
             "Items": [

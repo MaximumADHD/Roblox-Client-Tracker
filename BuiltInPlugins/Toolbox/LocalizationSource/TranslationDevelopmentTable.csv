@@ -212,7 +212,8 @@ Permissions,Studio.Toolbox.General.PreviewAreaAssetID,Asset ID: {assetId}
 Asset ID: {assetId},Studio.Toolbox.General.PreviewAreaStatus,Status: {assetStatus}
 Status: {assetStatus},Studio.Toolbox.General.InstallSuccess,Success!
 Success!,Studio.Toolbox.General.InstallFailure,Failure
-Failure,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite.
+Failure,Studio.Toolbox.General.HasScripts,Has scripts
+Has scripts,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite.
 Choose an existing model to overwrite.,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID
 Animation ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use."
 "By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.",Studio.Toolbox.AssetConfigPreview.Preview,Preview
