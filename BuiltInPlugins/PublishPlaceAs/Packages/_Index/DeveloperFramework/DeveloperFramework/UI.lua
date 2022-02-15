@@ -4,6 +4,7 @@
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local Src = script
 
@@ -38,6 +39,7 @@ local Tooltip = require(Src.Tooltip)
 local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
+local ResponsiveGrid = require(Src.ResponsiveGrid)
 local SimpleExpandablePane = require(Src.ExpandablePane.SimpleExpandablePane)
 local Table = require(Src.Table)
 local TableRow = require(Src.TableRow)
@@ -100,6 +102,7 @@ local UI = strict({
 	PaginatedTable = PaginatedTable,
 	RadioButton = RadioButton,
 	RadioButtonList = RadioButtonList,
+	ResponsiveGrid = FFlagDevFrameworkResponsiveGrid2 and ResponsiveGrid or nil,
 	RangeSlider = RangeSlider,
 	ScrollingFrame = ScrollingFrame,
 	SelectInput = SelectInput,

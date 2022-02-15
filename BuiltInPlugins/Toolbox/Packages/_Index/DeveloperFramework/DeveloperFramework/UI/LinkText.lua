@@ -26,6 +26,7 @@
 		number TextSize: The font size of the text in this link.
 		Color3 TextColor: The color of the text and underline in this link.
 ]]
+local FFlagDevFrameworkAddUnobtrusiveLinkTextStyle = game:GetFastFlag("DevFrameworkAddUnobtrusiveLinkTextStyle")
 
 local TextService = game:GetService("TextService")
 
@@ -87,8 +88,9 @@ function LinkText:render()
 
 	local font = style.Font
 	local textSize = style.TextSize
-	local textColor = style.TextColor
 	local text = props.Text or ""
+	local textColor = style.TextColor
+	local textColorHovered = style.TextColorHovered
 	local textTruncate = props.TextTruncate
 	local textWrapped = props.TextWrapped
 	local textXAlignment = props.TextXAlignment
@@ -122,6 +124,11 @@ function LinkText:render()
 
 	local hovered = styleModifier == StyleModifier.Hover
 
+	local currentTextColor = textColor
+	if FFlagDevFrameworkAddUnobtrusiveLinkTextStyle and hovered then
+		currentTextColor = textColorHovered or textColor
+	end
+
 	local enableHover = (style.EnableHover == nil) and true or style.EnableHover
 	local showUnderline = (style.ShowUnderline == nil) and true or style.ShowUnderline
 	local showUnderlineFrame = showUnderline and hovered and (not isMultiline)
@@ -130,7 +137,7 @@ function LinkText:render()
 		Style = {
 			Font = font,
 			TextSize = textSize,
-			TextColor = textColor,
+			TextColor = FFlagDevFrameworkAddUnobtrusiveLinkTextStyle and currentTextColor or textColor,
 			TextTruncate = textTruncate,
 			TextWrapped = textWrapped,
 			TextXAlignment = textXAlignment,

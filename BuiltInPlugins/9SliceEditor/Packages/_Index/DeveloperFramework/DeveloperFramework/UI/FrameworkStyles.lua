@@ -8,6 +8,7 @@
 ]]
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local function newDefaults()
 	return {
@@ -44,6 +45,7 @@ function FrameworkStyles.new()
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),
+		ResponsiveGrid = if FFlagDevFrameworkResponsiveGrid2 then newDefaults() else nil,
 		RoundBox = newDefaults(),
 		ScrollingFrame = newDefaults(),
 		SelectInput = newDefaults(),

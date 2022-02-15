@@ -4,14 +4,13 @@
 
 local strict = require(script.strict)
 
-local FFlagDevFrameworkAddEnumerateToUtil = game:GetFastFlag("DevFrameworkAddEnumerateToUtil")
-
 return strict({
 	-- Plugin Utilities
 	Action = require(script.Action),
 
 	-- Studio Utilities
 	AssetRenderUtil = require(script.AssetRenderUtil),
+	DoubleClickDetector = require(script.DoubleClickDetector),
 
 	-- TODO DEVTOOLS-4459: Remove this export
 	Cryo = require(script.Cryo),
@@ -25,7 +24,7 @@ return strict({
 	-- TODO DEVTOOLS-4459: Remove this export
 	FitFrame = require(script.FitFrame),
 	ellipsizeMiddle = require(script.ellipsizeMiddle),
-	enumerate = FFlagDevFrameworkAddEnumerateToUtil and require(script.enumerate) or nil,
+	enumerate = require(script.enumerate),
 	formatDuration = require(script.formatDuration),
 	formatLocalDateTime = require(script.formatLocalDateTime),
 	Flags = require(script.Flags),

@@ -25,8 +25,6 @@
 		callback ToggleDescendants: An optional callback to determine toggling child checkboxes in relation to an item
 		boolean ExpandableRoot: Whether or not the root node can be expanded
 ]]
-local FFlagDevFrameworkCheckboxTreeViewCustomPropagate = game:GetFastFlag("DevFrameworkCheckboxTreeViewCustomPropagate")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -174,85 +172,20 @@ local function buildChange(item, checkedStates, ancestry, getChildren, toggleAnc
 		return updateChecked
 	end
 
-	if FFlagDevFrameworkCheckboxTreeViewCustomPropagate then
-		updateChecked[item] = state
+	updateChecked[item] = state
 
-		if toggleAncestors then
-			toggleAncestors(item, checkedStates, ancestry, getChildren, updateChecked)
-		else
-			CheckboxTreeView.UpPropagators.default(item, checkedStates, ancestry, getChildren, updateChecked)
-		end
-
-		if toggleDescendants then
-			toggleDescendants(item, checkedStates, getChildren, updateChecked)
-		else
-			CheckboxTreeView.DownPropagators.default(item, checkedStates, getChildren, updateChecked)
-		end
-		return updateChecked
-
+	if toggleAncestors then
+		toggleAncestors(item, checkedStates, ancestry, getChildren, updateChecked)
 	else
-		local function propagateUp(item)
-			local parent = ancestry[item]
-			if not parent or state == nil then
-				return
-			end
-
-			local allChildrenChecked = true
-			local anyChildChecked = false
-
-			for _, child in ipairs(getChildren(parent)) do
-				local checked = updateChecked[child]
-
-				if checked == nil then
-					checked = checkedStates[child] or false
-				end
-
-				allChildrenChecked = allChildrenChecked and (checked ~= Checkbox.Indeterminate and checked)
-				anyChildChecked = anyChildChecked or (checked == Checkbox.Indeterminate or checked)
-			end
-
-			if allChildrenChecked then
-				if checkedStates[parent] == true then
-					return
-				end
-				updateChecked[parent] = true
-			elseif not anyChildChecked then
-				if checkedStates[parent] == false then
-					return
-				end
-				updateChecked[parent] = false
-			else
-				if checkedStates[parent] == Checkbox.Indeterminate then
-					return
-				end
-				updateChecked[parent] = Checkbox.Indeterminate
-			end
-
-			propagateUp(parent)
-		end
-
-		-- The following function makes sure that the states for all descendant checkboxes are correct.
-		local function propagateDown(item)
-			if getChildren(item) then
-				for _, child in ipairs(getChildren(item)) do
-					if checkedStates[child] ~= state then
-						updateChecked[child] = state
-
-						propagateDown(child)
-					end
-				end
-			end
-
-			return
-		end
-
-		updateChecked[item] = state
-
-		propagateUp(item)
-		propagateDown(item)
-
-		return updateChecked
+		CheckboxTreeView.UpPropagators.default(item, checkedStates, ancestry, getChildren, updateChecked)
 	end
+
+	if toggleDescendants then
+		toggleDescendants(item, checkedStates, getChildren, updateChecked)
+	else
+		CheckboxTreeView.DownPropagators.default(item, checkedStates, getChildren, updateChecked)
+	end
+	return updateChecked
 end
 
 CheckboxTreeView.defaultProps = {
