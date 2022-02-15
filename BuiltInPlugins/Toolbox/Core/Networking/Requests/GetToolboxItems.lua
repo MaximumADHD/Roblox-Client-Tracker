@@ -23,7 +23,7 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 
 		local creator = pageInfo.creator
 		local isCreatorSearchEmpty = creator and creator.Id == -1
-		local creatorTargetId = (not isCreatorSearchEmpty) and creator and creator.Id or nil
+		local creatorTargetId = not isCreatorSearchEmpty and creator and creator.Id or nil
 
 		local assetStore = store:getState().assets
 		local currentCursor = assetStore.currentCursor
@@ -59,7 +59,10 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				error(string.format("Could not find categoryData for %s", category))
 			end
 
-			if categoryData.ownershipType == Category.OwnershipType.MY or categoryData.ownershipType == Category.OwnershipType.RECENT then
+			if
+				categoryData.ownershipType == Category.OwnershipType.MY
+				or categoryData.ownershipType == Category.OwnershipType.RECENT
+			then
 				ownerId = getUserId()
 			elseif categoryData.ownershipType == Category.OwnershipType.GROUP then
 				ownerId = PageInfoHelper.getGroupIdForPageInfo(pageInfo)
@@ -78,18 +81,18 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 				Constants.TOOLBOX_ITEM_SEARCH_LIMIT
 			)
 
-			return getRequest:andThen(
-				function(result)
-					if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-						return
-					end
-					store:dispatch(SetLoading(false))
+			return getRequest:andThen(function(result)
+				if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+					return
+				end
+				store:dispatch(SetLoading(false))
 
-					local data = result.responseBody
-					local cursor = PagedRequestCursor.createCursor(data)
+				local data = result.responseBody
+				local cursor = PagedRequestCursor.createCursor(data)
 
-					if data and data.totalResults > 0 then
-						store:dispatch(GetItemDetails(
+				if data and data.totalResults > 0 then
+					store:dispatch(
+						GetItemDetails(
 							networkInterface,
 							data.data,
 							data.totalResults,
@@ -97,18 +100,17 @@ return function(networkInterface, category, audioSearchInfo, pageInfo, settings,
 							pageInfo.targetPage,
 							cursor,
 							pageInfo
-						))
-					end
-
-					if data and data.filteredKeyword and #data.filteredKeyword > 0 then
-						store:dispatch(UpdateSearchTerm(data.filteredKeyword))
-					end
-				end,
-				function(err)
-					store:dispatch(SetLoading(false))
-					store:dispatch(NetworkError(err))
+						)
+					)
 				end
-			)
+
+				if data and data.filteredKeyword and #data.filteredKeyword > 0 then
+					store:dispatch(UpdateSearchTerm(data.filteredKeyword))
+				end
+			end, function(err)
+				store:dispatch(SetLoading(false))
+				store:dispatch(NetworkError(err))
+			end)
 		end
 	end
 end

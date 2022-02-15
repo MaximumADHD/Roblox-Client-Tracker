@@ -1,5 +1,4 @@
 return function()
-
 	local SetCachedCreatorInfo = require(script.Parent.SetCachedCreatorInfo)
 
 	describe("accepts a table that", function()
@@ -11,7 +10,7 @@ return function()
 			SetCachedCreatorInfo({
 				Id = 123,
 				Type = Enum.CreatorType.User.Value,
-				Name = "foo"
+				Name = "foo",
 			})
 		end)
 
@@ -20,18 +19,17 @@ return function()
 				Id = 123,
 				Type = Enum.CreatorType.User.Value,
 				Name = "foo",
-				foo = "bar"
+				foo = "bar",
 			})
 		end)
 	end)
 
 	describe("does not accept", function()
-
 		it("a table with only Id & Type defined", function()
 			expect(function()
 				SetCachedCreatorInfo({
 					Id = 123,
-					Type = Enum.CreatorType.User.Value
+					Type = Enum.CreatorType.User.Value,
 				})
 			end).to.throw()
 		end)
@@ -41,7 +39,7 @@ return function()
 				SetCachedCreatorInfo({
 					Id = 123,
 					Type = Enum.CreatorType.User.Name, -- Should be Value
-					Name = "foo"
+					Name = "foo",
 				})
 			end).to.throw()
 		end)
@@ -52,6 +50,4 @@ return function()
 			end).to.throw()
 		end)
 	end)
-
-
 end

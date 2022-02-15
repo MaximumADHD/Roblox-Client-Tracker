@@ -16,7 +16,7 @@ Background.BACKGROUNDS = {
 	{
 		name = "None",
 		color = "None",
-	}
+	},
 }
 
 -- Indices from the above table so we don't use magic numbers elsewhere
@@ -28,7 +28,7 @@ function Background.getBackgroundForStudioTheme()
 	if isCli() then
 		return Background.NONE
 	end
-	
+
 	local themeName = settings().Studio.Theme.Name
 
 	if themeName == "Light" then
@@ -38,7 +38,7 @@ function Background.getBackgroundForStudioTheme()
 		return Background.NONE
 	else
 		return Background.NONE
-	end	
+	end
 end
 
 return Background

@@ -38,7 +38,6 @@ end
 
 if SHOULD_RUN_RHODIUM_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Rhodium Tests ------")
-	-- TODO: Fix Rhodium tests, they have to be rewritten after last major design change
 	runRhodiumTests()
 	print("----------------------------------")
 	game:GetService("ProcessService"):ExitAsync(0)

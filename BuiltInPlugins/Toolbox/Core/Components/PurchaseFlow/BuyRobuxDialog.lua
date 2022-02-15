@@ -48,8 +48,8 @@ function BuyRobuxDialog:render()
 
 		return Roact.createElement(PurchaseDialog, {
 			Buttons = {
-				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-				{Key = true, Text = localizedContent.PurchaseFlow.BuyRobux, Style = primaryString},
+				{ Key = false, Text = localizedContent.PurchaseFlow.Cancel },
+				{ Key = true, Text = localizedContent.PurchaseFlow.BuyRobux, Style = primaryString },
 			},
 			OnButtonClicked = onButtonClicked,
 			OnClose = onClose,

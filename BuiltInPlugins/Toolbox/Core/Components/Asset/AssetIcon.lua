@@ -68,7 +68,7 @@ function AssetIcon:init(props)
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 
 		getModal(self).onTooltipTriggered(props.assetId, Constants.TOOLTIP_TYPE.ASSET_ICON)
@@ -76,7 +76,7 @@ function AssetIcon:init(props)
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 
@@ -100,20 +100,23 @@ function AssetIcon:render()
 		local typeId = props.typeId
 		local isPlugin = typeId == Enum.AssetType.Plugin.Value
 		local currentSoundId = props.currentSoundId
-		local isPlaying = (not FFlagToolboxAssetGridRefactor4) and props.isPlaying or nil
+		local isPlaying = not FFlagToolboxAssetGridRefactor4 and props.isPlaying or nil
 		local isLoading = props.isLoading
 
 		local onMouseEnter = self.onMouseEnter
 		local onMouseLeave = self.onMouseLeave
-		local onPreviewAudioButtonClicked = (not FFlagToolboxAssetGridRefactor4) and props.onPreviewAudioButtonClicked or nil
+		local onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor4 and props.onPreviewAudioButtonClicked
+			or nil
 
 		local isHovered = self.state.isHovered
 		local isAssetHovered = props.isHovered
 		local status = props.status
 
-		local thumbnailUrl = Urls.constructAssetThumbnailUrl(assetId,
+		local thumbnailUrl = Urls.constructAssetThumbnailUrl(
+			assetId,
 			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE)
+			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+		)
 
 		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.ASSET_ICON)
 
@@ -123,7 +126,7 @@ function AssetIcon:render()
 
 		-- Asset Data is missing for AssetPreview in the creation tab.
 		local isCurrentlyCreationsTab = Category.getTabForCategoryName(props.categoryName) == Category.CREATIONS
-		
+
 		local children = {
 			AssetImage = Roact.createElement(ImageWithDefault, {
 				BackgroundTransparency = 1,
@@ -143,9 +146,9 @@ function AssetIcon:render()
 
 				assetId = assetId,
 				currentSoundId = currentSoundId,
-				isPlaying = (not FFlagToolboxAssetGridRefactor4) and isPlaying or nil,
+				isPlaying = not FFlagToolboxAssetGridRefactor4 and isPlaying or nil,
 				isLoading = isLoading,
-				onClick = (not FFlagToolboxAssetGridRefactor4) and onPreviewAudioButtonClicked or nil,
+				onClick = not FFlagToolboxAssetGridRefactor4 and onPreviewAudioButtonClicked or nil,
 			}),
 
 			AudioProgressBar = isAudioAsset and Roact.createElement(AudioProgressBar, {
@@ -160,7 +163,8 @@ function AssetIcon:render()
 			AssetPreviewTriggerButton = not isCurrentlyCreationsTab and Roact.createElement(PopUpWrapperButton, {
 				position = PREVIEW_POSITION,
 				ShowIcon = isAssetHovered,
-				onClick = FFlagToolboxAssetGridRefactor4 and self.onAssetPreviewButtonClicked or props.onAssetPreviewButtonClicked,
+				onClick = FFlagToolboxAssetGridRefactor4 and self.onAssetPreviewButtonClicked
+					or props.onAssetPreviewButtonClicked,
 			}),
 
 			AssetStatus = isAssetHovered and assetStatusImage and Roact.createElement("ImageLabel", {
@@ -192,12 +196,9 @@ function AssetIcon:render()
 	end)
 end
 
-
 AssetIcon = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(AssetIcon)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}
@@ -218,7 +219,7 @@ end
 
 local mapDispatchToProps
 if FFlagToolboxAssetGridRefactor4 then
-	mapDispatchToProps = function (dispatch)
+	mapDispatchToProps = function(dispatch)
 		return {
 			onPreviewToggled = function(isPreviewing, previewAssetId)
 				dispatch(SetAssetPreview(isPreviewing, previewAssetId))

@@ -15,7 +15,6 @@ local ThemeProvider = require(Plugin.Core.Providers.ThemeProvider)
 local LocalizationProvider = require(Plugin.Core.Providers.LocalizationProvider)
 local CameraProvider = require(Plugin.Core.Providers.CameraProvider)
 
-
 local ExternalServicesWrapper = Roact.Component:extend("ExternalServicesWrapper")
 
 function ExternalServicesWrapper:shouldUpdate()
@@ -33,7 +32,7 @@ function ExternalServicesWrapper:render()
 		theme = theme,
 	}, {
 		Roact.createElement(LocalizationProvider, {
-			localization = localization
+			localization = localization,
 		}, {
 			Roact.createElement(ModalProvider, {
 				pluginGui = pluginGui,
@@ -41,8 +40,8 @@ function ExternalServicesWrapper:render()
 				Roact.createElement(CameraProvider, {}, {
 					Roact.createElement(NetworkProvider, {
 						networkInterface = networkInterface,
-					}, props[Roact.Children])
-				})
+					}, props[Roact.Children]),
+				}),
 			}),
 		}),
 	})

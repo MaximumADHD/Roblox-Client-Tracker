@@ -10,6 +10,7 @@
 		table AccessoryTypeInfo: Info about accessory asset type and bounds, provided via mapStateToProps.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table PreviewContext: A PreviewContext item, which is provided via withContext.
+		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 
 ]]
 

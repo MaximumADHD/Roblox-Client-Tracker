@@ -25,6 +25,8 @@ return function()
 	local BackButtonPath =
 		AssetTypeScreenPath:cat(XPath.new("NextAndBackButtonContainer.BackButton.Contents.TextButton"))
 
+	local invalidString = "Studio.Test.Select.Invalid:[]"
+
 	describe("Next Button", function()
 		it("Should be inactive if there is no selection", function()
 			runRhodiumTest(function()
@@ -43,8 +45,6 @@ return function()
 		it("Should be inactive if there is invalid selection", function()
 			runRhodiumTest(function()
 				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 				TestHelper.addRegularPartFromExplorer()
 				TestHelper.clickXPath(NextButtonPath)
@@ -58,8 +58,6 @@ return function()
 		it("Should be active if there is valid selection", function()
 			runRhodiumTest(function()
 				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 				TestHelper.addLCItemWithFullCageFromExplorer()
 				TestHelper.clickXPath(NextButtonPath)
@@ -94,8 +92,6 @@ return function()
 		it("Should be able to pick a MeshPart", function()
 			runRhodiumTest(function()
 				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 				TestHelper.addLCItemWithoutCageFromExplorer()
 				TestHelper.clickXPath(NextButtonPath)
@@ -109,8 +105,6 @@ return function()
 			it("Should not pick Wraps with no MeshId", function()
 				runRhodiumTest(function()
 					expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-					expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-					TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 					TestHelper.addLCItemWithInvalidCageFromExplorer()
 					TestHelper.clickXPath(NextButtonPath)
@@ -124,8 +118,6 @@ return function()
 		it("Should not pick Avatars", function()
 			runRhodiumTest(function()
 				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 				TestHelper.addAvatarWithFullCagesFromExplorer()
 				TestHelper.clickXPath(NextButtonPath)
@@ -135,27 +127,24 @@ return function()
 			end)
 		end)
 
-		it("Should not pick MeshPart with WrapTarget", function()
-			runRhodiumTest(function()
-				expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
+		if not game:GetFastFlag("DebugLCEditAvatarCage") then
+			it("Should not pick MeshPart with WrapTarget", function()
+				runRhodiumTest(function()
+					expect(TestHelper.waitForXPathInstance(NextButtonPath)).to.be.ok()
 
-				TestHelper.addLCItemWithOuterCageFromExplorer()
-				TestHelper.clickXPath(NextButtonPath)
+					TestHelper.addLCItemWithOuterCageFromExplorer()
+					TestHelper.clickXPath(NextButtonPath)
 
-				-- We should still be on SelectItemScreen if we clicked Next while the button was inactive
-				expect(TestHelper.waitForXPathInstance(SelectFramePath)).to.be.ok()
+					-- We should still be on SelectItemScreen if we clicked Next while the button was inactive
+					expect(TestHelper.waitForXPathInstance(SelectFramePath)).to.be.ok()
+				end)
 			end)
-		end)
+		end
 	end)
 
 	describe("Selection Label", function()
 		it("Should show name of valid selection", function()
 			runRhodiumTest(function()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
-
 				TestHelper.addLCItemWithoutCageFromExplorer()
 
 				local textBox = TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)
@@ -177,16 +166,13 @@ return function()
 			end)
 		end)
 
-		it("Should be empty for invalid selection", function()
+		it("Should indicate there is an invalid selection", function()
 			runRhodiumTest(function()
-				expect(TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)).to.be.ok()
-				TestHelper.clickXPath(SelectScreenTextBoxPath)
-
 				TestHelper.addRegularPartFromExplorer()
 
 				local textBox = TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)
 				expect(textBox).to.be.ok()
-				expect(textBox.Text).to.equal("")
+				expect(textBox.Text).to.equal(invalidString)
 			end)
 		end)
 	end)

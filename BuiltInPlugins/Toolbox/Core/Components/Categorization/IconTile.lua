@@ -42,14 +42,14 @@ local IconTile = Roact.PureComponent:extend("IconTile")
 
 function IconTile:init()
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
 		self:setState(function(prevState)
 			if not prevState.isHovered then
 				return {
-					isHovered = true
+					isHovered = true,
 				}
 			end
 		end)
@@ -59,7 +59,7 @@ function IconTile:init()
 		self:setState(function(prevState)
 			if prevState.isHovered then
 				return {
-					isHovered = false
+					isHovered = false,
 				}
 			end
 		end)
@@ -168,7 +168,7 @@ function IconTile:render()
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
 			UIGradient = Roact.createElement("UIGradient", {
-				Transparency =  NumberSequence.new({
+				Transparency = NumberSequence.new({
 					NumberSequenceKeypoint.new(0, 0),
 					NumberSequenceKeypoint.new(1, 1),
 				}),

@@ -158,33 +158,34 @@ function PurchaseFlow:render()
 	local canPurchase = balance >= cost
 	local showDialogs = status == PurchaseStatus.None
 
-	return isPaid and Roact.createFragment({
-		BuyPlugin = showDialogs and canPurchase and Roact.createElement(BuyPluginDialog, {
-			Name = name,
-			Creator = creator,
-			Cost = cost,
-			Balance = balance,
-			Thumbnail = thumbnail,
-			OnClose = self.cancel,
-			OnButtonClicked = self.onPurchaseClicked,
-		}),
+	return isPaid
+		and Roact.createFragment({
+			BuyPlugin = showDialogs and canPurchase and Roact.createElement(BuyPluginDialog, {
+				Name = name,
+				Creator = creator,
+				Cost = cost,
+				Balance = balance,
+				Thumbnail = thumbnail,
+				OnClose = self.cancel,
+				OnButtonClicked = self.onPurchaseClicked,
+			}),
 
-		BuyRobux = showDialogs and not canPurchase and Roact.createElement(BuyRobuxDialog, {
-			Name = name,
-			Creator = creator,
-			Cost = cost,
-			Balance = balance,
-			Thumbnail = thumbnail,
-			OnClose = self.cancel,
-			OnButtonClicked = self.onBuyRobuxClicked,
-		}),
+			BuyRobux = showDialogs and not canPurchase and Roact.createElement(BuyRobuxDialog, {
+				Name = name,
+				Creator = creator,
+				Cost = cost,
+				Balance = balance,
+				Thumbnail = thumbnail,
+				OnClose = self.cancel,
+				OnButtonClicked = self.onBuyRobuxClicked,
+			}),
 
-		PurchaseFailed = purchaseFailed and Roact.createElement(PurchaseFailedDialog, {
-			Name = name,
-			OnClose = self.cancel,
-			OnButtonClicked = self.onPurchaseClicked,
-		}),
-	})
+			PurchaseFailed = purchaseFailed and Roact.createElement(PurchaseFailedDialog, {
+				Name = name,
+				OnClose = self.cancel,
+				OnButtonClicked = self.onPurchaseClicked,
+			}),
+		})
 end
 
 local function mapStateToProps(state, props)

@@ -14,6 +14,6 @@ return Action(script.Name, function(searchTerm)
 	assert(type(searchTerm) == "string", "searchTerm must be a string")
 
 	return {
-        searchTerm = searchTerm
+		searchTerm = searchTerm,
 	}
 end)

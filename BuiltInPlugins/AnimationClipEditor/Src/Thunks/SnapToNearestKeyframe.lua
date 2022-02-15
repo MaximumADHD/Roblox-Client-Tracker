@@ -13,6 +13,7 @@ local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
 
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(tick, trackWidth)
 	return function(store)
@@ -38,8 +39,8 @@ return function(tick, trackWidth)
 		local snapped = false
 		local snapTick = tick
 		if tracks then
-			local scroll = state.Status.Scroll
-			local zoom = state.Status.Zoom
+			local scroll = GetFFlagCurveEditor() and state.Status.HorizontalScroll or state.Status.Scroll
+			local zoom = GetFFlagCurveEditor() and state.Status.HorizontalZoom or state.Status.Zoom
 			local editingLength = state.Status.EditingLength
 			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
 

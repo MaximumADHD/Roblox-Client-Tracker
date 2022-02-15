@@ -24,7 +24,7 @@ return function()
 
 	local function createTestAssetGridContainer(name, container, idToAssetMap)
 		idToAssetMap = idToAssetMap or {}
-		local assetIds = { }
+		local assetIds = {}
 		for id, _ in pairs(idToAssetMap) do
 			assetIds[#assetIds + 1] = id
 		end

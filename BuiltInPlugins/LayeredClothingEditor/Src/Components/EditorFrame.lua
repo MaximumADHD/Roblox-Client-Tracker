@@ -66,7 +66,7 @@ function EditorFrame:render()
 	local orderIterator = LayoutOrderIterator.new()
 
 	local meshPartMode = editingCage == Constants.EDIT_MODE.Mesh
-	local isEditing = (editingCage and not meshPartMode) and (props.PointData and next(props.PointData)) ~= nil
+	local isEditing = (editingCage ~= nil and not meshPartMode) and (props.PointData and next(props.PointData)) ~= nil
 
 	local meshPartModeText = props.Localization:getText("Editor", "MeshPartMode")
 

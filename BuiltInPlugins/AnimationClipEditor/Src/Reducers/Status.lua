@@ -20,8 +20,12 @@ return Rodux.createReducer({
 	RightClickContextInfo = {},
 	IsPlaying = false, -- Deprecated if GetFFlagMoarMediaControls() is ON
 	PlayState = Constants.PLAY_STATE.Pause,
-	Scroll = 0,
-	Zoom = 0,
+	Scroll = 0,  -- Deprecated with GetFFlagCurveEditor
+	Zoom = 0,  -- Deprecated with GetFFlagCurveEditor
+	HorizontalScroll = 0,
+	HorizontalZoom = 0,
+	VerticalScroll = 0,
+	VerticalZoom = 0,
 	EditingLength = 0,
 
 	ShowAsSeconds = true,
@@ -127,10 +131,25 @@ return Rodux.createReducer({
 		})
 	end,
 
+	-- Deprecated with GetFFlagCurveEditor
 	SetScrollZoom = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			Scroll = action.scroll,
 			Zoom = action.zoom,
+		})
+	end,
+
+	SetHorizontalScrollZoom = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			HorizontalScroll = action.horizontalScroll,
+			HorizontalZoom = action.horizontalZoom,
+		})
+	end,
+
+	SetVerticalScrollZoom = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			VerticalScroll = action.verticalScroll,
+			VerticalZoom = action.verticalZoom,
 		})
 	end,
 

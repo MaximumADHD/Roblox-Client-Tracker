@@ -18,7 +18,7 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			TabSet = Roact.createElement(TabSet, {
 				Tabs = {
-					{Key = "Key", Text = "Text", Image = "rbxassetid://0"},
+					{ Key = "Key", Text = "Text", Image = "rbxassetid://0" },
 				},
 				CurrentTab = "Key",
 			}),
@@ -31,7 +31,7 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			TabSet = Roact.createElement(TabSet, {
 				Tabs = {
-					{Key = "Key", Text = "Text", Image = "rbxassetid://0"},
+					{ Key = "Key", Text = "Text", Image = "rbxassetid://0" },
 				},
 				CurrentTab = "Key",
 			}),

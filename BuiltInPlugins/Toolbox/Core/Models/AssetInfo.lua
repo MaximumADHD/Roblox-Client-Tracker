@@ -13,6 +13,7 @@ local AssetInfo = {}
 			string Duration : the duration of an audio asset. Only audio assets have this field.
 			string Created : the date in which the asset was created
 			string Updated : the date in which the asset was updated
+			bool HasScripts : whether or not the asset has scripts
 
 		Creator
 			number Id : the creator id
@@ -62,6 +63,7 @@ function AssetInfo.fromItemDetailsRequest(data)
 			Duration = data.asset.duration,
 			Created = data.asset.createdUtc,
 			Updated = data.asset.updatedUtc,
+			HasScripts = data.asset.hasScripts,
 		}
 	end
 
@@ -115,13 +117,13 @@ AssetInfo.fromCreationsDetails = function(data, assetType, creatorName, creatorT
 		Name = data.name,
 		TypeId = assetType and assetType.Value,
 		AssetGenres = {},
-		Status = data.status
+		Status = data.status,
 	}
 
 	result.Creator = {
 		Id = data.creatorTargetId,
 		Name = creatorName,
-		Type = creatorType
+		Type = creatorType,
 	}
 
 	return result

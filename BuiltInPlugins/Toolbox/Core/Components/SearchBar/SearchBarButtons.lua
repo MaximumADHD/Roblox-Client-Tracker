@@ -98,11 +98,10 @@ function SearchBarButtons:render()
 			ImageLabel = Roact.createElement("ImageLabel", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.new(0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE,
-					0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE),
+				Size = UDim2.new(0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE, 0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE),
 				BackgroundTransparency = 1,
 				Image = isClearButtonHovered and Images.CLEAR_ICON_HOVER or Images.CLEAR_ICON,
-				ImageColor3 = searchBarTheme.clearButton.imageColor
+				ImageColor3 = searchBarTheme.clearButton.imageColor,
 			}),
 		}),
 
@@ -131,12 +130,11 @@ function SearchBarButtons:render()
 			ImageLabel = Roact.createElement("ImageLabel", {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
-				Size = UDim2.new(0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE,
-					0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE),
+				Size = UDim2.new(0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE, 0, Constants.SEARCH_BAR_BUTTON_ICON_SIZE),
 				BackgroundTransparency = 1,
 				Image = Images.SEARCH_ICON,
 				ImageColor3 = isSearchButtonHovered and searchBarTheme.searchButton.imageSelectedColor
-					or searchBarTheme.searchButton.imageColor
+					or searchBarTheme.searchButton.imageColor,
 			}),
 		}),
 	})

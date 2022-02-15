@@ -30,12 +30,12 @@ local VerifiedCreatorBadge = Roact.PureComponent:extend("VerifiedCreatorBadge")
 
 function VerifiedCreatorBadge:init(props)
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 
 		getModal(self).onTooltipTriggered(props.assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
@@ -43,7 +43,7 @@ function VerifiedCreatorBadge:init(props)
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 
@@ -64,7 +64,10 @@ function VerifiedCreatorBadge:render()
 
 		local isHovered = self.state.isHovered
 
-		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
+		local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(
+			assetId,
+			Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE
+		)
 
 		local image
 		local size
@@ -96,7 +99,7 @@ function VerifiedCreatorBadge:render()
 				Text = tooltipText,
 				canShowCurrentTooltip = canShowCurrentTooltip,
 				isHovered = isHovered,
-			})
+			}),
 		})
 	end)
 end

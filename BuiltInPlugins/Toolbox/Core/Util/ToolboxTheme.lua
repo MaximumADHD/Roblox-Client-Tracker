@@ -22,7 +22,6 @@ local ToolboxTheme = {}
 ToolboxTheme.__index = ToolboxTheme
 
 function ToolboxTheme.createDummyThemeManager()
-
 	-- Fake the studio theme impl
 	return ToolboxTheme.new({
 		getTheme = {
@@ -87,8 +86,7 @@ function ToolboxTheme:destroy()
 end
 
 function ToolboxTheme:_update(changedValues)
-	self._values = (Cryo.Dictionary.join)(self._values,
-		changedValues)
+	self._values = (Cryo.Dictionary.join)(self._values, changedValues)
 	self.values = wrapStrictTable(self._values, "theme")
 	self._signal:fire(self.values, self._UILibraryTheme)
 end

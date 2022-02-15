@@ -10,6 +10,7 @@ local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)
 local TranslationDevelopmentTable = Plugin.Src.Resources.Localization.TranslationDevelopmentTable
 local TranslationReferenceTable = Plugin.Src.Resources.Localization.TranslationReferenceTable
 
+local FFlagRbxQtitanRibbonAndDockingEnabled = game:GetFastFlag("RbxQtitanRibbonAndDockingEnabled")
 
 local args : PluginLoaderBuilder.Args = {
 	plugin = plugin,
@@ -35,7 +36,7 @@ local args : PluginLoaderBuilder.Args = {
 	dockWidgetInfo = {
 		dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
 			Enum.InitialDockState.Left, --initialDockState,
-			true, --initialEnabled,
+			not FFlagRbxQtitanRibbonAndDockingEnabled, --initialEnabled,
 			false, --initialEnabledShouldOverrideRestore,
 			300, --size.X,
 			250, --size.Y,

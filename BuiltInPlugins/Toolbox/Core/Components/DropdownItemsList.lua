@@ -86,7 +86,18 @@ local function isItemSelectable(data)
 	return nil == data.selectable or data.selectable
 end
 
-function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key, maxWidth, textInset, rowHeight, fontSize, onItemClicked, selectedBarWidth, theme)
+function DropdownItemsList:getScrollButtons(
+	items,
+	dropdownHoveredItemIndex,
+	key,
+	maxWidth,
+	textInset,
+	rowHeight,
+	fontSize,
+	onItemClicked,
+	selectedBarWidth,
+	theme
+)
 	local isDarkerTheme = theme.isDarkerTheme
 	local dropdownTheme = theme.dropdownMenu
 	local itemTheme = dropdownTheme.item
@@ -94,8 +105,8 @@ function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key
 	local scrollButtons = {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
-			SortOrder = Enum.SortOrder.LayoutOrder
-		})
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 	}
 
 	for index, data in ipairs(items) do
@@ -112,10 +123,12 @@ function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key
 
 		local itemKey = (key and data[key]) or itemName
 
-		maxWidth = math.max(maxWidth, getTextSize(itemName, fontSize).X
-			+ (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS)
+		maxWidth = math.max(
+			maxWidth,
+			getTextSize(itemName, fontSize).X + (textInset * 2) + Constants.SCROLLBAR_BACKGROUND_THICKNESS
+		)
 
-		scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton",{
+		scrollButtons[itemKey or itemName] = Roact.createElement("ImageButton", {
 			Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
 			BackgroundColor3 = isHovered and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
 			BorderSizePixel = 0,
@@ -157,7 +170,7 @@ function DropdownItemsList:getScrollButtons(items, dropdownHoveredItemIndex, key
 				TextYAlignment = Enum.TextYAlignment.Center,
 				ClipsDescendants = true,
 				ZIndex = 3,
-			})
+			}),
 		})
 	end
 

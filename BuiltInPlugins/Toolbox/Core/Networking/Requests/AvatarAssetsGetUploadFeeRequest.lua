@@ -80,7 +80,7 @@ return function(networkInterface, assetTypeId, instances)
 							filename = "accessory.rbxm",
 						},
 						value = fileDataBlob,
-					}
+					},
 				})
 
 				return networkInterface
@@ -107,7 +107,7 @@ return function(networkInterface, assetTypeId, instances)
 						filename = "accessory.rbxm",
 					},
 					value = fileDataBlob,
-				}
+				},
 			})
 
 			networkInterface

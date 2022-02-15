@@ -43,7 +43,6 @@ local function renderContent(props, theme)
 		image = theme.asset.background.image
 	end
 
-
 	props = Cryo.Dictionary.join(props, {
 		BackgroundColor3 = backgroundColor,
 		Image = image,

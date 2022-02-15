@@ -25,7 +25,7 @@ return function(networkInterface, settings, newPageInfo)
 		local pageInfo = store:getState().pageInfo
 		local audioSearchInfo = pageInfo.audioSearchInfo -- or store:getState().assets.audioSearchInfo
 		local categoryName = pageInfo.categoryName
-		
+
 		if showRobloxCreatedAssets() then
 			-- For Luobu we limit the length of Audio assets available in the marketplace for moderation reasons
 			if audioSearchInfo == nil then
@@ -37,8 +37,7 @@ return function(networkInterface, settings, newPageInfo)
 		end
 
 		if Category.API_NAMES[categoryName] then
-			store:dispatch(GetToolboxItems(networkInterface, categoryName,
-				audioSearchInfo, pageInfo, settings))
+			store:dispatch(GetToolboxItems(networkInterface, categoryName, audioSearchInfo, pageInfo, settings))
 		else
 			store:dispatch(GetAssetsRequest(networkInterface, pageInfo))
 		end

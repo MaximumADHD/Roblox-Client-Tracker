@@ -69,14 +69,14 @@ runAndCheck(function()
 	if DebugFlags.shouldRunTests() then
 		requireAllModuleScripts()
 
-		print("----- All " ..Plugin.Name.. " Tests ------")
-		TestBootstrap:run({TestsFolderPlugin}, reporter)
+		print("----- All " .. Plugin.Name .. " Tests ------")
+		TestBootstrap:run({ TestsFolderPlugin }, reporter)
 		print("----------------------------------")
 	end
 
 	if DebugFlags.shouldRunRhodiumTests() then
-		print("----- All " ..Plugin.Name.. " Rhodium Tests ------")
-		TestBootstrap:run({Plugin.RhodiumTests}, reporter)
+		print("----- All " .. Plugin.Name .. " Rhodium Tests ------")
+		TestBootstrap:run({ Plugin.RhodiumTests }, reporter)
 		print("----------------------------------")
 	end
 end)

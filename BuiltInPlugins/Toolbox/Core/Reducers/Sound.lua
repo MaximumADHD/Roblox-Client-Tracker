@@ -35,7 +35,7 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			currentSoundId = action.currentSoundId,
-			isPlaying = true
+			isPlaying = true,
 		})
 	end,
 
@@ -45,7 +45,7 @@ return Rodux.createReducer({
 		end
 
 		return Cryo.Dictionary.join(state, {
-			isPlaying = false
+			isPlaying = false,
 		})
 	end,
 
@@ -67,14 +67,14 @@ return Rodux.createReducer({
 		end
 
 		return Cryo.Dictionary.join(state, {
-			isPlaying = true
+			isPlaying = true,
 		})
 	end,
 
 	[StopAllSounds.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			currentSoundId = 0,
-			isPlaying = false
+			isPlaying = false,
 		})
 	end,
 

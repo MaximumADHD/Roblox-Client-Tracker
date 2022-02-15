@@ -16,14 +16,15 @@ return function(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPr
 
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: Could not configure sales"))
+				warn("Lua toolbox: Could not configure sales")
 			end
 			store:dispatch(NetworkError(response))
 			store:dispatch(UploadResult(false))
 		end
 
 		local setOnSale = toStatus == AssetConfigConstants.ASSET_STATUS.OnSale
-		local saleStatus = setOnSale and AssetConfigConstants.ASSET_STATUS.OnSale or AssetConfigConstants.ASSET_STATUS.OffSale
+		local saleStatus = setOnSale and AssetConfigConstants.ASSET_STATUS.OnSale
+			or AssetConfigConstants.ASSET_STATUS.OffSale
 		local salesPrice = setOnSale and toPrice or nil
 
 		if fromStatus ~= toStatus then

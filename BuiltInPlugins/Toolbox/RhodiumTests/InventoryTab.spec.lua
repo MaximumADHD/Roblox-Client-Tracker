@@ -21,17 +21,22 @@ return function()
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
 	local ModelsCategoryName = Category.MY_MODELS.name
-	local CurrentSelectionModelsText = CurrentSelectionBasicText..Category.MY_MODELS.name
-	local CurrentSelectionAudioText = CurrentSelectionBasicText..Category.MY_AUDIO.name
-	local CurrentSelectionImagesText = CurrentSelectionBasicText..Category.MY_DECALS.name
-	local CurrentSelectionMeshesText = CurrentSelectionBasicText..Category.MY_MESHES.name
-	local CurrentSelectionVideosText = CurrentSelectionBasicText.."MyVideos"
-	local CurrentSelectionPackagesText = CurrentSelectionBasicText..Category.MY_PACKAGES.name
-	local CurrentSelectionPluginsText = CurrentSelectionBasicText..Category.MY_PLUGINS.name
+	local CurrentSelectionModelsText = CurrentSelectionBasicText .. Category.MY_MODELS.name
+	local CurrentSelectionAudioText = CurrentSelectionBasicText .. Category.MY_AUDIO.name
+	local CurrentSelectionImagesText = CurrentSelectionBasicText .. Category.MY_DECALS.name
+	local CurrentSelectionMeshesText = CurrentSelectionBasicText .. Category.MY_MESHES.name
+	local CurrentSelectionVideosText = CurrentSelectionBasicText .. "MyVideos"
+	local CurrentSelectionPackagesText = CurrentSelectionBasicText .. Category.MY_PACKAGES.name
+	local CurrentSelectionPluginsText = CurrentSelectionBasicText .. Category.MY_PLUGINS.name
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
-	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	)
+	local DropdownScrollingFramePath =
+		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
+	)
 	local InventoryTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory")
 	local InventoryTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Inventory.Content.Icon")
 
@@ -106,10 +111,22 @@ return function()
 			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 		end)
 
-		local testCases = {Category.MY_DECALS.name, Category.MY_MESHES.name, Category.MY_VIDEOS.name, 
-							Category.MY_AUDIO.name, Category.MY_PACKAGES.name, Category.MY_PLUGINS.name}
-		local expectedCurrentSelectionText = {CurrentSelectionImagesText, CurrentSelectionMeshesText, 
-					CurrentSelectionVideosText, CurrentSelectionAudioText, CurrentSelectionPackagesText, CurrentSelectionPluginsText}
+		local testCases = {
+			Category.MY_DECALS.name,
+			Category.MY_MESHES.name,
+			Category.MY_VIDEOS.name,
+			Category.MY_AUDIO.name,
+			Category.MY_PACKAGES.name,
+			Category.MY_PLUGINS.name,
+		}
+		local expectedCurrentSelectionText = {
+			CurrentSelectionImagesText,
+			CurrentSelectionMeshesText,
+			CurrentSelectionVideosText,
+			CurrentSelectionAudioText,
+			CurrentSelectionPackagesText,
+			CurrentSelectionPluginsText,
+		}
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				TestHelpers.clickInstanceWithXPath(InventoryTabPath)

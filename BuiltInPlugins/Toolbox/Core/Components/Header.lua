@@ -72,10 +72,7 @@ function Header:init()
 	self.onCategorySelected = function(index)
 		local categoryName = self.props.categories[index].name
 		if self.props.categoryName ~= categoryName then
-			Analytics.onCategorySelected(
-				self.props.categoryName,
-				categoryName
-			)
+			Analytics.onCategorySelected(self.props.categoryName, categoryName)
 
 			if self.props.searchTerm then
 				self.onSearchRequested(self.props.searchTerm, categoryName)
@@ -109,11 +106,12 @@ function Header:init()
 		-- Set up a delayed callback to check if an asset was inserted
 		self.mostRecentSearchRequestTime = tick()
 		local mySearchRequestTime = self.mostRecentSearchRequestTime
-		local StudioSearchWithoutInsertionTimeSeconds =
-			globalSettings():GetFVariable("StudioSearchWithoutInsertionTimeSeconds")
+		local StudioSearchWithoutInsertionTimeSeconds = globalSettings():GetFVariable(
+			"StudioSearchWithoutInsertionTimeSeconds"
+		)
 		delay(StudioSearchWithoutInsertionTimeSeconds, function()
 			-- Only use the callback for the most recent search
-			if (mySearchRequestTime == self.mostRecentSearchRequestTime) then
+			if mySearchRequestTime == self.mostRecentSearchRequestTime then
 				-- Check if an asset has been inserted recently
 				self:checkRecentAssetInsertion()
 			end
@@ -134,7 +132,7 @@ function Header:init()
 		elseif string.len(searchTerm) < string.len(self.state.searchTerm) then
 			self.deleteCount += 1
 		end
-		self:setState({searchTerm = searchTerm})
+		self:setState({ searchTerm = searchTerm })
 	end
 end
 
@@ -161,22 +159,25 @@ function Header:renderContent(theme, localization, localizedContent)
 	local groupIndex = props.groupIndex
 	local onGroupSelected = self.onGroupSelected
 
-
 	local showSearchOptions = Category.getTabForCategoryName(props.categoryName) == Category.MARKETPLACE
 
 	local dropdownWidth = showSearchOptions and Constants.HEADER_DROPDOWN_MIN_WIDTH
 		or Constants.HEADER_DROPDOWN_MAX_WIDTH
 	local optionsButtonWidth = showSearchOptions
-		and Constants.HEADER_OPTIONSBUTTON_WIDTH + Constants.HEADER_INNER_PADDING or 0
+			and Constants.HEADER_OPTIONSBUTTON_WIDTH + Constants.HEADER_INNER_PADDING
+		or 0
 
 	local onSearchOptionsToggled = self.onSearchOptionsToggled
 
 	local maxWidth = props.maxWidth or 0
-	local searchBarWidth = math.max(100, maxWidth
+	local searchBarWidth = math.max(
+		100,
+		maxWidth
 			- (2 * Constants.HEADER_OUTER_PADDING)
 			- dropdownWidth
 			- optionsButtonWidth
-			- Constants.HEADER_INNER_PADDING)
+			- Constants.HEADER_INNER_PADDING
+	)
 
 	local isGroupCategory = Category.categoryIsGroupAsset(categoryName)
 	local headerTheme = theme.header
@@ -211,7 +212,7 @@ function Header:renderContent(theme, localization, localizedContent)
 		BorderSizePixel = 0,
 		ZIndex = 2,
 		AutoButtonColor = false,
-	},{
+	}, {
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingBottom = UDim.new(0, Constants.HEADER_OUTER_PADDING),
 			PaddingLeft = UDim.new(0, Constants.HEADER_OUTER_PADDING),
@@ -233,7 +234,7 @@ function Header:renderContent(theme, localization, localizedContent)
 			selectedDropDownIndex = categoryIndex,
 
 			items = categories,
-			key = (not isCreationsTab) and "category" or nil,
+			key = not isCreationsTab and "category" or nil,
 			onItemClicked = onCategorySelected,
 		}),
 
@@ -260,7 +261,7 @@ end
 
 function Header:checkRecentAssetInsertion()
 	-- Check if an asset has been inserted since the most recent search was entered
-	if (self.mostRecentSearchRequestTime > self.props.mostRecentAssetInsertTime) then
+	if self.mostRecentSearchRequestTime > self.props.mostRecentAssetInsertTime then
 		-- No asset has been added
 		Analytics.onTermSearchedWithoutInsertion(
 			PageInfoHelper.getCategory(self.props.categoryName),
@@ -299,7 +300,6 @@ function Header:addTabRefreshCallback()
 	if not self.tabRefreshConnection then
 		local theEvent = getOrCreateTabRefreshEvent(self.props.pluginGui)
 		self.tabRefreshConnection = theEvent.Event:connect(function()
-
 			local categoryName = self.props.categoryName
 
 			local settings = self.props.Settings:get("Plugin")
@@ -325,13 +325,10 @@ function Header:willUnmount()
 	destroyTabRefreshEvent(self.props.pluginGui)
 end
 
-
 Header = withContext({
 	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,
 })(Header)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}

@@ -12,7 +12,6 @@ end
 require(script.Parent.defineFlags)
 
 local FFlagEnable9SliceEditor = game:GetFastFlag("Enable9SliceEditor")
-local FFlagDevFrameworkAddEnumerateToUtil = game:GetFastFlag("DevFrameworkAddEnumerateToUtil")
 
 local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
@@ -22,7 +21,7 @@ if not ok then
 	hasInternalPermission = false
 end
 
-if not (FFlagEnable9SliceEditor and FFlagDevFrameworkAddEnumerateToUtil) then
+if not FFlagEnable9SliceEditor then
 	return
 end
 

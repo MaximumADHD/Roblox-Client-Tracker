@@ -1,6 +1,6 @@
 --[[
-	Represents a horizontal scroll bar with controllers on the edges that control
-	the zoom level of the Dope Sheet.
+	Represents a vertical scroll bar with controllers on the edges that control
+	the zoom level of the Canvas Editor.
 
 	Properties:
 		UDim2 Position = position of the ZoomBar draggable area
@@ -24,11 +24,14 @@ local ArrowButton = require(Plugin.Src.Components.ArrowButton)
 
 local ZoomBar = Roact.PureComponent:extend("ZoomBar")
 
+ZoomBar.HORIZONTAL = "Horizontal"
+ZoomBar.VERTICAL = "Vertical"
+
 function ZoomBar:calculateScrollAndZoom()
-	local zoom = math.clamp(1 - (self.RightValue - self.LeftValue), 0, 1)
+	local zoom = math.clamp(1 - (self.MaxValue - self.MinValue), 0, 1)
 	local scroll = 0
 	if zoom > 0 then
-		scroll = self.LeftValue / zoom
+		scroll = self.MinValue / zoom
 	end
 
 	if self.props.AdjustScrollZoom then
@@ -36,17 +39,24 @@ function ZoomBar:calculateScrollAndZoom()
 	end
 end
 
-function ZoomBar:getDraggableWidth()
-	return self.props.ContainerSize.X - Constants.SCROLL_BAR_PADDING - Constants.SCROLL_BAR_SIZE * 4
+function ZoomBar:getDraggableSize()
+	if self.props.Direction == ZoomBar.HORIZONTAL then
+		return self.props.ContainerSize.X - Constants.SCROLL_BAR_PADDING - Constants.SCROLL_BAR_SIZE * 4
+	else
+		return self.props.ContainerSize.Y - Constants.SCROLL_BAR_PADDING - Constants.SCROLL_BAR_SIZE * 4
+	end
 end
 
 function ZoomBar:isDragging()
 	return self.state.Zooming or self.state.Scrolling
 end
 
-function ZoomBar:calculateLeftAndRight(scroll, zoom)
-	self.LeftValue = scroll * zoom
-	self.RightValue = (1 - zoom) + (scroll * zoom)
+function ZoomBar:calculateMinAndMax()
+	local props = self.props
+	local scroll = props.Scroll or 0
+	local zoom = props.Zoom or 0
+	self.MinValue = scroll * zoom
+	self.MaxValue = (1 - zoom) + (scroll * zoom)
 end
 
 function ZoomBar:init()
@@ -56,30 +66,29 @@ function ZoomBar:init()
 		Hovering = false,
 	}
 
-	self.LeftValue = 0
-	self.RightValue = 1
+	self.MinValue = 0
+	self.MaxValue = 1
 
-	self.updateLeft = function(position)
-		local scaled = (position - self.props.LeftX - self.ClickOffset + Constants.SCROLL_BAR_SIZE)
-			/ self:getDraggableWidth()
-		self.LeftValue = math.clamp(scaled, 0, self.RightValue)
+	self.updateMin = function(position)
+		local scaled = (position - self.props.Min - self.ClickOffset + Constants.SCROLL_BAR_SIZE) / self:getDraggableSize()
+		self.MinValue = math.clamp(scaled, 0, self.MaxValue)
 	end
 
-	self.updateRight = function(position)
-		local scaled = (position - self.props.LeftX - self.ClickOffset)	/ self:getDraggableWidth()
-		self.RightValue = math.clamp(scaled, self.LeftValue, 1)
+	self.updateMax = function(position)
+		local scaled = (position - self.props.Min - self.ClickOffset) / self:getDraggableSize()
+		self.MaxValue = math.clamp(scaled, self.MinValue, 1)
 	end
 
-	self.updateMiddle = function(xPos)
-		local oldLeft = self.LeftValue
-		local difference = 1 - self.RightValue
-		self.LeftValue = math.clamp(xPos, 0, oldLeft + difference)
-		self.RightValue = self.RightValue + (self.LeftValue - oldLeft)
+	self.updateMiddle = function(position)
+		local oldMin = self.MinValue
+		local difference = 1 - self.MaxValue
+		self.MinValue = math.clamp(position, 0, oldMin + difference)
+		self.MaxValue = self.MaxValue + (self.MinValue - oldMin)
 		self:calculateScrollAndZoom()
 	end
 
 	self.dragMiddle = function(position)
-		local scaled = (position - self.props.LeftX - self.ClickOffset) / self:getDraggableWidth()
+		local scaled = (position - self.props.Min - self.ClickOffset) / self:getDraggableSize()
 		self.updateMiddle(scaled)
 	end
 
@@ -88,7 +97,11 @@ function ZoomBar:init()
 			self:setState({
 				Zooming = true
 			})
-			self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2
+			if self.props.Direction == ZoomBar.HORIZONTAL then
+				self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2
+			else
+				self.ClickOffset = input.Position.Y - rbx.AbsolutePosition.Y + Constants.SCROLL_BAR_SIZE * 2
+			end
 			self.ZoomFunc = zoomFunc
 		end
 	end
@@ -98,17 +111,22 @@ function ZoomBar:init()
 			self:setState({
 				Scrolling = true
 			})
-			self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2
+			if self.props.Direction == ZoomBar.HORIZONTAL then
+				self.ClickOffset = input.Position.X - rbx.AbsolutePosition.X + Constants.SCROLL_BAR_SIZE * 2
+			else
+				self.ClickOffset = input.Position.Y - rbx.AbsolutePosition.Y + Constants.SCROLL_BAR_SIZE * 2
+			end
 		end
 	end
 
 	self.onInputChanged = function(input)
 		if self:isDragging() then
+			local inputValue = self.props.Direction == ZoomBar.HORIZONTAL and input.Position.X or input.Position.Y
 			if self.state.Zooming then
-				self.ZoomFunc(input.Position.X)
+				self.ZoomFunc(inputValue)
 				self:calculateScrollAndZoom()
 			elseif self.state.Scrolling then
-				self.dragMiddle(input.Position.X)
+				self.dragMiddle(inputValue)
 			end
 		end
 	end
@@ -134,129 +152,126 @@ function ZoomBar:init()
 end
 
 function ZoomBar:render()
-		local props = self.props
-		local state = self.state
-		local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
-		local zoomBarTheme = theme.zoomBarTheme
+	local props = self.props
+	local state = self.state
+	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
+	local zoomBarTheme = theme.zoomBarTheme
 
-		local position = props.Position
-		local size = props.Size
-		local layoutOrder = props.LayoutOrder
-		local zIndex = props.ZIndex
-		local hovering = state.Hovering
-		local dragging = self:isDragging()
+	local position = props.Position
+	local size = props.Size
+	local layoutOrder = props.LayoutOrder
+	local zIndex = props.ZIndex
+	local hovering = state.Hovering
+	local dragging = self:isDragging()
 
-		local scroll = props.Scroll or 0
-		local zoom = props.Zoom or 0
+	if not dragging then
+		self:calculateMinAndMax()
+	end
 
-		if not dragging then
-			self:calculateLeftAndRight(scroll, zoom)
-		end
+	local minZoom = self.MinValue * self:getDraggableSize() + Constants.SCROLL_BAR_SIZE + 1
+	local maxZoom = Constants.SCROLL_BAR_SIZE * 2 + self.MaxValue * self:getDraggableSize()
 
-		local leftZoomX = self.LeftValue * self:getDraggableWidth() + Constants.SCROLL_BAR_SIZE
-		local rightZoomX = Constants.SCROLL_BAR_SIZE * 2 + self.RightValue * self:getDraggableWidth()
-		local scrollX = leftZoomX + Constants.SCROLL_BAR_SIZE
-		local scrollControlWidth = rightZoomX - leftZoomX - Constants.SCROLL_BAR_SIZE
+	local scroll = minZoom + Constants.SCROLL_BAR_SIZE
+	local scrollControlSize = maxZoom - minZoom - Constants.SCROLL_BAR_SIZE
+	local isHorizontal = self.props.Direction == ZoomBar.HORIZONTAL
 
-		local scrollbarColor
-		if dragging then
-			scrollbarColor = zoomBarTheme.pressedColor
-		elseif hovering then
-			scrollbarColor = zoomBarTheme.hoverColor
-		else
-			scrollbarColor = zoomBarTheme.controlColor
-		end
+	local scrollbarColor
+	if dragging then
+		scrollbarColor = zoomBarTheme.pressedColor
+	elseif hovering then
+		scrollbarColor = zoomBarTheme.hoverColor
+	else
+		scrollbarColor = zoomBarTheme.controlColor
+	end
 
-		return Roact.createElement("ImageButton", {
-			Position = position,
-			Size = size,
-			BackgroundColor3 = zoomBarTheme.backgroundColor,
+	return Roact.createElement("ImageButton", {
+		Position = position,
+		Size = size,
+		BackgroundColor3 = zoomBarTheme.backgroundColor,
+		BorderColor3 = zoomBarTheme.borderColor,
+		LayoutOrder = layoutOrder,
+		ZIndex = zIndex,
+		AutoButtonColor = false,
+		ImageTransparency = 1,
+
+		[Roact.Event.InputBegan] = function(rbx, input)
+			if not self:isDragging() and input.UserInputType == Enum.UserInputType.MouseButton1 then
+				self.ClickOffset = scrollControlSize / 2 + Constants.SCROLL_BAR_SIZE * 2
+				self.dragMiddle(isHorizontal and input.Position.X or input.Position.Y)
+			end
+		end,
+	}, {
+		DragTarget = self:isDragging() and Roact.createElement(DragTarget, {
+			OnDragMoved = self.onInputChanged,
+			OnDragEnded = self.onInputEnded,
+		}),
+
+		MinZoomControl = Roact.createElement("ImageLabel", {
+			Position = isHorizontal and UDim2.new(0, minZoom, 0, 0) or UDim2.new(0, 0, 0, minZoom),
+			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.SCROLL_BAR_SIZE),
+			BackgroundColor3 = zoomBarTheme.controlColor,
+			BorderSizePixel = zoomBarTheme.borderSize,
 			BorderColor3 = zoomBarTheme.borderColor,
-			LayoutOrder = layoutOrder,
+			Image = zoomBarTheme.controlImage,
+			Rotation = isHorizontal and 0 or 90,
+			ScaleType = Enum.ScaleType.Fit,
+			ImageColor3 = zoomBarTheme.imageColor,
 			ZIndex = zIndex,
-			AutoButtonColor = false,
-			ImageTransparency = 1,
-
 			[Roact.Event.InputBegan] = function(rbx, input)
-				if not self:isDragging() and input.UserInputType == Enum.UserInputType.MouseButton1 then
-					self.ClickOffset = scrollControlWidth / 2 + Constants.SCROLL_BAR_SIZE * 2
-					self.dragMiddle(input.Position.X)
-				end
+				self.onZoomBegan(rbx, input, self.updateMin)
 			end,
-		}, {
-			DragTarget = self:isDragging() and Roact.createElement(DragTarget, {
-				OnDragMoved = self.onInputChanged,
-				OnDragEnded = self.onInputEnded,
-			}),
+		}),
 
-			LeftZoomControl = Roact.createElement("ImageLabel", {
-				Position = UDim2.new(0, leftZoomX, 0, 0),
-				Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.SCROLL_BAR_SIZE),
-				BackgroundColor3 = zoomBarTheme.controlColor,
-				BorderSizePixel = zoomBarTheme.borderSize,
-				BorderColor3 = zoomBarTheme.borderColor,
-				Image = zoomBarTheme.controlImage,
-				ScaleType = Enum.ScaleType.Fit,
-				ImageColor3 = zoomBarTheme.imageColor,
-				ZIndex = zIndex,
-				[Roact.Event.InputBegan] = function(rbx, input)
-					self.onZoomBegan(rbx, input, self.updateLeft)
-				end,
-			}),
+		ScrollControl = Roact.createElement("Frame", {
+			Position = isHorizontal and UDim2.new(0, scroll, 0, 0) or UDim2.new(0, 0, 0, scroll),
+			Size = isHorizontal and UDim2.new(0, scrollControlSize, 1, 0) or UDim2.new(1, 0, 0, scrollControlSize),
+			BackgroundColor3 = scrollbarColor,
+			BorderColor3 = zoomBarTheme.borderColor,
+			BorderSizePixel = zoomBarTheme.borderSize,
+			ZIndex = zIndex,
 
-			ScrollControl = Roact.createElement("Frame", {
-				Position = UDim2.new(0, scrollX, 0, 0),
-				Size = UDim2.new(0, scrollControlWidth, 1, 0),
-				BackgroundColor3 = scrollbarColor,
-				BorderColor3 = zoomBarTheme.borderColor,
-				BorderSizePixel = zoomBarTheme.borderSize,
-				ZIndex = zIndex,
+			[Roact.Event.InputBegan] = self.onScrollBegan,
+			[Roact.Event.MouseEnter] = self.mouseEnter,
+			[Roact.Event.MouseLeave] = self.mouseLeave,
+		}),
 
-				[Roact.Event.InputBegan] = self.onScrollBegan,
-				[Roact.Event.MouseEnter] = self.mouseEnter,
-				[Roact.Event.MouseLeave] = self.mouseLeave,
-			}),
+		MaxZoomControl = Roact.createElement("ImageLabel", {
+			Position = isHorizontal and UDim2.new(0, maxZoom, 0, 0) or UDim2.new(0, 0, 0, maxZoom),
+			Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.SCROLL_BAR_SIZE),
+			BackgroundColor3 = zoomBarTheme.controlColor,
+			BorderSizePixel = zoomBarTheme.borderSize,
+			BorderColor3 = zoomBarTheme.borderColor,
+			Image = zoomBarTheme.controlImage,
+			Rotation = isHorizontal and 0 or 90,
+			ScaleType = Enum.ScaleType.Fit,
+			ImageColor3 = zoomBarTheme.imageColor,
+			ZIndex = zIndex,
+			[Roact.Event.InputBegan] = function(rbx, input)
+				self.onZoomBegan(rbx, input, self.updateMax)
+			end,
+		}),
 
-			RightZoomControl = Roact.createElement("ImageLabel", {
-				Position = UDim2.new(0, rightZoomX, 0, 0),
-				Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 0, Constants.SCROLL_BAR_SIZE),
-				BackgroundColor3 = zoomBarTheme.controlColor,
-				BorderSizePixel = zoomBarTheme.borderSize,
-				BorderColor3 = zoomBarTheme.borderColor,
-				Image = zoomBarTheme.controlImage,
-				ScaleType = Enum.ScaleType.Fit,
-				ImageColor3 = zoomBarTheme.imageColor,
-				ZIndex = zIndex,
-				[Roact.Event.InputBegan] = function(rbx, input)
-					self.onZoomBegan(rbx, input, self.updateRight)
-				end,
-			}),
+		MinButton = Roact.createElement(ArrowButton, {
+			Rotation = isHorizontal and 270 or 0,
+			OnActivated = function()
+				self.updateMiddle(self.MinValue - Constants.ZOOM_INCREMENT)
+			end,
+		}),
 
-			LeftButton = Roact.createElement(ArrowButton, {
-				Rotation = 270,
-				OnActivated = function()
-					self.updateMiddle(self.LeftValue - Constants.ZOOM_INCREMENT)
-				end,
-			}),
-
-			RightButton = Roact.createElement(ArrowButton, {
-				Rotation = 90,
-				Position = UDim2.new(1, 0, 0, 0),
-				AnchorPoint = Vector2.new(1, 0),
-				OnActivated = function()
-					self.updateMiddle(self.LeftValue + Constants.ZOOM_INCREMENT)
-				end,
-			}),
-		})
+		MaxButton = Roact.createElement(ArrowButton, {
+			Rotation = isHorizontal and 90 or 180,
+			Position = isHorizontal and UDim2.new(1, 0, 0, 0) or UDim2.new(0, 0, 1, 0),
+			AnchorPoint = isHorizontal and Vector2.new(1, 0) or Vector2.new(0, 1),
+			OnActivated = function()
+				self.updateMiddle(self.MinValue + Constants.ZOOM_INCREMENT)
+			end,
+		}),
+	})
 end
-
 
 ZoomBar = withContext({
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(ZoomBar)
-
-
-
 
 return ZoomBar

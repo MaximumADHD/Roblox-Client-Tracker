@@ -31,7 +31,7 @@ return function(publishInfo)
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 
 		local function onSuccess(result)
-			if not result or tostring(result) == '0' or result:find("Error") then
+			if not result or tostring(result) == "0" or result:find("Error") then
 				store:dispatch(UploadResult(false))
 				store:dispatch(NetworkError(result))
 
@@ -67,25 +67,32 @@ return function(publishInfo)
 		end
 
 		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(function(fileDataString)
-				return publishInfo.networkInterface:postUploadAnimation(
+			return SerializeInstances(publishInfo.instance, services.StudioAssetService):andThen(
+				function(fileDataString)
+					return publishInfo.networkInterface
+						:postUploadAnimation(
+							publishInfo.assetId,
+							publishInfo.name,
+							publishInfo.description,
+							publishInfo.groupId,
+							fileDataString
+						)
+						:andThen(onSuccess, onFail)
+				end,
+				onSerializeFail
+			)
+		else
+			local fileDataString = SerializeInstances_Deprecated(publishInfo.instance)
+
+			return publishInfo.networkInterface
+				:postUploadAnimation(
 					publishInfo.assetId,
 					publishInfo.name,
 					publishInfo.description,
 					publishInfo.groupId,
 					fileDataString
-				):andThen(onSuccess, onFail)
-			end, onSerializeFail)
-		else
-			local fileDataString = SerializeInstances_Deprecated(publishInfo.instance)
-
-			return publishInfo.networkInterface:postUploadAnimation(
-				publishInfo.assetId,
-				publishInfo.name,
-				publishInfo.description,
-				publishInfo.groupId,
-				fileDataString
-			):andThen(onSuccess, onFail)
+				)
+				:andThen(onSuccess, onFail)
 		end
 	end
 end

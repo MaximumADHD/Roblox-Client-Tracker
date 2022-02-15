@@ -90,12 +90,12 @@ local function isHigherPermission(current, newPerm)
 	end
 
 	local ranking = {}
-	ranking[PermissionsConstants.OwnKey]      = 4
-	ranking[PermissionsConstants.EditKey]     = 3
-	ranking[PermissionsConstants.UseViewKey]  = 2
+	ranking[PermissionsConstants.OwnKey] = 4
+	ranking[PermissionsConstants.EditKey] = 3
+	ranking[PermissionsConstants.UseViewKey] = 2
 	ranking[PermissionsConstants.NoAccessKey] = 1
-	
-	if ranking[newPerm]>ranking[current] then
+
+	if ranking[newPerm] > ranking[current] then
 		return newPerm
 	else
 		return current
@@ -110,7 +110,7 @@ local function deserializeResults(results)
 		local higherPermission = isHigherPermission(idToPermissionsTable[data.assetId], newPermLevel)
 
 		idToPermissionsTable = Cryo.Dictionary.join(idToPermissionsTable, {
-			[data.assetId] = higherPermission
+			[data.assetId] = higherPermission,
 		})
 	end
 
@@ -119,32 +119,31 @@ end
 
 return function(networkInterface, assetIds)
 	return function(store)
-
 		local noAccessTable = {}
 		for _, assetId in pairs(assetIds) do
 			noAccessTable[assetId] = PermissionsConstants.NoAccessKey
 		end
 		store:dispatch(SetPackagePermission(noAccessTable))
 
-		local actions = { "Edit", "Use", "GrantAssetPermissions"}
+		local actions = { "Edit", "Use", "GrantAssetPermissions" }
 
 		local resultData = {}
 		local promises = {}
 
 		local batchSize = game:GetFastInt("MaxPackageAssetIdsPerPermissionRequest")
 
-		for i=1, #assetIds, batchSize do --batch because network call can handle only 50 assetIds at once max
-			local batch = {table.unpack(assetIds,i,i+(batchSize-1))}
-			table.insert(promises, networkInterface:postAssetCheckPermissions(actions, batch):andThen(
-				function(result)
+		for i = 1, #assetIds, batchSize do --batch because network call can handle only 50 assetIds at once max
+			local batch = { table.unpack(assetIds, i, i + (batchSize - 1)) }
+			table.insert(
+				promises,
+				networkInterface:postAssetCheckPermissions(actions, batch):andThen(function(result)
 					Analytics.sendResultToKibana(result)
 					resultData = Cryo.List.join(resultData, result.responseBody.results)
-				end,
-				function(err)
+				end, function(err)
 					Analytics.sendResultToKibana(err)
 					store:dispatch(NetworkError(err))
-				end
-			))
+				end)
+			)
 		end
 
 		Promise.all(promises):andThen(function()

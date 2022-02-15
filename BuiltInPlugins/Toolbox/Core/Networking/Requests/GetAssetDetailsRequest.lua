@@ -27,6 +27,6 @@ return function(networkInterface, assetId, isMarketBuy)
 				end
 			end
 		end
-		networkInterface:getAssetCreationDetails({assetId}):andThen(handlerFunc, errorFunc)
+		networkInterface:getAssetCreationDetails({ assetId }):andThen(handlerFunc, errorFunc)
 	end
 end

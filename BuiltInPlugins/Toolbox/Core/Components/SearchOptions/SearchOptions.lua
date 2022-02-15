@@ -12,7 +12,9 @@
 			If cancelled, options will be nil. Else, it will contain the new options
 			that were set by the user.
 ]]
-local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
+	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
+)
 local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
 
@@ -115,7 +117,7 @@ function SearchOptions:init(initialProps)
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 		self.selectSort = function(key)
 			local sortIndex
-			for i,value in pairs(self.sortsList) do
+			for i, value in pairs(self.sortsList) do
 				if value.Key == key then
 					sortIndex = i
 				end
@@ -150,8 +152,9 @@ function SearchOptions:init(initialProps)
 			Creator = self.searchTerm,
 		}
 
-		if (self.state.minDuration ~= Constants.MIN_AUDIO_SEARCH_DURATION
-			or self.state.maxDuration ~= Constants.MAX_AUDIO_SEARCH_DURATION)
+		if
+			self.state.minDuration ~= Constants.MIN_AUDIO_SEARCH_DURATION
+			or self.state.maxDuration ~= Constants.MAX_AUDIO_SEARCH_DURATION
 		then
 			options.AudioSearch = {
 				minDuration = self.state.minDuration,
@@ -188,7 +191,7 @@ function SearchOptions:init(initialProps)
 			})
 		end
 	end
-	
+
 	self.updateContainerSize = function(rbx)
 		self:setState({
 			windowSize = rbx.AbsoluteSize,
@@ -247,23 +250,24 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	local sorts
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 		self.sortsList = {
-			{Key = "Relevance", Text = localizedContent.Sort.Relevance},
-			{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
-			{Key = "Favorites", Text = localizedContent.Sort.Favorites},
-			{Key = "Updated", Text = localizedContent.Sort.Updated},
-			{Key = "Ratings", Text = localizedContent.Sort.Ratings},
+			{ Key = "Relevance", Text = localizedContent.Sort.Relevance },
+			{ Key = "MostTaken", Text = localizedContent.Sort.MostTaken },
+			{ Key = "Favorites", Text = localizedContent.Sort.Favorites },
+			{ Key = "Updated", Text = localizedContent.Sort.Updated },
+			{ Key = "Ratings", Text = localizedContent.Sort.Ratings },
 		}
 	else
 		sorts = {
-			{Key = "Relevance", Text = localizedContent.Sort.Relevance},
-			{Key = "MostTaken", Text = localizedContent.Sort.MostTaken},
-			{Key = "Favorites", Text = localizedContent.Sort.Favorites},
-			{Key = "Updated", Text = localizedContent.Sort.Updated},
-			{Key = "Ratings", Text = localizedContent.Sort.Ratings},
+			{ Key = "Relevance", Text = localizedContent.Sort.Relevance },
+			{ Key = "MostTaken", Text = localizedContent.Sort.MostTaken },
+			{ Key = "Favorites", Text = localizedContent.Sort.Favorites },
+			{ Key = "Updated", Text = localizedContent.Sort.Updated },
+			{ Key = "Ratings", Text = localizedContent.Sort.Ratings },
 		}
 	end
 	local sortIndex = self.state.SortIndex or self.props.SortIndex
-	local selectedSort = FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and self.sortsList[sortIndex].Key or sorts[sortIndex].Key
+	local selectedSort = FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and self.sortsList[sortIndex].Key
+		or sorts[sortIndex].Key
 
 	local tabHeight = Constants.TAB_WIDGET_HEIGHT
 
@@ -278,20 +282,20 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 		local backgroundButtonHeight = 40
 		local headerHeight = tabHeight + Constants.HEADER_HEIGHT
 		local edgeMargin = 4
-		
+
 		local layoutSize
 		if self.state.contentSize then
 			layoutSize = UDim2.new(0, self.state.contentSize.X, 0, self.state.contentSize.Y)
 		else
 			layoutSize = UDim2.new(0, 0, 0, 0)
 		end
-		
+
 		local showFade = true
 		local containerSize = UDim2.new(1, 0, 1, 0)
 		if self.containerRef.current then
 			local windowHeight = self.containerRef.current.AbsoluteSize.Y - (headerHeight + backgroundButtonHeight)
 			local cutoffHeight = layoutSize.Y.Offset + bottomButtonHeight
-			if (windowHeight > cutoffHeight) then
+			if windowHeight > cutoffHeight then
 				containerSize = UDim2.new(1, 0, 0, cutoffHeight)
 				showFade = false
 			end
@@ -302,7 +306,12 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 				BackgroundTransparency = 1,
 				AnchorPoint = Vector2.new(1, 0),
 				Position = UDim2.new(1, -edgeMargin, 0, headerHeight + edgeMargin),
-				Size = UDim2.new(0, Constants.TOOLBOX_MIN_WIDTH, 1, -(headerHeight + (2*edgeMargin) + bottomButtonHeight)),
+				Size = UDim2.new(
+					0,
+					Constants.TOOLBOX_MIN_WIDTH,
+					1,
+					-(headerHeight + (2 * edgeMargin) + bottomButtonHeight)
+				),
 				[Roact.Ref] = self.containerRef,
 				[Roact.Change.AbsoluteSize] = self.updateContainerSize,
 			}, {
@@ -331,7 +340,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 							PaddingTop = UDim.new(0, 10),
 							PaddingBottom = UDim.new(0, 10),
 						}),
-						
+
 						Creator = showCreatorSearch and Roact.createElement(SearchOptionsEntry, {
 							LayoutOrder = self:nextLayout(),
 							Header = localizedContent.SearchOptions.Creator,
@@ -364,18 +373,22 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 							LayoutOrder = self:nextLayout(),
 							Header = localizedContent.SearchOptions.Sort,
 						}, {
-							RadioButtons = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
-							FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and {
-								Buttons = self.sortsList,
-								SelectedKey = selectedSort,
-								OnClick = self.selectSort,
-							} or {
-								Buttons = sorts,
-								Selected = selectedSort,
-								onButtonClicked = self.selectSort,
-							}),
+							RadioButtons = Roact.createElement(
+								FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
+								FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
+										and {
+											Buttons = self.sortsList,
+											SelectedKey = selectedSort,
+											OnClick = self.selectSort,
+										}
+									or {
+										Buttons = sorts,
+										Selected = selectedSort,
+										onButtonClicked = self.selectSort,
+									}
+							),
 						}),
-						
+
 						ViewPadding = showSortOptions and Roact.createElement("Frame", {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(1, 0, 0, 10),
@@ -405,7 +418,7 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 								Rotation = 90,
 								Transparency = NumberSequence.new({
 									NumberSequenceKeypoint.new(0.0, 1.0),
-									NumberSequenceKeypoint.new(1.0, 0.25)
+									NumberSequenceKeypoint.new(1.0, 0.25),
 								}),
 							}),
 						}),
@@ -471,16 +484,20 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						LayoutOrder = self:nextLayout(),
 						Header = localizedContent.SearchOptions.Sort,
 					}, {
-						RadioButtons = Roact.createElement(FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
-						FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and {
-							Buttons = self.sortsList,
-							SelectedKey = selectedSort,
-							OnClick = self.selectSort,
-						} or {
-							Buttons = sorts,
-							Selected = selectedSort,
-							onButtonClicked = self.selectSort,
-						}),
+						RadioButtons = Roact.createElement(
+							FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton and RadioButtonList or RadioButtons,
+							FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
+									and {
+										Buttons = self.sortsList,
+										SelectedKey = selectedSort,
+										OnClick = self.selectSort,
+									}
+								or {
+									Buttons = sorts,
+									Selected = selectedSort,
+									onButtonClicked = self.selectSort,
+								}
+						),
 					}),
 
 					Separator3 = showSortOptions and self:createSeparator(optionsTheme.separator),
@@ -489,8 +506,8 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 						LayoutOrder = self:nextLayout(),
 						onButtonClicked = self.footerButtonClicked,
 					}),
-				})
-			})
+				}),
+			}),
 		}
 	end
 
@@ -525,13 +542,10 @@ function SearchOptions:renderContent(theme, localizedContent, modalTarget)
 	})
 end
 
-
 SearchOptions = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(SearchOptions)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}

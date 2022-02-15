@@ -14,7 +14,9 @@ return function()
 
 	local RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
 
-	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
+		"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
+	)
 	if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 		return
 	end
@@ -23,8 +25,8 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Buttons = Roact.createElement(RadioButtons, {
 				Buttons = {
-					{Key = "Button1", Text = "Button 1"},
-					{Key = "Button2", Text = "Button 2"},
+					{ Key = "Button1", Text = "Button 1" },
+					{ Key = "Button2", Text = "Button 2" },
 				},
 				Selected = "Button1",
 			}),
@@ -37,8 +39,8 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Buttons = Roact.createElement(RadioButtons, {
 				Buttons = {
-					{Key = "Button1", Text = "Button 1"},
-					{Key = "Button2", Text = "Button 2"},
+					{ Key = "Button1", Text = "Button 1" },
+					{ Key = "Button2", Text = "Button 2" },
 				},
 				Selected = "Button1",
 			}),

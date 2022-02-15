@@ -68,7 +68,6 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.AssetConfig_SidetabSelectedIndicatorZindex] = 1,
 		[StyleKey.AssetConfig_UploadResultButtonColor] = Color3.fromRGB(136, 136, 136),
 		[StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor] = Color3.fromRGB(102, 102, 102),
-
 	})
 	local overridedLightTheme = Cryo.Dictionary.join(LightTheme, {
 		[StyleKey.Toolbox_PublishAssetBackground] = StyleColors.Slate,
@@ -137,7 +136,7 @@ local makeTheme = function(themeExtension, themeClass)
 				backgroundColor = StyleKey.MainBackground,
 				verifiedBackgroundColor = StyleKey.Toolbox_AssetOutlineVerifiedBackground,
 				borderColor = StyleKey.Border,
-				transparency = StyleKey.Toolbox_AssetOutlineTransparency
+				transparency = StyleKey.Toolbox_AssetOutlineTransparency,
 			},
 
 			textColor = StyleKey.MainText,
@@ -234,7 +233,7 @@ local makeTheme = function(themeExtension, themeClass)
 				backgroundSelectedColor = StyleKey.CurrentMarker,
 				borderColor = StyleKey.Border,
 				borderSelectedColor = StyleKey.CurrentMarker,
-			}
+			},
 		},
 
 		purchaseDialog = {
@@ -337,9 +336,9 @@ local makeTheme = function(themeExtension, themeClass)
 					Top = -1,
 					Left = 0,
 					Bottom = 0,
-					Right = 0
+					Right = 0,
 				},
-			}
+			},
 		}),
 	})
 
@@ -351,7 +350,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[ui.DropdownMenu] = Cryo.Dictionary.join(getRawComponentStyle("DropdownMenu"), {
 			["&ToolboxSearchBarDropdown"] = {
 				Offset = Vector2.new(0, 4),
-			}
+			},
 		}),
 	})
 

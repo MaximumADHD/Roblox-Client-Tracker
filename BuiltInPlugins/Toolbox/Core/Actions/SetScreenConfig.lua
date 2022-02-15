@@ -14,6 +14,6 @@ return Action(script.Name, function(screen, variable, value)
 	return {
 		screen = screen,
 		variable = variable,
-		value = value
+		value = value,
 	}
 end)

@@ -23,18 +23,18 @@ local VoteButton = Roact.PureComponent:extend("VoteButton")
 function VoteButton:init(props)
 	self.state = {
 		isHovered = false,
-		voteDownButtonHovered = false
+		voteDownButtonHovered = false,
 	}
 
 	self.onMouseEntered = function(rbx, x, y)
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 	end
 
 	self.onMouseLeft = function(rbx, x, y)
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 end

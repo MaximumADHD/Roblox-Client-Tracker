@@ -34,6 +34,7 @@ type CommonStore = {
 	currentFrameMap : {[DebuggerConnectionId] : ThreadToFrameMap},
 	currentBreakpointId : number,
 	isPaused : boolean,
+	pausedDebuggerConnectionIds : {[DebuggerConnectionId] : DebuggerConnectionId},
 }
 
 local productionStartStore = {
@@ -43,6 +44,7 @@ local productionStartStore = {
 	currentFrameMap = {},
 	currentBreakpointId = nil,
 	isPaused = false,
+	pausedDebuggerConnectionIds = {},
 }
 
 return Rodux.createReducer(productionStartStore, {
@@ -71,7 +73,8 @@ return Rodux.createReducer(productionStartStore, {
 		return Cryo.Dictionary.join(state, {
 			debuggerConnectionIdToCurrentThreadId = {},
 			currentFrameMap = {},
-			isPaused = false
+			isPaused = false,
+			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[action.debuggerStateToken.debuggerConnectionId] = Cryo.None}),
 		})
 	end,
 
@@ -83,12 +86,17 @@ return Rodux.createReducer(productionStartStore, {
 			newFocusedConnectionId = -1
 			shouldBePaused = false
 		end
+		local newPausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[removedConnectionId] = Cryo.None})
+		if next(newPausedDebuggerConnectionIds) == nil then
+			shouldBePaused = false
+		end
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.List.removeValue(state.debuggerConnectionIdToDST, removedConnectionId),
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[removedConnectionId] = Cryo.None}),
 			currentDebuggerConnectionId = newFocusedConnectionId,
 			debuggerConnectionIdToCurrentThreadId = Cryo.List.removeValue(state.debuggerConnectionIdToCurrentThreadId, removedConnectionId),
 			currentFrameMap = Cryo.List.removeValue(state.currentFrameMap, removedConnectionId),
-			isPaused = shouldBePaused
+			isPaused = shouldBePaused,
+			pausedDebuggerConnectionIds = newPausedDebuggerConnectionIds,
 		})
 	end,
 
@@ -104,8 +112,13 @@ return Rodux.createReducer(productionStartStore, {
 	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
 		local newDebuggerConnectionMap = state.debuggerConnectionIdToDST
 		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
+		local pausedConnectionId = action.debuggerStateToken.debuggerConnectionId
 
-		return Cryo.Dictionary.join(state, {debuggerConnectionIdToDST = newDebuggerConnectionMap}, {isPaused = true})
+		return Cryo.Dictionary.join(state, {
+			debuggerConnectionIdToDST = newDebuggerConnectionMap, 
+			isPaused = true,
+			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[pausedConnectionId] = pausedConnectionId}),
+		})
 	end,
 
 	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)

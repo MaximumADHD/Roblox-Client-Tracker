@@ -25,7 +25,7 @@ ScreenSetup.keys = convertArrayToTable({
 
 local AssetCategory = {
 	Marketplace = {},
-	Catalog = {}
+	Catalog = {},
 }
 
 local keys = ScreenSetup.keys
@@ -63,7 +63,7 @@ local params = {
 			[keys.SHOW_ASSET_TYPE] = true,
 			[keys.SHOW_OWNERSHIP] = FFlagUGCGroupUploads2,
 		},
-	}
+	},
 }
 
 params[AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW] = {
@@ -114,7 +114,7 @@ local assetTypeOverride = {
 			[keys.SHOW_SALE] = false,
 			[keys.SHOW_VERSIONS_TAB] = true,
 			[keys.SHOW_SALES_TAB] = true,
-		}
+		},
 	},
 	[Enum.AssetType.Model] = {
 		[AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW] = {
@@ -138,12 +138,19 @@ assetTypeOverride[Enum.AssetType.Animation] = {
 }
 
 function ScreenSetup.queryParam(flowType, assetTypeEnum, paramKey)
-	local assetCategoryType = AssetConfigUtil.isCatalogAsset(assetTypeEnum) and AssetCategory.Catalog or AssetCategory.Marketplace
+	local assetCategoryType = AssetConfigUtil.isCatalogAsset(assetTypeEnum) and AssetCategory.Catalog
+		or AssetCategory.Marketplace
 	local defaultValue = params[flowType][assetCategoryType][paramKey] or false
 
-	if not assetTypeOverride[assetTypeEnum] then return defaultValue end
-	if not assetTypeOverride[assetTypeEnum][flowType] then return defaultValue end
-	if assetTypeOverride[assetTypeEnum][flowType][paramKey] == nil then return defaultValue end
+	if not assetTypeOverride[assetTypeEnum] then
+		return defaultValue
+	end
+	if not assetTypeOverride[assetTypeEnum][flowType] then
+		return defaultValue
+	end
+	if assetTypeOverride[assetTypeEnum][flowType][paramKey] == nil then
+		return defaultValue
+	end
 
 	return assetTypeOverride[assetTypeEnum][flowType][paramKey]
 end

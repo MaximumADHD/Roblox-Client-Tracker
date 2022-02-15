@@ -77,11 +77,11 @@ function TimeTextBox:init()
 		local minMinutes = getMinutes(props.min)
 		local maxMinutes = getMinutes(props.max)
 
-		if (self.minute <= minMinutes) then
+		if self.minute <= minMinutes then
 			min = math.max(getSeconds(props.min), min)
 		end
 
-		if (self.minute >= maxMinutes) then
+		if self.minute >= maxMinutes then
 			max = math.min(getSeconds(props.max), max)
 		end
 
@@ -96,7 +96,7 @@ function TimeTextBox:init()
 		local sec = self.sec
 		local totalSeconds = self.totalSeconds
 
-		if (totalSeconds == self.props.defaultValue) then
+		if totalSeconds == self.props.defaultValue then
 			renderMin = ""
 			renderSec = ""
 		else
@@ -138,7 +138,9 @@ function TimeTextBox:init()
 			if (#rbx.Text > 2) or string.find(rbx.Text, "\t") then
 				-- Focus on second textBox
 				local secondRef = self.secondRef.current
-				if secondRef then secondRef:CaptureFocus() end
+				if secondRef then
+					secondRef:CaptureFocus()
+				end
 
 				-- Prevent user from typing in over 2 characters by reverting text to prev state
 				self.minuteRef.current.Text = tonumber(self.minute)
@@ -183,9 +185,10 @@ function TimeTextBox:didMount()
 end
 
 function TimeTextBox:willUpdate(nextProps, nextState)
-	if (nextProps.min ~= self.props.min)
-	or (nextProps.max ~= self.props.max)
-	or (nextProps.currentValue ~= self.props.currentValue)
+	if
+		(nextProps.min ~= self.props.min)
+		or (nextProps.max ~= self.props.max)
+		or (nextProps.currentValue ~= self.props.currentValue)
 	then
 		local seconds = getSeconds(nextProps.currentValue)
 		local minutes = getMinutes(nextProps.currentValue)
@@ -306,7 +309,7 @@ function TimeTextBox:render()
 			TextSize = Constants.FONT_SIZE_MEDIUM,
 			TextTransparency = showSecLabel and 0 or 1,
 			TextXAlignment = Enum.TextXAlignment.Center,
-		})
+		}),
 	})
 end
 

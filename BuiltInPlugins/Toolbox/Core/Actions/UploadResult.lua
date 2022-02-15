@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(uploadSucceeded)
 	return {
-		uploadSucceeded = uploadSucceeded
+		uploadSucceeded = uploadSucceeded,
 	}
 end)

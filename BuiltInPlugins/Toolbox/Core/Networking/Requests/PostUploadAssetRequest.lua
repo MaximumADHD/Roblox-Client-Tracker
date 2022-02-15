@@ -71,7 +71,6 @@ return function(publishInfo)
 			end
 		end
 
-
 		local function onSerializeFail(result)
 			if DebugFlags.shouldDebugWarnings() then
 				warn("Lua toolbox: SerializeInstances failed")
@@ -95,24 +94,29 @@ return function(publishInfo)
 		end
 
 		if FFlagStudioSerializeInstancesOffUIThread then
-			return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(function(fileDataString)
-				local isPublicOverride = publishInfo.copyOn
-				if publishInfo.assetType == Enum.AssetType.Plugin.Name then
-					isPublicOverride = true
-				end
+			return SerializeInstances(publishInfo.instances, services.StudioAssetService):andThen(
+				function(fileDataString)
+					local isPublicOverride = publishInfo.copyOn
+					if publishInfo.assetType == Enum.AssetType.Plugin.Name then
+						isPublicOverride = true
+					end
 
-				return publishInfo.networkInterface:postUploadAsset(
-					publishInfo.assetId,
-					publishInfo.assetType,
-					publishInfo.name,
-					publishInfo.description,
-					publishInfo.genreTypeID,
-					isPublicOverride,
-					publishInfo.commentOn,
-					publishInfo.groupId,
-					fileDataString
-				):andThen(onSuccess, onFail)
-			end, onSerializeFail)
+					return publishInfo.networkInterface
+						:postUploadAsset(
+							publishInfo.assetId,
+							publishInfo.assetType,
+							publishInfo.name,
+							publishInfo.description,
+							publishInfo.genreTypeID,
+							isPublicOverride,
+							publishInfo.commentOn,
+							publishInfo.groupId,
+							fileDataString
+						)
+						:andThen(onSuccess, onFail)
+				end,
+				onSerializeFail
+			)
 		else
 			local fileDataString = SerializeInstances_Deprecated(publishInfo.instances)
 
@@ -121,17 +125,19 @@ return function(publishInfo)
 				ispublicOverride = true
 			end
 
-			return publishInfo.networkInterface:postUploadAsset(
-				publishInfo.assetId,
-				publishInfo.assetType,
-				publishInfo.name,
-				publishInfo.description,
-				publishInfo.genreTypeID,
-				ispublicOverride,
-				publishInfo.commentOn,
-				publishInfo.groupId,
-				fileDataString
-			):andThen(onSuccess, onFail)
+			return publishInfo.networkInterface
+				:postUploadAsset(
+					publishInfo.assetId,
+					publishInfo.assetType,
+					publishInfo.name,
+					publishInfo.description,
+					publishInfo.genreTypeID,
+					ispublicOverride,
+					publishInfo.commentOn,
+					publishInfo.groupId,
+					fileDataString
+				)
+				:andThen(onSuccess, onFail)
 		end
 	end
 end

@@ -35,7 +35,7 @@ if not FFlagDevFrameworkUseCreateContext then
 	function AssetAnalyticsContextItem:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
-		}, {root})
+		}, { root })
 	end
 end
 

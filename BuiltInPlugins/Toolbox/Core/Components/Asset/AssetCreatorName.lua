@@ -21,7 +21,6 @@ end
 local Roact = require(Libs.Roact)
 local RoactRodux = require(Libs.RoactRodux)
 
-
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local ContextGetter = require(Util.ContextGetter)
@@ -50,7 +49,7 @@ function AssetCreatorName:init(props)
 	local networkInterface = getNetwork(self)
 
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.textButtonRef = Roact.createRef()
@@ -58,7 +57,7 @@ function AssetCreatorName:init(props)
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 
 		getModal(self).onTooltipTriggered(props.assetId, Constants.TOOLTIP_TYPE.CREATOR_NAME)
@@ -66,7 +65,7 @@ function AssetCreatorName:init(props)
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 
@@ -101,7 +100,8 @@ end
 
 function AssetCreatorName:renderContent(theme, localization, localizedContent, modalTarget, modalStatus)
 	local props = self.props
-	local showVerifiedCreatorBadge = props.isVerifiedCreator and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
+	local showVerifiedCreatorBadge = props.isVerifiedCreator
+		and not ToolboxUtilities.getShouldHideVerifiedCreatorBadges()
 	theme = props.Stylizer
 
 	local creatorNameField
@@ -126,7 +126,7 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-		Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT)
+		Size = UDim2.new(1, 0, 0, Constants.ASSET_CREATOR_NAME_HEIGHT),
 	}, {
 		Text = Roact.createElement("TextButton", {
 			BackgroundTransparency = 1,
@@ -159,23 +159,20 @@ function AssetCreatorName:renderContent(theme, localization, localizedContent, m
 				Position = UDim2.new(0.5, 0, 1, 1),
 				Size = UDim2.new(0, self.underLineWidth, 0, 1),
 				BorderSizePixel = 0,
-			})
+			}),
 		}),
 
 		VerifiedCreatorBadge = showVerifiedCreatorBadge and Roact.createElement(VerifiedCreatorBadge, {
 			small = true,
 			Position = UDim2.new(0, 0, 0, 1),
-		})
+		}),
 	})
 end
-
 
 AssetCreatorName = withContext({
 	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,
 })(AssetCreatorName)
-
-
 
 local mapStateToProps = function(state, props)
 	state = state or {}

@@ -9,7 +9,6 @@
 		function OnClose = A callback for when the dialog is closed.
 ]]
 
-
 local Plugin = script.Parent.Parent.Parent.Parent
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
@@ -41,65 +40,63 @@ function PurchaseDialog:render()
 end
 
 function PurchaseDialog:renderContent(theme, localization, localizedContent)
-		local props = self.props
-		local onButtonClicked = props.OnButtonClicked
-		local onClose = props.OnClose
-		local name = props.Name
+	local props = self.props
+	local onButtonClicked = props.OnButtonClicked
+	local onClose = props.OnClose
+	local name = props.Name
 
-		theme = self.props.Stylizer
+	theme = self.props.Stylizer
 
-		return Roact.createElement(StyledDialog, {
+	return Roact.createElement(StyledDialog, {
+		AutomaticSize = Enum.AutomaticSize.Y,
+		Title = localizedContent.PurchaseFlow.BuyTitle,
+		MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.DETAILS_SIZE.Y.Offset),
+		Buttons = {
+			{ Key = false, Text = localizedContent.PurchaseFlow.Cancel },
+			{ Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "RoundPrimary" },
+		},
+		OnButtonPressed = onButtonClicked,
+		OnClose = onClose,
+	}, {
+		UIListLayout = Roact.createElement("UIListLayout", {
+			FillDirection = Enum.FillDirection.Vertical,
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
+
+		Header = Roact.createElement("TextLabel", {
 			AutomaticSize = Enum.AutomaticSize.Y,
-			Title = localizedContent.PurchaseFlow.BuyTitle,
-			MinContentSize = Vector2.new(Dialog.PROMPT_SIZE.X.Offset, Dialog.DETAILS_SIZE.Y.Offset),
-			Buttons = {
-				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-				{Key = true, Text = localizedContent.PurchaseFlow.Retry, Style = "RoundPrimary"},
-			},
-			OnButtonPressed = onButtonClicked,
-			OnClose = onClose,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}),
+			Size = Dialog.HEADER_SIZE,
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
 
-			Header = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = Dialog.HEADER_SIZE,
-				BackgroundTransparency = 1,
-				LayoutOrder = 1,
+			Text = localizedContent.PurchaseFlow.FailedHeader,
+			TextSize = Constants.FONT_SIZE_TITLE,
+			Font = Constants.FONT_BOLD,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextColor3 = theme.purchaseDialog.promptText,
+		}),
 
-				Text = localizedContent.PurchaseFlow.FailedHeader,
-				TextSize = Constants.FONT_SIZE_TITLE,
-				Font = Constants.FONT_BOLD,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextYAlignment = Enum.TextYAlignment.Top,
-				TextColor3 = theme.purchaseDialog.promptText,
-			}),
+		Details = Roact.createElement("TextLabel", {
+			AutomaticSize = Enum.AutomaticSize.Y,
+			Size = Dialog.DETAILS_SIZE,
+			Position = Dialog.DETAILS_POSITION,
+			AnchorPoint = Vector2.new(0, 0.5),
+			BackgroundTransparency = 1,
+			LayoutOrder = 2,
 
-			Details = Roact.createElement("TextLabel", {
-				AutomaticSize = Enum.AutomaticSize.Y,
-				Size = Dialog.DETAILS_SIZE,
-				Position = Dialog.DETAILS_POSITION,
-				AnchorPoint = Vector2.new(0, 0.5),
-				BackgroundTransparency = 1,
-				LayoutOrder = 2,
-
-				Text = localization:getPurchaseFailedDetails(name),
-				TextSize = Constants.FONT_SIZE_LARGE,
-				Font = Constants.FONT,
-				TextXAlignment = Enum.TextXAlignment.Left,
-				TextColor3 = theme.purchaseDialog.promptText,
-				TextWrapped = true,
-			}),
-		})
+			Text = localization:getPurchaseFailedDetails(name),
+			TextSize = Constants.FONT_SIZE_LARGE,
+			Font = Constants.FONT,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextColor3 = theme.purchaseDialog.promptText,
+			TextWrapped = true,
+		}),
+	})
 end
-
 
 PurchaseDialog = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(PurchaseDialog)
-
 
 return PurchaseDialog

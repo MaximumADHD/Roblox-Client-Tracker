@@ -4,10 +4,7 @@ return function()
 	local FrameworkTypes = require(script.Parent.FrameworkTypes)
 	local Symbol = require(Framework.Util.Symbol)
 	local Signal = require(Framework.Util.Signal)
-	local Flags = require(Framework.Util.Flags)
-	local FlagsList = Flags.new({
-		FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-	})
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	it("should typecheck Components", function()
 		expect(FrameworkTypes.Component({})).to.equal(false)
@@ -21,7 +18,7 @@ return function()
 	end)
 
 	it("should typecheck ContextItems", function()
-		if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
+		if FFlagRefactorDevFrameworkContextItems2 then
 			expect(FrameworkTypes.ContextItem(5)).to.equal(false)
 			expect(FrameworkTypes.ContextItem({})).to.equal(false)
 			expect(FrameworkTypes.ContextItem({
@@ -77,7 +74,7 @@ return function()
 	end)
 
 	it("should typecheck Focuses", function()
-		if FlagsList:get("FFlagRefactorDevFrameworkContextItems2") then
+		if FFlagRefactorDevFrameworkContextItems2 then
 			expect(FrameworkTypes.Focus(5)).to.equal(false)
 			expect(FrameworkTypes.Focus({
 				get = function()

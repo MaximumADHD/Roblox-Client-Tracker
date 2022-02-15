@@ -38,7 +38,9 @@ function PageInfoHelper.getCategoryForPageInfo(pageInfo)
 end
 
 function PageInfoHelper.getSortType(sorts, index)
-	if not (sorts and index) then return nil end
+	if not (sorts and index) then
+		return nil
+	end
 	local sort = sorts[index]
 
 	if not sort or not sort.sort then
@@ -109,9 +111,7 @@ function PageInfoHelper.getRequestInfo(pageInfo)
 	local sortType = PageInfoHelper.getSortTypeForPageInfo(pageInfo) or ""
 
 	local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
-	local groupId = categoryIsGroup
-		and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-		or 0
+	local groupId = categoryIsGroup and PageInfoHelper.getGroupIdForPageInfo(pageInfo) or 0
 
 	local creatorId = pageInfo.creator and pageInfo.creator.Id or ""
 	local creatorType = pageInfo.creator and pageInfo.creator.Type or 1

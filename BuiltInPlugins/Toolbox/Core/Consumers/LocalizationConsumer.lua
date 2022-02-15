@@ -20,7 +20,7 @@ function LocalizationConsumer:init()
 
 	self.localization = localization
 	self.state = {
-		localizedContent = self.localization:getLocalizedContent()
+		localizedContent = self.localization:getLocalizedContent(),
 	}
 end
 
@@ -31,7 +31,7 @@ end
 function LocalizationConsumer:didMount()
 	self.disconnectLocalizationListener = self.localization:subscribe(function(localizedContent)
 		self:setState({
-			localizedContent = localizedContent
+			localizedContent = localizedContent,
 		})
 	end)
 end

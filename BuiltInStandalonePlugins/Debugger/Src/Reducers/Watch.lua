@@ -199,23 +199,15 @@ return Rodux.createReducer(productionStartStore, {
 			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] == nil) and
 			(state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil or 
 				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] == nil))
-		
-		if state.stateTokenToRoots[action.debuggerStateToken] == nil then
-			state.stateTokenToRoots[action.debuggerStateToken] = {}
-		end
-		
-		if state.stateTokenToFlattenedTree[action.debuggerStateToken] == nil then
-			state.stateTokenToFlattenedTree[action.debuggerStateToken] = {}
-		end
 
 		return Cryo.Dictionary.join(state, {
 			stateTokenToRoots = Cryo.Dictionary.join(state.stateTokenToRoots, {
-				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToRoots[action.debuggerStateToken], {
+				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToRoots[action.debuggerStateToken] or {}, {
 					[action.threadId] = {}
 				})
 			}),
 			stateTokenToFlattenedTree = Cryo.Dictionary.join(state.stateTokenToFlattenedTree, {
-				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToFlattenedTree[action.debuggerStateToken], {
+				[action.debuggerStateToken] =  Cryo.Dictionary.join(state.stateTokenToFlattenedTree[action.debuggerStateToken] or {}, {
 					[action.threadId] = {}
 				})
 			}),
@@ -225,7 +217,7 @@ return Rodux.createReducer(productionStartStore, {
 	[Resumed.name] = function(state : WatchStore, action : Resumed.Props)
 		assert((state.stateTokenToRoots[action.debuggerStateToken] ~= nil and
 			state.stateTokenToRoots[action.debuggerStateToken][action.threadId] ~= nil) and
-			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil or 
+			(state.stateTokenToFlattenedTree[action.debuggerStateToken] ~= nil and
 				state.stateTokenToFlattenedTree[action.debuggerStateToken][action.threadId] ~= nil))
 		
 		local newStateTokenRootsForDST = deepCopy(state.stateTokenToRoots[action.debuggerStateToken])
@@ -254,8 +246,8 @@ return Rodux.createReducer(productionStartStore, {
 		end
 		assert(hasTheStateToken or hasNoStateTokens)
 		return Cryo.Dictionary.join(state, {
-			stateTokenToRoots = Cryo.List.removeValue(state.stateTokenToRoots, action.debuggerStateToken),
-			stateTokenToFlattenedTree = Cryo.List.removeValue(state.stateTokenToFlattenedTree, action.debuggerStateToken)
+			stateTokenToRoots = Cryo.Dictionary.join(state.stateTokenToRoots, {[action.debuggerStateToken] = Cryo.None}),
+			stateTokenToFlattenedTree = Cryo.Dictionary.join(state.stateTokenToFlattenedTree, {[action.debuggerStateToken] = Cryo.None})
 		})
 	end,
 

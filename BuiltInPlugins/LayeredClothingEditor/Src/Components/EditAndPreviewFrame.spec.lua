@@ -11,6 +11,8 @@ return function()
 		return Roact.createElement(EditAndPreviewFrame, {
 			GoToNext = function() end,
 			GoToPrevious = function() end,
+			InBounds = false,
+			PromptText = "HelloWorld",
 		})
 	end
 

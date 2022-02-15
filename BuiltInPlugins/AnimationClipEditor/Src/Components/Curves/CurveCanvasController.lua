@@ -162,6 +162,8 @@ function CurveCanvasController:render()
 					StartTick = startTick,
 					EndTick = endTick,
 					Tracks = tracks,
+					VerticalScroll = props.VerticalScroll,
+					VerticalZoom = props.VerticalZoom,
 					SelectedKeyframes = props.SelectedKeyframes,
 					SelectedEvents = props.SelectedEvents,
 					IsChannelAnimation = isChannelAnimation,

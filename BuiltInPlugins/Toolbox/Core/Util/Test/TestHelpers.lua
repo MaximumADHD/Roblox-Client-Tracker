@@ -5,9 +5,9 @@ function TestHelpers.createMockStudioStyleGuideColor()
 	setmetatable(mock, {
 		__index = function()
 			return Color3.new(math.random(), math.random(), math.random())
-		end
+		end,
 	})
-    return mock
+	return mock
 end
 
 function TestHelpers.createMockStudioStyleGuideModifier()
@@ -15,9 +15,9 @@ function TestHelpers.createMockStudioStyleGuideModifier()
 	setmetatable(mock, {
 		__index = function()
 			return nil
-		end
+		end,
 	})
-    return mock
+	return mock
 end
 
 return TestHelpers

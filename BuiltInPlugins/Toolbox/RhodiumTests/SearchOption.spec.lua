@@ -16,7 +16,9 @@ return function()
 	local Element = Rhodium.Element
 	local TestHelpers = require(script.Parent.Util.TestHelpers)
 
-	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+	local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
+		"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
+	)
 
 	local MOCK_THUMBNAIL_URL = "rbxasset://textures/StudioToolbox/Tabs/Recent.png"
 	local FAVORITES_RADIO_BUTTON_TEXT = "TEST_Studio.Toolbox.General.SortByFavorites"
@@ -48,13 +50,25 @@ return function()
 	local CreatorSearchBarTextBoxPath = CreatorPath .. ".SearchBar.SearchBar.Background.Border.TextContainer.TextBox"
 	local DeleteButton = CreatorPath .. ".SearchBar.SearchBar.Background.Border.Buttons.ClearButton"
 
-	local TestCases = {"Favorites", "Updated", "Ratings", "MostTaken"}
-	local ButtonPaths = {FavoritesRadioButtonPath, UpdatedRadioButtonPath, 
-									RatingsRadioButtonPath, MostTakenRadioButtonPath}
-	local TextPaths = {FavoritesRadioButtonTextPath, UpdatedRadioButtonTextPath,
-									RatingsRadioButtonTextPath, MostTakenRadioButtonTextPath}
-	local RadioButtonText = {FAVORITES_RADIO_BUTTON_TEXT, UPDATED_RADIO_BUTTON_TEXT,
-									RATINGS_RADIO_BUTTON_TEXT, MOST_TAKEN_RADIO_BUTTON_TEXT}
+	local TestCases = { "Favorites", "Updated", "Ratings", "MostTaken" }
+	local ButtonPaths = {
+		FavoritesRadioButtonPath,
+		UpdatedRadioButtonPath,
+		RatingsRadioButtonPath,
+		MostTakenRadioButtonPath,
+	}
+	local TextPaths = {
+		FavoritesRadioButtonTextPath,
+		UpdatedRadioButtonTextPath,
+		RatingsRadioButtonTextPath,
+		MostTakenRadioButtonTextPath,
+	}
+	local RadioButtonText = {
+		FAVORITES_RADIO_BUTTON_TEXT,
+		UPDATED_RADIO_BUTTON_TEXT,
+		RATINGS_RADIO_BUTTON_TEXT,
+		MOST_TAKEN_RADIO_BUTTON_TEXT,
+	}
 
 	-- TODO STM-862 Toolbox Rhodium test SearchOptions should work with Roact 1.4
 	local itSkipForDeduplicatedPackages = FFlagToolboxDeduplicatePackages and itSKIP or it
@@ -125,12 +139,12 @@ return function()
 
 		it("Sort by Relevance should be default and working", function()
 			-- TODO: Update tests when remove the flag
-			if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then				
+			if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 				RelevanceRadioButtonPath = RadioButtonPath .. ".Relevance.RadioImage"
 				RelevanceRadioButtonTextPath = RadioButtonPath .. ".Relevance.TextLabel"
 				UpdatedRadioButtonPath = RadioButtonPath .. ".Updated.RadioImage"
 
-				--TODO: enable the test after STM-821 gets fix	
+				--TODO: enable the test after STM-821 gets fix
 				return
 			end
 
@@ -187,14 +201,22 @@ return function()
 			MostTakenRadioButtonPath = RadioButtonPath .. ".MostTaken.RadioImage"
 			RatingsRadioButtonPath = RadioButtonPath .. ".Ratings.RadioImage"
 			UpdatedRadioButtonPath = RadioButtonPath .. ".Updated.RadioImage"
-			ButtonPaths = {FavoritesRadioButtonPath, UpdatedRadioButtonPath, 
-									RatingsRadioButtonPath, MostTakenRadioButtonPath}
+			ButtonPaths = {
+				FavoritesRadioButtonPath,
+				UpdatedRadioButtonPath,
+				RatingsRadioButtonPath,
+				MostTakenRadioButtonPath,
+			}
 			FavoritesRadioButtonTextPath = RadioButtonPath .. ".Favorites.TextLabel"
 			MostTakenRadioButtonTextPath = RadioButtonPath .. ".MostTaken.TextLabel"
 			RatingsRadioButtonTextPath = RadioButtonPath .. ".Ratings.TextLabel"
 			UpdatedRadioButtonTextPath = RadioButtonPath .. ".Updated.TextLabel"
-			TextPaths = {FavoritesRadioButtonTextPath, UpdatedRadioButtonTextPath,
-									RatingsRadioButtonTextPath, MostTakenRadioButtonTextPath}
+			TextPaths = {
+				FavoritesRadioButtonTextPath,
+				UpdatedRadioButtonTextPath,
+				RatingsRadioButtonTextPath,
+				MostTakenRadioButtonTextPath,
+			}
 		end
 
 		for i = 1, #TestCases do
@@ -243,7 +265,9 @@ return function()
 
 			local creatorSearchBarTextBoxInstance = Element.new(CreatorSearchBarTextBoxPath)
 			expect(creatorSearchBarTextBoxInstance:getRbxInstance()).to.be.ok()
-			expect(creatorSearchBarTextBoxInstance:getRbxInstance().PlaceholderText).to.equal(CREATOR_SEARCH_TEXTBOX_PLACEHOLDER_TEXT)
+			expect(creatorSearchBarTextBoxInstance:getRbxInstance().PlaceholderText).to.equal(
+				CREATOR_SEARCH_TEXTBOX_PLACEHOLDER_TEXT
+			)
 			expect(creatorSearchBarTextBoxInstance:getRbxInstance().Text).to.equal("")
 		end)
 
@@ -254,11 +278,11 @@ return function()
 			expect(deleteButtonInstance:getRbxInstance()).never.to.be.ok()
 
 			TestHelpers.typeInstanceWithXPath(CreatorSearchBarTextBoxPath, TEST_CREATOR_NAME)
-			
+
 			deleteButtonInstance = Element.new(DeleteButton)
 			expect(deleteButtonInstance:getRbxInstance()).to.be.ok()
 		end)
-		
+
 		itSkipForDeduplicatedPackages("Type in Creator search bar textbox should work", function()
 			TestHelpers.clickInstanceWithXPath(SearchOptionButtonPath)
 
@@ -273,11 +297,11 @@ return function()
 			local mainViewSearchTag
 			--TODO: Update tests when remove the flag FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton
 			if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-				mainViewSearchTag = game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.
-												ScrollingFrame.Header.SearchTags.Tags
+				mainViewSearchTag =
+					game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.Header.SearchTags.Tags
 			else
-				mainViewSearchTag = game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.
-												ScrollingFrame.ScrollingFrame.Header.SearchTags.Tags
+				mainViewSearchTag =
+					game.CoreGui.ScreenGui.ToolboxComponent.Toolbox.MainView.ScrollingFrame.ScrollingFrame.Header.SearchTags.Tags
 			end
 
 			local searchTag = mainViewSearchTag:GetChildren()[2].Border.NameLabel

@@ -4,8 +4,8 @@ local isCli = require(script.Parent.isCli)
 
 return function()
 	if isCli() then
-        return ""
+		return ""
 	else
 		return StudioService:getStartupAssetId()
 	end
-end 
+end

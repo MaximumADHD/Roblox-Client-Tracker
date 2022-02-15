@@ -11,7 +11,7 @@ return function()
 	local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 	local GetOverrideAssetRequest = require(Plugin.Core.Networking.Requests.GetOverrideAssetRequest)
 	local AssetConfigReducer = require(Plugin.Core.Reducers.AssetConfigReducer)
-	
+
 	it("should fetch multiple pages even if there is a page with no results but a valid cursor", function()
 		local assetTypeEnum = Enum.AssetType.Model.Value
 		local creatorType = Enum.CreatorType.User.Value
@@ -21,7 +21,7 @@ return function()
 		local stubCalled
 
 		local store = Rodux.Store.new(AssetConfigReducer, nil, {
-		 	Rodux.thunkMiddleware
+			Rodux.thunkMiddleware,
 		})
 
 		-- Page 1
@@ -39,11 +39,11 @@ return function()
 							data = {
 								{
 									assetId = 1,
-									Name = "One"
-								}
+									Name = "One",
+								},
 							},
-							nextPageCursor = "page2"
-						}
+							nextPageCursor = "page2",
+						},
 					})
 				end,
 			}
@@ -67,8 +67,8 @@ return function()
 					fulfil({
 						responseBody = {
 							data = {},
-							nextPageCursor = "page3"
-						}
+							nextPageCursor = "page3",
+						},
 					})
 				end,
 			}
@@ -94,10 +94,10 @@ return function()
 							data = {
 								{
 									assetId = 2,
-									Name = "Two"
-								}
-							}
-						}
+									Name = "Two",
+								},
+							},
+						},
 					})
 				end,
 			}

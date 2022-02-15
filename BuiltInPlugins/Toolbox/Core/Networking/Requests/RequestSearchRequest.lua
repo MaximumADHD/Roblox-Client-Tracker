@@ -12,8 +12,8 @@ return function(networkInterface, settings, searchTerm, categoryName)
 
 		local oldPageInfo = store:getState().pageInfo
 
-		local sortIndex = Sort.canSort(searchTerm, categoryName or oldPageInfo.categoryName)
-			and oldPageInfo.sortIndex or 1
+		local sortIndex = Sort.canSort(searchTerm, categoryName or oldPageInfo.categoryName) and oldPageInfo.sortIndex
+			or 1
 
 		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
 			searchTerm = searchTerm,

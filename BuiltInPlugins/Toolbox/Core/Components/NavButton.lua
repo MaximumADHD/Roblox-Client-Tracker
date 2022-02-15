@@ -97,7 +97,7 @@ function NavButton:render()
 			BackgroundTransparency = 1,
 			TextColor3 = colors.textColor,
 			Size = UDim2.new(1, 0, 1, 0),
-		})
+		}),
 	})
 end
 

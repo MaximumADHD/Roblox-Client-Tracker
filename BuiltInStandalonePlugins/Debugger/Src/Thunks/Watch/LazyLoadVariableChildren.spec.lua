@@ -24,23 +24,23 @@ return function()
 		local state = store:getState()
 		local currentMockConnection = MockDebuggerConnection.new(1)
 		local dst = state.Common.debuggerConnectionIdToDST[1]
-		local stepStateBundle = StepStateBundle.ctor(dst,2,1)
+		local stepStateBundle = StepStateBundle.ctor(dst,1,1)
 
 		store:dispatch(LazyLoadVariable("2", stepStateBundle, false, currentMockConnection))
 		state = store:getState()
 
 		expect(state.Watch.stateTokenToFlattenedTree).to.be.ok()
-		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1]).to.be.ok()
-		
+		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1]).to.be.ok()
+
 		-- child data is loaded from DebuggerVariable mock data in MockDebuggerConnection
-		expect(#state.Watch.stateTokenToFlattenedTree[dst][2][1].Variables["2"].childPaths).to.be.equal(1)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Variables["2"].childPaths[1]).to.be.equal("2_4")
-		expect(#state.Watch.stateTokenToFlattenedTree[dst][2][1].Variables["2_4"].childPaths).to.be.equal(0)
+		expect(#state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].childPaths).to.be.equal(2)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2"].childPaths[2]).to.be.equal("2_4")
+		expect(#state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2_4"].childPaths).to.be.equal(0)
 		
 		store:dispatch(LazyLoadVariableChildren("2", stepStateBundle, false, currentMockConnection))
 		state = store:getState()
 		
-		expect(#state.Watch.stateTokenToFlattenedTree[dst][2][1].Variables["2_4"].childPaths).to.be.equal(1)
-		expect(state.Watch.stateTokenToFlattenedTree[dst][2][1].Variables["2_4"].childPaths[1]).to.be.equal("2_4_5")
+		expect(#state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2_4"].childPaths).to.be.equal(1)
+		expect(state.Watch.stateTokenToFlattenedTree[dst][1][1].Variables["2_4"].childPaths[1]).to.be.equal("2_4_5")
 	end)
 end

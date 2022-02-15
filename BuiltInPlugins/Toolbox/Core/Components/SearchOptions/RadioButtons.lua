@@ -31,7 +31,9 @@ local Images = require(Plugin.Core.Util.Images)
 
 local RadioButtons = Roact.PureComponent:extend("RadioButtons")
 
-local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag("ToolboxUseDevFrameworkLoadingBarAndRadioButton")
+local FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton = game:GetFastFlag(
+	"ToolboxUseDevFrameworkLoadingBarAndRadioButton"
+)
 if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
 	return {}
 end
@@ -60,7 +62,7 @@ function RadioButtons:createButton(key, text, index, selected, theme)
 	return Roact.createElement("Frame", {
 		LayoutOrder = self:nextLayout(),
 		BackgroundTransparency = 1,
-		Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT)
+		Size = UDim2.new(1, 0, 0, ENTRY_HEIGHT),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Horizontal,
@@ -124,8 +126,13 @@ function RadioButtons:render()
 
 		local children = {}
 		for index, button in ipairs(buttons) do
-			children[button.Key] = self:createButton(button.Key, button.Text, index,
-				selected == button.Key, buttonTheme)
+			children[button.Key] = self:createButton(
+				button.Key,
+				button.Text,
+				index,
+				selected == button.Key,
+				buttonTheme
+			)
 		end
 
 		return Roact.createElement(FitToContent, {

@@ -25,9 +25,13 @@ function ImageWithDefault:_loadAndSetImage()
 	local image = self.props.Image
 	local defaultImage = self.props.defaultImage
 
-	if not image or image == ""
-		or not self.imageRef or not self.imageRef.current
-		or self.imageRef.current.Image == image then
+	if
+		not image
+		or image == ""
+		or not self.imageRef
+		or not self.imageRef.current
+		or self.imageRef.current.Image == image
+	then
 		return
 	end
 
@@ -38,7 +42,7 @@ function ImageWithDefault:_loadAndSetImage()
 
 		spawn(function()
 			decal.Texture = image
-			ContentProvider:PreloadAsync({decal})
+			ContentProvider:PreloadAsync({ decal })
 
 			loadedImages[image] = true
 			if self.imageRef and self.imageRef.current and self.props.Image == image then
@@ -53,8 +57,7 @@ function ImageWithDefault:didMount()
 end
 
 function ImageWithDefault:didUpdate(prevProps)
-	if self.props.Image ~= prevProps.Image
-		or self.props.defaultImage ~= prevProps.defaultImage then
+	if self.props.Image ~= prevProps.Image or self.props.defaultImage ~= prevProps.defaultImage then
 		self:_loadAndSetImage()
 	end
 end

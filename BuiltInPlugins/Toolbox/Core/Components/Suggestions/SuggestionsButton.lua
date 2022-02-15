@@ -42,7 +42,7 @@ function SuggestionsButton:init(props)
 	end
 
 	self.onInputChanged = function(rbx, input)
-		if (input.UserInputType == Enum.UserInputType.MouseMovement) then
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
 			self:setState({
 				isHovered = true,
 			})
@@ -91,7 +91,7 @@ function SuggestionsButton:render()
 			Position = UDim2.new(0, 0, 0.5, (Constants.SUGGESTIONS_FONT_SIZE / 2) - 1),
 			Size = UDim2.new(1, 0, 0, 1),
 			BackgroundColor3 = suggestionsTheme.underlineColor,
-		})
+		}),
 	})
 end
 

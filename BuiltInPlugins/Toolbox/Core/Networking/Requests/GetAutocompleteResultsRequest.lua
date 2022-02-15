@@ -11,28 +11,23 @@ return function(networkInterface, categoryName, searchTerm, numberOfItems)
 		if searchTerm == "" then
 			store:dispatch(SetAutocompleteResults({}))
 		else
-			local getRequest = networkInterface:getAutocompleteResults(
-				categoryName, searchTerm, numberOfItems
-			)
+			local getRequest = networkInterface:getAutocompleteResults(categoryName, searchTerm, numberOfItems)
 
-			return getRequest:andThen(
-				function(result)
-					local data = result.responseBody
-					if data and data.Data and searchTerm == data.Args.Prefix then
-						local parsedData = {}
-						for key,value in pairs(data.Data) do
-							table.insert(parsedData, data["Data"][key]["Query"])
-						end
-						store:dispatch(SetAutocompleteResults(parsedData))
+			return getRequest:andThen(function(result)
+				local data = result.responseBody
+				if data and data.Data and searchTerm == data.Args.Prefix then
+					local parsedData = {}
+					for key, value in pairs(data.Data) do
+						table.insert(parsedData, data["Data"][key]["Query"])
 					end
-				end,
-				function(err)
-					if DebugFlags.shouldDebugWarnings() then
-						warn("Toolbox: Could not fetch autocomplete results")
-					end
-					store:dispatch(NetworkError(err))
+					store:dispatch(SetAutocompleteResults(parsedData))
 				end
-			)
+			end, function(err)
+				if DebugFlags.shouldDebugWarnings() then
+					warn("Toolbox: Could not fetch autocomplete results")
+				end
+				store:dispatch(NetworkError(err))
+			end)
 		end
 	end
 end

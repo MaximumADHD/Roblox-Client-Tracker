@@ -29,19 +29,19 @@ local Packages = require(Reducers.Packages)
 -- TODO CLIDEVSRVS-1595: Error handling/promise rejections
 
 local ToolboxReducer = Rodux.combineReducers({
-		assets = Assets,
-		autocompleteResults = AutocompleteResults,
-		networkErrors = NetworkErrors,
-		pageInfo = PageInfo,
-		sound = Sound,
-		voting = VotingReducer,
-		liveSearch = LiveSearch,
-		favorite = Favorite,
-		roles = RolesReducer,
-		itemTags = ItemTagsReducer,
-		purchase = Purchase,
-		packages = Packages,
-	})
+	assets = Assets,
+	autocompleteResults = AutocompleteResults,
+	networkErrors = NetworkErrors,
+	pageInfo = PageInfo,
+	sound = Sound,
+	voting = VotingReducer,
+	liveSearch = LiveSearch,
+	favorite = Favorite,
+	roles = RolesReducer,
+	itemTags = ItemTagsReducer,
+	purchase = Purchase,
+	packages = Packages,
+})
 
 return function(state, action)
 	if DebugFlags.shouldDebugState() then

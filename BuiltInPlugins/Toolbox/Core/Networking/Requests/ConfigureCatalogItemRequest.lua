@@ -14,12 +14,23 @@ local function createConfigDataTable(nameWithoutExtension, description)
 		name = nameWithoutExtension,
 		description = description,
 		genres = {
-			"all"
-		}
+			"all",
+		},
 	}
 end
 
-return function(networkInterface, assetId, nameWithoutExtension, description, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags)
+return function(
+	networkInterface,
+	assetId,
+	nameWithoutExtension,
+	description,
+	fromStatus,
+	toStatus,
+	fromPrice,
+	toPrice,
+	fromItemTags,
+	toTags
+)
 	return function(store)
 		-- this thunk should never be called if names and descriptions exceed their maximum lengths, so we don't need to trim the strings here (just precautionary)
 		nameWithoutExtension = string.sub(nameWithoutExtension, 1, AssetConfigConstants.NAME_CHARACTER_LIMIT)
@@ -28,16 +39,29 @@ return function(networkInterface, assetId, nameWithoutExtension, description, fr
 		store:dispatch(SetCurrentScreen(AssetConfigConstants.SCREENS.UPLOADING_ASSET))
 
 		local handlerFunc = function(response)
-			store:dispatch(ConfigureSalesRequest(networkInterface, assetId, fromStatus, toStatus, fromPrice, toPrice, fromItemTags, toTags))
+			store:dispatch(
+				ConfigureSalesRequest(
+					networkInterface,
+					assetId,
+					fromStatus,
+					toStatus,
+					fromPrice,
+					toPrice,
+					fromItemTags,
+					toTags
+				)
+			)
 		end
 
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: Could not configure catalog item"))
+				warn("Lua toolbox: Could not configure catalog item")
 			end
 			store:dispatch(NetworkError({ responseBody = response }))
 			store:dispatch(UploadResult(false))
 		end
-		networkInterface:configureCatalogItem(assetId, createConfigDataTable(nameWithoutExtension, description)):andThen(handlerFunc, errorFunc)
+		networkInterface
+			:configureCatalogItem(assetId, createConfigDataTable(nameWithoutExtension, description))
+			:andThen(handlerFunc, errorFunc)
 	end
 end

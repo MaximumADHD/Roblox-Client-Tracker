@@ -14,6 +14,8 @@
 	https://apis.roblox.com/toolbox-service/v1/items/details
 ]]
 
+local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
+
 local HttpService = game:GetService("HttpService")
 
 local Framework = script.Parent.Parent.Parent.Parent.Parent
@@ -24,6 +26,10 @@ local t = require(Framework.Util.Typecheck.t)
 return function(networkingImpl, baseUrl)
 
 	return function(itemsToRequest)
+		if FFlagToolboxGetItemsDetailsUsesSingleApi then
+			error("ToolboxService network APIs were removed from DevFramework under FFlagToolboxGetItemsDetailsUsesSingleApi")
+		end
+
 		assert(t.strictInterface({
 			items = t.array(t.strictInterface({
 				id = t.integer,

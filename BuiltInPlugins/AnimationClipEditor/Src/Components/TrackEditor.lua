@@ -31,10 +31,13 @@ local Input = require(Plugin.Src.Util.Input)
 local DopeSheetController = require(Plugin.Src.Components.DopeSheetController)
 local CurveCanvasController = require(Plugin.Src.Components.Curves.CurveCanvasController)
 local TimelineContainer = require(Plugin.Src.Components.TimelineContainer)
+local ZoomBar_deprecated = require(Plugin.Src.Components.ZoomBar_deprecated)
 local ZoomBar = require(Plugin.Src.Components.ZoomBar)
 local Scrubber = require(Plugin.Src.Components.Timeline.Scrubber)
 
 local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
+local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
+local SetVerticalScrollZoom = require(Plugin.Src.Actions.SetVerticalScrollZoom)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SnapToNearestKeyframe = require(Plugin.Src.Thunks.SnapToNearestKeyframe)
 local SnapToNearestFrame = require(Plugin.Src.Thunks.SnapToNearestFrame)
@@ -57,8 +60,8 @@ function TrackEditor:init()
 
 	self.inputChanged = function(rbx, input)
 		local props = self.props
-		local zoom = props.Zoom
-		local scroll = props.Scroll
+		local zoom = GetFFlagCurveEditor() and props.HorizontalZoom or props.Zoom
+		local scroll = GetFFlagCurveEditor() and props.HorizontalScroll or props.Scroll
 		local trackWidth = self.state.AbsoluteSize.X
 		local trackLeft = self.state.AbsolutePosition.X
 
@@ -69,9 +72,17 @@ function TrackEditor:init()
 
 			if self.ctrlHeld then
 				if input.Position.Z > 0 then
-					props.SetScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
+					if GetFFlagCurveEditor() then
+						props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
+					else
+						props.SetScrollZoom(newScroll, math.clamp(zoom + Constants.ZOOM_INCREMENT, 0, 1))
+					end
 				elseif input.Position.Z < 0 then
-					props.SetScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
+					if GetFFlagCurveEditor() then
+						props.SetHorizontalScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
+					else
+						props.SetScrollZoom(newScroll, math.clamp(zoom - Constants.ZOOM_INCREMENT, 0, 1))
+					end
 				end
 			else
 				props.OnScroll(input.Position.Z)
@@ -80,7 +91,11 @@ function TrackEditor:init()
 			local xDelta = (-input.Delta.X) / trackWidth
 			local newScroll = xDelta * (1 / math.max(0.01, zoom))
 			newScroll = math.clamp(scroll + newScroll, 0, 1)
-			props.SetScrollZoom(newScroll, zoom)
+			if GetFFlagCurveEditor() then
+				props.SetHorizontalScrollZoom(newScroll, zoom)
+			else
+				props.SetScrollZoom(newScroll, zoom)
+			end
 		end
 	end
 
@@ -143,15 +158,18 @@ end
 function TrackEditor:render()
 	local props = self.props
 	local state = self.state
-
 	local startTick = props.StartTick
 	local endTick = props.EndTick
 	local lastTick = props.LastTick
 	local snapMode = props.SnapMode
 	local frameRate = props.FrameRate
 	local showAsSeconds = props.ShowAsSeconds
-	local scroll = props.Scroll
-	local zoom = props.Zoom
+	local scroll = props.Scroll  -- Deprecated with GetFFlagCurveEditor()
+	local zoom = props.Zoom  -- Deprecated with GetFFlagCurveEditor()
+	local horizontalScroll = props.HorizontalScroll
+	local horizontalZoom = props.HorizontalZoom
+	local verticalScroll = props.VerticalScroll
+	local verticalZoom = props.VerticalZoom
 	local layoutOrder = props.LayoutOrder
 	local zIndex = props.ZIndex
 	local size = props.Size
@@ -231,11 +249,13 @@ function TrackEditor:render()
 			TrackPadding = trackPadding,
 			Tracks = tracks,
 			Size = UDim2.new(1, 0, 1, -Constants.TIMELINE_HEIGHT - Constants.SCROLL_BAR_SIZE),
+			VerticalScroll = verticalScroll,
+			VerticalZoom = verticalZoom,
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,
 		}) or nil,
 
-		ZoomBar = Roact.createElement(ZoomBar, {
+		ZoomBar = not GetFFlagCurveEditor() and Roact.createElement(ZoomBar_deprecated, {
 			Size = UDim2.new(0, absoluteSize.X - Constants.SCROLL_BAR_PADDING, 0, Constants.SCROLL_BAR_SIZE),
 			ZIndex = 4,
 			LayoutOrder = 2,
@@ -265,6 +285,33 @@ function TrackEditor:render()
 				Thickness = 1,
 			}),
 
+			HorizontalZoomBar = GetFFlagCurveEditor() and Roact.createElement(ZoomBar, {
+				Size = UDim2.new(0, absoluteSize.X - Constants.SCROLL_BAR_PADDING + 1, 0, Constants.SCROLL_BAR_SIZE),
+				Position = UDim2.new(0, 0, 1, -Constants.SCROLL_BAR_SIZE),
+				Direction = ZoomBar.HORIZONTAL,
+				ZIndex = 4,
+				LayoutOrder = 2,
+				ContainerSize = Vector2.new(absoluteSize.X, absoluteSize.Y),
+				AdjustScrollZoom = props.SetHorizontalScrollZoom,
+				Scroll = horizontalScroll,
+				Zoom = horizontalZoom,
+				Min = absolutePosition.X + 1,
+			}) or nil,
+
+			VerticalZoomBar = GetFFlagCurveEditor() and showCurveCanvas and Roact.createElement(ZoomBar, {
+				Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE,
+					0, absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.SCROLL_BAR_PADDING - Constants.TIMELINE_HEIGHT + 1),
+				Position = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
+				Direction = ZoomBar.VERTICAL,
+				ZIndex = 4,
+				LayoutOrder = 2,
+				ContainerSize = Vector2.new(absoluteSize.X, absoluteSize.Y - Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT),
+				AdjustScrollZoom = props.SetVerticalScrollZoom,
+				Scroll = verticalScroll,
+				Zoom = verticalZoom,
+				Min = absolutePosition.Y + Constants.TIMELINE_HEIGHT + 1,
+			}) or nil,
+
 			KeyboardListener = Roact.createElement(KeyboardListener, {
 				OnKeyPressed = function(input)
 					if Input.isControl(input.KeyCode) then
@@ -281,7 +328,7 @@ function TrackEditor:render()
 	})
 end
 
-local function mapStateToProps(state, props)
+local function mapStateToProps(state)
 	return {
 		IsPlaying = state.Status.IsPlaying,
 		PlayState = state.Status.PlayState,
@@ -293,8 +340,17 @@ end
 
 local function mapDispatchToProps(dispatch)
 	return {
+		-- Deprecated with GetFFlagCurveEditor
 		SetScrollZoom = function(scroll, zoom)
 			dispatch(SetScrollZoom(scroll, zoom))
+		end,
+
+		SetHorizontalScrollZoom = function(scroll, zoom)
+			dispatch(SetHorizontalScrollZoom(scroll, zoom))
+		end,
+
+		SetVerticalScrollZoom = function(scroll, zoom)
+			dispatch(SetVerticalScrollZoom(scroll, zoom))
 		end,
 
 		StepAnimation = function(tick)

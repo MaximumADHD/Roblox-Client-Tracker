@@ -98,8 +98,8 @@ return function(networkInterface, settings, options)
 						updateSearchResultsHandler,
 						function(err)
 							-- We should still handle the error if searchUser fails.
-						end)
-
+						end
+					)
 				elseif type(options.Creator == "table") then
 					-- assume we've gotten the creator details from the dropdown already
 					local details = {
@@ -109,13 +109,10 @@ return function(networkInterface, settings, options)
 					}
 					updateSearchResultsHandler(details)
 				end
-				
 			else
-				searchUsers(networkInterface, options.Creator, store):andThen(
-					updateSearchResultsHandler,
-					function(err)
-						-- We should still handle the error if searchUser fails.
-					end)
+				searchUsers(networkInterface, options.Creator, store):andThen(updateSearchResultsHandler, function(err)
+					-- We should still handle the error if searchUser fails.
+				end)
 			end
 		else
 			local creator = Cryo.None

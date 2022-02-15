@@ -28,8 +28,12 @@ local AssetManagerService
 -- AssetManagerService is not available in roblox-cli. So we create a mock of the asset manager service functionality here.
 if isCli() then
 	AssetManagerService = {}
-	function AssetManagerService:GetMeshIdFromAssetId() return 1 end
-	function AssetManagerService:GetTextureIdFromAssetId() return 1 end
+	function AssetManagerService:GetMeshIdFromAssetId()
+		return 1
+	end
+	function AssetManagerService:GetTextureIdFromAssetId()
+		return 1
+	end
 else
 	AssetManagerService = game:GetService("AssetManagerService")
 end
@@ -55,7 +59,18 @@ local function getImageIdFromDecalId(decalId)
 end
 
 -- typeof(assetTypeId) == number
-function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, editAssetFunc, isPackageAsset, currentCategory, trackingAttributes, creatorId)
+function ContextMenuHelper.tryCreateContextMenu(
+	plugin,
+	assetId,
+	assetTypeId,
+	showEditOption,
+	localizedContent,
+	editAssetFunc,
+	isPackageAsset,
+	currentCategory,
+	trackingAttributes,
+	creatorId
+)
 	local instanceGuid = HttpService:GenerateGUID()
 	local menuName = string.format("ToolboxAssetMenu-%s", instanceGuid)
 
@@ -64,29 +79,33 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 	local localize = localizedContent
 
 	-- add an action to view an asset in browser
-	menu:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered:connect(function()
-		local baseUrl = ContentProvider.BaseUrl
-		local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
-		if trackingAttributes then
-			targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
-		end
-		GuiService:OpenBrowserWindow(targetUrl)
-	end)
-
-	if not showEditOption and (not FFlagToolboxHideReportFlagForCreator or creatorId ~= 1) then
-		-- User should only be able to report assets they can't edit
-		menu:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered:connect(function()
-			Analytics.reportAssetClicked(assetId, assetTypeId)
-
+	menu
+		:AddNewAction(string.format("OpenInBrowser-%s", instanceGuid), localize.RightClickMenu.ViewInBrowser).Triggered
+		:connect(function()
 			local baseUrl = ContentProvider.BaseUrl
-			local targetUrl
-			if FFlagToolboxRedirectToLibraryAbuseReport then
-				targetUrl = getReportUrl(assetId, assetTypeId)
-			else
-				targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+			local targetUrl = string.format("%slibrary/%s/asset", baseUrl, HttpService:urlEncode(assetId))
+			if trackingAttributes then
+				targetUrl = targetUrl .. "?" .. Url.makeQueryString(trackingAttributes)
 			end
 			GuiService:OpenBrowserWindow(targetUrl)
 		end)
+
+	if not showEditOption and (not FFlagToolboxHideReportFlagForCreator or creatorId ~= 1) then
+		-- User should only be able to report assets they can't edit
+		menu
+			:AddNewAction(string.format("Report-%s", instanceGuid), localize.RightClickMenu.Report).Triggered
+			:connect(function()
+				Analytics.reportAssetClicked(assetId, assetTypeId)
+
+				local baseUrl = ContentProvider.BaseUrl
+				local targetUrl
+				if FFlagToolboxRedirectToLibraryAbuseReport then
+					targetUrl = getReportUrl(assetId, assetTypeId)
+				else
+					targetUrl = string.format("%s/abusereport/asset?id=%s", baseUrl, HttpService:urlEncode(assetId))
+				end
+				GuiService:OpenBrowserWindow(targetUrl)
+			end)
 	end
 
 	-- only add this action if we have access to copying to clipboard and we aren't looking at a plugin asset
@@ -96,43 +115,80 @@ function ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, sh
 			trueAssetId = getImageIdFromDecalId(assetId)
 		end
 
-		menu:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered:connect(function()
-			Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
-			StudioService:CopyToClipboard(trueAssetId)
-		end)
+		menu
+			:AddNewAction(string.format("CopyAssetIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyAssetID).Triggered
+			:connect(function()
+				Analytics.onContextMenuClicked("CopyAssetId", assetId, assetTypeId, currentCategory)
+				StudioService:CopyToClipboard(trueAssetId)
+			end)
 
 		if assetTypeId == Enum.AssetType.MeshPart.Value then
-			local meshIdSuccess, meshId = pcall(AssetManagerService.GetMeshIdFromAssetId, AssetManagerService, trueAssetId)
-			local textureIdSuccess, textureId = pcall(AssetManagerService.GetTextureIdFromAssetId, AssetManagerService, trueAssetId)
+			local meshIdSuccess, meshId = pcall(
+				AssetManagerService.GetMeshIdFromAssetId,
+				AssetManagerService,
+				trueAssetId
+			)
+			local textureIdSuccess, textureId = pcall(
+				AssetManagerService.GetTextureIdFromAssetId,
+				AssetManagerService,
+				trueAssetId
+			)
 
 			if meshIdSuccess then
-				menu:AddNewAction(string.format("CopyMeshIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyMeshID).Triggered:connect(function()
-					Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
-					StudioService:CopyToClipboard(meshId)
-				end)
+				menu
+					:AddNewAction(
+						string.format("CopyMeshIdToClipboard-%s", instanceGuid),
+						localize.RightClickMenu.CopyMeshID
+					).Triggered
+					:connect(function()
+						Analytics.onContextMenuClicked("CopyMeshId", assetId, assetTypeId, currentCategory)
+						StudioService:CopyToClipboard(meshId)
+					end)
 			else
 				warn("Failed to get mesh id for asset id " .. trueAssetId)
 			end
 
 			-- do not display warning for texture ids because meshes can be valid without a texture
 			if textureIdSuccess then
-				menu:AddNewAction(string.format("CopyTextureIdToClipboard-%s", instanceGuid), localize.RightClickMenu.CopyTextureID).Triggered:connect(function()
-					Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
-					StudioService:CopyToClipboard(textureId)
-				end)
+				menu
+					:AddNewAction(
+						string.format("CopyTextureIdToClipboard-%s", instanceGuid),
+						localize.RightClickMenu.CopyTextureID
+					).Triggered
+					:connect(function()
+						Analytics.onContextMenuClicked("CopyTextureId", assetId, assetTypeId, currentCategory)
+						StudioService:CopyToClipboard(textureId)
+					end)
 			end
 		end
 	end
 
 	if showEditOption and editAssetFunc then
 		if isPackageAsset then
-			menu:AddNewAction(string.format("PackageDetails-%s", instanceGuid), localize.PackagePermissions.RightClickMenu.PackageDetails).Triggered:connect(function()
-				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
-			end)
+			menu
+				:AddNewAction(
+					string.format("PackageDetails-%s", instanceGuid),
+					localize.PackagePermissions.RightClickMenu.PackageDetails
+				).Triggered
+				:connect(function()
+					editAssetFunc(
+						assetId,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						EnumConvert.convertAssetTypeValueToEnum(assetTypeId)
+					)
+				end)
 		else
-			menu:AddNewAction(string.format("EditAsset-%s", instanceGuid), localize.RightClickMenu.EditAsset).Triggered:connect(function()
-				editAssetFunc(assetId, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, EnumConvert.convertAssetTypeValueToEnum(assetTypeId))
-			end)
+			menu
+				:AddNewAction(string.format("EditAsset-%s", instanceGuid), localize.RightClickMenu.EditAsset).Triggered
+				:connect(function()
+					editAssetFunc(
+						assetId,
+						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
+						nil,
+						EnumConvert.convertAssetTypeValueToEnum(assetTypeId)
+					)
+				end)
 		end
 	end
 

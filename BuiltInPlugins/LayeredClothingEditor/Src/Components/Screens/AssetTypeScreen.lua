@@ -5,8 +5,10 @@
 	Required Props:
 		callback GoToNext: request to go to next screen in flow.
 		callback GoToPrevious: request to go to previous screen in flow.
-		callback SetAccessoryTypeInfo: action to set table info for accessory type, provided via mapDispatchToProps
 	Optional Props:
+		table AccessoryTypeInfo: asset and attachment names for accessory categories, provided via mapStateToProps.
+		callback SetAccessoryTypeInfo: action to set table info for accessory type, provided via mapDispatchToProps.
+		callback SetAttachmentPoint: action to set attachment point CFrame and origin, provided via mapDispatchToProps.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
@@ -40,6 +42,8 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local AssetTypeScreen = Roact.PureComponent:extend("AssetTypeScreen")
 
+local GetFFlagAFTChooseAssetTypeFirst = require(Plugin.Src.Flags.GetFFlagAFTChooseAssetTypeFirst)
+
 Typecheck.wrap(AssetTypeScreen, script)
 
 local function makeButtonList(localization, keys)
@@ -66,28 +70,64 @@ local function hasMultipleAttachments(assetTypeInfo)
 	return false
 end
 
-function AssetTypeScreen:initWithPreviousAssetTypeInfo()
-	local accessoryTypeInfo = self.props.AccessoryTypeInfo
-	if accessoryTypeInfo then
-		local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[accessoryTypeInfo.AssetType]
-		local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[accessoryTypeInfo.AssetType]
+if GetFFlagAFTChooseAssetTypeFirst() then
+	function AssetTypeScreen:initWithPreviousAssetTypeInfo(previousMultiAttachmentAsset)
+		local assetType
+		local accessoryTypeInfo = self.props.AccessoryTypeInfo
+		if previousMultiAttachmentAsset then
+			assetType = next(previousMultiAttachmentAsset)
+		elseif accessoryTypeInfo then
+			assetType = accessoryTypeInfo.AssetType
+		else
+			return
+		end
+
+		local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[assetType]
+		local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[assetType]
 		if assetTypeAccessoryTable then
 			if hasMultipleAttachments(assetTypeAccessoryTable) then
 				self.multiAttachmentAsset = {
-					[accessoryTypeInfo.AssetType] = assetTypeAccessoryTable
+					[assetType] = assetTypeAccessoryTable
 				}
 			end
-			self.initialSelectedAccessoryType = accessoryTypeInfo.AssetType
+			self.initialSelectedAccessoryType = assetType
 		elseif assetTypeClothingTable then
 			if hasMultipleAttachments(assetTypeClothingTable) then
 				self.multiAttachmentAsset = {
-					[accessoryTypeInfo.AssetType] = assetTypeClothingTable
+					[assetType] = assetTypeClothingTable
 				}
 			end
-			self.initialSelectedClothingType = accessoryTypeInfo.AssetType
+			self.initialSelectedClothingType = assetType
 		end
 
-		self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
+		if accessoryTypeInfo then
+			self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
+		end
+	end
+else
+	function AssetTypeScreen:initWithPreviousAssetTypeInfo()
+		local accessoryTypeInfo = self.props.AccessoryTypeInfo
+		if accessoryTypeInfo then
+			local assetTypeAccessoryTable = Constants.ASSET_TYPE_ATTACHMENT.Accessory[accessoryTypeInfo.AssetType]
+			local assetTypeClothingTable = Constants.ASSET_TYPE_ATTACHMENT.Clothing[accessoryTypeInfo.AssetType]
+			if assetTypeAccessoryTable then
+				if hasMultipleAttachments(assetTypeAccessoryTable) then
+					self.multiAttachmentAsset = {
+						[accessoryTypeInfo.AssetType] = assetTypeAccessoryTable
+					}
+				end
+				self.initialSelectedAccessoryType = accessoryTypeInfo.AssetType
+			elseif assetTypeClothingTable then
+				if hasMultipleAttachments(assetTypeClothingTable) then
+					self.multiAttachmentAsset = {
+						[accessoryTypeInfo.AssetType] = assetTypeClothingTable
+					}
+				end
+				self.initialSelectedClothingType = accessoryTypeInfo.AssetType
+			end
+
+			self.initialSelectedSubType = accessoryTypeInfo.AssetSubType
+		end
 	end
 end
 
@@ -107,6 +147,9 @@ function AssetTypeScreen:init()
 			self:setState({
 				multiAttachmentAsset = Cryo.Dictionary.join(self.multiAttachmentAsset),
 			})
+			if GetFFlagAFTChooseAssetTypeFirst() and self.props.AccessoryTypeInfo then
+				self.multiAttachmentAsset = nil
+			end
 		else
 			self.props.GoToNext()
 		end
@@ -114,6 +157,9 @@ function AssetTypeScreen:init()
 
 	self.onBack = function()
 		if self.state.multiAttachmentAsset then
+			if GetFFlagAFTChooseAssetTypeFirst() then
+				self:initWithPreviousAssetTypeInfo(self.state.multiAttachmentAsset)
+			end
 			self:setState({
 				multiAttachmentAsset = Roact.None,
 			})
@@ -265,9 +311,19 @@ end
 
 function AssetTypeScreen:render()
 	local props = self.props
+	local state = self.state
 
+	local accessoryTypeInfo = props.AccessoryTypeInfo
 	local localization = props.Localization
 	local renderContent = self:getContentToRender()
+
+	local nextButtonEnabled = true
+	if GetFFlagAFTChooseAssetTypeFirst() then
+		nextButtonEnabled =
+			accessoryTypeInfo ~= nil or
+			(self.multiAttachmentAsset ~= nil and state.multiAttachmentAsset == nil) or
+			(self.multiAttachmentAsset == nil and state.multiAttachmentAsset ~= nil)
+	end
 
 	return Roact.createElement(Pane, {
 		Size = UDim2.new(1, 0, 1, 0),
@@ -278,7 +334,7 @@ function AssetTypeScreen:render()
 			PromptText = localization:getText("AssetType", "Prompt"),
 			NextButtonText = localization:getText("Flow", "Next"),
 			BackButtonText = localization:getText("Flow", "Back"),
-			NextButtonEnabled = true,
+			NextButtonEnabled = nextButtonEnabled,
 			BackButtonEnabled = true,
 			Scrollable = true,
 			HasBackButton = true,

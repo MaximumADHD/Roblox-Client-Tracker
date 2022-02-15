@@ -53,8 +53,8 @@ local function Toast(props)
 			Text = text,
 			Font = Constants.FONT,
 			TextSize = Constants.FONT_SIZE_SMALL,
-			TextColor3 = Colors.GRAY_6
-		})
+			TextColor3 = Colors.GRAY_6,
+		}),
 	})
 end
 

@@ -28,9 +28,11 @@ function SoundPreviewComponent:init()
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.ref.current
-		if not soundObj then return end
+		if not soundObj then
+			return
+		end
 		if soundObj.IsLoaded ~= self.props.isLoaded then
-			self.props.setSoundLoaded((not soundObj.IsLoaded))
+			self.props.setSoundLoaded(not soundObj.IsLoaded)
 		end
 
 		if property == "TimeLength" and soundObj.TimeLength ~= self.props.totalTime then
@@ -44,7 +46,9 @@ function SoundPreviewComponent:init()
 		local currentSoundId = self.props.currentSoundId
 		local isPlaying = self.props.isPlaying
 
-		if not soundObj then return end
+		if not soundObj then
+			return
+		end
 
 		local lastSoundId = self.lastSoundId
 
@@ -75,7 +79,7 @@ function SoundPreviewComponent:didMount()
 		local soundObj = self.ref.current
 		local elapsedTime = self.props.elapsedTime
 
-		if (not soundObj or not soundObj.Playing) then
+		if not soundObj or not soundObj.Playing then
 			return
 		end
 		local newTime = elapsedTime + step

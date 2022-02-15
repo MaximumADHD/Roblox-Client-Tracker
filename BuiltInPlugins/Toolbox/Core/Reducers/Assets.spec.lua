@@ -30,7 +30,7 @@ return function()
 	end
 
 	local function generateFakeAssetsFromIds(ids)
-		local assets = { }
+		local assets = {}
 		for _, id in ipairs(ids) do
 			assets[#assets + 1] = {
 				Asset = {
@@ -60,7 +60,7 @@ return function()
 
 			-- Neither networkInterfaceMock:resolveAssets nor generateFakeAssetsFromIds are yielding,
 			-- so we do not need to await this Promise.
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), 5):andThen(function(results)
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({ 1, 2, 3 }), 5):andThen(function(results)
 				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
 
 				expect(tableLength(state.idToAssetMap)).to.equal(3)
@@ -91,10 +91,10 @@ return function()
 
 			local totalAssets = 100 -- Arbitrarily high value as its not being tested in this case
 
-			local firstAssets = generateFakeAssetsFromIds({1, 2, 3})
+			local firstAssets = generateFakeAssetsFromIds({ 1, 2, 3 })
 			local firstAssetsLength = tableLength(firstAssets)
 
-			local secondAssets = generateFakeAssetsFromIds({4, 5})
+			local secondAssets = generateFakeAssetsFromIds({ 4, 5 })
 			local secondAssetsLength = tableLength(secondAssets)
 
 			local totalLength = firstAssetsLength + secondAssetsLength
@@ -151,18 +151,22 @@ return function()
 
 			local totalResults = 5
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2, 3}), totalResults):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
-			end)
+			networkInterfaceMock
+				:resolveAssets(generateFakeAssetsFromIds({ 1, 2, 3 }), totalResults)
+				:andThen(function(results)
+					state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
+				end)
 
 			expect(tableLength(state.idsToRender)).to.equal(3)
 			expect(state.totalAssets).to.equal(totalResults)
 			expect(state.assetsReceived).to.equal(3)
 			expect(state.hasReachedBottom).to.equal(false)
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({4, 5}), totalResults):andThen(function(results)
-				state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
-			end)
+			networkInterfaceMock
+				:resolveAssets(generateFakeAssetsFromIds({ 4, 5 }), totalResults)
+				:andThen(function(results)
+					state = Assets(state, GetAssets(results.responseBody.Results, results.responseBody.TotalResults))
+				end)
 
 			state = Assets(state, GetAssets({}, totalResults))
 
@@ -197,7 +201,7 @@ return function()
 				},
 			}
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({1, 2})):andThen(function(results)
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({ 1, 2 })):andThen(function(results)
 				local assetsList = results.responseBody.Results
 
 				AssetAnalytics.addContextToAssetResults(assetsList, stubPageInfo)
@@ -213,7 +217,7 @@ return function()
 			expect(state.idToAssetMap[2].Context.position).to.equal(2)
 			expect(state.idToAssetMap[2].Context.pagePosition).to.equal(2)
 
-			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({3})):andThen(function(results)
+			networkInterfaceMock:resolveAssets(generateFakeAssetsFromIds({ 3 })):andThen(function(results)
 				local assetsList = results.responseBody.Results
 
 				stubPageInfo.targetPage = 2
@@ -231,16 +235,26 @@ return function()
 			local total = 6
 
 			local pages = {
-				{generateFakeAssetsFromIds({1, 2, 3}), total, 'page1Cursor'},
-				{generateFakeAssetsFromIds({}), total, 'page2Cursor'},
-				{generateFakeAssetsFromIds({4, 5, 6}), total, nil}
+				{ generateFakeAssetsFromIds({ 1, 2, 3 }), total, "page1Cursor" },
+				{ generateFakeAssetsFromIds({}), total, "page2Cursor" },
+				{ generateFakeAssetsFromIds({ 4, 5, 6 }), total, nil },
 			}
 
 			for i, params in ipairs(pages) do
-				networkInterfaceMock:resolveAssets(table.unpack(params)):andThen(function(results)
-					local responseBody = results.responseBody
-					state = Assets(state, GetAssets(responseBody.Results, responseBody.TotalResults, PagedRequestCursor.createCursor(responseBody)))
-				end):await()
+				networkInterfaceMock
+					:resolveAssets(table.unpack(params))
+					:andThen(function(results)
+						local responseBody = results.responseBody
+						state = Assets(
+							state,
+							GetAssets(
+								responseBody.Results,
+								responseBody.TotalResults,
+								PagedRequestCursor.createCursor(responseBody)
+							)
+						)
+					end)
+					:await()
 
 				expect(state.hasReachedBottom).to.equal(i == #pages)
 			end
@@ -249,14 +263,11 @@ return function()
 		end)
 	end)
 
-	describe("PostVote action", function()
-	end)
+	describe("PostVote action", function() end)
 
-	describe("PostUnvote action", function()
-	end)
+	describe("PostUnvote action", function() end)
 
-	describe("PostInsertAsset action", function()
-	end)
+	describe("PostInsertAsset action", function() end)
 
 	describe("SetLoading action", function()
 		it("should set loading", function()

@@ -12,8 +12,10 @@ local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRem
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagStudioTCSaveAsStaysOldSession3 = game:GetFastFlag("StudioTCSaveAsStaysOldSession3")
 local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
+local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
 
 local StudioService = game:GetService("StudioService")
+local StudioPublishService = game:GetService("StudioPublishService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -90,6 +92,10 @@ local function saveAll(state, localization, apiImpl, email)
 		else
 			StudioService:DEPRECATED_SetTurnOnTeamCreateOnPublish(state.teamCreateEnabled)
 		end
+	end
+
+	if FFlagStudioEnableUploadNames then
+		StudioPublishService:setUploadNames(configuration.name, configuration.name)
 	end
 
 	StudioService:publishAs(0, 0, state.creatorId)

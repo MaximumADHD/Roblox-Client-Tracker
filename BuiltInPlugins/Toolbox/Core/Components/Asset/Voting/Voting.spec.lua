@@ -14,7 +14,7 @@ return function()
 
 	local Voting = require(Plugin.Core.Components.Asset.Voting.Voting)
 
-	local votes = {{0, 0}, {50, 0}, {0, 50}, {80, 20}}
+	local votes = { { 0, 0 }, { 50, 0 }, { 0, 50 }, { 80, 20 } }
 
 	local function createTestVoting(upVotes, downVotes, container, name)
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -23,7 +23,7 @@ return function()
 					UpVotes = upVotes,
 					DownVotes = downVotes,
 					ShowVotes = true,
-				}
+				},
 			}),
 		})
 

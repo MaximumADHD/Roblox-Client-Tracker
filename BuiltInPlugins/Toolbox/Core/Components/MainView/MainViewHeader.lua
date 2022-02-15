@@ -74,7 +74,11 @@ function MainViewHeader:render()
 		local audioTime
 		local audioSearchInfo = props.audioSearchInfo
 		if audioSearchInfo and audioSearchInfo.maxDuration and audioSearchInfo.minDuration then
-			audioTime = (getTimeString(audioSearchInfo.minDuration, nil) .. " - " .. getTimeString(audioSearchInfo.maxDuration, nil))
+			audioTime = (
+					getTimeString(audioSearchInfo.minDuration, nil)
+					.. " - "
+					.. getTimeString(audioSearchInfo.maxDuration, nil)
+				)
 		end
 
 		local containerWidth = props.containerWidth or 0
@@ -125,13 +129,10 @@ function MainViewHeader:render()
 	end)
 end
 
-
 MainViewHeader = withContext({
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })(MainViewHeader)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}

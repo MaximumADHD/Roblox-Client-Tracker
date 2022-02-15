@@ -101,8 +101,7 @@ function CurveCanvas:renderXAxis()
 	local minValue, maxValue = self.minValue, self.maxValue
 
 	if minValue and maxValue and minValue < 0 and maxValue > 0 then
-		local y = maxValue / (maxValue - minValue)
-		y = props.ParentSize.Y * 0.05 + y * props.ParentSize.Y * 0.9
+		local _, y = self:scale(0, 0)
 
 		table.insert(self.children, Roact.createElement("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
@@ -116,10 +115,18 @@ end
 -- Rescale x, y to absolute positions in pixels
 function CurveCanvas:scale(x, y)
 	local props = self.props
+
 	local minValue, maxValue = self.minValue, self.maxValue
+	local scroll, zoom = props.VerticalScroll, props.VerticalZoom
+	local zoomFactor = 1 / math.max(1 - zoom, 0.01)
 
 	x = (x - props.StartTick) * (props.ParentSize.X - props.Padding) / (props.EndTick - props.StartTick)
-	y = (props.ParentSize.Y * 0.05) + (maxValue - y) * props.ParentSize.Y * 0.9 / (maxValue - minValue)
+
+	y = (maxValue - y) / (maxValue - minValue)	-- Normalize between 0 and 1. maxValue maps to 0, minValue to 1
+	y = y - (scroll * zoom)						-- Apply normalized scroll
+	y = y * zoomFactor							-- Apply zoom factor
+
+	y = (props.ParentSize.Y * Constants.CURVE_CANVAS_PADDING) + y * props.ParentSize.Y * (1 - 2 * Constants.CURVE_CANVAS_PADDING)
 	return x, y
 end
 
@@ -243,9 +250,7 @@ function CurveCanvas:render()
 	local tracks = props.Tracks
 	local isChannelAnimation = props.IsChannelAnimation
 
-	-- Reset children
 	self.children = {}
-
 	self:renderXAxis()
 
 	for trackName, track in pairs(tracks) do

@@ -58,9 +58,9 @@ function ScriptConfirmationDialog:init(props)
 	end
 
 	self.onToggleShowAgain = function()
-		local newState = not self.state.checked 
+		local newState = not self.state.checked
 		self:setState({
-			checked = newState
+			checked = newState,
 		})
 		self.props.onChangeShowDialog(not newState)
 	end
@@ -95,7 +95,9 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local detailTextFontSize = Constants.FONT_SIZE_MEDIUM
 	local detailTextFont = Constants.FONT_BOLD
 
-	local instructionText = localizedContent.ScriptWarning.InstructionText .. " " .. localizedContent.ScriptWarning.InstructionText2
+	local instructionText = localizedContent.ScriptWarning.InstructionText
+		.. " "
+		.. localizedContent.ScriptWarning.InstructionText2
 
 	local instructionTextFontSize = Constants.FONT_SIZE_MEDIUM
 	local instructionTextFont = Constants.FONT
@@ -104,8 +106,8 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local dontShowAgainTextFontSize = Constants.FONT_SIZE_MEDIUM
 	local dontShowAgainTextFont = Constants.FONT
 
-    local okText = localizedContent.PurchaseFlow.OK
-    local titleText = localizedContent.ToolboxToolbarName
+	local okText = localizedContent.PurchaseFlow.OK
+	local titleText = localizedContent.ToolboxToolbarName
 
 	local buttonsHeight = 23
 	local buttonWidth = Constants.MESSAGE_BOX_BUTTON_WIDTH
@@ -116,8 +118,16 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 	local wrapTextWidth = 424
 
 	local detailTextOneLineSize = Constants.getTextSize(detailText, detailTextFontSize, detailTextFont)
-	local instructionOneLineTextSize = Constants.getTextSize(instructionText, instructionTextFontSize, instructionTextFont)
-	local dontShowAgainTextOneLineSize = Constants.getTextSize(dontShowAgainText, dontShowAgainTextFontSize, dontShowAgainTextFont)
+	local instructionOneLineTextSize = Constants.getTextSize(
+		instructionText,
+		instructionTextFontSize,
+		instructionTextFont
+	)
+	local dontShowAgainTextOneLineSize = Constants.getTextSize(
+		dontShowAgainText,
+		dontShowAgainTextFontSize,
+		dontShowAgainTextFont
+	)
 
 	local checkboxIconPadding = 16
 	-- Wrap all texts, get the bigger of the 3
@@ -142,19 +152,34 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local detailTextSize = Constants.getTextSize(detailText, detailTextFontSize, detailTextFont,
-		Vector2.new(maxTextWidth, 1000))
-	local instructionTextSize = Constants.getTextSize(instructionText, instructionTextFontSize, instructionTextFont,
-		Vector2.new(maxTextWidth, 1000))
-	local dontShowAgainTextSize = Constants.getTextSize(dontShowAgainText, dontShowAgainTextFontSize, dontShowAgainTextFont,
-		Vector2.new(maxTextWidth - checkboxIconPadding, 1000))
+	local detailTextSize = Constants.getTextSize(
+		detailText,
+		detailTextFontSize,
+		detailTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	local instructionTextSize = Constants.getTextSize(
+		instructionText,
+		instructionTextFontSize,
+		instructionTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
+	local dontShowAgainTextSize = Constants.getTextSize(
+		dontShowAgainText,
+		dontShowAgainTextFontSize,
+		dontShowAgainTextFont,
+		Vector2.new(maxTextWidth - checkboxIconPadding, 1000)
+	)
 
 	local textToInformativeTextPadding = 8
 	local detailTextHeight = detailTextSize.Y
 	local instructionTextHeight = instructionTextSize.Y
 	local dontShowAgainTextHeight = dontShowAgainTextSize.Y
 
-	local topHeight = math.max(iconSize, detailTextHeight + dontShowAgainTextHeight + instructionTextHeight + textToInformativeTextPadding)
+	local topHeight = math.max(
+		iconSize,
+		detailTextHeight + dontShowAgainTextHeight + instructionTextHeight + textToInformativeTextPadding
+	)
 
 	local topPadding = 8
 	local outerPadding = 12
@@ -284,9 +309,9 @@ function ScriptConfirmationDialog:renderContent(modalTarget, localization, local
 				OkButton = Roact.createElement(MessageBoxButton, {
 					Text = okText,
 					onButtonClicked = self.props.onClose,
-				})
-			})
-		})
+				}),
+			}),
+		}),
 	})
 end
 

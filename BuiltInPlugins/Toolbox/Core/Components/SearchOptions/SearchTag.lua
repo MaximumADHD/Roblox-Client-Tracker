@@ -55,12 +55,9 @@ function SearchTag:renderContent(theme, localizedContent)
 	local name = self.props.Name
 	local onDelete = self.props.onDelete
 	local textWidth = Constants.getTextSize(name).X
-	local byTextWidth = Constants.getTextSize((prefix), Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
+	local byTextWidth = Constants.getTextSize(prefix, Constants.FONT_SIZE_MEDIUM, Constants.FONT_BOLD).X
 
-	local frameWidth = byTextWidth
-		+ textWidth
-		+ DELETE_BUTTON_SIZE
-		+ TEXT_PADDING * 4
+	local frameWidth = byTextWidth + textWidth + DELETE_BUTTON_SIZE + TEXT_PADDING * 4
 
 	return Roact.createElement(RoundFrame, {
 		Size = UDim2.new(0, frameWidth, 0, ITEM_HEIGHT),
@@ -68,7 +65,7 @@ function SearchTag:renderContent(theme, localizedContent)
 		BorderColor3 = theme.searchTag.borderColor,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.5, 0),
-		LayoutOrder = self.props.LayoutOrder or 1
+		LayoutOrder = self.props.LayoutOrder or 1,
 	}, {
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingLeft = UDim.new(0, TEXT_PADDING),

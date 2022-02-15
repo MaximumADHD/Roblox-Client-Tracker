@@ -18,7 +18,7 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			PopUpWrapperButton = Roact.createElement(PopUpWrapperButton, {}, {
 				position = UDim2.new(1, 0, 1, 0),
-			})
+			}),
 		})
 
 		return Roact.mount(element, container or nil, name or "")

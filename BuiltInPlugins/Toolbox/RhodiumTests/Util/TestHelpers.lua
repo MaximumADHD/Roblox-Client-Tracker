@@ -56,18 +56,17 @@ function TestHelpers.createTestAsset(container, name, asset, mockProps)
 		mockProps = Cryo.Dictionary.join(mockProps, {
 			store = Rodux.Store.new(ToolboxReducer, {
 				assets = {
-					idToAssetMap = { [assetId] = myAsset, },
+					idToAssetMap = { [assetId] = myAsset },
 				},
-			}, {Rodux.thunkMiddleware})
+			}, { Rodux.thunkMiddleware }),
 		})
 	end
 
 	local element = Roact.createElement(MockWrapper, mockProps or {}, {
 		Asset = Roact.createElement(Asset, {
-			asset = (not FFlagToolboxAssetGridRefactor4) and myAsset or nil,
+			asset = not FFlagToolboxAssetGridRefactor4 and myAsset or nil,
 			assetId = FFlagToolboxAssetGridRefactor4 and assetId or nil,
 			LayoutOrder = 1,
-			isHovered = (not FFlagToolboxAssetGridRefactor4) and false or nil,
 			Selected = false,
 		}),
 	})
@@ -77,13 +76,16 @@ end
 
 function TestHelpers.createTestTab(container, name, asset, mockProps)
 	local element = Roact.createElement("ScreenGui", {
-		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,},{
-			Root = Roact.createElement("Frame", {
-				Size = UDim2.new(0.5, 0, 0.5, 0),Position = UDim2.new(0, 0, 0, 0),},{
-					Components = Roact.createElement(MockWrapper, mockProps or {}, {
-						Tab = Roact.createElement(TabTestWrapper, {}),
-			})
-		})
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+	}, {
+		Root = Roact.createElement("Frame", {
+			Size = UDim2.new(0.5, 0, 0.5, 0),
+			Position = UDim2.new(0, 0, 0, 0),
+		}, {
+			Components = Roact.createElement(MockWrapper, mockProps or {}, {
+				Tab = Roact.createElement(TabTestWrapper, {}),
+			}),
+		}),
 	})
 
 	return Roact.mount(element, container or nil, name or "")
@@ -92,12 +94,15 @@ end
 function TestHelpers.createTestToolbox(container, component, asset, mockProps)
 	container.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	local element = Roact.createElement("Frame", {
-		Size = UDim2.new(0.8, 0, 0.8, 0),Position = UDim2.new(0, 0, 0, 0),},{
-			Components = Roact.createElement(MockWrapper, mockProps or {
-				pluginGui = container}, {
-					Toolbox = Roact.createElement(ToolboxTestWrapper, {})
-				})
-		})
+		Size = UDim2.new(0.8, 0, 0.8, 0),
+		Position = UDim2.new(0, 0, 0, 0),
+	}, {
+		Components = Roact.createElement(MockWrapper, mockProps or {
+			pluginGui = container,
+		}, {
+			Toolbox = Roact.createElement(ToolboxTestWrapper, {}),
+		}),
+	})
 
 	return Roact.mount(element, container or nil, TOOLBOX_COMPONENT_NAME)
 end
@@ -117,8 +122,8 @@ function TestHelpers.createPreviewAsset(container, name, asset, mockProps)
 	local element = Roact.createElement(MockWrapper, {}, {
 		AssetPreviewWrapper = Roact.createElement(AssetPreviewWrapper, {
 			assetData = MockItems.getPreviewAsset("112312321312"),
-			previewFuncs = {}
-		})
+			previewFuncs = {},
+		}),
 	})
 
 	return Roact.mount(element, container or nil, name or "")

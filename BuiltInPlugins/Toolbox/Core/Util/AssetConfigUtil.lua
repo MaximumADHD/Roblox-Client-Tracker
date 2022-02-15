@@ -10,21 +10,22 @@ local FFlagUseDefaultThumbnailForAnimation = game:GetFastFlag("UseDefaultThumbna
 local StudioService = game:GetService("StudioService")
 
 local round = function(num, numDecimalPlaces)
-	local mult = 10^(numDecimalPlaces or 0)
+	local mult = 10 ^ (numDecimalPlaces or 0)
 	return math.floor(num * mult + 0.5) / mult
 end
 
 local AssetConfigUtil = {}
 
 function AssetConfigUtil.isReadyForSale(assetStatus)
-	return AssetConfigConstants.ASSET_STATUS.ReviewApproved == assetStatus or
-		AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus or
-		AssetConfigConstants.ASSET_STATUS.OffSale == assetStatus or
-		AssetConfigConstants.ASSET_STATUS.DelayedRelease == assetStatus
+	return AssetConfigConstants.ASSET_STATUS.ReviewApproved == assetStatus
+		or AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
+		or AssetConfigConstants.ASSET_STATUS.OffSale == assetStatus
+		or AssetConfigConstants.ASSET_STATUS.DelayedRelease == assetStatus
 end
 
 function AssetConfigUtil.isOnSale(assetStatus)
-		return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus or AssetConfigConstants.ASSET_STATUS.Free == assetStatus
+	return AssetConfigConstants.ASSET_STATUS.OnSale == assetStatus
+		or AssetConfigConstants.ASSET_STATUS.Free == assetStatus
 end
 
 function AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
@@ -40,7 +41,8 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 	price = round(price)
 
 	local convertToZeroToOne = 0.01
-	local scaler = convertToZeroToOne * AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
+	local scaler = convertToZeroToOne
+		* AssetConfigUtil.getMarketplaceFeesPercentage(allowedAssetTypesForRelease, assetTypeEnum)
 	local roundedPrice = round(price * scaler)
 	local marketPlaceFee = math.max(minPrice, roundedPrice)
 
@@ -48,7 +50,9 @@ function AssetConfigUtil.calculatePotentialEarning(allowedAssetTypesForRelease, 
 end
 
 function AssetConfigUtil.getPriceRange(allowedAssetTypesForRelease, assetTypeEnum)
-	local releaseDataForAssetType = allowedAssetTypesForRelease and assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name]
+	local releaseDataForAssetType = allowedAssetTypesForRelease
+		and assetTypeEnum
+		and allowedAssetTypesForRelease[assetTypeEnum.Name]
 	return releaseDataForAssetType and releaseDataForAssetType.allowedPriceRange or {}
 end
 
@@ -66,7 +70,8 @@ end
 function AssetConfigUtil.getPriceInfo(allowedAssetTypesForRelease, assetTypeEnum, clamp)
 	local minPrice, maxPrice, feeRate = 0, 0, 0
 	if assetTypeEnum and allowedAssetTypesForRelease[assetTypeEnum.Name] then
-		local assetInfo = (allowedAssetTypesForRelease and assetTypeEnum) and allowedAssetTypesForRelease[assetTypeEnum.Name]
+		local assetInfo = (allowedAssetTypesForRelease and assetTypeEnum)
+			and allowedAssetTypesForRelease[assetTypeEnum.Name]
 		local priceRange = assetInfo.allowedPriceRange
 		feeRate = tonumber(assetInfo.marketplaceFeesPercentage) or 0
 		-- This is V1 work around method for publishing free plugins.
@@ -101,7 +106,7 @@ function AssetConfigUtil.getImageFormatString()
 	for index, v in pairs(AssetConfigConstants.IMAGE_TYPES) do
 		resultString = resultString .. v
 		if AssetConfigConstants.IMAGE_TYPES[index + 1] then
-		    resultString = resultString .. ", "
+			resultString = resultString .. ", "
 		end
 	end
 	return resultString
@@ -125,7 +130,10 @@ end
 function AssetConfigUtil.getFlowStartScreen(flowType)
 	if flowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW then
 		return AssetConfigConstants.SCREENS.ASSET_TYPE_SELECTION
-	elseif flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW or flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW then
+	elseif
+		flowType == AssetConfigConstants.FLOW_TYPE.EDIT_FLOW
+		or flowType == AssetConfigConstants.FLOW_TYPE.DOWNLOAD_FLOW
+	then
 		return AssetConfigConstants.SCREENS.CONFIGURE_ASSET
 	end
 end
@@ -136,7 +144,7 @@ end
 
 function AssetConfigUtil.getGenreIndex(targetGnere)
 	local index = 1
-	for k,v in pairs(AssetConfigConstants.GENRE_TYPE) do
+	for k, v in pairs(AssetConfigConstants.GENRE_TYPE) do
 		if targetGnere == v.name then
 			index = k
 			break
@@ -154,7 +162,7 @@ end
 
 function AssetConfigUtil.getOwnerDropDownContent(manageableGroups, localizedContent)
 	local result = {
-		{name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId()}
+		{ name = localizedContent.AssetConfig.PublishAsset.Me, creatorType = "User", creatorId = getUserId() },
 	}
 
 	for _, group in ipairs(manageableGroups) do
@@ -184,7 +192,8 @@ function AssetConfigUtil.getClonedInstances(instances)
 end
 
 function AssetConfigUtil.getPreviewType(assetTypeEnum, instances)
-	local previewType = instances and AssetConfigConstants.PreviewTypes.ModelPreview or AssetConfigConstants.PreviewTypes.Thumbnail
+	local previewType = instances and AssetConfigConstants.PreviewTypes.ModelPreview
+		or AssetConfigConstants.PreviewTypes.Thumbnail
 	-- And then we show price according to the sales status and if user is whitelisted.
 	if assetTypeEnum and AssetConfigUtil.isBuyableMarketplaceAsset(assetTypeEnum) then
 		previewType = AssetConfigConstants.PreviewTypes.ImagePicker

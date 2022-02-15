@@ -371,8 +371,9 @@ local Constants = {
 		CurveCanvas = "CurveCanvas",
 	},
 
-	CURVE_RESOLUTION = 25,  -- When rendering a curve, this is the max number of pixels one segment can be before being split
-	CURVE_REFINEMENT = 5,   -- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
+	CURVE_RESOLUTION = 25,       -- When rendering a curve, this is the max number of pixels one segment can be before being split
+	CURVE_REFINEMENT = 5,        -- When a curve reaches the RESOLUTION size, it is subdivided in REFINEMENT segments.
+	CURVE_CANVAS_PADDING = 0.10  -- Percentage kept blank above max/below min value in the curve canvas when completely zoomed out.
 }
 
 Constants.MAIN_MINIMUM_SIZE = Vector2.new(Constants.TRACK_LIST_MIN_WIDTH + Constants.TIMELINE_MIN_WIDTH, 200)

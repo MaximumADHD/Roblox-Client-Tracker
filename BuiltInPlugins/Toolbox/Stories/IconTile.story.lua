@@ -33,7 +33,9 @@ return {
 					BackgroundColor = Color3.new(50, 168, 82),
 					Image = "rbxassetid://6002241241",
 					Key = "Click",
-					OnClick = function(key) print(key) end,
+					OnClick = function(key)
+						print(key)
+					end,
 					Size = UDim2.new(0, 75, 0, 90),
 					Title = "Click me",
 				}),
@@ -63,5 +65,5 @@ return {
 				}),
 			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization", true),
 		},
-	}
+	},
 }

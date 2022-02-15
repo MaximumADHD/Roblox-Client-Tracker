@@ -12,6 +12,7 @@
 ]]
 local FIntToolboxAutocompleteDropdownSize = game:GetFastInt("ToolboxAutocompleteDropdownSize")
 local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
+local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisableAutocompleteWithGuac")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -27,6 +28,8 @@ local RoactRodux = require(Libs.RoactRodux)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
 local Category = require(Plugin.Core.Types.Category)
+
+local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
 
 local getNetwork = ContextGetter.getNetwork
 
@@ -100,7 +103,7 @@ function SearchBarWithAutocomplete:init()
 		self.keyCount = 0
 		self.deleteCount = 0
 
-		self:setState({displayedSearchTerm = item})
+		self:setState({ displayedSearchTerm = item })
 	end
 
 	self.onSearchRequested = function(searchTerm)
@@ -118,7 +121,7 @@ function SearchBarWithAutocomplete:init()
 		self.keyCount = 0
 		self.deleteCount = 0
 
-		self:setState({showAutocompleteResults = false})
+		self:setState({ showAutocompleteResults = false })
 	end
 
 	self.closeAutocomplete = function()
@@ -129,6 +132,11 @@ function SearchBarWithAutocomplete:init()
 end
 
 function SearchBarWithAutocomplete:didMount()
+	if FFlagToolboxDisableAutocompleteWithGuac and ToolboxUtilities.getShouldDisableAutocomplete() then
+		-- Do not watch the search bar or fetch autocomplete results if the policy disables autocomplete
+		return
+	end
+
 	local networkInterface = getNetwork(self)
 	self.runServiceConnection = RunService.RenderStepped:Connect(function(step)
 		local displayedSearchTerm = self.state.displayedSearchTerm
@@ -141,18 +149,28 @@ function SearchBarWithAutocomplete:didMount()
 			end
 			if self.autocompleteTimer > AUTOCOMPLETE_WAIT_TIME and displayedSearchTerm ~= "" then
 				local categoryName = Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName]
-				self.props.getAutocompleteResults(networkInterface, categoryName, displayedSearchTerm, FIntToolboxAutocompleteDropdownSize)
+				self.props.getAutocompleteResults(
+					networkInterface,
+					categoryName,
+					displayedSearchTerm,
+					FIntToolboxAutocompleteDropdownSize
+				)
 				self.autocompleteTimer = 0
-				self:setState({lastSearchTerm = displayedSearchTerm})
+				self:setState({ lastSearchTerm = displayedSearchTerm })
 			end
 		end
 
 		-- reset autocomplete items to empty when search is cleared
 		if displayedSearchTerm == "" and self.state.lastSearchTerm ~= "" then
 			local categoryName = Category.AUTOCOMPLETE_API_NAMES[self.props.categoryName]
-			self.props.getAutocompleteResults(networkInterface, categoryName, displayedSearchTerm, FIntToolboxAutocompleteDropdownSize)
+			self.props.getAutocompleteResults(
+				networkInterface,
+				categoryName,
+				displayedSearchTerm,
+				FIntToolboxAutocompleteDropdownSize
+			)
 			self.autocompleteTimer = 0
-			self:setState({lastSearchTerm = displayedSearchTerm})
+			self:setState({ lastSearchTerm = displayedSearchTerm })
 		end
 	end)
 end

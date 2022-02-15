@@ -10,7 +10,7 @@ local EnumConvert = require(Util.EnumConvert)
 return function(assetId, assetTypeId)
 	local baseUrl = ContentProvider.BaseUrl
 	local assetTypeEnum = EnumConvert.convertAssetTypeValueToEnum(assetTypeId)
-	local rawUrl;
+	local rawUrl
 	if AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES[assetTypeEnum] == true then
 		rawUrl = "%s/abusereport/library?id=%s&source=Studio"
 	else

@@ -12,10 +12,8 @@
 local Framework = script.Parent.Parent
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
-local FlagsList = Util.Flags.new({
-	FFlagStudioDevFrameworkPackage = {"StudioDevFrameworkPackage"},
-	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-})
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+local FFlagStudioDevFrameworkPackage = game:GetFastFlag("StudioDevFrameworkPackage")
 
 local noGetThemeError
 if THEME_REFACTOR then
@@ -62,7 +60,7 @@ function UILibraryProvider:render()
 	return Roact.createElement(UILibrary.Wrapper, {
 		theme = theme:getUILibraryTheme(),
 		plugin = plugin:get(),
-		focusGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and focus:get() or focus:getTarget(),
+		focusGui = FFlagRefactorDevFrameworkContextItems2 and focus:get() or focus:getTarget(),
 	}, {
 		Roact.oneChild(self.props[Roact.Children])
 	})
@@ -82,7 +80,7 @@ local UILibraryWrapper = ContextItem:extend("UILibraryWrapper")
 function UILibraryWrapper.new(uiLibraryProp)
 	local UILibrary
 
-	if not FlagsList:get("FFlagStudioDevFrameworkPackage") then
+	if not FFlagStudioDevFrameworkPackage then
 		UILibrary = UILibraryFromParent
 	else
 		UILibrary = uiLibraryProp or UILibraryFromParent

@@ -13,7 +13,6 @@ else
 	Promise = require(Plugin.Libs.Framework).Util.Promise
 end
 
-
 return function(networkInterface, assetId, fromItemTags, toTags)
 	return function(store)
 		local handlerFunc = function()
@@ -22,7 +21,7 @@ return function(networkInterface, assetId, fromItemTags, toTags)
 
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: Could not configure tags"))
+				warn("Lua toolbox: Could not configure tags")
 			end
 			store:dispatch(NetworkError("Could not configure tags"))
 			store:dispatch(UploadResult(false))

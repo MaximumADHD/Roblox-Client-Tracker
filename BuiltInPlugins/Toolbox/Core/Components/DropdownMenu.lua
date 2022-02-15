@@ -114,7 +114,11 @@ function DropdownMenu:init(props)
 			local dropDownWidth = currentSelectionSize.X or Constants.DROPDOWN_WIDTH
 			local dropDownTop = currentSelectionTopLeft.y + currentSelectionSize.y + offsetFromButton
 			local dropDownLeft = currentSelectionTopLeft.x
-			if self.state.dropDownWidth ~= dropDownWidth or self.state.dropDownTop ~= dropDownTop or self.state.dropDownLeft ~= dropDownLeft then
+			if
+				self.state.dropDownWidth ~= dropDownWidth
+				or self.state.dropDownTop ~= dropDownTop
+				or self.state.dropDownLeft ~= dropDownLeft
+			then
 				self:setState({
 					dropDownWidth = dropDownWidth,
 					dropDownTop = dropDownTop,
@@ -174,7 +178,10 @@ function DropdownMenu:render()
 		selectedDropDownIndex = 0
 	end
 
-	local isNoneSelectableItem = selectedDropDownIndex > 0 and selectedDropDownIndex <= #items and items[selectedDropDownIndex] and not isItemSelectable(items[selectedDropDownIndex])
+	local isNoneSelectableItem = selectedDropDownIndex > 0
+		and selectedDropDownIndex <= #items
+		and items[selectedDropDownIndex]
+		and not isItemSelectable(items[selectedDropDownIndex])
 	if isNoneSelectableItem then
 		selectedDropDownIndex = findFirstSelectableItemIndex(items)
 	end
@@ -189,7 +196,7 @@ function DropdownMenu:render()
 	local selectedBarWidth = Constants.DROPDOWN_SELECTED_BAR
 	local textInset = selectedBarWidth + Constants.DROPDOWN_TEXT_INSET
 	-- scale icon size based on font size relative to FONT_SIZE_MEDIUM
-	local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE * fontSize/Constants.FONT_SIZE_MEDIUM
+	local dropdownIconSize = Constants.DROPDOWN_ICON_SIZE * fontSize / Constants.FONT_SIZE_MEDIUM
 	local dropdownIconFromRight = Constants.DROPDOWN_ICON_FROM_RIGHT
 
 	local dropdownTheme = theme.dropdownMenu
@@ -216,7 +223,7 @@ function DropdownMenu:render()
 
 		[Roact.Ref] = self.baseFrameRef,
 
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
 	}, {
 		CurrentSelection = Roact.createElement(RoundButton, {
 			Size = buttonSize,
@@ -258,16 +265,41 @@ function DropdownMenu:render()
 				BackgroundTransparency = 1,
 			}),
 		}),
-		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor4 and isShowingDropdown and Roact.createElement(ShowOnTop, {
-			Priority = 2,
-		}, {
-			DropdownItemsList = Roact.createElement(DropdownItemsList, {
+		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor4
+			and isShowingDropdown
+			and Roact.createElement(ShowOnTop, {
+				Priority = 2,
+			}, {
+				DropdownItemsList = Roact.createElement(DropdownItemsList, {
+					key = key,
+					items = items,
+					visibleDropDownCount = visibleDropDownCount,
+					rowHeight = rowHeight,
+					fontSize = fontSize,
+					onItemClicked = self.onItemClicked,
+
+					closeDropdown = self.closeDropdown,
+					setDropdownHeight = setDropdownHeight,
+
+					dropDownWidth = state.dropDownWidth,
+					top = state.dropDownTop,
+					left = state.dropDownLeft,
+				}),
+			}),
+		DropdownItemsList = not FFlagToolboxAssetGridRefactor4 and isShowingDropdown and Roact.createElement(
+			DropdownItemsList,
+			{
 				key = key,
 				items = items,
 				visibleDropDownCount = visibleDropDownCount,
 				rowHeight = rowHeight,
 				fontSize = fontSize,
-				onItemClicked = self.onItemClicked,
+				onItemClicked = function(index, item)
+					if props.onItemClicked then
+						props.onItemClicked(index, item)
+					end
+					self.closeDropdown()
+				end,
 
 				closeDropdown = self.closeDropdown,
 				setDropdownHeight = setDropdownHeight,
@@ -275,28 +307,8 @@ function DropdownMenu:render()
 				dropDownWidth = state.dropDownWidth,
 				top = state.dropDownTop,
 				left = state.dropDownLeft,
-			}),
-		}),
-		DropdownItemsList = (not FFlagToolboxAssetGridRefactor4) and isShowingDropdown and Roact.createElement(DropdownItemsList, {
-			key = key,
-			items = items,
-			visibleDropDownCount = visibleDropDownCount,
-			rowHeight = rowHeight,
-			fontSize = fontSize,
-			onItemClicked = function(index, item)
-				if props.onItemClicked then
-					props.onItemClicked(index, item)
-				end
-				self.closeDropdown()
-			end,
-
-			closeDropdown = self.closeDropdown,
-			setDropdownHeight = setDropdownHeight,
-
-			dropDownWidth = state.dropDownWidth,
-			top = state.dropDownTop,
-			left = state.dropDownLeft,
-		}),
+			}
+		),
 	})
 end
 

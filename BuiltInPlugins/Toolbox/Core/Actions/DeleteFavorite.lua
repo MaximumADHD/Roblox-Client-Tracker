@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(assetId)
 	return {
-		assetId = assetId
+		assetId = assetId,
 	}
 end)

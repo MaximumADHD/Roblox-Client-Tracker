@@ -18,6 +18,7 @@ local HttpService = game:GetService("HttpService")
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
+local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -174,7 +175,6 @@ function AssetGridContainer:init(props)
 				self.props.pauseASound()
 
 				Analytics.onSoundPausedCounter()
-
 			else
 				self.props.resumeASound()
 
@@ -212,17 +212,21 @@ function AssetGridContainer:init(props)
 			isShowingToolMessageBox = true,
 		})
 	end
-	
+
 	self.onScriptWarningBoxClosed = function()
-		if not FFlagToolboxEnableScriptConfirmation then return end
+		if not FFlagToolboxEnableScriptConfirmation then
+			return
+		end
 		self:setState({
 			isShowingScriptWarningMessageBox = false,
 		})
 		self.insertToolPromise:dismissWarningPrompt()
 	end
-	
+
 	self.onInsertScriptWarningPrompt = function(info)
-		if not FFlagToolboxEnableScriptConfirmation then return end
+		if not FFlagToolboxEnableScriptConfirmation then
+			return
+		end
 		local settings = self.props.Settings:get("Plugin")
 		if settings:getShowScriptWarning() then
 			self:setState({
@@ -234,12 +238,12 @@ function AssetGridContainer:init(props)
 			return false
 		end
 	end
-	
+
 	self.onScriptWarningBoxToggleShow = function(showState)
 		local settings = self.props.Settings:get("Plugin")
 		settings:setShowScriptWarning(showState)
 	end
-	
+
 	self.onAssetGridContainerChanged = function()
 		if self.props.onAssetGridContainerChanged then
 			self.props.onAssetGridContainerChanged()
@@ -261,8 +265,10 @@ function AssetGridContainer:init(props)
 
 		local isPackageAsset = Category.categoryIsPackage(self.props.categoryName)
 		if isPackageAsset then
-			local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
-				self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+			local canEditPackage = (
+					self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+					or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+				)
 			showEditOption = canEditPackage
 		end
 
@@ -293,7 +299,18 @@ function AssetGridContainer:init(props)
 
 		local creatorId = FFlagToolboxHideReportFlagForCreator and (assetData.Creator and assetData.Creator.Id) or nil
 		local currentCategory = assetData.Context.currentCategory
-		ContextMenuHelper.tryCreateContextMenu(plugin, assetId, assetTypeId, showEditOption, localizedContent, props.tryOpenAssetConfig, isPackageAsset, currentCategory, trackingAttributes, creatorId)
+		ContextMenuHelper.tryCreateContextMenu(
+			plugin,
+			assetId,
+			assetTypeId,
+			showEditOption,
+			localizedContent,
+			props.tryOpenAssetConfig,
+			isPackageAsset,
+			currentCategory,
+			trackingAttributes,
+			creatorId
+		)
 	end
 
 	self.tryInsert = function(assetData, assetWasDragged, insertionMethod)
@@ -313,23 +330,20 @@ function AssetGridContainer:init(props)
 
 		local plugin = self.props.Plugin:get()
 		InsertAsset.tryInsert({
-				plugin = plugin,
-				assetId = assetId,
-				assetName = assetName,
-				assetTypeId = assetTypeId,
-				onSuccess = function(assetId, insertedInstance)
-					self.onAssetInsertionSuccesful(assetId)
-					insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
-					self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
-				end,
-				currentCategoryName = currentCategoryName,
-				categoryName = categoryName,
-				searchTerm = searchTerm,
-				assetIndex = assetIndex,
-			},
-			self.insertToolPromise,
-			assetWasDragged
-		)
+			plugin = plugin,
+			assetId = assetId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			onSuccess = function(assetId, insertedInstance)
+				self.onAssetInsertionSuccesful(assetId)
+				insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
+				self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
+			end,
+			currentCategoryName = currentCategoryName,
+			categoryName = categoryName,
+			searchTerm = searchTerm,
+			assetIndex = assetIndex,
+		}, self.insertToolPromise, assetWasDragged)
 	end
 end
 
@@ -343,17 +357,26 @@ function AssetGridContainer:didMount()
 			local localization = props.Localization
 			local api = props.API:get()
 
-			-- There is no API to get individual Toolbox item details in the same format as that which
-			-- we use for fetching the whole page of Toolbox assets, so we map the fields from this API
-			-- to the expected format from the whole-page batch API (IDE/Toolbox/Items)
-			api.ToolboxService.V1.Items.details({
-				items = {
+			local requestPromise
+			if FFlagToolboxGetItemsDetailsUsesSingleApi then
+				requestPromise = getNetwork(self):getItemDetails({
 					{
 						id = assetId,
 						itemType = "Asset",
-					}
-				}
-			}):makeRequest():andThen(function(response)
+					},
+				})
+			else
+				requestPromise = api.ToolboxService.V1.Items.details({
+					items = {
+						{
+							id = assetId,
+							itemType = "Asset",
+						},
+					},
+				}):makeRequest()
+			end
+
+			requestPromise:andThen(function(response)
 				local responseItem = response.responseBody.data[1]
 
 				if not responseItem then
@@ -373,13 +396,12 @@ function AssetGridContainer:didMount()
 						Description = responseItem.asset.description,
 						Created = responseItem.asset.createdUtc,
 						Updated = responseItem.asset.updatedUtc,
-
 					},
 					Context = FFlagToolboxFixTryInStudioContextMenu and {} or nil, -- TODO: STM-828 Add currentCategory and other context item Analytics
 					Creator = {
 						Name = responseItem.creator.name,
 						Id = responseItem.creator.id,
-						TypeId = (not FFlagToolboxFixTryInStudioContextMenu) and responseItem.creator.type or nil,
+						TypeId = not FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 						Type = FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 					},
 				}
@@ -426,7 +448,7 @@ function AssetGridContainer.getDerivedStateFromProps(nextProps, lastState)
 
 	if not lastHoveredAssetStillVisible then
 		return {
-			hoveredAssetId = 0
+			hoveredAssetId = 0,
 		}
 	end
 end
@@ -457,26 +479,37 @@ function AssetGridContainer:render()
 
 			local cellSize
 			if showPrices then
-				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
-					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
+				cellSize = UDim2.new(
+					0,
+					Constants.ASSET_WIDTH_NO_PADDING,
+					0,
+					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT
+				)
 			else
 				cellSize = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
 			end
 
 			local assetElements = {
 				UIGridLayout = Roact.createElement("UIGridLayout", {
-					CellPadding = UDim2.new(0, Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
-						0, Constants.BETWEEN_ASSETS_VERTICAL_PADDING),
+					CellPadding = UDim2.new(
+						0,
+						Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING,
+						0,
+						Constants.BETWEEN_ASSETS_VERTICAL_PADDING
+					),
 					CellSize = cellSize,
 					HorizontalAlignment = Enum.HorizontalAlignment.Left,
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					[Roact.Event.Changed] = self.onAssetGridContainerChanged,
-				})
+				}),
 			}
 			if isPackages and #assetIds ~= 0 then
 				local assetIdList = {}
 				local index = 1
-				while index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest and assetIds[index] ~= nil do
+				while
+					index < PermissionsConstants.MaxPackageAssetIdsForHighestPermissionsRequest
+					and assetIds[index] ~= nil
+				do
 					local assetId = assetIds[index][1]
 					if not self.props.currentUserPackagePermissions[assetId] then
 						table.insert(assetIdList, assetId)
@@ -499,8 +532,10 @@ function AssetGridContainer:render()
 				local assetId = asset[1]
 				local assetIndex = asset[2]
 
-				local canEditPackage = (self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey or
-					self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+				local canEditPackage = (
+						self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+						or self.props.currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+					)
 
 				-- If the asset is a group packages, then we want to check only want to show it if we have permission.
 				-- if the category is not group packages, then we always want to show.
@@ -511,71 +546,76 @@ function AssetGridContainer:render()
 					continue
 				end
 
-				assetElements[tostring(assetId)] = showAsset and Roact.createElement(Asset, {
-					assetId = assetId,
-					LayoutOrder = index,
-					assetIndex = assetIndex,
+				assetElements[tostring(assetId)] = showAsset
+					and Roact.createElement(Asset, {
+						assetId = assetId,
+						LayoutOrder = index,
+						assetIndex = assetIndex,
 
-					isHovered = assetId == hoveredAssetId,
-					hoveredAssetId = hoveredAssetId,
+						isHovered = assetId == hoveredAssetId,
+						hoveredAssetId = hoveredAssetId,
 
-					currentSoundId = currentSoundId,
-					isPlaying = isPlaying,
+						currentSoundId = currentSoundId,
+						isPlaying = isPlaying,
 
-					categoryName = props.categoryName,
+						categoryName = props.categoryName,
 
-					onAssetHovered = self.onAssetHovered,
-					onAssetHoverEnded = self.onAssetHoverEnded,
+						onAssetHovered = self.onAssetHovered,
+						onAssetHoverEnded = self.onAssetHoverEnded,
 
-					onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked,
-					onAssetPreviewButtonClicked = self.openAssetPreview,
+						onPreviewAudioButtonClicked = self.onPreviewAudioButtonClicked,
+						onAssetPreviewButtonClicked = self.openAssetPreview,
+
+						canInsertAsset = self.canInsertAsset,
+						tryInsert = self.tryInsert,
+						tryCreateContextMenu = tryCreateLocalizedContextMenu,
+					})
+			end
+
+			assetElements.ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox
+				and Roact.createElement(ScriptConfirmationDialog, {
+					Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
+
+					Info = scriptWarningInfo,
+					Icon = Images.INFO_ICON,
+
+					onClose = self.onScriptWarningBoxClosed,
+					onButtonClicked = self.onScriptWarningBoxClosed,
+					onChangeShowDialog = self.onScriptWarningBoxToggleShow,
+				})
+
+			assetElements.ToolMessageBox = isShowingToolMessageBox
+				and Roact.createElement(MessageBox, {
+					Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
+
+					Title = "Insert Tool",
+					Text = "Put this tool into the starter pack?",
+					Icon = Images.INFO_ICON,
+
+					onClose = self.onMessageBoxClosed,
+					onButtonClicked = self.onMessageBoxButtonClicked,
+
+					buttons = {
+						{
+							Text = "Yes",
+							action = "yes",
+						},
+						{
+							Text = "No",
+							action = "no",
+						},
+					},
+				})
+
+			assetElements.AssetPreview = previewAssetData
+				and Roact.createElement(AssetPreviewWrapper, {
+					assetData = previewAssetData,
 
 					canInsertAsset = self.canInsertAsset,
 					tryInsert = self.tryInsert,
 					tryCreateContextMenu = tryCreateLocalizedContextMenu,
+					onClose = self.closeAssetPreview,
 				})
-			end
-			
-			assetElements.ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(ScriptConfirmationDialog, {
-				Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
-
-				Info = scriptWarningInfo,
-				Icon = Images.INFO_ICON,
-
-				onClose = self.onScriptWarningBoxClosed,
-				onButtonClicked = self.onScriptWarningBoxClosed,
-				onChangeShowDialog = self.onScriptWarningBoxToggleShow,
-			})
-
-			assetElements.ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
-				Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
-
-				Title = "Insert Tool",
-				Text = "Put this tool into the starter pack?",
-				Icon = Images.INFO_ICON,
-
-				onClose = self.onMessageBoxClosed,
-				onButtonClicked = self.onMessageBoxButtonClicked,
-
-				buttons = {
-					{
-						Text = "Yes",
-						action = "yes",
-					}, {
-						Text = "No",
-						action = "no",
-					}
-				}
-			})
-
-			assetElements.AssetPreview = previewAssetData and Roact.createElement(AssetPreviewWrapper, {
-				assetData = previewAssetData,
-
-				canInsertAsset = self.canInsertAsset,
-				tryInsert = self.tryInsert,
-				tryCreateContextMenu = tryCreateLocalizedContextMenu,
-				onClose = self.closeAssetPreview
-			})
 
 			return Roact.createElement("Frame", {
 				Position = position,
@@ -588,7 +628,6 @@ function AssetGridContainer:render()
 	end)
 end
 
-
 AssetGridContainer = withContext({
 	API = ContextServices.API,
 	Localization = ContextServices.Localization,
@@ -596,8 +635,6 @@ AssetGridContainer = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Settings = Settings,
 })(AssetGridContainer)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}

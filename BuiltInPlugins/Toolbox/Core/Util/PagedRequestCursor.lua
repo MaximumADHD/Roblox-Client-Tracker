@@ -2,14 +2,14 @@ local PagedRequestCursor = {}
 
 function PagedRequestCursor.createDefaultCursor()
 	return {
-		begin=true
+		begin = true,
 	}
 end
 
 function PagedRequestCursor.createCursor(responseBody)
 	if responseBody then
 		return {
-			nextPageCursor = responseBody.nextPageCursor
+			nextPageCursor = responseBody.nextPageCursor,
 		}
 	end
 	return {}

@@ -23,7 +23,6 @@ local function NumberProperty(props)
 	else
 		return Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {
 			Disabled = getFFlagDevFrameworkTextInput2() and true or nil,
-			Enabled = not getFFlagDevFrameworkTextInput2() and false or nil,
 			LayoutOrder = props.LayoutOrder,
 			Size = props.Size,
 			Text = text,

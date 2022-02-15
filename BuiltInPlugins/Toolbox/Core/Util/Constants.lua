@@ -22,7 +22,6 @@ Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
 
-
 function Constants.getTextSize(text, fontSize, font, frameSize)
 	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM
 	font = font or Constants.FONT
@@ -42,7 +41,6 @@ end
 
 Constants.ROUNDED_FRAME_SLICE = Rect.new(3, 3, 13, 13)
 
-
 Constants.SCROLLBAR_THICKNESS = 8
 Constants.SCROLLBAR_PADDING = 2
 Constants.SCROLLBAR_BACKGROUND_THICKNESS = Constants.SCROLLBAR_THICKNESS + (2 * Constants.SCROLLBAR_PADDING)
@@ -57,7 +55,8 @@ Constants.DROP_SHADOW_SLICE_CENTER = Rect.new(
 	Constants.DROP_SHADOW_IMAGE_SLICE_0,
 	Constants.DROP_SHADOW_IMAGE_SLICE_0,
 	Constants.DROP_SHADOW_IMAGE_SLICE_1,
-	Constants.DROP_SHADOW_IMAGE_SLICE_1)
+	Constants.DROP_SHADOW_IMAGE_SLICE_1
+)
 Constants.DROP_SHADOW_TRANSPARENCY = 0.8
 Constants.DROP_SHADOW_COLOR = Color3.fromRGB(0, 0, 0)
 
@@ -98,7 +97,6 @@ Constants.MAIN_VIEW_NO_HEADER_HEIGHT = 4
 
 Constants.TIME_BETWEEN_ASSET_INSERTION = 0.3
 
-
 -- ASSET_WIDTH_NO_PADDING is actually refering to the size of the icon
 -- The size of the Asset itself is about 95 to 96
 -- TODO: Rename this when refactroing the loading and calculation process
@@ -132,13 +130,14 @@ Constants.ASSET_VOTE_COUNT_FONT_SIZE = Constants.FONT_SIZE_SMALL
 Constants.ASSET_VOTE_COUNT_HEIGHT = Constants.ASSET_VOTE_COUNT_FONT_SIZE
 Constants.ASSET_VOTING_HEIGHT = Constants.ASSET_VOTE_BAR_OUTER_HEIGHT + Constants.ASSET_VOTE_COUNT_HEIGHT
 
-Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING
-	+ Constants.ASSET_NAME_HEIGHT
+Constants.ASSET_HEIGHT = Constants.ASSET_THUMBNAIL_SIZE + Constants.ASSET_INNER_PADDING + Constants.ASSET_NAME_HEIGHT
 
 Constants.ASSET_OUTLINE_PADDING = 8
 Constants.ASSET_OUTLINE_EXTRA_HEIGHT = Constants.ASSET_CREATOR_NAME_HEIGHT
-	+ Constants.ASSET_INNER_PADDING + (2 * Constants.ASSET_OUTLINE_PADDING)
-Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING = Constants.ASSET_OUTLINE_EXTRA_HEIGHT + Constants.ASSET_VOTING_HEIGHT
+	+ Constants.ASSET_INNER_PADDING
+	+ (2 * Constants.ASSET_OUTLINE_PADDING)
+Constants.ASSET_OUTLINE_EXTRA_HEIGHT_WITH_VOTING = Constants.ASSET_OUTLINE_EXTRA_HEIGHT
+	+ Constants.ASSET_VOTING_HEIGHT
 	+ Constants.ASSET_INNER_PADDING
 
 Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING = 8
@@ -148,10 +147,13 @@ Constants.MIN_ASSETS_PER_ROW = 3
 
 local staticPadding = (Constants.MAIN_VIEW_PADDING * 2)
 	- Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
-	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING
+	+ Constants.SCROLLBAR_BACKGROUND_THICKNESS
+	+ Constants.SCROLLBAR_PADDING
 local perAssetPadding = Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING
 local calculatedMinWidth = staticPadding + (perAssetPadding * Constants.MIN_ASSETS_PER_ROW)
-Constants.TOOLBOX_MIN_WIDTH = if FFlagToolboxUpdateWindowMinSize then math.max(calculatedMinWidth, 270) else calculatedMinWidth
+Constants.TOOLBOX_MIN_WIDTH = if FFlagToolboxUpdateWindowMinSize
+	then math.max(calculatedMinWidth, 270)
+	else calculatedMinWidth
 Constants.SEARCH_BAR_WIDTH = Constants.TOOLBOX_MIN_WIDTH - Constants.MAIN_VIEW_PADDING * 2
 
 Constants.TAB_ICON_SIZE = 16
@@ -174,7 +176,10 @@ Constants.SCROLLING_FRAME_VIEW_PADDING = 16
 Constants.GET_ITEMS_PAGE_SIZE = 30
 Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT = 25 -- only specific asset creation page size limits are supported by the back-end, check the back-end accepts the amount before changing this
 Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT = 50 -- back-end does not support returning more than this amount
-assert(Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT <= Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT, "Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT cannot be more than Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT")
+assert(
+	Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT <= Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT,
+	"Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT cannot be more than Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT"
+)
 
 Constants.SEARCH_BAR_BUTTON_ICON_SIZE = 14
 Constants.SEARCH_BAR_BUTTON_WIDTH = 28
@@ -200,7 +205,8 @@ Constants.CAPSULE_SLICE_CENTER = Rect.new(
 	Constants.CAPSULE_SLICE,
 	Constants.CAPSULE_SLICE,
 	Constants.CAPSULE_SLICE,
-	Constants.CAPSULE_SLICE)
+	Constants.CAPSULE_SLICE
+)
 
 Constants.MODEL_PREVIEW_BG_COLOR = Color3.fromRGB(216, 216, 216)
 
@@ -242,6 +248,7 @@ Constants.Dialog = {
 	BALANCE_POSITION = UDim2.new(1, 0, 0, 64),
 	BALANCE_PADDING = UDim.new(0, 3),
 	ROBUX_SIZE = UDim2.fromOffset(16, 16),
+	SCRIPT_SIZE = UDim2.fromOffset(12, 12),
 }
 
 Constants.MIN_AUDIO_SEARCH_DURATION = 0
@@ -252,6 +259,7 @@ if showRobloxCreatedAssets() then
 end
 
 Constants.TOOLBOX_ITEM_SEARCH_LIMIT = 30
-Constants.PLUGIN_LIBRARY_URL = "https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
+Constants.PLUGIN_LIBRARY_URL =
+	"https://www.roblox.com/develop/library?CatalogContext=2&SortAggregation=5&LegendExpanded=true&Category=7"
 
 return wrapStrictTable(Constants, "Constants")

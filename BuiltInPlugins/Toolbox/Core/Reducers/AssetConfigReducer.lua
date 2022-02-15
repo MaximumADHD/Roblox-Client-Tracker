@@ -150,34 +150,33 @@ return Rodux.createReducer({
 
 	[SetScreenConfig.name] = function(state, action)
 		local newSubScreenConfig = Cryo.Dictionary.join(state.screenConfigs[action.screen], {
-			[action.variable] = action.value
+			[action.variable] = action.value,
 		})
 
 		local newScreenConfigs = Cryo.Dictionary.join(state.screenConfigs, {
-			[action.screen] = newSubScreenConfig
+			[action.screen] = newSubScreenConfig,
 		})
 
-
 		return Cryo.Dictionary.join(state, {
-			screenConfigs = newScreenConfigs
+			screenConfigs = newScreenConfigs,
 		})
 	end,
 
 	[SetVersionHistoryData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			versionHistory = action.versionHistory
+			versionHistory = action.versionHistory,
 		})
 	end,
 
 	[SetAssetConfigData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			assetConfigData = action.assetConfigData
+			assetConfigData = action.assetConfigData,
 		})
 	end,
 
 	[UpdateAssetConfigData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			assetConfigData = Cryo.Dictionary.join(state.assetConfigData or {}, action.assetConfigData)
+			assetConfigData = Cryo.Dictionary.join(state.assetConfigData or {}, action.assetConfigData),
 		})
 	end,
 
@@ -187,8 +186,8 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			changed = Cryo.Dictionary.join(state.changed or {}, {
-				[setting] = value
-			})
+				[setting] = value,
+			}),
 		})
 	end,
 
@@ -197,39 +196,39 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			changed = Cryo.Dictionary.join(state.changed or {}, {
-				[setting] = Cryo.None
-			})
+				[setting] = Cryo.None,
+			}),
 		})
 	end,
 
 	[SetAssetGroupData.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			assetGroupData = action.assetGroupData
+			assetGroupData = action.assetGroupData,
 		})
 	end,
 
 	[NetworkError.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			networkError = action.response,
-			networkErrorAction = action.networkErrorAction
+			networkErrorAction = action.networkErrorAction,
 		})
 	end,
 
 	[UploadResult.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			uploadSucceeded = action.uploadSucceeded
+			uploadSucceeded = action.uploadSucceeded,
 		})
 	end,
 
 	[ValidateAnimationResult.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			validateAnimationSucceeded = action.validateAnimationSucceeded
+			validateAnimationSucceeded = action.validateAnimationSucceeded,
 		})
 	end,
 
 	[SetAssetConfigTab.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			currentTab = action.tabItem
+			currentTab = action.tabItem,
 		})
 	end,
 
@@ -249,13 +248,13 @@ return Rodux.createReducer({
 
 	[SetAssetConfigManageableGroups.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			manageableGroups = action.manageableGroups
+			manageableGroups = action.manageableGroups,
 		})
 	end,
 
 	[SetIsVerifiedCreator.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			isVerifiedCreator = action.isVerifiedCreator
+			isVerifiedCreator = action.isVerifiedCreator,
 		})
 	end,
 
@@ -288,7 +287,7 @@ return Rodux.createReducer({
 			[action.groupMetadata.Id] = {
 				name = action.groupMetadata.Name,
 				groupMetadata = action.groupMetadata,
-			}
+			},
 		})
 	end,
 
@@ -301,8 +300,8 @@ return Rodux.createReducer({
 			assetConfigData = Cryo.Dictionary.join(state.assetConfigData, {
 				Creator = Cryo.Dictionary.join(state.assetConfigData.Creator, {
 					username = action.ownerUsername,
-				})
-			})
+				}),
+			}),
 		})
 	end,
 
@@ -319,7 +318,7 @@ return Rodux.createReducer({
 	end,
 
 	[CollaboratorSearchActions.LoadedWebResults.name] = function(state, action)
-		if not (state.cachedSearchResults) then
+		if not state.cachedSearchResults then
 			state = Cryo.Dictionary.join(state, {
 				cachedSearchResults = {},
 			})
@@ -327,12 +326,12 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			cachedSearchResults = Cryo.Dictionary.join(state.cachedSearchResults, {
 				[action.key] = action.success and action.results or {},
-			})
+			}),
 		})
 	end,
 
 	[CollaboratorSearchActions.LoadingWebResults.name] = function(state, action)
-		if not (state.cachedSearchResults) then
+		if not state.cachedSearchResults then
 			state = Cryo.Dictionary.join(state, {
 				cachedSearchResults = {},
 			})
@@ -340,7 +339,7 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			cachedSearchResults = Cryo.Dictionary.join(state.cachedSearchResults, {
 				[action.searchTerm] = LOADING_IN_BACKGROUND,
-			})
+			}),
 		})
 	end,
 
@@ -426,9 +425,9 @@ return Rodux.createReducer({
 		return Cryo.Dictionary.join(state, {
 			tabErrors = Cryo.Dictionary.join(state.tabErrors or {}, {
 				[action.tabName] = Cryo.Dictionary.join(state.tabErrors and state.tabErrors[action.tabName] or {}, {
-					[action.fieldName] = action.hasError
-				})
-			})
+					[action.fieldName] = action.hasError,
+				}),
+			}),
 		})
 	end,
 
@@ -442,7 +441,7 @@ return Rodux.createReducer({
 
 	[SetAssetConfigAssetTypeAgents.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			assetTypeAgents = action.assetTypeAgents
+			assetTypeAgents = action.assetTypeAgents,
 		})
 	end,
 })

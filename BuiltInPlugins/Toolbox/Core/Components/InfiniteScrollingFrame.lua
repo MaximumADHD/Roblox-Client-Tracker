@@ -52,7 +52,9 @@ function InfiniteScrollingFrame:init(props)
 
 	self.checkCanvasAndRequest = function(self)
 		local scrollingFrame = self.scrollingFrameRef.current
-		if not scrollingFrame then return end
+		if not scrollingFrame then
+			return
+		end
 		local canvasY = scrollingFrame.CanvasPosition.Y
 		local windowHeight = scrollingFrame.AbsoluteWindowSize.Y
 		local canvasHeight = scrollingFrame.CanvasSize.Y.Offset
@@ -79,7 +81,7 @@ end
 
 function InfiniteScrollingFrame.getDerivedStateFromProps(nextProps, lastState)
 	return {
-		currentPage = nextProps.currentPage
+		currentPage = nextProps.currentPage,
 	}
 end
 
@@ -106,24 +108,22 @@ function InfiniteScrollingFrame:render()
 			canvasHeight = layouterRef.AbsoluteContentSize.Y
 		end
 
-		return Roact.createElement(StyledScrollingFrame,
-			{
-				Position = Position,
-				Size = Size,
-				CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
-				ZIndex = 1,
+		return Roact.createElement(StyledScrollingFrame, {
+			Position = Position,
+			Size = Size,
+			CanvasSize = UDim2.new(1, 0, 0, canvasHeight),
+			ZIndex = 1,
 
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
 
-				scrollingEnabled = true,
+			scrollingEnabled = true,
 
-				[Roact.Ref] = self.scrollingFrameRef,
-				onScroll = self.onScroll,
+			[Roact.Ref] = self.scrollingFrameRef,
+			onScroll = self.onScroll,
 
-				LayoutOrder = LayoutOrder,
-			},
-			props[Roact.Children])
+			LayoutOrder = LayoutOrder,
+		}, props[Roact.Children])
 	end)
 end
 

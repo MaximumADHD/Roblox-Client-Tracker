@@ -36,6 +36,8 @@ local UtilFolder = PluginRoot.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
 local Constants = require(UtilFolder.Constants)
 
+local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+
 local DisplayTable = Roact.PureComponent:extend("DisplayTable")
 
 type PathMapping = {
@@ -117,7 +119,7 @@ function DisplayTable:init()
 		local props = self.props
 		local currentStepStateBundle = props.CurrentStepStateBundle
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		if not currentStepStateBundle or not debuggerConnectionManager then
+		if not currentStepStateBundle then
 			assert(false)
 			return
 		end
@@ -136,10 +138,7 @@ function DisplayTable:init()
 
 		local currentStepStateBundle = self.props.CurrentStepStateBundle
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
-		if not debuggerConnectionManager then
-			assert(false)
-			return
-		end
+
 		if col == 1 then
 			if oldExpression == "" and newExpression ~= "" then
 				self.props.OnAddExpression(newExpression)
@@ -175,6 +174,13 @@ function DisplayTable:init()
 			local plugin = props.Plugin:get()
 			local actions = MakePluginActions.getWatchActions(localization)
 			showContextMenu(plugin, "Watch", actions, self.onMenuActionSelected, {row = row})
+		end
+	end
+
+	self.OnDoubleClick = function(row)
+		if self.props.SelectedTab == TableTab.Watches then
+			local DebuggerUIService = game:GetService("DebuggerUIService")
+			DebuggerUIService:EditWatch(row.item.expressionColumn)
 		end
 	end
 end
@@ -229,6 +235,7 @@ function DisplayTable:render()
 		OnFocusLost = self.OnFocusLost,
 		TextInputCols = textInputCols,
 		RightClick = self.onRightClick,
+		OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
 		DisableTooltip = true,
 	})
 end
@@ -258,7 +265,7 @@ DisplayTable = RoactRodux.connect(
 			end
 
 			return {
-				SelectedTab = nil,
+				SelectedTab = tabState,
 				RootItems = rootItems,
 				ExpansionTable = {},
 			}

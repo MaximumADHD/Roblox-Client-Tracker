@@ -37,12 +37,12 @@ local AssetName = Roact.PureComponent:extend("AssetName")
 
 function AssetName:init(props)
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 
 		getModal(self).onTooltipTriggered(props.assetId, Constants.TOOLTIP_TYPE.ASSET_NAME)
@@ -50,7 +50,7 @@ function AssetName:init(props)
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 end
@@ -96,7 +96,7 @@ function AssetName:renderContent(theme, modalTarget, modalStatus)
 			Text = assetName,
 			canShowCurrentTooltip = canShowCurrentTooltip,
 			isHovered = isHovered,
-		})
+		}),
 	})
 end
 

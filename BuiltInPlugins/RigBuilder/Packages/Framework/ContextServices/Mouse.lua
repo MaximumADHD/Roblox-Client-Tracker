@@ -64,7 +64,7 @@ function Mouse:__updateCursor()
 	end
 end
 
-function Mouse:__pushCursor(cursor, priority)
+function Mouse:__pushCursor(cursor: string, priority: number?)
 	priority = priority or 1
 	local cursors = self.cursors[priority] or {}
 	table.insert(cursors, getCursor(cursor))
@@ -73,7 +73,7 @@ function Mouse:__pushCursor(cursor, priority)
 	self:__updateCursor()
 end
 
-function Mouse:__popCursor(priority)
+function Mouse:__popCursor(priority: number?)
 	priority = priority or 1
 	local cursors = self.cursors[priority]
 

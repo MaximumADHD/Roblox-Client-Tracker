@@ -21,21 +21,26 @@ return function()
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
 	local ModelsCategoryName = Category.FREE_MODELS.name
-	local CurrentSelectionModelsText = CurrentSelectionBasicText.."Models"
+	local CurrentSelectionModelsText = CurrentSelectionBasicText .. "Models"
 	local AudioCategoryName = Category.FREE_AUDIO.name
-	local CurrentSelectionAudioText = CurrentSelectionBasicText.."Audio"
+	local CurrentSelectionAudioText = CurrentSelectionBasicText .. "Audio"
 	local ImagesCategoryName = Category.FREE_DECALS.name
-	local CurrentSelectionImagesText = CurrentSelectionBasicText.."Decals"
+	local CurrentSelectionImagesText = CurrentSelectionBasicText .. "Decals"
 	local MeshesCategoryName = Category.FREE_MESHES.name
-	local CurrentSelectionMeshesText = CurrentSelectionBasicText.."Meshes"
+	local CurrentSelectionMeshesText = CurrentSelectionBasicText .. "Meshes"
 	local _VideosCategoryName = Category.MARKETPLACE_VIDEOS.name
-	local _CurrentSelectionVideosText = CurrentSelectionBasicText.._VideosCategoryName
+	local _CurrentSelectionVideosText = CurrentSelectionBasicText .. _VideosCategoryName
 	local _PluginsCategoryName = Category.WHITELISTED_PLUGINS.name
-	local _CurrentSelectionPluginsText = CurrentSelectionBasicText.._PluginsCategoryName
+	local _CurrentSelectionPluginsText = CurrentSelectionBasicText .. _PluginsCategoryName
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
-	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	)
+	local DropdownScrollingFramePath =
+		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
+	)
 	local MarketplaceTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Marketplace.Content.Icon")
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
@@ -61,7 +66,6 @@ return function()
 			container = Instance.new("ScreenGui", game.CoreGui)
 			instance = TestHelpers.createTestToolbox(container)
 		end)
-
 
 		afterAll(function()
 			Urls.constructAssetThumbnailUrl = originalConstructAssetThumbnailUrl
@@ -106,10 +110,13 @@ return function()
 		end)
 
 		-- Looping through options Audio, Images, Meshes, skipping Videos and Plugins for now
-		local testCases = {Category.FREE_AUDIO.category, Category.FREE_DECALS.category, Category.FREE_MESHES.category}
-		local expectedCurrentSelectionText = {CurrentSelectionAudioText, CurrentSelectionImagesText,
-												CurrentSelectionMeshesText}
-		local expectedCategoryName = {AudioCategoryName, ImagesCategoryName, MeshesCategoryName}
+		local testCases = { Category.FREE_AUDIO.category, Category.FREE_DECALS.category, Category.FREE_MESHES.category }
+		local expectedCurrentSelectionText = {
+			CurrentSelectionAudioText,
+			CurrentSelectionImagesText,
+			CurrentSelectionMeshesText,
+		}
+		local expectedCategoryName = { AudioCategoryName, ImagesCategoryName, MeshesCategoryName }
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				local currentSelection = Element.new(XPath.new(CurrentSelectionTextPath))

@@ -22,7 +22,7 @@ return function(componentName, createWidgetFunc)
 
 	function PluginWidget:init(props)
 		self.state = {
-			pluginGui = nil
+			pluginGui = nil,
 		}
 
 		local title, name, id = getTitleNameId(props)
@@ -79,7 +79,7 @@ return function(componentName, createWidgetFunc)
 
 	function PluginWidget:didMount()
 		self:setState({
-			pluginGui = self.widget
+			pluginGui = self.widget,
 		})
 	end
 

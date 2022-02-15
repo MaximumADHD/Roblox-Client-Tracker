@@ -22,21 +22,21 @@ local Favorite = Rodux.createReducer({
 }, {
 	[GetFavoriteCounts.name] = function(state, action)
 		local newIdMap = Cryo.Dictionary.join(state.assetIdToCountsMap, {
-			[action.assetId] = action.favoriteCounts
+			[action.assetId] = action.favoriteCounts,
 		})
 
 		return Cryo.Dictionary.join(state, {
-			assetIdToCountsMap = newIdMap
+			assetIdToCountsMap = newIdMap,
 		})
 	end,
 
 	[GetFavorited.name] = function(state, action)
 		local newFavoritedMap = Cryo.Dictionary.join(state.assetIdToFavoritedMap, {
-			[action.assetId] = action.favorited
+			[action.assetId] = action.favorited,
 		})
 
 		return Cryo.Dictionary.join(state, {
-			assetIdToFavoritedMap = newFavoritedMap
+			assetIdToFavoritedMap = newFavoritedMap,
 		})
 	end,
 
@@ -44,11 +44,11 @@ local Favorite = Rodux.createReducer({
 		local assetId = action.assetId
 
 		local newIdMap = Cryo.Dictionary.join(state.assetIdToCountsMap, {
-			[action.assetId] = (state.assetIdToCountsMap[assetId] or 0) + 1
+			[action.assetId] = (state.assetIdToCountsMap[assetId] or 0) + 1,
 		})
 
 		local newFavoritedMap = Cryo.Dictionary.join(state.assetIdToFavoritedMap, {
-			[action.assetId] = true
+			[action.assetId] = true,
 		})
 
 		return Cryo.Dictionary.join(state, {
@@ -61,18 +61,18 @@ local Favorite = Rodux.createReducer({
 		local assetId = action.assetId
 
 		local newIdMap = Cryo.Dictionary.join(state.assetIdToCountsMap, {
-			[action.assetId] = (state.assetIdToCountsMap[assetId] or 0) - 1
+			[action.assetId] = (state.assetIdToCountsMap[assetId] or 0) - 1,
 		})
 
 		local newFavoritedMap = Cryo.Dictionary.join(state.assetIdToFavoritedMap, {
-			[action.assetId] = false
+			[action.assetId] = false,
 		})
 
 		return Cryo.Dictionary.join(state, {
 			assetIdToCountsMap = newIdMap,
 			assetIdToFavoritedMap = newFavoritedMap,
 		})
-	end
+	end,
 })
 
 return Favorite

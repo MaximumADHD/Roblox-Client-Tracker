@@ -7,16 +7,16 @@ return function()
 	-- can we assume Layouter in its current form is correct and update the values?
 	describeSKIP("calculateAssetsHeight", function()
 		it("should return the correct height", function()
-			local assetCounts = {0, 2, 10, 100, 500, 1000}
-			local maxWidths = {100, 200, 500, 1000}
+			local assetCounts = { 0, 2, 10, 100, 500, 1000 }
+			local maxWidths = { 100, 200, 500, 1000 }
 
 			local heights = {
-				{0, 0, 0, 0},
-				{238, 111, 111, 111},
-				{1254, 619, 238, 111},
-				{12684, 6334, 2143, 1127},
-				{63484, 31734, 10652, 5318},
-				{126984, 63484, 21193, 10652}
+				{ 0, 0, 0, 0 },
+				{ 238, 111, 111, 111 },
+				{ 1254, 619, 238, 111 },
+				{ 12684, 6334, 2143, 1127 },
+				{ 63484, 31734, 10652, 5318 },
+				{ 126984, 63484, 21193, 10652 },
 			}
 
 			for row, _ in ipairs(heights) do

@@ -7,8 +7,11 @@ local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamC
 local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
 local FFlagStudioTcDialogShowPlaceName = game:GetFastFlag("StudioTcDialogShowPlaceName")
+local FFlagStudioEnableUploadNames = game:GetFastFlag("StudioEnableUploadNames")
+local FFlagStudioUpdatePublishText = game:GetFastFlag("StudioUpdatePublishText")
 
 local StudioService = game:GetService("StudioService")
+local StudioPublishService = game:GetService("StudioPublishService")
 
 local teamCreateToggleEnabled = false 
 if FIntTeamCreateTogglePercentageRollout > 0 then
@@ -163,7 +166,7 @@ function ScreenChoosePlace:render()
 		end
 
 		components[0] = Roact.createElement(TilePlace, {
-			Name = localization:getText("Button", "AddNewPlace"),
+			Name = localization:getText("Button", if FFlagStudioUpdatePublishText then "AddNewPlaceToGame" else "AddNewPlace"),
 			LayoutOrder = 1,
 			Selected = newPlaceSelected,
 			OnActivated = function()
@@ -352,6 +355,14 @@ function ScreenChoosePlace:render()
 						OpenPublishManagement(self.state.selectedPlace, self.props.ParentGame)
 					else
 						-- groupId is unused
+						if FFlagStudioEnableUploadNames then
+							if self.state.selectedPlace.placeId == 0 then
+								-- 0 indicates uploading to a new slot
+								StudioPublishService:setUploadNames("New Place", parentGame.name)
+							else
+								StudioPublishService:setUploadNames(self.state.selectedPlace.name, parentGame.name)
+							end
+						end
 						StudioService:publishAs(parentGame.universeId, self.state.selectedPlace.placeId, 0)
 						dispatchSetIsPublishing(true)
 					end

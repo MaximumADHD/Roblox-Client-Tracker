@@ -37,6 +37,7 @@ local RoundTextButton = UILibrary.Component.RoundTextButton
 local LoadingIndicator = UILibrary.Component.LoadingIndicator
 
 local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagStudioUpdatePublishText = game:GetFastFlag("StudioUpdatePublishText")
 
 local ScreenChooseGame = Roact.PureComponent:extend("ScreenChooseGame")
 local SelectedItemKey = 0
@@ -126,7 +127,7 @@ function ScreenChooseGame:render()
 		BackgroundColor3 = theme.backgroundColor,
 	}, {
 		ChooseGameText = Roact.createElement("TextLabel", {
-			Text = localization:getText("ScreenHeader", "ChooseGame"),
+			Text = localization:getText("ScreenHeader", if FFlagStudioUpdatePublishText then "ChooseGameNew" else "ChooseGame"),
 			Position = UDim2.new(0, 30, 0, 25),
 			BackgroundTransparency = 1,
 			TextColor3 = theme.header.text,

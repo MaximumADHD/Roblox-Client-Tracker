@@ -29,13 +29,14 @@ return PluginWidget("Dialog", function(self, id)
 		initialEnabled = true
 	end
 
-	local options = props.options or {
-		Size = props.Size or nil,
-		MinSize = props.MinSize or nil,
-		Resizable = props.Resizable or nil,
-		Modal = props.Modal or nil,
-		InitialEnabled = initialEnabled,
-	}
+	local options = props.options
+		or {
+			Size = props.Size or nil,
+			MinSize = props.MinSize or nil,
+			Resizable = props.Resizable or nil,
+			Modal = props.Modal or nil,
+			InitialEnabled = initialEnabled,
+		}
 
 	return plugin:CreateQWidgetPluginGui(id, options)
 end)

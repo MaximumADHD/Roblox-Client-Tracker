@@ -9,17 +9,13 @@ return function()
 		expect(type(state)).to.equal("table")
 	end)
 
-	describe("GetAssets action", function()
-	end)
+	describe("GetAssets action", function() end)
 
-	describe("PostVote action", function()
-	end)
+	describe("PostVote action", function() end)
 
-	describe("PostUnvote action", function()
-	end)
+	describe("PostUnvote action", function() end)
 
-	describe("PostInsertAsset action", function()
-	end)
+	describe("PostInsertAsset action", function() end)
 
 	--[==[
 	describe("Post Unvote actions", function()
@@ -134,5 +130,3 @@ return function()
 		end)
 	end)]==]
 end
-
-

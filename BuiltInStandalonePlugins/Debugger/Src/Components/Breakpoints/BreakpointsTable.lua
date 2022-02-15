@@ -28,6 +28,7 @@ local Constants = require(PluginFolder.Src.Util.Constants)
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -45,11 +46,17 @@ function BreakpointsTable:init()
 		breakpointIdToExpansionState = {},
 	}
 	
+	self.OnDoubleClick = function(row)
+		local DebuggerUIService = game:GetService("DebuggerUIService")
+		DebuggerUIService:EditBreakpoint(row.item.id)
+	end
+
 	self.onSelectionChange = function(selection)
 		local selectedBps = {}
 		for rowInfo in pairs(selection) do
 			table.insert(selectedBps, rowInfo)
 		end
+
 		self:setState(function(state)
 			return {
 				selectedBreakpoints = selectedBps
@@ -140,11 +147,6 @@ function BreakpointsTable:init()
 
 	self.OnFocusLost = function(enterPress, inputObj, row, col)
 		local breakpointManager = game:GetService("BreakpointManager")
-		if not breakpointManager then
-			assert(false)
-			return
-		end
-
 		local bpModified = self.props.Breakpoints[row.index]
 		local bpId = bpModified.id
 		local metaBP = breakpointManager:GetBreakpointById(bpId)
@@ -313,6 +315,7 @@ function BreakpointsTable:render()
 				GetChildren = self.getTreeChildren,
 				TextInputCols = textInputCols,
 				OnFocusLost = self.OnFocusLost,
+				OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
 			}),
 		})
 	})

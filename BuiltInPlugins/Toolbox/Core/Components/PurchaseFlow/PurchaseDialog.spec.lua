@@ -33,10 +33,8 @@ return function()
 				Prompt = "Test",
 				Thumbnail = Images.NO_BACKGROUND_ICON,
 				Balance = 0,
-				OnButtonClicked = function()
-				end,
-				OnClose = function()
-				end,
+				OnButtonClicked = function() end,
+				OnClose = function() end,
 			}),
 		})
 	end

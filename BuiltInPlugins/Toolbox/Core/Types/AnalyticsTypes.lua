@@ -6,6 +6,6 @@ export type SearchInfo = {
 	searchId: string?,
 	sort: string?,
 	toolboxTab: number?,
-};
+}
 
 return AnalyticsTypes

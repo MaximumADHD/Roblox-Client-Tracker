@@ -25,8 +25,7 @@ return function(networkInterface, assetId)
 
 		local myUserId = getUserId()
 		return networkInterface:getCanManageAsset(assetId, myUserId):andThen(function(result)
-			local canManage = result.responseBody and result.responseBody.Success
-				and result.responseBody.CanManage
+			local canManage = result.responseBody and result.responseBody.Success and result.responseBody.CanManage
 			store:dispatch(SetCanManageAsset(canManage, assetId))
 		end, function(result)
 			if DebugFlags.shouldDebugWarnings() then

@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(validateAnimationSucceeded)
 	return {
-		validateAnimationSucceeded = validateAnimationSucceeded
+		validateAnimationSucceeded = validateAnimationSucceeded,
 	}
 end)

@@ -87,8 +87,7 @@ function AssetConfigTheme:destroy()
 end
 
 function AssetConfigTheme:_update(changedValues)
-	self._values = (Cryo.Dictionary.join)(self._values,
-		changedValues)
+	self._values = (Cryo.Dictionary.join)(self._values, changedValues)
 	self.values = wrapStrictTable(self._values, "theme")
 	self._signal:fire(self.values, self._UILibraryTheme)
 end
@@ -170,8 +169,8 @@ function AssetConfigTheme:_recalculateTheme()
 							backgroundColor = color(c.Button, m.Selected),
 						},
 					},
-				}
-			}
+				},
+			},
 		},
 
 		publishAsset = {
@@ -182,7 +181,7 @@ function AssetConfigTheme:_recalculateTheme()
 		},
 
 		divider = {
-			horizontalLineColor =  isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
+			horizontalLineColor = isDark and Color3.fromRGB(34, 34, 34) or Color3.fromRGB(227, 227, 227),
 		},
 
 		dropdownMenu = {
@@ -242,7 +241,7 @@ function AssetConfigTheme:_recalculateTheme()
 				backgroundSelectedColor = color(c.CurrentMarker),
 				borderColor = color(c.Border),
 				borderSelectedColor = color(c.CurrentMarker),
-			}
+			},
 		},
 
 		cancelButton = {

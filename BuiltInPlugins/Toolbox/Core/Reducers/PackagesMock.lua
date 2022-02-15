@@ -1,5 +1,5 @@
 return function(state, action)
 	return {
-        permissionsTable = {}
-    }
+		permissionsTable = {},
+	}
 end

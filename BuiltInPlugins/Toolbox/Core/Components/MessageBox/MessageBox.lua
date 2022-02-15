@@ -87,14 +87,14 @@ function MessageBox:render()
 			{
 				Text = "Ok",
 				action = "ok",
-			}
+			},
 		}
 	end
 
 	local buttonWidth = Constants.MESSAGE_BOX_BUTTON_WIDTH
 	local buttonPadding = 8
 
-	local buttons = { }
+	local buttons = {}
 	buttons.UIListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = Enum.HorizontalAlignment.Right,
@@ -118,12 +118,17 @@ function MessageBox:render()
 	local wrapInformativeTextWidth = 192
 
 	local textOneLineSize = Constants.getTextSize(text, textFontSize, textFont)
-	local informativeOneLineTextSize = Constants.getTextSize(informativeText, informativeTextFontSize,
-		informativeTextFont)
+	local informativeOneLineTextSize = Constants.getTextSize(
+		informativeText,
+		informativeTextFontSize,
+		informativeTextFont
+	)
 
 	-- Wrap both texts, get the bigger of the 2
-	local textWidth = math.max(math.min(textOneLineSize.X, wrapTextWidth),
-		math.min(informativeOneLineTextSize.X, wrapInformativeTextWidth))
+	local textWidth = math.max(
+		math.min(textOneLineSize.X, wrapTextWidth),
+		math.min(informativeOneLineTextSize.X, wrapInformativeTextWidth)
+	)
 
 	-- Need to still have the icon instance for list layout padding to work
 	-- But set the width to 0 so it's not visible
@@ -133,25 +138,29 @@ function MessageBox:render()
 	local topWidth = fullIconWidth + textWidth
 
 	-- Buttons + padding between
-	local buttonsWidth = (#buttonTexts * buttonWidth)
-		+ ((#buttonTexts - 1) * buttonPadding)
+	local buttonsWidth = (#buttonTexts * buttonWidth) + ((#buttonTexts - 1) * buttonPadding)
 
 	-- Bigger of the buttons and text+icon, but also no less than min
 	local innerMaxWidth = math.max(math.max(buttonsWidth, topWidth), minWidth)
 
 	local maxTextWidth = innerMaxWidth - fullIconWidth
 
-	local textSize = Constants.getTextSize(text, textFontSize, textFont,
-		Vector2.new(maxTextWidth, 1000))
-	local informativeTextSize = Constants.getTextSize(informativeText, informativeTextFontSize, informativeTextFont,
-		Vector2.new(maxTextWidth, 1000))
+	local textSize = Constants.getTextSize(text, textFontSize, textFont, Vector2.new(maxTextWidth, 1000))
+	local informativeTextSize = Constants.getTextSize(
+		informativeText,
+		informativeTextFontSize,
+		informativeTextFont,
+		Vector2.new(maxTextWidth, 1000)
+	)
 
 	local textHeight = textSize.Y
 	local textToInformativeTextPadding = 8
 	local informativeTextHeight = informativeTextSize.Y
 
-	local topHeight = math.max(iconSize,
-		textHeight + (showInformativeText and textToInformativeTextPadding + informativeTextHeight or 0))
+	local topHeight = math.max(
+		iconSize,
+		textHeight + (showInformativeText and textToInformativeTextPadding + informativeTextHeight or 0)
+	)
 
 	local topPadding = 8
 	local outerPadding = 12
@@ -253,7 +262,7 @@ function MessageBox:render()
 						TextXAlignment = Enum.TextXAlignment.Left,
 						TextYAlignment = Enum.TextYAlignment.Top,
 						TextWrapped = true,
-					})
+					}),
 				}),
 			}),
 
@@ -261,17 +270,14 @@ function MessageBox:render()
 				Size = UDim2.new(1, 0, 0, buttonsHeight),
 				BackgroundTransparency = 1,
 				LayoutOrder = 2,
-			}, buttons)
-		})
+			}, buttons),
+		}),
 	})
 end
-
 
 MessageBox = withContext({
 	Plugin = ContextServices.Plugin,
 	Stylizer = ContextServices.Stylizer,
 })(MessageBox)
-
-
 
 return MessageBox

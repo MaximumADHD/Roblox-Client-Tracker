@@ -137,14 +137,14 @@ return Rodux.createReducer({
 
 	[SetPreviewModel.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
-			previewModel = action.previewModel
+			previewModel = action.previewModel,
 		})
 	end,
 
 	[ClearPreview.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			previewModel = Cryo.None,
-			previewPluginData = Cryo.None
+			previewPluginData = Cryo.None,
 		})
 	end,
 

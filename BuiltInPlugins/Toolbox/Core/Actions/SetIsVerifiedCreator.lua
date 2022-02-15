@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(isVerifiedCreator)
 	return {
-		isVerifiedCreator = isVerifiedCreator
+		isVerifiedCreator = isVerifiedCreator,
 	}
 end)

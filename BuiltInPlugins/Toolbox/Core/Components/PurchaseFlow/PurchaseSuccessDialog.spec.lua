@@ -29,8 +29,7 @@ return function()
 			PurchaseSuccessDialog = Roact.createElement(PurchaseSuccessDialog, {
 				Name = "Test",
 				Balance = 0,
-				OnClose = function()
-				end,
+				OnClose = function() end,
 			}),
 		})
 	end

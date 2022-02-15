@@ -37,10 +37,13 @@ function Settings:_getSetting(setting, default)
 	local value = self._plugin:GetSetting(setting)
 
 	if DebugFlags.shouldLogSettings() then
-		print(("Settings:_getSetting(setting=\"%s\", default=%s) got value = %s"):format(
-			tostring(setting),
-			type(default) == "string" and '"' .. tostring(default) .. '"' or tostring(default),
-			type(value) == "string" and '"' .. tostring(value) .. '"' or tostring(value)))
+		print(
+			('Settings:_getSetting(setting="%s", default=%s) got value = %s'):format(
+				tostring(setting),
+				type(default) == "string" and '"' .. tostring(default) .. '"' or tostring(default),
+				type(value) == "string" and '"' .. tostring(value) .. '"' or tostring(value)
+			)
+		)
 	end
 
 	if not value then
@@ -55,9 +58,12 @@ function Settings:_setSetting(setting, value)
 	end
 
 	if DebugFlags.shouldLogSettings() then
-		print(("Settings:_setSetting(setting=\"%s\", value=%s)"):format(
-			tostring(setting),
-			type(value) == "string" and '"' .. tostring(value) .. '"' or tostring(value)))
+		print(
+			('Settings:_setSetting(setting="%s", value=%s)'):format(
+				tostring(setting),
+				type(value) == "string" and '"' .. tostring(value) .. '"' or tostring(value)
+			)
+		)
 	end
 
 	self._plugin:SetSetting(setting, value)
@@ -88,12 +94,16 @@ function Settings:setSelectedSortIndex(index)
 end
 
 function Settings:getShowScriptWarning()
-	if not FFlagToolboxEnableScriptConfirmation then return false end
+	if not FFlagToolboxEnableScriptConfirmation then
+		return false
+	end
 	return self:_getSetting(SHOW_SCRIPT_WARNING_KEY, "true") == "true"
 end
 
 function Settings:setShowScriptWarning(value)
-	if not FFlagToolboxEnableScriptConfirmation then return end
+	if not FFlagToolboxEnableScriptConfirmation then
+		return
+	end
 	return self:_setSetting(SHOW_SCRIPT_WARNING_KEY, tostring(value))
 end
 

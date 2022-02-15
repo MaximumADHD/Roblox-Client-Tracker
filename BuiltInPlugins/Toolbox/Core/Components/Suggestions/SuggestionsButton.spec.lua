@@ -21,7 +21,7 @@ return function()
 
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(MockWrapper, {}, {
-			SuggestionsButton = Roact.createElement(SuggestionsButton)
+			SuggestionsButton = Roact.createElement(SuggestionsButton),
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

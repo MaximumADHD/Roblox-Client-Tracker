@@ -14,6 +14,7 @@ local HttpService = game:GetService("HttpService")
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Cryo)
 
+local FFlagGameSettingsFixChangeAnalytics = game:GetFastFlag("GameSettingsFixChangeAnalytics")
 local FIntMaxAccessPermissionsCollaborators = game:DefineFastInt("MaxAccessPermissionsCollaborators", 200)
 
 --These functions will be implemented in CLIDEVSRVS-1689
@@ -200,6 +201,15 @@ function Analytics.onNumCollaboratorsChanged(numCollaborators)
 		gameId = game.GameId,
 		numCollaborators = numCollaborators,
 	})
+end
+
+if FFlagGameSettingsFixChangeAnalytics then
+	function Analytics.onSecuritySettingChange(settingName, settingValue)
+		Analytics.sendEventDeferred("GameSettings_SecuritySettingChange", {
+			settingName = settingName,
+			settingValue = settingValue,
+		})
+	end
 end
 
 return Analytics

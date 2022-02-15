@@ -38,15 +38,13 @@ return function()
 						Name = "Test",
 					},
 					Product = {
-						Price = 10
-					}
+						Price = 10,
+					},
 				},
 				PurchaseFailed = false,
 				Purchasing = false,
-				Cancel = function()
-				end,
-				Continue = function()
-				end,
+				Cancel = function() end,
+				Continue = function() end,
 			}),
 		})
 	end

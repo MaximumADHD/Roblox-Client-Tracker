@@ -28,7 +28,7 @@ if not FFlagDevFrameworkUseCreateContext then
 	function Settings:createProvider(root)
 		return Roact.createElement(Provider, {
 			ContextItem = self,
-		}, {root})
+		}, { root })
 	end
 end
 

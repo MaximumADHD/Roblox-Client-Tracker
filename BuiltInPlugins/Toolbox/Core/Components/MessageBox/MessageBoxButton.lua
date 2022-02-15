@@ -98,7 +98,7 @@ function MessageBoxButton:render()
 			Font = Constants.FONT,
 			TextSize = Constants.FONT_SIZE_SMALL,
 			TextXAlignment = Enum.TextXAlignment.Center,
-		})
+		}),
 	})
 end
 

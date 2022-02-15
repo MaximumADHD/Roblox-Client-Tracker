@@ -55,8 +55,7 @@ function SearchOptionsButton:render()
 	local hovered = self.state.hovered
 
 	return Roact.createElement("ImageButton", {
-		Size = UDim2.new(0, Constants.HEADER_OPTIONSBUTTON_WIDTH,
-			0, Constants.HEADER_OPTIONSBUTTON_HEIGHT),
+		Size = UDim2.new(0, Constants.HEADER_OPTIONSBUTTON_WIDTH, 0, Constants.HEADER_OPTIONSBUTTON_HEIGHT),
 		LayoutOrder = layoutOrder,
 		BackgroundTransparency = 1,
 		Image = Images.SEARCH_OPTIONS,

@@ -44,21 +44,25 @@ function SearchOptionsEntry:render()
 
 	local textSize = Constants.getTextSize(header)
 
-	return Roact.createElement(FitToContent, {
-		LayoutOrder = layoutOrder,
-		BackgroundTransparency = 1,
-		ZIndex = ZIndex,
-	}, Cryo.Dictionary.join(children, {
-		Header = Roact.createElement("TextLabel", {
-			LayoutOrder = -1,
+	return Roact.createElement(
+		FitToContent,
+		{
+			LayoutOrder = layoutOrder,
 			BackgroundTransparency = 1,
-			Font = Constants.FONT,
-			TextSize = Constants.FONT_SIZE_MEDIUM,
-			TextColor3 = searchTheme.headerTextColor,
-			Size = UDim2.new(0, textSize.X, 0, textSize.Y),
-			Text = header,
-		}),
-	}))
+			ZIndex = ZIndex,
+		},
+		Cryo.Dictionary.join(children, {
+			Header = Roact.createElement("TextLabel", {
+				LayoutOrder = -1,
+				BackgroundTransparency = 1,
+				Font = Constants.FONT,
+				TextSize = Constants.FONT_SIZE_MEDIUM,
+				TextColor3 = searchTheme.headerTextColor,
+				Size = UDim2.new(0, textSize.X, 0, textSize.Y),
+				Text = header,
+			}),
+		})
+	)
 end
 
 SearchOptionsEntry = withContext({

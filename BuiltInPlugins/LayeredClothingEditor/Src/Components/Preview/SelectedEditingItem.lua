@@ -10,6 +10,7 @@
 		table PointData: vertex data of item being edited, provided via mapStateToProps
 		callback SelectEditingItem: update store values when editing item is selected, provided via mapDispatchToProps
 		callback VerifyBounds: function to determine if item is within chosen accessory bounds.
+		table EditingItemContext: context item for the object the user selected to edit, provided via mapToProps.
 ]]
 
 local InsertService = game:GetService("InsertService")

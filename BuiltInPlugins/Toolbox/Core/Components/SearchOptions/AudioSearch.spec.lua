@@ -19,7 +19,7 @@ return function()
 				minDuration = 0,
 				maxDuration = 4,
 				onDurationChange = function() end,
-			})
+			}),
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

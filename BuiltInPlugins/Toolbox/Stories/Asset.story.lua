@@ -17,29 +17,29 @@ local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 local MockItems = require(Plugin.TestUtils.MockItems)
 
 local function AssetStory(props)
-    local fakeAsset = props.fakeAsset
+	local fakeAsset = props.fakeAsset
 	local assetId = fakeAsset.Asset.Id
 
-    props.store = CoreTestUtils.storeWithData({
-        assets = {
-            idToAssetMap = { [assetId] = fakeAsset, },
-        },
-    })
+	props.store = CoreTestUtils.storeWithData({
+		assets = {
+			idToAssetMap = { [assetId] = fakeAsset },
+		},
+	})
 
 	return Roact.createElement(ToolboxStoryWrapper, props)
 end
 
 local fakeAssetId = 123456
- 
+
 return {
-    name = "Asset",
-    summary = "An asset used in the grid view.",
-    story = FFlagToolboxAssetGridRefactor4 and Roact.createElement(AssetStory, {
-        fakeAsset = MockItems.getSimpleAsset(fakeAssetId),
-    }, {
-        Asset = Roact.createElement(Asset, {
+	name = "Asset",
+	summary = "An asset used in the grid view.",
+	story = FFlagToolboxAssetGridRefactor4 and Roact.createElement(AssetStory, {
+		fakeAsset = MockItems.getSimpleAsset(fakeAssetId),
+	}, {
+		Asset = Roact.createElement(Asset, {
 			assetId = fakeAssetId,
 			LayoutOrder = 1,
 		}),
-    }) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor4", true),
+	}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetGridRefactor4", true),
 }

@@ -9,18 +9,16 @@ local CreatorInfoHelper = require(Util.CreatorInfoHelper)
 
 return function(networkInterface, creatorTargetId, creatorType)
 	return function(store)
-		return networkInterface:getCreatorInfo(creatorTargetId, creatorType):andThen(
-			function(result)
-				local creatorName = CreatorInfoHelper.getNameFromResult(result, creatorType)
+		return networkInterface:getCreatorInfo(creatorTargetId, creatorType):andThen(function(result)
+			local creatorName = CreatorInfoHelper.getNameFromResult(result, creatorType)
 
-				store:dispatch(SetCachedCreatorInfo({
-					Id = creatorTargetId,
-					Name = creatorName,
-					Type = creatorType
-				}))
-			end,
-			function(err)
-				store:dispatch(NetworkError(err))
-			end)
+			store:dispatch(SetCachedCreatorInfo({
+				Id = creatorTargetId,
+				Name = creatorName,
+				Type = creatorType,
+			}))
+		end, function(err)
+			store:dispatch(NetworkError(err))
+		end)
 	end
 end

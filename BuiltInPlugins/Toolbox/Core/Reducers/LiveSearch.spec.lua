@@ -19,9 +19,12 @@ return function()
 		it("should update searchTerm and results", function()
 			local state = LiveSearch(nil, {})
 
-			state = LiveSearch(state, SetLiveSearch("term", {
-				Key = "Value",
-			}))
+			state = LiveSearch(
+				state,
+				SetLiveSearch("term", {
+					Key = "Value",
+				})
+			)
 
 			expect(state.searchTerm).to.equal("term")
 			expect(state.results).to.be.ok()

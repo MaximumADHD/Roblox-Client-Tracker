@@ -53,8 +53,12 @@ local function convertSpecialMeshAccessory(accessory)
 	if thumbnailConfiguration and thumbnailConfiguration:IsA("Configuration") then
 		local thumbnailCameraTarget = thumbnailConfiguration:FindFirstChild(THUMBNAIL_CAMERA_TARGET)
 		local thumbnailCameraValue = thumbnailConfiguration:FindFirstChild(THUMBNAIL_CAMERA_VALUE)
-		if thumbnailCameraTarget and thumbnailCameraTarget:IsA("ObjectValue")
-			and thumbnailCameraValue and thumbnailCameraValue:IsA("CFrameValue") then
+		if
+			thumbnailCameraTarget
+			and thumbnailCameraTarget:IsA("ObjectValue")
+			and thumbnailCameraValue
+			and thumbnailCameraValue:IsA("CFrameValue")
+		then
 			local copy = thumbnailConfiguration:Clone()
 			copy[THUMBNAIL_CAMERA_TARGET].Value = meshPart
 			copy.Parent = newAccessory

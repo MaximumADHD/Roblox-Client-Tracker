@@ -46,7 +46,7 @@ return function(plugin, pluginLoaderContext)
 		Roact.setGlobalConfig({
 			elementTracing = true,
 			propValidation = true,
-			typeChecks = true
+			typeChecks = true,
 		})
 	end
 
@@ -83,7 +83,7 @@ return function(plugin, pluginLoaderContext)
 	local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
 
 	local AssetConfigWrapper = require(Plugin.Core.Components.AssetConfiguration.AssetConfigWrapper)
-	local ToolboxServiceWrapper =  require(Plugin.Core.Components.ToolboxServiceWrapper)
+	local ToolboxServiceWrapper = require(Plugin.Core.Components.ToolboxServiceWrapper)
 
 	local GetRolesRequest = require(Plugin.Core.Networking.Requests.GetRolesRequest)
 	local GetRolesDebugRequest = require(Plugin.Core.Networking.Requests.GetRolesDebugRequest)
@@ -152,7 +152,10 @@ return function(plugin, pluginLoaderContext)
 
 		if DebugFlags.shouldUseTestRealLocale() then
 			print("Toolbox using test real locale")
-			return Localization.createTestRealLocaleLocalization(translationReferenceTable, DebugFlags.getOrCreateTestRealLocale())
+			return Localization.createTestRealLocaleLocalization(
+				translationReferenceTable,
+				DebugFlags.getOrCreateTestRealLocale()
+			)
 		end
 
 		return Localization.new({
@@ -165,14 +168,13 @@ return function(plugin, pluginLoaderContext)
 			getFallbackTranslator = function(localeId)
 				return translationDevelopmentTable:GetTranslator(localeId)
 			end,
-			localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId")
+			localeIdChanged = StudioService:GetPropertyChangedSignal("StudioLocaleId"),
 		})
 	end
 
 	local toolboxStore = nil
 
 	local assetConfigHandle = nil
-
 
 	-- assetId number, will be used by Marketplace to request detail assetData.
 	--				default to nil, then will not request anything.
@@ -221,27 +223,27 @@ return function(plugin, pluginLoaderContext)
 			}
 		else
 			middleware = {
-				Rodux.thunkMiddleware
+				Rodux.thunkMiddleware,
 			}
 		end
 
 		-- If we don't have asset id, we will be publish an new asset.
 		-- Otherwise, we will be editing an asset.
 		local assetConfigStore = Rodux.Store.new(AssetConfigReducer, {
-				assetId = assetId,
-				screenFlowType = flowType,
-				currentScreen = startScreen,
-				instances = instances,
-				allowedAssetTypesForRelease = assetTypesForRelease,
-				allowedAssetTypesForUpload = assetTypesForUpload,
-				isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,
-				enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
-				maximumItemTagsPerItem = maximumItemTagsPerItem,
-				assetTypeEnum = assetTypeEnum,
-				currentTab = defaultTab,
-				packagePermissions = packagePermissions,
-				overrideCursor = {},
-			}, middleware)
+			assetId = assetId,
+			screenFlowType = flowType,
+			currentScreen = startScreen,
+			instances = instances,
+			allowedAssetTypesForRelease = assetTypesForRelease,
+			allowedAssetTypesForUpload = assetTypesForUpload,
+			isItemTagsFeatureEnabled = isItemTagsFeatureEnabled,
+			enabledAssetTypesForItemTags = enabledAssetTypesForItemTags,
+			maximumItemTagsPerItem = maximumItemTagsPerItem,
+			assetTypeEnum = assetTypeEnum,
+			currentTab = defaultTab,
+			packagePermissions = packagePermissions,
+			overrideCursor = {},
+		}, middleware)
 
 		local theme = createAssetConfigTheme()
 		local networkInterface = NetworkInterface.new()
@@ -276,7 +278,7 @@ return function(plugin, pluginLoaderContext)
 			networkInterface = networkInterface,
 			localization = localization,
 
-			onAssetConfigDestroy = onAssetConfigDestroy
+			onAssetConfigDestroy = onAssetConfigDestroy,
 		})
 		local assetConfigWithServices = Roact.createElement(ToolboxServiceWrapper, {
 			localization = devFrameworkLocalization,
@@ -285,14 +287,14 @@ return function(plugin, pluginLoaderContext)
 			store = assetConfigStore,
 			settings = settings,
 		}, {
-			assetConfigComponent
+			assetConfigComponent,
 		})
 		assetConfigHandle = Roact.mount(assetConfigWithServices)
 	end
 
 	local function main()
 		toolboxStore = Rodux.Store.new(ToolboxReducer, nil, {
-			Rodux.thunkMiddleware
+			Rodux.thunkMiddleware,
 		})
 
 		local assetAnalyticsContextItem = AssetAnalyticsContextItem.new()
@@ -356,7 +358,7 @@ return function(plugin, pluginLoaderContext)
 			assetAnalytics = assetAnalyticsContextItem,
 			analytics = analyticsContextItem,
 		}, {
-			toolboxComponent
+			toolboxComponent,
 		})
 		toolboxHandle = Roact.mount(toolboxWithServices)
 		if inspector then
@@ -369,13 +371,23 @@ return function(plugin, pluginLoaderContext)
 				local clonedInstances = AssetConfigUtil.getClonedInstances(instances)
 				if FFlagUseNewAnimationClipProvider then
 					if #clonedInstances == 1 and clonedInstances[1]:IsA("AnimationClip") then
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+						createAssetConfig(
+							nil,
+							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+							clonedInstances,
+							Enum.AssetType.Animation
+						)
 					else
 						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 					end
 				else
 					if #clonedInstances == 1 and clonedInstances[1]:IsA("KeyframeSequence") then
-						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances, Enum.AssetType.Animation)
+						createAssetConfig(
+							nil,
+							AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW,
+							clonedInstances,
+							Enum.AssetType.Animation
+						)
 					else
 						createAssetConfig(nil, AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW, clonedInstances)
 					end
@@ -407,23 +419,14 @@ return function(plugin, pluginLoaderContext)
 		end)
 
 		-- Listen to MemStorageService
-		pluginLoaderContext.signals["MemStorageService.OpenAssetConfiguration"]:Connect(
-			function(params)
-				local asset = HttpService:JSONDecode(params)
-				if asset.assetType == Enum.AssetType.Image then
-					createAssetConfig(
-						asset.id,
-						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-						nil,
-						Enum.AssetType.Image)
-				else
-					createAssetConfig(
-						asset.id,
-						AssetConfigConstants.FLOW_TYPE.EDIT_FLOW,
-						nil,
-						Enum.AssetType.MeshPart)
-				end
-			end)
+		pluginLoaderContext.signals["MemStorageService.OpenAssetConfiguration"]:Connect(function(params)
+			local asset = HttpService:JSONDecode(params)
+			if asset.assetType == Enum.AssetType.Image then
+				createAssetConfig(asset.id, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.Image)
+			else
+				createAssetConfig(asset.id, AssetConfigConstants.FLOW_TYPE.EDIT_FLOW, nil, Enum.AssetType.MeshPart)
+			end
+		end)
 		InsertAsset.registerLocalization(devFrameworkLocalization)
 		InsertAsset.registerProcessDragHandler(plugin)
 	end

@@ -35,12 +35,12 @@ local AssetIconBadge = Roact.PureComponent:extend("AssetIconBadge")
 
 function AssetIconBadge:init(props)
 	self.state = {
-		isHovered = false
+		isHovered = false,
 	}
 
 	self.onMouseEnter = function()
 		self:setState({
-			isHovered = true
+			isHovered = true,
 		})
 
 		getModal(self).onTooltipTriggered(props.assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
@@ -48,7 +48,7 @@ function AssetIconBadge:init(props)
 
 	self.onMouseLeave = function()
 		self:setState({
-			isHovered = false
+			isHovered = false,
 		})
 	end
 end
@@ -66,7 +66,10 @@ function AssetIconBadge:render()
 
 			local isHovered = self.state.isHovered
 
-			local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(assetId, Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE)
+			local canShowCurrentTooltip = modalStatus:canShowCurrentTooltip(
+				assetId,
+				Constants.TOOLTIP_TYPE.HIGH_QUALITY_BADGE
+			)
 
 			local edgeOffset = 0.06
 
@@ -74,7 +77,12 @@ function AssetIconBadge:render()
 				AnchorPoint = Vector2.new(floatLeft and 0 or 1, 1),
 				BackgroundTransparency = 1,
 				Position = UDim2.new(floatLeft and edgeOffset or (1 - edgeOffset), 0, 1.06, 0),
-				Size = UDim2.new(0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE, 0, Constants.ASSET_ENDORSED_BADGE_ICON_SIZE),
+				Size = UDim2.new(
+					0,
+					Constants.ASSET_ENDORSED_BADGE_ICON_SIZE,
+					0,
+					Constants.ASSET_ENDORSED_BADGE_ICON_SIZE
+				),
 				Image = Images.ENDORSED_BADGE_ICON,
 				ZIndex = 2,
 
@@ -85,7 +93,7 @@ function AssetIconBadge:render()
 					Text = localization:getLocalizedContent().EndorseBadgeTooltipText,
 					canShowCurrentTooltip = canShowCurrentTooltip,
 					isHovered = isHovered,
-				})
+				}),
 			})
 		end)
 	end)

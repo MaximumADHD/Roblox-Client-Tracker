@@ -2,8 +2,8 @@
 	NetworkInterface
 
 	Provides an interface between real Networking implementation and Mock one for production and test
-]]--
-
+]]
+--
 
 local Plugin = script.Parent.Parent.Parent
 local Networking = require(Plugin.Libs.Http.Networking)
@@ -30,8 +30,7 @@ NetworkInterface.__index = NetworkInterface
 
 function NetworkInterface.new()
 	local networkImp = {
-		_networkImp = Networking.new()
-
+		_networkImp = Networking.new(),
 	}
 	setmetatable(networkImp, NetworkInterface)
 
@@ -52,7 +51,7 @@ local function sendRequestAndRetry(requestFunc, retryData)
 	retryData = retryData or {
 		attempts = 0,
 		time = 0,
-		maxRetries = 5
+		maxRetries = 5,
 	}
 	retryData.attempts = retryData.attempts + 1
 	return requestFunc():catch(function(result)
@@ -65,7 +64,7 @@ local function sendRequestAndRetry(requestFunc, retryData)
 			return Promise.reject(result)
 		end
 
-		local timeToWait = 2^(retryData.attempts - 1)
+		local timeToWait = 2 ^ (retryData.attempts - 1)
 		wait(timeToWait)
 
 		return sendRequestAndRetry(requestFunc, retryData)
@@ -95,7 +94,18 @@ function NetworkInterface:getAssets(pageInfo)
 	end)
 end
 
-function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, ownerId, keyword, cursor, limit)
+function NetworkInterface:getToolboxItems(
+	category,
+	sortType,
+	creatorType,
+	minDuration,
+	maxDuration,
+	creatorTargetId,
+	ownerId,
+	keyword,
+	cursor,
+	limit
+)
 	local useCreatorWhitelist = nil
 
 	if category == Category.WHITELISTED_PLUGINS.name then
@@ -113,7 +123,8 @@ function NetworkInterface:getToolboxItems(category, sortType, creatorType, minDu
 		keyword,
 		cursor,
 		limit,
-		useCreatorWhitelist)
+		useCreatorWhitelist
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getToolboxItems", "GET", targetUrl)
@@ -167,13 +178,16 @@ function NetworkInterface:getAssetCreations(pageInfo, cursor, assetTypeOverride,
 
 		local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
 
-		groupId = categoryIsGroup
-			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-			or nil
+		groupId = categoryIsGroup and PageInfoHelper.getGroupIdForPageInfo(pageInfo) or nil
 	end
 
-	local targetUrl = Urls.constructGetAssetCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
-		cursor, nil, groupId)
+	local targetUrl = Urls.constructGetAssetCreationsUrl(
+		assetTypeName,
+		Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor,
+		nil,
+		groupId
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetCreations", "GET", targetUrl)
@@ -189,13 +203,16 @@ function NetworkInterface:getAssetGroupCreations(pageInfo, cursor, assetTypeOver
 
 		local categoryIsGroup = Category.categoryIsGroupAsset(pageInfo.categoryName)
 
-		groupId = categoryIsGroup
-			and PageInfoHelper.getGroupIdForPageInfo(pageInfo)
-			or nil
+		groupId = categoryIsGroup and PageInfoHelper.getGroupIdForPageInfo(pageInfo) or nil
 	end
 
-	local targetUrl = Urls.constructGetAssetGroupCreationsUrl(assetTypeName, Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
-		cursor, nil, groupId)
+	local targetUrl = Urls.constructGetAssetGroupCreationsUrl(
+		assetTypeName,
+		Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor,
+		nil,
+		groupId
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getAssetGroupCreations", "GET", targetUrl)
@@ -204,8 +221,13 @@ function NetworkInterface:getAssetGroupCreations(pageInfo, cursor, assetTypeOver
 end
 
 function NetworkInterface:getGroupAnimations(cursor, groupId)
-	local targetUrl = Urls.constructGetAssetCreationsUrl("Animation", Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
-		cursor, nil, groupId)
+	local targetUrl = Urls.constructGetAssetCreationsUrl(
+		"Animation",
+		Constants.GET_ASSET_CREATIONS_PAGE_SIZE_LIMIT,
+		cursor,
+		nil,
+		groupId
+	)
 
 	return sendRequestAndRetry(function()
 		printUrl("getGroupAnimations", "GET", targetUrl)
@@ -215,7 +237,11 @@ end
 
 function NetworkInterface:getAssetCreationDetails(assetIds)
 	if DebugFlags.shouldDebugWarnings() and assetIds and #assetIds > Constants.GET_ASSET_CREATIONS_DETAILS_LIMIT then
-		warn(("getAssetCreationDetails() does not support requests for more than %d assets at one time"):format(#assetIds))
+		warn(
+			("getAssetCreationDetails() does not support requests for more than %d assets at one time"):format(
+				#assetIds
+			)
+		)
 	end
 
 	local targetUrl = Urls.constructGetAssetCreationDetailsUrl()
@@ -390,12 +416,11 @@ function NetworkInterface:uploadCatalogItem(formBodyData, boundary)
 		CachePolicy = Enum.HttpCachePolicy.None,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=" .. boundary,
-		}
+		},
 	}
 
 	printUrl("uploadCatalogItem", "POST FORM-DATA", targetUrl, formBodyData)
-	return self._networkImp:requestInternal(requestInfo)
-	:catch(function(err)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end
@@ -411,13 +436,12 @@ end
 
 --multipart/form-data for uploading images to Roblox endpoints
 --Moderation occurs on the web
-local FORM_DATA =
-	"--%s\r\n" ..
-	"Content-Type: image/%s\r\n" ..
-	"Content-Disposition: form-data; filename=\"%s\"; name=\"request.files\"\r\n" ..
-	"\r\n" ..
-	"%s\r\n" ..
-	"--%s--\r\n"
+local FORM_DATA = "--%s\r\n"
+	.. "Content-Type: image/%s\r\n"
+	.. 'Content-Disposition: form-data; filename="%s"; name="request.files"\r\n'
+	.. "\r\n"
+	.. "%s\r\n"
+	.. "--%s--\r\n"
 
 function NetworkInterface:uploadAssetThumbnail(assetId, iconFile)
 	local targetUrl = Urls.constructUploadAssetThumbnailUrl(assetId)
@@ -438,8 +462,8 @@ function NetworkInterface:uploadAssetThumbnail(assetId, iconFile)
 		Body = form,
 		CachePolicy = Enum.HttpCachePolicy.None,
 		Headers = {
-			["Content-Type"] = "multipart/form-data; boundary=" .. tostring(key)
-		}
+			["Content-Type"] = "multipart/form-data; boundary=" .. tostring(key),
+		},
 	}
 
 	printUrl("uploadAssetThumbnail", "POST FORM-DATA", targetUrl, form)
@@ -449,7 +473,7 @@ function NetworkInterface:uploadAssetThumbnail(assetId, iconFile)
 end
 
 function NetworkInterface:getThumbnailStatus(assetId)
-	local targetUrl = Urls.contuctGetThumbnailStatusUrl({assetId})
+	local targetUrl = Urls.contuctGetThumbnailStatusUrl({ assetId })
 
 	printUrl("getThumbnailStatus", "GET", targetUrl)
 	return self._networkImp:httpGetJson(targetUrl)
@@ -472,8 +496,7 @@ function NetworkInterface:configureCatalogItem(assetId, patchDataTable)
 
 	-- TODO: replace this with Networking:httpPatch
 	printUrl("configureCatalogItem", "PATCH", targetUrl, patchPayload)
-	return self._networkImp:requestInternal(requestInfo)
-	:catch(function(err)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end
@@ -490,7 +513,17 @@ end
 	localName (string, optional),
 	localDescription (string, optional)
 ]]
-function NetworkInterface:patchAsset(assetId, name, description, genres, enableComments, isCopyingAllowed, locale, localName, localDescription)
+function NetworkInterface:patchAsset(
+	assetId,
+	name,
+	description,
+	genres,
+	enableComments,
+	isCopyingAllowed,
+	locale,
+	localName,
+	localDescription
+)
 	local targetUrl = Urls.constructPatchAssetUrl(assetId)
 
 	local payload = self._networkImp:jsonEncode({
@@ -519,8 +552,27 @@ end
 -- allowComments, bool
 -- groupId, number, default to nil
 -- instanceData, serialised instance, used in post body
-function NetworkInterface:postUploadAsset(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId, instanceData)
-	local targetUrl = Urls.constructPostUploadAssetUrl(assetid, type, name, description, genreTypeId, ispublic, allowComments, groupId)
+function NetworkInterface:postUploadAsset(
+	assetid,
+	type,
+	name,
+	description,
+	genreTypeId,
+	ispublic,
+	allowComments,
+	groupId,
+	instanceData
+)
+	local targetUrl = Urls.constructPostUploadAssetUrl(
+		assetid,
+		type,
+		name,
+		description,
+		genreTypeId,
+		ispublic,
+		allowComments,
+		groupId
+	)
 
 	printUrl("postUploadAsset", "POST", targetUrl, instanceData)
 	return self._networkImp:httpPost(targetUrl, instanceData)
@@ -545,9 +597,8 @@ function NetworkInterface:validateAnimation(assetid)
 		},
 	}
 
-	printUrl('validateAnimation', "GET", targetUrl)
-	return self._networkImp:requestInternal(requestInfo)
-	:catch(function(err)
+	printUrl("validateAnimation", "GET", targetUrl)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end
@@ -567,8 +618,7 @@ function NetworkInterface:postUploadAnimation(assetid, name, description, groupI
 	}
 
 	printUrl("uploadAnimation", "POST", targetUrl, instanceData)
-	return self._networkImp:requestInternal(requestInfo)
-	:catch(function(err)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end
@@ -588,8 +638,7 @@ function NetworkInterface:postOverrideAnimation(assetid, instanceData)
 	}
 
 	printUrl("uploadAnimation", "POST", targetUrl, instanceData)
-	return self._networkImp:requestInternal(requestInfo)
-	:catch(function(err)
+	return self._networkImp:requestInternal(requestInfo):catch(function(err)
 		return Promise.reject(err)
 	end)
 end
@@ -620,7 +669,7 @@ end
 function NetworkInterface:postForPackageMetadata(assetid)
 	local targetUrl = Urls.constructPostPackageMetadata()
 
-	local payload = "[{ \"assetId\" : " .. assetid .. ", \"assetVersionNumber\" : 1 }]"
+	local payload = '[{ "assetId" : ' .. assetid .. ', "assetVersionNumber" : 1 }]'
 	return self._networkImp:httpPostJson(targetUrl, payload)
 end
 
@@ -756,13 +805,13 @@ function NetworkInterface:avatarAssetsGetUploadFee(assetType, formBodyData, boun
 		CachePolicy = Enum.HttpCachePolicy.None,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=" .. boundary,
-		}
+		},
 	}
 
 	printUrl("avatarAssetsGetUploadFee", "POST FORM-DATA", targetUrl, formBodyData)
-	return self._networkImp
-		:requestInternalRaw(requestInfo)
-		:catch(function(err) return Promise.reject(err) end)
+	return self._networkImp:requestInternalRaw(requestInfo):catch(function(err)
+		return Promise.reject(err)
+	end)
 end
 
 function NetworkInterface:avatarAssetsUpload(assetType, formBodyData, boundary)
@@ -775,13 +824,13 @@ function NetworkInterface:avatarAssetsUpload(assetType, formBodyData, boundary)
 		CachePolicy = Enum.HttpCachePolicy.None,
 		Headers = {
 			["Content-Type"] = "multipart/form-data; boundary=" .. boundary,
-		}
+		},
 	}
 
 	printUrl("avatarAssetsUpload", "POST FORM-DATA", targetUrl, formBodyData)
-	return self._networkImp
-		:requestInternalRaw(requestInfo)
-		:catch(function(err) return Promise.reject(err) end)
+	return self._networkImp:requestInternalRaw(requestInfo):catch(function(err)
+		return Promise.reject(err)
+	end)
 end
 
 function NetworkInterface:getAssetTypeAgents(assetType)

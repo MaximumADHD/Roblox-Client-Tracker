@@ -18,7 +18,7 @@ return function()
 		local element = Roact.createElement(MockWrapper, {}, {
 			Dropdown = Roact.createElement(LiveSearchDropdown, {
 				Items = {
-					{Name = "Name", Thumbnail = "rbxassetid://0"},
+					{ Name = "Name", Thumbnail = "rbxassetid://0" },
 				},
 				Size = UDim2.new(1, 0, 1, 0),
 			}),

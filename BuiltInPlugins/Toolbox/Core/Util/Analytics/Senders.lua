@@ -13,7 +13,9 @@ end
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 
 local FFlagNewPackageAnalyticsWithRefactor2 = game:GetFastFlag("NewPackageAnalyticsWithRefactor2")
-local FFlagInfluxReportingPackageAnalyticsHundrethsPercent = game:GetFastInt("InfluxReportingPackageAnalyticsHundrethsPercent")
+local FFlagInfluxReportingPackageAnalyticsHundrethsPercent = game:GetFastInt(
+	"InfluxReportingPackageAnalyticsHundrethsPercent"
+)
 
 local function makeSettingName(counter)
 	return "ToolboxAnalytics_" .. counter

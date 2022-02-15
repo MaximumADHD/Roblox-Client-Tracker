@@ -42,20 +42,20 @@ AssetConfigConstants.FIELD_NAMES = convertArrayToTable({
 })
 
 AssetConfigConstants.GENRE_TYPE = {
-	{name = Enum.Genre.All.Name},
-	{name = Enum.Genre.TownAndCity.Name},
-	{name = Enum.Genre.Fantasy.Name},
-	{name = Enum.Genre.SciFi.Name},
-	{name = Enum.Genre.Ninja.Name},
-	{name = Enum.Genre.Scary.Name},
-	{name = Enum.Genre.Pirate.Name},
-	{name = Enum.Genre.Adventure.Name},
-	{name = Enum.Genre.Sports.Name},
-	{name = Enum.Genre.Funny.Name},
-	{name = Enum.Genre.WildWest.Name},
-	{name = Enum.Genre.War.Name},
-	{name = Enum.Genre.SkatePark.Name},
-	{name = Enum.Genre.Tutorial.Name},
+	{ name = Enum.Genre.All.Name },
+	{ name = Enum.Genre.TownAndCity.Name },
+	{ name = Enum.Genre.Fantasy.Name },
+	{ name = Enum.Genre.SciFi.Name },
+	{ name = Enum.Genre.Ninja.Name },
+	{ name = Enum.Genre.Scary.Name },
+	{ name = Enum.Genre.Pirate.Name },
+	{ name = Enum.Genre.Adventure.Name },
+	{ name = Enum.Genre.Sports.Name },
+	{ name = Enum.Genre.Funny.Name },
+	{ name = Enum.Genre.WildWest.Name },
+	{ name = Enum.Genre.War.Name },
+	{ name = Enum.Genre.SkatePark.Name },
+	{ name = Enum.Genre.Tutorial.Name },
 }
 
 AssetConfigConstants.FLOW_TYPE = convertArrayToTable({
@@ -105,7 +105,10 @@ end
 
 AssetConfigConstants.ASSET_TYPE_INFO = {
 	-- catalog assets
-	catalogAssetInfo(Enum.AssetType.Hat, --[[ isUploadable = ]] true),
+	catalogAssetInfo(
+		Enum.AssetType.Hat, --[[ isUploadable = ]]
+		true
+	),
 	catalogAssetInfo(Enum.AssetType.TShirt),
 	catalogAssetInfo(Enum.AssetType.Shirt),
 	catalogAssetInfo(Enum.AssetType.Pants),
@@ -124,7 +127,10 @@ AssetConfigConstants.ASSET_TYPE_INFO = {
 	marketplaceAssetInfo(Enum.AssetType.MeshPart),
 	marketplaceAssetInfo(Enum.AssetType.Audio),
 	marketplaceAssetInfo(Enum.AssetType.Animation),
-	marketplaceAssetInfo(Enum.AssetType.Plugin, --[[ isBuyable = ]] true),
+	marketplaceAssetInfo(
+		Enum.AssetType.Plugin, --[[ isBuyable = ]]
+		true
+	),
 }
 
 if FFlagUGCLCAssetTypes2 then
@@ -181,7 +187,7 @@ AssetConfigConstants.rbxThumbSizes = {
 	AssetThumbnailSize = 420,
 }
 
-AssetConfigConstants.IMAGE_TYPES = {"jpg", "jpeg", "png"}
+AssetConfigConstants.IMAGE_TYPES = { "jpg", "jpeg", "png" }
 
 AssetConfigConstants.TAGS_SUGGESTION_SUCCESS = "Success"
 AssetConfigConstants.MAX_DISPLAY_SUGGESTIONS = 5

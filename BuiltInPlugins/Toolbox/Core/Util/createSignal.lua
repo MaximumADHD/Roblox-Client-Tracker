@@ -40,7 +40,7 @@ local function createSignal()
 
 		local connection = {
 			callback = callback,
-			disconnected = false
+			disconnected = false,
 		}
 
 		connections = addToMap(connections, callback, connection)

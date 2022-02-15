@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(username)
 	return {
-		ownerUsername = username
+		ownerUsername = username,
 	}
 end)

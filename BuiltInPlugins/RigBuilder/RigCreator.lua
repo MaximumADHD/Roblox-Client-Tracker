@@ -1,4 +1,5 @@
 game:DefineFastFlag("RigBuilderNoTwoFace", false)
+game:DefineFastFlag("RigBuilderFixR6HRPTransparency", false)
 
 local RigCreator = {}
 
@@ -23,7 +24,11 @@ function RigCreator.CreateR6Rig()
 	Root.Name = "HumanoidRootPart"
 	Root.Anchored = true
 	Root.CanCollide = true
-	Root.Transparency = 0.5
+	if game:GetFastFlag("RigBuilderFixR6HRPTransparency") then
+		Root.Transparency = 1
+	else
+		Root.Transparency = 0.5
+	end
 	Root.Size = Vector3.new(2, 2, 1)
 	Root.Parent = parent
 	Root.CFrame = CFrame.new(0, 5.2, 4.5)

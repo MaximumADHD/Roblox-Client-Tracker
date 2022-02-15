@@ -53,8 +53,7 @@ function AudioProgressBar:render()
 	local progressBarColor = props.Stylizer.progressBarColor
 
 	self.progress = 0
-	if totalTime ~= nil and totalTime ~= 0
-		and currentSoundId == assetId then
+	if totalTime ~= nil and totalTime ~= 0 and currentSoundId == assetId then
 		self.progress = elapsedTime / totalTime
 	end
 
@@ -72,7 +71,7 @@ function AudioProgressBar:render()
 			BorderSizePixel = 0,
 			Position = UDim2.new(0, 0, 0.5, 0),
 			Size = UDim2.new(self.progress, 0, 1, 0),
-		})
+		}),
 	})
 end
 
@@ -86,11 +85,8 @@ local function mapStateToProps(state, props)
 	}
 end
 
-
 AudioProgressBar = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(AudioProgressBar)
-
-
 
 return RoactRodux.connect(mapStateToProps, nil)(AudioProgressBar)

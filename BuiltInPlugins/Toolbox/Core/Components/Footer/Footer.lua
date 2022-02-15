@@ -123,8 +123,10 @@ function Footer:renderContent(theme, localization, localizedContent)
 	-- Get the widest background name
 	local backgroundButtonTextWidth = 32 -- Start with a min width
 	for _, background in ipairs(translatedBackgrounds) do
-		backgroundButtonTextWidth = math.max(backgroundButtonTextWidth,
-			Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x)
+		backgroundButtonTextWidth = math.max(
+			backgroundButtonTextWidth,
+			Constants.getTextSize(background.name, backgroundButtonTextSize, backgroundButtonTextFont).x
+		)
 	end
 
 	for index, background in ipairs(translatedBackgrounds) do
@@ -179,13 +181,10 @@ function Footer:renderContent(theme, localization, localizedContent)
 	})
 end
 
-
 Footer = withContext({
 	Settings = Settings,
 	Stylizer = ContextServices.Stylizer,
 })(Footer)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}

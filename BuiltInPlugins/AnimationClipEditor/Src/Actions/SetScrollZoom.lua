@@ -1,5 +1,7 @@
 --[[
 	Used to set the horizontal zoom extents.
+
+	TODO: Deprecated with GetFFlagCurveEditor
 ]]
 
 local Action = require(script.Parent.Action)

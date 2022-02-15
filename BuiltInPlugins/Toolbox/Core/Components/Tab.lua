@@ -74,7 +74,7 @@ function Tab:render()
 	local contentColor = (selected or hovered) and tabTheme.selectedColor or tabTheme.contentColor
 
 	local tooltip = not displayText and Roact.createElement(Tooltip, {
-		Text = text
+		Text = text,
 	}) or nil
 
 	return Roact.createElement("ImageButton", {
@@ -107,7 +107,7 @@ function Tab:render()
 		}),
 
 		Content = Roact.createElement("Frame", {
-			Size = UDim2.new(1, -(Constants.TAB_OUTER_PADDING*2), 1, 0),
+			Size = UDim2.new(1, -(Constants.TAB_OUTER_PADDING * 2), 1, 0),
 			Position = UDim2.new(0, Constants.TAB_OUTER_PADDING, 0, 0),
 			BackgroundTransparency = 1,
 			LayoutOrder = 1,

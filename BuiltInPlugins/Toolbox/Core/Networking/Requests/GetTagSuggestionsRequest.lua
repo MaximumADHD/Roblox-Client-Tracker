@@ -12,14 +12,17 @@ return function(networkInterface, tags, prefix)
 		local sentTime = tick()
 
 		local handlerFunc = function(response)
-
 			local suggestions = {}
 
 			if response.responseBody and response.responseBody.data then
 				for i = 1, #response.responseBody.data do
 					local suggestion = response.responseBody.data[i]
 					local tagId = suggestion.tagId
-					if tagId and suggestion.status == AssetConfigConstants.TAGS_SUGGESTION_SUCCESS and not TagsUtil.hasTag(tags, tagId) then
+					if
+						tagId
+						and suggestion.status == AssetConfigConstants.TAGS_SUGGESTION_SUCCESS
+						and not TagsUtil.hasTag(tags, tagId)
+					then
 						table.insert(suggestions, suggestion)
 					end
 					if #suggestions > AssetConfigConstants.MAX_DISPLAY_SUGGESTIONS then
@@ -37,6 +40,8 @@ return function(networkInterface, tags, prefix)
 			end
 		end
 
-		return networkInterface:tagsPrefixSearch(prefix, AssetConfigConstants.MAX_FETCH_SUGGESTIONS):andThen(handlerFunc, errorFunc)
+		return networkInterface
+			:tagsPrefixSearch(prefix, AssetConfigConstants.MAX_FETCH_SUGGESTIONS)
+			:andThen(handlerFunc, errorFunc)
 	end
 end

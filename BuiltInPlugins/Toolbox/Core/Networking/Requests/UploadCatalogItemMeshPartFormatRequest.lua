@@ -38,7 +38,23 @@ return function(networkInterface, assetId, assetTypeEnum, name, description, ins
 
 		if FFlagStudioSerializeInstancesOffUIThread then
 			return SerializeInstances({ meshPartAccessory }, services.StudioAssetService):andThen(function(instanceData)
-				return networkInterface:uploadCatalogItemFormat(
+				return networkInterface
+					:uploadCatalogItemFormat(
+						assetId,
+						assetTypeEnum.Name,
+						name,
+						description,
+						true,
+						AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT,
+						instanceData
+					)
+					:andThen(handlerFunc, errorFunc)
+			end, serializeFailedFunc)
+		else
+			local instanceData = SerializeInstances_Deprecated({ meshPartAccessory })
+
+			networkInterface
+				:uploadCatalogItemFormat(
 					assetId,
 					assetTypeEnum.Name,
 					name,
@@ -46,20 +62,8 @@ return function(networkInterface, assetId, assetTypeEnum, name, description, ins
 					true,
 					AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT,
 					instanceData
-				):andThen(handlerFunc, errorFunc)
-			end, serializeFailedFunc)
-		else
-			local instanceData = SerializeInstances_Deprecated({ meshPartAccessory })
-
-			networkInterface:uploadCatalogItemFormat(
-				assetId,
-				assetTypeEnum.Name,
-				name,
-				description,
-				true,
-				AssetConfigConstants.AVATAR_MESHPART_ACCESSORY_FORMAT,
-				instanceData
-			):andThen(handlerFunc, errorFunc)
+				)
+				:andThen(handlerFunc, errorFunc)
 		end
 	end
 end

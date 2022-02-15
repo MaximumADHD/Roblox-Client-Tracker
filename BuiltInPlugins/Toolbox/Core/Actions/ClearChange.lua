@@ -11,6 +11,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(setting)
 	return {
-		setting = setting
+		setting = setting,
 	}
 end)

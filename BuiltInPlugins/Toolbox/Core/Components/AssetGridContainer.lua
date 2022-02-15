@@ -7,11 +7,13 @@
 	Optional Props:
 		int LayoutOrder
 		UDim2 Position
+		function renderTopContent: function that returns a roact element which is the content located above the infinite grid.
 		UDim2 Size
 ]]
 local HttpService = game:GetService("HttpService")
 
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -117,7 +119,9 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onScriptWarningBoxClosed = function()
-		if not FFlagToolboxEnableScriptConfirmation then return end
+		if not FFlagToolboxEnableScriptConfirmation then
+			return
+		end
 		self:setState({
 			isShowingScriptWarningMessageBox = false,
 		})
@@ -125,7 +129,9 @@ function AssetGridContainer:init(props)
 	end
 
 	self.onInsertScriptWarningPrompt = function(info)
-		if not FFlagToolboxEnableScriptConfirmation then return end
+		if not FFlagToolboxEnableScriptConfirmation then
+			return
+		end
 		local settings = self.props.Settings:get("Plugin")
 		if settings:getShowScriptWarning() then
 			self:setState({
@@ -162,24 +168,21 @@ function AssetGridContainer:init(props)
 
 		local plugin = self.props.Plugin:get()
 		InsertAsset.tryInsert({
-				plugin = plugin,
-				assetId = assetId,
-				assetName = assetName,
-				assetTypeId = assetTypeId,
-				onSuccess = function(assetId, insertedInstance)
-					self.props.postInsertAssetRequest(getNetwork(self), assetId)
-					self.props.setMostRecentAssetInsertTime()
-					insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
-					self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
-				end,
-				currentCategoryName = currentCategoryName,
-				categoryName = categoryName,
-				searchTerm = searchTerm,
-				assetIndex = assetIndex,
-			},
-			self.insertToolPromise,
-			assetWasDragged
-		)
+			plugin = plugin,
+			assetId = assetId,
+			assetName = assetName,
+			assetTypeId = assetTypeId,
+			onSuccess = function(assetId, insertedInstance)
+				self.props.postInsertAssetRequest(getNetwork(self), assetId)
+				self.props.setMostRecentAssetInsertTime()
+				insertionMethod = insertionMethod or (assetWasDragged and "DragInsert" or "ClickInsert")
+				self.props.AssetAnalytics:get():logInsert(assetData, insertionMethod, insertedInstance)
+			end,
+			currentCategoryName = currentCategoryName,
+			categoryName = categoryName,
+			searchTerm = searchTerm,
+			assetIndex = assetIndex,
+		}, self.insertToolPromise, assetWasDragged)
 	end
 
 	self.updateBoundaryVariables = function()
@@ -187,8 +190,7 @@ function AssetGridContainer:init(props)
 		if not ref then
 			return
 		end
-		if self.state.absolutePosition ~= ref.AbsolutePosition
-			or self.state.absoluteSize ~= ref.AbsoluteSize then
+		if self.state.absolutePosition ~= ref.AbsolutePosition or self.state.absoluteSize ~= ref.AbsoluteSize then
 			self:setState({
 				absoluteSize = ref.AbsoluteSize,
 				absolutePosition = ref.AbsolutePosition,
@@ -211,7 +213,11 @@ function AssetGridContainer:didMount()
 
 	if assetId then
 		local props = self.props
-		props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, props.API:get())
+		if FFlagToolboxGetItemsDetailsUsesSingleApi then
+			props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, getNetwork(self))
+		else
+			props.getAssetPreviewDataForStartup(assetId, self.tryInsert, props.Localization, props.API:get())
+		end
 	end
 end
 
@@ -228,6 +234,7 @@ function AssetGridContainer:render()
 	local layoutOrder = props.LayoutOrder
 	local isPreviewing = props.isPreviewing
 	local position = props.Position
+	local renderTopContent = props.renderTopContent
 	local size = props.Size
 	local tryOpenAssetConfig = props.tryOpenAssetConfig
 
@@ -262,16 +269,17 @@ function AssetGridContainer:render()
 		[Roact.Change.AbsolutePosition] = self.updateBoundaryVariables,
 		[Roact.Change.AbsoluteSize] = self.updateBoundaryVariables,
 	}, {
-		ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox and Roact.createElement(ScriptConfirmationDialog, {
-			Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
+		ToolScriptWarningMessageBox = isShowingScriptWarningMessageBox
+			and Roact.createElement(ScriptConfirmationDialog, {
+				Name = string.format("ToolboxToolScriptWarningMessageBox-%s", HttpService:GenerateGUID()),
 
-			Info = scriptWarningInfo,
-			Icon = Images.INFO_ICON,
+				Info = scriptWarningInfo,
+				Icon = Images.INFO_ICON,
 
-			onClose = self.onScriptWarningBoxClosed,
-			onButtonClicked = self.onScriptWarningBoxClosed,
-			onChangeShowDialog = self.onScriptWarningBoxToggleShow,
-		}),
+				onClose = self.onScriptWarningBoxClosed,
+				onButtonClicked = self.onScriptWarningBoxClosed,
+				onChangeShowDialog = self.onScriptWarningBoxToggleShow,
+			}),
 
 		ToolMessageBox = isShowingToolMessageBox and Roact.createElement(MessageBox, {
 			Name = string.format("ToolboxToolMessageBox-%s", HttpService:GenerateGUID()),
@@ -287,11 +295,12 @@ function AssetGridContainer:render()
 				{
 					Text = "Yes",
 					action = "yes",
-				}, {
+				},
+				{
 					Text = "No",
 					action = "no",
-				}
-			}
+				},
+			},
 		}),
 
 		AssetPreview = isPreviewing and Roact.createElement(AssetPreviewWrapper, {
@@ -304,6 +313,7 @@ function AssetGridContainer:render()
 			canInsertAsset = self.canInsertAsset,
 			parentAbsolutePosition = state.absolutePosition,
 			parentSize = state.absoluteSize,
+			renderTopContent = renderTopContent,
 			requestNextPage = self.requestNextPage,
 			tryInsert = self.tryInsert,
 			tryOpenAssetConfig = tryOpenAssetConfig,
@@ -312,7 +322,7 @@ function AssetGridContainer:render()
 end
 
 AssetGridContainer = withContext({
-	API = ContextServices.API,
+	API = if FFlagToolboxGetItemsDetailsUsesSingleApi then nil else ContextServices.API,
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Localization = ContextServices.Localization,
 	Plugin = ContextServices.Plugin,
@@ -337,6 +347,7 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		getAssetPreviewDataForStartup = function(assetId, tryInsert, localization, api)
+			-- TODO when removing FFlagToolboxGetItemsDetailsUsesSingleApi: rename api to networkInterface
 			dispatch(GetAssetPreviewDataForStartup(assetId, tryInsert, localization, api))
 		end,
 		postInsertAssetRequest = function(networkInterface, assetId)

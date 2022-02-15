@@ -20,9 +20,9 @@ return function()
 				content = {
 					TextLine1 = "foo",
 					TextLine2 = "bar {link}",
-					LinkText = "link"
+					LinkText = "link",
 				},
-				onLinkClicked = function() end
+				onLinkClicked = function() end,
 			}),
 		})
 		local instance = Roact.mount(element)

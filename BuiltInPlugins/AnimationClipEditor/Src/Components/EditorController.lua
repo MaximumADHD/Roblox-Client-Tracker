@@ -370,8 +370,12 @@ function EditorController:render()
 	local tracks = props.Tracks
 	local unusedTracks = props.UnusedTracks
 	local unusedFacs = props.UnusedFacs
-	local scroll = props.Scroll
-	local zoom = props.Zoom
+	local scroll = props.Scroll  -- Deprecated with GetFFlagCurveEditor
+	local zoom = props.Zoom  -- Deprecated with GetFFlagCurveEditor
+	local horizontalScroll = props.HorizontalScroll
+	local horizontalZoom = props.HorizontalZoom
+	local verticalScroll = props.VerticalScroll
+	local verticalZoom = props.VerticalZoom
 	local animationData = props.AnimationData
 	local showEvents = props.ShowEvents
 	local selectedTracks = props.SelectedTracks
@@ -391,7 +395,12 @@ function EditorController:render()
 	end
 
 	if animationData then
-		local range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
+		local range
+		if GetFFlagCurveEditor() then
+			range = TrackUtils.getZoomRange(props.AnimationData, horizontalScroll, horizontalZoom, editingLength)
+		else
+			range = TrackUtils.getZoomRange(props.AnimationData, scroll, zoom, editingLength)
+		end
 		startTick = range.Start
 		endTick = range.End
 		lastTick = animationData.Metadata.EndTick
@@ -417,6 +426,9 @@ function EditorController:render()
 		colorsPosition = (showEvents and Constants.TRACK_HEIGHT or 0) + Constants.TIMELINE_HEIGHT
 		+ Constants.SUMMARY_TRACK_HEIGHT
 	end
+
+	local showCurveCanvas = props.EditorMode == Constants.EDITOR_MODE.CurveCanvas
+	local showDopeSheet = props.EditorMode == Constants.EDITOR_MODE.DopeSheet
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -480,7 +492,52 @@ function EditorController:render()
 					end,
 				}),
 
-				TrackList = Roact.createElement(TrackList, {
+				TrackListAndScrollBar = GetFFlagCurveEditor() and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 1, showEvents and -Constants.TRACK_HEIGHT or 0),
+						LayoutOrder = 1,
+						BackgroundTransparency = 1,
+						BorderSizePixel = 0,
+				}, {
+					TrackList = Roact.createElement(TrackList, {
+						Size = UDim2.new(1, showCurveCanvas and (-Constants.SCROLL_BAR_SIZE - 1) or 0, 1, 0),
+						TopTrackIndex = topTrackIndex,
+						Tracks = tracks,
+						SelectedTracks = selectedTracks,
+						UnusedTracks = unusedTracks,
+						UnusedFacs = unusedFacs,
+						AnimationData = animationData,
+						Playhead = playhead,
+						RootName = rootName,
+
+						OnScroll = self.onScroll,
+						OpenContextMenu = self.showMenu,
+						ToggleTrackExpanded = GetFFlagChannelAnimations() and props.SetTracksExpanded or props.SetTracksExpanded_deprecated,
+						OnTrackAdded = self.addTrackWrapper,
+						OnValueChanged = GetFFlagChannelAnimations() and self.onValueChanged or props.ValueChanged,
+						-- Remove when GetFFlagChannelAnimations() is retired
+						OnValueChangedDeprecated2 = props.ValueChanged_deprecated2,
+						-- Remove when GetFFlagFacialAnimationSupport() is retired
+						OnValueChangedDeprecated = props.ValueChanged_deprecated,
+						OnChangeBegan = props.AddWaypoint,
+						OnTrackSelected = self.onTrackSelected,
+					}),
+
+					TrackScrollbarFrame = showCurveCanvas and Roact.createElement("Frame", {
+						Size = UDim2.new(0, Constants.SCROLL_BAR_SIZE, 1, 0),
+						Position = UDim2.new(1, -Constants.SCROLL_BAR_SIZE, 0, 0),
+						BackgroundColor3 = theme.scrollBarTheme.backgroundColor,
+					}, {
+						TrackScrollbar = Roact.createElement(TrackScrollbar, {
+							Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE - 1),
+							TopTrackIndex = topTrackIndex,
+							NumTracks = tracks and #tracks or 0,
+							SetTopTrackIndex = self.setTopTrackIndex,
+							OnScroll = self.onScroll,
+						})
+					}) or nil,
+				}) or nil,
+
+				TrackList = not GetFFlagCurveEditor() and Roact.createElement(TrackList, {
 					Size = showEvents and UDim2.new(1, 0, 1, -Constants.TRACK_HEIGHT)
 						or UDim2.new(1, 0, 1, 0),
 					LayoutOrder = 1,
@@ -504,7 +561,7 @@ function EditorController:render()
 					OnValueChangedDeprecated = props.ValueChanged_deprecated,
 					OnChangeBegan = props.AddWaypoint,
 					OnTrackSelected = self.onTrackSelected,
-				}),
+				}) or nil,
 
 				KeyboardListener = Roact.createElement(KeyboardListener, {
 					OnKeyPressed = function(input)
@@ -569,8 +626,12 @@ function EditorController:render()
 			FrameRate = props.FrameRate,
 			ShowAsSeconds = showAsSeconds,
 			ShowEvents = showEvents,
-			Scroll = scroll,
-			Zoom = zoom,
+			Scroll = scroll,  -- Deprecated with GetFFlagCurveEditor()
+			Zoom = zoom,  -- Deprecated with GetFFlagCurveEditor()
+			HorizontalScroll = horizontalScroll,
+			HorizontalZoom = horizontalZoom,
+			VerticalScroll = verticalScroll,
+			VerticalZoom = verticalZoom,
 			OnScroll = self.onScroll,
 			IsChannelAnimation = isChannelAnimation,
 			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
@@ -586,14 +647,14 @@ function EditorController:render()
 				OnChangePlaybackSpeed = self.showChangePlaybackSpeedPrompt,
 			}),
 
-			TrackScrollbar = Roact.createElement(TrackScrollbar, {
+			TrackScrollbar = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(TrackScrollbar, {
 				Size = UDim2.new(1, 0, 1, -Constants.SCROLL_BAR_SIZE - Constants.TIMELINE_HEIGHT - 1),
 				Position = UDim2.new(0, 0, 0, Constants.TIMELINE_HEIGHT),
 				TopTrackIndex = topTrackIndex,
 				NumTracks = tracks and #tracks or 0,
 				SetTopTrackIndex = self.setTopTrackIndex,
 				OnScroll = self.onScroll,
-			}),
+			}) or nil,
 		}),
 
 		StartScreen = not showEditor and Roact.createElement(StartScreen, {
@@ -669,8 +730,12 @@ local function mapStateToProps(state, props)
 		ShowAsSeconds = state.Status.ShowAsSeconds,
 		SnapMode = state.Status.SnapMode,
 		AnimationData = state.AnimationData,
-		Scroll = status.Scroll,
-		Zoom = status.Zoom,
+		Scroll = status.Scroll,  -- Deprecated with GetFFlagCurveEditor()
+		Zoom = status.Zoom,  -- Deprecated with GetFFlagCurveEditor()
+		HorizontalScroll = status.HorizontalScroll,
+		HorizontalZoom = status.HorizontalZoom,
+		VerticalScroll = status.VerticalScroll,
+		VerticalZoom = status.VerticalZoom,
 		Tracks = status.Tracks,
 		UnusedTracks = status.UnusedTracks,
 		UnusedFacs = status.UnusedFacs,

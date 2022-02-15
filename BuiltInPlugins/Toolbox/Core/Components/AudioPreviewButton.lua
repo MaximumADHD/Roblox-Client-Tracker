@@ -55,7 +55,6 @@ if FFlagToolboxAssetGridRefactor4 then
 					self.props.pauseASound()
 
 					Analytics.onSoundPausedCounter()
-
 				else
 					self.props.resumeASound()
 
@@ -93,7 +92,7 @@ function AudioPreviewButton:render()
 	if isLoading then
 		return Roact.createElement(LoadingIndicator, {
 			AnchorPoint = Vector2.new(1, 1),
-			Position = UDim2.new(position.X, UDim.new(position.Y.Scale, position.Y.Offset - LOADING_HEIGHT/2)),
+			Position = UDim2.new(position.X, UDim.new(position.Y.Scale, position.Y.Offset - LOADING_HEIGHT / 2)),
 			Size = UDim2.new(size.X, UDim.new(0, LOADING_HEIGHT)),
 		})
 	else
@@ -118,11 +117,9 @@ function AudioPreviewButton:render()
 	end
 end
 
-
 AudioPreviewButton = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(AudioPreviewButton)
-
 
 if FFlagToolboxAssetGridRefactor4 then
 	local function mapStateToProps(state, props)

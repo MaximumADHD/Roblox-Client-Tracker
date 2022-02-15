@@ -29,7 +29,7 @@ local API = RobloxAPI.new({
 	networking = Networking.new({
 		isInternal = true,
 		loggingLevel = DebugFlags.shouldDebugUrls() and 1 or nil,
-	})
+	}),
 })
 
 return function(networkInterface, assetId)

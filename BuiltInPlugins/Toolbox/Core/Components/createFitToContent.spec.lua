@@ -22,7 +22,7 @@ return function()
 	it("should throw an error if size is specified", function()
 		local fitToContent = createFitToContent("Frame", "UIListLayout", {})
 		local component = Roact.createElement(fitToContent, {
-			Size = UDim2.new()
+			Size = UDim2.new(),
 		}, {})
 
 		expect(function()

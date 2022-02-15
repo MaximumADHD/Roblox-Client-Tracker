@@ -67,13 +67,8 @@ function TestHelper.goToAssetTypeScreenFromStart(caged, hasAttachment)
 		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
 	local NextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
-	local SelectScreenTextBoxPath =
-		SelectFramePath:cat(XPath.new("Content.SelectedPartBox.Contents.TextBox"))
 
 	TestHelper.waitForXPathInstance(NextButtonPath)
-	TestHelper.waitForXPathInstance(SelectScreenTextBoxPath)
-
-	TestHelper.clickXPath(SelectScreenTextBoxPath)
 
 	if caged then
 		TestHelper.addLCItemWithFullCageFromExplorer()

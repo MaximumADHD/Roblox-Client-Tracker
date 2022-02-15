@@ -32,7 +32,7 @@ local LiveSearchEntry = Roact.PureComponent:extend("LiveSearchEntry")
 
 function LiveSearchEntry:init(props)
 	self.state = {
-		hovering = false
+		hovering = false,
 	}
 
 	self.closeDropdown = function()
@@ -77,7 +77,7 @@ function LiveSearchEntry:render()
 	local thumbnail = self.props.Thumbnail
 	local itemName = self.props.Name
 
-	return Roact.createElement("ImageButton",{
+	return Roact.createElement("ImageButton", {
 		Size = UDim2.new(1, -Constants.SCROLLBAR_BACKGROUND_THICKNESS + Constants.SCROLLBAR_PADDING, 0, rowHeight),
 		BackgroundColor3 = hover and itemTheme.backgroundSelectedColor or itemTheme.backgroundColor,
 		BorderSizePixel = 0,
@@ -139,8 +139,8 @@ function LiveSearchEntry:render()
 				TextTruncate = Enum.TextTruncate.AtEnd,
 				ClipsDescendants = true,
 				ZIndex = 3,
-			})
-		})
+			}),
+		}),
 	})
 end
 

@@ -29,14 +29,14 @@ local Framework = require(Libs.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local LINK_PLACEHOLDER = '{link}'
+local LINK_PLACEHOLDER = "{link}"
 
 local NoResultsDetail = Roact.PureComponent:extend("NoResultsDetail")
 
 function NoResultsDetail:init()
 	self.frameRef = Roact.createRef()
 	self.state = {
-		maxChildWidth = 0
+		maxChildWidth = 0,
 	}
 	self.updateSize = function()
 		local frame = self.frameRef.current
@@ -124,18 +124,24 @@ function NoResultsDetail:render()
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 		}),
-		TextLine1 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-			text = (not FFlagToolboxUseDevFrameworkTextWithInlineLink) and content.TextLine1 or nil,
-			Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine1 or nil,
-			LayoutOrder = 1,
-		}, textWithInlineLinkProps)),
-		TextLine2 = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-			text = (not FFlagToolboxUseDevFrameworkTextWithInlineLink) and content.TextLine2 or nil,
-			Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine2 or nil,
-			LayoutOrder = 2,
-		}, textWithInlineLinkProps))
+		TextLine1 = Roact.createElement(
+			TextWithInlineLink,
+			Cryo.Dictionary.join({
+				text = not FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine1 or nil,
+				Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine1 or nil,
+				LayoutOrder = 1,
+			}, textWithInlineLinkProps)
+		),
+		TextLine2 = Roact.createElement(
+			TextWithInlineLink,
+			Cryo.Dictionary.join({
+				text = not FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine2 or nil,
+				Text = FFlagToolboxUseDevFrameworkTextWithInlineLink and content.TextLine2 or nil,
+				LayoutOrder = 2,
+			}, textWithInlineLinkProps)
+		),
 	})
 end
 

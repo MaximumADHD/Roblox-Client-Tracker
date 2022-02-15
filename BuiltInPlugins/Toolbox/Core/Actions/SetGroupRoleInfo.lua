@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(groupRoleInfo)
 	return {
-		groupRoleInfo = groupRoleInfo
+		groupRoleInfo = groupRoleInfo,
 	}
 end)

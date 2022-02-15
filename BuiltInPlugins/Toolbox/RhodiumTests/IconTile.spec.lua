@@ -39,12 +39,15 @@ return function()
 	local function createIconTile(props)
 		local element = mockContextServices({
 			ScreenGui = Roact.createElement("ScreenGui", {}, {
-				IconTile = Roact.createElement(IconTile, Cryo.Dictionary.join({
-					BackgroundColor = Color3.new(1, 0, 0),
-					Image = "rbxassetid://6002241241",
-					Size = UDim2.new(0, 125, 0, 90),
-					Title = "CATEGORY",
-				}, props or {})),
+				IconTile = Roact.createElement(
+					IconTile,
+					Cryo.Dictionary.join({
+						BackgroundColor = Color3.new(1, 0, 0),
+						Image = "rbxassetid://6002241241",
+						Size = UDim2.new(0, 125, 0, 90),
+						Title = "CATEGORY",
+					}, props or {})
+				),
 			}),
 		})
 		return Roact.mount(element, game.CoreGui, "")
@@ -55,8 +58,8 @@ return function()
 
 		afterEach(function()
 			if instance then
-			    Roact.unmount(instance)
-			    instance = nil
+				Roact.unmount(instance)
+				instance = nil
 			end
 		end)
 
@@ -74,7 +77,9 @@ return function()
 			local key = "hello"
 			instance = createIconTile({
 				Key = key,
-				OnClick = function(key) updatedKey = key end,
+				OnClick = function(key)
+					updatedKey = key
+				end,
 			})
 			local path = XPath.new(ICON_TILE_PATH)
 

@@ -45,7 +45,9 @@ function InsertToolPromise:dismissWarningPrompt()
 end
 
 function InsertToolPromise:promptScriptWarningAndWait(message)
-	if not FFlagToolboxEnableScriptConfirmation then return end
+	if not FFlagToolboxEnableScriptConfirmation then
+		return
+	end
 
 	self._waiting = true
 	if self._onScriptWarningCallback(message) then

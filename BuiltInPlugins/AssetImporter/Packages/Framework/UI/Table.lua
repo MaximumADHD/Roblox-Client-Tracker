@@ -20,6 +20,7 @@
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
 		callback OnRightClickRow: An optional callback when a row is right-clicked. (rowIndex: number) -> ()
 		callback OnSelectRow: An optional callback called when a row is selected. (rowIndex: number) -> ()
+		callback OnDoubleClick: An optional callback called when an item is double clicked
 		callback OnSizeChange: An optional callback called when the component size changes.
 		callback OnSortChange: An optional callback called when the user sorts a column.
 		callback RowComponent: An optional component to render each row.
@@ -31,9 +32,9 @@
 		array[any] HighlightedRows: An optional list of rows to highlight.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -76,12 +77,19 @@ function Table:init()
 			self.props.OnHoverRowEnd(rowProps.Row, rowProps.RowIndex)
 		end
 	end
+
 	self.onSelectRow = function(rowProps)
 		if self.props.OnSelectRow then
 			self.props.OnSelectRow(rowProps.Row, rowProps.RowIndex)
 		end
 	end
 	
+	self.onDoubleClick = function(rowProps)
+		if self.props.OnDoubleClick then
+			self.props.OnDoubleClick(rowProps.Row, rowProps.RowIndex)
+		end
+	end
+
 	self.onRightClickRow = function(rowProps)
 		if self.props.OnRightClickRow then
 			self.props.OnRightClickRow(rowProps)
@@ -113,8 +121,9 @@ function Table:init()
 			OnHover = self.props.OnHoverRow and self.onHoverRow,
 			OnHoverEnd = self.props.OnHoverRowEnd and self.onHoverRowEnd,
 			OnPress = self.props.OnSelectRow and self.onSelectRow,
+			OnDoubleClick = (FFlagDevFrameworkDoubleClick and self.props.OnDoubleClick and self.onDoubleClick) or nil,
 			OnRightClick = self.onRightClickRow,
-			FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+			FullSpan = props.FullSpan,
 			HighlightRow = (FFlagDevFrameworkHighlightTableRows and isHighlightedRow) or nil,
 		})
 	end

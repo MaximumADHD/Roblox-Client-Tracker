@@ -40,8 +40,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(0)
 
 			local testGroups = {
-				{id = 12345, name = "Test1"},
-				{id = 67890, name = "Test2"},
+				{ id = 12345, name = "Test1" },
+				{ id = 67890, name = "Test2" },
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
@@ -59,8 +59,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(0)
 
 			local testGroups = {
-				{id = 12345, name = "Test1"},
-				{id = 67890, name = "Test2"},
+				{ id = 12345, name = "Test1" },
+				{ id = 67890, name = "Test2" },
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(testGroups))
@@ -68,8 +68,8 @@ return function()
 			expect(tableLength(state.groups)).to.equal(#testGroups)
 
 			local nextTestGroups = {
-				{id = 13579, name = "Test3"},
-				{id = 24680, name = "Test4"},
+				{ id = 13579, name = "Test3" },
+				{ id = 24680, name = "Test4" },
 			}
 
 			state = PageInfo(state, SetToolboxManageableGroups(nextTestGroups))
@@ -86,10 +86,10 @@ return function()
 	describe("UpdateSearchTerm action", function()
 		it("should update the searchTerm", function()
 			local state = PageInfo({
-				searchTerm = "foo"
+				searchTerm = "foo",
 			}, {})
 			expect(state.searchTerm).to.equal("foo")
-	
+
 			-- shallow copy state
 			local originalState = {}
 			for key, value in pairs(state) do
@@ -118,10 +118,13 @@ return function()
 			expect(state.categoryName).to.equal(Category.FREE_MODELS.name)
 			expect(state.sortIndex).to.equal(1)
 
-			state = PageInfo(state, UpdatePageInfo({
-				categoryName = state.categories[2].categoryName,
-				category = state.categories[2].category
-			}))
+			state = PageInfo(
+				state,
+				UpdatePageInfo({
+					categoryName = state.categories[2].categoryName,
+					category = state.categories[2].category,
+				})
+			)
 
 			expect(state.category).to.equal(state.categories[2].category)
 		end)
@@ -136,19 +139,28 @@ return function()
 			local originalSearchId = state.searchId
 			expect(type(originalSearchId)).to.equal("string")
 
-			state = PageInfo(state, UpdatePageInfo({
-				requestReason = RequestReason.NextPage
-			}))
+			state = PageInfo(
+				state,
+				UpdatePageInfo({
+					requestReason = RequestReason.NextPage,
+				})
+			)
 			expect(state.searchId).to.equal(originalSearchId)
 
-			state = PageInfo(state, UpdatePageInfo({
-				requestReason = RequestReason.UpdatePage
-			}))
+			state = PageInfo(
+				state,
+				UpdatePageInfo({
+					requestReason = RequestReason.UpdatePage,
+				})
+			)
 			expect(state.searchId).to.equal(originalSearchId)
 
-			state = PageInfo(state, UpdatePageInfo({
-				requestReason = RequestReason.StartSearch
-			}))
+			state = PageInfo(
+				state,
+				UpdatePageInfo({
+					requestReason = RequestReason.StartSearch,
+				})
+			)
 			expect(state.searchId).to.never.equal(originalSearchId)
 		end)
 	end)

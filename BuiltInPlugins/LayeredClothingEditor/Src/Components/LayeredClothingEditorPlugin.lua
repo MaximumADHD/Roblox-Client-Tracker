@@ -50,7 +50,7 @@ local PLUGIN_NAME = "LayeredClothingEditor"
 local TOOLBAR_NAME = "LayeredClothing"
 local TOOLBAR_BUTTON_NAME = "LayeredClothingEditorButton"
 
-local WINDOW_MIN_SIZE = Vector2.new(330, 550)
+local WINDOW_MIN_SIZE = Vector2.new(380, 550)
 
 function LayeredClothingEditorPlugin:init()
 	local plugin = self.props.plugin

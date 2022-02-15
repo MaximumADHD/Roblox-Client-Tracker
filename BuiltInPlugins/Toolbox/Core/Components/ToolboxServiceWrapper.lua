@@ -42,8 +42,7 @@ function ToolboxServiceWrapper:render()
 		ContextServices.Mouse.new(mouse),
 		analytics,
 		props.assetAnalytics,
-	}, props[Roact.Children]
-)
+	}, props[Roact.Children])
 end
 
 return ToolboxServiceWrapper

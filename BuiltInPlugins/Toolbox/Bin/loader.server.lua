@@ -16,7 +16,7 @@ local MemStorageService = game:GetService("MemStorageService")
 
 local EVENT_ID_OPENASSETCONFIG = "OpenAssetConfiguration"
 
-local args : PluginLoaderBuilder.Args = {
+local args: PluginLoaderBuilder.Args = {
 	plugin = plugin,
 	pluginName = "Toolbox",
 	translationResourceTable = Plugin.LocalizationSource.TranslationReferenceTable,
@@ -35,7 +35,7 @@ local args : PluginLoaderBuilder.Args = {
 		end,
 		icon = Images.TOOLBOX_ICON,
 		text = nil,
-		clickableWhenViewportHidden = true
+		clickableWhenViewportHidden = true,
 	},
 	dockWidgetInfo = {
 		dockWidgetPluginGuiInfo = DockWidgetPluginGuiInfo.new(
@@ -47,7 +47,7 @@ local args : PluginLoaderBuilder.Args = {
 			Constants.TOOLBOX_MIN_WIDTH, --minSize.X,
 			Constants.TOOLBOX_MIN_HEIGHT --minSize.Y
 		),
-		getDockTitle =  function(getLocalizedText, namespace, pluginName)
+		getDockTitle = function(getLocalizedText, namespace, pluginName)
 			return getLocalizedText(namespace, pluginName, "General", "ToolboxToolbarName")
 		end,
 		name = "Toolbox",
@@ -66,14 +66,14 @@ local args : PluginLoaderBuilder.Args = {
 		["StudioService.OnPublishAsPlugin"] = function()
 			return StudioService.OnPublishAsPlugin
 		end,
-		["MemStorageService."..EVENT_ID_OPENASSETCONFIG] = function()
+		["MemStorageService." .. EVENT_ID_OPENASSETCONFIG] = function()
 			local bindableEvent = Instance.new("BindableEvent")
 			MemStorageService:Bind(EVENT_ID_OPENASSETCONFIG, function(...)
 				bindableEvent:Fire(...)
 			end)
 			return bindableEvent.Event
 		end,
-		["MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT] = function()
+		["MemStorageService." .. SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT] = function()
 			local bindableEvent = Instance.new("BindableEvent")
 			MemStorageService:Bind(SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT, function(...)
 				bindableEvent:Fire(...)
@@ -87,10 +87,10 @@ local args : PluginLoaderBuilder.Args = {
 			return true
 		end
 		return false
-	end
+	end,
 }
 
-local pluginLoaderContext : PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
+local pluginLoaderContext: PluginLoaderBuilder.PluginLoaderContext = PluginLoaderBuilder.build(args)
 local success = pluginLoaderContext.pluginLoader:waitForUserInteraction()
 if not success then
 	-- Plugin destroyed

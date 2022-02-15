@@ -16,9 +16,11 @@ return function(networkInterface, searchText, broadSearch)
 		local state = store:getState()
 
 		store:dispatch(CollaboratorSearchActions.SearchTextChanged(searchText))
-		if searchText == "" then return end
+		if searchText == "" then
+			return
+		end
 
-		if not (state.localUserFriends) then
+		if not state.localUserFriends then
 			store:dispatch(CollaboratorSearchActions.LoadingLocalUserFriends())
 			spawn(function()
 				local success, friends = GetLocalUserFriends(networkInterface, tostring(getUserId())):await()

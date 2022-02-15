@@ -39,8 +39,7 @@ function VoteBar:renderContent(theme, localization, localizedContent)
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		LayoutOrder = nil,
-		Size = UDim2.new(1, 0, 1, 0)
-			or UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
+		Size = UDim2.new(1, 0, 1, 0) or UDim2.new(1, 0, 0, Constants.ASSET_VOTING_HEIGHT),
 	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,

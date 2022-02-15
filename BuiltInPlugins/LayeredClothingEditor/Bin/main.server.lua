@@ -19,7 +19,8 @@ themeRefactorFlags.THEME_REFACTOR = true
 -- we have to do this before including the rest of the modules because they might access studio code
 local isRunningTests = DebugFlags.RunTests() or DebugFlags.RunRhodiumTests()
 Roact.setGlobalConfig({
-	propValidation = isRunningTests,
+	-- TODO: Re-enable once typecheck issues are resolved.
+	--propValidation = isRunningTests,
 })
 
 if isRunningTests then

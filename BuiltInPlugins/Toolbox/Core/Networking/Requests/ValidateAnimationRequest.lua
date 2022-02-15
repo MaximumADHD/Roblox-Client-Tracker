@@ -19,8 +19,6 @@ return function(publishInfo)
 			store:dispatch(ValidateAnimationResult(false))
 		end
 
-		return publishInfo.networkInterface:validateAnimation(
-			publishInfo.assetId
-		):andThen(onSuccess, onFail)
+		return publishInfo.networkInterface:validateAnimation(publishInfo.assetId):andThen(onSuccess, onFail)
 	end
 end

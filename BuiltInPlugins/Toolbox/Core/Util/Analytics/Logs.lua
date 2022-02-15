@@ -2,7 +2,7 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 
-local Logs = { }
+local Logs = {}
 
 local function sendLog(logString)
 	print(("[Toolbox Analytics] %s"):format(tostring(logString)))
@@ -22,14 +22,21 @@ function Logs.logAnalytics(method, target, context, name, args)
 	local argStrings = {}
 	for k, v in pairs(args) do
 		local key = type(k) == "string" and k or "[" .. tostring(v) .. "]"
-		local value = type(v) == "string" and "\"" .. v .. "\"" or tostring(v)
+		local value = type(v) == "string" and '"' .. v .. '"' or tostring(v)
 		argStrings[#argStrings + 1] = key .. "=" .. value
 	end
 
 	local argsString = table.concat(argStrings, ", ")
 
-	sendLog(("%s(target=\"%s\", eventContext=\"%s\", eventName=\"%s\", additionalArgs={%s})"):format(
-		tostring(method), tostring(target), tostring(context), tostring(name), argsString))
+	sendLog(
+		('%s(target="%s", eventContext="%s", eventName="%s", additionalArgs={%s})'):format(
+			tostring(method),
+			tostring(target),
+			tostring(context),
+			tostring(name),
+			argsString
+		)
+	)
 end
 
 function Logs.logEvent(method, category, action, label, value)
@@ -43,8 +50,15 @@ function Logs.logEvent(method, category, action, label, value)
 	label = label or ""
 	value = value or 0
 
-	sendLog(("%s(category=\"%s\", action=\"%s\", label=\"%s\", value=%s)"):format(
-		tostring(method), tostring(category), tostring(action), tostring(label), tostring(value)))
+	sendLog(
+		('%s(category="%s", action="%s", label="%s", value=%s)'):format(
+			tostring(method),
+			tostring(category),
+			tostring(action),
+			tostring(label),
+			tostring(value)
+		)
+	)
 end
 
 function Logs.logCounterEvent(method, counter, amount)
@@ -56,8 +70,7 @@ function Logs.logCounterEvent(method, counter, amount)
 	counter = counter or ""
 	amount = amount or 1
 
-	sendLog(("%s(counter=\"%s\", amount=%s)"):format(
-		tostring(method), tostring(counter), tostring(amount)))
+	sendLog(('%s(counter="%s", amount=%s)'):format(tostring(method), tostring(counter), tostring(amount)))
 end
 
 return Logs

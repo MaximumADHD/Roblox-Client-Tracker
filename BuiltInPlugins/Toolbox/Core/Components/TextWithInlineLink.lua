@@ -43,7 +43,7 @@ local function renderContent(props)
 		textProps = t.interface({
 			TextSize = t.integer,
 			Font = t.enum(Enum.Font),
-		})
+		}),
 	})(props))
 
 	local theme = props.Stylizer
@@ -86,8 +86,8 @@ local function renderContent(props)
 						SortOrder = Enum.SortOrder.LayoutOrder,
 						FillDirection = Enum.FillDirection.Horizontal,
 						HorizontalAlignment = Enum.HorizontalAlignment.Center,
-					})
-				}
+					}),
+				},
 			})
 			lineOrder = LayoutOrderIterator.new()
 			frameHeight = frameHeight + lineHeight
@@ -112,12 +112,15 @@ local function renderContent(props)
 
 		local size = measureAndBreakLineIfNeeded(text)
 
-		appendToLine(Roact.createElement("TextLabel", Cryo.Dictionary.join({
-			Text = text,
-			Size = UDim2.new(0, size.X, 0, size.Y),
-			LayoutOrder = lineOrder:getNextOrder(),
-			TextWrapped = true,
-		}, textProps)))
+		appendToLine(Roact.createElement(
+			"TextLabel",
+			Cryo.Dictionary.join({
+				Text = text,
+				Size = UDim2.new(0, size.X, 0, size.Y),
+				LayoutOrder = lineOrder:getNextOrder(),
+				TextWrapped = true,
+			}, textProps)
+		))
 	end
 
 	local function appendLink()
@@ -167,7 +170,7 @@ local function renderContent(props)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-		})
+		}),
 	}
 
 	for i, line in ipairs(lines) do

@@ -88,7 +88,7 @@ return Rodux.createReducer(productionStartStore, {
 
 		assert(state.stateTokenToCallstackVars[action.debuggerStateToken] ~= nil)
 
-		local newThreadIdToFrameList = state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList
+		local newThreadIdToFrameList = Cryo.Dictionary.join(state.stateTokenToCallstackVars[action.debuggerStateToken].threadIdToFrameList, {})
 		newThreadIdToFrameList[action.threadId] = nil
 
 		return Cryo.Dictionary.join(state, {
@@ -103,7 +103,7 @@ return Rodux.createReducer(productionStartStore, {
 	
 	[ClearConnectionDataAction.name] = function(state : CallstackStore, action)
 		return Cryo.Dictionary.join(state, {
-			stateTokenToCallstackVars = Cryo.List.removeValue(state.stateTokenToCallstackVars, action.debuggerStateToken),
+			stateTokenToCallstackVars = Cryo.Dictionary.join(state.stateTokenToCallstackVars, {[action.debuggerStateToken] = Cryo.None}),
 		})
 	end,
 	

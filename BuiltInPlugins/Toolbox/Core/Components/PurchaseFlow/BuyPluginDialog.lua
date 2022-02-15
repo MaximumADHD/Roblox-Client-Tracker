@@ -45,8 +45,8 @@ function BuyPluginDialog:render()
 
 		return Roact.createElement(PurchaseDialog, {
 			Buttons = {
-				{Key = false, Text = localizedContent.PurchaseFlow.Cancel},
-				{Key = true, Text = localizedContent.PurchaseFlow.Buy, Style = primaryString},
+				{ Key = false, Text = localizedContent.PurchaseFlow.Cancel },
+				{ Key = true, Text = localizedContent.PurchaseFlow.Buy, Style = primaryString },
 			},
 			OnButtonClicked = onButtonClicked,
 			OnClose = onClose,

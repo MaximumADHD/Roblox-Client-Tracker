@@ -21,7 +21,7 @@ return function(networkInterface, assetid, instance)
 	return function(store, services)
 		local function onSuccess(result)
 			-- id in result is asset version id, which is not useful for us, return the original asset id if successful
-			if not result or tostring(result) == '0' or result:find("Error") then
+			if not result or tostring(result) == "0" or result:find("Error") then
 				store:dispatch(UploadResult(false))
 				store:dispatch(NetworkError(assetid))
 			else

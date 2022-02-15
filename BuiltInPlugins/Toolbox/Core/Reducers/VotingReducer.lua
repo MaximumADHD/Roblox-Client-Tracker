@@ -39,7 +39,7 @@ local function handleVoting(state, assetId, voteDirection)
 			HasVoted = true,
 			UserVote = voteDirection,
 			UpVotes = newVoteUp,
-			DownVotes = newVoteDown
+			DownVotes = newVoteDown,
 		}),
 	})
 end
@@ -82,8 +82,7 @@ local function setShowVoteButtons(state, assetId)
 	})
 end
 
-return Rodux.createReducer({
-}, {
+return Rodux.createReducer({}, {
 	[GetAssets.name] = function(state, action)
 		local newVoting = {}
 		for _, asset in ipairs(action.assets) do

@@ -20,20 +20,19 @@ local Background = require(Plugin.Core.Types.Background)
 local ToolboxTestWrapper = Roact.PureComponent:extend("ToolboxTestWrapper")
 
 function ToolboxTestWrapper:init()
-    self.state = {
-        theme = makeTheme(),
-    }
+	self.state = {
+		theme = makeTheme(),
+	}
 end
 
 function ToolboxTestWrapper:render(props)
-    local _theme = self.state.theme
+	local _theme = self.state.theme
 
-    return Roact.createElement(Toolbox, {
-        backgrounds = Background.BACKGROUNDS,
-        suggestions = Suggestion.SUGGESTIONS,
-        Size = FFlagToolboxAssetGridRefactor4 and UDim2.new(0, 400, 0, 400) or nil,
-    })
+	return Roact.createElement(Toolbox, {
+		backgrounds = Background.BACKGROUNDS,
+		suggestions = Suggestion.SUGGESTIONS,
+		Size = FFlagToolboxAssetGridRefactor4 and UDim2.new(0, 400, 0, 400) or nil,
+	})
 end
-
 
 return ToolboxTestWrapper

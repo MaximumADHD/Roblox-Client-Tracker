@@ -29,8 +29,6 @@ local ScreenPublishSuccessful = Roact.PureComponent:extend("ScreenPublishSuccess
 
 local FFlagStudioAllowRemoteSaveBeforePublish = game:GetFastFlag("StudioAllowRemoteSaveBeforePublish")
 
-local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
-
 function ScreenPublishSuccessful:init()
 	self.state = {
 		assetFetchStatus = nil,
@@ -59,10 +57,6 @@ function ScreenPublishSuccessful:didMount()
 		end
 		ContentProvider:PreloadAsync(asset, setStatus)
 	end)
-
-	if FFlagStudioEnableNewGamesInTheCloudMetrics then
-		Analytics.reportCloudSaveSuccess(self.props.IsPublish, self.props.SaveOrPublishAs)
-	end
 end
 
 function ScreenPublishSuccessful:willUnmount()

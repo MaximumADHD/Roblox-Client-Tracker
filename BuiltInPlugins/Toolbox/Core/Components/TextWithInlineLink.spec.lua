@@ -28,8 +28,8 @@ return function()
 
 	local TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
 
-	local linkPlaceholder = '{link}'
-	local linkText = 'Link'
+	local linkPlaceholder = "{link}"
+	local linkText = "Link"
 	local textSize = 12
 
 	local function getInstance(props)
@@ -38,16 +38,19 @@ return function()
 		})(props))
 
 		local element = Roact.createElement(MockWrapper, {}, {
-			TextWithInlineLink = Roact.createElement(TextWithInlineLink, Cryo.Dictionary.join({
-				onLinkClicked = function() end,
-				linkText = linkText,
-				linkPlaceholder = linkPlaceholder,
-				maxWidth = 100,
-				textProps = {
-					TextSize = textSize,
-					Font = Enum.Font.SourceSans
-				}
-			}, props)),
+			TextWithInlineLink = Roact.createElement(
+				TextWithInlineLink,
+				Cryo.Dictionary.join({
+					onLinkClicked = function() end,
+					linkText = linkText,
+					linkPlaceholder = linkPlaceholder,
+					maxWidth = 100,
+					textProps = {
+						TextSize = textSize,
+						Font = Enum.Font.SourceSans,
+					},
+				}, props)
+			),
 		})
 
 		local container = Instance.new("Folder")
@@ -59,7 +62,7 @@ return function()
 	it("with no link placeholder", function()
 		local text = "hello world"
 		local container, instance = getInstance({
-			text = text
+			text = text,
 		})
 
 		local frame = container:FindFirstChild("line_1", true)
@@ -71,12 +74,12 @@ return function()
 
 		-- TODO: This should be in an 'afterEach' block so it is always called even if the test fails
 		Roact.unmount(instance)
-    end)
+	end)
 
-    it("with one link placeholder at the start of the text", function()
+	it("with one link placeholder at the start of the text", function()
 		local text = "{link} world"
 		local container, instance = getInstance({
-			text = text
+			text = text,
 		})
 
 		local frame = container:FindFirstChild("line_1", true)
@@ -91,9 +94,10 @@ return function()
 	end)
 
 	it("with enough text to cause overflow and wrapping", function()
-		local text = "Hello here is a {link} that is going to cause this to wrap onto another line and this line after the link will wrap on its own it's that long!"
+		local text =
+			"Hello here is a {link} that is going to cause this to wrap onto another line and this line after the link will wrap on its own it's that long!"
 		local container, instance = getInstance({
-			text = text
+			text = text,
 		})
 
 		local line1 = container:FindFirstChild("line_1", true)
@@ -105,18 +109,19 @@ return function()
 		expect(line1.Size.Y.Offset).to.equal(textSize)
 
 		expect(#line2:GetChildren()).to.equal(2)
-		expect(line2:GetChildren()[2].Text).to.equal(" that is going to cause this to wrap onto another line and this line after the link will wrap on its own it's that long!")
+		expect(line2:GetChildren()[2].Text).to.equal(
+			" that is going to cause this to wrap onto another line and this line after the link will wrap on its own it's that long!"
+		)
 		expect(line2.Size.Y.Offset).to.equal(textSize * 5)
 
 		-- TODO: This should be in an 'afterEach' block so it is always called even if the test fails
 		Roact.unmount(instance)
-    end)
+	end)
 
-
-    it("with two link placeholders (one at the end of the text)", function()
+	it("with two link placeholders (one at the end of the text)", function()
 		local text = "hello {link} world {link}"
 		local container, instance = getInstance({
-			text = text
+			text = text,
 		})
 
 		local frame = container:FindFirstChild("line_1", true)
@@ -130,5 +135,5 @@ return function()
 
 		-- TODO: This should be in an 'afterEach' block so it is always called even if the test fails
 		Roact.unmount(instance)
-    end)
+	end)
 end

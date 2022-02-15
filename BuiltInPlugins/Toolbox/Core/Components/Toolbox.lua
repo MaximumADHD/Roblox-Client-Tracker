@@ -129,15 +129,14 @@ function Toolbox:init(props)
 		showSearchOptions = false,
 		-- Keep track of the timestamp an asset was last inserted
 		-- Allows us to track an analytic if a search is made and no asset is chosen
-		mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor4) and 0 or nil,
+		mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor4 and 0 or nil,
 	}
 
 	self.toolboxRef = Roact.createRef()
 
 	-- If flag is on, use function that gets ref, else use old with rbx param
 	self.onAbsoluteSizeChange = function()
-		local toolboxWidth = math.max(self.toolboxRef.current.AbsoluteSize.x,
-			Constants.TOOLBOX_MIN_WIDTH)
+		local toolboxWidth = math.max(self.toolboxRef.current.AbsoluteSize.x, Constants.TOOLBOX_MIN_WIDTH)
 		if self.state.toolboxWidth ~= toolboxWidth then
 			self:setState({
 				toolboxWidth = toolboxWidth,
@@ -155,7 +154,7 @@ function Toolbox:init(props)
 		end
 
 		self:setState({
-			showSearchOptions = not showSearchOptions
+			showSearchOptions = not showSearchOptions,
 		})
 	end
 
@@ -200,16 +199,13 @@ function Toolbox:init(props)
 
 		local newCategory = PageInfoHelper.getCategory(options.categoryName)
 
-		Analytics.onCategorySelected(
-			currentCategory,
-			newCategory
-		)
+		Analytics.onCategorySelected(currentCategory, newCategory)
 	end
 
-	if (not FFlagToolboxAssetGridRefactor4) then
+	if not FFlagToolboxAssetGridRefactor4 then
 		self.updateMostRecentAssetTime = function()
 			self:setState({
-				mostRecentAssetInsertTime = tick()
+				mostRecentAssetInsertTime = tick(),
 			})
 		end
 	end
@@ -226,16 +222,19 @@ function Toolbox:didMount()
 
 	self.props.getRobuxBalance(getNetwork(self))
 
-	self._showPluginsConnection = self.props.pluginLoaderContext and self.props.pluginLoaderContext.signals[
-		"MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
-		local categoryName = Category.WHITELISTED_PLUGINS.name
+	self._showPluginsConnection = self.props.pluginLoaderContext
+			and self.props.pluginLoaderContext.signals["MemStorageService." .. SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(
+				function()
+					local categoryName = Category.WHITELISTED_PLUGINS.name
 
-		self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
-			categoryName = categoryName,
-		})
+					self.changeMarketplaceTab(Category.MARKETPLACE_KEY, {
+						categoryName = categoryName,
+					})
 
-		Analytics.openedFromPluginManagement()
-	end) or nil
+					Analytics.openedFromPluginManagement()
+				end
+			)
+		or nil
 end
 
 function Toolbox:willUnmount()
@@ -293,7 +292,8 @@ function Toolbox:render()
 			maxWidth = toolboxWidth,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			pluginGui = pluginGui,
-			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor4) and self.state.mostRecentAssetInsertTime or nil,
+			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor4 and self.state.mostRecentAssetInsertTime
+				or nil,
 		}),
 
 		MainView = Roact.createElement(MainView, {
@@ -305,8 +305,9 @@ function Toolbox:render()
 			showSearchOptions = showSearchOptions,
 			onSearchOptionsToggled = self.toggleSearchOptions,
 			tryOpenAssetConfig = tryOpenAssetConfig,
-			mostRecentAssetInsertTime = (not FFlagToolboxAssetGridRefactor4) and self.state.mostRecentAssetInsertTime or nil,
-			onAssetInsertionSuccesful = (not FFlagToolboxAssetGridRefactor4) and self.updateMostRecentAssetTime or nil,
+			mostRecentAssetInsertTime = not FFlagToolboxAssetGridRefactor4 and self.state.mostRecentAssetInsertTime
+				or nil,
+			onAssetInsertionSuccesful = not FFlagToolboxAssetGridRefactor4 and self.updateMostRecentAssetTime or nil,
 		}),
 
 		Footer = Roact.createElement(Footer, {
@@ -317,14 +318,11 @@ function Toolbox:render()
 	})
 end
 
-
 Toolbox = withContext({
 	Stylizer = ContextServices.Stylizer,
 	Localization = ContextServices.Localization,
 	Settings = Settings,
 })(Toolbox)
-
-
 
 local function mapStateToProps(state, props)
 	state = state or {}
@@ -333,7 +331,7 @@ local function mapStateToProps(state, props)
 	return {
 		categoryName = pageInfo.categoryName or Category.DEFAULT.name,
 		sorts = pageInfo.sorts or {},
-		roles = state.roles or {}
+		roles = state.roles or {},
 	}
 end
 
@@ -361,7 +359,7 @@ local function mapDispatchToProps(dispatch)
 
 		getToolboxManageableGroups = function(networkInterface, settings, newPageInfo)
 			dispatch(GetToolboxManageableGroupsRequest(networkInterface, settings, newPageInfo))
-		end
+		end,
 	}
 end
 

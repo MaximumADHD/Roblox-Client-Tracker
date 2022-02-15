@@ -27,8 +27,8 @@ return function()
 						} or nil,
 					},
 				},
-				previewFuncs = {}
-			})
+				previewFuncs = {},
+			}),
 		})
 
 		return Roact.mount(element)

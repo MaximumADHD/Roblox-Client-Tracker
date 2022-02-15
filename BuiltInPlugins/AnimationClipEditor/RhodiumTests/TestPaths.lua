@@ -1,4 +1,5 @@
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
+local FFlagCurveEditor = game:GetFastFlag("ACECurveEditorInternal")
 local TestPaths = {}
 
 local WAIT_TIMEOUT = 2
@@ -43,9 +44,15 @@ end
 
 function TestPaths.getTrackList(container)
 	local base = TestPaths.getEditorController(container)
-	return TestPaths.waitForDescendant(base, {
-		"TrackListAndControlContainer", "EventsAndTracks", "TrackList", "Canvas",
-	})
+	if FFlagCurveEditor then
+		return TestPaths.waitForDescendant(base, {
+			"TrackListAndControlContainer", "EventsAndTracks", "TrackListAndScrollBar", "TrackList", "Canvas",
+		})
+	else
+		return TestPaths.waitForDescendant(base, {
+			"TrackListAndControlContainer", "EventsAndTracks", "TrackList", "Canvas",
+		})
+	end
 end
 
 function TestPaths.getIKButton(container)

@@ -87,8 +87,8 @@ function LiveSearchDropdown:defaultLayout(items)
 	local entries = {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
-			SortOrder = Enum.SortOrder.LayoutOrder
-		})
+			SortOrder = Enum.SortOrder.LayoutOrder,
+		}),
 	}
 
 	local index = 0
@@ -149,7 +149,7 @@ function LiveSearchDropdown:renderContent(modalTarget)
 		Position = position,
 		Size = size,
 		BackgroundTransparency = 1,
-		LayoutOrder = layoutOrder
+		LayoutOrder = layoutOrder,
 	}, {
 		Portal = modalTarget and Roact.createElement(Roact.Portal, {
 			target = modalTarget,

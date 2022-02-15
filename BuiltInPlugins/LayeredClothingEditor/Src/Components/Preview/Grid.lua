@@ -22,6 +22,7 @@
 		number zIndex: the z sorting order of the component
 		Instance EditingItem: layered clothes item that is editing now, which is provided via mapStateToProps.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
+		table AssetServiceWrapper: An AssetServiceWrapper context item, provided via withContext.
 ]]
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 

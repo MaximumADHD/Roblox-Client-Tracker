@@ -10,6 +10,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
+local FFlagToolboxEnablePostDropScriptConfirmation = game:GetFastFlag("ToolboxEnablePostDropScriptConfirmation")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -25,7 +26,6 @@ if isCli() then
 else
 	ToolboxService = game:GetService("ToolboxService")
 end
-
 
 local INSERT_MAX_SEARCH_DEPTH = 2048
 local INSERT_MAX_DISTANCE_AWAY = 64
@@ -75,7 +75,7 @@ local function insertAudio(assetId, assetName)
 	soundObj.SoundId = url
 	soundObj.Name = assetName
 	soundObj.Parent = (Selection:Get() or {})[1] or Workspace
-	Selection:Set({soundObj})
+	Selection:Set({ soundObj })
 
 	return soundObj
 end
@@ -102,7 +102,7 @@ local function sanitizeMeshAsset(assetId, instances, localization)
 
 	if #filtered == 0 then
 		warn(localization:getText("Common", "InsertAborted", {
-			assetId = assetId
+			assetId = assetId,
 		}))
 	end
 
@@ -110,8 +110,18 @@ local function sanitizeMeshAsset(assetId, instances, localization)
 end
 
 local function doScriptConfirmationIfContainsScripts(assetName, instances, insertToolPromise)
-	if not FFlagToolboxEnableScriptConfirmation then return end
-	
+	if not FFlagToolboxEnableScriptConfirmation then
+		return
+	end
+	if FFlagToolboxEnablePostDropScriptConfirmation then
+		if not instances then
+			return
+		end
+		if not insertToolPromise then
+			return
+		end
+	end
+
 	-- Note: instance:IsA("Script") covers both LocalScript and Script types.
 	local numScripts = 0
 	for _, instance in ipairs(instances) do
@@ -124,8 +134,10 @@ local function doScriptConfirmationIfContainsScripts(assetName, instances, inser
 			end
 		end
 	end
-	if numScripts < 1 then return end
-	insertToolPromise:promptScriptWarningAndWait({assetName = assetName, numScripts = numScripts})
+	if numScripts < 1 then
+		return
+	end
+	insertToolPromise:promptScriptWarningAndWait({ assetName = assetName, numScripts = numScripts })
 end
 
 local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, localization)
@@ -194,7 +206,6 @@ local function insertAsset(assetId, assetName, insertToolPromise, assetTypeId, l
 				local modelCf, size = model:GetBoundingBox()
 
 				if size.Magnitude > 0 then
-
 					local camera = Workspace.CurrentCamera
 					local cameraCf = camera.CFrame
 
@@ -236,7 +247,7 @@ local function insertDecal(plugin, assetId, assetName)
 		decal.Name = assetName
 		decal.SourceAssetId = assetId
 		decal.Parent = (Selection:Get() or {})[1] or Workspace
-		Selection:Set({decal})
+		Selection:Set({ decal })
 
 		return decal
 	else
@@ -277,7 +288,7 @@ local function insertVideo(assetId, assetName)
 	videoObj.Name = assetName
 	videoObj.Parent = (Selection:Get() or {})[1] or Workspace
 	videoObj.Size = UDim2.new(1, 0, 1, 0)
-	Selection:Set({videoObj})
+	Selection:Set({ videoObj })
 
 	return videoObj
 end
@@ -334,7 +345,13 @@ local function dispatchInsertAsset(options, insertToolPromise)
 	elseif options.assetTypeId == Enum.AssetType.Video.Value then
 		return insertVideo(options.assetId, options.assetName)
 	else
-		return insertAsset(options.assetId, options.assetName, insertToolPromise, options.assetTypeId, options.localization)
+		return insertAsset(
+			options.assetId,
+			options.assetName,
+			insertToolPromise,
+			options.assetTypeId,
+			options.localization
+		)
 	end
 end
 
@@ -356,7 +373,7 @@ end
 local InsertAsset = {
 	_localization = nil,
 	registerLocalization = nil,
-	registerProcessDragHandler = nil
+	registerProcessDragHandler = nil,
 }
 
 --[[
@@ -373,13 +390,20 @@ Options table format:
 }
 ]]
 
+local activeDraggingState = nil
 -- This is the public api we should be using.
--- insertToolPromise can be nil if dragged.
+-- insertToolPromise can be nil if dragged, so we store it locally to preserve it on final drop.
 function InsertAsset.tryInsert(options, insertToolPromise, assetWasDragged)
 	if assetWasDragged then
 		local selectedRibbonTool = options.plugin:GetSelectedRibbonTool()
 		if not RIBBON_DRAGGER_TOOLS[selectedRibbonTool] then
 			options.plugin:SelectRibbonTool(Enum.RibbonTool.Select, UDim2.new())
+		end
+		if FFlagToolboxEnablePostDropScriptConfirmation then
+			activeDraggingState = {
+				assetName = options.assetName,
+				insertToolPromise = insertToolPromise,
+			}
 		end
 		InsertAsset.doDragInsertAsset(options)
 	else
@@ -445,12 +469,7 @@ function InsertAsset.doDragInsertAsset(options)
 
 		local isPackage = Category.categoryIsPackage(options.categoryName)
 
-		local url = Urls.constructAssetGameAssetIdUrl(
-			assetId,
-			options.assetTypeId,
-			isPackage,
-			assetName
-		)
+		local url = Urls.constructAssetGameAssetIdUrl(assetId, options.assetTypeId, isPackage, assetName)
 		if DebugFlags.shouldDebugUrls() then
 			print(("Dragging asset url %s"):format(url))
 		end
@@ -471,7 +490,6 @@ function InsertAsset.doDragInsertAsset(options)
 		warn(("Toolbox failed to drag asset %d %s: %s"):format(assetId, assetName, errorMessage or ""))
 	end
 	return success
-
 end
 
 local function setSourceAssetIdOnInstances(assetId, instances)
@@ -485,6 +503,7 @@ function InsertAsset.registerLocalization(localization)
 end
 
 function InsertAsset.registerProcessDragHandler()
+	-- This fires when the drag from Toolbox reaches the 3D view
 	ToolboxService.ProcessAssetInsertionDrag = function(assetId, assetTypeId, instances)
 		setSourceAssetIdOnInstances(assetId, instances)
 
@@ -497,7 +516,29 @@ function InsertAsset.registerProcessDragHandler()
 			return sanitizeMeshAsset(assetId, instances, InsertAsset._localization)
 		end
 
+		if FFlagToolboxEnablePostDropScriptConfirmation then
+			-- We'll need this to scan the remaining instances for scripts for the warning dialog
+			activeDraggingState.instances = instances
+		end
 		return instances
+	end
+
+	if FFlagToolboxEnablePostDropScriptConfirmation then
+		-- This fires when the drag within the 3D Model finishes
+		ToolboxService.ProcessAssetInsertionDrop = function()
+			-- We can't yield within the drop, so spawn this work to pick it up after the drop event finishes.
+			spawn(function()
+				if activeDraggingState then
+					-- Popup the script warning dialog if necessary
+					doScriptConfirmationIfContainsScripts(
+						activeDraggingState.assetName,
+						activeDraggingState.instances,
+						activeDraggingState.insertToolPromise
+					)
+					activeDraggingState = nil
+				end
+			end)
+		end
 	end
 end
 

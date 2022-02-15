@@ -39,8 +39,6 @@ local BUTTON_HEIGHT = 40
 
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 
-local FFlagStudioEnableNewGamesInTheCloudMetrics = game:GetFastFlag("StudioEnableNewGamesInTheCloudMetrics")
-
 local ScreenPublishFail = Roact.PureComponent:extend("ScreenPublishFail")
 
 function ScreenPublishFail:init()
@@ -74,10 +72,6 @@ function ScreenPublishFail:didMount()
 			self.props.OpenPublishSuccessfulPage(self.props.Id, self.props.Name, self.props.ParentGameName)
 		end
 	end)
-
-	if FFlagStudioEnableNewGamesInTheCloudMetrics then
-		Analytics.reportSaveFailure()
-	end
 end
 
 function ScreenPublishFail:willUnmount()

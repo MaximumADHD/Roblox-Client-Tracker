@@ -33,18 +33,17 @@ return function()
 			mockProps = Cryo.Dictionary.join(mockProps, {
 				store = CoreTestUtils.storeWithData({
 					assets = {
-						idToAssetMap = { [assetId] = myAsset, },
+						idToAssetMap = { [assetId] = myAsset },
 					},
-				})
+				}),
 			})
 		end
 
 		local element = Roact.createElement(MockWrapper, mockProps, {
 			Asset = Roact.createElement(Asset, {
-				asset = (not FFlagToolboxAssetGridRefactor4) and myAsset or nil,
+				asset = not FFlagToolboxAssetGridRefactor4 and myAsset or nil,
 				assetId = FFlagToolboxAssetGridRefactor4 and assetId or nil,
 				LayoutOrder = 1,
-				isHovered = (not FFlagToolboxAssetGridRefactor4) and false or nil,
 			}),
 		})
 
@@ -73,7 +72,7 @@ return function()
 		local assetAnalytics = AssetAnalytics.mock()
 		local calls = {}
 		assetAnalytics.logImpression = function(...)
-			table.insert(calls, {...})
+			table.insert(calls, { ... })
 		end
 
 		local asset = MockItems.getSimpleAsset(123456)

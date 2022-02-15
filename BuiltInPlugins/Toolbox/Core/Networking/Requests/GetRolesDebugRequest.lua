@@ -12,7 +12,7 @@ else
 end
 
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
-local SetAllowedAssetTypes =  require(Plugin.Core.Actions.SetAllowedAssetTypes)
+local SetAllowedAssetTypes = require(Plugin.Core.Actions.SetAllowedAssetTypes)
 
 local SetTagsMetadata = require(Plugin.Core.Actions.SetTagsMetadata)
 
@@ -30,7 +30,6 @@ uses this dummy data to provide the user with the UGC creator roles.
 ]]
 return function(networkInterface)
 	return function(store)
-
 		local allowedAssetTypesForUpload = {
 			Image = { allowedFileExtensions = { ".jpg", ".png", ".bmp" } },
 			Mesh = { allowedFileExtensions = { ".mesh" } },
@@ -51,7 +50,7 @@ return function(networkInterface)
 			LeftShoeAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
 			RightShoeAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
 			DressSkirtAccessory = FFlagUGCLCAssetTypes2 and { allowedFileExtensions = { ".rbxm" } } or nil,
-			Plugin = { allowedFileExtensions = { ".rbxm" } }
+			Plugin = { allowedFileExtensions = { ".rbxm" } },
 		}
 		local allowedAssetTypesForRelease = {
 			Hat = {
@@ -59,64 +58,64 @@ return function(networkInterface)
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			},
 			HairAccessory = {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			},
 			FaceAccessory = {
 				allowedPriceRange = { minRobux = 15, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 15, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 15, maxRobux = 5000 },
+				},
 			},
 			NeckAccessory = {
 				allowedPriceRange = { minRobux = 20, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 20, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 20, maxRobux = 5000 },
+				},
 			},
 			ShoulderAccessory = {
 				allowedPriceRange = { minRobux = 15, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 15, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 15, maxRobux = 5000 },
+				},
 			},
 			FrontAccessory = {
 				allowedPriceRange = { minRobux = 20, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 20, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 20, maxRobux = 5000 },
+				},
 			},
 			BackAccessory = {
 				allowedPriceRange = { minRobux = 100, maxRobux = 10000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 100, maxRobux = 10000 }
-				}
+					allowedPriceRange = { minRobux = 100, maxRobux = 10000 },
+				},
 			},
 			WaistAccessory = {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			},
 			Shirt = {
 				allowedPriceRange = { minRobux = 5, maxRobux = 999999999 },
@@ -135,72 +134,72 @@ return function(networkInterface)
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			ShirtAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			PantsAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			JacketAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			SweaterAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			ShortsAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			LeftShoeAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			RightShoeAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 			DressSkirtAccessory = FFlagUGCLCAssetTypes2 and {
 				allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
 				marketplaceFeesPercentage = 70,
 				premiumPricing = {
 					allowedDiscountPercentages = { 25, 50, 75 },
-					allowedPriceRange = { minRobux = 50, maxRobux = 5000 }
-				}
+					allowedPriceRange = { minRobux = 50, maxRobux = 5000 },
+				},
 			} or nil,
 		}
 		store:dispatch(SetAllowedAssetTypes(allowedAssetTypesForRelease, allowedAssetTypesForUpload))

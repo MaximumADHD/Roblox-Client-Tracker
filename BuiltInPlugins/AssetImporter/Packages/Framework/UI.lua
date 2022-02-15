@@ -1,8 +1,10 @@
 --[[
 	Public interface for UI
 ]]
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local Src = script
 
@@ -23,6 +25,7 @@ local FakeLoadingBar = require(Src.FakeLoadingBar)
 local HoverArea = require(Src.HoverArea)
 local CaptureFocus = require(Src.CaptureFocus)
 local ShowOnTop = require(Src.ShowOnTop)
+local DragBar = require(Src.DragBar)
 local DragListener = require(Src.DragListener)
 local DropShadow = require(Src.DropShadow)
 local KeyboardListener = require(Src.KeyboardListener)
@@ -36,6 +39,7 @@ local Tooltip = require(Src.Tooltip)
 local RangeSlider = require(Src.RangeSlider)
 local RadioButton = require(Src.RadioButton)
 local RadioButtonList = require(Src.RadioButtonList)
+local ResponsiveGrid = require(Src.ResponsiveGrid)
 local SimpleExpandablePane = require(Src.ExpandablePane.SimpleExpandablePane)
 local Table = require(Src.Table)
 local TableRow = require(Src.TableRow)
@@ -56,6 +60,7 @@ local ScrollingFrame = require(Src.ScrollingFrame)
 local SelectInput = require(Src.SelectInput)
 local Separator = require(Src.Separator)
 local SimpleTab = require(Src.SimpleTab)
+local SplitPane = require(Src.SplitPane)
 local Slider = require(Src.Slider)
 local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 local MultiLineTextInput = require(Src.MultiLineTextInput)
@@ -76,6 +81,7 @@ local UI = strict({
 	Checkbox = Checkbox,
 	CheckboxTreeView = CheckboxTreeView,
 	Container = Container,
+	DragBar = FFlagDevFrameworkSplitPane and DragBar or nil,
 	DragListener = DragListener,
 	DropdownMenu = DropdownMenu,
 	DropShadow = DropShadow,
@@ -96,6 +102,7 @@ local UI = strict({
 	PaginatedTable = PaginatedTable,
 	RadioButton = RadioButton,
 	RadioButtonList = RadioButtonList,
+	ResponsiveGrid = FFlagDevFrameworkResponsiveGrid2 and ResponsiveGrid or nil,
 	RangeSlider = RangeSlider,
 	ScrollingFrame = ScrollingFrame,
 	SelectInput = SelectInput,
@@ -104,6 +111,7 @@ local UI = strict({
 	SimpleTab = SimpleTab,
 	ShowOnTop = ShowOnTop,
 	Slider = Slider,
+	SplitPane = FFlagDevFrameworkSplitPane and SplitPane or nil,
 	Table = Table,
 	TableRow = TableRow,
 	Tabs = Tabs,

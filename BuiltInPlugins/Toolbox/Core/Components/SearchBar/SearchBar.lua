@@ -129,10 +129,10 @@ function SearchBar.getDerivedStateFromProps(nextProps, lastState)
 	local searchTerm = stripSearchTerm(nextProps.searchTerm)
 	local lastSearchTermAsProp = lastState.lastSearchTermAsProp or ""
 
-	if (searchTerm ~= lastSearchTermAsProp) then
+	if searchTerm ~= lastSearchTermAsProp then
 		return {
 			text = searchTerm,
-			lastSearchTermAsProp = searchTerm
+			lastSearchTermAsProp = searchTerm,
 		}
 	end
 
@@ -145,7 +145,7 @@ function SearchBar:onFocusLost(enterPressed)
 		isContainerHovered = false,
 	})
 
-	if (enterPressed) then
+	if enterPressed then
 		self.requestSearch()
 	end
 end
@@ -273,7 +273,7 @@ function SearchBar:renderContent(theme, localization, localizedContent)
 				showSearchButton = showSearchButton,
 				onClearButtonClicked = self.onClearButtonClicked,
 				onSearchButtonClicked = self.requestSearch,
-			})
+			}),
 		}),
 	})
 end

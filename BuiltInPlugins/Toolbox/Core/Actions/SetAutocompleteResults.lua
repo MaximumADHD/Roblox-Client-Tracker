@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(results)
 	return {
-		autocompleteResults = results
+		autocompleteResults = results,
 	}
 end)

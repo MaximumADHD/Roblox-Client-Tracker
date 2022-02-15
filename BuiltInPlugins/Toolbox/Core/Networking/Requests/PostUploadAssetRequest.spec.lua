@@ -34,28 +34,29 @@ return function()
 
 		-- Page 1
 		local stubCalled = false
-		networkInterfaceMock.postUploadAsset = function(
-			self,
-			assetId,
-			assetType,
-			name,
-			description,
-			genreTypeID,
-			isPublicOverride,
-			commentOn,
-			groupId,
-			fileDataString
-		)
-			stubCalled = true
+		networkInterfaceMock.postUploadAsset =
+			function(
+				self,
+				assetId,
+				assetType,
+				name,
+				description,
+				genreTypeID,
+				isPublicOverride,
+				commentOn,
+				groupId,
+				fileDataString
+			)
+				stubCalled = true
 
-			expect(assetId).to.equal(0)
-			expect(name).to.equal("Test!")
-			assert(string.len(fileDataString) > 0)
+				expect(assetId).to.equal(0)
+				expect(name).to.equal("Test!")
+				assert(string.len(fileDataString) > 0)
 
-			return Promise.resolve({
-				responseBody = "123",
-			})
-		end
+				return Promise.resolve({
+					responseBody = "123",
+				})
+			end
 
 		local model = Instance.new("Model")
 		model.Parent = game.Workspace

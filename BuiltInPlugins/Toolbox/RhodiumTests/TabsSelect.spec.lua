@@ -33,7 +33,6 @@ return function()
 		Roact.unmount(instance)
 	end)
 
-
 	itSKIP("should be able to click and change tab", function()
 		local Workspace = game.CoreGui
 		local name = "Tab"
@@ -45,7 +44,7 @@ return function()
 
 		local inventoryTabPath = "game.CoreGui.Tab.Root.Tab.Inventory.Content.Icon"
 		local inventoryTab = TestHelpers.clickInstanceWithXPath(inventoryTabPath)
-		
+
 		expect(tostring(inventoryTab:getRbxInstance().ImageColor3)).to.equal(selectedTabColor)
 		Roact.unmount(instance)
 	end)

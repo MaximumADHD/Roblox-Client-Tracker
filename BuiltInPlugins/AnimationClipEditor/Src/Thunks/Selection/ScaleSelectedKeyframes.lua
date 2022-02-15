@@ -32,6 +32,7 @@ local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
 local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -43,8 +44,8 @@ end
 return function(pivotTick, scale, dragContext)
 	return function(store)
 		local state = store:getState()
-		local scroll = state.Status.Scroll
-		local zoom = state.Status.Zoom
+		local scroll = GetFFlagCurveEditor() and state.Status.HorizontalScroll or state.Status.Scroll
+		local zoom = GetFFlagCurveEditor() and state.Status.HorizontalZoom or state.Status.Zoom
 		local frameRate = state.Status.FrameRate
 		local snapMode = state.Status.SnapMode
 		local editingLength = state.Status.EditingLength

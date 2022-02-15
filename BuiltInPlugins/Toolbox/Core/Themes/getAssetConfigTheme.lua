@@ -68,14 +68,13 @@ return function()
 							backgroundColor = StyleKey.ButtonSelected,
 						},
 					},
-
 				},
 
 				subjectThumbnail = {
 					backgroundColor = StyleKey.TableItem,
 					defaultImageColor = StyleKey.AssetConfig_SubjectThumbnailDefaultImageColor,
 				},
-			}
+			},
 		},
 
 		detailedDropdown = {
@@ -95,7 +94,7 @@ return function()
 
 		divider = {
 			horizontalLineColor = StyleKey.Toolbox_HorizontalLineColor,
-			verticalLineColor =  StyleKey.AssetConfig_DividerHorizontalLineColor,
+			verticalLineColor = StyleKey.AssetConfig_DividerHorizontalLineColor,
 		},
 
 		inputFields = {

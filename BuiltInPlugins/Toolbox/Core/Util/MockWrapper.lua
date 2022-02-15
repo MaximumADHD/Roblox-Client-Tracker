@@ -80,8 +80,7 @@ local function MockWrapper(props)
 		networkInterface = networkInterface,
 		localization = localization,
 	}, {
-		provideMockContext(context,
-			props[Roact.Children])
+		provideMockContext(context, props[Roact.Children]),
 	})
 end
 

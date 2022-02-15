@@ -40,10 +40,7 @@ local function renderContent(props, theme)
 	local maxWidth = props.maxWidth
 	local onSuggestionSelected = props.onSuggestionSelected
 
-	local rows = Layouter.layoutSuggestions(initialText,
-		suggestions,
-		maxWidth,
-		onSuggestionSelected)
+	local rows = Layouter.layoutSuggestions(initialText, suggestions, maxWidth, onSuggestionSelected)
 
 	return Roact.createElement("Frame", {
 		Position = position,

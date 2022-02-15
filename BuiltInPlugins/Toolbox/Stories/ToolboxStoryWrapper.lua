@@ -31,44 +31,43 @@ local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
 -- Toolbox-specific context, without overriding the Storybook context items
 local function ToolboxStoryWrapper(props)
-    local middleware = CoreTestUtils.createThunkMiddleware()
+	local middleware = CoreTestUtils.createThunkMiddleware()
 
-    local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
-    local pluginGui = props.pluginGui or nil
-    local settings = props.settings or Settings.new(plugin)
-    local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
-    local legacyLocalization = props.legacyLocalization or Localization.createDummyLocalization()
+	local store = props.store or Rodux.Store.new(ToolboxReducer, nil, middleware)
+	local pluginGui = props.pluginGui or nil
+	local settings = props.settings or Settings.new(plugin)
+	local networkInterface = props.networkInterface or NetworkInterfaceMock.new()
+	local legacyLocalization = props.legacyLocalization or Localization.createDummyLocalization()
 
-    local settingsContext = SettingsContext.new(settings)
-    local storeContext = ContextServices.Store.new(store)
-    local api = ContextServices.API.new({
-        networking = Networking.mock(),
-    })
-    local themeContext = makeTheme(getAssetConfigTheme(), ThemeSwitcher)
+	local settingsContext = SettingsContext.new(settings)
+	local storeContext = ContextServices.Store.new(store)
+	local api = ContextServices.API.new({
+		networking = Networking.mock(),
+	})
+	local themeContext = makeTheme(getAssetConfigTheme(), ThemeSwitcher)
 
-    local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
-    local legacyTheme = props.legacyTheme or ToolboxTheme.createDummyThemeManager()
+	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
+	local legacyTheme = props.legacyTheme or ToolboxTheme.createDummyThemeManager()
 
-    local context = {
-        storeContext,
-        settingsContext,
-        api,
-        assetAnalytics,
-        themeContext,
-    }
+	local context = {
+		storeContext,
+		settingsContext,
+		api,
+		assetAnalytics,
+		themeContext,
+	}
 
-    return Roact.createElement(ExternalServicesWrapper, {
-        store = store,
-        plugin = plugin,
-        pluginGui = pluginGui,
-        settings = settings,
-        theme = legacyTheme,
-        networkInterface = networkInterface,
-        localization = legacyLocalization,
-    }, {
-        ContextServices.provide(context,
-            props[Roact.Children])
-    })
+	return Roact.createElement(ExternalServicesWrapper, {
+		store = store,
+		plugin = plugin,
+		pluginGui = pluginGui,
+		settings = settings,
+		theme = legacyTheme,
+		networkInterface = networkInterface,
+		localization = legacyLocalization,
+	}, {
+		ContextServices.provide(context, props[Roact.Children]),
+	})
 end
 
 return ToolboxStoryWrapper

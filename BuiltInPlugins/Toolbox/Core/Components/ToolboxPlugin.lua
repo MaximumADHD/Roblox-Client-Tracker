@@ -128,10 +128,12 @@ function ToolboxPlugin:didMount()
 	})
 
 	self._showPluginsConnection =
-		self.props.pluginLoaderContext.signals["MemStorageService."..SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(function()
-		self.dockWidget.Enabled = true
-		self.dockWidget:RequestRaise()
-	end)
+		self.props.pluginLoaderContext.signals["MemStorageService." .. SharedPluginConstants.SHOW_TOOLBOX_PLUGINS_EVENT]:Connect(
+			function()
+				self.dockWidget.Enabled = true
+				self.dockWidget:RequestRaise()
+			end
+		)
 end
 
 function ToolboxPlugin:willUnmount()
@@ -214,18 +216,15 @@ function ToolboxPlugin:render()
 					pluginGui = pluginGui,
 					pluginLoaderContext = props.pluginLoaderContext,
 					onMouseEnter = FFlagToolboxWindowTelemetry and self.onDockWidgetInteraction or nil,
-				})
-			})
-		})
+				}),
+			}),
+		}),
 	})
 end
-
 
 ToolboxPlugin = withContext({
 	Localization = ContextServices.Localization,
 })(ToolboxPlugin)
-
-
 
 local function mapDispatchToProps(dispatch)
 	return {

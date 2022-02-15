@@ -21,7 +21,7 @@ return function()
 					UpVotes = 0,
 					DownVotes = 0,
 				},
-			})
+			}),
 		})
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)

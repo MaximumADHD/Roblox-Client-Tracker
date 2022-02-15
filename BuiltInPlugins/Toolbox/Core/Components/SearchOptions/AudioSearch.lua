@@ -129,12 +129,9 @@ function AudioSearch:render()
 	})
 end
 
-
 AudioSearch = withContext({
 	Localization = ContextServices.Localization,
 	Stylizer = ContextServices.Stylizer,
 })(AudioSearch)
-
-
 
 return AudioSearch

@@ -25,7 +25,7 @@ Category.OwnershipType = {
 	FREE = 0,
 	MY = 1,
 	RECENT = 2,
-	GROUP = 3
+	GROUP = 3,
 }
 
 Category.AssetType = {
@@ -48,7 +48,7 @@ Category.AssetType = {
 	BACK_ACCESSORY = 16,
 	WAIST_ACCESSORY = 17,
 	VIDEO = 18,
-	ANIMATION = 19
+	ANIMATION = 19,
 }
 
 if FFlagUGCLCAssetTypes2 then
@@ -99,175 +99,479 @@ if FFlagUGCLCAssetTypes2 then
 	Category.ToolboxAssetTypeToEngine[Category.AssetType.DRESS_SKIRT_ACCESSORY] = Enum.AssetType.DressSkirtAccessory
 end
 
-Category.FREE_MODELS = {name = "FreeModels", category = "FreeModels",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MODEL}
-Category.FREE_DECALS = {name = "FreeDecals", category = "FreeDecals",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.DECAL}
-Category.FREE_MESHES = {name = "FreeMeshes", category = "FreeMeshes",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.MESH}
-Category.FREE_AUDIO = {name = "FreeAudio", category = "FreeAudio",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.AUDIO}
-Category.WHITELISTED_PLUGINS = {name = "PaidPlugins", category = "WhitelistedPlugins",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.PLUGIN}
+Category.FREE_MODELS = {
+	name = "FreeModels",
+	category = "FreeModels",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.MODEL,
+}
+Category.FREE_DECALS = {
+	name = "FreeDecals",
+	category = "FreeDecals",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.DECAL,
+}
+Category.FREE_MESHES = {
+	name = "FreeMeshes",
+	category = "FreeMeshes",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.MESH,
+}
+Category.FREE_AUDIO = {
+	name = "FreeAudio",
+	category = "FreeAudio",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.AUDIO,
+}
+Category.WHITELISTED_PLUGINS = {
+	name = "PaidPlugins",
+	category = "WhitelistedPlugins",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.PLUGIN,
+}
 
-Category.MY_MODELS = {name = "MyModels", category = "MyModelsExceptPackage",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.MODEL}
-Category.MY_DECALS = {name = "MyDecals", category = "MyDecals",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.DECAL}
-Category.MY_MESHES = {name = "MyMeshes", category = "MyMeshes",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.MESH}
-Category.MY_AUDIO = {name = "MyAudio", category = "MyAudio",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.AUDIO}
-Category.MY_PLUGINS = {name = "MyPlugins", category = "MyPlugins",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PLUGIN}
-Category.MY_ANIMATIONS = {name = "MyAnimations", category = "MyAnimations",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.ANIMATION}
+Category.MY_MODELS = {
+	name = "MyModels",
+	category = "MyModelsExceptPackage",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.MODEL,
+}
+Category.MY_DECALS = {
+	name = "MyDecals",
+	category = "MyDecals",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.DECAL,
+}
+Category.MY_MESHES = {
+	name = "MyMeshes",
+	category = "MyMeshes",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.MESH,
+}
+Category.MY_AUDIO = {
+	name = "MyAudio",
+	category = "MyAudio",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.AUDIO,
+}
+Category.MY_PLUGINS = {
+	name = "MyPlugins",
+	category = "MyPlugins",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.PLUGIN,
+}
+Category.MY_ANIMATIONS = {
+	name = "MyAnimations",
+	category = "MyAnimations",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.ANIMATION,
+}
 
-Category.MARKETPLACE_VIDEOS = {name = "FreeVideo", category = "FreeVideo",
-	ownershipType = Category.OwnershipType.FREE, assetType = Category.AssetType.VIDEO}
-Category.MY_VIDEOS = {name = "MyVideo", category = "MyVideo",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.VIDEO}
-Category.RECENT_VIDEO = {name = "RecentVideo", category = "RecentVideo",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.VIDEO}
+Category.MARKETPLACE_VIDEOS = {
+	name = "FreeVideo",
+	category = "FreeVideo",
+	ownershipType = Category.OwnershipType.FREE,
+	assetType = Category.AssetType.VIDEO,
+}
+Category.MY_VIDEOS = {
+	name = "MyVideo",
+	category = "MyVideo",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.VIDEO,
+}
+Category.RECENT_VIDEO = {
+	name = "RecentVideo",
+	category = "RecentVideo",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.VIDEO,
+}
 
-Category.RECENT_MODELS = {name = "RecentModels", category = "RecentModels",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MODEL}
-Category.RECENT_DECALS = {name = "RecentDecals", category = "RecentDecals",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.DECAL}
-Category.RECENT_MESHES = {name = "RecentMeshes", category = "RecentMeshes",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.MESH}
-Category.RECENT_AUDIO = {name = "RecentAudio", category = "RecentAudio",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.AUDIO}
-Category.RECENT_ANIMATIONS = {name = "RecentAnimations", category = "RecentAnimations",
-	ownershipType = Category.OwnershipType.RECENT, assetType = Category.AssetType.ANIMATION}
+Category.RECENT_MODELS = {
+	name = "RecentModels",
+	category = "RecentModels",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.MODEL,
+}
+Category.RECENT_DECALS = {
+	name = "RecentDecals",
+	category = "RecentDecals",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.DECAL,
+}
+Category.RECENT_MESHES = {
+	name = "RecentMeshes",
+	category = "RecentMeshes",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.MESH,
+}
+Category.RECENT_AUDIO = {
+	name = "RecentAudio",
+	category = "RecentAudio",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.AUDIO,
+}
+Category.RECENT_ANIMATIONS = {
+	name = "RecentAnimations",
+	category = "RecentAnimations",
+	ownershipType = Category.OwnershipType.RECENT,
+	assetType = Category.AssetType.ANIMATION,
+}
 
-Category.GROUP_MODELS = {name = "GroupModels", category = "GroupModelsExceptPackage",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MODEL}
-Category.GROUP_DECALS = {name = "GroupDecals", category = "GroupDecals",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.DECAL}
-Category.GROUP_MESHES = {name = "GroupMeshes", category = "GroupMeshes",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MESH}
-Category.GROUP_AUDIO = {name = "GroupAudio", category = "GroupAudio",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.AUDIO}
-Category.GROUP_PLUGINS = {name = "GroupPlugins", category = "GroupPlugins",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PLUGIN}
+Category.GROUP_MODELS = {
+	name = "GroupModels",
+	category = "GroupModelsExceptPackage",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.MODEL,
+}
+Category.GROUP_DECALS = {
+	name = "GroupDecals",
+	category = "GroupDecals",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.DECAL,
+}
+Category.GROUP_MESHES = {
+	name = "GroupMeshes",
+	category = "GroupMeshes",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.MESH,
+}
+Category.GROUP_AUDIO = {
+	name = "GroupAudio",
+	category = "GroupAudio",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.AUDIO,
+}
+Category.GROUP_PLUGINS = {
+	name = "GroupPlugins",
+	category = "GroupPlugins",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.PLUGIN,
+}
 
-Category.MY_PACKAGES = {name = "MyPackages", category = "MyPackages",
-	ownershipType = Category.OwnershipType.MY, assetType = Category.AssetType.PACKAGE}
-Category.GROUP_PACKAGES = {name = "GroupPackages", category = "GroupPackages",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
+Category.MY_PACKAGES = {
+	name = "MyPackages",
+	category = "MyPackages",
+	ownershipType = Category.OwnershipType.MY,
+	assetType = Category.AssetType.PACKAGE,
+}
+Category.GROUP_PACKAGES = {
+	name = "GroupPackages",
+	category = "GroupPackages",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.PACKAGE,
+}
 
-Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = {name = "CreationsDevelopmentSectionDivider", selectable=false}
+Category.CREATIONS_DEVELOPMENT_SECTION_DIVIDER = { name = "CreationsDevelopmentSectionDivider", selectable = false }
 -- Eventually, the itemsconfiguration endpoint should fetch MyModelsExceptPackages,
 -- but currently it is fetching both Models and Packages.
 -- Until then, pull the logic from the develop api.
-Category.CREATIONS_GROUP_MODELS = {name = "CreationsGroupModels", category = "GroupModelsExceptPackage",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.MODEL}
-Category.CREATIONS_GROUP_PACKAGES = {name = "CreationsGroupPackages", category = "GroupPackages",
-	ownershipType = Category.OwnershipType.GROUP, assetType = Category.AssetType.PACKAGE}
+Category.CREATIONS_GROUP_MODELS = {
+	name = "CreationsGroupModels",
+	category = "GroupModelsExceptPackage",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.MODEL,
+}
+Category.CREATIONS_GROUP_PACKAGES = {
+	name = "CreationsGroupPackages",
+	category = "GroupPackages",
+	ownershipType = Category.OwnershipType.GROUP,
+	assetType = Category.AssetType.PACKAGE,
+}
 
-Category.CREATIONS_MODELS = {name = "CreationsModels", category = "CreationsModels", assetType = Category.AssetType.MODEL,
-		ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_DECALS = {name = "CreationsDecals", category = "CreationsDecals", assetType = Category.AssetType.DECAL,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_AUDIO = {name = "CreationsAudio", category = "CreationsAudio", assetType = Category.AssetType.AUDIO,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_MESHES = {name = "CreationsMeshes", category = "CreationsMeshes", assetType = Category.AssetType.MESHPART,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_PLUGIN = {name = "CreationsPlugins", category = "CreationsPlugins", assetType = Category.AssetType.PLUGIN,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_ANIMATIONS = {name = "CreationsAnimations", category = "CreationsAnimations", assetType = Category.AssetType.ANIMATION,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_GROUP_DECALS = {name = "CreationsGroupDecals", category = "CreationsGroupDecals", assetType = Category.AssetType.DECAL,
-	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_AUDIO = {name = "CreationsGroupAudio", category = "CreationsGroupAudio", assetType = Category.AssetType.AUDIO,
-	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_MESHES = {name = "CreationsGroupMeshes", category = "CreationsGroupMeshes", assetType = Category.AssetType.MESHPART,
-	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_PLUGIN = {name = "CreationsGroupPlugins", category = "CreationsGroupPlugins", assetType = Category.AssetType.PLUGIN,
-	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_GROUP_ANIMATIONS = {name = "CreationsGroupAnimations", category = "CreationsGroupAnimations", assetType = Category.AssetType.ANIMATION,
-	ownershipType = Category.OwnershipType.GROUP,}
-Category.CREATIONS_CATALOG_SECTION_DIVIDER = {name = "CreationsCatalogSectionDivider", selectable=false}
-Category.CREATIONS_HATS = {name = "CreationsHats", category = "CreationsHats", assetType = Category.AssetType.HAT,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_TEE_SHIRT = {name = "CreationsTeeShirts", category = "CreationsTeeShirts", assetType = Category.AssetType.TEE_SHIRT,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_SHIRT = {name = "CreationsShirts", category = "CreationsShirts", assetType = Category.AssetType.SHIRT,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_PANTS = {name = "CreationsPants", category = "CreationsPants", assetType = Category.AssetType.PANTS,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_HAIR = {name = "CreationsHair", category = "CreationsHair", assetType = Category.AssetType.HAIR_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_FACE_ACCESSORIES = {name = "CreationsFaceAccessories", category = "CreationsFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_NECK_ACCESSORIES = {name = "CreationsNeckAccessories", category = "CreationsNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_SHOULDER_ACCESSORIES = {name = "CreationsShoulderAccessories", category = "CreationsShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_FRONT_ACCESSORIES = {name = "CreationsFrontAccessories", category = "CreationsFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_BACK_ACCESSORIES = {name = "CreationsBackAccessories", category = "CreationsBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
-Category.CREATIONS_WAIST_ACCESSORIES = {name = "CreationsWaistAccessories", category = "CreationsWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
-	ownershipType = Category.OwnershipType.MY,}
+Category.CREATIONS_MODELS = {
+	name = "CreationsModels",
+	category = "CreationsModels",
+	assetType = Category.AssetType.MODEL,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_DECALS = {
+	name = "CreationsDecals",
+	category = "CreationsDecals",
+	assetType = Category.AssetType.DECAL,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_AUDIO = {
+	name = "CreationsAudio",
+	category = "CreationsAudio",
+	assetType = Category.AssetType.AUDIO,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_MESHES = {
+	name = "CreationsMeshes",
+	category = "CreationsMeshes",
+	assetType = Category.AssetType.MESHPART,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_PLUGIN = {
+	name = "CreationsPlugins",
+	category = "CreationsPlugins",
+	assetType = Category.AssetType.PLUGIN,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_ANIMATIONS = {
+	name = "CreationsAnimations",
+	category = "CreationsAnimations",
+	assetType = Category.AssetType.ANIMATION,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_GROUP_DECALS = {
+	name = "CreationsGroupDecals",
+	category = "CreationsGroupDecals",
+	assetType = Category.AssetType.DECAL,
+	ownershipType = Category.OwnershipType.GROUP,
+}
+Category.CREATIONS_GROUP_AUDIO = {
+	name = "CreationsGroupAudio",
+	category = "CreationsGroupAudio",
+	assetType = Category.AssetType.AUDIO,
+	ownershipType = Category.OwnershipType.GROUP,
+}
+Category.CREATIONS_GROUP_MESHES = {
+	name = "CreationsGroupMeshes",
+	category = "CreationsGroupMeshes",
+	assetType = Category.AssetType.MESHPART,
+	ownershipType = Category.OwnershipType.GROUP,
+}
+Category.CREATIONS_GROUP_PLUGIN = {
+	name = "CreationsGroupPlugins",
+	category = "CreationsGroupPlugins",
+	assetType = Category.AssetType.PLUGIN,
+	ownershipType = Category.OwnershipType.GROUP,
+}
+Category.CREATIONS_GROUP_ANIMATIONS = {
+	name = "CreationsGroupAnimations",
+	category = "CreationsGroupAnimations",
+	assetType = Category.AssetType.ANIMATION,
+	ownershipType = Category.OwnershipType.GROUP,
+}
+Category.CREATIONS_CATALOG_SECTION_DIVIDER = { name = "CreationsCatalogSectionDivider", selectable = false }
+Category.CREATIONS_HATS = {
+	name = "CreationsHats",
+	category = "CreationsHats",
+	assetType = Category.AssetType.HAT,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_TEE_SHIRT = {
+	name = "CreationsTeeShirts",
+	category = "CreationsTeeShirts",
+	assetType = Category.AssetType.TEE_SHIRT,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_SHIRT = {
+	name = "CreationsShirts",
+	category = "CreationsShirts",
+	assetType = Category.AssetType.SHIRT,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_PANTS = {
+	name = "CreationsPants",
+	category = "CreationsPants",
+	assetType = Category.AssetType.PANTS,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_HAIR = {
+	name = "CreationsHair",
+	category = "CreationsHair",
+	assetType = Category.AssetType.HAIR_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_FACE_ACCESSORIES = {
+	name = "CreationsFaceAccessories",
+	category = "CreationsFaceAccessories",
+	assetType = Category.AssetType.FACE_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_NECK_ACCESSORIES = {
+	name = "CreationsNeckAccessories",
+	category = "CreationsNeckAccessories",
+	assetType = Category.AssetType.NECK_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_SHOULDER_ACCESSORIES = {
+	name = "CreationsShoulderAccessories",
+	category = "CreationsShoulderAccessories",
+	assetType = Category.AssetType.SHOULDER_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_FRONT_ACCESSORIES = {
+	name = "CreationsFrontAccessories",
+	category = "CreationsFrontAccessories",
+	assetType = Category.AssetType.FRONT_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_BACK_ACCESSORIES = {
+	name = "CreationsBackAccessories",
+	category = "CreationsBackAccessories",
+	assetType = Category.AssetType.BACK_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
+Category.CREATIONS_WAIST_ACCESSORIES = {
+	name = "CreationsWaistAccessories",
+	category = "CreationsWaistAccessories",
+	assetType = Category.AssetType.WAIST_ACCESSORY,
+	ownershipType = Category.OwnershipType.MY,
+}
 if FFlagUGCLCAssetTypes2 then
-	Category.CREATIONS_TSHIRT_ACCESSORIES = {name = "CreationsTShirtAccessories", category = "CreationsTShirtAccessories", assetType = Category.AssetType.TSHIRT_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_SHIRT_ACCESSORIES = {name = "CreationsShirtAccessories", category = "CreationsShirtAccessories", assetType = Category.AssetType.SHIRT_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_PANTS_ACCESSORIES = {name = "CreationsPantsAccessories", category = "CreationsPantsAccessories", assetType = Category.AssetType.PANTS_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_JACKET_ACCESSORIES = {name = "CreationsJacketAccessories", category = "CreationsJacketAccessories", assetType = Category.AssetType.JACKET_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_SWEATER_ACCESSORIES = {name = "CreationsSweaterAccessories", category = "CreationsSweaterAccessories", assetType = Category.AssetType.SWEATER_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_SHORTS_ACCESSORIES = {name = "CreationsShortsAccessories", category = "CreationsShortsAccessories", assetType = Category.AssetType.SHORTS_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_LEFT_SHOE_ACCESSORIES = {name = "CreationsLeftShoeAccessories", category = "CreationsLeftShoeAccessories", assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_RIGHT_SHOE_ACCESSORIES = {name = "CreationsRightShoeAccessories", category = "CreationsRightShoeAccessories", assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
-	Category.CREATIONS_DRESS_SKIRT_ACCESSORIES = {name = "CreationsDressSkirtAccessories", category = "CreationsDressSkirtAccessories", assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
-		ownershipType = Category.OwnershipType.MY,}
+	Category.CREATIONS_TSHIRT_ACCESSORIES = {
+		name = "CreationsTShirtAccessories",
+		category = "CreationsTShirtAccessories",
+		assetType = Category.AssetType.TSHIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_SHIRT_ACCESSORIES = {
+		name = "CreationsShirtAccessories",
+		category = "CreationsShirtAccessories",
+		assetType = Category.AssetType.SHIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_PANTS_ACCESSORIES = {
+		name = "CreationsPantsAccessories",
+		category = "CreationsPantsAccessories",
+		assetType = Category.AssetType.PANTS_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_JACKET_ACCESSORIES = {
+		name = "CreationsJacketAccessories",
+		category = "CreationsJacketAccessories",
+		assetType = Category.AssetType.JACKET_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_SWEATER_ACCESSORIES = {
+		name = "CreationsSweaterAccessories",
+		category = "CreationsSweaterAccessories",
+		assetType = Category.AssetType.SWEATER_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_SHORTS_ACCESSORIES = {
+		name = "CreationsShortsAccessories",
+		category = "CreationsShortsAccessories",
+		assetType = Category.AssetType.SHORTS_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_LEFT_SHOE_ACCESSORIES = {
+		name = "CreationsLeftShoeAccessories",
+		category = "CreationsLeftShoeAccessories",
+		assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_RIGHT_SHOE_ACCESSORIES = {
+		name = "CreationsRightShoeAccessories",
+		category = "CreationsRightShoeAccessories",
+		assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
+	Category.CREATIONS_DRESS_SKIRT_ACCESSORIES = {
+		name = "CreationsDressSkirtAccessories",
+		category = "CreationsDressSkirtAccessories",
+		assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
+		ownershipType = Category.OwnershipType.MY,
+	}
 end
 
 if FFlagUGCGroupUploads2 then
-	Category.CREATIONS_GROUP_HATS = {name = "CreationsGroupHats", category = "CreationsGroupHats", assetType = Category.AssetType.HAT,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_HAIR = {name = "CreationsGroupHair", category = "CreationsGroupHair", assetType = Category.AssetType.HAIR_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_FACE_ACCESSORIES = {name = "CreationsGroupFaceAccessories", category = "CreationsGroupFaceAccessories", assetType = Category.AssetType.FACE_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_NECK_ACCESSORIES = {name = "CreationsGroupNeckAccessories", category = "CreationsGroupNeckAccessories", assetType = Category.AssetType.NECK_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_SHOULDER_ACCESSORIES = {name = "CreationsGroupShoulderAccessories", category = "CreationsGroupShoulderAccessories", assetType = Category.AssetType.SHOULDER_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_FRONT_ACCESSORIES = {name = "CreationsGroupFrontAccessories", category = "CreationsGroupFrontAccessories", assetType = Category.AssetType.FRONT_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_BACK_ACCESSORIES = {name = "CreationsGroupBackAccessories", category = "CreationsGroupBackAccessories", assetType = Category.AssetType.BACK_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
-	Category.CREATIONS_GROUP_WAIST_ACCESSORIES = {name = "CreationsGroupWaistAccessories", category = "CreationsGroupWaistAccessories", assetType = Category.AssetType.WAIST_ACCESSORY,
-		ownershipType = Category.OwnershipType.GROUP,}
+	Category.CREATIONS_GROUP_HATS = {
+		name = "CreationsGroupHats",
+		category = "CreationsGroupHats",
+		assetType = Category.AssetType.HAT,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_HAIR = {
+		name = "CreationsGroupHair",
+		category = "CreationsGroupHair",
+		assetType = Category.AssetType.HAIR_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_FACE_ACCESSORIES = {
+		name = "CreationsGroupFaceAccessories",
+		category = "CreationsGroupFaceAccessories",
+		assetType = Category.AssetType.FACE_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_NECK_ACCESSORIES = {
+		name = "CreationsGroupNeckAccessories",
+		category = "CreationsGroupNeckAccessories",
+		assetType = Category.AssetType.NECK_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_SHOULDER_ACCESSORIES = {
+		name = "CreationsGroupShoulderAccessories",
+		category = "CreationsGroupShoulderAccessories",
+		assetType = Category.AssetType.SHOULDER_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_FRONT_ACCESSORIES = {
+		name = "CreationsGroupFrontAccessories",
+		category = "CreationsGroupFrontAccessories",
+		assetType = Category.AssetType.FRONT_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_BACK_ACCESSORIES = {
+		name = "CreationsGroupBackAccessories",
+		category = "CreationsGroupBackAccessories",
+		assetType = Category.AssetType.BACK_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
+	Category.CREATIONS_GROUP_WAIST_ACCESSORIES = {
+		name = "CreationsGroupWaistAccessories",
+		category = "CreationsGroupWaistAccessories",
+		assetType = Category.AssetType.WAIST_ACCESSORY,
+		ownershipType = Category.OwnershipType.GROUP,
+	}
 	if FFlagUGCLCAssetTypes2 then
-		Category.CREATIONS_GROUP_TSHIRT_ACCESSORIES = {name = "CreationsGroupTShirtAccessories", category = "CreationsGroupTShirtAccessories", assetType = Category.AssetType.TSHIRT_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_SHIRT_ACCESSORIES = {name = "CreationsGroupShirtAccessories", category = "CreationsGroupShirtAccessories", assetType = Category.AssetType.SHIRT_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_PANTS_ACCESSORIES = {name = "CreationsGroupPantsAccessories", category = "CreationsGroupPantsAccessories", assetType = Category.AssetType.PANTS_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_JACKET_ACCESSORIES = {name = "CreationsGroupJacketAccessories", category = "CreationsGroupJacketAccessories", assetType = Category.AssetType.JACKET_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_SWEATER_ACCESSORIES = {name = "CreationsGroupSweaterAccessories", category = "CreationsGroupSweaterAccessories", assetType = Category.AssetType.SWEATER_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_SHORTS_ACCESSORIES = {name = "CreationsGroupShortsAccessories", category = "CreationsGroupShortsAccessories", assetType = Category.AssetType.SHORTS_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES = {name = "CreationsGroupLeftShoeAccessories", category = "CreationsGroupLeftShoeAccessories", assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES = {name = "CreationsGroupRightShoeAccessories", category = "CreationsGroupRightShoeAccessories", assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
-		Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES = {name = "CreationsGroupDressSkirtAccessories", category = "CreationsGroupDressSkirtAccessories", assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
-			ownershipType = Category.OwnershipType.GROUP,}
+		Category.CREATIONS_GROUP_TSHIRT_ACCESSORIES = {
+			name = "CreationsGroupTShirtAccessories",
+			category = "CreationsGroupTShirtAccessories",
+			assetType = Category.AssetType.TSHIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_SHIRT_ACCESSORIES = {
+			name = "CreationsGroupShirtAccessories",
+			category = "CreationsGroupShirtAccessories",
+			assetType = Category.AssetType.SHIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_PANTS_ACCESSORIES = {
+			name = "CreationsGroupPantsAccessories",
+			category = "CreationsGroupPantsAccessories",
+			assetType = Category.AssetType.PANTS_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_JACKET_ACCESSORIES = {
+			name = "CreationsGroupJacketAccessories",
+			category = "CreationsGroupJacketAccessories",
+			assetType = Category.AssetType.JACKET_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_SWEATER_ACCESSORIES = {
+			name = "CreationsGroupSweaterAccessories",
+			category = "CreationsGroupSweaterAccessories",
+			assetType = Category.AssetType.SWEATER_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_SHORTS_ACCESSORIES = {
+			name = "CreationsGroupShortsAccessories",
+			category = "CreationsGroupShortsAccessories",
+			assetType = Category.AssetType.SHORTS_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES = {
+			name = "CreationsGroupLeftShoeAccessories",
+			category = "CreationsGroupLeftShoeAccessories",
+			assetType = Category.AssetType.LEFT_SHOE_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES = {
+			name = "CreationsGroupRightShoeAccessories",
+			category = "CreationsGroupRightShoeAccessories",
+			assetType = Category.AssetType.RIGHT_SHOE_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
+		Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES = {
+			name = "CreationsGroupDressSkirtAccessories",
+			category = "CreationsGroupDressSkirtAccessories",
+			assetType = Category.AssetType.DRESS_SKIRT_ACCESSORY,
+			ownershipType = Category.OwnershipType.GROUP,
+		}
 	end
 end
 
@@ -561,9 +865,12 @@ local ASSET_ENUM_GROUP_CATEGORY_MAP = {
 	[Enum.AssetType.JacketAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_JACKET_ACCESSORIES or nil,
 	[Enum.AssetType.SweaterAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_SWEATER_ACCESSORIES or nil,
 	[Enum.AssetType.ShortsAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_SHORTS_ACCESSORIES or nil,
-	[Enum.AssetType.LeftShoeAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES or nil,
-	[Enum.AssetType.RightShoeAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES or nil,
-	[Enum.AssetType.DressSkirtAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES or nil,
+	[Enum.AssetType.LeftShoeAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_LEFT_SHOE_ACCESSORIES
+		or nil,
+	[Enum.AssetType.RightShoeAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_RIGHT_SHOE_ACCESSORIES
+		or nil,
+	[Enum.AssetType.DressSkirtAccessory] = FFlagUGCLCAssetTypes2 and Category.CREATIONS_GROUP_DRESS_SKIRT_ACCESSORIES
+		or nil,
 }
 
 function Category.getCategories(tabName, roles)

@@ -24,7 +24,7 @@ local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 local function extractAssetIdsFromGetGroupAssetsResponse(data)
 	local result = {}
 	if data then
-		for _,value in pairs(data) do
+		for _, value in pairs(data) do
 			result[#result + 1] = value.id
 		end
 	end
@@ -34,7 +34,7 @@ end
 local function extractAssetIdsFromGetAssetsResponse(data)
 	local result = {}
 	if data then
-		for _,value in pairs(data) do
+		for _, value in pairs(data) do
 			result[#result + 1] = value.assetId
 		end
 	end
@@ -44,7 +44,7 @@ end
 local function convertCreationsDetailsToResultsFormat(data, assetType, creatorName, creatorType)
 	local result = {}
 	if data then
-		for _,value in pairs(data) do
+		for _, value in pairs(data) do
 			local assetResultTable
 			assetResultTable = AssetInfo.fromCreationsDetails(value, assetType, creatorName, creatorType)
 
@@ -57,12 +57,14 @@ end
 local function extractCreatorInfo(responseBodyResults)
 	if responseBodyResults and #responseBodyResults > 0 then
 		local firstResult = responseBodyResults[1]
-		return firstResult.Creator.Id, firstResult.Creator.Name, CreatorInfoHelper.backendToClient(firstResult.Creator.Type)
+		return firstResult.Creator.Id,
+			firstResult.Creator.Name,
+			CreatorInfoHelper.backendToClient(firstResult.Creator.Type)
 	end
 end
 
 local function dispatchCreatorInfo(store, id, name, type)
-	store:dispatch(SetCachedCreatorInfo({Id=id, Name=name, Type=type}))
+	store:dispatch(SetCachedCreatorInfo({ Id = id, Name = name, Type = type }))
 end
 
 local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorName, nextCursor, creatorType)
@@ -70,7 +72,12 @@ local function dispatchGetAssets(store, pageInfo, creationDetailsTable, creatorN
 		return
 	end
 	local assetType = PageInfoHelper.getEngineAssetTypeForPageInfoCategory(pageInfo)
-	local assetResults = convertCreationsDetailsToResultsFormat(creationDetailsTable, assetType, creatorName, creatorType)
+	local assetResults = convertCreationsDetailsToResultsFormat(
+		creationDetailsTable,
+		assetType,
+		creatorName,
+		creatorType
+	)
 
 	AssetAnalytics.addContextToAssetResults(assetResults, pageInfo)
 
@@ -94,16 +101,19 @@ return function(networkInterface, pageInfoOnStart)
 		local isCreationSearch = Category.getTabForCategoryName(pageInfoOnStart.categoryName) == Category.CREATIONS
 		local isGroupCreation
 		if Rollouts:getToolboxGroupCreationsMigration() then
-			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName) and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
+			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
+				and not Category.categoryIsAvatarAssetByCategoryName(pageInfoOnStart.categoryName)
 		else
 			isGroupCreation = Category.categoryIsGroupAsset(pageInfoOnStart.categoryName)
 		end
 		if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 			-- special case : temporarily pull Group Creations Models and Packages from the develop API
 			local categoryName = pageInfoOnStart.categoryName
-			
-			if categoryName == Category.CREATIONS_GROUP_MODELS.name or
-				categoryName == Category.CREATIONS_GROUP_PACKAGES.name then
+
+			if
+				categoryName == Category.CREATIONS_GROUP_MODELS.name
+				or categoryName == Category.CREATIONS_GROUP_PACKAGES.name
+			then
 				isCreationSearch = false
 			end
 		end
@@ -122,7 +132,7 @@ return function(networkInterface, pageInfoOnStart)
 			local pageInfo = store:getState().pageInfo
 			local categoryOnStart = pageInfoOnStart.categoryName
 			local categoryOnRequestFinish = pageInfo.categoryName
-			
+
 			local isResponseFresh = not PageInfoHelper.isPageInfoStale(pageInfoOnStart, store)
 
 			if isResponseFresh then
@@ -141,14 +151,22 @@ return function(networkInterface, pageInfoOnStart)
 		end
 
 		local getAssetGroupCreationIds = function(nextCursor)
-			return networkInterface:getAssetGroupCreations(pageInfoOnStart, nextCursor):andThen(function(creationsResult)
-				return extractAssetIdsFromGetGroupAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data), creationsResult
-			end)
+			return networkInterface
+				:getAssetGroupCreations(pageInfoOnStart, nextCursor)
+				:andThen(function(creationsResult)
+					return extractAssetIdsFromGetGroupAssetsResponse(
+						creationsResult.responseBody and creationsResult.responseBody.data
+					),
+						creationsResult
+				end)
 		end
 
 		local getAssetCreationIds = function(nextCursor)
 			return networkInterface:getAssetCreations(pageInfoOnStart, nextCursor):andThen(function(creationsResult)
-				return extractAssetIdsFromGetAssetsResponse(creationsResult.responseBody and creationsResult.responseBody.data), creationsResult
+				return extractAssetIdsFromGetAssetsResponse(
+					creationsResult.responseBody and creationsResult.responseBody.data
+				),
+					creationsResult
 			end)
 		end
 
@@ -171,42 +189,74 @@ return function(networkInterface, pageInfoOnStart)
 				else
 					getAssetIds = getAssetCreationIds
 				end
-				return getAssetIds(PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(function(assetIds, creationsResult)
-					local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
-					if assetIds and #assetIds > 0 then
-						networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
-							local creationDetailsTable = creationDetailsResult.responseBody
-							if creationDetailsTable and #creationDetailsTable > 0 then
-								local isCreatorInfoFetchRequired = false
-								local newCreatorId = creationDetailsTable[1].creatorTargetId
+				return getAssetIds(PagedRequestCursor.getNextPageCursor(currentCursor)):andThen(
+					function(assetIds, creationsResult)
+						local nextCursor = PagedRequestCursor.createCursor(creationsResult.responseBody)
+						if assetIds and #assetIds > 0 then
+							networkInterface:getAssetCreationDetails(assetIds):andThen(function(creationDetailsResult)
+								local creationDetailsTable = creationDetailsResult.responseBody
+								if creationDetailsTable and #creationDetailsTable > 0 then
+									local isCreatorInfoFetchRequired = false
+									local newCreatorId = creationDetailsTable[1].creatorTargetId
 
-								local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(creationDetailsTable[1].creatorType)
-								isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(store, newCreatorId, newCreatorType)
+									local newCreatorType = CreatorInfoHelper.getCreatorTypeValueFromName(
+										creationDetailsTable[1].creatorType
+									)
+									isCreatorInfoFetchRequired = not CreatorInfoHelper.isCached(
+										store,
+										newCreatorId,
+										newCreatorType
+									)
 
-								if isCreatorInfoFetchRequired then
-									networkInterface:getCreatorInfo(newCreatorId, newCreatorType):andThen(function(creatorInfoResult)
-										local creatorName = CreatorInfoHelper.getNameFromResult(creatorInfoResult, newCreatorType)
-										dispatchCreatorInfo(store, newCreatorId, creatorName, newCreatorType)
-										dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
-									end, errorFunc)
+									if isCreatorInfoFetchRequired then
+										networkInterface
+											:getCreatorInfo(newCreatorId, newCreatorType)
+											:andThen(function(creatorInfoResult)
+												local creatorName = CreatorInfoHelper.getNameFromResult(
+													creatorInfoResult,
+													newCreatorType
+												)
+												dispatchCreatorInfo(store, newCreatorId, creatorName, newCreatorType)
+												dispatchGetAssets(
+													store,
+													pageInfoOnStart,
+													creationDetailsTable,
+													creatorName,
+													nextCursor,
+													newCreatorType
+												)
+											end, errorFunc)
+									end
+
+									if not isCreatorInfoFetchRequired then
+										local creatorName = store:getState().assets.cachedCreatorInfo.Name
+										dispatchGetAssets(
+											store,
+											pageInfoOnStart,
+											creationDetailsTable,
+											creatorName,
+											nextCursor,
+											newCreatorType
+										)
+									end
+								else
+									dispatchGetAssetsWarning(
+										store,
+										"getAssetCreationDetails() did not return any asset details",
+										nextCursor
+									)
 								end
-
-								if not isCreatorInfoFetchRequired then
-									local creatorName = store:getState().assets.cachedCreatorInfo.Name
-									dispatchGetAssets(store, pageInfoOnStart, creationDetailsTable, creatorName, nextCursor, newCreatorType)
-								end
-							else
-								dispatchGetAssetsWarning(store, "getAssetCreationDetails() did not return any asset details", nextCursor)
-							end
-						end, errorFunc)
-					else
-						-- The endpoint can return empty pages with a valid cursor for a next page, because
-						-- it filters out packages from the list AFTER applying pagination. So this should not be a warning
-						-- See MKTPL-1416 for more information. This is planned to be fixed on the backend, so just nil out
-						-- the warning for now.
-						dispatchGetAssetsWarning(store, nil, nextCursor)
-					end
-				end, errorFunc)
+							end, errorFunc)
+						else
+							-- The endpoint can return empty pages with a valid cursor for a next page, because
+							-- it filters out packages from the list AFTER applying pagination. So this should not be a warning
+							-- See MKTPL-1416 for more information. This is planned to be fixed on the backend, so just nil out
+							-- the warning for now.
+							dispatchGetAssetsWarning(store, nil, nextCursor)
+						end
+					end,
+					errorFunc
+				)
 			end
 		else -- Everything else, change category, tabs, and getAsset
 			-- We check if we are trying to access
@@ -219,13 +269,16 @@ return function(networkInterface, pageInfoOnStart)
 			if FFlagToolboxLegacyFetchGroupModelsAndPackages and not Rollouts:getToolboxGroupCreationsMigration() then
 				-- special case : temporarily pull Group Creations Models and Packages from the develop API
 				local categoryName = pageInfoOnStart.categoryName
-				if categoryName == Category.CREATIONS_GROUP_MODELS.name or
-					categoryName == Category.CREATIONS_GROUP_PACKAGES.name then
+				if
+					categoryName == Category.CREATIONS_GROUP_MODELS.name
+					or categoryName == Category.CREATIONS_GROUP_PACKAGES.name
+				then
 					isSpecialCase = true
 				end
 			end
 
-			if PageInfoHelper.isDeveloperCategory(pageInfoOnStart)
+			if
+				PageInfoHelper.isDeveloperCategory(pageInfoOnStart)
 				or PageInfoHelper.isPackagesCategory(pageInfoOnStart)
 				or isAudio
 				or isVideo

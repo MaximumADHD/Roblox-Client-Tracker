@@ -68,11 +68,9 @@ return function(networkInterface, assetId)
 
 		Promise.all({
 			networkInterface:getAssetConfigData(assetId):andThen(onAssetConfigDataGet, onAssetConfigDataFailed),
-			networkInterface:getAssetCreationDetails({assetId}):andThen(onPriceDataGet, onPriceDataFailed)
-		}):andThen(
-			function()
-				store:dispatch(UpdateAssetConfigData(assetConfigData))
-			end
-		)
+			networkInterface:getAssetCreationDetails({ assetId }):andThen(onPriceDataGet, onPriceDataFailed),
+		}):andThen(function()
+			store:dispatch(UpdateAssetConfigData(assetConfigData))
+		end)
 	end
 end

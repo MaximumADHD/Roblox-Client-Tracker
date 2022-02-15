@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(groupData)
 	return {
-		groupMetadata = groupData
+		groupMetadata = groupData,
 	}
 end)

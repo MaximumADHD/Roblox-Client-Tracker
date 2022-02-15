@@ -11,10 +11,10 @@ end
 
 local StoryMiddleware = require(Libs.Framework).Stories.getStoryMiddleware()
 local Roact = require(Libs.Roact)
- 
+
 return {
-    name = "Toolbox",
-    mapStory = StoryMiddleware,
-    storyRoots = {Plugin.Stories},
-    roact = Roact
+	name = "Toolbox",
+	mapStory = StoryMiddleware,
+	storyRoots = { Plugin.Stories },
+	roact = Roact,
 }

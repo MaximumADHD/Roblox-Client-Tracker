@@ -49,8 +49,11 @@ local function warnIfUpdatePageInfoChangesInvalid(state, changes)
 		warn("Lua Toolbox: sortIndex out of range in UpdatePageInfo")
 	end
 
-	if changes.groupIndex ~= nil and changes.groupIndex > 0 and (changes.groupIndex < (#state.groups > 0 and 1 or 0)
-		or changes.groupIndex > #state.groups) then
+	if
+		changes.groupIndex ~= nil
+		and changes.groupIndex > 0
+		and (changes.groupIndex < (#state.groups > 0 and 1 or 0) or changes.groupIndex > #state.groups)
+	then
 		warn("Lua Toolbox: groupIndex out of range in UpdatePageInfo")
 	end
 
@@ -99,7 +102,7 @@ return Rodux.createReducer({
 			searchTerm = action.searchTerm,
 		})
 	end,
-	
+
 	[UpdatePageInfo.name] = function(state, action)
 		if not action.changes then
 			if DebugFlags.shouldDebugWarnings() then
@@ -166,7 +169,7 @@ return Rodux.createReducer({
 
 		local newGroups = {}
 		for index, group in ipairs(action.groups) do
-			newGroups[index] = {id = group.id, name = group.name}
+			newGroups[index] = { id = group.id, name = group.name }
 		end
 
 		local newState = Cryo.Dictionary.join(state, {

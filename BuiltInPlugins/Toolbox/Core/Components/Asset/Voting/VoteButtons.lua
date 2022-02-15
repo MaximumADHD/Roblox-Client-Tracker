@@ -46,7 +46,7 @@ function VoteButtons:init(props)
 
 	self.onVoteDownClicked = function(rbx, x, y)
 		local voting = self.props.voting
-		if voting.HasVoted and (not voting.UserVote) then
+		if voting.HasVoted and not voting.UserVote then
 			onUnvoteRequested(networkInterface, assetId)
 		else
 			onVoteRequested(networkInterface, assetId, false)
@@ -98,7 +98,7 @@ local function mapDispatchToProps(dispatch)
 
 		onUnvoteRequested = function(networkInterface, assetId)
 			dispatch(PostUnvoteRequest(networkInterface, assetId))
-		end
+		end,
 	}
 end
 

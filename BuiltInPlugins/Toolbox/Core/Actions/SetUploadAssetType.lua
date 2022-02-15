@@ -12,6 +12,6 @@ local Action = Util.Action
 
 return Action(script.Name, function(assetTypeEnum)
 	return {
-		assetTypeEnum = assetTypeEnum
+		assetTypeEnum = assetTypeEnum,
 	}
 end)

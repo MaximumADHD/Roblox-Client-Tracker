@@ -29,12 +29,13 @@ return function()
 		local button = container:FindFirstChildOfClass("ImageButton")
 
 		expect(button).to.be.ok()
-		expect(button.LeftZoomControl).to.be.ok()
-		expect(button.RightZoomControl).to.be.ok()
+		expect(button.MinZoomControl).to.be.ok()
+		expect(button.MaxZoomControl).to.be.ok()
+		expect(button.MinButton).to.be.ok()
+		expect(button.MaxButton).to.be.ok()
 		expect(button.ScrollControl).to.be.ok()
-		expect(button.LeftButton).to.be.ok()
-		expect(button.RightButton).to.be.ok()
 
 		Roact.unmount(instance)
+
 	end)
 end

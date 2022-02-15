@@ -41,7 +41,6 @@ function TopBar:render()
 		}),
 		TextInput = Roact.createElement(getFFlagDevFrameworkTextInput2() and TextInput2 or TextInput, {
 			Disabled = getFFlagDevFrameworkTextInput2() and true or nil,
-			Enabled = not getFFlagDevFrameworkTextInput2() and false or nil,
 			LayoutOrder = 2,
 			Size = UDim2.new(1, -offset, 1, 0),
 			Style = not getFFlagDevFrameworkTextInput2() and "RoundedBorder" or nil,

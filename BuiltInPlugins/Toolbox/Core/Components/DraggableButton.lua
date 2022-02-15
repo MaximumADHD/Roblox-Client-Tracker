@@ -108,7 +108,7 @@ function DraggableButton:render()
 		onClick = Cryo.None,
 		onMouseDown = Cryo.None,
 		onMouseMoved = Cryo.None,
-		onMouseUp = Cryo.None
+		onMouseUp = Cryo.None,
 	})
 
 	return Roact.createElement("ImageButton", propsToUse)

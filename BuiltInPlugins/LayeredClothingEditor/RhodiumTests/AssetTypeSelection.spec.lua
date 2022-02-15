@@ -3,6 +3,8 @@ return function()
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local XPath = Rhodium.XPath
 
+	local GetFFlagAFTChooseAssetTypeFirst = require(Plugin.Src.Flags.GetFFlagAFTChooseAssetTypeFirst)
+
 	local MathUtil = require(Plugin.Src.Util.MathUtil)
 
 	local TestHelper = require(Plugin.Src.Util.TestHelper)
@@ -35,6 +37,57 @@ return function()
 		ScreenFlowPath:cat(XPath.new("SelectFrame.ViewArea"))
 	local SelectScreenNextButtonPath =
 		SelectFramePath:cat(XPath.new("NextAndBackButtonContainer.NextButton.Contents.TextButton"))
+
+	if GetFFlagAFTChooseAssetTypeFirst() then
+		it("Should not be able to go to next screen till an asset type is chosen", function()
+			runRhodiumTest(function()
+				TestHelper.goToAssetTypeScreenFromStart(false, false)
+
+				TestHelper.clickXPath(AssetTypeScreenNextButtonPath)
+				-- should still be on AssetTypeScreen
+				expect(TestHelper.waitForXPathInstance(ShirtButtonPath)).to.be.ok()
+			end)
+		end)
+
+		it("Should remember choices if you go back from sub-type screen", function()
+			runRhodiumTest(function()
+				TestHelper.goToAssetTypeScreenFromStart(false, false)
+
+				-- select waist
+				TestHelper.waitForXPathInstance(WaistButtonPath)
+				TestHelper.clickXPath(WaistButtonPath)
+
+				-- hit next
+				TestHelper.waitForXPathInstance(AssetTypeScreenNextButtonPath)
+				TestHelper.clickXPath(AssetTypeScreenNextButtonPath)
+
+				-- select waist-front
+				expect(TestHelper.waitForXPathInstance(WaistFrontButtonPath)).to.be.ok()
+				TestHelper.clickXPath(WaistFrontButtonPath)
+
+				-- hit back
+				expect(TestHelper.waitForXPathInstance(AssetTypeScreenBackButtonPath)).to.be.ok()
+				TestHelper.clickXPath(AssetTypeScreenBackButtonPath)
+
+				-- waist should still be selected
+				expect(TestHelper.waitForXPathInstance(WaistButtonSelectedPath)).to.be.ok()
+
+				-- hit next
+				TestHelper.waitForXPathInstance(AssetTypeScreenNextButtonPath)
+				TestHelper.clickXPath(AssetTypeScreenNextButtonPath)
+
+				-- waist front should still be selected
+				expect(TestHelper.waitForXPathInstance(WaistFrontButtonSelectedPath)).to.be.ok()
+
+				-- hit next
+				TestHelper.waitForXPathInstance(AssetTypeScreenNextButtonPath)
+				TestHelper.clickXPath(AssetTypeScreenNextButtonPath)
+
+				-- we should no longer be on AssetTypeScreen
+				expect(TestHelper.waitForXPathInstance(AssetTypeScreenPath)).to.equal(nil)
+			end)
+		end)
+	end
 
 	it("Attachment info should be preserved if it's a valid attachment type", function()
 		runRhodiumTest(function(_, _, _, editingItemContext)

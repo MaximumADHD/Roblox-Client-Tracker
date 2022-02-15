@@ -5,7 +5,6 @@
 		boolean ButtonEnabled: if the next button is interactable or not.
 		string PartName: name of the valid selected part.
 		callback OnConfirmSelection: callback for when the next button is clicked and selection is confirmed.
-		callback OnStartSelection: callback for when user wants to select an instance
 	Optional Props:
 		table Localization: A Localization ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.

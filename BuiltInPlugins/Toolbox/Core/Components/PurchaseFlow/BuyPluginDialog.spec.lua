@@ -33,10 +33,8 @@ return function()
 				Thumbnail = Images.NO_BACKGROUND_ICON,
 				Cost = 0,
 				Balance = 0,
-				OnButtonClicked = function()
-				end,
-				OnClose = function()
-				end,
+				OnButtonClicked = function() end,
+				OnClose = function() end,
 			}),
 		})
 	end

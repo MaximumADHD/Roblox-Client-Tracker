@@ -23,8 +23,10 @@ end
 local Layouter = {}
 
 function Layouter.getAssetsPerRow(width)
-	return math.floor((width + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING)
-		/ (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING))
+	return math.floor(
+		(width + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING)
+			/ (Constants.ASSET_WIDTH_NO_PADDING + Constants.BETWEEN_ASSETS_HORIZONTAL_PADDING)
+	)
 end
 
 function Layouter.getAssetCellHeightWithPadding(showPrices)
@@ -56,7 +58,9 @@ function Layouter.calculateAssetsHeight(assetCount, maxWidth, showPrices)
 	local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
 
 	local rowsNeeded = math.ceil(assetCount / assetsPerRow)
-	local totalHeight = (assetHeight * rowsNeeded) - Constants.BETWEEN_ASSETS_VERTICAL_PADDING + Constants.ASSET_VOTING_HEIGHT
+	local totalHeight = (assetHeight * rowsNeeded)
+		- Constants.BETWEEN_ASSETS_VERTICAL_PADDING
+		+ Constants.ASSET_VOTING_HEIGHT
 
 	return totalHeight
 end
@@ -69,7 +73,7 @@ function Layouter.sliceAssetsFromBounds(idsToRender, lowerBound, upperBound)
 
 	if lowerBound > 0 and upperBound >= lowerBound then
 		for i = lowerBound, upperBound, 1 do
-			assetIds[#assetIds + 1] = {idsToRender[i], i}
+			assetIds[#assetIds + 1] = { idsToRender[i], i }
 		end
 	end
 
@@ -119,7 +123,6 @@ function Layouter.calculateMainViewHeaderHeight(showTags, suggestionIntro, sugge
 	return headerHeight, headerToBodyPadding
 end
 
-
 if not FFlagToolboxRemoveUnusedSuggestionsFeature then
 	function Layouter.calculateSuggestionsHeight(initialText, suggestions, maxWidth)
 		local rowCount = 0
@@ -129,7 +132,7 @@ if not FFlagToolboxRemoveUnusedSuggestionsFeature then
 		for index = 0, #suggestions, 1 do
 			local text = (index == 0) and initialText or suggestions[index].name
 			local textWidth = Constants.getTextSize(text).x
-			if (rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
+			if rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth then
 				rowCount = rowCount + 1
 				rowWidth = textWidth
 			else
@@ -137,17 +140,16 @@ if not FFlagToolboxRemoveUnusedSuggestionsFeature then
 			end
 		end
 
-		if (rowWidth > 0) then
+		if rowWidth > 0 then
 			rowCount = rowCount + 1
 		end
 
-		return (rowCount * Constants.SUGGESTIONS_ROW_HEIGHT)
-			+ (2 * Constants.SUGGESTIONS_OUTER_PADDING)
+		return (rowCount * Constants.SUGGESTIONS_ROW_HEIGHT) + (2 * Constants.SUGGESTIONS_OUTER_PADDING)
 	end
 
 	local function insertRow(state)
 		-- Can't check #row as its a dictionary so #state.row == 0
-		if (state.rowWidth > 0) then
+		if state.rowWidth > 0 then
 			state.row.UIListLayout = Roact.createElement("UIListLayout", {
 				Padding = UDim.new(0, Constants.SUGGESTIONS_INNER_PADDING),
 				FillDirection = Enum.FillDirection.Horizontal,
@@ -180,7 +182,7 @@ if not FFlagToolboxRemoveUnusedSuggestionsFeature then
 		local textWidth = Constants.getTextSize(text).x
 
 		-- If adding this text won't fit then add the row we have so far and start a new row
-		if (state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth) then
+		if state.rowWidth + Constants.SUGGESTIONS_INNER_PADDING + textWidth > maxWidth then
 			insertRow(state)
 		end
 

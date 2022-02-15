@@ -127,9 +127,7 @@ function LiveSearchBar:render()
 			position = UDim2.new()
 		end
 
-		local shouldShowDropdown = showDropdown
-			and searchTerm == currentText
-			and #currentText >= 3
+		local shouldShowDropdown = showDropdown and searchTerm == currentText and #currentText >= 3
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,

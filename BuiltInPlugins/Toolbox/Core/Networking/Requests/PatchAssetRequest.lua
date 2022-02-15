@@ -10,7 +10,6 @@ local UploadResult = require(Actions.UploadResult)
 
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
 
-
 -- patchInfo is a table contains the following:
 --networkInterface
 --assetId
@@ -43,18 +42,18 @@ return function(patchInfo)
 			store:dispatch(UploadResult(false))
 		end
 
-		return patchInfo.networkInterface:patchAsset(
-			patchInfo.assetId,
-			patchInfo.name,
-			patchInfo.description,
-			patchInfo.genres,
-			patchInfo.commentOn,
-			patchInfo.copyOn,
-			patchInfo.locale,
-			patchInfo.localName,
-			patchInfo.localDescription
-			):andThen(
-				onPatchSuccess, onPatchFail
+		return patchInfo.networkInterface
+			:patchAsset(
+				patchInfo.assetId,
+				patchInfo.name,
+				patchInfo.description,
+				patchInfo.genres,
+				patchInfo.commentOn,
+				patchInfo.copyOn,
+				patchInfo.locale,
+				patchInfo.localName,
+				patchInfo.localDescription
 			)
+			:andThen(onPatchSuccess, onPatchFail)
 	end
 end

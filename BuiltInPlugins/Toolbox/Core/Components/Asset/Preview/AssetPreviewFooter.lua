@@ -40,7 +40,7 @@ function AssetPreviewFooter:render()
 	if isCreatedByRoblox or not isPlugin then
 		return nil
 	end
-  
+
 	return Roact.createElement(Container, {
 		LayoutOrder = layoutOrder,
 		Size = UDim2.fromScale(1, 0),
@@ -57,7 +57,7 @@ function AssetPreviewFooter:render()
 			TextXAlignment = Enum.TextXAlignment.Center,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			TextSize = 14,
-		})
+		}),
 	})
 end
 

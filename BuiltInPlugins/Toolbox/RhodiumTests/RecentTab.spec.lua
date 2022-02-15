@@ -21,15 +21,20 @@ return function()
 	local _SelectedTabColor = "0, 0.635294, 1"
 	local CurrentSelectionBasicText = "TEST_Studio.Toolbox.General.Category"
 	local ModelsCategoryName = Category.RECENT_MODELS.name
-	local CurrentSelectionModelsText = CurrentSelectionBasicText..Category.RECENT_MODELS.name
-	local CurrentSelectionAudioText = CurrentSelectionBasicText..Category.RECENT_AUDIO.name
-	local CurrentSelectionImagesText = CurrentSelectionBasicText..Category.RECENT_DECALS.name
-	local CurrentSelectionMeshesText = CurrentSelectionBasicText..Category.RECENT_MESHES.name
-	local CurrentSelectionVideosText = CurrentSelectionBasicText.."RecentVideos"
+	local CurrentSelectionModelsText = CurrentSelectionBasicText .. Category.RECENT_MODELS.name
+	local CurrentSelectionAudioText = CurrentSelectionBasicText .. Category.RECENT_AUDIO.name
+	local CurrentSelectionImagesText = CurrentSelectionBasicText .. Category.RECENT_DECALS.name
+	local CurrentSelectionMeshesText = CurrentSelectionBasicText .. Category.RECENT_MESHES.name
+	local CurrentSelectionVideosText = CurrentSelectionBasicText .. "RecentVideos"
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
-	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel")
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	)
+	local DropdownScrollingFramePath =
+		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
+	local CurrentSelectionTextPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.CurrentSelectionLabel"
+	)
 	local RecentTabPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent")
 	local RecentTabIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Tabs.Recent.Content.Icon")
 
@@ -104,9 +109,13 @@ return function()
 			expect(game.CoreGui.CategoryVerification.Category.value).to.equal(ModelsCategoryName)
 		end)
 
-		local testCases = {"RecentDecals", "RecentMeshes", "RecentVideo", "RecentAudio"}
-		local expectedCurrentSelectionText = {CurrentSelectionImagesText, CurrentSelectionMeshesText, 
-												CurrentSelectionVideosText, CurrentSelectionAudioText}
+		local testCases = { "RecentDecals", "RecentMeshes", "RecentVideo", "RecentAudio" }
+		local expectedCurrentSelectionText = {
+			CurrentSelectionImagesText,
+			CurrentSelectionMeshesText,
+			CurrentSelectionVideosText,
+			CurrentSelectionAudioText,
+		}
 		for i = 1, #testCases do
 			it("dropdown menu " .. tostring(testCases[i]) .. " option should work", function()
 				TestHelpers.clickInstanceWithXPath(RecentTabPath)

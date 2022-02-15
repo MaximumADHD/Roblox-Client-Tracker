@@ -15,80 +15,77 @@ local AssetInfo = require(Plugin.Core.Models.AssetInfo)
 local FFlagToolboxFixEmptyGetItemDetails = game:GetFastFlag("ToolboxFixEmptyGetItemDetails")
 
 return function(networkInterface, items, totalResults, audioSearchInfo, targetPage, cursor, pageInfo)
-    return function(store)
-        if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-            return
-        end
-        store:dispatch(SetLoading(true))
+	return function(store)
+		if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+			return
+		end
+		store:dispatch(SetLoading(true))
 
-        if FFlagToolboxFixEmptyGetItemDetails then
-            local function resolve(detailsResult)
-                if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-                    return
-                end
-                local detailsData = detailsResult.responseBody
+		if FFlagToolboxFixEmptyGetItemDetails then
+			local function resolve(detailsResult)
+				if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+					return
+				end
+				local detailsData = detailsResult.responseBody
 
-                local assetsList = {}
+				local assetsList = {}
 
-                for _,asset in pairs(detailsData.data) do
-                    local formattedAsset = AssetInfo.fromItemDetailsRequest(asset)
-                    table.insert(assetsList, formattedAsset)
-                end
+				for _, asset in pairs(detailsData.data) do
+					local formattedAsset = AssetInfo.fromItemDetailsRequest(asset)
+					table.insert(assetsList, formattedAsset)
+				end
 
-                AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
+				AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
 
-                store:dispatch(GetAssets(assetsList, totalResults, cursor))
-                store:dispatch(SetCurrentPage(targetPage))
-                store:dispatch(SetLoading(false))
-            end
+				store:dispatch(GetAssets(assetsList, totalResults, cursor))
+				store:dispatch(SetCurrentPage(targetPage))
+				store:dispatch(SetLoading(false))
+			end
 
-            local function reject(err)
-                if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-                    return
-                end
-                store:dispatch(SetLoading(false))
-                store:dispatch(NetworkError(err))
-            end
+			local function reject(err)
+				if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+					return
+				end
+				store:dispatch(SetLoading(false))
+				store:dispatch(NetworkError(err))
+			end
 
-            if #items == 0 then
-                -- If there are no items to fetch details for, avoid triggering a HTTP Bad Request
-                return resolve({
-                    responseBody = {
-                        data = {}
-                    }
-                })
-            else
-                return networkInterface:getItemDetails(items):andThen(resolve, reject)
-            end
-        else
-            return networkInterface:getItemDetails(items):andThen(
-                function (detailsResult)
-                    if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-                        return
-                    end
-                    local detailsData = detailsResult.responseBody
+			if #items == 0 then
+				-- If there are no items to fetch details for, avoid triggering a HTTP Bad Request
+				return resolve({
+					responseBody = {
+						data = {},
+					},
+				})
+			else
+				return networkInterface:getItemDetails(items):andThen(resolve, reject)
+			end
+		else
+			return networkInterface:getItemDetails(items):andThen(function(detailsResult)
+				if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+					return
+				end
+				local detailsData = detailsResult.responseBody
 
-                    local assetsList = {}
+				local assetsList = {}
 
-                    for _,asset in pairs(detailsData.data) do
-                        local formattedAsset = AssetInfo.fromItemDetailsRequest(asset)
-                        table.insert(assetsList, formattedAsset)
-                    end
+				for _, asset in pairs(detailsData.data) do
+					local formattedAsset = AssetInfo.fromItemDetailsRequest(asset)
+					table.insert(assetsList, formattedAsset)
+				end
 
-                    AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
+				AssetAnalytics.addContextToAssetResults(assetsList, pageInfo)
 
-                    store:dispatch(GetAssets(assetsList, totalResults, cursor))
-                    store:dispatch(SetCurrentPage(targetPage))
-                    store:dispatch(SetLoading(false))
-                end,
-                function(err)
-                    if PageInfoHelper.isPageInfoStale(pageInfo, store) then
-                        return
-                    end
-                    store:dispatch(SetLoading(false))
-                    store:dispatch(NetworkError(err))
-                end
-            )
-        end
-    end
+				store:dispatch(GetAssets(assetsList, totalResults, cursor))
+				store:dispatch(SetCurrentPage(targetPage))
+				store:dispatch(SetLoading(false))
+			end, function(err)
+				if PageInfoHelper.isPageInfoStale(pageInfo, store) then
+					return
+				end
+				store:dispatch(SetLoading(false))
+				store:dispatch(NetworkError(err))
+			end)
+		end
+	end
 end

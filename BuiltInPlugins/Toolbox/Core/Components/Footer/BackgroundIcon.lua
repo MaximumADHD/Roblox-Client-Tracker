@@ -27,13 +27,11 @@ local function BackgroundIcon(props)
 			BackgroundColor3 = Colors.WHITE,
 			BorderColor3 = Colors.GRAY_3,
 		})
-
 	elseif backgroundIndex == Background.BLACK then
 		props = Cryo.Dictionary.join(props, {
 			BackgroundColor3 = Colors.GRAY_1,
 			BorderColor3 = Colors.GRAY_1,
 		})
-
 	elseif backgroundIndex == Background.NONE then
 		elementType = "ImageLabel"
 		props = Cryo.Dictionary.join(props, {
@@ -41,7 +39,6 @@ local function BackgroundIcon(props)
 			BorderColor3 = Colors.GRAY_3,
 			Image = Images.NO_BACKGROUND_ICON,
 		})
-
 	else
 		if DebugFlags.shouldDebugWarnings() then
 			warn(("Toolbox background %s is not valid"):format(tostring(backgroundIndex)))

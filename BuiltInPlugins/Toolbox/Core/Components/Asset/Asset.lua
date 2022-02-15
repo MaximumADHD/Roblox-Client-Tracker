@@ -22,7 +22,7 @@
 local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent.Parent
-
+local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Libs
 if FFlagToolboxDeduplicatePackages then
@@ -91,14 +91,14 @@ function Asset:init(props)
 		}
 	end
 
-	local assetData = (not FFlagToolboxAssetGridRefactor4) and props.asset or nil
-	local asset = (not FFlagToolboxAssetGridRefactor4) and assetData.Asset or nil
-	local assetId = (not FFlagToolboxAssetGridRefactor4) and asset.Id or nil
+	local assetData = not FFlagToolboxAssetGridRefactor4 and props.asset or nil
+	local asset = not FFlagToolboxAssetGridRefactor4 and assetData.Asset or nil
+	local assetId = not FFlagToolboxAssetGridRefactor4 and asset.Id or nil
 
 	local canInsertAsset = props.canInsertAsset
 
-	local onAssetHovered = (not FFlagToolboxAssetGridRefactor4) and props.onAssetHovered or nil
-	local onAssetHoverEnded = (not FFlagToolboxAssetGridRefactor4) and props.onAssetHoverEnded or nil
+	local onAssetHovered = not FFlagToolboxAssetGridRefactor4 and props.onAssetHovered or nil
+	local onAssetHoverEnded = not FFlagToolboxAssetGridRefactor4 and props.onAssetHoverEnded or nil
 
 	self.onMouseEntered = function(rbx, x, y)
 		if FFlagToolboxAssetGridRefactor4 then
@@ -134,7 +134,7 @@ function Asset:init(props)
 		end
 	end
 
-	if (not FFlagToolboxAssetGridRefactor4) then
+	if not FFlagToolboxAssetGridRefactor4 then
 		self.onMouseButton2Click = function(rbx, x, y)
 			local showEditOption = self.props.canManage
 			self.props.tryCreateContextMenu(assetData, showEditOption)
@@ -176,7 +176,7 @@ function Asset:init(props)
 		self.props.tryInsert(assetData, false)
 	end
 
-	if (not FFlagToolboxAssetGridRefactor4) then
+	if not FFlagToolboxAssetGridRefactor4 then
 		self.onAssetPreviewButtonClicked = function()
 			self.props.onAssetPreviewButtonClicked(assetData)
 		end
@@ -195,8 +195,12 @@ function Asset:init(props)
 			local result
 			local showPrices = Category.shouldShowPrices(self.props.categoryName)
 			if showPrices then
-				result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0,
-					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT)
+				result = UDim2.new(
+					0,
+					Constants.ASSET_WIDTH_NO_PADDING,
+					0,
+					Constants.ASSET_HEIGHT + Constants.PRICE_HEIGHT
+				)
 			else
 				result = UDim2.new(0, Constants.ASSET_WIDTH_NO_PADDING, 0, Constants.ASSET_HEIGHT)
 			end
@@ -219,14 +223,17 @@ function Asset:init(props)
 			local absolutePos = rbx.AbsolutePosition
 			local size = self.getAssetSize()
 
-			assert(rbx.AnchorPoint.X == 0 and rbx.AnchorPoint.Y == 0,"self.onAbsolutePositionChange needs the asset AnchorPoint to be 0,0 to calculate the scrollingBounds.")
+			assert(
+				rbx.AnchorPoint.X == 0 and rbx.AnchorPoint.Y == 0,
+				"self.onAbsolutePositionChange needs the asset AnchorPoint to be 0,0 to calculate the scrollingBounds."
+			)
 			local assetTopLeftBoundary = rbx.AbsolutePosition
 			local assetBottomRightBoundary = Vector2.new(absolutePos.X + size.X.Offset, absolutePos.Y + size.Y.Offset)
 
 			local wasAssetBoundsWithinScrollingBounds = self.isWithinParentBounds(assetTopLeftBoundary)
 				or self.isWithinParentBounds(assetBottomRightBoundary)
 
-			if assetData and wasAssetBoundsWithinScrollingBounds and (not self.wasAssetBoundsWithinScrollingBounds) then
+			if assetData and wasAssetBoundsWithinScrollingBounds and not self.wasAssetBoundsWithinScrollingBounds then
 				self.props.AssetAnalytics:get():logImpression(assetData)
 			end
 			self.wasAssetBoundsWithinScrollingBounds = wasAssetBoundsWithinScrollingBounds
@@ -250,7 +257,7 @@ function Asset:didMount()
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 
-	if (not FFlagToolboxAssetGridRefactor4) or (FFlagToolboxAssetGridRefactor4 and assetData) then
+	if not FFlagToolboxAssetGridRefactor4 or (FFlagToolboxAssetGridRefactor4 and assetData) then
 		self.props.AssetAnalytics:get():logImpression(assetData)
 	end
 end
@@ -274,8 +281,10 @@ function Asset:renderContent(theme, localization, localizedContent)
 		local currentUserPackagePermissions = props.currentUserPackagePermissions
 
 		local isGroupPackageAsset = Category.categoryIsGroupPackages(categoryName)
-		local canEditPackage = (currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
-		or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey)
+		local canEditPackage = (
+				currentUserPackagePermissions[assetId] == PermissionsConstants.EditKey
+				or currentUserPackagePermissions[assetId] == PermissionsConstants.OwnKey
+			)
 
 		local showAsset
 		if isGroupPackageAsset then
@@ -284,7 +293,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 			showAsset = true
 		end
 
-		if (not assetData) or (not showAsset) then
+		if not assetData or not showAsset then
 			-- TODO: Render Loading instead?
 			return
 		end
@@ -302,6 +311,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
 	local isVerifiedCreator = assetData.Creator.IsVerifiedCreator
+	local hasScripts = if FFlagToolboxShowHasScriptInfo then asset.HasScripts else false
 
 	local showAudioLength = false
 	if assetTypeId == Enum.AssetType.Audio.Value then
@@ -340,6 +350,10 @@ function Asset:renderContent(theme, localization, localizedContent)
 		or Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 	if showStatus then
 		assetOutlineHeight = assetOutlineHeight + Constants.ASSET_CREATOR_NAME_HEIGHT
+	end
+
+	if hasScripts then
+		assetOutlineHeight = assetOutlineHeight + Constants.PRICE_HEIGHT
 	end
 
 	-- At current stage, price and audio length won't exist together.
@@ -385,8 +399,12 @@ function Asset:renderContent(theme, localization, localizedContent)
 			-- Copy the size and position of the outline but add a few pixels extra
 			AnchorPoint = Vector2.new(0.5, 0),
 			Position = UDim2.new(0.5, 0, 0, -(Constants.ASSET_OUTLINE_PADDING + dropShadowSize)),
-			Size = UDim2.new(1, 2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
-				1, assetOutlineHeight + (2 * dropShadowSize)),
+			Size = UDim2.new(
+				1,
+				2 * (Constants.ASSET_OUTLINE_PADDING + dropShadowSize),
+				1,
+				assetOutlineHeight + (2 * dropShadowSize)
+			),
 			ZIndex = -2, -- Ensure it's below the outline
 		}),
 
@@ -394,7 +412,8 @@ function Asset:renderContent(theme, localization, localizedContent)
 			AnchorPoint = Vector2.new(0.5, 0),
 			BackgroundTransparency = isHovered and outlineTransparency or 1,
 
-			BackgroundColor3 = isVerifiedCreator and outlineTheme.verifiedBackgroundColor or outlineTheme.backgroundColor,
+			BackgroundColor3 = isVerifiedCreator and outlineTheme.verifiedBackgroundColor
+				or outlineTheme.backgroundColor,
 			BorderColor3 = outlineTheme.borderColor,
 
 			BorderSizePixel = 1,
@@ -412,7 +431,8 @@ function Asset:renderContent(theme, localization, localizedContent)
 			Size = UDim2.new(1, 0, 1, innerFrameHeight),
 
 			[Roact.Event.MouseEnter] = self.onMouseEntered,
-			[Roact.Event.MouseButton2Click] = FFlagToolboxAssetGridRefactor4 and tryCreateLocalizedContextMenu or self.onMouseButton2Click,
+			[Roact.Event.MouseButton2Click] = FFlagToolboxAssetGridRefactor4 and tryCreateLocalizedContextMenu
+				or self.onMouseButton2Click,
 			onMouseMoved = self.onMouseMoved,
 
 			onDragStart = self.onDragStart,
@@ -434,7 +454,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				isEndorsed = isEndorsed,
 				typeId = assetTypeId,
 				currentSoundId = props.currentSoundId,
-				isPlaying = (not FFlagToolboxAssetGridRefactor4) and props.isPlaying or nil,
+				isPlaying = not FFlagToolboxAssetGridRefactor4 and props.isPlaying or nil,
 				isLoading = props.isLoading,
 
 				voting = votingProps,
@@ -442,8 +462,10 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 				status = showStatus and status or nil,
 
-				onPreviewAudioButtonClicked = (not FFlagToolboxAssetGridRefactor4) and props.onPreviewAudioButtonClicked or nil,
-				onAssetPreviewButtonClicked = (not FFlagToolboxAssetGridRefactor4) and self.onAssetPreviewButtonClicked or nil,
+				onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor4 and props.onPreviewAudioButtonClicked
+					or nil,
+				onAssetPreviewButtonClicked = not FFlagToolboxAssetGridRefactor4 and self.onAssetPreviewButtonClicked
+					or nil,
 			}),
 
 			AssetName = Roact.createElement(AssetName, {
@@ -496,7 +518,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				}),
 			}),
 
-			CreatorName = isHovered and Roact.createElement(AssetCreatorName,{
+			CreatorName = isHovered and Roact.createElement(AssetCreatorName, {
 				Size = UDim2.new(1, 0, 0.15, 0),
 				LayoutOrder = 3,
 
@@ -526,9 +548,42 @@ function Asset:renderContent(theme, localization, localizedContent)
 				TextColor3 = theme.asset.textColor,
 			}),
 
-			Status = isHovered and showStatus and Roact.createElement("TextLabel", {
+			HasScripts = isHovered and hasScripts and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				LayoutOrder = 5,
+				Size = UDim2.new(1, 0, 0, Constants.PRICE_HEIGHT),
+			}, {
+				Layout = Roact.createElement("UIListLayout", {
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					FillDirection = Enum.FillDirection.Horizontal,
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					HorizontalAlignment = Enum.HorizontalAlignment.Left,
+					Padding = UDim.new(0, 4),
+				}),
+
+				ScriptIcon = Roact.createElement("ImageLabel", {
+					LayoutOrder = 1,
+					Image = Images.SCRIPT,
+					Size = Constants.Dialog.SCRIPT_SIZE,
+					BackgroundTransparency = 1,
+				}),
+
+				Text =  Roact.createElement("TextLabel", {
+					LayoutOrder = 2,
+					BackgroundTransparency = 1,
+					Size = UDim2.new(1, -20, 0, Constants.PRICE_HEIGHT),
+					TextColor3 = theme.asset.textColor,
+					Font = Constants.FONT,
+					TextSize = Constants.STATUS_NAME_FONT_SIZE,
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Text = localizedContent.HasScripts.HasScripts,
+					TextTruncate = Enum.TextTruncate.None,
+				}),
+			}),
+
+			Status = isHovered and showStatus and Roact.createElement("TextLabel", {
+				BackgroundTransparency = 1,
+				LayoutOrder = 6,
 				Size = UDim2.new(1, 0, 0, Constants.STATUS_NAME_HEIGHT),
 				Text = localizedContent.Status[status],
 				TextColor3 = theme.asset.textColor,
@@ -544,13 +599,11 @@ function Asset:renderContent(theme, localization, localizedContent)
 	return result
 end
 
-
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
 	Plugin = FFlagToolboxAssetGridRefactor4 and ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer,
 })(Asset)
-
 
 local function mapStateToProps(state, props)
 	state = state or {}
@@ -571,7 +624,7 @@ local function mapStateToProps(state, props)
 	local ownsAsset = cachedOwnedAssets[tostring(assetId)]
 
 	local manageableAssets
-	if  FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor4 then
 		manageableAssets = assets.manageableAssets or {}
 	else
 		manageableAssets = assets.manageableAssets
@@ -579,14 +632,15 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	return {
-		asset = (not FFlagToolboxAssetGridRefactor4) and idToAssetMap[assetId] or nil,
+		asset = not FFlagToolboxAssetGridRefactor4 and idToAssetMap[assetId] or nil,
 		assetData = FFlagToolboxAssetGridRefactor4 and idToAssetMap[assetId] or nil,
 		categoryName = categoryName,
 		currentSoundId = FFlagToolboxAssetGridRefactor4 and (sound.currentSoundId or 0) or props.currentSoundId,
-		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor4 and (state.packages.permissionsTable or {}) or nil,
+		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor4 and (state.packages.permissionsTable or {})
+			or nil,
 		searchTerm = searchTerm,
 		ownsAsset = ownsAsset,
-		canManage = (not FFlagToolboxAssetGridRefactor4) and canManage or nil,
+		canManage = not FFlagToolboxAssetGridRefactor4 and canManage or nil,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,
 		voting = voting[assetId] or {},
 	}
@@ -606,9 +660,11 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetAssetPreview(isPreviewing, previewAssetId))
 		end,
 
-		tryCreateContextMenu = FFlagToolboxAssetGridRefactor4 and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
-			dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
-		end or nil,
+		tryCreateContextMenu = FFlagToolboxAssetGridRefactor4
+				and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
+					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
+				end
+			or nil,
 	}
 end
 

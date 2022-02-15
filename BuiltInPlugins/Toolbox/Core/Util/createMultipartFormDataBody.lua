@@ -28,7 +28,7 @@ local function createMultipartFormDataBody(partsArray)
 					result = result .. "; "
 				end
 				first = false
-				result = result .. dk .. "=\"" .. dv .. "\""
+				result = result .. dk .. '="' .. dv .. '"'
 			end
 			result = result .. CRLF
 		end

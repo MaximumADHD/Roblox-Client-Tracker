@@ -27,7 +27,7 @@ local function convertCreationsDetailsToResultsFormat(creationData)
 	local result = {}
 	if creationData then
 		for index, value in pairs(creationData) do
-			local assetResultTable =  {
+			local assetResultTable = {
 				Asset = {
 					Id = value.assetId,
 					Name = value.name,
@@ -54,10 +54,14 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 	return function(store)
 		local loadingPage = store:getState().loadingPage or 0
 		if DebugFlags.shouldDebugOverrideAssetLoading() then
-			print(string.format("GetOverrideAssetRequest: curr=%s, loading=%s, target=%s", 
-				tostring(store:getState().currentPage), 
-				tostring(store:getState().loadingPage), 
-				tostring(targetPage)))
+			print(
+				string.format(
+					"GetOverrideAssetRequest: curr=%s, loading=%s, target=%s",
+					tostring(store:getState().currentPage),
+					tostring(store:getState().loadingPage),
+					tostring(targetPage)
+				)
+			)
 		end
 
 		if targetPage > 1 then
@@ -91,10 +95,14 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 
 		local handleGetCreationOverrideSuccess = function(response)
 			if DebugFlags.shouldDebugOverrideAssetLoading() then
-				print(string.format("handleGetCreationOverrideSuccess: curr=%s, loading=%s, target=%s", 
-					tostring(store:getState().currentPage), 
-					tostring(store:getState().loadingPage), 
-					tostring(targetPage)))
+				print(
+					string.format(
+						"handleGetCreationOverrideSuccess: curr=%s, loading=%s, target=%s",
+						tostring(store:getState().currentPage),
+						tostring(store:getState().loadingPage),
+						tostring(targetPage)
+					)
+				)
 			end
 			local result = response.responseBody
 
@@ -111,7 +119,7 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 				local fetchedAll = not isNextPageAvailable
 				if isNextPageAvailable then
 					currentCursor = {
-						nextPageCursor = result.nextPageCursor
+						nextPageCursor = result.nextPageCursor,
 					}
 				end
 
@@ -142,23 +150,20 @@ return function(networkInterface, assetTypeEnum, creatorType, creatorId, targetP
 		if creatorType == "Group" then
 			if category == "Animation" then
 				local targetCursor = getNextCursor(store)
-				return networkInterface:getGroupAnimations(targetCursor, groupId):andThen(
-					handleGetCreationOverrideSuccess,
-					handleOverrideFailed
-				)
+				return networkInterface
+					:getGroupAnimations(targetCursor, groupId)
+					:andThen(handleGetCreationOverrideSuccess, handleOverrideFailed)
 			else
 				local nextCursor = getNextCursor(store)
-				networkInterface:getAssetCreations(nil, nextCursor, category, groupId):andThen(
-					handleGetCreationOverrideSuccess,
-					handleOverrideFailed
-				)
+				networkInterface
+					:getAssetCreations(nil, nextCursor, category, groupId)
+					:andThen(handleGetCreationOverrideSuccess, handleOverrideFailed)
 			end
 		else
 			local nextCursor = getNextCursor(store)
-			return networkInterface:getAssetCreations(nil, nextCursor, category, groupId):andThen(
-					handleGetCreationOverrideSuccess,
-					handleOverrideFailed
-				)
+			return networkInterface
+				:getAssetCreations(nil, nextCursor, category, groupId)
+				:andThen(handleGetCreationOverrideSuccess, handleOverrideFailed)
 		end
 	end
 end

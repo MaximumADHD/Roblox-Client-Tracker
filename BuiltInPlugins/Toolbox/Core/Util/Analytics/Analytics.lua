@@ -313,7 +313,14 @@ function Analytics.onIdVerificationIconClicked(assetId)
 	})
 end
 
-function Analytics.marketplaceSearch(keyword, prefix, keyCount, delCount, autocompleteShown, searchInfo: AnalyticsTypes.SearchInfo)
+function Analytics.marketplaceSearch(
+	keyword,
+	prefix,
+	keyCount,
+	delCount,
+	autocompleteShown,
+	searchInfo: AnalyticsTypes.SearchInfo
+)
 	AnalyticsSenders.sendEventImmediately("studio", "Marketplace", "MarketplaceSearch", {
 		studioSid = getStudioSessionId(),
 		clientID = getClientId(),
@@ -345,7 +352,7 @@ if FFlagToolboxWindowTelemetry then
 			studioSid = getStudioSessionId(),
 			isEditMode = getIsEditMode(),
 			widgetWidth = widgetSize.X,
-			widgetHeight = widgetSize.Y
+			widgetHeight = widgetSize.Y,
 		})
 	end
 end

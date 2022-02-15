@@ -34,7 +34,7 @@ local TabSet = Roact.PureComponent:extend("TabSet")
 
 function TabSet:init()
 	self.state = {
-		currentWidth = 0
+		currentWidth = 0,
 	}
 
 	self.tabSetRef = Roact.createRef()
@@ -43,7 +43,7 @@ function TabSet:init()
 		local newWidth = self.tabSetRef.current.AbsoluteSize.x
 		if self.state.currentWidth ~= newWidth then
 			self:setState({
-				currentWidth = newWidth
+				currentWidth = newWidth,
 			})
 		end
 	end
@@ -79,7 +79,7 @@ function TabSet:createTab(key, currentTab, text, image, tabWidth, displayText)
 end
 
 local function calculateTabWidth(tabs, currentWidth)
-	return #tabs > 0 and currentWidth/#tabs or 0
+	return #tabs > 0 and currentWidth / #tabs or 0
 end
 
 local function canTextBeDisplayed(tabs, maxWidth)

@@ -21,7 +21,9 @@ local Analytics = require(Util.Analytics.Analytics)
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
 local ConfigureItemTagsRequest = require(Plugin.Core.Networking.Requests.ConfigureItemTagsRequest)
-local UploadCatalogItemMeshPartFormatRequest = require(Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest)
+local UploadCatalogItemMeshPartFormatRequest = require(
+	Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest
+)
 
 local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
@@ -93,7 +95,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 
 		local errorFunc = function(response)
 			if DebugFlags.shouldDebugWarnings() then
-				warn(("Lua toolbox: Could not upload catalog item"))
+				warn("Lua toolbox: Could not upload catalog item")
 			end
 			store:dispatch(NetworkError(response.Body))
 			store:dispatch(UploadResult(false))
@@ -122,7 +124,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 							filename = nameWithoutExtension .. "." .. extension,
 						},
 						value = fileDataString,
-					}
+					},
 				})
 
 				return networkInterface
@@ -150,7 +152,7 @@ return function(networkInterface, nameWithoutExtension, extension, description, 
 						filename = nameWithoutExtension .. "." .. extension,
 					},
 					value = fileDataString,
-				}
+				},
 			})
 
 			networkInterface

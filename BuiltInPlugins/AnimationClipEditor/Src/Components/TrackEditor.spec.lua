@@ -5,6 +5,8 @@ return function()
 
 	local MockWrapper = require(Plugin.Src.Context.MockWrapper)
 
+	local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 	local TrackEditor = require(script.Parent.TrackEditor)
 
 	local function createTestTrackEditor()
@@ -37,7 +39,9 @@ return function()
 		expect(frame).to.be.ok()
 		expect(frame.TimelineContainer).to.be.ok()
 		expect(frame.DopeSheetController).to.be.ok()
-		expect(frame.ZoomBar).to.be.ok()
+		if not GetFFlagCurveEditor() then
+			expect(frame.ZoomBar).to.be.ok()
+		end
 		expect(frame.IgnoreLayout).to.be.ok()
 		expect(frame.IgnoreLayout.TimelineBorder).to.be.ok()
 		expect(frame.IgnoreLayout.Scrubber).to.be.ok()

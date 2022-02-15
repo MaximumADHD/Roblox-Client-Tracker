@@ -34,21 +34,15 @@ return function(networkInterface, settings, categoryName)
 			end
 		end
 
-		store:dispatch(
-			UpdatePageInfoAndSendRequest(
-				networkInterface,
-				settings,
-				{
-					audioSearchInfo = Cryo.None,
-					categoryName = categoryName,
-					creator = creator,
-					searchTerm = "",
-					sortIndex = sortIndex,
-					targetPage = 1,
-					currentPage = 0,
-					requestReason = RequestReason.ChangeCategory,
-				}
-			)
-		)
+		store:dispatch(UpdatePageInfoAndSendRequest(networkInterface, settings, {
+			audioSearchInfo = Cryo.None,
+			categoryName = categoryName,
+			creator = creator,
+			searchTerm = "",
+			sortIndex = sortIndex,
+			targetPage = 1,
+			currentPage = 0,
+			requestReason = RequestReason.ChangeCategory,
+		}))
 	end
 end

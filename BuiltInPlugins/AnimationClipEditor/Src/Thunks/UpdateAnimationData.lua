@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 
-local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)
+local SetScrollZoom = require(Plugin.Src.Actions.SetScrollZoom)  -- Unused if GetFFlagCurveEditor()
+local SetHorizontalScrollZoom = require(Plugin.Src.Actions.SetHorizontalScrollZoom)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local Constants = require(Plugin.Src.Util.Constants)
 local TrackUtils = require(Plugin.Src.Util.TrackUtils)
@@ -8,6 +9,8 @@ local SetAnimationData = require(Plugin.Src.Actions.SetAnimationData)
 local StepAnimation = require(Plugin.Src.Thunks.Playback.StepAnimation)
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
 local UpdateEditingLength = require(Plugin.Src.Thunks.UpdateEditingLength)
+
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 return function(animationData)
 	return function(store)
@@ -22,8 +25,8 @@ return function(animationData)
 			return
 		end
 
-		local scroll = state.Status.Scroll
-		local zoom = state.Status.Zoom
+		local scroll = GetFFlagCurveEditor() and state.Status.HorizontalScroll or state.Status.Scroll
+		local zoom = GetFFlagCurveEditor() and state.Status.HorizontalZoom or state.Status.Zoom
 		local playhead = state.Status.Playhead
 		local editingLength = state.Status.EditingLength
 
@@ -71,7 +74,11 @@ return function(animationData)
 			end
 			zoom = 1 - math.clamp(rangeLength / lengthWithPadding, 0, 1)
 
-			store:dispatch(SetScrollZoom(scroll, zoom))
+			if GetFFlagCurveEditor() then
+				store:dispatch(SetHorizontalScrollZoom(scroll, zoom))
+			else
+				store:dispatch(SetScrollZoom(scroll, zoom))
+			end
 		end
 	end
 end

@@ -2,7 +2,8 @@
 	NetworkInterfaceMock
 
 	Provide dummy data for testing
-]]--
+]]
+--
 
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
@@ -13,7 +14,6 @@ if FFlagToolboxDeduplicatePackages then
 else
 	Promise = require(Plugin.Libs.Framework).Util.Promise
 end
-
 
 -- public api
 local NetworkInterfaceMock = {}
@@ -78,14 +78,14 @@ end
 local function getFakeToolboxItems(fakeId)
 	return {
 		id = fakeId,
-		itemType = "Asset"
+		itemType = "Asset",
 	}
 end
 
 local function getFakeCreationsItems(fakeId)
 	return {
 		assetId = fakeId,
-		name = "Dummy"
+		name = "Dummy",
 	}
 end
 
@@ -96,14 +96,14 @@ local function createStringValueforVerification(categoryName, sortType)
 		end
 	end
 
-	local vString = Instance.new("StringValue",game.CoreGui)
+	local vString = Instance.new("StringValue", game.CoreGui)
 	vString.Name = "CategoryVerification"
 
-	local categoryString = Instance.new("StringValue",game.CoreGui.CategoryVerification)
+	local categoryString = Instance.new("StringValue", game.CoreGui.CategoryVerification)
 	categoryString.Value = categoryName
 	categoryString.Name = "Category"
 
-	local sortTypeString = Instance.new("StringValue",game.CoreGui.CategoryVerification)
+	local sortTypeString = Instance.new("StringValue", game.CoreGui.CategoryVerification)
 	sortTypeString.Value = sortType
 	sortTypeString.Name = "Sort"
 
@@ -116,7 +116,7 @@ function NetworkInterfaceMock:getAssets(pageInfo)
 	local fakeItemListContent = {
 		responseBody = {
 			TotalResults = ARBITRARY_LARGE_TOTAL_COUNT,
-		}
+		},
 	}
 	local Results = {}
 	for i = 1, 10, 1 do
@@ -131,32 +131,42 @@ function NetworkInterfaceMock:postAssetCheckPermissions(actions, assetIds)
 	local fakeAssetPermissionsList = {
 		responseBody = {
 			TotalResults = 11,
-		}
+		},
 	}
 	local Results = {
-		{action = "Use",                   assetId = 7327, status = "HasPermission"},
-		{action = "Edit",                  assetId = 7327, status = "HasPermission"},
-		{action = "GrantAssetPermissions", assetId = 7327, status = "HasPermission"},
-		{action = "Use",                   assetId = 3127, status = "HasPermission"},
-		{action = "Edit",                  assetId = 3127, status = "HasPermission"},
-		{action = "GrantAssetPermissions", assetId = 3127, status = "NoPermission"},
-		{action = "GrantAssetPermissions", assetId = 2134, status = "AssetNotFound"},
-		{action = "Edit",                  assetId = 9765, status = "UnknownError"},
-		{action = "Use",                   assetId = 7340, status = "NoPermission"},
-		{action = "Edit",                  assetId = 7340, status = "NoPermission"},
-		{action = "GrantAssetPermissions", assetId = 7340, status = "NoPermission"},
+		{ action = "Use", assetId = 7327, status = "HasPermission" },
+		{ action = "Edit", assetId = 7327, status = "HasPermission" },
+		{ action = "GrantAssetPermissions", assetId = 7327, status = "HasPermission" },
+		{ action = "Use", assetId = 3127, status = "HasPermission" },
+		{ action = "Edit", assetId = 3127, status = "HasPermission" },
+		{ action = "GrantAssetPermissions", assetId = 3127, status = "NoPermission" },
+		{ action = "GrantAssetPermissions", assetId = 2134, status = "AssetNotFound" },
+		{ action = "Edit", assetId = 9765, status = "UnknownError" },
+		{ action = "Use", assetId = 7340, status = "NoPermission" },
+		{ action = "Edit", assetId = 7340, status = "NoPermission" },
+		{ action = "GrantAssetPermissions", assetId = 7340, status = "NoPermission" },
 	}
 	fakeAssetPermissionsList.responseBody.results = Results
 	return Promise.resolve(fakeAssetPermissionsList)
 end
 
 -- Intentionally ignoring that the real method has parameters because they are not used in this mock
-function NetworkInterfaceMock:getToolboxItems(category, sortType, creatorType, minDuration, maxDuration, creatorTargetId, keyword, cursor, limit)
+function NetworkInterfaceMock:getToolboxItems(
+	category,
+	sortType,
+	creatorType,
+	minDuration,
+	maxDuration,
+	creatorTargetId,
+	keyword,
+	cursor,
+	limit
+)
 	createStringValueforVerification(category, sortType)
 	local fakeItemListContent = {
 		responseBody = {
 			totalResults = ARBITRARY_LARGE_TOTAL_COUNT,
-		}
+		},
 	}
 	local data = {}
 	for i = 1, 10, 1 do
@@ -186,8 +196,8 @@ function NetworkInterfaceMock:getDevelopAsset(pageInfo)
 	local fakeItemListContent = {
 		responseBody = {
 			totalResults = ARBITRARY_LARGE_TOTAL_COUNT,
-			results = {}
-		}
+			results = {},
+		},
 	}
 	local data = {}
 	for i = 1, 10, 1 do
@@ -198,10 +208,9 @@ function NetworkInterfaceMock:getDevelopAsset(pageInfo)
 	return Promise.resolve(fakeItemListContent)
 end
 
-
 function NetworkInterfaceMock:getAssetCreations(items)
 	local fakeItemListContent = {
-		responseBody = {}
+		responseBody = {},
 	}
 	local data = {}
 	for i = 1, 10, 1 do
@@ -233,8 +242,8 @@ function NetworkInterfaceMock:getCreatorInfo(creatorId, creatorType)
 			AvatarFinal = false,
 			Id = "1010101",
 			IsOnline = false,
-			Username = "testAccount"
-		}
+			Username = "testAccount",
+		},
 	}
 	return Promise.resolve(fakeItemListContent)
 end
@@ -259,7 +268,7 @@ function NetworkInterfaceMock:resolveAssets(assets, totalResults, nextPageCursor
 end
 
 function NetworkInterfaceMock:postVote(assetId)
-	return 	Promise.resolve({
+	return Promise.resolve({
 		model = {
 			HasVoted = true,
 			CanVote = true,
@@ -269,12 +278,12 @@ function NetworkInterfaceMock:postVote(assetId)
 			ShowVotes = true,
 		},
 		success = true,
-		message = "This is a test message"
+		message = "This is a test message",
 	})
 end
 
 function NetworkInterfaceMock:postUnvote(assetId)
-	return 	Promise.resolve({
+	return Promise.resolve({
 		model = {
 			HasVoted = false,
 			CanVote = true,
@@ -284,7 +293,7 @@ function NetworkInterfaceMock:postUnvote(assetId)
 			ShowVotes = true,
 		},
 		success = true,
-		message = "This is a test message"
+		message = "This is a test message",
 	})
 end
 
@@ -302,10 +311,10 @@ end
 
 function NetworkInterfaceMock:getManageableGroups()
 	local fakeGroups = {
-			responseBody = {
-				data = {}
-			}
-		}
+		responseBody = {
+			data = {},
+		},
+	}
 	return Promise.resolve(fakeGroups)
 end
 
@@ -317,28 +326,28 @@ function NetworkInterfaceMock:getCanManageAsset(assetId, myUserId)
 	return Promise.resolve({
 		responseBody = {
 			CanManage = true,
-			Success = true
-		}
+			Success = true,
+		},
 	})
 end
 
 function NetworkInterfaceMock:getRobuxBalance(myUserId)
 	return Promise.resolve({
 		responseBody = {
-			robux = '16'
-		}
+			robux = "16",
+		},
 	})
 end
 
 function NetworkInterfaceMock:getFavoriteCounts(assetId)
 	return Promise.resolve({
-		responseBody = "10"
+		responseBody = "10",
 	})
 end
 
 function NetworkInterfaceMock:getFavorited(assetId)
 	return Promise.resolve({
-		responseBody = "null"
+		responseBody = "null",
 	})
 end
 

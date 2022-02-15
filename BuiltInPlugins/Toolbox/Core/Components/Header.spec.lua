@@ -45,7 +45,7 @@ return function()
 
 	describeSKIP("the search bar", function()
 		it("should stretch to fill remaining space", function()
-			local toolboxWidths = {200, 500, 1000}
+			local toolboxWidths = { 200, 500, 1000 }
 			local dropdownWidth = 120
 			local totalPadding = 9 + 7 + 9 -- 9 on outside, 7 between dropdown and search bar
 			local minSearchBarWidth = 100

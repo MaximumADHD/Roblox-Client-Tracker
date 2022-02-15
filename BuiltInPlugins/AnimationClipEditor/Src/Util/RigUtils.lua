@@ -24,6 +24,8 @@ local Constants = require(Plugin.Src.Util.Constants)
 
 local FFlagFixDuplicateNamedRoot = game:DefineFastFlag("FixDuplicateNamedRoot", false)
 local FFSaveAnimationRigWithKeyframeSequence2 = game:DefineFastFlag("SaveAnimationRigWithKeyframeSequence2", false)
+local FFlagUseFilteredGetKeyframes = game:GetFastFlag("UseFilteredGetKeyframes")
+local FFlagFilterGetKeyframes = game:DefineFastFlag("ACEFilterGetKeyframes", false)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagFixRigInfoForFacs = require(Plugin.LuaFlags.GetFFlagFixRigInfoForFacs)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
@@ -1607,8 +1609,27 @@ function RigUtils.toRigAnimation(animationData, rig)
 		AddAnimationRigToAnimationClip(animationData, rig, keyframeSequence)
 	end
 
-	local numKeyframes = #keyframeSequence:GetKeyframes()
+	local numKeyframes
+	if FFlagFilterGetKeyframes then
+		local keyframes = keyframeSequence:GetKeyframes()
+		if not FFlagUseFilteredGetKeyframes then
+			keyframes = RigUtils.filterKeyframes(keyframes)
+		end
+		numKeyframes = #keyframes
+	else
+		numKeyframes = #keyframeSequence:GetKeyframes()
+	end
 	return keyframeSequence, numKeyframes, numPoses, numEvents
+end
+
+function RigUtils.filterKeyframes(keyframes)
+	local filteredKeyframes = {}
+	for _, keyframe in ipairs(keyframes) do
+		if keyframe:IsA("Keyframe") then
+			table.insert(filteredKeyframes, keyframe)
+		end
+	end
+	return filteredKeyframes
 end
 
 function RigUtils.calculateFrameRate(keyframeSequence)
@@ -1619,6 +1640,12 @@ function RigUtils.calculateFrameRate(keyframeSequence)
 	)
 
 	local keyframes = keyframeSequence:GetKeyframes()
+
+	-- KeyframeSequence:GetKeyframes returns all children (unless FFlagUseFilteredGetKeyframes is ON)
+	if FFlagFilterGetKeyframes and not FFlagUseFilteredGetKeyframes then
+		keyframes = RigUtils.filterKeyframes(keyframes)
+	end
+
 	table.sort(keyframes, function(a, b) return a.Time < b.Time end)
 
 	local minDelta
@@ -1663,6 +1690,12 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 	local frameRate = RigUtils.calculateFrameRate(keyframeSequence)
 
 	local keyframes = keyframeSequence:GetKeyframes()
+
+	-- KeyframeSequence:GetKeyframes returns all children (unless FFlagUseFilteredGetKeyframes is ON)
+	if FFlagFilterGetKeyframes and not FFlagUseFilteredGetKeyframes then
+		keyframes = RigUtils.filterKeyframes(keyframes)
+	end
+
 	local length = 0
 	local lastKeyframe
 	local animationData = AnimationData.new(keyframeSequence.Name, Constants.INSTANCE_TYPES.Rig)
@@ -1766,7 +1799,12 @@ function RigUtils.fromRigAnimation(keyframeSequence, snapTolerance)
 		end
 	end
 
-	local numKeyframes = #keyframeSequence:GetKeyframes()
+	local numKeyframes
+	if FFlagFilterGetKeyframes then
+		numKeyframes = #keyframes
+	else
+		numKeyframes = #keyframeSequence:GetKeyframes()
+	end
 	return animationData, frameRate, numKeyframes, numPoses, numEvents
 end
 

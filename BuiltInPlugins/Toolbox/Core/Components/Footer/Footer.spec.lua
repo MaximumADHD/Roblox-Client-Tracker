@@ -41,7 +41,7 @@ return function()
 			{
 				name = "None",
 				color = "None",
-			}
+			},
 		}
 
 		local element = Roact.createElement(MockWrapper, {}, {
@@ -84,7 +84,7 @@ return function()
 			{
 				name = "None",
 				color = "None",
-			}
+			},
 		}
 		local selectedIndex = 1
 		local hoveredIndex = 2

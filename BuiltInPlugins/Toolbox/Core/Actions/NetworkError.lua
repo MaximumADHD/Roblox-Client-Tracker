@@ -15,12 +15,12 @@ return Action(script.Name, function(response, networkErrorAction)
 	-- if response is a string, wrap it in a table
 	if type(response) == "string" then
 		resultResponse = {
-			responseBody = response
+			responseBody = response,
 		}
 	end
 
 	return {
 		response = resultResponse,
-		networkErrorAction = networkErrorAction
+		networkErrorAction = networkErrorAction,
 	}
 end)

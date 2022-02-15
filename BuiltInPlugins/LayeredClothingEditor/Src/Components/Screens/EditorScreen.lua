@@ -12,6 +12,7 @@
 		callback ClearPreviewAssetsSelected: callback for clearing all selected preview items in grid.
 		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 	Optional Props:
+		enum EditingCage: Cage type identifier, Inner/Outer, provided via mapStateToProps
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
 ]]

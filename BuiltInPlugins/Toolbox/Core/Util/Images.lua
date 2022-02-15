@@ -51,6 +51,7 @@ Images.LIKES_GREY = "rbxasset://textures/StudioToolbox/AssetPreview/Likes_Grey.p
 Images.LINK_ARROW = "rbxasset://textures/StudioToolbox/AssetPreview/Link_Arrow.png"
 Images.CLOSE_BUTTON = "rbxasset://textures/StudioToolbox/AssetPreview/close.png"
 Images.SHOW_MORE = "rbxasset://textures/StudioToolbox/AssetPreview/more.png"
+Images.SCRIPT = "rbxasset://textures/StudioToolbox/script.png"
 
 Images.MAGNIFIER_PH = "rbxasset://textures/StudioToolbox/AssetPreview/MAGNIFIER_PH.png"
 Images.SEARCH_OPTIONS = "rbxasset://textures/StudioToolbox/SearchOptions.png"
@@ -88,7 +89,7 @@ Images.TOGGLE_ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light
 Images.TOGGLE_OFF_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"
 Images.TOGGLE_OFF_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"
 Images.TOGGLE_DISABLE_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"
-Images.TOGGLE_DISABLE_LIGHT	= "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"
+Images.TOGGLE_DISABLE_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"
 
 Images.GENERAL_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.png"
 Images.VERSIONS_SIDE_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"

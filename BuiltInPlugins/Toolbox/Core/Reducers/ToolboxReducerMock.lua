@@ -14,6 +14,6 @@ return function(state, action)
 		pageInfo = PageInfoMock(state and state.pageInfo, action),
 		voting = VotingReducerMock(state and state.voting, action),
 		purchase = PurchaseMock(state and state.purchase, action),
-		packages = PackagesMock(state and state.packages, action)
+		packages = PackagesMock(state and state.packages, action),
 	}
 end

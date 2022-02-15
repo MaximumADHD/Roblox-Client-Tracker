@@ -93,8 +93,11 @@ function DebugConnectionListener:onConnectionStarted(debuggerConnection, debugge
 	self:connectEvents(debuggerConnection.Id, debuggerConnection, debuggerUIService, scriptChangeService)
 end
 
-function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason)
+function DebugConnectionListener:onConnectionEnded(debuggerConnection, reason, debuggerUIService)
 	assert(debuggerConnection and debuggerConnection.Id~=0)
+	if debuggerUIService ~= nil then
+		debuggerUIService:RemoveScriptLineMarkers(debuggerConnection.Id, true)
+	end
 	local state = self.store:getState()
 	local common = state.Common
 	local dst = common.debuggerConnectionIdToDST[debuggerConnection.Id]
@@ -118,7 +121,7 @@ local function setUpConnections(debugConnectionListener, debuggerConnectionManag
 	local ScriptChangeService = scriptChangeService or game:GetService("CrossDMScriptChangeListener")
 
 	debugConnectionListener._connectionStartedConnection = DebuggerConnectionManager.ConnectionStarted:Connect(function(debuggerConnection) debugConnectionListener:onConnectionStarted(debuggerConnection, DebuggerUIService, ScriptChangeService) end)
-	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason) end)
+	debugConnectionListener._connectionEndedConnection = DebuggerConnectionManager.ConnectionEnded:Connect(function(debuggerConnection, reason) debugConnectionListener:onConnectionEnded(debuggerConnection, reason, DebuggerUIService) end)
 	debugConnectionListener._focusChangedConnection = DebuggerConnectionManager.FocusChanged:Connect(function(debuggerConnection) debugConnectionListener:onFocusChanged(debuggerConnection) end)
 end
 

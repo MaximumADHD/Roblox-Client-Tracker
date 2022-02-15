@@ -29,7 +29,7 @@ local function objectToString(name, obj, indent)
 	end
 
 	if type(obj) == "string" then
-		value = ("\"%s\""):format(value)
+		value = ('"%s"'):format(value)
 	elseif type(obj) == "table" then
 		local length = getTableLength(obj)
 		if length > maxTableLength or blacklistKeys[name] then

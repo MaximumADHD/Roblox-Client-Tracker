@@ -106,7 +106,7 @@ function ClickEventDetectFrame:getClickDetectFrame()
 		AutoButtonColor = false,
 		[Roact.Event.Activated] = self.props[Roact.Event.Activated],
 	}, {
-		ScrollBlocker = self:getScrollBlocker(self.props[Roact.Children])
+		ScrollBlocker = self:getScrollBlocker(self.props[Roact.Children]),
 	})
 end
 
@@ -124,11 +124,12 @@ function ClickEventDetectFrame:render()
 			clickEventDetectFrame = self:getClickDetectFrame()
 		end
 
-		return modalTarget and Roact.createElement(Roact.Portal, {
-			target = modalTarget,
-		}, {
-			ClickEventDetectFrame = clickEventDetectFrame
-		})
+		return modalTarget
+			and Roact.createElement(Roact.Portal, {
+				target = modalTarget,
+			}, {
+				ClickEventDetectFrame = clickEventDetectFrame,
+			})
 	end)
 end
 

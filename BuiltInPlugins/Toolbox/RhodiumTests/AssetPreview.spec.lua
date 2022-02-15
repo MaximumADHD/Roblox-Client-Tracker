@@ -35,27 +35,29 @@ return function()
 	local FAV_COUNT_TEXT = "11"
 	local INSERT_BUTTON_TEXT = "TEST_Studio.Toolbox.Common.Insert"
 
-	local DropdownIconPath = TestHelpers.getPathInTestToolbox("Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon")
-	local DropdownScrollingFramePath = "game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
-	local AssetPreviewButtonPath = TestHelpers.getPathInTestToolbox("Toolbox.MainView.ScrollingFrame.ScrollingFrame." ..
-		"AssetGridContainer.1.InnerFrame.AssetIcon.AssetPreviewTriggerButton")
+	local DropdownIconPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.Header.CategoryMenu.CurrentSelection.Border.DropDownIcon"
+	)
+	local DropdownScrollingFramePath =
+		"game.CoreGui.ScreenGui.ClickEventDetectFrame.ScrollBlocker.StyledScrollingFrame.ScrollingFrame."
+	local AssetPreviewButtonPath = TestHelpers.getPathInTestToolbox(
+		"Toolbox.MainView.ScrollingFrame.ScrollingFrame."
+			.. "AssetGridContainer.1.InnerFrame.AssetIcon.AssetPreviewTriggerButton"
+	)
 	local AssetPreviewWindowPath = "game.CoreGui.ScreenGui.AssetPreview"
-	local VotePath = AssetPreviewWindowPath .. 
-			".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.VoteBar.Contents"
-	local FavoritePath = AssetPreviewWindowPath .. 
-			".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.Favorites.Contents"
-	local BottomBarPath = AssetPreviewWindowPath .. 
-			".Contents.Contents.Contents.ButtonArea.Contents"
-	local PreviewInfoPath = AssetPreviewWindowPath .. 
-			".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller"
+	local VotePath = AssetPreviewWindowPath
+		.. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.VoteBar.Contents"
+	local FavoritePath = AssetPreviewWindowPath
+		.. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller.Favorites.Contents"
+	local BottomBarPath = AssetPreviewWindowPath .. ".Contents.Contents.Contents.ButtonArea.Contents"
+	local PreviewInfoPath = AssetPreviewWindowPath .. ".Contents.Contents.Contents.ScrollingFrame.Contents.Scroller"
 
 	--local JestRoblox = require(Plugin.Packages.Dev.JestRoblox)
 	--local expect = JestRoblox.Globals.expect
 
 	describe("Asset Preview Test Suite", function()
-
 		-- TODO: Update the test when removing the flag (STM-679)
-		
+
 		if FFlagToolboxAssetGridRefactor4 then
 			return
 		end
@@ -82,7 +84,6 @@ return function()
 			-- Wait for asset to load
 			TestHelpers.delay()
 		end)
-
 
 		afterAll(function()
 			Urls.constructAssetThumbnailUrl = originalConstructAssetThumbnailUrl
@@ -111,7 +112,6 @@ return function()
 			TestHelpers.clickInstanceWithXPath(assetPreviewCloseButtonPath)
 			assetPreviewInstance = Element.new(AssetPreviewWindowPath)
 			expect(assetPreviewInstance:getRbxInstance()).never.to.be.ok()
-
 		end)
 
 		it("asset preview up vote should work", function()
@@ -206,7 +206,7 @@ return function()
 
 			-- Asset Preview favorite button should turn back to original after click it again
 			TestHelpers.clickInstanceWithXPath(favoriteIcon)
-			
+
 			favoriteCountInstance = Element.new(favoriteCountPath)
 			favoriteIconInstance = Element.new(favoriteIconPath)
 			expect(tostring(favoriteCountInstance:getRbxInstance().Text)).to.be.equal(UNFAV_COUNT_TEXT)
@@ -227,7 +227,8 @@ return function()
 			TestHelpers.clickInstanceWithXPath(AssetPreviewButtonPath)
 
 			-- Asset Preview creation info row should exist
-			local creatorInfoPath = PreviewInfoPath .. ".InfoRow_1.Contents.ContentWrapper.Contents.Content.Contents.TextButton"
+			local creatorInfoPath = PreviewInfoPath
+				.. ".InfoRow_1.Contents.ContentWrapper.Contents.Content.Contents.TextButton"
 			local creatorInfoInstance = Element.new(creatorInfoPath)
 			expect(creatorInfoInstance).to.be.ok()
 			expect(creatorInfoInstance:getRbxInstance().Text).to.be.equal("JUSTforTEST")
@@ -265,7 +266,7 @@ return function()
 			expect(updatedTimeInfoInstance:getRbxInstance().Text:match(FORMATTED_DATE_PATTERN)).to.be.ok()
 		end)
 
-		local testCases = {Category.FREE_AUDIO.category, Category.FREE_DECALS.category, Category.FREE_MESHES.category}
+		local testCases = { Category.FREE_AUDIO.category, Category.FREE_DECALS.category, Category.FREE_MESHES.category }
 		for i = 1, #testCases do
 			it(tostring(testCases[i]) .. " preview should work", function()
 				TestHelpers.clickInstanceWithXPath(DropdownIconPath)

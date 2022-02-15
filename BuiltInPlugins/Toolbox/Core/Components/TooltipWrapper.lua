@@ -33,7 +33,7 @@ function TooltipWrapper:render()
 	local canShowCurrentTooltip = props.canShowCurrentTooltip
 	local isHovered = props.isHovered
 
-	return Roact.createElement("Frame",{
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		SizeConstraint = sizeConstraint,
@@ -41,8 +41,8 @@ function TooltipWrapper:render()
 		Tooltip = Roact.createElement(Tooltip, {
 			Enabled = canShowCurrentTooltip and isHovered,
 			Text = text,
-			Priority = (FFlagToolboxAssetGridRefactor4) and 2 or nil,
-		})
+			Priority = FFlagToolboxAssetGridRefactor4 and 2 or nil,
+		}),
 	})
 end
 

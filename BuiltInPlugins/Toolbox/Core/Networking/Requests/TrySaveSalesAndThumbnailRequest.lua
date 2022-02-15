@@ -66,7 +66,7 @@ return function(patchInfo)
 
 		if FFlagDebugAssetConfigNetworkError then
 			local function failedToSetPrice()
-				onPriceSetFail({responseBody = "Debug failed to set the price !! "})
+				onPriceSetFail({ responseBody = "Debug failed to set the price !! " })
 			end
 
 			failedToSetPrice()
@@ -91,38 +91,38 @@ return function(patchInfo)
 							end
 						end
 
-						patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price):andThen(
-							onPriceSetSuccess, onPriceSetFail
-						)
+						patchInfo.networkInterface
+							:configureSales(patchInfo.assetId, salesStatusOverride, patchInfo.price)
+							:andThen(onPriceSetSuccess, onPriceSetFail)
 					end
 				else --None WhiteList
 					-- For none whileListed the sales status will only be OffSale and Free.
 					local salesStatusOverride = patchInfo.saleStatus
-					salesStatusOverride = salesStatusOverride == AssetConfigConstants.ASSET_STATUS.OffSale and
-						AssetConfigConstants.ASSET_STATUS.OffSale or
-						AssetConfigConstants.ASSET_STATUS.Free
+					salesStatusOverride = salesStatusOverride == AssetConfigConstants.ASSET_STATUS.OffSale
+							and AssetConfigConstants.ASSET_STATUS.OffSale
+						or AssetConfigConstants.ASSET_STATUS.Free
 
-					patchInfo.networkInterface:configureSales(patchInfo.assetId, salesStatusOverride, 0):andThen(
-						onPriceSetSuccess, onPriceSetFail
-					)
+					patchInfo.networkInterface
+						:configureSales(patchInfo.assetId, salesStatusOverride, 0)
+						:andThen(onPriceSetSuccess, onPriceSetFail)
 				end
-			else-- If we don't have whiteList creator info, we will be skipping this check.
+			else -- If we don't have whiteList creator info, we will be skipping this check.
 				checkSales = true
 			end
 		end
 
 		if FFlagDebugAssetConfigNetworkError then
 			local function failedToSetThumbnail()
-				onThumbnailSetFail({responseBody = "Debug failed to set the thumbnail !! "})
+				onThumbnailSetFail({ responseBody = "Debug failed to set the thumbnail !! " })
 			end
 
 			failedToSetThumbnail()
 			checkThumbnail = true
 		else
 			if patchInfo.iconFile then
-				patchInfo.networkInterface:uploadAssetThumbnail(patchInfo.assetId, patchInfo.iconFile):andThen(
-					onThumbnailSetSuccess, onThumbnailSetFail
-				)
+				patchInfo.networkInterface
+					:uploadAssetThumbnail(patchInfo.assetId, patchInfo.iconFile)
+					:andThen(onThumbnailSetSuccess, onThumbnailSetFail)
 			else
 				checkThumbnail = true
 			end
@@ -135,5 +135,3 @@ return function(patchInfo)
 		end
 	end
 end
-
-

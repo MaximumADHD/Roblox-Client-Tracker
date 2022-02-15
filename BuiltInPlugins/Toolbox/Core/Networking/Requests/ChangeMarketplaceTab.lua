@@ -19,7 +19,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
-return function(networkInterface, tabName, newCategories,  settings, options)
+return function(networkInterface, tabName, newCategories, settings, options)
 	return function(store)
 		local categories = Category.getCategories(tabName, store:getState().roles)
 

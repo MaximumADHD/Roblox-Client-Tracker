@@ -70,7 +70,7 @@ local function RoundElement(isButton)
 				ImageTransparency = borderTransparency,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = Constants.ROUNDED_FRAME_SLICE,
-			}, props[Roact.Children])
+			}, props[Roact.Children]),
 		})
 	end
 end

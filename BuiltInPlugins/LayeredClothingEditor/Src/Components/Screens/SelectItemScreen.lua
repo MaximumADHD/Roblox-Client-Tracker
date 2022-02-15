@@ -5,14 +5,14 @@
 	Required Props:
 		callback GoToNext: request to go to next screen in flow.
 		callback GoToPrevious: request to go to previous screen in flow.
-		callback ChangeTool: function to change editing tool (point/lattice), provided via mapDispatchToProps
-		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 	Optional Props:
 		Plugin Plugin: A Plugin ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		table EditingItemContext: An EditingItemContext, which is provided via withContext.
 		table Localization: A Localization ContextItem, which is provided via withContext.
+		callback ChangeTool: function to change editing tool (point/lattice), provided via mapDispatchToProps
+		callback AddUserAddedAssetForPreview: adds asset into preview grid, provided via mapDispatchToProps
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -242,8 +242,6 @@ SelectItemScreen = withContext({
 	Localization = ContextServices.Localization,
 	EditingItemContext = EditingItemContext,
 })(SelectItemScreen)
-
-
 
 local function mapDispatchToProps(dispatch)
 	return {

@@ -38,7 +38,12 @@ return function()
 		expect(trackListContainer.AnimationControlPanel).to.be.ok()
 		expect(trackListContainer.EventsAndTracks).to.be.ok()
 		expect(trackListContainer.EventsAndTracks.Layout).to.be.ok()
-		expect(trackListContainer.EventsAndTracks.TrackList).to.be.ok()
+		if GetFFlagCurveEditor() then
+			expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar).to.be.ok()
+			expect(trackListContainer.EventsAndTracks.TrackListAndScrollBar.TrackList).to.be.ok()
+		else
+			expect(trackListContainer.EventsAndTracks.TrackList).to.be.ok()
+		end
 		expect(frame.TrackListBorder).to.be.ok()
 		Roact.unmount(instance)
 	end)

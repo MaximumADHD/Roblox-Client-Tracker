@@ -18,21 +18,32 @@ local SetAssetPreview = require(Actions.SetAssetPreview)
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
 local FFlagToolboxFixTryInStudioContextMenu = game:GetFastFlag("ToolboxFixTryInStudioContextMenu")
+local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetItemsDetailsUsesSingleApi")
 
+-- TODO when removing FFlagToolboxGetItemsDetailsUsesSingleApi: rename api to networkInterface
 return function(assetId, tryInsert, localization, api)
 	return function(store)
 		local ok, result = pcall(function()
-			-- There is no API to get individual Toolbox item details in the same format as that which
-			-- we use for fetching the whole page of Toolbox assets, so we map the fields from this API
-			-- to the expected format from the whole-page batch API (IDE/Toolbox/Items)
-			api.ToolboxService.V1.Items.details({
-				items = {
+			local requestPromise
+			if FFlagToolboxGetItemsDetailsUsesSingleApi then
+				requestPromise = api:getItemDetails({
 					{
 						id = assetId,
 						itemType = "Asset",
-					}
-				}
-			}):makeRequest():andThen(function(response)
+					},
+				})
+			else
+				requestPromise = api.ToolboxService.V1.Items.details({
+					items = {
+						{
+							id = assetId,
+							itemType = "Asset",
+						},
+					},
+				}):makeRequest()
+			end
+
+			requestPromise:andThen(function(response)
 				local responseItem = response.responseBody.data[1]
 
 				if not responseItem then
@@ -57,7 +68,7 @@ return function(assetId, tryInsert, localization, api)
 					Creator = {
 						Name = responseItem.creator.name,
 						Id = responseItem.creator.id,
-						TypeId = (not FFlagToolboxFixTryInStudioContextMenu) and responseItem.creator.type or nil,
+						TypeId = not FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 						Type = FFlagToolboxFixTryInStudioContextMenu and responseItem.creator.type or nil,
 					},
 				}

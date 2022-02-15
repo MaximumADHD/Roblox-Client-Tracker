@@ -1,7 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
-		local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 	local Libs
 	if FFlagToolboxDeduplicatePackages then
 		Libs = Plugin.Packages

@@ -46,20 +46,23 @@ local function removeRichTextTags(text)
 	-- Remove characters which could be interpreted as RichText tags
 	return text:gsub("[</>]", "")
 end
-	
+
 local function getBoldedText(text, focusedText)
 	local lowercaseText = removeRichTextTags(text:lower())
 	local lowercaseFocusedText = removeRichTextTags(focusedText:lower())
 	local substringIndex = string.find(lowercaseText, lowercaseFocusedText, 1, true)
 
 	local newString
-	if (substringIndex ~= nil) then
-		newString = string.sub(text, 0, substringIndex-1) .. "</b>" .. string.sub(text, substringIndex, substringIndex + string.len(focusedText)-1) .."<b>" ..
-			string.sub(text, substringIndex + string.len(focusedText), string.len(text))
+	if substringIndex ~= nil then
+		newString = string.sub(text, 0, substringIndex - 1)
+			.. "</b>"
+			.. string.sub(text, substringIndex, substringIndex + string.len(focusedText) - 1)
+			.. "<b>"
+			.. string.sub(text, substringIndex + string.len(focusedText), string.len(text))
 	else
 		newString = text
 	end
-	return  "<b>" .. newString .. "</b>"
+	return "<b>" .. newString .. "</b>"
 end
 
 function DropdownMenuItem:render()
@@ -70,7 +73,7 @@ function DropdownMenuItem:render()
 	local fontSize = theme.TextSize
 
 	local buttonText
-	if (props.FocusedText ~= nil) then
+	if props.FocusedText ~= nil then
 		buttonText = getBoldedText(props.Text, props.FocusedText)
 	else
 		buttonText = props.Text
@@ -106,19 +109,16 @@ function DropdownMenuItem:render()
 				PaddingLeft = UDim.new(0, TEXT_PADDING),
 			}),
 		}),
-		
+
 		Separator = not props.HideSeparator and Roact.createElement(Separator, {
 			DominantAxis = Enum.DominantAxis.Width,
 			LayoutOrder = 2,
-		})
+		}),
 	})
-
 end
-
 
 DropdownMenuItem = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(DropdownMenuItem)
-
 
 return DropdownMenuItem

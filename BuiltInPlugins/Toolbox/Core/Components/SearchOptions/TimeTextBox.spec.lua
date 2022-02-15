@@ -59,7 +59,7 @@ return function()
 		local minutes = 1
 		local seconds = 17
 		local element = createTimeBoxComponent({
-			currentValue = (minutes * 60) + seconds
+			currentValue = (minutes * 60) + seconds,
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)

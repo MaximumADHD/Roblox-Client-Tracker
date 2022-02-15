@@ -28,10 +28,8 @@ return function()
 		}, {
 			PurchaseFailedDialog = Roact.createElement(PurchaseFailedDialog, {
 				Name = "Test",
-				OnButtonClicked = function()
-				end,
-				OnClose = function()
-				end,
+				OnButtonClicked = function() end,
+				OnClose = function() end,
 			}),
 		})
 	end

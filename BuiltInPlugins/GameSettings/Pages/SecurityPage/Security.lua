@@ -1,3 +1,4 @@
+local FFlagGameSettingsFixChangeAnalytics = game:GetFastFlag("GameSettingsFixChangeAnalytics")
 
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
@@ -10,6 +11,8 @@ local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitl
 local AddChange = require(Plugin.Src.Actions.AddChange)
 
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
+
+local Analytics = if FFlagGameSettingsFixChangeAnalytics then require(Plugin.Src.Util.Analytics) else nil
 
 local LOCALIZATION_ID = script.Name
 
@@ -39,37 +42,64 @@ local function loadSettings(store, contextItems)
 	}
 end
 
+local function createSaveSettingIfChangedHandler(state, settingName, changeImpl)
+	return function()
+		local changedValue = state.Settings.Changed[settingName]
+		if changedValue ~= nil then
+			Analytics.onSecuritySettingChange(settingName, changedValue)
+			changeImpl(changedValue)
+		end
+	end
+end
+
 local function saveSettings(store, contextItems)
 	local state = store:getState()
 	local gameId = state.Metadata.gameId
 	local universePermissionsController = contextItems.universePermissionsController
-
-	return {
-		function()
-			local changedValue = state.Settings.Changed["HttpEnabled"]
-			if changedValue ~= nil then
+	
+	if FFlagGameSettingsFixChangeAnalytics then
+		return {
+			createSaveSettingIfChangedHandler(state, "HttpEnabled", function(changedValue)
 				universePermissionsController:SetHttpEnabled(game, changedValue)
-			end
-		end,
-		function()
-			local changedValue = state.Settings.Changed["StudioAccessToApisAllowed"]
-			if changedValue ~= nil then
+			end),
+			createSaveSettingIfChangedHandler(state, "StudioAccessToApisAllowed", function(changedValue)
 				universePermissionsController:SetStudioAccessToApisAllowed(gameId, changedValue)
-			end
-		end,
-		function()
-			local changedValue = state.Settings.Changed["ThirdPartyPurchaseAllowed"]
-			if changedValue ~= nil then
+			end),
+			createSaveSettingIfChangedHandler(state, "ThirdPartyPurchaseAllowed", function(changedValue)
 				universePermissionsController:SetThirdPartyPurchasesAllowed(gameId, changedValue)
-			end
-		end,
-		function()
-			local changedValue = state.Settings.Changed["ThirdPartyTeleportAllowed"]
-			if changedValue ~= nil then
+			end),
+			createSaveSettingIfChangedHandler(state, "ThirdPartyTeleportAllowed", function(changedValue)
 				universePermissionsController:SetThirdPartyTeleportsAllowed(gameId, changedValue)
-			end
-		end,
-	}
+			end),
+		}
+	else
+		return {
+			function()
+				local changedValue = state.Settings.Changed["HttpEnabled"]
+				if changedValue ~= nil then
+					universePermissionsController:SetHttpEnabled(game, changedValue)
+				end
+			end,
+			function()
+				local changedValue = state.Settings.Changed["StudioAccessToApisAllowed"]
+				if changedValue ~= nil then
+					universePermissionsController:SetStudioAccessToApisAllowed(gameId, changedValue)
+				end
+			end,
+			function()
+				local changedValue = state.Settings.Changed["ThirdPartyPurchaseAllowed"]
+				if changedValue ~= nil then
+					universePermissionsController:SetThirdPartyPurchasesAllowed(gameId, changedValue)
+				end
+			end,
+			function()
+				local changedValue = state.Settings.Changed["ThirdPartyTeleportAllowed"]
+				if changedValue ~= nil then
+					universePermissionsController:SetThirdPartyTeleportsAllowed(gameId, changedValue)
+				end
+			end,
+		}
+	end
 end
 
 --Loads settings values into props by key

@@ -26,7 +26,7 @@ Suggestion.SUGGESTIONS = {
 	{
 		name = "Light",
 		search = "Light",
-	}
+	},
 }
 
 function Suggestion.canHaveSuggestions(searchTerm, categoryName)

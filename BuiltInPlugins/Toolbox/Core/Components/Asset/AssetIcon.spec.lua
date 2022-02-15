@@ -26,7 +26,7 @@ return function()
 			AssetIcon = Roact.createElement(AssetIcon, {
 				assetId = assetId,
 				isEndorsed = false,
-				typeId = Enum.AssetType.Image.Value
+				typeId = Enum.AssetType.Image.Value,
 			}),
 		})
 		local instance = Roact.mount(element)
@@ -34,15 +34,19 @@ return function()
 	end)
 
 	it("should have the correct image", function()
-		ImageWithDefault.mockImage(Urls.constructAssetThumbnailUrl(assetId,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
-			Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE))
+		ImageWithDefault.mockImage(
+			Urls.constructAssetThumbnailUrl(
+				assetId,
+				Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE,
+				Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+			)
+		)
 
 		local element = Roact.createElement(MockWrapper, {}, {
 			AssetIcon = Roact.createElement(AssetIcon, {
 				assetId = assetId,
 				isEndorsed = false,
-				typeId = Enum.AssetType.Image.Value
+				typeId = Enum.AssetType.Image.Value,
 			}),
 		})
 
@@ -96,12 +100,12 @@ return function()
 	]]
 
 	it("should have or not have the endorsed badge", function()
-		for _, isEndorsed in ipairs({true, false}) do
+		for _, isEndorsed in ipairs({ true, false }) do
 			local element = Roact.createElement(MockWrapper, {}, {
 				AssetIcon = Roact.createElement(AssetIcon, {
 					assetId = assetId,
 					isEndorsed = isEndorsed,
-					typeId = Enum.AssetType.Image.Value
+					typeId = Enum.AssetType.Image.Value,
 				}),
 			})
 
