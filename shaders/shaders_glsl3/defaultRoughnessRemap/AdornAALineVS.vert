@@ -24,27 +24,39 @@ void main()
     if (length(v1 - v3) < length(v1 - v4))
     {
         vec3 v7 = v3.xyz + (v2 * ((v5 * (vec4(v3.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
-        v6 = vec4(v7.x, v7.y, v7.z, v1.w);
+        vec4 v8 = v1;
+        v8.x = v7.x;
+        vec4 v9 = v8;
+        v9.y = v7.y;
+        vec4 v10 = v9;
+        v10.z = v7.z;
+        v6 = v10;
     }
     else
     {
-        vec3 v8 = v4.xyz + (v2 * ((v5 * (vec4(v4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
-        v6 = vec4(v8.x, v8.y, v8.z, v1.w);
+        vec3 v11 = v4.xyz + (v2 * ((v5 * (vec4(v4.xyz, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3])).w) * CB1[5].x));
+        vec4 v12 = v1;
+        v12.x = v11.x;
+        vec4 v13 = v12;
+        v13.y = v11.y;
+        vec4 v14 = v13;
+        v14.z = v11.z;
+        v6 = v14;
     }
-    mat4 v9 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    vec4 v10 = v6 * v9;
-    vec4 v11 = v3 * v9;
-    vec4 v12 = v4 * v9;
-    vec4 v13 = v10;
-    v13.y = v10.y * CB1[5].z;
-    vec4 v14 = v11;
-    v14.y = v11.y * CB1[5].z;
-    vec4 v15 = v12;
-    v15.y = v12.y * CB1[5].z;
-    gl_Position = v10;
-    VARYING0 = v13;
+    mat4 v15 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    vec4 v16 = v6 * v15;
+    vec4 v17 = v3 * v15;
+    vec4 v18 = v4 * v15;
+    vec4 v19 = v16;
+    v19.y = v16.y * CB1[5].z;
+    vec4 v20 = v17;
+    v20.y = v17.y * CB1[5].z;
+    vec4 v21 = v18;
+    v21.y = v18.y * CB1[5].z;
+    gl_Position = v16;
+    VARYING0 = v19;
     VARYING1 = CB0[7].xyz - v6.xyz;
-    VARYING2 = v14;
-    VARYING3 = v15;
+    VARYING2 = v20;
+    VARYING3 = v21;
 }
 

@@ -240,6 +240,7 @@ Studio.GameSettings.Places.PlaceVersion,Place Version, ,Place Version
 Studio.GameSettings.AccessPermissions.NoAccessLabel,No Access, ,No Access
 Studio.GameSettings.Permissions.NoAccessLabel,No Access, ,No Access
 Studio.GameSettings.General.DevSubsCreationDate,Creation Date, ,Creation Date
+Studio.GameSettings.Permissions.NoEditMustBeFriendDescription,User must be a friend to edit, ,User must be a friend to edit
 Studio.GameSettings.General.DevSubsPrice,Price, ,Price
 Studio.GameSettings.Monetization.PriceTitle,Price, ,Price
 Studio.GameSettings.General.DevSubsImage,Image, ,Image
@@ -272,6 +273,7 @@ Studio.GameSettings.AccessPermissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.Permissions.MultipleLabel,(Multiple), ,(Multiple)
 Studio.GameSettings.AccessPermissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
 Studio.GameSettings.Permissions.AdminDescription,"Can play, edit, and manage this game", ,"Can play, edit, and manage this game"
+Studio.GameSettings.Permissions.NoUserEditGroupGameDescription,Must be in owner group to edit, ,Must be in owner group to edit
 Studio.GameSettings.General.TeamCreateStreamingDesc,Enable Streaming to begin editing your experience sooner, ,Enable Streaming to begin editing your experience sooner
 Studio.GameSettings.Monetization.DevProducts,Developer Products, ,Developer Products
 Studio.GameSettings.General.ServerRestartWarning,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session., ,The Team Create server needs to restart for this change to take effect. The server will automatically restart once all editors have left the session.

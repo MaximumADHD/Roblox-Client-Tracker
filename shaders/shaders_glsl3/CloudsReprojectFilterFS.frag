@@ -42,36 +42,40 @@ void main()
     vec4 f15 = f14 / vec4(f14.w);
     vec4 f16 = f15;
     f16.y = f15.y * (-1.0);
-    vec2 f17 = ((f16.xy + vec2(1.0)) * 0.5).xy;
-    vec4 f18 = textureLod(distLastFrame, f17, 0.0);
-    float f19 = f18.y * 7.0;
-    vec2 f20 = CB4[0].zw * (((f17 * CB1[0].xy) * CB4[0].xy) - vec2(1.0));
-    vec3 f21 = normalize(((CB1[1].xyz * f20.x) + (CB1[2].xyz * f20.y)) - CB1[3].xyz);
-    vec3 f22 = normalize(vec3(dot(f21, CB0[4].xyz), dot(f21, CB0[5].xyz), -dot(f21, CB0[6].xyz))) * (f18.x * 500.0);
-    vec4 f23 = textureLod(oldCloudColor, f17, 0.0);
-    vec2 f24;
-    vec4 f25;
-    if (((((dot(f22, f22) > 0.0) ? abs(1.0 - (length(f13.xyz * 0.00028000000747852027416229248046875) / (9.9999997473787516355514526367188e-06 + length(f22)))) : 0.0) >= 0.001000000047497451305389404296875) || (CB1[4].w > 0.5)) || (abs(dot(f10, vec4(1.0)) - dot(f23, vec4(1.0))) > 0.15299999713897705078125))
+    vec2 f17 = (f16.xy + vec2(1.0)) * 0.5;
+    vec4 f18 = vec4(0.0);
+    f18.x = f17.x;
+    vec4 f19 = f18;
+    f19.y = f17.y;
+    vec4 f20 = textureLod(distLastFrame, f19.xy, 0.0);
+    float f21 = f20.y * 7.0;
+    vec2 f22 = CB4[0].zw * (((f19.xy * CB1[0].xy) * CB4[0].xy) - vec2(1.0));
+    vec3 f23 = normalize(((CB1[1].xyz * f22.x) + (CB1[2].xyz * f22.y)) - CB1[3].xyz);
+    vec3 f24 = normalize(vec3(dot(f23, CB0[4].xyz), dot(f23, CB0[5].xyz), -dot(f23, CB0[6].xyz))) * (f20.x * 500.0);
+    vec4 f25 = textureLod(oldCloudColor, f19.xy, 0.0);
+    vec2 f26;
+    vec4 f27;
+    if (((((dot(f24, f24) > 0.0) ? abs(1.0 - (length(f13.xyz * 0.00028000000747852027416229248046875) / (9.9999997473787516355514526367188e-06 + length(f24)))) : 0.0) >= 0.001000000047497451305389404296875) || (CB1[4].w > 0.5)) || (abs(dot(f10, vec4(1.0)) - dot(f25, vec4(1.0))) > 0.15299999713897705078125))
     {
-        vec4 f26 = f10;
-        f26.w = mix(f10.w, 0.0, f12);
-        f25 = f26;
-        f24 = vec2(f1, 0.14285714924335479736328125);
+        vec4 f28 = f10;
+        f28.w = mix(f10.w, 0.0, f12);
+        f27 = f28;
+        f26 = vec2(f1, 0.14285714924335479736328125);
     }
     else
     {
-        float f27 = f19 + 1.0;
-        vec4 f28 = ((f23 * f19) + f10) / vec4(f27);
-        float f29 = (0.75 * f10.w) + (0.25 * f28.w);
-        vec4 f30 = f28;
-        f30.w = f29;
-        vec4 f31 = f30;
-        f31.w = mix(f29, 0.0, f12);
-        f25 = f31;
-        f24 = vec2(f1, min(f27, 7.0) * 0.14285714924335479736328125);
+        float f29 = f21 + 1.0;
+        vec4 f30 = ((f25 * f21) + f10) / vec4(f29);
+        float f31 = (0.75 * f10.w) + (0.25 * f30.w);
+        vec4 f32 = f30;
+        f32.w = f31;
+        vec4 f33 = f32;
+        f33.w = mix(f31, 0.0, f12);
+        f27 = f33;
+        f26 = vec2(f1, min(f29, 7.0) * 0.14285714924335479736328125);
     }
-    _entryPointOutput_cloudColor = f25;
-    _entryPointOutput_dist = f24;
+    _entryPointOutput_cloudColor = f27;
+    _entryPointOutput_dist = f26;
 }
 
 //$$dist=s3

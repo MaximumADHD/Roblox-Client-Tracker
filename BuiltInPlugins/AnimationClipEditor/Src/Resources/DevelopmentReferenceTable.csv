@@ -57,6 +57,9 @@ Studio.AnimationClipEditor.IKMenu.IKMode, ,IK Mode
 Studio.AnimationClipEditor.IKMenu.Prompt, ,Enable IK to start animating with IK constraints
 Studio.AnimationClipEditor.IKMenu.ShowTreeview, ,Show Treeview
 Studio.AnimationClipEditor.Menu.Action, ,Action
+Studio.AnimationClipEditor.Menu.Action2, ,Action2
+Studio.AnimationClipEditor.Menu.Action3, ,Action3
+Studio.AnimationClipEditor.Menu.Action4, ,Action4
 Studio.AnimationClipEditor.Menu.AddAllFacs, ,Add All Facial Animation Controls
 Studio.AnimationClipEditor.Menu.AddAllTracks, ,Add All
 Studio.AnimationClipEditor.Menu.Brows, ,Brows

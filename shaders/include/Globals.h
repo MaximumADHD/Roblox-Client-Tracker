@@ -6,7 +6,7 @@ struct Globals
     vec4 ViewDir;
     vec3 CameraPosition;
     vec3 AmbientColor;
-    vec3 SkyAmbient;
+    vec4 SkyAmbient;
     vec3 Lamp0Color;
     vec3 Lamp0Dir;
     vec3 Lamp1Color;
@@ -25,7 +25,7 @@ struct Globals
     vec4 SkyGradientTop_EnvDiffuse;
     vec4 SkyGradientBottom_EnvSpec;
     vec4 AmbientColorNoIBL_CubeBlend;
-    vec3 SkyAmbientNoIBL;
+    vec4 SkyAmbientNoIBL;
     vec4 AmbientCube[12];
     vec4 CascadeSphere0;
     vec4 CascadeSphere1;

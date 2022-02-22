@@ -16,15 +16,33 @@ out vec4 _entryPointOutput;
 void main()
 {
     vec4 f0 = texture(texTexture, VARYING0.xy);
-    vec3 f1 = (f0.xyz * CB1[0].xyz).xyz;
-    vec3 f2 = sqrt(clamp((f1 * f1) * CB0[15].y, vec3(0.0), vec3(1.0)));
-    float f3 = (f0.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, gl_FragCoord.xy * CB0[45].xy).x * 500.0) - gl_FragCoord.w), 0.0, 1.0) * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
-    vec4 f4 = vec4(f2.x, f2.y, f2.z, vec4(0.0).w);
-    f4.w = f3;
-    vec3 f5 = f4.xyz * f3;
-    vec4 f6 = vec4(f5.x, f5.y, f5.z, f4.w);
-    f6.w = f3 * CB1[1].y;
-    _entryPointOutput = f6;
+    vec3 f1 = f0.xyz * CB1[0].xyz;
+    vec4 f2 = vec4(0.0);
+    f2.x = f1.x;
+    vec4 f3 = f2;
+    f3.y = f1.y;
+    vec4 f4 = f3;
+    f4.z = f1.z;
+    vec3 f5 = sqrt(clamp((f4.xyz * f4.xyz) * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f6 = f4;
+    f6.x = f5.x;
+    vec4 f7 = f6;
+    f7.y = f5.y;
+    vec4 f8 = f7;
+    f8.z = f5.z;
+    float f9 = (f0.w * VARYING1.w) * (clamp(VARYING3.w * abs((texture(depthTexTexture, gl_FragCoord.xy * CB0[45].xy).x * 500.0) - gl_FragCoord.w), 0.0, 1.0) * clamp(exp2((CB0[13].z * VARYING0.z) + CB0[13].x) - CB0[13].w, 0.0, 1.0));
+    vec4 f10 = f8;
+    f10.w = f9;
+    vec3 f11 = f10.xyz * f9;
+    vec4 f12 = f10;
+    f12.x = f11.x;
+    vec4 f13 = f12;
+    f13.y = f11.y;
+    vec4 f14 = f13;
+    f14.z = f11.z;
+    vec4 f15 = f14;
+    f15.w = f9 * CB1[1].y;
+    _entryPointOutput = f15;
 }
 
 //$$depthTexTexture=s3

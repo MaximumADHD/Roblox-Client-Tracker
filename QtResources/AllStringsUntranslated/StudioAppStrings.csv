@@ -3225,3 +3225,5 @@ Studio.App.BetaFeatures.PathfindingLinksTitle,,Pathfinding Links,Pathfinding Lin
 Studio.App.BetaFeatures.PathfindingLinksDescription,,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.,Pathfinding link can be used to connect areas in the place which otherwise are unconnected.
 Studio.App.BetaFeatures.CurveAnimationsTitle,,Channel Animations,Channel Animations
 Studio.App.BetaFeatures.CurveAnimationsDescription,,Enable single-channel animations with new curve-based format in the Animation Clip Editor.,Enable single-channel animations with new curve-based format in the Animation Clip Editor.
+Studio.App.BetaFeatures.DebuggerV2Title,,Intuitive Lua Debugger,Intuitive Lua Debugger
+Studio.App.BetaFeatures.DebuggerV2Description,,"Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows.","Enable a new debugging experience with a more powerful backend architecture and Lua-based UI for the Callstack, Watch, and Breakpoint windows."

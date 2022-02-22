@@ -64,9 +64,15 @@ void main()
                     vec3 f24 = f22 / vec3(max(abs(f22.x), max(abs(f22.y), abs(f22.z))));
                     float f25 = min(3.0, f19[f21] + (0.75 * log2(dot(f24, f24))));
                     vec3 f26 = f12.xyz + (textureLod(envMapTexture, vec4(f24, f25).xyz, f25).xyz * f23);
-                    vec4 f27 = vec4(f26.x, f26.y, f26.z, f12.w);
-                    f27.w = f12.w + f23;
-                    f12 = f27;
+                    vec4 f27 = f12;
+                    f27.x = f26.x;
+                    vec4 f28 = f27;
+                    f28.y = f26.y;
+                    vec4 f29 = f28;
+                    f29.z = f26.z;
+                    vec4 f30 = f29;
+                    f30.w = f12.w + f23;
+                    f12 = f30;
                     f21++;
                     continue;
                 }
@@ -78,16 +84,16 @@ void main()
             f4 = f3;
         }
     }
-    vec4 f28 = f3 / vec4(f3.w);
-    vec4 f29 = f28;
-    f29.x = max(0.0, f28.x);
-    vec4 f30 = f29;
-    f30.y = max(0.0, f28.y);
-    vec4 f31 = f30;
-    f31.z = max(0.0, f28.z);
+    vec4 f31 = f3 / vec4(f3.w);
     vec4 f32 = f31;
-    f32.w = 1.0;
-    _entryPointOutput = f32;
+    f32.x = max(0.0, f31.x);
+    vec4 f33 = f32;
+    f33.y = max(0.0, f31.y);
+    vec4 f34 = f33;
+    f34.z = max(0.0, f31.z);
+    vec4 f35 = f34;
+    f35.w = 1.0;
+    _entryPointOutput = f35;
 }
 
 //$$envMapTexture=s0

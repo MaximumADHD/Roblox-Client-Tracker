@@ -21,7 +21,7 @@ out float VARYING4;
 void main()
 {
     vec2 v0 = (TEXCOORD2 * 2.0) - vec2(1.0);
-    vec2 v1 = TEXCOORD1 * vec2(0.00019175345369148999452590942382812, 3.0518509447574615478515625e-05);
+    vec2 v1 = TEXCOORD1 * vec2(0.00019175345369148999452590942382813, 3.0518509447574615478515625e-05);
     float v2 = v1.x;
     float v3;
     float v4;
@@ -51,21 +51,25 @@ void main()
     vec4 v14 = v13 + (CB0[6] * CB1[1].x);
     mat4 v15 = mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec4 v16 = v13 * v15;
-    vec3 v17 = vec3(TEXCOORD2.x, TEXCOORD2.y, vec3(0.0).z);
-    v17.y = 1.0 - TEXCOORD2.y;
+    vec3 v17 = vec3(0.0);
+    v17.x = TEXCOORD2.x;
     vec3 v18 = v17;
-    v18.z = length(CB0[7].xyz - v14.xyz);
-    vec4 v19 = v14 * v15;
-    vec4 v20 = v16;
-    v20.z = (v19.z * v16.w) / v19.w;
-    vec2 v21 = (TEXCOORD4 + ((TEXCOORD2 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
-    vec2 v22 = v21;
-    v22.y = 1.0 - v21.y;
-    gl_Position = v20;
-    VARYING0 = v18;
+    v18.y = TEXCOORD2.y;
+    vec3 v19 = v18;
+    v19.y = 1.0 - TEXCOORD2.y;
+    vec3 v20 = v19;
+    v20.z = length(CB0[7].xyz - v14.xyz);
+    vec4 v21 = v14 * v15;
+    vec4 v22 = v16;
+    v22.z = (v21.z * v16.w) / v21.w;
+    vec2 v23 = (TEXCOORD4 + ((TEXCOORD2 * (CB1[2].z - 1.0)) + vec2(0.5))) * CB1[2].xy;
+    vec2 v24 = v23;
+    v24.y = 1.0 - v23.y;
+    gl_Position = v22;
+    VARYING0 = v20;
     VARYING1 = TEXCOORD3 * 0.0039215688593685626983642578125;
-    VARYING2 = v22;
-    VARYING3 = v18.xy;
+    VARYING2 = v24;
+    VARYING3 = v20.xy;
     VARYING4 = 0.0;
 }
 

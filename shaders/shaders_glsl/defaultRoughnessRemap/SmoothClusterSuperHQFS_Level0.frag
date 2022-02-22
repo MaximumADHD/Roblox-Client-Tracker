@@ -54,7 +54,7 @@ void main()
     float f27 = f20.z;
     float f28 = 0.08900000154972076416015625 + (f8.y * 0.9110000133514404296875);
     vec3 f29 = -CB0[11].xyz;
-    float f30 = dot(f19, f29) * ((1.0 - ((step(f26.x, f27) * clamp(CB0[24].z + (CB0[24].w * abs(f27 - 0.5)), 0.0, 1.0)) * f26.y)) * f25.y);
+    float f30 = (dot(f19, f29) * CB0[9].w) * ((1.0 - ((step(f26.x, f27) * clamp(CB0[24].z + (CB0[24].w * abs(f27 - 0.5)), 0.0, 1.0)) * f26.y)) * f25.y);
     vec3 f31 = normalize(f29 + normalize(VARYING8));
     float f32 = clamp(f30, 0.0, 1.0);
     float f33 = f28 * f28;
@@ -66,11 +66,30 @@ void main()
     vec3 f39 = vec3(f38) + (vec3(0.039999999105930328369140625) * (1.0 - f38));
     float f40 = f33 * f33;
     float f41 = (((f34 * f40) - f34) * f34) + 1.0;
-    vec3 f42 = (((((((vec3(1.0) - (f39 * (CB0[26].w * f14))) * CB0[10].xyz) * f32) + (CB0[12].xyz * clamp(-f30, 0.0, 1.0))) + (min((f24.xyz * (f24.w * 120.0)).xyz + (CB0[8].xyz + (CB0[9].xyz * f25.x)), vec3(CB0[16].w)) * 1.0)) + vec3((f8.z * 2.0) * f14)) * (f13 * f13).xyz) + ((((f39 * (((f40 + (f40 * f40)) / (((f41 * f41) * ((f35 * 3.0) + 0.5)) * ((f34 * 0.75) + 0.25))) * f32)) * CB0[10].xyz) * f14) * VARYING0.w);
-    vec4 f43 = vec4(f42.x, f42.y, f42.z, vec4(0.0).w);
-    f43.w = 1.0;
-    vec3 f44 = sqrt(clamp(mix(CB0[14].xyz, f43.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f44.x, f44.y, f44.z, f43.w);
+    vec3 f42 = (((((((vec3(1.0) - (f39 * (CB0[26].w * f14))) * CB0[10].xyz) * f32) + (CB0[12].xyz * clamp(-f30, 0.0, 1.0))) + (min((f24.xyz * (f24.w * 120.0)) + (CB0[8].xyz + (CB0[9].xyz * f25.x)), vec3(CB0[16].w)) * 1.0)) + vec3((f8.z * 2.0) * f14)) * (f13 * f13)) + (((((f39 * (((f40 + (f40 * f40)) / (((f41 * f41) * ((f35 * 3.0) + 0.5)) * ((f34 * 0.75) + 0.25))) * f32)) * CB0[10].xyz) * (CB0[9].w * CB0[9].w)) * f14) * VARYING0.w);
+    vec4 f43 = vec4(0.0);
+    f43.x = f42.x;
+    vec4 f44 = f43;
+    f44.y = f42.y;
+    vec4 f45 = f44;
+    f45.z = f42.z;
+    vec4 f46 = f45;
+    f46.w = 1.0;
+    vec3 f47 = mix(CB0[14].xyz, f46.xyz, vec3(clamp(exp2((CB0[13].z * VARYING5.w) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec4 f48 = f46;
+    f48.x = f47.x;
+    vec4 f49 = f48;
+    f49.y = f47.y;
+    vec4 f50 = f49;
+    f50.z = f47.z;
+    vec3 f51 = sqrt(clamp(f50.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f52 = f50;
+    f52.x = f51.x;
+    vec4 f53 = f52;
+    f53.y = f51.y;
+    vec4 f54 = f53;
+    f54.z = f51.z;
+    gl_FragData[0] = f54;
 }
 
 //$$ShadowMapTexture=s1

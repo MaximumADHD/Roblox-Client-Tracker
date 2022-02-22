@@ -16,14 +16,28 @@ void main()
 {
     vec4 f0 = texture(DiffuseMapTexture, VARYING1) * VARYING2;
     vec3 f1 = f0.xyz;
-    vec3 f2 = normalize(VARYING0);
-    float f3 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(max(f2.y, 9.9999997473787516355514526367188e-06), CB1[10].y)));
-    vec3 f4 = clamp(f2, vec3(0.0), vec3(1.0));
-    vec3 f5 = f4 * f4;
-    vec3 f6 = clamp(-f2, vec3(0.0), vec3(1.0));
-    vec3 f7 = f6 * f6;
-    float f8 = clamp(f3, 0.0, 1.0);
-    _entryPointOutput = vec4(sqrt(clamp(mix(vec4((((((((CB1[12] * f5.x) + (CB1[13] * f7.x)) + (CB1[14] * f5.y)) + (CB1[15] * f7.y)) + (CB1[16] * f5.z)) + (CB1[17] * f7.z)).xyz * CB0[14].xyz) + (CB0[10].xyz * (clamp(pow(vec3(0.5 + (dot(f2, -CB0[11].xyz) * 0.5)), CB1[11].xyz) * (1.0 - f3), vec3(0.0), vec3(1.0)) * CB1[11].w)), f8).xyz, (f1 * f1).xyz, vec3(clamp(f8, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0))) * f0.w, 1.0 - f8);
+    vec3 f2 = f1 * f1;
+    vec4 f3 = f0;
+    f3.x = f2.x;
+    vec4 f4 = f3;
+    f4.y = f2.y;
+    vec4 f5 = f4;
+    f5.z = f2.z;
+    vec3 f6 = normalize(VARYING0);
+    float f7 = exp2(CB1[10].x / (0.001000000047497451305389404296875 + pow(max(f6.y, 9.9999997473787516355514526367188e-06), CB1[10].y)));
+    vec3 f8 = clamp(f6, vec3(0.0), vec3(1.0));
+    vec3 f9 = f8 * f8;
+    vec3 f10 = clamp(-f6, vec3(0.0), vec3(1.0));
+    vec3 f11 = f10 * f10;
+    float f12 = clamp(f7, 0.0, 1.0);
+    vec3 f13 = mix(vec4((((((((CB1[12] * f9.x) + (CB1[13] * f11.x)) + (CB1[14] * f9.y)) + (CB1[15] * f11.y)) + (CB1[16] * f9.z)) + (CB1[17] * f11.z)).xyz * CB0[14].xyz) + (CB0[10].xyz * (clamp(pow(vec3(0.5 + (dot(f6, -CB0[11].xyz) * 0.5)), CB1[11].xyz) * (1.0 - f7), vec3(0.0), vec3(1.0)) * CB1[11].w)), f12).xyz, f5.xyz, vec3(clamp(f12, 0.0, 1.0)));
+    vec4 f14 = f5;
+    f14.x = f13.x;
+    vec4 f15 = f14;
+    f15.y = f13.y;
+    vec4 f16 = f15;
+    f16.z = f13.z;
+    _entryPointOutput = vec4(sqrt(clamp(f16.xyz * CB0[15].y, vec3(0.0), vec3(1.0))) * f0.w, 1.0 - f12);
 }
 
 //$$DiffuseMapTexture=s0

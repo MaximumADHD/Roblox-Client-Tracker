@@ -40,6 +40,7 @@ CloudsDist2dFS,Fragment
 CloudsDistFS,Fragment
 CloudsFS,Fragment
 CloudsReprojectFilterFS,Fragment
+CloudsSunCoverFS,Fragment
 CloudsUpsampleNoHistoryFS,Fragment
 CloudsVS,Vertex
 CloudsWind2dFS,Fragment
@@ -100,7 +101,6 @@ DefaultHQVS_Level4098,Vertex
 DefaultHQVS_Level4106,Vertex
 DefaultModelLodFS,Fragment
 DefaultModelLodVS,Vertex
-DefaultModelLodVSNew,Vertex
 DefaultNeonFS_Level0,Fragment
 DefaultNeonFS_Level2048,Fragment
 DefaultNeonHQFS_Level0,Fragment
@@ -226,7 +226,6 @@ DownSampleGlowTemporalLinear8x8FS,Fragment
 EnvGlassFS,Fragment
 FastConvDownsamplePS,Fragment
 FastConvolutionPS,Fragment
-FastConvolutionPSDep,Fragment
 FixUpCoCFS,Fragment
 FXCompositingFS,Fragment
 FXCompositingLinearFS,Fragment

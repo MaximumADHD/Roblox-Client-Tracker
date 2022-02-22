@@ -22,7 +22,13 @@ void main()
     vec4 f6 = f3;
     f6.w = (f3.w * clamp(CB3[1].z - f5, 0.0, 1.0)) * clamp(f5 - CB3[1].w, 0.0, 1.0);
     vec3 f7 = sqrt(clamp((f6.xyz * f6.xyz) * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f7.x, f7.y, f7.z, f6.w);
+    vec4 f8 = f6;
+    f8.x = f7.x;
+    vec4 f9 = f8;
+    f9.y = f7.y;
+    vec4 f10 = f9;
+    f10.z = f7.z;
+    gl_FragData[0] = f10;
 }
 
 //$$DiffuseMapTexture=s0

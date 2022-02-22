@@ -24,11 +24,14 @@ void main()
     vec2 v9 = v5.xy;
     bvec2 v10 = greaterThanEqual(v9, vec2(0.0));
     vec2 v11 = v9 + vec2(v10.x ? v8.x : v7.x, v10.y ? v8.y : v7.y);
-    vec3 v12 = vec3(v11.x, v11.y, v5.z);
-    float v13 = dot(normalize(vec3(dot(CB1[gl_InstanceID * 3 + 0].xyz, v12), dot(CB1[gl_InstanceID * 3 + 1].xyz, v12), dot(CB1[gl_InstanceID * 3 + 2].xyz, v12))), -CB0[11].xyz);
-    vec3 v14 = NORMAL.yzw * vec3(0.0039215688593685626983642578125);
+    vec3 v12 = v5;
+    v12.x = v11.x;
+    vec3 v13 = v12;
+    v13.y = v11.y;
+    float v14 = dot(normalize(vec3(dot(CB1[gl_InstanceID * 3 + 0].xyz, v13), dot(CB1[gl_InstanceID * 3 + 1].xyz, v13), dot(CB1[gl_InstanceID * 3 + 2].xyz, v13))), -CB0[11].xyz);
+    vec3 v15 = NORMAL.yzw * vec3(0.0039215688593685626983642578125);
     gl_Position = v1 * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = ((((CB0[10].xyz * clamp(v13, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v13, 0.0, 1.0))) + CB0[8].xyz) + CB0[9].xyz) * (v14 * v14);
+    VARYING0 = ((((CB0[10].xyz * clamp(v14, 0.0, 1.0)) + (CB0[12].xyz * clamp(-v14, 0.0, 1.0))) + CB0[8].xyz) + CB0[9].xyz) * (v15 * v15);
     VARYING1 = CB0[7].xyz - v1.xyz;
 }
 

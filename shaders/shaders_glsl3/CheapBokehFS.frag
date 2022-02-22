@@ -479,7 +479,13 @@ void main()
     }
     vec4 f195 = mix(f0 * (1.0 + f1), (f194 * clamp(1.0 / (f193 + 0.001000000047497451305389404296875), 0.0, 1.0)) * f1, vec4(f1));
     vec3 f196 = sqrt(clamp(f195.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    _entryPointOutput = vec4(f196.x, f196.y, f196.z, f195.w);
+    vec4 f197 = f195;
+    f197.x = f196.x;
+    vec4 f198 = f197;
+    f198.y = f196.y;
+    vec4 f199 = f198;
+    f199.z = f196.z;
+    _entryPointOutput = f199;
 }
 
 //$$iChannel0Texture=s0

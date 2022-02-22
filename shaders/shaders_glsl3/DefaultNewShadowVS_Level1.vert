@@ -17,15 +17,24 @@ void main()
 {
     int v2 = int(NORMAL.x);
     vec3 v3 = POSITION.xyz * CB1[gl_InstanceID * 7 + 3].xyz;
-    vec4 v4 = vec4(v3.x, v3.y, v3.z, POSITION.w);
-    vec2 v5 = vec2(0.0);
-    v5.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, v0[v2]);
-    vec2 v6 = v5;
-    v6.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, v1[v2]);
-    vec2 v7 = TEXCOORD0 * v6;
-    vec3 v8 = vec3(v7.x, v7.y, vec3(0.0).z);
-    v8.z = CB1[gl_InstanceID * 7 + 4].w * mix(NORMAL.w * 0.0039215688593685626983642578125, 1.0, CB1[gl_InstanceID * 7 + 3].w);
-    gl_Position = vec4(dot(CB1[gl_InstanceID * 7 + 0], v4), dot(CB1[gl_InstanceID * 7 + 1], v4), dot(CB1[gl_InstanceID * 7 + 2], v4), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
-    VARYING0 = v8;
+    vec4 v4 = POSITION;
+    v4.x = v3.x;
+    vec4 v5 = v4;
+    v5.y = v3.y;
+    vec4 v6 = v5;
+    v6.z = v3.z;
+    vec2 v7 = vec2(0.0);
+    v7.x = dot(CB1[gl_InstanceID * 7 + 5].xyz, v0[v2]);
+    vec2 v8 = v7;
+    v8.y = dot(CB1[gl_InstanceID * 7 + 5].xyz, v1[v2]);
+    vec2 v9 = TEXCOORD0 * v8;
+    vec3 v10 = vec3(0.0);
+    v10.x = v9.x;
+    vec3 v11 = v10;
+    v11.y = v9.y;
+    vec3 v12 = v11;
+    v12.z = CB1[gl_InstanceID * 7 + 4].w * mix(NORMAL.w * 0.0039215688593685626983642578125, 1.0, CB1[gl_InstanceID * 7 + 3].w);
+    gl_Position = vec4(dot(CB1[gl_InstanceID * 7 + 0], v6), dot(CB1[gl_InstanceID * 7 + 1], v6), dot(CB1[gl_InstanceID * 7 + 2], v6), 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
+    VARYING0 = v12;
 }
 

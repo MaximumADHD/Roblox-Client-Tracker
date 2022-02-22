@@ -25,8 +25,28 @@ void main()
     f7.w = f6;
     vec4 f8 = f7;
     f8.w = f6;
-    vec3 f9 = sqrt(clamp(mix(CB0[14].xyz, (f8.xyz * f8.xyz).xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING2)) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f9.x, f9.y, f9.z, f8.w);
+    vec3 f9 = f8.xyz * f8.xyz;
+    vec4 f10 = f8;
+    f10.x = f9.x;
+    vec4 f11 = f10;
+    f11.y = f9.y;
+    vec4 f12 = f11;
+    f12.z = f9.z;
+    vec3 f13 = mix(CB0[14].xyz, f12.xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING2)) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec4 f14 = f12;
+    f14.x = f13.x;
+    vec4 f15 = f14;
+    f15.y = f13.y;
+    vec4 f16 = f15;
+    f16.z = f13.z;
+    vec3 f17 = sqrt(clamp(f16.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f18 = f16;
+    f18.x = f17.x;
+    vec4 f19 = f18;
+    f19.y = f17.y;
+    vec4 f20 = f19;
+    f20.z = f17.z;
+    gl_FragData[0] = f20;
 }
 
 //$$DiffuseMapTexture=s0

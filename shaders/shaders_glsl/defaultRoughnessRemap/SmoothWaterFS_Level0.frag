@@ -26,7 +26,7 @@ void main()
     vec4 f2 = vec4(clamp(f0, 0.0, 1.0));
     vec4 f3 = mix(texture3D(LightMapTexture, f1), vec4(0.0), f2);
     vec4 f4 = mix(texture3D(LightGridSkylightTexture, f1), vec4(1.0), f2);
-    vec3 f5 = (f3.xyz * (f3.w * 120.0)).xyz;
+    vec3 f5 = f3.xyz * (f3.w * 120.0);
     float f6 = f4.x;
     float f7 = -VARYING6.x;
     vec2 f8 = (((texture2D(NormalMap1Texture, VARYING2) * VARYING0.x) + (texture2D(NormalMap1Texture, VARYING3) * VARYING0.y)) + (texture2D(NormalMap1Texture, VARYING4) * VARYING0.z)).wy * 2.0;
@@ -36,10 +36,29 @@ void main()
     vec3 f12 = normalize(VARYING7.xyz);
     vec3 f13 = textureCube(EnvMapTexture, reflect(-f12, f11)).xyz;
     vec3 f14 = mix((min(f5 + (CB0[8].xyz + (CB0[9].xyz * f6)), vec3(CB0[16].w)) + (CB0[10].xyz * f4.y)) * CB3[1].xyz, (((f13 * f13) * CB0[15].x) * f6) + (f5 * 0.100000001490116119384765625), vec3((clamp(0.7799999713897705078125 - (2.5 * abs(dot(f11, f12))), 0.0, 1.0) + 0.300000011920928955078125) * CB3[2].z));
-    vec4 f15 = vec4(f14.x, f14.y, f14.z, vec4(0.0).w);
-    f15.w = 1.0;
-    vec3 f16 = sqrt(clamp(mix(CB0[14].xyz, f15.xyz, vec3(VARYING6.w)).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f16.x, f16.y, f16.z, f15.w);
+    vec4 f15 = vec4(0.0);
+    f15.x = f14.x;
+    vec4 f16 = f15;
+    f16.y = f14.y;
+    vec4 f17 = f16;
+    f17.z = f14.z;
+    vec4 f18 = f17;
+    f18.w = 1.0;
+    vec3 f19 = mix(CB0[14].xyz, f18.xyz, vec3(VARYING6.w));
+    vec4 f20 = f18;
+    f20.x = f19.x;
+    vec4 f21 = f20;
+    f21.y = f19.y;
+    vec4 f22 = f21;
+    f22.z = f19.z;
+    vec3 f23 = sqrt(clamp(f22.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f24 = f22;
+    f24.x = f23.x;
+    vec4 f25 = f24;
+    f25.y = f23.y;
+    vec4 f26 = f25;
+    f26.z = f23.z;
+    gl_FragData[0] = f26;
 }
 
 //$$LightMapTexture=s6

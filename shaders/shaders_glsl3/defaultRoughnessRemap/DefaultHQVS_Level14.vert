@@ -44,20 +44,26 @@ void main()
     float v18 = dot(v11.xyz, v0);
     vec4 v19 = vec4(v12, v13, v14, 1.0) * mat4(CB0[0], CB0[1], CB0[2], CB0[3]);
     vec3 v20 = ((v15 + (vec3(v16, v17, v18) * 6.0)).yxz * CB0[16].xyz) + CB0[17].xyz;
-    vec4 v21 = vec4(v20.x, v20.y, v20.z, vec4(0.0).w);
-    v21.w = 0.0;
-    vec4 v22 = vec4(v12, v13, v14, 0.0);
-    v22.w = COLOR1.z * 0.0039215688593685626983642578125;
-    vec4 v23 = vec4(v16, v17, v18, 0.0);
-    v23.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
+    vec4 v21 = vec4(0.0);
+    v21.x = v20.x;
+    vec4 v22 = v21;
+    v22.y = v20.y;
+    vec4 v23 = v22;
+    v23.z = v20.z;
+    vec4 v24 = v23;
+    v24.w = 0.0;
+    vec4 v25 = vec4(v12, v13, v14, 0.0);
+    v25.w = COLOR1.z * 0.0039215688593685626983642578125;
+    vec4 v26 = vec4(v16, v17, v18, 0.0);
+    v26.w = inversesqrt(0.1745329201221466064453125 * COLOR1.y);
     gl_Position = v19;
     VARYING0 = TEXCOORD0;
     VARYING1 = TEXCOORD1;
     VARYING2 = COLOR0;
-    VARYING3 = v21;
+    VARYING3 = v24;
     VARYING4 = vec4(CB0[7].xyz - v15, v19.w);
-    VARYING5 = v23;
-    VARYING6 = v22;
+    VARYING5 = v26;
+    VARYING6 = v25;
     VARYING7 = NORMAL.w;
 }
 

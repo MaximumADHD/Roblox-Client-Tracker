@@ -16191,6 +16191,25 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "IsWatchingScript",
+                    "Parameters": [
+                        {
+                            "Name": "scriptRef",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "StartWatchingScript",
                     "Parameters": [
                         {
@@ -18153,6 +18172,32 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "SetExceptionBreakMode",
+                    "Parameters": [
+                        {
+                            "Name": "breakMode",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "DebuggerExceptionBreakMode"
+                            }
+                        },
+                        {
+                            "Name": "callback",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "SetVariable",
                     "Parameters": [
                         {
@@ -18967,6 +19012,25 @@
                     "MemberType": "Function",
                     "Name": "Resume",
                     "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetCurrentThreadId",
+                    "Parameters": [
+                        {
+                            "Name": "debuggerThreadId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
                     ],
                     "ReturnType": {
                         "Category": "Primitive",
@@ -35718,6 +35782,44 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "LogBrowserTrackerLayerExposure",
+                    "Parameters": [
+                        {
+                            "Name": "layerName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "LogUserLayerExposure",
+                    "Parameters": [
+                        {
+                            "Name": "layerName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "LocalUserSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RegisterUserLayers",
                     "Parameters": [
                         {
@@ -44186,12 +44288,11 @@
                         "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
-                        "CanLoad": false,
+                        "CanLoad": true,
                         "CanSave": true
                     },
                     "Tags": [
                         "Hidden",
-                        "ReadOnly",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -44225,12 +44326,12 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetContexts",
+                    "Name": "GetContextBreakpoints",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Group",
-                        "Name": "Array"
+                        "Name": "Dictionary"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -84032,8 +84133,8 @@
                         }
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Tuple"
+                        "Category": "Class",
+                        "Name": "VoiceSource"
                     },
                     "Security": "RobloxScriptSecurity",
                     "Tags": [
@@ -86910,6 +87011,23 @@
         {
             "Items": [
                 {
+                    "Name": "Never",
+                    "Value": 0
+                },
+                {
+                    "Name": "Unhandled",
+                    "Value": 1
+                },
+                {
+                    "Name": "Always",
+                    "Value": 2
+                }
+            ],
+            "Name": "DebuggerExceptionBreakMode"
+        },
+        {
+            "Items": [
+                {
                     "Name": "C",
                     "Value": 0
                 },
@@ -89752,14 +89870,23 @@
             "Items": [
                 {
                     "Name": "High",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 2
                 },
                 {
                     "Name": "Medium",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 1
                 },
                 {
                     "Name": "Low",
+                    "Tags": [
+                        "Deprecated"
+                    ],
                     "Value": 0
                 }
             ],
@@ -91763,6 +91890,10 @@
                 {
                     "Name": "Deferred",
                     "Value": 2
+                },
+                {
+                    "Name": "AncestryDeferred",
+                    "Value": 3
                 }
             ],
             "Name": "SignalBehavior"

@@ -29,7 +29,27 @@ void main()
     f8.w = f7;
     vec4 f9 = f8;
     f9.w = 1.0 - f7;
-    vec3 f10 = sqrt(clamp(mix(CB0[14].xyz, (f9.xyz * f9.xyz).xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING1)) + CB0[13].x) - CB0[13].w, 0.0, 1.0))).xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    gl_FragData[0] = vec4(f10.x, f10.y, f10.z, f9.w);
+    vec3 f10 = f9.xyz * f9.xyz;
+    vec4 f11 = f9;
+    f11.x = f10.x;
+    vec4 f12 = f11;
+    f12.y = f10.y;
+    vec4 f13 = f12;
+    f13.z = f10.z;
+    vec3 f14 = mix(CB0[14].xyz, f13.xyz, vec3(clamp(exp2((CB0[13].z * length(VARYING1)) + CB0[13].x) - CB0[13].w, 0.0, 1.0)));
+    vec4 f15 = f13;
+    f15.x = f14.x;
+    vec4 f16 = f15;
+    f16.y = f14.y;
+    vec4 f17 = f16;
+    f17.z = f14.z;
+    vec3 f18 = sqrt(clamp(f17.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f19 = f17;
+    f19.x = f18.x;
+    vec4 f20 = f19;
+    f20.y = f18.y;
+    vec4 f21 = f20;
+    f21.z = f18.z;
+    gl_FragData[0] = f21;
 }
 

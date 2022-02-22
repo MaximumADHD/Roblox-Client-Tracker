@@ -12,8 +12,22 @@ void main()
 {
     vec4 f0 = texture2D(DiffuseMapTexture, VARYING0) * VARYING1;
     vec3 f1 = f0.xyz;
-    float f2 = f0.w;
-    gl_FragData[0] = vec4(sqrt(clamp((f1 * f1).xyz * CB0[15].y, vec3(0.0), vec3(1.0))).xyz * f2, f2);
+    vec3 f2 = f1 * f1;
+    vec4 f3 = f0;
+    f3.x = f2.x;
+    vec4 f4 = f3;
+    f4.y = f2.y;
+    vec4 f5 = f4;
+    f5.z = f2.z;
+    vec3 f6 = sqrt(clamp(f5.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f7 = f5;
+    f7.x = f6.x;
+    vec4 f8 = f7;
+    f8.y = f6.y;
+    vec4 f9 = f8;
+    f9.z = f6.z;
+    float f10 = f0.w;
+    gl_FragData[0] = vec4(f9.xyz * f10, f10);
 }
 
 //$$DiffuseMapTexture=s0

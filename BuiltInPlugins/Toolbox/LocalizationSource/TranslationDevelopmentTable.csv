@@ -66,7 +66,8 @@ Group Meshes,Group Meshes,Studio.Toolbox.General.SearchOptionSort
 Sort By,Sort By,Studio.Toolbox.General.CategoryGroupAudio
 Group Audio,Group Audio,Studio.Toolbox.AssetConfigFooter.ImportTitle
 Choose an asset to import.,Choose an asset to import.,Studio.Toolbox.General.SortByMostTaken
-Most Taken,Most Taken,Studio.Toolbox.General.SearchBarDefaultText
+Most Taken,Most Taken,Studio.Toolbox.HomeView.Results
+{total} Results,{total} Results,Studio.Toolbox.General.SearchBarDefaultText
 Search,Search,Studio.Toolbox.General.AssetTypePlugin
 Plugin,Plugin,Studio.Toolbox.General.SortByFavorites
 Favorites,Favorites,Studio.Toolbox.General.SearchBarCreatorText
@@ -276,4 +277,5 @@ Videos,Studio.Toolbox.General.NoPluginsFound.TextLine2,"For more plugins, try se
 "For more plugins, try searching in the {link} on our website.",Studio.Toolbox.AssetConfigAnimation.InvalidAnimationID,Invalid Animation ID
 Invalid Animation ID,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality.
 This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience.
-Please review the scripts to prevent unwanted changes to your experience.
+Please review the scripts to prevent unwanted changes to your experience.,Studio.Toolbox.HomeView.SeeAll,See All
+See All

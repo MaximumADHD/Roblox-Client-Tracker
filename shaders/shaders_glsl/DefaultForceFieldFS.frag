@@ -23,12 +23,24 @@ void main()
     float f7 = clamp(exp2((CB0[13].z * f0) + CB0[13].x) - CB0[13].w, 0.0, 1.0);
     vec3 f8 = mix(CB0[14].xyz, f6.xyz, vec3(f7));
     float f9 = f7 * f5;
-    vec4 f10 = vec4(f8.x, f8.y, f8.z, f6.w);
-    f10.w = f9;
-    vec3 f11 = sqrt(clamp(f10.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    vec4 f12 = vec4(f11.x, f11.y, f11.z, f10.w);
-    f12.w = f9;
-    gl_FragData[0] = f12;
+    vec4 f10 = f6;
+    f10.x = f8.x;
+    vec4 f11 = f10;
+    f11.y = f8.y;
+    vec4 f12 = f11;
+    f12.z = f8.z;
+    vec4 f13 = f12;
+    f13.w = f9;
+    vec3 f14 = sqrt(clamp(f13.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f15 = f13;
+    f15.x = f14.x;
+    vec4 f16 = f15;
+    f16.y = f14.y;
+    vec4 f17 = f16;
+    f17.z = f14.z;
+    vec4 f18 = f17;
+    f18.w = f9;
+    gl_FragData[0] = f18;
 }
 
 //$$DiffuseMapTexture=s3

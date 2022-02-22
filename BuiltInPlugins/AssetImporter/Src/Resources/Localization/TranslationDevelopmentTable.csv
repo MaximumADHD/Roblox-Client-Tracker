@@ -40,6 +40,7 @@ Studio.AssetImporter.Plugin.Name,AssetImporter
 Studio.AssetImporter.Plugin.Toolbar,Mesh Importer
 Studio.AssetImporter.Plugin.WindowTitle,Import Preview
 Studio.AssetImporter.Properties.Anchored,Anchored
+Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided
 Studio.AssetImporter.Properties.FileDimensions,File Dimensions
@@ -50,8 +51,12 @@ Studio.AssetImporter.Properties.ImportName,Name
 Studio.AssetImporter.Properties.InsertInWorkspace,Insert In Workspace
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces
 Studio.AssetImporter.Properties.MergeMeshes,Merge Meshes
+Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path
+Studio.AssetImporter.Properties.NoFilePath,No file provided
+Studio.AssetImporter.Properties.NormalFilePath,Normal File Path
 Studio.AssetImporter.Properties.PolygonCount,Polygon Count
 Studio.AssetImporter.Properties.RigType,Rig Type
+Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
@@ -76,13 +81,21 @@ Studio.AssetImporter.Sections.FileGeometry,File Geometry
 Studio.AssetImporter.Sections.FileTransform,File Transform
 Studio.AssetImporter.Sections.ObjectGeneral,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry
+Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object
+Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object
+Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object
+Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object
 Studio.AssetImporter.Statuses.CouldNotReadTextureError,Could not read the texture file associated with this object
 Studio.AssetImporter.Statuses.DefaultError,Import experienced a {type} error
 Studio.AssetImporter.Statuses.DefaultWarnings,Import experienced a {type} warning
+Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.
 Studio.AssetImporter.Statuses.MaterialIgnoredWarning,The material included with this object is currently unsupported
 Studio.AssetImporter.Statuses.MeshScaleWarning,One of the objects dimensions are larger than can be imported
 Studio.AssetImporter.Statuses.MeshSizeWarning,The number of triangles is greater than is supported. Object will be simplified
+Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format
+Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format
+Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format
 Studio.AssetImporter.Statuses.TextureBadFileFormatError,Unsupported texture file format
 Studio.AssetImporter.TreeViewToolbar.Collapse,Collapse
 Studio.AssetImporter.TreeViewToolbar.Expand,Expand

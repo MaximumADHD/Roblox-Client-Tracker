@@ -30,7 +30,13 @@ void main()
         vec4 f13;
         if ((f2 < f12) || (f4 < f12))
         {
-            f13 = vec4(vec3(0.0).x, vec3(0.0).y, vec3(0.0).z, f10.w);
+            vec4 f14 = f10;
+            f14.x = 0.0;
+            vec4 f15 = f14;
+            f15.y = 0.0;
+            vec4 f16 = f15;
+            f16.z = 0.0;
+            f13 = f16;
         }
         else
         {
@@ -42,18 +48,24 @@ void main()
     {
         f11 = f10;
     }
-    vec4 f14;
+    vec4 f17;
     if (f8 >= 1.0)
     {
-        f14 = vec4(vec3(0.0).x, vec3(0.0).y, vec3(0.0).z, f11.w);
+        vec4 f18 = f11;
+        f18.x = 0.0;
+        vec4 f19 = f18;
+        f19.y = 0.0;
+        vec4 f20 = f19;
+        f20.z = 0.0;
+        f17 = f20;
     }
     else
     {
-        f14 = f11;
+        f17 = f11;
     }
-    vec4 f15 = f14;
-    f15.w = 1.0;
-    _entryPointOutput = f15;
+    vec4 f21 = f17;
+    f21.w = 1.0;
+    _entryPointOutput = f21;
 }
 
 //$$DiffuseMapTexture=s0

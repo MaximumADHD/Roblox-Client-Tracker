@@ -18,40 +18,65 @@ void main()
     vec4 f5;
     if (f2 == 1.0)
     {
-        vec3 f6 = vec3(f3.x, -1.0, f3.y);
-        f5 = vec4(f6.x, f6.y, f6.z, f4.w);
+        vec4 f6 = f4;
+        f6.x = f3.x;
+        vec4 f7 = f6;
+        f7.y = -1.0;
+        vec4 f8 = f7;
+        f8.z = f3.y;
+        f5 = f8;
     }
     else
     {
-        vec4 f7;
+        vec4 f9;
         if (f2 == 4.0)
         {
-            vec3 f8 = vec3(-1.0, f3.yx);
-            f7 = vec4(f8.x, f8.y, f8.z, f4.w);
+            vec4 f10 = f4;
+            f10.x = -1.0;
+            vec4 f11 = f10;
+            f11.y = f3.y;
+            vec4 f12 = f11;
+            f12.z = f3.x;
+            f9 = f12;
         }
         else
         {
-            vec4 f9;
+            vec4 f13;
             if (f2 == 5.0)
             {
-                vec3 f10 = vec3(f3, 1.0);
-                f9 = vec4(f10.x, f10.y, f10.z, f4.w);
+                vec4 f14 = f4;
+                f14.x = f3.x;
+                vec4 f15 = f14;
+                f15.y = f3.y;
+                vec4 f16 = f15;
+                f16.z = 1.0;
+                f13 = f16;
             }
             else
             {
-                vec4 f11;
+                vec4 f17;
                 if (f2 == 6.0)
                 {
-                    vec3 f12 = vec3(1.0, f3.y, -f3.x);
-                    f11 = vec4(f12.x, f12.y, f12.z, f4.w);
+                    vec4 f18 = f4;
+                    f18.x = 1.0;
+                    vec4 f19 = f18;
+                    f19.y = f3.y;
+                    vec4 f20 = f19;
+                    f20.z = -f3.x;
+                    f17 = f20;
                 }
                 else
                 {
-                    vec4 f13;
+                    vec4 f21;
                     if (f2 == 7.0)
                     {
-                        vec3 f14 = vec3(-f3.x, f3.y, -1.0);
-                        f13 = vec4(f14.x, f14.y, f14.z, f4.w);
+                        vec4 f22 = f4;
+                        f22.x = -f3.x;
+                        vec4 f23 = f22;
+                        f23.y = f3.y;
+                        vec4 f24 = f23;
+                        f24.z = -1.0;
+                        f21 = f24;
                     }
                     else
                     {
@@ -59,20 +84,25 @@ void main()
                         {
                             discard;
                         }
-                        vec3 f15 = vec3(f3.x, 1.0, -f3.y);
-                        f13 = vec4(f15.x, f15.y, f15.z, f4.w);
+                        vec4 f25 = f4;
+                        f25.x = f3.x;
+                        vec4 f26 = f25;
+                        f26.y = 1.0;
+                        vec4 f27 = f26;
+                        f27.z = -f3.y;
+                        f21 = f27;
                     }
-                    f11 = f13;
+                    f17 = f21;
                 }
-                f9 = f11;
+                f13 = f17;
             }
-            f7 = f9;
+            f9 = f13;
         }
-        f5 = f7;
+        f5 = f9;
     }
-    vec4 f16 = textureCubeLod(DiffuseMapTexture, f5.xyz, f5.w);
-    f16.w = 1.0;
-    gl_FragData[0] = f16;
+    vec4 f28 = textureCubeLod(DiffuseMapTexture, f5.xyz, f5.w);
+    f28.w = 1.0;
+    gl_FragData[0] = f28;
 }
 
 //$$DiffuseMapTexture=s0

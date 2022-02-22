@@ -26,15 +26,27 @@ void main()
     vec2 f6 = f4.wy;
     vec2 f7 = f4.zy;
     vec4 f8 = (((((((((f3 * 4.0) + textureLod(CloudsTexture, f2 - f5, 0.0)) + (textureLod(CloudsTexture, f2 - f6, 0.0) * 2.0)) + textureLod(CloudsTexture, f2 - f7, 0.0)) + (textureLod(CloudsTexture, f2 + f4.zw, 0.0) * 2.0)) + (textureLod(CloudsTexture, f2 + f4.xw, 0.0) * 2.0)) + textureLod(CloudsTexture, f2 + f7, 0.0)) + (textureLod(CloudsTexture, f2 + f6, 0.0) * 2.0)) + textureLod(CloudsTexture, f2 + f5, 0.0)) * vec4(0.0625);
-    vec3 f9 = sqrt(clamp(f8.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    float f10 = f8.w;
-    vec4 f11 = vec4(f9.x, f9.y, f9.z, f3.w);
-    f11.w = f10 * f10;
-    if (!(f10 > 0.119999997317790985107421875))
+    vec4 f9 = f3;
+    f9.x = f8.x;
+    vec4 f10 = f9;
+    f10.y = f8.y;
+    vec4 f11 = f10;
+    f11.z = f8.z;
+    vec3 f12 = sqrt(clamp(f11.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f13 = f11;
+    f13.x = f12.x;
+    vec4 f14 = f13;
+    f14.y = f12.y;
+    vec4 f15 = f14;
+    f15.z = f12.z;
+    float f16 = f8.w;
+    vec4 f17 = f15;
+    f17.w = f16 * f16;
+    if (!(f16 > 0.119999997317790985107421875))
     {
         discard;
     }
-    _entryPointOutput_color = f11;
+    _entryPointOutput_color = f17;
     gl_FragDepth = 0.50000011920928955078125;
 }
 

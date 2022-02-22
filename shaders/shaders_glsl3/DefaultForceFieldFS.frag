@@ -27,12 +27,24 @@ void main()
     bvec3 f9 = bvec3(!(CB0[13].w == 0.0));
     vec3 f10 = mix(vec3(f9.x ? CB0[14].xyz.x : f8.x, f9.y ? CB0[14].xyz.y : f8.y, f9.z ? CB0[14].xyz.z : f8.z), f6.xyz, vec3(f7));
     float f11 = f7 * f5;
-    vec4 f12 = vec4(f10.x, f10.y, f10.z, f6.w);
-    f12.w = f11;
-    vec3 f13 = sqrt(clamp(f12.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
-    vec4 f14 = vec4(f13.x, f13.y, f13.z, f12.w);
-    f14.w = f11;
-    _entryPointOutput = f14;
+    vec4 f12 = f6;
+    f12.x = f10.x;
+    vec4 f13 = f12;
+    f13.y = f10.y;
+    vec4 f14 = f13;
+    f14.z = f10.z;
+    vec4 f15 = f14;
+    f15.w = f11;
+    vec3 f16 = sqrt(clamp(f15.xyz * CB0[15].y, vec3(0.0), vec3(1.0)));
+    vec4 f17 = f15;
+    f17.x = f16.x;
+    vec4 f18 = f17;
+    f18.y = f16.y;
+    vec4 f19 = f18;
+    f19.z = f16.z;
+    vec4 f20 = f19;
+    f20.w = f11;
+    _entryPointOutput = f20;
 }
 
 //$$PrefilteredEnvTexture=s15

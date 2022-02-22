@@ -854,6 +854,7 @@ Class CorePackages : Instance [NotCreatable] [Service] [NotReplicated]
 Class CoreScriptSyncService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Variant CoreScriptSyncService:GetScriptFilePath(Instance script) {RobloxScriptSecurity}
 Class CrossDMScriptChangeListener : Instance [NotCreatable] [Service] [NotReplicated]
+	Function bool CrossDMScriptChangeListener:IsWatchingScript(string scriptRef) {RobloxScriptSecurity}
 	Function void CrossDMScriptChangeListener:StartWatchingScript(string scriptRef, int debuggerConnectionId) {RobloxScriptSecurity}
 	Event CrossDMScriptChangeListener.GuidNameChanged(string guid, string fullName) {RobloxScriptSecurity}
 Class CustomEvent : Instance [Deprecated]
@@ -960,6 +961,7 @@ Class DebuggerConnection : Instance [NotCreatable] [NotReplicated]
 	Function int DebuggerConnection:Populate(Instance instance, Function callback) {RobloxScriptSecurity}
 	Function void DebuggerConnection:RemoveBreakpoint(Breakpoint breakpoint) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Resume(ThreadState thread, Function status) {RobloxScriptSecurity}
+	Function int DebuggerConnection:SetExceptionBreakMode(Enum.DebuggerExceptionBreakMode breakMode, Function callback) {RobloxScriptSecurity}
 	Function int DebuggerConnection:SetVariable(DebuggerVariable variable, string value, Function callback) {RobloxScriptSecurity}
 	Function int DebuggerConnection:Step(ThreadState thread, Function callback) {RobloxScriptSecurity}
 	Function int DebuggerConnection:StepIn(ThreadState thread, Function callback) {RobloxScriptSecurity}
@@ -1005,6 +1007,7 @@ Class DebuggerUIService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function void DebuggerUIService:Pause() {RobloxScriptSecurity}
 	Function void DebuggerUIService:RemoveScriptLineMarkers(int debuggerConnectionId, bool allMarkers) {RobloxScriptSecurity}
 	Function void DebuggerUIService:Resume() {RobloxScriptSecurity}
+	Function void DebuggerUIService:SetCurrentThreadId(int debuggerThreadId) {RobloxScriptSecurity}
 	Function void DebuggerUIService:SetScriptLineMarker(string guid, int debuggerConnectionId, int line, bool lineMarkerType) {RobloxScriptSecurity}
 Class DebuggerVariable : Instance [NotCreatable] [NotReplicated]
 	Property string DebuggerVariable.Name {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1910,6 +1913,8 @@ Class IXPService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Enum.IXPLoadingStatus IXPService:GetUserLayerLoadingStatus() {LocalUserSecurity}
 	Function Dictionary IXPService:GetUserLayerVariables(string layerName) {LocalUserSecurity}
 	Function void IXPService:InitializeUserLayers(int64 userId) {LocalUserSecurity}
+	Function void IXPService:LogBrowserTrackerLayerExposure(string layerName) {LocalUserSecurity}
+	Function void IXPService:LogUserLayerExposure(string layerName) {LocalUserSecurity}
 	Function void IXPService:RegisterUserLayers(Variant userLayers) {LocalUserSecurity}
 	Event IXPService.OnBrowserTrackerLayerLoadingStatusChanged(Enum.IXPLoadingStatus status) {LocalUserSecurity}
 	Event IXPService.OnUserLayerLoadingStatusChanged(Enum.IXPLoadingStatus status) {LocalUserSecurity}
@@ -2334,12 +2339,12 @@ Class MetaBreakpoint : Instance [NotCreatable] [NotReplicated]
 	Property string MetaBreakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int MetaBreakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property int MetaBreakpoint.Line {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Property string MetaBreakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [ReadOnly]
+	Property string MetaBreakpoint.LogMessage {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property string MetaBreakpoint.Script {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.ContinueExecution {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.Enabled {RobloxScriptSecurity} [Hidden] [ReadOnly]
 	Property bool MetaBreakpoint.IsLogpoint {RobloxScriptSecurity} [Hidden] [ReadOnly]
-	Function Array MetaBreakpoint:GetContexts() {RobloxScriptSecurity}
+	Function Dictionary MetaBreakpoint:GetContextBreakpoints() {RobloxScriptSecurity}
 	Function int MetaBreakpoint:Remove(Function status) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetContinueExecution(bool enabled) {RobloxScriptSecurity}
 	Function void MetaBreakpoint:SetEnabled(bool enabled) {RobloxScriptSecurity}
@@ -4420,7 +4425,7 @@ Class VirtualUser : Instance [NotCreatable] [Service] [NotReplicated]
 Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChannel : Instance
-	Function Tuple VoiceChannel:AddUserAsync(int64 userId = -1) {RobloxScriptSecurity} [Yields]
+	Function VoiceSource VoiceChannel:AddUserAsync(int64 userId = -1) {RobloxScriptSecurity} [Yields]
 Class VoiceChatInternal : Instance [NotCreatable] [Service]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
@@ -4971,6 +4976,10 @@ Enum DebuggerEndReason
 	EnumItem DebuggerEndReason.ServerProtocolMismatch : 5
 	EnumItem DebuggerEndReason.ConfigurationFailed : 6
 	EnumItem DebuggerEndReason.RpcError : 7
+Enum DebuggerExceptionBreakMode
+	EnumItem DebuggerExceptionBreakMode.Never : 0
+	EnumItem DebuggerExceptionBreakMode.Unhandled : 1
+	EnumItem DebuggerExceptionBreakMode.Always : 2
 Enum DebuggerFrameType
 	EnumItem DebuggerFrameType.C : 0
 	EnumItem DebuggerFrameType.Lua : 1
@@ -5654,10 +5663,10 @@ Enum LeftRight
 	EnumItem LeftRight.Left : 0
 	EnumItem LeftRight.Center : 1
 	EnumItem LeftRight.Right : 2
-Enum LevelOfDetailSetting
-	EnumItem LevelOfDetailSetting.Low : 0
-	EnumItem LevelOfDetailSetting.Medium : 1
-	EnumItem LevelOfDetailSetting.High : 2
+Enum LevelOfDetailSetting [Deprecated]
+	EnumItem LevelOfDetailSetting.Low : 0 [Deprecated]
+	EnumItem LevelOfDetailSetting.Medium : 1 [Deprecated]
+	EnumItem LevelOfDetailSetting.High : 2 [Deprecated]
 Enum Limb
 	EnumItem Limb.Head : 0
 	EnumItem Limb.Torso : 1
@@ -6120,6 +6129,7 @@ Enum SignalBehavior
 	EnumItem SignalBehavior.Default : 0
 	EnumItem SignalBehavior.Immediate : 1
 	EnumItem SignalBehavior.Deferred : 2
+	EnumItem SignalBehavior.AncestryDeferred : 3
 Enum SizeConstraint
 	EnumItem SizeConstraint.RelativeXY : 0
 	EnumItem SizeConstraint.RelativeXX : 1
