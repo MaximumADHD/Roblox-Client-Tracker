@@ -20,16 +20,10 @@ local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMin
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Framework = require(Packages.Framework)
 
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
@@ -47,7 +41,7 @@ local LiveSearchBar = require(Plugin.Core.Components.SearchOptions.LiveSearchBar
 local RadioButtons
 local RadioButtonList
 if FFlagToolboxUseDevFrameworkLoadingBarAndRadioButton then
-	RadioButtonList = require(Libs.Framework).UI.RadioButtonList
+	RadioButtonList = require(Packages.Framework).UI.RadioButtonList
 else
 	RadioButtons = require(Plugin.Core.Components.SearchOptions.RadioButtons)
 end

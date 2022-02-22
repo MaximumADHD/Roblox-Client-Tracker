@@ -1,14 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Rodux = require(Libs.Rodux)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Rodux = require(Packages.Rodux)
+local Cryo = require(Packages.Cryo)
 
 local Actions = Plugin.Core.Actions
 local GetFavoriteCounts = require(Actions.GetFavoriteCounts)

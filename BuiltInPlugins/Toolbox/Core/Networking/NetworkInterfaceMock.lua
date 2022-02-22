@@ -7,13 +7,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 local Packages = Plugin.Packages
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Promise
-if FFlagToolboxDeduplicatePackages then
-	Promise = require(Packages.Framework).Util.Promise
-else
-	Promise = require(Plugin.Libs.Framework).Util.Promise
-end
+
+local Promise = require(Packages.Framework).Util.Promise
 
 -- public api
 local NetworkInterfaceMock = {}

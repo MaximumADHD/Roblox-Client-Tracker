@@ -10,7 +10,7 @@ local INPUT_BOX_HEIGHT = 25
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext

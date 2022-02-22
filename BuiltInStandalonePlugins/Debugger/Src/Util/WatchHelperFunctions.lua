@@ -56,4 +56,61 @@ module.isScopeFiltered = function(enabledScopes, rowData)
 	return true
 end
 
+module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColumns, skipLastRow)
+	local currentOrder = order or Enum.SortDirection.Descending
+	local currentColumn = column or 1
+	local sortValue = (tableColumns[column] and tableColumns[column]["Key"]) or tableColumns[currentColumn]["Key"]
+	local basedOnOrder = function(a, b)
+		local sort1 = a
+		local sort2 = b
+		
+		if type(sort1) == "boolean" then
+			-- booleans have no > or < operator
+			sort1 = sort1 and 1 or 0
+			sort2 = sort2 and 1 or 0
+		elseif type(sort1) == "string" then
+			-- sort regardless of case
+			local sort1lower = string.lower(sort1)
+			local sort2lower = string.lower(sort2)
+			if sort1lower ~= sort2lower then
+				sort1 = sort1lower
+				sort2 = sort2lower
+			end
+		end
+		
+		if currentOrder == Enum.SortDirection.Ascending then
+			return sort1 > sort2
+		else
+			return sort2 > sort1
+		end
+	end
+
+	local sortComp = function(a, b)
+		-- if the values of the 2 objects are identical, then sort by one that isn't
+		if a[sortValue] == b[sortValue] then
+			for k, v in pairs(tableColumns) do
+				local currentSortValue = v["Key"]
+				if a[currentSortValue] ~= b[currentSortValue] then
+					return basedOnOrder(a[currentSortValue], b[currentSortValue])
+				end
+			end
+			return false
+		end 
+		
+		return basedOnOrder(a[sortValue], b[sortValue])
+	end
+	
+	-- we skip the last row of sorting for the Expressions table (so that the empty row isn't sorted)
+	local lastRow = nil
+	if skipLastRow and #mainTable > 0 then
+		lastRow = table.remove(mainTable)
+	end
+
+	table.sort(mainTable, sortComp)
+	
+	if skipLastRow and lastRow then
+		table.insert(mainTable, lastRow)
+	end
+end
+
 return module

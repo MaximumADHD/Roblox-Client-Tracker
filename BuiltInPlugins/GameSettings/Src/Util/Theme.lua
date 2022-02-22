@@ -520,7 +520,8 @@ function Theme.createValues(theme, getColor)
 					height = 50,
 				},
 				padding = 10,
-				width = 140,
+				DEPRECATED_width = 140, -- remove with FFlagStudioExplainFriendCollaboratorPermission
+				width = 180
 			},
 
 			playabilityWidget = {

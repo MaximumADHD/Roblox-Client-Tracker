@@ -14,14 +14,8 @@ local ENTRY_HEIGHT = 20
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local createFitToContent = require(Plugin.Core.Components.createFitToContent)

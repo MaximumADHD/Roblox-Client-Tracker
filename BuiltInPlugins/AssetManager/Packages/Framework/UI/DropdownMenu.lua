@@ -28,6 +28,8 @@
 		number Width: The width of the menu area.
 		number MaxHeight: The maximum height of the menu area.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -153,10 +155,24 @@ function DropdownMenu:init()
 	self.changeTokens = {}
 end
 
-function DropdownMenu:didMount()
-	local parent = self.ref.current.Parent
-	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
-	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+if FFlagDevFrameworkForwardRef then
+	function DropdownMenu:didUpdate()
+		local current = self.ref.current
+		if not current or self.addedListeners then
+			return
+		end
+		self.addedListeners = true
+		local parent = current.Parent
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+	end
+
+else
+	function DropdownMenu:didMount()
+		local parent = self.ref.current.Parent
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+	end
 end
 
 function DropdownMenu:willUnmount()
@@ -275,13 +291,10 @@ function DropdownMenu:render()
 	})
 end
 
-
 DropdownMenu = withContext({
 	Focus = ContextServices.Focus,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(DropdownMenu)
-
-
 
 return DropdownMenu

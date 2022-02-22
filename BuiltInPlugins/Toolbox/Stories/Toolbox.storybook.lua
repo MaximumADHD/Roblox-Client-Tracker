@@ -1,16 +1,11 @@
 local Plugin = script.Parent.Parent
+local Packages = Plugin.Packages
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+local RefactorFlags = require(Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
+RefactorFlags.THEME_REFACTOR = true
 
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-
-local StoryMiddleware = require(Libs.Framework).Stories.getStoryMiddleware()
-local Roact = require(Libs.Roact)
+local StoryMiddleware = require(Packages.Framework).Stories.getStoryMiddleware()
+local Roact = require(Packages.Roact)
 
 return {
 	name = "Toolbox",

@@ -10,15 +10,9 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 

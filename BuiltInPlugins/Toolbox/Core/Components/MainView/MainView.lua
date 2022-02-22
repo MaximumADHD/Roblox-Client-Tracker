@@ -30,17 +30,11 @@ local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Cryo = require(Libs.Cryo)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Cryo = require(Packages.Cryo)
+local Framework = require(Packages.Framework)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -54,7 +48,7 @@ local getSettings = ContextGetter.getSettings
 local getModal = ContextGetter.getModal
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 

@@ -15,6 +15,7 @@ local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 
 local ContextServices = require(Plugin.Framework).ContextServices
+local UILibrary = require(Plugin.UILibrary)
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local ServiceWrapper = Roact.PureComponent:extend("ServiceWrapper")
@@ -66,7 +67,7 @@ function ServiceWrapper:render()
 	-- UILibraryWrapper consumes theme, focus etc. so needs to be wrapped in these items for React.createContext to consume them.
 	return ContextServices.provide(contextItems, {
 		UILibraryWrapper = ContextServices.provide({
-			ContextServices.UILibraryWrapper.new()
+			ContextServices.UILibraryWrapper.new(UILibrary)
 		}, children)
 	})
 end

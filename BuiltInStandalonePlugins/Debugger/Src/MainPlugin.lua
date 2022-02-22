@@ -54,7 +54,7 @@ local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugCo
 local BreakpointManagerListener = require(Src.Util.BreakpointManagerListener.BreakpointManagerListener)
 local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener.CrossDMScriptChangeListener)
 
-local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
+local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
 local FFlagStudioDebuggerOverhaul = game:GetFastFlag("StudioDebuggerOverhaul")
 
@@ -143,7 +143,7 @@ function MainPlugin:renderButtons(toolbar)
 	local watchWindowEnabled = state.watchWindow.Enabled
 	local breakpointsWindowEnabled = state.breakpointsWindow.Enabled
 	return {
-		ToggleCallstack = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
+		ToggleCallstack = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginButton, {
 			Name = "callStackDockWidgetActionV2",
 			Toolbar = toolbar,
 			Active = callstackWindowEnabled,
@@ -155,7 +155,7 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleBreakpointsWindow = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
+		ToggleBreakpointsWindow = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginButton, {
 			Name = "breakpointsDockWidgetActionV2",
 			Toolbar = toolbar,
 			Active = breakpointsWindowEnabled,
@@ -167,7 +167,7 @@ function MainPlugin:renderButtons(toolbar)
 			end,
 			ClickableWhenViewportHidden = true,
 		}),
-		ToggleWatchWindow = FFlagStudioDebuggerPlugin and Roact.createElement(PluginButton, {
+		ToggleWatchWindow = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginButton, {
 			Name = "watchDockWidgetActionV2",
 			Toolbar = toolbar,
 			Active = watchWindowEnabled,
@@ -198,26 +198,26 @@ function MainPlugin:render()
 		self.analytics,
 		self.pluginActions
 	}, {
-		Toolbar = FFlagStudioDebuggerPlugin and Roact.createElement(PluginToolbar, {
+		Toolbar = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(PluginToolbar, {
 			Title = TOOLBAR_NAME,
 			RenderButtons = function(toolbar)
 				return self:renderButtons(toolbar)
 			end,
 		}),
-		ToolbarWithRoduxConnection = FFlagStudioDebuggerPlugin and Roact.createElement(DebuggerToolbarButtons),
-		CallstackWindow = (FFlagStudioDebuggerPlugin and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
+		ToolbarWithRoduxConnection = FFlagStudioDebuggerOverhaul_Dev and Roact.createElement(DebuggerToolbarButtons),
+		CallstackWindow = (FFlagStudioDebuggerOverhaul_Dev and callstackWindowEnabled) and Roact.createElement(CallstackWindow, {
 			Enabled = callstackWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("callstackWindow")
 			end,
 		}) or nil,
-		BreakpointsWindow = (FFlagStudioDebuggerPlugin and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
+		BreakpointsWindow = (FFlagStudioDebuggerOverhaul_Dev and breakpointsWindowEnabled) and Roact.createElement(BreakpointsWindow, {
 			Enabled = breakpointsWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("breakpointsWindow")
 			end,
 		}) or nil,
-		WatchWindow = (FFlagStudioDebuggerPlugin and watchWindowEnabled) and Roact.createElement(WatchWindow, {
+		WatchWindow = (FFlagStudioDebuggerOverhaul_Dev and watchWindowEnabled) and Roact.createElement(WatchWindow, {
 			Enabled = watchWindowEnabled,
 			OnClose = function()
 				self.onWidgetClose("watchWindow")

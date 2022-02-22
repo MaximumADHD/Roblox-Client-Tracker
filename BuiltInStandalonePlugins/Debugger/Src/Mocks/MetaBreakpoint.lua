@@ -13,9 +13,6 @@ MetaBreakpoint:
 - IsLogpoint : boolean
 ]]--
 
-local main = script.Parent.Parent.Parent
-local Constants = require(main.Src.Util.Constants)
-
 export type MetaBreakpointProperties = {
 	Script : string | nil,
 	Line : number | nil,
@@ -46,10 +43,6 @@ end
 
 function MetaBreakpoint:SetMockBreakpointManager(mockBreakpointManager)
 	self.mockBreakpointManager = mockBreakpointManager
-end
-
-function MetaBreakpoint:GetContexts()
-	return {[1] = Constants.GameStateTypes.Client, [2] = Constants.GameStateTypes.Server}
 end
 
 function MetaBreakpoint.new(metaBreakpoint : MetaBreakpointProperties)

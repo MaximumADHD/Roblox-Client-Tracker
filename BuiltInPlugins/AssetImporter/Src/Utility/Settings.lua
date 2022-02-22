@@ -6,6 +6,7 @@ local GroupProps = require(script.GroupProps)
 local MeshProps = require(script.MeshProps)
 local RootProps = require(script.RootProps)
 local TextureProps = require(script.TextureProps)
+local MaterialProps = require(script.MaterialProps)
 local JointProps = require(script.JointProps)
 local BaseProps = require(script.BaseProps)
 
@@ -14,6 +15,7 @@ local Settings = strict({
 	MeshProps = MeshProps,
 	RootProps = RootProps,
 	TextureProps = TextureProps,
+	MaterialProps = MaterialProps,
 	JointProps = JointProps,
 	BaseProps = BaseProps,
 })

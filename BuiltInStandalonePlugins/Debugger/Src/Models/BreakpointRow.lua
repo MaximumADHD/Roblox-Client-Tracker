@@ -15,12 +15,12 @@ export type BreakpointRow = {
 	context : string,
 }
 
-local function extractNonChildData(breakpoint : Metabreakpoint.MetaBreakpoint, context : string) : BreakpointRow
+local function extractNonChildData(breakpoint : Metabreakpoint.MetaBreakpoint, context : string, scriptName : string) : BreakpointRow
 	return {
 		id = breakpoint.id,
 		isEnabled = breakpoint.isEnabled,
 		lineNumber = breakpoint.lineNumber,
-		scriptName = breakpoint.scriptName,
+		scriptName = scriptName,
 		scriptLine = breakpoint.scriptLine,
 		condition = breakpoint.condition,
 		logMessage = breakpoint.logMessage,

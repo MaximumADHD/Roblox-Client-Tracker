@@ -6,7 +6,7 @@ local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)
 local Hyperlink = require(RoactStudioWidgets.Hyperlink)

@@ -1,23 +1,4 @@
---[[
-	The main plugin component.
-	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
-
-	New Plugin Setup: When creating a plugin, commit this template
-		first with /packages in a secondary pull request.
-
-		A common workaround for the large diffs from Packages/_Index is to put
-		the Packages/_Index changes into a separate PR like this:
-			master <- PR <- Packages PR
-		Get people to review *PR*, then after approvals, merge *Packages PR*
-		into *PR*, and then *PR* into master.
-
-
-	New Plugin Setup: Search for other TODOs to see other tasks to modify this template for
-	your needs. All setup TODOs are tagged as New Plugin Setup:
-]]
-
 local main = script.Parent.Parent
--- local _Types = require(main.Src.Types) -- uncomment to use types
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
 
@@ -40,8 +21,7 @@ local TranslationDevelopmentTable = main.Src.Resources.Localization.TranslationD
 local TranslationReferenceTable = main.Src.Resources.Localization.TranslationReferenceTable
 
 local Components = main.Src.Components
-local ExampleComponent = require(Components.ExampleComponent)
-local ExampleRoactRoduxComponent = require(Components.ExampleRoactRoduxComponent)
+local MaterialManagerView = require(Components.MaterialManagerView)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -49,6 +29,18 @@ function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
+
+	self.openPrompt = function()
+		self:setState({
+			prompt = true
+		})
+	end
+
+	self.closePrompt = function()
+		self:setState({
+			prompt = false
+		})
+	end
 
 	self.toggleEnabled = function()
 		self:setState(function(state)
@@ -101,7 +93,6 @@ function MainPlugin:renderButtons(toolbar)
 			Active = enabled,
 			Title = self.localization:getText("Plugin", "Button"),
 			Tooltip = self.localization:getText("Plugin", "Description"),
-			--New Plugin Setup: Change Icon. Can be nil if QT is managing the icon
 			Icon = "rbxasset://textures/GameSettings/ToolbarIcon.png",
 			OnClick = self.toggleEnabled,
 			ClickableWhenViewportHidden = true,
@@ -141,10 +132,9 @@ function MainPlugin:render()
 			ShouldRestore = true,
 			OnWidgetRestored = self.onRestore,
 		}, {
-			-- Plugin contents are mounted here
-			-- New Plugin Setup: Switch out ExampleComponent with your component
-			ExampleComponent = Roact.createElement(ExampleComponent),
-			ExampleRoactRoduxComponent = Roact.createElement(ExampleRoactRoduxComponent),
+			Roact.createElement(MaterialManagerView, {
+				OpenPrompt = self.openPrompt
+			}),
 		}),
 	})
 end

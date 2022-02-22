@@ -19,28 +19,17 @@ return function(plugin, pluginLoaderContext)
 	local StudioService = game:GetService("StudioService")
 	local hasInternalPermission = StudioService:HasInternalPermission()
 
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
-	local Roact = require(Libs.Roact)
+	local Packages = Plugin.Packages
+	local Roact = require(Packages.Roact)
 
 	--[[
 		RefactorFlags needs to be required and updated directly; before Framework's init
 		is required (so that any files that Framework's init requires get the correct values).
 	]]
-	local RefactorFlags
-	if FFlagToolboxDeduplicatePackages then
-		RefactorFlags = require(Libs._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-	else
-		RefactorFlags = require(Libs.Framework.Util.RefactorFlags)
-	end
+	local RefactorFlags = require(Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 	RefactorFlags.THEME_REFACTOR = true
 
-	local Framework = require(Libs.Framework)
+	local Framework = require(Packages.Framework)
 
 	if FFlagDebugToolboxEnableRoactChecks then
 		Roact.setGlobalConfig({
@@ -50,7 +39,7 @@ return function(plugin, pluginLoaderContext)
 		})
 	end
 
-	local Rodux = require(Libs.Rodux)
+	local Rodux = require(Packages.Rodux)
 
 	local InsertAsset = require(Util.InsertAsset)
 	local Analytics = require(Util.Analytics.Analytics)
@@ -65,7 +54,7 @@ return function(plugin, pluginLoaderContext)
 	local makeToolboxAnalyticsContext = require(Util.Analytics.makeToolboxAnalyticsContext)
 
 	if DebugFlags.shouldDebugWarnings() then
-		local Promise = require(Libs.Framework).Util.Promise
+		local Promise = require(Packages.Framework).Util.Promise
 		Promise.onUnhandledRejection = warn
 	end
 

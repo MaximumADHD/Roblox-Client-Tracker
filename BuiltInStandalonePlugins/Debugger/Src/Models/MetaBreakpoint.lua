@@ -11,7 +11,7 @@ export type MetaBreakpoint = {
 	logMessage: string,
 	continueExecution: boolean,
 	debugpointType : Constants.DebugpointType,
-	contexts : {string},
+	contextBreakpoints : {[string] : {connectionId : string, breakpoints : {[number] : Instance}}}
 }
 
 local function fromMetaBreakpoint(metaBreakpoint) : MetaBreakpoint
@@ -25,7 +25,7 @@ local function fromMetaBreakpoint(metaBreakpoint) : MetaBreakpoint
 		logMessage = metaBreakpoint.LogMessage,
 		continueExecution = metaBreakpoint.ContinueExecution,
 		debugpointType = metaBreakpoint.IsLogpoint and Constants.DebugpointType.Logpoint or Constants.DebugpointType.Breakpoint,
-		contexts = metaBreakpoint:GetContexts(),
+		contextBreakpoints = metaBreakpoint:GetContextBreakpoints(),
 	}
 end
 
@@ -50,7 +50,7 @@ local function mockMetaBreakpoint(metaBreakpoint, uniqueId) : MetaBreakpoint
 		logMessage = metaBreakpoint.logMessage or ("varNum"..tostring(uniqueId)),
 		continueExecution = metaBreakpoint.continueExecution,
 		debugpointType = metaBreakpoint.debugpointType or math.fmod(uniqueId,2)==0 and Constants.DebugpointType.Breakpoint or Constants.DebugpointType.Logpoint,
-		contexts = {[1] = Constants.GameStateTypes.Client, [2] = Constants.GameStateTypes.Server},
+		contextBreakpoints = metaBreakpoint:GetContextBreakpoints()
 	}
 end
 

@@ -1,19 +1,15 @@
+-- TODO : REFACTOR THIS CLASS TO CONSUME A COMMON TEST WRAPPER
 local Plugin = script.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Rodux = require(Libs.Rodux)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Rodux = require(Packages.Rodux)
+local Framework = require(Packages.Framework)
 
 local Networking = Framework.Http.Networking
 local ContextServices = Framework.ContextServices
 local ThemeSwitcher = Framework.Style.ThemeSwitcher
+local Signal = Framework.Util.Signal
 
 local Localization = require(Plugin.Core.Util.Localization)
 local Settings = require(Plugin.Core.Util.Settings)
@@ -49,12 +45,30 @@ local function ToolboxStoryWrapper(props)
 	local assetAnalytics = AssetAnalyticsContextItem.new(props.assetAnalytics or AssetAnalytics.mock())
 	local legacyTheme = props.legacyTheme or ToolboxTheme.createDummyThemeManager()
 
+	local TranslationDevelopmentTable = Plugin.LocalizationSource.TranslationDevelopmentTable
+	local TranslationReferenceTable = Plugin.LocalizationSource.TranslationReferenceTable
+	local devFrameworkLocalization = ContextServices.Localization.new({
+		stringResourceTable = TranslationDevelopmentTable,
+		translationResourceTable = TranslationReferenceTable,
+		pluginName = "Toolbox",
+		libraries = {
+			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
+				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
+				translationResourceTable = Framework.Resources.TranslationReferenceTable,
+			},
+		},
+		overrideGetLocale = function() return "en-us" end,
+		overrideLocaleId = "en-us",
+		overrideLocaleChangedSignal = Signal.new(),
+	})
+
 	local context = {
 		storeContext,
 		settingsContext,
 		api,
 		assetAnalytics,
 		themeContext,
+		devFrameworkLocalization,
 	}
 
 	return Roact.createElement(ExternalServicesWrapper, {

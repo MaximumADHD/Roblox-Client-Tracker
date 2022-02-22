@@ -14,15 +14,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -40,7 +34,7 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 local GroupCollaboratorItem = require(PermissionsDirectory.GroupCollaboratorItem)
 
-local FrameworkUtil = require(Libs.Framework).Util
+local FrameworkUtil = require(Packages.Framework).Util
 local deepJoin = FrameworkUtil.deepJoin
 
 local function getGroupOwnerPermissions(props, localized)

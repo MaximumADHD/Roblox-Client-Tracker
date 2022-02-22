@@ -427,7 +427,7 @@ local curveTheme = {
 	X = StyleKey.CurveX,
 	Y = StyleKey.CurveY,
 	Z = StyleKey.CurveZ,
-	XAxis = StyleKey.MainText,
+	XAxis = StyleKey.BrightText,
 }
 
 local scrubberTheme = {

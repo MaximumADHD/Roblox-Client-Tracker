@@ -4,14 +4,8 @@
 local Plugin = script.Parent.Parent.Parent
 local Consumers = Plugin.Core.Consumers
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local wrapStrictTable = require(Plugin.Core.Util.wrapStrictTable)
 

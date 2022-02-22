@@ -2,15 +2,9 @@ local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefacto
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Rodux = require(Libs.Rodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Rodux = require(Packages.Rodux)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PagedRequestCursor = require(Plugin.Core.Util.PagedRequestCursor)

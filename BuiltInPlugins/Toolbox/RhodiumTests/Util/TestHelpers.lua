@@ -1,17 +1,11 @@
 local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
 
 local Plugin = script.Parent.Parent.Parent
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Framework = require(Libs.Framework)
-local Roact = require(Libs.Roact)
-local Rodux = require(Libs.Rodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Framework = require(Packages.Framework)
+local Roact = require(Packages.Roact)
+local Rodux = require(Packages.Rodux)
 
 local ContextServices = Framework.ContextServices
 local MockPlugin = Framework.TestHelpers.Instances.MockPlugin

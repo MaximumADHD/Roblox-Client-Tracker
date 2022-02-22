@@ -19,16 +19,10 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Cryo = require(Packages.Cryo)
 
 local Util = Plugin.Core.Util
 local ContextGetter = require(Util.ContextGetter)
@@ -38,10 +32,10 @@ local AssetConfigConstants = require(Util.AssetConfigConstants)
 local trimString = require(Util.trimString)
 local TagsUtil = require(Util.TagsUtil)
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local StyleModifier = require(Libs.Framework).Util.StyleModifier
+local StyleModifier = require(Packages.Framework).Util.StyleModifier
 
 local RoundBox = Framework.UI.Decoration.RoundBox
 local Pane = Framework.UI.Pane

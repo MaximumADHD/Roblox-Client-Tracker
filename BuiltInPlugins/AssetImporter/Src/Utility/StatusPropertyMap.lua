@@ -4,6 +4,10 @@ StatusPropertyMap = {
     FileDimensions = {"MeshScaleWarning"},
     PolygonCount = {"MeshSizeWarning"},
     RigType = {"IncorrectR15Warning"},
+    DiffuseFilePath = {"CouldNotReadDiffuseError", "DiffuseBadFileFormatError"},
+    RoughnessFilePath = {"CouldNotReadRoughnessError", "RoughnessBadFileFormatError"},
+    NormalFilePath = {"CouldNotReadNormalError", "NormalBadFileFormatError"},
+    MetalnessFilePath = {"CouldNotReadMetalnessError", "MetalnessBadFileFormatError"},
     ObjectGeneral = {
         "MaterialIgnoredWarning",
         "CouldNotReadTextureError",

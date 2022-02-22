@@ -10,15 +10,10 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local TextLabel = Framework.UI.Decoration.TextLabel

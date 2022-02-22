@@ -20,9 +20,11 @@ local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Constants = require(Plugin.Src.Util.Constants)
+local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 
 local CurveCanvas = require(Plugin.Src.Components.Curves.CurveCanvas)
 local EventsController = require(Plugin.Src.Components.EventsController)
+local Scale = require(Plugin.Src.Components.Curves.Scale)
 
 local CurveCanvasController = Roact.Component:extend("CurveCanvasController")
 
@@ -69,6 +71,28 @@ function CurveCanvasController:shouldUpdate(nextProps, nextState)
 	return false
 end
 
+function CurveCanvasController:updateCanvasExtents()
+	-- Recalculate the min and max values of all the tracks being displayed
+	self.minValue = nil
+	self.maxValue = nil
+
+	for _, track in pairs(self.tracks) do
+		TrackUtils.traverseTracks(nil, track, function(component, _, _)
+			if component.Type ~= Constants.TRACK_TYPES.Quaternion then
+				for _, keyframe in pairs(component.Data) do
+					self.minValue = self.minValue and math.min(self.minValue, keyframe.Value) or keyframe.Value
+					self.maxValue = self.maxValue and math.max(self.maxValue, keyframe.Value) or keyframe.Value
+				end
+			end
+		end, true)
+	end
+
+	if not self.minValue then
+		self.minValue = -1.0
+		self.maxValue = 1.0
+	end
+end
+
 function CurveCanvasController:updateTracks(nextProps)
 	-- Fill tracks with the selected tracks data from animationData.
 	-- This is only done when either the selectionTracks change, or the data in the selected tracks changes.
@@ -90,6 +114,8 @@ function CurveCanvasController:updateTracks(nextProps)
 			self.tracks[selectedTrackName] = findTrack(selectedTrackName)
 		end
 	end
+
+	self:updateCanvasExtents()
 end
 
 function CurveCanvasController:willUpdate(nextProps)
@@ -114,18 +140,18 @@ function CurveCanvasController:render()
 	local showEvents = props.ShowEvents
 	local isChannelAnimation = self.props.IsChannelAnimation
 	local tracks = self.tracks
+	local minValue = self.minValue
+	local maxValue = self.maxValue
 
 	local namedKeyframes = animationData and animationData.Events
 		and animationData.Events.NamedKeyframes or {}
 
-	local size = props.Size
-	local position = props.Position
-
 	if animationData and animationData.Instances.Root then
 		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
+			Size = props.Size,
+			Position = props.Position,
 			BackgroundTransparency = 1,
+			ZIndex = props.ZIndex,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
@@ -147,11 +173,17 @@ function CurveCanvasController:render()
 				LayoutOrder = 1,
 				[Roact.Change.AbsoluteSize] = self.recalculateExtents,
 			}, {
-				LeftMask = Roact.createElement("Frame", {
+				VerticalScale = Roact.createElement(Scale, {
 					Size = UDim2.new(0, props.TrackPadding / 2, 1, 0),
+					Width = props.TrackPadding / 2,
+					ParentSize = absoluteSize,
 					Position = UDim2.new(0, 0, 0, 0),
-					BackgroundColor3 = theme.backgroundColor,
-					BorderSizePixel = 0,
+					TickWidthScale = 0.7,
+					SmallTickWidthScale = 0.3,
+					MinValue = minValue,
+					MaxValue = maxValue,
+					VerticalScroll = props.VerticalScroll,
+					VerticalZoom = props.VerticalZoom,
 					ZIndex = 2,
 				}),
 				CurveCanvas = Roact.createElement(CurveCanvas, {
@@ -161,6 +193,8 @@ function CurveCanvasController:render()
 					Padding = props.TrackPadding,
 					StartTick = startTick,
 					EndTick = endTick,
+					MinValue = minValue,
+					MaxValue = maxValue,
 					Tracks = tracks,
 					VerticalScroll = props.VerticalScroll,
 					VerticalZoom = props.VerticalZoom,
@@ -171,18 +205,20 @@ function CurveCanvasController:render()
 					ZIndex = 1,
 				}),
 				RightMask = Roact.createElement("Frame", {
-					Size = UDim2.new(0, props.TrackPadding / 2, 1, 0),
+					AnchorPoint = Vector2.new(0, 0),
+					Size = UDim2.new(0, props.TrackPadding / 2 + Constants.SCROLL_BAR_SIZE - 1, 1, Constants.SCROLL_BAR_SIZE),
 					Position = UDim2.new(1, -props.TrackPadding / 2, 0, 0),
 					BackgroundColor3 = theme.backgroundColor,
-					BorderSizePixel = 0,
+					BorderColor3 = theme.borderColor,
+					BorderSizePixel = 1,
 					ZIndex = 2,
 				}),
 			})
 		})
 	else
 		return Roact.createElement("Frame", {
-			Size = size,
-			Position = position,
+			Size = props.Size,
+			Position = props.Position,
 			BackgroundTransparency = 1,
 			[Roact.Change.AbsoluteSize] = self.recalculateExtents,
 		})

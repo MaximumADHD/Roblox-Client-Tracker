@@ -650,6 +650,7 @@ function DopeSheetController:render()
 			Size = size,
 			Position = position,
 			BackgroundTransparency = 1,
+			ZIndex = GetFFlagCurveEditor() and props.ZIndex or nil,
 		}, {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,

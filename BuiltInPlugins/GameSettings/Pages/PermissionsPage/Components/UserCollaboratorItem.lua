@@ -3,6 +3,7 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
+local FFlagStudioExplainFriendCollaboratorPermission = game:GetFastFlag("StudioExplainFriendCollaboratorPermission")
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
@@ -21,7 +22,8 @@ local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
 
-local permShortName = {
+-- remove with FFlagStudioExplainFriendCollaboratorPermission
+local DEPRECATED_permShortName = {
 	[PermissionsConstants.OwnerKey] = "Owner",
 	[PermissionsConstants.PlayKey] = "Play",
 	[PermissionsConstants.EditKey] = "Edit",
@@ -29,21 +31,49 @@ local permShortName = {
 	[PermissionsConstants.AdminKey] = "Admin"
 }
 
+local permissionLabelDescriptionShortNameForKey = {
+	[PermissionsConstants.OwnerKey] = {"Owner", "Owner"},
+	[PermissionsConstants.PlayKey] = {"Play", "Play"},
+	[PermissionsConstants.EditKey] = {"Edit", "Edit"},
+	[PermissionsConstants.NoEditMustBeFriendKey] = {"Edit", "NoEditMustBeFriend"},
+	[PermissionsConstants.NoUserEditGroupGameKey] = {"Edit", "NoUserEditGroupGame"},
+	[PermissionsConstants.NoAccessKey] = {"NoAccess", "NoAccess"},
+	[PermissionsConstants.AdminKey] = {"Admin", "Admin"}
+}
+
 local PERMISSIONS = "Permissions"
 
-function UserCollaboratorItem:getPermissionForKey(key)
+-- remove with FFlagStudioExplainFriendCollaboratorPermission
+function UserCollaboratorItem:DEPRECATED_getPermissionForKey(key)
 	local props = self.props
 	local localization = props.Localization
 
-	if not permShortName[key] then
+	if not DEPRECATED_permShortName[key] then
 		-- unrecognized permission
 		return { Key = key, Display = tostring(key), Description = "Error: This permission is not recognized." }
 	end
 
 	return {
 		Key = key,
-		Display = localization:getText(PERMISSIONS, permShortName[key] .. "Label"),
-		Description = localization:getText(PERMISSIONS, permShortName[key] .. "Description"),
+		Display = localization:getText(PERMISSIONS, DEPRECATED_permShortName[key] .. "Label"),
+		Description = localization:getText(PERMISSIONS, DEPRECATED_permShortName[key] .. "Description"),
+	}
+end
+
+function UserCollaboratorItem:getPermissionForKey(key, isAllowed)
+	local props = self.props
+	local localization = props.Localization
+
+	if not permissionLabelDescriptionShortNameForKey[key] then
+		-- unrecognized permission
+		return { Key = key, Display = tostring(key), Description = "Error: This permission is not recognized." }
+	end
+
+	return {
+		Key = key,
+		Display = localization:getText(PERMISSIONS, permissionLabelDescriptionShortNameForKey[key][1] .. "Label"),
+		Description = localization:getText(PERMISSIONS, permissionLabelDescriptionShortNameForKey[key][2] .. "Description"),
+		IsEnabled = isAllowed
 	}
 end
 
@@ -58,19 +88,40 @@ function UserCollaboratorItem:getAvailablePermissions()
 
 	local editable = props.Editable
 
-	if isOwner then
-		return {self:getPermissionForKey(PermissionsConstants.OwnerKey),}
-	elseif not editable then
-		-- if not editable, just show current permission
-		return {self:getPermissionForKey(self:getCurrentPermission()),}
-	else
-		local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey)}
+	if FFlagStudioExplainFriendCollaboratorPermission then
+		if isOwner then
+			return {self:getPermissionForKey(PermissionsConstants.OwnerKey, true),}
+		elseif not editable then
+			-- if not editable, just show current permission
+			return {self:getPermissionForKey(self:getCurrentPermission(), true),}
+		else
+			local permissions = {self:getPermissionForKey(PermissionsConstants.PlayKey, true)}
+			
+			if ownerType ~= Enum.CreatorType.User then
+				table.insert(permissions, self:getPermissionForKey(PermissionsConstants.NoUserEditGroupGameKey, false))
+			elseif not isOwnerFriend then
+				table.insert(permissions, self:getPermissionForKey(PermissionsConstants.NoEditMustBeFriendKey, false))
+			else
+				table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey, true))
+			end
 
-		if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
-			table.insert(permissions, self:getPermissionForKey(PermissionsConstants.EditKey))
+			return permissions
 		end
+	else
+		if isOwner then
+			return {self:DEPRECATED_getPermissionForKey(PermissionsConstants.OwnerKey),}
+		elseif not editable then
+			-- if not editable, just show current permission
+			return {self:DEPRECATED_getPermissionForKey(self:getCurrentPermission()),}
+		else
+			local permissions = {self:DEPRECATED_getPermissionForKey(PermissionsConstants.PlayKey)}
 
-		return permissions
+			if (ownerType == Enum.CreatorType.User and isOwnerFriend) then
+				table.insert(permissions, self:DEPRECATED_getPermissionForKey(PermissionsConstants.EditKey))
+			end
+
+			return permissions
+		end
 	end
 end
 

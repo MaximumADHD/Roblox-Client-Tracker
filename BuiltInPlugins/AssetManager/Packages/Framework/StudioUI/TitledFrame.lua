@@ -6,6 +6,7 @@
 		string Title: The title to the left of the content
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		number TitleWidth: The pixel size of the padding between the title and content
 		Enum.FillDirection FillDirection: The direction in which the content is filled.
 		number LayoutOrder: The layoutOrder of this component.
@@ -13,6 +14,8 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		number ZIndex: The render index of this component.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -22,7 +25,9 @@ local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
-local FitFrame = require(Framework.Util.FitFrame)
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
+
+local FitFrame = Util.FitFrame
 local FitFrameVertical = FitFrame.FitFrameVertical
 local FitTextLabel = FitFrame.FitTextLabel
 
@@ -44,6 +49,8 @@ function TitledFrame:render()
 		style = theme:getStyle("Framework", self)
 	end
 
+	local ref = if FFlagDevFrameworkForwardRef then props.ForwardRef else props[Roact.Ref]
+
 	local font = style.Font
 	local padding = style.Padding
 	local textColor = style.TextColor
@@ -61,8 +68,7 @@ function TitledFrame:render()
 		LayoutOrder = layoutOrder,
 		width = UDim.new(1, 0),
 		ZIndex = zIndex,
-
-		[Roact.Ref] = props[Roact.Ref],
+		[Roact.Ref] = ref,
 	}, {
 		Title = Roact.createElement(FitTextLabel, {
 			BackgroundTransparency = 1,
@@ -89,12 +95,9 @@ function TitledFrame:render()
 	})
 end
 
-
 TitledFrame = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(TitledFrame)
 
-
-
-return TitledFrame
+return if FFlagDevFrameworkForwardRef then withForwardRef(TitledFrame) else TitledFrame

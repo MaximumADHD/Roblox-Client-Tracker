@@ -15,14 +15,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local Components = Plugin.Core.Components
 local Dialog = require(Components.PluginWidget.Dialog)
@@ -37,7 +31,7 @@ local getAssetConfigTheme = require(Plugin.Core.Themes.getAssetConfigTheme)
 
 local makeTheme = require(Plugin.Core.Util.makeTheme)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 
 local ASSET_CONFIG_WIDTH = 960
 local ASSET_CONFIG_HEIGHT = 640

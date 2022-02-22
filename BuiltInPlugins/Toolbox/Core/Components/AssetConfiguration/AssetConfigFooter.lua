@@ -19,16 +19,10 @@ local FFlagCMSUploadFees = game:GetFastFlag("CMSUploadFees")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local ContextServices = require(Libs.Framework).ContextServices
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
@@ -38,13 +32,13 @@ local ScreenSetup = require(Util.ScreenSetup)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local FrameworkUtil = require(Libs.Framework).Util
-local StyleModifier = require(Libs.Framework).Util.StyleModifier
+local FrameworkUtil = require(Packages.Framework).Util
+local StyleModifier = require(Packages.Framework).Util.StyleModifier
 
 local ContextGetter = require(Util.ContextGetter)
 local getNetwork = ContextGetter.getNetwork
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local Button = Framework.UI.Button
 local TextInput = Framework.UI.TextInput
 

@@ -6,6 +6,7 @@
 		UDim ItemHeight: The height of each grid item.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		Enum.AutomaticSize AutomaticSize: The AutomaticSize of the component.
 		Enum.HorizontalAlignment HorizontalAlignment: The HorizontalAlignment of the component.
 		integer LayoutOrder: The order this component will display in a UILayout.
@@ -14,7 +15,7 @@
 		Enum.SortOrder SortOrder: The SortOrder of the component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local Framework = script.Parent.Parent
@@ -26,6 +27,8 @@ local withContext = ContextServices.withContext
 local Util = require(Framework.Util)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local Typecheck = Util.Typecheck
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
@@ -49,7 +52,8 @@ function ResponsiveGrid:init()
 	assert(FFlagDevFrameworkResponsiveGrid2, "ResponsiveGrid requires FFlagDevFrameworkResponsiveGrid2")
 	assert(THEME_REFACTOR, "ResponsiveGrid not supported in Theme1, please upgrade your plugin to Theme2")
 
-	self.ref = self.props[Roact.Ref] or Roact.createRef()
+	local props = self.props
+	self.ref = (if FFlagDevFrameworkForwardRef then props.ForwardRef else props[Roact.Ref]) or Roact.createRef()
 	self.sortedCutOffList = {}
 
 	self.state = {
@@ -195,4 +199,4 @@ ResponsiveGrid = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(ResponsiveGrid)
 
-return ResponsiveGrid
+return if FFlagDevFrameworkForwardRef then withForwardRef(ResponsiveGrid) else ResponsiveGrid

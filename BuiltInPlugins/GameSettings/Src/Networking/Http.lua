@@ -2,8 +2,12 @@ local HttpRbxApiService = game:GetService("HttpRbxApiService")
 local HttpService = game:GetService("HttpService")
 local ContentProvider = game:GetService("ContentProvider")
 
+local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
+
 local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Promise)
+local Framework = require(Plugin.Framework)
+local Util = Framework.Util
+local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local BASE_URL = ContentProvider.BaseUrl
@@ -22,7 +26,7 @@ local function applyParamsToUrl(requestInfo)
 		
 		for paramName,paramValue in pairs(params) do
 			local paramPair = HttpService:UrlEncode(paramName).."="..HttpService:UrlEncode(paramValue)
-			table.insert(paramList, paramPair)
+		table.insert(paramList, paramPair)
 		end
 		
 		requestInfo.Url = requestInfo.Url .. "?" .. table.concat(paramList, "&")

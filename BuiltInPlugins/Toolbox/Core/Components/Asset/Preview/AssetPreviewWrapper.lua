@@ -16,16 +16,10 @@ local GuiService = game:GetService("GuiService")
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Cryo = require(Packages.Cryo)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -39,10 +33,10 @@ local AssetAnalyticsContextItem = require(Util.Analytics.AssetAnalyticsContextIt
 local getUserId = require(Util.getUserId)
 local getNetwork = ContextGetter.getNetwork
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local AssetPreview = Framework.StudioUI.AssetPreview
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 

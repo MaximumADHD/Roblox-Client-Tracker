@@ -28,7 +28,7 @@ local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
 
 local formatNumberForDisplay = require(Page.Util.formatNumberForDisplay)
 
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
 local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
 local StudioWidgetText = require(RoactStudioWidgets.Text)

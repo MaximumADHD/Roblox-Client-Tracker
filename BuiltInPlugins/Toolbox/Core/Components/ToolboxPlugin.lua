@@ -5,15 +5,9 @@ local MemStorageService = game:GetService("MemStorageService")
 local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 local Util = Plugin.Core.Util
 
 local SharedPluginConstants = require(Plugin.SharedPluginConstants)
@@ -29,9 +23,9 @@ local StopAllSounds = require(Plugin.Core.Actions.StopAllSounds)
 
 local makeTheme = require(Util.makeTheme)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUtil = require(Libs.Framework).Util
+local FrameworkUtil = require(Packages.Framework).Util
 local getTestVariation = FrameworkUtil.getTestVariation
 
 local Analytics = require(Util.Analytics.Analytics)

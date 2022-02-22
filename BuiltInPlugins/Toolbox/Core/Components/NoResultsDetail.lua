@@ -1,23 +1,17 @@
 local FFlagToolboxUseDevFrameworkTextWithInlineLink = game:GetFastFlag("ToolboxUseDevFrameworkTextWithInlineLink")
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Cryo = require(Libs.Cryo)
-local t = require(Libs.Framework).Util.Typecheck.t
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
+local t = require(Packages.Framework).Util.Typecheck.t
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 
 local TextWithInlineLink
 if FFlagToolboxUseDevFrameworkTextWithInlineLink then
-	TextWithInlineLink = require(Libs.Framework).UI.TextWithInlineLink
+	TextWithInlineLink = require(Packages.Framework).UI.TextWithInlineLink
 else
 	-- 2021/05/07 The following file is deprecated. Please Use TextWithInlineLink in Developer Framework Instead.
 	TextWithInlineLink = require(Plugin.Core.Components.TextWithInlineLink)
@@ -25,7 +19,7 @@ end
 
 local withTheme = ContextHelper.withTheme
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

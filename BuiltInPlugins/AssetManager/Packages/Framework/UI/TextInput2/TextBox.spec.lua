@@ -18,6 +18,16 @@ if FFlagDevFrameworkTextInput2 then
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
 		end)
+
+		it("check that the Roact.Ref is passed to the underlying frame", function()
+			local ref = Roact.createRef()
+			local element = createTestTextBox({
+				[Roact.Ref] = ref
+			})
+			local instance = Roact.mount(element)
+			expect(ref.current.ClassName).to.equal("TextBox")
+			Roact.unmount(instance)
+		end)
 	end
 else
 	return function() end

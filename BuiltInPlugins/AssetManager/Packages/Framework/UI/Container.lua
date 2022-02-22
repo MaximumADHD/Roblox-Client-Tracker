@@ -3,6 +3,7 @@
 	Does not have a Style and does not rely on Theme.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		Enum.AutomaticSize AutomaticSize: The AutomaticSize of the component.
 		boolean ClipsDescendants: Whether the container ClipsDescendants
 		Component Background: The Decoration to use as this component's background.
@@ -23,12 +24,15 @@
 		boolean Visible: whether or not the component is rendered.
 		string ElementOverride: use this built-in GuiObject instead of Frame.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local Immutable = Util.Immutable
 local Typecheck = Util.Typecheck
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local Container = Roact.PureComponent:extend("Container")
 Typecheck.wrap(Container, script)
@@ -51,7 +55,8 @@ function Container:render()
 	local layoutOrder = props.LayoutOrder
 	local visible = props.Visible
 	local elementOverride = props.ElementOverride
-	local ref = props[Roact.Ref]
+
+	local ref = if FFlagDevFrameworkForwardRef then props.ForwardRef else props[Roact.Ref]
 	local clipsDescendants = props.ClipsDescendants or false
 
 	local children = props[Roact.Children] or {}
@@ -130,4 +135,4 @@ function Container:render()
 	})
 end
 
-return Container
+return if FFlagDevFrameworkForwardRef then withForwardRef(Container) else Container

@@ -1,4 +1,4 @@
-local FFlagGameSettingsRemovePermissionsWarning = game:GetFastFlag("GameSettingsRemovePermissionsWarning")
+local FFlagFriendEditByDefault = game:GetFastFlag("FriendEditByDefault")
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -17,7 +17,8 @@ local GuiService = game:GetService("GuiService")
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local LOADING = require(Page.Keys.loadingInProgress)
-local DEFAULT_ADD_ACTION = PermissionsConstants.PlayKey
+local PLAY_KEY = PermissionsConstants.PlayKey
+local EDIT_KEY = PermissionsConstants.EditKey
 
 local UserHeadshotThumbnail = require(Plugin.Src.Components.AutoThumbnails.UserHeadshotThumbnail)
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
@@ -38,12 +39,6 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 	Padding = UDim.new(0, 32),
 })
 
-local TextFitToContent = createFitToContent("Frame", "UIListLayout", {
-	SortOrder = Enum.SortOrder.LayoutOrder,
-	Padding = UDim.new(0, 0),
-	FillDirection = Enum.FillDirection.Horizontal,
-})
-
 local PADDING = 16
 local PERMISSIONS_ID = "Permissions"
 
@@ -60,6 +55,24 @@ function CollaboratorSearchWidget:isLoading()
 		or searchData.LocalUserFriends == LOADING
 		or cachedSearchResults[searchTerm] == LOADING
 		or (cachedSearchResults[searchTerm] == nil and searchTerm ~= "")
+end
+
+function CollaboratorSearchWidget:isFriend(userId)
+	assert(FFlagFriendEditByDefault)
+	local props = self.props
+	local ownerType = props.ownerType
+	local ownerFriends = props.ownerFriends
+	-- For group games the ownerType will be Enum.CreatorType.Group. So isFriend will always return false for group games.
+	if ownerType == Enum.CreatorType.User then
+		-- Linear search here should be fine since friends are capped so it shouldn't take too long to go through all of them.
+		for _,friendId in ipairs(ownerFriends) do
+			if friendId == userId then
+				return true
+			end
+		end
+	end
+
+	return false
 end
 
 function CollaboratorSearchWidget:getMatches()
@@ -228,54 +241,20 @@ function CollaboratorSearchWidget:render()
 
 	local WarningTextSize
 	local titleWidth
-	if not FFlagGameSettingsRemovePermissionsWarning then
-		WarningTextSize = TextService:GetTextSize(localization:getText(PERMISSIONS_ID, "DEPRECATED_PermissionsUpdateMessage"),
-			theme.fontStyle.Smaller.TextSize, theme.fontStyle.Smaller.Font, Vector2.new(math.huge, math.huge))
-
-		titleWidth = UDim2.new(1, -WarningTextSize.X - PADDING, 0, theme.fontStyle.Subtitle.TextSize)
-	end
 
 	return Roact.createElement(FitToContent, {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
 	}, {
-		WarningLayout = not FFlagGameSettingsRemovePermissionsWarning and Roact.createElement(TextFitToContent, {
-			BackgroundTransparency = 1,
+		Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
+			AutomaticSize = Enum.AutomaticSize.XY,
 			LayoutOrder = 0,
-		}, {
-			Title = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-				LayoutOrder = 0,
-
-				Size = titleWidth,
-
-				Text = localization:getText("General", "TitleCollaborators"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				BackgroundTransparency = 1,
-			})),
-
-			WarningText = Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Smaller, {
-				LayoutOrder = 1,
-
-				Size = UDim2.new(0, WarningTextSize.X + PADDING, 0, theme.fontStyle.Smaller.TextSize),
-
-				Text = localization:getText(PERMISSIONS_ID, "DEPRECATED_PermissionsUpdateMessage"),
-				TextXAlignment = Enum.TextXAlignment.Left,
-
-				BackgroundTransparency = 1,
-			})),
-		}) or nil,
-
-		Title = FFlagGameSettingsRemovePermissionsWarning and Roact.createElement("TextLabel", Cryo.Dictionary.join(theme.fontStyle.Subtitle, {
-			LayoutOrder = 0,
-
-			Size = titleWidth,
 
 			Text = localization:getText("General", "TitleCollaborators"),
 			TextXAlignment = Enum.TextXAlignment.Left,
 
 			BackgroundTransparency = 1,
-		})) or nil,
+		})),
 
 		Searchbar = Roact.createElement(Searchbar, {
 			LayoutOrder = 1,
@@ -296,10 +275,19 @@ function CollaboratorSearchWidget:render()
 				searchCollaborators(text, false)
 			end,
 			OnItemClicked = function(key)
+				-- More info on adding collaborators and access level: https://confluence.rbx.com/pages/viewpage.action?spaceKey=CD&title=Place+Permissions+inside+Studio
 				if key.Type == PermissionsConstants.UserSubjectKey then
-					addUserCollaborator(key.Id, key.Name, DEFAULT_ADD_ACTION)
+					if FFlagFriendEditByDefault then
+						if self:isFriend(key.Id) then
+							addUserCollaborator(key.Id, key.Name, EDIT_KEY)
+						else
+							addUserCollaborator(key.Id, key.Name, PLAY_KEY)
+						end
+					else
+						addUserCollaborator(key.Id, key.Name, PLAY_KEY)
+					end
 				elseif key.Type == PermissionsConstants.GroupSubjectKey then
-					addGroupCollaborator(key.Id, DEFAULT_ADD_ACTION)
+					addGroupCollaborator(key.Id, PLAY_KEY)
 				else
 					assert(false)
 				end
@@ -326,6 +314,8 @@ CollaboratorSearchWidget = RoactRodux.connect(
 			UserCollaborators = GetUserCollaborators(state),
 			GroupCollaborators = GetGroupCollaborators(state),
 			SearchData = state.CollaboratorSearch,
+			ownerType = state.GameOwnerMetadata.creatorType,
+			ownerFriends = state.GameOwnerMetadata.creatorFriends,
 		}
 	end,
 	function(dispatch)

@@ -39,7 +39,7 @@ local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 local createFitToContent = UILibrary.Component.createFitToContent
 
-local RoundTextBox = require(Plugin.RoactStudioWidgets.RoundTextBox)
+local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 
 local Framework = Plugin.Framework
 local ContextServices = require(Framework.ContextServices)

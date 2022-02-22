@@ -4,24 +4,18 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
+local Packages = Plugin.Packages
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 
 local FrameworkStyle = Framework.Style
 local StyleKey = FrameworkStyle.StyleKey
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
-local StyleModifier = require(Libs.Framework).Util.StyleModifier
+local StyleModifier = require(Packages.Framework).Util.StyleModifier
 local StyleColors = FrameworkStyle.Colors
 
-local Cryo = require(Libs.Cryo)
+local Cryo = require(Packages.Cryo)
 
 return function()
 	local roundBox = getRawComponentStyle("RoundBox")

@@ -46,7 +46,7 @@ end
 
 local function fetchDebugpointIcon(row)
 	if row.item.debugpointType == "Breakpoint" then	
-		if not row.item.condition then
+		if not row.item.condition or row.item.condition == "" then
 			return (row.item.isEnabled and debugpointIconTable.breakpointEnabled) or debugpointIconTable.breakpointDisabled
 		else
 			return (row.item.isEnabled and debugpointIconTable.conditionalEnabled) or debugpointIconTable.conditionalDisabled

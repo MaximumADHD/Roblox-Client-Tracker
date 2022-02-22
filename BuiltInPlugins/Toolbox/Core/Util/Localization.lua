@@ -6,14 +6,8 @@ local Plugin = script.Parent.Parent.Parent
 
 local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
 
 local createSignal = require(Plugin.Core.Util.createSignal)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)

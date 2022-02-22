@@ -1,13 +1,8 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 	local Packages = Plugin.Packages
-	local Cryo
-	if FFlagToolboxDeduplicatePackages then
-		Cryo = require(Packages.Cryo)
-	else
-		Cryo = require(Plugin.Libs.Cryo)
-	end
+	local Cryo = require(Packages.Cryo)
+
 	local ClearAssets = require(Plugin.Core.Actions.ClearAssets)
 	local GetAssets = require(Plugin.Core.Actions.GetAssets)
 	local SetLoading = require(Plugin.Core.Actions.SetLoading)

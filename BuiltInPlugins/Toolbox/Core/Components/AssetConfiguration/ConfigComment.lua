@@ -7,23 +7,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local ToggleButton = require(Libs.Framework).UI.ToggleButton
+local ToggleButton = require(Packages.Framework).UI.ToggleButton
 
 local ConfigComment = Roact.PureComponent:extend("ConfigComment")
 

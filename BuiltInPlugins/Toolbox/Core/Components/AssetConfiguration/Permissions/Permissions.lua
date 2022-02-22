@@ -12,24 +12,18 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 local ScrollingFrame = Framework.UI.ScrollingFrame
 
-local Separator = require(Libs.Framework).UI.Separator
+local Separator = require(Packages.Framework).UI.Separator
 
 local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissions
 local PackageOwnerWidget = require(PermissionsDirectory.PackageOwnerWidget)

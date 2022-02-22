@@ -1,4 +1,5 @@
 local FFlagUXImprovementsShowUserPermsWhenCollaborator2 = game:GetFastFlag("UXImprovementsShowUserPermsWhenCollaborator2")
+local FFlagStudioExplainFriendCollaboratorPermission = game:GetFastFlag("StudioExplainFriendCollaboratorPermission")
 
 local ITEM_HEIGHT = 60
 local PADDING_Y = 20
@@ -15,6 +16,8 @@ local Cryo = require(Plugin.Cryo)
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 local UI = require(Plugin.Framework.UI)
+local Util = require(Plugin.Framework.Util)
+local StyleModifier = Util.StyleModifier
 local SelectInput = UI.SelectInput
 local Button = UI.Button
 local TextLabel = UI.Decoration.TextLabel
@@ -104,7 +107,27 @@ function CollaboratorItem:getCurrentPermissionLabel()
 	assert(false)
 end
 
-function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOrder)
+function CollaboratorItem:createTextLabel(text, style, height, padding, layoutOrder, isEnabled)
+	return Roact.createElement(TextLabel, {
+		BackgroundTransparency = 1,
+		StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
+		LayoutOrder = layoutOrder,
+		Size = UDim2.new(1, 0, 0, height),
+		Style = style,
+		Text = text,
+		TextWrapped = true,
+		TextXAlignment = Enum.TextXAlignment.Left,
+	},	{
+		-- This padding ensures the text is not lined up right along the edge of the TextLabel
+		Padding = Roact.createElement("UIPadding", {
+			PaddingTop = UDim.new(0, padding),
+			PaddingLeft = UDim.new(0, padding),
+		}),
+	})
+end
+
+-- remove with FFlagStudioExplainFriendCollaboratorPermission
+function CollaboratorItem:DEPRECATED_createTextLabel(text, style, height, padding, layoutOrder)
 	return Roact.createElement(TextLabel, {
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
@@ -134,22 +157,44 @@ function CollaboratorItem:init()
 		local mainText = item.Display
 		local description = item.Description
 
-		return Roact.createElement(Button, {
-			Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
-			LayoutOrder = index,
-			OnClick = activated,
-		}, {
-			UILayout = Roact.createElement("UIListLayout", {
-				FillDirection = Enum.FillDirection.Vertical,
-				Padding = UDim.new(0, 0),
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				VerticalAlignment = Enum.VerticalAlignment.Top,
-			}),
+		if FFlagStudioExplainFriendCollaboratorPermission then
+			local isEnabled = item.IsEnabled == nil or item.IsEnabled
 
-			MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0),
+			return Roact.createElement(Button, {
+				Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+				LayoutOrder = index,
+				StyleModifier = not isEnabled and StyleModifier.Disabled or nil,
+				OnClick = activated,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 0),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
 
-			DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1),
-		})
+				MainTextLabel = self:createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0, isEnabled),
+
+				DescriptionTextLabel = self:createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1, isEnabled),
+			})
+		else
+			return Roact.createElement(Button, {
+				Size = UDim2.new(1, 0, 0, theme.selectInput.button.height),
+				LayoutOrder = index,
+				OnClick = activated,
+			}, {
+				UILayout = Roact.createElement("UIListLayout", {
+					FillDirection = Enum.FillDirection.Vertical,
+					Padding = UDim.new(0, 0),
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					VerticalAlignment = Enum.VerticalAlignment.Top,
+				}),
+
+				MainTextLabel = self:DEPRECATED_createTextLabel(mainText, "Normal", theme.fontStyle.Normal.TextSize, theme.selectInput.padding, 0),
+
+				DescriptionTextLabel = self:DEPRECATED_createTextLabel(description, "SubText", theme.fontStyle.Subtext.TextSize, theme.selectInput.padding, 1),
+			})
+		end
 	end
 end
 
@@ -222,7 +267,7 @@ function CollaboratorItem:render()
 				OnItemActivated = self.onItemActivated,
 				OnRenderItem = self.onRenderItem,
 				PlaceholderText = self:getCurrentPermissionLabel(),
-				Width = theme.selectInput.width,
+				Width = FFlagStudioExplainFriendCollaboratorPermission and theme.selectInput.width or theme.selectInput.DEPRECATED_width,
 			}) or nil,
 		}),
 

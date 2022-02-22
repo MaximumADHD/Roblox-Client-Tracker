@@ -23,7 +23,10 @@
 		callback OnDoubleClick: An optional callback called when an item is double clicked
 		callback OnSizeChange: An optional callback called when the component size changes.
 		callback OnSortChange: An optional callback called when the user sorts a column.
+		callback OnColumnSizesChange: An optional callback which allows columns to be resizable.
 		callback RowComponent: An optional component to render each row.
+		boolean UseScale: Whether to convert column widths to scales during resizing.
+		boolean ClampSize: Whether to clamp column resizes to the width of the table.
 		any CellComponent: An optional component passed to the row component which renders individual cells.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
@@ -32,9 +35,13 @@
 		array[any] HighlightedRows: An optional list of rows to highlight.
 		number ScrollFocusIndex: An optional row index for the infinite scroller to focus upon rendering.
 ]]
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -47,9 +54,12 @@ local TableRow = require(Framework.UI.TableRow)
 local Dash = require(Framework.packages.Dash)
 local map = Dash.map
 local collect = Dash.collect
+local reduce = Dash.reduce
 
 local Pane = require(Framework.UI.Pane)
 local InfiniteScrollingFrame = require(Framework.UI.InfiniteScrollingFrame)
+local ScrollingFrame = require(Framework.UI.ScrollingFrame)
+local SplitPane = require(Framework.UI.SplitPane)
 local TableHeaderCell = require(script.TableHeaderCell)
 
 local Util = require(Framework.Util)
@@ -61,8 +71,11 @@ Typecheck.wrap(Table, script)
 type Column = {
 	Name: string,
 	Key: string?,
-	Width: number?,
+	Width: UDim?,
+	MinWidth: number?,
 }
+
+local DEFAULT_COLUMN_MIN_WIDTH = UDim.new(0, 50)
 
 function Table:init()
 	assert(THEME_REFACTOR, "Table not supported in Theme1, please upgrade your plugin to Theme2")
@@ -95,7 +108,7 @@ function Table:init()
 			self.props.OnRightClickRow(rowProps)
 		end
 	end
-	
+		
 	self.onRenderRow = function(row)
 		-- Infinite scroller doesn't track row indices, so store this in Table
 		local rowIndex = self.rowToIndex[row]
@@ -153,7 +166,39 @@ function Table:calculateRowIndices(rows)
 	end)
 end
 
-function Table:renderHeadings()
+function Table:renderResizableHeadings()
+	local props = self.props
+	local style = props.Stylizer
+	local sizes = map(props.Columns, function(column: Column)
+		return column.Width or UDim.new(1 / #props.Columns, 0)
+	end)
+	local minSizes = map(props.Columns, function(column: Column)
+		return column.MinWidth or DEFAULT_COLUMN_MIN_WIDTH
+	end)
+	return Roact.createElement(SplitPane, {
+		UseScale = props.UseScale,
+		ClampSize = props.ClampSize,
+		Sizes = sizes,
+		MinSizes = minSizes,
+		OnSizesChange = props.OnColumnSizesChange,
+	}, map(props.Columns, function(column: Column, index: number)
+		local order = props.SortIndex == index and props.SortOrder or nil
+		return Roact.createElement(TableHeaderCell, {
+			Name = column.Name,
+			Order = order,
+			Width = UDim.new(1, 0),
+			ColumnIndex = index,
+			Style = style,
+			OnPress = self.props.OnSortChange and function()
+				-- Swap to ascending or use descending
+				local nextOrder = if order == Enum.SortDirection.Descending then Enum.SortDirection.Ascending else Enum.SortDirection.Descending
+				self.props.OnSortChange(index, nextOrder)
+			end or nil
+		})
+	end))
+end
+
+function Table:renderFixedHeadings()
 	local props = self.props
 	local style = props.Stylizer
 	return map(props.Columns, function(column: Column, index: number)
@@ -172,6 +217,15 @@ function Table:renderHeadings()
 			end or nil
 		})
 	end)
+end
+
+function Table:renderHeadings()
+	local props = self.props
+	if hasTableColumnResizeFFlags and props.OnColumnSizesChange then
+		return self:renderResizableHeadings()
+	else
+		return self:renderFixedHeadings()
+	end
 end
 
 function Table:renderScroll()
@@ -217,6 +271,63 @@ function Table:render()
 	local footerHeight = showFooter and style.FooterHeight or 0
 	local child = props.Scroll and self:renderScroll() or self:renderRows()
 
+	local header = showHeader and Roact.createElement(Pane, {
+		Layout = Enum.FillDirection.Horizontal,
+		LayoutOrder = 1,
+		Size = UDim2.new(1, 0, 0, headerHeight),
+		Padding = props.Scroll and style.ScrollHeaderPadding or nil,
+		Style = "SubtleBox",
+		BorderColor3 = style.Border,
+		BorderSizePixel = 1,
+	}, headings)
+
+	local useVariableWidth = hasTableColumnResizeFFlags and props.OnColumnSizesChange and not props.UseScale and not props.ClampSize
+	local width = 0
+
+	local size = UDim2.new(1, 0, 1, -(headerHeight + footerHeight))
+	if useVariableWidth then
+		width = reduce(props.Columns, function(value: number, column: Column)
+			local columnWidth = if column.Width then column.Width.Offset else 0
+			return value + columnWidth
+		end, 0)
+		if width > 0 then
+			size = UDim2.new(0, width, 1, -(headerHeight + footerHeight))
+		end
+	end
+
+	local list = Roact.createElement(Pane, {
+		VerticalAlignment = Enum.VerticalAlignment.Top,
+		HorizontalAlignment = hasTableColumnResizeFFlags and Enum.HorizontalAlignment.Left or nil,
+		Layout = Enum.FillDirection.Vertical,
+		Padding = 2,
+		LayoutOrder = 2,
+		Size = size,
+		[Roact.Event.MouseLeave] = props.OnMouseLeave,
+	}, {
+		Child = child
+	})
+
+	local top
+	if useVariableWidth then
+		top = Roact.createElement(ScrollingFrame, {
+			CanvasSize = UDim2.fromOffset(width, 0),
+			ScrollingDirection = Enum.ScrollingDirection.X,
+		}, {
+			Child = Roact.createElement(Pane, {
+				Layout = Enum.FillDirection.Vertical,
+				HorizontalAlignment = Enum.HorizontalAlignment.Left,
+			}, {
+				Header = header,
+				List = list,
+			}),
+		})
+	else
+		top = Roact.createFragment({
+			Header = header,
+			List = list,
+		})
+	end
+
 	return Roact.createElement(Pane, {
 		Size = props.Size,
 		Layout = Enum.FillDirection.Vertical,
@@ -224,25 +335,7 @@ function Table:render()
 		Padding = 1,
 		[Roact.Change.AbsoluteSize] = props.OnSizeChange and self.onSizeChange or nil,
 	}, {
-		Header = showHeader and Roact.createElement(Pane, {
-			Layout = Enum.FillDirection.Horizontal,
-			LayoutOrder = 1,
-			Size = UDim2.new(1, 0, 0, headerHeight),
-			Padding = props.Scroll and style.ScrollHeaderPadding or nil,
-			Style = "SubtleBox",
-			BorderColor3 = style.Border,
-			BorderSizePixel = 1,
-		}, headings),
-		List = Roact.createElement(Pane, {
-			VerticalAlignment = Enum.VerticalAlignment.Top,
-			Layout = Enum.FillDirection.Vertical,
-			Padding = 2,
-			LayoutOrder = 2,
-			Size = UDim2.new(1, 0, 1, -(headerHeight + footerHeight)),
-			[Roact.Event.MouseLeave] = props.OnMouseLeave,
-		}, {
-			Child = child
-		}),
+		Top = top,
 		Footer = showFooter and Roact.createElement(Pane, {
 			LayoutOrder = 3,
 			Style = "SubtleBox",
@@ -255,11 +348,8 @@ function Table:render()
 	})
 end
 
-
 Table = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(Table)
-
-
 
 return Table

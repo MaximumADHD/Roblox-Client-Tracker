@@ -14,7 +14,7 @@ local Roact = require(Plugin.Roact)
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local StudioWidgetButtonBarWithToolTip = require(RoactStudioWidgets.ButtonBarWithToolTip)
 
 

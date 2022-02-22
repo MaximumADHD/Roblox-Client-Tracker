@@ -15,15 +15,9 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
 local OverrideAssetView = require(AssetConfiguration.OverrideAssetView)
@@ -37,7 +31,7 @@ local AssetConfigUtil = require(Util.AssetConfigUtil)
 local getUserId = require(Util.getUserId)
 local AssetConfigConstants = require(Util.AssetConfigConstants)
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local TextInput = Framework.UI.TextInput
 
 local withLocalization = ContextHelper.withLocalization

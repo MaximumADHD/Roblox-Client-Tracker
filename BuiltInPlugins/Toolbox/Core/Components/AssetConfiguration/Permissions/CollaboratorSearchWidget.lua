@@ -15,16 +15,10 @@ local FFlagToolboxCollaboratorSearchUseFind = game:GetFastFlag("ToolboxCollabora
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local Util = Plugin.Core.Util
 local LOADING = require(Util.Keys).LoadingInProgress
@@ -41,7 +35,7 @@ local CollaboratorSearchBar = require(PermissionsDirectory.CollaboratorSearchBar
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorThumbnail = require(PermissionsDirectory.CollaboratorThumbnail)
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 

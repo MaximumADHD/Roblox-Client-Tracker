@@ -3,6 +3,7 @@ local RigFunctions = {}
 -- Services
 local ServerStorage = game:GetService("ServerStorage")
 local ContentProvider = game:GetService("ContentProvider")
+local PublishService = game:GetService("PublishService")
 
 local Constants = require(script.Parent.Constants)
 local FixedRigPositions = require(script.Parent.FixedRigPositions)
@@ -21,6 +22,8 @@ local ASSET_URLS = {
     ContentProvider.BaseUrl .."asset/?id=",
     "rbxassetid://"
 }
+
+local FFlagHSRMoveToCDN5 = game:GetFastFlag("HSRMoveToCDN5")
 
 local function idToContentUrl(id)
     if tonumber(id) then
@@ -493,6 +496,10 @@ function RigFunctions.Export(plugin)
     end
 
     for _, folder in pairs(exportModel:GetChildren()) do
+        if FFlagHSRMoveToCDN5 then
+            PublishService:PublishDescendantAssets(folder)
+        end
+
         game.Selection:Set(folder:GetChildren())
         local outputFileName = folder.Name
         plugin:PromptSaveSelection(outputFileName)

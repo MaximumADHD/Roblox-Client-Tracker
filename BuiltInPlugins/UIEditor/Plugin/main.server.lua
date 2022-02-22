@@ -39,7 +39,6 @@ local RunService			= game:GetService("RunService")
 
 -- Flags
 local FFlagFixStarterGuiErrors = game:DefineFastFlag("FixStarterGuiErrors", false)
-local FFlagFixUIEditorUndoRedo = game:DefineFastFlag("FixUIEditorUndoRedo", false)
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 
 -- Variables
@@ -358,21 +357,13 @@ local function isUIEditorWaypoint(waypoint)
 end
 
 local function onUndo(waypoint)
-	if FFlagFixUIEditorUndoRedo then
-		if isUIEditorWaypoint(waypoint) then
-			Resize:updatePosition()
-		end
-	else
+	if isUIEditorWaypoint(waypoint) then
 		Resize:updatePosition()
 	end
 end
 
 local function onRedo(waypoint)
-	if FFlagFixUIEditorUndoRedo then
-		if isUIEditorWaypoint(waypoint) then
-			Resize:updatePosition()
-		end
-	else
+	if isUIEditorWaypoint(waypoint) then
 		Resize:updatePosition()
 	end
 end

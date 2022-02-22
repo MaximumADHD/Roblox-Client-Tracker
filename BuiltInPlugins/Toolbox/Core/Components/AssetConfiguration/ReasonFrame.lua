@@ -14,19 +14,13 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local Util = Plugin.Core.Util
 local ContextHelper = require(Util.ContextHelper)
 local Constants = require(Util.Constants)
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 

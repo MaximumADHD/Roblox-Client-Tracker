@@ -16,15 +16,9 @@ local FFlagToolboxDisableAutocompleteWithGuac = game:GetFastFlag("ToolboxDisable
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
 
 local Category = require(Plugin.Core.Types.Category)
@@ -36,9 +30,9 @@ local getNetwork = ContextGetter.getNetwork
 local GetAutocompleteResultsRequest = require(Plugin.Core.Networking.Requests.GetAutocompleteResultsRequest)
 local LogMarketplaceSearchAnalytics = require(Plugin.Core.Thunks.LogMarketplaceSearchAnalytics)
 
-local DropdownMenu = require(Libs.Framework).UI.DropdownMenu
+local DropdownMenu = require(Packages.Framework).UI.DropdownMenu
 local DropdownMenuItem = require(Plugin.Core.Components.DropdownMenuItem)
-local SearchBar = require(Libs.Framework).StudioUI.SearchBar
+local SearchBar = require(Packages.Framework).StudioUI.SearchBar
 
 local DROPDOWN_ITEM_HEIGHT = 32
 local AUTOCOMPLETE_WAIT_TIME = 0.12 -- waittime (in seconds) before firing autocomplete API request

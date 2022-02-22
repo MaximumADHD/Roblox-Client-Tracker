@@ -2,14 +2,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+
 local Packages = Plugin.Packages
-local Promise
-if FFlagToolboxDeduplicatePackages then
-	Promise = require(Packages.Framework).Util.Promise
-else
-	Promise = require(Plugin.Libs.Framework).Util.Promise
-end
+local Promise = require(Packages.Framework).Util.Promise
 
 local NetworkError = require(Plugin.Core.Actions.NetworkError)
 local SetAllowedAssetTypes = require(Plugin.Core.Actions.SetAllowedAssetTypes)

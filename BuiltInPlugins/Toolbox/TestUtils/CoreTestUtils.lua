@@ -1,16 +1,10 @@
 local Plugin = script.Parent.Parent
 
 local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Rodux = require(Libs.Rodux)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Rodux = require(Packages.Rodux)
+local Framework = require(Packages.Framework)
 
 local ThunkWithArgsMiddleware = Framework.Util.ThunkWithArgsMiddleware
 

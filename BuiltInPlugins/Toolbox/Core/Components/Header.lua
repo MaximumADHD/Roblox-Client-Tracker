@@ -19,15 +19,9 @@ local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefacto
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local Constants = require(Plugin.Core.Util.Constants)
@@ -43,7 +37,7 @@ local getNetwork = ContextGetter.getNetwork
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Settings = require(Plugin.Core.ContextServices.Settings)
 

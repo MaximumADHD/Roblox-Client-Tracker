@@ -1,4 +1,3 @@
-game:DefineFastFlag("AnimationClipEditorDeduplicatePackages", false)
 game:DefineFastFlag("AnimationClipEditorStylizer", false)
 
 local Plugin = script.Parent.Parent

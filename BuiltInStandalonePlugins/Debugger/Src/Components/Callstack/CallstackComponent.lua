@@ -387,6 +387,8 @@ CallstackComponent = RoactRodux.connect(
 				return dispatch(SetCurrentFrameNumber(threadId, frameNumber))
 			end,
 			onExpansionClicked = function(threadId)
+				local DebuggerUIService = game:GetService("DebuggerUIService")
+				DebuggerUIService:SetCurrentThreadId(threadId)
 				return dispatch(SetCurrentThread(threadId))
 			end,
 		}

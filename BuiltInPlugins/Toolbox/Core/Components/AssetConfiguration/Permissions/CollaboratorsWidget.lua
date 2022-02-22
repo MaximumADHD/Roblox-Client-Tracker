@@ -13,14 +13,8 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local Util = Plugin.Core.Util
 local AssetConfigConstants = require(Util.AssetConfigConstants)
@@ -29,7 +23,7 @@ local Constants = require(Util.Constants)
 local ContextHelper = require(Util.ContextHelper)
 local withLocalization = ContextHelper.withLocalization
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
@@ -37,9 +31,9 @@ local PermissionsDirectory = Plugin.Core.Components.AssetConfiguration.Permissio
 local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local CollaboratorItem = require(PermissionsDirectory.CollaboratorItem)
 
-local Separator = require(Libs.Framework).UI.Separator
+local Separator = require(Packages.Framework).UI.Separator
 
-local FrameworkUtil = require(Libs.Framework).Util
+local FrameworkUtil = require(Packages.Framework).Util
 local deepJoin = FrameworkUtil.deepJoin
 
 local function getUserCollaboratorPermissions(props, localized)

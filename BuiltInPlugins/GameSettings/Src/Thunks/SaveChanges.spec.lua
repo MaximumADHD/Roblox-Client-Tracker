@@ -1,10 +1,13 @@
 return function()
 	SKIP()
+	local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 	
 	local Plugin = script.Parent.Parent.Parent
 
 	local Rodux = require(Plugin.Rodux)
-	local Promise = require(Plugin.Promise)
+	local Framework = require(Plugin.Framework)
+	local Util = Framework.Util
+	local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 
 	local SettingsReducer = require(Plugin.Src.Reducers.Settings)
 	local SettingsImpl_mock = require(Plugin.Src.Networking.SettingsImpl_mock)

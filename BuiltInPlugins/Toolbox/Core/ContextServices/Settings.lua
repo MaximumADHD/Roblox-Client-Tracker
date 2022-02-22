@@ -1,15 +1,9 @@
 local Plugin = script.Parent.Parent.Parent
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local ContextItem = require(Libs.Framework).ContextServices.ContextItem
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local ContextItem = require(Packages.Framework).ContextServices.ContextItem
 -- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = require(Libs.Framework).ContextServices.Provider
+local Provider = require(Packages.Framework).ContextServices.Provider
 
 local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 

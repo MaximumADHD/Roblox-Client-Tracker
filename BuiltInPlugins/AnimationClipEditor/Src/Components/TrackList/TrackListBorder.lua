@@ -20,6 +20,8 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
+local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
+
 local TrackListBorder = Roact.PureComponent:extend("TrackListBorder")
 
 function TrackListBorder:render()
@@ -31,7 +33,7 @@ function TrackListBorder:render()
 			LayoutOrder = 1,
 			BackgroundColor3 = theme.borderColor,
 			BorderSizePixel = 0,
-			ZIndex = 2,
+			ZIndex = GetFFlagCurveEditor() and props.ZIndex or 2,
 		}, {
 			DragArea = Roact.createElement(DragListenerArea, {
 				AnchorPoint = Vector2.new(1, 0),

@@ -24,15 +24,12 @@ local Cryo = require(Plugin.Packages.Cryo)
 local deepCopy = require(Plugin.Src.Util.deepCopy)
 local Constants = require(Plugin.Src.Util.Constants)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
-local TrackUtils = require(Plugin.Src.Util.TrackUtils)
 local AnimationData = require(Plugin.Src.Util.AnimationData)
 local SetSelectedKeyframes = require(Plugin.Src.Actions.SetSelectedKeyframes)
 local UpdateAnimationData = require(Plugin.Src.Thunks.UpdateAnimationData)
 local SelectionUtils = require(Plugin.Src.Util.SelectionUtils)
 
-local GetFFlagFixScaleKeyframeClobbering = require(Plugin.LuaFlags.GetFFlagFixScaleKeyframeClobbering)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 -- Helper function which allows us to snap keyframes
 -- to exact frames, preventing keyframes between frames.
@@ -44,11 +41,8 @@ end
 return function(pivotTick, scale, dragContext)
 	return function(store)
 		local state = store:getState()
-		local scroll = GetFFlagCurveEditor() and state.Status.HorizontalScroll or state.Status.Scroll
-		local zoom = GetFFlagCurveEditor() and state.Status.HorizontalZoom or state.Status.Zoom
 		local frameRate = state.Status.FrameRate
 		local snapMode = state.Status.SnapMode
-		local editingLength = state.Status.EditingLength
 		local selectedKeyframes = dragContext and dragContext.selectedKeyframes or state.Status.SelectedKeyframes
 		local animationData = dragContext and dragContext.animationData or state.AnimationData
 		if not (animationData and selectedKeyframes) then
@@ -60,11 +54,6 @@ return function(pivotTick, scale, dragContext)
 		newData.Events = deepCopy(newData.Events)
 
 		local startTick = 0
-		if not GetFFlagFixScaleKeyframeClobbering() then
-			local range = TrackUtils.getZoomRange(animationData, scroll, zoom, editingLength)
-			startTick = range.Start
-		end
-
 		local newSelectedKeyframes = deepCopy(selectedKeyframes)
 
 		if GetFFlagChannelAnimations() then

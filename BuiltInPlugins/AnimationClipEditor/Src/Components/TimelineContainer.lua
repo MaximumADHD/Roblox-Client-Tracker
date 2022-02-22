@@ -127,12 +127,12 @@ function TimelineContainer:render()
 		endTick)
 
 	return Roact.createElement("Frame", {
-		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT),
+		Size = UDim2.new(1, 0, 0, Constants.TIMELINE_HEIGHT + (GetFFlagCurveEditor() and 1 or 0)),
 		LayoutOrder = layoutOrder,
-		BorderSizePixel = 1,
+		BorderSizePixel = GetFFlagCurveEditor() and 0 or 1,
 		BackgroundColor3 = theme.timelineTheme.backgroundColor,
 		BorderColor3 = theme.borderColor,
-		ZIndex = GetFFlagCurveEditor() and 2 or 1,
+		ZIndex = GetFFlagCurveEditor() and props.ZIndex or 1,
 	}, {
 		Timeline = Roact.createElement(Timeline, {
 			StartTick = startTick,
@@ -164,13 +164,9 @@ function TimelineContainer:render()
 	})
 end
 
-
 TimelineContainer = withContext({
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TimelineContainer)
-
-
-
 
 return TimelineContainer

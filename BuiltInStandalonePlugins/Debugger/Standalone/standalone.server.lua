@@ -26,8 +26,8 @@ require(Common.defineLuaFlags)
 -- If your plugin is internal-only, change if statement to:
 -- if not (game:GetService("StudioService"):HasInternalPermission() and FLAG) then
 
-local FFlagStudioDebuggerPlugin = game:GetFastFlag("StudioDebuggerPlugin")
-if not FFlagStudioDebuggerPlugin then
+local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
+if not FFlagStudioDebuggerOverhaul_Dev then
 	return
 end
 

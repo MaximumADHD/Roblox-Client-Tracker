@@ -22,16 +22,10 @@ local FFlagToolboxGetItemsDetailsUsesSingleApi = game:GetFastFlag("ToolboxGetIte
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -71,7 +65,7 @@ local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AssetGridContainer = Roact.PureComponent:extend("AssetGridContainer")

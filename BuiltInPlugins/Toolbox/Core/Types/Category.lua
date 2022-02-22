@@ -7,13 +7,7 @@ local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local getAllowedAssetTypeEnums = require(Plugin.Core.Util.getAllowedAssetTypeEnums)
 
 local Packages = Plugin.Packages
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Cryo
-if FFlagToolboxDeduplicatePackages then
-	Cryo = require(Packages.Cryo)
-else
-	Cryo = require(Plugin.Libs.Cryo)
-end
+local Cryo = require(Packages.Cryo)
 
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents

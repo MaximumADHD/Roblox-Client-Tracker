@@ -20,17 +20,11 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local ContentProvider = game:GetService("ContentProvider")
 local GuiService = game:GetService("GuiService")
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AssetConfiguration = Plugin.Core.Components.AssetConfiguration
@@ -39,7 +33,7 @@ local PriceComponent = require(AssetConfiguration.PriceComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
 
-local Separator = require(Libs.Framework).UI.Separator
+local Separator = require(Packages.Framework).UI.Separator
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)

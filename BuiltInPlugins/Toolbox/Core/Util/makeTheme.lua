@@ -5,15 +5,9 @@ local Plugin = script.Parent.Parent.Parent
 
 local Images = require(Plugin.Core.Util.Images)
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
+local Packages = Plugin.Packages
 
-local Framework = require(Libs.Framework)
+local Framework = require(Packages.Framework)
 
 local Util = Plugin.Core.Util
 local Colors = require(Util.Colors)
@@ -23,10 +17,10 @@ local FrameworkStyle = Framework.Style
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
 local StyleColors = FrameworkStyle.Colors
-local DarkTheme = require(Libs.Framework).Style.Themes.DarkTheme
-local LightTheme = require(Libs.Framework).Style.Themes.LightTheme
+local DarkTheme = require(Packages.Framework).Style.Themes.DarkTheme
+local LightTheme = require(Packages.Framework).Style.Themes.LightTheme
 
-local Cryo = require(Libs.Cryo)
+local Cryo = require(Packages.Cryo)
 
 local ui = FrameworkStyle.ComponentSymbols
 local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
@@ -51,6 +45,8 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Dark,
 		[StyleKey.Toolbox_DropdownIconColor] = StyleColors.White,
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(34, 34, 34),
+		[StyleKey.Toolbox_NavigationLinkTextColor] = FFlagToolboxAssetCategorization and StyleColors.White or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#AAAAAA") or nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
@@ -81,6 +77,8 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.Toolbox_DropdownItemSelectedColor] = StyleColors.Blue_Light,
 		[StyleKey.Toolbox_DropdownIconColor] = Color3.fromRGB(25, 25, 25),
 		[StyleKey.Toolbox_HorizontalLineColor] = Color3.fromRGB(227, 227, 227),
+		[StyleKey.Toolbox_NavigationLinkTextColor] = FFlagToolboxAssetCategorization and Color3.fromHex("#121212") or nil,
+		[StyleKey.Toolbox_NavigationLinkTextColorHover] = FFlagToolboxAssetCategorization and Color3.fromHex("#666666") or nil,
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(245, 245, 245),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = StyleColors.Slate,
@@ -320,6 +318,19 @@ local makeTheme = function(themeExtension, themeClass)
 			textColor = StyleKey.MainText,
 			clearAllText = StyleKey.LinkText,
 		},
+
+		sectionHeader = FFlagToolboxAssetCategorization and {
+			textColor = StyleKey.Toolbox_NavigationLinkTextColor,
+			font = Enum.Font.SourceSansBold,
+			textSize = 18,
+		} or nil,
+
+		sectionHeaderNavLink = FFlagToolboxAssetCategorization and {
+			textColor = StyleKey.Toolbox_NavigationLinkTextColor,
+			hoverTextColor = StyleKey.Toolbox_NavigationLinkTextColorHover,
+			font = Enum.Font.SourceSans,
+			textSize = 16,
+		} or nil,
 
 		tabSet = {
 			backgroundColor = StyleKey.MainBackground,

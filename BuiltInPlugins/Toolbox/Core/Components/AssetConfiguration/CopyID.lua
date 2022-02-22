@@ -2,14 +2,8 @@ local Plugin = script.Parent.Parent.Parent.Parent
 
 local StudioService = game:GetService("StudioService")
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
@@ -18,7 +12,7 @@ local ContextHelper = require(Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local CopyID = Roact.PureComponent:extend("CopyID")

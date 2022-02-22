@@ -3,6 +3,7 @@ return function(plugin, pluginLoaderContext)
 		return
 	end
 
+	local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
 	-- Fast flags
@@ -19,11 +20,11 @@ return function(plugin, pluginLoaderContext)
 	local Roact = require(Plugin.Roact)
 	local Rodux = require(Plugin.Rodux)
 	local Cryo = require(Plugin.Cryo)
-	local Promise = require(Plugin.Promise)
 
 	local Framework = require(Plugin.Framework)
 	local ContextServices = Framework.ContextServices
 	local FrameworkUtil = Framework.Util
+	local Promise = if FFlagGameSettingsDeduplicatePackages then FrameworkUtil.Promise else require(Plugin.Packages.Promise)
 
 	local MainView = require(Plugin.Src.Components.MainView)
 	local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)

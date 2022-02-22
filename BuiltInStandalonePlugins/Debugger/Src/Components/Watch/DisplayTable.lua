@@ -23,11 +23,15 @@ local TableTab = require(Models.Watch.TableTab)
 local WatchRow = require(Models.Watch.WatchRow)
 local StepStateBundle = require(Models.StepStateBundle)
 
+local watchHelperFunctions = require(PluginRoot.Src.Util.WatchHelperFunctions)
+
 local Actions = PluginRoot.Src.Actions
 local SetVariableExpanded = require(Actions.Watch.SetVariableExpanded)
 local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local AddExpression = require(Actions.Watch.AddExpression)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
+local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
+
 
 local LazyLoadVariableChildren = require(PluginRoot.Src.Thunks.Watch.LazyLoadVariableChildren)
 local ExecuteExpression = require(PluginRoot.Src.Thunks.Watch.ExecuteExpressionThunk)
@@ -115,6 +119,44 @@ function DisplayTable:init()
 		return item.children or {}
 	end
 	
+	self.getVariableTableColumns = function()
+		local localization = self.props.Localization
+		return {
+			{
+				Name = localization:getText("Watch", "NameColumn"),
+				Key = "nameColumn",
+			}, {
+				Name = localization:getText("Watch", "ScopeColumn"),
+				Key = "scopeColumn",
+			}, {
+				Name = localization:getText("Watch", "ValueColumn"),
+				Key = "valueColumn",
+			}, {
+				Name = localization:getText("Watch", "DataTypeColumn"),
+				Key = "dataTypeColumn",
+			}, 
+		}
+	end
+	
+	self.getWatchTableColumns = function()
+		local localization = self.props.Localization
+		return {
+			{
+				Name = localization:getText("Watch", "ExpressionColumn"),
+				Key = "expressionColumn",
+			}, {
+				Name = localization:getText("Watch", "ScopeColumn"),
+				Key = "scopeColumn",
+			}, {
+				Name = localization:getText("Watch", "ValueColumn"),
+				Key = "valueColumn",
+			}, {
+				Name = localization:getText("Watch", "DataTypeColumn"),
+				Key = "dataTypeColumn",
+			}, 
+		}
+	end
+	
 	self.onExpansionChange = function(newExpansion)
 		local props = self.props
 		local currentStepStateBundle = props.CurrentStepStateBundle
@@ -183,50 +225,38 @@ function DisplayTable:init()
 			DebuggerUIService:EditWatch(row.item.expressionColumn)
 		end
 	end
+	
+	self.OnSortChange = function(index, sortOrder)
+		local props = self.props
+		local defaultSortOrder = props.SortOrder or sortOrder
+		props.OnSetWatchSortState((props.SortIndex == index) and sortOrder or defaultSortOrder, index)
+	end
+	
+	self.childSort = function(leftItem, rightItem)
+		local tableToSort = {leftItem, rightItem}
+		local props = self.props
+		local isVariablesTab = props.SelectedTab == TableTab.Variables
+
+		watchHelperFunctions.sortTableByColumnAndOrder(tableToSort, props.SortIndex, props.SortOrder, 
+			(isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns()), false)
+		return tableToSort[1] == leftItem
+	end
 end
 
 function DisplayTable:render()
 	local props = self.props
-	local localization = props.Localization
 	local style = props.Stylizer	
 	
-	local variableTableColumns = {
-		{
-			Name = localization:getText("Watch", "NameColumn"),
-			Key = "nameColumn",
-		}, {
-			Name = localization:getText("Watch", "ScopeColumn"),
-			Key = "scopeColumn",
-		}, {
-			Name = localization:getText("Watch", "ValueColumn"),
-			Key = "valueColumn",
-		}, {
-			Name = localization:getText("Watch", "DataTypeColumn"),
-			Key = "dataTypeColumn",
-		}, 
-	}
-	local watchTableColumns = {
-		{
-			Name = localization:getText("Watch", "ExpressionColumn"),
-			Key = "expressionColumn",
-		}, {
-			Name = localization:getText("Watch", "ScopeColumn"),
-			Key = "scopeColumn",
-		}, {
-			Name = localization:getText("Watch", "ValueColumn"),
-			Key = "valueColumn",
-		}, {
-			Name = localization:getText("Watch", "DataTypeColumn"),
-			Key = "dataTypeColumn",
-		}, 
-	}
-
 	local isVariablesTab = props.SelectedTab == TableTab.Variables
+	
+	watchHelperFunctions.sortTableByColumnAndOrder(props.RootItems, props.SortIndex, props.SortOrder, 
+		(isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns()), (not isVariablesTab))
+	
 	local textInputCols = not isVariablesTab and {[1] = true} or nil
 	return Roact.createElement(TreeTable, {
 		Scroll = true,  
 		Size = UDim2.fromScale(1, 1),
-		Columns = isVariablesTab and variableTableColumns or watchTableColumns,
+		Columns = isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns(),
 		RootItems = props.RootItems,
 		Stylizer = style,
 		OnExpansionChange = self.onExpansionChange,
@@ -237,6 +267,10 @@ function DisplayTable:render()
 		RightClick = self.onRightClick,
 		OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
 		DisableTooltip = true,
+		SortIndex = props.SortIndex,
+		SortOrder = props.SortOrder,
+		OnSortChange = self.OnSortChange,
+		SortChildren = self.childSort
 	})
 end
 
@@ -268,6 +302,8 @@ DisplayTable = RoactRodux.connect(
 				SelectedTab = tabState,
 				RootItems = rootItems,
 				ExpansionTable = {},
+				SortIndex = watch.columnIndex,
+				SortOrder = watch.sortDirection
 			}
 		else
 			local threadId = common.debuggerConnectionIdToCurrentThreadId[common.currentDebuggerConnectionId]
@@ -301,7 +337,9 @@ DisplayTable = RoactRodux.connect(
 				SelectedTab = tabState,
 				RootItems = rootItems or {},
 				ExpansionTable = expansionTable,
-				CurrentStepStateBundle = StepStateBundle.ctor(token,threadId,frameNumber)
+				CurrentStepStateBundle = StepStateBundle.ctor(token,threadId,frameNumber),
+				SortIndex = watch.columnIndex,
+				SortOrder = watch.sortDirection
 			}
 		end
 	end,
@@ -325,6 +363,9 @@ DisplayTable = RoactRodux.connect(
 			end,
 			OnRemoveExpression = function(oldExpression)
 				return dispatch(RemoveExpression(oldExpression))
+			end,
+			OnSetWatchSortState = function(sortDirection, columnIndex)
+				return dispatch(SetWatchSortState(sortDirection, columnIndex))
 			end,
 		}
 	end

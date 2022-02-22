@@ -22,17 +22,11 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxWindowTelemetry = game:GetFastFlag("ToolboxWindowTelemetry")
 local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Framework = require(Packages.Framework)
 
 local disableMarketplaceAndRecents = require(Plugin.Core.Util.ToolboxUtilities).disableMarketplaceAndRecents
 local showRobloxCreatedAssets = require(Plugin.Core.Util.ToolboxUtilities).showRobloxCreatedAssets

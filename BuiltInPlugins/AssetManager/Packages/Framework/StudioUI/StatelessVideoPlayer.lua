@@ -24,7 +24,6 @@
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
 ]]
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -184,7 +183,7 @@ function StatelessVideoPlayer:render()
 		VideoContainer = Roact.createElement(Container, {
 			LayoutOrder = 1,
 			Size = UDim2.new(UDim.new(1, 0), UDim.new(1, 0) - controlsSize.Y - padding),
-			[Roact.Ref] = self.videoContainerRef
+			[Roact.Ref] = self.videoContainerRef,
 		}, {
 			HoverArea = Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
 			VideoFrame = Roact.createElement("VideoFrame", {

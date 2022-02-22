@@ -2,9 +2,12 @@
 	Mock interface for changing ingame settings.
 	Used for testing. Doesn't do anything beyond that.
 ]]
+local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 
 local Plugin = script.Parent.Parent.Parent
-local Promise = require(Plugin.Promise)
+local Framework = require(Plugin.Framework)
+local Util = Framework.Util
+local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 
 local SettingsImpl_mock = {}
 

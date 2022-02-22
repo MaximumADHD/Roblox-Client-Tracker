@@ -256,9 +256,8 @@ end
 
 function InfoPanel:getRoactComponent(input: Types.Story, roact: Types.Roact): Types.RoactComponent?
 	local isInstance = typeof(input) == "Instance"
-	-- TODO CLI-42232: Luau typeof "table" should narrow type in right-hand side of and clause to only union elements that are tables
-	local isRoactElement = typeof(input) == "table" and (input :: Types.AnyRecord).component ~= nil
-	-- TODO CLI-42232: Luau typeof "table" should narrow type in right-hand side of and clause to only union elements that are tables
+	-- TODO STUDIOPLAT-26707: Use ReactIs here instead
+	local isRoactElement = typeof(input) == "table" and ((input :: Types.AnyRecord).component ~= nil or (input :: Types.AnyRecord)["$$typeof"] ~= nil)
 	local isRoactComponent = typeof(input) == "table" and (input :: Types.AnyRecord).__componentName ~= nil
 	local isRoactFn = typeof(input) == "function"
 	if isInstance then
@@ -350,7 +349,7 @@ function InfoPanel:render()
 	end
 
 	-- TODO CLI-42235: Luau If you return from inside a narrowing statement, the code below it should exclude narrowed type
-	local definitelyStoryProps = storyProps:: Types.StoryProps
+	local definitelyStoryProps = storyProps :: Types.StoryProps
 
 	local definition = definitelyStoryProps.definition
 	local docs = definition.docs
@@ -441,6 +440,7 @@ function InfoPanel:render()
 			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Spacing = sizes.InnerPadding,
+
 			[Roact.Ref] = self.storyRef,
 		}, children)
 	else 

@@ -1,13 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+
 local Packages = Plugin.Packages
-local Cryo
-if FFlagToolboxDeduplicatePackages then
-	Cryo = require(Packages.Cryo)
-else
-	Cryo = require(Plugin.Libs.Cryo)
-end
+local Cryo = require(Packages.Cryo)
 
 local TagsUtil = {}
 

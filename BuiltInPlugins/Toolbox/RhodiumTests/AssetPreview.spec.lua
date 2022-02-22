@@ -7,14 +7,8 @@ return function()
 
 	local Plugin = script.Parent.Parent
 
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
-	local Roact = require(Libs.Roact)
+	local Packages = Plugin.Packages
+	local Roact = require(Packages.Roact)
 	local Urls = require(Plugin.Core.Util.Urls)
 	local Category = require(Plugin.Core.Types.Category)
 

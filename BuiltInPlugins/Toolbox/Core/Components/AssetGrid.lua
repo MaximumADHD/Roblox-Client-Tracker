@@ -16,16 +16,10 @@
 ]]
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local RoactRodux = require(Libs.RoactRodux)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local RoactRodux = require(Packages.RoactRodux)
+local Cryo = require(Packages.Cryo)
 
 local Constants = require(Plugin.Core.Util.Constants)
 local ContextGetter = require(Plugin.Core.Util.ContextGetter)
@@ -39,7 +33,7 @@ local Category = require(Plugin.Core.Types.Category)
 local Asset = require(Plugin.Core.Components.Asset.Asset)
 local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local AssetGrid = Roact.PureComponent:extend("AssetGrid")
@@ -88,73 +82,83 @@ function AssetGrid:init()
 	end
 
 	self.calculateRenderBounds = function(forceUpdate)
-		local props = self.props
-		local state = self.state
-		local showPrices = Category.shouldShowPrices(props.categoryName)
+		self:setState(function(state)
+			local props = self.props
+			local showPrices = Category.shouldShowPrices(props.categoryName)
 
-		local lowerIndexToRender = state.lowerIndexToRender
-		local topContentHeight = state.topContentHeight
-		local width = state.width
+			local lowerIndexToRender = state.lowerIndexToRender
+			local topContentHeight = state.topContentHeight
+			local width = state.width
 
-		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
+			local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 
-		local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
-		local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
-		local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
-		local topHeight = topContentHeight - gridContainerOffset
-		if gridContainerOffset > topContentHeight then
-			topHeight = 0
-		end
+			local assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
+			local assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
+			local gridContainerOffset = math.max(math.floor(lowerIndexToRender / assetsPerRow) * assetHeight, 0)
+			local topHeight = topContentHeight - gridContainerOffset
+			if gridContainerOffset > topContentHeight then
+				topHeight = 0
+			end
 
-		local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(
-			self.scrollingFrameRef.current,
-			containerWidth,
-			topHeight,
-			showPrices
-		)
+			local lowerBound, upperBound = Layouter.calculateRenderBoundsForScrollingFrame(self.scrollingFrameRef.current,
+				containerWidth, topHeight, showPrices)
 
-		-- If either bound has changed then recalculate the assets
-		if
-			forceUpdate
-			or lowerBound ~= self.state.lowerIndexToRender
-			or upperBound ~= self.state.upperIndexToRender
-		then
-			local displayedAssetIds = Layouter.sliceAssetsFromBounds(props.assetIds or {}, lowerBound, upperBound)
+			-- If either bound has changed then recalculate the assets
+			if forceUpdate
+				or lowerBound ~= state.lowerIndexToRender
+				or upperBound ~= state.upperIndexToRender
+			then
+				local displayedAssetIds = Layouter.sliceAssetsFromBounds(props.assetIds or {}, lowerBound, upperBound)
 
-			self:setState({
-				displayedAssetIds = displayedAssetIds,
-				lowerIndexToRender = lowerBound,
-				upperIndexToRender = upperBound,
-			})
-		end
+				return {
+					displayedAssetIds = displayedAssetIds,
+					lowerIndexToRender = lowerBound,
+					upperIndexToRender = upperBound,
+				}
+			else
+				return
+			end
+		end)
 	end
 
 	self.onScroll = function()
 		if not self.props.isPreviewing then
 			self.tryRerender()
 		end
-		if self.state.hoveredAssetId ~= 0 then
-			self:setState({
-				hoveredAssetId = 0,
-			})
-		end
+		self:setState(function(state)
+			if state.hoveredAssetId ~= 0 then
+				return {
+					hoveredAssetId = 0,
+				}
+			else
+				return
+			end
+		end)
 	end
 
 	self.onAssetHovered = function(assetId)
-		local modal = getModal(self)
-		if self.state.hoveredAssetId == 0 and modal.canHoverAsset() then
-			self:setState({
-				hoveredAssetId = assetId,
-			})
-		end
+		self:setState(function(state)
+			local modal = getModal(self)
+			if state.hoveredAssetId == 0 and modal.canHoverAsset() then
+				return {
+					hoveredAssetId = assetId,
+				}
+			else
+				return
+			end
+		end)
 	end
 
 	self.onAssetHoverEnded = function(assetId)
-		if self.state.hoveredAssetId == assetId then
-			self:setState({
-				hoveredAssetId = 0,
-			})
-		end
+		self:setState(function(state)
+			if state.hoveredAssetId == assetId then
+				return {
+					hoveredAssetId = 0,
+				}
+			else
+				return
+			end
+		end)
 	end
 
 	self.onFocusLost = function(rbx, input)
@@ -234,12 +238,13 @@ function AssetGrid:init()
 	end
 
 	self.getWidth = function()
-		if self.scrollingFrameRef.current then
-			self:setState({
-				width = self.scrollingFrameRef.current.AbsoluteSize.X,
-			})
-			self.tryRerender(true)
-		end
+		self:setState(function()
+			if self.scrollingFrameRef.current then
+				return {
+					width = self.scrollingFrameRef.current.AbsoluteSize.X,
+				}
+			end
+		end)
 	end
 
 	self.updateTopContentHeight = function()
@@ -250,8 +255,6 @@ function AssetGrid:init()
 				return {
 					topContentHeight = topContentHeight,
 				}
-			else
-				return
 			end
 		end)
 	end
@@ -269,11 +272,13 @@ function AssetGrid:didUpdate(prevProps, prevState)
 		self.props.requestNextPage()
 	end
 
-	if prevProps.idsToRender ~= self.props.idsToRender then
-		self:calculateRenderBounds()
+	if prevProps.assetIds ~= self.props.assetIds then
+		self:calculateRenderBounds(false)
 	end
 
-	if prevProps.topContentHeight ~= self.props.topContentHeight then
+	if prevProps.topContentHeight ~= self.props.topContentHeight 
+		or prevState.width ~= self.state.width
+	then
 		self.tryRerender(true)
 	end
 end
@@ -281,7 +286,7 @@ end
 function AssetGrid.getDerivedStateFromProps(nextProps, lastState)
 	local lowerBound = lastState.lowerIndexToRender or 0
 	local upperBound = lastState.upperIndexToRender or 0
-	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.idsToRender or {}, lowerBound, upperBound)
+	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.assetIds or {}, lowerBound, upperBound)
 
 	-- Hovered Asset reset
 	local lastHoveredAssetStillVisible = false
@@ -299,7 +304,7 @@ function AssetGrid.getDerivedStateFromProps(nextProps, lastState)
 	end
 
 	return Cryo.Dictionary.join(lastState, {
-		assetIds = assetIds,
+		displayedAssetIds = assetIds,
 		hoveredAssetId = hoveredAssetId,
 		lowerIndexToRender = lowerBound,
 		upperIndexToRender = upperBound,

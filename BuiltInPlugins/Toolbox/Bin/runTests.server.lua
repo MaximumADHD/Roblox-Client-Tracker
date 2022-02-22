@@ -4,13 +4,7 @@ local Plugin = script.Parent.Parent
 	RefactorFlags needs to be required and updated directly; before Framework's init
 	is required (so that any files that Framework's init requires get the correct values).
 ]]
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local RefactorFlags
-if FFlagToolboxDeduplicatePackages then
-	RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
-else
-	RefactorFlags = require(Plugin.Libs.Framework.Util.RefactorFlags)
-end
+local RefactorFlags = require(Plugin.Packages._Index.DeveloperFramework.DeveloperFramework.Util.RefactorFlags)
 RefactorFlags.THEME_REFACTOR = true
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -57,7 +51,9 @@ local function runAndCheck(func)
 end
 
 runAndCheck(function()
-	local TestEZ = require(Plugin.Packages.Dev.TestEZ)
+	local JestGlobals = require(Plugin.Packages.Dev.JestGlobals)
+	local TestEZ = JestGlobals.TestEZ
+
 	local TestBootstrap = TestEZ.TestBootstrap
 	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
 	local reporter = TestEZ.Reporters.TextReporter

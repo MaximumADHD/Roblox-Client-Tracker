@@ -7,6 +7,8 @@ local Models = Plugin.Src.Models
 local AddBreakpointAction = require(Actions.BreakpointsWindow.AddBreakpoint)
 local DeleteBreakpointAction = require(Actions.BreakpointsWindow.DeleteBreakpoint)
 local ModifyBreakpointAction = require(Actions.BreakpointsWindow.ModifyBreakpoint)
+local SetBreakpointSortState = require(Actions.BreakpointsWindow.SetBreakpointSortState)
+local SetSortState = require(Actions.Common.SetSortState)
 local MetaBreakpoint = require(Models.MetaBreakpoint)
 
 local Framework = require(Plugin.Packages.Framework)
@@ -27,11 +29,15 @@ type BreakpointStore = {
 	MetaBreakpoints : {
 		[BreakpointId] : MetaBreakpoint.MetaBreakpoint,
 	},
+	SortDirection : Enum.SortDirection,
+	ColumnIndex : number
 }
 
 local initialState : BreakpointStore = {
 	BreakpointIdsInDebuggerConnection = {},
 	MetaBreakpoints = {},
+	SortDirection = nil,
+	ColumnIndex = nil
 }
 
 return Rodux.createReducer(initialState, {
@@ -64,6 +70,12 @@ return Rodux.createReducer(initialState, {
 		})
 		return Cryo.Dictionary.join(
 			state, {MetaBreakpoints = updatedMetaBreakpoints}
+		)
+	end,
+	
+	[SetBreakpointSortState.name] = function(state : BreakpointStore, action : SetSortState.Props)
+		return Cryo.Dictionary.join(
+			state, {SortDirection = action.sortDirection,ColumnIndex = action.columnIndex }
 		)
 	end,
 	

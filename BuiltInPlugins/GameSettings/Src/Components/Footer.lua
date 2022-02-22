@@ -7,6 +7,7 @@
 			This will enable the Save button if true.
 ]]
 local FIntLuobuDevPublishAnalyticsHundredthsPercentage = game:GetFastInt("LuobuDevPublishAnalyticsHundredthsPercentage")
+local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 
 local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
@@ -14,8 +15,9 @@ local FOOTER_GRADIENT_TRANSPARENCY = 0.9
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
-local Promise = require(Plugin.Promise)
 local Framework = require(Plugin.Framework)
+local Util = Framework.Util
+local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 
 local ContextServices = require(Plugin.Framework).ContextServices
 local withContext = ContextServices.withContext

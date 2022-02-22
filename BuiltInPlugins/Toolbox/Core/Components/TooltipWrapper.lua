@@ -11,16 +11,10 @@ local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefacto
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
-local Tooltip = require(Libs.Framework).UI.Tooltip
+local Tooltip = require(Packages.Framework).UI.Tooltip
 
 local TooltipWrapper = Roact.PureComponent:extend("TooltipWrapper")
 

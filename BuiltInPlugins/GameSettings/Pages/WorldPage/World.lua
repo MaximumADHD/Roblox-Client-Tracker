@@ -30,7 +30,7 @@ local PresetsBar = require(Page.Components.PresetsBar)
 local JumpSelect = require(Page.Components.JumpSelect)
 local NumberInputRow = require(Page.Components.NumberInputRow)
 
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local StudioWidgetTitledFrame = require(RoactStudioWidgets.TitledFrame)
 local Separator = require(Plugin.Framework).UI.Separator
 local StudioWidgetText = require(RoactStudioWidgets.Text)

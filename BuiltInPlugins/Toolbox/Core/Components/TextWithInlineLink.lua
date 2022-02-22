@@ -9,21 +9,15 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Cryo = require(Libs.Cryo)
-local t = require(Libs.Framework).Util.Typecheck.t
-local Framework = require(Libs.Framework)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
+local t = require(Packages.Framework).Util.Typecheck.t
+local Framework = require(Packages.Framework)
 
 local LayoutOrderIterator = require(Plugin.Core.Util.LayoutOrderIterator)
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
-local LinkText = require(Libs.Framework).UI.LinkText
+local LinkText = require(Packages.Framework).UI.LinkText
 
 local withTheme = ContextHelper.withTheme
 local ContextServices = Framework.ContextServices

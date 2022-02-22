@@ -4,14 +4,8 @@
 	Provides a re-usable implementation for network requests and other utilities
 ]]--
 local Plugin = script.Parent.Parent.Parent
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 local Packages = Plugin.Packages
-local Promise
-if FFlagToolboxDeduplicatePackages then
-	Promise = require(Packages.Framework).Util.Promise
-else
-	Promise = require(Plugin.Libs.Framework).Util.Promise
-end
+local Promise = require(Packages.Framework).Util.Promise
 local HttpResponse = require(script.Parent.HttpResponse)
 local StatusCodes = require(script.Parent.StatusCodes)
 

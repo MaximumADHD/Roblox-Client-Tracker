@@ -14,22 +14,16 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 local Constants = require(Plugin.Core.Util.Constants)
 
-local Tooltip = require(Libs.Framework).UI.Tooltip
+local Tooltip = require(Packages.Framework).UI.Tooltip
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Tab = Roact.PureComponent:extend("Tab")

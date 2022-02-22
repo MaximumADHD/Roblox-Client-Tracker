@@ -10,6 +10,7 @@ local Dialog = require(Plugin.Src.ContextServices.Dialog)
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 local Framework = require(Plugin.Framework)
+local UILibrary = require(Plugin.UILibrary)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper :: any
 local provideMockContext = Framework.TestHelpers.provideMockContext
@@ -54,7 +55,7 @@ return function(props, children)
 
     local uiLibWrapper = props.UILibraryWrapper
     if not uiLibWrapper then
-        uiLibWrapper = UILibraryWrapper.new()
+        uiLibWrapper = UILibraryWrapper.new(UILibrary)
         if not FFlagDevFrameworkUseCreateContext then
             table.insert(contextItems, uiLibWrapper)
         end

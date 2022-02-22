@@ -3,14 +3,9 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local Category = require(Plugin.Core.Types.Category)
 local Sort = require(Plugin.Core.Types.Sort)
 local RequestReason = require(Plugin.Core.Types.RequestReason)
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+
 local Packages = Plugin.Packages
-local Cryo
-if FFlagToolboxDeduplicatePackages then
-	Cryo = require(Packages.Cryo)
-else
-	Cryo = require(Plugin.Libs.Cryo)
-end
+local Cryo = require(Packages.Cryo)
 
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local UpdatePageInfoAndSendRequest = require(Plugin.Core.Networking.Requests.UpdatePageInfoAndSendRequest)

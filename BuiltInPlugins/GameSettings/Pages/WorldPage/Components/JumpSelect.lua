@@ -22,7 +22,7 @@ local WorldRootPhysics = require(Page.ContextServices.WorldRootPhysics)
 
 local formatNumberForDisplay = require(Page.Util.formatNumberForDisplay)
 
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 local StudioWidgetRoundTextBox = require(RoactStudioWidgets.RoundTextBox)
 local StudioWidgetRadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 local StudioWidgetText = require(RoactStudioWidgets.Text)

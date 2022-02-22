@@ -2,15 +2,9 @@ local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Rodux = require(Libs.Rodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Rodux = require(Packages.Rodux)
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)

@@ -20,15 +20,9 @@ local FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane = game:GetFastFl
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 
 local Util = Plugin.Core.Util
 local Urls = require(Util.Urls)
@@ -44,11 +38,11 @@ local PermissionsConstants = require(PermissionsDirectory.PermissionsConstants)
 local ExpandablePane
 local ExpandableWidget
 if FFlagDevFrameworkReplaceExpandaleWidgetWithExpandablePane then
-	ExpandablePane = require(Libs.Framework).UI.ExpandablePane
+	ExpandablePane = require(Packages.Framework).UI.ExpandablePane
 else
-	ExpandableWidget = require(Libs.Framework).UI.ExpandableWidget
+	ExpandableWidget = require(Packages.Framework).UI.ExpandableWidget
 end
-local Spritesheet = require(Libs.Framework).Util.Spritesheet
+local Spritesheet = require(Packages.Framework).Util.Spritesheet
 
 local ARROW_SIZE = 12
 local ARROW_PADDING = 4 -- padding between arrow and GroupCollaboratorItem icon

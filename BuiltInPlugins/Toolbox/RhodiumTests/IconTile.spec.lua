@@ -1,20 +1,15 @@
 return function()
 	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	
 	if not FFlagToolboxAssetCategorization then
 		return
 	end
 
 	local Plugin = script.Parent.Parent
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
-	local Roact = require(Libs.Roact)
-	local Cryo = require(Libs.Cryo)
-	local Framework = require(Libs.Framework)
+	local Packages = Plugin.Packages
+	local Roact = require(Packages.Roact)
+	local Cryo = require(Packages.Cryo)
+	local Framework = require(Packages.Framework)
 
 	local Rhodium = require(Plugin.Packages.Dev.Rhodium)
 	local XPath = Rhodium.XPath

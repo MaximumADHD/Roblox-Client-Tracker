@@ -1,20 +1,14 @@
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
-local Rodux = require(Libs.Rodux)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
+local Rodux = require(Packages.Rodux)
 
 local Util = Plugin.Core.Util
 local PagedRequestCursor = require(Util.PagedRequestCursor)
 local LOADING_IN_BACKGROUND = require(Util.Keys).LoadingInProgress
 
-local FrameworkUtil = require(Libs.Framework).Util
+local FrameworkUtil = require(Packages.Framework).Util
 local deepJoin = FrameworkUtil.deepJoin
 
 local Actions = Plugin.Core.Actions

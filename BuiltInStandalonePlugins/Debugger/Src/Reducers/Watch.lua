@@ -22,6 +22,7 @@ local ChangeExpression = require(Actions.Watch.ChangeExpression)
 local ExpressionEvaluated = require(Actions.Watch.ExpressionEvaluated)
 local RemoveExpression = require(Actions.Watch.RemoveExpression)
 local SetExpansionTree = require(Actions.Watch.SetExpansionTree)
+local SetWatchSortState = require(Actions.Watch.SetWatchSortState)
 
 --Other
 local SimPaused = require(Actions.Common.SimPaused)
@@ -30,6 +31,7 @@ local ClearConnectionData = require(Actions.Common.ClearConnectionData)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
 local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
+local SetSortState = require(Actions.Common.SetSortState)
 
 --Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
@@ -75,6 +77,8 @@ type WatchStore = {
 	listOfExpressions : {string},
 	pathToExpansionState : PathToExpansionMap,
 	expressionToExpansionState : PathToExpansionMap,
+	sortDirection : Enum.SortDirection,
+	columnIndex : number
 }
 
 local function nilCheckFillIn(table, stepStateBundle)
@@ -191,6 +195,8 @@ local productionStartStore = {
 	pathToExpansionState = {}, -- clear on continue
 	expressionToExpansionState = {}, -- clear on continue
 	filterText = "",
+	sortDirection = nil,
+	columnIndex = nil
 }
 
 return Rodux.createReducer(productionStartStore, {
@@ -448,5 +454,12 @@ return Rodux.createReducer(productionStartStore, {
 		return Cryo.Dictionary.join(state, {
 			filterText = action.filterText,
 		})
+	end,
+	
+	[SetWatchSortState.name] = function(state : WatchStore, action : SetSortState.Props)
+		local toReturn = Cryo.Dictionary.join(
+			state, {sortDirection = action.sortDirection,columnIndex = action.columnIndex }
+		)
+		return toReturn
 	end,
 })

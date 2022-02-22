@@ -3,6 +3,7 @@
 	with the native Studio Start Page.
 
 	Optional Props:
+		table ForwardRef: An optional reference to pass to the underlying scroller
 		boolean EnableScrollBarBackground: Whether or not to show a background coor for the scrollbar
 		callback OnScrollUpdate: A callback function that will update the index change.
 		UDim2 Position: The position of the scrolling frame.
@@ -35,6 +36,7 @@
 		Color3 ScrollBarBackgroundColor: Background color of the scrollbar.
 		integer ZIndex: The draw index of the frame.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
 local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
@@ -62,6 +64,8 @@ local Pane = require(script.Parent.Pane)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
+
 local ScrollingFrame = Roact.PureComponent:extend("ScrollingFrame")
 Typecheck.wrap(ScrollingFrame, script)
 
@@ -78,7 +82,7 @@ local function getStyle(self)
 end
 
 function ScrollingFrame:init()
-	self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
+	self.scrollingRef = (if FFlagDevFrameworkForwardRef then self.props.ForwardRef else self.props[Roact.Ref]) or Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
 	self.onScroll = function(rbx)
@@ -132,6 +136,7 @@ function ScrollingFrame:init()
 			AutoSizeLayoutElement = Cryo.None,
 			AutoSizeLayoutOptions = Cryo.None,
 			OnCanvasResize = Cryo.None,
+			OnScrollUpdate = Cryo.None,
 			Theme = Cryo.None,
 			Style = Cryo.None,
 			Stylizer = Cryo.None,
@@ -163,6 +168,7 @@ function ScrollingFrame:init()
 			self.propFilters.parentContainerProps,
 			{
 				Size = UDim2.fromScale(scaleX, scaleY),
+				ForwardRef = if FFlagDevFrameworkForwardRef then Cryo.None else nil,
 				[Roact.Children] = Cryo.None,
 				[Roact.Change.CanvasPosition] = self.onScroll,
 				[Roact.Change.AbsoluteSize] = self.updateCanvasSize,
@@ -267,12 +273,9 @@ function ScrollingFrame:render()
 	})
 end
 
-
 ScrollingFrame = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(ScrollingFrame)
 
-
-
-return ScrollingFrame
+return if FFlagDevFrameworkForwardRef then withForwardRef(ScrollingFrame) else ScrollingFrame

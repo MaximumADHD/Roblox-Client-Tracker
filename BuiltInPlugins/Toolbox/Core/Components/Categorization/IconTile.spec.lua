@@ -1,5 +1,4 @@
 return function()
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
 	local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 	if not FFlagToolboxAssetCategorization then
 		return
@@ -7,13 +6,8 @@ return function()
 
 	local Plugin = script.Parent.Parent.Parent.Parent
 
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
-	local Roact = require(Libs.Roact)
+	local Packages = Plugin.Packages
+	local Roact = require(Packages.Roact)
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 

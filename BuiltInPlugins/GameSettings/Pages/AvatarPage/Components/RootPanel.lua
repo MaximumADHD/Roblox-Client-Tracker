@@ -2,7 +2,7 @@ local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
 local RoactRodux = require(Plugin.RoactRodux)
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local TemplatesAdd = require(Page.Actions.TemplatesAdd)
 local TemplatesClobberTemplate = require(Page.Actions.TemplatesClobberTemplate)

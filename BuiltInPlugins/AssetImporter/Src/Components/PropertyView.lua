@@ -23,9 +23,12 @@ local BooleanProperty = require(Properties.BooleanProperty)
 local EnumProperty = require(Properties.EnumProperty)
 local NumberProperty = require(Properties.NumberProperty)
 local StringProperty = require(Properties.StringProperty)
+local PathProperty = require(Properties.PathProperty)
 local VectorProperty = require(Properties.VectorProperty)
 
 local SetInstanceMap = require(Plugin.Src.Actions.SetInstanceMap)
+
+local FFlagAssetImporterPbrSupportInProg = game:GetFastFlag("AssetImporterPbrSupportInProg")
 
 local ELEMENT_CLASSES = {
 	["boolean"] = BooleanProperty,
@@ -33,7 +36,7 @@ local ELEMENT_CLASSES = {
 	["number"] = NumberProperty,
 	["string"] = StringProperty,
 	["vector"] = VectorProperty,
-	["path"] = StringProperty, -- TODO: Create specialized path editor 
+	["path"] = if FFlagAssetImporterPbrSupportInProg then PathProperty else StringProperty,
 }
 
 local function GetPropertyComponent(instance, valueType)

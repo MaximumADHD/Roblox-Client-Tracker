@@ -4,14 +4,8 @@ local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("Toolbox
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Cryo = require(Libs.Cryo)
+local Packages = Plugin.Packages
+local Cryo = require(Packages.Cryo)
 
 local PageInfoHelper = require(Plugin.Core.Util.PageInfoHelper)
 local getUserId = require(Plugin.Core.Util.getUserId)

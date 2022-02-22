@@ -7,16 +7,10 @@ return function()
 
 	local Plugin = script.Parent.Parent.Parent
 
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
-	local Roact = require(Libs.Roact)
-	local Cryo = require(Libs.Cryo)
-	local t = require(Libs.Framework).Util.Typecheck.t
+	local Packages = Plugin.Packages
+	local Roact = require(Packages.Roact)
+	local Cryo = require(Packages.Cryo)
+	local t = require(Packages.Framework).Util.Typecheck.t
 
 	local MockWrapper = require(Plugin.Core.Util.MockWrapper)
 	local isCli = require(Plugin.Core.Util.isCli)

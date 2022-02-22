@@ -1,18 +1,13 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
+	
 
-	local Libs
-	if FFlagToolboxDeduplicatePackages then
-		Libs = Plugin.Packages
-	else
-		Libs = Plugin.Libs
-	end
+	local Packages = Plugin.Packages
 
 	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
 
-	local Rodux = require(Libs.Rodux)
-	local Framework = require(Libs.Framework)
+	local Rodux = require(Packages.Rodux)
+	local Framework = require(Packages.Framework)
 
 	local NetworkInterfaceMock = require(Plugin.Core.Networking.NetworkInterfaceMock)
 	local PostUploadAssetRequest = require(Plugin.Core.Networking.Requests.PostUploadAssetRequest)

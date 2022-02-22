@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 local Roact = require(Plugin.Roact)
-local RoactStudioWidgets = Plugin.RoactStudioWidgets
+local RoactStudioWidgets = Plugin.Packages.RoactStudioWidgets
 
 local RadioButtonSet = require(RoactStudioWidgets.RadioButtonSet)
 

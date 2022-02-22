@@ -9,14 +9,8 @@
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local ContextHelper = require(Plugin.Core.Util.ContextHelper)
 local withTheme = ContextHelper.withTheme
@@ -24,10 +18,10 @@ local withTheme = ContextHelper.withTheme
 local Constants = require(Plugin.Core.Util.Constants)
 local TimeTextBox = require(Plugin.Core.Components.SearchOptions.TimeTextBox)
 
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local RangeSlider = require(Libs.Framework).UI.RangeSlider
-local Util = require(Libs.Framework).Util
+local RangeSlider = require(Packages.Framework).UI.RangeSlider
+local Util = require(Packages.Framework).Util
 local FitFrameVertical = Util.FitFrame.FitFrameVertical
 
 local MAX_DURATION = Constants.MAX_AUDIO_SEARCH_DURATION

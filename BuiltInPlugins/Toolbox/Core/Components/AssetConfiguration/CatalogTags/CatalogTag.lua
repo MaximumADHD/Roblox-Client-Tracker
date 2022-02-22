@@ -11,23 +11,17 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
 
-local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-local Libs
-if FFlagToolboxDeduplicatePackages then
-	Libs = Plugin.Packages
-else
-	Libs = Plugin.Libs
-end
-local Roact = require(Libs.Roact)
+local Packages = Plugin.Packages
+local Roact = require(Packages.Roact)
 
 local Util = Plugin.Core.Util
 local Constants = require(Util.Constants)
 local Images = require(Util.Images)
-local ContextServices = require(Libs.Framework).ContextServices
+local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local RoundBox = require(Libs.Framework).UI.Decoration.RoundBox
-local Container = require(Libs.Framework).UI.Container
+local RoundBox = require(Packages.Framework).UI.Decoration.RoundBox
+local Container = require(Packages.Framework).UI.Container
 
 local TAG_PADDING = 3
 local CLOSE_BUTTON_SIZE = 16

@@ -1,14 +1,8 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 	local Packages = Plugin.Packages
-	local FFlagToolboxDeduplicatePackages = game:GetFastFlag("ToolboxDeduplicatePackages")
-	local Roact
-	if FFlagToolboxDeduplicatePackages then
-		Roact = require(Packages.Roact)
-	else
-		Roact = require(Plugin.Libs.Roact)
-	end
-
+	local Roact = require(Packages.Roact)
+	
 	local createFitToContent = require(Plugin.Core.Components.createFitToContent)
 
 	it("should create and destroy without errors", function()

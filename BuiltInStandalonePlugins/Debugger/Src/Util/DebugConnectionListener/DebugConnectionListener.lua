@@ -45,6 +45,8 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 		if threadState ~= nil then
 			self.store:dispatch(AddThreadId(pausedState.ThreadId, threadState.ThreadName, dst))
 			self.store:dispatch(RequestCallstackThunk(threadState, connection, dst, scriptChangeService))
+			debuggerUIService:SetCurrentThreadId(pausedState.ThreadId)
+			self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 			connection:Populate(threadState, function()
 				if not isThreadIdValid() then
 					return
@@ -60,8 +62,6 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 				debuggerUIService:OpenScriptAtLine(topFrame.Script, common.currentDebuggerConnectionId, topFrame.Line)
 			end)
 		end
-
-		self.store:dispatch(SetCurrentThread(pausedState.ThreadId))
 	end)
 end
 

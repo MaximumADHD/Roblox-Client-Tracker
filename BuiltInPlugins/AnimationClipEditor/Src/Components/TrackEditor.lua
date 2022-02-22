@@ -227,6 +227,7 @@ function TrackEditor:render()
 			SnapToNearestFrame = snapToNearestFrame,
 			AnimationData = props.AnimationData,
 			Playhead = playhead,
+			ZIndex = GetFFlagCurveEditor() and 2 or nil,
 		}),
 
 		DopeSheetController = (not GetFFlagCurveEditor() or showDopeSheet) and Roact.createElement(DopeSheetController, {
@@ -240,6 +241,7 @@ function TrackEditor:render()
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,
 			ColorsPosition = GetFFlagCurveEditor() and colorsPosition or nil,
+			ZIndex = GetFFlagCurveEditor() and 1 or nil,
 		}) or nil,
 
 		CurveCanvasController = (GetFFlagCurveEditor() and showCurveCanvas) and Roact.createElement(CurveCanvasController, {
@@ -253,6 +255,7 @@ function TrackEditor:render()
 			VerticalZoom = verticalZoom,
 			ShowAsSeconds = showAsSeconds,
 			IsChannelAnimation = isChannelAnimation,
+			ZIndex = GetFFlagCurveEditor() and 1 or nil,
 		}) or nil,
 
 		ZoomBar = not GetFFlagCurveEditor() and Roact.createElement(ZoomBar_deprecated, {
