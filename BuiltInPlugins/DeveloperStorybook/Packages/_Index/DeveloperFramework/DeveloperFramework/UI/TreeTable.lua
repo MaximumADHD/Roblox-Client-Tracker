@@ -25,6 +25,7 @@
 		callback OnHoverRow: An optional callback called when a row is hovered over. (dataIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
 		callback OnSelectionChange: Called when an item is selected - (newSelection: Set<Item>) => void
+		callback OnDoubleClick: An optional callback called when an item is double clicked
 		callback OnSizeChange: An optional callback called when the component size changes with number of rows that can be displayed.
 		callback OnPageSizeChange: An optional callback called when the size of a page changes.
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
@@ -63,6 +64,7 @@ Typecheck.wrap(TreeTable, script)
 
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -204,6 +206,7 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
+		OnDoubleClick = (FFlagDevFrameworkDoubleClick and props.OnDoubleClick) or nil,
 		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,

@@ -6,6 +6,7 @@
 	tab behavior.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		boolean AllowTab: Whether to accept tab characters in input text.
 		Color3 BackgroundColor: Background color for the component.
 		boolean ClearTextOnFocus: Whether clicking on the component will clear its text.
@@ -26,6 +27,7 @@
 		Enum.TextXAlignment TextXAlignment: The X alignment of the text.
 		Enum.TextYAlignment TextYAlignment: The Y alignment of the text.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 
 local TextService = game:GetService("TextService")
@@ -35,6 +37,8 @@ local Roact = require(Framework.Parent.Roact)
 
 local Util = require(Framework.Util)
 local Typecheck = Util.Typecheck
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local Pane = require(Framework.UI.Pane)
 
@@ -56,7 +60,7 @@ function TextBox:init(initialProps)
 	assert(FFlagDevFrameworkTextInput2, "TextBox requires FFlagDevFrameworkTextInput2")
 
 	self.clipBoxRef = Roact.createRef()
-	self.textBoxRef = initialProps[Roact.Ref] or Roact.createRef()
+	self.textBoxRef = (if FFlagDevFrameworkForwardRef then initialProps.ForwardRef else initialProps[Roact.Ref]) or Roact.createRef()
 
 	self.cursorPositionChanged = function()
 		self:_updateTextBoxOffset()
@@ -110,7 +114,6 @@ function TextBox:render()
 		ClipsDescendants = true,
 		LayoutOrder = props.LayoutOrder,
 		Size = props.Size,
-
 		[Roact.Ref] = self.clipBoxRef,
 	}, {
 		TextBox = Roact.createElement("TextBox", {
@@ -201,4 +204,4 @@ function TextBox:_updateTextBoxOffset()
 	textBox.Size = UDim2.new(0, math.max(textWidth, textBoxWidth), 1, 0)
 end
 
-return TextBox
+return if FFlagDevFrameworkForwardRef then withForwardRef(TextBox) else TextBox

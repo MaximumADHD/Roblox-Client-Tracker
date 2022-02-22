@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
@@ -34,6 +35,8 @@ local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local isInputMainPress = Util.isInputMainPress
 local prioritize = Util.prioritize
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
@@ -216,11 +219,9 @@ function Pane:render()
 	return Roact.createElement(className, componentProps, children)
 end
 
-
 Pane = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(Pane)
 
-
-return Pane
+return if FFlagDevFrameworkForwardRef then withForwardRef(Pane) else Pane

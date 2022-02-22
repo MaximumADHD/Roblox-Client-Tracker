@@ -16,8 +16,11 @@
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
 		boolean HighlightedRow: An optional boolean specifying whether to highlight the row.
 ]]
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
+
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -57,7 +60,7 @@ function TableRow:render()
 	local CellComponent = props.CellComponent or TableCell
 	local columns = props.Columns
 	local cells
-	local isFullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan and row.depth and row.depth == 0
+	local isFullSpan = props.FullSpan and row.depth and row.depth == 0
 	local highlightCell = (FFlagDevFrameworkHighlightTableRows and props.HighlightRow) or nil
 	if isFullSpan then
 		local firstColumnIndex = 1
@@ -100,6 +103,7 @@ function TableRow:render()
 		Size = UDim2.new(1, 0, 0, style.RowHeight),
 		Style = "Box",
 		Layout = Enum.FillDirection.Horizontal,
+		HorizontalAlignment = hasTableColumnResizeFFlags and Enum.HorizontalAlignment.Left or nil,
 		OnRightClick = self.onRightClickRow
 	}, props.WrapperProps), cells)
 

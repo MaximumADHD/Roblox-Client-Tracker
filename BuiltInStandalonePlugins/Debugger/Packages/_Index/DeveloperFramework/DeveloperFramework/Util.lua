@@ -1,7 +1,6 @@
 --[[
 	Public interface for Util
 ]]
-
 local strict = require(script.strict)
 
 return strict({

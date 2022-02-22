@@ -6,6 +6,7 @@
 	components.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		boolean AllowTab: Whether to allow tab characters in input text.
 		Vector2 AnchorPoint: The anchor point of the component.
 		Color3 BackgroundColor: Background color for the component.
@@ -46,6 +47,7 @@
 		Color3 PlaceholderTextColor: Color of the placeholder text.
 		any Width: The width of the component. This can be a number or UDim.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 
 local Framework = script.Parent.Parent
@@ -58,6 +60,8 @@ local Util = require(Framework.Util)
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local Typecheck = Util.Typecheck
 local prioritize = Util.prioritize
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local Pane = require(Framework.UI.Pane)
 local TextBox = require(Framework.UI.TextInput2.TextBox)
@@ -90,10 +94,11 @@ TextInput2.defaultProps = {
 	TrailingComponentProps = {},
 }
 
-function TextInput2:init(initialProps)
+function TextInput2:init()
 	assert(FFlagDevFrameworkTextInput2, "TextInput2 requires FFlagDevFrameworkTextInput2")
-
-	self.textBoxRef = initialProps[Roact.Ref] or Roact.createRef()
+	
+	local props = self.props
+	self.textBoxRef = (if FFlagDevFrameworkForwardRef then props.ForwardRef else props[Roact.Ref]) or Roact.createRef()
 	self.restoreCursorPosition = nil
 
 	self.state = {
@@ -345,4 +350,4 @@ TextInput2 = withContext({
 	Stylizer = ContextServices.Stylizer,
 })(TextInput2)
 
-return TextInput2
+return if FFlagDevFrameworkForwardRef then withForwardRef(TextInput2) else TextInput2

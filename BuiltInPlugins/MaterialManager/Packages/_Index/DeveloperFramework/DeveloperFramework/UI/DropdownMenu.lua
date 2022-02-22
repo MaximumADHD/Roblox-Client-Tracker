@@ -28,6 +28,8 @@
 		number Width: The width of the menu area.
 		number MaxHeight: The maximum height of the menu area.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -46,9 +48,9 @@ local RoundBox = require(UI.RoundBox)
 local TextLabel = require(UI.TextLabel)
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems2 = {"RefactorDevFrameworkContextItems2"},
-	FFlagToolboxAssetGridRefactor3 = {"ToolboxAssetGridRefactor3"},
+	FFlagToolboxAssetGridRefactor4 = {"ToolboxAssetGridRefactor4"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -153,10 +155,24 @@ function DropdownMenu:init()
 	self.changeTokens = {}
 end
 
-function DropdownMenu:didMount()
-	local parent = self.ref.current.Parent
-	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
-	table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+if FFlagDevFrameworkForwardRef then
+	function DropdownMenu:didUpdate()
+		local current = self.ref.current
+		if not current or self.addedListeners then
+			return
+		end
+		self.addedListeners = true
+		local parent = current.Parent
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+	end
+
+else
+	function DropdownMenu:didMount()
+		local parent = self.ref.current.Parent
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsoluteSize"):Connect(self.reposition))
+		table.insert(self.changeTokens, parent:GetPropertyChangedSignal("AbsolutePosition"):Connect(self.reposition))
+	end
 end
 
 function DropdownMenu:willUnmount()
@@ -206,7 +222,7 @@ function DropdownMenu:renderMenu()
 	local width = props.Width or style.Width
 	local offset = prioritize(style.Offset, Vector2.new(0, 0))
 
-	local pluginGui = FlagsList:get("FFlagRefactorDevFrameworkContextItems2") and props.Focus:get() or props.Focus:getTarget()
+	local pluginGui = FFlagRefactorDevFrameworkContextItems2 and props.Focus:get() or props.Focus:getTarget()
 
 	local menuPositionAndSize = self.getPositionAndSize(pluginGui, width, offset)
 	local x = menuPositionAndSize.X
@@ -268,20 +284,17 @@ function DropdownMenu:render()
 	}, {
 		PortalToRoot = isOpen and Roact.createElement(CaptureFocus, {
 			OnFocusLost = props.OnFocusLost,
-			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor3") and priority or nil,
+			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor4") and priority or nil,
 		}, {
 			Menu = isOpen and canRender and self:renderMenu()
 		})
 	})
 end
 
-
 DropdownMenu = withContext({
 	Focus = ContextServices.Focus,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(DropdownMenu)
-
-
 
 return DropdownMenu

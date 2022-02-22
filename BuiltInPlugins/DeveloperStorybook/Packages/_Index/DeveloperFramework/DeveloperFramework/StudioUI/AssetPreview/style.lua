@@ -1,4 +1,5 @@
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -77,7 +78,33 @@ if THEME_REFACTOR then
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Right,
 				}),
-			}
+			},
+			ScriptArea = FFlagToolboxShowHasScriptInfo and {
+				ElementPadding = UDim.new(0, 4),
+				Size = UDim2.new(1, 0, 0, 12),
+
+				ScriptText = Cryo.Dictionary.join(common.MainText, {
+					Font = Enum.Font.SourceSansBold,
+					TextSize = 14,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+	
+				ScriptIcon = {
+					Position = UDim2.new(1, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 1),
+		
+					Image = "rbxasset://textures/StudioToolbox/script.png",
+					Size = UDim2.fromOffset(12, 12),
+				},
+
+				ScriptInfoIcon = {
+					Position = UDim2.new(1, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 1),
+		
+					Image = "rbxasset://textures/StudioToolbox/AssetPreview/info.png",
+					Size = UDim2.fromOffset(12, 12),
+				},
+			},
 		},
 
 		-- The background of this needs to extend to the edges of the parent, so we
@@ -190,7 +217,33 @@ else
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Right,
 					}),
-				}
+				},
+				ScriptArea = FFlagToolboxShowHasScriptInfo and {
+					ElementPadding = UDim.new(0, 4),
+					Size = UDim2.new(1, 0, 0, 12),
+	
+					ScriptText = Cryo.Dictionary.join(common.MainText, {
+						Font = Enum.Font.SourceSansBold,
+						TextSize = 14,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}),
+		
+					ScriptIcon = {
+						Position = UDim2.new(1, 0, 0, 0),
+						AnchorPoint = Vector2.new(0, 1),
+			
+						Image = "rbxasset://textures/StudioToolbox/script.png",
+						Size = UDim2.fromOffset(12, 12),
+					},
+
+					ScriptInfoIcon = {
+						Position = UDim2.new(1, 0, 0, 0),
+						AnchorPoint = Vector2.new(0, 1),
+			
+						Image = "rbxasset://textures/StudioToolbox/AssetPreview/info.png",
+						Size = UDim2.fromOffset(12, 12),
+					},
+				},
 			},
 
 			-- The background of this needs to extend to the edges of the parent, so we
