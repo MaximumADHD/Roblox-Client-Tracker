@@ -29,6 +29,8 @@ local ExpandAll = require(Plugin.Src.Actions.ExpandAll)
 local CollapseAll = require(Plugin.Src.Actions.CollapseAll)
 local ResetTestCache = require(Plugin.Src.Actions.ResetTestCache)
 
+local FFlagDevFrameworkSearchBarSize = game:GetFastFlag("DevFrameworkSearchBarSize")
+
 local Toolbar = Roact.PureComponent:extend("Toolbar")
 
 function Toolbar:init()
@@ -135,6 +137,7 @@ function Toolbar:render()
 			Search = Roact.createElement(SearchBar, {
 				OnSearchRequested = self.onSearchRequested,
 				LayoutOrder = 2,
+				Width = FFlagDevFrameworkSearchBarSize and 200 or nil,
 			}),
 			Summary = Roact.createElement(Pane, {
 				AutomaticSize = Enum.AutomaticSize.X,

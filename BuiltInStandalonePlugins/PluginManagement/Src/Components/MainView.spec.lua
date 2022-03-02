@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
-
 local MainView = require(script.Parent.MainView)
 
 local Plugin = script.Parent.Parent.Parent
@@ -9,8 +7,6 @@ local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus
 local MockServiceWrapper = require(Plugin.Src.Components.MockManagement)
 
 local createPluginInfo = function(installStatus)
-	local commentsEnabled = if FFlagPluginManagementRemoveCommentsEnabled then nil else false
-
 	return {
 		PluginInfo = {
 			plugins = {
@@ -20,11 +16,10 @@ local createPluginInfo = function(installStatus)
 					installProgress = 0.0,
 					name = "",
 					description = "",
-					commentsEnabled = commentsEnabled,
 					versionId = "",
 					created = "",
 					updated = "",
-				}
+				},
 			},
 		},
 	}
@@ -34,8 +29,8 @@ return function()
 	it("should construct and destroy without errors", function()
 		local element = Roact.createElement(MockServiceWrapper, {}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -47,11 +42,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.UNKNOWN)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -63,11 +58,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_INSTALLED_SUCCESSFULLY)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -79,11 +74,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.HTTP_ERROR)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -95,11 +90,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_NOT_OWNED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -111,11 +106,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_DETAILS_UNAVAILABLE)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -127,11 +122,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_NOT_INSTALLED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
@@ -143,11 +138,11 @@ return function()
 		local store = createPluginInfo(PluginInstalledStatus.PLUGIN_AlREADY_INSTALLED)
 
 		local element = Roact.createElement(MockServiceWrapper, {
-			storeState = store
+			storeState = store,
 		}, {
 			MainView = Roact.createElement(MainView, {
-				pluginId = "1234"
-			})
+				pluginId = "1234",
+			}),
 		})
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)

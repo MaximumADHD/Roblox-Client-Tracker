@@ -226,13 +226,10 @@ function StoryHost:render()
 	})
 end
 
-
 StoryHost = withContext({
 	Focus = ContextServices.Focus or nil,
 	Plugin = ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer or nil,
 })(StoryHost)
-
-
 
 return StoryHost

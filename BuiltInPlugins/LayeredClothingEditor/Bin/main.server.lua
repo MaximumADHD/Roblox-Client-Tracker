@@ -4,6 +4,10 @@
 ]]
 require(script.Parent.defineLuaFlags)
 
+if not game:GetFastFlag("AccessoryToolRefactor") then
+	return
+end
+
 local Plugin = script.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)

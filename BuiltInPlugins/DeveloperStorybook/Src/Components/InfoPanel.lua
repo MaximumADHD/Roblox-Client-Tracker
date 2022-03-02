@@ -2,11 +2,13 @@
 	The main screen of the Developer storybook.
 	Displays the story for the currently selected component.
 ]]
+local FFlagDeveloperStorybookMigrateToRoact17 = game:GetFastFlag("DeveloperStorybookMigrateToRoact17")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 
 local Main = script.Parent.Parent.Parent
 local Types = require(Main.Src.Types)
 local Roact = require(Main.Packages.Roact)
+local ReactIs = require(Main.Packages.ReactIs)
 local RoactRodux = require(Main.Packages.RoactRodux)
 
 local Framework = require(Main.Packages.Framework)
@@ -256,9 +258,15 @@ end
 
 function InfoPanel:getRoactComponent(input: Types.Story, roact: Types.Roact): Types.RoactComponent?
 	local isInstance = typeof(input) == "Instance"
-	-- TODO STUDIOPLAT-26707: Use ReactIs here instead
-	local isRoactElement = typeof(input) == "table" and ((input :: Types.AnyRecord).component ~= nil or (input :: Types.AnyRecord)["$$typeof"] ~= nil)
-	local isRoactComponent = typeof(input) == "table" and (input :: Types.AnyRecord).__componentName ~= nil
+	local isRoactElement
+	local isRoactComponent
+	if FFlagDeveloperStorybookMigrateToRoact17 then
+		isRoactElement = ReactIs.isElement(input) or ReactIs.isFragment(input)
+		isRoactComponent = not isRoactElement and ReactIs.typeOf(input) ~= nil
+	else
+		isRoactComponent = typeof(input) == "table" and (input :: Types.AnyRecord).__componentName ~= nil
+		isRoactElement = typeof(input) == "table" and (input :: Types.AnyRecord).component ~= nil
+	end
 	local isRoactFn = typeof(input) == "function"
 	if isInstance then
 		return function()
@@ -440,7 +448,6 @@ function InfoPanel:render()
 			Size = UDim2.new(1, 0, 1, -sizes.TopBar),
 			VerticalAlignment = Enum.VerticalAlignment.Top,
 			Spacing = sizes.InnerPadding,
-
 			[Roact.Ref] = self.storyRef,
 		}, children)
 	else 

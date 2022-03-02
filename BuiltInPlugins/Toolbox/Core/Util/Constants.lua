@@ -8,6 +8,7 @@ local TextService = game:GetService("TextService")
 local StudioService = game:GetService("StudioService")
 
 local FFlagToolboxUpdateWindowMinSize = game:GetFastFlag("ToolboxUpdateWindowMinSize")
+local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
 
 local Constants = {}
 
@@ -84,7 +85,11 @@ Constants.FOOTER_HEIGHT = 35
 Constants.BACKGROUND_BUTTON_ICON_SIZE = 10
 Constants.BACKGROUND_BUTTON_FONT_SIZE = Constants.FONT_SIZE_SMALL
 
-Constants.MAIN_VIEW_PADDING = 8
+if FFlagToolboxAssetCategorization then
+	Constants.MAIN_VIEW_PADDING = 10
+else
+	Constants.MAIN_VIEW_PADDING = 8
+end
 
 Constants.SUGGESTIONS_INNER_PADDING = 6
 Constants.SUGGESTIONS_OUTER_PADDING = 6

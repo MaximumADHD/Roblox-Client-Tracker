@@ -20,7 +20,6 @@ local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local Framework = Plugin.Packages.Framework
@@ -36,8 +35,6 @@ local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
 local SetScreen = require(Plugin.Src.Actions.SetScreen)
 
 local Screens = require(Plugin.Src.Util.Screens)
-
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local NavBar = Roact.PureComponent:extend("NavBar")
 
@@ -79,12 +76,7 @@ function NavBar:buildPathComponents(props, theme, localization, dispatch)
     local path = self:getCurrentPath(currentScreen)
 
     local count = 1
-    local layoutIndex
-    if FFlagAssetManagerRemoveUILibraryPart1 then
-        layoutIndex = LayoutOrderIterator.new()
-    else
-        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
-    end
+    local layoutIndex = LayoutOrderIterator.new()
     local startingScreenPath = currentScreen.Path
 
     for index, screen in ipairs(path) do

@@ -2,7 +2,6 @@
 	The main plugin for the Developer Storybook.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
-local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 
 local Main = script.Parent.Parent
@@ -54,7 +53,7 @@ function MainPlugin:init(props)
 		}
 		self.onPaneSizesChange = function(paneSizes: Types.Array<UDim>)
 			self:setState({
-				paneSizes = paneSizes 
+				paneSizes = paneSizes,
 			})
 		end
 	end
@@ -88,7 +87,7 @@ function MainPlugin:init(props)
 	self.localization = Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
-		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or "DeveloperStorybook",
+		pluginName = Main.Name,
 		libraries = {
 			[Framework.Resources.LOCALIZATION_PROJECT_NAME] = {
 				stringResourceTable = Framework.Resources.TranslationDevelopmentTable,
@@ -104,7 +103,7 @@ function MainPlugin:init(props)
 		Mouse.new(props.Plugin:getMouse()),
 		self.theme,
 		self.localization,
-		Analytics.mock()
+		Analytics.mock(),
 	}
 end
 
@@ -114,7 +113,7 @@ function MainPlugin:renderButtons(toolbar)
 		Toggle = Roact.createElement(PluginButton, {
 			Toolbar = toolbar,
 			Active = enabled,
-			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and self.localization:getText("Toolbar", "Title") or "Storybook",
+			Title = self.localization:getText("Toolbar", "Title"),
 			Icon = "rbxasset://textures/DeveloperStorybook/ToolbarIcon.png",
 			OnClick = self.toggleState,
 		}),
@@ -122,11 +121,9 @@ function MainPlugin:renderButtons(toolbar)
 end
 
 function MainPlugin:render()
-	local props = self.props
 	local state = self.state
-	local plugin = props.Plugin
 	local enabled = state.enabled
-	
+
 	local OFFSET = 42
 
 	local children = {
@@ -163,8 +160,8 @@ function MainPlugin:render()
 		}),
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and self.localization:getText("Toolbar", "Title") or plugin.Name,
-			Id = FFlagPluginDockWidgetsUseNonTranslatedIds and Main.Name or nil,
+			Title = self.localization:getText("Toolbar", "Title"),
+			Id = Main.Name,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Bottom,
 			Size = Vector2.new(640, 480),

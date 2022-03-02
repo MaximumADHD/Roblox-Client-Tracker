@@ -50,7 +50,7 @@ local function mockMetaBreakpoint(metaBreakpoint, uniqueId) : MetaBreakpoint
 		logMessage = metaBreakpoint.logMessage or ("varNum"..tostring(uniqueId)),
 		continueExecution = metaBreakpoint.continueExecution,
 		debugpointType = metaBreakpoint.debugpointType or math.fmod(uniqueId,2)==0 and Constants.DebugpointType.Breakpoint or Constants.DebugpointType.Logpoint,
-		contextBreakpoints = metaBreakpoint:GetContextBreakpoints()
+		contextBreakpoints = metaBreakpoint.contextBreakpoints or {}
 	}
 end
 

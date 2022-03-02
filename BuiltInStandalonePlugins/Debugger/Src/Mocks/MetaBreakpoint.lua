@@ -45,6 +45,10 @@ function MetaBreakpoint:SetMockBreakpointManager(mockBreakpointManager)
 	self.mockBreakpointManager = mockBreakpointManager
 end
 
+function MetaBreakpoint:GetContextBreakpoints()
+	return {}
+end
+
 function MetaBreakpoint.new(metaBreakpoint : MetaBreakpointProperties)
 	if metaBreakpoint.Enabled == nil then
 		metaBreakpoint.Enabled = true

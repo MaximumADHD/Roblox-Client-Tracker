@@ -2,6 +2,7 @@
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 local FFlagStudioTeamCreateStreamingEnabled = game:getFastFlag("StudioTeamCreateStreamingEnabled")
 local FFlagCollabEditingWarnBothWays2 = game:GetFastFlag("CollabEditingWarnBothWays2")
+local FFlagGreyOutCollabEditingForTeamCreateOff = game:GetFastFlag("GreyOutCollabEditingForTeamCreateOff")
 
 local KeyProvider = {}
 
@@ -110,7 +111,7 @@ function KeyProvider.getTeamCreateStreamingEnabledKeyName()
 end
 
 function KeyProvider.getTeamCreateEnabledKeyName()
-	assert(FFlagStudioTeamCreateStreamingEnabled)
+	assert(FFlagStudioTeamCreateStreamingEnabled or FFlagGreyOutCollabEditingForTeamCreateOff)
 
 	return "TeamCreateEnabled"
 end

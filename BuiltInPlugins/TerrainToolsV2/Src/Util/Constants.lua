@@ -30,29 +30,31 @@ Constants.ToolIcons = {
 	[ToolId.Paint] = TexturePath .. "mt_paint.png",
 }
 
-Constants.HighDpiToolIconsWithThemeAndName2 = "rbxasset://studio_svg_textures/Shared/Terrain/%s/32/%s"
+local TerrainToolHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Terrain/%s/Large/"
+local DraggerHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Actions/DraggerTools/%s/Large/"
+local ClipboardHighDpiIcons = "rbxasset://studio_svg_textures/Shared/Actions/Clipboard/%s/Large/"
 
-Constants.HighDpiToolIconsName = {
-	[ToolId.Generate] = "Generate.png",
-	[ToolId.ImportLocal] = "Import.png",
-	[ToolId.SeaLevel] = "SeaLevel.png",
-	[ToolId.Replace] = "Replace.png",
-	[ToolId.Clear] = "Clear.png",
-	[ToolId.Select] = "Select.png",
-	[ToolId.Move] = "Move.png",
-	[ToolId.Resize] = "Resize.png",
-	[ToolId.Rotate] = "Rotate.png",
-	[ToolId.Copy] = "Copy.png",
-	[ToolId.Paste] = "Paste.png",
-	[ToolId.Delete] = "Delete.png",
-	[ToolId.Fill] = "Fill.png",
-	[ToolId.Add] = "Add.png",
-	[ToolId.Subtract] = "Subtract.png",
-	[ToolId.Grow] = "Grow.png",
-	[ToolId.Erode] = "Erode.png",
-	[ToolId.Smooth] = "Smooth.png",
-	[ToolId.Flatten] = "Flatten.png",
-	[ToolId.Paint] = "Paint.png",
+Constants.HighDpiToolIconsWithTheme1 = {
+	[ToolId.Generate] = TerrainToolHighDpiIcons .. "Terrain_Generate.png",
+	[ToolId.ImportLocal] = TerrainToolHighDpiIcons .. "Terrain_Import.png",
+	[ToolId.SeaLevel] = TerrainToolHighDpiIcons .. "Terrain_SeaLevel.png",
+	[ToolId.Replace] = TerrainToolHighDpiIcons .. "Terrain_Replace.png",
+	[ToolId.Clear] = TerrainToolHighDpiIcons .. "Terrain_Clear.png",
+	[ToolId.Select] = DraggerHighDpiIcons .. "Select.png",
+	[ToolId.Move] = DraggerHighDpiIcons .. "Move.png",
+	[ToolId.Resize] = TerrainToolHighDpiIcons .. "Terrain_Resize.png",
+	[ToolId.Rotate] = DraggerHighDpiIcons .. "Rotate.png",
+	[ToolId.Copy] = ClipboardHighDpiIcons .. "Copy.png",
+	[ToolId.Paste] = ClipboardHighDpiIcons .. "Paste.png",
+	[ToolId.Delete] = TerrainToolHighDpiIcons .. "Terrain_Delete.png",
+	[ToolId.Fill] = TerrainToolHighDpiIcons .. "Terrain_Fill.png",
+	[ToolId.Add] = TerrainToolHighDpiIcons .. "Terrain_Add.png",
+	[ToolId.Subtract] = TerrainToolHighDpiIcons .. "Terrain_Subtract.png",
+	[ToolId.Grow] = TerrainToolHighDpiIcons .. "Terrain_Grow.png",
+	[ToolId.Erode] = TerrainToolHighDpiIcons .. "Terrain_Erode.png",
+	[ToolId.Smooth] = TerrainToolHighDpiIcons .. "Terrain_Smooth.png",
+	[ToolId.Flatten] = TerrainToolHighDpiIcons .. "Terrain_Flatten.png",
+	[ToolId.Paint] = TerrainToolHighDpiIcons .. "Terrain_Paint.png",
 }
 
 Constants.INITIAL_BRUSH_SIZE = 6

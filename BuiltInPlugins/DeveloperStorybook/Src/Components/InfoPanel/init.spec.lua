@@ -4,12 +4,6 @@ return function()
 	local InfoPanel = require(script.Parent)
 	local MockWrap = require(Main.Src.Resources.MockWrap)
 
-	it("should create and destroy without errors", function()
-		local element = MockWrap(Roact.createElement(InfoPanel))
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
 	it("should render correctly", function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(InfoPanel))

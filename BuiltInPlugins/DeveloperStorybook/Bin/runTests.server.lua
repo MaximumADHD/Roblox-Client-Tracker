@@ -7,6 +7,10 @@ local DebugFlags = require(Main.Src.Util.DebugFlags)
 local Framework = nil
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
+	_G.__DEV__ = true
+	_G.__ROACT_17_MOCK_SCHEDULER__ = true
+	_G.__ROACT_17_INLINE_ACT__ = true
+	
 	local commonInit = require(Main.Src.Util.commonInit)
 	commonInit()
 

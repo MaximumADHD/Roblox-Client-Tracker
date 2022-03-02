@@ -32,8 +32,24 @@ local IMAGE_CONTAINER_SIZE = 75
 local IMAGE_SIZE = 63
 local IMAGE_PADDING = 6
 
-local IconTile = Roact.PureComponent:extend("IconTile")
 
+type _ExternalProps = {
+	BackgroundColor : Color3,
+	Image : string,
+	Key : string,
+	LayoutOrder : number?,
+	OnClick : ((key : string) -> ())?,
+	Size : UDim2?,
+	Title : string,
+}
+
+type _InternalProps = {
+	Stylizer : any,
+}
+
+export type IconTileProps = _ExternalProps & _InternalProps
+
+local IconTile = Roact.PureComponent:extend("IconTile")
 function IconTile:init()
 	self.state = {
 		isHovered = false,
@@ -60,15 +76,15 @@ function IconTile:init()
 	end
 
 	self.onClick = function()
-		local props = self.props
-		if props.OnClick then
-			props.OnClick(props.Key)
+		local props : IconTileProps = self.props
+		if props.OnClick ~= nil then
+			(props.OnClick :: any)(props.Key) -- :: any is due to luau bug
 		end
 	end
 end
 
 function IconTile:render()
-	local props = self.props
+	local props : IconTileProps = self.props
 	local theme = props.Stylizer
 
 	local backgroundColor = props.BackgroundColor
@@ -94,6 +110,12 @@ function IconTile:render()
 		textColor = iconTileTheme.textColor
 	end
 
+	local titleText = title
+ 	if utf8.len(title) == string.len(title) then
+		-- Only set ascii characters to uppercase.
+		titleText = string.upper(title)
+	end
+
 	return Roact.createElement("TextButton", { -- TextButton used for Activated support
 		AutoButtonColor = false,
 		BackgroundColor3 = backgroundColor,
@@ -116,6 +138,12 @@ function IconTile:render()
 			LayoutOrder = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 		}, {
+			UIPadding = Roact.createElement("UIPadding", {
+				PaddingBottom = UDim.new(0, BOTTOM_PADDING),
+				PaddingLeft = UDim.new(0, IMAGE_PADDING),
+				PaddingRight = UDim.new(0, IMAGE_PADDING),
+			}),
+
 			ImageContainer = Roact.createElement("Frame", {
 				AnchorPoint = Vector2.new(0.5, 0),
 				BackgroundTransparency = 1,
@@ -124,12 +152,6 @@ function IconTile:render()
 				Size = UDim2.new(1, 0, 0, IMAGE_CONTAINER_SIZE),
 				ZIndex = 1,
 			}, {
-				UIPadding = Roact.createElement("UIPadding", {
-					PaddingBottom = UDim.new(0, BOTTOM_PADDING),
-					PaddingLeft = UDim.new(0, IMAGE_PADDING),
-					PaddingRight = UDim.new(0, IMAGE_PADDING),
-					PaddingTop = UDim.new(0, IMAGE_PADDING),
-				}),
 				ImageIcon = Roact.createElement("ImageLabel", {
 					AnchorPoint = Vector2.new(0.5, 0.5),
 					BackgroundTransparency = 1,
@@ -145,9 +167,9 @@ function IconTile:render()
 				BackgroundTransparency = 1,
 				Font = iconTileTheme.font,
 				LayoutOrder = 1,
-				Position = UDim2.new(0, 0, 1, -BOTTOM_PADDING),
+				Position = UDim2.new(0, 0, 1, 0),
 				Size = UDim2.new(1, 0, 0, 0),
-				Text = title,
+				Text = titleText,
 				TextColor3 = textColor,
 				TextSize = iconTileTheme.textSize,
 				TextWrapped = true,

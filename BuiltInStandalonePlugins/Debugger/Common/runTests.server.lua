@@ -9,6 +9,7 @@ commonInit()
 
 local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 local Framework = require(Plugin.Packages.Framework)
+require(script.Parent.defineLuaFlags)
 
 if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
 	-- Requiring TestEZ initialises TestService, so we require it under the condition

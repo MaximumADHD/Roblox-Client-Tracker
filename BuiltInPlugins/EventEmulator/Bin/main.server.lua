@@ -9,8 +9,6 @@ end
 
 require(script.Parent.defineLuaFlags)
 
-local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 
@@ -21,7 +19,7 @@ local MainPlugin = require(main.Src.MainPlugin)
 local handle
 
 local function init()
-	plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and main.Name or "Event Emulator"
+	plugin.Name = main.Name
 
 	local mainPlugin = Roact.createElement(MainPlugin, {
 		Plugin = plugin,

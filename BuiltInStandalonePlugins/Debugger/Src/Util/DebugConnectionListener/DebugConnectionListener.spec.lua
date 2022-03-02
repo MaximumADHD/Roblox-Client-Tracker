@@ -17,6 +17,8 @@ local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
 local MockBreakpoint = require(Mocks.Breakpoint)
 local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
+local Constants = require(Plugin.Src.Util.Constants)
+
 return function()
 	local function setupFakeThread(mockConnection, fakeThreadId)
 		-- setup fake data
@@ -36,7 +38,10 @@ return function()
 	it("should create and destroy DebugConnectionListener without errors", function()
 		local mainStore = Rodux.Store.new(MainReducer, {})
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager)
+		local debuggerUIService = MockDebuggerUIService.new()
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
 		expect(mainListener)
 		mainListener:destroy()
 	end)
@@ -45,7 +50,9 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, {})
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
 		local debuggerUIService = MockDebuggerUIService.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 		mainConnectionManager.ConnectionEnded:Fire(currentMockConnection)
@@ -56,7 +63,9 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
 		local debuggerUIService = MockDebuggerUIService.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
@@ -67,7 +76,7 @@ return function()
 			MetaBreakpointId = 30,
 		})
 
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
+		local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Breakpoint, 1, true)
 		testPausedState1:SetBreakpointHit(mockBreakpoint)
 
 		mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
@@ -85,7 +94,9 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
 		local debuggerUIService = MockDebuggerUIService.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, MockCrossDMScriptChangeListenerService.new())
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
 		local currentMockConnection = MockDebuggerConnection.new(1)
 
 		setupFakeThread(currentMockConnection, 1)
@@ -96,8 +107,8 @@ return function()
 			Id = 3,
 			MetaBreakpointId = 30,
 		})
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 1, true)
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Breakpoint, 2, true)
+		local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Breakpoint, 1, true)
+		local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Breakpoint, 2, true)
 		testPausedState1:SetBreakpointHit(mockBreakpoint)
 		testPausedState2:SetBreakpointHit(mockBreakpoint)
 
@@ -144,15 +155,17 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		local mainConnectionManager = MockDebuggerConnectionManager.new()
 		local debuggerUIService = MockDebuggerUIService.new()
-		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService)
+		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+		local mainListener = DebugConnectionListener.new(mainStore, mainConnectionManager, debuggerUIService, mockCrossDMScriptChangeListenerService)
 		local mockConnection1 = MockDebuggerConnection.new(1)
 		local mockConnection2 = MockDebuggerConnection.new(2)
 
 		setupFakeThread(mockConnection1, 1)
 		setupFakeThread(mockConnection2, 2)
 
-		local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
-		local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+		local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+		local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
 		
 		-- start and pause the 2 DebuggerConnections
 		mainConnectionManager.ConnectionStarted:Fire(mockConnection1)

@@ -1,6 +1,8 @@
 --[[
 	A simple cell of a table which can be hovered, disabled & selected.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -54,14 +56,16 @@ function TreeTableCell:init()
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
 				OnFocusLost = self.onTextInputFocusLost,
-				[Roact.Ref] = self.textRef,
+				ForwardRef = if FFlagDevFrameworkForwardRef then self.textRef else nil,
+				[Roact.Ref] = if FFlagDevFrameworkForwardRef then nil else self.textRef,
 			})
 		else
 			return text and Roact.createElement(TextLabel, {
 				LayoutOrder = 3,
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
-				[Roact.Ref] = self.textRef,
+				ForwardRef = if FFlagDevFrameworkForwardRef then self.textRef else nil,
+				[Roact.Ref] = if FFlagDevFrameworkForwardRef then nil else self.textRef,
 			}) or nil
 		end
 	end

@@ -8,11 +8,6 @@ if FFlagPluginManagementDeduplicatePackages then
 	return Package
 else
 	local PackageIndex = script.Parent._Old
-
-	if game:GetFastFlag("PluginManagementUseRoactv14") then
-		return require(PackageIndex["roblox_roact-rodux"]["roact-rodux"])
-	end
-
-	return require(PackageIndex["RoactRodux-9dcb3c30-f36097a9"].Packages["RoactRodux"])
+	return require(PackageIndex["roblox_roact-rodux"]["roact-rodux"])
 end
 

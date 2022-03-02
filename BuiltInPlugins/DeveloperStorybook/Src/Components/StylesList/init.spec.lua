@@ -4,16 +4,6 @@ return function()
 	local StylesList = require(script.Parent)
 	local MockWrap = require(Main.Src.Resources.MockWrap)
 
-	it("should create and destroy without errors", function()
-		local element = MockWrap(Roact.createElement(StylesList, {
-			Header = "Test",
-			ComponentName = "TextLabel",
-			Styles = {},
-		}))
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
-	end)
-
 	it("should render correctly when there are no non-default styles", function()
 		local container = Instance.new("Folder")
 		local element = MockWrap(Roact.createElement(StylesList, {

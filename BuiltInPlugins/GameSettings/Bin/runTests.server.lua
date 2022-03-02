@@ -1,20 +1,27 @@
--- Fast flags
-require(script.Parent.defineLuaFlags)
-
 local Plugin = script.Parent.Parent
-local TestsFolderPlugin = Plugin.Src
---local TestsFolderPackages = Plugin -- Can be used to run package's unit tests
 
-local SHOULD_RUN_TESTS = false -- Do not check in as true!
+local commonInit = require(script.Parent.commonInit)
+commonInit()
 
-if SHOULD_RUN_TESTS then
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
+if DebugFlags.RunningUnderCLI() or DebugFlags.RunTests() then
+	-- Requiring TestEZ initialises TestService, so we require it under the condition
 	local TestEZ = require(Plugin.TestEZ)
 	local TestBootstrap = TestEZ.TestBootstrap
-	local TextReporter = TestEZ.Reporters.TextReporterQuiet -- Remove Quiet to see output
+	local TeamCityReporter = TestEZ.Reporters.TeamCityReporter
+	local TextReporter = TestEZ.Reporters.TextReporter
 
-	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
-	-- You can also run the unit tests for the packages by adding TestsFolderPackages
-	-- to the table. Some of them might be broken though.
-	TestBootstrap:run({ TestsFolderPlugin }, TextReporter)
+	local reporter = _G["TEAMCITY"] and TeamCityReporter or TextReporter
+	local TestsFolderPlugin = Plugin.Src
+
+	print("----- All " .. Plugin.Name .. " Tests ------")
+	TestBootstrap:run({TestsFolderPlugin}, reporter)
 	print("----------------------------------")
+end
+
+if DebugFlags.RunningUnderCLI() then
+	pcall(function()
+		game:GetService("ProcessService"):ExitAsync(0)
+	end)
 end

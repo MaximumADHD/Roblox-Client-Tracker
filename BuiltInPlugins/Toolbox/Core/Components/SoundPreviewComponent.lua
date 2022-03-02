@@ -2,6 +2,9 @@ local RunService = game:GetService("RunService")
 
 local Plugin = script.Parent.Parent.Parent
 
+local FFlagAudioAssetPrivacyForPreview1 = game:GetFastFlag("AudioAssetPrivacyForPreview1")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
+
 local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 
 local Packages = Plugin.Packages
@@ -103,6 +106,9 @@ function SoundPreviewComponent:render()
 		[Roact.Ref] = self.ref,
 		[Roact.Event.Ended] = self.onSoundEnded,
 		[Roact.Event.Changed] = self.onSoundChange,
+		UsageContextPermission = if FFlagAudioAssetPrivacyForPreview1 and FFlagPluginsSetAudioPreviewUsageContext
+			then Enum.UsageContext.Preview
+			else nil,
 	})
 end
 

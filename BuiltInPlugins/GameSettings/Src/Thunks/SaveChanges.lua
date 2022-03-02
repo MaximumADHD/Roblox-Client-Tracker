@@ -62,7 +62,6 @@ return function()
 
 					store:dispatch(SetPageSaveState(pageId, SaveState.Unsaved))
 				end
-
 				if allSuccessful then
 					Analytics.onSaveSuccess(tick() - startTime)
 					resolve()

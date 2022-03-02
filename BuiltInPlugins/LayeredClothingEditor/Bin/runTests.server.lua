@@ -30,6 +30,11 @@ end
 local SHOULD_RUN_TESTS = DebugFlags.RunTests()
 local SHOULD_RUN_RHODIUM_TESTS = DebugFlags.RunRhodiumTests()
 
+if not game:GetFastFlag("AccessoryToolRefactor") and (SHOULD_RUN_TESTS or SHOULD_RUN_RHODIUM_TESTS) then
+	game:GetService("ProcessService"):ExitAsync(0)
+	return
+end
+
 if SHOULD_RUN_TESTS then
 	print("----- All " ..script.Parent.Parent.Name.. " Tests ------")
 	runTests()

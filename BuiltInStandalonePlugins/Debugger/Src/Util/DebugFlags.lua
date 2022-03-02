@@ -6,7 +6,7 @@
 
 local Workspace = game:GetService("Workspace")
 
-local FLAGS_FOLDER = "StandaloneTemplateFlags"
+local FLAGS_FOLDER = "DebuggerFlags"
 
 local function defineFlag(flagName, default)
 	default = default or false

@@ -24,7 +24,7 @@
 		callback nextPage()
 		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
 ]]
-local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
+local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 
 local GuiService = game:GetService("GuiService")
 
@@ -76,7 +76,7 @@ function MainView:init(props)
 	local networkInterface = getNetwork(self)
 	local settings = getSettings(self)
 
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		self.state = {
 			lowerIndexToRender = 0,
 			upperIndexToRender = 0,
@@ -89,7 +89,7 @@ function MainView:init(props)
 	self.scrollingFrameRef = Roact.createRef()
 
 	local function tryRerender(self)
-		if not FFlagToolboxAssetGridRefactor4 then
+		if not FFlagToolboxAssetGridRefactor5 then
 			local scrollingFrame = self.scrollingFrameRef.current
 			if not scrollingFrame then
 				return
@@ -111,7 +111,7 @@ function MainView:init(props)
 	end
 
 	self.onScroll = function()
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			return
 		end
 		-- We we are previewing the asset, we shouldn't be able
@@ -122,7 +122,7 @@ function MainView:init(props)
 	end
 
 	self.onAssetGridContainerChanged = function()
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			return
 		end
 		tryRerender(self)
@@ -151,7 +151,7 @@ function MainView:init(props)
 end
 
 function MainView.getDerivedStateFromProps(nextProps, lastState)
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		local lowerBound = lastState.lowerIndexToRender or 0
 		local upperBound = lastState.upperIndexToRender or 0
 
@@ -166,7 +166,7 @@ function MainView.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function MainView:didMount()
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		self.scrollingFrameRef.current:GetPropertyChangedSignal("AbsoluteSize"):connect(function()
 			self:calculateRenderBounds()
 		end)
@@ -175,7 +175,7 @@ function MainView:didMount()
 end
 
 function MainView:calculateRenderBounds()
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		return
 	end
 	local props = self.props
@@ -200,7 +200,7 @@ function MainView:calculateRenderBounds()
 end
 
 function MainView:didUpdate(prevProps, prevState)
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		return
 	end
 	-- Check if the toolbox has empty space
@@ -246,7 +246,7 @@ function MainView:render()
 		local assetIds
 		local assetCount
 		local allAssetCount
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			allAssetCount = props.allAssetCount
 			assetCount = props.allAssetCount
 		else
@@ -264,7 +264,7 @@ function MainView:render()
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 
 		local allAssetsHeight
-		if not FFlagToolboxAssetGridRefactor4 then
+		if not FFlagToolboxAssetGridRefactor5 then
 			-- Add a bit extra to the container so we can see the details of the assets on the last row
 			allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 				+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
@@ -289,7 +289,7 @@ function MainView:render()
 		)
 
 		local canvasHeight
-		if not FFlagToolboxAssetGridRefactor4 then
+		if not FFlagToolboxAssetGridRefactor5 then
 			local fullInnerHeight = headerHeight + allAssetsHeight + headerToBodyPadding
 			canvasHeight = fullInnerHeight + (2 * Constants.MAIN_VIEW_PADDING)
 		end
@@ -314,7 +314,7 @@ function MainView:render()
 		local assetHeight
 		local gridContainerOffset
 		local scrollingEnabled
-		if not FFlagToolboxAssetGridRefactor4 then
+		if not FFlagToolboxAssetGridRefactor5 then
 			-- Need to shift the position of AssetGridContainer depending on how many rows we've cut off the start
 			assetsPerRow = Layouter.getAssetsPerRow(containerWidth)
 			assetHeight = Layouter.getAssetCellHeightWithPadding(showPrices)
@@ -337,8 +337,8 @@ function MainView:render()
 			BorderSizePixel = 0,
 		}, {
 			ScrollingFrame = Roact.createElement(
-				FFlagToolboxAssetGridRefactor4 and "Frame" or StyledScrollingFrame,
-				FFlagToolboxAssetGridRefactor4
+				FFlagToolboxAssetGridRefactor5 and "Frame" or StyledScrollingFrame,
+				FFlagToolboxAssetGridRefactor5
 						and {
 							BackgroundTransparency = 1,
 							Size = UDim2.new(1, 0, 1, 0),
@@ -376,7 +376,7 @@ function MainView:render()
 						}, noResultsDetailProps)
 					),
 
-					AssetGridContainer = not FFlagToolboxAssetGridRefactor4 and Roact.createElement(
+					AssetGridContainer = not FFlagToolboxAssetGridRefactor5 and Roact.createElement(
 						AssetGridContainer_DEPRECATED,
 						{
 							Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding + gridContainerOffset),
@@ -395,10 +395,10 @@ function MainView:render()
 				}
 			),
 
-			AssetGridContainerNew = FFlagToolboxAssetGridRefactor4 and Roact.createElement(AssetGridContainer, {
+			AssetGridContainerNew = FFlagToolboxAssetGridRefactor5 and Roact.createElement(AssetGridContainer, {
 				Position = UDim2.new(0, 0, 0, headerHeight + headerToBodyPadding),
 				Size = UDim2.new(1, 0, 1, -headerHeight - headerToBodyPadding),
-				tryOpenAssetConfig = tryOpenAssetConfig,
+				TryOpenAssetConfig = tryOpenAssetConfig,
 			}),
 
 			SearchOptions = showSearchOptions and Roact.createElement(SearchOptions, {
@@ -450,13 +450,13 @@ local function mapStateToProps(state, props)
 	end
 
 	local isPreviewing
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		isPreviewing = assets.isPreviewing or false
 	end
 	return {
-		idsToRender = not FFlagToolboxAssetGridRefactor4 and assets.idsToRender or {} or nil,
+		idsToRender = not FFlagToolboxAssetGridRefactor5 and assets.idsToRender or {} or nil,
 
-		allAssetCount = FFlagToolboxAssetGridRefactor4 and #assets.idsToRender or nil,
+		allAssetCount = FFlagToolboxAssetGridRefactor5 and #assets.idsToRender or nil,
 		isLoading = assets.isLoading or false,
 
 		isPreviewing = isPreviewing,

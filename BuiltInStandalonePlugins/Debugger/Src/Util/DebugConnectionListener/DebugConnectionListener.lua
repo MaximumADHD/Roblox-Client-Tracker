@@ -14,6 +14,8 @@ local Models = Src.Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
 local StepStateBundle = require(Models.StepStateBundle)
 
+local Constants = require(Src.Util.Constants)
+
 local DebugConnectionListener = {}
 DebugConnectionListener.__index = DebugConnectionListener
 
@@ -22,7 +24,7 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	local state = self.store:getState()
 	local common = state.Common
 	local dst = DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
-	if debuggerPauseReason == Enum.DebuggerPauseReason.Breakpoint then
+	if debuggerPauseReason == Constants.DebuggerPauseReason.Breakpoint then
 		if pausedState.Breakpoint ~= nil then
 			self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
 		else

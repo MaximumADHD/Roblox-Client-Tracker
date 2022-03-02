@@ -1,6 +1,8 @@
 --!nocheck
 -- TODO STM-151: Re-enable Luau Type Checks when Luau bugs are fixed
 local FFlagToolboxAddAssetImpressionCounterAnalytics = game:GetFastFlag("ToolboxAddAssetImpressionCounterAnalytics")
+local FFlagToolboxTrackScriptIconShown = game:GetFastFlag("ToolboxTrackScriptIconShown")
+local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -142,6 +144,7 @@ function AssetAnalytics.getTrackingAttributes(assetData: AssetData)
 
 		isVerifiedCreator = assetData.Creator.IsVerifiedCreator,
 		isEndorsed = assetData.Asset.IsEndorsed,
+		hasScripts = if FFlagToolboxShowHasScriptInfo and FFlagToolboxTrackScriptIconShown then assetData.Asset.HasScripts else nil,
 	})
 
 	-- We track "ID" as standard

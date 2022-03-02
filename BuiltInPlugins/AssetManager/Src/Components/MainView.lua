@@ -26,7 +26,6 @@ local Util = require(Framework.Util)
 local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
-local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local AssetGridContainer = require(Plugin.Src.Components.AssetGridContainer)
@@ -49,7 +48,6 @@ local MainView = Roact.PureComponent:extend("MainView")
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
 local FFlagStudioNewGamesInCloudUI = game:GetFastFlag("StudioNewGamesInCloudUI")
 local FFlagStudioRenameSaveButtonToSaveToRoblox = game:GetFastFlag("StudioRenameSaveButtonToSaveToRoblox")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
 
 local universeNameSet = false
@@ -196,12 +194,7 @@ function MainView:render()
 
     local universeName = props.UniverseName
 
-    local layoutIndex
-    if FFlagAssetManagerRemoveUILibraryPart1 then
-        layoutIndex = LayoutOrderIterator.new()
-    else
-        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
-    end
+    local layoutIndex = LayoutOrderIterator.new()
 
     self.state.fileExplorerData.Name = universeName
     if universeName ~= "" and not universeNameSet then

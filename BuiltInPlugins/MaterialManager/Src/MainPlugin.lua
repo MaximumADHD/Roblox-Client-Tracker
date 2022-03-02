@@ -22,6 +22,7 @@ local TranslationReferenceTable = main.Src.Resources.Localization.TranslationRef
 
 local Components = main.Src.Components
 local MaterialManagerView = require(Components.MaterialManagerView)
+local MaterialPrompt = require(Components.MaterialPrompt)
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -105,6 +106,7 @@ function MainPlugin:render()
 	local state = self.state
 	local plugin = props.Plugin
 	local enabled = state.enabled
+	local prompt = state.prompt
 
 	return ContextServices.provide({
 		Plugin.new(plugin),
@@ -120,6 +122,11 @@ function MainPlugin:render()
 				return self:renderButtons(toolbar)
 			end,
 		}),
+
+		MaterialPrompt = prompt and Roact.createElement(MaterialPrompt, {
+			PromptClosed = self.closePrompt,
+			PromptType = prompt,
+		}) or nil,
 
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,

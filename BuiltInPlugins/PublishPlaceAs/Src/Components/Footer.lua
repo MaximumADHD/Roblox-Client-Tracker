@@ -33,8 +33,6 @@ local ButtonBar = require(Plugin.Src.Components.ButtonBar)
 
 local Analytics = require(Plugin.Src.Util.Analytics)
 
-local FFlagStudioReportTcToggleMetrics = game:GetFastFlag("StudioReportTcToggleMetrics")
-
 local Footer = Roact.PureComponent:extend("Footer")
 
 function Footer:render()
@@ -83,9 +81,7 @@ function Footer:render()
 				if isMain then
 					mainButton.OnActivated()
 				else
-					if FFlagStudioReportTcToggleMetrics then
-						Analytics.reportSaveCancel(isPublish)
-					end
+					Analytics.reportSaveCancel(isPublish)
 					onClose()
 				end
 			end,

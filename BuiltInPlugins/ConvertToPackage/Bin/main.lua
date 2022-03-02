@@ -4,8 +4,6 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagPreventChangesWhenConvertingPackage = game:GetFastFlag("PreventChangesWhenConvertingPackage")
-	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
 
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Packages.Roact)
@@ -27,22 +25,18 @@ return function(plugin, pluginLoaderContext)
 
 	local ServiceWrapper = require(Plugin.Src.Components.ServiceWrapper)
 
-	-- remove StudioServcie here when remove FFlagPreventChangesWhenConvertingPackage
-	local StudioService = game:GetService("StudioService")
-	local PackageUIService = FFlagPreventChangesWhenConvertingPackage and game:GetService("PackageUIService") or nil
-
 	local ScreenSelect = require(Plugin.Src.Components.ConvertToPackageWindow.ScreenSelect)
 
 	local localization = Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
-		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or "ConvertToPackage",
+		pluginName = Plugin.Name,
 	})
 
 	local assetConfigHandle = nil
-	local assetConfigGui  = nil
+	local assetConfigGui = nil
 	local function makePluginGui()
-		local pluginGuiId = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
+		local pluginGuiId = Plugin.Name
 		assetConfigGui = plugin:CreateQWidgetPluginGui(pluginGuiId, {
 			Size = Vector2.new(960, 600),
 			MinSize = Vector2.new(960, 600),
@@ -51,8 +45,8 @@ return function(plugin, pluginLoaderContext)
 			InitialEnabled = false,
 		})
 
-		assetConfigGui.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and localization:getText("Meta", "PluginName") or plugin.Name
-		assetConfigGui.Title = FFlagPluginDockWidgetsUseNonTranslatedIds and localization:getText("Meta", "PluginName") or plugin.Name
+		assetConfigGui.Name = localization:getText("Meta", "PluginName")
+		assetConfigGui.Title = localization:getText("Meta", "PluginName")
 		assetConfigGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 		assetConfigGui:GetPropertyChangedSignal("Enabled"):connect(function()
@@ -85,11 +79,10 @@ return function(plugin, pluginLoaderContext)
 			return
 		end
 
-		local mainStore = Rodux.Store.new(MainReducer,
-		{
-			AssetConfigReducer = { instances = instances, clonedInstances = clonedInstances}
-		},{
-				Rodux.thunkMiddleware
+		local mainStore = Rodux.Store.new(MainReducer, {
+			AssetConfigReducer = { instances = instances, clonedInstances = clonedInstances },
+		}, {
+			Rodux.thunkMiddleware,
 		})
 
 		local theme = PluginTheme.new()
@@ -101,15 +94,14 @@ return function(plugin, pluginLoaderContext)
 			focusGui = assetConfigGui,
 			networkInterface = networkInterface,
 			localization = localization,
-		},
-		{
+		}, {
 			Roact.createElement(ScreenSelect, {
 				onClose = onAssetConfigDestroy,
 				assetName = assetName,
 				pluginGui = assetConfigGui,
 				currentScreen = Constants.SCREENS.CONFIGURE_ASSET,
-				instances = instances
-			})
+				instances = instances,
+			}),
 		})
 
 		assetConfigHandle = Roact.mount(assetConfigComponent, assetConfigGui)
@@ -118,28 +110,32 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function main()
-		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("Meta", "PluginName")
+		plugin.Name = Plugin.Name
 		makePluginGui()
 		if FFlagPreventChangesWhenConvertingPackage then
-			pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
-				openAssetConfigWindow(instances, name, clonedInstances)
-			end)
+			pluginLoaderContext.signals["PackageUIService.OnOpenConvertToPackagePlugin"]:Connect(
+				function(instances, name, clonedInstances)
+					openAssetConfigWindow(instances, name, clonedInstances)
+				end
+			)
 		else
-			pluginLoaderContext.signals["StudioService.OnOpenConvertToPackagePlugin"]:Connect(function(instances, name, clonedInstances)
-				-- clone instances so that user cannot edit them while validating/uploading
-				local clonedInstances = {}
-				for i = 1, #instances do
-					pcall(function()
-						clonedInstances[i] = instances[i]:Clone()
-					end)
-				end
-				if clonedInstances == {} then
-					print(localization:getText("General", "InstanceFail"))
-					return
-				end
+			pluginLoaderContext.signals["StudioService.OnOpenConvertToPackagePlugin"]:Connect(
+				function(instances, name, clonedInstances)
+					-- clone instances so that user cannot edit them while validating/uploading
+					local clonedInstances = {}
+					for i = 1, #instances do
+						pcall(function()
+							clonedInstances[i] = instances[i]:Clone()
+						end)
+					end
+					if clonedInstances == {} then
+						print(localization:getText("General", "InstanceFail"))
+						return
+					end
 
-				openAssetConfigWindow(clonedInstances, name)
-			end)
+					openAssetConfigWindow(clonedInstances, name)
+				end
+			)
 		end
 	end
 

@@ -1,9 +1,12 @@
+local FFlagAssetManagerUseUpdateSelectedAssets = game:GetFastFlag("AssetManagerUseUpdateSelectedAssets")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Cryo = require(Plugin.Packages.Cryo)
 
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets) -- Remove with FFlagAssetManagerUseUpdateSelectedAssets
 local SetSelectionIndex = require(Plugin.Src.Actions.SetSelectionIndex)
+local UpdateSelectedAssets = require(Plugin.Src.Thunks.UpdateSelectedAssets)
 
 return function(obj, assetData)
     return function(store)
@@ -81,6 +84,10 @@ return function(obj, assetData)
                 store:dispatch(SetSelectionIndex(assetData.key))
             end
         end
-        store:dispatch(SetSelectedAssets(selectedAssets))
+		if FFlagAssetManagerUseUpdateSelectedAssets then
+			store:dispatch(UpdateSelectedAssets(selectedAssets))
+		else
+			store:dispatch(SetSelectedAssets(selectedAssets))
+		end
     end
 end

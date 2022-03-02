@@ -13,7 +13,6 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagImprovePluginSpeed_PublishPlaceAs = game:GetFastFlag("ImprovePluginSpeed_PublishPlaceAs")
-	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 	-- Fast flags
 	if not FFlagImprovePluginSpeed_PublishPlaceAs then
 		-- Move to loader.server.lua
@@ -63,7 +62,7 @@ return function(plugin, pluginLoaderContext)
 	local dataStore = Rodux.Store.new(MainReducer, {}, MainMiddleware)
 	local theme = PluginTheme.new()
 	local localization = ContextServices.Localization.new({
-		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or "PublishPlaceAs",
+		pluginName = Plugin.Name,
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 	})
@@ -87,7 +86,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function makePluginGui()
-		local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
+		local pluginId = Plugin.Name
 		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
 			Size = Vector2.new(960, initialWindowHeight),
 			MinSize = Vector2.new(890, 550),
@@ -96,26 +95,25 @@ return function(plugin, pluginLoaderContext)
 			Modal = true,
 			InitialEnabled = false,
 		})
-		pluginGui.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
-		pluginGui.Title = FFlagPluginDockWidgetsUseNonTranslatedIds and localization:getText("General", "PublishPlace") or plugin.Name
+		pluginGui.Name = Plugin.Name
+		pluginGui.Title = localization:getText("General", "PublishPlace")
 		pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 		pluginGui:BindToClose(function()
 			closePlugin()
 		end)
 	end
-	
+
 	local calloutController = nil
 	if teamCreateToggleEnabled and FFlagPlacePublishTcToggleCalloutEnabled then
 		local CalloutController = require(Plugin.Src.Util.CalloutController)
 		calloutController = CalloutController.new()
-		
+
 		local title = localization:getText("TcToggleCallout", "Title")
 		local definitionId = "PublishPlaceAsTeamCreateToggleCallout"
 		local description = localization:getText("TcToggleCallout", "Description")
 		local learnMoreUrl = game:GetFastString("TeamCreateLink")
 
-		
 		calloutController:defineCallout(definitionId, title, description, learnMoreUrl)
 	end
 
@@ -129,14 +127,14 @@ return function(plugin, pluginLoaderContext)
 			store = dataStore,
 			theme = theme,
 			uiLibraryWrapper = UILibraryWrapper.new(),
-			calloutController = calloutController
+			calloutController = calloutController,
 		}, {
 			Roact.createElement(ScreenSelect, {
 				OnClose = closePlugin,
 				IsPublish = isPublish,
 				CloseMode = closeMode,
 				IsSaveOrPublishAs = showGameSelect,
-			})
+			}),
 		})
 
 		dataStore:dispatch(ResetInfo(localization:getText("General", "UntitledGame"), showGameSelect))
@@ -146,27 +144,29 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function main()
-		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("General", "PublishPlace")
+		plugin.Name = Plugin.Name
 		makePluginGui()
 
 		if FFlagImprovePluginSpeed_PublishPlaceAs then
 			if FFlagStudioAllowRemoteSaveBeforePublish or FFlagPlacePublishManagementUI then
-				pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(function(showGameSelect, isPublish, closeMode)
-					if FFlagStudioNewGamesInCloudUI then
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishGame")
+				pluginLoaderContext.signals["StudioService.OnSaveOrPublishPlaceToRoblox"]:Connect(
+					function(showGameSelect, isPublish, closeMode)
+						if FFlagStudioNewGamesInCloudUI then
+							if isPublish then
+								pluginGui.Title = localization:getText("General", "PublishGame")
+							else
+								pluginGui.Title = localization:getText("General", "SaveGame")
+							end
 						else
-							pluginGui.Title = localization:getText("General", "SaveGame")
+							if isPublish then
+								pluginGui.Title = localization:getText("General", "PublishPlace")
+							else
+								pluginGui.Title = localization:getText("General", "SavePlace")
+							end
 						end
-					else
-						if isPublish then
-							pluginGui.Title = localization:getText("General", "PublishPlace")
-						else
-							pluginGui.Title = localization:getText("General", "SavePlace")
-						end
+						openPluginWindow(showGameSelect, isPublish, closeMode)
 					end
-					openPluginWindow(showGameSelect, isPublish, closeMode)
-				end)
+				)
 			else
 				pluginLoaderContext.signals["StudioService.OnPublishPlaceToRoblox"]:Connect(function(isOverwritePublish)
 					openPluginWindow(isOverwritePublish)

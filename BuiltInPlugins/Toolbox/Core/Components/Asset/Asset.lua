@@ -16,10 +16,10 @@
 		callback onAssetInserted()
 
 		number currentSoundId
-		boolean isPlaying 	// remove with FFlagToolboxAssetGridRefactor4
-		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor4
+		boolean isPlaying 	// remove with FFlagToolboxAssetGridRefactor5
+		callback onPreviewAudioButtonClicked	 // remove with FFlagToolboxAssetGridRefactor5
 ]]
-local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
+local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 
 local Plugin = script.Parent.Parent.Parent.Parent
@@ -65,7 +65,7 @@ local Category = require(Plugin.Core.Types.Category)
 
 local Asset = Roact.PureComponent:extend("Asset")
 
-if FFlagToolboxAssetGridRefactor4 then
+if FFlagToolboxAssetGridRefactor5 then
 	Asset.defaultProps = {
 		parentSize = Vector2.new(),
 		parentAbsolutePosition = Vector2.new(),
@@ -75,7 +75,7 @@ if FFlagToolboxAssetGridRefactor4 then
 end
 
 function Asset:init(props)
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		self.wasAssetBoundsWithinScrollingBounds = false
 		self.hasInitiated = false
 		self.ref = Roact.createRef()
@@ -85,17 +85,17 @@ function Asset:init(props)
 		}
 	end
 
-	local assetData = not FFlagToolboxAssetGridRefactor4 and props.asset or nil
-	local asset = not FFlagToolboxAssetGridRefactor4 and assetData.Asset or nil
-	local assetId = not FFlagToolboxAssetGridRefactor4 and asset.Id or nil
+	local assetData = not FFlagToolboxAssetGridRefactor5 and props.asset or nil
+	local asset = not FFlagToolboxAssetGridRefactor5 and assetData.Asset or nil
+	local assetId = not FFlagToolboxAssetGridRefactor5 and asset.Id or nil
 
 	local canInsertAsset = props.canInsertAsset
 
-	local onAssetHovered = not FFlagToolboxAssetGridRefactor4 and props.onAssetHovered or nil
-	local onAssetHoverEnded = not FFlagToolboxAssetGridRefactor4 and props.onAssetHoverEnded or nil
+	local onAssetHovered = not FFlagToolboxAssetGridRefactor5 and props.onAssetHovered or nil
+	local onAssetHoverEnded = not FFlagToolboxAssetGridRefactor5 and props.onAssetHoverEnded or nil
 
 	self.onMouseEntered = function(rbx, x, y)
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			self.props.onAssetHovered(self.props.assetId)
 		else
 			onAssetHovered(assetId)
@@ -103,7 +103,7 @@ function Asset:init(props)
 	end
 
 	self.onMouseLeave = function(rbx, x, y)
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			self.props.onAssetHoverEnded(self.props.assetId)
 		else
 			onAssetHoverEnded(assetId)
@@ -112,7 +112,7 @@ function Asset:init(props)
 
 	self.onInputEnded = function(rbx, input)
 		if input.UserInputType == Enum.UserInputType.Focus then
-			if FFlagToolboxAssetGridRefactor4 then
+			if FFlagToolboxAssetGridRefactor5 then
 				self.props.onAssetHoverEnded(self.props.assetId)
 			else
 				onAssetHoverEnded(assetId)
@@ -121,14 +121,14 @@ function Asset:init(props)
 	end
 
 	self.onMouseMoved = function(rbx, x, y)
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			self.props.onAssetHovered(self.props.assetId)
 		else
 			onAssetHovered(assetId)
 		end
 	end
 
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		self.onMouseButton2Click = function(rbx, x, y)
 			local showEditOption = self.props.canManage
 			self.props.tryCreateContextMenu(assetData, showEditOption)
@@ -139,7 +139,7 @@ function Asset:init(props)
 		if not canInsertAsset() then
 			return
 		end
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			assetData = self.props.assetData
 		end
 
@@ -151,7 +151,7 @@ function Asset:init(props)
 			return
 		end
 
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			assetData = self.props.assetData
 			asset = assetData.Asset
 		else
@@ -159,7 +159,7 @@ function Asset:init(props)
 		end
 
 		if asset.TypeId == Enum.AssetType.Plugin.Value then
-			if FFlagToolboxAssetGridRefactor4 then
+			if FFlagToolboxAssetGridRefactor5 then
 				self.props.onPreviewToggled(true, self.props.assetId)
 			else
 				self.props.onAssetPreviewButtonClicked(assetData)
@@ -170,13 +170,13 @@ function Asset:init(props)
 		self.props.tryInsert(assetData, false)
 	end
 
-	if not FFlagToolboxAssetGridRefactor4 then
+	if not FFlagToolboxAssetGridRefactor5 then
 		self.onAssetPreviewButtonClicked = function()
 			self.props.onAssetPreviewButtonClicked(assetData)
 		end
 	end
 
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		self.tryCreateContextMenu = function(localization)
 			local props = self.props
 			local assetData = props.assetData
@@ -238,7 +238,7 @@ end
 function Asset:didMount()
 	local assetData
 	local assetId
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		assetData = self.props.assetData
 		assetId = self.props.assetId
 	else
@@ -251,7 +251,7 @@ function Asset:didMount()
 
 	self.props.getCanManageAsset(getNetwork(self), assetId)
 
-	if not FFlagToolboxAssetGridRefactor4 or (FFlagToolboxAssetGridRefactor4 and assetData) then
+	if not FFlagToolboxAssetGridRefactor5 or (FFlagToolboxAssetGridRefactor5 and assetData) then
 		self.props.AssetAnalytics:get():logImpression(assetData)
 	end
 end
@@ -268,7 +268,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 	local assetData
 	local assetId
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		assetId = props.assetId
 		assetData = props.assetData
 		local categoryName = props.categoryName
@@ -301,7 +301,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local layoutOrder = props.LayoutOrder
 	local ownsAsset = props.ownsAsset
 	local asset = assetData.Asset
-	assetId = FFlagToolboxAssetGridRefactor4 and props.assetId or asset.Id
+	assetId = FFlagToolboxAssetGridRefactor5 and props.assetId or asset.Id
 	local assetTypeId = asset.TypeId
 	local isEndorsed = asset.IsEndorsed
 	local isVerifiedCreator = assetData.Creator.IsVerifiedCreator
@@ -373,7 +373,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 	local outlineTransparency = outlineTheme.transparency
 
 	local tryCreateLocalizedContextMenu
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		tryCreateLocalizedContextMenu = function()
 			self.tryCreateContextMenu(localizedContent)
 		end
@@ -381,13 +381,13 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 	local result = Roact.createElement("Frame", {
 		Position = UDim2.new(0, 0, 0, 0),
-		Size = FFlagToolboxAssetGridRefactor4 and self.getAssetSize() or UDim2.new(1, 0, 1, 0),
+		Size = FFlagToolboxAssetGridRefactor5 and self.getAssetSize() or UDim2.new(1, 0, 1, 0),
 		LayoutOrder = layoutOrder,
 		BackgroundTransparency = 1,
 
 		-- Need to raise the container up over the other assets to show the outline correctly
 		ZIndex = isHovered and 2 or 1,
-		[Roact.Change.AbsolutePosition] = FFlagToolboxAssetGridRefactor4 and self.onAbsolutePositionChange or nil,
+		[Roact.Change.AbsolutePosition] = FFlagToolboxAssetGridRefactor5 and self.onAbsolutePositionChange or nil,
 	}, {
 		DropShadow = isHovered and isDarkerTheme and Roact.createElement(DropShadow, {
 			-- Copy the size and position of the outline but add a few pixels extra
@@ -425,7 +425,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 			Size = UDim2.new(1, 0, 1, innerFrameHeight),
 
 			[Roact.Event.MouseEnter] = self.onMouseEntered,
-			[Roact.Event.MouseButton2Click] = FFlagToolboxAssetGridRefactor4 and tryCreateLocalizedContextMenu
+			[Roact.Event.MouseButton2Click] = FFlagToolboxAssetGridRefactor5 and tryCreateLocalizedContextMenu
 				or self.onMouseButton2Click,
 			onMouseMoved = self.onMouseMoved,
 
@@ -448,7 +448,7 @@ function Asset:renderContent(theme, localization, localizedContent)
 				isEndorsed = isEndorsed,
 				typeId = assetTypeId,
 				currentSoundId = props.currentSoundId,
-				isPlaying = not FFlagToolboxAssetGridRefactor4 and props.isPlaying or nil,
+				isPlaying = not FFlagToolboxAssetGridRefactor5 and props.isPlaying or nil,
 				isLoading = props.isLoading,
 
 				voting = votingProps,
@@ -456,9 +456,9 @@ function Asset:renderContent(theme, localization, localizedContent)
 
 				status = showStatus and status or nil,
 
-				onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor4 and props.onPreviewAudioButtonClicked
+				onPreviewAudioButtonClicked = not FFlagToolboxAssetGridRefactor5 and props.onPreviewAudioButtonClicked
 					or nil,
-				onAssetPreviewButtonClicked = not FFlagToolboxAssetGridRefactor4 and self.onAssetPreviewButtonClicked
+				onAssetPreviewButtonClicked = not FFlagToolboxAssetGridRefactor5 and self.onAssetPreviewButtonClicked
 					or nil,
 			}),
 
@@ -595,7 +595,7 @@ end
 
 Asset = withContext({
 	AssetAnalytics = AssetAnalyticsContextItem,
-	Plugin = FFlagToolboxAssetGridRefactor4 and ContextServices.Plugin or nil,
+	Plugin = FFlagToolboxAssetGridRefactor5 and ContextServices.Plugin or nil,
 	Stylizer = ContextServices.Stylizer,
 })(Asset)
 
@@ -618,7 +618,7 @@ local function mapStateToProps(state, props)
 	local ownsAsset = cachedOwnedAssets[tostring(assetId)]
 
 	local manageableAssets
-	if FFlagToolboxAssetGridRefactor4 then
+	if FFlagToolboxAssetGridRefactor5 then
 		manageableAssets = assets.manageableAssets or {}
 	else
 		manageableAssets = assets.manageableAssets
@@ -626,15 +626,15 @@ local function mapStateToProps(state, props)
 	local canManage = manageableAssets[tostring(assetId)]
 
 	return {
-		asset = not FFlagToolboxAssetGridRefactor4 and idToAssetMap[assetId] or nil,
-		assetData = FFlagToolboxAssetGridRefactor4 and idToAssetMap[assetId] or nil,
+		asset = not FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil,
+		assetData = FFlagToolboxAssetGridRefactor5 and idToAssetMap[assetId] or nil,
 		categoryName = categoryName,
-		currentSoundId = FFlagToolboxAssetGridRefactor4 and (sound.currentSoundId or 0) or props.currentSoundId,
-		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor4 and (state.packages.permissionsTable or {})
+		currentSoundId = FFlagToolboxAssetGridRefactor5 and (sound.currentSoundId or 0) or props.currentSoundId,
+		currentUserPackagePermissions = FFlagToolboxAssetGridRefactor5 and (state.packages.permissionsTable or {})
 			or nil,
 		searchTerm = searchTerm,
 		ownsAsset = ownsAsset,
-		canManage = not FFlagToolboxAssetGridRefactor4 and canManage or nil,
+		canManage = not FFlagToolboxAssetGridRefactor5 and canManage or nil,
 		isLoading = (sound.currentSoundId == assetId) and sound.isLoading or false,
 		voting = voting[assetId] or {},
 	}
@@ -654,7 +654,7 @@ local function mapDispatchToProps(dispatch)
 			dispatch(SetAssetPreview(isPreviewing, previewAssetId))
 		end,
 
-		tryCreateContextMenu = FFlagToolboxAssetGridRefactor4
+		tryCreateContextMenu = FFlagToolboxAssetGridRefactor5
 				and function(assetData, localizedContent, plugin, tryOpenAssetConfig)
 					dispatch(TryCreateContextMenu(assetData, localizedContent, plugin, tryOpenAssetConfig))
 				end

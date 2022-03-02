@@ -6,6 +6,7 @@ function MockDebuggerUIService.new()
 	setmetatable(self, MockDebuggerUIService)
 	self.openScripts = {}
 	self.showingArrow = false
+	self.currentThreadId = -1
 	return self
 end
 
@@ -23,6 +24,10 @@ function MockDebuggerUIService:RemoveScriptLineMarkers(debuggerConnectionId : nu
 	if fullClear then
 		self.showingArrow = false
 	end
+end
+
+function MockDebuggerUIService:SetCurrentThreadId(threadId : number)
+	self.currentThreadId = threadId
 end
 
 return MockDebuggerUIService

@@ -72,5 +72,8 @@ return function(localization, dialog)
 				end)
 			end)
 		end)
+		:andThen(function(resolved)
+			return resolved
+		end)
 	end
 end

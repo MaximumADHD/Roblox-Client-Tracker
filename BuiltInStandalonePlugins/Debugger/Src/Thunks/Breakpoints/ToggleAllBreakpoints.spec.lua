@@ -17,12 +17,14 @@ local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockMetaBreakpoint = require(Mocks.MetaBreakpoint)
 local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
+local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
 
 local ToggleAllBreakpoints = require(script.Parent.ToggleAllBreakpoints)
 
 local function fakeDebuggerConnect(store)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager)
+	
+	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, MockDebuggerUIService.new(), MockCrossDMScriptChangeListenerService.new())
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 end

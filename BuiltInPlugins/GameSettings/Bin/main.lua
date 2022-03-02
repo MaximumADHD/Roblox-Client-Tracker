@@ -4,7 +4,6 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
-	local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
 
 	-- Fast flags
 	local FFlagDeveloperSubscriptionsEnabled = game:GetFastFlag("DeveloperSubscriptionsEnabled")
@@ -14,7 +13,6 @@ return function(plugin, pluginLoaderContext)
 	local LOG_STORE_STATE_AND_EVENTS = false
 
 	local RunService = game:GetService("RunService")
-	local StudioService = game:GetService("StudioService")
 
 	local Plugin = script.Parent.Parent
 	local Roact = require(Plugin.Roact)
@@ -24,7 +22,9 @@ return function(plugin, pluginLoaderContext)
 	local Framework = require(Plugin.Framework)
 	local ContextServices = Framework.ContextServices
 	local FrameworkUtil = Framework.Util
-	local Promise = if FFlagGameSettingsDeduplicatePackages then FrameworkUtil.Promise else require(Plugin.Packages.Promise)
+	local Promise = if FFlagGameSettingsDeduplicatePackages
+		then FrameworkUtil.Promise
+		else require(Plugin.Packages.Promise)
 
 	local MainView = require(Plugin.Src.Components.MainView)
 	local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
@@ -99,7 +99,7 @@ return function(plugin, pluginLoaderContext)
 	thunkContextItems.policyInfoController = policyInfoController
 
 	local thunkWithArgsMiddleware = FrameworkUtil.ThunkWithArgsMiddleware(thunkContextItems)
-	local middlewares = {thunkWithArgsMiddleware}
+	local middlewares = { thunkWithArgsMiddleware }
 
 	if LOG_STORE_STATE_AND_EVENTS then
 		table.insert(middlewares, Rodux.loggerMiddleware)
@@ -112,7 +112,7 @@ return function(plugin, pluginLoaderContext)
 	local TranslationReferenceTable = Plugin.Src.Resources.TranslationReferenceTable
 
 	local localization = ContextServices.Localization.new({
-		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or "GameSettings",
+		pluginName = Plugin.Name,
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
 	})
@@ -141,31 +141,42 @@ return function(plugin, pluginLoaderContext)
 				dialog.Enabled = true
 				dialog.Title = props.Title
 				local dialogContents = Roact.createElement(ExternalServicesWrapper, {
-						theme = Theme.new(),
-						mouse = plugin:GetMouse(),
-						localization = localization,
-						pluginGui = pluginGui,
-						plugin = plugin,
-					}, {
-						Content = Roact.createElement(type, Cryo.Dictionary.join(props, {
+					theme = Theme.new(),
+					mouse = plugin:GetMouse(),
+					localization = localization,
+					pluginGui = pluginGui,
+					plugin = plugin,
+				}, {
+					Content = Roact.createElement(
+						type,
+						Cryo.Dictionary.join(props, {
 							OnResult = function(result)
 								Roact.unmount(dialogHandle)
 								dialog:Destroy()
 								setMainWidgetInteractable(true)
-								if result then
-									resolve()
+								if FFlagGameSettingsDeduplicatePackages then
+									resolve(result)
 								else
-									reject()
+									if result then
+										resolve()
+									else
+										reject()
+									end
 								end
-							end
-						})),
-					})
+							end,
+						})
+					),
+				})
 
 				dialog:BindToClose(function()
 					Roact.unmount(dialogHandle)
 					dialog:Destroy()
 					setMainWidgetInteractable(true)
-					reject()
+					if FFlagGameSettingsDeduplicatePackages then
+						resolve(false)
+					else
+						reject()
+					end
 				end)
 
 				dialogHandle = Roact.mount(dialogContents, dialog)
@@ -186,7 +197,24 @@ return function(plugin, pluginLoaderContext)
 		local state = settingsStore:getState()
 		local currentStatus = state.Status
 
+		local function close()
+			--Exit game settings and delete all changes without saving
+			settingsStore:dispatch(DiscardChanges())
+			settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
+			pluginGui.Enabled = false
+			Roact.unmount(gameSettingsHandle)
+
+			if FFlagGameSettingsRoactInspector and inspector then
+				inspector:destroy()
+			end
+
+			closeAnalytics(userPressedSave)
+		end
+
 		if currentStatus == CurrentStatus.Working and not userPressedSave then
+			if FFlagGameSettingsDeduplicatePackages then
+				close()
+			end
 			return
 		end
 
@@ -208,26 +236,30 @@ return function(plugin, pluginLoaderContext)
 							localization:getText("General", "ReplyYes"),
 						},
 					}
-					local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
-
-					if didDiscardAllChanges then
-						--Exit game settings and delete all changes without saving
-						settingsStore:dispatch(DiscardChanges())
-						settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Closed))
-						pluginGui.Enabled = false
-						Roact.unmount(gameSettingsHandle)
-
-						if FFlagGameSettingsRoactInspector and inspector then
-							inspector:destroy()
-						end
-
-						closeAnalytics(userPressedSave)
+					if FFlagGameSettingsDeduplicatePackages then
+						showDialog(SimpleDialog, dialogProps):andThen(function(didDiscardAllChanges)
+							if didDiscardAllChanges then
+								close()
+							else
+								--Return to game settings window without modifying state,
+								--giving the user another chance to modify or save.
+								settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
+								if not pluginGui.Enabled then
+									pluginGui.Enabled = true
+								end
+							end
+						end)
 					else
-						--Return to game settings window without modifying state,
-						--giving the user another chance to modify or save.
-						settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
-						if not pluginGui.Enabled then
-							pluginGui.Enabled = true
+						local didDiscardAllChanges = showDialog(SimpleDialog, dialogProps):await()
+						if didDiscardAllChanges then
+							close()
+						else
+							--Return to game settings window without modifying state,
+							--giving the user another chance to modify or save.
+							settingsStore:dispatch(SetCurrentStatus(CurrentStatus.Open))
+							if not pluginGui.Enabled then
+								pluginGui.Enabled = true
+							end
 						end
 					end
 				else
@@ -246,7 +278,7 @@ return function(plugin, pluginLoaderContext)
 	end
 
 	local function makePluginGui()
-		local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
+		local pluginId = Plugin.Name
 		pluginGui = plugin:CreateQWidgetPluginGui(pluginId, {
 			Size = Vector2.new(960, 600),
 			MinSize = Vector2.new(960, 600),
@@ -254,8 +286,8 @@ return function(plugin, pluginLoaderContext)
 			Modal = true,
 			InitialEnabled = false,
 		})
-		pluginGui.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or plugin.Name
-		pluginGui.Title = FFlagPluginDockWidgetsUseNonTranslatedIds and localization:getText("General", "PluginName") or plugin.Name
+		pluginGui.Name = Plugin.Name
+		pluginGui.Title = localization:getText("General", "PluginName")
 		pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 		pluginGui:BindToClose(function()
@@ -285,7 +317,7 @@ return function(plugin, pluginLoaderContext)
 		}, {
 			mainView = Roact.createElement(MainView, {
 				OnClose = closeGameSettings,
-				FirstSelectedId = firstSelectedId
+				FirstSelectedId = firstSelectedId,
 			}),
 		})
 
@@ -311,7 +343,7 @@ return function(plugin, pluginLoaderContext)
 
 	--Binds a toolbar button to the Game Settings window
 	local function main()
-		plugin.Name = FFlagPluginDockWidgetsUseNonTranslatedIds and Plugin.Name or localization:getText("General", "PluginName")
+		plugin.Name = Plugin.Name
 
 		local settingsButton = pluginLoaderContext.mainButton
 

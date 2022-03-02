@@ -2,6 +2,11 @@ if not game:GetFastFlag("ImprovePluginSpeed_TestHarness") then
 	return
 end
 
+local DebugFlags = require(script.Parent.Parent.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 -- TODO DEVTOOLS-4481: The DevFramework Flags util has a bug triggers the assert for missing
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
 require(script.Parent.defineFlags)

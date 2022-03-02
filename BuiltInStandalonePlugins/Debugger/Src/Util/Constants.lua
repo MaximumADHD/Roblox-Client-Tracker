@@ -37,6 +37,15 @@ local GameStateTypes : {[string] : string} = {
 	Edit = "StudioGameStateType_Edit",
 }
 
+local DebuggerPauseReason : {[string] : string} = {
+    Unknown = "Unknown",
+    Requested = "Requested",
+    Breakpoint = "Breakpoint",
+    Exception = "Exception",
+    SingleStep = "SingleStep",
+    Entrypoint = "Entrypoint",
+};
+
 local HEADER_HEIGHT = 40
 
 local BreakpointIconDirectoryFilePath = "rbxasset://textures/Debugger/Breakpoints/"
@@ -60,4 +69,5 @@ return {
 	SeparationToken = SeparationToken,
 	GameStateTypes = GameStateTypes,
 	DebugpointType = DebugpointType,
+	DebuggerPauseReason = DebuggerPauseReason,
 }

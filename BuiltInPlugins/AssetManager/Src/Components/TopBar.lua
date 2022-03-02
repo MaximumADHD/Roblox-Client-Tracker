@@ -9,7 +9,6 @@
 
 local Plugin = script.Parent.Parent.Parent
 local FFlagStudioAssetManagerAddRecentlyImportedView = game:GetFastFlag("StudioAssetManagerAddRecentlyImportedView")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Roact = require(Plugin.Packages.Roact)
 local RoactRodux = require(Plugin.Packages.RoactRodux)
@@ -29,7 +28,6 @@ local StyleModifier = Util.StyleModifier
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local SearchBar = UILibrary.Component.SearchBar
-local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local StyledTooltip = UILibrary.Component.StyledTooltip
 local GetTextSize = UILibrary.Util.GetTextSize
 
@@ -111,12 +109,7 @@ function TopBar:render()
     local defaultText = localization:getText("SearchBar", "PlaceholderText")
         .. " " .. localization:getText("Folders", currentScreen.Path)
 
-    local layoutIndex
-    if FFlagAssetManagerRemoveUILibraryPart1 then
-        layoutIndex = LayoutOrderIterator.new()
-    else
-        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
-    end
+    local layoutIndex = LayoutOrderIterator.new()
 
     local explorerOverlayButtonTooltipText = localization:getText("TopBar", "ExplorerOverlayButton")
     local backButtonTooltipText = localization:getText("TopBar", "BackButton")

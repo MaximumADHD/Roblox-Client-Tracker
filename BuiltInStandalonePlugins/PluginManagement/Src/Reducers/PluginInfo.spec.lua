@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
-
 local PluginInfo = require(script.Parent.PluginInfo)
 
 local Plugin = script.Parent.Parent.Parent
@@ -9,40 +7,23 @@ local PluginInstalledStatus = require(Plugin.Src.Constants.PluginInstalledStatus
 
 local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 local SetPluginId = require(Plugin.Src.Actions.SetPluginId)
-local DEPRECATED_SetPluginMetadata = require(Plugin.Src.Actions.SetPluginMetadata)
 local SetPluginMetadata = require(Plugin.Src.Actions.SetPluginMetadata)
 local SetPluginInstallStatus = require(Plugin.Src.Actions.SetPluginInstallStatus)
 
-local testPlugin = if FFlagPluginManagementRemoveCommentsEnabled
-	then {
-		plugins = {
-			["1234"] = {
-				installStatus = PluginInstalledStatus.UNKNOWN,
-				installationMsg = "",
-				installProgress = 0.0,
-				name = "",
-				description = "",
-				versionId = "",
-				created = "",
-				updated = "",
-			}
-		}
-	}
-	else {
-		plugins = {
-			["1234"] = {
-				installStatus = PluginInstalledStatus.UNKNOWN,
-				installationMsg = "",
-				installProgress = 0.0,
-				name = "",
-				description = "",
-				commentsEnabled = false,
-				versionId = "",
-				created = "",
-				updated = "",
-			}
-		}
-	}
+local testPlugin = {
+	plugins = {
+		["1234"] = {
+			installStatus = PluginInstalledStatus.UNKNOWN,
+			installationMsg = "",
+			installProgress = 0.0,
+			name = "",
+			description = "",
+			versionId = "",
+			created = "",
+			updated = "",
+		},
+	},
+}
 
 return function()
 	it("should return its expected default state", function()
@@ -99,111 +80,46 @@ return function()
 
 	describe("SetPluginMetadata", function()
 		it("should update an existing plugin's metadata", function()
-			if FFlagPluginManagementRemoveCommentsEnabled then
-				local state = PluginInfo({
-					plugins = {
-						["1234"] = {
-							installStatus = PluginInstalledStatus.UNKNOWN,
-							installationMsg = "",
-							installProgress = 0.0,
-							name = "",
-							description = "",
-							versionId = "",
-							created = "",
-							updated = "",
-						},
+			local state = PluginInfo({
+				plugins = {
+					["1234"] = {
+						installStatus = PluginInstalledStatus.UNKNOWN,
+						installationMsg = "",
+						installProgress = 0.0,
+						name = "",
+						description = "",
+						versionId = "",
+						created = "",
+						updated = "",
 					},
-				}, SetPluginMetadata(
-					"1234",
-					"Test",
-					"Test Description",
-					"true",
-					"1",
-					"some date",
-					"some other date"
-				))
+				},
+			}, SetPluginMetadata("1234", "Test", "Test Description", "true", "1", "some date", "some other date"))
 
-				expect(state.plugins["1234"]).to.be.ok()
-				expect(state.plugins["1234"].name).to.equal("Test")
-				expect(state.plugins["1234"].description).to.equal("Test Description")
-				expect(state.plugins["1234"].versionId).to.equal("1")
-				expect(state.plugins["1234"].created).to.equal("some date")
-				expect(state.plugins["1234"].updated).to.equal("some other date")
-			else
-				local state = PluginInfo(
-					{
-						plugins = {
-							["1234"] = {
-								installStatus = PluginInstalledStatus.UNKNOWN,
-								installationMsg = "",
-								installProgress = 0.0,
-								name = "",
-								description = "",
-								commentsEnabled = false,
-								versionId = "",
-								created = "",
-								updated = "",
-							},
-						},
-					},
-					DEPRECATED_SetPluginMetadata(
-						"1234",
-						"Test",
-						"Test Description",
-						"true",
-						"1",
-						"some date",
-						"some other date"
-					)
-				)
-
-				expect(state.plugins["1234"]).to.be.ok()
-				expect(state.plugins["1234"].name).to.equal("Test")
-				expect(state.plugins["1234"].description).to.equal("Test Description")
-				expect(state.plugins["1234"].commentsEnabled).to.equal(true)
-				expect(state.plugins["1234"].versionId).to.equal("1")
-				expect(state.plugins["1234"].created).to.equal("some date")
-				expect(state.plugins["1234"].updated).to.equal("some other date")
-			end
+			expect(state.plugins["1234"]).to.be.ok()
+			expect(state.plugins["1234"].name).to.equal("Test")
+			expect(state.plugins["1234"].description).to.equal("Test Description")
+			expect(state.plugins["1234"].versionId).to.equal("1")
+			expect(state.plugins["1234"].created).to.equal("some date")
+			expect(state.plugins["1234"].updated).to.equal("some other date")
 		end)
 
 		it("should throw an error if attempting to update data that doesn't exist", function()
-			if FFlagPluginManagementRemoveCommentsEnabled then
-				expect(function()
-					PluginInfo(
-						nil,
-						SetPluginMetadata("1234", "Test", "Test Description", "1", "some date", "some other date")
-					)
-				end).to.throw()
-			else
-				expect(function()
-					PluginInfo(
-						nil,
-						SetPluginMetadata(
-							"1234",
-							"Test",
-							"Test Description",
-							"true",
-							"1",
-							"some date",
-							"some other date"
-						)
-					)
-				end).to.throw()
-			end
+			expect(function()
+				PluginInfo(
+					nil,
+					SetPluginMetadata("1234", "Test", "Test Description", "1", "some date", "some other date")
+				)
+			end).to.throw()
 		end)
 
 		it("should preserve immutability with previous data", function()
 			local defaultState = testPlugin
 
-			local immutabilityPreserved = if FFlagPluginManagementRemoveCommentsEnabled
-				then TestHelpers.testImmutability(PluginInfo,
-						SetPluginMetadata("1234", "Test", "Test Description",
-						"1", "some date", "some other date"), defaultState)
-				else TestHelpers.testImmutability(PluginInfo,
-						DEPRECATED_SetPluginMetadata("1234", "Test", "Test Description", "true",
-						"1", "some date", "some other date"), defaultState)
-
+			local immutabilityPreserved = TestHelpers.testImmutability(
+				PluginInfo,
+				SetPluginMetadata("1234", "Test", "Test Description", "1", "some date", "some other date"),
+				defaultState
+			)
 			expect(immutabilityPreserved).to.equal(true)
 		end)
 	end)
@@ -218,7 +134,6 @@ return function()
 						installProgress = 0.0,
 						name = "",
 						description = "",
-						commentsEnabled = false,
 						versionId = "",
 						created = "",
 						updated = "",
@@ -249,7 +164,6 @@ return function()
 						installProgress = 0.0,
 						name = "",
 						description = "",
-						commentsEnabled = false,
 						versionId = "",
 						created = "",
 						updated = "",

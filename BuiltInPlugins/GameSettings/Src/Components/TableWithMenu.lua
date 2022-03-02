@@ -135,7 +135,9 @@ function TableWithMenu:render()
     local menuItems = props.MenuItems
     local onItemClicked = props.OnItemClicked
     local layoutOrder = props.LayoutOrder
-    local nextPageFunc = props.NextPageFunc
+    local nextPageFunc = props.NextPageFunc or function()
+        
+    end
     local MenuItemsFilterFunc = props.MenuItemsFilterFunc
 
     local nextPageRequestDistance = props.ScrollingFrameNextPageRequestDistance

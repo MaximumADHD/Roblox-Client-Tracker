@@ -23,7 +23,11 @@
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
+
+local FFlagAudioAssetPrivacyForPreview1 = game:GetFastFlag("AudioAssetPrivacyForPreview1")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -39,7 +43,6 @@ local Image = UI.Decoration.Image
 
 local MediaPlayerControls = require(Framework.StudioUI.MediaPlayerControls)
 local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPlayerSignal)
-
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -116,7 +119,7 @@ function StatelessAudioPlayer:render()
 		LayoutOrder = layoutOrder,
 		Position = position,
 		Size = size,
-	},{
+	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -131,7 +134,7 @@ function StatelessAudioPlayer:render()
 		}, {
 			PlaceholderImage = Roact.createElement(Image, {
 				Style = style.PlaceholderImage,
-			})
+			}),
 		}),
 
 		MediaPlayerControls = Roact.createElement(MediaPlayerControls, {
@@ -149,19 +152,19 @@ function StatelessAudioPlayer:render()
 		SoundObj = Roact.createElement("Sound", {
 			Looped = false,
 			SoundId = props.SoundId,
+			UsageContextPermission = if FFlagAudioAssetPrivacyForPreview1 and FFlagPluginsSetAudioPreviewUsageContext
+				then props.UsageContext
+				else nil,
 			[Roact.Ref] = self.soundRef,
 			[Roact.Event.Changed] = self.onSoundChange,
 			[Roact.Event.Ended] = props.OnEnd,
-		})
+		}),
 	})
 end
 
-
 StatelessAudioPlayer = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = not THEME_REFACTOR and ContextServices.Theme or nil,
 })(StatelessAudioPlayer)
-
-
 
 return StatelessAudioPlayer

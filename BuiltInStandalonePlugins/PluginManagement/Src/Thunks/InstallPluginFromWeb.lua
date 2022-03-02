@@ -1,11 +1,8 @@
-local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
-
 local Plugin = script.Parent.Parent.Parent
 local PIS = require(Plugin.Src.Constants.PluginInstalledStatus)
 local SetPluginInstallStatus = require(Plugin.Src.Actions.SetPluginInstallStatus)
 local SetPluginId = require(Plugin.Src.Actions.SetPluginId)
 local SetPluginMetadata = require(Plugin.Src.Actions.SetPluginMetadata)
-local DEPRECATED_SetPluginMetadata = require(Plugin.Src.Actions.DEPRECATED_SetPluginMetadata)
 local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 
 -- studioServiceImpl : (StudioService)
@@ -15,9 +12,9 @@ local ClearPluginData = require(Plugin.Src.Actions.ClearPluginData)
 return function(studioServiceImpl, apiImpl, analytics, pluginId)
 	return function(store)
 		-- clear out any previous data for this plugin
-		store:dispatch(ClearPluginData(pluginId));
+		store:dispatch(ClearPluginData(pluginId))
 		store:dispatch(SetPluginId(pluginId))
-		store:flush();
+		store:flush()
 
 		analytics:report("TryInstallPluginFromWeb", pluginId)
 
@@ -36,33 +33,22 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 		apiImpl.API.Ownership.HasAsset(pluginId, userId):andThen(function(ownershipResults)
 			local isOwned = tostring(ownershipResults.responseBody) == "true"
 			if isOwned then
-
 				-- 2) get the assetVersionId
-				return apiImpl.Develop.v1.Plugins({ pluginId }):andThen( function(pluginsResults)
+				return apiImpl.Develop.v1.Plugins({ pluginId }):andThen(function(pluginsResults)
 					if pluginsResults.responseBody and pluginsResults.responseBody.data then
 						local pluginsData = pluginsResults.responseBody.data
 						local targetPluginData = pluginsData[1]
 						if targetPluginData and targetPluginData["versionId"] then
-							if FFlagPluginManagementRemoveCommentsEnabled then
-								store:dispatch(SetPluginMetadata(
+							store:dispatch(
+								SetPluginMetadata(
 									pluginId,
 									targetPluginData["name"],
 									targetPluginData["description"] or "",
 									tostring(targetPluginData["versionId"]) or "",
 									targetPluginData["created"] or "",
-									targetPluginData["updated"] or "")
+									targetPluginData["updated"] or ""
 								)
-							else
-								store:dispatch(DEPRECATED_SetPluginMetadata(
-									pluginId,
-									targetPluginData["name"],
-									targetPluginData["description"] or "",
-									tostring(targetPluginData["commentsEnabled"]),
-									tostring(targetPluginData["versionId"]) or "",
-									targetPluginData["created"] or "",
-									targetPluginData["updated"] or "")
-								)
-							end
+							)
 
 							-- 3) tell the c++ code to install the plugin
 							local versionNumber = targetPluginData["versionId"]
@@ -77,25 +63,21 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 								setStatus(PIS.PLUGIN_NOT_INSTALLED, errorMsg or "")
 								return
 							end
-
 						else
 							-- whatever we got back, it isn't the expected format
 							setStatus(PIS.PLUGIN_DETAILS_UNAVAILABLE, tostring(pluginsResults.responseBody))
 							return
 						end
-
 					else
 						-- whatever we got back, it isn't the expected format
 						setStatus(PIS.PLUGIN_DETAILS_UNAVAILABLE, tostring(pluginsResults.responseBody))
 						return
 					end
-
 				end, function(pluginErr)
 					-- failed to fetch details about the plugin
 					setStatus(PIS.HTTP_ERROR, pluginErr)
 					return
 				end)
-
 			else
 				-- you don't own this plugin, you can't install it
 				setStatus(PIS.PLUGIN_NOT_OWNED, "")
@@ -106,6 +88,5 @@ return function(studioServiceImpl, apiImpl, analytics, pluginId)
 			setStatus(PIS.HTTP_ERROR, ownershipErr)
 			return
 		end)
-
 	end
 end

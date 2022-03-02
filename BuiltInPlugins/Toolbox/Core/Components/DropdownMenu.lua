@@ -31,7 +31,7 @@
 
 local Plugin = script.Parent.Parent.Parent
 
-local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
+local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Framework = require(Packages.Framework)
@@ -259,7 +259,7 @@ function DropdownMenu:render()
 				BackgroundTransparency = 1,
 			}),
 		}),
-		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor4
+		DropdownItemsWrapper = FFlagToolboxAssetGridRefactor5
 			and isShowingDropdown
 			and Roact.createElement(ShowOnTop, {
 				Priority = 2,
@@ -280,7 +280,7 @@ function DropdownMenu:render()
 					left = state.dropDownLeft,
 				}),
 			}),
-		DropdownItemsList = not FFlagToolboxAssetGridRefactor4 and isShowingDropdown and Roact.createElement(
+		DropdownItemsList = not FFlagToolboxAssetGridRefactor5 and isShowingDropdown and Roact.createElement(
 			DropdownItemsList,
 			{
 				key = key,

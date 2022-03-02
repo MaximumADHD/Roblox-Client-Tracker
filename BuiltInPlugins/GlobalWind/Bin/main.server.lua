@@ -6,6 +6,11 @@ end
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
 require(script.Parent.defineLuaFlags)
 
+local DebugFlags = require(script.Parent.Parent.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 local ok, hasInternalPermission = pcall(function()
 	return game:GetService("StudioService"):HasInternalPermission()
 end)

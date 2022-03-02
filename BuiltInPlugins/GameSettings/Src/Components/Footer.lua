@@ -50,9 +50,15 @@ function Footer:saveAllSettings(userPressedSave)
 	local localization = props.Localization
 	local dialog = props.Dialog
 
-	local resolved = self.props.SaveAllSettings(userPressedSave, localization, dialog):await()
-	if resolved then
-		self.props.OnClose(userPressedSave)
+	if FFlagGameSettingsDeduplicatePackages then
+		self.props.SaveAllSettings(userPressedSave, localization, dialog):andThen(function()
+			self.props.OnClose(userPressedSave)
+		end)
+	else
+		local resolved = self.props.SaveAllSettings(userPressedSave, localization, dialog):await()
+		if resolved then
+			self.props.OnClose(userPressedSave)
+		end
 	end
 end
 
@@ -207,14 +213,11 @@ function Footer:render()
 	})
 end
 
-
 Footer = withContext({
 	Theme = ContextServices.Theme,
 	Localization = ContextServices.Localization,
 	Dialog = Dialog,
 })(Footer)
-
-
 
 Footer = RoactRodux.connect(
 	function(state, props)

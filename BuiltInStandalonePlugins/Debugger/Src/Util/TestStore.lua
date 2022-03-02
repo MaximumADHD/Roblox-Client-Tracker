@@ -15,6 +15,7 @@ local mockPausedState = require(Mocks.PausedState)
 local mockDebuggerVariable = require(Mocks.DebuggerVariable)
 local MockDebuggerConnection = require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
+local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
 local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
 
 local Actions = Src.Actions
@@ -24,6 +25,7 @@ local AddBreakpoint = require(Actions.BreakpointsWindow.AddBreakpoint)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
 local DebugConnectionListener = require(Src.Util.DebugConnectionListener.DebugConnectionListener)
+local Constants = require(Src.Util.Constants)
 
 local expressionData1 = {
 	expression = "Expression 1",
@@ -113,13 +115,13 @@ local testCallstack2 = {
 local testThreadOne = mockThreadState.new(1, scriptRef1, true)
 local testThreadTwo = mockThreadState.new(2, scriptRef2, true)
 
-local testPausedState1 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 1, true)
-local testPausedState2 = mockPausedState.new(Enum.DebuggerPauseReason.Requested, 2, true)
+local testPausedState1 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 1, true)
+local testPausedState2 = mockPausedState.new(Constants.DebuggerPauseReason.Requested, 2, true)
 
 return function(store)
 	local currentMockConnection = MockDebuggerConnection.new(1)	
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, nil, MockCrossDMScriptChangeListenerService.new())
+	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, MockDebuggerUIService.new(), MockCrossDMScriptChangeListenerService.new())
 	currentMockConnection.MockSetThreadStateById(1, testThreadOne)
 	currentMockConnection.MockSetThreadStateById(2, testThreadTwo)
 	currentMockConnection.MockSetCallstackByThreadId(1, testCallstack1)

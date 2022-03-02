@@ -22,15 +22,9 @@ local Util = require(Framework.Util)
 local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 
-local UILibrary = require(Plugin.Packages.UILibrary) -- Remove with FFlagAssetManagerRemoveUILibraryPart1
-local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
-
 local ListItem = require(Plugin.Src.Components.ListItem)
 
 local SetRecentViewToggled = require(Plugin.Src.Actions.SetRecentViewToggled)
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
-
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local RecentlyImportedView = Roact.PureComponent:extend("RecentlyImportedView")
 
@@ -86,12 +80,7 @@ function RecentlyImportedView:render()
     local selectedAssets = props.SelectedAssets
     local contents = self:createListItems(theme, recentAssets, selectedAssets, enabled)
 
-    local layoutIndex
-    if FFlagAssetManagerRemoveUILibraryPart1 then
-        layoutIndex = LayoutOrderIterator.new()
-    else
-        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
-    end
+    local layoutIndex = LayoutOrderIterator.new()
 
     return Roact.createElement("Frame", {
         Size = size,
@@ -192,9 +181,6 @@ local function mapDispatchToProps(dispatch)
 	return {
         dispatchSetRecentViewToggled = function(toggled)
             dispatch(SetRecentViewToggled(toggled))
-        end,
-        dispatchSetSelectedAssets = function(assets)
-            dispatch(SetSelectedAssets(assets))
         end,
 	}
 end

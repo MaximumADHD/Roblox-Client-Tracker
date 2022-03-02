@@ -12,6 +12,7 @@
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		number SelectedIndex: The currently selected item index.
+		UDim2 Size: The size of the input component.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: a Theme object supplied by withContext()

@@ -56,7 +56,6 @@ local CrossDMScriptChangeListener = require(Src.Util.CrossDMScriptChangeListener
 
 local FFlagStudioDebuggerOverhaul_Dev = game:GetFastFlag("StudioDebuggerOverhaul_Dev")
 local FFlagDebugPopulateDebuggerPlugin = game:GetFastFlag("DebugPopulateDebuggerPlugin")
-local FFlagStudioDebuggerOverhaul = game:GetFastFlag("StudioDebuggerOverhaul")
 
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
@@ -119,9 +118,9 @@ function MainPlugin:init(props)
 		self.store = TestStore(self.store)
 	end
 
-	self.debugConnectionListener = FFlagStudioDebuggerOverhaul and DebugConnectionListener.new(self.store)
-	self.breakpointManagerListener = FFlagStudioDebuggerOverhaul and BreakpointManagerListener.new(self.store)
-	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul and CrossDMScriptChangeListener.new(self.store)
+	self.debugConnectionListener = FFlagStudioDebuggerOverhaul_Dev and DebugConnectionListener.new(self.store)
+	self.breakpointManagerListener = FFlagStudioDebuggerOverhaul_Dev and BreakpointManagerListener.new(self.store)
+	self.scriptChangeServiceListener = FFlagStudioDebuggerOverhaul_Dev and CrossDMScriptChangeListener.new(self.store)
 
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
@@ -229,17 +228,17 @@ function MainPlugin:render()
 end
 
 function MainPlugin:willUnmount()
-	if FFlagStudioDebuggerOverhaul and self.debugConnectionListener then
+	if FFlagStudioDebuggerOverhaul_Dev and self.debugConnectionListener then
 		self.debugConnectionListener:destroy()
 		self.debugConnectionListener = nil
 	end
 	
-	if FFlagStudioDebuggerOverhaul and self.breakpointManagerListener then
+	if FFlagStudioDebuggerOverhaul_Dev and self.breakpointManagerListener then
 		self.breakpointManagerListener:destroy()
 		self.breakpointManagerListener = nil
 	end
 
-	if FFlagStudioDebuggerOverhaul and self.scriptChangeServiceListener then
+	if FFlagStudioDebuggerOverhaul_Dev and self.scriptChangeServiceListener then
 		self.scriptChangeServiceListener:destroy()
 		self.scriptChangeServiceListener = nil
 	end

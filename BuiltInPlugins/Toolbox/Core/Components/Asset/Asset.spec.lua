@@ -1,5 +1,5 @@
 return function()
-	local FFlagToolboxAssetGridRefactor4 = game:GetFastFlag("ToolboxAssetGridRefactor4")
+	local FFlagToolboxAssetGridRefactor5 = game:GetFastFlag("ToolboxAssetGridRefactor5")
 
 	local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -23,7 +23,7 @@ return function()
 		local assetId = myAsset.Asset.Id
 
 		mockProps = mockProps or {}
-		if FFlagToolboxAssetGridRefactor4 then
+		if FFlagToolboxAssetGridRefactor5 then
 			mockProps = Cryo.Dictionary.join(mockProps, {
 				store = CoreTestUtils.storeWithData({
 					assets = {
@@ -35,8 +35,8 @@ return function()
 
 		local element = Roact.createElement(MockWrapper, mockProps, {
 			Asset = Roact.createElement(Asset, {
-				asset = not FFlagToolboxAssetGridRefactor4 and myAsset or nil,
-				assetId = FFlagToolboxAssetGridRefactor4 and assetId or nil,
+				asset = not FFlagToolboxAssetGridRefactor5 and myAsset or nil,
+				assetId = FFlagToolboxAssetGridRefactor5 and assetId or nil,
 				LayoutOrder = 1,
 			}),
 		})

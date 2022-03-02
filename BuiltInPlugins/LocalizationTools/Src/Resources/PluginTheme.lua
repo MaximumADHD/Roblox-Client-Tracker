@@ -126,7 +126,6 @@ return function(makeMock)
          TextColor = StyleKey.BrightText,
          LinkTextHeight = 50,
         PublishMessageHeight = 150,
-        DialogSize = Vector2.new(300, 370),
       },
       [ui.ProgressSpinner] = {
          ImageRectSize = 80,

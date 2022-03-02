@@ -18,7 +18,6 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
-local DEPRECATED_LayoutOrderIterator = UILibrary.Util.LayoutOrderIterator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
 
@@ -29,7 +28,6 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 local OnRecentAssetRightClick = require(Plugin.Src.Thunks.OnRecentAssetRightClick)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -312,12 +310,7 @@ function ListItem:render()
     end
 
     local layoutOrder = props.LayoutOrder
-    local layoutIndex
-    if FFlagAssetManagerRemoveUILibraryPart1 then
-        layoutIndex = LayoutOrderIterator.new()
-    else
-        layoutIndex = DEPRECATED_LayoutOrderIterator.new()
-    end
+    local layoutIndex = LayoutOrderIterator.new()
 
     return Roact.createElement("ImageButton", {
         Size = size,

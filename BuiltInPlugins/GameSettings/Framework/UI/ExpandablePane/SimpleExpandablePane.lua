@@ -6,6 +6,7 @@
 	since the component manages expanded state.
 
 	Optional Props:
+		boolean AlwaysExpanded: Keeps the Pane in an Expanded state (will hide arrow).
 		Enum.AutomaticSize AutomaticSize: Provide the ExpandablePane with an AutomaticSize.
 		Color3 BackgroundColor: Override the color of the background.
 		Color3 BorderColor: Override the color of the border image.

@@ -49,7 +49,7 @@ return function(props, children)
 
     local themeContext = props.Theme
     if not themeContext then
-        themeContext = Theme.new()
+        themeContext = Theme.newDummyTheme()
         table.insert(contextItems, themeContext)
     end
 

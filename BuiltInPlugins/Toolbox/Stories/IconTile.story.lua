@@ -9,6 +9,13 @@ local IconTile = require(Plugin.Core.Components.Categorization.IconTile)
 
 local CoreTestUtils = require(Plugin.TestUtils.CoreTestUtils)
 
+local Util = Plugin.Core.Util
+local Urls = require(Util.Urls)
+
+local Constants = require(Util.Constants)
+local THUMBNAIL_SIZE = Constants.ASSET_THUMBNAIL_REQUESTED_IMAGE_SIZE
+local IMAGE = Urls.constructAssetThumbnailUrl(5657301130, THUMBNAIL_SIZE, THUMBNAIL_SIZE)
+
 local function ToolboxWrapper(props)
 	props.store = CoreTestUtils.storeWithData({
 		assets = {},
@@ -24,14 +31,14 @@ return {
 			summary = "Sends a key on click and has a pointer cursor.",
 			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
-					BackgroundColor = Color3.new(50, 168, 82),
-					Image = "rbxassetid://6002241241",
+					BackgroundColor = Color3.fromRGB(50, 168, 82),
+					Image = IMAGE,
 					Key = "Click",
 					OnClick = function(key)
 						print(key)
 					end,
 					Size = UDim2.new(0, 75, 0, 90),
-					Title = "Click me",
+					Title = "Category",
 				}),
 			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization", true),
 		},
@@ -40,10 +47,10 @@ return {
 			summary = "Multiple lines of category text.",
 			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
-					BackgroundColor = Color3.new(50, 168, 82),
-					Image = "rbxassetid://6002241241",
+					BackgroundColor = Color3.fromRGB(50, 168, 82),
+					Image = IMAGE,
 					Size = UDim2.new(0, 75, 0, 90),
-					Title = "Category with 2 Lines",
+					Title = "Category 2 Lines",
 				}),
 			}) or CoreTestUtils.mustSetFlag("FFlagToolboxAssetCategorization", true),
 		},
@@ -52,8 +59,8 @@ return {
 			summary = "Respects Size.X.Scale.",
 			story = FFlagToolboxAssetCategorization and Roact.createElement(ToolboxWrapper, {}, {
 				IconTile = Roact.createElement(IconTile, {
-					BackgroundColor = Color3.new(50, 168, 82),
-					Image = "rbxassetid://6002241241",
+					BackgroundColor = Color3.fromRGB(50, 168, 82),
+					Image = IMAGE,
 					Size = UDim2.new(0.5, 0, 0, 90),
 					Title = "Flexible",
 				}),

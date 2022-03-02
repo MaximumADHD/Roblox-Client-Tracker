@@ -24,7 +24,6 @@ local LoadingIndicator = UI.LoadingIndicator
 
 local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
-local DEPRECATED_LoadingIndicator = UILibrary.Component.LoadingIndicator -- Remove with FFlagAssetManagerRemoveUILibraryPart1
 local GetTextSize = UILibrary.Util.GetTextSize
 
 local Screens = require(Plugin.Src.Util.Screens)
@@ -34,12 +33,13 @@ local ListItem = require(Plugin.Src.Components.ListItem)
 local Tile = require(Plugin.Src.Components.Tile)
 
 local SetAssets = require(Plugin.Src.Actions.SetAssets)
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets) -- Remove with FFlagAssetManagerUseUpdateSelectedAssets
 
 local GetAssets = require(Plugin.Src.Thunks.GetAssets)
 local LoadAllAliases = require(Plugin.Src.Thunks.LoadAllAliases)
 local OnAssetRightClick = require(Plugin.Src.Thunks.OnAssetRightClick)
 local OnScreenChange = require(Plugin.Src.Thunks.OnScreenChange)
+local UpdateSelectedAssets = require(Plugin.Src.Thunks.UpdateSelectedAssets)
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local BulkImportService = game:GetService("BulkImportService")
@@ -47,7 +47,8 @@ local BulkImportService = game:GetService("BulkImportService")
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagAssetManagerGeneralizeSignalAPI = game:GetFastFlag("AssetManagerGeneralizeSignalAPI")
 local FFlagAssetManagerRefactorPath = game:GetFastFlag("AssetManagerRefactorPath")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
+local FFlagAssetManagerUseUpdateSelectedAssets = game:GetFastFlag("AssetManagerUseUpdateSelectedAssets")
+local FFlagAssetManagerForceRenderAfterItemsShown = game:GetFastFlag("AssetManagerForceRenderAfterItemsShown")
 
 local shouldEnableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).shouldEnableAudioImport
 
@@ -59,11 +60,33 @@ local function isSupportedBulkImportAssetScreen(screen)
         or (FFlagAssetManagerEnableModelAssets and screen.Path == Screens.MODELS.Path)
 end
 
+local function hasItemsToDisplay(assets, currentScreen, hasLinkedScripts, searchTerm)
+	if currentScreen.Path == Screens.MAIN.Path then
+		for _, screen in pairs(Screens) do
+			if screen.Path ~= Screens.MAIN.Path then
+				if (screen.Path == Screens.SCRIPTS.Path and hasLinkedScripts) or screen.Path ~= Screens.SCRIPTS.Path then
+					return true
+				end
+			end
+		end
+	else
+		for _, asset in pairs(assets) do
+			local plain = true -- Disable magic characters like (, ), %...
+			if string.find(string.lower(asset.name), string.lower(searchTerm), 1, plain) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 function AssetGridContainer:init()
     self.state = {
         currentScreen = "",
         currentView = "",
     }
+
+	self.hasItemsToDisplay = false
 
     self.gridLayoutRef = Roact.createRef()
     self.listLayoutRef = Roact.createRef()
@@ -75,7 +98,11 @@ function AssetGridContainer:init()
         if not self.props.Enabled then
             return
         end
-        self.props.dispatchSetSelectedAssets({})
+		if FFlagAssetManagerUseUpdateSelectedAssets then
+			self.props.dispatchUpdateSelectedAssets({})
+		else
+			self.props.dispatchSetSelectedAssets({})
+		end
     end
 
     self.onMouseButton2Click = function()
@@ -83,7 +110,11 @@ function AssetGridContainer:init()
         if not props.Enabled then
             return
         end
-        props.dispatchSetSelectedAssets({})
+		if FFlagAssetManagerUseUpdateSelectedAssets then
+			self.props.dispatchUpdateSelectedAssets({})
+		else
+			self.props.dispatchSetSelectedAssets({})
+		end
         local screen = props.CurrentScreen
         if screen.Path == Screens.PLACES.Path then
             -- pretend we are right clicking on folder to show add new place context menu
@@ -96,6 +127,10 @@ function AssetGridContainer:init()
     end
 
     self.onOpenAssetPreview = function(assetData)
+		if FFlagAssetManagerUseUpdateSelectedAssets then
+			-- When opening asset preview, set selected assets to that asset only
+			self.props.dispatchUpdateSelectedAssets({ [assetData.key] = true })
+		end
         local assetPreviewData = self.props.AssetsTable.assetPreviewData[assetData.id]
         self.props.OnOpenAssetPreview(assetData, assetPreviewData)
     end
@@ -268,6 +303,21 @@ function AssetGridContainer:didUpdate()
             currentView = view,
         })
     end
+
+	if FFlagAssetManagerForceRenderAfterItemsShown then
+		local assets = props.AssetsTable.assets
+		local currentScreen = props.CurrentScreen
+		local hasLinkedScripts = props.HasLinkedScripts
+		local searchTerm = props.SearchTerm
+
+		local result = hasItemsToDisplay(assets, currentScreen, hasLinkedScripts, searchTerm)
+		if result ~= self.hasItemsToDisplay then
+			self.hasItemsToDisplay = result
+			if result then
+				self:setState({})
+			end
+		end
+	end
 end
 
 function AssetGridContainer:render()
@@ -392,7 +442,7 @@ function AssetGridContainer:render()
             Roact.createElement(HoverArea, {Cursor = "PointingHand"}),
         }),
 
-        LoadingIndicator = isFetchingAssets and Roact.createElement(if FFlagAssetManagerRemoveUILibraryPart1 then LoadingIndicator else DEPRECATED_LoadingIndicator, {
+        LoadingIndicator = isFetchingAssets and Roact.createElement(LoadingIndicator, {
             Position = UDim2.new(0.5, 0, 0.5, 0),
             AnchorPoint = Vector2.new(0.5, 0.5),
             ZIndex = 2,
@@ -440,9 +490,12 @@ local function mapDispatchToProps(dispatch)
         dispatchSetAssets = function(assets)
             dispatch(SetAssets(assets))
         end,
-        dispatchSetSelectedAssets = function(selectedAssets)
+		dispatchUpdateSelectedAssets = FFlagAssetManagerUseUpdateSelectedAssets and function(selectedAssets)
+			dispatch(UpdateSelectedAssets(selectedAssets))
+		end or nil,
+        dispatchSetSelectedAssets = not FFlagAssetManagerUseUpdateSelectedAssets and function(selectedAssets)
             dispatch(SetSelectedAssets(selectedAssets))
-        end,
+        end or nil,
 	}
 end
 

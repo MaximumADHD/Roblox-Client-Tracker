@@ -46,7 +46,7 @@ local FinishSelectingFromExplorer = require(Plugin.Src.Thunks.FinishSelectingFro
 
 local LayeredClothingEditorPlugin = Roact.PureComponent:extend("LayeredClothingEditorPlugin")
 
-local PLUGIN_NAME = "LayeredClothingEditor"
+local PLUGIN_NAME = "AccessoryFittingTool"
 local TOOLBAR_NAME = "LayeredClothing"
 local TOOLBAR_BUTTON_NAME = "LayeredClothingEditorButton"
 

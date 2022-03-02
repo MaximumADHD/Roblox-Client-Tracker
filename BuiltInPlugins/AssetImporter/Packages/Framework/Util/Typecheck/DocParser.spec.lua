@@ -1,5 +1,3 @@
-local FFlagDevFrameworkDocParserSupportRoactSymbols = game:GetFastFlag("DevFrameworkDocParserSupportRoactSymbols")
-
 local longPropComment = [[The size of the component, except in a specific scenario
 that must be explained in an amount of detail that spans multiple
 lines of explanation.]]
@@ -395,10 +393,6 @@ return function()
 		end)
 
 		it("should handle Roact symbols", function()
-			if not FFlagDevFrameworkDocParserSupportRoactSymbols then
-				return
-			end
-
 			local parser = DocParser.new("Test")
 			local docs = parser:parseComments(roactSymbols)
 

@@ -12,6 +12,11 @@
 -- The instance of the Edit/Server/Play datamodel's MDI
 local main = script.Parent.Parent
 
+local DebugFlags = require(main.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 local mdiInstance = plugin.MultipleDocumentInterfaceInstance
 
 local Common = script.Parent.Parent.Common

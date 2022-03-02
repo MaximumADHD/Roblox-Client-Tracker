@@ -8,12 +8,17 @@ local Mocks = Plugin.Src.Mocks
 local MockDebuggerConnection =require(Mocks.MockDebuggerConnection)
 local MockDebuggerConnectionManager = require(Mocks.MockDebuggerConnectionManager)
 local MockCrossDMScriptChangeListenerService = require(Mocks.MockCrossDMScriptChangeListenerService)
+local MockDebuggerUIService = require(Mocks.MockDebuggerUIService)
+
 local Actions = Plugin.Src.Actions
 local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 
 local function fakeDebuggerConnect(store)
 	local mainConnectionManager = MockDebuggerConnectionManager.new()
-	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager)
+	local mockDebuggerUIService = MockDebuggerUIService.new()
+	local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
+	local _mainListener = DebugConnectionListener.new(store, mainConnectionManager, mockDebuggerUIService, mockCrossDMScriptChangeListenerService)
 	local currentMockConnection = MockDebuggerConnection.new(1)
 	mainConnectionManager.ConnectionStarted:Fire(currentMockConnection)
 end
@@ -23,6 +28,7 @@ return function()
 		local mainStore = Rodux.Store.new(MainReducer, {})
 		fakeDebuggerConnect(mainStore)
 		local mockCrossDMScriptChangeListenerService = MockCrossDMScriptChangeListenerService.new()
+
 		local scriptChangeServiceListener = CrossDMScriptChangeListener.new(mainStore, mockCrossDMScriptChangeListenerService)
 		expect(scriptChangeServiceListener)
 		scriptChangeServiceListener:destroy()

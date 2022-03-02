@@ -1,5 +1,3 @@
-local FFlagPluginManagementRemoveCommentsEnabled = game:GetFastFlag("PluginManagementRemoveCommentsEnabled")
-
 local Plugin = script.Parent.Parent.Parent
 
 local Rodux = require(Plugin.Packages.Rodux)
@@ -19,12 +17,9 @@ return Rodux.createReducer({
 	--	- created = string
 	--	- updated = string
 	plugins = {},
-},{
-
+}, {
 	--[[ Initializes a plugin entry ]]
 	SetPluginId = function(state, action)
-		local commentsEnabled = if FFlagPluginManagementRemoveCommentsEnabled then nil else false
-
 		return Cryo.Dictionary.join(state, {
 			plugins = Cryo.Dictionary.join(state.plugins, {
 				[action.pluginId] = {
@@ -33,12 +28,11 @@ return Rodux.createReducer({
 					installProgress = 0.0,
 					name = "",
 					description = "",
-					commentsEnabled = commentsEnabled,
 					versionId = "",
 					created = "",
 					updated = "",
-				}
-			})
+				},
+			}),
 		})
 	end,
 
@@ -51,29 +45,12 @@ return Rodux.createReducer({
 
 		return Cryo.Dictionary.join(state, {
 			plugins = Cryo.Dictionary.join(state.plugins, {
-				[action.pluginId] = Cryo.None
-			})
+				[action.pluginId] = Cryo.None,
+			}),
 		})
 	end,
 
 	--[[ Updates an existing plugin entry with metadata about the plugin ]]
-	DEPRECATED_SetPluginMetadata = function(state, action)
-		assert(state.plugins[action.pluginId], string.format("No plugin entry found for %s", action.pluginId))
-
-		return Cryo.Dictionary.join(state, {
-			plugins = Cryo.Dictionary.join(state.plugins, {
-				[action.pluginId] = Cryo.Dictionary.join(state.plugins[action.pluginId], {
-					name = action.name,
-					description = action.description,
-					commentsEnabled = action.commentsEnabled,
-					versionId = action.versionId,
-					created = action.created,
-					updated = action.updated,
-				})
-			})
-		})
-	end,
-
 	SetPluginMetadata = function(state, action)
 		assert(state.plugins[action.pluginId], string.format("No plugin entry found for %s", action.pluginId))
 
@@ -85,8 +62,8 @@ return Rodux.createReducer({
 					versionId = action.versionId,
 					created = action.created,
 					updated = action.updated,
-				})
-			})
+				}),
+			}),
 		})
 	end,
 
@@ -99,8 +76,8 @@ return Rodux.createReducer({
 				[action.pluginId] = Cryo.Dictionary.join(state.plugins[action.pluginId], {
 					installStatus = action.statusCode,
 					installationMsg = action.message,
-				})
-			})
+				}),
+			}),
 		})
 	end,
 })

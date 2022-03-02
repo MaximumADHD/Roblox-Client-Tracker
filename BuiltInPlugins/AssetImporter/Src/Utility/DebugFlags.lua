@@ -6,7 +6,14 @@
 
 local Workspace = game:GetService("Workspace")
 
+local hasInternalPermission = require(script.Parent.hasInternalPermission)()
+
 local FLAGS_FOLDER = "AssetImporterFlags"
+
+local inCLI = pcall(function()
+	-- Process service only available in CLI
+	return game:GetService("ProcessService")
+end)
 
 local function defineFlag(flagName, default)
 	default = default or false
@@ -20,10 +27,10 @@ local function defineFlag(flagName, default)
 end
 
 local DebugFlags = {}
-DebugFlags.RunningUnderCLI = defineFlag("RunningUnderCLI")
-DebugFlags.RunTests = defineFlag("RunTests", false) -- set to true to run tests
+DebugFlags.RunningUnderCLI = defineFlag("RunningUnderCLI", inCLI)
+DebugFlags.RunTests = defineFlag("RunTests")
 DebugFlags.LogTestsQuiet = defineFlag("LogTestsQuiet")
 DebugFlags.LogAnalytics = defineFlag("LogAnalytics")
 DebugFlags.RunDeveloperFrameworkTests = defineFlag("RunDeveloperFrameworkTests")
-DebugFlags.EnableRoactConfigs = defineFlag("EnableRoactConfigs", false)
+DebugFlags.EnableRoactConfigs = defineFlag("EnableRoactConfigs", DebugFlags.RunTests() or hasInternalPermission)
 return DebugFlags

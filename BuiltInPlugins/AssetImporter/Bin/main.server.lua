@@ -4,15 +4,15 @@ end
 
 require(script.Parent.defineLuaFlags)
 
-local main = script.Parent.Parent
-
-local getFFlagEnableAssetImporter = require(main.Src.Flags.getFFlagEnableAssetImporter)
-if not getFFlagEnableAssetImporter() then
-	return
-end
-
 local commonInit = require(script.Parent.commonInit)
 commonInit()
+
+local main = script.Parent.Parent
+local shouldPluginRun = require(main.Src.Utility.shouldPluginRun)
+
+if not shouldPluginRun() then
+	return
+end
 
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)

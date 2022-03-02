@@ -19,7 +19,7 @@ local PopUpButton = require(Plugin.Src.Components.PopUpButton)
 local enableAudioImport = require(Plugin.Src.Util.AssetManagerUtilities).enableAudioImport
 
 local SetEditingAssets = require(Plugin.Src.Actions.SetEditingAssets)
-local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets)
+local SetSelectedAssets = require(Plugin.Src.Actions.SetSelectedAssets) -- Remove with FFlagAssetManagerUseUpdateSelectedAssets
 
 local GetAssetPreviewData = require(Plugin.Src.Thunks.GetAssetPreviewData)
 local OnAssetDoubleClick = require(Plugin.Src.Thunks.OnAssetDoubleClick)
@@ -28,6 +28,7 @@ local OnAssetSingleClick = require(Plugin.Src.Thunks.OnAssetSingleClick)
 
 local FFlagAssetManagerEnableModelAssets = game:GetFastFlag("AssetManagerEnableModelAssets")
 local FFlagStudioAssetManagerFixAssetPreviewHover = game:GetFastFlag("StudioAssetManagerFixAssetPreviewHover")
+local FFlagAssetManagerUseUpdateSelectedAssets = game:GetFastFlag("AssetManagerUseUpdateSelectedAssets")
 
 local AssetManagerService = game:GetService("AssetManagerService")
 local ContentProvider = game:GetService("ContentProvider")
@@ -131,8 +132,10 @@ function Tile:init()
             })
         end
         local assetData = self.props.AssetData
-        -- when opening asset preview, set selected assets to that asset only
-        self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
+        if not FFlagAssetManagerUseUpdateSelectedAssets then
+            -- when opening asset preview, set selected assets to that asset only
+            self.props.dispatchSetSelectedAssets({ [assetData.key] = true })
+        end
         self.props.OnOpenAssetPreview(assetData)
     end
 

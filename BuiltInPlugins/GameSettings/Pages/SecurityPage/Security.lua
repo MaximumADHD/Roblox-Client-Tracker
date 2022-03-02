@@ -189,13 +189,10 @@ function Security:render()
 	})
 end
 
-
 Security = withContext({
 	Localization = ContextServices.Localization,
 	Theme = ContextServices.Theme,
 })(Security)
-
-
 
 local settingFromState = require(Plugin.Src.Networking.settingFromState)
 Security = RoactRodux.connect(

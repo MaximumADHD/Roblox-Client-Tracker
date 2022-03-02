@@ -2,16 +2,17 @@
 	A grid of assets. Use Layouter.calculateAssetsHeight() to know how tall it will be when the assets are rendered.
 
 	Required Props:
-		table assetIds: a table of assetIds to render.
-		callback tryInsert: attempt to insert asset.
-		callback tryOpenAssetConfig: invoke assetConfig page with an assetId.]
-		Vector2 parentSize: The X,Y size of the parent container. This is used for asset impression analytics.
-		Vector2 parentAbsolutePosition: The X,Y position of the parent container. This is used for asset impression analytics.
-		callback tryOpenAssetConfig, invoke assetConfig page with an assetId.
+		table AssetIds: a table of assetIds to render.
+		callback CanInsertAsset: Function on whether or not an asset can be inserted.
+		callback TryInsert: attempt to insert asset.
+		Vector2 ParentSize: The X,Y size of the parent container. This is used for asset impression analytics.
+		Vector2 ParentAbsolutePosition: The X,Y position of the parent container. This is used for asset impression analytics.
+		callback TryOpenAssetConfig, invoke assetConfig page with an assetId.
 
 	Optional Props:
 		integer LayoutOrder: The LayoutOrder of the component.
-		function renderTopContent: Function that returns the roaxct element content located above the infinite grid, but within the scrollingFrame.
+		function RenderTopContent: Function that returns the roaxct element content located above the infinite grid, but within the scrollingFrame.
+		UDim2 Position: Overall position of the component.
 		UDim2 Size: Overall size of the component.
 ]]
 local Plugin = script.Parent.Parent.Parent
@@ -36,10 +37,55 @@ local StyledScrollingFrame = require(Plugin.Core.Components.StyledScrollingFrame
 local ContextServices = require(Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
+type _ExternalProps = {
+	AssetIds : { number },
+	LayoutOrder : number?,
+	Position : number?,
+	RequestNextPage : (() -> nil),
+	RenderTopContent : (() -> any)?,
+	Size : UDim2?,
+	-- Props available from AssetLogicWrapper
+	CanInsertAsset : (() -> boolean)?,
+	ParentAbsolutePosition : Vector2,
+	ParentSize : Vector2,
+	TryInsert : (
+		(
+			assetData : any,
+			assetWasDragged : boolean,
+			insertionMethod : string
+		) -> any
+	),
+	TryOpenAssetConfig : (
+		(
+			assetId : number?,
+			flowType : string,
+			instances : any,
+			assetTypeEnum : Enum.AssetType
+		) -> any
+	),
+}
+
+type _InternalProps = {
+	categoryName : string?,
+	isPreviewing : boolean,
+	networkErrors : any,
+}
+
+type _State = {
+	displayedAssetIds : { number },
+	hoveredAssetId : number,
+	lowerIndexToRender : number,
+	topContentHeight : number,
+	upperIndexToRender : number,
+	width : number,
+}
+
+type AssetGridProps = _ExternalProps & _InternalProps
+
 local AssetGrid = Roact.PureComponent:extend("AssetGrid")
 
 AssetGrid.defaultProps = {
-	assetIds = {},
+	AssetIds = {},
 	Size = UDim2.new(1, 0, 1, 0),
 }
 
@@ -47,7 +93,7 @@ function AssetGrid:didMount()
 	self.calculateRenderBounds()
 end
 
-function AssetGrid:init()
+function AssetGrid:init(props : AssetGridProps)
 	self.state = {
 		displayedAssetIds = {},
 		hoveredAssetId = 0,
@@ -74,8 +120,8 @@ function AssetGrid:init()
 		local bottom = canvasY + windowHeight
 		local dist = canvasHeight - bottom
 
-		if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE and props.requestNextPage then
-			props.requestNextPage()
+		if dist < Constants.DIST_FROM_BOTTOM_BEFORE_NEXT_PAGE and props.RequestNextPage then
+			props.RequestNextPage()
 		end
 
 		self.calculateRenderBounds(forceUpdate)
@@ -108,7 +154,7 @@ function AssetGrid:init()
 				or lowerBound ~= state.lowerIndexToRender
 				or upperBound ~= state.upperIndexToRender
 			then
-				local displayedAssetIds = Layouter.sliceAssetsFromBounds(props.assetIds or {}, lowerBound, upperBound)
+				local displayedAssetIds = Layouter.sliceAssetsFromBounds(props.AssetIds or {}, lowerBound, upperBound)
 
 				return {
 					displayedAssetIds = displayedAssetIds,
@@ -168,14 +214,14 @@ function AssetGrid:init()
 	end
 
 	self.getAssetElements = function()
-		local props = self.props
-		local state = self.state
+		local props : AssetGridProps = self.props
+		local state : _State = self.state
 
-		local canInsertAsset = props.canInsertAsset
-		local parentSize = props.parentSize
-		local parentAbsolutePosition = props.parentAbsolutePosition
-		local tryOpenAssetConfig = props.tryOpenAssetConfig
-		local tryInsert = props.tryInsert
+		local canInsertAsset = props.CanInsertAsset
+		local parentSize = props.ParentSize
+		local parentAbsolutePosition = props.ParentAbsolutePosition
+		local tryOpenAssetConfig = props.TryOpenAssetConfig
+		local tryInsert = props.TryInsert
 
 		local showPrices = Category.shouldShowPrices(props.categoryName)
 		local cellSize
@@ -230,7 +276,7 @@ function AssetGrid:init()
 
 		local containerWidth = width - (2 * Constants.MAIN_VIEW_PADDING) - Constants.SCROLLBAR_PADDING
 		local showPrices = Category.shouldShowPrices(props.categoryName)
-		local allAssetCount = #props.assetIds
+		local allAssetCount = #props.AssetIds
 		local allAssetsHeight = Layouter.calculateAssetsHeight(allAssetCount, containerWidth, showPrices)
 			+ Constants.ASSET_OUTLINE_EXTRA_HEIGHT
 
@@ -238,10 +284,11 @@ function AssetGrid:init()
 	end
 
 	self.getWidth = function()
-		self:setState(function()
-			if self.scrollingFrameRef.current then
+		self:setState(function(state)
+			local scrollingFrameRef = self.scrollingFrameRef.current
+			if scrollingFrameRef and state.width ~= scrollingFrameRef.AbsoluteSize.X then
 				return {
-					width = self.scrollingFrameRef.current.AbsoluteSize.X,
+					width = scrollingFrameRef.AbsoluteSize.X,
 				}
 			end
 		end)
@@ -251,7 +298,7 @@ function AssetGrid:init()
 		self:setState(function(prevState)
 			local topContentRef = self.topContentRef.current
 			local topContentHeight = topContentRef and topContentRef.AbsoluteSize.Y or 0
-			if topContentHeight ~= prevState.topContentRef then
+			if topContentHeight ~= prevState.topContentHeight then
 				return {
 					topContentHeight = topContentHeight,
 				}
@@ -261,36 +308,41 @@ function AssetGrid:init()
 end
 
 function AssetGrid:didUpdate(prevProps, prevState)
-	local spaceToDisplay = self.state.upperIndexToRender - self.state.lowerIndexToRender
-	local displayedAssetIds = self.state.displayedAssetIds or {}
+	local props : AssetGridProps = self.props
+	local state : _State = self.state
+
+	local spaceToDisplay = state.upperIndexToRender - state.lowerIndexToRender
+	local displayedAssetIds = state.displayedAssetIds or {}
 	local displayed = #displayedAssetIds
 
-	local networkErrors = self.props.networkErrors or {}
+	local networkErrors = props.networkErrors or {}
 	local networkError = networkErrors[#networkErrors]
 
 	if not networkError and displayed < spaceToDisplay and displayed ~= 0 then
-		self.props.requestNextPage()
+		props.RequestNextPage()
 	end
 
-	if prevProps.assetIds ~= self.props.assetIds then
+	if prevProps.AssetIds ~= props.AssetIds then
 		self:calculateRenderBounds(false)
 	end
 
-	if prevProps.topContentHeight ~= self.props.topContentHeight 
-		or prevState.width ~= self.state.width
+	if prevState.topContentHeight ~= state.topContentHeight 
+		or prevState.width ~= state.width
 	then
 		self.tryRerender(true)
 	end
+
+	self.getWidth()
 end
 
 function AssetGrid.getDerivedStateFromProps(nextProps, lastState)
 	local lowerBound = lastState.lowerIndexToRender or 0
 	local upperBound = lastState.upperIndexToRender or 0
-	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.assetIds or {}, lowerBound, upperBound)
+	local assetIds = Layouter.sliceAssetsFromBounds(nextProps.AssetIds or {}, lowerBound, upperBound)
 
 	-- Hovered Asset reset
 	local lastHoveredAssetStillVisible = false
-	for _, assetId in ipairs(nextProps.assetIds) do
+	for _, assetId in ipairs(nextProps.AssetIds) do
 		if lastState.hoveredAssetId == assetId then
 			lastHoveredAssetStillVisible = true
 			break
@@ -312,14 +364,14 @@ function AssetGrid.getDerivedStateFromProps(nextProps, lastState)
 end
 
 function AssetGrid:render()
-	local props = self.props
-	local state = self.state
+	local props : AssetGridProps = self.props
+	local state : _State = self.state
 
 	local categoryName = props.categoryName
 	local isPreviewing = props.isPreviewing
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
-	local renderTopContent = props.renderTopContent
+	local renderTopContent = props.RenderTopContent
 	local size = props.Size
 
 	local lowerIndexToRender = state.lowerIndexToRender
@@ -350,6 +402,7 @@ function AssetGrid:render()
 		scrollingEnabled = not isPreviewing,
 		Size = size,
 		[Roact.Ref] = self.scrollingFrameRef,
+		OnAbsoluteSizeChanged = self.getWidth,
 	}, {
 		UIPadding = Roact.createElement("UIPadding", {
 			PaddingBottom = UDim.new(0, Constants.MAIN_VIEW_PADDING),
@@ -375,7 +428,6 @@ function AssetGrid:render()
 			Position = UDim2.new(0, 0, 0, gridContainerOffset + topHeight),
 			Size = UDim2.new(1, 0, 1, -topHeight),
 			[Roact.Event.InputEnded] = self.onFocusLost,
-			[Roact.Change.AbsoluteSize] = self.getWidth,
 		}, assetElements),
 	})
 end
@@ -397,4 +449,9 @@ local function mapStateToProps(state, props)
 	}
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(AssetGrid)
+AssetGrid = RoactRodux.connect(mapStateToProps, nil)(AssetGrid)
+
+function TypedComponent(props: AssetGridProps, children: any)
+	return Roact.createElement(AssetGrid, props, children)
+end
+return TypedComponent

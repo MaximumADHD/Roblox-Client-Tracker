@@ -2,9 +2,6 @@
 	The main plugin component.
 	Consists of the PluginWidget, Toolbar, Button, and Roact tree.
 ]]
-local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
-
 local main = script.Parent.Parent
 local Roact = require(main.Packages.Roact)
 local Rodux = require(main.Packages.Rodux)
@@ -67,7 +64,7 @@ function MainPlugin:init(props)
 	self.localization = ContextServices.Localization.new({
 		stringResourceTable = TranslationDevelopmentTable,
 		translationResourceTable = TranslationReferenceTable,
-		pluginName = FFlagPluginDockWidgetsUseNonTranslatedIds and main.Name or "EventEmulator",
+		pluginName = main.Name,
 	})
 end
 
@@ -105,8 +102,8 @@ function MainPlugin:render()
 
 		MainWidget = Roact.createElement(DockWidget, {
 			Enabled = enabled,
-			Title = FFlagPluginDockWidgetsUseNonTranslatedIds and self.localization:getText("Plugin", "Toolbar") or self.localization:getText("Plugin", "Name"),
-			Id = FFlagPluginDockWidgetsUseNonTranslatedIds and main.Name or nil,
+			Title = self.localization:getText("Plugin", "Toolbar"),
+			Id = main.Name,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			InitialDockState = Enum.InitialDockState.Left,
 			Size = Vector2.new(310, 225),

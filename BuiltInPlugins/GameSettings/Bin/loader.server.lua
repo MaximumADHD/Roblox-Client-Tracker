@@ -2,6 +2,13 @@
 require(script.Parent.defineLuaFlags)
 
 local Plugin = script.Parent.Parent
+
+local DebugFlags = require(Plugin.Src.Util.DebugFlags)
+
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 local RunService = game:GetService("RunService")
 
 local PluginLoaderBuilder = require(Plugin.PluginLoader.PluginLoaderBuilder)

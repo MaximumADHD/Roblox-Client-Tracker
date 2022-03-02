@@ -23,7 +23,7 @@ local ExecuteExpressionThunk = require(Thunks.Watch.ExecuteExpressionThunk)
 local RequestCallstackThunk = require(Thunks.Callstack.RequestCallstackThunk)
 
 return function()
-	it("should evaluate expressions correctly", function()			
+	it("should evaluate expressions correctly", function()
 		local store = Rodux.Store.new(MainReducer, nil, MainMiddleware)
 		store = TestStore(store)
 		local state = store:getState()

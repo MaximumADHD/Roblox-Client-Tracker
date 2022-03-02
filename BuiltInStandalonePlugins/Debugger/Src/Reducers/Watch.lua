@@ -31,7 +31,6 @@ local ClearConnectionData = require(Actions.Common.ClearConnectionData)
 local ScopeFilterChange = require(Actions.Watch.ScopeFilterChange)
 local SetTab = require(Actions.Watch.SetTab)
 local FilterTextChanged = require(Actions.Watch.FilterTextChanged)
-local SetSortState = require(Actions.Common.SetSortState)
 
 --Models
 local DebuggerStateToken = require(Models.DebuggerStateToken)
@@ -456,7 +455,7 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 	
-	[SetWatchSortState.name] = function(state : WatchStore, action : SetSortState.Props)
+	[SetWatchSortState.name] = function(state : WatchStore, action : SetWatchSortState.Props)
 		local toReturn = Cryo.Dictionary.join(
 			state, {sortDirection = action.sortDirection,columnIndex = action.columnIndex }
 		)

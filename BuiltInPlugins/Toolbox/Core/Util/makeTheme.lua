@@ -207,7 +207,7 @@ local makeTheme = function(themeExtension, themeClass)
 			gradientColor = StyleKey.Toolbox_IconTileGradientColor,
 			textColor = StyleKey.MainText,
 			textColorHovered = StyleKey.BrightText,
-			textSize = 15,
+			textSize = 13,
 		} or nil,
 
 		infoBanner = {

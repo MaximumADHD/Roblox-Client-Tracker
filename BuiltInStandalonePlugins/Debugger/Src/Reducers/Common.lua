@@ -101,21 +101,16 @@ return Rodux.createReducer(productionStartStore, {
 	end,
 
 	[Step.name] = function(state : CommonStore, action : Step.Props)
-		local newDebuggerConnectionMap = deepCopy(state.debuggerConnectionIdToDST)
-		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
-
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = newDebuggerConnectionMap,
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}),
 		})
 	end,
 
 	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
-		local newDebuggerConnectionMap = state.debuggerConnectionIdToDST
-		newDebuggerConnectionMap[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken
 		local pausedConnectionId = action.debuggerStateToken.debuggerConnectionId
 
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = newDebuggerConnectionMap, 
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}), 
 			isPaused = true,
 			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[pausedConnectionId] = pausedConnectionId}),
 		})

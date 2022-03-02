@@ -18,6 +18,7 @@
 		any Checked: An optional variable indicating whether an associated checkbox is checked
 		callback OnCheck: An optional function which gets called when the component checked state changes
 		callback OnPress: An optional function which gets called when a button is pressed
+		any Selected: An optional variable indicating whether a row has been selected or not
 		any Stylizer: An optional value which is used to apply themes
 		any StyleModifier: Describes any changes to the style
 		callback GetContents: An optional function describing how to get the contents of a row - (item: Item) => string, string

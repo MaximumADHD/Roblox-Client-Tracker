@@ -22,6 +22,11 @@ local Common = script.Parent.Parent.Common
 -- flags in NoOpt/Debug. When that is fixed this template should be updated to use it.
 require(Common.defineLuaFlags)
 
+local DebugFlags = require(Common.Parent.Src.Util.DebugFlags)
+if DebugFlags.RunningUnderCLI() then
+	return
+end
+
 -- New Plugin Setup: Uncomment this line and replace with your flag's name.
 -- If your plugin is internal-only, change if statement to:
 -- if not (game:GetService("StudioService"):HasInternalPermission() and FLAG) then

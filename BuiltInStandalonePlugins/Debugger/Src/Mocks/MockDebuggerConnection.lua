@@ -42,6 +42,8 @@ function MockDebuggerConnection.new(mockID)
 	end
 	
 	self.MockSetCallstackByThreadId = function(id, callstack)
+		assert(callstack)
+		assert(callstack[0])
 		self.MockThreadIdToCallstackMap[id] = callstack
 	end
 	

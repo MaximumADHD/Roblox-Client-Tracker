@@ -59,7 +59,7 @@ function ToolButton:render()
 	local FFlagHighDpiIcons = game:GetFastFlag("SVGLuaIcons") and (mockForUnitTests or  not game:GetService("StudioHighDpiService"):IsNotHighDPIAwareBuild())
 	local image
 	if FFlagHighDpiIcons then 
-		image = string.format(Constants.HighDpiToolIconsWithThemeAndName2, settings().Studio.Theme.Name, Constants.HighDpiToolIconsName[toolId])
+		image = string.format(Constants.HighDpiToolIconsWithTheme1[toolId], settings().Studio.Theme.Name)
 	else
 		image = Constants.ToolIcons[toolId]
 	end

@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
@@ -24,7 +25,6 @@
 ]]
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -34,6 +34,8 @@ local Roact = require(Framework.Parent.Roact)
 local Util = require(Framework.Util)
 local isInputMainPress = Util.isInputMainPress
 local prioritize = Util.prioritize
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
@@ -138,13 +140,13 @@ function Pane:render()
 	local className = getClassName(props, style)
 
 	local defaultProps = {
-		BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 1) else 1,
+		BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 1),
 		BorderSizePixel = 0,
 		Size = props.Size or UDim2.fromScale(scaleX, scaleY),
 	}
 	local color = props.BackgroundColor3 or props.BackgroundColor or style.Background
 	if color then
-		defaultProps.BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 0) else 0
+		defaultProps.BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 0)
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
@@ -213,14 +215,16 @@ function Pane:render()
 		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
 
+	if componentProps.Transparency ~= nil then
+		print(className .. " has Transparency prop with value " .. tostring(componentProps.Transparency))
+	end
+
 	return Roact.createElement(className, componentProps, children)
 end
-
 
 Pane = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(Pane)
 
-
-return Pane
+return if FFlagDevFrameworkForwardRef then withForwardRef(Pane) else Pane
