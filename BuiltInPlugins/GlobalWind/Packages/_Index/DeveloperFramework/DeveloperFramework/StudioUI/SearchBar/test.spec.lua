@@ -2,6 +2,8 @@ return function()
 	local Framework = script.Parent.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local TestHelpers = require(Framework.TestHelpers)
+	-- TODO STUDIOPLAT-27078 Replace with Roact.act when all plugins use Roact 17 
+	local act = if Roact.Ref == "ref" then Roact.act else function(fn) fn() end
 	local SearchBar = require(script.Parent)
 
 	local function createTestSearchBar(props)
@@ -51,7 +53,9 @@ return function()
 		local container = Instance.new("Folder")
 		local instance = Roact.mount(element, container)
 
-		container:FindFirstChild("TextBox", true).Text = "foo\nbar"
+		act(function()
+			container:FindFirstChild("TextBox", true).Text = "foo\nbar"
+		end)
 
 		expect(container:FindFirstChild("TextBox", true).Text).to.equal("foo bar")
 

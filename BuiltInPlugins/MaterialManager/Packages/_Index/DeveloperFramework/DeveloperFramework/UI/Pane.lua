@@ -25,7 +25,6 @@
 ]]
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
 local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-local FFlagAssetManagerRemoveUILibraryPart1 = game:GetFastFlag("AssetManagerRemoveUILibraryPart1")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
@@ -141,13 +140,13 @@ function Pane:render()
 	local className = getClassName(props, style)
 
 	local defaultProps = {
-		BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 1) else 1,
+		BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 1),
 		BorderSizePixel = 0,
 		Size = props.Size or UDim2.fromScale(scaleX, scaleY),
 	}
 	local color = props.BackgroundColor3 or props.BackgroundColor or style.Background
 	if color then
-		defaultProps.BackgroundTransparency = if FFlagAssetManagerRemoveUILibraryPart1 then prioritize(props.Transparency, style.Transparency, 0) else 0
+		defaultProps.BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 0)
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
@@ -215,6 +214,10 @@ function Pane:render()
 		"OnPress",
 		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
+
+	if componentProps.Transparency ~= nil then
+		print(className .. " has Transparency prop with value " .. tostring(componentProps.Transparency))
+	end
 
 	return Roact.createElement(className, componentProps, children)
 end

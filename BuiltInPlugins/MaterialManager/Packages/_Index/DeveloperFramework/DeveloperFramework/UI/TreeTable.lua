@@ -1,7 +1,5 @@
 --[[
 	The TreeTable component displays a grid of data with expandable rows.
-	NOTE - The Scroll bug is due to UISYS-769. This is only expressed because Storybook displays components in an AutomaticSize layout,
-	and should not affect tables which are not in an AutomaticSize heirarchy (or once this bug is address by ui-subsystem team).
 
 	Required Props:
 		array[any] Columns: The columns of the table

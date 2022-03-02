@@ -20,10 +20,6 @@ return function()
 	local Util = require(Framework.Util)
 	local Signal = Util.Signal
 
-	if FFlagDevFrameworkUseCreateContext then
-		return
-	end
-
 	it("should create and destroy without errors", function()
 		local element = Roact.createElement(Consumer, {
 			ContextMap = {},

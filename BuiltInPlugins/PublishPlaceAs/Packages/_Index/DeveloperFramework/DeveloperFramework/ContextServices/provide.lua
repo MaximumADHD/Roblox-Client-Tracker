@@ -42,7 +42,9 @@ local MultipleProvider = Roact.PureComponent:extend("MultipleProvider")
 if FFlagDevFrameworkUseCreateContext then
 	function MultipleProvider:init(props)
 		local items = props.ContextItems
-		self.state = {}
+		self.state = {
+			count = 0
+		}
 		self.connections = {}
 		-- Deduplicate context items passed twice
 		-- e.g. provideMockContext merges the default items and additional items into a single list
@@ -52,13 +54,12 @@ if FFlagDevFrameworkUseCreateContext then
 			return item.Key, item
 		end)
 		-- Filter out items which are later overwritten
-		local filteredItems = filter(items, function(item)
+		self.filteredItems = filter(items, function(item)
 			return keyToItem[item.Key] == item
 		end)
-		forEach(filteredItems, function(item)
+		forEach(self.filteredItems, function(item)
 			local key = item.Key
 			self.state[key] = item
-			self:addConnection(key, item)
 		end)
 		self.onRender = function(upstreamContext)
 			local props = self.props
@@ -67,7 +68,7 @@ if FFlagDevFrameworkUseCreateContext then
 			local provider = Roact.createElement(Context.Provider, {
 				value = value
 			}, children)
-			forEach(filteredItems, function(item)
+			forEach(self.filteredItems, function(item)
 				if item.getProvider then
 					provider = item:getProvider({provider})
 				end
@@ -76,12 +77,21 @@ if FFlagDevFrameworkUseCreateContext then
 		end
 	end
 
+	function MultipleProvider:didMount()
+		forEach(self.filteredItems, function(item)
+			local key = item.Key
+			self.state[key] = item
+			self:addConnection(key, item)
+		end)
+	end
+
 	function MultipleProvider:addConnection(key, item)
 		local signal = item:getSignal()
 		if signal then
 			self.connections[key] = signal:Connect(function(newValue)
 				self:setState({
 					[key] = newValue,
+					count = self.state.count + 1
 				})
 			end)
 		end

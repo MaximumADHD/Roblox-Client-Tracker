@@ -198,12 +198,9 @@ function MultiLineTextInput:render()
 	})
 end
 
-
 MultiLineTextInput = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(MultiLineTextInput)
-
-
 
 return MultiLineTextInput

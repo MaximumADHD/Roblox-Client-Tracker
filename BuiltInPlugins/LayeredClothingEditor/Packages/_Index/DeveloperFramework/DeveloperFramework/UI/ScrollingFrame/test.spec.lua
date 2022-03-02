@@ -12,11 +12,20 @@ return function()
 	end
 
 	it("should create and destroy without errors", function()
-		local element = createTestScrollingFrame({},
-		{
+		local element = createTestScrollingFrame({}, {
 			TextButton = Roact.createElement("TextButton", {})
 		})
 		local instance = Roact.mount(element)
+		Roact.unmount(instance)
+	end)
+
+	it("check that the Roact.Ref is passed to the underlying frame", function()
+		local ref = Roact.createRef()
+		local element = createTestScrollingFrame({
+			[Roact.Ref] = ref
+		})
+		local instance = Roact.mount(element)
+		expect(ref.current.ClassName).to.equal("ScrollingFrame")
 		Roact.unmount(instance)
 	end)
 end

@@ -20,7 +20,12 @@ local UIFolderData = require(Framework.UI.UIFolderData)
 local ExpandablePaneStyle = require(UIFolderData.ExpandablePane.style)
 
 local Util = require(Framework.Util)
+local Flags = Util.Flags
 local StyleModifier = Util.StyleModifier
+
+local FlagsList = Flags.new({
+	FFlagDevFrameworkExpandablePaneAlwaysExpanded = {"DevFrameworkExpandablePaneAlwaysExpanded"},
+})
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
@@ -217,6 +222,26 @@ return {
 					})
 				})
 			})
-		}
+		},
+		{
+			name = "Always Expanded",
+			summary = "Can't collapse pane and arrow is hidden.",
+			story = if FlagsList:get("FFlagDevFrameworkExpandablePaneAlwaysExpanded")
+				then Roact.createElement(SimpleExpandablePane, {
+					AlwaysExpanded = true,
+					Style = "Section",
+					Text = "Section",
+				}, {
+					Roact.createElement(TextLabel, {
+						AutomaticSize = Enum.AutomaticSize.Y,
+						Text = "This pane will stay open",
+					})
+				})
+				else Roact.createElement(TextLabel, {
+					AutomaticSize = Enum.AutomaticSize.XY,
+					Text = "Please enable FFlagDevFrameworkExpandablePaneAlwaysExpanded",
+					TextWrapped = true,
+				}),
+		},
 	}
 }

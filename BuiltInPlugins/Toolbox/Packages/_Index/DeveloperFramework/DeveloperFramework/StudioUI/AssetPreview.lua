@@ -33,10 +33,13 @@
 		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
 		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local TextService = game:GetService("TextService")
 
@@ -342,7 +345,8 @@ function AssetPreview:render()
 		-- This allows the container to prevent clicks propagating to elements behind it
 		ElementOverride = "ImageButton",
 		Active = true,
-		[Roact.Ref] = self.containerRef,
+		ForwardRef = if FFlagDevFrameworkForwardRef then self.containerRef else nil,
+		[Roact.Ref] = if FFlagDevFrameworkForwardRef then nil else self.containerRef,
 	}, {
 		CloseButton = Roact.createElement(Image, {
 			Style = style.CloseButton,
@@ -477,6 +481,7 @@ function AssetPreview:render()
 					OnPauseSound = self.onPauseSound,
 					OnPlayVideo = self.onPlayVideo,
 					OnPauseVideo = self.onPauseVideo,
+					UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then props.UsageContext else nil,
 				}),
 
 				Favorites = props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({

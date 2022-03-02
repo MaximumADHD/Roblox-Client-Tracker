@@ -33,8 +33,6 @@
 
 		callback Roact.Change.Enabled: A callback for when the widget shows or hides.
 ]]
-local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
 local expectsRestoredMessage = [[
 DockWidget expects an OnWidgetRestored function if ShouldRestore is true.
 This DockWidget may restore as enabled, so we need to listen for that!]]
@@ -51,7 +49,7 @@ local DockWidget = createPluginWidget("DockWidget", function(props)
 	local plugin = props.Plugin:get()
 	local minSize = props.MinSize or Vector2.new(0, 0)
 	local shouldRestore = props.ShouldRestore or false
-	local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and (props.Id or props.Title) or props.Title
+	local pluginId = props.Id or props.Title
 
 	if shouldRestore then
 		assert(props.OnWidgetRestored, expectsRestoredMessage)
@@ -66,7 +64,8 @@ local DockWidget = createPluginWidget("DockWidget", function(props)
 		props.Size.X,
 		props.Size.Y,
 		minSize.X,
-		minSize.Y)
+		minSize.Y
+	)
 
 	return plugin:CreateDockWidgetPluginGui(pluginId, info)
 end)

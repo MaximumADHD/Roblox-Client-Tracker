@@ -47,14 +47,16 @@ function BindableEventBridge:send(message)
 		fromBridgeId = self.id
 	})
 	if self.event then
-		self.event:Fire(outMessage)
+		-- TODO STUDIOPLAT-27170: Fix issue with Developer Tools throwing errors in React 17
+		-- self.event:Fire(outMessage)
 	end
 end 
 
 function BindableEventBridge:connect(listener)
 	local function onEvent(message)
 		if message.fromBridgeId ~= self.id then
-			listener(message)
+			-- TODO STUDIOPLAT-27170: Fix issue with Developer Tools throwing errors in React 17
+			-- listener(message)
 		end
 	end
 	if self.event then

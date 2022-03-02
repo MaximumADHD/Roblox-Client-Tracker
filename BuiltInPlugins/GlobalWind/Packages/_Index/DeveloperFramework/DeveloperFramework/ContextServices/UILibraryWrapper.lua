@@ -54,7 +54,7 @@ function UILibraryProvider:render()
 	end
 	local focus = props.Focus
 	local UILibrary = props.UILibrary
-
+	
 	assert(theme.getUILibraryTheme, noGetThemeError)
 
 	return Roact.createElement(UILibrary.Wrapper, {
@@ -81,7 +81,7 @@ function UILibraryWrapper.new(uiLibraryProp)
 	local UILibrary
 
 	if not FFlagStudioDevFrameworkPackage then
-		UILibrary = UILibraryFromParent
+		UILibrary = uiLibraryProp or UILibraryFromParent
 	else
 		UILibrary = uiLibraryProp or UILibraryFromParent
 		assert(UILibrary, "UILibraryWrapper must be passed a reference to UILibrary")

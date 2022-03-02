@@ -1,7 +1,5 @@
 --[[
 	The TreeTable component displays a grid of data with expandable rows.
-	NOTE - The Scroll bug is due to UISYS-769. This is only expressed because Storybook displays components in an AutomaticSize layout,
-	and should not affect tables which are not in an AutomaticSize heirarchy (or once this bug is address by ui-subsystem team).
 
 	Required Props:
 		array[any] Columns: The columns of the table
@@ -25,6 +23,7 @@
 		callback OnHoverRow: An optional callback called when a row is hovered over. (dataIndex: number) -> ()
 		callback OnMouseLeave: An optional callback called when the mouse leaves the table bounds. () -> ()
 		callback OnSelectionChange: Called when an item is selected - (newSelection: Set<Item>) => void
+		callback OnDoubleClick: An optional callback called when an item is double clicked
 		callback OnSizeChange: An optional callback called when the component size changes with number of rows that can be displayed.
 		callback OnPageSizeChange: An optional callback called when the size of a page changes.
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
@@ -61,11 +60,9 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
-local FFlagDevFrameworkTableAddFullSpanFunctionality = game:GetFastFlag("DevFrameworkTableAddFullSpanFunctionality")
 local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
+local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -106,9 +103,9 @@ function TreeTable:init()
 			OnToggle = self.onToggle,
 			Expansion = self.props.Expansion,
 			CellStyle = self.props.Stylizer,
-			DisableTooltip = FFlagToggleTreeTableTooltip and self.props.DisableTooltip or nil,
-			TextInputCols = FFlagStudioAddTextInputCols and self.props.TextInputCols or nil,
-			OnFocusLost = FFlagStudioAddTextInputCols and self.props.OnFocusLost or nil,
+			DisableTooltip = self.props.DisableTooltip,
+			TextInputCols = self.props.TextInputCols,
+			OnFocusLost = self.props.OnFocusLost,
 		},
 	}
 end
@@ -129,6 +126,7 @@ function TreeTable:calculateItems(prevProps)
 		or props.GetChildren ~= prevProps.GetChildren
 		or props.GetItemKey ~= prevProps.GetItemKey
 		or props.Expansion ~= prevProps.Expansion
+		or (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows and props.HighlightedRows ~= prevProps.HighlightedRows)
 	)
 	local selectionChanged = not prevProps or props.Selection ~= prevProps.Selection
 	if not rowsChanged and not selectionChanged then
@@ -146,9 +144,9 @@ function TreeTable:calculateItems(prevProps)
 				OnToggle = self.onToggle,
 				Expansion = props.Expansion,
 				CellStyle = props.Stylizer,
-				DisableTooltip = FFlagToggleTreeTableTooltip and props.DisableTooltip or nil,
-				TextInputCols = FFlagStudioAddTextInputCols and props.TextInputCols or nil,
-				OnFocusLost = FFlagStudioAddTextInputCols and props.OnFocusLost or nil,
+				DisableTooltip = props.DisableTooltip,
+				TextInputCols = props.TextInputCols,
+				OnFocusLost = props.OnFocusLost,
 			}
 		end
 		local rows = nextState.rows or prevState.rows
@@ -206,12 +204,13 @@ function TreeTable:render()
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
+		OnDoubleClick = (FFlagDevFrameworkDoubleClick and props.OnDoubleClick) or nil,
 		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,
 		RowComponent = props.RowComponent,
 		CellComponent = cellComponent,
-		FullSpan = FFlagDevFrameworkTableAddFullSpanFunctionality and props.FullSpan,
+		FullSpan = props.FullSpan,
 		HighlightedRows = (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows) or nil,
 		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
 	})

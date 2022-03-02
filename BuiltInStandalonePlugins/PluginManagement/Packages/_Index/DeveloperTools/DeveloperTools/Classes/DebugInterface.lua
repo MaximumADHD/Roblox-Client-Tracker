@@ -10,6 +10,7 @@ local Packages = Source.Parent
 local Dash = require(Packages.Dash)
 local class = Dash.class
 local forEach = Dash.forEach
+local map = Dash.map
 
 local insert = table.insert
 
@@ -69,7 +70,12 @@ function DebugInterface:_connectTargets()
 				sourceId = self.sourceId,
 				sourceName = self.sourceName,
 				sourceKind = self.sourceKind,
-				targets = self.targets,
+				targets = map(self.targets, function(target)
+					return {
+						id = target.id,
+						name = target.name,
+					}
+				end),
 			})
 		end
 	})

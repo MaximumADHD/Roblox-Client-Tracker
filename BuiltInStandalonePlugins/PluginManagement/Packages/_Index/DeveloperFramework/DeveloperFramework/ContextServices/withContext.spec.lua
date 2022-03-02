@@ -1,6 +1,8 @@
 return function()
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
+	-- TODO STUDIOPLAT-27078 Replace with Roact.act when all plugins use Roact 17 
+	local act = if Roact.Ref == "ref" then Roact.act else function(fn) fn() end
 	local withContext = require(script.Parent.withContext)
 	local ContextItem = require(script.Parent.ContextItem)
 	local provide = require(script.Parent.provide)
@@ -98,9 +100,13 @@ return function()
 		local instance = Roact.mount(tree)
 
 		expect(renders).to.equal(1)
-		testItem:fireUpdate()
+		act(function()
+			testItem:fireUpdate()
+		end)
 		expect(renders).to.equal(2)
-		otherItem:fireUpdate()
+		act(function()
+			otherItem:fireUpdate()
+		end)
 		expect(renders).to.equal(3)
 		Roact.unmount(instance)
 	end)

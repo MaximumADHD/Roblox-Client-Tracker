@@ -275,7 +275,7 @@ function Stylizer:getConsumerItem(target)
 	local componentSymbol = ComponentSymbols[target.__componentName]
 
 	if not currentStyle then
-		assert(false, "Style:getConsumerItem() is unable to find the Style in _context of", target.__componentName)
+		assert(false, "Style:getConsumerItem() is unable to find the Style in _context of " .. target.__componentName)
 		return self
 	end
 

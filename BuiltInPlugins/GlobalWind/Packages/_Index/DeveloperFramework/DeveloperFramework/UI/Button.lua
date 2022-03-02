@@ -41,6 +41,7 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
+local FFlagStudioExplainFriendCollaboratorPermission = game:GetFastFlag("StudioExplainFriendCollaboratorPermission")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -62,6 +63,12 @@ function Button:init(props)
 		self:setState({
 			StyleModifier = Roact.None,
 		})
+	end
+
+	self.onClick = function()
+		if self.props.StyleModifier ~= StyleModifier.Disabled then
+			self.props.OnClick()
+		end
 	end
 end
 
@@ -134,7 +141,7 @@ function Button:render()
 			Text = text,
 			ZIndex = 2,
 
-			[Roact.Event.Activated] = onClick,
+			[Roact.Event.Activated] = FFlagStudioExplainFriendCollaboratorPermission and self.onClick or onClick,
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 		}, props[Roact.Children]),
