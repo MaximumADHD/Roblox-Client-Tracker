@@ -1,5 +1,29 @@
 Key,en-us
-Studio.MaterialManager.Plugin.Button,Toggle
+Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material
+Studio.MaterialManager.CreateDialog.CancelVariant,Cancel
+Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant
+Studio.MaterialManager.CreateDialog.General,General
+Studio.MaterialManager.CreateDialog.ImportColorMap,Color
+Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness
+Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal
+Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness
+Studio.MaterialManager.CreateDialog.NameVariant,Name
+Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material
+Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name
+Studio.MaterialManager.CreateDialog.SaveVariant,Save
+Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps
+Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material
+Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant
+Studio.MaterialManager.MaterialTile.PartMaterial,Part Material
+Studio.MaterialManager.MaterialTile.PartVariant,Part Variant
+Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material
+Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant
+Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.
 Studio.MaterialManager.Plugin.Name,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,Material Manager
+Studio.MaterialManager.TopBar.Apply,Apply to Selection
+Studio.MaterialManager.TopBar.Create,Create Material Variant
+Studio.MaterialManager.TopBar.Filters,Filters
+Studio.MaterialManager.TopBar.Search,Search Materials
+Studio.MaterialManager.TopBar.Show,Show in Explorer

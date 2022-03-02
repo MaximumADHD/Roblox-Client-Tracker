@@ -26,7 +26,7 @@ Studio.Common.Action.Paste,,,Paste,Paste,Einfügen,Pegar,Coller,,,貼り付け,�
 Studio.Common.Action.Pause,,,Pause,Pause,,Pausar,Pause,,,一時停止,일시 중지,Pausar,Пауза,,,,暂停,暂停,暫停
 Studio.Common.Action.Play,,,Play,Play,Spielen,Jugar,Jouer,,,プレイ,플레이,Jogar,Воспроизвести,,,,开始游戏,开始游戏,開始
 Studio.Common.Action.Previous,,,Previous,Previous,Zurück,Anterior,Précédent,,,前へ,이전,Anterior,Предыдущий,,,,上一个,上一个,上一步
-Studio.Common.Action.Reload,,,Reload,Reload,Neu laden,Volver a cargar,Recharger,,,再読み込み,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
+Studio.Common.Action.Reload,,,Reload,Reload,Neu laden,Volver a cargar,Recharger,,,リロード,다시 불러오기,Recarregar,Перезагрузить,,,,重新加载,重新加载,重新載入
 Studio.Common.Action.Remove,,,Remove,Remove,Entfernen,Eliminar,Supprimer,,,削除,제거,Remover,Удалить,,,,移除,移除,移除
 Studio.Common.Action.Rename,,,Rename,Rename,Umbenennen,Renombrar,Renommer,,,名前を変更,이름 변경,Renomear,Переименовать,,,,重命名,重命名,重新命名
 Studio.Common.Action.Replace,,,Replace,Replace,Ersetzen,Reemplazar,Remplacer,,,置き換え,바꾸기,Substituir,Заменить,,,,替换,替换,取代

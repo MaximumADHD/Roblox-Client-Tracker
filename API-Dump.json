@@ -7820,7 +7820,8 @@
             "Name": "BodyMover",
             "Superclass": "Instance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "Deprecated"
             ]
         },
         {
@@ -7926,7 +7927,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyAngularVelocity",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -7973,7 +7977,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyForce",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -8096,7 +8103,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyGyro",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -8254,7 +8264,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyPosition",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -8341,7 +8354,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyThrust",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -8470,7 +8486,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "BodyVelocity",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -8722,7 +8741,10 @@
             ],
             "MemoryCategory": "Instances",
             "Name": "RocketPropulsion",
-            "Superclass": "BodyMover"
+            "Superclass": "BodyMover",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -35960,6 +35982,17 @@
         },
         {
             "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "ImporterAnimationSettings",
+            "Superclass": "ImporterBaseSettings",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
                 {
                     "Category": "Data",
                     "MemberType": "Property",
@@ -37275,14 +37308,20 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "RotateP",
-            "Superclass": "DynamicRotate"
+            "Superclass": "DynamicRotate",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "RotateV",
-            "Superclass": "DynamicRotate"
+            "Superclass": "DynamicRotate",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -37373,7 +37412,8 @@
             "Name": "ManualSurfaceJointInstance",
             "Superclass": "JointInstance",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "Deprecated"
             ]
         },
         {
@@ -37381,14 +37421,20 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "ManualGlue",
-            "Superclass": "ManualSurfaceJointInstance"
+            "Superclass": "ManualSurfaceJointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "ManualWeld",
-            "Superclass": "ManualSurfaceJointInstance"
+            "Superclass": "ManualSurfaceJointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -37553,14 +37599,20 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "Rotate",
-            "Superclass": "JointInstance"
+            "Superclass": "JointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "Snap",
-            "Superclass": "JointInstance"
+            "Superclass": "JointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -37646,7 +37698,10 @@
             ],
             "MemoryCategory": "PhysicsParts",
             "Name": "Weld",
-            "Superclass": "JointInstance"
+            "Superclass": "JointInstance",
+            "Tags": [
+                "Deprecated"
+            ]
         },
         {
             "Members": [
@@ -66793,6 +66848,28 @@
                     }
                 },
                 {
+                    "Category": "Behavior",
+                    "MemberType": "Property",
+                    "Name": "UsageContextPermission",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "UsageContext"
+                    }
+                },
+                {
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Volume",
@@ -76378,15 +76455,12 @@
                     "Name": "CreateDefaultCommands",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -76399,15 +76473,12 @@
                     "Name": "CreateDefaultTextChannels",
                     "Security": {
                         "Read": "None",
-                        "Write": "None"
+                        "Write": "PluginSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
                         "CanSave": true
                     },
-                    "Tags": [
-                        "NotScriptable"
-                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -84705,7 +84776,8 @@
             "Superclass": "Instance",
             "Tags": [
                 "NotCreatable",
-                "Service"
+                "Service",
+                "NotBrowsable"
             ]
         },
         {
@@ -86693,6 +86765,10 @@
                 {
                     "Name": "DisconnectClientRequest",
                     "Value": 285
+                },
+                {
+                    "Name": "DisconnectOutOfMemory",
+                    "Value": 286
                 },
                 {
                     "Name": "PlacelaunchErrors",
@@ -93604,6 +93680,19 @@
                 }
             ],
             "Name": "UiMessageType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Preview",
+                    "Value": 1
+                }
+            ],
+            "Name": "UsageContext"
         },
         {
             "Items": [

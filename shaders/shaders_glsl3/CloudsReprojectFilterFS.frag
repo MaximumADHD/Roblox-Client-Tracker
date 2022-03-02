@@ -5,7 +5,7 @@
 #include <Params.h>
 #include <Globals.h>
 #include <CBMatrix.h>
-uniform vec4 CB4[1];
+uniform vec4 CB4[2];
 uniform vec4 CB1[8];
 uniform vec4 CB0[53];
 uniform vec4 CB3[4];
@@ -23,7 +23,7 @@ void main()
     vec4 f0 = textureLod(dist, VARYING0, 0.0);
     float f1 = f0.x;
     float f2 = f1 * 500.0;
-    vec2 f3 = CB4[0].zw * (((VARYING0 * CB1[0].xy) * CB4[0].xy) - vec2(1.0));
+    vec2 f3 = (CB4[0].zw * (((VARYING0 * CB1[0].xy) * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     float f4 = f3.x;
     float f5 = f3.y;
     if (normalize(((CB0[4].xyz * f4) + (CB0[5].xyz * f5)) - CB0[6].xyz).y < (-0.5))
@@ -49,7 +49,7 @@ void main()
     f19.y = f17.y;
     vec4 f20 = textureLod(distLastFrame, f19.xy, 0.0);
     float f21 = f20.y * 7.0;
-    vec2 f22 = CB4[0].zw * (((f19.xy * CB1[0].xy) * CB4[0].xy) - vec2(1.0));
+    vec2 f22 = (CB4[0].zw * (((f19.xy * CB1[0].xy) * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     vec3 f23 = normalize(((CB1[1].xyz * f22.x) + (CB1[2].xyz * f22.y)) - CB1[3].xyz);
     vec3 f24 = normalize(vec3(dot(f23, CB0[4].xyz), dot(f23, CB0[5].xyz), -dot(f23, CB0[6].xyz))) * (f20.x * 500.0);
     vec4 f25 = textureLod(oldCloudColor, f19.xy, 0.0);

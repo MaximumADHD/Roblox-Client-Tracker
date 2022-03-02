@@ -98,6 +98,7 @@ Studio.GameSettings.General.AvatarOverridePrompt,Override Player Choice?, ,Overr
 Studio.GameSettings.AccessPermissions.FriendsCollaboratorType,Friends, ,Friends
 Studio.GameSettings.General.PlayabilityFriends,Friends, ,Friends
 Studio.GameSettings.Permissions.FriendsCollaboratorType,Friends, ,Friends
+Studio.GameSettings.General.EnableTeamCreateForCollabEditing,Turn on Team Create to enable Collaborative Editing for scripts, ,Turn on Team Create to enable Collaborative Editing for scripts
 Studio.GameSettings.General.PlayabilityPublicDesc,Anyone on Roblox, ,Anyone on Roblox
 Studio.GameSettings.General.ImageReview,In Review, ,In Review
 Studio.GameSettings.General.PlayabilityGroupDesc,Members of {group}, ,Members of {group}

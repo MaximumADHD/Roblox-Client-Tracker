@@ -1111,6 +1111,10 @@ Microsoft::WRL::RuntimeClass<struct Microsoft::WRL::RuntimeClassFlags<2>,struct 
 Microsoft::WRL::RuntimeClass<struct Microsoft::WRL::RuntimeClassFlags<2>,struct ICoreWebView2NewWindowRequestedEventHandler>
 Microsoft::WRL::RuntimeClass<struct Microsoft::WRL::RuntimeClassFlags<2>,struct ICoreWebView2ProcessFailedEventHandler>
 Microsoft::WRL::RuntimeClass<struct Microsoft::WRL::RuntimeClassFlags<2>,struct ICoreWebView2WebMessageReceivedEventHandler>
+mkvmuxer::AudioTrack
+mkvmuxer::IMkvWriter
+mkvmuxer::Track
+mkvmuxer::VideoTrack
 MockGestureGenerator
 MockLongPressGestureGenerator
 MockSwipeGestureGenerator
@@ -1364,7 +1368,6 @@ QRubberBand
 QRunnable
 QScrollArea
 QScrollBar
-QSettings
 QShortcut
 QSignalMapper
 QSlider
@@ -1490,10 +1493,12 @@ RBX::AssemblyStage
 RBX::AssetCounterService
 RBX::AssetDeliveryProxy
 RBX::AssetFetchMediator
+RBX::AssetImport::AnimationSettings
 RBX::AssetImport::AssetUploadRequest
 RBX::AssetImport::BaseSettings
 RBX::AssetImport::BaseUploadRequest
 RBX::AssetImport::GroupSettings
+RBX::AssetImport::ImporterAnimationSettings
 RBX::AssetImport::ImporterBaseSettings
 RBX::AssetImport::ImporterGroupSettings
 RBX::AssetImport::ImporterJointSettings
@@ -1533,6 +1538,7 @@ RBX::AssetImport::StatusException<struct RBX::AssetImport::Errors::SettingsInsta
 RBX::AssetImport::StatusException<struct RBX::AssetImport::Errors::SettingsNotCreatedError>
 RBX::AssetImport::StatusException<struct RBX::AssetImport::Errors::SettingsTypeMismatchError>
 RBX::AssetImport::TextureSettings
+RBX::AssetImport::UploadAnimationRequest
 RBX::AssetImport::UploadMeshDataRequest
 RBX::AssetImport::UploadMeshPartRequest
 RBX::AssetImport::UploadModelRequest
@@ -1754,6 +1760,7 @@ RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AppUpdateService>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::ArcHandles>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetCounterService>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetDeliveryProxy>
+RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterAnimationSettings>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterGroupSettings>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterJointSettings>
 RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterMaterialSettings>
@@ -2571,6 +2578,7 @@ RBX::Creator<class RBX::Soundscape::SoundGroup>
 RBX::Creator<class RBX::Soundscape::SoundService>
 RBX::Creator<class RBX::Soundscape::Speaker>
 RBX::Creator<class RBX::Soundscape::TremoloSoundEffect>
+RBX::Creator<class RBX::Soundscape::VoiceSource>
 RBX::Creator<class RBX::Sparkles>
 RBX::Creator<class RBX::SpawnLocation>
 RBX::Creator<class RBX::SpecialShape>
@@ -2729,6 +2737,7 @@ RBX::Described<class RBX::AnimationTrack,class RBX::Instance>
 RBX::Described<class RBX::AppStorageService,class RBX::LocalStorageService>
 RBX::Described<class RBX::AssetCounterService,class RBX::ServiceInstance>
 RBX::Described<class RBX::AssetDeliveryProxy,class RBX::ServiceInstance>
+RBX::Described<class RBX::AssetImport::ImporterAnimationSettings,class RBX::AssetImport::ImporterBaseSettings>
 RBX::Described<class RBX::AssetImport::ImporterBaseSettings,class RBX::Instance>
 RBX::Described<class RBX::AssetImport::ImporterGroupSettings,class RBX::AssetImport::ImporterBaseSettings>
 RBX::Described<class RBX::AssetImport::ImporterJointSettings,class RBX::AssetImport::ImporterBaseSettings>
@@ -2876,7 +2885,6 @@ RBX::Described<class RBX::Settings,class RBX::ServiceProvider>
 RBX::Described<class RBX::SolidModelContentProvider,class RBX::CacheableContentProvider>
 RBX::Described<class RBX::Soundscape::CustomDspSoundEffect,class RBX::Soundscape::SoundEffect>
 RBX::Described<class RBX::Soundscape::SoundEffect,class RBX::Instance>
-RBX::Described<class RBX::Soundscape::VoiceSource,class RBX::Instance>
 RBX::Described<class RBX::SpawnerService,class RBX::ServiceInstance>
 RBX::Described<class RBX::StandardPages,class RBX::Pages>
 RBX::Described<class RBX::StarterGuiService,class RBX::BasePlayerGui>
@@ -3201,6 +3209,7 @@ RBX::DescribedCreatable<class RBX::Soundscape::SoundGroup,class RBX::Instance>
 RBX::DescribedCreatable<class RBX::Soundscape::SoundService,class RBX::ServiceInstance>
 RBX::DescribedCreatable<class RBX::Soundscape::Speaker,class RBX::Instance>
 RBX::DescribedCreatable<class RBX::Soundscape::TremoloSoundEffect,class RBX::Soundscape::SoundEffect>
+RBX::DescribedCreatable<class RBX::Soundscape::VoiceSource,class RBX::Instance>
 RBX::DescribedCreatable<class RBX::Sparkles,class RBX::Instance>
 RBX::DescribedCreatable<class RBX::SpawnLocation,class RBX::BasicPartInstance>
 RBX::DescribedCreatable<class RBX::SpecialShape,class RBX::FileMesh>
@@ -3458,6 +3467,7 @@ RBX::Graphics::ContextGLWin32
 RBX::Graphics::CullableSceneNode
 RBX::Graphics::CustomEmitter
 RBX::Graphics::CylinderEmitterShapeSampler
+RBX::Graphics::DebugDeviceVR
 RBX::Graphics::Device
 RBX::Graphics::DeviceContext
 RBX::Graphics::DeviceContextD3D11
@@ -3930,6 +3940,7 @@ RBX::MessageBusService::Connection
 RBX::MessagingService
 RBX::MessagingServiceAnalysisJob
 RBX::MixerClock
+RBX::MkvStreamWriter::MkvStreamWriterImpl
 RBX::MockMarketplaceApiClient
 RBX::ModelInstance
 RBX::ModelMeshJob
@@ -5561,6 +5572,7 @@ RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::SortOrder>
 RBX::Reflection::EnumDesc<enum RBX::UIGridStyleLayout::VerticalAlignment>
 RBX::Reflection::EnumDesc<enum RBX::UIStroke::ApplyStrokeMode>
 RBX::Reflection::EnumDesc<enum RBX::UITableLayout::TableMajorAxis>
+RBX::Reflection::EnumDesc<enum RBX::UsageContext>
 RBX::Reflection::EnumDesc<enum RBX::Vector3::Axis>
 RBX::Reflection::EnumDesc<enum RBX::VirtualInputManager::VirtualInputMode>
 RBX::Reflection::EnumDesc<enum RBX::VoiceChatState>
@@ -5728,6 +5740,7 @@ RBX::Reflection::EnumPropDescriptor<class RBX::ScrollingFrame,enum RBX::Scrollin
 RBX::Reflection::EnumPropDescriptor<class RBX::ScrollingFrame,enum RBX::ScrollingFrame::VerticalScrollBarPosition>
 RBX::Reflection::EnumPropDescriptor<class RBX::SkateboardPlatform,enum RBX::SkateboardPlatform::MoveState>
 RBX::Reflection::EnumPropDescriptor<class RBX::Soundscape::Sound,enum RBX::Soundscape::RollOffMode>
+RBX::Reflection::EnumPropDescriptor<class RBX::Soundscape::Sound,enum RBX::UsageContext>
 RBX::Reflection::EnumPropDescriptor<class RBX::Soundscape::SoundService,enum RBX::Soundscape::ReverbType>
 RBX::Reflection::EnumPropDescriptor<class RBX::Soundscape::Speaker,enum RBX::Soundscape::RollOffMode>
 RBX::Reflection::EnumPropDescriptor<class RBX::SpecialShape,enum RBX::SpecialShape::MeshType>
@@ -7950,6 +7963,7 @@ RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,double>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,double>::GetImpl<double (__cdecl RBX::Soundscape::Sound::*)(void)const __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,double>::GetSetImpl<double (__cdecl RBX::Soundscape::Sound::*)(void)const __ptr64,void (__cdecl RBX::Soundscape::Sound::*)(double) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,enum RBX::Soundscape::RollOffMode>::GetSetImpl<enum RBX::Soundscape::RollOffMode (__cdecl RBX::Soundscape::Sound::*)(void)const __ptr64,void (__cdecl RBX::Soundscape::Sound::*)(enum RBX::Soundscape::RollOffMode) __ptr64>
+RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,enum RBX::UsageContext>::GetSetImpl<enum RBX::UsageContext (__cdecl RBX::Soundscape::Sound::*)(void)const __ptr64,void (__cdecl RBX::Soundscape::Sound::*)(enum RBX::UsageContext) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,float>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,float>::GetSetImpl<float (__cdecl RBX::Soundscape::Sound::*)(void)const __ptr64,void (__cdecl RBX::Soundscape::Sound::*)(float) __ptr64>
 RBX::Reflection::PropDescriptor<class RBX::Soundscape::Sound,int>
@@ -8965,6 +8979,7 @@ RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::SortOrder>
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIGridStyleLayout::VerticalAlignment>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UIStroke::ApplyStrokeMode>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::UITableLayout::TableMajorAxis>::GetSet
+RBX::Reflection::TypedPropertyDescriptor<enum RBX::UsageContext>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::VoiceChatState>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::VRService::UserCFrame>::GetSet
 RBX::Reflection::TypedPropertyDescriptor<enum RBX::Workspace::AnimatorRetargetingMode>::GetSet
@@ -9093,9 +9108,12 @@ RBX::RuntimeScriptService
 RBX::RVideo::RvAudioCodecConfiguration
 RBX::RVideo::RvCodec
 RBX::RVideo::RvCodecConfiguration
+RBX::RVideo::RvFlvFormat
+RBX::RVideo::RvFormat
 RBX::RVideo::RvFrame
 RBX::RVideo::RvPacket
 RBX::RVideo::RvVideoCodecConfiguration
+RBX::RVideo::RvWebmFormat
 RBX::RVideoInternal::AdaptionLogic
 RBX::RVideoInternal::AlwaysBestAdaptionLogic
 RBX::RVideoInternal::AlwaysLowestAdaptionLogic
@@ -9117,6 +9135,7 @@ RBX::ScreenGui
 RBX::Script
 RBX::ScriptChangeService
 RBX::ScriptContext
+RBX::ScriptEditor::ApiDocView
 RBX::ScriptEditor::AutocompleteDocView
 RBX::ScriptEditor::AutocompleteMenu
 RBX::ScriptEditor::AutocompleteMenuItemDelegate
@@ -9155,21 +9174,26 @@ RBX::ScriptEditor::CmdToggleComment
 RBX::ScriptEditor::CmdUnfoldAll
 RBX::ScriptEditor::CmdUnfoldBlock
 RBX::ScriptEditor::CmdUnindentSelection
+RBX::ScriptEditor::CodeSampleView
 RBX::ScriptEditor::ColorPreviewWidget
 RBX::ScriptEditor::CursorFollowingWidget
 RBX::ScriptEditor::DebuggerClientView
 RBX::ScriptEditor::DEPRECATED_ScriptBreakpointsComponent
-RBX::ScriptEditor::DocumentationView
+RBX::ScriptEditor::DEPRECATED_SignatureHelpDocView
+RBX::ScriptEditor::DocTextView
 RBX::ScriptEditor::FoldingIndicatorsComponent
 RBX::ScriptEditor::FuzzyWeightModel<struct RBX::LSP::CompletionItem,class std::tuple<int,bool,int,int,class RBX::StringView> >
 RBX::ScriptEditor::FuzzyWeightModel<struct RBX::LSP::DocumentSymbol,int>
 RBX::ScriptEditor::GotoLineDialog
 RBX::ScriptEditor::HighlightFormatProvider
 RBX::ScriptEditor::HolePunchedLineEdit
+RBX::ScriptEditor::IDocumentationView
 RBX::ScriptEditor::IHostAppServices
 RBX::ScriptEditor::ILearnedWeightProvider
 RBX::ScriptEditor::IPrintableObject
+RBX::ScriptEditor::ISignatureHelpDocView
 RBX::ScriptEditor::LearnedWeightProvider
+RBX::ScriptEditor::LearnMoreLinkLabel
 RBX::ScriptEditor::LineNumberComponent
 RBX::ScriptEditor::LSPClientSettings
 RBX::ScriptEditor::NullLearnedWeightProvider
@@ -9839,8 +9863,8 @@ rtc::RefCountedObject<class webrtc::`anonymous namespace'::CreateSessionDescript
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::IdWithDirection>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedId>
 rtc::RefCountedObject<class webrtc::`anonymous namespace'::TypedIntId>
-rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x3bebb0cc::NotAdvertised<struct webrtc::AudioDecoderL16> > >
-rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x11de43fa::NotAdvertised<struct webrtc::AudioEncoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xde79c30d::NotAdvertised<struct webrtc::AudioDecoderL16> > >
+rtc::RefCountedObject<class webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xf44c303b::NotAdvertised<struct webrtc::AudioEncoderL16> > >
 rtc::RefCountedObject<class webrtc::AudioDeviceModuleImpl>
 rtc::RefCountedObject<class webrtc::AudioMixerImpl>
 rtc::RefCountedObject<class webrtc::AudioProcessingImpl>
@@ -11220,6 +11244,7 @@ std::_Ref_count_obj2<class RBX::AnalyticsProviderDeveloperEventIngest>
 std::_Ref_count_obj2<class RBX::AnalyticsServiceJob>
 std::_Ref_count_obj2<class RBX::AppConfiguration>
 std::_Ref_count_obj2<class RBX::AppStorage>
+std::_Ref_count_obj2<class RBX::AssetImport::AnimationSettings>
 std::_Ref_count_obj2<class RBX::AssetImport::AssetUploadRequestResult>
 std::_Ref_count_obj2<class RBX::AssetImport::GroupSettings>
 std::_Ref_count_obj2<class RBX::AssetImport::ImportManager>
@@ -11266,6 +11291,7 @@ std::_Ref_count_obj2<class RBX::DatetimeHandler>
 std::_Ref_count_obj2<class RBX::DenseHashMap<struct RBX::SignalPair,struct RBX::TouchStateManager,struct RBX::Hash<struct RBX::SignalPair>,struct std::equal_to<struct RBX::SignalPair> > const >
 std::_Ref_count_obj2<class RBX::DEPRECATEDAnalyticsReporter>
 std::_Ref_count_obj2<class RBX::EquationDisplay>
+std::_Ref_count_obj2<class RBX::FACSRigCFrameProvider>
 std::_Ref_count_obj2<class RBX::FixedHandler>
 std::_Ref_count_obj2<class RBX::FocusedPromptData>
 std::_Ref_count_obj2<class RBX::GcJob>
@@ -11342,6 +11368,7 @@ std::_Ref_count_obj2<class RBX::MemProfStorage>
 std::_Ref_count_obj2<class RBX::MemStorageConnection>
 std::_Ref_count_obj2<class RBX::MessagingServiceAnalysisJob>
 std::_Ref_count_obj2<class RBX::MixerClock>
+std::_Ref_count_obj2<class RBX::MkvStreamWriter>
 std::_Ref_count_obj2<class RBX::MockMarketplaceApiClient>
 std::_Ref_count_obj2<class RBX::ModelMeshJob>
 std::_Ref_count_obj2<class RBX::ModuleScript>
@@ -11377,10 +11404,12 @@ std::_Ref_count_obj2<class RBX::RobloxEvent>
 std::_Ref_count_obj2<class RBX::RVideo::RvAudioCodecConfiguration>
 std::_Ref_count_obj2<class RBX::RVideo::RvAudioCodecParameters>
 std::_Ref_count_obj2<class RBX::RVideo::RvByteBuff>
+std::_Ref_count_obj2<class RBX::RVideo::RvFlvFormat>
 std::_Ref_count_obj2<class RBX::RVideo::RvFrame>
 std::_Ref_count_obj2<class RBX::RVideo::RvPacket>
 std::_Ref_count_obj2<class RBX::RVideo::RvVideoCodecConfiguration>
 std::_Ref_count_obj2<class RBX::RVideo::RvVideoCodecParameters>
+std::_Ref_count_obj2<class RBX::RVideo::RvWebmFormat>
 std::_Ref_count_obj2<class RBX::RVideoInternal::AlwaysBestAdaptionLogic>
 std::_Ref_count_obj2<class RBX::RVideoInternal::AlwaysLowestAdaptionLogic>
 std::_Ref_count_obj2<class RBX::RVideoInternal::DeferredMediaSegmentData>
@@ -11553,9 +11582,11 @@ std::_Ref_count_obj2<class std::vector<class std::shared_ptr<class RBX::PartInst
 std::_Ref_count_obj2<class std::vector<class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > >,class std::allocator<class std::shared_ptr<class std::vector<class std::shared_ptr<class RBX::Instance>,class std::allocator<class std::shared_ptr<class RBX::Instance> > > > > > >
 std::_Ref_count_obj2<class std::vector<class std::string const * __ptr64,class std::allocator<class std::string const * __ptr64> > const >
 std::_Ref_count_obj2<class std::vector<class std::string,class std::allocator<class std::string > > >
+std::_Ref_count_obj2<class std::vector<struct RBX::TmpVertex,class std::allocator<struct RBX::TmpVertex> > >
 std::_Ref_count_obj2<class std::vector<struct RBX::UIQuadTree::GuiUpdateStruct,class std::allocator<struct RBX::UIQuadTree::GuiUpdateStruct> > >
 std::_Ref_count_obj2<class std::vector<struct std::pair<class RBX::ContentId,class std::string const & __ptr64 (__cdecl*)(void)>,class std::allocator<struct std::pair<class RBX::ContentId,class std::string const & __ptr64 (__cdecl*)(void)> > > >
 std::_Ref_count_obj2<class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > >
+std::_Ref_count_obj2<class std::vector<unsigned int,class std::allocator<unsigned int> > >
 std::_Ref_count_obj2<class Studio::AliasCollisionSolver>
 std::_Ref_count_obj2<class StudioHttpRequestQtContext>
 std::_Ref_count_obj2<class StudioLocalSaveHelper>
@@ -11748,6 +11779,7 @@ std::_Ref_count_resource<class RBX::AppUpdateService * __ptr64,class RBX::Creata
 std::_Ref_count_resource<class RBX::ArcHandles * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::ArcHandles> >
 std::_Ref_count_resource<class RBX::AssetCounterService * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetCounterService> >
 std::_Ref_count_resource<class RBX::AssetDeliveryProxy * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetDeliveryProxy> >
+std::_Ref_count_resource<class RBX::AssetImport::ImporterAnimationSettings * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterAnimationSettings> >
 std::_Ref_count_resource<class RBX::AssetImport::ImporterGroupSettings * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterGroupSettings> >
 std::_Ref_count_resource<class RBX::AssetImport::ImporterJointSettings * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterJointSettings> >
 std::_Ref_count_resource<class RBX::AssetImport::ImporterMaterialSettings * __ptr64,class RBX::Creatable<class RBX::Instance>::Deleter<class RBX::AssetImport::ImporterMaterialSettings> >
@@ -12462,6 +12494,7 @@ std::_Ref_count<class RBX::LuaScriptFileDesc>
 std::_Ref_count<class RBX::MarkerCurveStorage>
 std::_Ref_count<class RBX::MarketplaceApiClient>
 std::_Ref_count<class RBX::MessageBus>
+std::_Ref_count<class RBX::MkvStreamWriter::MkvStreamWriterImpl>
 std::_Ref_count<class RBX::ModelMeshComputer>
 std::_Ref_count<class RBX::Motion::Skeleton>
 std::_Ref_count<class RBX::NavigationDebugDraw>
@@ -12786,7 +12819,6 @@ StudioRPCHandlerPrivate
 StudioRPCServices
 StudioScriptEditor
 StudioScriptingAnalysisWidget
-StudioSettings
 StudioSettingsWrapper
 StudioTaskAnalyticsTracker
 StudioTranslator
@@ -13013,8 +13045,8 @@ webrtc::AcknowledgedBitrateEstimatorInterface
 webrtc::AdaptiveModeLevelEstimatorAgc
 webrtc::Agc
 webrtc::AsyncResolverFactory
-webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0x3bebb0cc::NotAdvertised<struct webrtc::AudioDecoderL16> >
-webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0x11de43fa::NotAdvertised<struct webrtc::AudioEncoderL16> >
+webrtc::audio_decoder_factory_template_impl::AudioDecoderFactoryT<struct webrtc::AudioDecoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioDecoderMultiChannelOpus>,struct webrtc::AudioDecoderIsacFix,struct webrtc::AudioDecoderG722,struct webrtc::AudioDecoderIlbc,struct webrtc::AudioDecoderG711,struct webrtc::A0xde79c30d::NotAdvertised<struct webrtc::AudioDecoderL16> >
+webrtc::audio_encoder_factory_template_impl::AudioEncoderFactoryT<struct webrtc::AudioEncoderOpus,struct webrtc::`anonymous namespace'::NotAdvertised<struct webrtc::AudioEncoderMultiChannelOpus>,struct webrtc::AudioEncoderIsacFix,struct webrtc::AudioEncoderG722,struct webrtc::AudioEncoderIlbc,struct webrtc::AudioEncoderG711,struct webrtc::A0xf44c303b::NotAdvertised<struct webrtc::AudioEncoderL16> >
 webrtc::AudioBuffer
 webrtc::AudioCodingModule
 webrtc::AudioConverter

@@ -3,13 +3,13 @@
 #extension GL_ARB_shading_language_include : require
 #include <RayFrame.h>
 #include <Globals.h>
-uniform vec4 CB4[1];
+uniform vec4 CB4[2];
 uniform vec4 CB0[53];
 out vec2 _entryPointOutput;
 
 void main()
 {
-    vec2 f0 = CB4[0].zw * ((gl_FragCoord.xy * CB4[0].xy) - vec2(1.0));
+    vec2 f0 = (CB4[0].zw * ((gl_FragCoord.xy * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     vec3 f1 = normalize(((CB0[4].xyz * f0.x) + (CB0[5].xyz * f0.y)) - CB0[6].xyz);
     vec3 f2 = CB0[7].xyz * 0.00028000000747852027416229248046875;
     vec3 f3 = f2;

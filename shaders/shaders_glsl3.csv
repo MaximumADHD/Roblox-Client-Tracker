@@ -244,10 +244,13 @@ GrassFS,Fragment
 GrassHQFS,Fragment
 GrassHQFSShadowed,Fragment
 GrassHQVS,Vertex
+GrassHQVSDepth,Vertex
 GrassHQVSShadowed,Vertex
 GrassHQVSWind,Vertex
+GrassHQVSWindDepth,Vertex
 GrassHQVSWindShadowed,Vertex
 GrassVS,Vertex
+GrassVSDepth,Vertex
 GridFS_Level0,Fragment
 GridFS_Level8,Fragment
 GridVS_Level0,Vertex

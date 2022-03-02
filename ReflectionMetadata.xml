@@ -3769,6 +3769,14 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">VoiceChatInternal</string>
+        <string name="Insertable">false</string>
+        <string name="Browsable">false</string>
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">VoiceChatService</string>
         <string name="ExplorerOrder">520</string>
         <string name="ExplorerImageIndex">136</string>

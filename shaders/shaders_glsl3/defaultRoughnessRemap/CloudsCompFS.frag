@@ -5,7 +5,7 @@
 #include <RayFrame.h>
 #include <CompParams.h>
 uniform vec4 CB0[53];
-uniform vec4 CB4[1];
+uniform vec4 CB4[2];
 uniform vec4 CB2[1];
 uniform sampler2D CloudsTexture;
 
@@ -14,7 +14,7 @@ out vec4 _entryPointOutput_color;
 void main()
 {
     vec2 f0 = gl_FragCoord.xy * 0.5;
-    vec2 f1 = CB4[0].zw * ((f0 * CB4[0].xy) - vec2(1.0));
+    vec2 f1 = (CB4[0].zw * ((f0 * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     if (normalize(((CB0[4].xyz * f1.x) + (CB0[5].xyz * f1.y)) - CB0[6].xyz).y < (-0.00999999977648258209228515625))
     {
         discard;

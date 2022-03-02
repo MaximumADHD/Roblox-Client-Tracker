@@ -19,26 +19,26 @@ Studio.Toolbox.General.CategoryDecals,Images,Bilder,Images,Imágenes,Images,画�
 Studio.Toolbox.General.AssetTypeAudio,Audio, ,Audio,Audio,Audio,オーディオ,오디오,Áudio,Звук,音频,音频,語音
 Studio.Toolbox.General.CategoryAudio,Audio,Audiodateien,Audio,Audio,Sons,オーディオ,오디오,Áudios,Звук,音频,音频,語音
 Studio.Toolbox.General.CategoryCreationsAudio,Audio, ,Audio,Audio,Audio,オーディオ,오디오,Áudio,Звук,音频,音频,語音
-Studio.Toolbox.Subcategory.Audio,Audio, ,Audio, , , , , , , , , 
+Studio.Toolbox.Subcategory.Audio,Audio, ,Audio,Audio, ,オーディオ,오디오,Áudio, , , ,音訊
 Studio.Toolbox.General.CategoryMyDecals,My Images,Meine Bilder,My Images,Mis imágenes,Mes images,マイ画像,내 이미지,Minhas imagens,Мои изображения,我的图片,我的图片,我的圖像
 Studio.Toolbox.General.Ownership,Creator, ,Creator,Creador,Créateur,クリエーター,크리에이터,Criador,Автор,创建者,创建者,創作者
 Studio.Toolbox.General.SearchOptionCreator,Creator,Ersteller,Creator,Creador,Créateur,クリエーター,크리에이터,Criador,Автор,创建者,创建者,創作者
 Studio.Toolbox.General.CategoryMyModels,My Models,Meine Modelle,My Models,Mis modelos,Mes modèles,マイモデル,내 모델,Meus modelos,Мои модели,我的模型,我的模型,我的模型
-Studio.Toolbox.Subcategory.AudioMusicCorporate,Corporate, ,Corporate, , , , , , , , , 
+Studio.Toolbox.Subcategory.AudioMusicCorporate,Corporate, ,Corporate,Empresarial, , ,코퍼레이트,Corporativo, , , ,企業
 Studio.Toolbox.General.CategoryMyMeshes,My Meshes,Meine Meshes,My Meshes,Mis mallas,Mes maillages,マイメッシュ,내 메시,Minhas malhas,Мои сетки,我的网格,我的网格,我的網格
 Studio.Toolbox.General.CategoryGroupPackages,Group Packages,Gruppen-Pakete,Group Packages,Paquetes del grupo,Packages du groupe,グループパッケージ,그룹 패키지,Agrupar pacotes,Пакеты группы,群组包,群组包,組合套件
-Studio.Toolbox.Subcategory.AudioMusicEthnicPop,Ethnic Pop, ,Ethnic Pop, , , , , , , , , 
+Studio.Toolbox.Subcategory.AudioMusicEthnicPop,Ethnic Pop, ,Ethnic Pop,Pop étnico, ,エスニックポップ,에스닉 팝,Pop étnico, , , ,民族流行
 Studio.Toolbox.General.SearchTagLength,length:, ,length:,duración:,longueur :,長さ：,길이:,duração:, ,长度：,长度：,長度：
 Studio.Toolbox.General.CategoryMyAudio,My Audio,Meine Audiodateien,My Audio,Mi audio,Mes sons,マイオーディオ,내 오디오,Meus áudios,Мой звук,我的音频,我的音频,我的語音
 Studio.Toolbox.General.CategoryMyPackages,My Packages,Meine Pakete,My Packages,Mis paquetes,Mes packages,マイパッケージ,내 패키지,Meus pacotes,Мои пакеты,我的包,我的包,我的套件
-Studio.Toolbox.Subcategory.AudioMusicMarchesMilitary,Marches Military, ,Marches Military, , , , , , , , , 
+Studio.Toolbox.Subcategory.AudioMusicMarchesMilitary,Marches Military, ,Marches Military,Marcha militar, ,行進曲とミリタリー,군대 행진곡,Marchas militares, , , ,進行曲
 Studio.Toolbox.General.SideTabSales,Sales, ,Sales,Ventas,Ventes,セール,판매,Vendas,Распродажи,销售,销售,買賣
 Studio.Toolbox.General.CategoryMyPlugins,My Plugins,Meine Plug-ins,My Plugins,Mis plugins,Mes plugins,マイプラグイン,내 플러그인,Meus plugins,Мои плагины,我的插件,我的插件,我的外掛程式
 Studio.Toolbox.General.SortByText,Sort by:,Sortieren nach:,Sort by:,Ordenar por:,Trier par :,並べ替え順:,정렬 기준:,Ordenar por:,Сортировка:,排序方式:,排序方式:,排序方式：
 Studio.Toolbox.General.CategoryRecentModels,Recent Models,Zuletzt verwendete Modelle,Recent Models,Modelos recientes,Modèles récents,最近のモデル,최근 모델,Modelos recentes,Недавние модели,最近使用的模型,最近使用的模型,近期使用的模型
 Studio.Toolbox.General.CategoryRecentAudio,Recent Audio,Zuletzt verwendete Audiodateien,Recent Audio,Audio reciente,Sons récents,最近のオーディオ,최근 오디오,Áudios recentes,Недавние звукозаписи,最近使用的音频,最近使用的音频,近期使用的語音
-Studio.Toolbox.Subcategory.AudioMusicRock,Rock, ,Rock, , , , , , , , , 
-Studio.Toolbox.Subcategory.ModelLandscapeRock,Rock, ,Rock, , , , , , , , , 
+Studio.Toolbox.Subcategory.AudioMusicRock,Rock, ,Rock,Rock, ,ロック,록,Rock, , , ,搖滾
+Studio.Toolbox.Subcategory.ModelLandscapeRock,Rock, ,Rock,Piedra, ,岩,바위,Rocha, , , ,岩石
 Studio.Toolbox.Common.Update,Update, ,Update,Actualizar,Mise à jour,アップデート,업데이트,Atualizar, ,更新,更新,更新
 Studio.Toolbox.General.CategoryRecentDecals,Recent Images,Zuletzt verwendete Bilder,Recent Images,Imágenes recientes,Images récentes,最近の画像,최근 이미지,Imagens recentes,Недавние изображения,最近使用的图片,最近使用的图片,近期使用的圖像
 Studio.Toolbox.General.CategoryRecentMeshes,Recent Meshes,Zuletzt verwendete Meshes,Recent Meshes,Mallas recientes,Maillages récents,最近のメッシュ,최근 메시,Malhas recentes,Недавние сетки,最近使用的网格,最近使用的网格,近期使用的網格
@@ -54,9 +54,9 @@ Gebäude,Building,Edificio,Bâtiment,ビル,건물,Construção,Постройк
 Gruppen-Meshes,Group Meshes,Mallas del grupo,Maillages du groupe,グループメッシュ,그룹 메시,Agrupar malhas,Сетки группы,群组网格,群组网格,組合網格,Studio.Toolbox.General.TabRecent,Recent
 Aktuelle,Recent,Reciente,Récents,最近のもの,최근,Recentes,Недавние,最近,最近,近期使用,Studio.Toolbox.General.SearchOptionSort,Sort By
 Sortieren nach,Sort By,Ordenar por,Trier par,並べ替え順,정렬 기준,Ordenar por,Сортировка:,排序方式,排序方式,排序方式,Studio.Toolbox.Subcategory.AudioMusicEasyListening,Easy Listening
- ,Easy Listening, , , , , , , , , ,Studio.Toolbox.General.CategoryGroupAudio,Group Audio
+ ,Easy Listening,Música fácil de escuchar, ,イージーリスニング,이지 리스닝,Música suave, , , ,輕音樂,Studio.Toolbox.General.CategoryGroupAudio,Group Audio
 Gruppen-Audiodateien,Group Audio,Audio del grupo,Sons du groupe,グループオーディオ,그룹 오디오,Agrupar áudios,Звукозаписи группы,群组音频,群组音频,組合音效,Studio.Toolbox.Subcategory.AudioMusicWorldBeat,World Beat
- ,World Beat, , , , , , , , , ,Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.
+ ,World Beat,World Beat, ,ワールドビート,월드 비트,World Beat, , , ,世界,Studio.Toolbox.AssetConfigFooter.ImportTitle,Choose an asset to import.
  ,Choose an asset to import.,Elige un recurso para importar.,Choisir un objet à importer.,インポートするアセットを選ぶ。,가져올 애셋을 선택하세요.,Escolha um recurso para importar., ,请选择要导入的素材。,请选择要导入的素材。,選擇要匯入的素材。,Studio.Toolbox.General.SortByMostTaken,Most Taken
 Am häufigsten verwendet,Most Taken,Más populares,Populaires,一番人気,사용 횟수,Mais populares,Использование,最多采用,最多采用,最常採用,Studio.Toolbox.General.SearchBarDefaultText,Search
 Suchen,Search,Buscar,Rechercher,検索,검색,Pesquisar,Поиск,搜索,搜索,搜尋,Studio.Toolbox.General.AssetTypePlugin,Plugin
@@ -68,7 +68,7 @@ Suchen nach:,Try searching for:,Intenta buscar:,Essayez de rechercher :,以下�
  ,Group Hair,Pelo del grupo,Cheveux du groupe,グループの髪,그룹 헤어,Cabelos de grupo, ,群组发型,群组发型,群組髮型,Studio.Toolbox.General.SuggestionsNPC,NPC
 NSC,NPC,PNJ,PNJ,NPC,NPC,NPC,НИП,NPC,NPC,NPC,Studio.Toolbox.General.SuggestionsVehicle,Vehicle
 Fahrzeug,Vehicle,Vehículo,Véhicule,車,차량,Veículo,Транспорт,车辆,车辆,載具,Studio.Toolbox.Subcategory.ModelVehicle,Vehicle
- ,Vehicle, , , , , , , , , ,Studio.Toolbox.General.AssetTypePants,Pants
+ ,Vehicle,Vehículo, ,乗り物,탈것,Veículo, , , ,交通工具,Studio.Toolbox.General.AssetTypePants,Pants
  ,Pants,Pantalones,Pantalons,パンツ,바지,Calça,Брюки,裤子,裤子,褲子,Studio.Toolbox.General.CategoryCreationsPants,Pants
 Hosen,Pants,Pantalones,Pantalons,パンツ,바지,Calças,Брюки,裤子,裤子,褲子,Studio.Toolbox.General.SuggestionsWeapon,Weapon
 Waffe,Weapon,Arma,Arme,武器,무기,Arma,Оружие,武器,武器,武器,Studio.Toolbox.General.CategoryCreationsTeeShirts,T-Shirts
@@ -76,8 +76,8 @@ Waffe,Weapon,Arma,Arme,武器,무기,Arma,Оружие,武器,武器,武器,Stud
  ,OK,Aceptar,OK,OK,확인,OK, ,确认,确认,確定,Studio.Toolbox.Purchase.BuyPrompt,Would you like to buy "{name}" from {creator} for {robux:int} Robux?
  ,Would you like to buy "{name}" from {creator} for {robux:int} Robux?,¿Quieres comprar "{name}" de {creator} por {robux:int} Robux?,Voudrais-tu acheter {name} de {creator} pour {robux:int} Robux ?,{creator} さんから {robux:int} Robuxで「{name}」を買いますか？,{creator}에게 "{name}"을(를) {robux:int} Robux에 구매할까요?,Gostaria de comprar "{name}" de {creator} por {robux:int} Robux?,"\"{name}\", автор {creator}: купить для {robux:int} Robux?",你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?,你要以 {robux:int} Robux 从 {creator} 处购买 "{name}" 吗?,您要向 {creator} 以 {robux:int} Robux 購買「{name}」嗎？,Studio.Toolbox.General.SuggestionsLight,Light
 Licht,Light,Luz,Lumière,照明,조명,Luz,Свет,光,光,燈光,Studio.Toolbox.Subcategory.ModelLight,Light
- ,Light, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureToilet,Toilet
- ,Toilet, , , , , , , , , ,Studio.Toolbox.General.SortByRelevance,Relevance
+ ,Light,Luz, ,照明,조명,Luz, , , ,燈光,Studio.Toolbox.Subcategory.ModelFurnitureToilet,Toilet
+ ,Toilet,Baño, ,トイレ,변기,Banheiro, , , ,廁所,Studio.Toolbox.General.SortByRelevance,Relevance
 Relevanz,Relevance,Relevancia,Pertinence,関連性,관련성,Relevância,Актуальность,关联,关联,相關性,Studio.Toolbox.General.CategoryCreationsShirts,Shirts
  ,Shirts,Camisas,Chemises,シャツ,셔츠,Camisas,Рубашки,上衣,上衣,上衣,Studio.Toolbox.General.SortByUpdated,Updated
 Aktualisiert,Updated,Actualizado,Mis à jour,アップデート済み,업데이트,Atualizado,Обновление выполнено,已更新,已更新,更新時間,Studio.Toolbox.General.AssetTypeHairAccessory,Hair
@@ -89,11 +89,11 @@ Bewertungen,Ratings,Calificaciones,Notes,評価,평가,Avaliações,Рейтин
  ,Save as a new asset...,Guardar como nuevo recurso...,Sauvegarder un nouvel élément...,新規アセットとして保存...,새로운 애셋으로 저장...,Salvar como novo recurso...,Сохранить как новый ресурс...,另存为新素材...,另存为新素材...,以新素材儲存……,Studio.Toolbox.General.SalesServiceFee,Service fee will be collected upon sale
  ,Service fee will be collected upon sale,La cuota de servicio se cobrará al momento de la venta,Des frais de service seront perçus lors de la vente,手数料は販売時に回収されます,판매 시 서비스 수수료가 징수됩니다,A taxa de serviço será deduzida durante a venda,При продаже взимается сервисный сбор,将在销售时收取手续费,将在销售时收取手续费,服務費將會在買賣完成時收取。,Studio.Toolbox.General.CategoryCreationsCatalogSectionDivider,Avatar assets
  ,Avatar assets,Recursos para el avatar,Éléments avatars,アバターアセット,아바타 애셋,Recursos de avatar,Ресурсы аватара,虚拟形象素材,虚拟形象素材,虛擬人偶素材,Studio.Toolbox.Subcategory.AudioMusicAtmosphere,Atmosphere
- ,Atmosphere, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelVehiclePlane,Plane
- ,Plane, , , , , , , , , ,Studio.Toolbox.General.VotingVoteText,vote
+ ,Atmosphere,Atmósfera, ,ムード音楽,애트모스피어,Ambiente, , , ,氣氛,Studio.Toolbox.Subcategory.ModelVehiclePlane,Plane
+ ,Plane,Avión, ,飛行機,비행기,Avião, , , ,飛機,Studio.Toolbox.General.VotingVoteText,vote
 abstimmen,vote,voto,vote,投票,표,voto,голос,票,票,票,Studio.Toolbox.General.VotingVotesText,votes
 Stimmen,votes,votos,votes,投票,표,votos,голоса,票,票,票,Studio.Toolbox.Subcategory.ModelWeaponsGun,Gun
- ,Gun, , , , , , , , , ,Studio.Toolbox.General.FooterBGText,Background:
+ ,Gun,Pistola, ,銃,총,Arma, , , ,槍,Studio.Toolbox.General.FooterBGText,Background:
 Hintergrund:,Background:,Fondo:,Arrière-plan :,背景:,배경:,Fundo:,Фон:,背景:,背景:,背景：,Studio.Toolbox.General.FooterButtonBlackName,Black
 Schwarz,Black,Negro,Noir,黒,검은색,Preto,Черный,黑色,黑色,黑,Studio.Toolbox.General.SearchOptionsCancel,Cancel
 Abbrechen,Cancel,Cancelar,Annuler,キャンセル,취소,Cancelar,Отмена,取消,取消,取消,Studio.Toolbox.Purchase.Cancel,Cancel
@@ -101,10 +101,10 @@ Abbrechen,Cancel,Cancelar,Annuler,キャンセル,취소,Cancelar,Отмена,�
  ,Pants Accessories,Accesorios para pantalones,Accessoires pantalons,ズボン用アクセサリ,바지 장신구,Acessórios de calça, ,裤子配件,裤子配件,褲子飾品,Studio.Toolbox.Purchase.FailedDetails,Purchase of "{name}" failed.
  ,Purchase of "{name}" failed.,Error en la compra de "{name}",L'achat de {name} a échoué.,「{name}」を購入できませんでした。,"{name}" 구매에 실패했습니다.,Falha ao comprar "{name}".,"{name}": покупка не совершена.,购买 "{name}" 失败。,购买 "{name}" 失败。,購買「{name}」失敗。,Studio.Toolbox.General.SearchOptionsApply,Apply
 Anwenden,Apply,Aplicar,Appliquer,適用,적용,Aplicar,Применить,应用,应用,套用,Studio.Toolbox.Subcategory.ModelVehicleBoat,Boat
- ,Boat, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureTownhouse,Townhouse
- ,Townhouse, , , , , , , , , ,Studio.Toolbox.General.FooterButtonNoneName,None
+ ,Boat,Barco, ,ボート,배,Barco, , , ,船,Studio.Toolbox.Subcategory.ModelStructureTownhouse,Townhouse
+ ,Townhouse,Casa adosada, ,タウンハウス,타운하우스,Condomínio, , , ,獨棟屋,Studio.Toolbox.General.FooterButtonNoneName,None
 Keiner,None,Ninguno,Aucun,なし,없음,Nenhum,Нет,无,无,無,Studio.Toolbox.Subcategory.AudioMusicHipHopUrban,Hip Hop & Urban
- ,Hip Hop & Urban, , , , , , , , , ,Studio.Toolbox.ScriptWarning.DetailText,{assetName} includes {numScripts:int} script(s).
+ ,Hip Hop & Urban,Hip Hop y urbano, ,ヒップホップとアーバン,힙합 및 어번,Hip hop e urbano, , , ,嘻哈和都市,Studio.Toolbox.ScriptWarning.DetailText,{assetName} includes {numScripts:int} script(s).
  ,{assetName} includes {numScripts:int} script(s).,{assetName} incluye {numScripts:int} script(s)., ,{assetName} には {numScripts:int} 個のスクリプトが含まれています。,{assetName}에는 {numScripts:int} 스크립트가 포함되어 있습니다.,{assetName} inclui {numScripts:int} script(s)., ,{assetName} 包含 {numScripts:int} 个脚本。,{assetName} 包含 {numScripts:int} 个脚本。,{assetName} 包括 {numScripts:int} 個指令碼。,Studio.Toolbox.General.SearchResults,Search Results
 Suchergebnisse,Search Results,Resultados de la búsqueda,Résultats de la recherche,検索結果,검색 결과,Pesquisar nos resultados,Результаты поиска,搜索结果,搜索结果,搜尋結果,Studio.Toolbox.General.CategoryCreationsHats,Hats
 Hüte,Hats,Sombreros,Chapeaux,帽子,모자,Chapéus,Головные уборы,帽子,帽子,帽子,Studio.Toolbox.AssetConfigCopy.AccountSetting,"In order to share content in Marketplace, you must add & verify an email address to your account. This can be done in Account Settings."
@@ -116,7 +116,7 @@ by:,von:,by:,de:,par :,作:,제작:,de:,параметр:,作者:,作者:,來�
 Copy Texture ID, ,Copy Texture ID,Copiar ID de la textura, ,テクスチャIDをコピー,텍스처 ID 복사,Copiar ID da textura, ,复制纹理 ID,复制纹理 ID,複製紋理 ID,Studio.Toolbox.General.TabMarketplace
 Marketplace,Marktplatz,Marketplace,Mercado,Marché,マーケットプレース,마켓플레이스,Mercado,Магазин,商店,商店,市集,Studio.Toolbox.General.TabInventory
 Inventory,Inventar,Inventory,Inventario,Inventaire,インベントリ,인벤토리,Inventário,Снаряжение,背包,背包,物品庫,Studio.Toolbox.Subcategory.ModelWeaponsBat
-Bat, ,Bat, , , , , , , , , ,Studio.Toolbox.General.CategoryCreationsNeckAccessory
+Bat, ,Bat,Bate, ,バット,방망이,Bastão, , , ,棍棒,Studio.Toolbox.General.CategoryCreationsNeckAccessory
 Neck Accessories,Hals-Accessoires,Neck Accessories,Accesorios para el cuello,Accessoires cou,首用アクセサリ,목 장신구,Acessórios de pescoço,Шея: аксесссуары,颈部配件,颈部配件,頸部飾品,Studio.Toolbox.General.PremiumBenefits
 Add Premium benefits, ,Add Premium benefits,Añadir beneficios Premium,Ajouter les avantages Premium,Premiumを追加,Premium 혜택 추가,Adicionar benefícios Premium, ,添加 Premium 特权,添加 Premium 特权,增加 Premium 福利,Studio.Toolbox.AssetConfigUpload.IDCopied
 ID Copied!, ,ID Copied!,¡ID copiado!,Identifiant copié !,IDをコピー済み！,ID 복사 완료!,ID copiada!, ,ID 已复制！,ID 已复制！,ID 已複製！,Studio.Toolbox.General.CategoryCreationsShoulderAccessory
@@ -145,7 +145,7 @@ Off Sale,Fuera de venta,Hors vente,非売品,판매 종료,Não está à venda,�
 Offsale,Fuera de venta,Hors vente,非売品,판매 종료,Não está à venda,Не в продаже,下架,下架,下架,Studio.Toolbox.General.StatusUnknown,Unknown, 
 Unknown,Desconocido,Inconnu,不明,알 수 없음,Desconhecido,Неизвестно,未知,未知,未知,Studio.Toolbox.General.AssetTypeModel,Model, 
 Model,Modelo,Modèle,モデル,모델,Modelo,Модель,模型,模型,模型,Studio.Toolbox.Subcategory.Model,Model, 
-Model, , , , , , , , , ,Studio.Toolbox.General.AssetTypeDecal,Decal, 
+Model,Modelo, ,モデル,모델,Modelo, , , ,模型,Studio.Toolbox.General.AssetTypeDecal,Decal, 
 Decal,Adhesivo,Autocollant,デカール,데칼,Adesivo,Деколь,贴花,贴花,貼花,Studio.Toolbox.General.AssetTypeShortsAccessory,Shorts Accessory, 
 Shorts Accessory,Accesorio para pantalones cortos,Accessoire short,短パン用アクセサリ,반바지 장신구,Acessório de short, ,短裤配件,短裤配件,短褲飾品,Studio.Toolbox.ThumbnailStatus.Pending,Pending, 
 Pending,Pendiente,En attente,保留中,보류 중,Pendente,Ожидание,处理中,处理中,待處理,Studio.Toolbox.General.AssetTypeMesh,Mesh, 
@@ -162,7 +162,7 @@ Front Accessory,Accesorio frontal,Accessoire devant,正面用アクセサリ,가
 Back Accessory,Accesorio trasero,Accessoire dos,背面用アクセサリ,등 장신구,Acessório das costas,Спина: аксессуары,背面配件,背面配件,背部飾品,Studio.Toolbox.General.CategoryCreationsGroupNeckAccessory,Group Neck Accessories, 
 Group Neck Accessories,Accesorios para el cuello del grupo,Accessoires pour le cou du groupe,グループの首用アクセサリ,그룹 목 장신구,Acessórios de pescoço de grupo, ,群组颈部配件,群组颈部配件,群組頸部飾品,Studio.Toolbox.General.AssetTypeWaistAccessory,Waist Accessory, 
 Waist Accessory,Accesorio para la cintura,Accessoire taille,腰用アクセサリ,허리 장신구,Acessório de cintura,Пояс: аксессуары,腰部配件,腰部配件,腰部飾品,Studio.Toolbox.Subcategory.AudioMusicClassical,Classical, 
-Classical, , , , , , , , , ,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, 
+Classical,Clásica, ,クラシック,클래식,Clássico, , , ,古典,Studio.Toolbox.General.DiscardMessage,Would you like to discard all changes?, 
 Would you like to discard all changes?,¿Quieres descartar todos los cambios?,Souhaites-tu renoncer à tous les changements ?,すべての変更を破棄しますか。,모든 변경 사항을 제거할까요?,Deseja descartar todas as alterações?,Отменить все изменения?,你要放弃所有更改吗?,你要放弃所有更改吗?,確定捨棄所有變更？,Studio.Toolbox.General.Discard,Discard, 
 Discard,Descartar,Renoncer,破棄,제거,Descartar,Сбросить,放弃,放弃,捨棄,Studio.Toolbox.General.NoPluginsFound.TextLine1,Can’t find what you’re looking for?, 
 Can’t find what you’re looking for?,¿No encuentras lo que buscas?,Tu ne trouves pas ce que tu cherches ?,探しているものが見つからない場合,항목을 찾을 수 없나요?,Não consegue encontrar o que estava procurando?, ,未能搜索到相关内容？,未能搜索到相关内容？,找不到您要的東西嗎？,Studio.Toolbox.General.Description,Description, 
@@ -170,7 +170,7 @@ Description,Descripción,Description,詳細,설명,Descrição,Описание,
 Title,Título,Titre,題名,제목,Título,Название,标题,标题,名稱,Studio.Toolbox.General.Tags,Tags, 
 Tags,Etiquetas,Tags,タグ,태그,Etiquetas,Теги,标签,标签,標籤,Studio.Toolbox.General.Genre,Genre, 
 Genre,Género,Genre,ジャンル,장르,Gênero,Жанр,主题,主题,類別,Studio.Toolbox.Subcategory.AudioMusicDanceTraditional,Dance Traditional, 
-Dance Traditional, , , , , , , , , ,Studio.Toolbox.General.Copy,Allow Copying, 
+Dance Traditional,Baile tradicional, ,フォークダンス,댄스 트래디셔널,Dance tradicional, , , ,傳統舞蹈,Studio.Toolbox.General.Copy,Allow Copying, 
 Allow Copying,Permitir hacer una copia,Autoriser la copie,コピーを許可,복사 허용,Permitir cópia,Разрешить копирование,允许复制,允许复制,允許複製,Studio.Toolbox.General.Comments,Allow Comments, 
 Allow Comments,Permitir comentarios,Permettre les commentaires,コメントを許可,코멘트 허용,Permitir comentário,Разрешить комментарии,允许评论,允许评论,允許留言,Studio.Toolbox.General.LearnMore,Learn more, 
 Learn more,Aprende más,En apprendre plus,もっと詳しく,더 알아보기,Saiba mais,Подробнее,了解更多,了解更多,了解更多,Studio.Toolbox.General.Me,Me, 
@@ -192,7 +192,7 @@ Asset ID: {assetId},ID del recurso: {assetId},Identifiant élément : {assetId},
 Status: {assetStatus},Estado: {assetStatus},Status : {assetStatus},状況: {assetStatus},상태: {assetStatus},Estado: {assetStatus},Статус: {assetStatus},状态: {assetStatus},状态: {assetStatus},狀態：{assetStatus},Studio.Toolbox.General.InstallSuccess,Success!, 
 Success!,¡Hecho!,Succès !,成功！,성공!,Sucesso!,Успешно!,成功!,成功!,成功！,Studio.Toolbox.General.InstallFailure,Failure, 
 Failure,Error,Échec,失敗,실패,Erro,Ошибка,失败,失败,失敗,Studio.Toolbox.Subcategory.ModelStructureTreehouse,Treehouse, 
-Treehouse, , , , , , , , , ,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., 
+Treehouse,Casa del árbol, ,ツリーハウス,트리하우스,Casa na árvore, , , ,樹屋,Studio.Toolbox.AssetConfigFooter.OverrideTitle,Choose an existing model to overwrite., 
 Choose an existing model to overwrite.,Elegir un modelo existente para reemplazarlo.,Choisir un modèle existant à remplacer.,上書きする現在のモデルを選ぶ。,덮어쓸 기존 모델을 선택하세요.,Escolher um modelo existente para substituir.,Выберите существующую модель для перезаписи.,选择要覆盖的现有模型。,选择要覆盖的现有模型。,選擇要覆寫的既有素材。,Studio.Toolbox.AssetConfigAnimation.AnimationID,Animation ID, 
 Animation ID,ID de la animación,Identifiant ID,アニメーションID,애니메이션 ID,ID de animação, ,动画 ID,动画 ID,動畫 ID,Studio.Toolbox.AssetConfigCopy.Terms,"By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.", 
 "By switching on, you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right, please do not check this box. For more information about sharing content, please review the Roblox Terms of Use.","Al activar esta casilla, le otorgarás a todos los usuarios de Roblox el derecho a usar (de varias maneras) el contenido que compartes. Si no quieres otorgarlo, no la actives. Para obtener más información sobre cómo se comparte el contenido, revisa los Términos de uso de Roblox.","En activant Roblox, tu accordes à tous les autres utilisateurs le droit d'utiliser (de diverses manières) le contenu que tu partages actuellement. Si tu ne souhaites pas accorder ce droit, ne coche pas cette case. Pour plus d'informations sur le partage de contenu, consulte les conditions d'utilisation de Roblox.",オンにすることで、現在、共有しようとしているコンテンツの使用権（さまざまな方法で）をRobloxのすべてのユーザーに与えています。もし、この権利を与えたくない場合は、このボックスにチェックマークをつけないでください。コンテンツの共有に関する詳しい情報は、Robloxの利用規約をご覧ください。,활성화하면 Roblox의 다른 모든 사용자들에게 현재 공유하고 있는 콘텐츠를 다양한 방식으로 사용할 수 있는 권한을 부여합니다. 이러한 권한을 부여하지 않으려면 이 확인란을 선택하지 마세요. 콘텐츠 공유에 대한 자세한 정보는 Roblox 이용 약관을 참조하시기 바랍니다.,"Ao ativar esta funcionalidade, você está cedendo a qualquer usuário Roblox o direito de usar (de várias maneiras) o conteúdo que você está compartilhando. Se você não quer ceder este direito, não selecione esta caixa. Para mais informações sobre conteúdo compartilhado, revise os Termos de Uso da Roblox.", you are granting every other user of Roblox the right to use (in various ways) the content you are now sharing. If you do not want to grant this right,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请查看 Roblox 使用条款。,切换至开位置，即表示你授予 Roblox 的所有其他用户 (以各种方式) 使用你现在分享的内容的权限。如果你不想授予此权限，请勿勾选此框。有关分享内容的详细信息，请查看 Roblox 使用条款。,您勾選此方塊即授權所有 Roblox 使用者以不同方式使用您分享的內容。若您不想授權，請勿勾選此方塊。若要了解更多關於分享內容的資訊，請前往 Roblox 使用條款。,Studio.Toolbox.AssetConfigPreview.Preview,Preview, 
@@ -206,14 +206,14 @@ Error,Error,Erreur,エラー,오류,Erro,Ошибка,错误,错误,錯誤,Studi
 Error,Error,Erreur,エラー,오류,Erro,Ошибка,错误,错误,錯誤,Studio.Toolbox.AssetUploadResult.Success,Successfully submitted!, 
 Successfully submitted!,¡Enviado correctamente!,Soumis avec succès !,送信できました！,제출 성공!,Enviado com sucesso!, ,提交成功！,提交成功！,提交成功！,Studio.Toolbox.AssetConfigPackagePermissions.PackageOwner,Package Owner, 
 Package Owner,Propietario del paquete,Propriétaire package,パッケージ所有者,패키지 소유자,Proprietário do pacote,Владелец пакета,包所有者,包所有者,套件主人,Studio.Toolbox.Subcategory.AudioMusic,Music, 
-Music, , , , , , , , , ,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, 
+Music,Música, ,音楽,음악,Música, , , ,音樂,Studio.Toolbox.AssetConfigPackagePermissions.Owner,Owner, 
 Owner,Propietario,Propriétaire,所有者,소유자,Proprietário,Владелец,所有者,所有者,主人,Studio.Toolbox.AssetConfigPackagePermissions.OwnerLabel,Owner, 
 Owner,Propietario,Propriétaire,所有者,소유자,Proprietário,Владелец,所有者,所有者,主人,Studio.Toolbox.Subcategory.AudioMusicEthnicFolk,Ethnic Folk, 
-Ethnic Folk, , , , , , , , , ,Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, 
+Ethnic Folk,Folk étnico, ,民族音楽,에스닉 포크,Folk étnico, , , ,民族民謠,Studio.Toolbox.AssetConfigPackagePermissions.ShareWith,Share with, 
 Share with,Compartir con,Partager avec,共有相手:,다음 사람과 공유,Compartilhar com,Поделиться с...,分享对象,分享对象,分享對象,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessLabel,No Access, 
 No Access,Sin acceso,Pas d'accès,アクセスできません,접근 불가,Sem acesso,Нет доступа,无法访问,无法访问,無存取權限,Studio.Toolbox.AssetConfigPackagePermissions.UseViewLabel,Use & View, 
 Use & View,Usar y ver,Utiliser et voir,使って表示,사용 및 보기,Usar e visualizar,Использование и Просмотр,使用和查看,使用和查看,使用和檢視,Studio.Toolbox.Subcategory.AudioMusicCountry,Country, 
-Country, , , , , , , , , ,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library, 
+Country,Country, ,カントリー,컨트리,Country, , , ,鄉村,Studio.Toolbox.NoTagFound,Word(s) not found in the tag library, 
 Word(s) not found in the tag library,No se han encontrado las palabras en la biblioteca de etiquetas,Mot(s) non trouvé(s) dans la bibliothèque de tags,語句がタグライブラリで見つかりませんでした,태그 라이브러리에서 단어를 찾을 수 없음,Palavra(s) não encontrada(s) na biblioteca de etiquetas,В библиотеке тегов нет искомого,未能在标签库中找到相应词语,未能在标签库中找到相应词语,標籤庫裡找不到該單字,Studio.Toolbox.AssetConfigPackagePermissions.EditLabel,Edit, 
 Edit,Editar,Modifier,編集,편집,Editar,Изменить,编辑,编辑,編輯,Studio.Toolbox.AssetConfigPackagePermissions.MultipleLabel,(Multiple), 
 (Multiple),(Múltiple),(Multiple),（複数）,(여러 항목),(Múltiplo),(Несколько),(多项),(多项),（多項）,Studio.Toolbox.AssetConfigPackagePermissions.NoAccessDescription,"Cannot use, view or edit this package", 
@@ -221,7 +221,7 @@ Edit,Editar,Modifier,編集,편집,Editar,Изменить,编辑,编辑,編輯,
 Shorts Accessories,Accesorios para pantalones cortos,Accessoires shorts,短パン用アクセサリ,반바지 장신구,Acessórios de short, ,短裤配件,短裤配件,短褲飾品,Studio.Toolbox.AssetConfigPackagePermissions.UseViewDescription,Can use and view this package, 
 Can use and view this package,Este paquete se puede usar y ver,Peut utiliser et voir ce package,このパッケージの使用と表示ができます,이 패키지를 사용하고 볼 수 있습니다,É possível usar e visualizar este pacote,Можно использовать и просматривать пакет,可以使用并查看此包,可以使用并查看此包,可以使用和檢視此套件,Studio.Toolbox.AssetConfigPackagePermissions.EditDescription,"Can use, view and edit this package", 
 "Can use, view and edit this package","Este paquete se puede usar, ver y editar","Peut utiliser, voir et modifier ce package",このパッケージの使用、表示、編集ができます,이 패키지를 사용하고 보고 편집할 수 있습니다,"É possível usar, visualizar e editar este pacote", view and edit this package,可以使用、查看和编辑此包,可以使用、查看和编辑此包,可以使用、檢視及編輯此套件,Studio.Toolbox.Subcategory.AudioMusicBlues,Blues, 
-Blues, , , , , , , , , ,Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, 
+Blues,Blues, ,ブルース,블루스,Blues, , , ,藍調,Studio.Toolbox.AssetConfigPackagePermissions.FriendsCollaboratorType,Friends, 
 Friends,Amigos,Amis,友達,친구,Amigos,Друзья,好友,好友,好友,Studio.Toolbox.General.CategoryGroupAnimations,Group Animations, 
 Group Animations,Animaciones del grupo, ,グループアニメーション,그룹 애니메이션,Animações de grupo, ,群组动画,群组动画,群組動畫,Studio.Toolbox.ThumbnailStatus.Blocked,Blocked, 
 Blocked,Bloqueada,Bloqué,ブロック済み,차단됨,Bloqueado,Заблокировано,已屏蔽,已屏蔽,遭拒,Studio.Toolbox.AssetConfigPackagePermissions.PackageCreator,Package Creator, 
@@ -235,7 +235,7 @@ Your current balance:,Tu saldo actual:,Votre solde actuel :,現在の残高:,현
 You need {robux:int} more Robux to buy "{name}" from {creator}.,Necesitas {robux:int} Robux más para comprar "{name}" de {creator}.,Tu as besoin de {robux:int} Robux en plus pour acheter {name} de {creator}.,{creator}さんから「{name}」を買うにはRobuxがあと{robux:int}必要です。,{creator}에게 "{name}"을(를) 구매하려면 {robux:int} Robux가 더 필요합니다.,Você precisa de {robux:int} Robux a mais para comprar "{name}" de {creator}.,"Требуется еще {robux:int} Robux для покупки (\"{name}\", автор {creator}).",你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,你还需要 {robux:int} Robux 才能从 {creator} 处购买到 "{name}"。,您還需要 {robux:int} Robux 才可向 {creator} 購買「{name}」。,Studio.Toolbox.Purchase.Retry,Retry, 
 Retry,Reintentar,Réessayer,再試行,다시 시도,Tentar novamente,Повтор,重试,重试,重試,Studio.Toolbox.Purchase.Buy,Buy, 
 Buy,Comprar,Acheter,買う,구매,Comprar,Купить,购买,购买,購買,Studio.Toolbox.Subcategory.ModelLandscapeGrass,Grass, 
-Grass, , , , , , , , , ,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, 
+Grass,Pasto, ,草,풀,Grama, , , ,草,Studio.Toolbox.Purchase.BuyTitle,Buy & Install Plugin, 
 Buy & Install Plugin,Comprar e instalar plugin,Acheter et installer plugin,プラグインを買ってインストール,플러그인 설치 및 구매,Comprar e instalar plugin,Купить и установить плагин,购买和安装插件,购买和安装插件,購買並安裝外掛程式,Studio.Toolbox.Purchase.InsufficientTitle,Insufficient Robux, 
 Insufficient Robux,Robux insuficientes,Nombre insuffisant de Robux,Robuxが足りません,Robux가 부족함,Não há Robux suficientes,Недостаточно Robux,Robux 不足,Robux 不足,Robux 不足,Studio.Toolbox.Purchase.FailedHeader,Purchase failed, 
 Purchase failed,Error en la compra,Échec de l'achat,購入できませんでした,구매 실패,Falha na compra,Покупка не совершена,购买失败,购买失败,購買失敗,Studio.Toolbox.Purchase.Free,FREE, 
@@ -259,7 +259,7 @@ s,s,s,秒,초,s, ,秒,秒,秒,Studio.Toolbox.General.AbbreviatedMinutes,m,
 m,m,m,分,분,m, ,分,分,分,Studio.Toolbox.General.SearchOptionAudioTo,to, 
 to,en,à,へ,(으)로,em, ,至,至,到,Studio.Toolbox.General.SearchOptionAudioLength,Sound Length, 
 Sound Length,Duración del sonido,Longueur du son,サウンドの長さ,사운드 길이,Duração do som, ,声音长度,声音长度,音效長度,Studio.Toolbox.Subcategory.ModelVehicleHelicopter,Helicopter, 
-Helicopter, , , , , , , , , ,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID, 
+Helicopter,Helicóptero, ,ヘリコプター,헬리콥터,Helicóptero, , , ,直升機,Studio.Toolbox.AssetConfigAnimation.FilterID,Filter ID, 
 Filter ID,Filtro ID,Identifiant filtre,IDをフィルタする,필터 ID,Filtrar ID, ,过滤 ID,过滤 ID,過濾 ID,Studio.Toolbox.General.CategoryCreationsDressSkirtAccessory,Dress Skirt Accessories, 
 Dress Skirt Accessories,Accesorios para falda de vestir,Accessoires jupe de robe,ワイシャツ用アクセサリ,드레스 스커트 장신구,Acessórios de vestido, ,套裙配件,套裙配件,裙子飾品,Studio.Toolbox.General.CategoryMyVideos,My Videos, 
 My Videos,Mis videos,Mes vidéos,マイビデオ,내 비디오,Meus vídeos, ,我的视频,我的视频,我的影片,Studio.Toolbox.General.CategoryVideos,Videos, 
@@ -274,9 +274,9 @@ Submit,Enviar,Soumettre,送信,제출,Enviar, ,提交,提交,提交,Studio.Toolb
 Close,Cerrar,Fermer,閉じる,닫기,Fechar, ,关闭,关闭,關閉,Studio.Toolbox.Common.Insert,Insert, 
 Insert,Insertar,Insérer,挿入,삽입,Inserir, ,插入,插入,插入,Studio.Toolbox.Common.Install,Install, 
 Install,Instalar,Installer,インストール,설치,Instalar, ,安装,安装,安裝,Studio.Toolbox.Subcategory.AudioMusicElectronic,Electronic, 
-Electronic, , , , , , , , , ,Studio.Toolbox.Common.Loading,Loading, 
+Electronic,Electrónica, ,エレクトロニック,일렉트로닉,Eletrônica, , , ,電音,Studio.Toolbox.Common.Loading,Loading, 
 Loading,Cargando,Chargement,読み込み中,불러오는 중,Carregando, ,正在加载,正在加载,正在載入,Studio.Toolbox.Subcategory.ModelVehicleCar,Car, 
-Car, , , , , , , , , ,Studio.Toolbox.Common.Installed,Installed, 
+Car,Coche, ,車,자동차,Carro, , , ,汽車,Studio.Toolbox.Common.Installed,Installed, 
 Installed,Instalado,Installé,インストール済み,설치됨,Instalado, ,已安装,已安装,已安裝,Studio.Toolbox.General.CategoryCreationsGroupFaceAccessory,Group Face Accessories, 
 Group Face Accessories,Accesorios para la cara del grupo,Accessoires pour le visage de groupe,グループの顔用アクセサリ,그룹 얼굴 장신구,Acessórios de rosto de grupo, ,群组脸部配件,群组脸部配件,群組臉部飾品,Studio.Toolbox.General.AssetTypeRightShoeAccessory,Right Shoe Accessory, 
 Right Shoe Accessory,Accesorio para zapato derecho,Accessoire chaussure droite,右靴用アクセサリ,오른쪽 신발 장신구,Acessório de calçado direito, ,右脚鞋配件,右脚鞋配件,右鞋飾品,Studio.Toolbox.General.CategoryCreationsGroupShoulderAccessory,Group Shoulder Accessories, 
@@ -287,7 +287,7 @@ Group Waist Accessories,Accesorios para la cintura del grupo,Accessoires pour la
 T-Shirt Accessories,Accesorios para camiseta,Accessoires pour t-shirts,Tシャツ用アクセサリ,티셔츠 장신구,Acessórios de camiseta, ,T 恤衫配件,T 恤衫配件,T 恤飾品,Studio.Toolbox.General.CategoryCreationsShirtAccessory,Shirt Accessories, 
 Shirt Accessories,Accesorios para camisa,Accessoires chemises,シャツ用アクセサリ,셔츠 장신구,Acessórios de camisa, ,衬衫配件,衬衫配件,上衣飾品,Studio.Toolbox.General.CategoryCreationsJacketAccessory,Jacket Accessories, 
 Jacket Accessories,Accesorios para chaqueta,Accessoires vestes,ジャケット用アクセサリ,재킷 장신구,Acessórios de jaqueta, ,外套配件,外套配件,夾克飾品,Studio.Toolbox.Subcategory.ModelFurnitureChair,Chair, 
-Chair, , , , , , , , , ,Studio.Toolbox.General.CategoryCreationsSweaterAccessory,Sweater Accessories, 
+Chair,Silla, ,イス,의자,Cadeira, , , ,椅子,Studio.Toolbox.General.CategoryCreationsSweaterAccessory,Sweater Accessories, 
 Sweater Accessories,Accesorios para suéter,Accessoires pulls,セーター用アクセサリ,스웨터 장신구,Acessórios de moletom, ,毛衣配件,毛衣配件,外套飾品,Studio.Toolbox.General.CategoryCreationsLeftShoeAccessory,Left Shoe Accessories, 
 Left Shoe Accessories,Accesorios para zapato izquierdo,Accessoires chaussures gauches,左靴用アクセサリ,왼쪽 신발 장신구,Acessórios de calçado esquerdo, ,左脚鞋配件,左脚鞋配件,左鞋飾品,Studio.Toolbox.General.CategoryCreationsGroupTShirtAccessory,Group T-Shirt Accessories, 
 Group T-Shirt Accessories,Accesorios para camiseta del grupo,Accessoires pour t-shirts de groupe,グループTシャツ用アクセサリ,그룹 티셔츠 장신구,Acessórios de camiseta de grupo, ,群组 T 恤衫配件,群组 T 恤衫配件,群組 T 恤飾品,Studio.Toolbox.General.CategoryCreationsGroupShirtAccessory,Group Shirt Accessories, 
@@ -302,60 +302,61 @@ Jacket Accessory,Accesorio para chaqueta,Accessoire veste,ジャケット用ア�
 Sweater Accessory,Accesorio para suéter,Accessoire pull,セーター用アクセサリ,스웨터 장신구,Acessório de moletom, ,毛衣配件,毛衣配件,外套飾品,Studio.Toolbox.General.AssetTypeLeftShoeAccessory,Left Shoe Accessory, 
 Left Shoe Accessory,Accesorio para zapato izquierdo,Accessoire chaussure gauche,左靴用アクセサリ,왼쪽 신발 장신구,Acessório de calçado esquerdo, ,左脚鞋配件,左脚鞋配件,左鞋飾品,Studio.Toolbox.General.AssetTypeDressSkirtAccessory,Dress Skirt Accessory, 
 Dress Skirt Accessory,Accesorio para falda de vestir,Accessoire jupe robe,ワイシャツ用アクセサリ,드레스 스커트 장신구,Acessório de vestido, ,套裙配件,套裙配件,裙子飾品,Studio.Toolbox.Subcategory.ModelStructureRestaurant,Restaurant, 
-Restaurant, , , , , , , , , ,Studio.Toolbox.General.CategoryMyAnimations,My Animations, 
+Restaurant,Restaurante, ,レストラン,식당,Restaurante, , , ,餐廳,Studio.Toolbox.General.CategoryMyAnimations,My Animations, 
 My Animations,Mis Animaciones,Mes animations,マイアニメーション,내 애니메이션,Minhas animações, ,我的动画,我的动画,我的動畫,Studio.Toolbox.General.CategoryRecentAnimations,Recent Animations, 
 Recent Animations,Animaciones recientes,Animations récentes,最近のアニメーション,최근 애니메이션,Animações recentes, ,最近动画,最近动画,近期動畫,Studio.Toolbox.General.CategoryCreationsAnimations,Animations, 
 Animations,Animaciones,Animations,アニメーション,애니메이션,Animações, ,动画,动画,動畫,Studio.Toolbox.General.RightClickMenuCopyMeshID,Copy Mesh ID, 
 Copy Mesh ID,Copiar ID de la malla, ,メッシュIDをコピー,메시 ID 복사,Copiar ID da malha, ,复制网格 ID,复制网格 ID,複製網格 ID,Studio.Toolbox.Common.InsertAborted,Not inserting asset {assetId} because it is invalid., 
 Not inserting asset {assetId} because it is invalid.,No se insertará el recurso {assetId} porque no es válido., ,無効なためアセット {assetId} を挿入しません。,애셋 {assetId}이(가) 유효하지 않으므로 삽입되지 않습니다.,Não é possível inserir {assetId} porque é inválido(a)., ,资源 {assetId} 无效，无法插入。,资源 {assetId} 无效，无法插入。,素材 {assetId} 無效，無法插入。,Studio.Toolbox.AssetPreview.PluginNotice,This plugin was created by a third party. Roblox does not guarantee its safety or quality., 
-This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Este plugin es de terceros. Roblox no garantiza su seguridad o calidad., , ,제3자가 제작한 플러그인입니다. Roblox에서 안전이나 품질을 보장하지 않습니다.,Este plugin foi criado por terceiros. A Roblox não garante a sua segurança ou qualidade., ,此插件由第三方制作。Roblox 不保证其安全性或品质。,此插件由第三方制作。Roblox 不保证其安全性或品质。,此外掛程式由第三方製作，Roblox 無法擔保其安全性或品質。,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience., 
-Please review the scripts to prevent unwanted changes to your experience.,Revisa los scripts para evitar cambios no deseados en tu experiencia., , ,원하지 않는 체험 변경을 방지하려면 스크립트를 검토하세요.,Revise os scripts para evitar alterações indesejadas na sua experiência., ,请检查脚本，以防止对你的作品作出预期外的更改。,请检查脚本，以防止对你的作品作出预期外的更改。,請檢查指令碼，避免對體驗做出預期外的變更。,Studio.Toolbox.Subcategory.ModelStructureHouse,House, 
-House, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureApartment,Apartment, 
-Apartment, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureMansion,Mansion, 
-Mansion, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureOffice,Office, 
-Office, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureMilitaryBase,Military Base, 
-Military Base, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureLab,Lab, 
-Lab, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureRoads,Roads, 
-Roads, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureRoadSigns,Road Signs, 
-Road Signs, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureRailroad,Railroad, 
-Railroad, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureStore,Store, 
-Store, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructureClub,Club, 
-Club, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelStructure,Structure, 
-Structure, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelVehicleSpaceship,Spaceship, 
-Spaceship, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelVehicleTank,Tank, 
-Tank, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelVehicleSubmarine,Submarine, 
-Submarine, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelVehicleTrain,Train, 
-Train, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureComputer,Computer, 
-Computer, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelTechComputer,Computer, 
-Computer, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelTech,Tech, 
-Tech, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureTelevision,Television, 
-Television, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelTechTelevision,Television, 
-Television, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurniturePhone,Phone, 
-Phone, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelTechPhone,Phone, 
-Phone, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelTechBag,Bag, 
-Bag, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelWeaponsSword,Sword, 
-Sword, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelWeaponsKnife,Knife, 
-Knife, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicJazz,Jazz, 
-Jazz, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeWater,Water, 
-Water, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelWeaponsShield,Shield, 
-Shield, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelWeapons,Weapons, 
-Weapons, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeTree,Tree, 
-Tree, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeSnow,Snow, 
-Snow, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeSand,Sand, 
-Sand, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeSkybox,Skybox, 
-Skybox, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscapeMountain,Mountain, 
-Mountain, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelLandscape,Landscape, 
-Landscape, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureCouch,Couch, 
-Couch, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureBed,Bed, 
-Bed, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureBathtub,Bathtub, 
-Bathtub, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurnitureSink,Sink, 
-Sink, , , , , , , , , ,Studio.Toolbox.Subcategory.ModelFurniture,Furniture, 
-Furniture, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicScoresOrchestral,Scores & Orchestral, 
-Scores & Orchestral, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicPop,Pop, 
-Pop, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicChildren,Children, 
-Children, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicFolkContemporary,Folk Contemporary, 
-Folk Contemporary, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicKitschRetro,Kitsch & Retro, 
-Kitsch & Retro, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicFunkSoulRB,"Funk, Soul, R&B", 
-"Funk, Soul, R&B", , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicLatin,Latin, 
-Latin, , , , , , , , , ,Studio.Toolbox.Subcategory.AudioMusicReligious,Religious, 
-Religious, , , , , , , , , 
+This plugin was created by a third party. Roblox does not guarantee its safety or quality.,Este plugin es de terceros. Roblox no garantiza su seguridad o calidad., ,このプラグインは第三者によって作成されました。Robloxはその安全性や品質を保証しません。,제3자가 제작한 플러그인입니다. Roblox에서 안전이나 품질을 보장하지 않습니다.,Este plugin foi criado por terceiros. A Roblox não garante a sua segurança ou qualidade., ,此插件由第三方制作。Roblox 不保证其安全性或品质。,此插件由第三方制作。Roblox 不保证其安全性或品质。,此外掛程式由第三方製作，Roblox 無法擔保其安全性或品質。,Studio.Toolbox.ScriptWarning.InstructionText,Please review the scripts to prevent unwanted changes to your experience., 
+Please review the scripts to prevent unwanted changes to your experience.,Revisa los scripts para evitar cambios no deseados en tu experiencia., ,あなたの体験への望まない変更を防ぐために、スクリプトを確認してください。,원하지 않는 체험 변경을 방지하려면 스크립트를 검토하세요.,Revise os scripts para evitar alterações indesejadas na sua experiência., ,请检查脚本，以防止对你的作品作出预期外的更改。,请检查脚本，以防止对你的作品作出预期外的更改。,請檢查指令碼，避免對體驗做出預期外的變更。,Studio.Toolbox.Subcategory.ModelStructureHouse,House, 
+House,Casa, ,家,집,Casa, , , ,房子,Studio.Toolbox.Subcategory.ModelStructureApartment,Apartment, 
+Apartment,Departamento, ,アパート,아파트,Apartamento, , , ,公寓,Studio.Toolbox.Subcategory.ModelStructureMansion,Mansion, 
+Mansion,Mansión, ,豪邸,저택,Mansão, , , ,豪宅,Studio.Toolbox.Subcategory.ModelStructureOffice,Office, 
+Office,Oficina, ,オフィス,사무실,Escritório, , , ,辦公室,Studio.Toolbox.Subcategory.ModelStructureMilitaryBase,Military Base, 
+Military Base,Base militar, ,軍事基地,군사 기지,Base militar, , , ,軍事基地,Studio.Toolbox.Subcategory.ModelStructureLab,Lab, 
+Lab,Laboratorio, ,研究所,실험실,Laboratório, , , ,實驗室,Studio.Toolbox.Subcategory.ModelStructureRoads,Roads, 
+Roads,Calles, ,道路,도로,Estradas, , , ,道路,Studio.Toolbox.Subcategory.ModelStructureRoadSigns,Road Signs, 
+Road Signs,Señales de tráfico, ,道路標識,도로 표지판,Sinais de trânsito, , , ,路標,Studio.Toolbox.Subcategory.ModelStructureRailroad,Railroad, 
+Railroad,Ferrocarril, ,鉄道,철도,Ferrovia, , , ,鐵路,Studio.Toolbox.Subcategory.ModelStructureStore,Store, 
+Store,Tienda, ,ストア,상점,Loja, , , ,商店,Studio.Toolbox.Subcategory.ModelStructureClub,Club, 
+Club,Club, ,クラブ,클럽,Clube, , , ,俱樂部,Studio.Toolbox.Subcategory.ModelStructure,Structure, 
+Structure,Estructura, ,構造,건축물,Estrutura, , , ,建築,Studio.Toolbox.Subcategory.ModelVehicleSpaceship,Spaceship, 
+Spaceship,Nave espacial, ,宇宙船,우주선,Nave espacial, , , ,太空梭,Studio.Toolbox.Subcategory.ModelVehicleTank,Tank, 
+Tank,Tanque, ,タンカー,탱크,Tanque, , , ,坦克車,Studio.Toolbox.Subcategory.ModelVehicleSubmarine,Submarine, 
+Submarine,Submarino, ,潜水艦,잠수함,Submarino, , , ,潛水艇,Studio.Toolbox.Subcategory.ModelVehicleTrain,Train, 
+Train,Tren, ,電車,기차,Trem, , , ,火車,Studio.Toolbox.Subcategory.ModelFurnitureComputer,Computer, 
+Computer,Computadora, ,パソコン,컴퓨터,Computador, , , ,電腦,Studio.Toolbox.Subcategory.ModelTechComputer,Computer, 
+Computer,Computadora, ,パソコン,컴퓨터,Computador, , , ,電腦,Studio.Toolbox.Subcategory.ModelTech,Tech, 
+Tech,Tecnología, ,テクノロジー,기술,Tecnologia, , , ,科技,Studio.Toolbox.Subcategory.ModelFurnitureTelevision,Television, 
+Television,Televisión, ,テレビ,텔레비전,Televisão, , , ,電視,Studio.Toolbox.Subcategory.ModelTechTelevision,Television, 
+Television,Televisión, ,テレビ,텔레비전,Televisão, , , ,電視,Studio.Toolbox.Subcategory.ModelFurniturePhone,Phone, 
+Phone,Teléfono, ,電話,전화기,Telefone, , , ,電話,Studio.Toolbox.Subcategory.ModelTechPhone,Phone, 
+Phone,Teléfono, ,電話,전화기,Telefone, , , ,電話,Studio.Toolbox.Subcategory.ModelTechBag,Bag, 
+Bag,Bolsa, ,バッグ,가방,Bolsa, , , ,背包,Studio.Toolbox.Subcategory.ModelWeaponsSword,Sword, 
+Sword,Espada, ,剣,검,Espada, , , ,劍,Studio.Toolbox.Subcategory.ModelWeaponsKnife,Knife, 
+Knife,Cuchillo, ,ナイフ,칼,Faca, , , ,刀,Studio.Toolbox.Subcategory.AudioMusicJazz,Jazz, 
+Jazz,Jazz, ,ジャズ,재즈,Jazz, , , ,爵士,Studio.Toolbox.Subcategory.ModelLandscapeWater,Water, 
+Water,Agua, ,水,물,Água, , , ,水域,Studio.Toolbox.Subcategory.ModelWeaponsShield,Shield, 
+Shield,Escudo, ,盾,방패,Escudo, , , ,盾,Studio.Toolbox.Subcategory.ModelWeapons,Weapons, 
+Weapons,Armas, ,武器,무기,Armas, , , ,武器,Studio.Toolbox.Subcategory.ModelLandscapeTree,Tree, 
+Tree,Árbol, ,木,나무,Árvore, , , ,樹,Studio.Toolbox.Subcategory.ModelLandscapeSnow,Snow, 
+Snow,Nieve, ,雪,눈,Neve, , , ,雪,Studio.Toolbox.Subcategory.ModelLandscapeSand,Sand, 
+Sand,Arena, ,砂,모래,Areia, , , ,沙,Studio.Toolbox.Subcategory.ModelLandscapeSkybox,Skybox, 
+Skybox,Skybox, ,スカイボックス,스카이박스,Skybox, , , ,天空盒,Studio.Toolbox.Subcategory.ModelLandscapeMountain,Mountain, 
+Mountain,Montaña, ,山,산,Montanha, , , ,山脈,Studio.Toolbox.Subcategory.ModelLandscape,Landscape, 
+Landscape,Paisaje, ,景観,조경,Paisagem, , , ,地域,Studio.Toolbox.Subcategory.ModelFurnitureCouch,Couch, 
+Couch,Sofá, ,ソファ,소파,Sofá, , , ,沙發,Studio.Toolbox.Subcategory.ModelFurnitureBed,Bed, 
+Bed,Cama, ,ベッド,침대,Cama, , , ,床,Studio.Toolbox.Subcategory.ModelFurnitureBathtub,Bathtub, 
+Bathtub,Bañera, ,バスタブ,욕조,Banheira, , , ,浴缸,Studio.Toolbox.Subcategory.ModelFurnitureSink,Sink, 
+Sink,Lavabo, ,流し台,세면대,Pia, , , ,臉盆,Studio.Toolbox.Subcategory.ModelFurniture,Furniture, 
+Furniture,Muebles, ,家具,가구,Móveis, , , ,家具,Studio.Toolbox.Subcategory.AudioMusicScoresOrchestral,Scores & Orchestral, 
+Scores & Orchestral,Partitura y orquesta, , ,악보 및 오케스트라,Pontuações e Orquestrais, , , ,樂曲和管弦樂,Studio.Toolbox.Subcategory.AudioMusicPop,Pop, 
+Pop,Pop, ,ポップス,팝,Pop, , , ,流行,Studio.Toolbox.Subcategory.AudioMusicChildren,Children, 
+Children,Niños, ,子供向け,어린이,Crianças, , , ,兒童,Studio.Toolbox.Subcategory.AudioMusicFolkContemporary,Folk Contemporary, 
+Folk Contemporary,Folk contemporáneo, ,コンテンポラリーフォーク,포크 컨템퍼러리,Folk contemporâneo, , , ,流行民謠,Studio.Toolbox.Subcategory.AudioMusicKitschRetro,Kitsch & Retro, 
+Kitsch & Retro,Kitsch y Retro, ,キッチュ＆レトロ,키치 및 레트로,Kitsch & Retro, , , ,媚俗和復古,Studio.Toolbox.Subcategory.AudioMusicFunkSoulRB,"Funk, Soul, R&B", 
+"Funk, Soul, R&B","Funk, Soul y R&B", ,ファンク、ソウル、R&B,"펑크, 소울, R&B","Funk, Soul, R&B", , , ,放克、靈魂、R&B,Studio.Toolbox.Subcategory.AudioMusicLatin,Latin, 
+Latin,Latina, ,ラテン,라틴,Latina, , , ,拉丁,Studio.Toolbox.Subcategory.AudioMusicReligious,Religious, 
+Religious,Religiosa, ,宗教,종교,Religiosa, , , ,宗教,Studio.Toolbox.General.HasScripts,Has scripts, 
+Has scripts,Tiene scripts,A des scripts,スクリプトあり,스크립트 있음, , , , , 

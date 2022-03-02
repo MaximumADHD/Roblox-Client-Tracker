@@ -5,7 +5,7 @@
 #include <RayFrame.h>
 #include <Params.h>
 #include <Globals.h>
-uniform vec4 CB4[1];
+uniform vec4 CB4[2];
 uniform vec4 CB1[8];
 uniform vec4 CB0[53];
 uniform sampler2D dist;
@@ -15,7 +15,7 @@ varying vec2 VARYING0;
 
 void main()
 {
-    vec2 f0 = CB4[0].zw * (((VARYING0 * CB1[0].xy) * CB4[0].xy) - vec2(1.0));
+    vec2 f0 = (CB4[0].zw * (((VARYING0 * CB1[0].xy) * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     if (normalize(((CB0[4].xyz * f0.x) + (CB0[5].xyz * f0.y)) - CB0[6].xyz).y < (-0.5))
     {
         discard;

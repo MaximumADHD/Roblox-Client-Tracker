@@ -60,7 +60,7 @@ Studio.TerrainToolsV2.Replace.MaterialSettings,Material Settings,Material Settin
 Studio.TerrainToolsV2.Action.Pause,Pause,Pause,Pausar,Pause,一時停止,일시 중지,Pausar,Пауза,暂停,暂停,暫停
 Studio.TerrainToolsV2.Action.Previous,Previous,Previous,Anterior,Précédent,前へ,이전,Anterior,Предыдущий,上一个,上一个,上一個
 Studio.TerrainToolsV2.BrushSettings.PlanePosition,Plane Position,Plane Position,Posición del plano,Position du plan,平面の位置,평면 위치,Posição plana,Расположение поверхности,平面位置,平面位置,平面位置
-Studio.TerrainToolsV2.Action.Reload,Reload,Reload,Volver a cargar,Recharger,再読み込み,다시 불러오기,Recarregar,Перезагрузить,重新加载,重新加载,重新載入
+Studio.TerrainToolsV2.Action.Reload,Reload,Reload,Volver a cargar,Recharger,リロード,다시 불러오기,Recarregar,Перезагрузить,重新加载,重新加载,重新載入
 Studio.TerrainToolsV2.Warning.RegionTooLarge,Region size is too large.,Region size is too large.,El tamaño de la región es demasiado grande.,La taille de la région est trop large.,地域のサイズが大きすぎます。,지역이 너무 큽니다.,O tamanho da região é grande demais.,Слишком большой размер области.,区域尺寸过大。,区域尺寸过大。,區域大小過大。
 Studio.TerrainToolsV2.Action.Rename,Rename,Rename,Renombrar,Renommer,名前を変更,이름 변경,Renomear,Переименовать,重命名,重命名,重新命名
 Studio.TerrainToolsV2.BrushSettings.Material,Material,Material,Material,Matériel,素材,재질,Material,Материал,材质,材质,材質

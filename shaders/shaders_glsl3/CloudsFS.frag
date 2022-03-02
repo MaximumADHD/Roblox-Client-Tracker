@@ -7,7 +7,7 @@ const float f0[48] = float[](15.71790981292724609375, 12.89408969879150390625, 7
 
 #include <CloudsParams.h>
 uniform vec4 CB0[53];
-uniform vec4 CB4[1];
+uniform vec4 CB4[2];
 uniform vec4 CB5[5];
 uniform samplerCube PrefilteredEnvTexture;
 uniform sampler3D CloudsDistanceFieldTexture;
@@ -20,7 +20,7 @@ out vec4 _entryPointOutput_color;
 
 void main()
 {
-    vec2 f1 = CB4[0].zw * ((gl_FragCoord.xy * CB4[0].xy) - vec2(1.0));
+    vec2 f1 = (CB4[0].zw * ((gl_FragCoord.xy * CB4[0].xy) - vec2(1.0))) + CB4[1].xy;
     vec3 f2 = normalize(((CB0[4].xyz * f1.x) + (CB0[5].xyz * f1.y)) - CB0[6].xyz);
     float f3 = f2.y;
     if (f3 < 0.0)

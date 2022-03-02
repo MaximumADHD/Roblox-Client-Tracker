@@ -403,52 +403,52 @@ Class BindableEvent : Instance
 Class BindableFunction : Instance
 	Function Tuple BindableFunction:Invoke(Tuple arguments) [Yields]
 	Callback Tuple BindableFunction.OnInvoke(Tuple arguments)
-Class BodyMover : Instance [NotCreatable]
-Class BodyAngularVelocity : BodyMover
-	Property Vector3 BodyAngularVelocity.AngularVelocity
-	Property Vector3 BodyAngularVelocity.MaxTorque
-	Property float BodyAngularVelocity.P
+Class BodyMover : Instance [NotCreatable] [Deprecated]
+Class BodyAngularVelocity : BodyMover [Deprecated]
+	Property Vector3 BodyAngularVelocity.AngularVelocity [Deprecated]
+	Property Vector3 BodyAngularVelocity.MaxTorque [Deprecated]
+	Property float BodyAngularVelocity.P [Deprecated]
 	Property Vector3 BodyAngularVelocity.angularvelocity [<📁> LoadOnly] [NotReplicated] [Deprecated]
-Class BodyForce : BodyMover
-	Property Vector3 BodyForce.Force
-Class BodyGyro : BodyMover
-	Property CFrame BodyGyro.CFrame
-	Property float BodyGyro.D
-	Property Vector3 BodyGyro.MaxTorque
-	Property float BodyGyro.P
+Class BodyForce : BodyMover [Deprecated]
+	Property Vector3 BodyForce.Force [Deprecated]
+Class BodyGyro : BodyMover [Deprecated]
+	Property CFrame BodyGyro.CFrame [Deprecated]
+	Property float BodyGyro.D [Deprecated]
+	Property Vector3 BodyGyro.MaxTorque [Deprecated]
+	Property float BodyGyro.P [Deprecated]
 	Property CFrame BodyGyro.cframe [<📁> LoadOnly] [NotReplicated] [Deprecated]
-Class BodyPosition : BodyMover
-	Property float BodyPosition.D
-	Property Vector3 BodyPosition.MaxForce
-	Property float BodyPosition.P
-	Property Vector3 BodyPosition.Position
-	Function Vector3 BodyPosition:GetLastForce()
+Class BodyPosition : BodyMover [Deprecated]
+	Property float BodyPosition.D [Deprecated]
+	Property Vector3 BodyPosition.MaxForce [Deprecated]
+	Property float BodyPosition.P [Deprecated]
+	Property Vector3 BodyPosition.Position [Deprecated]
+	Function Vector3 BodyPosition:GetLastForce() [Deprecated]
 	Function Vector3 BodyPosition:lastForce() [Deprecated]
-	Event BodyPosition.ReachedTarget()
-Class BodyThrust : BodyMover
-	Property Vector3 BodyThrust.Force
-	Property Vector3 BodyThrust.Location
-Class BodyVelocity : BodyMover
-	Property Vector3 BodyVelocity.MaxForce
-	Property float BodyVelocity.P
-	Property Vector3 BodyVelocity.Velocity
-	Function Vector3 BodyVelocity:GetLastForce()
-	Function Vector3 BodyVelocity:lastForce()
-Class RocketPropulsion : BodyMover
-	Property float RocketPropulsion.CartoonFactor
-	Property BasePart RocketPropulsion.Target
-	Property Vector3 RocketPropulsion.TargetOffset
-	Property float RocketPropulsion.TargetRadius
-	Property float RocketPropulsion.MaxSpeed
-	Property float RocketPropulsion.MaxThrust
-	Property float RocketPropulsion.ThrustD
-	Property float RocketPropulsion.ThrustP
-	Property Vector3 RocketPropulsion.MaxTorque
-	Property float RocketPropulsion.TurnD
-	Property float RocketPropulsion.TurnP
-	Function void RocketPropulsion:Abort()
-	Function void RocketPropulsion:Fire()
-	Event RocketPropulsion.ReachedTarget()
+	Event BodyPosition.ReachedTarget() [Deprecated]
+Class BodyThrust : BodyMover [Deprecated]
+	Property Vector3 BodyThrust.Force [Deprecated]
+	Property Vector3 BodyThrust.Location [Deprecated]
+Class BodyVelocity : BodyMover [Deprecated]
+	Property Vector3 BodyVelocity.MaxForce [Deprecated]
+	Property float BodyVelocity.P [Deprecated]
+	Property Vector3 BodyVelocity.Velocity [Deprecated]
+	Function Vector3 BodyVelocity:GetLastForce() [Deprecated]
+	Function Vector3 BodyVelocity:lastForce() [Deprecated]
+Class RocketPropulsion : BodyMover [Deprecated]
+	Property float RocketPropulsion.CartoonFactor [Deprecated]
+	Property BasePart RocketPropulsion.Target [Deprecated]
+	Property Vector3 RocketPropulsion.TargetOffset [Deprecated]
+	Property float RocketPropulsion.TargetRadius [Deprecated]
+	Property float RocketPropulsion.MaxSpeed [Deprecated]
+	Property float RocketPropulsion.MaxThrust [Deprecated]
+	Property float RocketPropulsion.ThrustD [Deprecated]
+	Property float RocketPropulsion.ThrustP [Deprecated]
+	Property Vector3 RocketPropulsion.MaxTorque [Deprecated]
+	Property float RocketPropulsion.TurnD [Deprecated]
+	Property float RocketPropulsion.TurnP [Deprecated]
+	Function void RocketPropulsion:Abort() [Deprecated]
+	Function void RocketPropulsion:Fire() [Deprecated]
+	Event RocketPropulsion.ReachedTarget() [Deprecated]
 Class Breakpoint : Instance [NotReplicated]
 	Property string Breakpoint.Condition {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int Breakpoint.Id {RobloxScriptSecurity} [Hidden] [ReadOnly]
@@ -1923,6 +1923,7 @@ Class ImporterBaseSettings : Instance [NotCreatable] [NotReplicated]
 	Property string ImporterBaseSettings.ImportName
 	Property bool ImporterBaseSettings.ShouldImport
 	Function Dictionary ImporterBaseSettings:GetStatuses() {RobloxScriptSecurity}
+Class ImporterAnimationSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 Class ImporterGroupSettings : ImporterBaseSettings [NotCreatable] [NotReplicated]
 	Property bool ImporterGroupSettings.Anchored
 	Property bool ImporterGroupSettings.ImportAsModelAsset
@@ -1991,16 +1992,16 @@ Class JointInstance : Instance [NotCreatable]
 	Property BasePart JointInstance.Part1
 Class DynamicRotate : JointInstance [NotCreatable]
 	Property float DynamicRotate.BaseAngle
-Class RotateP : DynamicRotate
-Class RotateV : DynamicRotate
+Class RotateP : DynamicRotate [Deprecated]
+Class RotateV : DynamicRotate [Deprecated]
 Class Glue : JointInstance [Deprecated]
 	Property Vector3 Glue.F0 [Deprecated]
 	Property Vector3 Glue.F1 [Deprecated]
 	Property Vector3 Glue.F2 [Deprecated]
 	Property Vector3 Glue.F3 [Deprecated]
-Class ManualSurfaceJointInstance : JointInstance [NotCreatable]
-Class ManualGlue : ManualSurfaceJointInstance
-Class ManualWeld : ManualSurfaceJointInstance
+Class ManualSurfaceJointInstance : JointInstance [NotCreatable] [Deprecated]
+Class ManualGlue : ManualSurfaceJointInstance [Deprecated]
+Class ManualWeld : ManualSurfaceJointInstance [Deprecated]
 Class Motor : JointInstance
 	Property float Motor.CurrentAngle [<📁> LoadOnly] [NotReplicated]
 	Property float Motor.DesiredAngle
@@ -2010,14 +2011,14 @@ Class Motor6D : Motor
 	Property string Motor6D.ChildName [ReadOnly] [NotScriptable]
 	Property string Motor6D.ParentName [ReadOnly] [NotScriptable]
 	Property CFrame Motor6D.Transform [Hidden] [NotReplicated]
-Class Rotate : JointInstance
-Class Snap : JointInstance
+Class Rotate : JointInstance [Deprecated]
+Class Snap : JointInstance [Deprecated]
 Class VelocityMotor : JointInstance
 	Property float VelocityMotor.CurrentAngle
 	Property float VelocityMotor.DesiredAngle
 	Property Hole VelocityMotor.Hole
 	Property float VelocityMotor.MaxVelocity
-Class Weld : JointInstance
+Class Weld : JointInstance [Deprecated]
 Class JointsService : Instance [NotCreatable] [Service] [Deprecated]
 	Function void JointsService:ClearJoinAfterMoveJoints() [Deprecated]
 	Function void JointsService:CreateJoinAfterMoveJoints() [Deprecated]
@@ -3482,6 +3483,7 @@ Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event SocialService.PromptInviteRequested(Instance player) {RobloxScriptSecurity}
 Class Sound : Instance
 	Property bool Sound.PlayOnRemove
+	Property Enum.UsageContext Sound.UsageContextPermission {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property int Sound.ChannelCount {RobloxScriptSecurity} [ReadOnly] [NotBrowsable]
 	Property float Sound.EmitterSize [Deprecated]
 	Property bool Sound.IsLoaded [ReadOnly]
@@ -4014,8 +4016,8 @@ Class TextChatMessageProperties : Instance
 	Property string TextChatMessageProperties.Text
 Class TextChatService : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.ChatVersion TextChatService.ChatVersion {✏️NotAccessibleSecurity}
-	Property bool TextChatService.CreateDefaultCommands [NotScriptable]
-	Property bool TextChatService.CreateDefaultTextChannels [NotScriptable]
+	Property bool TextChatService.CreateDefaultCommands {✏️PluginSecurity}
+	Property bool TextChatService.CreateDefaultTextChannels {✏️PluginSecurity}
 	Event TextChatService.MessageReceived(TextChatMessage textChatMessage)
 	Event TextChatService.SendingMessage(TextChatMessage textChatMessage)
 	Callback Tuple TextChatService.OnIncomingMessage(TextChatMessage message)
@@ -4426,7 +4428,7 @@ Class VisibilityService : Instance [NotCreatable] [Service]
 Class Visit : Instance [NotCreatable] [Service] [NotReplicated]
 Class VoiceChannel : Instance
 	Function VoiceSource VoiceChannel:AddUserAsync(int64 userId = -1) {RobloxScriptSecurity} [Yields]
-Class VoiceChatInternal : Instance [NotCreatable] [Service]
+Class VoiceChatInternal : Instance [NotCreatable] [Service] [NotBrowsable]
 	Property Enum.VoiceChatState VoiceChatInternal.VoiceChatState [Hidden] [ReadOnly] [Deprecated]
 	Function string VoiceChatInternal:GetAndClearCallFailureMessage() {RobloxScriptSecurity} [Deprecated]
 	Function Tuple VoiceChatInternal:GetAudioProcessingSettings() [Deprecated]
@@ -4901,6 +4903,7 @@ Enum ConnectionError
 	EnumItem ConnectionError.DisconnectBlockedIP : 282
 	EnumItem ConnectionError.DisconnectClientFailure : 284
 	EnumItem ConnectionError.DisconnectClientRequest : 285
+	EnumItem ConnectionError.DisconnectOutOfMemory : 286
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -6539,6 +6542,9 @@ Enum UITheme [Deprecated]
 Enum UiMessageType
 	EnumItem UiMessageType.UiMessageError : 0
 	EnumItem UiMessageType.UiMessageInfo : 1
+Enum UsageContext
+	EnumItem UsageContext.Default : 0
+	EnumItem UsageContext.Preview : 1
 Enum UserCFrame
 	EnumItem UserCFrame.Head : 0
 	EnumItem UserCFrame.LeftHand : 1

@@ -355,6 +355,8 @@ Studio.App.BetaFeatures.AutoEnrollmentToggleTooltip,,New Beta Features Will Auto
 Studio.App.BetaFeatures.NewFeaturesForChannelUserWarning1,,"New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>","New beta features have been automatically enabled above as you are enrolled in Beta Channel. You must restart Studio for them to be activated. <a href=""%1"">Restart Now</a>"
 Studio.App.BetaFeatures.MaterialServiceTitle,,Material Service,Material Service
 Studio.App.BetaFeatures.MaterialServiceDescription,,"Enables MaterialService and MaterialVariant, which allows Part Material appearance customization.","Enables MaterialService and MaterialVariant, which allows Part Material appearance customization."
+Studio.App.BetaFeatures.AudioVolumetricSoundsTitle,,Volumetric Sounds,Volumetric Sounds
+Studio.App.BetaFeatures.AudioVolumetricSoundsDescription,,"Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center.","Enables Sound Instances that are children of Cylinder, Block, and Ball parts to emit audio from every point on the surface of the part, rather than only the center."
 Studio.App.RobloxDocManager.NoToggleBetweenDMsWhilePaused,Explain why click through message doesn't work,You cannot open a script from one data model while debugger is paused on a different data model.,You cannot open a script from one data model while debugger is paused on a different data model.
 Studio.App.RBXMainWindow.PublishSelectionToRobloxAsPlugin,,Publish the selection to Roblox as a plugin,Publish the selection to Roblox as a plugin
 Studio.App.RBXMainWindow.CreateLocalPluginFromScriptElps,,Create a local plugin from this script...,Create a local plugin from this script...
@@ -523,6 +525,7 @@ Studio.App.LoginManager.CaptchaError,,Error displaying captcha,Error displaying 
 Studio.App.LoginManager.CaptchaClosed,,Login requires Captcha. Please try again.,Login requires Captcha. Please try again.
 Studio.App.LoginManager.CaptchaInvalid,,Captcha response not recognized. Please try again.,Captcha response not recognized. Please try again.
 Studio.App.LoginManager.TwoSVClosed,,Login requires Two Step Verification. Please try again.,Login requires Two Step Verification. Please try again.
+Studio.App.LoginManager.SecurityQuestionsClosed,,Login requires Security Questions Verification. Please try again.,Login requires Security Questions Verification. Please try again.
 Studio.App.LoginManager.ToSTitle,,Roblox Terms of Service,Roblox Terms of Service
 Studio.App.LoginManager.ToSMessage3,,"By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>.","By clicking ""%1"", you are agreeing to the <a href='%2'>Terms of Use</a> and <a href='%3'>Privacy Policy</a>."
 Studio.App.LoginManager.ToSIAgree,,I Agree,I Agree
@@ -2207,6 +2210,8 @@ Studio.App.BetaFeatures.PathfindingModifiersTitle,,Pathfinding Modifiers,Pathfin
 Studio.App.BetaFeatures.PathfindingModifiersDescription,,"Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity.","Attached to Parts (if non-collidable, such Parts are used as volumes), their property Label can be used in the Cost table argument of CreatePath to make traversal cost non-unity."
 Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
+Studio.App.BetaFeatures.TextChatServiceTitle,,New Text Chat Service,New Text Chat Service
+Studio.App.BetaFeatures.TextChatServiceDescription,,"Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat.","Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat."
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -2316,6 +2321,8 @@ Studio.App.BulkImportWidget.ContinueImport,,Continue Import,Continue Import
 Studio.App.BulkImportWidget.ImportNotComplete,,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?,Your import is not complete. Closing the widget will cancel the entire import process. Would you like to cancel it?
 Studio.App.ImportCostVerificationDialog.AudioUpload,,Audio Upload,Audio Upload
 Studio.App.ImportCostVerificationDialog.BalanceAfterImport,,Balance after import:,Balance after import:
+Studio.App.ImportCostVerificationDialog.CopyrightDescription,,"By uploading this content, you certify that you have the rights to put this on Roblox.","By uploading this content, you certify that you have the rights to put this on Roblox."
+Studio.App.ImportCostVerificationDialog.GrantExperiencePermissionDescription,,You also allow this experience to use these assets.,You also allow this experience to use these assets.
 Studio.App.ImportCostVerificationDialog.CostVerificationDescription,,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.,Click 'Show Details' to view the files to be imported. You will not be charged for imports that fail due to not meeting import requirements.
 Studio.App.ImportCostVerificationDialog.CostVerificationMainText1,,Would you like to import the selected files for %1 Robux?,Would you like to import the selected files for %1 Robux?
 Studio.App.ImportCostVerificationDialog.LuobuVerificationDescription,,Click 'Show Details' to view the files to be imported.,Click 'Show Details' to view the files to be imported.
