@@ -8128,7 +8128,7 @@
       "Wait": "@roblox/globaltype/BoolValue.Changed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/BoolValue/Changed",
-    "code_sample": "\nWorkspace.BoolValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.BoolValue.Value = not Workspace.BoolValue.Value"
+    "code_sample": "Workspace.BoolValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.BoolValue.Value = not Workspace.BoolValue.Value"
   },
   "@roblox/globaltype/BoolValue.changed.Connect/param/0": {
     "documentation": {
@@ -8240,7 +8240,7 @@
       "Wait": "@roblox/globaltype/BrickColorValue.Changed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/BrickColorValue/Changed",
-    "code_sample": "\nWorkspace.BrickColorValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.BoolValue.Value = BrickColor.new(\"Bright red\")"
+    "code_sample": "Workspace.BrickColorValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.BoolValue.Value = BrickColor.new(\"Bright red\")"
   },
   "@roblox/globaltype/BrickColorValue.changed.Connect/param/0": {
     "documentation": {
@@ -8366,7 +8366,7 @@
       "Wait": "@roblox/globaltype/Button.Click.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Button/Click",
-    "code_sample": "\nlocal Toolbar = Plugin:CreateToolbar(\"Hello World Plugin Toolbar\")\nlocal Button = Toolbar:CreateButton(\"Print Hello World\", \"Click this button to print Hello World!\", \"rbxassetid://133293265\")\n\nButton.Click:Connect(function ()\n    print(\"Hello world!\")\nend)"
+    "code_sample": "local Toolbar = Plugin:CreateToolbar(\"Hello World Plugin Toolbar\")\nlocal Button = Toolbar:CreateButton(\"Print Hello World\", \"Click this button to print Hello World!\", \"rbxassetid://133293265\")\n\nButton.Click:Connect(function ()\n    print(\"Hello world!\")\nend)"
   },
   "@roblox/globaltype/ButtonBindingWidget": {
     "documentation": "<p>Unused internal object.</p>",
@@ -8937,7 +8937,7 @@
       "Wait": "@roblox/globaltype/CFrameValue.Changed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/CFrameValue/Changed",
-    "code_sample": "\nWorkspace.CFrameValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.CFrameValue.Value = CFrame.new(0, 20, 0)"
+    "code_sample": "Workspace.CFrameValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.CFrameValue.Value = CFrame.new(0, 20, 0)"
   },
   "@roblox/globaltype/CFrameValue.changed.Connect/param/0": {
     "documentation": {
@@ -9944,7 +9944,7 @@
       "Wait": "@roblox/globaltype/CollectionService.ItemAdded.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/CollectionService/ItemAdded",
-    "code_sample": "\ngame:GetService(\"CollectionService\").ItemAdded:Connect(function(instance)\n  print(instance.ClassName .. \" 添加至 DataModel\")\nend)\n\nInstance.new(\"Part\", workspace) --// 不会触发，因为 CollectionService 不监视 Parts（部件）\nInstance.new(\"Dialog\", workspace) --> Dialog 添加至 DataModel"
+    "code_sample": "game:GetService(\"CollectionService\").ItemAdded:Connect(function(instance)\n  print(instance.ClassName .. \" 添加至 DataModel\")\nend)\n\nInstance.new(\"Part\", workspace) --// 不会触发，因为 CollectionService 不监视 Parts（部件）\nInstance.new(\"Dialog\", workspace) --> Dialog 添加至 DataModel"
   },
   "@roblox/globaltype/CollectionService.ItemRemoved.Connect/param/0": {
     "documentation": {
@@ -9980,7 +9980,7 @@
       "Wait": "@roblox/globaltype/CollectionService.ItemRemoved.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/CollectionService/ItemRemoved",
-    "code_sample": "\ngame:GetService(\"CollectionService\").ItemRemoved:Connect(function(instance)\n  print(instance.ClassName .. \" 从 DataModel 中移除\")\nend)\n\nInstance.new(\"Part\", workspace):Destroy() --// 不会触发，因为 CollectionService 无视 Parts（部件）\nInstance.new(\"Dialog\", Workspace):Destroy() --> Dialog 从 DataModel 中移除"
+    "code_sample": "game:GetService(\"CollectionService\").ItemRemoved:Connect(function(instance)\n  print(instance.ClassName .. \" 从 DataModel 中移除\")\nend)\n\nInstance.new(\"Part\", workspace):Destroy() --// 不会触发，因为 CollectionService 无视 Parts（部件）\nInstance.new(\"Dialog\", Workspace):Destroy() --> Dialog 从 DataModel 中移除"
   },
   "@roblox/globaltype/Color3Value": {
     "documentation": "<p>A container object for a single Color3 value.</p>",
@@ -11763,7 +11763,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/DataModel/Load",
-    "code_sample": "\nlocal baseurl=\"http://www.roblox.com/asset/?id=%d\"\ngame:Load(baseurl:format(1818)) -- 加载 Roblox 原创的*未锁定复制*的游戏（Crossroads）\n \n-- 注意：如果尝试访问非当前登录用户拥有的锁定复制的场景，或者如果在安全上下文小于 4 的任何代码中使用锁定复制的场景，则该操作将不起作用，并且会出错。"
+    "code_sample": "local baseurl=\"http://www.roblox.com/asset/?id=%d\"\ngame:Load(baseurl:format(1818)) -- 加载 Roblox 原创的*未锁定复制*的游戏（Crossroads）\n \n-- 注意：如果尝试访问非当前登录用户拥有的锁定复制的场景，或者如果在安全上下文小于 4 的任何代码中使用锁定复制的场景，则该操作将不起作用，并且会出错。"
   },
   "@roblox/globaltype/DataModel.SetPlaceId/param/0": {
     "documentation": "<p>要将 DataModel/PlaceId 设置为的 ID</p>"
@@ -11864,7 +11864,7 @@
       "@roblox/globaltype/DataModel.SavePlace/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/DataModel/SavePlace",
-    "code_sample": "\ngame:SavePlace(Enum.SaveFilter.SaveAll)"
+    "code_sample": "game:SavePlace(Enum.SaveFilter.SaveAll)"
   },
   "@roblox/globaltype/DataModel.OnClose/return/0": {
     "documentation": ""
@@ -13475,7 +13475,7 @@
       "Wait": "@roblox/globaltype/DoubleConstrainedValue.Changed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/DoubleConstrainedValue/Changed",
-    "code_sample": "\nWorkspace.DoubleConstrainedValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.DoubleConstrainedValue.Value = 2"
+    "code_sample": "Workspace.DoubleConstrainedValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.DoubleConstrainedValue.Value = 2"
   },
   "@roblox/globaltype/DoubleConstrainedValue.changed.Connect/param/0": {
     "documentation": {
@@ -16260,7 +16260,7 @@
       "Wait": "@roblox/globaltype/GuiObject.MouseEnter.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/GuiObject/MouseEnter",
-    "code_sample": "\nGuiObject.MouseEnter:Connect(function(x, y)\n\tprint(\"The user's mouse cursor has entered the GuiObject at position (\" .. x .. \", \" .. y .. \").\")\nend)"
+    "code_sample": "GuiObject.MouseEnter:Connect(function(x, y)\n\tprint(\"The user's mouse cursor has entered the GuiObject at position (\" .. x .. \", \" .. y .. \").\")\nend)"
   },
   "@roblox/globaltype/GuiObject.MouseLeave.Connect/param/0": {
     "documentation": {
@@ -19084,7 +19084,7 @@
       "@roblox/globaltype/Humanoid.LoadAnimation/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Humanoid/LoadAnimation",
-    "code_sample": "\nexample=Humanoid:LoadAnimation(script.Parent.AnAnimation)\nexample:Play()"
+    "code_sample": "example=Humanoid:LoadAnimation(script.Parent.AnAnimation)\nexample:Play()"
   },
   "@roblox/globaltype/Humanoid.RemoveCustomStatus/param/0": {
     "documentation": ""
@@ -19195,7 +19195,7 @@
       "Wait": "@roblox/globaltype/Humanoid.Climbing.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/Climbing",
-    "code_sample": "\nlocal function onCharacterClimbing(character, speed)\n    print(character.Name, \"is climbing at a speed of\", speed, \"studs / second.\")\nend\n \nlocal function onCharacterAdded(character)\n    character.Humanoid.Climbing:Connect(function(speed) onCharacterClimbing(character, speed) end)\nend\n \nlocal function onPlayerAdded(player)\n    player.CharacterAdded:Connect(onCharacterAdded)\nend\n\ngame.Players.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local function onCharacterClimbing(character, speed)\n    print(character.Name, \"is climbing at a speed of\", speed, \"studs / second.\")\nend\n \nlocal function onCharacterAdded(character)\n    character.Humanoid.Climbing:Connect(function(speed) onCharacterClimbing(character, speed) end)\nend\n \nlocal function onPlayerAdded(player)\n    player.CharacterAdded:Connect(onCharacterAdded)\nend\n\ngame.Players.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Humanoid.Died.Connect/param/0": {
     "documentation": {
@@ -19231,7 +19231,7 @@
       "Wait": "@roblox/globaltype/Humanoid.Died.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/Died",
-    "code_sample": "\ngame:GetService('Players').PlayerAdded:Connect(function(player)\n\tplayer.CharacterAdded:Connect(function(character)\n\t\tcharacter:WaitForChild(\"Humanoid\").Died:Connect(function()\n\t\t\tprint(player.Name .. \"已经死了！\")\n\t\tend)\n\tend)\nend)"
+    "code_sample": "game:GetService('Players').PlayerAdded:Connect(function(player)\n\tplayer.CharacterAdded:Connect(function(character)\n\t\tcharacter:WaitForChild(\"Humanoid\").Died:Connect(function()\n\t\t\tprint(player.Name .. \"已经死了！\")\n\t\tend)\n\tend)\nend)"
   },
   "@roblox/globaltype/Humanoid.FallingDown.Connect/param/0": {
     "documentation": {
@@ -19375,7 +19375,7 @@
       "Wait": "@roblox/globaltype/Humanoid.HealthChanged.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/HealthChanged",
-    "code_sample": "\nlocal humanoid = game.Players.LocalPlayer.Character.Humanoid\nlocal currentHealth = humanoid.Health\nhumanoid.HealthChanged:Connect(function(health)\n\tlocal change = math.abs(currentHealth - health)\n\tprint(\"The humanoid's health \"..(currentHealth > health and \"decreased by \" or \"increased by \")..change..\".\")\n\tcurrentHealth = health\nend)"
+    "code_sample": "local humanoid = game.Players.LocalPlayer.Character.Humanoid\nlocal currentHealth = humanoid.Health\nhumanoid.HealthChanged:Connect(function(health)\n\tlocal change = math.abs(currentHealth - health)\n\tprint(\"The humanoid's health \"..(currentHealth > health and \"decreased by \" or \"increased by \")..change..\".\")\n\tcurrentHealth = health\nend)"
   },
   "@roblox/globaltype/Humanoid.Jumping.Connect/param/0": {
     "documentation": {
@@ -19483,7 +19483,7 @@
       "Wait": "@roblox/globaltype/Humanoid.PlatformStanding.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/PlatformStanding",
-    "code_sample": "\ngame.Players.LocalPlayer.Character.Humanoid.PlatformStanding:Connect(function(isPlatformStanding)\n    if isPlatformStanding then\n       print \"The player is PlatformStanding\"\n    else\n       print \"The player is not PlatformStanding\"\n    end\nend)"
+    "code_sample": "game.Players.LocalPlayer.Character.Humanoid.PlatformStanding:Connect(function(isPlatformStanding)\n    if isPlatformStanding then\n       print \"The player is PlatformStanding\"\n    else\n       print \"The player is not PlatformStanding\"\n    end\nend)"
   },
   "@roblox/globaltype/Humanoid.Ragdoll.Connect/param/0": {
     "documentation": {
@@ -19555,7 +19555,7 @@
       "Wait": "@roblox/globaltype/Humanoid.Running.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/Running",
-    "code_sample": "\ngame.Workspace.Player.Humanoid.Running:Connect(function(speed)\n    if speed > 0 then\n        print(\"Player is running\")\n    else\n        print(\"Player has stopped\")\n    end\nend)"
+    "code_sample": "game.Workspace.Player.Humanoid.Running:Connect(function(speed)\n    if speed > 0 then\n        print(\"Player is running\")\n    else\n        print(\"Player has stopped\")\n    end\nend)"
   },
   "@roblox/globaltype/Humanoid.Seated.Connect/param/0": {
     "documentation": {
@@ -19915,7 +19915,7 @@
       "Wait": "@roblox/globaltype/Humanoid.StatusAdded.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/StatusAdded",
-    "code_sample": "\nHumanoid = game.Players.LocalPlayer.Character.Humanoid\n\nHumanoid.StatusAdded:Connect(function(status)\n    if status == Enum.Status.Poison then\n        print \"The humanoid is now poisoned!\"\n    elseif status == Enum.Status.Confusion then\n        print \"The humanoid is now confused!\"\n    end\nend)\n\nhumanoid:AddStatus( Enum.Status.Poison ) --> The humanoid is now poisoned!（人形生物中毒了！）"
+    "code_sample": "Humanoid = game.Players.LocalPlayer.Character.Humanoid\n\nHumanoid.StatusAdded:Connect(function(status)\n    if status == Enum.Status.Poison then\n        print \"The humanoid is now poisoned!\"\n    elseif status == Enum.Status.Confusion then\n        print \"The humanoid is now confused!\"\n    end\nend)\n\nhumanoid:AddStatus( Enum.Status.Poison ) --> The humanoid is now poisoned!（人形生物中毒了！）"
   },
   "@roblox/globaltype/Humanoid.StatusRemoved.Connect/param/0": {
     "documentation": {
@@ -19951,7 +19951,7 @@
       "Wait": "@roblox/globaltype/Humanoid.StatusRemoved.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Humanoid/StatusRemoved",
-    "code_sample": "\nHumanoid = game.Players.LocalPlayer.Character.Humanoid\n\nHumanoid.StatusRemoved:Connect(function(status)\n    if status == Enum.Status.Poison then\n        print \"The humanoid has been cured of poison!\"\n    elseif status == Enum.Status.Confusion then\n        print \"The humanoid has been reoriented!\"\n    end\nend)\n\nhumanoid:RemoveStatus( Enum.Status.Poison ) --> The humanoid has been cured of poison!（人形生物的中毒状态被解除了！）"
+    "code_sample": "Humanoid = game.Players.LocalPlayer.Character.Humanoid\n\nHumanoid.StatusRemoved:Connect(function(status)\n    if status == Enum.Status.Poison then\n        print \"The humanoid has been cured of poison!\"\n    elseif status == Enum.Status.Confusion then\n        print \"The humanoid has been reoriented!\"\n    end\nend)\n\nhumanoid:RemoveStatus( Enum.Status.Poison ) --> The humanoid has been cured of poison!（人形生物的中毒状态被解除了！）"
   },
   "@roblox/globaltype/HumanoidController": {
     "documentation": "",
@@ -20954,7 +20954,7 @@
       "@roblox/globaltype/InsertService.LoadAsset/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/InsertService/LoadAsset",
-    "code_sample": "\nlocal assetId = 82353\ngame:GetService(\"InsertService\"):LoadAsset(assetId).Parent = game.Workspace"
+    "code_sample": "local assetId = 82353\ngame:GetService(\"InsertService\"):LoadAsset(assetId).Parent = game.Workspace"
   },
   "@roblox/globaltype/InsertService.LoadAssetVersion/param/0": {
     "documentation": ""
@@ -20974,7 +20974,7 @@
       "@roblox/globaltype/InsertService.LoadAssetVersion/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/InsertService/LoadAssetVersion",
-    "code_sample": "\nlocal assetVersionId = 296050499\ngame:GetService(\"InsertService\"):LoadAssetVersion(assetVersionId).Parent = game.Workspace"
+    "code_sample": "local assetVersionId = 296050499\ngame:GetService(\"InsertService\"):LoadAssetVersion(assetVersionId).Parent = game.Workspace"
   },
   "@roblox/globaltype/InsertService.ApproveAssetId/param/0": {
     "documentation": ""
@@ -21172,7 +21172,7 @@
     "params": [],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/ClearAllChildren",
-    "code_sample": "\nlocal part = Instance.new(\"Part\")\n\n-- 添加闪烁效果\nfor i = 1, 3 do\n  Instance.new(\"Sparkles\", part)\nend\n\nprint(\"Part has \" .. #part:GetChildren() .. \" children\")\n--> 部件有 3 个子项\n\npart:ClearAllChildren()\n\nprint(\"Part has \" .. #part:GetChildren() .. \" children\")\n--> 部件有 0 个子项"
+    "code_sample": "local part = Instance.new(\"Part\")\n\n-- 添加闪烁效果\nfor i = 1, 3 do\n  Instance.new(\"Sparkles\", part)\nend\n\nprint(\"Part has \" .. #part:GetChildren() .. \" children\")\n--> 部件有 3 个子项\n\npart:ClearAllChildren()\n\nprint(\"Part has \" .. #part:GetChildren() .. \" children\")\n--> 部件有 0 个子项"
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": ""
@@ -21191,7 +21191,7 @@
     "params": [],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/Destroy",
-    "code_sample": "\nlocal Part = Workspace.Part\nPart:Destroy()\nPart.Parent = Workspace --> The Parent property of Part is locked"
+    "code_sample": "local Part = Workspace.Part\nPart:Destroy()\nPart.Parent = Workspace --> The Parent property of Part is locked"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
     "documentation": "<p>需要查找的 <code>Instance.Name</code>。</p>"
@@ -21278,7 +21278,7 @@
       "@roblox/globaltype/Instance.FindFirstChild/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/FindFirstChild",
-    "code_sample": "\nlocal found = workspace:FindFirstChild(\"Brick\")\nif found then \n  found.Name = \"Foo\"\nend"
+    "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\nif found then \n  found.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
     "documentation": "<p>要查找的 <code>Instance.ClassName</code>。</p>"
@@ -21389,7 +21389,7 @@
       "@roblox/globaltype/Instance.GetChildren/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/GetChildren",
-    "code_sample": "\nlocal children = workspace:GetChildren()\nfor i = 1, #children do\n    print(i, children[i].Name)\nend"
+    "code_sample": "local children = workspace:GetChildren()\nfor i = 1, #children do\n    print(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
     "documentation": "<p>范围长度。</p>"
@@ -21409,7 +21409,7 @@
       "@roblox/globaltype/Instance.GetDebugId/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/GetDebugId",
-    "code_sample": "\nprint(Workspace:GetDebugId()) --> 39FA_12\nprint(Workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(Workspace:GetDebugId(math.huge)) --> 12"
+    "code_sample": "print(Workspace:GetDebugId()) --> 39FA_12\nprint(Workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(Workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "<p>一个含有 <code>Instance</code> 所有子项的数组。</p>"
@@ -21421,7 +21421,7 @@
       "@roblox/globaltype/Instance.GetDescendants/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/GetDescendants",
-    "code_sample": "\nlocal descendants = game.Workspace:GetDescendants()\n\n-- 循环 Workspace 中所有的子项，若找到一个\n-- BasePart，代码就将该部件变为绿色\nfor index, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
+    "code_sample": "local descendants = game.Workspace:GetDescendants()\n\n-- 循环 Workspace 中所有的子项，若找到一个\n-- BasePart，代码就将该部件变为绿色\nfor index, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
     "documentation": "<p><code>Instance</code> 的全名。</p>"
@@ -21473,7 +21473,7 @@
       "@roblox/globaltype/Instance.IsA/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Instance/IsA",
-    "code_sample": "\nprint(Workspace:IsA(\"Instance\" )) --> true\nprint(Workspace:IsA(\"Workspace\")) --> true\nprint(game:IsA(\"Workspace\")) --> false\nprint(game:IsA(\"DataModel\")) --> true"
+    "code_sample": "print(Workspace:IsA(\"Instance\" )) --> true\nprint(Workspace:IsA(\"Workspace\")) --> true\nprint(game:IsA(\"Workspace\")) --> false\nprint(game:IsA(\"DataModel\")) --> true"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
     "documentation": "<p>子项 <code>Instance</code>。</p>"
@@ -21722,7 +21722,7 @@
       "Wait": "@roblox/globaltype/Instance.AncestryChanged.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Instance/AncestryChanged",
-    "code_sample": "\nlocal p = Instance.new(\"Part\")\np.Parent = game.Workspace\np.AncestryChanged:Connect(function(child, parent)\n    print(child.Name..\" is now a child of \"..parent.Name)\nend)\np.Parent = Workspace.Model"
+    "code_sample": "local p = Instance.new(\"Part\")\np.Parent = game.Workspace\np.AncestryChanged:Connect(function(child, parent)\n    print(child.Name..\" is now a child of \"..parent.Name)\nend)\np.Parent = Workspace.Model"
   },
   "@roblox/globaltype/Instance.AttributeChanged.Connect/param/0": {
     "documentation": {
@@ -21830,7 +21830,7 @@
       "Wait": "@roblox/globaltype/Instance.ChildAdded.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Instance/ChildAdded",
-    "code_sample": "\nworkspace.ChildAdded:Connect(function(instance)\n    print(instance.Name .. \" added to the workspace\")\nend)\nInstance.new(\"Part\", workspace)\n--> Part added to the Workspace"
+    "code_sample": "workspace.ChildAdded:Connect(function(instance)\n    print(instance.Name .. \" added to the workspace\")\nend)\nInstance.new(\"Part\", workspace)\n--> Part added to the Workspace"
   },
   "@roblox/globaltype/Instance.ChildRemoved.Connect/param/0": {
     "documentation": {
@@ -21866,7 +21866,7 @@
       "Wait": "@roblox/globaltype/Instance.ChildRemoved.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Instance/ChildRemoved",
-    "code_sample": "\nWorkspace.ChildRemoved:Connect(function(instance)\n    print(instance.Name .. \" removed from the Workspace\")\nend)\nlocal part = Instance.new(\"Part\", Workspace)\nwait(2)\npart:Destroy()"
+    "code_sample": "Workspace.ChildRemoved:Connect(function(instance)\n    print(instance.Name .. \" removed from the Workspace\")\nend)\nlocal part = Instance.new(\"Part\", Workspace)\nwait(2)\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.DescendantAdded.Connect/param/0": {
     "documentation": {
@@ -21902,7 +21902,7 @@
       "Wait": "@roblox/globaltype/Instance.DescendantAdded.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Instance/DescendantAdded",
-    "code_sample": "\nWorkspace.DescendantAdded:Connect(function(descendant)\n\tprint(descendant)\nend)"
+    "code_sample": "Workspace.DescendantAdded:Connect(function(descendant)\n\tprint(descendant)\nend)"
   },
   "@roblox/globaltype/Instance.DescendantRemoving.Connect/param/0": {
     "documentation": {
@@ -21938,7 +21938,7 @@
       "Wait": "@roblox/globaltype/Instance.DescendantRemoving.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Instance/DescendantRemoving",
-    "code_sample": "\nworkspace.DescendantRemoving:Connect(function(descendant)\n\tprint(descendant.Name .. \" is currently parented to \" ..  tostring(descendant.Parent))\nend)\nlocal part = Instance.new(\"Part\")\npart.Parent = workspace\npart.Parent = nil\n--> 部件父项目前为 Workspace\nprint(part.Parent)\n--> nil"
+    "code_sample": "workspace.DescendantRemoving:Connect(function(descendant)\n\tprint(descendant.Name .. \" is currently parented to \" ..  tostring(descendant.Parent))\nend)\nlocal part = Instance.new(\"Part\")\npart.Parent = workspace\npart.Parent = nil\n--> 部件父项目前为 Workspace\nprint(part.Parent)\n--> nil"
   },
   "@roblox/globaltype/Instance.childAdded.Connect/param/0": {
     "documentation": {
@@ -22062,7 +22062,7 @@
       "Wait": "@roblox/globaltype/IntConstrainedValue.Changed.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/IntConstrainedValue/Changed",
-    "code_sample": "\nWorkspace.IntConstrainedValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.IntConstrainedValue.Value = 2"
+    "code_sample": "Workspace.IntConstrainedValue.Changed:Connect(function(NewValue)\n    print(NewValue)\nend)\n\nWorkspace.IntConstrainedValue.Value = 2"
   },
   "@roblox/globaltype/IntConstrainedValue.changed.Connect/param/0": {
     "documentation": {
@@ -22755,7 +22755,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.RegisterKeyframeSequence/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/KeyframeSequenceProvider/RegisterKeyframeSequence",
-    "code_sample": "\nlocal asset = game:GetService(\"KeyframeSequenceProvider\"):RegisterKeyframeSequence(workspace.KeyframeSequence)\nlocal animation = Instance.new(\"Animation\",workspace)\nanimation.Name = \"TestAnimation\"\nanimation.AnimationId = asset"
+    "code_sample": "local asset = game:GetService(\"KeyframeSequenceProvider\"):RegisterKeyframeSequence(workspace.KeyframeSequence)\nlocal animation = Instance.new(\"Animation\",workspace)\nanimation.Name = \"TestAnimation\"\nanimation.AnimationId = asset"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "<p>用户的用户 ID。</p>"
@@ -22795,7 +22795,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequenceAsync/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/KeyframeSequenceProvider/GetKeyframeSequenceAsync",
-    "code_sample": "\nlocal KeyframeSequence = game:GetService(\"KeyframeSequenceProvider\")\nlocal animation = \"rbxassetid://507771019\"\nlocal keyframes = {}\nlocal success = pcall(function()\n\tkeyframes = KeyframeSequence:GetKeyframeSequenceAsync(animation)\nend)\nif success then\n\tlocal keyframeTable = keyframes:GetKeyframes()\n\tfor key,value in ipairs(keyframeTable) do\n\t\tprint(\"The time of keyframe number\",key,\"is\",value.Time)\n\tend\nelse\n\tprint(\"error getting KeyframeSequence\")\nend"
+    "code_sample": "local KeyframeSequence = game:GetService(\"KeyframeSequenceProvider\")\nlocal animation = \"rbxassetid://507771019\"\nlocal keyframes = {}\nlocal success = pcall(function()\n\tkeyframes = KeyframeSequence:GetKeyframeSequenceAsync(animation)\nend)\nif success then\n\tlocal keyframeTable = keyframes:GetKeyframes()\n\tfor key,value in ipairs(keyframeTable) do\n\t\tprint(\"The time of keyframe number\",key,\"is\",value.Time)\n\tend\nelse\n\tprint(\"error getting KeyframeSequence\")\nend"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "<p>动画的内容 ID。</p>"
@@ -23178,7 +23178,7 @@
       "Wait": "@roblox/globaltype/Lighting.LightingChanged.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Lighting/LightingChanged",
-    "code_sample": "\ngame.Lighting.LightingChanged:Connect(function(skyboxChanged)\n    if skyboxChanged then\n       print(\"Skybox has changed\")\n    else\n       print(\"The skybox did not change.\")\n    end\nend)"
+    "code_sample": "game.Lighting.LightingChanged:Connect(function(skyboxChanged)\n    if skyboxChanged then\n       print(\"Skybox has changed\")\n    else\n       print(\"The skybox did not change.\")\n    end\nend)"
   },
   "@roblox/globaltype/LinearVelocity": {
     "documentation": "<p>Applies force on a part/assembly to maintain a linear velocity.</p>",
@@ -24245,7 +24245,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/MarketplaceService/PromptProductPurchase",
-    "code_sample": "\nlocal productId = 123456\ngame.Players.PlayerAdded:Connect(function(player)\n\tGame:GetService(\"MarketplaceService\"):PromptProductPurchase(player, productId)\nend)"
+    "code_sample": "local productId = 123456\ngame.Players.PlayerAdded:Connect(function(player)\n\tGame:GetService(\"MarketplaceService\"):PromptProductPurchase(player, productId)\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/0": {
     "documentation": ""
@@ -26029,7 +26029,7 @@
       "Wait": "@roblox/globaltype/Mouse.Idle.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Mouse/Idle",
-    "code_sample": "\nlocal mouse = game.Players.LocalPlayer:GetMouse()\nlocal rs = game:GetService(\"RunService\")\nlocal events = {\"Button1Down\",\"Button1Up\",\"Button2Down\",\"Button2Up\",\"Idle\",\"Move\",\"WheelBackward\",\"WheelForward\",\"KeyDown\",\"KeyUp\"}\nlocal currentEvent\nlocal frame = 0\n\nfor _,event in pairs(events) do\n\tmouse[event]:Connect(function ()\n\t\tcurrentEvent = event\n\tend)\nend\n\nlocal function processInput()\n\tframe = frame + 1\n\tprint(\"Frame\",frame,\"- mouse event was passed to\",currentEvent)\nend\n\nrs:BindToRenderStep(\"ProcessInput\",Enum.RenderPriority.Input.Value,processInput)"
+    "code_sample": "local mouse = game.Players.LocalPlayer:GetMouse()\nlocal rs = game:GetService(\"RunService\")\nlocal events = {\"Button1Down\",\"Button1Up\",\"Button2Down\",\"Button2Up\",\"Idle\",\"Move\",\"WheelBackward\",\"WheelForward\",\"KeyDown\",\"KeyUp\"}\nlocal currentEvent\nlocal frame = 0\n\nfor _,event in pairs(events) do\n\tmouse[event]:Connect(function ()\n\t\tcurrentEvent = event\n\tend)\nend\n\nlocal function processInput()\n\tframe = frame + 1\n\tprint(\"Frame\",frame,\"- mouse event was passed to\",currentEvent)\nend\n\nrs:BindToRenderStep(\"ProcessInput\",Enum.RenderPriority.Input.Value,processInput)"
   },
   "@roblox/globaltype/Mouse.Move.Connect/param/0": {
     "documentation": {
@@ -26101,7 +26101,7 @@
       "Wait": "@roblox/globaltype/Mouse.WheelBackward.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Mouse/WheelBackward",
-    "code_sample": "\nmouse.WheelBackward:Connect(function()\n    print(\"滚轮向回滚动了！\")\nend)"
+    "code_sample": "mouse.WheelBackward:Connect(function()\n    print(\"滚轮向回滚动了！\")\nend)"
   },
   "@roblox/globaltype/Mouse.WheelForward.Connect/param/0": {
     "documentation": {
@@ -26137,7 +26137,7 @@
       "Wait": "@roblox/globaltype/Mouse.WheelForward.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Mouse/WheelForward",
-    "code_sample": "\nmouse.WheelForward:Connect(function()\n    print(\"滚轮向前滚动了！\")\nend)"
+    "code_sample": "mouse.WheelForward:Connect(function()\n    print(\"滚轮向前滚动了！\")\nend)"
   },
   "@roblox/globaltype/Mouse.KeyDown.Connect/param/0": {
     "documentation": {
@@ -26173,7 +26173,7 @@
       "Wait": "@roblox/globaltype/Mouse.KeyDown.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Mouse/KeyDown",
-    "code_sample": "\nlocal function onKeyDown( key )\n    print(\"Key:\", key, \" Code:\", string.byte(key))\nend\nmouse.KeyDown:Connect(onKeyDown)"
+    "code_sample": "local function onKeyDown( key )\n    print(\"Key:\", key, \" Code:\", string.byte(key))\nend\nmouse.KeyDown:Connect(onKeyDown)"
   },
   "@roblox/globaltype/Mouse.KeyUp.Connect/param/0": {
     "documentation": {
@@ -26209,7 +26209,7 @@
       "Wait": "@roblox/globaltype/Mouse.KeyUp.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/Mouse/KeyUp",
-    "code_sample": "\nlocal function onKeyUp( key )\n    print(\"Key:\", key, \" Code:\", string.byte(key))\nend\nmouse.KeyUp:Connect(onKeyUp)"
+    "code_sample": "local function onKeyUp( key )\n    print(\"Key:\", key, \" Code:\", string.byte(key))\nend\nmouse.KeyUp:Connect(onKeyUp)"
   },
   "@roblox/globaltype/Mouse.keyDown.Connect/param/0": {
     "documentation": {
@@ -28471,7 +28471,7 @@
       "@roblox/globaltype/Player.DistanceFromCharacter/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/DistanceFromCharacter",
-    "code_sample": "\nfor _, player in pairs(game.Players:GetPlayers()) do\n    print(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
+    "code_sample": "for _, player in pairs(game.Players:GetPlayers()) do\n    print(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/return/0": {
     "documentation": "<p>一个包含 PlaceId 和 UserId 值的字典（请参见描述中的表格）。</p>"
@@ -28495,7 +28495,7 @@
       "@roblox/globaltype/Player.GetMouse/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/GetMouse",
-    "code_sample": "\nlocal Player = Game.Players.LocalPlayer\nlocal Mouse = Player:GetMouse()\nMouse.Button1Down:Connect(function()\n     print(\"Button 1 is down\")\nend)"
+    "code_sample": "local Player = Game.Players.LocalPlayer\nlocal Mouse = Player:GetMouse()\nMouse.Button1Down:Connect(function()\n     print(\"Button 1 is down\")\nend)"
   },
   "@roblox/globaltype/Player.GetNetworkPing/return/0": {
     "documentation": ""
@@ -28556,7 +28556,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/Move",
-    "code_sample": "\ngame.Players.LocalPlayer:Move(Vector3.new(0, 0, -1), true)"
+    "code_sample": "game.Players.LocalPlayer:Move(Vector3.new(0, 0, -1), true)"
   },
   "@roblox/globaltype/Player.RemoveCharacter": {
     "documentation": "<p>移除玩家的角色。</p>",
@@ -28633,7 +28633,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/GetRankInGroup",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:GetRankInGroup(2) == 255 then\n        print(\"Player is the owner of the group, 'LOL'!\")\n    else\n        print(\"Player is NOT the owner of the group, 'LOL'!\")\n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:GetRankInGroup(2) == 255 then\n        print(\"Player is the owner of the group, 'LOL'!\")\n    else\n        print(\"Player is NOT the owner of the group, 'LOL'!\")\n    end\nend)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "<p>指定群组的 <em>groupId</em>。</p>"
@@ -28653,7 +28653,7 @@
       "@roblox/globaltype/Player.GetRoleInGroup/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/GetRoleInGroup",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(player)\n    print(\"Player is ranked as '\" .. player:GetRoleInGroup(2) .. \"' in group, 'LOL'!\")\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(player)\n    print(\"Player is ranked as '\" .. player:GetRoleInGroup(2) .. \"' in group, 'LOL'!\")\nend)"
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "<p>指定玩家的 <code>Player.UserId</code>。</p>"
@@ -28673,7 +28673,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/IsFriendsWith",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is friends with gordonrox24!\")\n\tend\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is friends with gordonrox24!\")\n\tend\nend)"
   },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
     "documentation": "<p>指定群组的 <em>groupId</em>。</p>"
@@ -28693,7 +28693,7 @@
       "@roblox/globaltype/Player.IsInGroup/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/IsInGroup",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(newPlayer)\n   if newPlayer:IsInGroup(7) then                    \n      print \"Player is in the Roblox Fan club!\"     \n   end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(newPlayer)\n   if newPlayer:IsInGroup(7) then                    \n      print \"Player is in the Roblox Fan club!\"     \n   end\nend)"
   },
   "@roblox/globaltype/Player.LoadCharacter": {
     "documentation": "<p>为玩家创建新的角色，并将旧角色移除。同时会清除玩家 <code>Backpack</code> 和 <code>PlayerGui</code> 中的所有内容。</p>",
@@ -28818,7 +28818,7 @@
       "@roblox/globaltype/Player.LoadInstance/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/LoadInstance",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        local Model = Player:LoadInstance(\"Model\")\n        Model.Parent = Workspace\n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        local Model = Player:LoadInstance(\"Model\")\n        Model.Parent = Workspace\n    end\nend)"
   },
   "@roblox/globaltype/Player.LoadNumber/param/0": {
     "documentation": ""
@@ -28838,7 +28838,7 @@
       "@roblox/globaltype/Player.LoadNumber/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/LoadNumber",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        print(Player:LoadNumber(\"TotalPlays\"))\n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        print(Player:LoadNumber(\"TotalPlays\"))\n    end\nend)"
   },
   "@roblox/globaltype/Player.LoadString/param/0": {
     "documentation": ""
@@ -28858,7 +28858,7 @@
       "@roblox/globaltype/Player.LoadString/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/LoadString",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        print(Player:LoadString(\"TheirName\")) \n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        print(Player:LoadString(\"TheirName\")) \n    end\nend)"
   },
   "@roblox/globaltype/Player.SaveBoolean/param/0": {
     "documentation": ""
@@ -28880,7 +28880,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/SaveBoolean",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        Player:SaveBoolean(\"HasPlayed\", true) \n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        Player:SaveBoolean(\"HasPlayed\", true) \n    end\nend)"
   },
   "@roblox/globaltype/Player.SaveData": {
     "documentation": "<p>供某种陈旧的数据持久化方法使用，用于保存用户的数据</p>",
@@ -28909,7 +28909,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/SaveInstance",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    Player:WaitForDataReady() \n    Player:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    Player:WaitForDataReady() \n    Player:SaveInstance(\"Model\", game.Workspace.Model)\nend)"
   },
   "@roblox/globaltype/Player.SaveNumber/param/0": {
     "documentation": ""
@@ -28931,7 +28931,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/SaveNumber",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        local OldValue = Player:SaveNumber(\"TotalPlays\")\n        Player:SaveNumber(\"TotalPlays\", OldValue+1) \n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        local OldValue = Player:SaveNumber(\"TotalPlays\")\n        Player:SaveNumber(\"TotalPlays\", OldValue+1) \n    end\nend)"
   },
   "@roblox/globaltype/Player.SaveString/param/0": {
     "documentation": ""
@@ -28953,7 +28953,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Player/SaveString",
-    "code_sample": "\ngame.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        Player:SaveString(\"TheirName\", Player.Name) \n    end\nend)"
+    "code_sample": "game.Players.PlayerAdded:Connect(function(Player)\n    if Player:WaitForDataReady() then\n        Player:SaveString(\"TheirName\", Player.Name) \n    end\nend)"
   },
   "@roblox/globaltype/Player.loadBoolean/param/0": {
     "documentation": ""
@@ -29534,7 +29534,7 @@
       "Wait": "@roblox/globaltype/PlayerGui.TopbarTransparencyChangedSignal.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/PlayerGui/TopbarTransparencyChangedSignal",
-    "code_sample": "\nlocal playerGui = game.Players.LocalPlayer:WaitForChild('PlayerGui')\nplayerGui.TopbarTransparencyChangedSignal:Connect(function(topbarTransparency)\n   print(\"The topbar transparency is now:\" , topbarTransparency)\nend)"
+    "code_sample": "local playerGui = game.Players.LocalPlayer:WaitForChild('PlayerGui')\nplayerGui.TopbarTransparencyChangedSignal:Connect(function(topbarTransparency)\n   print(\"The topbar transparency is now:\" , topbarTransparency)\nend)"
   },
   "@roblox/globaltype/PlayerMouse": {
     "documentation": "<p>PlayerMouse 与使用 <code>Tool.Equipped</code> 获得的 <code>Mouse</code> 对象表现相同。可使用本地玩家的 <code>Player:GetMouse</code> 方法从 <code>LocalScript</code> 中访问它。</p>",
@@ -30635,7 +30635,7 @@
       "@roblox/globaltype/Plugin.GetSelectedRibbonTool/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Plugin/GetSelectedRibbonTool",
-    "code_sample": "\nplugin:SelectRibbonTool(Enum.RibbonTool.Move, UDim2.new())\nwait() -- 等待下个框架\nlocal selectedRibbonTool = plugin:GetSelectedRibbonTool()\nprint(\"The selected RibbonTool is\", selectedRibbonTool)"
+    "code_sample": "plugin:SelectRibbonTool(Enum.RibbonTool.Move, UDim2.new())\nwait() -- 等待下个框架\nlocal selectedRibbonTool = plugin:GetSelectedRibbonTool()\nprint(\"The selected RibbonTool is\", selectedRibbonTool)"
   },
   "@roblox/globaltype/Plugin.GetSetting/param/0": {
     "documentation": ""
@@ -30736,7 +30736,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Plugin/OpenWikiPage",
-    "code_sample": "\nplugin:OpenWikiPage(\"API:Class/BasePart\")"
+    "code_sample": "plugin:OpenWikiPage(\"API:Class/BasePart\")"
   },
   "@roblox/globaltype/Plugin.SaveSelectedToRoblox": {
     "documentation": "<p>打开用户当前选择项的上传窗口。</p>",
@@ -31801,7 +31801,7 @@
       "@roblox/globaltype/PointsService.AwardPoints/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/PointsService/AwardPoints",
-    "code_sample": "\nlocal userId, amount, total = game:GetService(\"PointsService\"):AwardPoints(1, 5)\nprint(\"用户被奖励了 \" ..amount.. \" 分数，现在在此游戏中一共有 \" ..total.. \" 分数。\")"
+    "code_sample": "local userId, amount, total = game:GetService(\"PointsService\"):AwardPoints(1, 5)\nprint(\"用户被奖励了 \" ..amount.. \" 分数，现在在此游戏中一共有 \" ..total.. \" 分数。\")"
   },
   "@roblox/globaltype/PointsService.GetGamePointBalance/param/0": {
     "documentation": ""
@@ -35309,7 +35309,7 @@
       "@roblox/globaltype/ServiceProvider.FindService/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/ServiceProvider/FindService",
-    "code_sample": "\nprint(game:FindService(\"Part\"))\n--> nil\n\nprint(game:FindService(\"Workspace\"))\n--> Workspace"
+    "code_sample": "print(game:FindService(\"Part\"))\n--> nil\n\nprint(game:FindService(\"Workspace\"))\n--> Workspace"
   },
   "@roblox/globaltype/ServiceProvider.GetService/param/0": {
     "documentation": "<p>请求的服务的类名称</p>"
@@ -38962,7 +38962,7 @@
       "TeleportInitFailed": "@roblox/globaltype/TeleportService.TeleportInitFailed"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/class/TeleportService",
-    "code_sample": "\ngame:GetService('TeleportService'):Teleport(1818)"
+    "code_sample": "game:GetService('TeleportService'):Teleport(1818)"
   },
   "@roblox/globaltype/TeleportService.CustomizedTeleportUI": {
     "documentation": "<p><em>已废弃，无任何用途</em></p>",
@@ -39227,7 +39227,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TeleportService/TeleportToSpawnByName",
-    "code_sample": "\ngame:GetService('TeleportService'):TeleportToSpawnByName(1818, \"TeleportSpawn\")"
+    "code_sample": "game:GetService('TeleportService'):TeleportToSpawnByName(1818, \"TeleportSpawn\")"
   },
   "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0": {
     "documentation": "<p><code>Player</code> 的 <code>Player.UserId</code></p>"
@@ -40404,7 +40404,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Check",
-    "code_sample": "\ngame:GetService('TestService'):Check(false, \"example\")"
+    "code_sample": "game:GetService('TestService'):Check(false, \"example\")"
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": ""
@@ -40433,14 +40433,14 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Checkpoint",
-    "code_sample": "\ngame:GetService('TestService'):Checkpoint(\"example\")"
+    "code_sample": "game:GetService('TestService'):Checkpoint(\"example\")"
   },
   "@roblox/globaltype/TestService.Done": {
     "documentation": "<p>以蓝色文本打印 “Testing Done” 至输出。</p>",
     "params": [],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Done",
-    "code_sample": "\ngame:GetService('TestService'):Done()"
+    "code_sample": "game:GetService('TestService'):Done()"
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": ""
@@ -40469,7 +40469,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Error",
-    "code_sample": "\ngame:GetService(\"TestService\"):Error(\"this is an error\")"
+    "code_sample": "game:GetService(\"TestService\"):Error(\"this is an error\")"
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": ""
@@ -40527,7 +40527,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Message",
-    "code_sample": "\ngame:GetService('TestService'):Message(\"example\")"
+    "code_sample": "game:GetService('TestService'):Message(\"example\")"
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": ""
@@ -40563,7 +40563,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Require",
-    "code_sample": "\ngame:GetService('TestService'):Require(false, \"example\")"
+    "code_sample": "game:GetService('TestService'):Require(false, \"example\")"
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
     "documentation": ""
@@ -40599,7 +40599,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/TestService/Warn",
-    "code_sample": "\ngame:GetService('TestService'):Warn(false, \"this action is invalid\")"
+    "code_sample": "game:GetService('TestService'):Warn(false, \"this action is invalid\")"
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
     "documentation": ""
@@ -40949,7 +40949,7 @@
       "Wait": "@roblox/globaltype/TextBox.FocusLost.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/TextBox/FocusLost",
-    "code_sample": "\nscript.Parent.FocusLost:Connect(function(enterPressed)\n    if enterPressed then\n        print(\"Enter 键被按下，失去焦点！\")\n    end\nend)"
+    "code_sample": "script.Parent.FocusLost:Connect(function(enterPressed)\n    if enterPressed then\n        print(\"Enter 键被按下，失去焦点！\")\n    end\nend)"
   },
   "@roblox/globaltype/TextBox.Focused.Connect/param/0": {
     "documentation": {
@@ -41779,7 +41779,7 @@
       "@roblox/globaltype/Toolbar.CreateButton/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/Toolbar/CreateButton",
-    "code_sample": "\nlocal PluginManagerObject = PluginManager()\nlocal Plugin = PluginManagerObject:CreatePlugin()\nlocal Toolbar = Plugin:CreateToolbar(\"Hello World Plugin Toolbar\")\nlocal Button = Toolbar:CreateButton(\"Print Hello World\", \"Click this button to print Hello World!\", \"rbxassetid://133293265\")"
+    "code_sample": "local PluginManagerObject = PluginManager()\nlocal Plugin = PluginManagerObject:CreatePlugin()\nlocal Toolbar = Plugin:CreateToolbar(\"Hello World Plugin Toolbar\")\nlocal Button = Toolbar:CreateButton(\"Print Hello World\", \"Click this button to print Hello World!\", \"rbxassetid://133293265\")"
   },
   "@roblox/globaltype/ToolboxService": {
     "documentation": "",
@@ -43474,7 +43474,7 @@
       "@roblox/globaltype/UserInputService.GetGamepadState/return/0"
     ],
     "learn_more_link": "https://developer.roblox.com/api-reference/function/UserInputService/GetGamepadState",
-    "code_sample": "\nlocal UserInputService = game:GetService(“UserInputService”)\n\nlocal _states = UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)\nlocal states = {}\nfor _,state in pairs(_states) do\n\tstates[state.KeyCode] = state\nend\n\n-- 轮询 Thumbstick （摇杆）位置：\nlocal thumbstick1 = states[Enum.KeyCode.Thumbstick1]\nwhile true do\n\twait(0.1)\n\tprint(thumbstick1.Position)\nend"
+    "code_sample": "local UserInputService = game:GetService(“UserInputService”)\n\nlocal _states = UserInputService:GetGamepadState(Enum.UserInputType.Gamepad1)\nlocal states = {}\nfor _,state in pairs(_states) do\n\tstates[state.KeyCode] = state\nend\n\n-- 轮询 Thumbstick （摇杆）位置：\nlocal thumbstick1 = states[Enum.KeyCode.Thumbstick1]\nwhile true do\n\twait(0.1)\n\tprint(thumbstick1.Position)\nend"
   },
   "@roblox/globaltype/UserInputService.GetKeysPressed/return/0": {
     "documentation": "<p>对应当前被按下键盘按键的 <code>InputObject</code> 数组</p>"
@@ -44622,7 +44622,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocusReleased.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/UserInputService/WindowFocusReleased",
-    "code_sample": "\n-- LocalScript\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal UserInputService = game:GetService(\"UserInputService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = ReplicatedStorage:WaitForChild(\"AfkEvent\")\n\nlocal function focusGained()\n\tAfkEvent:FireServer(false)\nend\n\nlocal function focusReleased()\n\tAfkEvent:FireServer(true)\nend\n\nUserInputService.WindowFocused:Connect(focusGained)\nUserInputService.WindowFocusReleased:Connect(focusReleased)\n\n\n-- Script\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = Instance.new(\"RemoteEvent\")\nAfkEvent.Name = \"AfkEvent\"\nAfkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nAfkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": "-- LocalScript\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal UserInputService = game:GetService(\"UserInputService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = ReplicatedStorage:WaitForChild(\"AfkEvent\")\n\nlocal function focusGained()\n\tAfkEvent:FireServer(false)\nend\n\nlocal function focusReleased()\n\tAfkEvent:FireServer(true)\nend\n\nUserInputService.WindowFocused:Connect(focusGained)\nUserInputService.WindowFocusReleased:Connect(focusReleased)\n\n\n-- Script\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = Instance.new(\"RemoteEvent\")\nAfkEvent.Name = \"AfkEvent\"\nAfkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nAfkEvent.OnServerEvent:Connect(setAfk)"
   },
   "@roblox/globaltype/UserInputService.WindowFocused.Connect/param/0": {
     "documentation": {
@@ -44658,7 +44658,7 @@
       "Wait": "@roblox/globaltype/UserInputService.WindowFocused.Wait"
     },
     "learn_more_link": "https://developer.roblox.com/api-reference/event/UserInputService/WindowFocused",
-    "code_sample": "\n-- LocalScript\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal UserInputService = game:GetService(\"UserInputService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = ReplicatedStorage:WaitForChild(\"AfkEvent\")\n\nlocal function focusGained()\n\tAfkEvent:FireServer(false)\nend\n\nlocal function focusReleased()\n\tAfkEvent:FireServer(true)\nend\n\nUserInputService.WindowFocused:Connect(focusGained)\nUserInputService.WindowFocusReleased:Connect(focusReleased)\n\n\n-- Script\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = Instance.new(\"RemoteEvent\")\nAfkEvent.Name = \"AfkEvent\"\nAfkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nAfkEvent.OnServerEvent:Connect(setAfk)"
+    "code_sample": "-- LocalScript\nlocal Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\n\nlocal UserInputService = game:GetService(\"UserInputService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = ReplicatedStorage:WaitForChild(\"AfkEvent\")\n\nlocal function focusGained()\n\tAfkEvent:FireServer(false)\nend\n\nlocal function focusReleased()\n\tAfkEvent:FireServer(true)\nend\n\nUserInputService.WindowFocused:Connect(focusGained)\nUserInputService.WindowFocusReleased:Connect(focusReleased)\n\n\n-- Script\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\n\nlocal AfkEvent = Instance.new(\"RemoteEvent\")\nAfkEvent.Name = \"AfkEvent\"\nAfkEvent.Parent = ReplicatedStorage\n\nlocal function setAfk(player, afk)\n\tif afk then\n\t\tlocal forcefield = Instance.new(\"ForceField\")\n\t\tforcefield.Parent = player.Character\n\telse\n\t\tlocal forcefield = player.Character:FindFirstChildOfClass(\"ForceField\")\n\t\tif forcefield then\n\t\t\tforcefield:Destroy()\n\t\tend\n\tend\nend\n\nAfkEvent.OnServerEvent:Connect(setAfk)"
   },
   "@roblox/globaltype/UserService": {
     "documentation": "<p>一种用于处理有关 Roblox 平台用户查询的服务。</p>",

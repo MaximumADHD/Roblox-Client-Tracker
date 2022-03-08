@@ -1,5 +1,29 @@
 Key,Source,en-us
 Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.,Toggles the Material Manager window.
+Studio.MaterialManager.Plugin.Button,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Name,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,Material Manager,Material Manager
-Studio.MaterialManager.Plugin.Button,Toggle,Toggle
+Studio.MaterialManager.CreateDialog.SaveVariant,Save,Save
+Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name,Material Variant name
+Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant,Create Variant
+Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps,Texture Maps
+Studio.MaterialManager.CreateDialog.General,General,General
+Studio.MaterialManager.CreateDialog.CancelVariant,Cancel,Cancel
+Studio.MaterialManager.CreateDialog.NameVariant,Name,Name
+Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material,Base Material
+Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material,Base Material
+Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material,Select base material
+Studio.MaterialManager.CreateDialog.ImportColorMap,Color,Color
+Studio.MaterialManager.CreateDialog.ImportNormalMap,Normal,Normal
+Studio.MaterialManager.CreateDialog.ImportMetalnessMap,Metalness,Metalness
+Studio.MaterialManager.CreateDialog.ImportRoughnessMap,Roughness,Roughness
+Studio.MaterialManager.TopBar.Create,Create Material Variant,Create Material Variant
+Studio.MaterialManager.TopBar.Search,Search Materials,Search Materials
+Studio.MaterialManager.TopBar.Show,Show in Explorer,Show in Explorer
+Studio.MaterialManager.TopBar.Apply,Apply to Selection,Apply to Selection
+Studio.MaterialManager.TopBar.Filters,Filters,Filters
+Studio.MaterialManager.MaterialTile.PartMaterial,Part Material,Part Material
+Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material,Terrain Material
+Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant,Base Variant
+Studio.MaterialManager.MaterialTile.PartVariant,Part Variant,Part Variant
+Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant,Terrain Variant

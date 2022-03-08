@@ -1342,6 +1342,7 @@ Class TextButton : GuiButton
 	Property string TextButton.LocalizedText [Hidden] [ReadOnly]
 	Property string TextButton.ContentText [ReadOnly]
 	Property Enum.Font TextButton.Font
+	Property Font TextButton.FontFace
 	Property Enum.FontSize TextButton.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextButton.LineHeight
 	Property int TextButton.MaxVisibleGraphemes
@@ -1381,6 +1382,7 @@ Class TextLabel : GuiLabel
 	Property string TextLabel.LocalizedText [Hidden] [ReadOnly]
 	Property string TextLabel.ContentText [ReadOnly]
 	Property Enum.Font TextLabel.Font
+	Property Font TextLabel.FontFace
 	Property Enum.FontSize TextLabel.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextLabel.LineHeight
 	Property int TextLabel.MaxVisibleGraphemes
@@ -1440,6 +1442,7 @@ Class TextBox : GuiObject
 	Property string TextBox.ContentText [ReadOnly]
 	Property bool TextBox.EnableRealtimeFilteringHints {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property Enum.Font TextBox.Font
+	Property Font TextBox.FontFace
 	Property Enum.FontSize TextBox.FontSize [<📁> LoadOnly] [NotReplicated] [Deprecated]
 	Property float TextBox.LineHeight
 	Property int TextBox.MaxVisibleGraphemes
@@ -2045,6 +2048,7 @@ Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicate
 	Function Content KeyframeSequenceProvider:RegisterActiveKeyframeSequence(Instance keyframeSequence)
 	Function Content KeyframeSequenceProvider:RegisterKeyframeSequence(Instance keyframeSequence)
 Class LSPService : Instance [Service] [NotReplicated]
+	Function void LSPService:RegisterLSPCallback(Enum.LSPMethodType methodToOverride, Function callbackFunction) {RobloxScriptSecurity}
 Class LanguageService : Instance [NotCreatable] [Service] [NotReplicated]
 Class Light : Instance [NotCreatable]
 	Property float Light.Brightness
@@ -2441,6 +2445,7 @@ Class BasePart : PVInstance [NotCreatable] [NotBrowsable]
 	Property bool BasePart.CastShadow
 	Property Color3 BasePart.Color [<📁> LoadOnly] [NotReplicated]
 	Property Enum.Material BasePart.Material
+	Property string BasePart.MaterialVariant [NotReplicated]
 	Property float BasePart.Reflectance
 	Property float BasePart.Transparency
 	Property Vector3 BasePart.AssemblyAngularVelocity [<📁> LoadOnly] [NotReplicated]
@@ -4027,6 +4032,7 @@ Class TextFilterResult : Instance [NotCreatable] [NotReplicated]
 	Function string TextFilterResult:GetNonChatStringForUserAsync(int64 toUserId) [Yields]
 Class TextService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Instance TextService:FilterStringAsync(string stringToFilter, int64 fromUserId, Enum.TextFilterContext textContext = "PrivateChat") [Yields]
+	Function Dictionary TextService:GetFamilyInfoAsync(Content assetId) [Yields]
 	Function Vector2 TextService:GetTextSize(string string, int fontSize, Enum.Font font, Vector2 frameSize)
 	Function void TextService:SetResolutionScale(float scale) {RobloxScriptSecurity}
 Class TextSource : Instance [NotCreatable] [NotBrowsable]
@@ -5171,6 +5177,7 @@ Enum Font
 	EnumItem Font.SpecialElite : 43
 	EnumItem Font.TitilliumWeb : 44
 	EnumItem Font.Ubuntu : 45
+	EnumItem Font.Unknown : 100
 Enum FontSize
 	EnumItem FontSize.Size8 : 0
 	EnumItem FontSize.Size9 : 1
@@ -5660,6 +5667,33 @@ Enum KeyInterpolationMode
 Enum KeywordFilterType
 	EnumItem KeywordFilterType.Include : 0
 	EnumItem KeywordFilterType.Exclude : 1
+Enum LSPMethodType
+	EnumItem LSPMethodType.Initialize : 1
+	EnumItem LSPMethodType.Initialized : 2
+	EnumItem LSPMethodType.CancelRequest : 3
+	EnumItem LSPMethodType.TextDocument_didOpen : 4
+	EnumItem LSPMethodType.TextDocument_didChange : 5
+	EnumItem LSPMethodType.TextDocument_didClose : 6
+	EnumItem LSPMethodType.TextDocument_foldingRange : 7
+	EnumItem LSPMethodType.TextDocument_onTypeFormatting : 8
+	EnumItem LSPMethodType.TextDocument_formatting : 9
+	EnumItem LSPMethodType.TextDocument_rangeFormatting : 10
+	EnumItem LSPMethodType.TextDocument_hover : 11
+	EnumItem LSPMethodType.TextDocument_signatureHelp : 12
+	EnumItem LSPMethodType.Workspace_DidChangeConfiguration : 13
+	EnumItem LSPMethodType.ShutdownRequest : 14
+	EnumItem LSPMethodType.Completion : 15
+	EnumItem LSPMethodType.Declaration : 16
+	EnumItem LSPMethodType.DocumentSymbols : 17
+	EnumItem LSPMethodType.TextDocument_publishDiagnostics : 18
+	EnumItem LSPMethodType.Window_showMessage : 19
+	EnumItem LSPMethodType.Window_showMessageRequest : 20
+	EnumItem LSPMethodType.Roblox_registerSyntaxCategories : 21
+	EnumItem LSPMethodType.Roblox_signalQuiescence : 22
+	EnumItem LSPMethodType.Roblox_syntaxHighlight : 23
+	EnumItem LSPMethodType.Roblox_suggestExtraSelections : 24
+	EnumItem LSPMethodType.Roblox_findExecutablePosition : 25
+	EnumItem LSPMethodType.Roblox_findColor3 : 26
 Enum Language
 	EnumItem Language.Default : 0
 Enum LeftRight
@@ -5835,11 +5869,6 @@ Enum PackagePermission
 	EnumItem PackagePermission.UseView : 3
 	EnumItem PackagePermission.Edit : 4
 	EnumItem PackagePermission.Own : 5
-Enum PacketPriority
-	EnumItem PacketPriority.IMMEDIATE_PRIORITY : 0
-	EnumItem PacketPriority.HIGH_PRIORITY : 1
-	EnumItem PacketPriority.MEDIUM_PRIORITY : 2
-	EnumItem PacketPriority.LOW_PRIORITY : 3
 Enum PartType
 	EnumItem PartType.Ball : 0
 	EnumItem PartType.Block : 1

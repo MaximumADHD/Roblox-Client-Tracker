@@ -61,6 +61,7 @@ Studio.AssetImporter.Properties.ScaleUnit,Scale Unit
 Studio.AssetImporter.Properties.WorldForward,World Forward
 Studio.AssetImporter.Properties.WorldUp,World Up
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored
+Studio.AssetImporter.PropertiesTooltip.DiffuseFilePath,The file path of the diffuse map. The diffuse map is an RGB[A] image used to determine the base color of the surface
 Studio.AssetImporter.PropertiesTooltip.Dimensions,The size of the given object in studs
 Studio.AssetImporter.PropertiesTooltip.DoubleSided,Whether or not vertices should be one sided (you can see through them from one direction) or double sided (opaque from both directions)
 Studio.AssetImporter.PropertiesTooltip.FileDimensions,The size of the extents of the file in studs
@@ -70,8 +71,11 @@ Studio.AssetImporter.PropertiesTooltip.ImportName,The name of the object
 Studio.AssetImporter.PropertiesTooltip.InsertInWorkspace,If this object should be inserted into the workspace after import
 Studio.AssetImporter.PropertiesTooltip.InvertNegativeFaces,Whether or not to flip negative faces
 Studio.AssetImporter.PropertiesTooltip.MergeMeshes,Combine sub meshes into one mesh
+Studio.AssetImporter.PropertiesTooltip.MetalnessFilePath,The file path of the metalness map. The metalness map is a grayscale image used to determine how metallic a surface should look
+Studio.AssetImporter.PropertiesTooltip.NormalFilePath,The file path of the normal map. The normal map is an RGB image used to enhance surface details for lighting
 Studio.AssetImporter.PropertiesTooltip.PolygonCount,The total count of polygons in this object
 Studio.AssetImporter.PropertiesTooltip.RigType,The type of Rig to import
+Studio.AssetImporter.PropertiesTooltip.RoughnessFilePath,The file path of the roughness map. The roughness map is a grayscale image used to determine how light should be reflected off a surface
 Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file
 Studio.AssetImporter.PropertiesTooltip.WorldForward,The file's forward vector
 Studio.AssetImporter.PropertiesTooltip.WorldUp,The file's up vector

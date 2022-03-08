@@ -1,4 +1,24 @@
 Key,en-us
+Studio.MaterialManager.Categories.All,All
+Studio.MaterialManager.Categories.Asphalt,Asphalt
+Studio.MaterialManager.Categories.Dirt,Dirt
+Studio.MaterialManager.Categories.Fabric,Fabric
+Studio.MaterialManager.Categories.FinishedWood,Finished Wood
+Studio.MaterialManager.Categories.Glacier,Glacier
+Studio.MaterialManager.Categories.Grass,Grass
+Studio.MaterialManager.Categories.Ground,Ground
+Studio.MaterialManager.Categories.HumanMade,Human-Made
+Studio.MaterialManager.Categories.Metal,Metallic
+Studio.MaterialManager.Categories.Mineral,Mineral
+Studio.MaterialManager.Categories.Mud,Mud
+Studio.MaterialManager.Categories.Natural,Natural
+Studio.MaterialManager.Categories.Rock,Rock
+Studio.MaterialManager.Categories.Salt,Salt
+Studio.MaterialManager.Categories.Snow,Snow
+Studio.MaterialManager.Categories.Stone,Stone
+Studio.MaterialManager.Categories.Synthetic,Synthetic
+Studio.MaterialManager.Categories.Translucent,Translucent
+Studio.MaterialManager.Categories.Wood,Wood
 Studio.MaterialManager.CreateDialog.BaseMaterialVariant,Base Material
 Studio.MaterialManager.CreateDialog.CancelVariant,Cancel
 Studio.MaterialManager.CreateDialog.CreateVariant,Create Variant
@@ -12,12 +32,53 @@ Studio.MaterialManager.CreateDialog.PlaceholderBaseMaterial,Select base material
 Studio.MaterialManager.CreateDialog.PlaceholderName,Material Variant name
 Studio.MaterialManager.CreateDialog.SaveVariant,Save
 Studio.MaterialManager.CreateDialog.TextureMaps,Texture Maps
+Studio.MaterialManager.Import.ColorMapPreview,Color Map Preview
+Studio.MaterialManager.Import.MetalnessMapPreview,Metalness Map Preview
+Studio.MaterialManager.Import.NormalMapPreview,Normal Map Preview
+Studio.MaterialManager.Import.RoughnessMapPreview,Roughness Map Preview
+Studio.MaterialManager.LocalImageSelector.NoImageSelected,No image
 Studio.MaterialManager.MaterialTile.BaseMaterial,Base Material
 Studio.MaterialManager.MaterialTile.BaseVariant,Base Variant
 Studio.MaterialManager.MaterialTile.PartMaterial,Part Material
 Studio.MaterialManager.MaterialTile.PartVariant,Part Variant
 Studio.MaterialManager.MaterialTile.TerrainMaterial,Terrain Material
 Studio.MaterialManager.MaterialTile.TerrainVariant,Terrain Variant
+Studio.MaterialManager.Materials.Air,Air
+Studio.MaterialManager.Materials.Asphalt,Asphalt
+Studio.MaterialManager.Materials.Basalt,Basalt
+Studio.MaterialManager.Materials.Brick,Brick
+Studio.MaterialManager.Materials.Cobblestone,Cobblestone
+Studio.MaterialManager.Materials.Concrete,Concrete
+Studio.MaterialManager.Materials.CorrodedMetal,Corroded Metal
+Studio.MaterialManager.Materials.CrackedLava,Cracked Lava
+Studio.MaterialManager.Materials.DiamondPlate,Diamond Plate
+Studio.MaterialManager.Materials.Fabric,Fabric
+Studio.MaterialManager.Materials.Foil,Foil
+Studio.MaterialManager.Materials.Forcefield,Force Field
+Studio.MaterialManager.Materials.Glacier,Glacier
+Studio.MaterialManager.Materials.Glass,Glass
+Studio.MaterialManager.Materials.Granite,Granite
+Studio.MaterialManager.Materials.Grass,Grass
+Studio.MaterialManager.Materials.Ground,Ground
+Studio.MaterialManager.Materials.Ice,Ice
+Studio.MaterialManager.Materials.LeafyGrass,Leafy Grass
+Studio.MaterialManager.Materials.Limestone,Limestone
+Studio.MaterialManager.Materials.Marble,Marble
+Studio.MaterialManager.Materials.Metal,Metal
+Studio.MaterialManager.Materials.Mud,Mud
+Studio.MaterialManager.Materials.Neon,Neon
+Studio.MaterialManager.Materials.Pavement,Pavement
+Studio.MaterialManager.Materials.Pebble,Pebble
+Studio.MaterialManager.Materials.Plastic,Plastic
+Studio.MaterialManager.Materials.Rock,Rock
+Studio.MaterialManager.Materials.Salt,Salt
+Studio.MaterialManager.Materials.Sand,Sand
+Studio.MaterialManager.Materials.Sandstone,Sandstone
+Studio.MaterialManager.Materials.Slate,Slate
+Studio.MaterialManager.Materials.SmoothPlastic,Smooth Plastic
+Studio.MaterialManager.Materials.Water,Water
+Studio.MaterialManager.Materials.Wood,Wood
+Studio.MaterialManager.Materials.WoodPlanks,Wood Planks
 Studio.MaterialManager.Plugin.Button,Material Manager
 Studio.MaterialManager.Plugin.Description,Toggles the Material Manager window.
 Studio.MaterialManager.Plugin.Name,Material Manager

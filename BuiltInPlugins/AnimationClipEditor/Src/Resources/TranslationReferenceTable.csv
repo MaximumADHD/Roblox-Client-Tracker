@@ -8,7 +8,7 @@ Studio.AnimationClipEditor.Plugin.Name,Animation Editor, ,Animation Editor,Edito
 Studio.AnimationClipEditor.Settings.CustomFPS,Custom, ,Custom,Personalizar,Personnaliser,カスタム,사용자 정의,Personalizar,Пользовательская,自定义,自定义,自訂
 Studio.AnimationClipEditor.Settings.CustomPlaybackSpeed,Custom, ,Custom,Personalizada,Personnalisé,カスタム,사용자 정의,Personalizar, ,自定义,自定义,自訂
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,Add Keyframe Here, ,Add Keyframe Here,Añadir fotograma clave aquí,Ajouter des images-clés ici,ここにキーフレームを追加,여기에 키프레임 추가,Adicionar quadro chave aqui,Добавить сюда ключевой кадр,在此处添加关键帧,在此处添加关键帧,在此增加關鍵格
-Studio.AnimationClipEditor.Menu.PromoteToChannels,Promote to Channel Animation, ,Promote to Channel Animation,Promover en canal de animación, ,チャンネルアニメーションで宣伝,채널 애니메이션으로 승격,Promover para animação de canal, ,升级至频道动画,升级至频道动画,升級成通道動畫
+Studio.AnimationClipEditor.Menu.PromoteToChannels,Promote to Channel Animation, ,Promote to Channel Animation,Promover en canal de animación, ,チャンネルアニメーションにアップグレード,채널 애니메이션으로 승격,Promover para animação de canal, ,升级至频道动画,升级至频道动画,升級成通道動畫
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,Add Reset Keyframe Here, ,Add Reset Keyframe Here,Añadir fotograma reiniciado aquí,Ajouter l'image-clé réinitialiser ici,ここにキーフレーム再設定を追加,여기에 재설정 키프레임 추가,Adicionar quadro chave reiniciado aqui,Добавить сюда сброс ключевого кадра,在此处添加重置关键帧,在此处添加重置关键帧,在此增加重置關鍵格
 Studio.AnimationClipEditor.ContextMenu.CutEvents,Cut Selected, ,Cut Selected,Cortar seleccionado,Couper Sélectionné,選択済みを切り抜き,선택 항목 잘라내기,Cortar seleção,Вырезать выбранное,剪切选定项,剪切选定项,剪下選取項目
 Studio.AnimationClipEditor.ContextMenu.CutSelected,Cut Selected, ,Cut Selected,Cortar seleccionado,Couper Sélectionné,選択済みを切り抜き,선택 항목 잘라내기,Cortar seleção,Вырезать выбранное,剪切选定项,剪切选定项,剪下選取項目
@@ -180,6 +180,6 @@ Studio.AnimationClipEditor.Title.MaxPBSParam,Maximum playback speed is {speed}x,
 Studio.AnimationClipEditor.Tooltip.Reverse,Preview the animation in reverse, ,Preview the animation in reverse,Previsualiza la animación al revés, ,アニメーションを逆方向にプレビュー,애니메이션 거꾸로 미리 보기,Pré-visualizar a animação em reverso, , , ,倒帶預覽動畫
 Studio.AnimationClipEditor.Tooltip.GoToFirstFrame,Move the scrubber to the first frame, ,Move the scrubber to the first frame,Mueve la barra de tiempo al primer fotograma, ,スクラバーを最初のフレームに移動,스크러버를 첫 번째 프레임으로 이동,Mover a barra de tempo para o primeiro quadro, , , ,將進度條移到第一個影格
 Studio.AnimationClipEditor.Tooltip.GoToLastFrame,Move the scrubber to the last frame, ,Move the scrubber to the last frame,Mueve la barra de tiempo al último fotograma, ,スクラバーを最後のフレームに移動,스크러버를 마지막 프레임으로 이동,Mover a barra de tempo para o último quadro, , , ,將進度條移到最後一個影格
-Studio.AnimationClipEditor.Menu.Action2,Action2, ,Action2,Action2,Action2,Action2,Action2, , , , , 
-Studio.AnimationClipEditor.Menu.Action3,Action3, ,Action3,Action3,Action3,Action3,Action3, , , , , 
-Studio.AnimationClipEditor.Menu.Action4,Action4, ,Action4,Action4,Action4,Action4,Action4, , , , , 
+Studio.AnimationClipEditor.Menu.Action2,Action2, ,Action2,Action2,Action2,Action2,Action2,Action2, , , ,Action2
+Studio.AnimationClipEditor.Menu.Action3,Action3, ,Action3,Action3,Action3,Action3,Action3,Action3, , , ,Action3
+Studio.AnimationClipEditor.Menu.Action4,Action4, ,Action4,Action4,Action4,Action4,Action4,Action4, , , ,Action4

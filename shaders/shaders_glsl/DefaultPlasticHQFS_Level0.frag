@@ -13,7 +13,7 @@ uniform sampler2D DiffuseMapTexture;
 uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 
-varying vec2 VARYING0;
+centroid varying vec2 VARYING0;
 varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;

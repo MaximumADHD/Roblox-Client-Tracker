@@ -10,7 +10,7 @@ attribute vec2 TEXCOORD0;
 attribute vec2 TEXCOORD1;
 attribute vec4 COLOR0;
 attribute vec4 COLOR1;
-varying vec2 VARYING0;
+centroid varying vec2 VARYING0;
 varying vec2 VARYING1;
 varying vec4 VARYING2;
 varying vec4 VARYING3;

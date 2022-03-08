@@ -2212,6 +2212,8 @@ Studio.App.BetaFeatures.AssetImporterTitle,,New Mesh Importer,New Mesh Importer
 Studio.App.BetaFeatures.AssetImporterDescription,,"Enable the new smart, unified Avatar and Mesh Importer","Enable the new smart, unified Avatar and Mesh Importer"
 Studio.App.BetaFeatures.TextChatServiceTitle,,New Text Chat Service,New Text Chat Service
 Studio.App.BetaFeatures.TextChatServiceDescription,,"Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat.","Enables the new TextChatService feature. Once enabled, you can change the ChatVersion property on TextChatService to 'TextChatService', which will prevent the legacy Lua system from loading and enable the new chat."
+Studio.App.BetaFeatures.ParticleFlipbooksTitle,,Particle Flipbooks,Particle Flipbooks
+Studio.App.BetaFeatures.ParticlFlipbooksDescription,,"Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames).","Enables the new particle flipbook feature, allowing the use of animated textures on particles (needing a 1024x1024 grid-layout texture of individiual frames)."
 Studio.App.DataModelPackageManager.PackageFailedToAutoUpdate1,,%1 failed to auto-update.,%1 failed to auto-update.
 Studio.App.LoginRequest.InternalServerError,Start page login,Our servers are having problems right now. Please try again later.,Our servers are having problems right now. Please try again later.
 Studio.App.LoginRequest.NetworkConnection,Start page login,Could not connect to the server. Please check your internet connection and try again later.,Could not connect to the server. Please check your internet connection and try again later.
@@ -2305,6 +2307,9 @@ Studio.App.RobloxStudioVerbs.ScreenshotSaved,,Screenshot saved! Click here to op
 Studio.App.RobloxStudioVerbs.PublishConfirm,,Publish,Publish
 Studio.App.RobloxStudioVerbs.PublishConfirmTitle,,Uncommitted changes,Uncommitted changes
 Studio.App.RobloxStudioVerbs.DirtyPublishWarning1,,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>,There are uncommitted script changes that will not be published with the place. Do you want to publish anyway? <a href=%1>Learn more</a>
+Studio.App.RobloxStudioVerbs.Grant.Permission,,Grant Permission,Grant Permission
+Studio.App.RobloxStudioVerbs.Warning,,Warning,Warning
+Studio.App.RobloxStudioVerbs.GrantUniversePermissionQuestion,,Do you want to allow this game to use this asset?,Do you want to allow this game to use this asset?
 Studio.App.AutoSaveDialog.ConfirmTitle,,Confirm Auto-Recovery Delete,Confirm Auto-Recovery Delete
 Studio.App.AutoSaveDialog.ConfirmMessageSingular,,Do you want to delete all auto-recovery files?  There is 1 file.,Do you want to delete all auto-recovery files?  There is 1 file.
 Studio.App.AutoSaveDialog.ConfirmMessage1,,Do you want to delete all auto-recovery files?  There are %1 files.,Do you want to delete all auto-recovery files?  There are %1 files.
@@ -2762,6 +2767,8 @@ Studio.App.PlayModifiedScriptController.AlwaysSave,,Always Save,Always Save
 Studio.App.PlayModifiedScriptController.KeepTheseChanges,,You've made script changes while playing.  Would you like to keep these changes?,You've made script changes while playing.  Would you like to keep these changes?
 Studio.App.IDEGameSettingsLinkDefinition.GameSettingsNotAvailable,,Game Settings not available,Game Settings not available
 Studio.App.IDEGameSettingsLinkDefinition.OpenGameSettings,,Open Game Settings,Open Game Settings
+Studio.App.IDEPermissionsResolutionLinkDefinition.PermissionsResolutionNotAvailable,,Permissions Resolution not available,Permissions Resolution not available
+Studio.App.IDEPermissionsResolutionLinkDefinition.OpenPermissionsResolution,,Open Permissions Resolution,Open Permissions Resolution
 Studio.App.StudioUtilities.LogInRequired,,Log in required,Log in required
 Studio.App.StudioUtilities.YouMustLogInToPerformThisAction,,You must log in to perform this action!,You must log in to perform this action!
 Studio.App.RESTRICTED.QtUtilities.DontAskMeAgain,,Don't ask me again,Don't ask me again
@@ -2812,6 +2819,8 @@ Studio.App.FBXDynamicHeadImporter.NoJoints,"Error message when importing FBX fil
 Studio.App.FBXDynamicHeadImporter.NearNeutral,"Warning message when importing FBX file. ""Control"" refers to a FACS control, where FACS stands for Facial Action Coding System. ""Neutral"" should not be translated as this refers to a string expected to be in the FBX file.",Control %1 is nearly identical to Neutral,Control %1 is nearly identical to Neutral
 Studio.App.FBXDynamicHeadImporter.IncompletePoses,"Warning message when importing FBX file.  ""base poses"" refers to the main facial expressions for an avatar.  ""character"" refers to the 3d avatar",Found only %1 base poses. Your character may not be able to express itself.,Found only %1 base poses. Your character may not be able to express itself.
 Studio.App.FBXDynamicHeadImporter.Unloadable,Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.,Could not load FACS control data,Could not load FACS control data
+Studio.App.FBXDynamicHeadImporter.NoJoint2,"Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  ""joint"" refers to a bone or joint as used in computer animation.",Failed importing FACS Control data for %1: No joint named %2.,Failed importing FACS Control data for %1: No joint named %2.
+Studio.App.FBXDynamicHeadImporter.MultipleJoints2,"Error message when importing FBX file.  Note FACS refers to the acronym Facial Action Coding System.  FACS may not need to be translated if the English acronym is used.  ""joint"" refers to a bone or joint as used in computer animation.",Failed importing FACS Control data for %1: Multiple joints named %2 were found.  Joint names must be unique.,Failed importing FACS Control data for %1: Multiple joints named %2 were found.  Joint names must be unique.
 Studio.App.RobloxTextOutputWidget.OpenLink,,Open link,Open link
 Studio.App.RobloxTextOutputWidget.Copy,,Copy,Copy
 Studio.App.RobloxTextOutputWidget.SelectAll,,Select All,Select All
@@ -3209,8 +3218,20 @@ Studio.App.BulkAudioImportErrors.TooManyRequests,,Too many requests. Try again l
 Studio.App.BulkAudioImportErrors.UnableToPurchase,,Error while trying to purchase the product.,Error while trying to purchase the product.
 Studio.App.BulkAudioImportErrors.FileSizeEstimationError,,The file size estimation error was greater than the acceptable margin of error.,The file size estimation error was greater than the acceptable margin of error.
 Studio.App.BulkAudioImportErrors.DurationEstimationError,,The duration estimation error was greater than the acceptable margin of error.,The duration estimation error was greater than the acceptable margin of error.
+Studio.App.BulkAudioImportErrors.UploadLimitReached,,Reached your audio upload limit.,Reached your audio upload limit.
+Studio.App.BulkAudioImportErrors.UploadUnavailable,,Audio file could not be uploaded at this time.,Audio file could not be uploaded at this time.
 Studio.App.BulkAudioImportErrors.AudioCostUnverifiedFormat1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Verifing the audio cost did not return correctly formatted data. Status Code: '%1',Verifing the audio cost did not return correctly formatted data. Status Code: '%1'
 Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Uploading the audio file failed. Status Code: '%1',Uploading the audio file failed. Status Code: '%1'
+Studio.App.BulkAudioImportRateLimiting.UploadsLeft4,,"%1 of %2 audio uploads left until %3.
+(<a href=%4>Need more?</a>)","%1 of %2 audio uploads left until %3.
+(<a href=%4>Need more?</a>)"
+Studio.App.BulkAudioImportRateLimiting.UploadsReachedLimit2,,"You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Need more?</a>)","You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Need more?</a>)"
+Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily unavailable. Please try again later.,Audio uploads are temporarily unavailable. Please try again later.
+Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
+(<a href=%2>Need more?</a>)","You have %1 audio uploads per 30 days.
+(<a href=%2>Need more?</a>)"
 Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
 Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
 Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs

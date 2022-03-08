@@ -15,7 +15,7 @@ uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-varying vec2 VARYING0;
+centroid varying vec2 VARYING0;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
@@ -28,7 +28,7 @@ void main()
     float f0 = length(VARYING4.xyz);
     float f1 = clamp(1.0 - (VARYING4.w * CB0[23].y), 0.0, 1.0);
     vec2 f2 = VARYING0 * CB2[0].x;
-    float f3 = texture2D(WangTileMapTexture, f2 * CB2[3].w).x * 8.0;
+    float f3 = texture2D(WangTileMapTexture, f2 * CB2[2].w).x * 8.0;
     float f4 = fract(f3);
     float f5 = floor(f3);
     vec2 f6 = dFdx(f2);
@@ -62,7 +62,7 @@ void main()
     vec2 f26 = f25.xy * f1;
     float f27 = f26.x;
     vec4 f28 = mix(texture2DGradARB(SpecularMapTexture, f8, f6, f7), texture2DGradARB(SpecularMapTexture, f9, f6, f7), f10);
-    vec4 f29 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f11.w + CB2[2].w, 0.0, 1.0))) * f11.xyz) * (1.0 + (f27 * CB2[0].z)), VARYING2.w);
+    vec4 f29 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(f11.w)) * f11.xyz) * (1.0 + (f27 * CB2[0].z)), VARYING2.w);
     float f30 = gl_FrontFacing ? 1.0 : (-1.0);
     vec3 f31 = VARYING6.xyz * f30;
     vec3 f32 = VARYING5.xyz * f30;

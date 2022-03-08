@@ -17,7 +17,7 @@ uniform sampler2D NormalMapTexture;
 uniform sampler2D NormalDetailMapTexture;
 uniform sampler2D SpecularMapTexture;
 
-in vec2 VARYING0;
+centroid in vec2 VARYING0;
 in vec4 VARYING2;
 in vec4 VARYING3;
 in vec4 VARYING4;
@@ -49,7 +49,7 @@ void main()
     vec4 f16 = texture(SpecularMapTexture, f3 * CB2[1].w);
     vec4 f17 = texture(SpecularMapTexture, f3);
     vec4 f18 = mix(f16, f17, vec4(clamp((f2 * CB2[3].z) - (CB2[2].z * CB2[3].z), 0.0, 1.0)));
-    vec4 f19 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(clamp(f4.w + CB2[2].w, 0.0, 1.0))) * f4.xyz) * (1.0 + (f15 * CB2[0].z)), VARYING2.w);
+    vec4 f19 = vec4((mix(vec3(1.0), VARYING2.xyz, vec3(f4.w)) * f4.xyz) * (1.0 + (f15 * CB2[0].z)), VARYING2.w);
     float f20 = gl_FrontFacing ? 1.0 : (-1.0);
     vec3 f21 = VARYING6.xyz * f20;
     vec3 f22 = VARYING5.xyz * f20;

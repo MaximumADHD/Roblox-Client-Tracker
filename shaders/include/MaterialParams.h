@@ -11,7 +11,7 @@ struct MaterialParams
     float farDiffuseCutoff;
     float farNormalCutoff;
     float farSpecularCutoff;
-    float optBlendColorK;
+    float noiseScale;
     float farDiffuseCutoffScale;
     float farNormalCutoffScale;
     float farSpecularCutoffScale;

@@ -1,0 +1,22 @@
+Key,en-us
+Studio.AudioDiscovery.Plugin.Button,View Sounds
+Studio.AudioDiscovery.Plugin.Description,Discover the audio assets in this place and see who owns them
+Studio.AudioDiscovery.Plugin.Info,"Discover Audio used in this place.<br/><br/>Any audio marked with a red cross should be replaced.<br/><br/>Select an asset to see a list of locations where it is used, and update each one to use a new asset id.<br/><br/>Select a location to highlight it in the Explorer window."
+Studio.AudioDiscovery.Plugin.LeftPaneInfo,Discovered Audio
+Studio.AudioDiscovery.Plugin.Name,Audio Discovery
+Studio.AudioDiscovery.Plugin.Refresh,Refresh
+Studio.AudioDiscovery.Plugin.RightPaneInfo,Instances Using Selected Audio
+Studio.AudioDiscovery.Plugin.Toolbar,Audio Discovery
+Studio.AudioDiscovery.Reason.Done,No longer referenced in this place
+Studio.AudioDiscovery.Reason.Effect,Qualifies as a sound effect
+Studio.AudioDiscovery.Reason.Error,This asset needs to be replaced as it is not owned by the creator of this place and not provided by Roblox
+Studio.AudioDiscovery.Reason.Monstercat,Provided by Monstercat
+Studio.AudioDiscovery.Reason.OK,Owned by the creator of this experience
+Studio.AudioDiscovery.Reason.Roblox,Provided by Roblox
+Studio.AudioDiscovery.Table.Creator,Creator
+Studio.AudioDiscovery.Table.Id,Id
+Studio.AudioDiscovery.Table.Instance,Instance
+Studio.AudioDiscovery.Table.Name,Name
+Studio.AudioDiscovery.Table.OK,OK
+Studio.AudioDiscovery.Table.Path,Path
+Studio.AudioDiscovery.Table.Time,Time

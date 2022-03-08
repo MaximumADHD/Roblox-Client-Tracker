@@ -25559,6 +25559,24 @@
                 {
                     "Category": "Text",
                     "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
                     "Name": "FontSize",
                     "Security": {
                         "Read": "None",
@@ -26266,6 +26284,24 @@
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
                         "Name": "Font"
                     }
                 },
@@ -27224,6 +27260,24 @@
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Enum",
+                        "Name": "Font"
+                    }
+                },
+                {
+                    "Category": "Text",
+                    "MemberType": "Property",
+                    "Name": "FontFace",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
                         "Name": "Font"
                     }
                 },
@@ -38109,6 +38163,32 @@
         },
         {
             "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "RegisterLSPCallback",
+                    "Parameters": [
+                        {
+                            "Name": "methodToOverride",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "LSPMethodType"
+                            }
+                        },
+                        {
+                            "Name": "callbackFunction",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Function"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "void"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
             ],
             "MemoryCategory": "Instances",
             "Name": "LSPService",
@@ -46833,6 +46913,27 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "Material"
+                    }
+                },
+                {
+                    "Category": "Appearance",
+                    "MemberType": "Property",
+                    "Name": "MaterialVariant",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "string"
                     }
                 },
                 {
@@ -76711,6 +76812,28 @@
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetFamilyInfoAsync",
+                    "Parameters": [
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -87875,6 +87998,10 @@
                 {
                     "Name": "Ubuntu",
                     "Value": 45
+                },
+                {
+                    "Name": "Unknown",
+                    "Value": 100
                 }
             ],
             "Name": "Font"
@@ -89919,6 +90046,115 @@
         {
             "Items": [
                 {
+                    "Name": "Initialize",
+                    "Value": 1
+                },
+                {
+                    "Name": "Initialized",
+                    "Value": 2
+                },
+                {
+                    "Name": "CancelRequest",
+                    "Value": 3
+                },
+                {
+                    "Name": "TextDocument_didOpen",
+                    "Value": 4
+                },
+                {
+                    "Name": "TextDocument_didChange",
+                    "Value": 5
+                },
+                {
+                    "Name": "TextDocument_didClose",
+                    "Value": 6
+                },
+                {
+                    "Name": "TextDocument_foldingRange",
+                    "Value": 7
+                },
+                {
+                    "Name": "TextDocument_onTypeFormatting",
+                    "Value": 8
+                },
+                {
+                    "Name": "TextDocument_formatting",
+                    "Value": 9
+                },
+                {
+                    "Name": "TextDocument_rangeFormatting",
+                    "Value": 10
+                },
+                {
+                    "Name": "TextDocument_hover",
+                    "Value": 11
+                },
+                {
+                    "Name": "TextDocument_signatureHelp",
+                    "Value": 12
+                },
+                {
+                    "Name": "Workspace_DidChangeConfiguration",
+                    "Value": 13
+                },
+                {
+                    "Name": "ShutdownRequest",
+                    "Value": 14
+                },
+                {
+                    "Name": "Completion",
+                    "Value": 15
+                },
+                {
+                    "Name": "Declaration",
+                    "Value": 16
+                },
+                {
+                    "Name": "DocumentSymbols",
+                    "Value": 17
+                },
+                {
+                    "Name": "TextDocument_publishDiagnostics",
+                    "Value": 18
+                },
+                {
+                    "Name": "Window_showMessage",
+                    "Value": 19
+                },
+                {
+                    "Name": "Window_showMessageRequest",
+                    "Value": 20
+                },
+                {
+                    "Name": "Roblox_registerSyntaxCategories",
+                    "Value": 21
+                },
+                {
+                    "Name": "Roblox_signalQuiescence",
+                    "Value": 22
+                },
+                {
+                    "Name": "Roblox_syntaxHighlight",
+                    "Value": 23
+                },
+                {
+                    "Name": "Roblox_suggestExtraSelections",
+                    "Value": 24
+                },
+                {
+                    "Name": "Roblox_findExecutablePosition",
+                    "Value": 25
+                },
+                {
+                    "Name": "Roblox_findColor3",
+                    "Value": 26
+                }
+            ],
+            "Name": "LSPMethodType"
+        },
+        {
+            "Items": [
+                {
                     "Name": "Default",
                     "Value": 0
                 }
@@ -90713,27 +90949,6 @@
                 }
             ],
             "Name": "PackagePermission"
-        },
-        {
-            "Items": [
-                {
-                    "Name": "IMMEDIATE_PRIORITY",
-                    "Value": 0
-                },
-                {
-                    "Name": "HIGH_PRIORITY",
-                    "Value": 1
-                },
-                {
-                    "Name": "MEDIUM_PRIORITY",
-                    "Value": 2
-                },
-                {
-                    "Name": "LOW_PRIORITY",
-                    "Value": 3
-                }
-            ],
-            "Name": "PacketPriority"
         },
         {
             "Items": [

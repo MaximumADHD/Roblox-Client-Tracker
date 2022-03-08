@@ -40,10 +40,12 @@ Studio.AssetImporter.Sections.ObjectGeneral,Object General,Object General
 Studio.AssetImporter.Sections.ObjectGeometry,Object Geometry,Object Geometry
 Studio.AssetImporter.Properties.Dimensions,Object Dimensions,Object Dimensions
 Studio.AssetImporter.PropertiesTooltip.Anchored,If this object should be anchored,If this object should be anchored
+Studio.AssetImporter.Statuses.CouldNotReadNormalError,Could not read the normal texture file associated with this object,Could not read the normal texture file associated with this object
 Studio.AssetImporter.Properties.DoubleSided,Make Double Sided,Make Double Sided
 Studio.AssetImporter.Properties.InvertNegativeFaces,Invert Negative Faces,Invert Negative Faces
 Studio.AssetImporter.Properties.FilePath,File Path,File Path
 Studio.AssetImporter.Upload.SuccessDescription,You may find your asset in Toolbox or Asset Manager.,You may find your asset in Toolbox or Asset Manager.
+Studio.AssetImporter.Statuses.NormalBadFileFormatError,Unsupported normal texture file format,Unsupported normal texture file format
 Studio.AssetImporter.PropertiesTooltip.ImportAsModelAsset,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model,Controls whether individual MeshParts are imported as separate assets in addition to being grouped into a model
 Studio.AssetImporter.Properties.ScaleUnit,Scale Unit,Scale Unit
 Studio.AssetImporter.PropertiesTooltip.ScaleUnit,The scale used when exporting the file,The scale used when exporting the file
@@ -97,3 +99,14 @@ Studio.AssetImporter.HttpError.429,Upload failed. Endpoint has too many requests
 Studio.AssetImporter.HttpError.UnknownStatusCode,Upload failed. Status Code:,Upload failed. Status Code:
 Studio.AssetImporter.HttpError.UploadResultBadIdParse,Could not upload. Asset name may have been rejected by moderation.,Could not upload. Asset name may have been rejected by moderation.
 Studio.AssetImporter.Statuses.IncorrectR15Warning,This rig does not follow the guidelines of chosen rig type.,This rig does not follow the guidelines of chosen rig type.
+Studio.AssetImporter.Statuses.CouldNotReadDiffuseError,Could not read the diffuse texture file associated with this object,Could not read the diffuse texture file associated with this object
+Studio.AssetImporter.Statuses.DiffuseBadFileFormatError,Unsupported diffuse texture file format,Unsupported diffuse texture file format
+Studio.AssetImporter.Statuses.CouldNotReadMetalnessError,Could not read the metalness texture file associated with this object,Could not read the metalness texture file associated with this object
+Studio.AssetImporter.Statuses.MetalnessBadFileFormatError,Unsupported metalness texture file format,Unsupported metalness texture file format
+Studio.AssetImporter.Statuses.CouldNotReadRoughnessError,Could not read the roughness texture file associated with this object,Could not read the roughness texture file associated with this object
+Studio.AssetImporter.Statuses.RoughnessBadFileFormatError,Unsupported roughness texture file format,Unsupported roughness texture file format
+Studio.AssetImporter.Properties.DiffuseFilePath,Diffuse File Path,Diffuse File Path
+Studio.AssetImporter.Properties.NormalFilePath,Normal File Path,Normal File Path
+Studio.AssetImporter.Properties.MetalnessFilePath,Metalness File Path,Metalness File Path
+Studio.AssetImporter.Properties.RoughnessFilePath,Roughness File Path,Roughness File Path
+Studio.AssetImporter.Properties.NoFilePath,No file provided,No file provided

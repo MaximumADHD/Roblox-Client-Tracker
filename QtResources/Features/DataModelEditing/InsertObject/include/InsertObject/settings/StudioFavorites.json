@@ -23,7 +23,7 @@
         ,"Part":["Script","Decal","Texture","ClickDetector","ProximityPrompt","PointLight","SurfaceGui","SpecialMesh"]
         ,"ProximityPrompt":["Script"]
 		,"ReplicatedFirst":["LocalScript"]
-        ,"ReplicatedScriptService":["Script","LocalScript","ModuleScript","Folder"]		
+        ,"ReplicatedScriptService":["Script","LocalScript","ModuleScript","Folder"]  
         ,"ReplicatedStorage":["Folder","RemoteEvent","RemoteFunction","ModuleScript"]
         ,"ScreenGui":["Frame","TextButton","TextLabel","LocalScript","ImageLabel","TextBox","ImageButton"]
         ,"Script":["Animation","Script","RemoteEvent","ModuleScript","Folder","LocalScript"]
@@ -49,5 +49,6 @@
         ,"Tool":["LocalScript","ModuleScript","ClickDetector","Script","Part","Animation","Texture"]
         ,"UnionOperation":["Texture","Script","Decal","ClickDetector","PointLight","Attachment","SurfaceLight"]
         ,"Workspace":["Part","Script","Folder","Tool","SpawnLocation","MeshPart","Model"]
+        ,"TextChatService":["TextChannel", "TextChatCommand", "Folder"]
         }        
 }

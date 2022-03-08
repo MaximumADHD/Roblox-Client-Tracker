@@ -8,7 +8,7 @@ uniform sampler3D LightMapTexture;
 uniform sampler3D LightGridSkylightTexture;
 uniform sampler2D DiffuseMapTexture;
 
-varying vec2 VARYING0;
+centroid varying vec2 VARYING0;
 varying vec4 VARYING2;
 varying vec4 VARYING3;
 varying vec4 VARYING4;
