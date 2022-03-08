@@ -41,7 +41,7 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
-local FFlagStudioExplainFriendCollaboratorPermission = game:GetFastFlag("StudioExplainFriendCollaboratorPermission")
+local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -141,7 +141,7 @@ function Button:render()
 			Text = text,
 			ZIndex = 2,
 
-			[Roact.Event.Activated] = FFlagStudioExplainFriendCollaboratorPermission and self.onClick or onClick,
+			[Roact.Event.Activated] = FFlagStudioExplainFriendCollaboratorPermission2 and self.onClick or onClick,
 			[Roact.Event.MouseEnter] = self.mouseEnter,
 			[Roact.Event.MouseLeave] = self.mouseLeave,
 		}, props[Roact.Children]),

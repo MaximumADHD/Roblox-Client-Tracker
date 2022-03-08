@@ -4,10 +4,10 @@
 local FFlagLayeredClothingEditorDeduplicatePackages = game:GetFastFlag("LayeredClothingEditorDeduplicatePackages")
 if FFlagLayeredClothingEditorDeduplicatePackages then
 	local PackageIndex = script.Parent.Parent.Parent._Index
-	local Package = require(PackageIndex["Roact"]["Roact"])
+	local Package = require(PackageIndex["roblox_roact"]["roact"])
 	return Package
 else
 	local PackageIndex = script.Parent.Parent.Parent._IndexOld
-	return require(PackageIndex["Roact"]["Roact"])
+	return require(PackageIndex["roblox_roact"]["roact"])
 end
 

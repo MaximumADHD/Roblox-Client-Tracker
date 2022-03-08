@@ -17,6 +17,9 @@ return {
 
 	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
 
+	[StyleKey.ToolbarBackgroundColor] = Color3.fromRGB(0, 0, 0),
+	[StyleKey.ToolbarButtonBackgroundColor] = Color3.fromRGB(39, 39, 39),
+
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.CurrentMarker] = Colors.Gray,
 

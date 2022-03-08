@@ -18,7 +18,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
@@ -61,7 +60,7 @@ function TableRow:render()
 	local columns = props.Columns
 	local cells
 	local isFullSpan = props.FullSpan and row.depth and row.depth == 0
-	local highlightCell = (FFlagDevFrameworkHighlightTableRows and props.HighlightRow) or nil
+	local highlightCell = props.HighlightRow
 	if isFullSpan then
 		local firstColumnIndex = 1
 		local key = columns[firstColumnIndex].Key

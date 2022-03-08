@@ -14,6 +14,7 @@ export type ConnectedProps = Props & {
 }
 
 export type Tab = {
+	Key: string?,
 	Label: string?,
 	Icon: string?,
 	Tooltip: string?,

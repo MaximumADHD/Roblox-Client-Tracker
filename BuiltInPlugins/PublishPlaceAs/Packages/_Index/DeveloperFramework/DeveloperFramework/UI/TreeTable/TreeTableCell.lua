@@ -1,8 +1,6 @@
 --[[
 	A simple cell of a table which can be hovered, disabled & selected.
 ]]
-local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-
 local Framework = script.Parent.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -19,8 +17,6 @@ local Util = require(Framework.Util)
 local StyleModifier = Util.StyleModifier
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
-
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 
 function TreeTableCell:init()
 	self.onToggle = function()
@@ -56,16 +52,14 @@ function TreeTableCell:init()
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
 				OnFocusLost = self.onTextInputFocusLost,
-				ForwardRef = if FFlagDevFrameworkForwardRef then self.textRef else nil,
-				[Roact.Ref] = if FFlagDevFrameworkForwardRef then nil else self.textRef,
+				[Roact.Ref] = self.textRef,
 			})
 		else
 			return text and Roact.createElement(TextLabel, {
 				LayoutOrder = 3,
 				Text = text,
 				AutomaticSize = Enum.AutomaticSize.XY,
-				ForwardRef = if FFlagDevFrameworkForwardRef then self.textRef else nil,
-				[Roact.Ref] = if FFlagDevFrameworkForwardRef then nil else self.textRef,
+				[Roact.Ref] = self.textRef,
 			}) or nil
 		end
 	end
@@ -94,7 +88,7 @@ function TreeTableCell:render()
 	
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
-	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
 			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
 				style[StyleModifier.Hover].BackgroundEven
