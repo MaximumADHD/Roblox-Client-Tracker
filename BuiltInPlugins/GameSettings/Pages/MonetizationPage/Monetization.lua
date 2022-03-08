@@ -10,11 +10,11 @@ local FVariableMaxRobuxPrice = game:DefineFastInt("DeveloperSubscriptionsMaxRobu
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
-local Framework = Plugin.Framework
-local ContextServices = require(Framework.ContextServices)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local Header = require(Plugin.Src.Components.Header)
@@ -26,15 +26,15 @@ local DevSubList = require(Page.Components.DevSubList)
 local DevSubDetails = require(Page.Components.DevSubDetails)
 local Badges = require(Page.Components.Badges)
 
-local FrameworkUI = require(Framework.UI)
+local FrameworkUI = Framework.UI
 local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 
-local FrameworkUtil = require(Framework.Util)
+local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local RoundFrame = UILibrary.Component.RoundFrame

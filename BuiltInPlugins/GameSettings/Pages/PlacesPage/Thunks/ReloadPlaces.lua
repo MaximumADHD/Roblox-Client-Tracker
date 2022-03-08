@@ -4,8 +4,8 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
-local Promise = require(Plugin.Framework).Util.Promise
+local Cryo = require(Plugin.Packages.Cryo)
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 

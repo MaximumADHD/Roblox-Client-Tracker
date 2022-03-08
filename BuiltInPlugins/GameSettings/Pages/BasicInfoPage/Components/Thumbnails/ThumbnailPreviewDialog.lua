@@ -15,11 +15,11 @@ local BUTTON_PADDING = UDim.new(0, 20)
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUI = require(Plugin.Packages.Framework).UI
 local HoverArea = FrameworkUI.HoverArea
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)

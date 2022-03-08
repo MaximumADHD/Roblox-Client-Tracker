@@ -1,22 +1,23 @@
 local Plugin = script.Parent.Parent.Parent
 
-local Framework = Plugin.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local DevFrameworkTheme = ContextServices.Theme
-local StudioUI = require(Framework.StudioUI)
+local StudioUI = Framework.StudioUI
 local StudioFrameworkStyles = StudioUI.StudioFrameworkStyles
 
-local Util = require(Framework.Util)
+local Util = Framework.Util
 local StyleTable = Util.StyleTable
 local Style = Util.Style
 local FrameworkStyleModifier = Util.StyleModifier
 
-local UIFolderData = require(Framework.UI.UIFolderData)
+local UIFolderData = Framework.UIData
 local Button = require(UIFolderData.Button.style)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
+
 local createTheme = UILibrary.createTheme
 local StudioStyle = UILibrary.Studio.Style
 
@@ -562,8 +563,8 @@ function Theme.createValues(theme, getColor)
 					height = 50,
 				},
 				padding = 10,
-				DEPRECATED_width = 140, -- remove with FFlagStudioExplainFriendCollaboratorPermission
-				width = 180
+				DEPRECATED_width = 140, -- remove with FFlagStudioExplainFriendCollaboratorPermission2
+				width = 195
 			},
 
 			playabilityWidget = {

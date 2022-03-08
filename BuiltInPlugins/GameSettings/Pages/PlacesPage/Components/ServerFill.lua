@@ -14,16 +14,16 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = Plugin.Framework
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
+local Framework = require(Plugin.Packages.Framework)
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local RoundTextBox = UILibrary.Component.RoundTextBox
 
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)

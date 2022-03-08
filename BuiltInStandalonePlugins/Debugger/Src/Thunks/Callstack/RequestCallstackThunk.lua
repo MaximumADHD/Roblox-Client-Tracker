@@ -8,6 +8,9 @@ local SetFilenameForGuidAction = require(Actions.Common.SetFilenameForGuid)
 return function(threadState, debuggerConnection, debuggerStateToken, scriptChangeService)
 	return function(store, contextItems)
 		debuggerConnection:Populate(threadState, function ()
+			if debuggerStateToken ~= store:getState().Common.debuggerConnectionIdToDST[debuggerStateToken.debuggerConnectionId] then
+				return
+			end
 			local callstack = threadState:GetChildren()
 
 			local callstackRows = {}

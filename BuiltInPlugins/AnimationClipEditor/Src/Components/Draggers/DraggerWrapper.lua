@@ -25,7 +25,6 @@ local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local DraggerWrapper = Roact.PureComponent:extend("DraggerWrapper")
 
@@ -51,22 +50,12 @@ local function mapDraggerContextToProps(draggerContext, props)
 	draggerContext.PinnedParts = props.PinnedParts
 	draggerContext.IKEnabled = props.IKEnabled
 	draggerContext.Tool = props.Tool
-	if GetFFlagMoarMediaControls() then
-		draggerContext.IsPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
-	else
-		draggerContext.IsPlaying = props.IsPlaying
-	end
+	draggerContext.IsPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
 
 	draggerContext.ScrubberSignal = props.Signals:get(Constants.SIGNAL_KEYS.ScrubberChanged)
 	draggerContext.OnManipulateJoints = function(instanceName, values)
-		if GetFFlagMoarMediaControls() then
-			if props.PlayState ~= Constants.PLAY_STATE.Pause then
-				return
-			end
-		else
-			if props.IsPlaying then
-				return
-			end
+		if props.PlayState ~= Constants.PLAY_STATE.Pause then
+			return
 		end
 
 		for trackName, value in pairs(values) do
@@ -153,7 +142,6 @@ local function mapStateToProps(state, props)
 		IKEnabled = state.Status.IKEnabled,
 		Playhead = state.Status.Playhead,
 		Tracks = state.Status.Tracks,
-		IsPlaying = status.IsPlaying,
 		PlayState = status.PlayState,
 		AnimationData = state.AnimationData,
 		DefaultRotationType = status.DefaultRotationType,

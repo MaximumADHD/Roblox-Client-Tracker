@@ -3,8 +3,7 @@ local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamC
 local teamCreateToggleEnabled = false
 if FIntTeamCreateTogglePercentageRollout > 0 then
 	local StudioService = game:GetService("StudioService")
-	local studioUserId = StudioService:GetUserId()
-	teamCreateToggleEnabled = FIntTeamCreateTogglePercentageRollout > (studioUserId % 10000)
+	teamCreateToggleEnabled = StudioService:GetUserIsInTeamCreateToggleRamp()
 end
 
 return function(plugin, pluginLoaderContext)

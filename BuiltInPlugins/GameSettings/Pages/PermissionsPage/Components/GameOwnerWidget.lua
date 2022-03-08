@@ -1,13 +1,13 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 
 local UserCollaboratorItem = require(Page.Components.UserCollaboratorItem)

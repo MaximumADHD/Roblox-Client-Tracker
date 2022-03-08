@@ -6,16 +6,16 @@ local StudioService = game:GetService("StudioService")
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local Separator = require(Plugin.Framework).UI.Separator
-local Pane = require(Plugin.Framework).UI.Pane
-local RadioButtonList = require(Plugin.Framework).UI.RadioButtonList
-local TextLabel = require(Plugin.Framework).UI.Decoration.TextLabel
+local Separator = require(Plugin.Packages.Framework).UI.Separator
+local Pane = require(Plugin.Packages.Framework).UI.Pane
+local RadioButtonList = require(Plugin.Packages.Framework).UI.RadioButtonList
+local TextLabel = require(Plugin.Packages.Framework).UI.Decoration.TextLabel
 local GameOwnerWidget = require(Page.Components.GameOwnerWidget)
 local CollaboratorsWidget = require(Page.Components.CollaboratorsWidget)
 local SearchbarWidget = require(Page.Components.CollaboratorSearchWidget)

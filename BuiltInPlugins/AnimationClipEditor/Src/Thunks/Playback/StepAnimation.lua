@@ -9,19 +9,12 @@ local RigUtils = require(Plugin.Src.Util.RigUtils)
 local SetPlayhead = require(Plugin.Src.Actions.SetPlayhead)
 local KeyframeUtils = require(Plugin.Src.Util.KeyframeUtils)
 
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
-
 return function(tck)
 	return function(store)
 		local state = store:getState()
 		local animationData = state.AnimationData
 		local targetInstance = state.Status.RootInstance
-		local isPlaying
-		if GetFFlagMoarMediaControls() then
-		 	isPlaying = state.Status.PlayState ~= Constants.PLAY_STATE.Pause
-		else
-			isPlaying = state.Status.IsPlaying
-		end
+		local isPlaying = state.Status.PlayState ~= Constants.PLAY_STATE.Pause
 
 		local active = state.Status.Active
 		local visualizeBones = state.Status.VisualizeBones

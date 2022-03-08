@@ -1,9 +1,9 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local deepJoin = UILibrary.Util.deepJoin
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local PermissionsConstants = require(Page.Util.PermissionsConstants)

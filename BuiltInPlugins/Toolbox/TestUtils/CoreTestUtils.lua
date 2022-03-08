@@ -1,6 +1,6 @@
 local Plugin = script.Parent.Parent
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 local Packages = Plugin.Packages
 local Roact = require(Packages.Roact)
 local Rodux = require(Packages.Rodux)

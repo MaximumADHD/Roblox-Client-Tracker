@@ -13,9 +13,9 @@
 	When discarding changes, the Changed table is deleted.
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Rodux = require(Plugin.Rodux)
-local deepEqual = require(Plugin.Framework).Util.deepEqual
+local Cryo = require(Plugin.Packages.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
+local deepEqual = require(Plugin.Packages.Framework).Util.deepEqual
 
 local isEmpty = require(Plugin.Src.Util.isEmpty)
 

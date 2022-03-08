@@ -6,11 +6,11 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local Pane = require(Plugin.Framework).UI.Pane
-local ContextServices = require(Plugin.Framework).ContextServices
+local Pane = require(Plugin.Packages.Framework).UI.Pane
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local ButtonBar = require(Plugin.Src.Components.ButtonBar)

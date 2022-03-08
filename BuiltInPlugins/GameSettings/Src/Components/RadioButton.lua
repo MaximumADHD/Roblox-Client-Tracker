@@ -15,11 +15,11 @@
 local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local Framework = Plugin.Framework
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
-local ContextServices = require(Framework.ContextServices)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local Framework = require(Plugin.Packages.Framework)
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local RadioButton = Roact.PureComponent:extend("RadioButton")

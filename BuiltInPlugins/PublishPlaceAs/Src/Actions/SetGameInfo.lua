@@ -6,7 +6,7 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 
 return Action(script.Name, function(gameInfoArg)
 	AssertType.assertNullableType(gameInfoArg, "table", "SetGameInfo arg")
@@ -20,7 +20,7 @@ return Action(script.Name, function(gameInfoArg)
 	AssertType.assertNullableType(nextPageCursor, "string", "SetGameInfo.nextPageCursor")
 	AssertType.assertNullableType(previousPageCursor, "string", "SetGameInfo.previousPageCursor")
 
-	if FFlagFixPublishAsWhenQueryFails then
+	if FFlagDebugFixPublishAsWhenQueryFails then
 		return {
 			gameInfo = {
 				games = games,

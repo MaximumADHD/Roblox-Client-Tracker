@@ -24,7 +24,7 @@ function DebugConnectionListener:onExecutionPaused(connection, pausedState, debu
 	local state = self.store:getState()
 	local common = state.Common
 	local dst = DebuggerStateToken.fromData({debuggerConnectionId = connection.Id})
-	if debuggerPauseReason == Constants.DebuggerPauseReason.Breakpoint then
+	if tostring(debuggerPauseReason) == Constants.DebuggerPauseReason.Breakpoint then
 		if pausedState.Breakpoint ~= nil then
 			self.store:dispatch(SetCurrentBreakpointIdAction(pausedState.Breakpoint.MetaBreakpointId))
 		else

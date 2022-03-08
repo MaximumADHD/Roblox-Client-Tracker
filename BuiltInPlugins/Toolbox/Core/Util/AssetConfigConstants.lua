@@ -1,5 +1,6 @@
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagUGCLCAssetTypes2 = game:GetFastFlag("UGCLCAssetTypes2")
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -203,6 +204,13 @@ if FFlagToolboxRedirectToLibraryAbuseReport then
 	AssetConfigConstants.LIBRARY_REPORT_ASSET_TYPES = {
 		[Enum.AssetType.Model] = true,
 		[Enum.AssetType.Plugin] = true,
+	}
+end
+
+if FFlagToolboxPrivatePublicAudioAssetConfig then
+	AssetConfigConstants.SHARING_KEYS = {
+		Public = true,
+		Private = false,
 	}
 end
 

@@ -8,19 +8,19 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUI = require(Plugin.Packages.Framework).UI
 
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local Container = FrameworkUI.Container

@@ -20,18 +20,18 @@ local FFlagRemoveUILibraryPartialHyperlink = game:GetFastFlag("RemoveUILibraryPa
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = Plugin.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUtil = require(Framework.Util)
+local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 --TODO: jbousellam - remove with FFlagRemoveUILibraryPartialHyperlink
 local StudioWidgetPartialHyperlink = UILibrary.Studio.PartialHyperlink
 local TitledFrame = UILibrary.Component.TitledFrame
@@ -43,9 +43,10 @@ local FitToContent = createFitToContent("Frame", "UIListLayout", {
 })
 
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-local LinkText = require(Plugin.Framework).UI.LinkText
-local Separator = require(Plugin.Framework).UI.Separator
-local TextLabel = require(Plugin.Framework).UI.Decoration.TextLabel
+local UI = Framework.UI
+local LinkText = UI.LinkText
+local Separator = UI.Separator
+local TextLabel = UI.Decoration.TextLabel
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

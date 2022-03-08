@@ -1,7 +1,7 @@
 local Page = script.Parent.Parent
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local DeserializeFromRequest = require(Page.Util.DeserializeFromRequest)
 local SerializeForRequest = require(Page.Util.SerializeForRequest)

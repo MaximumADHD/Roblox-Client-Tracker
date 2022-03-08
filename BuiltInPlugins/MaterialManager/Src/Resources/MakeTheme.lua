@@ -35,28 +35,37 @@ local function getPluginTheme()
 			MaterialGridSize = UDim2.new(1, -MaterialDetailsWidth, 1, 0),
 			MaterialDetailsSize = UDim2.new(0, MaterialDetailsWidth, 1, 0),
 		},
+
 		MaterialPrompt = {
 			DialogWidth = 800,
-			DialogHeight = 500,
+			DialogHeight = 600,
 		},
+
 		MaterialVariantCreator = {
 			ListItemPadding = UDim.new(0, 10),
 			Padding = 10,
 		},
+
 		MaterialVariantSettings = {
-			DialogColumnSize = UDim2.new(0, 200, 0, 25),
-		},
-		LabeledElementList = {
-			ItemContentPadding = 10,
-			ItemPaddingHorizontal = UDim.new(0, 15),
-			TextWidth = UDim.new(0, 100),
+			DialogColumnSize = UDim2.new(0, 220, 0, 25),
 		},
 
+		LabeledElementList = {
+			ItemSpacing = 10,
+			ItemPaddingHorizontal = UDim.new(0, 15),
+			TextWidth = UDim.new(0, 80),
+		},
 
 		MaterialTile = {
 			Padding = 10,
 			Size = UDim2.fromOffset(200, 200),
 			TextSize = 12,
+		},
+
+		SideBar = {
+			IconColor = _StyleKey.MainText,
+			IconSize = UDim2.fromOffset(16, 16),
+			AllIconImage = "rbxasset://textures/MaterialManager/All.png",
 		},
 
 		TopBar = {
@@ -83,6 +92,34 @@ local function getPluginTheme()
 			ImageSize = UDim2.fromOffset(16, 16),
 			Padding = (TopBarHeight - TopBarButtonWidth) / 2,
 			SearchBarSize = UDim2.new(1, -(TopBarButtonWidth * 4 + ((TopBarHeight - TopBarButtonWidth) / 2 * 5) + TopBarDropdownWidth), 0, TopBarButtonWidth),
+		},
+
+		PromptSelectorWithPreview = {
+			ExpandIcon = "rbxasset://textures/StudioSharedUI/preview_expand.png",
+			ClearIcon = "rbxasset://textures/StudioSharedUI/preview_clear.png",
+			ImportIcon = "rbxasset://textures/StudioSharedUI/import@2x.png",
+
+			PreviewBackgroundColor = _StyleKey.Button,
+			PreviewBorderColor = _StyleKey.Border,
+
+			ButtonIconColor = _StyleKey.Icon,
+			ButtonIconHoveredColor = _StyleKey.ButtonHover,
+
+			ToolbarTransparency = 0.4,
+			ToolbarBackgroundColor = _StyleKey.ToolbarBackgroundColor,
+			ToolbarButtonBackgroundColor = _StyleKey.ToolbarButtonBackgroundColor,
+			ToolbarHeight = 32,
+
+			ColumnWidth = 220,
+			PreviewSize = 88,
+
+			PaddingVertical = 4,
+			PaddingHorizontal = 12,
+			TextHeight = 16,
+
+			ExpandedPreviewDefaultSize = Vector2.new(400, 400),
+			ExpandedPreviewMinSize = Vector2.new(100, 100),
+			ExpandedPreviewPadding = UDim.new(0, 16),
 		}
 	}
 end

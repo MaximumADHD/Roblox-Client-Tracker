@@ -2,7 +2,7 @@
 	Called on scroll to load more Badges, or to refresh badges if refreshing == true
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local SetCurrentSettings = require(Plugin.Src.Actions.SetCurrentSettings)
 
 return function(refreshing)

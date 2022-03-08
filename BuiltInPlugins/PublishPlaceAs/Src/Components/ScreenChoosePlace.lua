@@ -2,7 +2,7 @@
 	Allow the user to go back to picking a universe
 	Allow the user to select a place to overwrite
 ]]
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 local FIntTeamCreateTogglePercentageRollout = game:GetFastInt("StudioEnableTeamCreateFromPublishToggleHundredthsPercentage2")
 local FFlagPlacePublishManagementUI = game:GetFastFlag("PlacePublishManagementUI")
 local FFlagEnablePlacePublishManagementInTeamCreate = game:GetFastFlag("EnablePlacePublishManagementInTeamCreate")
@@ -146,7 +146,7 @@ function ScreenChoosePlace:render()
 		}),
 	}
 
-	if (not FFlagFixPublishAsWhenQueryFails) or props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
+	if (not FFlagDebugFixPublishAsWhenQueryFails) or props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS then
 		for _, place in pairs(places) do
 			if string.find(place.name:lower(), self.state.searchTerm:lower()) then
 				local createdTile = Roact.createElement(TilePlace, {
@@ -189,7 +189,7 @@ function ScreenChoosePlace:render()
 	-- Replace this with layoutRef
 	-- Manually calculating CanvasHeight for now
 	local canvasSize = 200
-	if FFlagFixPublishAsWhenQueryFails then
+	if FFlagDebugFixPublishAsWhenQueryFails then
 		canvasSize = components and math.ceil(#components * TILE_HEIGHT) or 200
 	else
 		canvasSize = math.ceil(#components * TILE_HEIGHT)
@@ -263,7 +263,7 @@ function ScreenChoosePlace:render()
 		}),
 
 
-		MainContentsSuccess = (FFlagFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
+		MainContentsSuccess = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_SUCCESS)
 			and Roact.createElement(InfiniteScrollingFrame, {
 				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 				Position = UDim2.new(0, 0, 0, 100),
@@ -278,7 +278,7 @@ function ScreenChoosePlace:render()
 					end
 				end,
 			}, components),
-		MainContentsQuerying = (FFlagFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
+		MainContentsQuerying = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_QUERYING)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -290,7 +290,7 @@ function ScreenChoosePlace:render()
 				})
 			}),
 
-		MainContentsFailed = (FFlagFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
+		MainContentsFailed = (FFlagDebugFixPublishAsWhenQueryFails and props.PlacesQueryState == Constants.QUERY_STATE.QUERY_STATE_FAILED)
 			and Roact.createElement("Frame", {
 				Position = UDim2.new(0, 30, 0, 115),
 				Size = UDim2.new(0.95, 0, 0.7, 0),
@@ -320,8 +320,8 @@ function ScreenChoosePlace:render()
 				)}
 			),
 
-		-- DEPRECATED, delete with FFlagFixPublishAsWhenQueryFails
-		ScrollingFrame = (not FFlagFixPublishAsWhenQueryFails)
+		-- DEPRECATED, delete with FFlagDebugFixPublishAsWhenQueryFails
+		ScrollingFrame = (not FFlagDebugFixPublishAsWhenQueryFails)
 			and Roact.createElement(InfiniteScrollingFrame, {
 				Size = UDim2.new(1, 0, 0.5, theme.FOOTER_HEIGHT * 2),
 				Position = UDim2.new(0, 0, 0, 100),
@@ -384,11 +384,11 @@ local function mapStateToProps(state, props)
 	local placeInfo = state.ExistingGame.placeInfo
 	local selectedGame = state.ExistingGame.selectedGame
 	local gameConfiguration = state.ExistingGame.gameConfiguration
-	if FFlagFixPublishAsWhenQueryFails then
+	if FFlagDebugFixPublishAsWhenQueryFails then
 		return {
 			NextPageCursor = placeInfo.nextPageCursor,
 			Places = placeInfo.places,
-			ParentGame = FFlagFixPublishAsWhenQueryFails and selectedGame or placeInfo.parentGame,
+			ParentGame = FFlagDebugFixPublishAsWhenQueryFails and selectedGame or placeInfo.parentGame,
 			IsPublishing = state.PublishedPlace.isPublishing,
 			PlacesQueryState = placeInfo.queryState,
 			OptInRegions = FFlagPlacePublishManagementUI and gameConfiguration.optInRegions or nil,

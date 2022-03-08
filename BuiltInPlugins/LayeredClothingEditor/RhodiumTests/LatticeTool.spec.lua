@@ -13,10 +13,10 @@ return function()
 	local EditorFrame = ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame"))
 
 	local PointToolTabButton =
-		EditorFrame:cat(XPath.new("TabsRibbon.2 PointTool.1.Contents.TextButton"))
+		EditorFrame:cat(XPath.new("TabsRibbon.Tabs.2"))
 
 	local LatticeToolTabButton =
-		EditorFrame:cat(XPath.new("TabsRibbon.1 LatticeTool.1.Contents.TextButton"))
+		EditorFrame:cat(XPath.new("TabsRibbon.Tabs.1"))
 
 	local LatticeToolSettings =
 		EditorFrame:cat(XPath.new("SettingView.LatticeToolSettings"))

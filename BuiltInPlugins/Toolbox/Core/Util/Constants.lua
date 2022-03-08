@@ -22,6 +22,7 @@ Constants.FONT_SIZE_SMALL = 14
 Constants.FONT_SIZE_MEDIUM = 16
 Constants.FONT_SIZE_LARGE = 18
 Constants.FONT_SIZE_TITLE = 22
+Constants.FONT_SIZE_ASSET_CONFIG_INPUT = 20
 
 function Constants.getTextSize(text, fontSize, font, frameSize)
 	fontSize = fontSize or Constants.FONT_SIZE_MEDIUM

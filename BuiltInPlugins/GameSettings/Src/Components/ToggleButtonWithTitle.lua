@@ -16,20 +16,20 @@
 local FFlagGameSettingsEnableVoiceChat = game:GetFastFlag("GameSettingsEnableVoiceChat")
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local Framework = require(Plugin.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local TitledFrame = Framework.StudioUI.TitledFrame
 local ToggleButton = Framework.UI.ToggleButton
 local TextWithInlineLink = Framework.UI.TextWithInlineLink
 
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
-local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and require(Plugin.Framework).Util.LayoutOrderIterator or nil
+local LayoutOrderIterator = FFlagGameSettingsEnableVoiceChat and require(Plugin.Packages.Framework).Util.LayoutOrderIterator or nil
 
 local ToggleButtonWithTitle = Roact.PureComponent:extend("ToggleButtonWithTitle")
 

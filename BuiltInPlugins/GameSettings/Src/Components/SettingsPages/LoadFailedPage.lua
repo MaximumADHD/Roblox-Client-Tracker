@@ -9,11 +9,11 @@ local TextService = game:GetService("TextService")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUI = require(Plugin.Packages.Framework).UI
 
 local Button = FrameworkUI.Button
 local Container = FrameworkUI.Container

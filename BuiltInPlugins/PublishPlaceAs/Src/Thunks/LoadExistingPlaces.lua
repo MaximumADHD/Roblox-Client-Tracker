@@ -1,4 +1,4 @@
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 local Plugin = script.Parent.Parent.Parent
 
 local SetPlaceInfo = require(Plugin.Src.Actions.SetPlaceInfo)
@@ -17,7 +17,7 @@ return function(parentGame, pageCursor)
 			assert(type(parentGame.name) == "string", "LoadExistingPlaces.parentGame must have a string name")
 			assert(type(parentGame.universeId) == "number", "LoadExistingPlaces.parentGame must have a number universeId")
 
-			if FFlagFixPublishAsWhenQueryFails then
+			if FFlagDebugFixPublishAsWhenQueryFails then
 				store:dispatch(SetSelectedGame(parentGame))
 				store:dispatch(SetChoosePlaceQueryState(Constants.QUERY_STATE.QUERY_STATE_QUERYING))
 			end
@@ -33,7 +33,7 @@ return function(parentGame, pageCursor)
 				resp.places = placesTable
 				store:dispatch(SetPlaceInfo(resp))
 			end, function(err)
-				if FFlagFixPublishAsWhenQueryFails then
+				if FFlagDebugFixPublishAsWhenQueryFails then
 					store:dispatch(SetChoosePlaceQueryState(Constants.QUERY_STATE.QUERY_STATE_FAILED))
 				else
 					error("Failed to fetch places under parent game" .. parentGame.name)

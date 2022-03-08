@@ -10,6 +10,9 @@ local Localization = ContextServices.Localization
 local BreakpointRow = require(PluginFolder.Src.Models.BreakpointRow)
 
 local Stylizer = Framework.Style.Stylizer
+local Dash = Framework.Dash
+local map = Dash.map
+local join = Dash.join
 
 local Util = Framework.Util
 local deepCopy = Util.deepCopy
@@ -26,9 +29,11 @@ local BreakpointsTreeTableCell = require(PluginFolder.Src.Components.Breakpoints
 local Constants = require(PluginFolder.Src.Util.Constants)
 
 local BreakpointsTable = Roact.PureComponent:extend("BreakpointsTable")
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 local UtilFolder = PluginFolder.Src.Util
 local MakePluginActions = require(UtilFolder.MakePluginActions)
@@ -55,14 +60,31 @@ local tableColumnKeys = {
 
 function BreakpointsTable:init()
 
+	local initialSizes = {}
+	if hasTableColumnResizeFFlags then 
+		for i = 1, #tableColumnKeys do
+			table.insert(initialSizes, UDim.new(1/(#tableColumnKeys), 0))
+		end
+	end
 	self.state = {
 		selectedBreakpoints = {},
 		breakpointIdToExpansionState = {},
+		sizes = (hasTableColumnResizeFFlags and initialSizes)
 	}
 
 	self.OnDoubleClick = function(row)
 		local DebuggerUIService = game:GetService("DebuggerUIService")
 		DebuggerUIService:EditBreakpoint(row.item.id)
+	end
+	
+	self.OnSizesChange = function(newSizes)
+		if hasTableColumnResizeFFlags then
+			self:setState(function(state)
+				return { 
+					sizes = newSizes
+				}
+			end)
+		end
 	end
 
 	self.onSelectionChange = function(selection)
@@ -145,7 +167,8 @@ function BreakpointsTable:init()
 		if #self.state.selectedBreakpoints ~= 0 then
 			local currBreakpoint = self.state.selectedBreakpoints[1]
 			local DebuggerUIService = game:GetService("DebuggerUIService")
-			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, self.props.CurrentDebuggerConnectionId, currBreakpoint.lineNumber)
+			local lineNumber = if currBreakpoint.hiddenLineNumber then currBreakpoint.hiddenLineNumber else currBreakpoint.lineNumber
+			DebuggerUIService:OpenScriptAtLine(currBreakpoint.scriptGUID, self.props.CurrentDebuggerConnectionId, lineNumber)
 		end
 	end
 
@@ -264,6 +287,14 @@ function BreakpointsTable:render()
 	local textInputCols = {[5] = true, [6] = true}
 	
 	watchHelperFunctions.sortTableByColumnAndOrder(props.Breakpoints, props.SortIndex, props.SortOrder, tableColumns, false)
+	
+	if hasTableColumnResizeFFlags then
+		tableColumns = map(tableColumns, function(column, index: number)
+			return join(column, {
+				Width = self.state.sizes[index]
+			})
+		end)
+	end
 
 	local expansionTable = {}
 	for _, bp in pairs(props.Breakpoints) do
@@ -333,7 +364,7 @@ function BreakpointsTable:render()
 				CellComponent = BreakpointsTreeTableCell,
 				LayoutOrder = 2,
 				OnSelectionChange = self.onSelectionChange,
-				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedBreakpoints) or nil,
+				HighlightedRows = self.state.selectedBreakpoints,
 				Scroll = true,
 				ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and shouldFocusBreakpoint and self.props.CurrentBreakpointIndex) or nil,
 				Expansion = expansionTable,
@@ -343,7 +374,10 @@ function BreakpointsTable:render()
 				OnDoubleClick = FFlagDevFrameworkDoubleClick and self.OnDoubleClick,
 				SortIndex = props.SortIndex,
 				SortOrder = props.SortOrder,
-				OnSortChange = self.OnSortChange
+				OnSortChange = self.OnSortChange,
+				OnColumnSizesChange = (hasTableColumnResizeFFlags and self.OnSizesChange),
+				UseScale = (hasTableColumnResizeFFlags and true),
+				ClampSize = (hasTableColumnResizeFFlags and true),
 			}),
 		})
 	})
@@ -379,6 +413,8 @@ BreakpointsTable = RoactRodux.connect(
 			for context, connectionIdAndBreakpoints in pairs(breakpoint.contextBreakpoints) do
 				for _, individualBreakpoint in ipairs(connectionIdAndBreakpoints.breakpoints) do
 					local bpRow = BreakpointRow.extractNonChildData(breakpoint, context, individualBreakpoint.Script)
+					bpRow.hiddenLineNumber = bpRow.lineNumber
+					bpRow.lineNumber = ""
 					bpRow.scriptGUID = bpRow.scriptName
 					bpRow.scriptName = state.ScriptInfo.ScriptInfo[bpRow.scriptName]
 					table.insert(breakpoint.children, bpRow)

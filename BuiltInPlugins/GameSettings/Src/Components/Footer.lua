@@ -13,13 +13,12 @@ local FOOTER_GRADIENT_SIZE = 3
 local FOOTER_GRADIENT_TRANSPARENCY = 0.9
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Framework = require(Plugin.Framework)
-local Util = Framework.Util
-local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Framework = require(Plugin.Packages.Framework)
+local Promise = if FFlagGameSettingsDeduplicatePackages then Framework.Util.Promise else require(Plugin.Packages.Promise)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 

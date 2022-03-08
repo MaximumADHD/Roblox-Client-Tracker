@@ -83,6 +83,7 @@ Images.GENERAL_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/editlisting.
 Images.VERSIONS_TAB = "rbxasset://textures/StudioToolbox/AssetConfig/version.png"
 Images.CENTER_PLUS = "rbxasset://textures/StudioToolbox/AssetConfig/CenterPlus.png"
 Images.GRADIENT = "rbxasset://textures/gradient.png"
+Images.WARNING_ICON = "rbxasset://textures/StudioToolbox/AssetConfig/alert-icon-dialog.png"
 
 Images.TOGGLE_ON_DARK = "rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"
 Images.TOGGLE_ON_LIGHT = "rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"

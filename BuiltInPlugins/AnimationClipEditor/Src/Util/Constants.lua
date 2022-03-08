@@ -1,7 +1,6 @@
 local Plugin = script.Parent.Parent.Parent
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local FFlagStudioUseAnimationEditorAnalytics2 = game:DefineFastFlag("StudioUseAnimationEditorAnalytics2", false)
 
@@ -42,14 +41,14 @@ local Constants = {
 	EVENT_MARKER_BORDER_SIZE = UDim2.new(0, 8, 0, 22),
 
 	TIMELINE_HEIGHT = 24,
-	CONTROLS_WIDTH = GetFFlagMoarMediaControls() and 200 or 110,
+	CONTROLS_WIDTH = 200,
 	TIME_DISPLAY_WIDTH = 100,
 
 	SCROLL_BAR_SIZE = 17,
 	SCROLL_BAR_PADDING = 2,
 
-	TRACK_LIST_START_WIDTH = (GetFFlagChannelAnimations() and 350 or 335) + (GetFFlagMoarMediaControls() and 90 or 0),
-	TRACK_LIST_MIN_WIDTH = (GetFFlagChannelAnimations() and 350 or 335) + (GetFFlagMoarMediaControls() and 90 or 0),
+	TRACK_LIST_START_WIDTH = (GetFFlagChannelAnimations() and 440 or 425),
+	TRACK_LIST_MIN_WIDTH = (GetFFlagChannelAnimations() and 440 or 425),
 	TIMELINE_MIN_WIDTH = 200,
 
 	INDENT_PADDING = 8,

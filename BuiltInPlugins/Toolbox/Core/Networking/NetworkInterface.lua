@@ -19,6 +19,9 @@ local Constants = require(Plugin.Core.Util.Constants)
 local Category = require(Plugin.Core.Types.Category)
 
 local ToolboxUtilities = require(Plugin.Core.Util.ToolboxUtilities)
+local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
+
+local FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS = game:GetFastInt("ToolboxGrantUniverseAudioPermissionsTimeoutInMS")
 
 local NetworkInterface = {}
 NetworkInterface.__index = NetworkInterface
@@ -713,6 +716,24 @@ function NetworkInterface:grantAssetPermissions(assetId, permissions)
 
 	printUrl("grantAssetPermissions", "PATCH", targetUrl, putPayload)
 	return self._networkImp:httpPatch(targetUrl, putPayload)
+end
+
+function NetworkInterface:grantAssetPermissionWithTimeout(assetId, payload)
+	local targetUrl = Urls.constructAssetPermissionsUrl(assetId)
+
+	local requestBody = self._networkImp:jsonEncode(payload)
+
+	local options = {
+		Url = targetUrl,
+		Method = "PATCH",
+		Body = requestBody,
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+		Timeout = FIntToolboxGrantUniverseAudioPermissionsTimeoutInMS,
+	}
+
+	return self._networkImp:requestInternalRaw(options)
 end
 
 function NetworkInterface:revokeAssetPermissions(assetId, permissions)

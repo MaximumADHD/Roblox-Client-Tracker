@@ -7,6 +7,7 @@ local Plugin = script.Parent.Parent.Parent
 local FFlagToolboxNilDisconnectSignals = game:GetFastFlag("ToolboxNilDisconnectSignals")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 local Packages = Plugin.Packages
 local Cryo = require(Packages.Cryo)
 
@@ -697,10 +698,13 @@ function Localization:_recalculateContent()
 				Genre = self:_safeLocalize("Studio.Toolbox.General.Genre"),
 				Copy = self:_safeLocalize("Studio.Toolbox.General.Copy"),
 				Comments = self:_safeLocalize("Studio.Toolbox.General.Comments"),
+				DistributeOnMarketplace = FFlagToolboxPrivatePublicAudioAssetConfig and self:_safeLocalize("Studio.Toolbox.General.DistributeOnMarketplace") or nil,
 				LearnMore = self:_safeLocalize("Studio.Toolbox.General.LearnMore"),
 				Me = self:_safeLocalize("Studio.Toolbox.General.Me"),
 				AssetType = self:_safeLocalize("Studio.Toolbox.General.AssetType"),
+				Sharing = FFlagToolboxPrivatePublicAudioAssetConfig and self:_safeLocalize("Studio.Toolbox.General.Sharing") or nil,
 				Tags = self:_safeLocalize("Studio.Toolbox.General.Tags"),
+				TermsOfUse = self:_safeLocalize("Studio.Toolbox.General.TermsOfUse"),
 
 				AssetTextDisplay = {
 					[Enum.AssetType.Model] = self:_safeLocalize("Studio.Toolbox.General.AssetTypeModel"),
@@ -811,8 +815,14 @@ function Localization:_recalculateContent()
 				),
 			},
 
+			DistributeAgreement = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.DistributeAgreement"),
 			Terms = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.Terms"),
 			Accounts = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.AccountSetting"),
+
+			PublicSharingInformation = self:_safeLocalize("Studio.Toolbox.AssetConfigSharing.PublicInformation"),
+			MustShare = self:_safeLocalize("Studio.Toolbox.AssetConfigCopy.MustShare"),
+			AnyoneOnRoblox = self:_safeLocalize("Studio.Toolbox.AssetConfigSharing.AnyoneOnRoblox"),
+			OnlyMe = self:_safeLocalize("Studio.Toolbox.AssetConfigSharing.OnlyMe"),
 
 			-- Confirm if I need to change apply to save, back to cancel.
 			Apply = self:_safeLocalize("Studio.Toolbox.Common.Submit"),

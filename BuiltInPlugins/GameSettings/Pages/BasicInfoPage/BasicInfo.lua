@@ -52,11 +52,11 @@ local imageErrors = {
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
-local UILibrary = require(Plugin.UILibrary)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
@@ -65,7 +65,7 @@ local TitledFrame = UILibrary.Component.TitledFrame
 local CheckBoxSet = require(Plugin.Src.Components.CheckBoxSet)
 local RoundTextBox = UILibrary.Component.RoundTextBox
 local Dropdown = require(Plugin.Src.Components.Dropdown)
-local Separator = require(Plugin.Framework).UI.Separator
+local Separator = require(Plugin.Packages.Framework).UI.Separator
 local ThumbnailController = require(Page.Components.Thumbnails.ThumbnailController)
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
@@ -101,7 +101,7 @@ local selectedKey = KeyProvider.getSelectedKeyName()
 local termsOfUseDialogKey = KeyProvider.getTermsOfUseDialogKeyName()
 local buttonClickedKey = KeyProvider.getButtonClickedKeyName()
 
-local Framework = require(Plugin.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local LinkText = Framework.UI.LinkText
 local Tooltip = Framework.UI.Tooltip
 local Image = Framework.UI.Decoration.Image

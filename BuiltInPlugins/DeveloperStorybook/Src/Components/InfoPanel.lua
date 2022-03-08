@@ -262,7 +262,7 @@ function InfoPanel:getRoactComponent(input: Types.Story, roact: Types.Roact): Ty
 	local isRoactComponent
 	if FFlagDeveloperStorybookMigrateToRoact17 then
 		isRoactElement = ReactIs.isElement(input) or ReactIs.isFragment(input)
-		isRoactComponent = not isRoactElement and ReactIs.typeOf(input) ~= nil
+		isRoactComponent = not isRoactElement and ReactIs.isValidElementType(input)
 	else
 		isRoactComponent = typeof(input) == "table" and (input :: Types.AnyRecord).__componentName ~= nil
 		isRoactElement = typeof(input) == "table" and (input :: Types.AnyRecord).component ~= nil

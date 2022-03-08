@@ -5,7 +5,7 @@ local ContentProvider = game:GetService("ContentProvider")
 local FFlagGameSettingsDeduplicatePackages = game:GetFastFlag("GameSettingsDeduplicatePackages")
 
 local Plugin = script.Parent.Parent.Parent
-local Framework = require(Plugin.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)

@@ -3,7 +3,7 @@ return function()
 
 	local Page = script.Parent.Parent.Parent
 	local Plugin = script.Parent.Parent.Parent.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 	local RoundArrowButton = require(Page.Components.Thumbnails.RoundArrowButton)
 
 	local function createTestRoundArrowButton(visible, flipped)

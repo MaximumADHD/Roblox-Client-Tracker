@@ -1,18 +1,18 @@
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local Badges = Roact.PureComponent:extend(script.Name)
 
-local Framework = Plugin.Framework
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local FrameworkUI = require(Framework.UI)
+local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 
 local TextService = game:GetService("TextService")

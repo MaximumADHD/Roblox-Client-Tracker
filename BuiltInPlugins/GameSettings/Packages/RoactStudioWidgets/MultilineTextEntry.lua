@@ -123,7 +123,7 @@ function MultilineTextEntry:render()
 				self.props.FocusChanged(true)
 			end,
 
-			[Roact.Event.FocusLost] = function(unused, enterPressed)
+			[Roact.Event.FocusLost] = function(_, enterPressed)
 				self.props.FocusChanged(false, enterPressed)
 			end,
 

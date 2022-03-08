@@ -138,13 +138,9 @@ return function()
 
 			-- change to the clothes tab
 			local PreviewTabsRibbonPath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame.PreviewTabsRibbon"))
-			local clothesButtonPath = PreviewTabsRibbonPath:cat(XPath.new("2 TAB_KEY_Clothing"))
-			local clothesButtonDecorationPath = clothesButtonPath:cat(XPath.new("1.Decoration"))
-			local clothesButtonTextButtonPath = clothesButtonPath:cat(XPath.new("1.Contents.TextButton"))
+			local clothesButtonPath = PreviewTabsRibbonPath:cat(XPath.new("Tabs.2"))
 
-			local clothesButtonDecoration = Element.new(clothesButtonDecorationPath)
-			TestHelper.clickXPath(clothesButtonTextButtonPath)
-			expect(clothesButtonDecoration:getAttribute("BackgroundTransparency")).to.equal(0) -- clothes tab selected
+			TestHelper.clickXPath(clothesButtonPath)
 
 			-- add a clothes item tile to the clothing grid
 			TestHelper.addClothesItemToGrid()

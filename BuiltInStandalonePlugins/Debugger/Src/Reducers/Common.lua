@@ -6,7 +6,7 @@ local Actions = Plugin.Src.Actions
 local SetCurrentThreadAction = require(Actions.Callstack.SetCurrentThread)
 local SetCurrentFrameNumberAction = require(Actions.Callstack.SetCurrentFrameNumber)
 local ResumedAction = require(Actions.Common.Resumed)
-local Step = require(Actions.Common.Step)
+local SetPausedState = require(Actions.Common.SetPausedState)
 local SimPaused = require(Actions.Common.SimPaused)
 local SetCurrentBreakpointId = require(Actions.Common.SetCurrentBreakpointId)
 local ClearConnectionDataAction = require(Actions.Common.ClearConnectionData)
@@ -100,17 +100,11 @@ return Rodux.createReducer(productionStartStore, {
 		})
 	end,
 
-	[Step.name] = function(state : CommonStore, action : Step.Props)
-		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}),
-		})
-	end,
-
 	[SimPaused.name] = function(state : CommonStore, action : SimPaused.Props)
 		local pausedConnectionId = action.debuggerStateToken.debuggerConnectionId
 
 		return Cryo.Dictionary.join(state, {
-			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}), 
+			debuggerConnectionIdToDST = Cryo.Dictionary.join(state.debuggerConnectionIdToDST, {[action.debuggerStateToken.debuggerConnectionId] = action.debuggerStateToken}),
 			isPaused = true,
 			pausedDebuggerConnectionIds = Cryo.Dictionary.join(state.pausedDebuggerConnectionIds, {[pausedConnectionId] = pausedConnectionId}),
 		})
@@ -118,6 +112,10 @@ return Rodux.createReducer(productionStartStore, {
 
 	[SetCurrentBreakpointId.name] = function(state : CommonStore, action : SetCurrentBreakpointId.Props)
 		return Cryo.Dictionary.join(state, {currentBreakpointId = action.breakpointId})
+	end,
+
+	[SetPausedState.name] = function(state : CommonStore, action : SetPausedState.Props)
+		return Cryo.Dictionary.join(state, {isPaused = action.pause})
 	end,
 
 	[AddThreadIdAction.name] = function(state : CommonStore, action : AddThreadIdAction.Props)

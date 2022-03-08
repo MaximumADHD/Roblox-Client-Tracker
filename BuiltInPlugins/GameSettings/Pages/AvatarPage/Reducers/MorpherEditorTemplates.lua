@@ -1,7 +1,7 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Rodux = require(Plugin.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
 
 local UtilityFunctionsTable = require(Page.Util.UtilityFunctionsTable)
 

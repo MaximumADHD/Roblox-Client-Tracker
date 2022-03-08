@@ -34,16 +34,16 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
 
-local Cryo = require(Plugin.Cryo)
-local Roact = require(Plugin.Roact)
-local Framework = Plugin.Framework
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
-local LayoutOrderIterator = require(Framework.Util.LayoutOrderIterator)
+local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Framework = require(Plugin.Packages.Framework)
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
+local LayoutOrderIterator = Framework.Util.LayoutOrderIterator
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 local RadioButtonSet = require(Plugin.Src.Components.RadioButtonSet)
 local RobuxFeeBase = require(Page.Components.RobuxFeeBase)

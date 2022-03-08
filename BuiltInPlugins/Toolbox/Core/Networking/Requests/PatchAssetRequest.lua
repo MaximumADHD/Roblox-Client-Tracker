@@ -1,3 +1,4 @@
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 local Plugin = script.Parent.Parent.Parent.Parent
 
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
@@ -9,6 +10,12 @@ local SetCurrentScreen = require(Actions.SetCurrentScreen)
 local UploadResult = require(Actions.UploadResult)
 
 local TrySaveSalesAndThumbnailRequest = require(Plugin.Core.Networking.Requests.TrySaveSalesAndThumbnailRequest)
+
+local Packages = Plugin.Packages
+local Promise = require(Packages.Framework).Util.Promise
+
+local PermissionTypes = require(Plugin.Core.Types.PermissionTypes)
+local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 -- patchInfo is a table contains the following:
 --networkInterface
@@ -42,18 +49,61 @@ return function(patchInfo)
 			store:dispatch(UploadResult(false))
 		end
 
-		return patchInfo.networkInterface
-			:patchAsset(
-				patchInfo.assetId,
-				patchInfo.name,
-				patchInfo.description,
-				patchInfo.genres,
-				patchInfo.commentOn,
-				patchInfo.copyOn,
-				patchInfo.locale,
-				patchInfo.localName,
-				patchInfo.localDescription
-			)
-			:andThen(onPatchSuccess, onPatchFail)
+		if FFlagToolboxPrivatePublicAudioAssetConfig then
+			local function onPatchAssetPermissionsSuccess()
+				return patchInfo.networkInterface
+					:patchAsset(
+						patchInfo.assetId,
+						patchInfo.name,
+						patchInfo.description,
+						patchInfo.genres,
+						patchInfo.commentOn,
+						patchInfo.copyOn,
+						patchInfo.locale,
+						patchInfo.localName,
+						patchInfo.localDescription
+					)
+					:andThen(onPatchSuccess, onPatchFail)
+			end
+
+			local permissionPatchData
+			if patchInfo.isAssetPublic then
+				local publicPermission: PermissionTypes.PermissionResultList = {
+					{
+						action = webKeys.UseAction,
+						subjectId = "",
+						subjectType = webKeys.All,
+					}
+				}
+				permissionPatchData = {
+					requests = publicPermission,
+				}
+			end
+
+			if permissionPatchData then
+				return patchInfo.networkInterface
+					:grantAssetPermissions(
+						patchInfo.assetId,
+						permissionPatchData
+					)
+					:andThen(onPatchAssetPermissionsSuccess, onPatchFail)
+			else
+				return onPatchAssetPermissionsSuccess()
+			end
+		else
+			return patchInfo.networkInterface
+				:patchAsset(
+					patchInfo.assetId,
+					patchInfo.name,
+					patchInfo.description,
+					patchInfo.genres,
+					patchInfo.commentOn,
+					patchInfo.copyOn,
+					patchInfo.locale,
+					patchInfo.localName,
+					patchInfo.localDescription
+				)
+				:andThen(onPatchSuccess, onPatchFail)
+		end
 	end
 end

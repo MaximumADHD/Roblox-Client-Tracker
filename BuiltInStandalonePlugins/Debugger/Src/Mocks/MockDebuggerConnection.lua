@@ -7,6 +7,7 @@ local StackFrame = require(script.Parent.StackFrame)
 local DebuggerVariable = require(script.Parent.DebuggerVariable)
 local DebuggerLuaResponse = require(script.Parent.MockDebuggerLuaResponse)
 
+local Constants = require(script.Parent.Parent.Util.Constants)
 local Promise = Framework.Util.Promise
 
 local MockDebuggerConnection = {}
@@ -65,7 +66,7 @@ function MockDebuggerConnection:EvaluateWatch(expression : string, frame : Stack
 	end)
 
 	promise:andThen(function(newCallback)
-		local luaResponse = DebuggerLuaResponse.new({VariableId = 1})
+		local luaResponse = DebuggerLuaResponse.new({VariableId = 1}, Constants.DebuggerStatus.Success)
 		newCallback(luaResponse)
 	end)
 	return 0

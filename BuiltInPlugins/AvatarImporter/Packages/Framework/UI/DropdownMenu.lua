@@ -50,7 +50,7 @@ local TextLabel = require(UI.TextLabel)
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 local FlagsList = Util.Flags.new({
-	FFlagToolboxAssetGridRefactor4 = {"ToolboxAssetGridRefactor4"},
+	FFlagToolboxAssetGridRefactor5 = {"ToolboxAssetGridRefactor5"},
 })
 
 local DropdownMenu = Roact.PureComponent:extend("DropdownMenu")
@@ -62,7 +62,7 @@ function DropdownMenu:init()
 	self.ref = Roact.createRef()
 
 	self.state = {
-		absolutePosition = Vector2.new(0, 0),
+		absolutePosition = if FFlagDevFrameworkForwardRef then nil else Vector2.new(0, 0),
 		absoluteSize = Vector2.new(0, 0),
 		menuContentSize = Vector2.new(0, 0),
 	}
@@ -92,7 +92,7 @@ function DropdownMenu:init()
 		end
 	end
 
-	self.getPositionAndSize = function(pluginGui, width, offset)
+	self.getPositionAndSize = function(pluginGui: PluginGui, width: number, offset: Vector2)
 		local state = self.state
 		local props = self.props
 
@@ -108,6 +108,13 @@ function DropdownMenu:init()
 		local maxHeight = style.MaxHeight
 
 		local sourcePosition = state.absolutePosition
+		if FFlagDevFrameworkForwardRef and not state.absolutePosition then
+			if self.ref.current then
+				sourcePosition = self.ref.current.AbsolutePosition
+			else
+				sourcePosition = Vector2.new()
+			end
+		end
 		local sourceSize = state.absoluteSize
 		local guiSize = pluginGui.AbsoluteSize
 
@@ -276,15 +283,15 @@ function DropdownMenu:render()
 	local state = self.state
 
 	local isOpen = not props.Hide
-	local canRender = state.absolutePosition ~= Vector2.new(0, 0)
+	local canRender = if FFlagDevFrameworkForwardRef then true else state.absolutePosition ~= Vector2.new(0, 0)
 	local priority = props.Priority
-
+	
 	return Roact.createElement(Container, {
 		[Roact.Ref] = self.ref,
 	}, {
 		PortalToRoot = isOpen and Roact.createElement(CaptureFocus, {
 			OnFocusLost = props.OnFocusLost,
-			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor4") and priority or nil,
+			Priority = FlagsList:get("FFlagToolboxAssetGridRefactor5") and priority or nil,
 		}, {
 			Menu = isOpen and canRender and self:renderMenu()
 		})

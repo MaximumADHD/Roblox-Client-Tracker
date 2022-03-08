@@ -18,7 +18,7 @@ return function()
 			}),
 			function(container)
 				local frame = container:FindFirstChildOfClass("Frame")
-				local avatars = frame["1 " .. tostring(PreviewConstants.TABS_KEYS.Avatars)]
+				local avatars = frame.Tabs["1"]
 
 				expect(frame).to.be.ok()
 				expect(avatars).to.be.ok()

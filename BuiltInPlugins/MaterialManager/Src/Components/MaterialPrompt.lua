@@ -1,6 +1,7 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
-
+local _Types = require(Plugin.Src.Types)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
@@ -13,16 +14,25 @@ local Stylizer = Framework.Style.Stylizer
 local StudioUI = Framework.StudioUI
 local StyledDialog = StudioUI.StyledDialog
 
+local ImportAssetHandler = require(Plugin.Src.Util.ImportAssetHandler)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 local MaterialVariantCreator = require(Plugin.Src.Components.MaterialVariantCreator)
 
 export type Props = {
 	PromptClosed : () -> (),
+	name: string?,
+	baseMaterial: Enum.Material?,
+	colorMap : _Types.TextureMap?,
+	normalMap : _Types.TextureMap?,
+	metalnessMap : _Types.TextureMap?,
+	roughnessMap : _Types.TextureMap?,
 }
 
 type _Props = Props & {
 	Analytics : any,
 	Localization : any,
 	Stylizer : any,
+	ImportAssetHandler : any,
 }
 
 type _Style = {
@@ -35,6 +45,40 @@ local MaterialPrompt = Roact.PureComponent:extend("MaterialPrompt")
 function MaterialPrompt:init()
 	-- TODO: Save -> upload texture maps if needed
 	self.onSave = function()
+		local props : _Props = self.props
+
+		local assetHandler = props.ImportAssetHandler
+
+		local function handleMaps(maps : { _Types.TextureMap })
+			for _, map in pairs(maps) do
+				if map and map.file then
+					task.spawn(function()
+						assetHandler:handleAsset(map.file)
+					end)
+				end
+			end
+		end
+
+		if not props.name or not props.baseMaterial then
+			-- TODO: Warnings and errors
+			return
+		end
+
+		if props.colorMap or props.normalMap or props.metalnessMap or props.roughnessMap then
+			-- TODO:
+			-- create Material Variant
+
+			local maps = {
+				props.colorMap, 
+				props.normalMap, 
+				props.metalnessMap, 
+				props.roughnessMap
+			}
+			handleMaps(maps)
+
+		-- TODO: Warnings and errors
+		-- else
+		end
 	end
 
 	self.onButtonPressed = function(key)
@@ -84,6 +128,20 @@ MaterialPrompt = withContext({
 	Analytics = Analytics,
 	Localization = Localization,
 	Stylizer = Stylizer,
+	ImportAssetHandler = ImportAssetHandler,
 })(MaterialPrompt)
 
-return MaterialPrompt
+
+
+local function mapStateToProps(state : MainReducer.State, _)
+	return {
+		name = state.MaterialPromptReducer.name or nil,
+		baseMaterial = state.MaterialPromptReducer.baseMaterial or nil,
+		colorMap = state.MaterialPromptReducer.colorMap or {},
+		normalMap = state.MaterialPromptReducer.normalMap or {},
+		metalnessMap = state.MaterialPromptReducer.metalnessMap or {},
+		roughnessMap = state.MaterialPromptReducer.roughnessMap or {},
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, nil)(MaterialPrompt)

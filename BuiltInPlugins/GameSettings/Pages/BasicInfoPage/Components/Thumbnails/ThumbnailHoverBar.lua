@@ -14,7 +14,7 @@ local DELETE_IMAGE = "rbxasset://textures/GameSettings/delete.png"
 
 local Page = script.Parent.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 
 local HoverBarButton = require(Page.Components.Thumbnails.HoverBarButton)

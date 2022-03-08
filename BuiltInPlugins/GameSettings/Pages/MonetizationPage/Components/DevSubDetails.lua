@@ -18,10 +18,10 @@ local Plugin = script.Parent.Parent.Parent.Parent
 local FileUtils = require(Plugin.Src.Util.FileUtils)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
-local Cryo = require(Plugin.Cryo)
-local RoactRodux = require(Plugin.RoactRodux)
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Cryo = require(Plugin.Packages.Cryo)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
 local UploadableIconWidget = require(Plugin.Src.Components.UploadableIcon.UploadableIconWidget)
 
@@ -41,15 +41,15 @@ local createFitToContent = UILibrary.Component.createFitToContent
 
 local RoundTextBox = require(Plugin.Packages.RoactStudioWidgets.RoundTextBox)
 
-local Framework = Plugin.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUI = require(Framework.UI)
+local FrameworkUI = Framework.UI
 local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 
-local FrameworkUtil = require(Framework.Util)
+local FrameworkUtil = Framework.Util
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 

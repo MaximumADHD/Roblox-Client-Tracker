@@ -1,13 +1,13 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local createFitToContent = UILibrary.Component.createFitToContent
 local ExpandableList = UILibrary.Component.ExpandableList
 local Spritesheet = UILibrary.Util.Spritesheet
@@ -15,7 +15,7 @@ local Spritesheet = UILibrary.Util.Spritesheet
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
 local CollaboratorItem = require(Page.Components.CollaboratorItem)
 local RolesetCollaboratorItem = require(Page.Components.RolesetCollaboratorItem)
-local Separator = require(Plugin.Framework).UI.Separator
+local Separator = require(Plugin.Packages.Framework).UI.Separator
 local GroupIconThumbnail = require(Plugin.Src.Components.AutoThumbnails.GroupIconThumbnail)
 
 local IsGroupOwner = require(Page.Selectors.IsGroupOwner)

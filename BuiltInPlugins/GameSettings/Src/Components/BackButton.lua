@@ -2,10 +2,10 @@
 	A back button with a little separator below it.
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Separator = require(Plugin.Framework).UI.Separator
+local Separator = require(Plugin.Packages.Framework).UI.Separator
 
 local createFitToContent = UILibrary.Component.createFitToContent
 

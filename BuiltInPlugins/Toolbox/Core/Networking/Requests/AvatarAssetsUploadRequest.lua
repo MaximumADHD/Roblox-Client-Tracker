@@ -25,7 +25,7 @@ local UploadCatalogItemMeshPartFormatRequest = require(
 	Plugin.Core.Networking.Requests.UploadCatalogItemMeshPartFormatRequest
 )
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 local function createConfigDataTable(nameWithoutExtension, assetTypeId, description, groupId)
 	if FFlagUGCGroupUploads2 then

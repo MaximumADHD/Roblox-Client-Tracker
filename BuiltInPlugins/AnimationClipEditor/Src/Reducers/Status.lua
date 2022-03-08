@@ -4,8 +4,6 @@ local Cryo = require(Plugin.Packages.Cryo)
 
 local Constants = require(Plugin.Src.Util.Constants)
 
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
-
 return Rodux.createReducer({
 	Active = false,
 	SelectedKeyframes = {},
@@ -18,7 +16,6 @@ return Rodux.createReducer({
 	PlaybackSpeed = 1,
 	PlaybackStartInfo = {},
 	RightClickContextInfo = {},
-	IsPlaying = false, -- Deprecated if GetFFlagMoarMediaControls() is ON
 	PlayState = Constants.PLAY_STATE.Pause,
 	Scroll = 0,  -- Deprecated with GetFFlagCurveEditor
 	Zoom = 0,  -- Deprecated with GetFFlagCurveEditor
@@ -107,19 +104,13 @@ return Rodux.createReducer({
 		})
 	end,
 
-	SetIsPlaying = not GetFFlagMoarMediaControls() and function(state, action)
-		return Cryo.Dictionary.join(state, {
-			IsPlaying = action.isPlaying,
-		})
-	end or nil,
-
-	SetPlayState = GetFFlagMoarMediaControls() and function(state, action)
+	SetPlayState = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			PlayState = action.playState,
 		})
-	end or nil,
+	end,
 
-	Pause = function(state, action)
+	Pause = function(state)
 		return Cryo.Dictionary.join(state, {
 			PlayState = Constants.PLAY_STATE.Pause,
 		})

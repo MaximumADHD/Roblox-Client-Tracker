@@ -1,11 +1,11 @@
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local FFlagStudioExplainFriendCollaboratorPermission = game:GetFastFlag("StudioExplainFriendCollaboratorPermission")
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
 local PermissionsConstants = require(Page.Util.PermissionsConstants)
@@ -22,7 +22,7 @@ local RemoveUserCollaborator = require(Page.Thunks.RemoveUserCollaborator)
 
 local UserCollaboratorItem = Roact.PureComponent:extend("UserCollaboratorItem")
 
--- remove with FFlagStudioExplainFriendCollaboratorPermission
+-- remove with FFlagStudioExplainFriendCollaboratorPermission2
 local DEPRECATED_permShortName = {
 	[PermissionsConstants.OwnerKey] = "Owner",
 	[PermissionsConstants.PlayKey] = "Play",
@@ -43,7 +43,7 @@ local permissionLabelDescriptionShortNameForKey = {
 
 local PERMISSIONS = "Permissions"
 
--- remove with FFlagStudioExplainFriendCollaboratorPermission
+-- remove with FFlagStudioExplainFriendCollaboratorPermission2
 function UserCollaboratorItem:DEPRECATED_getPermissionForKey(key)
 	local props = self.props
 	local localization = props.Localization
@@ -88,7 +88,7 @@ function UserCollaboratorItem:getAvailablePermissions()
 
 	local editable = props.Editable
 
-	if FFlagStudioExplainFriendCollaboratorPermission then
+	if FFlagStudioExplainFriendCollaboratorPermission2 then
 		if isOwner then
 			return {self:getPermissionForKey(PermissionsConstants.OwnerKey, true),}
 		elseif not editable then

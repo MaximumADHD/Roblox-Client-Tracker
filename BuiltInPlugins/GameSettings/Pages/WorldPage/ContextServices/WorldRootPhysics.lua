@@ -5,13 +5,13 @@ local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreat
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 
 local ContextItem = ContextServices.ContextItem
 -- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
-local Provider = require(Plugin.Framework).ContextServices.Provider
+local Provider = require(Plugin.Packages.Framework).ContextServices.Provider
 local Impl = require(Page.Controllers.WorldRootPhysicsController)
 
 local Item = ContextItem:extend(script.Name)

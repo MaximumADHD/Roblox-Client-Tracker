@@ -12,7 +12,7 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local HttpService = game:GetService("HttpService")
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local FFlagGameSettingsFixChangeAnalytics = game:GetFastFlag("GameSettingsFixChangeAnalytics")
 local FIntMaxAccessPermissionsCollaborators = game:DefineFastInt("MaxAccessPermissionsCollaborators", 200)

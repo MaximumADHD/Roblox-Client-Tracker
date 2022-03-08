@@ -1,8 +1,8 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 
 local StateInterfaceTheme = require(Page.Util.StateInterfaceTheme)

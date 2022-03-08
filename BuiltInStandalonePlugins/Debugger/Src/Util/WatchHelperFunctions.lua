@@ -60,7 +60,7 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 	local currentOrder = order or Enum.SortDirection.Descending
 	local currentColumn = column or 1
 	local sortValue = (tableColumns[column] and tableColumns[column]["Key"]) or tableColumns[currentColumn]["Key"]
-	local basedOnOrder = function(a, b)
+	local basedOnOrder = function(a, b, mainOrder)
 		local sort1 = a
 		local sort2 = b
 		
@@ -78,7 +78,7 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 			end
 		end
 		
-		if currentOrder == Enum.SortDirection.Ascending then
+		if mainOrder == Enum.SortDirection.Ascending then
 			return sort1 > sort2
 		else
 			return sort2 > sort1
@@ -91,13 +91,13 @@ module.sortTableByColumnAndOrder = function (mainTable, column, order, tableColu
 			for k, v in pairs(tableColumns) do
 				local currentSortValue = v["Key"]
 				if a[currentSortValue] ~= b[currentSortValue] then
-					return basedOnOrder(a[currentSortValue], b[currentSortValue])
+					return basedOnOrder(a[currentSortValue], b[currentSortValue], Enum.SortDirection.Descending)
 				end
 			end
 			return false
 		end 
 		
-		return basedOnOrder(a[sortValue], b[sortValue])
+		return basedOnOrder(a[sortValue], b[sortValue], currentOrder)
 	end
 	
 	-- we skip the last row of sorting for the Expressions table (so that the empty row isn't sorted)

@@ -54,7 +54,7 @@ function UILibraryProvider:render()
 	end
 	local focus = props.Focus
 	local UILibrary = props.UILibrary
-
+	
 	assert(theme.getUILibraryTheme, noGetThemeError)
 
 	return Roact.createElement(UILibrary.Wrapper, {

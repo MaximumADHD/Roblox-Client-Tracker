@@ -3,7 +3,7 @@
 -- TODO: this functionality will be coming to Cyro soon but use this for now
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local DeepMergeTables = {}
 

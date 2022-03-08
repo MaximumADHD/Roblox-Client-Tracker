@@ -17,7 +17,7 @@ local DebugFlags = require(Util.DebugFlags)
 
 local createMultipartFormDataBody = require(Util.createMultipartFormDataBody)
 
-local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
+local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 local function createConfigDataTable()
 	return {

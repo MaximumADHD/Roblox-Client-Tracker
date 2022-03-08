@@ -73,8 +73,7 @@ function TextEntry:render()
 				self.props.FocusChanged(true)
 			end,
 
-			[Roact.Event.FocusLost] = function(unused, enterPressed)
-				local textBox = self.textBoxRef.current
+			[Roact.Event.FocusLost] = function(textBox, enterPressed)
 				textBox.TextXAlignment = self.props.HorizontalAlignment or Enum.TextXAlignment.Left
 				self.props.FocusChanged(false, enterPressed)
 			end,

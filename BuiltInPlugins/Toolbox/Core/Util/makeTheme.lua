@@ -1,5 +1,6 @@
 local FFlagToolboxStorybook = game:GetFastFlag("ToolboxStorybook")
 local FFlagToolboxAssetCategorization = game:GetFastFlag("ToolboxAssetCategorization")
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 
 local Plugin = script.Parent.Parent.Parent
 
@@ -50,7 +51,7 @@ local makeTheme = function(themeExtension, themeClass)
 		[StyleKey.ScrollingFrameBackgroundColor] = Color3.fromRGB(41, 41, 41),
 		[StyleKey.ScrollingFrameImageColor] = Color3.fromRGB(85, 85, 85),
 		[StyleKey.Toolbox_SearchTagBackgroundColor] = Color3.fromRGB(56, 56, 56),
-		[StyleKey.Toolbox_TipsTextColor] = Color3.fromRGB(102, 102, 102),
+		[StyleKey.Toolbox_TipsTextColor] = if FFlagToolboxPrivatePublicAudioAssetConfig then Color3.fromRGB(136, 136, 136) else Color3.fromRGB(136, 136, 136),
 		[StyleKey.Toolbox_TabTopBorderColor] = StyleColors.Blue,
 		[StyleKey.Toolbox_TabSelectedColor] = StyleColors.White,
 		[StyleKey.Toolbox_IconTileGradientColor] = FFlagToolboxAssetCategorization and StyleColors.Black or nil,
@@ -244,6 +245,7 @@ local makeTheme = function(themeExtension, themeClass)
 			titleTextColor = StyleKey.SubText,
 			textColor = StyleKey.MainText,
 			tipsTextColor = not isCli() and StyleKey.Toolbox_TipsTextColor or nil,
+			warningIconColor = if FFlagToolboxPrivatePublicAudioAssetConfig then Color3.fromHex("#FFAA21") else nil,
 		},
 
 		searchBar = {

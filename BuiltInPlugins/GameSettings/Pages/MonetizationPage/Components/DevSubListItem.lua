@@ -16,20 +16,20 @@
 
 local Plugin = script.Parent.Parent.Parent.Parent
 local Page = script.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local numberWithCommas = require(Page.Util.numberWithCommas)
 
 local DevSubListItemText = require(script.Parent.DevSubListItemText)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
-local UI = require(Plugin.Framework).UI
+local UI = require(Plugin.Packages.Framework).UI
 local HoverArea = UI.HoverArea
 
 local DeveloperSubscriptionListItem = Roact.Component:extend("DeveloperSubscriptionListItem")

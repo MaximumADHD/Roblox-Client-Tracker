@@ -1,6 +1,6 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local MorpherTemplate = require(Page.Components.MorpherTemplate)
 

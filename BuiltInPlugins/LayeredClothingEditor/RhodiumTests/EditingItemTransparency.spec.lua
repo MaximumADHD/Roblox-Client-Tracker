@@ -16,7 +16,7 @@ return function()
 
 	local ScrollerPath = TestHelper.getEditScreenContainer()
 	local PointToolTabButton =
-		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TabsRibbon.2 PointTool.1.Contents.TextButton"))
+		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TabsRibbon.Tabs.2"))
 	local TransparencyViewPath =
 		ScrollerPath:cat(XPath.new("EditSwizzle.ViewArea.EditorFrame.TransparencyView"))
 	local InnerCageValueTextBoxPath =

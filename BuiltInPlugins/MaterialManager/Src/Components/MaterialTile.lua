@@ -71,7 +71,7 @@ function MaterialTile:render()
 	local name = materialVariant.Name
 	local normalMap = materialVariant.NormalMap
 	local roughnessMap = materialVariant.RoughnessMap
-	local materialOrigin = if item.Base then "Material" else "Variant"
+	local materialOrigin = if item.IsBase then "Material" else "Variant"
 	local materialType = localization:getText("MaterialTile", item.MaterialType .. materialOrigin)
 
 	local padding = prioritize(props.Padding, style.Padding)

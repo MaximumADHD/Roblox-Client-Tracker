@@ -3,9 +3,15 @@ local ExpressionEvaluated = require(Plugin.Src.Actions.Watch.ExpressionEvaluated
 local Models=  Plugin.Src.Models
 local StepStateBundle = require(Models.StepStateBundle)
 local WatchRow = require(Models.Watch.WatchRow)
+local Constants = require(Plugin.Src.Util.Constants)
 
 return function(expressionString : string, stepStateBundle : StepStateBundle.StepStateBundle, debuggerConnection)
 	return function(store, contextItems)
+		local dst = stepStateBundle.debuggerStateToken
+		if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+				return
+		end
+		
 		if debuggerConnection == nil then
 			assert(false)
 			return
@@ -25,10 +31,13 @@ return function(expressionString : string, stepStateBundle : StepStateBundle.Ste
 		end
 
 		debuggerConnection:EvaluateWatch(expressionString, currentFrame, function(data)
-			local debuggerVarRaw = data:GetArg()
-			-- name gets filled in after being stored
-			local debuggerVariable = debuggerConnection:GetVariableById(debuggerVarRaw.VariableId)
-			local watchRow = WatchRow.fromInstance(debuggerVariable, nil)
+			if tostring(data.Status) ~= Constants.DebuggerStatus.Success then
+				-- todo need to report failure of requests RIDE-6369
+				return
+			end
+
+			local debuggerVar = data:GetArg()
+			local watchRow = WatchRow.fromInstance(debuggerVar, expressionString)
 			store:dispatch(ExpressionEvaluated(stepStateBundle, watchRow))
 		end)
 	end

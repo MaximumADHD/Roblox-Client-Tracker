@@ -7,7 +7,7 @@ return function()
 	local MaterialTile = require(script.Parent.MaterialTile)
 
 	local defaultMaterial = {
-		Base = true,
+		IsBase = true,
 		MaterialPath = { "All" },
 		MaterialVariant = Enum.Material.Plastic,
 		MaterialType = "Base"

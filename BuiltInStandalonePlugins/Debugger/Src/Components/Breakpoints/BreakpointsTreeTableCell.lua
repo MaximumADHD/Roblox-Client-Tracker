@@ -20,8 +20,6 @@ local TextLabel = UI.Decoration.TextLabel
 
 local BreakpointsTreeTableCell = Roact.PureComponent:extend("BreakpointsTreeTableCell")
 
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
-
 local debugpointIconTable = {
 	breakpointDisabled = Constants.BreakpointIconDirectoryFilePath .. "breakpoint_disabled@2x.png",
 	breakpointEnabled = Constants.BreakpointIconDirectoryFilePath .. "breakpoint_enabled@2x.png",
@@ -80,7 +78,7 @@ function BreakpointsTreeTableCell:render()
 
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
-	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
 			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
 				style[StyleModifier.Hover].BackgroundEven
@@ -213,7 +211,7 @@ function BreakpointsTreeTableCell:render()
 		Row = props.Row,
 		Style = props.Style,
 		RowIndex = props.RowIndex,
-		HighlightCell = FFlagDevFrameworkHighlightTableRows and props.HighlightCell or nil,
+		HighlightCell = props.HighlightCell,
 		OnRightClick = props.OnRightClick
 	})
 end

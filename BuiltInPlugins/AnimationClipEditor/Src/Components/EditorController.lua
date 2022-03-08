@@ -56,8 +56,6 @@ local AttachEditor = require(Plugin.Src.Thunks.AttachEditor)
 local ReleaseEditor = require(Plugin.Src.Thunks.ReleaseEditor)
 local SetEventEditingTick = require(Plugin.Src.Actions.SetEventEditingTick)
 local LoadAnimationData = require(Plugin.Src.Thunks.LoadAnimationData)
-local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
-local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 local SetIsDirty = require(Plugin.Src.Actions.SetIsDirty)
 local SetFrameRate = require(Plugin.Src.Actions.SetFrameRate)
 local SetPlaybackSpeed = require(Plugin.Src.Thunks.Playback.SetPlaybackSpeed)
@@ -70,7 +68,6 @@ local TrackColors = require(Plugin.Src.Components.TrackList.TrackColors)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
 local GetFFlagRootMotionTrack = require(Plugin.LuaFlags.GetFFlagRootMotionTrack)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
@@ -138,11 +135,7 @@ function EditorController:init()
 
 	if GetFFlagChannelAnimations() then
 		self.showMenu = function(instanceName, path, trackType, rotationType)
-			if GetFFlagMoarMediaControls() then
-				self.props.Pause()
-			else
-				self.props.SetIsPlaying(false)
-			end
+			self.props.Pause()
 			self.props.SetRightClickContextInfo({
 				Path = path,
 				TrackType = trackType,
@@ -155,11 +148,7 @@ function EditorController:init()
 		end
 	else
 		self.showMenu = function(track)
-			if GetFFlagMoarMediaControls() then
-				self.props.Pause()
-			else
-				self.props.SetIsPlaying(false)
-			end
+			self.props.Pause()
 			self.props.SetRightClickContextInfo({
 				TrackName = track.Name,
 				TrackType = (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) and track.Type or nil,
@@ -282,7 +271,7 @@ function EditorController:init()
 	end
 
 	self.addTrackWrapper = function(instanceName, trackName, trackType)
-		if (GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations()) then
+		if GetFFlagFacialAnimationSupport() or GetFFlagChannelAnimations() then
 			self.props.AddTrack(instanceName, trackName, trackType, self.props.Analytics)
 		elseif self.props.Analytics then
 			self.props.AddTrack_deprecated(instanceName, trackName, self.props.Analytics)
@@ -357,12 +346,6 @@ function EditorController:render()
 
 	local active = props.Active
 	local playhead = props.Playhead
-	local isPlaying
-	if GetFFlagMoarMediaControls() then
-		isPlaying = props.PlayState ~= Constants.PLAY_STATE.Pause
-	else
-		isPlaying = props.IsPlaying
-	end
 	local showAsSeconds = props.ShowAsSeconds
 	local editingLength = props.EditingLength
 	local topTrackIndex = state.TopTrackIndex
@@ -720,7 +703,7 @@ function EditorController:willUnmount()
 	props.Analytics:report("onEditorClosed", os.time() - self.openedTimestamp)
 end
 
-local function mapStateToProps(state, props)
+local function mapStateToProps(state)
 	local status = state.Status
 
 	return {
@@ -746,8 +729,6 @@ local function mapStateToProps(state, props)
 		MotorData = status.MotorData,
 		PinnedParts = status.PinnedParts,
 		SelectedTracks = status.SelectedTracks,
-		-- Deprecated when GetFFlagMoarMediaControls() is ON
-		IsPlaying = status.IsPlaying,
 		PlayState = status.PlayState,
 		FrameRate = status.FrameRate,
 		Analytics = state.Analytics,
@@ -851,11 +832,6 @@ local function mapDispatchToProps(dispatch)
 
 		SetFrameRate = function(frameRate)
 			dispatch(SetFrameRate(frameRate))
-		end,
-
-		-- Deprecated when GetFFlagMoarMediaControls() is ON
-		SetIsPlaying = function(isPlaying)
-			dispatch(SetIsPlaying(isPlaying))
 		end,
 
 		Pause = function()

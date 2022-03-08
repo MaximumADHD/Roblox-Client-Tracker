@@ -32,6 +32,7 @@
 	Optional Props:
 		LayoutOrder, number, used by the layouter to set the position of the component.
 ]]
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -61,6 +62,7 @@ local ConfigAccess = require(AssetConfiguration.ConfigAccess)
 local ConfigGenre = require(AssetConfiguration.ConfigGenre)
 local ConfigCopy = require(AssetConfiguration.ConfigCopy)
 local ConfigComment = require(AssetConfiguration.ConfigComment)
+local ConfigSharing = require(AssetConfiguration.ConfigSharing)
 local TagsComponent = require(AssetConfiguration.CatalogTags.TagsComponent)
 
 local SetFieldError = require(Plugin.Core.Actions.SetFieldError)
@@ -151,22 +153,25 @@ function PublishAsset:renderContent(theme, localizedContent)
 	local Size = props.Size
 	local LayoutOrder = props.LayoutOrder
 
+	local allowCopy = props.allowCopy
+	local allowSelectPrivate = props.allowSelectPrivate
 	local name = props.name
 	local description = props.description
 	local tags = props.tags
 	local owner = props.owner
 	local genres = props.genres
-	local allowCopy = props.allowCopy
 	local copyOn = props.copyOn
 	local allowComment = props.allowComment
 	local commentOn = props.commentOn
 	local assetTypeEnum = props.assetTypeEnum
+	local isAssetPublic = props.isAssetPublic
 
 	local onNameChange = props.onNameChange
 	local onDescChange = props.onDescChange
 	local onTagsChange = props.onTagsChange
 	local onOwnerSelected = props.onOwnerSelected
 	local onGenreSelected = props.onGenreSelected
+	local onSharingChanged = props.onSharingChanged
 	local toggleCopy = props.toggleCopy
 	local toggleComment = props.toggleComment
 
@@ -179,6 +184,19 @@ function PublishAsset:renderContent(theme, localizedContent)
 
 	local maximumItemTagsPerItem = props.maximumItemTagsPerItem
 
+	local isAudio = assetTypeEnum == Enum.AssetType.Audio
+	local isModel = assetTypeEnum == Enum.AssetType.Model
+
+	local copyWarning
+	if FFlagToolboxPrivatePublicAudioAssetConfig
+		and isAudio
+		and not isAssetPublic
+		and copyOn
+	then
+		local localization = props.Localization
+		copyWarning = localization:getText("AssetConfigCopy", "MustShare")
+	end	
+	
 	local orderIterator = LayoutOrderIterator.new()
 
 	local publishAssetTheme = theme.publishAsset
@@ -319,17 +337,30 @@ function PublishAsset:renderContent(theme, localizedContent)
 				Position = UDim2.new(0.5, 0, 0.5, 0)
 			}),
 		}),
+		
+		Sharing = if FFlagToolboxPrivatePublicAudioAssetConfig and (isAudio or isModel) then
+			Roact.createElement(ConfigSharing, {
+				AllowSelectPrivate = allowSelectPrivate,
+				LayoutOrder = orderIterator:getNextOrder(),
+				IsAssetPublic = isAssetPublic,
+				OnSelected = onSharingChanged,
+			})
+		else nil,
 
 		Copy = displayCopy and Roact.createElement(ConfigCopy, {
-			Title = publishAssetLocalized.Copy,
+			Title = if FFlagToolboxPrivatePublicAudioAssetConfig then publishAssetLocalized.DistributeOnMarketplace else publishAssetLocalized.Copy,
 
 			TotalHeight = configCopyHeight,
 			CopyEnabled = allowCopy,
 			CopyOn = copyOn,
+			CopyWarning = copyWarning,
 
 			ToggleCallback = toggleCopy,
 
 			LayoutOrder = orderIterator:getNextOrder(),
+
+			IsAssetPublic = if FFlagToolboxPrivatePublicAudioAssetConfig then isAssetPublic else nil,
+			IsAudio = if FFlagToolboxPrivatePublicAudioAssetConfig then isAudio else nil,
 		}),
 
 		Comment = displayComment and Roact.createElement(ConfigComment, {
@@ -356,6 +387,7 @@ end
 
 
 PublishAsset = withContext({
+	Localization = if FFlagToolboxPrivatePublicAudioAssetConfig then ContextServices.Localization else nil,
 	Stylizer = ContextServices.Stylizer,
 })(PublishAsset)
 

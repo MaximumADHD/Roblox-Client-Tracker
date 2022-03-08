@@ -1,6 +1,8 @@
 
 local Plugin = script.Parent.Parent.Parent
 
+local getFFlagPivotEditorPreventDraggingInvalidTarget = require(Plugin.Src.Flags.getFFlagPivotEditorPreventDraggingInvalidTarget)
+
 local Selection = game:GetService("Selection")
 
 local Roact = require(Plugin.Packages.Roact)
@@ -34,7 +36,15 @@ function SelectionUpdater:_update()
 	if #selection == 1 then
 		local targetObject = selection[1]
 		if self.props.targetObject ~= targetObject then
-			self.props.selectObjectForEditing(targetObject)
+			if getFFlagPivotEditorPreventDraggingInvalidTarget() then
+				if targetObject:IsA("PVInstance") then
+					self.props.selectObjectForEditing(targetObject)
+				else
+					self.props.selectInvalidSelection(StatusMessage.InvalidTarget)
+				end
+			else
+				self.props.selectObjectForEditing(targetObject)
+			end
 		end
 	elseif #selection > 1 then
 		self.props.selectInvalidSelection(StatusMessage.MultipleSelection)

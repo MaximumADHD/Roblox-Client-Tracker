@@ -1,18 +1,29 @@
 local Plugin = script.Parent.Parent.Parent
 local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local Framework = require(Plugin.Packages.Framework)
 
 local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 local Analytics = ContextServices.Analytics
+local Localization = ContextServices.Localization
+
+local Stylizer = Framework.Style.Stylizer
 
 local UI = Framework.UI
 local TextInput = UI.TextInput
 local SelectInput = UI.SelectInput
 
 local LabeledElementList = require(Plugin.Src.Components.LabeledElementList)
-local baseMaterialsTable = require(Plugin.Src.Util.BaseMaterials)
+
+local getSupportedMaterials = require(Plugin.Src.Util.getSupportedMaterials)
+local getMaterialName = require(Plugin.Src.Util.getMaterialName)
+
+local Actions = Plugin.Src.Actions
+local SetName = require(Actions.SetName)
+local SetBaseMaterial = require(Actions.SetBaseMaterial)
+local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
 export type Props = {
 	LayoutOrder : number?,
@@ -22,6 +33,8 @@ type _Props = Props & {
 	Analytics : any,
 	Localization : any,
 	Stylizer : any,
+	dispatchSetName : (string) -> (),
+	dispatchSetBaseMaterial : (Enum.Material) -> (),
 }
 
 type _Style = {
@@ -36,23 +49,18 @@ function MaterialVariantSettings:init()
 	}
 
 	self.baseMaterials = {}
-	for key, _ in pairs(baseMaterialsTable) do
-		table.insert(self.baseMaterials, key)
-	end
 
-	-- TODO update with actions functionality
 	self.onNameChanged = function(name)
 		if name then
-			-- dispatch action
+			self.props.dispatchSetName(name)
 		-- Handle error
 		-- else
 		end
 	end
 
-	-- TODO update with actions functionality
 	self.onBaseMaterialSelected = function(baseMaterial, index)
 		if baseMaterial then
-			-- dispatch action
+			self.props.dispatchSetBaseMaterial(baseMaterial)
 			self:setState({
 				currentIndex = index,
 			})
@@ -60,6 +68,13 @@ function MaterialVariantSettings:init()
 		-- else
 		end
 	end
+end
+
+function MaterialVariantSettings:didMount()
+	local materials = getSupportedMaterials()
+	for _, material in ipairs(materials) do
+		table.insert(self.baseMaterials, self.props.Localization:getText("Materials", getMaterialName(material)))
+	end 
 end
 
 function MaterialVariantSettings:render()
@@ -100,8 +115,28 @@ end
 
 MaterialVariantSettings = withContext({
 	Analytics = Analytics,
-	Localization = ContextServices.Localization,
-	Stylizer = ContextServices.Stylizer,
+	Localization = Localization,
+	Stylizer = Stylizer,
 })(MaterialVariantSettings)
 
-return MaterialVariantSettings
+
+
+local function mapStateToProps(state : MainReducer.State, _)
+	return {
+		name = state.MaterialPromptReducer.name or nil,
+		baseMaterial = state.MaterialPromptReducer.baseMaterial or nil,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		dispatchSetName = function (name)
+			dispatch(SetName(name))
+		end,
+		dispatchSetBaseMaterial = function (baseMaterial)
+			dispatch(SetBaseMaterial(baseMaterial))
+		end,
+	}
+end
+
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(MaterialVariantSettings)

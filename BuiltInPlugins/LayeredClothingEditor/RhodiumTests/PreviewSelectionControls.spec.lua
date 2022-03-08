@@ -12,7 +12,7 @@ return function()
 	local editSwizzlePath = ScrollerPath:cat(XPath.new("EditSwizzle.TopBar.DoubleClickDetector.Swizzle"))
 	local previewTabsFramePath = ScrollerPath:cat(XPath.new("PreviewSwizzle.ViewArea.PreviewFrame"))
 	local previewAnimationTabPath =
-		previewTabsFramePath:cat(XPath.new("PreviewTabsRibbon.3 TAB_KEY_Animations.1.Contents.TextButton"))
+		previewTabsFramePath:cat(XPath.new("PreviewTabsRibbon.Tabs.3"))
 	local selectionControlsPath = previewTabsFramePath:cat(XPath.new("SelectionControls"))
 	local previewAnimationSliderPath = selectionControlsPath:cat(XPath.new("AnimPlaybackSlider"))
 	local playPauseButtonPath = previewAnimationSliderPath:cat(XPath.new("PlayPauseButton"))

@@ -87,7 +87,7 @@ return function(plugin, pluginLoaderContext)
 	local RobloxPluginGuiService = game:GetService("RobloxPluginGuiService")
 	local StudioAssetService = game:GetService("StudioAssetService")
 
-	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
+	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 	if not getToolboxEnabled() then
 		return

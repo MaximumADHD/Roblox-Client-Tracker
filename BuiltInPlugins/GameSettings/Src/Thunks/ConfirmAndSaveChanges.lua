@@ -15,7 +15,7 @@ local WarningDialog = require(Plugin.Src.Components.Dialog.WarningDialog)
 
 local SimpleDialog = require(Plugin.Src.Components.Dialog.SimpleDialog)
 
-local Framework = require(Plugin.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 

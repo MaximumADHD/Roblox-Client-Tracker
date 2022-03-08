@@ -23,10 +23,12 @@ local withContext = ContextServices.withContext
 
 local EditingItemContext = require(Plugin.Src.Context.EditingItemContext)
 
+local UI = Framework.UI
+local Tabs = UI.Tabs
+local Pane = UI.Pane
+
 local Util = Framework.Util
 local Typecheck = Util.Typecheck
-
-local TabsRibbon = require(Plugin.Src.Components.TabsRibbon)
 
 local Constants = require(Plugin.Src.Util.Constants)
 local PreviewConstantsInterface = require(Plugin.Src.Util.PreviewConstantsInterface)
@@ -43,44 +45,60 @@ local function isTabActive(tabKey, editingItem)
 end
 
 function PreviewTabsRibbon:init()
-	self.onClick = function(newTabKey)
+	self.onClick = function(selectedTab)
 		local props = self.props
-		local selectedTab = props.SelectedTab
+		local tabKey = selectedTab.Key
+		local selectedTabFromStore = props.SelectedTab
 		local editingItem = props.EditingItemContext:getItem()
 
-		if newTabKey == selectedTab or not isTabActive(newTabKey, editingItem) then
+		if tabKey and tabKey == selectedTabFromStore or not isTabActive(tabKey, editingItem) then
 			return
 		end
-		self.props.SelectPreviewTab(newTabKey)
+		self.props.SelectPreviewTab(tabKey)
 	end
 end
 
 function PreviewTabsRibbon:render()
 	local props = self.props
 	local layoutOrder = props.LayoutOrder
-	local zIndex = props.ZIndex
 	local localization = props.Localization
-	local selectedTab = props.SelectedTab
+	local selectedTabKey = props.SelectedTab
 	local editingItem = props.EditingItemContext:getItem()
-	local theme = props.Stylizer
+	local style = props.Stylizer
 
 	local buttons = {}
 	local tabsToDisplay = PreviewConstantsInterface.getTabs()
 	for tabKey, tabInfo in pairs(tabsToDisplay) do
 		buttons[tabInfo.LayoutOrder] = {
 			Key = tabKey,
-			Text = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.LocalizationKey),
-			IsEnabled = isTabActive(tabKey, editingItem),
-			Image = theme.Icons[tabKey],
+			Label = localization:getText(Constants.LOCALIZATION_KEYS.Preview, tabInfo.LocalizationKey),
+			Disabled = not isTabActive(tabKey, editingItem),
 		}
 	end
 
-	return Roact.createElement(TabsRibbon, {
-		Buttons = buttons,
-		OnClick = self.onClick,
-		SelectedKey = selectedTab,
-		ZIndex = zIndex,
+	local selectedTab
+	for _, tab in ipairs(buttons) do
+		if tab.Key == selectedTabKey then
+			selectedTab = tab
+		end
+	end
+
+	return Roact.createElement(Pane, {
+		Size = UDim2.new(1, 0, 0, style.TabHeight),
 		LayoutOrder = layoutOrder,
+	}, {
+		BottomLine = Roact.createElement(Pane, {
+			Size = UDim2.new(1, 0, 0, style.BorderSize),
+			Position = UDim2.new(0, 0, 1, 0),
+			AnchorPoint = Vector2.new(0, 1),
+			BackgroundColor = style.BorderColor,
+			ZIndex = 0,
+		}),
+		Tabs = Roact.createElement(Tabs, {
+			Tabs = buttons,
+			OnTabSelected = self.onClick,
+			SelectedTab = selectedTab,
+		})
 	})
 end
 
@@ -90,8 +108,6 @@ PreviewTabsRibbon = withContext({
 	Stylizer = ContextServices.Stylizer,
 	EditingItemContext = EditingItemContext,
 })(PreviewTabsRibbon)
-
-
 
 local function mapStateToProps(state, props)
 	local previewStatus = state.previewStatus

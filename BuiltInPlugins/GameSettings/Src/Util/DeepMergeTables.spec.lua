@@ -2,7 +2,7 @@ return function()
 	local Plugin = script.Parent.Parent.Parent
 
 	local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
-	local Cryo = require(Plugin.Cryo)
+	local Cryo = require(Plugin.Packages.Cryo)
 
 	it("should return nil with an empty tables", function()
 		local table1 = {}

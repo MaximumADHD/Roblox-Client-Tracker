@@ -3,9 +3,9 @@ local Rodux = require(Plugin.Packages.Rodux)
 local Cryo = require(Plugin.Packages.Cryo)
 local Constants = require(Plugin.Src.Resources.Constants)
 
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 
-if FFlagFixPublishAsWhenQueryFails then
+if FFlagDebugFixPublishAsWhenQueryFails then
 	local initial = {
 		placeInfo = { places = {}, parentGame = {}, queryState = Constants.QUERY_STATE.QUERY_STATE_NONE },
 		gameInfo = { games = {}, queryState = Constants.QUERY_STATE.QUERY_STATE_NONE },

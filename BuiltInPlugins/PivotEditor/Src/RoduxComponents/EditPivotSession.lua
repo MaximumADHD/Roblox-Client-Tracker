@@ -19,6 +19,7 @@ local BeginSelectingPivot = require(Plugin.Src.Actions.BeginSelectingPivot)
 local DoneSelectingPivot = require(Plugin.Src.Actions.DoneSelectingPivot)
 
 local getFFlagStudioToastNotificationsInLua = require(Plugin.Src.Flags.getFFlagStudioToastNotificationsInLua)
+local getFFlagPivotEditorPreventDraggingInvalidTarget = require(Plugin.Src.Flags.getFFlagPivotEditorPreventDraggingInvalidTarget)
 
 local EditingMode = require(Plugin.Src.Utility.EditingMode)
 local StatusMessage = require(Plugin.Src.Utility.StatusMessage)
@@ -40,7 +41,12 @@ local function shouldShowNotification(statusMessage)
 end
 
 function EditPivotSession:didMount()
-	self._oldShowPivot = self._draggerContext:setPivotIndicator(true)
+	if getFFlagPivotEditorPreventDraggingInvalidTarget() then
+		local showIndicator = self.props.statusMessage == StatusMessage.None
+		self._oldShowPivot = self._draggerContext:setPivotIndicator(showIndicator)
+	else
+		self._oldShowPivot = self._draggerContext:setPivotIndicator(true)
+	end
 end
 
 function EditPivotSession:_getCurrentDraggerHandles()
@@ -76,6 +82,11 @@ function EditPivotSession:render()
 	end
 
 	if editingMode == EditingMode.Transform or editingMode == EditingMode.None then
+		local allowFreeformDrag
+		if getFFlagPivotEditorPreventDraggingInvalidTarget() then
+			allowFreeformDrag = editingMode == EditingMode.Transform
+		end
+
 		elements.DraggerToolComponent = Roact.createElement(DraggerToolComponent, {
 			Mouse = self._mouse,
 			DraggerContext = self._draggerContext,
@@ -83,7 +94,7 @@ function EditPivotSession:render()
 			DraggerSettings = {
 				AnalyticsName = ANALYTICS_NAME,
 				AllowDragSelect = false,
-				AllowFreeformDrag = false,
+				AllowFreeformDrag = if getFFlagPivotEditorPreventDraggingInvalidTarget() then allowFreeformDrag else false,
 				ShowLocalSpaceIndicator = false,
 				HandlesList = self:_getCurrentDraggerHandles(),
 			},
@@ -96,22 +107,46 @@ function EditPivotSession:render()
 end
 
 function EditPivotSession:willUpdate(nextProps, nextState)
-	if getFFlagStudioToastNotificationsInLua() then
-		local statusMessage = self.props.statusMessage
+	if getFFlagPivotEditorPreventDraggingInvalidTarget() then
 		local nextStatusMessage = nextProps.statusMessage
+		local showIndicator = nextStatusMessage == StatusMessage.None
+		self._draggerContext:setPivotIndicator(showIndicator)
 
-		if statusMessage ~= nextStatusMessage then
-			-- If the status is being cleared (set to StatusMessage.None), hide the
-			-- last status message when the status is cleared.
-			if statusMessage ~= StatusMessage.None then
-				-- Has no effect if the notification has already disappeared.
-				self.props.ToastNotification:hideNotification(statusMessage)
+		if getFFlagStudioToastNotificationsInLua() then
+			local statusMessage = self.props.statusMessage
+			if statusMessage ~= nextStatusMessage then
+				-- If the status is being cleared (set to StatusMessage.None), hide the
+				-- last status message when the status is cleared.
+				if statusMessage ~= StatusMessage.None then
+					-- Has no effect if the notification has already disappeared.
+					self.props.ToastNotification:hideNotification(statusMessage)
+				end
+
+				if shouldShowNotification(nextStatusMessage) then
+					local localization = self.props.Localization
+					local message = localization:getText("Notification", nextStatusMessage)
+					self.props.ToastNotification:showNotification(message, nextStatusMessage)
+				end
 			end
+		end
+	else
+		if getFFlagStudioToastNotificationsInLua() then
+			local statusMessage = self.props.statusMessage
+			local nextStatusMessage = nextProps.statusMessage
 
-			if shouldShowNotification(nextStatusMessage) then
-				local localization = self.props.Localization
-				local message = localization:getText("Notification", nextStatusMessage)
-				self.props.ToastNotification:showNotification(message, nextStatusMessage)
+			if statusMessage ~= nextStatusMessage then
+				-- If the status is being cleared (set to StatusMessage.None), hide the
+				-- last status message when the status is cleared.
+				if statusMessage ~= StatusMessage.None then
+					-- Has no effect if the notification has already disappeared.
+					self.props.ToastNotification:hideNotification(statusMessage)
+				end
+
+				if shouldShowNotification(nextStatusMessage) then
+					local localization = self.props.Localization
+					local message = localization:getText("Notification", nextStatusMessage)
+					self.props.ToastNotification:showNotification(message, nextStatusMessage)
+				end
 			end
 		end
 	end

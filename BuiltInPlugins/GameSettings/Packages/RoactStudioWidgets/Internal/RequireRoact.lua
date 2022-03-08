@@ -1,1 +1,2 @@
-return require(script.Parent.Parent.Parent.Parent.Roact)
+local Packages = script.Parent.Parent.Parent
+return require(Packages.Roact)

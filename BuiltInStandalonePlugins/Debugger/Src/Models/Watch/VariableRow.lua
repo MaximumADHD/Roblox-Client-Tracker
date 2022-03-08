@@ -24,9 +24,13 @@ local function fromData(data) : VariableRow
 end
 
 local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : VariableRow?, scope : string?, filterText : string, enabledScopes : {string}) : VariableRow
+	local parentPath = if parent then (parent.pathColumn .. Constants.SeparationToken) else ""
+	-- use VariableId if it exists (table/arrays), variable name otherwise
+	local pathName = if instance.VariableId ~= 0 then tostring(instance.VariableId) else instance.Name
+
 	local toReturn = {
 		nameColumn = instance.Name,
-		pathColumn = (parent and parent.pathColumn .. Constants.SeparationToken or "") .. (instance.VariableId ~= 0 and tostring(instance.VariableId) or instance.Name),
+		pathColumn = parentPath .. pathName,
 		scopeColumn = (parent and parent.scopeColumn) or scope,
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,

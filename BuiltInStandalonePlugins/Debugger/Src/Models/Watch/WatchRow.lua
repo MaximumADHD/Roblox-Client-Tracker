@@ -1,5 +1,8 @@
+local Src = script.Parent.Parent.Parent
+local DebuggerVariable = require(Src.Mocks.DebuggerVariable)
+local Constants = require(Src.Util.Constants)
 local WatchWindowTableRow = require(script.Parent.WatchWindowTableRow)
-local DebuggerVariable = require(script.Parent.Parent.Parent.Mocks.DebuggerVariable)
+
 
 type Expression = {expressionColumn : string}
 
@@ -33,11 +36,14 @@ local function fromData(data) : WatchRow
 	}
 end
 
-local function fromInstance(instance : DebuggerVariable.DebuggerVariable, parent : WatchRow?) : WatchRow
-	local parentPath = (parent and parent.pathColumn) or ""
+local function fromInstance(instance : DebuggerVariable.DebuggerVariable, expression : string, parent : WatchRow?) : WatchRow
+	local parentPath = if parent then (parent.pathColumn .. Constants.SeparationToken) else ""
+	-- use VariableId if it exists (table/arrays), expression otherwise
+	local pathName = if instance.VariableId ~= 0 then tostring(instance.VariableId) else expression
+
 	return {
-		expressionColumn = instance.Name,
-		pathColumn = parentPath .. tostring(instance.VariableId),
+		expressionColumn = expression,
+		pathColumn = parentPath .. pathName,
 		scopeColumn = (parent and parent.scopeColumn) or "",
 		valueColumn = instance.Value,
 		dataTypeColumn = instance.Type,

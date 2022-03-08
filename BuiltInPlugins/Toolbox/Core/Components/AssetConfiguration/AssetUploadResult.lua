@@ -23,7 +23,6 @@ local PreviewTypes = AssetConfigConstants.PreviewTypes
 local ContextHelper = require(Util.ContextHelper)
 local AssetConfigUtil = require(Util.AssetConfigUtil)
 
-local withTheme = ContextHelper.withTheme
 local withLocalization = ContextHelper.withLocalization
 
 local ContextServices = require(Packages.Framework).ContextServices
@@ -118,6 +117,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 	local props = self.props
 	local theme = props.Stylizer
 
+	local networkError = props.networkError
 	local isUploadFlow = props.screenFlowType == AssetConfigConstants.FLOW_TYPE.UPLOAD_FLOW
 	local showModeration = isUploadFlow and (AssetConfigUtil.isCatalogAsset(props.assetTypeEnum))
 
@@ -280,7 +280,7 @@ function AssetUploadResult:renderContent(theme, localizedContent)
 				Font = Constants.FONT,
 				Position = UDim2.new(0.5, -REASON_WIDTH/2, 0, TITLE_HEIGHT + REASON_PADDING),
 				Size = UDim2.new(0, REASON_WIDTH, 0, REASON_HEIGHT),
-				Text = props.networkError.responseBody,
+				Text = networkError and networkError.responseBody,
 				TextWrapped = true,
 				TextColor3 = theme.uploadResult.text,
 				TextSize = Constants.FONT_SIZE_MEDIUM,

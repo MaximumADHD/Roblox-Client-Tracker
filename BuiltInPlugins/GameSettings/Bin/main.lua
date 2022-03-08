@@ -15,11 +15,11 @@ return function(plugin, pluginLoaderContext)
 	local RunService = game:GetService("RunService")
 
 	local Plugin = script.Parent.Parent
-	local Roact = require(Plugin.Roact)
-	local Rodux = require(Plugin.Rodux)
-	local Cryo = require(Plugin.Cryo)
-
-	local Framework = require(Plugin.Framework)
+	local Roact = require(Plugin.Packages.Roact)
+	local Rodux = require(Plugin.Packages.Rodux)
+	local Cryo = require(Plugin.Packages.Cryo)
+	
+	local Framework = require(Plugin.Packages.Framework)
 	local ContextServices = Framework.ContextServices
 	local FrameworkUtil = Framework.Util
 	local Promise = if FFlagGameSettingsDeduplicatePackages

@@ -9,7 +9,7 @@ local RunService = (FFlagGsPermissionsUseCentralizedTcCheck or FFlagCollabEditin
 local GameSettingsPolicy = game:GetService("PluginPolicyService"):getPluginPolicy("GameSettings")
 
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 
 local contextKey = KeyProvider.getContextKeyName()

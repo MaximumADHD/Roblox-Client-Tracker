@@ -15,9 +15,9 @@
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local Promise = FrameworkUtil.Promise
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local GroupRoles = require(Plugin.Src.Networking.Requests.Permissions.GroupRoles)
 local PermissionsConstants = require(Page.Util.PermissionsConstants)

@@ -18,16 +18,16 @@
 local PLACEHOLDER_TAX_RATE = 0.90
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Roact = require(Plugin.Roact)
-local UILibrary = require(Plugin.UILibrary)
+local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = Plugin.Framework
-local FrameworkUtil = require(Framework.Util)
+local Framework = require(Plugin.Packages.Framework)
+local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local RoundFrame = UILibrary.Component.RoundFrame

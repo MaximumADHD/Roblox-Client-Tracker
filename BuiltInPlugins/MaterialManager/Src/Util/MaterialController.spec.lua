@@ -1,0 +1,55 @@
+return function()
+	local Plugin = script.Parent.Parent.Parent
+
+	local MaterialController = require(Plugin.Src.Util.MaterialController)
+	local getBuiltInMaterialVariants = require(Plugin.Src.Util.getBuiltInMaterialVariants)
+
+	local builtInMaterialVariants = getBuiltInMaterialVariants()
+	local humanMade = 15
+	local synthetic = 2
+
+	local materialService = Instance.new("Folder")
+
+	it("should create and destroy without errors", function()
+		local materialController = MaterialController.new({}, materialService)
+		local categories = materialController:GetCategories()
+		expect(#categories.Categories).to.equal(0)
+		expect(#categories.Materials).to.equal(0)
+		expect(#categories.Name).to.equal("All")
+		materialController:destroy()
+	end)
+
+	it("should populate with builtin materials correctly", function()
+		local materialController = MaterialController.new(builtInMaterialVariants, materialService)
+		local categories = materialController:GetCategories()
+		expect(#categories.Categories).to.equal(3)
+		expect(#categories.Materials).to.equal(0)
+		expect(#categories.Name).to.equal("All")
+		materialController:destroy()
+	end)
+
+	it("should properly get materials", function()
+		local materialController = MaterialController.new(builtInMaterialVariants, materialService)
+		expect(#materialController:GetMaterials({})).to.equal(#builtInMaterialVariants)
+		expect(#materialController:GetMaterials({"HumanMade"})).to.equal(humanMade)
+		expect(#materialController:GetMaterials({"HumanMade", "Synthetic"})).to.equal(2)
+		materialController:destroy()
+	end)
+
+	it("should properly add and remove materials", function()
+		local materialController = MaterialController.new(builtInMaterialVariants, materialService)
+		local materialVariant = Instance.new("MaterialVariant")
+		expect(#materialController:GetMaterials({})).to.equal(#builtInMaterialVariants)
+		expect(#materialController:GetMaterials({"HumanMade"})).to.equal(humanMade)
+		expect(#materialController:GetMaterials({"HumanMade", "Synthetic"})).to.equal(synthetic)
+		materialVariant.Parent = materialService
+		expect(#materialController:GetMaterials({})).to.equal(#builtInMaterialVariants + 1)
+		expect(#materialController:GetMaterials({"HumanMade"})).to.equal(humanMade + 1)
+		expect(#materialController:GetMaterials({"HumanMade", "Synthetic"})).to.equal(synthetic + 1)
+		materialVariant:Destroy()
+		expect(#materialController:GetMaterials({})).to.equal(#builtInMaterialVariants)
+		expect(#materialController:GetMaterials({"HumanMade"})).to.equal(humanMade)
+		expect(#materialController:GetMaterials({"HumanMade", "Synthetic"})).to.equal(synthetic)
+		materialController:destroy()
+	end)
+end

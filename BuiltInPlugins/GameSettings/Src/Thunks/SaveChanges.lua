@@ -12,7 +12,7 @@ local SetPageSaveState = require(Plugin.Src.Actions.SetPageSaveState)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 local SaveState = require(Plugin.Src.Util.SaveState)
-local Framework = require(Plugin.Framework)
+local Framework = require(Plugin.Packages.Framework)
 local Util = Framework.Util
 local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 

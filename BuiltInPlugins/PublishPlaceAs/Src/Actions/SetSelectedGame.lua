@@ -6,10 +6,10 @@ local AssertType = require(Plugin.Src.Util.AssertType)
 
 local Action = require(script.Parent.Action)
 
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 
 return Action(script.Name, function(selectedGame)
-	assert(FFlagFixPublishAsWhenQueryFails, "FFlagFixPublishAsWhenQueryFails must be enabled")
+	assert(FFlagDebugFixPublishAsWhenQueryFails, "FFlagDebugFixPublishAsWhenQueryFails must be enabled")
 	AssertType.assertNullableType(selectedGame, "table", "SetSelectedGame arg")
 
 	return {

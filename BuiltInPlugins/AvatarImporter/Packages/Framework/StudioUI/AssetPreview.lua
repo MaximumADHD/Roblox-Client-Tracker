@@ -33,10 +33,12 @@
 		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
 		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
 local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local TextService = game:GetService("TextService")
 
@@ -477,6 +479,7 @@ function AssetPreview:render()
 					OnPauseSound = self.onPauseSound,
 					OnPlayVideo = self.onPlayVideo,
 					OnPauseVideo = self.onPauseVideo,
+					UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then props.UsageContext else nil,
 				}),
 
 				Favorites = props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({

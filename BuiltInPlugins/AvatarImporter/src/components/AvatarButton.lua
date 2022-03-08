@@ -25,7 +25,6 @@ local RoactRodux = require(root.lib.RoactRodux)
 local Assets = require(root.src.Assets)
 local themeConfig = require(root.src.utils.themeConfig)
 local getTextWidth = require(root.src.utils.getTextWidth)
-local FastFlags = require(root.src.FastFlags)
 
 local Tooltip = require(root.src.components.Tooltip)
 
@@ -115,11 +114,7 @@ function AvatarButton:render()
 			self.props.doImport(self.props.avatarType)
 		else
 			-- if we are detecting rig type in r15 import, the original rig type must be set through detectTypeWithOrigAvatarType
-			if(FastFlags:shouldDetectRigTypeInR15Import()) then
-				self.props.detectTypeWithOrigAvatarType(avatarType)
-			else
-				self.props.detectType()
-			end
+			self.props.detectTypeWithOrigAvatarType(avatarType)
 		end
 	end
 
@@ -162,9 +157,9 @@ function AvatarButton:render()
 		end,
 
 		[Roact.Event.Activated] = function()
-			if (FastFlags:shouldDetectRigTypeInCustomImport() and self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM) then 
+			if (self.props.avatarType == Constants.AVATAR_TYPE.CUSTOM) then 
 				detectRigTypeOrImport(self.props.avatarType)
-			elseif (FastFlags:shouldDetectRigTypeInR15Import() and self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM) then 
+			elseif (self.props.avatarType ~= Constants.AVATAR_TYPE.CUSTOM) then 
 				self.props.detectTypeWithOrigAvatarType(self.props.avatarType)
 			else
 				self.props.doImport(self.props.avatarType)

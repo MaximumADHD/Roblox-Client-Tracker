@@ -1,7 +1,7 @@
 local FFlagLocalizationPageNullSourceLanguageFixEnabled = game:DefineFastFlag("LocalizationPageNullSourceLanguageFixEnabled", false)
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Promise = require(Plugin.Framework).Util.Promise
+local Promise = require(Plugin.Packages.Framework).Util.Promise
 
 local LocalizationPageController = {}
 

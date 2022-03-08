@@ -2,12 +2,10 @@
 	Contains a series of buttons meant to control editing or playback.
 
 	Props:
-		bool IsPlaying = Whether the animation is currently playing. (Deprecated with GetFFlagMoarMediaControls)
 		string PlayState = One of Constants.PLAY_STATE (Reverse, Paused, Play).
 		bool IsLooping = Whether the animation is a looping animation.
 		int LayoutOrder = The display order of this component.
 
-		function TogglePlay() = A callback for when the user wants to toggle the playback state. (Deprecated with GetFFlagMoarMediaControls)
 		function SetPlayState(playState) = A callback for when the user changes the playback state.
 		function ToggleLooping() = A callback for when the user wants to toggle the looping state.
 		function SkipBackward() = A callback for when the user wants to skip backward to the
@@ -17,9 +15,6 @@
 		function GoToFirstFrame() = A callback for when the user wants to go to the first frame.
 		function GoToLastFrame() = A callback for when the user wants to go to the last frame.
 ]]
-
-local DEFAULT_STYLE = "MediaControl"
-local ACTIVE_STYLE = "ActiveControl"
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -34,8 +29,6 @@ local Constants = require(Plugin.Src.Util.Constants)
 local LayoutOrderIterator = require(Plugin.Src.Util.LayoutOrderIterator)
 local Button = Framework.UI.Button
 local Tooltip = require(Plugin.Src.Components.Tooltip)
-
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local MediaControls = Roact.PureComponent:extend("MediaControls")
 
@@ -128,7 +121,7 @@ function MediaControls:render()
 		local isLooping = props.IsLooping
 		local isReverse = props.PlayState == Constants.PLAY_STATE.Reverse
 		local isPaused = props.PlayState == Constants.PLAY_STATE.Pause
-		local isPlaying = GetFFlagMoarMediaControls() and (props.PlayState == Constants.PLAY_STATE.Play) or props.IsPlaying
+		local isPlaying = props.PlayState == Constants.PLAY_STATE.Play
 		local layoutOrder = props.LayoutOrder
 		local skipBackward = props.SkipBackward
 		local skipForward = props.SkipForward
@@ -151,17 +144,15 @@ function MediaControls:render()
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				VerticalAlignment = Enum.VerticalAlignment.Center,
 			}),
-			GoToFirstFrame = GetFFlagMoarMediaControls() and self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame") or nil,
+			GoToFirstFrame = self:makeButton(playbackTheme.goToFirstFrame, goToFirstFrame, playbackTheme, "GoToFirstFrame"),
 			SkipBackward = self:makeButton(playbackTheme.skipBackward, skipBackward, playbackTheme, "SkipBackward"),
 
-			Reverse = GetFFlagMoarMediaControls() and self:makePlayToggle(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse") or nil,
-			Pause = GetFFlagMoarMediaControls() and self:makePlayToggle(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause") or nil,
-			Play = GetFFlagMoarMediaControls() and self:makePlayToggle(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play") or nil,
-			-- Deprecated with GetFFlagMoarMediaControls()
-			PlayPause = not GetFFlagMoarMediaControls() and self:makeToggle(isPlaying, playbackTheme.pause, playbackTheme.play, togglePlay, playbackTheme, "Play") or nil,
+			Reverse = self:makePlayToggle(isReverse, playbackTheme.reverse, Constants.PLAY_STATE.Reverse, playbackTheme, "Reverse"),
+			Pause = self:makePlayToggle(isPaused, playbackTheme.pause, Constants.PLAY_STATE.Pause, playbackTheme, "Pause"),
+			Play = self:makePlayToggle(isPlaying, playbackTheme.play, Constants.PLAY_STATE.Play, playbackTheme, "Play"),
 
 			SkipForward = self:makeButton(playbackTheme.skipForward, skipForward, playbackTheme, "SkipForward"),
-			GoToLastFrame = GetFFlagMoarMediaControls() and self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame") or nil,
+			GoToLastFrame = self:makeButton(playbackTheme.goToLastFrame, goToLastFrame, playbackTheme, "GoToLastFrame"),
 
 			Loop = self:makeToggle(isLooping, playbackTheme.loop, playbackTheme.loop, toggleLooping, playbackTheme, "ToggleLooping"),
 		})

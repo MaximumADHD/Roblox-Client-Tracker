@@ -14,6 +14,8 @@ local Plugin = ContextServices.Plugin
 local Mouse = ContextServices.Mouse
 local Store = ContextServices.Store
 
+local Http = Framework.Http
+
 local MainReducer = require(main.Src.Reducers.MainReducer)
 local MakeTheme = require(main.Src.Resources.MakeTheme)
 
@@ -24,12 +26,27 @@ local Components = main.Src.Components
 local MaterialManagerView = require(Components.MaterialManagerView)
 local MaterialPrompt = require(Components.MaterialPrompt)
 
+local Utils = main.Src.Util
+local MaterialController = require(Utils.MaterialController)
+local getBuiltInMaterialVariants = require(Utils.getBuiltInMaterialVariants)
+local ImageUploader = require(main.Src.Util.ImageUploader)
+local ImportAssetHandler = require(main.Src.Util.ImportAssetHandler)
+local ImageLoader = require(Utils.ImageLoader)
+
+
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
 	self.state = {
 		enabled = false,
 	}
+
+	local networking = Http.Networking.new({
+		isInternal = true,
+	})
+	local imageUploader = ImageUploader.new(networking)
+	self.assetHandler = ImportAssetHandler.new(imageUploader)
+	self.imageLoader = ImageLoader.new()
 
 	self.openPrompt = function()
 		self:setState({
@@ -83,6 +100,16 @@ function MainPlugin:init(props)
 	self.analytics = ContextServices.Analytics.new(function()
 		return {}
 	end, {})
+
+	self.materialController = MaterialController.new(
+		getBuiltInMaterialVariants()
+	)
+end
+
+function MainPlugin:willUnmount()
+	if self.materialController then
+		self.materialController:destroy()
+	end
 end
 
 function MainPlugin:renderButtons(toolbar)
@@ -115,6 +142,9 @@ function MainPlugin:render()
 		MakeTheme(),
 		self.localization,
 		self.analytics,
+		self.materialController,
+		self.imageLoader,
+		self.assetHandler,
 	}, {
 		Toolbar = Roact.createElement(PluginToolbar, {
 			Title = self.localization:getText("Plugin", "Toolbar"),

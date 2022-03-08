@@ -38,12 +38,24 @@ local GameStateTypes : {[string] : string} = {
 }
 
 local DebuggerPauseReason : {[string] : string} = {
-    Unknown = "Unknown",
-    Requested = "Requested",
-    Breakpoint = "Breakpoint",
-    Exception = "Exception",
-    SingleStep = "SingleStep",
-    Entrypoint = "Entrypoint",
+	Unknown = "Enum.DebuggerPauseReason.Unknown",
+	Requested = "Enum.DebuggerPauseReason.Requested",
+	Breakpoint = "Enum.DebuggerPauseReason.Breakpoint",
+	Exception = "Enum.DebuggerPauseReason.Exception",
+	SingleStep = "Enum.DebuggerPauseReason.SingleStep",
+	Entrypoint = "Enum.DebuggerPauseReason.Entrypoint",
+};
+
+local DebuggerStatus : {[string] : string} = {
+	Success = "Enum.DebuggerStatus.Success",
+	Timeout = "Enum.DebuggerStatus.Timeout",
+	ConnectionLost = "Enum.DebuggerStatus.ConnectionLost",
+	InvalidResponse = "Enum.DebuggerStatus.InvalidResponse",
+	InternalError = "Enum.DebuggerStatus.InternalError",
+	InvalidState = "Enum.DebuggerStatus.InvalidState",
+	RpcError = "Enum.DebuggerStatus.RpcError",
+	InvalidArgument = "Enum.DebuggerStatus.InvalidArgument",
+	ConnectionClosed = "Enum.DebuggerStatus.ConnectionClosed",
 };
 
 local HEADER_HEIGHT = 40
@@ -70,4 +82,5 @@ return {
 	GameStateTypes = GameStateTypes,
 	DebugpointType = DebugpointType,
 	DebuggerPauseReason = DebuggerPauseReason,
+	DebuggerStatus = DebuggerStatus,
 }

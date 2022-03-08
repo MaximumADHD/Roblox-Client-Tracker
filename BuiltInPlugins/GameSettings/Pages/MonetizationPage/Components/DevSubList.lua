@@ -9,13 +9,13 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local RoactRodux = require(Plugin.RoactRodux)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = Plugin.Framework
-local FrameworkUI = require(Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 
 local DevSubListItem = require(script.Parent.DevSubListItem)
@@ -23,7 +23,7 @@ local DevSubListHeaderText = require(script.Parent.DevSubListHeaderText)
 
 local DEPRECATED_Constants = require(Plugin.Src.Util.DEPRECATED_Constants)
 local DeepMergeTables = require(Plugin.Src.Util.DeepMergeTables)
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local AddChange = require(Plugin.Src.Actions.AddChange)

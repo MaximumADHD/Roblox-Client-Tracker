@@ -1,6 +1,6 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
+local Cryo = require(Plugin.Packages.Cryo)
 
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local PermissionsConstants = require(Page.Util.PermissionsConstants)

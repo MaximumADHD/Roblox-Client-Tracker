@@ -1,7 +1,7 @@
 -- Sets all store settings to their loaded values.
 
 local Plugin = script.Parent.Parent.Parent
-local Action = require(Plugin.Framework).Util.Action
+local Action = require(Plugin.Packages.Framework).Util.Action
 
 return Action(script.Name, function(settings)
 	return {

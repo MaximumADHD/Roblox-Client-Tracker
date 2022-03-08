@@ -13,10 +13,10 @@ local BUTTON_IMAGE = "rbxasset://textures/GameSettings/RoundArrowButton.png"
 local BUTTON_SIZE = UDim2.new(0, 48, 0, 48)
 
 local Plugin = script.Parent.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local ContextServices = require(Plugin.Framework).ContextServices
+local Roact = require(Plugin.Packages.Roact)
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
-local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUI = require(Plugin.Packages.Framework).UI
 
 local HoverArea = FrameworkUI.HoverArea
 

@@ -8,9 +8,9 @@ local ShowImportPrompt = require(Plugin.Src.Thunks.ShowImportPrompt)
 local ImportPrompt = Roact.PureComponent:extend("ImportPrompt")
 
 function ImportPrompt:init()
-	self.promptClosed = function(succeeded)
+	self.promptClosed = function(succeeded, closed)
 		if self.props.OnPromptClosed then
-			self.props.OnPromptClosed(succeeded)
+			self.props.OnPromptClosed(succeeded, closed)
 		end
 	end
 end

@@ -75,7 +75,6 @@ function AnimationControlPanel:render()
 	local theme = THEME_REFACTOR and props.Stylizer.PluginTheme or props.Theme:get("PluginTheme")
 
 	local animationData = props.AnimationData
-	local isPlaying = props.IsPlaying
 	local playState = props.PlayState
 	local rootInstance = props.RootInstance
 	local startTick = props.StartTick
@@ -112,7 +111,6 @@ function AnimationControlPanel:render()
 		}),
 
 		MediaControls = Roact.createElement(MediaControls, {
-			IsPlaying = isPlaying,
 			PlayState = playState,
 			IsLooping = animationData and animationData.Metadata
 				and animationData.Metadata.Looping or false,
@@ -141,18 +139,14 @@ function AnimationControlPanel:render()
 	})
 end
 
-
 AnimationControlPanel = withContext({
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Analytics = ContextServices.Analytics
 })(AnimationControlPanel)
 
-
-
-local function mapStateToProps(state, props)
+local function mapStateToProps(state)
 	return {
-		IsPlaying = state.Status.IsPlaying, -- Deprecated with GetFFlagMoarMediaControls()
 		PlayState = state.Status.PlayState,
 		RootInstance = state.Status.RootInstance,
 		FrameRate = state.Status.FrameRate

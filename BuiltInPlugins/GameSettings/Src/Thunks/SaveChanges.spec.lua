@@ -4,8 +4,8 @@ return function()
 	
 	local Plugin = script.Parent.Parent.Parent
 
-	local Rodux = require(Plugin.Rodux)
-	local Framework = require(Plugin.Framework)
+	local Rodux = require(Plugin.Packages.Rodux)
+	local Framework = require(Plugin.Packages.Framework)
 	local Util = Framework.Util
 	local Promise = if FFlagGameSettingsDeduplicatePackages then Util.Promise else require(Plugin.Packages.Promise)
 

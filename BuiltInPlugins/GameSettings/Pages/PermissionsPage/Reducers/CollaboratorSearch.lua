@@ -4,8 +4,8 @@
 
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Rodux = require(Plugin.Rodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local Rodux = require(Plugin.Packages.Rodux)
 
 local LOADING_IN_BACKGROUND = require(Page.Keys.loadingInProgress)
 

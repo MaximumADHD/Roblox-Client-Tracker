@@ -6,7 +6,7 @@ local Constants = require(Plugin.Src.Resources.Constants)
 
 local Action = require(script.Parent.Action)
 
-local FFlagFixPublishAsWhenQueryFails = game:GetFastFlag("FixPublishAsWhenQueryFails")
+local FFlagDebugFixPublishAsWhenQueryFails = game:GetFastFlag("DebugFixPublishAsWhenQueryFails")
 
 return Action(script.Name, function(placeInfoArg)
 	AssertType.assertNullableType(placeInfoArg, "table", "SetPlaceInfo arg")
@@ -27,7 +27,7 @@ return Action(script.Name, function(placeInfoArg)
 		AssertType.assertType(parentGame.universeId, "number", "SetPlaceInfo.parentGame.universeId")
 	end
 
-	if FFlagFixPublishAsWhenQueryFails then
+	if FFlagDebugFixPublishAsWhenQueryFails then
 		return {
 			placeInfo = {
 				places = places,

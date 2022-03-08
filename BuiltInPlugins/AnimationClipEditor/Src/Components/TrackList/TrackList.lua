@@ -61,7 +61,6 @@ local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimati
 local GetFFlagFacsUiChanges = require(Plugin.LuaFlags.GetFFlagFacsUiChanges)
 local GetFFlagFixClampValuesForFacs = require(Plugin.LuaFlags.GetFFlagFixClampValuesForFacs)
 local GetFFlagQuaternionChannels = require(Plugin.LuaFlags.GetFFlagQuaternionChannels)
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 
 local TrackList = Roact.PureComponent:extend("TrackList")
 
@@ -202,12 +201,7 @@ function TrackList:renderExpandedCFrameTrack(track, children, theme)
 	local properties = Constants.PROPERTY_KEYS
 	local animationData = props.AnimationData
 	local playhead = props.Playhead
-	local isPlaying
-	if GetFFlagMoarMediaControls() then
-		isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
-	else
-		isPlaying = self.props.IsPlaying
-	end
+	local isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
 
 	local nameWidth = math.max(self.getTextWidth(properties.Position, theme),
 		self.getTextWidth(properties.Rotation, theme))
@@ -324,12 +318,7 @@ function TrackList:renderTrack(track, children, theme, parentPath)
 
 	local playhead = props.Playhead
 	local animationData = props.AnimationData
-	local isPlaying
-	if GetFFlagMoarMediaControls() then
-		isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
-	else
-		isPlaying = self.props.IsPlaying
-	end
+	local isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
 	local isChannelAnimation = animationData and animationData.Metadata and animationData.Metadata.IsChannelAnimation
 
 	local isExpandable
@@ -469,12 +458,7 @@ function TrackList:renderTrack_deprecated(track, children, theme)
 	else
 		local playhead = props.Playhead
 		local animationData = props.AnimationData
-		local isPlaying
-		if GetFFlagMoarMediaControls() then
-			isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
-		else
-			isPlaying = self.props.IsPlaying
-		end
+		local isPlaying = self.props.PlayState ~= Constants.PLAY_STATE.Pause
 
 		local nameWidth = self.getTextWidth(name, theme)
 		local trackWidth = self.getTrackWidth(0, nameWidth) + (Constants.NUMBERBOX_WIDTH + Constants.NUMBERTRACK_PADDING * 2)

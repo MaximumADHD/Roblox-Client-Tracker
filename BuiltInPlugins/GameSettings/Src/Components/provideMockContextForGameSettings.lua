@@ -3,14 +3,14 @@ local Plugin = script.Parent.Parent.Parent
 --Turn this on when debugging the store and actions
 local LOG_STORE_STATE_AND_EVENTS = false
 
-local Rodux = require(Plugin.Rodux)
+local Rodux = require(Plugin.Packages.Rodux)
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 
-local Framework = require(Plugin.Framework)
-local UILibrary = require(Plugin.UILibrary)
+local Framework = require(Plugin.Packages.Framework)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local ContextServices = Framework.ContextServices
 local UILibraryWrapper = ContextServices.UILibraryWrapper :: any
 local provideMockContext = Framework.TestHelpers.provideMockContext

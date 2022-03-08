@@ -9,7 +9,7 @@
 			thumbnail element. This callback should return a single element whose size is UDim2.new(1, 0, 1, 0)
 ]]
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
 local ContentProvider = game:GetService("ContentProvider")
 

@@ -1,3 +1,7 @@
+local Plugin = script.Parent.Parent.Parent
+
+local getFFlagPivotEditorPreventDraggingInvalidTarget = require(Plugin.Src.Flags.getFFlagPivotEditorPreventDraggingInvalidTarget)
+
 local function buildFreeformDragInfo(draggerContext, draggerToolModel, event)
 	return {
 		ClickedSelectable = event.ClickedSelectable,
@@ -7,7 +11,11 @@ end
 
 return function(draggerContext, draggerToolModel, event)
 	-- Only PVInstances have a pivot to drag.
-	if event.SelectionNowContainsSelectable and event.ClickedSelectable:IsA("PVInstance") then
+	if
+		(not getFFlagPivotEditorPreventDraggingInvalidTarget() or draggerToolModel:doesAllowFreeformDrag())
+		and event.SelectionNowContainsSelectable
+		and event.ClickedSelectable:IsA("PVInstance")
+	then
 		return "FreeformSelectionDrag",
 			buildFreeformDragInfo(draggerContext, draggerToolModel, event)
 	else

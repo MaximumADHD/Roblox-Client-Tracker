@@ -39,7 +39,6 @@ type _ExternalProps = {
 }
 
 type _InternalProps = {
-	ContentPadding : UDim,
 	LabelColumnWidth : UDim,
 	LayoutOrder : number,
 	Spacing : number,
@@ -55,7 +54,7 @@ type _Props = Props & {
 }
 
 type _Style = {
-	ItemContentPadding : number,
+	ItemSpacing : number,
 	ItemPaddingHorizontal : UDim,
 	TextWidth : UDim,
 }
@@ -64,7 +63,6 @@ type _Style = {
 local LabeledElementListItem = Roact.PureComponent:extend("LabeledElementListItem")
 
 LabeledElementListItem.defaultProps = {
-	ContentPadding = UDim.new(0, 0),
 	LabelColumnWidth = UDim.new(0, 100),
 	LayoutOrder = 1,
 	Spacing = 0,
@@ -99,7 +97,6 @@ function LabeledElementListItem:render()
 
 		Content = Roact.createElement(Pane, { 
 			AutomaticSize = Enum.AutomaticSize.XY,
-			Spacing = props.ContentPadding,
 			LayoutOrder = 2,
 		}, (props :: any)[Roact.Children]),
 	})
@@ -120,7 +117,6 @@ function LabeledElementList:render()
 	local children = {}
 	for index, item in ipairs(items) do
 		children[item.Key] = Roact.createElement(LabeledElementListItem, {
-			ContentPadding = style.ItemContentPadding,
 			LabelColumnWidth = style.TextWidth,
 			LayoutOrder = index,
 			Spacing = style.ItemPaddingHorizontal,
@@ -134,6 +130,7 @@ function LabeledElementList:render()
 		AutomaticSize = Enum.AutomaticSize.XY,
 		Layout = Enum.FillDirection.Vertical,
 		LayoutOrder = props.LayoutOrder,
+		Spacing = style.ItemSpacing,		
 	}, children)
 end
 

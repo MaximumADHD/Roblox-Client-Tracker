@@ -13,6 +13,8 @@ local PluginButton = StudioUI.PluginButton
 
 local Constants = require(main.Src.Util.Constants)
 
+local SetPausedState = require(main.Src.Actions.Common.SetPausedState)
+
 local DebuggerToolbarButtons = Roact.PureComponent:extend("DebuggerToolbarButtons")
 
 -- these strings need to correspond to strings in StudioPluginHost.cpp
@@ -25,7 +27,12 @@ local STEPOUT_META_NAME = "StepOut"
 local TOOLBAR_NAME = "Debugger"
 
 function DebuggerToolbarButtons:init(props)
+	self.getThreadForStepping = function(connection)
+		return connection:GetThreadById(self.props.CurrentThreadId)
+	end
+
 	self.onResume = function()
+		props.onSetPausedState(false)
 		local uiService = game:GetService("DebuggerUIService")
 		uiService:Resume()
 	end
@@ -38,22 +45,19 @@ function DebuggerToolbarButtons:init(props)
 	self.onStepOver = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
-		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
-		connection:Step(currThread, function() end)
+		connection:Step(self.getThreadForStepping(connection), function() end)
 	end
 
 	self.onStepInto = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
-		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
-		connection:StepIn(currThread, function() end)
+		connection:StepIn(self.getThreadForStepping(connection), function() end)
 	end
 
 	self.onStepOut = function()
 		local debuggerConnectionManager = game:GetService("DebuggerConnectionManager")
 		local connection = debuggerConnectionManager:GetConnectionById(self.props.CurrentConnectionId)
-		local currThread = connection:GetThreadById(self.props.CurrentThreadId)
-		connection:StepOut(currThread, function() end)
+		connection:StepOut(self.getThreadForStepping(connection), function() end)
 	end
 end
 
@@ -109,7 +113,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepOverActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = isPaused,
+			Enabled = isPaused and self.props.CurrentThreadId,
 			Title = STEPOVER_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Over.png",
@@ -120,7 +124,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepIntoActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = isPaused,
+			Enabled = isPaused and self.props.CurrentThreadId,
 			Title = STEPINTO_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-In.png",
@@ -131,7 +135,7 @@ function DebuggerToolbarButtons:renderButtons(toolbar)
 			Name = "stepOutActionV2",
 			Toolbar = toolbar,
 			Active = false,
-			Enabled = isPaused,
+			Enabled = isPaused and self.props.CurrentThreadId,
 			Title = STEPOUT_META_NAME,
 			Tooltip = "",
 			Icon = "rbxasset://textures/Debugger/Step-Out.png",
@@ -171,6 +175,14 @@ DebuggerToolbarButtons = RoactRodux.connect(
 			IsPaused = isPaused,
 			CurrentThreadId = currentThreadId,
 			CurrentConnectionId = currentConnectionId,
+		}
+	end,
+
+	function(dispatch)
+		return {
+			onSetPausedState = function(pause)
+				return dispatch(SetPausedState(pause))
+			end,
 		}
 	end
 )(DebuggerToolbarButtons)

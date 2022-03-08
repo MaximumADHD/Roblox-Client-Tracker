@@ -36,6 +36,8 @@ local MeshImportDialog = require(Components.MeshImportDialog)
 local ProgressWidget = require(Components.ProgressWidget)
 local ErrorWidget = require(Components.ErrorWidget)
 
+local getFFlagAssetImportHandleFileCancel = require(main.Src.Flags.getFFlagAssetImportHandleFileCancel)
+
 local MainPlugin = Roact.PureComponent:extend("MainPlugin")
 
 function MainPlugin:init(props)
@@ -46,14 +48,21 @@ function MainPlugin:init(props)
 		importOpenError = false,
 	}
 
-	self.promptClosed = function(succeeded)
+	self.promptClosed = function(succeeded, closed)
 		assert(self.state.promptRequested)
-
-		self:setState({
-			hasImportSettings = succeeded,
-			importOpenError = not succeeded,
-			promptRequested = false,
-		})
+		if getFFlagAssetImportHandleFileCancel() then
+			self:setState({
+				hasImportSettings = succeeded and not closed,
+				importOpenError = not succeeded and not closed,
+				promptRequested = false,
+			})
+		else
+			self:setState({
+				hasImportSettings = succeeded,
+				importOpenError = not succeeded,
+				promptRequested = false,
+			})
+		end
 	end
 
 	self.toggleEnabled = function()

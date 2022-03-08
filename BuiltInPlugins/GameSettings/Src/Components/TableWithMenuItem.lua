@@ -16,20 +16,20 @@
 		thumbnail Icon = Icon to display in first column of row entry
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
-local UILibrary = require(Plugin.UILibrary)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
+local UILibrary = require(Plugin.Packages.UILibrary)
 
-local Framework = Plugin.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local UI = require(Framework.UI)
+local UI = Framework.UI
 local HoverArea = UI.HoverArea
 local DropdownMenu = UI.DropdownMenu
 
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = Framework.Util
 local FitTextLabel = FrameworkUtil.FitFrame.FitTextLabel
 
 local Tooltip = UILibrary.Component.Tooltip

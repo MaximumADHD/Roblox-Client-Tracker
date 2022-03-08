@@ -22,25 +22,25 @@ local GetEditKeyName = KeyProvider.getEditKeyName
 local GetVersionHistoryKeyName = KeyProvider.getVersionHistoryKeyName
 
 local Page = script.Parent
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local Framework = Plugin.Framework
-local ContextServices = require(Framework.ContextServices)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
-local FrameworkUI = require(Framework.UI)
+local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local Separator = FrameworkUI.Separator
 local LinkText = FrameworkUI.LinkText
 
-local FrameworkUtil = require(Framework.Util)
+local FrameworkUtil = Framework.Util
 local LayoutOrderIterator = FrameworkUtil.LayoutOrderIterator
 local FitFrameOnAxis = FrameworkUtil.FitFrame.FitFrameOnAxis
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 local deepJoin = UILibrary.Util.deepJoin
 local TitledFrame = UILibrary.Component.TitledFrame

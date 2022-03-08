@@ -1,8 +1,8 @@
 local Page = script.Parent.Parent
 local Plugin = script.Parent.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Rodux = require(Plugin.Rodux)
-local RoactRodux = require(Plugin.RoactRodux)
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
 local ReducerRoot = require(Page.Reducers.MorpherEditorRoot)
 

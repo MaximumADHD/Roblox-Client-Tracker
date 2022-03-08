@@ -1,8 +1,8 @@
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Rodux = require(Plugin.Rodux)
-local Framework = Plugin.Framework
-local ContextServices = require(Framework.ContextServices)
+local Roact = require(Plugin.Packages.Roact)
+local Rodux = require(Plugin.Packages.Rodux)
+local Framework = require(Plugin.Packages.Framework)
+local ContextServices = Framework.ContextServices
 
 local MainReducer = require(Plugin.Src.Reducers.MainReducer)
 

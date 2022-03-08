@@ -3,14 +3,18 @@ local Plugin = script.Parent.Parent.Parent
 local Analytics = require(Plugin.Core.Util.Analytics.Analytics)
 local DebugFlags = require(Plugin.Core.Util.DebugFlags)
 local InsertToolPromise = require(Plugin.Core.Util.InsertToolPromise)
-local Urls = require(Plugin.Core.Util.Urls)
 local isCli = require(Plugin.Core.Util.isCli)
+local NetworkInterface = require(Plugin.Core.Networking.NetworkInterface)
+local Urls = require(Plugin.Core.Util.Urls)
 
 local Category = require(Plugin.Core.Types.Category)
+
+local webKeys = require(Plugin.Core.Util.Permissions.Constants).webKeys
 
 local EngineFeatureDraggerBruteForce = game:GetEngineFeature("DraggerBruteForceAll")
 local FFlagToolboxEnableScriptConfirmation = game:GetFastFlag("ToolboxEnableScriptConfirmation")
 local FFlagToolboxEnablePostDropScriptConfirmation = game:GetFastFlag("ToolboxEnablePostDropScriptConfirmation")
+local FFlagToolboxGrantUniverseAudioPermissions = game:GetFastFlag("ToolboxGrantUniverseAudioPermissions")
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local InsertService = game:GetService("InsertService")
@@ -68,6 +72,21 @@ local function insertAudio(assetId, assetName)
 	local url = Urls.constructAssetIdString(assetId)
 	if DebugFlags.shouldDebugUrls() then
 		print(("Inserting sound %s"):format(url))
+	end
+
+	if FFlagToolboxGrantUniverseAudioPermissions and game.GameId ~= 0 then
+		local networkInterface = NetworkInterface.new()
+		
+		local requestBody = {
+			requests = {
+				{
+					action = webKeys.UseAction,
+					subjectId = game.GameId,
+					subjectType = webKeys.Universe,
+				},
+			},
+		}
+		local response = networkInterface:grantAssetPermissionWithTimeout(assetId, requestBody):await()
 	end
 
 	local soundObj = Instance.new("Sound")

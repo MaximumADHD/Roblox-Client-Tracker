@@ -46,6 +46,7 @@ local SetTagSuggestions = require(Actions.SetTagSuggestions)
 local SetFieldError = require(Actions.SetFieldError)
 local SetUploadFee = require(Actions.SetUploadFee)
 local SetAssetConfigAssetTypeAgents = require(Actions.SetAssetConfigAssetTypeAgents)
+local SetDescendantPermissions = require(Actions.SetDescendantPermissions)
 
 local ConfigTypes = require(Plugin.Core.Types.ConfigTypes)
 
@@ -111,6 +112,9 @@ return Rodux.createReducer({
 	collaborators = {},
 	isPackageAsset = false,
 	packagePermissions = {},
+
+	-- For Model Publish
+	descendantPermissions = {},
 
 	iconFile = nil, -- Will be used in preview and upload result
 
@@ -436,6 +440,12 @@ return Rodux.createReducer({
 	[SetAssetConfigAssetTypeAgents.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			assetTypeAgents = action.assetTypeAgents,
+		})
+	end,
+
+	[SetDescendantPermissions.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			descendantPermissions = action.permission,
 		})
 	end,
 })

@@ -9,7 +9,7 @@ local Actions = Plugin.Src.Actions
 local AddRootVariables = require(Actions.Watch.AddRootVariables)
 local AddChildVariables = require(Actions.Watch.AddChildVariables)
 
-local function populateStackVariables(debuggerConnection, stackFrame, callback)
+local function populateStackVariables(debuggerConnection, stackFrame, store, stepStateBundle, callback)
 	local populatedScopes = {}
 	local onScopePopulated = function(scope : ScopeEnum.Scope)
 		populatedScopes[scope] = true 
@@ -19,12 +19,24 @@ local function populateStackVariables(debuggerConnection, stackFrame, callback)
 	end
 	
 	debuggerConnection:Populate(stackFrame.Locals, function()
+		local dst = stepStateBundle.debuggerStateToken
+		if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+			return
+		end
 		onScopePopulated(ScopeEnum.Local)
 	end)
 	debuggerConnection:Populate(stackFrame.Globals, function()
+		local dst = stepStateBundle.debuggerStateToken
+		if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+			return
+		end
 		onScopePopulated(ScopeEnum.Global)
 	end)
 	debuggerConnection:Populate(stackFrame.Upvalues, function()
+		local dst = stepStateBundle.debuggerStateToken
+		if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+			return
+		end
 		onScopePopulated(ScopeEnum.Upvalue)
 	end)
 end
@@ -72,7 +84,11 @@ end
 local function addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, debuggerVarList, scope)
 	for _, debuggerVar in ipairs(debuggerVarList) do
 		if debuggerVar.VariableId ~=0 and not debuggerVar.Populated then
-			debuggerConnection:Populate(debuggerVar, function() 
+			debuggerConnection:Populate(debuggerVar, function()
+				local dst = stepStateBundle.debuggerStateToken
+				if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+					return
+				end
 				addChildVariableRowsForDebuggerVariable(store, stepStateBundle, debuggerVar, scope)
 			end)
 		end
@@ -82,7 +98,11 @@ end
 return function(debuggerConnection, stackFrame, stepStateBundle : StepStateBundle.StepStateBundle)
 	return function(store, contextItems)
 		debuggerConnection:Populate(stackFrame, function ()
-			populateStackVariables(debuggerConnection, stackFrame, function() 
+			local dst = stepStateBundle.debuggerStateToken
+			if dst ~= store:getState().Common.debuggerConnectionIdToDST[dst.debuggerConnectionId] then
+				return
+			end
+			populateStackVariables(debuggerConnection, stackFrame, store, stepStateBundle, function()
 				local rootVars = convertStackFrameInstancesToVariableRows(stackFrame, store)
 				store:dispatch(AddRootVariables(stepStateBundle, rootVars))
 				addRootVariableRowChildren(store, stepStateBundle, debuggerConnection, stackFrame.Locals:GetChildren(), ScopeEnum.Local)

@@ -7,7 +7,7 @@ return function()
 	commonInitCalled = true
 
 	local Plugin = script.Parent.Parent
-	local Roact = require(Plugin.Roact)
+	local Roact = require(Plugin.Packages.Roact)
 	local DebugFlags = require(Plugin.Src.Util.DebugFlags)
 
 	if DebugFlags.EnableRoactConfigs() then

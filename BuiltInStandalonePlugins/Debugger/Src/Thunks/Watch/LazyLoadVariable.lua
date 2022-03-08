@@ -29,8 +29,13 @@ return function(variablePath : string, stepStateBundle : StepStateBundle.StepSta
 		if not targetVar then
 			return
 		end
-		debuggerConnection:Populate(targetVar, function ()	
+		debuggerConnection:Populate(targetVar, function ()
 			local state = store:getState()
+
+			if stepStateBundle.debuggerStateToken ~= state.Common.debuggerConnectionIdToDST[stepStateBundle.debuggerStateToken.debuggerConnectionId] then
+				return
+			end
+
 			local flattenedTree = state.Watch.stateTokenToFlattenedTree[stepStateBundle.debuggerStateToken][stepStateBundle.threadId][stepStateBundle.frameNumber]
 
 			if (isExpression) then

@@ -2,6 +2,8 @@
 	Gets the new Stylizer-compatible AssetConfigTheme
 	This should replace AssetConfigTheme once UILibrary and withTheme are completely removed.
 ]]
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+
 local Plugin = script.Parent.Parent.Parent
 
 local Packages = Plugin.Packages
@@ -15,15 +17,20 @@ local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 local StyleModifier = require(Packages.Framework).Util.StyleModifier
 local StyleColors = FrameworkStyle.Colors
 
+local Util = Plugin.Core.Util
+local Constants = require(Util.Constants)
+
 local Cryo = require(Packages.Cryo)
 
 return function()
 	local roundBox = getRawComponentStyle("RoundBox")
 	local button = getRawComponentStyle("Button")
+	local radioButton = getRawComponentStyle("RadioButton")
 
 	return {
 		assetConfig = {
 			backgroundColor = StyleKey.MainBackground,
+			brightText = if FFlagToolboxPrivatePublicAudioAssetConfig then StyleKey.BrightText else nil,
 			errorColor = StyleKey.ErrorText,
 			labelTextColor = StyleKey.DimmedText,
 			textColor = StyleKey.MainText,
@@ -211,5 +218,36 @@ return function()
 				BorderColor = StyleKey.ErrorText,
 			},
 		}),
+
+		[ui.StyledDialog] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(getRawComponentStyle("StyledDialog"), {
+			["&AssetConfigWarningDialog"] = {
+				ButtonSpacing = 8,
+			},
+		}) else nil,
+			
+		[ui.RadioButton] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(radioButton, {
+			["&AssetConfigRadioButton"] = {
+				TextSize = Constants.FONT_SIZE_ASSET_CONFIG_INPUT,
+
+				BackgroundStyle = Cryo.Dictionary.join(radioButton.BackgroundStyle, {
+					BackgroundStyle = Cryo.Dictionary.join(radioButton.BackgroundStyle.BackgroundStyle, {
+						Color = StyleKey.InputFieldBackground,
+					}),
+					
+					[StyleModifier.Selected] = Cryo.Dictionary.join(radioButton.BackgroundStyle[StyleModifier.Selected], {
+						BackgroundStyle = Cryo.Dictionary.join(radioButton.BackgroundStyle[StyleModifier.Selected].BackgroundStyle, {
+							Color = StyleKey.InputFieldBackground,
+						}),
+					}),
+				}),
+			},
+		}) else nil,
+
+		[ui.RadioButtonList] = if FFlagToolboxPrivatePublicAudioAssetConfig then Cryo.Dictionary.join(getRawComponentStyle("RadioButtonList"), {
+			["&AssetConfigRadioButtonList"] = {
+				Padding = 17,
+				RadioButtonStyle = "AssetConfigRadioButton",
+			},
+		}) else nil,
 	}
 end

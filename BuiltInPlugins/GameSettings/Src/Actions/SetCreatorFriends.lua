@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent
-local Action = require(Plugin.Framework).Util.Action
+local Action = require(Plugin.Packages.Framework).Util.Action
 
 return Action(script.Name, function(friends)
 	assert(typeof(friends) == "table", script.Name.." requires friends to be a table, not "..typeof(friends))

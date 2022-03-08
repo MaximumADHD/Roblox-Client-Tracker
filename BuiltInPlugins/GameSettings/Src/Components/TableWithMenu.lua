@@ -24,15 +24,15 @@
 
 
 local Plugin = script.Parent.Parent.Parent
-local Roact = require(Plugin.Roact)
-local Cryo = require(Plugin.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local Cryo = require(Plugin.Packages.Cryo)
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local InfiniteScrollingFrame = UILibrary.Component.InfiniteScrollingFrame
 
-local Framework = Plugin.Framework
+local Framework = require(Plugin.Packages.Framework)
 
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
 
 local TableWithMenuItem = require(Plugin.Src.Components.TableWithMenuItem)

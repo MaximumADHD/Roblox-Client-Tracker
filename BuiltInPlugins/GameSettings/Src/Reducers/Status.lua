@@ -4,7 +4,7 @@
 ]]
 
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
+local Rodux = require(Plugin.Packages.Rodux)
 
 local CurrentStatus = require(Plugin.Src.Util.CurrentStatus)
 

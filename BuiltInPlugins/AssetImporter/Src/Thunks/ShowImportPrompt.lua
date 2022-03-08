@@ -14,6 +14,8 @@ local SetImportStatuses = require(Plugin.Src.Actions.SetImportStatuses)
 
 local UpdateChecked = require(Plugin.Src.Thunks.UpdateChecked)
 
+local getFFlagAssetImportHandleFileCancel = require(Plugin.Src.Flags.getFFlagAssetImportHandleFileCancel)
+
 return function(promptClosedHandler)
 	return function(store)
 		local settings, filename, statuses = AssetImportService:ImportMeshWithPrompt()
@@ -47,8 +49,15 @@ return function(promptClosedHandler)
 		store:dispatch(SetImportStatuses(statuses))
 
 		if promptClosedHandler then
-			local succeeded = settings ~= nil and filename ~= nil
-			promptClosedHandler(succeeded)
+			if getFFlagAssetImportHandleFileCancel() then
+				local success = settings ~= nil and filename ~= nil
+				-- An empty string is returned if no file was selected
+				local closed = filename == ""
+				promptClosedHandler(success, closed)
+			else
+				local success = settings ~= nil and filename ~= nil
+				promptClosedHandler(success)
+			end
 		end
 	end
 end

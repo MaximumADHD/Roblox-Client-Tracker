@@ -236,7 +236,11 @@ function DisplayTable:init()
 		local tableToSort = {leftItem, rightItem}
 		local props = self.props
 		local isVariablesTab = props.SelectedTab == TableTab.Variables
-
+		
+		if leftItem == rightItem then
+			return false
+		end
+		
 		watchHelperFunctions.sortTableByColumnAndOrder(tableToSort, props.SortIndex, props.SortOrder, 
 			(isVariablesTab and self.getVariableTableColumns() or self.getWatchTableColumns()), false)
 		return tableToSort[1] == leftItem

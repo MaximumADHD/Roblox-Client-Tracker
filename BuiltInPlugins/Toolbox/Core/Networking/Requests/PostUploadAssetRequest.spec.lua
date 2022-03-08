@@ -1,10 +1,10 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent.Parent
-	
+
 
 	local Packages = Plugin.Packages
 
-	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread2")
+	local FFlagStudioSerializeInstancesOffUIThread = game:GetFastFlag("StudioSerializeInstancesOffUIThread3")
 
 	local Rodux = require(Packages.Rodux)
 	local Framework = require(Packages.Framework)

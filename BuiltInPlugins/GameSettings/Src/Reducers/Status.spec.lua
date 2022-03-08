@@ -1,7 +1,7 @@
 return function()
 	local Plugin = script.Parent.Parent.Parent
 
-	local Rodux = require(Plugin.Rodux)
+	local Rodux = require(Plugin.Packages.Rodux)
 
 	local StatusReducer = require(Plugin.Src.Reducers.Status)
 

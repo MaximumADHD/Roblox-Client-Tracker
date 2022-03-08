@@ -1,20 +1,22 @@
 local Plugin = script.Parent.Parent.Parent
 local Cryo = require(Plugin.Packages.Cryo)
 
+local AvatarToolsShared = require(Plugin.Packages.AvatarToolsShared)
+
 local Framework = require(Plugin.Packages.Framework)
 
 local Util = Framework.Util
 local StyleModifier = Util.StyleModifier
 
-local getRawComponentStyle = Framework.Style.getRawComponentStyle
-
 local UI = Framework.UI
 local Spritesheet = Framework.Util.Spritesheet
 
 local FrameworkStyle = Framework.Style
+local makeTheme = FrameworkStyle.makeTheme
 local StudioTheme = FrameworkStyle.Themes.StudioTheme
 local StyleKey = FrameworkStyle.StyleKey
 local ui = FrameworkStyle.ComponentSymbols
+local getRawComponentStyle = FrameworkStyle.getRawComponentStyle
 
 local DarkTheme = FrameworkStyle.Themes.DarkTheme
 local LightTheme = FrameworkStyle.Themes.LightTheme
@@ -170,15 +172,6 @@ local function createValuesInternal(mock)
 		FramePadding = 96,
 	}
 
-	local SwitchButton = {
-		BackgroundColor = StyleKey.MainBackground,
-		TextColor = StyleKey.TitlebarText,
-		BorderColor = StyleKey.Border,
-		BorderSelectedColor = StyleKey.DialogMainButton,
-		DisabledTextColor = StyleKey.DimmedText,
-		TextSize = 15,
-	}
-
 	local EditTransparencyView = {
 		TitleHeight = 32,
 	}
@@ -287,19 +280,6 @@ local function createValuesInternal(mock)
 		Padding = 8,
 	}
 
-	local TabsRibbon = {
-		Height = 40,
-		ButtonHeightWidth = 60,
-	}
-
-	local PreviewTabsRibbon = {
-		Icons = {
-			[PreviewConstants.TABS_KEYS.Avatars] = "rbxasset://textures/LayeredClothingEditor/Icon_Preview_Avatars.png",
-			[PreviewConstants.TABS_KEYS.Clothing] = "rbxasset://textures/LayeredClothingEditor/Icon_Preview_Clothing.png",
-			[PreviewConstants.TABS_KEYS.Animations] = "rbxasset://textures/LayeredClothingEditor/Icon_Preview_Animation.png",
-		},
-	}
-
 	local Grid = {
 		TileSize = UDim2.new(0, 140, 0, 160),
 		TileInnerBorder = Vector2.new(10, 10),
@@ -367,6 +347,8 @@ local function createValuesInternal(mock)
 		HeaderPadding = 8,
 		SliderHeight = 32,
 		ScrollBarThickness = 8,
+		TabHeight = 32,
+		BorderSize = 1,
 	}
 
 	local componentThemes = {
@@ -377,7 +359,6 @@ local function createValuesInternal(mock)
 		LatticeToolSettings = LatticeToolSettings,
 		SwizzleView = SwizzleView,
 		Vector3Entry = Vector3Entry,
-		SwitchButton = SwitchButton,
 		AddItemFromExplorerButton = AddItemFromExplorerButton,
 		EditingModeFrame = EditingModeFrame,
 		EditingModeRadioButtonList = EditingModeRadioButtonList,
@@ -392,8 +373,6 @@ local function createValuesInternal(mock)
 		SliderSetting = SliderSetting,
 		CheckboxSetting = CheckboxSetting,
 		Tile = Tile,
-		TabsRibbon = TabsRibbon,
-		PreviewTabsRibbon = PreviewTabsRibbon,
 		SelectFrame = SelectFrame,
 		PointTool = PointTool,
 		Point = Point,
@@ -409,6 +388,27 @@ local function createValuesInternal(mock)
 	return rootTheme, componentThemes
 end
 
+local function customizeDevFrameworkComponents(componentThemeStyles)
+	componentThemeStyles[ui.SimpleTab] = Cryo.Dictionary.join(getRawComponentStyle("SimpleTab"), {
+		Color = StyleKey.ButtonText,
+		BackgroundColor = StyleKey.MainBackground,
+		BorderColor = StyleKey.MainBackground,
+		TopLineColor = StyleKey.DialogMainButton,
+		BottomLineColor = StyleKey.Border,
+		[StyleModifier.Hover] = {
+			Color = StyleKey.DialogMainButton,
+		},
+		[StyleModifier.Selected] = {
+			BottomLineColor = StyleKey.MainBackground,
+			BackgroundColor = StyleKey.MainBackground,
+			BorderColor = StyleKey.Border,
+		},
+		[StyleModifier.Disabled] = {
+			Color = StyleKey.ButtonTextDisabled,
+		},
+    })
+end
+
 local function createValues(mock)
 	local rootTheme, componentThemes = createValuesInternal(mock)
 	local componentThemeStyles = {}
@@ -416,6 +416,9 @@ local function createValues(mock)
 		local componentUI = ui:add(component)
 		componentThemeStyles[componentUI] = componentTheme
 	end
+
+	customizeDevFrameworkComponents(componentThemeStyles)
+
 	return Cryo.Dictionary.join(rootTheme, componentThemeStyles)
 end
 
@@ -423,14 +426,12 @@ local PluginTheme = {}
 
 function PluginTheme.makePluginTheme()
 	local styleRoot = StudioTheme.new(darkThemeOverride, lightThemeOverride)
-	styleRoot:extend(createValues())
-	return styleRoot
+	return makeTheme(AvatarToolsShared.StyleRoot, createValues(), styleRoot)()
 end
 
 function PluginTheme.mock()
 	local styleRoot = StudioTheme.mock(darkThemeOverride, lightThemeOverride)
-	styleRoot:extend(createValues(true))
-	return styleRoot
+	return makeTheme(AvatarToolsShared.StyleRoot, createValues(true), styleRoot)()
 end
 
 function PluginTheme.getMockTheme(childName)

@@ -1,5 +1,5 @@
 local Plugin = script.Parent.Parent.Parent.Parent
-local FrameworkUtil = require(Plugin.Framework).Util
+local FrameworkUtil = require(Plugin.Packages.Framework).Util
 local Math = FrameworkUtil.Math
 
 local UniverseAvatarController = {}

@@ -38,8 +38,6 @@ local CallstackComponent = Roact.PureComponent:extend("CallstackComponent")
 
 local Constants = require(PluginFolder.Src.Util.Constants)
 
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
-
 local StudioService = game:GetService("StudioService")
 
 local columnNameToKey = {
@@ -328,7 +326,7 @@ function CallstackComponent:render()
 				RightClick = self.onRightClick,
 				OnExpansionChange = self.onExpansionChange,
 				FullSpan = true,
-				HighlightedRows = (FFlagDevFrameworkHighlightTableRows and self.state.selectedRows) or nil,
+				HighlightedRows = self.state.selectedRows,
 			})
 		}),
 	})

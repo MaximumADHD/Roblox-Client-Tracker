@@ -3,7 +3,7 @@
 	Reducer that combines the Settings and Status reducers.
 ]]
 local Plugin = script.Parent.Parent.Parent
-local Rodux = require(Plugin.Rodux)
+local Rodux = require(Plugin.Packages.Rodux)
 
 local GameMetadata = require(Plugin.Src.Reducers.GameMetadata)
 local GameOwnerMetadata = require(Plugin.Src.Reducers.GameOwnerMetadata)

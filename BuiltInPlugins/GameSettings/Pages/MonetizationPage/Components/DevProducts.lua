@@ -30,19 +30,19 @@ local GetEditKeyName = KeyProvider.getEditKeyName
 
 local StudioService = game:GetService("StudioService")
 
-local Roact = require(Plugin.Roact)
+local Roact = require(Plugin.Packages.Roact)
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
-local Framework = Plugin.Framework
-local FrameworkUI = require(Framework.UI)
+local Framework = require(Plugin.Packages.Framework)
+local FrameworkUI = Framework.UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
-local ContextServices = require(Framework.ContextServices)
+local ContextServices = Framework.ContextServices
 local withContext = ContextServices.withContext
-local FitFrameOnAxis = require(Framework.Util).FitFrame.FitFrameOnAxis
+local FitFrameOnAxis = Framework.Util.FitFrame.FitFrameOnAxis
 
 local TableWithMenu = require(Plugin.Src.Components.TableWithMenu)
 

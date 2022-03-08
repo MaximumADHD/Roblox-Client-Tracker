@@ -133,6 +133,7 @@ function MainPlugin:render()
 		if FFlagDevFrameworkSplitPane then
 			children.Window = Roact.createElement(SplitPane, {
 				ClampSize = true,
+				UseDeficit = true,
 				MinSizes = {
 					UDim.new(0, 100),
 					UDim.new(0, 100),

@@ -3,21 +3,21 @@ local FFlagGreyOutCollabEditingForTeamCreateOff = game:GetFastFlag("GreyOutColla
 
 local Page = script.Parent
 local Plugin = script.Parent.Parent.Parent
-local Cryo = require(Plugin.Cryo)
-local Roact = require(Plugin.Roact)
-local RoactRodux = require(Plugin.RoactRodux)
+local Cryo = require(Plugin.Packages.Cryo)
+local Roact = require(Plugin.Packages.Roact)
+local RoactRodux = require(Plugin.Packages.RoactRodux)
 
-local FrameworkUI = require(Plugin.Framework).UI
+local FrameworkUI = require(Plugin.Packages.Framework).UI
 local Button = FrameworkUI.Button
 local HoverArea = FrameworkUI.HoverArea
 local ToggleButtonWithTitle = require(Plugin.Src.Components.ToggleButtonWithTitle)
 
 local Dialog = require(Plugin.Src.ContextServices.Dialog)
 
-local ContextServices = require(Plugin.Framework).ContextServices
+local ContextServices = require(Plugin.Packages.Framework).ContextServices
 local withContext = ContextServices.withContext
 
-local UILibrary = require(Plugin.UILibrary)
+local UILibrary = require(Plugin.Packages.UILibrary)
 local GetTextSize = UILibrary.Util.GetTextSize
 local TitledFrame = UILibrary.Component.TitledFrame
 
@@ -27,7 +27,7 @@ local SettingsPage = require(Plugin.Src.Components.SettingsPages.SettingsPage)
 local AddChange = require(Plugin.Src.Actions.AddChange)
 local ShutdownAllServers = require(Page.Thunks.ShutdownAllServers)
 
-local LayoutOrderIterator = require(Plugin.Framework).Util.LayoutOrderIterator
+local LayoutOrderIterator = require(Plugin.Packages.Framework).Util.LayoutOrderIterator
 
 local KeyProvider = require(Plugin.Src.Util.KeyProvider)
 

@@ -1,6 +1,7 @@
 --[[
 	This request will try to use develop endpoint and item config end point to fetch data for the plugin and conbine them together.
 ]]
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
 
 local Plugin = script.Parent.Parent.Parent.Parent
 
@@ -61,11 +62,36 @@ return function(networkInterface, assetId)
 			store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE))
 		end
 
-		Promise.all({
-			networkInterface:getAssetConfigData(assetId):andThen(onAssetConfigDataGet, onAssetConfigDataFailed),
-			networkInterface:getAssetCreationDetails({ assetId }):andThen(onPriceDataGet, onPriceDataFailed),
-		}):andThen(function()
-			store:dispatch(UpdateAssetConfigData(assetConfigData))
-		end)
+		local function onAssetPermissionsGet(result)
+			local data = result.responseBody
+			if data then
+				assetConfigData["AssetPermissions"] = data.results
+			end
+		end
+
+		local function onAssetPermissionsFailed(err)
+			if DebugFlags.shouldDebugWarnings() then
+				warn("failed with onAssetPermissionsFailed in GetMarketplaceInfoRequest")
+			end
+			-- DEVTOOLS-3472
+			store:dispatch(NetworkError(err, ConfigTypes.NetworkErrors.GET_ASSET_DETAIL_FAILURE))
+		end
+
+		if FFlagToolboxPrivatePublicAudioAssetConfig then
+			Promise.all({
+				networkInterface:getAssetConfigData(assetId):andThen(onAssetConfigDataGet, onAssetConfigDataFailed),
+				networkInterface:getAssetCreationDetails({ assetId }):andThen(onPriceDataGet, onPriceDataFailed),
+				networkInterface:getAssetPermissions(assetId):andThen(onAssetPermissionsGet, onAssetPermissionsFailed),
+			}):andThen(function()
+				store:dispatch(UpdateAssetConfigData(assetConfigData))
+			end)
+		else
+			Promise.all({
+				networkInterface:getAssetConfigData(assetId):andThen(onAssetConfigDataGet, onAssetConfigDataFailed),
+				networkInterface:getAssetCreationDetails({ assetId }):andThen(onPriceDataGet, onPriceDataFailed),
+			}):andThen(function()
+				store:dispatch(UpdateAssetConfigData(assetConfigData))
+			end)
+		end
 	end
 end

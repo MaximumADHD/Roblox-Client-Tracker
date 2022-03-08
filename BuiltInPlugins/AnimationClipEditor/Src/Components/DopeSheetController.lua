@@ -43,7 +43,6 @@ local SelectionBox = require(Plugin.Src.Components.SelectionBox)
 local TimelineActions = require(Plugin.Src.Components.TimelineActions)
 local ScaleControls = require(Plugin.Src.Components.ScaleControls.ScaleControls)
 local TextEntryPrompt = require(Plugin.Src.Components.TextEntryPrompt)
-local ActionToast = require(Plugin.Src.Components.Toast.ActionToast)
 local NoticeToast = require(Plugin.Src.Components.Toast.NoticeToast)
 
 local AddWaypoint = require(Plugin.Src.Thunks.History.AddWaypoint)
@@ -66,12 +65,9 @@ local SetSelectedEvents = require(Plugin.Src.Actions.SetSelectedEvents)
 local Pause = require(Plugin.Src.Actions.Pause)
 
 local SetNotification = require(Plugin.Src.Actions.SetNotification)
-local SetIsPlaying = require(Plugin.Src.Actions.SetIsPlaying)
-local SetPlayState = require(Plugin.Src.Actions.SetPlayState)
 
 local GetFFlagFacialAnimationSupport = require(Plugin.LuaFlags.GetFFlagFacialAnimationSupport)
 local GetFFlagChannelAnimations = require(Plugin.LuaFlags.GetFFlagChannelAnimations)
-local GetFFlagMoarMediaControls = require(Plugin.LuaFlags.GetFFlagMoarMediaControls)
 local GetFFlagCurveEditor = require(Plugin.LuaFlags.GetFFlagCurveEditor)
 
 local FFlagResizingToSingleFrame = game:DefineFastFlag("ACEFixResizingToSingleFrame", false)
@@ -351,11 +347,7 @@ function DopeSheetController:init()
 	end
 
 	self.showMenu = function()
-		if GetFFlagMoarMediaControls() then
-			self.props.Pause()
-		else
-			self.props.SetIsPlaying(false)
-		end
+		self.props.Pause()
 		self:setState({
 			showContextMenu = true,
 		})
@@ -956,11 +948,6 @@ local function mapDispatchToProps(dispatch)
 
 		CloseLoadedToast = function()
 			dispatch(SetNotification("Loaded", false))
-		end,
-
-		-- Deprecated if GetFFlagMoarMediaControls() is ON
-		SetIsPlaying = function(isPlaying)
-			dispatch(SetIsPlaying(isPlaying))
 		end,
 
 		Pause = function()
