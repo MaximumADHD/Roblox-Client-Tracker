@@ -38,11 +38,14 @@ return function(UrlBuilder)
 					return UrlBuilder.fromString("www:info/privacy")()
 				end
 			end,
+			guidelines = UrlBuilder.fromString("www:info/community-guidelines"),
+			support = UrlBuilder.fromString("www:support"),
 		},
 		settings = {
 			account = UrlBuilder.fromString("www:my/account#!/info"),
 			security = UrlBuilder.fromString("www:my/account#!/security"),
 			privacy = UrlBuilder.fromString("www:my/account#!/privacy"),
+			parentalControls = UrlBuilder.fromString("www:my/account#!/parental-controls"),
 			billing = UrlBuilder.fromString("www:my/account#!/billing"),
 			notifications = UrlBuilder.fromString("www:my/account#!/notifications"),
 		},
@@ -50,6 +53,11 @@ return function(UrlBuilder)
 			childrenPrivacyGuide = UrlBuilder.fromString("https://game.qq.com/privacy_guide_children.shtml"),
 			luobuRiderTerms = UrlBuilder.fromString("https://roblox.qq.com/web201904/newsdetail.html?newsid=12429812"),
 			reputationInfo = UrlBuilder.fromString("https://gamecredit.qq.com/static/games/index.htm"),
+			luobuThirdPartyDataUse = UrlBuilder.fromString("https://game.qq.com/zlkdatasys/privacy_SDK.html"),
+		},
+		idVerification = {
+			verify = UrlBuilder.fromString("www:id-verification/verify"),
+			getAge = UrlBuilder.fromString("apis:age-verification-service/v1/age-verification/get-verified-age"),
 		},
 	}
 end

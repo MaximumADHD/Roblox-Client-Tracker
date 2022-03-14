@@ -11,6 +11,8 @@ local GameUrlPatterns = require(script.Parent.UrlPatterns.GameUrlPatterns)
 local UserUrlPatterns = require(script.Parent.UrlPatterns.UserUrlPatterns)
 local StaticUrlPatterns = require(script.Parent.UrlPatterns.StaticUrlPatterns)
 local CatalogUrlPatterns = require(script.Parent.UrlPatterns.CatalogUrlPatterns)
+local UserModerationPatterns = require(script.Parent.UrlPatterns.UserModerationPatterns)
+local AccountInformationPatterns = require(script.Parent.UrlPatterns.AccountInformationPatterns)
 
 local UrlBuilder = {}
 
@@ -147,7 +149,7 @@ local function buildElementsFromString(elements, inQuery)
 			elementValue = StringTrim(valueitems[1])
 			if #valueitems > 1 then
 				elementOptional = true
-				if #(valueitems[2]) > 1 then
+				if #valueitems[2] > 1 then
 					elementDefault = valueitems[2]
 				end
 			end
@@ -234,14 +236,16 @@ local function resolveElement(element, input, inQuery)
 		end
 		assert(
 			validateValueType(elementValues),
-			"UrlBuilder: invalid parameter: `" .. element.value .. "`, " ..
-				"should be a string, number, or a table of strings and numbers only"
+			"UrlBuilder: invalid parameter: `"
+				.. element.value
+				.. "`, "
+				.. "should be a string, number, or a table of strings and numbers only"
 		)
 	else
 		elementValues = element.value
 	end
 	if type(elementValues) ~= "table" then
-		elementValues = {elementValues}
+		elementValues = { elementValues }
 	end
 	elementValues = Cryo.List.map(elementValues, function(value)
 		return encodeURIComponent(tostring(value))
@@ -249,7 +253,7 @@ local function resolveElement(element, input, inQuery)
 	if inQuery then
 		-- we are resolving a query parameter
 		if element.collect == "csv" then
-			elementValues = {table.concat(elementValues, "%2C")} -- ","
+			elementValues = { table.concat(elementValues, "%2C") } -- ","
 		end
 		elementValues = Cryo.List.map(elementValues, function(value)
 			return encodeURIComponent(element.name) .. "=" .. value
@@ -298,7 +302,7 @@ function UrlBuilder.new(pattern)
 	pattern = simplifyPattern(pattern)
 	assertPatternIsValid(pattern)
 	return function(input, expected)
-		local url = StringTrim(pattern.base, "/", {right = true})
+		local url = StringTrim(pattern.base, "/", { right = true })
 		local path = resolveElementList(pattern.path, input, false)
 		if #path > 0 then
 			url = url .. "/" .. path
@@ -335,7 +339,7 @@ end
 function UrlBuilder.fromString(pattern)
 	local patternitems = StringSplit(pattern, ":", 2)
 	if #patternitems < 2 then
-		patternitems = {"", patternitems[1]}
+		patternitems = { "", patternitems[1] }
 	end
 	local patternbase = patternitems[1]
 	patternitems = StringSplit(patternitems[2], "%#", 2)
@@ -386,5 +390,7 @@ UrlBuilder.game = GameUrlPatterns(UrlBuilder)
 UrlBuilder.user = UserUrlPatterns(UrlBuilder)
 UrlBuilder.catalog = CatalogUrlPatterns(UrlBuilder)
 UrlBuilder.static = StaticUrlPatterns(UrlBuilder)
+UrlBuilder.usermoderation = UserModerationPatterns(UrlBuilder)
+UrlBuilder.accountinformation = AccountInformationPatterns(UrlBuilder)
 
 return UrlBuilder

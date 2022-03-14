@@ -6,6 +6,7 @@
 		table Buttons: A list of buttons to display. Example: { Key = "", Text = "", Description = "", Disabled = false }.
 
 	Optional Props:
+		string CurrentSelectedKey: The current selected key if any. Otherwise we'll use the component's state value. Keep this nil if you only care for the component's state value.
 		string SelectedKey: The initially selected key.
 		number LayoutOrder: The layout order of the frame.
 		Enum.FillDirection FillDirection: The direction in which buttons are filled.
@@ -14,13 +15,15 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
+local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
+local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
@@ -42,11 +45,23 @@ function RadioButtonList:init()
 	}
 
 	self.onClick = function(key, isDisabled)
-		local onClick = self.props.OnClick
+		local props = self.props
+		local state = self.state
+
+		local currentSelectedKey = props.CurrentSelectedKey
+		local onClick = props.OnClick
+
 		if isDisabled then
 			return
 		end
-		if (self.state.selectedKey ~= key) then
+
+		local prioritySelectedKey
+		if FFlagToolboxPrivatePublicAudioAssetConfig then
+			prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
+		else
+			prioritySelectedKey = state.selectedKey
+		end
+		if (prioritySelectedKey ~= key) then
 			onClick(key)
 			self:setState({
 				selectedKey = key,
@@ -56,10 +71,15 @@ function RadioButtonList:init()
 end
 
 function RadioButtonList:render()
-	local buttons = self.props.Buttons
-	local fillDirection = self.props.FillDirection
-	local layoutOrder = self.props.LayoutOrder
-	local theme = self.props.Theme
+	local props = self.props
+	local state = self.state
+
+	local buttons = props.Buttons
+	local currentSelectedKey = props.CurrentSelectedKey
+	local fillDirection = props.FillDirection
+	local layoutOrder = props.LayoutOrder
+	local theme = props.Theme
+	local textSize = props.TextSize
 
 	local style
 	if THEME_REFACTOR then
@@ -68,18 +88,27 @@ function RadioButtonList:render()
 		style = theme:getStyle("Framework", self)
 	end
 
-	local textSize = FFlagRemoveUILibraryTitledFrameRadioButtonSet and self.props.TextSize or nil
+	local radioButtonStyle = style.RadioButtonStyle
 
 	local children = {}
 
 	for index, button in ipairs(buttons) do
+		local isSelected
+		if FFlagToolboxPrivatePublicAudioAssetConfig then
+			local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
+			isSelected = (prioritySelectedKey == button.Key)
+		else
+			isSelected = (state.selectedKey == button.Key)
+		end
+
 		children[button.Key] = Roact.createElement(RadioButton, {
-			Description = FFlagRemoveUILibraryTitledFrameRadioButtonSet and button.Description or nil,
+			Description = button.Description,
 			Disabled = button.Disabled,
 			Key = button.Key,
 			LayoutOrder = index,
 			OnClick = function() self.onClick(button.Key, button.Disabled) end,
-			Selected = (self.state.selectedKey == button.Key),
+			Style = if FFlagToolboxPrivatePublicAudioAssetConfig then radioButtonStyle else nil,
+			Selected = isSelected,
 			Text = button.Text,
 			TextSize = textSize,
 		})

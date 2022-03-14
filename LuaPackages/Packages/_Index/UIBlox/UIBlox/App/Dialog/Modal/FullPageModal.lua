@@ -25,11 +25,16 @@ FullPageModal.validateProps = t.strictInterface({
 
 	position = t.optional(t.UDim2),
 	title = t.optional(t.string),
+	marginSize = t.optional(t.number),
 
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
 
 	onCloseClicked = t.optional(t.callback),
 })
+
+FullPageModal.defaultProps = {
+	marginSize = MARGIN
+}
 
 function FullPageModal:init()
 	self.state = {
@@ -64,14 +69,15 @@ function FullPageModal:render()
 			Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				SortOrder = Enum.SortOrder.LayoutOrder,
+				HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			}),
 			Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, MARGIN),
-				PaddingRight = UDim.new(0, MARGIN),
+				PaddingLeft = UDim.new(0, 0),
+				PaddingRight = UDim.new(0, 0),
 				PaddingBottom = UDim.new(0, MARGIN),
 			}),
 			MiddleContent = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 1, -self.state.buttonFrameSize.Y),
+				Size = UDim2.new(1, -2 * self.props.marginSize, 1, -self.state.buttonFrameSize.Y),
 				BackgroundTransparency = 1,
 				LayoutOrder = 1
 			}, self.props[Roact.Children]),
@@ -81,6 +87,10 @@ function FullPageModal:render()
 				LayoutOrder = 2,
 				[Roact.Change.AbsoluteSize] = self.changeButtonFrameSize,
 			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, MARGIN),
+					PaddingRight = UDim.new(0, MARGIN),
+				}),
 				Roact.createElement(ButtonStack, self.props.buttonStackProps),
 			}),
 		})

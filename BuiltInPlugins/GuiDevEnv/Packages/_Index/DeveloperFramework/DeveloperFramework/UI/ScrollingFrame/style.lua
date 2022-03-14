@@ -1,4 +1,3 @@
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
 local Framework = script.Parent.Parent.Parent
 
 local Util = require(Framework.Util)
@@ -21,7 +20,7 @@ if THEME_REFACTOR then
 		AutoSizeLayoutOptions = {
 			Padding = UDim.new(0, 4),
 		},
-		ScrollBarBackgroundColor = FFlagDevFrameworkRefactorScrollbarColor and StyleKey.ScrollBarBackground or nil,
+		ScrollBarBackgroundColor = StyleKey.ScrollBarBackground,
 	})
 else
 	return function(theme, getColor)
@@ -33,7 +32,7 @@ else
 			AutoSizeLayoutOptions = {
 				Padding = UDim.new(0, 4),
 			},
-			ScrollBarBackgroundColor = FFlagDevFrameworkRefactorScrollbarColor and theme:GetColor("ScrollBarBackground") or nil,
+			ScrollBarBackgroundColor = theme:GetColor("ScrollBarBackground"),
 		})
 
 		return {

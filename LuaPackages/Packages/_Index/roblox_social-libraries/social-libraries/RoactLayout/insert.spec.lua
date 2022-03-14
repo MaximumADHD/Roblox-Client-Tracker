@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local insert = require(script.Parent.insert)
 
 	describe("return value", function()
@@ -6,11 +10,10 @@ return function()
 		local result = insert(size, element)
 
 		it("should have size field", function()
-			expect(result.size).to.equal(size)
-		end)
-
-		it("should have element field", function()
-			expect(result.element).to.equal(element)
+			jestExpect(result).toEqual({
+				size = size,
+				element = element
+			})
 		end)
 	end)
 end

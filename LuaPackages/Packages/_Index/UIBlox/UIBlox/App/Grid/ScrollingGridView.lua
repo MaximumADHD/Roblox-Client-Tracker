@@ -32,8 +32,8 @@ ScrollingGridView.defaultProps = {
 
 function ScrollingGridView:init()
 	self.gridRef = Roact.createRef()
-	self.state ={
-		contentSize = Vector2.new(0, 0)
+	self.state = {
+		contentSize = Vector2.new(0, 0),
 	}
 
 	self.onGridResize = function()
@@ -71,8 +71,8 @@ function ScrollingGridView:render()
 	}, {
 		VerticalScrollView = Roact.createElement(VerticalScrollView, {
 			size = UDim2.fromScale(1, 1),
-			canvasSizeY =  UDim.new(0, contentSize.Y),
-		}, gridItems)
+			canvasSizeY = UDim.new(0, contentSize.Y),
+		}, gridItems),
 	})
 end
 

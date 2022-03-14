@@ -13,11 +13,14 @@ return function()
 		mock = require(Framework.packages.Dev.mock)
 	end
 
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
+
 	local Spy = mock.Spy
 	local getCalls = mock.getCalls
 	local Roact = require(Framework.Parent.Roact)
 	local provide = require(Framework.ContextServices.provide)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
+	local withContext = require(Framework.ContextServices.withContext)
 	local MockPlugin = require(Framework.TestHelpers.Instances.MockPlugin)
 
 	local PluginActions = require(script.Parent.PluginActions)
@@ -57,9 +60,16 @@ return function()
 
 			return Roact.createElement("Frame")
 		end
-		mapToProps(TestElement, {
-			PluginActions = PluginActions,
-		})
+
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestElement = withContext({
+				PluginActions = PluginActions,
+			})(TestElement)
+		else
+			mapToProps(TestElement, {
+				PluginActions = PluginActions,
+			})
+		end
 
 		local element = provide({pluginActions}, {
 			Frame = Roact.createElement(TestElement),

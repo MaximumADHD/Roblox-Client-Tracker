@@ -9,4 +9,6 @@ return {
 	Cryo = require(InGameMenuDependencies.Cryo),
 	t = require(InGameMenuDependencies.t),
 	PolicyProvider = require(InGameMenuDependencies.PolicyProvider),
+	Promise = require(InGameMenuDependencies.Promise),
+	Mock = require(InGameMenuDependencies.Mock),
 }

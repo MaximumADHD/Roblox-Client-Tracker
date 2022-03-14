@@ -23,14 +23,16 @@
 			is restored to its previous position and enabled state. Passes the
 			new enabled state as a parameter.
 
+		callback OnWidgetCreated: A callback for when the widget
+			is created, after OnWidgetRestored, passes the new enabled state as a parameter.
+
 		boolean CreateWidgetImmediately: C++ method for creating a widget yields, which can cause issues with Roact/Rodux.
 			That method is run in its own thread, but that means creation of the widget is delayed.
 			Set this to true to create the widget immediately instead. Mostly useful for unit tests.
 		Instance Widget: an optional override of dockwidget instance
 
+		callback Roact.Change.Enabled: A callback for when the widget shows or hides.
 ]]
-local FFlagPluginDockWidgetsUseNonTranslatedIds = game:GetFastFlag("PluginDockWidgetsUseNonTranslatedIds")
-
 local expectsRestoredMessage = [[
 DockWidget expects an OnWidgetRestored function if ShouldRestore is true.
 This DockWidget may restore as enabled, so we need to listen for that!]]
@@ -38,17 +40,16 @@ This DockWidget may restore as enabled, so we need to listen for that!]]
 local Framework = script.Parent.Parent
 local Typecheck = require(Framework.Util).Typecheck
 local createPluginWidget = require(Framework.StudioUI.createPluginWidget)
-local FFlagImprovePluginSpeed_Common = game:GetFastFlag("ImprovePluginSpeed_Common")
 
 local DockWidget = createPluginWidget("DockWidget", function(props)
-	if FFlagImprovePluginSpeed_Common and props.Widget then
+	if props.Widget then
 		return props.Widget
 	end
 
 	local plugin = props.Plugin:get()
 	local minSize = props.MinSize or Vector2.new(0, 0)
 	local shouldRestore = props.ShouldRestore or false
-	local pluginId = FFlagPluginDockWidgetsUseNonTranslatedIds and (props.Id or props.Title) or props.Title
+	local pluginId = props.Id or props.Title
 
 	if shouldRestore then
 		assert(props.OnWidgetRestored, expectsRestoredMessage)
@@ -63,7 +64,8 @@ local DockWidget = createPluginWidget("DockWidget", function(props)
 		props.Size.X,
 		props.Size.Y,
 		minSize.X,
-		minSize.Y)
+		minSize.Y
+	)
 
 	return plugin:CreateDockWidgetPluginGui(pluginId, info)
 end)

@@ -5,7 +5,6 @@ local UIBlox = AppRoot.Parent
 local Packages = UIBlox.Parent
 
 local t = require(Packages.t)
-local Roact = require(Packages.Roact)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local validateButtonProps = require(ButtonRoot.validateButtonProps)
@@ -44,5 +43,5 @@ return t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 })

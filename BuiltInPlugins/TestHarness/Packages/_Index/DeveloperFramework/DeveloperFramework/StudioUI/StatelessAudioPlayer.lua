@@ -26,6 +26,7 @@
 		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
 
+local FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount = game:GetFastFlag("DevFrameworkFixMediaPlayerAlreadyLoadedOnMount")
 local FFlagAudioAssetPrivacyForPreview1 = game:GetFastFlag("AudioAssetPrivacyForPreview1")
 local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
@@ -54,7 +55,8 @@ function StatelessAudioPlayer:init()
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.soundRef:getValue()
-		if not soundObj or not self.isMounted then
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not soundObj or unmounting then
 			return
 		end
 		local isLoaded = soundObj and soundObj.IsLoaded
@@ -68,7 +70,8 @@ function StatelessAudioPlayer:init()
 
 	self.handleMediaPlayerSignal = function(updateType)
 		local soundObj = self.soundRef:getValue()
-		if not soundObj or not self.isMounted then
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not soundObj or unmounting then
 			return
 		end
 
@@ -86,12 +89,18 @@ function StatelessAudioPlayer:init()
 end
 
 function StatelessAudioPlayer:didMount()
-	self.isMounted = true
+	if not FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.isMounted = true
+	end
 	self.mediaPlayerSignalConnection = self.props.MediaPlayerSignal:Connect(self.handleMediaPlayerSignal)
 end
 
 function StatelessAudioPlayer:willUnmount()
-	self.isMounted = false
+	if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.unmounting = true
+	else
+		self.isMounted = false
+	end
 	if self.mediaPlayerSignalConnection then
 		self.mediaPlayerSignalConnection:Disconnect()
 		self.mediaPlayerSignalConnection = nil

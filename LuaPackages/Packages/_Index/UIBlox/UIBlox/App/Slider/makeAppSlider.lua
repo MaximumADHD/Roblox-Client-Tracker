@@ -34,6 +34,8 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 		self.disabled, self.setDisabled = Roact.createBinding(self.props.isDisabled)
 		self.style, self.setStyle = Roact.createBinding(self.props.style)
 
+		self.wasUnmounted = false
+
 		local joinedBindings = Roact.joinBindings({
 			disabled = self.disabled,
 			pressedProgressLower = self.pressedProgressLower,
@@ -123,22 +125,31 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			if self.props.onDragStartLower then
 				self.props.onDragStartLower()
 			end
-			self.pressedMotorLower:setGoal(Otter.spring(1, SPRING_PARAMETERS))
+
+			if not self.wasUnmounted then
+				self.pressedMotorLower:setGoal(Otter.spring(1, SPRING_PARAMETERS))
+			end
 		end
 
 		self.onDragStartUpper = function()
 			if self.props.onDragStartUpper then
 				self.props.onDragStartUpper()
 			end
-			self.pressedMotorUpper:setGoal(Otter.spring(1, SPRING_PARAMETERS))
+
+			if not self.wasUnmounted then
+				self.pressedMotorUpper:setGoal(Otter.spring(1, SPRING_PARAMETERS))
+			end
 		end
 
 		self.onDragEnd = function()
 			if self.props.onDragEnd then
 				self.props.onDragEnd()
 			end
-			self.pressedMotorLower:setGoal(Otter.spring(0, SPRING_PARAMETERS))
-			self.pressedMotorUpper:setGoal(Otter.spring(0, SPRING_PARAMETERS))
+
+			if not self.wasUnmounted then
+				self.pressedMotorLower:setGoal(Otter.spring(0, SPRING_PARAMETERS))
+				self.pressedMotorUpper:setGoal(Otter.spring(0, SPRING_PARAMETERS))
+			end
 		end
 	end
 
@@ -180,7 +191,7 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 			knobShadowTransparencyLower = self.knobShadowTransparencyLower,
 			knobShadowTransparencyUpper = self.knobShadowTransparencyUpper,
 
-			[Roact.Ref] = props[Roact.Ref],
+			[Roact.Ref] = props.forwardedRef,
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
 			focusController = props.focusController,
@@ -217,6 +228,8 @@ local function makeAppSlider(trackFillThemeKey, isTwoKnobs)
 	end
 
 	function appSliderComponent:willUnmount()
+		self.wasUnmounted = true
+
 		self.pressedMotorLower:destroy()
 		self.pressedMotorUpper:destroy()
 	end

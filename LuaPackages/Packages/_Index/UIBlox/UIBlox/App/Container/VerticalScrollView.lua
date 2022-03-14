@@ -17,9 +17,8 @@ local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
+local getPageMargin = require(UIBlox.App.Container.getPageMargin)
 
-local PADDING_HORIZONTAL = 24
 local SCROLL_BAR_RIGHT_PADDING = 4
 local MOUSE_SCROLL_BAR_THICKNESS = 8
 local TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS = 2
@@ -30,16 +29,14 @@ local SPRING_PARAMETERS = {
 	dampingRatio = 1.5,
 }
 
-local VerticalScrollView = Roact.Component:extend()
+local VerticalScrollView = Roact.Component:extend("VerticalScrollView")
 
 VerticalScrollView.defaultProps = {
 	-- Frame Props
 	size = UDim2.new(1, 0, 1, 0),
 	-- ScrollingFrame Props
 	canvasSizeY = UDim.new(2, 0),
-	useAutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
-		false or nil,
-	paddingHorizontal = PADDING_HORIZONTAL,
+	useAutomaticCanvasSize = false,
 	isGamepadFocusable = false,
 }
 
@@ -51,15 +48,14 @@ VerticalScrollView.validateProps = t.strictInterface({
 
 	-- ScrollingFrame Props
 	canvasSizeY = t.optional(t.UDim),
-	useAutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
-		t.optional(t.boolean) or nil,
-	paddingHorizontal = t.optional(t.numberMin(PADDING_HORIZONTAL/2)),
+	useAutomaticCanvasSize = t.optional(t.boolean),
+	paddingHorizontal = t.optional(t.number),
 	isGamepadFocusable = t.optional(t.boolean),
 
 	-- Optional passthrough props for the scrolling frame
 	[Roact.Change.CanvasPosition] = t.optional(t.callback),
 	[Roact.Change.CanvasSize] = t.optional(t.callback),
-	[Roact.Ref] = t.optional(t.table),
+	scrollingFrameRef = t.optional(t.table),
 
 	-- Optional gamepad props
 	NextSelectionLeft = t.optional(t.table),
@@ -68,7 +64,7 @@ VerticalScrollView.validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 
 	-- Children
-	[Roact.Children] = t.optional(t.table)
+	[Roact.Children] = t.optional(t.table),
 })
 
 function VerticalScrollView:init()
@@ -86,7 +82,7 @@ function VerticalScrollView:init()
 	self.waitToHideSidebarConnection = nil
 	self.waitToHideSidebar = function()
 		local currentTime = tick()
-		local delta = currentTime  - self.lastTimeCanvasPositionChanged
+		local delta = currentTime - self.lastTimeCanvasPositionChanged
 		if delta > HIDE_SIDEBAR_AFTER_IN_SECONDS then
 			self.scrollBarImageTransparencyMotor:setGoal(Otter.spring(1, SPRING_PARAMETERS))
 			self.disconnectWaitToHideSidebar()
@@ -115,9 +111,7 @@ function VerticalScrollView:init()
 	end
 	self.canvasPosition = function(rbx)
 		self.lastTimeCanvasPositionChanged = tick()
-		if not self.waitToHideSidebarConnection	and
-			UserInputService:GetLastInputType() == Enum.UserInputType.Touch
-		then
+		if not self.waitToHideSidebarConnection and UserInputService:GetLastInputType() == Enum.UserInputType.Touch then
 			self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(0))
 			self:setState({
 				scrollBarThickness = TOUCH_OR_CONTROLLER_SCROLL_BAR_THICKNESS,
@@ -140,6 +134,21 @@ function VerticalScrollView:init()
 	self.onGamepadFocusLost = function()
 		self.scrollBarImageTransparencyMotor:setGoal(Otter.instant(1))
 	end
+
+	self.parentFrameRef = Roact.createRef()
+	self.paddingBinding, self.updatePaddingBinding = Roact.createBinding(0)
+
+	self.getPadding = function(offset)
+		offset = offset or 0
+		if self.props.paddingHorizontal then
+			local paddingHorizontal = math.max(0, self.props.paddingHorizontal - offset)
+			return UDim.new(0, paddingHorizontal)
+		else
+			return self.paddingBinding:map(function(absoluteWidth)
+				return UDim.new(0, getPageMargin(absoluteWidth) - offset)
+			end)
+		end
+	end
 end
 
 function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor)
@@ -149,23 +158,26 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 	local children = self.props[Roact.Children] or {}
 	local position = self.props.position
 	local size = self.props.size
-	local paddingHorizontal = self.props.paddingHorizontal
+
 	local isGamepadFocusable = self.props.isGamepadFocusable
 
 	local scrollBarThickness = self.state.scrollBarThickness
 
 	local scrollingFrameChildren = Cryo.Dictionary.join({
 		scrollingFrameInnerMargin = Roact.createElement("UIPadding", {
-			PaddingLeft = UDim.new(0,paddingHorizontal),
-			PaddingRight = UDim.new(0, paddingHorizontal - SCROLL_BAR_RIGHT_PADDING), }),
-		},
-		children
-	)
+			PaddingLeft = self.getPadding(),
+			PaddingRight = self.getPadding(SCROLL_BAR_RIGHT_PADDING),
+		}),
+	}, children)
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
 		Position = position,
 		Size = size,
+		[Roact.Change.AbsoluteSize] = function(rbx)
+			self.updatePaddingBinding(rbx.AbsoluteSize.X)
+		end,
+		[Roact.Ref] = self.parentFrameRef,
 	}, {
 		scrollingFrameOuterMargins = Roact.createElement("UIPadding", {
 			PaddingRight = UDim.new(0, SCROLL_BAR_RIGHT_PADDING),
@@ -178,8 +190,7 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			ElasticBehavior = self.props.elasticBehavior,
 			-- ScrollingFrame Specific
 			CanvasSize = UDim2.new(CANVAS_SIZE_X, canvasSizeY),
-			AutomaticCanvasSize = UIBloxConfig.enabledAutomaticCanvasSizePropForVerticalScrollView and
-				self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil,
+			AutomaticCanvasSize = self.props.useAutomaticCanvasSize and Enum.AutomaticSize.Y or nil,
 			ScrollBarImageColor3 = theme.UIEmphasis.Color,
 			ScrollBarImageTransparency = self.scrollBarImageTransparency,
 			ScrollBarThickness = scrollBarThickness,
@@ -204,8 +215,8 @@ function VerticalScrollView:renderWithProviders(stylePalette, getSelectionCursor
 			[Roact.Event.InputEnded] = self.inputEnded,
 			[Roact.Change.CanvasPosition] = self.canvasPosition,
 			[Roact.Change.CanvasSize] = self.props[Roact.Change.CanvasSize],
-			[Roact.Ref] = self.props[Roact.Ref],
-		}, scrollingFrameChildren)
+			[Roact.Ref] = self.props.scrollingFrameRef,
+		}, scrollingFrameChildren),
 	})
 end
 
@@ -217,8 +228,17 @@ function VerticalScrollView:render()
 	end)
 end
 
+function VerticalScrollView:didMount()
+	local rbx = self.parentFrameRef:getValue()
+	if rbx then
+		self.updatePaddingBinding(rbx.AbsoluteSize.X)
+	end
+end
+
 function VerticalScrollView:willUnmount()
 	self.disconnectWaitToHideSidebar()
 end
 
-return VerticalScrollView
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(VerticalScrollView, Cryo.Dictionary.join(props, { scrollingFrameRef = ref }))
+end)

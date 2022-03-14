@@ -1,3 +1,5 @@
+local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
 local Framework = script.Parent.Parent.Parent
 
 local StyleKey = require(Framework.Style.StyleKey)
@@ -45,6 +47,9 @@ if THEME_REFACTOR then
 				PaddingBottom = UDim.new(0, 25),
 				PaddingLeft = UDim.new(0, 10),
 			},
+			AssetHeader = FFlagToolboxRedirectToLibraryAbuseReport and {
+				Spacing = 5,
+			} or nil,
 			AssetName = Cryo.Dictionary.join(common.MainText, {
 				Font = Enum.Font.SourceSansBold,
 				TextSize = 24,
@@ -53,6 +58,16 @@ if THEME_REFACTOR then
 			AssetDescription = Cryo.Dictionary.join(common.MainText, {
 				TextXAlignment = Enum.TextXAlignment.Left,
 			}),
+			CreatorName = Style.extend(common.MainText, {
+				Font = Enum.Font.SourceSans,
+				TextSize = 18,
+				TextXAlignment = Enum.TextXAlignment.Left,
+			}),
+			FlagAsset = FFlagToolboxRedirectToLibraryAbuseReport and {
+				Image = "rbxasset://textures/DeveloperFramework/AssetPreview/Flag.png",
+				ImageColor3 = StyleKey.Icon,
+				Size = UDim2.fromOffset(20, 20),
+			} or nil,
 			InfoRow = {
 				Text = infoRowText,
 				LeftText = Cryo.Dictionary.join(common.MainText, {
@@ -63,7 +78,33 @@ if THEME_REFACTOR then
 					TextTruncate = Enum.TextTruncate.AtEnd,
 					TextXAlignment = Enum.TextXAlignment.Right,
 				}),
-			}
+			},
+			ScriptArea = FFlagToolboxShowHasScriptInfo and {
+				ElementPadding = UDim.new(0, 4),
+				Size = UDim2.new(1, 0, 0, 12),
+
+				ScriptText = Cryo.Dictionary.join(common.MainText, {
+					Font = Enum.Font.SourceSansBold,
+					TextSize = 14,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}),
+	
+				ScriptIcon = {
+					Position = UDim2.new(1, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 1),
+		
+					Image = "rbxasset://textures/StudioToolbox/script.png",
+					Size = UDim2.fromOffset(12, 12),
+				},
+
+				ScriptInfoIcon = {
+					Position = UDim2.new(1, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 1),
+		
+					Image = "rbxasset://textures/StudioToolbox/AssetPreview/info.png",
+					Size = UDim2.fromOffset(12, 12),
+				},
+			},
 		},
 
 		-- The background of this needs to extend to the edges of the parent, so we
@@ -145,6 +186,9 @@ else
 					PaddingBottom = UDim.new(0, 25),
 					PaddingLeft = UDim.new(0, 10),
 				},
+				AssetHeader = FFlagToolboxRedirectToLibraryAbuseReport and {
+					Spacing = 5,
+				} or nil,
 				AssetName = Style.extend(common.MainText, {
 					Font = Enum.Font.SourceSansBold,
 					TextSize = 24,
@@ -153,6 +197,16 @@ else
 				AssetDescription = Style.extend(common.MainText, {
 					TextXAlignment = Enum.TextXAlignment.Left,
 				}),
+				CreatorName = FFlagToolboxRedirectToLibraryAbuseReport and Style.extend(common.MainText, {
+					Font = Enum.Font.SourceSans,
+					TextSize = 18,
+					TextXAlignment = Enum.TextXAlignment.Left,
+				}) or nil,
+				FlagAsset = FFlagToolboxRedirectToLibraryAbuseReport and {
+					Image = "rbxasset://textures/DevFramework/AssetPreview/Flag.png",
+					ImageColor3 = StyleKey.Icon,
+					Size = UDim2.fromOffset(20, 20),
+				} or nil,
 				InfoRow = {
 					Text = infoRowText,
 					LeftText = Style.extend(infoRowText, {
@@ -163,7 +217,33 @@ else
 						TextTruncate = Enum.TextTruncate.AtEnd,
 						TextXAlignment = Enum.TextXAlignment.Right,
 					}),
-				}
+				},
+				ScriptArea = FFlagToolboxShowHasScriptInfo and {
+					ElementPadding = UDim.new(0, 4),
+					Size = UDim2.new(1, 0, 0, 12),
+	
+					ScriptText = Cryo.Dictionary.join(common.MainText, {
+						Font = Enum.Font.SourceSansBold,
+						TextSize = 14,
+						TextXAlignment = Enum.TextXAlignment.Left,
+					}),
+		
+					ScriptIcon = {
+						Position = UDim2.new(1, 0, 0, 0),
+						AnchorPoint = Vector2.new(0, 1),
+			
+						Image = "rbxasset://textures/StudioToolbox/script.png",
+						Size = UDim2.fromOffset(12, 12),
+					},
+
+					ScriptInfoIcon = {
+						Position = UDim2.new(1, 0, 0, 0),
+						AnchorPoint = Vector2.new(0, 1),
+			
+						Image = "rbxasset://textures/StudioToolbox/AssetPreview/info.png",
+						Size = UDim2.fromOffset(12, 12),
+					},
+				},
 			},
 
 			-- The background of this needs to extend to the edges of the parent, so we

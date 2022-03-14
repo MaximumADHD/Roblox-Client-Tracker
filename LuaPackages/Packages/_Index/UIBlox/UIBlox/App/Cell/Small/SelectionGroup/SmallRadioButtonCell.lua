@@ -6,6 +6,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
 
@@ -20,8 +21,8 @@ local CELL_SIZE = 56
 local SmallRadioButtonCell = Roact.PureComponent:extend("SmallRadioButtonCell")
 
 SmallRadioButtonCell.validateProps = t.strictInterface({
-	-- Unique key to identify this selection.
-	key = t.string,
+	-- Unique identifier for this selection.
+	id = t.string,
 
 	-- Text to display
 	text = t.optional(t.string),
@@ -42,7 +43,7 @@ SmallRadioButtonCell.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.number),
 
 	-- optional parameters for RoactGamepad
-	[Roact.Ref] = t.optional(t.table),
+	controlRef = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
@@ -57,7 +58,7 @@ SmallRadioButtonCell.defaultProps = {
 
 function SmallRadioButtonCell:init()
 	self.onSetValue = function()
-		self.props.onActivated(self.props.key)
+		self.props.onActivated(self.props.id)
 	end
 end
 
@@ -81,7 +82,7 @@ function SmallRadioButtonCell:render()
 			onActivated = self.onSetValue,
 			useDefaultControlState = self.props.useDefaultControlState,
 
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = self.props.controlRef,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
@@ -91,4 +92,9 @@ function SmallRadioButtonCell:render()
 	})
 end
 
-return SmallRadioButtonCell
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(SmallRadioButtonCell, Cryo.Dictionary.join(
+		props,
+		{controlRef = ref}
+	))
+end)

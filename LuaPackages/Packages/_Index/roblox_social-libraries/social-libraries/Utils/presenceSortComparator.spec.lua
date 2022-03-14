@@ -1,6 +1,9 @@
 return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local UserModel = dependencies.UserModel
 	local sortComparator = require(script.Parent.presenceSortComparator)
@@ -28,23 +31,23 @@ return function()
 		}
 
 		it("should sort IN_GAME before ONLINE", function()
-			expect(sortComparator(entryA, entryB)).to.equal(true)
-			expect(sortComparator(entryB, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryB)).toBe(true)
+			jestExpect(sortComparator(entryB, entryA)).toBe(false)
 		end)
 
 		it("should sort ONLINE before IN_STUDIO", function()
-			expect(sortComparator(entryB, entryC)).to.equal(true)
-			expect(sortComparator(entryC, entryB)).to.equal(false)
+			jestExpect(sortComparator(entryB, entryC)).toBe(true)
+			jestExpect(sortComparator(entryC, entryB)).toBe(false)
 		end)
 
 		it("should sort IN_STUDIO before OFFLINE", function()
-			expect(sortComparator(entryC, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryC)).to.equal(false)
+			jestExpect(sortComparator(entryC, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryC)).toBe(false)
 		end)
 
 		it("should sort IN_GAME before OFFLINE", function()
-			expect(sortComparator(entryA, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryA)).toBe(false)
 		end)
 	end)
 
@@ -70,23 +73,23 @@ return function()
 		}
 
 		it("should sort Abc before Bcd", function()
-			expect(sortComparator(entryA, entryB)).to.equal(true)
-			expect(sortComparator(entryB, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryB)).toBe(true)
+			jestExpect(sortComparator(entryB, entryA)).toBe(false)
 		end)
 
 		it("should sort Bcd before Cde", function()
-			expect(sortComparator(entryB, entryC)).to.equal(true)
-			expect(sortComparator(entryC, entryB)).to.equal(false)
+			jestExpect(sortComparator(entryB, entryC)).toBe(true)
+			jestExpect(sortComparator(entryC, entryB)).toBe(false)
 		end)
 
 		it("should sort Cde before Def", function()
-			expect(sortComparator(entryC, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryC)).to.equal(false)
+			jestExpect(sortComparator(entryC, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryC)).toBe(false)
 		end)
 
 		it("should sort Abc before Def", function()
-			expect(sortComparator(entryA, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryA)).toBe(false)
 		end)
 	end)
 
@@ -108,23 +111,23 @@ return function()
 		}
 
 		it("should sort Abc before Bcd", function()
-			expect(sortComparator(entryA, entryB)).to.equal(true)
-			expect(sortComparator(entryB, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryB)).toBe(true)
+			jestExpect(sortComparator(entryB, entryA)).toBe(false)
 		end)
 
 		it("should sort Bcd before Cde", function()
-			expect(sortComparator(entryB, entryC)).to.equal(true)
-			expect(sortComparator(entryC, entryB)).to.equal(false)
+			jestExpect(sortComparator(entryB, entryC)).toBe(true)
+			jestExpect(sortComparator(entryC, entryB)).toBe(false)
 		end)
 
 		it("should sort Cde before Def", function()
-			expect(sortComparator(entryC, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryC)).to.equal(false)
+			jestExpect(sortComparator(entryC, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryC)).toBe(false)
 		end)
 
 		it("should sort Abc before Def", function()
-			expect(sortComparator(entryA, entryD)).to.equal(true)
-			expect(sortComparator(entryD, entryA)).to.equal(false)
+			jestExpect(sortComparator(entryA, entryD)).toBe(true)
+			jestExpect(sortComparator(entryD, entryA)).toBe(false)
 		end)
 	end)
 end

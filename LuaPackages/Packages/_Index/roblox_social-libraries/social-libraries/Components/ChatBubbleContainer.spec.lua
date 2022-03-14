@@ -2,6 +2,9 @@ return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local ChatBubbleContainer = require(script.Parent.ChatBubbleContainer)
 
@@ -19,7 +22,7 @@ return function()
 				child = Roact.createElement("Folder"),
 			}))
 
-			expect(tree:FindFirstChild("child", true)).to.be.ok()
+			jestExpect(tree:FindFirstChild("child", true)).never.toBeNil()
 
 			cleanup()
 		end)
@@ -35,7 +38,7 @@ return function()
 
 			local tail = tree:findFirstChild("tail", true)
 
-			expect(tail.Visible).to.equal(true)
+			jestExpect(tail.Visible).toBe(true)
 
 			cleanup()
 		end)
@@ -49,7 +52,7 @@ return function()
 
 			local tail = tree:findFirstChild("tail", true)
 
-			expect(tail.Visible).to.equal(false)
+			jestExpect(tail.Visible).toBe(false)
 
 			cleanup()
 		end)
@@ -74,9 +77,9 @@ return function()
 			local pendingMessageBubble = pendingMessageTree:findFirstChild("bubble", true)
 			local sentMessageBubble = sentMessageTree:findFirstChild("bubble", true)
 
-			expect(pendingMessageTail.ImageTransparency < sentMessageTail.ImageTransparency).to.equal(true)
-			expect(pendingMessageBubble.ImageTransparency < sentMessageBubble.ImageTransparency).to.equal(true)
-			expect(pendingMessageTail.ImageTransparency == pendingMessageBubble.ImageTransparency).to.equal(true)
+			jestExpect(pendingMessageTail.ImageTransparency).toBeLessThan(sentMessageTail.ImageTransparency)
+			jestExpect(pendingMessageBubble.ImageTransparency).toBeLessThan(sentMessageBubble.ImageTransparency)
+			jestExpect(pendingMessageTail.ImageTransparency).toBe(pendingMessageBubble.ImageTransparency)
 
 			pendingMessageCleanup()
 			sentMessageCleanup()

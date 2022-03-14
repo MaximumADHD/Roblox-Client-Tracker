@@ -48,11 +48,13 @@ return function(dependencies)
 					else
 						reject("LocalPlayer not found")
 					end
-				end):andThen(function(newPolicy)
-					onPolicyChangedEvent:Fire(newPolicy)
-				end):catch(function(errorString)
-					Logger:warning("Could not fetch from PolicyService due to error: {}", errorString)
 				end)
+					:andThen(function(newPolicy)
+						onPolicyChangedEvent:Fire(newPolicy)
+					end)
+					:catch(function(errorString)
+						Logger:warning("Could not fetch from PolicyService due to error: {}", errorString)
+					end)
 
 				return connection
 			end,

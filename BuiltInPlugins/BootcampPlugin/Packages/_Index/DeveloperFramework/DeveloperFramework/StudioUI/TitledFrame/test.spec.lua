@@ -13,7 +13,9 @@ return function()
 	local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 
-	local function createTestTitledFrame(children, container)
+	local function createTestTitledFrame(props, children, container)
+		props = props or {}
+		props.Title = props.Title or "Test"
 		local theme
 		if THEME_REFACTOR then
 			theme = StudioTheme.mock()
@@ -25,9 +27,7 @@ return function()
 			end)
 		end
 		return provide({theme}, {
-			TitledFrame = Roact.createElement(TitledFrame, {
-				Title = "Test",
-			}, children)
+			TitledFrame = Roact.createElement(TitledFrame, props, children)
 		})
 	end
 
@@ -39,7 +39,7 @@ return function()
 
 	it("should render a title", function()
 		local container = Instance.new("Folder")
-		local element = createTestTitledFrame({}, container)
+		local element = createTestTitledFrame({}, {}, container)
 		local instance = Roact.mount(element, container)
 
 		local frame = container:FindFirstChildOfClass("ImageLabel")
@@ -50,7 +50,7 @@ return function()
 
 	it("should render its children", function()
 		local container = Instance.new("Folder")
-		local element = createTestTitledFrame({
+		local element = createTestTitledFrame({}, {
 			MyChild = Roact.createElement("Frame", {}),
 		}, container)
 		local instance = Roact.mount(element, container)
@@ -59,6 +59,16 @@ return function()
 		expect(frame).to.be.ok()
 		expect(frame.Content).to.be.ok()
 		expect(frame.Content.MyChild).to.be.ok()
+		Roact.unmount(instance)
+	end)
+
+	it("check that the Roact.Ref is passed to the underlying frame", function()
+		local ref = Roact.createRef()
+		local element = createTestTitledFrame({
+			[Roact.Ref] = ref
+		})
+		local instance = Roact.mount(element)
+		expect(ref.current.ClassName).to.equal("ImageLabel")
 		Roact.unmount(instance)
 	end)
 end

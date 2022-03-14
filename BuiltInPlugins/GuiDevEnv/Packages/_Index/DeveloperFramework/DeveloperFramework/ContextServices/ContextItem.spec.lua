@@ -1,7 +1,11 @@
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 return function()
 	local Framework = script.Parent.Parent
 	local Signal = require(Framework.Util.Signal)
 	local Roact = require(Framework.Parent.Roact)
+	-- TODO STUDIOPLAT-27078 Replace with Roact.act when all plugins use Roact 17 
+	local act = if Roact.Ref == "ref" then Roact.act else function(fn) fn() end
 	local ContextItem = require(script.Parent.ContextItem)
 	local ContextServices = require(Framework.ContextServices)
 	local withContext = ContextServices.withContext
@@ -29,17 +33,19 @@ return function()
 		expect(testItem2.Key).never.to.equal(testItem.Key)
 	end)
 
-	it("should require overriding createProvider", function()
-		local testItem = ContextItem:extend("TestItem")
-		expect(function()
+	if not FFlagDevFrameworkUseCreateContext then
+		it("should require overriding createProvider", function()
+			local testItem = ContextItem:extend("TestItem")
+			expect(function()
+				testItem:createProvider()
+			end).to.throw()
+
+			function testItem:createProvider()
+			end
+
 			testItem:createProvider()
-		end).to.throw()
-
-		function testItem:createProvider()
-		end
-
-		testItem:createProvider()
-	end)
+		end)
+	end
 
 	describe("ContextItem:createSimple() get method", function()
 		it("should require a name be passed", function()
@@ -63,8 +69,10 @@ return function()
 			}
 
 			local function setValue(newValue)
-				data._value = newValue
-				data._changed:Fire()
+				act(function()
+					data._value = newValue
+					data._changed:Fire()
+				end)
 			end
 
 			local Foo = ContextItem:createSimple("Foo", {

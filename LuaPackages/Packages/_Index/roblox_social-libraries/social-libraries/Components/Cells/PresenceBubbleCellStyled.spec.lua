@@ -2,6 +2,9 @@ return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local PresenceBubbleCellStyled = require(script.Parent.PresenceBubbleCell)
 
@@ -20,7 +23,7 @@ return function()
 				Size = size,
 			}))
 			local guiObject = frame:FindFirstChildWhichIsA("GuiObject")
-			expect(guiObject.Size).to.equal(size)
+			jestExpect(guiObject.Size).toBe(size)
 
 			cleanup()
 		end)

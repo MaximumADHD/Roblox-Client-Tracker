@@ -1,6 +1,7 @@
 local Packages = script.Parent.Parent.Parent.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
@@ -20,7 +21,7 @@ local validateProps = t.strictInterface({
 	onActivated = t.callback,
 	size = t.optional(t.UDim2),
 	layoutOrder = t.optional(t.number),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
@@ -102,11 +103,16 @@ function Checkbox:renderWithProviders(style, getSelectionCursor)
 			transparency = transparency,
 			layoutOrder = self.props.layoutOrder,
 			isDisabled = self.props.isDisabled,
-			[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props[Roact.Ref] or nil,
+			[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props.frameRef or nil,
 			SelectionImageObject = UIBloxConfig.useUpdatedCheckbox
 				and getSelectionCursor(CursorKind.InputButton) or nil,
 		})
 	end)
 end
 
-return Checkbox
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(Checkbox, Cryo.Dictionary.join(
+		props,
+		{frameRef = ref}
+	))
+end)

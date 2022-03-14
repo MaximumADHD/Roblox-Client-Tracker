@@ -18,9 +18,6 @@ local MAX_WIDTH = 400
 local MARGIN = 24
 local TITLE_ICON_SIZE = 48
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enableAlertTitleIconConfig = UIBloxConfig.enableAlertTitleIconConfig
-
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
@@ -36,7 +33,7 @@ local validateProps = t.strictInterface({
 	onMounted = t.optional(t.callback),
 
 	title = t.string,
-	titleIcon = enableAlertTitleIconConfig and t.optional(t.union(t.table, t.string)) or nil,
+	titleIcon = t.optional(t.union(t.table, t.string)),
 	bodyText = t.optional(t.string),
 })
 

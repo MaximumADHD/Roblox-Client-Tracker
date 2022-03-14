@@ -1,4 +1,5 @@
 --!nocheck
+local AppsFlyerUtil = require(script.Parent.utils.AppsFlyerUtil)
 
 return function(UrlBuilder)
 
@@ -24,6 +25,20 @@ return function(UrlBuilder)
 			return nil
 		end,
 		appsflyer = function(params)
+			local description = params.description
+			local image = params.image
+			local title = params.title
+
+			if description and image and title then
+				return UrlBuilder.fromString("appsflyer:Ebh5?pid=share&is_retargeting=true&af_og_title={title}&af_og_image={image}&af_og_description={description}&af_dp={mobileUrl}&af_web_dp={webUrl}")({
+					image = image,
+					title = title,
+					description = AppsFlyerUtil.sanitizeDescription(description),
+					mobileUrl = UrlBuilder.fromString("mobilenav:game_details?gameId={universeId}")(params),
+					webUrl = GameUrlPatterns.info.webpage(params),
+				})
+			end
+
 			return UrlBuilder.fromString("appsflyer:Ebh5?pid=share&is_retargeting=true&af_dp={mobileUrl}&af_web_dp={webUrl}")({
 				mobileUrl = UrlBuilder.fromString("mobilenav:game_details?gameId={universeId}")(params),
 				webUrl = GameUrlPatterns.info.webpage(params),

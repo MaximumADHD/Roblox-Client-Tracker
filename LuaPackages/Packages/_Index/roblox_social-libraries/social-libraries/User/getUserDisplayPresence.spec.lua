@@ -1,10 +1,15 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getUserDisplayPresence = require(script.Parent.getUserDisplayPresence)
 
-	local function isResultOk(result)
-		expect(result).to.be.ok()
-		expect(type(result.image)).to.equal("string")
-		expect(type(result.text)).to.equal("string")
+	local function isResultOk(result, presence)
+		jestExpect(result).toEqual({
+			image = jestExpect.any("string"),
+			text = presence,
+		})
 	end
 
 	describe("GIVEN a user model with OFFLINE presence", function()
@@ -14,7 +19,7 @@ return function()
 		}
 		it("SHOULD return a string", function()
 			local result = getUserDisplayPresence(user)
-			isResultOk(result)
+			isResultOk(result, "Common.Presence.Label.Offline")
 		end)
 	end)
 
@@ -25,7 +30,7 @@ return function()
 		}
 		it("SHOULD return a string", function()
 			local result = getUserDisplayPresence(user)
-			isResultOk(result)
+			isResultOk(result, "Common.Presence.Label.Online")
 		end)
 	end)
 
@@ -37,7 +42,7 @@ return function()
 			}
 			it("SHOULD return a string", function()
 				local result = getUserDisplayPresence(user)
-				isResultOk(result)
+				isResultOk(result,  "Common.Presence.Label.Online")
 			end)
 		end)
 
@@ -48,7 +53,7 @@ return function()
 			}
 			it("SHOULD return a string", function()
 				local result = getUserDisplayPresence(user)
-				isResultOk(result)
+				isResultOk(result, "location")
 			end)
 		end)
 	end)
@@ -61,7 +66,7 @@ return function()
 			}
 			it("SHOULD return a string", function()
 				local result = getUserDisplayPresence(user)
-				isResultOk(result)
+				isResultOk(result, "Common.Presence.Label.Online")
 			end)
 		end)
 
@@ -72,7 +77,7 @@ return function()
 			}
 			it("SHOULD return a string", function()
 				local result = getUserDisplayPresence(user)
-				isResultOk(result)
+				isResultOk(result, "location")
 			end)
 		end)
 	end)

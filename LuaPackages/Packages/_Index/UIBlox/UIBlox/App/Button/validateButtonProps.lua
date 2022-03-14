@@ -4,12 +4,14 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Core = UIBlox.Core
 
-local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
 return t.strictInterface({
+	-- The automatic size of the button
+	automaticSize = t.optional(t.EnumItem),
+
 	--The size of the button
 	size = t.optional(t.UDim2),
 
@@ -28,14 +30,29 @@ return t.strictInterface({
 	--The text of the button
 	text = t.optional(t.string),
 
+	--The icon of the controller input (A/B/X/Y button) needed to activate the button
+	inputIcon = t.optional(validateImage),
+
 	--Is the button disabled
 	isDisabled = t.optional(t.boolean),
 
 	--Is the button loading
 	isLoading = t.optional(t.boolean),
 
+	--Determine if it should setup a delay on the input
+	isDelayedInput = t.optional(t.boolean),
+
+	--Used to start the input delay, set to true when you want to start the animation.
+	enableInputDelayed = t.optional(t.boolean),
+
+	--Amount of seconds to delay input
+	delayInputSeconds = t.optional(t.numberPositive),
+
 	--The activated callback for the button
 	onActivated = t.callback,
+
+	-- The state change callback for the button
+	onStateChanged = t.optional(t.callback),
 
 	--A Boolean value that determines whether user events are ignored and sink input
 	userInteractionEnabled = t.optional(t.boolean),
@@ -45,5 +62,5 @@ return t.strictInterface({
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	buttonRef = t.optional(t.table),
 })

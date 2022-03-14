@@ -16,6 +16,7 @@ local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 
 local MenuDirection = require(script.Parent.MenuDirection)
 local validateButtonProps = require(script.Parent.validateButtonProps)
+local validateMotorOptionProps = require(script.Parent.validateMotorOptionProps)
 
 local MOTOR_OPTIONS_OPEN = {
 	frequency = 4,
@@ -25,6 +26,17 @@ local MOTOR_OPTIONS_OPEN = {
 local MOTOR_OPTIONS_CLOSE = {
 	frequency = 2.6,
 	dampingRatio = 1,
+}
+
+local DEFAULT_MOTOR_OPTIONS = {
+	open = {
+		targetValue = 1,
+		springParams = MOTOR_OPTIONS_OPEN,
+	},
+	close = {
+		targetValue = 0,
+		springParams = MOTOR_OPTIONS_CLOSE,
+	},
 }
 
 local CONTEXT_MENU_PADDING = 12
@@ -44,8 +56,16 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 
 		closeBackgroundVisible = t.optional(t.boolean),
 		screenSize = t.Vector2,
+		stayOnActivated = t.optional(t.boolean),
 
 		onDismiss = t.optional(t.callback),
+		setFrameRef = t.optional(t.union(t.callback, t.table)),
+		setFirstItemRef = t.optional(t.union(t.callback, t.table)),
+		motorOverrideOptions = t.optional(t.strictInterface({
+			motorCallback = t.callback,
+			open = validateMotorOptionProps,
+			close = validateMotorOptionProps,
+		})),
 	})
 
 	contextualMenuComponent.defaultProps = {
@@ -68,6 +88,12 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 				end
 			end
 		end)
+		self.motorType = Otter.spring
+		self.motorOptions = DEFAULT_MOTOR_OPTIONS
+		if self.props.motorOverrideOptions then
+			self.motorType = self.props.motorOverrideOptions.motorCallback
+			self.motorOptions = self.props.motorOverrideOptions
+		end
 
 		self.state = {
 			absoluteSize = Vector2.new(0, 0),
@@ -139,7 +165,12 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 					[Roact.Event.Activated] = function()
 						if not self.wasDismissed then
 							self.wasDismissed = true
-							self.motor:setGoal(Otter.spring(0, MOTOR_OPTIONS_CLOSE))
+							self.motor:setGoal(
+								self.motorType(
+									self.motorOptions.close.targetValue,
+									self.motorOptions.close.springParams
+								)
+							)
 						end
 					end,
 				}),
@@ -152,6 +183,8 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 				}, {
 					BaseMenu = Roact.createElement(baseMenuComponent, {
 						buttonProps = self.props.buttonProps,
+						setFirstItemRef = self.props.setFirstItemRef,
+						setFrameRef = self.props.setFrameRef,
 
 						width = contextMenuWidth,
 						position = self.positionBinding,
@@ -165,7 +198,7 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 	function contextualMenuComponent:didMount()
 		if self.props.open then
 			self.wasDismissed = false
-			self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS_OPEN))
+			self.motor:setGoal(self.motorType(self.motorOptions.open.targetValue, self.motorOptions.open.springParams))
 		end
 	end
 
@@ -173,9 +206,13 @@ local function makeContextualMenu(baseMenuComponent, backgroundThemeKey)
 		if self.props.open ~= previousProps.open then
 			if self.props.open then
 				self.wasDismissed = false
-				self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS_OPEN))
+				self.motor:setGoal(
+					self.motorType(self.motorOptions.open.targetValue, self.motorOptions.open.springParams)
+				)
 			else
-				self.motor:setGoal(Otter.spring(0, MOTOR_OPTIONS_CLOSE))
+				self.motor:setGoal(
+					self.motorType(self.motorOptions.close.targetValue, self.motorOptions.close.springParams)
+				)
 			end
 		end
 	end

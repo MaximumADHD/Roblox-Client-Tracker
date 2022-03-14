@@ -12,8 +12,6 @@
 	CAUTION: Make sure no elements which depend on the AbsoluteSize exceed the automatic size of the
 	component, as this will cause the component to grow indefinitely.
 ]]
-local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
-
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local Types = require(Framework.Types)
@@ -66,12 +64,8 @@ function Resizer:render()
 	local componentProps = props.ComponentProps
 	local wrapperProps = {
 		[Roact.Change.AbsoluteSize] = self.onSizeChanged,
+		[Roact.Ref] = self.ref,
 	}
-	if FFlagDevFrameworkForwardRef then
-		wrapperProps.ForwardRef = self.ref
-	else
-		wrapperProps[Roact.Ref] = self.ref
-	end
 	-- Dash.joinDeep merges any WrapperProps from other wrappers into the component's props
 	return Roact.createElement(component, joinDeep({
 		AbsoluteSize = state.absoluteSize,

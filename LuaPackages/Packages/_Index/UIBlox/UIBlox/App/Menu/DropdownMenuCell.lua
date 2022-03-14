@@ -27,13 +27,9 @@ local ButtonGetContentStyle = require(Core.Button.getContentStyle)
 local CONTENT_PADDING = 5
 local DropdownMenuCell = Roact.PureComponent:extend("DropdownMenuCell")
 
-
-
 local function getButtonStyle(contentMap, controlState, style, isActive)
 	local buttonStyle = ButtonGetContentStyle(contentMap, controlState, style)
-	if (controlState ~= ControlState.Disabled and
-	controlState ~= ControlState.Pressed) and
-	isActive then
+	if (controlState ~= ControlState.Disabled and controlState ~= ControlState.Pressed) and isActive then
 		buttonStyle.Transparency = 0.5 * buttonStyle.Transparency + 0.5
 	end
 	return buttonStyle
@@ -42,9 +38,10 @@ end
 local function getContentStyle(contentMap, controlState, style, isActive, hasContent)
 	local contentStyle = ButtonGetContentStyle(contentMap, controlState, style)
 
-	if (controlState ~= ControlState.Disabled and
-	controlState ~= ControlState.Pressed) and
-	(isActive or not hasContent) then
+	if
+		(controlState ~= ControlState.Disabled and controlState ~= ControlState.Pressed)
+		and (isActive or not hasContent)
+	then
 		contentStyle.Transparency = 0.5 * contentStyle.Transparency + 0.5
 	end
 	return contentStyle
@@ -124,7 +121,6 @@ DropdownMenuCell.defaultProps = {
 
 function DropdownMenuCell:render()
 	return withStyle(function(style)
-
 		assert(t.table(style), "Style provider is missing.")
 
 		local currentState = self.state.controlState
@@ -144,18 +140,9 @@ function DropdownMenuCell:render()
 		end
 
 		local buttonStyle = getButtonStyle(buttonStateColorMap, currentState, style, self.props.isActivated)
-		local textStyle = text and getContentStyle(
-			textStateColorMap,
-			currentState,
-			style,
-			self.props.isActivated,
-			self.props.hasContent)
-		local iconStyle = icon and getContentStyle(
-			iconStateColorMap,
-			currentState,
-			style,
-			self.props.isActivated,
-			true)
+		local textStyle = text
+			and getContentStyle(textStateColorMap, currentState, style, self.props.isActivated, self.props.hasContent)
+		local iconStyle = icon and getContentStyle(iconStateColorMap, currentState, style, self.props.isActivated, true)
 		local buttonImage = self.props.buttonImage
 		local fontStyle = style.Font.Header2
 
@@ -163,57 +150,58 @@ function DropdownMenuCell:render()
 		if isLoading then
 			buttonContentLayer = {
 				isLoadingShimmer = Roact.createElement(ShimmerPanel, {
-					Size = UDim2.fromScale(1,1),
-				})
+					Size = UDim2.fromScale(1, 1),
+				}),
 			}
 		else
-			buttonContentLayer = self.props[Roact.Children] or {
-				TextContainer = Roact.createElement("Frame", {
-					Size = UDim2.fromScale(1,1),
-					BackgroundTransparency = 1,
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-						HorizontalAlignment = Enum.HorizontalAlignment.Left,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, CONTENT_PADDING),
-					}),
-					Padding = Roact.createElement("UIPadding", {
-						PaddingLeft = UDim.new(0, 12),
-					}),
-					Text = text and Roact.createElement(GenericTextLabel, {
+			buttonContentLayer = self.props[Roact.Children]
+				or {
+					TextContainer = Roact.createElement("Frame", {
+						Size = UDim2.fromScale(1, 1),
 						BackgroundTransparency = 1,
-						Text = text,
-						fontStyle = fontStyle,
-						colorStyle = textStyle,
-						LayoutOrder = 1,
-					}) or nil,
-				}),
-				IconContainer = Roact.createElement("Frame",{
-					Size = UDim2.fromScale(1,1),
-					BackgroundTransparency = 1,
-				}, {
-					UIListLayout = Roact.createElement("UIListLayout", {
-						FillDirection = Enum.FillDirection.Horizontal,
-						VerticalAlignment = Enum.VerticalAlignment.Center,
-						HorizontalAlignment = Enum.HorizontalAlignment.Right,
-						SortOrder = Enum.SortOrder.LayoutOrder,
-						Padding = UDim.new(0, CONTENT_PADDING),
+					}, {
+						UIListLayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+							HorizontalAlignment = Enum.HorizontalAlignment.Left,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, CONTENT_PADDING),
+						}),
+						Padding = Roact.createElement("UIPadding", {
+							PaddingLeft = UDim.new(0, 12),
+						}),
+						Text = text and Roact.createElement(GenericTextLabel, {
+							BackgroundTransparency = 1,
+							Text = text,
+							fontStyle = fontStyle,
+							colorStyle = textStyle,
+							LayoutOrder = 1,
+						}) or nil,
 					}),
-					Padding = Roact.createElement("UIPadding", {
-						PaddingRight = UDim.new(0, 20),
-					}),
-					Icon = icon and Roact.createElement(ImageSetComponent.Label, {
-						Size = UDim2.fromOffset(IconSize.Regular, IconSize.Regular),
+					IconContainer = Roact.createElement("Frame", {
+						Size = UDim2.fromScale(1, 1),
 						BackgroundTransparency = 1,
-						Image = icon,
-						ImageColor3 = iconStyle.Color,
-						ImageTransparency = iconStyle.Transparency,
-						LayoutOrder = 2,
-					}) or nil,
-				}),
-			}
+					}, {
+						UIListLayout = Roact.createElement("UIListLayout", {
+							FillDirection = Enum.FillDirection.Horizontal,
+							VerticalAlignment = Enum.VerticalAlignment.Center,
+							HorizontalAlignment = Enum.HorizontalAlignment.Right,
+							SortOrder = Enum.SortOrder.LayoutOrder,
+							Padding = UDim.new(0, CONTENT_PADDING),
+						}),
+						Padding = Roact.createElement("UIPadding", {
+							PaddingRight = UDim.new(0, 20),
+						}),
+						Icon = icon and Roact.createElement(ImageSetComponent.Label, {
+							Size = UDim2.fromOffset(IconSize.Regular, IconSize.Regular),
+							BackgroundTransparency = 1,
+							Image = icon,
+							ImageColor3 = iconStyle.Color,
+							ImageTransparency = iconStyle.Transparency,
+							LayoutOrder = 2,
+						}) or nil,
+					}),
+				}
 		end
 
 		local PROPS_FILTER = {
@@ -243,9 +231,9 @@ function DropdownMenuCell:render()
 
 		return Roact.createElement(Interactable, Cryo.Dictionary.join(self.props, PROPS_FILTER), {
 			ButtonContent = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1,1),
+				Size = UDim2.fromScale(1, 1),
 				BackgroundTransparency = 1,
-			}, buttonContentLayer)
+			}, buttonContentLayer),
 		})
 	end)
 end

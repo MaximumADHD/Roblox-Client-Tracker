@@ -10,6 +10,7 @@ local UIBloxRoot = CoreRoot.Parent
 local Packages = UIBloxRoot.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local Gamepad = require(Packages.RoactGamepad)
 local ImageSetComponent = require(CoreRoot.ImageSet.ImageSetComponent)
@@ -75,7 +76,7 @@ GenericSlider.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.integer),
 
-	[Roact.Ref] = t.optional(t.table),
+	imageButtonRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	focusController = t.optional(t.table),
@@ -87,7 +88,7 @@ GenericSlider.defaultProps = {
 }
 
 function GenericSlider:init()
-	self.rootRef = self.props[Roact.Ref] or Roact.createRef()
+	self.rootRef = self.props.imageButtonRef or Roact.createRef()
 	self.lowerKnobRef = Roact.createRef()
 	self.upperKnobRef = Roact.createRef()
 	self.moveDirection = 0
@@ -245,11 +246,8 @@ function GenericSlider:render()
 		or UDim2.fromScale(fillPercentLower, 1)
 	local selectedKnob = self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected
 
-	local imageSetComponent =  UIBloxConfig.enableExperimentalGamepadSupport and
-		Gamepad.Focusable[ImageSetComponent.Button] or ImageSetComponent.Button
-
 	return withSelectionCursorProvider(function(getSelectionCursor)
-		return Roact.createElement(imageSetComponent, {
+		return Roact.createElement(Gamepad.Focusable[ImageSetComponent.Button], {
 			BackgroundTransparency = 1,
 			AnchorPoint = self.props.anchorPoint,
 			Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, SLIDER_HEIGHT),
@@ -266,16 +264,15 @@ function GenericSlider:render()
 
 			NextSelectionUp = (not selectedKnob) and self.props.NextSelectionUp or self.rootRef,
 			NextSelectionDown = (not selectedKnob) and self.props.NextSelectionDown or self.rootRef,
-			defaultChild = UIBloxConfig.enableExperimentalGamepadSupport and
-				(self.props.upperValue ~= self.props.min and self.lowerKnobRef or self.upperKnobRef) or nil,
-			onFocusLost = UIBloxConfig.enableExperimentalGamepadSupport and function()
+			defaultChild = (self.props.upperValue ~= self.props.min and self.lowerKnobRef or self.upperKnobRef) or nil,
+			onFocusLost = function()
 				if self.state.lowerKnobIsSelected or self.state.upperKnobIsSelected then
 					self:setState({
 						lowerKnobIsSelected = false,
 						upperKnobIsSelected = false,
 					})
 				end
-			end or nil,
+			end,
 		}, {
 			Track = Roact.createElement(ImageSetComponent.Label, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -299,7 +296,7 @@ function GenericSlider:render()
 					SliceCenter = self.props.trackFillSliceCenter,
 				})
 			}),
-			LowerKnob = Roact.createElement(imageSetComponent, {
+			LowerKnob = Roact.createElement(Gamepad.Focusable[ImageSetComponent.Button], {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
 				ImageColor3 = self.props.knobColorLower,
@@ -308,7 +305,7 @@ function GenericSlider:render()
 				Size = UDim2.fromOffset(KNOB_HEIGHT, KNOB_HEIGHT),
 				Position = knobPositionLower,
 				ZIndex = 3,
-				inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+				inputBindings = {
 					OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
 						self:onMoveStep(inputObjects, delta)
 					end),
@@ -326,7 +323,7 @@ function GenericSlider:render()
 							processingGamepad = false,
 						})
 					end) or nil,
-				} or nil,
+				},
 				NextSelectionLeft = knobIsSelected and self.lowerKnobRef or nil,
 				NextSelectionRight = (isTwoKnobs and not knobIsSelected and self.props.upperValue ~= self.props.lowerValue)
 					and self.upperKnobRef or nil,
@@ -352,7 +349,7 @@ function GenericSlider:render()
 				Position = knobPositionLower,
 				ZIndex = 2,
 			}),
-			UpperKnob = isTwoKnobs and Roact.createElement(imageSetComponent, {
+			UpperKnob = isTwoKnobs and Roact.createElement(Gamepad.Focusable[ImageSetComponent.Button], {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
 				ImageColor3 = self.props.knobColorUpper,
@@ -377,7 +374,7 @@ function GenericSlider:render()
 
 					self:onInputBegan(inputObject, true)
 				end,
-				inputBindings = UIBloxConfig.enableExperimentalGamepadSupport and {
+				inputBindings = {
 					OnMoveStep = Gamepad.Input.onMoveStep(function(inputObjects, delta)
 						self:onMoveStep(inputObjects, delta)
 					end),
@@ -395,7 +392,7 @@ function GenericSlider:render()
 							processingGamepad = false,
 						})
 					end) or nil,
-				} or nil,
+				},
 			}),
 			UpperKnobShadow = isTwoKnobs and Roact.createElement(ImageSetComponent.Label, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
@@ -413,12 +410,12 @@ end
 function GenericSlider:didMount()
 	local root = self.rootRef.current
 
-	-- When didMount is first called we're still orphaned; we need to wait until
-	-- we're in the DataModel before checking whether we can use UserInputService.
-	-- Using a connection on AncestryChanged means we won't yield a frame to
-	-- figure this out.
+	-- When didMount is first called we might be still orphaned; we need to wait
+	-- until we're in the DataModel before checking whether we can use
+	-- UserInputService. Using a connection on AncestryChanged means we won't
+	-- yield a frame to figure this out.
 	local ancestryChangedConnection
-	ancestryChangedConnection = root.AncestryChanged:Connect(function()
+	local function checkAncestry()
 		if not root:IsDescendantOf(game) then
 			return
 		end
@@ -428,7 +425,12 @@ function GenericSlider:didMount()
 		-- If we're mounted in a PluginGui, we cannot use UserInputService and we
 		-- need to resort to less clean methods to capture mouse movements.
 		self.canUseUserInputService = root:FindFirstAncestorWhichIsA("PluginGui") == nil
-	end)
+	end
+	ancestryChangedConnection = root.AncestryChanged:Connect(checkAncestry)
+
+	-- On the off chance that we're already properly attached to the data model,
+	-- we need to make sure to update our state accordingly
+	checkAncestry()
 end
 
 function GenericSlider:didUpdate()
@@ -687,4 +689,8 @@ function GenericSlider:hasTwoKnobs()
 	return self.props.upperValue ~= nil
 end
 
-return GenericSlider
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(GenericSlider, Cryo.Dictionary.join(props, {
+		imageButtonRef = ref
+	}))
+end)

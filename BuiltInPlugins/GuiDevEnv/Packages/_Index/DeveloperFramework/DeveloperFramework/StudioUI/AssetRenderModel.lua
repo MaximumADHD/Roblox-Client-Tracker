@@ -14,8 +14,13 @@
 		callback OnMouseLeave: called on MouseLeave - useful to delegate mouse scroll input to this component.
 		boolean RecenterCameraOnUpdate: Whether to recenter the camera on update.
 		any Camera: The camera instance used for the viewport frame - won't catch changes made by the parent component.
+		Vector3 FocusDirection: A vector representing the angle the camera should view the model at
+		boolean Static: A boolean value that freezes the element
+		number InitialDistance: A number value that specifies the initial distance from the camera
 ]]
 local FFlagDevFrameworkExtractAssetRenderModelCamera = game:GetFastFlag("DevFrameworkExtractAssetRenderModelCamera")
+local FFlagDevFrameworkAssetRenderModelCustomCamDirection = game:GetFastFlag("DevFrameworkAssetRenderModelCustomCamDirection")
+local FFlagDevFrameworkAssetRenderModelStatic = game:GetFastFlag("DevFrameworkAssetRenderModelStatic")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -36,6 +41,7 @@ local PAN_CAMERA_DIST_MULT = 0.1
 
 AssetRenderModel.defaultProps = {
 	RecenterCameraOnUpdate = true,
+	FocusDirection = Vector3.new(1, 1, 1),
 }
 
 -- TODO STM-169: Should we unify this with AssetConfig's PreviewArea component?
@@ -137,6 +143,8 @@ function AssetRenderModel:init()
 		local model = self.viewportFrameModel
 		local camera = self.camera
 
+		local initialDistance = self.props.InitialDistance
+
 		-- Move the model/part in front of the camera
 		local success, modelCf, size = pcall(function()
 			return model:GetBoundingBox()
@@ -149,8 +157,19 @@ function AssetRenderModel:init()
 			model:TranslateBy(-modelCf.p)
 		end
 
-		local cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
-		local dir = Vector3.new(1, 1, 1).Unit
+		local cameraDistAway
+		if FFlagDevFrameworkAssetRenderModelStatic and initialDistance then
+			cameraDistAway = initialDistance * INSERT_CAMERA_DIST_MULT
+		else
+			cameraDistAway = size.magnitude * INSERT_CAMERA_DIST_MULT
+		end
+
+		local dir
+		if FFlagDevFrameworkAssetRenderModelCustomCamDirection then
+			dir = self.props.FocusDirection.Unit
+		else
+			dir = Vector3.new(1, 1, 1).Unit
+		end
 		camera.Focus = CFrame.new()
 		camera.CFrame = CFrame.new(cameraDistAway * dir, camera.Focus.p)
 	end
@@ -204,6 +223,7 @@ function AssetRenderModel:render()
 	local layoutOrder = props.LayoutOrder
 	local position = props.Position
 	local size = props.Size or UDim2.new(1, 0, 1, 0)
+	local static = FFlagDevFrameworkAssetRenderModelStatic and props.Static
 
 	local camera = self.camera
 
@@ -220,11 +240,11 @@ function AssetRenderModel:render()
 
 		[Roact.Event.MouseEnter] = props.OnMouseEnter,
 		[Roact.Event.MouseLeave] = props.OnMouseLeave,
-		[Roact.Event.MouseWheelForward] = self.onMouseWheelForward,
-		[Roact.Event.MouseWheelBackward] = self.onMouseWheelBackward,
-		[Roact.Event.InputBegan] = self.onInputBegan,
-		[Roact.Event.InputEnded] = self.onInputEnded,
-		[Roact.Event.InputChanged] = self.onInputChanged,
+		[Roact.Event.MouseWheelForward] = if not static then self.onMouseWheelForward else nil,
+		[Roact.Event.MouseWheelBackward] = if not static then self.onMouseWheelBackward else nil,
+		[Roact.Event.InputBegan] = if not static then self.onInputBegan else nil,
+		[Roact.Event.InputEnded] = if not static then self.onInputEnded else nil,
+		[Roact.Event.InputChanged] = if not static then self.onInputChanged else nil,
 	})
 end
 

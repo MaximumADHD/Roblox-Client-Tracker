@@ -8,7 +8,7 @@ return function()
 				assetType = "Bundle",
 			})
 			expect(url).to.equal("https://ro.blox.com/Ebh5?pid=share&is_retargeting=true" ..
-				"&af_dp=robloxmobile%3A%2F%2Fnavigation%2Fitem_details%3FitemId%3D1356984689%26itemType%3DBundle" ..
+				"&af_dp=roblox%3A%2F%2Fnavigation%2Fitem_details%3FitemId%3D1356984689%26itemType%3DBundle" ..
 				"&af_web_dp=https%3A%2F%2Fwww.roblox.com%2Fbundles%2F1356984689")
 		end)
 
@@ -18,7 +18,7 @@ return function()
 				assetType = "Asset",
 			})
 			expect(url).to.equal("https://ro.blox.com/Ebh5?pid=share&is_retargeting=true" ..
-				"&af_dp=robloxmobile%3A%2F%2Fnavigation%2Fitem_details%3FitemId%3D1356984689%26itemType%3DAsset" ..
+				"&af_dp=roblox%3A%2F%2Fnavigation%2Fitem_details%3FitemId%3D1356984689%26itemType%3DAsset" ..
 				"&af_web_dp=https%3A%2F%2Fwww.roblox.com%2Fcatalog%2F1356984689")
 		end)
 	end)

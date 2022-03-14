@@ -15,7 +15,7 @@ local ASSET_NAME = "component_assets/circle_42_stroke_3"
 local ASSET_SIZE = 42
 
 local validateProps = t.strictInterface({
-	[Roact.Ref] = t.table,
+	cursorRef = t.table,
 	isVisible = t.boolean
 })
 
@@ -33,7 +33,7 @@ return function(props)
 			Size = UDim2.fromOffset(ASSET_SIZE, ASSET_SIZE),
 			Position = UDim2.new(0.5, -ASSET_SIZE / 2, 0.5, -ASSET_SIZE / 2),
 
-			[Roact.Ref] = props[Roact.Ref],
+			[Roact.Ref] = props.cursorRef,
 		}, {
 			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible)
 				and Roact.createElement(AnimatedGradient) or nil

@@ -18,9 +18,6 @@ local MAX_WIDTH = 400
 local MARGIN = 24
 local TITLE_ICON_SIZE = 48
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enableAlertTitleIconConfig = UIBloxConfig.enableAlertTitleIconConfig
-
 local LoadingSpinner = require(UIBlox.App.Loading.LoadingSpinner)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local withStyle = require(UIBlox.Core.Style.withStyle)
@@ -34,7 +31,7 @@ local validateProps = t.strictInterface({
 
 	onMounted = t.optional(t.callback),
 
-	titleIcon = enableAlertTitleIconConfig and t.optional(t.union(t.table, t.string)) or nil,
+	titleIcon = t.optional(t.union(t.table, t.string)),
 	title = t.string,
 })
 

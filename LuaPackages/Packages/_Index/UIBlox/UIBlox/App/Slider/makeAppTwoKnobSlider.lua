@@ -11,16 +11,17 @@ local makeAppSlider = require(Slider.makeAppSlider)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateStyle = require(App.Style.Validator.validateStyle)
 
-local function wrapStyle(component)
-	return function(props)
+local function wrapStyleAndRef(component)
+	return Roact.forwardRef(function(props, ref)
 		return withStyle(function(style)
 			local joinedProps = Cryo.Dictionary.join(props, {
 				style = style,
+				forwardedRef = ref,
 			})
 
 			return Roact.createElement(component, joinedProps)
 		end)
-	end
+	end)
 end
 
 local function makeAppTwoKnobSlider(trackFillThemeKey)
@@ -45,7 +46,7 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 		anchorPoint = t.optional(t.Vector2),
 		layoutOrder = t.optional(t.integer),
 
-		[Roact.Ref] = t.optional(t.table),
+		forwardedRef = t.optional(t.table),
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
 		focusController = t.optional(t.table),
@@ -73,7 +74,7 @@ local function makeAppTwoKnobSlider(trackFillThemeKey)
 		return Roact.createElement(appSliderComponent, self.props)
 	end
 
-	return wrapStyle(twoKnobAppSliderComponent)
+	return wrapStyleAndRef(twoKnobAppSliderComponent)
 end
 
 return makeAppTwoKnobSlider

@@ -2,7 +2,6 @@
 -- Manages groups of selectable elements, reacting to selection changes for
 -- individual items and triggering events for group selection changes
 local Packages = script.Parent.Parent
-local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
 
 local InternalApi = require(script.Parent.FocusControllerInternalApi)
@@ -11,7 +10,7 @@ local inputBindingsEqual = require(script.Parent.inputBindingsEqual)
 local FocusNode = {}
 FocusNode.__index = FocusNode
 
-function FocusNode.new(navProps)
+function FocusNode.new(navProps, ref)
 	local focusController
 	if navProps.parentFocusNode ~= nil then
 		focusController = navProps.parentFocusNode.focusController
@@ -24,7 +23,7 @@ function FocusNode.new(navProps)
 
 	local self = setmetatable({
 		focusController = focusController,
-		ref = navProps[Roact.Ref],
+		ref = ref,
 
 		lastFocused = nil,
 	}, FocusNode)

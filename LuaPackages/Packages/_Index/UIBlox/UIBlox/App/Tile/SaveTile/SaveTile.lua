@@ -5,6 +5,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local Images = require(UIBlox.App.ImageSet.Images)
@@ -37,7 +38,7 @@ local validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	thumbnailRef = t.optional(t.table),
 })
 
 SaveTile.defaultProps = {
@@ -70,8 +71,12 @@ function SaveTile:render()
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = self.props.thumbnailRef,
 	})
 end
 
-return SaveTile
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(SaveTile, Cryo.Dictionary.join(props, {
+		thumbnailRef = ref
+	}))
+end)

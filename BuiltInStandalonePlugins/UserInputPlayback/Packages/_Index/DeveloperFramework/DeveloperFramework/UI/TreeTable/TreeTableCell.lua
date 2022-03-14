@@ -18,32 +18,24 @@ local StyleModifier = Util.StyleModifier
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
-local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
-local FFlagStudioAddTextInputCols = game:GetFastFlag("StudioAddTextInputCols")
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
-
 function TreeTableCell:init()
 	self.onToggle = function()
 		local cellProps = self.props.CellProps
 		cellProps.OnToggle(self.props.Row)
 	end
-	if FFlagToggleTreeTableTooltip then
-		self.textRef = Roact.createRef()
-		self.onAbsoluteSizeChanged = function(rbx)
-			if (self.textRef:getValue()) then
-				self:setState({
-					textOverflows = not(self.textRef:getValue().TextFits),
-				})
-			end
+	self.textRef = Roact.createRef()
+	self.onAbsoluteSizeChanged = function(rbx)
+		if (self.textRef:getValue()) then
+			self:setState({
+				textOverflows = not(self.textRef:getValue().TextFits),
+			})
 		end
 	end
-	if FFlagStudioAddTextInputCols then
-		self.onTextInputFocusLost = function(enterPressed, rbx)
-			local props = self.props
-			local onFocusLost = props.CellProps.OnFocusLost
-			if onFocusLost then
-				onFocusLost(enterPressed, rbx, props.Row, props.ColumnIndex)
-			end
+	self.onTextInputFocusLost = function(enterPressed, rbx)
+		local props = self.props
+		local onFocusLost = props.CellProps.OnFocusLost
+		if onFocusLost then
+			onFocusLost(enterPressed, rbx, props.Row, props.ColumnIndex)
 		end
 	end
 
@@ -53,7 +45,7 @@ function TreeTableCell:init()
 		local row = props.Row
 
 		-- We've only set only depth=0 as editable because that's the only known use case
-		local colIsInput = FFlagStudioAddTextInputCols and textInputCols and textInputCols[props.ColumnIndex] and row.depth == 0
+		local colIsInput = textInputCols and textInputCols[props.ColumnIndex] and row.depth == 0
 		if (colIsInput) then 
 			return Roact.createElement(TextInput, {
 				LayoutOrder = 3,
@@ -92,14 +84,11 @@ function TreeTableCell:render()
 	end
 
 	local tooltipText = props.Tooltip or text
-	local hasTooltip = tooltipText ~= nil and tooltipText ~= "" 
-	if FFlagToggleTreeTableTooltip then
-		hasTooltip = hasTooltip and self.state.textOverflows and not(cellProps.DisableTooltip)
-	end
+	local hasTooltip = tooltipText ~= nil and tooltipText ~= "" and self.state.textOverflows and not(cellProps.DisableTooltip)
 	
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
-	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
 			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
 				style[StyleModifier.Hover].BackgroundEven
@@ -125,7 +114,7 @@ function TreeTableCell:render()
 		BorderSizePixel = 1,
 		BorderColor3 = style.Border,
 		Size = UDim2.new(width.Scale, width.Offset, 1, 0),
-		[Roact.Change.AbsoluteSize] = FFlagToggleTreeTableTooltip and self.onAbsoluteSizeChanged or nil
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChanged
 	}, {
 		Tooltip = hasTooltip and Roact.createElement(Tooltip, {
 			MaxWidth = style.Tooltip.MaxWidth,

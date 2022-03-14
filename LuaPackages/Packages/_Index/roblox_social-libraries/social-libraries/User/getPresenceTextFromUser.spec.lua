@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getPresenceTextFromUser = require(script.Parent.getPresenceTextFromUser)
 
 	describe("GIVEN a user who has presence", function()
@@ -7,28 +11,35 @@ return function()
 				presence = "OFFLINE",
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(type(result)).to.equal("string")
+
+			jestExpect(result).toBe("Common.Presence.Label.Offline")
 		end)
+
 		it("SHOULD return a string for ONLINE users", function()
 			local user = {
 				presence = "ONLINE",
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(type(result)).to.equal("string")
+
+			jestExpect(result).toBe("Common.Presence.Label.Online")
 		end)
+
 		it("SHOULD return a string for INGAME users", function()
 			local user = {
 				presence = "INGAME",
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(type(result)).to.equal("string")
+
+			jestExpect(result).toBe("")
 		end)
+
 		it("SHOULD return a string for invalid presence", function()
 			local user = {
 				presence = "madeUpPresenceNeverOnProduction",
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(type(result)).to.equal("string")
+
+			jestExpect(result).toBe("")
 		end)
 	end)
 
@@ -38,7 +49,8 @@ return function()
 				presence = nil,
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(type(result)).to.equal("string")
+
+			jestExpect(result).toBe("")
 		end)
 	end)
 
@@ -48,8 +60,10 @@ return function()
 				presence = "IN_GAME",
 				lastLocation = "lastLocation"
 			}
+
 			local result = getPresenceTextFromUser(user)
-			expect(result).to.equal("lastLocation")
+
+			jestExpect(result).toBe("lastLocation")
 		end)
 	end)
 
@@ -60,7 +74,8 @@ return function()
 				lastLocation = "lastLocation"
 			}
 			local result = getPresenceTextFromUser(user)
-			expect(result).to.equal("lastLocation")
+
+			jestExpect(result).toBe("lastLocation")
 		end)
 	end)
 end

@@ -2,7 +2,7 @@
 	A search bar component with a single line TextInput and button to request a search.
 
 	Optional Props:
-		number Width: how wide the search bar is in pixels.
+		any Width: how wide the search bar is in pixels, can be a number or a udim
 		number ButtonWidth: how wide the search button is in pixels.
 		number LayoutOrder: The layout order of this component in a list.
 		callback OnInputBegan: callback for when user input (keystroke) begins
@@ -15,6 +15,7 @@
 		string SearchTerm: Search term to populate the text input with.
 		boolean ShowSearchButton: Whether to show the search button at the right of the bar (default true).
 		boolean ShowSearchIcon: Whether to show an in-line search icon at the left of the Search text (default false).
+		UDim2 Size: The size of the searchbar as a custom definition
 		Style Style: The style with which to render this component.
 		StyleModifier StyleModifier: The StyleModifier index into Style.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
@@ -35,6 +36,7 @@ local withContext = ContextServices.withContext
 
 local Util = require(Framework.Util)
 local isInputMainPress = Util.isInputMainPress
+local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 local StyleModifier = Util.StyleModifier
 
@@ -46,11 +48,13 @@ local Pane = UI.Pane
 
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local FFlagDevFrameworkSearchBarSize = game:GetFastFlag("DevFrameworkSearchBarSize")
+
 local SearchBar = Roact.PureComponent:extend("SearchBar")
 Typecheck.wrap(SearchBar, script)
 
 SearchBar.defaultProps = {
-	Width = 200,
+	Width = not FFlagDevFrameworkSearchBarSize and 200 or nil,
 	ButtonWidth = 24,
 	LayoutOrder = 0,
 	PlaceholderText = "Search",
@@ -207,6 +211,7 @@ function SearchBar:render()
 	local props = self.props
 	local state = self.state
 
+	-- TODO : Remove containerWidth with FFlagDevFrameworkSearchBarSize
 	local containerWidth = props.Width
 	local buttonWidth = props.ButtonWidth
 	local layoutOrder = props.LayoutOrder
@@ -228,6 +233,15 @@ function SearchBar:render()
 		style = props.Stylizer
 	else
 		style = props.theme:getStyle("Framework", self)
+	end
+
+	local size = prioritize(props.Size, style.Size, UDim2.fromScale(1, 1))
+	local width = prioritize(props.Width, style.Width)
+
+	if typeof(width) == "number" then
+		size = UDim2.new(UDim.new(0, width), size.Y)
+	elseif typeof(width) == "UDim" then
+		size = UDim2.new(width, size.Y)
 	end
 
 	local padding = style.Padding
@@ -305,7 +319,7 @@ function SearchBar:render()
 	}
 
 	return Roact.createElement(Pane, {
-		Size = UDim2.new(0, containerWidth, 1, 0),
+		Size = FFlagDevFrameworkSearchBarSize and size or UDim2.new(0, containerWidth, 1, 0),
 		ClipsDescendants = true,
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,

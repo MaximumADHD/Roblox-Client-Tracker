@@ -17,6 +17,7 @@ return function()
 		local result = tutils.shallowEqual(foundKeys, expectedInterface)
 		if not result then
 			local differences = tutils.listDifferences(expectedInterface, foundKeys)
+			-- selene: allow(undefined_variable)
 			fail(string.format("Expected interface missing the following: %s", tutils.toString(differences)))
 		end
 	end
@@ -35,10 +36,8 @@ return function()
 		describe("WHEN withGetPolicyImplementation is invoked", function()
 			describe("GIVEN a stubbed GetPolicyImpl", function()
 				local stubbedGetPolicyImpl = {
-					read = function()
-					end,
-					onPolicyChanged = function()
-					end,
+					read = function() end,
+					onPolicyChanged = function() end,
 				}
 				it("SHOULD have the following public interface", function()
 					local initializedProvider = PolicyProvider.withGetPolicyImplementation(stubbedGetPolicyImpl)
@@ -56,8 +55,7 @@ return function()
 
 			describe("GIVEN a GetPolicyImpl without a read", function()
 				local withoutRead = {
-					onPolicyChanged = function()
-					end
+					onPolicyChanged = function() end,
 				}
 				it("SHOULD throw", function()
 					expect(function()
@@ -68,8 +66,7 @@ return function()
 
 			describe("GIVEN a GetPolicyImpl without a onPolicyChanged", function()
 				local withoutOnPolicyChanged = {
-					read = function()
-					end
+					read = function() end,
 				}
 				it("SHOULD throw", function()
 					expect(function()

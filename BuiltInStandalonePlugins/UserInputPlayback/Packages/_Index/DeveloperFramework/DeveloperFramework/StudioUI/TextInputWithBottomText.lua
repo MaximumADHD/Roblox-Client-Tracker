@@ -79,7 +79,7 @@ function TextInputWithBottomText:render()
 			LayoutOrder = 1,
 			Size = size,
 			Style = textInputStyle,
-			TextInputProps = omit(textInputProps,{
+			TextInputProps = omit(textInputProps, {
 				"Style",
 			}),
 		})

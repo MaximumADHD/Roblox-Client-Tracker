@@ -37,9 +37,6 @@
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 ]]
-
-local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-
 local TextService = game:GetService("TextService")
 
 local Framework = script.Parent.Parent
@@ -120,8 +117,8 @@ function TruncatedTextLabel:render()
 	-- Pass in TextLabel props along with overhead props
 	local props = omit(self.props, {"SuffixLength"})
 	local textProps = {
-		[Roact.Ref]  = FFlagTextLabelRefProps and self.textRef or nil,
-		[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and self.onAbsoluteSizeChange or nil,
+		[Roact.Ref] = self.textRef,
+		[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 	}
 	return Roact.createElement(TextLabel, join(props, textProps))
 end

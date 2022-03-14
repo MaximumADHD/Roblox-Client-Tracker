@@ -101,7 +101,7 @@ function ModalBottomSheet:render()
 				[Roact.Event.Activated] = function()
 					self.active = false
 					self.motor:setGoal(Otter.spring(0, MOTOR_OPTIONS))
-				end
+				end,
 			}),
 			SheetContent = Roact.createElement("ScrollingFrame", {
 				BackgroundTransparency = 1,
@@ -112,7 +112,8 @@ function ModalBottomSheet:render()
 					sheetContentXSize.Scale,
 					sheetContentXSize.Offset,
 					0,
-					#self.props.buttonModels * ELEMENT_HEIGHT),
+					#self.props.buttonModels * ELEMENT_HEIGHT
+				),
 				ClipsDescendants = true,
 				[Roact.Ref] = self.ref,
 			}, children),
@@ -128,7 +129,8 @@ function ModalBottomSheet:didMount()
 				sheetContentXPosition.Scale,
 				sheetContentXPosition.Offset,
 				1,
-				-(self.sheetHeight + self.props.bottomGap) * value)
+				-(self.sheetHeight + self.props.bottomGap) * value
+			)
 		end
 	end)
 	self.motor:setGoal(Otter.spring(1, MOTOR_OPTIONS))

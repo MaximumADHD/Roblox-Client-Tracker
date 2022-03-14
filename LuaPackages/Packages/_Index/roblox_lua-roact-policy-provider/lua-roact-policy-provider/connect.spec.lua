@@ -1,3 +1,5 @@
+--# selene: allow(unused_variable)
+
 return function()
 	local Packages = script.Parent.Parent
 	local Roact = require(Packages.Roact)
@@ -11,11 +13,11 @@ return function()
 	local providerInstance = Provider()
 
 	local function checkForPropsAfterMounting(params)
-		assert(params.expectedProps)
-		assert(params.mapper)
-		assert(params.policyProp)
-		assert(params.connect)
-		assert(params.provider)
+		assert(params.expectedProps, "params.expectedProps must exist")
+		assert(params.mapper, "params.mapper must exist")
+		assert(params.policyProp, "params.policyProp must exist")
+		assert(params.connect, "params.connect must exist")
+		assert(params.provider, "params.provider must exist")
 
 		params.shouldCheckPropsIf = params.shouldCheckPropsIf or function()
 			return true
@@ -31,14 +33,19 @@ return function()
 				hasPropsEverBeenChecked = true
 				for propName, propValue in pairs(params.expectedProps) do
 					if props[propName] ~= propValue then
-						fail(string.format(
-							"Expected baseComponent to have prop `%s` = `%s`." .. " " ..
-							"Got: `%s` instead." .. " " ..
-							"(Check the `mapper` function is correctly formatted)",
-							propName,
-							tostring(propValue),
-							tostring(props[propName])
-						))
+						-- selene: allow(undefined_variable)
+						fail(
+							string.format(
+								"Expected baseComponent to have prop `%s` = `%s`."
+									.. " "
+									.. "Got: `%s` instead."
+									.. " "
+									.. "(Check the `mapper` function is correctly formatted)",
+								propName,
+								tostring(propValue),
+								tostring(props[propName])
+							)
+						)
 					end
 				end
 			end
@@ -52,7 +59,7 @@ return function()
 			policy = params.policyProp,
 			policyData = params.policyDataProp,
 		}, {
-			wrappedComponent = Roact.createElement(wrappedComponent)
+			wrappedComponent = Roact.createElement(wrappedComponent),
 		})
 
 		local instance = Roact.mount(tree)
@@ -122,7 +129,7 @@ return function()
 								local tree = Roact.createElement(providerInstance, {
 									policy = nil,
 								}, {
-									wrappedComponent = Roact.createElement(wrappedComponent)
+									wrappedComponent = Roact.createElement(wrappedComponent),
 								})
 
 								it("SHOULD throw", function()
@@ -136,7 +143,7 @@ return function()
 								local tree = Roact.createElement(providerInstance, {
 									policy = {},
 								}, {
-									wrappedComponent = Roact.createElement(wrappedComponent)
+									wrappedComponent = Roact.createElement(wrappedComponent),
 								})
 
 								it("SHOULD mount and unmount successfully", function()
@@ -163,7 +170,7 @@ return function()
 											}
 										end,
 										expectedProps = {
-											isPolicy1FeatureEnabled = "mockPolicy1Enabled"
+											isPolicy1FeatureEnabled = "mockPolicy1Enabled",
 										},
 									})
 								end)
@@ -245,7 +252,7 @@ return function()
 							expectedProps = {
 								-- bar is the result from HttpService's JSONDecode
 								-- (mocking the pull from MemStorageService)
-								isPolicy1FeatureEnabled = "bar"
+								isPolicy1FeatureEnabled = "bar",
 							},
 						})
 					end)
@@ -527,7 +534,7 @@ return function()
 						mapper = function(policy)
 							return {
 								isPolicy1FeatureEnabled = policy.isFeatureEnabled,
-								hasProblemsFetching = (policy.isFeatureEnabled == nil)
+								hasProblemsFetching = (policy.isFeatureEnabled == nil),
 							}
 						end,
 						expectedProps = {

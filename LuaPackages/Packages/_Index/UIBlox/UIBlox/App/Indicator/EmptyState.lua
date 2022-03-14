@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local RoactGamepad = require(Packages.RoactGamepad)
 
@@ -11,15 +12,15 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImage = require(UIBlox.Core.ImageSet.Validator.validateImage)
-local withStyle = require(UIBlox.Style.withStyle)
+local withStyle = require(UIBlox.Core.Style.withStyle)
 local getPageMargin = require(App.Container.getPageMargin)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
 local Images = require(App.ImageSet.Images)
 local SecondaryButton = require(App.Button.SecondaryButton)
 
-local DEFAULT_ICON = 'icons/status/oof_xlarge'
-local DEFAULT_BUTTON_ICON = 'icons/common/refresh'
+local DEFAULT_ICON = "icons/status/oof_xlarge"
+local DEFAULT_BUTTON_ICON = "icons/common/refresh"
 local ICON_TEXT_PADDING = 12
 local TEXT_BUTTON_PADDING = 24
 local BUTTON_HEIGHT = 48
@@ -35,7 +36,7 @@ EmptyState.validateProps = t.strictInterface({
 	anchorPoint = t.optional(t.Vector2),
 	buttonIcon = t.optional(validateImage),
 	onActivated = t.optional(t.callback),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
@@ -65,14 +66,13 @@ end
 
 function EmptyState:render()
 	return withStyle(function(style)
-		return Roact.createElement(UIBloxConfig.emptyStateControllerSupport and
-		RoactGamepad.Focusable.Frame or "Frame", {
+		return Roact.createElement(UIBloxConfig.emptyStateControllerSupport and RoactGamepad.Focusable.Frame or "Frame", {
 			[Roact.Change.AbsoluteSize] = self.onAbsoluteSizeChange,
 			Size = self.props.size,
 			Position = self.props.position,
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
-			[Roact.Ref] = UIBloxConfig.emptyStateControllerSupport and self.props[Roact.Ref] or nil,
+			[Roact.Ref] = UIBloxConfig.emptyStateControllerSupport and self.props.frameRef or nil,
 			NextSelectionUp = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionUp or nil,
 			NextSelectionDown = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionDown or nil,
 			NextSelectionULeft = UIBloxConfig.emptyStateControllerSupport and self.props.NextSelectionLeft or nil,
@@ -138,11 +138,13 @@ function EmptyState:render()
 						onActivated = self.props.onActivated,
 						icon = self.props.buttonIcon,
 						[Roact.Ref] = self.buttonRef,
-					})
-				})
-			})
+					}),
+				}),
+			}),
 		})
 	end)
 end
 
-return EmptyState
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(EmptyState, Cryo.Dictionary.join(props, { frameRef = ref }))
+end)

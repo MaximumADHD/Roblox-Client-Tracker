@@ -5,6 +5,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
@@ -24,6 +25,9 @@ local itemTileInterface = t.strictInterface({
 	-- The item's name that will show a loading state if nil
 	name = t.optional(t.string),
 
+	-- The item's subtitle  that will be hidden if nil
+	subtitle = t.optional(t.string),
+
 	-- The number of lines of text for the item name
 	titleTextLineCount = t.optional(t.integer),
 
@@ -35,6 +39,9 @@ local itemTileInterface = t.strictInterface({
 
 	-- The item's thumbnail that will show a loading state if nil
 	thumbnail = t.optional(t.string),
+
+	-- Optional thumbnail background image
+	backgroundImage = t.optional(t.union(t.string, t.table)),
 
 	-- Optional text to display in the Item Tile banner in place of the footer
 	bannerText = t.optional(t.string),
@@ -71,7 +78,13 @@ local itemTileInterface = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	thumbnailRef = t.optional(t.table),
+
+	-- Optional height of the title area is set to the max
+	useMaxTitleHeight = t.optional(t.boolean),
+
+	-- Optional parameter to include subtitles
+	addSubtitleSpace = t.optional(t.boolean),
 })
 
 local function tileBannerUseValidator(props)
@@ -105,6 +118,7 @@ function ItemTile:render()
 	local multiSelect = self.props.multiSelect
 	local itemIconType = self.props.itemIconType
 	local name = self.props.name
+	local subtitle = self.props.subtitle
 	local onActivated = self.props.onActivated
 	local restrictionInfo = self.props.restrictionInfo
 	local restrictionTypes = self.props.restrictionTypes
@@ -112,6 +126,9 @@ function ItemTile:render()
 	local statusText = self.props.statusText
 	local titleTextLineCount = self.props.titleTextLineCount
 	local thumbnail = self.props.thumbnail
+	local backgroundImage = self.props.backgroundImage
+	local useMaxTitleHeight = self.props.useMaxTitleHeight
+	local addSubtitleSpace = self.props.addSubtitleSpace
 
 	local hasOverlayComponents = false
 	local overlayComponents = {}
@@ -150,18 +167,26 @@ function ItemTile:render()
 		isSelected = isSelected,
 		multiSelect = multiSelect,
 		name = name,
+		subtitle = subtitle,
 		onActivated = onActivated,
 		thumbnail = thumbnail,
+		backgroundImage = backgroundImage,
 		thumbnailOverlayComponents = hasOverlayComponents and overlayComponents or nil,
 		titleIcon = isPremium and Images["icons/status/premium_small"] or nil,
 		titleTextLineCount = titleTextLineCount,
+		useMaxTitleHeight = useMaxTitleHeight,
+		addSubtitleSpace = addSubtitleSpace,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = self.props.thumbnailRef,
 	})
 end
 
-return ItemTile
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(ItemTile, Cryo.Dictionary.join(props, {
+		thumbnailRef = ref
+	}))
+end)

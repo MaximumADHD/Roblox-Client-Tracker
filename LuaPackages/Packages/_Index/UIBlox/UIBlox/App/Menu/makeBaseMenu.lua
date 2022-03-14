@@ -15,6 +15,7 @@ local validateButtonProps = require(script.Parent.validateButtonProps)
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
+
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
@@ -40,6 +41,9 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 		layoutOrder = t.optional(t.number),
 		topElementRounded = t.optional(t.boolean),
 		bottomElementRounded = t.optional(t.boolean),
+		setFirstItemRef = t.optional(t.union(t.callback, t.table)),
+		setFrameRef = t.optional(t.union(t.callback, t.table)),
+		stayOnActivated = t.optional(t.boolean),
 	})
 
 	baseMenuComponent.defaultProps = {
@@ -50,9 +54,7 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 	}
 
 	function baseMenuComponent:init()
-		if UIBloxConfig.enableExperimentalGamepadSupport then
-			self.gamepadRefs = RoactGamepad.createRefCache()
-		end
+		self.gamepadRefs = RoactGamepad.createRefCache()
 	end
 
 	function baseMenuComponent:render()
@@ -72,41 +74,45 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 				hasDivider = index < #self.props.buttonProps,
 				layoutOrder = index,
 				inputBindingKey = Cryo.None,
+				setButtonRef = (index == 1 and self.props.setFirstItemRef) or nil
 			})
 
-			if UIBloxConfig.enableExperimentalGamepadSupport then
-				local cursorKind
-				if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
-					cursorKind = CursorKind.RoundedRectNoInset
-				elseif mergedProps.hasRoundBottom then
-					cursorKind = CursorKind.BulletDown
-				elseif mergedProps.hasRoundTop then
-					cursorKind = CursorKind.BulletUp
-				else
-					cursorKind = CursorKind.Square
-				end
-				children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
-					return Roact.createElement(RoactGamepad.Focusable.Frame, {
-						Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
-						BackgroundTransparency = 1,
-						LayoutOrder = index,
-
-						[Roact.Ref] = self.gamepadRefs[index],
-						NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-						NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
-						inputBindings = {
-							Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
-								key = cellProps.inputBindingKey,
-							}),
-						},
-						SelectionImageObject = getSelectionCursor(cursorKind)
-					}, {
-						Cell = Roact.createElement(cellComponent, mergedProps)
-					})
-				end)
+			local cursorKind
+			if mergedProps.hasRoundBottom and mergedProps.hasRoundTop then
+				cursorKind = CursorKind.RoundedRectNoInset
+			elseif mergedProps.hasRoundBottom then
+				cursorKind = CursorKind.BulletDown
+			elseif mergedProps.hasRoundTop then
+				cursorKind = CursorKind.BulletUp
 			else
-				children["cell " .. index] = Roact.createElement(cellComponent, mergedProps)
+				cursorKind = CursorKind.Square
 			end
+
+			if UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent then
+				mergedProps = Cryo.Dictionary.join(mergedProps, {
+					cursorKind = cursorKind,
+				})
+			end
+
+			children["cell " .. index] = withSelectionCursorProvider(function(getSelectionCursor)
+				return Roact.createElement(RoactGamepad.Focusable.Frame, {
+					Size = UDim2.new(self.props.width, UDim.new(0, ELEMENT_HEIGHT)),
+					BackgroundTransparency = 1,
+					LayoutOrder = index,
+
+					[Roact.Ref] = self.gamepadRefs[index],
+					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+					NextSelectionDown = index < #self.props.buttonProps and self.gamepadRefs[index + 1] or nil,
+					inputBindings = {
+						Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, cellProps.onActivated, {
+							key = cellProps.inputBindingKey,
+						}),
+					},
+					SelectionImageObject = getSelectionCursor(cursorKind)
+				}, {
+					Cell = Roact.createElement(cellComponent, mergedProps)
+				})
+			end)
 		end
 
 		children.layout = Roact.createElement("UIListLayout", {
@@ -157,6 +163,8 @@ local function makeBaseMenu(cellComponent, backgroundThemeKey)
 					ClipsDescendants = true,
 				}, {
 					ScrollingFrame = Roact.createElement("ScrollingFrame", {
+						[Roact.Ref] = self.props.setFrameRef,
+						Selectable = false,
 						BackgroundTransparency = 1,
 						Size = UDim2.new(1, needsScrollbar and -SCROLLBAR_OFFSET or 0, 1, 0),
 						BorderSizePixel = 0,

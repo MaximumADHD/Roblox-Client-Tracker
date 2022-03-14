@@ -1,7 +1,7 @@
 local Packages = script.Parent.Parent
 local Roact = require(Packages.Roact)
 
-local appPolicyKey = require(script.Parent.appPolicyKey)
+local AppPolicyContext = require(script.Parent.AppPolicyContext)
 
 return function()
 	local PolicyProvider = Roact.Component:extend("PolicyProvider")
@@ -9,14 +9,16 @@ return function()
 	function PolicyProvider:init(props)
 		assert(type(props.policy) == "table", "Provider expects props.policy to be a table")
 
-		self._context[appPolicyKey] = {
+		self.policy = {
 			presentationPolicy = props.policy,
 			staticExternalPolicy = props.policyData,
 		}
 	end
 
 	function PolicyProvider:render()
-		return Roact.oneChild(self.props[Roact.Children])
+		return Roact.createElement(AppPolicyContext.Provider, {
+			value = self.policy,
+		}, self.props[Roact.Children])
 	end
 
 	return PolicyProvider

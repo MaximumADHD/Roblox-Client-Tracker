@@ -6,6 +6,6 @@ source = "git+https://github.com/roblox/rodux-aliases#v1.0.1"
 dependencies = [
     "AliasNetworking roblox/networking-aliases 30e7008e git+https://github.com/roblox/networking-aliases#master",
     "Cryo roblox/cryo 1.0.0 url+https://github.com/roblox/cryo",
-    "Rodux <patched> roblox/rodux-flagged-upgrade 12586c7e git+https://github.com/roblox/rodux-flagged-upgrade#1.1-to-3.0",
+    "Rodux <patched> roblox/rodux 2ea111e5 git+https://github.com/roblox/rodux#v3.0.0",
     "RoduxNetworking rodux-networking f6938ebd git+https://github.com/roblox/rodux-networking#v1.2.2",
 ]

@@ -14,7 +14,7 @@ local LoadingSpinner = Roact.PureComponent:extend("LoadingSpinner")
 
 LoadingSpinner.validateProps = t.strictInterface({
 	size = t.optional(t.UDim2),
-	position = t.optional(t.UDim2),
+	position = t.optional(t.union(t.UDim2, t.table)),
 	anchorPoint = t.optional(t.Vector2),
 	rotationRate = t.optional(t.number),
 })

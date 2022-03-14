@@ -1,3 +1,5 @@
+--# selene: allow(unused_variable)
+
 return function()
 	local Packages = script.Parent.Parent.Parent
 	local Mock = require(Packages.Mock)

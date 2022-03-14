@@ -18,7 +18,7 @@ local INSET_ADJUSTMENT = 8 + CURSOR_THICKNESS
 local CURSOR_IMAGE = Images["component_assets/circle_22_stroke_3"]
 
 local validateProps = t.strictInterface({
-	[Roact.Ref] = t.table,
+	cursorRef = t.table,
 	isVisible = t.boolean
 })
 
@@ -38,7 +38,7 @@ return function(props)
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(11, 11, 12, 12),
 
-			[Roact.Ref] = props[Roact.Ref],
+			[Roact.Ref] = props.cursorRef,
 		}, {
 			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible)
 				and Roact.createElement(AnimatedGradient) or nil

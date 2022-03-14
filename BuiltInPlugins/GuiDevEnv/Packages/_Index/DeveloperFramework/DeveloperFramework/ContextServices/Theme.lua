@@ -91,6 +91,8 @@ Check to see if there is a typo in the style name, or a missing entry in the Sty
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextItem = require(Framework.ContextServices.ContextItem)
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 local Provider = require(Framework.ContextServices.Provider)
 local Util = require(Framework.Util)
 local Signal = Util.Signal
@@ -127,11 +129,17 @@ function Theme.new(createStyles)
 	return self
 end
 
-function Theme:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-		UpdateSignal = self.valuesChanged,
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function Theme:getSignal()
+		return self.valuesChanged
+	end
+else
+	function Theme:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+			UpdateSignal = self.valuesChanged,
+		}, {root})
+	end
 end
 
 function Theme:get(namespace)

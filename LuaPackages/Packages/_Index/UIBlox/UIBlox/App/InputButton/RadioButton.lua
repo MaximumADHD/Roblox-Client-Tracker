@@ -15,7 +15,7 @@ local validateProps = t.strictInterface({
 	onActivated = t.callback,
 	size = t.UDim2,
 	layoutOrder = t.optional(t.number),
-	key = t.number,
+	id = t.number,
 })
 
 RadioButton.defaultProps = {
@@ -30,7 +30,7 @@ local INNER_BUTTON_SIZE = 18
 function RadioButton:init()
 	self.onSetValue = function()
 		if not self.props.isDisabled then
-			self.props.onActivated(self.props.key)
+			self.props.onActivated(self.props.id)
 		end
 	end
 end

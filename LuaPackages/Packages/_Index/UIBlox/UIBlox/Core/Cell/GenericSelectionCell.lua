@@ -4,6 +4,7 @@ local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -108,7 +109,7 @@ GenericSelectionCell.validateProps = t.strictInterface({
 	useDefaultControlState = t.optional(t.boolean),
 
 	-- optional parameters for RoactGamepad
-	[Roact.Ref] = t.optional(t.table),
+	controlRef = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
@@ -159,7 +160,7 @@ function GenericSelectionCell:render()
 			onActivated = self.props.onActivated,
 			dividerStyle = dividerStyle,
 			isDisabled = self.props.isDisabled,
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = self.props.controlRef,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
 			NextSelectionLeft = self.props.NextSelectionLeft,
@@ -197,4 +198,8 @@ function GenericSelectionCell:render()
 	end)
 end
 
-return GenericSelectionCell
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(GenericSelectionCell, Cryo.Dictionary.join(props, {
+		controlRef = ref
+	}))
+end)

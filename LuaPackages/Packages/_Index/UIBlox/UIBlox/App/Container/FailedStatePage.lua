@@ -25,7 +25,7 @@ FailedStatePage.validateProps = t.strictInterface({
 	-- The renderOnFailed renders a page from a RenderOnFailedStyle enum
 	renderOnFailed = t.optional(RenderOnFailedStyle.isEnumValue),
 	-- text for emptystate
-	text = t.string,
+	text = t.optional(t.string),
 })
 
 FailedStatePage.defaultProps = {

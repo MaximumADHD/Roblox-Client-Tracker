@@ -20,6 +20,8 @@ local defaultScreenOptions = {
 			transitionChangedSignal = transitionChangedSignal,
 		})
 	end,
+	-- NOTE: transparent is ignored when overlayEnabled is true (overlays are always transparent)
+	transparent = false,
 }
 
 local function calculateTransitionValue(index, position)
@@ -56,6 +58,7 @@ function StackViewLayout:_renderCard(scene, navigationOptions)
 
 	local cardColor3 = navigationOptions.cardColor3
 	local overlayEnabled = navigationOptions.overlayEnabled
+	local transparent = navigationOptions.transparent
 
 	local initialPositionValue = transitionProps.scene.index
 	if lastTransitionProps then
@@ -79,7 +82,7 @@ function StackViewLayout:_renderCard(scene, navigationOptions)
 			key = "card_" .. tostring(scene.key),
 			scene = scene,
 			renderScene = self._renderScene,
-			transparent = overlayEnabled,
+			transparent = overlayEnabled or transparent,
 			cardColor3 = cardColor3,
 		})
 	)
@@ -144,7 +147,6 @@ function StackViewLayout:render()
 				AutoButtonColor = false,
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				ClipsDescendants = true,
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = " ",
 				ZIndex = 2 * scene.index - 1,
@@ -158,7 +160,7 @@ function StackViewLayout:render()
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
-				ClipsDescendants = true,
+				ClipsDescendants = false,
 				ZIndex = 2 * scene.index,
 				Visible = not cardObscured,
 			}, {
@@ -166,7 +168,7 @@ function StackViewLayout:render()
 				DynamicContent = Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 1, 0),
 					BackgroundTransparency = 1,
-					ClipsDescendants = true,
+					ClipsDescendants = false,
 					BorderSizePixel = 0,
 					ZIndex = 2,
 				}, {
@@ -181,7 +183,7 @@ function StackViewLayout:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
-		ClipsDescendants = true,
+		ClipsDescendants = false,
 		BorderSizePixel = 0,
 	}, renderedScenes)
 end

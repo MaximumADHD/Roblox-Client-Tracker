@@ -6,6 +6,8 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
+local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 
 local ImageSetComponent = require(Packages.UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(Packages.UIBlox.App.ImageSet.Images)
@@ -16,6 +18,8 @@ local Controllable = require(Packages.UIBlox.Core.Control.Controllable)
 local ControlState = require(Packages.UIBlox.Core.Control.Enum.ControlState)
 
 local KeyLabel = require(script.Parent.KeyLabel)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local TEXT_ONLY_PADDING = 24 --Text only padding at the start and end of cells
 local ELEMENT_PADDING = 12 --Padding between elements
@@ -36,8 +40,12 @@ local function makeCell(backgroundThemeKey)
 		text = t.string,
 		onActivated = t.callback,
 
-		-- A KeyCode to display a keycode hint for, the display string based on the users keyboard is displayed.
-		keyCodeLabel = t.optional(t.enum(Enum.KeyCode)),
+		-- A KeyCode to display a keycode hint for, the display string based on
+		-- the users keyboard or gamepad button is displayed.
+		keyCodeLabel = t.optional(t.union(t.enum(Enum.KeyCode), t.strictInterface({
+			key = t.enum(Enum.KeyCode),
+			axis = t.optional(t.string),
+		}))),
 		selected = t.optional(t.boolean),
 
 		iconColorOverride = t.optional(t.Color3),
@@ -49,8 +57,14 @@ local function makeCell(backgroundThemeKey)
 
 		hasDivider = t.boolean,
 		disabled = t.optional(t.boolean),
+		stayOnActivated = t.optional(t.boolean),
+		renderRightSideGadget = t.optional(t.callback),
+		rightSideGadgetSize = t.optional(t.Vector2),
 
 		layoutOrder = t.integer,
+		setButtonRef = t.optional(t.union(t.callback, t.table)),
+		cursorKind = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent
+			and t.optional(CursorKind.isEnumValue) or nil,
 	})
 
 	cellComponent.defaultProps = {
@@ -112,7 +126,7 @@ local function makeCell(backgroundThemeKey)
 		return imageRectSize, imageRectOffset, sliceCenter
 	end
 
-	function cellComponent:render()
+	function cellComponent:renderWithSelectionCurso(getSelectionCursor)
 		return withStyle(function(stylePalette)
 			local theme = stylePalette.Theme
 			local font = stylePalette.Font
@@ -200,10 +214,11 @@ local function makeCell(backgroundThemeKey)
 						ImageColor3 = cellStyle.Color,
 						AutoButtonColor = false,
 						LayoutOrder = self.props.layoutOrder,
-
 						BorderSizePixel = 0,
-
+						[Roact.Ref] = self.props.setButtonRef,
 						[Roact.Event.Activated] = self.props.onActivated,
+						SelectionImageObject = UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent
+							and getSelectionCursor(self.props.cursorKind) or nil,
 					},
 					children = {
 						Divider = Roact.createElement("Frame", {
@@ -293,7 +308,7 @@ local function makeCell(backgroundThemeKey)
 							KeyLabel = self.props.keyCodeLabel and Roact.createElement(KeyLabel, {
 								keyCode = self.props.keyCodeLabel,
 
-								layoutOrder = 2,
+								LayoutOrder = 2,
 
 								[Roact.Change.AbsoluteSize] = self.keyLabelSizeChanged
 							}),
@@ -316,6 +331,16 @@ local function makeCell(backgroundThemeKey)
 				isDisabled = self.props.disabled,
 			})
 		end)
+	end
+
+	function cellComponent:render()
+		if UIBloxConfig.enableAnimatedCursorForNonRoactGamepadComponent then
+			return withSelectionCursorProvider(function(getSelectionCursor)
+				return self:renderWithSelectionCurso(getSelectionCursor)
+			end)
+		else
+			return self:renderWithSelectionCurso()
+		end
 	end
 
 	return cellComponent

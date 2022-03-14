@@ -15,7 +15,7 @@ local INSET_ADJUSTMENT = 2
 local ASSET_NAME = "component_assets/square_7_stroke_3"
 
 local validateProps = t.strictInterface({
-	[Roact.Ref] = t.table,
+	cursorRef = t.table,
 	isVisible = t.boolean
 })
 
@@ -35,7 +35,7 @@ return function(props)
 			ScaleType = Enum.ScaleType.Slice,
 			SliceCenter = Rect.new(3.5, 3.5, 3.5, 3.5),
 
-			[Roact.Ref] = props[Roact.Ref],
+			[Roact.Ref] = props.cursorRef,
 		}, {
 			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible)
 				and Roact.createElement(AnimatedGradient) or nil

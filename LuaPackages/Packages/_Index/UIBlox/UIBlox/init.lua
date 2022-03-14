@@ -39,15 +39,15 @@ local function initializeLibrary(configs)
 				validateFontInfo = require(script.Core.Style.Validator.validateFontInfo),
 				validateColorInfo = require(script.Core.Style.Validator.validateColorInfo),
 			}),
-			Palette = require(script.Core.Style.Symbol.Palette),
 			Provider = require(script.Core.Style.StyleProvider),
 			withStyle = require(script.Core.Style.withStyle),
 		}),
 
 		Text = strict({
 			ExpandableText = strict({
-				GetCanExpand = require(script.Core.Text.ExpandableText.ExpandableTextUtils).getCanExpand
+				GetCanExpand = require(script.Core.Text.ExpandableText.ExpandableTextUtils).getCanExpand,
 			}),
+			GetWrappedTextWithIcon = require(script.Core.Text.GetWrappedTextWithIcon),
 		}),
 
 		InfiniteScroller = strict(require(Packages.InfiniteScroller)),
@@ -55,7 +55,7 @@ local function initializeLibrary(configs)
 
 	UIBlox.App = strict({
 		Context = strict({
-			ContentProvider = require(script.App.Context.ContentProvider)
+			ContentProvider = require(script.App.Context.ContentProvider),
 		}),
 
 		ImageSet = strict({
@@ -64,7 +64,7 @@ local function initializeLibrary(configs)
 			getIconSizeUDim2 = require(script.App.ImageSet.getIconSizeUDim2),
 			scaleSliceToResolution = require(script.App.ImageSet.scaleSliceToResolution),
 			Enum = strict({
-				IconSize = require(script.App.ImageSet.Enum.IconSize)
+				IconSize = require(script.App.ImageSet.Enum.IconSize),
 			}),
 		}),
 
@@ -73,9 +73,9 @@ local function initializeLibrary(configs)
 		}),
 
 		Bar = strict({
-			HeaderBar = configs.useHeaderBarV2 and require(script.App.Bar.HeaderBarV2) or require(script.App.Bar.HeaderBar),
-			RootHeaderBar = configs.useHeaderBarV2 == false and require(script.App.Bar.RootHeaderBar) or nil,
+			HeaderBar = require(script.App.Bar.HeaderBar),
 			FullscreenTitleBar = require(script.App.Bar.FullscreenTitleBar),
+			ControllerBar = require(script.App.Bar.ControllerBar),
 		}),
 
 		Button = strict({
@@ -90,15 +90,15 @@ local function initializeLibrary(configs)
 			TextButton = require(script.App.Button.TextButton),
 			LinkButton = require(script.App.Button.LinkButton),
 			IconButton = require(script.App.Button.IconButton),
-			ActionBar = require(script.App.Button.ActionBar)
+			ActionBar = require(script.App.Button.ActionBar),
 		}),
 
 		Cell = strict({
 			Small = strict({
 				SelectionGroup = strict({
 					SmallRadioButtonGroup = require(script.App.Cell.Small.SelectionGroup.SmallRadioButtonGroup),
-				})
-			})
+				}),
+			}),
 		}),
 
 		Text = strict({
@@ -174,6 +174,7 @@ local function initializeLibrary(configs)
 				-- Remove the exposure of BaseTile when the PlayerTile design is firm.
 				BaseTile = require(script.App.Tile.BaseTile.Tile),
 			}),
+			PlayerTile = require(script.App.Tile.PlayerTile.PlayerTile),
 		}),
 
 		Dialog = strict({
@@ -214,6 +215,10 @@ local function initializeLibrary(configs)
 		Indicator = strict({
 			Badge = require(script.App.Indicator.Badge),
 			EmptyState = require(script.App.Indicator.EmptyState),
+			Enum = strict({
+				BadgeStates = require(script.App.Indicator.Enum.BadgeStates),
+			}),
+			PlayerContext = require(script.App.Indicator.PlayerContext),
 		}),
 
 		Menu = strict({
@@ -227,12 +232,14 @@ local function initializeLibrary(configs)
 
 			DropdownMenu = require(script.App.Menu.DropdownMenu),
 
+			KeyLabel = require(script.App.Menu.KeyLabel),
 		}),
 
 		Control = strict({
 			Knob = require(script.App.Control.Knob.Knob),
 			SegmentedControl = require(script.App.Control.SegmentedControl),
 			RobuxBalance = require(script.App.Control.RobuxBalance),
+			Pill = require(script.App.Control.Pill.Pill),
 		}),
 
 		Navigation = strict({
@@ -247,15 +254,15 @@ local function initializeLibrary(configs)
 			CursorKind = require(script.App.SelectionImage.CursorKind),
 			withSelectionCursorProvider = require(script.App.SelectionImage.withSelectionCursorProvider),
 		}),
-
 	})
 
-	-- DEPRECATED SECTION
-
-	-- DEPRECATED: Use Core.Style instead
 	UIBlox.Style = {
-		Provider = require(script.Style.StyleProvider),
-		withStyle = require(script.Style.withStyle),
+		-- These redirect to Core, which ultimately redirect back to original.
+		-- If we do it this, switching to `UIBlox.Core.Style` is a separate step
+		-- from deprecating `UIBlox.Style`, and the latter is just an API naming
+		-- change with no other consequences
+		Provider = UIBlox.Core.Style.Provider,
+		withStyle = UIBlox.Core.Style.withStyle,
 		Validator = {
 			validateStyle = require(script.Style.Validator.validateStyle),
 			validateFont = require(script.Style.Validator.validateFont),
@@ -263,7 +270,12 @@ local function initializeLibrary(configs)
 			validateTheme = require(script.Style.Validator.validateTheme),
 			validateColorInfo = require(script.Style.Validator.validateColorInfo),
 		},
+		-- Used for updating the style in consumer who would have previously
+		-- used `_context` to access the style object
+		Consumer = require(script.Style.StyleConsumer),
 	}
+
+	-- DEPRECATED SECTION
 
 	-- DEPRECATED: This is kept for compatibility. Use App.Accordion.AccordionView instead.
 	UIBlox.AccordionView = require(script.App.Accordion.AccordionView)

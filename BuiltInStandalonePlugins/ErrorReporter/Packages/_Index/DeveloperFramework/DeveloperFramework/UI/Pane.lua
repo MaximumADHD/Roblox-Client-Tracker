@@ -3,6 +3,7 @@
 	All standard props are passed through to the underlying instance, which may be a Frame or ImageLabel.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		AutomaticSize: Automatic sizing for the component.
 		BackgroundColor: Override the color of the background.
 		BorderColor: Override the color of the border image color.
@@ -22,14 +23,19 @@
 		BorderBox: The pane has the current theme's main background with square border.
 		CornerBox: Uses UICorner for adjustable rounded border.
 ]]
-local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
 local FFlagDevFrameworkPaneAddCornerBoxStyle = game:GetFastFlag("DevFrameworkPaneAddCornerBoxStyle")
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 
 local Framework = script.Parent.Parent
 local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Roact = require(Framework.Parent.Roact)
-local isInputMainPress = require(Framework.Util.isInputMainPress)
+
+local Util = require(Framework.Util)
+local isInputMainPress = Util.isInputMainPress
+local prioritize = Util.prioritize
+
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
 
 local THEME_REFACTOR = require(Framework.Util).RefactorFlags.THEME_REFACTOR
 
@@ -134,13 +140,13 @@ function Pane:render()
 	local className = getClassName(props, style)
 
 	local defaultProps = {
-		BackgroundTransparency = 1,
+		BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 1),
 		BorderSizePixel = 0,
 		Size = props.Size or UDim2.fromScale(scaleX, scaleY),
 	}
 	local color = props.BackgroundColor3 or props.BackgroundColor or style.Background
 	if color then
-		defaultProps.BackgroundTransparency = 0
+		defaultProps.BackgroundTransparency = prioritize(props.Transparency, style.Transparency, 0)
 	end
 
 	local hasClickFunctionality = props.OnClick or props.OnRightClick
@@ -151,9 +157,7 @@ function Pane:render()
 		props[Roact.Event.MouseButton2Click] = props.OnRightClick
 	end
 	if hasClickFunctionality and not style.Image then
-		if FFlagDevFrameworkRefactorExpandablePaneHeader then
-			props.AutoButtonColor = false
-		end
+		props.AutoButtonColor = false
 		props.Text = ""
 	end
 
@@ -188,6 +192,10 @@ function Pane:render()
 		})
 	end
 
+	if FFlagDevFrameworkForwardRef and props.ForwardRef then
+		defaultProps[Roact.Ref] = props.ForwardRef
+	end
+
 	local componentProps = omit(join(defaultProps, props), {
 		Roact.Children,
 		"StyleModifier",
@@ -204,16 +212,19 @@ function Pane:render()
 		"OnClick",
 		"OnRightClick",
 		"OnPress",
+		FFlagDevFrameworkForwardRef and "ForwardRef" or nil,
 	})
+
+	if componentProps.Transparency ~= nil then
+		print(className .. " has Transparency prop with value " .. tostring(componentProps.Transparency))
+	end
 
 	return Roact.createElement(className, componentProps, children)
 end
-
 
 Pane = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(Pane)
 
-
-return Pane
+return if FFlagDevFrameworkForwardRef then withForwardRef(Pane) else Pane

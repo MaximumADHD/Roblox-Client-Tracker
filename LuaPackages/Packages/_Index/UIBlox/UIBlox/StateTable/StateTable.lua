@@ -103,8 +103,10 @@ function StateTable.new(name, initialState, initialContext, transitionTable)
 				validateStateTableItem(nextState, "nextState")
 
 				-- Check that the transition lands on a known state
-				assert(transitionTable[nextState] ~= nil,
-					string.format("nextState '%s' does not exist in transitionTable", tostring(nextState)))
+				assert(
+					transitionTable[nextState] ~= nil,
+					string.format("nextState '%s' does not exist in transitionTable", tostring(nextState))
+				)
 			end
 
 			assert(action == nil or typeof(action) == "function", "action must be a function")
@@ -125,9 +127,8 @@ function StateTable.new(name, initialState, initialContext, transitionTable)
 	-- catch calls to invalid events earlier
 	setmetatable(self.events, {
 		__index = function(_, event)
-			error(string.format("'%s' is not a valid event in StateTable '%s'",
-				tostring(event), self.name), 2)
-		end
+			error(string.format("'%s' is not a valid event in StateTable '%s'", tostring(event), self.name), 2)
+		end,
 	})
 
 	return self
@@ -187,8 +188,10 @@ end
 	handler associated with the event transition.
 ]]
 function StateTable:onStateChange(stateChangeHandler)
-	assert(stateChangeHandler == nil or typeof(stateChangeHandler) == "function",
-		"stateChangeHandler must be nil or a function")
+	assert(
+		stateChangeHandler == nil or typeof(stateChangeHandler) == "function",
+		"stateChangeHandler must be nil or a function"
+	)
 	self.stateChangeHandler = stateChangeHandler
 end
 

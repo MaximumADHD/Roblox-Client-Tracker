@@ -1,7 +1,8 @@
 return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
-	local dependencies = require(SocialLibraries.dependencies)
-	local tutils = dependencies.tutils
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local populateListFromIds = require(script.Parent.populateListFromIds)
 
 	describe("GIVEN a list of keys with single ids", function()
@@ -15,7 +16,7 @@ return function()
 		local result = populateListFromIds(target, source)
 
 		it("SHOULD return a new map with all ids replaced with their sources", function()
-			expect(tutils.shallowEqual(result, { barSource, worldSource })).to.equal(true)
+			jestExpect(result).toEqual({ barSource, worldSource })
 		end)
 	end)
 
@@ -36,7 +37,8 @@ return function()
 			local expected = {
 				{ barSource, helloSource, worldSource }
 			}
-			expect(tutils.deepEqual(result, expected)).to.equal(true)
+
+			jestExpect(result).toEqual(expected)
 		end)
 	end)
 end

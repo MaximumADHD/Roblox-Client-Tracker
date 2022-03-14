@@ -8,8 +8,9 @@ return function()
 		for _, key in ipairs(keys) do
 			local focusableComponent = focusableCache[key]
 			expect(focusableComponent).never.to.equal(nil)
-			-- We don't really have a good way to verify types right now
-			expect(typeof(focusableComponent.render)).to.equal("function")
+			-- We don't really have a good way to verify types right now; we
+			-- expect this function to have been created by Roact.forwardRef
+			expect(typeof(focusableComponent)).to.equal("function")
 		end
 	end)
 

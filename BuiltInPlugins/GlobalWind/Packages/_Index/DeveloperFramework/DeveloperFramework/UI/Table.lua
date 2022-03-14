@@ -37,7 +37,6 @@
 ]]
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
 
@@ -55,6 +54,7 @@ local Dash = require(Framework.packages.Dash)
 local map = Dash.map
 local collect = Dash.collect
 local reduce = Dash.reduce
+local some = Dash.some
 
 local Pane = require(Framework.UI.Pane)
 local InfiniteScrollingFrame = require(Framework.UI.InfiniteScrollingFrame)
@@ -108,21 +108,36 @@ function Table:init()
 			self.props.OnRightClickRow(rowProps)
 		end
 	end
-		
+	self:_flushRenderRow()
+	self.getDefaultRowKey = function(row)
+		return "Row " .. (self.rowToIndex[row] or tostring(row))
+	end
+	self.onSizeChange = function(rbx)
+		local props = self.props
+		local style = props.Stylizer
+		local footerHeight = props.Footer and style.FooterHeight or 0
+		-- Adjustment so as not to cut off the last row
+		local listPadding = 5
+		local listHeight = rbx.AbsoluteSize.Y - (style.HeaderHeight + footerHeight) - listPadding
+		self.props.OnSizeChange(listHeight)
+	end
+end
+
+function Table:_flushRenderRow()
 	self.onRenderRow = function(row)
 		-- Infinite scroller doesn't track row indices, so store this in Table
 		local rowIndex = self.rowToIndex[row]
 		local props = self.props
 		local RowComponent = self.props.RowComponent or TableRow
 		local isHighlightedRow = false
-		if FFlagDevFrameworkHighlightTableRows and props.HighlightedRows then
+		if props.HighlightedRows then
 			for _, currRow in ipairs(props.HighlightedRows) do
 				if Util.deepEqual(currRow, row.item) then
 					isHighlightedRow = true
 				end
 			end
 		end
-		
+
 		return Roact.createElement(RowComponent, {
 			CellProps = self.props.CellProps,
 			CellComponent = self.props.CellComponent,
@@ -137,26 +152,25 @@ function Table:init()
 			OnDoubleClick = (FFlagDevFrameworkDoubleClick and self.props.OnDoubleClick and self.onDoubleClick) or nil,
 			OnRightClick = self.onRightClickRow,
 			FullSpan = props.FullSpan,
-			HighlightRow = (FFlagDevFrameworkHighlightTableRows and isHighlightedRow) or nil,
+			HighlightRow = isHighlightedRow,
 		})
-	end
-	self.getDefaultRowKey = function(row)
-		return "Row " .. (self.rowToIndex[row] or tostring(row))
-	end
-	self.onSizeChange = function(rbx)
-		local props = self.props
-		local style = props.Stylizer
-		local footerHeight = props.Footer and style.FooterHeight or 0
-		-- Adjustment so as not to cut of the last row
-		local listPadding = 5
-		local listHeight = rbx.AbsoluteSize.Y - (style.HeaderHeight + footerHeight) - listPadding
-		self.props.OnSizeChange(listHeight)
 	end
 end
 
 function Table:willUpdate(nextProps)
-	if self.props.Rows ~= nextProps.Rows then
+	local props = self.props
+	if props.Rows ~= nextProps.Rows then
 		self:calculateRowIndices(nextProps.Rows)
+	end
+	if hasTableColumnResizeFFlags and props.Columns ~= nextProps.Columns then
+		local changedColumnCount = #props.Columns ~= #nextProps.Columns
+		local changedColumnWidth = some(props.Columns, function(column, index: number)
+			local nextColumn = nextProps.Columns[index]
+			return nextColumn.Width ~= column.Width
+		end)
+		if changedColumnCount or changedColumnWidth then
+			self:_flushRenderRow()
+		end
 	end
 end
 
@@ -167,6 +181,7 @@ function Table:calculateRowIndices(rows)
 end
 
 function Table:renderResizableHeadings()
+	
 	local props = self.props
 	local style = props.Stylizer
 	local sizes = map(props.Columns, function(column: Column)

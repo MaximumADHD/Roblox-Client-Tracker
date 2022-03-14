@@ -83,7 +83,6 @@ function SplitPane:init()
 		local isForwards = (not props.ClampSize) or offset >= self.prevOffset
 		local draggingPaneIndex = self.currentDragIndex
 		self.prevOffset = offset
-
 		-- If the offset is decreasing, reverse the order we update the sizes in so that panes
 		-- in front of the drag direction get squashed while the one directly behind expands
 		if not isForwards then
@@ -100,14 +99,12 @@ function SplitPane:init()
 		self.scrollingFrames = filter(self.ref.current:GetDescendants(), function(instance: Instance)
 			return instance.ClassName == "ScrollingFrame"
 		end)
-
 		forEach(self.scrollingFrames, function(frame: ScrollingFrame)
 			frame.ScrollingEnabled = false
 		end)
 	end
 	self.onEndDrag = function()
 		self.currentDragIndex = nil
-
 		forEach(self.scrollingFrames, function(frame: ScrollingFrame)
 			frame.ScrollingEnabled = true
 		end)
@@ -149,7 +146,7 @@ function SplitPane:render()
 		Layout = props.Layout or Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		Style = props.PaneStyle,
+		Style = props.PaneStyle or "Box",
 		Size = props.Size,
 		Position = props.Position,
 		[Roact.Ref] = self.ref,

@@ -23,7 +23,7 @@ local Interactable = require(Core.Control.Interactable)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
 local validateImage = require(Core.ImageSet.Validator.validateImage)
 
-local withStyle = require(UIBlox.Style.withStyle)
+local withStyle = require(UIBlox.Core.Style.withStyle)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 
 local FULLY_TRANSPARENT = 1
@@ -64,7 +64,7 @@ MenuTile.validateProps = t.strictInterface({
 
 	-- Menu Tile specific props
 	badgeValue = t.optional(t.union(t.string, t.number)),
-	icon = validateImage,
+	icon = t.optional(validateImage),
 	title = t.string,
 	onActivated = t.callback,
 })

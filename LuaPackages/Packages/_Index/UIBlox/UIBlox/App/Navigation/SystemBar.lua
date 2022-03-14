@@ -12,6 +12,7 @@ local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImageSetData = require(UIBlox.Core.ImageSet.Validator.validateImageSetData)
 local Badge = require(UIBlox.App.Indicator.Badge)
+local BadgeStates = require(UIBlox.App.Indicator.Enum.BadgeStates)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
 local getIconSize = require(UIBlox.App.ImageSet.getIconSize)
 
@@ -40,6 +41,8 @@ local ICON_TRANSPARENCY = 0
 local ICON_TRANSPARENCY_HOVERED = 0.5
 local BADGE_POSITION_X = 18
 local BADGE_POSITION_Y = -2
+local EMPTY_BADGE_POSITION_X = 22
+local EMPTY_BADGE_POSITION_Y = 2
 
 local MAX_SIZE_PORTRAIT_X = 600
 local TAB_SIZE_PORTRAIT_Y = 48
@@ -77,7 +80,7 @@ SystemBar.validateProps = t.strictInterface({
 		-- action when clicking on this item
 		onActivated = t.callback,
 		-- number to display as badge next to the icon
-		badgeValue = t.optional(t.union(t.integer, t.string)),
+		badgeValue = t.optional(t.union(t.integer, t.string, BadgeStates.isEnumValue)),
 	})),
 	-- index of the currently selected item
 	selection = t.optional(t.integer),
@@ -136,7 +139,11 @@ function SystemBar:renderItem(item, state, selected)
 	local hasBadge
 	if UIBloxConfig.allowSystemBarToAcceptString then
 		if item.badgeValue then
-			hasBadge = (t.string(item.badgeValue) and true) or item.badgeValue > 0
+			if item.badgeValue == BadgeStates.isEmpty then
+				hasBadge = true
+			else
+				hasBadge = (t.string(item.badgeValue) and true) or item.badgeValue > 0
+			end
 		else
 			hasBadge = false
 		end
@@ -171,7 +178,9 @@ function SystemBar:renderItem(item, state, selected)
 				ImageTransparency = pressed and ICON_TRANSPARENCY_HOVERED or ICON_TRANSPARENCY,
 			}, {
 				Badge = hasBadge and Roact.createElement(Badge, {
-					position = UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
+					position = item.badgeValue == BadgeStates.isEmpty
+						and UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
+						or UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
 					value = item.badgeValue,
 				}) or nil,
 			})

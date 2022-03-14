@@ -12,16 +12,17 @@ local SliderTextInput = require(Slider.SliderTextInput)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 local validateStyle = require(App.Style.Validator.validateStyle)
 
-local function wrapStyle(component)
-	return function(props)
+local function wrapStyleAndRef(component)
+	return Roact.forwardRef(function(props, ref)
 		return withStyle(function(style)
 			local joinedProps = Cryo.Dictionary.join(props, {
 				style = style,
+				forwardedRef = ref,
 			})
 
 			return Roact.createElement(component, joinedProps)
 		end)
-	end
+	end)
 end
 
 local function makeAppOneKnobSlider(trackFillThemeKey)
@@ -43,7 +44,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		anchorPoint = t.optional(t.Vector2),
 		layoutOrder = t.optional(t.integer),
 
-		[Roact.Ref] = t.optional(t.table),
+		forwardedRef = t.optional(t.table),
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
 		--Internal Only - Don't Pass In
@@ -69,7 +70,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 			onDragStartLower = props.onDragStart,
 			onDragEnd = props.onDragEnd,
 			style = props.style,
-			[Roact.Ref] = props[Roact.Ref],
+			forwardedRef = props.forwardedRef,
 			NextSelectionUp = props.NextSelectionUp,
 			NextSelectionDown = props.NextSelectionDown,
 		}
@@ -109,7 +110,7 @@ local function makeAppOneKnobSlider(trackFillThemeKey)
 		end
 	end
 
-	return wrapStyle(oneKnobAppSliderComponent)
+	return wrapStyleAndRef(oneKnobAppSliderComponent)
 end
 
 return makeAppOneKnobSlider

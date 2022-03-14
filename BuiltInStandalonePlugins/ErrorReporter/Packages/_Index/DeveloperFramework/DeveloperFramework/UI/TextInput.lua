@@ -6,6 +6,7 @@
 	Descended from TextEntry in UILibrary and LabeledTextInput in TerrainTools.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		boolean Enabled: Whether the input is editable. Defaults to true.
 		number LayoutOrder: The layout order of this component in a list.
 		boolean ForceOnTextChange: Whether or not to always run the textChange function regardless of difference in text shown
@@ -40,6 +41,8 @@
 		number TextSize: The font size of the text.
 		Color3 TextColor: The color of the search term text.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 
@@ -51,6 +54,8 @@ local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
+
 local Container = require(Framework.UI.Container)
 local RoundBox = require(Framework.UI.RoundBox)
 local StyleModifier = require(Framework.Util.StyleModifier)
@@ -58,14 +63,13 @@ local StyleModifier = require(Framework.Util.StyleModifier)
 local TextInput = Roact.PureComponent:extend("TextInput")
 Typecheck.wrap(TextInput, script)
 
-game:DefineFastFlag("AllowInputObjOnFocusLost", false)
 game:DefineFastFlag("AllowTextInputTextXAlignment", false)
 
 local FFlagAllowTextInputTextXAlignment = game:GetFastFlag("AllowTextInputTextXAlignment")
 
 function TextInput:init()
-	self.textBoxRef = self.props[Roact.Ref] or Roact.createRef()
-
+	self.textBoxRef = (if FFlagDevFrameworkForwardRef then self.props.ForwardRef else self.props[Roact.Ref]) or Roact.createRef()
+	
 	self.isHover = false
 	self.isFocused = false
 
@@ -147,11 +151,7 @@ function TextInput:init()
 		end
 
 		if self.props.OnFocusLost then
-			if game:GetFastFlag("AllowInputObjOnFocusLost") then
-				self.props.OnFocusLost(enterPressed, rbx)
-			else 
-				self.props.OnFocusLost(enterPressed)
-			end
+			self.props.OnFocusLost(enterPressed, rbx)
 		end
 	end
 
@@ -256,12 +256,9 @@ function TextInput:render()
 	})
 end
 
-
 TextInput = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(TextInput)
 
-
-
-return TextInput
+return if FFlagDevFrameworkForwardRef then withForwardRef(TextInput) else TextInput

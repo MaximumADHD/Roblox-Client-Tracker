@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local populateDictionaryFromIds = require(script.Parent.populateDictionaryFromIds)
 
 	describe("GIVEN a dictionary of keys with single ids", function()
@@ -15,8 +19,10 @@ return function()
 		local result = populateDictionaryFromIds(target, source)
 
 		it("SHOULD return a new map with all ids replaced with their sources", function()
-			expect(result.foo).to.equal(barSource)
-			expect(result.hello).to.equal(worldSource)
+			jestExpect(result).toEqual({
+				foo = barSource,
+				hello = worldSource,
+			})
 		end)
 	end)
 
@@ -24,7 +30,7 @@ return function()
 		local barId, helloId, worldId = "barId", "helloId", "worldId"
 		local barSource, helloSource, worldSource = "barSource", "helloSource", "worldSource"
 		local target = {
-			foo = {barId, helloId, worldId}
+			foo = { barId, helloId, worldId },
 		}
 		local source = {
 			[barId] = barSource,
@@ -34,10 +40,7 @@ return function()
 		local result = populateDictionaryFromIds(target, source)
 
 		it("SHOULD return a new map with all ides replaced with their sources", function()
-			expect(result.foo[1]).to.equal(barSource)
-			expect(result.foo[2]).to.equal(helloSource)
-			expect(result.foo[3]).to.equal(worldSource)
+			jestExpect(result).toEqual({ foo = { barSource, helloSource, worldSource } })
 		end)
 	end)
-
 end

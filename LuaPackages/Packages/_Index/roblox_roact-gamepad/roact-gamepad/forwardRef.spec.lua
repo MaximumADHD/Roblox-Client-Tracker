@@ -2,15 +2,15 @@ return function()
 	local Packages = script.Parent.Parent
 	local Roact = require(Packages.Roact)
 
-	local forwardRef = require(script.Parent.forwardRef)
 	local createSpy = require(script.Parent.Test.createSpy)
 
-	it("should provide a valid ref to the given function when none is passed in", function()
+	-- In Roact, no default ref is provided when we use forwardRef
+	xit("should provide a valid ref to the given function when none is passed in", function()
 		local internalComponentSpy = createSpy(function(props, ref)
 			return nil
 		end)
 
-		local Component = forwardRef(internalComponentSpy.value)
+		local Component = Roact.forwardRef(internalComponentSpy.value)
 
 		expect(internalComponentSpy.callCount).to.equal(0)
 
@@ -33,7 +33,7 @@ return function()
 			return nil
 		end)
 
-		local Component = forwardRef(internalComponentSpy.value)
+		local Component = Roact.forwardRef(internalComponentSpy.value)
 
 		expect(internalComponentSpy.callCount).to.equal(0)
 

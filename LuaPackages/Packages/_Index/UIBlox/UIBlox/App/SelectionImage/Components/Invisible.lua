@@ -8,6 +8,6 @@ return function(props)
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, 0, 1, 0),
 
-		[Roact.Ref] = props[Roact.Ref],
+		[Roact.Ref] = props.cursorRef,
 	})
 end

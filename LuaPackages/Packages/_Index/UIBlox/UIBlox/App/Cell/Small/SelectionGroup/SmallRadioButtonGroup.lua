@@ -6,10 +6,10 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local withSelectionCursorProvider = require(UIBlox.App.SelectionImage.withSelectionCursorProvider)
 local CursorKind = require(UIBlox.App.SelectionImage.CursorKind)
 
@@ -19,15 +19,15 @@ local SmallRadioButtonGroup = Roact.PureComponent:extend("SmallRadioButtonGroup"
 
 local buttonInterface = t.strictInterface({
 	text = t.string,
-	key = t.string,
+	id = t.string,
 	isDisabled = t.optional(t.boolean),
 })
 
 SmallRadioButtonGroup.validateProps = t.strictInterface({
-	-- List of text, key pairs that will be used for each radio button.
+	-- List of text, identifier pairs that will be used for each radio button.
 	items = t.optional(t.array(t.tuple(buttonInterface))),
 
-	-- Which key is currently selected.
+	-- Which identifier is currently selected.
 	selectedValue = t.optional(t.string),
 
 	-- Callback for when a cell is activated.
@@ -44,7 +44,7 @@ SmallRadioButtonGroup.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 })
 
 SmallRadioButtonGroup.defaultProps = {
@@ -64,37 +64,26 @@ function SmallRadioButtonGroup:render()
 		Padding = UDim.new(0, 1),
 	})
 	for index, button in ipairs(self.props.items) do
-		if UIBloxConfig.enableExperimentalGamepadSupport then
-			smallRadioButtonCellGroup["smallRadioButtonCell"..button.key] =
-				withSelectionCursorProvider(function(getSelectionCursor)
-				return Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
-					key = button.key,
-					text = button.text,
-					onActivated = self.props.onActivated,
-					isSelected = self.props.selectedValue == button.key,
-					isDisabled = button.isDisabled,
-					layoutOrder = index,
-					useDefaultControlState = self.props.useDefaultControlState,
-
-					[Roact.Ref] = self.gamepadRefs[index],
-					NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
-					NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
-					SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
-				})
-			end)
-		else
-			smallRadioButtonCellGroup["smallRadioButtonCell"..button.key] = Roact.createElement(SmallRadioButtonCell, {
-				key = button.key,
+		smallRadioButtonCellGroup["smallRadioButtonCell"..button.id] =
+			withSelectionCursorProvider(function(getSelectionCursor)
+			return Roact.createElement(RoactGamepad.Focusable[SmallRadioButtonCell], {
+				id = button.id,
 				text = button.text,
 				onActivated = self.props.onActivated,
-				isSelected = self.props.selectedValue == button.key,
+				isSelected = self.props.selectedValue == button.id,
 				isDisabled = button.isDisabled,
 				layoutOrder = index,
+				useDefaultControlState = self.props.useDefaultControlState,
+
+				[Roact.Ref] = self.gamepadRefs[index],
+				NextSelectionUp = index > 1 and self.gamepadRefs[index - 1] or nil,
+				NextSelectionDown = index < #self.props.items and self.gamepadRefs[index + 1] or nil,
+				SelectionImageObject = getSelectionCursor(CursorKind.SelectionCell),
 			})
-		end
+		end)
 	end
 
-	local gamepadEnabled = (UIBloxConfig.enableExperimentalGamepadSupport and self.props.items and #self.props.items > 0)
+	local gamepadEnabled = self.props.items and #self.props.items > 0
 
 	return Roact.createElement(gamepadEnabled and RoactGamepad.Focusable.Frame or "Frame", {
 		defaultChild = gamepadEnabled and self.gamepadRefs[1] or nil,
@@ -105,8 +94,13 @@ function SmallRadioButtonGroup:render()
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionDown = self.props.NextSelectionDown,
 		NextSelectionUp = self.props.NextSelectionUp,
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = self.props.frameRef,
 	}, smallRadioButtonCellGroup)
 end
 
-return SmallRadioButtonGroup
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(SmallRadioButtonGroup, Cryo.Dictionary.join(
+		props,
+		{frameRef = ref}
+	))
+end)

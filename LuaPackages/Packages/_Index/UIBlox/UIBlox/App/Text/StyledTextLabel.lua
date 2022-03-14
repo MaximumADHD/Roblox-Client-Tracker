@@ -36,6 +36,7 @@ StyledTextLabel.validateProps = t.strictInterface({
 	fluidSizing = t.optional(t.boolean),
 
 	automaticSize = t.optional(t.EnumItem),
+	lineHeight = t.optional(t.number),
 })
 
 StyledTextLabel.defaultProps = {
@@ -62,7 +63,7 @@ function StyledTextLabel:render()
 		LayoutOrder = self.props.layoutOrder,
 		RichText = self.props.richText,
 		AutomaticSize = self.props.automaticSize,
-		LineHeight = DEFAULT_LINE_HEIGHT,
+		LineHeight = self.props.lineHeight or DEFAULT_LINE_HEIGHT,
 	})
 end
 

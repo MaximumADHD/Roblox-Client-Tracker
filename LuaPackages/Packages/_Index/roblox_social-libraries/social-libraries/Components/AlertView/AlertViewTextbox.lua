@@ -2,6 +2,7 @@ local SocialLibraries = script:FindFirstAncestor("social-libraries")
 local dependencies = require(SocialLibraries.dependencies)
 local Roact = dependencies.Roact
 local UIBlox = dependencies.UIBlox
+local Cryo = dependencies.Cryo
 local Images = require(script.Parent.Images)
 
 local SOME_SORT_OF_WHITE_COLOR = Color3.fromRGB(200, 200, 200)
@@ -60,10 +61,14 @@ function AlertViewTextbox:render()
 					end
 				end,
 
-				[Roact.Ref] = self.props[Roact.Ref],
+				[Roact.Ref] = self.props.forwardRef,
 			})
 		})
 	end)
 end
 
-return AlertViewTextbox
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(AlertViewTextbox, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

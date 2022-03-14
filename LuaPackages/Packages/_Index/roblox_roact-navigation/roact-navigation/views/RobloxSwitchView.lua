@@ -49,7 +49,7 @@ function RobloxSwitchView:render()
 			screenElements["card_" .. key] = Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
-				ClipsDescendants = true,
+				ClipsDescendants = false,
 				BorderSizePixel = 0,
 				Visible = isActiveKey,
 			}, {

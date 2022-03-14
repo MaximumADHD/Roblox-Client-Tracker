@@ -14,7 +14,7 @@ SpinningImage.validateProps = t.strictInterface({
 	image = t.table,
 	size = t.optional(t.UDim2),
 	anchorPoint = t.optional(t.Vector2),
-	position = t.optional(t.UDim2),
+	position = t.optional(t.union(t.UDim2, t.table)),
 	rotationRate = t.optional(t.number),
 })
 

@@ -1,6 +1,9 @@
 return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local Roact = dependencies.Roact
 	local AvatarCircle = require(script.Parent.AvatarCircle)
@@ -32,7 +35,7 @@ return function()
 			}
 		}))
 
-		expect(CountHeadshots(elementContainer:FindFirstChild("center", true).elementContainer)).to.equal(1)
+		jestExpect(CountHeadshots(elementContainer:FindFirstChild("center", true).elementContainer)).toBe(1)
 
 		cleanup()
 	end)
@@ -46,8 +49,8 @@ return function()
 				}
 			}))
 
-			expect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).to.equal(1)
-			expect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).to.equal(1)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).toBe(1)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).toBe(1)
 
 			cleanup()
 		end
@@ -63,8 +66,8 @@ return function()
 				}
 			}))
 
-			expect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).to.equal(2)
-			expect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).to.equal(1)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).toBe(2)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).toBe(1)
 
 			cleanup()
 		end
@@ -81,8 +84,8 @@ return function()
 				}
 			}))
 
-			expect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).to.equal(2)
-			expect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).to.equal(2)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("right", true).elementContainer)).toBe(2)
+			jestExpect(CountHeadshots(elementContainer:FindFirstChild("left", true).elementContainer)).toBe(2)
 
 			cleanup()
 		end

@@ -57,6 +57,8 @@ function Transitioner:init()
 	local navigationState = self.props.navigation.state
 	local descriptors = self.props.descriptors
 
+	self._ref = Roact.createRef()
+
 	self.state = {
 		-- Layout is passed to StackViewLayout in order to allow it to
 		-- sync animations.
@@ -120,6 +122,12 @@ function Transitioner:willUnmount()
 end
 
 function Transitioner:didUpdate(prevProps)
+	-- AbsoluteSize change event may never fire if the frame is off screen
+	-- So ensure that we calculate layout at least once
+	if not self.state.layout.isMeasured and self._ref.current then
+		self:_onAbsoluteSizeChanged(self._ref.current)
+	end
+
 	-- React-navigation uses componentWillReceiveProps that is only called when Parent
 	-- re-renders or when this component is actually being given new props, so we need to
 	-- filter here. If not, this would trigger on setState and enter an infinite loop.
@@ -143,16 +151,24 @@ function Transitioner:render()
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		ClipsDescendants = true,
+		ClipsDescendants = false,
 		[Roact.Change.AbsoluteSize] = self._doOnAbsoluteSizeChanged,
+		[Roact.Ref] = self._ref,
 	}, {
 		["TransitionerScenes"] = self.props.render(
-			self._transitionProps, self._prevTransitionProps),
+			self._transitionProps,
+			self._prevTransitionProps,
+			self -- last arg is used only for tests
+		),
 	})
 end
 
 -- equivalent to React-Nav's Transitioner._onLayout
 function Transitioner:_onAbsoluteSizeChanged(rbx)
+	if not self._isMounted then
+		return
+	end
+
 	local width = rbx.AbsoluteSize.X
 	local height = rbx.AbsoluteSize.Y
 

@@ -14,7 +14,7 @@ local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local ASSET_NAME = "component_assets/circle_69_stroke_3"
 
 local validateProps = t.strictInterface({
-	[Roact.Ref] = t.table,
+	cursorRef = t.table,
 	isVisible = t.boolean
 })
 
@@ -31,7 +31,7 @@ return function(props)
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 1, 0),
 
-			[Roact.Ref] = props[Roact.Ref],
+			[Roact.Ref] = props.cursorRef,
 		}, {
 			AnimatedGradient = (UIBloxConfig.useAnimatedXboxCursors and props.isVisible)
 				and Roact.createElement(AnimatedGradient) or nil

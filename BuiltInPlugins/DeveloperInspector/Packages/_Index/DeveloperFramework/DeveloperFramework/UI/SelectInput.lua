@@ -12,6 +12,7 @@
 		string PlaceholderText: A placeholder to display if there is no item selected.
 		callback OnRenderItem: A function used to render a dropdown menu item.
 		number SelectedIndex: The currently selected item index.
+		UDim2 Size: The size of the input component.
 		Style Style: The style with which to render this component.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 		Theme Theme: a Theme object supplied by withContext()
@@ -24,8 +25,7 @@
 		Color3 ArrowColor: The color of the dropdown arrow image.
 		Color3 PlaceholderTextColor: The color of the dropdown placeholder text.
 ]]
-local FFlagRemoveUILibraryDetailedDropdown = game:GetFastFlag("RemoveUILibraryDetailedDropdown")
-local FFlagRemoveUILibraryStyledDropdownPt1 = game:GetFastFlag("RemoveUILibraryStyledDropdownPt1")
+local FFlagStudioExplainFriendCollaboratorPermission2 = game:GetFastFlag("StudioExplainFriendCollaboratorPermission2")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -73,7 +73,7 @@ function SelectInput:init()
 
 	self.onInputBegan = function(rbx, input)
 		local isMainPress = isInputMainPress(input)
-		if isMainPress and ((FFlagRemoveUILibraryDetailedDropdown and self.props.Enabled == true) or not FFlagRemoveUILibraryDetailedDropdown) then
+		if isMainPress and self.props.Enabled == true then
 			self:setState({
 				isOpen = true
 			})
@@ -81,7 +81,7 @@ function SelectInput:init()
 	end
 
 	self.focusLost = function()
-		if (FFlagRemoveUILibraryDetailedDropdown and self.props.Enabled == true) or not FFlagRemoveUILibraryDetailedDropdown then
+		if self.props.Enabled == true then
 			self:setState({
 				isOpen = false
 			})
@@ -109,7 +109,13 @@ function SelectInput:render()
 
 	local backgroundStyle = style.BackgroundStyle
 	local selectedIndex = props.SelectedIndex
-	local itemText = selectedIndex and items[selectedIndex] or props.PlaceholderText
+	local itemText
+	if FFlagStudioExplainFriendCollaboratorPermission2 then
+		local item = if selectedIndex then items[selectedIndex] else nil
+		itemText = if item then (if type(item) == "table" then item.Label else item) else props.PlaceholderText
+	else
+		itemText = selectedIndex and items[selectedIndex] or props.PlaceholderText
+	end
 
 	local SelectedItemText = itemText and Roact.createElement(TextLabel, {
 		Text = itemText,
@@ -148,7 +154,7 @@ function SelectInput:render()
 			Items = items,
 			OnFocusLost = self.focusLost,
 			OnItemActivated = props.OnItemActivated,
-			OnRenderItem = (FFlagRemoveUILibraryStyledDropdownPt1 or FFlagRemoveUILibraryDetailedDropdown) and props.OnRenderItem or nil,
+			OnRenderItem = props.OnRenderItem,
 			Style = style.DropdownMenu,
 		})
 	})

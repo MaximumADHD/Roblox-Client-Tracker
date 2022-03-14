@@ -24,9 +24,6 @@ local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-local enableAlertTitleIconConfig = UIBloxConfig.enableAlertTitleIconConfig
-local enableAlertCustomTitleFooterConfig = UIBloxConfig.enableAlertCustomTitleFooterConfig
 local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
 
 local InteractiveAlert = Roact.PureComponent:extend("InteractiveAlert")
@@ -40,18 +37,18 @@ local validateProps = t.strictInterface({
 	onAbsoluteSizeChanged = t.optional(t.callback),
 
 	title = t.string,
-	titleIcon = enableAlertTitleIconConfig and t.optional(t.union(t.table, t.string)) or nil,
-	titleContent = enableAlertCustomTitleFooterConfig and t.optional(t.callback) or nil,
+	titleIcon = t.optional(t.union(t.table, t.string)),
+	titleContent = t.optional(t.callback),
 	bodyText = t.optional(t.string),
 	middleContent = t.optional(t.callback),
 	buttonStackInfo = validateButtonStack,
-	footerText = enableAlertCustomTitleFooterConfig and t.optional(t.string) or nil,
-	footerContent = enableAlertCustomTitleFooterConfig and t.optional(t.callback) or nil,
+	footerText = t.optional(t.string),
+	footerContent = t.optional(t.callback),
 
 	--Gamepad props
 	defaultChildRef = t.optional(t.table),
 	isMiddleContentFocusable = t.optional(t.boolean),
-	isFooterContentFocusable = enableAlertCustomTitleFooterConfig and t.optional(t.boolean) or nil,
+	isFooterContentFocusable = t.optional(t.boolean),
 })
 
 function InteractiveAlert:render()

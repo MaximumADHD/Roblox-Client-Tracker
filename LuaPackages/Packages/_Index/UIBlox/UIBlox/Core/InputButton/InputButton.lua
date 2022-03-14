@@ -40,7 +40,7 @@ local validateProps = t.strictInterface({
 	onActivated = t.callback,
 	isDisabled = t.optional(t.boolean),
 	layoutOrder = t.optional(t.number),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 	SelectionImageObject = t.optional(t.table),
 })
 
@@ -154,7 +154,7 @@ function InputButton:render()
 				height = useAutomaticSizing and UDim.new(0, SELECTION_BUTTON_SIZE) or nil,
 				BackgroundTransparency = 1,
 				LayoutOrder = self.props.layoutOrder,
-				[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props[Roact.Ref] or nil,
+				[Roact.Ref] = UIBloxConfig.useUpdatedCheckbox and self.props.frameRef or nil,
 				SelectionImageObject = UIBloxConfig.useUpdatedCheckbox and self.props.SelectionImageObject or nil,
 				inputBindings = UIBloxConfig.useUpdatedCheckbox and {
 					Activated = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, self.props.onActivated),
@@ -221,4 +221,8 @@ function InputButton:render()
 	end)
 end
 
-return InputButton
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(InputButton, Cryo.Dictionary.join(props, {
+		frameRef = ref
+	}))
+end)

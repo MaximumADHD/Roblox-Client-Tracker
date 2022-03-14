@@ -8,13 +8,14 @@ local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
-local withStyle = require(UIBlox.Core.Style.withStyle)
 
+local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(UIBlox.App.ImageSet.Images)
 
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
-
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- Additional width for keys with centered text like [Backspace], [Enter], etc
 local CENTERED_EXTRA_WIDTH = 14 * 2
@@ -24,13 +25,52 @@ local OFF_CENTER_PADDING = 9
 
 local TEXT_CENTER_OFFSET = -1
 
-local KEY_LABEL_HEIGHT = 36
+local DEFAULT_KEY_LABEL_SIZE = require(script.Parent.MenuConstants).DefaultKeyLabelSize
 
 -- Big and small font sizes for key text.
 local BIG = "CaptionHeader"
 local SMALL = "Footer"
 
-local CONTENT_OVERRIDE_MAP = {
+local GAMEPAD_AXIS_OVERRIDE_MAP = {
+	[Enum.KeyCode.Thumbstick1] = {
+		directional = Images["icons/controls/keys/xboxLSDirectional"],
+		horizontal = Images["icons/controls/keys/xboxLSHorizontal"],
+		vertical = Images["icons/controls/keys/xboxLSVertical"],
+	},
+	[Enum.KeyCode.Thumbstick2] = {
+		directional = Images["icons/controls/keys/xboxRSDirectional"],
+		horizontal = Images["icons/controls/keys/xboxRSHorizontal"],
+		vertical = Images["icons/controls/keys/xboxRSVertical"],
+	},
+}
+
+local GAMEPAD_OVERRIDE_MAP = {
+	[Enum.KeyCode.ButtonX] = Images["icons/controls/keys/xboxX"],
+	[Enum.KeyCode.ButtonY] = Images["icons/controls/keys/xboxY"],
+	[Enum.KeyCode.ButtonA] = Images["icons/controls/keys/xboxA"],
+	[Enum.KeyCode.ButtonB] = Images["icons/controls/keys/xboxB"],
+
+	[Enum.KeyCode.DPadLeft] = Images["icons/controls/keys/dpadLeft"],
+	[Enum.KeyCode.DPadRight] = Images["icons/controls/keys/dpadRight"],
+	[Enum.KeyCode.DPadUp] = Images["icons/controls/keys/dpadUp"],
+	[Enum.KeyCode.DPadDown] = Images["icons/controls/keys/dpadDown"],
+
+	[Enum.KeyCode.ButtonStart] = Images["icons/controls/keys/xboxmenu"],
+	[Enum.KeyCode.ButtonSelect] = Images["icons/controls/keys/xboxView"],
+
+	[Enum.KeyCode.ButtonR1] = Images["icons/controls/keys/xboxRB"],
+	[Enum.KeyCode.ButtonL1] = Images["icons/controls/keys/xboxLB"],
+	[Enum.KeyCode.ButtonR2] = Images["icons/controls/keys/xboxRT"],
+	[Enum.KeyCode.ButtonL2] = Images["icons/controls/keys/xboxLT"],
+	[Enum.KeyCode.ButtonR3] = Images["icons/controls/keys/xboxRS"],
+	[Enum.KeyCode.ButtonL3] = Images["icons/controls/keys/xboxLS"],
+
+	-- Thumbstick defaults
+	[Enum.KeyCode.Thumbstick1] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick1].directional,
+	[Enum.KeyCode.Thumbstick2] = GAMEPAD_AXIS_OVERRIDE_MAP[Enum.KeyCode.Thumbstick2].directional,
+}
+
+local KEYBOARD_OVERRIDE_MAP = {
 	[Enum.KeyCode.Escape] = {text = "ESC", fontKey = SMALL, width = 36},
 	[Enum.KeyCode.Space] = {text = "Space", width = 92},
 	[Enum.KeyCode.LeftShift] = {text = "Shift", width = 66, alignment = Enum.TextXAlignment.Left},
@@ -46,23 +86,39 @@ local CONTENT_OVERRIDE_MAP = {
 	[Enum.KeyCode.F10] = {fontKey = BIG, width = 36},
 	[Enum.KeyCode.F11] = {fontKey = BIG, width = 36},
 
-	[Enum.KeyCode.Up] = {image = Images["icons/controls/keys/arrowDown"]},
-	[Enum.KeyCode.Down] = {image = Images["icons/controls/keys/arrowLeft"]},
-	[Enum.KeyCode.Left] = {image = Images["icons/controls/keys/arrowRight"]},
-	[Enum.KeyCode.Right] = {image = Images["icons/controls/keys/arrowUp"]},
+	[Enum.KeyCode.Up] = {image = Images["icons/controls/keys/arrowUp"]},
+	[Enum.KeyCode.Down] = {image = Images["icons/controls/keys/arrowDown"]},
+	[Enum.KeyCode.Left] = {image = Images["icons/controls/keys/arrowLeft"]},
+	[Enum.KeyCode.Right] = {image = Images["icons/controls/keys/arrowRight"]},
 }
 
 local KeyLabel = Roact.PureComponent:extend("KeyLabel")
 
-KeyLabel.validateProps =  t.strictInterface({
-	keyCode = t.enum(Enum.KeyCode),
+KeyLabel.validateProps = t.strictInterface({
+	-- KeyCode OR a table with a KeyCode and some metadata for differentiating
+	-- between multiple states of a single KeyCode
+	keyCode = t.union(t.enum(Enum.KeyCode), t.strictInterface({
+		key = t.enum(Enum.KeyCode),
+		axis = t.optional(t.string), -- Used for thumbsticks KeyCodes
+	})),
 
-	anchorPoint = t.optional(t.Vector2),
-	position = t.optional(t.UDim2),
-	layoutOrder = t.optional(t.integer),
+	-- Theme for the icon (border icon for keyboard KeyCodes, button icon for gamepad icons)
+	iconThemeKey = t.optional(t.string),
+	-- Theme for keyboard KeyCode text (unused for gamepad KeyCodes)
+	textThemeKey = t.optional(t.string),
+
+	AnchorPoint = t.optional(t.Vector2),
+	Position = t.optional(t.UDim2),
+	LayoutOrder = t.optional(t.integer),
+	ZIndex = t.optional(t.integer),
 
 	[Roact.Change.AbsoluteSize] = t.optional(t.callback),
 })
+
+KeyLabel.defaultProps = {
+	iconThemeKey = "UIEmphasis",
+	textThemeKey = "TextDefault",
+}
 
 local cachedKeyCodeStrings = {}
 local function getStringForKeyCode(keyCode)
@@ -72,8 +128,78 @@ local function getStringForKeyCode(keyCode)
 	return cachedKeyCodeStrings[keyCode]
 end
 
+function KeyLabel:getKeyCodeAndMetadata()
+	local keyCode = self.props.keyCode
+	if typeof(keyCode) == "table" then
+		return keyCode.key, keyCode.axis
+	end
+	return keyCode
+end
+
+function KeyLabel:getGamepadLabel(style)
+	local keyCode, axis = self:getKeyCodeAndMetadata()
+	local iconImage = axis and GAMEPAD_AXIS_OVERRIDE_MAP[keyCode][axis] or GAMEPAD_OVERRIDE_MAP[keyCode]
+	local iconTheme = style.Theme[self.props.iconThemeKey]
+	local iconSize = DEFAULT_KEY_LABEL_SIZE
+
+	return Roact.createElement(ImageSetComponent.Label, {
+		BackgroundTransparency = 1,
+
+		ImageTransparency = iconTheme.Transparency,
+		ImageColor3 = iconTheme.Color,
+		Image = iconImage,
+
+		Size = UDim2.fromOffset(iconSize, iconSize),
+
+		AnchorPoint = self.props.AnchorPoint,
+		Position = self.props.Position,
+		LayoutOrder = self.props.LayoutOrder,
+		ZIndex = self.props.ZIndex,
+
+		[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize],
+	})
+end
+
+function KeyLabel:getKeyboardLabel(style)
+	local iconTheme = style.Theme[self.props.iconThemeKey]
+	local width, content, alignment = self:getLabelWidthAndContent(style)
+
+	local padding
+	if alignment then
+		padding = OFF_CENTER_PADDING
+	end
+
+	return Roact.createElement(ImageSetComponent.Label, {
+		BackgroundTransparency = 1,
+
+		ImageTransparency = iconTheme.Transparency,
+		ImageColor3 = iconTheme.Color,
+		Image = Images["icons/controls/keys/key_single"],
+
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(Vector2.new(9, 7), Vector2.new(26, 26)),
+
+		Size = UDim2.fromOffset(width, DEFAULT_KEY_LABEL_SIZE),
+
+		AnchorPoint = self.props.AnchorPoint,
+		Position = self.props.Position,
+		LayoutOrder = self.props.LayoutOrder,
+		ZIndex = self.props.ZIndex,
+
+		[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize]
+	}, {
+		Padding = padding and Roact.createElement("UIPadding", {
+			PaddingLeft = UDim.new(0, padding),
+			PaddingRight = UDim.new(0, padding)
+		}),
+		LabelContent = content
+	})
+end
+
 function KeyLabel:getLabelWidthAndContent(style)
-	local override = CONTENT_OVERRIDE_MAP[self.props.keyCode]
+	local keyCode = UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel
+		and self:getKeyCodeAndMetadata() or self.props.keyCode
+	local override = KEYBOARD_OVERRIDE_MAP[keyCode]
 	local font = style.Font
 
 	if override and override.image then
@@ -94,11 +220,11 @@ function KeyLabel:getLabelWidthAndContent(style)
 			if override and override.text then
 				text = override.text
 			else
-				local keyString = getStringForKeyCode(self.props.keyCode)
+				local keyString = getStringForKeyCode(keyCode)
 				if keyString and keyString ~= "" then
 					text = keyString
 				else
-					text = self.props.keyCode.Name
+					text = keyCode.Name
 				end
 			end
 
@@ -139,7 +265,8 @@ function KeyLabel:getLabelWidthAndContent(style)
 		local contentTextSize = font.BaseSize * contentFont.RelativeSize
 
 		local content = Roact.createElement(GenericTextLabel, {
-			colorStyle = style.Theme.TextDefault,
+			colorStyle = style.Theme[UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel
+				and self.props.textThemeKey or "TextDefault"],
 			fontStyle = contentFont,
 
 			Text = text,
@@ -156,39 +283,49 @@ end
 
 function KeyLabel:render()
 	return withStyle(function(style)
-		local borderTheme = style.Theme.UIEmphasis
+		if UIBloxConfig.enableGamepadKeyCodeSupportForKeyLabel then
+			local keyCode = self:getKeyCodeAndMetadata()
+			local isGamepadKeyCode = GAMEPAD_OVERRIDE_MAP[keyCode] ~= nil
 
-		local width, content, alignment = self:getLabelWidthAndContent(style)
+			if isGamepadKeyCode then
+				return self:getGamepadLabel(style)
+			end
+			return self:getKeyboardLabel(style)
+		else
+			local borderTheme = style.Theme.UIEmphasis
 
-		local padding
-		if alignment then
-			padding = OFF_CENTER_PADDING
+			local width, content, alignment = self:getLabelWidthAndContent(style)
+
+			local padding
+			if alignment then
+				padding = OFF_CENTER_PADDING
+			end
+
+			return Roact.createElement(ImageSetComponent.Label, {
+				BackgroundTransparency = 1,
+
+				ImageTransparency = borderTheme.Transparency,
+				ImageColor3 = borderTheme.Color,
+
+				Image = Images["icons/controls/keys/key_single"],
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(Vector2.new(9, 7), Vector2.new(26, 26)),
+
+				Size = UDim2.fromOffset(width, DEFAULT_KEY_LABEL_SIZE),
+				Position = self.props.Position,
+				AnchorPoint = self.props.AnchorPoint,
+				LayoutOrder = self.props.LayoutOrder,
+				ZIndex = self.props.ZIndex,
+
+				[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize]
+			}, {
+				Padding = padding and Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, padding),
+					PaddingRight = UDim.new(0, padding)
+				}),
+				LabelContent = content
+			})
 		end
-
-		return Roact.createElement(ImageSetComponent.Label, {
-			BackgroundTransparency = 1,
-
-			ImageTransparency = borderTheme.Transparency,
-			ImageColor3 = borderTheme.Color,
-
-			Image = Images["icons/controls/keys/key_single"],
-			ScaleType = Enum.ScaleType.Slice,
-			SliceCenter = Rect.new(Vector2.new(9, 7), Vector2.new(26, 26)),
-
-			Size = UDim2.fromOffset(width, KEY_LABEL_HEIGHT),
-			Position = self.props.Position,
-			AnchorPoint = self.props.AnchorPoint,
-
-			LayoutOrder = self.props.LayoutOrder,
-
-			[Roact.Change.AbsoluteSize] = self.props[Roact.Change.AbsoluteSize]
-		}, {
-			Padding = padding and Roact.createElement("UIPadding", {
-				PaddingLeft = UDim.new(0, padding),
-				PaddingRight = UDim.new(0, padding)
-			}),
-			LabelContent = content
-		})
 	end)
 end
 

@@ -3,6 +3,9 @@ return function()
 	local Roact = require(Framework.Parent.Roact)
 	local mapToProps = require(Framework.ContextServices.mapToProps)
 	local provide = require(Framework.ContextServices.provide)
+	local withContext = require(Framework.ContextServices.withContext)
+
+	local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 	local testEvent = "testEvent"
 
@@ -21,9 +24,15 @@ return function()
 			return Roact.createElement("Frame")
 		end
 
-		mapToProps(TestElement, {
-			Analytics = Analytics,
-		})
+		if FFlagRefactorDevFrameworkContextItems2 then
+			TestElement = withContext({
+				Analytics = Analytics,
+			})(TestElement)
+		else
+			mapToProps(TestElement, {
+				Analytics = Analytics,
+			})
+		end
 
 		local rbxAnalyticsStub = {}
 		local function createEventHandlers(rbxAnalyticsService)

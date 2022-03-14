@@ -3,6 +3,7 @@
 	with the native Studio Start Page.
 
 	Optional Props:
+		table ForwardRef: An optional reference to pass to the underlying scroller
 		boolean EnableScrollBarBackground: Whether or not to show a background coor for the scrollbar
 		callback OnScrollUpdate: A callback function that will update the index change.
 		UDim2 Position: The position of the scrolling frame.
@@ -19,6 +20,7 @@
 		Enum.FillDirection Layout: An optional Enum.FillDirection adding a UIListLayout instance.
 		UDim2 CanvasSize: The size of the scrolling frame's canvas.
 		integer ElementPadding: The padding between children when AutoSizeCanvas is true.
+		integer Padding: The padding for the contents within the scrollingFrame.
 		boolean ScrollingEnabled: Whether scrolling in this frame will change the CanvasPosition.
 		Style Style: a style table supplied from props and theme:getStyle()
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext
@@ -34,9 +36,10 @@
 		Color3 ScrollBarBackgroundColor: Background color of the scrollbar.
 		integer ZIndex: The draw index of the frame.
 ]]
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
 local FFlagDevFrameworkScrollingFrameUsePane = game:GetFastFlag("DevFrameworkScrollingFrameUsePane")
 local FFlagDevFrameworkScrollingFrameFixUpdate = game:GetFastFlag("DevFrameworkScrollingFrameFixUpdate")
+local FFlagDevFrameworkScrollingFrameAddPadding = game:GetFastFlag("DevFrameworkScrollingFrameAddPadding")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -61,6 +64,8 @@ local Pane = require(script.Parent.Pane)
 local prioritize = Util.prioritize
 local Typecheck = Util.Typecheck
 
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
+
 local ScrollingFrame = Roact.PureComponent:extend("ScrollingFrame")
 Typecheck.wrap(ScrollingFrame, script)
 
@@ -77,7 +82,7 @@ local function getStyle(self)
 end
 
 function ScrollingFrame:init()
-	self.scrollingRef = self.props[Roact.Ref] or Roact.createRef()
+	self.scrollingRef = (if FFlagDevFrameworkForwardRef then self.props.ForwardRef else self.props[Roact.Ref]) or Roact.createRef()
 	self.layoutRef = Roact.createRef()
 
 	self.onScroll = function(rbx)
@@ -92,6 +97,13 @@ function ScrollingFrame:init()
 			local contentSize = self.layoutRef.current.AbsoluteContentSize
 			local contentSizeX = contentSize.X
 			local contentSizeY = contentSize.Y
+
+			if FFlagDevFrameworkScrollingFrameAddPadding then
+				local padding = self.getPaddingProps()
+				contentSizeX = contentSizeX + padding.PaddingLeft.Offset + padding.PaddingRight.Offset
+				contentSizeY = contentSizeY + padding.PaddingTop.Offset + padding.PaddingBottom.Offset
+			end
+
 			if not hasAutomaticCanvasSize then
 				local props = self.props
 				local style = getStyle(self)
@@ -124,12 +136,14 @@ function ScrollingFrame:init()
 			AutoSizeLayoutElement = Cryo.None,
 			AutoSizeLayoutOptions = Cryo.None,
 			OnCanvasResize = Cryo.None,
+			OnScrollUpdate = Cryo.None,
 			Theme = Cryo.None,
 			Style = Cryo.None,
 			Stylizer = Cryo.None,
 			getUILibraryTheme = Cryo.None,
-			ScrollBarBackgroundColor = FFlagDevFrameworkRefactorScrollbarColor and Cryo.None or nil,
-			EnableScrollBarBackground = FFlagDevFrameworkRefactorScrollbarColor and Cryo.None or nil,
+			ScrollBarBackgroundColor = Cryo.None,
+			EnableScrollBarBackground = Cryo.None,
+			Padding = FFlagDevFrameworkScrollingFrameAddPadding and Cryo.None or nil,
 		},
 	}
 
@@ -154,6 +168,7 @@ function ScrollingFrame:init()
 			self.propFilters.parentContainerProps,
 			{
 				Size = UDim2.fromScale(scaleX, scaleY),
+				ForwardRef = if FFlagDevFrameworkForwardRef then Cryo.None else nil,
 				[Roact.Children] = Cryo.None,
 				[Roact.Change.CanvasPosition] = self.onScroll,
 				[Roact.Change.AbsoluteSize] = self.updateCanvasSize,
@@ -161,6 +176,20 @@ function ScrollingFrame:init()
 			}
 		)
 	end
+
+	self.getPaddingProps = if FFlagDevFrameworkScrollingFrameAddPadding then function()
+		local props = self.props
+		local style = getStyle(self)
+		local padding = prioritize(props.Padding, style.Padding, 0)
+		local isPaddingNumber = type(padding) == "number"
+
+		return {
+			PaddingTop = UDim.new(0, isPaddingNumber and padding or padding.Top or 0),
+			PaddingBottom = UDim.new(0, isPaddingNumber and padding or padding.Bottom or 0),
+			PaddingLeft = UDim.new(0, isPaddingNumber and padding or padding.Left or 0),
+			PaddingRight = UDim.new(0, isPaddingNumber and padding or padding.Right or 0),
+		}
+	end else nil
 end
 
 function ScrollingFrame:didMount()
@@ -188,12 +217,18 @@ function ScrollingFrame:render()
 	local children = self.props[Roact.Children]
 	local scrollingFrameProps = self.getScrollingFrameProps(self.props, style)
 
+	local paddingProps
+	if FFlagDevFrameworkScrollingFrameAddPadding then
+		paddingProps = self.getPaddingProps()
+	end
+
 	if autoSizeCanvas then
 		children = {
 			Layout = Roact.createElement(autoSizeElement, Cryo.Dictionary.join(layoutOptions, {
 				[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
 				[Roact.Ref] = self.layoutRef,
 			})),
+			Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Roact.createElement("UIPadding", paddingProps) else nil,
 			Children = Roact.createFragment(children),
 		}
 	elseif props.Layout then
@@ -205,6 +240,7 @@ function ScrollingFrame:render()
 					[Roact.Change.AbsoluteContentSize] = self.updateCanvasSize,
 					[Roact.Ref] = self.layoutRef,
 				}),
+				Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Roact.createElement("UIPadding", paddingProps) else nil,
 				Children = Roact.createFragment(children),
 			}
 		else
@@ -213,17 +249,18 @@ function ScrollingFrame:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					FillDirection = props.Layout,
 				}),
+				Padding = if FFlagDevFrameworkScrollingFrameAddPadding then Roact.createElement("UIPadding", paddingProps) else nil,
 				Children = Roact.createFragment(children),
 			}
 		end
 	end
 
 	return Roact.createElement(FFlagDevFrameworkScrollingFrameUsePane and Pane or Container, {
+		LayoutOrder = layoutOrder,
 		Position = position,
 		Size = size,
-		LayoutOrder = layoutOrder,
 	}, {
-		ScrollBarBackground = FFlagDevFrameworkRefactorScrollbarColor and enableScrollBarBackground and Roact.createElement("Frame", {
+		ScrollBarBackground = enableScrollBarBackground and Roact.createElement("Frame", {
 			AnchorPoint = Vector2.new(1, 0),
 			Position = UDim2.new(1, 0, 0, 0),
 			Size = UDim2.new(0, style.ScrollBarThickness, 1, 0),
@@ -236,12 +273,9 @@ function ScrollingFrame:render()
 	})
 end
 
-
 ScrollingFrame = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(ScrollingFrame)
 
-
-
-return ScrollingFrame
+return if FFlagDevFrameworkForwardRef then withForwardRef(ScrollingFrame) else ScrollingFrame

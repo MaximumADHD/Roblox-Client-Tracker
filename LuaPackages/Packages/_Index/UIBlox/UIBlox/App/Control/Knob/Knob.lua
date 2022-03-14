@@ -67,13 +67,14 @@ local colorMap = {
 }
 
 local function buildKnob(styleName)
-	return function(props)
+	return Roact.forwardRef(function(props, ref)
 		local currentColorMap = colorMap[styleName]
 		local newProps = Cryo.Dictionary.join({},props,{
-			colorMap = currentColorMap
+			colorMap = currentColorMap,
+			forwardedRef = ref,
 		})
 		return Roact.createElement(BaseKnob,newProps)
-	end
+	end)
 end
 
 return {

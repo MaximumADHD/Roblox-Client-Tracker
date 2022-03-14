@@ -3,17 +3,9 @@ local Provider = require(script.Provider)
 local Logger = require(script.Logger)
 
 local GetPolicyImplementations = script.getPolicyImplementations
-local fromMemStorageService
+local fromMemStorageService = require(GetPolicyImplementations.fromMemStorageService)
 local fromPolicyService = require(GetPolicyImplementations.fromPolicyService)
 local fromStaticSource = require(GetPolicyImplementations.fromStaticSource)
-
-local FFlagPolicyProviderFromMemStorageServiceFix = game:DefineFastFlag("PolicyProviderFromMemStorageServiceFix", false)
-
-if FFlagPolicyProviderFromMemStorageServiceFix then
-	fromMemStorageService = require(GetPolicyImplementations.fromMemStorageService)
-else
-	fromMemStorageService = require(GetPolicyImplementations.oldFromMemStorageService)
-end
 
 return {
 	withGetPolicyImplementation = function(getPolicyImpl)

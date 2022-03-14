@@ -2,6 +2,9 @@ return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local PlainText = require(script.Parent.PlainText)
 
@@ -27,7 +30,7 @@ return function()
 			local plainTextContent = plainTextTree:findFirstChild("textContent", true)
 			local pendingPlainTextContent = pendingPlainTextTree:findFirstChild("textContent", true)
 
-			expect(plainTextContent.TextTransparency < pendingPlainTextContent.TextTransparency).to.equal(true)
+			jestExpect(plainTextContent.TextTransparency).toBeLessThan(pendingPlainTextContent.TextTransparency)
 
 			plainTextCleanup()
 			pendingPlainTextCleanup()
@@ -41,7 +44,7 @@ return function()
 
 			local textContent = tree:findFirstChild("textContent", true)
 
-			expect(textContent.TextTransparency).to.equal(0)
+			jestExpect(textContent.TextTransparency).toBe(0)
 
 			cleanup()
 		end)

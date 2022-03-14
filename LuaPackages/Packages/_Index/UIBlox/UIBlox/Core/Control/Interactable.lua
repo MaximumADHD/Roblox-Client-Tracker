@@ -9,7 +9,7 @@ local Core = Control.Parent
 local UIBlox = Core.Parent
 local Packages = UIBlox.Parent
 
-
+local Cryo = require(Packages.Cryo)
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
@@ -45,4 +45,8 @@ function Interactable:render()
 	return Roact.createElement(Controllable, controllerProps)
 end
 
-return Interactable
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(Interactable, Cryo.Dictionary.join(props, {
+		forwardedRef = ref,
+	}))
+end)

@@ -177,10 +177,11 @@ local theme = {
 		}),
 	},
 
-	ThumbnailBackground = {
-		Color = Colors.LightGrey,
+	PlayerBackgroundDefault = {
+		Color = Colors.White,
 		Transparency = 0,
-	},
+		Image = "component_assets/avatarBG_light",
+	}
 }
 
 return theme

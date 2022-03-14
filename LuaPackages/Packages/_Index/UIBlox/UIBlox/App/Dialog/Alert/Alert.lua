@@ -26,8 +26,6 @@ local BACKGROUND_IMAGE = "component_assets/circle_17"
 local MARGIN = 24
 local PADDING_BETWEEN = 24
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
 
 local Alert = Roact.PureComponent:extend("Alert")
@@ -71,10 +69,8 @@ Alert.defaultProps = {
 function Alert:init()
 	self.contentSize, self.changeContentSize = Roact.createBinding(Vector2.new(0, 0))
 
-	if UIBloxConfig.enableExperimentalGamepadSupport then
-		self.middleContentRef = Roact.createRef()
-		self.footerContentRef = Roact.createRef()
-	end
+	self.middleContentRef = Roact.createRef()
+	self.footerContentRef = Roact.createRef()
 	self.buttonStackRef = Roact.createRef()
 end
 
@@ -86,8 +82,8 @@ end
 
 function Alert:render()
 	assert(validateProps(self.props))
-	local isMiddleContentFocusable = UIBloxConfig.enableExperimentalGamepadSupport and self.props.isMiddleContentFocusable
-	local isFooterContentFocusable = UIBloxConfig.enableExperimentalGamepadSupport and self.props.isFooterContentFocusable
+	local isMiddleContentFocusable = self.props.isMiddleContentFocusable
+	local isFooterContentFocusable = self.props.isFooterContentFocusable
 
 	local totalWidth = math.clamp(self.props.screenSize.X - self.props.margin.left - self.props.margin.right,
 		self.props.minWidth, self.props.maxWidth)
@@ -108,7 +104,7 @@ function Alert:render()
 		end
 
 		local buttonStackInfo = self.props.buttonStackInfo
-		if UIBloxConfig.enableExperimentalGamepadSupport and buttonStackInfo then
+		if buttonStackInfo then
 			buttonStackInfo = Cryo.Dictionary.join(buttonStackInfo, {
 				[Roact.Ref] = self.buttonStackRef,
 				NextSelectionUp = isMiddleContentFocusable and self.middleContentRef or nil,
@@ -116,8 +112,7 @@ function Alert:render()
 			})
 		end
 
-		return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-			RoactGamepad.Focusable[ImageSetComponent.Button] or ImageSetComponent.Button, {
+		return Roact.createElement(RoactGamepad.Focusable[ImageSetComponent.Button], {
 			Position = self.props.position,
 			AnchorPoint = self.props.anchorPoint,
 			Size = self.contentSize:map(function(absoluteSize)
@@ -137,7 +132,7 @@ function Alert:render()
 
 			[Roact.Ref] = self.props.defaultChildRef,
 			[Roact.Change.AbsoluteSize] = self.props.onAbsoluteSizeChanged,
-			defaultChild = UIBloxConfig.enableExperimentalGamepadSupport and self.buttonStackRef or nil,
+			defaultChild = self.buttonStackRef,
 		}, {
 			AlertContents = Roact.createElement(FitFrameOnAxis, {
 				contentPadding = UDim.new(0, PADDING_BETWEEN),
@@ -158,8 +153,7 @@ function Alert:render()
 					title = self.props.title,
 					titleContent = self.props.titleContent,
 				}),
-				MiddleContent = self.props.middleContent and Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-					RoactGamepad.Focusable[FitFrameOnAxis] or FitFrameOnAxis, {
+				MiddleContent = self.props.middleContent and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
 					BackgroundTransparency = 1,
 					LayoutOrder = 2,
 					minimumSize = UDim2.new(1, 0, 0, 0),
@@ -176,8 +170,7 @@ function Alert:render()
 					minimumSize = UDim2.new(1, 0, 0, 0),
 				}, {
 					Buttons = buttonStackInfo and Roact.createElement(ButtonStack, buttonStackInfo),
-					FooterContent = self.props.footerContent and Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-						RoactGamepad.Focusable[FitFrameOnAxis] or FitFrameOnAxis, {
+					FooterContent = self.props.footerContent and Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
 						BackgroundTransparency = 1,
 						LayoutOrder = 5,
 						minimumSize = UDim2.new(1, 0, 0, 0),

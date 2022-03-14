@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getConversationDisplayAlias = require(script.Parent.getConversationDisplayAlias)
 
 	local makeState = function(byUserId)
@@ -20,10 +24,10 @@ return function()
 		}
 
 		it("SHOULD return nil", function()
-			expect(getConversationDisplayAlias(makeState(), conversation)).to.equal(nil)
-			expect(getConversationDisplayAlias(makeState({
+			jestExpect(getConversationDisplayAlias(makeState(), conversation)).toBeNil()
+			jestExpect(getConversationDisplayAlias(makeState({
 				mock1 = "alias1",
-			}), conversation)).to.equal(nil)
+			}), conversation)).toBeNil()
 		end)
 	end)
 
@@ -35,13 +39,13 @@ return function()
 		}
 
 		it("SHOULD return nil when no alias is in state", function()
-			expect(getConversationDisplayAlias(makeState(), conversation)).to.equal(nil)
+			jestExpect(getConversationDisplayAlias(makeState(), conversation)).toBeNil()
 		end)
 
 		it("SHOULD return (alias1) when alias is mapped in state", function()
-			expect(getConversationDisplayAlias(makeState({
+			jestExpect(getConversationDisplayAlias(makeState({
 				mock1 = "alias1",
-			}), conversation)).to.equal("(alias1)")
+			}), conversation)).toBe("(alias1)")
 		end)
 	end)
 

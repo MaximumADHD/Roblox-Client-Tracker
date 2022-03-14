@@ -8,14 +8,12 @@ local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 local Otter = require(Packages.Otter)
 
-local withStyle = require(UIBlox.Style.withStyle)
+local withStyle = require(UIBlox.Core.Style.withStyle)
 local Images = require(AppRoot.ImageSet.Images)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local enumerateValidator = require(UIBlox.Utility.enumerateValidator)
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
@@ -82,7 +80,7 @@ function TooltipContainer:render()
 		local fontSize = font.BaseSize * font.CaptionBody.RelativeSize
 
 		local bodyTextWidth = GetTextSize(self.props.bodyText, fontSize, bodyFont.Font, Vector2.new()).X
-		if UIBloxConfig.tooltipWidthUsesHeaderToo and self.props.headerText then
+		if self.props.headerText then
 			local headerTextWidth = GetTextSize(
 				self.props.headerText,
 				font.BaseSize * headerFont.RelativeSize,

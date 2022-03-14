@@ -2,6 +2,9 @@ return function()
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local IconWithTextCell = require(script.Parent.IconWithTextCell)
 
@@ -26,8 +29,8 @@ return function()
 
 			local primaryIconInstance = frame:FindFirstChild("primaryIcon", true)
 			local secondaryIconInstance = frame:FindFirstChild("secondaryIcon", true)
-			expect(primaryIconInstance.Image).to.equal(PRIMARY_ICON)
-			expect(secondaryIconInstance.Image).to.equal(SECONDARY_ICON)
+			jestExpect(primaryIconInstance.Image).toBe(PRIMARY_ICON)
+			jestExpect(secondaryIconInstance.Image).toBe(SECONDARY_ICON)
 
 			cleanup()
 		end)

@@ -146,7 +146,7 @@ function SplitPane:render()
 		Layout = props.Layout or Enum.FillDirection.Horizontal,
 		HorizontalAlignment = Enum.HorizontalAlignment.Left,
 		VerticalAlignment = Enum.VerticalAlignment.Top,
-		Style = props.PaneStyle,
+		Style = props.PaneStyle or "Box",
 		Size = props.Size,
 		Position = props.Position,
 		[Roact.Ref] = self.ref,

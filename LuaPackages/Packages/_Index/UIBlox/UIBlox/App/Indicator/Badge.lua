@@ -14,9 +14,11 @@ local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLa
 
 local Images = require(UIBlox.App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
+local BadgeStates = require(script.Parent.Enum.BadgeStates)
 
 local divideTransparency = require(UIBlox.Utility.divideTransparency)
 
+local EMPTY_BADGE_WIDTH = 12
 local BADGE_MIN_WIDTH = 24
 local INNER_PADDING = 2
 local TEXT_PADDING = 5
@@ -39,7 +41,7 @@ Badge.validateProps = t.strictInterface({
 
 	disabled = t.optional(t.boolean),
 	hasShadow = t.optional(t.boolean),
-	value = t.union(t.string, t.integer),
+	value = t.union(t.string, t.integer, BadgeStates.isEnumValue),
 })
 
 Badge.defaultProps = {
@@ -62,6 +64,9 @@ function Badge:render()
 			local byteOffset = utf8.offset(self.props.value, MAX_TEXT_LENGTH) - 1
 			badgeText = string.sub(self.props.value, 1, byteOffset) .. ELLIPSES
 		end
+		if self.props.value == BadgeStates.isEmpty then
+			badgeText = ""
+		end
 
 		local baseSize = stylePalette.Font.BaseSize
 		local fontSize = font.CaptionBody.RelativeSize * baseSize
@@ -71,12 +76,17 @@ function Badge:render()
 		if badgeWidth < BADGE_MIN_WIDTH then
 			badgeWidth = BADGE_MIN_WIDTH
 		end
+		local badgeHeight = BADGE_MIN_WIDTH
+		if self.props.value == BadgeStates.isEmpty then
+			badgeWidth = EMPTY_BADGE_WIDTH
+			badgeHeight = EMPTY_BADGE_WIDTH
+		end
 
 		return Roact.createElement("Frame", {
 			Position = self.props.position,
 			AnchorPoint = self.props.anchorPoint,
 			BackgroundTransparency = 1,
-			Size = UDim2.fromOffset(badgeWidth, BADGE_MIN_WIDTH),
+			Size = UDim2.fromOffset(badgeWidth, badgeHeight),
 		}, {
 			Shadow = self.props.hasShadow and Roact.createElement(ImageSetComponent.Label, {
 				ZIndex = 1,

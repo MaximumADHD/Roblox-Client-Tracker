@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getUserDisplayAlias = require(script.Parent.getUserDisplayAlias)
 
 	describe("GIVEN a user model and state with an alias for the user", function()
@@ -15,15 +19,11 @@ return function()
 				}
 			}
 		}
-		it("SHOULD return a string", function()
-			local result = getUserDisplayAlias(state, user)
-			expect(type(result)).to.equal("string")
-		end)
 
 		it("SHOULD have the alias from the state in somewhere in the string", function()
 			local result = getUserDisplayAlias(state, user)
-			local findResult = string.find(result, myAlias)
-			expect(findResult).to.be.ok()
+
+			jestExpect(result).toEqual(jestExpect.stringContaining(myAlias))
 		end)
 	end)
 
@@ -42,7 +42,8 @@ return function()
 		}
 		it("SHOULD return nil", function()
 			local result = getUserDisplayAlias(state, user)
-			expect(result).to.equal(nil)
+
+			jestExpect(result).toBeNil()
 		end)
 	end)
 
@@ -59,7 +60,8 @@ return function()
 		}
 		it("SHOULD return nil", function()
 			local result = getUserDisplayAlias(state, user)
-			expect(result).to.equal(nil)
+
+			jestExpect(result).toBeNil()
 		end)
 	end)
 end

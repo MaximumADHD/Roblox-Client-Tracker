@@ -82,7 +82,7 @@ return function(dependencies)
 
 				local connection = onPolicyChangedEvent.Event:Connect(func)
 
-				if memStorageConnection and connectionStoreKey == storeKey  then
+				if memStorageConnection and connectionStoreKey == storeKey then
 					-- Fire listener with existing value
 					if previouslyReadValue then
 						local success, policy = pcall(function()

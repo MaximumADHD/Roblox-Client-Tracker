@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getConversationDisplayPresence = require(script.Parent.getConversationDisplayPresence)
 
 	describe("GIVEN state and a conversation", function()
@@ -29,7 +33,8 @@ return function()
 					participants = { offline.id, online.id, ingame.id }
 				}
 				local result = getConversationDisplayPresence(state, conversation)
-				expect(result).to.never.be.ok()
+
+				jestExpect(result).toBeNil()
 			end)
 		end)
 
@@ -40,7 +45,7 @@ return function()
 					participants = { online.id }
 				}
 				local result = getConversationDisplayPresence(state, conversation)
-				expect(result).to.be.ok()
+				jestExpect(result).never.toBeNil()
 			end)
 
 			it("SHOULD return an object when the user is offline", function()
@@ -49,7 +54,7 @@ return function()
 					participants = { offline.id }
 				}
 				local result = getConversationDisplayPresence(state, conversation)
-				expect(result).to.be.ok()
+				jestExpect(result).never.toBeNil()
 			end)
 
 			it("SHOULD return an object when the user is ingame", function()
@@ -58,7 +63,7 @@ return function()
 					participants = { ingame.id }
 				}
 				local result = getConversationDisplayPresence(state, conversation)
-				expect(result).to.be.ok()
+				jestExpect(result).never.toBeNil()
 			end)
 		end)
 	end)

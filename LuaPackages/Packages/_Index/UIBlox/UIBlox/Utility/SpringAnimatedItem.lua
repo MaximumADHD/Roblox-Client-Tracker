@@ -38,7 +38,7 @@ local PropTypes = t.intersection(
 		mapValuesToProps = t.callback,
 
 		-- Options to pass to Otter's spring configuration
-		springOptions =  t.optional(t.table),
+		springOptions = t.optional(t.table),
 
 		-- Called when the animation is complete
 		onComplete = t.optional(t.callback),
@@ -51,8 +51,9 @@ local PropTypes = t.intersection(
 	}),
 	function(props)
 		if props[Roact.Children] ~= nil and props.regularProps[Roact.Children] ~= nil then
-			return false, "Children must be specified in one place, but the [Roact.Children] key was found" ..
-				" in both props and props.regularProps on SpringAnimatedItem."
+			return false,
+				"Children must be specified in one place, but the [Roact.Children] key was found"
+					.. " in both props and props.regularProps on SpringAnimatedItem."
 		end
 
 		return true
@@ -62,8 +63,7 @@ local PropTypes = t.intersection(
 local SpringAnimatedItem = {}
 
 function SpringAnimatedItem.wrap(component)
-	local AnimatedComponent = Roact.PureComponent:extend(string.format("SpringAnimatedItem(%s)",
-		tostring(component)))
+	local AnimatedComponent = Roact.PureComponent:extend(string.format("SpringAnimatedItem(%s)", tostring(component)))
 
 	AnimatedComponent.defaultProps = {
 		regularProps = {},
@@ -111,8 +111,10 @@ function SpringAnimatedItem.wrap(component)
 	end
 
 	function AnimatedComponent:willUpdate(newProps)
-		if self.props.regularProps[Roact.Ref] ~= newProps.regularProps[Roact.Ref] and
-			newProps.regularProps[Roact.Ref] ~= nil then
+		if
+			self.props.regularProps[Roact.Ref] ~= newProps.regularProps[Roact.Ref]
+			and newProps.regularProps[Roact.Ref] ~= nil
+		then
 			self.ref = newProps.regularProps[Roact.Ref]
 		end
 	end
@@ -148,8 +150,10 @@ function SpringAnimatedItem.wrap(component)
 	end
 
 	function AnimatedComponent:willUnmount()
-		self.motor:destroy()
-		self.motor = nil
+		if self.motor then
+			self.motor:destroy()
+			self.motor = nil
+		end
 	end
 
 	return AnimatedComponent

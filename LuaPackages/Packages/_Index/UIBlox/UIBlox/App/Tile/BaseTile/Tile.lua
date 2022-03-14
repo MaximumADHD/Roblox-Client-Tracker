@@ -8,8 +8,11 @@ local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
+local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
@@ -17,6 +20,10 @@ local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCurs
 local TileName = require(BaseTile.TileName)
 local TileThumbnail = require(BaseTile.TileThumbnail)
 local TileBanner = require(BaseTile.TileBanner)
+local StyledTextLabel = require(App.Text.StyledTextLabel)
+local Images = require(UIBlox.App.ImageSet.Images)
+
+local ICON_PADDING = 4
 
 local Tile = Roact.PureComponent:extend("Tile")
 
@@ -26,6 +33,9 @@ local tileInterface = t.strictInterface({
 
 	-- The item's name that will show a loading state if nil
 	name = t.optional(t.string),
+
+	-- Text content to be displayed as a subtitle that will be hidden if nil
+	subtitle = t.optional(t.string),
 
 	-- The number of lines of text for the item name
 	titleTextLineCount = t.optional(t.integer),
@@ -75,7 +85,13 @@ local tileInterface = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	thumbnailRef = t.optional(t.table),
+
+	-- Optional height of the title area is set to the max
+	useMaxTitleHeight = t.optional(t.boolean),
+
+	-- Optional parameter to include subtitles
+	addSubtitleSpace = t.optional(t.boolean),
 })
 
 local function tileBannerUseValidator(props)
@@ -117,6 +133,7 @@ function Tile:render()
 	assert(validateProps(self.props))
 	local footer = self.props.footer
 	local name = self.props.name
+	local subtitle = self.props.subtitle
 	local titleTextLineCount = self.props.titleTextLineCount
 	local innerPadding = self.props.innerPadding
 	local onActivated = self.props.onActivated
@@ -131,16 +148,54 @@ function Tile:render()
 	local titleIcon = self.props.titleIcon
 	local thumbnailOverlayComponents = self.props.thumbnailOverlayComponents
 	local backgroundImage = self.props.backgroundImage
+	local useMaxTitleHeight = self.props.useMaxTitleHeight
+	local addSubtitleSpace = self.props.addSubtitleSpace
 
 	return withStyle(function(stylePalette)
 		return withSelectionCursorProvider(function(getSelectionCursor)
 			local font = stylePalette.Font
+			local theme = stylePalette.Theme
 
 			local tileHeight = self.state.tileHeight
 			local tileWidth = self.state.tileWidth
 
 			local maxTitleTextHeight = math.ceil(font.BaseSize * font.Header2.RelativeSize * titleTextLineCount)
 			local footerHeight = tileHeight - tileWidth - innerPadding - maxTitleTextHeight - innerPadding
+			local titleTextSize = Vector2.new(0,0)
+			local subtitleTextHeight = 0
+
+			if UIBloxConfig.enableSubtitleOnTile then
+				-- include subtitle space even if subtitle is empty string
+				if addSubtitleSpace then
+					titleTextSize = Vector2.new(0, maxTitleTextHeight)
+					subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
+					footerHeight = footerHeight - subtitleTextHeight
+				else
+					if useMaxTitleHeight then
+						titleTextSize = Vector2.new(0, maxTitleTextHeight)
+					else
+						local textToMeasure = name or ""
+						local titleFontSize = font.BaseSize * font.Header2.RelativeSize
+						local titleFont = font.Header2.Font
+						if titleIcon then
+							local iconWidth = titleIcon.ImageRectSize.X / Images.ImagesResolutionScale
+							textToMeasure = GetWrappedTextWithIcon(
+								textToMeasure, titleFontSize, titleFont, iconWidth, ICON_PADDING)
+						end
+						titleTextSize = GetTextSize(textToMeasure, titleFontSize, titleFont,
+							Vector2.new(
+								tileWidth,
+								maxTitleTextHeight
+							)
+						)
+					end
+
+					if subtitle ~= nil and subtitle ~= "" then
+						subtitleTextHeight = math.ceil(font.BaseSize * font.CaptionHeader.RelativeSize)
+						footerHeight = footerHeight - subtitleTextHeight
+					end
+				end
+			end
 			footerHeight = math.max(0, footerHeight)
 
 			local hasFooter = footer ~= nil or bannerText ~= nil
@@ -159,8 +214,7 @@ function Tile:render()
 					SortOrder = Enum.SortOrder.LayoutOrder,
 					Padding = UDim.new(0, innerPadding),
 				}),
-				Thumbnail = Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport
-						and RoactGamepad.Focusable.Frame or "Frame", {
+				Thumbnail = Roact.createElement(RoactGamepad.Focusable.Frame, {
 					Size = UDim2.new(1, 0, 1, 0),
 					SizeConstraint = Enum.SizeConstraint.RelativeXX,
 					BackgroundTransparency = 1,
@@ -170,9 +224,9 @@ function Tile:render()
 					NextSelectionRight = self.props.NextSelectionRight,
 					NextSelectionUp = self.props.NextSelectionUp,
 					NextSelectionDown = self.props.NextSelectionDown,
-					[Roact.Ref] = self.props[Roact.Ref],
+					[Roact.Ref] = self.props.thumbnailRef,
 					SelectionImageObject = getSelectionCursor(CursorKind.RoundedRectNoInset),
-					inputBindings = (UIBloxConfig.enableExperimentalGamepadSupport and not isDisabled and onActivated) and {
+					inputBindings = (not isDisabled and onActivated) and {
 						Activate = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, onActivated)
 					} or nil,
 				}, {
@@ -187,12 +241,42 @@ function Tile:render()
 						backgroundImage = backgroundImage,
 					}),
 				}),
-				Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
+				TitleArea = UIBloxConfig.enableSubtitleOnTile and Roact.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, titleTextSize.Y+subtitleTextHeight),
+					BackgroundTransparency = 1,
+					LayoutOrder = 2,
+				},{
+					UIListLayout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Vertical,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 0),
+					}),
+					Name = (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
+						titleIcon = titleIcon,
+						name = name,
+						maxHeight = maxTitleTextHeight,
+						maxWidth = tileWidth,
+						LayoutOrder = 1,
+						useMaxHeight = useMaxTitleHeight,
+					}),
+					Subtitle = (subtitle ~= "" and subtitle ~= nil) and Roact.createElement(StyledTextLabel, {
+						size = UDim2.new(1, 0, 0, subtitleTextHeight),
+						text = subtitle,
+						colorStyle = theme.TextDefault,
+						fontStyle = font.CaptionHeader,
+						layoutOrder = 2,
+						fluidSizing = false,
+						textTruncate = Enum.TextTruncate.AtEnd,
+						richText = false,
+						lineHeight = 1,
+					}),
+				}) or (titleTextLineCount > 0 and tileWidth > 0) and Roact.createElement(TileName, {
 					titleIcon = titleIcon,
 					name = name,
 					maxHeight = maxTitleTextHeight,
 					maxWidth = tileWidth,
 					LayoutOrder = 2,
+					useMaxHeight = useMaxTitleHeight,
 				}),
 				FooterContainer = hasFooter and Roact.createElement("Frame", {
 					Size = UDim2.new(1, 0, 0, footerHeight),
@@ -209,4 +293,8 @@ function Tile:render()
 	end)
 end
 
-return Tile
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(Tile, Cryo.Dictionary.join(props, {
+		thumbnailRef = ref
+	}))
+end)

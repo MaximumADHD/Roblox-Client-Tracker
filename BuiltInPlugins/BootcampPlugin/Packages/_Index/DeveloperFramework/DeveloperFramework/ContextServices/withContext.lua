@@ -26,8 +26,10 @@ local function withContext(contextClasses)
 	
 	return function(component)
 		assert(component.render ~= Roact.Component.render, string.format(missingRenderMessage, tostring(component)))
-		component.__renderWithContext = component.render
-		component.__initWithContext = component.init
+		if not component.__initWithContext then
+			component.__renderWithContext = component.render
+			component.__initWithContext = component.init
+		end
 		function component:init()
 			if self.__initWithContext then
 				self:__initWithContext(self.props)

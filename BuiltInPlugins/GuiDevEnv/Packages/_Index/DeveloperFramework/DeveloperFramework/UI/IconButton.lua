@@ -25,11 +25,11 @@
 		TextYAlignment: Passed to TextLabel; defaults to center.
 		TextColor: Passed to TextLabel; defaults to MainText
 		DisabledTextColor: Passed to TextLabled; defaults to DimmedText
+		TooltipText: Text to display when hovering over the button.
 
 	Styles:
 		Default: The pane has no background
 ]]
-
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -42,6 +42,7 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local Pane = require(Framework.UI.Pane)
 local TextLabel = require(Framework.UI.TextLabel)
+local Tooltip = require(Framework.UI.Tooltip)
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -148,6 +149,9 @@ function IconButton:render()
 					Image = props.RightIcon,
 				}
 			}),
+		}),
+		Tooltip = props.TooltipText and Roact.createElement(Tooltip, {
+			Text = props.TooltipText
 		})
 	})
 end

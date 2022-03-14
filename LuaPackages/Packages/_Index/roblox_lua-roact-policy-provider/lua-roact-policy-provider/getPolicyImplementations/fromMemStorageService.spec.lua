@@ -1,3 +1,5 @@
+--# selene: allow(unused_variable)
+
 return function()
 	local Packages = script.Parent.Parent.Parent
 	local Mock = require(Packages.Mock)
@@ -7,116 +9,128 @@ return function()
 
 	describe("GIVEN a behavior", function()
 		local behavior = "mockBehavior"
-		describe("GIVEN a MemStorageService and HttpService with functional GetItem, BindAndFire and JSONDecode", function()
-			local mockMemStorageService = MagicMock.new()
-			mockMemStorageService.GetItem = function()
-				return "jsonExternalPolicy"
+		describe(
+			"GIVEN a MemStorageService and HttpService with functional GetItem, BindAndFire and JSONDecode",
+			function()
+				local mockMemStorageService = MagicMock.new()
+				mockMemStorageService.GetItem = function()
+					return "jsonExternalPolicy"
+				end
+				local updateMemStorageService = Instance.new("BindableEvent")
+				mockMemStorageService.BindAndFire = function(_, _, func)
+					local initialValue = mockMemStorageService.GetItem()
+					local connection = updateMemStorageService.Event:Connect(function(value, a)
+						func(value)
+					end)
+
+					func(initialValue)
+					return connection
+				end
+				local mockHttpService = MagicMock.new()
+				mockHttpService.JSONDecode = function()
+					return "decodedExternalPolicy"
+				end
+
+				local fromMemStorageServiceInstance = fromMemStorageService({
+					MemStorageService = mockMemStorageService,
+					HttpService = mockHttpService,
+				})(behavior)
+				it("SHOULD return the policy when `read` is invoked", function()
+					local result = fromMemStorageServiceInstance.read()
+					expect(result).to.equal("decodedExternalPolicy")
+				end)
+
+				it("SHOULD return a Disconnect-able object when `onPolicyChanged` is invoked", function()
+					local result = fromMemStorageServiceInstance.onPolicyChanged(function() end)
+					expect(result).to.be.ok()
+					expect(result.Disconnect).to.be.ok()
+					result:Disconnect()
+				end)
+
+				it(
+					"SHOULD invoke passed in function with JSONDecode results when updateMemStorageService is fired",
+					function()
+						local wasEverCalled = false
+						local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+							wasEverCalled = true
+							expect(value).to.equal("decodedExternalPolicy")
+						end)
+
+						updateMemStorageService:Fire("jsonExternalPolicyUpdated")
+
+						result:Disconnect()
+
+						expect(wasEverCalled).to.equal(true)
+					end
+				)
+
+				it(
+					"SHOULD NOT invoke passed in function with JSONDecode results "
+						.. "when updateMemStorageService is fired with the same value",
+					function()
+						local timesEverCalled = 0
+						local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+							timesEverCalled = timesEverCalled + 1
+							expect(value).to.equal("decodedExternalPolicy")
+						end)
+
+						updateMemStorageService:Fire("foo")
+						updateMemStorageService:Fire("foo")
+						updateMemStorageService:Fire("foo")
+						updateMemStorageService:Fire("foo")
+
+						result:Disconnect()
+
+						-- Once for initial value and then once for foo
+						expect(timesEverCalled).to.equal(2)
+					end
+				)
+
+				it(
+					"SHOULD NOT invoke passed in function with JSONDecode results "
+						.. "when updateMemStorageService is fired with the same value, while ignore nils",
+					function()
+						local timesEverCalled = 0
+						local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+							timesEverCalled = timesEverCalled + 1
+							expect(value).to.equal("decodedExternalPolicy")
+						end)
+
+						updateMemStorageService:Fire("bar")
+						updateMemStorageService:Fire(nil)
+						updateMemStorageService:Fire("bar")
+
+						result:Disconnect()
+
+						-- Once for initial value and then once for bar
+						expect(timesEverCalled).to.equal(2)
+					end
+				)
+
+				it("SHOULD invoke multiple listeners when updateMemStorageService is fired", function()
+					local listenerACalled = 0
+					local connA = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+						listenerACalled = listenerACalled + 1
+						expect(value).to.equal("decodedExternalPolicy")
+					end)
+
+					local listenerBCalled = 0
+					local connB = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+						listenerBCalled = listenerBCalled + 1
+						expect(value).to.equal("decodedExternalPolicy")
+					end)
+
+					updateMemStorageService:Fire("baz")
+
+					connA:Disconnect()
+					connB:Disconnect()
+
+					-- Once for initial value and then once for baz
+					expect(listenerACalled).to.equal(2)
+					expect(listenerBCalled).to.equal(2)
+				end)
 			end
-			local updateMemStorageService = Instance.new("BindableEvent")
-			mockMemStorageService.BindAndFire = function(_, _, func)
-				local initialValue = mockMemStorageService.GetItem()
-				local connection = updateMemStorageService.Event:Connect(function(value, a)
-					func(value)
-				end)
-
-				func(initialValue)
-				return connection
-			end
-			local mockHttpService = MagicMock.new()
-			mockHttpService.JSONDecode = function()
-				return "decodedExternalPolicy"
-			end
-
-			local fromMemStorageServiceInstance = fromMemStorageService({
-				MemStorageService = mockMemStorageService,
-				HttpService = mockHttpService,
-			})(behavior)
-			it("SHOULD return the policy when `read` is invoked", function()
-				local result = fromMemStorageServiceInstance.read()
-				expect(result).to.equal("decodedExternalPolicy")
-			end)
-
-			it("SHOULD return a Disconnect-able object when `onPolicyChanged` is invoked", function()
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function() end)
-				expect(result).to.be.ok()
-				expect(result.Disconnect).to.be.ok()
-				result:Disconnect()
-			end)
-
-			it("SHOULD invoke passed in function with JSONDecode results when updateMemStorageService is fired", function()
-				local wasEverCalled = false
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					wasEverCalled = true
-					expect(value).to.equal("decodedExternalPolicy")
-				end)
-
-				updateMemStorageService:Fire("jsonExternalPolicyUpdated")
-
-				result:Disconnect()
-
-				expect(wasEverCalled).to.equal(true)
-			end)
-
-			it("SHOULD NOT invoke passed in function with JSONDecode results "..
-				"when updateMemStorageService is fired with the same value", function()
-				local timesEverCalled = 0
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					timesEverCalled = timesEverCalled + 1
-					expect(value).to.equal("decodedExternalPolicy")
-				end)
-
-				updateMemStorageService:Fire("foo")
-				updateMemStorageService:Fire("foo")
-				updateMemStorageService:Fire("foo")
-				updateMemStorageService:Fire("foo")
-
-				result:Disconnect()
-
-				-- Once for initial value and then once for foo
-				expect(timesEverCalled).to.equal(2)
-			end)
-
-			it("SHOULD NOT invoke passed in function with JSONDecode results "..
-				"when updateMemStorageService is fired with the same value, while ignore nils", function()
-				local timesEverCalled = 0
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					timesEverCalled = timesEverCalled + 1
-					expect(value).to.equal("decodedExternalPolicy")
-				end)
-
-				updateMemStorageService:Fire("bar")
-				updateMemStorageService:Fire(nil)
-				updateMemStorageService:Fire("bar")
-
-				result:Disconnect()
-
-				-- Once for initial value and then once for bar
-				expect(timesEverCalled).to.equal(2)
-			end)
-
-			it("SHOULD invoke multiple listeners when updateMemStorageService is fired", function()
-				local listenerACalled = 0
-				local connA = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					listenerACalled = listenerACalled + 1
-					expect(value).to.equal("decodedExternalPolicy")
-				end)
-
-				local listenerBCalled = 0
-				local connB = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					listenerBCalled = listenerBCalled + 1
-					expect(value).to.equal("decodedExternalPolicy")
-				end)
-
-				updateMemStorageService:Fire("baz")
-
-				connA:Disconnect()
-				connB:Disconnect()
-
-				-- Once for initial value and then once for baz
-				expect(listenerACalled).to.equal(2)
-				expect(listenerBCalled).to.equal(2)
-			end)
-		end)
+		)
 
 		describe("GIVEN a functional MemStorageService and broken HttpService JSONDecode", function()
 			local mockMemStorageService = MagicMock.new()
@@ -143,19 +157,22 @@ return function()
 				expect(result).to.equal(nil)
 			end)
 
-			it("SHOULD invoke passed in function with JSONDecode results when updateMemStorageService is fired", function()
-				local wasEverCalled = false
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					wasEverCalled = true
-					expect(value).to.equal(nil)
-				end)
+			it(
+				"SHOULD invoke passed in function with JSONDecode results when updateMemStorageService is fired",
+				function()
+					local wasEverCalled = false
+					local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+						wasEverCalled = true
+						expect(value).to.equal(nil)
+					end)
 
-				updateMemStorageService:Fire("jsonExternalPolicyUpdated")
+					updateMemStorageService:Fire("jsonExternalPolicyUpdated")
 
-				result:Disconnect()
+					result:Disconnect()
 
-				expect(wasEverCalled).to.equal(true)
-			end)
+					expect(wasEverCalled).to.equal(true)
+				end
+			)
 		end)
 
 		describe("GIVEN a MemStorageService that always returns invalid results", function()
@@ -180,18 +197,21 @@ return function()
 				expect(result).to.equal(nil)
 			end)
 
-			it("SHOULD never invoke passed function with JSONDecode results when updateMemStorageService is fired", function()
-				local wasEverCalled = false
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					wasEverCalled = true
-				end)
+			it(
+				"SHOULD never invoke passed function with JSONDecode results when updateMemStorageService is fired",
+				function()
+					local wasEverCalled = false
+					local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+						wasEverCalled = true
+					end)
 
-				updateMemStorageService:Fire(nil)
+					updateMemStorageService:Fire(nil)
 
-				result:Disconnect()
+					result:Disconnect()
 
-				expect(wasEverCalled).to.equal(false)
-			end)
+					expect(wasEverCalled).to.equal(false)
+				end
+			)
 		end)
 
 		describe("GIVEN a PlayersService with a missing LocalPlayer", function()
@@ -247,20 +267,23 @@ return function()
 				expect(result).to.never.be.ok()
 			end)
 
-			it("SHOULD never invoke passed function with JSONDecode results when updateMemStorageService is fired", function()
-				local numberOfTimesCalled = 0
-				local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
-					numberOfTimesCalled = numberOfTimesCalled + 1
-				end)
+			it(
+				"SHOULD never invoke passed function with JSONDecode results when updateMemStorageService is fired",
+				function()
+					local numberOfTimesCalled = 0
+					local result = fromMemStorageServiceInstance.onPolicyChanged(function(value)
+						numberOfTimesCalled = numberOfTimesCalled + 1
+					end)
 
-				updateMemStorageService:Fire("validJson")
-				updateMemStorageService:Fire("garbage")
-				updateMemStorageService:Fire("validJson")
+					updateMemStorageService:Fire("validJson")
+					updateMemStorageService:Fire("garbage")
+					updateMemStorageService:Fire("validJson")
 
-				result:Disconnect()
+					result:Disconnect()
 
-				expect(numberOfTimesCalled).to.equal(1)
-			end)
+					expect(numberOfTimesCalled).to.equal(1)
+				end
+			)
 		end)
 
 		describe("GIVEN a new instance of fromMemStorageService", function()

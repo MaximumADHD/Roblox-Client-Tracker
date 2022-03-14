@@ -5,6 +5,7 @@ local Packages = UIBloxRoot.Parent
 local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local GridView = require(GridRoot.GridView)
@@ -13,10 +14,11 @@ local GridView = require(GridRoot.GridView)
 -- grow to, so we check it here.
 local function validateWindowHeight(props)
 	if props.windowHeight ~= nil and props.windowHeight > props.maxHeight then
-		return false, ("windowHeight must be less than or equal to maxHeight\nmaxHeight: %f\nwindowHeight: %f"):format(
-			props.maxHeight,
-			props.windowHeight
-		)
+		return false,
+			("windowHeight must be less than or equal to maxHeight\nmaxHeight: %f\nwindowHeight: %f"):format(
+				props.maxHeight,
+				props.windowHeight
+			)
 	end
 
 	return true
@@ -51,7 +53,7 @@ local isGridViewProps = t.intersection(
 		NextSelectionRight = t.optional(t.table),
 		NextSelectionUp = t.optional(t.table),
 		NextSelectionDown = t.optional(t.table),
-		[Roact.Ref] = t.optional(t.table),
+		frameRef = t.optional(t.table),
 		restorePreviousChildFocus = t.optional(t.boolean),
 		onFocusGained = t.optional(t.callback),
 
@@ -76,11 +78,13 @@ function DefaultMetricsGridView:init()
 
 	self.initialSizeCheckerRef = Roact.createRef()
 
-	self.checkSetInitialContainerWidth = function(rbx)
-		if rbx and self.isMounted and rbx:IsDescendantOf(game) then
-			self:setState({
-				containerWidth = rbx.AbsoluteSize.X,
-			})
+	if not UIBloxConfig.improvementsToGridView then
+		self.checkSetInitialContainerWidth = function(rbx)
+			if rbx and self.isMounted and rbx:IsDescendantOf(game) then
+				self:setState({
+					containerWidth = rbx.AbsoluteSize.X,
+				})
+			end
 		end
 	end
 end
@@ -91,20 +95,19 @@ function DefaultMetricsGridView:render()
 	local itemMetrics = self.props.getItemMetrics(self.state.containerWidth, self.props.itemPadding.X)
 	local itemHeight = self.props.getItemHeight(itemMetrics.itemWidth)
 
-	local size = Vector2.new(
-		math.max(0, itemMetrics.itemWidth),
-		math.max(0, itemHeight)
-	)
+	local size = Vector2.new(math.max(0, itemMetrics.itemWidth), math.max(0, itemHeight))
 
-	if self.state.containerWidth == 0 then
-		return Roact.createElement("Frame", {
-			Transparency = 1,
-			Size = UDim2.new(1, 0, 0, 0),
+	if not UIBloxConfig.improvementsToGridView then
+		if self.state.containerWidth == 0 then
+			return Roact.createElement("Frame", {
+				Transparency = 1,
+				Size = UDim2.new(1, 0, 0, 0),
 
-			[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
-			[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,
-			[Roact.Ref] = UIBloxConfig.tempFixEmptyGridView and self.initialSizeCheckerRef or nil,
-		})
+				[Roact.Change.AbsoluteSize] = self.checkSetInitialContainerWidth,
+				[Roact.Event.AncestryChanged] = self.checkSetInitialContainerWidth,
+				[Roact.Ref] = UIBloxConfig.tempFixEmptyGridView and self.initialSizeCheckerRef or self.props.frameRef,
+			})
+		end
 	end
 
 	return Roact.createElement(GridView, {
@@ -120,7 +123,7 @@ function DefaultMetricsGridView:render()
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = self.props.frameRef,
 
 		-- Optional gamepad props
 		defaultChildIndex = self.props.defaultChildIndex,
@@ -137,40 +140,58 @@ function DefaultMetricsGridView:render()
 	})
 end
 
-function DefaultMetricsGridView:checkInitialSize()
-	if not UIBloxConfig.tempFixEmptyGridView then
-		return
-	end
+if not UIBloxConfig.improvementsToGridView then
+	function DefaultMetricsGridView:checkInitialSize()
+		if not UIBloxConfig.tempFixEmptyGridView then
+			return
+		end
 
-	local initialSizeFrame = self.initialSizeCheckerRef:getValue()
-	if initialSizeFrame then
-		-- There is a bug in the C++ code around resizing/notification that causes a
-		-- pretty serious issue in prod (you can get stuck in a state where all catalog
-		-- pages are empty).
-		-- In the short term we can fix the user-facing issue with this hack.
-		-- Reading the AbsolutePosition property here forces a relayout.
-		-- Over the long haul we expect the C++ code will be fixed and we can remove this
-		-- hack.
-		local _ = initialSizeFrame.AbsolutePosition
+		local initialSizeFrame = self.initialSizeCheckerRef:getValue()
+		if initialSizeFrame then
+			-- There is a bug in the C++ code around resizing/notification that causes a
+			-- pretty serious issue in prod (you can get stuck in a state where all catalog
+			-- pages are empty).
+			-- In the short term we can fix the user-facing issue with this hack.
+			-- Reading the AbsolutePosition property here forces a relayout.
+			-- Over the long haul we expect the C++ code will be fixed and we can remove this
+			-- hack.
+			local _ = initialSizeFrame.AbsolutePosition
 
-		if initialSizeFrame.AbsoluteSize.X > 0 then
-			self.checkSetInitialContainerWidth(initialSizeFrame)
+			if initialSizeFrame.AbsoluteSize.X > 0 then
+				self.checkSetInitialContainerWidth(initialSizeFrame)
+			end
 		end
 	end
 end
 
 function DefaultMetricsGridView:didMount()
 	self.isMounted = true
-
-	self:checkInitialSize()
+	if not UIBloxConfig.improvementsToGridView then
+		self:checkInitialSize()
+		if UIBloxConfig.tempFixEmptyGridView and UIBloxConfig.tempFixGridViewLayoutWithSpawn then
+			-- FIXME(dbanks)
+			-- 2021/10/08
+			-- We are observing problems with grid view not rendering properly until it is 'poked' with a read of
+			-- some kind.
+			-- Evidently reading right away doesn't fix the problem in every situation.
+			-- Tests suggest it helps to read an instant after everything is mounted, hence the spawn.
+			spawn(function()
+				self:checkInitialSize()
+			end)
+		end
+	end
 end
 
-function DefaultMetricsGridView:didUpdate()
-	self:checkInitialSize()
+if not UIBloxConfig.improvementsToGridView then
+	function DefaultMetricsGridView:didUpdate()
+		self:checkInitialSize()
+	end
 end
 
 function DefaultMetricsGridView:willUnmount()
 	self.isMounted = false
 end
 
-return DefaultMetricsGridView
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(DefaultMetricsGridView, Cryo.Dictionary.join(props, { frameRef = ref }))
+end)

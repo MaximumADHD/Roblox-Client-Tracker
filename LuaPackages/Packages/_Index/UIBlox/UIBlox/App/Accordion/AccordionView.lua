@@ -59,9 +59,13 @@ function AccordionView:init()
 	end
 
 	self.onExpandButtonInputBegan = function(_, inputObject)
-		if inputObject.UserInputState == Enum.UserInputState.Begin and
-			(inputObject.UserInputType == Enum.UserInputType.Touch or
-			inputObject.UserInputType == Enum.UserInputType.MouseButton1) then
+		if
+			inputObject.UserInputState == Enum.UserInputState.Begin
+			and (
+				inputObject.UserInputType == Enum.UserInputType.Touch
+				or inputObject.UserInputType == Enum.UserInputType.MouseButton1
+			)
+		then
 			self:setState({
 				isExpandButtonPressed = true,
 			})
@@ -83,8 +87,12 @@ function AccordionView:init()
 			local itemWidth = self.props.itemWidth
 			local minimumHeight = self:getCompactTotalHeight()
 
-			self.rootFrameRef.current.Size = UDim2.new(0, itemWidth,
-				0, math.max(rbx.AbsoluteContentSize.Y, minimumHeight))
+			self.rootFrameRef.current.Size = UDim2.new(
+				0,
+				itemWidth,
+				0,
+				math.max(rbx.AbsoluteContentSize.Y, minimumHeight)
+			)
 		end
 	end
 end
@@ -255,7 +263,7 @@ function AccordionView:render()
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				LayoutOrder = index + 1,
-				ZIndex = totalNumberOfItems + 1 - index;
+				ZIndex = totalNumberOfItems + 1 - index,
 				ClipsDescendants = true,
 				[Roact.Children] = {
 					Item = renderItem(items[index], layout.itemTransparency, ANIMATION_SPRING_SETTINGS),
@@ -295,9 +303,7 @@ function AccordionView:render()
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			BackgroundTransparency = 1,
-		},
-			accordionContent
-		),
+		}, accordionContent),
 		ClickToExpandButton = clickToExpand and Roact.createElement("TextButton", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,

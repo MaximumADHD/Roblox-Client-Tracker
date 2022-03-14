@@ -11,8 +11,8 @@ return function()
 	local function createRootNode(ref)
 		local node = FocusNode.new({
 			focusController = FocusController.createPublicApiWrapper(),
-			[Roact.Ref] = ref,
-		})
+			innerRef = ref,
+		}, ref)
 
 		node:attachToTree(nil, function() end)
 
@@ -26,8 +26,7 @@ return function()
 		local childRef, updateChildRef = Roact.createBinding(instance)
 		local childNode = FocusNode.new({
 			parentFocusNode = parentNode,
-			[Roact.Ref] = childRef,
-		})
+		}, childRef)
 		childNode:attachToTree(parentNode, function() end)
 
 		return childNode, childRef, updateChildRef
@@ -172,7 +171,6 @@ return function()
 			local _, engineInterface = MockEngine.new()
 
 			local parentNode = createRootNode(rootRef)
-			addChildNode(parentNode)
 			local childNodeA, childRefA, updateChildRefA = addChildNode(parentNode)
 			local childNodeB, _ = addChildNode(parentNode)
 			parentNode.defaultChildRef = childRefA
@@ -197,8 +195,8 @@ return function()
 			local childRef, _ = Roact.createBinding(instance)
 			local childNode = FocusNode.new({
 				parentFocusNode = parentNode,
-				[Roact.Ref] = childRef,
-			})
+				innerRef = childRef,
+			}, childRef)
 			childNode:attachToTree(parentNode, function() end)
 
 			return childNode, childRef

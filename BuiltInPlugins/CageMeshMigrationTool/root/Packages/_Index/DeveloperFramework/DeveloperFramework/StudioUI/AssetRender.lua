@@ -24,7 +24,10 @@
 		callback OnPauseSound: Called when a Sound plays.
 		callback OnPlayVideo: Called when a Video plays.
 		callback OnPauseVideo: Called when a Video plays.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
+
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -173,6 +176,7 @@ function AssetRender:render()
 			OnPause = props.OnPauseSound,
 			SoundId = treeViewSelectedInstance and treeViewSelectedInstance.SoundId or string.format("rbxassetid://%d", assetId),
 			Style = treeViewEnabled and style.AudioPlayerWithTreeViewButton or style.AudioPlayer,
+			UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then props.UsageContext else nil,
 		})
 	elseif renderType == AssetRenderType.Video then
 		renderView = Roact.createElement(VideoPlayer, {

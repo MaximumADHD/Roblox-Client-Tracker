@@ -1,4 +1,3 @@
---!nolint UnknownRequire
 local Framework = script.Parent.Parent
 
 local Dash = require(Framework.packages.Dash)

@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local getUserDisplayName = require(script.Parent.getUserDisplayName)
 
 	describe("GIVEN a user model with no displayname and state", function()
@@ -10,8 +14,8 @@ return function()
 
 		it("SHOULD return the user's name as a string", function()
 			local result = getUserDisplayName(state, user)
-			expect(type(result)).to.equal("string")
-			expect(result).to.equal("nameHere")
+
+			jestExpect(result).toBe("nameHere")
 		end)
 	end)
 
@@ -24,8 +28,8 @@ return function()
 
 		it("SHOULD return the user's displayName as a string", function()
 			local result = getUserDisplayName(state, user)
-			expect(type(result)).to.equal("string")
-			expect(result).to.equal("displayNameHere")
+
+			jestExpect(result).toBe("displayNameHere")
 		end)
 	end)
 end

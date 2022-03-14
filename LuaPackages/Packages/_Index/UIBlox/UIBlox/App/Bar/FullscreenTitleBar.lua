@@ -52,8 +52,8 @@ function FullscreenTitleBar:init()
 	local setProgress
 	self.progress, setProgress = Roact.createBinding(initProgress)
 
-	self.exitControlState, self.setExitControlState = Roact.createBinding(self.state.exitControlState)
-	self.closeControlState, self.setCloseControlState = Roact.createBinding(self.state.closeControlState)
+	self.exitControlState, self.setExitControlState = Roact.createBinding(ControlState.Default)
+	self.closeControlState, self.setCloseControlState = Roact.createBinding(ControlState.Default)
 
 	self.titleBarPosition = self.progress:map(function(value)
 		return TITLE_BAR_OFF_POS:lerp(TITLE_BAR_ON_POS, value)

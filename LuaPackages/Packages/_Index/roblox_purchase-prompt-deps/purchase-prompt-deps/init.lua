@@ -9,4 +9,5 @@ return {
 	t = require(PurchasePromptDependencies.t),
 	UIBlox = require(PurchasePromptDependencies.UIBlox),
 	FitFrame = require(PurchasePromptDependencies.FitFrame),
+	PolicyProvider = require(PurchasePromptDependencies.PolicyProvider),
 }

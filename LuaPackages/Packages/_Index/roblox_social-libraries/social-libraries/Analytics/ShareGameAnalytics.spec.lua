@@ -1,4 +1,8 @@
 return function()
+	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local ShareGameAnalytics = require(script.Parent.ShareGameAnalytics)
 
 	local createMockSignal = function()
@@ -63,25 +67,25 @@ return function()
 	describe("new", function()
 		it("SHOULD return an object", function()
 			local analytics = ShareGameAnalytics.new({}, {}, "")
-			expect(analytics).to.be.ok()
+			jestExpect(analytics).never.toBeNil()
 		end)
 
 		it("SHOULD throw if not provided an EventStream", function()
-			expect(function()
+			jestExpect(function()
 				ShareGameAnalytics.new(nil, {}, "")
-			end).to.throw()
+			end).toThrow()
 		end)
 
 		it("SHOULD throw if not provided a Diag", function()
-			expect(function()
+			jestExpect(function()
 				ShareGameAnalytics.new({}, nil, "")
-			end).to.throw()
+			end).toThrow()
 		end)
 
 		it("SHOULD throw if not provided a ButtonName", function()
-			expect(function()
+			jestExpect(function()
 				ShareGameAnalytics.new({}, {}, nil)
-			end).to.throw()
+			end).toThrow()
 		end)
 	end)
 
@@ -90,8 +94,8 @@ return function()
 			local eventStreamMock = {}
 			local analytics = ShareGameAnalytics.new(eventStreamMock, {}, "")
 
-			expect(analytics).to.be.ok()
-			expect(analytics:_getEventStream()).to.equal(eventStreamMock)
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(analytics:_getEventStream()).toBe(eventStreamMock)
 		end)
 	end)
 
@@ -100,8 +104,8 @@ return function()
 			local buttonMock = "testing"
 			local analytics = ShareGameAnalytics.new({}, {}, buttonMock)
 
-			expect(analytics).to.be.ok()
-			expect(analytics:_getButtonName()).to.equal(buttonMock)
+			jestExpect(analytics).never.toBeNil()
+			jestExpect(analytics:_getButtonName()).toBe(buttonMock)
 		end)
 	end)
 
@@ -122,8 +126,8 @@ return function()
 
 			analytics:inputShareGameEntryPoint()
 
-			expect(lastEventContext).to.equal(mockButtonName)
-			expect(lastEventName).to.equal(ShareGameAnalytics.EventName.EntryPoint)
+			jestExpect(lastEventContext).toBe(mockButtonName)
+			jestExpect(lastEventName).toBe(ShareGameAnalytics.EventName.EntryPoint)
 		end)
 	end)
 
@@ -144,8 +148,8 @@ return function()
 
 			analytics:onActivatedInviteSent("placeId", "gameId", "senderId", "conversationId", {})
 
-			expect(lastEventContext).to.equal(mockButtonName)
-			expect(lastEventName).to.equal(ShareGameAnalytics.EventName.InviteSent)
+			jestExpect(lastEventContext).toBe(mockButtonName)
+			jestExpect(lastEventName).toBe(ShareGameAnalytics.EventName.InviteSent)
 		end)
 
 		it("SHOULD fire a diag counter", function()
@@ -162,7 +166,7 @@ return function()
 
 			analytics:onActivatedInviteSent("placeId", "gameId", "senderId", "conversationId", {"recipientId"})
 
-			expect(diagSum).to.equal(1)
+			jestExpect(diagSum).toBe(1)
 		end)
 	end)
 end

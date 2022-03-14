@@ -1,4 +1,3 @@
-
 local ContentProvider = game:GetService("ContentProvider")
 
 --- base configuration -----------------------------
@@ -28,9 +27,9 @@ function UrlBase.new(name, params)
 		params = {}
 	end
 	if type(params) == "number" or type(params) == "string" then
-		params = {version = params}
+		params = { version = params }
 	end
-	assert(type(params) == "table",  "UrlBase.new: `params` should be a table")
+	assert(type(params) == "table", "UrlBase.new: `params` should be a table")
 	local proto = params.proto
 	local version = params.version
 	local path = params.path
@@ -79,6 +78,8 @@ UrlBase.FOLLOWINGS = UrlBase.new("followings", 1)
 UrlBase.PREMIUM = UrlBase.new("premiumfeatures", 1)
 UrlBase.BLOG = "https://blog.roblox.com"
 UrlBase.CORP = isQQ and "https://roblox.qq.com" or "https://corp.roblox.com"
+UrlBase.USERMODERATION = UrlBase.new("usermoderation", 1)
+UrlBase.ACCOUNTINFORMATION = UrlBase.new("accountinformation", 1)
 -- from Http.lua
 UrlBase.ACCOUNTSETTINGS = UrlBase.new("accountsettings")
 UrlBase.BADGES = UrlBase.new("badges", 1)
@@ -87,7 +88,7 @@ UrlBase.CATALOG = UrlBase.new("catalog", 1)
 -- from AEWebApi.lua
 UrlBase.AVATAR = UrlBase.new("avatar", 1)
 
-UrlBase.MOBILENAV = "robloxmobile://navigation"
+UrlBase.MOBILENAV = "roblox://navigation"
 UrlBase.APPSFLYER = "https://ro.blox.com"
 
 return UrlBase

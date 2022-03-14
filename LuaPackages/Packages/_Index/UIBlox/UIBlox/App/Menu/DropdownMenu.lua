@@ -56,8 +56,12 @@ DropdownMenuComponent.validateProps = t.strictInterface({
 		-- is the cell is disabled
 		disabled = t.optional(t.boolean),
 
-		-- A KeyCode to display a keycode hint for, the display string based on the users keyboard is displayed.
-		keyCodeLabel = t.optional(t.enum(Enum.KeyCode)),
+		-- A KeyCode to display a keycode hint for, the display string based on
+		-- the users keyboard or gamepad button is displayed.
+		keyCodeLabel = t.optional(t.union(t.enum(Enum.KeyCode), t.strictInterface({
+			key = t.enum(Enum.KeyCode),
+			axis = t.optional(t.string),
+		}))),
 
 		-- the color to override the default icon color
 		iconColorOverride = t.optional(t.Color3),

@@ -18,8 +18,6 @@ local StyleModifier = Util.StyleModifier
 
 local TreeTableCell = Roact.PureComponent:extend("TreeTableCell")
 
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
-
 function TreeTableCell:init()
 	self.onToggle = function()
 		local cellProps = self.props.CellProps
@@ -90,7 +88,7 @@ function TreeTableCell:render()
 	
 	local style = join(props.Style, cellProps.CellStyle)
 	local backgroundColor = ((props.RowIndex % 2) == 1) and style.BackgroundOdd or style.BackgroundEven
-	if (FFlagDevFrameworkHighlightTableRows and props.HighlightCell) then
+	if props.HighlightCell then
 		if style[StyleModifier.Hover] then
 			backgroundColor = ((props.RowIndex % 2) == 1) and style[StyleModifier.Hover].BackgroundOdd or 
 				style[StyleModifier.Hover].BackgroundEven

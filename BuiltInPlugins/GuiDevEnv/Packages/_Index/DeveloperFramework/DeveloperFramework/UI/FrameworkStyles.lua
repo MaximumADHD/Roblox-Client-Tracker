@@ -7,6 +7,9 @@
 	default values for Studio plugins.
 ]]
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
+local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
+local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local function newDefaults()
 	return {
@@ -25,12 +28,14 @@ function FrameworkStyles.new()
 		Button = newDefaults(),
 		Checkbox = newDefaults(),
 		CheckboxTreeView = newDefaults(),
+		DragBar = newDefaults(),
 		DropdownMenu = newDefaults(),
 		DropShadow = newDefaults(),
 		ExpandablePane = newDefaults(),
 		IconButton = newDefaults(),
 		Image = newDefaults(),
 		InfiniteScrollingFrame = newDefaults(),
+		InfiniteScrollingGrid = if FFlagDevFrameworkInfiniteScrollingGrid then newDefaults() else nil,
 		InstanceTreeView = newDefaults(),
 		LinkText = newDefaults(),
 		LoadingBar = newDefaults(),
@@ -42,11 +47,13 @@ function FrameworkStyles.new()
 		RadioButton = newDefaults(),
 		RadioButtonList = newDefaults(),
 		RangeSlider = newDefaults(),
+		ResponsiveGrid = if FFlagDevFrameworkResponsiveGrid2 then newDefaults() else nil,
 		RoundBox = newDefaults(),
 		ScrollingFrame = newDefaults(),
 		SelectInput = newDefaults(),
 		Separator = newDefaults(),
 		SimpleTab = newDefaults(),
+		SplitPane = newDefaults(),
 		TableRow = newDefaults(),
 		Slider = newDefaults(),
 		Table = newDefaults(),
@@ -62,6 +69,7 @@ function FrameworkStyles.new()
 		TreeTable = newDefaults(),
 		TreeView = newDefaults(),
 		TreeViewRow = newDefaults(),
+		TimeProgressBar = FFlagDevFrameworkTimeProgressBar and newDefaults() or nil,
 
 		-- StudioUI Styles
 		AssetPreview = newDefaults(),

@@ -1,3 +1,6 @@
+-- DEPRECATED: This story is provided for backwards compatibility with horsecat and will be removed.
+-- Please only make changes to `src\Stories\Private\ModalBottomSheet\DefaultOptions.story.lua`
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local StoryView = require(ReplicatedStorage.Packages.StoryComponents.StoryView)
@@ -71,7 +74,11 @@ local function mountWithStyle(tree, target, name)
 	return Roact.mount(styledTree, target, name)
 end
 
-local overlayComponent = Roact.Component:extend("overlayComponent")
+local overlayComponent = Roact.Component:extend("OverlayComponentOption9")
+
+function overlayComponent:init()
+	self.state = {}
+end
 
 function overlayComponent:render()
 	local ModalContainer = self.props.ModalContainer
@@ -80,9 +87,7 @@ function overlayComponent:render()
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 1, 0),
 	}, {
-		Layout = Roact.createElement("UIListLayout", {
-
-		}),
+		Layout = Roact.createElement("UIListLayout", {}),
 		TestButton1 = Roact.createElement("TextButton", {
 			Text = "Spawn 9 Choice",
 			Size = UDim2.new(1, 0, 0.2, 0),
@@ -92,7 +97,7 @@ function overlayComponent:render()
 				self:setState({
 					showModal = true,
 				})
-			end
+			end,
 		}),
 		modal = showModal and Roact.createElement(Roact.Portal, {
 			target = ModalContainer,
@@ -106,8 +111,8 @@ function overlayComponent:render()
 					})
 				end,
 				buttonModels = dummyModalButtons9,
-			})
-		})
+			}),
+		}),
 	})
 end
 
@@ -120,10 +125,14 @@ return function(target)
 
 	Roact.mount(ModalContainer, target, "ModalContainer")
 
-	local handle = mountWithStyle(Roact.createElement(overlayComponent, {
-		ModalContainer = target:FindFirstChild("ModalContainer"),
-		width = 0,
-	}), target, "preview")
+	local handle = mountWithStyle(
+		Roact.createElement(overlayComponent, {
+			ModalContainer = target:FindFirstChild("ModalContainer"),
+			width = 0,
+		}),
+		target,
+		"preview"
+	)
 
 	local connection = target:GetPropertyChangedSignal("AbsoluteSize"):Connect(function()
 		local tree = withStyle(Roact.createElement(overlayComponent, {

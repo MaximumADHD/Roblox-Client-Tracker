@@ -20,7 +20,6 @@ local FitFrameOnAxis = FitFrame.FitFrameOnAxis
 local ButtonType = require(ButtonRoot.Enum.ButtonType)
 
 local validateButtonStack = require(AppRoot.Button.Validator.validateButtonStack)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local BUTTON_HEIGHT = 36
 
@@ -104,34 +103,29 @@ function ButtonStack:render()
 				buttonComponent = SecondaryButton
 			end
 
-			if UIBloxConfig.enableExperimentalGamepadSupport then
-				if button.isDefaultChild then
-					defaultChildIndex = colIndex
-				end
-
-				local gamepadProps = {
-					[Roact.Ref] = self.buttonRefs[colIndex],
-					NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
-					NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
-					NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
-					NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
-				}
-				local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
-				table.insert(buttonTable, Roact.createElement(buttonComponent, buttonPropsWithGamepad))
-			else
-				table.insert(buttonTable, Roact.createElement(buttonComponent, buttonProps))
+			if button.isDefaultChild then
+				defaultChildIndex = colIndex
 			end
+
+			local gamepadProps = {
+				[Roact.Ref] = self.buttonRefs[colIndex],
+				NextSelectionUp = (isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+				NextSelectionDown = (isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
+				NextSelectionLeft = (not isButtonStacked and colIndex > 1) and self.buttonRefs[colIndex - 1] or nil,
+				NextSelectionRight = (not isButtonStacked and colIndex < #buttons) and self.buttonRefs[colIndex + 1] or nil,
+			}
+			local buttonPropsWithGamepad = Cryo.Dictionary.join(buttonProps, gamepadProps)
+			table.insert(buttonTable, Roact.createElement(buttonComponent, buttonPropsWithGamepad))
 		end
 
-		return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-			RoactGamepad.Focusable[FitFrameOnAxis] or FitFrameOnAxis, {
+		return Roact.createElement(RoactGamepad.Focusable[FitFrameOnAxis], {
 			BackgroundTransparency = 1,
 			contentPadding = UDim.new(0, paddingBetween),
 			FillDirection = fillDirection,
 			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			LayoutOrder = 3,
 			minimumSize = UDim2.new(1, 0, 0, self.props.buttonHeight),
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = self.props.frameRef,
 			[Roact.Change.AbsoluteSize] = self.updateFrameSize,
 
 			NextSelectionLeft = self.props.NextSelectionLeft,
@@ -145,4 +139,9 @@ function ButtonStack:render()
 	end)
 end
 
-return ButtonStack
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(ButtonStack, Cryo.Dictionary.join(
+		props,
+		{frameRef = ref}
+	))
+end)

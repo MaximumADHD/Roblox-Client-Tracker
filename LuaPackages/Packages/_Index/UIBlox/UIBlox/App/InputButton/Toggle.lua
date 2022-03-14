@@ -46,6 +46,7 @@ local validateProps = t.strictInterface({
 local InnerToggle = Roact.PureComponent:extend("Toggle")
 
 function InnerToggle:init()
+	self.state = {}
 	local initialProgress = self.props.isSelected and 1 or 0
 	local setProgress
 	self.progress, setProgress = Roact.createBinding(initialProgress)

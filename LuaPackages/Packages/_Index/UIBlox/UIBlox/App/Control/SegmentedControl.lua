@@ -11,13 +11,10 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local Otter = require(Packages.Otter)
 
 local RoactGamepad = require(Packages.RoactGamepad)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 
 local ControlState = require(Core.Control.Enum.ControlState)
 local SegmentedControlTabName = require(script.Parent.SegmentedControlTabName)
 local ImageSetComponent = require(Core.ImageSet.ImageSetComponent)
-local Images = require(App.ImageSet.Images)
 local getContentStyle = require(Core.Button.getContentStyle)
 
 local FRAME_PADDING = 4
@@ -33,18 +30,17 @@ local SPRING_PARAMS = {
 local BACKGROUND_IMAGE = "component_assets/circle_17"
 local SHADOW_IMAGE = "component_assets/dropshadow_25"
 local BACKGROUND_COLOR_STATE_MAP = {
-	[ControlState.Default] = "BackgroundUIDefault"
+	[ControlState.Default] = "BackgroundUIDefault",
 }
 local DIVIDER_COLOR_STATE_MAP = {
-	[ControlState.Default] = "Divider"
+	[ControlState.Default] = "Divider",
 }
 local SELECTED_BACKGROUND_COLOR_STATE_MAP = {
-	[ControlState.Default] = "UIDefault"
+	[ControlState.Default] = "UIDefault",
 }
 local DROPSHADOW_COLOR_STATE_MAP = {
-	[ControlState.Default] = "DropShadow"
+	[ControlState.Default] = "DropShadow",
 }
-
 
 local limitedLengthTabArray = function(array)
 	local typeChecker, typeCheckerMessage = t.array(t.strictInterface({
@@ -96,7 +92,7 @@ function SegmentedControl:init()
 	self.selectedBackgroundMotor = Otter.createSingleMotor(FRAME_PADDING)
 	self.selectedBackgroundMotor:onStep(function(selectedBackgroundPositionX)
 		self:setState({
-			selectedBackgroundPositionX = selectedBackgroundPositionX
+			selectedBackgroundPositionX = selectedBackgroundPositionX,
 		})
 	end)
 
@@ -117,24 +113,27 @@ function SegmentedControl:init()
 		local frameWidth = rbx.AbsoluteSize.X
 		local totalTabWidth = frameWidth - FRAME_PADDING * 2
 		local tabWidth = math.floor(totalTabWidth / #self.props.tabs)
-		self.selectedBackgroundMotor:setGoal(Otter.spring(FRAME_PADDING + tabWidth * (self.state.selectedIndex - 1),
-		SPRING_PARAMS))
+		self.selectedBackgroundMotor:setGoal(
+			Otter.spring(FRAME_PADDING + tabWidth * (self.state.selectedIndex - 1), SPRING_PARAMS)
+		)
 		self:setState({
 			tabWidth = tabWidth,
 		})
 	end
 
 	self.selectTab = function(activatedTab, selectedIndex)
-		self.selectedBackgroundMotor:setGoal(Otter.spring(FRAME_PADDING + self.state.tabWidth * (selectedIndex - 1),
-			SPRING_PARAMS))
+		self.selectedBackgroundMotor:setGoal(
+			Otter.spring(FRAME_PADDING + self.state.tabWidth * (selectedIndex - 1), SPRING_PARAMS)
+		)
 		self:setState({
 			selectedTab = activatedTab,
-			selectedIndex = selectedIndex
+			selectedIndex = selectedIndex,
 		})
 		activatedTab.onActivated(activatedTab)
 	end
 end
-function SegmentedControl:renderDefault()
+
+function SegmentedControl:render()
 	return withStyle(function(style)
 		-- render params
 		local currentState = self.state.controlState
@@ -142,122 +141,11 @@ function SegmentedControl:renderDefault()
 		local forceSelectedBGState = isDisabled and ControlState.Disabled or currentState
 		local backgroundStyle = getContentStyle(BACKGROUND_COLOR_STATE_MAP, currentState, style)
 		local dividerStyle = getContentStyle(DIVIDER_COLOR_STATE_MAP, currentState, style)
-		local selectedBackgroundStyle = getContentStyle(SELECTED_BACKGROUND_COLOR_STATE_MAP, forceSelectedBGState, style)
-		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
-		local tabWidth = self.state.tabWidth
-		-- dividers between tabs
-		local dividers = {}
-		for i = 1, #self.props.tabs - 1, 1 do
-			if i ~= self.state.selectedIndex and i ~= self.state.selectedIndex - 1 then
-				table.insert(dividers, i, Roact.createElement("Frame", {
-					Size = UDim2.fromOffset(1, TAB_HEIGHT),
-					BackgroundTransparency = dividerStyle.Transparency,
-					BackgroundColor3 = dividerStyle.Color,
-					Position =  UDim2.fromOffset(FRAME_PADDING + tabWidth * i, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2)
-				}))
-			end
-		end
-		-- create the tabs as SegmentedControlTabName and add activated callback
-		local tabs = Cryo.List.map(self.props.tabs, function(tab, index)
-			return Roact.createElement("Frame",{
-				LayoutOrder = index,
-				Size = UDim2.fromOffset(tabWidth, INTERACTION_HEIGHT),
-				BackgroundTransparency = 1,
-			}, {
-				Tab = Roact.createElement(SegmentedControlTabName, {
-					text = tab.tabName,
-					onActivated = function() self.onTabActivated(index) end,
-					Size = UDim2.fromScale(1, 1),
-					isDisabled = tab.isDisabled,
-					isSelectedStyle = self.state.selectedIndex == index
-				})
-			})
-		end)
-		-- add UIListLayout for tabs
-		table.insert(tabs, Roact.createElement("UIListLayout", {
-			VerticalAlignment = Enum.VerticalAlignment.Center,
-			FillDirection = Enum.FillDirection.Horizontal,
-			HorizontalAlignment = Enum.HorizontalAlignment.Center,
-			SortOrder = Enum.SortOrder.LayoutOrder
-		}))
-
-		return Roact.createElement("Frame", {
-			Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, INTERACTION_HEIGHT),
-			BackgroundTransparency = 1,
-			[Roact.Change.AbsoluteSize] = self.setSize
-		}, {
-			SizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(MIN_TAB_WIDTH * #self.props.tabs + FRAME_PADDING * 2, INTERACTION_HEIGHT),
-				MaxSize = Vector2.new(MAX_WIDTH, INTERACTION_HEIGHT),
-			}),
-			-- tab group background
-			Background = Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.new(1, 0, 0, BACKGROUND_HEIGHT),
-				Position = UDim2.fromOffset(0, (INTERACTION_HEIGHT - BACKGROUND_HEIGHT) / 2),
-				BackgroundTransparency = 1,
-				Image = Images[BACKGROUND_IMAGE],
-				ImageColor3 = backgroundStyle.Color,
-				ImageTransparency = backgroundStyle.Transparency,
-				LayoutOrder = 1,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(8, 8, 9, 9),
-				ZIndex = 1,
-			}),
-			-- put dividers in one frame
-			Dividers = Roact.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, INTERACTION_HEIGHT),
-				Position = UDim2.fromOffset(0, 0),
-				BackgroundTransparency = 1,
-				ZIndex = 2,
-			}, dividers),
-			-- the only selected tab background, used to make animation
-			SelectedBackground = Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromOffset(tabWidth, TAB_HEIGHT),
-				Position = UDim2.fromOffset(self.state.selectedBackgroundPositionX, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2),
-				BackgroundTransparency = 1,
-				Image = BACKGROUND_IMAGE,
-				ImageColor3 = selectedBackgroundStyle.Color,
-				ImageTransparency = selectedBackgroundStyle.Transparency,
-				LayoutOrder = 2,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(8, 8, 9, 9),
-				ZIndex = 4,
-			}),
-			-- the shadow for selected tab background
-			SelectedBackgroundShadow = not isDisabled and Roact.createElement(ImageSetComponent.Label, {
-				Size = UDim2.fromOffset(tabWidth + 6 * 2, TAB_HEIGHT + 6 * 2),
-				Position = UDim2.fromOffset(
-					self.state.selectedBackgroundPositionX - 6,
-					(INTERACTION_HEIGHT - TAB_HEIGHT) / 2 - 6 + 2
-				),
-				BackgroundTransparency = 1,
-				Image = Images[SHADOW_IMAGE],
-				ImageColor3 = dropshadowStyle.Color,
-				ImageTransparency = 0.3,
-				ScaleType = Enum.ScaleType.Slice,
-				SliceCenter = Rect.new(18, 18, 19, 19),
-				ZIndex = 3,
-			}),
-			-- container for tabs
-			TabContainer = Roact.createElement("Frame", {
-				Size = UDim2.fromScale(1, 1),
-				BackgroundTransparency = 1,
-				Position = UDim2.fromScale(0, 0),
-				ZIndex = 5,
-			},tabs)
-		})
-	end)
-end
-
-function SegmentedControl:renderGamepadSupport()
-	return withStyle(function(style)
-		-- render params
-		local currentState = self.state.controlState
-		local isDisabled = self.state.selectedTab.isDisabled
-		local forceSelectedBGState = isDisabled and ControlState.Disabled or currentState
-		local backgroundStyle = getContentStyle(BACKGROUND_COLOR_STATE_MAP, currentState, style)
-		local dividerStyle = getContentStyle(DIVIDER_COLOR_STATE_MAP, currentState, style)
-		local selectedBackgroundStyle = getContentStyle(SELECTED_BACKGROUND_COLOR_STATE_MAP, forceSelectedBGState, style)
+		local selectedBackgroundStyle = getContentStyle(
+			SELECTED_BACKGROUND_COLOR_STATE_MAP,
+			forceSelectedBGState,
+			style
+		)
 		local dropshadowStyle = getContentStyle(DROPSHADOW_COLOR_STATE_MAP, currentState, style)
 		local tabWidth = self.state.tabWidth
 
@@ -265,12 +153,19 @@ function SegmentedControl:renderGamepadSupport()
 		local dividers = {}
 		for i = 1, #self.props.tabs - 1, 1 do
 			if i ~= self.state.selectedIndex and i ~= self.state.selectedIndex - 1 then
-				table.insert(dividers, i, Roact.createElement("Frame", {
-					Size = UDim2.fromOffset(1, TAB_HEIGHT),
-					BackgroundTransparency = dividerStyle.Transparency,
-					BackgroundColor3 = dividerStyle.Color,
-					Position =  UDim2.fromOffset(FRAME_PADDING + tabWidth * i, (INTERACTION_HEIGHT - TAB_HEIGHT) / 2)
-				}))
+				table.insert(
+					dividers,
+					i,
+					Roact.createElement("Frame", {
+						Size = UDim2.fromOffset(1, TAB_HEIGHT),
+						BackgroundTransparency = dividerStyle.Transparency,
+						BackgroundColor3 = dividerStyle.Color,
+						Position = UDim2.fromOffset(
+							FRAME_PADDING + tabWidth * i,
+							(INTERACTION_HEIGHT - TAB_HEIGHT) / 2
+						),
+					})
+				)
 			end
 		end
 
@@ -291,7 +186,7 @@ function SegmentedControl:renderGamepadSupport()
 			-- create the tabs as SegmentedControlTabName and add activated callback, adding gamepad support
 			-- gamepad focus is added to the frame, not SegmentedControlTabName
 			local tabs = Cryo.List.map(self.props.tabs, function(tab, index)
-				return Roact.createElement(RoactGamepad.Focusable.Frame,{
+				return Roact.createElement(RoactGamepad.Focusable.Frame, {
 					LayoutOrder = index,
 					Size = UDim2.fromOffset(tabWidth, INTERACTION_HEIGHT),
 					BackgroundTransparency = 1,
@@ -306,30 +201,47 @@ function SegmentedControl:renderGamepadSupport()
 					inputBindings = {
 						LeaveA = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, moveToParent),
 						LeaveB = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonB, moveToParent),
-						SelectNext1 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR1, function() moveToNext(index) end),
-						SelectPre1 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL1, function() moveToPrevious(index) end),
-						SelectNext2 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR2, function() moveToNext(index) end),
-						SelectPre2 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL2, function() moveToPrevious(index) end),
-						SelectNext3 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR3, function() moveToNext(index) end),
-						SelectPre3 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL3, function() moveToPrevious(index) end)
-					}
+						SelectNext1 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR1, function()
+							moveToNext(index)
+						end),
+						SelectPre1 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL1, function()
+							moveToPrevious(index)
+						end),
+						SelectNext2 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR2, function()
+							moveToNext(index)
+						end),
+						SelectPre2 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL2, function()
+							moveToPrevious(index)
+						end),
+						SelectNext3 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonR3, function()
+							moveToNext(index)
+						end),
+						SelectPre3 = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonL3, function()
+							moveToPrevious(index)
+						end),
+					},
 				}, {
 					Tab = Roact.createElement(SegmentedControlTabName, {
 						text = tab.tabName,
-						onActivated = function() self.onTabActivated(index) end,
+						onActivated = function()
+							self.onTabActivated(index)
+						end,
 						Size = UDim2.fromScale(1, 1),
 						isDisabled = tab.isDisabled,
-						isSelectedStyle = self.state.selectedIndex == index
-					})
+						isSelectedStyle = self.state.selectedIndex == index,
+					}),
 				})
 			end)
 			-- add UIListLayout for tabs
-			table.insert(tabs, Roact.createElement("UIListLayout", {
-				VerticalAlignment = Enum.VerticalAlignment.Center,
-				FillDirection = Enum.FillDirection.Horizontal,
-				HorizontalAlignment = Enum.HorizontalAlignment.Center,
-				SortOrder = Enum.SortOrder.LayoutOrder
-			}))
+			table.insert(
+				tabs,
+				Roact.createElement("UIListLayout", {
+					VerticalAlignment = Enum.VerticalAlignment.Center,
+					FillDirection = Enum.FillDirection.Horizontal,
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+				})
+			)
 
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, INTERACTION_HEIGHT),
@@ -367,8 +279,8 @@ function SegmentedControl:renderGamepadSupport()
 					inputBindings = {
 						Enter = RoactGamepad.Input.onBegin(Enum.KeyCode.ButtonA, function()
 							focusController.moveFocusTo(self.tabRefs[self.state.selectedIndex])
-						end)
-					}
+						end),
+					},
 				}, dividers),
 				-- the only selected tab background, used to make animation
 				SelectedBackground = Roact.createElement(ImageSetComponent.Label, {
@@ -407,19 +319,11 @@ function SegmentedControl:renderGamepadSupport()
 					BackgroundTransparency = 1,
 					Position = UDim2.fromScale(0, 0),
 					ZIndex = 5,
-					defaultChild = self.tabRefs[self.state.selectedIndex]
-				},tabs)
+					defaultChild = self.tabRefs[self.state.selectedIndex],
+				}, tabs),
 			})
 		end)
 	end)
 end
-function SegmentedControl:render()
-	if UIBloxConfig.enableExperimentalGamepadSupport then
-		return self:renderGamepadSupport()
-	else
-		return self:renderDefault()
-	end
-end
-
 
 return SegmentedControl

@@ -4,6 +4,9 @@ return function()
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
 	local Promise = dependencies.Promise
+	local Packages = SocialLibraries.Parent
+	local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local fetchInitSymbol = require(script.Parent.fetchInitSymbol)
 	local fetchWithCursorSymbol = require(script.Parent.fetchWithCursorSymbol)
@@ -12,7 +15,7 @@ return function()
 
 	describe("return value is a function", function()
 		it("SHOULD be a function", function()
-			expect(type(connect)).to.equal("function")
+			jestExpect(connect).toEqual(jestExpect.any("function"))
 		end)
 
 		describe("GIVEN a function that returns a table of parameters", function()
@@ -23,8 +26,8 @@ return function()
 			end
 			it("SHOULD return a function", function()
 				local result = connect(parameters)
-				expect(result).to.be.ok()
-				expect(type(result)).to.equal("function")
+
+				jestExpect(result).toEqual(jestExpect.any("function"))
 			end)
 
 			describe("return value is a function", function()
@@ -42,8 +45,9 @@ return function()
 					end
 					it("SHOULD return a new Roact component", function()
 						local connectedComponent = connect(parameters)(component)
-						expect(connectedComponent).to.be.ok()
-						expect(connectedComponent).to.never.equal(component)
+
+						jestExpect(connectedComponent).never.toBeNil()
+						jestExpect(connectedComponent).never.toBe(component)
 					end)
 
 					describe("return value is a Roact Component", function()
@@ -59,12 +63,12 @@ return function()
 							}
 							it("SHOULD be able to mount in a Roact tree", function()
 								local instance = Roact.mount(Roact.createElement(connectedComponent, props))
-								expect(instance).to.be.ok()
+								jestExpect(instance).never.toBeNil()
 								Roact.unmount(instance)
 
 								-- since we have assertions in our functional prop
 								-- we need to make sure they've been evaluated
-								expect(hasEverRendered).to.equal(true)
+								jestExpect(hasEverRendered).toBe(true)
 							end)
 						end)
 					end)

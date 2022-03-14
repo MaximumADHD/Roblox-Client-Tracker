@@ -2,6 +2,7 @@
 	Mouse is a ContextItem that handles mouse icon logic for the plugin.
 	The Mouse constructor expects a PluginMouse instance.
 ]]
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
 
 local DEFAULT_CURSOR = "rbxasset://SystemCursors/Arrow"
 
@@ -33,10 +34,12 @@ function Mouse.new(mouse)
 	return self
 end
 
-function Mouse:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-	}, {root})
+if not FFlagDevFrameworkUseCreateContext then
+	function Mouse:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+		}, {root})
+	end
 end
 
 function Mouse:get()
@@ -61,7 +64,7 @@ function Mouse:__updateCursor()
 	end
 end
 
-function Mouse:__pushCursor(cursor, priority)
+function Mouse:__pushCursor(cursor: string, priority: number?)
 	priority = priority or 1
 	local cursors = self.cursors[priority] or {}
 	table.insert(cursors, getCursor(cursor))
@@ -70,7 +73,7 @@ function Mouse:__pushCursor(cursor, priority)
 	self:__updateCursor()
 end
 
-function Mouse:__popCursor(priority)
+function Mouse:__popCursor(priority: number?)
 	priority = priority or 1
 	local cursors = self.cursors[priority]
 

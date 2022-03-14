@@ -45,17 +45,19 @@ ModalBottomSheetButton.defaultProps = {
 function ModalBottomSheetButton:init()
 	self.ref = Roact.createRef()
 	self.onColorChange = function(styledColor)
-		if not self.ref.current then return end
+		if not self.ref.current then
+			return
+		end
 		self.ref.current.ImageColor3 = styledColor
 	end
 	-- TODO(UIBLOX-30): Update with Controllable.lua
 	self.onInputBegan = function(inputObject)
-		return inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
-			inputObject.UserInputType == Enum.UserInputType.Touch
+		return inputObject.UserInputType == Enum.UserInputType.MouseButton1
+			or inputObject.UserInputType == Enum.UserInputType.Touch
 	end
 	self.onInputEnd = function(inputObject)
-		return inputObject.UserInputType == Enum.UserInputType.MouseButton1 or
-			inputObject.UserInputType == Enum.UserInputType.Touch
+		return inputObject.UserInputType == Enum.UserInputType.MouseButton1
+			or inputObject.UserInputType == Enum.UserInputType.Touch
 	end
 end
 
@@ -79,11 +81,11 @@ function ModalBottomSheetButton:render()
 	elseif hasRoundTop then
 		ImageRectSize = Vector2.new(s100, s50)
 		ImageRectOffset = imageOffset
-		SliceCenter = Rect.new(s50-1, s50-1, s50+1, s50)
+		SliceCenter = Rect.new(s50 - 1, s50 - 1, s50 + 1, s50)
 	elseif hasRoundBottom then
 		ImageRectSize = Vector2.new(s100, s50)
 		ImageRectOffset = imageOffset + Vector2.new(0, s50)
-		SliceCenter = Rect.new(s50-1, 0, s50+1, 1)
+		SliceCenter = Rect.new(s50 - 1, 0, s50 + 1, 1)
 	else
 		ImageRectSize = Vector2.new(1, 1)
 		ImageRectOffset = imageOffset + Vector2.new(s50, s50)
@@ -95,7 +97,7 @@ function ModalBottomSheetButton:render()
 	if self.props.isFixed then
 		buttonSize = UDim2.new(0, WIDTH_FIXED, 0, elementHeight)
 	else
-		buttonSize = UDim2.new(1, -WIDTH_MARGIN*2, 0, elementHeight)
+		buttonSize = UDim2.new(1, -WIDTH_MARGIN * 2, 0, elementHeight)
 	end
 
 	local padding = WIDTH_INNER_MARGIN
@@ -138,7 +140,7 @@ function ModalBottomSheetButton:render()
 					self.onColorChange(theme.BackgroundOnPress.Color)
 				end
 			end,
-			[Roact.Event.InputEnded] = function (_, inputObject)
+			[Roact.Event.InputEnded] = function(_, inputObject)
 				if self.onInputEnd(inputObject) then
 					self.onColorChange(theme.BackgroundUIDefault.Color)
 				end
@@ -184,7 +186,7 @@ function ModalBottomSheetButton:render()
 					LayoutOrder = 3,
 				}, {
 					hint = self.props.renderRightElement(),
-				})
+				}),
 			}),
 			bottomBorder = not hasRoundBottom and Roact.createElement("Frame", {
 				LayoutOrder = 0,
@@ -194,7 +196,7 @@ function ModalBottomSheetButton:render()
 				Size = UDim2.new(1, 0, 0, 1),
 				AnchorPoint = Vector2.new(0, 1),
 				Position = UDim2.new(0, 0, 1, 0),
-			})
+			}),
 		})
 	end)
 end

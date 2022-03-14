@@ -4,6 +4,7 @@ local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local Images = require(App.ImageSet.Images)
@@ -63,7 +64,7 @@ LargePill.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	controlRef = t.optional(t.table),
 })
 
 LargePill.defaultProps = {
@@ -123,7 +124,7 @@ function LargePill:render()
 					NextSelectionRight = self.props.NextSelectionRight,
 					NextSelectionUp = self.props.NextSelectionUp,
 					NextSelectionDown = self.props.NextSelectionDown,
-					[Roact.Ref] = self.props[Roact.Ref],
+					[Roact.Ref] = self.props.controlRef,
 				}, {
 					UIListLayout = Roact.createElement("UIListLayout", {
 						FillDirection = Enum.FillDirection.Horizontal,
@@ -156,4 +157,9 @@ function LargePill:render()
 	end)
 end
 
-return LargePill
+return Roact.forwardRef(function (props, ref)
+	return Roact.createElement(LargePill, Cryo.Dictionary.join(
+		props,
+		{controlRef = ref}
+	))
+end)

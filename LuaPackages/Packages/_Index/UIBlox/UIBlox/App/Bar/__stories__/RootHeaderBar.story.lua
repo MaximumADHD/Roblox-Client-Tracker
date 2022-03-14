@@ -1,3 +1,6 @@
+-- DEPRECATED: This story is provided for backwards compatibility with horsecat and will be removed.
+-- Please only make changes to `src\Stories\Private\App\Bar\RootHeaderBar.story.lua`
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local StoryView = require(ReplicatedStorage.Packages.StoryComponents.StoryView)
@@ -11,7 +14,7 @@ local Roact = require(Packages.Roact)
 
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local Images = require(App.ImageSet.Images)
-local RootHeaderBar = require(Bar.HeaderBarV2)
+local RootHeaderBar = require(Bar.HeaderBar)
 local IconButton = require(App.Button.IconButton)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 

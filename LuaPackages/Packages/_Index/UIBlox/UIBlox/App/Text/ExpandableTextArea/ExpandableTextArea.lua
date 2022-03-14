@@ -4,12 +4,12 @@ local App = Text.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
+local Cryo = require(Packages.Cryo)
 local RoactGamepad = require(Packages.RoactGamepad)
 local t = require(Packages.t)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
 local SpringAnimatedItem = require(UIBlox.Utility.SpringAnimatedItem)
-local GetTextHeight = require(UIBlox.Core.Text.GetTextHeight)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local Images = require(UIBlox.App.ImageSet.Images)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
@@ -17,8 +17,6 @@ local ExpandableTextUtils = require(UIBlox.Core.Text.ExpandableText.ExpandableTe
 
 local CursorKind = require(App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(App.SelectionImage.withSelectionCursorProvider)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local DEFAULT_PADDING_TOP = 30
 local PADDING_TOP = DEFAULT_PADDING_TOP
@@ -31,9 +29,6 @@ local GRADIENT_HEIGHT = 30
 local GRADIENT_IMAGE = Images["gradient/gradient_0_100"]
 local DOWN_ARROW_IMAGE_EXPAND = Images["truncate_arrows/actions_truncationExpand"]
 local DOWN_ARROW_IMAGE_COLLAPSE = Images["truncate_arrows/actions_truncationCollapse"]
-
--- TODO remove this when CLIPLAYEREX-1633 is fixed
-local PATCHED_PADDING = 2
 
 local ANIMATION_SPRING_SETTINGS = {
 	dampingRatio = 1,
@@ -65,7 +60,7 @@ local validateProps = t.strictInterface({
 	NextSelectionDown = t.optional(t.table),
 	NextSelectionLeft = t.optional(t.table),
 	NextSelectionRight = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	frameRef = t.optional(t.table),
 })
 
 function ExpandableTextArea:init()
@@ -77,7 +72,7 @@ function ExpandableTextArea:init()
 	self.onClick = function()
 		self:setState(function(state)
 			return {
-				isExpanded = not state.isExpanded
+				isExpanded = not state.isExpanded,
 			}
 		end)
 		if self.props.onClick then
@@ -90,10 +85,7 @@ function ExpandableTextArea:init()
 end
 
 function ExpandableTextArea:getRef()
-	if UIBloxConfig.enableExperimentalGamepadSupport then
-		return self.props[Roact.Ref] or self.ref
-	end
-	return self.ref
+	return self.props.frameRef or self.ref
 end
 
 function ExpandableTextArea:applyFit(y)
@@ -142,15 +134,12 @@ function ExpandableTextArea:render()
 			local theme = stylePalette.Theme
 			local font = stylePalette.Font
 			local textSize = font.BaseSize * font.Body.RelativeSize
-			local fullTextHeight, compactHeight
-			if UIBloxConfig.enableExperimentalGamepadSupport then
-				fullTextHeight, compactHeight = ExpandableTextUtils.getExpandableTextHeights(
-					font, self.state.frameWidth, descriptionText, compactNumberOfLines)
-			else
-				local textFont = font.Body.Font
-				fullTextHeight = GetTextHeight(descriptionText, textFont, textSize, self.state.frameWidth)
-				compactHeight = compactNumberOfLines * textSize + PATCHED_PADDING
-			end
+			local fullTextHeight, compactHeight = ExpandableTextUtils.getExpandableTextHeights(
+				font,
+				self.state.frameWidth,
+				descriptionText,
+				compactNumberOfLines
+			)
 
 			local compactSize = UDim2.new(1, 0, 0, compactHeight + PADDING_BOTTOM)
 			local fullSize = UDim2.new(1, 0, 0, fullTextHeight + PADDING_BOTTOM)
@@ -160,7 +149,7 @@ function ExpandableTextArea:render()
 			local size = isExpanded and fullSize or compactSize
 			local gradientHeight = isExpanded and 0 or GRADIENT_HEIGHT
 
-			local isFocusable = UIBloxConfig.enableExperimentalGamepadSupport and canExpand
+			local isFocusable = canExpand
 			local frameComponent = isFocusable and RoactGamepad.Focusable.Frame or "Frame"
 
 			return Roact.createElement(frameComponent, {
@@ -168,8 +157,7 @@ function ExpandableTextArea:render()
 				BorderSizePixel = 0,
 				LayoutOrder = layoutOrder,
 				Position = position,
-				Size = width and UDim2.new(width.Scale, width.Offset, 0, 0)
-				or UDim2.new(1, 0, 0, 0),
+				Size = width and UDim2.new(width.Scale, width.Offset, 0, 0) or UDim2.new(1, 0, 0, 0),
 				SelectionImageObject = getSelectionCursor(CursorKind.RoundedRect),
 				[Roact.Ref] = ref,
 				[Roact.Change.AbsoluteSize] = function(rbx)
@@ -225,7 +213,7 @@ function ExpandableTextArea:render()
 					DescriptionText = Roact.createElement(GenericTextLabel, {
 						colorStyle = theme.TextDefault,
 						fontStyle = font.Body,
-						Size = fullSize,
+						Size = size,
 						Text = descriptionText,
 						TextSize = textSize,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -250,7 +238,7 @@ function ExpandableTextArea:render()
 							ImageColor3 = theme.BackgroundDefault.Color,
 						},
 						springOptions = GRADIENT_ANIMATION_SPRING_SETTINGS,
-					})
+					}),
 				}),
 				ButtonContainer = canExpand and Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
@@ -277,10 +265,17 @@ function ExpandableTextArea:render()
 							Size = DOWN_ARROW_SIZE,
 						}),
 					}),
-				})
+				}),
 			})
 		end)
 	end)
 end
 
-return ExpandableTextArea
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		ExpandableTextArea,
+		Cryo.Dictionary.join(props, {
+			frameRef = ref,
+		})
+	)
+end)

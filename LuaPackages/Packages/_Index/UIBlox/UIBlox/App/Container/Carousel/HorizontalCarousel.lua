@@ -14,8 +14,6 @@ local ScrollButton = require(Carousel.ScrollButton)
 local Core = UIBlox.Core
 local Scroller = require(Core.InfiniteScroller).Scroller
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local DEFAULT_ITEM_PADDING = 12
 
 local LEFT_ICON = Images["icons/actions/cycleLeft"]
@@ -87,40 +85,22 @@ local function updateScrollState(newIndex, maxNumOfItemsVisible, numOfItems, scr
 	local showLeftButton = true
 	local showRightButton = true
 
-	if UIBloxConfig.hideHorizontalCarouselScrollButtonFix then
-		if targetIndex <= 1 then
-			-- If scrolling past the first element, then reset the target index to the first item
-			targetIndex = 1
-			scrollerFocusLock = scrollerFocusLock + 1
-			showLeftButton = false
-		elseif targetIndex > numOfItems then
-			-- If scrolling past the last element, then reset the target index to the last item
-			targetIndex = numOfItems
-			scrollerFocusLock = scrollerFocusLock + 1
-			showRightButton = false
-		end
+	if targetIndex <= 1 then
+		-- If scrolling past the first element, then reset the target index to the first item
+		targetIndex = 1
+		scrollerFocusLock = scrollerFocusLock + 1
+		showLeftButton = false
+	elseif targetIndex > numOfItems then
+		-- If scrolling past the last element, then reset the target index to the last item
+		targetIndex = numOfItems
+		scrollerFocusLock = scrollerFocusLock + 1
+		showRightButton = false
+	end
 
-		if targetIndex + maxNumOfItemsVisible > numOfItems then
-			-- If there are no more items outside of the visible carousel, then hide the scroll button
-			-- There is also no need to update the scrollerFocusLock or target in this case
-			showRightButton = false
-		end
-	else
-		if newIndex <= 1 then
-			-- If scrolling pass the 1st element then reset the target index to the first item
-			targetIndex = 1
-			scrollerFocusLock = scrollerFocusLock + 1
-			showLeftButton = false
-		elseif newIndex > numOfItems then
-			-- If scrolling pass the last element then reset the target index to the last item
-			targetIndex = numOfItems
-			scrollerFocusLock = scrollerFocusLock + 1
-			showRightButton = false
-		elseif newIndex + maxNumOfItemsVisible > numOfItems then
-			-- There is no more items outside of the carousel then hide the scroll button
-			-- There is also no need to update the scrollerFocusLock or target in this case
-			showRightButton = false
-		end
+	if targetIndex + maxNumOfItemsVisible > numOfItems then
+		-- If there are no more items outside of the visible carousel, then hide the scroll button
+		-- There is also no need to update the scrollerFocusLock or target in this case
+		showRightButton = false
 	end
 
 	return {

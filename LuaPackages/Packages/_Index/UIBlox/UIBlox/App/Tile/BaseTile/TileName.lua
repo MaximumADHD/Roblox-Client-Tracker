@@ -29,6 +29,9 @@ local validateProps = t.strictInterface({
 	-- Optional image to be displayed in the title component
 	-- Image information should be ImageSet compatible
 	titleIcon = t.optional(t.table),
+
+	-- Optional height of the title area is set to the max
+	useMaxHeight = t.optional(t.boolean),
 })
 
 function ItemTileName:render()
@@ -39,6 +42,7 @@ function ItemTileName:render()
 	local maxWidth = self.props.maxWidth
 	local name = self.props.name
 	local titleIcon = self.props.titleIcon
+	local useMaxHeight = self.props.useMaxHeight
 
 	return withStyle(function(stylePalette)
 		local theme = stylePalette.Theme
@@ -73,6 +77,7 @@ function ItemTileName:render()
 
 				maxSize = Vector2.new(maxWidth, maxHeight),
 				padding = ICON_PADDING,
+				useMaxHeight = useMaxHeight,
 			})
 		else
 			return Roact.createElement("Frame", {

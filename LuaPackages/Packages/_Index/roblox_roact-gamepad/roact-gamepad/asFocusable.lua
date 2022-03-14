@@ -7,7 +7,6 @@ local Cryo = require(Packages.Cryo)
 local t = require(Packages.t)
 
 local FocusContext = require(script.Parent.FocusContext)
-local forwardRef = require(script.Parent.forwardRef)
 local FocusNode = require(script.Parent.FocusNode)
 local getEngineInterface = require(script.Parent.getEngineInterface)
 
@@ -23,6 +22,7 @@ local nonHostProps = {
 	onFocusChanged = Cryo.None,
 	inputBindings = Cryo.None,
 
+	innerRef = Cryo.None,
 	restorePreviousChildFocus = Cryo.None,
 	defaultChild = Cryo.None,
 }
@@ -38,7 +38,7 @@ end
 local focusableValidateProps = t.intersection(t.interface({
 	parentFocusNode = t.optional(t.table),
 	focusController = t.optional(t.table),
-	[Roact.Ref] = t.table,
+	innerRef = t.optional(t.table),
 
 	restorePreviousChildFocus = t.boolean,
 	inputBindings = t.table,
@@ -71,10 +71,11 @@ local function asFocusable(innerComponent)
 
 	function Focusable:init()
 		self.focused = false
+		self.defaultRef = Roact.createRef()
 
 		local parentNeighbors = self.props.parentNeighbors or {}
 		self.navContext = {
-			focusNode = FocusNode.new(self.props),
+			focusNode = FocusNode.new(self.props, self:getRef()),
 			neighbors = {
 				NextSelectionLeft = self.props.NextSelectionLeft or parentNeighbors.NextSelectionLeft,
 				NextSelectionRight = self.props.NextSelectionRight or parentNeighbors.NextSelectionRight,
@@ -171,7 +172,8 @@ local function asFocusable(innerComponent)
 		-- 3. Finally, if the ref changed, then for now we simply get angry and
 		--    throw an error; we'll likely have to manage this another way
 		--    anyways!
-		if self.navContext.focusNode.ref ~= nextProps[Roact.Ref] then
+		local nextRef = nextProps.innerRef or self.defaultRef
+		if self.navContext.focusNode.ref ~= nextRef then
 			error("Cannot change the ref passed to a Focusable component", 0)
 		end
 	end
@@ -211,8 +213,12 @@ local function asFocusable(innerComponent)
 		return self.navContext.focusNode.focusController[InternalApi]
 	end
 
+	function Focusable:getRef()
+		return self.props.innerRef or self.defaultRef
+	end
+
 	function Focusable:render()
-		local ref = self.props[Roact.Ref]
+		local ref = self:getRef()
 		local childDefaultNavProps = {
 			NextSelectionLeft = ref,
 			NextSelectionRight = ref,
@@ -260,7 +266,7 @@ local function asFocusable(innerComponent)
 		if self:isRoot() then
 			-- Ancestry change may not trigger if the UI elements we're mounting
 			-- to were previously mounted to the DataModel already
-			self.ancestryChanged(self.props[Roact.Ref]:getValue())
+			self.ancestryChanged(self:getRef():getValue())
 		end
 	end
 
@@ -272,21 +278,23 @@ local function asFocusable(innerComponent)
 		end
 	end
 
-	return forwardRef(function(props, ref)
+	return Roact.forwardRef(function(props, ref)
 		return Roact.createElement(FocusContext.Consumer, {
 			render = function(navContext)
 				if navContext == nil and props.focusController == nil then
 					-- If this component can't be the root, and there's no
 					-- parent, behave like the underlying component and ignore
 					-- all focus logic
-					local hostPropsOnly = Cryo.Dictionary.join(props, nonHostProps)
+					local hostPropsOnly = Cryo.Dictionary.join(props, nonHostProps, {
+						[Roact.Ref] = ref,
+					})
 					return Roact.createElement(innerComponent, hostPropsOnly)
 				end
 
 				local propsWithNav = Cryo.Dictionary.join(props, {
 					parentFocusNode = navContext and navContext.focusNode or nil,
 					parentNeighbors = navContext and navContext.neighbors or nil,
-					[Roact.Ref] = ref,
+					innerRef = ref,
 				})
 
 				return Roact.createElement(Focusable, propsWithNav)

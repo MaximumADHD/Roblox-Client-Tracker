@@ -26,11 +26,22 @@ PageMargin.validateProps = t.interface({
 })
 
 function PageMargin:init()
+	self.state = {}
 	self.ref = Roact.createRef()
 	self.onResize = function(rbx)
-		self:setState({
-			margin = getPageMargin(rbx.AbsoluteSize.X),
-		})
+		if self.mounted then
+			local newSizeX = rbx.AbsoluteSize.X
+			self:setState(function(state)
+				local newMargin = getPageMargin(newSizeX)
+				if state.margin ~= newMargin then
+					return {
+						margin = newMargin,
+					}
+				else
+					return nil
+				end
+			end)
+		end
 	end
 end
 
@@ -54,9 +65,14 @@ function PageMargin:render()
 end
 
 function PageMargin:didMount()
+	self.mounted = true
 	if self.ref.current then
 		self.onResize(self.ref.current)
 	end
+end
+
+function PageMargin:willUnmount()
+	self.mounted = false
 end
 
 return PageMargin

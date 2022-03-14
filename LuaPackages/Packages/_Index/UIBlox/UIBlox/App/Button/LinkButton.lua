@@ -20,8 +20,10 @@ local GenericTextLabel = require(Core.Text.GenericTextLabel.GenericTextLabel)
 local HoverButtonBackground = require(Core.Button.HoverButtonBackground)
 
 local UNDERLINED_HOVER_TRANSPARENCY = 0.3
-local VERTICAL_PADDING = 8
-local HORIZONTAL_PADDING = 11
+local VERTICAL_PADDING = 11
+local HORIZONTAL_PADDING = 8
+
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
 LinkButton.debugProps = enumerate("debugProps", {
@@ -50,9 +52,12 @@ LinkButton.validateProps = t.strictInterface({
 
 	anchorPoint = t.optional(t.Vector2),
 	layoutOrder = t.optional(t.number),
-	position= t.optional(t.UDim2),
+	position = t.optional(t.UDim2),
 	size = t.optional(t.UDim2),
 	text = t.optional(t.string),
+
+	minPaddingX = t.optional(t.number), -- Requires UIBloxConfig.enableCustomMinPaddingForLinkButton to work correctly
+	minPaddingY = t.optional(t.number), -- Requires UIBloxConfig.enableCustomMinPaddingForLinkButton to work correctly
 
 	-- A callback that replaces getTextSize implementation
 	[LinkButton.debugProps.getTextSize] = t.optional(t.callback),
@@ -77,13 +82,16 @@ LinkButton.defaultProps = {
 	isDisabled = false,
 	userInteractionEnabled = true,
 
+	minPaddingX = HORIZONTAL_PADDING,
+	minPaddingY = VERTICAL_PADDING,
+
 	[LinkButton.debugProps.getTextSize] = GetTextSize,
 	[LinkButton.debugProps.controlState] = nil,
 }
 
 function LinkButton:init()
 	self:setState({
-		controlState = ControlState.Initialize
+		controlState = ControlState.Initialize,
 	})
 
 	self.applyRichTextUnderline = function(text)
@@ -107,7 +115,7 @@ function LinkButton:render()
 		local textStateColorMap = {
 			[ControlState.Default] = self.props.colorStyleDefault,
 			[ControlState.Hover] = self.props.colorStyleHover,
-        }
+		}
 
 		local textStyle = getContentStyle(textStateColorMap, currentState, style)
 		local fontStyle = style.Font[self.props.fontStyle]
@@ -123,11 +131,19 @@ function LinkButton:render()
 		local manipulatedText = cleanRichTextTags(self.props.text)
 		local textWidth = getTextSize(manipulatedText, fontSize, fontStyle.Font, Vector2.new(10000, 0)).X
 
-        manipulatedText = self.props.text
-        if self.props.underlineAlwaysEnabled or currentState == ControlState.Hover or
+		manipulatedText = self.props.text
+		if self.props.underlineAlwaysEnabled or currentState == ControlState.Hover or
 			currentState == ControlState.Pressed then
-            manipulatedText = self.applyRichTextUnderline(self.props.text)
-        end
+			manipulatedText = self.applyRichTextUnderline(self.props.text)
+		end
+
+		local minPaddingX = self.props.minPaddingX
+		local minPaddingY = self.props.minPaddingY
+
+		local minSize = Vector2.new(textWidth + HORIZONTAL_PADDING*2, fontSize + VERTICAL_PADDING*2)
+		if UIBloxConfig.enableCustomMinPaddingForLinkButton then
+			minSize = Vector2.new(textWidth + minPaddingX*2, fontSize + minPaddingY*2)
+		end
 
 		return Roact.createElement(Interactable, {
 			AnchorPoint = self.props.anchorPoint,
@@ -144,7 +160,7 @@ function LinkButton:render()
 			[Roact.Event.Activated] = self.props.onActivated,
 		}, {
 			sizeConstraint = Roact.createElement("UISizeConstraint", {
-				MinSize = Vector2.new(textWidth + VERTICAL_PADDING*2, fontSize + HORIZONTAL_PADDING*2),
+				MinSize = minSize,
 			}),
 			textLabel = Roact.createElement(GenericTextLabel, {
 				AnchorPoint = Vector2.new(0.5, 0.5),

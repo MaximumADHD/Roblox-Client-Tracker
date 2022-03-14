@@ -55,7 +55,7 @@ function StackViewCard:render()
 		BackgroundColor3 = cardColor3,
 		BackgroundTransparency = transparent and 1 or nil,
 		BorderSizePixel = 0,
-		ClipsDescendants = true,
+		ClipsDescendants = false,
 		Visible = not forceHidden,
 		[Roact.Ref] = self:_getRef(),
 	}, {

@@ -144,7 +144,7 @@ function InteractableList:render()
 		local selection = self:getSelection()
 
 		return Roact.createElement(InteractableListItem, {
-			key = key,
+			id = key,
 			item = self.props.itemList[key],
 			interactableState = interactableState,
 			selection = selection,

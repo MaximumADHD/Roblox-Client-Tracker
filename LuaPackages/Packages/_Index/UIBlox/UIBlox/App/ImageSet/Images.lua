@@ -3,11 +3,17 @@ local GetImageSetData = require(script.Parent.GetImageSetData)
 
 local GuiService = game:GetService("GuiService")
 
--- fallback spritesheet image to use if CorePackages is unavailable
+--[[ Fallback spritesheet image to use if CorePackages is unavailable
+Check out https://confluence.rbx.com/display/MOBAPP/uiBlox+ImageSet to see how to update the sprite sheets
+YOUR SPRITE SHEETS MAY GET MODERATED BECAUSE OF BRANDED CONTENT, refer to the work around in the link above if it does.
+--]]
 local FALLBACK_IMAGES = {
-	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=6715869583",
-	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=6715869966",
-	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=6715870324",
+	["img_set_1x_1"] = "http://www.roblox.com/asset/?id=8972110774",
+	["img_set_1x_2"] = "http://www.roblox.com/asset/?id=8972112502",
+	["img_set_1x_3"] = "http://www.roblox.com/asset/?id=8972117850",
+	["img_set_1x_4"] = "http://www.roblox.com/asset/?id=8972118600",
+	--["img_set_1x_5"] = "",
+	--["img_set_1x_6"] = "",
 }
 
 local CorePackages = script:FindFirstAncestor("CorePackages")
@@ -52,7 +58,7 @@ local Images = {
 }
 
 for key, value in pairs(sourceData) do
-	assert(typeof(value) == "table")
+	assert(typeof(value) == "table", "invalid sourceData from GetImageSetData for scale " .. tostring(scale))
 	local imageProps = {}
 	for imageKey, imageValue in pairs(value) do
 		if imageKey == "ImageSet" then

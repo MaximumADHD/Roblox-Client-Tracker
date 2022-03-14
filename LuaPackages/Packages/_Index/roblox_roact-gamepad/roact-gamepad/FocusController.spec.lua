@@ -13,8 +13,8 @@ return function()
 	local function createRootNode(ref)
 		local node = FocusNode.new({
 			focusController = FocusController.createPublicApiWrapper(),
-			[Roact.Ref] = ref,
-		})
+			innerRef = ref,
+		}, ref)
 
 		node:attachToTree(nil, function() end)
 
@@ -28,8 +28,8 @@ return function()
 		local childRef, updateChildRef = Roact.createBinding(instance)
 		local childNode = FocusNode.new({
 			parentFocusNode = parentNode,
-			[Roact.Ref] = childRef,
-		})
+			innerRef = childRef,
+		}, childRef)
 		childNode:attachToTree(parentNode, function() end)
 
 		return childNode, childRef, updateChildRef

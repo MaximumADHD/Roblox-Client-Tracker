@@ -1,7 +1,3 @@
-local FFlagDevFrameworkRefactorExpandablePaneHeader = game:GetFastFlag("DevFrameworkRefactorExpandablePaneHeader")
-local FFlagDevFrameworkExpandablePaneSectionStyle = game:GetFastFlag("DevFrameworkExpandablePaneSectionStyle")
-local FFlagDevFrameworkExpandablePaneNewArrow = game:GetFastFlag("DevFrameworkExpandablePaneNewArrow")
-
 local Framework = script.Parent.Parent.Parent
 
 local FrameworkStyle = Framework.Style
@@ -29,7 +25,7 @@ if THEME_REFACTOR then
 	local roundBox = pane["&RoundBox"]
 	local borderBox = pane["&BorderBox"]
 
-	local default = FFlagDevFrameworkRefactorExpandablePaneHeader and {
+	local default = {
 		Content = {
 			Padding = {
 				Left = 18,
@@ -41,14 +37,13 @@ if THEME_REFACTOR then
 		},
 		Header = {
 			Arrow = {
-				Color = FFlagDevFrameworkExpandablePaneNewArrow and StyleKey.MainText or StyleKey.DimmedText,
-				Image = FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png" or "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
-				ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 0) or nil,
-				ImageRectSize = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 12) or nil,
+				Color = StyleKey.MainText,
+				Image = "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png",
+				ImageRectOffset = Vector2.new(12, 0),
+				ImageRectSize = Vector2.new(12, 12),
 				Size = UDim2.fromOffset(12, 12),
 				[StyleModifier.Selected] = {
-					Image = not FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/DeveloperFramework/button_arrow_down.png" or nil,
-					ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(24, 0) or nil,
+					ImageRectOffset = Vector2.new(24, 0),
 				},
 			},
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -64,44 +59,17 @@ if THEME_REFACTOR then
 			}),
 			VerticalAlignment = Enum.VerticalAlignment.Center,
 		}
-	} or {
-		Arrow = {
-			AnchorPoint = Vector2.new(0, 0.5),
-			Color = FFlagDevFrameworkExpandablePaneNewArrow and StyleKey.MainText or StyleKey.DimmedText,
-			Image = FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/StudioSharedUI/arrowSpritesheet.png" or "rbxasset://textures/DeveloperFramework/button_arrow_right.png",
-			ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 0) or nil,
-			ImageRectSize = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(12, 12) or nil,
-			Position = UDim2.fromScale(0, 0.5),
-			Size = UDim2.fromOffset(12, 12),
-
-			[StyleModifier.Selected] = {
-				Image = not FFlagDevFrameworkExpandablePaneNewArrow and "rbxasset://textures/DeveloperFramework/button_arrow_down.png" or nil,
-				ImageRectOffset = FFlagDevFrameworkExpandablePaneNewArrow and Vector2.new(24, 0) or nil,
-			},
-		},
-		ContentPadding = {
-			Left = 18,
-			Top = 10,
-		},
-		ContentSpacing = 10,
-		Padding = 10,
-		Title = join(common.MainText, {
-			Color = StyleKey.MainText,
-			Font = Enum.Font.SourceSansBold,
-			TextXAlignment = Enum.TextXAlignment.Left,
-		}),
-		TitleOffset = 18,
 	}
 
 	return join(default, {
 		["&Box"] = box,
 		["&BorderBox"] = borderBox,
 		["&RoundBox"] = roundBox,
-		["&Section"] = FFlagDevFrameworkRefactorExpandablePaneHeader and FFlagDevFrameworkExpandablePaneSectionStyle and join(box, {
+		["&Section"] = join(box, {
 			Header = join(default.Header, {
 				Background = StyleKey.Titlebar,
 			}),
-		}) or nil,
+		}),
 	})
 else
 	return function(theme, getColor)

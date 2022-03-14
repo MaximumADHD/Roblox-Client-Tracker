@@ -118,11 +118,16 @@ function Controllable:render()
 		return nil
 	end
 
+	local selectable = controlComponent.props and controlComponent.props.Selectable
+	if selectable == nil then
+		selectable = true
+	end
+
 	local newChildProps = Cryo.Dictionary.join(
 		self.props,
 		controlComponent.props or {},
 		{
-			Selectable = true,
+			Selectable = selectable,
 			Active = not self.props.isDisabled,
 			[Roact.Event.MouseEnter] = function(...)
 				if not userInteractionEnabled then
@@ -132,6 +137,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.MouseEnter] ~= nil then
 					return controlComponent.props[Roact.Event.MouseEnter](...)
 				end
+				return nil
 			end,
 			[Roact.Event.MouseLeave] = function(...)
 				if not userInteractionEnabled then
@@ -141,6 +147,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.MouseLeave] ~= nil then
 					return controlComponent.props[Roact.Event.MouseLeave](...)
 				end
+				return nil
 			end,
 			[Roact.Event.InputBegan] = function(...)
 				if not userInteractionEnabled then
@@ -155,6 +162,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.InputBegan] ~= nil then
 					return controlComponent.props[Roact.Event.InputBegan](...)
 				end
+				return nil
 			end,
 			[Roact.Event.InputEnded] = function(...)
 				if not userInteractionEnabled then
@@ -171,6 +179,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.InputEnded] ~= nil then
 					return controlComponent.props[Roact.Event.InputEnded](...)
 				end
+				return nil
 			end,
 			[Roact.Event.SelectionGained] = function(...)
 				if not userInteractionEnabled then
@@ -180,6 +189,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.SelectionGained] ~= nil then
 					return controlComponent.props[Roact.Event.SelectionGained](...)
 				end
+				return nil
 			end,
 			[Roact.Event.SelectionLost] = function(...)
 				if not userInteractionEnabled then
@@ -189,6 +199,7 @@ function Controllable:render()
 				if controlComponent.props[Roact.Event.SelectionLost] ~= nil then
 					return controlComponent.props[Roact.Event.SelectionLost](...)
 				end
+				return nil
 			end,
 			[Roact.Event.Activated] = function(...)
 				if not userInteractionEnabled then
@@ -196,11 +207,16 @@ function Controllable:render()
 				end
 				if controlComponent.props[Roact.Event.Activated] then
 					if self.state.currentState ~= ControlState.Disabled then
-						return controlComponent.props[Roact.Event.Activated](...)
+						if self.isMounted then
+							return controlComponent.props[Roact.Event.Activated](...)
+						end
 					end
 				end
+				return nil
 			end,
+			[Roact.Ref] = controlComponent.props.forwardedRef,
 
+			forwardedRef = Cryo.None,
 			userInteractionEnabled = Cryo.None,
 			isDisabled = Cryo.None,
 			onStateChanged = Cryo.None,

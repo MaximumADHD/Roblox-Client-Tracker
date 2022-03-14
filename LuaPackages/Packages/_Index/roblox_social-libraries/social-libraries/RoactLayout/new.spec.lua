@@ -3,6 +3,9 @@ return function()
 	local insert = require(script.Parent.insert)
 
 	local SocialLibraries = script:FindFirstAncestor("social-libraries")
+	local Packages = SocialLibraries.Parent
+    local JestGlobals = require(Packages.Dev.JestGlobals)
+	local jestExpect = JestGlobals.expect
 	local dependencies = require(SocialLibraries.dependencies)
 	local Roact = dependencies.Roact
 
@@ -23,7 +26,7 @@ return function()
 			local instance = Roact.mount(tree, folder)
 
 			local layoutInstance = folder:FindFirstChildWhichIsA("UIListLayout", true)
-			expect(layoutInstance).to.be.ok()
+			jestExpect(layoutInstance).never.toBeNil()
 
 			Roact.unmount(instance)
 		end)
@@ -60,17 +63,17 @@ return function()
 		local block2Instance = folder:FindFirstChild("2" .. "-block", true)
 
 		it("SHOULD generate a new block for every entry", function()
-			expect(findMe1Instance).to.be.ok()
-			expect(findMe2Instance).to.be.ok()
-			expect(block1Instance).to.be.ok()
-			expect(block2Instance).to.be.ok()
+			jestExpect(findMe1Instance).toEqual(jestExpect.any("Instance"))
+			jestExpect(findMe2Instance).toEqual(jestExpect.any("Instance"))
+			jestExpect(block1Instance).toEqual(jestExpect.any("Instance"))
+			jestExpect(block2Instance).toEqual(jestExpect.any("Instance"))
 		end)
 
 		it("SHOULD apply a layoutOrder to each inserted block in sequence", function()
-			expect(block1Instance).to.be.ok()
-			expect(block2Instance).to.be.ok()
-			expect(block1Instance.LayoutOrder).to.equal(1)
-			expect(block2Instance.LayoutOrder).to.equal(2)
+			jestExpect(block1Instance).toEqual(jestExpect.any("Instance"))
+			jestExpect(block2Instance).toEqual(jestExpect.any("Instance"))
+			jestExpect(block1Instance.LayoutOrder).toBe(1)
+			jestExpect(block2Instance.LayoutOrder).toBe(2)
 		end)
 
 		Roact.unmount(instance)

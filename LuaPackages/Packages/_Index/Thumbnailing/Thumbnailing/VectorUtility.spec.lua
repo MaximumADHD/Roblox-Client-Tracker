@@ -1,0 +1,20 @@
+return function()
+	local VectorUtility = require(script.Parent.VectorUtility)
+
+	describe("Vector3FromJson", function()
+		it("SHOULD return a function", function()
+			expect(VectorUtility.Vector3FromJson).to.be.a("function")
+		end)
+		it("SHOULD convert x-angle/y-angle/distance to vector3", function()
+			local v1 = VectorUtility.Vector3FromJson("0/0/6")
+			expect(v1.X).to.be.near(0, 0.00001)
+			expect(v1.Y).to.be.near(0, 0.00001)
+			expect(v1.Z).to.be.near(-6, 0.00001)
+
+			local v2 = VectorUtility.Vector3FromJson("0/90/6")
+			expect(v2.X).to.be.near(-6, 0.00001)
+			expect(v2.Y).to.be.near(0, 0.00001)
+			expect(v2.Z).to.be.near(0, 0.00001)
+		end)
+	end)
+end

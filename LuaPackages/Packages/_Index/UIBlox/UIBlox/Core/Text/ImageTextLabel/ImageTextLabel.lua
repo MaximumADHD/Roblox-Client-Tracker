@@ -11,6 +11,7 @@ local t = require(Packages.t)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local GenericTextLabel = require(UIBlox.Core.Text.GenericTextLabel.GenericTextLabel)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
+local GetWrappedTextWithIcon = require(UIBlox.Core.Text.GetWrappedTextWithIcon)
 local validateFontInfo = require(UIBlox.Core.Style.Validator.validateFontInfo)
 local withStyle = require(UIBlox.Core.Style.withStyle)
 
@@ -63,6 +64,7 @@ function ImageTextLabel:render()
 	local padding = self.props.padding
 	local text = self.props.genericTextLabelProps.Text
 	local maxSize = self.props.maxSize
+	local useMaxHeight = self.props.useMaxHeight
 
 	return withStyle(function(stylePalette)
 		local fontStyle = genericTextLabelProps.fontStyle
@@ -72,17 +74,14 @@ function ImageTextLabel:render()
 		local font = fontStyle.Font
 
 		if imageProps then
-			-- This method has flaws given our non-monospaced font but is the easiest closest approach to getting inlined icons.
-			local spaceTextSize = GetTextSize("  ", fontSize, font, Vector2.new(0, 0))
-				- GetTextSize(" ", fontSize, font, Vector2.new(0, 0))
-			local numSpaces = math.ceil((imageProps.Size.X.Offset + padding) / spaceTextSize.X)
-			text = string.rep(" ", numSpaces)..text
+			text = GetWrappedTextWithIcon(text, fontSize, font, imageProps.Size.X.Offset, padding)
 		end
 
 		local labelTextSize = GetTextSize(text, fontSize, font, Vector2.new(maxSize.X, maxSize.Y))
+		local labelTextHeight = useMaxHeight and maxSize.Y or labelTextSize.Y
 
 		return Roact.createElement("Frame", Cryo.Dictionary.join(frameProps, {
-			Size = UDim2.new(0, labelTextSize.X, 0, labelTextSize.Y)
+			Size = UDim2.new(0, labelTextSize.X, 0, labelTextHeight)
 		}), {
 			Icon = self.props.imageProps and Roact.createElement(ImageSetComponent.Label, imageProps) or nil,
 			Name = Roact.createElement(GenericTextLabel, Cryo.Dictionary.join(genericTextLabelProps, {

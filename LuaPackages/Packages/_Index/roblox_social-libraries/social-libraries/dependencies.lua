@@ -1,6 +1,7 @@
 local Packages = script.Parent.Parent
 local UserInputService = game:GetService("UserInputService")
 local UIBlox = require(Packages.UIBlox)
+local RoduxPresence = require(Packages.RoduxPresence)
 
 return {
 	Roact = require(Packages.Roact),
@@ -10,13 +11,16 @@ return {
 	GenericPagination = require(Packages.GenericPagination),
 	Cryo = require(Packages.Cryo),
 	RoactNavigation = require(Packages.RoactNavigation),
-	RoactRodux = require(Packages.RoactRodux),
 	Rodux = require(Packages.Rodux),
 	Lumberyak = require(Packages.Lumberyak),
-	tutils = require(Packages.tutils),
 	t = require(Packages.t),
 	Promise = require(Packages.Promise),
 	Symbol = require(Packages.Symbol),
+	Otter = require(Packages.Otter),
+	llama = require(Packages.llama),
+	RoduxPresence = RoduxPresence.config({
+		keyPath = "SocialLibraries.Presence",
+	}),
 
 	-- TODO remove this when keyboard covering screen is automatically tracked on android
 	UserInputService = UserInputService,

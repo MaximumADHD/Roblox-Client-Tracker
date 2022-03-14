@@ -16,11 +16,7 @@ local ContextServices = require(Framework.ContextServices)
 local withContext = ContextServices.withContext
 local Typecheck = require(Framework.Util).Typecheck
 local ShowOnTop = require(Framework.UI.ShowOnTop)
-local Util = require(Framework.Util)
-local FlagsList = Util.Flags.new({
-	FFlagRefactorDevFrameworkContextItems = {"RefactorDevFrameworkContextItems"},
-})
-
+local FFlagRefactorDevFrameworkContextItems2 = game:GetFastFlag("RefactorDevFrameworkContextItems2")
 
 local KeyboardListener = Roact.PureComponent:extend("KeyboardListener")
 Typecheck.wrap(KeyboardListener, script)
@@ -48,7 +44,7 @@ end
 function KeyboardListener:didMount()
 	local props = self.props
 	self.keysHeld = {}
-	self.target = FlagsList:get("FFlagRefactorDevFrameworkContextItems") and props.Focus:get() or props.Focus:getTarget()
+	self.target = FFlagRefactorDevFrameworkContextItems2 and props.Focus:get() or props.Focus:getTarget()
 
 	if self.target:IsA("PluginGui") then
 		self.focusConnection = self.target.WindowFocusReleased:Connect(function()

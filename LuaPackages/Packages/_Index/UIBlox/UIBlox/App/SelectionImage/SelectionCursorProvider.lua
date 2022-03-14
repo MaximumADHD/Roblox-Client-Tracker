@@ -13,13 +13,13 @@ local CoreGui = game:GetService("CoreGui")
 local SelectionCursorProvider = Roact.PureComponent:extend("SelectionCursorProvider")
 
 function SelectionCursorProvider:init()
-	self.ref = self.props[Roact.Ref] or Roact.createRef()
+	self.ref = Roact.createRef()
 	self.refs = RoactGamepad.createRefCache()
-	self:setState({
+	self.state = {
 		mountedCursors = {},
 		currentSelection = nil, 	-- The object which is currently selected in game UI
 		currentCoreSelection = nil,	-- The object which is currently selected in core UI
-	})
+	}
 
 	self.getSelectionCursor = function(cursorKind)
 		assert(CursorKind.isEnumValue(cursorKind),
@@ -116,7 +116,7 @@ function SelectionCursorProvider:render()
 
 		cursors[key] = Roact.createElement(CursorComponent, {
 			isVisible = visible,
-			[Roact.Ref] = self.refs[cursorKind],
+			cursorRef = self.refs[cursorKind],
 		})
 	end
 

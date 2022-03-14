@@ -33,16 +33,10 @@ HeaderBar.renderLeft = {
 
 HeaderBar.validateProps = t.strictInterface({
 	-- The title of the screen
-	title = t.string,
-
-	-- Use the left side root title style
-	isRootTitle = t.boolean,
+	title = t.optional(t.string),
 
 	-- How tall the bar is
 	barHeight = t.optional(t.number),
-
-	-- How much spacing between elements to allow on the right side of the bar
-	contentPaddingRight = t.optional(t.UDim),
 
 	-- A function that returns a Roact Component, used for customizing buttons on the right side of the bar
 	renderRight = t.optional(t.callback),
@@ -55,33 +49,26 @@ HeaderBar.validateProps = t.strictInterface({
 
 	-- Background transparency
 	backgroundTransparency = t.optional(t.number),
-
-	-- Left side margin
-	marginLeft = t.optional(t.number),
-
-	-- Right side margin
-	marginRight = t.optional(t.number),
 })
 
 -- default values are taken from Abstract
 HeaderBar.defaultProps = {
-	title = "",
-	isRootTitle = false,
 	barHeight = 48,
-	contentPaddingRight = UDim.new(0, 0),
+	title = "",
 }
 
 function HeaderBar:init()
 	self.state = {
-		margin = 0
+		margin = 0,
 	}
 
 	self.onResize = function(rbx)
 		local margin = getPageMargin(rbx.AbsoluteSize.X)
 		self:setState({
-			margin = margin
+			margin = margin,
 		})
 	end
+	self.ref = Roact.createRef()
 end
 
 function HeaderBar:render()
@@ -89,21 +76,23 @@ function HeaderBar:render()
 		local theme = style.Theme
 		local font = style.Font
 
-		local isRootTitle = self.props.isRootTitle
 		local renderLeft = self.props.renderLeft
+		local isRoot = renderLeft == nil or renderLeft == Roact.None
 		local renderCenter = self.props.renderCenter
 		local renderRight = self.props.renderRight
 		local estimatedCenterWidth = math.huge
 
-		if not renderLeft and isRootTitle then
-			renderLeft = function()
-				return Roact.createElement(GenericTextLabel, {
-					fluidSizing = true,
-					Text = self.props.title,
-					TextTruncate = Enum.TextTruncate.AtEnd,
-					TextXAlignment = Enum.TextXAlignment.Left,
-					fontStyle = font.Title,
-					colorStyle = theme.TextEmphasis,
+		if isRoot and string.len(self.props.title) > 0 then
+			renderLeft = function(props)
+				return Roact.createFragment({
+					Text = Roact.createElement(GenericTextLabel, {
+						fluidSizing = true,
+						Text = self.props.title,
+						TextTruncate = Enum.TextTruncate.AtEnd,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fontStyle = font.Title,
+						colorStyle = theme.TextEmphasis,
+					}, props[Roact.Children])
 				})
 			end
 		end
@@ -113,7 +102,7 @@ function HeaderBar:render()
 			estimatedCenterWidth = 0
 		end
 
-		if not renderCenter and not isRootTitle then
+		if not renderCenter and not isRoot then
 			local centerTextFontStyle = font.Header1
 			local centerTextSize = centerTextFontStyle.RelativeSize * font.BaseSize
 			renderCenter = function()
@@ -138,23 +127,28 @@ function HeaderBar:render()
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, self.props.barHeight),
-			[Roact.Change.AbsoluteSize] =
-				(self.props.marginLeft == nil and self.props.marginRight == nil) and self.onResize or nil,
+			[Roact.Change.AbsoluteSize] = self.onResize,
 		}, {
 			ThreeSectionBar = Roact.createElement(ThreeSectionBar, {
 				BackgroundTransparency = self.props.backgroundTransparency or theme.BackgroundDefault.Transparency,
 				BackgroundColor3 = theme.BackgroundDefault.Color,
 				barHeight = self.props.barHeight,
-				marginLeft = self.props.marginLeft or self.state.margin,
+				marginLeft = self.state.margin,
+				marginRight = self.state.margin,
 				renderLeft = renderLeft,
 				renderCenter = renderCenter,
 				estimatedCenterWidth = estimatedCenterWidth,
-				marginRight = self.props.marginRight or self.state.margin,
-				contentPaddingRight = self.props.contentPaddingRight,
+				contentPaddingRight = UDim.new(0, isRoot and 0 or 12),
 				renderRight = renderRight,
 			})
 		})
 	end)
+end
+
+function HeaderBar:didMount()
+	if self.ref.current then
+		self.onResize(self.ref.current)
+	end
 end
 
 return HeaderBar

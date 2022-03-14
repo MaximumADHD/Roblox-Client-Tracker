@@ -2,10 +2,6 @@ local Framework = script.Parent.Parent.Parent
 local Colors = require(Framework.Style.Colors)
 local StyleKey = require(Framework.Style.StyleKey)
 
-local FFlagDevFrameworkRefactorScrollbarColor = game:GetFastFlag("DevFrameworkRefactorScrollbarColor")
-local FFlagToolboxRemoveWithThemes = game:GetFastFlag("ToolboxRemoveWithThemes")
-local FFlagRemoveUILibraryTitledFrameRadioButtonSet = game:GetFastFlag("RemoveUILibraryTitledFrameRadioButtonSet")
-
 return {
 	[StyleKey.Border] = Colors.Carbon,
 	[StyleKey.BrightText] = Colors.White,
@@ -21,6 +17,9 @@ return {
 
 	[StyleKey.Icon] = Color3.fromRGB(128, 128, 128),
 
+	[StyleKey.ToolbarBackgroundColor] = Color3.fromRGB(0, 0, 0),
+	[StyleKey.ToolbarButtonBackgroundColor] = Color3.fromRGB(39, 39, 39),
+
 	[StyleKey.CategoryItem] = Color3.fromRGB(53, 53, 53),
 	[StyleKey.CurrentMarker] = Colors.Gray,
 
@@ -28,7 +27,7 @@ return {
 	[StyleKey.DialogButtonBorder] = Colors.Gray,
 	[StyleKey.DialogButtonHover] = Colors.Gray,
 	[StyleKey.DialogButtonPressed] = Color3.fromRGB(53, 53, 53),
-	[StyleKey.DialogButtonText] = FFlagToolboxRemoveWithThemes and Colors.Gray_Light or Colors.Gray,
+	[StyleKey.DialogButtonText] = Colors.Gray_Light,
 	[StyleKey.DialogMainButton] = Colors.Blue,
 	[StyleKey.DialogMainButtonDisabled] = Colors.Gray,
 	[StyleKey.DialogMainButtonHover] = Colors.Blue_Light,
@@ -63,11 +62,11 @@ return {
 	[StyleKey.SubBackground] = Colors.Gray,
 	[StyleKey.SubBackground2] = Colors.Carbon,
 
-	[StyleKey.RadioButtonDisabledImage] = FFlagRemoveUILibraryTitledFrameRadioButtonSet and "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png" or nil,
+	[StyleKey.RadioButtonDisabledImage] = "rbxasset://textures/StudioSharedUI/radio_selected_disabled_dot_dark.png",
 	[StyleKey.RibbonTab] = Color3.fromRGB(37, 37, 37),
 
 	[StyleKey.ScrollBarBackground] = Color3.fromRGB(41, 41, 41),
-	[StyleKey.ScrollBar] = FFlagDevFrameworkRefactorScrollbarColor and Color3.fromRGB(56, 56, 56) or Colors.lighter(Colors.Black, 0.22),
+	[StyleKey.ScrollBar] = Color3.fromRGB(56, 56, 56),
 	[StyleKey.SliderKnobColor] = Color3.fromRGB(85, 85, 85),
 	[StyleKey.SliderKnobImage] = "rbxasset://textures/DeveloperFramework/slider_knob.png",
 	[StyleKey.SliderBackground] = Color3.fromRGB(37, 37, 37),

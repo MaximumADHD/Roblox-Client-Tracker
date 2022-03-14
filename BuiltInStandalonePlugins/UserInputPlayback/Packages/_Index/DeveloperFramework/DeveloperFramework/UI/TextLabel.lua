@@ -5,6 +5,7 @@
 		string Text: The text to display in this button.
 
 	Optional Props:
+		table ForwardRef: An optional ref to pass to the underlying Frame.
 		Vector2 AnchorPoint: The AnchorPoint of the component.
 		UDim2 Position: The Position of the component.
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
@@ -37,6 +38,8 @@
 		Enum.TextXAlignment TextXAlignment: The x alignment of this text.
 		Enum.TextYAlignment TextYAlignment: The y alignment of this text.
 ]]
+local FFlagDevFrameworkForwardRef = game:GetFastFlag("DevFrameworkForwardRef")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -49,11 +52,10 @@ local prioritize = Util.prioritize
 local FitTextLabel = Util.FitFrame.FitTextLabel
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
+local withForwardRef = require(Framework.Wrappers.withForwardRef)
+
 local TextLabel = Roact.PureComponent:extend("TextLabel")
 Typecheck.wrap(TextLabel, script)
-
-local FFlagTextLabelRefProps = game:GetFastFlag("TextLabelRefProps")
-local FFlagToggleTreeTableTooltip = game:GetFastFlag("ToggleTreeTableTooltip")
 
 function TextLabel:render()
 	local layoutOrder = self.props.LayoutOrder
@@ -83,7 +85,7 @@ function TextLabel:render()
 	local textTruncate = self.props.TextTruncate
 	local textWrapped = self.props.TextWrapped
 	local automaticSize = self.props.AutomaticSize
-	local ref = self.props[Roact.Ref]
+	local ref = if FFlagDevFrameworkForwardRef then self.props.ForwardRef else self.props[Roact.Ref]
 	local onAbsoluteSizeChange = self.props[Roact.Change.AbsoluteSize]
 
 	local textLabelProps = {
@@ -104,13 +106,9 @@ function TextLabel:render()
 		TextXAlignment = textXAlignment,
 		TextYAlignment = textYAlignment,
 		ZIndex = zIndex,
-		[Roact.Ref] = (FFlagTextLabelRefProps or FFlagToggleTreeTableTooltip) and ref or nil,
-		[Roact.Change.AbsoluteSize] = FFlagTextLabelRefProps and onAbsoluteSizeChange or nil,
+		[Roact.Ref] = ref,
+		[Roact.Change.AbsoluteSize] = onAbsoluteSizeChange,
 	}
-
-	if FFlagToggleTreeTableTooltip then
-		textLabelProps[Roact.Ref] = self.props[Roact.Ref]
-	end
 	
 	if fitWidth then
 		local maximumWidth
@@ -134,12 +132,9 @@ function TextLabel:render()
 	end
 end
 
-
 TextLabel = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
 })(TextLabel)
 
-
-
-return TextLabel
+return if FFlagDevFrameworkForwardRef then withForwardRef(TextLabel) else TextLabel

@@ -15,8 +15,6 @@ local FitFrameVertical = FitFrame.FitFrameVertical
 local ModalTitle = require(ModalRoot.ModalTitle)
 local ModalWindow = require(ModalRoot.ModalWindow)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local PartialPageModal = Roact.PureComponent:extend("PartialPageModal")
 
 local MARGIN = 24
@@ -31,8 +29,10 @@ local validateProps = t.strictInterface({
 	titleBackgroundImageProps = t.optional(t.strictInterface({
 		image = t.string,
 		imageHeight = t.number,
+		text = t.optional(t.string),
 	})),
 	bottomPadding = t.optional(t.number),
+	marginSize = t.optional(t.number),
 
 	buttonStackProps = t.optional(t.table), -- Button stack validates the contents
 
@@ -41,10 +41,14 @@ local validateProps = t.strictInterface({
 	contentPadding = t.optional(t.UDim),
 })
 
+PartialPageModal.defaultProps = {
+	marginSize = MARGIN
+}
+
 -- Used to determine width of middle content for dynamically sizing children in the content
 -- Example: Multi-lined text that requires to know the width of its space that can also dynamically change its height.
-function PartialPageModal:getMiddleContentWidth(screenWidth)
-	return ModalWindow:getWidth(screenWidth) - 2 * MARGIN
+function PartialPageModal:getMiddleContentWidth(screenWidth, modalMarginSize)
+	return ModalWindow:getWidth(screenWidth) - 2 * (modalMarginSize or MARGIN)
 end
 
 function PartialPageModal:render()
@@ -75,17 +79,28 @@ function PartialPageModal:render()
 			margin = {
 				top = 0,
 				bottom = bottomPadding,
-				left = MARGIN,
-				right = MARGIN,
+				left = 0,
+				right = 0,
 			},
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
 			BackgroundTransparency = 1,
-			contentPadding = UIBloxConfig.enableExperimentalGamepadSupport and self.props.contentPadding or nil,
+			contentPadding = self.props.contentPadding,
 		}, {
 			MiddlContent = Roact.createElement(FitFrameVertical, {
-				width = UDim.new(1, 0),
+				width = UDim.new(1, -2 * self.props.marginSize),
 				BackgroundTransparency = 1,
 			}, self.props[Roact.Children]),
-			Buttons = self.props.buttonStackProps and Roact.createElement(ButtonStack, self.props.buttonStackProps),
+			Buttons = self.props.buttonStackProps and Roact.createElement(FitFrameVertical, {
+				BackgroundTransparency = 1,
+				width = UDim.new(1, 0),
+				LayoutOrder = 2,
+			}, {
+				Padding = Roact.createElement("UIPadding", {
+					PaddingLeft = UDim.new(0, MARGIN),
+					PaddingRight = UDim.new(0, MARGIN),
+				}),
+				Roact.createElement(ButtonStack, self.props.buttonStackProps),
+			}),
 		})
 	})
 end

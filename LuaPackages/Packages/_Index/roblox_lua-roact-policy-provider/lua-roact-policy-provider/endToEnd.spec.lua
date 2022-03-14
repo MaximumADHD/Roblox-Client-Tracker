@@ -1,3 +1,5 @@
+--# selene: allow(unused_variable)
+
 return function()
 	local Packages = script.Parent.Parent
 	local Roact = require(Packages.Roact)
@@ -26,7 +28,7 @@ return function()
 					-- ...and used in your components!
 					Text = "isFeatureEnabled: " .. tostring(isFeatureEnabled),
 					Size = UDim2.new(1, 0, 1, 0),
-				})
+				}),
 			})
 		end
 
@@ -35,15 +37,13 @@ return function()
 
 		-- `connect` returns a function, so we call that function, passing in our
 		-- component, getting back a new component!
-		MyComponent = UniversalAppPolicyProvider.connect(
-			function(incomingPresentationPolicy, props)
-				-- mapPolicyToProps is run every time the policy's state updates.
-				-- It's also run whenever the component receives new props.
-				return {
-					isFeatureEnabled = incomingPresentationPolicy.isFeatureEnabled,
-				}
-			end
-		)(MyComponent)
+		MyComponent = UniversalAppPolicyProvider.connect(function(incomingPresentationPolicy, props)
+			-- mapPolicyToProps is run every time the policy's state updates.
+			-- It's also run whenever the component receives new props.
+			return {
+				isFeatureEnabled = incomingPresentationPolicy.isFeatureEnabled,
+			}
+		end)(MyComponent)
 
 		local app = Roact.createElement(UniversalAppPolicyProvider.Provider, {
 			-- policy can be a list of PresentationalPolicies

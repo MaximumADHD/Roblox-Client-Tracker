@@ -17,8 +17,8 @@ return function()
 	local function createRootNode(ref)
 		local node = FocusNode.new({
 			focusController = FocusController.createPublicApiWrapper(),
-			[Roact.Ref] = ref,
-		})
+			innerRef = ref,
+		}, ref)
 
 		node:attachToTree(nil, function() end)
 
@@ -166,6 +166,40 @@ return function()
 			expect(focusLostSpy.callCount).to.equal(1)
 			expect(focusChangedSpy.callCount).to.equal(2)
 			focusChangedSpy:assertCalledWith(false)
+
+			Roact.unmount(tree)
+		end)
+
+		it("should use a ref provided to it", function()
+			local testContainer = createTestContainer()
+			local FocusableFrame = asFocusable("Frame")
+
+			local childRef = Roact.createRef()
+			local tree = Roact.mount(Roact.createElement(testContainer.FocusProvider, {}, {
+				FocusChild = Roact.createElement(FocusableFrame, {
+					[Roact.Ref] = childRef,
+				}),
+			}), testContainer.rootRef:getValue())
+
+			expect(childRef.current).to.be.ok()
+			expect(tostring(childRef.current)).to.equal("FocusChild")
+
+			Roact.unmount(tree)
+		end)
+
+
+		it("should use a ref provided to it when there's no focusController in the tree", function()
+			local FocusableFrame = asFocusable("Frame")
+
+			local childRef = Roact.createRef()
+			local tree = Roact.mount(Roact.createElement("Frame", {}, {
+				FocusChild = Roact.createElement(FocusableFrame, {
+					[Roact.Ref] = childRef,
+				}),
+			}))
+
+			expect(childRef.current).to.be.ok()
+			expect(tostring(childRef.current)).to.equal("FocusChild")
 
 			Roact.unmount(tree)
 		end)

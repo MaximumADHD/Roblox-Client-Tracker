@@ -20,17 +20,17 @@ local InteractableListItem = Roact.PureComponent:extend("InteractableListItem")
 
 function InteractableListItem:init()
 	self.onStateChanged = function(oldState, newState)
-		self.props.setInteractableState(self.props.key, newState)
+		self.props.setInteractableState(self.props.id, newState)
 	end
 	self.onActivated = function()
 		local oldSelection = self.props.selection
-		local newSelection = { self.props.key }
+		local newSelection = { self.props.id }
 		if self.props.selectionMode == SelectionMode.Multiple then
 			newSelection = Cryo.List.filter(oldSelection, function(selectedKey)
-				return selectedKey ~= self.props.key
+				return selectedKey ~= self.props.id
 			end)
 			if #newSelection == #oldSelection then
-				table.insert(newSelection, self.props.key)
+				table.insert(newSelection, self.props.id)
 			end
 		end
 		if self.props.onSelectionChanged then
@@ -43,7 +43,7 @@ function InteractableListItem:init()
 end
 
 function InteractableListItem:render()
-	local selected = Cryo.List.find(self.props.selection, self.props.key) ~= nil
+	local selected = Cryo.List.find(self.props.selection, self.props.id) ~= nil
 	local renderedItem, extraProps = self.props.renderItem(self.props.item, self.props.interactableState, selected)
 
 	return Roact.createElement(Interactable, Cryo.Dictionary.join({
@@ -54,7 +54,7 @@ function InteractableListItem:render()
 		onStateChanged = self.onStateChanged,
 		[Roact.Event.Activated] = self.onActivated,
 	}), {
-		[self.props.key] = renderedItem,
+		[self.props.id] = renderedItem,
 	})
 end
 

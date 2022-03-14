@@ -55,7 +55,7 @@ function RadioButtonList:render()
 			onActivated = self.doLogic,
 			size = self.props.elementSize,
 			layoutOrder = i,
-			key = i,
+			id = i,
 		})
 	end
 

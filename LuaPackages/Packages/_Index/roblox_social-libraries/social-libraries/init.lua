@@ -5,8 +5,6 @@ return {
 	config = function(config)
 		if config.UIBloxConfig then
 			UIBlox.init(config.UIBloxConfig)
-		else
-			UIBlox.init()
 		end
 
 		return {
@@ -14,6 +12,7 @@ return {
 			Components = require(script.Components),
 			-- ** In the future, Conversation should become its own package.
 			Conversation = require(script.Conversation),
+			Dictionary = require(script.Dictionary),
 			-- ** In the future, User should become its own package.
 			User = require(script.User),
 			Utils = require(script.Utils),
@@ -22,7 +21,8 @@ return {
 			RoduxTools = require(script.RoduxTools),
 			populate = require(script.populate),
 
-			StoryMiddleware = require(script.StoryMiddleware)
+			StoryMiddleware = require(script.StoryMiddleware),
+			Context = require(script.Context),
 		}
 	end,
 }

@@ -1,3 +1,6 @@
+-- DEPRECATED: This story is provided for backwards compatibility with horsecat and will be removed.
+-- Please only make changes to `src\Stories\Private\App\Tile.story.lua`
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local TileRoot = script.Parent.Parent
@@ -34,6 +37,7 @@ function TileStoryContainer:init()
 		image = nil,
 		longerLoadImage = nil,
 		name = nil,
+		subtitle = nil,
 	}
 end
 
@@ -44,6 +48,7 @@ function TileStoryContainer:didMount()
 		self:setState({
 			image = "rbxassetid://924320031",
 			name = "Item Name",
+			subitle = "Item Subtitle",
 		})
 		wait(2.0)
 		self:setState({
@@ -76,6 +81,22 @@ function TileStoryContainer:render()
 			FullItemTile = Roact.createElement(Tile, {
 				footer = createFooter(),
 				name = self.state.name,
+				subtitle = self.state.subtitle,
+				onActivated = function() end,
+				hasRoundedCorners = false,
+				thumbnail = self.state.image,
+			}),
+		}),
+
+		SubtitlelessItemTileContainer = Roact.createElement("Frame", {
+			BackgroundTransparency = 1,
+			LayoutOrder = 1,
+			Size = UDim2.new(0, 200, 0, 200 + NAME_HEIGHT + PADDING + FOOTER_HEIGHT),
+		}, {
+			FullItemTile = Roact.createElement(Tile, {
+				footer = createFooter(),
+				name = self.state.name,
+				subtitle = "",
 				onActivated = function() end,
 				hasRoundedCorners = false,
 				thumbnail = self.state.image,
@@ -103,6 +124,7 @@ function TileStoryContainer:render()
 		}, {
 			FooterlessItemTile = Roact.createElement(Tile, {
 				name = self.state.name,
+				subtitle = self.state.subtitle,
 				onActivated = function() end,
 				hasRoundedCorners = false,
 				thumbnail = self.state.image,

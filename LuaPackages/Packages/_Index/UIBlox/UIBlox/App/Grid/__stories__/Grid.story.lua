@@ -1,9 +1,11 @@
+-- DEPRECATED: This story is provided for backwards compatibility with horsecat and will be removed.
+-- Please only make changes to `src\Stories\Private\App\Grid.story.lua`
+
 local GridRoot = script.Parent.Parent
 local AppRoot = GridRoot.Parent
 local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local Roact = require(Packages.Roact)
-local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
 local RoactGamepad = require(Packages.RoactGamepad)
 
 local DefaultMetricsGridView = require(GridRoot.DefaultMetricsGridView)
@@ -21,9 +23,7 @@ function DemoComponent:init()
 		metrics = GridMetrics.getSmallMetrics,
 	}
 
-	if UIBloxConfig.enableExperimentalGamepadSupport then
-		self.focusController = RoactGamepad.createFocusController()
-	end
+	self.focusController = RoactGamepad.createFocusController()
 end
 
 function DemoComponent:updateWindowSize()
@@ -58,7 +58,7 @@ function DemoComponent:render()
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
-		})
+		}),
 	}
 
 	for index, item in ipairs(metrics) do
@@ -74,14 +74,13 @@ function DemoComponent:render()
 		})
 	end
 
-	return Roact.createElement(UIBloxConfig.enableExperimentalGamepadSupport and
-		RoactGamepad.Focusable.Frame or "Frame", {
+	return Roact.createElement(RoactGamepad.Focusable.Frame, {
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
 
-		focusController = UIBloxConfig.enableExperimentalGamepadSupport and self.focusController or nil,
+		focusController = self.focusController,
 	}, {
-		InputManager = UIBloxConfig.enableExperimentalGamepadSupport and Roact.createElement(InputManager, {
+		InputManager = Roact.createElement(InputManager, {
 			focusController = self.focusController,
 		}),
 		MetricsSelector = Roact.createElement("Frame", {
@@ -116,9 +115,9 @@ function DemoComponent:render()
 				itemPadding = Vector2.new(12, 12),
 				items = items,
 
-				defaultChildIndex = UIBloxConfig.enableExperimentalGamepadSupport and 1 or nil,
-			})
-		})
+				defaultChildIndex = 1,
+			}),
+		}),
 	})
 end
 

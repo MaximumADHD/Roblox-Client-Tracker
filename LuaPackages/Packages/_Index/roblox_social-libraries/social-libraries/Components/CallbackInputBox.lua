@@ -134,13 +134,13 @@ function CallbackInputBox:render()
 						self.props.focusChangedCallback(true)
 					end,
 
-					[Roact.Event.FocusLost] = function(rbx)
+					[Roact.Event.FocusLost] = function(rbx, enterPressed)
 						if self.inputBoxRef.current and self.inputBoxRef.current.Text == "" then
 							rbx.TextColor3 = self.props.placeholderTextColor3
 							rbx.TextTransparency = placeholderTextTransparency
 						end
 
-						self.props.focusChangedCallback(false)
+						self.props.focusChangedCallback(false, enterPressed)
 					end,
 
 					[Roact.Change.Text] = function(rbx)

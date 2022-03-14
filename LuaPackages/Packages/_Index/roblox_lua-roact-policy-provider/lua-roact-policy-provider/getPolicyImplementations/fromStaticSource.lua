@@ -1,5 +1,4 @@
-local function noOpt()
-end
+local function noOpt() end
 
 return function()
 	return function(externalPolicy)

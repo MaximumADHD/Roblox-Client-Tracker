@@ -5,6 +5,7 @@ local t = require(UIBloxRoot.Parent.t)
 
 local Color = require(ValidatorRoot.validateColorInfo)
 local SelectionCursorType = require(ValidatorRoot.validateSelectionCursorInfo)
+local PlayerBackgroundDefaultType = require(ValidatorRoot.validatePlayerBackgroundDefaultInfo)
 
 local ThemePalette = t.strictInterface({
 	BackgroundDefault = Color,
@@ -55,7 +56,7 @@ local ThemePalette = t.strictInterface({
 	BadgeContent = Color,
 
 	SelectionCursor = SelectionCursorType,
-	ThumbnailBackground = Color,
+	PlayerBackgroundDefault = PlayerBackgroundDefaultType,
 })
 
 return ThemePalette

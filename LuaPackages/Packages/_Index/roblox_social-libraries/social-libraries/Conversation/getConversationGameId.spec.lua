@@ -4,6 +4,9 @@ return function()
 	describe("getConversationGameId", function()
 		local SocialLibraries = script:FindFirstAncestor("social-libraries")
 		local dependencies = require(SocialLibraries.dependencies)
+		local Packages = SocialLibraries.Parent
+		local JestGlobals = require(Packages.Dev.JestGlobals)
+		local jestExpect = JestGlobals.expect
 		local UserModel = dependencies.UserModel
 		local getConversationGameId = require(script.Parent.getConversationGameId)
 		it("should return the pinned game when given a pinned game", function()
@@ -23,7 +26,7 @@ return function()
 			local mockConversationParticipantsById = {}
 
 			local result = getConversationGameId(mockConversation, mockLocalPlayerUserId, mockConversationParticipantsById)
-			expect(result).to.equal("653275355")
+			jestExpect(result).toBe("653275355")
 		end)
 
 		it("should return the game that the majority of people are playing", function()
@@ -68,7 +71,7 @@ return function()
 			}
 
 			local result = getConversationGameId(mockConversation, mockLocalPlayerUserId, mockConversationParticipantsById)
-			expect(result).to.equal("placeId1")
+			jestExpect(result).toBe("placeId1")
 		end)
 
 		it("should return nil when no one is playing a game", function()
@@ -98,7 +101,7 @@ return function()
 			}
 
 			local result = getConversationGameId(mockConversation, mockLocalPlayerUserId, mockConversationParticipantsById)
-			expect(result).to.equal(nil)
+			jestExpect(result).toBe(nil)
 		end)
 
 		it("should return the pinned game even when people are playing", function()
@@ -146,7 +149,7 @@ return function()
 			}
 
 			local result = getConversationGameId(mockConversation, mockLocalPlayerUserId, mockConversationParticipantsById)
-			expect(result).to.equal("653275355")
+			jestExpect(result).toBe("653275355")
 		end)
 	end)
 end

@@ -1,10 +1,10 @@
 local Packages = script.Parent.Parent
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
-local Promise = require(Packages.Promise)
+--local Promise = require(Packages.Promise)
 
 local Logger = require(script.Parent.Logger)
-local appPolicyKey = require(script.Parent.appPolicyKey)
+local AppPolicyContext = require(script.Parent.AppPolicyContext)
 
 local function mergePolicies(base, params)
 	local policyWrapper = {}
@@ -35,7 +35,7 @@ return function(getPolicyImpl)
 			componentLogger:trace("Connected to component: {}", tostring(component))
 
 			function Connection:init(props)
-				self.policyContext = self._context[appPolicyKey]
+				self.policyContext = props.policy
 				assert(self.policyContext, providerNotFound)
 
 				self.setWithEmptyPolicy = function()
@@ -48,7 +48,10 @@ return function(getPolicyImpl)
 					-- if we already have a staticExternalPolicy, there is
 					-- no need to read it from our implementation
 					self.state = {
-						policy = mergePolicies(self.policyContext.staticExternalPolicy, self.policyContext.presentationPolicy),
+						policy = mergePolicies(
+							self.policyContext.staticExternalPolicy,
+							self.policyContext.presentationPolicy
+						),
 					}
 				else
 					local retrievedExternalPolicy = getPolicyImpl.read()
@@ -70,7 +73,7 @@ return function(getPolicyImpl)
 			end
 
 			function Connection:didMount()
-				if self._context[appPolicyKey].staticExternalPolicy then
+				if self.policyContext.staticExternalPolicy then
 					return
 				end
 				self.connection = getPolicyImpl.onPolicyChanged(function(incomingExternalPolicy)
@@ -80,8 +83,8 @@ return function(getPolicyImpl)
 			end
 
 			function Connection:render()
-				local policyProps = mapper(self.state.policy, self.props)
-				local newProps = Cryo.Dictionary.join(self.props, policyProps)
+				local policyProps = mapper(self.state.policy, self.props.innerProps)
+				local newProps = Cryo.Dictionary.join(self.props.innerProps, policyProps)
 				return Roact.createElement(component, newProps)
 			end
 
@@ -93,7 +96,16 @@ return function(getPolicyImpl)
 				self.onPolicyChange = nil
 			end
 
-			return Connection
+			return function(props)
+				return Roact.createElement(AppPolicyContext.Consumer, {
+					render = function(policy)
+						return Roact.createElement(Connection, {
+							innerProps = props,
+							policy = policy,
+						})
+					end,
+				})
+			end
 		end
 	end
 end

@@ -7,7 +7,6 @@ local Packages = UIBlox.Parent
 local Roact = require(Packages.Roact)
 local t = require(Packages.t)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Images = require(App.ImageSet.Images)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
@@ -80,7 +79,7 @@ BaseKnob.validateProps = t.interface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	controlRef = t.optional(t.table),
 })
 BaseKnob.defaultProps = {
 	anchorPoint = Vector2.new(0.5, 0.5),
@@ -113,78 +112,45 @@ function BaseKnob:render()
 		if isGamepadSelected then
 			shadowColor = style.Theme.SelectionCursor
 		end
-		if UIBloxConfig.enableExperimentalGamepadSupport then
-			return Roact.createElement("Frame",{
-				AnchorPoint = self.props.anchorPoint,
-				LayoutOrder = self.props.layoutOrder,
-				Position = self.props.position,
+
+		return Roact.createElement("Frame",{
+			AnchorPoint = self.props.anchorPoint,
+			LayoutOrder = self.props.layoutOrder,
+			Position = self.props.position,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromOffset(28, 28)
+		}, {
+			KnobShadow = Roact.createElement(ImageSetComponent.Label, {
+				Size = shadowSize,
+				Position = UDim2.new(0.5, 0, 0.5, not isGamepadSelected and 2 or 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Image = Images[shadowImage],
+				ImageColor3 = shadowColor.Color,
+				ImageTransparency = shadowColor.Transparency,
+				Active = true,
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(28, 28)
-			}, {
-				KnobShadow = Roact.createElement(ImageSetComponent.Label, {
-					Size = shadowSize,
-					Position = UDim2.new(0.5, 0, 0.5, not isGamepadSelected and 2 or 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = Images[shadowImage],
-					ImageColor3 = shadowColor.Color,
-					ImageTransparency = shadowColor.Transparency,
-					Active = true,
-					BackgroundTransparency = 1,
-				}),
-				KnobButton = Roact.createElement(RoactGamepad.Focusable[Interactable], {
-					Size = UDim2.fromScale(1,1),
+			}),
+			KnobButton = Roact.createElement(RoactGamepad.Focusable[Interactable], {
+				Size = UDim2.fromScale(1,1),
 
-					isDisabled = self.props.isDisabled,
-					onStateChanged = self.onStateChanged,
-					userInteractionEnabled = self.props.userInteractionEnabled,
-					BackgroundTransparency = 1,
-
-					Image = Images["component_assets/circle_29"],
-					ImageColor3 = color.Color,
-					ImageTransparency = color.Transparency,
-
-					[Roact.Ref] = self.props[Roact.Ref],
-					[Roact.Event.Activated] = self.props.onActivated,
-
-					NextSelectionLeft = self.props.NextSelectionLeft,
-					NextSelectionRight = self.props.NextSelectionRight,
-					NextSelectionUp = self.props.NextSelectionUp,
-					NextSelectionDown = self.props.NextSelectionDown,
-				}),
-			})
-		else
-			return Roact.createElement("Frame",{
-				AnchorPoint = self.props.anchorPoint,
-				LayoutOrder = self.props.layoutOrder,
-				Position = self.props.position,
+				isDisabled = self.props.isDisabled,
+				onStateChanged = self.onStateChanged,
+				userInteractionEnabled = self.props.userInteractionEnabled,
 				BackgroundTransparency = 1,
-				Size = UDim2.fromOffset(28, 28)
-			}, {
-				KnobShadow = Roact.createElement(ImageSetComponent.Label, {
-					Size = shadowSize,
-					Position = UDim2.new(0.5, 0, 0.5, not isGamepadSelected and 2 or 0),
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Image = Images[shadowImage],
-					ImageColor3 = shadowColor.Color,
-					ImageTransparency = shadowColor.Transparency,
-					BackgroundTransparency = 1,
-				}),
-				KnobButton = Roact.createElement(Interactable, {
-					Size = UDim2.fromScale(1,1),
 
-					isDisabled = self.props.isDisabled,
-					onStateChanged = self.onStateChanged,
-					userInteractionEnabled = self.props.userInteractionEnabled,
-					BackgroundTransparency = 1,
+				Image = Images["component_assets/circle_29"],
+				ImageColor3 = color.Color,
+				ImageTransparency = color.Transparency,
 
-					Image = Images["component_assets/circle_29"],
-					ImageColor3 = color.Color,
-					ImageTransparency = color.Transparency,
+				[Roact.Ref] = self.props.forwardedRef,
+				[Roact.Event.Activated] = self.props.onActivated,
 
-					[Roact.Event.Activated] = self.props.onActivated,
-				}),
-			})
-		end
+				NextSelectionLeft = self.props.NextSelectionLeft,
+				NextSelectionRight = self.props.NextSelectionRight,
+				NextSelectionUp = self.props.NextSelectionUp,
+				NextSelectionDown = self.props.NextSelectionDown,
+			}),
+		})
 	end)
 end
 
