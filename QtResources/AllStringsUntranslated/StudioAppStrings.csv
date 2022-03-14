@@ -3223,15 +3223,15 @@ Studio.App.BulkAudioImportErrors.UploadUnavailable,,Audio file could not be uplo
 Studio.App.BulkAudioImportErrors.AudioCostUnverifiedFormat1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Verifing the audio cost did not return correctly formatted data. Status Code: '%1',Verifing the audio cost did not return correctly formatted data. Status Code: '%1'
 Studio.App.BulkAudioImportErrors.AudioUploadErrorCode1,"NOTE TO LOCALIZERS: Do not translate the numbers inside the single quotes. For whatever is inside the single quotes, please use ASCII instead.",Uploading the audio file failed. Status Code: '%1',Uploading the audio file failed. Status Code: '%1'
 Studio.App.BulkAudioImportRateLimiting.UploadsLeft4,,"%1 of %2 audio uploads left until %3.
-(<a href=%4>Need more?</a>)","%1 of %2 audio uploads left until %3.
-(<a href=%4>Need more?</a>)"
+(<a href=%4>Learn more</a>)","%1 of %2 audio uploads left until %3.
+(<a href=%4>Learn more</a>)"
 Studio.App.BulkAudioImportRateLimiting.UploadsReachedLimit2,,"You've reached your audio upload limit. It refreshes on %1.
-(<a href=%2>Need more?</a>)","You've reached your audio upload limit. It refreshes on %1.
-(<a href=%2>Need more?</a>)"
+(<a href=%2>Learn more</a>)","You've reached your audio upload limit. It refreshes on %1.
+(<a href=%2>Learn more</a>)"
 Studio.App.BulkAudioImportRateLimiting.NoCapacity,,Audio uploads are temporarily unavailable. Please try again later.,Audio uploads are temporarily unavailable. Please try again later.
 Studio.App.BulkAudioImportRateLimiting.UploadsDefault2,,"You have %1 audio uploads per 30 days.
-(<a href=%2>Need more?</a>)","You have %1 audio uploads per 30 days.
-(<a href=%2>Need more?</a>)"
+(<a href=%2>Learn more</a>)","You have %1 audio uploads per 30 days.
+(<a href=%2>Learn more</a>)"
 Studio.App.DocTabManager.CloseTab,,Close Tab,Close Tab
 Studio.App.DocTabManager.CloseTabsRight,,Close Tabs to the Right,Close Tabs to the Right
 Studio.App.DocTabManager.CloseTabsOther,,Close Other Tabs,Close Other Tabs

@@ -13,4 +13,6 @@ Studio.Framework.PageNavigation.NextPage,Next page,Next page,Siguiente página,P
 Studio.Framework.PageNavigation.PreviousPage,Previous page,Previous page,Página anterior,Page précédente,前のページ,이전 페이지,Página anterior,上一页,上一页,上一頁
 Studio.Framework.PageNavigation.PageCount,of {count:int},of {count:int},de {count:int},de {count:int},（全 {count:int} ページ中）,{count:int} 중,de {count:int},共 {count:int} 页,共 {count:int} 页,（共 {count:int} 頁）
 Studio.Framework.AssetPreview.ByUsername,By @{username},By @{username},De {username}, ,作：{username},제작: @{username},De @{username}, , ,創作者：@{username}
-Studio.Framework.AssetPreview.Report,Report,Report,Reportar, ,報告する,보고서,Informar, , ,舉報
+Studio.Framework.AssetPreview.Report,Report,Report,Reportar, ,報告する,보고서,Informar,举报,举报,舉報
+Studio.Framework.AssetPreview.HasScriptsMessage,This model includes scripts.,This model includes scripts.,Este modelo incluye scripts.,Ce modèle comprend des scripts.,このモデルにはスクリプトが含まれています。,이 모델에는 스크립트가 포함되어 있습니다.,Este modelo inclui scripts., , ,此模型包含指令碼。
+Studio.Framework.AssetPreview.HasScriptsTooltip,Scripts can change your experience's behavior when it is running.,Scripts can change your experience's behavior when it is running.,Los scripts pueden cambiar el comportamiento de tu experiencia al ejecutarse.,Les scripts peuvent modifier le comportement de ton expérience lorsqu'elle est en cours d'exécution.,スクリプトは、実行中のあなたの体験の動作を変更できます。,스크립트는 실행 중인 체험의 동작을 변경할 수 있습니다,Scripts podem alterar o comportamento de sua experiência quando estiver em execução., , ,指令碼在運行時會改變體驗的行為。
