@@ -11,7 +11,7 @@ local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 local DisplayNameHelpers = require(ChatModules.Utility.DisplayNameHelpers)
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} end
 if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then
 	function ChatLocalization:FormatMessageToSend(key,default) return default end

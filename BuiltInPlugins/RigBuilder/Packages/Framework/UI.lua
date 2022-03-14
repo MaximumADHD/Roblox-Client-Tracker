@@ -4,6 +4,7 @@
 local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
 local FFlagDevFrameworkTextInput2 = game:GetFastFlag("DevFrameworkTextInput2")
 local FFlagDevFrameworkTimeProgressBar = game:GetFastFlag("DevFrameworkTimeProgressBar")
+local FFlagDevFrameworkInfiniteScrollingGrid = game:GetFastFlag("DevFrameworkInfiniteScrollingGrid")
 local FFlagDevFrameworkResponsiveGrid2 = game:GetFastFlag("DevFrameworkResponsiveGrid2")
 
 local Src = script
@@ -64,10 +65,12 @@ local SplitPane = require(Src.SplitPane)
 local Slider = require(Src.Slider)
 local InfiniteScrollingFrame = require(Src.InfiniteScrollingFrame)
 local MultiLineTextInput = require(Src.MultiLineTextInput)
+local InfiniteScrollingGrid = require(Src.InfiniteScrollingGrid)
 local TruncatedTextLabel = require(Src.TruncatedTextLabel)
 local Checkbox = require(Src.Checkbox)
 local ExpandablePane = require(Src.ExpandablePane)
 local TimeProgressBar = require(Src.TimeProgressBar)
+local ScreenFlow = require(Src.ScreenFlow)
 
 -- NOTE: Please keep components in alphabetical order
 local UI = strict({
@@ -91,6 +94,7 @@ local UI = strict({
 	HoverArea = HoverArea,
 	IconButton = IconButton,
 	InfiniteScrollingFrame = InfiniteScrollingFrame,
+	InfiniteScrollingGrid = if FFlagDevFrameworkInfiniteScrollingGrid then InfiniteScrollingGrid else nil,
 	InstanceTreeView = InstanceTreeView,
 	KeyboardListener = KeyboardListener,
 	LinkText = LinkText,
@@ -104,6 +108,7 @@ local UI = strict({
 	RadioButtonList = RadioButtonList,
 	ResponsiveGrid = FFlagDevFrameworkResponsiveGrid2 and ResponsiveGrid or nil,
 	RangeSlider = RangeSlider,
+	ScreenFlow = ScreenFlow,
 	ScrollingFrame = ScrollingFrame,
 	SelectInput = SelectInput,
 	Separator = Separator,

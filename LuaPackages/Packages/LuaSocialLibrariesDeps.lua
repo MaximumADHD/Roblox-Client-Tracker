@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["LuaSocialLibrariesDeps"]["LuaSocialLibrariesDeps"]
+local Package = require(PackageIndex["LuaSocialLibrariesDeps"]["LuaSocialLibrariesDeps"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

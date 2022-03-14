@@ -40,10 +40,7 @@ return function()
 			PolicyProvider = Roact.createElement(InGameMenuPolicy.Provider, {
 				policy = { mockEducationalPolicyMapper },
 			},  {
-				TestComponent = Roact.createElement(NativeCloseEventConnector, {
-					-- Remove with FFlagInGameMenuUseOpenEduPopupThunk
-					openNativeClosePrompt = function() end,
-				}),
+				TestComponent = Roact.createElement(NativeCloseEventConnector),
 			})
 		})
 

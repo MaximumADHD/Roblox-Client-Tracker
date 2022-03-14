@@ -1,12 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
 
 local InGameMenu = script.Parent.Parent.Parent
-
-local GlobalConfig = require(InGameMenu.GlobalConfig)
 
 local ToggleSwitch = require(InGameMenu.Components.ToggleSwitch)
 
@@ -15,7 +14,11 @@ local DeveloperLockLabel = require(script.Parent.DeveloperLockLabel)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
-local validateProps = t.strictInterface({
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local ToggleEntry = Roact.PureComponent:extend("ToggleEntry")
+ToggleEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	labelKey = t.string,
 	lockedToOff = t.optional(t.boolean),
@@ -23,32 +26,49 @@ local validateProps = t.strictInterface({
 	subtextKey = t.optional(t.string),
 	checked = t.boolean,
 	onToggled = t.callback,
+	buttonRef = t.optional(t.table),
+	NextSelectionUp = t.optional(t.Instance),
 })
 
-local function ToggleEntry(props)
-	if GlobalConfig.propValidation then
-		assert(validateProps(props))
+function ToggleEntry:init()
+	self.state = {
+		isSelectable = GetFFlagInGameMenuControllerDevelopmentOnly() and true or nil,
+	}
+end
+
+function ToggleEntry:render()
+	local buttonRef = self.props.buttonRef or (GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createRef() or nil)
+	local selectable = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly then
+		selectable = self.state.isSelectable
 	end
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
-		LayoutOrder = props.LayoutOrder,
+		LayoutOrder = self.props.LayoutOrder,
 		Size = UDim2.new(1, 0, 0, 56),
+		Selectable = selectable,
+		[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+			GuiService.SelectedCoreObject = buttonRef:getValue()
+			self:setState({
+				isSelectable = false,
+			})
+		end or nil,
 	}, {
 		Padding = Roact.createElement("UIPadding", {
 			PaddingRight = UDim.new(0, 30),
 			PaddingLeft = UDim.new(0, 24),
 		}),
 		ControlLabel = Roact.createElement(InputLabel, {
-			localizationKey = props.labelKey,
+			localizationKey = self.props.labelKey,
 		}),
-		LockedLabel = props.lockedToOff and Roact.createElement(DeveloperLockLabel, {
+		LockedLabel = self.props.lockedToOff and Roact.createElement(DeveloperLockLabel, {
 			Size = UDim2.new(1, -72, 0.25, 0),
 			Position = UDim2.new(0, 0, 1, 0),
 			AnchorPoint = Vector2.new(0, 1),
 		}),
-		SubtextLabel = props.subtextEnabled and withLocalization({
-			text = props.subtextKey,
+		SubtextLabel = self.props.subtextEnabled and withLocalization({
+			text = self.props.subtextKey,
 		})(function(localization)
 			return Roact.createElement(ThemedTextLabel, {
 				Text = localization.text,
@@ -65,9 +85,21 @@ local function ToggleEntry(props)
 		Toggle = Roact.createElement(ToggleSwitch, {
 			Position = UDim2.new(1, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(1, 0.5),
-			checked = props.checked and not props.lockedToOff,
-			onToggled = props.onToggled,
-			disabled = props.lockedToOff,
+			checked = self.props.checked and not self.props.lockedToOff,
+			onToggled = self.props.onToggled,
+			disabled = self.props.lockedToOff,
+			buttonRef = buttonRef,
+			onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+				self:setState({
+					isSelectable = true
+				})
+			end or nil,
+			onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and function()
+				self:setState({
+					isSelectable = false
+				})
+			end or nil,
+			NextSelectionUp = self.props.NextSelectionUp,
 		}),
 	})
 end

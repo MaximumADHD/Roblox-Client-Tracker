@@ -16,14 +16,12 @@ local EventConnection = require(TopBar.Parent.Common.EventConnection)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
-
 local MenuConnector = Roact.PureComponent:extend("MenuConnector")
 
 MenuConnector.validateProps = t.strictInterface({
 	setMenuOpen = t.callback,
 
-	setRespawnBehaviour = isNewGamepadMenuEnabled() and t.callback or nil,
+	setRespawnBehaviour = t.callback,
 })
 
 function MenuConnector:didMount()
@@ -31,18 +29,14 @@ function MenuConnector:didMount()
 		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 		self.props.setMenuOpen(InGameMenu.getOpen())
 
-		if isNewGamepadMenuEnabled() then
-			local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
-			self.props.setRespawnBehaviour(isEnabled, customCallback)
-		end
+		local isEnabled, customCallback = InGameMenu.getRespawnBehaviour()
+		self.props.setRespawnBehaviour(isEnabled, customCallback)
 	else
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		self.props.setMenuOpen(SettingsHub:GetVisibility())
 
-		if isNewGamepadMenuEnabled() then
-			local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
-			self.props.setRespawnBehaviour(isEnabled, customCallback)
-		end
+		local isEnabled, customCallback = SettingsHub:GetRespawnBehaviour()
+		self.props.setRespawnBehaviour(isEnabled, customCallback)
 	end
 end
 
@@ -53,9 +47,7 @@ function MenuConnector:render()
 		local inGameMenuOpenChangedEvent = InGameMenu.getOpenChangedEvent()
 
 		local respawnBehaviourChangedEvent
-		if isNewGamepadMenuEnabled() then
-			respawnBehaviourChangedEvent = InGameMenu.getRespawnBehaviourChangedEvent()
-		end
+		respawnBehaviourChangedEvent = InGameMenu.getRespawnBehaviourChangedEvent()
 
 		return Roact.createFragment({
 			MenuOpenChangedConnection = Roact.createElement(EventConnection, {
@@ -65,7 +57,7 @@ function MenuConnector:render()
 				end,
 			}),
 
-			RespawnBehaviourConnection = isNewGamepadMenuEnabled() and Roact.createElement(EventConnection, {
+			RespawnBehaviourConnection = Roact.createElement(EventConnection, {
 				event = respawnBehaviourChangedEvent.Event,
 				callback = function(isEnabled, customCallback)
 					self.props.setRespawnBehaviour(isEnabled, customCallback)
@@ -76,10 +68,7 @@ function MenuConnector:render()
 		local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 		local settingsHubOpenedEvent = SettingsHub.SettingsShowEvent
 
-		local respawnBehaviourChangedEvent
-		if isNewGamepadMenuEnabled() then
-			respawnBehaviourChangedEvent = SettingsHub.RespawnBehaviourChangedEvent
-		end
+		local respawnBehaviourChangedEvent = SettingsHub.RespawnBehaviourChangedEvent
 
 		return Roact.createFragment({
 			MenuOpenChangedConnection = Roact.createElement(EventConnection, {
@@ -89,7 +78,7 @@ function MenuConnector:render()
 				end,
 			}),
 
-			RespawnBehaviourConnection = isNewGamepadMenuEnabled() and Roact.createElement(EventConnection, {
+			RespawnBehaviourConnection = Roact.createElement(EventConnection, {
 				event = respawnBehaviourChangedEvent.Event,
 				callback = function(isEnabled, customCallback)
 					self.props.setRespawnBehaviour(isEnabled, customCallback)
@@ -105,7 +94,7 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SetMenuOpen(open))
 		end,
 
-		setRespawnBehaviour = isNewGamepadMenuEnabled() and function(isEnabled, customCallback)
+		setRespawnBehaviour = function(isEnabled, customCallback)
 			return dispatch(SetRespawnBehaviour(isEnabled, customCallback))
 		end or nil,
 	}

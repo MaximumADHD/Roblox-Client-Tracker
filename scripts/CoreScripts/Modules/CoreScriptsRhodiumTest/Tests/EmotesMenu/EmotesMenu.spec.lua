@@ -5,6 +5,7 @@ local Rhodium = require(CorePackages.Rhodium)
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local withServices = require(Modules.CoreScriptsRhodiumTest.Helpers.withServices)
+local act = require(Modules.act)
 
 local EmotesMenuReducer = require(Modules.EmotesMenu.Reducers.EmotesMenuReducer)
 local EmotesMenu = require(Modules.EmotesMenu.Components.EmotesMenu)
@@ -52,12 +53,16 @@ return function()
 					expect(emotesList:getAttribute("Visible")).to.equal(false)
 
 					baseWidget:sendKey(Enum.KeyCode.Period)
-					wait()
+					act(function()
+						wait()
+					end)
 
 					expect(emotesList:getAttribute("Visible")).to.equal(true)
 
 					baseWidget:sendKey(Enum.KeyCode.Period)
-					wait()
+					act(function()
+						wait()
+					end)
 
 					expect(emotesList:getAttribute("Visible")).to.equal(false)
 				end,
@@ -77,7 +82,9 @@ return function()
 
 					local gamepad = Rhodium.VirtualInput.GamePad.new()
 					gamepad:pressButton(Enum.KeyCode.DPadDown)
-					wait()
+					act(function()
+						wait()
+					end)
 
 					expect(emotesList:getAttribute("Visible")).to.equal(true)
 				end,

@@ -3,15 +3,6 @@
 	2018 Camera Update - AllYourBlox
 --]]
 
-
-local FFlagUserCameraPositionCheckWarning
-do
-    local success, result = pcall(function()
-        return UserSettings():IsUserFeatureEnabled("UserCameraPositionCheckWarning")
-    end)
-    FFlagUserCameraPositionCheckWarning = success and result
-end
-
 local ZERO_VECTOR2 = Vector2.new()
 local PITCH_LIMIT = math.rad(80)
 
@@ -45,7 +36,7 @@ function LegacyCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	return BaseCamera.SetCameraToSubjectDistance(self,desiredSubjectDistance)
 end
 
-function LegacyCamera:Update(dt)
+function LegacyCamera:Update(dt: number): (CFrame, CFrame)
 
 	-- Cannot update until cameraType has been set
 	if not self.cameraType then return end
@@ -60,7 +51,7 @@ function LegacyCamera:Update(dt)
 	if self.lastUpdate == nil or timeDelta > 1 then
 		self.lastDistanceToSubject = nil
 	end
-	local subjectPosition = self:GetSubjectPosition()
+	local subjectPosition: Vector3 = self:GetSubjectPosition()
 
 	if self.cameraType == Enum.CameraType.Fixed then
 		if subjectPosition and player and camera then
@@ -85,11 +76,9 @@ function LegacyCamera:Update(dt)
 		if subjectPosition and player and camera then
 			local cameraLook = nil
 
-			if FFlagUserCameraPositionCheckWarning then
-				if subjectPosition == camera.CFrame.p then
-					warn("Camera cannot watch subject in same position as itself")
-					return camera.CFrame, camera.Focus
-				end
+			if subjectPosition == camera.CFrame.p then
+				warn("Camera cannot watch subject in same position as itself")
+				return camera.CFrame, camera.Focus
 			end
 
 			local humanoid = self:GetHumanoid()
@@ -104,8 +93,8 @@ function LegacyCamera:Update(dt)
 				end
 			end
 
-			local distanceToSubject = self:GetCameraToSubjectDistance()
-			local newLookVector = self:CalculateNewLookVectorFromArg(cameraLook, CameraInput.getRotation())
+			local distanceToSubject: number = self:GetCameraToSubjectDistance()
+			local newLookVector: Vector3 = self:CalculateNewLookVectorFromArg(cameraLook, CameraInput.getRotation())
 
 			newCameraFocus = CFrame.new(subjectPosition)
 			newCameraCFrame = CFrame.new(subjectPosition - (distanceToSubject * newLookVector), subjectPosition)

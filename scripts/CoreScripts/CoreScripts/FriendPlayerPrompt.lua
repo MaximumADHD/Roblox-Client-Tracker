@@ -26,8 +26,6 @@ local FFlagFriendPlayerPromptUseFormatByKey = settings():GetFFlag('FriendPlayerP
 
 local RobloxTranslator = require(CoreGuiModules:WaitForChild("RobloxTranslator"))
 
-local GetFFlagUseThumbnailUrl = require(RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
-
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local THUMBNAIL_SIZE = 200
@@ -90,13 +88,8 @@ function DoPromptRequestFriendPlayer(playerToFriend)
 		return
 	end
 
-	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToFriend.UserId)
-	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToFriend.UserId)
-	if GetFFlagUseThumbnailUrl() then
-		-- we use createFetchImageFunction which sets the image in the prompt, these are useless
-		thumbnailUrl = ""
-		thumbnailUrlConsole = ""
-	end
+	local thumbnailUrl = ""
+	local thumbnailUrlConsole = ""
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then
@@ -226,13 +219,8 @@ function DoPromptUnfriendPlayer(playerToUnfriend)
 		return
 	end
 
-	local thumbnailUrl = BUST_THUMBNAIL_URL:format(BUST_THUMBNAIL_SIZE, BUST_THUMBNAIL_SIZE, playerToUnfriend.UserId)
-	local thumbnailUrlConsole = THUMBNAIL_URL:format(THUMBNAIL_SIZE, THUMBNAIL_SIZE, playerToUnfriend.UserId)
-	if GetFFlagUseThumbnailUrl() then
-		-- we use createFetchImageFunction which sets the image in the prompt, these are useless
-		thumbnailUrl = ""
-		thumbnailUrlConsole = ""
-	end
+	local thumbnailUrl = ""
+	local thumbnailUrlConsole = ""
 
 	local function promptCompletedCallback(clickedConfirm)
 		if clickedConfirm then

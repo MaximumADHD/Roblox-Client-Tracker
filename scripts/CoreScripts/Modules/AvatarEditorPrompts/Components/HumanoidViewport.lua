@@ -5,6 +5,7 @@ local Players = game:GetService("Players")
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local Promise = require(CorePackages.Promise)
 
 local ShimmerPanel = UIBlox.Loading.ShimmerPanel
 local EmptyState = UIBlox.App.Indicator.EmptyState
@@ -12,21 +13,22 @@ local EmptyState = UIBlox.App.Indicator.EmptyState
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
-local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
-
 local INITIAL_OFFSET = 5
 local ROTATION_CFRAME = CFrame.fromEulerAnglesXYZ(math.rad(20), math.rad(15), math.rad(40))
 local THUMBNAIL_FOV = 70
 local ZOOM_FACTOR = 1
 
+local CLUSTER_COMPOSITION_TIMEOUT_MS = game:DefineFastInt("AXClusterCompositionTimeoutMs", 3000)
+
+local FFlagFixAvatarPromptsLayeredClothingPopIn = game:DefineFastFlag("FixAvatarPromptsLayeredClothingPopIn", false)
+
 local HumanoidViewport = Roact.PureComponent:extend("HumanoidViewport")
 
 HumanoidViewport.validateProps = t.strictInterface({
-	humanoidDescription = EngineFeatureAESConformToAvatarRules and t.optional(t.instanceOf("HumanoidDescription"))
-		or t.instanceOf("HumanoidDescription"),
-	loadingFailed = EngineFeatureAESConformToAvatarRules and t.boolean or nil,
-	retryLoadDescription = EngineFeatureAESConformToAvatarRules and t.callback or nil,
-	rigType = t.enum(Enum.HumanoidRigType),
+	humanoidDescription = t.optional(t.instanceOf("HumanoidDescription")),
+	loadingFailed = t.boolean,
+	retryLoadDescription = t.callback,
+	rigType = t.optional(t.enum(Enum.HumanoidRigType)),
 })
 
 function HumanoidViewport:init()
@@ -144,13 +146,9 @@ function HumanoidViewport:loadHumanoidModel()
 
 	coroutine.wrap(function()
 		local model
-		if EngineFeatureAESConformToAvatarRules then
-			pcall(function()
-				model = Players:CreateHumanoidModelFromDescription(humanoidDescription, rigType)
-			end)
-		else
+		pcall(function()
 			model = Players:CreateHumanoidModelFromDescription(humanoidDescription, rigType)
-		end
+		end)
 
 		if not self.mounted then
 			return
@@ -164,7 +162,7 @@ function HumanoidViewport:loadHumanoidModel()
 			return
 		end
 
-		if EngineFeatureAESConformToAvatarRules and model == nil then
+		if model == nil then
 			self:setState({
 				loadingFailed = true,
 			})
@@ -174,6 +172,18 @@ function HumanoidViewport:loadHumanoidModel()
 		self.humanoidModel = model
 		if self.worldModelRef:getValue() then
 			self.humanoidModel.Parent = self.worldModelRef:getValue()
+		end
+
+		if FFlagFixAvatarPromptsLayeredClothingPopIn then
+			local layeredAccessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories = ]] false)
+			if #layeredAccessories > 0 then
+				-- If ClusterCompositionFinished is taking too long to fire or has failed to fire for some reason,
+				-- we want to just timeout and display the avatar before it has finished compositing.
+				Promise.race({
+					Promise.fromEvent(model.Humanoid.ClusterCompositionFinished),
+					Promise.delay(CLUSTER_COMPOSITION_TIMEOUT_MS * 0.001)
+				}):await()
+			end
 		end
 
 		self:positionCamera()
@@ -187,14 +197,9 @@ function HumanoidViewport:loadHumanoidModel()
 end
 
 function HumanoidViewport:render()
-	local showShimmerFrame = self.state.loading
-	local showLoadingFailed = false
-	local showViewportFrame = not self.state.loading
-	if EngineFeatureAESConformToAvatarRules then
-		showLoadingFailed = self.props.loadingFailed or self.state.loadingFailed
-		showShimmerFrame = (not showLoadingFailed) and self.state.loading
-		showViewportFrame = not (showLoadingFailed or self.state.loading)
-	end
+	local showLoadingFailed = self.props.loadingFailed or self.state.loadingFailed
+	local showShimmerFrame = (not showLoadingFailed) and self.state.loading
+	local showViewportFrame = not (showLoadingFailed or self.state.loading)
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -217,7 +222,7 @@ function HumanoidViewport:render()
 		LoadingFailed = showLoadingFailed and Roact.createElement(EmptyState, {
 			text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.ItemsListLoadingFailed"),
 			size = UDim2.fromScale(1, 1),
-			reloadAction = self.onRetryLoading,
+			onActivated = self.onRetryLoading,
 		}),
 
 		ViewportFrame = Roact.createElement("ViewportFrame", {
@@ -250,11 +255,7 @@ end
 function HumanoidViewport:didMount()
 	self.mounted = true
 
-	if EngineFeatureAESConformToAvatarRules then
-		if self.props.humanoidDescription then
-			self:loadHumanoidModel()
-		end
-	else
+	if self.props.humanoidDescription then
 		self:loadHumanoidModel()
 	end
 end
@@ -266,16 +267,15 @@ function HumanoidViewport:didUpdate(prevProps)
 
 	local descriptionUpdated = self.props.humanoidDescription ~= prevProps.humanoidDescription
 	local rigTypeUpdated = self.props.rigType ~= prevProps.rigType
-	if descriptionUpdated or rigTypeUpdated then
+	-- Make sure the HumanoidViewport has a rigType and description before trying to load the model.
+	local shouldLoadHumanoidModel = self.props.rigType ~= nil and
+		self.props.humanoidDescription ~= nil and (descriptionUpdated or rigTypeUpdated)
+	if shouldLoadHumanoidModel then
 		self:setState({
 			loading = true
 		})
 
-		if EngineFeatureAESConformToAvatarRules then
-			if self.props.humanoidDescription ~= nil then
-				self:loadHumanoidModel()
-			end
-		else
+		if self.props.humanoidDescription ~= nil then
 			self:loadHumanoidModel()
 		end
 	end

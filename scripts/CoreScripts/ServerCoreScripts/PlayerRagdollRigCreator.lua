@@ -9,8 +9,23 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
-local FFlagRagdollUsesCharacterRemoving = game:DefineFastFlag("RagdollUsesCharacterRemoving", false)
-local deathType = game:DefineFastString("DeathTypeValue", "Classic")
+local function getDefaultDeathType()
+	if not (game:DefineFastFlag("GetDefaultAvatarDeathTypeFromPolicyService", "False") and game:GetEngineFeature("PolicyInfoForServerRobloxOnlyAsyncEnabled")) then
+		return game:DefineFastString("DeathTypeValue", "Classic")
+	end
+	
+	local PolicyService = game:GetService("PolicyService")
+	local policies = PolicyService:GetPolicyInfoForServerRobloxOnlyAsync()
+
+	local policyServiceDefaultAvatarDeathType = policies["DefaultAvatarDeathType"]
+	if policyServiceDefaultAvatarDeathType == nil then
+		error("PolicyService did not have death type policy")
+	end
+	
+	return policyServiceDefaultAvatarDeathType
+end
+
+local deathType = getDefaultDeathType()
 
 -- Replicate this to clients so all clients make the same choice
 local DeathTypeValue = Instance.new("StringValue")
@@ -45,28 +60,20 @@ end)
 remote.Parent = RobloxReplicatedStorage
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
-	local ancestryChangedConn -- rename to characterRemovingConn on removal of FFlagRagdollUsesCharacterRemoving
+	local characterRemovingConn
 	local function disconnect()
-		ancestryChangedConn:Disconnect()
+		characterRemovingConn:Disconnect()
 		if riggedPlayerHumanoids[player] == humanoid then
 			riggedPlayerHumanoids[player] = nil
 		end
 	end
 
 	-- Handle connection cleanup on remove
-	if FFlagRagdollUsesCharacterRemoving then
-		ancestryChangedConn = player.CharacterRemoving:Connect(function(removedCharacter)
-			if removedCharacter == character then
-				disconnect()
-			end
-		end)
-	else
-		ancestryChangedConn = humanoid.AncestryChanged:Connect(function(_child, parent)
-			if not game:IsAncestorOf(parent) then
-				disconnect()
-			end
-		end)
-	end
+	characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
+		if removedCharacter == character then
+			disconnect()
+		end
+	end)
 
 	-- We will only disable specific joints
 	humanoid.BreakJointsOnDeath = false

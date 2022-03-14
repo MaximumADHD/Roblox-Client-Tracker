@@ -1,8 +1,19 @@
+--[[
+	DEPRECATED: Replaced by React.createContext consumer
+	TODO FFlagDevFrameworkUseCreateContext: Remove this file when flag is retired
+]]
 return function()
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+	if FFlagDevFrameworkUseCreateContext then
+		return
+	end
+	
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
 	local Consumer = require(script.Parent.Consumer)
 	local ContextItem = require(script.Parent.ContextItem)
+
+	-- TODO: When FFlagDevFrameworkUseCreateContext is retired remove this require
 	local Provider = require(script.Parent.Provider)
 	local provide = require(script.Parent.provide)
 

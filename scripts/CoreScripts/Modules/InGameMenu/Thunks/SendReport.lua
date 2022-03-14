@@ -16,13 +16,17 @@ return function(abuseReason, abuseDescription, userId)
 			end
 		else
 			local state = store:getState()
-			if state.localization.currentGameName ~= "" then
+
+			local gameName = state.gameInfo.name
+			local gameDescription = state.gameInfo.description
+
+			if gameName ~= "" then
 				local formattedText = string.format(
 					"User Report: \n    %s \n".."Place Title: \n    %s \n".."PlaceId: \n    %s \n".."Place Description: \n    %s \n",
 					abuseDescription,
-					state.localization.currentGameName,
+					gameName,
 					tostring(game.PlaceId),
-					state.localization.currentGameDescription
+					gameDescription
 				)
 				coroutine.wrap(function()
 					if not RunService:IsStudio() then

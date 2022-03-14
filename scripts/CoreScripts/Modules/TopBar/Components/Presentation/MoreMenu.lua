@@ -1,6 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local ContextActionService = game:GetService("ContextActionService")
+local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -40,6 +41,8 @@ local FFlagMobilePlayerList = require(RobloxGui.Modules.Flags.FFlagMobilePlayerL
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
+local GetFFlagFixEmotesMenuNotOpeningInPortrait = require(RobloxGui.Modules.Flags.GetFFlagFixEmotesMenuNotOpeningInPortrait)
+
 local MORE_BUTTON_SIZE = 32
 local ICON_SIZE = 24
 local MENU_GAP = 12
@@ -63,6 +66,8 @@ local MORE_ICON_ON = "rbxasset://textures/ui/TopBar/moreOn.png"
 local MORE_ICON_OFF = "rbxasset://textures/ui/TopBar/moreOff.png"
 
 local MoreMenu = Roact.PureComponent:extend("MoreMenu")
+
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 MoreMenu.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -141,6 +146,10 @@ function MoreMenu:render()
 				if EmotesMenuMaster:isOpen() then
 					EmotesMenuMaster:close()
 				else
+					if GetFFlagFixEmotesMenuNotOpeningInPortrait() and self.chatWasHidden then
+						ChatSelector:SetVisible(true)
+						self.chatWasHidden = false
+					end
 					EmotesMenuMaster:open()
 				end
 				self.props.setMoreMenuOpen(false)
@@ -191,7 +200,7 @@ function MoreMenu:render()
 		moreIcon = MORE_ICON_OFF
 	end
 
-	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions
+	local moreButtonVisible = not TenFootInterface:IsEnabled() and self.props.topBarEnabled and hasOptions and (not FFlagEnableNewVrSystem or not VRService.VREnabled)
 
 	return Roact.createElement("Frame", {
 		Visible = moreButtonVisible,

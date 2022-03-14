@@ -1,10 +1,12 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
+local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Images = UIBlox.App.ImageSet.Images
@@ -16,6 +18,7 @@ local MoreMenu = require(Presentation.MoreMenu)
 local HealthBar = require(Presentation.HealthBar)
 local HurtOverlay = require(Presentation.HurtOverlay)
 local GamepadMenu = require(Presentation.GamepadMenu)
+local HeadsetMenu = require(Presentation.HeadsetMenu)
 
 local Connection = require(script.Parent.Connection)
 
@@ -27,9 +30,9 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 
-local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
-
 local CLOSE_MENU_ICON_SIZE = 30
+
+local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local TopBarApp = Roact.PureComponent:extend("TopBarApp")
 
@@ -40,6 +43,37 @@ TopBarApp.validateProps = t.strictInterface({
 	setScreenSize = t.callback,
 })
 
+function TopBarApp:init(props)
+	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
+		self.topFramePosition, self.updateTopFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
+		self.leftFramePosition, self.updateLeftFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
+		self.rightFramePosition, self.updateRightFramePosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
+		self.closeButtonPosition, self.updateCloseButtonPosition = Roact.createBinding(UDim2.new(1, 0, 1, 0))
+
+		self:updateValues(playerGui)
+
+		self.screenOrientationUpdate = function()
+			self:updateValues()
+		end
+	end
+end
+
+function TopBarApp:updateValues()
+	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
+		if (playerGui.CurrentScreenOrientation == Enum.ScreenOrientation.Portrait) then
+			self.updateTopFramePosition(UDim2.new(0, 0, 0, Constants.TopBarHeight))
+			self.updateLeftFramePosition(UDim2.new(0, Constants.ScreenSideOffset, 0, 0))
+			self.updateRightFramePosition(UDim2.new(1, -1 * Constants.ScreenSideOffset, 0, 0))
+			self.updateCloseButtonPosition(UDim2.new(0, 0, 0.5, Constants.TopBarHeight))
+		else
+			self.updateTopFramePosition(UDim2.new(0, 0, 0, 0))
+			self.updateLeftFramePosition(UDim2.new(0, Constants.TopBarHeight, 0, 0))
+			self.updateRightFramePosition(UDim2.new(1, -1 * Constants.TopBarHeight, 0, 0))
+			self.updateCloseButtonPosition(UDim2.new(0, Constants.TopBarHeight / 2, 0.5, 0))
+		end
+	end
+end
+
 function TopBarApp:render()
 	local screenSideOffset = Constants.ScreenSideOffset
 	local topBarHeight = Constants.TopBarHeight
@@ -49,6 +83,17 @@ function TopBarApp:render()
 	end
 
 	local isTopBarVisible = not (self.props.menuOpen or self.props.inspectMenuOpen)
+	local topBarFramePosition = UDim2.new(0, 0, 0, 0)
+	local topBarLeftFramePosition = UDim2.new(0, screenSideOffset, 0, 0)
+	local topBarRightFramePosition = UDim2.new(1, -screenSideOffset, 0, 0)
+	local closeMenuButtonPosition = UDim2.new(0, 0, 0.5, 0)
+
+	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
+		topBarFramePosition = self.topFramePosition
+		topBarLeftFramePosition = self.leftFramePosition
+		topBarRightFramePosition = self.rightFramePosition
+		closeMenuButtonPosition = self.closeButtonPosition
+	end
 
 	return Roact.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
@@ -62,7 +107,13 @@ function TopBarApp:render()
 	}, {
 		Connection = Roact.createElement(Connection),
 
-		GamepadMenu = isNewGamepadMenuEnabled() and Roact.createElement(GamepadMenu) or nil,
+		OrientationChangedConnection = game:GetEngineFeature("NotchSpaceSupportEnabled") and Roact.createElement(ExternalEventConnection, {
+			event = playerGui:GetPropertyChangedSignal("CurrentScreenOrientation"),
+			callback = self.screenOrientationUpdate,
+		}),
+
+		GamepadMenu = Roact.createElement(GamepadMenu),
+		HeadsetMenu = Roact.createElement(HeadsetMenu),
 
 		FullScreenFrame = Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -82,7 +133,7 @@ function TopBarApp:render()
 			CloseMenuButton = Roact.createElement(ImageSetButton, {
 				Visible = not TenFootInterface:IsEnabled(),
 				BackgroundTransparency = 1,
-				Position = UDim2.new(0, 0, 0.5, 0),
+				Position = closeMenuButtonPosition,
 				AnchorPoint = Vector2.new(0, 0.5),
 				Size = UDim2.new(0, CLOSE_MENU_ICON_SIZE, 0, CLOSE_MENU_ICON_SIZE),
 				Image = Images["icons/controls/close-ingame"],
@@ -98,11 +149,12 @@ function TopBarApp:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, topBarHeight),
 			Visible = isTopBarVisible,
+			Position = topBarFramePosition,
 		}, {
 			LeftFrame = not TenFootInterface:IsEnabled() and Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.5, -screenSideOffset, 1, 0),
-				Position = UDim2.new(0, screenSideOffset, 0, 0),
+				Position = topBarLeftFramePosition,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
 					Padding = UDim.new(0, Constants.Padding),
@@ -124,7 +176,7 @@ function TopBarApp:render()
 			RightFrame = Roact.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0.5, -screenSideOffset, 1, 0),
-				Position = UDim2.new(1, -screenSideOffset, 0, 0),
+				Position = topBarRightFramePosition,
 				AnchorPoint = Vector2.new(1, 0),
 			}, {
 				Layout = Roact.createElement("UIListLayout", {

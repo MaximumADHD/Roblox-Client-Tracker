@@ -35,14 +35,27 @@ local FFlagVirtualCursorEnabled = game:GetEngineFeature("VirtualCursorEnabled")
 
 local FFlagUseRoactGlobalConfigInCoreScripts = require(RobloxGui.Modules.Flags.FFlagUseRoactGlobalConfigInCoreScripts)
 local FFlagConnectErrorHandlerInLoadingScript = require(RobloxGui.Modules.Flags.FFlagConnectErrorHandlerInLoadingScript)
-local GetFFlagRoactBubbleChat = require(RobloxGui.Modules.Common.Flags.GetFFlagRoactBubbleChat)
 
-local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
+local FFlagEnableExperienceChat = require(CoreGuiModules.Common.Flags.FFlagEnableExperienceChat)
+
 local GetFFlagScreenTime = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTime)
 
 local GetFFlagEnableCaptureMode = require(RobloxGui.Modules.Flags.GetFFlagEnableCaptureMode)
 
+local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
+
+local GetFFlagStartScreenTimeUsingGuacEnabled
+	= require(CorePackages.Regulations.ScreenTime.GetFFlagStartScreenTimeUsingGuacEnabled)
+
+local GetFFlagEnableIXPInGame = require(CoreGuiModules.Common.Flags.GetFFlagEnableIXPInGame)
+local GetFFlagRemoveABTestServiceInitAndCleanup = require(CorePackages.AppTempCommon.Flags.GetFFlagRemoveABTestServiceInitAndCleanup)
+
+local IsExperienceMenuABTestEnabled = require(CoreGuiModules.InGameMenu.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(CoreGuiModules.InGameMenu.ExperienceMenuABTestManager)
+local GetCoreScriptsLayers = require(CoreGuiModules.Experiment.GetCoreScriptsLayers)
+
+local FFlagEnableLuobuWarningToast = require(RobloxGui.Modules.Flags.FFlagEnableLuobuWarningToast)
 
 -- The Rotriever index, as well as the in-game menu code itself, relies on
 -- the init.lua convention, so we have to run initify over the module.
@@ -69,7 +82,9 @@ if FFlagUseRoactGlobalConfigInCoreScripts and RunService:IsStudio() then
 	})
 end
 
-ABTestService:InitializeForUserId(localPlayer.UserId)
+if not GetFFlagRemoveABTestServiceInitAndCleanup() then
+	ABTestService:InitializeForUserId(localPlayer.UserId)
+end
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local InGameMenuUIBlox = InGameMenuDependencies.UIBlox
@@ -119,13 +134,29 @@ if game:GetEngineFeature("ProximityPrompts") then
 end
 
 coroutine.wrap(function() -- this is the first place we call, which can yield so wrap in coroutine
-	if PolicyService:IsSubjectToChinaPolicies() then
-		ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
-		if GetFFlagScreenTime() then
-			ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+	if GetFFlagStartScreenTimeUsingGuacEnabled() then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+	else
+		if PolicyService:IsSubjectToChinaPolicies() then
+			ScriptContext:AddCoreScriptLocal("CoreScripts/AntiAddictionPrompt", RobloxGui)
+			if GetFFlagScreenTime() then
+				ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenTimeInGame", RobloxGui)
+			end
 		end
 	end
 end)()
+
+if FFlagEnableLuobuWarningToast then
+	coroutine.wrap(function()
+		if PolicyService:IsSubjectToChinaPolicies() then
+			if not game:IsLoaded() then
+				game.Loaded:Wait()
+			end
+			initify(CoreGuiModules.LuobuWarningToast)
+			safeRequire(CoreGuiModules.LuobuWarningToast)
+		end
+	end)()
+end
 
 -- Performance Stats Management
 ScriptContext:AddCoreScriptLocal("CoreScripts/PerformanceStatsManagerScript", RobloxGui)
@@ -145,7 +176,11 @@ local UserRoactBubbleChatBeta do
 end
 
 if game:GetEngineFeature("EnableBubbleChatFromChatService") or UserRoactBubbleChatBeta then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/InGameChat", RobloxGui)
+	if GetFFlagBubbleVoiceIndicator() then
+		ScriptContext:AddCoreScriptLocal("CoreScripts/PlayerBillboards", RobloxGui)
+	else
+		ScriptContext:AddCoreScriptLocal("CoreScripts/InGameChat", RobloxGui)
+	end
 end
 
 -- Purchase Prompt Script
@@ -171,7 +206,7 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.BackpackScript)
 -- Emotes Menu
 coroutine.wrap(safeRequire)(RobloxGui.Modules.EmotesMenu.EmotesMenuMaster)
 
-if game:GetEngineFeature("AvatarEditorService") then
+if game:GetEngineFeature("AvatarEditorService") or game:GetEngineFeature("AvatarEditorServiceButNotForCatalog") then
 	initify(CoreGuiModules.AvatarEditorPrompts)
 	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 end
@@ -182,10 +217,6 @@ if FFlagVirtualCursorEnabled then
 end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
-
-if not isNewGamepadMenuEnabled() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/GamepadMenu", RobloxGui)
-end
 
 if FFlagLuaInviteModalEnabled then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
@@ -218,4 +249,23 @@ end
 
 if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
+end
+
+if GetFFlagEnableIXPInGame() then
+	coroutine.wrap(function()
+		local IXPServiceWrapper = require(CoreGuiModules.Common.IXPServiceWrapper)
+		IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
+
+		if IsExperienceMenuABTestEnabled() then
+			ExperienceMenuABTestManager.default:initialize()
+		end
+	end)()
+end
+
+if FFlagEnableExperienceChat then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ExperienceChat", RobloxGui)
+end
+
+if game:DefineFastFlag("ReportChatEmoteUsage", false) then
+	ScriptContext:AddCoreScriptLocal("CoreScripts/ChatEmoteUsage", script.Parent)
 end

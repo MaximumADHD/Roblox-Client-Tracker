@@ -28,12 +28,12 @@ function TransparencyController.new()
 end
 
 
-function TransparencyController:HasToolAncestor(object)
+function TransparencyController:HasToolAncestor(object: Instance)
 	if object.Parent == nil then return false end
 	return object.Parent:IsA('Tool') or self:HasToolAncestor(object.Parent)
 end
 
-function TransparencyController:IsValidPartToModify(part)
+function TransparencyController:IsValidPartToModify(part: BasePart)
 	if part:IsA('BasePart') or part:IsA('Decal') then
 		return not self:HasToolAncestor(part)
 	end
@@ -121,7 +121,7 @@ function TransparencyController:SetupTransparency(character)
 end
 
 
-function TransparencyController:Enable(enable)
+function TransparencyController:Enable(enable: boolean)
 	if self.enabled ~= enable then
 		self.enabled = enable
 		self:Update()

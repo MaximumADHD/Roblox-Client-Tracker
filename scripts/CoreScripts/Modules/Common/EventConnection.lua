@@ -45,9 +45,10 @@ function EventConnection:didUpdate(oldProps)
 end
 
 function EventConnection:willUnmount()
-	self.connection:Disconnect()
-
-	self.connection = nil
+	if self.connection then
+		self.connection:Disconnect()
+		self.connection = nil
+	end
 end
 
 return EventConnection

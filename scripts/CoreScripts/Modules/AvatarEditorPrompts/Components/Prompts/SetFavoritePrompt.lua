@@ -125,4 +125,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(SetFavoritePrompt)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SetFavoritePrompt)

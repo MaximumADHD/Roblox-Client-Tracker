@@ -11,6 +11,9 @@
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
+local CoreGui = game:GetService('CoreGui')
+local FFlagLuaMacUpdateFullscreenKeyboardShortcut = require(CoreGui.RobloxGui.Modules.Flags.FFlagLuaMacUpdateFullscreenKeyboardShortcut)
+
 -------------- CONSTANTS --------------
 local KEYBOARD_MOUSE_TAG = "KeyboardMouse"
 local TOUCH_TAG = "Touch"
@@ -216,7 +219,11 @@ local function Initialize()
 		table.insert(miscActions, {["Mouselock"] = "Shift"})
 		if canShowRecordAndStats then
 			table.insert(miscActions, {["Graphics Level"] = isOSX and "F10/fn + F10" or "F10"})
-			table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
+			if FFlagLuaMacUpdateFullscreenKeyboardShortcut then
+				table.insert(miscActions, {["Fullscreen"] = isOSX and "Ctrl + Cmd + F" or "F11"})
+			else
+				table.insert(miscActions, {["Fullscreen"] = isOSX and "F11/fn + F11" or "F11"})
+			end
 		end
 
 		if canShowRecordAndStats then

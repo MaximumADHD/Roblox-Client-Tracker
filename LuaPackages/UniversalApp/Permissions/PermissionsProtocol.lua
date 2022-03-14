@@ -4,10 +4,16 @@ local Promise = require(CorePackages.Promise)
 local t = require(CorePackages.Packages.t)
 
 local NAME = "Permissions"
+local PROTOCOL_NAME = "PermissionsProtocol"
+
+local PERMISSIONS_REQUEST_METHOD_NAME = "PermissionsRequest"
+local HAS_PERMISSIONS_METHOD_NAME = "HasPermissions"
+local SUPPORTS_PERMISSIONS_METHOD_NAME = "SupportsPermissions"
 
 local permissions = {
 	CAMERA_ACCESS = "CAMERA_ACCESS",
-	MICROPHONE_ACCESS = "MICROPHONE_ACCESS"
+	MICROPHONE_ACCESS = "MICROPHONE_ACCESS",
+	LOCAL_NETWORK = "LOCAL_NETWORK",
 }
 
 local status = {
@@ -37,6 +43,21 @@ local PermissionsProtocol = {
 			missingPermissions = validatePermissionsList,
 		}),
 	},
+	PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = PERMISSIONS_REQUEST_METHOD_NAME,
+		validateParams = t.strictInterface({
+			permissions = validatePermissionsList,
+		}),
+	},
+	PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = PERMISSIONS_REQUEST_METHOD_NAME,
+		validateParams = t.strictInterface({
+			status = validateStatusList,
+			missingPermissions = validatePermissionsList,
+		}),
+	},
 	HAS_PERMISSION_REQUEST_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "hasPermissionRequest"),
 		validateParams = t.strictInterface({
@@ -45,6 +66,21 @@ local PermissionsProtocol = {
 	},
 	HAS_PERMISSION_RESPONSE_DESCRIPTOR = {
 		mid = MessageBus.getMessageId(NAME, "hasPermissionResponse"),
+		validateParams = t.strictInterface({
+			status = validateStatusList,
+			missingPermissions = validatePermissionsList,
+		}),
+	},
+	HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = HAS_PERMISSIONS_METHOD_NAME,
+		validateParams = t.strictInterface({
+			permissions = validatePermissionsList,
+		}),
+	},
+	HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = HAS_PERMISSIONS_METHOD_NAME,
 		validateParams = t.strictInterface({
 			status = validateStatusList,
 			missingPermissions = validatePermissionsList,
@@ -62,9 +98,44 @@ local PermissionsProtocol = {
 			permissions = validatePermissionsList,
 		}),
 	},
+	SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_PERMISSIONS_METHOD_NAME,
+		validateParams = t.strictInterface({
+			includeStatus = t.literal(false),
+		}),
+	},
+	SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR = {
+		protocolName = PROTOCOL_NAME,
+		methodName = SUPPORTS_PERMISSIONS_METHOD_NAME,
+		validateParams = t.strictInterface({
+			permissions = validatePermissionsList,
+		}),
+	},
 }
 
 PermissionsProtocol.__index = PermissionsProtocol
+
+local function shouldPublishPermissionProtocolMsgWithTelem()
+	return game:GetEngineFeature("PublishPermissionProtocolMsgWithTelem")
+		and game:GetEngineFeature("EnableNewMessageBusServicePublishMethods")
+end
+
+local function getPermissionRequestTelemetryData(permissions: Table): Table
+	local permissionsTelemetryTable = {}
+	for key, value in pairs(permissions) do
+		if value == PermissionsProtocol.Permissions.CAMERA_ACCESS then
+			permissionsTelemetryTable["camera_access_requested"] = ""
+		end
+		if value == PermissionsProtocol.Permissions.MICROPHONE_ACCESS then
+			permissionsTelemetryTable["microphone_access_requested"] = ""
+		end
+		if value == PermissionsProtocol.Permissions.LOCAL_NETWORK then
+			permissionsTelemetryTable["local_network_requested"] = ""
+		end
+	end
+	return permissionsTelemetryTable
+end
 
 function PermissionsProtocol.new(): PermissionsProtocol
 	local self = setmetatable({
@@ -84,18 +155,33 @@ not granted
 ]]
 
 function PermissionsProtocol:hasPermissions(permissions: Table): Promise
-	local promise = Promise.new(function(resolve, _)
-		local desc = self.HAS_PERMISSION_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribe(desc, function(params: Table)
-			self.subscriber:unsubscribe(desc)
-			resolve(params)
+	if shouldPublishPermissionProtocolMsgWithTelem() then
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.HAS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+				self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+				resolve(params)
+			end)
 		end)
-	end)
-
-	MessageBus.publish(self.HAS_PERMISSION_REQUEST_DESCRIPTOR, {
-		permissions = permissions,
-	})
-	return promise
+		MessageBus.publishProtocolMethodRequest(self.HAS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = permissions,
+		}, getPermissionRequestTelemetryData(
+			permissions
+		))
+		return promise
+	else
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.HAS_PERMISSION_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribe(desc, function(params: Table)
+				self.subscriber:unsubscribe(desc)
+				resolve(params)
+			end)
+		end)
+		MessageBus.publish(self.HAS_PERMISSION_REQUEST_DESCRIPTOR, {
+			permissions = permissions,
+		})
+		return promise
+	end
 end
 
 --[[
@@ -108,18 +194,33 @@ not granted
 ]]
 
 function PermissionsProtocol:requestPermissions(permissions: Table): Promise
-	local promise = Promise.new(function(resolve, _)
-		local desc = self.PERMISSION_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribe(desc, function(params: Table)
-			self.subscriber:unsubscribe(desc)
-			resolve(params)
+	if shouldPublishPermissionProtocolMsgWithTelem() then
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.PERMISSION_REQUEST_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+				self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+				resolve(params)
+			end)
 		end)
-	end)
-
-	MessageBus.publish(self.PERMISSION_REQUEST_DESCRIPTOR, {
-		permissions = permissions,
-	})
-	return promise
+		MessageBus.publishProtocolMethodRequest(self.PERMISSION_REQUEST_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			permissions = permissions,
+		}, getPermissionRequestTelemetryData(
+			permissions
+		))
+		return promise
+	else
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.PERMISSION_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribe(desc, function(params: Table)
+				self.subscriber:unsubscribe(desc)
+				resolve(params)
+			end)
+		end)
+		MessageBus.publish(self.PERMISSION_REQUEST_DESCRIPTOR, {
+			permissions = permissions,
+		})
+		return promise
+	end
 end
 
 --[[
@@ -130,18 +231,32 @@ device supports
 ]]
 
 function PermissionsProtocol:getSupportedPermissionsList(): Promise
-	local promise = Promise.new(function(resolve, _)
-		local desc = self.SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR
-		self.subscriber:subscribe(desc, function(permissions: Table)
-			self.subscriber:unsubscribe(desc)
-			resolve(permissions)
+	if shouldPublishPermissionProtocolMsgWithTelem() then
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribeProtocolMethodResponse(desc, function(params: Table)
+				self.subscriber:unsubscribeToProtocolMethodResponse(desc)
+				resolve(params)
+			end)
 		end)
-	end)
-
-	MessageBus.publish(self.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR, {
-		includeStatus = false,
-	})
-	return promise
+		MessageBus.publishProtocolMethodRequest(self.SUPPORTS_PERMISSIONS_PROTOCOL_METHOD_REQUEST_DESCRIPTOR, {
+			includeStatus = false,
+		},
+		{})
+		return promise
+	else
+		local promise = Promise.new(function(resolve, _)
+			local desc = self.SUPPORTS_PERMISSIONS_RESPONSE_DESCRIPTOR
+			self.subscriber:subscribe(desc, function(permissions: Table)
+				self.subscriber:unsubscribe(desc)
+				resolve(permissions)
+			end)
+		end)
+		MessageBus.publish(self.SUPPORTS_PERMISSIONS_REQUEST_DESCRIPTOR, {
+			includeStatus = false,
+		})
+		return promise
+	end
 end
 
 --[[
@@ -170,7 +285,7 @@ function PermissionsProtocol:supportsPermissions(permissions: Table): Promise
 				end
 			end
 			return Promise.resolve(true)
-		else 
+		else
 			return Promise.reject()
 		end
 	end)
@@ -202,20 +317,21 @@ function PermissionsProtocol:checkOrRequestPermissions(permissions: Table): Prom
 			end
 			
 			-- Permissions supported, request if necessary
-			self:hasPermissions(permissions):andThen(
-			function(result)
-				-- Permissions already granted before
-				if result.status == PermissionsProtocol.Status.AUTHORIZED then
-					return Promise.resolve(result.status)
-				else
-					-- Requesting permissions now
-					self:requestPermissions(permissions):andThen(
-						function(result)
-							return Promise.resolve(result.status)
-						end
-					)
+			return self:hasPermissions(permissions):andThen(
+				function(result)
+					-- Permissions already granted before
+					if result.status == PermissionsProtocol.Status.AUTHORIZED then
+						return Promise.resolve(result.status)
+					else
+						-- Requesting permissions now
+						return self:requestPermissions(permissions):andThen(
+							function(result)
+								return Promise.resolve(result.status)
+							end
+						)
+					end
 				end
-			end)
+			)
 		end,
 		function(err)
 			-- Permissions not supported

@@ -3,11 +3,16 @@ local HttpService = game:GetService("HttpService")
 local PlayersService = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
 local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local Url = require(RobloxGui.Modules.Common.Url)
+game:DefineFastFlag("EnableMigrateBlockingOffAPIProxy", false)
 
 local BlockingUtility = {}
 BlockingUtility.__index = BlockingUtility
 
 local LocalPlayer = PlayersService.LocalPlayer
+-- This seems to endlessly loop on studio.
 while not LocalPlayer do
 	PlayersService.PlayerAdded:wait()
 	LocalPlayer = PlayersService.LocalPlayer
@@ -21,6 +26,7 @@ spawn(function()
 end)
 
 local BlockStatusChanged = Instance.new("BindableEvent")
+local AfterBlockStatusChanged = Instance.new("BindableEvent")
 local MuteStatusChanged = Instance.new("BindableEvent")
 
 local GetBlockedPlayersCompleted = false
@@ -121,18 +127,37 @@ local function BlockPlayerAsync(playerToBlock)
 					RemoteEvent_UpdatePlayerBlockList:FireServer(blockUserId, true)
 				end
 
-				local success, wasBlocked = pcall(function()
-					local apiPath = "userblock/block"
-					local params = "userId=" ..tostring(playerToBlock.UserId)
-					local request = HttpRbxApiService:PostAsync(
-						apiPath,
-						params,
-						Enum.ThrottlingPriority.Default,
-						Enum.HttpContentType.ApplicationUrlEncoded
-					)
-					local response = request and HttpService:JSONDecode(request)
-					return response and response.success
-				end)
+				local success, wasBlocked
+				if game:GetFastFlag("EnableMigrateBlockingOffAPIProxy") and
+					game:GetEngineFeature("EnableHttpRbxApiServiceWhiteListAccountSettings") then
+					success, wasBlocked = pcall(function()
+						local fullUrl = Url.ACCOUNT_SETTINGS_URL.."v1/users/"..tostring(playerToBlock.UserId).."/block"
+						local result = HttpRbxApiService:PostAsyncFullUrl(fullUrl, "")
+
+						if result then
+							result = HttpService:JSONDecode(result)
+							return result and not result.errors
+						end
+					end)
+				else
+					success, wasBlocked = pcall(function()
+						local apiPath = "userblock/block"
+						local params = "userId=" ..tostring(playerToBlock.UserId)
+						local request = HttpRbxApiService:PostAsync(
+							apiPath,
+							params,
+							Enum.ThrottlingPriority.Default,
+							Enum.HttpContentType.ApplicationUrlEncoded
+						)
+						local response = request and HttpService:JSONDecode(request)
+						return response and response.success
+					end)
+				end
+
+				if success and wasBlocked then
+					AfterBlockStatusChanged:Fire(blockUserId, true)
+				end
+
 				return success and wasBlocked
 			else
 				return true
@@ -154,18 +179,38 @@ local function UnblockPlayerAsync(playerToUnblock)
 				RemoteEvent_UpdatePlayerBlockList:FireServer(unblockUserId, false)
 			end
 
-			local success, wasUnBlocked = pcall(function()
-				local apiPath = "userblock/unblock"
-				local params = "userId=" ..tostring(playerToUnblock.UserId)
-				local request = HttpRbxApiService:PostAsync(
-					apiPath,
-					params,
-					Enum.ThrottlingPriority.Default,
-					Enum.HttpContentType.ApplicationUrlEncoded
-				)
-				local response = request and HttpService:JSONDecode(request)
-				return response and response.success
-			end)
+			local success, wasUnBlocked
+
+			if game:GetFastFlag("EnableMigrateBlockingOffAPIProxy") and
+				game:GetEngineFeature("EnableHttpRbxApiServiceWhiteListAccountSettings") then
+				success, wasUnBlocked = pcall(function()
+					local fullUrl = Url.ACCOUNT_SETTINGS_URL.."v1/users/"..tostring(playerToUnblock.UserId).."/unblock"
+					local result = HttpRbxApiService:PostAsyncFullUrl(fullUrl, "")
+
+					if result then
+						result = HttpService:JSONDecode(result)
+						return result and not result.errors
+					end
+				end)
+			else
+				success, wasUnBlocked = pcall(function()
+					local apiPath = "userblock/unblock"
+					local params = "userId=" ..tostring(playerToUnblock.UserId)
+					local request = HttpRbxApiService:PostAsync(
+						apiPath,
+						params,
+						Enum.ThrottlingPriority.Default,
+						Enum.HttpContentType.ApplicationUrlEncoded
+					)
+					local response = request and HttpService:JSONDecode(request)
+					return response and response.success
+				end)
+			end
+
+			if success and wasUnBlocked then
+				AfterBlockStatusChanged:Fire(unblockUserId, false)
+			end
+
 			return success and wasUnBlocked
 		else
 			return true
@@ -259,6 +304,12 @@ end
 
 function BlockingUtility:GetBlockedStatusChangedEvent()
 	return BlockStatusChanged.Event
+end
+
+-- This event is similar to GetBlockedStatusChangedEvent, but it fires AFTER the request finishes.
+-- This is needed for some voice-chat functionality
+function BlockingUtility:GetAfterBlockedStatusChangedEvent()
+	return AfterBlockStatusChanged.Event
 end
 
 function BlockingUtility:GetMutedStatusChangedEvent()

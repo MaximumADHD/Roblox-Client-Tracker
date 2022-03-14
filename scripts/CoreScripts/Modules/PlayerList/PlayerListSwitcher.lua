@@ -31,7 +31,11 @@ function PlayerListSwitcher:render()
 		ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
 			style = self.props.appStyle,
 		}, {
-			PlayerListApp = self.props.isSmallTouchDevice and Roact.createElement(PlayerListAppMobile) or Roact.createElement(PlayerListApp),
+			PlayerListApp = self.props.isSmallTouchDevice and Roact.createElement(PlayerListAppMobile, {
+				setLayerCollectorEnabled = self.props.setLayerCollectorEnabled,
+			}) or Roact.createElement(PlayerListApp, {
+				setLayerCollectorEnabled = self.props.setLayerCollectorEnabled,
+			}),
 		})
 	})
 end

@@ -42,10 +42,10 @@ local IsDeveloperConsoleEnabled = require(DevConsole.IsDeveloperConsoleEnabled)
 local PlayerPermissionsModule = require(CoreGui.RobloxGui.Modules.PlayerPermissionsModule)
 
 local DFFlagEnableRemoteProfilingForDevConsole = settings():GetFFlag("EnableRemoteProfilingForDevConsole")
-local FFlagRespectDisplayOrderForOnTopOfCoreBlur = settings():GetFFlag("RespectDisplayOrderForOnTopOfCoreBlur")
-local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
+
+local GetFFlagFixDevConsoleInitialization = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagFixDevConsoleInitialization)
 
 local DEV_TAB_LIST = {
 	Log = {
@@ -161,8 +161,7 @@ function DevConsoleMaster:SetupDevConsole()
 	local platformEnum = UserInputService:GetPlatform()
 	local formFactor = platformConversion[platformEnum]
 
-	local isDev = isDeveloper()
-	local developerConsoleView = isDev
+	local developerConsoleView = isDeveloper()
 
 	local initTabListForStore
 	if FFlagAdminServerLogs then
@@ -185,12 +184,7 @@ function DevConsoleMaster:SetupDevConsole()
 	end
 
 	-- create store
-	local middleWare
-	if FFlagDevConsoleAnalyticsIncludeOwner then
-		middleWare = { DevConsoleAnalytics(isDev) }
-	else
-		middleWare = { DevConsoleAnalytics }
-	end
+	local middleWare = { DevConsoleAnalytics }
 	self.store = Rodux.Store.new(DevConsoleReducer, initTabListForStore, middleWare)
 
 	local isVisible = self.store:getState().DisplayOptions.isVisible
@@ -204,7 +198,7 @@ function DevConsoleMaster:SetupDevConsole()
 		}, {
 			App = Roact.createElement("ScreenGui", {
 				OnTopOfCoreBlur = true,
-				DisplayOrder = FFlagRespectDisplayOrderForOnTopOfCoreBlur and 10 or nil,
+				DisplayOrder = 10,
 			}, {
 				DevConsoleWindow = Roact.createElement(DevConsoleWindow, {
 					formFactor = formFactor,
@@ -252,7 +246,9 @@ function DevConsoleMaster:Start()
 end
 
 function DevConsoleMaster:ToggleVisibility()
-	if not IsDeveloperConsoleEnabled() then return end
+	if not IsDeveloperConsoleEnabled() then
+		return
+	end
 
 	if not self.init then
 		master:Start()
@@ -263,15 +259,35 @@ function DevConsoleMaster:ToggleVisibility()
 end
 
 function DevConsoleMaster:GetVisibility()
+	if GetFFlagFixDevConsoleInitialization() then
+		if not IsDeveloperConsoleEnabled() then
+			return false
+		end
+
+		if not self.init then
+			return false
+		end
+	end
+
 	local state = self.store:getState()
 	if state then
 		if state.DisplayOptions then
 			return state.DisplayOptions.isVisible and not state.DisplayOptions.isMinimized
 		end
 	end
+
+	if GetFFlagFixDevConsoleInitialization() then
+		return false
+	end
 end
 
 function DevConsoleMaster:SetVisibility(value)
+	if GetFFlagFixDevConsoleInitialization() then
+		if not IsDeveloperConsoleEnabled() then
+			return
+		end
+	end
+
 	if type(value) == "boolean" then
 		if not self.init and value then
 			master:Start()
@@ -282,7 +298,11 @@ function DevConsoleMaster:SetVisibility(value)
 end
 
 StarterGui:RegisterGetCore("DevConsoleVisible", function()
-	if not IsDeveloperConsoleEnabled() then return false end
+	if not GetFFlagFixDevConsoleInitialization() then
+		if not IsDeveloperConsoleEnabled() then
+			return false
+		end
+	end
 
 	return master:GetVisibility()
 end)
@@ -291,7 +311,12 @@ StarterGui:RegisterSetCore("DevConsoleVisible", function(visible)
 	if (type(visible) ~= "boolean") then
 		error("DevConsoleVisible must be given a boolean value.")
 	end
-	if not IsDeveloperConsoleEnabled() then return end
+
+	if not GetFFlagFixDevConsoleInitialization() then
+		if not IsDeveloperConsoleEnabled() then
+			return
+		end
+	end
 
 	master:SetVisibility(visible)
 end)

@@ -1,5 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -16,14 +15,14 @@ local Constants = require(InGameMenu.Resources.Constants)
 local GlobalConfig = require(InGameMenu.GlobalConfig)
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
-local GetFFlagInGameFixMenuIconHoverEatKeyboard =
-	require(RobloxGui.Modules.Flags.GetFFlagInGameFixMenuIconHoverEatKeyboard)
+local VECTOR2_ZERO = Vector2.new(0,0)
 
 local validateProps = t.strictInterface({
 	currentPage = t.string,
 	open = t.boolean,
 	onActivated = t.callback,
 	occupiedWidth = t.number,
+	screenSize = t.Vector2,
 })
 
 local function ViewportOverlay(props)
@@ -31,10 +30,11 @@ local function ViewportOverlay(props)
 		assert(validateProps(props))
 	end
 
-	local isInitalPage = false
-	if GetFFlagInGameFixMenuIconHoverEatKeyboard() then
-		isInitalPage = props.currentPage == Constants.InitalPageKey
+	if props.screenSize == VECTOR2_ZERO then
+		return nil
 	end
+
+	local isInitalPage = props.currentPage == Constants.InitalPageKey
 
 	return withStyle(function(style)
 		return Roact.createElement("Frame", {
@@ -64,6 +64,7 @@ return RoactRodux.UNSTABLE_connect2(function(state, props)
 		currentPage = state.menuPage,
 		open = state.isMenuOpen,
 		occupiedWidth = occupiedWidth,
+		screenSize = state.screenSize,
 	}
 end, function(dispatch)
 	return {

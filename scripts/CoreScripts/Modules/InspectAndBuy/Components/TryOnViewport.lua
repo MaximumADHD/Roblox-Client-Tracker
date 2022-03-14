@@ -7,17 +7,22 @@ local Constants = require(InspectAndBuyFolder.Constants)
 local AvatarViewport = require(InspectAndBuyFolder.Components.AvatarViewport)
 local GetHumanoidDescriptionFromCostumeId = require(InspectAndBuyFolder.Thunks.GetHumanoidDescriptionFromCostumeId)
 
-local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
 
 local TryOnViewport = Roact.PureComponent:extend("TryOnViewport")
 
 local function isPartOfBundleAndOffsale(assetInfo)
-	if FFlagAllowForBundleItemsSoldSeparately then
-		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-			and not assetInfo.isForSale
-	else
-		return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-	end
+	return assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
+		and not assetInfo.isForSale
+end
+
+local function createDefaultHumanoidDescriptionAccessoryInfo(assetTypeId, assetId)
+	return {
+		AssetId = tonumber(assetId),
+		Order = Constants.LayeredClothingOrder[assetTypeId],
+		AccessoryType = Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId],
+		IsLayered = Constants.LayeredAssetTypes[assetTypeId] ~= nil,
+	}
 end
 
 function TryOnViewport:init()
@@ -72,14 +77,55 @@ function TryOnViewport:render()
 			visible = self.state.obtainedHumanoidDescriptions[costumeId] == true
 			if costumeHumanoidDescription then
 				-- Overwrite the inspecter's assets with any asset from the costume.
-				for _, value in pairs(Constants.HumanoidDescriptionAssetNames) do
-					if tonumber(costumeHumanoidDescription[value]) and tostring(costumeHumanoidDescription[value]) ~= "0" then
-						humanoidDescription[value] = costumeHumanoidDescription[value]
+				if FFlagInspectAndBuyLayeredClothingSupport then
+					for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+						if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil
+							and tonumber(costumeHumanoidDescription[name]) and tostring(costumeHumanoidDescription[name]) ~= "0" then
+							humanoidDescription[name] = costumeHumanoidDescription[name]
+						end
+					end
+
+					local costumeAccessories = costumeHumanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+					humanoidDescription:SetAccessories(costumeAccessories, --[[includeRigidAccessories =]] true)
+				else
+					for _, value in pairs(Constants.HumanoidDescriptionAssetNames) do
+						if tonumber(costumeHumanoidDescription[value]) and tostring(costumeHumanoidDescription[value]) ~= "0" then
+							humanoidDescription[value] = costumeHumanoidDescription[value]
+						end
 					end
 				end
 			end
 		else
-			humanoidDescription[Constants.HumanoidDescriptionIdToName[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
+			if FFlagInspectAndBuyLayeredClothingSupport then
+				-- Cannot set humanoidDescription value directly if the tryingOn asset is an accessory
+				if Constants.AssetTypeIdToAccessoryTypeEnum[tryingOnInfo.assetTypeId] then
+					local tryOnAccessory = Constants.AssetTypeIdToAccessoryTypeEnum[tryingOnInfo.assetTypeId]
+					local accessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+					local tryOnAccessories = {}
+					-- Iterate through the currently equipped accessories and add them to a new table to be used in
+					-- SetAccessories. Only insert accessories that are not of the same type as the trying on accessory and
+					-- are not of the same layered clothing category. Essentially, this will replace all accessories of that
+					-- category with the trying on accessory
+					for _, accessory in pairs(accessories) do
+						local accessoryAssetType = Constants.AccessoryTypeEnumToAssetTypeId[accessory.AccessoryType]
+						local tryOnAccessoryCategory = Constants.AssetTypeToAssetCategory[tryingOnInfo.assetTypeId]
+						local accessoryCategory = Constants.AssetTypeToAssetCategory[accessoryAssetType]
+						local ofDifferentCategory = (not tryOnAccessoryCategory) or accessoryCategory ~= tryOnAccessoryCategory
+
+						if accessory.AccessoryType ~= tryOnAccessory and ofDifferentCategory then
+							table.insert(tryOnAccessories, accessory)
+						end
+					end
+					-- format and add our trying on accessory to the table of all accessories to be used in SetAccessories
+					local tryOnAccessoryInfo = createDefaultHumanoidDescriptionAccessoryInfo(tryingOnInfo.assetTypeId, tryingOnInfo.assetId)
+					table.insert(tryOnAccessories, tryOnAccessoryInfo)
+					humanoidDescription:SetAccessories(tryOnAccessories, --[[includeRigidAccessories =]] true)
+				else
+					humanoidDescription[Constants.HumanoidDescriptionIdToName[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
+				end
+			else
+				humanoidDescription[Constants.HumanoidDescriptionIdToName[tryingOnInfo.assetTypeId]] = tryingOnInfo.assetId
+			end
 		end
 	end
 

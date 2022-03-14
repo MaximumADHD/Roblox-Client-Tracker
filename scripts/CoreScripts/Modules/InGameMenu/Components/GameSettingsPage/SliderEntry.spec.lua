@@ -11,6 +11,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -20,9 +21,20 @@ return function()
 		Font = AppFont,
 	}
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local SliderEntry = require(script.Parent.SliderEntry)
 
 	it("should create and destroy without errors", function()
+		local sliderEntry = Roact.createElement(SliderEntry, {
+			LayoutOrder = 2,
+			labelKey = "CoreScripts.InGameMenu.GameSettings.CameraSensitivity",
+			min = 1,
+			max = 10,
+			stepInterval = 1,
+			value = 5,
+			disabled = false,
+			valueChanged = function() end,
+		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
@@ -33,18 +45,10 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					SliderEntry = Roact.createElement(SliderEntry, {
-						LayoutOrder = 2,
-						labelKey = "CoreScripts.InGameMenu.GameSettings.CameraSensitivity",
-						min = 1,
-						max = 10,
-						stepInterval = 1,
-						value = 5,
-						disabled = false,
-						valueChanged = function()
-							print("Value changed")
-						end,
-					}),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						SliderEntry = sliderEntry
+					}) or nil,
+					SliderEntry = not GetFFlagIGMGamepadSelectionHistory() and sliderEntry or nil
 				}),
 			}),
 		})

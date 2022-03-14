@@ -8,6 +8,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 
 local withStyle = UIBlox.Core.Style.withStyle
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
@@ -23,6 +25,8 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
+
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local NAV_BUTTON_HEIGHT = 70
 -- The left indent on divider lines
@@ -66,7 +70,7 @@ function NavigationButton:init(props)
 	})
 end
 
-function NavigationButton:render()
+function NavigationButton:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 
 	return withLocalization({
@@ -93,7 +97,9 @@ function NavigationButton:render()
 				LayoutOrder = props.LayoutOrder,
 				Size = UDim2.new(1, 0, 0, NAV_BUTTON_HEIGHT),
 				Text = "",
+				SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
 				[Roact.Event.Activated] = props.onActivated,
+				[Roact.Ref] = (GetFFlagInGameMenuControllerDevelopmentOnly() and props.LayoutOrder == 1 and props.mainPageFirstButtonRef) or nil,
 				[Roact.Event.MouseEnter] = function()
 					self:setState({
 						hovering = true,
@@ -161,6 +167,16 @@ function NavigationButton:render()
 	end)
 end
 
+function NavigationButton:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
+end
+
 function NavigationButton:didUpdate()
 	self.motor:setGoal({
 		fillProgress = Otter.spring(self.props.selected and 1 or 0, {
@@ -193,6 +209,7 @@ local function PageNavigation(props)
 				onActivated = function()
 					props.setCurrentPage(page.key)
 				end,
+				mainPageFirstButtonRef = (GetFFlagInGameMenuControllerDevelopmentOnly() and layoutOrder == 1 and props.mainPageFirstButtonRef) or nil,
 			})
 
 			layoutOrder = layoutOrder + 1
@@ -212,7 +229,9 @@ local function PageNavigation(props)
 		BackgroundTransparency = 1,
 		Position = props.Position,
 		-- pageCount nav buttons, plus pageCount - 1 dividers (which are 1px tall)
-		Size = UDim2.new(1, 0, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
+		Size = GetFFlagInGameMenuControllerDevelopmentOnly()
+			and UDim2.new(1, -Constants.Zone.ContentOffset, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1))
+			or UDim2.new(1, 0, 0, pageCount * NAV_BUTTON_HEIGHT + (pageCount - 1)),
 	}, frameChildren)
 end
 

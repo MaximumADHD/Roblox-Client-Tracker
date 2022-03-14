@@ -13,6 +13,8 @@ local TEA_END_POINTS = {
 	REPORT_EXECUTION = "timed-entertainment-allowance/v1/reportExecute",
 }
 
+local LOGOUT_ENDPOINT = "v1/logout"
+
 local RESPONSE_FORMATS = {
 	GET_INSTRUCTIONS = {
 		errorCode = "number",
@@ -43,6 +45,11 @@ local getInstructionsUrl = UrlBuilder.new({
 local reportExecutionUrl = UrlBuilder.new({
 	base = Url.APIS_URL,
 	path = TEA_END_POINTS.REPORT_EXECUTION
+})()
+
+local logoutUrl = UrlBuilder.new({
+	base = Url.AUTH_URL,
+	path = LOGOUT_ENDPOINT
 })()
 
 --[[
@@ -177,6 +184,24 @@ function HttpRequests:reportExecution(instructionName, serialId, callback)
 		if callback ~= nil then
 			callback(success)
 		end
+	end)
+end
+
+
+function HttpRequests:logout()
+	ArgCheck.isNotNil(self.httpService, "httpService")
+	local httpRequest = self.httpService:RequestInternal({
+		Url = logoutUrl,
+		Method = "POST",
+		Headers = {
+			["Content-Type"] = "application/json",
+		},
+		Body = "",
+	})
+	pcall(function()
+		httpRequest:Start(function(_, _)
+			-- We have no use for the result of this request.
+		end)
 	end)
 end
 

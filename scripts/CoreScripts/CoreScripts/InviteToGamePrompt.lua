@@ -4,8 +4,6 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
-local FFlagSafeGameInvite = game:DefineFastFlag("SafeGameInvite", false)
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Modules = RobloxGui.Modules
@@ -33,22 +31,10 @@ local function canSendGameInviteAsync(player)
 	return success and result
 end
 
-if FFlagSafeGameInvite then
-	SocialService.PromptInviteRequested:Connect(function(player)
-		if player ~= Players.LocalPlayer or not canSendGameInviteAsync(player) then
-			return
-		end
+SocialService.PromptInviteRequested:Connect(function(player)
+	if player ~= Players.LocalPlayer or not canSendGameInviteAsync(player) then
+		return
+	end
 
-		modalPrompt:show()
-	end)
-
-else
-	SocialService.PromptInviteRequested:Connect(function(player)
-		if player ~= Players.LocalPlayer
-			or not SocialService:CanSendGameInviteAsync(player) then
-			return
-		end
-
-		modalPrompt:show()
-	end)
-end
+	modalPrompt:show()
+end)

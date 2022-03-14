@@ -1,13 +1,20 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local ContextActionService = game:GetService("ContextActionService")
 local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local InspectAndBuyFolder = script.Parent.Parent
 local Colors = require(InspectAndBuyFolder.Colors)
+local Constants = require(InspectAndBuyFolder.Constants)
 local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 local TryOnItem = require(InspectAndBuyFolder.Thunks.TryOnItem)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
+
+local FFlagInspectAndBuyLayeredClothingR6Support =
+	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
+local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
+local TryOnShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).TryOn
 
 local TRY_ON_KEY = "InGame.InspectMenu.Action.TryOn"
 local TAKE_OFF_KEY = "InGame.InspectMenu.Action.TakeOff"
@@ -19,6 +26,54 @@ local TryOnButton = Roact.PureComponent:extend("TryOnButton")
 
 function TryOnButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
+
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		ContextActionService:BindCoreAction("TryOnGamepadShortcut",
+		function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.End then
+				self:activateButton()
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false,
+		TryOnShorcutKeycode)
+	end
+end
+
+function TryOnButton:activateButton()
+	if not self.props.showTryOn then
+		return
+	end
+
+	local assetInfo = self.props.assetInfo
+	local tryOnItem = self.props.tryOnItem
+	local takeOffItem = self.props.takeOffItem
+	local tryingOn = self.props.tryingOnInfo.tryingOn
+	local partOfBundleAndOffsale = self.props.partOfBundleAndOffsale
+	local bundleId = self.props.bundleId
+
+	local layeredClothingOnR6 = false
+	if FFlagInspectAndBuyLayeredClothingR6Support then
+		-- disable the try on button if wanting to try on a layered clothing asset on R6
+		layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+				and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
+				and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
+	end
+
+	if not layeredClothingOnR6 then
+		if tryingOn then
+			takeOffItem()
+		else
+			tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundleAndOffsale, bundleId)
+		end
+	end
+end
+
+function TryOnButton:willUnmount()
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		ContextActionService:UnbindCoreAction("TryOnGamepadShortcut")
+	end
 end
 
 function TryOnButton:render()
@@ -41,6 +96,14 @@ function TryOnButton:render()
 		tryOnTextKey = TRY_ON_KEY
 	end
 
+	local layeredClothingOnR6 = false
+	if FFlagInspectAndBuyLayeredClothingR6Support then
+		-- disable the try on button if wanting to try on a layered clothing asset on R6
+		layeredClothingOnR6 = assetInfo and self.props.localPlayerModel
+				and Constants.LayeredAssetTypes[assetInfo.assetTypeId] ~= nil
+				and self.props.localPlayerModel.Humanoid.RigType == Enum.HumanoidRigType.R6
+	end
+
 	return Roact.createElement("ImageLabel", {
 		AnchorPoint = Vector2.new(0.5, 0),
 		BackgroundTransparency = 1,
@@ -48,6 +111,7 @@ function TryOnButton:render()
 		Visible = showTryOn,
 		LayoutOrder = 2,
 		Image = "rbxasset://textures/ui/InspectMenu/Button_outline.png",
+		ImageTransparency = layeredClothingOnR6 and 0.5 or 0,
 		ScaleType = Enum.ScaleType.Slice,
 		SliceCenter = Rect.new(5, 5, 120, 20),
 	}, {
@@ -65,6 +129,7 @@ function TryOnButton:render()
 			Font = Enum.Font.Gotham,
 			TextSize = TEXT_SIZE,
 			TextColor3 = Colors.White,
+			TextTransparency = layeredClothingOnR6 and 0.5 or 0,
 			SelectionImageObject = self.selectedImage,
 			ZIndex = 2,
 			[Roact.Event.SelectionGained] = function(rbx)
@@ -77,10 +142,16 @@ function TryOnButton:render()
 			end,
 			[Roact.Ref] = tryOnButtonRef,
 			[Roact.Event.Activated] = function()
-				if tryingOn then
-					takeOffItem()
+				if GetFFlagUseInspectAndBuyControllerBar() then
+					self:activateButton()
 				else
-					tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundleAndOffsale, bundleId)
+					if not layeredClothingOnR6 then
+						if tryingOn then
+							takeOffItem()
+						else
+							tryOnItem(true, assetInfo.assetId, assetInfo.assetTypeId, partOfBundleAndOffsale, bundleId)
+						end
+					end
 				end
 			end,
 		})

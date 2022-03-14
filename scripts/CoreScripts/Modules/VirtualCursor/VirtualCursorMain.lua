@@ -10,6 +10,8 @@ local GuiService = game:GetService("GuiService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local GamepadService = game:GetService("GamepadService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 -- Submodules
 local input = require(VirtualCursorFolder:WaitForChild("Input"))
@@ -32,12 +34,13 @@ local function enableVirtualCursor(position)
 	VirtualCursorSingleton.CursorPosition = position
 
 	interface:EnableUI(position)
+	GamepadService:SetGamepadCursorPosition(position)
 	input:EnableInput()
 
 	RunService:BindToRenderStep(bindToRenderStepName, Enum.RenderPriority.Input.Value + 1, VirtualCursorSingleton.OnRenderStep)
 
 	lastInputTypeChangedEventConnection = UserInputService.LastInputTypeChanged:Connect(function(inputType)
-		if inputType ~= Enum.UserInputType.Gamepad1 then
+		if inputType ~= Enum.UserInputType.Gamepad1 and inputType ~= Enum.UserInputType.Focus then
 			GamepadService.GamepadCursorEnabled = false
 		end
 	end)

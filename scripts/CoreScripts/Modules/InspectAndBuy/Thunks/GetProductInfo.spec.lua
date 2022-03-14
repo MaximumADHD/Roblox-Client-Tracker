@@ -19,8 +19,7 @@ return function()
 		})
 
 		local state = store:getState()
-
-		expect(state.assets[tostring(MockNetwork.GetProductInfo().AssetId)].name).to.equal(MockNetwork.GetProductInfo().Name)
+		expect(state.assets[mockId].name).to.equal(MockNetwork.GetProductInfo().Name)
 	end)
 
 	it("should catch network errors that happen and still run", function()

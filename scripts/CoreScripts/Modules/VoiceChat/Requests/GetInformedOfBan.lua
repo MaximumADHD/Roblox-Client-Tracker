@@ -1,0 +1,15 @@
+local Modules = game:getService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local ArgCheck = require(CorePackages.ArgCheck)
+
+--[[
+	Documentation of endpoint:
+	https://voice.roblox.com/docs#!/Voice/get_v1_moderation_informed_of_ban
+]]
+
+return function(requestImpl)
+	local url = string.format("%sv1/moderation/informed-of-ban", Url.VOICE_URL)
+
+	return requestImpl(url, "GET")
+end

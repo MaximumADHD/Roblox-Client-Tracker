@@ -12,7 +12,7 @@ local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
-local IconButton = require(script.Parent.IconButton)
+local IconButton = require(Components.PresentationCommon.IconButton)
 
 local Colors = require(CorePackages.AppTempCommon.LuaApp.Style.Colors)
 

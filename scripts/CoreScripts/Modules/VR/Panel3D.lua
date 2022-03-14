@@ -10,6 +10,9 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Players = game:GetService("Players")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
+local GamepadService = game:GetService("GamepadService")
+
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 --Panel3D State variables
 local renderStepName = "Panel3DRenderStep-" .. game:GetService("HttpService"):GenerateGUID()
@@ -24,6 +27,7 @@ local partThickness = 0.2
 
 --The default origin CFrame for all Standard type panels
 local standardOriginCF = CFrame.new(0, -0.5, -5.5)
+local newStandardOriginCF = CFrame.new(0, 0, -4.1)
 
 --Compensates for the thickness of the panel part and rotates it so that
 --the front face is pointing back at the camera
@@ -70,7 +74,8 @@ Panel3D.Type = {
 	Standard = 1,
 	Fixed = 2,
 	HorizontalFollow = 3,
-	FixedToHead = 4
+	FixedToHead = 4,
+	NewStandard = 5
 }
 
 Panel3D.OnPanelClosed = Utility:Create 'BindableEvent' {
@@ -181,6 +186,7 @@ function Panel.new(name)
 	self.shouldFindLookAtGuiElement = false
 	self.ignoreModal = false
 	self.needsPositionUpdate = false
+	self.alwaysUpdatePosition = false
 
 	self.linkedTo = false
 	self.subpanels = {}
@@ -307,13 +313,21 @@ function Panel:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
 		cf = cf + (self.localCF.p * currentHeadScale)
 		self:SetPartCFrame(cameraRenderCF * cf)
 	elseif self.panelType == Panel3D.Type.Standard then
-		if self.needsPositionUpdate then
+		if self.needsPositionUpdate or self.alwaysUpdatePosition then
 			self.needsPositionUpdate = false
 			local headLookXZ = Panel3D.GetHeadLookXZ(true)
 			self.originCF = headLookXZ * standardOriginCF
 		end
 
 		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)
+	elseif self.panelType == Panel3D.Type.NewStandard then
+		if self.needsPositionUpdate or self.alwaysUpdatePosition then
+			self.needsPositionUpdate = false
+			local userHeadCF = VRService:GetUserCFrame(Enum.UserCFrame.Head)
+			self.originCF = userHeadCF * newStandardOriginCF
+		end
+
+		self:SetPartCFrame(cameraCF * self.originCF * self.localCF)	
 	end
 end
 
@@ -378,7 +392,7 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 		--transform worldIntersectPoint to gui space
 		self.lookAtPixel = guiPixelHit
 		self.cursorPos = guiPixelHit
-
+		
 		--fire mouse enter/leave events if necessary
 		self:SetLookedAt(isOnGui)
 
@@ -392,6 +406,12 @@ function Panel:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, point
 				currentCursorPos = self.cursorPos
 			end
 		end
+		
+		if VRService.VREnabled and FFlagEnableNewVrSystem then
+			local virtualCursorPos = Vector2.new(currentCursorPos.X * 1.4, currentCursorPos.Y * 1.4)
+			GamepadService:SetGamepadCursorPosition(virtualCursorPos)
+		end
+		
 	else
 		self.isOffscreen = true
 
@@ -450,6 +470,10 @@ function Panel:Update(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay,
 		self:EvaluateGaze(cameraCF, cameraRenderCF, userHeadCF, lookRay, pointerRay)
 
 		self:EvaluateTransparency(cameraCF, cameraRenderCF)
+	else
+		if self.alwaysUpdatePosition then
+			self:EvaluatePositioning(cameraCF, cameraRenderCF, userHeadCF)
+		end
 	end
 end
 --End of Panel update methods
@@ -571,6 +595,8 @@ function Panel:SetType(panelType, config)
 		self.distance = config.distance or 5
 	elseif panelType == Panel3D.Type.FixedToHead then
 		self.localCF = config.CFrame or CFrame.new()
+	elseif panelType == Panel3D.Type.NewStandard then
+		self.localCF = config.CFrame or CFrame.new()
 	else
 		error("Invalid Panel type")
 	end
@@ -653,6 +679,10 @@ function Panel:RequestPositionUpdate()
 	self.needsPositionUpdate = true
 end
 
+function Panel:ForcePositionUpdate(forceUpdate)
+	self.alwaysUpdatePosition = forceUpdate
+end
+
 function Panel:GetGuiPositionInPanelSpace(guiPosition)
 	local partSize = Vector2.new(self.part.Size.X, self.part.Size.Y)
 	local guiSize = self.gui.AbsoluteSize
@@ -665,7 +695,7 @@ function Panel:GetGuiPositionInPanelSpace(guiPosition)
 end
 
 function Panel:GetCFrameInCameraSpace()
-	if self.panelType == Panel3D.Type.Standard then
+	if self.panelType == Panel3D.Type.Standard or self.panelType == Panel3D.Type.NewStandard then
 		return self.originCF * self.localCF
 	else
 		return self.localCF or CFrame.new()

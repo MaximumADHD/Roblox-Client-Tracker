@@ -24,6 +24,9 @@
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
 ]]
+
+local FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount = game:GetFastFlag("DevFrameworkFixMediaPlayerAlreadyLoadedOnMount")
+
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
 local ContextServices = require(Framework.ContextServices)
@@ -56,7 +59,8 @@ function StatelessVideoPlayer:init()
 
 	self.onVideoChange = function(rbx, property)
 		local videoFrame = self.videoRef:getValue()
-		if not videoFrame or not self.isMounted then
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not videoFrame or unmounting then
 			return
 		end
 		local isLoaded = videoFrame and videoFrame.IsLoaded
@@ -71,8 +75,9 @@ function StatelessVideoPlayer:init()
 	end
 
 	self.handleMediaPlayerSignal = function(updateType)
-		local videoFrame = self.videoRef:getValue()
-		if not videoFrame or not self.isMounted then
+	local videoFrame = self.videoRef:getValue()
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not videoFrame or unmounting then
 			return
 		end
 
@@ -130,13 +135,19 @@ function StatelessVideoPlayer:init()
 end
 
 function StatelessVideoPlayer:didMount()
-	self.isMounted = true
+	if not FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.isMounted = true
+	end
 	self.onResize()
 	self.mediaPlayerSignalConnection = self.props.MediaPlayerSignal:Connect(self.handleMediaPlayerSignal)
 end
 
 function StatelessVideoPlayer:willUnmount()
-	self.isMounted = false
+	if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.unmounting = true
+	else
+		self.isMounted = false
+	end
 	if self.mediaPlayerSignalConnection then
 		self.mediaPlayerSignalConnection:Disconnect()
 		self.mediaPlayerSignalConnection = nil

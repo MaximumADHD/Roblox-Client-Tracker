@@ -5,6 +5,7 @@ local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
+local t = InGameMenuDependencies.t
 
 local LeavePrompt = require(script.Parent.LeavePrompt)
 
@@ -16,11 +17,20 @@ local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 
 local GetDefaultQualityLevel = require(RobloxGui.Modules.Common.GetDefaultQualityLevel)
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
+local LeaveGamePrompt = Roact.PureComponent:extend("LeaveGamePrompt")
 
-local LeaveToAppPrompt = Roact.PureComponent:extend("LeaveToAppPrompt")
+LeaveGamePrompt.validateProps = t.strictInterface({
+	closeMenu = t.callback,
+	canGamepadCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canKeyboardCaptureFocus = t.optional(t.boolean),
+	-- used only for unit testing until we can properly mock
+	onConfirm = t.optional(t.callback),
+})
 
-function LeaveToAppPrompt:init()
+function LeaveGamePrompt:init()
 	self.leaveGameConfirm = function()
 		SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName,
 						{confirmed = Constants.AnalyticsConfirmedName})
@@ -30,7 +40,7 @@ function LeaveToAppPrompt:init()
 	end
 end
 
-function LeaveToAppPrompt:render()
+function LeaveGamePrompt:render()
 	return withLocalization({
 		titleText = "CoreScripts.InGameMenu.Prompt.LeaveGameTitle",
 		bodyText = "CoreScripts.InGameMenu.Prompt.LeaveGameBodyText",
@@ -42,21 +52,43 @@ function LeaveToAppPrompt:render()
 			bodyText = localized.bodyText,
 			confirmText = localized.confirmText,
 			cancelText = localized.cancelText,
-			onConfirm = self.leaveGameConfirm,
+			onConfirm = self.props.onConfirm or self.leaveGameConfirm,
 			onCancel = self.props.closeMenu,
+			canGamepadCaptureFocus = self.props.canGamepadCaptureFocus,
+			canKeyboardCaptureFocus = self.props.canKeyboardCaptureFocus,
 		})
 	end)
-	end
+end
 
 return RoactRodux.UNSTABLE_connect2(
-	nil,
+	 function(state, props)
+		local canGamepadCaptureFocus = nil
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			canGamepadCaptureFocus = state.menuPage == Constants.LeaveGamePromptPageKey
+				and state.displayOptions.inputType == Constants.InputType.Gamepad
+				and not state.respawn.dialogOpen
+				and state.currentZone == 1
+		end
+
+		local canKeyboardCaptureFocus = state.menuPage == Constants.LeaveGamePromptPageKey
+			and state.displayOptions.inputType == Constants.InputType.MouseAndKeyboard
+			and not state.respawn.dialogOpen
+
+		return {
+			canGamepadCaptureFocus = canGamepadCaptureFocus,
+			canKeyboardCaptureFocus = canKeyboardCaptureFocus,
+		}
+	end,
 	function(dispatch)
 		return {
 			closeMenu = function()
 				-- Since we dont have a navigation stack we will just close the menu for now.
 				dispatch(CloseMenu)
-				SendAnalytics(Constants.AnalyticsInGameMenuName, Constants.AnalyticsLeaveGameName, {confirmed = Constants.AnalyticsCancelledName})
+				SendAnalytics(
+					Constants.AnalyticsInGameMenuName,
+					Constants.AnalyticsLeaveGameName,
+					{confirmed = Constants.AnalyticsCancelledName})
 			end,
 		}
 	end
-)(LeaveToAppPrompt)
+)(LeaveGamePrompt)

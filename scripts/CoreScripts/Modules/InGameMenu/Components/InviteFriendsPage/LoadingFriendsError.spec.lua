@@ -11,6 +11,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -20,7 +21,10 @@ return function()
 		Font = AppFont,
 	}
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local LoadingFriendsError = require(script.Parent.LoadingFriendsError)
+
+	local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
 
 	it("should create and destroy without errors", function()
 
@@ -33,11 +37,16 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					LoadingFriendsError = Roact.createElement(LoadingFriendsError, {
-						onRetry = function()
-							print("On retry")
-						end,
-					}),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						LoadingFriendsError = Roact.createElement(LoadingFriendsError, {
+							onRetry = function() end,
+							canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+						}),
+					}) or nil,
+					LoadingFriendsError = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(LoadingFriendsError, {
+						onRetry = function() end,
+						canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+					}) or nil,
 				}),
 			}),
 		})

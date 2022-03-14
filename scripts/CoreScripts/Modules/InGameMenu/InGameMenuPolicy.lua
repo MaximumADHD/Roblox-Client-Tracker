@@ -8,28 +8,41 @@ local InGameMenuPolicy = PolicyProvider.withGetPolicyImplementation(implementati
 local GetFIntEducationalPopupDisplayMaxCount = require(
 	script.Parent.Parent.Flags.GetFIntEducationalPopupDisplayMaxCount)
 
+local isSubjectToDesktopPolicies = require(
+	script.Parent.isSubjectToDesktopPolicies)
+
+local FFlagUseGUACforDUARPolicy = game:DefineFastFlag("UseGUACforDUARPolicy", false)
+local FFlagUseGUACforFullscreenTitleBar = game:DefineFastFlag("UseGUACforFullscreenTitleBar", false)
+
 InGameMenuPolicy.Mapper = function(policy)
-	local UniversalAppOnWindows = game:GetEngineFeature("UniversalAppOnWindows")
 	return {
 		enableInGameHomeIcon = function()
-			return UniversalAppOnWindows
+			if FFlagUseGUACforDUARPolicy then
+				return policy.EnableInGameHomeIcon or false
+			else
+				return isSubjectToDesktopPolicies()
+			end
 		end,
 
 		enableEducationalPopup = function()
 			local isNativeCloseIntercept = game:GetEngineFeature("NativeCloseIntercept")
-			if UniversalAppOnWindows and isNativeCloseIntercept then
+			if isSubjectToDesktopPolicies() and isNativeCloseIntercept then
 				return true
 			end
 			return false
 		end,
 
 		educationalPopupMaxDisplayCount = function()
-			return UniversalAppOnWindows and GetFIntEducationalPopupDisplayMaxCount() or 0
+			return isSubjectToDesktopPolicies() and GetFIntEducationalPopupDisplayMaxCount() or 0
 		end,
 
 		enableFullscreenTitleBar = function()
-			if UniversalAppOnWindows then
-				return true
+			if FFlagUseGUACforFullscreenTitleBar then
+				return policy.FullscreenTitleBarEnabled or false
+			else
+				if isSubjectToDesktopPolicies() then
+					return true
+				end
 			end
 			return false
 		end,

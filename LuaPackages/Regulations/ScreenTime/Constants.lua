@@ -3,6 +3,7 @@ local Constants = {
 	SIGNALR_TYPE_NEW_INSTRUCTION = "NewInstruction",
 	HEARTBEAT_NOTIFICATIONS_NAMESPACE = "ScreenTimeClientNotifications",
 	HEARTBEAT_NOTIFICATION_TYPE_NEW_INSTRUCTION = "ScreentimeInstructionCheck",
+	HEARTBEAT_CONSECUTIVE_FAILURE = "ConsecutiveHeartbeatFailure",
 }
 
 return Constants

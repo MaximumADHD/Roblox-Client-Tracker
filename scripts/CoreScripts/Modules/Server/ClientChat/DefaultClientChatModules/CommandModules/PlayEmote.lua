@@ -9,7 +9,7 @@ local CommandModules = script.Parent
 local Util = require(CommandModules:WaitForChild("Util"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = { Get = function(self, key, fallback) return fallback end } end
 
 local LocalPlayer = Players.LocalPlayer

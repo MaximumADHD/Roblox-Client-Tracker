@@ -12,9 +12,6 @@ local HEADER_NAMES = Constants.MemoryFormatting.ChartHeaderNames
 
 local MAX_DATASET_COUNT = tonumber(settings():GetFVariable("NewDevConsoleMaxGraphCount"))
 
-local NewScriptMemoryCategories = game:DefineFastFlag("NewScriptMemoryCategories", false)
-local StatsItemDisplayNameApiEnabled = game:GetEngineFeature("StatsItemDisplayNameApiEnabled")
-
 local CLIENT_POLLING_INTERVAL = 3 -- seconds
 local BYTE_IN_MB = 1048576
 
@@ -244,7 +241,7 @@ function ClientMemoryData:getAdditionalMemoryFunc(name)
 end
 
 function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
-	local name = StatsUtils.GetMemoryAnalyzerStatName(StatsItemDisplayNameApiEnabled and statsItem.DisplayName or statsItem.Name)
+	local name = StatsUtils.GetMemoryAnalyzerStatName(statsItem.DisplayName)
 	local data = statsItem:GetValue()
 
 	local children = statsItem:GetChildren()
@@ -325,44 +322,34 @@ function ClientMemoryData:recursiveUpdateEntry(entryList, sortedList, statsItem)
 		entryList[name].min = currMin < data and currMin or data
 	end
 
-	if NewScriptMemoryCategories then
-		local entry = entryList[name]
+	local entry = entryList[name]
 
-		local availableChildren = {}
+	local availableChildren = {}
 
-		for _, childStatItem in ipairs(children) do
-			availableChildren[StatsItemDisplayNameApiEnabled and childStatItem.DisplayName or childStatItem.Name] = true
+	for _, childStatItem in ipairs(children) do
+		availableChildren[childStatItem.DisplayName] = true
 
-			self:recursiveUpdateEntry(
-				entry.children,
-				entry.sortedChildren,
-				childStatItem
-			)
-		end
+		self:recursiveUpdateEntry(
+			entry.children,
+			entry.sortedChildren,
+			childStatItem
+		)
+	end
 
-		-- clean-up children that are no longer present
-		if entry.children then
-			for label, _ in pairs(entry.children) do
-				if availableChildren[label] == nil then
-					entry.children[label] = nil
+	-- clean-up children that are no longer present
+	if entry.children then
+		for label, _ in pairs(entry.children) do
+			if availableChildren[label] == nil then
+				entry.children[label] = nil
 
-					-- find and remove from sorted array
-					for i, value in ipairs(entry.sortedChildren) do
-						if label == value.name then
-							table.remove(entry.sortedChildren, i)
-							break
-						end
+				-- find and remove from sorted array
+				for i, value in ipairs(entry.sortedChildren) do
+					if label == value.name then
+						table.remove(entry.sortedChildren, i)
+						break
 					end
 				end
 			end
-		end
-	else
-		for _, childStatItem in ipairs(children) do
-			self:recursiveUpdateEntry(
-				entryList[name].children,
-				entryList[name].sortedChildren,
-				childStatItem
-			)
 		end
 	end
 end

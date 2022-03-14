@@ -1,7 +1,5 @@
 local DraggerFramework = script.Parent.Parent
 
-local getFFlagOnlyGetGeometryOnce = require(DraggerFramework.Flags.getFFlagOnlyGetGeometryOnce)
-
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
 	Vector3.new(-1, 0, 0),
@@ -16,12 +14,10 @@ local function largestComponent(vector)
 end
 
 local function snapVectorToPrimaryDirection(direction)
+	-- Start with closestDirection = direction as an escape hatch in case of Inf/NaN
 	local largestDot = -math.huge
-	local closestDirection
-	if getFFlagOnlyGetGeometryOnce() then
-		-- Start with direction as an escape hatch in case of Inf/NaN
-		closestDirection = direction
-	end
+	local closestDirection = direction
+
 	for _, target in ipairs(PrimaryDirections) do
 		local dot = direction:Dot(target)
 		if dot > largestDot then

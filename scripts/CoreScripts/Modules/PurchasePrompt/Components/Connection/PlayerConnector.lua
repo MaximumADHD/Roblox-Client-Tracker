@@ -15,6 +15,8 @@ local connectToStore = require(Root.connectToStore)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
 
+local FFlagRemoveABTestServicePurchasePrompt = game:DefineFastFlag("RemoveABTestServicePurchasePrompt", false)
+
 local function PlayerConnector(props)
 	local playerConnects = props.playerConnects
 
@@ -27,8 +29,10 @@ end
 local function mapDispatchToProps(dispatch)
 	return {
 		playerConnects = function(player)
-			if player == Players.LocalPlayer then
-				ABTestService:InitializeForUserId(Players.LocalPlayer.UserId)
+			if not FFlagRemoveABTestServicePurchasePrompt then
+				if player == Players.LocalPlayer then
+					ABTestService:InitializeForUserId(Players.LocalPlayer.UserId)
+				end
 			end
 		end,
 	}

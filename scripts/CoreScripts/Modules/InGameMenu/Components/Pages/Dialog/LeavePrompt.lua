@@ -1,10 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local ContextActionService = game:GetService("ContextActionService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Components = script.Parent.Parent.Parent
+local InGameMenu = Components.Parent
 
 local GameIcon = require(Components.GameIcon)
 
@@ -15,6 +18,16 @@ local SecondaryButton = UIBlox.App.Button.SecondaryButton
 -- https://jira.rbx.com/browse/UIBLOX-147
 local ThemedTextLabel = require(Components.ThemedTextLabel)
 local withStyle = UIBlox.Core.Style.withStyle
+local FocusHandler = require(Components.Connection.FocusHandler)
+local ZonePortal = require(Components.ZonePortal)
+
+local Direction = require(InGameMenu.Enums.Direction)
+
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+
+local LEAVE_CONFIRM_ACTION = "LeavePromptConfirm"
 
 local ITEM_PADDING = 24
 
@@ -31,17 +44,32 @@ LeavePrompt.validateProps = t.strictInterface({
 	cancelText = t.string,
 	onConfirm = t.callback,
 	onCancel = t.callback,
+	canGamepadCaptureFocus = t.boolean,
+	canKeyboardCaptureFocus = t.boolean,
 })
 
+LeavePrompt.defaultProps = {
+	canGamepadCaptureFocus = false,
+	canKeyboardCaptureFocus = false,
+}
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	function LeavePrompt:init()
+		self.leaveButtonRef = Roact.createRef()
+	end
+end
+
 function LeavePrompt:render()
+	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	local isContainerSelectable = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		isContainerSelectable = false
+	end
+
 	return withStyle(function(style)
 		local font = style.Font
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.fromScale(1, 1),
-			AutoButtonColor = false,
-			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
-			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
-		}, {
+
+		local oldContent = {
 			Layout = Roact.createElement("UIListLayout", {
 				FillDirection = Enum.FillDirection.Vertical,
 				HorizontalAlignment = Enum.HorizontalAlignment.Center,
@@ -80,6 +108,7 @@ function LeavePrompt:render()
 					size = UDim2.fromOffset(BUTTON_WIDTH, BUTTON_HEIGHT),
 					onActivated = self.props.onConfirm,
 					text = self.props.confirmText,
+					buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.leaveButtonRef or nil,
 				}),
 				CancelButton = Roact.createElement(SecondaryButton, {
 					layoutOrder = 5,
@@ -89,7 +118,73 @@ function LeavePrompt:render()
 					text = self.props.cancelText,
 				}),
 			}),
-		})
+			-- this keyboard focus handler is used to bind keyboard Return key to exit
+			KeyboardFocusHandler = not GetFFlagInGameMenuControllerDevelopmentOnly()
+				and Roact.createElement(FocusHandler,
+			{
+				isFocused = self.props.canKeyboardCaptureFocus,
+				shouldForgetPreviousSelection = GetFFlagIGMGamepadSelectionHistory() and true or nil,
+				didFocus = function()
+					ContextActionService:BindCoreAction(
+						LEAVE_CONFIRM_ACTION, function(actionName, inputState)
+							if inputState == Enum.UserInputState.End then
+								self.props.onConfirm()
+								return Enum.ContextActionResult.Sink
+							end
+							return Enum.ContextActionResult.Pass
+						end, false, Enum.KeyCode.Return)
+				end,
+
+				didBlur = function()
+					ContextActionService:UnbindCoreAction(LEAVE_CONFIRM_ACTION)
+				end,
+			}) or nil,
+		}
+
+		local newContent = GetFFlagInGameMenuControllerDevelopmentOnly() and {
+			Content = Roact.createElement("Frame", {
+				Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1,
+				Selectable = false,
+			}, oldContent),
+			FocusHandler = Roact.createElement(FocusHandler, {
+				isFocused = self.props.canGamepadCaptureFocus,
+
+				didFocus = function()
+					GuiService.SelectedCoreObject = self.leaveButtonRef.current
+				end,
+			}),
+			ZonePortal = Roact.createElement(ZonePortal, {
+				targetZone = 0,
+				direction = Direction.Left,
+			}),
+			-- this keyboard focus handler is used to bind keyboard Return key to exit
+			KeyboardFocusHandler = Roact.createElement(FocusHandler, {
+				isFocused = self.props.canKeyboardCaptureFocus,
+				didFocus = function()
+					ContextActionService:BindCoreAction(
+						LEAVE_CONFIRM_ACTION, function(actionName, inputState)
+							if inputState == Enum.UserInputState.End then
+								self.props.onConfirm()
+								return Enum.ContextActionResult.Sink
+							end
+							return Enum.ContextActionResult.Pass
+						end, false, Enum.KeyCode.Return)
+				end,
+
+				didBlur = function()
+					ContextActionService:UnbindCoreAction(LEAVE_CONFIRM_ACTION)
+				end,
+			}) or nil,
+		} or nil
+
+		return Roact.createElement("ImageButton", {
+			Size = UDim2.fromScale(1, 1),
+			AutoButtonColor = false,
+			BackgroundColor3 = style.Theme.BackgroundDefault.Color,
+			BackgroundTransparency = style.Theme.BackgroundDefault.Transparency,
+			Selectable = isContainerSelectable,
+		}, GetFFlagInGameMenuControllerDevelopmentOnly() and newContent or oldContent)
 	end)
 end
 

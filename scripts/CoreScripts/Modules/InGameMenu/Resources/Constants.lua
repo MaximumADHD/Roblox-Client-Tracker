@@ -1,4 +1,8 @@
-return {
+local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local Constants = {
 	InviteStatus = {
 		Success = "Success",
 		Moderated = "Moderated",
@@ -7,7 +11,7 @@ return {
 	},
 
 	InputType = {
-		MouseAndKeyBoard = "MouseAndKeyboard",
+		MouseAndKeyboard = "MouseAndKeyboard",
 		Touch = "Touch",
 		Gamepad = "Gamepad",
 	},
@@ -51,10 +55,43 @@ return {
 	AnalyticsRequestFriendName = "RequestFriendship",
 	AnalyticsExamineAvatarName = "examine_avatar",
 
+	ControllerBarHeight = 72,
+
 	DisplayOrder = {
 		-- Fullscreen Title Bar should be on top of Topbar (DisplayOrder = 6)
 		FullscreenTitleBar = 7,
 		ConfirmationDialog = 8,
 		EducationalPopup = 9,
-	}
+		HeadsetDisconnectedDialog = 100,
+		ControllerBar = 9
+	},
+
+	Zone = {
+		PortalSize = 1,
+		ContentOffset = 2, -- PortalSize + 1
+	},
 }
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	Constants.InputTypeMap = {
+		[Enum.UserInputType.MouseButton1] = Constants.InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseButton2] = Constants.InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseButton3] = Constants.InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseWheel] = Constants.InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseMovement] = Constants.InputType.MouseAndKeyboard,
+		[Enum.UserInputType.Keyboard] = Constants.InputType.MouseAndKeyboard,
+
+		[Enum.UserInputType.Gamepad1] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad2] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad3] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad4] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad5] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad6] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad7] = Constants.InputType.Gamepad,
+		[Enum.UserInputType.Gamepad8] = Constants.InputType.Gamepad,
+
+		[Enum.UserInputType.Touch] = Constants.InputType.Touch,
+	}
+end
+
+return Constants

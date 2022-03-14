@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local t = InGameMenuDependencies.t
@@ -6,6 +7,9 @@ local Roact = InGameMenuDependencies.Roact
 
 local CloseMenuButton = require(script.Parent.CloseMenuButton)
 local GameIconButton = require(script.Parent.GameIconButton)
+
+local InGameMenu = script.Parent.Parent.Parent
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local SystemMenuButton = Roact.PureComponent:extend("SystemMenuButton")
 
@@ -16,11 +20,52 @@ SystemMenuButton.validateProps = t.strictInterface({
 	layoutOrder = t.optional(t.integer),
 	onActivated = t.callback,
 	onClose = t.callback,
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
 })
 
 SystemMenuButton.defaultProps = {
 	on = false,
+	canCaptureFocus = not GetFFlagInGameMenuControllerDevelopmentOnly() and nil, -- NOTE: Set to false when cleaning up flag
 }
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	function SystemMenuButton:tryCaptureFocus(prevProps)
+		if (self.props.canCaptureFocus and not prevProps.canCaptureFocus)
+			or (self.props.canCaptureFocus and self.props.on ~= prevProps.on and self.state.isIconFocused)
+		then
+			GuiService.SelectedCoreObject = self.iconRef:getValue()
+		end
+	end
+
+	function SystemMenuButton:init()
+		self.iconRef = Roact.createRef()
+
+		self:setState({
+			isIconFocused = false,
+		})
+
+		self.onIconSelectionGained = function()
+			self:setState({
+				isIconFocused = true,
+			})
+		end
+
+		self.onIconSelectionLost = function()
+			self:setState({
+				isIconFocused = false,
+			})
+		end
+	end
+
+	function SystemMenuButton:didMount()
+		local prevProps = { canCaptureFocus = false }
+		self:tryCaptureFocus(prevProps)
+	end
+
+	function SystemMenuButton:didUpdate(prevProps)
+		self:tryCaptureFocus(prevProps)
+	end
+end
 
 function SystemMenuButton:render()
 	local systemMenuOn = self.props.on
@@ -30,6 +75,10 @@ function SystemMenuButton:render()
 			layoutOrder = self.props.layoutOrder,
 			AnchorPoint = self.props.anchorPoint,
 			Position = self.props.position,
+
+			onSelectionGained = self.onIconSelectionGained,
+			onSelectionLost = self.onIconSelectionLost,
+			[Roact.Ref] = self.iconRef,
 		})
 	else
 		return Roact.createElement(GameIconButton, {
@@ -37,6 +86,10 @@ function SystemMenuButton:render()
 			layoutOrder = self.props.layoutOrder,
 			anchorPoint = self.props.anchorPoint,
 			position = self.props.position,
+
+			onSelectionGained = self.onIconSelectionGained,
+			onSelectionLost = self.onIconSelectionLost,
+			[Roact.Ref] = self.iconRef,
 		})
 	end
 end

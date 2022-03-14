@@ -89,6 +89,12 @@ return {
 	-- readability.
 	AdorneeName = "HumanoidRootPart",
 
+	-- Voice chat related settings
+	Voice = {
+		-- Whether or not to show the voice indicator within bubble chat bubbles.
+		ShowIndicator = true,
+	},
+
 	-- This is a table where the keys are user IDs and the values are settings tables.
 	-- For a given user ID, the associated settings table will override the settings defined above.
 	-- Example: UserSpecificSettings = {[12345] = {BackgroundColor3 = Color3.fromRGB(255, 0, 0)}}

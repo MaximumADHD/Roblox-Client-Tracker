@@ -5,15 +5,21 @@ local Players = game:GetService("Players")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
-local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 local Constants = require(InspectAndBuyFolder.Constants)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local FavoritesButton = require(InspectAndBuyFolder.Components.FavoritesButton)
 local TryOnButton = require(InspectAndBuyFolder.Components.TryOnButton)
 local BuyButton = require(InspectAndBuyFolder.Components.BuyButton)
+local InspectAndBuyControllerBar = require(InspectAndBuyFolder.Components.InspectAndBuyControllerBar)
+local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
+local RobloxTranslator = require(CoreGui.RobloxGui.Modules.RobloxTranslator)
 
-local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
+local FFlagInspectAndBuyLayeredClothingR6Support =
+	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
 
+local FFlagFixInspectAndBuyPremiumPrice = game:DefineFastFlag("FixInspectAndBuyPremiumPrice", false)
+local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
 local DetailsButtons = Roact.PureComponent:extend("DetailsButtons")
 
@@ -42,10 +48,22 @@ local function getBuyText(itemInfo, locale)
 		buyText = RobloxTranslator:FormatByKeyForLocale(OFFSALE_KEY, locale)
 	elseif itemInfo.isForSale then
 		if itemInfo.premiumPricing ~= nil then
-			if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
-				buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
+			if FFlagFixInspectAndBuyPremiumPrice then
+				if Players.LocalPlayer.MembershipType == Enum.MembershipType.Premium then
+					buyText = itemInfo.premiumPricing.premiumPriceInRobux
+				else
+					if itemInfo.price == nil then
+						buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
+					else
+						buyText = itemInfo.price
+					end
+				end
 			else
-				buyText = itemInfo.premiumPricing.premiumPriceInRobux
+				if itemInfo.price == nil and Players.LocalPlayer.MembershipType ~= Enum.MembershipType.Premium then
+					buyText = RobloxTranslator:FormatByKeyForLocale(PREMIUM_ONLY_KEY, locale)
+				else
+					buyText = itemInfo.premiumPricing.premiumPriceInRobux
+				end
 			end
 		else
 			buyText = itemInfo.price
@@ -93,13 +111,11 @@ function DetailsButtons:render()
 	local isLimited = assetInfo.isLimited or false
 	local showRobuxIcon = false
 	local showTryOn = false
+	local creatorId = assetInfo and assetInfo.creatorId or 0
 	local buyText, forSale, partOfBundle, bundleId, itemType, itemId, partOfBundleAndOffsale
 	if assetInfo then
 		partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-		partOfBundleAndOffsale = partOfBundle
-		if FFlagAllowForBundleItemsSoldSeparately then
-			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		end
+		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 		if partOfBundleAndOffsale then
 			bundleId = UtilityFunctions.getBundleId(assetInfo)
 			itemType = Constants.ItemType.Bundle
@@ -121,10 +137,21 @@ function DetailsButtons:render()
 		end
 
 		showTryOn = not isAnimationAsset(assetInfo.assetTypeId)
-		if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil then
-			showTryOn = false
+		if FFlagInspectAndBuyLayeredClothingSupport then
+			if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil
+				and Constants.AssetTypeIdToAccessoryTypeEnum[assetInfo.assetTypeId] == nil then
+				showTryOn = false
+			end
+		else
+			if Constants.HumanoidDescriptionIdToName[assetInfo.assetTypeId] == nil then
+				showTryOn = false
+			end
 		end
 	end
+
+	local showControllerBar = GetFFlagUseInspectAndBuyControllerBar()
+		and self.props.detailsInformation.viewingDetails -- only show when item menu is open
+		and self.props.gamepadEnabled
 
 	return Roact.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -136,6 +163,12 @@ function DetailsButtons:render()
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
+		ControllerBar = showControllerBar and Roact.createElement(InspectAndBuyControllerBar, {
+			showTryOn = showTryOn,
+			tryingOn = self.props.tryingOn,
+			showFavorite = creatorId == ROBLOX_CREATOR_ID, -- only Roblox-authored items are favoriteable
+			isFavorited = self.props.isFavorited,
+		}),
 		FavoriteButton = Roact.createElement(FavoritesButton, {
 			favoriteButtonRef = self.favoriteButtonRef,
 		}),
@@ -145,6 +178,7 @@ function DetailsButtons:render()
 			partOfBundleAndOffsale = partOfBundleAndOffsale,
 			bundleId = bundleId,
 			tryOnButtonRef = self.tryOnButtonRef,
+			localPlayerModel = FFlagInspectAndBuyLayeredClothingR6Support and self.props.localPlayerModel or nil,
 		}),
 		TryOnFiller = Roact.createElement("ImageLabel", {
 			AnchorPoint = Vector2.new(0.5, 0),
@@ -171,6 +205,11 @@ return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		local assetId = state.detailsInformation.assetId
 
+		local isFavorited
+		if GetFFlagUseInspectAndBuyControllerBar() then
+			isFavorited = GetIsFavorite(state)
+		end
+
 		return {
 			visible = state.visible,
 			assetInfo = state.assets[assetId] or {},
@@ -178,6 +217,8 @@ return RoactRodux.UNSTABLE_connect2(
 			bundleInfo = state.bundles,
 			locale = state.locale,
 			gamepadEnabled = state.gamepadEnabled,
+			isFavorited = isFavorited,
+			tryingOn = state.tryingOnInfo.tryingOn,
 		}
 	end
 )(DetailsButtons)

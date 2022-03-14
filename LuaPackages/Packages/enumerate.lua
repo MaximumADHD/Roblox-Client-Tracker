@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_enumerate"]["enumerate"]
+local Package = require(PackageIndex["roblox_enumerate"]["enumerate"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

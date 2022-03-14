@@ -14,11 +14,10 @@ local getLocalizationContext = require(Root.Localization.getLocalizationContext)
 
 local LocalizationContextProvider = require(script.Parent.LocalizationContextProvider)
 
-local function provideRobloxLocale(renderFunc)
+return function(renderFunc)
 	return Roact.createElement(LocalizationContextProvider, {
 		localizationContext = getLocalizationContext(LocalizationService.RobloxLocaleId),
-		render = renderFunc
+	}, {
+		PurchasePromptApp = renderFunc(),
 	})
 end
-
-return provideRobloxLocale

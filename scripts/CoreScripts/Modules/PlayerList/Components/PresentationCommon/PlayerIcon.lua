@@ -8,6 +8,8 @@ local RoactRodux = require(CorePackages.RoactRodux)
 local UIBlox = require(CorePackages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+
 local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
@@ -18,8 +20,9 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local PlayerIcon = Roact.PureComponent:extend("PlayerIcon")
 
 PlayerIcon.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
-	LayoutOrder = t.optional(t.integer),
+	player = playerInterface,
+	layoutOrder = t.optional(t.integer),
+	isSmallTouchDevice = t.optional(t.boolean),
 
 	playerIconInfo = t.strictInterface({
 		isPlaceOwner = t.boolean,

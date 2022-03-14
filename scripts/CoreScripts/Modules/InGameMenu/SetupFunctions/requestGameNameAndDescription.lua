@@ -3,7 +3,7 @@ local CoreGui = game:GetService("CoreGui")
 
 local InGameMenu = script.Parent.Parent
 
-local SetGameAndDescriptionInfo = require(InGameMenu.Actions.SetGameAndDescriptionInfo)
+local SetGameNameAndDescription = require(InGameMenu.Actions.SetGameNameAndDescription)
 
 local httpImpl = require(InGameMenu.Network.httpRequest)(HttpRbxApiService)
 
@@ -15,15 +15,11 @@ local function requestGameNameAndDescription(store)
 		return
 	end
 
-	coroutine.wrap(function()
-		GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(
-			gameNameLocaleMap, gameDescriptionsLocaleMap, sourceLocale)
-
-			return store:dispatch(SetGameAndDescriptionInfo(gameNameLocaleMap, gameDescriptionsLocaleMap, sourceLocale))
-		end):catch(function()
-			warn("Unable to retrieve game name for in game menu")
-		end)
-	end)()
+	GetGameNameAndDescription(httpImpl, game.GameId):andThen(function(result)
+		store:dispatch(SetGameNameAndDescription(result.Name, result.Description))
+	end):catch(function()
+		warn("Unable to retrieve game name for in game menu")
+	end)
 end
 
 return requestGameNameAndDescription

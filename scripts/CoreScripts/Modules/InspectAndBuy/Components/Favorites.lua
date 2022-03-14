@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -8,7 +10,8 @@ local GetBundleFavoriteCount = require(InspectAndBuyFolder.Thunks.GetBundleFavor
 local GotCurrentFavoriteCount = require(InspectAndBuyFolder.Selectors.GotCurrentFavoriteCount)
 local getSelectionImageObjectRegular = require(InspectAndBuyFolder.getSelectionImageObjectRegular)
 
-local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+local GetFFlagInGameMenuControllerDevelopmentOnly = 
+	require(CoreGui.RobloxGui.Modules.InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local FAVORITES_SIZE = 16
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
@@ -22,10 +25,7 @@ local Favorites = Roact.PureComponent:extend("Favorites")
 function Favorites:setText()
 	local assetInfo = self.props.assetInfo or {}
 	local partOfBundle = assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn > 0
-	local partOfBundleAndOffsale = partOfBundle
-	if FFlagAllowForBundleItemsSoldSeparately then
-		partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-	end
+	local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 	local bundleInfo = self.props.bundleInfo
 
 	if partOfBundleAndOffsale then
@@ -52,10 +52,7 @@ function Favorites:willUpdate(nextProps)
 	if nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn then
 		local assetInfo = nextProps.assetInfo
 		local partOfBundle = #assetInfo.bundlesAssetIsIn > 0
-		local partOfBundleAndOffsale = partOfBundle
-		if FFlagAllowForBundleItemsSoldSeparately then
-			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		end
+		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 		local gotCurrentFavoriteCount = nextProps.gotCurrentFavoriteCount
 
 		if not gotCurrentFavoriteCount then
@@ -74,12 +71,18 @@ end
 function Favorites:render()
 	self:setText()
 
+	local isFavoriteStarSelectable -- can inline once GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		isFavoriteStarSelectable = false
+	end
+
 	return Roact.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, FAVORITES_SIZE),
 		BackgroundTransparency = 1,
 		LayoutOrder = 3,
 	}, {
 		FavoriteIcon = Roact.createElement("ImageButton", {
+			Selectable = isFavoriteStarSelectable,
 			Size = UDim2.new(0, FAVORITES_SIZE, 0, FAVORITES_SIZE),
 			BackgroundTransparency = 1,
 			Image = FAVORITE_IMAGE_FILLED,

@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_roact-gamepad"]["roact-gamepad"]
+local Package = require(PackageIndex["RoactGamepadProxy"]["RoactGamepadProxy"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

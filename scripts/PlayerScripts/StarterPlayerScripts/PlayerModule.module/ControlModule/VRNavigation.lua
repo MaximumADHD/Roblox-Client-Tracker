@@ -1,3 +1,4 @@
+--!nolint GlobalUsedAsLocal
 
 --[[
 		VRNavigation
@@ -27,7 +28,7 @@ local ZERO_VECTOR3 = Vector3.new(0,0,0)
 local XZ_VECTOR3 = Vector3.new(1,0,1)
 
 --[[ Utility Functions ]]--
-local function IsFinite(num)
+local function IsFinite(num: number)
 	return num == num and num ~= 1/0 and num ~= -1/0
 end
 
@@ -176,7 +177,7 @@ function VRNavigation:StopFollowingPath()
 	self.moveVector = ZERO_VECTOR3
 end
 
-function VRNavigation:TryComputePath(startPos, destination)
+function VRNavigation:TryComputePath(startPos: Vector3, destination: Vector3)
 	local numAttempts = 0
 	local newPath = nil
 
@@ -203,7 +204,7 @@ function VRNavigation:TryComputePath(startPos, destination)
 	return newPath
 end
 
-function VRNavigation:OnNavigationRequest(destinationCFrame, inputUserCFrame )
+function VRNavigation:OnNavigationRequest(destinationCFrame: CFrame, inputUserCFrame: CFrame)
 	local destinationPosition = destinationCFrame.p
 	local lastDestination = self.currentDestination
 

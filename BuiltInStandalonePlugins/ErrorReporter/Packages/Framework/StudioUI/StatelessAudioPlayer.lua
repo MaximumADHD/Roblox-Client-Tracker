@@ -23,7 +23,12 @@
 		number LayoutOrder: The LayoutOrder of the component
 		UDim2 Position: The Position of the component
 		Style Style: The styling for the component.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
+
+local FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount = game:GetFastFlag("DevFrameworkFixMediaPlayerAlreadyLoadedOnMount")
+local FFlagAudioAssetPrivacyForPreview1 = game:GetFastFlag("AudioAssetPrivacyForPreview1")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -40,7 +45,6 @@ local Image = UI.Decoration.Image
 local MediaPlayerControls = require(Framework.StudioUI.MediaPlayerControls)
 local MediaPlayerSignal = require(Framework.StudioUI.MediaPlayerWrapper.MediaPlayerSignal)
 
-
 local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 
 local StatelessAudioPlayer = Roact.PureComponent:extend("StatelessAudioPlayer")
@@ -51,7 +55,8 @@ function StatelessAudioPlayer:init()
 
 	self.onSoundChange = function(rbx, property)
 		local soundObj = self.soundRef:getValue()
-		if not soundObj or not self.isMounted then
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not soundObj or unmounting then
 			return
 		end
 		local isLoaded = soundObj and soundObj.IsLoaded
@@ -65,7 +70,8 @@ function StatelessAudioPlayer:init()
 
 	self.handleMediaPlayerSignal = function(updateType)
 		local soundObj = self.soundRef:getValue()
-		if not soundObj or not self.isMounted then
+		local unmounting = if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then self.unmounting else not self.isMounted
+		if not soundObj or unmounting then
 			return
 		end
 
@@ -83,12 +89,18 @@ function StatelessAudioPlayer:init()
 end
 
 function StatelessAudioPlayer:didMount()
-	self.isMounted = true
+	if not FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.isMounted = true
+	end
 	self.mediaPlayerSignalConnection = self.props.MediaPlayerSignal:Connect(self.handleMediaPlayerSignal)
 end
 
 function StatelessAudioPlayer:willUnmount()
-	self.isMounted = false
+	if FFlagDevFrameworkFixMediaPlayerAlreadyLoadedOnMount then
+		self.unmounting = true
+	else
+		self.isMounted = false
+	end
 	if self.mediaPlayerSignalConnection then
 		self.mediaPlayerSignalConnection:Disconnect()
 		self.mediaPlayerSignalConnection = nil
@@ -116,7 +128,7 @@ function StatelessAudioPlayer:render()
 		LayoutOrder = layoutOrder,
 		Position = position,
 		Size = size,
-	},{
+	}, {
 		UIListLayout = Roact.createElement("UIListLayout", {
 			FillDirection = Enum.FillDirection.Vertical,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
@@ -131,7 +143,7 @@ function StatelessAudioPlayer:render()
 		}, {
 			PlaceholderImage = Roact.createElement(Image, {
 				Style = style.PlaceholderImage,
-			})
+			}),
 		}),
 
 		MediaPlayerControls = Roact.createElement(MediaPlayerControls, {
@@ -149,19 +161,19 @@ function StatelessAudioPlayer:render()
 		SoundObj = Roact.createElement("Sound", {
 			Looped = false,
 			SoundId = props.SoundId,
+			UsageContextPermission = if FFlagAudioAssetPrivacyForPreview1 and FFlagPluginsSetAudioPreviewUsageContext
+				then props.UsageContext
+				else nil,
 			[Roact.Ref] = self.soundRef,
 			[Roact.Event.Changed] = self.onSoundChange,
 			[Roact.Event.Ended] = props.OnEnd,
-		})
+		}),
 	})
 end
 
-
 StatelessAudioPlayer = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
-	Theme = (not THEME_REFACTOR) and ContextServices.Theme or nil,
+	Theme = not THEME_REFACTOR and ContextServices.Theme or nil,
 })(StatelessAudioPlayer)
-
-
 
 return StatelessAudioPlayer

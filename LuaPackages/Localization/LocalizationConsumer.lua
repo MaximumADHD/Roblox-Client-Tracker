@@ -5,12 +5,13 @@ local Roact = require(CorePackages.Roact)
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
 
 local ArgCheck = require(CorePackages.ArgCheck)
-local LocalizationKey = require(CorePackages.Localization.LocalizationKey)
+local RobloxLocaleIdKey = require(CorePackages.Localization.RobloxLocaleIdKey)
+local LocalizationRoactContext = require(CorePackages.Localization.LocalizationRoactContext)
 
 local LocalizationConsumer = Roact.Component:extend("LocalizationConsumer")
 
 function LocalizationConsumer:init()
-	local localization = self._context[LocalizationKey].localization
+	local localization = self.props.localization
 
 	if localization == nil then
 		error("LocalizationConsumer must be below a LocalizationProvider.")
@@ -47,14 +48,17 @@ function LocalizationConsumer:willUnmount()
 end
 
 function LocalizationConsumer:render()
-	local localization = self._context[LocalizationKey].localization
+	local localization = self.props.localization
+
 	local render = self.props.render
 	local stringsToBeLocalized = self.props.stringsToBeLocalized
 
 	ArgCheck.isType(render, "function", "LocalizationConsumer.props.render")
 	ArgCheck.isType(stringsToBeLocalized, "table", "LocalizationConsumer.props.stringsToBeLocalized")
 
-	local localizedStrings = {}
+	local localizedStrings = {
+		[RobloxLocaleIdKey] = self.state.locale,
+	}
 	for stringName, stringInfo in pairs(stringsToBeLocalized) do
 		if typeof(stringInfo) == "table" then
 			if typeof(stringInfo[1]) == "string" then
@@ -97,4 +101,16 @@ function LocalizationConsumer:render()
 	end
 end
 
-return LocalizationConsumer
+local function LocalizationContextConsumer(props)
+	return Roact.createElement(LocalizationRoactContext.Consumer, {
+		render = function(localization)
+			return Roact.createElement(LocalizationConsumer, {
+				localization = localization,
+				render = props.render,
+				stringsToBeLocalized = props.stringsToBeLocalized,
+			})
+		end,
+	})
+end
+
+return LocalizationContextConsumer

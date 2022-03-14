@@ -9,8 +9,6 @@ local CommonModules = CoreGuiModules:FindFirstChild("Common")
 local Rigging = require(CommonModules:FindFirstChild("RagdollRigging"))
 local HumanoidReadyUtil = require(CommonModules:FindFirstChild("HumanoidReadyUtil"))
 
-local FFlagRagdollUsesCharacterRemoving = game:DefineFastFlag("RagdollUsesCharacterRemoving", false)
-
 local localPlayer = Players.LocalPlayer
 if not localPlayer then
 	Players:GetPropertyChangedSignal("LocalPlayer"):Wait()
@@ -76,10 +74,10 @@ local function onOwnedHumanoidDeath(character, humanoid)
 end
 
 HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
-	local ancestryChangedConn -- rename to characterRemovingConn on removal of FFlagRagdollUsesCharacterRemoving
+	local characterRemovingConn
 	local diedConn
 	local function disconnect()
-		ancestryChangedConn:Disconnect()
+		characterRemovingConn:Disconnect()
 		diedConn:Disconnect()
 	end
 
@@ -99,17 +97,9 @@ HumanoidReadyUtil.registerHumanoidReady(function(player, character, humanoid)
 	end)
 
 	-- Handle connection cleanup on remove
-	if FFlagRagdollUsesCharacterRemoving then
-		ancestryChangedConn = player.CharacterRemoving:Connect(function(removedCharacter)
-			if removedCharacter == character then
-				disconnect()
-			end
-		end)
-	else
-		ancestryChangedConn = humanoid.AncestryChanged:Connect(function(_child, parent)
-			if not game:IsAncestorOf(parent) then
-				disconnect()
-			end
-		end)
-	end
+	characterRemovingConn = player.CharacterRemoving:Connect(function(removedCharacter)
+		if removedCharacter == character then
+			disconnect()
+		end
+	end)
 end)

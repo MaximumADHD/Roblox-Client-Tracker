@@ -18,9 +18,6 @@ local AvatarEditorPrompts = script.Parent.Parent
 local GetAssetsDifference = require(AvatarEditorPrompts.GetAssetsDifference)
 local AddAnalyticsInfo = require(AvatarEditorPrompts.Actions.AddAnalyticsInfo)
 
-local EngineFeatureAvatarEditorServiceAnalytics = game:GetEngineFeature("AvatarEditorServiceAnalytics")
-local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
-
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
@@ -31,10 +28,9 @@ local GRADIENT_HEIGHT = 30
 local ItemsList = Roact.PureComponent:extend("ItemsList")
 
 ItemsList.validateProps = t.strictInterface({
-	humanoidDescription = EngineFeatureAESConformToAvatarRules and t.optional(t.instanceOf("HumanoidDescription"))
-		or t.instanceOf("HumanoidDescription"),
-	loadingFailed = EngineFeatureAESConformToAvatarRules and t.boolean or nil,
-	retryLoadDescription = EngineFeatureAESConformToAvatarRules and t.callback or nil,
+	humanoidDescription = t.optional(t.instanceOf("HumanoidDescription")),
+	loadingFailed = t.boolean,
+	retryLoadDescription = t.callback,
 	itemListScrollableUpdated = t.optional(t.callback),
 
 	addAnalyticsInfo = t.callback,
@@ -115,9 +111,7 @@ function ItemsList:init()
 		coroutine.wrap(function()
 			GetAssetsDifference(self.props.humanoidDescription):andThen(function(result)
 				if self.mounted then
-					if EngineFeatureAvatarEditorServiceAnalytics then
-						self.props.addAnalyticsInfo(result.addedAssetIds, result.removedAssetIds)
-					end
+					self.props.addAnalyticsInfo(result.addedAssetIds, result.removedAssetIds)
 
 					self:setState({
 						loading = false,
@@ -140,14 +134,10 @@ function ItemsList:init()
 			loading = true,
 		})
 
-		if EngineFeatureAESConformToAvatarRules then
-			if self.props.humanoidDescription then
-				self.loadAssetNames()
-			else
-				self.props.retryLoadDescription()
-			end
-		else
+		if self.props.humanoidDescription then
 			self.loadAssetNames()
+		else
+			self.props.retryLoadDescription()
 		end
 	end
 end
@@ -299,15 +289,12 @@ function ItemsList:renderFailed()
 	return Roact.createElement(EmptyState, {
 		text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.ItemsListLoadingFailed"),
 		size = UDim2.fromScale(1, 1),
-		reloadAction = self.onRetryLoading,
+		onActivated = self.onRetryLoading,
 	})
 end
 
 function ItemsList:render()
-	local isLoading = self.state.loading
-	if EngineFeatureAESConformToAvatarRules then
-		isLoading = self.state.loading and not self.props.loadingFailed
-	end
+	local isLoading = self.state.loading and not self.props.loadingFailed
 
 	if isLoading then
 		return self:renderLoading()
@@ -321,11 +308,7 @@ end
 function ItemsList:didMount()
 	self.mounted = true
 
-	if EngineFeatureAESConformToAvatarRules then
-		if self.props.humanoidDescription then
-			self.loadAssetNames()
-		end
-	else
+	if self.props.humanoidDescription then
 		self.loadAssetNames()
 	end
 	self.checkIsScrollable()
@@ -334,16 +317,14 @@ end
 function ItemsList:didUpdate(prevProps, prevState)
 	self.checkIsScrollable()
 
-	if EngineFeatureAESConformToAvatarRules then
-		if prevProps.humanoidDescription ~= self.props.humanoidDescription then
-			self:setState({
-				loading = true,
-				addedAssetNames = Roact.None,
-				removedAssetNames = Roact.None,
-			})
+	if prevProps.humanoidDescription ~= self.props.humanoidDescription then
+		self:setState({
+			loading = true,
+			addedAssetNames = Roact.None,
+			removedAssetNames = Roact.None,
+		})
 
-			self.loadAssetNames()
-		end
+		self.loadAssetNames()
 	end
 end
 
@@ -359,4 +340,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(ItemsList)
+return RoactRodux.connect(nil, mapDispatchToProps)(ItemsList)

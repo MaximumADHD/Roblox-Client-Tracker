@@ -2,15 +2,6 @@
 --	// Written by: Xsitsu
 --	// Description: Main GUI window piece. Manages ChatBar, ChannelsBar, and ChatChannels.
 
-local FFlagFixMouseCapture = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixMouseCapture")
-	end)
-	if ok then
-		FFlagFixMouseCapture = value
-	end
-end
-
 local module = {}
 
 local Players = game:GetService("Players")
@@ -195,12 +186,6 @@ function methods:CreateGuiObjects(targetParent)
 		local xScale = BaseFrame.AbsoluteSize.X / screenGuiParent.AbsoluteSize.X
 		local yScale = BaseFrame.AbsoluteSize.Y / screenGuiParent.AbsoluteSize.Y
 		
-		-- cap chat window scale at a value smaller than 0.5 to prevent center of screen overlap
-		if FFlagFixMouseCapture then 
-			xScale = math.min(xScale, 0.45)
-			yScale = math.min(xScale, 0.45)
-		end
-		
 		BaseFrame.Size = UDim2.new(xScale, 0, yScale, 0)
 
 		checkSizeLock = false
@@ -212,8 +197,6 @@ function methods:CreateGuiObjects(targetParent)
 			doCheckSizeBounds()
 		end
 	end)
-
-
 
 	ChatResizerFrame.DragBegin:connect(function(startUdim)
 		BaseFrame.Draggable = false

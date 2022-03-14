@@ -18,7 +18,6 @@ local initiatePremiumPurchase = require(Root.Thunks.initiatePremiumPurchase)
 local initiateSubscriptionPurchase = require(Root.Thunks.initiateSubscriptionPurchase)
 local connectToStore = require(Root.connectToStore)
 
-local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
 local GetFFlagDeveloperSubscriptionsEnabled = require(Root.Flags.GetFFlagDeveloperSubscriptionsEnabled)
 
 local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
@@ -38,7 +37,7 @@ local function MarketplaceServiceEventConnector(props)
 			event = MarketplaceService.PromptPurchaseRequested,
 			callback = onPurchaseRequest,
 		}),
-		RobloxPurchase = GetFFlagPromptRobloxPurchaseEnabled() and Roact.createElement(ExternalEventConnection, {
+		RobloxPurchase = Roact.createElement(ExternalEventConnection, {
 			event = MarketplaceService.PromptRobloxPurchaseRequested,
 			callback = onRobloxPurchaseRequest,
 		}),

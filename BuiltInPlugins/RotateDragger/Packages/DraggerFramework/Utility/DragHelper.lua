@@ -6,7 +6,7 @@ local getGeometry = require(DraggerFramework.Utility.getGeometry)
 local roundRotation = require(DraggerFramework.Utility.roundRotation)
 local snapRotationToPrimaryDirection = require(DraggerFramework.Utility.snapRotationToPrimaryDirection)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
+local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
 
 local PrimaryDirections = {
 	Vector3.new(1, 0, 0),
@@ -57,66 +57,6 @@ local function findClosestBasis(normal)
 	return closestNormal, mostPerpendicularNormal1, mostPerpendicularNormal2
 end
 
--- Remove with FFlag::SummonPivot
-local function largestComponent(vector)
-	return math.max(math.abs(vector.X), math.abs(vector.Y), math.abs(vector.Z))
-end
-
--- Remove with FFlag::SummonPivot
-function DragHelper.snapVectorToPrimaryDirection(direction)
-	local largestDot = -math.huge
-	local closestDirection
-	for _, target in ipairs(PrimaryDirections) do
-		local dot = direction:Dot(target)
-		if dot > largestDot then
-			largestDot = dot
-			closestDirection = target
-		end
-	end
-	return closestDirection
-end
-
--- Remove with FFlag::SummonPivot
-function DragHelper.snapRotationToPrimaryDirection(cframe)
-	assert(not getFFlagSummonPivot())
-	local right = cframe.RightVector
-	local top = cframe.UpVector
-	local front = -cframe.LookVector
-	local largestRight = largestComponent(right)
-	local largestTop = largestComponent(top)
-	local largestFront = largestComponent(front)
-	if largestRight > largestTop and largestRight > largestFront then
-		-- Most aligned axis is X, the right, preserve that
-		right = DragHelper.snapVectorToPrimaryDirection(right)
-		if largestTop > largestFront then
-			top = DragHelper.snapVectorToPrimaryDirection(top)
-		else
-			local front = DragHelper.snapVectorToPrimaryDirection(front)
-			top = front:Cross(right).Unit
-		end
-	elseif largestTop > largestFront then
-		-- Most aligned axis is Y, the top, preserve that
-		top = DragHelper.snapVectorToPrimaryDirection(top)
-		if largestRight > largestFront then
-			right = DragHelper.snapVectorToPrimaryDirection(right)
-		else
-			local front = DragHelper.snapVectorToPrimaryDirection(front)
-			right = top:Cross(front).Unit
-		end
-	else
-		-- Most aligned axis is Z, the front, preserve that
-		local front = DragHelper.snapVectorToPrimaryDirection(front)
-		if largestRight > largestTop then
-			right = DragHelper.snapVectorToPrimaryDirection(right)
-			top = front:Cross(right).Unit
-		else
-			top = DragHelper.snapVectorToPrimaryDirection(top)
-			right = top:Cross(front).Unit
-		end
-	end
-	return CFrame.fromMatrix(Vector3.new(), right, top)
-end
-
 function DragHelper.getSizeInSpace(sizeInGlobalSpace, localSpace)
 	local _, _, _,
 		t00, t01, t02,
@@ -144,27 +84,63 @@ function DragHelper.getClosestFace(part, mouseWorld)
 end
 
 function DragHelper.getPartAndSurface(mouseRay)
-	local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
-	
-	local closestFace, _
-	if part then
-		if part:IsA("Terrain") then
-			-- Terrain doesn't have Primary Axis based surfaces to return
-			return part, nil
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
+
+		if not result then
+			return nil, nil
 		end
 
-		closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
-	end
+		if result.Instance:IsA("Terrain") then
+			-- Terrain doesn't have Primary Axis based surfaces to return
+			return result.Instance, nil
+		end
 
-	if closestFace then
-		return part, closestFace.surface
+		closestFace, _ = DragHelper.getClosestFace(result.Instance, result.Position)
+		if closestFace then
+			return result.Instance, closestFace.surface
+		else
+			return result.Instance, nil
+		end
 	else
-		return part, nil
+		local part, mouseWorld = Workspace:FindPartOnRay(mouseRay)
+	
+		local closestFace, _
+		if part then
+			if part:IsA("Terrain") then
+				-- Terrain doesn't have Primary Axis based surfaces to return
+				return part, nil
+			end
+
+			closestFace, _ = DragHelper.getClosestFace(part, mouseWorld)
+		end
+
+		if closestFace then
+			return part, closestFace.surface
+		else
+			return part, nil
+		end
 	end
 end
 
 function DragHelper.getSurfaceMatrix(mouseRay, selection, lastSurfaceMatrix)
-	local part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(mouseRay, selection)
+	local part, mouseWorld, normal = nil
+	if getEngineFeatureDraggerBruteForceAll() then
+		local params = RaycastParams.new()
+		params.BruteForceAllSlow = true
+		params.FilterDescendantsInstances = selection
+		local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
+		if result then
+			part = result.Instance
+			mouseWorld = result.Position
+			normal = result.Normal
+		end
+	else
+		part, mouseWorld, normal = Workspace:FindPartOnRayWithIgnoreList(mouseRay, selection)
+	end
+
 	if part and part:IsA("Terrain") then
 		-- First, find the closest aligned global axis normal, and the two other
 		-- axes mutually orthogonal to it.
@@ -268,11 +244,7 @@ function DragHelper.updateTiltRotate(cameraCFrame, mouseRay, selection, mainCFra
 	end
 	local dragInTargetSpace = targetMatrix:Inverse() * mainCFrame
 	if alignRotation then
-		if getFFlagSummonPivot() then
-			dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
-		else
-			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
-		end
+		dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
 	else
 		dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position
 	end
@@ -333,11 +305,7 @@ function DragHelper.getDragTarget(mouseRay, snapFunction, dragInMainSpace, selec
 		-- Now we want to "snap" the rotation of this transformation to 90 degree
 		-- increments, such that the dragInTargetSpace is only some combination of
 		-- the primary direction vectors.
-		if getFFlagSummonPivot() then
-			dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
-		else
-			dragInTargetSpace = DragHelper.snapRotationToPrimaryDirection(dragInTargetSpace)
-		end
+		dragInTargetSpace = snapRotationToPrimaryDirection(dragInTargetSpace)
 	else
 		-- Just reduce dragInTargetSpace to a rotation
 		dragInTargetSpace = dragInTargetSpace - dragInTargetSpace.Position

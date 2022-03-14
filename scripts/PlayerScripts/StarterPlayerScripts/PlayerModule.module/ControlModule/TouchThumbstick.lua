@@ -28,7 +28,7 @@ function TouchThumbstick.new()
 	
 	return self
 end
-function TouchThumbstick:Enable(enable, uiParentFrame)
+function TouchThumbstick:Enable(enable: boolean?, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
@@ -111,7 +111,7 @@ function TouchThumbstick:Create(parentFrame)
 	local centerPosition = nil
 	local deadZone = 0.05
 	
-	local function DoMove(direction)
+	local function DoMove(direction: Vector2)
 		
 		local currentMoveVector = direction / (self.thumbstickSize/2)
 		
@@ -129,7 +129,7 @@ function TouchThumbstick:Create(parentFrame)
 		self.moveVector = currentMoveVector
 	end
 	
-	local function MoveStick(pos)
+	local function MoveStick(pos: Vector3)
 		local relativePosition = Vector2.new(pos.x - centerPosition.x, pos.y - centerPosition.y)
 		local length = relativePosition.magnitude
 		local maxLength = self.thumbstickFrame.AbsoluteSize.x/2
@@ -146,7 +146,7 @@ function TouchThumbstick:Create(parentFrame)
 	end
 	
 	-- input connections
-	self.thumbstickFrame.InputBegan:Connect(function(inputObject)
+	self.thumbstickFrame.InputBegan:Connect(function(inputObject: InputObject)
 		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
 		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
 		if self.moveTouchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
@@ -161,7 +161,7 @@ function TouchThumbstick:Create(parentFrame)
 		local direction = Vector2.new(inputObject.Position.x - centerPosition.x, inputObject.Position.y - centerPosition.y)
 	end)
 	
-	self.onTouchMovedConn = UserInputService.TouchMoved:Connect(function(inputObject, isProcessed)
+	self.onTouchMovedConn = UserInputService.TouchMoved:Connect(function(inputObject: InputObject, isProcessed: boolean)
 		if inputObject == self.moveTouchObject then
 			centerPosition = Vector2.new(self.thumbstickFrame.AbsolutePosition.x + self.thumbstickFrame.AbsoluteSize.x/2,
 				self.thumbstickFrame.AbsolutePosition.y + self.thumbstickFrame.AbsoluteSize.y/2)

@@ -25,6 +25,8 @@ local PurchaseError = createEnum("PurchaseError", {
 	"NotEnoughRobux",
 	"NotEnoughRobuxXbox",
 	"NotEnoughRobuxNoUpsell",
+	"TwoFactorNeeded",
+	"TwoFactorNeededSettings",
 
 	-- Network-reported failures
 	"UnknownFailure",

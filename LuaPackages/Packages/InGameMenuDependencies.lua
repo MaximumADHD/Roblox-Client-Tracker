@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["InGameMenuDependencies"]["InGameMenuDependencies"]
+local Package = require(PackageIndex["InGameMenuDependencies"]["InGameMenuDependencies"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

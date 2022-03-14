@@ -3,6 +3,7 @@ local RunService = game:GetService("RunService")
 local TextService = game:GetService("TextService")
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -12,15 +13,20 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
-
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local Constants = require(InGameMenu.Resources.Constants)
 local Assets = require(InGameMenu.Resources.Assets)
 
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
+local FocusHandler = require(script.Parent.Connection.FocusHandler)
+
 local MODAL_CONFIRM_ACTION = "InGameMenuModalConfirm"
 local MODAL_CANCEL_ACTION = "InGameMenuModalCancel"
+local BUTTONS_SELECTION_PARENT = "InGameMenuModalButtonsSelectionParent"
 
 local ConfirmationDialog = Roact.PureComponent:extend("ConfirmationDialog")
 
@@ -38,6 +44,7 @@ ConfirmationDialog.validateProps = t.strictInterface({
 	blurBackground = t.boolean,
 
 	visible = t.boolean,
+	inputType = t.optional(t.string),
 })
 
 ConfirmationDialog.defaultProps = {
@@ -47,6 +54,24 @@ ConfirmationDialog.defaultProps = {
 	titleText = "Dialog Title",
 	blurBackground = false,
 }
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	function ConfirmationDialog:init()
+		self.state = {
+			isRooted = false
+		}
+
+		self.onAncestryChanged = function(instance)
+			if instance:IsDescendantOf(game) then
+				self:setState({
+					isRooted = true
+				})
+			end
+		end
+		self.confirmButtonRef = Roact.createRef()
+		self.buttonContainerRef = Roact.createRef()
+	end
+end
 
 function ConfirmationDialog:render()
 	local props = self.props
@@ -72,7 +97,7 @@ function ConfirmationDialog:render()
 			target = CoreGui,
 		}, {
 			InGameMenuConfirmationDialog = Roact.createElement("ScreenGui", {
-				DisplayOrder = 8,
+				DisplayOrder = Constants.DisplayOrder.ConfirmationDialog,
 				IgnoreGuiInset = true,
 				OnTopOfCoreBlur = props.blurBackground,
 				Enabled = props.visible,
@@ -139,6 +164,8 @@ function ConfirmationDialog:render()
 						BackgroundTransparency = 1,
 						LayoutOrder = 5,
 						Size = UDim2.new(1, 0, 0, 36),
+						[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.buttonContainerRef or nil,
+						[Roact.Event.AncestryChanged] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.onAncestryChanged or nil,
 					}, {
 						Layout = Roact.createElement("UIListLayout", {
 							FillDirection = Enum.FillDirection.Horizontal,
@@ -158,10 +185,22 @@ function ConfirmationDialog:render()
 							size = UDim2.new(0.5, -5, 1, 0),
 							text = props.confirmText,
 							onActivated = props.onConfirm,
+							[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.confirmButtonRef or nil,
 						}),
 					}),
 				}),
 			}),
+			FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and Roact.createElement(FocusHandler, {
+				isFocused = self.state.isRooted
+					and self.props.visible
+					and self.props.inputType == Constants.InputType.Gamepad,
+				didFocus = function()
+					GuiService:RemoveSelectionGroup(BUTTONS_SELECTION_PARENT)
+					GuiService:AddSelectionParent(BUTTONS_SELECTION_PARENT, self.buttonContainerRef:getValue())
+
+					GuiService.SelectedCoreObject = self.confirmButtonRef:getValue()
+				end,
+			}) or nil
 		})
 	end)
 end

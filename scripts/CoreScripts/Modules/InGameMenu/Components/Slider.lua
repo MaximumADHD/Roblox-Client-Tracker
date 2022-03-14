@@ -1,5 +1,8 @@
 local UserInputService = game:GetService("UserInputService")
 local CorePackages = game:GetService("CorePackages")
+local GuiService = game:GetService("GuiService")
+local ContextActionService = game:GetService("ContextActionService")
+local RunService = game:GetService("RunService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -7,15 +10,27 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 local Otter = InGameMenuDependencies.Otter
 
+local FocusHandler = require(script.Parent.Connection.FocusHandler)
+
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
 local AssetImage = require(script.Parent.AssetImage)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
+
+local DPAD_INITIAL_MOVE_INTERVAL = 0.5
+local STICK_INITIAL_MOVE_INTERVAL = 0.2
+local STICK_MOVE_DEADZONE = 0.2
+local DPAD_SPEED = 8 -- In increments per second
+local STICK_SPEED = 12 -- In increments per second
 
 local PLUGINGUI_INPUT_CAPTURER_ZINDEX = 100000
 local SLIDER_HEIGHT = 36
@@ -25,6 +40,40 @@ local HOVER_SIZE_ON = KNOB_HEIGHT
 local HOVER_SPRING_PARAMETERS = {
 	frequency = 5,
 }
+
+local function isGamepad(inputType)
+	return inputType == Enum.UserInputType.Gamepad1
+		or inputType == Enum.UserInputType.Gamepad2
+		or inputType == Enum.UserInputType.Gamepad3
+		or inputType == Enum.UserInputType.Gamepad4
+		or inputType == Enum.UserInputType.Gamepad5
+		or inputType == Enum.UserInputType.Gamepad6
+		or inputType == Enum.UserInputType.Gamepad7
+		or inputType == Enum.UserInputType.Gamepad8
+end
+
+-- create an inputObjects table which maps input KeyCodes to info about the input itself
+local gamepads = {}
+local function getInputObjects()
+	local lastInputType = UserInputService:GetLastInputType()
+
+	if not isGamepad(lastInputType) then
+		return nil
+	end
+
+	if gamepads[lastInputType] == nil then
+		local _inputObjects = UserInputService:GetGamepadState(lastInputType)
+		local inputObjects = {}
+
+		for _, input in ipairs(_inputObjects) do
+			inputObjects[input.KeyCode] = input
+		end
+
+		gamepads[lastInputType] = inputObjects
+	end
+
+	return gamepads[lastInputType]
+end
 
 local Slider = Roact.PureComponent:extend("Slider")
 Slider.validateProps = t.intersection(t.strictInterface({
@@ -50,6 +99,19 @@ Slider.validateProps = t.intersection(t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	-- The position of the slider.
 	Position = t.optional(t.UDim2),
+	-- Whether slider can capture gamepad selection focus (false if dialog is open, for example)
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	-- isMenuOpen for when menu is closed in middle of entryMode
+	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	-- Callback for when slider dot selection lost
+	onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
+	-- Callback for when slider dot selection gained
+	onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
+	-- Instance to set as next selection right of slider dot
+	NextSelectionRight = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
+	-- Roact.Ref to the slider dot
+	sliderDotRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.union(t.callback, t.table)) or nil,
+
 }), function(props)
 	if props.min > props.max then
 		return false, "min must be less than or equal to max"
@@ -68,10 +130,23 @@ Slider.defaultProps = {
 }
 
 function Slider:init()
+	-- Below block can be removed/inlined once flag is removed
+	local entryMode = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		entryMode = false
+	end
+
 	self.state = {
 		dragging = false,
 		hovering = false,
+		entryMode = entryMode,
 	}
+
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		self.totalMoveTime = 0
+		self.isFirstMove = true
+		self.unhandledTime = 0
+	end
 
 	self.rootButtonRef = Roact.createRef()
 	self.hoverRef = Roact.createRef()
@@ -102,7 +177,43 @@ function Slider:init()
 	end
 end
 
-function Slider:render()
+function Slider:renderFocusHandler()
+	return Roact.createElement(FocusHandler, {
+		isFocused = self.state.entryMode and self.props.canCaptureFocus,
+
+		didFocus = function()
+			-- disable navigation once we've entered entry mode
+			GuiService.CoreGuiNavigationEnabled = false
+
+			self.joystickListener = RunService.Heartbeat:Connect(function(deltaTime)
+				self:onMoveStep(deltaTime, getInputObjects())
+			end)
+
+			-- keep the old value in case user hits B
+			local oldSliderValue = self.props.value
+
+			-- bind a core action that leaves entry mode
+			-- and reverts value when the 'B' button is pressed on the gamepad
+			ContextActionService:BindCoreAction("LeaveEntryMode", function(actionName, inputState)
+				if inputState == Enum.UserInputState.End then
+					self:setState({entryMode = false})
+					self.props.valueChanged(oldSliderValue)
+					return Enum.ContextActionResult.Sink
+				end
+				return Enum.ContextActionResult.Pass
+			end, false, Enum.KeyCode.ButtonB)
+		end,
+
+		didBlur = function()
+			self.joystickListener:Disconnect()
+			GuiService.CoreGuiNavigationEnabled = true
+			ContextActionService:UnbindCoreAction("LeaveEntryMode") -- unbind this action once we've called it once
+			self:setState({entryMode = false})
+		end,
+	}) or nil
+end
+
+function Slider:renderWithSelectionCursor(getSelectionCursor)
 	local min = self.props.min
 	local max = self.props.max
 
@@ -110,6 +221,13 @@ function Slider:render()
 	local dotPosition = (self.props.value - min) / interval
 	local filledSize = math.abs(dotPosition)
 	local filledPosition = dotPosition / 2
+
+	-- Below block can be removed/inlined once flag is removed
+	local selectableByController = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		selectableByController = false
+	end
+	local isFocused = self.state.entryMode and self.props.canCaptureFocus
 
 	return withStyle(function(style)
 		return Roact.createElement(ImageSetButton, {
@@ -121,7 +239,9 @@ function Slider:render()
 			Size = UDim2.new(self.props.width.Scale, self.props.width.Offset, 0, SLIDER_HEIGHT),
 			[Roact.Ref] = self.rootButtonRef,
 			[Roact.Event.InputBegan] = self.onInputBegan,
+			Selectable = selectableByController
 		}, {
+			FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and self:renderFocusHandler() or nil,
 			Gutter = Roact.createElement(AssetImage.Label, {
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				BackgroundTransparency = 1,
@@ -149,6 +269,7 @@ function Slider:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				ZIndex = 4,
+				Selectable = selectableByController,
 			}, {
 				Dot = Roact.createElement(AssetImage.Button, {
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -158,6 +279,15 @@ function Slider:render()
 					Size = UDim2.new(0, KNOB_HEIGHT, 0, KNOB_HEIGHT),
 					ImageTransparency = self.props.disabled and 0.5 or 0,
 					ZIndex = 2,
+					SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and
+						getSelectionCursor(isFocused and CursorKind.SelectedKnob or CursorKind.UnselectedKnob) or nil,
+					[Roact.Event.Activated] = GetFFlagInGameMenuControllerDevelopmentOnly() and function(rbx, inputObject)
+						if inputObject.KeyCode == Enum.KeyCode.ButtonA then
+							self:setState({
+								entryMode = not self.state.entryMode
+							})
+						end
+					end or nil,
 					[Roact.Event.InputBegan] = function(rbx, inputObject)
 						if self.props.disabled then
 							return
@@ -182,6 +312,10 @@ function Slider:render()
 							})
 						end
 					end,
+					[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.sliderDotRef or nil,
+					[Roact.Event.SelectionLost] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionLost or nil,
+					[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionGained or nil,
+					NextSelectionRight = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.NextSelectionRight or nil,
 				}),
 				HoverOverlay = Roact.createElement(AssetImage.Label, {
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -194,6 +328,16 @@ function Slider:render()
 			}),
 		})
 	end)
+end
+
+function Slider:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
 end
 
 function Slider:didMount()
@@ -385,6 +529,79 @@ function Slider:stopListeningForDrag()
 	self:setState({
 		dragging = false,
 	})
+end
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	function Slider:processGamepadInput(polarity, increments)
+		local stepInterval = self.props.stepInterval * polarity
+		local value = self.props.value
+
+		value = math.max(math.min(value + (stepInterval * increments), self.props.max), self.props.min)
+
+		if value ~= self.props.value then
+			self.props.valueChanged(value)
+		end
+	end
+
+	function Slider:onMoveStep(delta, inputObjects)
+		local stickInput = inputObjects[Enum.KeyCode.Thumbstick1].Position
+		local usingStick = stickInput.Magnitude > STICK_MOVE_DEADZONE
+		local increments = 0
+		local initialMoveInterval, moveDirection, speed
+		self.totalMoveTime = self.totalMoveTime + delta
+
+		if usingStick then
+			moveDirection = stickInput.x > 0 and 1 or -1
+			initialMoveInterval = STICK_INITIAL_MOVE_INTERVAL
+			speed = STICK_SPEED
+		else
+			local leftMovement = inputObjects[Enum.KeyCode.DPadLeft].UserInputState == Enum.UserInputState.Begin and -1 or 0
+			local rightMovement = inputObjects[Enum.KeyCode.DPadRight].UserInputState == Enum.UserInputState.Begin and 1 or 0
+			moveDirection = leftMovement + rightMovement
+			initialMoveInterval = DPAD_INITIAL_MOVE_INTERVAL
+			speed = DPAD_SPEED
+		end
+
+		if moveDirection ~= 0 then
+			-- Process input for the first button press
+			if self.isFirstMove then
+				self.isFirstMove = false
+				self.totalMoveTime = 0
+				self.unhandledTime = 0
+				increments = 1
+			-- Process input if enough time has passed.
+			elseif self.totalMoveTime > initialMoveInterval then
+				-- How much of delta time that was in the first interval
+				local initialIntervalOverlap = math.max(initialMoveInterval - self.totalMoveTime - delta, 0)
+				local timeToHandle = delta - initialIntervalOverlap + self.unhandledTime
+				increments = math.floor(speed * timeToHandle)
+
+				self.unhandledTime = timeToHandle - increments / speed
+			else
+				-- Period between first move and subsequent moves
+				increments = 0
+				self.unhandledTime = 0
+			end
+		else
+			self.totalMoveTime = 0
+			self.isFirstMove = true
+		end
+
+		if increments > 0 then
+			self:processGamepadInput(moveDirection, increments)
+		end
+	end
+end
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	function Slider.getDerivedStateFromProps(nextProps)
+		if not nextProps.isMenuOpen then
+			return {
+				entryMode = false,
+			}
+		end
+		return nil
+	end
 end
 
 return Slider

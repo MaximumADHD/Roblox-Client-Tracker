@@ -25,9 +25,32 @@ return function()
 	local Constants = require(InGameMenu.Resources.Constants)
 	local InviteStatus = Constants.InviteStatus
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local InviteFriendsList = require(script.Parent.InviteFriendsList)
 
+	local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
+
 	it("should create and destroy without errors", function()
+		local inviteFriendsList = Roact.createElement(InviteFriendsList, {
+			friends = {
+				{
+					Id = 2231221,
+					IsOnline = true,
+					Username = "TheGamer101",
+					DisplayName = "TestDisplayName",
+				},
+				{
+					Id = 261,
+					IsOnline = false,
+					Username = "Shedletsky",
+					DisplayName = "TestDisplayName",
+				},
+			},
+			canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+			searchBoxRef = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createRef() or nil,
+		})
+
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
 		}, {
@@ -37,22 +60,10 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					InviteFriendsList = Roact.createElement(InviteFriendsList, {
-						players = {
-							{
-								Id = 2231221,
-								IsOnline = true,
-								Username = "TheGamer101",
-								DisplayName = "TestDisplayName",
-							},
-							{
-								Id = 261,
-								IsOnline = false,
-								Username = "Shedletsky",
-								DisplayName = "TestDisplayName",
-							},
-						}
-					}),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						InviteFriendsList = inviteFriendsList,
+					}) or nil,
+					InviteFriendsList = not GetFFlagIGMGamepadSelectionHistory() and inviteFriendsList or nil,
 				}),
 			}),
 		})
@@ -64,6 +75,25 @@ return function()
 	it("should not throw erros when invite state is updated", function()
 		local store = Rodux.Store.new(reducer)
 
+		local inviteFriendsList = Roact.createElement(InviteFriendsList, {
+			friends = {
+				{
+					Id = 2231221,
+					IsOnline = true,
+					Username = "TheGamer101",
+					DisplayName = "TestDisplayName",
+				},
+				{
+					Id = 261,
+					IsOnline = false,
+					Username = "Shedletsky",
+					DisplayName = "TestDisplayName",
+				},
+			},
+			canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+			searchBoxRef = GetFFlagIGMRefactorInviteFriendsGamepadSupport() and Roact.createRef() or nil,
+		})
+
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = store
 		}, {
@@ -73,22 +103,10 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					InviteFriendsList = Roact.createElement(InviteFriendsList, {
-						players = {
-							{
-								Id = 2231221,
-								IsOnline = true,
-								Username = "TheGamer101",
-								DisplayName = "TestDisplayName",
-							},
-							{
-								Id = 261,
-								IsOnline = false,
-								Username = "Shedletsky",
-								DisplayName = "TestDisplayName",
-							},
-						}
-					}),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						InviteFriendsList = inviteFriendsList,
+					}) or nil,
+					InviteFriendsList = not GetFFlagIGMGamepadSelectionHistory() and inviteFriendsList or nil,
 				}),
 			}),
 		})

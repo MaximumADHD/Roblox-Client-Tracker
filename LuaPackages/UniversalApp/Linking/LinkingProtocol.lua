@@ -187,10 +187,6 @@ function LinkingProtocol:isURLRegistered(url: string): Promise
 	return promise
 end
 
-function LinkingProtocol:isEnabled(): boolean
-	return game:GetEngineFeature("LinkingProtocol")
-end
-
 LinkingProtocol.default = LinkingProtocol.new()
 
 return LinkingProtocol

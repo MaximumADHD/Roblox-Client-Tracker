@@ -12,6 +12,7 @@ local Chat = game:GetService("Chat")
 local RunService = game:GetService("RunService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local GuiService = game:GetService("GuiService")
+local CorePackages = game:GetService("CorePackages")
 
 -- MODULES
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
@@ -23,10 +24,12 @@ local ContextMenuUtil = require(AvatarMenuModules:WaitForChild("ContextMenuUtil"
 local ThemeHandler = require(AvatarMenuModules.ThemeHandler)
 
 local BlockingUtility = require(CoreGuiModules.BlockingUtility)
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local t = require(CorePackages.Packages.t)
+local ArgCheck = require(CorePackages.ArgCheck)
 
 -- FLAGS
-local FFlagInspectMenuSubjectToPolicy = require(CoreGuiModules.Flags.FFlagInspectMenuSubjectToPolicy)
+local FFlagAvatarContextMenuItemsChatButtonRefactor
+	= require(CoreGuiModules.Flags.FFlagAvatarContextMenuItemsChatButtonRefactor)
 
 -- VARIABLES
 
@@ -63,9 +66,6 @@ ContextMenuItems.__index = ContextMenuItems
 -- PRIVATE METHODS
 function ContextMenuItems:UpdateInspectMenuEnabled()
 	local enabled = GuiService:GetInspectMenuEnabled()
-	if FFlagInspectMenuSubjectToPolicy then
-		enabled = enabled and not PolicyService:IsSubjectToChinaPolicies()
-	end
 
 	if enabled ~= EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] then
 		EnabledContextMenuItems[Enum.AvatarContextMenuOption.InspectMenu] = enabled
@@ -298,8 +298,12 @@ function ContextMenuItems:CreateEmoteButton()
 	waveButton.Parent = self.MenuItemFrame
 end
 
+local IChatButtonProps = t.interface({
+	localPlayerChatEnabled = t.boolean,
+	localPlayerCanChatWithSelectedPlayer = t.boolean,
+})
 
-function ContextMenuItems:CreateChatButton()
+function ContextMenuItems:CreateChatButton(props)
 	local chatDisabled = false
 	local function chatFunc()
 		if chatDisabled then
@@ -335,13 +339,24 @@ function ContextMenuItems:CreateChatButton()
 	)
 	chatButton.LayoutOrder = CHAT_LAYOUT_ORDER + CustomItemAddedOrder
 
-	local success, canLocalUserChat = pcall(function() return Chat:CanUserChatAsync(LocalPlayer.UserId) end)
-	local canChat = success and (RunService:IsStudio() or canLocalUserChat)
+	local canChat
+	if FFlagAvatarContextMenuItemsChatButtonRefactor then
+		ArgCheck.assert(IChatButtonProps(props))
+		canChat = props.localPlayerChatEnabled
+	else
+		local success, canLocalUserChat = pcall(function() return Chat:CanUserChatAsync(LocalPlayer.UserId) end)
+		canChat = success and (RunService:IsStudio() or canLocalUserChat)
+	end
 
 	if canChat then
 		chatButton.Parent = self.MenuItemFrame
 
-		local canChatWith = ContextMenuUtil:GetCanChatWith(self.SelectedPlayer)
+		local canChatWith
+		if FFlagAvatarContextMenuItemsChatButtonRefactor then
+			canChatWith = props.localPlayerCanChatWithSelectedPlayer
+		else
+			canChatWith = ContextMenuUtil:GetCanChatWith(self.SelectedPlayer)
+		end
 
 		if not canChatWith then
 			chatDisabled = true
@@ -372,7 +387,7 @@ function ContextMenuItems:RemoveLastButtonUnderline()
 	end
 end
 
-function ContextMenuItems:BuildContextMenuItems(player)
+function ContextMenuItems:BuildContextMenuItems(player, props)
 	if not player then return end
 
 	local friendStatus = ContextMenuUtil:GetFriendStatus(player)
@@ -383,7 +398,7 @@ function ContextMenuItems:BuildContextMenuItems(player)
 		self:CreateFriendButton(friendStatus, isBlocked)
 	end
 	if EnabledContextMenuItems[Enum.AvatarContextMenuOption.Chat] then
-		self:CreateChatButton()
+		self:CreateChatButton(props)
 	end
 	if EnabledContextMenuItems[Enum.AvatarContextMenuOption.Emote] then
 		self:CreateEmoteButton()
@@ -420,23 +435,11 @@ function ContextMenuItems.new(menuItemFrame)
 end
 
 GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
-	if FFlagInspectMenuSubjectToPolicy then
-		enabled = enabled and PolicyService:IsSubjectToChinaPolicies()
-	end
-
 	if not enabled then
 		ContextMenuItems:RemoveDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
 	else
 		ContextMenuItems:EnableDefaultMenuItem(Enum.AvatarContextMenuOption.InspectMenu)
 	end
 end)
-
-if FFlagInspectMenuSubjectToPolicy then
-	spawn(function()
-		-- Check whether InspectMenu is disabled by policy after PolicyService is finished initializing
-		PolicyService:InitAsync()
-		ContextMenuItems:UpdateInspectMenuEnabled()
-	end)
-end
 
 return ContextMenuItems

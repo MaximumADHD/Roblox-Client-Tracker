@@ -36,6 +36,12 @@ function PlatformInterface.new()
 		GuiService:OpenBrowserWindow(url)
 	end
 
+	function service.openSecuritySettings()
+		local url = ("%smy/account#!/security"):format(BASE_URL)
+
+		GuiService:OpenBrowserWindow(url)
+	end
+
 	function service.promptNativePurchase(player, mobileProductId)
 		return MarketplaceService:PromptNativePurchase(player, mobileProductId)
 	end

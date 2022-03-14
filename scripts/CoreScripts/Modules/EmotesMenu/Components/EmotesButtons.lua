@@ -1,7 +1,4 @@
-local ContentProvider = game:GetService("ContentProvider")
 local CorePackages = game:GetService("CorePackages")
-
-local GetFFlagUseThumbnailUrl = require(game:GetService("CoreGui").RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -56,11 +53,7 @@ local function getRandomAssetId(emotesAssetIds)
 end
 
 local function getEmoteImage(assetId)
-    if GetFFlagUseThumbnailUrl() then
-        return Constants.EmotesImage:format(assetId)
-    else
-        return ContentProvider.BaseUrl.. Constants.EmotesImageApi:format(assetId)
-    end
+    return Constants.EmotesImage:format(assetId)
 end
 
 function EmotesButtons:render()

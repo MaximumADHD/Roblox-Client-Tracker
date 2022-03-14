@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["lua-promise-07b6e77b-1bb842c3"]["lua-promise"]
+local Package = require(PackageIndex["Promise"]["Promise"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

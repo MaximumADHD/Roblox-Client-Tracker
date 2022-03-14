@@ -6,6 +6,19 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 
+local function dumpInstanceTree(instance, indent)
+	indent = indent or ""
+	if instance == nil then
+		print(indent .. "[nil Instance]")
+		return
+	end
+
+	print(indent .. instance.Name)
+	indent ..= "  "
+	for _, child in ipairs(instance:GetChildren()) do
+		dumpInstanceTree(child, indent)
+	end
+end
 
 --[[
 	Helper function for running Rhodium tests that instantiates a component wrapped
@@ -48,6 +61,12 @@ return function(test, component, reducer, initialStoreState, props)
 	local success, result = pcall(function()
 		test(path)
 	end)
+
+	if not success then
+		print("Test instance tree:\n")
+		dumpInstanceTree(CoreGui:FindFirstChild(instanceName))
+		print()
+	end
 
 	Roact.unmount(tree)
 	if not success then

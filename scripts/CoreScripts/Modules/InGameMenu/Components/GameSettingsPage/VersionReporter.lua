@@ -26,6 +26,8 @@ local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnecti
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
+local FFlagShowGitHashInNewExperienceMenu = game:DefineFastFlag("ShowGitHashInNewExperienceMenu", false)
+
 local canGetCoreScriptVersion = game:getEngineFeature("CoreScriptVersionEnabled")
 
 local VersionReporter = Roact.PureComponent:extend("VersionReporter")
@@ -109,6 +111,17 @@ function VersionReporter:render()
 			CLIENT_CORESCRIPT_VERSION = self.state.coreScriptVersion,
 		} or nil
 	})(function(localized)
+		local clientVersion = localized.clientVersion
+		if FFlagShowGitHashInNewExperienceMenu then
+			local success, result = pcall(function()
+				return RunService.ClientGitHash
+			end)
+
+			if success then
+				clientVersion = string.format("%s (%.6s)", clientVersion, result)
+			end
+		end
+
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
 			Size = UDim2.new(1, 0, 0, 80),
@@ -126,7 +139,7 @@ function VersionReporter:render()
 			ClientVersion = Roact.createElement(ThemedTextLabel, {
 				themeKey = "TextDefault",
 				fontKey = "Footer",
-				Text = localized.clientVersion,
+				Text = clientVersion,
 				LayoutOrder = 1,
 				Size = UDim2.new(1, -24, 0, 14),
 			}),

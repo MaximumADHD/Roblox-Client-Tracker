@@ -3,6 +3,7 @@
 	formats, or returns promise rejections if specified
 ]]
 local CorePackages = game:GetService("CorePackages")
+local Cryo = require(CorePackages.Cryo)
 local Promise = require(CorePackages.AppTempCommon.LuaApp.Promise)
 local MOCK_ASSET_DATA = {
 	[1] = {
@@ -48,6 +49,12 @@ local MOCK_GET_ASSET_BUNDLES_DATA = {
 					owned = false,
 					id = 2510233257,
 					name = "test asset name 2",
+				},
+				[3] = {
+					owned = false,
+					type = "UserOutfit",
+					id = 2510233258,
+					name = "Outfit",
 				},
 			},
 			creator = {
@@ -113,8 +120,15 @@ local MOCK_ECONOMY_PRODUCT_INFO = {
 	assetId = 10,
 }
 
+local function getRobloxProductInfo(id)
+	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
+	return Promise.resolve(info)
+end
+
 local function getProductInfo(id)
-	return Promise.resolve(MOCK_PRODUCT_INFO)
+	local info = Cryo.Dictionary.join(MOCK_PRODUCT_INFO, { AssetId = id })
+	info.Creator.Id = 2 -- setting this to anything except 1
+	return Promise.resolve(info)
 end
 
 local function getAssetBundles(id)
@@ -180,7 +194,7 @@ end
 local MockNetwork = {}
 MockNetwork.__index = MockNetwork
 
-function MockNetwork.new(shouldFail)
+function MockNetwork.new(shouldFail, notRobloxAuthored)
 	local mockNetworkService
 
 	if shouldFail then
@@ -201,7 +215,7 @@ function MockNetwork.new(shouldFail)
 		}
 	else
 		mockNetworkService = {
-			getProductInfo = getProductInfo,
+			getProductInfo = notRobloxAuthored and getProductInfo or getRobloxProductInfo,
 			getPlayerName = getPlayerName,
 			getAssetBundles = getAssetBundles,
 			createFavoriteForAsset = createFavoriteForAsset,

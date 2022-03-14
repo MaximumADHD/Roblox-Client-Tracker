@@ -16,9 +16,9 @@ local completeRequest = require(Root.Thunks.completeRequest)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagEnableXboxIAPAnalytics = require(Root.Flags.GetFFlagEnableXboxIAPAnalytics)
-
 local purchaseItem = require(script.Parent.purchaseItem)
+
+local GetFFlagPPRetryPost2SVWebviewFix = require(Root.Flags.GetFFlagPPRetryPost2SVWebviewFix)
 
 local MAX_RETRIES = game:DefineFastInt("UpsellAccountBalanceRetryAttemps", 3)
 local RETRY_RATE = game:DefineFastInt("UpsellAccountBalanceRetryIntervalSec", 1)
@@ -40,6 +40,11 @@ local function retryAfterUpsell(retriesRemaining)
 		local requestType = state.promptRequest.requestType
 		local promptState = state.promptState
 
+		if GetFFlagPPRetryPost2SVWebviewFix() then
+			if requestType == RequestType.None then
+				return
+			end
+		end
 
 		if requestType == RequestType.Premium then
 			if promptState == PromptState.UpsellInProgress then
@@ -70,15 +75,6 @@ local function retryAfterUpsell(retriesRemaining)
 							store:dispatch(ErrorOccurred(PurchaseError.InvalidFunds))
 						end
 					else
-						if GetFFlagEnableXboxIAPAnalytics() then
-							local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
-							if upsellFlow == UpsellFlow.Xbox then
-								local nativeProductId = state.nativeUpsell.robuxProductId
-								local productId = state.productInfo.productId
-								local requestType = state.requestType
-								analytics.signalXboxInGamePurchaseSuccess(productId, requestType, nativeProductId)
-							end
-						end
 						-- Upsell was successful and purchase can now be completed
 						store:dispatch(purchaseItem())
 					end

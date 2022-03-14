@@ -33,9 +33,12 @@
 		callback OnClickReport: what to do when clicking the report/flag button.
 		callback RenderFooter: Callback to render optional footer element for the preview.
 		boolean CanFlagAsset: Whether or not the user can flag/report the asset.
+		Enum.UsageContext UsageContext: The UsageContext for previewed assets.
 ]]
 local FFlagToolboxHideReportFlagForCreator = game:GetFastFlag("ToolboxHideReportFlagForCreator")
 local FFlagToolboxRedirectToLibraryAbuseReport = game:GetFastFlag("ToolboxRedirectToLibraryAbuseReport")
+local FFlagToolboxShowHasScriptInfo = game:GetFastFlag("ToolboxShowHasScriptInfo")
+local FFlagPluginsSetAudioPreviewUsageContext = game:GetFastFlag("PluginsSetAudioPreviewUsageContext")
 
 local TextService = game:GetService("TextService")
 
@@ -280,6 +283,7 @@ function AssetPreview:render()
 	local assetData = props.AssetData
 	local assetId = assetData.Asset.Id
 	local assetGenres = assetData.Asset.AssetGenres
+	local hasScripts = FFlagToolboxShowHasScriptInfo and assetData.Asset.HasScripts
 	local assetDescription = assetData.Asset.Description or ""
 
 	local localization = props.Localization
@@ -475,11 +479,52 @@ function AssetPreview:render()
 					OnPauseSound = self.onPauseSound,
 					OnPlayVideo = self.onPlayVideo,
 					OnPauseVideo = self.onPauseVideo,
+					UsageContext = if FFlagPluginsSetAudioPreviewUsageContext then props.UsageContext else nil,
 				}),
 
 				Favorites = props.Favorites and Roact.createElement(Favorites, Immutable.JoinDictionaries({
 					LayoutOrder = layoutOrderIterator:getNextOrder(),
 				}, props.Favorites)),
+
+				HasScripts = hasScripts and Roact.createElement(Container, {
+					LayoutOrder = layoutOrderIterator:getNextOrder(),
+					Size = style.ScrollingFrame.ScriptArea.Size,
+				}, {
+					Layout = Roact.createElement("UIListLayout", {
+						FillDirection = Enum.FillDirection.Horizontal,
+						HorizontalAlignment = Enum.HorizontalAlignment.Left,
+						VerticalAlignment = Enum.VerticalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = style.ScrollingFrame.ScriptArea.ElementPadding
+					}),
+
+					ScriptIcon = Roact.createElement(Image, {
+						Style = style.ScrollingFrame.ScriptArea.ScriptIcon,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+					}),
+
+					ScriptText = Roact.createElement(TextLabel, {
+						FitWidth = true,
+						FitMaxWidth = textMaxWidth,
+						TextWrapped = false,
+						Style = style.ScrollingFrame.ScriptArea.ScriptText,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+						Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "HasScriptsMessage"),
+					}),
+
+					ScriptInfoIcon = Roact.createElement(Image, {
+						Style = style.ScrollingFrame.ScriptArea.ScriptInfoIcon,
+						LayoutOrder = layoutOrderIterator:getNextOrder(),
+					}, {
+						Tooltip = Roact.createElement(Tooltip, {
+							Text = self.props.Localization:getProjectText(LOCALIZATION_PROJECT_NAME, COMPONENT_NAME, "HasScriptsTooltip"),
+						}),
+
+						HoverArea = Roact.createElement(HoverArea, {
+							Cursor = "PointingHand",
+						}),
+					}),
+				}),
 
 				AssetDescription = Roact.createElement(TextLabel, {
 					FitWidth = true,

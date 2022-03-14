@@ -18,6 +18,7 @@ local PolicyService = {}
 
 function PolicyService:InitAsync()
 	if _G.__TESTEZ_RUNNING_TEST__ then
+		isSubjectToChinaPolicies = false
 		-- Return here in the case of unit tests
 		return
 	end

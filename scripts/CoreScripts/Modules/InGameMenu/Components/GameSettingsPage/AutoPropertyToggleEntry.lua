@@ -16,7 +16,7 @@ local Constants = require(InGameMenu.Resources.Constants)
 local AutoPropertyToggleEntry = Roact.PureComponent:extend("AutoPropertyToggleEntry")
 AutoPropertyToggleEntry.validateProps = t.strictInterface({
 	instance = t.Instance,
-	key = t.string,
+	valueKey = t.string,
 	lockedToOff = t.optional(t.boolean),
 	onValue = t.optional(t.any),
 	offValue = t.optional(t.any),
@@ -35,15 +35,15 @@ AutoPropertyToggleEntry.defaultProps = {
 }
 
 function AutoPropertyToggleEntry:init(props)
-	local currentValue = props.instance[props.key]
-	self.changeEvent = props.instance:GetPropertyChangedSignal(props.key)
+	local currentValue = props.instance[props.valueKey]
+	self.changeEvent = props.instance:GetPropertyChangedSignal(props.valueKey)
 
 	self:setState({
 		checked = not props.lockedToOff and currentValue == props.onValue,
 	})
 
 	self.onExternalChange = function()
-		local newValue = props.instance[props.key]
+		local newValue = props.instance[props.valueKey]
 		self:setState({
 			checked = newValue == props.onValue
 		})
@@ -54,12 +54,12 @@ function AutoPropertyToggleEntry:init(props)
 			return
 		end
 
-		local isOn = props.instance[props.key] == props.onValue
+		local isOn = props.instance[props.valueKey] == props.onValue
 
 		if isOn then
-			props.instance[props.key] = props.offValue
+			props.instance[props.valueKey] = props.offValue
 		else
-			props.instance[props.key] = props.onValue
+			props.instance[props.valueKey] = props.onValue
 		end
 
 		SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)

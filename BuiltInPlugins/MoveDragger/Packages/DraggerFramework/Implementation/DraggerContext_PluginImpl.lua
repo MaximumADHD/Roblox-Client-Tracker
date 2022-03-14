@@ -13,8 +13,6 @@ local setInsertPoint = require(DraggerFramework.Utility.setInsertPoint)
 local FallbackLocalizationTable = DraggerFramework.Resources.TranslationDevelopmentTable
 local TranslatedLocalizationTable = DraggerFramework.Resources.TranslationReferenceTable
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 local DraggerContext = {}
 DraggerContext.__index = DraggerContext
 
@@ -28,7 +26,7 @@ function DraggerContext.new(plugin, editDataModel, userSettings, selection)
 		_plugin = plugin,
 		_userSettings = userSettings,
 		_studioService = editDataModel:GetService("StudioService"),
-		_draggerService = getFFlagSummonPivot() and editDataModel:GetService("DraggerService") or nil,
+		_draggerService = editDataModel:GetService("DraggerService"),
 		_runService = editDataModel:GetService("RunService"),
 		_studioSettings = userSettings.Studio,
 		_workspace = editDataModel:GetService("Workspace"),
@@ -112,11 +110,7 @@ function DraggerContext:getHoverBoxColor(isActive)
 end
 
 function DraggerContext:getHoverLineThickness()
-	if getFFlagSummonPivot() then
-		return self._draggerService.HoverThickness
-	else
-		return 0.04
-	end
+	return self._draggerService.HoverThickness
 end
 
 function DraggerContext:getSelectionBoxColor(isActive)

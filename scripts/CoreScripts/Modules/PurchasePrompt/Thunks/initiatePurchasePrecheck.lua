@@ -12,8 +12,6 @@ local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
-
 local resolvePurchasePrecheck = require(script.Parent.resolvePurchasePrecheck)
 
 local requiredServices = {
@@ -38,10 +36,7 @@ local function initiatePurchasePrecheck(productId)
 		local upsellFlow = getUpsellFlow(UserInputService:GetPlatform())
 
 		if upsellFlow == UpsellFlow.Mobile or upsellFlow == UpsellFlow.Xbox then
-			local productId = nil
-			if GetFFlagEnableScaryModalAnalytics() then
-				productId = state.productInfo.productId
-			end
+			local productId = state.productInfo.productId
 			local nativeProductId = state.nativeUpsell.robuxProductId
 
 			store:dispatch(SetButtonState(ButtonState.Disabled))
@@ -51,22 +46,16 @@ local function initiatePurchasePrecheck(productId)
 
 					if results then
 						if results.action == "U13PaymentModal" then
-							if GetFFlagEnableScaryModalAnalytics() then
-								analytics.signalScaryModalShown(productId, "U13PaymentModal", nativeProductId)
-							end
+							analytics.signalScaryModalShown(productId, "U13PaymentModal", nativeProductId)
 							return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.U13PaymentModal))
 						elseif results.action == "U13MonthlyThreshold1Modal" then
-							if GetFFlagEnableScaryModalAnalytics() then
-								analytics.signalScaryModalShown(productId, "U13MonthlyThreshold1Modal", nativeProductId)
-							end
+							analytics.signalScaryModalShown(productId, "U13MonthlyThreshold1Modal", nativeProductId)
 							return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.U13MonthlyThreshold1Modal))
 						-- Rest of UI is not setup yet, ignore this type of response.
 						--elseif results.action == "RequireEmailVerification" then
 						--	return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.RequireEmailVerification))
 						elseif results.action == "U13MonthlyThreshold2Modal" then
-							if GetFFlagEnableScaryModalAnalytics() then
-								analytics.signalScaryModalShown(productId, "U13MonthlyThreshold2Modal", nativeProductId)
-							end
+							analytics.signalScaryModalShown(productId, "U13MonthlyThreshold2Modal", nativeProductId)
 							return store:dispatch(resolvePurchasePrecheck(PurchaseWarning.U13MonthlyThreshold2Modal))
 						end
 					end

@@ -1,9 +1,14 @@
 local CorePackages = game:GetService("CorePackages")
 
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Cryo = require(CorePackages.Packages.Cryo)
 local Rodux = require(CorePackages.Packages.Rodux)
 local AddMessage = require(script.Parent.Parent.Actions.AddMessage)
 local RemoveMessage = require(script.Parent.Parent.Actions.RemoveMessage)
+local PlayerRemoved = require(RobloxGui.Modules.VoiceChat.Actions.PlayerRemoved)
+
+local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
 
 local userMessages = Rodux.createReducer({
 	-- [userId] = { messageId, ... }
@@ -34,6 +39,23 @@ local userMessages = Rodux.createReducer({
 					end)
 				})
 			end
+		else
+			return state
+		end
+	end,
+
+	[PlayerRemoved.name] = function(state, action)
+		-- This shouldn't get called if the flag is off, but just to be safe.
+		if not GetFFlagBubbleVoiceCleanupOnLeave() then
+			return state
+		end
+
+		local messages = state[action.userId]
+
+		if messages then
+			return Cryo.Dictionary.join(state, {
+				[action.userId] = Cryo.None,
+			})
 		else
 			return state
 		end

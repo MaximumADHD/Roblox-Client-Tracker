@@ -2,29 +2,24 @@
 	Mocks calls to certain platform-specific functions so that we can
 	ensure they're being called properly by our thunks.
 ]]
-local createSpy = require(script.Parent.createSpy)
+local Root = script.Parent.Parent
+
+local createSpy = require(Root.Test.createSpy)
+local PlatformInterface = require(Root.Services.PlatformInterface)
 
 local MockPlatformInterface = {}
 
 function MockPlatformInterface.new()
-	local startRobuxUpsellWeb = createSpy()
-	local promptNativePurchase = createSpy()
-	local startPremiumUpsell = createSpy()
-	local signalMockPurchasePremium = createSpy()
+	local platformInterface = PlatformInterface.new()
 
-	local mockService = {
-		startPremiumUpsell = startPremiumUpsell.value,
-		signalMockPurchasePremium = signalMockPurchasePremium.value,
-		startRobuxUpsellWeb = startRobuxUpsellWeb.value,
-		promptNativePurchase = promptNativePurchase.value,
-	}
+	local mockService = {}
+	local spies = {}
 
-	local spies = {
-		startPremiumUpsell = startPremiumUpsell,
-		signalMockPurchasePremium = signalMockPurchasePremium,
-		startRobuxUpsellWeb = startRobuxUpsellWeb,
-		promptNativePurchase = promptNativePurchase,
-	}
+	for k, v in pairs(platformInterface) do
+		local spyFunc = createSpy()
+		mockService[k] = spyFunc.value
+		spies[k] = spyFunc
+	end
 
 	setmetatable(mockService, {
 		__tostring = function()

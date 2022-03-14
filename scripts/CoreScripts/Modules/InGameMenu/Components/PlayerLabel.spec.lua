@@ -51,4 +51,40 @@ return function()
 		local instance = Roact.mount(element)
 		Roact.unmount(instance)
 	end)
+
+	it("should accept and assign a ref", function()
+		local ref = Roact.createRef()
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = Rodux.Store.new(reducer)
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
+			}, {
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					PlayerLabel = Roact.createElement(PlayerLabel, {
+						userId = 2231221,
+						username = "TheGamer101",
+						isOnline = true,
+						isSelected = false,
+						LayoutOrder = 1,
+						Visible = true,
+
+						[Roact.Ref] = ref,
+
+						onActivated = function()
+							print("clicked")
+						end,
+					}),
+				}),
+			}),
+		})
+
+		local instance = Roact.mount(element)
+		expect(ref.current).to.be.ok()
+		expect(ref.current:IsA("Instance")).to.equal(true)
+		Roact.unmount(instance)
+	end)
 end

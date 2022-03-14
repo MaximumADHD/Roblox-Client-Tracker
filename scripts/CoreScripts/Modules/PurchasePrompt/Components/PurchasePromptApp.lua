@@ -12,33 +12,32 @@ local IAPExperience = require(CorePackages.IAPExperience)
 local LocaleProvider =  IAPExperience.Locale.LocaleProvider
 
 local Reducer = require(Root.Reducers.Reducer)
+local ABTest = require(Root.Services.ABTest)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local Thunk = require(Root.Thunk)
 
-local PurchasePrompt = require(script.Parent.PurchasePrompt.PurchasePrompt)
 local PremiumPrompt = require(script.Parent.PremiumPrompt.PremiumPrompt)
 local EventConnections = require(script.Parent.Connection.EventConnections)
 local LayoutValuesProvider = require(script.Parent.Connection.LayoutValuesProvider)
 local provideRobloxLocale = require(script.Parent.Connection.provideRobloxLocale)
+local PurchasePromptPolicy = require(Root.Components.Connection.PurchasePromptPolicy)
 
-local PurchasePromptABTestContainer = require(script.Parent.PurchasePromptABTestContainer)
+local ProductPurchaseContainer = require(script.Parent.ProductPurchase.ProductPurchaseContainer)
 
 local DarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 local Gotham = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
 
-local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
-local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
-local GetFFlagProductPurchase = require(Root.Flags.GetFFlagProductPurchase)
-local GetFFlagProductPurchaseABTest = require(Root.Flags.GetFFlagProductPurchaseABTest)
+local GetFFlagPurchasePromptPurchaseWarningGuac = require(Root.Flags.GetFFlagPurchasePromptPurchaseWarningGuac)
 
 local PurchasePromptApp = Roact.Component:extend("PurchasePromptApp")
 
 function PurchasePromptApp:init()
 	local initialState = {}
 
+	local abTest = ABTest.new()
 	local network = Network.new()
 	local analytics = Analytics.new()
 	local platformInterface = PlatformInterface.new()
@@ -47,6 +46,7 @@ function PurchasePromptApp:init()
 	self.state = {
 		store = Rodux.Store.new(Reducer, initialState, {
 			Thunk.middleware({
+				[ABTest] = abTest,
 				[Network] = network,
 				[Analytics] = analytics,
 				[PlatformInterface] = platformInterface,
@@ -58,37 +58,68 @@ function PurchasePromptApp:init()
 end
 
 function PurchasePromptApp:render()
-	local useUISelector = GetFFlagProductPurchaseUpsell() or GetFFlagProductPurchase()
-		or GetFFlagProductPurchaseUpsellABTest() or GetFFlagProductPurchaseABTest()
 	return provideRobloxLocale(function()
-		return Roact.createElement(RoactRodux.StoreProvider, {
-			store = self.state.store,
-		}, {
-			StyleProvider = Roact.createElement(StyleProvider, {
-				style = {
-					Theme = DarkTheme,
-					Font = Gotham,
-				},
+		if GetFFlagPurchasePromptPurchaseWarningGuac() then
+			return Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
 			}, {
-				PurchasePrompt = Roact.createElement(LayoutValuesProvider, {
-					isTenFootInterface = self.state.isTenFootInterface,
-					render = function()
-						return Roact.createElement("ScreenGui", {
+				StyleProvider = Roact.createElement(StyleProvider, {
+					style = {
+						Theme = DarkTheme,
+						Font = Gotham,
+					},
+				}, {
+					LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+						isTenFootInterface = self.state.isTenFootInterface,
+					}, {
+						PolicyProvider = Roact.createElement(PurchasePromptPolicy.Provider, {
+							policy = { PurchasePromptPolicy.Mapper },
+						}, {
+							PurchasePrompt = Roact.createElement("ScreenGui", {
+								AutoLocalize = false,
+								IgnoreGuiInset = true,
+							}, {
+								PremiumPromptUI = Roact.createElement(PremiumPrompt),
+								ProductPurchase = Roact.createElement(LocaleProvider, {
+									locale = LocalizationService.RobloxLocaleId
+								}, {
+									ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer)
+								}),
+								EventConnections = Roact.createElement(EventConnections),
+							})
+						})
+					})
+				})
+			})
+		else
+			return Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
+			}, {
+				StyleProvider = Roact.createElement(StyleProvider, {
+					style = {
+						Theme = DarkTheme,
+						Font = Gotham,
+					},
+				}, {
+					LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+						isTenFootInterface = self.state.isTenFootInterface,
+					}, {
+						PurchasePrompt = Roact.createElement("ScreenGui", {
 							AutoLocalize = false,
 							IgnoreGuiInset = true,
 						}, {
 							PremiumPromptUI = Roact.createElement(PremiumPrompt),
-							ProductPurchase = useUISelector and Roact.createElement(LocaleProvider, {
+							ProductPurchase = Roact.createElement(LocaleProvider, {
 								locale = LocalizationService.RobloxLocaleId
 							}, {
-								ProductPurchaseContainer = Roact.createElement(PurchasePromptABTestContainer)
-							}) or Roact.createElement(PurchasePrompt),
+								ProductPurchaseContainer = Roact.createElement(ProductPurchaseContainer)
+							}),
 							EventConnections = Roact.createElement(EventConnections),
 						})
-					end
+					})
 				})
 			})
-		})
+		end
 	end)
 end
 

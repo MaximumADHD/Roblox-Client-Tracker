@@ -17,9 +17,6 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 local computeDraggedDistance = require(DraggerFramework.Utility.computeDraggedDistance)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-local getFFlagLimitScaling = require(DraggerFramework.Flags.getFFlagLimitScaling)
-local getFFlagFixDraggerMovingInWrongDirection = require(DraggerFramework.Flags.getFFlagFixDraggerMovingInWrongDirection)
 
 local ExtrudeHandle = {}
 ExtrudeHandle.__index = ExtrudeHandle
@@ -160,11 +157,7 @@ end
 function ExtrudeHandle:_rememberCurrentBoundsAsOriginal()
 	self._originalBoundingBoxSize = self._boundingBox.Size
 	self._originalBoundingBoxCFrame = self._boundingBox.CFrame
-	if getFFlagSummonPivot() then
-		self._originalBasisOffset = self:_getBasisOffset().Position
-	else
-		self._originalBasisOffset = self._basisOffset.Position
-	end
+	self._originalBasisOffset = self:_getBasisOffset().Position
 	local axis = self._handles[self._draggingHandleId].Axis
 	local perpendicularMovement = self._originalBasisOffset
 	perpendicularMovement = perpendicularMovement - axis * perpendicularMovement:Dot(axis)
@@ -191,14 +184,6 @@ function ExtrudeHandle:_refreshDrag()
 	local hasDistance, distance =
 		self:_getDistanceAlongAxis(self._draggerContext:getMouseRay())
 	self._startDistance = hasDistance and distance or 0
-end
-
-function ExtrudeHandle:_getExtrudeMode()
-	local keepAspectRatio = self._implementation:shouldKeepAspectRatio(
-		self._selectionWrapper:get(), self._selectionInfo, self._normalId)
-	local resizeFromCenter = self._implementation:shouldScaleFromCenter(
-		self._selectionWrapper:get(), self._selectionInfo, self._normalId)
-	return keepAspectRatio, resizeFromCenter
 end
 
 local function areAxesSame(old, new)
@@ -235,27 +220,11 @@ end
 
 -- Returns, whether we did need to refresh the drag
 function ExtrudeHandle:_refreshDragIfNeeded()
-	local refreshNeeded = false
-	if getFFlagLimitScaling() then
-		refreshNeeded = self:_updateExtrudeMode()
-		if refreshNeeded and self._handles[self._draggingHandleId] then
-			self:_refreshDrag()
-		end
-		return refreshNeeded
-	else
-        local keepAspectRatio, resizeFromCenter = self:_getExtrudeMode()
-        if keepAspectRatio ~= self._lastKeepAspectRatio or
-                resizeFromCenter ~= self._lastResizeFromCenter then
-                if self._handles[self._draggingHandleId] then
-                        self:_refreshDrag()
-                end
-                self._lastKeepAspectRatio = keepAspectRatio
-                self._lastResizeFromCenter = resizeFromCenter
-                return true
- 		else
-			return false
-		end
+	local refreshNeeded = self:_updateExtrudeMode()
+	if refreshNeeded and self._handles[self._draggingHandleId] then
+		self:_refreshDrag()
 	end
+	return refreshNeeded
 end
 
 function ExtrudeHandle:keyDown(keyCode)
@@ -360,31 +329,18 @@ function ExtrudeHandle:render(hoveredHandleId)
 		end
 	end
 
-	if getFFlagLimitScaling() then
-		-- Show selection bounding box when scaling multiple items, or when scaling limit has been reached
-		if self:_shouldDrawBoundingBox() then
-			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
-				CFrame = self._boundingBox.CFrame,
-				Size = self._boundingBox.Size,
-				Color = self:_getBoundingBoxColor(),
-				LineThickness = self:_getBoundingBoxThickness(),
-				Container = self._draggerContext:getGuiParent(),
-			})
-		end
-	else
-	-- Show selection bounding box when scaling multiple items.
-		if self._props.ShowBoundingBox and #self._selectionWrapper:get() > 1 then
-			children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
-				CFrame = self._boundingBox.CFrame,
-				Size = self._boundingBox.Size,
-				Color = self._draggerContext:getSelectionBoxColor(),
-				LineThickness = self._draggerContext:getHoverLineThickness(),
-				Container = self._draggerContext:getGuiParent(),
-			})
-		end
+	-- Show selection bounding box when scaling multiple items, or when scaling limit has been reached
+	if self:_shouldDrawBoundingBox() then
+		children.SelectionBoundingBox = Roact.createElement(StandaloneSelectionBox, {
+			CFrame = self._boundingBox.CFrame,
+			Size = self._boundingBox.Size,
+			Color = self:_getBoundingBoxColor(),
+			LineThickness = self:_getBoundingBoxThickness(),
+			Container = self._draggerContext:getGuiParent(),
+		})
 	end
 
-	if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() and self._props.Summonable then
+	if getEngineFeatureModelPivotVisual() and self._props.Summonable then
 		if self._summonBasisOffset then
 			children.SummonedPivot = Roact.createElement(DraggedPivot, {
 				DraggerContext = self._draggerContext,
@@ -412,21 +368,10 @@ function ExtrudeHandle:mouseDown(mouseRay, handleId)
 		self._originalBoundingBoxSize = self._boundingBox.Size
 	end
 
-	if getFFlagLimitScaling() then
-		self:_updateExtrudeMode()
-	else
-		self._lastKeepAspectRatio, self._lastResizeFromCenter = self:_getExtrudeMode()
-		self._minimumSize = self._implementation:getMinimumSize(
-			self._selectionWrapper:get(), self._selectionInfo, self._normalId)
-	end
+	self:_updateExtrudeMode()
 
 	local hasDistance, distance = self:_getDistanceAlongAxis(mouseRay)
-	if getFFlagFixDraggerMovingInWrongDirection() then
-		self._startDistance = hasDistance and distance or 0.0
-	else
-		assert(hasDistance)
-		self._startDistance = distance
-	end
+	self._startDistance = hasDistance and distance or 0.0
 
 	-- When you change extrude modes mid drag, we need to separate the
 	-- resize you've done so far from the part you will do in the new mode.
@@ -530,54 +475,24 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 		local sizeComponents = {self._originalBoundingBoxSize.X, self._originalBoundingBoxSize.Y, self._originalBoundingBoxSize.Z}
 		local ratio = delta / sizeComponents[normalId]
 		
-		if getFFlagSummonPivot() then
-			-- The condition here is relevant in the case where you summon the
-			-- pivot while resizing a single part.
-			if getFFlagLimitScaling() then
-				ratio *= Math.setToVector3(self._lastAxesToScale)
-				localOffset = localOffset - self._perpendicularMovement * ratio
-			else
-				if self._lastKeepAspectRatio then
-					localOffset = localOffset - self._perpendicularMovement * ratio
-				end
-			end
-		else
-			localOffset = localOffset - self._perpendicularMovement * ratio
-		end
+		-- The condition here is relevant in the case where you summon the
+		-- pivot while resizing a single part.
+		ratio *= Math.setToVector3(self._lastAxesToScale)
+		localOffset = localOffset - self._perpendicularMovement * ratio
 	end
 
 	-- Determine the size change for the selection
 	local originalSize = self._originalBoundingBoxSize
-	local deltaSize, actualDelta
-	if getFFlagLimitScaling() then
-		local axesToScale = self._lastAxesToScale
-		local gridSize = self._draggerContext:getGridSize()
-		local minSize = self._minimumSize
-		local maxSize = self._maximumSize
-		deltaSize, actualDelta = computeDeltaSizeMultiaxis(originalSize, delta, normalId, axesToScale, gridSize, minSize, maxSize)
-		if delta ~= 0 then
-			localOffset = localOffset * (actualDelta / delta)
-		end
-		self._scalingLimitReachedUpper = delta - actualDelta > 0
-		self._scalingLimitReachedLower = actualDelta - delta > 0
-	else
-		deltaSize = computeDeltaSize(originalSize, delta, normalId, self._lastKeepAspectRatio)
-		local targetSize = originalSize + deltaSize
-		local modTargetSize = self._minimumSize:Max(targetSize)
-		if targetSize ~= modTargetSize then
-			if self._lastKeepAspectRatio then
-				-- Can't keep aspect ratio while applying a min size, bail out
-				-- TODO: Improve this
-				return
-			end
-			local newDeltaSize = modTargetSize - self._originalBoundingBoxSize
-			local denominator = maxComponent(deltaSize)
-			local fractionPossible = (denominator > 0) and
-				(maxComponent(newDeltaSize) / denominator) or 0
-			localOffset = localOffset * fractionPossible
-			deltaSize = newDeltaSize
-		end
+	local axesToScale = self._lastAxesToScale
+	local gridSize = self._draggerContext:getGridSize()
+	local minSize = self._minimumSize
+	local maxSize = self._maximumSize
+	local deltaSize, actualDelta = computeDeltaSizeMultiaxis(originalSize, delta, normalId, axesToScale, gridSize, minSize, maxSize)
+	if delta ~= 0 then
+		localOffset = localOffset * (actualDelta / delta)
 	end
+	self._scalingLimitReachedUpper = delta - actualDelta > 0
+	self._scalingLimitReachedLower = actualDelta - delta > 0
 
 	local deltaSizeToApply = deltaSize + self._committedDeltaSize
 	local localOffsetToApply = localOffset + self._committedOffset
@@ -596,7 +511,7 @@ function ExtrudeHandle:mouseDrag(mouseRay)
 	self._boundingBox.CFrame = self._originalBoundingBoxCFrame * CFrame.new(self._lastOffset - self._committedOffset)
 	self._boundingBox.Size = originalSize + (self._lastDeltaSize - self._committedDeltaSize)
 	if getEngineFeatureModelPivotVisual() then
-		if getFFlagSummonPivot() and self._summonBasisOffset then
+		if self._summonBasisOffset then
 			self._summonBasisOffset =
 				CFrame.new(self._originalBasisOffset / self._originalBoundingBoxSize * self._boundingBox.Size)
 			-- We can't stop summoning in the middle of a drag, so no need to
@@ -619,32 +534,20 @@ function ExtrudeHandle:mouseUp(mouseRay)
 	self._scalingLimitReachedLower = false
 	self._resizeWasConstrained = false
 
-	if getFFlagSummonPivot() and not self._tabKeyDown then
+	if not self._tabKeyDown then
 		self:_endSummon()
 	end
 	self._schema.addUndoWaypoint(self._draggerContext, "Scale Selection")
 end
 
 function ExtrudeHandle:_getDistanceAlongAxis(mouseRay)
-	-- Addresses MOD-621
-	if getFFlagFixDraggerMovingInWrongDirection() then
-		local dragDirection = self._handleCFrame.LookVector
-		local dragFrame = self._originalBoundingBoxCFrame
-		if getEngineFeatureModelPivotVisual() then
-			dragFrame =  dragFrame * CFrame.new(self._originalBasisOffset)
-		end
-		local dragStartPosition = dragFrame.Position
-		return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
-	else
-		local axis = self._handleCFrame.LookVector
-		if getEngineFeatureModelPivotVisual() then
-			return Math.intersectRayRay(
-				(self._originalBoundingBoxCFrame * CFrame.new(self._originalBasisOffset)).Position, axis,
-				mouseRay.Origin, mouseRay.Direction.Unit)
-		else
-			return Math.intersectRayRay(self._originalBoundingBoxCFrame.Position, axis, mouseRay.Origin, mouseRay.Direction.Unit)
-		end
+	local dragDirection = self._handleCFrame.LookVector
+	local dragFrame = self._originalBoundingBoxCFrame
+	if getEngineFeatureModelPivotVisual() then
+		dragFrame =  dragFrame * CFrame.new(self._originalBasisOffset)
 	end
+	local dragStartPosition = dragFrame.Position
+	return computeDraggedDistance(dragStartPosition, dragDirection, mouseRay)
 end
 
 function ExtrudeHandle:_updateHandles()
@@ -660,12 +563,7 @@ function ExtrudeHandle:_updateHandles()
 				local inverseHandleCFrame = offset:Inverse()
 				local localSize = inverseHandleCFrame:VectorToWorldSpace(self._boundingBox.Size)
 				local offsetDueToBoundingBox = 0.5 * math.abs(localSize.Z)
-				local offsetDueToBasisOffset
-				if getFFlagSummonPivot() then
-					offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self:_getBasisOffset().Position)
-				else
-					offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self._basisOffset.Position)
-				end
+				local offsetDueToBasisOffset = inverseHandleCFrame:VectorToWorldSpace(self:_getBasisOffset().Position)
 				local handleBaseCFrame =
 					self._boundingBox.CFrame *
 					offset *
@@ -694,7 +592,7 @@ function ExtrudeHandle:_updateHandles()
 	end
 end
 
-if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() then
+if getEngineFeatureModelPivotVisual() then
 	function ExtrudeHandle:keyDown(keyCode)
 		if keyCode == Enum.KeyCode.Tab then
 			self._tabKeyDown = true

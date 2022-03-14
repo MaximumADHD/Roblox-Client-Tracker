@@ -1,47 +1,52 @@
 return function()
 	local Analytics = require(script.Parent.Analytics)
 
+	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
+
 	describe("new()", function()
 		it("should properly construct a new object", function()
 			local na = Analytics.new()
-			expect(na).to.be.ok()
+			jestExpect(na).never.toBeNil()
 		end)
 
 		it("should accept a custom reporting service", function()
 			local fakeService = {}
 			local na = Analytics.new(fakeService)
-			expect(na).to.be.ok()
+			jestExpect(na).never.toBeNil()
 		end)
 
 		it("should have a reporter specifically for Diag", function()
 			local na = Analytics.new()
-			expect(na.Diag).to.be.ok()
+			jestExpect(na.Diag).never.toBeNil()
 		end)
 
 		it("should have a reporter specifically for RBXEventStream", function()
 			local na = Analytics.new()
-			expect(na.EventStream).to.be.ok()
+			jestExpect(na.EventStream).never.toBeNil()
 		end)
 
 		it("should have a reporter specifically for Google Analytics", function()
 			local na = Analytics.new()
-			expect(na.GoogleAnalytics).to.be.ok()
+			jestExpect(na.GoogleAnalytics).never.toBeNil()
 		end)
 
 		it("should have a reporter specifically for Influx", function()
 			local na = Analytics.new()
-			expect(na.InfluxDb).to.be.ok()
+			jestExpect(na.InfluxDb).never.toBeNil()
 		end)
 	end)
 
 	describe("mock()", function()
 		it("should properly construct a new object", function()
 			local ma = Analytics.mock()
-			expect(ma).to.be.ok()
-			expect(ma.Diag).to.be.ok()
-			expect(ma.EventStream).to.be.ok()
-			expect(ma.GoogleAnalytics).to.be.ok()
-			expect(ma.InfluxDb).to.be.ok()
+			jestExpect(ma).toEqual({
+				Diag = jestExpect.anything(),
+				EventStream = jestExpect.anything(),
+				GoogleAnalytics = jestExpect.anything(),
+				InfluxDb = jestExpect.anything()
+			})
 		end)
 
 		it("should succeed for all function calls in Diag", function()

@@ -5,14 +5,6 @@ local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local FFlagFixPlayerPermissionsPerf = game:DefineFastFlag("FixPlayerPermissionsPerf", false)
-
-local PlayerGroupInfoMap = not FFlagFixPlayerPermissionsPerf and {}
-local PlayerGroupInfoMapChanged = not FFlagFixPlayerPermissionsPerf and Instance.new("BindableEvent")
-
-local PlayerCanManageInfoMap = not FFlagFixPlayerPermissionsPerf and {}
-local PlayerCanManageInfoMapChanged = not FFlagFixPlayerPermissionsPerf and Instance.new("BindableEvent")
-
 local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
 
 local PlayerInfo = {}
@@ -25,6 +17,7 @@ function PlayerInfo.new(player: Player)
 	self.pendingCanManage = {}
 	self.groupData = nil
 	self.canManage = nil
+	return self
 end
 
 function PlayerInfo:getGroupDataAsync()
@@ -46,7 +39,7 @@ function PlayerInfo:getCanManageAsync()
 	local thread = coroutine.running()
 	table.insert(self.pendingCanManage, thread)
 	coroutine.yield()
-	return self.groupData
+	return self.canManage
 end
 
 function PlayerInfo:setGroupData(data)
@@ -96,7 +89,7 @@ spawn(function()
 
 	if isPackInGameJoinDataEnabledClient() then
 		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(...)
-			local remoteArguments = {...}
+			local remoteArguments = { ... }
 
 			if #remoteArguments == 1 then --Only one parameter, so it should be the data dictionary
 				local groupDetailsPacket = remoteArguments[1]
@@ -105,20 +98,11 @@ spawn(function()
 				for userIdStr, groupDetails in pairs(groupDetailsPacket) do
 					local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 					if player then
-						if FFlagFixPlayerPermissionsPerf then
-							local info = getPlayerInfo(player)
-							if info then
-								info:setGroupData(groupDetails)
-							end
-						else
-							infoMapWasChanged = true
-							PlayerGroupInfoMap[player] = groupDetails
+						local info = getPlayerInfo(player)
+						if info then
+							info:setGroupData(groupDetails)
 						end
 					end
-				end
-
-				if not FFlagFixPlayerPermissionsPerf and infoMapWasChanged then
-					PlayerGroupInfoMapChanged:Fire()
 				end
 			else --More arguments, server flag isn't enabled yet
 				local userIdStr = remoteArguments[1]
@@ -126,14 +110,9 @@ spawn(function()
 
 				local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 				if player then
-					if FFlagFixPlayerPermissionsPerf then
-						local info = getPlayerInfo(player)
-						if info then
-							info:setGroupData(groupDetails)
-						end
-					else
-						PlayerGroupInfoMap[player] = groupDetails
-						PlayerGroupInfoMapChanged:Fire()
+					local info = getPlayerInfo(player)
+					if info then
+						info:setGroupData(groupDetails)
 					end
 				end
 			end
@@ -142,14 +121,9 @@ spawn(function()
 		RemoveEvent_NewPlayerGroupDetails.OnClientEvent:Connect(function(userIdStr, groupDetails)
 			local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 			if player then
-				if FFlagFixPlayerPermissionsPerf then
-					local info = getPlayerInfo(player)
-					if info then
-						info:setGroupData(groupDetails)
-					end
-				else
-					PlayerGroupInfoMap[player] = groupDetails
-					PlayerGroupInfoMapChanged:Fire()
+				local info = getPlayerInfo(player)
+				if info then
+					info:setGroupData(groupDetails)
 				end
 			end
 		end)
@@ -158,80 +132,50 @@ end)
 
 coroutine.wrap(function()
 	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-	local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild("NewPlayerCanManageDetails", math.huge)
+	local RemoveEvent_NewPlayerCanManageDetails = RobloxReplicatedStorage:WaitForChild(
+		"NewPlayerCanManageDetails",
+		math.huge
+	)
 	RemoveEvent_NewPlayerCanManageDetails.OnClientEvent:Connect(function(userIdStr, canManage)
 		local player = PlayersService:GetPlayerByUserId(tonumber(userIdStr))
 		if player then
-			if FFlagFixPlayerPermissionsPerf then
-				local info = getPlayerInfo(player)
-				if info then
-					info:setCanManage(canManage)
-				end
-			else
-				PlayerCanManageInfoMap[player] = canManage
-				PlayerCanManageInfoMapChanged:Fire()
+			local info = getPlayerInfo(player)
+			if info then
+				info:setCanManage(canManage)
 			end
 		end
 	end)
 end)()
 
 PlayersService.PlayerRemoving:Connect(function(player)
-	if FFlagFixPlayerPermissionsPerf then
-		if playerInfoMap[player] then
-			local info = playerInfoMap[player]
-			playerInfoMap[player] = nil
-			info:destroy()
-		end
-	else
-		PlayerGroupInfoMap[player] = nil
-		PlayerGroupInfoMapChanged:Fire()
+	if playerInfoMap[player] then
+		local info = playerInfoMap[player]
+		playerInfoMap[player] = nil
+		info:destroy()
 	end
 end)
 
 local function NewInGroupFunctionFactory(groupKey)
-	if FFlagFixPlayerPermissionsPerf then
-		return function(player)
-			local info = getPlayerInfo(player)
-			if info then
-				local data = info:getGroupDataAsync()
-				if data and data[groupKey] then
-					return true
-				end
-			end
-			return false
-		end
-	else
-		return function(player)
-			while not PlayerGroupInfoMap[player] and player.Parent do
-				PlayerGroupInfoMapChanged.Event:wait()
-			end
-			local groupInfo = PlayerGroupInfoMap[player]
-			if groupInfo and groupInfo[groupKey] then
+	return function(player)
+		local info = getPlayerInfo(player)
+		if info then
+			local data = info:getGroupDataAsync()
+			if data and data[groupKey] then
 				return true
 			end
-			return false
 		end
+		return false
 	end
 end
 
-local localizationCheckFunctions
-if FFlagFixPlayerPermissionsPerf then
-	localizationCheckFunctions = {
-		NewInGroupFunctionFactory("SpanishLocalizationExpert"),
-		NewInGroupFunctionFactory("BrazilianLocalizationExpert"),
-		NewInGroupFunctionFactory("FrenchLocalizationExpert"),
-		NewInGroupFunctionFactory("GermanLocalizationExpert"),
-	}
-end
+local localizationCheckFunctions = {
+	NewInGroupFunctionFactory("SpanishLocalizationExpert"),
+	NewInGroupFunctionFactory("BrazilianLocalizationExpert"),
+	NewInGroupFunctionFactory("FrenchLocalizationExpert"),
+	NewInGroupFunctionFactory("GermanLocalizationExpert"),
+}
+
 local function NewIsLocalizationExpertFunctionFactory()
-	if not FFlagFixPlayerPermissionsPerf then
-		localizationCheckFunctions = {
-			NewInGroupFunctionFactory("SpanishLocalizationExpert"),
-			NewInGroupFunctionFactory("BrazilianLocalizationExpert"),
-			NewInGroupFunctionFactory("FrenchLocalizationExpert"),
-			NewInGroupFunctionFactory("GermanLocalizationExpert"),
-		}
-	end
 	return function(player)
 		for i = 1, #localizationCheckFunctions do
 			if localizationCheckFunctions[i](player) then
@@ -252,22 +196,12 @@ local function IsPlaceOwnerFunctionFactory()
 end
 
 local function CanPlayerManagePlace(player)
-	if FFlagFixPlayerPermissionsPerf then
-		local info = getPlayerInfo(player)
-		if info then
-			local canManage = info:getCanManageAsync()
-			return canManage or false
-		end
-		return false
-	else
-		while PlayerCanManageInfoMap[player] == nil and player.Parent do
-			PlayerCanManageInfoMapChanged.Event:Wait()
-		end
-		if PlayerCanManageInfoMap[player] ~= nil then
-			return PlayerCanManageInfoMap[player]
-		end
-		return false
+	local info = getPlayerInfo(player)
+	if info then
+		local canManage = info:getCanManageAsync()
+		return canManage or false
 	end
+	return false
 end
 
 PlayerPermissionsModule.IsPlayerAdminAsync = NewInGroupFunctionFactory("Admin")

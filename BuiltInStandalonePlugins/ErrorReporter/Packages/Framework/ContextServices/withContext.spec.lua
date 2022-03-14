@@ -1,13 +1,19 @@
 return function()
 	local Framework = script.Parent.Parent
 	local Roact = require(Framework.Parent.Roact)
+	-- TODO STUDIOPLAT-27078 Replace with Roact.act when all plugins use Roact 17 
+	local act = if Roact.Ref == "ref" then Roact.act else function(fn) fn() end
 	local withContext = require(script.Parent.withContext)
 	local ContextItem = require(script.Parent.ContextItem)
-	local Provider = require(script.Parent.Provider)
 	local provide = require(script.Parent.provide)
 
 	local Util = require(Framework.Util)
 	local Signal = Util.Signal
+
+	local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+	if not FFlagDevFrameworkUseCreateContext then
+		return
+	end
 
 	it("should throw if called before defining Render", function()
 		expect(function()
@@ -35,11 +41,6 @@ return function()
 		local confirmed = false
 
 		local testItem = ContextItem:extend("TestItem")
-		function testItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-			}, {root})
-		end
 		function testItem:confirm()
 			confirmed = true
 		end
@@ -68,26 +69,20 @@ return function()
 
 		local testItem = ContextItem:extend("TestItem")
 		testItem.update = Signal.new()
-		function testItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-				UpdateSignal = self.update,
-			}, {root})
-		end
 		function testItem:fireUpdate()
 			self.update:Fire(self)
+		end
+		function testItem:getSignal()
+			return self.update
 		end
 
 		local otherItem = ContextItem:extend("OtherItem")
 		otherItem.update = Signal.new()
-		function otherItem:createProvider(root)
-			return Roact.createElement(Provider, {
-				ContextItem = self,
-				UpdateSignal = self.update,
-			}, {root})
-		end
 		function otherItem:fireUpdate()
 			self.update:Fire(self)
+		end
+		function otherItem:getSignal()
+			return self.update
 		end
 
 		local Component = Roact.PureComponent:extend("TestComponent")
@@ -105,9 +100,13 @@ return function()
 		local instance = Roact.mount(tree)
 
 		expect(renders).to.equal(1)
-		testItem:fireUpdate()
+		act(function()
+			testItem:fireUpdate()
+		end)
 		expect(renders).to.equal(2)
-		otherItem:fireUpdate()
+		act(function()
+			otherItem:fireUpdate()
+		end)
 		expect(renders).to.equal(3)
 		Roact.unmount(instance)
 	end)

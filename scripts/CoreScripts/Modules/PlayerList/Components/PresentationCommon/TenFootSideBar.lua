@@ -14,6 +14,8 @@ local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibili
 
 local isNewInGameMenuEnabled = require(CoreGui.RobloxGui.Modules.isNewInGameMenuEnabled)
 
+local GetFFlagNewSidebarInitalizationLogic = require(CoreGui.RobloxGui.Modules.Flags.GetFFlagNewSidebarInitalizationLogic)
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local TenFootSideBar = Roact.PureComponent:extend("TenFootSideBar")
@@ -72,6 +74,14 @@ function TenFootSideBar:openSidebar(player)
 	local stringsModule = RobloxGui.Modules:FindFirstChild("LocalizedStrings") or RobloxGui.Modules.Shell.LocalizedStrings
 	local Strings = require(stringsModule)
 
+	if GetFFlagNewSidebarInitalizationLogic() then
+		if not self.sideBar then
+			local sideBarModule = RobloxGui.Modules:FindFirstChild("SideBar") or RobloxGui.Modules.Shell.SideBar
+			local createSideBarFunc = require(sideBarModule)
+			self.sideBar = createSideBarFunc()
+		end
+	end
+
 	self.sideBar:RemoveAllItems()
 	if addGamerCardItem then
 		self.sideBar:AddItem(Strings:LocalizedString("ViewGamerCardWord"), function()
@@ -119,10 +129,12 @@ function TenFootSideBar:openSidebar(player)
 end
 
 function TenFootSideBar:didMount()
-	if not RunService:IsStudio() then
-		local sideBarModule = RobloxGui.Modules:FindFirstChild("SideBar") or RobloxGui.Modules.Shell.SideBar
-		local createSideBarFunc = require(sideBarModule)
-		self.sideBar = createSideBarFunc()
+	if not GetFFlagNewSidebarInitalizationLogic() then
+		if not RunService:IsStudio() then
+			local sideBarModule = RobloxGui.Modules:FindFirstChild("SideBar") or RobloxGui.Modules.Shell.SideBar
+			local createSideBarFunc = require(sideBarModule)
+			self.sideBar = createSideBarFunc()
+		end
 	end
 
 	if self.props.sideBarVisible then

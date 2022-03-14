@@ -46,9 +46,10 @@ function ExternalEventConnection:didUpdate(oldProps)
 end
 
 function ExternalEventConnection:willUnmount()
-	self.connection:Disconnect()
-
-	self.connection = nil
+	if self.connection then
+		self.connection:Disconnect()
+		self.connection = nil
+	end
 end
 
 return ExternalEventConnection

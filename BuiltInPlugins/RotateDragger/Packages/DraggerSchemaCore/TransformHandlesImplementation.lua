@@ -8,8 +8,6 @@ local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 local getGeometry = require(DraggerFramework.Utility.getGeometry)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 local TransformHandlesImplementation = {}
 TransformHandlesImplementation.__index = TransformHandlesImplementation
 
@@ -112,10 +110,7 @@ end
 	Returns: A Roact element.
 ]]
 function TransformHandlesImplementation:render(globalTransform)
-	local newCenterPoint = globalTransform
-	if getFFlagSummonPivot() then
-		newCenterPoint = globalTransform * self._centerPoint
-	end
+	local newCenterPoint = globalTransform * self._centerPoint
 	if self._draggerContext:shouldJoinSurfaces() and self._jointPairs then
 		local scale = getBoundingBoxScale(
 			self._draggerContext, newCenterPoint, self._boundingBoxSize)

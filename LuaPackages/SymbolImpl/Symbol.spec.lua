@@ -1,24 +1,28 @@
 return function()
 	local Symbol = require(script.Parent.Symbol)
 
+	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
+
 	describe("named", function()
 		it("should give an opaque object", function()
 			local symbol = Symbol.named("foo")
 
-			expect(symbol).to.be.a("userdata")
+			jestExpect(typeof(symbol)).toBe("userdata")
 		end)
 
 		it("should coerce to the given name", function()
 			local symbol = Symbol.named("foo")
 			local location = tostring(symbol):find("foo")
-			expect(location).to.be.ok()
+			jestExpect(location).never.toBeNil()
 		end)
 
 		it("should be unique when constructed", function()
 			local symbolA = Symbol.named("abc")
 			local symbolB = Symbol.named("abc")
 
-			expect(symbolA).never.to.equal(symbolB)
+			jestExpect(symbolA).never.toBe(symbolB)
 		end)
 	end)
 
@@ -26,20 +30,20 @@ return function()
 		it("should give an opaque object", function()
 			local symbol = Symbol.unnamed()
 
-			expect(symbol).to.be.a("userdata")
+			jestExpect(typeof(symbol)).toBe("userdata")
 		end)
 
 		it("should coerce to some string", function()
 			local symbol = Symbol.unnamed()
 
-			expect(tostring(symbol)).to.be.a("string")
+			jestExpect(tostring(symbol)).toEqual(jestExpect.any("string"))
 		end)
 
 		it("should be unique when constructed", function()
 			local symbolA = Symbol.unnamed()
 			local symbolB = Symbol.unnamed()
 
-			expect(symbolA).never.to.equal(symbolB)
+			jestExpect(symbolA).never.toBe(symbolB)
 		end)
 	end)
 end

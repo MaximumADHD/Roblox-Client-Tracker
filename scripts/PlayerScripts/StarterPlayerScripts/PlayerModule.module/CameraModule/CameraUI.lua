@@ -7,7 +7,7 @@ if not LocalPlayer then
 	LocalPlayer = Players.LocalPlayer
 end
 
-local function waitForChildOfClass(parent, class)
+local function waitForChildOfClass(parent: Instance, class: string)
 	local child = parent:FindFirstChildOfClass(class)
 	while not child or child.ClassName ~= class do
 		child = parent.ChildAdded:Wait()
@@ -25,7 +25,7 @@ local TOAST_FOREGROUND_COLOR = Color3.fromRGB(200, 200, 200)
 local TOAST_FOREGROUND_TRANS = 0
 
 -- Convenient syntax for creating a tree of instanes
-local function create(className)
+local function create(className: string)
 	return function(props)
 		local inst = Instance.new(className)
 		local parent = props.Parent
@@ -45,7 +45,7 @@ end
 
 local initialized = false
 
-local uiRoot
+local uiRoot: ScreenGui
 local toast
 local toastIcon
 local toastUpperText
@@ -154,7 +154,7 @@ local CameraUI = {}
 
 do
 	-- Instantaneously disable the toast or enable for opening later on. Used when switching camera modes.
-	function CameraUI.setCameraModeToastEnabled(enabled)
+	function CameraUI.setCameraModeToastEnabled(enabled: boolean)
 		if not enabled and not initialized then
 			return
 		end
@@ -172,7 +172,7 @@ do
 	local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
 	-- Tween the toast in or out. Toast must be enabled with setCameraModeToastEnabled.
-	function CameraUI.setCameraModeToastOpen(open)
+	function CameraUI.setCameraModeToastOpen(open: boolean)
 		assert(initialized)
 
 		TweenService:Create(toast, tweenInfo, {

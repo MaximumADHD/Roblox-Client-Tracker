@@ -12,6 +12,8 @@ local GuiService = game:GetService("GuiService")
 local VRService = game:GetService("VRService")
 local Utility = require(RobloxGui.Modules.Settings.Utility)
 
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+
 local LocalPlayer = Players.LocalPlayer
 while not LocalPlayer do
 	Players.Changed:wait()
@@ -348,6 +350,10 @@ function LaserPointer:calculateLaunchVelocity(gravity, desiredRange, height)
 end
 
 function LaserPointer:isHeadMounted()
+	if FFlagEnableNewVrSystem then
+		return VRService.GuiInputUserCFrame == Enum.UserCFrame.Head
+	end
+	
 	return self.inputUserCFrame == Enum.UserCFrame.Head
 end
 

@@ -13,8 +13,11 @@ local AvatarEditorPromptsApp = require(script.Components.AvatarEditorPromptsApp)
 local Reducer = require(script.Reducer)
 
 local GetGameName = require(script.Thunks.GetGameName)
+local AvatarEditorPromptsPolicy = require(script.AvatarEditorPromptsPolicy)
 
 local RoactGlobalConfig = require(script.RoactGlobalConfig)
+
+local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
 local AvatarEditorPrompts = {}
 AvatarEditorPrompts.__index = AvatarEditorPrompts
@@ -44,15 +47,31 @@ function AvatarEditorPrompts.new()
 		Font = AppFont,
 	}
 
-	self.root = Roact.createElement(RoactRodux.StoreProvider, {
-		store = self.store,
-	}, {
-		ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-			style = appStyle,
+	if EngineFeatureAESMoreOutfitMethods then
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
 		}, {
-			AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp)
+			PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
+				policy = { AvatarEditorPromptsPolicy.Mapper },
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp)
+				})
+			})
 		})
-	})
+	else
+		self.root = Roact.createElement(RoactRodux.StoreProvider, {
+			store = self.store,
+		}, {
+			ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+				style = appStyle,
+			}, {
+				AvatarEditorPromptsApp = Roact.createElement(AvatarEditorPromptsApp)
+			})
+		})
+	end
 
 	self.element = Roact.mount(self.root, CoreGui, "AvatarEditorPrompts")
 

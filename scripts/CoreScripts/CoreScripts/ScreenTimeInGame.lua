@@ -1,16 +1,24 @@
-local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local NotificationService = game:GetService("NotificationService")
 local CorePackages = game:GetService("CorePackages")
 local HttpService = game:GetService("HttpService")
+local AnalyticsService = game:GetService("RbxAnalyticsService")
 local ScreenTimeHttpRequests = require(CorePackages.Regulations.ScreenTime.HttpRequests)
 local ScreenTimeConstants = require(CorePackages.Regulations.ScreenTime.Constants)
 local GetFFlagScreenTimeSignalR = require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeSignalR)
 local Logging = require(CorePackages.Logging)
 local ErrorPrompt = require(RobloxGui.Modules.ErrorPrompt)
-local Url = require(RobloxGui.Modules.Common.Url)
+local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
+local GetFFlagScreenTimeShowLogoutPromptInGame
+	= require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeShowLogoutPromptInGame)
+local GetFFlagScreenTimeCallLogoutEndpointAfterLogoutInGame
+	= require(CorePackages.Regulations.ScreenTime.GetFFlagScreenTimeCallLogoutEndpointAfterLogoutInGame)
+
+local showLogoutPromptInGame = GetFFlagScreenTimeShowLogoutPromptInGame()
+	and not game:GetEngineFeature("UniversalAppOnWindows")
+	and not game:GetEngineFeature("UniversalAppOnMac")
 
 local function leaveGame()
 	GuiService.SelectedCoreObject = nil
@@ -26,6 +34,15 @@ local ScreenTimeState = {
 local TAG = "ScreenTimeInGame"
 
 local screenTimeHttpRequests = ScreenTimeHttpRequests:new(HttpService)
+local screenTimeUpdatedConnection
+
+local function disconnectAndLeaveGame()
+	if screenTimeUpdatedConnection then
+		screenTimeUpdatedConnection:Disconnect()
+		screenTimeUpdatedConnection = nil
+	end
+	leaveGame()
+end
 
 --[[
 Resolving message:
@@ -46,6 +63,7 @@ local messageQueue = {
 				id = instruction.serialId,
 				instructionName = instruction.instructionName,
 				message = instruction.message,
+				type = instruction.type,
 			}
 			table.insert(self.pendingResolveMessage, pendingMessage)
 		end
@@ -78,6 +96,13 @@ local messageQueue = {
 		self.resolvedMessage[self.displaying.id] = self.displaying.message
 		-- Report execution after user interacted
 		screenTimeHttpRequests:reportExecution(self.displaying.instructionName, self.displaying.id)
+		if GetFFlagScreenTimeShowLogoutPromptInGame() and self.displaying.type == ScreenTimeState.Lockout then
+			disconnectAndLeaveGame()
+			if GetFFlagScreenTimeCallLogoutEndpointAfterLogoutInGame() then
+				screenTimeHttpRequests:logout()
+			end
+		end
+
 		self.displaying = nil
 		self:processNext()
 	end,
@@ -113,6 +138,7 @@ local buttonList = {
 }
 
 messageQueue.displayMessageCallback = displayMessage
+
 prompt:updateButtons(buttonList)
 prompt:setErrorTitle("Warning", "InGame.CommonUI.Title.Warning")
 
@@ -131,18 +157,19 @@ end
 RobloxGui:GetPropertyChangedSignal("AbsoluteSize"):connect(onScreenSizeChanged)
 onScreenSizeChanged()
 
-
-
-local screenTimeUpdatedConnection
 local function screenTimeStatesUpdated(instructions)
-	local lockout = false
 	local filteredInstructions = {}
 	for _, instruction in ipairs(instructions) do
 		if instruction.type == ScreenTimeState.Warning then
 			table.insert(filteredInstructions, instruction)
 		elseif instruction.type == ScreenTimeState.Lockout then
-			-- If there is a lockout, we will stop getting other state and then leaveGame
-			lockout = true
+			if showLogoutPromptInGame then
+				table.insert(filteredInstructions, instruction)
+			else
+				-- If there is a lockout, we will stop getting other state and then leaveGame
+				disconnectAndLeaveGame()
+				return
+			end
 			break
 		elseif instruction.type == ScreenTimeState.OpenWebView then
 			-- Don’t process it in games according to the requirement.
@@ -151,15 +178,7 @@ local function screenTimeStatesUpdated(instructions)
 		end
 	end
 
-	if lockout then
-		-- immediately quit when locked out
-		if screenTimeUpdatedConnection then
-			screenTimeUpdatedConnection:Disconnect()
-		end
-		leaveGame()
-	else
-		messageQueue:update(filteredInstructions)
-	end
+	messageQueue:update(filteredInstructions)
 end
 
 local function requestInstructions()
@@ -175,6 +194,38 @@ local function requestInstructions()
 	end)
 end
 
+local function showScreenTimeHeartbeatConsecutiveFailurePrompt()
+	-- Setting up the prompt and connect callbacks
+	local promptConfig = {
+		MessageTextScaled = true,
+		HideErrorCode = true,
+		MenuIsOpenKey = "ScreenTimePrompt",
+	}
+
+	local kickoutPrompt = ErrorPrompt.new("Default", promptConfig)
+	kickoutPrompt:setParent(RobloxGui)
+
+	local function confirmCallback()
+		prompt:onErrorChanged("")
+		disconnectAndLeaveGame()
+	end
+
+	local btn = {
+		{
+			Text = "OK",
+			LocalizationKey = "InGame.CommonUI.Button.Ok",
+			LayoutOrder = 1,
+			Callback = confirmCallback,
+			Primary = true,
+		}
+	}
+
+	prompt:updateButtons(btn)
+	prompt:setErrorTitle("Warning", "InGame.CommonUI.Title.Warning")
+	prompt:onErrorChanged(RobloxTranslator:FormatByKey("Feature.Screentime.Description.HeartbeatConsecutiveFailure"))
+	AnalyticsService:ReportCounter("ScreenTime-LogoutAfterConsecutiveHeartbeatFailure-FromGame")
+end
+
 screenTimeUpdatedConnection = NotificationService.RobloxEventReceived:Connect(function(eventData)
 	if GetFFlagScreenTimeSignalR() then
 		if eventData.namespace == ScreenTimeConstants.SIGNALR_NAMESPACE and
@@ -183,6 +234,15 @@ screenTimeUpdatedConnection = NotificationService.RobloxEventReceived:Connect(fu
 		end
 	else
 		if eventData.namespace == ScreenTimeConstants.HEARTBEAT_NOTIFICATIONS_NAMESPACE then
+			if eventData.detailType == ScreenTimeConstants.HEARTBEAT_CONSECUTIVE_FAILURE then
+				if showLogoutPromptInGame then
+					showScreenTimeHeartbeatConsecutiveFailurePrompt()
+				else
+					disconnectAndLeaveGame()
+				end
+				return
+			end
+
 			local success, json = pcall(function()
 				return HttpService:JSONDecode(eventData.detail)
 			end)

@@ -6,36 +6,46 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
 local InGameMenu = script.Parent.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local SetInputType = require(InGameMenu.Actions.SetInputType)
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local InputType = Constants.InputType
+local InputTypeMap
+local InputType
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	InputTypeMap = Constants.InputTypeMap
+else
+	InputType = Constants.InputType
+end
 
 local LastInputTypeConnector = Roact.PureComponent:extend("LastInputTypeConnector")
 
-local inputTypeMap = {
-	[Enum.UserInputType.MouseButton2] = InputType.MouseAndKeyBoard,
-	[Enum.UserInputType.MouseButton3] = InputType.MouseAndKeyBoard,
-	[Enum.UserInputType.MouseWheel] = InputType.MouseAndKeyBoard,
-	[Enum.UserInputType.MouseMovement] = InputType.MouseAndKeyBoard,
-	[Enum.UserInputType.Keyboard] = InputType.MouseAndKeyBoard,
+if not GetFFlagInGameMenuControllerDevelopmentOnly() then
+	InputTypeMap = {
+		[Enum.UserInputType.MouseButton2] = InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseButton3] = InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseWheel] = InputType.MouseAndKeyboard,
+		[Enum.UserInputType.MouseMovement] = InputType.MouseAndKeyboard,
+		[Enum.UserInputType.Keyboard] = InputType.MouseAndKeyboard,
 
-	[Enum.UserInputType.Gamepad1] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad2] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad3] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad4] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad5] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad6] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad7] = InputType.Gamepad,
-	[Enum.UserInputType.Gamepad8] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad1] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad2] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad3] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad4] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad5] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad6] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad7] = InputType.Gamepad,
+		[Enum.UserInputType.Gamepad8] = InputType.Gamepad,
 
-	[Enum.UserInputType.Touch] = InputType.Touch,
-}
+		[Enum.UserInputType.Touch] = InputType.Touch,
+	}
+end
 
 function LastInputTypeConnector:init()
-	local initalInputType = inputTypeMap[UserInputService:GetLastInputType()]
+	local initalInputType = InputTypeMap[UserInputService:GetLastInputType()]
 	if initalInputType then
 		self.props.setInputType(initalInputType)
 	end
@@ -45,7 +55,7 @@ function LastInputTypeConnector:render()
 	return Roact.createElement(ExternalEventConnection, {
 		event = UserInputService.LastInputTypeChanged,
 		callback = function(lastInputType)
-			local inputType = inputTypeMap[lastInputType]
+			local inputType = InputTypeMap[lastInputType]
 			if inputType then
 				self.props.setInputType(inputType)
 			end

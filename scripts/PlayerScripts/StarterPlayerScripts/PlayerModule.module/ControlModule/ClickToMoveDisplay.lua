@@ -137,7 +137,7 @@ local function getTrailDotParent()
 	return trailParent
 end
 
-local function placePathWaypoint(waypointModel, position)
+local function placePathWaypoint(waypointModel, position: Vector3)
 	local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
 	local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
 		ray,
@@ -157,7 +157,7 @@ function TrailDot:Destroy()
 end
 
 function TrailDot:NewDisplayModel(position)
-	local newDisplayModel = TrailDotTemplate:Clone()
+	local newDisplayModel: Part = TrailDotTemplate:Clone()
 	placePathWaypoint(newDisplayModel, position)
 	return newDisplayModel
 end
@@ -181,7 +181,7 @@ function EndWaypoint:Destroy()
 end
 
 function EndWaypoint:NewDisplayModel(position)
-	local newDisplayModel = EndWaypointTemplate:Clone()
+	local newDisplayModel: Part = EndWaypointTemplate:Clone()
 	placePathWaypoint(newDisplayModel, position)
 	return newDisplayModel
 end
@@ -197,8 +197,8 @@ function EndWaypoint:CreateTween()
 	return tween
 end
 
-function EndWaypoint:TweenInFrom(originalPosition)
-	local currentPositon = self.DisplayModel.Position
+function EndWaypoint:TweenInFrom(originalPosition: Vector3)
+	local currentPositon: Vector3 = self.DisplayModel.Position
 	local studsOffset = originalPosition - currentPositon
 	self.DisplayModel.EndWaypointBillboard.StudsOffset = Vector3.new(0, studsOffset.Y, 0)
 	local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out)
@@ -211,7 +211,7 @@ function EndWaypoint:TweenInFrom(originalPosition)
 	return tween
 end
 
-function EndWaypoint.new(position, closestWaypoint, originalPosition)
+function EndWaypoint.new(position: Vector3, closestWaypoint: number?, originalPosition: Vector3?)
 	local self = setmetatable({}, EndWaypoint)
 
 	self.DisplayModel = self:NewDisplayModel(position)
@@ -244,7 +244,7 @@ function FailureWaypoint:Destroy()
 end
 
 function FailureWaypoint:NewDisplayModel(position)
-	local newDisplayModel = FailureWaypointTemplate:Clone()
+	local newDisplayModel: Part = FailureWaypointTemplate:Clone()
 	placePathWaypoint(newDisplayModel, position)
 	local ray = Ray.new(position + Vector3.new(0, 2.5, 0), Vector3.new(0, -10, 0))
 	local hitPart, hitPoint, hitNormal = Workspace:FindPartOnRayWithIgnoreList(
@@ -318,7 +318,7 @@ local failureAnimation = Instance.new("Animation")
 failureAnimation.AnimationId = FAILURE_ANIMATION_ID
 
 local lastHumanoid = nil
-local lastFailureAnimationTrack = nil
+local lastFailureAnimationTrack: AnimationTrack? = nil
 
 local function getFailureAnimationTrack(myHumanoid)
 	if myHumanoid == lastHumanoid then
@@ -337,7 +337,7 @@ local function findPlayerHumanoid()
 	end
 end
 
-local function createTrailDots(wayPoints, originalEndWaypoint)
+local function createTrailDots(wayPoints: {PathWaypoint}, originalEndWaypoint: Vector3)
 	local newTrailDots = {}
 	local count = 1
 	for i = 1, #wayPoints - 1 do
@@ -362,7 +362,7 @@ local function createTrailDots(wayPoints, originalEndWaypoint)
 	return reversedTrailDots
 end
 
-local function getTrailDotScale(distanceToCamera, defaultSize)
+local function getTrailDotScale(distanceToCamera: number, defaultSize: Vector2)
 	local rangeLength = TRAIL_DOT_MAX_DISTANCE - TRAIL_DOT_MIN_DISTANCE
 	local inRangePoint = math.clamp(distanceToCamera - TRAIL_DOT_MIN_DISTANCE, 0, rangeLength)/rangeLength
 	local scale = TRAIL_DOT_MIN_SCALE + (TRAIL_DOT_MAX_SCALE - TRAIL_DOT_MIN_SCALE)*inRangePoint
@@ -396,7 +396,7 @@ function ClickToMoveDisplay.CreatePathDisplay(wayPoints, originalEndWaypoint)
 		end
 		local cameraPos = Workspace.CurrentCamera.CFrame.p
 		for i = 1, #trailDots do
-			local trailDotImage = trailDots[i].DisplayModel:FindFirstChild("TrailDotImage")
+			local trailDotImage: ImageHandleAdornment = trailDots[i].DisplayModel:FindFirstChild("TrailDotImage")
 			if trailDotImage then
 				local distanceToCamera = (trailDots[i].DisplayModel.Position - cameraPos).magnitude
 				trailDotImage.Size = getTrailDotScale(distanceToCamera, TrailDotSize)

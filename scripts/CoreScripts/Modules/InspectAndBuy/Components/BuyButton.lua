@@ -9,8 +9,6 @@ local Colors = require(InspectAndBuyFolder.Colors)
 local PromptPurchase = require(InspectAndBuyFolder.Thunks.PromptPurchase)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagInspectAndBuyGamepadPromptFix = game:DefineFastFlag("InspectAndBuyGamepadPromptFix", false)
-
 local TEXT_SIZE = 16
 local MIN_SIZE = 32
 local ROBUX_ICON_SIZE = 16
@@ -62,7 +60,7 @@ function BuyButton:render()
 		[Roact.Ref] = buyButtonRef,
 		[Roact.Event.Activated] = function()
 			if forSale then
-				if FFlagInspectAndBuyGamepadPromptFix and self.props.gamepadEnabled and self.props.visible then
+				if self.props.gamepadEnabled and self.props.visible then
 					-- remove focus when the prompt opens so we can properly interact with the prompt using gamepad
 					self.lastGamepadFocus = GuiService.SelectedCoreObject
 					GuiService.SelectedCoreObject = nil
@@ -100,20 +98,18 @@ function BuyButton:render()
 	})
 end
 
-if FFlagInspectAndBuyGamepadPromptFix then
-	function BuyButton:didMount()
-		local purchaseFinishedListener =
-				MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
-		local bundlePurchaseFinishedListener =
-			MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
-		table.insert(self.connections, purchaseFinishedListener)
-		table.insert(self.connections, bundlePurchaseFinishedListener)
-	end
+function BuyButton:didMount()
+	local purchaseFinishedListener =
+			MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	local bundlePurchaseFinishedListener =
+		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
+	table.insert(self.connections, purchaseFinishedListener)
+	table.insert(self.connections, bundlePurchaseFinishedListener)
+end
 
-	function BuyButton:willUnmount()
-		for _, connection in pairs(self.connections) do
-			connection:Disconnect()
-		end
+function BuyButton:willUnmount()
+	for _, connection in pairs(self.connections) do
+		connection:Disconnect()
 	end
 end
 

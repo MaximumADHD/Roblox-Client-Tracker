@@ -2,15 +2,17 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local RequestType = require(Root.Enums.RequestType)
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local Reducer = require(Root.Reducers.Reducer)
+	local ABTest = require(Root.Services.ABTest)
 	local Network = require(Root.Services.Network)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
+	local MockABTest = require(Root.Test.MockABTest)
 	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local Thunk = require(Root.Thunk)
@@ -23,6 +25,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiatePurchase(15, Enum.InfoType.Product, false)
 
 		Thunk.test(thunk, store, {
+			[ABTest] = MockABTest.new(),
 			[Network] = MockNetwork.new(),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
@@ -46,6 +49,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiatePurchase(999, Enum.InfoType.Product, false)
 
 		Thunk.test(thunk, store, {
+			[ABTest] = MockABTest.new(),
 			[Network] = MockNetwork.new(),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
@@ -61,7 +65,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiatePurchase(15, Enum.InfoType.Product, false)
 
 		Thunk.test(thunk, store, {
-			[Network] = MockNetwork.new(true),
+			[ABTest] = MockABTest.new(),
+			[Network] = MockNetwork.new(nil, "Network Failure"),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
 
@@ -75,7 +80,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiatePurchase(15, Enum.InfoType.Product, false)
 
 		Thunk.test(thunk, store, {
-			[Network] = MockNetwork.new(true),
+			[ABTest] = MockABTest.new(),
+			[Network] = MockNetwork.new(nil, "Network Failure"),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {
 				Order66 = true,
 			}),

@@ -1,3 +1,4 @@
+--!strict
 --[[
 	BaseCharacterController - Abstract base class for character controllers, not intended to be
 	directly instantiated.
@@ -5,7 +6,7 @@
 	2018 PlayerScripts Update - AllYourBlox
 --]]
 
-local ZERO_VECTOR3 = Vector3.new(0,0,0)
+local ZERO_VECTOR3: Vector3 = Vector3.new(0,0,0)
 
 --[[ The Module ]]--
 local BaseCharacterController = {}
@@ -20,25 +21,25 @@ function BaseCharacterController.new()
 	return self
 end
 
-function BaseCharacterController:OnRenderStepped(dt)
+function BaseCharacterController:OnRenderStepped(dt: number)
 	-- By default, nothing to do
 end
 
-function BaseCharacterController:GetMoveVector()
+function BaseCharacterController:GetMoveVector(): Vector3
 	return self.moveVector
 end
 
-function BaseCharacterController:IsMoveVectorCameraRelative()
+function BaseCharacterController:IsMoveVectorCameraRelative(): boolean
 	return self.moveVectorIsCameraRelative
 end
 
-function BaseCharacterController:GetIsJumping()
+function BaseCharacterController:GetIsJumping(): boolean
 	return self.isJumping
 end
 
 -- Override in derived classes to set self.enabled and return boolean indicating
 -- whether Enable/Disable was successful. Return true if controller is already in the requested state.
-function BaseCharacterController:Enable(enable)
+function BaseCharacterController:Enable(enable: boolean): boolean
 	error("BaseCharacterController:Enable must be overridden in derived classes and should not be called.")
 	return false
 end

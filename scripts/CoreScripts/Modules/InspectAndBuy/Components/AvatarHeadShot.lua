@@ -11,9 +11,6 @@ local AvatarHeadShot = Roact.PureComponent:extend("AvatarHeadShot")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 
-local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
-local FFlagHideAvatarHeadShotInspectAndBuy = game:DefineFastFlag("HideAvatarHeadShotInspectAndBuy", false)
-
 local LegacyThumbnailUrls = require(CoreGuiModules.Common.LegacyThumbnailUrls)
 
 local HEADSHOT_THUMBNAIL_SIZE = 48
@@ -24,15 +21,12 @@ function AvatarHeadShot:render()
 
 	local headshotUrl = nil
 	if playerId and playerId ~= "" then
-		headshotUrl = HEAD_SHOT_URL:format(HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE, playerId)
-		if GetFFlagUseThumbnailUrl() then
-			headshotUrl = HEAD_SHOT_URL:format(playerId, HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE)
-		end
+		headshotUrl = HEAD_SHOT_URL:format(playerId, HEADSHOT_THUMBNAIL_SIZE, HEADSHOT_THUMBNAIL_SIZE)
 	end
 
 	-- if headshot is nil, don't render the AvatarHeadShot. For example, this will be the case when
 	-- the menu is brought up by InspectPlayerFromHumanoidDescription since only a player name is expected
-	if FFlagHideAvatarHeadShotInspectAndBuy and (not headshotUrl) then
+	if not headshotUrl then
 		return nil
 	end
 

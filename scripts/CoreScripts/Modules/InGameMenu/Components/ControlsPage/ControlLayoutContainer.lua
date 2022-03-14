@@ -7,6 +7,8 @@ local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent.Parent
 
@@ -17,6 +19,7 @@ local Divider = require(script.Parent.Parent.Divider)
 -- local KeyLabel = require(script.Parent.KeyLabel)
 
 local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+local NavigateBack = require(InGameMenu.Actions.NavigateBack)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -25,6 +28,8 @@ local Constants = require(InGameMenu.Resources.Constants)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local HEADER_HEIGHT = 132
 
@@ -36,9 +41,10 @@ local validateProps = t.strictInterface({
 	titleText = t.string,
 	[Roact.Children] = t.optional(t.table),
 	onClosed = t.callback,
+	closeButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
 })
 
-local function ControlLayoutContainer(props)
+local function ControlLayoutContainerWithSelectionCursor(props, getSelectionCursor)
 	if GlobalConfig.propValidation then
 		assert(validateProps(props))
 	end
@@ -77,7 +83,11 @@ local function ControlLayoutContainer(props)
 						Image = Assets.Images.CloseModal,
 						BackgroundTransparency = 1,
 
+						SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly()
+							and getSelectionCursor(CursorKind.RoundedRect) or nil,
+
 						[Roact.Event.Activated] = props.onClosed,
+						[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and props.closeButtonRef or nil,
 					}),
 					HeaderTextLabel = Roact.createElement(ThemedTextLabel, {
 						fontKey = "Header1",
@@ -124,12 +134,26 @@ local function ControlLayoutContainer(props)
 	end)
 end
 
+local function ControlLayoutContainer(props)
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return ControlLayoutContainerWithSelectionCursor(props, getSelectionCursor)
+		end)
+	else
+		return ControlLayoutContainerWithSelectionCursor(props)
+	end
+end
+
 return RoactRodux.UNSTABLE_connect2(
 	nil,
 	function(dispatch)
 		return {
 			onClosed = function()
-				dispatch(SetCurrentPage(Constants.defaultPageKey))
+				if GetFFlagInGameMenuControllerDevelopmentOnly() then
+					dispatch(NavigateBack())
+				else
+					dispatch(SetCurrentPage(Constants.defaultPageKey))
+				end
 			end
 		}
 	end

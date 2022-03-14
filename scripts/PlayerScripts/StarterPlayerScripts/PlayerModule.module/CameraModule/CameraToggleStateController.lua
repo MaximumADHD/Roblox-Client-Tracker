@@ -1,3 +1,4 @@
+--!strict
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local GameSettings = UserSettings():GetService("UserGameSettings")
@@ -24,7 +25,7 @@ local lastFirstPerson = false
 
 CameraUI.setCameraModeToastEnabled(false)
 
-return function(isFirstPerson)
+return function(isFirstPerson: boolean)
 	local togglePan = Input.getTogglePan()
 	local toastTimeout = 3
 

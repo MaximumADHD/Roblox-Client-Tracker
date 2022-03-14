@@ -29,7 +29,7 @@ local ChatConstants = require(replicatedModules:WaitForChild("ChatConstants"))
 local Util = require(modulesFolder:WaitForChild("Util"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 ChatLocalization = ChatLocalization or {}
 
 if not ChatLocalization.FormatMessageToSend or not ChatLocalization.LocalizeFormattedMessage then

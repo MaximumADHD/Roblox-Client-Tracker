@@ -40,12 +40,12 @@
 		* LANGUAGE_COUNTRY is more specific than LANGUAGE
 ]]
 
-local function getBaseLanguage(languageName)
-	return languageName:match("^(%w+)[-_]")
-end
-
 local LocalizationContext = {}
 LocalizationContext.__index = LocalizationContext
+
+function LocalizationContext.getBaseLanguage(languageName)
+	return languageName:match("^(%w+)[-_]")
+end
 
 function LocalizationContext.new(translations)
 	local self = {
@@ -78,7 +78,7 @@ function LocalizationContext.getRelevantLanguages(primaryLanguage)
 	table.insert(languages, primaryLanguage)
 
 	-- If there's a fallback for our current language, load that as well.
-	local fallbackLanguage = getBaseLanguage(primaryLanguage)
+	local fallbackLanguage = LocalizationContext.getBaseLanguage(primaryLanguage)
 	if fallbackLanguage then
 		table.insert(languages, fallbackLanguage)
 	end
@@ -106,7 +106,7 @@ end
 function LocalizationContext:getString(language, key, parameters)
 	local exactValue = self:_getSourceString(language, key)
 
-	local baseLanguage = getBaseLanguage(language)
+	local baseLanguage = LocalizationContext.getBaseLanguage(language)
 
 	local baseLanguageValue
 	if baseLanguage then

@@ -32,7 +32,6 @@ local Constants = require(EmotesModules.Constants)
 local CoreScriptModules = EmotesModules.Parent
 local RobloxTranslator = require(CoreScriptModules.RobloxTranslator)
 
-local FFlagFixEmotesHotkeyAzerty = game:DefineFastFlag("FixEmotesHotkeyAzerty", false)
 local GetFFlagNewEmotesInGame = require(RobloxGui.Modules.Flags.GetFFlagNewEmotesInGame)
 
 local EmotesMenu = Roact.PureComponent:extend("EmotesMenu")
@@ -59,10 +58,8 @@ function EmotesMenu:bindActions()
 			return Enum.ContextActionResult.Pass
 		end
 
-		if FFlagFixEmotesHotkeyAzerty then
-			if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
-				return Enum.ContextActionResult.Pass
-			end
+		if UserInputService:IsKeyDown(Enum.KeyCode.LeftShift) or UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then
+			return Enum.ContextActionResult.Pass
 		end
 
 		if inputState == Enum.UserInputState.Begin then

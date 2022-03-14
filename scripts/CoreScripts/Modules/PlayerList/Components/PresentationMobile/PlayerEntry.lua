@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local Players = game:GetService("Players")
 
 local LocalPlayer = Players.LocalPlayer
@@ -9,6 +10,9 @@ local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
 
 local withStyle = UIBlox.Style.withStyle
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -28,10 +32,10 @@ local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 PlayerEntry.validateProps = t.strictInterface({
 	topDiv = t.optional(t.boolean),
 	bottomDiv = t.optional(t.boolean),
-	player = t.instanceIsA("Player"),
+	player = playerInterface,
 	titlePlayerEntry = t.boolean,
 	entrySize = t.integer,
-	layoutOrder = t.integer,
+	layoutOrder = t.optional(t.integer),
 
 	playerStats = t.map(t.string, t.any),
 
@@ -65,6 +69,8 @@ PlayerEntry.validateProps = t.strictInterface({
 
 	closeDropDown = t.callback,
 	openDropDown = t.callback,
+
+	Position = t.optional(t.UDim2),
 })
 
 function PlayerEntry:init()
@@ -209,7 +215,7 @@ function PlayerEntry:render()
 			local bottomDiv = self.props.bottomDiv or false
 
 			return Roact.createElement("ImageButton", {
-				Position = UDim2.fromOffset(0, 0),
+				Position = self.props.Position,
 				Size = UDim2.new(1, layoutValues.EntryXOffset, 0, layoutValues.PlayerEntrySizeY),
 				AutoButtonColor = false,
 				BackgroundColor3 = self:getBackgroundColor(layoutValues),

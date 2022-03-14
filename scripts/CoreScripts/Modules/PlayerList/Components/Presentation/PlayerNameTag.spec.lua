@@ -33,7 +33,6 @@ return function()
 					player = Players.LocalPlayer,
 					isTitleEntry = false,
 					isHovered = false,
-					layoutOrder = 2,
 
 					textStyle = {
 						Color = Color3.new(1, 1, 1),
@@ -41,8 +40,10 @@ return function()
 					},
 					textFont = {
 						Size = 20,
+						MinSize = 20,
 						Font = Enum.Font.Gotham,
 					},
+					layoutOrder = 0,
 				})
 			})
 		})
@@ -65,13 +66,14 @@ return function()
 					player = Players.LocalPlayer,
 					isTitleEntry = true,
 					isHovered = true,
-					layoutOrder = 1,
 
 					textStyle = layoutValues.DefaultTextStyle,
 					textFont = {
 						Size = 32,
+						MinSize = 32,
 						Font = Enum.Font.Gotham,
 					},
+					layoutOrder = 0,
 				})
 			})
 		})

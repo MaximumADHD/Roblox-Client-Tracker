@@ -1,4 +1,4 @@
-game:DefineFastInt("EducationalPopupDisplayMaxCount", 1)
+game:DefineFastInt("EducationalPopupDisplayMaxCount", 0)
 return function()
 	return game:GetFastInt("EducationalPopupDisplayMaxCount")
 end

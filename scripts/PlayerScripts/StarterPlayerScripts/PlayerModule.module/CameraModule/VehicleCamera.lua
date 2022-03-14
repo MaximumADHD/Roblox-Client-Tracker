@@ -77,7 +77,7 @@ function VehicleCamera:_StepInitialZoom()
 	))
 end
 
-function VehicleCamera:_StepRotation(dt, vdotz)
+function VehicleCamera:_StepRotation(dt, vdotz): CFrame
 	local yawSpring = self.yawSpring
 	local pitchSpring = self.pitchSpring
 	
@@ -144,7 +144,7 @@ function VehicleCamera:_GetThirdPersonLocalOffset()
 	return self.assemblyOffset + Vector3.new(0, self.assemblyRadius*VehicleCameraConfig.verticalCenterOffset, 0)
 end
 
-function VehicleCamera:_GetFirstPersonLocalOffset(subjectCFrame)
+function VehicleCamera:_GetFirstPersonLocalOffset(subjectCFrame: CFrame)
 	local character = localPlayer.Character
 	
 	if character and character.Parent then
@@ -172,8 +172,8 @@ function VehicleCamera:Update()
 	worldDt = 0
 	
 	-- get subject info
-	local subjectCFrame = self:GetSubjectCFrame()
-	local subjectVel = self:GetSubjectVelocity()
+	local subjectCFrame: CFrame = self:GetSubjectCFrame()
+	local subjectVel: Vector3 = self:GetSubjectVelocity()
 	local subjectRotVel = self:GetSubjectRotVelocity()
 	
 	-- measure the local-to-world-space forward velocity of the vehicle

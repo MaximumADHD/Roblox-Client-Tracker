@@ -38,6 +38,38 @@ return function()
 		Roact.unmount(instance)
 	end)
 
+	it("should accept and assign refs", function()
+		local ref = Roact.createRef()
+		local layoutValues = CreateLayoutValues(false)
+
+		local element = Roact.createElement(LayoutValuesProvider, {
+			layoutValues = layoutValues
+		}, {
+			EntryFrame = Roact.createElement(EntryFrame, {
+				sizeX = 50,
+				sizeY = 50,
+				isTeamFrame = false,
+
+				backgroundStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 1,
+				},
+				overlayStyle = {
+					Color = Color3.new(1, 1, 1),
+					Transparency = 0.5,
+				},
+				doubleOverlay = true,
+				[Roact.Ref] = ref,
+			})
+		})
+		local instance = Roact.mount(element)
+
+		expect(ref.current).to.be.ok()
+		expect(ref.current:IsA("Instance")).to.equal(true)
+
+		Roact.unmount(instance)
+	end)
+
 	it("should create and destroy without errors while tenfoot", function()
 		local element = Roact.createElement(LayoutValuesProvider, {
 			layoutValues = CreateLayoutValues(true)

@@ -23,8 +23,6 @@ local PerformSaveAvatar = require(AvatarEditorPrompts.Thunks.PerformSaveAvatar)
 
 local GetConformedHumanoidDescription = require(AvatarEditorPrompts.GetConformedHumanoidDescription)
 
-local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
-
 local SCREEN_SIZE_PADDING = 30
 local VIEWPORT_MAX_TOP_PADDING = 40
 local VIEWPORT_SIDE_PADDING = 5
@@ -48,17 +46,11 @@ SaveAvatarPrompt.validateProps = t.strictInterface({
 function SaveAvatarPrompt:init()
 	self.mounted = false
 
-	if EngineFeatureAESConformToAvatarRules then
-		self:setState({
-			conformedHumanoidDescription = nil,
-			getConformedDescriptionFailed = false,
-			itemListScrollable = false,
-		})
-	else
-		self:setState({
-			itemListScrollable = false,
-		})
-	end
+	self:setState({
+		conformedHumanoidDescription = nil,
+		getConformedDescriptionFailed = false,
+		itemListScrollable = false,
+	})
 
 	self.middleContentRef = Roact.createRef()
 	self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
@@ -94,23 +86,17 @@ function SaveAvatarPrompt:init()
 		end
 	end
 
-	if EngineFeatureAESConformToAvatarRules then
-		self.retryLoadDescription = function()
-			self:setState({
-				getConformedDescriptionFailed = false,
-			})
+	self.retryLoadDescription = function()
+		self:setState({
+			getConformedDescriptionFailed = false,
+		})
 
-			self:getConformedHumanoidDescription()
-		end
+		self:getConformedHumanoidDescription()
 	end
 
 	self.renderAlertMiddleContent = function()
-		local humanoidDescription = self.props.humanoidDescription
-		local loadingFailed = nil
-		if EngineFeatureAESConformToAvatarRules then
-			humanoidDescription = self.state.conformedHumanoidDescription
-			loadingFailed = self.state.getConformedDescriptionFailed
-		end
+		local humanoidDescription = self.state.conformedHumanoidDescription
+		local loadingFailed = self.state.getConformedDescriptionFailed
 
 		return Roact.createElement("Frame", {
 			BackgroundTransparency = 1,
@@ -211,21 +197,17 @@ end
 function SaveAvatarPrompt:didMount()
 	self.mounted = true
 
-	if EngineFeatureAESConformToAvatarRules then
-		self:getConformedHumanoidDescription(self.props.humanoidDescription)
-	end
+	self:getConformedHumanoidDescription(self.props.humanoidDescription)
 end
 
 function SaveAvatarPrompt:didUpdate(prevProps, prevState)
-	if EngineFeatureAESConformToAvatarRules then
-		if self.props.humanoidDescription ~= prevProps.humanoidDescription then
-			self:setState({
-				conformedHumanoidDescription = Roact.None,
-				getConformedDescriptionFailed = false,
-			})
+	if self.props.humanoidDescription ~= prevProps.humanoidDescription then
+		self:setState({
+			conformedHumanoidDescription = Roact.None,
+			getConformedDescriptionFailed = false,
+		})
 
-			self:getConformedHumanoidDescription(self.props.humanoidDescription)
-		end
+		self:getConformedHumanoidDescription(self.props.humanoidDescription)
 	end
 end
 
@@ -254,4 +236,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(SaveAvatarPrompt)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(SaveAvatarPrompt)

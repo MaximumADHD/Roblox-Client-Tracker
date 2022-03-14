@@ -4,10 +4,14 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 
+local StoryStore = require(script.Parent.Parent.Parent.Helpers.StoryStore)
 local AddMessage = require(script.Parent.Parent.Parent.Actions.AddMessage)
+local RemoveMessage = require(script.Parent.Parent.Parent.Actions.RemoveMessage)
 local chatReducer = require(script.Parent.Parent.Parent.Reducers.chatReducer)
 local createMockMessage = require(script.Parent.Parent.Parent.Helpers.createMockMessage)
 local BubbleChatList = require(script.Parent.Parent.BubbleChatList)
+
+local Story = Roact.PureComponent:extend("Story")
 
 local MESSAGES = {
 	createMockMessage({ userId = "1", text = "Hello, World" }),
@@ -15,25 +19,34 @@ local MESSAGES = {
 
 	createMockMessage({ userId = "2", text = "This user only sent one message." }),
 
-	createMockMessage({ userId = "3", text = "Hello, World" }),
-	createMockMessage({ userId = "3", text = "Hello, World" }),
 	createMockMessage({ userId = "3", text = "This user sent three messages" }),
+	createMockMessage({ userId = "3", text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at lacus vehicula, vulputate elit quis, cursus diam. Nam bibendum, massa sed condimentum elementum, quam nulla fermentum diam," }),
+	createMockMessage({ userId = "3", text = "non posuere metus justo porttitor enim. Etiam neque magna, consectetur suscipit consectetur non, rhoncus sit amet enim. Curabitur gravida tempus ex," }),
 }
 
-return function(target)
-	local store = Rodux.Store.new(chatReducer)
+function Story:init()
+	self:setState({
+		voiceOn = true,
+	})
 
-	for _, message in ipairs(MESSAGES) do
-		store:dispatch(AddMessage(message))
+	local state = StoryStore:getState()
+	for _, message in pairs(state.messages) do
+		StoryStore:dispatch(RemoveMessage(message))
 	end
 
+	for _, message in ipairs(MESSAGES) do
+		StoryStore:dispatch(AddMessage(message))
+	end
+end
+
+function Story:render()
 	local children = {}
 
 	children.Layout = Roact.createElement("UIListLayout", {
 		FillDirection = Enum.FillDirection.Horizontal,
 	})
 
-	local state = store:getState()
+	local state = StoryStore:getState()
 
 	for userId, messageIds in pairs(state.userMessages) do
 		children[userId] = Roact.createElement("Frame", {
@@ -42,20 +55,15 @@ return function(target)
 		}, {
 			BubbleChatList = Roact.createElement(BubbleChatList, {
 				userId = userId,
+				chatSettings = self.props.chatSettings,
 			})
 		})
 	end
 
-	local root = Roact.createElement(RoactRodux.StoreProvider, {
-		store = store
-	}, {
-		Roact.createFragment(children)
-	})
-
-	local handle = Roact.mount(root, target, BubbleChatList.Name)
-
-	return function()
-		Roact.unmount(handle)
-	end
+	return Roact.createElement("Frame", {
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+	}, children)
 end
 
+return Story

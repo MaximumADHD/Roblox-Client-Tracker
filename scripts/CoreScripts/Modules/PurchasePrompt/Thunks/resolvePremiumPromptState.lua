@@ -14,7 +14,6 @@ local postPremiumImpression = require(Root.Network.postPremiumImpression)
 local completeRequest = require(Root.Thunks.completeRequest)
 local Thunk = require(Root.Thunk)
 
-
 local requiredServices = {
 	Network,
 	ExternalSettings,
@@ -32,6 +31,7 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUps
 		store:dispatch(AccountInfoReceived(accountInfo))
 
 		if canShowUpsell == false then
+			analytics.signalPremiumUpsellPrecheckFail()
 			return store:dispatch(completeRequest())
 		end
 
@@ -47,10 +47,12 @@ local function resolvePremiumPromptState(accountInfo, premiumProduct, canShowUps
 		end
 
 		if platform == Enum.Platform.XBoxOne then
+			analytics.signalPremiumUpsellInvalidPlatform()
 			return store:dispatch(ErrorOccurred(PurchaseError.PremiumUnavailablePlatform))
 		end
 
 		if premiumProduct == nil then
+			analytics.signalPremiumUpsellInvalidProducts()
 			return store:dispatch(ErrorOccurred(PurchaseError.PremiumUnavailable))
 		end
 

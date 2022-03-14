@@ -1,8 +1,15 @@
+local Root = script.Parent.Parent
 local Players = game:GetService("Players")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+
+local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
+local GetFFlagEnableAmazonInGameUpsell = require(Root.Flags.GetFFlagEnableAmazonInGameUpsell)
+
+local FFlagPPExpandedAnalyticPlatforms = game:DefineFastFlag("PPExpandedAnalyticPlatforms", false)
 
 local Analytics = {}
 
@@ -21,12 +28,44 @@ function Analytics.new()
 
 	local function GetPlatformString()
 		local platform = UserInputService:GetPlatform()
-		if platform == Enum.Platform.Windows then return "Windows"
-		elseif platform == Enum.Platform.OSX then return "OSX"
-		elseif platform == Enum.Platform.IOS then return "IOS"
-		elseif platform == Enum.Platform.Android then return "Android"
-		elseif platform == Enum.Platform.XBoxOne then return "XBoxOne"
-		elseif platform == Enum.Platform.UWP then return "UWP"
+		if FFlagPPExpandedAnalyticPlatforms then
+			local platformStr = "UNKNOWN"
+			if platform == Enum.Platform.Windows then
+				platformStr = "Windows"
+			elseif platform == Enum.Platform.OSX then
+				platformStr = "OSX"
+			elseif platform == Enum.Platform.IOS then
+				platformStr = "IOS"
+			elseif platform == Enum.Platform.Android then
+				if GetFFlagEnableAmazonInGameUpsell() then
+					local useragent = HttpService:GetUserAgent()
+					if string.find(useragent, "AmazonAppStore") then
+						platformStr = "Amazon"
+					else
+						platformStr = "Android"
+					end
+				else
+					platformStr = "Android"
+				end
+			elseif platform == Enum.Platform.XBoxOne then
+				platformStr = "XBoxOne"
+			elseif platform == Enum.Platform.UWP then
+				platformStr = "UWP"
+			end
+
+			if GetFFlagEnableLuobuInGameUpsell() then
+				platformStr += "-Luobu"
+			end
+
+			return platformStr
+		else
+			if platform == Enum.Platform.Windows then return "Windows"
+			elseif platform == Enum.Platform.OSX then return "OSX"
+			elseif platform == Enum.Platform.IOS then return "IOS"
+			elseif platform == Enum.Platform.Android then return "Android"
+			elseif platform == Enum.Platform.XBoxOne then return "XBoxOne"
+			elseif platform == Enum.Platform.UWP then return "UWP"
+			end
 		end
 	end
 	
@@ -48,12 +87,6 @@ function Analytics.new()
 		return MarketplaceService:ReportRobuxUpsellStarted()
 	end
 
-	function service.reportNativeUpsellStarted(productId)
-		AnalyticsService:SendEventImmediately("mobile", "robuxSelected", "mobileUpsell", {
-			productId = productId,
-		})
-	end
-
 	function service.signalPurchaseSuccess(id, infoType, salePrice, result)
 		if infoType == Enum.InfoType.Product then
 			MarketplaceService:SignalClientPurchaseSuccess(result.receipt, Players.LocalPlayer.UserId, id)
@@ -64,10 +97,28 @@ function Analytics.new()
 
 	function service.signalPremiumUpsellShownPremium()
 		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellShownPremium", { gameID = game.GameId })
+		ReportPlatformCounter("PremiumUpsellShownPremium")
 	end
 
 	function service.signalPremiumUpsellShownNonPremium()
 		AnalyticsService:SetRBXEvent("client", "InGamePrompt", "PremiumUpsellShownNonPremium", { gameID = game.GameId })
+		ReportPlatformCounter("PremiumUpsellShownNonPremium")
+	end
+
+	function service.signalPremiumUpsellConfirmed()
+		ReportPlatformCounter("PremiumUpsellConfirmed")
+	end
+
+	function service.signalPremiumUpsellPrecheckFail()
+		ReportPlatformCounter("PremiumUpsellPrecheckFail")
+	end
+
+	function service.signalPremiumUpsellInvalidProducts()
+		ReportPlatformCounter("PremiumUpsellInvalidProducts")
+	end
+
+	function service.signalPremiumUpsellInvalidPlatform()
+		ReportPlatformCounter("PremiumUpsellInvalidPlatform")
 	end
 
 	function service.signalAdultLegalTextShown()
@@ -180,6 +231,24 @@ function Analytics.new()
 		if not RunService:IsStudio() then
 			AnalyticsService:ReportCounter("XboxPaymentsInGamePurchaseFailure")
 		end
+	end
+
+	function service.signalTwoSVSettingsErrorShown(productId, requestType)
+		ReportEvent("2SVSettingsErrorShown", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+		}) 
+		ReportPlatformCounter("2SVSettingsErrorShown")
+	end
+
+	function service.signalTwoSVSettingsErrorConfirmed(productId, requestType)
+		ReportEvent("2SVSettingsErrorConfirmed", {
+			gameID = game.GameId,
+			productId = productId,
+			requestType = requestType,
+		}) 
+		ReportPlatformCounter("2SVSettingsErrorConfirmed")
 	end
 
 	return service

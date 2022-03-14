@@ -520,7 +520,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
+			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
 			DropDownFullscreenFrame.Parent = Panel3D.Get("SettingsMenu"):GetGUI()
 			DropDownFullscreenFrame.BackgroundTransparency = 1
 		else
@@ -583,7 +583,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 		active = false
 
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
+			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0)
 		end
 	end
@@ -597,7 +597,7 @@ local function CreateDropDown(dropDownStringTable, startPosition, settingsHub)
 
 		DropDownFullscreenFrame.Visible = true
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
+			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(DropDownFullscreenFrame, 0.5)
 		end
 
@@ -1296,7 +1296,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 		if prop ~= "VREnabled" then return end
 		local Panel3D, settingsPanel = nil, nil
 		if VRService.VREnabled then
-			Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
+			Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
 			settingsPanel = Panel3D.Get("SettingsMenu")
 			parent = settingsPanel:GetGUI()
 		else
@@ -1372,7 +1372,7 @@ local function ShowAlert(alertMessage, okButtonText, settingsHub, okPressedFunc,
 			return
 		end
 		if VRService.VREnabled then
-			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D)
+			local Panel3D = require(CoreGui.RobloxGui.Modules.VR.Panel3D) :: any
 			Panel3D.Get("SettingsMenu"):SetSubpanelDepth(AlertViewBacking, 0)
 		end
 		AlertViewBacking:Destroy()

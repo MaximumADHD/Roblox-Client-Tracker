@@ -1,9 +1,13 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Cryo = require(CorePackages.Cryo)
 local t = require(CorePackages.Packages.t)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local Presentation = script.Parent
 local PlayerListDisplay = require(Presentation.PlayerListDisplay)
@@ -11,17 +15,14 @@ local PlayerListDisplay = require(Presentation.PlayerListDisplay)
 local PlayerList = Presentation.Parent.Parent
 local FAKE_NEUTRAL_TEAM = require(PlayerList.GetFakeNeutralTeam)
 local PlayerSorting = require(PlayerList.PlayerSorting)
-local FFlagImprovePlayerListSorterPerf = require(PlayerList.Flags.FFlagImprovePlayerListSorterPerf)
 
 local PlayerListSorter = Roact.PureComponent:extend("PlayerListSorter")
 
-if FFlagImprovePlayerListSorterPerf then
-	function PlayerListSorter:init()
-		self.state = {
-			sortedPlayers = {},
-			playerKeys = {},
-		}
-	end
+function PlayerListSorter:init()
+	self.state = {
+		sortedPlayers = {},
+		playerKeys = {},
+	}
 end
 
 local function playerInTeam(player, team)
@@ -104,43 +105,21 @@ local function buildSortedTeams(teamScores, primaryStat, teams, showNeutralTeam)
 	return sortedTeams
 end
 
--- Remove with FFlagImprovePlayerListSorterPerf
-local function buildSortedPlayers(primaryStat, players, playerStats)
-	local sortedPlayers = {unpack(players)}
-
-	table.sort(sortedPlayers, function(playerA, playerB)
-		if not primaryStat then
-			return playerA.DisplayName:upper() < playerB.DisplayName:upper()
-		end
-
-		local statA = playerStats[playerA.UserId][primaryStat]
-		local statB = playerStats[playerB.UserId][primaryStat]
-		if statA == statB then
-			return playerA.DisplayName:upper() < playerB.DisplayName:upper()
-		elseif statA == nil then
-			return false
-		elseif statB == nil then
-			return true
-		end
-		statA = tonumber(statA) or statA
-		statB = tonumber(statB) or statB
-		if type(statA) ~= type(statB) then
-			statA = tostring(statA)
-			statB = tostring(statB)
-		end
-		return statA > statB
-	end)
-
-	return sortedPlayers
-end
-
 PlayerListSorter.validateProps = t.strictInterface({
 	screenSizeY = t.integer,
 	entrySize = t.integer,
 
-	players = t.array(t.instanceIsA("Player")),
+	players = t.array(playerInterface),
 	teams = t.array(t.instanceIsA("Team")),
 	playerTeam = t.map(t.integer, t.instanceIsA("Team")),
+
+	playerKeys = t.strictInterface({
+		keys = t.map(playerInterface, t.strictInterface({
+			name = t.string,
+			stat = t.union(t.number, t.string, t.none),
+		})),
+		primaryStat = t.optional(t.string),
+	}),
 
 	playerStats = t.map(t.integer, t.map(t.string, t.any)),
 	gameStats = t.array(t.strictInterface({
@@ -154,13 +133,7 @@ PlayerListSorter.validateProps = t.strictInterface({
 
 function PlayerListSorter:render()
 	local primaryStat = self.props.gameStats[1] and self.props.gameStats[1].name or nil
-	local sortedPlayers
-	if FFlagImprovePlayerListSorterPerf then
-		sortedPlayers = self.state.sortedPlayers
-	else
-		sortedPlayers = buildSortedPlayers(
-			primaryStat, self.props.players, self.props.playerStats)
-	end
+	local sortedPlayers = self.state.sortedPlayers
 
 	if not Cryo.isEmpty(self.props.teams) then
 		local teamScores = buildTeamScores(
@@ -204,9 +177,7 @@ function PlayerListSorter:render()
 	})
 end
 
-if FFlagImprovePlayerListSorterPerf then
-	PlayerListSorter.getDerivedStateFromProps = PlayerSorting.getDerivedStateFromProps
-end
+PlayerListSorter.getDerivedStateFromProps = PlayerSorting.getDerivedStateFromProps
 
 local function mapStateToProps(state)
 	return {
@@ -214,7 +185,7 @@ local function mapStateToProps(state)
 
 		teams = state.teams,
 		players = state.players,
-		playerKeys = FFlagImprovePlayerListSorterPerf and state.playerKeys or nil,
+		playerKeys = state.playerKeys,
 
 		playerStats = state.playerStats,
 		playerTeam = state.playerTeam,

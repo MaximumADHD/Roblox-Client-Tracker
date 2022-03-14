@@ -36,9 +36,6 @@ local Constants = {
 	},
 
 	EmotesImage = "rbxthumb://type=Asset&id=%d&w=420&h=420",
-	--todo: remove with GetFFlagUseThumbnailUrl
-	EmotesImageApi = "asset-thumbnail/image?assetId=%d&width=420&height=420&format=png",
-
 	EmotesMenuZIndex = 50,
 
 	ErrorFrameBorderSize = 0,
@@ -125,6 +122,7 @@ local Constants = {
 	LeaveMenuDontSinkInputAction = "EmotesMenuLeaveMenuDontSinkInputAction",
 	ShiftFocusUpAction = "EmotesMenuShiftFocusUpAction",
 	ShiftFocusDownAction = "EmotesMenuShiftFocusDownAction",
+	VirtualCursorSinkAction = "EmotesMenuVirtualCursorSinkAction",
 
 	-- Emotes Menu can use up to 90% of the screen horizontally and 75% vertically
 	ScreenAvailable = UDim2.new(0.9, 0, 0.75, 0),

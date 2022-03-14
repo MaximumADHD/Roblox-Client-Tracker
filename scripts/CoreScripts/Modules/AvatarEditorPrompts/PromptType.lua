@@ -7,4 +7,7 @@ return enumerate("PromptType", {
 	"CreateOutfit",
 	"EnterOutfitName",
 	"SetFavorite",
+	"DeleteOutfit",
+	"RenameOutfit",
+	"UpdateOutfit",
 })

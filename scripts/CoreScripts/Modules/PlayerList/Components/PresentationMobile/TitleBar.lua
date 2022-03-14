@@ -21,7 +21,8 @@ local TitleBar = Roact.PureComponent:extend("TitleBar")
 
 TitleBar.validateProps = t.strictInterface({
 	Size = t.UDim2,
-	LayoutOrder = t.integer,
+	Position = t.optional(t.UDim2),
+	LayoutOrder = t.optional(t.integer),
 	entrySize = t.integer,
 	contentsVisible = t.boolean,
 	isSmallTouchDevice = t.boolean,
@@ -86,6 +87,7 @@ function TitleBar:render()
 
 			return Roact.createElement("Frame", {
 				Size = self.props.Size,
+				Position = self.props.Position,
 				LayoutOrder = self.props.LayoutOrder,
 				Visible = self.props.contentsVisible,
 				BackgroundTransparency = 1,

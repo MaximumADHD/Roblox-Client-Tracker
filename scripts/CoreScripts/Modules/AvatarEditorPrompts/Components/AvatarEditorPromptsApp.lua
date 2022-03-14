@@ -16,6 +16,11 @@ local SaveAvatarPrompt = require(Prompts.SaveAvatarPrompt)
 local CreateOutfitPrompt = require(Prompts.CreateOutfitPrompt)
 local EnterOutfitNamePrompt = require(Prompts.EnterOutfitNamePrompt)
 local SetFavoritePrompt = require(Prompts.SetFavoritePrompt)
+local DeleteOutfitPrompt = require(Prompts.DeleteOutfitPrompt)
+local RenameOutfitPrompt = require(Prompts.RenameOutfitPrompt)
+local UpdateOutfitPrompt = require(Prompts.UpdateOutfitPrompt)
+
+local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
 local AvatarEditorPrompts = script.Parent.Parent
 
@@ -35,6 +40,17 @@ local GAMEPAD_INPUT_TYPES = {
 	[Enum.UserInputType.Gamepad6] = true,
 	[Enum.UserInputType.Gamepad7] = true,
 	[Enum.UserInputType.Gamepad8] = true,
+}
+
+local PROMPT_COMPONENTS_MAP = {
+	[PromptType.AllowInventoryReadAccess] = AllowInventoryReadAccessPrompt,
+	[PromptType.SaveAvatar] = SaveAvatarPrompt,
+	[PromptType.CreateOutfit] = CreateOutfitPrompt,
+	[PromptType.EnterOutfitName] = EnterOutfitNamePrompt,
+	[PromptType.SetFavorite] = SetFavoritePrompt,
+	[PromptType.DeleteOutfit] = DeleteOutfitPrompt,
+	[PromptType.RenameOutfit] = RenameOutfitPrompt,
+	[PromptType.UpdateOutfit] = UpdateOutfitPrompt,
 }
 
 local AvatarEditorPromptsApp = Roact.PureComponent:extend("AvatarEditorPromptsApp")
@@ -63,17 +79,30 @@ function AvatarEditorPromptsApp:init()
 end
 
 function AvatarEditorPromptsApp:render()
-	local promptComponent
-	if self.props.promptType == PromptType.AllowInventoryReadAccess then
-		promptComponent = Roact.createElement(AllowInventoryReadAccessPrompt)
-	elseif self.props.promptType == PromptType.SaveAvatar then
-		promptComponent = Roact.createElement(SaveAvatarPrompt)
-	elseif self.props.promptType == PromptType.CreateOutfit then
-		promptComponent = Roact.createElement(CreateOutfitPrompt)
-	elseif self.props.promptType == PromptType.EnterOutfitName then
-		promptComponent = Roact.createElement(EnterOutfitNamePrompt)
-	elseif self.props.promptType == PromptType.SetFavorite then
-		promptComponent = Roact.createElement(SetFavoritePrompt)
+	local promptElement
+	if EngineFeatureAESMoreOutfitMethods then
+		if self.props.promptType then
+			local promptComponent = PROMPT_COMPONENTS_MAP[self.props.promptType]
+			if promptComponent then
+				promptElement = Roact.createElement(promptComponent)
+			else
+				error("Unexpected prompt type!")
+			end
+		end
+	else
+		if self.props.promptType == PromptType.AllowInventoryReadAccess then
+			promptElement = Roact.createElement(AllowInventoryReadAccessPrompt)
+		elseif self.props.promptType == PromptType.SaveAvatar then
+			promptElement = Roact.createElement(SaveAvatarPrompt)
+		elseif self.props.promptType == PromptType.CreateOutfit then
+			promptElement = Roact.createElement(CreateOutfitPrompt)
+		elseif self.props.promptType == PromptType.EnterOutfitName then
+			promptElement = Roact.createElement(EnterOutfitNamePrompt)
+		elseif self.props.promptType == PromptType.SetFavorite then
+			promptElement = Roact.createElement(SetFavoritePrompt)
+		elseif self.props.promptType == PromptType.DeleteOutfit then
+			promptElement = Roact.createElement(DeleteOutfitPrompt)
+		end
 	end
 
 	return Roact.createElement("ScreenGui", {
@@ -101,7 +130,7 @@ function AvatarEditorPromptsApp:render()
 			BackgroundTransparency = 1,
 			Size = UDim2.fromScale(1, 1),
 		}, {
-			Prompt = promptComponent,
+			Prompt = promptElement,
 		}) or nil,
 	})
 end
@@ -157,4 +186,4 @@ local function mapDispatchToProps(dispatch)
 end
 
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AvatarEditorPromptsApp)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AvatarEditorPromptsApp)

@@ -5,7 +5,7 @@
 
 local CameraUtils = {}
 
-local function round(num)
+local function round(num: number)
 	return math.floor(num + 0.5)
 end
 
@@ -24,11 +24,11 @@ local Spring = {} do
 	end
 
 	-- Advance the spring simulation by `dt` seconds
-	function Spring:step(dt)
-		local f = self.freq*2*math.pi
-		local g = self.goal
-		local p0 = self.pos
-		local v0 = self.vel
+	function Spring:step(dt: number)
+		local f: number = self.freq*2*math.pi
+		local g: Vector3 = self.goal
+		local p0: Vector3 = self.pos
+		local v0: Vector3 = self.vel
 
 		local offset = p0 - g
 		local decay = math.exp(-f*dt)
@@ -46,12 +46,12 @@ end
 CameraUtils.Spring = Spring
 
 -- map a value from one range to another
-function CameraUtils.map(x, inMin, inMax, outMin, outMax)
+function CameraUtils.map(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
 end
 
 -- maps a value from one range to another, clamping to the output range. order does not matter
-function CameraUtils.mapClamp(x, inMin, inMax, outMin, outMax)
+function CameraUtils.mapClamp(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
 	return math.clamp(
 		(x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin,
 		math.min(outMin, outMax),
@@ -60,7 +60,7 @@ function CameraUtils.mapClamp(x, inMin, inMax, outMin, outMax)
 end
 
 -- Ritter's loose bounding sphere algorithm
-function CameraUtils.getLooseBoundingSphere(parts)
+function CameraUtils.getLooseBoundingSphere(parts: {BasePart})
 	local points = table.create(#parts)
 	for idx, part in pairs(parts) do
 		points[idx] = part.Position
@@ -116,30 +116,30 @@ function CameraUtils.getLooseBoundingSphere(parts)
 end
 
 -- canonicalize an angle to +-180 degrees
-function CameraUtils.sanitizeAngle(a)
+function CameraUtils.sanitizeAngle(a: number): number
 	return (a + math.pi)%(2*math.pi) - math.pi
 end
 
 -- From TransparencyController
-function CameraUtils.Round(num, places)
+function CameraUtils.Round(num: number, places: number): number
 	local decimalPivot = 10^places
 	return math.floor(num * decimalPivot + 0.5) / decimalPivot
 end
 
-function CameraUtils.IsFinite(val)
+function CameraUtils.IsFinite(val: number): boolean
 	return val == val and val ~= math.huge and val ~= -math.huge
 end
 
-function CameraUtils.IsFiniteVector3(vec3)
+function CameraUtils.IsFiniteVector3(vec3: Vector3): boolean
 	return CameraUtils.IsFinite(vec3.X) and CameraUtils.IsFinite(vec3.Y) and CameraUtils.IsFinite(vec3.Z)
 end
 
 -- Legacy implementation renamed
-function CameraUtils.GetAngleBetweenXZVectors(v1, v2)
+function CameraUtils.GetAngleBetweenXZVectors(v1: Vector3, v2: Vector3): number
 	return math.atan2(v2.X*v1.Z-v2.Z*v1.X, v2.X*v1.X+v2.Z*v1.Z)
 end
 
-function CameraUtils.RotateVectorByAngleAndRound(camLook, rotateAngle, roundAmount)
+function CameraUtils.RotateVectorByAngleAndRound(camLook: Vector3, rotateAngle: number, roundAmount: number): number
 	if camLook.Magnitude > 0 then
 		camLook = camLook.unit
 		local currAngle = math.atan2(camLook.z, camLook.x)
@@ -153,7 +153,7 @@ end
 -- the larger K is the more straight/linear the curve gets
 local k = 0.35
 local lowerK = 0.8
-local function SCurveTranform(t)
+local function SCurveTranform(t: number)
 	t = math.clamp(t, -1, 1)
 	if t >= 0 then
 		return (k*t) / (k - t + 1)
@@ -162,15 +162,15 @@ local function SCurveTranform(t)
 end
 
 local DEADZONE = 0.1
-local function toSCurveSpace(t)
+local function toSCurveSpace(t: number)
 	return (1 + DEADZONE) * (2*math.abs(t) - 1) - DEADZONE
 end
 
-local function fromSCurveSpace(t)
+local function fromSCurveSpace(t: number)
 	return t/2 + 0.5
 end
 
-function CameraUtils.GamepadLinearToCurve(thumbstickPosition)
+function CameraUtils.GamepadLinearToCurve(thumbstickPosition: Vector2)
 	local function onAxis(axisValue)
 		local sign = 1
 		if axisValue < 0 then
@@ -184,7 +184,11 @@ function CameraUtils.GamepadLinearToCurve(thumbstickPosition)
 end
 
 -- This function converts 4 different, redundant enumeration types to one standard so the values can be compared
-function CameraUtils.ConvertCameraModeEnumToStandard(enumValue)
+function CameraUtils.ConvertCameraModeEnumToStandard(enumValue: 
+		Enum.TouchCameraMovementMode | 
+		Enum.ComputerCameraMovementMode | 
+		Enum.DevTouchCameraMovementMode |
+		Enum.DevComputerCameraMovementMode): Enum.ComputerCameraMovementMode | Enum.DevComputerCameraMovementMode
 	if enumValue == Enum.TouchCameraMovementMode.Default then
 		return Enum.ComputerCameraMovementMode.Follow
 	end

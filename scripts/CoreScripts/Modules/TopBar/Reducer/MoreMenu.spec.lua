@@ -9,10 +9,6 @@ return function()
 
 	local MoreMenu = require(script.Parent.MoreMenu)
 
-	local FFlagTopBarCloseContextMenuWhenHotkeysUsed = game:GetFastFlag(
-		"TopBarCloseContextMenuWhenHotkeysUsed"
-	)
-
 	local function countValues(t)
 		local c = 0
 		for _, _ in pairs(t) do
@@ -58,37 +54,24 @@ return function()
 			expect(newState.backpackOpen).to.equal(true)
 		end)
 
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			it("should not change any other values except open", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetBackpackOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "backpackOpen" and key ~= "open" then
-						expect(value).to.equal(oldState[key])
-					end
+		it("should not change any other values except open", function()
+			local oldState = MoreMenu(nil, {})
+			local newState = MoreMenu(oldState, SetBackpackOpen(true))
+			expect(countValues(newState)).to.equal(countValues(oldState))
+			for key, value in pairs(newState) do
+				if key ~= "backpackOpen" and key ~= "open" then
+					expect(value).to.equal(oldState[key])
 				end
-			end)
+			end
+		end)
 
-			it("should set open to false when changed", function()
-				local oldState = MoreMenu(nil, {})
-				oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
-				local newState = MoreMenu(oldState, SetBackpackOpen(true))
-				expect(oldState).to.never.equal(newState)
-				expect(newState.open).to.equal(false)
-			end)
-		else
-			it("should not change any other values", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetBackpackOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "backpackOpen" then
-						expect(value).to.equal(oldState[key])
-					end
-				end
-			end)
-		end
+		it("should set open to false when changed", function()
+			local oldState = MoreMenu(nil, {})
+			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
+			local newState = MoreMenu(oldState, SetBackpackOpen(true))
+			expect(oldState).to.never.equal(newState)
+			expect(newState.open).to.equal(false)
+		end)
 	end)
 
 	describe("SetEmotesOpen", function()
@@ -99,37 +82,24 @@ return function()
 			expect(newState.emotesOpen).to.equal(true)
 		end)
 
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			it("should not change any other values except open", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetEmotesOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "emotesOpen" and key ~= "open" then
-						expect(value).to.equal(oldState[key])
-					end
+		it("should not change any other values except open", function()
+			local oldState = MoreMenu(nil, {})
+			local newState = MoreMenu(oldState, SetEmotesOpen(true))
+			expect(countValues(newState)).to.equal(countValues(oldState))
+			for key, value in pairs(newState) do
+				if key ~= "emotesOpen" and key ~= "open" then
+					expect(value).to.equal(oldState[key])
 				end
-			end)
+			end
+		end)
 
-			it("should set open to false when changed", function()
-				local oldState = MoreMenu(nil, {})
-				oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
-				local newState = MoreMenu(oldState, SetEmotesOpen(true))
-				expect(oldState).to.never.equal(newState)
-				expect(newState.open).to.equal(false)
-			end)
-		else
-			it("should not change any other values", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetEmotesOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "emotesOpen" then
-						expect(value).to.equal(oldState[key])
-					end
-				end
-			end)
-		end
+		it("should set open to false when changed", function()
+			local oldState = MoreMenu(nil, {})
+			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
+			local newState = MoreMenu(oldState, SetEmotesOpen(true))
+			expect(oldState).to.never.equal(newState)
+			expect(newState.open).to.equal(false)
+		end)
 	end)
 
 	describe("SetEmotesEnabled", function()
@@ -160,36 +130,23 @@ return function()
 			expect(newState.leaderboardOpen).to.equal(true)
 		end)
 
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			it("should not change any other values except open", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "leaderboardOpen" and key ~= "open" then
-						expect(value).to.equal(oldState[key])
-					end
+		it("should not change any other values except open", function()
+			local oldState = MoreMenu(nil, {})
+			local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
+			expect(countValues(newState)).to.equal(countValues(oldState))
+			for key, value in pairs(newState) do
+				if key ~= "leaderboardOpen" and key ~= "open" then
+					expect(value).to.equal(oldState[key])
 				end
-			end)
+			end
+		end)
 
-			it("should set open to false when changed", function()
-				local oldState = MoreMenu(nil, {})
-				oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
-				local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-				expect(oldState).to.never.equal(newState)
-				expect(newState.open).to.equal(false)
-			end)
-		else
-			it("should not change any other values", function()
-				local oldState = MoreMenu(nil, {})
-				local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
-				expect(countValues(newState)).to.equal(countValues(oldState))
-				for key, value in pairs(newState) do
-					if key ~= "leaderboardOpen" then
-						expect(value).to.equal(oldState[key])
-					end
-				end
-			end)
-		end
+		it("should set open to false when changed", function()
+			local oldState = MoreMenu(nil, {})
+			oldState = MoreMenu(oldState, SetMoreMenuOpen(true))
+			local newState = MoreMenu(oldState, SetLeaderboardOpen(true))
+			expect(oldState).to.never.equal(newState)
+			expect(newState.open).to.equal(false)
+		end)
 	end)
 end

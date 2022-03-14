@@ -1,11 +1,16 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local CoreGui = game:GetService("CoreGui")
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Rodux = InGameMenuDependencies.Rodux
 
 	local InGameMenu = script.Parent.Parent
 	local reducer = require(InGameMenu.reducer)
+
+	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+	local MockGuiService = require(RobloxGui.Modules.TestHelpers.MockGuiService)
+	local MockAppStorageService = require(RobloxGui.Modules.TestHelpers.MockAppStorageService)
 
 	local OpenEducationalPopup = require(script.Parent.OpenEducationalPopup)
 
@@ -15,72 +20,13 @@ return function()
 		NATIVE_EXIT = 35,
 	}
 
-	local MockGuiService = {}
-	MockGuiService.__index = MockGuiService
-
-	function MockGuiService.new()
-		local event = Instance.new("BindableEvent")
-
-		local self = {
-			broadcasts = {},
-			NativeClose = {
-				Connect = function(_, callback)
-					return event.Event:Connect(callback)
-				end,
-			},
-		}
-		setmetatable(self, {
-			__index = MockGuiService,
-		})
-		return self
-	end
-
-	function MockGuiService:BroadcastNotification(data, notification)
-		table.insert(
-			self.broadcasts,
-			{
-				data = data,
-				notification = notification,
-			})
-	end
-
-	function MockGuiService:GetNotificationTypeList()
-		return {
-			NATIVE_EXIT = 35,
-		}
-	end
-
-	local MockAppStorageService = {}
-	MockAppStorageService.__index = MockAppStorageService
-
-	function MockAppStorageService.new(initial)
-		local self = initial or {}
-
-		setmetatable(self, {
-			__index = MockAppStorageService,
-		})
-		return self
-	end
-
-	function MockAppStorageService:GetItem(key)
-		return self[key]
-
-	end
-
-	function MockAppStorageService:SetItem(key, value)
-		self[key] = tostring(value)
-	end
-
-	function MockAppStorageService:flush()
-	end
-
 	local MockStore = {}
 
 	function MockStore.new(initialState)
 		return Rodux.Store.new(reducer, initialState or {}, { Rodux.thunkMiddleware })
 	end
 
-	it("should broadcast NATIVE_EXIT with popup enabled", function()
+	it("should broadcast NATIVE_EXIT if popup already enabled", function()
 		local store = MockStore.new({
 			nativeClosePrompt = {
 				closingApp = true,

@@ -17,6 +17,8 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
 local GAMEPAD_IMAGE_HEIGHT = 465
 
 local GAMEPAD_IMAGE_WIDTH = 473
@@ -66,12 +68,13 @@ local function verticalControlsList(props)
 	end)
 end
 
-local function GamepadControls()
+local function GamepadControls(props)
 	local platform = UserInputService:GetPlatform()
 	local isXbox = platform == Enum.Platform.XBox360 or platform == Enum.Platform.XBoxOne
 
 	return Roact.createElement(ControlLayoutContainer, {
-		titleText = "CoreScripts.InGameMenu.Controls.GamepadTitle"
+		titleText = "CoreScripts.InGameMenu.Controls.GamepadTitle",
+		closeButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and props.closeButtonRef or nil,
 	}, {
 		GamepadImage = Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,

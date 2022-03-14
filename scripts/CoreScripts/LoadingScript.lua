@@ -21,9 +21,8 @@ local PolicyService = require(RobloxGui.Modules.Common:WaitForChild("PolicyServi
 --FFlags
 local FFlagLoadTheLoadingScreenFasterSuccess, FFlagLoadTheLoadingScreenFasterValue = pcall(function() return settings():GetFFlag("LoadTheLoadingScreenFaster") end)
 local FFlagLoadTheLoadingScreenFaster = FFlagLoadTheLoadingScreenFasterSuccess and FFlagLoadTheLoadingScreenFasterValue
-local FFlagLoadingScreenDontBlockOnPolicyService = game:DefineFastFlag("LoadingScreenDontBlockOnPolicyService", false)
-local FFlagBackButtonWhileLoadingGoesBackToApp = game:DefineFastFlag("BackButtonWhileLoadingGoesBackToApp", false)
 local FFlagLoadingScreenShowBlankUntilPolicyServiceReturns = game:DefineFastFlag("LoadingScreenShowBlankUntilPolicyServiceReturns", false)
+local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
 local FFlagShowConnectionErrorCode = settings():GetFFlag("ShowConnectionErrorCode")
 local FFlagConnectionScriptEnabled = settings():GetFFlag("ConnectionScriptEnabled")
@@ -99,8 +98,10 @@ function InfoProvider:LoadAssets()
 			local success, result = pcall(function()
 				GameAssetInfo = MarketplaceService:GetProductInfo(placeId)
 			end)
-			if not success then
-				print("LoadingScript->InfoProvider:LoadAssets:", result)
+			if not FFlagLoadingRemoveRemoteCallErrorPrint then
+				if not success then
+					print("LoadingScript->InfoProvider:LoadAssets:", result)
+				end
 			end
 		end)()
 	else
@@ -119,8 +120,10 @@ function InfoProvider:LoadAssets()
 				local success, result = pcall(function()
 					GameAssetInfo = MarketplaceService:GetProductInfo(PLACEID)
 				end)
-				if not success then
-					print("LoadingScript->InfoProvider:LoadAssets:", result)
+				if not FFlagLoadingRemoveRemoteCallErrorPrint then
+					if not success then
+						print("LoadingScript->InfoProvider:LoadAssets:", result)
+					end
 				end
 			end))
 		end)
@@ -192,16 +195,30 @@ local function GenerateGui()
 	-- create descendant frames
 	local mainBackgroundContainer
 
-	local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
-	mainBackgroundContainer = create 'Frame' {
-		Name = 'BlackFrame',
-		BackgroundColor3 = COLORS.BACKGROUND_COLOR,
-		BackgroundTransparency = 0,
-		Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
-		Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
-		Active = true,
-		Parent = screenGui
-	}
+	if game:GetEngineFeature("NotchSpaceSupportEnabled") then
+		-- Turning on ScreenGui.IgnoreGuiInset allows the loading screens to remain full screen while Screen Gui Bounds are changed in Client/LuaApps/content/scripts/CoreScripts/Modules/TopBar/init.lua
+		screenGui.IgnoreGuiInset = true
+		mainBackgroundContainer = create 'Frame' {
+			Name = 'BlackFrame',
+			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
+			BackgroundTransparency = 0,
+			Size = UDim2.new(1, 0, 1, 0),
+			Position = UDim2.new(0, 0, 0, 0),
+			Active = true,
+			Parent = screenGui
+		}
+	else
+		local inGameGlobalGuiInset = settings():GetFVariable("InGameGlobalGuiInset")
+		mainBackgroundContainer = create 'Frame' {
+			Name = 'BlackFrame',
+			BackgroundColor3 = COLORS.BACKGROUND_COLOR,
+			BackgroundTransparency = 0,
+			Size = UDim2.new(1, 0, 1, inGameGlobalGuiInset),
+			Position = UDim2.new(0, 0, 0, -inGameGlobalGuiInset),
+			Active = true,
+			Parent = screenGui
+		}
+	end
 
 	local closeButton =	create 'ImageButton' {
 		Name = 'CloseButton',
@@ -215,9 +232,9 @@ local function GenerateGui()
 		Parent = mainBackgroundContainer
 	}
 
-    closeButton.MouseButton1Click:connect(function()
-        game:Shutdown()
-    end)
+	closeButton.MouseButton1Click:connect(function()
+		game:Shutdown()
+	end)
 
 	local graphicsFrame = create 'Frame' {
 		Name = 'GraphicsFrame',
@@ -248,30 +265,30 @@ local function GenerateGui()
 		Parent = graphicsFrame,
 	}
 
-    local numberOfTaps = 0
-    local lastTapTime = math.huge
+	local numberOfTaps = 0
+	local lastTapTime = math.huge
 	local doubleTapTimeThreshold = 0.5
 
-    loadingImageInputBeganConn = loadingImage.InputBegan:connect(function()
-        if PolicyService:IsSubjectToChinaPolicies() then
-            return
-        end
+	loadingImageInputBeganConn = loadingImage.InputBegan:connect(function()
+		if PolicyService:IsSubjectToChinaPolicies() then
+			return
+		end
 
-        if numberOfTaps == 0 then
-            numberOfTaps = 1
-            lastTapTime = tick()
-            return
-        end
+		if numberOfTaps == 0 then
+			numberOfTaps = 1
+			lastTapTime = tick()
+			return
+		end
 
-        if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
-            if tick() - lastTapTime <= doubleTapTimeThreshold then
-                GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
+		if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
+			if tick() - lastTapTime <= doubleTapTimeThreshold then
+				GuiService:ShowStatsBasedOnInputString("ConnectionHealth")
 				connectionHealthShown = not connectionHealthShown
-            end
-        end
+			end
+		end
 
-        numberOfTaps = 0
-        lastTapTime = math.huge
+		numberOfTaps = 0
+		lastTapTime = math.huge
 	end)
 
 	local infoFrame = create 'Frame' {
@@ -371,7 +388,7 @@ local function GenerateGui()
 			placeIcon.ImageTransparency = 0
 		end
 	end
-	
+
 	if game.GameId > 0 then
 		coroutine.wrap(onGameId)()
 	else
@@ -486,18 +503,18 @@ local function GenerateGui()
 		creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
 	end
 
-    coroutine.wrap(function()
-        RunService.RenderStepped:wait()
-        RunService.RenderStepped:wait()
-        layoutIsReady = true
+	coroutine.wrap(function()
+		RunService.RenderStepped:Wait()
+		RunService.RenderStepped:Wait()
+		layoutIsReady = true
 
-        placeLabel.TextTransparency = 0
+		placeLabel.TextTransparency = 0
 
-        local uiMessage = uiMessageFrame.UiMessage
-        if uiMessage.Text ~= "" then
-            uiMessage.TextTransparency = 0
-        end
-    end)()
+		local uiMessage = uiMessageFrame.UiMessage
+		if uiMessage.Text ~= "" then
+			uiMessage.TextTransparency = 0
+		end
+	end)()
 
 	if not FFlagConnectionScriptEnabled or isTenFootInterface then
 		local errorFrame = create 'Frame' {
@@ -594,129 +611,74 @@ local function spinnerEasingFunc(a, b, t)
 	end
 end
 
-if FFlagLoadingScreenDontBlockOnPolicyService then
-	local showAntiAddictionNoticeStringEn = false
-	if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns then
-		showAntiAddictionNoticeStringEn = "waiting"
-	end
-	-- PolicyService requires LocalPlayer to exist, which doesn't happen until
-	-- after we connect to the server. If the server is full, this can take a
-	-- very long time (like several minutes) to return a value. As a result, we
-	-- call it asynchronously and default to false.
-	coroutine.wrap(function()
-		showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
-	end)()
-
-	renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
-		if not currScreenGui then return end
-		if not currScreenGui:FindFirstChild("BlackFrame") then return end
-
-		local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
-		if infoFrame then
-			-- set place name
-			if placeLabel and placeLabel.Text == "" then
-				placeLabel.Text = InfoProvider:GetGameName()
-			end
-
-			-- set creator name
-			if creatorLabel and creatorLabel.Text == "" then
-				if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
-					creatorLabel.Text = ""
-				elseif showAntiAddictionNoticeStringEn then
-					creatorLabel.Text = antiAddictionNoticeStringEn
-				else
-					local creatorName = InfoProvider:GetCreatorName()
-					if creatorName ~= "" then
-						if isTenFootInterface then
-							creatorLabel.Text = creatorName
-							creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
-						else
-							creatorLabel.Text = "By ".. creatorName
-						end
-					end
-				end
-			end
-		end
-
-		local currentTime = tick()
-		local fadeAmount = dt * fadeCycleTime
-
-		local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
-		local timeInCycle = currentTime % turnCycleTime
-		local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
-		spinnerImage.Rotation = cycleAlpha * 360
-
-
-		if not isTenFootInterface then
-			if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
-				currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
-
-				if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
-					currScreenGui.BlackFrame.CloseButton.Active = true
-				end
-			end
-		end
-	end)
-else
-	coroutine.wrap(function()
-		local showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
-
-		renderSteppedConnection = RunService.RenderStepped:connect(function(dt)
-			if not currScreenGui then return end
-			if not currScreenGui:FindFirstChild("BlackFrame") then return end
-
-			local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
-			if infoFrame then
-				-- set place name
-				if placeLabel and placeLabel.Text == "" then
-					placeLabel.Text = InfoProvider:GetGameName()
-				end
-
-				-- set creator name
-				if creatorLabel and creatorLabel.Text == "" then
-					if showAntiAddictionNoticeStringEn then
-						creatorLabel.Text = antiAddictionNoticeStringEn
-					else
-						local creatorName = InfoProvider:GetCreatorName()
-						if creatorName ~= "" then
-							if isTenFootInterface then
-								creatorLabel.Text = creatorName
-								creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
-							else
-								creatorLabel.Text = "By ".. creatorName
-							end
-						end
-					end
-				end
-			end
-
-			local currentTime = tick()
-			local fadeAmount = dt * fadeCycleTime
-
-			local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
-			local timeInCycle = currentTime % turnCycleTime
-			local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
-			spinnerImage.Rotation = cycleAlpha * 360
-
-
-			if not isTenFootInterface then
-				if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
-					currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
-
-					if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
-						currScreenGui.BlackFrame.CloseButton.Active = true
-					end
-				end
-			end
-		end)
-	end)()
+local showAntiAddictionNoticeStringEn = false
+if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns then
+	showAntiAddictionNoticeStringEn = "waiting"
 end
+-- PolicyService requires LocalPlayer to exist, which doesn't happen until
+-- after we connect to the server. If the server is full, this can take a
+-- very long time (like several minutes) to return a value. As a result, we
+-- call it asynchronously and default to false.
+coroutine.wrap(function()
+	showAntiAddictionNoticeStringEn = PolicyService:IsSubjectToChinaPolicies()
+end)()
+
+renderSteppedConnection = RunService.RenderStepped:Connect(function(dt)
+	if not currScreenGui then return end
+	if not currScreenGui:FindFirstChild("BlackFrame") then return end
+
+	local infoFrame = currScreenGui.BlackFrame:FindFirstChild('InfoFrame')
+	if infoFrame then
+		-- set place name
+		if placeLabel and placeLabel.Text == "" then
+			placeLabel.Text = InfoProvider:GetGameName()
+		end
+
+		-- set creator name
+		if creatorLabel and creatorLabel.Text == "" then
+			if FFlagLoadingScreenShowBlankUntilPolicyServiceReturns and showAntiAddictionNoticeStringEn == "waiting" then
+				creatorLabel.Text = ""
+			elseif showAntiAddictionNoticeStringEn then
+				creatorLabel.Text = antiAddictionNoticeStringEn
+			else
+				local creatorName = InfoProvider:GetCreatorName()
+				if creatorName ~= "" then
+					if isTenFootInterface then
+						creatorLabel.Text = creatorName
+						creatorLabel.Size = UDim2.new(0, creatorLabel.TextBounds.X, 1, 0)
+					else
+						creatorLabel.Text = "By ".. creatorName
+					end
+				end
+			end
+		end
+	end
+
+	local currentTime = tick()
+	local fadeAmount = dt * fadeCycleTime
+
+	local spinnerImage = currScreenGui.BlackFrame.GraphicsFrame.LoadingImage
+	local timeInCycle = currentTime % turnCycleTime
+	local cycleAlpha = spinnerEasingFunc(0, 1, timeInCycle / turnCycleTime)
+	spinnerImage.Rotation = cycleAlpha * 360
+
+
+	if not isTenFootInterface then
+		if currentTime - startTime > 5 and currScreenGui.BlackFrame.CloseButton.ImageTransparency > 0 then
+			currScreenGui.BlackFrame.CloseButton.ImageTransparency = currScreenGui.BlackFrame.CloseButton.ImageTransparency - fadeAmount
+
+			if currScreenGui.BlackFrame.CloseButton.ImageTransparency <= 0 then
+				currScreenGui.BlackFrame.CloseButton.Active = true
+			end
+		end
+	end
+end)
 
 -- use the old error frame when on XBox
 if not FFlagConnectionScriptEnabled or isTenFootInterface then
 	local errorImage
 
-	GuiService.ErrorMessageChanged:connect(function()
+	GuiService.ErrorMessageChanged:Connect(function()
 		if GuiService:GetErrorMessage() ~= '' then
 			--TODO: Remove this reference to Utility
 			local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -765,28 +727,26 @@ if not FFlagConnectionScriptEnabled or isTenFootInterface then
 	end)
 end
 
-if FFlagBackButtonWhileLoadingGoesBackToApp then
-	backButtonConnection = GuiService.ShowLeaveConfirmation:Connect(function()
-		-- When OS back button is pressed during loading screen, exit
-		-- immediately. Behaves the same as the close button.
-		game:Shutdown()
-	end)
-end
+backButtonConnection = GuiService.ShowLeaveConfirmation:Connect(function()
+	-- When OS back button is pressed during loading screen, exit
+	-- immediately. Behaves the same as the close button.
+	game:Shutdown()
+end)
 
-GuiService.UiMessageChanged:connect(function(type, newMessage)
+GuiService.UiMessageChanged:Connect(function(type, newMessage)
 	if type == Enum.UiMessageType.UiMessageInfo then
 		local blackFrame = currScreenGui and currScreenGui:FindFirstChild('BlackFrame')
 		if blackFrame then
 			local infoFrame = blackFrame:FindFirstChild("InfoFrame")
-            if infoFrame then
-                local uiMessage = infoFrame.UiMessageFrame.UiMessage
-                uiMessage.Text = newMessage
-                if newMessage ~= '' and layoutIsReady then
-                    uiMessage.TextTransparency = 0
-                else
-                    uiMessage.TextTransparency = 1
-                end
-            end
+			if infoFrame then
+				local uiMessage = infoFrame.UiMessageFrame.UiMessage
+				uiMessage.Text = newMessage
+				if newMessage ~= '' and layoutIsReady then
+					uiMessage.TextTransparency = 0
+				else
+					uiMessage.TextTransparency = 1
+				end
+			end
 		end
 	end
 end)
@@ -869,7 +829,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 			backButtonConnection:Disconnect()
 		end
 
-        if connectionHealthShown then
+		if connectionHealthShown then
 			if UserInputService.TouchEnabled == true and UserInputService.MouseEnabled == false then
 				connectionHealthCon = game:GetService("UserInputService").InputBegan:connect(function()
 					disconnectAndCloseHealthStat()
@@ -880,7 +840,7 @@ local function fadeAndDestroyBlackFrame(blackFrame)
 		else
 			GuiService:CloseStatsBasedOnInputString("ConnectionHealth")
 		end
-    end)
+	end)
 end
 
 local function destroyLoadingElements(instant)
@@ -946,12 +906,12 @@ if debugMode then
 	warn("Not destroying loading screen because debugMode is true")
 	return
 end
-ReplicatedFirst.FinishedReplicating:connect(handleFinishedReplicating)
+ReplicatedFirst.FinishedReplicating:Connect(handleFinishedReplicating)
 if ReplicatedFirst:IsFinishedReplicating() then
 	handleFinishedReplicating()
 end
 
-ReplicatedFirst.RemoveDefaultLoadingGuiSignal:connect(handleRemoveDefaultLoadingGui)
+ReplicatedFirst.RemoveDefaultLoadingGuiSignal:Connect(handleRemoveDefaultLoadingGui)
 if ReplicatedFirst:IsDefaultLoadingGuiRemoved() then
 	handleRemoveDefaultLoadingGui()
 end

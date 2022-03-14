@@ -13,6 +13,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -29,6 +30,7 @@ return function()
 	SendNotificationInfo.Name = "SendNotificationInfo"
 	SendNotificationInfo.Parent = RobloxGui
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local GraphicsQualityEntry = require(script.Parent.GraphicsQualityEntry)
 
 	local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -45,9 +47,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
+							LayoutOrder = 2,
+						}),
+					}) or nil,
+					GraphicsQualityEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(GraphicsQualityEntry, {
 						LayoutOrder = 2,
-					}),
+					}) or nil,
 				}),
 			}),
 		})
@@ -70,9 +77,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						GraphicsQualityEntry = Roact.createElement(GraphicsQualityEntry, {
+							LayoutOrder = 2,
+						}),
+					}) or nil,
+					GraphicsQualityEntry = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(GraphicsQualityEntry, {
 						LayoutOrder = 2,
-					}),
+					}) or nil,
 				}),
 			}),
 		})

@@ -10,6 +10,8 @@ local t = InGameMenuDependencies.t
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -33,6 +35,7 @@ InfoDialog.validateProps = t.strictInterface({
 
 	onDismiss = t.callback,
 	visible = t.boolean,
+	buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly and t.optional(t.table) or nil,
 })
 
 function InfoDialog:render()
@@ -125,6 +128,7 @@ function InfoDialog:render()
 					size = UDim2.new(1, 0, 0, 36),
 					onActivated = props.onDismiss,
 					text = props.dismissText,
+					[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly and self.props.buttonRef or nil,
 				}),
 			}),
 		})

@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
+local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -16,6 +17,8 @@ local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local IconButton = require(script.Parent.IconButton)
 
 local GameSettings = UserSettings().GameSettings
+
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 local ChatIcon = Roact.PureComponent:extend("ChatIcon")
 
@@ -44,7 +47,7 @@ end
 
 function ChatIcon:render()
 	return withStyle(function(style)
-		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled()
+		local chatEnabled = self.props.topBarEnabled and self.props.chatEnabled and not TenFootInterface:IsEnabled() and not (VRService.VREnabled and FFlagEnableNewVrSystem)
 
 		local chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
 		if not self.props.chatVisible then

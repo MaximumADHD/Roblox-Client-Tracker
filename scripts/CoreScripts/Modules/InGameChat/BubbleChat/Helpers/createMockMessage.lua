@@ -12,7 +12,7 @@ local function createMockMessage(props)
 		id = tostring(id),
 		userId = "1",
 		text = "Hello, World!",
-		timestamp = os.time()
+		timestamp = id
 	}, props)
 end
 

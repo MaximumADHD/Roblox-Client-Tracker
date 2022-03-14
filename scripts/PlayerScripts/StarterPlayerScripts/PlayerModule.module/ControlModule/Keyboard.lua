@@ -35,7 +35,7 @@ function Keyboard.new(CONTROL_ACTION_PRIORITY)
 	return self
 end
 
-function Keyboard:Enable(enable)
+function Keyboard:Enable(enable: boolean)
 	if not UserInputService.KeyboardEnabled then
 		return false
 	end

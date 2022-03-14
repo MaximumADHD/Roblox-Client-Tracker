@@ -2,17 +2,19 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local CoreGuiService = game:GetService("CoreGui")
 local RobloxGui = CoreGuiService:WaitForChild("RobloxGui")
+local UIBlox = require(CorePackages.UIBlox)
 local CoreGuiModules = RobloxGui:WaitForChild("Modules")
 local InspectAndBuyModules = CoreGuiModules:WaitForChild("InspectAndBuy")
 local Roact = require(CorePackages.Roact)
 local InspectAndBuy = require(InspectAndBuyModules.Components.InspectAndBuy)
 local InspectAndBuyInstanceHandle = nil
 
+local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyModules.Flags.GetFFlagUseInspectAndBuyControllerBar)
 
-local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
+local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+
 local TopBar = require(RobloxGui.Modules.TopBar)
-
-local FFlagInspectMenuDeveloperMethodsPolicy = game:DefineFastFlag("InspectMenuDeveloperMethodsPolicy", false)
 
 local INSPECT_MENU_KEY = "InspectMenu"
 
@@ -27,12 +29,33 @@ local function mount(humanoidDescription, playerName, userId, ctx)
 		InspectAndBuyInstanceHandle = nil
 	end
 
-	local inspectAndBuy = Roact.createElement(InspectAndBuy, {
-		humanoidDescription = humanoidDescription,
-		playerName = playerName,
-		playerId = userId,
-		ctx = ctx,
-	})
+	local appStyle = {
+		Theme = AppDarkTheme,
+		Font = AppFont,
+	}
+
+	local inspectAndBuy
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		inspectAndBuy = Roact.createElement(UIBlox.Core.Style.Provider, {
+			style = appStyle
+		}, {
+			inspectAndBuy = Roact.createElement(InspectAndBuy, {
+				humanoidDescription = humanoidDescription,
+				playerName = playerName,
+				playerId = userId,
+				ctx = ctx,
+			})
+		})
+	else
+		inspectAndBuy = Roact.createElement(InspectAndBuy, {
+			humanoidDescription = humanoidDescription,
+			playerName = playerName,
+			playerId = userId,
+			ctx = ctx,
+		})
+	end
+
+
 	InspectAndBuyInstanceHandle = Roact.mount(inspectAndBuy, RobloxGui, "InspectAndBuy")
 	GuiService:SetMenuIsOpen(true, INSPECT_MENU_KEY)
 
@@ -58,18 +81,10 @@ local function mountInspectAndBuyFromUserId(userId, ctx)
 end
 
 GuiService.InspectPlayerFromHumanoidDescriptionRequest:Connect(function(humanoidDescription, playerName)
-	if FFlagInspectMenuDeveloperMethodsPolicy and PolicyService:IsSubjectToChinaPolicies() then
-		return
-	end
-
 	mountInspectAndBuyFromHumanoidDescription(humanoidDescription, playerName, "developerThroughHumanoidDescription")
 end)
 
 GuiService.InspectPlayerFromUserIdWithCtxRequest:Connect(function(userId, ctx)
-	if FFlagInspectMenuDeveloperMethodsPolicy and PolicyService:IsSubjectToChinaPolicies() then
-		return
-	end
-
 	mountInspectAndBuyFromUserId(userId, ctx)
 end)
 
@@ -84,13 +99,3 @@ GuiService.InspectMenuEnabledChangedSignal:Connect(function(enabled)
 		unmountInspectAndBuy()
 	end
 end)
-
-if FFlagInspectMenuDeveloperMethodsPolicy then
-	spawn(function()
-		-- Check whether InspectMenu is disabled by policy after PolicyService is finished initializing
-		PolicyService:InitAsync()
-		if PolicyService:IsSubjectToChinaPolicies() and InspectAndBuyInstanceHandle then
-			unmountInspectAndBuy()
-		end
-	end)
-end

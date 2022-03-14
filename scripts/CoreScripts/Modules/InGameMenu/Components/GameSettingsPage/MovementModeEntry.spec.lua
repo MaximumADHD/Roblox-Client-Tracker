@@ -12,6 +12,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -21,12 +22,16 @@ return function()
 		Font = AppFont,
 	}
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local MovementModeEntry = require(script.Parent.MovementModeEntry)
 
 	local UserGameSettings = UserSettings():GetService("UserGameSettings")
 	local localPlayer = Players.LocalPlayer
 
 	it("should create and destroy without errors", function()
+		local movementModeEntry = Roact.createElement(MovementModeEntry, {
+			LayoutOrder = 2,
+		})
 
 		local element = Roact.createElement(RoactRodux.StoreProvider, {
 			store = Rodux.Store.new(reducer)
@@ -37,9 +42,10 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					MovementModeEntry = Roact.createElement(MovementModeEntry, {
-						LayoutOrder = 2,
-					}),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						MovementModeEntry = movementModeEntry,
+					}) or nil,
+					MovementModeEntry = not GetFFlagIGMGamepadSelectionHistory() and movementModeEntry or nil,
 				}),
 			}),
 		})

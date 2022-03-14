@@ -11,6 +11,9 @@ local Roact = require(CorePackages.Roact)
 local Rodux = require(CorePackages.Rodux)
 local RoactRodux = require(CorePackages.RoactRodux)
 local Symbol = require(CorePackages.Symbol)
+local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
+local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
+local UIBlox = require(CorePackages.UIBlox)
 
 local InspectAndBuyFolder = script.Parent.Parent
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
@@ -36,11 +39,11 @@ local GetAssetsFromHumanoidDescription = require(InspectAndBuyFolder.Thunks.GetA
 local UpdateOwnedStatus = require(InspectAndBuyFolder.Thunks.UpdateOwnedStatus)
 local GetCharacterModelFromUserId = require(InspectAndBuyFolder.Thunks.GetCharacterModelFromUserId)
 local GetPlayerName = require(InspectAndBuyFolder.Thunks.GetPlayerName)
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local PolicyService = require(CoreGui.RobloxGui.Modules.Common.PolicyService)
 
-local FFlagInspectAndBuyBundlePromptListener = game:DefineFastFlag("InspectAndBuyBundlePromptListener", false)
-local FFlagInspectMenuShowFavoritesPolicy = require(InspectAndBuyFolder.Flags.FFlagInspectMenuShowFavoritesPolicy)
+local FFlagInspectAndBuyShimmerPanelEnabled = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyShimmerPanelEnabled)
 
 local COMPACT_VIEW_MAX_WIDTH = 600
 local CURSOR_OVERRIDE_KEY = Symbol.named("OverrideCursorInspectMenu")
@@ -92,7 +95,7 @@ function InspectAndBuy:init()
 	local playerName = self.props.playerName
 	local ctx = self.props.ctx
 	self.connections = {}
-	self.network = Network.new()
+	self.network = self.props.network or Network.new()
 	self.analytics = Analytics.new(playerId, ctx)
 	self.humanoidDescription = self.props.humanoidDescription
 
@@ -105,13 +108,14 @@ function InspectAndBuy:init()
 				[Analytics] = self.analytics,
 			}),
 		}),
+		views = {
+			[Constants.View.Compact] = CompactView,
+			[Constants.View.Wide] = WideView,
+			[Constants.View.WideLandscape] = WideLandscapeView,
+		},
 	}
 
 	self.state.store:dispatch(UpdateStoreId())
-
-	self._context[Constants.View.Compact] = CompactView
-	self._context[Constants.View.Wide] = WideView
-	self._context[Constants.View.WideLandscape] = WideLandscapeView
 
 	self.state.store:dispatch(SetPlayerName(playerName))
 	self.state.store:dispatch(SetLocale(LocalizationService.RobloxLocaleId))
@@ -124,16 +128,14 @@ function InspectAndBuy:init()
 		self.state.store:dispatch(GetAssetsFromHumanoidDescription(self.humanoidDescription, false))
 	end
 
-	if FFlagInspectAndBuyBundlePromptListener then
-		self.onPromptPurchaseFinished = function(_, itemId, isPurchased)
-			local purchasedInformation = self.state.store:getState().itemBeingPurchased
+	self.onPromptPurchaseFinished = function(_, itemId, isPurchased)
+		local purchasedInformation = self.state.store:getState().itemBeingPurchased
 
-			if isPurchased and tostring(itemId) == purchasedInformation.itemId then
-				self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
-				self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
-			end
-			self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
+		if isPurchased and tostring(itemId) == purchasedInformation.itemId then
+			self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
+			self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
 		end
+		self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
 	end
 end
 
@@ -166,37 +168,18 @@ function InspectAndBuy:didMount()
 		self:pushMouseIconOverride()
 	end)
 
-	if FFlagInspectMenuShowFavoritesPolicy then
-		coroutine.wrap(function()
-			local subjectToChinaPolicies = PolicyService:IsSubjectToChinaPolicies()
-			self.state.store:dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
-		end)()
-	end
+	coroutine.wrap(function()
+		local subjectToChinaPolicies = PolicyService:IsSubjectToChinaPolicies()
+		self.state.store:dispatch(SetIsSubjectToChinaPolicies(subjectToChinaPolicies))
+	end)()
 
 	-- Update the owned status of an asset if a user purchases it.
-	local marketplaceServicePurchaseFinishedListener
-	if FFlagInspectAndBuyBundlePromptListener then
-		marketplaceServicePurchaseFinishedListener =
-			MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
-	else
-		marketplaceServicePurchaseFinishedListener =
-			MarketplaceService.PromptPurchaseFinished:Connect(function(player, itemId, isPurchased)
-			local purchasedInformation = self.state.store:getState().itemBeingPurchased
-
-			if isPurchased and tostring(itemId) == purchasedInformation.itemId then
-				self.analytics.reportPurchaseSuccess(purchasedInformation.itemType, purchasedInformation.itemId)
-				self.state.store:dispatch(UpdateOwnedStatus(purchasedInformation.itemId, purchasedInformation.itemType))
-			end
-			self.state.store:dispatch(SetItemBeingPurchased(nil, nil))
-		end)
-	end
+	local marketplaceServicePurchaseFinishedListener =
+		MarketplaceService.PromptPurchaseFinished:Connect(self.onPromptPurchaseFinished)
 
 	-- Update the owned status of a bundle if a user purchases it.
-	local marketplaceServiceBundlePurchaseFinishedListener
-	if FFlagInspectAndBuyBundlePromptListener then
-	marketplaceServiceBundlePurchaseFinishedListener =
+	local marketplaceServiceBundlePurchaseFinishedListener =
 		MarketplaceService.PromptBundlePurchaseFinished:Connect(self.onPromptPurchaseFinished)
-	end
 
 	local storeChangedConnection = self.state.store.changed:connect(function(state, oldState)
 		self:update(state, oldState)
@@ -208,9 +191,7 @@ function InspectAndBuy:didMount()
 	table.insert(self.connections, menuClosedConnection)
 	table.insert(self.connections, inputTypeChangedListener)
 	table.insert(self.connections, marketplaceServicePurchaseFinishedListener)
-	if FFlagInspectAndBuyBundlePromptListener then
-		table.insert(self.connections, marketplaceServiceBundlePurchaseFinishedListener)
-	end
+	table.insert(self.connections, marketplaceServiceBundlePurchaseFinishedListener)
 	table.insert(self.connections, storeChangedConnection)
 
 	local localUserId = Players.LocalPlayer.UserId
@@ -270,13 +251,41 @@ end
 function InspectAndBuy:render()
 	local localPlayerModel = self.localPlayerModel
 
-	return Roact.createElement(RoactRodux.StoreProvider, {
-		store = self.state.store,
-	}, {
-		Container = Roact.createElement(Container, {
-			localPlayerModel = localPlayerModel,
-		}),
-	})
+	if FFlagInspectAndBuyShimmerPanelEnabled then
+		-- include theme provider for shimmer panels used in the asset list
+		local appStyle = {
+			Theme = AppDarkTheme,
+			Font = AppFont,
+		}
+
+		return Roact.createElement(InspectAndBuyContext.Provider, {
+			value = self.state.views,
+		}, {
+			Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					Container = Roact.createElement(Container, {
+						localPlayerModel = localPlayerModel,
+					}),
+				})
+			})
+		})
+	else
+		return Roact.createElement(InspectAndBuyContext.Provider, {
+			value = self.state.views,
+		}, {
+			Roact.createElement(RoactRodux.StoreProvider, {
+				store = self.state.store,
+			}, {
+				Container = Roact.createElement(Container, {
+					localPlayerModel = localPlayerModel,
+				}),
+			})
+		})
+	end
 end
 
 function InspectAndBuy:bindButtonB()

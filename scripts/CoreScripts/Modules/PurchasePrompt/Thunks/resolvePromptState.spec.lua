@@ -18,8 +18,6 @@ return function()
 	local resolvePromptState = require(script.Parent.resolvePromptState)
 	local RequestType = require(Root.Enums.RequestType)
 
-	local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
-	local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
 	local GetFFlagDisableRobuxUpsell = require(Root.Flags.GetFFlagDisableRobuxUpsell)
 
 	local function getTestProductInfo()
@@ -44,7 +42,7 @@ return function()
 
 	local function testThunk(mockAnalytics, mockExternalSettings, store,
 			productInfo, accountInfo, alreadyOwned, isRobloxPurchase)
-		Thunk.test(resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase), store, {
+		return Thunk.test(resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobloxPurchase), store, {
 			[Analytics] = mockAnalytics or MockAnalytics.new().mockService,
 			[ExternalSettings] = mockExternalSettings or MockExternalSettings.new(false, false, {})
 		})
@@ -125,39 +123,35 @@ return function()
 		expect(state.promptState).to.equal(PromptState.PromptPurchase)
 	end)
 
-	if not GetFFlagDisableRobuxUpsell() then
-		it("should resolve state to RobuxUpsell if account is short on Robux", function()
-			local store = Rodux.Store.new(Reducer, {})
+	it("should resolve state to RobuxUpsell if account is short on Robux", function()
+		local store = Rodux.Store.new(Reducer, {})
 
-			local mockAnalytics = MockAnalytics.new()
-			local productInfo = getTestProductInfo()
-			-- Player will not have enough robux
-			local accountInfo = getTestAccountInfo()
-			accountInfo.RobuxBalance = 0
-			testThunk(mockAnalytics, nil, store, productInfo, accountInfo, false, false)
-
+		local mockAnalytics = MockAnalytics.new()
+		local productInfo = getTestProductInfo()
+		-- Player will not have enough robux
+		local accountInfo = getTestAccountInfo()
+		accountInfo.RobuxBalance = 0
+		testThunk(mockAnalytics, nil, store, productInfo, accountInfo, false, false):andThen(function()
 			local state = store:getState()
 			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
-			if GetFFlagProductPurchaseUpsell() or GetFFlagProductPurchaseUpsellABTest() then
-				expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
-			end
+			expect(mockAnalytics.spies.signalProductPurchaseUpsellShown.callCount).to.equal(1)
 		end)
-	else
-		it("should resolve state to Error if account is short on Robux and FFlagDisableRobuxUpsell = true", function()
-			local store = Rodux.Store.new(Reducer, {})
+	end)
 	
-			local mockAnalytics = MockAnalytics.new()
-			local productInfo = getTestProductInfo()
-			-- Player will not have enough robux
-			local accountInfo = getTestAccountInfo()
-			accountInfo.RobuxBalance = 0
-			testThunk(mockAnalytics, MockExternalSettings.new(false, false, {
-				DisableRobuxUpsell = true,
-			}), store, productInfo, accountInfo, false, false)
-	
-			local state = store:getState()
-			expect(state.promptState).to.equal(PromptState.Error)
-			expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
-		end)
-	end
+	it("should resolve state to Error if account is short on Robux and FFlagDisableRobuxUpsell = true", function()
+		local store = Rodux.Store.new(Reducer, {})
+
+		local mockAnalytics = MockAnalytics.new()
+		local productInfo = getTestProductInfo()
+		-- Player will not have enough robux
+		local accountInfo = getTestAccountInfo()
+		accountInfo.RobuxBalance = 0
+		testThunk(mockAnalytics, MockExternalSettings.new(false, false, {
+			DisableRobuxUpsell = true,
+		}), store, productInfo, accountInfo, false, false)
+
+		local state = store:getState()
+		expect(state.promptState).to.equal(PromptState.Error)
+		expect(state.purchaseError).to.equal(PurchaseError.NotEnoughRobuxNoUpsell)
+	end)
 end

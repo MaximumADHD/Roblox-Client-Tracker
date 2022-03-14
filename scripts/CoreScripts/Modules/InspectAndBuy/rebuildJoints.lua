@@ -1,6 +1,8 @@
 --[[
 	Character models created outside of the workspace need their joints rebuilt
 	to properly appear inside a Viewport Frame.
+
+	Remove with FFlagInspectAndBuyLayeredClothingSupport
 ]]
 local function applyJointTree(dataItem)
 	if not dataItem then

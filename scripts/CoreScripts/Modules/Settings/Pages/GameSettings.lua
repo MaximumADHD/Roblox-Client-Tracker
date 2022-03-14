@@ -69,6 +69,7 @@ local MOVEMENT_MODE_DEFAULT_STRING = UserInputService.TouchEnabled and "Default 
 local MOVEMENT_MODE_KEYBOARDMOUSE_STRING = "Keyboard + Mouse"
 local MOVEMENT_MODE_CLICKTOMOVE_STRING = UserInputService.TouchEnabled and "Tap to Move" or "Click to Move"
 local MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING = "Dynamic Thumbstick"
+local MOVEMENT_MODE_THUMBSTICK_STRING = "Classic Thumbstick"
 
 ----------- UTILITIES --------------
 local utility = require(RobloxGui.Modules.Settings.Utility)
@@ -88,16 +89,17 @@ local PageInstance = nil
 local LocalPlayer = Players.LocalPlayer
 local platform = UserInputService:GetPlatform()
 local PolicyService = require(RobloxGui.Modules.Common.PolicyService)
-local VoiceChatServiceManager = require(script.Parent.Parent.Models.VoiceChatServiceManager)
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 local RenderSettings
 local SendNotification
-local RobloxTranslator
+local RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
+
+local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 if GetFixGraphicsQuality() then
 	RenderSettings = settings().Rendering
 	SendNotification = RobloxGui:WaitForChild("SendNotificationInfo")
-	RobloxTranslator = require(RobloxGui:WaitForChild("Modules"):WaitForChild("RobloxTranslator"))
 end
 
 local UnlSuccess, UnlResult =
@@ -116,10 +118,12 @@ local isDesktopClient = (platform == Enum.Platform.Windows) or (platform == Enum
 local isMobileClient = (platform == Enum.Platform.IOS) or (platform == Enum.Platform.Android)
 local UseMicroProfiler = (isMobileClient or isDesktopClient) and canUseMicroProfiler
 
-local GetFFlagEnableVoiceChatOptions = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptions)
 local GetFFlagEnableVoiceChatOptionsDualServiceOutputs = require(RobloxGui.Modules.Flags.getFFlagEnableVoiceChatOptionsDualServiceOutputs)
-
-local GetDeviceChangedHookEnabled = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatOptionsDeviceChangedHook)
+local GetFFlagEnableVoiceChatDeviceChangeDebounce = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatDeviceChangeDebounce)
+local GetFIntVoiceChatDeviceChangeDebounceDelay = require(RobloxGui.Modules.Flags.GetFIntVoiceChatDeviceChangeDebounceDelay)
+local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
+local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
+local GetFFlagFixXboxAdjustSetting = require(RobloxGui.Modules.Flags.GetFFlagFixXboxAdjustSetting)
 
 local function reportSettingsForAnalytics()
 	if not FFlagCollectAnalyticsForSystemMenu then return end
@@ -267,7 +271,7 @@ local function Initialize()
 			numGraphicsQualityLevels = RenderSettings:GetMaxQualityLevel() - 1
 			-- Don't be fooled by the word "max". It's not the maximum level, it's a strict upper bound
 			-- so if GetMaxQualityLevel() returns 22, that means the biggest the level can be is 21
-				
+
 
 			--[[
 				Cache the most recent non-zero graphics level in this member variable.  If the user
@@ -732,8 +736,9 @@ local function Initialize()
 
 		local webServerIndex = GetDesiredWebServerIndex()
 
+		local microProfilerLabel = RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MicroProfiler")
 		this.MicroProfilerFrame, this.MicroProfilerLabel, this.MicroProfilerMode =
-			utility:AddNewRow(this, "Micro Profiler", "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
+				utility:AddNewRow(this, microProfilerLabel, "Selector", {"On", "Off"}, webServerIndex) -- This can be set to override defualt micro profiler state
 		this.MicroProfilerFrame.LayoutOrder = 12
 
 		tryContentLabel()
@@ -1024,6 +1029,7 @@ local function Initialize()
 
 			local function getDisplayName(name)
 				local displayName = name
+
 				if name == "Default" then
 					displayName = MOVEMENT_MODE_DEFAULT_STRING
 				elseif name == "KeyboardMouse" then
@@ -1032,6 +1038,8 @@ local function Initialize()
 					displayName = MOVEMENT_MODE_CLICKTOMOVE_STRING
 				elseif name == "DynamicThumbstick" then
 					displayName = MOVEMENT_MODE_DYNAMICTHUMBSTICK_STRING
+				elseif name == "Thumbstick" then
+					displayName = MOVEMENT_MODE_THUMBSTICK_STRING
 				end
 
 				return displayName
@@ -1335,7 +1343,7 @@ local function Initialize()
 
 		local startMouseLevel = translateEngineMouseSensitivityToGui(GameSettings.MouseSensitivity)
 
-		
+
 		------------------ 3D Sensitivity ------------------
 		-- affects both first and third person.
 		local AdvancedMouseSteps = 10
@@ -1500,7 +1508,12 @@ local function Initialize()
 			local props = {}
 			props.onUnmount = function()
 				if overscanComponent then
-					roact.teardown(overscanComponent)
+					if GetFFlagFixXboxAdjustSetting() then
+						roact.unmount(overscanComponent)
+					else
+						roact.teardown(overscanComponent)
+					end
+
 					-- show settings menu and give back movement
 					ContextActionService:UnbindCoreAction("RbxStopOverscanMovement")
 					MenuModule:SetVisibility(true, true)
@@ -1526,7 +1539,9 @@ local function Initialize()
 			)
 
 			local overscanElement = roact.createElement(overscan, props)
-			overscanComponent = roact.reify(overscanElement, RobloxGui, tostring(overscan))
+			overscanComponent = if GetFFlagFixXboxAdjustSetting()
+				then roact.mount(overscanElement, RobloxGui, tostring(overscan))
+				else roact.reify(overscanElement, RobloxGui, tostring(overscan))
 		end
 
 		local adjustButton, adjustText, setButtonRowRef =
@@ -1619,17 +1634,6 @@ local function Initialize()
 		end
 	end
 
-	local function leaveAndRejoinVoiceChatChannel()
-		pcall(function()
-			local groupId = VoiceChatService:GetGroupId()
-			if groupId and groupId ~= "" then
-				local muted = VoiceChatService:IsPublishPaused()
-				VoiceChatService:Leave()
-				VoiceChatService:JoinByGroupId(groupId, muted)
-			end
-		end)
-	end
-
 	local function isValidDeviceList(deviceNames, deviceGuids, index)
 		return deviceNames and deviceGuids and index and #deviceNames > 0 and index > 0
 			and index <= #deviceNames and #deviceNames == #deviceGuids
@@ -1652,20 +1656,25 @@ local function Initialize()
 			end
 
 			if VCSDeviceIndex > 0 then
-				print(
-					"[OutputDeviceSelection] Setting VCS Speaker Device To ",
-					VCSDeviceNames[VCSDeviceIndex],
-					VCSDeviceGuids[VCSDeviceIndex]
-				)
+				if GetFFlagVoiceChatUILogging() then
+					log:debug("[OutputDeviceSelection] Setting VCS Speaker Device To {} {} ",
+						VCSDeviceNames[VCSDeviceIndex],
+						VCSDeviceGuids[VCSDeviceIndex]
+					)
+				end
 				VoiceChatService:SetSpeakerDevice(
 					VCSDeviceNames[VCSDeviceIndex],
 					VCSDeviceGuids[VCSDeviceIndex]
 				)
 			else
-				warn("Could not find equivalent VoiceChatService Device")
+				if GetFFlagVoiceChatUILogging() then
+					log:warning("Could not find equivalent VoiceChatService Device")
+				end
 			end
 		else
-			warn("Could not connect to Voice Chat Service to change Output Device")
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Could not connect to Voice Chat Service to change Output Device")
+			end
 		end
 	end
 
@@ -1677,7 +1686,9 @@ local function Initialize()
 		if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
 			setVCSOutput(deviceNames[selectedIndex])
 		else
-			warn("Could not connect to Voice Chat Service to change Output Device")
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Could not connect to Voice Chat Service to change Output Device")
+			end
 		end
 	end
 
@@ -1686,8 +1697,9 @@ local function Initialize()
 		local options = this[deviceType.."DeviceNames"] or {}
 		local guids = this[deviceType.."DeviceGuids"] or {}
 
+		local deviceLabel = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input) and RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.InputDevice") or RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.OutputDevice")
 		this[deviceType.."DeviceFrame"], _, this[deviceType.."DeviceSelector"] =
-			utility:AddNewRow(this, deviceType.." Device", "Selector", options, selectedIndex)
+				utility:AddNewRow(this, deviceLabel, "Selector", options, selectedIndex)
 		this[deviceType.."DeviceFrame"].LayoutOrder = (deviceType == VOICE_CHAT_DEVICE_TYPE.Input) and 6 or 7
 
 		this[deviceType.."DeviceInfo"] = {
@@ -1695,6 +1707,8 @@ local function Initialize()
 			Guid = selectedIndex > 0 and guids[selectedIndex] or nil,
 		}
 
+		local indexChangedInvocations = 0
+		local indexChangedDelay = GetFIntVoiceChatDeviceChangeDebounceDelay()
 		this[deviceType.."DeviceSelector"].IndexChanged:connect(
 			function(newIndex)
 				if this[deviceType.."DeviceInfo"].Name == this[deviceType.."DeviceNames"][newIndex] and
@@ -1702,34 +1716,26 @@ local function Initialize()
 					return
 				end
 
-				this[deviceType.."DeviceInfo"] = {
-					Name = this[deviceType.."DeviceNames"][newIndex],
-					Guid = this[deviceType.."DeviceGuids"][newIndex],
-				}
+				local debounceEnabled = GetFFlagEnableVoiceChatDeviceChangeDebounce()
+				local changeDevice = not debounceEnabled
 
-				local deviceName = this[deviceType.."DeviceInfo"].Name
-				local deviceGuid = this[deviceType.."DeviceInfo"].Guid
+				if debounceEnabled then
+					local currentInvocation = indexChangedInvocations + 1
+					indexChangedInvocations = currentInvocation
+					wait(indexChangedDelay)
+					changeDevice = currentInvocation == indexChangedInvocations
+				end
+				if changeDevice then
+					indexChangedInvocations = 0
+					this[deviceType.."DeviceInfo"] = {
+						Name = this[deviceType.."DeviceNames"][newIndex],
+						Guid = this[deviceType.."DeviceGuids"][newIndex],
+					}
 
-				if deviceType == VOICE_CHAT_DEVICE_TYPE.Input then
-					VoiceChatService:SetMicDevice(deviceName, deviceGuid)
-					-- TODO: This will be removed when set device API refactoring is done
-					print(
-						"[OutputDeviceSelection] Setting VCS Mic Device To ",
-						deviceName,
-						deviceGuid
-					)
-					print("[OutputDeviceSelection] Rejoining Voice Chat")
-					leaveAndRejoinVoiceChatChannel()
-				else
-					SoundService:SetOutputDevice(deviceName, deviceGuid)
-					print(
-						"[OutputDeviceSelection] Setting SS Speaker Device To ",
-						deviceName,
-						deviceGuid
-					)
-					if GetFFlagEnableVoiceChatOptionsDualServiceOutputs() then
-						setVCSOutput(deviceName)
-					end
+					local deviceName = this[deviceType.."DeviceInfo"].Name
+					local deviceGuid = this[deviceType.."DeviceInfo"].Guid
+
+					VoiceChatServiceManager:SwitchDevice(deviceType, deviceName, deviceGuid)
 				end
 			end
 		)
@@ -1737,7 +1743,9 @@ local function Initialize()
 
 	local function updateVoiceChatDevices(deviceType)
 		if deviceType ~= VOICE_CHAT_DEVICE_TYPE.Input and deviceType ~= VOICE_CHAT_DEVICE_TYPE.Output then
-			warn(deviceType, "is not supported in VoiceChat devices")
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("{} is not supported in VoiceChat devices", deviceType)
+			end
 		end
 
 		local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
@@ -1765,7 +1773,10 @@ local function Initialize()
 			this[deviceType.."DeviceGuids"] = deviceGuids
 			this[deviceType.."DeviceIndex"] = selectedIndex
 		else
-			warn("Errors in get "..deviceType.." device info")
+
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Errors in get {} device info", deviceType)
+			end
 			this[deviceType.."DeviceNames"] = {}
 			this[deviceType.."DeviceGuids"] = {}
 			this[deviceType.."VCSDeviceNames"] = {}
@@ -1818,12 +1829,26 @@ local function Initialize()
 	end
 
 	this.VoiceChatOptionsEnabled = false
-	if GetFFlagEnableVoiceChatOptions() and game:GetEngineFeature("VoiceChatSupported") then
-		VoiceChatServiceManager:init()
-		-- TODO: Encapsulate device selection logic inside voiceChatManager
-		VoiceChatService = VoiceChatServiceManager:getService()
+	if game:GetEngineFeature("VoiceChatSupported") then
 		spawn(function()
-			checkVoiceChatOptions()
+			VoiceChatServiceManager:asyncInit():andThen(function()
+				VoiceChatService = VoiceChatServiceManager:getService()
+				checkVoiceChatOptions()
+
+				-- Check volume settings. Show prompt if volume is 0
+				if not GetFFlagEnableUniveralVoiceToasts() then
+					VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
+				end
+			end):catch(function()
+				if GetFFlagVoiceChatUILogging() then
+					log:warning("Failed to init VoiceChatServiceManager")
+				end
+
+				-- Check mic permission settings. Show prompt if no permission
+				if not GetFFlagEnableUniveralVoiceToasts() then
+					VoiceChatServiceManager:CheckAndShowPermissionPrompt()
+				end
+			end)
 		end)
 	end
 
@@ -1943,25 +1968,25 @@ local function Initialize()
 	this.PageOpen = false
 
 	this.OpenSettingsPage = function()
-		if GetFFlagEnableVoiceChatOptions() then
-			this.PageOpen = true
-			if this.VoiceChatOptionsEnabled then
-				-- Update device info each time user opens the menu
-				-- TODO: This should be simplified by new API
-				updateVoiceChatOptions()
-				if GetDeviceChangedHookEnabled() then
-					setupDeviceChangedListener()
-				end
-			end
+		this.PageOpen = true
+		if this.VoiceChatOptionsEnabled then
+			-- Update device info each time user opens the menu
+			-- TODO: This should be simplified by new API
+			updateVoiceChatOptions()
+			setupDeviceChangedListener()
+			this.startVolume = GameSettings.MasterVolume
 		end
 	end
 
 	this.CloseSettingsPage = function()
-		if GetFFlagEnableVoiceChatOptions() then
-			this.PageOpen = false
-			if GetDeviceChangedHookEnabled() then
-				teardownDeviceChangedListener()
-			end
+		this.PageOpen = false
+		teardownDeviceChangedListener()
+		-- Check volume settings.
+		-- If player has decreased volume from >0 to 0, show prompt
+		if game:GetEngineFeature("VoiceChatSupported")
+			and this.VoiceChatOptionsEnabled and this.startVolume > 0
+		then
+			VoiceChatServiceManager:CheckAndShowNotAudiblePrompt()
 		end
 	end
 

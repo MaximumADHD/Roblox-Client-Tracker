@@ -11,9 +11,14 @@ local SetSmallTouchDevice = require(Actions.SetSmallTouchDevice)
 local SetScreenSize = require(Actions.SetScreenSize)
 local SetInputType = require(Actions.SetInputType)
 local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
+local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 local initialDisplayOptions = {
 	menuOpen = false,
@@ -22,12 +27,23 @@ local initialDisplayOptions = {
 	isSmallTouchDevice = false,
 	screenSize = Vector2.new(0, 0),
 	inputType = InputType.MouseAndKeyBoard,
+	isGamepadMenuOpen = false,
 }
 
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetMenuOpen.name] = function(state, action)
+		local gamepadMenuOpen = false
+		if FFlagEnableNewVrSystem then
+			--when the main menu opens, close the gamepad menu
+			gamepadMenuOpen = state.isGamepadMenuOpen
+			if not state.menuOpen and action.menuOpen then
+				gamepadMenuOpen = false
+			end
+		end
+
 		return Cryo.Dictionary.join(state, {
 			menuOpen = action.menuOpen,
+			isGamepadMenuOpen = FFlagEnableNewVrSystem and gamepadMenuOpen,
 		})
 	end,
 
@@ -58,6 +74,12 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetInspectMenuOpen.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {
 			inspectMenuOpen = action.inspectMenuOpen
+		})
+	end,
+	
+	[SetGamepadMenuOpen.name] = function(state, action)
+		return Cryo.Dictionary.join(state, {
+			isGamepadMenuOpen = action.open,
 		})
 	end,
 })

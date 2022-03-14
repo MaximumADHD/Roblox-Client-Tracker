@@ -1,6 +1,5 @@
 local RunService = game:GetService("RunService")
 
-local FFlagOnlyRemoveMotorsForRiggedRagdolls = game:DefineFastFlag("OnlyRemoveMotorsForRiggedRagdolls", false)
 local FFlagMPHAFixRagdollCollision = game:DefineFastFlag("MPHAFixRagdollHeadCollision", false)
 
 local Rigging = {}
@@ -392,12 +391,12 @@ local function hasValidConstraint(part0, part1)
 end
 
 local function hasRagdollJoint(motor)
-	if not FFlagOnlyRemoveMotorsForRiggedRagdolls then
-		return true
-	end
-
 	local part0 = motor.Part0
 	local part1 = motor.Part1
+
+	if not part0 or not part1 then
+		return false
+	end
 
 	if hasValidConstraint(part0, part1) then
 		return true

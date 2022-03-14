@@ -9,11 +9,11 @@ local LocalizationService = require(Root.Localization.LocalizationService)
 local LocalizationContextConsumer = require(script.Parent.LocalizationContextConsumer)
 
 local function TextLocalizer(props)
-	local key = props.key
+	local key = props.locKey
 	local params = props.params
 	local render = props.render
 
-	assert(typeof(key) == "string", "String key must be provided")
+	assert(typeof(key) == "string", "String prop 'locKey' must be provided")
 	assert(typeof(render) == "function", "Render prop must be a function")
 
 	return Roact.createElement(LocalizationContextConsumer, {

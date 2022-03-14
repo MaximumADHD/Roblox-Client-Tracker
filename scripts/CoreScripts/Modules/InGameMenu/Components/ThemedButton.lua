@@ -4,7 +4,6 @@
 	has no content on its own. Children are provided via a render prop, because
 	the press effect is achieved by altering the transparency of the button and
 	its contents:
-
 	createElement(ThemedButton, {
 		renderChildren = function(transparency)
 			return {
@@ -32,8 +31,12 @@ local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local ImageSetButton = UIBlox.Core.ImageSet.Button
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local ThemedButton = Roact.PureComponent:extend("ThemedButton")
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 ThemedButton.validateProps = t.strictInterface({
 	normalThemeKey = t.string,
@@ -54,6 +57,7 @@ ThemedButton.validateProps = t.strictInterface({
 	Position = t.optional(t.UDim2),
 	Size = t.optional(t.UDim2),
 	Visible = t.optional(t.boolean),
+	ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.union(t.callback, t.table)) or nil,
 })
 
 ThemedButton.defaultProps = {
@@ -69,7 +73,7 @@ function ThemedButton:init()
 end
 
 
-function ThemedButton:render()
+function ThemedButton:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 	local styleKey = props.normalThemeKey
 
@@ -96,6 +100,7 @@ function ThemedButton:render()
 			ScaleType = props.imageProps.ScaleType,
 			SliceCenter = props.imageProps.SliceCenter,
 			Image = props.imageProps.Image,
+			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.RoundedRectNoInset) or nil,
 			[Roact.Event.Activated] = function()
 				if props.enabled then
 					props.onActivated()
@@ -126,12 +131,23 @@ function ThemedButton:render()
 					})
 				end
 			end,
+			[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.ButtonRef or nil
 		}, props.renderChildren(
 			transparency,
 			props.enabled and self.state.hover,
 			props.enabled and self.state.press
 		))
 	end)
+end
+
+function ThemedButton:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
 end
 
 return ThemedButton

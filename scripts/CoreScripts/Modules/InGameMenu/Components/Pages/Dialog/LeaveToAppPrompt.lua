@@ -1,9 +1,12 @@
 local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 
+local LinkingProtocol = require(CorePackages.UniversalApp.Linking.LinkingProtocol)
+
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
+local t = InGameMenuDependencies.t
 
 local LeavePrompt = require(script.Parent.LeavePrompt)
 
@@ -12,9 +15,26 @@ local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
+local Constants = require(InGameMenu.Resources.Constants)
+
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagDeeplinkFromGameToHome = require(Flags.GetFFlagDeeplinkFromGameToHome)
 
 local LeaveToAppPrompt = Roact.PureComponent:extend("LeaveToAppPrompt")
-local Constants = require(InGameMenu.Resources.Constants)
+
+LeaveToAppPrompt.validateProps = t.strictInterface({
+	closeMenu = t.callback,
+	canGamepadCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canKeyboardCaptureFocus = t.optional(t.boolean),
+	-- used only for unit testing until we can properly mock
+	onConfirm = t.optional(t.callback),
+	linkingProtocol = t.table,
+})
+
+LeaveToAppPrompt.defaultProps = {
+	linkingProtocol = LinkingProtocol.default
+}
 
 function LeaveToAppPrompt:init()
 	self.goToHomePage = function()
@@ -25,10 +45,13 @@ function LeaveToAppPrompt:init()
 		SendAnalytics(Constants.AnalyticsLeaveToHomeName, Constants.AnalyticsLeaveToHomeName,
 			{confirmed = Constants.AnalyticsLeaveToHomeName})
 
-
 		-- Shutting down the game DM on mobile can take a little bit,
 		-- and without this it would look as if the app just froze for a few seconds instead of actually processing the tap.
 		RunService.Heartbeat:Wait()
+
+		if GetFFlagDeeplinkFromGameToHome() then
+			self.props.linkingProtocol:detectURL("roblox://navigation/home")
+		end
 
 		game:Shutdown()
 	end
@@ -46,14 +69,33 @@ function LeaveToAppPrompt:render()
 			bodyText = localized.bodyText,
 			confirmText = localized.confirmText,
 			cancelText = localized.cancelText,
-			onConfirm = self.goToHomePage,
+			onConfirm = self.props.onConfirm or self.goToHomePage,
 			onCancel = self.props.closeMenu,
+			canGamepadCaptureFocus = self.props.canGamepadCaptureFocus,
+			canKeyboardCaptureFocus = self.props.canKeyboardCaptureFocus,
 		})
 	end)
 end
 
 return RoactRodux.UNSTABLE_connect2(
-	nil,
+	function(state, props)
+		local canGamepadCaptureFocus = nil
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			canGamepadCaptureFocus = state.menuPage == Constants.LeaveToAppPromptPageKey
+				and state.displayOptions.inputType == Constants.InputType.Gamepad
+				and not state.respawn.dialogOpen
+				and state.currentZone == 1
+		end
+
+		local canKeyboardCaptureFocus = state.menuPage == Constants.LeaveToAppPromptPageKey
+			and state.displayOptions.inputType == Constants.InputType.MouseAndKeyboard
+			and not state.respawn.dialogOpen
+
+		return {
+			canGamepadCaptureFocus = canGamepadCaptureFocus,
+			canKeyboardCaptureFocus = canKeyboardCaptureFocus,
+		}
+	end,
 	function(dispatch)
 		return {
 			closeMenu = function()

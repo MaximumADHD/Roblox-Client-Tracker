@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local package = PackageIndex["roblox_rhodium"]["rhodium"]
+local Package = require(PackageIndex["Rhodium"]["Rhodium"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

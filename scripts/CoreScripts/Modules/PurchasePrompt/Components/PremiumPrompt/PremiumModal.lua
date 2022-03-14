@@ -79,7 +79,7 @@ function PremiumModal:render()
 	local screenSize = self.props.screenSize
 
 	return Roact.createElement(MultiTextLocalizer, {
-		keys = {
+		locKeys = {
 			titleLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Title.PremiumRequired"),
 			},

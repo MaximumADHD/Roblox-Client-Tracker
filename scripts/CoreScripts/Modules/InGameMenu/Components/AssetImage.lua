@@ -18,7 +18,7 @@ local ImageSetButton = UIBlox.Core.ImageSet.Button
 local Assets = require(InGameMenu.Resources.Assets)
 
 local function makeAssetImageComponent(component)
-	return function(props)
+	return Roact.forwardRef(function(props, ref)
 		local imageKey = props.imageKey
 		local imageData = Assets.Images[imageKey]
 
@@ -37,8 +37,10 @@ local function makeAssetImageComponent(component)
 			BackgroundTransparency = 1,
 		})
 
-		return Roact.createElement(component, mergedProps)
-	end
+		return Roact.createElement(component, Cryo.Dictionary.join(mergedProps, {
+			[Roact.Ref] = ref,
+		}))
+	end)
 end
 
 return {

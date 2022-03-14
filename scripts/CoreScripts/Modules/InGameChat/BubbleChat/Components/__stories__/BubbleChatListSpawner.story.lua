@@ -21,19 +21,51 @@ local MESSAGES = {
 
 local Story = Roact.Component:extend("Story")
 
+function Story:init()
+	self:setState({
+		voiceOn = true,
+	})
+end
+
 function Story:render()
-	return Roact.createFragment({
+	return Roact.createElement("Frame", {
+		Size = UDim2.fromScale(1, 1),
+		BackgroundTransparency = 1,
+	}, {
 		Layout = Roact.createElement("UIListLayout", {
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			FillDirection = Enum.FillDirection.Horizontal,
 			Padding = UDim.new(0, 16),
 		}),
 
-		Button = Roact.createElement("TextButton", {
+		Buttons = Roact.createElement("Frame", {
+			Size = UDim2.new(0, 200, 1, 0),
+			BackgroundTransparency = 1,
 			LayoutOrder = 1,
-			Text = "Add message",
-			Size = UDim2.fromOffset(200, 80),
-			[Roact.Event.Activated] = self.props.addMessage
+		}, {
+			Layout = Roact.createElement("UIListLayout", {
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				FillDirection = Enum.FillDirection.Vertical,
+				Padding = UDim.new(0, 16),
+			}),
+
+			VoiceButton = Roact.createElement("TextButton", {
+				LayoutOrder = 0,
+				Text = "Toggle Voice",
+				Size = UDim2.fromOffset(200, 40),
+				[Roact.Event.Activated] = function()
+					self:setState({
+						voiceOn = not self.state.voiceOn
+					})
+				end,
+			}),
+
+			AddButton = Roact.createElement("TextButton", {
+				LayoutOrder = 1,
+				Text = "Add message",
+				Size = UDim2.fromOffset(200, 80),
+				[Roact.Event.Activated] = self.props.addMessage
+			}),
 		}),
 
 		Container = Roact.createElement("Frame", {
@@ -42,7 +74,14 @@ function Story:render()
 			Size = UDim2.new(0, 300, 1, 0),
 		}, {
 			BubbleChatList = Roact.createElement(BubbleChatList, {
-				userId = USER_ID
+				userId = USER_ID,
+				chatSettings = self.props.chatSettings,
+				renderFirstInsert = self.state.voiceOn and function()
+					return Roact.createElement("Frame", {
+						Size = UDim2.fromOffset(24, 28),
+					})
+				end or nil,
+				insertSize = Vector2.new(24, 28),
 			}),
 		}),
 	})
@@ -64,16 +103,12 @@ end
 
 Story = RoactRodux.connect(nil, mapDispatchToProps)(Story)
 
-return function(target)
-	local root = Roact.createElement(RoactRodux.StoreProvider, {
+return function(props)
+	return Roact.createElement(RoactRodux.StoreProvider, {
 		store = Rodux.Store.new(chatReducer)
 	}, {
-		Roact.createElement(Story)
+		Roact.createElement(Story, {
+			chatSettings = props.chatSettings,
+		})
 	})
-	local handle = Roact.mount(root, target, BubbleChatList.Name)
-
-	return function()
-		Roact.unmount(handle)
-	end
 end
-

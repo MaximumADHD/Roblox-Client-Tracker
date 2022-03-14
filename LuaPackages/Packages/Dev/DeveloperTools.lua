@@ -3,10 +3,9 @@
 ]]
 local PackageIndex = script.Parent.Parent._Index
 
-local package = PackageIndex["roblox_developer-tools-b11a5947-0.1.7"]["developer-tools"]
+local Package = require(PackageIndex["DeveloperTools"]["DeveloperTools"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
+export type GuiOptions = Package.GuiOptions
 
-return package
+
+return Package

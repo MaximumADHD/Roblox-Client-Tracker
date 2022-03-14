@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -11,6 +12,12 @@ local Cryo = InGameMenuDependencies.Cryo
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagInGameMenuCloseReportAbuseMenuOnEscape = require(Flags.GetFFlagInGameMenuCloseReportAbuseMenuOnEscape)
+local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+
+local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
 
 local Assets = require(InGameMenu.Resources.Assets)
 local CloseReportDialog = require(InGameMenu.Actions.CloseReportDialog)
@@ -30,6 +37,8 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 local ReportDialog = Roact.PureComponent:extend("ReportDialog")
 
 local REPORT_MODAL_CLOSE_ACTION = "InGameMenuReportModalClose"
+
+local REPORT_DIALOG_SELECTION_GROUP_NAME = "ReportDialogGroup"
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -64,6 +73,8 @@ ReportDialog.validateProps = t.strictInterface({
 	placeName = t.string,
 	dispatchCloseReportDialog = t.callback,
 	dispatchSendReport = t.callback,
+	canCaptureFocus = t.optional(t.boolean),
+	isGamepadLastInput = t.optional(t.boolean),
 })
 
 function ReportDialog:init()
@@ -71,6 +82,11 @@ function ReportDialog:init()
 		abuseDescription = "",
 		typeOfAbuseIndex = 0,
 	}
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		self.selectionGroupRef = Roact.createRef()
+		self.reportTextEntryRef = Roact.createRef()
+		self.reportDropDownRef = Roact.createRef()
+	end
 end
 
 function ReportDialog:renderReportTitle(style, reportChildren, text)
@@ -93,6 +109,11 @@ function ReportDialog:renderReportTitle(style, reportChildren, text)
 end
 
 function ReportDialog:renderTextEntryField(localized, reportChildren, size)
+	local autoFocusOnEnabled = true -- Can be inlined when InGameMenuControllerDevelopmentOnly is removed
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		autoFocusOnEnabled = not self.props.isGamepadLastInput
+	end
+
 	reportChildren.ReportDescription = Roact.createElement(TextEntryField, {
 		enabled = self.props.isOpen,
 		text = self.state.abuseDescription,
@@ -102,11 +123,12 @@ function ReportDialog:renderTextEntryField(localized, reportChildren, size)
 			})
 		end,
 		maxTextLength = MAX_DESCRIPTION_LENGTH,
-		autoFocusOnEnabled = true,
+		autoFocusOnEnabled = autoFocusOnEnabled,
 
 		PlaceholderText = localized.textboxPlaceHolder,
 		LayoutOrder = 5,
 		Size = size,
+		[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.reportTextEntryRef or nil,
 	})
 end
 
@@ -202,6 +224,20 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 		}),
 	})
 
+	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	-- Can be inlined when GetFFlagInGameMenuCloseReportAbuseMenuOnEscape is removed
+	local canOpen = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then -- This flag depends on the one below
+		canOpen = self.props.canCaptureFocus
+	elseif GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() then
+		canOpen = self.props.isOpen
+	end
+
+	local canCaptureFocus = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		canCaptureFocus = self.props.isGamepadLastInput
+	end
+
 	reportChildren.AbuseTypeDropDown = Roact.createElement("Frame",{
 		BackgroundTransparency = 1,
 		LayoutOrder = 4,
@@ -214,11 +250,15 @@ function ReportDialog:renderReportPlayer(style, localized, reportChildren)
 			localize = true,
 			selectedIndex = self.state.typeOfAbuseIndex,
 			enabled = true,
+			selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and "abuseTypeDropDown" or nil,
+			canOpen = canOpen,
+			canCaptureFocus = canCaptureFocus,
 			selectionChanged = function(index)
 				self:setState({
 					typeOfAbuseIndex = index
 				})
 			end,
+			ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.reportDropDownRef or nil,
 		}),
 	})
 
@@ -298,11 +338,18 @@ function ReportDialog:render()
 				self:renderReportPlayer(style, localized, reportDialogChildren)
 			end
 
+			-- remove with FFlagInGameMenuController
+			local isFrameSelectable = nil
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				isFrameSelectable = false
+			end
+
 			return Roact.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				ZIndex = 8,
 				Visible = self.props.isOpen,
+				[Roact.Ref] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.selectionGroupRef or nil,
 			}, {
 				Overlay = Roact.createElement("TextButton", {
 					AutoButtonColor = false,
@@ -311,6 +358,7 @@ function ReportDialog:render()
 					BorderSizePixel = 0,
 					Size = UDim2.new(1, 0, 1, 0),
 					Text = "",
+					Selectable = isFrameSelectable,
 				}),
 				DialogMainFrame = Roact.createElement(ImageSetLabel, {
 					AnchorPoint = Vector2.new(0.5, 0.5),
@@ -322,7 +370,20 @@ function ReportDialog:render()
 					ScaleType = Assets.Images.RoundedRect.ScaleType,
 					Size = UDim2.new(0, 600, 0, 450),
 					SliceCenter = Assets.Images.RoundedRect.SliceCenter,
-				}, reportDialogChildren)
+				}, reportDialogChildren),
+				FocusHandler = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandler, {
+					isFocused = self.props.canCaptureFocus and self.props.isGamepadLastInput,
+					shouldForgetPreviousSelection = not self.props.isOpen,
+					didFocus = function(previousSelection)
+						local defaultSelection
+						if self.props.userId then
+							defaultSelection = self.reportDropDownRef:getValue()
+						else
+							defaultSelection = self.reportTextEntryRef:getValue()
+						end
+						GuiService.SelectedCoreObject = previousSelection or defaultSelection
+					end,
+				}) or nil
 			})
 		end)
 	end)
@@ -344,6 +405,11 @@ function ReportDialog:unbindActions()
 end
 
 function ReportDialog:didMount()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		GuiService:RemoveSelectionGroup(REPORT_DIALOG_SELECTION_GROUP_NAME)
+		GuiService:AddSelectionParent(REPORT_DIALOG_SELECTION_GROUP_NAME, self.selectionGroupRef:getValue())
+	end
+
 	if self.props.isOpen then
 		self:bindActions()
 	end
@@ -355,6 +421,22 @@ function ReportDialog:didUpdate(prevProps)
 			typeOfAbuseIndex = 0,
 			abuseDescription = "",
 		})
+	end
+
+	if GetFFlagInGameMenuControllerDevelopmentOnly() and not GetFFlagIGMGamepadSelectionHistory() then
+		if not (prevProps.canCaptureFocus and prevProps.isGamepadLastInput)
+			and (self.props.canCaptureFocus and self.props.isGamepadLastInput)
+		then
+			-- If report dialog is for game, it doesn't have the 'Report type' dropdown,
+			-- and should select the text entry box by default.
+			local defaultSelection
+			if self.props.userId then
+				defaultSelection = self.reportDropDownRef:getValue()
+			else
+				defaultSelection = self.reportTextEntryRef:getValue()
+			end
+			GuiService.SelectedCoreObject = defaultSelection
+		end
 	end
 
 	if self.props.isOpen then
@@ -370,11 +452,27 @@ end
 
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
+		local placeName = state.gameInfo.name
+
+		-- Can be inlined after removing GetFFlagInGameMenuControllerDevelopmentOnly
+		local canCaptureFocus = nil
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			canCaptureFocus = state.report.dialogOpen and not state.respawn.dialogOpen
+		end
+
+		-- Can be inlined after removing GetFFlagInGameMenuControllerDevelopmentOnly
+		local isGamepadLastInput = nil
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			isGamepadLastInput = state.displayOptions.inputType == Constants.InputType.Gamepad
+		end
+
 		return {
 			isOpen = state.report.dialogOpen,
 			userId = state.report.userId,
 			userName = state.report.userName,
-			placeName = state.localization.currentGameName,
+			placeName = placeName,
+			canCaptureFocus = canCaptureFocus,
+			isGamepadLastInput = isGamepadLastInput,
 		}
 	end,
 	function(dispatch)

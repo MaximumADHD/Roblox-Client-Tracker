@@ -1,28 +1,20 @@
 local HumanoidDescriptionAssetProperties = {
-	"BackAccessory",
 	"ClimbAnimation",
 	"Face",
-	"FaceAccessory",
 	"FallAnimation",
-	"FrontAccessory",
 	"GraphicTShirt",
-	"HairAccessory",
-	"HatAccessory",
 	"Head",
 	"IdleAnimation",
 	"JumpAnimation",
 	"LeftArm",
 	"LeftLeg",
-	"NeckAccessory",
 	"Pants",
 	"RightArm",
 	"RightLeg",
 	"RunAnimation",
 	"Shirt",
-	"ShouldersAccessory",
 	"SwimAnimation",
 	"Torso",
-	"WaistAccessory",
 	"WalkAnimation",
 }
 
@@ -35,9 +27,14 @@ return function(humanoidDescription)
 			table.insert(assetIdList, prop)
 		elseif typeof(prop) == "string" and prop ~= "" then
 			for match in prop:gmatch("([%d]+),?") do
-				table.insert(assetIdList, tonumber(match))
+				table.insert(assetIdList, tonumber(match) :: number)
 			end
 		end
+	end
+
+	local accesories = humanoidDescription:GetAccessories(--[[includeRigidAccessories = ]] true)
+	for _, accessoryMetadata in ipairs(accesories) do
+		table.insert(assetIdList, accessoryMetadata.AssetId)
 	end
 
 	local emotesIds = humanoidDescription:GetEmotes()

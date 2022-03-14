@@ -10,10 +10,12 @@ local StyleKey = require(Framework.Style.StyleKey)
 
 if THEME_REFACTOR then
 	return {
+		Text = StyleKey.MainText,
 		Border = StyleKey.SubBackground,
 		BackgroundOdd = StyleKey.MainBackground,
 		BackgroundEven = StyleKey.SubBackground2,
 		[StyleModifier.Hover] = {
+			Text = StyleKey.BrightText,
 			BackgroundOdd = StyleKey.ButtonHover,
 			BackgroundEven = StyleKey.ButtonHover,
 			-- BUG RIDE-4870: These should be inherited by Stylizer (and in fact are for Table, but for some reason not TreeTable)
@@ -24,6 +26,7 @@ if THEME_REFACTOR then
 			RowHeight = 24,
 		},
 		[StyleModifier.Selected] = {
+			Text = StyleKey.BrightText,
 			BackgroundOdd = StyleKey.DialogMainButton,
 			BackgroundEven = StyleKey.DialogMainButton,
 			-- BUG RIDE-4870: These should be inherited by Stylizer (and in fact are for Table, but for some reason not TreeTable)

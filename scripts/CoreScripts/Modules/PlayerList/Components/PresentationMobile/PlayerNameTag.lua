@@ -1,7 +1,11 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local Components = script.Parent.Parent
 local Connection = Components.Connection
@@ -11,7 +15,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
 PlayerNameTag.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
+	player = playerInterface,
 	isTitleEntry = t.boolean,
 	isHovered = t.boolean,
 	textStyle = t.strictInterface({

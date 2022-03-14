@@ -60,7 +60,7 @@ do
 	end
 	Utility.FindCharacterAncestor = FindCharacterAncestor
 
-	local function Raycast(ray, ignoreNonCollidable, ignoreList)
+	local function Raycast(ray, ignoreNonCollidable: boolean, ignoreList: {Model})
 		ignoreList = ignoreList or {}
 		local hitPart, hitPos, hitNorm, hitMat = Workspace:FindPartOnRayWithIgnoreList(ray, ignoreList)
 		if hitPart then
@@ -81,7 +81,7 @@ do
 end
 
 local humanoidCache = {}
-local function findPlayerHumanoid(player)
+local function findPlayerHumanoid(player: Player)
 	local character = player and player.Character
 	if character then
 		local resultHumanoid = humanoidCache[player]
@@ -99,13 +99,13 @@ local function findPlayerHumanoid(player)
 end
 
 --------------------------CHARACTER CONTROL-------------------------------
-local CurrentIgnoreList
+local CurrentIgnoreList: {Model}
 local CurrentIgnoreTag = nil
 
-local TaggedInstanceAddedConnection = nil
-local TaggedInstanceRemovedConnection = nil
+local TaggedInstanceAddedConnection: RBXScriptConnection? = nil
+local TaggedInstanceRemovedConnection: RBXScriptConnection? = nil
 
-local function GetCharacter()
+local function GetCharacter(): Model
 	return Player and Player.Character
 end
 
@@ -145,7 +145,7 @@ local function UpdateIgnoreTag(newIgnoreTag)
 	end
 end
 
-local function getIgnoreList()
+local function getIgnoreList(): {Model}
 	if CurrentIgnoreList then
 		return CurrentIgnoreList
 	end
@@ -154,13 +154,13 @@ local function getIgnoreList()
 	return CurrentIgnoreList
 end
 
-local function minV(a, b)
+local function minV(a: Vector3, b: Vector3)
 	return Vector3.new(math.min(a.X, b.X), math.min(a.Y, b.Y), math.min(a.Z, b.Z))
 end
 local function maxV(a, b)
 	return Vector3.new(math.max(a.X, b.X), math.max(a.Y, b.Y), math.max(a.Z, b.Z))
 end
-local function getCollidableExtentsSize(character)
+local function getCollidableExtentsSize(character: Model?)
 	if character == nil or character.PrimaryPart == nil then return end
 	local toLocalCFrame = character.PrimaryPart.CFrame:inverse()
 	local min = Vector3.new(math.huge, math.huge, math.huge)
@@ -193,7 +193,7 @@ end
 
 -----------------------------------PATHER--------------------------------------
 
-local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
+local function Pather(endPoint, surfaceNormal, overrideUseDirectPath: boolean?)
 	local this = {}
 
 	local directPathForHumanoid
@@ -228,13 +228,13 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 
 	this.HumanoidOffsetFromPath = ZERO_VECTOR3
 
-	this.CurrentWaypointPosition = nil
+	this.CurrentWaypointPosition = nil 
 	this.CurrentWaypointPlaneNormal = ZERO_VECTOR3
 	this.CurrentWaypointPlaneDistance = 0
 	this.CurrentWaypointNeedsJump = false;
 
 	this.CurrentHumanoidPosition = ZERO_VECTOR3
-	this.CurrentHumanoidVelocity = 0
+	this.CurrentHumanoidVelocity = 0 :: Vector3 | number
 
 	this.NextActionMoveDirection = ZERO_VECTOR3
 	this.NextActionJump = false
@@ -247,7 +247,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 	this.DirectPath = false
 	this.DirectPathRiseFirst = false
 
-	local rootPart = this.Humanoid and this.Humanoid.RootPart
+	local rootPart: BasePart = this.Humanoid and this.Humanoid.RootPart
 	if rootPart then
 		-- Setup origin
 		this.OriginPoint = rootPart.CFrame.p
@@ -268,7 +268,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 
 				-- For now, only direct path
 				if directPathForVehicle then
-					local extents = vehicle:GetExtentsSize()
+					local extents: Vector3 = vehicle:GetExtentsSize()
 					agentRadius = AgentSizeIncreaseFactor * 0.5 * math.sqrt(extents.X * extents.X + extents.Z * extents.Z)
 					agentHeight = AgentSizeIncreaseFactor * extents.Y
 					agentCanJump = false
@@ -280,9 +280,9 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 				vehicle.PrimaryPart = tempPrimaryPart
 			end
 		else
-			local extents
+			local extents: Vector3?
 			if FFlagUserExcludeNonCollidableForPathfinding then
-				local character = GetCharacter()
+				local character: Model? = GetCharacter()
 				if character ~= nil then
 					extents = getCollidableExtentsSize(character)
 				end
@@ -294,7 +294,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 			agentHeight = AgentSizeIncreaseFactor * extents.Y
 			agentCanJump = (this.Humanoid.JumpPower > 0)
 			this.AgentCanFollowPath = true
-			this.DirectPath = directPathForHumanoid
+			this.DirectPath = directPathForHumanoid :: boolean
 			this.DirectPathRiseFirst = this.Humanoid.Sit
 		end
 
@@ -415,7 +415,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 		this.Recomputing = false
 	end
 
-	function this:OnRenderStepped(dt)
+	function this:OnRenderStepped(dt: number)
 		if this.Started and not this.Cancelled then
 			-- Check for Timeout (if a waypoint is not reached within the delay, we fail)
 			this.Timeout = this.Timeout + dt
@@ -542,7 +542,7 @@ local function Pather(endPoint, surfaceNormal, overrideUseDirectPath)
 		end
 	end
 
-	function this:MoveToNextWayPoint(currentWaypoint, nextWaypoint, nextWaypointIdx)
+	function this:MoveToNextWayPoint(currentWaypoint: PathWaypoint, nextWaypoint: PathWaypoint, nextWaypointIdx: number)
 		-- Build next destination plane
 		-- (plane normal is perpendicular to the y plane and is from next waypoint towards current one (provided the two waypoints are not at the same location))
 		-- (plane location is at next waypoint)
@@ -631,7 +631,7 @@ local function CheckAlive()
 	return humanoid ~= nil and humanoid.Health > 0
 end
 
-local function GetEquippedTool(character)
+local function GetEquippedTool(character: Model?)
 	if character ~= nil then
 		for _, child in pairs(character:GetChildren()) do
 			if child:IsA('Tool') then
@@ -702,7 +702,7 @@ local function ShowPathFailedFeedback(hitPt)
 	ClickToMoveDisplay.DisplayFailureWaypoint(hitPt)
 end
 
-function OnTap(tapPositions, goToPoint, wasTouchTap)
+function OnTap(tapPositions: {Vector3}, goToPoint: Vector3?, wasTouchTap: boolean?)
 	-- Good to remember if this is the latest tap event
 	local camera = Workspace.CurrentCamera
 	local character = Player.Character
@@ -872,7 +872,7 @@ function ClickToMove:OnCharacterAdded(character)
 
 		if input.UserInputType == Enum.UserInputType.MouseButton2 then
 			self.mouse2UpTime = tick()
-			local currPos = input.Position
+			local currPos: Vector3 = input.Position
 			-- We allow click to move during path following or if there is no keyboard movement
 			local allowed = ExistingPather or self.keyboardMoveVector.Magnitude <= 0
 			if self.mouse2UpTime - self.mouse2DownTime < 0.25 and (currPos - self.mouse2DownPos).magnitude < 5 and allowed then
@@ -935,7 +935,7 @@ function ClickToMove:CleanupPath()
 	CleanupPath()
 end
 
-function ClickToMove:Enable(enable, enableWASD, touchJumpController)
+function ClickToMove:Enable(enable: boolean, enableWASD: boolean, touchJumpController)
 	if enable then
 		if not self.running then
 			if Player.Character then -- retro-listen
@@ -1109,7 +1109,7 @@ function ClickToMove:GetUseDirectPath()
 	return UseDirectPath
 end
 
-function ClickToMove:SetAgentSizeIncreaseFactor(increaseFactorPercent)
+function ClickToMove:SetAgentSizeIncreaseFactor(increaseFactorPercent: number)
 	AgentSizeIncreaseFactor = 1.0 + (increaseFactorPercent / 100.0)
 end
 

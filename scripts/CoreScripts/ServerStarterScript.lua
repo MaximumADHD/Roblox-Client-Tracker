@@ -38,55 +38,7 @@ if FFlagEnableForkedChatAnalytics then
 	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
 end
 
-local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
-
-if FFlagFixDialogServerWait then
-	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerDialog", script.Parent)
-
-else
-	--[[ Remote Events ]]--
-	local RemoteEvent_SetDialogInUse = Instance.new("RemoteEvent")
-	RemoteEvent_SetDialogInUse.Name = "SetDialogInUse"
-	RemoteEvent_SetDialogInUse.Parent = RobloxReplicatedStorage
-
-	--[[ Event Connections ]]--
-	local playerDialogMap = {}
-
-	local function setDialogInUse(player, dialog, value, waitTime)
-		if typeof(dialog) ~= "Instance" or not dialog:IsA("Dialog") then
-			return
-		end
-		if type(value) ~= "boolean" then
-			return
-		end
-		if type(waitTime) ~= "number" and type(waitTime) ~= "nil" then
-			return
-		end
-		if typeof(player) ~= "Instance" or not player:IsA("Player") then
-			return
-		end
-
-		if waitTime and waitTime ~= 0 then
-			wait(waitTime)
-		end
-		if dialog ~= nil then
-			dialog:SetPlayerIsUsing(player, value)
-			playerDialogMap[player] = value and dialog or nil
-		end
-	end
-
-	RemoteEvent_SetDialogInUse.OnServerEvent:connect(setDialogInUse)
-
-	game:GetService("Players").PlayerRemoving:connect(function(player)
-		if player then
-			local dialog = playerDialogMap[player]
-			if dialog then
-				dialog:SetPlayerIsUsing(player, false)
-				playerDialogMap[player] = nil
-			end
-		end
-	end)
-end
+ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerDialog", script.Parent)
 
 local RemoteFunction_GetServerVersion = Instance.new("RemoteFunction")
 RemoteFunction_GetServerVersion.Name = "GetServerVersion"
@@ -104,12 +56,27 @@ local function getServerVersion()
 			displayVersion = rawVersion
 		end
 	end
+
+	if not runService:IsStudio() then
+		local gitHash = runService.ClientGitHash
+		return string.format("%s (%.6s)", displayVersion, gitHash)
+	end
+
 	return displayVersion
 end
 
 RemoteFunction_GetServerVersion.OnServerInvoke = getServerVersion
 
-if game:GetService("Chat").LoadDefaultChat then
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+local function shouldLoadLuaChat()
+	if FFlagEnableExperienceChat then
+		return game:GetService("Chat").LoadDefaultChat and game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService
+	else
+		return game:GetService("Chat").LoadDefaultChat
+	end
+end
+
+if shouldLoadLuaChat() then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ClientChat.ChatWindowInstaller)()
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerChat.ChatServiceInstaller)()
 elseif FFlagEnableForkedChatAnalytics then
@@ -121,3 +88,8 @@ if game:GetFastFlag("DebugFreeCameraForAdmins") then
 end
 
 require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerSound.SoundDispatcherInstaller)()
+
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+if FFlagEnableExperienceChat then
+	require(game:GetService("CorePackages").Packages._Index.ExperienceChat.ExperienceChat.mountServerApp)()
+end

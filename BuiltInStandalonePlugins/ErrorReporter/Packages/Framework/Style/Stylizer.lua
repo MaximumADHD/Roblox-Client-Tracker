@@ -76,6 +76,8 @@ local StyleKey = require(Framework.Style.StyleKey)
 local Provider = require(Framework.ContextServices.Provider)
 local ContextItem = require(Framework.ContextServices.ContextItem)
 
+local FFlagDevFrameworkUseCreateContext = game:GetFastFlag("DevFrameworkUseCreateContext")
+
 local Util = require(Framework.Util)
 local deepCopy = Util.deepCopy
 local Signal = Util.Signal
@@ -185,11 +187,17 @@ function Stylizer:extend(...)
 	return self
 end
 
-function Stylizer:createProvider(root)
-	return Roact.createElement(Provider, {
-		ContextItem = self,
-		UpdateSignal = self.valuesChanged,
-	}, {root})
+if FFlagDevFrameworkUseCreateContext then
+	function Stylizer:getSignal()
+		return self.valuesChanged
+	end
+else
+	function Stylizer:createProvider(root)
+		return Roact.createElement(Provider, {
+			ContextItem = self,
+			UpdateSignal = self.valuesChanged,
+		}, {root})
+	end
 end
 
 function Stylizer:destroy()
@@ -267,7 +275,7 @@ function Stylizer:getConsumerItem(target)
 	local componentSymbol = ComponentSymbols[target.__componentName]
 
 	if not currentStyle then
-		assert(false, "Style:getConsumerItem() is unable to find the Style in _context of", target.__componentName)
+		assert(false, "Style:getConsumerItem() is unable to find the Style in _context of " .. target.__componentName)
 		return self
 	end
 

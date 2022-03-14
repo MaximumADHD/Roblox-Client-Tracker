@@ -13,6 +13,8 @@ local EmoteBubble = require(Modules.EmotesMenu.Components.EmoteBubble)
 
 local GetFFlagNewEmotesInGame = require(Modules.Flags.GetFFlagNewEmotesInGame)
 
+local act = require(Modules.act)
+
 local SLOT_INDEX = 1
 local EMOTE_NAME = "Bored"
 local POSITION = 150
@@ -82,11 +84,15 @@ return function()
 
 				local buttonPos = button:getCenter()
 				Rhodium.VirtualInput.Mouse.mouseMove(buttonPos)
-				wait()
+				act(function ()
+					wait()
+				end)
 				expect(button:getAttribute("BackgroundTransparency")).to.be.near(0.3)
 
 				Rhodium.VirtualInput.Mouse.mouseMove(Vector2.new(1000, 1000))
-				wait()
+				act(function()
+					wait()
+				end)
 				expect(button:getAttribute("BackgroundTransparency")).to.be.near(0.5)
 			end,
 			EmoteBubble, EmotesMenuReducer, nil, propsWithSlotIndex)
@@ -157,14 +163,18 @@ return function()
 					expect(outerHighlight:waitForRbxInstance(1)).to.never.be.ok()
 
 					-- expect highlight after click
-					button:click()
+					act(function()
+						button:click()
+					end)
 					innerHighlight = Element.new(innerHighlightPath)
 					outerHighlight = Element.new(outerHighlightPath)
 					expect(innerHighlight:waitForRbxInstance(1)).to.be.ok()
 					expect(outerHighlight:waitForRbxInstance(1)).to.be.ok()
 
 					-- expect highlight to be removed once the mocked emote finishes playing
-					wait(1)
+					act(function()
+						wait(1)
+					end)
 					innerHighlight = Element.new(innerHighlightPath)
 					outerHighlight = Element.new(outerHighlightPath)
 					expect(innerHighlight:waitForRbxInstance(1)).to.never.be.ok()
@@ -186,13 +196,23 @@ return function()
 					expect(button:getAttribute("Size").Y.Offset).to.equal(Constants.EmoteBubbleSizes.BubbleSize)
 
 					-- when clicked, should increase in size
-					button:click()
-					wait()
+					act(function()
+						button:click()
+					end)
+
+					-- wait one second for size increase animation to finish
+					act(function()
+						wait(1)
+					end)
+
 					local sizeLarger = button:getAttribute("Size").Y.Offset > Constants.EmoteBubbleSizes.BubbleSize
 					expect(sizeLarger).to.equal(true)
 
 					-- after animation finishes, should return to default size
-					wait(1)
+					act(function()
+						wait(1)
+					end)
+
 					expect(button:getAttribute("Size").Y.Offset).to.equal(Constants.EmoteBubbleSizes.BubbleSize)
 				end,
 				EmoteBubble, EmotesMenuReducer, nil, props)

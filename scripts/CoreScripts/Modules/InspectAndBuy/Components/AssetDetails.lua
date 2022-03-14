@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -12,6 +14,15 @@ local ReportOpenDetailsPage = require(InspectAndBuyFolder.Thunks.ReportOpenDetai
 local GetEconomyProductInfo = require(InspectAndBuyFolder.Thunks.GetEconomyProductInfo)
 local Colors = require(InspectAndBuyFolder.Colors)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
+
+local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+local FFlagInspectAndBuyLayeredClothingR6Support =
+	require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingR6Support)
+local GetFFlagInGameMenuControllerDevelopmentOnly = 
+	require(CoreGui.RobloxGui.Modules.InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local CONTROLLER_BAR_HEIGHT = require(CoreGui.RobloxGui.Modules.InGameMenu.Resources.Constants).ControllerBarHeight
 
 local AssetDetails = Roact.PureComponent:extend("AssetDetails")
 
@@ -74,43 +85,60 @@ end
 
 function AssetDetails:render()
 	local view = self.props.view
-	local viewMapping = self._context[view]
 	local detailsInformation = self.props.detailsInformation
 	local assetInfo = self.props.assetInfo or {}
 	local localPlayerModel = self.props.localPlayerModel
 	local scrollingEnabled = self.state.scrollingEnabled
 
-	return Roact.createElement("Frame", {
-		Position = UDim2.new(0, viewMapping.BorderPaddingSize, 0, 0),
-		Size = UDim2.new(1, -(2 * viewMapping.BorderPaddingSize), 1, 0),
-		BackgroundTransparency = 0,
-		BackgroundColor3 = Colors.Carbon,
-		BorderSizePixel = 0,
-		-- Do not show asset information until we know if a bundle should be shown instead.
-		Visible = detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil,
-	}, {
-		DetailsButtons = Roact.createElement(DetailsButtons),
+	local isContainerSelectable -- can inline once GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		isContainerSelectable = false
+	end
 
-		Container = Roact.createElement("ScrollingFrame", {
-			BackgroundTransparency = 1,
-			ScrollBarThickness = 0,
-			Size = UDim2.new(1, 0, 1, -55),
-			ScrollingEnabled = scrollingEnabled,
-		}, {
-			UIListLayout = Roact.createElement("UIListLayout", {
-				SortOrder = Enum.SortOrder.LayoutOrder,
-				Padding = UDim.new(0, 10),
-			}),
-			DetailsThumbnail = Roact.createElement(DetailsThumbnail),
-			TryOnViewport = localPlayerModel and Roact.createElement(TryOnViewport, {
-				localPlayerModel = localPlayerModel,
-				setScrollingEnabled = function(enabled)
-					self:setScrollingEnabled(enabled)
-				end,
-			}),
-			DetailsText = Roact.createElement(DetailsText),
-			DetailsDescription = Roact.createElement(DetailsDescription),
-		})
+	return Roact.createElement(InspectAndBuyContext.Consumer, {
+		render = function(views)
+			local viewMapping = views[view]
+			local controllerBarOffset = 0
+			if GetFFlagUseInspectAndBuyControllerBar() and self.props.gamepadEnabled then
+				controllerBarOffset = -1 * CONTROLLER_BAR_HEIGHT
+			end
+			return Roact.createElement("Frame", {
+				Position = UDim2.new(0, viewMapping.BorderPaddingSize, 0, 0),
+				Size = UDim2.new(1, -(2 * viewMapping.BorderPaddingSize), 1, controllerBarOffset),
+				BackgroundTransparency = 0,
+				BackgroundColor3 = Colors.Carbon,
+				BorderSizePixel = 0,
+				-- Do not show asset information until we know if a bundle should be shown instead.
+				Visible = detailsInformation.viewingDetails and assetInfo.bundlesAssetIsIn ~= nil,
+			}, {
+				DetailsButtons = Roact.createElement(DetailsButtons, FFlagInspectAndBuyLayeredClothingR6Support and {
+					localPlayerModel = localPlayerModel,
+				} or nil),
+				Container = Roact.createElement("ScrollingFrame", {
+					BackgroundTransparency = 1,
+					ScrollBarThickness = 0,
+					Size = UDim2.new(1, 0, 1, -55),
+					ScrollingEnabled = scrollingEnabled,
+					Selectable = isContainerSelectable,
+				}, {
+					UIListLayout = Roact.createElement("UIListLayout", {
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 10),
+					}),
+					DetailsThumbnail = Roact.createElement(DetailsThumbnail),
+					TryOnViewport = localPlayerModel and Roact.createElement(TryOnViewport, {
+						localPlayerModel = localPlayerModel,
+						setScrollingEnabled = function(enabled)
+							self:setScrollingEnabled(enabled)
+						end,
+					}),
+					DetailsText = Roact.createElement(DetailsText, FFlagInspectAndBuyLayeredClothingR6Support and {
+						localPlayerModel = localPlayerModel,
+					} or nil),
+					DetailsDescription = Roact.createElement(DetailsDescription),
+				})
+			})
+		end
 	})
 end
 
@@ -123,6 +151,7 @@ return RoactRodux.UNSTABLE_connect2(
 			detailsInformation = state.detailsInformation,
 			assetInfo = state.assets[assetId],
 			bundles = state.bundles,
+			gamepadEnabled = state.gamepadEnabled,
 		}
 	end,
 

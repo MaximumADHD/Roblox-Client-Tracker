@@ -19,7 +19,6 @@ local ContextUpImage = "https://www.roblox.com/asset/?id=97166444"
 local oldTouches = {}
 
 local FFlagCancelButtonTouchEventOnMouseDragOff = game:DefineFastFlag("CancelButtonTouchEventOnMouseDragOff", false)
-local FFlagHandleChangeBoundActionNilValue = game:DefineFastFlag("HandleChangeBoundActionNilValue", false)
 
 local IMAGE = "image"
 local TITLE = "title"
@@ -359,11 +358,9 @@ contextActionService.BoundActionChanged:connect( function(actionName, changeName
 	if functionTable[actionName] and changeTable then
 		local button = functionTable[actionName]["button"]
 		local changeValue = changeTable[changeName]
-		if FFlagHandleChangeBoundActionNilValue then
-			if not changeValue and (changeName == IMAGE or changeName == TITLE or changeName == DESCRIPTION) then
-				-- user is clearing the field
-				changeValue = ""
-			end
+		if not changeValue and (changeName == IMAGE or changeName == TITLE or changeName == DESCRIPTION) then
+			-- user is clearing the field
+			changeValue = ""
 		end
 		if button then
 			if changeName == IMAGE then

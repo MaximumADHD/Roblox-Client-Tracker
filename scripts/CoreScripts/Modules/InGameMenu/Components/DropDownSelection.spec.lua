@@ -1,5 +1,7 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Cryo = InGameMenuDependencies.Cryo
@@ -77,21 +79,20 @@ return function()
 			propValidation = true,
 		})
 
-		local element = Roact.createElement(UIBlox.Core.Style.Provider, {
-			style = appStyle,
-		}, {
-			LocalizationProvider = Roact.createElement(LocalizationProvider, {
-				localization = Localization.new("en-us"),
+		jestExpect(function()
+			local element = Roact.createElement(UIBlox.Core.Style.Provider, {
+				style = appStyle,
 			}, {
-				DropDownSelection = Roact.createElement(DropDownSelection, Cryo.Dictionary.join(dummyDropDownProps, {
-					selectedIndex = 100,
-				})),
-			}),
-		})
-
-		expect(function()
+				LocalizationProvider = Roact.createElement(LocalizationProvider, {
+					localization = Localization.new("en-us"),
+				}, {
+					DropDownSelection = Roact.createElement(DropDownSelection, Cryo.Dictionary.join(dummyDropDownProps, {
+						selectedIndex = 100,
+					})),
+				}),
+			})
 			local instance = Roact.mount(element)
 			Roact.unmount(instance)
-		end).to.throw()
+		end).toThrow("selectedIndex must not be greater than the number of selections")
 	end)
 end

@@ -2,6 +2,11 @@ return function ()
 	local CorePackages = game:GetService("CorePackages")
 	local Roact = require(CorePackages.Roact)
 	local ExternalEventConnection = require(script.Parent.ExternalEventConnection)
+	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+	local act = require(Modules.act)
+
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
 	it("if mounted, should call the callback when the event is triggered", function()
 		local event = Instance.new("BindableEvent")
@@ -17,12 +22,12 @@ return function ()
 		local RoactInstance = Roact.mount(element)
 		event:Fire()
 
-		expect(count).to.equal(1)
+		jestExpect(count).toBe(1)
 
 		Roact.unmount(RoactInstance)
 		event:Fire()
 
-		expect(count).to.equal(1)
+		jestExpect(count).toBe(1)
 
 		event:Destroy()
 	end)
@@ -64,27 +69,31 @@ return function ()
 		Roact.mount(Roact.createElement(EventContainer))
 		firstEvent:Fire()
 
-		expect(count).to.equal(1)
+		jestExpect(count).toBe(1)
 
-		changeState({
-			event = secondEvent.Event,
-		})
+		act(function()
+			changeState({
+				event = secondEvent.Event,
+			})
+		end)
 		firstEvent:Fire()
 
-		expect(count).to.equal(1)
+		jestExpect(count).toBe(1)
 
 		secondEvent:Fire()
 
-		expect(count).to.equal(2)
+		jestExpect(count).toBe(2)
 
-		changeState({
-			callback = function()
-				-- this is intentionally blank
-			end,
-		})
+		act(function()
+			changeState({
+				callback = function()
+					-- this is intentionally blank
+				end,
+			})
+		end)
 		secondEvent:Fire()
 
-		expect(count).to.equal(2)
+		jestExpect(count).toBe(2)
 		firstEvent:Destroy()
 		secondEvent:Destroy()
 	end)

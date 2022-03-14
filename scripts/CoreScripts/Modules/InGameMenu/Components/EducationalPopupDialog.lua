@@ -12,7 +12,7 @@ local EducationalModal = UIBlox.App.Dialog.Modal.EducationalModal
 local withStyle = UIBlox.Core.Style.withStyle
 
 local InGameMenu = script.Parent.Parent
-local GetFFlagInGameFixEducationalPopupInput = require(InGameMenu.Flags.GetFFlagInGameFixEducationalPopupInput)
+local GetFFlagLuaAppExitModal = require(InGameMenu.Flags.GetFFlagLuaAppExitModal)
 
 local EDU_POPUP_CONFIRM_ACTION = "EducationalPopupConfirm"
 
@@ -20,17 +20,18 @@ local EducationalPopupDialog = Roact.PureComponent:extend("EducationalPopupDialo
 
 EducationalPopupDialog.validateProps = t.strictInterface({
 	bodyContents = t.array(t.strictInterface({
-		icon = t.union(t.string, t.table),
+		icon = t.optional(t.union(t.string, t.table)),
 		text = t.string,
-		layoutOrder = t.integer,
+		layoutOrder = t.optional(t.integer),
 		isSystemMenuIcon = t.optional(t.boolean),
 	})),
 	cancelText = t.string,
 	confirmText = t.string,
-	titleText = t.string,
+	titleText = t.optional(t.string),
 	titleBackgroundImageProps = t.strictInterface({
 		image = t.string,
 		imageHeight = t.number,
+		text = t.optional(t.string),
 	}),
 	screenSize = t.Vector2,
 
@@ -84,7 +85,11 @@ end
 function EducationalPopupDialog:bindActions()
 	local function dismissFunc(actionName, inputState, input)
 		if inputState == Enum.UserInputState.Begin then
-			self.props.onConfirm()
+			if GetFFlagLuaAppExitModal() then
+				self.props.onDismiss()
+			else
+				self.props.onConfirm()
+			end
 		end
 	end
 
@@ -104,22 +109,18 @@ end
 function EducationalPopupDialog:didMount()
 	self:updateBlur()
 
-	if GetFFlagInGameFixEducationalPopupInput() then
-		if self.props.visible then
-			self:bindActions()
-		end
+	if self.props.visible then
+		self:bindActions()
 	end
 end
 
 function EducationalPopupDialog:didUpdate()
 	self:updateBlur()
 
-	if GetFFlagInGameFixEducationalPopupInput() then
-		if self.props.visible then
-			self:bindActions()
-		else
-			self:unbindActions()
-		end
+	if self.props.visible then
+		self:bindActions()
+	else
+		self:unbindActions()
 	end
 end
 
@@ -127,9 +128,8 @@ function EducationalPopupDialog:willUnmount()
 	if self.props.blurBackground then
 		RunService:SetRobloxGuiFocused(false)
 	end
-	if GetFFlagInGameFixEducationalPopupInput() then
-		self:unbindActions()
-	end
+
+	self:unbindActions()
 end
 
 return EducationalPopupDialog

@@ -51,7 +51,7 @@ function UnitTestContainer:render()
 					Font = Gotham,
 				},
 			}, {
-				Roact.createElement(LocalizationContextProvider, {
+				LocalizationContextProvider = Roact.createElement(LocalizationContextProvider, {
 					localizationContext = self.localizationContext,
 					render = function()
 						return Roact.createElement(LayoutValuesProvider, {

@@ -387,6 +387,7 @@ local function createPrompt_DEPRECATED(prompt, inputType)
 		button.TextTransparency = 1
 		button.Size = UDim2.fromScale(1, 1)
 		button.Parent = promptUI
+		button.Selectable = false
 
 		if FFlagProximityPromptNoButtonDrag then
 			local buttonDown = false
@@ -668,6 +669,7 @@ local function createPrompt(prompt, inputType, gui)
 		button.TextTransparency = 1
 		button.Size = UDim2.fromScale(1, 1)
 		button.Parent = promptUI
+		button.Selectable = false
 
 		if FFlagProximityPromptNoButtonDrag then
 			local buttonDown = false

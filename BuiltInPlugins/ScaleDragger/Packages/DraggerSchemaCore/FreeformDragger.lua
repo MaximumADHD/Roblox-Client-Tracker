@@ -9,6 +9,8 @@ local DragHelper = require(DraggerFramework.Utility.DragHelper)
 local PartMover = require(DraggerFramework.Utility.PartMover)
 local AttachmentMover = require(DraggerFramework.Utility.AttachmentMover)
 
+local getEngineFeatureDraggerBruteForceAll = require(DraggerFramework.Flags.getEngineFeatureDraggerBruteForceAll)
+
 local FreeformDragger = {}
 FreeformDragger.__index = FreeformDragger
 
@@ -174,20 +176,41 @@ function FreeformDragger:destroy()
 		-- Single attachment being dragged case -- In that case we need to
 		-- potentially reparent the attachment to the part it was dragged onto.
 		local mouseRay = self._draggerToolModel._draggerContext:getMouseRay()
-		local worldHit = Workspace:FindPartOnRay(mouseRay)
-		if worldHit then
-			local worldCFrame = attachment.WorldCFrame
-			if attachment.Parent ~= worldHit then
-				-- pcall as the dragged attachment may have been Destroyed.
-				pcall(function()
-					attachment.Parent = worldHit
-				end)
-				attachment.WorldCFrame = worldCFrame
+
+		if getEngineFeatureDraggerBruteForceAll() then
+			local params = RaycastParams.new()
+			params.BruteForceAllSlow = true
+			local result = Workspace:Raycast(mouseRay.Origin, mouseRay.Direction, params)
+			if result then
+				local worldCFrame = attachment.WorldCFrame
+				if attachment.Parent ~= result.Instance then
+					-- pcall as the dragged attachment may have been Destroyed.
+					pcall(function()
+						attachment.Parent = result.Position
+					end)
+					attachment.WorldCFrame = worldCFrame
+				end
+			else
+				-- When there's no valid target, reset the AttachmentMover so we
+				-- don't move the attachment.
+				self._attachmentMover:transformTo(CFrame.new())
 			end
 		else
-			-- When there's no valid target, reset the AttachmentMover so we
-			-- don't move the attachment.
-			self._attachmentMover:transformTo(CFrame.new())
+			local worldHit = Workspace:FindPartOnRay(mouseRay)
+			if worldHit then
+				local worldCFrame = attachment.WorldCFrame
+				if attachment.Parent ~= worldHit then
+					-- pcall as the dragged attachment may have been Destroyed.
+					pcall(function()
+						attachment.Parent = worldHit
+					end)
+					attachment.WorldCFrame = worldCFrame
+				end
+			else
+				-- When there's no valid target, reset the AttachmentMover so we
+				-- don't move the attachment.
+				self._attachmentMover:transformTo(CFrame.new())
+			end
 		end
 	end
 

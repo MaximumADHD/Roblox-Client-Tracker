@@ -17,8 +17,6 @@ local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 local TopBar = require(RobloxGui.Modules.TopBar)
 
-local FFlagCaptureModeUseEventStream = game:DefineFastFlag("CaptureModeUseEventStream", false)
-
 --[[ Images ]]--
 -- local CLOSE_ICON = 'rbxasset://textures/ui/Capture/CloseButton.png'
 -- local SHUTTER_ICON = 'rbxasset://textures/ui/Capture/Shutter.png'
@@ -200,11 +198,7 @@ CaptureMaster.captureEvent.Event:connect(function()
 	exitCaptureMode()
 	capturing = false
 
-	if FFlagCaptureModeUseEventStream then
-		AnalyticsService:SetRBXEventStream("client", "CaptureHud", "CaptureEvent", {
-			placeId = game.PlaceId,
-		})
-	else
-		AnalyticsService:TrackEvent("Game", "CaptureEvent", "placeId: " .. tostring(game.PlaceId))
-	end
+	AnalyticsService:SetRBXEventStream("client", "CaptureHud", "CaptureEvent", {
+		placeId = game.PlaceId,
+	})
 end)

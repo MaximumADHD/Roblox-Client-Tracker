@@ -67,7 +67,7 @@ local function AssertTypes(param, ...)
 end
 
 -- Helper function for Determinant of 3x3, not in CameraUtils for performance reasons
-local function Det3x3(a,b,c,d,e,f,g,h,i)
+local function Det3x3(a: number,b: number,c: number,d: number,e: number,f: number,g: number,h: number,i: number): nemubr
 	return (a*(e*i-f*h)-b*(d*i-f*g)+c*(d*h-e*g))
 end
 
@@ -75,7 +75,7 @@ end
 -- because they are generated from cross products with a common vector. This function is computing
 -- that intersection, but it's actually the general solution for the point halfway between where
 -- two skew lines come nearest to each other, which is more forgiving.
-local function RayIntersection(p0, v0, p1, v1)
+local function RayIntersection(p0: Vector3, v0: Vector3, p1: Vector3, v1: Vector3): Vector3
 	local v2 = v0:Cross(v1)
 	local d1 = p1.x - p0.x
 	local d2 = p1.y - p0.y
@@ -162,16 +162,16 @@ end
 
 function Invisicam:MoveBehavior(castPoints)
 	for i = 1, MOVE_CASTS do
-		local position, velocity = self.humanoidRootPart.Position, self.humanoidRootPart.Velocity
-		local horizontalSpeed = Vector3.new(velocity.X, 0, velocity.Z).Magnitude / 2
-		local offsetVector = (i - 1) * self.humanoidRootPart.CFrame.lookVector * horizontalSpeed
+		local position: Vector3, velocity: Vector3 = self.humanoidRootPart.Position, self.humanoidRootPart.Velocity
+		local horizontalSpeed: number = Vector3.new(velocity.X, 0, velocity.Z).Magnitude / 2
+		local offsetVector: Vector3 = (i - 1) * self.humanoidRootPart.CFrame.lookVector :: Vector3 * horizontalSpeed
 		castPoints[#castPoints + 1] = position + offsetVector
 	end
 end
 
 function Invisicam:CornerBehavior(castPoints)
-	local cframe = self.humanoidRootPart.CFrame
-	local centerPoint = cframe.p
+	local cframe: CFrame = self.humanoidRootPart.CFrame
+	local centerPoint: Vector3 = cframe.p
 	local rotation = cframe - centerPoint
 	local halfSize = self.char:GetExtentsSize() / 2 --NOTE: Doesn't update w/ limb animations
 	castPoints[#castPoints + 1] = centerPoint
@@ -181,11 +181,11 @@ function Invisicam:CornerBehavior(castPoints)
 end
 
 function Invisicam:CircleBehavior(castPoints)
-	local cframe
+	local cframe: CFrame
 	if self.mode == MODE.CIRCLE1 then
 		cframe = self.humanoidRootPart.CFrame
 	else
-		local camCFrame = self.camera.CoordinateFrame
+		local camCFrame: CFrame = self.camera.CoordinateFrame
 		cframe = camCFrame - camCFrame.p + self.humanoidRootPart.Position
 	end
 	castPoints[#castPoints + 1] = cframe.p
@@ -339,7 +339,7 @@ function Invisicam:CheckTorsoReference()
 	end
 end
 
-function Invisicam:CharacterAdded(char, player)
+function Invisicam:CharacterAdded(char: Model, player: Player)
 	-- We only want the LocalPlayer's character
 	if player~=PlayersService.LocalPlayer then return end
 
@@ -385,7 +385,7 @@ function Invisicam:CharacterAdded(char, player)
 	end
 end
 
-function Invisicam:SetMode(newMode)
+function Invisicam:SetMode(newMode: number)
 	AssertTypes(newMode, 'number')
 	for _, modeNum in pairs(MODE) do
 		if modeNum == newMode then
@@ -408,7 +408,7 @@ function Invisicam:Cleanup()
 	end
 end
 
-function Invisicam:Update(dt, desiredCameraCFrame, desiredCameraFocus)
+function Invisicam:Update(dt: number, desiredCameraCFrame: CFrame, desiredCameraFocus: CFrame): (CFrame, CFrame)
 	-- Bail if there is no Character
 	if not self.enabled or not self.char then
 		return desiredCameraCFrame, desiredCameraFocus

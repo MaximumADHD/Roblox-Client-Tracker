@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["roblox_iap-experience"]["iap-experience"]
+local Package = require(PackageIndex["IAPExperience"]["IAPExperience"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

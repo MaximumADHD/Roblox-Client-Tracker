@@ -24,6 +24,9 @@ local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
 
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
 local SendNotification
 local RobloxTranslator
 local GraphicsQualityLevelChanged
@@ -90,6 +93,9 @@ end
 local GraphicsQualityEntry = Roact.PureComponent:extend("GraphicsQualityEntry")
 GraphicsQualityEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+
 })
 
 function GraphicsQualityEntry:init()
@@ -218,6 +224,8 @@ function GraphicsQualityEntry:render()
 				self:setManualQualityLevel(newValue)
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
+			canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.canCaptureFocus or nil,
+			isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
 		}),
 		QualityListener = Roact.createElement(ExternalEventConnection, {
 			event = GetFixGraphicsQuality() and GraphicsQualityLevelChanged or SavedQualityLevelChanged,

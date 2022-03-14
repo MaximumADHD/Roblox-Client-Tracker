@@ -1,3 +1,4 @@
+--!strict
 -- Zoom
 -- Controls the distance between the focus and the camera.
 
@@ -33,7 +34,7 @@ end
 local ConstrainedSpring = {} do
 	ConstrainedSpring.__index = ConstrainedSpring
 
-	function ConstrainedSpring.new(freq, x, minValue, maxValue)
+	function ConstrainedSpring.new(freq: number, x: number, minValue: number, maxValue: number)
 		x = clamp(x, minValue, maxValue)
 		return setmetatable({
 			freq = freq, -- Undamped frequency (Hz)
@@ -45,13 +46,13 @@ local ConstrainedSpring = {} do
 		}, ConstrainedSpring)
 	end
 
-	function ConstrainedSpring:Step(dt)
-		local freq = self.freq*2*pi -- Convert from Hz to rad/s
-		local x = self.x
-		local v = self.v
-		local minValue = self.minValue
-		local maxValue = self.maxValue
-		local goal = self.goal
+	function ConstrainedSpring:Step(dt: number)
+		local freq = self.freq :: number * 2 * pi -- Convert from Hz to rad/s
+		local x: number = self.x
+		local v: number = self.v
+		local minValue: number = self.minValue
+		local maxValue: number = self.maxValue
+		local goal: number = self.goal
 
 		-- Solve the spring ODE for position and velocity after time t, assuming critical damping:
 		--   2*f*x'[t] + x''[t] = f^2*(g - x[t])
@@ -83,7 +84,7 @@ end
 
 local zoomSpring = ConstrainedSpring.new(ZOOM_STIFFNESS, ZOOM_DEFAULT, MIN_FOCUS_DIST, cameraMaxZoomDistance)
 
-local function stepTargetZoom(z, dz, zoomMin, zoomMax)
+local function stepTargetZoom(z: number, dz: number, zoomMin: number, zoomMax: number)
 	z = clamp(z + dz*(1 + z*ZOOM_ACCELERATION), zoomMin, zoomMax)
 	if z < DIST_OPAQUE then
 		z = dz <= 0 and zoomMin or DIST_OPAQUE
@@ -94,7 +95,7 @@ end
 local zoomDelta = 0
 
 local Zoom = {} do
-	function Zoom.Update(renderDt, focus, extrapolation)
+	function Zoom.Update(renderDt: number, focus: CFrame, extrapolation)
 		local poppedZoom = math.huge
 
 		if zoomSpring.goal > DIST_OPAQUE then
@@ -126,6 +127,11 @@ local Zoom = {} do
 		zoomSpring.goal = targetZoom
 		zoomDelta = newZoomDelta
 	end
+
+	function Zoom.ReleaseSpring()
+		zoomSpring.x = zoomSpring.goal
+		zoomSpring.v = 0
+	end	
 end
 
 return Zoom

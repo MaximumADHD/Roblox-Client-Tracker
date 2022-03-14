@@ -33,7 +33,7 @@ function Gamepad.new(CONTROL_ACTION_PRIORITY)
 	return self
 end
 
-function Gamepad:Enable(enable)
+function Gamepad:Enable(enable: boolean): boolean
 	if not UserInputService.GamepadEnabled then
 		return false
 	end
@@ -135,7 +135,7 @@ end
 
 function Gamepad:OnNewGamepadConnected()
 	-- A new gamepad has been connected.
-	local bestGamepad = self:GetHighestPriorityGamepad()
+	local bestGamepad: Enum.UserInputType = self:GetHighestPriorityGamepad()
 
 	if bestGamepad == self.activeGamepad then
 		-- A new gamepad was connected, but our active gamepad is not changing

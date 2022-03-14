@@ -84,6 +84,7 @@ local GuiService = game:GetService('GuiService')
 local CoreGui = game:GetService('CoreGui')
 local ContextActionService = game:GetService('ContextActionService')
 local VRService = game:GetService("VRService")
+local GamepadService = game:GetService("GamepadService")
 local RobloxGui = CoreGui:WaitForChild('RobloxGui')
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local IsTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -143,6 +144,9 @@ local HotkeyStrings = {} -- Used for eating/releasing hotkeys
 local CharConns = {} -- Holds character connections to be cleared later
 local GamepadEnabled = false -- determines if our gui needs to be gamepad friendly
 local TimeOfLastToolChange = 0
+
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagVirtualCursorInteractWithInventory = game:DefineFastFlag("VirtualCursorInteractWithInventory", false)
 
 local IsVR = VRService.VREnabled -- Are we currently using a VR device?
 local NumberOfHotbarSlots = IsVR and HOTBAR_SLOTS_VR or (IS_PHONE and HOTBAR_SLOTS_MINI or HOTBAR_SLOTS_FULL) -- Number of slots shown at the bottom
@@ -204,7 +208,7 @@ local function isInventoryEmpty()
 end
 
 local function UseGazeSelection()
-	return UserInputService.VREnabled
+	return (UserInputService.VREnabled and not FFlagEnableNewVrSystem)
 end
 
 local function AdjustHotbarFrames()
@@ -564,20 +568,20 @@ local function MakeSlot(parent, index)
 	end
 
 	-- Slot select logic, activated by clicking or pressing hotkey
-		function slot:Select(isProcessed)
-			if isProcessed then
-				return
-			end
+	function slot:Select(isProcessed)
+		if isProcessed then
+			return
+		end
 
-			local tool = slot.Tool
-			if tool then
-				if IsEquipped(tool) then --NOTE: HopperBin
-					UnequipAllTools()
-				elseif tool.Parent == Backpack then
-					EquipNewTool(tool)
-				end
+		local tool = slot.Tool
+		if tool then
+			if IsEquipped(tool) then --NOTE: HopperBin
+				UnequipAllTools()
+			elseif tool.Parent == Backpack then
+				EquipNewTool(tool)
 			end
 		end
+	end
 
 	-- Slot Init Logic --
 
@@ -789,8 +793,8 @@ local function MakeSlot(parent, index)
 			else
 				-- local tool = slot.Tool
 				-- if tool.CanBeDropped then --TODO: HopperBins
-					-- tool.Parent = workspace
-					-- --TODO: Move away from character
+				-- tool.Parent = workspace
+				-- --TODO: Move away from character
 				-- end
 				if slot.Index <= NumberOfHotbarSlots then
 					slot:MoveToInventory() --NOTE: Temporary
@@ -1133,13 +1137,13 @@ changeToolFunc = function(actionName, inputState, inputObject)
 		if (lastChangeToolInputObject.KeyCode == Enum.KeyCode.ButtonR1 and
 			inputObject.KeyCode == Enum.KeyCode.ButtonL1) or
 			(lastChangeToolInputObject.KeyCode == Enum.KeyCode.ButtonL1 and
-			inputObject.KeyCode == Enum.KeyCode.ButtonR1) then
-				if (tick() - lastChangeToolInputTime) <= maxEquipDeltaTime then
-					UnequipAllTools()
-					lastChangeToolInputObject = inputObject
-					lastChangeToolInputTime = tick()
-					return
-				end
+				inputObject.KeyCode == Enum.KeyCode.ButtonR1) then
+			if (tick() - lastChangeToolInputTime) <= maxEquipDeltaTime then
+				UnequipAllTools()
+				lastChangeToolInputObject = inputObject
+				lastChangeToolInputTime = tick()
+				return
+			end
 		end
 	end
 
@@ -1220,8 +1224,12 @@ end
 
 function changeSlot(slot)
 	local swapInVr = not VRService.VREnabled or InventoryFrame.Visible
+	local gamepadCursorEnabled = false
+	if FFlagVirtualCursorInteractWithInventory then
+		gamepadCursorEnabled = GamepadService.GamepadCursorEnabled
+	end
 
-	if slot.Frame == GuiService.SelectedCoreObject and swapInVr then
+	if slot.Frame == GuiService.SelectedCoreObject and swapInVr and not gamepadCursorEnabled then
 		local currentlySelectedSlot = getGamepadSwapSlot()
 
 		if currentlySelectedSlot then
@@ -1769,7 +1777,7 @@ do -- Make the Inventory expand/collapse arrow (unless TopBar)
 			if GamepadEnabled then
 				if GAMEPAD_INPUT_TYPES[UserInputService:GetLastInputType()] then
 					resizeGamepadHintsFrame()
-					gamepadHintsFrame.Visible = not UserInputService.VREnabled
+					gamepadHintsFrame.Visible = not (UserInputService.VREnabled)
 				end
 				enableGamepadInventoryControl()
 			end
@@ -1881,6 +1889,8 @@ end)
 local BackpackStateChangedInVRConn, VRModuleOpenedConn, VRModuleClosedConn = nil, nil, nil
 local function OnVREnabled()
 	local Panel3D = require(RobloxGui.Modules.VR.Panel3D)
+	
+	Panel3D.showCursor = not FFlagEnableNewVrSystem
 
 	IsVR = VRService.VREnabled
 	OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
@@ -1904,7 +1914,8 @@ local function OnVREnabled()
 		BackpackPanel:ResizeStuds(inventoryClosedStudSize.x, inventoryClosedStudSize.y, VR_PANEL_RESOLUTION)
 		BackpackPanel:SetType(Panel3D.Type.Standard, { CFrame = currentPanelLocalCF })
 		BackpackPanel:RequestPositionUpdate()
-		local panelOriginCF = CFrame.new()
+		BackpackPanel.showCursor = not FFlagEnableNewVrSystem
+
 		function BackpackPanel:CalculateTransparency()
 			if InventoryFrame.Visible then
 				return 0

@@ -11,8 +11,13 @@ local UpsellFlow = require(Root.Enums.UpsellFlow)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
 local PromptNativeUpsell = require(Root.Actions.PromptNativeUpsell)
 local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
+local selectRobuxProductFromProvider = require(Root.NativeUpsell.selectRobuxProductFromProvider)
+local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
+local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local Thunk = require(Root.Thunk)
 
+local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
+local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 
 local function resolveSubscriptionPromptState(productInfo, accountInfo, alreadyOwned)
 	return Thunk.new(script.Name, {}, function(store, services)
@@ -42,8 +47,11 @@ local function resolveSubscriptionPromptState(productInfo, accountInfo, alreadyO
 				local neededRobux = price - accountInfo.RobuxBalance
 				local hasMembership = accountInfo.MembershipType > 0
 
-				return selectRobuxProduct(platform, neededRobux, hasMembership)
-					:andThen(function(product)
+				if GetFFlagEnablePPUpsellProductListRefactor() then
+					local isAmazon = getHasAmazonUserAgent()
+					local isLuobu = GetFFlagEnableLuobuInGameUpsell()
+					local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
+					return selectRobuxProductFromProvider(paymentPlatform, neededRobux, hasMembership, nil):andThen(function(product)
 						-- We found a valid upsell product for the current platform
 						store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
 					end, function()
@@ -54,6 +62,20 @@ local function resolveSubscriptionPromptState(productInfo, accountInfo, alreadyO
 							store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
 						end
 					end)
+				else
+					return selectRobuxProduct(platform, neededRobux, hasMembership)
+						:andThen(function(product)
+							-- We found a valid upsell product for the current platform
+							store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
+						end, function()
+							-- No upsell item will provide sufficient funds to make this purchase
+							if platform == Enum.Platform.XBoxOne then
+								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+							else
+								store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
+							end
+						end)
+				end
 			end
 		end
 

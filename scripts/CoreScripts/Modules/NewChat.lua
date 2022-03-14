@@ -28,6 +28,14 @@ local BubbleChatEnabled = PlayersService.BubbleChat
 
 local Util = require(RobloxGui.Modules.ChatUtil)
 
+local FFlagEnableExperienceChat = require(RobloxGui.Modules.Common.Flags.FFlagEnableExperienceChat)
+local ExperienceChat
+local ChatTopBarButtonActivated
+if FFlagEnableExperienceChat then
+	ExperienceChat = require(game:GetService("CorePackages").Packages.ExperienceChat)
+	ChatTopBarButtonActivated = ExperienceChat.ChatVisibility.Actions.ChatTopBarButtonActivated
+end
+
 local moduleApiTable = {}
 do
 		local ChatWindowState =
@@ -81,6 +89,10 @@ do
 			local didFire = DispatchEvent("ToggleVisibility")
 			if (not didFire) then
 				moduleApiTable.VisibilityStateChanged:fire(ChatWindowState.Visible)
+			end
+
+			if FFlagEnableExperienceChat then
+				ExperienceChat.DispatchBindableEvent:Fire(ChatTopBarButtonActivated(ChatWindowState.Visible))
 			end
 		end
 

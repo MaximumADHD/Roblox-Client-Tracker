@@ -8,7 +8,11 @@ local RemovePlayer = require(Actions.RemovePlayer)
 local SetPlayerLeaderstat = require(Actions.SetPlayerLeaderstat)
 
 local function createKey(player: Player, primaryStat, stats)
-	local stat = primaryStat and stats[player.UserId][primaryStat] or nil
+	local stat
+	if primaryStat ~= nil and stats ~= nil and stats[player.UserId] ~= nil then
+		stat = stats[player.UserId][primaryStat]
+	end
+
 	return {
 		name = player.DisplayName:upper(),
 		stat = stat and tonumber(stat) or stat,

@@ -1,12 +1,24 @@
+local UserInputService = game:GetService("UserInputService")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
 local InGameMenu = script.Parent.Parent
 local Constants = require(InGameMenu.Resources.Constants)
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
+local InputTypeMap = Constants.InputTypeMap
 
-return function(eventContext, eventName, eventTable, replaceEventNameWithGameSettings)
+return function(eventContext, eventName, eventTable, replaceEventNameWithGameSettings, analyticsServiceImpl)
+	-- This parameter is only used to mock in testing
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		if analyticsServiceImpl == nil then
+			analyticsServiceImpl = AnalyticsService
+		end
+	else
+		analyticsServiceImpl = AnalyticsService
+	end
+
 	local function reportSettingsForAnalytics()
-		local UserInputService = game:GetService("UserInputService")
 		local GameSettings =  UserSettings().GameSettings
 
 		local stringTable = {}
@@ -57,6 +69,11 @@ return function(eventContext, eventName, eventTable, replaceEventNameWithGameSet
 		end
 		eventTable["universeid"] = tostring(game.GameId)
 
-		AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			local lastUsedInputType = InputTypeMap[UserInputService:GetLastInputType()] or UserInputService:GetLastInputType()
+			eventTable["inputDevice"] = tostring(lastUsedInputType)
+		end
+
+		analyticsServiceImpl:SetRBXEventStream(Constants.AnalyticsTargetName, eventContext, eventName, eventTable)
 	end
 end

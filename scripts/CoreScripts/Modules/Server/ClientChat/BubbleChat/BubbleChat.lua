@@ -671,7 +671,7 @@ function this:BubbleChatEnabled()
 	if clientChatModules then
 		local chatSettings = clientChatModules:FindFirstChild("ChatSettings")
 		if chatSettings then
-			local chatSettings = require(chatSettings)
+			chatSettings = require(chatSettings)
 			if chatSettings.BubbleChatEnabled ~= nil then
 				return chatSettings.BubbleChatEnabled
 			end

@@ -6,6 +6,7 @@ local VRService = game:GetService("VRService")
 local RunService = game:GetService("RunService")
 local HttpService = game:GetService("HttpService")
 local CoreGui = game:GetService("CoreGui")
+local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
 
 local RobloxGui = CoreGui.RobloxGui
@@ -13,6 +14,8 @@ local Util = require(RobloxGui.Modules.Settings.Utility)
 
 local LaserPointer = require(RobloxGui.Modules.VR.LaserPointer)
 local VRControllerModel = require(RobloxGui.Modules.VR.VRControllerModel)
+
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 
 local VRHub = {}
 local RegisteredModules = {}
@@ -106,6 +109,14 @@ local function onVREnabled(property)
 			enableControllerModels(true)
 		end
 		RunService:BindToRenderStep(vrUpdateRenderstepName, Enum.RenderPriority.Last.Value, onRenderSteppedLast)
+		
+		if FFlagEnableNewVrSystem then
+			if VRHub.LaserPointer then
+				VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)
+				VRHub.LaserPointer:setForcePointer(true)
+			end
+			UserInputService.OverrideMouseIconBehavior = Enum.OverrideMouseIconBehavior.ForceHide
+		end
 	else
 		if VRHub.LaserPointer then
 			VRHub.LaserPointer:setMode(LaserPointer.Mode.Disabled)

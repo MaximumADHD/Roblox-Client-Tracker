@@ -38,13 +38,11 @@ local BASE_DOMAIN = getBaseDomain()
 local ITEM_CONFIGURATION_URL = string.format("https://itemconfiguration.%s", BASE_DOMAIN)
 local GET_ASSET_CREATION_DETAILS_URL = ITEM_CONFIGURATION_URL .. "v1/creations/get-asset-details"
 
-local function getAssetCreationDetails(isAsync, assetIds)
+local function getAssetCreationDetails(assetIds)
 	local success, response = requestAndRetry(
 		GET_ASSET_CREATION_DETAILS_URL,
 		HttpService:JSONEncode({ assetIds = assetIds })
 	)
-
-	-- TODO: isAsync
 
 	if success then
 		return true, HttpService:JSONDecode(response)

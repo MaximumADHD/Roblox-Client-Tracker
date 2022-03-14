@@ -206,7 +206,6 @@ local function CreateVRCamera()
 		local subjectPosition = self:GetSubjectPosition()
 		local zoom = self:GetCameraZoom()
 		
-		local subjectPosition = self:GetSubjectPosition()
 		local gamepadRotation = self:UpdateGamepad()			
 		
 		if subjectPosition and currentDestination then

@@ -10,10 +10,6 @@ local SetEmotesOpen = require(Actions.SetEmotesOpen)
 local SetLeaderboardOpen = require(Actions.SetLeaderboardOpen)
 local SetEmotesEnabled = require(Actions.SetEmotesEnabled)
 
-local FFlagTopBarCloseContextMenuWhenHotkeysUsed = game:DefineFastFlag(
-	"TopBarCloseContextMenuWhenHotkeysUsed", false
-)
-
 local initialState = {
 	open = false,
 	backpackOpen = false,
@@ -30,29 +26,17 @@ local MoreMenu = Rodux.createReducer(initialState, {
 	end,
 
 	[SetBackpackOpen.name] = function(state, action)
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			return Cryo.Dictionary.join(state, {
-				open = false,
-				backpackOpen = action.open,
-			})
-		else
-			return Cryo.Dictionary.join(state, {
-				backpackOpen = action.open,
-			})
-		end
+		return Cryo.Dictionary.join(state, {
+			open = false,
+			backpackOpen = action.open,
+		})
 	end,
 
 	[SetEmotesOpen.name] = function(state, action)
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			return Cryo.Dictionary.join(state, {
-				open = false,
-				emotesOpen = action.open,
-			})
-		else
-			return Cryo.Dictionary.join(state, {
-				emotesOpen = action.open,
-			})
-		end
+		return Cryo.Dictionary.join(state, {
+			open = false,
+			emotesOpen = action.open,
+		})
 	end,
 
 	[SetEmotesEnabled.name] = function(state, action)
@@ -62,16 +46,10 @@ local MoreMenu = Rodux.createReducer(initialState, {
 	end,
 
 	[SetLeaderboardOpen.name] = function(state, action)
-		if FFlagTopBarCloseContextMenuWhenHotkeysUsed then
-			return Cryo.Dictionary.join(state, {
-				open = false,
-				leaderboardOpen = action.open,
-			})
-		else
-			return Cryo.Dictionary.join(state, {
-				leaderboardOpen = action.open,
-			})
-		end
+		return Cryo.Dictionary.join(state, {
+			open = false,
+			leaderboardOpen = action.open,
+		})
 	end,
 })
 

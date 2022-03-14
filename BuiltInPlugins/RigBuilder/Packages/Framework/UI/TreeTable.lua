@@ -1,7 +1,5 @@
 --[[
 	The TreeTable component displays a grid of data with expandable rows.
-	NOTE - The Scroll bug is due to UISYS-769. This is only expressed because Storybook displays components in an AutomaticSize layout,
-	and should not affect tables which are not in an AutomaticSize heirarchy (or once this bug is address by ui-subsystem team).
 
 	Required Props:
 		array[any] Columns: The columns of the table
@@ -30,7 +28,10 @@
 		callback OnPageSizeChange: An optional callback called when the size of a page changes.
 		callback OnPageChange: An optional callback called when the user changes the current page of the table. (pageindex: number) -> ()
 		callback OnSortChange: An optional callback called when the user sorts a column.
+		callback OnColumnSizesChange: An optional callback which allows columns to be resizable.
 		callback RowComponent: An optional component to render each row.
+		boolean UseScale: Whether to convert column widths to scales during resizing.
+		boolean ClampSize: Whether to clamp column resizes to the width of the table.
 		callback RightClick: An optional callback called when a row is right-clicked. (item: Item)->()
 		callback OnFocusLost: An optional callback called when a cell that has input enabled loses focus. Enable text change by column with TextInputCols prop
 		boolean FullSpan: Whether the root level should ignore column settings and use the first column key to populate entire width
@@ -62,9 +63,12 @@ local THEME_REFACTOR = Util.RefactorFlags.THEME_REFACTOR
 local TreeTable = Roact.PureComponent:extend("TreeTable")
 Typecheck.wrap(TreeTable, script)
 
-local FFlagDevFrameworkHighlightTableRows = game:GetFastFlag("DevFrameworkHighlightTableRows")
 local FFlagDevFrameworkInfiniteScrollerIndex = game:GetFastFlag("DevFrameworkInfiniteScrollerIndex")
 local FFlagDevFrameworkDoubleClick = game:GetFastFlag("DevFrameworkDoubleClick")
+local FFlagDevFrameworkSplitPane = game:GetFastFlag("DevFrameworkSplitPane")
+local FFlagDevFrameworkTableColumnResize = game:GetFastFlag("DevFrameworkTableColumnResize")
+
+local hasTableColumnResizeFFlags = FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize
 
 function TreeTable:init()
 	assert(THEME_REFACTOR, "TreeTable not supported in Theme1, please upgrade your plugin to Theme2")
@@ -128,7 +132,7 @@ function TreeTable:calculateItems(prevProps)
 		or props.GetChildren ~= prevProps.GetChildren
 		or props.GetItemKey ~= prevProps.GetItemKey
 		or props.Expansion ~= prevProps.Expansion
-		or (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows and props.HighlightedRows ~= prevProps.HighlightedRows)
+		or (props.HighlightedRows and props.HighlightedRows ~= prevProps.HighlightedRows)
 	)
 	local selectionChanged = not prevProps or props.Selection ~= prevProps.Selection
 	if not rowsChanged and not selectionChanged then
@@ -203,26 +207,26 @@ function TreeTable:render()
 		Footer = props.Footer,
 		ShowFooter = props.ShowFooter,
 		ShowHeader = props.ShowHeader,
+		ClampSize = if hasTableColumnResizeFFlags then props.ClampSize else nil,
+		UseScale = if hasTableColumnResizeFFlags then props.UseScale else nil,
 		OnHoverRow = props.OnHoverRow,
 		OnMouseLeave = props.OnMouseLeave,
 		OnSelectRow = self.onSelectRow,
-		OnDoubleClick = (FFlagDevFrameworkDoubleClick and props.OnDoubleClick) or nil,
+		OnDoubleClick = if FFlagDevFrameworkDoubleClick then props.OnDoubleClick else nil,
 		OnRightClickRow = self.onRightClickRow,
 		OnSizeChange = self.onSizeChange,
 		OnSortChange = props.OnSortChange,
+		OnColumnSizesChange = if hasTableColumnResizeFFlags then props.OnColumnSizesChange else nil,
 		RowComponent = props.RowComponent,
 		CellComponent = cellComponent,
 		FullSpan = props.FullSpan,
-		HighlightedRows = (FFlagDevFrameworkHighlightTableRows and props.HighlightedRows) or nil,
-		ScrollFocusIndex = (FFlagDevFrameworkInfiniteScrollerIndex and props.ScrollFocusIndex) or nil,
+		HighlightedRows = props.HighlightedRows,
+		ScrollFocusIndex = if FFlagDevFrameworkInfiniteScrollerIndex then props.ScrollFocusIndex else nil,
 	})
 end
-
 
 TreeTable = withContext({
 	Stylizer = THEME_REFACTOR and ContextServices.Stylizer or nil,
 })(TreeTable)
-
-
 
 return TreeTable

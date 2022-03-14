@@ -181,9 +181,6 @@ return function(isTenFoot)
 	LayoutValues.PlaceOwnerIcon = Images["icons/status/player/developer"]
 
 	LayoutValues.MembershipIcons = {
-		[Enum.MembershipType.BuildersClub] = "rbxasset://textures/ui/icon_BC-16.png",
-		[Enum.MembershipType.TurboBuildersClub] = "rbxasset://textures/ui/icon_TBC-16.png",
-		[Enum.MembershipType.OutrageousBuildersClub] = "rbxasset://textures/ui/icon_OBC-16.png",
 		[Enum.MembershipType.Premium] = Images["icons/status/premium_small"],
 	}
 

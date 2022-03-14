@@ -2,34 +2,23 @@ local CorePackages = game:GetService("CorePackages")
 
 local Roact = require(CorePackages.Roact)
 
-local LAYOUT_VALUES_KEY = "LayoutValues"
+local LayoutValuesContext = require(script.Parent.LayoutValuesContext)
 
-local LayoutValuesProvider = Roact.Component:extend("LayoutValuesProvider")
-
-function LayoutValuesProvider:init(props)
-	self._context[LAYOUT_VALUES_KEY] = props.layoutValues
+local function layoutValuesProvider(props)
+	return Roact.createElement(LayoutValuesContext.Provider, {
+		value = props.layoutValues,
+	}, Roact.oneChild(props[Roact.Children]))
 end
 
-function LayoutValuesProvider:render()
-	return Roact.oneChild(self.props[Roact.Children])
-end
-
-local LayoutValuesConsumer = Roact.Component:extend("LayoutValuesConsumer")
-
-function LayoutValuesConsumer:render()
-	local layoutValues = self._context[LAYOUT_VALUES_KEY]
-
-	return self.props.render(layoutValues)
-end
-
-local function WithLayoutValues(callback)
-	return Roact.createElement(LayoutValuesConsumer, {
+local function withLayoutValues(callback)
+	assert(type(callback) == "function", "Expect withLayoutValues callback to be a function.")
+	return Roact.createElement(LayoutValuesContext.Consumer, {
 		render = callback
 	})
 end
 
 return {
-	Consumer = LayoutValuesConsumer,
-	Provider = LayoutValuesProvider,
-	WithLayoutValues = WithLayoutValues,
+	Provider = layoutValuesProvider,
+	Consumer = LayoutValuesContext.Consumer,
+	WithLayoutValues = withLayoutValues,
 }

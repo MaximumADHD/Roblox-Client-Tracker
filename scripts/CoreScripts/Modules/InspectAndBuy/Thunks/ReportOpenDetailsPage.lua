@@ -2,7 +2,6 @@ local InspectAndBuyFolder = script.Parent.Parent
 local Thunk = require(InspectAndBuyFolder.Thunk)
 local Analytics = require(InspectAndBuyFolder.Services.Analytics)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
-local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
 
 local requiredServices = {
 	Analytics,
@@ -20,11 +19,8 @@ local function ReportOpenDetailsPage(assetInfo)
 
 		-- Currently we only show the bundle if an asset belongs to ONE bundle, not multiple.
 		local partOfBundle = assetInfo and assetInfo.bundlesAssetIsIn and #assetInfo.bundlesAssetIsIn == 1
-		local partOfBundleAndOffsale = partOfBundle
-		if FFlagAllowForBundleItemsSoldSeparately then
-			-- We show an asset if it is separately for sale from the bundle it is in
-			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		end
+		-- We show an asset if it is separately for sale from the bundle it is in
+		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 
 		local itemType, id
 

@@ -29,7 +29,7 @@ function MouseLockController.new()
 
 	self.mouseLockToggledEvent = Instance.new("BindableEvent")
 
-	local boundKeysObj = script:FindFirstChild("BoundKeys")
+	local boundKeysObj: StringValue = script:FindFirstChild("BoundKeys") :: StringValue
 	if (not boundKeysObj) or (not boundKeysObj:IsA("StringValue")) then
 		-- If object with correct name was found, but it's not a StringValue, destroy and replace
 		if boundKeysObj then
@@ -80,7 +80,7 @@ function MouseLockController:GetBindableToggleEvent()
 end
 
 function MouseLockController:GetMouseLockOffset()
-	local offsetValueObj = script:FindFirstChild("CameraOffset")
+	local offsetValueObj: Vector3Value = script:FindFirstChild("CameraOffset") :: Vector3Value
 	if offsetValueObj and offsetValueObj:IsA("Vector3Value") then
 		return offsetValueObj.Value
 	else
@@ -113,12 +113,12 @@ function MouseLockController:UpdateMouseLockAvailability()
 	end
 end
 
-function MouseLockController:OnBoundKeysObjectChanged(newValue)
+function MouseLockController:OnBoundKeysObjectChanged(newValue: string)
 	self.boundKeys = {} -- Overriding defaults, note: possibly with nothing at all if boundKeysObj.Value is "" or contains invalid values
 	for token in string.gmatch(newValue,"[^%s,]+") do
 		for _, keyEnum in pairs(Enum.KeyCode:GetEnumItems()) do
 			if token == keyEnum.Name then
-				self.boundKeys[#self.boundKeys+1] = keyEnum
+				self.boundKeys[#self.boundKeys+1] = keyEnum :: Enum.KeyCode
 				break
 			end
 		end
@@ -132,7 +132,7 @@ function MouseLockController:OnMouseLockToggled()
 	self.isMouseLocked = not self.isMouseLocked
 
 	if self.isMouseLocked then
-		local cursorImageValueObj = script:FindFirstChild("CursorImage")
+		local cursorImageValueObj: StringValue = script:FindFirstChild("CursorImage") :: StringValue
 		if cursorImageValueObj and cursorImageValueObj:IsA("StringValue") and cursorImageValueObj.Value then
 			self.savedMouseCursor = Mouse.Icon
 			Mouse.Icon = cursorImageValueObj.Value
@@ -175,11 +175,11 @@ function MouseLockController:UnbindContextActions()
 	ContextActionService:UnbindAction(CONTEXT_ACTION_NAME)
 end
 
-function MouseLockController:IsMouseLocked()
+function MouseLockController:IsMouseLocked(): boolean
 	return self.enabled and self.isMouseLocked
 end
 
-function MouseLockController:EnableMouseLock(enable)
+function MouseLockController:EnableMouseLock(enable: boolean)
 	if enable ~= self.enabled then
 
 		self.enabled = enable

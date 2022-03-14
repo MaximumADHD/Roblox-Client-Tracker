@@ -20,6 +20,10 @@ local fflagShouldMuteUnlocalizedError = game:DefineFastFlag("ShouldMuteUnlocaliz
 local fflagDisableReconnectAfterPotentialTimeout = game:DefineFastFlag("DisableReconnectAfterPotentialTimeout", false)
 local fIntPotentialClientTimeout = game:DefineFastInt("PotentialClientTimeoutSeconds", 7200)
 
+local fflagPredictedOOMExit = game:DefineFastFlag("PredictedOOMExit", false)
+
+local coreGuiOverflowDetection = game:GetEngineFeature("CoreGuiOverflowDetection")
+
 local LEAVE_GAME_FRAME_WAITS = 2
 
 local noHardcodedStringInLuaKickMessage = game:GetEngineFeature("NoHardcodedStringInLuaKickMessage")
@@ -58,6 +62,7 @@ local ConnectionPromptState = {
 	RECONNECT_DISABLED_DISCONNECT = 6, -- i.e After Player Being Kicked From Server
 	RECONNECT_DISABLED_PLACELAUNCH = 7, -- Unauthorized join
 	RECONNECT_DISABLED = 8, -- General Disable by FFlag, i.e overloaded servers
+	OUT_OF_MEMORY = 9, -- Show Out Of Memory Message
 }
 
 local connectionPromptState = ConnectionPromptState.NONE
@@ -73,6 +78,7 @@ local ErrorTitles = {
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
+	[ConnectionPromptState.OUT_OF_MEMORY] = "Disconnected",
 }
 
 local ErrorTitleLocalizationKey = {
@@ -82,6 +88,7 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT] = "InGame.ConnectionError.Title.Disconnected",
 	[ConnectionPromptState.TELEPORT_FAILED] = "InGame.ConnectionError.Title.TeleportFailed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
+	[ConnectionPromptState.OUT_OF_MEMORY] = "InGame.ConnectionError.Title.Disconnected",
 }
 
 -- only return success when a valid root id is given
@@ -182,6 +189,12 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.PlacelaunchUserLeft] = true,
 	[Enum.ConnectionError.PlacelaunchRestricted] = true,
 }
+-- When removing engine feature CoreGuiOverflowDetection, move this into the above list.
+if coreGuiOverflowDetection then
+	-- Older versions of the engine don't have this variant, using subscript
+	-- syntax instead avoids a possible type error.
+	reconnectDisabledList[Enum.ConnectionError["DisconnectClientFailure"]] = true
+end
 
 local ButtonList = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = {
@@ -249,6 +262,15 @@ local ButtonList = {
 			Callback = leaveFunction,
 			Primary = true,
 		}
+	},
+	[ConnectionPromptState.OUT_OF_MEMORY] = {
+		{
+			Text = "OK",
+			LocalizationKey = "InGame.CommonUI.Button.Ok",
+			LayoutOrder = 1,
+			Callback = leaveFunction,
+			Primary = true,
+		}
 	}
 }
 
@@ -284,6 +306,11 @@ local updateFullScreenEffect = {
 		promptOverlay.Transparency = 0.3
 	end,
 	[ConnectionPromptState.RECONNECT_DISABLED] = function()
+		RunService:SetRobloxGuiFocused(true)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 1
+	end,
+	[ConnectionPromptState.OUT_OF_MEMORY] = function()
 		RunService:SetRobloxGuiFocused(true)
 		promptOverlay.Active = true
 		promptOverlay.Transparency = 1
@@ -329,6 +356,9 @@ local function stateTransit(errorType, errorCode, oldState)
 			-- reconnection will be delayed after graceTimeout
 			graceTimeout = tick() + defaultTimeoutTime
 			errorForReconnect = Enum.ConnectionError.DisconnectErrors
+			if fflagPredictedOOMExit and errorCode == Enum.ConnectionError["DisconnectOutOfMemory"] then
+				return ConnectionPromptState.OUT_OF_MEMORY
+			end
 			if reconnectDisabledList[errorCode] then
 				return ConnectionPromptState.RECONNECT_DISABLED_DISCONNECT
 			end
@@ -498,4 +528,18 @@ if shouldSetUpErrorHandlerFromThisScript then
 			end
 		end
 	end
+end
+
+if coreGuiOverflowDetection then
+	GuiService.CoreGuiRenderOverflowed:Connect(function()
+		-- When CoreGui overflows, it causes things to stop rendering, and we try to
+		-- kick the client from the game with a disconnect message. To give the best
+		-- chance for the user actually seeing this message, everything else in
+		-- CoreGui should be hidden.
+		for _, child in pairs(CoreGui:GetChildren()) do
+			if child:IsA("ScreenGui") and child.Name ~= "RobloxPromptGui" then
+				child.Enabled = false
+			end
+		end
+	end)
 end

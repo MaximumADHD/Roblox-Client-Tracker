@@ -6,31 +6,37 @@ local InspectAndBuyFolder = script.Parent.Parent
 local SetDetailsInformation = require(InspectAndBuyFolder.Actions.SetDetailsInformation)
 local SetTryingOnInfo = require(InspectAndBuyFolder.Actions.SetTryingOnInfo)
 
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+
 local CloseButton = Roact.PureComponent:extend("CloseButton")
 
 function CloseButton:render()
 	local view = self.props.view
-	local viewMapping = self._context[view]
 	local viewingDetails = self.props.detailsInformation.viewingDetails
 	local closeDetails = self.props.closeDetails
 	local setTryingOnInfo = self.props.setTryingOnInfo
 
-	return Roact.createElement("ImageButton", {
-		Size = UDim2.new(0, 26, 0, 26),
-		Position = viewMapping.CloseButtonPosition,
-		BackgroundTransparency = 1,
-		Selectable = false,
-		Image = viewingDetails and "rbxasset://textures/ui/InspectMenu/caret_tail_left.png"
-			or "rbxasset://textures/ui/InspectMenu/x.png",
-		ZIndex = 2,
-		[Roact.Event.Activated] = function()
-			if viewingDetails then
-				closeDetails()
-				setTryingOnInfo(false, nil)
-			else
-				GuiService:CloseInspectMenu()
-			end
-		end,
+	return Roact.createElement(InspectAndBuyContext.Consumer, {
+		render = function(views)
+			local viewMapping = views[view]
+			return Roact.createElement("ImageButton", {
+				Size = UDim2.new(0, 26, 0, 26),
+				Position = viewMapping.CloseButtonPosition,
+				BackgroundTransparency = 1,
+				Selectable = false,
+				Image = viewingDetails and "rbxasset://textures/ui/InspectMenu/caret_tail_left.png"
+					or "rbxasset://textures/ui/InspectMenu/x.png",
+				ZIndex = 2,
+				[Roact.Event.Activated] = function()
+					if viewingDetails then
+						closeDetails()
+						setTryingOnInfo(false, nil)
+					else
+						GuiService:CloseInspectMenu()
+					end
+				end,
+			})
+		end
 	})
 end
 

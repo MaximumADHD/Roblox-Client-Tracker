@@ -6,15 +6,15 @@ local Players = game:GetService("Players")
 local StartPurchase = require(Root.Actions.StartPurchase)
 local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local ItemType = require(Root.Enums.ItemType)
+local PurchaseError = require(Root.Enums.PurchaseError)
 local getToolAsset = require(Root.Network.getToolAsset)
 local performPurchase = require(Root.Network.performPurchase)
 local Network = require(Root.Services.Network)
 local Analytics = require(Root.Services.Analytics)
+local ExternalSettings = require(Root.Services.ExternalSettings)
 local getPlayerPrice = require(Root.Utils.getPlayerPrice)
 local Thunk = require(Root.Thunk)
 local Promise = require(Root.Promise)
-
-local GetFFlagPromptRobloxPurchaseEnabled = require(Root.Flags.GetFFlagPromptRobloxPurchaseEnabled)
 
 local completePurchase = require(script.Parent.completePurchase)
 
@@ -24,12 +24,16 @@ local ASSET_TYPE_TOOL = 19
 local requiredServices = {
 	Network,
 	Analytics,
+	ExternalSettings,
 }
 
 local function purchaseItem()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local network = services[Network]
+		local externalSettings = services[ExternalSettings]
 		local analytics = services[Analytics]
+
+		local platform = externalSettings.getPlatform()
 
 		store:dispatch(StartPurchase(Workspace.DistributedGameTime))
 
@@ -40,7 +44,7 @@ local function purchaseItem()
 		local id = state.promptRequest.id
 		local infoType = state.promptRequest.infoType
 		local equipIfPurchased = state.promptRequest.equipIfPurchased
-		local isRobloxPurchase = GetFFlagPromptRobloxPurchaseEnabled() and state.promptRequest.isRobloxPurchase or false
+		local isRobloxPurchase = state.promptRequest.isRobloxPurchase
 
 		local isPlayerPremium = state.accountInfo.membershipType == 4
 		local salePrice = getPlayerPrice(state.productInfo, isPlayerPremium)
@@ -76,6 +80,14 @@ local function purchaseItem()
 				return Promise.resolve()
 			end)
 			:catch(function(errorReason)
+				if errorReason == PurchaseError.TwoFactorNeeded then
+					analytics.signalTwoSVSettingsErrorShown(productId, infoType)
+			
+					if platform == Enum.Platform.Windows or platform == Enum.Platform.OSX then
+						errorReason = PurchaseError.TwoFactorNeededSettings
+					end
+				end
+
 				store:dispatch(ErrorOccurred(errorReason))
 			end)
 	end)

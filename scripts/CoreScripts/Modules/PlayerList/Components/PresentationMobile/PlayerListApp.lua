@@ -25,6 +25,8 @@ local TopStatConnector = require(Connection.TopStatConnector)
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
+local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
+
 local MOTOR_OPTIONS = {
     dampingRatio = 1,
     frequency = 4,
@@ -113,6 +115,7 @@ function PlayerListApp:init()
 				visible = false,
 			})
 		end
+		self.props.setLayerCollectorEnabled(transparency < 0.99 or self.props.displayOptions.isVisible)
 	end)
 
 	self.bgTransparency, self.updateBgTransparency = Roact.createBinding(0)
@@ -210,10 +213,12 @@ function PlayerListApp:render()
 
 		local childElements = {}
 
-		childElements["PlayerScrollList"] = Roact.createElement(PlayerListSorter, {
-			screenSizeY = self.props.screenSizeY,
-			entrySize = entrySize,
-		})
+		if self.state.visible then
+			childElements["PlayerScrollList"] = Roact.createElement(PlayerListSorter, {
+				screenSizeY = self.props.screenSizeY,
+				entrySize = entrySize,
+			})
+		end
 		childElements["EventConnections"] = Roact.createElement(EventConnections)
 		childElements["ContextActionsBindings"] = Roact.createElement(ContextActionsBinder)
 		childElements["TopStatConnector"] = Roact.createElement(TopStatConnector)
@@ -231,6 +236,7 @@ function PlayerListApp:render()
 			BorderSizePixel = 0,
 			AutoLocalize = false,
 			AutoButtonColor = false,
+			Selectable = not FFlagPlayerListFixMobileScrolling,
 			Image = "",
 			[Roact.Event.Activated] = function()
 				self.props.setPlayerListVisible(false)
@@ -255,9 +261,14 @@ function PlayerListApp:render()
 end
 
 function PlayerListApp:didMount()
+	self.props.setLayerCollectorEnabled(false)
 	self:setState({
 		visible = self.props.displayOptions.isVisible,
 	})
+end
+
+function PlayerListApp:willUnmount()
+	self.props.setLayerCollectorEnabled(true)
 end
 
 function PlayerListApp:didUpdate(previousProps, previousState)

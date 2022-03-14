@@ -41,7 +41,7 @@ function ClassicCamera.new()
 	return self
 end
 
-function ClassicCamera:GetCameraToggleOffset(dt)
+function ClassicCamera:GetCameraToggleOffset(dt: number)
 	if self.isCameraToggle then
 		local zoom = self.currentSubjectDistance
 
@@ -51,7 +51,7 @@ function ClassicCamera:GetCameraToggleOffset(dt)
 			self.cameraToggleSpring.goal = 0
 		end
 
-		local distanceOffset = math.clamp(Util.map(zoom, 0.5, 64, 0, 1), 0, 1) + 1
+		local distanceOffset: number = math.clamp(Util.map(zoom, 0.5, 64, 0, 1), 0, 1) + 1
 		return Vector3.new(0, self.cameraToggleSpring:step(dt)*distanceOffset, 0)
 	end
 
@@ -59,7 +59,7 @@ function ClassicCamera:GetCameraToggleOffset(dt)
 end
 
 -- Movement mode standardized to Enum.ComputerCameraMovementMode values
-function ClassicCamera:SetCameraMovementMode(cameraMovementMode)
+function ClassicCamera:SetCameraMovementMode(cameraMovementMode: Enum.ComputerCameraMovementMode)
 	BaseCamera.SetCameraMovementMode(self, cameraMovementMode)
 
 	self.isFollowCamera = cameraMovementMode == Enum.ComputerCameraMovementMode.Follow
@@ -76,7 +76,7 @@ function ClassicCamera:Update()
 
 	local overrideCameraLookVector = nil
 	if self.resetCameraAngle then
-		local rootPart = self:GetHumanoidRootPart()
+		local rootPart: BasePart = self:GetHumanoidRootPart()
 		if rootPart then
 			overrideCameraLookVector = (rootPart.CFrame * INITIAL_CAMERA_ANGLE).lookVector
 		else
@@ -109,7 +109,7 @@ function ClassicCamera:Update()
 	end
 
 	local userRecentlyPannedCamera = now - self.lastUserPanCamera < TIME_BEFORE_AUTO_ROTATE
-	local subjectPosition = self:GetSubjectPosition()
+	local subjectPosition: Vector3 = self:GetSubjectPosition()
 
 	if subjectPosition and player and camera then
 		local zoom = self:GetCameraToSubjectDistance()
@@ -119,10 +119,10 @@ function ClassicCamera:Update()
 
 		if self:GetIsMouseLocked() and not self:IsInFirstPerson() then
 			-- We need to use the right vector of the camera after rotation, not before
-			local newLookCFrame = self:CalculateNewLookCFrameFromArg(overrideCameraLookVector, rotateInput)
+			local newLookCFrame: CFrame = self:CalculateNewLookCFrameFromArg(overrideCameraLookVector, rotateInput)
 
-			local offset = self:GetMouseLockOffset()
-			local cameraRelativeOffset = offset.X * newLookCFrame.rightVector + offset.Y * newLookCFrame.upVector + offset.Z * newLookCFrame.lookVector
+			local offset: Vector3 = self:GetMouseLockOffset()
+			local cameraRelativeOffset: Vector3 = offset.X * newLookCFrame.rightVector + offset.Y * newLookCFrame.upVector + offset.Z * newLookCFrame.lookVector
 
 			--offset can be NAN, NAN, NAN if newLookVector has only y component
 			if Util.IsFiniteVector3(cameraRelativeOffset) then

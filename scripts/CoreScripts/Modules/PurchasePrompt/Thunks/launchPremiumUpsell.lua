@@ -10,12 +10,14 @@ local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
 local WindowState = require(Root.Enums.WindowState)
 local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
+local Analytics = require(Root.Services.Analytics)
 local PlatformInterface = require(Root.Services.PlatformInterface)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local hideWindow = require(Root.Thunks.hideWindow)
 local Thunk = require(Root.Thunk)
 
 local requiredServices = {
+	Analytics,
 	PlatformInterface,
 	ExternalSettings,
 }
@@ -24,6 +26,7 @@ local function launchPremiumUpsell()
 	return Thunk.new(script.Name, requiredServices, function(store, services)
 		local platformInterface = services[PlatformInterface]
 		local externalSettings = services[ExternalSettings]
+		local analytics = services[Analytics]
 		local state = store:getState()
 		local premiumProductInfo = state.premiumProductInfo
 
@@ -36,6 +39,9 @@ local function launchPremiumUpsell()
 		end
 
 		local upsellFlow = getUpsellFlow(externalSettings.getPlatform())
+	
+		-- signalPremiumUpsellConfirmed does have a isStudio check but never hits because above
+		analytics.signalPremiumUpsellConfirmed()
 
 		if upsellFlow == UpsellFlow.Web then
 			local productId = premiumProductInfo.productId

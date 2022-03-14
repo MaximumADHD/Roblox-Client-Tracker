@@ -5,11 +5,17 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
+local Cryo = InGameMenuDependencies.Cryo
 
 local withStyle = UIBlox.Core.Style.withStyle
 local Images = UIBlox.App.ImageSet.Images
 
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
+
 local InGameMenu = script.Parent.Parent.Parent
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
 
 local Assets = require(InGameMenu.Resources.Assets)
 
@@ -43,10 +49,11 @@ TextEntryField.validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	Size = t.UDim2,
 	Position = t.optional(t.UDim2),
+	textBoxRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
 })
 
 function TextEntryField:init()
-	self.textBoxRef = Roact.createRef()
+	self.textBoxRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.textBoxRef or Roact.createRef()
 
 	self.state = {
 		textBoxWidth = 100,
@@ -77,7 +84,7 @@ function TextEntryField:calculateNeedsRescroll(style, textFont)
 	end
 end
 
-function TextEntryField:render()
+function TextEntryField:renderWithSelectionCursor(getSelectionCursor)
 	return withStyle(function(style)
 		local textTheme = style.Theme.TextDefault
 		local textFont = style.Font.Body
@@ -93,6 +100,11 @@ function TextEntryField:render()
 		local imageOffset = CIRCLE_BACKGROUND_ASSET.ImageRectOffset
 		local imageWidth = imageSize.X
 		local halfImageWidth = imageWidth / 2
+
+		local isScrollingSelectable = nil
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			isScrollingSelectable = false
+		end
 
 		return Roact.createElement(ImageSetLabel, {
 			BackgroundTransparency = 1,
@@ -115,6 +127,7 @@ function TextEntryField:render()
 				ScrollBarThickness = 8,
 				VerticalScrollBarInset = Enum.ScrollBarInset.Always,
 				CanvasPosition = Vector2.new(0, self.state.canvasPosition),
+				Selectable = isScrollingSelectable,
 
 				[Roact.Change.CanvasPosition] = function(rbx)
 					self:setState({
@@ -145,6 +158,7 @@ function TextEntryField:render()
 					Font = textFont.Font,
 					TextSize = textFont.RelativeSize * style.Font.BaseSize,
 					TextWrapped = true,
+					SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.InputFields) or nil,
 
 					[Roact.Ref] = self.textBoxRef,
 
@@ -225,6 +239,16 @@ function TextEntryField:render()
 	end)
 end
 
+function TextEntryField:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
+end
+
 function TextEntryField:didUpdate(prevProps, prevState)
 	if not self.props.enabled and prevProps.enabled then
 		-- Release focus of current textbox.
@@ -238,4 +262,12 @@ function TextEntryField:didUpdate(prevProps, prevState)
 	end
 end
 
-return TextEntryField
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	return Roact.forwardRef(function(props, ref)
+		return Roact.createElement(TextEntryField, Cryo.Dictionary.join(props, {
+			textBoxRef = ref
+		}))
+	end)
+else
+	return TextEntryField
+end

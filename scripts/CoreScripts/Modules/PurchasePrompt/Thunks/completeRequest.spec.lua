@@ -14,8 +14,6 @@ return function()
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local Thunk = require(Root.Thunk)
 
-	local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
-
 	local completeRequest = require(script.Parent.completeRequest)
 
 	describe("should signal prompt finished when purchase was not made", function()
@@ -252,11 +250,7 @@ return function()
 				[Analytics] = analytics.mockService,
 			})
 
-			if GetFFlagEnableScaryModalAnalytics() then
-				expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(1)
-			else
-				expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(0)
-			end
+			expect(analytics.spies.signalScaryModalCanceled.callCount).to.equal(1)
 
 			expect(finishedSignalSpy.callCount).to.equal(1)
 

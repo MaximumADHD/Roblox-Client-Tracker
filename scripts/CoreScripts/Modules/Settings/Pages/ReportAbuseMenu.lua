@@ -16,6 +16,8 @@ local utility = require(RobloxGui.Modules.Settings.Utility)
 local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 
 local FFlagFixUsernamesAutoLocalizeIssue = require(RobloxGui.Modules.Flags.FFlagFixUsernamesAutoLocalizeIssue)
+local GetFFlagAbuseReportEnableReportSentPage = require(RobloxGui.Modules.Flags.GetFFlagAbuseReportEnableReportSentPage)
+local IXPServiceWrapper = require(RobloxGui.Modules.Common.IXPServiceWrapper)
 
 local ABUSE_TYPES_PLAYER = {
 	"Swearing",
@@ -51,7 +53,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 
 local FFlagCollectAnalyticsForSystemMenu = settings():GetFFlag("CollectAnalyticsForSystemMenu")
-local UsePlayerDisplayName = require(RobloxGui.Modules.Settings.UsePlayerDisplayName)
 
 local Constants
 if FFlagCollectAnalyticsForSystemMenu then
@@ -70,11 +71,7 @@ local function Initialize()
 	local nextPlayerToReport = nil
 
 	function this:GetPlayerNameText(player)
-		if UsePlayerDisplayName() then
-			return player.DisplayName .. " [@" .. player.Name .. "]"
-		else
-			return player.Name
-		end
+		return player.DisplayName .. " [@" .. player.Name .. "]"
 	end
 
 	function this:GetPlayerFromIndex(index)
@@ -310,21 +307,32 @@ local function Initialize()
 		local function onReportSubmitted()
 			local abuseReason = nil
 			local reportSucceeded = false
+			local isReportSentEnabled = false
+			local showReportSentAlert = false
 			if this.GameOrPlayerMode.CurrentIndex == 2 then
 				abuseReason = ABUSE_TYPES_PLAYER[this.TypeOfAbuseMode.CurrentIndex]
 
 				local currentAbusingPlayer = this:GetPlayerFromIndex(this.WhichPlayerMode.CurrentIndex)
 				if currentAbusingPlayer and abuseReason then
 					reportSucceeded = true
+					showReportSentAlert = true
+					local layerData = IXPServiceWrapper:IsEnabled() and IXPServiceWrapper:GetLayerData("AbuseReports") or {}
+					local dialogVariant = layerData.thankYouDialog
+					isReportSentEnabled = self.HubRef.ReportSentPage and GetFFlagAbuseReportEnableReportSentPage() and dialogVariant == "variant" -- "Report Sent" is only enabled for reporting players
 					spawn(function()
 						PlayersService:ReportAbuse(currentAbusingPlayer, abuseReason, this.AbuseDescription.Selection.Text)
 						reportAnalytics("user", currentAbusingPlayer.UserId)
 					end)
+					if isReportSentEnabled then
+						showReportSentAlert = false -- Don't show the alert, since we'll show a different page
+						self.HubRef.ReportSentPage:ShowReportedPlayer(currentAbusingPlayer)
+					end
 				end
 			else
 				abuseReason = ABUSE_TYPES_GAME[this.TypeOfAbuseMode.CurrentIndex]
 				if abuseReason then
 					reportSucceeded = true
+					showReportSentAlert = true
 					spawn(function()
 						local placeId,placeName,placeDescription = tostring(game.PlaceId), "N/A", "N/A"
 						local abuseDescription = this.AbuseDescription.Selection.Text
@@ -341,7 +349,7 @@ local function Initialize()
 				end
 			end
 
-			if reportSucceeded then
+			if showReportSentAlert then
 				local alertText = "Thanks for your report! Our moderators will review the chat logs and evaluate what happened."
 
 				if abuseReason == 'Cheating/Exploiting' then
@@ -353,7 +361,9 @@ local function Initialize()
 				end
 
 				utility:ShowAlert(alertText, "Ok", this.HubRef, cleanupReportAbuseMenu)
+			end
 
+			if reportSucceeded then
 				this.LastSelectedObject = nil
 			end
 		end

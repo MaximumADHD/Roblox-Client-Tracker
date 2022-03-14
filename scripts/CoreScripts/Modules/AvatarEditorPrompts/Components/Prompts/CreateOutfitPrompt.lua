@@ -17,13 +17,17 @@ local Components = script.Parent.Parent
 local AvatarEditorPrompts = Components.Parent
 
 local HumanoidViewport = require(Components.HumanoidViewport)
+local PromptWithAvatarViewport = require(Components.Prompts.PromptWithAvatarViewport)
 
 local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalCreateOutfitPermissionDenied)
 local CreateOutfitConfirmed = require(AvatarEditorPrompts.Actions.CreateOutfitConfirmed)
+local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
 
 local GetConformedHumanoidDescription = require(AvatarEditorPrompts.GetConformedHumanoidDescription)
 
-local EngineFeatureAESConformToAvatarRules = game:GetEngineFeature("AESConformToAvatarRules")
+local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
+
+local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
 local VIEWPORT_SIDE_PADDING = 10
 local SCREEN_SIZE_PADDING = 30
@@ -32,50 +36,52 @@ local CreateOutfitPrompt = Roact.PureComponent:extend("CreateOutfitPrompt")
 
 CreateOutfitPrompt.validateProps = t.strictInterface({
 	--State
-	screenSize = t.Vector2,
+	screenSize = not EngineFeatureAESMoreOutfitMethods and t.Vector2 or nil,
 	humanoidDescription = t.instanceOf("HumanoidDescription"),
 	rigType = t.enum(Enum.HumanoidRigType),
 	--Dispatch
 	createOutfitConfirmed = t.callback,
 	signalCreateOutfitPermissionDenied = t.callback,
+	performCreateOutfit = EngineFeatureAESMoreOutfitMethods and t.callback or nil,
+
+	-- AvatarEditorPromptsPolicy
+	showCustomCostumeNames = EngineFeatureAESMoreOutfitMethods and t.boolean or nil,
 })
 
-function CreateOutfitPrompt:init()
-	self.mounted = false
+if not EngineFeatureAESMoreOutfitMethods then
+	function CreateOutfitPrompt:init()
+		self.mounted = false
 
-	self.middleContentRef = Roact.createRef()
-	self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
+		self.middleContentRef = Roact.createRef()
+		self.contentSize, self.updateContentSize = Roact.createBinding(UDim2.new(1, 0, 0, 200))
 
-	if EngineFeatureAESConformToAvatarRules then
 		self:setState({
 			conformedHumanoidDescription = nil,
 			getConformedDescriptionFailed = false,
 		})
-	end
 
-	self.onAlertSizeChanged = function(rbx)
-		local alertSize = rbx.AbsoluteSize
+		self.onAlertSizeChanged = function(rbx)
+			local alertSize = rbx.AbsoluteSize
 
-		if not self.middleContentRef:getValue() then
-			return
+			if not self.middleContentRef:getValue() then
+				return
+			end
+
+			local currentHeight = self.middleContentRef:getValue().AbsoluteSize.Y
+			local alertNoContentHeight = alertSize.Y - currentHeight
+			local maxAllowedContentHeight = self.props.screenSize.Y - (SCREEN_SIZE_PADDING * 2) - alertNoContentHeight
+
+			local viewportMaxSize = self.middleContentRef:getValue().AbsoluteSize.X - ( VIEWPORT_SIDE_PADDING * 2)
+
+			if maxAllowedContentHeight > viewportMaxSize then
+				maxAllowedContentHeight = viewportMaxSize
+			end
+
+			if currentHeight ~= maxAllowedContentHeight then
+				self.updateContentSize(UDim2.new(1, 0, 0, maxAllowedContentHeight))
+			end
 		end
 
-		local currentHeight = self.middleContentRef:getValue().AbsoluteSize.Y
-		local alertNoContentHeight = alertSize.Y - currentHeight
-		local maxAllowedContentHeight = self.props.screenSize.Y - (SCREEN_SIZE_PADDING * 2) - alertNoContentHeight
-
-		local viewportMaxSize = self.middleContentRef:getValue().AbsoluteSize.X - ( VIEWPORT_SIDE_PADDING * 2)
-
-		if maxAllowedContentHeight > viewportMaxSize then
-			maxAllowedContentHeight = viewportMaxSize
-		end
-
-		if currentHeight ~= maxAllowedContentHeight then
-			self.updateContentSize(UDim2.new(1, 0, 0, maxAllowedContentHeight))
-		end
-	end
-
-	if EngineFeatureAESConformToAvatarRules then
 		self.retryLoadDescription = function()
 			self:setState({
 				getConformedDescriptionFailed = false,
@@ -83,94 +89,126 @@ function CreateOutfitPrompt:init()
 
 			self:getConformedHumanoidDescription()
 		end
-	end
 
-	self.renderAlertMiddleContent = function()
-		local humanoidDescription = self.props.humanoidDescription
-		local loadingFailed = nil
-		if EngineFeatureAESConformToAvatarRules then
-			humanoidDescription = self.state.conformedHumanoidDescription
-			loadingFailed = self.state.getConformedDescriptionFailed
+		self.renderAlertMiddleContent = function()
+			local humanoidDescription = self.state.conformedHumanoidDescription
+			local loadingFailed = self.state.getConformedDescriptionFailed
+
+			return withStyle(function(styles)
+				return Roact.createElement("Frame", {
+					BackgroundTransparency = 1,
+					Size = self.contentSize,
+
+					[Roact.Ref] = self.middleContentRef,
+				}, {
+					HumanoidViewport = Roact.createElement(HumanoidViewport, {
+						humanoidDescription = humanoidDescription,
+						loadingFailed = loadingFailed,
+						retryLoadDescription = self.retryLoadDescription,
+						rigType = self.props.rigType,
+					}),
+				})
+			end)
 		end
-
-		return withStyle(function(styles)
-			return Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = self.contentSize,
-
-				[Roact.Ref] = self.middleContentRef,
-			}, {
-				HumanoidViewport = Roact.createElement(HumanoidViewport, {
-					humanoidDescription = humanoidDescription,
-					loadingFailed = loadingFailed,
-					retryLoadDescription = self.retryLoadDescription,
-					rigType = self.props.rigType,
-				}),
-			})
-		end)
 	end
 end
 
 function CreateOutfitPrompt:render()
-	return Roact.createElement(InteractiveAlert, {
-		title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptTitle"),
-		bodyText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptText"),
-		buttonStackInfo = {
-			buttons = {
-				{
-					props = {
-						onActivated = self.props.signalCreateOutfitPermissionDenied,
-						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptNo"),
+	local onConfirm
+	if EngineFeatureAESMoreOutfitMethods then
+		if self.props.showCustomCostumeNames then
+			onConfirm = self.props.createOutfitConfirmed
+		else
+			onConfirm = self.props.performCreateOutfit
+		end
+	else
+		onConfirm = self.props.createOutfitConfirmed
+	end
+
+	if EngineFeatureAESMoreOutfitMethods then
+		return Roact.createElement(PromptWithAvatarViewport, {
+			humanoidDescription = self.props.humanoidDescription,
+			rigType = self.props.rigType,
+
+			title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptTitle"),
+			bodyText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptText"),
+			buttonStackInfo = {
+				buttons = {
+					{
+						props = {
+							onActivated = self.props.signalCreateOutfitPermissionDenied,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptNo"),
+						},
 					},
-				},
-				{
-					buttonType = ButtonType.PrimarySystem,
-					props = {
-						onActivated = self.props.createOutfitConfirmed,
-						text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptYes"),
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							onActivated = onConfirm,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptYes"),
+						},
 					},
 				},
 			},
-		},
-		position = UDim2.fromScale(0.5, 0.5),
-		screenSize = self.props.screenSize,
-		middleContent = self.renderAlertMiddleContent,
-		onAbsoluteSizeChanged = self.onAlertSizeChanged,
-		isMiddleContentFocusable = false,
-	})
-end
-
-function CreateOutfitPrompt:getConformedHumanoidDescription(humanoidDescription)
-	local includeDefaultClothing = true
-	GetConformedHumanoidDescription(humanoidDescription, includeDefaultClothing):andThen(function(conformedDescription)
-		if not self.mounted then
-			return
-		end
-
-		self:setState({
-			conformedHumanoidDescription = conformedDescription,
 		})
-	end, function(err)
-		if not self.mounted then
-			return
-		end
-
-		self:setState({
-			getConformedDescriptionFailed = true,
+	else
+		return Roact.createElement(InteractiveAlert, {
+			title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptTitle"),
+			bodyText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptText"),
+			buttonStackInfo = {
+				buttons = {
+					{
+						props = {
+							onActivated = self.props.signalCreateOutfitPermissionDenied,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptNo"),
+						},
+					},
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							onActivated = onConfirm,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.CreateOutfitPromptYes"),
+						},
+					},
+				},
+			},
+			position = UDim2.fromScale(0.5, 0.5),
+			screenSize = self.props.screenSize,
+			middleContent = self.renderAlertMiddleContent,
+			onAbsoluteSizeChanged = self.onAlertSizeChanged,
+			isMiddleContentFocusable = false,
 		})
-	end)
-end
-
-function CreateOutfitPrompt:didMount()
-	self.mounted = true
-
-	if EngineFeatureAESConformToAvatarRules then
-		self:getConformedHumanoidDescription(self.props.humanoidDescription)
 	end
 end
 
-function CreateOutfitPrompt:willUpdate(nextProps, nextState)
-	if EngineFeatureAESConformToAvatarRules then
+if not EngineFeatureAESMoreOutfitMethods then
+	function CreateOutfitPrompt:getConformedHumanoidDescription(humanoidDescription)
+		local includeDefaultClothing = true
+		GetConformedHumanoidDescription(humanoidDescription, includeDefaultClothing):andThen(function(conformedDescription)
+			if not self.mounted then
+				return
+			end
+
+			self:setState({
+				conformedHumanoidDescription = conformedDescription,
+			})
+		end, function(err)
+			if not self.mounted then
+				return
+			end
+
+			self:setState({
+				getConformedDescriptionFailed = true,
+			})
+		end)
+	end
+
+	function CreateOutfitPrompt:didMount()
+		self.mounted = true
+
+		self:getConformedHumanoidDescription(self.props.humanoidDescription)
+	end
+
+	function CreateOutfitPrompt:willUpdate(nextProps, nextState)
 		if nextProps.humanoidDescription ~= self.props.humanoidDescription then
 			self:setState({
 				conformedHumanoidDescription = Roact.None,
@@ -180,15 +218,15 @@ function CreateOutfitPrompt:willUpdate(nextProps, nextState)
 			self:getConformedHumanoidDescription(nextProps.humanoidDescription)
 		end
 	end
-end
 
-function CreateOutfitPrompt:willUnmount()
-	self.mounted = false
+	function CreateOutfitPrompt:willUnmount()
+		self.mounted = false
+	end
 end
 
 local function mapStateToProps(state)
 	return {
-		screenSize = state.screenSize,
+		screenSize = not EngineFeatureAESMoreOutfitMethods and state.screenSize or nil,
 		humanoidDescription = state.promptInfo.humanoidDescription,
 		rigType = state.promptInfo.rigType,
 	}
@@ -203,7 +241,21 @@ local function mapDispatchToProps(dispatch)
 		createOutfitConfirmed = function()
 			return dispatch(CreateOutfitConfirmed())
 		end,
+
+		performCreateOutfit = EngineFeatureAESMoreOutfitMethods and function()
+			return dispatch(PerformCreateOutfit(""))
+		end or nil,
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(CreateOutfitPrompt)
+CreateOutfitPrompt = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(CreateOutfitPrompt)
+
+if EngineFeatureAESMoreOutfitMethods then
+	CreateOutfitPrompt = AvatarEditorPromptsPolicy.connect(function(appPolicy, props)
+		return {
+			showCustomCostumeNames = appPolicy.getCustomCostumeNames(),
+		}
+	end)(CreateOutfitPrompt)
+end
+
+return CreateOutfitPrompt

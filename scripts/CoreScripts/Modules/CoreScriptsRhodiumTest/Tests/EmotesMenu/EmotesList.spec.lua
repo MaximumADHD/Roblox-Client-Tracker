@@ -5,6 +5,7 @@ local Rhodium = require(CorePackages.Rhodium)
 local Element = Rhodium.Element
 local XPath = Rhodium.XPath
 local withServices = require(Modules.CoreScriptsRhodiumTest.Helpers.withServices)
+local act = require(Modules.act)
 
 local EmotesMenuReducer = require(Modules.EmotesMenu.Reducers.EmotesMenuReducer)
 local EmotesList = require(Modules.EmotesMenu.Components.EmotesList)
@@ -83,7 +84,9 @@ return function()
 				local closeButtonPath = path:cat(XPath.new("CloseFrame.CloseButton"))
 				local closeButton = Element.new(closeButtonPath)
 				expect(closeButton:waitForRbxInstance(1)).to.be.ok()
-				closeButton:click()
+				act(function()
+					closeButton:click()
+				end)
 				wait()
 				expect(baseWidget:getAttribute("Visible")).to.equal(false)
 			end,
@@ -124,14 +127,18 @@ return function()
 				local gamepad = Rhodium.VirtualInput.GamePad.new()
 				-- press random button so gamepad is detected by EmotesList
 				gamepad:pressButton(Enum.KeyCode.ButtonA)
-				wait()
+				act(function()
+					wait()
+				end)
 				local emote0Path = scrollingFramePath:cat(XPath.new("Emote0.EmoteBubbleButton.EmoteGamepadSelectionCursor"))
 				local emote0 = Element.new(emote0Path)
 				expect(emote0:waitForRbxInstance(1)).to.be.ok()
 
 				-- move focus down to emote 2 from emote 1
 				gamepad:pressButton(Enum.KeyCode.DPadDown)
-				wait()
+				act(function()
+					wait()
+				end)
 				local emote1Path = scrollingFramePath:cat(XPath.new("Emote1.EmoteBubbleButton.EmoteGamepadSelectionCursor"))
 				local emote1 = Element.new(emote1Path)
 				expect(emote1:waitForRbxInstance(1)).to.be.ok()
@@ -140,7 +147,9 @@ return function()
 
 				-- move focus up to emote 1 from emote 2
 				gamepad:pressButton(Enum.KeyCode.DPadUp)
-				wait()
+				act(function()
+					wait()
+				end)
 				emote0 = Element.new(emote0Path)
 				emote1 = Element.new(emote1Path)
 				expect(emote0:waitForRbxInstance(1)).to.be.ok()
@@ -166,8 +175,9 @@ return function()
 				local emote4Path = scrollingFramePath:cat(XPath.new("Emote4"))
 				local emote4 = Element.new(emote4Path)
 				expect(emote4:waitForRbxInstance(1)).to.be.ok()
-
-				emote4:centralize()
+				act(function()
+					emote4:centralize()
+				end)
 
 				-- when the list is scrolled down, render another 2 bubbles as buffer at the top
 				expect(#scrollingFrame:getRbxInstance():getChildren()).to.equal(11)
@@ -191,8 +201,15 @@ return function()
 				expect(gradient:waitForRbxInstance(1)).to.never.be.ok()
 
 				-- scroll the first bubble partially offscreen
-				Rhodium.VirtualInput.Touch.swipe(scrollingFrame:getCenter(),
+				act(function()
+					Rhodium.VirtualInput.Touch.swipe(scrollingFrame:getCenter(),
 						scrollingFrame:getCenter() - Vector2.new(0, 30), 0.2, false)
+				end)
+
+				-- Wait for scroll to complete
+				act(function()
+					wait()
+				end)
 
 				gradient = Element.new(gradientPath)
 				expect(gradient:waitForRbxInstance(1)).to.be.ok()

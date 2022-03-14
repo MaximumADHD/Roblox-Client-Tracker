@@ -1,3 +1,4 @@
+--!strict
 --[[
 	PlayerModule - This module requires and instantiates the camera and control modules,
 	and provides getters for developers to access methods on these singletons without

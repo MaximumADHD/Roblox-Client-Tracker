@@ -58,6 +58,9 @@ local GAMEPAD_INPUT_TYPES = {
 local ELEMENT_HEIGHT = EmoteBubbleSizes.BubblePadding + EmoteBubbleSizes.BubbleSize + EmoteBubbleSizes.TextPadding +
 		EmoteBubbleSizes.TextSize
 local KEYBINDS_PRIORITY = Enum.ContextActionPriority.High.Value
+-- NAV_BINDINGS_PRIORITY needs to be higher than KEYBINDS_PRIORITY so that gamepad navigation takes
+-- precedence over the open menu button
+local NAV_BINDINGS_PRIORITY = Enum.ContextActionPriority.High.Value + 10
 
 -- How many off-screen emote bubbles should render from the top and how many from the bottom
 local RENDER_BUFFER = 2
@@ -155,10 +158,11 @@ function EmotesList:bindActions()
 		Constants.EmoteMenuCloseButtonSecondary
 	}
 
-	ContextActionService:BindAction(Constants.ShiftFocusUpAction, shiftFocusUp, --[[createTouchButton = ]] false,
-									Constants.EmoteMenuNavUpButton)
-	ContextActionService:BindAction(Constants.ShiftFocusDownAction, shiftFocusDown, --[[createTouchButton = ]] false,
-									Constants.EmoteMenuNavDownButton)
+	ContextActionService:BindActionAtPriority(Constants.ShiftFocusUpAction, shiftFocusUp, --[[createTouchButton = ]] false,
+		NAV_BINDINGS_PRIORITY, Constants.EmoteMenuNavUpButton)
+	ContextActionService:BindActionAtPriority(Constants.ShiftFocusDownAction, shiftFocusDown, --[[createTouchButton = ]] false,
+		NAV_BINDINGS_PRIORITY, Constants.EmoteMenuNavDownButton)
+
 	ContextActionService:BindActionAtPriority(Constants.CloseMenuAction, closeMenu, --[[createTouchButton = ]] false,
 		KEYBINDS_PRIORITY, unpack(closeButtons))
 
@@ -167,8 +171,8 @@ end
 
 function EmotesList:unbindActions()
 	if self.actionsBound then
-		ContextActionService:UnbindAction(Constants.EmoteMenuNavUpButton)
-		ContextActionService:UnbindAction(Constants.EmoteMenuNavDownButton)
+		ContextActionService:UnbindAction(Constants.ShiftFocusUpAction)
+		ContextActionService:UnbindAction(Constants.ShiftFocusDownAction)
 		ContextActionService:UnbindAction(Constants.CloseMenuAction)
 
 		self.actionsBound = false

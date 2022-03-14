@@ -1,9 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
 local Rodux = require(CorePackages.Rodux)
-
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local DisplayOptions = require(script.DisplayOptions)
 local CoreGuiEnabled = require(script.CoreGuiEnabled)
@@ -19,8 +15,8 @@ local Reducer = Rodux.combineReducers({
 	health = Health,
 	moreMenu = MoreMenu,
 	chat = Chat,
-	respawn = isNewGamepadMenuEnabled() and Respawn or nil,
-	gameInfo = isNewGamepadMenuEnabled() and GameInfo or nil,
+	respawn = Respawn,
+	gameInfo = GameInfo,
 })
 
 return Reducer

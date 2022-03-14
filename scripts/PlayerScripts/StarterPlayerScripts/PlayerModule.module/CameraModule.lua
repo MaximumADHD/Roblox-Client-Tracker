@@ -22,6 +22,20 @@ local FFlagUserRemoveTheCameraApi do
 	FFlagUserRemoveTheCameraApi = success and result
 end
 
+local FFlagUserFixCameraSelectModuleWarning do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFixCameraSelectModuleWarning")
+	end)
+	FFlagUserFixCameraSelectModuleWarning = success and result
+end
+
+local FFlagUserFlagEnableNewVRSystem do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
+	end)
+	FFlagUserFlagEnableNewVRSystem = success and result
+end
+
 -- NOTICE: Player property names do not all match their StarterPlayer equivalents,
 -- with the differences noted in the comments on the right
 local PLAYER_CAMERA_PROPERTIES =
@@ -55,6 +69,7 @@ local USER_GAME_SETTINGS_PROPERTIES =
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
+local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 -- Static camera utils
@@ -66,6 +81,9 @@ local ClassicCamera = require(script:WaitForChild("ClassicCamera"))
 local OrbitalCamera = require(script:WaitForChild("OrbitalCamera"))
 local LegacyCamera = require(script:WaitForChild("LegacyCamera"))
 local VehicleCamera = require(script:WaitForChild("VehicleCamera"))
+-- New VR System Modules
+local VRCamera = require(script:WaitForChild("VRCamera"))
+local VRVehicleCamera = require(script:WaitForChild("VRVehicleCamera"))
 
 -- Load Roblox Occlusion Modules
 local Invisicam = require(script:WaitForChild("Invisicam"))
@@ -186,7 +204,7 @@ function CameraModule:GetCameraMovementModeFromSettings()
 	return devMode
 end
 
-function CameraModule:ActivateOcclusionModule( occlusionMode )
+function CameraModule:ActivateOcclusionModule(occlusionMode: Enum.DevCameraOcclusionMode)
 	local newModuleCreator
 	if occlusionMode == Enum.DevCameraOcclusionMode.Zoom then
 		newModuleCreator = Poppercam
@@ -283,7 +301,7 @@ end
 
 -- When supplied, legacyCameraType is used and cameraMovementMode is ignored (should be nil anyways)
 -- Next, if userCameraCreator is passed in, that is used as the cameraCreator
-function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraType)
+function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraType: Enum.CameraType?)
 	local newCameraCreator = nil
 
 	if legacyCameraType~=nil then
@@ -294,11 +312,20 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 		--]]
 
 		if legacyCameraType == Enum.CameraType.Scriptable then
-			if self.activeCameraController then
-				self.activeCameraController:Enable(false)
-				self.activeCameraController = nil
+			if FFlagUserFixCameraSelectModuleWarning then
+				if self.activeCameraController then
+					self.activeCameraController:Enable(false)
+					self.activeCameraController = nil
+				end
 				return
+			else
+				if self.activeCameraController then
+					self.activeCameraController:Enable(false)
+					self.activeCameraController = nil
+					return
+				end
 			end
+
 		elseif legacyCameraType == Enum.CameraType.Custom then
 			cameraMovementMode = self:GetCameraMovementModeFromSettings()
 
@@ -324,7 +351,9 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 	end
 
 	if not newCameraCreator then
-		if cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
+		if FFlagUserFlagEnableNewVRSystem and VRService.VREnabled then
+			newCameraCreator = VRCamera
+		elseif cameraMovementMode == Enum.ComputerCameraMovementMode.Classic or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Follow or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.Default or
 			cameraMovementMode == Enum.ComputerCameraMovementMode.CameraToggle then
@@ -339,7 +368,11 @@ function CameraModule:ActivateCameraController(cameraMovementMode, legacyCameraT
 
 	local isVehicleCamera = self:ShouldUseVehicleCamera()
 	if isVehicleCamera then
-		newCameraCreator = VehicleCamera
+		if FFlagUserFlagEnableNewVRSystem and VRService.VREnabled then
+			newCameraCreator = VRVehicleCamera
+		else
+			newCameraCreator = VehicleCamera
+		end
 	end
 
 	-- Create the camera control module we need if it does not already exist in instantiatedCameraControllers
@@ -396,7 +429,7 @@ function CameraModule:OnCameraSubjectChanged()
 	self:ActivateCameraController(nil, camera.CameraType)
 end
 
-function CameraModule:OnCameraTypeChanged(newCameraType)
+function CameraModule:OnCameraTypeChanged(newCameraType: Enum.CameraType)
 	if newCameraType == Enum.CameraType.Scriptable then
 		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
 			UserInputService.MouseBehavior = Enum.MouseBehavior.Default
@@ -432,7 +465,7 @@ function CameraModule:OnCurrentCameraChanged()
 	self:OnCameraTypeChanged(currentCamera.CameraType)
 end
 
-function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName)
+function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName: string)
 	if propertyName == "CameraMode" then
 		-- CameraMode is only used to turn on/off forcing the player into first person view. The
 		-- Note: The case "Classic" is used for all other views and does not correspond only to the ClassicCamera module
@@ -476,7 +509,7 @@ function CameraModule:OnLocalPlayerCameraPropertyChanged(propertyName)
 	end
 end
 
-function CameraModule:OnUserGameSettingsPropertyChanged(propertyName)
+function CameraModule:OnUserGameSettingsPropertyChanged(propertyName: string)
 	if propertyName == "ComputerCameraMovementMode" then
 		local cameraMovementMode = self:GetCameraMovementModeFromSettings()
 		self:ActivateCameraController(CameraUtils.ConvertCameraModeEnumToStandard(cameraMovementMode))
@@ -494,7 +527,9 @@ function CameraModule:Update(dt)
 		self.activeCameraController:UpdateMouseBehavior()
 
 		local newCameraCFrame, newCameraFocus = self.activeCameraController:Update(dt)
-		self.activeCameraController:ApplyVRTransform()
+		if not FFlagUserFlagEnableNewVRSystem then
+			self.activeCameraController:ApplyVRTransform()
+		end
 		if self.activeOcclusionModule then
 			newCameraCFrame, newCameraFocus = self.activeOcclusionModule:Update(dt, newCameraCFrame, newCameraFocus)
 		end

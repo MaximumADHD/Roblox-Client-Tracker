@@ -87,7 +87,7 @@ function SearchBox:render()
 				1, 0
 			),
 			ClearTextOnFocus = false,
-			PlaceholderColor3 = Constants.Color.GREY3,
+			PlaceholderColor3 = Constants.Color.GRAY3,
 			PlaceholderText = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.SearchForFriendsPlaceholder"),
 			Text = "",
 			TextColor3 = Constants.Color.WHITE,

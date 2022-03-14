@@ -17,6 +17,7 @@ local GuiService = game:GetService('GuiService')
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Util = require(RobloxGui.Modules.Settings.Utility)
+local FFlagLoadingRemoveRemoteCallErrorPrint = game:DefineFastFlag("LoadingRemoveRemoteCallErrorPrint", false)
 
 local function FadeElements(element, newValue, duration)
 	duration = duration or 0.5
@@ -73,8 +74,10 @@ do
 			local success, result = pcall(function()
 				self.GameAssetInfo = MarketPlaceService:GetProductInfo(game.PlaceId)
 			end)
-			if not success then
-				print("LoadingScript->GameInfoProvider:LoadAssets:", result)
+			if not FFlagLoadingRemoveRemoteCallErrorPrint then
+				if not success then
+					print("LoadingScript->GameInfoProvider:LoadAssets:", result)
+				end
 			end
 			self.Finished = true
 			LoadingFinishedSignal:Fire()

@@ -1,6 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local UserInputService = game:GetService("UserInputService")
 local TextService = game:GetService("TextService")
+
+local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 
 local TEXTBOX_RIGHTSIDE_THRESHOLD = 0.9
@@ -36,7 +38,7 @@ function ScrollingTextBox:init(props)
 	end
 
 	self.clipBox = Roact.createRef()
-	self.textboxRef = self.props[Roact.Ref] or Roact.createRef()
+	self.textboxRef = self.props.forwardRef or Roact.createRef()
 
 	self.state = {
 		fontDims = fontDims,
@@ -114,4 +116,8 @@ function ScrollingTextBox:render()
 	})
 end
 
-return ScrollingTextBox
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(ScrollingTextBox, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

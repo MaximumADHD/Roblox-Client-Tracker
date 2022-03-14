@@ -82,6 +82,10 @@ function MockExternalSettings.new(isStudio, isTenFoot, flags, platform)
 		return flags.EnableRestrictedAssetSaleLocationPurchasePrompt
 	end
 
+	function service.FFlagPurchasePromptUpsellXboxFix()
+		return flags.PurchasePromptUpsellXboxFix
+	end
+
 	return service
 end
 

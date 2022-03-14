@@ -21,10 +21,14 @@ local RobloxTranslator = require(RobloxGui.Modules.RobloxTranslator)
 local Components = script.Parent.Parent
 local AvatarEditorPrompts = Components.Parent
 
+local PromptWithTextField = require(Components.Prompts.PromptWithTextField)
+
 local SignalCreateOutfitPermissionDenied = require(AvatarEditorPrompts.Thunks.SignalCreateOutfitPermissionDenied)
 local PerformCreateOutfit = require(AvatarEditorPrompts.Thunks.PerformCreateOutfit)
 
 local ExternalEventConnection = require(CorePackages.RoactUtilities.ExternalEventConnection)
+
+local EngineFeatureAESMoreOutfitMethods = game:GetEngineFeature("AESMoreOutfitMethods2")
 
 local NAME_TEXTBOX_HEIGHT = 35
 
@@ -55,99 +59,137 @@ function EnterOutfitNamePrompt:init()
 		self.props.performCreateOutfit(self.state.outfitName)
 	end
 
-	self.textUpdated = function(rbx)
-		self:setState({
-			outfitName = rbx.Text,
-		})
+	if EngineFeatureAESMoreOutfitMethods then
+		self.textUpdated = function(text)
+			self:setState({
+				outfitName = text,
+			})
+		end
+	else
+		self.textUpdated = function(rbx)
+			self:setState({
+				outfitName = rbx.Text,
+			})
+		end
 	end
 
-	self.renderAlertMiddleContent = function()
-		return withStyle(function(styles)
-			local font = styles.Font
-			local theme = styles.Theme
+	if not EngineFeatureAESMoreOutfitMethods then
+		self.renderAlertMiddleContent = function()
+			return withStyle(function(styles)
+				local font = styles.Font
+				local theme = styles.Theme
 
-			return Roact.createElement("Frame", {
-				BackgroundTransparency = 1,
-				Size = UDim2.new(1, 0, 0, NAME_TEXTBOX_HEIGHT),
-				Position = UDim2.fromScale(0, 1),
-				AnchorPoint = Vector2.new(0, 1),
-			}, {
-				TextboxBorder = Roact.createElement(ImageSetLabel, {
+				return Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
-					Image = TEXTBOX_STROKE,
-					ImageColor3 = theme.UIDefault.Color,
-					ImageTransparency = theme.UIDefault.Transparency,
-					LayoutOrder = 3,
-					ScaleType = Enum.ScaleType.Slice,
-					Size = UDim2.new(1, 0, 1, -5),
+					Size = UDim2.new(1, 0, 0, NAME_TEXTBOX_HEIGHT),
 					Position = UDim2.fromScale(0, 1),
 					AnchorPoint = Vector2.new(0, 1),
-					SliceCenter = STROKE_SLICE_CENTER,
 				}, {
-					Textbox = Roact.createElement(RoactGamepad.Focusable.TextBox, {
+					TextboxBorder = Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
-						ClearTextOnFocus = false,
-						Font = font.Header2.Font,
-						TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
-						PlaceholderColor3 = theme.TextDefault.Color,
-						PlaceholderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.OutfitNamePlaceholder"),
-						Position = UDim2.new(0, 6, 0, 0),
-						Size = UDim2.new(1, -12, 1, 0),
-						TextColor3 = theme.TextEmphasis.Color,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						Text = self.state.outfitName,
-						TextWrapped = true,
-						TextXAlignment = Enum.TextXAlignment.Left,
-						OverlayNativeInput = true,
-						[Roact.Change.Text] = self.textUpdated,
+						Image = TEXTBOX_STROKE,
+						ImageColor3 = theme.UIDefault.Color,
+						ImageTransparency = theme.UIDefault.Transparency,
+						LayoutOrder = 3,
+						ScaleType = Enum.ScaleType.Slice,
+						Size = UDim2.new(1, 0, 1, -5),
+						Position = UDim2.fromScale(0, 1),
+						AnchorPoint = Vector2.new(0, 1),
+						SliceCenter = STROKE_SLICE_CENTER,
+					}, {
+						Textbox = Roact.createElement(RoactGamepad.Focusable.TextBox, {
+							BackgroundTransparency = 1,
+							ClearTextOnFocus = false,
+							Font = font.Header2.Font,
+							TextSize = font.BaseSize * font.CaptionBody.RelativeSize,
+							PlaceholderColor3 = theme.TextDefault.Color,
+							PlaceholderText = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.OutfitNamePlaceholder"),
+							Position = UDim2.new(0, 6, 0, 0),
+							Size = UDim2.new(1, -12, 1, 0),
+							TextColor3 = theme.TextEmphasis.Color,
+							TextTruncate = Enum.TextTruncate.AtEnd,
+							Text = self.state.outfitName,
+							TextWrapped = true,
+							TextXAlignment = Enum.TextXAlignment.Left,
+							OverlayNativeInput = true,
+							[Roact.Change.Text] = self.textUpdated,
 
-						[Roact.Ref] = self.textBoxRef,
-					})
-				}),
-			})
-		end)
-	end
+							[Roact.Ref] = self.textBoxRef,
+						})
+					}),
+				})
+			end)
+		end
 
-	self.lastAlertHeight = 100
+		self.lastAlertHeight = 100
 
-	self.calculateAlertPosition = function()
-		local alertPosition = UDim2.fromScale(0.5, 0.5)
+		self.calculateAlertPosition = function()
+			local alertPosition = UDim2.fromScale(0.5, 0.5)
 
-		if UserInputService.OnScreenKeyboardVisible then
-			local visibleHeight = self.props.screenSize.Y - UserInputService.OnScreenKeyboardSize.Y
+			if UserInputService.OnScreenKeyboardVisible then
+				local visibleHeight = self.props.screenSize.Y - UserInputService.OnScreenKeyboardSize.Y
 
-			local centerPosition = visibleHeight / 2
-			local topEdge = centerPosition - self.lastAlertHeight / 2
+				local centerPosition = visibleHeight / 2
+				local topEdge = centerPosition - self.lastAlertHeight / 2
 
-			if topEdge < TOP_SCREEN_PADDING then
-				centerPosition = centerPosition + (TOP_SCREEN_PADDING - topEdge)
+				if topEdge < TOP_SCREEN_PADDING then
+					centerPosition = centerPosition + (TOP_SCREEN_PADDING - topEdge)
+				end
+
+				alertPosition = UDim2.new(0.5, 0, 0, centerPosition)
 			end
 
-			alertPosition = UDim2.new(0.5, 0, 0, centerPosition)
+			if self.state.alertPosition ~= alertPosition then
+				self:setState({
+					alertPosition = alertPosition,
+				})
+			end
 		end
 
-		if self.state.alertPosition ~= alertPosition then
-			self:setState({
-				alertPosition = alertPosition,
-			})
+		self.alertSizeChanged = function(rbx)
+			self.lastAlertHeight = rbx.AbsoluteSize.Y
+
+			self.calculateAlertPosition()
 		end
-	end
 
-	self.alertSizeChanged = function(rbx)
-		self.lastAlertHeight = rbx.AbsoluteSize.Y
-
-		self.calculateAlertPosition()
-	end
-
-	self.alertMounted = function()
-		local textBox = self.textBoxRef:getValue()
-		if textBox then
-			textBox:CaptureFocus()
+		self.alertMounted = function()
+			local textBox = self.textBoxRef:getValue()
+			if textBox then
+				textBox:CaptureFocus()
+			end
 		end
 	end
 end
 
 function EnterOutfitNamePrompt:render()
+	if EngineFeatureAESMoreOutfitMethods then
+		return Roact.createElement(PromptWithTextField, {
+			fieldText = self.state.outfitName,
+			onFieldTextUpdated = self.textUpdated,
+
+			-- Props passed to Alert
+			title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptTitle"),
+			buttonStackInfo = {
+				buttons = {
+					{
+						props = {
+							onActivated = self.props.signalCreateOutfitPermissionDenied,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptNo"),
+						},
+					},
+					{
+						buttonType = ButtonType.PrimarySystem,
+						props = {
+							isDisabled = self.state.outfitName == "",
+							onActivated = self.confirmCreateOutfit,
+							text = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptYes"),
+						},
+					},
+				},
+			},
+		})
+	end
+
 	return Roact.createFragment({
 		InteractiveAlert = Roact.createElement(InteractiveAlert, {
 			title = RobloxTranslator:FormatByKey("CoreScripts.AvatarEditorPrompts.EnterOutfitNamePromptTitle"),
@@ -189,8 +231,10 @@ function EnterOutfitNamePrompt:render()
 	})
 end
 
-function EnterOutfitNamePrompt:didMount()
-	self.calculateAlertPosition()
+if not EngineFeatureAESMoreOutfitMethods then
+	function EnterOutfitNamePrompt:didMount()
+		self.calculateAlertPosition()
+	end
 end
 
 local function mapStateToProps(state)
@@ -211,4 +255,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(EnterOutfitNamePrompt)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(EnterOutfitNamePrompt)

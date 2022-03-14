@@ -73,6 +73,39 @@ return function()
 		Roact.unmount(instance)
 	end)
 
+	it("should accept and assign refs", function()
+		local ref = Roact.createRef()
+		local store = Rodux.Store.new(Reducer)
+
+		local element = Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
+		}, {
+			LayoutValuesProvider = Roact.createElement(LayoutValuesProvider, {
+				layoutValues = CreateLayoutValues(false)
+			}, {
+				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+					style = appStyle,
+				}, {
+					PlayerEntry = Roact.createElement(PlayerEntry, {
+						player = Players.LocalPlayer,
+						playerStats = {},
+						playerIconInfo = getFakeIconInfo(),
+						playerRelationship = getFakeRelationship(),
+						entrySize = 50,
+						titlePlayerEntry = false,
+						hasDivider = true,
+						gameStats = {},
+						[Roact.Ref] = ref,
+					})
+				})
+			})
+		})
+		local instance = Roact.mount(element)
+		expect(ref.current).to.be.ok()
+		expect(ref.current:IsA("Instance")).to.equal(true)
+		Roact.unmount(instance)
+	end)
+
 	it("should create and destroy without errors tenfoot", function()
 		local store = Rodux.Store.new(Reducer)
 

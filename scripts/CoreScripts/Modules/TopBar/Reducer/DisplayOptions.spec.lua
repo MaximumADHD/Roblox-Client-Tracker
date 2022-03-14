@@ -8,6 +8,7 @@ return function()
 	local DisplayOptions = require(script.Parent.DisplayOptions)
 	local SetInputType = require(Actions.SetInputType)
 	local SetInspectMenuOpen = require(Actions.SetInspectMenuOpen)
+	local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)	
 
 	local Constants = require(TopBar.Constants)
 	local InputType = Constants.InputType
@@ -147,6 +148,28 @@ return function()
 			expect(countValues(newState)).to.equal(countValues(oldState))
 			for key, value in pairs(newState) do
 				if key ~= "inspectMenuOpen" then
+					expect(value).to.equal(oldState[key])
+				end
+			end
+		end)
+	end)
+	
+	describe("SetGamepadMenuOpen", function()
+		it("should change the value of isGamepadMenuOpen", function()
+			local oldState = DisplayOptions(nil, {})
+			local newState = DisplayOptions(oldState, SetGamepadMenuOpen(true))
+			expect(oldState).to.never.equal(newState)
+			expect(newState.isGamepadMenuOpen).to.equal(true)
+			newState = DisplayOptions(newState, SetGamepadMenuOpen(false))
+			expect(newState.isGamepadMenuOpen).to.equal(false)
+		end)
+
+		it("should not change any other values", function()
+			local oldState = DisplayOptions(nil, {})
+			local newState = DisplayOptions(oldState, SetGamepadMenuOpen(true))
+			expect(countValues(newState)).to.equal(countValues(oldState))
+			for key, value in pairs(newState) do
+				if key ~= "isGamepadMenuOpen" then
 					expect(value).to.equal(oldState[key])
 				end
 			end

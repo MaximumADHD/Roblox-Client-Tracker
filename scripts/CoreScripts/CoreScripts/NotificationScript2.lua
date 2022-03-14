@@ -34,12 +34,9 @@ local GameSettings = Settings.GameSettings
 local success, result = pcall(function() return settings():GetFFlag('UseNotificationsLocalization') end)
 local FFlagUseNotificationsLocalization = success and result
 
-local FFlagNewAwardBadgeEndpoint = settings():GetFFlag('NewAwardBadgeEndpoint2')
 local FFlagFixNotificationScriptError = game:DefineFastFlag("FixNotificationScriptError", false)
 
-local GetFFlagRemoveInGameFollowingEvents = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameFollowingEvents)
 local GetFixGraphicsQuality = require(RobloxGui.Modules.Flags.GetFixGraphicsQuality)
-local isNewGamepadMenuEnabled = require(RobloxGui.Modules.Flags.isNewGamepadMenuEnabled)
 
 local shouldSaveScreenshotToAlbum = require(RobloxGui.Modules.shouldSaveScreenshotToAlbum)
 
@@ -114,8 +111,6 @@ StarterGui:RegisterSetCore(
 
 StarterGui:RegisterGetCore("PointsNotificationsActive", function() return pointsNotificationsActive end)
 StarterGui:RegisterGetCore("BadgesNotificationsActive", function() return badgesNotificationsActive end)
-
-local FFlagLocalizeVideoRecordAndScreenshotText = game:DefineFastFlag("LocalizeVideoRecordAndScreenshotText", false)
 
 local PLAYER_POINTS_IMG = 'https://www.roblox.com/asset?id=206410433'
 local BADGE_IMG = 'https://www.roblox.com/asset?id=206410289'
@@ -550,31 +545,6 @@ end
 
 StarterGui:RegisterSetCore("SendNotification", createDeveloperNotification)
 
--- New follower notification
-spawn(function()
-	if isTenFootInterface or GetFFlagRemoveInGameFollowingEvents() then
-		--If on console, New follower notification should be blocked
-		return
-	end
-
-	local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
-	local RemoteEvent_NewFollower = RobloxReplicatedStorage:WaitForChild('NewFollower', 86400) or RobloxReplicatedStorage:WaitForChild('NewFollower')
-
-	RemoteEvent_NewFollower.OnClientEvent:connect(function(followerRbxPlayer)
-		local message = RobloxTranslator:FormatByKey("NotificationScript2.NewFollower", {RBX_NAME = followerRbxPlayer.Name})
-
-		local image = getFriendImage(followerRbxPlayer.UserId)
-		sendNotificationInfo {
-			GroupName = "Friends",
-			Title = "New Follower",
-			Text = message,
-			DetailText = message,
-			Image = image,
-			Duration = 5
-		}
-	end)
-end)
-
 local checkFriendRequestIsThrottled; do
 	local friendRequestThrottlingMap = {}
 
@@ -694,9 +664,7 @@ local function onPointsAwarded(userId, pointsAwarded, userBalanceInGame, userTot
 	end
 end
 
-
---todo: rename to onBadgeAwarded when removing FFlagNewAwardBadgeEndpoint
-local function onBadgeAwarded_NEW(userId, creatorId, badgeId)
+local function onBadgeAwarded(userId, creatorId, badgeId)
 	if not BadgeBlacklist[badgeId] and badgesNotificationsActive and userId == LocalPlayer.UserId then
 		BadgeBlacklist[badgeId] = true
 		local creatorName = ""
@@ -720,22 +688,6 @@ local function onBadgeAwarded_NEW(userId, creatorId, badgeId)
 			Title = badgeTitle,
 			Text = badgeAwardText,
 			DetailText = badgeAwardText,
-			Image = BADGE_IMG,
-			Duration = DEFAULT_NOTIFICATION_DURATION
-		}
-	end
-end
-
---todo: remove when removing FFlagNewAwardBadgeEndpoint
-local function onBadgeAwarded(message, userId, badgeId)
-	if not BadgeBlacklist[badgeId] and badgesNotificationsActive and userId == LocalPlayer.UserId then
-		BadgeBlacklist[badgeId] = true
-		--SPTODO: Badge notifications are generated on the web and are not (for now) localized.
-		sendNotificationInfo {
-			GroupName = "BadgeAwards",
-			Title = "Badge Awarded",
-			Text = message,
-			DetailText = message,
 			Image = BADGE_IMG,
 			Duration = DEFAULT_NOTIFICATION_DURATION
 		}
@@ -776,12 +728,7 @@ function onGameSettingsChanged(property, amount)
 end
 
 if not PolicyService:IsSubjectToChinaPolicies() then
-	if FFlagNewAwardBadgeEndpoint then
-		BadgeService.OnBadgeAwarded:connect(onBadgeAwarded_NEW)
-		BadgeService.BadgeAwarded:connect(onBadgeAwarded) -- todo: remove this when removing flag (only here in case old servers for a bit send down the old event)
-	else
-		BadgeService.BadgeAwarded:connect(onBadgeAwarded)
-	end
+	BadgeService.OnBadgeAwarded:connect(onBadgeAwarded)
 end
 
 if not isTenFootInterface then
@@ -802,15 +749,9 @@ if allowScreenshots then
 	-- Otherwise game.ScreenshotSavedToAlbum signal will be fired, handling in CaptureNotification.lua
 	if not shouldSaveScreenshotToAlbum() then
 		game.ScreenshotReady:Connect(function(path)
-			local titleText = "Screenshot Taken"
-			local descriptionText = "Check out your screenshots folder to see it."
-			local buttonText = "Open Folder"
-
-			if FFlagLocalizeVideoRecordAndScreenshotText then
-				titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
-				descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")
-				buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.ButtonText")
-			end
+			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Title")
+			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.Description")
+			local buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Screenshot.ButtonText")
 
 			sendNotificationInfo {
 				Title = titleText,
@@ -828,15 +769,9 @@ if allowScreenshots then
 
 	settings():GetService("GameSettings").VideoRecordingChangeRequest:Connect(function(value)
 		if not value then
-			local titleText = "Video Recorded"
-			local descriptionText = "Check out your videos folder to see it."
-			local buttonText = "Open Folder"
-
-			if FFlagLocalizeVideoRecordAndScreenshotText then
-				titleText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Title")
-				descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Description")
-				buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Video.ButtonText")
-			end
+			local titleText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Title")
+			local descriptionText = RobloxTranslator:FormatByKey("NotificationScript2.Video.Description")
+			local buttonText = RobloxTranslator:FormatByKey("NotificationScript2.Video.ButtonText")
 
 			sendNotificationInfo {
 				Title = titleText,
@@ -915,58 +850,6 @@ local function onClientLuaDialogRequested(msg, accept, decline)
 	return true
 end
 MarketplaceService.ClientLuaDialogRequested:connect(onClientLuaDialogRequested)
-
-if not isTenFootInterface and not isNewGamepadMenuEnabled() then
-	local gamepadMenu = RobloxGui:WaitForChild("CoreScripts/GamepadMenu")
-	local gamepadNotifications = gamepadMenu:FindFirstChild("GamepadNotifications")
-	while not gamepadNotifications do
-		wait()
-		gamepadNotifications = gamepadMenu:FindFirstChild("GamepadNotifications")
-	end
-
-	local leaveNotificationFunc = function(name, state, inputObject)
-		if state ~= Enum.UserInputState.Begin then return end
-
-		if GuiService.SelectedCoreObject:IsDescendantOf(NotificationFrame) then
-			GuiService.SelectedCoreObject = nil
-		end
-
-		ContextActionService:UnbindCoreAction("LeaveNotificationSelection")
-	end
-
-	gamepadNotifications.Event:connect(function(isSelected)
-		if not isSelected then return end
-
-		isPaused = true
-		local notifications = NotificationFrame:GetChildren()
-		for i = 1, #notifications do
-			local noteComponents = notifications[i]:GetChildren()
-			for j = 1, #noteComponents do
-				if noteComponents[j]:IsA("GuiButton") and noteComponents[j].Visible then
-					GuiService.SelectedCoreObject = noteComponents[j]
-					break
-				end
-			end
-		end
-
-		if GuiService.SelectedCoreObject then
-			ContextActionService:BindCoreAction("LeaveNotificationSelection", leaveNotificationFunc, false, Enum.KeyCode.ButtonB)
-		else
-			isPaused = false
-			local utility = require(RobloxGui.Modules.Settings.Utility)
-			local okPressedFunc = function() end
-			utility:ShowAlert("You have no notifications", "Ok", --[[settingsHub]] nil, okPressedFunc, true)
-		end
-	end)
-
-	GuiService.Changed:connect(function(prop)
-		if prop == "SelectedCoreObject" then
-			if not GuiService.SelectedCoreObject or not GuiService.SelectedCoreObject:IsDescendantOf(NotificationFrame) then
-				isPaused = false
-			end
-		end
-	end)
-end
 
 local Platform = UserInputService:GetPlatform()
 local Modules = RobloxGui:FindFirstChild('Modules')

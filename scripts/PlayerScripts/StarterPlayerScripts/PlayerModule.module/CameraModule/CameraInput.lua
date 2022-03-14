@@ -3,6 +3,8 @@ local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local VRService = game:GetService("VRService")
+local StarterGui = game:GetService("StarterGui")
 
 local player = Players.LocalPlayer
 
@@ -20,6 +22,13 @@ local ZOOM_SPEED_KEYS = 0.1 -- (studs/s)
 local ZOOM_SPEED_TOUCH = 0.04 -- (scaled studs/DIP %)
 
 local MIN_TOUCH_SENSITIVITY_FRACTION = 0.25 -- 25% sensitivity at 90°
+
+local FFlagUserFlagEnableNewVRSystem do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFlagEnableNewVRSystem")
+	end)
+	FFlagUserFlagEnableNewVRSystem = success and result
+end
 
 -- right mouse button up & down events
 local rmbDown, rmbUp do
@@ -60,7 +69,7 @@ end
 
 -- Adjust the touch sensitivity so that sensitivity is reduced when swiping up
 -- or down, but stays the same when swiping towards the middle of the screen
-local function adjustTouchPitchSensitivity(delta)
+local function adjustTouchPitchSensitivity(delta: Vector2): Vector2
 	local camera = workspace.CurrentCamera
 
 	if not camera then
@@ -86,7 +95,7 @@ local function adjustTouchPitchSensitivity(delta)
 	return Vector2.new(1, sensitivity)*delta
 end
 
-local function isInDynamicThumbstickArea(pos)
+local function isInDynamicThumbstickArea(pos: Vector3): boolean
 	local playerGui = player:FindFirstChildOfClass("PlayerGui")
 	local touchGui = playerGui and playerGui:FindFirstChild("TouchGui")
 	local touchFrame = touchGui and touchGui:FindFirstChild("TouchControlFrame")
@@ -152,12 +161,17 @@ do
 	
 	local gamepadZoomPressBindable = Instance.new("BindableEvent")
 	CameraInput.gamepadZoomPress = gamepadZoomPressBindable.Event
+
+	local gamepadResetBindable = VRService.VREnabled and FFlagUserFlagEnableNewVRSystem and Instance.new("BindableEvent") or nil
+	if VRService.VREnabled and FFlagUserFlagEnableNewVRSystem then
+		CameraInput.gamepadReset = gamepadResetBindable.Event
+	end
 	
-	function CameraInput.getRotationActivated()
+	function CameraInput.getRotationActivated(): boolean
 		return panInputCount > 0 or gamepadState.Thumbstick2.Magnitude > 0
 	end
 	
-	function CameraInput.getRotation(disableKeyboardRotation)
+	function CameraInput.getRotation(disableKeyboardRotation: boolean?): Vector2
 		local inversionVector = Vector2.new(1, UserGameSettings:GetCameraYInvertValue())
 
 		-- keyboard input is non-coalesced, so must account for time delta
@@ -181,7 +195,7 @@ do
 		return result*inversionVector
 	end
 	
-	function CameraInput.getZoomDelta()
+	function CameraInput.getZoomDelta(): number
 		local kKeyboard = keyboardState.O - keyboardState.I
 		local kMouse = -mouseState.Wheel + mouseState.Pinch
 		local kTouch = -touchState.Pinch
@@ -213,6 +227,12 @@ do
 				gamepadZoomPressBindable:Fire()
 			end
 		end
+
+		local function gamepadReset(action, state, input)
+			if state == Enum.UserInputState.Begin then
+				gamepadResetBindable:Fire()
+			end
+		end
 		
 		local function resetInputDevices()
 			for _, device in pairs({
@@ -234,11 +254,11 @@ do
 		local touchBegan, touchChanged, touchEnded, resetTouchState do
 			-- Use TouchPan & TouchPinch when they work in the Studio emulator
 
-			local touches = {} -- {[InputObject] = sunk}
-			local dynamicThumbstickInput -- Special-cased 
-			local lastPinchDiameter
+			local touches: {[InputObject]: boolean?} = {} -- {[InputObject] = sunk}
+			local dynamicThumbstickInput: InputObject? -- Special-cased 
+			local lastPinchDiameter: number?
 
-			function touchBegan(input, sunk)
+			function touchBegan(input: InputObject, sunk: boolean)
 				assert(input.UserInputType == Enum.UserInputType.Touch)
 				assert(input.UserInputState == Enum.UserInputState.Begin)
 				
@@ -258,7 +278,7 @@ do
 				touches[input] = sunk
 			end
 
-			function touchEnded(input, sunk)
+			function touchEnded(input: InputObject, sunk: boolean)
 				assert(input.UserInputType == Enum.UserInputType.Touch)
 				assert(input.UserInputState == Enum.UserInputState.End)
 				
@@ -303,7 +323,7 @@ do
 				if #unsunkTouches == 1 then
 					if touches[input] == false then
 						local delta = input.Delta
-						touchState.Move = Vector2.new(delta.X, delta.Y)
+						touchState.Move += Vector2.new(delta.X, delta.Y) -- total touch pan movement (reset at end of frame)
 					end
 				end
 				
@@ -312,7 +332,7 @@ do
 					local pinchDiameter = (unsunkTouches[1].Position - unsunkTouches[2].Position).Magnitude
 					
 					if lastPinchDiameter then
-						touchState.Pinch = pinchDiameter - lastPinchDiameter
+						touchState.Pinch += pinchDiameter - lastPinchDiameter
 					end
 					
 					lastPinchDiameter = pinchDiameter
@@ -393,6 +413,15 @@ do
 					Enum.KeyCode.I,
 					Enum.KeyCode.O
 				)
+
+				if VRService.VREnabled and FFlagUserFlagEnableNewVRSystem then
+					ContextActionService:BindAction(
+						"RbxCameraGamepadReset",
+						gamepadReset,
+						false,
+						Enum.KeyCode.ButtonL3
+					)
+				end
 				
 				ContextActionService:BindAction(
 					"RbxCameraGamepadZoom",
@@ -411,6 +440,13 @@ do
 				ContextActionService:UnbindAction("RbxCameraMouseMove")
 				ContextActionService:UnbindAction("RbxCameraMouseWheel")
 				ContextActionService:UnbindAction("RbxCameraKeypress")
+
+				if FFlagUserFlagEnableNewVRSystem then
+					ContextActionService:UnbindAction("RbxCameraGamepadZoom")
+					if VRService.VREnabled then
+						ContextActionService:UnbindAction("RbxCameraGamepadReset")
+					end 
+				end
 
 				for _, conn in pairs(connectionList) do
 					conn:Disconnect()
@@ -444,19 +480,19 @@ do
 	local togglePan = false
 	local lastRmbDown = 0 -- tick() timestamp of the last right mouse button down event
 	
-	function CameraInput.getHoldPan()
+	function CameraInput.getHoldPan(): boolean
 		return holdPan
 	end
 	
-	function CameraInput.getTogglePan()
+	function CameraInput.getTogglePan(): boolean
 		return togglePan
 	end
 	
-	function CameraInput.getPanning()
+	function CameraInput.getPanning(): boolean
 		return togglePan or holdPan
 	end
 	
-	function CameraInput.setTogglePan(value)
+	function CameraInput.setTogglePan(value: boolean)
 		togglePan = value
 	end
 	

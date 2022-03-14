@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["AvatarExperienceDeps"]["AvatarExperienceDeps"]
+local Package = require(PackageIndex["AvatarExperienceDeps"]["AvatarExperienceDeps"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

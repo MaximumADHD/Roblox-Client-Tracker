@@ -9,17 +9,18 @@ local ErrorOccurred = require(Root.Actions.ErrorOccurred)
 local CompleteRequest = require(Root.Actions.CompleteRequest)
 local PromptState = require(Root.Enums.PromptState)
 local PurchaseError = require(Root.Enums.PurchaseError)
-local UpsellFlow = require(Root.Enums.UpsellFlow)
 local selectRobuxProduct = require(Root.NativeUpsell.selectRobuxProduct)
-local getUpsellFlow = require(Root.NativeUpsell.getUpsellFlow)
+local selectRobuxProductFromProvider = require(Root.NativeUpsell.selectRobuxProductFromProvider)
 local Analytics = require(Root.Services.Analytics)
 local ExternalSettings = require(Root.Services.ExternalSettings)
 local meetsPrerequisites = require(Root.Utils.meetsPrerequisites)
 local getPlayerProductInfoPrice = require(Root.Utils.getPlayerProductInfoPrice)
+local getPaymentFromPlatform = require(Root.Utils.getPaymentFromPlatform)
+local getHasAmazonUserAgent = require(Root.Utils.getHasAmazonUserAgent)
 local Thunk = require(Root.Thunk)
 
-local GetFFlagProductPurchaseUpsell = require(Root.Flags.GetFFlagProductPurchaseUpsell)
-local GetFFlagProductPurchaseUpsellABTest = require(Root.Flags.GetFFlagProductPurchaseUpsellABTest)
+local GetFFlagEnablePPUpsellProductListRefactor = require(Root.Flags.GetFFlagEnablePPUpsellProductListRefactor)
+local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
 
 local requiredServices = {
 	Analytics,
@@ -55,7 +56,6 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 		local isPlayerPremium = accountInfo.MembershipType == 4
 		local price = getPlayerProductInfoPrice(productInfo, isPlayerPremium)
 		local platform = UserInputService:GetPlatform()
-		local upsellFlow = getUpsellFlow(platform)
 
 		if price > accountInfo.RobuxBalance then
 
@@ -63,13 +63,25 @@ local function resolvePromptState(productInfo, accountInfo, alreadyOwned, isRobl
 				return store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxNoUpsell))
 			end
 
-			if upsellFlow == UpsellFlow.Web
-					and not GetFFlagProductPurchaseUpsell() and not GetFFlagProductPurchaseUpsellABTest() then
-				return store:dispatch(SetPromptState(PromptState.RobuxUpsell))
-			else
-				local neededRobux = price - accountInfo.RobuxBalance
-				local hasMembership = accountInfo.MembershipType > 0
+			local neededRobux = price - accountInfo.RobuxBalance
+			local hasMembership = accountInfo.MembershipType > 0
 
+			if GetFFlagEnablePPUpsellProductListRefactor() then
+				local isAmazon = getHasAmazonUserAgent()
+				local isLuobu = GetFFlagEnableLuobuInGameUpsell()
+				local paymentPlatform = getPaymentFromPlatform(platform, isLuobu, isAmazon)
+				return selectRobuxProductFromProvider(paymentPlatform, neededRobux, hasMembership, nil):andThen(function(product)
+					analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)
+					store:dispatch(PromptNativeUpsell(product.productId, product.robuxValue))
+				end, function()
+					-- No upsell item will provide sufficient funds to make this purchase
+					if platform == Enum.Platform.XBoxOne then
+						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobuxXbox))
+					else
+						store:dispatch(ErrorOccurred(PurchaseError.NotEnoughRobux))
+					end
+				end)
+			else
 				return selectRobuxProduct(platform, neededRobux, hasMembership)
 					:andThen(function(product)
 						analytics.signalProductPurchaseUpsellShown(productInfo.productId, state.requestType, product.productId)

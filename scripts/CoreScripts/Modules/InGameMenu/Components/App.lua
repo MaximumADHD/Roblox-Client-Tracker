@@ -10,6 +10,8 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
+local IGMControllerBar = require(script.Parent.IGMControllerBar)
+
 local InGameMenuPolicy = require(RobloxGui.Modules.InGameMenu.InGameMenuPolicy)
 
 local ViewportOverlay = require(script.Parent.ViewportOverlay)
@@ -25,9 +27,13 @@ local EducationalPopup = require(script.Parent.EducationalPopup)
 local MenuIconTooltip = require(script.Parent.MenuIconTooltip)
 local FullscreenTitleBar = require(script.Parent.FullscreenTitleBar)
 
-local FFlagLuaMenuPerfImprovements = require(script.Parent.Parent.Flags.FFlagLuaMenuPerfImprovements)
+local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local FFlagLuaMenuPerfImprovements = require(Flags.FFlagLuaMenuPerfImprovements)
+local GetFFlagUseIGMControllerBar = require(Flags.GetFFlagUseIGMControllerBar)
+local GetFFlagIGMControllerBarRefactor = require(Flags.GetFFlagIGMControllerBarRefactor)
 
-local Constants = require(script.Parent.Parent.Resources.Constants)
+local Constants = require(InGameMenu.Resources.Constants)
 
 local function App(props)
 	local fullscreenTitleBar = nil
@@ -39,7 +45,7 @@ local function App(props)
 
 	if FFlagLuaMenuPerfImprovements then
 		return Roact.createFragment({
-			Content = props.visible and Roact.createFragment({
+			Content = props.isMenuOpen and Roact.createFragment({
 				Overlay = Roact.createElement(ViewportOverlay),
 				SideNavigation = Roact.createElement(SideNavigation),
 				LeaveGameDialog = Roact.createElement(LeaveGameDialog),
@@ -47,6 +53,8 @@ local function App(props)
 				RespawnDialog = Roact.createElement(RespawnDialog),
 				ReportDialog = Roact.createElement(ReportDialog),
 				ReportSentDialog = Roact.createElement(ReportSentDialog),
+				ControllerBar = (GetFFlagUseIGMControllerBar() and not GetFFlagIGMControllerBarRefactor()) and
+					Roact.createElement(IGMControllerBar) or nil,
 				ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			}) or nil,
 			Connection = Roact.createElement(Connection),
@@ -63,6 +71,8 @@ local function App(props)
 			RespawnDialog = Roact.createElement(RespawnDialog),
 			ReportDialog = Roact.createElement(ReportDialog),
 			ReportSentDialog = Roact.createElement(ReportSentDialog),
+			ControllerBar = (GetFFlagUseIGMControllerBar() and not GetFFlagIGMControllerBarRefactor()) and
+				Roact.createElement(IGMControllerBar) or nil,
 			ControlLayoutSetter = Roact.createElement(ControlLayoutSetter),
 			Connection = Roact.createElement(Connection),
 			EducationalPopup = props.isEducationalPopupEnabled and Roact.createElement(EducationalPopup) or nil,
@@ -80,7 +90,9 @@ App = InGameMenuPolicy.connect(function(appPolicy, props)
 end)(App)
 
 local function mapStateToProps(state, props)
-	return { visible = state.isMenuOpen }
+	return {
+		isMenuOpen = state.isMenuOpen,
+	}
 end
 
 return RoactRodux.connect(mapStateToProps, nil)(App)

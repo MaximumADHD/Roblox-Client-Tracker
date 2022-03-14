@@ -105,7 +105,7 @@ function PremiumPrompt:RenderError()
 	end
 
 	return Roact.createElement(MultiTextLocalizer, {
-		keys = {
+		locKeys = {
 			titleLocalizedText = {
 				key = PREMIUM_MODAL_LOC_KEY:format("Title.Error"),
 			},
@@ -168,6 +168,12 @@ function PremiumPrompt:render()
 		BackgroundTransparency = 1,
 	}, {
 		PremiumPrompt = contents,
+		-- UIBlox components do not have Modal == true to fix FPS interaction with modals
+		ModalFix = contents ~= nil and Roact.createElement("ImageButton", {
+			BackgroundTransparency = 0,
+			Modal = true,
+			Size = UDim2.new(0, 0, 0, 0),
+		}) or nil,
 		OnCoreGuiMenuOpened = Roact.createElement(ExternalEventConnection, {
 			event = GuiService.MenuOpened,
 			callback = self.onClose,

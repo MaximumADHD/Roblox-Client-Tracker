@@ -5,6 +5,9 @@ lines of explanation.]]
 return function()
 	local DocParser = require(script.Parent.DocParser)
 
+	local Framework = script.Parent.Parent.Parent
+	local Roact = require(Framework.Parent.Roact)
+
 	local oneProp = [[
 	This is a component with a Size prop.
 	Required Props:
@@ -29,6 +32,12 @@ return function()
 		UDim2 Size: The size of the component, except in a specific scenario
 			that must be explained in an amount of detail that spans multiple
 			lines of explanation.]]
+
+	local roactSymbols = [[
+	Required Props:
+		callback Roact.Change.AbsoluteSize: Fired on enabled changed
+		callback Roact.Event.Activated: Fired on button click
+		any Roact.Ref: Ref to underlying host component]]
 
 	it("should parse a single prop", function()
 		local parser = DocParser.new("Test")
@@ -381,6 +390,19 @@ return function()
 			expect(interface({
 				Size = "Some string",
 			})).to.equal(false)
+		end)
+
+		it("should handle Roact symbols", function()
+			local parser = DocParser.new("Test")
+			local docs = parser:parseComments(roactSymbols)
+
+			local interface = DocParser.toInterface(docs)
+			expect(interface({})).to.equal(false)
+			expect(interface({
+				[Roact.Change.AbsoluteSize] = function() end,
+				[Roact.Event.Activated] = function() end,
+				[Roact.Ref] = "",
+			})).to.equal(true)
 		end)
 	end)
 end

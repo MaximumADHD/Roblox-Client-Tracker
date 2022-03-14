@@ -1,9 +1,8 @@
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
-local VoiceChatService = nil
-pcall(function()
-	VoiceChatService = game:GetService("VoiceChatService")
-end)
+local SoundService = game:GetService("SoundService")
 
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local t = InGameMenuDependencies.t
@@ -11,9 +10,17 @@ local t = InGameMenuDependencies.t
 local InGameMenu = script.Parent.Parent.Parent
 local DropDownSelection = require(InGameMenu.Components.DropDownSelection)
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local log = require(RobloxGui.Modules.Logger):new(script.Name)
 
 -- This is a temporary component, will iterate when there's final design
 local DeviceSelectionEntry = Roact.PureComponent:extend("DeviceSelectionEntry")
+
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagTruncateDeviceSelection = require(Flags.GetFFlagTruncateDeviceSelection)
+
+local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoiceChatUILogging)
 
 DeviceSelectionEntry.DeviceType = {
 	Input = "Input",
@@ -23,20 +30,60 @@ DeviceSelectionEntry.DeviceType = {
 DeviceSelectionEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
 	deviceType = t.string,
+	isMenuOpen = t.boolean,
+	canOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
 })
+
+if GetFFlagInGameMenuControllerDevelopmentOnly() then
+	DeviceSelectionEntry.defaultProps = {
+		canOpen = true
+	}
+end
 
 function DeviceSelectionEntry:init()
 	self:setState({
 		deviceNames = {},
 		deviceGuids = {},
 		selectedIndex = 0,
+		ready = false
 	})
+
+	VoiceChatServiceManager:asyncInit():andThen(function()
+		self:setState({
+			ready = true
+		})
+		VoiceChatServiceManager:SetupParticipantListeners()
+		if SoundService.DeviceListChanged then
+			SoundService.DeviceListChanged:Connect(function()
+				if self.props.isMenuOpen then
+					self:pollDevices(self.props.deviceType)
+				end
+			end)
+		end
+	end):catch(function()
+		if GetFFlagVoiceChatUILogging() then
+			log:warning("Failed to init VoiceChatServiceManager")
+		end
+	end)
 end
 
 function DeviceSelectionEntry:render()
-	if VoiceChatService == nil or self.state.deviceNames == nil or
+	if not self.state.ready or self.state.deviceNames == nil or
 		#self.state.deviceNames == 0 then
 		return nil
+	end
+
+	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	local canOpen = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		canOpen = self.props.canOpen
+	end
+
+	-- Can be inlined when GetFFlagInGameMenuControllerDevelopmentOnly is removed
+	local canCaptureFocus = nil
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		canCaptureFocus = self.props.canCaptureFocus
 	end
 
 	return Roact.createElement("Frame", {
@@ -63,27 +110,22 @@ function DeviceSelectionEntry:render()
 		Dropdown = Roact.createElement(DropDownSelection, {
 			Size = UDim2.new(1, 0, 0, 44),
 			Position = UDim2.new(0, 0, 0, 56),
+			truncate = GetFFlagTruncateDeviceSelection(),
 			selections = self.state.deviceNames,
 			selectedIndex = self.state.selectedIndex,
 			placeHolderText = "",
 			enabled = true,
 			localize = false,
+			selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and
+				self.props.deviceType.."DeviceSelectionEntryDropdown" or nil,
+			canOpen = canOpen,
+			canCaptureFocus = canCaptureFocus,
 			selectionChanged = function(newIndex)
-				if self.props.deviceType == DeviceSelectionEntry.DeviceType.Input then
-					VoiceChatService:SetMicDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
-				else
-					VoiceChatService:SetSpeakerDevice(self.state.deviceNames[newIndex], self.state.deviceGuids[newIndex])
-				end
-
-				-- TODO: This will be removed when set device API refactoring is done
-				pcall(function()
-					local groupId = VoiceChatService:GetGroupId()
-					if groupId and groupId ~= "" then
-						local muted = VoiceChatService:IsPublishPaused()
-						VoiceChatService:Leave()
-						VoiceChatService:JoinByGroupId(groupId, muted)
-					end
-				end)
+				VoiceChatServiceManager:SwitchDevice(
+					self.props.deviceType,
+					self.state.deviceNames[newIndex],
+					self.state.deviceGuids[newIndex]
+				)
 
 				self:setState({
 					selectedIndex = newIndex,
@@ -93,35 +135,34 @@ function DeviceSelectionEntry:render()
 	})
 end
 
-function DeviceSelectionEntry:willUpdate(nextProps)
-	if not self.props.isMenuOpen and nextProps.isMenuOpen then
-		-- Update device info each time user opens the menu
-		-- TODO: This should be simplified by new API
-		spawn(function()
-			local success, deviceNames, deviceGuids, selectedIndex = pcall(function()
-				if nextProps.deviceType == DeviceSelectionEntry.DeviceType.Input then
-					return VoiceChatService:GetMicDevices()
-				else
-					return VoiceChatService:GetSpeakerDevices()
-				end
-			end)
-			if success and deviceNames and deviceGuids and selectedIndex and
-				#deviceNames > 0 and selectedIndex > 0 and selectedIndex <= #deviceNames and
-				#deviceNames == #deviceGuids then
-				self:setState({
-					deviceNames = deviceNames,
-					deviceGuids = deviceGuids,
-					selectedIndex = selectedIndex,
-				})
-			else
-				warn("Errors in get "..nextProps.deviceType.."Device info")
-				self:setState({
-					deviceNames = {},
-					deviceGuids = {},
-					selectedIndex = 0,
-				})
+function DeviceSelectionEntry:pollDevices(deviceType)
+	spawn(function()
+		local success, deviceNames, deviceGuids, selectedIndex = VoiceChatServiceManager:GetDevices(deviceType)
+		if success then
+			self:setState({
+				deviceNames = deviceNames,
+				deviceGuids = deviceGuids,
+				selectedIndex = selectedIndex,
+			})
+		else
+			if GetFFlagVoiceChatUILogging() then
+				log:warning("Errors in get {} Device info", deviceType)
 			end
-		end)
+			self:setState({
+				deviceNames = {},
+				deviceGuids = {},
+				selectedIndex = 0,
+			})
+		end
+	end)
+
+end
+
+function DeviceSelectionEntry:willUpdate(nextProps)
+	-- Update device info each time user opens the menu
+	-- TODO: This should be simplified by new API
+	if not self.props.isMenuOpen and nextProps.isMenuOpen then
+		self:pollDevices(nextProps.deviceType)
 	end
 end
 

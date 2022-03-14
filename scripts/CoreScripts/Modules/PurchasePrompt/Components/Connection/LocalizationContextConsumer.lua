@@ -5,21 +5,6 @@
 	Used for components that need to perform localization using this
 	project's LocalizationService
 ]]
-local Root = script.Parent.Parent.Parent
+local LocalizationContext = require(script.Parent.LocalizationContext)
 
-local CorePackages = game:GetService("CorePackages")
-
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
-local Roact = PurchasePromptDeps.Roact
-
-local LocalizationContextKey = require(Root.Symbols.LocalizationContextKey)
-
-local LocalizationContextConsumer = Roact.Component:extend("LocalizationContextConsumer")
-
-function LocalizationContextConsumer:render()
-	local localizationContext = self._context[LocalizationContextKey]
-
-	return self.props.render(localizationContext)
-end
-
-return LocalizationContextConsumer
+return LocalizationContext.Consumer

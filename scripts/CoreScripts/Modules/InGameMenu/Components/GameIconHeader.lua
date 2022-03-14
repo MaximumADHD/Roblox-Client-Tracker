@@ -45,7 +45,9 @@ local function GameIconHeader(props)
 end
 
 return RoactRodux.UNSTABLE_connect2(function(state)
+	local gameName = state.gameInfo.name
+
 	return {
-		gameName = state.localization.currentGameName,
+		gameName = gameName,
 	}
 end)(GameIconHeader)

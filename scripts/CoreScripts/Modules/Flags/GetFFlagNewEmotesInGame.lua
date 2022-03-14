@@ -1,5 +1,5 @@
-game:DefineFastFlag("NewEmotesInGame", false)
+game:DefineFastFlag("NewEmotesInGame2", false)
 
 return function()
-    return game:GetFastFlag("NewEmotesInGame")
+    return game:GetFastFlag("NewEmotesInGame2")
 end

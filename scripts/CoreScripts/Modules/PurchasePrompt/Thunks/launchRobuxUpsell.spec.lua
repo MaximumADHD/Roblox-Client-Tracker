@@ -8,18 +8,19 @@ return function()
 	local PromptState = require(Root.Enums.PromptState)
 	local PurchaseError = require(Root.Enums.PurchaseError)
 	local RequestType = require(Root.Enums.RequestType)
+	local Constants = require(Root.Misc.Constants)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
 	local ExternalSettings = require(Root.Services.ExternalSettings)
 	local Network = require(Root.Services.Network)
 	local PlatformInterface = require(Root.Services.PlatformInterface)
+	local createSpy = require(Root.Test.createSpy)
 	local MockAnalytics = require(Root.Test.MockAnalytics)
 	local MockExternalSettings = require(Root.Test.MockExternalSettings)
 	local MockNetwork = require(Root.Test.MockNetwork)
 	local MockPlatformInterface = require(Root.Test.MockPlatformInterface)
 	local Thunk = require(Root.Thunk)
 
-	local GetFFlagEnableScaryModalAnalytics = require(Root.Flags.GetFFlagEnableScaryModalAnalytics)
 
 	local launchRobuxUpsell = require(script.Parent.launchRobuxUpsell)
 
@@ -80,7 +81,6 @@ return function()
 		local state = store:getState()
 
 		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
 		expect(platformInterface.spies.promptNativePurchase.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 	end
@@ -97,30 +97,95 @@ return function()
 		checkMobileUpsell(Enum.Platform.UWP)
 	end)
 
-	local function checkPlatformUpsells(platform)
+	it("should run without errors on XBoxOne", function()
 		local store = Rodux.Store.new(Reducer, getDefaultState())
 
 		local analytics = MockAnalytics.new()
 		local platformInterface = MockPlatformInterface.new()
 
+		local beginPlatformStorePurchaseSpy = createSpy(function()
+			return Constants.PlatformPurchaseResult.PurchaseResult_Success
+		end)
+		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
+		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+
 		Thunk.test(launchRobuxUpsell(), store, {
 			[Analytics] = analytics.mockService,
 			[Network] = MockNetwork.new(),
 			[PlatformInterface] = platformInterface.mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {}, platform)
-		})
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				PurchasePromptUpsellXboxFix = true
+			}, Enum.Platform.XBoxOne)
+		}):andThen(function() end)
 
 		local state = store:getState()
 
 		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
-		expect(analytics.spies.reportNativeUpsellStarted.callCount).to.equal(0)
-		-- Not working yet, TODO: get working :P
-		--expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		--In progress because we still need to check the balance after
 		expect(state.promptState).to.equal(PromptState.UpsellInProgress)
-	end
 
-	it("should run without errors on XBoxOne", function()
-		checkPlatformUpsells(Enum.Platform.XBoxOne)
+		expect(analytics.spies.signalXboxInGamePurchaseSuccess.callCount).to.equal(1)
+	end)
+
+	it("should run without errors on XBoxOne when the purchase is cancelled", function()
+		local store = Rodux.Store.new(Reducer, getDefaultState())
+
+		local analytics = MockAnalytics.new()
+		local platformInterface = MockPlatformInterface.new()
+
+		local beginPlatformStorePurchaseSpy = createSpy(function()
+			return Constants.PlatformPurchaseResult.PurchaseResult_UserCancelled
+		end)
+		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
+		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+
+		Thunk.test(launchRobuxUpsell(), store, {
+			[Analytics] = analytics.mockService,
+			[Network] = MockNetwork.new(),
+			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				PurchasePromptUpsellXboxFix = true
+			}, Enum.Platform.XBoxOne)
+		}):andThen(function() end)
+
+		local state = store:getState()
+
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.Error)
+
+		expect(analytics.spies.signalXboxInGamePurchaseCanceled.callCount).to.equal(1)
+	end)
+
+	it("should run without errors on XBoxOne when the purchase errored", function()
+		local store = Rodux.Store.new(Reducer, getDefaultState())
+
+		local analytics = MockAnalytics.new()
+		local platformInterface = MockPlatformInterface.new()
+
+		local beginPlatformStorePurchaseSpy = createSpy(function()
+			return Constants.PlatformPurchaseResult.PurchaseResult_Error
+		end)
+		platformInterface.mockService.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy.value
+		platformInterface.spies.beginPlatformStorePurchase = beginPlatformStorePurchaseSpy
+
+		Thunk.test(launchRobuxUpsell(), store, {
+			[Analytics] = analytics.mockService,
+			[Network] = MockNetwork.new(),
+			[PlatformInterface] = platformInterface.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {
+				PurchasePromptUpsellXboxFix = true
+			}, Enum.Platform.XBoxOne)
+		}):andThen(function() end)
+
+		local state = store:getState()
+
+		expect(analytics.spies.signalProductPurchaseUpsellConfirmed.callCount).to.equal(1)
+		expect(platformInterface.spies.beginPlatformStorePurchase.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.Error)
+
+		expect(analytics.spies.signalXboxInGamePurchaseFailure.callCount).to.equal(1)
 	end)
 
 	it("should prevent upsells if FFlagDisableRobuxUpsell = true", function()
@@ -161,11 +226,7 @@ return function()
 	
 			local state = store:getState()
 	
-			if GetFFlagEnableScaryModalAnalytics() then
-				expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(1)
-			else
-				expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(0)
-			end
+			expect(analytics.spies.signalScaryModalConfirmed.callCount).to.equal(1)
 			expect(state.promptState).to.equal(PromptState.UpsellInProgress)
 		end
 	

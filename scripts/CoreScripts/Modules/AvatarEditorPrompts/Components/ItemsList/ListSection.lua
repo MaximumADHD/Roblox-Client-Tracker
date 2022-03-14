@@ -1,5 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
+local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local RoactGamepad = require(CorePackages.Packages.RoactGamepad)
 local t = require(CorePackages.Packages.t)
@@ -22,7 +23,7 @@ ListSection.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.table,
+	forwardRef = t.table,
 })
 
 function ListSection:init()
@@ -60,6 +61,8 @@ function ListSection:render()
 		})
 	end
 
+	local forwardRef = self.props.forwardRef
+
 	return Roact.createElement(RoactGamepad.Focusable[RoactFitComponents.FitFrameVertical], {
 		width = UDim.new(1, 0),
 
@@ -74,8 +77,12 @@ function ListSection:render()
 		NextSelectionRight = self.props.NextSelectionRight,
 		NextSelectionUp = self.props.NextSelectionUp,
 		NextSelectionDown = self.props.NextSelectionDown,
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = forwardRef,
 	}, listSection)
 end
 
-return ListSection
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(ListSection, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

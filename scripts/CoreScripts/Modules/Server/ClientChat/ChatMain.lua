@@ -13,24 +13,6 @@ local moduleApiTable = {}
 --// the rest of the code can interface with and have the guarantee that the RemoteEvents they want
 --// exist with their desired names.
 
-local FFlagFixChatWindowHoverOver = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixChatWindowHoverOver")
-	end)
-	if ok then
-		FFlagFixChatWindowHoverOver = value
-	end
-end
-
-local FFlagFixMouseCapture = false do
-	local ok, value = pcall(function()
-		return UserSettings():IsUserFeatureEnabled("UserFixMouseCapture")
-	end)
-	if ok then
-		FFlagFixMouseCapture = value
-	end
-end
-
 local FFlagUserHandleChatHotKeyWithContextActionService = false do
 	local ok, value = pcall(function()
 		return UserSettings():IsUserFeatureEnabled("UserHandleChatHotKeyWithContextActionService")
@@ -57,12 +39,11 @@ local messageCreatorModules = clientChatModules:WaitForChild("MessageCreatorModu
 local MessageCreatorUtil = require(messageCreatorModules:WaitForChild("Util"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
 local numChildrenRemaining = 10 -- #waitChildren returns 0 because it's a dictionary
-local waitChildren =
-{
+local waitChildren = {
 	OnNewMessage = "RemoteEvent",
 	OnMessageDoneFiltering = "RemoteEvent",
 	OnNewSystemMessage = "RemoteEvent",
@@ -75,6 +56,7 @@ local waitChildren =
 	SayMessageRequest = "RemoteEvent",
 	GetInitDataRequest = "RemoteFunction",
 }
+
 -- waitChildren/EventFolder does not contain all the remote events, because the server version could be older than the client version.
 -- In that case it would not create the new events.
 -- These events are accessed directly from DefaultChatSystemChatEvents
@@ -343,10 +325,10 @@ function getBubbleChatEnabled()
 end
 
 function bubbleChatOnly()
- 	return not getClassicChatEnabled() and getBubbleChatEnabled()
+	return not getClassicChatEnabled() and getBubbleChatEnabled()
 end
 
-function UpdateMousePosition(mousePos, ignoreForFadeIn)
+function UpdateMousePosition(mousePos)
 	if not (moduleApiTable.Visible and moduleApiTable.IsCoreGuiEnabled and (moduleApiTable.TopbarEnabled or ChatSettings.ChatOnWithTopBarOff)) then return end
 
 	if bubbleChatOnly() then
@@ -358,12 +340,6 @@ function UpdateMousePosition(mousePos, ignoreForFadeIn)
 
 	local newMouseState = CheckIfPointIsInSquare(mousePos, windowPos, windowPos + windowSize)
 
-	if FFlagFixChatWindowHoverOver then
-		if ignoreForFadeIn and newMouseState == true then
-			return
-		end
-	end
-
 	if (newMouseState ~= mouseIsInWindow) then
 		UpdateFadingForMouseState(newMouseState)
 	end
@@ -372,35 +348,33 @@ end
 UserInputService.InputChanged:connect(function(inputObject, gameProcessedEvent)
 	if (inputObject.UserInputType == Enum.UserInputType.MouseMovement) then
 		local mousePos = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
-		UpdateMousePosition(mousePos, --[[ ignoreForFadeIn = ]] gameProcessedEvent)
+		UpdateMousePosition(mousePos)
 	end
 end)
 
 UserInputService.TouchTap:connect(function(tapPos, gameProcessedEvent)
-	UpdateMousePosition(tapPos[1], --[[ ignoreForFadeIn = ]] false)
+	UpdateMousePosition(tapPos[1])
 end)
 
 UserInputService.TouchMoved:connect(function(inputObject, gameProcessedEvent)
 	local tapPos = Vector2.new(inputObject.Position.X, inputObject.Position.Y)
-	UpdateMousePosition(tapPos, --[[ ignoreForFadeIn = ]] false)
+	UpdateMousePosition(tapPos)
 end)
 
-if not FFlagFixMouseCapture then
-	UserInputService.Changed:connect(function(prop)
-		if prop == "MouseBehavior" then
-			if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
-				local windowPos = ChatWindow.GuiObject.AbsolutePosition
-				local windowSize = ChatWindow.GuiObject.AbsoluteSize
-				local screenSize = GuiParent.AbsoluteSize
+UserInputService.Changed:connect(function(prop)
+	if prop == "MouseBehavior" then
+		if UserInputService.MouseBehavior == Enum.MouseBehavior.LockCenter then
+			local windowPos = ChatWindow.GuiObject.AbsolutePosition
+			local windowSize = ChatWindow.GuiObject.AbsoluteSize
+			local screenSize = GuiParent.AbsoluteSize
 
-				local centerScreenIsInWindow = CheckIfPointIsInSquare(screenSize/2, windowPos, windowPos + windowSize)
-				if centerScreenIsInWindow then
-					UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-				end
+			local centerScreenIsInWindow = CheckIfPointIsInSquare(screenSize/2, windowPos, windowPos + windowSize)
+			if centerScreenIsInWindow then
+				UserInputService.MouseBehavior = Enum.MouseBehavior.Default
 			end
 		end
-	end)
-end
+	end
+end)
 
 --// Start and stop fading sequences / timers
 UpdateFadingForMouseState(true)
@@ -525,25 +499,25 @@ do
 		return not ChatBar:GetEnabled()
 	end
 
-    if FFlagUserHandleChatHotKeyWithContextActionService then
-        local TOGGLE_CHAT_ACTION_NAME = "ToggleChat"
+	if FFlagUserHandleChatHotKeyWithContextActionService then
+		local TOGGLE_CHAT_ACTION_NAME = "ToggleChat"
 
-        -- Callback when chat hotkey is pressed
-        local function handleAction(actionName, inputState, inputObject)
-            if actionName == TOGGLE_CHAT_ACTION_NAME and inputState == Enum.UserInputState.Begin and canChat and inputObject.UserInputType == Enum.UserInputType.Keyboard then
-                DoChatBarFocus()
-            end
-        end
-        ContextActionService:BindAction(TOGGLE_CHAT_ACTION_NAME, handleAction, true, Enum.KeyCode.Slash)
-    else
-        function moduleApiTable:SpecialKeyPressed(key, modifiers)
-            if (key == Enum.SpecialKey.ChatHotkey) then
-                if canChat then
-                    DoChatBarFocus()
-                end
-            end
-        end
-    end
+		-- Callback when chat hotkey is pressed
+		local function handleAction(actionName, inputState, inputObject)
+			if actionName == TOGGLE_CHAT_ACTION_NAME and inputState == Enum.UserInputState.Begin and canChat and inputObject.UserInputType == Enum.UserInputType.Keyboard then
+				DoChatBarFocus()
+			end
+		end
+		ContextActionService:BindAction(TOGGLE_CHAT_ACTION_NAME, handleAction, true, Enum.KeyCode.Slash)
+	else
+		function moduleApiTable:SpecialKeyPressed(key, modifiers)
+			if (key == Enum.SpecialKey.ChatHotkey) then
+				if canChat then
+					DoChatBarFocus()
+				end
+			end
+		end
+	end
 end
 
 moduleApiTable.CoreGuiEnabled:connect(function(enabled)
@@ -650,8 +624,7 @@ end
 function SendMessageToSelfInTargetChannel(message, channelName, extraData)
 	local channelObj = ChatWindow:GetChannel(channelName)
 	if (channelObj) then
-		local messageData =
-		{
+		local messageData = {
 			ID = -1,
 			FromSpeaker = nil,
 			SpeakerUserId = 0,
@@ -953,8 +926,7 @@ function SendSystemMessageToSelf(message)
 	local currentChannel = ChatWindow:GetCurrentChannel()
 
 	if currentChannel then
-		local messageData =
-		{
+		local messageData = {
 			ID = -1,
 			FromSpeaker = nil,
 			SpeakerUserId = 0,
@@ -992,12 +964,10 @@ if PlayerBlockedEvent then
 			end
 
 			SendSystemMessageToSelf(
-				string.gsub(
-					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenBlocked",
-						string.format("Speaker '%s' has been blocked.", playerName)
-					),
-					"{RBX_NAME}", playerName
+				ChatLocalization:Get(
+					"GameChat_ChatMain_SpeakerHasBeenBlocked",
+					string.format("Speaker '%s' has been blocked.", playerName),
+					{ RBX_NAME = playerName }
 				)
 			)
 		end
@@ -1016,12 +986,10 @@ if PlayerMutedEvent then
 			end
 
 			SendSystemMessageToSelf(
-				string.gsub(
-					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenMuted",
-						string.format("Speaker '%s' has been muted.", playerName)
-					),
-					"{RBX_NAME}", playerName
+				ChatLocalization:Get(
+					"GameChat_ChatMain_SpeakerHasBeenMuted",
+					string.format("Speaker '%s' has been muted.", playerName),
+					{ RBX_NAME = playerName }
 				)
 			)
 		end
@@ -1048,12 +1016,10 @@ if PlayerUnBlockedEvent then
 			end
 
 			SendSystemMessageToSelf(
-				string.gsub(
-					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenUnBlocked",
-						string.format("Speaker '%s' has been unblocked.", playerName)
-					),
-					"{RBX_NAME}", playerName
+				ChatLocalization:Get(
+					"GameChat_ChatMain_SpeakerHasBeenUnBlocked",
+					string.format("Speaker '%s' has been unblocked.", playerName),
+					{ RBX_NAME = playerName }
 				)
 			)
 		end
@@ -1072,12 +1038,10 @@ if PlayerUnMutedEvent then
 			end
 
 			SendSystemMessageToSelf(
-				string.gsub(
-					ChatLocalization:Get(
-						"GameChat_ChatMain_SpeakerHasBeenUnMuted",
-						string.format("Speaker '%s' has been unmuted.", playerName)
-					),
-					"{RBX_NAME}", playerName
+				ChatLocalization:Get(
+					"GameChat_ChatMain_SpeakerHasBeenUnMuted",
+					string.format("Speaker '%s' has been unmuted.", playerName),
+					{ RBX_NAME = playerName }
 				)
 			)
 		end

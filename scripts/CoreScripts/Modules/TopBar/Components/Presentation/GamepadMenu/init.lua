@@ -2,6 +2,8 @@ local CorePackages = game:GetService("CorePackages")
 local ContextActionService = game:GetService("ContextActionService")
 local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
+local Players = game:GetService("Players")
+local VRService = game:GetService("VRService")
 
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
@@ -17,6 +19,7 @@ local MenuHeader = require(script.MenuHeader)
 local ChatIcon = require(script.ChatIcon)
 local MenuCell = require(script.MenuCell)
 local BottomBar = require(script.BottomBar)
+local ControllerBar = require(script.QuickMenuControllerBar)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
@@ -27,6 +30,10 @@ local PlayerListMaster = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenu.Resources.Constants)
+
+local Components = script.Parent.Parent
+local Actions = Components.Parent.Actions
+local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 
 local TOGGLE_GAMEPAD_MENU_ACTION = "TopBarGamepadToggleGamepadMenu"
 local FREEZE_CONTROLLER_ACTION_NAME = "TopBarGamepadFreezeController"
@@ -50,6 +57,8 @@ local INVENTORY_ICON_OFF = "rbxasset://textures/ui/TopBar/inventoryOff.png"
 local RESPAWN_ICON = Images["icons/actions/respawn"]
 local LEAVE_ICON = Images["icons/navigation/close"]
 
+local GetFFlagOpenRootMenuInsteadOfSettings = require(RobloxGui.Modules.Flags.GetFFlagOpenRootMenuInsteadOfSettings)
+
 local MENU_BACKGROUND_ASSET = Images["component_assets/circle_17"]
 local MENU_SLICE_CENTER = Rect.new(8, 8, 9, 9)
 
@@ -57,14 +66,21 @@ local MENU_SIZE_X = 336
 local HEADER_HEIGHT = 120
 local CELL_HEIGHT = 56
 
-local GAMEPAD_MENU_MOUNT_TAG = "gamepadMenuMount"
-local GAMEPAD_MENU_UPDATE_TAG = "gamepadMenuUpdate"
+local MAX_SCREEN_PERCENTAGE = 0.75
 
 local GAMEPAD_MENU_KEY = "GamepadMenu"
 
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local GetFFlagQuickMenuControllerBarRefactor = require(RobloxGui.Modules.Flags.GetFFlagQuickMenuControllerBarRefactor)
+
 GamepadMenu.validateProps = t.strictInterface({
+	screenSize = t.Vector2,
+
 	chatEnabled = t.boolean,
 	leaderboardEnabled = t.boolean,
 	emotesEnabled = t.boolean,
@@ -75,28 +91,40 @@ GamepadMenu.validateProps = t.strictInterface({
 	leaderboardOpen = t.boolean,
 	backpackOpen = t.boolean,
 	emotesOpen = t.boolean,
+
+	menuOpen = t.boolean,
+
+	setGamepadMenuOpen = t.callback,
+	isGamepadMenuOpen = t.boolean,
 })
 
 function GamepadMenu:init()
-	debug.profilebegin(GAMEPAD_MENU_MOUNT_TAG)
+	local visibleValue = nil
+	if not FFlagEnableNewVrSystem then
+		visibleValue = false
+	end
 
 	self:setState({
-		visible = false,
-
 		selectedIndex = 1,
-		menuActions = {}
+		menuActions = {},
+		visible = visibleValue,
 	})
 
 	self.boundMenuOpenActions = false
 
 	self.toggleMenuVisibleAction = function(actionName, userInputState, input)
-		if userInputState ~= Enum.UserInputState.Begin then
+		if userInputState ~= Enum.UserInputState.Begin or self.props.menuOpen then
 			return Enum.ContextActionResult.Pass
 		end
 
-		self:setState({
-			visible = not self.state.visible,
-		})
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
+		else
+			self:setState({
+				visible = not self.state.visible,
+			})
+		end
+
 		return Enum.ContextActionResult.Sink
 	end
 
@@ -105,9 +133,14 @@ function GamepadMenu:init()
 			return Enum.ContextActionResult.Pass
 		end
 
-		self:setState({
-			visible = false,
-		})
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(false)
+		else
+			self:setState({
+				visible = false,
+			})
+		end
+
 		return Enum.ContextActionResult.Sink
 	end
 
@@ -118,9 +151,14 @@ function GamepadMenu:init()
 
 		GamepadMenu.leaveGame()
 
-		self:setState({
-			visible = false,
-		})
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(false)
+		else
+			self:setState({
+				visible = false,
+			})
+		end
+
 		return Enum.ContextActionResult.Sink
 	end
 
@@ -131,9 +169,14 @@ function GamepadMenu:init()
 
 		GamepadMenu.respawnCharacter()
 
-		self:setState({
-			visible = false,
-		})
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(false)
+		else
+			self:setState({
+				visible = false,
+			})
+		end
+
 		return Enum.ContextActionResult.Sink
 	end
 
@@ -207,24 +250,53 @@ function GamepadMenu:init()
 		end
 
 		local action = self.state.menuActions[self.state.selectedIndex]
+
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(false)
+		else
+			self:setState({
+				visible = false,
+			})
+		end
+
+		-- Since the above call closing the gamepad menu is not instant we can't rely on
+		-- this being called in didUpdate. We need to call it manually here.
+		-- Otherwise the EmotesMenu will not open because it thinks the GamepadMenu is already open
+		GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
+
 		action.onActivated()
 
-		self:setState({
-			visible = false,
-		})
 		return Enum.ContextActionResult.Sink
 	end
 
 	self.overlayDismiss = function()
-		self:setState({
-			visible = false,
-		})
+		if FFlagEnableNewVrSystem then
+			self.props.setGamepadMenuOpen(false)
+		else
+			self:setState({
+				visible = false,
+			})
+		end
 	end
 end
 
-function GamepadMenu.openSettingsMenu()
+function GamepadMenu.openRootMenu()
+	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
 	if isNewInGameMenuEnabled() then
-		-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		InGameMenu.openInGameMenu(InGameMenuConstants.MainPagePageKey)
+	else
+		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+		MenuModule:SetVisibility(true, nil, MenuModule.Instance.GameSettingsPage, true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.SettingsTriggered)
+	end
+end
+
+-- Todo: Remove this when cleaning OpenRootMenuInsteadOfSettings flag
+-- This will become unused; openRootMenu will be used instead
+function GamepadMenu.openSettingsMenu()
+	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+	if isNewInGameMenuEnabled() then
 		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
 		InGameMenu.openGameSettingsPage()
 	else
@@ -239,7 +311,13 @@ function GamepadMenu.toggleChatVisible()
 end
 
 function GamepadMenu.toggleLeaderboard()
-	PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
+		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		InGameMenu.openPlayersPage()
+	else
+		PlayerListMaster:SetVisibility(not PlayerListMaster:GetSetVisible())
+	end
 end
 
 function GamepadMenu.toggleEmotesMenu()
@@ -255,15 +333,26 @@ function GamepadMenu.toggleBackpack()
 end
 
 function GamepadMenu.leaveGame()
-	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true,
-		InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
+	-- todo: move InGameMenu to a script global when removing isNewInGameMenuEnabled
+	if isNewInGameMenuEnabled() and FFlagEnableNewVrSystem then
+		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		InGameMenu.openGameLeavePage()
+	else
+		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+		MenuModule:SetVisibility(true, false, MenuModule.Instance.LeaveGamePage, true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadLeaveGame)
+	end
 end
 
 function GamepadMenu.respawnCharacter()
-	local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
-	MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true,
-		InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
+	if isNewInGameMenuEnabled() then
+		local InGameMenu = require(RobloxGui.Modules.InGameMenu)
+		InGameMenu.openCharacterResetPage()
+	else
+		local MenuModule = require(RobloxGui.Modules.Settings.SettingsHub)
+		MenuModule:SetVisibility(true, false, MenuModule.Instance.ResetCharacterPage, true,
+			InGameMenuConstants.AnalyticsMenuOpenTypes.GamepadResetCharacter)
+	end
 end
 
 function GamepadMenu.getMenuActionsFromProps(props)
@@ -274,7 +363,7 @@ function GamepadMenu.getMenuActionsFromProps(props)
 		icon = MENU_ICON,
 		iconComponent = nil,
 		localizationKey = "CoreScripts.TopBar.Menu",
-		onActivated = GamepadMenu.openSettingsMenu,
+		onActivated = GetFFlagOpenRootMenuInsteadOfSettings() and GamepadMenu.openRootMenu or GamepadMenu.openSettingsMenu,
 	})
 
 	if props.chatEnabled and not TenFootInterface:IsEnabled() then
@@ -312,6 +401,8 @@ function GamepadMenu.getMenuActionsFromProps(props)
 			icon = EMOTES_ICON_OFF
 		end
 
+		-- If changing the order in which the emotes menu is added,
+		-- you will need to update the unit test that tries to open the emotes menu in GamepadMenu.spec.lua
 		table.insert(menuActions, {
 			name = "Emotes",
 			icon = icon,
@@ -408,8 +499,41 @@ function GamepadMenu:render()
 
 		local menuHeight = HEADER_HEIGHT + (#self.state.menuActions * CELL_HEIGHT)
 
+		local maxScale = 1
+
+		if menuHeight > (self.props.screenSize.Y * MAX_SCREEN_PERCENTAGE) then
+			maxScale = (self.props.screenSize.Y * MAX_SCREEN_PERCENTAGE) / menuHeight
+		end
+
+		if MENU_SIZE_X > (self.props.screenSize.X * MAX_SCREEN_PERCENTAGE) then
+			local scaleX = (self.props.screenSize.X * MAX_SCREEN_PERCENTAGE) / MENU_SIZE_X
+			if scaleX < maxScale then
+				maxScale = scaleX
+			end
+		end
+
+		if maxScale < 1 then
+			menuChildren.UIScale = Roact.createElement("UIScale", {
+				Scale = maxScale,
+			})
+		end
+
+		local visible
+		if FFlagEnableNewVrSystem then
+			visible = self.props.isGamepadMenuOpen
+		else
+			visible = self.state.visible
+		end
+
+		local controllerBarComponent
+		if GetFFlagQuickMenuControllerBarRefactor() then
+			controllerBarComponent = visible and Roact.createElement(ControllerBar) or nil
+		else
+			controllerBarComponent = Roact.createElement(BottomBar)
+		end
+
 		return Roact.createElement("TextButton", {
-			Visible = self.state.visible,
+			Visible = visible,
 			Text = "",
 			BackgroundTransparency = theme.Overlay.Transparency,
 			BackgroundColor3 = theme.Overlay.Color,
@@ -431,7 +555,7 @@ function GamepadMenu:render()
 				AnchorPoint = Vector2.new(0.5, 0.5),
 			}, menuChildren),
 
-			BottomBar = Roact.createElement(BottomBar),
+			ControllerBar = controllerBarComponent,
 		})
 	end)
 end
@@ -439,8 +563,6 @@ end
 function GamepadMenu:didMount()
 	ContextActionService:BindCoreAction(
 		TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
-
-	debug.profileend() -- matching profilebegin in :init()
 end
 
 function GamepadMenu:bindMenuOpenActions()
@@ -462,8 +584,7 @@ function GamepadMenu:bindMenuOpenActions()
 	)
 	ContextActionService:BindCoreAction(GO_TO_TOP_ACTION_NAME, self.goToTopAction, false, Enum.KeyCode.ButtonL2)
 	ContextActionService:BindCoreAction(GO_TO_BOTTOM_ACTION_NAME, self.goToBottomAction, false, Enum.KeyCode.ButtonR2)
-	ContextActionService:BindCoreAction(
-		TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
+	ContextActionService:BindCoreAction(TOGGLE_GAMEPAD_MENU_ACTION, self.toggleMenuVisibleAction, false, Enum.KeyCode.ButtonStart)
 end
 
 function GamepadMenu:unbindMenuOpenActions()
@@ -487,13 +608,18 @@ function GamepadMenu:unbindAllActions()
 	ContextActionService:UnbindCoreAction(TOGGLE_GAMEPAD_MENU_ACTION)
 end
 
-function GamepadMenu:willUpdate()
-	debug.profilebegin(GAMEPAD_MENU_UPDATE_TAG)
-end
-
 function GamepadMenu:didUpdate(prevProps, prevState)
-	if self.state.visible ~= prevState.visible then
-		if self.state.visible then
+	local stateChanged, openMenu
+	if FFlagEnableNewVrSystem then
+		stateChanged = prevProps.isGamepadMenuOpen ~= self.props.isGamepadMenuOpen
+		openMenu = self.props.isGamepadMenuOpen
+	else
+		stateChanged = self.state.visible ~= prevState.visible
+		openMenu = self.state.visible
+	end
+
+	if stateChanged then
+		if openMenu then
 			self:bindMenuOpenActions()
 
 			if self.state.selectedIndex ~= 1 then
@@ -511,18 +637,30 @@ function GamepadMenu:didUpdate(prevProps, prevState)
 		else
 			self:unbindMenuOpenActions()
 
-			if GuiService.SelectedCoreObject == nil then
-				GuiService.SelectedCoreObject = self.savedSelectedCoreObject
-			end
-			if GuiService.SelectedObject == nil then
-				GuiService.SelectedObject = self.savedSelectedObject
+			if not FFlagEnableNewVrSystem then
+				if GuiService.SelectedCoreObject == nil and self.savedSelectedCoreObject then
+					if self.savedSelectedCoreObject:IsDescendantOf(CoreGui) then
+						GuiService.SelectedCoreObject = self.savedSelectedCoreObject
+					end
+				end
+				if GuiService.SelectedObject == nil and self.savedSelectedObject then
+					if self.savedSelectedObject:IsDescendantOf(PlayerGui) then
+						GuiService.SelectedObject = self.savedSelectedObject
+					end
+				end
 			end
 
 			GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
 		end
 	end
 
-	debug.profileend() -- matching profilebegin in willUpdate()
+	if not FFlagEnableNewVrSystem and self.props.menuOpen and not prevProps.menuOpen then
+		if self.state.visible then
+			self:setState({
+				visible = false,
+			})
+		end
+	end
 end
 
 function GamepadMenu:willUnmount()
@@ -533,7 +671,9 @@ local function mapStateToProps(state)
 	local topBarEnabled = state.displayOptions.topbarEnabled
 
 	return {
-		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled,
+		screenSize = state.displayOptions.screenSize,
+
+		chatEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Chat] and topBarEnabled and not (VRService.VREnabled and FFlagEnableNewVrSystem),
 		leaderboardEnabled = state.coreGuiEnabled[Enum.CoreGuiType.PlayerList] and topBarEnabled,
 		emotesEnabled = state.moreMenu.emotesEnabled and state.coreGuiEnabled[Enum.CoreGuiType.EmotesMenu] and topBarEnabled,
 		backpackEnabled = state.coreGuiEnabled[Enum.CoreGuiType.Backpack] and topBarEnabled,
@@ -543,7 +683,19 @@ local function mapStateToProps(state)
 		leaderboardOpen = state.moreMenu.leaderboardOpen,
 		backpackOpen = state.moreMenu.backpackOpen,
 		emotesOpen = state.moreMenu.emotesOpen,
+
+		menuOpen = state.displayOptions.menuOpen,
+
+		isGamepadMenuOpen = state.displayOptions.isGamepadMenuOpen,
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, nil)(GamepadMenu)
+local function mapDispatchToProps(dispatch)
+	return {
+		setGamepadMenuOpen = function(open)
+			return dispatch(SetGamepadMenuOpen(open))
+		end,
+	}
+end
+
+return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(GamepadMenu)

@@ -2,7 +2,7 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)
@@ -32,6 +32,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	it("should populate store with provided info", function()
 		local store = Rodux.Store.new(Reducer, {})
 
+		local mockAnalytics = MockAnalytics.new()
+
 		local productInfo = getTestProductInfo()
 		local accountInfo = {
 			RobuxBalance = 10,
@@ -40,7 +42,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
 
 		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
+			[Analytics] = mockAnalytics.mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {
 			}, true),
 			[Network] = MockNetwork.new(),
@@ -55,6 +57,8 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	it("should resolve state to Error if failed to get premium products", function()
 		local store = Rodux.Store.new(Reducer, {})
 
+		local mockAnalytics = MockAnalytics.new()
+
 		local productInfo = nil
 		local accountInfo = {
 			RobuxBalance = 10,
@@ -63,18 +67,45 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
 
 		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
-			[ExternalSettings] = MockExternalSettings.new(false, false, {}, true),
+			[Analytics] = mockAnalytics.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
 
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts.callCount).to.equal(1)
+		expect(state.promptState).to.equal(PromptState.Error)
+	end)
+
+	it("should resolve state to Error if invalid platform (XBOX)", function()
+		local store = Rodux.Store.new(Reducer, {})
+
+		local mockAnalytics = MockAnalytics.new()
+
+		local productInfo = nil
+		local accountInfo = {
+			RobuxBalance = 10,
+			MembershipType = 0,
+		}
+		local thunk = resolvePremiumPromptState(accountInfo, productInfo)
+
+		Thunk.test(thunk, store, {
+			[Analytics] = mockAnalytics.mockService,
+			[ExternalSettings] = MockExternalSettings.new(false, false, {}, Enum.Platform.XBoxOne),
+			[Network] = MockNetwork.new(),
+		})
+
+		local state = store:getState()
+
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidPlatform.callCount).to.equal(1)
 		expect(state.promptState).to.equal(PromptState.Error)
 	end)
 
 	it("should show the upsell given correct data", function()
 		local store = Rodux.Store.new(Reducer, {})
+
+		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = getTestProductInfo()
 		local accountInfo = {
@@ -84,18 +115,22 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo, true)
 
 		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
+			[Analytics] = mockAnalytics.mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
 
+		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium.callCount).to.equal(1)
+		expect(mockAnalytics.spies.signalPremiumUpsellInvalidProducts.callCount).to.equal(0)
 		expect(state.promptState).to.equal(PromptState.PremiumUpsell)
 	end)
 
 	it("should complete the request and show nothing when failing precheck", function()
 		local store = Rodux.Store.new(Reducer, {})
+
+		local mockAnalytics = MockAnalytics.new()
 
 		local productInfo = getTestProductInfo()
 		local accountInfo = {
@@ -105,13 +140,15 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = resolvePremiumPromptState(accountInfo, productInfo, false)
 
 		Thunk.test(thunk, store, {
-			[Analytics] = MockAnalytics.new().mockService,
+			[Analytics] = mockAnalytics.mockService,
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 			[Network] = MockNetwork.new(),
 		})
 
 		local state = store:getState()
 
+		expect(mockAnalytics.spies.signalPremiumUpsellPrecheckFail.callCount).to.equal(1)
+		expect(mockAnalytics.spies.signalPremiumUpsellShownNonPremium.callCount).to.equal(0)
 		expect(state.promptState).to.equal(PromptState.None)
 	end)
 end

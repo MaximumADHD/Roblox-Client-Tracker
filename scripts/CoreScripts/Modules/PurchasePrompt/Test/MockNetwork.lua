@@ -110,30 +110,33 @@ local function postPurchaseWarningAcknowledge()
 	return Promise.resolve()
 end
 
-local function networkFailure(id, infoType)
-	return Promise.reject("Failed to access network service")
-end
-
 local MockNetwork = {}
 MockNetwork.__index = MockNetwork
 
-function MockNetwork.new(shouldFail)
+function MockNetwork.new(successResult, failureResult)
 	local mockNetworkService
 
-	if shouldFail then
+	if failureResult or successResult then
+		local retFunction = function ()
+			if successResult then
+				return Promise.resolve(successResult)
+			else
+				return Promise.reject(failureResult)
+			end
+		end
 		mockNetworkService = {
-			getABTestGroup = networkFailure,
-			getProductInfo = networkFailure,
-			getPlayerOwns = networkFailure,
-			performPurchase = networkFailure,
-			loadAssetForEquip = networkFailure,
-			getAccountInfo = networkFailure,
-			getBundleDetails = networkFailure,
-			getProductPurchasableDetails = networkFailure,
-			postPremiumImpression = networkFailure,
-			getPremiumUpsellPrecheck = networkFailure,
-			getPurchaseWarning = networkFailure,
-			postPurchaseWarningAcknowledge = networkFailure,
+			getABTestGroup = retFunction,
+			getProductInfo = retFunction,
+			getPlayerOwns = retFunction,
+			performPurchase = retFunction,
+			loadAssetForEquip = retFunction,
+			getAccountInfo = retFunction,
+			getBundleDetails = retFunction,
+			getProductPurchasableDetails = retFunction,
+			postPremiumImpression = retFunction,
+			getPremiumUpsellPrecheck = retFunction,
+			getPurchaseWarning = retFunction,
+			postPurchaseWarningAcknowledge = retFunction,
 		}
 	else
 		mockNetworkService = {

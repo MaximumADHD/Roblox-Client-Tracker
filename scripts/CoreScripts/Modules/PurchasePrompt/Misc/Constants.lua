@@ -17,5 +17,9 @@ return strict({
 		PurchaseResult_ConsumeRequestFail = 2,
 		PurchaseResult_RobuxUpdated = 3,
 		PurcahseResult_NoActionNeeded = 4, -- Mispelled in C++
-	}, "Constants.PlatformPurchaseResult")
+	}, "Constants.PlatformPurchaseResult"),
+	PurchaseFailureReason = strict({
+		TwoStepVerificationRequired = "TwoStepVerificationRequired",
+		EconomyDisabled = "EconomyDisabled",
+	}, "Constants.TransactionStatus")
 }, "Constants")

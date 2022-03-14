@@ -421,3 +421,10 @@ Players.PlayerRemoving:connect(function(prevPlayer)
 		PlayerToCanManageMap[uid] = nil
 	end
 end)
+
+local noOpt = function() end
+for _, instance in ipairs(RobloxReplicatedStorage:GetChildren()) do
+	if instance:IsA("RemoteEvent") then
+		instance.OnServerEvent:Connect(noOpt)
+	end
+end

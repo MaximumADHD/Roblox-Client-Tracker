@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
 local GuiService = game:GetService("GuiService")
 local UserInputService = game:GetService("UserInputService")
 
@@ -14,6 +15,9 @@ local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
+
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
 local PlayerEntry = require(script.Parent.PlayerEntry)
 local TeamEntry = require(script.Parent.TeamEntry)
@@ -31,9 +35,6 @@ local MOTOR_OPTIONS = {
 
 local RENDER_OUTSIDE_WINDOW_ELEMENTS = 3
 
-local FFlagExtendPlayerScrollListWindowingForGamepadSelection = game:DefineFastFlag(
-	"ExtendPlayerScrollListWindowingForGamepadSelection", false)
-
 local PlayerListDisplay = Roact.PureComponent:extend("PlayerListDisplay")
 
 PlayerListDisplay.validateProps = t.strictInterface({
@@ -45,7 +46,7 @@ PlayerListDisplay.validateProps = t.strictInterface({
 	screenSizeY = t.integer,
 	entrySize = t.integer,
 
-	sortedPlayers = t.array(t.instanceIsA("Player")),
+	sortedPlayers = t.array(playerInterface),
 
 	sortedTeams = t.optional(t.array(t.instanceIsA("Team"))),
 	teamColorToPlayerMap = t.optional(t.map(t.integer, t.array(t.instanceIsA("Player")))),
@@ -124,19 +125,13 @@ function PlayerListDisplay:init()
 end
 
 function PlayerListDisplay:inVerticalScrollWindow(position, size)
-	local lowerBound = position + size
-	if FFlagExtendPlayerScrollListWindowingForGamepadSelection then
-		lowerBound = lowerBound + (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
-	end
+	local lowerBound = position + size + (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
 
 	if lowerBound < self.state.lastCanvasPosition.Y then
 		return false
 	end
 
-	local upperBound = position
-	if FFlagExtendPlayerScrollListWindowingForGamepadSelection then
-		upperBound = upperBound - (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
-	end
+	local upperBound = position - (size * RENDER_OUTSIDE_WINDOW_ELEMENTS)
 
 	if upperBound > self.state.lastCanvasPosition.Y + self.state.containerSizeY then
 		return false

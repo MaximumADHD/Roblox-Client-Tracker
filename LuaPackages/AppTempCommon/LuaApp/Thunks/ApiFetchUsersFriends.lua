@@ -12,7 +12,7 @@ local FetchUserFriendsCompleted = require(CorePackages.AppTempCommon.LuaApp.Acti
 local UserModel = require(CorePackages.AppTempCommon.LuaApp.Models.User)
 local UpdateUsers = require(CorePackages.AppTempCommon.LuaApp.Thunks.UpdateUsers)
 
-return function(requestImpl, userId, thumbnailRequest, checkPoints)
+return function(requestImpl, userId, thumbnailRequest, userSort, checkPoints)
 	return function(store)
 		store:dispatch(FetchUserFriendsStarted(userId))
 
@@ -21,7 +21,7 @@ return function(requestImpl, userId, thumbnailRequest, checkPoints)
 		end
 
 		local fetchedUserIds = {}
-		return UsersGetFriends(requestImpl, userId):andThen(function(response)
+		return UsersGetFriends(requestImpl, userId, userSort):andThen(function(response)
 			local responseBody = response.responseBody
 			local newUsers = {}
 			for rank, userData in pairs(responseBody.data) do

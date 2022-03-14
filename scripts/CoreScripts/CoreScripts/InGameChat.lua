@@ -28,6 +28,7 @@ local validateMessage = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.
 local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
 local Types = require(RobloxGui.Modules.InGameChat.BubbleChat.Types)
 local GameTranslator = require(RobloxGui.Modules.GameTranslator)
+local GetFFlagBubbleChatDuplicateMessagesFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatDuplicateMessagesFix)
 
 local MALFORMED_TEXT_WARNING = "Message text %q sent to chat event %q is not a valid UTF-8 characters sequence"
 local WRONG_LENGTH_WARNING = "Message text %q is too long for chat event %q (expected a message of length %i, got %i)"
@@ -103,11 +104,20 @@ local function initBubbleChat()
 				return
 			end
 
-			if messageData.FromSpeaker == Players.LocalPlayer.Name then
+			if GetFFlagBubbleChatDuplicateMessagesFix() then
 				local id = tostring(messageData.ID)
-				chatStore:dispatch(SetMessageText(id, messageData.Message))
+				if chatStore:getState().messages[id] then
+					chatStore:dispatch(SetMessageText(id, messageData.Message))
+				else
+					chatStore:dispatch(AddMessageFromEvent(messageData))
+				end
 			else
-				chatStore:dispatch(AddMessageFromEvent(messageData))
+				if messageData.FromSpeaker == Players.LocalPlayer.Name then
+					local id = tostring(messageData.ID)
+					chatStore:dispatch(SetMessageText(id, messageData.Message))
+				else
+					chatStore:dispatch(AddMessageFromEvent(messageData))
+				end
 			end
 		end)
 	end))

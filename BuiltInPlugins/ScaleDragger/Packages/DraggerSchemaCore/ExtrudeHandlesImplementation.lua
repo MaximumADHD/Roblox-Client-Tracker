@@ -70,28 +70,9 @@ function ExtrudeHandlesImplementation:shouldScaleFromCenter(selection, selection
 	return self._draggerContext:isCtrlKeyDown()
 end
 
--- If FFlagLimitScaling is enabled, this function is no longer used
--- as it is replaced by :axesToScale(...)
-function ExtrudeHandlesImplementation:shouldKeepAspectRatio(selection, selectionInfo, normalId)
-	if self._draggerContext:isShiftKeyDown() then
-		return true
-	end
-	local partsToResize, _ = selectionInfo:getObjectsToTransform()
-	if #partsToResize == 1 then
-		local part = partsToResize[1]
-		if part:IsA("Part") and part.Shape == Enum.PartType.Ball then
-			return true
-		end
-		if part:IsA("UnionOperation") or part:IsA("NegateOperation") then
-			return true
-		end
-		return false
-	else
-		return true
-	end
-end
-
-function ExtrudeHandlesImplementation:axesToScale(selectionInfo, normalId)
+-- Which set of axes should we scale given the selected objects and which
+-- extrude handle the user dragged on.
+function ExtrudeHandlesImplementation:axesToScale(selectionInfo, normalId: number)
 	local ALL_AXES = {X = true, Y = true, Z = true}
 	-- UX: shift key forces equal aspect ratio scaling
 	if self._draggerContext:isShiftKeyDown() then
@@ -116,13 +97,11 @@ function ExtrudeHandlesImplementation:axesToScale(selectionInfo, normalId)
 	return axes[normalId]
 end
 
--- If FFlagLimitScaling is enabled, this function is no longer used
--- as it is replaced by :getMinMaxSizes()
 --[[
-	Find the smallest extents size that assures that all parts are larger
-	than the minimum allowed part size.
+	Find the min/max sizes the selection can be scaled to that ensure 
+	that all parts have sizes between MIN_PART_SIZE and MAX_PART_SIZE in all dimensions.
 
-	Resizing Cases:
+	Illustrative resizing cases:
 	Suppose you have a part 5.5 studs long and a grid snap of 2
 	 * You should be able to resize it down to 1.5 (5.5 % 2)
 	Suppose you have a part 4 studs long and a grid snap of 2
@@ -131,62 +110,6 @@ end
 	   stop resizing at 2)
 	Suppose you have a part 2.02 studs long and grid snap of 2
 	 * You should NOT be able to resize it down to 0.02 (< MIN_PART_SIZE)
-]]
-function ExtrudeHandlesImplementation:getMinimumSize(selection, selectionInfo, normalId)
-	local partsToResize = selectionInfo:getObjectsToTransform()
-	local boundsCFrame, boundsOffset, boundsSize = self:getBoundingBox(selection, selectionInfo)
-
-	if #partsToResize == 1 then
-		-- The modulo covers resizing down to smaller than the initial size in
-		-- gridSize increments.
-		local gridSizeValue = self._draggerContext:getGridSize()
-		local partSize = partsToResize[1].Size
-		local xmod = partSize.X % gridSizeValue
-		local ymod = partSize.Y % gridSizeValue
-		local zmod = partSize.Z % gridSizeValue
-
-		-- This handles the edge case of trying to resize down to zero from an
-		-- even multiple of the grid size.
-		local modSize = Vector3.new(
-			xmod > 0 and xmod or gridSizeValue,
-			ymod > 0 and ymod or gridSizeValue,
-			zmod > 0 and zmod or gridSizeValue)
-
-		-- This Max call handles the resizing down to less than MIN_PART_SIZE
-		-- but still greater than zero edge case.
-		local hardMinSize = Vector3.new(MIN_PART_SIZE, MIN_PART_SIZE, MIN_PART_SIZE)
-		return hardMinSize:Max(modSize)
-	else
-		local smallest = math.huge
-		local minimumSize
-		for _, part in ipairs(partsToResize) do
-			local size = part.Size
-			local minLength = math.min(size.X, size.Y, size.Z)
-			if minLength < smallest then
-				smallest = minLength
-				local sizeRatio = minLength / MIN_PART_SIZE
-				minimumSize = boundsSize / sizeRatio
-			end
-		end
-
-		-- Make sure that the resized normal of the part is at least as
-		-- large as the grid size.
-		local minSizeComponents =
-			{minimumSize.X, minimumSize.Y, minimumSize.Z}
-		local sizeRatio = minSizeComponents[normalId] / self._draggerContext:getGridSize()
-		if sizeRatio < 1 then
-			minimumSize = minimumSize / sizeRatio
-		end
-
-		-- Finally, we CAN still resize down to less than the grid size if
-		-- we started out smaller than the grid size.
-		return minimumSize:Min(boundsSize)
-	end
-end
-
---[[
-	Find the min/max sizes the selection can be scaled to that ensure 
-	that all parts have sizes between MIN_PART_SIZE and MAX_PART_SIZE in all dimensions.
 ]]
 function ExtrudeHandlesImplementation:getMinMaxSizes(selectionInfo, axesToScale, bounds)
 	local axesVec = Math.setToVector3(axesToScale)

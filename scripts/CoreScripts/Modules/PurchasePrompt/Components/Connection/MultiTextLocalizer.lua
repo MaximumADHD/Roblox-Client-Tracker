@@ -11,7 +11,7 @@ local LocalizationService = require(Root.Localization.LocalizationService)
 local LocalizationContextConsumer = require(script.Parent.LocalizationContextConsumer)
 
 local validateProps = t.strictInterface({
-	keys = t.table,
+	locKeys = t.table,
 	render = t.callback,
 })
 
@@ -22,7 +22,7 @@ local validateItem = t.strictInterface({
 
 local function MultiTextLocalizer(props)
 	assert(validateProps(props))
-	for _, item in pairs(props.keys) do
+	for _, item in pairs(props.locKeys) do
 		assert(validateItem(item))
 	end
 
@@ -31,7 +31,7 @@ local function MultiTextLocalizer(props)
 	return Roact.createElement(LocalizationContextConsumer, {
 		render = function(localizationContext)
 			local textMap = {}
-			for key, item in pairs(props.keys) do
+			for key, item in pairs(props.locKeys) do
 				textMap[key] = LocalizationService.getString(localizationContext, item.key, item.params)
 			end
 			return render(textMap)

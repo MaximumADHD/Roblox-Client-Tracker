@@ -8,7 +8,7 @@ local ChatSettings = require(script.Parent.Parent:WaitForChild("ChatSettings"))
 local PlayersService = game:GetService("Players")
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 
 local LocalPlayer = PlayersService.LocalPlayer
 while LocalPlayer == nil do

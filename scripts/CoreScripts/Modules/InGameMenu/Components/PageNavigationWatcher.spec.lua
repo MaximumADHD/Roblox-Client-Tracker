@@ -1,5 +1,8 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+
+	local act = require(Modules.act)
 
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
@@ -55,8 +58,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		store:dispatch(SetCurrentPage("testPage"))
-		store:flush()
+		act(function()
+			store:dispatch(SetCurrentPage("testPage"))
+			store:flush()
+		end)
 
 		expect(didCallOnNavigateTo).to.equal(true)
 		expect(didCallOnNavigateAway).to.equal(false)
@@ -86,8 +91,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		store:dispatch(SetMenuOpen(true))
-		store:flush()
+		act(function()
+			store:dispatch(SetMenuOpen(true))
+			store:flush()
+		end)
 
 		expect(didCallOnNavigateTo).to.equal(true)
 		expect(didCallOnNavigateAway).to.equal(false)
@@ -117,8 +124,11 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		store:dispatch(SetCurrentPage("testPage"))
-		store:flush()
+		act(function()
+			store:dispatch(SetCurrentPage("testPage"))
+			store:flush()
+		end)
+
 
 		expect(didCallOnNavigateTo).to.equal(false)
 		expect(didCallOnNavigateAway).to.equal(false)
@@ -150,8 +160,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		store:dispatch(SetCurrentPage("otherTestPage"))
-		store:flush()
+		act(function()
+			store:dispatch(SetCurrentPage("otherTestPage"))
+			store:flush()
+		end)
 
 		expect(didCallOnNavigateTo).to.equal(false)
 		expect(didCallOnNavigateAway).to.equal(true)
@@ -182,8 +194,10 @@ return function()
 
 		local instance = Roact.mount(element)
 
-		store:dispatch(SetMenuOpen(false))
-		store:flush()
+		act(function()
+			store:dispatch(SetMenuOpen(false))
+			store:flush()
+		end)
 
 		expect(didCallOnNavigateTo).to.equal(false)
 		expect(didCallOnNavigateAway).to.equal(true)

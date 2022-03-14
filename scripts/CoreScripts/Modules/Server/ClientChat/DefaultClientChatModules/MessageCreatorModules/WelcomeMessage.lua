@@ -8,7 +8,7 @@ local clientChatModules = script.Parent.Parent
 local ChatSettings = require(clientChatModules:WaitForChild("ChatSettings"))
 local ChatConstants = require(clientChatModules:WaitForChild("ChatConstants"))
 local util = require(script.Parent:WaitForChild("Util"))
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 
 function CreateWelcomeMessageLabel(messageData, channelName)
 	local message = messageData.Message

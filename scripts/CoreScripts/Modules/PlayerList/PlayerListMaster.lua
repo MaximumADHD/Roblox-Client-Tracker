@@ -54,7 +54,7 @@ local function isSmallTouchScreen()
 	if _G.__TESTEZ_RUNNING_TEST__ then
 		return false
 	end
-	return SettingsUtil.IsSmallTouchScreen()
+	return SettingsUtil:IsSmallTouchScreen()
 end
 
 local layerCollector
@@ -131,6 +131,9 @@ function PlayerListMaster.new()
 		}, {
 			Roact.createElement(PlayerListSwitcher, {
 				appStyle = appStyle,
+				setLayerCollectorEnabled = function(enabled)
+					layerCollector.Enabled = enabled
+				end,
 			})
 		})
 		self.element = Roact.mount(self.root, layerCollector, "PlayerListMaster")

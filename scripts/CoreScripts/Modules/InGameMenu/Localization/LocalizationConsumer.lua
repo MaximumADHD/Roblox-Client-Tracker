@@ -10,12 +10,12 @@ local Roact = InGameMenuDependencies.Roact
 local InGameMenu = script.Parent.Parent
 local ExternalEventConnection = require(InGameMenu.Utility.ExternalEventConnection)
 
-local LocalizationKey = require(script.Parent.LocalizationKey)
+local LocalizationRoactContext = require(script.Parent.LocalizationRoactContext)
 
 local LocalizationConsumer = Roact.Component:extend("LocalizationConsumer")
 
 function LocalizationConsumer:init()
-	local localization = self._context[LocalizationKey].localization
+	local localization = self.props.localization
 
 	if localization == nil then
 		error("LocalizationConsumer must be below a LocalizationProvider.")
@@ -35,7 +35,7 @@ function LocalizationConsumer:init()
 end
 
 function LocalizationConsumer:render()
-	local localization = self._context[LocalizationKey].localization
+	local localization = self.props.localization
 	local render = self.props.render
 	local stringsToBeLocalized = self.props.stringsToBeLocalized
 
@@ -81,4 +81,19 @@ function LocalizationConsumer:render()
 	})
 end
 
-return LocalizationConsumer
+-- we need to wrap the LocalizationConsumer so that we can have the
+-- `localization` value in the `init` function, because the render prop
+-- pattern let us use the context value only from the `render`
+local function LocalizationConsumerWrapper(props)
+	return Roact.createElement(LocalizationRoactContext.Consumer, {
+		render = function(localization)
+			return Roact.createElement(LocalizationConsumer, {
+				localization = localization,
+				render = props.render,
+				stringsToBeLocalized = props.stringsToBeLocalized,
+			})
+		end,
+	})
+end
+
+return LocalizationConsumerWrapper

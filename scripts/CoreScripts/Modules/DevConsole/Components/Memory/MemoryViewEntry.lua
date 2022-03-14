@@ -18,8 +18,6 @@ local DEPTH_INDENT = Constants.MemoryFormatting.DepthIndent
 
 local convertTimeStamp = require(script.Parent.Parent.Parent.Util.convertTimeStamp)
 
-local NewScriptMemoryCategories = game:DefineFastFlag("NewScriptMemoryCategories", false)
-
 return function(props)
 	local size = props.size
 	local depth = props.depth
@@ -40,7 +38,7 @@ return function(props)
 		value = dataStats.dataSet:back().data
 	end
 
-	local nameWidth = NewScriptMemoryCategories and UDim.new(1 - VALUE_CELL_WIDTH, -offset) or UDim.new(1, 0)
+	local nameWidth = UDim.new(1 - VALUE_CELL_WIDTH, -offset)
 
 	return Roact.createElement("Frame", {
 		Size = size,

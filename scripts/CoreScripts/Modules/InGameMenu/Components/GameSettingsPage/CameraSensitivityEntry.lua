@@ -26,7 +26,13 @@ local SliderEntry = require(script.Parent.SliderEntry)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
-local FFlagCameraSensitivityAllowGranularKeyboardInput  = game:DefineFastFlag("CameraSensitivityAllowGranularKeyboardInput", false)
+local FFlagCameraSensitivityAllowGranularKeyboardInput  = game:DefineFastFlag(
+	"CameraSensitivityAllowGranularKeyboardInput",
+	false
+)
+
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 -- remove with FFlagCameraSensitivityAllowGranularKeyboardInput
 local function guiToEngineSensitivity_DEPRECATED(guiSensitivity)
@@ -84,7 +90,9 @@ local function engineToGuiSensitivity(engineSensitivity)
 		guiSensitivity = (engineSensitivity + 2) / 0.6
 	end
 
-	guiSensitivity = math.floor(guiSensitivity / GUI_MOUSE_SENSITIVITY_GRANULARITY + 0.5) * GUI_MOUSE_SENSITIVITY_GRANULARITY
+	guiSensitivity = math.floor(
+		guiSensitivity / GUI_MOUSE_SENSITIVITY_GRANULARITY + 0.5
+	) * GUI_MOUSE_SENSITIVITY_GRANULARITY
 
 	return math.clamp(
 		guiSensitivity,
@@ -96,6 +104,8 @@ end
 local CameraSensitivityEntry = Roact.PureComponent:extend("CameraSensitivityEntry")
 CameraSensitivityEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
 })
 
 function CameraSensitivityEntry:init()
@@ -121,7 +131,8 @@ function CameraSensitivityEntry:render()
 			min = MIN_GUI_MOUSE_SENSITIVITY,
 			max = MAX_GUI_MOUSE_SENSITIVITY,
 			stepInterval = 1,
-			keyboardInputStepInterval = FFlagCameraSensitivityAllowGranularKeyboardInput and GUI_MOUSE_SENSITIVITY_GRANULARITY or nil,
+			keyboardInputStepInterval = FFlagCameraSensitivityAllowGranularKeyboardInput and
+				GUI_MOUSE_SENSITIVITY_GRANULARITY or nil,
 			valueChanged = function(value)
 				local newEngineSensitivity = FFlagCameraSensitivityAllowGranularKeyboardInput
 					and guiToEngineSensitivity(value)
@@ -131,6 +142,8 @@ function CameraSensitivityEntry:render()
 				UserGameSettings.MouseSensitivityThirdPerson = engineSensitivityVector
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
+			canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.canCaptureFocus or nil,
+			isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
 		})
 	}
 

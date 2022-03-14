@@ -68,7 +68,7 @@ function VehicleController:BindContextActions()
 	end), false, self.CONTROL_ACTION_PRIORITY, Enum.KeyCode.Left)
 end
 
-function VehicleController:Enable(enable, vehicleSeat)
+function VehicleController:Enable(enable: boolean, vehicleSeat: VehicleSeat)
 	if enable == self.enabled and vehicleSeat == self.vehicleSeat then
 		return
 	end
@@ -131,7 +131,7 @@ function VehicleController:OnSteerLeft(actionName, inputState, inputObject)
 end
 
 -- Call this from a function bound to Renderstep with Input Priority
-function VehicleController:Update(moveVector, cameraRelative, usingGamepad)
+function VehicleController:Update(moveVector: Vector3, cameraRelative: boolean, usingGamepad: boolean)
 	if self.vehicleSeat then
 		if cameraRelative then
 			-- This is the default steering mode

@@ -13,6 +13,8 @@ local Common = require(Framework.StudioUI.StudioFrameworkStyles.Common)
 local UIFolderData = require(Framework.UI.UIFolderData)
 local RoundBox = require(UIFolderData.RoundBox.style)
 
+local FFlagDevFrameworkFixTextInputClipping = game:GetFastFlag("DevFrameworkFixTextInputClipping")
+
 local roundedBorderPadding = {
 	Left = 10,
 	Top = 5,
@@ -20,11 +22,19 @@ local roundedBorderPadding = {
 	Bottom = 5
 }
 
+local rectBorderPadding = FFlagDevFrameworkFixTextInputClipping and {
+	Left = 1,
+	Top = 0,
+	Right = 0,
+	Bottom = 0
+} or nil
+
 if THEME_REFACTOR then
 	local roundBox = deepCopy(RoundBox)
 	return {
 		PlaceholderTextColor = StyleKey.DimmedText,
 		useRoundBox = false,
+		Padding = FFlagDevFrameworkFixTextInputClipping and rectBorderPadding or nil,
 
 		["&RoundedBorder"] = {
 			useRoundBox = true,
@@ -67,6 +77,7 @@ else
 		local Default = Style.extend(common.MainText, common.Border, {
 			PlaceholderTextColor = theme:GetColor("DimmedText"),
 			useRoundBox = false,
+			Padding = FFlagDevFrameworkFixTextInputClipping and rectBorderPadding or nil,
 		})
 
 		local roundBox = RoundBox(theme, getColor)

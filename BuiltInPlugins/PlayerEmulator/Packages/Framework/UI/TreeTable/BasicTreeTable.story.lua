@@ -2,6 +2,7 @@ local Framework = script.Parent.Parent.Parent
 
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
+local map = Dash.map
 
 local Roact = require(Framework.Parent.Roact)
 local UI = require(Framework.UI)
@@ -9,8 +10,23 @@ local TreeTable = UI.TreeTable
 
 local ExampleTreeTable = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeTable")
 
+local DEFAULT_COLUMNS = {
+	{
+		Name = "Name",
+		Key = "name",
+	},
+	{
+		Name = "Value",
+		Key = "value",
+	}
+}
+
 function ExampleTreeTable:init()
 	self.state = {
+		Sizes = {
+			UDim.new(0.5, 0),
+			UDim.new(0.5, 0),
+		},
 		Expansion = {},
 		Items = {
 			{
@@ -85,26 +101,30 @@ function ExampleTreeTable:init()
 			}
 		}
 	}
+	self.onSizesChange = function(sizes: {UDim})
+		self:setState({
+			Sizes = sizes
+		})
+	end
 end
 
 function ExampleTreeTable:render()
+	local columns = map(DEFAULT_COLUMNS, function(column, index: number)
+		return join(column, {
+			Width = self.state.Sizes[index]
+		})
+	end)
 	return Roact.createElement(TreeTable, {
 		Size = UDim2.new(1, 0, 0, 240),
-		Columns = {
-			{
-				Name = "Name",
-				Key = "name",
-			},
-			{
-				Name = "Value",
-				Key = "value",
-			}
-		},
+		ClampSize = true,
+		UseDeficit = true,
+		Columns = columns,
 		OnExpansionChange = function(newExpansion)
 			self:setState({
 				Expansion = join(self.state.Expansion, newExpansion)
 			})
 		end,
+		OnColumnSizesChange = self.onSizesChange,
 		Expansion = self.state.Expansion,
 		RootItems = self.state.Items,
 		GetChildren = function(item)

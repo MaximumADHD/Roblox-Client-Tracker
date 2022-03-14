@@ -19,8 +19,6 @@ local DraggedPivot = require(DraggerFramework.Components.DraggedPivot)
 
 local getEngineFeatureModelPivotVisual = require(DraggerFramework.Flags.getEngineFeatureModelPivotVisual)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
 -- The minimum rotate increment to display snapping increments for (below this
 -- increment there are so many points that they become visual noise)
 local MIN_ROTATE_INCREMENT = 5.0
@@ -174,7 +172,7 @@ end
 
 function RotateHandles:update(draggerToolModel, selectionInfo)
 	if not self._draggingHandleId then
-		if getFFlagSummonPivot() and not self._tabKeyDown then
+		if not self._tabKeyDown then
 			self:_endSummon()
 		end
 
@@ -188,11 +186,7 @@ function RotateHandles:update(draggerToolModel, selectionInfo)
 		self._selectionWrapper = draggerToolModel:getSelectionWrapper()
 		self._schema = draggerToolModel:getSchema()
 		if getEngineFeatureModelPivotVisual() then
-			if getFFlagSummonPivot() then
-				self._scale = self._draggerContext:getHandleScale((self._boundingBox.CFrame * self:_getBasisOffset()).Position)
-			else
-				self._scale = self._draggerContext:getHandleScale(cframe.Position)
-			end
+			self._scale = self._draggerContext:getHandleScale((self._boundingBox.CFrame * self:_getBasisOffset()).Position)
 		else
 			self._scale = self._draggerContext:getHandleScale(self._boundingBox.CFrame.Position)
 		end
@@ -254,13 +248,8 @@ function RotateHandles:render(hoveredHandleId)
 			end
 		end
 
-		if getFFlagSummonPivot() then
-			children.ImplementationRendered =
-				self._implementation:render(self._lastGlobalTransformForRender)
-		else
-			children.ImplementationRendered =
-				self._implementation:render(self._boundingBox.CFrame * self._basisOffset)
-		end
+		children.ImplementationRendered =
+			self._implementation:render(self._lastGlobalTransformForRender)
 	else
 		for handleId, handleProps in pairs(self._handles) do
 			local color = handleProps.Color
@@ -292,7 +281,7 @@ function RotateHandles:render(hoveredHandleId)
 		})
 	end
 
-	if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() and self._props.Summonable then
+	if getEngineFeatureModelPivotVisual() and self._props.Summonable then
 		if self._summonBasisOffset then
 			if self._summonWasSnapped then
 				children.SummonSnap = Roact.createElement("BoxHandleAdornment", {
@@ -409,7 +398,7 @@ function RotateHandles:mouseUp(mouseRay)
 	if not self._draggingHandleId then
 		return
 	end
-	if getFFlagSummonPivot() and not self._tabKeyDown then
+	if not self._tabKeyDown then
 		self:_endSummon()
 	end
 
@@ -436,7 +425,7 @@ function RotateHandles:_updateHandles()
 	end
 end
 
-if getEngineFeatureModelPivotVisual() and getFFlagSummonPivot() then
+if getEngineFeatureModelPivotVisual() then
 	function RotateHandles:keyDown(keyCode)
 		if keyCode == Enum.KeyCode.Tab then
 			self._tabKeyDown = true

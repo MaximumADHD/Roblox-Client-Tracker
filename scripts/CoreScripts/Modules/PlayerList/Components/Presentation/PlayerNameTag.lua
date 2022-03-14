@@ -10,12 +10,13 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
 
 local PlayerNameTag = Roact.PureComponent:extend("PlayerNameTag")
 
 PlayerNameTag.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
+	player = playerInterface,
 	isTitleEntry = t.boolean,
 	isHovered = t.boolean,
 	layoutOrder = t.integer,

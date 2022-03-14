@@ -1,6 +1,12 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
+	local GuiService = game:GetService("GuiService")
+	local Players = game:GetService("Players")
+	local Modules = game:GetService("CoreGui").RobloxGui.Modules
+	local JestGlobals = require(CorePackages.JestGlobals)
+	local jestExpect = JestGlobals.expect
 
+	local act = require(Modules.act)
 	local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 	local Roact = InGameMenuDependencies.Roact
 	local Rodux = InGameMenuDependencies.Rodux
@@ -11,6 +17,12 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local OpenReportSentDialog = require(InGameMenu.Actions.OpenReportSentDialog)
+	local SetInputType = require(InGameMenu.Actions.SetInputType)
+	local Constants = require(InGameMenu.Resources.Constants)
+
+	local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -20,11 +32,14 @@ return function()
 		Font = AppFont,
 	}
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local ReportSentDialog = require(script.Parent.ReportSentDialog)
 
-	it("should create and destroy without errors", function()
-		local element = Roact.createElement(RoactRodux.StoreProvider, {
-			store = Rodux.Store.new(reducer)
+	local function getMountableTreeAndStore(props)
+		local store = Rodux.Store.new(reducer)
+
+		return Roact.createElement(RoactRodux.StoreProvider, {
+			store = store,
 		}, {
 			ThemeProvider = Roact.createElement(UIBlox.Core.Style.Provider, {
 				style = appStyle,
@@ -32,12 +47,70 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					ReportSentDialog = Roact.createElement(ReportSentDialog),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						ReportSentDialog = Roact.createElement(ReportSentDialog, props),
+					}) or nil,
+					ReportSentDialog = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(ReportSentDialog, props) or nil,
 				}),
 			}),
-		})
+		}),
+			store
+	end
 
-		local instance = Roact.mount(element)
-		Roact.unmount(instance)
+	beforeEach(function()
+		GuiService.SelectedCoreObject = nil
+	end)
+
+	describe("Mount/unmount", function()
+		it("should create and destroy without errors", function()
+			local element = getMountableTreeAndStore({
+				isReportSentOpen = true
+			})
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("Overlay", true)).toBeDefined()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("DialogMainFrame", true)).toBeDefined()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("AbuseTypeDropDown", true)).toBeNil()
+			jestExpect(Players.LocalPlayer.PlayerGui:FindFirstChild("ReportDescription", true)).toBeNil()
+
+			Roact.unmount(instance)
+		end)
+	end)
+
+	describe("Gamepad support", function()
+		it("Should not gain focus when gamepad is not the last used device", function()
+			local element, store = getMountableTreeAndStore()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.MouseAndKeyboard))
+				store:dispatch(OpenReportSentDialog())
+				store:flush()
+			end)
+
+			jestExpect(GuiService.SelectedCoreObject).toBeNil()
+
+			Roact.unmount(instance)
+		end)
+		it("Should gain focus only when gamepad was used and FFlagInGameMenuController is enabled", function()
+			local element, store = getMountableTreeAndStore()
+
+			local instance = Roact.mount(element, Players.LocalPlayer.PlayerGui)
+			act(function()
+				store:dispatch(SetInputType(Constants.InputType.Gamepad))
+				store:dispatch(OpenReportSentDialog())
+				store:flush()
+			end)
+
+			if GetFFlagInGameMenuControllerDevelopmentOnly() == false then
+				jestExpect(GuiService.SelectedCoreObject).toBeNil()
+			elseif GetFFlagInGameMenuControllerDevelopmentOnly() == true then
+				jestExpect(tostring(GuiService.SelectedCoreObject)).toEqual("ConfirmButton")
+			end
+
+			Roact.unmount(instance)
+			GuiService.SelectedCoreObject = nil
+		end)
 	end)
 end

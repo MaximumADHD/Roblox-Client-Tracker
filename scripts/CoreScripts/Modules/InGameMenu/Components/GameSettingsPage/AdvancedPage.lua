@@ -1,4 +1,5 @@
 local CoreGui = game:GetService("CoreGui")
+local GuiService = game:GetService("GuiService")
 local CorePackages = game:GetService("CorePackages")
 
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -11,6 +12,8 @@ local t = InGameMenuDependencies.t
 local UIBlox = InGameMenuDependencies.UIBlox
 
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local DevConsoleMaster = require(CoreGui.RobloxGui.Modules.DevConsoleMaster)
 
@@ -26,16 +29,25 @@ local VersionReporter = require(script.Parent.VersionReporter)
 
 local CloseMenu = require(InGameMenu.Thunks.CloseMenu)
 
+local FocusHandler = require(script.Parent.Parent.Connection.FocusHandler)
+
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagIGMGamepadSelectionHistory = require(Flags.GetFFlagIGMGamepadSelectionHistory)
+
 local AdvancedPage = Roact.PureComponent:extend("AdvancedPage")
 
 AdvancedPage.validateProps = t.strictInterface({
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.boolean or nil,
 	closeMenu = t.callback,
 	pageTitle = t.string,
+	currentPage = GetFFlagIGMGamepadSelectionHistory() and t.string or nil,
+	currentZone = GetFFlagIGMGamepadSelectionHistory() and t.number or nil,
 })
 
 function AdvancedPage:init()
@@ -43,15 +55,40 @@ function AdvancedPage:init()
 		microProfilerEnabled = UserGameSettings.OnScreenProfilerEnabled,
 		performanceStatsEnabled = UserGameSettings.PerformanceStatsVisible,
 	})
+
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		self.backButtonRef = Roact.createRef()
+		self.performanceToggleRef = Roact.createRef()
+	end
 end
 
-function AdvancedPage:render()
+if GetFFlagInGameMenuControllerDevelopmentOnly() and not GetFFlagIGMGamepadSelectionHistory() then
+	function AdvancedPage:didUpdate(prevProps)
+		if self.props.canCaptureFocus
+			and not prevProps.canCaptureFocus
+		then
+			GuiService.SelectedCoreObject = self.performanceToggleRef:getValue()
+		end
+	end
+end
+
+function AdvancedPage:renderWithSelectionCursor(getSelectionCursor)
 	return withStyle(function(style)
 		return Roact.createElement(Page, {
 			pageTitle = self.props.pageTitle,
 			zIndex = 2,
 			position = self.props.position,
+			buttonRef = self.backButtonRef,
+			NextSelectionDown = self.performanceToggleRef,
 		}, {
+			FocusHandler = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandler, {
+				isFocused = self.props.canCaptureFocus,
+				shouldForgetPreviousSelection = self.props.currentPage ~= Constants.advancedSettingsPageKey
+					or self.props.currentZone == 0,
+				didFocus = function(previousSelection)
+					GuiService.SelectedCoreObject = previousSelection or self.performanceToggleRef:getValue()
+				end,
+			}) or nil,
 			Layout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,
 				HorizontalAlignment = Enum.HorizontalAlignment.Right,
@@ -69,6 +106,8 @@ function AdvancedPage:render()
 					UserGameSettings.PerformanceStatsVisible = not UserGameSettings.PerformanceStatsVisible
 					SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 				end,
+				buttonRef = self.performanceToggleRef,
+				NextSelectionUp = self.backButtonRef,
 			}),
 			MicroProfiler = Roact.createElement(ToggleEntry, {
 				LayoutOrder = 3,
@@ -91,6 +130,7 @@ function AdvancedPage:render()
 					TextSize = style.Font.Header2.RelativeSize * style.Font.BaseSize,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					LayoutOrder = 4,
+					SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
 					[Roact.Event.Activated] = function()
 						DevConsoleMaster:SetVisibility(true)
 						self.props.closeMenu()
@@ -129,7 +169,36 @@ function AdvancedPage:render()
 	end)
 end
 
-return RoactRodux.UNSTABLE_connect2(nil, function(dispatch)
+function AdvancedPage:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
+end
+
+return RoactRodux.UNSTABLE_connect2(function(state)
+	local canCaptureFocus = nil -- Can be inlined when FFlagInGameMenuControllerDevelopmentOnly is removed
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		canCaptureFocus = state.menuPage == "AdvancedGameSettings"
+			and state.displayOptions.inputType == Constants.InputType.Gamepad
+			and not state.respawn.dialogOpen
+			and state.currentZone == 1
+	end
+
+	local currentZone = nil -- can inline when flag is removed
+	if GetFFlagIGMGamepadSelectionHistory() then
+		currentZone = state.currentZone
+	end
+
+	return {
+		canCaptureFocus = canCaptureFocus,
+		currentPage = GetFFlagIGMGamepadSelectionHistory() and state.menuPage or nil,
+		currentZone = currentZone,
+	}
+end, function(dispatch)
 	return {
 		closeMenu = function()
 			dispatch(CloseMenu)

@@ -7,12 +7,16 @@ local Otter = InGameMenuDependencies.Otter
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
 
 local AssetImage = require(script.Parent.AssetImage)
+
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local KNOB_SIZE = 42
 local KNOB_POSITION_OFF = UDim2.new(0, -3, 0.5, 0)
@@ -26,10 +30,14 @@ ToggleSwitch.validateProps = t.strictInterface({
 	checked = t.boolean,
 	onToggled = t.callback,
 	disabled = t.optional(t.boolean),
+	buttonRef = t.optional(t.union(t.callback, t.table)),
 
 	AnchorPoint = t.optional(t.Vector2),
 	LayoutOrder = t.optional(t.integer),
 	Position = t.optional(t.UDim2),
+	NextSelectionUp = t.optional(t.Instance),
+	onSelectionLost = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
+	onSelectionGained = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.callback) or nil,
 })
 
 function ToggleSwitch:init()
@@ -48,7 +56,7 @@ function ToggleSwitch:init()
 	self.motor:onStep(self.setProgress)
 end
 
-function ToggleSwitch:render()
+function ToggleSwitch:renderWithSelectionCursor(getSelectionCursor)
 	return withStyle(function(style)
 		return Roact.createElement(AssetImage.Button, {
 			Size = UDim2.new(0, 60, 0, 36),
@@ -59,7 +67,13 @@ function ToggleSwitch:render()
 			AnchorPoint = self.props.AnchorPoint,
 			ImageColor3 = style.Theme.SecondaryDefault.Color,
 			ImageTransparency = divideTransparency(style.Theme.SecondaryDefault.Transparency, self.props.disabled and 4 or 1),
+			NextSelectionUp = self.props.NextSelectionUp,
 			[Roact.Event.Activated] = self.props.onToggled,
+			[Roact.Ref] = self.props.buttonRef,
+			[Roact.Event.SelectionLost] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionLost or nil,
+			[Roact.Event.SelectionGained] = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.onSelectionGained or nil,
+			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly()
+				and getSelectionCursor(CursorKind.Toggle) or nil,
 		}, {
 			Fill = Roact.createElement(AssetImage.Label, {
 				BackgroundTransparency = 1,
@@ -79,6 +93,16 @@ function ToggleSwitch:render()
 			})
 		})
 	end)
+end
+
+function ToggleSwitch:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
 end
 
 function ToggleSwitch:didUpdate()

@@ -33,7 +33,7 @@ if FFlagDevFrameworkSplitPane and FFlagDevFrameworkTableColumnResize then
 		self.state = {
 			sizes = self.props.InitialSizes,
 		}
-		self.onSizesChange = function(sizes)
+		self.onSizesChange = function(sizes: {UDim})
 			self:setState({
 				sizes = sizes
 			})

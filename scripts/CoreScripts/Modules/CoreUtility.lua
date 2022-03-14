@@ -1,18 +1,11 @@
-local FFlagFixIndexClassObjectByName = game:DefineFastFlag("FixIndexClassObjectByName", false)
-
 local CoreUtility = {}
 
 function CoreUtility.waitForChildOfClass(parent, className)
-	if FFlagFixIndexClassObjectByName then
-		local child = parent:FindFirstChildOfClass(className)
-		while not child or child.ClassName ~= className do
-			child = parent.ChildAdded:Wait()
-		end
-		return child
-
-	else
-		return parent:WaitForChild(className)
+	local child = parent:FindFirstChildOfClass(className)
+	while not child or child.ClassName ~= className do
+		child = parent.ChildAdded:Wait()
 	end
+	return child
 end
 
 function CoreUtility.waitForChildWhichIsA(parent, className)

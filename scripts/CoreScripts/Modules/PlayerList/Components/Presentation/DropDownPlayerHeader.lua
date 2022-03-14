@@ -36,6 +36,7 @@ function DropDownPlayerHeader:render()
 				Text = "",
 				Size = UDim2.new(1, 0, 0, layoutValues.DropDownHeaderSizeY),
 				LayoutOrder = 0,
+				Selectable = false,
 			}, {
 				Background = Roact.createElement("ImageLabel", {
 					BackgroundTransparency = 1,

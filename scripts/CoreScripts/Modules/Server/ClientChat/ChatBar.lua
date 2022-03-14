@@ -29,7 +29,7 @@ local WhisperModule = require(commandModules:WaitForChild("Whisper"))
 local MessageSender = require(modulesFolder:WaitForChild("MessageSender"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = {} function ChatLocalization:Get(key,default) return default end end
 
 --////////////////////////////// Methods

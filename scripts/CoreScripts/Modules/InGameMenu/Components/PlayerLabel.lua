@@ -1,4 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
@@ -11,12 +13,15 @@ local withStyle = UIBlox.Core.Style.withStyle
 local InGameMenu = script.Parent.Parent
 
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local Assets = require(InGameMenu.Resources.Assets)
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
 local ImageSetLabel = UIBlox.Core.ImageSet.Label
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local CONTAINER_FRAME_HEIGHT = 70
 local PLAYER_ICON_SIZE = 44
@@ -38,9 +43,11 @@ local iconPos = {
 	Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
 }
 
+local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabel")
 
-PlayerLabel.validateProps = t.strictInterface({
+PlayerLabel.validateProps = t.strictInterface(validatePropsWithForwardRef({
 	userId = t.number,
 	username = t.string,
 	isOnline = t.boolean,
@@ -52,8 +59,8 @@ PlayerLabel.validateProps = t.strictInterface({
 
 	[Roact.Children] = t.optional(t.table),
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
-	[Roact.Ref] = t.optional(t.callback),
-})
+	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
+}))
 
 PlayerLabel.defaultProps = {
 	Visible = true,
@@ -82,7 +89,7 @@ function PlayerLabel:renderButtons()
 	return buttons
 end
 
-function PlayerLabel:render()
+function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	local props = self.props
 
 	return withStyle(function(style)
@@ -101,6 +108,8 @@ function PlayerLabel:render()
 			activated = self.props.onActivated and self.onActivated or nil
 		end
 
+		local forwardRef = self.props.forwardRef
+
 		return Roact.createElement("TextButton", {
 			BackgroundTransparency = backgroundStyle.Transparency,
 			BackgroundColor3 = backgroundStyle.Color,
@@ -113,7 +122,8 @@ function PlayerLabel:render()
 
 			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = forwardRef,
+			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
 		}, {
 			PlayerCutout = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
 				BackgroundTransparency = 1,
@@ -162,4 +172,18 @@ function PlayerLabel:render()
 	end)
 end
 
-return PlayerLabel
+function PlayerLabel:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
+end
+
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(PlayerLabel, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

@@ -1,0 +1,158 @@
+local CorePackages = game:GetService("CorePackages")
+local Modules = game:GetService("CoreGui").RobloxGui.Modules
+local GuiService = game:GetService("GuiService")
+local Players = game:GetService("Players")
+
+local act = require(Modules.act)
+local Rhodium = require(CorePackages.Rhodium)
+local VirtualInput = Rhodium.VirtualInput
+
+local InGameMenu = Modules.InGameMenu
+local SetCurrentPage = require(InGameMenu.Actions.SetCurrentPage)
+local SetMenuOpen = require(InGameMenu.Actions.SetMenuOpen)
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local TestConstants = require(script.Parent.TestConstants)
+
+return function()
+	beforeEach(function(c)
+		GuiService.SelectedCoreObject = nil
+		Players.LocalPlayer.PlayerGui:ClearAllChildren()
+		local _path, store, cleanup, gamepad = c.mountIGM() -- add arguments to this in init file if needed
+		c.store = store
+		c.cleanup = cleanup
+
+		c.storeUpdate = function(action)
+			act(function()
+				store:dispatch(action)
+				store:flush()
+			end)
+			act(function()
+				wait()
+			end)
+		end
+
+		c.gamepadInput = function(input)
+			act(function()
+				gamepad:hitButton(input)
+				VirtualInput.waitForInputEventsProcessed()
+			end)
+			act(function()
+				wait()
+			end)
+		end
+	end)
+
+	afterEach(function(c)
+		c.cleanup()
+	end)
+
+	describe("Players page contextual menu", function()
+		it("Opens when a player is selected", function(c)
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				-- Send an input to update UserInputService.GamepadEnabled
+				c.gamepadInput(Enum.KeyCode.DPadDown)
+
+				c.storeUpdate(SetMenuOpen(true))
+				c.storeUpdate(SetCurrentPage("Players"))
+
+				-- Open the contextual menu on the first selected player
+				c.gamepadInput(Enum.KeyCode.ButtonA)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			end
+		end)
+
+		it("Exits when pressing B and selects the player again", function(c)
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				-- Send an input to update UserInputService.GamepadEnabled
+				c.gamepadInput(Enum.KeyCode.DPadDown)
+
+				c.storeUpdate(SetMenuOpen(true))
+				c.storeUpdate(SetCurrentPage("Players"))
+
+				-- Open the contextual menu on the first selected player
+				c.gamepadInput(Enum.KeyCode.ButtonA)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+
+				-- Exits
+				c.gamepadInput(Enum.KeyCode.ButtonB)
+				expect(tostring(GuiService.SelectedCoreObject)).to.equal("player_12345678")
+			end
+		end)
+
+		it("Ignores input if canCaptureFocus is false", function(c)
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				local store = c.store
+
+				-- Send an input to update UserInputService.GamepadEnabled
+				c.gamepadInput(Enum.KeyCode.DPadDown)
+
+				c.storeUpdate(SetMenuOpen(true))
+				c.storeUpdate(SetCurrentPage("Players"))
+
+				-- Open the contextual menu
+				c.gamepadInput(Enum.KeyCode.ButtonA)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+
+				-- Open the Respawn dialog
+				c.gamepadInput(Enum.KeyCode.ButtonY)
+				expect(store:getState().respawn.dialogOpen).to.equal(true)
+
+				-- Pressing B closes the dialog, not the contextual menu
+				c.gamepadInput(Enum.KeyCode.ButtonB)
+				expect(store:getState().respawn.dialogOpen).to.equal(false)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+
+				-- Contextual menu is capturing input again, can now be closed
+				c.gamepadInput(Enum.KeyCode.ButtonB)
+				expect(tostring(GuiService.SelectedCoreObject)).to.equal("player_12345678")
+			end
+		end)
+
+		it("Does not abandon the bounds of the menu", function(c)
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				-- Send an input to update UserInputService.GamepadEnabled
+				c.gamepadInput(Enum.KeyCode.DPadDown)
+
+				c.storeUpdate(SetMenuOpen(true))
+				c.storeUpdate(SetCurrentPage("Players"))
+
+				-- Open the contextual menu
+				c.gamepadInput(Enum.KeyCode.ButtonA)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+
+				-- Tries to exit the menu area
+				c.gamepadInput(Enum.KeyCode.DPadDown)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+
+				c.gamepadInput(Enum.KeyCode.DPadLeft)
+				expect(GuiService.SelectedCoreObject:FindFirstChild("Text", true).Text).to.equal("Examine Avatar")
+			end
+		end)
+	end)
+
+	it("should switch between the page and SideNavigation", function(c)
+		if GetFFlagInGameMenuControllerDevelopmentOnly() then
+			local store = c.store
+
+			-- Send an input to update UserInputService.GamepadEnabled
+			c.gamepadInput(Enum.KeyCode.DPadDown)
+
+			c.storeUpdate(SetMenuOpen(true))
+			c.storeUpdate(SetCurrentPage("Players"))
+
+			act(function()
+				wait(TestConstants.PageAnimationDuration) -- Wait for the page to finish animating in
+			end)
+
+			expect(store:getState().currentZone).to.equal(1)
+
+			c.gamepadInput(Enum.KeyCode.DPadLeft)
+			expect(store:getState().currentZone).to.equal(0)
+
+			c.gamepadInput(Enum.KeyCode.DPadRight)
+			expect(store:getState().currentZone).to.equal(1)
+		end
+	end)
+end

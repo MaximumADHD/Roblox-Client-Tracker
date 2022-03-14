@@ -2,6 +2,9 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
 
+local Modules = CoreGui.RobloxGui.Modules
+
+local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local t = require(CorePackages.Packages.t)
@@ -25,12 +28,15 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
+
 local FFlagPlayerListFormattingUpdates = require(RobloxGui.Modules.Flags.FFlagPlayerListFormattingUpdates)
+local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
 
 local PlayerEntry = Roact.PureComponent:extend("PlayerEntry")
 
-PlayerEntry.validateProps = t.strictInterface({
-	player = t.instanceIsA("Player"),
+PlayerEntry.validateProps = t.strictInterface(validatePropsWithForwardRef({
+	player = playerInterface,
 	titlePlayerEntry = t.boolean,
 	hasDivider = t.boolean,
 	entrySize = t.integer,
@@ -67,7 +73,7 @@ PlayerEntry.validateProps = t.strictInterface({
 
 	closeDropDown = t.callback,
 	openDropDown = t.callback,
-})
+}))
 
 function PlayerEntry:init()
 	self.state  = {
@@ -242,6 +248,8 @@ function PlayerEntry:render()
 
 			local doubleOverlay = self.state.isPressed
 
+			local forwardRef = self.props.forwardRef
+
 			playerEntryChildren["NameFrame"] = Roact.createElement("Frame", {
 				LayoutOrder = 0,
 				Size = UDim2.new(0, entrySizeX, 0, layoutValues.PlayerEntrySizeY),
@@ -275,7 +283,7 @@ function PlayerEntry:render()
 					onMouseDown = self.onMouseDown,
 					onInputEnded = self.onInputEnded,
 
-					[Roact.Ref] = self.props[Roact.Ref]
+					[Roact.Ref] = forwardRef
 				}, {
 					Layout = Roact.createElement("UIListLayout", {
 						SortOrder = Enum.SortOrder.LayoutOrder,
@@ -390,4 +398,11 @@ local function mapDispatchToProps(dispatch)
 		end,
 	}
 end
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(PlayerEntry)
+
+PlayerEntry = RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(PlayerEntry)
+
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(PlayerEntry, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

@@ -1,3 +1,7 @@
+--[[]
+DEPRECATE THIS FILE WITH FFlagStartScreenTimeUsingGuacEnabled
+]]
+
 local RunService = game:GetService("RunService")
 local GuiService = game:GetService("GuiService")
 local CoreGui = game:GetService("CoreGui")

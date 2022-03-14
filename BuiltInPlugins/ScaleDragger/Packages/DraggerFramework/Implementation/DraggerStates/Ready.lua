@@ -11,12 +11,6 @@ local getFaceInstance = require(DraggerFramework.Utility.getFaceInstance)
 local HoverTracker = require(DraggerFramework.Implementation.HoverTracker)
 local StandardCursor = require(DraggerFramework.Utility.StandardCursor)
 
-local getFFlagSummonPivot = require(DraggerFramework.Flags.getFFlagSummonPivot)
-
-local getFFlagFlippedScopeSelect = require(DraggerFramework.Flags.getFFlagFlippedScopeSelect)
-
-local getFFlagUseGetBoundingBox = require(DraggerFramework.Flags.getFFlagUseGetBoundingBox)
-
 local Ready = {}
 Ready.__index = Ready
 
@@ -87,12 +81,7 @@ function Ready:render()
 	if self._draggerToolModel:shouldShowLocalSpaceIndicator() then
 		local selectionInfo = self._draggerToolModel._selectionInfo
 		if not selectionInfo:isEmpty() and draggerContext:shouldUseLocalSpace() then
-			local cframe, offset, size
-			if getFFlagUseGetBoundingBox() then 
-				cframe, offset, size = selectionInfo:getBoundingBox()
-			else 
-				cframe, offset, size = selectionInfo:getLocalBoundingBox()
-			end
+			local cframe, offset, size = selectionInfo:getBoundingBox()
 
 			elements.LocalSpaceIndicator = Roact.createElement(LocalSpaceIndicator, {
 				CFrame = cframe * CFrame.new(offset),
@@ -160,38 +149,30 @@ function Ready:_scopeSelectChanged()
 end
 
 function Ready:processKeyDown(keyCode)
-	if getFFlagFlippedScopeSelect() then
-		if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
-			self:_scopeSelectChanged()
-		end
+	if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
+		self:_scopeSelectChanged()
 	end
 
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyDown then
-				if handles:keyDown(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
+	for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+		if handles.keyDown then
+			if handles:keyDown(keyCode) then
+				self:processViewChanged()
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end
 end
 
 function Ready:processKeyUp(keyCode)
-	if getFFlagFlippedScopeSelect() then
-		if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
-			self:_scopeSelectChanged()
-		end
+	if keyCode == Enum.KeyCode.LeftAlt or keyCode == Enum.KeyCode.RightAlt then
+		self:_scopeSelectChanged()
 	end
 
-	if getFFlagSummonPivot() then
-		for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
-			if handles.keyUp then
-				if handles:keyUp(keyCode) then
-					self:processViewChanged()
-					self._draggerToolModel:_scheduleRender()
-				end
+	for _, handles in pairs(self._draggerToolModel:getHandlesList()) do
+		if handles.keyUp then
+			if handles:keyUp(keyCode) then
+				self:processViewChanged()
+				self._draggerToolModel:_scheduleRender()
 			end
 		end
 	end

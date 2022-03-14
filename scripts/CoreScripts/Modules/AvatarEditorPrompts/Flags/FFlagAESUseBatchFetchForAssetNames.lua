@@ -1,4 +1,0 @@
-local EngineFeatureAESGetBatchItemDetailsEnabled = game:GetEngineFeature("AESGetBatchItemDetailsEnabled")
-local FFlagAESUseBatchFetchForAssetNames = game:DefineFastFlag("AESUseBatchFetchForAssetNames", false)
-
-return EngineFeatureAESGetBatchItemDetailsEnabled and FFlagAESUseBatchFetchForAssetNames

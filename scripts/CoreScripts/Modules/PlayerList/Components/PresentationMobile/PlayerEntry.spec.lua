@@ -64,6 +64,7 @@ return function()
 						entrySize = 50,
 						titlePlayerEntry = false,
 						gameStats = {},
+						layoutOrder = 0,
 					})
 				})
 			})
@@ -92,6 +93,7 @@ return function()
 						entrySize = 150,
 						titlePlayerEntry = true,
 						gameStats = {},
+						layoutOrder = 0,
 					})
 				})
 			})

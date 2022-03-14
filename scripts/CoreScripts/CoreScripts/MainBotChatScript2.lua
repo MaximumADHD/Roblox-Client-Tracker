@@ -83,9 +83,8 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
 local setDialogInUseEvent = RobloxReplicatedStorage:WaitForChild("SetDialogInUse", math.huge)
 
-local FFlagFixDialogServerWait = require(RobloxGui.Modules.Common.Flags.GetFFlagFixDialogServerWait)()
-local FFlagFixDialogScriptNilChecks = game:DefineFastFlag("FixDialogScriptNilChecks", false)
 local FFlagFixStuckDialogWhenUsingGamepad = game:DefineFastFlag("FixStuckDialogWhenUsingGamepad", false)
+local FFlagFixDialogChoiceLocalization = game:DefineFastFlag("FixDialogChoiceLocalization", false)
 
 local chatNotificationGui
 local messageDialog
@@ -275,19 +274,11 @@ function endDialog()
 	local dialog = currentConversationDialog
 	currentConversationDialog = nil
 	if dialog and dialog.InUse then
-		if FFlagFixDialogServerWait then
-			-- Waits 5 seconds before setting InUse to false
-			delay(5, function()
-				setDialogInUseEvent:FireServer(dialog, false)
-				dialog.InUse = false
-			end)
-		else
-			-- Waits 5 seconds before setting InUse to false
-			setDialogInUseEvent:FireServer(dialog, false, 5)
-			delay(5, function()
-				dialog.InUse = false
-			end)
-		end
+		-- Waits 5 seconds before setting InUse to false
+		delay(5, function()
+			setDialogInUseEvent:FireServer(dialog, false)
+			dialog.InUse = false
+		end)
 	end
 
 	for dialog, gui in pairs(dialogMap) do
@@ -328,7 +319,7 @@ local function chatFunc(dialog, ...)
 end
 
 function selectChoice(choice)
-	if FFlagFixDialogScriptNilChecks and not currentConversationDialog then
+	if not currentConversationDialog then
 		return
 	end
 
@@ -346,7 +337,7 @@ function selectChoice(choice)
 		chatFunc(currentConversationDialog, localPlayer.Character, sanitizeMessage(dialogChoice.UserDialog), getChatColor(currentTone()))
 		wait(1)
 
-		if FFlagFixDialogScriptNilChecks and not currentConversationDialog then
+		if not currentConversationDialog then
 			return
 		end
 
@@ -381,6 +372,10 @@ function newChoice()
 	frame.RobloxLocked = true
 
 	local prompt = Instance.new("TextLabel")
+	if FFlagFixDialogChoiceLocalization then
+		-- User response text is manually translated using GameTranslator
+		prompt.AutoLocalize = false
+	end
 	prompt.Name = "UserPrompt"
 	prompt.BackgroundTransparency = 1
 	prompt.Font = Enum.Font.SourceSans
@@ -527,11 +522,7 @@ function doDialog(dialog)
 		contextActionService:BindCoreAction("Nothing", function()
 		end, false, Enum.UserInputType.Gamepad1, Enum.UserInputType.Gamepad2, Enum.UserInputType.Gamepad3, Enum.UserInputType.Gamepad4)
 		-- Immediately sets InUse to true on the server
-		if FFlagFixDialogServerWait then
-			setDialogInUseEvent:FireServer(dialog, true)
-		else
-			setDialogInUseEvent:FireServer(dialog, true, 0)
-		end
+		setDialogInUseEvent:FireServer(dialog, true)
 	end
 	chatFunc(dialog, dialog.Parent, dialog.InitialPrompt, getChatColor(dialog.Tone))
 	variableDelay(dialog.InitialPrompt)
@@ -549,11 +540,7 @@ function renewKillswitch(dialog)
 		wait(15)
 		if thisCoroutine ~= nil then
 			if coroutineMap[thisCoroutine] == nil then
-				if FFlagFixDialogServerWait then
-					setDialogInUseEvent:FireServer(dialog, false)
-				else
-					setDialogInUseEvent:FireServer(dialog, false, 0)
-				end
+				setDialogInUseEvent:FireServer(dialog, false)
 				dialog.InUse = false
 			end
 			coroutineMap[thisCoroutine] = nil

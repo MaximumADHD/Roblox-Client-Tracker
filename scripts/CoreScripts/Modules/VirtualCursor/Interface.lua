@@ -4,6 +4,10 @@ local VirtualCursorFolder = script.Parent
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 
+local VRService = game:GetService("VRService")
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui.RobloxGui
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
 local properties = require(VirtualCursorFolder.Properties)
 
 local Interface = {}
@@ -13,6 +17,7 @@ local imageStateDict = { -- store images related to the cursor here (if there ar
 	Default = "rbxasset://textures/ui/VirtualCursor/cursorDefault.png",
 	Hover = "rbxasset://textures/ui/VirtualCursor/cursorHover.png",
 	Pressed = "rbxasset://textures/ui/VirtualCursor/cursorPressed.png",
+	Arrow = "rbxasset://textures/ui/VirtualCursor/cursorArrow.png",
 }
 
 -- ui elements for cursor
@@ -70,7 +75,7 @@ local function getOrCreateVirtualCursorContainer()
 		activeSelectionTweenIn = TweenService:Create(cursorIndicator, selectTweenInfo, {Size = getCursorSize("Activated")})
 		activeSelectionTweenOut = TweenService:Create(cursorIndicator, selectTweenInfo, {Size = getCursorSize("Default")})
 	end
-
+	
 	return virtualCursorContainer
 end
 
@@ -94,11 +99,29 @@ function Interface:SetCursorPosition(position)
 	setCursorPosition(position)
 end
 
+function Interface:SetArrow(x, y)
+	if x == -1 and y == 0 then
+		cursorIndicator.Rotation = 90
+	elseif y == 0 then
+		cursorIndicator.Rotation = 270
+	end
+
+	if x == 0 and y == 1 then
+		cursorIndicator.Rotation = 0
+	elseif x == 0 then
+		cursorIndicator.Rotation = 180
+	end
+
+	cursorIndicator.Image = imageStateDict.Arrow
+end
+
 function Interface:EnableUI(defaultPosition)
-	getOrCreateVirtualCursorContainer().Enabled = true
+	local showInterface = not (VRService.VREnabled and FFlagEnableNewVrSystem)
+	
+	getOrCreateVirtualCursorContainer().Enabled = showInterface
 	cursorIndicator.Size = getCursorSize("Default")
 	setCursorPosition(defaultPosition)
-	cursorIndicator.Visible = true
+	cursorIndicator.Visible = showInterface
 end
 
 function Interface:DisableUI()

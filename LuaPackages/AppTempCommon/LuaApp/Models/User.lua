@@ -2,7 +2,6 @@ local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
 local MockId = require(CorePackages.AppTempCommon.LuaApp.MockId)
-local FFlagAddDisplayNameToUserModel = game:DefineFastFlag("AddDisplayNameToUserModel", false)
 
 local User = {}
 
@@ -38,6 +37,7 @@ function User.mock()
 	self.thumbnails = nil
 	self.lastOnline = nil
 	self.displayName = "DN+" .. self.name
+	self.externalAppDisplayName = "EXTERNAL APP DISPLAY NAME"
 
 	return self
 end
@@ -54,9 +54,8 @@ function User.fromData(id, name, isFriend, friendRank)
 	self.friendRank = friendRank or 0
 	self.lastLocation = nil
 	self.name = name
-	if FFlagAddDisplayNameToUserModel then
-		self.displayName = name
-	end
+	self.displayName = name
+	self.externalAppDisplayName = name
 	self.universeId = nil
 	self.placeId = nil
 	self.rootPlaceId = nil
@@ -82,6 +81,7 @@ function User.fromDataTable(data)
 	self.lastLocation = nil
 	self.name = data.name
 	self.displayName = data.displayName or data.name
+	self.externalAppDisplayName = data.externalAppDisplayName
 	self.universeId = nil
 	self.placeId = nil
 	self.rootPlaceId = nil

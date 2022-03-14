@@ -1,5 +1,8 @@
 local UserInputService = game:GetService("UserInputService")
 
+local CoreGui = game:GetService('CoreGui')
+local FFlagLuaMacUpdateFullscreenKeyboardShortcut = require(CoreGui.RobloxGui.Modules.Flags.FFlagLuaMacUpdateFullscreenKeyboardShortcut)
+
 local key = Enum.KeyCode
 local input = Enum.UserInputType
 
@@ -98,6 +101,20 @@ local osxMiscKeybinds = {
 	}
 }
 
+local osxNewMiscKeybinds = {
+	title = "CoreScripts.InGameMenu.Controls.MiscellaneousTitle",
+	controls = {
+		{desc = "CoreScripts.InGameMenu.Controls.Screenshot", inputs = {{key.LeftSuper, key.LeftShift, key.Three}}},
+		{desc = "CoreScripts.InGameMenu.Controls.DevConsole", inputs = {{key.LeftMeta, key.F9}, key.F9}},
+		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelUp", inputs = {{key.LeftMeta, key.F10}, key.F10}},
+		{desc = "CoreScripts.InGameMenu.Controls.GraphicsLevelDown", inputs = {
+			{key.LeftMeta, key.LeftShift, key.F10}, {key.LeftShift, key.F10}}},
+		{desc = "CoreScripts.InGameMenu.Controls.ToggleFullscreen", inputs = {{key.LeftControl, key.LeftSuper, key.F}}},
+		{desc = "CoreScripts.InGameMenu.Controls.PerformanceStats", inputs =
+			{{key.LeftMeta, key.LeftAlt, key.LeftSuper, key.F7}}},
+	}
+}
+
 local pcMiscKeybinds = {
 	title = "CoreScripts.InGameMenu.Controls.MiscellaneousTitle",
 	controls = {
@@ -112,7 +129,11 @@ local pcMiscKeybinds = {
 }
 
 if UserInputService:GetPlatform() == Enum.Platform.OSX then
-	table.insert(keybinds, osxMiscKeybinds)
+	if FFlagLuaMacUpdateFullscreenKeyboardShortcut then
+		table.insert(keybinds, osxNewMiscKeybinds)
+	else
+		table.insert(keybinds, osxMiscKeybinds)
+	end
 else
 	table.insert(keybinds, pcMiscKeybinds)
 end

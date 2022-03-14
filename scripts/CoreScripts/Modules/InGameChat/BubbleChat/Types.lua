@@ -83,6 +83,10 @@ local chatSettings = {
 	MaxDistance = t.optional(t.number),
 
 	AdorneeName = t.optional(t.string),
+
+	Voice = t.optional(t.strictInterface({
+		ShowIndicator = t.optional(t.boolean),
+	})),
 }
 
 -- chatSettings.UserSpecificSettings is a table that associates userIds (as strings) to a settings table

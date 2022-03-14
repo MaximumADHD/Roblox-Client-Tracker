@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["UIBlox"]["UIBlox"]
+local Package = require(PackageIndex["UIBlox"]["UIBlox"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

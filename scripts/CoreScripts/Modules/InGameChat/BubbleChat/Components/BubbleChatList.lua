@@ -7,6 +7,9 @@ local t = require(CorePackages.Packages.t)
 local ChatBubble = require(script.Parent.ChatBubble)
 local Types = require(script.Parent.Parent.Types)
 
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
+
 local BubbleChatList = Roact.Component:extend("BubbleChatList")
 
 BubbleChatList.validateProps = t.strictInterface({
@@ -15,6 +18,8 @@ BubbleChatList.validateProps = t.strictInterface({
 	theme = t.optional(t.string),
 	onLastBubbleFadeOut = t.optional(t.callback),
 	chatSettings = Types.IChatSettings,
+	renderFirstInsert = t.optional(t.callback),
+	insertSize = t.optional(t.Vector2),
 
 	-- RoactRodux
 	messageIds = t.array(t.string),
@@ -93,13 +98,23 @@ function BubbleChatList:render()
 	})
 
 	for index, bubble in ipairs(self.state.bubbles) do
+		local isMostRecent = index == #self.state.bubbles
+
+		local renderInsert, insertSize
+		if GetFFlagBubbleVoiceIndicator() then
+			renderInsert = isMostRecent and self.props.renderFirstInsert or nil
+			insertSize = self.props.insertSize
+		end
+	
 		children["Bubble" .. bubble.messageId] = Roact.createElement(ChatBubble, {
 			messageId = bubble.messageId,
-			isMostRecent = index == #self.state.bubbles,
+			isMostRecent = isMostRecent,
 			theme = self.props.theme,
 			fadingOut = bubble.fadingOut,
 			onFadeOut = self.onBubbleFadeOut,
 			chatSettings = chatSettings,
+			renderInsert = renderInsert,
+			insertSize = insertSize,
 		})
 	end
 

@@ -11,6 +11,7 @@ return function()
 	local Localization = require(InGameMenu.Localization.Localization)
 	local LocalizationProvider = require(InGameMenu.Localization.LocalizationProvider)
 	local reducer = require(InGameMenu.reducer)
+	local GetFFlagIGMGamepadSelectionHistory = require(InGameMenu.Flags.GetFFlagIGMGamepadSelectionHistory)
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -20,7 +21,10 @@ return function()
 		Font = AppFont,
 	}
 
+	local FocusHandlerContextProvider = require(script.Parent.Parent.Connection.FocusHandlerUtils.FocusHandlerContextProvider)
 	local AddFriendsNow = require(script.Parent.AddFriendsNow)
+
+	local GetFFlagIGMRefactorInviteFriendsGamepadSupport = require(InGameMenu.Flags.GetFFlagIGMRefactorInviteFriendsGamepadSupport)
 
 	it("should create and destroy without errors", function()
 
@@ -33,7 +37,14 @@ return function()
 				LocalizationProvider = Roact.createElement(LocalizationProvider, {
 					localization = Localization.new("en-us"),
 				}, {
-					AddFriendsNow = Roact.createElement(AddFriendsNow),
+					FocusHandlerContextProvider = GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(FocusHandlerContextProvider, {}, {
+						AddFriendsNow = Roact.createElement(AddFriendsNow, {
+							canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+						}),
+					}) or nil,
+					AddFriendsNow = not GetFFlagIGMGamepadSelectionHistory() and Roact.createElement(AddFriendsNow, {
+						canCaptureFocus = GetFFlagIGMRefactorInviteFriendsGamepadSupport() or nil,
+					}) or nil,
 				}),
 			}),
 		})

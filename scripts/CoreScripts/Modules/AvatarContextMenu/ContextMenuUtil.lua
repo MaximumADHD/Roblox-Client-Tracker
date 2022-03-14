@@ -13,8 +13,6 @@
 --- CONSTANTS
 
 local STOP_MOVEMENT_ACTION_NAME = "AvatarContextMenuStopInput"
--- todo: remove with GetFFlagUseThumbnailUrl
-local MAX_THUMBNAIL_RETRIES = 4
 
 --- SERVICES
 local CoreGuiService = game:GetService("CoreGui")
@@ -37,7 +35,6 @@ while not LocalPlayer do
 end
 
 -- FLAGS
-local GetFFlagUseThumbnailUrl = require(CoreGuiModules.Common.Flags.GetFFlagUseThumbnailUrl)
 local isPackInGameJoinDataEnabledClient = require(CoreGuiModules.Flags.isPackInGameJoinDataEnabledClient)
 
 local ContextMenuUtil = {}
@@ -46,33 +43,7 @@ ContextMenuUtil.__index = ContextMenuUtil
 -- PUBLIC METHODS
 
 function ContextMenuUtil:GetHeadshotForPlayer(player)
-	if GetFFlagUseThumbnailUrl() then
-		return "rbxthumb://type=AvatarHeadShot&id=" .. player.UserId .. "&w=150&h=150"
-	else
-		if self.HeadShotUrlCache[player] ~= nil and self.HeadShotUrlCache[player] ~= "" then
-			return self.HeadShotUrlCache[player]
-		end
-		if self.HeadShotUrlCache[player] == nil then
-			-- Mark that we are getting a headshot for this player.
-			self.HeadShotUrlCache[player] = ""
-		end
-
-		local startTime = tick()
-		local headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
-
-		if not isFinal then
-			for i = 0, MAX_THUMBNAIL_RETRIES do
-				headshotUrl, isFinal = PlayersService:GetUserThumbnailAsync(player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size180x180)
-				if isFinal then
-					break
-				end
-				wait(i ^ 2)
-			end
-		end
-		self.HeadShotUrlCache[player] = headshotUrl
-
-		return headshotUrl
-	end
+	return "rbxthumb://type=AvatarHeadShot&id=" .. player.UserId .. "&w=150&h=150"
 end
 
 function ContextMenuUtil:HasOrGettingHeadShot(player)
@@ -321,10 +292,6 @@ end
 
 function ContextMenuUtil.new()
 	local obj = setmetatable({}, ContextMenuUtil)
-
-	-- todo: remove with GetFFlagUseThumbnailUrl
-	obj.HeadShotUrlCache = {}
-
 	return obj
 end
 

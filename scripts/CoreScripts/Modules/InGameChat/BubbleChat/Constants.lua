@@ -11,4 +11,14 @@ return {
 	CAMERA_CHANGED_EPSILON = 5,
 	-- Triggers a billboard rerender when its offset (determined by the character's hitbox size) changes by this amount
 	BILLBOARD_OFFSET_EPSILON = .5,
+
+	VOICE_STATE = {
+		INACTIVE = "Inactive",
+		TALKING = "Talking",
+		CONNECTING = "Connecting",
+		MUTED = "Muted",
+		LOCAL_MUTED = "LOCAL_MUTED",
+		ERROR = "Error",
+		HIDDEN = "Hidden",
+	}
 }

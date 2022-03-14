@@ -1,13 +1,18 @@
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
+local GuiService = game:GetService("GuiService")
 
 local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local UIBlox = InGameMenuDependencies.UIBlox
 local t = InGameMenuDependencies.t
 
-local withStyle = UIBlox.Core.Style.withStyle
-
 local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+local GetFFlagInGameMenuCloseReportAbuseMenuOnEscape = require(Flags.GetFFlagInGameMenuCloseReportAbuseMenuOnEscape)
+
+local withStyle = UIBlox.Core.Style.withStyle
 
 local Assets = require(InGameMenu.Resources.Assets)
 local divideTransparency = require(InGameMenu.Utility.divideTransparency)
@@ -16,6 +21,7 @@ local ThemedButton = require(script.Parent.ThemedButton)
 local ThemedTextLabel = require(script.Parent.ThemedTextLabel)
 local Divider = require(script.Parent.Divider)
 local BarOnTopScrollingFrame = require(script.Parent.BarOnTopScrollingFrame)
+local FocusHandler = require(script.Parent.Connection.FocusHandler)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -23,35 +29,46 @@ local ImageSetLabel = UIBlox.Core.ImageSet.Label
 
 local DropDownSelection = Roact.PureComponent:extend("DropDownSelection")
 
+local SETTINGS_DROPDOWN_CLOSE_ACTION = "settings_dropdown_close_action"
+
 local DROP_DOWN_BORDER_SIZE = 4
 local MAX_ITEMS_DISPLAYED = 7.5
 local ITEM_HEIGHT = 44
 
-DropDownSelection.validateProps = t.intersection(t.strictInterface({
-	Size = t.UDim2,
-	Position = t.optional(t.UDim2),
-	LayoutOrder = t.optional(t.integer),
+DropDownSelection.validateProps = t.intersection(
+	t.strictInterface({
+		Size = t.UDim2,
+		Position = t.optional(t.UDim2),
+		LayoutOrder = t.optional(t.integer),
 
-	placeHolderText = t.optional(t.string),
-	selectedIndex = t.integer, --0 if placeholder is selected
-	selections = t.array(t.string),
-	localize = t.boolean,
-	enabled = t.boolean,
-	selectionChanged = t.callback,
-}), function(props)
-	if props.selectedIndex < 0 then
-		return false, "selectedIndex must be greater than 0"
-	end
+		placeHolderText = t.optional(t.string),
+		selectedIndex = t.numberMin(0), --0 if placeholder is selected
+		selections = t.array(t.string),
+		localize = t.boolean,
+		enabled = t.boolean,
+		truncate = t.optional(t.boolean),
+		selectionChanged = t.callback,
+		canOpen = GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() and t.optional(t.boolean) or nil,
+		canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+		selectionParentName = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.string) or nil,
+		ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil
+	}),
+	function(props)
+		if props.selectedIndex > #props.selections then
+			return false, "selectedIndex must not be greater than the number of selections"
+		end
 
-	if props.selectedIndex > #props.selections then
-		return false, "selectedIndex must not be greater than the number of selections"
-	end
+		return true
+	end)
 
-	return true
-end)
+DropDownSelection.defaultProps = {
+	canOpen = GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() and true or nil,
+}
 
 function DropDownSelection:init()
 	self.rootRef = Roact.createRef()
+	self.firstOptionRef = Roact.createRef()
+	self.openDropDownButtonRef = self.props.ButtonRef or Roact.createRef()
 
 	self.state = {
 		isOpen = false,
@@ -65,6 +82,17 @@ function DropDownSelection:init()
 
 	self.ancestryConnection = nil
 	self.sizeConnection = nil
+end
+
+if GetFFlagInGameMenuCloseReportAbuseMenuOnEscape() then
+	function DropDownSelection.getDerivedStateFromProps(nextProps)
+		if not nextProps.canOpen then
+			return {
+				isOpen = false,
+			}
+		end
+		return nil
+	end
 end
 
 function DropDownSelection:renderDropDownList(style, localized)
@@ -81,6 +109,13 @@ function DropDownSelection:renderDropDownList(style, localized)
 			buttonText = localized[index]
 		end
 
+		local textOffset = -25
+		-- We only need to bump up the text offset for the first index because
+		-- at full size it gets in the way of the dropdown caret ∨
+		if self.props.truncate and index == 1 then
+			textOffset = -12 * 4
+		end
+
 		dropDownList["button" .. index] = Roact.createElement(ThemedButton, {
 			Size = UDim2.new(1, 0, 0, self.state.dropDownItemHeight - 1),
 			LayoutOrder = index * 2,
@@ -92,7 +127,7 @@ function DropDownSelection:renderDropDownList(style, localized)
 			end,
 			normalThemeKey = "BackgroundUIDefault",
 			hoverThemeKey = "BackgroundOnHover",
-
+			ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and index == 1 and self.firstOptionRef or nil,
 			imageProps = Assets.Images.WhiteSquare,
 
 			renderChildren = function(transparency, isHovered, isPressed)
@@ -117,8 +152,9 @@ function DropDownSelection:renderDropDownList(style, localized)
 						themeKey = "TextEmphasis",
 
 						Position = UDim2.new(0, 25, 0, 0),
-						Size = UDim2.new(1, -25, 1, 0),
+						Size = UDim2.new(1, textOffset, 1, 0),
 						Text = buttonText,
+						TextTruncate = if self.props.truncate then Enum.TextTruncate.AtEnd else Enum.TextTruncate.None,
 						TextXAlignment = Enum.TextXAlignment.Left,
 					}),
 				}
@@ -132,6 +168,37 @@ function DropDownSelection:renderDropDownList(style, localized)
 		end
 	end
 	return dropDownList
+end
+
+function DropDownSelection:renderFocusHandler()
+	return self.props.selectionParentName and Roact.createElement(FocusHandler, {
+		isFocused = self.props.canOpen and self.state.isOpen,
+
+		didFocus = function()
+			ContextActionService:BindCoreAction(SETTINGS_DROPDOWN_CLOSE_ACTION, function(actionName, inputState)
+				if inputState == Enum.UserInputState.End then
+					self:setState({ isOpen = false })
+					return Enum.ContextActionResult.Sink
+				end
+				return Enum.ContextActionResult.Pass
+			end, false, Enum.KeyCode.ButtonB)
+
+			if self.props.canCaptureFocus then
+				GuiService:RemoveSelectionGroup(self.props.selectionParentName)
+				GuiService:AddSelectionParent(self.props.selectionParentName, self.rootRef.current)
+				GuiService.SelectedCoreObject = self.firstOptionRef.current
+			end
+		end,
+
+		didBlur = function()
+			ContextActionService:UnbindCoreAction(SETTINGS_DROPDOWN_CLOSE_ACTION)
+			GuiService:RemoveSelectionGroup(self.props.selectionParentName)
+
+			if self.props.canOpen and not self.state.isOpen and self.props.canCaptureFocus then
+				GuiService.SelectedCoreObject = self.openDropDownButtonRef.current
+			end
+		end,
+	}) or nil
 end
 
 function DropDownSelection:render()
@@ -151,6 +218,12 @@ function DropDownSelection:render()
 			local shadowSize = Assets.Images.Shadow.Size
 			local itemSize = math.min(#self.props.selections, MAX_ITEMS_DISPLAYED) * ITEM_HEIGHT
 			local dropDownList = self:renderDropDownList(style, localized)
+
+			-- Can inline when GetFFlagInGameMenuControllerDevelopmentOnly is removed
+			local isCloseDropDownAreaSelectable = nil
+			if GetFFlagInGameMenuControllerDevelopmentOnly() then
+				isCloseDropDownAreaSelectable = false
+			end
 
 			return Roact.createElement("Frame", {
 				Size = self.props.Size,
@@ -205,12 +278,14 @@ function DropDownSelection:render()
 								themeKey = "SecondaryContent",
 								fontKey = "Header2",
 								Position = UDim2.new(0, 12, 0, 0),
-								Size = UDim2.new(1, -12, 1, 0),
+								Size = UDim2.new(1, self.props.truncate and -12 * 4 or -12, 1, 0),
 								TextTransparency = transparency,
+								TextTruncate = if self.props.truncate then Enum.TextTruncate.AtEnd else Enum.TextTruncate.None,
 								TextXAlignment = Enum.TextXAlignment.Left,
 							}),
 						}
 					end,
+					ButtonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.openDropDownButtonRef or nil,
 				}),
 
 				CloseDropDownArea = Roact.createElement("TextButton", {
@@ -219,7 +294,7 @@ function DropDownSelection:render()
 					Position = UDim2.new(0, -self.state.absolutePositionX, 0, -self.state.absolutePositionY),
 					Size = UDim2.new(0, self.state.screenSizeX, 0, self.state.screenSizeY),
 					Visible = self.state.isOpen,
-
+					Selectable = isCloseDropDownAreaSelectable,
 					[Roact.Event.Activated] = function()
 						self:setState({
 							isOpen = false,
@@ -238,6 +313,7 @@ function DropDownSelection:render()
 					Visible = self.state.isOpen,
 					ZIndex = 3,
 				}, {
+					FocusHandler = GetFFlagInGameMenuControllerDevelopmentOnly() and self:renderFocusHandler() or nil,
 					DropDownBackground = Roact.createElement(ImageSetLabel, {
 						BackgroundTransparency = 1,
 						Image = Assets.Images.RoundedRect.Image,
@@ -254,7 +330,7 @@ function DropDownSelection:render()
 							Position = UDim2.new(0, 0, 0, DROP_DOWN_BORDER_SIZE),
 							Size = UDim2.new(1, 0, 1, -DROP_DOWN_BORDER_SIZE * 2),
 							CanvasSize = UDim2.new(1, 0, 0, #self.props.selections * self.state.dropDownItemHeight),
-							scrollBarOffset = 4,
+							scrollBarOffset = not GetFFlagInGameMenuControllerDevelopmentOnly() and 4 or nil
 						}, dropDownList),
 					}),
 				}),
@@ -292,6 +368,19 @@ function DropDownSelection:didMount()
 		end)
 	else
 		self:watchLayerCollector(layerCollector)
+	end
+end
+
+function DropDownSelection:didUpdate(prevProps)
+	if prevProps.ButtonRef ~= self.props.ButtonRef then
+		self.openDropDownButtonRef = self.props.ButtonRef or Roact.createRef()
+	end
+
+	-- e.g. close the dropdown when the input device changes
+	if self.state.isOpen
+		and prevProps.canCaptureFocus ~= self.props.canCaptureFocus
+	then
+		self:setState({isOpen = false})
 	end
 end
 

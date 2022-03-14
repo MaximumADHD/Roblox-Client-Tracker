@@ -44,10 +44,6 @@ function GameProtocol:launchGame(params): ()
 	MessageBus.publish(self.GAME_LAUNCH_DESCRIPTOR, params)
 end
 
-function GameProtocol:isEnabled(): boolean
-	return game:GetEngineFeature("GameProtocol")
-end
-
 GameProtocol.default = GameProtocol.new()
 
 return GameProtocol

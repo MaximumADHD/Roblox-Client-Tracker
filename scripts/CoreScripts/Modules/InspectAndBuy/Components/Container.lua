@@ -10,6 +10,8 @@ local NoInventoryNotice = require(InspectAndBuyFolder.Components.NoInventoryNoti
 local Colors = require(InspectAndBuyFolder.Colors)
 local Constants = require(InspectAndBuyFolder.Constants)
 
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+
 local Container = Roact.PureComponent:extend("Container")
 
 function Container:init()
@@ -58,46 +60,50 @@ end
 
 function Container:render()
 	local view = self.props.view
-	local viewMapping = self._context[view]
 	local localPlayerModel = self.props.localPlayerModel
 	local visible = self.props.visible
 
-	return Roact.createElement("ImageButton", {
-		Size = UDim2.new(1, 0, 1, 46),
-		Position = UDim2.new(0, 0, 0, -46),
-		BackgroundColor3 = viewMapping.ContainerBackgroundColor,
-		BackgroundTransparency = viewMapping.ContainerBackgroundTransparency,
-		Visible = visible,
-		Selectable = false,
-		AutoButtonColor = false,
-		AutoLocalize = false,
-		[Roact.Event.Activated] = function()
-			if view == Constants.View.Wide then
-				GuiService:CloseInspectMenu()
-			end
-		end,
-	}, {
-		MainContainer = Roact.createElement("ImageButton", {
-			AnchorPoint = viewMapping.ContainerAnchorPoint,
-			Size = viewMapping.ContainerSize,
-			Position = viewMapping.ContainerPosition,
-			BackgroundColor3 = Colors.Carbon,
-			BorderSizePixel = 0,
-			Active = true,
-			AutoButtonColor = false,
-			Selectable = false,
-			[Roact.Ref] = self.frameRef,
-		}, {
-			AspectRatioConstraint = viewMapping.UseContainerAspectRatio and Roact.createElement("UIAspectRatioConstraint", {
-				AspectRatio = viewMapping.ContainerAspectRatio,
-			}),
-			CloseButton = Roact.createElement(CloseButton),
-			InitialView = Roact.createElement(InitialView),
-			AssetDetails = Roact.createElement(AssetDetails, {
-				localPlayerModel = localPlayerModel,
-			}),
-			NoInventoryNotice = Roact.createElement(NoInventoryNotice),
-		})
+	return Roact.createElement(InspectAndBuyContext.Consumer, {
+		render = function(views)
+			local viewMapping = views[view]
+			return Roact.createElement("ImageButton", {
+				Size = UDim2.new(1, 0, 1, 46),
+				Position = UDim2.new(0, 0, 0, -46),
+				BackgroundColor3 = viewMapping.ContainerBackgroundColor,
+				BackgroundTransparency = viewMapping.ContainerBackgroundTransparency,
+				Visible = visible,
+				Selectable = false,
+				AutoButtonColor = false,
+				AutoLocalize = false,
+				[Roact.Event.Activated] = function()
+					if view == Constants.View.Wide then
+						GuiService:CloseInspectMenu()
+					end
+				end,
+			}, {
+				MainContainer = Roact.createElement("ImageButton", {
+					AnchorPoint = viewMapping.ContainerAnchorPoint,
+					Size = viewMapping.ContainerSize,
+					Position = viewMapping.ContainerPosition,
+					BackgroundColor3 = Colors.Carbon,
+					BorderSizePixel = 0,
+					Active = true,
+					AutoButtonColor = false,
+					Selectable = false,
+					[Roact.Ref] = self.frameRef,
+				}, {
+					AspectRatioConstraint = viewMapping.UseContainerAspectRatio and Roact.createElement("UIAspectRatioConstraint", {
+						AspectRatio = viewMapping.ContainerAspectRatio,
+					}),
+					CloseButton = Roact.createElement(CloseButton),
+					InitialView = Roact.createElement(InitialView),
+					AssetDetails = Roact.createElement(AssetDetails, {
+						localPlayerModel = localPlayerModel,
+					}),
+					NoInventoryNotice = Roact.createElement(NoInventoryNotice),
+				})
+			})
+		end
 	})
 end
 

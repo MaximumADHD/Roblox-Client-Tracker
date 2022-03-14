@@ -36,7 +36,7 @@ return function()
 				}, {
 					AutoPropertyToggleEntry = Roact.createElement(AutoPropertyToggleEntry, {
 						instance = dummyValue,
-						key = "Value",
+						valueKey = "Value",
 						lockedToOff = false,
 						onValue = true,
 						offValue = false,

@@ -5,8 +5,14 @@ local RunService = game:GetService('RunService')
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
+local Cryo = require(CorePackages.Cryo)
 local Colors = require(InspectAndBuyFolder.Colors)
 local rebuildJoints = require(InspectAndBuyFolder.rebuildJoints)
+local CharacterModelPool = require(InspectAndBuyFolder.CharacterModelPool)
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+
+local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
+local FFlagInspectAndBuyLCPopInFix = game:DefineFastFlag("InspectAndBuyLCPopInFix", false)
 
 local CHARACTER_ROTATION_SPEED = .0065
 local STICK_ROTATION_MULTIPLIER = 3
@@ -18,6 +24,7 @@ local AvatarViewport = Roact.PureComponent:extend("AvatarViewport")
 
 function AvatarViewport:init()
 	self.viewportFrameRef = Roact.createRef()
+	self.worldModelRef = FFlagInspectAndBuyLayeredClothingSupport and Roact.createRef() or nil
 	self.connections = {}
 	self.xRotation = 0
 	self.yRotation = 0
@@ -31,6 +38,8 @@ function AvatarViewport:init()
 	self.viewportCamera.CameraType = Enum.CameraType.Scriptable
 	self.model = self.props.model
 	self.lastInputTime = AUTO_ROTATE_WAIT_TIME
+	self.initialHrpPosition = (FFlagInspectAndBuyLCPopInFix and self.props.model ~= nil) and
+		self.props.model.HumanoidRootPart.Position or nil
 end
 
 function AvatarViewport:didMount()
@@ -38,8 +47,19 @@ function AvatarViewport:didMount()
 		self.viewportCamera.Parent = self.viewportFrameRef.current
 		self.viewportFrameRef.current.CurrentCamera = self.viewportCamera
 		self:setRotation()
-		rebuildJoints(self.model)
-		self.model.Parent = self.viewportFrameRef.current
+
+		if FFlagInspectAndBuyLayeredClothingSupport then
+			if FFlagInspectAndBuyLCPopInFix then
+				local rigType = self.model.Humanoid.RigType
+				self.characterModelPool =
+					CharacterModelPool.new(self.worldModelRef, self.initialHrpPosition, rigType)
+			else
+				self.model.Parent = self.worldModelRef:getValue()
+			end
+		else
+			rebuildJoints(self.model)
+			self.model.Parent = self.viewportFrameRef.current
+		end
 	end
 
 	self.isMounted = true
@@ -50,9 +70,18 @@ end
 function AvatarViewport:didUpdate(prevProps, prevState)
 	if self.props.visible and self.props.humanoidDescription ~= prevProps.humanoidDescription and self.model then
 		coroutine.wrap(function()
-			self.model.Parent = self.viewportFrameRef.current
-			self.model.Humanoid:ApplyDescriptionClientServer(self.props.humanoidDescription)
-			rebuildJoints(self.model)
+			if FFlagInspectAndBuyLayeredClothingSupport then
+				if FFlagInspectAndBuyLCPopInFix then
+					self.characterModelPool:maybeUpdateCharacter(self.props.humanoidDescription)
+				else
+					self.model.Parent = self.worldModelRef:getValue()
+					self.model.Humanoid:ApplyDescriptionClientServer(self.props.humanoidDescription)
+				end
+			else
+				self.model.Parent = self.viewportFrameRef.current
+				self.model.Humanoid:ApplyDescriptionClientServer(self.props.humanoidDescription)
+				rebuildJoints(self.model)
+			end
 		end)()
 	end
 
@@ -73,23 +102,27 @@ end
 function AvatarViewport:setRotation()
 	local currentCharacter = self.model
 	local view = self.props.view
-	local viewMapping = self._context[view]
+	local viewMapping
+	viewMapping = self.props.views[view]
 
 	if currentCharacter then
 		local hrp = currentCharacter.HumanoidRootPart
+		-- Set the camera's position relative to the initialHrpPosition rather than the current hrp.Position
+		-- So that moving the model for Popin fix purposes will not also move the camera
+		local hrpPosition = FFlagInspectAndBuyLCPopInFix and self.initialHrpPosition or hrp.Position
 		local offset = viewMapping.DefaultCameraOffset
 		if self.model:FindFirstChildOfClass("Tool") then
 			offset = viewMapping.ToolOffset
 		end
 
 		local cameraPosition = (
-			CFrame.new(hrp.Position)
+			CFrame.new(hrpPosition)
 			* CFrame.Angles(0, -self.yRotation, 0)
 			* CFrame.Angles(self.xRotation, 0, 0)
 			* offset
 		).p
 
-		self.viewportCamera.CFrame = CFrame.new(cameraPosition, hrp.Position)
+		self.viewportCamera.CFrame = CFrame.new(cameraPosition, hrpPosition)
 	end
 end
 
@@ -140,6 +173,10 @@ function AvatarViewport:render()
 				table.insert(self.connections, endConnection)
 			end
 		end,
+	}, {
+		WorldModel = FFlagInspectAndBuyLayeredClothingSupport and Roact.createElement("WorldModel", {
+			[Roact.Ref] = self.worldModelRef,
+		})
 	})
 end
 
@@ -229,6 +266,15 @@ function AvatarViewport:willUnmount()
 	self:removeConnections()
 end
 
+local function AvatarViewportWrapper(props)
+	return Roact.createElement(InspectAndBuyContext.Consumer, {
+		render = function(views)
+			local combinedProps = Cryo.Dictionary.join(props, { views = views })
+			return Roact.createElement(AvatarViewport, combinedProps)
+		end
+	})
+end
+
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		return {
@@ -237,4 +283,4 @@ return RoactRodux.UNSTABLE_connect2(
 			gamepadEnabled = state.gamepadEnabled,
 		}
 	end
-)(AvatarViewport)
+)(AvatarViewportWrapper)

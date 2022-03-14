@@ -5,15 +5,8 @@ local IsDetailsItemPartOfBundleAndOffsale = require(InspectAndBuyFolder.Selector
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local createInspectAndBuyKeyMapper = require(InspectAndBuyFolder.createInspectAndBuyKeyMapper)
 
-local FFlagInspectAndBuyFetchingStatusKeyFix = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyFetchingStatusKeyFix)
-
-local ASSET_KEY = not FFlagInspectAndBuyFetchingStatusKeyFix and "inspectAndBuy.getAssetFavoriteCount." or nil
-local BUNDLE_KEY = not FFlagInspectAndBuyFetchingStatusKeyFix and "inspectAndBuy.getAssetFavoriteCount." or nil
-
-local ASSET_KEY_MAPPER = FFlagInspectAndBuyFetchingStatusKeyFix
-	and createInspectAndBuyKeyMapper("getAssetFavoriteCount") or nil
-local BUNDLE_KEY_MAPPER = FFlagInspectAndBuyFetchingStatusKeyFix
-	and createInspectAndBuyKeyMapper("getBundleFavoriteCount") or nil
+local ASSET_KEY_MAPPER = createInspectAndBuyKeyMapper("getAssetFavoriteCount")
+local BUNDLE_KEY_MAPPER = createInspectAndBuyKeyMapper("getBundleFavoriteCount")
 
 --[[
 	Gets the current favorite status of the asset/bundle being viewed.
@@ -34,23 +27,13 @@ return function(state)
 
 	if isBundleAndOffsale then
 		local bundleId = UtilityFunctions.getBundleId(assetInfo)
-		local key
-		if FFlagInspectAndBuyFetchingStatusKeyFix then
-			-- Generate key with createInspectAndBuyKeyMapper for consistency with GetBundleFavoriteCount thunk
-			key = BUNDLE_KEY_MAPPER(state.storeId, bundleId)
-		else
-			key = BUNDLE_KEY ..tostring(bundleId)
-		end
+		-- Generate key with createInspectAndBuyKeyMapper for consistency with GetBundleFavoriteCount thunk
+		local key = BUNDLE_KEY_MAPPER(state.storeId, bundleId)
 		return state.FetchingStatus[key] == RetrievalStatus.Fetching
 			or state.FetchingStatus[key] == RetrievalStatus.Done
 	else
-		local key
-		if FFlagInspectAndBuyFetchingStatusKeyFix then
-			-- Generate key with createInspectAndBuyKeyMapper for consistency with GetAssetFavoriteCount thunk
-			key = ASSET_KEY_MAPPER(state.storeId, assetId)
-		else
-			key = ASSET_KEY ..tostring(assetId)
-		end
+		-- Generate key with createInspectAndBuyKeyMapper for consistency with GetAssetFavoriteCount thunk
+		local key = ASSET_KEY_MAPPER(state.storeId, assetId)
 		return state.FetchingStatus[key] == RetrievalStatus.Fetching
 			or state.FetchingStatus[key] == RetrievalStatus.Done
 	end

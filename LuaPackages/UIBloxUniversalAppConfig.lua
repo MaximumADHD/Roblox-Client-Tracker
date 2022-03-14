@@ -2,35 +2,41 @@
 -- for more info on how to add values here
 local CorePackages = game:GetService("CorePackages")
 
-local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(CorePackages.UIBloxFlags.GetFFlagLuaAppUseNewUIBloxRoundedCorners)
-local GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix = require(CorePackages.UIBloxFlags.GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix)
-local FFlagUIBloxSlidersFilterOldTouchInputs = require(CorePackages.UIBloxFlags.FFlagUIBloxSlidersFilterOldTouchInputs)
-local FFlagUIBloxEmptyStateControllerSupport = require(CorePackages.UIBloxFlags.FFlagUIBloxEmptyStateControllerSupport)
-local GetFFlagUIBloxUseHeaderBarV2 = require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseHeaderBarV2)
+local GetFFlagLuaAppUseNewUIBloxRoundedCorners = require(
+	CorePackages.UIBloxFlags.GetFFlagLuaAppUseNewUIBloxRoundedCorners
+)
 local FFlagUIBloxUseTileThumbnailV2 = require(CorePackages.UIBloxFlags.FFlagUIBloxUseTileThumbnailV2)
-local FFlagUseUpdatedUIBloxCheckbox = require(CorePackages.UIBloxFlags.FFlagUseUpdatedUIBloxCheckbox)
 local FFlagTempFixEmptyGridView = require(CorePackages.UIBloxFlags.FFlagTempFixEmptyGridView)
-local FFlagUIBloxGridViewIsMountedCleanup = require(CorePackages.UIBloxFlags.FFlagUIBloxGridViewIsMountedCleanup)
-local FFlagNoSpawnInGridViewHandler = require(CorePackages.UIBloxFlags.FFlagNoSpawnInGridViewHandler)
-local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
-local GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize = require(CorePackages.UIBloxFlags.GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize)
+local FFlagTempFixGridViewLayoutWithSpawn = require(CorePackages.UIBloxFlags.FFlagTempFixGridViewLayoutWithSpawn)
+local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize
+)
+local GetFFlagUIBloxEnableSubtitleOnTile = require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableSubtitleOnTile)
+local GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel
+)
+local GetFFlagUIBloxUseNewGenericTextLabelProps = require(
+	CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps
+)
+local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
+
+local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 
 return {
+	improvementsToGridView = FFlagImprovementsToGridView,
 	tempFixEmptyGridView = FFlagTempFixEmptyGridView,
-	noSpawnInGridViewHandler = FFlagNoSpawnInGridViewHandler,
-	gridViewIsMountedCleanup = FFlagUIBloxGridViewIsMountedCleanup,
+	tempFixGridViewLayoutWithSpawn = FFlagTempFixGridViewLayoutWithSpawn,
 	useNewUICornerRoundedCorners = GetFFlagLuaAppUseNewUIBloxRoundedCorners(),
-	enableExperimentalGamepadSupport = true,
-	genericSliderFilterOldTouchInputs = FFlagUIBloxSlidersFilterOldTouchInputs,
+	genericSliderFilterOldTouchInputs = true,
 	allowSystemBarToAcceptString = game:DefineFastFlag("UIBloxAllowSystemBarToAcceptString", false),
-	emptyStateControllerSupport = FFlagUIBloxEmptyStateControllerSupport,
-	useHeaderBarV2 = GetFFlagUIBloxUseHeaderBarV2(),
+	emptyStateControllerSupport = true,
 	useTileThumbnailV2 = FFlagUIBloxUseTileThumbnailV2,
-	tooltipWidthUsesHeaderToo = game:DefineFastFlag("UIBloxTooltipWidthUsesHeaderToo", false),
 	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
-	enableAlertCustomTitleFooterConfig = game:DefineFastFlag("UIBloxEnableAlertCustomTitleFooterConfig", false),
-	hideHorizontalCarouselScrollButtonFix = GetFFlagUIBloxHideHorizontalCarouselScrollButtonFix(),
-	useUpdatedCheckbox = FFlagUseUpdatedUIBloxCheckbox,
+	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
-	enabledAutomaticCanvasSizePropForVerticalScrollView = GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize(),
+	enableSubtitleOnTile = GetFFlagUIBloxEnableSubtitleOnTile(),
+	enableGamepadKeyCodeSupportForKeyLabel = GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel(),
+	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
+	enableCustomMinPaddingForLinkButton = game:DefineFastFlag("UIBloxEnableCustomMinPaddingForLinkButton", false),
+	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 }

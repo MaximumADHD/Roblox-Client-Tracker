@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local ContextActionService = game:GetService("ContextActionService")
 local Roact = require(CorePackages.Roact)
 local RoactRodux = require(CorePackages.RoactRodux)
 local InspectAndBuyFolder = script.Parent.Parent
@@ -15,16 +16,31 @@ local GetIsFavorite = require(InspectAndBuyFolder.Selectors.GetIsFavorite)
 local UtilityFunctions = require(InspectAndBuyFolder.UtilityFunctions)
 local getSelectionImageObjectRounded = require(InspectAndBuyFolder.getSelectionImageObjectRounded)
 
-local FFlagAllowForBundleItemsSoldSeparately = require(InspectAndBuyFolder.Flags.FFlagAllowForBundleItemsSoldSeparately)
+local GetFFlagUseInspectAndBuyControllerBar = require(InspectAndBuyFolder.Flags.GetFFlagUseInspectAndBuyControllerBar)
+local FavoriteShorcutKeycode = require(script.Parent.Common.ControllerShortcutKeycodes).Favorite
 
 local FAVORITE_IMAGE_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite.png"
 local FAVORITE_IMAGE_NOT_FILLED = "rbxasset://textures/ui/InspectMenu/ico_favorite_off.png"
 local ROBLOX_CREATOR_ID = "1"
+local FAVORITE_GAMEPAD_SHORTCUT = "FavoriteGamepadShortcut"
 
 local FavoritesButton = Roact.PureComponent:extend("FavoritesButton")
 
 function FavoritesButton:init()
 	self.selectedImage = getSelectionImageObjectRounded()
+
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		ContextActionService:BindCoreAction(FAVORITE_GAMEPAD_SHORTCUT,
+		function(actionName, inputState, inputObject)
+			if inputState == Enum.UserInputState.End then
+				self:activateButton()
+				return Enum.ContextActionResult.Sink
+			end
+			return Enum.ContextActionResult.Pass
+		end,
+		false,
+		FavoriteShorcutKeycode)
+	end
 end
 
 function FavoritesButton:willUpdate(nextProps)
@@ -35,10 +51,7 @@ function FavoritesButton:willUpdate(nextProps)
 	if nextProps.assetInfo and nextProps.assetInfo.bundlesAssetIsIn and not gotFavoriteForDetailsItem then
 		local assetInfo = nextProps.assetInfo
 		local partOfBundle = #assetInfo.bundlesAssetIsIn > 0
-		local partOfBundleAndOffsale = partOfBundle
-		if FFlagAllowForBundleItemsSoldSeparately then
-			partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
-		end
+		local partOfBundleAndOffsale = partOfBundle and not assetInfo.isForSale
 
 		coroutine.wrap(function()
 			if not partOfBundleAndOffsale then
@@ -48,6 +61,44 @@ function FavoritesButton:willUpdate(nextProps)
 				getFavoriteForBundle(bundleId)
 			end
 		end)()
+	end
+end
+
+function FavoritesButton:activateButton()
+	local isFavorited = self.props.isFavorited
+	local isDetailsItemPartOfBundleAndOffsale = self.props.IsDetailsItemPartOfBundleAndOffsale
+	local createFavoriteForAsset = self.props.createFavoriteForAsset
+	local deleteFavoriteForAsset = self.props.deleteFavoriteForAsset
+	local createFavoriteForBundle = self.props.createFavoriteForBundle
+	local deleteFavoriteForBundle = self.props.deleteFavoriteForBundle
+	local assetInfo = self.props.assetInfo
+	local creatorId = assetInfo and assetInfo.creatorId or 0
+
+	-- prevent activation when favorites isn't visible b/c items not created by Roblox are not favoriteable
+	if creatorId ~= ROBLOX_CREATOR_ID then
+		return
+	end
+
+	if isFavorited then
+		if isDetailsItemPartOfBundleAndOffsale then
+			local bundleId = UtilityFunctions.getBundleId(assetInfo)
+			deleteFavoriteForBundle(bundleId)
+		else
+			deleteFavoriteForAsset(assetInfo.assetId)
+		end
+	else
+		if isDetailsItemPartOfBundleAndOffsale then
+			local bundleId = UtilityFunctions.getBundleId(assetInfo)
+			createFavoriteForBundle(bundleId)
+		else
+			createFavoriteForAsset(assetInfo.assetId)
+		end
+	end
+end
+
+function FavoritesButton:willUnmount()
+	if GetFFlagUseInspectAndBuyControllerBar() then
+		ContextActionService:UnbindCoreAction(FAVORITE_GAMEPAD_SHORTCUT)
 	end
 end
 
@@ -76,19 +127,23 @@ function FavoritesButton:render()
 		Visible = creatorId == ROBLOX_CREATOR_ID,
 		[Roact.Ref] = favoriteButtonRef,
 		[Roact.Event.Activated] = function()
-			if isFavorited then
-				if isDetailsItemPartOfBundleAndOffsale then
-					local bundleId = UtilityFunctions.getBundleId(assetInfo)
-					deleteFavoriteForBundle(bundleId)
-				else
-					deleteFavoriteForAsset(assetInfo.assetId)
-				end
+			if GetFFlagUseInspectAndBuyControllerBar() then
+				self:activateButton()
 			else
-				if isDetailsItemPartOfBundleAndOffsale then
-					local bundleId = UtilityFunctions.getBundleId(assetInfo)
-					createFavoriteForBundle(bundleId)
+				if isFavorited then
+					if isDetailsItemPartOfBundleAndOffsale then
+						local bundleId = UtilityFunctions.getBundleId(assetInfo)
+						deleteFavoriteForBundle(bundleId)
+					else
+						deleteFavoriteForAsset(assetInfo.assetId)
+					end
 				else
-					createFavoriteForAsset(assetInfo.assetId)
+					if isDetailsItemPartOfBundleAndOffsale then
+						local bundleId = UtilityFunctions.getBundleId(assetInfo)
+						createFavoriteForBundle(bundleId)
+					else
+						createFavoriteForAsset(assetInfo.assetId)
+					end
 				end
 			end
 		end,

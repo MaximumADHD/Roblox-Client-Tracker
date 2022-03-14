@@ -1,19 +1,26 @@
 local CorePackages = game:GetService("CorePackages")
 
-local FFlagUseUpdatedUIBloxCheckbox = require(CorePackages.UIBloxFlags.FFlagUseUpdatedUIBloxCheckbox)
 local FFlagTempFixEmptyGridView = require(CorePackages.UIBloxFlags.FFlagTempFixEmptyGridView)
-local FFlagUIBloxGridViewIsMountedCleanup = require(CorePackages.UIBloxFlags.FFlagUIBloxGridViewIsMountedCleanup)
-local FFlagNoSpawnInGridViewHandler = require(CorePackages.UIBloxFlags.FFlagNoSpawnInGridViewHandler)
+local FFlagTempFixGridViewLayoutWithSpawn = require(CorePackages.UIBloxFlags.FFlagTempFixGridViewLayoutWithSpawn)
 local GetFFlagUIBloxFixDropdownMenuListPositionAndSize = require(CorePackages.UIBloxFlags.GetFFlagUIBloxFixDropdownMenuListPositionAndSize)
-local GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize = require(CorePackages.UIBloxFlags.GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize)
+local GetFFlagUIBloxGenericButtonInputChangesInGame= require(CorePackages.UIBloxFlags.GetFFlagUIBloxGenericButtonInputChangesInGame)
+local GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel)
+local GetFFlagUIBloxUseNewGenericTextLabelProps =
+	require(CorePackages.UIBloxFlags.GetFFlagUIBloxUseNewGenericTextLabelProps)
+local FFlagImprovementsToGridView = require(CorePackages.UIBloxFlags.FFlagImprovementsToGridView)
+local FFlagFixThumbnailTileInconsistency = require(CorePackages.UIBloxFlags.FFlagFixThumbnailTileInconsistency)
 
 return {
+	improvementsToGridView = FFlagImprovementsToGridView,
 	tempFixEmptyGridView = FFlagTempFixEmptyGridView,
-	noSpawnInGridViewHandler = FFlagNoSpawnInGridViewHandler,
-	gridViewIsMountedCleanup = FFlagUIBloxGridViewIsMountedCleanup,
-	enableExperimentalGamepadSupport = true,
-	enableAlertCustomTitleFooterConfig = game:DefineFastFlag("UIBloxInGameEnableAlertCustomTitleFooterConfig", false),
-	useUpdatedCheckbox = FFlagUseUpdatedUIBloxCheckbox,
+	tempFixGridViewLayoutWithSpawn = FFlagTempFixGridViewLayoutWithSpawn,
+	useUpdatedCheckbox = true,
 	fixDropdownMenuListPositionAndSize = GetFFlagUIBloxFixDropdownMenuListPositionAndSize(),
-	enabledAutomaticCanvasSizePropForVerticalScrollView = GetFFlagUIBloxVerticalScrollViewAutomaticCanvasSize(),
+	useNewGenericTextLabelProps = GetFFlagUIBloxUseNewGenericTextLabelProps(),
+	useAnimatedXboxCursors = game:DefineFastFlag("GamepadAnimatedCursor", false),
+	genericButtonInputChanges = GetFFlagUIBloxGenericButtonInputChangesInGame(),
+	enableGamepadKeyCodeSupportForKeyLabel = GetFFlagUIBloxEnableGamepadKeyCodeSupportForKeyLabel(),
+	enableAnimatedCursorForNonRoactGamepadComponent = game:DefineFastFlag("UIBloxEnableAnimatedCursorForNonRoactGamepad", false),
+	fixTileThumbnailColorInconsistency = FFlagFixThumbnailTileInconsistency,
 }

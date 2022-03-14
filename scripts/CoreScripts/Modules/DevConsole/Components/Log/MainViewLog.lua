@@ -42,7 +42,11 @@ function MainViewLog:init()
 	end
 
 	self.filterUpdated = function()
-		self:setState({})
+		if self.forceUpdate then
+			self:forceUpdate()
+		else
+			self:setState({})
+		end
 	end
 
 	self.onSearchTermChanged = function(newSearchTerm)

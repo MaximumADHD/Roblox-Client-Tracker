@@ -5,7 +5,7 @@
 local util = require(script.Parent:WaitForChild("Util"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(game:GetService("Chat").ClientChatModules.ChatLocalization :: any) end)
 if ChatLocalization == nil then ChatLocalization = { Get = function(self, key, default) return default end } end
 
 function ProcessMessage(message, ChatWindow, ChatSettings)

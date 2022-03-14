@@ -104,8 +104,6 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		})
 
 		local state = store:getState()
-		if not GetFFlagDisableRobuxUpsell() then
-			expect(state.promptState).to.equal(PromptState.RobuxUpsell)
-		end
+		expect(state.promptState).to.equal(PromptState.RobuxUpsell)
 	end)
 end

@@ -78,7 +78,7 @@ function OrbitalCamera.new()
 	return self
 end
 
-function OrbitalCamera:LoadOrCreateNumberValueParameter(name, valueType, updateFunction)
+function OrbitalCamera:LoadOrCreateNumberValueParameter(name: string, valueType, updateFunction)
 	local valueObj = script:FindFirstChild(name)
 
 	if valueObj and valueObj:isA(valueType) then
@@ -168,7 +168,7 @@ function OrbitalCamera:GetModuleName()
 	return "OrbitalCamera"
 end
 
-function OrbitalCamera:SetInitialOrientation(humanoid)
+function OrbitalCamera:SetInitialOrientation(humanoid: Humanoid)
 	if not humanoid or not humanoid.RootPart then
 		warn("OrbitalCamera could not set initial orientation due to missing humanoid")
 		return
@@ -202,18 +202,18 @@ function OrbitalCamera:SetCameraToSubjectDistance(desiredSubjectDistance)
 	return self.currentSubjectDistance
 end
 
-function OrbitalCamera:CalculateNewLookVector(suppliedLookVector, xyRotateVector)
-	local currLookVector = suppliedLookVector or self:GetCameraLookVector()
-	local currPitchAngle = math.asin(currLookVector.y)
-	local yTheta = math.clamp(xyRotateVector.y, currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG), currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG))
-	local constrainedRotateInput = Vector2.new(xyRotateVector.x, yTheta)
-	local startCFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
-	local newLookVector = (CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)).lookVector
+function OrbitalCamera:CalculateNewLookVector(suppliedLookVector: Vector3, xyRotateVector: Vector2): Vector3
+	local currLookVector: Vector3 = suppliedLookVector or self:GetCameraLookVector()
+	local currPitchAngle: number = math.asin(currLookVector.y)
+	local yTheta: number = math.clamp(xyRotateVector.y, currPitchAngle - math.rad(MAX_ALLOWED_ELEVATION_DEG), currPitchAngle - math.rad(MIN_ALLOWED_ELEVATION_DEG))
+	local constrainedRotateInput: Vector2 = Vector2.new(xyRotateVector.x, yTheta)
+	local startCFrame: CFrame = CFrame.new(ZERO_VECTOR3, currLookVector)
+	local newLookVector: Vector3 = (CFrame.Angles(0, -constrainedRotateInput.x, 0) * startCFrame * CFrame.Angles(-constrainedRotateInput.y,0,0)).lookVector
 	return newLookVector
 end
 
 -- [[ Update ]]--
-function OrbitalCamera:Update(dt)
+function OrbitalCamera:Update(dt: number): (CFrame, CFrame)
 	local now = tick()
 	local timeDelta = (now - self.lastUpdate)
 	local userPanningTheCamera = CameraInput.getRotation() ~= Vector2.new()
@@ -252,8 +252,8 @@ function OrbitalCamera:Update(dt)
 		local cameraFocusP = newCameraFocus.p
 		if VREnabled and not self:IsInFirstPerson() then
 			local cameraHeight = self:GetCameraHeight()
-			local vecToSubject = (subjectPosition - camera.CFrame.p)
-			local distToSubject = vecToSubject.magnitude
+			local vecToSubject: Vector3 = (subjectPosition - camera.CFrame.p)
+			local distToSubject: number = vecToSubject.magnitude
 
 			-- Only move the camera if it exceeded a maximum distance to the subject in VR
 			if distToSubject > self.currentSubjectDistance or flaggedRotateInput.x ~= 0 then

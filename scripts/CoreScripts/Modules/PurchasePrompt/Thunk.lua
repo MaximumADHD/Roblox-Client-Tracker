@@ -30,7 +30,7 @@ function Thunk.middleware(services)
 					if providedService == nil then
 						error((
 							"Service with key %s is a dependency but was not provided"
-						):format(service))
+						):format(tostring(service)))
 					end
 
 					injectedServices[service] = providedService
@@ -64,7 +64,7 @@ function Thunk.new(name, requiredServices, onInvoke)
 		requiredServices = requiredServices,
 	}, {
 		__call = function(self, ...)
-			onInvoke(...)
+			return onInvoke(...)
 		end,
 	})
 end

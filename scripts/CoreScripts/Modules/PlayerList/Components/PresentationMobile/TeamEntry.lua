@@ -77,6 +77,8 @@ function TeamEntry:render()
 			return Roact.createElement("Frame", {
 				LayoutOrder = self.props.layoutOrder,
 				Size = UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY),
+				Position = self.props.Position,
+
 				BackgroundTransparency = 0.5,
 				BackgroundColor3 = teamColor,
 				BorderSizePixel = 0,

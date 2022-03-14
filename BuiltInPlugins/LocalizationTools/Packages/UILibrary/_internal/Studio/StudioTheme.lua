@@ -6,7 +6,7 @@
 
 	Example usage (a Theme.lua module in your plugin):
 
-	local StudioTheme = require(Plugin.UILibrary.Studio.StudioTheme)
+	local StudioTheme = require(Plugin.Packages.UILibrary.Studio.StudioTheme)
 	local Theme = {}
 
 	function Theme.createValues(getColor, c, m)

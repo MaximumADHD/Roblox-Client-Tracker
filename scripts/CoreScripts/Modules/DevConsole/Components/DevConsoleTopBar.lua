@@ -21,8 +21,6 @@ local SetDevConsolePosition = require(script.Parent.Parent.Actions.SetDevConsole
 
 local DevConsoleTopBar = Roact.Component:extend("DevConsoleTopBar")
 
-local FFlagFixDevConsoleDraggingTopBar = game:DefineFastFlag("FixDevConsoleDraggingTopBar", false) 
-
 function DevConsoleTopBar:init()
 	self.inputBegan = function(rbx,input)
 		if self.props.isMinimized then
@@ -40,42 +38,23 @@ function DevConsoleTopBar:init()
 		end
 	end
 	self.inputChanged = function(rbx,input)
-		if FFlagFixDevConsoleDraggingTopBar then
-			if self.state.moving and input.UserInputType == Enum.UserInputType.MouseMovement then
-				local offset = self.state.startPos - self.state.startOffset
-				offset = offset + input.Position
-				local position = UDim2.new(0, offset.X, 0, offset.Y)
-				self.props.dispatchSetDevConsolePosition(position)
-			end
-		else
-			if self.state.moving then
-				local offset = self.state.startPos - self.state.startOffset
-				offset = offset + input.Position
-				local position = UDim2.new(0, offset.X, 0, offset.Y)
-				self.props.dispatchSetDevConsolePosition(position)
-			end
+		if self.state.moving and input.UserInputType == Enum.UserInputType.MouseMovement then
+			local offset = self.state.startPos - self.state.startOffset
+			offset = offset + input.Position
+			local position = UDim2.new(0, offset.X, 0, offset.Y)
+			self.props.dispatchSetDevConsolePosition(position)
 		end
 	end
 	self.inputEnded = function(rbx,input)
-		if FFlagFixDevConsoleDraggingTopBar then
-			if input.UserInputType == Enum.UserInputType.MouseButton1 and 
-				input.UserInputState == Enum.UserInputState.End then
-				self:setState({
-					moving = false, -- stop dev console dragging
-				})
-			end
-		else 	
-			if input.UserInputType == Enum.UserInputType.MouseButton1 then
-				self:setState({
-					moving = false,
-				})
-			end
+		if input.UserInputType == Enum.UserInputType.MouseButton1 and 
+			input.UserInputState == Enum.UserInputState.End then
+			self:setState({
+				moving = false, -- stop dev console dragging
+			})
 		end
 	end
 	
-	if FFlagFixDevConsoleDraggingTopBar  then
-		UserInputService.InputChanged:Connect(function(input) self.inputChanged(nil, input) end)
-	end
+	UserInputService.InputChanged:Connect(function(input) self.inputChanged(nil, input) end)
 
 	self.ref = Roact.createRef()
 end
@@ -168,56 +147,18 @@ function DevConsoleTopBar:render()
 		[Roact.Event.Activated] = onCloseClicked,
 	})
 
-	if not FFlagFixDevConsoleDraggingTopBar then 
-		--[[ we do this to catch all inputchanged events
-			if we can handle LARGE distances of continuous MouseMovmement input events
-			for dragging then we might be able to remove the portal
-		]]--
-		elements["MovmentCatchAll"] = moving and Roact.createElement(Roact.Portal, {
-			target = RobloxGui,
-		}, {
-			InputCatcher = Roact.createElement("ScreenGui", {
-				OnTopOfCoreBlur = true,
-			}, {
-				GreyOutFrame = Roact.createElement("Frame", {
-					Size = UDim2.new(1, 0, 1, 0),
-					BackgroundColor3 = Constants.Color.Black,
-					BackgroundTransparency = .99,
-					Active = true,
+	return Roact.createElement("ImageButton", {
+		Size = UDim2.new(1, 0, 0, FRAME_HEIGHT),
+		BackgroundColor3 = Constants.Color.Black,
+		BackgroundTransparency = .5,
+		AutoButtonColor = false,
+		LayoutOrder = 1,
 
-					[Roact.Event.InputChanged] = self.inputChanged,
-					[Roact.Event.InputEnded] = self.inputEnded,
-				})
-			})
-		})
-	end 
+		[Roact.Ref] = self.ref,
 
-	if FFlagFixDevConsoleDraggingTopBar then 
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(1, 0, 0, FRAME_HEIGHT),
-			BackgroundColor3 = Constants.Color.Black,
-			BackgroundTransparency = .5,
-			AutoButtonColor = false,
-			LayoutOrder = 1,
-
-			[Roact.Ref] = self.ref,
-
-			[Roact.Event.InputBegan] = self.inputBegan,
-			[Roact.Event.InputEnded] = self.inputEnded,
-		}, elements)
-	else 
-		return Roact.createElement("ImageButton", {
-			Size = UDim2.new(1, 0, 0, FRAME_HEIGHT),
-			BackgroundColor3 = Constants.Color.Black,
-			BackgroundTransparency = .5,
-			AutoButtonColor = false,
-			LayoutOrder = 1,
-
-			[Roact.Ref] = self.ref,
-
-			[Roact.Event.InputBegan] = self.inputBegan,
-		}, elements)
-	end
+		[Roact.Event.InputBegan] = self.inputBegan,
+		[Roact.Event.InputEnded] = self.inputEnded,
+	}, elements)
 end
 
 local function mapDispatchToProps(dispatch)

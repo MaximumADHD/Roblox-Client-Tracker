@@ -1,0 +1,20 @@
+local Modules = game:getService("CoreGui").RobloxGui.Modules
+local CorePackages = game:GetService("CorePackages")
+local Url = require(CorePackages.AppTempCommon.LuaApp.Http.Url)
+local HttpService = game:GetService("HttpService")
+local ArgCheck = require(CorePackages.ArgCheck)
+
+--[[
+	Documentation of endpoint:
+	https://voice.roblox.com/docs#!/Voice/post_v1_moderation_informed_of_ban
+]]
+
+return function(requestImpl, informedOfBan)
+	ArgCheck.isType(informedOfBan, "boolean", "PostInformedOfBan request expects informedOfBan to be a boolean")
+
+	local url = string.format("%sv1/moderation/informed-of-ban", Url.VOICE_URL)
+	local body = HttpService:JSONEncode({
+		informedOfBan = informedOfBan,
+	})
+	return requestImpl(url, "POST", body)
+end

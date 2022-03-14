@@ -12,6 +12,9 @@ local Types = require(root.Types)
 local getSizeSpringFromSettings = require(root.Helpers.getSizeSpringFromSettings)
 local getTransparencySpringFromSettings = require(root.Helpers.getTransparencySpringFromSettings)
 
+local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
+local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
+
 local ChatBubble = Roact.PureComponent:extend("ChatBubble")
 
 ChatBubble.validateProps = t.strictInterface({
@@ -21,6 +24,8 @@ ChatBubble.validateProps = t.strictInterface({
 	onFadeOut = t.optional(t.callback),
 	isMostRecent = t.optional(t.boolean),
 	theme = t.optional(t.string),
+	renderInsert = t.optional(t.callback),
+	insertSize = t.optional(t.Vector2),
 	chatSettings = Types.IChatSettings,
 
 	-- RoactRodux
@@ -69,7 +74,7 @@ function ChatBubble:getTextBounds()
 	return bounds + padding
 end
 
-function ChatBubble:render()
+function ChatBubble:renderOld()
 	local bounds = self:getTextBounds()
 	local chatSettings = self.props.chatSettings
 	local backgroundImageSettings = chatSettings.BackgroundImage
@@ -138,6 +143,95 @@ function ChatBubble:render()
 	})
 end
 
+function ChatBubble:renderNew()
+	local bounds = self:getTextBounds()
+	local chatSettings = self.props.chatSettings
+	local backgroundImageSettings = chatSettings.BackgroundImage
+	local backgroundGradientSettings = chatSettings.BackgroundGradient
+
+	local extraWidth = self.props.renderInsert and (self.props.insertSize.X + chatSettings.Padding) or 0
+
+	return Roact.createElement("Frame", {
+		LayoutOrder = self.props.timestamp,
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Size = self.size,
+		Position = UDim2.fromScale(1, 0.5),
+		Transparency = 1,
+	}, {
+		Layout = Roact.createElement("UIListLayout", {
+			SortOrder = Enum.SortOrder.LayoutOrder,
+			HorizontalAlignment = Enum.HorizontalAlignment.Center,
+			Padding = UDim.new(0, -1), --UICorner generates a 1 pixel gap (UISYS-625), this fixes it by moving the carrot up by 1 pixel
+		}),
+
+		Frame = Roact.createElement("ImageLabel", Cryo.Dictionary.join(backgroundImageSettings, {
+			LayoutOrder = 1,
+			BackgroundColor3 = chatSettings.BackgroundColor3,
+			AnchorPoint = Vector2.new(0.5, 0),
+			Size = UDim2.fromScale(1, 1),
+			BorderSizePixel = 0,
+			Position = UDim2.new(0.5, 0, 0, 0),
+			BackgroundTransparency = backgroundImageSettings.Image ~= "" and 1 or self.transparency,
+			ClipsDescendants = true,
+			ImageTransparency = self.transparency,
+		}), {
+			UICorner = chatSettings.CornerEnabled and Roact.createElement("UICorner", {
+				CornerRadius = chatSettings.CornerRadius,
+			}),
+			
+			UIListLayout = Roact.createElement("UIListLayout", {
+				FillDirection = Enum.FillDirection.Horizontal,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Bottom,
+				Padding = UDim.new(0, chatSettings.Padding),
+			}),
+			
+			Padding = Roact.createElement("UIPadding", {
+				PaddingTop = UDim.new(0, chatSettings.Padding),
+				PaddingRight = UDim.new(0, chatSettings.Padding),
+				PaddingBottom = UDim.new(0, chatSettings.Padding),
+				PaddingLeft = UDim.new(0, chatSettings.Padding),
+			}),
+
+			Insert = self.props.renderInsert and self.props.renderInsert(),
+			
+			Text = Roact.createElement("TextLabel", {
+				Text = self.props.text,
+				Size = UDim2.new(1, -extraWidth, 1, 0),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
+				BackgroundTransparency = 1,
+				Font = chatSettings.Font,
+				TextColor3 = chatSettings.TextColor3,
+				TextSize = chatSettings.TextSize,
+				TextTransparency = self.transparency,
+				TextWrapped = true,
+				AutoLocalize = false,
+				LayoutOrder = 2,
+			}),
+
+			Gradient = backgroundGradientSettings.Enabled and Roact.createElement("UIGradient", backgroundGradientSettings)
+		}),
+
+		Carat = self.props.isMostRecent and chatSettings.TailVisible and Roact.createElement("ImageLabel", {
+			LayoutOrder = 2,
+			BackgroundTransparency = 1,
+			Size = UDim2.fromOffset(9, 6),
+			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
+			ImageColor3 = chatSettings.BackgroundColor3,
+			ImageTransparency = self.transparency,
+		}),
+	})
+end
+
+function ChatBubble:render()
+	if GetFFlagBubbleVoiceIndicator() then
+		return self:renderNew()
+	else
+		return self:renderOld()
+	end
+end
+
 function ChatBubble:fadeOut()
 	if not self.isFadingOut then
 		self.isFadingOut = true
@@ -159,12 +253,33 @@ function ChatBubble:didUpdate(previousProps)
 	end
 	-- Update the size of the bubble to accommodate changes to the text's size (for instance: when the text changes due
 	-- to filtering, or when new customization settings are applied)
-	if previousProps.text ~= self.props.text or previousProps.chatSettings ~= self.props.chatSettings then
-		local bounds = self:getTextBounds()
-		local sizeSpring = getSizeSpringFromSettings(self.props.chatSettings)
-		self.heightMotor:setGoal(sizeSpring(bounds.Y))
-		self.widthMotor:setGoal(sizeSpring(bounds.X))
-	end
+	if GetFFlagBubbleVoiceIndicator() then
+		if previousProps.text ~= self.props.text 
+			or previousProps.chatSettings ~= self.props.chatSettings
+			or previousProps.renderInsert ~= self.props.renderInsert
+			or previousProps.insertSize ~= self.props.insertSize
+		then
+			local bounds = self:getTextBounds()
+			local sizeSpring = getSizeSpringFromSettings(self.props.chatSettings)
+			local padding = self.props.chatSettings.Padding
+
+			local width = bounds.X
+			local height = bounds.Y
+			if self.props.renderInsert then
+				width += self.props.insertSize.X + padding
+				height = math.max(height, self.props.insertSize.Y + padding * 2)
+			end
+			self.heightMotor:setGoal(sizeSpring(height))
+			self.widthMotor:setGoal(sizeSpring(width))
+		end
+	else
+		if previousProps.text ~= self.props.text or previousProps.chatSettings ~= self.props.chatSettings then
+			local bounds = self:getTextBounds()
+			local sizeSpring = getSizeSpringFromSettings(self.props.chatSettings)
+			self.heightMotor:setGoal(sizeSpring(bounds.Y))
+			self.widthMotor:setGoal(sizeSpring(bounds.X))
+		end
+	end		
 end
 
 function ChatBubble:didMount()
@@ -175,14 +290,23 @@ function ChatBubble:didMount()
 	local sizeSpring = getSizeSpringFromSettings(chatSettings)
 	local transparencySpring = getTransparencySpringFromSettings(chatSettings)
 
+	local width = bounds.X
+	local height = bounds.Y
+	if GetFFlagBubbleVoiceIndicator() then
+		if self.props.renderInsert then
+			width += self.props.insertSize.X + chatSettings.Padding
+			height = math.max(height, self.props.insertSize.Y + chatSettings.Padding * 2)
+		end
+	end
+
 	if self.props.isMostRecent then
 		-- Chat bubble spawned for the first time
-		self.heightMotor:setGoal(sizeSpring(bounds.Y))
-		self.widthMotor:setGoal(Otter.instant(bounds.X))
+		self.heightMotor:setGoal(sizeSpring(height))
+		self.widthMotor:setGoal(Otter.instant(width))
 	else
 		-- Transition between distant bubble and chat bubble
-		self.heightMotor:setGoal(sizeSpring(bounds.Y))
-		self.widthMotor:setGoal(sizeSpring(bounds.X))
+		self.heightMotor:setGoal(sizeSpring(height))
+		self.widthMotor:setGoal(sizeSpring(width))
 	end
 
 	self.transparencyMotor:setGoal(transparencySpring(chatSettings.Transparency))

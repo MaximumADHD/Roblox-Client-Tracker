@@ -14,6 +14,8 @@ return function()
 	local PromptType = require(AvatarEditorPrompts.PromptType)
 	local OpenPrompt = require(AvatarEditorPrompts.Actions.OpenPrompt)
 
+	local AvatarEditorPromptsPolicy = require(AvatarEditorPrompts.AvatarEditorPromptsPolicy)
+
 	local appStyle = {
 		Theme = AppDarkTheme,
 		Font = AppFont,
@@ -37,11 +39,15 @@ return function()
 			local element = Roact.createElement(RoactRodux.StoreProvider, {
 				store = store,
 			}, {
-				ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
-					style = appStyle,
+				PolicyProvider = Roact.createElement(AvatarEditorPromptsPolicy.Provider, {
+					policy = { AvatarEditorPromptsPolicy.Mapper },
 				}, {
-					CreateOutfitPrompt = Roact.createElement(CreateOutfitPrompt)
-				})
+					ThemeProvider = Roact.createElement(UIBlox.Style.Provider, {
+						style = appStyle,
+					}, {
+						CreateOutfitPrompt = Roact.createElement(CreateOutfitPrompt)
+					}),
+				}),
 			})
 
 			local instance = Roact.mount(element)

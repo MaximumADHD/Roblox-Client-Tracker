@@ -11,6 +11,7 @@ local SetMenuIconTooltipOpen = require(InGameMenu.Actions.SetMenuIconTooltipOpen
 
 return Rodux.createReducer({
 	closingApp = false,
+	menuIconTooltipOpen = false,
 }, {
 	[OpenNativeClosePrompt.name] = function(state, action)
 		return Cryo.Dictionary.join(state, {

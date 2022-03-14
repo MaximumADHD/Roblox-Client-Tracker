@@ -75,4 +75,4 @@ local function mapDispatchToProps(dispatch)
 	}
 end
 
-return RoactRodux.UNSTABLE_connect2(mapStateToProps, mapDispatchToProps)(AllowInventoryReadAccessPrompt)
+return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(AllowInventoryReadAccessPrompt)

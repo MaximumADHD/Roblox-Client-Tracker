@@ -8,6 +8,7 @@
 		callback OnExpandedChanged: The function that will be called when the pane is exanded or collapsed.
 
 	Optional Props:
+		boolean AlwaysExpanded: Keeps the Pane in an Expanded state (will hide arrow).
 		Enum.AutomaticSize AutomaticSize: Provide the ExpandablePane with an AutomaticSize.
 		Color3 BackgroundColor: Override the color of the background.
 		Color3 BorderColor: Override the color of the border image.
@@ -48,6 +49,8 @@ local LayoutOrderIterator = Util.LayoutOrderIterator
 local StyleModifier = Util.StyleModifier
 local Typecheck = Util.Typecheck
 
+local FFlagDevFrameworkExpandablePaneAlwaysExpanded = game:DefineFastFlag("DevFrameworkExpandablePaneAlwaysExpanded", false)
+
 local Dash = require(Framework.packages.Dash)
 local join = Dash.join
 local omit = Dash.omit
@@ -58,6 +61,7 @@ local ExpandablePane = Roact.PureComponent:extend("ExpandablePane")
 Typecheck.wrap(ExpandablePane, script)
 
 ExpandablePane.defaultProps = {
+	AlwaysExpanded = if FFlagDevFrameworkExpandablePaneAlwaysExpanded then false else nil,
 	AutomaticSize = Enum.AutomaticSize.Y,
 	Expanded = false,
 	HeaderComponentProps = {},
@@ -89,20 +93,40 @@ function ExpandablePane:render()
 		"Text",
 	})
 
+	if FFlagDevFrameworkExpandablePaneAlwaysExpanded then
+		componentProps = omit(componentProps, {
+			"AlwaysExpanded",
+		})
+	end
+
 	local contentPadding = style.Content.Padding
 	local contentSpacing = style.Content.Spacing
 
-	return Roact.createElement(Pane, componentProps, {
-		Header = self:_renderHeader(),
+	if FFlagDevFrameworkExpandablePaneAlwaysExpanded then
+		return Roact.createElement(Pane, componentProps, {
+			Header = self:_renderHeader(),
 
-		Content = props.Expanded and Roact.createElement(Pane, {
-			AutomaticSize = Enum.AutomaticSize.Y,
-			Layout = props.Layout,
-			LayoutOrder = 2,
-			Padding = contentPadding,
-			Spacing = contentSpacing,
-		}, props[Roact.Children]),
-	})
+			Content = (props.AlwaysExpanded or props.Expanded) and Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Layout = props.Layout,
+				LayoutOrder = 2,
+				Padding = contentPadding,
+				Spacing = contentSpacing,
+			}, props[Roact.Children]),
+		})
+	else
+		return Roact.createElement(Pane, componentProps, {
+			Header = self:_renderHeader(),
+
+			Content = props.Expanded and Roact.createElement(Pane, {
+				AutomaticSize = Enum.AutomaticSize.Y,
+				Layout = props.Layout,
+				LayoutOrder = 2,
+				Padding = contentPadding,
+				Spacing = contentSpacing,
+			}, props[Roact.Children]),
+		})
+	end
 end
 
 function ExpandablePane:_computeHeaderComponentFitWidth()
@@ -127,13 +151,14 @@ function ExpandablePane:_renderHeader()
 
 	local layoutOrderIterator = LayoutOrderIterator.new()
 
-	local children = {
-		Image = Roact.createElement(Image, {
+	local children = {}
+	if not FFlagDevFrameworkExpandablePaneAlwaysExpanded or not props.AlwaysExpanded then
+		children.Image = Roact.createElement(Image, {
 			LayoutOrder = layoutOrderIterator:getNextOrder(),
 			Style = style.Arrow,
 			StyleModifier = props.Expanded and StyleModifier.Selected or nil,
 		})
-	}
+	end
 
 	if props.Text then
 		children.Title = Roact.createElement(TextLabel, {

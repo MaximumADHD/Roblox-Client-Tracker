@@ -16,6 +16,9 @@ local SliderEntry = require(script.Parent.SliderEntry)
 local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
+local Flags = InGameMenu.Flags
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
 if CoreGui.RobloxGui:FindFirstChild("Sounds") == nil then
 	local folder = Instance.new("Folder")
 	folder.Name = "Sounds"
@@ -30,6 +33,9 @@ volumeTest.SoundId = "rbxasset://sounds/uuhhh.mp3"
 local VolumeEntry = Roact.PureComponent:extend("VolumeEntry")
 VolumeEntry.validateProps = t.strictInterface({
 	LayoutOrder = t.integer,
+	canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.boolean) or nil,
+	buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and t.optional(t.table) or nil,
 })
 
 function VolumeEntry:init()
@@ -56,6 +62,9 @@ function VolumeEntry:render()
 				volumeTest:Play()
 				SendAnalytics(Constants.AnalyticsSettingsChangeName, nil, {}, true)
 			end,
+			canCaptureFocus = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.canCaptureFocus or nil,
+			isMenuOpen = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.isMenuOpen or nil,
+			buttonRef = GetFFlagInGameMenuControllerDevelopmentOnly() and self.props.buttonRef or nil
 		}),
 		VolumeListener = Roact.createElement(ExternalEventConnection, {
 			event = MasterVolumeChanged,

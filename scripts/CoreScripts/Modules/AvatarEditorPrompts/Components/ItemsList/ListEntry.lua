@@ -1,5 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
 
+local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.UIBlox)
@@ -24,7 +27,7 @@ ListEntry.validateProps = t.strictInterface({
 	NextSelectionRight = t.optional(t.table),
 	NextSelectionUp = t.optional(t.table),
 	NextSelectionDown = t.optional(t.table),
-	[Roact.Ref] = t.optional(t.table),
+	forwardRef = t.optional(t.table),
 })
 
 function ListEntry:render()
@@ -36,6 +39,8 @@ function ListEntry:render()
 		local fontSize = fontInfo.BaseSize * fontInfo.CaptionBody.RelativeSize
 
 		local bulletPointWidth = Text.GetTextWidth(BULLET_POINT_SYMBOL, font, fontSize)
+
+		local forwardRef = self.props.forwardRef
 
 		return Roact.createElement(RoactFitComponents.FitFrameVertical, {
 			width = UDim.new(1, 0),
@@ -52,7 +57,7 @@ function ListEntry:render()
 			NextSelectionRight = self.props.NextSelectionRight,
 			NextSelectionUp = self.props.NextSelectionUp,
 			NextSelectionDown = self.props.NextSelectionDown,
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = forwardRef,
 		}, {
 			Bullet = self.props.hasBullet and Roact.createElement("TextLabel", {
 				BackgroundTransparency = 1,
@@ -82,4 +87,8 @@ function ListEntry:render()
 	end)
 end
 
-return ListEntry
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(ListEntry, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

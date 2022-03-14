@@ -2,26 +2,15 @@
 	LocalizationContextProvider is a simple wrapper component that injects the
 	specified services into context
 ]]
-local Root = script.Parent.Parent.Parent
-
 local CorePackages = game:GetService("CorePackages")
 
 local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 local Roact = PurchasePromptDeps.Roact
 
-local LocalizationContextKey = require(Root.Symbols.LocalizationContextKey)
+local LocalizationContext = require(script.Parent.LocalizationContext)
 
-local LocalizationContextProvider = Roact.Component:extend("LocalizationContextProvider")
-
-function LocalizationContextProvider:init(props)
-	assert(props.localizationContext, "Missing required prop 'localizationContext'")
-	assert(props.render, "Missing required prop 'render'")
-
-	self._context[LocalizationContextKey] = props.localizationContext
+return function(props)
+	return Roact.createElement(LocalizationContext.Provider, {
+		value = props.localizationContext,
+	}, Roact.oneChild(props[Roact.Children]))
 end
-
-function LocalizationContextProvider:render()
-	return self.props.render(LocalizationContextKey)
-end
-
-return LocalizationContextProvider

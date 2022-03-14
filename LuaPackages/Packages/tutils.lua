@@ -3,10 +3,6 @@
 ]]
 local PackageIndex = script.Parent._Index
 
-local package = PackageIndex["tutils"]["tutils"]
+local Package = require(PackageIndex["tutils-04e2814e-937da4f7"]["tutils"])
 
-if package.ClassName == "ModuleScript" then
-	return require(package)
-end
-
-return package
+return Package

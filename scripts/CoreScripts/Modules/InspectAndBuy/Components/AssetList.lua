@@ -2,19 +2,28 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 local InspectAndBuyFolder = script.Parent.Parent
 local Roact = require(CorePackages.Roact)
+local Cryo = require(CorePackages.Cryo)
 local RoactRodux = require(CorePackages.RoactRodux)
+local UIBlox = require(CorePackages.UIBlox)
 local AssetCard = require(InspectAndBuyFolder.Components.AssetCard)
+local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
+local ShimmerPanel = UIBlox.Loading.ShimmerPanel
+
+local FFlagInspectAndBuyShimmerPanelEnabled = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyShimmerPanelEnabled)
 
 local AssetList = Roact.PureComponent:extend("AssetList")
 
 local CARD_PADDING = 10
 local FRAME_PADDING = 15
 local ASSET_CARD_RATIO = 0.68
+local NUM_SHIMMER_PANELS = 30
 
 function AssetList:calculateCanvasSize(numCardsPerRow, numAssetCards, cardSizeY)
 	local rbx = self.gridFrameRef.current
 	local view = self.props.view
-	local viewMapping = self._context[view]
+	local viewMapping
+	viewMapping = self.props.views[view]
+
 
 	if rbx then
 		local positionDifference = viewMapping.TopSizeY + FRAME_PADDING
@@ -26,7 +35,9 @@ end
 
 function AssetList:init()
 	local view = self.props.view
-	local viewMapping = self._context[view]
+	local viewMapping
+	viewMapping = self.props.views[view]
+
 	self.gridFrameRef = Roact.createRef()
 
 	self.state = {
@@ -37,7 +48,9 @@ end
 
 function AssetList:render()
 	local view = self.props.view
-	local viewMapping = self._context[view]
+	local viewMapping
+	viewMapping = self.props.views[view]
+
 	local assets = self.props.assets
 	local numCardsPerRow = viewMapping.MaxAssetCardsPerRow
 	local assetCardSizeX = self.state.assetCardSizeX
@@ -60,6 +73,17 @@ function AssetList:render()
 			assetInfo = assetInfo,
 			assetCardSizeX = assetCardSizeX,
 		})
+	end
+
+	if FFlagInspectAndBuyShimmerPanelEnabled then
+		if numAssets == 0 then
+			-- show shimmer panels if we're still waiting for the assets table to be filled
+			for i = 1, NUM_SHIMMER_PANELS do
+				assetCards[i] = Roact.createElement(ShimmerPanel, {
+					Size = UDim2.new(1, 0, 0, assetCardSizeX),
+				})
+			end
+		end
 	end
 
 	self:calculateCanvasSize(numCardsPerRow, numAssets, assetCardSizeY)
@@ -101,7 +125,8 @@ end
 function AssetList:resize()
 	local rbx = self.gridFrameRef.current
 	local view = self.props.view
-	local viewMapping = self._context[view]
+	local viewMapping
+	viewMapping = self.props.views[view]
 
 	if rbx then
 		local numCardsPerRow = viewMapping.MaxAssetCardsPerRow
@@ -120,6 +145,15 @@ function AssetList:resize()
 	end
 end
 
+local function AssetListWrapper(props)
+	return Roact.createElement(InspectAndBuyContext.Consumer, {
+		render = function(views)
+			local combinedProps = Cryo.Dictionary.join(props, { views = views })
+			return Roact.createElement(AssetList, combinedProps)
+		end
+	})
+end
+
 return RoactRodux.UNSTABLE_connect2(
 	function(state, props)
 		return {
@@ -130,4 +164,4 @@ return RoactRodux.UNSTABLE_connect2(
 			gamepadEnabled = state.gamepadEnabled,
 		}
 	end
-)(AssetList)
+)(AssetListWrapper)

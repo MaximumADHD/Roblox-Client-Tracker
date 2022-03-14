@@ -79,7 +79,7 @@ function HealthConnector:render()
 		event = LocalPlayer.CharacterAdded,
 		callback = function(character)
 			self:setState({
-				humanoid = character:FindFirstChildOfClass("Humanoid"),
+				humanoid = character:FindFirstChildOfClass("Humanoid") or Roact.None,
 				character = character,
 			})
 			self.props.setIsDead(false)
@@ -106,12 +106,12 @@ function HealthConnector:didUpdate(prevProps, prevState)
 		self.props.setIsDead(false)
 		self.props.updateHealth(self.state.humanoid.Health, self.state.humanoid.MaxHealth)
 	end
+
 	if self.state.character and self.state.character ~= prevState.character then
 		local humanoid = self.state.character:FindFirstChildWhichIsA("Humanoid")
-		if humanoid then
+		if humanoid and humanoid ~= self.state.humanoid then
 			self:setState({
-				humanoid = Roact.None,
-				character = Roact.None,
+				humanoid = humanoid,
 			})
 		end
 	end

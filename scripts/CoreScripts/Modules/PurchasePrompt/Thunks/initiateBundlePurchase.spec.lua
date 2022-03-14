@@ -61,7 +61,7 @@ return function()
 		local thunk = initiateBundlePurchase(15)
 
 		Thunk.test(thunk, store, {
-			[Network] = MockNetwork.new(true),
+			[Network] = MockNetwork.new(nil, "Network Failure"),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {})
 		})
 

@@ -8,17 +8,36 @@ local SetAssets = require(InspectAndBuyFolder.Actions.SetAssets)
 local SetEquippedAssets = require(InspectAndBuyFolder.Actions.SetEquippedAssets)
 local Constants = require(InspectAndBuyFolder.Constants)
 
+local FFlagInspectAndBuyLayeredClothingSupport = require(InspectAndBuyFolder.Flags.FFlagInspectAndBuyLayeredClothingSupport)
 
 local requiredServices = {}
 
 local function getAssetIds(humanoidDescription)
 	local assets = {}
 
-	for name, _ in pairs(Constants.HumanoidDescriptionAssetNames) do
-		local assetIds = humanoidDescription[name] or ""
-		for _, id in pairs(string.split(assetIds)) do
-			if tonumber(id) and id ~= "0" then
-				assets[#assets+1] = AssetInfo.fromHumanoidDescription(id)
+	if FFlagInspectAndBuyLayeredClothingSupport then
+		for assetTypeId, name in pairs(Constants.HumanoidDescriptionIdToName) do
+			if Constants.AssetTypeIdToAccessoryTypeEnum[assetTypeId] == nil then
+				local assetIds = humanoidDescription[name] or ""
+				for _, id in pairs(string.split(assetIds)) do
+					if tonumber(id) and id ~= "0" then
+						table.insert(assets, AssetInfo.fromHumanoidDescription(id))
+					end
+				end
+			end
+		end
+
+		local accessories = humanoidDescription:GetAccessories(--[[includeRigidAccessories =]] true)
+		for _, accessory in pairs(accessories) do
+			assets[#assets + 1] = AssetInfo.fromHumanoidDescription(accessory.AssetId)
+		end
+	else
+		for name, _ in pairs(Constants.HumanoidDescriptionAssetNames) do
+			local assetIds = humanoidDescription[name] or ""
+			for _, id in pairs(string.split(assetIds)) do
+				if tonumber(id) and id ~= "0" then
+					assets[#assets+1] = AssetInfo.fromHumanoidDescription(id)
+				end
 			end
 		end
 	end

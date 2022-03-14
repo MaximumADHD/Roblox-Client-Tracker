@@ -7,6 +7,7 @@
 local ContentProvider = game:GetService("ContentProvider")
 
 local FFlagLuaFixEconomyCreatorStatsUrl = game:DefineFastFlag("LuaFixEconomyCreatorStatsUrl", false)
+local FFlagLuaAppBaseUrlUseHttps = game:DefineFastFlag("LuaAppBaseUrlUseHttps", false)
 
 -- helper functions
 local function parseBaseUrlInformation()
@@ -85,12 +86,20 @@ local _baseEconomyCreatorStats = FFlagLuaFixEconomyCreatorStatsUrl
 	or string.format("https://economycreatorstats.api.%s", _baseDomain)
 local _baseUserModerationUrl = string.format("https://usermoderation.%s", _baseDomain)
 local _baseUrlSecure = string.gsub(_baseUrl, "http://", "https://")
+local _baseVoiceUrl = string.format("https://voice.%s", _baseDomain)
+local _baseTwoStepVerification = string.format("https://twostepverification.%s", _baseDomain)
+
+-- Version of the static farm URL that makes use of CDN on prod.
+local _baseStaticCdnUrl = _baseStaticUrl
+if _baseDomain == "roblox.com/" then
+	_baseStaticCdnUrl = string.gsub(_baseStaticCdnUrl, _baseDomain, "rbxcdn.com/")
+end
 
 -- public api
 local Url = {
 	DOMAIN = _baseDomain,
 	PREFIX = _basePrefix,
-	BASE_URL = _baseUrl,
+	BASE_URL = if FFlagLuaAppBaseUrlUseHttps then _baseUrlSecure else _baseUrl,
 	BASE_URL_SECURE = _baseUrlSecure,
 	API_URL = _baseApiUrl,
 	APIS_URL = _baseApisUrl,
@@ -125,10 +134,13 @@ local Url = {
 	DISCUSSIONS_URL = _baseDiscussionsUrl,
 	CONTACTS_URL = _baseContactsUrl,
 	STATIC_URL = _baseStaticUrl,
+	STATIC_CDN_URL = _baseStaticCdnUrl,
 	BLOG_URL = "https://blog.roblox.com/",
 	CORP_URL = "https://corp.roblox.com/",
 	ECNOMY_CREATOR_STATS = _baseEconomyCreatorStats,
 	USER_MODERATION_URL = _baseUserModerationUrl,
+	VOICE_URL = _baseVoiceUrl,
+	TWOSTEPVERIFICATION_URL = _baseTwoStepVerification
 }
 
 function Url:getUserProfileUrl(userId)

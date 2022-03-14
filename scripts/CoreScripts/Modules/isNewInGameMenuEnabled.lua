@@ -1,13 +1,38 @@
 local Players = game:GetService("Players")
-local ABTestService = game:GetService("ABTestService")
+local VRService = game:GetService("VRService")
 
-game:DefineFastInt("NewInGameMenuPercentRollout", 0)
-game:DefineFastFlag("NewInGameMenuABTestEnabled", false)
+local IsExperienceMenuABTestEnabled = require(script.Parent.InGameMenu.IsExperienceMenuABTestEnabled)
+local ExperienceMenuABTestManager = require(script.Parent.InGameMenu.ExperienceMenuABTestManager)
+
+game:DefineFastInt("NewInGameMenuPercentRollout3", 0)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
+game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
+
+local CoreGui = game:GetService("CoreGui")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+local FFlagEnableNewVrSystem = require(RobloxGui.Modules.Flags.FFlagEnableNewVrSystem)
+local FFlagForceNewIGMinVR = require(RobloxGui.Modules.Flags.FFlagForceNewIGMinVR)
+local FFlagDisableNewIGMinDUA = game:DefineFastFlag("DisableNewIGMinDUA", false)
+
+local isSubjectToDesktopPolicies = require(
+	script.Parent.InGameMenu.isSubjectToDesktopPolicies)
 
 return function()
-	if game:GetEngineFeature("UniversalAppOnWindows") then
+	if game:GetFastFlag("NewInGameMenuDisabledInVR") and not FFlagEnableNewVrSystem then
+		if VRService.VREnabled then
+			-- VR is enabled and the VR device is connected. Disable the new In Game Menu.
+			return false
+		end
+	end
+
+	if FFlagForceNewIGMinVR and VRService.VREnabled then
 		return true
+	end
+
+	if not FFlagDisableNewIGMinDUA then
+		if isSubjectToDesktopPolicies() then
+			return true
+		end
 	end
 
 	local localPlayer = Players.LocalPlayer
@@ -23,15 +48,11 @@ return function()
 		end
 	end
 
-	if game:GetFastFlag("NewInGameMenuABTestEnabled") then
-		ABTestService:WaitUntilUserABTestsInitialized()
-		local InGameMenuTestVariant = nil
-		pcall(function() InGameMenuTestVariant = ABTestService:GetVariant("AllUsers.GameExperience.InGameMenu") end)
-		local InVariantForGameMenuABTest = (InGameMenuTestVariant ~= nil) and (InGameMenuTestVariant ~= "Control")
-		return InVariantForGameMenuABTest
+	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV2MenuEnabled() then
+		return true
 	end
 
-	local rolloutPercent = game:GetFastInt("NewInGameMenuPercentRollout")
+	local rolloutPercent = game:GetFastInt("NewInGameMenuPercentRollout3")
 	local userIdLastTwoDigits = localPlayer.UserId % 100
 
 	local inPercentRollout = userIdLastTwoDigits < rolloutPercent

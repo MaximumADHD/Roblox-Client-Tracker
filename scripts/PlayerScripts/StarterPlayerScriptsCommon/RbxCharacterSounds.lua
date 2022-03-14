@@ -3,7 +3,7 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
-local SOUND_DATA = {
+local SOUND_DATA : { [string]: {[string]: any}} = {
 	Climbing = {
 		SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3",
 		Looped = true,
@@ -39,9 +39,9 @@ local SOUND_DATA = {
 	},
 }
 
- -- wait for the first of the passed signals to fire
-local function waitForFirst(...)
-	local shunt = Instance.new("BindableEvent")
+-- wait for the first of the passed signals to fire
+local function waitForFirst(...) -- RBXScriptSignal
+	local shunt: BindableEvent = Instance.new("BindableEvent")
 	local slots = {...}
 
 	local function fire(...)
@@ -52,19 +52,19 @@ local function waitForFirst(...)
 		return shunt:Fire(...)
 	end
 
-	for i = 1, #slots do
-		slots[i] = slots[i]:Connect(fire)
+	for i = 1, #slots do -- RBXScriptSignal
+		slots[i] = slots[i]:Connect(fire) -- Change to RBXScriptConnection
 	end
 
 	return shunt.Event:Wait()
 end
 
 -- map a value from one range to another
-local function map(x, inMin, inMax, outMin, outMax)
+local function map(x: number, inMin: number, inMax: number, outMin: number, outMax: number): number
 	return (x - inMin)*(outMax - outMin)/(inMax - inMin) + outMin
 end
 
-local function playSound(sound)
+local function playSound(sound: Sound)
 	sound.TimePosition = 0
 	sound.Playing = true
 end
@@ -77,12 +77,12 @@ local function shallowCopy(t)
 	return out
 end
 
-local function initializeSoundSystem(player, humanoid, rootPart)
-	local sounds = {}
+local function initializeSoundSystem(player: Player, humanoid: Humanoid, rootPart: BasePart)
+	local sounds: {[string]: Sound} = {}
 
 	-- initialize sounds
-	for name, props in pairs(SOUND_DATA) do
-		local sound = Instance.new("Sound")
+	for name: string, props: {[string]: any} in pairs(SOUND_DATA) do
+		local sound: Sound = Instance.new("Sound") 
 		sound.Name = name
 
 		-- set default values
@@ -91,7 +91,7 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 		sound.MaxDistance = 150
 		sound.Volume = 0.65
 
-		for propName, propValue in pairs(props) do
+		for propName, propValue: any in pairs(props) do
 			sound[propName] = propValue
 		end
 
@@ -99,9 +99,9 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 		sounds[name] = sound
 	end
 
-	local playingLoopedSounds = {}
+	local playingLoopedSounds: {[Sound]: boolean?} = {}
 
-	local function stopPlayingLoopedSounds(except)
+	local function stopPlayingLoopedSounds(except: Sound?)
 		for sound in pairs(shallowCopy(playingLoopedSounds)) do
 			if sound ~= except then
 				sound.Playing = false
@@ -110,8 +110,8 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 		end
 	end
 
-	-- state transition callbacks
-	local stateTransitions = {
+	-- state transition callbacks.
+	local stateTransitions: {[Enum.HumanoidStateType]: () -> ()} = {
 		[Enum.HumanoidStateType.FallingDown] = function()
 			stopPlayingLoopedSounds()
 		end,
@@ -180,12 +180,12 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 	}
 
 	-- updaters for looped sounds
-	local loopedSoundUpdaters = {
-		[sounds.Climbing] = function(dt, sound, vel)
+	local loopedSoundUpdaters: {[Sound]: (number, Sound, Vector3) -> ()} = {
+		[sounds.Climbing] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.1
 		end,
 
-		[sounds.FreeFalling] = function(dt, sound, vel)
+		[sounds.FreeFalling] = function(dt: number, sound: Sound, vel: Vector3): ()
 			if vel.Magnitude > 75 then
 				sound.Volume = math.clamp(sound.Volume + 0.9*dt, 0, 1)
 			else
@@ -193,23 +193,23 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 			end
 		end,
 
-		[sounds.Running] = function(dt, sound, vel)
+		[sounds.Running] = function(dt: number, sound: Sound, vel: Vector3)
 			sound.Playing = vel.Magnitude > 0.5 and humanoid.MoveDirection.Magnitude > 0.5
 		end,
 	}
 
 	-- state substitutions to avoid duplicating entries in the state table
-	local stateRemap = {
+	local stateRemap: {[Enum.HumanoidStateType]: Enum.HumanoidStateType} = {
 		[Enum.HumanoidStateType.RunningNoPhysics] = Enum.HumanoidStateType.Running,
 	}
 
-	local activeState = stateRemap[humanoid:GetState()] or humanoid:GetState()
+	local activeState: Enum.HumanoidStateType = stateRemap[humanoid:GetState()] or humanoid:GetState()
 
 	local stateChangedConn = humanoid.StateChanged:Connect(function(_, state)
 		state = stateRemap[state] or state
 
 		if state ~= activeState then
-			local transitionFunc = stateTransitions[state]
+			local transitionFunc: () -> () = stateTransitions[state]
 
 			if transitionFunc then
 				transitionFunc()
@@ -219,10 +219,10 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 		end
 	end)
 
-	local steppedConn = RunService.Stepped:Connect(function(_, worldDt)
+	local steppedConn = RunService.Stepped:Connect(function(_, worldDt: number)
 		-- update looped sounds on stepped
 		for sound in pairs(playingLoopedSounds) do
-			local updater = loopedSoundUpdaters[sound]
+			local updater: (number, Sound, Vector3) -> () = loopedSoundUpdaters[sound]
 
 			if updater then
 				updater(worldDt, sound, rootPart.Velocity)
@@ -230,9 +230,9 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 		end
 	end)
 
-	local humanoidAncestryChangedConn
-	local rootPartAncestryChangedConn
-	local characterAddedConn
+	local humanoidAncestryChangedConn: RBXScriptConnection
+	local rootPartAncestryChangedConn: RBXScriptConnection
+	local characterAddedConn: RBXScriptConnection
 
 	local function terminate()
 		stateChangedConn:Disconnect()
@@ -257,7 +257,7 @@ local function initializeSoundSystem(player, humanoid, rootPart)
 	characterAddedConn = player.CharacterAdded:Connect(terminate)
 end
 
-local function playerAdded(player)
+local function playerAdded(player: Player)
 	local function characterAdded(character)
 		-- Avoiding memory leaks in the face of Character/Humanoid/RootPart lifetime has a few complications:
 		-- * character deparenting is a Remove instead of a Destroy, so signals are not cleaned up automatically.

@@ -16,7 +16,7 @@ local ReplicatedModules = Chat:WaitForChild("ClientChatModules")
 local ChatSettings = require(ReplicatedModules:WaitForChild("ChatSettings"))
 
 local ChatLocalization = nil
-pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization) end)
+pcall(function() ChatLocalization = require(Chat.ClientChatModules.ChatLocalization :: any) end)
 ChatLocalization = ChatLocalization or {}
 
 local MAX_CHANNEL_NAME_LENGTH = ChatSettings.MaxChannelNameCheckLength or 50

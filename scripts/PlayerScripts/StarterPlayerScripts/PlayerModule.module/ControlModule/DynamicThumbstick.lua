@@ -82,7 +82,7 @@ function DynamicThumbstick:GetIsJumping()
 	return wasJumping
 end
 
-function DynamicThumbstick:Enable(enable, uiParentFrame)
+function DynamicThumbstick:Enable(enable: boolean?, uiParentFrame): boolean
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
@@ -111,7 +111,7 @@ function DynamicThumbstick:OnInputEnded()
 	self:FadeThumbstick(false)
 end
 
-function DynamicThumbstick:FadeThumbstick(visible)
+function DynamicThumbstick:FadeThumbstick(visible: boolean?)
 	if not visible and self.moveTouchObject then
 		return
 	end
@@ -154,14 +154,14 @@ function DynamicThumbstick:FadeThumbstick(visible)
 	end
 end
 
-function DynamicThumbstick:FadeThumbstickFrame(fadeDuration, fadeRatio)
+function DynamicThumbstick:FadeThumbstickFrame(fadeDuration: number, fadeRatio: number)
 	self.fadeInAndOutHalfDuration = fadeDuration * 0.5
 	self.fadeInAndOutBalance = fadeRatio
 	self.tweenInAlphaStart = tick()
 end
 
-function DynamicThumbstick:InputInFrame(inputObject)
-	local frameCornerTopLeft = self.thumbstickFrame.AbsolutePosition
+function DynamicThumbstick:InputInFrame(inputObject: InputObject)
+	local frameCornerTopLeft: Vector2 = self.thumbstickFrame.AbsolutePosition
 	local frameCornerBottomRight = frameCornerTopLeft + self.thumbstickFrame.AbsoluteSize
 	local inputPosition = inputObject.Position
 	if inputPosition.X >= frameCornerTopLeft.X and inputPosition.Y >= frameCornerTopLeft.Y then
@@ -195,11 +195,11 @@ function DynamicThumbstick:DoFadeInBackground()
 	end
 end
 
-function DynamicThumbstick:DoMove(direction)
-	local currentMoveVector = direction
+function DynamicThumbstick:DoMove(direction: Vector3)
+	local currentMoveVector: Vector3 = direction
 
 	-- Scaled Radial Dead Zone
-	local inputAxisMagnitude = currentMoveVector.magnitude
+	local inputAxisMagnitude: number = currentMoveVector.magnitude
 	if inputAxisMagnitude < self.radiusOfDeadZone then
 		currentMoveVector = ZERO_VECTOR3
 	else
@@ -213,7 +213,7 @@ function DynamicThumbstick:DoMove(direction)
 end
 
 
-function DynamicThumbstick:LayoutMiddleImages(startPos, endPos)
+function DynamicThumbstick:LayoutMiddleImages(startPos: Vector3, endPos: Vector3)
 	local startDist = (self.thumbstickSize / 2) + self.middleSize
 	local vector = endPos - startPos
 	local distAvailable = vector.magnitude - (self.thumbstickRingSize / 2) - self.middleSize
@@ -285,7 +285,7 @@ function DynamicThumbstick:BindContextActions()
 		return Enum.ContextActionResult.Pass
 	end
 
-	local function inputChanged(inputObject)
+	local function inputChanged(inputObject: InputObject)
 		if inputObject == self.moveTouchObject then
 			if self.moveTouchFirstChanged then
 				self.moveTouchFirstChanged = false
@@ -348,7 +348,7 @@ function DynamicThumbstick:BindContextActions()
 		Enum.UserInputType.Touch)
 end
 
-function DynamicThumbstick:Create(parentFrame)
+function DynamicThumbstick:Create(parentFrame: GuiBase2d)
 	if self.thumbstickFrame then
 		self.thumbstickFrame:Destroy()
 		self.thumbstickFrame = nil
@@ -436,7 +436,7 @@ function DynamicThumbstick:Create(parentFrame)
 		self.middleImages[i].Parent = self.thumbstickFrame
 	end
 
-	local CameraChangedConn = nil
+	local CameraChangedConn: RBXScriptConnection? = nil
 	local function onCurrentCameraChanged()
 		if CameraChangedConn then
 			CameraChangedConn:Disconnect()
@@ -483,7 +483,7 @@ function DynamicThumbstick:Create(parentFrame)
 		end
 	end)
 
-	self.onTouchEndedConn = UserInputService.TouchEnded:connect(function(inputObject)
+	self.onTouchEndedConn = UserInputService.TouchEnded:connect(function(inputObject: InputObject)
 		if inputObject == self.moveTouchObject then
 			self:OnInputEnded()
 		end

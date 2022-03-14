@@ -13,43 +13,45 @@ local DataStoresData = require(Components.DataStores.DataStoresData)
 local ServerStatsData = require(Components.ServerStats.ServerStatsData)
 local ActionBindingsData = require(Components.ActionBindings.ActionBindingsData)
 local ServerJobsData = require(Components.ServerJobs.ServerJobsData)
+local DataContext = require(Components.DataContext)
 
 local FFlagAdminServerLogs = settings():GetFFlag("AdminServerLogs")
 
 local DataProvider = Roact.Component:extend("DataProvider")
 
 function DataProvider:init()
-	self._context.DevConsoleData = {
-		ClientLogData = LogData.new(true),
-		ServerLogData = LogData.new(false),
-		ClientMemoryData = ClientMemoryData.new(),
-		ServerMemoryData = ServerMemoryData.new(),
-		ClientNetworkData = NetworkData.new(true),
-		ServerNetworkData = NetworkData.new(false),
-		ServerScriptsData = ServerScriptsData.new(),
-		DataStoresData = DataStoresData.new(),
-		ServerStatsData = ServerStatsData.new(),
-		ActionBindingsData = ActionBindingsData.new(),
-		ServerJobsData = ServerJobsData.new(),
-	}
+	self:setState({
+		DevConsoleData = {
+			ClientLogData = LogData.new(true),
+			ServerLogData = LogData.new(false),
+			ClientMemoryData = ClientMemoryData.new(),
+			ServerMemoryData = ServerMemoryData.new(),
+			ClientNetworkData = NetworkData.new(true),
+			ServerNetworkData = NetworkData.new(false),
+			ServerScriptsData = ServerScriptsData.new(),
+			DataStoresData = DataStoresData.new(),
+			ServerStatsData = ServerStatsData.new(),
+			ActionBindingsData = ActionBindingsData.new(),
+			ServerJobsData = ServerJobsData.new(),
+		}
+	})
 end
 
 function DataProvider:didMount()
 	if self.props.isDeveloperView and not FFlagAdminServerLogs then
-		for _, dataProvider in pairs(self._context.DevConsoleData) do
+		for _, dataProvider in pairs(self.state.DevConsoleData) do
 			dataProvider:start()
 		end
 	else
-		self._context.DevConsoleData.ClientLogData:start()
-		self._context.DevConsoleData.ClientMemoryData:start()
+		self.state.DevConsoleData.ClientLogData:start()
+		self.state.DevConsoleData.ClientMemoryData:start()
 	end
 end
 
 function DataProvider:willUpdate(nextProps, nextState)
 	if FFlagAdminServerLogs then
-		if nextProps.isDeveloperView and 
-			not self.props.isDeveloperView then
-			for _, dataProvider in pairs(self._context.DevConsoleData) do
+		if nextProps.isDeveloperView and not self.props.isDeveloperView then
+			for _, dataProvider in pairs(self.state.DevConsoleData) do
 				if not dataProvider:isRunning() then
 					dataProvider:start()
 				end
@@ -59,7 +61,9 @@ function DataProvider:willUpdate(nextProps, nextState)
 end
 
 function DataProvider:render()
-	return Roact.oneChild(self.props[Roact.Children])
+	return Roact.createElement(DataContext.Provider, {
+		value = self.state.DevConsoleData,
+	}, Roact.oneChild(self.props[Roact.Children]))
 end
 
 local function mapStateToProps(state, props)

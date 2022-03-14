@@ -5,9 +5,13 @@
 	rendering each BubbleChatBillboard.
 ]]
 
+local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local RobloxGui = CoreGui:WaitForChild("RobloxGui")
+
+local log = require(script.Parent.Parent.Logger)(script.Name)
 
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -15,9 +19,20 @@ local t = require(CorePackages.Packages.t)
 local Otter = require(CorePackages.Packages.Otter)
 local BubbleChatList = require(script.Parent.BubbleChatList)
 local ChatBubbleDistant = require(script.Parent.ChatBubbleDistant)
+local VoiceBubble = require(script.Parent.VoiceBubble)
+local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicator)
 local Types = require(script.Parent.Parent.Types)
 local Constants = require(script.Parent.Parent.Constants)
 local getSettingsForMessage = require(script.Parent.Parent.Helpers.getSettingsForMessage)
+
+local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
+local GetFFlagBubbleVoiceIndicator = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceIndicator)
+local GetFFlagEnableVoiceChatSpeakerIcons = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatSpeakerIcons)
+local GetFFlagBubbleVoiceCleanupOnLeave = require(RobloxGui.Modules.Flags.GetFFlagBubbleVoiceCleanupOnLeave)
+local GetFFlagEnableVoiceChatManualReconnect = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceChatManualReconnect)
+local GetFFlagBubbleChatInexistantAdorneeFix = require(RobloxGui.Modules.Flags.GetFFlagBubbleChatInexistantAdorneeFix)
+
+local FIntBubbleVoiceTimeoutMillis = game:DefineFastInt("BubbleVoiceTimeoutMillis", 1000)
 
 local BubbleChatBillboard = Roact.PureComponent:extend("BubbleChatBillboard")
 
@@ -29,11 +44,14 @@ local SPRING_CONFIG = {
 BubbleChatBillboard.validateProps = t.strictInterface({
 	userId = t.string,
 	onFadeOut = t.optional(t.callback),
+	voiceEnabled = t.optional(t.boolean),
+	bubbleChatEnabled = t.optional(t.boolean),
 
 	-- RoactRodux
 	chatSettings = Types.IChatSettings,
 	messageIds = t.optional(t.array(t.string)), -- messageIds == nil during the last bubble's fade out animation
 	lastMessage = t.optional(Types.IMessage),
+	voiceState = t.optional(t.string),
 })
 
 function BubbleChatBillboard:init()
@@ -42,6 +60,9 @@ function BubbleChatBillboard:init()
 		isInsideRenderDistance = false,
 		isInsideMaximizeDistance = false,
 		savedChatSettings = self.props.chatSettings,
+		voiceTimedOut = false,
+		voiceStateCounter = 0,
+		lastVoiceState = nil,
 	})
 
 	self.isMounted = false
@@ -57,6 +78,68 @@ function BubbleChatBillboard:init()
 			self.isFadingOut = true
 			self.props.onFadeOut(self.props.userId)
 		end
+
+		if GetFFlagBubbleVoiceCleanupOnLeave() and self.state.hasMessage and self.isMounted then
+			self:setState({
+				hasMessage = false,
+			})
+		end
+	end
+
+	if GetFFlagBubbleVoiceIndicator() and self.props.voiceEnabled then
+		local onClick
+		if self.props.userId == tostring(Players.LocalPlayer.UserId) then
+			onClick = function()
+				if GetFFlagEnableVoiceChatManualReconnect() and self.props.voiceState == Constants.VOICE_STATE.ERROR then
+					VoiceChatServiceManager:RejoinPreviousChannel()
+				else
+					VoiceChatServiceManager:ToggleMic()
+				end
+			end
+		else
+			onClick = function()
+				-- The billboards use strings, but the manager expects numbers
+				VoiceChatServiceManager:ToggleMutePlayer(tonumber(self.props.userId))
+			end
+		end
+
+		local userId = self.props.userId
+
+		local iconStyle = "MicDark"
+
+		if GetFFlagEnableVoiceChatSpeakerIcons() then
+			iconStyle = userId ~= tostring(Players.LocalPlayer.UserId) and "SpeakerDark" or "MicDark"
+		end
+
+		self.renderInsert = function()
+			return Roact.createElement(VoiceIndicator, {
+				onClicked = onClick,
+				userId = userId,
+				iconStyle = iconStyle,
+			})
+		end
+
+		self.insertSize = Vector2.new(28, 28)
+	end
+end
+
+function BubbleChatBillboard:checkCounterForTimeout(lastCounter)
+	-- Start a new timer when the counter changes, unless this is the local
+	-- user or the voice state is TALKING.
+	if 
+		self.props.userId ~= tostring(Players.LocalPlayer.UserId) and
+		self.state.lastVoiceState ~= Constants.VOICE_STATE.TALKING and
+		self.state.voiceStateCounter ~= lastCounter
+	then
+		local currentCounter = self.state.voiceStateCounter
+		delay(FIntBubbleVoiceTimeoutMillis / 1000.0, function()
+			-- If the counter hasn't changed during the delay, hide the voice indicator.
+			if self.state.voiceStateCounter == currentCounter and self.isMounted then
+				self:setState({
+					voiceTimedOut = true,
+				})
+			end
+		end)
 	end
 end
 
@@ -72,7 +155,17 @@ function BubbleChatBillboard:didMount()
 	self.offsetMotor:setGoal(Otter.instant(initialOffset))
 
 	-- When the character respawns, we need to update the adornee
-	local player = Players:GetPlayerFromCharacter(adornee)
+	local player
+	if not GetFFlagBubbleVoiceIndicator() then
+		player = Players:GetPlayerFromCharacter(adornee)
+	else
+		if adornee then
+			player = Players:GetPlayerFromCharacter(adornee)
+		elseif tonumber(self.props.userId) then
+			player = Players:GetPlayerByUserId(self.props.userId)
+		end
+	end
+
 	if player then
 		if player.Character then
 			coroutine.wrap(function()
@@ -106,9 +199,12 @@ function BubbleChatBillboard:didMount()
 			self.offsetMotor:setGoal(Otter.spring(offset, SPRING_CONFIG))
 		end
 	end)
+
+	self:checkCounterForTimeout(nil)
 end
 
 function BubbleChatBillboard:willUnmount()
+	log:trace("Unmounting billboards for {}", self.state.shortId)
 	self.isMounted = false
 	if self.characterConn then
 		self.characterConn:Disconnect()
@@ -162,6 +258,7 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 		waitForFirst(character.AncestryChanged, player.CharacterAdded)
 	end
 	if player.Character ~= character or not character.Parent then
+		log:debug("Mismatched or unparented character in onCharacterAdded for {}", self.state.shortId)
 		return
 	end
 
@@ -173,14 +270,24 @@ function BubbleChatBillboard:onCharacterAdded(player, character)
 	end
 
 	if player.Character ~= character or not character:IsDescendantOf(game) then
+		log:debug("Mismatched or unparented character in onCharacterAdded for {}", self.state.shortId)
 		return
 	end
 
 	-- Make sure that the root part is parented, stop execution if the character has respawned again in the meantime
-	local rootPart = character:FindFirstChild("HumanoidRootPart")
+	local rootPart
+	if GetFFlagBubbleChatInexistantAdorneeFix() then
+		rootPart = character.PrimaryPart
+	else
+		rootPart = character:FindFirstChild("HumanoidRootPart")
+	end
 	while character:IsDescendantOf(game) and not rootPart do
 		waitForFirst(character.ChildAdded, character.AncestryChanged, player.CharacterAdded)
-		rootPart = character:FindFirstChild("HumanoidRootPart")
+		if GetFFlagBubbleChatInexistantAdorneeFix() then
+			rootPart = character.PrimaryPart
+		else
+			rootPart = character:FindFirstChild("HumanoidRootPart")
+		end
 	end
 
 	if rootPart and character:IsDescendantOf(game) and player.Character == character and self.isMounted then
@@ -230,6 +337,9 @@ function BubbleChatBillboard:getAdorneeInstance(adornee)
 		return
 	elseif adornee:IsA("Model") then
 		local adorneePart = adornee:FindFirstChild(self.state.savedChatSettings.AdorneeName, true)
+		if GetFFlagBubbleChatInexistantAdorneeFix() then
+			adorneePart = adorneePart or adornee.PrimaryPart
+		end
 		if not adorneePart or adorneePart:IsA("BasePart") or adorneePart:IsA("Attachment") then
 			return adorneePart
 		end
@@ -244,6 +354,7 @@ function BubbleChatBillboard:render()
 	local chatSettings = self.state.savedChatSettings
 
 	if not adorneeInstance then
+		log:trace("No adornee for {}", self.state.shortId)
 		return
 	end
 
@@ -252,7 +363,101 @@ function BubbleChatBillboard:render()
 	-- instances around. This approach means nothing exists in the DM
 	-- when there are no messages.
 	if not self.state.isInsideRenderDistance then
+		log:trace("Not in range for {}", self.state.shortId)
 		return
+	end
+
+	local children = {}
+	local active = nil
+	if not GetFFlagBubbleVoiceIndicator() then
+		children.DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
+			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
+			onFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
+		})
+
+		children.BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
+			userId = self.props.userId,
+			isVisible = self.state.isInsideMaximizeDistance,
+			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+			chatSettings = chatSettings,
+		})
+	elseif not GetFFlagBubbleVoiceCleanupOnLeave() then
+		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
+		if self.props.voiceEnabled and (
+			not self.props.bubbleChatEnabled 
+			or not self.props.messageIds
+			or #self.props.messageIds == 0)
+		then
+			-- Render the VoiceBubble if neither of the other two should render.
+			children.VoiceBubble = Roact.createElement(VoiceBubble, {
+				chatSettings = chatSettings,
+				renderInsert = self.renderInsert,
+				insertSize = self.insertSize,
+				isDistant = not self.state.isInsideMaximizeDistance,
+			})
+		else
+			if self.state.isInsideMaximizeDistance then
+				children.BubbleChatList = Roact.createElement(BubbleChatList, {
+					userId = self.props.userId,
+					isVisible = self.state.isInsideMaximizeDistance,
+					onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+					chatSettings = chatSettings,
+					renderFirstInsert = self.props.voiceEnabled and self.renderInsert,
+					insertSize = self.insertSize,
+				})
+			else
+				children.DistantBubble = Roact.createElement(ChatBubbleDistant, {
+					fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
+					onFadeOut = self.onLastBubbleFadeOut,
+					chatSettings = chatSettings,
+					renderInsert = self.props.voiceEnabled and self.renderInsert,
+					insertSize = self.insertSize,
+				})
+			end
+		end
+
+		active = self.props.voiceEnabled
+	else
+		local showVoiceIndicator = self.props.voiceEnabled and not self.state.voiceTimedOut
+
+		-- If neither bubble chat nor voice is on, this whole component shouldn't be rendered.
+		if showVoiceIndicator and (
+			not self.props.bubbleChatEnabled 
+			or not self.props.messageIds
+			or #self.props.messageIds == 0)
+		then
+			-- Render the VoiceBubble if neither of the other two should render.
+			children.VoiceBubble = Roact.createElement(VoiceBubble, {
+				chatSettings = chatSettings,
+				renderInsert = self.renderInsert,
+				insertSize = self.insertSize,
+				isDistant = not self.state.isInsideMaximizeDistance,
+			})
+		end
+
+		if self.state.hasMessage then
+			if self.state.isInsideMaximizeDistance then
+				children.BubbleChatList = Roact.createElement(BubbleChatList, {
+					userId = self.props.userId,
+					isVisible = self.state.isInsideMaximizeDistance,
+					onLastBubbleFadeOut = self.onLastBubbleFadeOut,
+					chatSettings = chatSettings,
+					renderFirstInsert = showVoiceIndicator and self.renderInsert,
+					insertSize = self.insertSize,
+				})
+			else
+				children.DistantBubble = Roact.createElement(ChatBubbleDistant, {
+					fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
+					onFadeOut = self.onLastBubbleFadeOut,
+					chatSettings = chatSettings,
+					renderInsert = showVoiceIndicator and self.renderInsert,
+					insertSize = self.insertSize,
+				})
+			end
+		end
+
+		active = showVoiceIndicator
 	end
 
 	-- For other players, increase vertical offset by 1 to prevent overlaps with the name display
@@ -262,42 +467,61 @@ function BubbleChatBillboard:render()
 	local studsOffset = isLocalPlayer and chatSettings.LocalPlayerStudsOffset or Vector3.new(0, 1, .1)
 	return Roact.createElement("BillboardGui", {
 		Adornee = adorneeInstance,
+		Active = active,
 		Size = UDim2.fromOffset(500, 200),
 		SizeOffset = Vector2.new(0, 0.5),
 		StudsOffset = studsOffset + Vector3.new(0, chatSettings.VerticalStudsOffset, 0),
 		StudsOffsetWorldSpace = self.offset,
 		ResetOnSpawn = false,
-	}, {
-		DistantBubble = not self.state.isInsideMaximizeDistance and Roact.createElement(ChatBubbleDistant, {
-			fadingOut = not self.props.messageIds or #self.props.messageIds == 0,
-			onFadeOut = self.onLastBubbleFadeOut,
-			chatSettings = chatSettings,
-		}),
-
-		BubbleChatList = self.state.isInsideMaximizeDistance and Roact.createElement(BubbleChatList, {
-			userId = self.props.userId,
-			isVisible = self.state.isInsideMaximizeDistance,
-			onLastBubbleFadeOut = self.onLastBubbleFadeOut,
-			chatSettings = chatSettings,
-		})
-	})
-
+	}, children)
 end
 
-function BubbleChatBillboard:didUpdate()
+function BubbleChatBillboard:didUpdate(_lastProps, lastState)
 	-- If self.state.isInsideRenderDistance, the responsibility to call self.onLastBubbleFadeOut will be on either
 	-- DistantBubble or BubbleChatList (after their fade out animation)
 	if (not self.props.messageIds or #self.props.messageIds == 0) and not self.state.isInsideRenderDistance then
 		self.onLastBubbleFadeOut()
 	end
+
+	if GetFFlagBubbleVoiceCleanupOnLeave() then
+		if self.props.messageIds and #self.props.messageIds > 0 then
+			self.isFadingOut = false
+		end
+	end
+
+	self:checkCounterForTimeout(lastState.voiceStateCounter)
 end
 
-function BubbleChatBillboard.getDerivedStateFromProps(nextProps)
+function BubbleChatBillboard.getDerivedStateFromProps(nextProps, lastState)
 	-- Need to save the latest chat settings to the state because when the billboard does the fade out animation,
 	-- there is no message (nextProps.lastMessage == nil), so no way to get the user ID, which is needed to get
 	-- user specific settings.
+
+	local shortId = "..." .. string.sub(tostring(nextProps.userId), -4)
+
+	local hasMessage
+	if GetFFlagBubbleVoiceCleanupOnLeave() then
+		hasMessage = not lastState.hasMessage and nextProps.messageIds and #nextProps.messageIds > 0
+	end
+	
+	local lastVoiceState
+	local voiceStateCounter
+	local voiceTimedOut
+	if lastState.lastVoiceState ~= nextProps.voiceState then
+		voiceStateCounter = (lastState.voiceStateCounter or 0) + 1
+		voiceTimedOut = false
+		-- Need to save voiceState into state here since getDerivedState
+		-- doesn't have access to last props.
+		lastVoiceState = nextProps.voiceState
+	end
+
 	return {
-		savedChatSettings = nextProps.lastMessage and nextProps.chatSettings
+		hasMessage = hasMessage or nil,
+		savedChatSettings = nextProps.lastMessage and nextProps.chatSettings,
+		shortId = shortId,
+		voiceStateCounter = voiceStateCounter,
+		voiceTimedOut = voiceTimedOut,
+		lastVoiceState = lastVoiceState,
 	}
 end
 
@@ -305,10 +529,12 @@ local function mapStateToProps(state, props)
 	local messageIds = state.userMessages[props.userId]
 	local lastMessageId = messageIds and #messageIds >= 1 and messageIds[#messageIds]
 	local lastMessage = lastMessageId and state.messages[lastMessageId]
+	local voiceState = state.voiceState[props.userId]
 	return {
 		chatSettings = getSettingsForMessage(state.chatSettings, lastMessage),
 		messageIds = messageIds,
-		lastMessage = lastMessage
+		lastMessage = lastMessage,
+		voiceState = voiceState,
 	}
 end
 

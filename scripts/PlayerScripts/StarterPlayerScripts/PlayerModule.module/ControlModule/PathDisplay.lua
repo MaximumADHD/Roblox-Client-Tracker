@@ -30,7 +30,7 @@ for i = 1, poolTop do
 	pointPool[i] = point
 end
 
-local function retrieveFromPool()
+local function retrieveFromPool(): ImageHandleAdornment
 	local point = pointPool[1]
 	if not point then
 		return
@@ -41,12 +41,12 @@ local function retrieveFromPool()
 	return point
 end
 
-local function returnToPool(point)
+local function returnToPool(point: ImageHandleAdornment)
 	poolTop = poolTop + 1
 	pointPool[poolTop] = point
 end
 
-local function renderPoint(point, isLast)
+local function renderPoint(point: Vector3, isLast): ImageHandleAdornment
 	if poolTop == 0 then
 		return
 	end

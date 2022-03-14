@@ -6,8 +6,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local GetFFlagUseThumbnailUrl = require(RobloxGui.Modules.Common.Flags.GetFFlagUseThumbnailUrl)
-
 local PlayerPermissionsModule = require(RobloxGui.Modules.PlayerPermissionsModule)
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 
@@ -70,19 +68,8 @@ local function getPlayerAvatarIcon(store, player)
 		return
 	end
 
-	if GetFFlagUseThumbnailUrl() then
-		local thumbnail = "rbxthumb://type=Avatar&id=" .. player.UserId .. "&w=100&h=100"
-		dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
-	else
-		local thumbnail, isFinal = Players:GetUserThumbnailAsync(
-			player.UserId,
-			Enum.ThumbnailType.AvatarThumbnail,
-			Enum.ThumbnailSize.Size100x100
-		)
-		if isFinal then
-			dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
-		end
-	end
+	local thumbnail = "rbxthumb://type=Avatar&id=" .. player.UserId .. "&w=100&h=100"
+	dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
 end
 
 local function getPlayerIsBlocked(store, player)

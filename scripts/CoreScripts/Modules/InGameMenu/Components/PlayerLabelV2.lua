@@ -10,10 +10,17 @@ local Cryo = InGameMenuDependencies.Cryo
 local t = InGameMenuDependencies.t
 
 local withStyle = UIBlox.Core.Style.withStyle
+local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
+local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local InGameMenu = script.Parent.Parent
 
 local FFlagLuaMenuPerfImprovements = require(InGameMenu.Flags.FFlagLuaMenuPerfImprovements)
+local FFlagAlwaysShowDisplayNameInExpMenu = require(InGameMenu.Flags.FFlagAlwaysShowDisplayNameInExpMenu)
+
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(InGameMenu.Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
+
+local Modules = CoreGui.RobloxGui.Modules
 
 local ThemedTextLabel = require(InGameMenu.Components.ThemedTextLabel)
 
@@ -37,9 +44,11 @@ local iconPos = {
 	Size = UDim2.new(0, PLAYER_ICON_SIZE, 0, PLAYER_ICON_SIZE),
 }
 
+local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
+
 local PlayerLabel = Roact.PureComponent:extend("PlayerLabelV2")
 
-PlayerLabel.validateProps = t.strictInterface({
+PlayerLabel.validateProps = t.strictInterface(validatePropsWithForwardRef({
 	userId = t.number,
 	username = t.string,
 	displayName = t.string,
@@ -52,8 +61,8 @@ PlayerLabel.validateProps = t.strictInterface({
 
 	[Roact.Children] = t.optional(t.table),
 	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
-	[Roact.Ref] = t.optional(t.callback),
-})
+	[Roact.Ref] = t.optional(t.union(t.callback, t.table)),
+}))
 
 PlayerLabel.defaultProps = {
 	Visible = true,
@@ -82,8 +91,7 @@ function PlayerLabel:renderButtons()
 	return buttons
 end
 
-function PlayerLabel:render()
-
+function PlayerLabel:renderWithSelectionCursor(getSelectionCursor)
 	-- check policy until we need to render this component.
 	-- if we should show display name:
 	-- * the DisplayNameLabel will be used to show display name.
@@ -91,7 +99,7 @@ function PlayerLabel:render()
 	-- if not, we just show username at DisplayNameLabel and hide UsernameLabel
 
 	local props = self.props
-	local shouldShowDisplayName = PolicyService:IsSubjectToChinaPolicies()
+	local shouldShowDisplayName = PolicyService:IsSubjectToChinaPolicies() or FFlagAlwaysShowDisplayNameInExpMenu
 	local displayName = props.displayName ~= "" and props.displayName or props.username
 
 	return withStyle(function(style)
@@ -105,6 +113,8 @@ function PlayerLabel:render()
 			activated = self.props.onActivated and self.onActivated or nil
 		end
 
+		local forwardRef = self.props.forwardRef
+
 		return Roact.createElement("TextButton", {
 			BackgroundTransparency = backgroundStyle.Transparency,
 			BackgroundColor3 = backgroundStyle.Color,
@@ -117,7 +127,8 @@ function PlayerLabel:render()
 
 			[Roact.Event.Activated] = activated,
 			[Roact.Change.AbsolutePosition] = self.props[Roact.Change.AbsolutePosition],
-			[Roact.Ref] = self.props[Roact.Ref],
+			[Roact.Ref] = forwardRef,
+			SelectionImageObject = GetFFlagInGameMenuControllerDevelopmentOnly() and getSelectionCursor(CursorKind.Square) or nil,
 		}, {
 			PlayerIcon = Roact.createElement(ImageSetLabel, Cryo.Dictionary.join(iconPos, {
 				ImageColor3 = props.isOnline and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(115, 115, 115),
@@ -158,4 +169,18 @@ function PlayerLabel:render()
 	end)
 end
 
-return PlayerLabel
+function PlayerLabel:render()
+	if GetFFlagInGameMenuControllerDevelopmentOnly() then
+		return withSelectionCursorProvider(function(getSelectionCursor)
+			return self:renderWithSelectionCursor(getSelectionCursor)
+		end)
+	else
+		return self:renderWithSelectionCursor()
+	end
+end
+
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(PlayerLabel, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

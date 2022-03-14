@@ -4,7 +4,12 @@ local InGameMenuDependencies = require(CorePackages.InGameMenuDependencies)
 local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 
+local IGMRespawnControllerBar = require(script.Parent.IGMRespawnControllerBar)
+
 local InGameMenu = script.Parent.Parent
+local Flags = InGameMenu.Flags
+local GetFFlagIGMControllerBarRefactor = require(Flags.GetFFlagIGMControllerBarRefactor)
+local GetFFlagInGameMenuControllerDevelopmentOnly = require(Flags.GetFFlagInGameMenuControllerDevelopmentOnly)
 
 local withLocalization = require(InGameMenu.Localization.withLocalization)
 
@@ -17,23 +22,37 @@ local SendAnalytics = require(InGameMenu.Utility.SendAnalytics)
 local Constants = require(InGameMenu.Resources.Constants)
 
 local function RespawnDialog(props)
+	local function renderRespawnDialogControllerBar()
+		if GetFFlagIGMControllerBarRefactor() then
+			return Roact.createElement(IGMRespawnControllerBar, {
+				inputType = props.inputType
+			})
+		end
+		return nil
+	end
+
 	return withLocalization({
 		titleText = "CoreScripts.InGameMenu.RespawnCharacterDialogTitle",
 		bodyText = "CoreScripts.InGameMenu.RespawnCharacterDialogBody",
 		confirmText = "CoreScripts.InGameMenu.RespawnCharacterDialogConfirm",
 		cancelText = "CoreScripts.InGameMenu.Cancel",
 	})(function(localized)
-		return Roact.createElement(ConfirmationDialog, {
-			visible = props.isRespawning,
-			titleText = localized.titleText,
-			bodyText = localized.bodyText,
-			confirmText = localized.confirmText,
-			cancelText = localized.cancelText,
+		return Roact.createFragment({
+			RespawnDialogControllerBar = props.isRespawning and renderRespawnDialogControllerBar() or nil,
+			ConfirmationDialog = Roact.createElement(ConfirmationDialog, {
+				visible = props.isRespawning,
+				titleText = localized.titleText,
+				bodyText = localized.bodyText,
+				confirmText = localized.confirmText,
+				cancelText = localized.cancelText,
 
-			bindReturnToConfirm = true,
+				bindReturnToConfirm = true,
 
-			onCancel = props.onCancel,
-			onConfirm = props.onConfirm,
+				onCancel = props.onCancel,
+				onConfirm = props.onConfirm,
+
+				inputType = props.inputType,
+			})
 		})
 	end)
 end
@@ -41,6 +60,7 @@ end
 return RoactRodux.UNSTABLE_connect2(function(state, props)
 	return {
 		isRespawning = state.respawn.dialogOpen,
+		inputType = GetFFlagInGameMenuControllerDevelopmentOnly() and state.displayOptions.inputType or nil,
 	}
 end, function(dispatch)
 	return {

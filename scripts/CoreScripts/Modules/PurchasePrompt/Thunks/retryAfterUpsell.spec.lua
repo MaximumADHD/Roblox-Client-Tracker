@@ -2,10 +2,11 @@ return function()
 	local Root = script.Parent.Parent
 
 	local CorePackages = game:GetService("CorePackages")
-local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
+	local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 	local Rodux = PurchasePromptDeps.Rodux
 
 	local PromptState = require(Root.Enums.PromptState)
+	local RequestType = require(Root.Enums.RequestType)
 	local Reducer = require(Root.Reducers.Reducer)
 	local Analytics = require(Root.Services.Analytics)
 	local Network = require(Root.Services.Network)
@@ -17,12 +18,19 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 
 	local retryAfterUpsell = require(script.Parent.retryAfterUpsell)
 
+	local GetFFlagPPRetryPost2SVWebviewFix = require(Root.Flags.GetFFlagPPRetryPost2SVWebviewFix)
+
 	it("should run without errors", function()
 		local store = Rodux.Store.new(Reducer, {
 			productInfo = {
 				price = 0,
 				membershipTypeRequired = 0,
-			}
+			},
+			promptRequest = {
+				id = 123,
+				requestType = RequestType.Product,
+				infoType = Enum.InfoType.Product
+			},
 		})
 
 		local thunk = retryAfterUpsell()
@@ -62,7 +70,12 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 			productInfo = {
 				price = accountInfo.RobuxBalance + 1,
 				membershipTypeRequired = 0,
-			}
+			},
+			promptRequest = {
+				id = 123,
+				requestType = RequestType.Product,
+				infoType = Enum.InfoType.Product
+			},
 		})
 
 		Thunk.test(thunk, store, {
@@ -75,4 +88,32 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		expect(state.promptState).to.equal(PromptState.Error)
 		expect(analytics.spies.signalFailedPurchasePostUpsell.callCount).to.equal(1)
 	end)
+
+	if GetFFlagPPRetryPost2SVWebviewFix() then
+		it("should not run if there is no request", function()
+			local store = Rodux.Store.new(Reducer, {
+				productInfo = {
+					price = 0,
+					membershipTypeRequired = 0,
+				},
+				promptRequest = {
+					requestType = RequestType.None,
+				},
+			})
+	
+			local thunk = retryAfterUpsell()
+			local network = MockNetwork.new()
+			local analytics = MockAnalytics.new()
+			local externalSettings = MockExternalSettings.new(true, false, {})
+	
+			Thunk.test(thunk, store, {
+				[Analytics] = analytics.mockService,
+				[Network] = network,
+				[ExternalSettings] = externalSettings,
+			})
+	
+			local state = store:getState()
+			expect(state.promptState).to.equal(PromptState.None)
+		end)
+	end
 end

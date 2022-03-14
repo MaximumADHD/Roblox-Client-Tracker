@@ -5,7 +5,6 @@ local SetDevConsoleVisibility = require(script.Parent.Parent.Actions.SetDevConso
 local SetDevConsoleMinimized = require(script.Parent.Parent.Actions.SetDevConsoleMinimized)
 
 local FFlagReportDevConsoleOpenClose = settings():GetFFlag("ReportDevConsoleOpenClose")
-local FFlagDevConsoleAnalyticsIncludeOwner = settings():GetFFlag("DevConsoleAnalyticsIncludeOwner")
 
 local START_VISIBLE = "DevConsoleStartVisible"
 local CLOSE_SESSION_TIME = "DevConsoleSessionTime"
@@ -42,7 +41,7 @@ function dispatchTabAnalytics(additionArgs)
 	AnalyticsService:SendEventImmediately("client", "devConsoleMetric", "devConsoleTabChange", additionArgs)
 end
 
-function ReportTabChange(store, action, isDeveloper)
+function ReportTabChange(store, action)
 	if action.type == SetActiveTab.name then
 		local mainView = store:getState().MainView
 
@@ -57,9 +56,6 @@ function ReportTabChange(store, action, isDeveloper)
 				initTab = getTabAnalyticsKeyName(mainView.currTabIndex, mainView.isClientView),
 				endTab = getTabAnalyticsKeyName(updateIndex, updateIsClient),
 			}
-			if FFlagDevConsoleAnalyticsIncludeOwner then
-				additionArgs.isOwner = isDeveloper
-			end
 
 			dispatchTabAnalytics(additionArgs)
 		end
@@ -85,9 +81,6 @@ function ReportTabChange(store, action, isDeveloper)
 				endTab = TABBING_END_VISIBLE,
 			}
 		end
-		if FFlagDevConsoleAnalyticsIncludeOwner then
-			additionArgs.isOwner = isDeveloper
-		end
 		dispatchTabAnalytics(additionArgs)
 
 	elseif action.type == SetDevConsoleMinimized.name then
@@ -105,39 +98,18 @@ function ReportTabChange(store, action, isDeveloper)
 				endTab = getTabAnalyticsKeyName(mainView.currTabIndex, mainView.isClientView),
 			}
 		end
-		if FFlagDevConsoleAnalyticsIncludeOwner then
-			additionArgs.isOwner = isDeveloper
-		end
 		dispatchTabAnalytics(additionArgs)
 
 	end
 end
 
-local export: any
-
-if FFlagDevConsoleAnalyticsIncludeOwner then
-	-- wrap this middleware in a functional constructor to pass initalization information
-	export = function(isDeveloper)
-		return function(nextDispatch, store)
-			return function(action)
-				ReportTabChange(store, action, isDeveloper)
-
-				if FFlagReportDevConsoleOpenClose then
-					ReportDevConsoleOpenClose(store, action)
-				end
-				nextDispatch(action)
-			end
+local export: any = function(nextDispatch, store)
+	return function(action)
+			ReportTabChange(store, action)
+		if FFlagReportDevConsoleOpenClose then
+			ReportDevConsoleOpenClose(store, action)
 		end
-	end
-else
-	export = function(nextDispatch, store)
-		return function(action)
-				ReportTabChange(store, action)
-			if FFlagReportDevConsoleOpenClose then
-				ReportDevConsoleOpenClose(store, action)
-			end
-			nextDispatch(action)
-		end
+		nextDispatch(action)
 	end
 end
 

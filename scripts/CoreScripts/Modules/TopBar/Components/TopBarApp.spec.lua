@@ -1,7 +1,5 @@
 return function()
 	local CorePackages = game:GetService("CorePackages")
-	local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
-	local CoreGui = game:GetService("CoreGui")
 
 	local AppDarkTheme = require(CorePackages.AppTempCommon.LuaApp.Style.Themes.DarkTheme)
 	local AppFont = require(CorePackages.AppTempCommon.LuaApp.Style.Fonts.Gotham)
@@ -18,48 +16,6 @@ return function()
 		Font = AppFont,
 	}
 
-	--Create dummy events in RobloxReplicatedStorage:
-	local UpdatePlayerBlockList = Instance.new("RemoteEvent")
-	UpdatePlayerBlockList.Name = "UpdatePlayerBlockList"
-	UpdatePlayerBlockList.Parent = RobloxReplicatedStorage
-
-	local NewPlayerGroupDetails = Instance.new("RemoteEvent")
-	NewPlayerGroupDetails.Name = "NewPlayerGroupDetails"
-	NewPlayerGroupDetails.Parent = RobloxReplicatedStorage
-
-	local NewPlayerCanManageDetails = Instance.new("RemoteEvent")
-	NewPlayerCanManageDetails.Name = "NewPlayerCanManageDetails"
-	NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
-
-	local FollowRelationshipChanged
-	local GetFollowRelationships
-	local NewFollower
-
-	local Flags = script.Parent.Parent.Parent.Flags
-	local GetFFlagRemoveInGameFollowingEvents = require(Flags.GetFFlagRemoveInGameFollowingEvents)
-
-	if not GetFFlagRemoveInGameFollowingEvents() then
-		FollowRelationshipChanged = Instance.new("RemoteEvent")
-		FollowRelationshipChanged.Name = "FollowRelationshipChanged"
-		FollowRelationshipChanged.Parent = RobloxReplicatedStorage
-
-		GetFollowRelationships = Instance.new("RemoteFunction")
-		GetFollowRelationships.Name = "GetFollowRelationships"
-		GetFollowRelationships.Parent = RobloxReplicatedStorage
-
-		NewFollower = Instance.new("RemoteEvent")
-		NewFollower.Name = "NewFollower"
-		NewFollower.Parent = RobloxReplicatedStorage
-	end
-
-	local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-	local SendNotificationInfo = Instance.new("BindableEvent")
-	SendNotificationInfo.Name = "SendNotificationInfo"
-	SendNotificationInfo.Parent = RobloxGui
-
-	local Sounds = Instance.new("Folder")
-	Sounds.Name = "Sounds"
-	Sounds.Parent = CoreGui.RobloxGui
 
 	describe("TopBarApp", function()
 		it("should create and destroy without errors", function()

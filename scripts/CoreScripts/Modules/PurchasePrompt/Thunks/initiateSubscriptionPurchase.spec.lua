@@ -66,7 +66,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiateSubscriptionPurchase(15)
 
 		Thunk.test(thunk, store, {
-			[Network] = MockNetwork.new(true),
+			[Network] = MockNetwork.new(nil, "Network Failure"),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {}),
 		})
 
@@ -80,7 +80,7 @@ local PurchasePromptDeps = require(CorePackages.PurchasePromptDeps)
 		local thunk = initiateSubscriptionPurchase(15)
 
 		Thunk.test(thunk, store, {
-			[Network] = MockNetwork.new(true),
+			[Network] = MockNetwork.new(nil, "Network Failure"),
 			[ExternalSettings] = MockExternalSettings.new(false, false, {
 				Order66 = true,
 			}),

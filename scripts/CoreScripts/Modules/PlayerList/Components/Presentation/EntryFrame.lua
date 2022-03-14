@@ -1,11 +1,15 @@
 local CorePackages = game:GetService("CorePackages")
+local CoreGui = game:GetService("CoreGui")
+local Modules = CoreGui.RobloxGui.Modules
+local validatePropsWithForwardRef = require(Modules.validatePropsWithForwardRef)
 
+local Cryo = require(CorePackages.Cryo)
 local Roact = require(CorePackages.Roact)
 local t = require(CorePackages.Packages.t)
 
 local EntryFrame = Roact.PureComponent:extend("EntryFrame")
 
-EntryFrame.validateProps = t.strictInterface({
+EntryFrame.validateProps = t.strictInterface(validatePropsWithForwardRef({
 	sizeX = t.integer,
 	sizeY = t.integer,
 	isTeamFrame = t.boolean,
@@ -30,9 +34,11 @@ EntryFrame.validateProps = t.strictInterface({
 
 	[Roact.Ref] = t.optional(t.table),
 	[Roact.Children] = t.optional(t.table),
-})
+}))
 
 function EntryFrame:render()
+	local forwardRef = self.props.forwardRef
+
 	return Roact.createElement("TextButton", {
 		Size = UDim2.new(0, self.props.sizeX, 0, self.props.sizeY),
 		BackgroundTransparency = self.props.backgroundStyle.Transparency,
@@ -62,7 +68,7 @@ function EntryFrame:render()
 			end
 		end or nil,
 
-		[Roact.Ref] = self.props[Roact.Ref],
+		[Roact.Ref] = forwardRef,
 	}, {
 		DoubleOverLay = Roact.createElement("Frame", {
 			ZIndex = 1,
@@ -83,4 +89,8 @@ function EntryFrame:render()
 	})
 end
 
-return EntryFrame
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(EntryFrame, Cryo.Dictionary.join(props, {
+		forwardRef = ref,
+	}))
+end)

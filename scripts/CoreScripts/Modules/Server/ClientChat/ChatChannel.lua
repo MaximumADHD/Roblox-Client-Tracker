@@ -2,6 +2,13 @@
 --	// Written by: Xsitsu
 --	// Description: ChatChannel class for handling messages being added and removed from the chat channel.
 
+local UserFlagRemoveMessageFromMessageLog do
+	local success, value = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserFlagRemoveMessageFromMessageLog")
+	end)
+	UserFlagRemoveMessageFromMessageLog = success and value
+end
+
 local module = {}
 --////////////////////////////// Include
 --//////////////////////////////////////
@@ -54,6 +61,11 @@ function methods:UpdateMessageFiltered(messageData)
 		messageObj.Message = messageData.Message
 		messageObj.IsFiltered = true
 		if self.Active then
+			if UserFlagRemoveMessageFromMessageLog then
+				if messageObj.Message == "" then
+					table.remove(self.MessageLog, searchIndex)
+				end
+			end
 			self.MessageLogDisplay:UpdateMessageFiltered(messageObj)
 		end
 	else

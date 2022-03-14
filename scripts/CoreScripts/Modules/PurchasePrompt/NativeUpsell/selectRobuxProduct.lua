@@ -2,6 +2,8 @@ local Root = script.Parent.Parent
 local XboxCatalogData = require(script.Parent.XboxCatalogData)
 local NativeProducts = require(script.Parent.NativeProducts)
 
+local HttpService = game:GetService("HttpService")
+
 local Promise = require(Root.Promise)
 
 local GetFFlagEnableLuobuInGameUpsell = require(Root.Flags.GetFFlagEnableLuobuInGameUpsell)
@@ -19,7 +21,7 @@ local function selectProduct(neededRobux, availableProducts)
 		end
 	end
 
-	return Promise.reject()
+	return Promise.reject("No Product Available")
 end
 
 local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
@@ -50,10 +52,23 @@ local function selectRobuxProduct(platform, neededRobux, userIsSubscribed)
 			if GetFFlagEnableLuobuInGameUpsell() then
 				productOptions = NativeProducts.Midas
 			else
-				-- Contains upsell for 4500 and 10000 packages only available on android
-				productOptions = userIsSubscribed
-					and NativeProducts.Standard.PremiumSubscribedLarger
-					or NativeProducts.Standard.PremiumNotSubscribedLarger
+				local isAmazon = false
+
+				local useragent = HttpService:GetUserAgent()
+				if string.find(useragent, "AmazonAppStore") then
+					isAmazon = true
+				end
+
+				if isAmazon then
+					productOptions = userIsSubscribed
+						and NativeProducts.Standard.PremiumSubscribed
+						or NativeProducts.Standard.PremiumNotSubscribed
+				else
+					-- Contains upsell for 4500 and 10000 packages only available on android
+					productOptions = userIsSubscribed
+						and NativeProducts.Standard.PremiumSubscribedLarger
+						or NativeProducts.Standard.PremiumNotSubscribedLarger
+				end
 			end
 		else
 			productOptions = userIsSubscribed
