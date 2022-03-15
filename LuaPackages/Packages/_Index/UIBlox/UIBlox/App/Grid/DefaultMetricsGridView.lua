@@ -47,6 +47,8 @@ local isGridViewProps = t.intersection(
 		maxHeight = t.numberMin(0),
 		-- The layout order of the grid.
 		LayoutOrder = t.optional(t.integer),
+		-- Called when the number of items per row is initially measured or changes.
+		onNumItemsPerRowChanged = t.optional(t.callback),
 
 		-- optional parameters for RoactGamepad
 		NextSelectionLeft = t.optional(t.table),
@@ -118,6 +120,7 @@ function DefaultMetricsGridView:render()
 		itemPadding = self.props.itemPadding,
 		items = self.props.items,
 		LayoutOrder = self.props.LayoutOrder,
+		onNumItemsPerRowChanged = self.props.onNumItemsPerRowChanged,
 
 		NextSelectionLeft = self.props.NextSelectionLeft,
 		NextSelectionRight = self.props.NextSelectionRight,

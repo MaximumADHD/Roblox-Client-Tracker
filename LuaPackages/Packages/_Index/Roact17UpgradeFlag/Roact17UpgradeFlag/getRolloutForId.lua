@@ -1,6 +1,6 @@
 local AppStorageService = game:GetService("AppStorageService")
 
-game:DefineFastInt("Roact17Rollout7", 0)
+game:DefineFastInt("Roact17Rollout7", 100)
 game:DefineFastFlag("Roact17RolloutEnabledForAll7", false)
 
 -- Helper function to throttle based on a unique id:

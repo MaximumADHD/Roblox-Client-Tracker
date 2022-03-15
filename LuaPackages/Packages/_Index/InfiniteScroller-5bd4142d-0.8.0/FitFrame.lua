@@ -3,6 +3,6 @@
 ]]
 local PackageIndex = script.Parent.Parent.Parent._Index
 
-local Package = require(PackageIndex["RoactFitComponents-a16e5cc0-2.0.0"]["RoactFitComponents"])
+local Package = require(PackageIndex["RoactFitComponents"]["RoactFitComponents"])
 
 return Package

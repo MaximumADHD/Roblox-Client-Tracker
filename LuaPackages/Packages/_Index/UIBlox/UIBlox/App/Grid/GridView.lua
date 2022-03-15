@@ -4,6 +4,7 @@ local UIBloxRoot = AppRoot.Parent
 local Packages = UIBloxRoot.Parent
 local RoactGamepad = require(Packages.RoactGamepad)
 local UIBloxConfig = require(UIBloxRoot.UIBloxConfig)
+local isCallable = require(UIBloxRoot.Utility.isCallable)
 
 local Roact = require(Packages.Roact)
 local Cryo = require(Packages.Cryo)
@@ -15,7 +16,7 @@ local validateProps = t.strictInterface({
 	-- A function that, given an item, returns a Roact element representing that
 	-- item. The item should expect to fill its parent. Setting LayoutOrder is
 	-- not necessary.
-	renderItem = t.callback,
+	renderItem = isCallable,
 	-- The size of a grid item, in pixels.
 	itemSize = positiveVector2,
 	-- The spacing between grid cells, on each axis.
@@ -33,7 +34,9 @@ local validateProps = t.strictInterface({
 	LayoutOrder = t.optional(t.integer),
 	-- Called when the grid view measures a change in its width. Used in
 	-- DefaultMetricsGridView to resize the grid cells.
-	onWidthChanged = t.optional(t.callback),
+	onWidthChanged = t.optional(isCallable),
+	-- Called when the number of items per row is initially measured or changes.
+	onNumItemsPerRowChanged = t.optional(isCallable),
 
 	-- optional parameters for RoactGamepad
 	NextSelectionLeft = t.optional(t.table),
@@ -64,6 +67,7 @@ GridView.defaultProps = {
 }
 
 function GridView:init()
+	self.currentItemsPerRow = -1
 	self.frameRef = Roact.createRef()
 	self.isMounted = false
 
@@ -101,6 +105,7 @@ function GridView:render()
 	local containerWidth = self.state.containerWidth
 	local containerYOffset = self.state.containerYPosition
 	local defaultChildIndex = self.props.defaultChildIndex
+	local onNumItemsPerRowChanged = self.props.onNumItemsPerRowChanged
 	local startIndex = 1
 	local endIndex = itemCount
 	local gridChildren = {}
@@ -117,6 +122,13 @@ function GridView:render()
 	else
 		itemsPerRow = math.floor((containerWidth + itemPadding.X) / (itemSize.X + itemPadding.X))
 		maximumRenderableRows = math.floor((maxHeight + itemPadding.Y) / (itemSize.Y + itemPadding.Y))
+	end
+
+	if itemsPerRow ~= self.currentItemsPerRow then
+		self.currentItemsPerRow = itemsPerRow
+		if onNumItemsPerRowChanged then
+			onNumItemsPerRowChanged(itemsPerRow)
+		end
 	end
 
 	local totalRows = math.ceil(itemCount / itemsPerRow)

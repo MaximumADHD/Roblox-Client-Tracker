@@ -4,11 +4,27 @@ return function()
 	local USER_ID = "123"
 
 	describe("User URL Patterns", function()
-		it("should generate proper profile url", function()
+		it("should generate proper profile url without sourceType", function()
 			local url = UrlBuilder.user.profile({
 				userId = USER_ID,
 			})
 			expect(url).to.equal("https://www.roblox.com/users/123/profile")
+		end)
+
+		it("should generate proper profile url with empty sourceType", function()
+			local url = UrlBuilder.user.profile({
+				userId = USER_ID,
+				sourceType = "",
+			})
+			expect(url).to.equal("https://www.roblox.com/users/123/profile")
+		end)
+
+		it("should generate proper profile url with non-empty sourceType", function()
+			local url = UrlBuilder.user.profile({
+				userId = USER_ID,
+				sourceType = "anytype",
+			})
+			expect(url).to.equal("https://www.roblox.com/users/123/profile?friendshipSourceType=anytype")
 		end)
 
 		it("should generate proper group url", function()

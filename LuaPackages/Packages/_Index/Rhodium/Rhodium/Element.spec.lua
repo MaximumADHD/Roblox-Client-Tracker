@@ -1,6 +1,8 @@
 return function()
 	local XPath = require(script.Parent.XPath)
 	local Element = require(script.Parent.Element)
+	local JestGlobals = require(script.Parent.Parent.Parent.Packages.Dev.JestGlobals)
+	local expect = JestGlobals.expect
 
 	local function makeInstance(className, props, children)
 		local instance = Instance.new(className)
@@ -34,13 +36,13 @@ return function()
 			local path = XPath.new("game.Workspace.root.Frame[.TextButton.Text = Button2, .ClassName = Frame]")
 			local validElement = Element.new(path:cat(XPath.new("TextLabel")))
 
-			expect(validElement:getRbxInstance()).to.be.ok()
+			expect(validElement:getRbxInstance()).never.toBeNil()
 		end)
 		it("invalid element creation", function()
 			local path = XPath.new("game.Workspace.root.Frame[.TextButton.Text = Button2, .ClassName = Frame]")
 			local invalidElement = Element.new(path:cat(XPath.new("TextLabel2")))
 
-			expect(invalidElement:getRbxInstance()).to.never.be.ok()
+			expect(invalidElement:getRbxInstance()).toBeNil()
 		end)
 	end)
 end

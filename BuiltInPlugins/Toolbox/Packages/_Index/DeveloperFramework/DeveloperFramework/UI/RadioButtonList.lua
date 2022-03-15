@@ -15,7 +15,7 @@
 		Theme Theme: A Theme ContextItem, which is provided via withContext.
 		Stylizer Stylizer: A Stylizer ContextItem, which is provided via withContext.
 ]]
-local FFlagToolboxPrivatePublicAudioAssetConfig = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig")
+local FFlagToolboxPrivatePublicAudioAssetConfig3 = game:GetFastFlag("ToolboxPrivatePublicAudioAssetConfig3")
 
 local Framework = script.Parent.Parent
 local Roact = require(Framework.Parent.Roact)
@@ -56,7 +56,7 @@ function RadioButtonList:init()
 		end
 
 		local prioritySelectedKey
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
 		else
 			prioritySelectedKey = state.selectedKey
@@ -94,7 +94,7 @@ function RadioButtonList:render()
 
 	for index, button in ipairs(buttons) do
 		local isSelected
-		if FFlagToolboxPrivatePublicAudioAssetConfig then
+		if FFlagToolboxPrivatePublicAudioAssetConfig3 then
 			local prioritySelectedKey = prioritize(currentSelectedKey, state.selectedKey)
 			isSelected = (prioritySelectedKey == button.Key)
 		else
@@ -107,7 +107,7 @@ function RadioButtonList:render()
 			Key = button.Key,
 			LayoutOrder = index,
 			OnClick = function() self.onClick(button.Key, button.Disabled) end,
-			Style = if FFlagToolboxPrivatePublicAudioAssetConfig then radioButtonStyle else nil,
+			Style = if FFlagToolboxPrivatePublicAudioAssetConfig3 then radioButtonStyle else nil,
 			Selected = isSelected,
 			Text = button.Text,
 			TextSize = textSize,

@@ -42,9 +42,7 @@ function VirtualInputUtils.getCurrentWindow()
 end
 
 function VirtualInputUtils.waitForInputEventsProcessed()
-	if game:GetEngineFeature("VirtualInputEventsProcessed") then
-		VirtualInputManager:waitForInputEventsProcessed()
-	end
+	VirtualInputManager:waitForInputEventsProcessed()
 end
 
 function VirtualInputUtils.__asyncRun(runable)
